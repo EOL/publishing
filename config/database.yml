@@ -1,25 +1,75 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
-default: &default
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
+# common settings for all databases
+common: &common
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  wait_timeout: 300
 
+# common settings for any development databases
+devel_common: &dev
+  host: localhost
+  username: root
+  password: root
+
+# common settings for all test databases
+tst_common: &tst
+  host: localhost
+  username: root
+  password: root
+
+#######################
 development:
-  <<: *default
-  database: db/development.sqlite3
+  <<: *common
+  <<: *dev
+  database: eol_development
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
-  database: db/test.sqlite3
+development_logging:
+  <<: *common
+  <<: *dev
+  database: eol_development
+
+############################
+test: &test
+  <<: *common
+  <<: *tst
+  database: eol_development
+
+test_logging:
+  <<: *common
+  <<: *tst
+  database: eol_development
+
+# read-write split testing:
+test_master:
+  <<: *common
+  <<: *tst
+  database: eol_test_master
+
+test_master_logging:
+  <<: *common
+  <<: *tst
+  database: eol_logging_test_master
+
+staging:
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
+
+production_logging:
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_LOGGING_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
