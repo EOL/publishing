@@ -6,6 +6,27 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
+  
+  def draw_column_chart
+    @grouped_users = User.all.group(:user_type).count
+    respond_to do |format|
+      format.html { render partial: 'visualization/column_chart', locals: { data: @grouped_users } }
+    end
+  end
+  
+  def draw_pie_chart
+    @grouped_users = User.all.group(:user_type).count
+    respond_to do |format|
+      format.html { render partial: 'visualization/pie_chart', locals: { data: @grouped_users } }
+    end
+  end
+  
+  def draw_line_chart
+    @grouped_users = User.all.group("DAY(visited_at)").count
+    respond_to do |format|
+      format.html { render partial: 'visualization/line_chart', locals: { data: @grouped_users } }
+    end
+  end
 
   # GET /users/1
   # GET /users/1.json

@@ -1,0 +1,28 @@
+=javascript_include_tag "load_charts"
+%p#notice= notice
+%h1 Listing Users
+#chart
+#chart_links
+	= link_to 'Column Chart', '#', id: "column_chart_link"
+	%br/
+	= link_to 'Line Chart', '#', id: "line_chart_link"
+	%br/
+	= link_to 'Pie Chart', '#', id: "pie_chart_link"
+%br/
+%table
+	%thead
+		%tr
+			%th Name
+			%th Address
+			%th Type
+	%tbody
+		- @users.each do |user|
+			%tr
+				%td= user.name
+				%td= user.address
+				%td= user.user_type
+				%td= link_to 'Show', user
+				%td= link_to 'Edit', edit_user_path(user)
+				%td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New User', new_user_path
