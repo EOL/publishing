@@ -1,0 +1,12 @@
+<%= render_content_page(@page, {
+      :hide_sections => local_assigns[:hide_sections],
+      :can_use_fallback => !local_assigns[:show_empty_sections] && !local_assigns[:remove_automatic_sections]
+    }) %>
+
+<% date = params[:page][:show_date] if params[:page] %>
+<% publish_date(date)%>
+<%if @page.show_date%>  
+  <div class="field"><b>Published at : </b><%= Time.current%></div>  
+<% end %> 
+
+<%= render '/refinery/draft_page_message' if @page && @page.draft? -%>
