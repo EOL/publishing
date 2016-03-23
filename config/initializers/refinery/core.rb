@@ -15,7 +15,7 @@ Refinery::Core.configure do |config|
 
   # When true will use Amazon's Simple Storage Service instead of
   # the default file system for storing resources and images
-  # config.s3_backend = config.s3_access_key_id.present? || config.s3_secret_access_key.present?
+  config.s3_backend = config.s3_access_key_id.present? || config.s3_secret_access_key.present?
 
   # Use a custom Dragonfly storage backend instead of the default
   # file system for storing resources and images
@@ -27,7 +27,7 @@ Refinery::Core.configure do |config|
   # config.base_cache_key = :refinery
 
   # Site name
-   config.site_name = "EOL_Website"
+  config.site_name = "EOL_Website"
 
   # This activates Google Analytics tracking within your website. If this
   # config is left blank or set to UA-xxxxxx-x then no remote calls to
@@ -35,11 +35,11 @@ Refinery::Core.configure do |config|
   # config.google_analytics_page_code = "UA-xxxxxx-x"
 
   # Enable/disable authenticity token on frontend
-  # config.authenticity_token_on_frontend = true
+  # config.authenticity_token_on_frontend = false
 
   # Should set this if concerned about DOS attacks. See
   # http://markevans.github.com/dragonfly/file.Configuration.html#Configuration
-  # config.dragonfly_secret = "5297613cbb7ad35b38d8ad66dfcbc09141541ff344ab0d44"
+  # config.dragonfly_secret = "67ebef1cdf07ba5ba89266f93b6b0379efbd1a2d689eddef"
 
   # Register extra javascript for backend
   # config.register_javascript "prototype-rails"
@@ -47,13 +47,13 @@ Refinery::Core.configure do |config|
   # Register extra stylesheet for backend (optional options)
   # config.register_stylesheet "custom", :media => 'screen'
 
-  # Specify a different backend path than the default of "refinery".
+  # Specify a different backend path than the default of "admin".
   # Make sure you clear the `tmp/cache` directory after changing this setting.
-   config.backend_route = "/admin"
+  config.backend_route = "admin"
 
   # Specify a different Refinery::Core::Engine mount path than the default of "/".
   # Make sure you clear the `tmp/cache` directory after changing this setting.
-   # config.mounted_path = "/admin"
+  # config.mounted_path = "/"
 
   # Specify the order Refinery plugins appear in the admin view.
   # Plugins in the list are placed, as ordered, before any plugins not in the list.
