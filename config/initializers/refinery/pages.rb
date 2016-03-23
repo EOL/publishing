@@ -9,14 +9,14 @@ Refinery::Pages.configure do |config|
   # config.default_parts = [{:title=>"Body", :slug=>"body"}, {:title=>"Side Body", :slug=>"side_body"}]
 
   # Configure whether to allow adding new page parts
-    config.new_page_parts = true
+  # config.new_page_parts = true
 
   # Configure whether to enable marketable_urls
   # config.marketable_urls = true
 
   # You can specify reserved words that won't be used as page slugs.
   # This only applies when marketable_urls is enabled.
-  # config.friendly_id_reserved_words = ["index", "new", "session", "login", "logout", "users", "refinery", "admin", "images", "wymiframe", "posts"]
+  # config.friendly_id_reserved_words = ["index", "new", "session", "login", "logout", "users", "refinery", "admin", "images", "wymiframe"]
 
   # Configure how many pages per page should be displayed when a dialog is presented that contains a links to pages
   # config.pages_per_dialog = 14
