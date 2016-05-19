@@ -20,13 +20,6 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  create_account: "create account"
-  email: "Email"
   hello: "Hello world"
-  password: "Password"
-  password_confirmation: "Password Confirmation"
-  recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
-  resend_confirmations: "Resend confirmation instructions"
-  signup: "Sign up"
-  username: "Username"
+  
       
