@@ -37,9 +37,9 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up){|u| u.permit(:username,:email, :password, :password_confirmation)}
+    devise_parameter_sanitizer.for(:sign_up){|u| u.permit(:username,:email, 
+                                             :password, :password_confirmation)}
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -59,12 +59,14 @@ class User::RegistrationsController < Devise::RegistrationsController
   private
   
   def check_captcha
-    request.env["devise.mapping"] = Devise.mappings[:user]
     if verify_recaptcha
-      Devise::RegistrationsController.instance_method(:create).bind(self).call
+      true
     else
-      self.resource = User.create sign_up_params
-      respond_with_navigational() { render :new }
+      self.resource = User.new sign_up_params
+      resource.valid?
+      resource.errors.add(:recaptcha, "verification failed, please try again")
+      render :new 
     end 
   end
 end
+

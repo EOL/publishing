@@ -1,31 +1,25 @@
-%h2 
-  = I18n.t('signup')
+%h2= t('.sign_up', default: "Sign up")
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = devise_error_messages!
-  .field
-    = f.label I18n.t('username')
+  %div
+    = f.label :username
     %br/
     = f.text_field :username, autofocus: true
-  .field
-    = f.label I18n.t('email')
+  %div  
+    = f.label :email
     %br/
     = f.email_field :email
-  .field
-    = f.label I18n.t('password')
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
+  %div
+    = f.label :password
     %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label I18n.t('password_confirmation')
+    = f.password_field :password
+  %div
+    = f.label :password_confirmation
     %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
+    = f.password_field :password_confirmation
+  %div  
     = f.label :recaptcha
     %br/
-    = flash[:recaptcha_error] if flash[:recaptcha_error]
     = recaptcha_tags(stoken: false) 
-  .actions
-    = f.submit I18n.t('create_account')
+  %div= f.submit t('.sign_up', default: "Sign up")
 = render "devise/shared/links"
