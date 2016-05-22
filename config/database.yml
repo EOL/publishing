@@ -26,18 +26,18 @@ development:
 development_logging:
   <<: *common
   <<: *dev
-  database: eol_development
+  database: eol_logging_development
 
 ############################
 test: &test
   <<: *common
   <<: *tst
-  database: eol_development
+  database: eol_test
 
 test_logging:
   <<: *common
   <<: *tst
-  database: eol_development
+  database: eol_logging_test
 
 # read-write split testing:
 test_master:

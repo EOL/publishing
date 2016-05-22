@@ -36,11 +36,19 @@ gem 'sunspot_rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'devise'
+gem 'devise-i18n'
+gem 'devise-encryptable'
+gem "haml-rails", "~> 0.9"
+gem "recaptcha", require: "recaptcha/rails"
+gem 'mailcatcher'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   #solr package. This is gonna be used in development and test environments
   gem 'sunspot_solr'
+
 end
 
 group :development do
@@ -50,4 +58,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'capybara'
+  gem 'faker'
+end
