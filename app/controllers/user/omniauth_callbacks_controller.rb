@@ -11,16 +11,54 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super(scope)
   # end
   def facebook
-    debugger
     @user = User.from_omniauth(request.env["omniauth.auth"])
-    if @user.persisted?
-      sign_in_and_redirect @user, event: :authentication
+    if @user.nil?
+      flash.clear
+      flash[:error] = I18n.t('devise.omniauth_callbacks.failure', kind: 'facebook', 
+                              reason: 'this facebook account is already connected')
+      redirect_to new_user_registration_path
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
-      redirect_to new_user_registration_url
+      sign_in_and_redirect @user
     end
   end
-
+  
+  def twitter
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if @user.nil?
+      flash.clear
+      flash[:error] = I18n.t('devise.omniauth_callbacks.failure', kind: 'twitter', 
+                              reason: 'this twitter account is already connected')
+      redirect_to new_user_registration_path
+    else
+      sign_in_and_redirect @user
+    end
+  end
+  
+  def google_oauth2
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if @user.nil?
+      flash.clear
+      flash[:error] = I18n.t('devise.omniauth_callbacks.failure', kind: 'google', 
+                              reason: 'this google account is already connected')
+      redirect_to new_user_registration_path
+    else
+      sign_in_and_redirect @user
+    end
+  end
+  
+  def yahoo
+     @user = User.from_omniauth(request.env["omniauth.auth"])
+     debugger
+    if @user.nil?
+      flash.clear
+      flash[:error] = I18n.t('devise.omniauth_callbacks.failure', kind: 'yahoo', 
+                              reason: 'this yahoo account is already connected')
+      redirect_to new_user_registration_path
+    else
+      sign_in_and_redirect @user
+    end
+  end
+  
   def failure
     super
   end

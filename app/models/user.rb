@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
-         :omniauthable, omniauth_providers: [:facebook]
+         :omniauthable, omniauth_providers: [:facebook, :twitter, :google_oauth2, :yahoo]
          
   validates :username, presence: true, uniqueness: true,
                        length: {minimum: 4, maximum: 32}
@@ -13,24 +13,15 @@ class User < ActiveRecord::Base
   end
   
   def self.from_omniauth(auth)
-    where(provider: "facebook", uid: "10154208169262427").first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0,16]
-      user.username = auth.info.name
+    user = where(provider: auth.provider, uid: auth.uid).first
+    if user.nil?  
+      auth.info.email = "#{auth.info.name}@#{auth.provider}.com" if auth.info.email.nil?
+      user = new(email: auth.info.email, password: Devise.friendly_token[0,16],
+                 username: auth.info.name, provider: auth.provider, uid: auth.uid)
       user.skip_confirmation! 
-      user.update_attribute(:active, true)
-      debugger
+      user.save
+      user.after_confirmation
+      return user
     end
-     debugger 
-  end
-  
-  def self.new_with_session(params, session)
-    debugger
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
-      end
-    end
-  end 
-  
+  end  
 end
