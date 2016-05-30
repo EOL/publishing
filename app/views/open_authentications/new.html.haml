@@ -1,0 +1,8 @@
+%h2 Please continue your registration
+= form_for(@user, url: open_authentications_create_path)do |f|
+  .field
+    = f.label I18n.t('email')
+    %br/
+    = f.email_field :email
+  .actions
+    = f.submit I18n.t('create_account')

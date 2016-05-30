@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'open_authentications/new'
+
+  post 'open_authentications/create'
+
   devise_for :users, controllers: { registrations: "user/registrations" ,
                                     omniauth_callbacks: "user/omniauth_callbacks"} 
   # The priority is based upon order of creation: first created -> highest priority.
