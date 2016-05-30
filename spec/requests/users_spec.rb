@@ -1,4 +1,6 @@
 require 'rails_helper'
+include Warden::Test::Helpers
+Warden.test_mode!
 
 RSpec.describe "Users", type: :request do
   describe "Sign_up" do
@@ -80,4 +82,42 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+  
+  describe "delete" do
+    
+    let(:user) {create(:user)}
+    
+    before do
+      user.confirm
+      visit user_path(user.id)
+    end
+    
+    it "should show display name" do
+      expect(page).to have_text(user.username)
+    end
+     
+    context "owner user" do
+        
+      before do
+        login_as(user, scope: :user)
+        visit user_path user.id
+      end
+      
+      it "should contain delete your account button" do
+        expect(page).to have_selector('input[type=submit]')
+      end
+      
+    end
+    
+    context "not owner user" do
+    
+      it "should not contain delete your account button" do
+        expect(page).not_to have_selector('input[type=submit]')
+      end
+      
+    end
+    
+    
+  end
+  
 end

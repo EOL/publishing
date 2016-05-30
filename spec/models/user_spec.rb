@@ -79,4 +79,31 @@ RSpec.describe User, type: :model do
       expect(user.active).to eq(true)
     end
   end
+  
+  describe "soft user deletion" do
+    
+    let(:current_user) { create(:user) }
+    
+    before do
+      current_user.confirm
+      current_user.soft_delete
+    end
+      
+    it "should deactivate the user" do
+      expect(current_user.active).to be false
+    end
+    
+    it "should adjust deleted_at time" do
+      expect(current_user.active).not_to be_nil 
+    end
+    
+    it "should set email to nil" do
+      expect(current_user.email).to be_nil
+    end
+    
+    it "should set password to nil" do
+      expect(current_user.encrypted_password).to be_nil
+    end
+
+  end
 end

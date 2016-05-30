@@ -1,0 +1,3 @@
+= @user.username
+- if @user == current_user
+  = button_to I18n.t(:delete_account_button), registration_path(@user), method: :delete, data: { confirm: I18n.t(:are_you_sure_delete_account) }
