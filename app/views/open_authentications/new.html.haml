@@ -1,5 +1,6 @@
 %h2 Please continue your registration
-= form_for(@user, url: open_authentications_create_path)do |f|
+= form_for(@user, url: open_authentications_create_path) do |f|
+  = @user.errors.messages unless  @user.errors.messages.blank?
   .field
     = f.label I18n.t('email')
     %br/
