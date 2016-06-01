@@ -10,5 +10,4 @@ class User < ActiveRecord::Base
   def after_confirmation
     self.update_attributes(active: true)
   end
-  
 end

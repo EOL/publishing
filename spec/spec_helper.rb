@@ -32,6 +32,7 @@ RSpec.configure do |config|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
   config.include FactoryGirl::Syntax::Methods
+
   config.before(:suite) do
     FactoryGirl.find_definitions
   end
