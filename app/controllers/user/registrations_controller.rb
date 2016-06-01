@@ -1,6 +1,7 @@
 class User::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   prepend_before_action :configure_sign_up_params, only: [:create]
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -25,9 +26,11 @@ class User::RegistrationsController < Devise::RegistrationsController
   def destroy
     resource.soft_delete
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
-    set_flash_message :notice, :destroyed if is_flashing_format?
-    yield resource if block_given?
-    respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+    set_flash_message(:notice, :destroyed) if is_flashing_format?
+    yield(resource) if block_given?
+    respond_with_navigational(resource) do
+      redirect_to after_sign_out_path_for(resource_name)
+    end
   end
 
   # GET /resource/cancel
@@ -42,8 +45,9 @@ class User::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up){|u| u.permit(:username,:email, 
-                                             :password, :password_confirmation)}
+    devise_parameter_sanitizer.for(:sign_up) do |u|
+      u.permit(:username, :email, :password, :password_confirmation)
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -60,17 +64,18 @@ class User::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
   private
-  
+
   def check_captcha
     if verify_recaptcha
       true
     else
-      self.resource = User.new sign_up_params
+      self.resource = User.new(sign_up_params)
       resource.valid?
+      # TODO: I18n for the message
       resource.errors.add(:recaptcha, "verification failed, please try again")
-      render :new 
-    end 
+      render :new
+    end
   end
 end
-
