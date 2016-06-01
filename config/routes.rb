@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { registrations: 'user/registrations', sessions: 'users/sessions'} 
+  devise_for :users, controllers: { registrations: 'user/registrations',
+    sessions: 'users/sessions'} 
   resources :users
-  
+
   root 'users#index'
 
   # Example of regular route:
