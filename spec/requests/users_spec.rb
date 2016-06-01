@@ -85,7 +85,8 @@ RSpec.describe "Users", type: :request do
   
   describe "delete" do
     
-    let(:user) {create(:user)}
+    let(:user) { create(:user) }
+    let(:admin_user) { create(:admin_user) }
     
     before do
       user.confirm
@@ -110,14 +111,24 @@ RSpec.describe "Users", type: :request do
     end
     
     context "not owner user" do
-    
-      it "should not contain delete your account button" do
-        expect(page).not_to have_selector('input[type=submit]')
+      
+      context "regular user" do
+         it "should not contain delete your account button" do
+          expect(page).not_to have_selector('input[type=submit]')
+        end
       end
       
+      context "admin user" do
+        
+        before do
+          login_as(admin_user, scope: :user)
+          visit user_path user.id
+        end
+        
+        it "should not contain delete your account button" do
+          expect(page).to have_selector('input[type=submit]')
+        end
+      end
     end
-    
-    
   end
-  
 end
