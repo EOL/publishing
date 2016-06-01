@@ -79,4 +79,56 @@ RSpec.describe User, type: :model do
       expect(user.active).to eq(true)
     end
   end
+  
+  describe "delete account" do
+    
+    let(:current_user) { create(:user) }
+    let(:admin_user) { create(:admin_user) }
+    
+    before do
+      current_user.confirm
+    end
+    
+    it "should allow delete his own account" do
+      expect(current_user.can_delete_account?(current_user)).to be true
+    end
+    
+    context "admin user" do
+       
+      it "should allow delete any other account" do
+        expect(admin_user.can_delete_account?(current_user)).to be true
+      end
+      
+    end
+    
+    context "regular user" do
+      it "should not allow delete any other account" do
+        expect(current_user.can_delete_account?(admin_user)).to be false
+      end
+    end
+      
+    context "soft delete user" do
+      
+      before do
+        current_user.soft_delete
+      end
+      
+      it "should deactivate the user" do
+        expect(current_user.active).to be false
+      end
+      
+      it "should adjust deleted_at time" do
+        expect(current_user.active).not_to be_nil 
+      end
+      
+      it "should set email to nil" do
+        expect(current_user.email).to be_nil
+      end
+      
+      it "should set password to nil" do
+        expect(current_user.encrypted_password).to be_nil
+      end
+      
+    end
+  end
 end

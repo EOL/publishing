@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  account_destroyed_successfully: "You have deleted your account. Thanks!"
+  are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
   hello: "Hello world"
+  delete_account_button: "Delete your account"
   
       
