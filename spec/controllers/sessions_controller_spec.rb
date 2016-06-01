@@ -3,13 +3,14 @@ require 'rails_helper'
 RSpec.describe Users::SessionsController, type: :controller do
   render_views
   let(:user) {create(:user)}
+  let(:admin) {create(:user, admin: true )}
 
   before(:each) do
     request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
   describe '#new' do
-    
+
     before do
       get :new
     end
@@ -21,7 +22,7 @@ RSpec.describe Users::SessionsController, type: :controller do
     it 'counts the login attempts per session' do
       expect(session[:login_attempts]).to eq(1)
     end
-    
+
     it 'displays recaptcha tags for multiple failure sign ins' do
       get :new
       expect(session[:login_attempts]).not_to be_nil
@@ -34,19 +35,17 @@ RSpec.describe Users::SessionsController, type: :controller do
       get :new
       expect(flash[:alert]).to eq I18n.t :already_authenticated, scope: 'devise.failure'
     end
-    
   end
   
   describe '#create' do
+
     context 'successful sign in' do
-
-      let(:user) {create(:user)}
-
       before do
         allow(request.env['warden']).to receive(:authenticate!) {user}
         allow(controller).to receive(:verify_recaptcha) { true }
         allow(controller).to receive(:session) { {login_attempts: 2} }
-        post :create  
+        allow(controller).to receive(:sign_in_params) { {email: user.email} }
+        post :create
       end
 
       it 'redirects to root path' do
@@ -55,15 +54,18 @@ RSpec.describe Users::SessionsController, type: :controller do
       it 'gives a successful signin flash' do
         expect(flash[:notice]).to eq I18n.t :signed_in, scope: 'devise.sessions' 
       end
+ 
+
     end
 
     context 'failed sign in' do 
-      context 'invalid recaptcha' do
 
+      context 'invalid recaptcha' do
         before do
           allow(request.env['warden']).to receive(:authenticate!) {user}
           allow(controller).to receive(:verify_recaptcha) { false }
           allow(controller).to receive(:session) { {login_attempts: 2} }
+          allow(controller).to receive(:sign_in_params) { {email: user.email} }
           post :create 
         end
 
@@ -77,15 +79,16 @@ RSpec.describe Users::SessionsController, type: :controller do
       end
 
       context "invalid user's params" do
-
         before do
+          invalid_user_params = {email: "non_existing_user", password: "invalid"}
           allow(controller).to receive(:session) { {login_attempts: 1} }
-          post :create, user: {username_or_email: "non_existing_user", password: "invalid"}
+          post :create, user: invalid_user_params
+          allow(controller).to receive(:sign_in_params) { invalid_user_params }
         end
 
         it 'displays an invalid user flash' do
           expect(flash[:alert]).to eq I18n.t :invalid,
-            authentication_keys: "Username or email" , scope: 'devise.failure'
+            authentication_keys: "Email" , scope: 'devise.failure'
         end
 
         it 'renders the new template' do
