@@ -51,6 +51,7 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
     config.include Devise::TestHelpers, :type => :controller
+    # config.include Devise::TestHelpers, :type => :request
 
   config.infer_spec_type_from_file_location!
 
@@ -58,5 +59,5 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-   
+  config.include Capybara::DSL
 end

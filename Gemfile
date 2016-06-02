@@ -63,4 +63,5 @@ group :test do
   gem 'factory_girl'
   gem 'capybara'
   gem 'faker'
+  gem 'rack_session_access'
 end
