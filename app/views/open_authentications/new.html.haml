@@ -1,7 +1,6 @@
 %h2 Please continue your registration
--debugger
-= form_for(user, url: open_authentications_create_path) do |f|
-  = user.errors.messages unless  user.errors.messages.blank?
+= form_for(@user, url: open_authentications_path) do |f|
+  = @user.errors.messages unless  @user.errors.messages.blank?
   .field
     = f.label I18n.t('email')
     %br/
