@@ -9,21 +9,21 @@ RSpec.describe User, type: :model do
   end 
   
   describe 'Validation' do   
-    it "has a display_name" do
-       expect(FactoryGirl.build(:user, display_name: nil)).to_not be_valid
+    it "has a username" do
+       expect(FactoryGirl.build(:user, username: nil)).to_not be_valid
     end
    
-    it "rejects duplicate display_name" do
-      FactoryGirl.create(:user, display_name: 'user')
-      expect(FactoryGirl.build(:user, display_name: 'user')).to_not be_valid
+    it "rejects duplicate username" do
+      FactoryGirl.create(:user, username: 'user')
+      expect(FactoryGirl.build(:user, username: 'user')).to_not be_valid
     end
     
-    it "rejects too short display_name" do
-      expect(FactoryGirl.build(:user, display_name: 'usr')).to_not be_valid
+    it "rejects too short username" do
+      expect(FactoryGirl.build(:user, username: 'usr')).to_not be_valid
     end
   
-    it "rejects too long display_name" do
-      expect(FactoryGirl.build(:user, display_name: Faker::Internet.user_name(33))).to_not be_valid
+    it "rejects too long username" do
+      expect(FactoryGirl.build(:user, username: Faker::Internet.user_name(33))).to_not be_valid
     end
   
     it "has an email" do

@@ -5,10 +5,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:facebook, :twitter,
                                              :google_oauth2, :yahoo]
-  
-  has_many :open_authentications      
-  
-  validates :display_name, presence: true,length: {minimum: 4, maximum: 32}
+
+  has_many :open_authentications, dependent: :delete_all
+
+  validates :username, presence: true,length: {minimum: 4, maximum: 32}
 
   def after_confirmation
     self.update_attribute(:active, true)

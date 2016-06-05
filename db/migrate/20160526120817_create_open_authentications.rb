@@ -5,6 +5,6 @@ class CreateOpenAuthentications < ActiveRecord::Migration
       t.string :uid, null: false
       t.timestamps null: false
     end
-     add_reference :open_authentications, :user, index: true, foreign_key: true
+     add_reference :open_authentications, :user, index: true
   end
 end

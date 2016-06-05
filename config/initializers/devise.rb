@@ -233,7 +233,7 @@ Devise.setup do |config|
   # config.navigational_formats = ['*/*', :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = :delete
+  config.sign_out_via = :get
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
@@ -242,9 +242,9 @@ Devise.setup do |config|
     config.omniauth :facebook, "1603855706598436", "bef73449de6a4c47cfa9180c7d74027c", scope: 'email,public_profile'
     config.omniauth :twitter, "c5rUGQzjtW73OFUKf8yeOzqgP", "Mcv8HrSy7oFPrexL7DEVfqz6Hp7e4hOYYTh79jsnGPL49LmuQ8",
                                force_login: 'true'
-    config.omniauth :google_oauth2, "867896515251-fqndt93sjdeqe1ekrs24j6p0vu9b32l6.apps.googleusercontent.com",
-                    "uO_LJ9cKF7SSNd9FTo5VjpyL", skip_jwt: true
-    config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--",
+    config.omniauth :google_oauth2, "867896515251-fqndt93sjdeqe1ekrs24j6p0vu9b32l6.apps.googleusercontent.com", 
+                       "uO_LJ9cKF7SSNd9FTo5VjpyL", skip_jwt: true
+    config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--" ,
                     "b9e7b67ded48fcaa45d2522155d12cd400faeca4"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -18,7 +18,7 @@ RSpec.describe User::RegistrationsController, type: :controller do
     context 'unverified recaptcha' do
       it "renders new action" do
         allow(controller).to receive(:verify_recaptcha).and_return(false)
-        post :create, user: {display_name: "user", email: "email_1@example.org", 
+        post :create, user: {username: "user", email: "email_1@example.org", 
                              password: "password", password_confirmation: "password"}
         expect(response).to render_template("new")
         expect(response.body).to include("verification failed, please try again")
