@@ -65,4 +65,5 @@ group :test do
   gem 'factory_girl'
   gem 'capybara'
   gem 'faker'
+  gem 'better_errors'
 end

@@ -7,9 +7,9 @@ RSpec.describe "Users", type: :request do
     end
 
     describe "Sign_up form" do
-      it "has display_name field" do
-        expect(page).to have_selector("label", text: "display_name")
-        expect(page).to have_field(:user_display_name)
+      it "has username field" do
+        expect(page).to have_selector("label", text: "username")
+        expect(page).to have_field(:user_username)
       end
       it "has email field" do
         expect(page).to have_selector("label", text: "Email")

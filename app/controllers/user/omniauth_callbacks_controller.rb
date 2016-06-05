@@ -10,6 +10,7 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def after_omniauth_failure_path_for(scope)
   #   super(scope)
   # end
+
   def facebook
     connect(:facebook)
   end
@@ -32,15 +33,27 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   
   def connect(provider)
     auth = request.env["omniauth.auth"]
-     user = OpenAuthentication.oauth_user_exists?(request.env["omniauth.auth"])
-    if user.nil?
-      session[:elhash] = auth.info
-      redirect_to open_authentications_new_path
-    else
-      flash.clear
-      flash[:error] = I18n.t('devise.omniauth_callbacks.failure', kind: provider, 
-                              reason: 'this #{provider} account is already connected')
-      redirect_to new_user_registration_path
+    intent = env["omniauth.params"]["intent"] 
+    user = OpenAuthentication.oauth_user_exists?(auth)
+    if intent == "sign_up"
+      if user.blank?
+        redirect_to new_open_authentication_path(info: auth[:info],
+         provider: auth[:provider], uid: auth[:uid])
+      else
+        set_flash_message :notice, :failure, kind: provider,
+         reason: I18n.t(:account_already_linked)
+        redirect_to new_user_registration_path
+      end
+    else 
+      #sign_in
+      if user.blank?
+        redirect_to new_user_session_path
+        set_flash_message :error,  :failure, kind: provider,
+            reason: I18n.t(:account_not_linked)
+      else
+        sign_in_and_redirect user, event: :authentication
+        flash[:notice] =  I18n.t(:signed_in, scope: 'devise.sessions')
+      end
     end
   end
 end
