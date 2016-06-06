@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  # get 'open_authentications/new'
 
-  # post 'open_authentications/create'
-  resources :open_authentications, only: [:new, :create]
+  
   devise_for :users, controllers: { registrations: "user/registrations" ,
-                                    omniauth_callbacks: "user/omniauth_callbacks"} 
+                                    omniauth_callbacks: "user/omniauth_callbacks"}
+  resources :open_authentications, only: [:new, :create]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
