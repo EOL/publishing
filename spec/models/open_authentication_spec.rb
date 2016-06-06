@@ -7,7 +7,7 @@ RSpec.describe OpenAuthentication, type: :model do
  
     context 'when user exists' do
       auth = set_omniauth_hash(options)
-      let(:user) { FactoryGirl.create(:user, email: auth.email, display_name: auth.name) }
+      let(:user) { FactoryGirl.create(:user, email: auth.email, username: auth.name) }
       before { FactoryGirl.create(:open_authentication, user_id: user.id, provider: auth.provider, uid: auth.uid) }
       
       it 'finds and returns user' do

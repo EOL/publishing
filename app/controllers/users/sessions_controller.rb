@@ -1,4 +1,4 @@
-class User::SessionsController < Devise::SessionsController
+class Users::SessionsController < Devise::SessionsController
 
 prepend_before_action :increment_login_attempts, only: [:new]
 prepend_before_action :check_captcha, only: [:create]
@@ -18,7 +18,8 @@ prepend_before_action :disable_remember_me_fo_admins, only: [:create]
   def check_captcha
     if session[:login_attempts] > 1 && !verify_recaptcha
       self.resource = warden.authenticate!(auth_options)
-      set_flash_message! :alert, :recaptcha_error, scope: 'devise.failure'
+      set_flash_message! :alert, :recaptcha
+      flash.delete :recaptcha_error
       clean_up_passwords(resource)
       respond_with_navigational(resource) { render :new }
     else
