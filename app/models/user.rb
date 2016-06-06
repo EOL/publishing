@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   validates :username, presence: true,length: {minimum: 4, maximum: 32}
 
   def after_confirmation
-    self.update_attribute(:active, true)
+    self.update_attributes(active: true)
   end
 
 end

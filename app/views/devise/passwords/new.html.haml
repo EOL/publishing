@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 %h2= t(:forgot_your_password)
 = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+=======
+%h2= t('.forgot_your_password', :default => 'Forgot your password?')
+= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+>>>>>>> c0872bf89219cce76344a0fbc01dd6969991e912
   = devise_error_messages!
   %div
     = f.label :email
     %br/
+<<<<<<< HEAD
     = f.email_field :email, autofocus: true
   %div= f.submit t(:send_me_reset_password_instructions)
+=======
+    = f.email_field :email
+  %div= f.submit t('.send_me_reset_password_instructions', :default => "Send me reset password instructions")
+>>>>>>> c0872bf89219cce76344a0fbc01dd6969991e912
 = render "devise/shared/links"
