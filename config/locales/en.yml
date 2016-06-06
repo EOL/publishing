@@ -22,6 +22,7 @@
 en:
   account_not_linked: "your account is not linked to EOL"
   account_already_linked: "your account is already linked to EOL"
+  cancel: "cancel"
   create_account: "create account"
   complete_registration: "Please continue your registration"
   email: "Email"
