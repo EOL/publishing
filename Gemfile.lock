@@ -71,6 +71,9 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    devise-encryptable (0.2.0)
+      devise (>= 2.1.0)
+    devise-i18n (1.0.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
@@ -165,6 +168,9 @@ GEM
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.2.5.1)
       actionmailer (= 4.2.5.1)
       actionpack (= 4.2.5.1)
@@ -289,9 +295,11 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.1.0)
   devise
+  devise-encryptable
+  devise-i18n
   factory_girl
   faker
-  haml-rails (~> 0.9)
+  haml-rails
   jbuilder (~> 2.0)
   jquery-rails
   mailcatcher
@@ -300,6 +308,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-twitter
   omniauth-yahoo
+  rack_session_access
   rails (= 4.2.5.1)
   recaptcha
   rspec-rails

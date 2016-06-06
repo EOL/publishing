@@ -37,12 +37,15 @@ gem 'sunspot_rails'
 # gem 'capistrano-rails', group: :development
 
 gem 'devise'
-gem "haml-rails", "~> 0.9"
+gem "haml-rails"
 gem "recaptcha", require: "recaptcha/rails"
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
+gem 'devise-i18n'
+gem 'devise-encryptable'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -66,4 +69,5 @@ group :test do
   gem 'capybara'
   gem 'faker'
   gem 'better_errors'
+  gem 'rack_session_access'
 end

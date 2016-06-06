@@ -1,0 +1,125 @@
+.F....F.........F..............F..
+
+Failures:
+
+  1) User::RegistrationsController check_captcha unverified recaptcha renders new action
+     Failure/Error: expect(response.body).to include("verification failed, please try again")
+
+       expected "<!DOCTYPE html>\n<html>\n<head>\n<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>\n<title>EolWebsite</title>\n<link rel=\"stylesheet\" media=\"all\" href=\"/assets/application-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css\" data-turbolinks-track=\"true\" />\n<script src=\"/assets/application-52db830a003d76c5163da6d690b3ac62761c513e294a93423ccf8c559af41422.js\" data-turbolinks-track=\"true\"></script>\n\n</head>\n<body>\n<h2>\nSign up\n</h2>\n<form class=\"edit_user\" id=\"edit_user\" action=\"/users\" accept-charset=\"UTF-8\" method=\"post\"><input name=\"utf8\" type=\"hidden\" value=\"&#x2713;\" /><input type=\"hidden\" name=\"_method\" value=\"patch\" />\n<div class='field'>\n<label for=\"user_Username\">Username</label>\n<br>\n<input autofocus=\"autofocus\" type=\"text\" value=\"user\" name=\"user[username]\" id=\"user_username\" />\n</div>\n<div class='field'>\n<label for=\"user_Email\">Email</label>\n<br>\n<input type=\"email\" value=\"email_1@example.org\" name=\"user[email]\" id=\"user_email\" />\n</div>\n<div class='field'>\n<label for=\"user_Password\">Password</label>\n<br>\n<input autocomplete=\"off\" type=\"password\" name=\"user[password]\" id=\"user_password\" />\n</div>\n<div class='field'>\n<label for=\"user_Password Confirmation\">Password confirmation</label>\n<br>\n<input autocomplete=\"off\" type=\"password\" name=\"user[password_confirmation]\" id=\"user_password_confirmation\" />\n</div>\n<div class='field'>\n<label for=\"user_Recaptcha\">Recaptcha</label>\n<br>\n\n<script src=\"https://www.google.com/recaptcha/api.js\" async defer></script>\n<div class=\"g-recaptcha\" data-sitekey=\"6LcYYh4TAAAAAMmDWnWKs-_MeBhwo5m6k_oXuaRr\"></div>\n          <noscript>\n            <div style=\"width: 302px; height: 352px;\">\n              <div style=\"width: 302px; height: 352px; position: relative;\">\n                <div style=\"width: 302px; height: 352px; position: absolute;\">\n                  <iframe\n                    src=\"https://www.google.com/recaptcha/api/fallback?k=6LcYYh4TAAAAAMmDWnWKs-_MeBhwo5m6k_oXuaRr\"\n                    frameborder=\"0\" scrolling=\"no\"\n                    style=\"width: 302px; height:352px; border-style: none;\">\n                  </iframe>\n                </div>\n                <div style=\"width: 250px; height: 80px; position: absolute; border-style: none;\n                  bottom: 21px; left: 25px; margin: 0px; padding: 0px; right: 25px;\">\n                  <textarea id=\"g-recaptcha-response\" name=\"g-recaptcha-response\"\n                    class=\"g-recaptcha-response\"\n                    style=\"width: 250px; height: 80px; border: 1px solid #c1c1c1;\n                    margin: 0px; padding: 0px; resize: none;\" value=\"\">\n</textarea>\n                </div>\n              </div>\n            </div>\n          </noscript>\n\n</div>\n<div class='actions'>\n<input type=\"submit\" name=\"commit\" value=\"create account\" />\n</div>\n</form>\n<a href=\"/users/sign_in\">Sign In</a>\n<br>\n<a href=\"/users/password/new\">Forgot your password?</a>\n<br>\n<a href=\"/users/confirmation/new\"><span class=\"translation_missing\" title=\"translation missing: en.didn_t_receive_confirmation_instructions\">Didn T Receive Confirmation Instructions</span></a>\n<br>\n<a href=\"/users/auth/facebook?intent=sign_up\">Sign Up with Facebook</a>\n<br>\n<a href=\"/users/auth/twitter?intent=sign_up\">Sign Up with Twitter</a>\n<br>\n<a href=\"/users/auth/google_oauth2?intent=sign_up\">Sign Up with Google</a>\n<br>\n<a href=\"/users/auth/yahoo?intent=sign_up\">Sign Up with Yahoo</a>\n<br>\n\n\n</body>\n</html>\n" to include "verification failed, please try again"
+       Diff:
+       @@ -1,2 +1,86 @@
+       -verification failed, please try again
+       +<!DOCTYPE html>
+       +<html>
+       +<head>
+       +<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+       +<title>EolWebsite</title>
+       +<link rel="stylesheet" media="all" href="/assets/application-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" data-turbolinks-track="true" />
+       +<script src="/assets/application-52db830a003d76c5163da6d690b3ac62761c513e294a93423ccf8c559af41422.js" data-turbolinks-track="true"></script>
+       +
+       +</head>
+       +<body>
+       +<h2>
+       +Sign up
+       +</h2>
+       +<form class="edit_user" id="edit_user" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="patch" />
+       +<div class='field'>
+       +<label for="user_Username">Username</label>
+       +<br>
+       +<input autofocus="autofocus" type="text" value="user" name="user[username]" id="user_username" />
+       +</div>
+       +<div class='field'>
+       +<label for="user_Email">Email</label>
+       +<br>
+       +<input type="email" value="email_1@example.org" name="user[email]" id="user_email" />
+       +</div>
+       +<div class='field'>
+       +<label for="user_Password">Password</label>
+       +<br>
+       +<input autocomplete="off" type="password" name="user[password]" id="user_password" />
+       +</div>
+       +<div class='field'>
+       +<label for="user_Password Confirmation">Password confirmation</label>
+       +<br>
+       +<input autocomplete="off" type="password" name="user[password_confirmation]" id="user_password_confirmation" />
+       +</div>
+       +<div class='field'>
+       +<label for="user_Recaptcha">Recaptcha</label>
+       +<br>
+       +
+       +<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       +<div class="g-recaptcha" data-sitekey="6LcYYh4TAAAAAMmDWnWKs-_MeBhwo5m6k_oXuaRr"></div>
+       +          <noscript>
+       +            <div style="width: 302px; height: 352px;">
+       +              <div style="width: 302px; height: 352px; position: relative;">
+       +                <div style="width: 302px; height: 352px; position: absolute;">
+       +                  <iframe
+       +                    src="https://www.google.com/recaptcha/api/fallback?k=6LcYYh4TAAAAAMmDWnWKs-_MeBhwo5m6k_oXuaRr"
+       +                    frameborder="0" scrolling="no"
+       +                    style="width: 302px; height:352px; border-style: none;">
+       +                  </iframe>
+       +                </div>
+       +                <div style="width: 250px; height: 80px; position: absolute; border-style: none;
+       +                  bottom: 21px; left: 25px; margin: 0px; padding: 0px; right: 25px;">
+       +                  <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+       +                    class="g-recaptcha-response"
+       +                    style="width: 250px; height: 80px; border: 1px solid #c1c1c1;
+       +                    margin: 0px; padding: 0px; resize: none;" value="">
+       +</textarea>
+       +                </div>
+       +              </div>
+       +            </div>
+       +          </noscript>
+       +
+       +</div>
+       +<div class='actions'>
+       +<input type="submit" name="commit" value="create account" />
+       +</div>
+       +</form>
+       +<a href="/users/sign_in">Sign In</a>
+       +<br>
+       +<a href="/users/password/new">Forgot your password?</a>
+       +<br>
+       +<a href="/users/confirmation/new"><span class="translation_missing" title="translation missing: en.didn_t_receive_confirmation_instructions">Didn T Receive Confirmation Instructions</span></a>
+       +<br>
+       +<a href="/users/auth/facebook?intent=sign_up">Sign Up with Facebook</a>
+       +<br>
+       +<a href="/users/auth/twitter?intent=sign_up">Sign Up with Twitter</a>
+       +<br>
+       +<a href="/users/auth/google_oauth2?intent=sign_up">Sign Up with Google</a>
+       +<br>
+       +<a href="/users/auth/yahoo?intent=sign_up">Sign Up with Yahoo</a>
+       +<br>
+       +
+       +
+       +</body>
+       +</html>
+     # ./spec/controllers/registrations_controller_spec.rb:24:in `block (4 levels) in <top (required)>'
+
+  2) User::SessionsController#create successful sign in redirects to root path
+     Failure/Error: expect(response).to redirect_to root_path
+
+       Expected response to be a redirect to <http://test.host/> but was a redirect to <http://test.host/users/sign_in>.
+       Expected "http://test.host/" to be === "http://test.host/users/sign_in".
+     # ./spec/controllers/sessions_controller_spec.rb:53:in `block (4 levels) in <top (required)>'
+
+  3) User Validation rejects duplicate username
+     Failure/Error: expect(FactoryGirl.build(:user, username: 'user')).to_not be_valid
+       expected #<User id: nil, email: "email_11@example.com", encrypted_password: "$2a$04$vzfb7s76r3ghvgKWL8Vpg.foQfL9jbRcjmYrl7h1/2r...", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, confirmation_token: nil, confirmed_at: nil, confirmation_sent_at: nil, unconfirmed_email: nil, created_at: nil, updated_at: nil, username: "user", name: nil, active: nil, api_key: nil, tag_line: nil, bio: nil, provider: nil, uid: nil> not to be valid
+     # ./spec/models/user_spec.rb:18:in `block (3 levels) in <top (required)>'
+
+  4) Users Sign_up Sign_up form password confirmation field
+     Failure/Error: expect(page).to have_selector("label", text: I18n.t(:password_confirmation))
+       expected #has_selector?("label", {:text=>"Password Confirmation"}) to return true, got false
+     # ./spec/requests/users_spec.rb:25:in `block (4 levels) in <top (required)>'
+
+Finished in 2.55 seconds (files took 3.57 seconds to load)
+34 examples, 4 failures
+
+Failed examples:
+
+rspec ./spec/controllers/registrations_controller_spec.rb:19 # User::RegistrationsController check_captcha unverified recaptcha renders new action
+rspec ./spec/controllers/sessions_controller_spec.rb:52 # User::SessionsController#create successful sign in redirects to root path
+rspec ./spec/models/user_spec.rb:16 # User Validation rejects duplicate username
+rspec ./spec/requests/users_spec.rb:24 # Users Sign_up Sign_up form password confirmation field
+

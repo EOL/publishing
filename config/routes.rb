@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
-
-  
   devise_for :users, controllers: { registrations: "user/registrations" ,
+                                    sessions: 'user/sessions',
                                     omniauth_callbacks: "user/omniauth_callbacks"}
   resources :open_authentications, only: [:new, :create]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+
    root 'dummy#index'
 
   # Example of regular route:
