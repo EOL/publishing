@@ -1,7 +1,7 @@
 %h2 
   = I18n.t(:complete_registration)
 = form_for(@user, url: open_authentications_path) do |f|
-  = @user.errors.messages unless  @user.errors.messages.blank?
+  = resource_error_messages(@user)
   .field
     = f.label I18n.t(:email)
     %br/
