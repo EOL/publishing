@@ -23,8 +23,6 @@
     = f.password_field :password_confirmation, autocomplete: "off"
   .field
     = f.label I18n.t(:recaptcha)
-    %br/
-    = flash[:recaptcha_error] if flash[:recaptcha_error]
     = recaptcha_tags 
   .actions
     = f.submit I18n.t(:create_account)
