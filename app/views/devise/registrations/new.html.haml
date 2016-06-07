@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 %h2 
   = I18n.t(:sign_up)
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
@@ -29,30 +28,4 @@
     = recaptcha_tags 
   .actions
     = f.submit I18n.t(:create_account)
-=======
-%h2= t('.sign_up', default: "Sign up")
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  %div
-    = f.label :username
-    %br/
-    = f.text_field :username, autofocus: true
-  %div  
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div  
-    = f.label :recaptcha
-    %br/
-    = recaptcha_tags(stoken: false) 
-  %div= f.submit t('.sign_up', default: "Sign up")
->>>>>>> c0872bf89219cce76344a0fbc01dd6969991e912
 = render "devise/shared/links"
