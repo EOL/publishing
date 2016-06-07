@@ -1,4 +1,3 @@
-
 %h2= t(:sign_in)
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   .field
@@ -12,7 +11,7 @@
   .field
     = f.check_box :remember_me
     = f.label I18n.t(:remember_me)
-  = recaptcha_tags if session[:login_attempts] > 1
+  = recaptcha_tags if @verify_recaptcha
   .actions
     = f.submit I18n.t(:sign_in)
 = render "devise/shared/links"

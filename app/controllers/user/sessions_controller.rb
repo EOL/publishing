@@ -4,6 +4,14 @@ prepend_before_action :increment_login_attempts, only: [:new]
 prepend_before_action :check_captcha, only: [:create]
 prepend_before_action :disable_remember_me_fo_admins, only: [:create]
 
+SHOW_CAPTCHA_ATTEMPTS = 2
+
+  # GET /resource/sign_in
+  def new
+    @verify_recaptcha = true if session[:login_attempts] >=  SHOW_CAPTCHA_ATTEMPTS
+    super
+  end
+
   # POST /resource/sign_in
    # def create
       # super
@@ -16,13 +24,12 @@ prepend_before_action :disable_remember_me_fo_admins, only: [:create]
   end
 
   def check_captcha
-    if session[:login_attempts] > 1 && !verify_recaptcha
+    if session[:login_attempts] >=  SHOW_CAPTCHA_ATTEMPTS && !verify_recaptcha
+      set_flash_message! :error, :recaptcha_error, scope: 'devise.failure'
       self.resource = warden.authenticate!(auth_options)
-      set_flash_message! :alert, :recaptcha_error, scope: 'devise.failure'
-      clean_up_passwords(resource)
       respond_with_navigational(resource) { render :new }
     else
-      return true
+      true
     end
   end
 
