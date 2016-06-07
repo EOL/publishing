@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: "email_1@example.com "
         fill_in :user_password,              with: "password"
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Username can't be blank")
       end
       it "has error message for short username" do
@@ -45,7 +45,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: "email_1@example.com "
         fill_in :user_password,              with: "password"
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Username is too short (minimum is 4 characters)")
       end
       it "has error message for long username" do
@@ -53,7 +53,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: "email_1@example.com "
         fill_in :user_password,              with: "password"
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Username is too long (maximum is 32 characters)")
       end
       it "has error message for empty email" do
@@ -61,7 +61,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: " "
         fill_in :user_password,              with: "password"
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Email can't be blank")
       end
       it "has error message for empty password" do
@@ -69,7 +69,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: "email_1@example.com"
         fill_in :user_password,              with: " "
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Password can't be blank")
       end
       it "has error message for not matching passwords" do
@@ -77,7 +77,7 @@ RSpec.describe "Users", type: :request do
         fill_in :user_email,                 with: "email_1@example.com"
         fill_in :user_password,              with: " "
         fill_in :user_password_confirmation, with: "password"
-        click_button "Sign up"
+        click_button I18n.t(:create_account)
         expect(page).to have_text("Password confirmation doesn't match Password")
       end
     end
@@ -91,8 +91,8 @@ RSpec.describe "Users", type: :request do
         before do
           page.set_rack_session(login_attempts: 1) 
           visit new_user_session_path
-          fill_in  I18n.t(:email), with: user.email
-          fill_in I18n.t(:password), with: user.password
+          fill_in  :user_email, with: user.email
+          fill_in :user_password, with: user.password
           check :user_remember_me
           click_button I18n.t(:sign_in)
           user.remember_me!

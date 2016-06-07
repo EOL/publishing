@@ -21,7 +21,7 @@ RSpec.describe User::RegistrationsController, type: :controller do
         post :create, user: {display_name: "user", email: "email_1@example.org", 
                              password: "password", password_confirmation: "password"}
         expect(response).to render_template("new")
-        expect(response.body).to include("verification failed, please try again")
+        expect(response.body).to include(I18n.t(:recaptcha_error))
       end
     end
   end

@@ -74,6 +74,7 @@ GEM
     devise-encryptable (0.2.0)
       devise (>= 2.1.0)
     devise-i18n (1.0.1)
+    devise-i18n-views (0.3.7)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
@@ -297,6 +298,7 @@ DEPENDENCIES
   devise
   devise-encryptable
   devise-i18n
+  devise-i18n-views
   factory_girl
   faker
   haml-rails
