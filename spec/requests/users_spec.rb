@@ -3,6 +3,15 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 RSpec.describe "Users", type: :request do
+
+  def signup_user(user)
+    fill_in :user_username, with: user.username
+    fill_in :user_email, with: user.email
+    fill_in :user_password, with: user.password
+    fill_in :user_password_confirmation, with: user.password
+    click_button I18n.t(:create_account)
+  end
+
   describe "Sign_up" do
     before do
       visit new_user_registration_path
@@ -33,47 +42,32 @@ RSpec.describe "Users", type: :request do
         visit new_user_registration_path
       end
       it "has error message for empty username" do
-        fill_in :user_username,              with: " "
-        fill_in :user_email,                 with: "email_1@example.com "
-        fill_in :user_password,              with: "password"
-        fill_in :user_password_confirmation, with: "password"
-        click_button I18n.t(:create_account)
+        user = build(:user, username: " ")
+        signup_user(user)
         expect(page).to have_text("Username can't be blank")
       end
       it "has error message for short username" do
-        fill_in :user_username,              with: "usr"
-        fill_in :user_email,                 with: "email_1@example.com "
-        fill_in :user_password,              with: "password"
-        fill_in :user_password_confirmation, with: "password"
-        click_button I18n.t(:create_account)
+        user = build(:user, username: "usr")
+        signup_user(user)
         expect(page).to have_text("Username is too short (minimum is 4 characters)")
       end
       it "has error message for long username" do
-        fill_in :user_username,              with: Faker::Internet.user_name(33)
-        fill_in :user_email,                 with: "email_1@example.com "
-        fill_in :user_password,              with: "password"
-        fill_in :user_password_confirmation, with: "password"
-        click_button I18n.t(:create_account)
+        user = build(:user, username: Faker::Internet.user_name(33))
+        signup_user(user)
         expect(page).to have_text("Username is too long (maximum is 32 characters)")
       end
       it "has error message for empty email" do
-        fill_in :user_username,              with: "user_1"
-        fill_in :user_email,                 with: " "
-        fill_in :user_password,              with: "password"
-        fill_in :user_password_confirmation, with: "password"
-        click_button I18n.t(:create_account)
+        user = build(:user, email: nil)
+        signup_user(user)
         expect(page).to have_text("Email can't be blank")
       end
       it "has error message for empty password" do
-        fill_in :user_username,              with: "user_1"
-        fill_in :user_email,                 with: "email_1@example.com"
-        fill_in :user_password,              with: " "
-        fill_in :user_password_confirmation, with: "password"
-        click_button I18n.t(:create_account)
+        user = build(:user, password: nil)
+        signup_user(user)
         expect(page).to have_text("Password can't be blank")
       end
       it "has error message for not matching passwords" do
-        fill_in :user_username,              with: "user_1"
+        fill_in :user_username,              with: "user"
         fill_in :user_email,                 with: "email_1@example.com"
         fill_in :user_password,              with: " "
         fill_in :user_password_confirmation, with: "password"
@@ -119,6 +113,21 @@ RSpec.describe "Users", type: :request do
         # end
       # end
     end
+  end
+
+  context 'Open Authentication' do
+    context 'Sign Up' do
+      before do
+        visit new_user_registration_path
+      end
+      it 'have oauth sign up links' do 
+        providers = ["facebook", "twitter", "google_oauth2", "yahoo"]
+        providers.each do |provider|
+          expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign Up"))
+        end
+      end
+    end
+    context 'Sign In'
   end
 end
 

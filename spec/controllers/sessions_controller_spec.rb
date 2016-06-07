@@ -71,7 +71,7 @@ RSpec.describe User::SessionsController, type: :controller do
         end
 
         it 'display an invalid recaptcha flash' do
-          expect(flash[:alert]).to eq I18n.t :recaptcha_error, scope: 'devise.failure' 
+          expect(flash[:error]).to eq I18n.t :recaptcha_error, scope: 'devise.failure' 
         end
         
         it 'renders the new template' do
