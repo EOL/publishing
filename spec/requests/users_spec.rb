@@ -116,18 +116,72 @@ RSpec.describe "Users", type: :request do
   end
 
   context 'Open Authentication' do
+    let(:providers) { ["facebook", "twitter", "google_oauth2", "yahoo"] }
+
     context 'Sign Up' do
-      before do
-        visit new_user_registration_path
-      end
+      before { visit new_user_registration_path }
+
       it 'have oauth sign up links' do 
-        providers = ["facebook", "twitter", "google_oauth2", "yahoo"]
         providers.each do |provider|
           expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign Up"))
         end
       end
+
+      context 'non-existing oauth account' do 
+        before do
+          allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
+        end
+
+        it 'creates an account using oauth providers' do
+          providers.each do |provider|
+            visit new_user_registration_path
+            click_link I18n.t("sign_in_up_with_#{provider}", action: "Sign Up")
+            expect(page.current_path).to eq(new_open_authentication_path)
+            fill_in :user_email, with: "#{provider}_#{Faker::Internet.email}" 
+            click_button I18n.t(:create_account)
+            # debugger
+            expect(page.current_path).to eq(new_user_session_path)
+            expect(page.body).to include(I18n.t(:signed_up_but_inactive, scope: 'devise.registrations'))
+          end
+        end
+        it 'activates the user if the submittied email is same as the oauth email' do
+          visit new_user_registration_path
+          click_link I18n.t("sign_in_up_with_facebook", action: "Sign Up")
+          click_button I18n.t(:create_account)
+          # debugger
+          expect(page.current_path).to eq(root_path)
+          expect(page.body).to include(I18n.t(:signed_in, scope: 'devise.sessions'))
+        end
+      end
+      context 'exisiting oauth account' do
+        before do
+          allow(OpenAuthentication).to receive(:oauth_user_exists?) { true }
+        end
+
+        
+      end
     end
     context 'Sign In'
+      before do
+        visit new_user_session_path
+      end
+
+      it 'have oauth sign up links' do 
+        providers.each do |provider|
+          expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign In"))
+        end
+      
+      end
+      context 'non-existing oauth account' do 
+        before do
+          allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
+        end
+      end
+      context 'exisiting oauth account' do
+        before do
+          allow(OpenAuthentication).to receive(:oauth_user_exists?) { true }
+        end
+      end
   end
 end
 
