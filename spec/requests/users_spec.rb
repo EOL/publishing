@@ -36,7 +36,7 @@ RSpec.describe "Users", type: :request do
       it "has recaptcha field" do
         expect(page).to have_selector("label", text: I18n.t(:recaptcha))
       end
-    end 
+    end
     context "Invalid signup" do
       before do
         visit new_user_registration_path
@@ -81,9 +81,9 @@ RSpec.describe "Users", type: :request do
     let(:user) {create(:user)}
     # let(:admin) {create(:user, admin: true)}
     context 'remember_me' do
-      context 'normal user' do 
+      context 'normal user' do
         before do
-          page.set_rack_session(login_attempts: 1) 
+          page.set_rack_session(login_attempts: 1)
           visit new_user_session_path
           fill_in  :user_email, with: user.email
           fill_in :user_password, with: user.password
@@ -98,16 +98,16 @@ RSpec.describe "Users", type: :request do
 
       # context 'admin' do
         # before do
-          # page.set_rack_session(login_attempts: 1) 
+          # page.set_rack_session(login_attempts: 1)
           # visit new_user_session_path
           # fill_in "Email", with: admin.email
           # fill_in "Password", with: admin.password
           # check "Remember me"
           # click_button "Sign in"
         # end
-# 
+#
         # it 'disables remember_me options for admins' do
-          # expect(admin.remember_created_at).to be_nil 
+          # expect(admin.remember_created_at).to be_nil
           # expect(page).to have_selector("p[id='flash_alert']",
            # text: I18n.t(:sign_in_remember_me_disabled_for_admins, scope: 'devise.sessions'))
         # end
@@ -121,13 +121,13 @@ RSpec.describe "Users", type: :request do
     context 'Sign Up' do
       before { visit new_user_registration_path }
 
-      it 'have oauth sign up links' do 
+      it 'have oauth sign up links' do
         providers.each do |provider|
           expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign Up"))
         end
       end
 
-      context 'non-existing oauth account' do 
+      context 'non-existing oauth account' do
         before do
           allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
         end
@@ -137,51 +137,87 @@ RSpec.describe "Users", type: :request do
             visit new_user_registration_path
             click_link I18n.t("sign_in_up_with_#{provider}", action: "Sign Up")
             expect(page.current_path).to eq(new_open_authentication_path)
-            fill_in :user_email, with: "#{provider}_#{Faker::Internet.email}" 
+            fill_in :user_email, with: "#{provider}_#{Faker::Internet.email}"
             click_button I18n.t(:create_account)
-            # debugger
             expect(page.current_path).to eq(new_user_session_path)
-            expect(page.body).to include(I18n.t(:signed_up_but_inactive, scope: 'devise.registrations'))
+            expect(page.body).to include(I18n.t(
+             :signed_up_but_inactive, scope: 'devise.registrations'))
           end
         end
+
         it 'activates the user if the submittied email is same as the oauth email' do
-          visit new_user_registration_path
-          click_link I18n.t("sign_in_up_with_facebook", action: "Sign Up")
-          click_button I18n.t(:create_account)
-          # debugger
-          expect(page.current_path).to eq(root_path)
-          expect(page.body).to include(I18n.t(:signed_in, scope: 'devise.sessions'))
+            email = "yahoo_mail@example.org"
+            OmniAuth.config.add_mock(:yahoo, { info: { email: email }})
+            visit new_user_registration_path
+            click_link I18n.t("sign_in_up_with_yahoo", action: "Sign Up")
+             fill_in :user_email, with: email
+            click_button I18n.t(:create_account)
+            expect(page.current_path).to eq(root_path)
+            expect(page.body).to include(I18n.t(
+              :signed_in, scope: 'devise.sessions'))
         end
       end
+
       context 'exisiting oauth account' do
         before do
           allow(OpenAuthentication).to receive(:oauth_user_exists?) { true }
+          visit new_user_registration_path
         end
 
-        
+        it 'gives an error msg with existing oauth account' do
+          click_link I18n.t("sign_in_up_with_facebook", action: "Sign Up")
+          expect(page.current_path).to eq(new_user_registration_path)
+          expect(page.body).to include(I18n.t( :failure, kind: "facebook",
+            reason: I18n.t(:account_already_linked), scope: 'devise.omniauth_callbacks'))
+        end
       end
     end
-    context 'Sign In'
-      before do
-        visit new_user_session_path
-      end
 
-      it 'have oauth sign up links' do 
+    context 'Sign In' do
+      before { visit new_user_session_path }
+
+      it 'have oauth sign up links' do
         providers.each do |provider|
           expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign In"))
         end
-      
       end
-      context 'non-existing oauth account' do 
+
+      context 'non-existing oauth account' do
         before do
           allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
+          visit new_user_session_path
+        end
+
+        it 'gives an error msg with non-existing oauth account' do
+          click_link I18n.t("sign_in_up_with_facebook", action: "Sign In")
+          expect(page.current_path).to eq(new_user_session_path)
+          expect(page.body).to include(I18n.t( :failure, kind: "facebook",
+            reason: I18n.t(:account_not_linked), scope: 'devise.omniauth_callbacks'))
         end
       end
+
       context 'exisiting oauth account' do
+
+        let(:user) { build(:user) }
         before do
-          allow(OpenAuthentication).to receive(:oauth_user_exists?) { true }
+          allow(OpenAuthentication).to receive(:oauth_user_exists?) { user }
+          visit new_user_session_path
+        end
+
+        it 'signs in the confirmed user successfully' do
+          allow(user).to receive(:confirmed?) { true }
+          click_link I18n.t("sign_in_up_with_twitter", action: "Sign In")
+          expect(page.current_path).to eq(root_path)
+          expect(page.body).to include(I18n.t(:signed_in, scope: 'devise.sessions'))
+        end
+
+         it 'does not sign the non-confirmed users' do
+          allow(user).to receive(:confirmed?) { false }
+          click_link I18n.t("sign_in_up_with_yahoo", action: "Sign In")
+          expect(page.current_path).to eq(new_user_session_path)
+          expect(page.body).to include(I18n.t(:unconfirmed, scope: 'devise.failure'))
         end
       end
+    end
   end
 end
-

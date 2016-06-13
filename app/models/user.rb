@@ -8,8 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :open_authentications, dependent: :delete_all
 
-  validates :username, presence: true, 
-   uniqueness: { case_sensitive: false },
+  validates :username, presence: true,
    length: { minimum: 4, maximum: 32 }
 
   def after_confirmation
