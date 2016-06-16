@@ -45,8 +45,8 @@ class User::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:username, :email, :password, :password_confirmation)
+    devise_parameter_sanitizer.permit(:sign_up)do |u|
+      u.permit( :username,:email, :password, :password_confirmation)
     end
   end
 
@@ -73,9 +73,8 @@ class User::RegistrationsController < Devise::RegistrationsController
     else
       self.resource = User.new(sign_up_params)
       resource.valid?
-      # TODO: I18n for the message
-      resource.errors.add(:recaptcha, "verification failed, please try again")
-      render :new
-    end
+      resource.errors.add(:recaptcha, I18n.t(:recaptcha_error))
+      render :new 
+    end 
   end
 end

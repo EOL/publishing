@@ -2,11 +2,14 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable, omniauth_providers: [:facebook, :twitter,
+                                             :google_oauth2, :yahoo]
 
-  # NOTE: Devise validates a few fields, including password.
-  validates :username, presence: true, uniqueness: true,
-                       length: {minimum: 4, maximum: 32}
+  has_many :open_authentications, dependent: :delete_all
+
+  validates :username, presence: true,
+   length: { minimum: 4, maximum: 32 }
 
   # NOTE: this is a hook called by Devise
   def after_confirmation

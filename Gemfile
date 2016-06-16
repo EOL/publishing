@@ -41,6 +41,10 @@ gem 'devise-i18n-views'
 gem 'haml-rails'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'devise-encryptable'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-yahoo'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -65,4 +69,6 @@ group :test do
   gem 'factory_girl'
   gem 'capybara'
   gem 'faker'
+  gem 'better_errors'
+  gem 'rack_session_access'
 end
