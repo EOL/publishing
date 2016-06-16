@@ -8,6 +8,7 @@
     = csrf_meta_tags
   %body
     - flash.each do |name, msg|
+      - next if name ==  :recaptcha_error.to_s
       - if msg.class == Array
         - msg.each do |message|
           = content_tag :p, message, :id => "flash_#{name}"

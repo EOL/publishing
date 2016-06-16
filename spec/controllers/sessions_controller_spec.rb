@@ -1,9 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Users::SessionsController, type: :controller do
+RSpec.describe User::SessionsController, type: :controller do
   render_views
   let(:user) {create(:user)}
-  let(:admin) {create(:user, admin: true )}
 
   before(:each) do
     request.env["devise.mapping"] = Devise.mappings[:user]
@@ -12,6 +11,7 @@ RSpec.describe Users::SessionsController, type: :controller do
   describe '#new' do
 
     before do
+      user.confirm
       get :new
     end
 
@@ -42,6 +42,7 @@ RSpec.describe Users::SessionsController, type: :controller do
     context 'successful sign in' do
       before do
         allow(request.env['warden']).to receive(:authenticate!) {user}
+        allow(user).to receive(:confirmed?) { true }
         allow(controller).to receive(:verify_recaptcha) { true }
         allow(controller).to receive(:session) { {login_attempts: 2} }
         allow(controller).to receive(:sign_in_params) { {email: user.email} }
@@ -70,7 +71,7 @@ RSpec.describe Users::SessionsController, type: :controller do
         end
 
         it 'display an invalid recaptcha flash' do
-          expect(flash[:alert]).to eq I18n.t :recaptcha, scope: 'devise.sessions' 
+          expect(flash[:error]).to eq I18n.t :recaptcha_error, scope: 'devise.failure' 
         end
         
         it 'renders the new template' do

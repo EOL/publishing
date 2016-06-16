@@ -4,6 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
+
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = '21a53d29862393901394acd62282b488bad0ab46572d8169aa4d52727e4f91d9c974c479af0ee54c29597bcddeb0e21b89952a0c97f6b65b9ca85182ca93c157'
@@ -31,6 +32,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
+
   config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
@@ -88,9 +90,10 @@ Devise.setup do |config|
   # config.clean_up_csrf_token_on_authentication = true
 
   # ==> Configuration for :database_authenticatable
+
   # For bcrypt, this is the cost for hashing the password and defaults to 11. If
   # using other algorithms, it sets how many times you want the password to be hashed.
-  #
+
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments. Note that, for bcrypt (the default
@@ -100,6 +103,7 @@ Devise.setup do |config|
 
   # Set up a pepper to generate the hashed password.
   config.pepper = '4149ca9e3e582bc5c00be7c88486d1984e7e9466aa8a21386a2a1cd4f773562152f8b6b63f432dfd813b93464c9b2201ed3c13eb5e39b34aa10f58760aa08efb'
+
 
   # Send a notification email when the user's password is changed
   # config.send_password_change_notification = false
@@ -161,6 +165,7 @@ Devise.setup do |config|
   # Defines which strategy will be used to lock an account.
   # :failed_attempts = Locks an account after a number of failed attempts to sign in.
   # :none            = No lock strategy. You should handle locking by yourself.
+
   # config.lock_strategy = :failed_attempts
 
   # Defines which key will be used when locking and unlocking an account
@@ -175,6 +180,7 @@ Devise.setup do |config|
 
   # Number of authentication tries before locking an account if lock_strategy
   # is failed attempts.
+
   # config.maximum_attempts = 20
 
   # Time interval to unlock the account if :time is enabled as unlock_strategy.
@@ -198,6 +204,7 @@ Devise.setup do |config|
   # config.sign_in_after_reset_password = true
 
   # ==> Configuration for :encryptable
+
   # Allow you to use another hashing or encryption algorithm besides bcrypt (default).
   # You can use :sha1, :sha512 or algorithms from others authentication tools as
   # :clearance_sha1, :authlogic_sha512 (then you should set stretches above to 20
@@ -239,7 +246,13 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-
+    config.omniauth :facebook, "1603855706598436", "bef73449de6a4c47cfa9180c7d74027c", scope: 'email,public_profile'
+    config.omniauth :twitter, "c5rUGQzjtW73OFUKf8yeOzqgP", "Mcv8HrSy7oFPrexL7DEVfqz6Hp7e4hOYYTh79jsnGPL49LmuQ8",
+                               force_login: 'true'
+    config.omniauth :google_oauth2, "867896515251-fqndt93sjdeqe1ekrs24j6p0vu9b32l6.apps.googleusercontent.com", 
+                       "uO_LJ9cKF7SSNd9FTo5VjpyL", skip_jwt: true
+    config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--" ,
+                    "b9e7b67ded48fcaa45d2522155d12cd400faeca4"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

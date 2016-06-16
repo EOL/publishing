@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { registrations: 'user/registrations',
-    sessions: 'users/sessions'} 
+  devise_for :users, controllers: { registrations: "user/registrations" ,
+                                    sessions: 'user/sessions',
+                                    omniauth_callbacks: "user/omniauth_callbacks"}
+  resources :open_authentications, only: [:new, :create]
   resources :users
-
   root 'users#index'
 
   # Example of regular route:
