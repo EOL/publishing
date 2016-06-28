@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'devise'
 RSpec.describe User, type: :model do
   describe 'UserFactoryGirl' do
     it 'has a valid factory' do
@@ -29,10 +29,6 @@ RSpec.describe User, type: :model do
     context 'when invalid' do
       it "rejects empty username" do
          expect(build(:user, username: nil)).to_not be_valid
-      end
-      it "rejects duplicate username" do
-        create(:user, username: 'user')
-        expect(build(:user, username: 'user')).to_not be_valid
       end
       it "rejects too short username" do
         expect(build(:user, username: 'usr')).to_not be_valid
@@ -78,7 +74,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "delete account" do
+  describe "Delete account" do
 
     let(:current_user) { create(:user) }
     let(:admin_user) { create(:admin_user) }
@@ -122,6 +118,21 @@ RSpec.describe User, type: :model do
       it "should set password to nil" do
         expect(current_user.encrypted_password).to be_nil
       end
+    end
+  end
+  
+  describe 'Reset password' do
+    before do
+      @user = FactoryGirl.create(:user)
+      @user.send_reset_password_instructions
+    end  
+    
+    it "updates user's reset_password token" do
+      expect(@user.reset_password_token).to_not be_nil
+    end
+    it "sends password change confirmation" do
+      @user.reset_password("new_password", "new_password")
+      expect(@user).to callback(:send_reset_password_confirmation).after(:save)
     end
   end
 end
