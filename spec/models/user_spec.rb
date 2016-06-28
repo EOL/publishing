@@ -132,7 +132,7 @@ RSpec.describe User, type: :model do
     end
     it "sends password change confirmation" do
       @user.reset_password("new_password", "new_password")
-      expect(@user).to callback(:send_reset_password_confirmation).after(:save)
+      expect(@user).to callback(:send_reset_password_confirmation).after(:update)
     end
   end
 end

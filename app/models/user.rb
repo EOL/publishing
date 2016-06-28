@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :open_authentications, dependent: :delete_all
   
-  after_save :send_reset_password_confirmation, if: :encrypted_password_changed?
+  after_update :send_reset_password_confirmation, if: :reset_password_token_changed?
   
   validates :username, presence: true,
    length: { minimum: 4, maximum: 32 }
