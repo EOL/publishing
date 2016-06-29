@@ -120,19 +120,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-  
-  describe 'Reset password' do
-    before do
-      @user = FactoryGirl.create(:user)
-      @user.send_reset_password_instructions
-    end  
-    
-    it "updates user's reset_password token" do
-      expect(@user.reset_password_token).to_not be_nil
-    end
-    it "sends password change confirmation" do
-      @user.reset_password("new_password", "new_password")
-      expect(@user).to callback(:send_reset_password_confirmation).after(:update)
-    end
-  end
 end
