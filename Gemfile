@@ -71,5 +71,4 @@ group :test do
   gem 'faker'
   gem 'better_errors'
   gem 'rack_session_access'
-  gem 'shoulda-callback-matchers'
 end

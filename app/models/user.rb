@@ -7,19 +7,13 @@ class User < ActiveRecord::Base
                                              :google_oauth2, :yahoo]
 
   has_many :open_authentications, dependent: :delete_all
-  
-  after_update :send_reset_password_confirmation, if: :reset_password_token_changed?
-  
+   
   validates :username, presence: true,
    length: { minimum: 4, maximum: 32 }
     
   # NOTE: this is a hook called by Devise
   def after_confirmation
     self.update_attributes(active: true)
-  end
-  
-  def send_reset_password_confirmation
-    Devise::Mailer.password_change(self).deliver_now 
   end
   
   def soft_delete
