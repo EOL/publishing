@@ -4,7 +4,11 @@ Rails.application.routes.draw do
                                     sessions: 'user/sessions',
                                     omniauth_callbacks: "user/omniauth_callbacks"}
   resources :open_authentications, only: [:new, :create]
-  resources :users
+  resources :users do
+    collection do
+      get 'check_email', defaults: { format: 'json' }
+    end
+  end
   root 'users#index'
 
   # Example of regular route:

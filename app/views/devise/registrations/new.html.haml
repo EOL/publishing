@@ -1,29 +1,88 @@
-%h2 
-  = I18n.t(:sign_up)
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label I18n.t(:username)
-    %br/
-    = f.text_field :username, autofocus: true
-  .field
-    = f.label I18n.t(:email)
-    %br/
-    = f.email_field :email
-  .field
-    = f.label I18n.t(:password)
-    - if @minimum_password_length
-      %em
-        =I18n.t(:min_length, length: @minimum_password_length)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label I18n.t(:password_confirmation)
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .field
-    = f.label I18n.t(:recaptcha)
-    = recaptcha_tags 
-  .actions
-    = f.submit I18n.t(:create_account)
-= render "devise/shared/links"
+= javascript_include_tag 'users/signup'
+
+%div{'ng-app': 'signupApp'}
+  %h2 
+    = I18n.t(:sign_up)
+  = form_for resource, url: registration_path(resource_name), 
+    html: { name: 'signupForm', 
+            'novalidate': 'novalidate',
+            'ng-controller': 'signupValidate',
+            'ng-submit': 'validateForm($event, signupForm)'.html_safe } do |f|
+    = devise_error_messages!
+    .field
+      = f.label I18n.t(:username)
+      %br/
+      = f.text_field :username, autofocus: true, 
+                      'ng-model': 'username', 
+                      'ng-minlength': 4,
+                      'ng-maxlength': 32,
+                      required: true
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[username]'].$error.required && (signupForm['user[username]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_username_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[username]'].$error.minlength".html_safe}
+        = I18n.t("users.validations.short_username_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[username]'].$error.maxlength".html_safe}
+        = I18n.t("users.validations.long_username_error")
+    .field
+      = f.label I18n.t(:email)
+      %br/
+      = f.email_field :email, 
+                      'ng-model': 'email',
+                      'ng-pattern': "/^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/",
+                      required: true,
+                      'unique-email': ""
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[email]'].$error.required && (signupForm['user[email]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_email_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[email]'].$error.pattern".html_safe}
+        = I18n.t("users.validations.invalid_email")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[email]'].$loading".html_safe}
+        = I18n.t("users.validations.email_existance_checking")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[email]'].$error.emailExists".html_safe}
+        = I18n.t("users.validations.email_already_exists")
+    .field
+      = f.label I18n.t(:password)
+      %br/
+      = f.password_field :password, autocomplete: "off",
+                          id: "password",
+                         'ng-model': 'password',
+                         'ng-minlength': 4,
+                         'ng-maxlength': 32,
+                         required: true
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[password]'].$error.required && (signupForm['user[password]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[password]'].$error.minlength".html_safe}
+        = I18n.t("users.validations.short_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[password]'].$error.maxlength".html_safe}
+        = I18n.t("users.validations.long_password_error")
+    .field
+      = f.label I18n.t(:password_confirmation)
+      %br/
+      = f.password_field :password_confirmation, autocomplete: "off",
+                         'ng-model': 'password_confirmation',
+                         'password-match': "password",
+                         'ng-required': true
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[password_confirmation]'].$error.required && (signupForm['user[password_confirmation]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_password_confirmation_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "signupForm['user[password_confirmation]'].$error.pwmismatch && !signupForm['user[password_confirmation]'].$error.required".html_safe}
+        = I18n.t("users.validations.password_confirmation_mismatch")
+    .field
+      = f.label I18n.t(:recaptcha)
+      = recaptcha_tags(theme: 'clean', callback: 'recaptchaCallback')
+      %br
+      %span{class: 'ng-validation-error', 'ng-show': 'recaptchaError'.html_safe}
+        = "#{I18n.t('recaptcha_error')}"
+    .actions
+      = f.submit I18n.t(:create_account), 'ng-disabled': true, id: "createAccount"
+  = render "devise/shared/links"
