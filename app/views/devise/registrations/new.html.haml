@@ -32,38 +32,36 @@
       = f.email_field :email, 
                       'ng-model': 'email',
                       'ng-pattern': "/^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/",
-                      required: true,
-                      'unique-email': ""
+                      required: true
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[email]'].$error.required && (signupForm['user[email]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_email_error")
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[email]'].$error.pattern".html_safe}
         = I18n.t("users.validations.invalid_email")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[email]'].$loading".html_safe}
-        = I18n.t("users.validations.email_existance_checking")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[email]'].$error.emailExists".html_safe}
-        = I18n.t("users.validations.email_already_exists")
     .field
       = f.label I18n.t(:password)
       %br/
       = f.password_field :password, autocomplete: "off",
                           id: "password",
                          'ng-model': 'password',
-                         'ng-minlength': 4,
-                         'ng-maxlength': 32,
+                         'validate-password': '',
                          required: true
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[password]'].$error.required && (signupForm['user[password]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_password_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password]'].$error.minlength".html_safe}
+            'ng-show': "violatePwdLowerLimit && signupForm['user[password]'].$touched".html_safe}
         = I18n.t("users.validations.short_password_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password]'].$error.maxlength".html_safe}
+            'ng-show': "violatePwdUpperLimit && signupForm['user[password]'].$touched".html_safe}
         = I18n.t("users.validations.long_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "ViolatepwdLetterCond && signupForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.password_must_have_letter_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "ViolatepwdNumberCond && signupForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.password_must_have_number_error")
     .field
       = f.label I18n.t(:password_confirmation)
       %br/
@@ -84,5 +82,5 @@
       %span{class: 'ng-validation-error', 'ng-show': 'recaptchaError'.html_safe}
         = "#{I18n.t('recaptcha_error')}"
     .actions
-      = f.submit I18n.t(:create_account), 'ng-disabled': true, id: "createAccount"
+      = f.submit I18n.t(:create_account), 'ng-disabled': 'signupForm.$invalid || !recaptchaChecked'
   = render "devise/shared/links"
