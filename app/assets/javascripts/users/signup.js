@@ -1,24 +1,7 @@
 var recaptchaError = false;
-var signupApp = angular.module('signupApp', []);
+var recaptchaChecked = false;
 
-//custom validation for unique email
-signupApp.directive('uniqueEmail', function ($http) {
-	return {
-		restrict: 'A',
-		require: 'ngModel',
-		link: function (scope, element, attrs, ngModel) {
-			element.bind('blur', function (e) {
-				ngModel.$loading = true;
-				$http.get('/users/check_email', {
-					params: {email:  element.val() }
-				}).success(function(data) {
-					ngModel.$loading = false;
-					ngModel.$setValidity('emailExists', !data);
-				});
-			});
-		}
-	};
-});
+var signupApp = angular.module('signupApp', []);
 
 //custom validation for password match
 signupApp.directive('passwordMatch', function () {
@@ -35,6 +18,30 @@ signupApp.directive('passwordMatch', function () {
 	};
 });
 
+//custom validation for password match
+signupApp.directive('validatePassword', function () {
+	return {
+		require: 'ngModel',
+		link: function (scope, element, attrs, ctrl) {
+			ctrl.$parsers.unshift(function(viewValue) {
+				scope.violatePwdLowerLimit = (viewValue && viewValue.length < 8 ? true : false);
+				scope.violatePwdUpperLimit = (viewValue && viewValue.length > 32 ? true : false);
+				if (!(scope.violatePwdLowerLimit || scope.violatePwdUpperLimit)){
+					scope.ViolatepwdLetterCond = (viewValue && /[A-Za-z]/.test(viewValue)) ? false : true;
+					scope.ViolatepwdNumberCond = (viewValue && /\d/.test(viewValue)) ? false : true;	
+				}
+				
+				if (scope.violatePwdLowerLimit && scope.violatePwdUpperLimit && scope.ViolatepwdLetterCond && scope.ViolatepwdNumberCond){
+					ctrl.$setValidity('pwd', false);
+					return viewValue;
+				} else {
+					ctrl.$setValidity('pwd', true);
+					return viewValue;
+				}
+			});
+		}
+	};
+});
 
 signupApp.controller('signupValidate', function($scope, $window) {
     $scope.showErrors = false;
@@ -64,8 +71,8 @@ signupApp.controller('signupValidate', function($scope, $window) {
 function recaptchaCallback() {
     var appElement = document.querySelector('[ng-app=signupApp]');
     var $scope = angular.element(appElement).scope().$$childHead;
-    $('#createAccount').removeAttr('disabled');
     $scope.$apply(function() {
         $scope.recaptchaError = false;
+        $scope.recaptchaChecked = true;
     });
 }
