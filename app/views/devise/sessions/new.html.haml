@@ -1,16 +1,17 @@
-%h2= t('.sign_in', :default => "Sign in")
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %div
+%h2= t(:sign_in)
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  .field
     = f.label :email
     %br/
     = f.email_field :email
   %div
     = f.label :password
     %br/
-    = f.password_field :password
-  - if devise_mapping.rememberable?
-    %div
-      = f.check_box :remember_me
-      = f.label :remember_me
-  %div= f.submit t('.sign_in', :default => "Sign in")
+    = f.password_field :password, autocomplete: "off"
+  .field
+    = f.check_box :remember_me
+    = f.label I18n.t(:remember_me)
+  = recaptcha_tags if @verify_recaptcha
+  .actions
+    = f.submit I18n.t(:sign_in)
 = render "devise/shared/links"
