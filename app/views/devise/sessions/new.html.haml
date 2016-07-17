@@ -10,12 +10,14 @@
     .field
       = f.label :email
       %br/
-      = f.email_field :email ,'ng-model' => 'email', required: true,
-       "login" => 'email', "ng-required" => true
+      = f.email_field :email ,'ng-model' => 'email', required: 'true'
+         
       %span{class: 'ng-validation-error',
-      "ng-pattern" => "regex",
-          'ng-show' => "email.$invalid && (email.$touched || showErrors)".html_safe}
-        = "{{email}} error!"#"#{I18n.t('msgs.empty_email_error')}"
+            'ng-show': "  loginForm['user[email]'].$error.required && (  loginForm['user[email]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_email_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "  loginForm['user[email]'].$error.pattern".html_safe}
+        = I18n.t("users.validations.invalid_email")
     %div
       = f.label :password
       %br/
@@ -30,5 +32,5 @@
     %span{class: 'ng-validation-error', 'ng-show' => 'recaptchaError'.html_safe}
       = "#{I18n.t(:recaptcha_error)}"
     .actions
-      = f.submit I18n.t(:sign_in)
+      = f.submit I18n.t(:sign_in), 'ng-disabled': '  loginForm.$invalid || !recaptchaChecked'
 = render "devise/shared/links"
