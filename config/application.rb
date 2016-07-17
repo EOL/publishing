@@ -1,3 +1,5 @@
+# This file is meant to load gems (including those specific to the environment)
+# and to configure the application. You PROBABLY want to add configuration here.
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
