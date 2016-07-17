@@ -1,17 +1,34 @@
-%h2= t(:sign_in)
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.check_box :remember_me
-    = f.label I18n.t(:remember_me)
-  = recaptcha_tags if @verify_recaptcha
-  .actions
-    = f.submit I18n.t(:sign_in)
+= javascript_include_tag 'login.js'
+%div{'ng-app' => 'loginApp'}
+  {{5+5}}
+  %h2= t(:sign_in)
+  = form_for(resource, as: resource_name, url: session_path(resource_name), 
+              html: { name: 'loginForm',
+              'novalidate' => 'novalidate',
+              'ng-controller' => 'loginValidate',
+              'ng-submit' => 'validateForm($event, loginForm)'.html_safe}) do |f|
+    .field
+      = f.label :email
+      %br/
+      = f.email_field :email ,'ng-model' => 'email', required: true,
+       "login" => 'email', "ng-required" => true
+      %span{class: 'ng-validation-error',
+      "ng-pattern" => "regex",
+          'ng-show' => "email.$invalid && (email.$touched || showErrors)".html_safe}
+        = "{{email}} error!"#"#{I18n.t('msgs.empty_email_error')}"
+    %div
+      = f.label :password
+      %br/
+      = f.password_field :password, autocomplete: "off", 'ng-model' => 'password'
+      %span{class: 'ng-validation-error',
+                    'ng-show' => "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched || showErrors)".html_safe}
+        = "#{I18n.t('msgs.empty_password_error')}"
+    .field
+      = f.check_box :remember_me
+      = f.label I18n.t(:remember_me)
+    = recaptcha_tags(callback: 'recaptchaCallback') if @verify_recaptcha
+    %span{class: 'ng-validation-error', 'ng-show' => 'recaptchaError'.html_safe}
+      = "#{I18n.t(:recaptcha_error)}"
+    .actions
+      = f.submit I18n.t(:sign_in)
 = render "devise/shared/links"
