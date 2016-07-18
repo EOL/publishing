@@ -1,6 +1,5 @@
 = javascript_include_tag 'login.js'
 %div{'ng-app' => 'loginApp'}
-  {{5+5}}
   %h2= t(:sign_in)
   = form_for(resource, as: resource_name, url: session_path(resource_name), 
               html: { name: 'loginForm',
