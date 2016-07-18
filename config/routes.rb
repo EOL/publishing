@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :users
   root 'users#index'
-  get '/fetch_user', to: 'application#fetch_user', as: :fetch_user, defaults: { format: 'json' }
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

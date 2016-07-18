@@ -10,27 +10,27 @@
     .field
       = f.label :email
       %br/
-      = f.email_field :email ,'ng-model' => 'email', required: 'true'
-         
+      = f.email_field :email ,'ng-model' => 'email', required: 'true', 
+         'ng-pattern' => "regex"
       %span{class: 'ng-validation-error',
-            'ng-show': "  loginForm['user[email]'].$error.required && (  loginForm['user[email]'].$touched || showErrors)".html_safe}
+            'ng-show' => "  loginForm['user[email]'].$error.required && (loginForm['user[email]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_email_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "  loginForm['user[email]'].$error.pattern".html_safe}
+      %span{ class: 'ng-validation-error',
+            'ng-show' => "loginForm['user[email]'].$error.pattern".html_safe}
         = I18n.t("users.validations.invalid_email")
     %div
       = f.label :password
       %br/
-      = f.password_field :password, autocomplete: "off", 'ng-model' => 'password'
+      = f.password_field :password, autocomplete: "off", 'ng-model' => 'password', required: "true"
       %span{class: 'ng-validation-error',
-                    'ng-show' => "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched || showErrors)".html_safe}
-        = "#{I18n.t('msgs.empty_password_error')}"
+            'ng-show' => "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched || showErrors)".html_safe}
+        = I18n.t('users.validations.empty_password_error')
     .field
       = f.check_box :remember_me
       = f.label I18n.t(:remember_me)
     = recaptcha_tags(callback: 'recaptchaCallback') if @verify_recaptcha
     %span{class: 'ng-validation-error', 'ng-show' => 'recaptchaError'.html_safe}
-      = "#{I18n.t(:recaptcha_error)}"
+      = I18n.t(:recaptcha_error)
     .actions
-      = f.submit I18n.t(:sign_in), 'ng-disabled': '  loginForm.$invalid || !recaptchaChecked'
+      = f.submit I18n.t(:sign_in), 'ng-disabled': 'loginForm.$invalid || !recaptchaChecked'
 = render "devise/shared/links"
