@@ -50,3 +50,7 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  users:
+    validations:
+      invalid_email: "Email is invalid"
+      empty_email_error: "Email cannot be empty"
