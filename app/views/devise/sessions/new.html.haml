@@ -10,7 +10,7 @@
       = f.label :email
       %br/
       = f.email_field :email ,'ng-model' => 'email', required: 'true', 
-         'ng-pattern' => "regex"
+         'ng-pattern' => "#{$MAIL_REGEX}"
       %span{class: 'ng-validation-error',
             'ng-show' => "  loginForm['user[email]'].$error.required && (loginForm['user[email]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_email_error")
