@@ -4,7 +4,6 @@ var loginApp = angular.module('loginApp', []);
 loginApp.controller('loginValidate', function($scope, $window) {
     $scope.showErrors = false;
     $scope.recaptchaError = false;
-    $scope.regex = /^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/;
     $scope.validateForm = function(event, loginForm) {
         if (loginForm.$invalid) {
             $scope.showErrors = true;
