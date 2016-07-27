@@ -7,8 +7,8 @@ page.common_name.titlize
 # "Procyon lotor" (this will be in itals on the page)
 page.canonical_form
 # NOTE: I'm not including routes, but we would have links to each of these TAXON PAGEs:
-# "Animals", "Mammals", "Carnivoran", "Coatis, Raccoons, and Relatives"
-page.ancestors.exemplar.each { |a| a.common_name.titlize }
+# "Animal", "Mammal", "Carnivoran", "Coatis, Raccoons, and Relatives"
+page.ancestors.exemplar.each { |a| a.common_name.titlize ; a.rank }
 # The main image, large
 image = page.image
 image.src(:large)
@@ -52,7 +52,40 @@ page.traits.exemplar.each do |trait|
 end
 # The occurence/range map:
 page.map
-page.featured_collections
+
+page.related_pages.each do |rel_page|
+  # "Crabbicus generica"
+  rel_page.scientific_name
+  # "Some Kind of Crab"
+  rel_page.common_name
+  # "Animal", "Arthropod", "Shrimps, Crabs, Lobsters, Water Fleas, and Relatives", "Rock Crabs"
+  rel_page.ancestors.exemplar.each { |a| a.common_name.titlize ; a.rank }
+  # Square image:
+  rel_page.image.src(:icon)
+end
+page.related_collections
+# Related links are ... complicated. They may include things like Podcasts,
+# Audio files, RSS Feeds, Maps, Articles, Food Webs, iNat maps, Websites (of
+# various types: Wikipedia, Citizen Science resources, Literature / Papers, and
+# more)... and probably others. We need to talk about these...
+page.related_links.each do |link|
+  # "Podcast"
+  link.type
+  # "EOL Podcast: Coral Reefs"
+  link.name
+  # square icon
+  link.src(:icon)
+  # ":audio"
+  link.link_type
+  # "http://podcasts.eol.org/A67D220EE"
+  link.src
+  # "Coral reefs are bustling cities of marine life, until rising ocean
+  # temperatures turn them into ghost towns. Can reefs spring back from
+  # devastating bleaching events?"
+  link.summary.html_safe
+  # ["audio_player.js"] (maybe... making this one up)
+  link.includes
+end
 
 ### PREDICATE PAGE
 if filters[:page]
@@ -61,8 +94,8 @@ if filters[:page]
   page.common_name
   # "Procyon lotor"
   page.canonical_form
-  # "Animals", "Mammals", "Carnivoran", "Coatis, Raccoons, and Relatives"
-  page.ancestors.exemplar.each { |a| a.common_name.titlize }
+  # "Animal", "Mammal", "Carnivoran", "Coatis, Raccoons, and Relatives"
+  page.ancestors.exemplar.each { |a| a.common_name.titlize ; a.rank }
 end
 filters.each do |type, value|
   # e.g.: "Taxon"
@@ -74,8 +107,8 @@ end
 predicate.name
 # NOTE: this would actually be broken up into groups by value name, on the page:
 traits.each do |trait|
-  # "Animals", "Mammals", "Carnivoran", "Coatis, Raccoons, and Relatives"
-  trait.page.ancestors.exemplar.each { |a| a.common_name.titlize }
+  # "Animal", "Mammal", "Carnivoran", "Coatis, Raccoons, and Relatives"
+  trait.page.ancestors.exemplar.each { |a| a.common_name.titlize ; a.rank }
   # "Procyon lotor"
   trait.page.canonical_form
   # "Common Raccoon"
