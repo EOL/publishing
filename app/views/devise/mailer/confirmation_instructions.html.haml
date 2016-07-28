@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> c0872bf89219cce76344a0fbc01dd6969991e912
+- require 'devise/version'
+%p= t('.greeting', :recipient => @resource.email, :default => "Welcome #{@resource.email}!")
+%p= t('.instruction', :default => "You can confirm your account email through the link below:")
+%p= link_to t('.action', :default => "Confirm my account"),                                                                         |
+    confirmation_url(@resource, :confirmation_token => (Devise::VERSION.start_with?('3.') ? @token : @resource.confirmation_token)) |
+<<<<<<< HEAD
+
+=======
+>>>>>>> c0872bf89219cce76344a0fbc01dd6969991e912

@@ -20,4 +20,33 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  account_destroyed_successfully: "You have deleted your account. Thanks!"
+  are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
+  delete_account_button: "Delete your account"
+  account_not_linked: "your account is not linked to EOL"
+  account_already_linked: "your account is already linked to EOL"
+  cancel: "cancel"
+  change_your_password: 'Change your password'
+  change_my_password: 'Change my password'
+  create_account: "create account"
+  complete_registration: "Please continue your registration"
+  confirm_new_password: "Confirm new password"
+  email: "Email"
+  forgot_your_password: "Forgot your password?"
+  min_length: "(%{length} characters minimum)"
+  new_password: 'New password'
+  password: "Password"
+  password_confirmation: "Password confirmation"
+  recaptcha: "Recaptcha"
+  recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
+  remember_me: "remember me"
+  resend_confirmations: "Resend confirmation instructions"
+  sign_in: "Sign In"
+  sign_up: "Sign up"
+  username: "Username"
+  send_me_reset_password_instructions: "Send me reset password instructions"
+  sign_in_up_with_facebook: "%{action} with Facebook"
+  sign_in_up_with_google_oauth2: "%{action} with Google"
+  sign_in_up_with_twitter: "%{action} with Twitter"
+  sign_in_up_with_yahoo: "%{action} with Yahoo"
+  sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
