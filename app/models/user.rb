@@ -7,15 +7,15 @@ class User < ActiveRecord::Base
                                              :google_oauth2, :yahoo]
 
   has_many :open_authentications, dependent: :delete_all
-
+   
   validates :username, presence: true,
    length: { minimum: 4, maximum: 32 }
-
+    
   # NOTE: this is a hook called by Devise
   def after_confirmation
     self.update_attributes(active: true)
   end
-
+  
   def soft_delete
     update_attributes(deleted_at: Time.current, email: nil,
       encrypted_password: nil, active: false)
