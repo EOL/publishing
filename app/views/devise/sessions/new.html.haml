@@ -3,7 +3,6 @@
   %h2= t(:sign_in)
   = form_for(resource, as: resource_name, url: session_path(resource_name), 
               html: { name: 'loginForm',
-              'novalidate' => 'novalidate',
               'ng-controller' => 'loginValidate',
               'ng-submit' => 'validateForm($event, loginForm)'.html_safe}) do |f|
     .field
@@ -27,9 +26,10 @@
     .field
       = f.check_box :remember_me
       = f.label I18n.t(:remember_me)
-    = recaptcha_tags(callback: 'recaptchaCallback') if @verify_recaptcha
-    %span{class: 'ng-validation-error', 'ng-show' => 'recaptchaError'.html_safe}
-      = I18n.t(:recaptcha_error)
+    - if @verify_recaptcha
+      = recaptcha_tags(callback: 'recaptchaCallback')
+      %span{class: 'ng-validation-error', 'ng-show' => 'recaptchaError'.html_safe}
+        = I18n.t(:recaptcha_error)
     .actions
-      = f.submit I18n.t(:sign_in), 'ng-disabled': 'loginForm.$invalid || !recaptchaChecked'
+      = f.submit I18n.t(:sign_in), 'ng-disabled': " loginForm.$invalid || !recaptchaChecked"
 = render "devise/shared/links"
