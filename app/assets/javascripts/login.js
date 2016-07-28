@@ -1,7 +1,8 @@
-var recaptchaError = false;var recaptchaChecked = false;
+var recaptchaError = false;
 var loginApp = angular.module('loginApp', []);
 
 loginApp.controller('loginValidate', function($scope, $window) {
+   $scope.recaptchaChecked = ($(".g-recaptcha").length == 0) ;
     $scope.showErrors = false;
     $scope.recaptchaError = false;
     $scope.validateForm = function(event, loginForm) {
@@ -9,10 +10,9 @@ loginApp.controller('loginValidate', function($scope, $window) {
             $scope.showErrors = true;
             event.preventDefault();
         }
-        if (!(typeof grecaptcha === 'undefined')) {
-            var recaptchaResponse = grecaptcha.getResponse();
-
-            if (grecaptcha.getResponse() != undefined &&
+        if (typeof(grecaptcha) !== 'undefined') {
+          var recaptchaResponse = grecaptcha.getResponse();
+            if ( grecaptcha.getResponse() != undefined &&
                 (grecaptcha.getResponse() == null) ||
                 (grecaptcha.getResponse() == '')) {
                 $scope.showErrors = true;
@@ -21,28 +21,15 @@ loginApp.controller('loginValidate', function($scope, $window) {
             }
             else
             {
-                recaptchaError = false;
+               $scope.recaptchaError = false;
+               $scope.recaptchaChecked = true;
             }
         }
     };
 });
 
-loginApp.directive('validatePassword', function () {
-  return {
-    require: 'ngModel',
-    link: function (scope, element, attrs, ctrl) {
-    	console.log("hi" +scope.password);
-    	if(element.val.length < 8 && element.val.length >32  ){
-    		ctrl.$setValidity('password', false);
-    	}else{
-    		ctrl.$setValidity('password', true);
-    	}
-    }
-  };
-});
-
 function recaptchaCallback() {
-    var appElement = document.querySelector('[ng-app=signupApp]');
+    var appElement = document.querySelector('[ng-app=loginApp]');
     var $scope = angular.element(appElement).scope().$$childHead;
     $scope.$apply(function() {
         $scope.recaptchaError = false;
