@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'devise'
 RSpec.describe User, type: :model do
   describe 'UserFactoryGirl' do
     it 'has a valid factory' do
@@ -29,10 +29,6 @@ RSpec.describe User, type: :model do
     context 'when invalid' do
       it "rejects empty username" do
          expect(build(:user, username: nil)).to_not be_valid
-      end
-      it "rejects duplicate username" do
-        create(:user, username: 'user')
-        expect(build(:user, username: 'user')).to_not be_valid
       end
       it "rejects too short username" do
         expect(build(:user, username: 'usr')).to_not be_valid
@@ -78,7 +74,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "delete account" do
+  describe "Delete account" do
 
     let(:current_user) { create(:user) }
     let(:admin_user) { create(:admin_user) }
