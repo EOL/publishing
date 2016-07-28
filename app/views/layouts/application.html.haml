@@ -4,7 +4,9 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title EolWebsite
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'main_en'
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js'
     = csrf_meta_tags
   %body
     - flash.each do |name, msg|

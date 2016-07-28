@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     update_attributes(deleted_at: Time.current, email: nil,
       encrypted_password: nil, active: false)
   end
+  
+  def self.email_exists?(email)
+    User.exists?(email: email)
+  end
 
   # TODO: switch this to a role (once we have roles)
   def is_admin?
