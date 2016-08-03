@@ -422,5 +422,36 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_hidden_from_overview, null: false, default: false
       t.boolean :is_hidden_from_glossary, null: false, default: false
     end
+
+    # Just a very basic version for now; will extend later.
+    create_table :collections do |t|
+      t.string :name, null: false
+      t.text :description
+      t.integer :collection_items_count
+    end
+    add_attachment :collections, :icon
+
+    create_table :collection_items do |t|
+      t.integer :collection_id, null: false, index: true
+      t.string :item_type, null: false, index: true,
+        comment: "indexed because we often want to get/count specific kinds of items"
+      t.integer :item_id, null: false
+      t.integer :position
+    end
+    add_index :collection_items, [:item_type, :item_id], name: "item_index"
+
+    create_table :collection_item_exemplars do |t|
+      t.integer :collection_item_id, null: false, index: true
+      t.string :exemplar_type, null: false, index: true
+      t.integer :exemplar_id, null: false
+      t.integer :position
+    end
+    add_index :collection_item_exemplars, [:exemplar_type, :exemplar_id], name: "exemplar_index"
+
+    create_table :collections_users do |t|
+      t.integer :user_id, null: false, index: true
+      t.integer :collection_id, null: false, index: true
+      t.boolean :is_manager, null: false, default: false
+    end
   end
 end
