@@ -134,8 +134,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "which page the content was *propaged from* (can be == page_id)."
       t.integer :position,
         comment: "the order in which to show the content on the page"
-      t.integer :content_id
-      t.integer :content_type
+      t.references :content, polymorphic: true, index: true, null: false
 
       t.integer :associated_added_by_user_id,
         comment: "no resource added this association, it was added manually"
@@ -155,8 +154,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :page_contents, [:content_id, :content_type],
-      name: "content_fk_index"
 
     create_table :vernaculars do |t|
       t.string :string, null: false,
@@ -210,7 +207,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     # NOTE: the FK is in the content table, which helps us know if there IS a
     # location for a given piece of content.
-    create_table :content_locations do |t|
+    create_table :locations do |t|
       t.string :location
       t.decimal :longitude, precision: 64, scale: 12
       t.decimal :latitude, precision: 64, scale: 12
@@ -230,11 +227,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
 
-      t.string :provider_type, null: false, limit: 10,
-        comment: "User or Resource"
-      t.integer :provider_id, null: false
+      t.references :provider, polymorphic: true, index: true, null: false
 
-      t.string :media_type, null: false, default: "image",
+      t.string :type, null: false, default: "image",
         comment: "enum: image, video, sound"
       t.string :format, null: false, default: "jpg",
         comment: "enum: jpg, youtube, flash, vimeo, mp3, ogg, wav"
@@ -258,16 +253,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :media, [:provider_id, :provider_type],
-      name: "provider_fk_index"
 
     create_table :articles do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
 
-      t.string :provider_type, null: false, limit: 10,
-        comment: "User or Resource"
-      t.integer :provider_id, null: false
+      t.references :provider, polymorphic: true, index: true, null: false
 
       t.integer :license_id, null: false
       t.integer :language_id
@@ -287,16 +278,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :articles, [:provider_id, :provider_type],
-      name: "provider_fk_index"
 
     create_table :links do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
 
-      t.string :provider_type, null: false, limit: 10,
-        comment: "User or Resource"
-      t.integer :provider_id, null: false
+      t.references :provider, polymorphic: true, index: true, null: false
 
       t.integer :language_id
 
@@ -309,16 +296,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :links, [:provider_id, :provider_type],
-      name: "provider_fk_index"
 
     create_table :maps do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
 
-      t.string :provider_type, null: false, limit: 10,
-        comment: "User or Resource"
-      t.integer :provider_id, null: false
+      t.references :provider, polymorphic: true, index: true, null: false
 
       t.integer :license_id, null: false
       t.integer :language_id
@@ -338,8 +321,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :maps, [:provider_id, :provider_type],
-      name: "provider_fk_index"
 
     # There are currently 1,084,941 published data objects with a non-empty
     # citation, out of 7,785,934 objects. Of those, there is a lot of
@@ -358,11 +339,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :contents_references do |t|
       t.integer :reference_id, null: false, index: true
-      t.integer :content_id, null: false
-      t.string :content_type, null: false
+      t.references :content, polymorphic: true, index: true, null: false
     end
-    add_index :contents_references, [:content_id, :content_type],
-      name: "content_fk_index"
 
     create_table :attributions do |t|
       t.string :role, null: false, index: true,
@@ -374,14 +352,33 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :attributions_contents do |t|
       t.integer :attribution_id, null: false, index: true
-      t.integer :content_id, null: false
-      t.string :content_type, null: false
+      t.references :content, polymorphic: true, index: true, null: false
     end
-    add_index :attributions_contents, [:content_id, :content_type],
-      name: "content_fk_index"
+
+    # Really, a "content curation," but that's enough of a default that we leave
+    # off the adjective:
+    create_table :curations do |t|
+      t.integer :user_id, null: false, comment: "the curator"
+      t.references :content, polymorphic: true, index: true, null: false
+
+      t.string :trust, limit: 16, null: false, default: false,
+        comment: "enum: trusted, unreviewed, untrusted"
+      t.boolean :is_incorrect, null: false, default: false,
+        comment: "implies untrusted"
+      t.boolean :is_misidentified, null: false, default: false,
+        comment: "implies untrusted"
+      t.boolean :is_hidden, null: false, default: false
+      t.boolean :is_duplicate, null: false, default: false,
+        comment: "implies hidden"
+      t.boolean :is_low_quality, null: false, default: false,
+        comment: "implies hidden"
+
+      t.timestamps
+    end
 
     create_table :trait_curations do |t|
       t.string :uri, index: true, unique: true
+      t.integer :user_id, null: false, comment: "the curator"
 
       t.string :trust, limit: 16, null: false, default: false,
         comment: "enum: trusted, unreviewed, untrusted"
@@ -407,11 +404,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :contents_sections do |t|
       t.integer :section_id, null: false
-      t.integer :content_id, null: false
-      t.string :content_type, null: false
+      t.references :content, polymorphic: true, index: true, null: false
     end
-    add_index :contents_sections, [:content_id, :content_type],
-      name: "content_fk_index"
 
     create_table :uris do |t|
       t.string :uri, null: false, unique: true, index: true
@@ -433,22 +427,18 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :collection_items do |t|
       t.integer :collection_id, null: false, index: true
-      t.string :item_type, null: false, index: true,
-        comment: "indexed because we often want to get/count specific kinds of items"
-      t.integer :item_id, null: false
+      t.references :item, polymorphic: true, index: true, null: false
       t.integer :position
     end
-    add_index :collection_items, [:item_type, :item_id], name: "item_index"
+    add_index :collection_items, :item_type, name: "item_type_index"
 
     create_table :collection_item_exemplars do |t|
       t.integer :collection_item_id, null: false, index: true
-      t.string :exemplar_type, null: false, index: true
-      t.integer :exemplar_id, null: false
+      t.references :exemplar, polymorphic: true, index: true, null: false
       t.integer :position
     end
-    add_index :collection_item_exemplars, [:exemplar_type, :exemplar_id], name: "exemplar_index"
 
-    create_table :collections_users do |t|
+    create_table :collections_users, id: false do |t|
       t.integer :user_id, null: false, index: true
       t.integer :collection_id, null: false, index: true
       t.boolean :is_manager, null: false, default: false
