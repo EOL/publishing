@@ -7,20 +7,30 @@ class User < ActiveRecord::Base
                                              :google_oauth2, :yahoo]
 
   has_many :open_authentications, dependent: :delete_all
-   
-  validates :username, presence: true,
-   length: { minimum: 4, maximum: 32 }
-    
+  has_many :curations, inverse_of: :user
+  has_many :trait_curations, inverse_of: :user
+  has_many :added_associations, class_name: "PageContent", foreign_key: "association_added_by_user_id"
+
+  has_and_belongs_to_many :partners
+  has_and_belongs_to_many :collections
+  # TODO: this wasn't working, not sure why.
+#   has_and_belongs_to_many :managed_collections,
+#     class_name: "Collection",
+#     association_foreign_key: "collection_id",
+#     -> { where(is_manager: true) }
+
+  validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+
   # NOTE: this is a hook called by Devise
   def after_confirmation
     self.update_attributes(active: true)
   end
-  
+
   def soft_delete
     update_attributes(deleted_at: Time.current, email: nil,
       encrypted_password: nil, active: false)
   end
-  
+
   def self.email_exists?(email)
     User.exists?(email: email)
   end
