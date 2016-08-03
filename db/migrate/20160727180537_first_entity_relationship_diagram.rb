@@ -342,9 +342,14 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.references :content, polymorphic: true, index: true, null: false
     end
 
+    create_table :roles do |t|
+      t.string :name, null: false, comment: "passed to I18n.t"
+
+      t.timestamps
+    end
+
     create_table :attributions do |t|
-      t.string :role, null: false, index: true,
-        comment: "passed to I18n.t"
+      t.integer :role_id, null: false, index: true
       t.text :value, null: false, comment: "html"
 
       t.timestamps
