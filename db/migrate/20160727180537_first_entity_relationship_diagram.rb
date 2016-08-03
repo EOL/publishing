@@ -23,14 +23,14 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table(:resources) do |t|
-      t.integer :content_partner_id, null: false, index: true
+      t.integer :partner_id, null: false, index: true
 
       t.string :name, null: false, comment: "was: title"
       t.string :url,
         comment: "the URL to download the resource froml; was: accesspoint_url"
       t.text :description
       t.text :notes
-      t.integer :nodes_count
+      t.integer :nodes_count, :null => false, :default => 0
       t.boolean :content_trusted_by_default, null: false, default: true,
         comment: "was: vetted"
       t.boolean :browsable, null: false, default: false
@@ -78,9 +78,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :rank_id,
         comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community."
       t.integer :parent_id, index: true, comment: "null means root node"
-      t.integer :lft, index: true,
+      t.integer :lft,
         comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
-      t.integer :rgt, index: true,
+      t.integer :rgt,
         comment: "nested set; rgt is roughly the rightmost set boundary of this node's descendants"
 
       t.string :scientific_name, comment: "denormalized, italics included"
@@ -93,7 +93,18 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.boolean :is_hidden, null: false, default: false
 
+      t.integer :depth, :null => false, :default => 0
+      t.integer :children_count, :null => false, :default => 0
+
       t.timestamps
+    end
+    add_index :nodes, [:resource_id, :rgt], name: "resource_rgt_index"
+    add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
+
+    create_table :ranks do |t|
+      t.string :name, null: false
+      t.string :treat_as,
+        comment: "enum: domain kingdom phylum class order family genus species; when null, rank is ignored"
     end
 
     create_table :node_ancestors do |t|
@@ -106,9 +117,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # Since taxon_remarks are relatively rare (1.4M / 40M), I am going to
-    # suggest that—if we even want it—we store this in a separate table
-    # entirely. No sense in having a text field that is usually empty.
+    # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a
+    # separate table entirely. No sense in having a text field that is usually
+    # empty.
     create_table :taxon_remarks do |t|
       t.integer :node_id, index: true
       t.text :body,
@@ -136,7 +147,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "the order in which to show the content on the page"
       t.references :content, polymorphic: true, index: true, null: false
 
-      t.integer :associated_added_by_user_id,
+      t.integer :association_added_by_user_id,
         comment: "no resource added this association, it was added manually"
 
       # Current curation status (see relationships for history):
@@ -172,13 +183,28 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :vernaculars, [:page_id, :language_id],
       name: "preferred_names_index"
 
+    create_table :taxonomic_status do |t|
+      t.string :name, null: false,
+        comment: "the string provided by the resource to describe the name type; "\
+          "see app/models/taxonomic_status.rb for examples"
+      t.boolean :is_preferred, null: false, default: true
+      t.boolean :is_problematic, null: false, default: false,
+        comment: "when true, should be indicated as dubious on the site"
+      t.boolean :is_accepted, null: false, default: true,
+        comment: "While preffered is always... preferred, these are next in line."
+      t.boolean :can_merge, null: false, default: true,
+        comment: "whether the name is suitable for merges"
+    end
+
     create_table :scientific_names do |t|
       t.integer :node_id, null: false, index: true
       t.integer :page_id, null: false, index: true,
         comment: "denormalized from node; indexed to get all names for a page"
-      t.string :type, null: false, default: "prefered_scientific",
-        comment: "the string provided by the resource to describe the name type; "\
-          "see scientific_name.rb for examples"
+
+      t.integer :taxonomic_status_id, null: false
+      t.boolean :is_preferred, null: false, default: true,
+        comment: "denormalized from taxonomic_status"
+
       t.string :italicized, null: false,
         comment: "finding/applying the italicized pieces out of the normalized form"
       t.string :canonical_form, null: false,
@@ -237,7 +263,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :license_id, null: false
       t.integer :language_id
       t.integer :location_id
-      t.integer :sytlesheet_id
+      t.integer :stylesheet_id
       t.integer :javascript_id
       t.integer :bibliographic_citation_id
 
@@ -263,7 +289,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :license_id, null: false
       t.integer :language_id
       t.integer :location_id
-      t.integer :sytlesheet_id
+      t.integer :stylesheet_id
       t.integer :javascript_id
       t.integer :bibliographic_citation_id
 
@@ -305,7 +331,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.integer :license_id, null: false
       t.integer :language_id
-      t.integer :sytlesheet_id
+      t.integer :stylesheet_id
       t.integer :javascript_id
       t.integer :bibliographic_citation_id
 
@@ -337,7 +363,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :contents_references do |t|
+    create_table :content_references do |t|
       t.integer :reference_id, null: false, index: true
       t.references :content, polymorphic: true, index: true, null: false
     end
@@ -355,7 +381,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :attributions_contents do |t|
+    create_table :content_attributions do |t|
       t.integer :attribution_id, null: false, index: true
       t.references :content, polymorphic: true, index: true, null: false
     end
@@ -364,7 +390,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # off the adjective:
     create_table :curations do |t|
       t.integer :user_id, null: false, comment: "the curator"
-      t.references :content, polymorphic: true, index: true, null: false
+      t.integer :page_content_id, null: false, comment: "the curator"
 
       t.string :trust, limit: 16, null: false, default: false,
         comment: "enum: trusted, unreviewed, untrusted"
@@ -407,7 +433,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "for use either with globalize or as an I18n key"
     end
 
-    create_table :contents_sections do |t|
+    create_table :content_sections do |t|
       t.integer :section_id, null: false
       t.references :content, polymorphic: true, index: true, null: false
     end
