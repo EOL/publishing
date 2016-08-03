@@ -74,9 +74,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :nodes do |t|
       t.integer :resource_id, null: false, index: true
-      t.integer :page_id, null: false, index: true
+      t.integer :page_id, index: true, comment: "null means it hasn't been put on the site yet; should be temporary only"
       t.integer :rank_id,
-        comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community."
+        comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community"
       t.integer :parent_id, index: true, comment: "null means root node"
       t.integer :lft,
         comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
@@ -190,7 +190,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_preferred, null: false, default: true
       t.boolean :is_problematic, null: false, default: false,
         comment: "when true, should be indicated as dubious on the site"
-      t.boolean :is_accepted, null: false, default: true,
+      t.boolean :is_alternative_preferred, null: false, default: false,
         comment: "While preffered is always... preferred, these are next in line."
       t.boolean :can_merge, null: false, default: true,
         comment: "whether the name is suitable for merges"
@@ -201,14 +201,14 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :page_id, null: false, index: true,
         comment: "denormalized from node; indexed to get all names for a page"
 
-      t.integer :taxonomic_status_id, null: false
-      t.boolean :is_preferred, null: false, default: true,
-        comment: "denormalized from taxonomic_status"
-
       t.string :italicized, null: false,
         comment: "finding/applying the italicized pieces out of the normalized form"
       t.string :canonical_form, null: false,
         comment: "pulling out only the canonical form from the normalized form"
+
+      t.integer :taxonomic_status_id, null: false
+      t.boolean :is_preferred, null: false, default: true,
+        comment: "denormalized from taxonomic_status"
 
       t.timestamps
     end
