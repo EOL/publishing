@@ -41,11 +41,21 @@ gem "paperclip", "~> 5.0.0"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Acts As List simplifies ordered lists of models:
+gem 'acts_as_list', '~> 0.7.6'
+
+# Nested set for Node:
+gem 'awesome_nested_set', '~> 3.1.1'
+
+# Counter Culture handled cached counts of things (which we use ALL OVER):
+gem 'counter_culture', '~> 0.1.33'
+
+# Devise handles authentication and some authorization:
 gem 'devise'
 gem 'devise-i18n-views'
-gem 'haml-rails'
-gem 'recaptcha', require: 'recaptcha/rails'
 gem 'devise-encryptable'
+gem 'recaptcha', require: 'recaptcha/rails'
+gem 'haml-rails'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
