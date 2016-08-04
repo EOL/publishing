@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   end
   
   def soft_delete
-    update_attributes(deleted_at: Time.current, email: nil,
+    self.update_attributes!(deleted_at: Time.current, email: nil,
       encrypted_password: nil, active: false)
   end
   

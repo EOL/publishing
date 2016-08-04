@@ -1,4 +1,0 @@
-= @user.username
-- if current_user.try(:can_delete_account?, @user)
-  = button_to I18n.t(:delete_account_button), registration_path(@user),
-    method: :delete, data: { confirm: I18n.t(:are_you_sure_delete_account) }

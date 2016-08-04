@@ -9,7 +9,7 @@ signupApp.directive('passwordMatch', function () {
 		require: 'ngModel',
 		link: function (scope, element, attrs, ctrl) {
 			var firstPassword = '#' + attrs.passwordMatch;
-			element.add(firstPassword).on('keyup', function () {
+			$(element).add(firstPassword).on('keyup', function () {
 				scope.$apply(function () {
 					ctrl.$setValidity('pwmismatch', element.val()===$(firstPassword).val());
 				});
