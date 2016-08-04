@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :users do
     collection do
+      post 'delete_user', defaults: { format: 'json' }
       get 'check_email', defaults: { format: 'json' }
     end
   end
