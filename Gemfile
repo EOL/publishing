@@ -48,7 +48,7 @@ gem 'devise-encryptable'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:
-gem "neography"
+gem "neography", "~> 1.8"
 # OpenAuth logins from our preferred sources:
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -80,7 +80,6 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'factory_girl'
-  gem 'capybara'
   gem 'faker'
   gem 'better_errors'
   gem 'rack_session_access'
