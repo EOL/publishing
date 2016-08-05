@@ -6,5 +6,10 @@ class PageContent < ActiveRecord::Base
 
   has_many :curations
 
+  enum trust: [ :trusted, :unreviewed, :untrusted ]
+
+  # TODO: think about this. We might want to make the scope [:page,
+  # :content_type]... then we can interlace other media types (or always show
+  # them separately, which I think has advantages)
   acts_as_list scope: :page
 end
