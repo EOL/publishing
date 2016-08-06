@@ -1,0 +1,7 @@
+= javascript_include_tag 'materials.js'
+%div{"ng-app": "confirmApp", "ng-controller": "AppMaterials"}
+  = @user.username
+  - if current_user.try(:can_delete_account?, @user)
+    %md-button{'ng-click': "showConfirm($event,#{@user.id},'#{I18n.t(:are_you_sure_delete_account)}')",
+      class: 'md-primary md-raised', remote: "true", authenticity_token: "true" }
+      =  I18n.t(:delete_account_button) 
