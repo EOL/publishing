@@ -43,5 +43,5 @@
       %span{class: 'ng-validation-error',
             'ng-show': "ResetPasswordForm['user[password_confirmation]'].$error.pwdmismatch && !ResetPasswordForm['user[password_confirmation]'].$error.required".html_safe}
         = I18n.t("users.validations.password_confirmation_mismatch")
-    %div= f.submit t(:change_my_password)
+    %div= f.submit t(:change_my_password), 'ng-disabled': 'ResetPasswordForm.$invalid' 
 = render "devise/shared/links"
