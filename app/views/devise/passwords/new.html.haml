@@ -21,5 +21,5 @@
       %span{class: 'ng-validation-error',
                    'ng-show': "ForgetPasswordForm['user[email]'].$error.pattern && ForgetPasswordForm['user[email]'].$touched".html_safe}
         = I18n.t("users.validations.invalid_email")
-    = f.submit t(:send_me_reset_password_instructions)
+    = f.submit t(:send_me_reset_password_instructions), 'ng-disabled': 'ForgetPasswordForm.$invalid' 
 = render "devise/shared/links"
