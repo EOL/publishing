@@ -3,7 +3,7 @@
 class TraitBank
   class < self
     def connection
-      @connection ||= 
+      @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
     end
 
     def trait_exists?(uri)
