@@ -1,11 +1,13 @@
 class Import::Page
   def from_file(name)
+    @resource_nodes = {}
     # Test with name = '/Users/jrice/Downloads/store-328598.json'
     file = File.read(name)
     data = JSON.parse(file)
     # NOTE: You mmmmmmight want to delete everything before you call this, but
     # I'm skipping that now. Sometimes you won't want to, anyway...
     page = Page.create(id: data["id"])
+    page_node = TraitBank.create_page(page.id)
     node = build_node(data["native_node"], page)
     build_sci_name(ital: data["native_node"]["scientific_name"],
       canon: data["native_node"]["canonical_form"], node: node, page: page)
@@ -32,8 +34,18 @@ class Import::Page
           create_uri(t_data["value"]) :
           t_data["value"]
         end
-        Trait.create(page: page, resource: resource, uri: t_data["uri"],
-          predicate: create_uri(t_data["predicate"]), value: value, units: units)
+        resource = create_resource(t_data["resource"])
+        TraitBank.create_trait(page: page_node,
+          resource: @resource_nodes[resource.id],
+          resource_pk: t_data["resource_pk"],
+          scientific_name: t_data["scientific_name"],
+          predicate: t_data["predicate"],
+          source: t_data["source"],
+          measurement: t_data["measurement"],
+          units: t_data["units"],
+          term: t_data["term"],
+          object_page: t_data["object_page"]
+        )
       end
     end
     # TODO json_map ...we don't use it, yet, so leaving for later.
@@ -69,7 +81,19 @@ class Import::Page
   end
 
   def build_article(a_data, node, page, position)
-    build_content(Article, a_data, node: node, page: page, position: position)
+    section = build_section(a_data["section"])
+    build_content(Article, a_data, node: node, page: page, position: position,
+      section: section)
+  end
+
+  def build_section(s_data)
+    if Section.where(name: s_data["name"]).exists?
+      Section.where(name: s_data["name"]).first
+    else
+      parent = s_data["parent"] ? build_section(s_data["parent"]) : nil
+      Section.create(name: s_data["name"], position: s_data["position"],
+        parent: parent)
+    end
   end
 
   def build_map(m_data, node, page, position)
@@ -102,6 +126,7 @@ class Import::Page
       hash[:description] = c_data["description"] if c_data["description"]
       hash[:body] = c_data["body"] if c_data["body"]
       hash[:base_url] = c_data["base_url"] if c_data["base_url"]
+      hash[:section_id] = options[:section].id if options[:section]
       hash[:type] = type if type # Not always needed.
       hash[:format] = ext if ext # Not always needed.
       content = klass.create(hash)
@@ -201,7 +226,9 @@ class Import::Page
       Resource.where(name: name).first
     else
       partner = build_partner(res_data["partner"])
-      Resource.create(name: name, partner_id: partner.id)
+      resource = Resource.create(name: name, partner_id: partner.id)
+      @resource_nodes[resource.id] = TraitBank.create_resource(resource.id)
+      resource
     end
   end
 

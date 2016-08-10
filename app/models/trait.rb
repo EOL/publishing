@@ -4,4 +4,5 @@ class Trait
     def exists?(uri)
       TraitBank.trait_exists?(uri)
     end
+  end
 end
