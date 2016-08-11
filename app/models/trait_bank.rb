@@ -8,7 +8,7 @@
 # this to work, first.
 class TraitBank
 
-  # The Labels, and their expected relationships { and properties (*required) }:
+  # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancesor(Page), parent(Page), trait(Trait) { *page_id }
   # * Trait: supplier(Resource), metadata(MetaData)
