@@ -1,5 +1,11 @@
 # Abstraction between our traits and the implementation of thir storage. ATM, we
 # use neo4j.
+#
+# NOTE: in its current state, this is NOT done! Neography uses a plain hash to
+# store objects, and ultimately we're going to want our own models to represent
+# things. But in these early testing stages, this is adequate. Since this is not
+# its final form, there are no specs yet. ...We need to feel out how we want
+# this to work, first.
 class TraitBank
 
   # The Labels, and their expected relationships { and properties (*required) }:
@@ -21,6 +27,7 @@ class TraitBank
   # Can we create a constraint where a Trait only has one of [measurement, page,
   #   literal, term]?
 
+  # This was my testing code. We'll remove it, soon:
   if false
     connection = TraitBank.connection
     # Set up a few indexes for speed:
@@ -91,8 +98,6 @@ class TraitBank
     # This works to get everything for a page:
     page_id ||= 328674
     traits = TraitBank.page_traits(page_id)
-
-
   end
 
   class << self
@@ -131,14 +136,6 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    # TODO: use this. Shoot.
-    # NODE:
-    def node_exists?(label, traits)
-      pairs = traits.map { |k,v| "#{k}: #{quote(v)}" }.join(", ")
-      res = connection.execute_query("MATCH (match:#{label} { #{pairs} })")
-      # TODO finish
-    end
-
     def page_traits(page_id)
       res = connection.execute_query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait)"\
@@ -148,11 +145,16 @@ class TraitBank
       )
       traits = []
       previous_id = nil
+      # Neography recognizes the objects we get back, but the format is weird
+      # for building pages, so I transform it here (temporarily, for
+      # simplicity):
       res["data"].each do |trait_res|
         resource_id = trait_res[0]["data"]["resource_id"]
         trait = trait_res[1]["data"]
         this_id = "#{resource_id}:#{trait["resource_pk"]}"
         if this_id == previous_id
+          # this conditional actually detects duplicate nodes, which we
+          # shouldn't have but I was getting in early tests:
           traits.last[:metadata] << symbolize_hash(trait_res[2]["data"]) if
             trait_res[2]
         else
