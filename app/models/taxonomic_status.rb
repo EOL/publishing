@@ -3,10 +3,9 @@ class TaxonomicStatus < ActiveRecord::Base
 
   class << self
     def preferred
-      @preferred ||= if exists?(name: "accepted")
-        where(name: "accepted")
-      else
-        create(name: "accepted", is_preferred: true)
+      @preferred ||= where(name: "accepted").first_or_create do |ts|
+        ts.name = "accepted"
+        ts.is_preferred = true
       end
     end
   end
