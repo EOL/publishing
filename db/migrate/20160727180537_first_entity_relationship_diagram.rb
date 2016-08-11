@@ -183,7 +183,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :vernaculars, [:page_id, :language_id],
       name: "preferred_names_index"
 
-    create_table :taxonomic_status do |t|
+    create_table :taxonomic_statuses do |t|
       t.string :name, null: false,
         comment: "the string provided by the resource to describe the name type; "\
           "see app/models/taxonomic_status.rb for examples"
