@@ -136,6 +136,12 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
+    def page_exists?(page_id)
+      res = connection.execute_query("MATCH (page:Page { page_id: #{page_id} })"\
+        "RETURN page")
+      res["data"] ? res["data"].first : false
+    end
+
     def page_traits(page_id)
       res = connection.execute_query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait)"\
@@ -173,7 +179,10 @@ class TraitBank
     end
 
     def create_page(id)
-      page = connection.create_unique_node(page_id: id)
+      if page = page_exists?(id)
+        return page
+      end
+      page = connection.create_node(page_id: id)
       connection.add_label(page, "Page")
       page
     end
