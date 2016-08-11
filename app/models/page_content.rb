@@ -1,8 +1,8 @@
 class PageContent < ActiveRecord::Base
   belongs_to :page
-  belongs_to :source_page, class: "Page"
+  belongs_to :source_page, class_name: "Page"
   belongs_to :content, polymorphic: true
-  belongs_to :association_add_by_user, class: "User"
+  belongs_to :association_add_by_user, class_name: "User"
 
   has_many :curations
 

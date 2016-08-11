@@ -95,6 +95,7 @@ class Import::Page
     end
 
     def build_section(s_data)
+      return nil if s_data.nil?
       Section.where(name: s_data["name"]).first_or_create do |s|
         s.name = s_data["name"]
         s.position = s_data["position"]
@@ -122,19 +123,21 @@ class Import::Page
           resource_pk: c_data["resource_pk"],
           provider: resource,
           license: build_license(c_data["license"]),
-          language: build_language(c_data["language"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
           owner: c_data["owner"],
           name: c_data["name"],
           source_url: c_data["source_url"]
         }
         # Type-specific fields:
-        hash[:description] = c_data["description"] if c_data["description"]
+        hash[:description] = c_data["description"] if
+          c_data["description"]
         hash[:body] = c_data["body"] if c_data["body"]
         hash[:base_url] = c_data["base_url"] if c_data["base_url"]
         hash[:section_id] = options[:section].id if options[:section]
         hash[:type] = type if type # Not always needed.
         hash[:format] = ext if ext # Not always needed.
+        hash[:language] = build_language(c_data["language"]) if
+          c_data["language"]
         content = klass.create(hash)
         PageContent.create(
           page: options["page"],
@@ -247,6 +250,12 @@ class Import::Page
     def build_rank(name)
       Rank.where(name: name).first_or_create do |r|
         r.name = name
+      end
+    end
+
+    def build_citation(citation)
+      BibliographicCitation.where(body: citation).first_or_create do |cit|
+        cit.body = citation
       end
     end
   end

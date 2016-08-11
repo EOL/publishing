@@ -1,5 +1,5 @@
 # Content with a little more
-class Content::Attributed
+module Content::Attributed
   extend ActiveSupport::Concern
 
   included do
@@ -8,6 +8,7 @@ class Content::Attributed
     belongs_to :sytlesheet
     belongs_to :javascript
     belongs_to :bibliographic_citation
+    belongs_to :provider, polymorphic: true # User or Resource
 
     has_many :collection_items, as: :item
     has_many :collection_item_exemplars, as: :exemplar

@@ -299,7 +299,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :body, null: false,
+      t.text :body, null: false,
         comment: "html; run through namelinks; was description_linked"
 
       t.timestamps
