@@ -255,7 +255,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.references :provider, polymorphic: true, index: true, null: false
 
-      t.string :type, null: false, default: "image",
+      t.string :subclass, null: false, default: "image",
         comment: "enum: image, video, sound"
       t.string :format, null: false, default: "jpg",
         comment: "enum: jpg, youtube, flash, vimeo, mp3, ogg, wav"
@@ -273,7 +273,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :description, comment: "html; run through namelinks"
+      t.text :description, comment: "html; run through namelinks"
       t.string :base_url, null: false,
         comment: "for images, you will add size info to this; was: object_url"
 
@@ -315,7 +315,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :description, null: false,
+      t.text :description, null: false,
         comment: "html; run through namelinks; was description_linked"
       t.string :base_url, null: false,
         comment: "icon; you will add size info to this; was: object_url"

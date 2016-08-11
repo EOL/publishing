@@ -8,9 +8,9 @@ class Collection < ActiveRecord::Base
 
   has_and_belongs_to_many :users
   has_and_belongs_to_many :managers,
+    -> { where(is_manager: true) },
     class_name: "User",
-    association_foreign_key: "user_id",
-    -> { where(is_manager: true) }
+    association_foreign_key: "user_id"
 
   has_attached_file :icon
 

@@ -7,6 +7,5 @@ class Page < ActiveRecord::Base
   has_many :vernaculars, inverse_of: :page
   has_many :scientific_names, inverse_of: :page
   has_many :page_contents, inverse_of: :page
-  has_many :contents, through: :page_contents
   # TODO: content types... preferred vernacular... and much more!
 end

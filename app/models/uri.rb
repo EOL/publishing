@@ -3,7 +3,9 @@
 # delighted with this name and may change it. But for now, CamelCase Uri is
 # ours; upper URI is theirs.
 class Uri < ActiveRecord::Base
-  def is_uri?
-    url =~ URI::regexp
+  class << self
+    def is_uri?(url)
+      url =~ URI::regexp
+    end
   end
 end
