@@ -79,8 +79,10 @@ end
 
 group :test do
   gem 'rspec-rails'
+
+  gem 'better_errors'
+  gem 'capybara'
   gem 'factory_girl'
   gem 'faker'
-  gem 'better_errors'
   gem 'rack_session_access'
 end
