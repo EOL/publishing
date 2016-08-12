@@ -18,4 +18,22 @@ RSpec.describe Page do
     end
   end
 
+  context "with many scientific names" do
+    let!(:our_page) { create(:page) }
+    let!(:name1) { create(:scientific_name, node: our_page.native_node) }
+    let!(:pref_name) do
+      create(:preferred_scientific_name, node: our_page.native_node)
+    end
+    let!(:name2) { create(:scientific_name, node: our_page.native_node) }
+
+    it "should select the preferred vernacular" do
+      expect(our_page.name).to eq(pref_name)
+    end
+
+    it "should have access to all names" do
+      expect(our_page.scientific_names).to include(name1)
+      expect(our_page.scientific_names).to include(name2)
+      expect(our_page.scientific_names).to include(pref_name)
+    end
+  end
 end
