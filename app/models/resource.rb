@@ -6,4 +6,12 @@ class Resource < ActiveRecord::Base
   has_many :links, as: :provider
   has_many :maps, as: :provider
   has_many :media, as: :provider
+
+  class << self
+    def native
+      where(name: "EOL Dynamic Working Hierarchy").first_or_create do |r|
+        r.name = "EOL Dynamic Working Hierarchy"
+      end
+    end
+  end
 end
