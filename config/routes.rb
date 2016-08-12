@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # Putting pages first only because it's the most common:
+  resources :pages, only: [:show]
+
   devise_for :users, controllers: { registrations: "user/registrations" ,
                                     sessions: 'user/sessions',
                                     omniauth_callbacks: "user/omniauth_callbacks"}
