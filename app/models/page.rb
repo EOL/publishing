@@ -11,7 +11,7 @@ class Page < ActiveRecord::Base
   has_one :scientific_name, -> { where(is_preferred: true) },
     class_name: "ScientificName"
 
-  has_many :page_contents, -> { order(:position) }, as: :page
+  has_many :page_contents, -> { order(:position) }
   # TODO: test that the order is honored, here.
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,

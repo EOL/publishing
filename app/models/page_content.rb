@@ -8,6 +8,9 @@ class PageContent < ActiveRecord::Base
 
   enum trust: [ :trusted, :unreviewed, :untrusted ]
 
+  # You can also use page.media, but this is here too:
+  scope :media, -> { where(content_type: "Medium") }
+
   # TODO: think about this. We might want to make the scope [:page,
   # :content_type]... then we can interlace other media types (or always show
   # them separately, which I think has advantages)
