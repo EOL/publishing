@@ -8,20 +8,25 @@ class Page < ActiveRecord::Base
   has_many :preferred_vernaculars, -> { where(is_preferred: true) },
     class_name: "Vernacular"
   has_many :scientific_names, inverse_of: :page
-  has_one :name, -> { where(is_preferred: true) }, class_name: "ScientificName"
+  has_one :scientific_name, -> { where(is_preferred: true) },
+    class_name: "ScientificName"
 
   has_many :page_contents, -> { order(:position) }, as: :page
   # TODO: test that the order is honored, here.
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
-  has_many :articles, through: :page_contents, source: :content, source_type: "Article"
-  has_many :media, through: :page_contents, source: :content, source_type: "Medium"
-  has_many :links, through: :page_contents, source: :content, source_type: "Link"
+  has_many :articles, through: :page_contents,
+    source: :content, source_type: "Article"
+  has_many :media, through: :page_contents,
+    source: :content, source_type: "Medium"
+  has_many :links, through: :page_contents,
+    source: :content, source_type: "Link"
 
   scope :preloaded, -> do
-    includes(:name, :preferred_vernaculars)
+    includes(:scientific_name, :preferred_vernaculars)
   end
 
-  def common_name(language = nil)
+  # Can't (easily) use clever associations here because of language.
+  def name(language = nil)
     language ||= Language.english
     preferred_vernaculars.find { |v| v.language_id == language.id }
   end
