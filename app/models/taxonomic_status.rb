@@ -1,5 +1,15 @@
 class TaxonomicStatus < ActiveRecord::Base
   has_many :scientific_names, inverse_of: :taxonomic_status
+
+  class << self
+    def preferred
+      @preferred ||= where(name: "accepted").first_or_create do |ts|
+        ts.name = "accepted"
+        ts.is_preferred = true
+      end
+    end
+  end
+
   # As of this writing, the following were the known "types":
   # | accepted                              | <- implies preferred
   # | accepted name                         | <- implies preferred

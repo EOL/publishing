@@ -2,6 +2,7 @@ module Content
   extend ActiveSupport::Concern
 
   included do
+    include Content
     belongs_to :provider, polymorphic: true # User or Resource
     belongs_to :language
 

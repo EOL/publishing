@@ -3,4 +3,6 @@ class ScientificName < ActiveRecord::Base
   belongs_to :taxonomic_status, inverse_of: :scientific_names
   # DENORMALIZED:
   belongs_to :page, inverse_of: :scientific_names
+
+  scope :preferred, -> { where(is_preferred: true) }
 end

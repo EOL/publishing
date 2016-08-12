@@ -33,7 +33,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :nodes_count, :null => false, :default => 0
       t.boolean :content_trusted_by_default, null: false, default: true,
         comment: "was: vetted"
-      t.boolean :browsable, null: false, default: false
+      t.boolean :is_browsable, null: false, default: false
       t.boolean :has_duplicate_nodes, null: false, default: false
 
       t.integer :default_language_id
@@ -173,9 +173,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :node_id, null: false, index: true
       t.integer :page_id, null: false, index: true,
         comment: "denormalized from node; indexed to get all names on page"
-      t.boolean :preferred, null: false, default: false,
+      t.boolean :is_preferred, null: false, default: false,
         comment: "should only be one true per language per page_id"
-      t.boolean :preferred_by_resource, null: false, default: false
+      t.boolean :is_preferred_by_resource, null: false, default: false
       t.boolean :is_hidden, null: false, default: false
 
       t.timestamps
@@ -183,7 +183,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :vernaculars, [:page_id, :language_id],
       name: "preferred_names_index"
 
-    create_table :taxonomic_status do |t|
+    create_table :taxonomic_statuses do |t|
       t.string :name, null: false,
         comment: "the string provided by the resource to describe the name type; "\
           "see app/models/taxonomic_status.rb for examples"
@@ -255,7 +255,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.references :provider, polymorphic: true, index: true, null: false
 
-      t.string :type, null: false, default: "image",
+      t.string :subclass, null: false, default: "image",
         comment: "enum: image, video, sound"
       t.string :format, null: false, default: "jpg",
         comment: "enum: jpg, youtube, flash, vimeo, mp3, ogg, wav"
@@ -273,7 +273,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :description, comment: "html; run through namelinks"
+      t.text :description, comment: "html; run through namelinks"
       t.string :base_url, null: false,
         comment: "for images, you will add size info to this; was: object_url"
 
@@ -299,7 +299,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :body, null: false,
+      t.text :body, null: false,
         comment: "html; run through namelinks; was description_linked"
 
       t.timestamps
@@ -315,7 +315,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, comment: "was: title"
       t.string :source_url
-      t.string :description, null: false,
+      t.text :description, null: false,
         comment: "html; run through namelinks; was description_linked"
       t.string :base_url, null: false,
         comment: "icon; you will add size info to this; was: object_url"
