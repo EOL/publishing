@@ -7,8 +7,14 @@ RSpec.describe Page do
     let!(:pref_name) { create(:vernacular, node: our_page.native_node, is_preferred: true) }
     let!(:name2) { create(:vernacular, node: our_page.native_node) }
 
-    it 'should select the preferred vernacular' do
+    it "should select the preferred vernacular" do
       expect(our_page.common_name).to eq(pref_name)
+    end
+
+    it "should have access to all names" do
+      expect(our_page.vernaculars).to include(name1)
+      expect(our_page.vernaculars).to include(name2)
+      expect(our_page.vernaculars).to include(pref_name)
     end
   end
 
