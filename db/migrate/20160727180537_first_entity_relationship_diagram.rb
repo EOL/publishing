@@ -33,7 +33,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :nodes_count, :null => false, :default => 0
       t.boolean :content_trusted_by_default, null: false, default: true,
         comment: "was: vetted"
-      t.boolean :browsable, null: false, default: false
+      t.boolean :is_browsable, null: false, default: false
       t.boolean :has_duplicate_nodes, null: false, default: false
 
       t.integer :default_language_id
@@ -173,9 +173,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :node_id, null: false, index: true
       t.integer :page_id, null: false, index: true,
         comment: "denormalized from node; indexed to get all names on page"
-      t.boolean :preferred, null: false, default: false,
+      t.boolean :is_preferred, null: false, default: false,
         comment: "should only be one true per language per page_id"
-      t.boolean :preferred_by_resource, null: false, default: false
+      t.boolean :is_preferred_by_resource, null: false, default: false
       t.boolean :is_hidden, null: false, default: false
 
       t.timestamps

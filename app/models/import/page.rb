@@ -204,8 +204,9 @@ class Import::Page
         v.language_id = lang.id
         v.node_id = node.id
         v.page_id = @page.id
-        v.preferred = v_data["preferred"]
-        v.preferred_by_resource = v_data["preferred"]
+        # TODO: Hmmmn... I was getting more than one per page per language. :S
+        v.is_preferred = v_data["preferred"]
+        v.is_preferred_by_resource = v_data["preferred"]
       end
     end
 
