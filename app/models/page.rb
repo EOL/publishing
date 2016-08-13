@@ -42,6 +42,9 @@ class Page < ActiveRecord::Base
     through: :all_page_contents, source: :content, source_type: "Medium"
 
   # Will return an array, even when there's only one, thus the plural names.
+  # TODO: I don't like this. It means "figuring out" which are the top things
+  # every single time the page is loaded, where we should probably have that
+  # information denormalized and clear it whenever new candidates are added.
   has_many :top_maps, -> { limit(1) }, through: :page_contents, source: :content,
     source_type: "Map"
   has_many :top_articles, -> { limit(1) }, through: :page_contents,

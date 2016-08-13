@@ -3,6 +3,15 @@
 %ul
   - @page.top_images.each do |image|
     %li
-      = image.license.name
-      = image.owner
       = image_tag(image.base_url + "_580_360.jpg", alt: image.name.html_safe)
+      %br/
+      = image.license.name
+      = image.owner.html_safe
+- article = @page.top_articles.first
+- name = article.name.html_safe
+- name = article.sections.first.name if name.blank? || name.empty?
+.article
+  %h3= name
+  = article.body.html_safe
+  = article.license.name
+  = article.owner.html_safe
