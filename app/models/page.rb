@@ -41,19 +41,20 @@ class Page < ActiveRecord::Base
   has_many :all_sounds, -> { where(subclass: Medium.subclasses[:sounds]) },
     through: :all_page_contents, source: :content, source_type: "Medium"
 
-  has_many :top_map, -> { limit(1) }, through: :page_contents, source: :content,
+  # Will return an array, even when there's only one, thus the plural names.
+  has_many :top_maps, -> { limit(1) }, through: :page_contents, source: :content,
     source_type: "Map"
-  has_many :top_article, -> { limit(1) }, through: :page_contents,
+  has_many :top_articles, -> { limit(1) }, through: :page_contents,
     source: :content, source_type: "Article"
   has_many :top_links, -> { limit(6) }, through: :page_contents,
     source: :content, source_type: "Link"
   has_many :top_images,
     -> { where(subclass: Medium.subclasses[:image]).limit(6) },
     through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_video,
+  has_many :top_videos,
     -> { where(subclass: Medium.subclasses[:videos]).limit(1) },
     through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_sound,
+  has_many :top_sounds,
     -> { where(subclass: Medium.subclasses[:sounds]).limit(1) },
     through: :page_contents, source: :content, source_type: "Medium"
 
