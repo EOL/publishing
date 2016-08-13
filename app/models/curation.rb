@@ -6,5 +6,5 @@ class Curation < ActiveRecord::Base
   # TODO: I don't think this will work:
   has_one :contents, through: :page_content
 
-  enum trust: [ :trusted, :unreviewed, :untrusted ]
+  enum trust: [ :unreviewed, :trusted, :untrusted ]
 end

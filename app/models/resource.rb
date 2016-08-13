@@ -8,6 +8,8 @@ class Resource < ActiveRecord::Base
   has_many :maps, as: :provider
   has_many :media, as: :provider
 
+  enum publish_status: [ :unpublished, :publishing, :published, :deprecated ]
+
   class << self
     def native
       where(name: "Dynamic Working Hierarchy").first_or_create do |r|

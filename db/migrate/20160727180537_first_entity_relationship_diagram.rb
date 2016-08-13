@@ -46,7 +46,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.datetime :last_published_at
       t.integer :last_publish_seconds
-      t.string :publish_status, comment: "enum"
+      t.integer :publish_status,
+        comment: "enum: unpublished, publishing, published, deprecated"
 
       t.integer :dataset_license_id,
         comment: "applies to the set of data itself (not its individual members)"
@@ -103,8 +104,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :ranks do |t|
       t.string :name, null: false
-      t.string :treat_as,
-        comment: "enum: domain kingdom phylum class order family genus species; when null, rank is ignored"
+      t.integer :treat_as, default: nil,
+        comment: "enum: r_domain r_kingdom r_phylum r_class r_order r_family r_genus r_species; when null, rank is ignored"
     end
 
     create_table :node_ancestors do |t|
@@ -151,8 +152,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "no resource added this association, it was added manually"
 
       # Current curation status (see relationships for history):
-      t.string :trust, limit: 16, null: false, default: false,
-        comment: "enum: trusted, unreviewed, untrusted"
+      t.integer :trust, null: false, default: false,
+        comment: "enum: unreviewed, trusted, unreviewed, untrusted"
       t.boolean :is_incorrect, null: false, default: false,
         comment: "implies untrusted"
       t.boolean :is_misidentified, null: false, default: false,
@@ -165,6 +166,10 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index(:page_contents, [:page_id, :content_type],
+      name: "page_content_by_type_index")
+    add_index(:page_contents, [:page_id, :content_type, :content_id],
+      name: "effective_pk", unique: true)
 
     create_table :vernaculars do |t|
       t.string :string, null: false,
@@ -255,9 +260,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.references :provider, polymorphic: true, index: true, null: false
 
-      t.string :subclass, null: false, default: "image",
+      t.integer :subclass, null: false, default: 0, index: true,
         comment: "enum: image, video, sound"
-      t.string :format, null: false, default: "jpg",
+      t.integer :format, null: false, default: 0,
         comment: "enum: jpg, youtube, flash, vimeo, mp3, ogg, wav"
 
       t.integer :license_id, null: false
@@ -392,8 +397,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :user_id, null: false, comment: "the curator"
       t.integer :page_content_id, null: false, comment: "the curator"
 
-      t.string :trust, limit: 16, null: false, default: false,
-        comment: "enum: trusted, unreviewed, untrusted"
+      t.integer :trust, null: false, default: 0,
+        comment: "enum: unreviewed, trusted, untrusted"
       t.boolean :is_incorrect, null: false, default: false,
         comment: "implies untrusted"
       t.boolean :is_misidentified, null: false, default: false,
@@ -411,8 +416,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :uri, index: true, unique: true
       t.integer :user_id, null: false, comment: "the curator"
 
-      t.string :trust, limit: 16, null: false, default: false,
-        comment: "enum: trusted, unreviewed, untrusted"
+      t.integer :trust, null: false, default: 0,
+        comment: "enum: unreviewed, trusted, untrusted"
       t.boolean :is_incorrect, null: false, default: false,
         comment: "implies untrusted"
       t.boolean :is_misidentified, null: false, default: false,
