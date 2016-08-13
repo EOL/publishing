@@ -6,10 +6,29 @@ class PageContent < ActiveRecord::Base
 
   has_many :curations
 
-  enum trust: [ :trusted, :unreviewed, :untrusted ]
+  default_scope { order(:position) }
 
-  # You can also use page.media, but this is here too:
+  enum trust: [ :unreviewed, :trusted, :untrusted ]
+
+  scope :visible, -> { where(is_hidden: false) }
+  scope :hidden, -> { where(is_hidden: true) }
+
+  scope :trusted, -> { where(trust: PageContent.trusts[:trusted]) }
+  scope :untrusted, -> { where(trust: PageContent.trusts[:untrusted]) }
+  scope :not_untrusted, -> { where.not(trust: PageContent.trusts[:untrusted]) }
+
+  scope :articles, -> { where(content_type: "Article") }
+
   scope :media, -> { where(content_type: "Medium") }
+  scope :media_by_subclass, -> subclass {
+    Medium.where(id: joins("JOIN media ON (media.id = "\
+      "page_contents.content_id AND media.subclass = "\
+      "'#{Medium.subclasses[subclass]}')").
+    where(content_type: "Medium").pluck(:content_id)) }
+  scope :images, -> { media_by_subclass(:image) }
+  scope :sounds, -> { media_by_subclass(:sound) }
+  scope :videos, -> { media_by_subclass(:video) }
+
 
   # TODO: think about this. We might want to make the scope [:page,
   # :content_type]... then we can interlace other media types (or always show

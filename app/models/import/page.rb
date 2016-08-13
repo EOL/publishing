@@ -107,6 +107,7 @@ class Import::Page
 
     def build_content(klass, c_data, options = {})
       subclass = options[:subclass] || c_data.delete("type")
+      debugger if $FOO
       ext = options[:format] || c_data.delete("format")
       # NOTE this only allows us to import ONE version of a single GUID, but
       # that's desirable: the website is intended to only contain published
@@ -144,18 +145,19 @@ class Import::Page
           content: content,
           trust: :trusted
         )
-        options[:node].ancestors.each do |ancestor|
-          # TODO: we will have to figure out a proper algorithm for position. :S
-          pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
-          pos += 1
-          PageContent.create(
-            page_id: ancestor.page_id,
-            source_page: @page,
-            position: pos,
-            content: content,
-            trust: :trusted
-          )
-        end
+        # TODO: this wasn't working, and isn't needed yet.
+        # options[:node].ancestors.each do |ancestor|
+        #   # TODO: we will have to figure out a proper algorithm for position. :S
+        #   pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
+        #   pos += 1
+        #   PageContent.create(
+        #     page_id: ancestor.page_id,
+        #     source_page: @page,
+        #     position: pos,
+        #     content: content,
+        #     trust: :trusted
+        #   )
+        # end
         content
       end
     end
