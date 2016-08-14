@@ -103,7 +103,8 @@ class Page < ActiveRecord::Base
     glossary = Uri.where(uri: uris.to_a)
     @glossary = Hash[ *glossary.map { |u| [ u.uri, u ] }.flatten ]
     @traits = traits.sort do |a,b|
-      @glossary[a[:predicate]].name <=> @glossary[b[:predicate]].name
+      @glossary[a[:predicate]].name.downcase <=>
+        @glossary[b[:predicate]].name.downcase
     end
   end
 end
