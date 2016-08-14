@@ -68,5 +68,38 @@ RSpec.describe Page do
       expect(our_page.articles).to include(summary)
       expect(our_page.articles).to include(other_article)
     end
+
+  end
+
+  context "with traits" do
+    let(:our_page) { create(:page) }
+    let(:predicate1) { create(:uri, name: "First predicate" )}
+    let(:predicate2) { create(:uri, name: "Second predicate" )}
+    let(:units) { create(:uri, name: "Units URI" )}
+    let(:term) { create(:uri, name: "Term 1 URI" )}
+    let(:traits_out_of_order) do
+      [
+        { predicate: predicate2.uri,
+          resource_pk: "4003",
+          term: term.uri,
+          metadata: nil },
+        { predicate: predicate1.uri,
+            resource_pk: "745",
+            source: "Source One",
+            units: units.uri,
+            measurement: "10.428",
+            metadata: nil },
+      ]
+    end
+
+    it "orders traits" do
+      allow(TraitBank).to receive(:page_traits) { traits_out_of_order }
+      traits = our_page.traits
+      expect(traits.first[:predicate]).to eq(predicate1.uri)
+    end
+
+    it "builds a glossary" do
+      expect(our_page.glossary.keys).to include(predicate1.uri)
+    end
   end
 end

@@ -70,10 +70,10 @@ class Page < ActiveRecord::Base
       :videos, :sounds, :articles, :maps, :links)
   end
 
-  # Can't (easily) use clever associations here because of language.
-  def name(language = nil)
-    language ||= Language.english
-    preferred_vernaculars.find { |v| v.language_id == language.id }
+  def glossary
+    return @glossary if @glossary
+    traits
+    @glossary
   end
 
   # Without touching the DB:
@@ -82,9 +82,27 @@ class Page < ActiveRecord::Base
     page.page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
+  # Can't (easily) use clever associations here because of language.
+  def name(language = nil)
+    language ||= Language.english
+    preferred_vernaculars.find { |v| v.language_id == language.id }
+  end
+
   # TODO: we want to be able to order and limit these! :S
   # NOTE: not used or spec'ed yet.
   def traits
-    TraitBank.page_traits(id)
+    return @traits if @traits
+    traits = TraitBank.page_traits(id)
+    uris = Set.new
+    traits.flat_map do |trait|
+      uris << trait[:predicate]
+      uris << trait[:units] if trait[:units]
+      uris << trait[:term] if trait[:term]
+    end
+    glossary = Uri.where(uri: uris.to_a)
+    @glossary = Hash[ *glossary.map { |u| [ u.uri, u ] }.flatten ]
+    @traits = traits.sort do |a,b|
+      @glossary[a[:predicate]].name <=> @glossary[b[:predicate]].name
+    end
   end
 end
