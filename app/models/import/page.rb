@@ -36,6 +36,7 @@ class Import::Page
         resource = build_resource(t_data["resource"])
         next if resource.nil? # NOTE: we don't import user-added data.
         unless Trait.exists?(resource.id, t_data["resource_pk"])
+          create_uri(t_data["predicate"])
           units = create_uri(t_data["units"]) if t_data["units"]
           create_uri(t_data["term"]) if Uri.is_uri?(t_data["term"])
           TraitBank.create_trait(page: page_node,
