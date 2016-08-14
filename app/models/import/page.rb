@@ -48,6 +48,7 @@ class Import::Page
             measurement: t_data["measurement"],
             units: t_data["units"],
             term: t_data["term"],
+            literal: t_data["literal"],
             object_page: t_data["object_page"]
           )
         end

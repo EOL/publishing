@@ -88,8 +88,9 @@ class Page < ActiveRecord::Base
     preferred_vernaculars.find { |v| v.language_id == language.id }
   end
 
-  # TODO: we want to be able to order and limit these! :S
-  # NOTE: not used or spec'ed yet.
+  # TODO: ideally we want to be able to limit these! ...but that's really hard,
+  # and ATM the query is pretty fast even for >100 traits, so we're not doing
+  # that yet.
   def traits
     return @traits if @traits
     traits = TraitBank.page_traits(id)

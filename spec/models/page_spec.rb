@@ -89,7 +89,7 @@ RSpec.describe Page do
             source: "Source One",
             units: units.uri,
             measurement: "10.428",
-            metadata: nil },
+            metadata: nil }
       ]
     end
 
