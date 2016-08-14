@@ -15,3 +15,23 @@
   = article.body.html_safe
   = article.license.name
   = article.owner.html_safe
+%table.trait_overview
+  %tbody
+    - grouped_traits = @page.traits.group_by { |t| t[:predicate] }
+    -# TODO: helper
+    - grouped_traits.keys.sort { |a,b| @page.glossary[a].name <=> @page.glossary[b].name }[0..9].each do |uri|
+      %tr
+        %th= @page.glossary[uri].name
+        %td
+          - grouped_traits[uri].each do |trait|
+            - if trait[:measurement]
+              = trait[:measurement]
+              = @page.glossary[trait[:units]].name
+            - elsif trait[:term]
+              = @page.glossary[trait[:term]].name
+            - elsif trait[:literal]
+              = trait[:literal].html_safe
+            - else
+              Augh! Could not find a displayable value from keys of:
+              = trait.keys.join(", ")
+            %br/
