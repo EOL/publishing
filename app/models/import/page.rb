@@ -36,18 +36,18 @@ class Import::Page
         resource = build_resource(t_data["resource"])
         next if resource.nil? # NOTE: we don't import user-added data.
         unless Trait.exists?(resource.id, t_data["resource_pk"])
-          create_uri(t_data["predicate"])
+          pred = create_uri(t_data["predicate"])
           units = create_uri(t_data["units"]) if t_data["units"]
-          create_uri(t_data["term"]) if Uri.is_uri?(t_data["term"])
+          term = create_uri(t_data["term"]) if t_data["term"]
           TraitBank.create_trait(page: page_node,
             supplier: @resource_nodes[resource.id],
             resource_pk: t_data["resource_pk"],
             scientific_name: t_data["scientific_name"],
-            predicate: t_data["predicate"],
+            predicate: pred.uri,
             source: t_data["source"],
             measurement: t_data["measurement"],
-            units: t_data["units"],
-            term: t_data["term"],
+            units: units ? units.uri : nil,
+            term: term ? term.uri : nil,
             literal: t_data["literal"],
             object_page: t_data["object_page"]
           )
@@ -56,11 +56,16 @@ class Import::Page
       # TODO json_map ...we don't use it, yet, so leaving for later.
     end
 
-    def create_uri(term)
-      Uri.where(uri: term).first_or_create do |uri|
-        uri.name = term.sub(/^.*\//, "").underscore.humanize
-        uri.uri = term
-        # uri.definition = u_data["definition"] TODO
+    def create_uri(u_data)
+      Uri.where(uri: u_data["uri"]).first_or_create do |uri|
+        uri.name = u_data["name"]
+        uri.uri = u_data["uri"]
+        uri.name = u_data["name"]
+        uri.definition = u_data["definition"]
+        uri.comment = u_data["comment"]
+        uri.attribution = u_data["attribution"]
+        uri.is_hidden_from_overview = u_data["is_hidden_from_overview"]
+        uri.is_hidden_from_glossary = u_data["is_hidden_from_glossary"]
       end
     end
 
@@ -109,7 +114,6 @@ class Import::Page
 
     def build_content(klass, c_data, options = {})
       subclass = options[:subclass] || c_data.delete("type")
-      debugger if $FOO
       ext = options[:format] || c_data.delete("format")
       # NOTE this only allows us to import ONE version of a single GUID, but
       # that's desirable: the website is intended to only contain published
