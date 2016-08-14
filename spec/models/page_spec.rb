@@ -77,6 +77,7 @@ RSpec.describe Page do
     let(:predicate2) { create(:uri, name: "Second predicate" )}
     let(:units) { create(:uri, name: "Units URI" )}
     let(:term) { create(:uri, name: "Term 1 URI" )}
+    # This is a "fake" response from TraitBank (which normally needs neo4j)
     let(:traits_out_of_order) do
       [
         { predicate: predicate2.uri,
@@ -99,7 +100,11 @@ RSpec.describe Page do
     end
 
     it "builds a glossary" do
+      allow(TraitBank).to receive(:page_traits) { traits_out_of_order }
       expect(our_page.glossary.keys).to include(predicate1.uri)
+      expect(our_page.glossary.keys).to include(predicate2.uri)
+      expect(our_page.glossary.keys).to include(units.uri)
+      expect(our_page.glossary.keys).to include(term.uri)
     end
   end
 end
