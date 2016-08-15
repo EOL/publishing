@@ -6,12 +6,15 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "user/registrations" ,
                                     sessions: 'user/sessions',
                                     omniauth_callbacks: "user/omniauth_callbacks"}
+
   resources :open_authentications, only: [:new, :create]
   resources :users do
     collection do
       get 'check_email', defaults: { format: 'json' }
     end
   end
+  resources :traits, only: [:show] # TODO: more coming later...
+
   root 'users#index'
 
   # Example of regular route:

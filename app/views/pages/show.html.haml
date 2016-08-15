@@ -21,7 +21,8 @@
     -# TODO: helper
     - grouped_traits.keys.sort { |a,b| @page.glossary[a].name <=> @page.glossary[b].name }[0..9].each do |uri|
       %tr
-        %th= @page.glossary[uri].name
+        - predicate = @page.glossary[uri]
+        %th= link_to(predicate.name, trait_path(predicate.id))
         %td
           - grouped_traits[uri].each do |trait|
             - if trait[:measurement]
