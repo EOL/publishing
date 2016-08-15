@@ -93,15 +93,8 @@ class Page < ActiveRecord::Base
   # that yet.
   def traits
     return @traits if @traits
-    traits = TraitBank.page_traits(id)
-    uris = Set.new
-    traits.flat_map do |trait|
-      uris << trait[:predicate]
-      uris << trait[:units] if trait[:units]
-      uris << trait[:term] if trait[:term]
-    end
-    glossary = Uri.where(uri: uris.to_a)
-    @glossary = Hash[ *glossary.map { |u| [ u.uri, u ] }.flatten ]
+    traits = TraitBank.by_page(id)
+    @glossary = TraitBank.glossary(traits)
     @traits = traits.sort do |a,b|
       @glossary[a[:predicate]].name.downcase <=>
         @glossary[b[:predicate]].name.downcase

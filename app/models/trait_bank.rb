@@ -14,7 +14,7 @@ class TraitBank
   # * Trait: supplier(Resource), metadata(MetaData)
   #     { *resource_pk, *scientific_name, *predicate,
   #       statistical_method, sex, lifestage, source, measurement, units,
-  #       object_page, literal, term }
+  #       object_page_id, literal, term }
   # * MetaData: { *predicate, measurement, units, lietral, term }
 
   # Indexes (TODO: probably expand on this):
@@ -24,8 +24,8 @@ class TraitBank
   # CREATE INDEX ON :MetaData(predicate);
   # CREATE CONSTRAINT ON (o:Page) ASSERT o.id IS UNIQUE;
   # CREATE CONSTRAINT ON (o:Trait) ASSERT o.resource_id, o.resource_pk IS UNIQUE;
-  # Can we create a constraint where a Trait only has one of [measurement, page,
-  #   literal, term]?
+  # Can we create a constraint where a Trait only has one of [measurement,
+  #   object_page_id, literal, term]?
 
   # This was my testing code. We'll remove it, soon:
   if false
@@ -97,7 +97,7 @@ class TraitBank
     res = connection.execute_query("MATCH (page:Page { page_id: 328674 }) RETURN page")
     # This works to get everything for a page:
     page_id ||= 328674
-    traits = TraitBank.page_traits(page_id)
+    traits = TraitBank.by_page(page_id)
   end
 
   class << self
@@ -142,36 +142,72 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def page_traits(page_id)
+    def by_page(page_id)
       res = connection.execute_query(
-        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait)"\
+        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta) "\
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
         "RETURN resource, trait, meta"
       )
-      traits = []
-      previous_id = nil
       # Neography recognizes the objects we get back, but the format is weird
       # for building pages, so I transform it here (temporarily, for
       # simplicity):
-      res["data"].each do |trait_res|
-        resource_id = trait_res[0]["data"]["resource_id"]
-        trait = trait_res[1]["data"]
+      build_trait_array(res, [:resource, :trait, :meta])
+    end
+
+    def by_predicate(predicate)
+      res = connection.execute_query(
+        "MATCH (page:Page)-[:trait]->(trait:Trait { predicate: \"#{predicate}\" })"\
+          "-[:supplier]->(resource:Resource) "\
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
+        "RETURN resource, trait, page, meta"
+      )
+      build_trait_array(res, [:resource, :trait, :page, :meta])
+    end
+
+    # The problem is that the results are in a kind of "table" format, where
+    # columns on the left are duplicated to allow for multiple values on the
+    # right. This detects those duplicates to add them (as an array) to the
+    # trait, and adds all of the other data together into one object meant to
+    # represent a single trait, and then returns an array of those traits. It's
+    # really not as complicated as it seems! This is mostly bookkeeping.
+    def build_trait_array(results, cols)
+      traits = []
+      previous_id = nil
+      resource_col = cols.find_index(:resource)
+      trait_col = cols.find_index(:trait)
+      page_col = cols.find_index(:page)
+      meta_col = cols.find_index(:meta)
+      results["data"].each do |trait_res|
+        resource_id = trait_res[resource_col]["data"]["resource_id"]
+        trait = trait_res[trait_col]["data"]
+        page = page_col ? trait_res[page_col]["data"] : nil
+        meta_data = trait_res[meta_col] ? trait_res[meta_col]["data"] : nil
         this_id = "#{resource_id}:#{trait["resource_pk"]}"
+        this_id += ":#{page["page_id"]}" if page
         if this_id == previous_id
-          # this conditional actually detects duplicate nodes, which we
-          # shouldn't have but I was getting in early tests:
-          traits.last[:metadata] << symbolize_hash(trait_res[2]["data"]) if
-            trait_res[2]
+          # the conditional at the end of this phrase actually detects duplicate
+          # nodes, which we shouldn't have but I was getting in early tests:
+          traits.last[:metadata] << symbolize_hash(meta_data) if meta_data
         else
-          trait[:metadata] = trait_res[2] ?
-            [ symbolize_hash(trait_res[2]["data"]) ] :
-            nil
+          trait[:metadata] = meta_data ? [ symbolize_hash(meta_data) ] : nil
+          trait[:page_id] = page["page_id"] if page
           traits << symbolize_hash(trait)
         end
         previous_id = this_id
       end
       traits
+    end
+
+    def glossary(traits)
+      uris = Set.new
+      traits.each do |trait|
+        uris << trait[:predicate] if trait[:predicate]
+        uris << trait[:units] if trait[:units]
+        uris << trait[:term] if trait[:term]
+      end
+      glossary = Uri.where(uri: uris.to_a)
+      Hash[ *glossary.map { |u| [ u.uri, u ] }.flatten ]
     end
 
     def symbolize_hash(hash)
