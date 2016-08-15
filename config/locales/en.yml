@@ -53,6 +53,7 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  uri_definition_blank: "No one has defined this trait yet."
   users:
     validations:
       empty_username_error: "Username cannot be empty"
