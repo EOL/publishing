@@ -5,3 +5,31 @@
     = t(:uri_definition_blank)
   - else
     = @uri.definition.html_safe
+%table.traits_by_predicate
+  %tbody
+    - grouped_traits = @traits.group_by { |t| t[:page_id] }
+    -# TODO: helper
+    - prev_page_id = nil
+    - grouped_traits.keys.sort { |a,b| @pages[a].name <=> @pages[b].name }.each do |page_id|
+      - grouped_traits[page_id].each do |trait|
+        %tr
+          %th
+            - if prev_page_id != page_id
+              - page = @pages[page_id]
+              - unless page.top_images.empty?
+                - image = page.top_images.first
+                = image_tag(image.base_url + "_88_88.jpg", alt: image.name.html_safe)
+              = link_to(page.name.string.titlecase, page_path(page))
+              = link_to(page.scientific_name.canonical_form.html_safe, page_path(page))
+              - prev_page_id = page_id
+          %td
+            - if trait[:measurement]
+              = trait[:measurement]
+              = @glossary[trait[:units]].name
+            - elsif trait[:term]
+              = @glossary[trait[:term]].name
+            - elsif trait[:literal]
+              = trait[:literal].html_safe
+            - else
+              Augh! Could not find a displayable value from keys of:
+              = trait.keys.join(", ")

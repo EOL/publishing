@@ -15,7 +15,7 @@
   = article.body.html_safe
   = article.license.name
   = article.owner.html_safe
-%table.trait_overview
+%table.traits_by_page
   %tbody
     - grouped_traits = @page.traits.group_by { |t| t[:predicate] }
     -# TODO: helper

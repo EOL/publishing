@@ -94,13 +94,13 @@ RSpec.describe Page do
     end
 
     it "orders traits" do
-      allow(TraitBank).to receive(:page_traits) { traits_out_of_order }
+      allow(TraitBank).to receive(:by_page) { traits_out_of_order }
       traits = our_page.traits
       expect(traits.first[:predicate]).to eq(predicate1.uri)
     end
 
     it "builds a glossary" do
-      allow(TraitBank).to receive(:page_traits) { traits_out_of_order }
+      allow(TraitBank).to receive(:by_page) { traits_out_of_order }
       expect(our_page.glossary.keys).to include(predicate1.uri)
       expect(our_page.glossary.keys).to include(predicate2.uri)
       expect(our_page.glossary.keys).to include(units.uri)
