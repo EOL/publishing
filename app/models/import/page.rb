@@ -237,12 +237,10 @@ class Import::Page
     def build_resource(res_data)
       return nil if res_data.nil?
       name = res_data["name"]
-      created = false
       resource = Resource.where(name: name).first_or_create do |r|
         partner = build_partner(res_data["partner"])
         r.name = name
         r.partner_id = partner.id
-        created = true
       end
       @resource_nodes[resource.id] = TraitBank.create_resource(resource.id)
       resource
