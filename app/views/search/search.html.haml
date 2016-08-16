@@ -1,0 +1,11 @@
+- if @pages.results.empty?
+  %p= t(:search_empty, q: query_string)
+- else
+  %ul
+    - @pages.results.each do |page|
+      %li
+        - unless page.top_images.empty?
+          - image = page.top_images.first
+          = image_tag(image.base_url + "_88_88.jpg", alt: image.name.html_safe)
+        = link_to(page.name.string.titlecase, page_path(page))
+        = link_to(page.scientific_name.html_safe, page_path(page))

@@ -11,8 +11,6 @@ RSpec.describe "pages/show" do
       base_url: "some_url", name: "Image Name 1")
     image2 = instance_double("Medium", license: lic1, owner: "Owner 2",
       base_url: "some_url", name: "Image Name 2")
-    scientific = instance_double("ScientificName",
-      canonical_form: "<i>Nice scientific</i>")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
     traits = [
@@ -27,7 +25,7 @@ RSpec.describe "pages/show" do
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
     assign(:page, instance_double("Page", name: name,
-      scientific_name: scientific, top_images: [image1, image2],
+      scientific_name: "<i>Nice scientific</i>", top_images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary))
     assign(:resources, { resource.id => resource })
   end

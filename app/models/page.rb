@@ -5,10 +5,10 @@ class Page < ActiveRecord::Base
   has_many :nodes, inverse_of: :page
 
   has_many :vernaculars, inverse_of: :page
-  has_many :preferred_vernaculars, -> { where(is_preferred: true) },
-    class_name: "Vernacular"
+  has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
   has_many :scientific_names, inverse_of: :page
-  has_one :scientific_name, -> { where(is_preferred: true) },
+  has_many :synonyms, -> { synonym }, class_name: "ScientificName"
+  has_many :preferred_scientific_names, -> { preferred },
     class_name: "ScientificName"
 
   has_many :page_contents, -> { visible.not_untrusted }
@@ -70,6 +70,24 @@ class Page < ActiveRecord::Base
       :videos, :sounds, :articles, :maps, :links)
   end
 
+  # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
+  searchable do
+    text :name, :boost => 4.0
+    text :scientific_name, :boost => 10.0
+    text :preferred_scientific_names, :boost => 8.0 do
+      preferred_scientific_names.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+    end
+    text :synonyms, :boost => 2.0 do
+      scientific_names.synonym.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+    end
+    text :preferred_vernaculars, :boost => 2.0 do
+      vernaculars.preferred.map { |v| v.string }
+    end
+    text :vernaculars do
+      vernaculars.nonpreferred.map { |v| v.string }
+    end
+  end
+
   def glossary
     return @glossary if @glossary
     traits
@@ -86,6 +104,10 @@ class Page < ActiveRecord::Base
   def name(language = nil)
     language ||= Language.english
     preferred_vernaculars.find { |v| v.language_id == language.id }
+  end
+
+  def scientific_name
+    native_node.try(:canonical_form) || "NO NAME!"
   end
 
   # TODO: ideally we want to be able to limit these! ...but that's really hard,

@@ -14,6 +14,8 @@ class Import::Page
       page_node = TraitBank.create_page(@page.id)
       # TODO: pass a resource here. I started it but got lazy.
       node = build_node(data["native_node"])
+      @page.native_node = node
+      @page.save
       build_sci_name(ital: data["native_node"]["scientific_name"],
         canon: data["native_node"]["canonical_form"], node: node)
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
