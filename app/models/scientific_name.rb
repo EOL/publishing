@@ -5,4 +5,5 @@ class ScientificName < ActiveRecord::Base
   belongs_to :page, inverse_of: :scientific_names
 
   scope :preferred, -> { where(is_preferred: true) }
+  scope :synonym, -> { where(is_preferred: false) }
 end

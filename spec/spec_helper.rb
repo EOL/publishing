@@ -17,9 +17,10 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require 'factory_girl'
+require "factory_girl"
 require "rack_session_access/capybara"
-require 'omniauth_helper'
+require "omniauth_helper"
+require "sunspot/rails/spec_helper"
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -40,6 +41,15 @@ RSpec.configure do |config|
   config.before(:suite) do
     FactoryGirl.find_definitions
   end
+
+  config.before(:each) do
+    ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
+  end
+
+  config.after(:each) do
+    ::Sunspot.session = ::Sunspot.session.original_session
+  end
+
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|

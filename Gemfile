@@ -62,6 +62,8 @@ gem 'recaptcha', require: 'recaptcha/rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Progress bar for indexing solr items:
+  gem 'progress_bar', '~> 1.0.5'
   #solr package. This is gonna be used in development and test environments
   gem 'sunspot_solr', '~> 2.2.5'
 end

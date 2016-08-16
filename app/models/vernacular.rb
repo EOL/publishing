@@ -4,4 +4,6 @@ class Vernacular < ActiveRecord::Base
   # DENORMALIZED:
   belongs_to :page, inverse_of: :vernaculars
 
+  scope :preferred, -> { where(is_preferred: true) }
+  scope :nonpreferred, -> { where(is_preferred: false) }
 end

@@ -11,19 +11,15 @@ RSpec.describe "traits/show" do
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
     page1_name = instance_double("Vernacular", string: "page 1 vern")
-    page1_sci_name = instance_double("ScientificName",
-      canonical_form: "<i>Page 1 Canon<i/>")
     page2_name = instance_double("Vernacular", string: "page 2 vern")
-    page2_sci_name = instance_double("ScientificName",
-      canonical_form: "<i>Page 2 Canon<i/>")
 
     page1_icon = instance_double("Medium", base_url: "http://this/path",
       name: "Page 1 Icon")
 
     page1 = instance_double("Page", id: 1234, name: page1_name,
-      scientific_name: page1_sci_name, top_images: [page1_icon])
+      scientific_name: "<i>Page 1 Canon<i/>", top_images: [page1_icon])
     page2_no_icon = instance_double("Page", id: 2345, name: page2_name,
-      scientific_name: page2_sci_name, top_images: [])
+      scientific_name: "<i>Page 2 Canon<i/>", top_images: [])
 
     traits =
       [ { page_id: 1234, measurement: "657", units: units.uri,
