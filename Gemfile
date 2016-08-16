@@ -22,7 +22,7 @@ gem 'sass-rails', '~> 5.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 #Use sunspot to work with solr
-gem 'sunspot_rails'
+gem 'sunspot_rails', '~> 2.2.5'
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer'
@@ -63,7 +63,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   #solr package. This is gonna be used in development and test environments
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '~> 2.2.5'
 end
 
 group :development do
