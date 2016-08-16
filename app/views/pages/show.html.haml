@@ -22,9 +22,13 @@
     - grouped_traits.keys.sort { |a,b| @page.glossary[a].name <=> @page.glossary[b].name }[0..9].each do |uri|
       %tr
         - predicate = @page.glossary[uri]
-        %th= link_to(predicate.name, trait_path(predicate.id))
-        %td
-          - grouped_traits[uri].each do |trait|
+        - previous_predicate = nil
+        - grouped_traits[uri].each do |trait|
+          %th
+            - if predicate != previous_predicate
+              = link_to(predicate.name, trait_path(predicate))
+              - previous_predicate = predicate
+          %td
             - if trait[:measurement]
               = trait[:measurement]
               = @page.glossary[trait[:units]].name
@@ -35,4 +39,9 @@
             - else
               Augh! Could not find a displayable value from keys of:
               = trait.keys.join(", ")
-            %br/
+          -# NOTE: I cannot make this a link just yet. Later.
+          %td
+            - if resource = @resources[trait[:resource_id]]
+              = resource.short_name
+            - else
+              t(:resource_missing)

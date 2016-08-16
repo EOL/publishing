@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe "pages/show" do
   before do
+    resource = instance_double("Resource", id: 64333,
+      short_name: "Short Res Name")
     name = instance_double("Vernacular", string: "something common")
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
@@ -15,7 +17,7 @@ RSpec.describe "pages/show" do
       body: "Article body", owner: "Article owner")
     traits = [
       { predicate: "http://predic.ate/one", measurement: "657",
-        units: "http://un.its/one" },
+        units: "http://un.its/one", resource_id: resource.id },
       { predicate: "http://predic.ate/one", term: "http://te.rm/one" },
       { predicate: "http://predic.ate/two", literal: "literal trait value" } ]
     glossary = {
@@ -27,6 +29,7 @@ RSpec.describe "pages/show" do
     assign(:page, instance_double("Page", name: name,
       scientific_name: scientific, top_images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary))
+    assign(:resources, { resource.id => resource })
   end
   it "shows the title" do
     render
@@ -80,5 +83,10 @@ RSpec.describe "pages/show" do
   it "shows literal trait values" do
     render
     expect(rendered).to match /literal trait value/
+  end
+
+  it "shows resource names when available" do
+    render
+    expect(rendered).to match /Short Res Name/
   end
 end
