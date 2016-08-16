@@ -42,6 +42,7 @@ en:
   recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
+  resource_missing: "resource not found"
   sign_in: "Sign In"
   sign_up: "Sign up"
   signature_basic: "The Encyclopedia of Life Team"

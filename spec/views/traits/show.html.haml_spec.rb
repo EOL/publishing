@@ -8,6 +8,8 @@ RSpec.describe "traits/show" do
     units = instance_double("Uri", uri: "http://un.its/one", name: "Unit URI")
     term = instance_double("Uri", uri: "http://te.rm/one", name: "Term URI")
 
+    resource = instance_double("Resource", id: 65422, short_name: "Resource Name")
+
     page1_name = instance_double("Vernacular", string: "page 1 vern")
     page1_sci_name = instance_double("ScientificName",
       canonical_form: "<i>Page 1 Canon<i/>")
@@ -24,15 +26,18 @@ RSpec.describe "traits/show" do
       scientific_name: page2_sci_name, top_images: [])
 
     traits =
-      [ { page_id: 1234, measurement: "657", units: units.uri },
-        { page_id: 2345, term: term.uri },
-        { page_id: 2345, literal: "literal trait value" } ]
+      [ { page_id: 1234, measurement: "657", units: units.uri,
+          resource_id: resource.id },
+        { page_id: 2345, term: term.uri, resource_id: resource.id },
+        { page_id: 2345, literal: "literal trait value",
+          resource_id: resource.id } ]
     glossary = { units.uri => units, term.uri => term }
 
     assign(:uri, uri)
     assign(:traits, traits)
     assign(:pages, { 1234 => page1, 2345 => page2_no_icon })
     assign(:glossary, glossary)
+    assign(:resources, { 65422 => resource })
   end
 
   it "shows the title" do
@@ -67,5 +72,10 @@ RSpec.describe "traits/show" do
     expect(rendered).to match /Unit URI/
     expect(rendered).to match /Term URI/
     expect(rendered).to match /literal trait value/
+  end
+
+  it "shows the resource's short name" do
+    render
+    expect(rendered).to match /Resource Name/
   end
 end
