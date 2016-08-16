@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "pages/show" do
   before do
     resource = instance_double("Resource", id: 64333,
-      short_name: "Short Res Name")
+      name: "Short Res Name")
     name = instance_double("Vernacular", string: "something common")
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")

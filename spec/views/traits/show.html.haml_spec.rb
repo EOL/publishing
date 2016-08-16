@@ -8,7 +8,7 @@ RSpec.describe "traits/show" do
     units = instance_double("Uri", uri: "http://un.its/one", name: "Unit URI")
     term = instance_double("Uri", uri: "http://te.rm/one", name: "Term URI")
 
-    resource = instance_double("Resource", id: 65422, short_name: "Resource Name")
+    resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
     page1_name = instance_double("Vernacular", string: "page 1 vern")
     page1_sci_name = instance_double("ScientificName",

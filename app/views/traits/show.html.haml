@@ -36,6 +36,6 @@
           -# NOTE: I cannot make this a link just yet. Later.
           %td
             - if resource = @resources[trait[:resource_id]]
-              = resource.short_name
+              = resource.name
             - else
               t(:resource_missing)
