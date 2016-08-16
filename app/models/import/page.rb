@@ -3,7 +3,7 @@ class Import::Page
     def from_file(name)
       @resource_nodes = {}
       # Test with:
-      # Import::Page.from_file('/Users/jrice/Downloads/store-328598.json')
+      # Import::Page.from_file(Rails.root.join("doc", "store-328598.json"))
       file = File.read(name)
       data = JSON.parse(file)
       # NOTE: You mmmmmmight want to delete everything before you call this, but
@@ -237,12 +237,10 @@ class Import::Page
     def build_resource(res_data)
       return nil if res_data.nil?
       name = res_data["name"]
-      created = false
       resource = Resource.where(name: name).first_or_create do |r|
         partner = build_partner(res_data["partner"])
         r.name = name
         r.partner_id = partner.id
-        created = true
       end
       @resource_nodes[resource.id] = TraitBank.create_resource(resource.id)
       resource
