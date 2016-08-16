@@ -3,7 +3,7 @@ class Import::Page
     def from_file(name)
       @resource_nodes = {}
       # Test with:
-      # Import::Page.from_file('/Users/jrice/Downloads/store-328598.json')
+      # Import::Page.from_file(Rails.root.join("doc", "store-328598.json"))
       file = File.read(name)
       data = JSON.parse(file)
       # NOTE: You mmmmmmight want to delete everything before you call this, but
