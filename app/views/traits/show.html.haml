@@ -10,7 +10,7 @@
     - grouped_traits = @traits.group_by { |t| t[:page_id] }
     -# TODO: helper
     - prev_page_id = nil
-    - grouped_traits.keys.sort { |a,b| @pages[a].name <=> @pages[b].name }.each do |page_id|
+    - grouped_traits.keys.sort.each do |page_id|
       - grouped_traits[page_id].each do |trait|
         %tr
           %th
