@@ -33,3 +33,9 @@
             - else
               Augh! Could not find a displayable value from keys of:
               = trait.keys.join(", ")
+          -# NOTE: I cannot make this a link just yet. Later.
+          %td
+            - if resource = @resources[trait[:resource_id]]
+              = resource.short_name
+            - else
+              t(:resource_missing)

@@ -12,5 +12,6 @@ class TraitsController < ApplicationController
     pages.each { |page| @pages[page.id] = page }
     # Make a glossary:
     @glossary = TraitBank.glossary(@traits)
+    @resources = TraitBank.resources(@traits)
   end
 end
