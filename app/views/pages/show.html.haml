@@ -8,22 +8,23 @@
       = image.license.name
       = image.owner.html_safe
 - article = @page.top_articles.first
-- name = article.name.html_safe
-- name = article.sections.first.name if name.blank? || name.empty?
-.article
-  %h3= name
-  = article.body.html_safe
-  = article.license.name
-  = article.owner.html_safe
+- if article
+  - name = article.name.html_safe
+  - name = article.sections.first.name if name.blank? || name.empty?
+  .article
+    %h3= name
+    = article.body.html_safe
+    = article.license.name
+    = article.owner.html_safe
 %table.traits_by_page
   %tbody
     - grouped_traits = @page.traits.group_by { |t| t[:predicate] }
     -# TODO: helper
-    - grouped_traits.keys.sort { |a,b| @page.glossary[a].name <=> @page.glossary[b].name }[0..9].each do |uri|
-      %tr
-        - predicate = @page.glossary[uri]
-        - previous_predicate = nil
-        - grouped_traits[uri].each do |trait|
+    - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name) <=> @page.glossary[b].try(:name) }[0..9].each do |uri|
+      - predicate = @page.glossary[uri]
+      - previous_predicate = nil
+      - grouped_traits[uri].each do |trait|
+        %tr
           %th
             - if predicate != previous_predicate
               = link_to(predicate.name, trait_path(predicate))
@@ -31,9 +32,9 @@
           %td
             - if trait[:measurement]
               = trait[:measurement]
-              = @page.glossary[trait[:units]].name
+              = @page.glossary[trait[:units]].try(:name) || trait[:units]
             - elsif trait[:term]
-              = @page.glossary[trait[:term]].name
+              = @page.glossary[trait[:term]].try(:name) || trait[:term]
             - elsif trait[:literal]
               = trait[:literal].html_safe
             - else
