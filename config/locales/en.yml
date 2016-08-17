@@ -61,6 +61,10 @@ en:
   user_not_active: "The user is not active"
   users:
     validations:
+      empty_username_error: "Username cannot be empty"
+      short_username_error: "Username is too short. It should be at least 4 characters"
+      long_username_error: "Username is too long. It should be at most 32 characters"
+      invalid_email: "Email is invalid"
       email_existance_checking: "Checking...."
       email_already_exists: "Email already in use"
       empty_email_error: "Email cannot be empty"

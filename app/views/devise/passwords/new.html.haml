@@ -1,9 +1,25 @@
-%h2= t(:forgot_your_password)
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  %div= f.submit t(:send_me_reset_password_instructions)
+= javascript_include_tag 'users/forget_password'
+  
+%div{'ng-app': 'ForgetPasswordApp'}
+  %h2= t(:forgot_your_password)
+  = form_for resource, as: resource_name, url: password_path(resource_name),
+    html: { method: :post , name: 'ForgetPasswordForm',
+           'novalidate': 'novalidate',
+           'ng-controller': 'ForgetPasswordValidate',
+           'ng-submit': 'validateForm($event, ForgetPasswordForm)'.html_safe } do |f|
+    = devise_error_messages!
+    %div
+      = f.label :email 
+      %br/
+      = f.email_field :email, 
+                      'ng-model': 'email',
+                      'ng-pattern': "/^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/",
+                      required: true    
+      %span{class: 'ng-validation-error',
+                   'ng-show': "ForgetPasswordForm['user[email]'].$error.required && (ForgetPasswordForm['user[email]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_email_error")
+      %span{class: 'ng-validation-error',
+                   'ng-show': "ForgetPasswordForm['user[email]'].$error.pattern && ForgetPasswordForm['user[email]'].$touched".html_safe}
+        = I18n.t("users.validations.invalid_email")
+    = f.submit t(:send_me_reset_password_instructions), 'ng-disabled': 'ForgetPasswordForm.$invalid' 
 = render "devise/shared/links"

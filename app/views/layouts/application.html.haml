@@ -12,7 +12,6 @@
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"
     = csrf_meta_tags
   %body
-    
 
     - flash.each do |name, msg|
       - next if name ==  :recaptcha_error.to_s

@@ -1,14 +1,47 @@
-%h2= t(:change_your_password)
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = devise_error_messages!
-  = f.hidden_field :reset_password_token
-  %div
-    = f.label :password, t(:new_password)
-    %br/
-    = f.password_field :password
-  %div
-    = f.label :password_confirmation, t(:confirm_new_password)
-    %br/
-    = f.password_field :password_confirmation
-  %div= f.submit t(:change_my_password)
+= javascript_include_tag 'users/reset_password'
+%div{'ng-app': 'ResetPasswordApp'}
+  %h2= t(:change_your_password)
+  = form_for resource, as: resource_name, url: password_path(resource_name),
+      html: { method: :put, name: 'ResetPasswordForm', 
+             'novalidate': 'novalidate',
+             'ng-controller': 'ResetPasswordValidate',
+             'ng-submit': 'validateForm($event, ResetPasswordForm)'.html_safe } do |f|
+    = devise_error_messages!
+    = f.hidden_field :reset_password_token
+    %div
+      = f.label :password, t(:new_password)
+      %br/
+      = f.password_field :password, id: 'password', 
+                       'ng-model': 'password',
+                       'validate-password': '',
+                       required: true    
+      %span{class: 'ng-validation-error',
+            'ng-show': "ResetPasswordForm['user[password]'].$error.required && (ResetPasswordForm['user[password]'].$errors.$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "violatePwdLowerLimit && ResetPasswordForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.short_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "violatePwdUpperLimit && ResetPasswordForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.long_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "ViolatepwdLetterCond && ResetPasswordForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.password_must_have_letter_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "ViolatepwdNumberCond && ResetPasswordForm['user[password]'].$touched".html_safe}
+        = I18n.t("users.validations.password_must_have_number_error")
+    %div
+      = f.label :password_confirmation, t(:confirm_new_password)
+      %br/
+      = f.password_field :password_confirmation,
+                         'ng-model': 'password_confirmation',
+                         'password-match': 'password',
+                         required: true                   
+      %span{class: 'ng-validation-error',
+            'ng-show': "ResetPasswordForm['user[password_confirmation]'].$error.required && (ResetPasswordForm['user[password_confirmation]'].$touched || showErrors)".html_safe}
+        = I18n.t("users.validations.empty_password_error")
+      %span{class: 'ng-validation-error',
+            'ng-show': "ResetPasswordForm['user[password_confirmation]'].$error.pwdmismatch && !ResetPasswordForm['user[password_confirmation]'].$error.required".html_safe}
+        = I18n.t("users.validations.password_confirmation_mismatch")
+    %div= f.submit t(:change_my_password), 'ng-disabled': 'ResetPasswordForm.$invalid' 
 = render "devise/shared/links"
