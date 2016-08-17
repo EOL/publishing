@@ -8,9 +8,16 @@ Rails.application.routes.draw do
                                     omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :open_authentications, only: [:new, :create]
+
   resources :traits, only: [:show] # TODO: more coming later...
 
   get '/search/:q' => 'search#search', :as => 'search'
+
+  resources :users do
+    collection do
+      post 'delete_user', defaults: { format: 'json' }
+    end
+  end
 
   root 'users#index'
 
