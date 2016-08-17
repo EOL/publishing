@@ -62,12 +62,12 @@ class Page < ActiveRecord::Base
     through: :page_contents, source: :content, source_type: "Medium"
 
   scope :preloaded, -> do
-    includes(:scientific_name, :preferred_vernaculars, :page_contents)
+    includes(:native_node, :preferred_vernaculars, :page_contents)
   end
 
   scope :all_preloaded, -> do
-    includes(:scientific_names, :vernaculars, :images,
-      :videos, :sounds, :articles, :maps, :links)
+    includes(:native_node, :vernaculars, :images, :videos, :sounds, :articles,
+      :maps, :links)
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
