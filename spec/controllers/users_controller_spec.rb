@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::RegistrationsController, type: :controller do
+RSpec.describe User::UsersController, type: :controller do
   
   render_views
   let(:user) { create(:user) }
@@ -9,16 +9,18 @@ RSpec.describe User::RegistrationsController, type: :controller do
     request.env["devise.mapping"] = Devise.mappings[:user]  
   end
   
-  describe '#destroy' do
+  describe '#delete_user' do
     
     before do
       user.confirm
       sign_in user
       @total_number_before_delete = User.count
-      post :destroy, method: :delete
+      # debugger
+      post :delete_user, id: user.id
     end
     
     it "should not decrement total number of users" do
+      # debugger
       expect(User.count).to eq(@total_number_before_delete)
     end
     
