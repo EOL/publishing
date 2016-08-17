@@ -20,6 +20,9 @@ class User < ActiveRecord::Base
 #     -> { where(is_manager: true) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+  USERNAME_MIN_LENGTH = 4
+  USERNAME_MAX_LENGTH = 32
+  MAIL_REGEX = Devise.email_regexp
 
   # NOTE: this is a hook called by Devise
   def after_confirmation

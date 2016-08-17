@@ -1,6 +1,8 @@
 var recaptchaError = false;
 var recaptchaChecked = false;
-
+// this depends on devise configurations. DON'T FORGET TO CHANGE IT when you change in devise.rb
+var passwordMinLength = 8;
+var passwordMaxLength = 32;
 var signupApp = angular.module('signupApp', []);
 
 //custom validation for password match
@@ -24,8 +26,8 @@ signupApp.directive('validatePassword', function () {
 		require: 'ngModel',
 		link: function (scope, element, attrs, ctrl) {
 			ctrl.$parsers.unshift(function(viewValue) {
-				scope.violatePwdLowerLimit = (viewValue && viewValue.length < 8 ? true : false);
-				scope.violatePwdUpperLimit = (viewValue && viewValue.length > 32 ? true : false);
+				scope.violatePwdLowerLimit = (viewValue && viewValue.length < passwordMinLength ? true : false);
+				scope.violatePwdUpperLimit = (viewValue && viewValue.length > passwordMaxLength ? true : false);
 				if (!(scope.violatePwdLowerLimit || scope.violatePwdUpperLimit)){
 					scope.ViolatepwdLetterCond = (viewValue && /[A-Za-z]/.test(viewValue)) ? false : true;
 					scope.ViolatepwdNumberCond = (viewValue && /\d/.test(viewValue)) ? false : true;	

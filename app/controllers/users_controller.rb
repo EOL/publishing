@@ -8,13 +8,6 @@ class UsersController < ApplicationController
     @dummy = "HOME"
   end
   
-  def check_email
-    mail_exists = User.email_exists?(params[:email])
-    respond_to do |format|
-      format.json { render json: mail_exists }
-    end
-  end
-
   def redirect_if_user_is_inactive
     unless @user.active
       flash[:notice] = I18n.t(:user_no_longer_active)

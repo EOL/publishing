@@ -9,11 +9,6 @@ Rails.application.routes.draw do
 
   resources :open_authentications, only: [:new, :create]
   resources :traits, only: [:show] # TODO: more coming later...
-  resources :users do
-    collection do
-      get 'check_email', defaults: { format: 'json' }
-    end
-  end
 
   get '/search/:q' => 'search#search', :as => 'search'
 
