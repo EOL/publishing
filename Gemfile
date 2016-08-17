@@ -22,7 +22,6 @@ gem 'sass-rails', '~> 5.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 #Use sunspot to work with solr
-<<<<<<< HEAD
 gem 'sunspot_rails', '~> 2.2.5'
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -31,15 +30,13 @@ gem 'therubyracer'
 gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-=======
+
 gem 'sunspot_rails'
-gem 'angularjs-rails'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
->>>>>>> d490e1576c5b5821d426fbd492f5e770c811046c
 
 # All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
 # ..and with a comment above each gem (or block of related gems) explaining what
