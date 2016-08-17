@@ -14,8 +14,8 @@
       %br/
       = f.text_field :username, autofocus: true, 
                       'ng-model': 'username', 
-                      'ng-minlength': 4,
-                      'ng-maxlength': 32,
+                      'ng-minlength': User::USERNAME_MIN_LENGTH,
+                      'ng-maxlength': User::USERNAME_MAX_LENGTH,
                       required: true
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[username]'].$error.required && (signupForm['user[username]'].$touched || showErrors)".html_safe}
@@ -31,7 +31,7 @@
       %br/
       = f.email_field :email, 
                       'ng-model': 'email',
-                      'ng-pattern': "/^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/",
+                      'ng-pattern': User::MAIL_REGEX,
                       required: true
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[email]'].$error.required && (signupForm['user[email]'].$touched || showErrors)".html_safe}
