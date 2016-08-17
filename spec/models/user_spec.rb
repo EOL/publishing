@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
         expect(build(:user, password: 'pas')).to_not be_valid
       end
       it "rejects too long passwords " do
-        expect(build(:user, password:  Faker::Internet.password(17))).to_not be_valid
+        expect(build(:user, password:  Faker::Internet.password(33))).to_not be_valid
       end
     end
   end

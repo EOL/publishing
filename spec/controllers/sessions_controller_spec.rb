@@ -24,9 +24,8 @@ RSpec.describe User::SessionsController, type: :controller do
     end
 
     it 'displays recaptcha tags for multiple failure sign ins' do
+      allow(controller).to receive(:session) { {login_attempts: 4} }
       get :new
-      expect(session[:login_attempts]).not_to be_nil
-      expect(session[:login_attempts] > 1).to be true
       expect(response.body).to have_selector "div[class='g-recaptcha']"
     end
 
@@ -65,7 +64,7 @@ RSpec.describe User::SessionsController, type: :controller do
         before do
           allow(request.env['warden']).to receive(:authenticate!) {user}
           allow(controller).to receive(:verify_recaptcha) { false }
-          allow(controller).to receive(:session) { {login_attempts: 2} }
+          allow(controller).to receive(:session) { {login_attempts: 4} }
           allow(controller).to receive(:sign_in_params) { {email: user.email} }
           post :create 
         end
