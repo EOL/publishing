@@ -4,7 +4,11 @@ class Import::Page
       @resource_nodes = {}
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json"))
-      file = File.read(name)
+      file = if Uri.is_uri?(name)
+        open(name) { |f| f.read }
+      else
+        File.read(name)
+      end
       data = JSON.parse(file)
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
@@ -20,39 +24,49 @@ class Import::Page
         canon: data["native_node"]["canonical_form"], node: node)
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
       last_position = 0
-      data["maps"].each do |m|
-        build_map(m, node, last_position += 1)
+      if data["maps"]
+        data["maps"].each do |m|
+          build_map(m, node, last_position += 1)
+        end
       end
-      data["articles"].each do |a|
-        build_article(a, node, last_position += 1)
+      if data["articles"]
+        data["articles"].each do |a|
+          build_article(a, node, last_position += 1)
+        end
       end
-      data["media"].each do |m|
-        build_image(m, node, last_position += 1)
+      if data["media"]
+        data["media"].each do |m|
+          build_image(m, node, last_position += 1)
+        end
       end
-      data["collections"].each do |c|
-        collection = build_collection(c)
-        add_page_to_collection(collection)
+      if data["collections"]
+        data["collections"].each do |c|
+          collection = build_collection(c)
+          add_page_to_collection(collection)
+        end
       end
-      data["traits"].each do |t_data|
-        # NOTE: these are (currently) super-simple traits with no metadata!
-        resource = build_resource(t_data["resource"])
-        next if resource.nil? # NOTE: we don't import user-added data.
-        unless Trait.exists?(resource.id, t_data["resource_pk"])
-          pred = create_uri(t_data["predicate"])
-          units = create_uri(t_data["units"]) if t_data["units"]
-          term = create_uri(t_data["term"]) if t_data["term"]
-          TraitBank.create_trait(page: page_node,
-            supplier: @resource_nodes[resource.id],
-            resource_pk: t_data["resource_pk"],
-            scientific_name: t_data["scientific_name"],
-            predicate: pred.uri,
-            source: t_data["source"],
-            measurement: t_data["measurement"],
-            units: units ? units.uri : nil,
-            term: term ? term.uri : nil,
-            literal: t_data["literal"],
-            object_page: t_data["object_page"]
-          )
+      if data["traits"]
+        data["traits"].each do |t_data|
+          # NOTE: these are (currently) super-simple traits with no metadata!
+          resource = build_resource(t_data["resource"])
+          next if resource.nil? # NOTE: we don't import user-added data.
+          unless Trait.exists?(resource.id, t_data["resource_pk"])
+            pred = create_uri(t_data["predicate"])
+            units = create_uri(t_data["units"]) if t_data["units"]
+            term = create_uri(t_data["term"]) if t_data["term"]
+            TraitBank.create_trait(page: page_node,
+              supplier: @resource_nodes[resource.id],
+              resource_pk: t_data["resource_pk"],
+              scientific_name: t_data["scientific_name"],
+              predicate: pred.uri,
+              source: t_data["source"],
+              measurement: t_data["measurement"],
+              units: units ? units.uri : nil,
+              term: term ? term.uri : nil,
+              literal: t_data["literal"],
+              object_page: t_data["object_page"]
+            )
+          end
         end
       end
       # TODO json_map ...we don't use it, yet, so leaving for later.

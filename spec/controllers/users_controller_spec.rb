@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe User::UsersController, type: :controller do
   
   render_views
   let(:user) { create(:user) }
@@ -19,6 +19,7 @@ RSpec.describe UsersController, type: :controller do
     end
     
     it "should not decrement total number of users" do
+      # debugger
       expect(User.count).to eq(@total_number_before_delete)
     end
     
