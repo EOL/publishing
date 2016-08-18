@@ -28,6 +28,8 @@
                 "md-selected-item-change" => "ctrl.selectedItemChange(item)",
                 "md-items" => "item in ctrl.querySearch(ctrl.searchText)",
                 "md-item-text" => "item.name",
+                "md-input-id" => "q",
+                "md-input-name" => "q",
                 "md-min-length" => "1",
                 "placeholder" => t(:search_layout_placeholder) }
                 %md-item-template
@@ -39,9 +41,6 @@
                       %md-not-found
                         = t(:search_empty, q: "{{ ctrl.searchText }}")
               = submit_tag "Go"
-        -# = form_tag(search_path, method: "get") do
-        -#   = text_field_tag(:q, "", placeholder: "Search...")
-        -#   = submit_tag "Go"
     - flash.each do |name, msg|
       - next if name ==  :recaptcha_error.to_s
       - if msg.class == Array
