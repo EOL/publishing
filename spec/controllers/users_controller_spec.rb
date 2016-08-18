@@ -5,12 +5,7 @@ RSpec.describe User::UsersController, type: :controller do
   render_views
   let(:user) { create(:user) }
   
-  # before :each do
-    # request.env["devise.mapping"] = Devise.mappings[:user]  
-  # end
-  
   describe '#delete_user' do
-    
     before do
       user.confirm
       sign_in user
@@ -19,7 +14,6 @@ RSpec.describe User::UsersController, type: :controller do
     end
     
     it "should not decrement total number of users" do
-      # debugger
       expect(User.count).to eq(@total_number_before_delete)
     end
     

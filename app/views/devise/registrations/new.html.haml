@@ -21,23 +21,23 @@
             'ng-show': "signupForm['user[username]'].$error.required && (signupForm['user[username]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_username_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$error.minlength".html_safe}
+            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[username]'].$error.minlength".html_safe}
         = I18n.t("users.validations.short_username_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$error.maxlength".html_safe}
+            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[username]'].$error.maxlength".html_safe}
         = I18n.t("users.validations.long_username_error")
     .field
       = f.label I18n.t(:email)
       %br/
       = f.email_field :email, 
                       'ng-model': 'email',
-                      'ng-pattern': User::MAIL_REGEX,
-                      required: true
+                      'ng-pattern': $mail_regexp,
+                      required: true 
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[email]'].$error.required && (signupForm['user[email]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_email_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[email]'].$error.pattern".html_safe}
+            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[email]'].$error.pattern".html_safe}
         = I18n.t("users.validations.invalid_email")
     .field
       = f.label I18n.t(:password)
@@ -73,7 +73,7 @@
             'ng-show': "signupForm['user[password_confirmation]'].$error.required && (signupForm['user[password_confirmation]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_password_confirmation_error")
       %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password_confirmation]'].$error.pwmismatch && !signupForm['user[password_confirmation]'].$error.required".html_safe}
+            'ng-show': "signupForm['user[password_confirmation]'].$touched && signupForm['user[password_confirmation]'].$error.pwmismatch && !signupForm['user[password_confirmation]'].$error.required".html_safe}
         = I18n.t("users.validations.password_confirmation_mismatch")
     .field
       = f.label I18n.t(:recaptcha)
