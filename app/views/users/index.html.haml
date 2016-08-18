@@ -1,8 +1,7 @@
 = @dummy
 %div
-  = link_to :sign_in , new_user_session_path
-  = link_to :sign_up , new_user_registration_path
-  = link_to :sign_out, destroy_user_session_path
+  = link_to :sign_in , new_user_session_path, 'data-no-turbolink': true
+  = link_to :sign_up , new_user_registration_path, 'data-no-turbolink': true
   %div
     = "users:"
     %ul

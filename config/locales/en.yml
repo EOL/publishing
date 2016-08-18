@@ -73,7 +73,6 @@ en:
       empty_username_error: "Username cannot be empty"
       long_username_error: "Username is too long. It should be at most 32 characters"
       long_password_error: "Password is too long. It should be at most 32 characters"
-      invalid_email: "Email is invalid"
       password_confirmation_mismatch: "Passwords do not match"
       password_must_have_letter_error: "Password must have at least one letter"
       password_must_have_number_error: "Password must have at least one number"

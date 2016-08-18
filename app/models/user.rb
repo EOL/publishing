@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
-  MAIL_REGEX = Devise.email_regexp
   DUMMY_EMAIL_FOR_DELETE = "dummy@eol.org"
 
   # NOTE: this is a hook called by Devise
@@ -32,8 +31,9 @@ class User < ActiveRecord::Base
   end
 
   def soft_delete
+    self.skip_reconfirmation!
     self.update_attributes!(deleted_at: Time.current, email: DUMMY_EMAIL_FOR_DELETE,
-      encrypted_password: nil, active: false)
+      encrypted_password: nil, active: false)  
   end
   
   # def email_required?
