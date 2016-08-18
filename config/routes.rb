@@ -1,31 +1,31 @@
 Rails.application.routes.draw do
 
-  # Putting pages first only because it's the most common:
+  # Putting pages first only because it"s the most common:
   resources :pages, only: [:show]
 
-  devise_for :users, controllers: { registrations: "user/registrations" ,
-                                    sessions: 'user/sessions',
+  devise_for :users, controllers: { registrations: "user/registrations",
+                                    sessions: "user/sessions",
                                     omniauth_callbacks: "user/omniauth_callbacks"}
 
   resources :open_authentications, only: [:new, :create]
 
   resources :traits, only: [:show] # TODO: more coming later...
 
-  get '/search/:q' => 'search#search', :as => 'search'
+  get "/search" => "search#search", :as => "search"
 
   resources :users do
     collection do
-      post 'delete_user', defaults: { format: 'json' }
+      post "delete_user", defaults: { format: "json" }
     end
   end
 
-  root 'users#index'
+  root "users#index"
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+  #   get "products/:id" => "catalog#view"
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  #   get "products/:id/purchase" => "catalog#purchase", as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
@@ -33,12 +33,12 @@ Rails.application.routes.draw do
   # Example resource route with options:
   #   resources :products do
   #     member do
-  #       get 'short'
-  #       post 'toggle'
+  #       get "short"
+  #       post "toggle"
   #     end
   #
   #     collection do
-  #       get 'sold'
+  #       get "sold"
   #     end
   #   end
 
@@ -52,13 +52,13 @@ Rails.application.routes.draw do
   #   resources :products do
   #     resources :comments
   #     resources :sales do
-  #       get 'recent', on: :collection
+  #       get "recent", on: :collection
   #     end
   #   end
 
   # Example resource route with concerns:
   #   concern :toggleable do
-  #     post 'toggle'
+  #     post "toggle"
   #   end
   #   resources :posts, concerns: :toggleable
   #   resources :photos, concerns: :toggleable

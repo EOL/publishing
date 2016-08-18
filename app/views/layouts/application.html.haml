@@ -13,6 +13,51 @@
     = csrf_meta_tags
   %body
 
+    .header
+      .search
+        %div{ "ng-controller" => "DemoCtrl as ctrl", :layout => :column }
+          %md-content.md-padding
+            = form_tag(search_path, method: "get") do
+              %md-autocomplete{ "ng-disabled" => "ctrl.isDisabled",
+                "md-no-cache" => "ctrl.noCache",
+                "md-selected-item" => "ctrl.selectedItem",
+                "md-search-text-change" => "ctrl.searchTextChange(ctrl.searchText)",
+                "md-search-text" => "ctrl.searchText",
+                "md-selected-item-change" => "ctrl.selectedItemChange(item)",
+                "md-items" => "item in ctrl.querySearch(ctrl.searchText)",
+                "md-item-text" => "item.display",
+                "md-min-length" => "0",
+                "placeholder" => "What is your favorite US state?" }
+                %md-item-template
+                  %span{ "md-highlight-text" => "ctrl.searchText",
+                    "md-highlight-flags" => "^i"}
+                    {{item.display}}
+                %md-not-found
+                  No pages matching "{{ctrl.searchText}}" were found.
+
+        -# https://material.angularjs.org/latest/demo/autocomplete
+        -# <div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak>
+        -#   <md-content class="md-padding">
+        -#     <form ng-submit="$event.preventDefault()">
+        -#       <md-autocomplete
+        -#           ng-disabled="ctrl.isDisabled"
+        -#           md-no-cache="ctrl.noCache"
+        -#           md-selected-item="ctrl.selectedItem"
+        -#           md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+        -#           md-search-text="ctrl.searchText"
+        -#           md-selected-item-change="ctrl.selectedItemChange(item)"
+        -#           md-items="item in ctrl.querySearch(ctrl.searchText)"
+        -#           md-item-text="item.display"
+        -#           md-min-length="0"
+        -#           placeholder="What is your favorite US state?">
+        -#         <md-item-template>
+        -#           <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>
+
+
+
+        = form_tag(search_path, method: "get") do
+          = text_field_tag(:q, "", placeholder: "Search...")
+          = submit_tag "Go"
     - flash.each do |name, msg|
       - next if name ==  :recaptcha_error.to_s
       - if msg.class == Array
