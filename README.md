@@ -18,9 +18,7 @@ Before getting far, you should start solr:
 ```bash
 bundle exec rake sunspot:solr:start
 ```
- 
-(If at any point you wish to reindex what you have, run:)
-```bash
-bundle exec rake sunspot:reindex
-```
 
+## More information
+
+There is various addtional information about the project in the doc/ folder.

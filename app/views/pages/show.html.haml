@@ -3,6 +3,7 @@
 %ul
   - @page.top_images.each do |image|
     %li
+      -# TODO: we will eventuall know the actual size of the image; add that:
       = image_tag(image.base_url + "_580_360.jpg", alt: image.name.html_safe)
       %br/
       = image.license.name
