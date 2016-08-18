@@ -14,4 +14,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require layout_search
 //= require_tree .
