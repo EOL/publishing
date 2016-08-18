@@ -50,6 +50,7 @@ en:
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
   username: "Username"
   search_empty: "No results found for \"%{q}\"."
+  search_layout_placeholder: "Search..."
   send_me_reset_password_instructions: "Send me reset password instructions"
   sign_in_up_with_facebook: "%{action} with Facebook"
   sign_in_up_with_google_oauth2: "%{action} with Google"

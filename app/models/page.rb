@@ -112,6 +112,10 @@ class Page < ActiveRecord::Base
     native_node.try(:canonical_form) || "NO NAME!"
   end
 
+  def top_image
+    top_images.first
+  end
+
   # TODO: ideally we want to be able to limit these! ...but that's really hard,
   # and ATM the query is pretty fast even for >100 traits, so we're not doing
   # that yet.

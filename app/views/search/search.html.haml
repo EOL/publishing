@@ -6,6 +6,6 @@
       %li
         - unless page.top_images.empty?
           - image = page.top_images.first
-          = image_tag(image.base_url + "_88_88.jpg", alt: image.name.html_safe, size: "88x88")
+          = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
         = link_to(page.name.string.titlecase, page_path(page))
         = link_to(page.scientific_name.html_safe, page_path(page))
