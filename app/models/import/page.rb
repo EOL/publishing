@@ -4,7 +4,7 @@ class Import::Page
       @resource_nodes = {}
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json"))
-      file = if Uri.is_uri?(name)
+      file = if Uri.is_uri?(name.to_s)
         open(name) { |f| f.read }
       else
         File.read(name)
@@ -12,17 +12,17 @@ class Import::Page
       data = JSON.parse(file)
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
-      @page = Page.where(id: data["id"]).first_or_create do |pg|
+      @page = Page.where(id: data["id"]).first_or_initialize do |pg|
         pg.id = data["id"]
       end
       page_node = TraitBank.create_page(@page.id)
       # TODO: pass a resource here. I started it but got lazy.
       node = build_node(data["native_node"])
       @page.native_node = node
-      @page.save
       build_sci_name(ital: data["native_node"]["scientific_name"],
         canon: data["native_node"]["canonical_form"], node: node)
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
+      @page.save
       last_position = 0
       if data["maps"]
         data["maps"].each do |m|

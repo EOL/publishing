@@ -73,7 +73,9 @@ class Page < ActiveRecord::Base
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
   searchable do
     text :name, :boost => 4.0
-    text :scientific_name, :boost => 10.0
+    text :scientific_name, :boost => 10.0 do
+      scientific_name.gsub(/<\/?i>/, "")
+    end
     text :preferred_scientific_names, :boost => 8.0 do
       preferred_scientific_names.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
     end
