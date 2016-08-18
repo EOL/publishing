@@ -11,6 +11,7 @@
     self.searchTextChange = searchTextChange;
 
     // TODO: change! I'm just testing, now:
+    // /search.json?q=raccoon
     self.pages = [
       {page: 328598, name: "procyon lotor", img: "http://media.eol.org/content/2014/06/14/12/40029_88_88.jpg"},
       {page: 328598, name: "raccoon", img: "http://media.eol.org/content/2014/06/14/12/40029_88_88.jpg"},
