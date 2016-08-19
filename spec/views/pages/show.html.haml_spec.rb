@@ -8,9 +8,9 @@ RSpec.describe "pages/show" do
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
     image1 = instance_double("Medium", license: lic1, owner: "Owner 1",
-      base_url: "some_url", name: "Image Name 1")
+      large_size_url: "some_url_580_360.jpg", name: "Image Name 1")
     image2 = instance_double("Medium", license: lic1, owner: "Owner 2",
-      base_url: "some_url", name: "Image Name 2")
+      large_size_url: "another_url_580_360.jpg", name: "Image Name 2")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
     traits = [
@@ -46,6 +46,7 @@ RSpec.describe "pages/show" do
   it "adds the default size to the image src" do
     render
     expect(rendered).to match /some_url_580_360.jpg/
+    expect(rendered).to match /another_url_580_360.jpg/
   end
 
   it "shows the article" do
