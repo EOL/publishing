@@ -14,25 +14,27 @@
   %body
     .header
       .search{ "ng-app" => "searchApp" }
-        %script{ type: "text/ng-template", id: "customTemplate.html" }
-          %a{ href: "/pages/{{ match.model.id }}" }
+        %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
+          %a{ href: "#" }
             %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}", height: "33" }
-          %a{ href: "/pages/{{ match.model.id }}" }
+          %a{ href: "#" }
             %span{ "ng-bind-html" => "match.model.scientific_name | typeaheadHighlight:query" }
           %br/
           %span{ "ng-repeat" => "vern in match.model.preferred_vernaculars",
             "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
         %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
           %md-content.md-padding
-            = form_tag(search_path, method: "get") do
+            = form_tag(search_path, method: "get", autocomplete: "off") do
               = text_field_tag("q", nil,
                 "ng-model" => "selectedPage",
                 "placeholder" => "Search ...",
                 "typeahead" => "page for page in querySearch($viewValue)",
-                "typeahead-template-url" => "customTemplate.html",
+                "typeahead-template-url" => "layoutSearchTemplate.html",
                 "typeahead-loading" => "loadingLocations",
                 "typeahead-on-select" => "onSelect($item, $model, $label)",
-                "class" => "form-control")
+                "typeahead-input-formatter" => "nameOfModel($model)",
+                "class" => "form-control",
+                "autocomplete" => "off")
               %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
               = submit_tag "Go"
     - flash.each do |name, msg|
