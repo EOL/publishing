@@ -138,6 +138,7 @@ class Import::Page
         klass.where(guid: c_data["guid"]).first
       else
         resource = build_resource(c_data["provider"])
+        return nil if resource.nil?
         # Common fields for all content:
         hash = {
           guid: c_data["guid"],

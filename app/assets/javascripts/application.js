@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require angular
+//= require angular-sanitize
+//= require ui-bootstrap-tpls-0.13.4.min
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
