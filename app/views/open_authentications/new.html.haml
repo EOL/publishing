@@ -12,7 +12,7 @@
       %br/
       = f.email_field :email,
                       'ng-model': 'email',
-                      'ng-pattern': $mail_regex,
+                      'ng-pattern': $mail_regexp,
                       required: true
       %span{class: 'ng-validation-error',
             'ng-show': "oauthConfirmationForm['user[email]'].$error.required && oauthConfirmationForm['user[email]'].$touched".html_safe}

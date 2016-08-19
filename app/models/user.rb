@@ -20,9 +20,10 @@ class User < ActiveRecord::Base
 #     -> { where(is_manager: true) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+  
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
-  MAIL_REGEX = Devise.email_regexp
+  DUMMY_EMAIL_FOR_DELETE = "dummy@eol.org"
 
   # NOTE: this is a hook called by Devise
   def after_confirmation
@@ -30,13 +31,14 @@ class User < ActiveRecord::Base
   end
 
   def soft_delete
-    self.update_attributes!(deleted_at: Time.current, email: nil,
-      encrypted_password: nil, active: false)
+    self.skip_reconfirmation!
+    self.update_attributes!(deleted_at: Time.current, email: DUMMY_EMAIL_FOR_DELETE,
+      encrypted_password: nil, active: false)  
   end
-
-  def self.email_exists?(email)
-    User.exists?(email: email)
-  end
+  
+  # def email_required?
+    # false
+  # end
 
   # TODO: switch this to a role (once we have roles)
   def is_admin?
