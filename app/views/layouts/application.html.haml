@@ -27,19 +27,24 @@
                 "md-search-text" => "ctrl.searchText",
                 "md-selected-item-change" => "ctrl.selectedItemChange(item)",
                 "md-items" => "item in ctrl.querySearch(ctrl.searchText)",
-                "md-item-text" => "item.name",
+                "md-item-text" => "item.scientific_name",
                 "md-input-id" => "q",
                 "md-input-name" => "q",
                 "md-min-length" => "1",
                 "placeholder" => t(:search_layout_placeholder) }
                 %md-item-template
                   %span.result
-                    %a{ "href" => "pages/{{ item.page }}" }
-                      %img{ "ng-src" => "{{ item.img }}", height: "33" }
-                      %span{ "md-highlight-text" => "ctrl.searchText", "md-highlight-flags" => "i"}
-                        {{ item.name }}
-                      %md-not-found
-                        = t(:search_empty, q: "{{ ctrl.searchText }}")
+                    %img{ "ng-src" => "{{ item.top_image.small_icon_url }}", height: "33" }
+                    %span{ "md-highlight-text" => "ctrl.searchText", "md-highlight-flags" => "i", "ng-bind-html" => "item.scientific_name | htmlSafe"}
+                      Hi
+                    %span{ "md-highlight-text" => "ctrl.searchText", "md-highlight-flags" => "i" }
+                      {{ item.scientific_name }}
+                    %span{ "md-highlight-text" => "ctrl.searchText", "md-highlight-flags" => "i",
+                      "ng-repeat" => "vern in item.preferred_vernaculars" }
+                      {{ vern.string + " (" + vern.language.code + ") " }}
+                      -# {{ item.preferred_vernaculars.join(", ") | html_safe }}
+                    %md-not-found
+                      = t(:search_empty, q: "{{ ctrl.searchText }}")
               = submit_tag "Go"
     - flash.each do |name, msg|
       - next if name ==  :recaptcha_error.to_s
