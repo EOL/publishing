@@ -5,10 +5,10 @@ Warden.test_mode!
 RSpec.describe "Users", type: :request do
 
   def signup_user(user)
-    fill_in :user_username, with: user.username
-    fill_in :user_email, with: user.email
-    fill_in :user_password, with: user.password
-    fill_in :user_password_confirmation, with: user.password
+    fill_in "user[username]", with: user.username
+    fill_in "user[email]", with: user.email
+    fill_in "user[password]", with: user.password
+    fill_in "user[password_confirmation]", with: user.password
     click_button I18n.t(:create_account)
   end
 
@@ -27,7 +27,7 @@ RSpec.describe "Users", type: :request do
       end
       it "has password field" do
         expect(page).to have_selector("label", text: I18n.t(:password))
-        expect(page).to have_field(:user_password)
+        expect(page).to have_field(:password)
       end
       it "password confirmation field" do
         expect(page).to have_selector("label", text: I18n.t(:password_confirmation))
@@ -67,10 +67,10 @@ RSpec.describe "Users", type: :request do
         expect(page).to have_text("Password can't be blank")
       end
       it "has error message for not matching passwords" do
-        fill_in :user_username,              with: "user"
-        fill_in :user_email,                 with: "email_1@example.com"
-        fill_in :user_password,              with: " "
-        fill_in :user_password_confirmation, with: "password"
+        fill_in "user[username]",              with: "user"
+        fill_in "user[email]",                 with: "email_1@example.com"
+        fill_in "user[password]",              with: " "
+        fill_in "user[password_confirmation]", with: "password"
         click_button I18n.t(:create_account)
         expect(page).to have_text("Password confirmation doesn't match Password")
       end
@@ -99,7 +99,7 @@ RSpec.describe "Users", type: :request do
       end
       
       it "should contain delete your account button" do
-        expect(page).to have_selector('input[type=submit]')
+        expect(page).to have_selector('md-button')
       end
     end
     
@@ -107,7 +107,7 @@ RSpec.describe "Users", type: :request do
 
       context "regular user" do
          it "should not contain delete your account button" do
-          expect(page).not_to have_selector('input[type=submit]')
+          expect(page).not_to have_selector('md-button')
         end
       end
 
@@ -119,7 +119,7 @@ RSpec.describe "Users", type: :request do
         end
         
         it "should not contain delete your account button" do
-          expect(page).to have_selector('input[type=submit]')
+          expect(page).to have_selector('md-button')
         end
       end
     end
@@ -132,8 +132,8 @@ RSpec.describe "Users", type: :request do
         before do
           page.set_rack_session(login_attempts: 1)
           visit new_user_session_path
-          fill_in  :user_email, with: user.email
-          fill_in :user_password, with: user.password
+          fill_in "user[email]", with: user.email
+          fill_in "user[password]", with: user.password
           check :user_remember_me
           click_button I18n.t(:sign_in)
           user.remember_me!
@@ -149,8 +149,8 @@ RSpec.describe "Users", type: :request do
           allow(admin).to receive(:confirmed?) { true }
           page.set_rack_session(login_attempts: 1)
           visit new_user_session_path
-          fill_in  :user_email, with: admin.email
-          fill_in :user_password, with: admin.password
+          fill_in "user[email]", with: admin.email
+          fill_in "user[password]", with: admin.password
           check :user_remember_me
           click_button I18n.t(:sign_in)
         end
@@ -186,7 +186,7 @@ RSpec.describe "Users", type: :request do
             visit new_user_registration_path
             click_link I18n.t("sign_in_up_with_#{provider}", action: "Sign Up")
             expect(page.current_path).to eq(new_open_authentication_path)
-            fill_in :user_email, with: "#{provider}_#{Faker::Internet.email}"
+            fill_in "user[email]", with: "#{provider}_#{Faker::Internet.email}"
             click_button I18n.t(:create_account)
             expect(page.current_path).to eq(new_user_session_path)
             expect(page.body).to include(I18n.t(
@@ -199,7 +199,7 @@ RSpec.describe "Users", type: :request do
             OmniAuth.config.add_mock(:yahoo, { info: { email: email }})
             visit new_user_registration_path
             click_link I18n.t("sign_in_up_with_yahoo", action: "Sign Up")
-             fill_in :user_email, with: email
+             fill_in "user[email]", with: email
             click_button I18n.t(:create_account)
             expect(page.current_path).to eq(root_path)
             expect(page.body).to include(I18n.t(
