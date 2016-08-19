@@ -6,7 +6,7 @@ RSpec.describe "search/search" do
       name = instance_double("Vernacular", string: "a common name")
       lic = instance_double("License", name: "Image license name")
       image1 = instance_double("Medium", license: lic, owner: "Owned Here",
-        base_url: "some_image_url", name: "Thumbnail Image")
+        small_icon_url: "some_image_url_88_88.jpg", name: "Thumbnail Image")
       page = instance_double("Page", name: name, top_images: [image1],
         scientific_name: "<i>Our scientific</i>")
       search_results = double("Sunspot::Search", results: [page])

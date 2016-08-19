@@ -13,8 +13,8 @@ RSpec.describe "traits/show" do
     page1_name = instance_double("Vernacular", string: "page 1 vern")
     page2_name = instance_double("Vernacular", string: "page 2 vern")
 
-    page1_icon = instance_double("Medium", base_url: "http://this/path",
-      name: "Page 1 Icon")
+    page1_icon = instance_double("Medium", name: "Page 1 Icon",
+      small_icon_url: "http://this/path_88_88.jpg")
 
     page1 = instance_double("Page", id: 1234, name: page1_name,
       scientific_name: "<i>Page 1 Canon<i/>", top_images: [page1_icon])
