@@ -198,7 +198,7 @@ class Import::Page
         rank = build_rank(node_data["rank"])
         n.id = node_data["id"],
         n.resource_id = resource.id
-        n.page_id = @page.id
+        n.page_id = node_data["page_id"]
         # These get calculated, sadly. ...TODO: override.
         # n.lft = node_data["lft"]
         # n.rgt = node_data["rgt"]
