@@ -4,8 +4,26 @@
   %ul
     - @pages.results.each do |page|
       %li
+        .ancestors
+          %ul
+            - page.native_node.ancestors.each do |node|
+              %li= link_to(node.canonical_form.html_safe, page_path(node.page_id))
         - unless page.top_images.empty?
           - image = page.top_images.first
           = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
-        = link_to(page.name.string.titlecase, page_path(page))
-        = link_to(page.scientific_name.html_safe, page_path(page))
+        = link_to(page.name.string.titlecase.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
+        -# Other vernaculars that match:
+        - page.vernaculars.select { |pv| pv.string.downcase != page.name.string.downcase && pv.string =~ /#{@q}/i }.each do |name|
+          = name.string.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe
+          = "(#{name.language.code})"
+        %br/
+        = link_to(page.scientific_name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
+        -# Other scientific_names that match:
+        - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
+          name.canonical_form.gsub(/(#{@q})/, "<b>\\1</b>").html_safe
+        %br/
+        -# Resources:
+        - page.resources.uniq.each do |resource|
+          = resource.name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe
+          - unless resource.name =~ /#{resource.partner.short_name}/
+            = "(#{resource.partner.short_name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe})"

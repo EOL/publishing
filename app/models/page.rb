@@ -10,6 +10,7 @@ class Page < ActiveRecord::Base
   has_many :synonyms, -> { synonym }, class_name: "ScientificName"
   has_many :preferred_scientific_names, -> { preferred },
     class_name: "ScientificName"
+  has_many :resources, through: :nodes
 
   has_many :page_contents, -> { visible.not_untrusted }
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
@@ -62,7 +63,7 @@ class Page < ActiveRecord::Base
     through: :page_contents, source: :content, source_type: "Medium"
 
   scope :preloaded, -> do
-    includes(:native_node, :preferred_vernaculars, :page_contents)
+    includes(:preferred_vernaculars, :page_contents, :native_node)
   end
 
   scope :all_preloaded, -> do
@@ -76,6 +77,7 @@ class Page < ActiveRecord::Base
     text :scientific_name, :boost => 10.0 do
       scientific_name.gsub(/<\/?i>/, "")
     end
+    # TODO: We would like to add attributions, later.
     text :preferred_scientific_names, :boost => 8.0 do
       preferred_scientific_names.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
     end
@@ -87,6 +89,9 @@ class Page < ActiveRecord::Base
     end
     text :vernaculars do
       vernaculars.nonpreferred.map { |v| v.string }
+    end
+    text :providers do
+      resources.flat_map { |r| [r.name, r.partner.full_name, r.partner.short_name] }
     end
   end
 
