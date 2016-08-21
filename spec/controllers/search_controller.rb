@@ -13,6 +13,11 @@ RSpec.describe SearchController do
       expect(assigns(:pages)).to eq(:fake_reuslts)
     end
 
+    it "assigns query string" do
+      get "search", q: "this_string"
+      expect(assigns(:q)).to eq("this_string")
+    end
+
     it "runs a name search" do
       get :search, q: "query"
       expect(Page).to have_received(:search)
