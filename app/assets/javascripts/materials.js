@@ -1,3 +1,4 @@
+// TODO: rename this file and the controller.
 var app = angular.module('confirmApp', ['ngMaterial']);
 app.controller('AppMaterials', function($scope, $mdDialog, $mdMedia, $http, $window) {
   $scope.showConfirm = function(ev,user_id, msg) {

@@ -11,7 +11,7 @@
     -# TODO: helper
     - prev_page_id = nil
     - grouped_traits.keys.sort.each do |page_id|
-      - grouped_traits[page_id].each do |trait|
+      - TraitBank.sort(grouped_traits[page_id], @glossary).each do |trait|
         %tr
           %th
             - if prev_page_id != page_id

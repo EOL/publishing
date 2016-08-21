@@ -1,62 +1,73 @@
-.ancestors
-  %ul
-    - @page.native_node.ancestors.each do |node|
-      %li= link_to(node.canonical_form.html_safe, page_path(node.page_id))
-%h1= @page.name.string.titlecase
-%h2= @page.scientific_name.html_safe
-%table.traits_by_page
-  %tbody
-    - grouped_traits = @page.traits.group_by { |t| t[:predicate] }
-    -# TODO: helper
-    - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name) <=> @page.glossary[b].try(:name) }[0..9].each do |uri|
-      - predicate = @page.glossary[uri]
-      - previous_predicate = nil
-      - grouped_traits[uri].each do |trait|
-        %tr
-          %th
-            - if predicate != previous_predicate
-              = link_to(predicate.name, trait_path(predicate))
-              - previous_predicate = predicate
-          %td
-            - if trait[:measurement]
-              = trait[:measurement]
-              = @page.glossary[trait[:units]].try(:name) || trait[:units]
-            - elsif trait[:term]
-              = @page.glossary[trait[:term]].try(:name) || trait[:term]
-            - elsif trait[:literal]
-              = trait[:literal].html_safe
-            - else
-              Augh! Could not find a displayable value from keys of:
-              = trait.keys.join(", ")
-          -# NOTE: I cannot make this a link just yet. Later.
-          %td
-            - if resource = @resources[trait[:resource_id]]
-              = resource.name
-            - else
-              t(:resource_missing)
-%ul
-  - @page.top_images.each do |image|
-    %li
-      -# TODO: we will eventuall know the actual size of the image; add that:
-      = image_tag(image.large_size_url, alt: image.name.html_safe)
-      %br/
-      = image.license.name
-      = image.owner.html_safe
-= "[TODO: maps]"
-= "[TODO: media]"
-= "[TODO: classification tree]"
-= "[TODO: overview]"
-= "[TODO: details]"
-= "[TODO: trait data]"
-= "[TODO: names]"
-= "[TODO: references + literature]"
-= "[TODO: education]"
-- article = @page.top_articles.first
-- if article
-  - name = article.name.html_safe
-  - name = article.sections.first.name if name.blank? || name.empty?
-  .article
-    %h3= name
-    = article.body.html_safe
-    = article.license.name
-    = article.owner.html_safe
+= javascript_include_tag 'page.js'
+#page{ "ng-app" => "pageApp" }
+  #page_control{ "ng-controller" => "pageApp" }
+    .ancestors
+      %ul
+        - @page.native_node.ancestors.each do |node|
+          %li= link_to(node.canonical_form.html_safe, page_path(node.page_id))
+    %h1= @page.name.string.titlecase
+    %h2= @page.scientific_name.html_safe
+    %table.traits_by_page
+      %tbody
+        - grouped_traits = @page.traits.group_by { |t| t[:predicate] }
+        -# TODO: helper
+        - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
+          - predicate = @page.glossary[uri]
+          - previous_predicate = nil
+          - predicate_count = 0
+          - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
+            %tr{ "collapse" => "isCollapsed" }
+              %th
+                - if predicate == previous_predicate
+                  - predicate_count += 1
+                  - if predicate_count = 6
+                    %button{ "type" => "button", "class" => "btn btn-default",
+                      "ng-click" => "isCollapsed = !isCollapsed" }
+                      = t(:show_more)
+                - else
+                  = link_to(predicate.name, trait_path(predicate))
+                  - predicate_count = 1
+                  - previous_predicate = predicate
+              %td
+                - if trait[:measurement]
+                  = trait[:measurement]
+                  = @page.glossary[trait[:units]].try(:name) || trait[:units]
+                - elsif trait[:term]
+                  = @page.glossary[trait[:term]].try(:name) || trait[:term]
+                - elsif trait[:literal]
+                  = trait[:literal].html_safe
+                - else
+                  Augh! Could not find a displayable value from keys of:
+                  = trait.keys.join(", ")
+              -# NOTE: I cannot make this a link just yet. Later.
+              %td
+                - if resource = @resources[trait[:resource_id]]
+                  = resource.name
+                - else
+                  t(:resource_missing)
+    %ul
+      - @page.top_images.each do |image|
+        %li
+          -# TODO: we will eventually know the actual size of the image; add that:
+          = image_tag(image.large_size_url, alt: image.name.html_safe)
+          %br/
+          = image.license.name
+          = image.owner.html_safe
+    = "[TODO: maps]"
+    = "[TODO: media]"
+    = "[TODO: classification tree]"
+    = "[TODO: overview]"
+    = "[TODO: details]"
+    = "[TODO: trait data]"
+    = "[TODO: names]"
+    = "[TODO: references + literature]"
+    = "[TODO: education]"
+    - article = @page.top_articles.first
+    - if article
+      - name = article.name.html_safe
+      - name = article.sections.first.name if name.blank? || name.empty?
+      .article
+        %h3= name
+        = article.body.html_safe
+        = article.license.name
+        = article.owner.html_safe
