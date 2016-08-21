@@ -253,5 +253,43 @@ class TraitBank
       connection.create_relationship("metadata", trait, meta)
       meta
     end
+
+    def sort(traits, glossary)
+      traits.sort do |a,b|
+        name_a = a && glossary[a[:predicate]].try(:name)
+        name_b = b && glossary[b[:predicate]].try(:name)
+        if name_a && name_b
+          if name_a == name_b
+            # TODO: associations
+            if a[:literal] && b[:literal]
+              a[:literal].downcase.gsub(/<\/?[^>]+>/, "") <=>
+                b[:literal].downcase.gsub(/<\/?[^>]+>/, "")
+            elsif a[:measurement] && b[:measurement]
+              a[:measurement] <=> b[:measurement]
+            else
+              trait_a = glossary[a[:trait]].try(:name)
+              trait_b = glossary[b[:trait]].try(:name)
+              if trait_a && trait_b
+                trait_a.downcase <=> trait_b.downcase
+              elsif trait_a
+                -1
+              elsif trait_b
+                1
+              else
+                0
+              end
+            end
+          else
+            name_a.downcase <=> name_b.downcase
+          end
+        elsif name_a
+          -1
+        elsif name_b
+          1
+        else
+          0
+        end
+      end
+    end
   end
 end
