@@ -52,6 +52,11 @@ RSpec.describe "pages/show" do
     expect(rendered).to match /another_url_580_360.jpg/
   end
 
+  it "shows the ancestor names" do
+    render
+    expect(rendered).to match /Parent Taxon/
+  end
+
   it "shows the article" do
     render
     expect(rendered).to match /Article license name/
