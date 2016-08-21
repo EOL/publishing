@@ -4,6 +4,9 @@ RSpec.describe "pages/show" do
   before do
     resource = instance_double("Resource", id: 64333,
       name: "Short Res Name")
+    parent = instance_double("Node", ancestors: [],
+      canonical_form: "Parent Taxon", page_id: 653421)
+    node = instance_double("Node", ancestors: [parent])
     name = instance_double("Vernacular", string: "something common")
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
@@ -24,7 +27,7 @@ RSpec.describe "pages/show" do
       "http://un.its/one" => instance_double("Uri", name: "Units URI"),
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
-    assign(:page, instance_double("Page", name: name,
+    assign(:page, instance_double("Page", name: name, native_node: node,
       scientific_name: "<i>Nice scientific</i>", top_images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary))
     assign(:resources, { resource.id => resource })
