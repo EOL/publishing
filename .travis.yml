@@ -2,7 +2,7 @@ language: ruby
 services:
   - mysql
 before_script:
-  - mysql -e 'create database eol_website_test;'
+  - mysql -e 'create database eol_test;'
 env:
   - EOL_DB_DEVEL_USERNAME="travis"
   - EOL_DB_DEVEL_PASSWORD=""
