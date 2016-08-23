@@ -1,6 +1,8 @@
 # eol_website
 This repository contains rails code for the new version of EOL (TRAMEA).
 
+[![Build Status](https://travis-ci.org/EOL/eol_website.svg?branch=master)](https://travis-ci.org/EOL/eol_website)
+
 ## Up and Running
 
 You should install the following before proceeding:
