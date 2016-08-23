@@ -3,3 +3,7 @@ services:
   - mysql
 before_script:
   - mysql -e 'create database eol_website_test;'
+env:
+  - EOL_DB_DEVEL_USERNAME="travis"
+  - EOL_DB_DEVEL_PASSWORD=""
+  - EOL_TRAITBANK_URL="http://neo4j:neo4j@localhost:7474"
