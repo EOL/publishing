@@ -21,6 +21,8 @@ require "factory_girl"
 require "rack_session_access/capybara"
 require "omniauth_helper"
 require "sunspot/rails/spec_helper"
+require "coveralls"
+Coveralls.wear!
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate

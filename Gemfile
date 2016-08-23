@@ -47,6 +47,8 @@ gem 'acts_as_list', '~> 0.7.6'
 gem 'awesome_nested_set', '~> 3.1.1'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 0.1.33'
+# Coveralls tracks our spec coverage:
+gem 'coveralls', require: false
 # Devise handles authentication and some authorization:
 gem 'devise'
 gem 'devise-i18n-views'
