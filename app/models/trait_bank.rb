@@ -212,7 +212,7 @@ class TraitBank
     end
 
     def resources(traits)
-      resources = Resource.where(id: traits.map { |t| t[:resource_id] }.compact)
+      resources = Resource.where(id: traits.map { |t| t[:resource_id] }.compact.uniq)
       Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
     end
 
