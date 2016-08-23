@@ -20,10 +20,10 @@
               %th
                 - if predicate == previous_predicate
                   - predicate_count += 1
-                  - if predicate_count = 6
-                    %button{ "type" => "button", "class" => "btn btn-default",
-                      "ng-click" => "isCollapsed = !isCollapsed" }
-                      = t(:show_more)
+                  -# - if predicate_count = 6
+                  -#   %button{ "type" => "button", "class" => "btn btn-default",
+                  -#     "ng-click" => "isCollapsed = !isCollapsed" }
+                  -#     = t(:show_more)
                 - else
                   = link_to(predicate.name, trait_path(predicate))
                   - predicate_count = 1
