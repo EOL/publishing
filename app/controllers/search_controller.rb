@@ -1,10 +1,19 @@
 class SearchController < ApplicationController
   def search
     # TODO: we'll want some whitelist filtering here later:
+    # NOTE:
     @q = params[:q]
     # More later, but for now, we can just search names:
     @pages = Page.search(include: [:native_node, :preferred_vernaculars, :page_contents]) do
-      fulltext @q
+      # NOTE: @q DOES NOT WORK HERE (for some reason)
+      if params[:q] =~ /\*$/
+        any do
+          fulltext params[:q] # params[:q]
+          fulltext params[:q].sub(/\*$/, "")
+        end
+      else
+        fulltext params[:q]
+      end
       paginate page: params[:page] || 1, per_page: params[:per_page] || 30
     end
 
