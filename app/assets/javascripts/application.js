@@ -10,11 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require bootstrap
+//= require jquery_ujs
+//= require turbolinks
 //= require angular
 //= require angular-sanitize
 //= require ui-bootstrap-tpls-0.13.4.min
-//= require jquery
-//= require jquery_ujs
-//= require turbolinks
 //= require layout_search
+//= require galleria/galleria-1.4.2.min
+//= require page
 //= require_tree .
