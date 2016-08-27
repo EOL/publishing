@@ -3,7 +3,8 @@ class Import::Page
     def from_file(name)
       @resource_nodes = {}
       # Test with:
-      # Import::Page.from_file(Rails.root.join("doc", "store-328598.json"))
+      # Import::Page.from_file(Rails.root.join("doc", "store-328598.json")) OR
+      # Import::Page.from_file("http://beta.eol.org/store-328598.json")
       file = if Uri.is_uri?(name.to_s)
         open(name) { |f| f.read }
       else
