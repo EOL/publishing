@@ -11,8 +11,10 @@ RSpec.describe "pages/show" do
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
     image1 = instance_double("Medium", license: lic1, owner: "Owner 1",
-      large_size_url: "some_url_580_360.jpg", name: "Image Name 1")
+      large_size_url: "some_url_580_360.jpg", small_icon_url: "no_matter",
+      original_size_url: "no_matter", name: "Image Name 1")
     image2 = instance_double("Medium", license: lic1, owner: "Owner 2",
+      small_icon_url: "no_matter", original_size_url: "no_matter",
       large_size_url: "another_url_580_360.jpg", name: "Image Name 2")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
@@ -28,7 +30,7 @@ RSpec.describe "pages/show" do
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
     assign(:page, instance_double("Page", name: name, native_node: node,
-      scientific_name: "<i>Nice scientific</i>", top_images: [image1, image2],
+      scientific_name: "<i>Nice scientific</i>", images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary))
     assign(:resources, { resource.id => resource })
   end
