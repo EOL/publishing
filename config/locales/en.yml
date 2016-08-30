@@ -61,6 +61,9 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  traits_show_more:
+    one: "Toggle more"
+    other: "Toggle %{count} more"
   uri_definition_blank: "No one has defined this trait yet."
   username: "Username"
   user_not_active: "The user is not active"

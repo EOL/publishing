@@ -17,7 +17,6 @@
 //= require angular
 //= require angular-sanitize
 //= require ui-bootstrap-tpls-0.13.4.min
-//= require layout_search
+//= require main
 //= require galleria/galleria-1.4.2.min
-//= require page
 //= require_tree .

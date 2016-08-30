@@ -1,8 +1,10 @@
 (function () {
   'use strict';
-  angular
-    .module("searchApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"])
-    .controller("SearchCtrl", SearchCtrl);
+  var app = angular
+    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"]);
+
+  app.controller("SearchCtrl", SearchCtrl);
+  app.controller("PageCtrl", PageCtrl);
 
   function SearchCtrl ($scope, $http, $window) {
     $scope.selected = undefined;
@@ -30,4 +32,10 @@
       }
     };
   };
+
+  function PageCtrl ($scope) {
+    $scope.testVar = "foo";
+    $scope.traitsCollapsed = false;
+  };
+
 })();
