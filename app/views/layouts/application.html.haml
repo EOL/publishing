@@ -10,44 +10,62 @@
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"
     = csrf_meta_tags
-  %body
-    .header
-      .search{ "ng-app" => "searchApp" }
-        %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
-          %a{ href: "#" }
-            %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}", height: "33" }
-          %a{ href: "#" }
-            %span{ "ng-bind-html" => "match.model.scientific_name | typeaheadHighlight:query" }
-          %br/
-          %span{ "ng-repeat" => "vern in match.model.preferred_vernaculars",
-            "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
-        %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
-          %md-content.md-padding
-            = form_tag(search_path, method: "get", autocomplete: "off") do
-              = text_field_tag("q", nil,
-                "ng-model" => "selectedPage",
-                "placeholder" => t(:layout_search_placeholder),
-                "typeahead" => "page for page in querySearch($viewValue)",
-                "typeahead-template-url" => "layoutSearchTemplate.html",
-                "typeahead-loading" => "loadingLocations",
-                "typeahead-on-select" => "onSelect($item, $model, $label)",
-                "typeahead-input-formatter" => "nameOfModel($model)",
-                "class" => "form-control",
-                "autocomplete" => "off")
-              %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
-              = submit_tag "Go"
-      .session
-        - if current_user
-          = link_to(current_user.username, user_path(current_user))
-          = link_to(t(:layout_sign_out), destroy_user_session_path)
-        - else
-          = link_to(t(:layout_sign_in), new_user_session_path)
-          = link_to(t(:layout_sign_up), new_user_registration_path)
-    - flash.each do |name, msg|
-      - next if name ==  :recaptcha_error.to_s
-      - if msg.class == Array
-        - msg.each do |message|
-          = content_tag :p, message, :id => "flash_#{name}"
-      - else
-        = content_tag :p, msg, :id => "flash_#{name}"
+  %body{ "ng-app" => "eolApp" }
+    %nav.navbar.navbar-default.navbar-fixed-top
+      .container
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            -# TODO: I18n
+            %li= link_to("EOL", "/")
+            %li= link_to("About", "/about")
+            %li= link_to("Education", "/education")
+            %li= link_to("Donate", "/donate")
+            %li.dropdown
+              = link_to(("English" + "<span class='caret'></span>").html_safe, "/donate", class: "dropdown-toggle", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" })
+              %ul.dropdown-menu
+                %li= link_to("French", "#")
+                %li= link_to("German", "#")
+                %li= link_to("Russian", "#")
+                %li= link_to("Spanish", "#")
+          %ul.session.nav.navbar-nav.navbar-right
+            - if current_user
+              %li= link_to(current_user.username, user_path(current_user))
+              %li= link_to(t(:layout_sign_out), destroy_user_session_path)
+            - else
+              %li= link_to(t(:layout_sign_in), new_user_session_path)
+              %li= link_to(t(:layout_sign_up), new_user_registration_path)
+          .search.navbar-form.navbar-right
+            %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
+              %a{ href: "#" }
+                %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}", height: "33" }
+              %a{ href: "#" }
+                %span{ "ng-bind-html" => "match.model.scientific_name | typeaheadHighlight:query" }
+              %br/
+              %span{ "ng-repeat" => "vern in match.model.preferred_vernaculars",
+                "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+            %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
+              = form_tag(search_path, method: "get", autocomplete: "off") do
+                .input-group
+                  = text_field_tag("q", nil,
+                    "ng-model" => "selectedPage",
+                    "placeholder" => t(:layout_search_placeholder),
+                    "typeahead" => "page for page in querySearch($viewValue)",
+                    "typeahead-template-url" => "layoutSearchTemplate.html",
+                    "typeahead-loading" => "loadingLocations",
+                    "typeahead-on-select" => "onSelect($item, $model, $label)",
+                    "typeahead-input-formatter" => "nameOfModel($model)",
+                    "class" => "form-control",
+                    "autocomplete" => "off")
+                  %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
+                  .input-group-btn
+                    = submit_tag "Go", class: "btn btn-default"
+    - unless flash.empty?
+      .container
+        - flash.each do |name, msg|
+          - next if name ==  :recaptcha_error.to_s
+          - if msg.class == Array
+            - msg.each do |message|
+              = content_tag :p, message, :id => "flash_#{name}"
+          - else
+            = content_tag :p, msg, :id => "flash_#{name}"
     = yield
