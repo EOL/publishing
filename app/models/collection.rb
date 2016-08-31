@@ -1,5 +1,5 @@
 class Collection < ActiveRecord::Base
-  has_many :collection_items, -> { order(position: :asc) }
+  has_many :collection_items, -> { order(position: :asc) }, inverse_of: :collection
 
   # TODO: Check these. Not sure if it's more efficient to use scopes:
   has_many :articles, through: :collection_items, source: :item, source_type: "Article"
@@ -13,6 +13,8 @@ class Collection < ActiveRecord::Base
     association_foreign_key: "user_id"
 
   has_attached_file :icon
+
+  accepts_nested_attributes_for :collection_items
 
   validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
 end

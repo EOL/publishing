@@ -7,6 +7,9 @@
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
       %h1= @page.name.string.titlecase
       %p= @page.scientific_name.html_safe
+      %p
+        %button.btn.btn-secondary
+          = link_to(t(:taxon_collect_button), new_collection_item_path(item_type: "Page", item_id: @page.id))
     - max_rows = 6
     - traits = @page.traits
     - any_collapsed = false

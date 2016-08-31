@@ -24,9 +24,19 @@ en:
   account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
+  button_create: "create"
+  button_add: "add"
   cancel: "cancel"
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
+  collection_created: "Created new collection \"%{name}\"."
+  collection_created_for_item: "Added \"%{item}\" to new collection \"%{name}\"."
+  collection_item_already_in_collection: "(it's already here)"
+  collection_item_title: "Add \"%{item}\" to..."
+  collection_item_new_collection_title: "...a New Collection"
+  collection_item_new_collection: "New Collection Name"
+  collection_item_no_existing_collections: "You don't have any yet! Create one using the form on the left."
+  collection_item_select_collection: "...One of Your Collections"
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
   create_account: "create account"
@@ -34,6 +44,10 @@ en:
   delete_account_button: "Delete your account"
   email: "Email"
   forgot_your_password: "Forgot your password?"
+  helpers:
+    label:
+      collection:
+        name: 'name'
   layout_search_placeholder: "Search..."
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
@@ -61,6 +75,7 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  taxon_collect_button: "collect"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"

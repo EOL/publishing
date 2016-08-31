@@ -20,22 +20,26 @@ class User < ActiveRecord::Base
 #     -> { where(is_manager: true) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
-  
+
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
   DUMMY_EMAIL_FOR_DELETE = "dummy@eol.org"
 
   # NOTE: this is a hook called by Devise
   def after_confirmation
+    activate
+  end
+
+  def activate
     self.update_attributes(active: true)
   end
 
   def soft_delete
     self.skip_reconfirmation!
     self.update_attributes!(deleted_at: Time.current, email: DUMMY_EMAIL_FOR_DELETE,
-      encrypted_password: nil, active: false)  
+      encrypted_password: nil, active: false)
   end
-  
+
   # def email_required?
     # false
   # end

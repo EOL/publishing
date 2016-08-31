@@ -1,14 +1,12 @@
-= javascript_include_tag 'login.js'
-%div{'ng-app': 'loginApp'}
+%div{ "ng-controller" => "signupValidate as ctrl" }
   %h2= t(:sign_in)
-  = form_for(resource, as: resource_name, url: session_path(resource_name), 
-              html: { name: 'loginForm',
-              'ng-controller': 'loginValidate',
+  = form_for(resource, as: resource_name, url: session_path(resource_name),
+              html: { name: 'loginForm', class: "recaptchad",
               'ng-submit': 'validateForm($event, loginForm)'.html_safe}) do |f|
     .field
       = f.label :email
       %br/
-      = f.email_field :email ,'ng-model': 'email', required: 'true', 
+      = f.email_field :email ,'ng-model': 'email', required: 'true',
          'ng-pattern': $mail_regexp
       %span{class: 'ng-validation-error',
             'ng-show': "  loginForm['user[email]'].$error.required && (loginForm['user[email]'].$touched || showErrors)".html_safe}
@@ -31,5 +29,7 @@
       %span{class: 'ng-validation-error', 'ng-show': 'recaptchaError'.html_safe}
         = I18n.t(:recaptcha_error)
     .actions
-      = f.submit I18n.t(:sign_in), 'ng-disabled': " loginForm.$invalid || !recaptchaChecked"
+      = f.submit I18n.t(:sign_in), 'ng-disabled': " loginForm.$invalid || !recaptchaChecked", class: "btn btn-default"
+      %p{ ng: { bind: "loginForm.$invalid" } }= "here"
+      %p{ ng: { bind: "recaptchaChecked" } }= "missing"
 = render "devise/shared/links"
