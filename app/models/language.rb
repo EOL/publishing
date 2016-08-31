@@ -13,5 +13,11 @@ class Language < ActiveRecord::Base
         l.can_browse_site = true
       end
     end
+
+    def current
+      locale = I18n.locale
+      @current ||= {}
+      @current[locale] ||= Language.find_by_group(locale)
+    end
   end
 end

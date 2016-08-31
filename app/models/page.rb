@@ -3,7 +3,7 @@ class Page < ActiveRecord::Base
   belongs_to :moved_to_page, class_name: "Page"
 
   has_many :nodes, inverse_of: :page
-
+  has_many :collection_items, as: :item
   has_many :vernaculars, inverse_of: :page
   has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
   has_many :scientific_names, inverse_of: :page
@@ -107,6 +107,15 @@ class Page < ActiveRecord::Base
     page.page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
+  def collect_as(language = nil)
+    language ||= Language.english
+    name(language).try(:string).titlecase || scientific_name
+  end
+
+  def collect_with_icon
+    top_image && top_image.medium_icon_url
+  end
+
   # Can't (easily) use clever associations here because of language.
   def name(language = nil)
     language ||= Language.english
@@ -118,7 +127,7 @@ class Page < ActiveRecord::Base
   end
 
   def top_image
-    top_images.first
+    @top_image ||= top_images.first
   end
 
   # TODO: ideally we want to be able to limit these! ...but that's really hard,
