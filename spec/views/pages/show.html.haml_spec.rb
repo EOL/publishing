@@ -29,7 +29,7 @@ RSpec.describe "pages/show" do
       "http://un.its/one" => instance_double("Uri", name: "Units URI"),
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
-    assign(:page, instance_double("Page", name: name, native_node: node,
+    assign(:page, instance_double("Page", id: 8293, name: name, native_node: node,
       scientific_name: "<i>Nice scientific</i>", images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary))
     assign(:resources, { resource.id => resource })
