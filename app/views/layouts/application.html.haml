@@ -34,13 +34,12 @@
             - else
               %li= link_to(t(:layout_sign_in), new_user_session_path)
               %li= link_to(t(:layout_sign_up), new_user_registration_path)
-          .search.navbar-form.navbar-right
+          .nav-search.navbar-form.navbar-right
             %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
               %a{ href: "#" }
                 %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}", height: "33" }
               %a{ href: "#" }
                 %span{ "ng-bind-html" => "match.model.scientific_name | typeaheadHighlight:query" }
-              %br/
               %span{ "ng-repeat" => "vern in match.model.preferred_vernaculars",
                 "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
             %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
@@ -56,9 +55,10 @@
                     "typeahead-input-formatter" => "nameOfModel($model)",
                     "class" => "form-control",
                     "autocomplete" => "off")
-                  %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
                   .input-group-btn
                     = submit_tag "Go", class: "btn btn-default"
+          .search-indicator.nav.navbar-nav.navbar-right
+            %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
     - unless flash.empty?
       .container
         - flash.each do |name, msg|
