@@ -13,7 +13,15 @@
       return $http.get("/search.json", {
         params: { q: query + "*", per_page: "6" }
       }).then(function(response){
-        return response.data;
+        var data = response.data;
+        $.each(data, function(i, match) {
+          match.preferred_vernaculars =
+            jQuery.grep(match.preferred_vernaculars, function(e) {
+              var re = new RegExp(query, "i");
+              return e.string.match(re);
+            });
+        });
+        return data;
       });
     };
 
