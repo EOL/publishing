@@ -15,17 +15,18 @@
       - grouped_traits.keys.sort.each do |page_id|
         - TraitBank.sort(grouped_traits[page_id], @glossary).each do |trait|
           %tr
+            - page = @pages[page_id]
             %th.trait-table-image{ scope: "row" }
               - if prev_page_id != page_id
-                - page = @pages[page_id]
                 - unless page.top_images.empty?
                   - image = page.top_images.first
                   = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
             %th{ scope: "row" }
-              .names.d-inline
-                = link_to(page.name.string.titlecase, page_path(page), class: "primary-name")
-                %br/
-                = link_to(page.scientific_name.html_safe, page_path(page), class: "secondary-name")
+              - if prev_page_id != page_id
+                .names.d-inline
+                  = link_to(page.name.string.titlecase, page_path(page), class: "primary-name")
+                  %br/
+                  = link_to(page.scientific_name.html_safe, page_path(page), class: "secondary-name")
               - prev_page_id = page_id
             %td
               - if trait[:measurement]
