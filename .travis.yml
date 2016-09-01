@@ -13,3 +13,6 @@ bundler_args: --binstubs
 addons:
   code_climate:
     repo_token: 7c07850ceb2c6d36b0ab6d76cbb9e64826281b805556926b8d8d6f449ce0323b
+notifications:
+  email:
+    - developers@eol.org
