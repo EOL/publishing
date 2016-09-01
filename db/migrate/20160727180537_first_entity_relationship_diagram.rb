@@ -5,7 +5,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "ISO 639-3; e.g.: 'eng' ...Note that the NAME of the language will be handled by "\
           "translation, e.g.: I18n.t('languages.' + lang.code)"
       t.string :group, null: false, limit: 12, index: true,
-        comment: "ISO 629-1; e.g. 'en', allowing several dialects to be grouped for display, "\
+        comment: "ISO 639-1; e.g. 'en', allowing several dialects to be grouped for display, "\
           "when mutually intelligible"
       t.boolean :can_browse_site, null: false, default: false,
         comment: "whether to include this language in the drop-down of langauges with which you "\
@@ -36,11 +36,13 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_browsable, null: false, default: false
       t.boolean :has_duplicate_nodes, null: false, default: false
 
+      # TODO: I don't think we need these here, they are only for harvesting:
       t.integer :default_language_id
       t.integer :default_license_id, comment: "was: license_id"
       t.string :default_rights_statement, limit: 300,
         comment: "was: rights_statement"
       t.text :default_rights_holder, comment: "was: rights_holder"
+
       t.string :node_source_url_template,
         comment: "used to build the so-called outlink url; %%ID%% is replaced with the entry resource_pk; was: outlink_uri"
 
@@ -79,6 +81,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :rank_id,
         comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community"
       t.integer :parent_id, index: true, comment: "null means root node"
+      # TODO: Remove... we don't need these on the website, only during harvests (and even then, I'm not sure)
       t.integer :lft,
         comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
       t.integer :rgt,
@@ -108,6 +111,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "enum: r_domain r_kingdom r_phylum r_class r_order r_family r_genus r_species; when null, rank is ignored"
     end
 
+    # NOTE: there is no resource_id here because we'll never need all of the
+    # ancestors for a resource on this website. That's only used for harvesting.
     create_table :node_ancestors do |t|
       t.integer :node_id, index: true, null: false
       t.integer :ancestor_id, index: true, null: false,
@@ -130,15 +135,23 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     create_table :pages do |t|
       t.integer :native_node_id,
-        comment: "node ID from Dynamic Working Hierarchy, which we use to get the preferred ancestors, "\
+        comment: "denormalized node ID from Dynamic Working Hierarchy, which we use to get the preferred ancestors, "\
           "children, and names; null implies 'floating' taxon and should only have one node associated"
       t.integer :moved_to_page_id, comment: "moved/merged/split by curator"
 
       t.timestamps
     end
 
+    # TODO: metrics. We need at lease these:  # images, # trusted images, # text
+    # words, # videos, # sounds, whether we have an IUCN status, # of
+    # references, how many subjects are covered in the TOC, # BHL publications, #
+    # content_partners, whether we have a GBIF map, # of other maps, # common
+    # names, # synonyms, # of nodes (h.entries), # of traits, # of trait
+    # predicates, # of trait sources, # of trait TOC items
+
     # NOTE: this does NOT capture ratings or exemplars, which we need to add,
     # but I need time to think about that!
+    # YOU WERE HERE (in review)
     create_table :page_contents do |t|
       t.integer :page_id, null: false, index: true,
         comment: "the content is shown on this page."
@@ -153,7 +166,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       # Current curation status (see relationships for history):
       t.integer :trust, null: false, default: false,
-        comment: "enum: unreviewed, trusted, unreviewed, untrusted"
+        comment: "enum: unreviewed, trusted, untrusted"
       t.boolean :is_incorrect, null: false, default: false,
         comment: "implies untrusted"
       t.boolean :is_misidentified, null: false, default: false,
