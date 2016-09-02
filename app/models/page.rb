@@ -109,8 +109,9 @@ class Page < ActiveRecord::Base
 
   def collect_as(language = nil)
     language ||= Language.english
-    name(language).try(:string).titlecase || scientific_name
+    name(language).try(:string).try(:titlecase) || scientific_name
   end
+  alias_method :collected_as, :collect_as
 
   def collect_with_icon
     top_image && top_image.medium_icon_url
