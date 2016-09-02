@@ -14,9 +14,7 @@ RSpec.describe PagesController do
       get :show, id: page.id
       expect(assigns(:page)).to eq(page)
     end
-  end
 
-  describe '#show' do
     it "assigns resources" do
       get :show, id: page.id
       expect(assigns(:resources)).to eq([resource])
