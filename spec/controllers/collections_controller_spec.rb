@@ -11,7 +11,7 @@ RSpec.describe CollectionsController do
 
   describe '#create (signed in)' do
     before(:each) do
-      sign_in(user)
+      log_in(user)
     end
 
     it "redirects to collected item" do
