@@ -22,7 +22,6 @@ require "rack_session_access/capybara"
 require "omniauth_helper"
 require "sunspot/rails/spec_helper"
 require "coveralls"
-require "support/controller_helpers"
 
 Coveralls.wear!
 
@@ -42,8 +41,6 @@ RSpec.configure do |config|
   end
 
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerHelpers, :type => :controller
 
   config.before(:suite) do
     FactoryGirl.find_definitions

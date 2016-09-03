@@ -35,7 +35,7 @@ RSpec.describe User::SessionsController, type: :controller do
       expect(flash[:alert]).to eq I18n.t :already_authenticated, scope: 'devise.failure'
     end
   end
-  
+
   describe '#create' do
 
     context 'successful sign in' do
@@ -52,13 +52,13 @@ RSpec.describe User::SessionsController, type: :controller do
         expect(response).to redirect_to root_path
       end
       it 'gives a successful signin flash' do
-        expect(flash[:notice]).to eq I18n.t :signed_in, scope: 'devise.sessions' 
+        expect(flash[:notice]).to eq I18n.t :signed_in, scope: 'devise.sessions'
       end
- 
+
 
     end
 
-    context 'failed sign in' do 
+    context 'failed sign in' do
 
       context 'invalid recaptcha' do
         before do
@@ -66,13 +66,13 @@ RSpec.describe User::SessionsController, type: :controller do
           allow(controller).to receive(:verify_recaptcha) { false }
           allow(controller).to receive(:session) { {login_attempts: 4} }
           allow(controller).to receive(:sign_in_params) { {email: user.email} }
-          post :create 
+          post :create
         end
 
         it 'display an invalid recaptcha flash' do
-          expect(flash[:error]).to eq I18n.t :recaptcha_error, scope: 'devise.failure' 
+          expect(flash[:error]).to eq I18n.t :recaptcha_error, scope: 'devise.failure'
         end
-        
+
         it 'renders the new template' do
           expect(response).to render_template :new
         end
