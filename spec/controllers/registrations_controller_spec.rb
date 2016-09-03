@@ -4,8 +4,7 @@ RSpec.describe User::RegistrationsController, type: :controller do
   render_views
   describe 'check_captcha' do
     before do
-      @request.env['devise.mapping'] = Devise.mappings[:user]
-      user_logged_in(nil)
+      request.env["devise.mapping"] = Devise.mappings[:user]
     end
     let(:user) { create(:user) }
 
@@ -18,8 +17,7 @@ RSpec.describe User::RegistrationsController, type: :controller do
 
     context 'unverified recaptcha' do
       it "renders new action" do
-        # TODO: user_logged_in is not working here. :S
-        allow(controller).to receive(:verify_recaptcha) { false }
+       allow(controller).to receive(:verify_recaptcha) { false }
         post :create, user: { username: "user",
           email: "email_1@example.org", password: "password",
           password_confirmation: "password" }
