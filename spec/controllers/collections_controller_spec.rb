@@ -11,8 +11,6 @@ RSpec.describe CollectionsController do
 
   describe '#create (signed in)' do
     before(:each) do
-      request.env["devise.mapping"] = Devise.mappings[:user]
-      allow(request.env['warden']).to receive(:authenticate!) { user }
       allow(controller).to receive(:current_user) { user }
     end
 
