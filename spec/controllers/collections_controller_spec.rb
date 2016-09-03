@@ -11,7 +11,9 @@ RSpec.describe CollectionsController do
 
   describe '#create (signed in)' do
     before(:each) do
-      user_logged_in(user)
+      request.env["devise.mapping"] = Devise.mappings[:user]
+      allow(request.env['warden']).to receive(:authenticate!) { user }
+      allow(controller).to receive(:current_user) { user }
     end
 
     it "redirects to collected item" do
