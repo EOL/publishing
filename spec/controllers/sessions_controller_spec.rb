@@ -40,11 +40,11 @@ RSpec.describe User::SessionsController, type: :controller do
 
     context 'successful sign in' do
       before do
-        allow(request.env['warden']).to receive(:authenticate!) {user}
+        allow(request.env['warden']).to receive(:authenticate!) { user }
         allow(user).to receive(:confirmed?) { true }
         allow(controller).to receive(:verify_recaptcha) { true }
         allow(controller).to receive(:session) { {login_attempts: 2} }
-        allow(controller).to receive(:sign_in_params) { {email: user.email} }
+        allow(controller).to receive(:sign_in_params) { { email: user.email } }
         post :create
       end
 
