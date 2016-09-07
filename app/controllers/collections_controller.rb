@@ -6,7 +6,6 @@ class CollectionsController < ActionController::Base
     @collection.users << current_user
     if @collection.save
       if @collection.collection_items.empty?
-        raise "You should not have gotten here; there should be an item."
         flash[:notice] = I18n.t(:collection_created, name: @collection.name)
         redirect_to @collection
       else
