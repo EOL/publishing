@@ -151,7 +151,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     # NOTE: this does NOT capture ratings or exemplars, which we need to add,
     # but I need time to think about that!
-    # YOU WERE HERE (in review)
+    # TODO: we don't really need an id field on this table, oops.
     create_table :page_contents do |t|
       t.integer :page_id, null: false, index: true,
         comment: "the content is shown on this page."
@@ -184,6 +184,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index(:page_contents, [:page_id, :content_type, :content_id],
       name: "effective_pk", unique: true)
 
+    # TODO: change is_hidden to a trust integer
     create_table :vernaculars do |t|
       t.string :string, null: false,
         comment: "note this does NOT need to be unique"
@@ -201,6 +202,27 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :vernaculars, [:page_id, :language_id],
       name: "preferred_names_index"
 
+    create_table :scientific_names do |t|
+      t.integer :node_id, null: false, index: true
+      t.integer :page_id, null: false, index: true,
+        comment: "denormalized from node; indexed to get all names for a page"
+
+      t.string :italicized, null: false,
+        comment: "finding/applying the italicized pieces out of the normalized form (includes <i> tags)"
+      t.string :canonical_form, null: false,
+        comment: "pulling out only the canonical form from the normalized form (includes <i> tags)"
+
+      t.integer :taxonomic_status_id, null: false,
+        comment: "This is effectively the 'type' of scientific name (or synonym)"
+      t.boolean :is_preferred, null: false, default: true,
+        comment: "denormalized from taxonomic_status (it saves having to join the other table)"
+
+      t.timestamps
+    end
+
+    # Taxonomic Statuses are meant to describe the type of scientific name (or
+    # synonym). ...The additional fields indicate how "usable" that name is and
+    # guide how we should display the name on the site.
     create_table :taxonomic_statuses do |t|
       t.string :name, null: false,
         comment: "the string provided by the resource to describe the name type; "\
@@ -212,23 +234,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "While preffered is always... preferred, these are next in line."
       t.boolean :can_merge, null: false, default: true,
         comment: "whether the name is suitable for merges"
-    end
-
-    create_table :scientific_names do |t|
-      t.integer :node_id, null: false, index: true
-      t.integer :page_id, null: false, index: true,
-        comment: "denormalized from node; indexed to get all names for a page"
-
-      t.string :italicized, null: false,
-        comment: "finding/applying the italicized pieces out of the normalized form"
-      t.string :canonical_form, null: false,
-        comment: "pulling out only the canonical form from the normalized form"
-
-      t.integer :taxonomic_status_id, null: false
-      t.boolean :is_preferred, null: false, default: true,
-        comment: "denormalized from taxonomic_status"
-
-      t.timestamps
     end
 
     create_table :image_info do |t|
@@ -267,6 +272,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :filename, null: false
     end
 
+    # TODO: users can never add media (anymore), so we can replace provider with resource_id; also add:
+    if false
+      t.string :source_url, comment: "This is the ACTUAL downloadable image that we have locally"
+      t.string :source_page_url, comment: "This is where the 'view original' link takes you"
+    end
+
     create_table :media do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -297,6 +308,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    # YOU WERE HERE...
+    # https://docs.google.com/document/d/1rbhy6vwIfFLeJxHNS_lkQ_Up3RlHOuae0NyKJyc4U-0/edit
 
     create_table :articles do |t|
       t.string :guid, null: false, index: true
@@ -392,6 +406,10 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
+    # TODO: merge this table with the join table; duplicates okay.
+    # NOTE: the "Source Information" is MOSTLY attributions, but it's ALSO
+    # location and license information and may contain other metadata. Thus, the
+    # name "attributions," while not appearing on the site, is accurate.
     create_table :attributions do |t|
       t.integer :role_id, null: false, index: true
       t.text :value, null: false, comment: "html"
