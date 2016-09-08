@@ -5,11 +5,11 @@ class Import::Page
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json")) OR
       # Import::Page.from_file("http://beta.eol.org/store-328598.json")
-      file = if Uri.is_uri?(name.to_s)
-        open(name) { |f| f.read }
-      else
-        File.read(name)
-      end
+      file =  if Uri.is_uri?(name.to_s)
+                open(name) { |f| f.read }
+              else
+                File.read(name)
+              end
       data = JSON.parse(file)
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
@@ -190,13 +190,13 @@ class Import::Page
       resource ||= build_resource(node_data["resource"])
       Node.where(resource_id: resource.id, resource_pk: node_data["resource_pk"]).
            first_or_create do |n|
-        parent = if node_data["parent"]
-          build_node(node_data["parent"], resource)
-        else
-          nil
-        end
+        parent =  if node_data["parent"]
+                    build_node(node_data["parent"], resource)
+                  else
+                    nil
+                  end
 
-        rank = build_rank(node_data["rank"])
+        build_rank(node_data["rank"])
         n.id = node_data["id"],
         n.resource_id = resource.id
         n.page_id = node_data["page_id"]
