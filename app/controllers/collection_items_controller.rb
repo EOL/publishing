@@ -2,12 +2,8 @@ class CollectionItemsController < ActionController::Base
   layout "application"
 
   def new
-    class_name = params[:item_type]
-    # TODO: insecure. add whitelisting of class_name.
-    klass = Object.const_get(class_name)
-    @item = klass.send(:find, params[:item_id])
-    @collection_item = CollectionItem.new(
-      item: @item)
+    @collection_item = CollectionItem.new(new_item_params)
+    @item = @collection_item.item
     @collection = Collection.new
     @collection.collection_items << @collection_item
     @bad_collection_ids = CollectionItem.where(
@@ -31,5 +27,9 @@ class CollectionItemsController < ActionController::Base
 
     def collection_item_params
       params.require(:collection_item).permit(:collection_id, :item_type, :item_id)
+    end
+
+    def new_item_params
+      params.permit(:item_id, :item_type)
     end
 end
