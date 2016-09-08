@@ -6,8 +6,6 @@ engines:
     enabled: true
   csslint:
     enabled: true
-  coffeelint:
-    enabled: true
   duplication:
     enabled: true
     config:
@@ -31,7 +29,6 @@ ratings:
   - "**.rhtml"
   - "**.slim"
   - "**.css"
-  - "**.coffee"
   - "**.inc"
   - "**.js"
   - "**.jsx"

@@ -14,8 +14,6 @@ gem 'angularjs-rails'
 # Bootstrap CSS:
 gem 'bootstrap-sass', '~> 3.3.6'
 # gem 'bootstrap', '~> 4.0.0.alpha3'
-# Use CoffeeScript for .coffee assets and views TODO: are we using this? Remove.
-gem 'coffee-rails', '~> 4.1.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?

@@ -36,25 +36,25 @@
       if (typeof $item !== 'undefined') {
         $scope.selected = $item.scientific_name;
         $window.location = "/pages/" + $model.id;
-      };
+      }
     };
 
     $scope.nameOfModel = function($model) {
-      if (typeof $item == 'undefined') {
+      if (typeof $item === 'undefined') {
         return "";
       } else {
         return $model.scientific_name.replace(/<\/?i>/g, "");
       }
     };
-  };
+  }
 
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
-  };
+  }
 
   function LoginCtrl ($scope, $window) {
-    $scope.recaptchaChecked = ($(".g-recaptcha").length == 0);
+    $scope.recaptchaChecked = ($(".g-recaptcha").length === 0);
     $scope.recaptchaError = false;
     $scope.showErrors = false;
 
@@ -65,9 +65,9 @@
       }
       if (typeof(grecaptcha) !== 'undefined') {
         var recaptchaResponse = grecaptcha.getResponse();
-        if (grecaptcha.getResponse() != undefined &&
-          (grecaptcha.getResponse() == null) ||
-          (grecaptcha.getResponse() == '')) {
+        if (grecaptcha.getResponse() !== undefined &&
+          (grecaptcha.getResponse() === null) ||
+          (grecaptcha.getResponse() === '')) {
           $scope.showErrors = true;
           $scope.recaptchaError = $window.recaptchaError = true;
           event.preventDefault();
@@ -79,7 +79,7 @@
         }
       }
     };
-  };
+  }
 
   //custom validation for password match
   app.directive('passwordMatch', function () {
@@ -89,7 +89,7 @@
   			var firstPassword = '#' + attrs.passwordMatch;
   			$(element).add(firstPassword).on('keyup', function () {
   				scope.$apply(function () {
-  					ctrl.$setValidity('pwmismatch', element.val()===$(firstPassword).val());
+  					ctrl.$setValidity('pwmismatch', element.val() === $(firstPassword).val());
   				});
   			});
   		}
@@ -123,7 +123,7 @@
 
   function SignupCtrl ($scope, $window) {
       $scope.showErrors = false;
-      $scope.recaptchaChecked = ($(".g-recaptcha").length == 0);
+      $scope.recaptchaChecked = ($(".g-recaptcha").length === 0);
       $scope.recaptchaError = false;
       $scope.validateForm = function(event, signupForm) {
           if (signupForm.$invalid) {
@@ -133,8 +133,8 @@
           if (!(typeof grecaptcha === 'undefined')) {
               var recaptchaResponse = grecaptcha.getResponse();
               if (grecaptcha.getResponse() != undefined &&
-                  (grecaptcha.getResponse() == null) ||
-                  (grecaptcha.getResponse() == '')) {
+                  (grecaptcha.getResponse() === null) ||
+                  (grecaptcha.getResponse() === '')) {
   	                $scope.showErrors = true;
   	                $scope.recaptchaError = $window.recaptchaError = true;
   	                event.preventDefault();
@@ -145,9 +145,9 @@
               }
           }
       };
-  };
+  }
 
-})();
+}());
 
 var recaptchaError = false;
 
