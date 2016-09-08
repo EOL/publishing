@@ -50,8 +50,6 @@ gem 'acts_as_list', '~> 0.7.6'
 gem 'awesome_nested_set', '~> 3.1.1'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 0.1.33'
-# Coveralls tracks our spec coverage:
-gem 'coveralls', require: false
 # Devise handles authentication and some authorization:
 gem 'devise'
 gem 'devise-i18n-views'
@@ -75,8 +73,12 @@ gem 'angular_rails_csrf'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  # Coveralls tracks our spec coverage:
+  gem 'coveralls', require: false
   # Progress bar for indexing solr items:
   gem 'progress_bar', '~> 1.0.5'
+  # Simplecov, oddly, to add configuration for Coveralls.
+  gem "simplecov", "~> 0.12"
   #solr package. This is gonna be used in development and test environments
   gem 'sunspot_solr', '~> 2.2.5'
 end
