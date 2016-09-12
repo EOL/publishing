@@ -86,40 +86,40 @@ RSpec.describe "Users", type: :request do
       user.confirm
       visit user_path(user.id)
     end
-    
+
     it "should show username" do
       expect(page).to have_text(user.username)
     end
-     
+
     context "owner user" do
-        
+
       before do
         login_as(user, scope: :user)
         visit user_path user.id
       end
-      
+
       it "should contain delete your account button" do
-        expect(page).to have_selector('md-button')
+        expect(page).to have_content(I18n.t(:delete_account_button))
       end
     end
-    
+
     context "not owner user" do
 
       context "regular user" do
          it "should not contain delete your account button" do
-          expect(page).not_to have_selector('md-button')
+          expect(page).not_to have_content(I18n.t(:delete_account_button))
         end
       end
 
       context "admin user" do
-        
+
         before do
           login_as(admin_user, scope: :user)
           visit user_path user.id
         end
-        
+
         it "should not contain delete your account button" do
-          expect(page).to have_selector('md-button')
+          expect(page).to have_content(I18n.t(:delete_account_button))
         end
       end
     end

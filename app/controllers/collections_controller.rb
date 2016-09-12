@@ -1,4 +1,6 @@
 class CollectionsController < ActionController::Base
+  layout "application"
+  
   # TODO: You cannot do this without being logged in.
   def create
     # TODO: cleanup.
@@ -18,6 +20,10 @@ class CollectionsController < ActionController::Base
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"
     end
+  end
+
+  def show
+    @collection = Collection.find(params[:id])
   end
 
   private

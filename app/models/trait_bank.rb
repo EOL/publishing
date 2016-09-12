@@ -120,6 +120,7 @@ class TraitBank
           trait[:metadata] = meta_data ? [ symbolize_hash(meta_data) ] : nil
           trait[:page_id] = page["page_id"] if page
           trait[:resource_id] = resource_id if resource_id
+          trait[:id] = this_id
           traits << symbolize_hash(trait)
         end
         previous_id = this_id

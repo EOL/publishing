@@ -6,7 +6,19 @@
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"]);
+    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .config(function($mdThemingProvider) {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('brown', {
+          'default': '800'
+        })
+        .accentPalette('indigo', {
+          'default': '800'
+        });
+    });
+
+  // Disable Angular Themes (use Bootstrap instead!)
+  // app.constant("$MD_THEME_CSS","");
 
   app.controller("SearchCtrl", SearchCtrl);
   app.controller("PageCtrl", PageCtrl);

@@ -1,9 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "pages/show" do
-  before do
-    resource = instance_double("Resource", id: 64333,
-      name: "Short Res Name")
+  let(:resource) do
+    instance_double("Resource", id: 64333, name: "Short Res Name")
+  end
+
+  let(:page) do
     parent = instance_double("Node", ancestors: [],
       canonical_form: "Parent Taxon", page_id: 653421)
     node = instance_double("Node", ancestors: [parent])
@@ -29,11 +31,16 @@ RSpec.describe "pages/show" do
       "http://un.its/one" => instance_double("Uri", name: "Units URI"),
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
-    assign(:page, instance_double("Page", id: 8293, name: name, native_node: node,
+    instance_double("Page", id: 8293, name: name, native_node: node,
       scientific_name: "<i>Nice scientific</i>", images: [image1, image2],
-      top_articles: [article], traits: traits, glossary: glossary))
+      top_articles: [article], traits: traits, glossary: glossary)
+  end
+
+  before do
+    assign(:page, page)
     assign(:resources, { resource.id => resource })
   end
+
   it "shows the title" do
     render
     expect(rendered).to match /Something Common/
@@ -67,17 +74,17 @@ RSpec.describe "pages/show" do
     expect(rendered).to match /Article owner/
   end
 
-  # TODO: I'm lazy; this requires another whole context...
-  it "shows the article section name if article name is missing"
-
-  it "shows the predicates" do
+  it "shows the article section name if article name is missing" do
+    expect(page).to receive(:top_articles) { [] }
     render
-    expect(rendered).to match /Predicate One/
-    expect(rendered).to match /Predicate Two/
+    expect(rendered).to have_content(I18n.t(:page_has_no_articles))
   end
 
-  # TODO: I'm lazy. This requires Capybara or some clever RegEx.
-  it "does not duplicate predicates"
+  it "shows the predicates once each" do
+    render
+    expect(rendered).to have_content("Predicate One", maximum: 1)
+    expect(rendered).to have_content("Predicate Two", maximum: 1)
+  end
 
   it "shows measurements and units" do
     render
