@@ -5,11 +5,13 @@
         %ol.breadcrumb
           - @page.native_node.ancestors.each do |node|
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-      %h1= @page.name.string.titlecase
-      %p= @page.scientific_name.html_safe
-      %p
-        %button.btn.btn-secondary
-          = link_to(t(:taxon_collect_button), new_collection_item_path(item_type: "Page", item_id: @page.id))
+      .row
+        .col-md-9
+          %h1= @page.name.string.titlecase
+          %p= @page.scientific_name.html_safe
+        %p.col-md-3.actions
+          %button.btn.btn-default
+            = link_to(t(:taxon_collect_button), new_collection_item_path(item_type: "Page", item_id: @page.id))
     - max_rows = 6
     - traits = @page.traits
     - any_collapsed = false
@@ -52,7 +54,7 @@
                     t(:resource_missing)
       - if any_collapsed
         %p
-          %button{ type: "button", class: "btn btn-default", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
+          %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
             = t(:traits_show_more, count: row_count - max_rows)
     .well
       .galleria
@@ -65,8 +67,7 @@
 
     .well
       %tabset{ justified: "true", type: "pills" }
-        - article = @page.top_articles.first
-        - if article
+        - if article = @page.top_articles.first
           %tab{ heading: "Overview" }
             - name = article.name.html_safe
             - name = article.sections.first.name if name.blank? || name.empty?
@@ -75,6 +76,8 @@
               = article.body.html_safe
               = article.license.name
               = article.owner.html_safe
+        - else # No article!
+          = t(:page_has_no_articles)
         %tab{ heading: "Maps (todo)" }
         %tab{ heading: "Classification (todo)" }
         %tab{ heading: "Details (todo)" }

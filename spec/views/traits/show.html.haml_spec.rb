@@ -1,6 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "traits/show" do
+  let(:page1) { create(:page) }
+  let(:page2) { create(:page) }
+
   before do
     # TODO: Would be nice to have helpers/mocks for this kind of thing.
     uri = instance_double("Uri", name: "Trait One",
@@ -10,28 +13,18 @@ RSpec.describe "traits/show" do
 
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
-    page1_name = instance_double("Vernacular", string: "page 1 vern")
-    page2_name = instance_double("Vernacular", string: "page 2 vern")
-
-    page1_icon = instance_double("Medium", name: "Page 1 Icon",
-      small_icon_url: "http://this/path_88_88.jpg")
-
-    page1 = instance_double("Page", id: 1234, name: page1_name,
-      scientific_name: "<i>Page 1 Canon<i/>", top_images: [page1_icon])
-    page2_no_icon = instance_double("Page", id: 2345, name: page2_name,
-      scientific_name: "<i>Page 2 Canon<i/>", top_images: [])
-
     traits =
-      [ { page_id: 1234, measurement: "657", units: units.uri,
+      [ { page_id: 1234, measurement: "657", units: units.uri, id: "1:1",
           resource_id: resource.id },
-        { page_id: 2345, term: term.uri, resource_id: resource.id },
-        { page_id: 2345, literal: "literal trait value",
+        { page_id: 2345, term: term.uri, resource_id: resource.id, id: "1:2" },
+        { page_id: 2345, literal: "literal trait value", id: "1:3",
           resource_id: resource.id } ]
+
     glossary = { units.uri => units, term.uri => term }
 
     assign(:uri, uri)
     assign(:traits, traits)
-    assign(:pages, { 1234 => page1, 2345 => page2_no_icon })
+    assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
     assign(:resources, { 65422 => resource })
   end
@@ -46,22 +39,46 @@ RSpec.describe "traits/show" do
     expect(rendered).to match /Defined thusly/
   end
 
-  it "shows names for all pages" do
+  it "shows canonical names for all pages" do
     render
-    expect(rendered).to match /Page 1 Vern/
-    expect(rendered).to match /Page 2 Vern/
-    expect(rendered).to match /Page 1 Canon/
-    expect(rendered).to match /Page 2 Canon/
+    expect(rendered).to match /#{page1.scientific_name}/
+    expect(rendered).to match /#{page2.scientific_name}/
+  end
+
+  it "shows all names (in titlecase)" do
+    name1 = instance_double("Vernacular", string: "this oneName")
+    name2 = instance_double("Vernacular", string: "thatName too")
+    expect(page1).to receive(:name).at_least(1).times { name1 }
+    expect(page2).to receive(:name).at_least(1).times { name2 }
+    render
+    expect(rendered).to match /#{page1.scientific_name}/
+    expect(rendered).to match /#{page2.scientific_name}/
+    # TODO: we don't really want titlecase to break up those words, because some
+    # languages may want to allow middle-of-the-word caps.
+    expect(rendered).to have_content("This One Name")
+    expect(rendered).to have_content("That Name Too")
   end
 
   it "shows icons for pages that have them" do
+    image = instance_double("Medium",
+      small_icon_url: "http://this/path_88_88.jpg")
+    expect(page1).to receive(:top_image) { image }
     render
     expect(rendered).to match "http://this/path_88_88.jpg"
   end
 
-  # Err... a bit tricky, need to parse the output, not interesting/useful enough
-  # right now.
-  it "shows no icon for pages that do NOT have one"
+  it "shows icon for pages" do
+    image = instance_double("Medium",
+      small_icon_url: "http://this/path_88_88.jpg")
+    expect(page1).to receive(:top_image) { image }
+    render
+    expect(rendered).to have_selector("tr#1\\:1 th.trait-table-image img")
+  end
+
+  it "shows NO icon for pages that do NOT have one" do
+    render
+    expect(rendered).not_to have_selector("tr#1\\:2 th.trait-table-image img")
+  end
 
   it "shows all trait values" do
     render

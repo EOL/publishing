@@ -38,6 +38,7 @@ en:
   collection_item_new_collection: "New Collection Name"
   collection_item_no_existing_collections: "You don't have any yet! Create one using the form on the left."
   collection_item_select_collection: "...One of Your Collections"
+  collection_items_empty: "This collection is empty. Try clicking on the \"collect\" button on species pages to add some items!"
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
   create_account: "create account"
@@ -55,6 +56,7 @@ en:
   layout_sign_out: "Sign Out"
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
+  page_has_no_articles: "Sorry: there are no articles available here."
   password: "Password"
   password_confirmation: "Password confirmation"
   recaptcha: "Recaptcha"
@@ -82,6 +84,7 @@ en:
     other: "Toggle %{count} more"
   uri_definition_blank: "No one has defined this trait yet."
   username: "Username"
+  user_collections_header: "Collections"
   user_not_active: "The user is not active"
   users:
     validations:
