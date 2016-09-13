@@ -23,6 +23,9 @@ coverage
 # Eclipse:
 .metadata
 
+# Byebug:
+.byebug_history
+
 # Older stuff:
 *.bundle
 *.o
