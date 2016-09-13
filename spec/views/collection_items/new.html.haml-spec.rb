@@ -7,7 +7,7 @@ RSpec.describe "collection_items/new" do
     allow(Language).to receive(:current) { "this" }
     item = instance_double("Page", collect_with_icon: "image_thingie.jpg",
       id: 43123)
-    allow(item).to receive(:collect_as).with("this") { "Here Titled" }
+    allow(item).to receive(:name).with("this") { "Here Titled" }
     collection_item = CollectionItem.new(item_id: item.id, item_type: "Page")
     assign(:item, item)
     assign(:collection, Collection.new)

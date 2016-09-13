@@ -107,18 +107,17 @@ class Page < ActiveRecord::Base
     page.page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
-  def collect_as(language = nil)
+  def name(language = nil)
     language ||= Language.english
-    name(language).try(:string).try(:titlecase) || scientific_name
+    vernacular(language).try(:string) || scientific_name
   end
-  alias_method :collected_as, :collect_as
 
   def collect_with_icon
     top_image && top_image.medium_icon_url
   end
 
   # Can't (easily) use clever associations here because of language.
-  def name(language = nil)
+  def vernacular(language = nil)
     language ||= Language.english
     preferred_vernaculars.find { |v| v.language_id == language.id }
   end

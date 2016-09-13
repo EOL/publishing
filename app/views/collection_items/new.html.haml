@@ -3,7 +3,7 @@
     - if image = @item.collect_with_icon
       .collect-image
         = image_tag(image, size: "130x130")
-    %h2.clearfix= t(:collection_item_title, item: @item.collect_as(Language.current))
+    %h2.clearfix= t(:collection_item_title, item: @item.name(Language.current))
     .row
       .col-md-6
         %h3= t(:collection_item_new_collection_title)

@@ -46,10 +46,8 @@ RSpec.describe "traits/show" do
   end
 
   it "shows all names (in titlecase)" do
-    name1 = instance_double("Vernacular", string: "this oneName")
-    name2 = instance_double("Vernacular", string: "thatName too")
-    expect(page1).to receive(:name).at_least(1).times { name1 }
-    expect(page2).to receive(:name).at_least(1).times { name2 }
+    expect(page1).to receive(:name).at_least(1).times { "this oneName" }
+    expect(page2).to receive(:name).at_least(1).times { "thatName too" }
     render
     expect(rendered).to match /#{page1.scientific_name}/
     expect(rendered).to match /#{page2.scientific_name}/

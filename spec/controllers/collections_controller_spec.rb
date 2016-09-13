@@ -40,7 +40,7 @@ RSpec.describe CollectionsController do
         it "adds a flash message" do
           post :create, collection: collection_attributes
           expect(flash[:notice]).to match /new collection/
-          expect(flash[:notice]).to match /#{page.collect_as}/
+          expect(flash[:notice]).to match /#{page.name}/
         end
       end
     end
