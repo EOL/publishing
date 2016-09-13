@@ -53,5 +53,10 @@ RSpec.describe "collections/show" do
       render
       expect(rendered).to match(/#{I18n.t(:collection_items_empty).gsub(/"/, "&quot;")}/)
     end
+
+    it "shows an edit button" do
+      render
+      expect(rendered).to have_selector("a", text: "edit")
+    end
   end
 end

@@ -1,6 +1,6 @@
-class CollectionsController < ActionController::Base
+class CollectionsController < ApplicationController
   layout "application"
-  
+
   # TODO: You cannot do this without being logged in.
   def create
     # TODO: cleanup.

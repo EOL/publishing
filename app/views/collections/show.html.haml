@@ -1,9 +1,15 @@
 #page.container{ ng: { app: "pageApp" } }
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
     .jumbotron
-      %h1= @collection.name
-      - unless @collection.description.blank?
-        %p= @collection.description
+      .row
+        .col-md-9
+          %h1= @collection.name
+          - unless @collection.description.blank?
+            %p= @collection.description
+        - if policy(@collection).update?
+          %p.col-md-3.actions
+            %button.btn.btn-default
+              = link_to(t(:collection_edit_button), edit_collection_path(@collection))
     - if @collection.collection_items.empty?
       %p= t(:collection_items_empty)
     - else
@@ -21,4 +27,4 @@
                   = link_to(item.collect_as.html_safe, item, class: "primary-name")
                   - if item.is_a?(Page) and item.name
                     %br/
-                    = link_to(item.canonical_form.html_safe, item, class: "secondary-name")
+                    = link_to(item.scientific_name.html_safe, item, class: "secondary-name")

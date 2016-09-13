@@ -63,6 +63,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
 # Handle attachments (icons):
 gem "paperclip", "~> 5.0.0"
+# Authorization:
+gem "pundit", "~> 1.1"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
