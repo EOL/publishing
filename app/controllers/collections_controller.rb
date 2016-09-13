@@ -1,6 +1,8 @@
 class CollectionsController < ApplicationController
   layout "application"
 
+  before_filter :find_collection, only: [:edit, :show]
+
   # TODO: You cannot do this without being logged in.
   def create
     # TODO: cleanup.
@@ -22,11 +24,17 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def show
-    @collection = Collection.find(params[:id])
   end
 
   private
+
+    def find_collection
+      @collection = Collection.find(params[:id])
+    end
 
     def collection_params
       params.require(:collection).permit(:name, collection_items_attributes: [:item_type, :item_id])
