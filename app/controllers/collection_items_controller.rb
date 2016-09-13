@@ -1,4 +1,4 @@
-class CollectionItemsController < ActionController::Base
+class CollectionItemsController < ApplicationController
   layout "application"
 
   def new

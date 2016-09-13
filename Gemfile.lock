@@ -211,6 +211,8 @@ GEM
     progress_bar (1.0.5)
       highline (~> 1.6)
       options (~> 2.3.0)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -374,6 +376,7 @@ DEPENDENCIES
   omniauth-yahoo
   paperclip (~> 5.0.0)
   progress_bar (~> 1.0.5)
+  pundit (~> 1.1)
   rack_session_access
   rails (= 4.2.7.1)
   recaptcha
