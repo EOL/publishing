@@ -22,6 +22,7 @@ require "rack_session_access/capybara"
 require "omniauth_helper"
 require "sunspot/rails/spec_helper"
 require "coveralls"
+require "pundit/rspec"
 
 Coveralls.wear!
 
@@ -52,6 +53,16 @@ RSpec.configure do |config|
 
   config.after(:each) do
     ::Sunspot.session = ::Sunspot.session.original_session
+  end
+
+  # Sadly, Pundit gem causes errors with implementing #policy, sooo:
+  # q.v.: https://github.com/rspec/rspec-rails/issues/1076
+  config.around(:each, type: :view) do |ex|
+    config.mock_with :rspec do |mocks|
+      mocks.verify_partial_doubles = false
+      ex.run
+      mocks.verify_partial_doubles = true
+    end
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
