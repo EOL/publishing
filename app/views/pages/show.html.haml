@@ -7,7 +7,7 @@
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
       .row
         .col-md-9
-          %h1= @page.name.string.titlecase
+          %h1= @page.name.titlecase
           %p= @page.scientific_name.html_safe
         %p.col-md-3.actions
           %button.btn.btn-default

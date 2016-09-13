@@ -24,7 +24,7 @@
               - if prev_page_id != page_id
                 .names.d-inline
                   - if page.name
-                    = link_to(page.name.string.titlecase, page, class: "primary-name")
+                    = link_to(page.name.titlecase, page, class: "primary-name")
                     %br/
                     = link_to(page.scientific_name.html_safe, page, class: "secondary-name")
                   - else

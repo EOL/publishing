@@ -17,7 +17,7 @@ RSpec.describe Page do
     let!(:name2) { create(:vernacular, node: our_page.native_node) }
 
     it "selects the preferred vernacular" do
-      expect(our_page.name).to eq(pref_name)
+      expect(our_page.name).to eq(pref_name.string)
     end
 
     it "has access to all vernaculars" do

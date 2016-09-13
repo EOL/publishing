@@ -14,9 +14,9 @@
         - unless page.top_images.empty?
           - image = page.top_images.first
           = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
-        = link_to(page.name.string.titlecase.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
+        = link_to(page.name.titlecase.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
         -# Other vernaculars that match:
-        - page.vernaculars.select { |pv| pv.string.downcase != page.name.string.downcase && pv.string =~ /#{@q}/i }.each do |name|
+        - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.each do |name|
           = name.string.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe
           = "(#{name.language.code})"
         %br/

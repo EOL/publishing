@@ -9,7 +9,6 @@ RSpec.describe "pages/show" do
     parent = instance_double("Node", ancestors: [],
       canonical_form: "Parent Taxon", page_id: 653421)
     node = instance_double("Node", ancestors: [parent])
-    name = instance_double("Vernacular", string: "something common")
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
     image1 = instance_double("Medium", license: lic1, owner: "Owner 1",
@@ -31,7 +30,7 @@ RSpec.describe "pages/show" do
       "http://un.its/one" => instance_double("Uri", name: "Units URI"),
       "http://te.rm/one" => instance_double("Uri", name: "Term URI")
     }
-    instance_double("Page", id: 8293, name: name, native_node: node,
+    instance_double("Page", id: 8293, name: "something common", native_node: node,
       scientific_name: "<i>Nice scientific</i>", images: [image1, image2],
       top_articles: [article], traits: traits, glossary: glossary)
   end

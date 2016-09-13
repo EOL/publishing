@@ -13,7 +13,7 @@ class CollectionsController < ApplicationController
       else
         item = @collection.collection_items.first.item
         flash[:notice] = I18n.t(:collection_created_for_item,
-          name: @collection.name, item: item.collect_as)
+          name: @collection.name, item: item.name)
         redirect_to item
       end
     else
