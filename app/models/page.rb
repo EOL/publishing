@@ -118,14 +118,15 @@ class Page < ActiveRecord::Base
 
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)
-    language ||= Language.english
     if preferred_vernaculars.loaded?
+      language ||= Language.english
       preferred_vernaculars.find { |v| v.language_id == language.id }
     else
       if vernaculars.loaded?
+        language ||= Language.english
         vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
       else
-        preferred_vernaculars.current_language
+        preferred_vernaculars.current_language.first
       end
     end
   end
