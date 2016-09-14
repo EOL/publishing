@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
-  layout "application"
+  layout "collections"
 
-  before_filter :find_collection, only: [:edit, :show]
+  before_filter :find_collection, only: [:edit, :show, :update]
 
   # TODO: You cannot do this without being logged in.
   def create
@@ -30,6 +30,17 @@ class CollectionsController < ApplicationController
   def show
   end
 
+  def update
+    authorize @collection
+    if @collection.update(collection_update_params)
+      flash[:notice] = I18n.t(:collection_updated)
+      redirect_to @collection
+    else
+      # TODO: some kind of hint as to the problem, in a flash...
+      render "edit"
+    end
+  end
+
   private
 
     def find_collection
@@ -38,5 +49,9 @@ class CollectionsController < ApplicationController
 
     def collection_params
       params.require(:collection).permit(:name, collection_items_attributes: [:item_type, :item_id])
+    end
+
+    def collection_update_params
+      params.require(:collection).permit(:name, :description)
     end
 end

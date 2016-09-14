@@ -1,30 +1,28 @@
-#page.container{ ng: { app: "pageApp" } }
-  #page_control{ ng: { controller: "PageCtrl as ctrl" } }
-    .jumbotron
-      .row
-        .col-md-9
-          %h1= @collection.name
-          - unless @collection.description.blank?
-            %p= @collection.description
-        - if policy(@collection).update?
-          %p.col-md-3.actions
-            %button.btn.btn-default
-              = link_to(t(:collection_edit_button), edit_collection_path(@collection))
-    - if @collection.collection_items.empty?
-      %p= t(:collection_items_empty)
-    - else
-      %table.collection_items.table.table-hover.table-bordered
-        %tbody
-          - @collection.collection_items.each do |collection_item|
-            - item = collection_item.item
-            -# TODO: we should probably indicate that an expected item is missing:
-            - next unless item
-            %tr
-              %th.collection-table-image{ scope: "row" }
-                = link_to(image_tag(item.collect_with_icon), item)
-              %th{ scope: "row" }
-                .names.d-inline
-                  = link_to(item.name.html_safe, item, class: "primary-name")
-                  - if item.is_a?(Page) and item.name
-                    %br/
-                    = link_to(item.scientific_name.html_safe, item, class: "secondary-name")
+.jumbotron
+  .row
+    .col-md-9
+      %h1= @collection.name
+      - unless @collection.description.blank?
+        %p= @collection.description
+    - if policy(@collection).update?
+      %p.col-md-3.actions
+        %button.btn.btn-default
+          = link_to(t(:collection_edit_button), edit_collection_path(@collection))
+- if @collection.collection_items.empty?
+  %p= t(:collection_items_empty)
+- else
+  %table.collection_items.table.table-hover.table-bordered
+    %tbody
+      - @collection.collection_items.each do |collection_item|
+        - item = collection_item.item
+        -# TODO: we should probably indicate that an expected item is missing:
+        - next unless item
+        %tr
+          %th.collection-table-image{ scope: "row" }
+            = link_to(image_tag(item.collect_with_icon), item)
+          %th{ scope: "row" }
+            .names.d-inline
+              = link_to(item.name.html_safe.titleize, item, class: "primary-name")
+              - if item.is_a?(Page) and item.name
+                %br/
+                = link_to(item.scientific_name.html_safe, item, class: "secondary-name")
