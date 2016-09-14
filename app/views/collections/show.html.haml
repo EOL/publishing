@@ -11,18 +11,20 @@
 - if @collection.collection_items.empty?
   %p= t(:collection_items_empty)
 - else
+  %h2= t(:collection_items_pages_title)
   %table.collection_items.table.table-hover.table-bordered
     %tbody
-      - @collection.collection_items.each do |collection_item|
-        - item = collection_item.item
-        -# TODO: we should probably indicate that an expected item is missing:
-        - next unless item
+      - @collection.pages.each do |page|
         %tr
           %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(item.collect_with_icon), item)
+            = link_to(image_tag(page.collect_with_icon), page)
           %th{ scope: "row" }
             .names.d-inline
-              = link_to(item.name.html_safe.titleize, item, class: "primary-name")
-              - if item.is_a?(Page) and item.name
+              - common = page.name.titleize.html_safe
+              - scientific = page.scientific_name.html_safe
+              - if common.blank?
+                = link_to(scientific, page, class: "primary-name")
+              - else
+                = link_to(common, page, class: "primary-name")
                 %br/
-                = link_to(item.scientific_name.html_safe, item, class: "secondary-name")
+                = link_to(scientific, page, class: "secondary-name")

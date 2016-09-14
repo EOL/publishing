@@ -27,11 +27,11 @@ class CollectionItemsController < ApplicationController
 
   private
 
-    def collection_item_params
-      params.require(:collection_item).permit(:collection_id, :item_type, :item_id)
-    end
+  def collection_item_params
+    params.require(:collection_item).permit(:collection_id, :item_type, :item_id)
+  end
 
-    def new_item_params
-      params.permit(:item_id, :item_type)
-    end
+  def new_item_params
+    params.permit(:item_id, :item_type)
+  end
 end

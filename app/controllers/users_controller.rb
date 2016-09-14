@@ -23,10 +23,11 @@ class UsersController < ApplicationController
   end
 
   private
-    def redirect_if_user_is_inactive
-      unless @user.active
-        flash[:notice] = I18n.t(:user_not_active)
-        redirect_to new_user_session_path
-      end
+  
+  def redirect_if_user_is_inactive
+    unless @user.active
+      flash[:notice] = I18n.t(:user_not_active)
+      redirect_to new_user_session_path
     end
+  end
 end
