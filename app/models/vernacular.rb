@@ -6,4 +6,5 @@ class Vernacular < ActiveRecord::Base
 
   scope :preferred, -> { where(is_preferred: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
+  scope :current_language, -> { where(language_id: Language.current.id) }
 end
