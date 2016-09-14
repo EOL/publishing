@@ -5,7 +5,7 @@ RSpec.describe CollectionsController do
     let(:user) { create(:user) }
     let(:page) { create(:page) }
 
-    before(:each) do
+    before do
       allow(controller).to receive(:current_user) { user }
     end
 
@@ -52,6 +52,51 @@ RSpec.describe CollectionsController do
     it "assigns collection" do
       get :show, id: collection.id
       expect(assigns(:collection)).to eq(collection)
+    end
+  end
+
+  describe "#edit" do
+    let(:collection) { create(:collection) }
+
+    it "assigns collection" do
+      get :edit, id: collection.id
+      expect(assigns(:collection)).to eq(collection)
+    end
+  end
+
+  describe "#update" do
+    let(:collection) { create(:collection) }
+    let(:user) { create(:user) }
+
+    # NOTE: Policy specs should be used to cover authorization failures.
+
+    context "with correct setup" do
+      before do
+        allow(controller).to receive(:current_user) { user }
+        collection.users << user
+        put :update, id: collection.id, collection: {
+          name: "new name", description: "new description" }
+        collection.reload
+      end
+
+      it { expect(response).to redirect_to(collection) }
+      it { expect(assigns(:collection)).to eq(collection) }
+      it { expect(collection.name).to eq("new name") }
+      it { expect(collection.description).to eq("new description") }
+      it { expect(flash[:notice]).to eq(I18n.t(:collection_updated)) }
+
+    end
+
+    context "with a failure" do
+      it "redirects with flash" do
+        allow(controller).to receive(:current_user) { user }
+        expect(Collection).to receive(:find).at_least(1).times { collection }
+        expect(collection).to receive(:update) { false }
+        collection.users << user
+        put :update, id: "_", collection: collection.attributes
+        collection.reload
+        expect(response).to render_template(:edit)
+      end
     end
   end
 end

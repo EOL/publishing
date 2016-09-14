@@ -72,4 +72,4 @@
                 = content_tag :p, message, :id => "flash_#{name}"
             - else
               = content_tag :p, msg, :id => "flash_#{name}"
-      = yield
+      = content_for?(:content) ? yield(:content) : yield

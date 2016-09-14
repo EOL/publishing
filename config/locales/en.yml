@@ -40,6 +40,7 @@ en:
   collection_item_no_existing_collections: "You don't have any yet! Create one using the form on the left."
   collection_item_select_collection: "...One of Your Collections"
   collection_items_empty: "This collection is empty. Try clicking on the \"collect\" button on species pages to add some items!"
+  collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
   create_account: "create account"
@@ -50,7 +51,11 @@ en:
   helpers:
     label:
       collection:
-        name: 'name'
+        name: "name"
+        description: "description"
+    submit:
+      collection:
+        update: "Save Changes"
   layout_search_placeholder: "Search..."
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
