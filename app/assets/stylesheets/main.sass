@@ -2,12 +2,26 @@
 .nav, .pagination, .carousel, .panel-title a
   cursor: pointer
 
+// OVERRIDE BOOTSTRAP / ANGULAR DEFAULTS
+
+.ng-validation-error
+  color: #ff0000
+
+.btn:focus
+  background-color: rgb(147,147,147)
+
+// HEADER
+
+.nav-search .input-group
+  width: 30em
+
+.search-indicator
+  padding-top: 1.2em
+
+// PAGE HEADERS / JUMBOTRONS
+
 #main
   padding-top: 6em
-
-.collect-image
-  float: left !important
-  padding-right: 2em
 
 .actions
   text-align: right
@@ -15,20 +29,30 @@
 .actions button
   margin: 1em 0.3em
 
-.nav-search .input-group
-  width: 30em
+// FORMS (SITE-WIDE)
 
-.ng-validation-error
-  color: #ff0000
+form .field
+  margin-top: 2em
+
+// COLLECTIONS
+
+.collect-image
+  float: left !important
+  padding-right: 2em
+
+.collection-table-image
+  width: 147px
 
 .primary-name
   font-size: 1.3em
 
-.search-indicator
-  padding-top: 1.2em
-
 .secondary-name
   font-weight: normal
+
+.icons_12_wide .col-md-1
+  margin: 0.5em
+
+// TRAITS
 
 .table-source
   width: 15em
@@ -41,14 +65,3 @@
 
 .trait-table-image
   width: 99px
-
-.collection-table-image
-  width: 147px
-
-.btn:focus
-  background-color: rgb(147,147,147)
-
-// FORMS
-
-form .field
-  margin-top: 2em

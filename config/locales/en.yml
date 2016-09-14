@@ -40,6 +40,7 @@ en:
   collection_item_no_existing_collections: "You don't have any yet! Create one using the form on the left."
   collection_item_select_collection: "...One of Your Collections"
   collection_items_empty: "This collection is empty. Try clicking on the \"collect\" button on species pages to add some items!"
+  collection_items_pages_title: "Pages"
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
@@ -84,7 +85,7 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
-  taxon_collect_button: "collect"
+  taxon_collect_button: "collect page"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"

@@ -26,6 +26,7 @@ class CollectionsController < ApplicationController
   end
 
   def edit
+    @pages.preloaded # We need the images, too.
   end
 
   def show
@@ -44,15 +45,19 @@ class CollectionsController < ApplicationController
 
   private
 
-    def find_collection
-      @collection = Collection.find(params[:id])
-    end
+  def find_collection
+    @collection = Collection.where(id: params[:id]).
+      includes(:collection_items).first
+    @pages = @collection.pages.includes(:preferred_vernaculars)
+    # TODO: other collection item types should be preloaded, too.
+  end
 
-    def collection_params
-      params.require(:collection).permit(:name, collection_items_attributes: [:item_type, :item_id])
-    end
+  def collection_params
+    params.require(:collection).permit(:name,
+      collection_items_attributes: [:item_type, :item_id])
+  end
 
-    def collection_update_params
-      params.require(:collection).permit(:name, :description)
-    end
+  def collection_update_params
+    params.require(:collection).permit(:name, :description)
+  end
 end

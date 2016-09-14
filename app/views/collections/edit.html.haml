@@ -19,18 +19,36 @@
   - if @collection.collection_items.empty?
     %p= t(:collection_items_empty)
   - else
-    %table.collection_items.table.table-hover.table-bordered
-      %tbody
-        - @collection.collection_items.each do |collection_item|
-          - item = collection_item.item
-          -# TODO: we should probably indicate that an expected item is missing:
-          - next unless item
-          %tr
-            %th.collection-table-image{ scope: "row" }
-              = link_to(image_tag(item.collect_with_icon), item)
-            %th{ scope: "row" }
-              .names.d-inline
-                = link_to(item.name.html_safe.titleize, item, class: "primary-name")
-                - if item.is_a?(Page) and item.name
+    %h2= t(:collection_items_pages_title)
+    = fields_for(:collection_items) do |item_f|
+      %table.collection_items.table.table-hover.table-bordered
+        %tbody
+          - @collection.pages.each do |page|
+            %tr
+              %th.collection-table-image{ scope: "row" }
+                = link_to(image_tag(page.collect_with_icon), page)
+              %th{ scope: "row" }
+                .names.d-inline
+                  - common = page.name.titleize.html_safe
+                  - scientific = page.scientific_name.html_safe
+                  - if common.blank?
+                    = link_to(scientific, page, class: "primary-name")
+                  - else
+                    = link_to(common, page, class: "primary-name")
+                    %br/
+                    = link_to(scientific, page, class: "secondary-name")
                   %br/
-                  = link_to(item.scientific_name.html_safe, item, class: "secondary-name")
+                  -# - group_num = 0
+                  %row.icons_12_wide
+                    - page.images[0..29].each do |image|
+                      .col-md-1
+                        = item_f.radio_button(:exemplar_id, image.id, selected: image == page.top_image)
+                        = image_tag(image.small_icon_url, class: "img-responsive")
+                  -# - page.images[1..-1].each_slice(10).each do |group|
+                  -#   - group_num += 1
+                  -#   - break if group_num >= 4
+                  -#   %row.icons_12_wide
+                  -#     - group.each do |image|
+                  -#       .col-md-1
+                  -#         = item_f.radio_button(:exemplar_id, image.id)
+                  -#         = image_tag(image.small_icon_url, class: "img-responsive")

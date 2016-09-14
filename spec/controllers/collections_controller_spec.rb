@@ -49,10 +49,10 @@ RSpec.describe CollectionsController do
   describe "#show" do
     let(:collection) { create(:collection) }
 
-    it "assigns collection" do
-      get :show, id: collection.id
-      expect(assigns(:collection)).to eq(collection)
-    end
+    before { get :show, id: collection.id }
+
+    it { expect(assigns(:collection)).to eq(collection) }
+    it { expect(assigns(:pages)).to eq([]) }
   end
 
   describe "#edit" do
