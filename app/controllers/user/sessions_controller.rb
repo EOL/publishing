@@ -8,9 +8,8 @@ SHOW_CAPTCHA_ATTEMPTS = 3
 
   # GET /resource/sign_in
   def new
-    logger.info "Hi there"
     @verify_recaptcha = true if session[:login_attempts] >= SHOW_CAPTCHA_ATTEMPTS
-    logger.info "Verify: #{@verify_recaptcha}, attempts: #{session[:login_attempts]} > #{SHOW_CAPTCHA_ATTEMPTS}"
+    logger.info "** Verify: #{@verify_recaptcha}, attempts: #{session[:login_attempts]} > #{SHOW_CAPTCHA_ATTEMPTS}"
     super
   end
 

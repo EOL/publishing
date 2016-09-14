@@ -15,7 +15,9 @@ class CollectionItemsController < ApplicationController
     @collection_item = CollectionItem.new(collection_item_params)
     if @collection_item.save
       flash[:notice] = I18n.t(:collection_item_added_to_collection,
-        name: @collection_item.collection.name, item: @collection_item.item.name)
+        name: @collection_item.collection.name,
+        item: @collection_item.item.name,
+        link: collection_path(@collection_item.collection))
       redirect_to @collection_item.item
     else
       # TODO: some kind of hint as to the problem, in a flash...
