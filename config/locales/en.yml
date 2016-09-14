@@ -30,9 +30,9 @@ en:
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
   collection_created: "Created new collection \"%{name}\"."
-  collection_created_for_item: "Added \"%{item}\" to new collection \"%{name}\"."
+  collection_created_for_item: "Added \"%{item}\" to new collection <a href='%{link}'>\"%{name}\"</a>."
   collection_edit_button: "edit collection"
-  collection_item_added_to_collection: "Added \"%{item}\" to collection \"%{name}\"."
+  collection_item_added_to_collection: "Added \"%{item}\" to collection <a href='%{link}'>\"%{name}\"</a>."
   collection_item_already_in_collection: "(it's already here)"
   collection_item_title: "Add \"%{item}\" to..."
   collection_item_new_collection_title: "...a New Collection"
