@@ -34,7 +34,6 @@ class CollectionsController < ApplicationController
 
   def update
     authorize @collection
-    pp collection_params
     if @collection.update(collection_params)
       flash[:notice] = I18n.t(:collection_updated)
       redirect_to @collection

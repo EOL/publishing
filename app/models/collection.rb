@@ -29,4 +29,5 @@ class Collection < ActiveRecord::Base
   accepts_nested_attributes_for :collected_pages, allow_destroy: true
 
   validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
+  validates :name, presence: true
 end
