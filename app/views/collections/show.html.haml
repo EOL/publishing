@@ -8,23 +8,44 @@
       %p.col-md-3.actions
         %button.btn.btn-default
           = link_to(t(:collection_edit_button), edit_collection_path(@collection))
-- if @collection.collection_items.empty?
-  %p= t(:collection_items_empty)
+- if @collection.collected_pages.empty?
+  %p= t(:collection_pages_empty)
 - else
-  %h2= t(:collection_items_pages_title)
+  %h2= t(:collected_pages_title)
   %table.collection_items.table.table-hover.table-bordered
     %tbody
-      - @collection.pages.each do |page|
+      - @collection.collected_pages.each do |collected_page|
+        - page = collected_page.page
         %tr
           %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(page.collect_with_icon), page)
+            = link_to(image_tag(collected_page.icon), page)
           %th{ scope: "row" }
             .names.d-inline
-              - common = page.name.titleize.html_safe
-              - scientific = page.scientific_name.html_safe
+              - common = collected_page.name.titleize.html_safe
+              - scientific = collected_page.scientific_name_string.html_safe
               - if common.blank?
                 = link_to(scientific, page, class: "primary-name")
               - else
                 = link_to(common, page, class: "primary-name")
                 %br/
                 = link_to(scientific, page, class: "secondary-name")
+            %br/
+            -# - group_num = 0
+            %row.icons_12_wide
+              - collected_page.media.each do |medium|
+                .col-md-1
+                  = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
+- if @collection.collection_items.empty?
+  %p= t(:collection_items_empty)
+- else
+  %h2= t(:collection_items_title)
+  %table.collection_items.table.table-hover.table-bordered
+    %tbody
+      - @collection.collection_items.each do |collection_item|
+        - item = collection_item.item
+        %tr
+          %th.collection-table-image{ scope: "row" }
+            = link_to(image_tag(item.icon), item)
+          %th{ scope: "row" }
+            .names.d-inline
+              = link_to(item.name.html_safe, item)

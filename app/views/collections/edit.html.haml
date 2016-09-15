@@ -1,4 +1,5 @@
 = form_for(@collection) do |f|
+  -# Ensure we always have at least the needed empty arrays:
   .jumbotron
     .row
       .col-md-9
@@ -16,39 +17,43 @@
           %button.btn.btn-default
             = link_to(t(:cancel), collection_path(@collection))
 
+  - if @collection.collected_pages.empty?
+    %p= t(:collection_pages_empty)
+  - else
+    %h2= t(:collected_pages_title)
+    %table.collection_items.table.table-hover.table-bordered
+      %tbody
+        - @collection.collected_pages.each do |collected_page|
+          - page = collected_page.page
+          %tr
+            %th.collection-table-image{ scope: "row" }
+              = link_to(image_tag(collected_page.icon), page)
+            %th{ scope: "row" }
+              .names.d-inline
+                - common = collected_page.name.titleize.html_safe
+                - scientific = collected_page.scientific_name_string.html_safe
+                - if common.blank?
+                  = link_to(scientific, page, class: "primary-name")
+                - else
+                  = link_to(common, page, class: "primary-name")
+                  %br/
+                  = link_to(scientific, page, class: "secondary-name")
+                %br/
+                -# - group_num = 0
+                %row.icons_12_wide
+                  = f.fields_for(:collected_pages, collected_page) do |cp_f|
+                    = cp_f.hidden_field(:id, id: collected_page.id)
+                    - page.media[0..29].each do |medium|
+                      .col-md-1
+                        = cp_f.radio_button(:medium_id, medium.id, checked: medium == collected_page.medium)
+                        -# TODO: figure out how to format this, add make sure translation is used:
+                        icon
+                        = check_box_tag("collection[collected_pages_attributes][#{cp_f.index}][medium_ids][]", medium.id, collected_page.medium_ids.include?(medium.id))
+                        -# TODO: figure out how to format this, add make sure translation is used:
+                        add
+                        = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
   - if @collection.collection_items.empty?
     %p= t(:collection_items_empty)
   - else
-    %h2= t(:collection_items_pages_title)
-    = fields_for(:collection_items) do |item_f|
-      %table.collection_items.table.table-hover.table-bordered
-        %tbody
-          - @collection.pages.each do |page|
-            %tr
-              %th.collection-table-image{ scope: "row" }
-                = link_to(image_tag(page.collect_with_icon), page)
-              %th{ scope: "row" }
-                .names.d-inline
-                  - common = page.name.titleize.html_safe
-                  - scientific = page.scientific_name.html_safe
-                  - if common.blank?
-                    = link_to(scientific, page, class: "primary-name")
-                  - else
-                    = link_to(common, page, class: "primary-name")
-                    %br/
-                    = link_to(scientific, page, class: "secondary-name")
-                  %br/
-                  -# - group_num = 0
-                  %row.icons_12_wide
-                    - page.images[0..29].each do |image|
-                      .col-md-1
-                        = item_f.radio_button(:exemplar_id, image.id, selected: image == page.top_image)
-                        = image_tag(image.small_icon_url, class: "img-responsive")
-                  -# - page.images[1..-1].each_slice(10).each do |group|
-                  -#   - group_num += 1
-                  -#   - break if group_num >= 4
-                  -#   %row.icons_12_wide
-                  -#     - group.each do |image|
-                  -#       .col-md-1
-                  -#         = item_f.radio_button(:exemplar_id, image.id)
-                  -#         = image_tag(image.small_icon_url, class: "img-responsive")
+    /# TODO
+    Ooops, this is not implemented

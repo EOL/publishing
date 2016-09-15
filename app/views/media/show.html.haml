@@ -1,0 +1,15 @@
+#page.container{ ng: { app: "pageApp" } }
+  #page_control{ ng: { controller: "PageCtrl as ctrl" } }
+    .jumbotron
+      .row
+        .col-md-9
+          %h1= @medium.name.html_safe
+          - unless @medium.description.blank?
+            %p= @medium.description.html_safe
+        .col-md-3.actions
+          %button.btn.btn-default
+            = link_to(t(:medium_collect_button), new_collection_item_path(item_type: "Medium", item_id: @medium.id))
+    .body
+      = image_tag(@medium.large_size_url)
+      %br/
+      More stuff will be here later, it's still TODO
