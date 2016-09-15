@@ -18,6 +18,7 @@ class Language < ActiveRecord::Base
       locale = I18n.locale
       @current ||= {}
       @current[locale] ||= Language.find_by_group(locale)
+      @current[locale] || Language.english
     end
   end
 end
