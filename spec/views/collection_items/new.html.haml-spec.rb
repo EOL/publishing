@@ -34,7 +34,7 @@ RSpec.describe "collection_items/new" do
     it "shows no collections to select" do
       render
       expect(rendered).to match(
-        /#{I18n.t(:collection_item_no_existing_collections)}/)
+        /#{I18n.t(:collect_no_existing_collections)}/)
     end
 
     it "shows a form for a new collection"

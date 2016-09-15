@@ -1,7 +1,8 @@
 class CollectionsController < ApplicationController
   layout "collections"
 
-  before_filter :find_collection, only: [:edit, :show, :update]
+  before_filter :find_collection_with_pages, only: [:edit, :show]
+  before_filter :find_collection, only: [:update]
 
   # TODO: You cannot do this without being logged in.
   def create
@@ -26,7 +27,6 @@ class CollectionsController < ApplicationController
   end
 
   def edit
-    @pages.preloaded # We need the images, too.
   end
 
   def show
@@ -34,7 +34,8 @@ class CollectionsController < ApplicationController
 
   def update
     authorize @collection
-    if @collection.update(collection_update_params)
+    pp collection_params
+    if @collection.update(collection_params)
       flash[:notice] = I18n.t(:collection_updated)
       redirect_to @collection
     else
@@ -45,19 +46,21 @@ class CollectionsController < ApplicationController
 
   private
 
+  def find_collection_with_pages
+    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+      collected_pages: { page: :preferred_vernaculars }).first
+  end
+
   def find_collection
-    @collection = Collection.where(id: params[:id]).
-      includes(:collection_items).first
-    @pages = @collection.pages.includes(:preferred_vernaculars)
-    # TODO: other collection item types should be preloaded, too.
+    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+      :collected_pages).first
   end
 
+  # { "name" => "A", "description" => "B", "collected_pages_attributes" => { "0" => {
+  # "id" => "3", "medium_ids" => ["6", "7", "8"], "medium_id" => "5" } } }
   def collection_params
-    params.require(:collection).permit(:name,
-      collection_items_attributes: [:item_type, :item_id])
-  end
-
-  def collection_update_params
-    params.require(:collection).permit(:name, :description)
+    params.require(:collection).permit(:name, :description,
+      collection_items_attributes: [:item_type, :item_id],
+      collected_pages_attributes: [:id, :medium_id, medium_ids: []])
   end
 end

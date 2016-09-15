@@ -1,28 +1,26 @@
-#collection_item.container
+#collected_page.container
   .well
-    - if image = @item.collect_with_icon
+    - if image = @page.collect_with_icon
       .collect-image
         = image_tag(image, size: "130x130")
-    %h2.clearfix= t(:collect_title, item: @item.name(Language.current))
+    %h2.clearfix= t(:collect_title, item: @page.name(Language.current))
     .row
       .col-md-6
         %h3= t(:collect_new_collection_title)
         = form_for(@collection, html: { class: "form-inline" }) do |f|
           = f.label(:name, class: "sr-only")
           = f.text_field(:name, class: "form-control", placeholder: t(:collect_new_collection))
-          = f.fields_for(:collection_items) do |item_f|
-            = item_f.hidden_field(:item_id, item_id: @collection_item.item_id)
-            = item_f.hidden_field(:item_type, item_type: @collection_item.item_type)
+          = f.fields_for :collected_pages do |page_f|
+            = page_f.hidden_field(:page_id, page_id: @collected_page.page_id)
           = f.submit(t(:button_create), class: "btn btn-default")
       .col-md-6
         %h3= t(:collect_select_collection)
         - if current_user.collections.empty?
-          %p= t(:collect_no_existing_collections)
+          %p= t(:collected_page_no_existing_collections)
         - else
-          = form_for(@collection_item, html: { class: "form" }) do |f|
-            = f.hidden_field(:item_id, item_id: @collection_item.item_id)
-            = f.hidden_field(:item_type, item_type: @collection_item.item_type)
-            -# TODO: Nicer formatting, show # of items, grey-out collections that already have this item...
+          = form_for(@collected_page, html: { class: "form" }) do |f|
+            = f.hidden_field(:page_id, page_id: @collected_page.page_id)
+            -# TODO: Nicer formatting, show # of pages, grey-out collections that already have this page...
             - now = Time.now
             - current_user.collections.sort_by { |c| [now - (c.updated_at || 10.years.ago), c.name] }.each do |collection|
               - disable = @bad_collection_ids.include?(collection.id)

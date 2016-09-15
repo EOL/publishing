@@ -11,7 +11,7 @@
           %p= @page.scientific_name.html_safe
         %p.col-md-3.actions
           %button.btn.btn-default
-            = link_to(t(:taxon_collect_button), new_collection_item_path(item_type: "Page", item_id: @page.id))
+            = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
     - max_rows = 6
     - traits = @page.traits
     - any_collapsed = false
