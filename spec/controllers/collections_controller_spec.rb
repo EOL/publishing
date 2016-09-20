@@ -44,6 +44,28 @@ RSpec.describe CollectionsController do
         end
       end
     end
+
+    context "with a collected page" do
+      let(:page) { create(:page) }
+      let(:collection_attributes) do
+        attributes_for(:collection).
+          merge(collected_pages_attributes:
+            { "0" => { page_id: page.id } })
+      end
+
+      describe '#create (signed in)' do
+        it "redirects to collected page" do
+          post :create, collection: collection_attributes
+          expect(response).to redirect_to(page)
+        end
+
+        it "adds a flash message" do
+          post :create, collection: collection_attributes
+          expect(flash[:notice]).to match /new collection/
+          expect(flash[:notice]).to match /#{page.name}/
+        end
+      end
+    end
   end
 
   describe "#show" do
