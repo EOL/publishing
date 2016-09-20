@@ -8,12 +8,16 @@ RSpec.describe "collections/show" do
   context "(with robust collection)" do
     let(:medium1) { create(:medium) }
     let(:medium2) { create(:medium) }
+    let(:page) { create(:page) }
+    let(:collected_page) { create(:collected_page, page: page) }
 
     before do
       item1 = instance_double("CollectionItem", item: medium1)
       item2 = instance_double("CollectionItem", item: medium2)
+      allow(page).to receive(:icon) { "some_icon" }
+      allow(page).to receive(:name) { "funName" }
       collection = instance_double("Collection", collection_items: [item1, item2],
-        collected_pages: [], name: "Col Name 1",
+        collected_pages: [collected_page], name: "Col Name 1",
         description: "Col Description Here")
       assign(:collection, collection)
     end
@@ -28,16 +32,21 @@ RSpec.describe "collections/show" do
       expect(rendered).to have_content("Col Description Here")
     end
 
-    it "shows the names of all collected items" do
+    it "shows the names of all collected items and pages" do
       render
       expect(rendered).to have_content(medium1.name)
       expect(rendered).to have_content(medium2.name)
+      # NOTE: using #match because it contains italics:
+      expect(rendered).to match(collected_page.scientific_name_string)
+      # NOTE: titleize'd:
+      expect(rendered).to have_content("Fun Name")
     end
 
     it "shows the icons of all collected items" do
       render
       expect(rendered).to have_selector("img[src*='#{medium1.icon}']")
       expect(rendered).to have_selector("img[src*='#{medium2.icon}']")
+      expect(rendered).to have_selector("img[src*='#{page.icon}']")
     end
   end
 
