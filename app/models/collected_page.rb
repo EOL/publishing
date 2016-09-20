@@ -13,20 +13,25 @@ class CollectedPage < ActiveRecord::Base
 
   acts_as_list scope: :collection
 
+  # For convenience, this is duck-typed from CollectionItem (q.v.)
+  def item
+    page
+  end
+
   def name
-    vernacular.try(:string) || page.name
+    vernacular.try(:string) or page.name
   end
 
   def scientific_name_string
-    scientific_name.try(:string) || page.scientific_name
+    scientific_name.try(:string) or page.scientific_name
   end
 
   def medium_icon_url
-    medium.try(:medium_icon_url) || page.top_image.medium_icon_url
+    medium.try(:medium_icon_url) or page.top_image.medium_icon_url
   end
   alias_method :icon, :medium_icon_url
 
   def small_icon_url
-    medium.try(:small_icon_url) || page.top_image.small_icon_url
+    medium.try(:small_icon_url) or page.top_image.small_icon_url
   end
 end

@@ -17,6 +17,11 @@
         });
     });
 
+  // Allow Turbolinks to co-habitate with Angular:
+  $(document).on('turbolinks:load', function() {
+    angular.bootstrap(document.body, ['eolApp']);
+  });
+
   // Disable Angular Themes (use Bootstrap instead!)
   // app.constant("$MD_THEME_CSS","");
 

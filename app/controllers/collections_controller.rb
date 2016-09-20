@@ -10,15 +10,16 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
-      if @collection.collection_items.empty?
-        flash[:notice] = I18n.t(:collection_created, name: @collection.name)
-        redirect_to @collection
-      else
-        item = @collection.collection_items.first.item
+      collected = (@collection.collection_items + @collection.collected_pages).first
+      if collected
+        item = collected.item
         flash[:notice] = I18n.t(:collection_created_for_item,
           name: @collection.name, item: item.name,
           link: collection_path(@collection))
         redirect_to item
+      else
+        flash[:notice] = I18n.t(:collection_created, name: @collection.name)
+        redirect_to @collection
       end
     else
       # TODO: some kind of hint as to the problem, in a flash...
@@ -60,6 +61,6 @@ class CollectionsController < ApplicationController
   def collection_params
     params.require(:collection).permit(:name, :description,
       collection_items_attributes: [:item_type, :item_id],
-      collected_pages_attributes: [:id, :medium_id, medium_ids: []])
+      collected_pages_attributes: [:id, :page_id, :medium_id, medium_ids: []])
   end
 end
