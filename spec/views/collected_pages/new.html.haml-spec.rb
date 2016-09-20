@@ -5,10 +5,10 @@ RSpec.describe "collection_items/new" do
   # and mocking them is cluttered. I've doubled everything that it made sense to.
   before do
     allow(Language).to receive(:current) { "this" }
-    item = instance_double("Medium", icon: "image_thingie.jpg",
+    item = instance_double("Page", icon: "image_thingie.jpg",
       id: 43123)
     allow(item).to receive(:name).with("this") { "Here Titled" }
-    collection_item = CollectionItem.new(item_id: item.id, item_type: "Medium")
+    collection_item = CollectionItem.new(item_id: item.id, item_type: "Page")
     assign(:item, item)
     assign(:collection, Collection.new)
     assign(:collection_item, collection_item)
@@ -37,19 +37,16 @@ RSpec.describe "collection_items/new" do
         /#{I18n.t(:collect_no_existing_collections)}/)
     end
 
-    it "shows a form for a new collection" do
-      render
-      expect(rendered).to have_selector("form#new_collection")
-    end
+    it "shows a form for a new collection"
   end
 
   context "with a user who has collections already" do
     before do
-      collection_1 = create(:collection, updated_at: 1.hour.ago,
+      collection_1 = instance_double("Collection", updated_at: 1.hour.ago,
         name: "Collection One", id: 1)
-      collection_2 = create(:collection, updated_at: 1.minute.ago,
+      collection_2 = instance_double("Collection", updated_at: 1.minute.ago,
         name: "Collection Two", id: 2)
-      collection_bad = create(:collection, updated_at: 2.hours.ago,
+      collection_bad = instance_double("Collection", updated_at: 2.hours.ago,
         name: "Collection Bad", id: 3)
       user_collections = [collection_1, collection_2, collection_bad]
       user = instance_double("User", collections: user_collections)
