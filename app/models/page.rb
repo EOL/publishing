@@ -112,7 +112,7 @@ class Page < ActiveRecord::Base
     vernacular(language).try(:string) || scientific_name
   end
 
-  def collect_with_icon
+  def icon
     top_image && top_image.medium_icon_url
   end
 

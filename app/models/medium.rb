@@ -23,7 +23,6 @@ class Medium < ActiveRecord::Base
   def medium_icon_url
     base_url + "_130_130.jpg"
   end
-  alias_method :collect_with_icon, :medium_icon_url
   alias_method :icon, :medium_icon_url
 
   def medium_size_url

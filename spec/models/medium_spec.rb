@@ -3,11 +3,6 @@ require 'rails_helper'
 RSpec.describe Medium do
   subject { Medium.new(base_url: "base") }
 
-  # # Drat. :S
-  # def name(language = nil)
-  #   self[:name]
-  # end
-
   it "#name can take a language argument" do
     expect(subject.name(Language.english)).to eq(subject.name)
   end
@@ -22,10 +17,6 @@ RSpec.describe Medium do
 
   it "builds a #medium_icon_url" do
     expect(subject.medium_icon_url).to eq("base_130_130.jpg")
-  end
-
-  it "builds a #collect_with_icon" do
-    expect(subject.collect_with_icon).to eq("base_130_130.jpg")
   end
 
   it "builds an #icon" do

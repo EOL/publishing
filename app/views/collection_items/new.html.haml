@@ -1,6 +1,6 @@
 #collection_item.container
   .well
-    - if image = @item.collect_with_icon
+    - if image = @item.icon
       .collect-image
         = image_tag(image, size: "130x130")
     %h2.clearfix= t(:collect_title, item: @item.name(Language.current))
