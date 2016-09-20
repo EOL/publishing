@@ -63,7 +63,7 @@ class Page < ActiveRecord::Base
     through: :page_contents, source: :content, source_type: "Medium"
 
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :page_contents, :native_node)
+    includes(:preferred_vernaculars, :native_node, images: :license, top_articles: :license )
   end
 
   scope :all_preloaded, -> do
