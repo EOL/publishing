@@ -23,7 +23,7 @@ class CollectedPage < ActiveRecord::Base
   end
 
   def scientific_name_string
-    scientific_name.try(:string) or page.scientific_name
+    scientific_name.try(:canonical_form) or page.scientific_name
   end
 
   def medium_icon_url
