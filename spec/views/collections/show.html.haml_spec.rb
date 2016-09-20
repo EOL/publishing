@@ -7,7 +7,6 @@ RSpec.describe "collections/show" do
 
   context "(with robust collection)" do
     let(:medium1) { create(:medium) }
-
     let(:medium2) { create(:medium) }
 
     before do

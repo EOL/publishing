@@ -27,11 +27,11 @@ class CollectedPage < ActiveRecord::Base
   end
 
   def medium_icon_url
-    medium.try(:medium_icon_url) or page.top_image.medium_icon_url
+    medium.try(:medium_icon_url) or page.icon
   end
   alias_method :icon, :medium_icon_url
 
   def small_icon_url
-    medium.try(:small_icon_url) or page.top_image.small_icon_url
+    medium.try(:small_icon_url) or page.top_image.try(:small_icon_url)
   end
 end
