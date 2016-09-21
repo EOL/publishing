@@ -20,6 +20,8 @@
   // Allow Turbolinks to co-habitate with Angular:
   $(document).on('turbolinks:load', function() {
     angular.bootstrap(document.body, ['eolApp']);
+    Galleria.loadTheme('/assets/galleria/themes/classic/galleria.classic.min.js');
+    Galleria.run('.galleria');
   });
 
   // Disable Angular Themes (use Bootstrap instead!)

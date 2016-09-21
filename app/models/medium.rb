@@ -2,6 +2,8 @@ class Medium < ActiveRecord::Base
   include Content
   include Content::Attributed
 
+  has_many :page_icons, inverse_of: :medium
+
   has_one :image_info, inverse_of: :image
 
   enum subclass: [ :image, :video, :sound ]
@@ -40,5 +42,9 @@ class Medium < ActiveRecord::Base
 
   def small_icon_url
     base_url + "_88_88.jpg"
+  end
+
+  def vitals
+    [name, "#{license.name} #{owner.html_safe}"]
   end
 end

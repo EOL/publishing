@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :collected_pages, only: [:new, :create]
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
+  resources :page_icons, only: [:create]
   resources :traits, only: [:show]
 
   # Non-resource routes last:
