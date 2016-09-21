@@ -14,10 +14,10 @@ class Page < ActiveRecord::Base
 
   has_many :page_icons, inverse_of: :page
   # Only the last one "sticks":
-  has_one :page_icon, -> { _last }
+  has_one :page_icon, -> { most_recent }
   has_one :medium, through: :page_icon
 
-  has_many :page_contents, -> { visible.not_untrusted }
+  has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
     source: :content, source_type: "Article"
@@ -25,51 +25,14 @@ class Page < ActiveRecord::Base
     source: :content, source_type: "Medium"
   has_many :links, through: :page_contents,
     source: :content, source_type: "Link"
-  has_many :images, -> { where(subclass: Medium.subclasses[:image]) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :videos, -> { where(subclass: Medium.subclasses[:videos]) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :sounds, -> { where(subclass: Medium.subclasses[:sounds]) },
-    through: :page_contents, source: :content, source_type: "Medium"
 
-  has_many :all_page_contents, -> { order(:position) }
-  has_many :all_maps, through: :all_page_contents, source: :content, source_type: "Map"
-  has_many :all_articles, through: :all_page_contents,
-    source: :content, source_type: "Article"
-  has_many :all_media, through: :all_page_contents,
-    source: :content, source_type: "Medium"
-  has_many :all_links, through: :all_page_contents,
-    source: :content, source_type: "Link"
-  has_many :all_images, -> { where(subclass: Medium.subclasses[:image]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
-  has_many :all_videos, -> { where(subclass: Medium.subclasses[:videos]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
-  has_many :all_sounds, -> { where(subclass: Medium.subclasses[:sounds]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
+  has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
-  # Will return an array, even when there's only one, thus the plural names.
-  # TODO: I don't like this. It means "figuring out" which are the top things
-  # every single time the page is loaded, where we should probably have that
-  # information denormalized and clear it whenever new candidates are added.
-  has_many :top_maps, -> { limit(1) }, through: :page_contents, source: :content,
-    source_type: "Map"
-  has_many :top_articles, -> { limit(1) }, through: :page_contents,
-    source: :content, source_type: "Article"
-  has_many :top_links, -> { limit(6) }, through: :page_contents,
-    source: :content, source_type: "Link"
-  has_many :top_images,
-    -> { where(subclass: Medium.subclasses[:image]).limit(6) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_videos,
-    -> { where(subclass: Medium.subclasses[:videos]).limit(1) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_sounds,
-    -> { where(subclass: Medium.subclasses[:sounds]).limit(1) },
-    through: :page_contents, source: :content, source_type: "Medium"
-
+  # NOTE: You CANNOT preload both the top article AND the media. This seems to
+  # be a Rails bug, but it is what it is.
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, :medium, images: :license,
-      top_articles: :license)
+    includes(:preferred_vernaculars, :native_node, page_contents:
+      { content: [:license, :sections] })
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
@@ -105,7 +68,7 @@ class Page < ActiveRecord::Base
   # Without touching the DB:
   # NOTE: not used or spec'ed yet.
   def media_count
-    page.page_contents.select { |pc| pc.content_type == "Medium" }.size
+    page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
   def name(language = nil)
@@ -115,6 +78,14 @@ class Page < ActiveRecord::Base
 
   def icon
     top_image && top_image.medium_icon_url
+  end
+
+  def article
+    if page_contents.loaded?
+      page_contents.find { |pc| pc.content_type == "Article" }.content
+    else
+      articles.first
+    end
   end
 
   # Can't (easily) use clever associations here because of language.
@@ -137,7 +108,17 @@ class Page < ActiveRecord::Base
   end
 
   def top_image
-    @top_image ||= top_images.first
+    @top_image ||= begin
+      if medium
+        medium
+      else
+        if top_images.loaded?
+          top_images.first
+        elsif images.loaded?
+          images.first
+        end
+      end
+    end
   end
 
   # TODO: ideally we want to be able to limit these! ...but that's really hard,

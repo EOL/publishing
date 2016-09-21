@@ -4,12 +4,33 @@
       .row
         .col-md-9
           %h1= @medium.name.html_safe
-          - unless @medium.description.blank?
-            %p= @medium.description.html_safe
+          %p
+            - if @medium.description.blank?
+              .description-blank
+                = t(:medium_description_blank)
+            - else
+              = @medium.description.html_safe
         .col-md-3.actions
           %button.btn.btn-default
             = link_to(t(:medium_collect_button), new_collection_item_path(item_type: "Medium", item_id: @medium.id))
     .body
-      = image_tag(@medium.large_size_url)
-      %br/
-      More stuff will be here later, it's still TODO
+      .image.text-center
+        = image_tag(@medium.large_size_url)
+      .row
+        .appears-on.col-md-6
+          %h2= t(:content_appears_on)
+          %ul
+            - @medium.pages.each do |page|
+              = link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
+        .associations.col-md-6
+          %h2= t(:content_associations)
+          %ul
+            - @medium.associations.each do |page|
+              = link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
+      .awards
+        - icon_count = @medium.page_icons.count
+        - if icon_count > 0
+          %h2= "Awards"
+          %p= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
+      .todo
+        %h2= "More stuff will be here later, it's still TODO"
