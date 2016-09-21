@@ -47,6 +47,8 @@ en:
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
+  content_associations: "Associations"
+  content_appears_on: "Appears On"
   create_account: "create account"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
@@ -65,6 +67,7 @@ en:
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
   medium_collect_button: "collect media"
+  medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
   page_has_no_articles: "Sorry: there are no articles available here."
