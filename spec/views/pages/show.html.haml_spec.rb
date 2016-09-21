@@ -11,12 +11,13 @@ RSpec.describe "pages/show" do
     node = instance_double("Node", ancestors: [parent])
     lic1 = instance_double("License", name: "Image license name")
     lic2 = instance_double("License", name: "Article license name")
-    image1 = instance_double("Medium", license: lic1, owner: "Owner 1",
+    image1 = instance_double("Medium", license: lic1, owner: "Owner 1", id: 1,
       large_size_url: "some_url_580_360.jpg", small_icon_url: "no_matter",
-      original_size_url: "no_matter", name: "Image Name 1")
+      original_size_url: "no_matter", vitals: ["Image Name 1", "vitalA"])
     image2 = instance_double("Medium", license: lic1, owner: "Owner 2",
-      small_icon_url: "no_matter", original_size_url: "no_matter",
-      large_size_url: "another_url_580_360.jpg", name: "Image Name 2")
+      small_icon_url: "no_matter", original_size_url: "no_matter", id: 2,
+      large_size_url: "another_url_580_360.jpg",
+      vitals: ["Image Name 2", "vitalA"])
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
     traits = [

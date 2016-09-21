@@ -44,7 +44,7 @@
                     = cp_f.hidden_field(:id, id: collected_page.id)
                     - page.media[0..29].each do |medium|
                       .col-md-1
-                        = cp_f.radio_button(:medium_id, medium.id, checked: medium == collected_page.medium)
+                        = cp_f.radio_button(:medium_id, medium.id, checked: medium == collected_page.medium || medium == page.top_image)
                         -# TODO: figure out how to format this, add make sure translation is used:
                         icon
                         = check_box_tag("collection[collected_pages_attributes][#{cp_f.index}][medium_ids][]", medium.id, collected_page.medium_ids.include?(medium.id))

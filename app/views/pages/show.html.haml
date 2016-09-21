@@ -1,4 +1,4 @@
-#page.container{ ng: { app: "pageApp" } }
+#page.container
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
     .jumbotron
       .ancestors
@@ -60,11 +60,11 @@
       .galleria
         - @page.images.each do |image|
           -# TODO: we will eventually know the actual size of the image; add that:
-          = link_to(image_tag(image.small_icon_url, alt: image.name.html_safe, data: { layer: "<div class=\"galleria__credits\">#{image.license.name} #{image.owner.html_safe}</div>", big: image.original_size_url }), image.large_size_url)
-    :javascript
-      Galleria.loadTheme('/assets/galleria/themes/classic/galleria.classic.min.js');
-      Galleria.run('.galleria');
-
+          -# TODO: some helpers would clean this up:
+          = link_to(image_tag(image.small_icon_url,
+            alt: (image.vitals.join("<br/>") + "<br/><button class='btn btn-default'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id, method: :put))}</button>").html_safe,
+            data: { layer: "<div class=\"galleria__credits\">#{image.license.name} #{image.owner.html_safe}</div>",
+            big: image.original_size_url }), image.large_size_url)
     .well
       %tabset{ justified: "true", type: "pills" }
         - if article = @page.top_articles.first

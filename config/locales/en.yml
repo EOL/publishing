@@ -68,6 +68,7 @@ en:
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
   page_has_no_articles: "Sorry: there are no articles available here."
+  page_icon_create_button: "make this the page icon"
   password: "Password"
   password_confirmation: "Password confirmation"
   recaptcha: "Recaptcha"

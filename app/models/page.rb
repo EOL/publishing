@@ -12,6 +12,11 @@ class Page < ActiveRecord::Base
     class_name: "ScientificName"
   has_many :resources, through: :nodes
 
+  has_many :page_icons, inverse_of: :page
+  # Only the last one "sticks":
+  has_one :page_icon, -> { _last }
+  has_one :medium, through: :page_icon
+
   has_many :page_contents, -> { visible.not_untrusted }
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
@@ -63,12 +68,8 @@ class Page < ActiveRecord::Base
     through: :page_contents, source: :content, source_type: "Medium"
 
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, images: :license, top_articles: :license )
-  end
-
-  scope :all_preloaded, -> do
-    includes(:native_node, :vernaculars, :images, :videos, :sounds, :articles,
-      :maps, :links)
+    includes(:preferred_vernaculars, :native_node, :medium, images: :license,
+      top_articles: :license)
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
