@@ -13,9 +13,22 @@
         .col-md-3.actions
           %button.btn.btn-default
             = link_to(t(:medium_collect_button), new_collection_item_path(item_type: "Medium", item_id: @medium.id))
-    .body
-      .media-image
-        = image_tag(@medium.large_size_url)
+    .media-body
+      .row
+        .media-image.col-md-8
+          = image_tag(@medium.large_size_url)
+        .attribution.col-md-4
+          %h2= t(:content_attributions_header)
+          %ul
+            %li
+              = t("content_attributions_labels.license")
+              = @medium.license.name.html_safe
+            %li
+              = t("content_attributions_labels.owner")
+              = @medium.owner.html_safe.html_safe
+            - @medium.attributions.includes(:role).each do |attribution|
+              = t("content_attributions_labels.#{attribution.role.name}")
+              = attribution.value
       .row
         .appears-on.col-md-4
           %h2= t(:content_appears_on)

@@ -43,10 +43,10 @@ class Page < ActiveRecord::Base
     end
     # TODO: We would like to add attributions, later.
     text :preferred_scientific_names, :boost => 8.0 do
-      preferred_scientific_names.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+      preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
     text :synonyms, :boost => 2.0 do
-      scientific_names.synonym.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+      scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
     text :preferred_vernaculars, :boost => 2.0 do
       vernaculars.preferred.map { |v| v.string }
@@ -55,7 +55,17 @@ class Page < ActiveRecord::Base
       vernaculars.nonpreferred.map { |v| v.string }
     end
     text :providers do
-      resources.flat_map { |r| [r.name, r.partner.full_name, r.partner.short_name] }
+      resources.flat_map do |r|
+        [r.name, r.partner.full_name, r.partner.short_name]
+      end
+    end
+  end
+
+  def article
+    if page_contents.loaded?
+      page_contents.find { |pc| pc.content_type == "Article" }.content
+    else
+      articles.first
     end
   end
 
@@ -71,6 +81,7 @@ class Page < ActiveRecord::Base
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
+  # TODO: this is duplicated with node; fix.
   def name(language = nil)
     language ||= Language.english
     vernacular(language).try(:string) || scientific_name
@@ -80,14 +91,7 @@ class Page < ActiveRecord::Base
     top_image && top_image.medium_icon_url
   end
 
-  def article
-    if page_contents.loaded?
-      page_contents.find { |pc| pc.content_type == "Article" }.content
-    else
-      articles.first
-    end
-  end
-
+  # TODO: this is duplicated with node; fix.
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)
     if preferred_vernaculars.loaded?
@@ -111,12 +115,8 @@ class Page < ActiveRecord::Base
     @top_image ||= begin
       if medium
         medium
-      else
-        if top_images.loaded?
-          top_images.first
-        elsif images.loaded?
-          images.first
-        end
+      elsif ! page_contents.empty?
+        first_image_content.content
       end
     end
   end
@@ -141,5 +141,11 @@ class Page < ActiveRecord::Base
         0
       end
     end
+  end
+
+  private
+
+  def first_image_content
+    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.image? }
   end
 end

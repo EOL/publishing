@@ -1,24 +1,12 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
 #
-# To use the locales, use `I18n.t`:
 #
-#     I18n.t 'hello'
 #
-# In views, this is aliased to just `t`:
 #
-#     <%= t('hello') %>
+#        _P_L_E_A_S_E_ keep this in alphabetical order!
 #
-# To use a different locale, set it with `I18n.locale`:
 #
-#     I18n.locale = :es
 #
-# This would use the information in config/locales/es.yml.
 #
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   account_already_linked: "your account is already linked to EOL"
   account_destroyed_successfully: "You have deleted your account. Thanks!"
@@ -47,8 +35,12 @@ en:
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
-  content_associations: "Associations"
   content_appears_on: "Appears On"
+  content_associations: "Associations"
+  content_attributions_header: "Source Information"
+  content_attributions_labels:
+    license: "License"
+    owner: "Copyright"
   create_account: "create account"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
@@ -70,8 +62,10 @@ en:
   medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
-  page_has_no_articles: "Sorry: there are no articles available here."
-  page_icon_create_button: "make this the page icon"
+  page_article_header: "Overview"
+  page_icon_create_button: "best media"
+  page_media_header: "Media"
+  page_traits_header: "Trait Data"
   password: "Password"
   password_confirmation: "Password confirmation"
   recaptcha: "Recaptcha"
@@ -84,7 +78,6 @@ en:
   sign_up: "Sign up"
   signature_basic: "The Encyclopedia of Life Team"
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
-  username: "Username"
   search_empty: "No results found for \"%{q}\"."
   send_me_reset_password_instructions: "Send me reset password instructions"
   show_more: "show more"
@@ -120,3 +113,4 @@ en:
       password_must_have_number_error: "Password must have at least one number"
       short_password_error: "Password is too short. Please make sure to type at least 8 characters password"
       short_username_error: "Username is too short. It should be at least 4 characters"
+  username: "Username"
