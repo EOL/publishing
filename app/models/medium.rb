@@ -6,7 +6,7 @@ class Medium < ActiveRecord::Base
 
   has_one :image_info, inverse_of: :image
 
-  enum subclass: [ :image, :video, :sound ]
+  enum subclass: [ :image, :video, :sound, :map, :js_map ]
   enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav ]
 
   scope :images, -> { where(subclass: :image) }
@@ -15,7 +15,7 @@ class Medium < ActiveRecord::Base
 
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
-    base_url + "_original.jpg"
+    base_url + "_orig.jpg"
   end
 
   def large_size_url
@@ -46,5 +46,26 @@ class Medium < ActiveRecord::Base
 
   def vitals
     [name, "#{license.name} #{owner.html_safe}"]
+  end
+
+  # TODO: spec these methods:
+  def image?
+    subclass == :image
+  end
+
+  def video?
+    subclass == :video
+  end
+
+  def sound?
+    subclass == :sound
+  end
+
+  def map?
+    subclass == :map
+  end
+
+  def js_map?
+    subclass == :js_map
   end
 end

@@ -8,7 +8,7 @@ RSpec.describe Medium do
   end
 
   it "builds a #original_size_url" do
-    expect(subject.original_size_url).to eq("base_original.jpg")
+    expect(subject.original_size_url).to eq("base_orig.jpg")
   end
 
   it "builds a #large_size_url" do

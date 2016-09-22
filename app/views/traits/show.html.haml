@@ -2,6 +2,7 @@
   .jumbotron
     %h1= @uri.name.titlecase
     - def_blank = @uri.definition.blank?
+    %h2= @uri.uri
     %p.definition{ class: def_blank ? "empty" : nil }
       - if def_blank
         = t(:uri_definition_blank)

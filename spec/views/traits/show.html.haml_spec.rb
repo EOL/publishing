@@ -6,7 +6,7 @@ RSpec.describe "traits/show" do
 
   before do
     # TODO: Would be nice to have helpers/mocks for this kind of thing.
-    uri = instance_double("Uri", name: "Trait One",
+    uri = instance_double("Uri", name: "Trait One", uri: "http://blah/blah",
       definition: "Defined thusly")
     units = instance_double("Uri", uri: "http://un.its/one", name: "Unit URI")
     term = instance_double("Uri", uri: "http://te.rm/one", name: "Term URI")

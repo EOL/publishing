@@ -1,0 +1,43 @@
+- max_rows = 10
+- traits = @page.traits
+- any_collapsed = false
+- row_count = 0
+- grouped_traits = traits.group_by { |t| t[:predicate] }
+- any_collapsed = traits.size > max_rows + 1
+%table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
+  %tbody
+    -# TODO: helper
+    - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
+      - predicate = @page.glossary[uri]
+      - previous_predicate = nil
+      - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
+        - collapse = row_count > max_rows && any_collapsed
+        - any_collapsed = true if collapse
+        %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
+          - row_count += 1
+          %th{ scope: "row" }
+            - if predicate == previous_predicate
+            - else
+              = link_to(predicate.name, trait_path(predicate))
+              - previous_predicate = predicate
+          %td
+            - if trait[:measurement]
+              = trait[:measurement]
+              = @page.glossary[trait[:units]].try(:name) || trait[:units]
+            - elsif trait[:term]
+              = @page.glossary[trait[:term]].try(:name) || trait[:term]
+            - elsif trait[:literal]
+              = trait[:literal].html_safe
+            - else
+              Augh! Could not find a displayable value from keys of:
+              = trait.keys.join(", ")
+          -# TODO: make this a proper link
+          %td.table-source
+            - if resource = @resources[trait[:resource_id]]
+              = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
+            - else
+              t(:resource_missing)
+- if any_collapsed
+  %p
+    %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
+      = t(:traits_show_more, count: row_count - max_rows)

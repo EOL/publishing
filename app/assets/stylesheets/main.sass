@@ -20,6 +20,13 @@ $base-color: rgb(51, 51, 51)
 button
   box-shadow: 1px 1px 5px #ccc
 
+button a
+  font-weight: 600
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus
+  box-shadow: 1px 1px 5px #444
+  font-weight: 600
+
 // HEADER
 
 .nav-search .input-group
@@ -43,31 +50,6 @@ $low_jumbo: #fafbfc
   background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
   background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Most, not old IE */
 
-#page .jumbotron
-  // The ancestors need more room at the top:
-  padding-top: 1.7em
-
-.jumbotron .breadcrumb
-  // The ancestors don't need extra space below them:
-  margin-bottom: 0
-  // Tighter, too:
-  padding: 4px 15px
-  font-size: 0.9em
-  // And darker:
-  background-color: #e6e6e6
-  border: 1px solid #ddd
-  box-shadow: 1px 1px 5px #ccc
-
-.jumbotron .breadcrumb li:first-child::before
-  content: ""
-
-.jumbotron .breadcrumb li::before
-  content: ">"
-  color: #999
-
-.jumbotron .breadcrumb.active
-  color: #444
-
 .actions
   text-align: right
   padding-top: 1.3em
@@ -80,11 +62,51 @@ $low_jumbo: #fafbfc
 form .field
   margin-top: 2em
 
-// GALLERIA (Media browser)
+// PAGE (SPECIES / TAXON / TAXON CONCEPT / CLADE)
+
+.page-names h1
+  font-size: 3em
+  font-weight: 300
+
+.page-names h2
+  font-size: 2em
+  font-weight: 300
+  color: #666
+  margin-top: 0
+
+.page-ancestors .breadcrumb
+  // The ancestors don't need extra space below them:
+  margin-bottom: 0
+  // Tighter, too:
+  padding: 4px 15px
+  font-size: 0.9em
+  // And darker:
+  background-color: #e6e6e6
+  border: 1px solid #ddd
+  box-shadow: 1px 1px 5px #ccc
+
+.page-ancestors .breadcrumb li:first-child::before
+  content: ""
+
+.page-ancestors .breadcrumb li::before
+  content: ">"
+  color: #999
+
+.page-ancestors .breadcrumb.active
+  color: #444
+
+.tabs
+  margin-top: 2em
+
+// MEDIA & GALLERIA (Media browser)
 
 .galleria-theme-classic
   border-radius: 4px
   background-color: e0e0e0
+
+.galleria__credits
+  font-weight: 600
+  text-shadow: 4px 2px 4px #000 !important
 
 .galleria-theme-classic .galleria-info-text
   border: 2px solid #181818
@@ -140,8 +162,12 @@ form .field
 
 .media-image img
   box-shadow: 4px 4px 12px #888
+  margin: 3em
 
 // TRAITS
+
+.traits
+  margin-top: 1em
 
 .table-source
   width: 15em

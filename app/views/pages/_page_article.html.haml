@@ -1,0 +1,9 @@
+- article = @page.article
+- name = article.name.html_safe
+- name = article.sections.first.name if name.blank? || name.empty?
+.article
+  %h3= name
+  = article.body.html_safe
+  .attributions
+    = article.owner.html_safe
+    = article.license.name

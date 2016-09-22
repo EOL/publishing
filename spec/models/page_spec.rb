@@ -61,7 +61,7 @@ RSpec.describe Page do
     end
 
     it "chooses the summary for the overview" do
-      expect(our_page.top_articles.first).to eq(summary)
+      expect(our_page.article).to eq(summary)
     end
 
     it "has access to both articles" do

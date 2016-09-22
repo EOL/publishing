@@ -20,7 +20,7 @@ RSpec.describe "search/search" do
         partner: partner)]
       image1 = instance_double("Medium", license: lic, owner: "Owned Here",
         small_icon_url: "some_image_url_88_88.jpg", name: "Thumbnail Image")
-      page = instance_double("Page", name: "a common name", top_images: [image1],
+      page = instance_double("Page", name: "a common name", top_image: image1,
         scientific_name: scientific_names.first.canonical_form,
         scientific_names: scientific_names, native_node: node,
         vernaculars: [name, another_name, nonmatching_name], resources: resources)
