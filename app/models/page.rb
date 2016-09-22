@@ -61,6 +61,8 @@ class Page < ActiveRecord::Base
     end
   end
 
+  # MEDIA METHODS
+
   def article
     if page_contents.loaded?
       page_contents.find { |pc| pc.content_type == "Article" }.content
@@ -69,26 +71,32 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def glossary
-    return @glossary if @glossary
-    traits
-    @glossary
-  end
-
   # Without touching the DB:
   # NOTE: not used or spec'ed yet.
   def media_count
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
+  def icon
+    top_image && top_image.medium_icon_url
+  end
+
+  def top_image
+    @top_image ||= begin
+      if medium
+        medium
+      elsif ! page_contents.empty?
+        first_image_content.content
+      end
+    end
+  end
+
+  # NAMES METHODS
+
   # TODO: this is duplicated with node; fix.
   def name(language = nil)
     language ||= Language.english
     vernacular(language).try(:string) || scientific_name
-  end
-
-  def icon
-    top_image && top_image.medium_icon_url
   end
 
   # TODO: this is duplicated with node; fix.
@@ -111,15 +119,7 @@ class Page < ActiveRecord::Base
     native_node.try(:canonical_form) || "NO NAME!"
   end
 
-  def top_image
-    @top_image ||= begin
-      if medium
-        medium
-      elsif ! page_contents.empty?
-        first_image_content.content
-      end
-    end
-  end
+  # TRAITS METHODS
 
   # TODO: ideally we want to be able to limit these! ...but that's really hard,
   # and ATM the query is pretty fast even for >100 traits, so we're not doing
@@ -143,9 +143,37 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def glossary
+    return @glossary if @glossary
+    traits
+    @glossary
+  end
+
+  # TODO: spec
+  def grouped_traits
+    @grouped_traits ||= traits.group_by { |t| t[:predicate] }
+  end
+
+  # TODO: spec
+  def predicates
+    @predicates ||= grouped_traits.keys.sort do |a,b|
+      glossary_names[a] <=> glossary_names[b]
+    end
+  end
+
   private
 
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.image? }
+  end
+
+  # TODO: spec
+  # NOTE: this is just used for sorting.
+  def glossary_names
+    @glossary_names ||= begin
+      gn = {}
+      glossary.each { |uri, hash| gn[uri] = glossary[uri].try(:name).downcase }
+      gn
+    end
   end
 end

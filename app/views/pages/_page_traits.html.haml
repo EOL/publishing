@@ -2,15 +2,14 @@
 - traits = @page.traits
 - any_collapsed = false
 - row_count = 0
-- grouped_traits = traits.group_by { |t| t[:predicate] }
 - any_collapsed = traits.size > max_rows + 1
 %table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
   %tbody
     -# TODO: helper
-    - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
+    - @page.predicates.each do |uri|
       - predicate = @page.glossary[uri]
       - previous_predicate = nil
-      - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
+      - TraitBank.sort(@page.grouped_traits[uri], @page.glossary).each do |trait|
         - collapse = row_count > max_rows && any_collapsed
         - any_collapsed = true if collapse
         %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
