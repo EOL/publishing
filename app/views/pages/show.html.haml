@@ -12,68 +12,70 @@
         %p.col-md-3.actions
           %button.btn.btn-default
             = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
-    - max_rows = 6
+    - max_rows = 10
     - traits = @page.traits
     - any_collapsed = false
-    - if ! traits.empty?
-      - row_count = 0
-      - grouped_traits = traits.group_by { |t| t[:predicate] }
-      - any_collapsed = traits.size > max_rows + 1
-      %table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
-        %tbody
-          -# TODO: helper
-          - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
-            - predicate = @page.glossary[uri]
-            - previous_predicate = nil
-            - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
-              - collapse = row_count > max_rows && any_collapsed
-              - any_collapsed = true if collapse
-              %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
-                - row_count += 1
-                %th{ scope: "row" }
-                  - if predicate == previous_predicate
-                  - else
-                    = link_to(predicate.name, trait_path(predicate))
-                    - previous_predicate = predicate
-                %td
-                  - if trait[:measurement]
-                    = trait[:measurement]
-                    = @page.glossary[trait[:units]].try(:name) || trait[:units]
-                  - elsif trait[:term]
-                    = @page.glossary[trait[:term]].try(:name) || trait[:term]
-                  - elsif trait[:literal]
-                    = trait[:literal].html_safe
-                  - else
-                    Augh! Could not find a displayable value from keys of:
-                    = trait.keys.join(", ")
-                -# TODO: make this a proper link
-                %td.table-source
-                  - if resource = @resources[trait[:resource_id]]
-                    = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
-                  - else
-                    t(:resource_missing)
-      - if any_collapsed
-        %p
-          %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
-            = t(:traits_show_more, count: row_count - max_rows)
-    .well
-      .galleria
-        - @page.media.each_with_index do |image, index|
-          -# TODO: we will eventually know the actual size of the image; add that:
-          -# TODO: some helpers would clean this up:
-          - alt = image.vitals
-          - alt[0] = link_to(alt.first, medium_path(image))
-          - alt = alt.join("<br/>")
-          - button = ""
-          - unless index == 0
-            - button = "<button class='btn btn-info'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
-          = link_to(image_tag(image.small_icon_url,
-            alt: "<div class='media-info'>#{alt}</div><div class='info-actions'>#{button}</div>".html_safe,
-            data: { layer: "<div class=\"galleria__credits\">#{image.license.name} #{image.owner.html_safe}</div>",
-            big: image.original_size_url }), image.large_size_url)
+    .well.row
+      - if traits.empty?
+        - "TODO: figure out what to do with pages that have no traits"
+      - else
+        - row_count = 0
+        - grouped_traits = traits.group_by { |t| t[:predicate] }
+        - any_collapsed = traits.size > max_rows + 1
+        .col-md-6
+          %table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
+            %tbody
+              -# TODO: helper
+              - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
+                - predicate = @page.glossary[uri]
+                - previous_predicate = nil
+                - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
+                  - collapse = row_count > max_rows && any_collapsed
+                  - any_collapsed = true if collapse
+                  %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
+                    - row_count += 1
+                    %th{ scope: "row" }
+                      - if predicate == previous_predicate
+                      - else
+                        = link_to(predicate.name, trait_path(predicate))
+                        - previous_predicate = predicate
+                    %td
+                      - if trait[:measurement]
+                        = trait[:measurement]
+                        = @page.glossary[trait[:units]].try(:name) || trait[:units]
+                      - elsif trait[:term]
+                        = @page.glossary[trait[:term]].try(:name) || trait[:term]
+                      - elsif trait[:literal]
+                        = trait[:literal].html_safe
+                      - else
+                        Augh! Could not find a displayable value from keys of:
+                        = trait.keys.join(", ")
+                    -# TODO: make this a proper link
+                    %td.table-source
+                      - if resource = @resources[trait[:resource_id]]
+                        = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
+                      - else
+                        t(:resource_missing)
+          - if any_collapsed
+            %p
+              %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
+                = t(:traits_show_more, count: row_count - max_rows)
+        .col-md-6
+          .galleria
+            - @page.media.each_with_index do |image, index|
+              -# TODO: we will eventually know the actual size of the image; add that:
+              -# TODO: some helpers would clean this up:
+              - button = ""
+              - unless index == 0
+                - button = "<button class='btn btn-info'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
+              = link_to(image_tag(image.small_icon_url,
+                title: link_to(image.name, medium_path(image)),
+                alt: "<div class='media-info'>#{image.license.name} #{image.owner.html_safe}</div><div class='info-actions'>#{button}</div>".html_safe,
+                data: { layer: "<div class=\"galleria__credits\">#{image.license.name} #{image.owner.html_safe}</div>",
+                big: image.original_size_url }), image.large_size_url)
     .well
       %tabset{ justified: "true", type: "pills" }
-        - if article = @page.top_articles.first
+        - if article = @page.article
           %tab{ heading: "Overview" }
             - name = article.name.html_safe
             - name = article.sections.first.name if name.blank? || name.empty?
