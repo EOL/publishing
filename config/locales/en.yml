@@ -64,6 +64,7 @@ en:
   new_password: 'New password'
   page_article_header: "Overview"
   page_icon_create_button: "best media"
+  page_icon_created: "Moved image \"%{name}\" to the top."
   page_media_header: "Media (%{count})"
   page_traits_header: "Trait Data (%{count})"
   password: "Password"

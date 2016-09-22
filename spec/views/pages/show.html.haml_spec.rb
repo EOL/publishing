@@ -34,7 +34,7 @@ RSpec.describe "pages/show" do
     instance_double("Page", id: 8293, name: "something common", native_node: node,
       scientific_name: "<i>Nice scientific</i>", media: [image1, image2],
       article: article, traits: traits, glossary: glossary,
-      predicates: traits.map { |t| t[:predicate] },
+      predicates: traits.map { |t| t[:predicate] }, media_count: 2,
       grouped_traits: traits.group_by { |t| t[:predicate] } )
   end
 

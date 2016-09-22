@@ -2,6 +2,8 @@ class PageIconsController < ApplicationController
   def create
     # TODO: permissions
     PageIcon.create(icon_params.merge(user_id: current_user.id))
+    medium = Medium.find(icon_params[:medium_id])
+    flash[:notice] = I18n.t(:page_icon_created, name: medium.name)
     redirect_to page_url(icon_params[:page_id])
   end
 
