@@ -9,13 +9,13 @@
         .page-names.col-md-9
           %h1= @page.name.titlecase
           %h2= @page.scientific_name.html_safe
-          - tropic_strat = begin
+          - trophic_strat = begin
             - @page.glossary[@page.traits.find { |t| t[:predicate] == "http://www.wikidata.org/entity/Q1053008" }[:term]].name
           - rescue => e
             -# Do nothing. This code doesn't even belong here. I'm rushing.
           -# TODO: this is all temporary! We need a real solution:
           %p
-            = "The #{@page.name} is a(n) #{tropic_strat} #{@page.native_node.ancestors[0].name} "
+            = "The #{@page.name} is a(n) #{trophic_strat} #{@page.native_node.ancestors[0].name} "
             - if @page.native_node.ancestors[-2]
               = "in the #{@page.native_node.ancestors[-2].rank.try(:name) || "clade"} #{@page.native_node.ancestors[-2].name}."
             It lives in a variety of habitats around the world.
@@ -24,12 +24,12 @@
             = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
       .media
         #gallery
-          %h2= t(:page_media_header)
+          %h2= t(:page_media_header, count: @page.media.count)
           = render("page_media")
       .tabs
         %tabset{ justified: "true", type: "pills" }
           - if @page.traits
-            %tab{ heading: t(:page_traits_header) }
+            %tab{ heading: t(:page_traits_header, count: @page.traits.size) }
               = render("page_traits")
           - if @page.article
             %tab{ heading: t(:page_article_header) }
