@@ -24,7 +24,7 @@
             = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
       .media
         #gallery
-          %h2= t(:page_media_header, count: @page.media.count)
+          %h2= t(:page_media_header, count: @page.media_count)
           = render("page_media")
       .tabs
         %tabset{ justified: "true", type: "pills" }

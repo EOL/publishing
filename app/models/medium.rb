@@ -49,23 +49,23 @@ class Medium < ActiveRecord::Base
   end
 
   # TODO: spec these methods:
-  def image?
+  def is_image?
     subclass == :image
   end
 
-  def video?
+  def is_video?
     subclass == :video
   end
 
-  def sound?
+  def is_sound?
     subclass == :sound
   end
 
-  def map?
+  def is_map?
     subclass == :map
   end
 
-  def js_map?
+  def is_js_map?
     subclass == :js_map
   end
 end

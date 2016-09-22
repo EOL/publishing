@@ -149,12 +149,10 @@ class Page < ActiveRecord::Base
     @glossary
   end
 
-  # TODO: spec
   def grouped_traits
     @grouped_traits ||= traits.group_by { |t| t[:predicate] }
   end
 
-  # TODO: spec
   def predicates
     @predicates ||= grouped_traits.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
@@ -164,7 +162,7 @@ class Page < ActiveRecord::Base
   private
 
   def first_image_content
-    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.image? }
+    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
 
   # TODO: spec
