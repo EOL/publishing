@@ -278,6 +278,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :source_page_url, comment: "This is where the 'view original' link takes you"
     end
 
+    # TODO: add subclasses of map and js_map
     create_table :media do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -309,9 +310,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # YOU WERE HERE...
-    # https://docs.google.com/document/d/1rbhy6vwIfFLeJxHNS_lkQ_Up3RlHOuae0NyKJyc4U-0/edit
-
+    # TODO: provider will become a resource (only)
     create_table :articles do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -337,6 +336,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
+    # TODO: change the base_url to just be an icon_url ; change the provider to a resource_id
     create_table :links do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -355,6 +355,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
+    # TODO: remove this and just make it a subclass of image ... for now.
     create_table :maps do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -374,8 +375,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :name, comment: "was: title"
       t.string :source_url
       t.string :base_url, null: false,
-        comment: "icon; you will add size info to this; was: object_url"
-
+        comment: "the image of the map; you will add size info to this; was: object_url"
 
       t.timestamps
     end
@@ -383,12 +383,19 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # There are currently 1,084,941 published data objects with a non-empty
     # citation, out of 7,785,934 objects. Of those, there is a lot of
     # duplication, so I'm making this its own table.
+    #
+    # If you want to cite this article on EOL, use this citation. It describes
+    # "this content." Appears in the attribution information for the content.
     create_table :bibliographic_citations do |t|
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
       t.timestamps
     end
 
+    # These are citations made by the content: sources used to synthesize that
+    # content. These show up below the content (ATM only applies to articles);
+    # this is effectively a "section" of the content; it's part of the object.
+    # TODO: let's have this apply only to articles.
     create_table :references do |t|
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
@@ -424,9 +431,11 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
     # Really, a "content curation," but that's enough of a default that we leave
     # off the adjective:
+    # TODO: add a duplicate of all curation fields with name old_*
     create_table :curations do |t|
       t.integer :user_id, null: false, comment: "the curator"
-      t.integer :page_content_id, null: false, comment: "the curator"
+      t.integer :page_content_id, null: false,
+        comment: "this should ONLY point to a page_content where the page_id == source_page_id"
 
       t.integer :trust, null: false, default: 0,
         comment: "enum: unreviewed, trusted, untrusted"
@@ -443,6 +452,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
+    # TODO: don't put this here; this will be stored in TraitBank.
     create_table :trait_curations do |t|
       t.string :uri, index: true, unique: true
       t.integer :user_id, null: false, comment: "the curator"
@@ -474,15 +484,20 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.references :content, polymorphic: true, index: true, null: false
     end
 
+    # TODO: add timestamps ... or move this to TraitBank ... and add an array of
+    # section ids
     create_table :uris do |t|
       t.string :uri, null: false, unique: true, index: true
       t.string :name, null: false, comment: "globalize or I18n"
       t.text :definition, comment: "globalize or I18n"
       t.text :comment, comment: "not sure if this is translated, yet"
-      t.text :attribution, comment: "globalize or I18n"
+      t.text :attribution, comment: "globalize or I18n; html format"
       t.boolean :is_hidden_from_overview, null: false, default: false
       t.boolean :is_hidden_from_glossary, null: false, default: false
     end
+
+    # YOU WERE HERE
+    # https://docs.google.com/document/d/1rbhy6vwIfFLeJxHNS_lkQ_Up3RlHOuae0NyKJyc4U-0/edit
 
     # Just a very basic version for now; will extend later.
     create_table :collections do |t|
