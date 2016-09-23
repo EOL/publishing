@@ -65,7 +65,7 @@ class Page < ActiveRecord::Base
 
   def article
     if page_contents.loaded?
-      page_contents.find { |pc| pc.content_type == "Article" }.content
+      page_contents.find { |pc| pc.content_type == "Article" }.try(:content)
     else
       articles.first
     end
@@ -85,8 +85,8 @@ class Page < ActiveRecord::Base
     @top_image ||= begin
       if medium
         medium
-      elsif ! page_contents.empty?
-        first_image_content.content
+      else
+        first_image_content.try(:content)
       end
     end
   end
