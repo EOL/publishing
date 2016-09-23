@@ -85,8 +85,7 @@ class Page < ActiveRecord::Base
     @top_image ||= begin
       if medium
         medium
-      elsif ! page_contents.empty?
-        first_image_content.content
+      first_image_content.try(:content)
       end
     end
   end
