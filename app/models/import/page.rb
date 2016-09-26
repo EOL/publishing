@@ -1,7 +1,6 @@
 class Import::Page
   class << self
     def from_file(name)
-      @resource_nodes = {}
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json")) OR
       # Import::Page.from_file("http://beta.eol.org/store-328598.json")
@@ -10,9 +9,14 @@ class Import::Page
               else
                 File.read(name)
               end
-      data = JSON.parse(file)
+      parse_page(JSON.parse(file))
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
+    end
+
+      
+    def parse_page(data)
+      @resource_nodes = {}
       @page = Page.where(id: data["id"]).first_or_initialize do |pg|
         pg.id = data["id"]
       end
