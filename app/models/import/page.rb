@@ -101,11 +101,10 @@ class Import::Page
     end
 
     def add_page_to_collection(collection)
-      CollectionItem.where(collection_id: collection.id,
-          item_id: @page.id, item_type: "Page").first_or_create do |c|
+      CollectedPage.where(collection_id: collection.id,
+          page_id: @page.id).first_or_create do |c|
         c.collection_id = collection.id
-        c.item_id = @page.id
-        c.item_type = "Page"
+        c.page_id = @page.id
       end
     end
 

@@ -1,7 +1,7 @@
 class PageContent < ActiveRecord::Base
   belongs_to :page
   belongs_to :source_page, class_name: "Page"
-  belongs_to :content, polymorphic: true
+  belongs_to :content, polymorphic: true, inverse_of: :page_contents
   belongs_to :association_add_by_user, class_name: "User"
 
   has_many :curations
@@ -28,7 +28,6 @@ class PageContent < ActiveRecord::Base
   scope :images, -> { media_by_subclass(:image) }
   scope :sounds, -> { media_by_subclass(:sound) }
   scope :videos, -> { media_by_subclass(:video) }
-
 
   # TODO: think about this. We might want to make the scope [:page,
   # :content_type]... then we can interlace other media types (or always show

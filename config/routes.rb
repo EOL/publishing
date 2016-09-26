@@ -16,11 +16,13 @@ Rails.application.routes.draw do
   # All of the "normal" resources:
   resources :collections
   resources :collection_items, only: [:new, :create]
+  resources :collected_pages, only: [:new, :create]
+  resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
-  resources :traits, only: [:show] # TODO: more coming later...
+  resources :page_icons, only: [:create]
+  resources :traits, only: [:show]
 
   # Non-resource routes last:
-
   get "/search" => "search#search", :as => "search"
 
   # TODO: Change. We really want this to point to a (dynamic) CMS page of some

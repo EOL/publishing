@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :curations, inverse_of: :user
   has_many :trait_curations, inverse_of: :user
   has_many :added_associations, class_name: "PageContent", foreign_key: "association_added_by_user_id"
+  has_many :page_icons, inverse_of: :user
 
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections

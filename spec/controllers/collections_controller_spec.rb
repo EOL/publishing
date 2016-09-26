@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CollectionsController do
   describe "#new" do
     let(:user) { create(:user) }
-    let(:page) { create(:page) }
+    let(:image) { create(:image) }
 
     before do
       allow(controller).to receive(:current_user) { user }
@@ -28,11 +28,33 @@ RSpec.describe CollectionsController do
       let(:collection_attributes) do
         attributes_for(:collection).
           merge(collection_items_attributes:
-            { "0" => { item_id: page.id, item_type: page.class.to_s } })
+            { "0" => { item_id: image.id, item_type: image.class.to_s } })
       end
 
       describe '#create (signed in)' do
         it "redirects to collected item" do
+          post :create, collection: collection_attributes
+          expect(response).to redirect_to(image)
+        end
+
+        it "adds a flash message" do
+          post :create, collection: collection_attributes
+          expect(flash[:notice]).to match /new collection/
+          expect(flash[:notice]).to match /#{image.name}/
+        end
+      end
+    end
+
+    context "with a collected page" do
+      let(:page) { create(:page) }
+      let(:collection_attributes) do
+        attributes_for(:collection).
+          merge(collected_pages_attributes:
+            { "0" => { page_id: page.id } })
+      end
+
+      describe '#create (signed in)' do
+        it "redirects to collected page" do
           post :create, collection: collection_attributes
           expect(response).to redirect_to(page)
         end
@@ -49,10 +71,9 @@ RSpec.describe CollectionsController do
   describe "#show" do
     let(:collection) { create(:collection) }
 
-    it "assigns collection" do
-      get :show, id: collection.id
-      expect(assigns(:collection)).to eq(collection)
-    end
+    before { get :show, id: collection.id }
+
+    it { expect(assigns(:collection)).to eq(collection) }
   end
 
   describe "#edit" do
@@ -90,10 +111,10 @@ RSpec.describe CollectionsController do
     context "with a failure" do
       it "redirects with flash" do
         allow(controller).to receive(:current_user) { user }
-        expect(Collection).to receive(:find).at_least(1).times { collection }
-        expect(collection).to receive(:update) { false }
         collection.users << user
-        put :update, id: "_", collection: collection.attributes
+        attributes = collection.attributes
+        attributes[:name] = ""
+        put :update, id: collection.id, collection: attributes
         collection.reload
         expect(response).to render_template(:edit)
       end

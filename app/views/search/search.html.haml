@@ -11,8 +11,8 @@
                 %li= link_to(node.canonical_form.html_safe, page_path(node.page_id))
               - else
                 %li= node.canonical_form.html_safe
-        - unless page.top_images.empty?
-          - image = page.top_images.first
+        - if page.top_image
+          - image = page.top_image
           = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
         = link_to(page.name.titlecase.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
         -# Other vernaculars that match:

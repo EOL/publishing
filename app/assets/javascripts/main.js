@@ -17,6 +17,15 @@
         });
     });
 
+  // Allow Turbolinks to co-habitate with Angular:
+  $(document).on('turbolinks:load', function() {
+    angular.bootstrap(document.body, ['eolApp']);
+    if($(".galleria").length) {
+      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
+      Galleria.run(".galleria");
+    };
+  });
+
   // Disable Angular Themes (use Bootstrap instead!)
   // app.constant("$MD_THEME_CSS","");
 

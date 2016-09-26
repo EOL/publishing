@@ -3,7 +3,7 @@ class Page < ActiveRecord::Base
   belongs_to :moved_to_page, class_name: "Page"
 
   has_many :nodes, inverse_of: :page
-  has_many :collection_items, as: :item
+  has_many :collected_pages, inverse_of: :page
   has_many :vernaculars, inverse_of: :page
   has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
   has_many :scientific_names, inverse_of: :page
@@ -12,7 +12,12 @@ class Page < ActiveRecord::Base
     class_name: "ScientificName"
   has_many :resources, through: :nodes
 
-  has_many :page_contents, -> { visible.not_untrusted }
+  has_many :page_icons, inverse_of: :page
+  # Only the last one "sticks":
+  has_one :page_icon, -> { most_recent }
+  has_one :medium, through: :page_icon
+
+  has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
     source: :content, source_type: "Article"
@@ -20,55 +25,14 @@ class Page < ActiveRecord::Base
     source: :content, source_type: "Medium"
   has_many :links, through: :page_contents,
     source: :content, source_type: "Link"
-  has_many :images, -> { where(subclass: Medium.subclasses[:image]) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :videos, -> { where(subclass: Medium.subclasses[:videos]) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :sounds, -> { where(subclass: Medium.subclasses[:sounds]) },
-    through: :page_contents, source: :content, source_type: "Medium"
 
-  has_many :all_page_contents, -> { order(:position) }
-  has_many :all_maps, through: :all_page_contents, source: :content, source_type: "Map"
-  has_many :all_articles, through: :all_page_contents,
-    source: :content, source_type: "Article"
-  has_many :all_media, through: :all_page_contents,
-    source: :content, source_type: "Medium"
-  has_many :all_links, through: :all_page_contents,
-    source: :content, source_type: "Link"
-  has_many :all_images, -> { where(subclass: Medium.subclasses[:image]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
-  has_many :all_videos, -> { where(subclass: Medium.subclasses[:videos]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
-  has_many :all_sounds, -> { where(subclass: Medium.subclasses[:sounds]) },
-    through: :all_page_contents, source: :content, source_type: "Medium"
+  has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
-  # Will return an array, even when there's only one, thus the plural names.
-  # TODO: I don't like this. It means "figuring out" which are the top things
-  # every single time the page is loaded, where we should probably have that
-  # information denormalized and clear it whenever new candidates are added.
-  has_many :top_maps, -> { limit(1) }, through: :page_contents, source: :content,
-    source_type: "Map"
-  has_many :top_articles, -> { limit(1) }, through: :page_contents,
-    source: :content, source_type: "Article"
-  has_many :top_links, -> { limit(6) }, through: :page_contents,
-    source: :content, source_type: "Link"
-  has_many :top_images,
-    -> { where(subclass: Medium.subclasses[:image]).limit(6) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_videos,
-    -> { where(subclass: Medium.subclasses[:videos]).limit(1) },
-    through: :page_contents, source: :content, source_type: "Medium"
-  has_many :top_sounds,
-    -> { where(subclass: Medium.subclasses[:sounds]).limit(1) },
-    through: :page_contents, source: :content, source_type: "Medium"
-
+  # NOTE: You CANNOT preload both the top article AND the media. This seems to
+  # be a Rails bug, but it is what it is.
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :page_contents, :native_node)
-  end
-
-  scope :all_preloaded, -> do
-    includes(:native_node, :vernaculars, :images, :videos, :sounds, :articles,
-      :maps, :links)
+    includes(:preferred_vernaculars, :native_node, page_contents:
+      { content: [:license, :sections] })
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
@@ -79,10 +43,10 @@ class Page < ActiveRecord::Base
     end
     # TODO: We would like to add attributions, later.
     text :preferred_scientific_names, :boost => 8.0 do
-      preferred_scientific_names.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+      preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
     text :synonyms, :boost => 2.0 do
-      scientific_names.synonym.map { |sn| sn.canonical_form.gsub(/<\/?i>/, "") }
+      scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
     text :preferred_vernaculars, :boost => 2.0 do
       vernaculars.preferred.map { |v| v.string }
@@ -91,31 +55,51 @@ class Page < ActiveRecord::Base
       vernaculars.nonpreferred.map { |v| v.string }
     end
     text :providers do
-      resources.flat_map { |r| [r.name, r.partner.full_name, r.partner.short_name] }
+      resources.flat_map do |r|
+        [r.name, r.partner.full_name, r.partner.short_name]
+      end
     end
   end
 
-  def glossary
-    return @glossary if @glossary
-    traits
-    @glossary
+  # MEDIA METHODS
+
+  def article
+    if page_contents.loaded?
+      page_contents.find { |pc| pc.content_type == "Article" }.try(:content)
+    else
+      articles.first
+    end
   end
 
   # Without touching the DB:
   # NOTE: not used or spec'ed yet.
   def media_count
-    page.page_contents.select { |pc| pc.content_type == "Medium" }.size
+    page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
+  def icon
+    top_image && top_image.medium_icon_url
+  end
+
+  def top_image
+    @top_image ||= begin
+      if medium
+        medium
+      else
+        first_image_content.try(:content)
+      end
+    end
+  end
+
+  # NAMES METHODS
+
+  # TODO: this is duplicated with node; fix.
   def name(language = nil)
     language ||= Language.english
     vernacular(language).try(:string) || scientific_name
   end
 
-  def collect_with_icon
-    top_image && top_image.medium_icon_url
-  end
-
+  # TODO: this is duplicated with node; fix.
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)
     if preferred_vernaculars.loaded?
@@ -135,9 +119,7 @@ class Page < ActiveRecord::Base
     native_node.try(:canonical_form) || "NO NAME!"
   end
 
-  def top_image
-    @top_image ||= top_images.first
-  end
+  # TRAITS METHODS
 
   # TODO: ideally we want to be able to limit these! ...but that's really hard,
   # and ATM the query is pretty fast even for >100 traits, so we're not doing
@@ -158,6 +140,38 @@ class Page < ActiveRecord::Base
       else
         0
       end
+    end
+  end
+
+  def glossary
+    return @glossary if @glossary
+    traits
+    @glossary
+  end
+
+  def grouped_traits
+    @grouped_traits ||= traits.group_by { |t| t[:predicate] }
+  end
+
+  def predicates
+    @predicates ||= grouped_traits.keys.sort do |a,b|
+      glossary_names[a] <=> glossary_names[b]
+    end
+  end
+
+  private
+
+  def first_image_content
+    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
+  end
+
+  # TODO: spec
+  # NOTE: this is just used for sorting.
+  def glossary_names
+    @glossary_names ||= begin
+      gn = {}
+      glossary.each { |uri, hash| gn[uri] = glossary[uri].try(:name).downcase }
+      gn
     end
   end
 end
