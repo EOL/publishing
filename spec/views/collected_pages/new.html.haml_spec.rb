@@ -1,17 +1,17 @@
 require "rails_helper"
 
-RSpec.describe "collection_items/new" do
+RSpec.describe "collected_pages/new" do
   # NOTE: using a few non-doubles here for cleanliness. Forms need many fields
   # and mocking them is cluttered. I've doubled everything that it made sense to.
   before do
     allow(Language).to receive(:current) { "this" }
-    item = instance_double("Page", collect_with_icon: "image_thingie.jpg",
+    page = instance_double("Page", icon: "image_thingie.jpg",
       id: 43123)
-    allow(item).to receive(:name).with("this") { "Here Titled" }
-    collection_item = CollectionItem.new(item_id: item.id, item_type: "Page")
-    assign(:item, item)
+    allow(page).to receive(:name).with("this") { "Here Titled" }
+    collected_page = CollectedPage.new(page_id: page.id)
+    assign(:page, page)
     assign(:collection, Collection.new)
-    assign(:collection_item, collection_item)
+    assign(:collected_page, collected_page)
   end
 
   context "with a new user" do
@@ -21,12 +21,12 @@ RSpec.describe "collection_items/new" do
       allow(view).to receive(:current_user) { user }
     end
 
-    it "shows the icon of the collected item" do
+    it "shows the icon of the collected page" do
       render
       expect(rendered).to match /image_thingie.jpg/
     end
 
-    it "shows the name of the collected item in the current language" do
+    it "shows the name of the collected page in the current language" do
       render
       expect(rendered).to match /Here Titled/
     end
@@ -34,19 +34,22 @@ RSpec.describe "collection_items/new" do
     it "shows no collections to select" do
       render
       expect(rendered).to match(
-        /#{I18n.t(:collection_item_no_existing_collections)}/)
+        /#{I18n.t(:collect_no_existing_collections)}/)
     end
 
-    it "shows a form for a new collection"
+    it "shows a form for a new collection" do
+      render
+      expect(rendered).to have_selector("form#new_collection")
+    end
   end
 
   context "with a user who has collections already" do
     before do
-      collection_1 = instance_double("Collection", updated_at: 1.hour.ago,
+      collection_1 = create(:collection, updated_at: 1.hour.ago,
         name: "Collection One", id: 1)
-      collection_2 = instance_double("Collection", updated_at: 1.minute.ago,
+      collection_2 = create(:collection, updated_at: 1.minute.ago,
         name: "Collection Two", id: 2)
-      collection_bad = instance_double("Collection", updated_at: 2.hours.ago,
+      collection_bad = create(:collection, updated_at: 2.hours.ago,
         name: "Collection Bad", id: 3)
       user_collections = [collection_1, collection_2, collection_bad]
       user = instance_double("User", collections: user_collections)
@@ -69,7 +72,7 @@ RSpec.describe "collection_items/new" do
     it "disables the bad collection option" do
       render
       expect(rendered).to have_selector(
-        "input#collection_item_collection_id_3[disabled]")
+        "input#collected_page_collection_id_3[disabled]")
     end
   end
 end

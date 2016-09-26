@@ -1,24 +1,12 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
 #
-# To use the locales, use `I18n.t`:
 #
-#     I18n.t 'hello'
 #
-# In views, this is aliased to just `t`:
 #
-#     <%= t('hello') %>
+#        _P_L_E_A_S_E_ keep this in alphabetical order!
 #
-# To use a different locale, set it with `I18n.locale`:
 #
-#     I18n.locale = :es
 #
-# This would use the information in config/locales/es.yml.
 #
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   account_already_linked: "your account is already linked to EOL"
   account_destroyed_successfully: "You have deleted your account. Thanks!"
@@ -29,20 +17,30 @@ en:
   cancel: "cancel"
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
+  collect_already_in_collection: "(it's already here)"
+  collect_new_collection: "New Collection Name"
+  collect_new_collection_title: "...a New Collection"
+  collect_no_existing_collections: "You don't have any yet! Create one using the form on the left."
+  collect_select_collection: "...One of Your Collections"
+  collect_title: "Add \"%{item}\" to..."
+  collected_page_added_to_collection: "Added \"%{page}\" to collection <a href='%{link}'>\"%{name}\"</a>."
+  collected_pages_title: "Pages"
+  collection_items_title: "Other Associated Content"
   collection_created: "Created new collection \"%{name}\"."
   collection_created_for_item: "Added \"%{item}\" to new collection <a href='%{link}'>\"%{name}\"</a>."
   collection_edit_button: "edit collection"
   collection_item_added_to_collection: "Added \"%{item}\" to collection <a href='%{link}'>\"%{name}\"</a>."
-  collection_item_already_in_collection: "(it's already here)"
-  collection_item_title: "Add \"%{item}\" to..."
-  collection_item_new_collection_title: "...a New Collection"
-  collection_item_new_collection: "New Collection Name"
-  collection_item_no_existing_collections: "You don't have any yet! Create one using the form on the left."
-  collection_item_select_collection: "...One of Your Collections"
-  collection_items_empty: "This collection is empty. Try clicking on the \"collect\" button on species pages to add some items!"
+  collection_items_empty: "Nothing else is associated with this collection. You can click on the \"collect\" button on various pages around the site to associate them to this collection."
+  collection_pages_empty: "This collection is empty. Try clicking on the \"collect\" button on species pages to add some items!"
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
+  content_appears_on: "Appears On"
+  content_associations: "Associations"
+  content_attributions_header: "Source Information"
+  content_attributions_labels:
+    license: "License"
+    owner: "Copyright"
   create_account: "create account"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
@@ -60,9 +58,15 @@ en:
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
+  medium_collect_button: "collect media"
+  medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
-  page_has_no_articles: "Sorry: there are no articles available here."
+  page_article_header: "Overview"
+  page_icon_create_button: "best media"
+  page_icon_created: "Moved image \"%{name}\" to the top."
+  page_media_header: "Media (%{count})"
+  page_traits_header: "Trait Data (%{count})"
   password: "Password"
   password_confirmation: "Password confirmation"
   recaptcha: "Recaptcha"
@@ -75,7 +79,6 @@ en:
   sign_up: "Sign up"
   signature_basic: "The Encyclopedia of Life Team"
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
-  username: "Username"
   search_empty: "No results found for \"%{q}\"."
   send_me_reset_password_instructions: "Send me reset password instructions"
   show_more: "show more"
@@ -84,7 +87,7 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
-  taxon_collect_button: "collect"
+  taxon_collect_button: "collect page"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"
@@ -111,3 +114,4 @@ en:
       password_must_have_number_error: "Password must have at least one number"
       short_password_error: "Password is too short. Please make sure to type at least 8 characters password"
       short_username_error: "Username is too short. It should be at least 4 characters"
+  username: "Username"

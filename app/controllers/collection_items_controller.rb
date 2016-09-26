@@ -6,12 +6,19 @@ class CollectionItemsController < ApplicationController
     @item = @collection_item.item
     @collection = Collection.new
     @collection.collection_items << @collection_item
+    # NOTE: this looks at ALL collections, rather than just the users. I
+    # *suspect* (but may well be wrong) that this is fast enough, given how rare
+    # duplication is across collections. ...But we might try join()ing with
+    # collections that the user has access to. ...That's two tables, though, so
+    # I'm avoiding it in the name of simplicity (and, again, because I'm not
+    # sure the cost of the joins would be gained by the selection of the user).
     @bad_collection_ids = CollectionItem.where(
       item_type: @collection_item.item_type, item_id: @collection_item.item_id).
       pluck(:collection_id)
   end
 
   def create
+    # TODO: Access control
     @collection_item = CollectionItem.new(collection_item_params)
     if @collection_item.save
       flash[:notice] = I18n.t(:collection_item_added_to_collection,
@@ -27,11 +34,11 @@ class CollectionItemsController < ApplicationController
 
   private
 
-    def collection_item_params
-      params.require(:collection_item).permit(:collection_id, :item_type, :item_id)
-    end
+  def collection_item_params
+    params.require(:collection_item).permit(:collection_id, :item_type, :item_id)
+  end
 
-    def new_item_params
-      params.permit(:item_id, :item_type)
-    end
+  def new_item_params
+    params.permit(:item_id, :item_type)
+  end
 end

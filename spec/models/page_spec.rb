@@ -61,7 +61,7 @@ RSpec.describe Page do
     end
 
     it "chooses the summary for the overview" do
-      expect(our_page.top_articles.first).to eq(summary)
+      expect(our_page.article).to eq(summary)
     end
 
     it "has access to both articles" do
@@ -85,26 +85,39 @@ RSpec.describe Page do
           term: term.uri,
           metadata: nil },
         { predicate: predicate1.uri,
-            resource_pk: "745",
-            source: "Source One",
-            units: units.uri,
-            measurement: "10.428",
-            metadata: nil }
+          resource_pk: "745",
+          source: "Source One",
+          units: units.uri,
+          measurement: "10.428",
+          metadata: nil }
       ]
     end
 
-    it "orders traits" do
+    before do
       allow(TraitBank).to receive(:by_page) { traits_out_of_order }
+    end
+
+    it "#traits orders traits" do
       traits = our_page.traits
       expect(traits.first[:predicate]).to eq(predicate1.uri)
     end
 
-    it "builds a glossary" do
+    it "#glosasry builds a glossary" do
       allow(TraitBank).to receive(:by_page) { traits_out_of_order }
       expect(our_page.glossary.keys).to include(predicate1.uri)
       expect(our_page.glossary.keys).to include(predicate2.uri)
       expect(our_page.glossary.keys).to include(units.uri)
       expect(our_page.glossary.keys).to include(term.uri)
+    end
+
+    it "#grouped_traits groups traits" do
+      expect(our_page.grouped_traits.keys.sort).
+        to eq([predicate1.uri, predicate2.uri].sort)
+    end
+
+    it "#predicates orders predicates" do
+      expect(our_page.predicates).
+        to eq([predicate1, predicate2].sort { |a,b| a[:name] <=> b[:name] }.map { |p| p[:uri] })
     end
   end
 end

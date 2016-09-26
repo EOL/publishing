@@ -1,86 +1,42 @@
-#page.container{ ng: { app: "pageApp" } }
+#page.container
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
-    .jumbotron
-      .ancestors
+    .well
+      .page-ancestors
         %ol.breadcrumb
           - @page.native_node.ancestors.each do |node|
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
       .row
-        .col-md-9
+        .page-names.col-md-9
           %h1= @page.name.titlecase
-          %p= @page.scientific_name.html_safe
+          %h2= @page.scientific_name.html_safe
+          - trophic_strat = begin
+            - @page.glossary[@page.traits.find { |t| t[:predicate] == "http://www.wikidata.org/entity/Q1053008" }[:term]].name
+          - rescue => e
+            -# Do nothing. This code doesn't even belong here. I'm rushing.
+          -# TODO: this is all temporary! We need a real solution:
+          %p
+            = "The #{@page.name} is a(n) #{trophic_strat} #{@page.native_node.ancestors[0].name} "
+            - if @page.native_node.ancestors[-2]
+              = "in the #{@page.native_node.ancestors[-2].rank.try(:name) || "clade"} #{@page.native_node.ancestors[-2].name}."
+            It lives in a variety of habitats around the world.
         %p.col-md-3.actions
           %button.btn.btn-default
-            = link_to(t(:taxon_collect_button), new_collection_item_path(item_type: "Page", item_id: @page.id))
-    - max_rows = 6
-    - traits = @page.traits
-    - any_collapsed = false
-    - if ! traits.empty?
-      - row_count = 0
-      - grouped_traits = traits.group_by { |t| t[:predicate] }
-      - any_collapsed = traits.size > max_rows + 1
-      %table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
-        %tbody
-          -# TODO: helper
-          - grouped_traits.keys.sort { |a,b| @page.glossary[a].try(:name).downcase <=> @page.glossary[b].try(:name).downcase }.each do |uri|
-            - predicate = @page.glossary[uri]
-            - previous_predicate = nil
-            - TraitBank.sort(grouped_traits[uri], @page.glossary).each do |trait|
-              - collapse = row_count > max_rows && any_collapsed
-              - any_collapsed = true if collapse
-              %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
-                - row_count += 1
-                %th{ scope: "row" }
-                  - if predicate == previous_predicate
-                  - else
-                    = link_to(predicate.name, trait_path(predicate))
-                    - previous_predicate = predicate
-                %td
-                  - if trait[:measurement]
-                    = trait[:measurement]
-                    = @page.glossary[trait[:units]].try(:name) || trait[:units]
-                  - elsif trait[:term]
-                    = @page.glossary[trait[:term]].try(:name) || trait[:term]
-                  - elsif trait[:literal]
-                    = trait[:literal].html_safe
-                  - else
-                    Augh! Could not find a displayable value from keys of:
-                    = trait.keys.join(", ")
-                -# TODO: make this a proper link
-                %td.table-source
-                  - if resource = @resources[trait[:resource_id]]
-                    = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
-                  - else
-                    t(:resource_missing)
-      - if any_collapsed
-        %p
-          %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
-            = t(:traits_show_more, count: row_count - max_rows)
-    .well
-      .galleria
-        - @page.images.each do |image|
-          -# TODO: we will eventually know the actual size of the image; add that:
-          = link_to(image_tag(image.small_icon_url, alt: image.name.html_safe, data: { layer: "<div class=\"galleria__credits\">#{image.license.name} #{image.owner.html_safe}</div>", big: image.original_size_url }), image.large_size_url)
-    :javascript
-      Galleria.loadTheme('/assets/galleria/themes/classic/galleria.classic.min.js');
-      Galleria.run('.galleria');
-
-    .well
-      %tabset{ justified: "true", type: "pills" }
-        - if article = @page.top_articles.first
-          %tab{ heading: "Overview" }
-            - name = article.name.html_safe
-            - name = article.sections.first.name if name.blank? || name.empty?
-            .article
-              %h3= name
-              = article.body.html_safe
-              = article.license.name
-              = article.owner.html_safe
-        - else # No article!
-          = t(:page_has_no_articles)
-        %tab{ heading: "Maps (todo)" }
-        %tab{ heading: "Classification (todo)" }
-        %tab{ heading: "Details (todo)" }
-        %tab{ heading: "Names (todo)" }
-        %tab{ heading: "References & Literature (todo)" }
-        %tab{ heading: "Education (todo)" }
+            = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
+      .media
+        #gallery
+          %h2= t(:page_media_header, count: @page.media_count)
+          = render("page_media")
+      .tabs
+        %tabset{ justified: "true", type: "pills" }
+          - if @page.traits
+            %tab{ heading: t(:page_traits_header, count: @page.traits.size) }
+              = render("page_traits")
+          - if @page.article
+            %tab{ heading: t(:page_article_header) }
+              = render("page_article")
+          %tab{ heading: "Maps (todo)" }
+          %tab{ heading: "Classification (todo)" }
+          %tab{ heading: "Details (todo)" }
+          %tab{ heading: "Names (todo)" }
+          %tab{ heading: "References & Literature (todo)" }
+          %tab{ heading: "Education (todo)" }
