@@ -26,7 +26,10 @@
             - elsif trait[:term]
               = @page.glossary[trait[:term]].try(:name) || trait[:term]
             - elsif trait[:literal]
-              = trait[:literal].html_safe
+              - if trait[:object_page]
+                = link_to trait[:literal].html_safe, trait[:object_page]
+              - else
+                = trait[:literal].html_safe
             - else
               Augh! Could not find a displayable value from keys of:
               = trait.keys.join(", ")
