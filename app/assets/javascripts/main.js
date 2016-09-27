@@ -43,9 +43,13 @@
       }).then(function(response){
         var data = response.data;
         $.each(data, function(i, match) {
-          match.preferred_vernaculars =
+          var re = new RegExp(query, "i");
+          match.names = [];
+          if(match.scientific_name.match(re)) {
+            match.names += { string: match.scientific_name };
+          };
+          match.names =
             jQuery.grep(match.preferred_vernaculars, function(e) {
-              var re = new RegExp(query, "i");
               return e.string.match(re);
             });
         });
