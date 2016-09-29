@@ -41,7 +41,10 @@ class SearchController < ApplicationController
 
     respond_to do |fmt|
       fmt.html do
-        @empty = @pages.results.empty? && @users.results.empty?
+        @empty = true
+        [ @pages, @collections, @media, @users ].each do |set|
+          @empty = false if set && ! set.results.empty?
+        end
       end
 
       # TODO: JSON results for other types!
