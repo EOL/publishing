@@ -1,4 +1,5 @@
 %h1.text-center= t(:search_header, q: @q)
+- debugger if $FOO
 - if @empty
   %h2= t(:search_empty, q: @q)
 - else
