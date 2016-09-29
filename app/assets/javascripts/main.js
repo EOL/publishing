@@ -39,7 +39,7 @@
 
     $scope.querySearch = function(query) {
       return $http.get("/search.json", {
-        params: { q: query + "*", per_page: "6" }
+        params: { q: query + "*", per_page: "6", only: "pages" }
       }).then(function(response){
         var data = response.data;
         $.each(data, function(i, match) {

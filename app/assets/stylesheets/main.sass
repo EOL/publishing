@@ -101,7 +101,7 @@ form .field
   // And darker:
   background-color: #e6e6e6
   border: 1px solid #ddd
-  box-shadow: 1px 1px 5px #ccc
+  box-shadow: 1px 1px 5px #a4a4a4
 
 .page-ancestors .breadcrumb li:first-child::before
   content: ""
@@ -163,6 +163,32 @@ form .field
 
 .primary-name
   font-size: 1.3em
+
+table.collection_items
+  @extend .table
+  @extend .table-hover
+  @extend .table-bordered
+
+mark
+  font-weight: bold
+
+.collection_items .names
+  padding-left: 6px
+
+.collection_items .page-ancestors
+  margin-bottom: 1em
+
+.collection_items ul.matches
+  list-style-type: none
+
+.collection_items ul.matches li
+  display: inline-block
+
+.collection_items ul.matches li:last-child::after
+  content: ""
+
+.collection_items ul.matches li::after
+  content: ","
 
 .secondary-name
   font-weight: normal

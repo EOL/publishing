@@ -2,13 +2,19 @@
   #page_control{ ng: { controller: "AppMaterials as ctrl" } }
     .jumbotron
       .row
-        %h1.col-md-9= @user.username
+        .col-md-9
+          %h1= @user.username
+          - unless @user.tag_line.blank?
+            %p= @user.tag_line
         - if current_user.try(:can_delete_account?, @user)
           .actions.col-md-3
             %button.btn.btn-default{'ng-click': "showConfirm($event,#{@user.id},'#{I18n.t(:are_you_sure_delete_account)}')",
               class: 'md-primary md-raised', remote: "true", authenticity_token: "true" }
               -# TODO: I don't think this delete link actually works (but I don't care right now):
               = link_to(t(:delete_account_button), user_path(current_user, method: :delete) )
+    - unless @user.bio.blank?
+      %h2= t(:user_bio_title)
+      %p= @user.bio
     - unless @user.collections.empty?
       %p.clearfix
         %h2= t(:user_collections_header)

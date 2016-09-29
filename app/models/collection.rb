@@ -30,4 +30,9 @@ class Collection < ActiveRecord::Base
 
   validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
   validates :name, presence: true
+
+  searchable do
+    text :name, :boost => 3.0
+    text :description
+  end
 end
