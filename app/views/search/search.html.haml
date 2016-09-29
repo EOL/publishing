@@ -1,32 +1,76 @@
-- if @pages.results.empty?
-  %p= t(:search_empty, q: query_string)
+%h1.text-center= t(:search_header, q: @q)
+- if @empty
+  %h2= t(:search_empty, q: @q)
 - else
-  %ul
-    - @pages.results.each do |page|
-      %li
-        .ancestors
-          %ul
-            - page.native_node.ancestors.each do |node|
-              - if node.page_id
-                %li= link_to(node.canonical_form.html_safe, page_path(node.page_id))
-              - else
-                %li= node.canonical_form.html_safe
-        - if page.top_image
-          - image = page.top_image
-          = image_tag(image.small_icon_url, alt: image.name.html_safe, size: "88x88")
-        = link_to(page.name.titlecase.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
-        -# Other vernaculars that match:
-        - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.each do |name|
-          = name.string.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe
-          = "(#{name.language.code})"
-        %br/
-        = link_to(page.scientific_name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe, page_path(page))
-        -# Other scientific_names that match:
-        - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
-          name.canonical_form.gsub(/(#{@q})/, "<b>\\1</b>").html_safe
-        %br/
-        -# Resources:
-        - page.resources.uniq.each do |resource|
-          = resource.name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe
-          - unless resource.name =~ /#{resource.partner.short_name}/
-            = "(#{resource.partner.short_name.gsub(/(#{@q})/i, "<b>\\1</b>").html_safe})"
+  - if defined?(@pages) && ! @pages.results.empty?
+    %h2= t(:search_pages_title)
+    %table.collection_items
+      %tbody
+        - @pages.results.each do |page|
+          = render("pages/as_row", page: page)
+  - if defined?(@collections) && ! @collections.results.empty?
+    %h2= t(:search_collections_title)
+    %table.collection_items
+      %tbody
+        - @collections.results.each do |collection|
+          %tr
+            %td.collection-table-image
+              -# TODO: collections don't have icons yet; change this.
+              = link_to(image_tag("medium/collection.png"), collection)
+            %td
+              .names
+                = link_to(emphasize_match(collection.name.titleize, @q), collection, class: "primary-name")
+              .names
+                - if collection.description =~ /#{@q}/
+                  %br/
+                  %b= t(:search_collection_match_description)
+                  = emphasize_match(collection.description, @q)
+  - if defined?(@media) && ! @media.results.empty?
+    %h2= t(:search_media_title)
+    %table.collection_items
+      %tbody
+        - @media.results.each do |medium|
+          %tr
+            %td.medium-table-image
+              -# TODO: media don't have icons yet; change this.
+              = link_to(image_tag(medium.medium_icon_url), medium)
+            %td
+              .names
+                = link_to(emphasize_match(medium.name.titleize, @q), medium, class: "primary-name")
+              .names
+                - if medium.description =~ /#{@q}/
+                  %br/
+                  %b= t(:search_medium_match_description)
+                  = emphasize_match(medium.description, @q)
+                - if medium.resource_pk =~ /#{@q}/
+                  %br/
+                  %b= t(:search_medium_match_resource_pk)
+                  = emphasize_match(medium.resource_pk, @q)
+                - if medium.owner =~ /#{@q}/
+                  %br/
+                  %b= t(:search_medium_match_owner)
+                  = emphasize_match(medium.owner, @q)
+  - if defined?(@users) && ! @users.results.empty?
+    %h2= t(:search_users_title)
+    %table.collection_items
+      %tbody
+        - @users.results.each do |user|
+          %tr
+            %td.collection-table-image
+              -# TODO: users don't have icons yet; change this.
+              = link_to(image_tag("medium/missing.png"), user)
+            %td
+              .names.username
+                = link_to(emphasize_match(user.username.titleize, @q), user, class: "primary-name")
+              .names
+                - if user.is_admin?
+                  %br/
+                  = t(:collection_user_is_admin)
+                - if user.tag_line =~ /#{@q}/
+                  %br/
+                  %b= t(:search_user_match_tag_line)
+                  = emphasize_match(user.tag_line, @q)
+                - if user.bio =~ /#{@q}/
+                  %br/
+                  %b= t(:search_user_match_bio)
+                  = emphasize_match(user.bio, @q)

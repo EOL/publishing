@@ -62,7 +62,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
 # Handle attachments (icons):
-gem "paperclip", "~> 5.0.0"
+gem "paperclip", "~> 5.1"
 # Authorization:
 gem "pundit", "~> 1.1"
 # Turing test:

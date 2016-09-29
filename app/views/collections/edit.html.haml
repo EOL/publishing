@@ -20,7 +20,7 @@
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %table.collection_items.table.table-hover.table-bordered
+    %table.collection_items
       %tbody
         - @collection.collected_pages.each do |collected_page|
           - page = collected_page.page

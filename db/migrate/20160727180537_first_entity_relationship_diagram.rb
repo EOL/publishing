@@ -507,6 +507,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
     add_attachment :collections, :icon
 
+    # TODO: rename this to collected_collections ...maybe associated_collections or collection_associations; change the item reference to just collected_collection_id (or whatever we call these), and that's it!
     create_table :collection_items do |t|
       t.integer :collection_id, null: false, index: true
       t.references :item, polymorphic: true, index: true, null: false
@@ -514,6 +515,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
     add_index :collection_items, :item_type, name: "item_type_index"
 
+    # NOTE: this was removed in a later migration.
     create_table :collection_item_exemplars do |t|
       t.integer :collection_item_id, null: false, index: true
       t.references :exemplar, polymorphic: true, index: true, null: false

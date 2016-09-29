@@ -18,14 +18,17 @@ RSpec.describe "search/search" do
       partner = instance_double("Partner", short_name: "Partner One")
       resources = [instance_double("Resource", name: "Resource One",
         partner: partner)]
-      image1 = instance_double("Medium", license: lic, owner: "Owned Here",
-        small_icon_url: "some_image_url_88_88.jpg", name: "Thumbnail Image")
-      page = instance_double("Page", name: "a common name", top_image: image1,
-        scientific_name: scientific_names.first.canonical_form,
-        scientific_names: scientific_names, native_node: node,
-        vernaculars: [name, another_name, nonmatching_name], resources: resources)
+      page = create(:page)
+      allow(page).to receive(:name) { "a common name" }
+      allow(page).to receive(:icon) { "some_image_url_88_88.jpg" }
+      allow(page).to receive(:scientific_name) { scientific_names.first.canonical_form }
+      allow(page).to receive(:scientific_names) { scientific_names }
+      allow(page).to receive(:native_node) { node }
+      allow(page).to receive(:vernaculars) { [name, another_name, nonmatching_name] }
+      allow(page).to receive(:resources) { resources }
       search_results = double("Sunspot::Search", results: [page])
       assign(:pages, search_results)
+      assign(:empty, false)
       assign(:q, "common")
     end
 
@@ -40,14 +43,14 @@ RSpec.describe "search/search" do
       expect(rendered).to match /Ancestor name/
     end
 
-    it "shows the highlighted common name in title case" do
+    it "shows the common name with matches in title case" do
       render
-      expect(rendered).to match /A <b>Common<\/b> Name/
+      expect(rendered).to match /A <mark>Common<\/mark> Name/
     end
 
     it "shows other vernaculars where the name matches (with language)" do
       render
-      expect(rendered).to match /another <b>common<\/b> name\s+\(eng\)/m
+      expect(rendered).to match /another <mark>common<\/mark> name\&nbsp\;\(eng\)/m
     end
 
     it "does NOT show other vernaculars without matches" do
@@ -65,12 +68,13 @@ RSpec.describe "search/search" do
     before do
       search_results = double("Sunspot::Search", results: [])
       assign(:pages, search_results)
-      allow(view).to receive(:query_string) { "something" }
+      assign(:empty, true)
+      assign(:q, "nothing")
     end
 
     it "shows a message" do
       render
-      expect(rendered).to match /No results found for.*something/
+      expect(rendered).to match /No results found for.*nothing/
     end
   end
 end

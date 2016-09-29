@@ -12,34 +12,20 @@
   %p= t(:collection_pages_empty)
 - else
   %h2= t(:collected_pages_title)
-  %table.collection_items.table.table-hover.table-bordered
+  %table.collection_items
     %tbody
       - @collection.collected_pages.each do |collected_page|
-        - page = collected_page.page
-        %tr
-          %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(collected_page.icon), page)
-          %th{ scope: "row" }
-            .names.d-inline
-              - common = collected_page.name.titleize.html_safe
-              - scientific = collected_page.scientific_name_string.html_safe
-              - if common.blank?
-                = link_to(scientific, page, class: "primary-name")
-              - else
-                = link_to(common, page, class: "primary-name")
-                %br/
-                = link_to(scientific, page, class: "secondary-name")
-            %br/
-            -# - group_num = 0
-            %row.icons_12_wide
-              - collected_page.media.each do |medium|
-                .col-md-1
-                  = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
+        = render("pages/as_row",
+          page: collected_page.page,
+          icon: collected_page.icon,
+          media: collected_page.media,
+          common: collected_page.name,
+          scientific: collected_page.scientific_name_string)
 - if @collection.collection_items.empty?
   %p= t(:collection_items_empty)
 - else
   %h2= t(:collection_items_title)
-  %table.collection_items.table.table-hover.table-bordered
+  %table.collection_items
     %tbody
       - @collection.collection_items.each do |collection_item|
         - item = collection_item.item
