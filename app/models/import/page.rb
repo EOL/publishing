@@ -125,7 +125,8 @@ class Import::Page
     end
 
     def build_map(m_data, node, position)
-      build_content(Map, m_data, node: node, page: @page, position: position)
+      build_content(Image, m_data, node: node, page: @page, position: position,
+        subclass: :map)
     end
 
     def build_content(klass, c_data, options = {})
