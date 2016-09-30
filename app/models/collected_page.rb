@@ -13,7 +13,7 @@ class CollectedPage < ActiveRecord::Base
 
   acts_as_list scope: :collection
 
-  # For convenience, this is duck-typed from CollectionItem (q.v.)
+  # For convenience, this is duck-typed from CollectionAssociation (q.v.)
   def item
     page
   end

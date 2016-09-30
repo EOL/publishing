@@ -1,9 +1,9 @@
 #collection_association.container
   .well
-    - if image = @item.icon
+    - if image = @associated.icon
       .collect-image
         = image_tag(image, size: "130x130")
-    %h2.clearfix= t(:collect_title, item: @item.name(Language.current))
+    %h2.clearfix= t(:collect_title, item: @associated.name)
     .row
       .col-md-6
         %h3= t(:collect_new_collection_title)
@@ -11,8 +11,7 @@
           = f.label(:name, class: "sr-only")
           = f.text_field(:name, class: "form-control", placeholder: t(:collect_new_collection))
           = f.fields_for(:collection_associations) do |item_f|
-            = item_f.hidden_field(:item_id, item_id: @collection_association.item_id)
-            = item_f.hidden_field(:item_type, item_type: @collection_association.item_type)
+            = item_f.hidden_field(:associated_id, associated_id: @collection_association.associated_id)
           = f.submit(t(:button_create), class: "btn btn-default")
       .col-md-6
         %h3= t(:collect_select_collection)
@@ -20,8 +19,7 @@
           %p= t(:collect_no_existing_collections)
         - else
           = form_for(@collection_association, html: { class: "form" }) do |f|
-            = f.hidden_field(:item_id, item_id: @collection_association.item_id)
-            = f.hidden_field(:item_type, item_type: @collection_association.item_type)
+            = f.hidden_field(:associated_id, associated_id: @collection_association.associated_id)
             -# TODO: Nicer formatting, show # of items, grey-out collections that already have this item...
             - now = Time.now
             - current_user.collections.sort_by { |c| [now - (c.updated_at || 10.years.ago), c.name] }.each do |collection|

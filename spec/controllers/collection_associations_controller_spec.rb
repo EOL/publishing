@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CollectionItemsController do
+RSpec.describe CollectionAssociationsController do
   describe "#new" do
     let(:item) { create(:collection) }
 
