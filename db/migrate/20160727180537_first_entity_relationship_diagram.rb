@@ -36,7 +36,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_browsable, null: false, default: false
       t.boolean :has_duplicate_nodes, null: false, default: false
 
-      # TODO: I don't think we need these here, they are only for harvesting:
+      # NOTE: these were removed in a later migration:
       t.integer :default_language_id
       t.integer :default_license_id, comment: "was: license_id"
       t.string :default_rights_statement, limit: 300,
@@ -81,7 +81,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :rank_id,
         comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community"
       t.integer :parent_id, index: true, comment: "null means root node"
-      # TODO: Remove... we don't need these on the website, only during harvests (and even then, I'm not sure)
+      # NOTE: We talked about removing these, but nested_set actually makes
+      # really good use of them, so I am keeping them:
       t.integer :lft,
         comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
       t.integer :rgt,
@@ -142,16 +143,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: metrics. We need at lease these:  # images, # trusted images, # text
-    # words, # videos, # sounds, whether we have an IUCN status, # of
-    # references, how many subjects are covered in the TOC, # BHL publications, #
-    # content_partners, whether we have a GBIF map, # of other maps, # common
-    # names, # synonyms, # of nodes (h.entries), # of traits, # of trait
-    # predicates, # of trait sources, # of trait TOC items
-
     # NOTE: this does NOT capture ratings or exemplars, which we need to add,
-    # but I need time to think about that!
-    # TODO: we don't really need an id field on this table, oops.
+    # but I need time to think about that! NOTE: we DO really need an id field
+    # on this table, because we curate these.
     create_table :page_contents do |t|
       t.integer :page_id, null: false, index: true,
         comment: "the content is shown on this page."
@@ -184,7 +178,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index(:page_contents, [:page_id, :content_type, :content_id],
       name: "effective_pk", unique: true)
 
-    # TODO: change is_hidden to a trust integer
+    # NOTE: changed is_hidden to a trust integer in later migration
     create_table :vernaculars do |t|
       t.string :string, null: false,
         comment: "note this does NOT need to be unique"
@@ -272,13 +266,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :filename, null: false
     end
 
-    # TODO: users can never add media (anymore), so we can replace provider with resource_id; also add:
-    if false
-      t.string :source_url, comment: "This is the ACTUAL downloadable image that we have locally"
-      t.string :source_page_url, comment: "This is where the 'view original' link takes you"
-    end
-
-    # TODO: add subclasses of map and js_map
+    # NOTE: added subclasses of map and js_map
+    # NOTE: provider became a resource (only)
     create_table :media do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -310,7 +299,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: provider will become a resource (only)
+    # NOTE: provider became a resource (only)
     create_table :articles do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -336,7 +325,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: change the base_url to just be an icon_url ; change the provider to a resource_id
+    # NOT: changed the base_url to just be an icon_url, later
+    # NOTE: provider became a resource (only)
     create_table :links do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -355,7 +345,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: remove this and just make it a subclass of image ... for now.
+    # NOTE: we removed this and just made it a subclass of image ... for now.
     create_table :maps do |t|
       t.string :guid, null: false, index: true
       t.string :resource_pk, null: false, comment: "was: identifier"
@@ -392,16 +382,16 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # These are citations made by the content: sources used to synthesize that
-    # content. These show up below the content (ATM only applies to articles);
+    # These are citations made by the partner, citing sources used to synthesize
+    # that content. These show up below the content (only applies to articles);
     # this is effectively a "section" of the content; it's part of the object.
-    # TODO: let's have this apply only to articles.
     create_table :references do |t|
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
       t.timestamps
     end
 
+    # NOTE: we made this apply only to articles, later.
     create_table :content_references do |t|
       t.integer :reference_id, null: false, index: true
       t.references :content, polymorphic: true, index: true, null: false
@@ -413,10 +403,10 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: merge this table with the join table; duplicates okay.
-    # NOTE: the "Source Information" is MOSTLY attributions, but it's ALSO
-    # location and license information and may contain other metadata. Thus, the
-    # name "attributions," while not appearing on the site, is accurate.
+    # NOTE: we merged this table with the join table; duplicates okay. NOTE: the
+    # "Source Information" is MOSTLY attributions, but it's ALSO location and
+    # license information and may contain other metadata. Thus, the name
+    # "attributions," while not appearing on the site, is accurate.
     create_table :attributions do |t|
       t.integer :role_id, null: false, index: true
       t.text :value, null: false, comment: "html"
@@ -430,8 +420,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     # Really, a "content curation," but that's enough of a default that we leave
-    # off the adjective:
-    # TODO: add a duplicate of all curation fields with name old_*
+    # off the adjective from the name of this table. NOTE: we added a duplicate
+    # of all curation fields with name old_*
     create_table :curations do |t|
       t.integer :user_id, null: false, comment: "the curator"
       t.integer :page_content_id, null: false,
@@ -452,7 +442,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps
     end
 
-    # TODO: don't put this here; this will be stored in TraitBank.
+    # NOTE: we drop this, later; this will be stored in TraitBank.
     create_table :trait_curations do |t|
       t.string :uri, index: true, unique: true
       t.integer :user_id, null: false, comment: "the curator"
@@ -484,8 +474,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.references :content, polymorphic: true, index: true, null: false
     end
 
-    # TODO: add timestamps ... or move this to TraitBank ... and add an array of
-    # section ids
+    # TODO: Move this to TraitBank! *gulp* ... and add an array of section ids
     create_table :uris do |t|
       t.string :uri, null: false, unique: true, index: true
       t.string :name, null: false, comment: "globalize or I18n"
@@ -496,9 +485,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_hidden_from_glossary, null: false, default: false
     end
 
-    # YOU WERE HERE
-    # https://docs.google.com/document/d/1rbhy6vwIfFLeJxHNS_lkQ_Up3RlHOuae0NyKJyc4U-0/edit
-
     # Just a very basic version for now; will extend later.
     create_table :collections do |t|
       t.string :name, null: false
@@ -507,7 +493,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
     add_attachment :collections, :icon
 
-    # TODO: rename this to collected_collections ...maybe associated_collections or collection_associations; change the item reference to just collected_collection_id (or whatever we call these), and that's it!
+    # NOTE: we renamed this to collection_associations and changed the item
+    # reference to "associated_id", later.
     create_table :collection_items do |t|
       t.integer :collection_id, null: false, index: true
       t.references :item, polymorphic: true, index: true, null: false

@@ -3,7 +3,7 @@ module Content
 
   included do
     include Content
-    belongs_to :provider, polymorphic: true # User or Resource
+    belongs_to :resource
     belongs_to :language
 
     has_many :content_attributions, as: :content

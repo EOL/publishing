@@ -11,21 +11,25 @@ class TraitBank
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
-  # * Trait: supplier(Resource), metadata(MetaData), object_term(Term), *predicate_term(Term)
-  #     { *resource_pk, *scientific_name, //*predicate,
-  #       statistical_method, sex, lifestage, source, measurement, units,
-  #       object_page_id, literal, //term }
+  # * Trait: *predicate_term(Term), *supplier(Resource), metadata(MetaData),
+  #          object_term(Term)
+  #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
+  #       source, measurement, units, object_page_id, literal }
   # * MetaData: { *predicate, measurement, units, lietral, term }
 
-  # * Term (or URI, not sure) ...relationships... { *uri, *name, definition, comment, attribution, is_hidden_from_overview, is_hidden_from_glossary }
+  # * Term (or URI, not sure) ...relationships...
+  #     { *uri, *name, *section_ids(csv), definition, comment, attribution,
+  #       is_hidden_from_overview, is_hidden_from_glossary }
 
 
   # Indexes (TODO: probably expand on this):
   # CREATE INDEX ON :Page(page_id);
   # CREATE INDEX ON :Trait(resource_pk);
   # CREATE INDEX ON :Trait(predicate);
+  # CREATE INDEX ON :Term(predicate);
   # CREATE INDEX ON :MetaData(predicate);
   # CREATE CONSTRAINT ON (o:Page) ASSERT o.id IS UNIQUE;
+  # CREATE CONSTRAINT ON (o:Term) ASSERT o.uri IS UNIQUE;
   # CREATE CONSTRAINT ON (o:Trait) ASSERT o.resource_id, o.resource_pk IS UNIQUE;
   # Can we create a constraint where a Trait only has one of [measurement,
   #   object_page_id, literal, term]?
