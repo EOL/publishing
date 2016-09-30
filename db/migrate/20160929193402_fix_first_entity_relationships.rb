@@ -10,17 +10,17 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
       comment: "enum: unreviewed, trusted, untrusted")
 
     add_column(:media, :unmodified_url, :string,
-      comment: "This is the unmodified, original image that we store locally; includes extension (unlike base_url)"
+      comment: "This is the unmodified, original image that we store locally; includes extension (unlike base_url)")
     add_column(:media, :source_page_url, :string,
-      comment: "This is where the 'view original' link takes you (could be an remote image or a webpage)"
+      comment: "This is where the 'view original' link takes you (could be an remote image or a webpage)")
     add_column(:media, :resource_id, :integer)
     Medium.connection.execute("UPDATE media SET resource_id = provider_id WHERE provider_type = 'Resource'")
     change_column(:media, :resource_id, :integer, :null => false, index: true)
-    remove_index(:media, "index_media_on_provider_type_and_provider_id")
+    remove_index(:media, name: "index_media_on_provider_type_and_provider_id")
     remove_column(:media, :provider_type)
     remove_column(:media, :provider_id)
-    # NOT reversible, but it's just a comment, shouldn't need to:
-    change_column(:media, :subclass, null: false, default: 0, index: true,
+    NOT reversible, but it's just a comment, shouldn't need to:
+    change_column(:media, :subclass, :string, null: false, default: 0, index: true,
       comment: "enum: image, video, sound, map, js_map")
 
     add_column(:articles, :resource_id, :integer)
@@ -56,22 +56,22 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     rename_table :content_attributions, :attributions
 
     add_column(:curations, :old_trust, :integer, null: false, default: 0,
-      comment: "enum: unreviewed, trusted, untrusted"
+      comment: "enum: unreviewed, trusted, untrusted")
     add_column(:curations, :old_is_incorrect, :boolean, null: false,
-      default: false, comment: "implies untrusted"
+      default: false, comment: "implies untrusted")
     add_column(:curations, :old_is_misidentified, :boolean, null: false,
-      default: false, comment: "implies untrusted"
-    add_column(:curations, :old_is_hidden, :boolean, null: false, default: false
+      default: false, comment: "implies untrusted")
+    add_column(:curations, :old_is_hidden, :boolean, null: false, default: false)
     add_column(:curations, :old_is_duplicate, :boolean, null: false,
-      default: false, comment: "implies hidden"
+      default: false, comment: "implies hidden")
     add_column(:curations, :old_is_low_quality, :boolean, null: false,
-      default: false, comment: "implies hidden"
+      default: false, comment: "implies hidden")
 
     drop_table :trait_curations
 
     rename_table :collection_items, :collection_associations
     add_column(:collection_associations, :associated_id, :integer, index: true)
-    remove_index(:collection_associations, "item_type_index")
+    remove_index(:collection_associations, name: "item_type_index")
     remove_column(:collection_associations, :item_type)
     remove_column(:collection_associations, :item_id)
     CollectionAssociation.delete_all # We don't have any collected collections!
