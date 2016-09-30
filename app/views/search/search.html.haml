@@ -5,13 +5,13 @@
 - else
   - if defined?(@pages) && ! @pages.results.empty?
     %h2= t(:search_pages_title)
-    %table.collection_items
+    %table.collections
       %tbody
         - @pages.results.each do |page|
           = render("pages/as_row", page: page)
   - if defined?(@collections) && ! @collections.results.empty?
     %h2= t(:search_collections_title)
-    %table.collection_items
+    %table.collections
       %tbody
         - @collections.results.each do |collection|
           %tr
@@ -28,7 +28,7 @@
                   = emphasize_match(collection.description, @q)
   - if defined?(@media) && ! @media.results.empty?
     %h2= t(:search_media_title)
-    %table.collection_items
+    %table.collections
       %tbody
         - @media.results.each do |medium|
           %tr
@@ -53,7 +53,7 @@
                   = emphasize_match(medium.owner, @q)
   - if defined?(@users) && ! @users.results.empty?
     %h2= t(:search_users_title)
-    %table.collection_items
+    %table.collections
       %tbody
         - @users.results.each do |user|
           %tr

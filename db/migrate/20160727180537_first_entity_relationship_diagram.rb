@@ -485,7 +485,8 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_hidden_from_glossary, null: false, default: false
     end
 
-    # Just a very basic version for now; will extend later.
+    # Just a very basic version for now; will extend later. NOTE: the count
+    # field was replaced, later.
     create_table :collections do |t|
       t.string :name, null: false
       t.text :description

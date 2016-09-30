@@ -20,7 +20,7 @@
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %table.collection_items
+    %table.collections
       %tbody
         - @collection.collected_pages.each do |collected_page|
           - page = collected_page.page
@@ -51,8 +51,8 @@
                         -# TODO: figure out how to format this, add make sure translation is used:
                         add
                         = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
-  - if @collection.collection_items.empty?
-    %p= t(:collection_items_empty)
+  - if @collection.collection_associations.empty?
+    %p= t(:collection_associations_empty)
   - else
     /# TODO
     Ooops, this is not implemented

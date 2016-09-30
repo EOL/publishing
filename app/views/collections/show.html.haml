@@ -12,7 +12,7 @@
   %p= t(:collection_pages_empty)
 - else
   %h2= t(:collected_pages_title)
-  %table.collection_items
+  %table.collections
     %tbody
       - @collection.collected_pages.each do |collected_page|
         = render("pages/as_row",
@@ -21,17 +21,16 @@
           media: collected_page.media,
           common: collected_page.name,
           scientific: collected_page.scientific_name_string)
-- if @collection.collection_items.empty?
-  %p= t(:collection_items_empty)
+- if @collection.collection_associations.empty?
+  %p= t(:collection_associations_empty)
 - else
-  %h2= t(:collection_items_title)
-  %table.collection_items
+  %h2= t(:collection_associations_title)
+  %table.collections
     %tbody
-      - @collection.collection_items.each do |collection_item|
-        - item = collection_item.item
+      - @collection.collection_associations.each do |collection|
         %tr
           %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(item.icon), item)
+            = link_to(image_tag(collection.icon), collection)
           %th{ scope: "row" }
             .names.d-inline
-              = link_to(item.name.html_safe, item)
+              = link_to(collection.name.html_safe, collection)

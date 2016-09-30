@@ -24,11 +24,11 @@ RSpec.describe CollectionsController do
       end
     end
 
-    context "with a collection item" do
+    context "with a collection assocaition" do
       let(:collection_attributes) do
         attributes_for(:collection).
-          merge(collection_items_attributes:
-            { "0" => { item_id: image.id, item_type: image.class.to_s } })
+          merge(collection_associations_attributes:
+            { "0" => { associated_id: image.id } })
       end
 
       describe '#create (signed in)' do

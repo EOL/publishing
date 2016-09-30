@@ -10,7 +10,7 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
-      collected = (@collection.collection_items + @collection.collected_pages).first
+      collected = (@collection.collection_associations + @collection.collected_pages).first
       if collected
         item = collected.item
         flash[:notice] = I18n.t(:collection_created_for_item,
@@ -47,12 +47,12 @@ class CollectionsController < ApplicationController
   private
 
   def find_collection_with_pages
-    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
       collected_pages: { page: :preferred_vernaculars }).first
   end
 
   def find_collection
-    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
       :collected_pages).first
   end
 
@@ -60,7 +60,7 @@ class CollectionsController < ApplicationController
   # "id" => "3", "medium_ids" => ["6", "7", "8"], "medium_id" => "5" } } }
   def collection_params
     params.require(:collection).permit(:name, :description,
-      collection_items_attributes: [:item_type, :item_id],
+      collection_associations_attributes: [:associated_id],
       collected_pages_attributes: [:id, :page_id, :medium_id, medium_ids: []])
   end
 end

@@ -1,4 +1,4 @@
-#collection_item.container
+#collection_association.container
   .well
     - if image = @item.icon
       .collect-image
@@ -10,18 +10,18 @@
         = form_for(@collection, html: { class: "form-inline" }) do |f|
           = f.label(:name, class: "sr-only")
           = f.text_field(:name, class: "form-control", placeholder: t(:collect_new_collection))
-          = f.fields_for(:collection_items) do |item_f|
-            = item_f.hidden_field(:item_id, item_id: @collection_item.item_id)
-            = item_f.hidden_field(:item_type, item_type: @collection_item.item_type)
+          = f.fields_for(:collection_associations) do |item_f|
+            = item_f.hidden_field(:item_id, item_id: @collection_association.item_id)
+            = item_f.hidden_field(:item_type, item_type: @collection_association.item_type)
           = f.submit(t(:button_create), class: "btn btn-default")
       .col-md-6
         %h3= t(:collect_select_collection)
         - if current_user.collections.empty?
           %p= t(:collect_no_existing_collections)
         - else
-          = form_for(@collection_item, html: { class: "form" }) do |f|
-            = f.hidden_field(:item_id, item_id: @collection_item.item_id)
-            = f.hidden_field(:item_type, item_type: @collection_item.item_type)
+          = form_for(@collection_association, html: { class: "form" }) do |f|
+            = f.hidden_field(:item_id, item_id: @collection_association.item_id)
+            = f.hidden_field(:item_type, item_type: @collection_association.item_type)
             -# TODO: Nicer formatting, show # of items, grey-out collections that already have this item...
             - now = Time.now
             - current_user.collections.sort_by { |c| [now - (c.updated_at || 10.years.ago), c.name] }.each do |collection|

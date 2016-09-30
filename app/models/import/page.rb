@@ -143,7 +143,7 @@ class Import::Page
         hash = {
           guid: c_data["guid"],
           resource_pk: c_data["resource_pk"],
-          provider: resource,
+          resource: resource,
           license: build_license(c_data["license"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
           owner: c_data["owner"],

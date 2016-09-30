@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :medium do
     sequence(:guid) { |n| ((0..9).to_a + ('A'..'F').to_a).shuffle.join + n.to_s }
     sequence(:resource_pk)
-    association :provider, factory: :resource
+    association :resource
     subclass { "image" }
     format { "jpg" }
     license { License.public_domain }
