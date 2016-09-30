@@ -2,8 +2,8 @@ class CollectionAssociationsController < ApplicationController
   layout "application"
 
   def new
-    @collection_association = CollectionAssociation.new(new_item_params)
-    @item = @collection_association.item
+    @collection_association = CollectionAssociation.new(new_associated_params)
+    @associated = @collection_association.associated
     @collection = Collection.new
     @collection.collection_associations << @collection_association
     # NOTE: this looks at ALL collections, rather than just the users. I
@@ -13,7 +13,7 @@ class CollectionAssociationsController < ApplicationController
     # I'm avoiding it in the name of simplicity (and, again, because I'm not
     # sure the cost of the joins would be gained by the selection of the user).
     @bad_collection_ids = CollectionAssociation.where(
-      item_type: @collection_association.item_type, item_id: @collection_association.item_id).
+      associated_id: @collection_association.associated_id).
       pluck(:collection_id)
   end
 
@@ -23,9 +23,9 @@ class CollectionAssociationsController < ApplicationController
     if @collection_association.save
       flash[:notice] = I18n.t(:collection_association_added_to_collection,
         name: @collection_association.collection.name,
-        item: @collection_association.item.name,
+        associated: @collection_association.associated.name,
         link: collection_path(@collection_association.collection))
-      redirect_to @collection_association.item
+      redirect_to @collection_association.associated
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"
@@ -35,10 +35,10 @@ class CollectionAssociationsController < ApplicationController
   private
 
   def collection_association_params
-    params.require(:collection_association).permit(:collection_id, :item_type, :item_id)
+    params.require(:collection_association).permit(:collection_id, :associated_id)
   end
 
-  def new_item_params
-    params.permit(:item_id, :item_type)
+  def new_associated_params
+    params.permit(:associated_id)
   end
 end

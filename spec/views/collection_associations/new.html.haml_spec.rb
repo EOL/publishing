@@ -5,11 +5,10 @@ RSpec.describe "collection_associations/new" do
   # and mocking them is cluttered. I've doubled everything that it made sense to.
   before do
     allow(Language).to receive(:current) { "this" }
-    item = instance_double("Medium", icon: "image_thingie.jpg",
-      id: 43123)
-    allow(item).to receive(:name).with("this") { "Here Titled" }
-    collection_association = CollectionItem.new(item_id: item.id, item_type: "Medium")
-    assign(:item, item)
+    item = instance_double("Collection", icon: "image_thingie.jpg", id: 43123)
+    allow(item).to receive(:name) { "Here Titled" }
+    collection_association = CollectionAssociation.new(associated_id: item.id)
+    assign(:associated, item)
     assign(:collection, Collection.new)
     assign(:collection_association, collection_association)
   end

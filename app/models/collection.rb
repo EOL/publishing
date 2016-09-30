@@ -1,6 +1,8 @@
 class Collection < ActiveRecord::Base
   has_many :collection_associations, -> { order(position: :asc) },
     inverse_of: :collection
+  has_many :collections, through: :collection_associations,
+    source: :associated
   has_many :collected_pages, -> { order(position: :asc) },
     inverse_of: :collection
   has_many :pages, through: :collected_pages

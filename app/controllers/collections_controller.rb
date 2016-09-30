@@ -10,13 +10,14 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
-      collected = (@collection.collection_associations + @collection.collected_pages).first
+      # This looks like it could be expensive on big collections. ...but
+      # remember: this is a NEW collection. It will be fast:
+      collected = (@collection.collections + @collection.pages).first
       if collected
-        item = collected.item
-        flash[:notice] = I18n.t(:collection_created_for_item,
-          name: @collection.name, item: item.name,
+        flash[:notice] = I18n.t(:collection_created_for_association,
+          name: @collection.name, associated: collected.name,
           link: collection_path(@collection))
-        redirect_to item
+        redirect_to collected
       else
         flash[:notice] = I18n.t(:collection_created, name: @collection.name)
         redirect_to @collection

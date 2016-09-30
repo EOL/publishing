@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe CollectionsController do
   describe "#new" do
     let(:user) { create(:user) }
-    let(:image) { create(:image) }
+    let(:collection) { create(:collection) }
 
     before do
       allow(controller).to receive(:current_user) { user }
@@ -28,19 +28,19 @@ RSpec.describe CollectionsController do
       let(:collection_attributes) do
         attributes_for(:collection).
           merge(collection_associations_attributes:
-            { "0" => { associated_id: image.id } })
+            { "0" => { associated_id: collection.id } })
       end
 
       describe '#create (signed in)' do
         it "redirects to collected item" do
           post :create, collection: collection_attributes
-          expect(response).to redirect_to(image)
+          expect(response).to redirect_to(collection)
         end
 
         it "adds a flash message" do
           post :create, collection: collection_attributes
           expect(flash[:notice]).to match /new collection/
-          expect(flash[:notice]).to match /#{image.name}/
+          expect(flash[:notice]).to match /#{collection.name}/
         end
       end
     end

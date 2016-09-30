@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :collection_association do
     collection
-    associated, factory: :collection
+    associated :collection
   end
 end

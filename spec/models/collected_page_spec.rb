@@ -6,7 +6,7 @@ RSpec.describe CollectedPage do
   context "with NO overrides" do
     subject { CollectedPage.new(page: page) }
 
-    it "#item returns the page, to duck-type with CollectionItem" do
+    it "#item returns the page, to duck-type with CollectionAssociation" do
       expect(subject.item).to eq(page)
     end
 
