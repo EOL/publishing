@@ -16,7 +16,7 @@ RSpec.describe "collections/show" do
       item2 = instance_double("CollectionItem", item: medium2)
       allow(page).to receive(:icon) { "some_icon" }
       allow(page).to receive(:name) { "funName" }
-      collection = instance_double("Collection", collection_items: [item1, item2],
+      collection = instance_double("Collection", collection_associations: [item1, item2],
         collected_pages: [collected_page], name: "Col Name 1",
         description: "Col Description Here")
       assign(:collection, collection)
@@ -52,7 +52,7 @@ RSpec.describe "collections/show" do
 
   context "(with empty collection)" do
     before do
-      collection = instance_double("Collection", collection_items: [],
+      collection = instance_double("Collection", collection_associations: [],
         collected_pages: [], name: "Col Name Again", description: nil)
       assign(:collection, collection)
     end
@@ -64,7 +64,7 @@ RSpec.describe "collections/show" do
 
     it "shows a message about missing items" do
       render
-      expect(rendered).to match(/#{I18n.t(:collection_items_empty).gsub(/"/, "&quot;")}/)
+      expect(rendered).to match(/#{I18n.t(:collection_associations_empty).gsub(/"/, "&quot;")}/)
     end
 
     it "does NOT show an edit button" do
