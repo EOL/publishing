@@ -4,7 +4,6 @@ class Resource < ActiveRecord::Base
   has_many :nodes, inverse_of: :resource
   has_many :articles, as: :provider
   has_many :links, as: :provider
-  has_many :maps, as: :provider
   has_many :media, as: :provider
 
   enum publish_status: [ :unpublished, :publishing, :published, :deprecated ]

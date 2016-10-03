@@ -18,7 +18,6 @@ class Page < ActiveRecord::Base
   has_one :medium, through: :page_icon
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
-  has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
     source: :content, source_type: "Article"
   has_many :media, through: :page_contents,
