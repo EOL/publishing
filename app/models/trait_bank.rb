@@ -58,7 +58,36 @@ class TraitBank
       %Q{"#{string.gsub(/"/, "\\\"")}"}
     end
 
-    # Your gun, your foot:
+    def setup
+      create_indexes
+      create_constraints
+    end
+
+    # You only have to run this once, and it's best to do it before loading TB:
+    def create_indexes
+      indexes = %w{ Page(page_id) Trait(resource_pk) Trait(predicate)
+        Term(predicate) MetaData(predicate) }
+      indexes.each do |index|
+        connection.execute_query("CREATE INDEX ON :#{index};")
+      end
+    end
+
+    # You only have to run this once, and it's best to do it before loading TB:
+    def create_constraints
+      contraints = {
+        "Page" => [:id],
+        "Term" => [:uri],
+        "Trait" => [:resource_id, :resource_pk]
+      }
+      contraints.each do |label, fields|
+        fields = fields.map { |f| "o.#{f}" }
+        connection.execute_query(
+          "CREATE CONSTRAINT ON o:#{label} ASSERT #{fields.join(", ")} IS UNIQUE;"
+        )
+      end
+    end
+
+    # Your gun, your foot: USE CAUTION. This erases EVERYTHING irrevocably.
     def nuclear_option!
       connection.execute_query("MATCH (n) DETACH DELETE n")
     end

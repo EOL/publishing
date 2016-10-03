@@ -35,6 +35,9 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     rename_column(:links, :base_url, :icon_url)
 
     drop_table :maps
+    # This is not really the "right" thing to do, but at this early stage (where
+    # we don't show maps anyway), it will suffice:
+    PageContent.where(content_type: "Map").delete_all
 
     create_join_table(:articles, :references) do |t|
       t.index :article_id
