@@ -149,7 +149,7 @@ class Page < ActiveRecord::Base
   end
 
   def grouped_traits
-    @grouped_traits ||= traits.group_by { |t| t[:predicate] }
+    @grouped_traits ||= traits.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
@@ -169,7 +169,11 @@ class Page < ActiveRecord::Base
   def glossary_names
     @glossary_names ||= begin
       gn = {}
-      glossary.each { |uri, hash| gn[uri] = glossary[uri].try(:name).downcase }
+      glossary.each do |uri, hash|
+        name = glossary[uri][:name] ? glossary[uri][:name].downcase :
+          glossary[uri][:uri].downcase.gsub(/^.*\//, "").humanize.downcase
+        gn[uri] = name
+      end
       gn
     end
   end

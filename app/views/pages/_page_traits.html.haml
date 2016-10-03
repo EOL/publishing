@@ -17,14 +17,14 @@
           %th{ scope: "row" }
             - if predicate == previous_predicate
             - else
-              = link_to(predicate.name, trait_path(predicate))
+              = link_to(predicate[:name], trait_path(predicate))
               - previous_predicate = predicate
           %td
             - if trait[:measurement]
               = trait[:measurement]
-              = @page.glossary[trait[:units]].try(:name) || trait[:units]
-            - elsif trait[:term]
-              = @page.glossary[trait[:term]].try(:name) || trait[:term]
+              = @page.glossary[trait[:units][:uri]][:name] if trait[:units]
+            - elsif trait[:object_term]
+              = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
             - elsif trait[:literal]
               = trait[:literal].html_safe
             - else
