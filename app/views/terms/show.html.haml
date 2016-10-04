@@ -34,7 +34,7 @@
             %td
               - if trait[:measurement]
                 = trait[:measurement]
-                = @glossary[trait[:units][:uri]][:name]
+                = @glossary[trait[:units][:uri]] ? @glossary[trait[:units][:uri]][:name] : "Nope"
               - elsif trait[:term]
                 = @glossary[trait[:term][:uri]][:name]
               - elsif trait[:literal]
