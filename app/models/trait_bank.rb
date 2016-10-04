@@ -70,9 +70,8 @@ class TraitBank
     end
     
     def node_exists?(node_id)
-      res = connection.execute_query("MATCH (node:Node { node_id: #{node_id} })"\
-        "RETURN node")
-      res["data"] ? res["data"].first : false
+      result_node = get_node(node_id)
+      result_node ? result_node.first : false
     end
     
     def get_node(node_id)
