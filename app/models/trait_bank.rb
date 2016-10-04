@@ -11,11 +11,12 @@ class TraitBank
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
-  # * Trait: *predicate_term(Term), *supplier(Resource), metadata(MetaData),
+  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData),
   #          object_term(Term), units_term(Term)
   #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal }
-  # * MetaData: { *predicate, measurement, units, lietral, term }
+  # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
+  #     { measurement, literal }
   # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
 
@@ -96,12 +97,12 @@ class TraitBank
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-        "OPTIONAL MATCH (trait)-[:term]->(term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units]->(units:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-        "RETURN resource, trait, page, predicate, term, units, meta"
+        "RETURN resource, trait, page, predicate, object_term, units, meta"
       )
-      build_trait_array(res, [:resource, :trait, :page, :predicate, :term,
+      build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta])
     end
 
@@ -117,13 +118,16 @@ class TraitBank
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units]->(units:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
         "RETURN resource, trait, predicate, object_term, units, meta"
       )
       # Neography recognizes the objects we get back, but the format is weird
       # for building pages, so I transform it here (temporarily, for
-      # simplicity):
+      # simplicity). NOTE: given one of the "res" sets here, you can find a
+      # particular trait with this: trait_res = results["data"].find { |tr|
+      # tr[2] && tr[2]["data"]["uri"] ==
+      # "http://purl.obolibrary.org/obo/VT_0001259" }
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta])
     end

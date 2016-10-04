@@ -30,6 +30,39 @@
             - else
               Augh! Could not find a displayable value from keys of:
               = trait.keys.join(", ")
+            - if trait[:meta] || trait[:source]
+              %br/
+              %a.toggle_meta= t(:trait_toggle_details)
+              - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
+              .meta_trait{ id: id }
+                %table
+                  - if trait[:meta]
+                    - trait[:meta].each do |meta_trait|
+                      %tr
+                        %th
+                          = meta_trait[:predicate][:name]
+                        %td
+                          - if meta_trait[:measurement]
+                            = meta_trait[:measurement]
+                            - if meta_trait[:units]
+                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Nope"
+                            - else
+                              = meta_trait.inspect
+                          - elsif meta_trait[:object_term]
+                            = @glossary[meta_trait[:object_term][:uri]][:name]
+                          - elsif meta_trait[:literal]
+                            = meta_trait[:literal].html_safe
+                  - if trait[:units] && trait[:units][:definition]
+                    %tr
+                      %th= @page.glossary[trait[:units][:uri]][:name]
+                      %td
+                        = trait[:units][:uri]
+                        %br/
+                        = trait[:units][:definition].html_safe
+                  - if trait[:source]
+                    %tr
+                      %th= t(:trait_source)
+                      %td= trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
           -# TODO: make this a proper link
           %td.table-source
             - if resource = @resources[trait[:resource_id]]
