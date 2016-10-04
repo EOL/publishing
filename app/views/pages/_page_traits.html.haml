@@ -16,6 +16,7 @@
           - row_count += 1
           %th{ scope: "row" }
             - if predicate == previous_predicate
+              / same predicate
             - else
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate

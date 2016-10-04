@@ -128,10 +128,10 @@ class Page < ActiveRecord::Base
     traits = TraitBank.by_page(id)
     @glossary = TraitBank.glossary(traits)
     @traits = traits.sort do |a,b|
-      a_uri = @glossary[a[:predicate]]
-      b_uri = @glossary[b[:predicate]]
+      a_uri = @glossary[a[:predicate][:uri]]
+      b_uri = @glossary[b[:predicate][:uri]]
       if a_uri && b_uri
-        a_uri.name.downcase <=> b_uri.name.downcase
+        a_uri[:name].downcase <=> b_uri[:name].downcase
       elsif a_uri
         1
       elsif b_uri
