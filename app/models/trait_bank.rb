@@ -30,6 +30,15 @@ class TraitBank
       @connection
     end
 
+    def ping
+      begin
+        connection.list_indexes
+      rescue Excon::Error::Socket => e
+        return false
+      end
+      true
+    end
+
     # Neography-style:
     def connect
       parts = ENV["EOL_TRAITBANK_URL"].split(%r{[/:@]})
