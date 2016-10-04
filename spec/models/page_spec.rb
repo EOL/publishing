@@ -73,21 +73,21 @@ RSpec.describe Page do
 
   context "with traits" do
     let(:our_page) { create(:page) }
-    let(:predicate1) { create(:uri, name: "First predicate" )}
-    let(:predicate2) { create(:uri, name: "Second predicate" )}
-    let(:units) { create(:uri, name: "Units URI" )}
-    let(:term) { create(:uri, name: "Term 1 URI" )}
+    let(:predicate1) { { uri: "http://a/pred.1", name: "First predicate" } }
+    let(:predicate2) { { uri: "http://a/pred.2", name: "Second predicate" } }
+    let(:units) { { uri: "http://a/unit", name: "Units URI" } }
+    let(:term) { { uri: "http://a/term", name: "Term 1 URI" } }
     # This is a "fake" response from TraitBank (which normally needs neo4j)
     let(:traits_out_of_order) do
       [
-        { predicate: predicate2.uri,
+        { predicate: predicate2,
           resource_pk: "4003",
-          term: term[:uri],
+          object_term: term,
           metadata: nil },
-        { predicate: predicate1.uri,
+        { predicate: predicate1,
           resource_pk: "745",
           source: "Source One",
-          units: units[:uri],
+          units: units,
           measurement: "10.428",
           metadata: nil }
       ]
@@ -99,20 +99,20 @@ RSpec.describe Page do
 
     it "#traits orders traits" do
       traits = our_page.traits
-      expect(traits.first[:predicate]).to eq(predicate1.uri)
+      expect(traits.first[:predicate][:uri]).to eq(predicate1[:uri])
     end
 
     it "#glosasry builds a glossary" do
       allow(TraitBank).to receive(:by_page) { traits_out_of_order }
-      expect(our_page.glossary.keys).to include(predicate1.uri)
-      expect(our_page.glossary.keys).to include(predicate2.uri)
+      expect(our_page.glossary.keys).to include(predicate1[:uri])
+      expect(our_page.glossary.keys).to include(predicate2[:uri])
       expect(our_page.glossary.keys).to include(units[:uri])
       expect(our_page.glossary.keys).to include(term[:uri])
     end
 
     it "#grouped_traits groups traits" do
       expect(our_page.grouped_traits.keys.sort).
-        to eq([predicate1.uri, predicate2.uri].sort)
+        to eq([predicate1[:uri], predicate2[:uri]].sort)
     end
 
     it "#predicates orders predicates" do

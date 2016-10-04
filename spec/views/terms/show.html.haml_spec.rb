@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "traits/show" do
+RSpec.describe "terms/show" do
   let(:page1) { create(:page) }
   let(:page2) { create(:page) }
 
@@ -14,15 +14,15 @@ RSpec.describe "traits/show" do
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
     traits =
-      [ { page_id: 1234, measurement: "657", units: units[:uri], id: "1:1",
+      [ { page_id: 1234, measurement: "657", units: units, id: "1:1",
           resource_id: resource.id },
-        { page_id: 2345, term: term[:uri], resource_id: resource.id, id: "1:2" },
+        { page_id: 2345, object_term: term, resource_id: resource.id, id: "1:2" },
         { page_id: 2345, literal: "literal trait value", id: "1:3",
           resource_id: resource.id } ]
 
     glossary = { units[:uri] => units, term[:uri] => term }
 
-    assign(:uri, uri)
+    assign(:term, uri)
     assign(:traits, traits)
     assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
