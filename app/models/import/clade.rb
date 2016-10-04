@@ -16,7 +16,6 @@ class Import::Clade
     
         
     def parse_clade(pages)
-      debugger
       pages.each do |page|
         Import::Page.parse_page(page)
       end
