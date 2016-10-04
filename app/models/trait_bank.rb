@@ -95,7 +95,7 @@ class TraitBank
       res = connection.execute_query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term { predicate: \"#{predicate}\" }) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:term]->(term:Term) "\
         "OPTIONAL MATCH (trait)-[:units]->(units:Term) "\
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
@@ -249,7 +249,8 @@ class TraitBank
     def term(uri)
       res = connection.execute_query("MATCH (term:Term { uri: '#{uri}' }) "\
         "RETURN term")
-      res["data"] ? res["data"].first.first : false
+      return nil unless res["data"] && res["data"].first
+      res["data"].first.first
     end
 
     def term_as_hash(uri)
