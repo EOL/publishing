@@ -93,12 +93,16 @@ class TraitBank
 
     def by_predicate(predicate)
       res = connection.execute_query(
-        "MATCH (page:Page)-[:trait]->(trait:Trait { predicate: \"#{predicate}\" })"\
+        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term { predicate: \"#{predicate}\" }) "\
+        "OPTIONAL MATCH (trait)-[:term]->(term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units]->(units:Term) "\
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-        "RETURN resource, trait, page, meta"
+        "RETURN resource, trait, page, predicate, term, units, meta"
       )
-      build_trait_array(res, [:resource, :trait, :page, :meta])
+      build_trait_array(res, [:resource, :trait, :page, :predicate, :term,
+        :units, :meta])
     end
 
     def page_exists?(page_id)
@@ -232,20 +236,27 @@ class TraitBank
     end
 
     def create_term(options)
-      term = term(options[:uri])
-      return term if term # NO DUPLICATES!
+      if existing_term = term(options[:uri]) # NO DUPLICATES!
+        return existing_term
+      end
       options[:section_ids] = options[:section_ids] ?
-        Array(options[:section_ids]).join(",") :
-        ""
-      term = connection.create_node(options)
-      connection.add_label(term, "Term")
-      term
+        Array(options[:section_ids]).join(",") : ""
+      term_node = connection.create_node(options)
+      connection.add_label(term_node, "Term")
+      term_node
     end
 
     def term(uri)
-      res = connection.execute_query("MATCH (term:Term { uri: '#{uri}' })"\
+      res = connection.execute_query("MATCH (term:Term { uri: '#{uri}' }) "\
         "RETURN term")
-      res["data"] ? res["data"].first : false
+      res["data"] ? res["data"].first.first : false
+    end
+
+    def term_as_hash(uri)
+      hash = term(uri)
+      raise ActiveRecord::RecordNotFound if hash.nil?
+      # NOTE: this step is slightly annoying:
+      hash["data"].symbolize_keys
     end
 
     def add_metadata_to_trait(trait, options)
