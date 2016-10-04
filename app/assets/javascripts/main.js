@@ -6,7 +6,7 @@
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .module("eolApp", ["ngAnimate", "ngMaterial", "ui.bootstrap", "ngSanitize"])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('brown', {
@@ -24,6 +24,11 @@
       Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
       Galleria.run(".galleria");
     };
+    // TODO: move this.
+    $(".toggle_meta").on("click", function () {
+        $(this).next().toggle();
+    });
+    $(".meta_trait").hide();
   });
 
   // Disable Angular Themes (use Bootstrap instead!)
@@ -76,6 +81,7 @@
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
+    $scope.isCollapsed = false;
   }
 
   function LoginCtrl ($scope, $window) {

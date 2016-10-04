@@ -6,21 +6,21 @@ RSpec.describe "traits/show" do
 
   before do
     # TODO: Would be nice to have helpers/mocks for this kind of thing.
-    uri = instance_double("Uri", name: "Trait One", uri: "http://blah/blah",
-      definition: "Defined thusly")
-    units = instance_double("Uri", uri: "http://un.its/one", name: "Unit URI")
-    term = instance_double("Uri", uri: "http://te.rm/one", name: "Term URI")
+    uri = { name: "Trait One", uri: "http://blah/blah",
+      definition: "Defined thusly" }
+    units = { name: "Uri", uri: "http://un.its/one", name: "Unit URI" }
+    term = { name: "Uri", uri: "http://te.rm/one", name: "Term URI" }
 
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
     traits =
-      [ { page_id: 1234, measurement: "657", units: units.uri, id: "1:1",
+      [ { page_id: 1234, measurement: "657", units: units[:uri], id: "1:1",
           resource_id: resource.id },
-        { page_id: 2345, term: term.uri, resource_id: resource.id, id: "1:2" },
+        { page_id: 2345, term: term[:uri], resource_id: resource.id, id: "1:2" },
         { page_id: 2345, literal: "literal trait value", id: "1:3",
           resource_id: resource.id } ]
 
-    glossary = { units.uri => units, term.uri => term }
+    glossary = { units[:uri] => units, term[:uri] => term }
 
     assign(:uri, uri)
     assign(:traits, traits)

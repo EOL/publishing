@@ -30,6 +30,9 @@ class MoveUrisToTraitBank < ActiveRecord::Migration
         "REMOVE trait.units "\
         "RETURN pred"
       )
+      # NOTE: at the time of this writing, there was no metadata. If there were,
+      # we would have to apply all three of those transforms to trait:MetaTrait
+      # as well. No need, now, though.
     end
     drop_table(:uris)
   end

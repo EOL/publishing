@@ -82,12 +82,12 @@ RSpec.describe Page do
       [
         { predicate: predicate2.uri,
           resource_pk: "4003",
-          term: term.uri,
+          term: term[:uri],
           metadata: nil },
         { predicate: predicate1.uri,
           resource_pk: "745",
           source: "Source One",
-          units: units.uri,
+          units: units[:uri],
           measurement: "10.428",
           metadata: nil }
       ]
@@ -106,8 +106,8 @@ RSpec.describe Page do
       allow(TraitBank).to receive(:by_page) { traits_out_of_order }
       expect(our_page.glossary.keys).to include(predicate1.uri)
       expect(our_page.glossary.keys).to include(predicate2.uri)
-      expect(our_page.glossary.keys).to include(units.uri)
-      expect(our_page.glossary.keys).to include(term.uri)
+      expect(our_page.glossary.keys).to include(units[:uri])
+      expect(our_page.glossary.keys).to include(term[:uri])
     end
 
     it "#grouped_traits groups traits" do
