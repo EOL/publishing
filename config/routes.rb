@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
-  resources :traits, only: [:show]
+
+  get "/terms" => "terms#show", :as => "term"
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"

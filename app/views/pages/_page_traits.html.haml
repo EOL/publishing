@@ -17,7 +17,7 @@
           %th{ scope: "row" }
             - if predicate == previous_predicate
             - else
-              = link_to(predicate[:name], trait_path(predicate))
+              = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
           %td
             - if trait[:measurement]

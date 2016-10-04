@@ -1,13 +1,13 @@
 #trait.container
   .jumbotron
-    %h1= @uri.name.titlecase
-    - def_blank = @uri.definition.blank?
-    %h2= @uri.uri
+    %h1= @term[:name].titlecase
+    - def_blank = @term[:definition].blank?
+    %h2= @term[:uri]
     %p.definition{ class: def_blank ? "empty" : nil }
       - if def_blank
         = t(:uri_definition_blank)
       - else
-        = @uri.definition.html_safe
+        = @term[:definition].html_safe
   %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
     %tbody
       - grouped_traits = @traits.group_by { |t| t[:page_id] }
@@ -34,9 +34,9 @@
             %td
               - if trait[:measurement]
                 = trait[:measurement]
-                = @glossary[trait[:units]].name
+                = @glossary[trait[:units][:uri]][:name]
               - elsif trait[:term]
-                = @glossary[trait[:term]].name
+                = @glossary[trait[:term][:uri]][:name]
               - elsif trait[:literal]
                 = trait[:literal].html_safe
               - else
