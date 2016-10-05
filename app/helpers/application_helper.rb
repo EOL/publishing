@@ -16,4 +16,9 @@ module ApplicationHelper
 
     html.html_safe
   end
+
+  def emphasize_match(name, match)
+    return name.html_safe unless name =~ /(#{match})/i
+    highlight(excerpt(name, match, separator: " ", radius: 5), match)
+  end
 end

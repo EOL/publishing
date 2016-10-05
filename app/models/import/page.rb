@@ -78,16 +78,7 @@ class Import::Page
     end
 
     def create_uri(u_data)
-      Uri.where(uri: u_data["uri"]).first_or_create do |uri|
-        uri.name = u_data["name"]
-        uri.uri = u_data["uri"]
-        uri.name = u_data["name"]
-        uri.definition = u_data["definition"]
-        uri.comment = u_data["comment"]
-        uri.attribution = u_data["attribution"]
-        uri.is_hidden_from_overview = u_data["is_hidden_from_overview"]
-        uri.is_hidden_from_glossary = u_data["is_hidden_from_glossary"]
-      end
+      TraitBank.create_uri(u_data.symbolize_keys)
     end
 
     # NOTE: collections have no users associated from this scirpt. Doesn't matter
@@ -129,7 +120,8 @@ class Import::Page
     end
 
     def build_map(m_data, node, position)
-      build_content(Map, m_data, node: node, page: @page, position: position)
+      build_content(Image, m_data, node: node, page: @page, position: position,
+        subclass: :map)
     end
 
     def build_content(klass, c_data, options = {})
@@ -147,7 +139,7 @@ class Import::Page
         hash = {
           guid: c_data["guid"],
           resource_pk: c_data["resource_pk"],
-          provider: resource,
+          resource: resource,
           license: build_license(c_data["license"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
           owner: c_data["owner"],

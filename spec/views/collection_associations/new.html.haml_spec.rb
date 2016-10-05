@@ -1,17 +1,16 @@
 require "rails_helper"
 
-RSpec.describe "collection_items/new" do
+RSpec.describe "collection_associations/new" do
   # NOTE: using a few non-doubles here for cleanliness. Forms need many fields
   # and mocking them is cluttered. I've doubled everything that it made sense to.
   before do
     allow(Language).to receive(:current) { "this" }
-    item = instance_double("Medium", icon: "image_thingie.jpg",
-      id: 43123)
-    allow(item).to receive(:name).with("this") { "Here Titled" }
-    collection_item = CollectionItem.new(item_id: item.id, item_type: "Medium")
-    assign(:item, item)
+    item = instance_double("Collection", icon: "image_thingie.jpg", id: 43123)
+    allow(item).to receive(:name) { "Here Titled" }
+    collection_association = CollectionAssociation.new(associated_id: item.id)
+    assign(:associated, item)
     assign(:collection, Collection.new)
-    assign(:collection_item, collection_item)
+    assign(:collection_association, collection_association)
   end
 
   context "with a new user" do
@@ -72,7 +71,7 @@ RSpec.describe "collection_items/new" do
     it "disables the bad collection option" do
       render
       expect(rendered).to have_selector(
-        "input#collection_item_collection_id_3[disabled]")
+        "input#collection_association_collection_id_3[disabled]")
     end
   end
 end

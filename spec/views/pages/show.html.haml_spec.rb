@@ -21,21 +21,24 @@ RSpec.describe "pages/show" do
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
     traits = [
-      { predicate: "http://predic.ate/one", measurement: "657",
-        units: "http://un.its/one", resource_id: resource.id },
-      { predicate: "http://predic.ate/one", term: "http://te.rm/one" },
-      { predicate: "http://predic.ate/two", literal: "literal trait value" } ]
+      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
+        measurement: "657", units: { uri: "http://un.its/one",
+        name: "Units URI" }, resource_id: resource.id },
+      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
+        object_term: { uri: "http://te.rm/one", name: "Term URI" } },
+      { predicate: { uri: "http://predic.ate/two", name: "Uri" },
+        literal: "literal trait value" } ]
     glossary = {
-      "http://predic.ate/one" => instance_double("Uri", name: "Predicate One"),
-      "http://predic.ate/two" => instance_double("Uri", name: "Predicate Two"),
-      "http://un.its/one" => instance_double("Uri", name: "Units URI"),
-      "http://te.rm/one" => instance_double("Uri", name: "Term URI")
+      "http://predic.ate/one" => { name: "Predicate One" },
+      "http://predic.ate/two" => { name: "Predicate Two" },
+      "http://un.its/one" => { name: "Units URI" },
+      "http://te.rm/one" => { name: "Term URI" }
     }
     instance_double("Page", id: 8293, name: "something common", native_node: node,
       scientific_name: "<i>Nice scientific</i>", media: [image1, image2],
       article: article, traits: traits, glossary: glossary,
-      predicates: traits.map { |t| t[:predicate] }, media_count: 2,
-      grouped_traits: traits.group_by { |t| t[:predicate] } )
+      predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
+      grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )
   end
 
   before do

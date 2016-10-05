@@ -13,6 +13,13 @@ class Medium < ActiveRecord::Base
   scope :videos, -> { where(subclass: :video) }
   scope :sounds, -> { where(subclass: :sound) }
 
+  searchable do
+    text :name, :boost => 6.0
+    text :description, :boost => 2.0
+    text :resource_pk
+    text :owner
+  end
+
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
     base_url + "_orig.jpg"

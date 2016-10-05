@@ -15,12 +15,13 @@ Rails.application.routes.draw do
 
   # All of the "normal" resources:
   resources :collections
-  resources :collection_items, only: [:new, :create]
+  resources :collection_associations, only: [:new, :create]
   resources :collected_pages, only: [:new, :create]
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
-  resources :traits, only: [:show]
+
+  get "/terms" => "terms#show", :as => "term"
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"

@@ -10,7 +10,7 @@
           %h1= @page.name.titlecase
           %h2= @page.scientific_name.html_safe
           - trophic_strat = begin
-            - @page.glossary[@page.traits.find { |t| t[:predicate] == "http://www.wikidata.org/entity/Q1053008" }[:term]].name
+            - @page.glossary[@page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:term]][:name]
           - rescue => e
             -# Do nothing. This code doesn't even belong here. I'm rushing.
           -# TODO: this is all temporary! We need a real solution:

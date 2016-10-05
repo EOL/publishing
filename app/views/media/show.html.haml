@@ -12,7 +12,7 @@
               = @medium.description.html_safe
         .col-md-3.actions
           %button.btn.btn-default
-            = link_to(t(:medium_collect_button), new_collection_item_path(item_type: "Medium", item_id: @medium.id))
+            = link_to(t(:medium_collect_button), new_collected_page_path(item_type: "Medium", item_id: @medium.id))
     .media-body
       .row
         .media-image.col-md-8

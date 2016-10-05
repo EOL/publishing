@@ -57,6 +57,24 @@ $low_jumbo: #fafbfc
 .actions button
   margin: 1em 0.3em
 
+.autocomplete-result
+  height: 50px
+  padding-top: 3px
+
+.autocomplete-result .icon
+  padding-left: 22px
+
+.autocomplete-result .icon img
+  width: 44px
+  height: 44px
+
+.autocomplete-result .names
+  margin-left: 0
+
+.autocomplete-result .names ul
+  padding-left: 0
+  list-style-type: none
+
 // FORMS (SITE-WIDE)
 
 form .field
@@ -83,7 +101,7 @@ form .field
   // And darker:
   background-color: #e6e6e6
   border: 1px solid #ddd
-  box-shadow: 1px 1px 5px #ccc
+  box-shadow: 1px 1px 5px #a4a4a4
 
 .page-ancestors .breadcrumb li:first-child::before
   content: ""
@@ -146,6 +164,32 @@ form .field
 .primary-name
   font-size: 1.3em
 
+table.collection
+  @extend .table
+  @extend .table-hover
+  @extend .table-bordered
+
+mark
+  font-weight: bold
+
+.collection .names
+  padding-left: 6px
+
+.collection .page-ancestors
+  margin-bottom: 1em
+
+.collection ul.matches
+  list-style-type: none
+
+.collection ul.matches li
+  display: inline-block
+
+.collection ul.matches li:last-child::after
+  content: ""
+
+.collection ul.matches li::after
+  content: ","
+
 .secondary-name
   font-weight: normal
 
@@ -176,7 +220,30 @@ form .field
   text-overflow: ellipsis
 
 .traits_by_page
+  margin-top: 1em
   table-layout: fixed
+
+.traits_by_page th
+  width: 20em
 
 .trait-table-image
   width: 99px
+
+.trait-table-name
+  width: 15em
+
+.meta_trait table
+  margin: 1em 3em
+  @extend .table
+  width: 85%
+
+.meta_trait table th
+  font-weight: normal
+  width: 20%
+  vertical-align: top
+
+.meta_trait table td
+  width: 80%
+
+.toggle_meta
+  font-size: 0.8em

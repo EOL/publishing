@@ -18,7 +18,6 @@ class Page < ActiveRecord::Base
   has_one :medium, through: :page_icon
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
-  has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
     source: :content, source_type: "Article"
   has_many :media, through: :page_contents,
@@ -129,10 +128,10 @@ class Page < ActiveRecord::Base
     traits = TraitBank.by_page(id)
     @glossary = TraitBank.glossary(traits)
     @traits = traits.sort do |a,b|
-      a_uri = @glossary[a[:predicate]]
-      b_uri = @glossary[b[:predicate]]
+      a_uri = @glossary[a[:predicate][:uri]]
+      b_uri = @glossary[b[:predicate][:uri]]
       if a_uri && b_uri
-        a_uri.name.downcase <=> b_uri.name.downcase
+        a_uri[:name].downcase <=> b_uri[:name].downcase
       elsif a_uri
         1
       elsif b_uri
@@ -150,7 +149,7 @@ class Page < ActiveRecord::Base
   end
 
   def grouped_traits
-    @grouped_traits ||= traits.group_by { |t| t[:predicate] }
+    @grouped_traits ||= traits.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
@@ -170,7 +169,11 @@ class Page < ActiveRecord::Base
   def glossary_names
     @glossary_names ||= begin
       gn = {}
-      glossary.each { |uri, hash| gn[uri] = glossary[uri].try(:name).downcase }
+      glossary.each do |uri, hash|
+        name = glossary[uri][:name] ? glossary[uri][:name].downcase :
+          glossary[uri][:uri].downcase.gsub(/^.*\//, "").humanize.downcase
+        gn[uri] = name
+      end
       gn
     end
   end
