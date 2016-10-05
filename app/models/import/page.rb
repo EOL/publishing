@@ -191,7 +191,7 @@ class Import::Page
 
     def build_node(node_data, resource = nil)
       resource ||= build_resource(node_data["resource"])
-      TraitBank.create_node_in_hierarchy(node_data["node_id"], @page.id)
+      TraitBank.create_node_in_hierarchy(node_data["node_id"].to_i, @page.id)
       Node.where(resource_id: resource.id, resource_pk: node_data["resource_pk"]).
            first_or_create do |n|
         parent =  if node_data["parent"]
