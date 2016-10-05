@@ -120,6 +120,17 @@ class TraitBank
         "RETURN page")
       res["data"] ? res["data"].first : false
     end
+    
+    def node_exists?(node_id)
+      result_node = get_node(node_id)
+      result_node ? result_node.first : false
+    end
+    
+    def get_node(node_id)
+      res = connection.execute_query("MATCH (node:Node { node_id: #{node_id} })"\
+        "RETURN node")
+      res["data"]
+    end
 
     def by_page(page_id)
       res = connection.execute_query(
@@ -240,6 +251,28 @@ class TraitBank
         object_term
       meta.each { |md| add_metadata_to_trait(trait, md) } if meta
       trait
+    end
+    
+    # Note: I've named this create_node_in_hierarchy as there is another 
+    # methods called create_node in neography
+    def create_node_in_hierarchy(node_id, page_id)
+      if node = node_exists?(node_id)
+        return node
+      end
+      node = connection.create_node(node_id: node_id, page_id: page_id)
+      connection.add_label(node, "Node")
+    end
+    
+    def adjust_node_parent_relationship(node_id, parent_id)
+      node = get_node(node_id)
+      parent_node = get_node(parent_id)
+      connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
+    end
+    
+    def relationship_exists?(node_a, node_b)
+      res = connection.execute_query("MATCH (node_a:Node { node_id: #{node_a} }) - [r:parent] - (node_b:Node { node_id: #{node_b} })"\
+        "RETURN SIGN(COUNT(r))")
+      res["data"] ? res["data"].first.first > 0 : false
     end
 
     def parse_term(term_options)
