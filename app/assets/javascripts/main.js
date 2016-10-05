@@ -6,7 +6,7 @@
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .module("eolApp", ["ngAnimate", "ngMaterial", "ui.bootstrap", "ngSanitize"])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('brown', {
@@ -24,6 +24,11 @@
       Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
       Galleria.run(".galleria");
     };
+    // TODO: move this.
+    $(".toggle_meta").on("click", function () {
+        $(this).next().toggle();
+    });
+    $(".meta_trait").hide();
   });
 
   // Disable Angular Themes (use Bootstrap instead!)
@@ -39,13 +44,17 @@
 
     $scope.querySearch = function(query) {
       return $http.get("/search.json", {
-        params: { q: query + "*", per_page: "6" }
+        params: { q: query + "*", per_page: "6", only: "pages" }
       }).then(function(response){
         var data = response.data;
         $.each(data, function(i, match) {
-          match.preferred_vernaculars =
+          var re = new RegExp(query, "i");
+          match.names = [];
+          if(match.scientific_name.match(re)) {
+            match.names += { string: match.scientific_name };
+          };
+          match.names =
             jQuery.grep(match.preferred_vernaculars, function(e) {
-              var re = new RegExp(query, "i");
               return e.string.match(re);
             });
         });
@@ -72,6 +81,7 @@
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
+    $scope.isCollapsed = false;
   }
 
   function LoginCtrl ($scope, $window) {
