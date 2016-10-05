@@ -1,6 +1,6 @@
 class CreateCollectionPages < ActiveRecord::Migration
   def change
-    # TODO: remove medium_id ... also remove the name stuff, until we need it.
+    # NOTE: we removed medium_id and the name stuff.
     create_table :collected_pages do |t|
       t.integer :collection_id, index: true, null: false
       t.integer :page_id, index: true, null: false
