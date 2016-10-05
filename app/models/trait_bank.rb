@@ -72,9 +72,8 @@ class TraitBank
     # You only have to run this once, and it's best to do it before loading TB:
     def create_constraints
       contraints = {
-        "Page" => [:id],
-        "Term" => [:uri],
-        "Trait" => [:resource_id, :resource_pk]
+        "Page" => [:page_id],
+        "Term" => [:uri]
       }
       contraints.each do |label, fields|
         fields.each do |field|
@@ -102,6 +101,7 @@ class TraitBank
     end
 
     def by_predicate(predicate)
+      # TODO: pull in more for the metadata...
       res = connection.execute_query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
@@ -133,14 +133,15 @@ class TraitBank
     end
 
     def by_page(page_id)
+      # TODO: add the three pair types for metadata!
       res = connection.execute_query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-        "RETURN resource, trait, predicate, object_term, units, meta"
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[meta_predicate:predicate]->(meta_term:Term) "\
+        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_term"
       )
       # Neography recognizes the objects we get back, but the format is weird
       # for building pages, so I transform it here (temporarily, for
