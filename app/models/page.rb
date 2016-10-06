@@ -82,10 +82,10 @@ class Page < ActiveRecord::Base
 
   def top_image
     @top_image ||= begin
-      if medium
-        medium
+      if page_contents.loaded?
+        page_contents.find { |pc| pc.content_type == "Medium" }.try(:content)
       else
-        first_image_content.try(:content)
+        media.first
       end
     end
   end
