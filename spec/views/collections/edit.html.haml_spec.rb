@@ -26,9 +26,9 @@ RSpec.describe "collections/edit" do
 
   context "with a page having multiple images" do
     let(:image1) { instance_double("Medium", id: 1230,
-        small_icon_url: "smallico1.jpg" ) }
+        small_icon_url: "sm_ico1.jpg", medium_icon_url: "med_ico1.jpg" ) }
     let(:image2) { instance_double("Medium", id: 1231,
-        small_icon_url: "smallico2.jpg" ) }
+        small_icon_url: "sm_ico2.jpg", medium_icon_url: "med_ico2.jpg" ) }
 
     before do
       allow(page).to receive(:media) { [image1, image2] }

@@ -1,3 +1,28 @@
+if(!EOL) {
+  var EOL = {};
+  EOL.allow_meta_traits_to_toggle = function() {
+    $(".toggle_meta").on("click", function (event) {
+      event.stopPropagation();
+      var $table = $(this).next()
+      $table.toggle();
+      if ($table.is(":visible")) {
+        var $node = $(this).closest("tr");
+        $($('html,body')).unbind().animate({scrollTop: $node.offset().top - 50}, 400);
+      }
+    });
+    $(".meta_trait").hide();
+  };
+
+  EOL.initialize = function() {
+    angular.bootstrap(document.body, ['eolApp']);
+    if($(".galleria").length) {
+      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
+      Galleria.run(".galleria");
+    }
+    EOL.allow_meta_traits_to_toggle();
+  };
+}
+
 (function () {
   'use strict';
   // These depend on devise configurations. DON'T FORGET TO CHANGE IT when you
@@ -17,22 +42,10 @@
         });
     });
 
-  // Allow Turbolinks to co-habitate with Angular:
-  $(document).on('turbolinks:load', function() {
-    angular.bootstrap(document.body, ['eolApp']);
-    if($(".galleria").length) {
-      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
-      Galleria.run(".galleria");
-    };
-    // TODO: move this.
-    $(".toggle_meta").on("click", function () {
-        $(this).next().toggle();
-    });
-    $(".meta_trait").hide();
-  });
-
-  // Disable Angular Themes (use Bootstrap instead!)
-  // app.constant("$MD_THEME_CSS","");
+  // You have to reload the app's JS in a few cases:
+  $(document).on("turbolinks:load", function() { EOL.initialize(); });
+  //TODO: this doesn't work... was attempting to fix the initialize of the site when you click the back button.
+  // $(document).on("page:restore", function() { EOL.initialize(); });
 
   app.controller("SearchCtrl", SearchCtrl);
   app.controller("PageCtrl", PageCtrl);

@@ -3,7 +3,7 @@
     .col-md-9
       %h1= @collection.name
       - unless @collection.description.blank?
-        %p= @collection.description
+        %p= @collection.description.html_safe
     - if policy(@collection).update?
       %p.col-md-3.actions
         %button.btn.btn-default

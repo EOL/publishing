@@ -103,7 +103,9 @@ en:
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
   taxon_collect_button: "collect page"
   trait_source: "source"
-  trait_toggle_details: "toggle the details"
+  trait_toggle_details: "details..."
+  trait_unit_definition: "definition:"
+  trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"

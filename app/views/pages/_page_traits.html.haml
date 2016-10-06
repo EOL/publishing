@@ -12,7 +12,7 @@
       - TraitBank.sort(@page.grouped_traits[uri], @page.glossary).each do |trait|
         - collapse = row_count > max_rows && any_collapsed
         - any_collapsed = true if collapse
-        %tr{ collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
+        %tr{ id: trait[:id], collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
           - row_count += 1
           %th{ scope: "row" }
             - if predicate == previous_predicate
@@ -21,19 +21,16 @@
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
           %td
+            - value = t(:trait_missing, keys: trait.keys.join(", "))
             - if trait[:measurement]
-              = trait[:measurement]
-              = @page.glossary[trait[:units][:uri]][:name] if trait[:units]
+              - value = trait[:measurement] + " "
+              - value +=  @page.glossary[trait[:units][:uri]][:name] if trait[:units]
             - elsif trait[:object_term]
-              = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
+              - value = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
             - elsif trait[:literal]
-              = trait[:literal].html_safe
-            - else
-              Augh! Could not find a displayable value from keys of:
-              = trait.keys.join(", ")
+              - value =  trait[:literal].html_safe
             - if trait[:meta] || trait[:source]
-              %br/
-              %a.toggle_meta= t(:trait_toggle_details)
+              %a.toggle_meta{ href: "##{trait[:id]}", alt: t(:trait_toggle_details)}= value
               - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
               .meta_trait{ id: id }
                 %table
@@ -46,7 +43,7 @@
                           - if meta_trait[:measurement]
                             = meta_trait[:measurement]
                             - if meta_trait[:units]
-                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Nope"
+                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Missing URI"
                             - else
                               = meta_trait.inspect
                           - elsif meta_trait[:object_term]
@@ -59,11 +56,17 @@
                       %td
                         = trait[:units][:uri]
                         %br/
-                        = trait[:units][:definition].html_safe
+                        = t(:trait_unit_definition)
+                        - if trait[:units][:definition].empty?
+                          = t(:trait_unit_definition_blank)
+                        - else
+                          = trait[:units][:definition].html_safe
                   - if trait[:source]
                     %tr
                       %th= t(:trait_source)
                       %td= trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
+            - else
+              = value
           -# TODO: make this a proper link
           %td.table-source
             - if resource = @resources[trait[:resource_id]]
