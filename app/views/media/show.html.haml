@@ -1,15 +1,10 @@
-#page.container
+#page.container.media
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
     .jumbotron
       .row
         .col-md-9
-          %h1= @medium.name.html_safe
-          %p
-            - if @medium.description.blank?
-              .description-blank
-                = t(:medium_description_blank)
-            - else
-              = @medium.description.html_safe
+          %label= t(:medium_header_title)
+          %h1#media_title= @medium.name.html_safe
         .col-md-3.actions
           %button.btn.btn-default
             = link_to(t(:medium_collect_button), new_collected_page_path(item_type: "Medium", item_id: @medium.id))
@@ -17,6 +12,12 @@
       .row
         .media-image.col-md-8
           = image_tag(@medium.large_size_url)
+          %br/
+          %label= t(:medium_header_description)
+          - if @medium.description.blank?
+            %p.description-blank= t(:medium_description_blank)
+          - else
+            %p= @medium.description.html_safe
         .attribution.col-md-4
           %h2= t(:content_attributions_header)
           %ul
@@ -26,25 +27,20 @@
             %li
               = t("content_attributions_labels.owner")
               = @medium.owner.html_safe.html_safe
-            - @medium.attributions.includes(:role).each do |attribution|
-              = t("content_attributions_labels.#{attribution.role.name}")
-              = attribution.value
-      .row
-        .appears-on.col-md-4
-          %h2= t(:content_appears_on)
-          %ul
-            - @medium.pages.each do |page|
-              %li= link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
-        .associations.col-md-4
+            -# - @medium.attributions.includes(:role).each do |attribution|
+            -#   = t("content_attributions_labels.#{attribution.role.name}")
+            -#   = attribution.value
           %h2= t(:content_associations)
           %ul
             - @medium.associations.each do |page|
               %li= link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
-        .awards.col-md-4
-          %h2= "Awards"
           - icon_count = @medium.page_icons.count
-          %ul
-            - if icon_count > 0
+          - if icon_count > 0
+            %h2= "Awards"
+            %ul
               %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
-      .todo
-        %h2= "More stuff will be here later, it's still TODO"
+
+      %h2= t(:content_appears_on)
+      %ul.appears_on
+        - @medium.pages.each do |page|
+          %li= link_to(page.scientific_name.html_safe, page)
