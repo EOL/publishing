@@ -36,8 +36,8 @@ en:
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
-  content_appears_on: "Appears On"
-  content_associations: "Associations"
+  content_appears_on: "Included On The Following Pages:"
+  content_associations: "Taxa Shown"
   content_attributions_header: "Source Information"
   content_attributions_labels:
     license: "License"
@@ -60,6 +60,8 @@ en:
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
   medium_collect_button: "collect media"
+  medium_header_title: "Title:"
+  medium_header_description: "Description:"
   medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
