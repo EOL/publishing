@@ -1,3 +1,12 @@
+%script{:src => "//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"}
+:javascript
+  angular.module('bootstrap.demo', ['ngAnimate', 'ui.bootstrap']);
+  angular.module('bootstrap.demo').controller('PopoverDemoCtrl', function ($scope) {  
+  });
+ 
+
+
+
 - max_rows = 10
 - traits = @page.traits
 - any_collapsed = false
@@ -27,7 +36,14 @@
               = @page.glossary[trait[:term]].try(:name) || trait[:term]
             - elsif trait[:literal]
               - if trait[:object_page]
-                = link_to trait[:literal].html_safe, trait[:object_page]
+                - if trait[:object_page_image]
+                  %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
+                    :cdata
+                      <div><img src="#{trait[:object_page_image]}_260_190.jpg"/></div>
+                  #obj_page
+                    %a{ :href => "#{trait[:object_page]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{trait[:literal].html_safe}
+                - else
+                  = link_to trait[:literal].html_safe, trait[:object_page]  
               - else
                 = trait[:literal].html_safe
             - else

@@ -65,7 +65,8 @@ class Import::Page
               units: units ? units.uri : nil,
               term: term ? term.uri : nil,
               literal: t_data["literal"],
-              object_page: t_data["object_page"]
+              object_page: t_data["object_page"],
+              object_page_image: t_data["object_page_image"]
             )
           end
         end
