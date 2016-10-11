@@ -7,7 +7,7 @@
           %h1#media_title= @medium.name.html_safe
         .col-md-3.actions
           %button.btn.btn-default
-            = link_to(t(:medium_collect_button), new_collected_page_path(item_type: "Medium", item_id: @medium.id))
+            = link_to(t(:medium_collect_button), new_collected_page_path(page_id: @medium.associations.first, medium_ids: [@medium.id]))
     .media-body
       .row
         .media-image.col-md-8

@@ -4,6 +4,7 @@ class CollectedPagesController < ApplicationController
   def new
     @collected_page = CollectedPage.new(new_page_params)
     @page = @collected_page.page
+    @wants_icon = ! @collected_page.media.empty?
     @collection = Collection.new
     @collection.collected_pages << @collected_page
     @bad_collection_ids = CollectedPage.where(page_id: @page.id).
@@ -27,10 +28,10 @@ class CollectedPagesController < ApplicationController
   private
 
   def collected_page_params
-    params.require(:collected_page).permit(:collection_id, :page_id)
+    params.require(:collected_page).permit(:collection_id, :page_id, medium_ids: [])
   end
 
   def new_page_params
-    params.permit(:page_id)
+    params.permit(:page_id, medium_ids: [])
   end
 end

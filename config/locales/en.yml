@@ -18,6 +18,8 @@ en:
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
   collect_already_in_collection: "(it's already here)"
+  collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
+  collect_icon_title: "Add \"%{item}\" from the \"%{page}\" page to..."
   collect_new_collection: "New Collection Name"
   collect_new_collection_title: "...a New Collection"
   collect_no_existing_collections: "You don't have any yet! Create one using the form on the left."
