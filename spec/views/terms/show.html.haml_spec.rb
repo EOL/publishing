@@ -8,8 +8,8 @@ RSpec.describe "terms/show" do
     # TODO: Would be nice to have helpers/mocks for this kind of thing.
     uri = { name: "Trait One", uri: "http://blah/blah",
       definition: "Defined thusly" }
-    units = { name: "Uri", uri: "http://un.its/one", name: "Unit URI" }
-    term = { name: "Uri", uri: "http://te.rm/one", name: "Term URI" }
+    units = { uri: "http://un.its/one", name: "Unit URI" }
+    term = { uri: "http://te.rm/one", name: "Term URI" }
 
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 

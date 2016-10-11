@@ -6,7 +6,6 @@ module Content
     belongs_to :resource
     belongs_to :language
 
-    has_many :attributions
     has_many :content_sections, as: :content
     has_many :sections, through: :content_sections
     has_many :page_contents, as: :content

@@ -57,11 +57,9 @@ class CollectionsController < ApplicationController
       :collected_pages).first
   end
 
-  # { "name" => "A", "description" => "B", "collected_pages_attributes" => { "0" => {
-  # "id" => "3", "medium_ids" => ["6", "7", "8"], "medium_id" => "5" } } }
   def collection_params
     params.require(:collection).permit(:name, :description,
       collection_associations_attributes: [:associated_id],
-      collected_pages_attributes: [:id, :page_id, :medium_id, medium_ids: []])
+      collected_pages_attributes: [:id, :page_id, medium_ids: []])
   end
 end
