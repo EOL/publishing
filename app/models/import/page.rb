@@ -14,7 +14,7 @@ class Import::Page
       # I'm skipping that now. Sometimes you won't want to, anyway...
     end
 
-      
+
     def parse_page(data)
       @resource_nodes = {}
       @page = Page.where(id: data["id"]).first_or_initialize do |pg|
@@ -120,7 +120,7 @@ class Import::Page
     end
 
     def build_map(m_data, node, position)
-      build_content(Image, m_data, node: node, page: @page, position: position,
+      build_content(Medium, m_data, node: node, page: @page, position: position,
         subclass: :map)
     end
 
@@ -191,11 +191,11 @@ class Import::Page
                   else
                     nil
                   end
-        
-        TraitBank.adjust_node_parent_relationship(node_data["node_id"], 
+
+        TraitBank.adjust_node_parent_relationship(node_data["node_id"],
               node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
               && node_data["parent"]["node_id"]
-        
+
         build_rank(node_data["rank"])
         n.id = node_data["id"],
         n.resource_id = resource.id
