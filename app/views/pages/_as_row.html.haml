@@ -24,6 +24,7 @@
       %br/
       %row.icons_12_wide
         - media.each do |medium|
+          - next if medium.medium_icon_url == icon
           .col-md-1
             = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
     - if defined?(@q)
