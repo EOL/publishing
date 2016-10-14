@@ -11,12 +11,12 @@
       .col-md-6
         %h3= t(:collect_new_collection_title)
         = form_for(@collection, html: { class: "form-inline" }) do |f|
-          - if @wants_icon
-            = f.hidden_field(:medium_ids, medium_ids: [@collected_page.medium.id])
           = f.label(:name, class: "sr-only")
           = f.text_field(:name, class: "form-control", placeholder: t(:collect_new_collection))
           = f.fields_for :collected_pages do |page_f|
             = page_f.hidden_field(:page_id, page_id: @collected_page.page_id)
+            - if @wants_icon
+              = page_f.hidden_field("medium_ids[]", value: @collected_page.medium.id)
           = f.submit(t(:button_create), class: "btn btn-default")
       .col-md-6
         %h3= t(:collect_select_collection)
@@ -29,7 +29,9 @@
             -# need to check it on the new collection form. And specs. Not sure
             -# what else.
             - if @wants_icon
-              = f.hidden_field(:medium_ids, medium_ids: [@collected_page.medium.id])
+              = f.fields_for(:collected_pages_media) do |cpm_fields|
+                - @collected_page.collected_pages_media.each do |medium|
+                  = cpm_fields.hidden_field(:medium_id, medium_id: medium.id)
             -# TODO: Nicer formatting, show # of pages, grey-out collections that already have this page...
             - now = Time.now
             - current_user.collections.sort_by { |c| [now - (c.updated_at || 10.years.ago), c.name] }.each do |collection|

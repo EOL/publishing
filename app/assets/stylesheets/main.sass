@@ -40,15 +40,17 @@ button a
 #main
   padding-top: 6em
 
-$high_jumbo: #f3f4f5
-$mid_jumbo: #eaecef
-$low_jumbo: #fafbfc
+$high_jumbo: #fafbfc
+$mid_jumbo: #eaebec
+$low_jumbo: #f3f4f5
+$high_crumb: #fbfcfe
+$low_crumb: #f7f7f7
 
 .jumbotron
-  box-shadow: 2px 2px 4px #ccc
+  box-shadow: 4px 4px 16px #eee
   border: 1px solid darken($mid_jumbo, 5%)
-  background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
-  background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Most, not old IE */
+  background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
+  background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Most, not old IE */
 
 .actions
   text-align: right
@@ -98,10 +100,9 @@ form .field
   // Tighter, too:
   padding: 4px 15px
   font-size: 0.9em
-  // And darker:
-  background-color: #e6e6e6
+  background: -webkit-linear-gradient(top, $high_crumb 0%, $low_crumb 100%) /* Chrome10-25, Safari5.1-6 */
   border: 1px solid #ddd
-  box-shadow: 1px 1px 5px #a4a4a4
+  box-shadow: 0.4px 0.4px 1px #ccc
 
 .page-ancestors .breadcrumb li:first-child::before
   content: ""
