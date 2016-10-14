@@ -28,10 +28,11 @@ class Page < ActiveRecord::Base
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
   # NOTE: You CANNOT preload both the top article AND the media. This seems to
-  # be a Rails bug, but it is what it is.
+  # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
+  # ancestors; it needs to call the method from the module.
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, page_contents:
-      { content: [:license, :sections] })
+    includes(:preferred_vernaculars, :native_node, media: :license,
+      articles: [:license, :sections])
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
