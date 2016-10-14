@@ -6,7 +6,7 @@ class SearchController < ApplicationController
 
     default = ! params.has_key?(:only)
     @types = {}
-    [ :pages, :collections, :media, :users  ].each do |sym|
+    [ :pages, :collections, :media, :users, :object_terms ].each do |sym|
       @types[sym] = default
     end
 
@@ -21,18 +21,17 @@ class SearchController < ApplicationController
     @media = search_class(Medium)
     @users = search_class(User)
 
-    if @types[:users]
-      @users = User.search do
-        if params[:q] =~ /\*$/
-          any do
-            fulltext params[:q]
-            fulltext params[:q].sub(/\*$/, "")
-          end
-        else
-          fulltext params[:q]
-        end
-        paginate page: params[:page] || 1, per_page: params[:per_page] || 30
-      end
+    # YOU WERE HERE - You just wrote this; not positive it will work. Need to
+    # try it at a prompt. Assuming it does, you need to steal the view code from
+    # the other trait views (should be mostly a partial) and add that to the
+    # search results view.
+    @object_terms = if @types[:object_terms]
+      # TODO: relocate this. But, ATM, this only makes sense with suggestions:
+      suggestions = SearchSuggestion.search { fulltext @q }.results
+      suggestion = suggestions.find { |s| s.object_term? }
+      traits = TraitBank.by_object_term_uri(suggestion.object_term)
+      glossary = TraitBank.glossary(traits)
+      TraitBank.sort(traits, @glossary)
     end
 
     # Doctoring for the view to find matches:

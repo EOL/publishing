@@ -127,19 +127,8 @@ class Page < ActiveRecord::Base
     return @traits if @traits
     traits = TraitBank.by_page(id)
     @glossary = TraitBank.glossary(traits)
-    @traits = traits.sort do |a,b|
-      a_uri = @glossary[a[:predicate][:uri]]
-      b_uri = @glossary[b[:predicate][:uri]]
-      if a_uri && b_uri
-        a_uri[:name].downcase <=> b_uri[:name].downcase
-      elsif a_uri
-        1
-      elsif b_uri
-        -1
-      else
-        0
-      end
-    end
+    # TODO: do we need the sort here?
+    @traits = TraitBank.sort(traits, @glossary)
   end
 
   def glossary
