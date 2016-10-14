@@ -115,6 +115,21 @@ class TraitBank
         :units, :meta])
     end
 
+    def by_object_term_uri(object_term)
+      # TODO: pull in more for the metadata...
+      res = connection.execute_query(
+        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
+        "RETURN resource, trait, page, predicate, object_term, units, meta"
+      )
+      build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
+        :units, :meta])
+    end
+
     def page_exists?(page_id)
       res = connection.execute_query("MATCH (page:Page { page_id: #{page_id} })"\
         "RETURN page")
