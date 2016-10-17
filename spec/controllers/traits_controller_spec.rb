@@ -9,7 +9,7 @@ RSpec.describe TraitsController do
   let(:units) { create(:uri) }
   let(:term) { create(:uri) }
   let(:glossary) { { units.uri => units, term.uri => term } }
-  let(:traits) do
+  let(:grouped_traits) do
     [ { page_id: page_measured.id, measurement: "657", units: units.uri,
         resource_id: resource.id },
       { page_id: page_term.id, term: term.uri, resource_id: resource.id },
@@ -20,7 +20,7 @@ RSpec.describe TraitsController do
   let(:pages) { [page_measured, page_term, page_literal] }
 
   before do
-    allow(TraitBank).to receive(:by_predicate) { traits }
+    allow(TraitBank).to receive(:by_predicate) { grouped_traits }
     allow(TraitBank).to receive(:glossary) { glossary }
     allow(TraitBank).to receive(:resources) { [resource] }
   end
@@ -31,9 +31,9 @@ RSpec.describe TraitsController do
       expect(assigns(:uri)).to eq(trait)
     end
 
-    it "assigns traits" do
+    it "assigns grouped_traits" do
       get :show, id: trait.id
-      expect(assigns(:traits)).to eq(traits)
+      expect(assigns(:grouped_traits)).to eq(grouped_traits)
     end
 
     it "assigns pages" do
