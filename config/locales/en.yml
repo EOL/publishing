@@ -92,6 +92,7 @@ en:
   search_medium_match_description: "Matches the description:"
   search_medium_match_resource_pk: "Matches the external ID:"
   search_medium_match_owner: "Matches the copyright holder:"
+  search_terms_title: "TraitBank Data"
   send_me_reset_password_instructions: "Send me reset password instructions"
   show_more: "show more"
   sign_in: "Sign In"

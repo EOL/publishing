@@ -25,13 +25,22 @@ class SearchController < ApplicationController
     # try it at a prompt. Assuming it does, you need to steal the view code from
     # the other trait views (should be mostly a partial) and add that to the
     # search results view.
-    @object_terms = if @types[:object_terms]
+    if @types[:object_terms]
       # TODO: relocate this. But, ATM, this only makes sense with suggestions:
-      suggestions = SearchSuggestion.search { fulltext @q }.results
+      # TODO: maybe some filtering of the term? NOTE: remember, the scope of the
+      # block does NOT include our instance variables:
+      suggestions = SearchSuggestion.search { fulltext(params[:q]) }.results
       suggestion = suggestions.find { |s| s.object_term? }
-      traits = TraitBank.by_object_term_uri(suggestion.object_term)
-      glossary = TraitBank.glossary(traits)
-      TraitBank.sort(traits, @glossary)
+      if suggestion
+        traits = TraitBank.by_object_term_uri(suggestion.object_term)
+        glossary = TraitBank.glossary(traits)
+        @object_terms = TraitBank.sort(traits, @glossary)
+        @object_term_pages = {}
+        pages = Page.where(id: @object_terms.map { |t| t[:page_id] }).preloaded
+        pages.each { |page| @object_term_pages[page.id] = page }
+        @glossary = TraitBank.glossary(@object_terms)
+        @resources = TraitBank.resources(@object_terms)
+      end
     end
 
     # Doctoring for the view to find matches:
@@ -44,6 +53,8 @@ class SearchController < ApplicationController
         [ @pages, @collections, @media, @users ].each do |set|
           @empty = false if set && ! set.results.empty?
         end
+        # Object terms is unusual:
+        @empty = false if @object_terms && ! @object_terms.empty?
       end
 
       # TODO: JSON results for other types!
@@ -67,6 +78,9 @@ class SearchController < ApplicationController
   end
 
   private
+
+  # TODO: Whoa, you can do them all at the same time!
+  # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
 
   def search_class(klass, options = {})
     # NOTE: @q DOES NOT WORK in search blocks, and you can't call external
