@@ -60,6 +60,6 @@ class CollectionsController < ApplicationController
   def collection_params
     params.require(:collection).permit(:name, :description,
       collection_associations_attributes: [:associated_id],
-      collected_pages_attributes: [:id, :page_id, collected_pages_media_attributes: [:medium_id]])
+      collected_pages_attributes: [:id, :page_id, :annotation, collected_pages_media_attributes: [:medium_id]])
   end
 end
