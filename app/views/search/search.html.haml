@@ -3,6 +3,9 @@
 - if @empty
   %h2= t(:search_empty, q: @q)
 - else
+  - if defined?(@object_terms)
+    %h2= t(:search_terms_title)
+    = render("terms/search_results")
   - if defined?(@pages) && ! @pages.results.empty?
     %h2= t(:search_pages_title)
     %table.collections

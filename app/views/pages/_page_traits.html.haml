@@ -29,8 +29,10 @@
               - value = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
             - elsif trait[:literal]
               - value =  trait[:literal].html_safe
+            = value
             - if trait[:meta] || trait[:source]
-              %a.toggle_meta{ href: "##{trait[:id]}", alt: t(:trait_toggle_details)}= value
+              %br/
+              %a.toggle_meta= t(:trait_toggle_details)
               - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
               .meta_trait{ id: id }
                 %table

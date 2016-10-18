@@ -11,5 +11,10 @@ class SearchSuggestion < ActiveRecord::Base
 
   validates :match, uniqueness: true
 
-  searchable { text :match }
+  searchable do
+    # NOTE: Hmmmn. Without the block here, this was NOT working. Weird!
+    text :match, boost: 10.0 do
+      match.gsub(/\s/, " ")
+    end
+  end
 end
