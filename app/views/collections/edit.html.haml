@@ -38,19 +38,17 @@
                   %br/
                   = link_to(scientific, page, class: "secondary-name")
                 %br/
+                = t(:collection_collected_pages_media_remove)
+                %br/
                 -# - group_num = 0
                 %row.icons_12_wide
                   = f.fields_for(:collected_pages, collected_page) do |cp_f|
                     = cp_f.hidden_field(:id, id: collected_page.id)
-                    - page.media[0..29].each do |medium|
+                    - collected_page.media.each do |medium|
                       .col-md-1
-                        = cp_f.radio_button(:medium_id, medium.id, checked: medium == collected_page.medium || medium == page.top_image)
-                        -# TODO: figure out how to format this, add make sure translation is used:
-                        icon
-                        = check_box_tag("collection[collected_pages_attributes][#{cp_f.index}][medium_ids][]", medium.id, collected_page.medium_ids.include?(medium.id))
-                        -# TODO: figure out how to format this, add make sure translation is used:
-                        add
-                        = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
+                        = cp_f.fields_for(:collected_pages_media, medium) do |cp_f|
+                          = cp_f.check_box :_destroy
+                          = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
   - if @collection.collection_associations.empty?
     %p= t(:collection_associations_empty)
   - else

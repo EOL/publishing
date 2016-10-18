@@ -10,7 +10,7 @@ class CollectedPage < ActiveRecord::Base
 
   acts_as_list scope: :collection
 
-  accepts_nested_attributes_for :collected_pages_media
+  accepts_nested_attributes_for :collected_pages_media, allow_destroy: true
 
   # For convenience, this is duck-typed from CollectionAssociation (q.v.)
   def item
