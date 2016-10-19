@@ -63,11 +63,11 @@ class Import::Page
               supplier: @resource_nodes[resource.id],
               resource_pk: t_data["resource_pk"],
               scientific_name: t_data["scientific_name"],
-              predicate: pred.uri,
+              predicate: pred,
               source: t_data["source"],
               measurement: t_data["measurement"],
-              units: units ? units.uri : nil,
-              term: term ? term.uri : nil,
+              units: units,
+              object_term: term,
               literal: t_data["literal"],
               object_page: t_data["object_page"]
             )
@@ -78,7 +78,7 @@ class Import::Page
     end
 
     def create_uri(u_data)
-      TraitBank.create_uri(u_data.symbolize_keys)
+      TraitBank.create_term(u_data.symbolize_keys)
     end
 
     # NOTE: collections have no users associated from this scirpt. Doesn't matter
