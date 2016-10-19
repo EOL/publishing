@@ -207,6 +207,37 @@ class TraitBank
         "RETURN SIGN(COUNT(r))")
       res["data"] ? res["data"].first.first > 0 : false
     end
+    
+    def get_clade_traits(clade_id, uri_id) 
+      traits = []
+      res = connection.execute_query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
+      page_ids = get_pages_ids_from_clade(res["data"] ? res["data"] : nil, clade_id)
+      get_page_traits(page_ids, uri_id)
+    end
+    
+    def get_pages_ids_from_clade(result, clade_page_id)
+      page_ids = [clade_page_id]
+      if result
+        result.each do |element|
+          data_element = element.first["data"] ? element.first["data"] : nil
+          if data_element
+            page_ids << data_element["page_id"]
+          end
+        end
+      end
+      page_ids.compact.uniq
+    end
+    
+    def get_page_traits(page_ids, uri_id)
+      all_traits = by_predicate(Uri.find(uri_id).uri)
+      traits = []
+      all_traits.each do |trait|
+        if page_ids.include?(trait[:page_id])
+          traits << trait
+        end
+      end
+      traits
+    end
 
     def add_metadata_to_trait(trait, options)
       meta = connection.create_node(options)

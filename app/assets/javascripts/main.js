@@ -1,3 +1,28 @@
+if(!EOL) {
+  var EOL = {};
+  EOL.allow_meta_traits_to_toggle = function() {
+    $(".toggle_meta").on("click", function (event) {
+      event.stopPropagation();
+      var $table = $(this).next()
+      $table.toggle();
+      if ($table.is(":visible")) {
+        var $node = $(this).closest("tr");
+        $($('html,body')).unbind().animate({scrollTop: $node.offset().top - 50}, 400);
+      }
+    });
+    $(".meta_trait").hide();
+  };
+
+  EOL.initialize = function() {
+    angular.bootstrap(document.body, ['eolApp']);
+    if($(".galleria").length) {
+      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
+      Galleria.run(".galleria");
+    }
+    EOL.allow_meta_traits_to_toggle();
+  };
+}
+
 (function () {
   'use strict';
   // These depend on devise configurations. DON'T FORGET TO CHANGE IT when you
@@ -6,7 +31,7 @@
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .module("eolApp", ["ngAnimate", "ngMaterial", "ui.bootstrap", "ngSanitize"])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('brown', {
@@ -17,19 +42,13 @@
         });
     });
 
-  // Allow Turbolinks to co-habitate with Angular:
-  $(document).on('turbolinks:load', function() {
-    angular.bootstrap(document.body, ['eolApp']);
-    if($(".galleria").length) {
-      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
-      Galleria.run(".galleria");
-    };
-  });
-
-  // Disable Angular Themes (use Bootstrap instead!)
-  // app.constant("$MD_THEME_CSS","");
+  // You have to reload the app's JS in a few cases:
+  $(document).on("turbolinks:load", function() { EOL.initialize(); });
+  //TODO: this doesn't work... was attempting to fix the initialize of the site when you click the back button.
+  // $(document).on("page:restore", function() { EOL.initialize(); });
 
   app.controller("SearchCtrl", SearchCtrl);
+  app.controller("CladeFilterCtrl", CladeFilterCtrl);
   app.controller("PageCtrl", PageCtrl);
   app.controller("loginValidate", LoginCtrl);
   app.controller('signupValidate', SignupCtrl);
@@ -39,13 +58,17 @@
 
     $scope.querySearch = function(query) {
       return $http.get("/search.json", {
-        params: { q: query + "*", per_page: "6" }
+        params: { q: query + "*", per_page: "6", only: "pages" }
       }).then(function(response){
         var data = response.data;
         $.each(data, function(i, match) {
-          match.preferred_vernaculars =
+          var re = new RegExp(query, "i");
+          match.names = [];
+          if(match.scientific_name.match(re)) {
+            match.names += { string: match.scientific_name };
+          };
+          match.names =
             jQuery.grep(match.preferred_vernaculars, function(e) {
-              var re = new RegExp(query, "i");
               return e.string.match(re);
             });
         });
@@ -69,9 +92,23 @@
     };
   }
 
+  function CladeFilterCtrl ($scope, $http, $window) {
+	$scope.cladeFilter = function(clade_name, id) {
+		return $http.get("/clade_filter.js", {
+       		params: { clade_name: clade_name, uri_id: id }
+    	}).then(function(response, $compile){
+    		var elem = angular.element("div#traits_table");
+    		$compile = elem.injector().get('$compile');
+    		var scope = elem.scope();
+    		elem.html( $compile(response.data)(scope) );
+		});	
+  	};
+  }
+  
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
+    $scope.isCollapsed = false;
   }
 
   function LoginCtrl ($scope, $window) {
@@ -175,9 +212,9 @@ var recaptchaError = false;
 function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
-  var $scope = angular.element(appElement).scope();
+  var $scope = angular.element(appElement).scope;
   console.log("Recaptcha checked");
-  $scope.$apply(function() {
+  $scope.apply(function() {
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;
   });
