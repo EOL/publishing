@@ -19,7 +19,6 @@ class TraitsController < ApplicationController
   
   def clade_filter
     pages = {}
-    debugger
     solr_matched_clade = Page.search {fulltext params[:clade_name]}.results.first
     #for convention sake
     if solr_matched_clade
