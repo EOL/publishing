@@ -14,7 +14,7 @@
       -# TODO: helper
       - prev_page_id = nil
       - grouped_traits.keys.sort.each do |page_id|
-        - TraitBank.sort(grouped_traits[page_id], @glossary).each do |trait|
+        - TraitBank.sort(grouped_traits[page_id]).each do |trait|
           %tr{ id: trait[:id] }
             - page = @pages[page_id]
             %th.trait-table-image{ scope: "row" }

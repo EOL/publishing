@@ -329,31 +329,35 @@ class TraitBank
       meta
     end
 
+    def sort_by_values(a, b)
+      # TODO: associations
+      if a[:literal] && b[:literal]
+        a[:literal].downcase.gsub(/<\/?[^>]+>/, "") <=>
+          b[:literal].downcase.gsub(/<\/?[^>]+>/, "")
+      elsif a[:measurement] && b[:measurement]
+        a[:measurement] <=> b[:measurement]
+      else
+        term_a = get_name(a, :object_term)
+        term_b = get_name(b, :object_term)
+        if term_a && term_b
+          term_a.downcase <=> term_b.downcase
+        elsif term_a
+          -1
+        elsif term_b
+          1
+        else
+          0
+        end
+      end
+    end
+
     def sort(traits)
       traits.sort do |a,b|
-        name_a = a[:predicate][:name]
-        name_b = b[:predicate][:name]
+        name_a = get_name(a)
+        name_b = get_name(b)
         if name_a && name_b
           if name_a == name_b
-            # TODO: associations
-            if a[:literal] && b[:literal]
-              a[:literal].downcase.gsub(/<\/?[^>]+>/, "") <=>
-                b[:literal].downcase.gsub(/<\/?[^>]+>/, "")
-            elsif a[:measurement] && b[:measurement]
-              a[:measurement] <=> b[:measurement]
-            else
-              term_a = a[:object_term][:name]
-              term_b = b[:object_term][:name]
-              if term_a && term_b
-                term_a.downcase <=> term_b.downcase
-              elsif term_a
-                -1
-              elsif term_b
-                1
-              else
-                0
-              end
-            end
+            sort_by_values(a,b)
           else
             name_a.downcase <=> name_b.downcase
           end
@@ -362,8 +366,22 @@ class TraitBank
         elsif name_b
           1
         else
-          0
+          sort_by_values(a,b)
         end
+      end
+    end
+
+    def get_name(trait, which = :predicate)
+      if trait.has_key?(which)
+        if trait[which].has_key?(:name)
+          trait[which][:name]
+        elsif trait[which].has_key?(:uri)
+          humanize_uri(trait[which][:uri]).downcase
+        else
+          nil
+        end
+      else
+        nil
       end
     end
   end
