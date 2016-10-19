@@ -329,10 +329,10 @@ class TraitBank
       meta
     end
 
-    def sort(traits, glossary)
+    def sort(traits)
       traits.sort do |a,b|
-        name_a = a && glossary[a[:predicate]].try(:name)
-        name_b = b && glossary[b[:predicate]].try(:name)
+        name_a = a[:predicate][:name]
+        name_b = b[:predicate][:name]
         if name_a && name_b
           if name_a == name_b
             # TODO: associations
@@ -342,13 +342,13 @@ class TraitBank
             elsif a[:measurement] && b[:measurement]
               a[:measurement] <=> b[:measurement]
             else
-              trait_a = glossary[a[:trait]].try(:name)
-              trait_b = glossary[b[:trait]].try(:name)
-              if trait_a && trait_b
-                trait_a.downcase <=> trait_b.downcase
-              elsif trait_a
+              term_a = a[:object_term][:name]
+              term_b = b[:object_term][:name]
+              if term_a && term_b
+                term_a.downcase <=> term_b.downcase
+              elsif term_a
                 -1
-              elsif trait_b
+              elsif term_b
                 1
               else
                 0
