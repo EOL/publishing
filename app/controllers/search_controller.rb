@@ -34,7 +34,7 @@ class SearchController < ApplicationController
       if suggestion
         traits = TraitBank.by_object_term_uri(suggestion.object_term)
         glossary = TraitBank.glossary(traits)
-        @object_terms = TraitBank.sort(traits, @glossary)
+        @object_terms = TraitBank.sort(traits)
         @object_term_pages = {}
         pages = Page.where(id: @object_terms.map { |t| t[:page_id] }).preloaded
         pages.each { |page| @object_term_pages[page.id] = page }

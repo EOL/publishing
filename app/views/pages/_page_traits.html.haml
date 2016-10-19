@@ -9,7 +9,7 @@
     - @page.predicates.each do |uri|
       - predicate = @page.glossary[uri]
       - previous_predicate = nil
-      - TraitBank.sort(@page.grouped_traits[uri], @page.glossary).each do |trait|
+      - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
         - collapse = row_count > max_rows && any_collapsed
         - any_collapsed = true if collapse
         %tr{ id: trait[:id], collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
