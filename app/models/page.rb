@@ -126,9 +126,10 @@ class Page < ActiveRecord::Base
   def traits
     return @traits if @traits
     traits = TraitBank.by_page(id)
+    # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
     # TODO: do we need the sort here?
-    @traits = TraitBank.sort(traits, @glossary)
+    @traits = TraitBank.sort(traits)
   end
 
   def glossary
