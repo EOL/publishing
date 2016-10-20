@@ -20,6 +20,7 @@ class Import::Page
       @page = Page.where(id: data["id"]).first_or_initialize do |pg|
         pg.id = data["id"]
       end
+      puts "Created page: #{@page.id}"
       page_node = TraitBank.create_page(@page.id)
       # TODO: pass a resource here. I started it but got lazy.
       node = build_node(data["native_node"])
@@ -33,22 +34,28 @@ class Import::Page
         data["maps"].each do |m|
           build_map(m, node, last_position += 1)
         end
+        puts ".. #{data["maps"].size} maps"
       end
       if data["articles"]
         data["articles"].each do |a|
+          # Some articles don't have a body:
+          a["body"] ||= "Ooops, body missing"
           build_article(a, node, last_position += 1)
         end
+        puts ".. #{data["articles"].size} articles"
       end
       if data["media"]
         data["media"].each do |m|
           build_image(m, node, last_position += 1)
         end
+        puts ".. #{data["media"].size} media"
       end
       if data["collections"]
         data["collections"].each do |c|
           collection = build_collection(c)
           add_page_to_collection(collection)
         end
+        puts ".. #{data["collections"].size} collections"
       end
       if data["traits"]
         data["traits"].each do |t_data|
@@ -73,6 +80,7 @@ class Import::Page
             )
           end
         end
+        puts ".. #{data["traits"].size} traits off of:\n#{page_node.inspect}"
       end
       # TODO json_map ...we don't use it, yet, so leaving for later.
     end
@@ -205,7 +213,7 @@ class Import::Page
         # n.rgt = node_data["rgt"]
         n.scientific_name = node_data["scientific_name"] # denormalized
         n.canonical_form = node_data["canonical_form"]
-        n.resource_pk = node_data["resource_pk"]
+        n.resource_pk = node_data["resource_pk"] || node_data["scientific_name"]
         n.source_url = node_data["source_url"]
         n.is_hidden = false
         n.parent_id = parent ? parent.id : nil
@@ -272,6 +280,7 @@ class Import::Page
     end
 
     def build_rank(name)
+      name ||= "unknown" # Sigh.
       Rank.where(name: name).first_or_create do |r|
         r.name = name
       end
