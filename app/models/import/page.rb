@@ -138,7 +138,7 @@ class Import::Page
       # NOTE this only allows us to import ONE version of a single GUID, but
       # that's desirable: the website is intended to only contain published
       # versions of data.
-      if klass.where(guid: c_data["guid"]).exists?
+      content = if klass.where(guid: c_data["guid"]).exists?
         klass.where(guid: c_data["guid"]).first
       else
         resource = build_resource(c_data["provider"])
@@ -164,7 +164,9 @@ class Import::Page
         hash[:format] = ext if ext # Not always needed.
         hash[:language] = build_language(c_data["language"]) if
           c_data["language"]
-        content = klass.create(hash)
+        klass.create(hash)
+      end
+      begin
         PageContent.create(
           page: @page,
           source_page: @page,
@@ -172,21 +174,26 @@ class Import::Page
           content: content,
           trust: :trusted
         )
-        # TODO: this wasn't working, and isn't needed yet.
-        # options[:node].ancestors.each do |ancestor|
-        #   # TODO: we will have to figure out a proper algorithm for position. :S
-        #   pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
-        #   pos += 1
-        #   PageContent.create(
-        #     page_id: ancestor.page_id,
-        #     source_page: @page,
-        #     position: pos,
-        #     content: content,
-        #     trust: :trusted
-        #   )
-        # end
-        content
+      rescue
+        # Do nothing. I don't care one bit. NOT ONE BIT!
       end
+      options[:node].ancestors.each do |ancestor|
+        # TODO: we will have to figure out a proper algorithm for position. :S
+        pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
+        pos += 1
+        begin
+          PageContent.create(
+            page_id: ancestor.page_id,
+            source_page: @page,
+            position: pos,
+            content: content,
+            trust: :trusted
+          )
+        rescue
+          # Do nothing. I don't care one bit. NOT ONE BIT!
+        end
+      end
+      content
     end
 
     def build_node(node_data, resource = nil)
