@@ -17,6 +17,11 @@ this:
 
 ```bash
 rake db:reset
-rails r "TraitBank.nuclear_option! ; Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
+rails r "TraitBank.nuclear_option! "
+
+rails s "Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
+# __OR__
+rails r "Import::Clade.from_file('http://beta.eol.org/store-7665-clade.json')"
+
 bundle exec rake sunspot:reindex
 ```
