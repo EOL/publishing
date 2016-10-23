@@ -9,7 +9,7 @@ RSpec.describe TermsController do
   let(:units) { { name: "units", uri: "http://a/unit" } }
   let(:object_term) { { name: "term", uri: "http://a/term" } }
   let(:glossary) { { units[:uri] => units, term[:uri] => term } }
-  let(:traits) do
+  let(:grouped_traits) do
     [ { page_id: page_measured.id, measurement: "657", units: units,
         resource_id: resource.id },
       { page_id: page_term.id, term: term, resource_id: resource.id },
@@ -20,7 +20,7 @@ RSpec.describe TermsController do
   let(:pages) { [page_measured, page_term, page_literal] }
 
   before do
-    allow(TraitBank).to receive(:by_predicate) { traits }
+    allow(TraitBank).to receive(:by_predicate) { grouped_traits }
     allow(TraitBank).to receive(:glossary) { glossary }
     allow(TraitBank).to receive(:resources) { [resource] }
     allow(TraitBank).to receive(:term_as_hash) { term }
@@ -29,7 +29,7 @@ RSpec.describe TermsController do
 
   describe '#show' do
     it { expect(assigns(:term)).to eq(term) }
-    it { expect(assigns(:traits)).to eq(traits) }
+    it { expect(assigns(:grouped_traits)).to eq(grouped_traits) }
     it { expect(assigns(:glossary)).to eq(glossary) }
     it { expect(assigns(:resources)).to eq([resource]) }
 
