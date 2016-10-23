@@ -1,0 +1,22 @@
+- icon ||= page.icon
+- common ||= page.name
+- scientific ||= page.scientific_name
+%tr
+  %td.collection-table-image
+    = link_to(image_tag(icon), page)
+  %td
+    .names.d-inline
+      - sci_name = scientific.html_safe
+      - if common.blank?
+        = link_to(sci_name, page, class: "primary-name")
+      - else
+        = link_to(common.titleize.html_safe, page, class: "primary-name")
+        %br/
+        = link_to(sci_name, page, class: "secondary-name")
+    - if defined?(media)
+      %br/
+      %row.icons_12_wide
+        - media.each do |medium|
+          - next if medium.medium_icon_url == icon
+          .col-md-1
+            = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)

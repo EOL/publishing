@@ -3,6 +3,7 @@
 //= require jquery
 //= require bootstrap
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require turbolinks
 //= require angular
 //= require angular-sanitize
@@ -10,3 +11,10 @@
 //= require main
 //= require galleria/galleria-1.4.2.min
 //= require_tree .
+//= require blueimp-gallery
+//= require blueimp-gallery-fullscreen
+//= require blueimp-gallery-indicator
+//= require blueimp-gallery-video
+//= require blueimp-gallery-youtube
+//= require jquery.blueimp-gallery
+//= require bootstrap-image-gallery

@@ -9,6 +9,7 @@
           = label_tag(:description)
           %br/
           = f.text_area(:description, cols: "80", rows: "6")
+        = collection_radio_buttons(:collection, :collection_type, Collection.collection_types, :first, :first)
       - if policy(@collection).update?
         %p.col-md-3.actions
           = f.submit(class: "btn btn-default")

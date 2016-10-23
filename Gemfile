@@ -68,6 +68,8 @@ gem "pundit", "~> 1.1"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
+#to handle the gallery view
+gem 'Bootstrap-Image-Gallery-rails'
 
 
 group :development, :test do

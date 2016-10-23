@@ -1,0 +1,9 @@
+%ul#collection_items.collections
+  - collection.collected_pages.each_with_index do |collected_page, index|
+    %li{class: "#{index.modulo(5) == 0 ? 'first-page' : nil}".strip}
+      = render("pages/as_gallery",
+        page: collected_page.page,
+        icon: collected_page.icon,
+        media: collected_page.media,
+        common: collected_page.name,
+        scientific: collected_page.scientific_name_string)
