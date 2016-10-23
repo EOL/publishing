@@ -1,3 +1,4 @@
+%script{:src => "//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"}
 - max_rows = 10
 - traits = @page.traits
 - any_collapsed = false
@@ -25,11 +26,23 @@
             - if trait[:measurement]
               - value = trait[:measurement] + " "
               - value +=  @page.glossary[trait[:units][:uri]][:name] if trait[:units]
+              = value
             - elsif trait[:object_term]
               - value = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
+              = value
             - elsif trait[:literal]
-              - value =  trait[:literal].html_safe
-            = value
+              - value = trait[:literal].html_safe
+              - if trait[:object_page]
+                - if trait[:object_page_image]
+                  %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
+                    :cdata
+                      <div><img src="#{trait[:object_page_image]}_260_190.jpg"/></div>
+                  #obj_page
+                    %a{ :href => "#{trait[:object_page]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{value}
+                - else
+                  = link_to value, trait[:object_page]  
+              - else
+                = value
             - if trait[:meta] || trait[:source]
               %br/
               %a.toggle_meta= t(:trait_toggle_details)

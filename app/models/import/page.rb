@@ -76,7 +76,8 @@ class Import::Page
               units: units,
               object_term: term,
               literal: t_data["literal"],
-              object_page: t_data["object_page"]
+              object_page: t_data["object_page"],
+              object_page_image: t_data["object_page_image"]
             )
           end
         end

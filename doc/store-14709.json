@@ -1,0 +1,61 @@
+{
+  "id": 14709,
+  "moved_to_node_id": null,
+  "native_node": {
+    "resource": {
+      "name": "DWC",
+      "partner": "Biology of Aging"
+    },
+    "rank": "family",
+    "page_id": 14709,
+    "scientific_name": "Neckeraceae",
+    "canonical_form": "Neckeraceae",
+    "resource_pk": "46b3591f-0963-4cdc-8c66-9488c4b271ab",
+    "source_url": "",
+    "parent": null
+  },
+  "vernaculars": [
+
+  ],
+  "media": [
+
+  ],
+  "traits": [
+    {
+      "resource": null,
+      "resource_pk": "3",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/OBA_0000056",
+        "name": "volume",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "50",
+      "units": {
+        "uri": "http://eol.org/schema/terms/cubicMicrometer",
+        "name": "m^3",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    }
+  ],
+  "collections": [
+    {
+      "name": "DWC",
+      "description": "Our Testing Content Partner. Last indexed June 15, 2015",
+      "icon": "localhostcontent318700_130_130.jpg"
+    },
+    {
+      "name": "DWC2",
+      "description": "Our Testing Content Partner. Last indexed July 12, 2015",
+      "icon": "localhostcontent318700_130_130.jpg"
+    }
+  ]
+}
