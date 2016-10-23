@@ -41,14 +41,18 @@
                 = t(:collection_collected_pages_media_remove)
                 %br/
                 -# - group_num = 0
-                %row.icons_12_wide
-                  = f.fields_for(:collected_pages, collected_page) do |cp_f|
+                
+                = f.fields_for(:collected_pages, collected_page) do |cp_f|
+                  %row.icons_12_wide
                     = cp_f.hidden_field(:id, id: collected_page.id)
                     - collected_page.media.each do |medium|
                       .col-md-1
                         = cp_f.fields_for(:collected_pages_media, medium) do |cp_f|
                           = cp_f.check_box :_destroy
                           = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
+                  = label_tag(:annotation)
+                  %br/
+                  = cp_f.text_area(:annotation, cols: "80", rows: "6")
   - if @collection.collection_associations.empty?
     %p= t(:collection_associations_empty)
   - else

@@ -20,7 +20,8 @@
           icon: collected_page.icon,
           media: collected_page.media,
           common: collected_page.name,
-          scientific: collected_page.scientific_name_string)
+          scientific: collected_page.scientific_name_string,
+          annotation: collected_page.annotation)
 - if @collection.collections.empty?
   %p= t(:collection_associations_empty)
 - else
