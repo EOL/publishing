@@ -1,0 +1,5 @@
+= render ("layouts/image_gallery_lightbox")
+#links
+  - collection.collected_pages.each do |collected_page|
+    %a{"data-gallery" => "", :href => collected_page.icon, :title => "Banana"}
+      %img{:alt => "Banana", :src => collected_page.icon}
