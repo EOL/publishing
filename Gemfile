@@ -69,6 +69,7 @@ gem "pundit", "~> 1.1"
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
 gem 'kaminari'
+gem 'Bootstrap-Image-Gallery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
