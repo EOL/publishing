@@ -30,12 +30,6 @@ class Import::Page
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
       @page.save
       last_position = 0
-      if data["maps"]
-        data["maps"].each do |m|
-          build_map(m, node, last_position += 1)
-        end
-        puts ".. #{data["maps"].size} maps"
-      end
       if data["articles"]
         data["articles"].each do |a|
           # Some articles don't have a body:
@@ -49,6 +43,12 @@ class Import::Page
           build_image(m, node, last_position += 1)
         end
         puts ".. #{data["media"].size} media"
+      end
+      if data["maps"]
+        data["maps"].each do |m|
+          build_map(m, node, last_position += 1)
+        end
+        puts ".. #{data["maps"].size} maps"
       end
       if data["collections"]
         data["collections"].each do |c|
