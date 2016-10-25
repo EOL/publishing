@@ -30,7 +30,7 @@ en:
   collection_association_added_to_collection: "Added \"%{associated}\" to collection <a href='%{link}'>\"%{name}\"</a>."
   collection_associations_empty: "No other collections are associated with this one. You can click on the \"collect\" button on other collections to have them appear here."
   collection_associations_title: "Other Associated Content"
-  collection_collected_pages_media_remove: "Check the box of any image you wish to remove (NOTE: this feature does not yet work, heh):"
+  collection_collected_pages_media_remove: "Remove images from the collection:"
   collection_created: "Created new collection \"%{name}\"."
   collection_created_for_association: "Added \"%{associated}\" to new collection <a href='%{link}'>\"%{name}\"</a>."
   collection_edit_button: "edit collection"
@@ -57,7 +57,7 @@ en:
         description: "description"
     submit:
       collection:
-        update: "Save Changes"
+        update: "save changes"
   layout_search_placeholder: "Search..."
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
