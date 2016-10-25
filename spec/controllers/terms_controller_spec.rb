@@ -2,20 +2,14 @@ require 'rails_helper'
 
 RSpec.describe TermsController do
   let(:trait) do
-    { :resource_pk=>"d7cf04b725e0c2f140489261ef365952", :source=>"Procyonidae",
-      :metadata=>nil, :resource_id=>17, :predicate=>{:section_ids=>"",
-      :name=>"extinction status", :attribution=>"",
-      :is_hidden_from_glossary=>false, :comment=>"", :definition=>"Indicates
-      whether a taxon is extant (living today) or extinct.",
-      :is_hidden_from_overview=>false,
-      :uri=>"http://eol.org/schema/terms/ExtinctionStatus"},
-      :object_term=>{:section_ids=>"", :name=>"extant",
-      :attribution=>"http://en.wikipedia.org/wiki/Extant_taxon",
-      :is_hidden_from_glossary=>false, :definition=>"This taxon is still in
-      existence, as opposed to extinct.", :comment=>"",
-      :is_hidden_from_overview=>false,
-      :uri=>"http://eol.org/schema/terms/extant"},
-      :id=>"trait:17:d7cf04b725e0c2f140489261ef365952"
+    { predicate: {
+        name: "extinction status",
+        is_hidden_from_glossary: false,
+        definition: "living today or not",
+        is_hidden_from_overview: false,
+        uri: "http://eol.org/schema/terms/ExtinctionStatus" },
+      literal: "extant",
+      id: "trait:17:d7cf04b725e0c2f140489261ef365952"
     }
   end
   let(:resource) { create(:resource) }
@@ -38,6 +32,7 @@ RSpec.describe TermsController do
   let(:pages) { [page_measured, page_term, page_literal] }
 
   before do
+    allow(TraitBank).to receive(:term_as_hash) { trait[:predicate] }
     allow(TraitBank).to receive(:by_predicate) { grouped_traits }
     allow(TraitBank).to receive(:glossary) { glossary }
     allow(TraitBank).to receive(:resources) { [resource] }
