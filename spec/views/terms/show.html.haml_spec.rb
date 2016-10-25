@@ -23,7 +23,7 @@ RSpec.describe "terms/show" do
     glossary = { units[:uri] => units, term[:uri] => term }
 
     assign(:term, uri)
-    assign(:traits, traits)
+    assign(:grouped_traits, Kaminari.paginate_array(traits).page(1))
     assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
     assign(:resources, { 65422 => resource })
