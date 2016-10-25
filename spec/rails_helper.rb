@@ -53,7 +53,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
 
   OmniAuth.config.test_mode = true
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.infer_spec_type_from_file_location!
 
