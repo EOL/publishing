@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe TraitsController do
+RSpec.describe TermsController do
   let(:trait) { create(:uri) }
   let(:resource) { create(:resource) }
   let(:page_measured) { create(:page) }
