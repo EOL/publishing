@@ -10,13 +10,14 @@ class TermsController < ApplicationController
     # Make a glossary:
     @glossary = TraitBank.glossary(traits)
     @resources = TraitBank.resources(traits)
-    
+
     group_traits = traits.group_by { |t| t[:page_id] }
-    keys = group_traits.keys.sort 
+    keys = group_traits.keys.sort
     @grouped_traits = []
     keys.each do |page_id|
-      @grouped_traits << TraitBank.sort(group_traits[page_id])     
-    end 
-    @grouped_traits = Kaminari.paginate_array(@grouped_traits.flatten).page(params[:page])
+      @grouped_traits << TraitBank.sort(group_traits[page_id])
+    end
+    @grouped_traits = Kaminari.paginate_array(@grouped_traits.flatten).
+      page(params[:page])
   end
 end

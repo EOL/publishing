@@ -36,6 +36,16 @@
 
   def update
     authorize @collection
+    # This is obnoxious, but Rails can't handle deleting *associations* that
+    # lack primary keys, so we do it manually:
+    # TODO: later.
+    # c_params = collection_params
+    # if c_params["collected_pages_attributes"]
+    #   c_params["collected_pages_attributes"].each do |index, collected_page|
+    #
+    #   end
+    # end
+
     if @collection.update(collection_params)
       flash[:notice] = I18n.t(:collection_updated)
       redirect_to @collection
@@ -60,6 +70,7 @@
   def collection_params
     params.require(:collection).permit(:name, :description,
       collection_associations_attributes: [:associated_id],
-      collected_pages_attributes: [:id, :page_id, :annotation, collected_pages_media_attributes: [medium_ids: []]])
+      collected_pages_attributes: [:id, :page_id, :annotation,
+        collected_pages_media_attributes: [:medium_id, :collected_page_id, :_destroy]])
   end
 end

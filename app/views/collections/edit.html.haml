@@ -38,23 +38,28 @@
                   %br/
                   = link_to(scientific, page, class: "secondary-name")
                 %br/
-                = t(:collection_collected_pages_media_remove)
-                %br/
-                -# - group_num = 0
-                
                 = f.fields_for(:collected_pages, collected_page) do |cp_f|
-                  %row.icons_12_wide
-                    = cp_f.hidden_field(:id, id: collected_page.id)
-                    - collected_page.media.each do |medium|
-                      .col-md-1
-                        = cp_f.fields_for(:collected_pages_media, medium) do |cp_f|
-                          = cp_f.check_box :_destroy
-                          = image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88")
-                  = label_tag(:annotation)
-                  %br/
-                  = cp_f.text_area(:annotation, cols: "80", rows: "6")
-  - if @collection.collection_associations.empty?
-    %p= t(:collection_associations_empty)
-  - else
+                  .d-inline
+                    = label_tag(:annotation, nil, class: "clearfix")
+                    %br/
+                    = cp_f.text_area(:annotation, cols: "80", rows: "6")
+                  - unless collected_page.media.empty?
+                    = t(:collection_collected_pages_media_remove)
+                    %br/
+                    %row.icons_12_wide.d-inline
+                      - collected_page.collected_pages_media.each do |cpm|
+                        - next unless cpm.medium
+                        .col-md-1
+                          = cp_f.fields_for(:collected_pages_media, cpm) do |cpm_f|
+                            = cpm_f.hidden_field(:medium_id, id: cpm.medium_id)
+                            = cpm_f.hidden_field(:collected_page_id, id: cpm.collected_page_id)
+                            = cpm_f.check_box :_destroy
+                            = image_tag(cpm.medium.small_icon_url, class: "img-responsive", size: "88x88")
+  - unless @collection.collection_associations.empty?
     /# TODO
-    Ooops, this is not implemented
+    Ooops, collections-in-collections are not implemented
+  %p.col-md-3.actions.col-md-offset-2
+    = f.submit(class: "btn btn-default")
+  %p.col-md-3.actions
+    %button.btn.btn-default
+      = link_to(t(:cancel), collection_path(@collection))
