@@ -68,7 +68,8 @@ gem "pundit", "~> 1.1"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
-gem 'kaminari'
+# Pagination:
+gem 'kaminari', "~> 0.17"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -80,7 +81,7 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov", "~> 0.12"
   #solr package. This is gonna be used in development and test environments
-  gem 'sunspot_solr', '~> 2.2.5'
+  gem "sunspot_solr", '~> 2.2.5'
 end
 
 group :development do
