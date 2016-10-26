@@ -93,6 +93,13 @@ class TraitBank
       connection.execute_query("MATCH (n) DETACH DELETE n")
     end
 
+    def trait_count
+      res = connection.execute_query("MATCH (trait:Trait)<-[:trait]-(page:Page) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
+    end
+
     def trait_exists?(resource_id, pk)
       res = connection.execute_query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
         "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
@@ -253,7 +260,7 @@ class TraitBank
     def create_trait(options)
       page = options.delete(:page)
       supplier = options.delete(:supplier)
-      meta = options.delete(:meta_data)
+      meta = options.delete(:metadata)
       predicate = parse_term(options.delete(:predicate))
       units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
@@ -262,7 +269,7 @@ class TraitBank
       connection.create_relationship("trait", page, trait)
       connection.create_relationship("supplier", trait, supplier)
       connection.create_relationship("predicate", trait, predicate)
-      connection.create_relationship("units", trait, units) if units
+      connection.create_relationship("units_term", trait, units) if units
       connection.create_relationship("object_term", trait, object_term) if
         object_term
       meta.each { |md| add_metadata_to_trait(trait, md) } if meta
@@ -323,10 +330,17 @@ class TraitBank
     end
 
     def add_metadata_to_trait(trait, options)
-      meta = connection.create_node(options)
-      connection.add_label(meta, "MetaData")
-      connection.create_relationship("metadata", trait, meta)
-      meta
+      predicate = parse_term(options.delete(:predicate))
+      units = parse_term(options.delete(:units))
+      object_term = parse_term(options.delete(:object_term))
+      trait = connection.create_node(options)
+      connection.add_label(trait, "MetaData")
+      connection.create_relationship("metadata", trait, trait)
+      connection.create_relationship("predicate", trait, predicate)
+      connection.create_relationship("units_term", trait, units) if units
+      connection.create_relationship("object_term", trait, object_term) if
+        object_term
+      trait
     end
 
     def sort_by_values(a, b)

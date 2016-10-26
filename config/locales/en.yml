@@ -75,6 +75,8 @@ en:
   page_traits_header: "Trait Data (%{count})"
   password: "Password"
   password_confirmation: "Password confirmation"
+  node_children_header: "Children"
+  node_children_empty: "This node has no children."
   recaptcha: "Recaptcha"
   recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
   remember_me: "remember me"

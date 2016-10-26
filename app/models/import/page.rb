@@ -4,31 +4,37 @@ class Import::Page
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json")) OR
       # Import::Page.from_file("http://beta.eol.org/store-328598.json")
-      file =  if Uri.is_uri?(name.to_s)
-                open(name) { |f| f.read }
-              else
-                File.read(name)
-              end
+      file = if Uri.is_uri?(name.to_s)
+               open(name) { |f| f.read }
+             else
+               File.read(name)
+             end
       parse_page(JSON.parse(file))
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
     end
 
-
-    def parse_page(data)
-      @resource_nodes = {}
-      @page = Page.where(id: data["id"]).first_or_initialize do |pg|
-        pg.id = data["id"]
+    # TODO: pass a resource here. I started it but got lazy.
+    def create_page(id, node_data, name, canon)
+      @page = Page.where(id: id).first_or_initialize do |pg|
+        pg.id = id
       end
       puts "Created page: #{@page.id}"
       page_node = TraitBank.create_page(@page.id)
-      # TODO: pass a resource here. I started it but got lazy.
-      node = build_node(data["native_node"])
+      node = build_node(node_data)
       @page.native_node = node
-      build_sci_name(ital: data["native_node"]["scientific_name"],
-        canon: data["native_node"]["canonical_form"], node: node)
-      data["vernaculars"].each { |cn| build_vernacular(cn, node) }
+      build_sci_name(ital: name, canon: canon, node: node)
       @page.save
+      return node, page_node
+    end
+
+    def parse_page(data)
+      @resource_nodes = {}
+      node, page_node = create_page(data["id"],
+        data["native_node"],
+        data["native_node"]["scientific_name"],
+        data["native_node"]["canonical_form"])
+      data["vernaculars"].each { |cn| build_vernacular(cn, node) }
       last_position = 0
       if data["articles"]
         data["articles"].each do |a|
@@ -66,22 +72,41 @@ class Import::Page
             pred = create_uri(t_data["predicate"])
             units = create_uri(t_data["units"]) if t_data["units"]
             term = create_uri(t_data["term"]) if t_data["term"]
+            obj_page_id = nil
+            if t_data["object_page"]
+              obj_page_id = t_data["object_page"]["id"]
+              create_page(obj_page_id,
+                t_data["object_page"]["node"],
+                t_data["object_page"]["scientific_name"],
+                t_data["object_page"]["canonical_form"])
+            end
+            meta = []
+            t_data["metadata"].each do |md|
+              mpred = create_uri(md["predicate"])
+              next unless mpred
+              munits = create_uri(md["units"]) if md["units"]
+              mmeas = md["measurement"] if md["measurement"]
+              mterm = create_uri(md["term"]) if md["term"]
+              mlit = md["literal"]
+              meta << { predicate: mpred, units: munits, measurement: mmeas,
+                term: mterm, literal: mlit }
+            end
             TraitBank.create_trait(page: page_node,
               supplier: @resource_nodes[resource.id],
               resource_pk: t_data["resource_pk"],
-              scientific_name: t_data["scientific_name"],
+              scientific_name: t_data["scientific_name"] || @page.scientific_name,
               predicate: pred,
               source: t_data["source"],
               measurement: t_data["measurement"],
               units: units,
               object_term: term,
               literal: t_data["literal"],
-              object_page: t_data["object_page"],
-              object_page_image: t_data["object_page_image"]
+              object_page_id: obj_page_id,
+              metadata: meta
             )
           end
         end
-        puts ".. #{data["traits"].size} traits off of:\n#{page_node.inspect}"
+        puts ".. #{data["traits"].size} traits"
       end
       # TODO json_map ...we don't use it, yet, so leaving for later.
     end
@@ -176,7 +201,7 @@ class Import::Page
           trust: :trusted
         )
       rescue
-        # Do nothing. I don't care one bit. NOT ONE BIT!
+        puts "don't care"
       end
       options[:node].ancestors.each do |ancestor|
         # TODO: we will have to figure out a proper algorithm for position. :S
@@ -191,7 +216,7 @@ class Import::Page
             trust: :trusted
           )
         rescue
-          # Do nothing. I don't care one bit. NOT ONE BIT!
+          puts "don't care"
         end
       end
       content
