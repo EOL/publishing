@@ -23,7 +23,18 @@
               - previous_predicate = predicate
           %td
             - value = t(:trait_missing, keys: trait.keys.join(", "))
-            - if trait[:measurement]
+            - if trait[:object_page_id]
+              - target = Page.find(trait[:object_page_id])
+              - if target.top_image
+                %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
+                  :cdata
+                    <div><img src="#{target.icon}"/></div>
+                #obj_page
+                  %a{ :href => "#{trait[:object_page_id]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{value}
+              - else
+                -# TODO: Gah! Fix this:
+                = link_to target.name.html_safe, target
+            - elsif trait[:measurement]
               - value = trait[:measurement] + " "
               - value +=  @page.glossary[trait[:units][:uri]][:name] if trait[:units]
               = value
@@ -31,26 +42,15 @@
               - value = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
               = value
             - elsif trait[:literal]
-              - value = trait[:literal].html_safe
-              - if trait[:object_page]
-                - if trait[:object_page_image]
-                  %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
-                    :cdata
-                      <div><img src="#{trait[:object_page_image]}_260_190.jpg"/></div>
-                  #obj_page
-                    %a{ :href => "#{trait[:object_page]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{value}
-                - else
-                  = link_to value, trait[:object_page]  
-              - else
-                = value
+              = trait[:literal].html_safe
             - if trait[:meta] || trait[:source]
               %br/
               %a.toggle_meta= t(:trait_toggle_details)
               - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
               .meta_trait{ id: id }
                 %table
-                  - if trait[:meta]
-                    - trait[:meta].each do |meta_trait|
+                  - if trait[:metadata]
+                    - trait[:metadata].each do |meta_trait|
                       %tr
                         %th
                           = meta_trait[:predicate][:name]
