@@ -1,5 +1,11 @@
 = render ("layouts/image_gallery_lightbox")
-#links
+%row.icons_12_wide
   - collection.collected_pages.each do |collected_page|
-    %a{"data-gallery" => "", :href => collected_page.icon, :title => "Banana"}
-      %img{:alt => "Banana", :src => collected_page.icon}
+    - media = collected_page.media
+    - if media.blank?
+      - media = [collected_page.page.top_image] unless collected_page.page.top_image.nil?
+    - media.each do |medium|
+      .col-md-2
+        %a{"data-gallery": "", href: medium.large_size_url, title: strip_tags(medium.name)}
+          %img{src: medium.medium_icon_url}
+        = link_to(collected_page.scientific_name_string.html_safe, collected_page.page)
