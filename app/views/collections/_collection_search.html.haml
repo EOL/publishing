@@ -1,0 +1,31 @@
+.nav-search.navbar-form.navbar-right
+  %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
+    .autocomplete-result
+      .icon.col-md-9
+        %a{ href: "#" }
+          %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
+      .names.col-md-10
+        %a{ href: "#" }
+          %ul
+            %li{ "ng-repeat" => "vern in match.model.names",
+              "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+  .row
+    .col-md-9
+      %div{ "ng-controller": "collectionSearchCtrl as ctrl", "layout": "column" }
+        = form_tag(search_results_collected_pages_path(q: "{{name}}", collection_id: @collection.id), method: :get, autocomplete: "off") do
+          .input-group
+            = text_field_tag("q","",
+              "ng-model": "selectedPage",
+              "placeholder": "{{name || 'Search in collection' }}",
+              "typeahead": "page for page in querySearch($viewValue, #{@collection.id})",
+              "typeahead-template-url": "layoutSearchTemplate.html",
+              "typeahead-min-length": 3,
+              "typeahead-on-select": "onSelect($item, $model, $label, #{@collection.id})",
+              "typeahead-input-formatter": "nameOfModel($model)",
+              "class": "form-control",
+              "autocomplete": "off")
+            .input-group-btn
+              = submit_tag "Go", class: "btn btn-default"
+            .col-md-9.clear_search
+              = link_to "clear search",  collection_path(@collection), 
+               "ng-click": "clearSearch()", "ng-show": "showClearSearch"

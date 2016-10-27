@@ -1,4 +1,4 @@
-.jumbotron
+.jumbotron{"data-turbolinks": "false"}
   .row
     .col-md-9
       %h1= @collection.name
@@ -8,29 +8,32 @@
       %p.col-md-3.actions
         %button.btn.btn-default
           = link_to(t(:collection_edit_button), edit_collection_path(@collection))
-- if @collection.collected_pages.empty?
-  %p= t(:collection_pages_empty)
-- else
-  %h2= t(:collected_pages_title)
-  %table.collections
-    %tbody
-      - @collection.collected_pages.each do |collected_page|
-        = render("pages/as_row",
-          page: collected_page.page,
-          icon: collected_page.icon,
-          media: collected_page.media,
-          common: collected_page.name,
-          scientific: collected_page.scientific_name_string)
-- if @collection.collections.empty?
-  %p= t(:collection_associations_empty)
-- else
-  %h2= t(:collection_associations_title)
-  %table.collections
-    %tbody
-      - @collection.collections.each do |collection|
-        %tr
-          %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(collection.icon), collection)
-          %th{ scope: "row" }
-            .names.d-inline
-              = link_to(collection.name.html_safe, collection)
+    = render 'collection_search'
+%div.collected_pages
+  - if @collection.collected_pages.empty?
+    %p= t(:collection_pages_empty)
+  - else
+    %h2= t(:collected_pages_title)
+    %table.collections
+      %tbody
+        - @collection.collected_pages.each do |collected_page|
+          = render("pages/as_row",
+            page: collected_page.page,
+            icon: collected_page.icon,
+            media: collected_page.media,
+            common: collected_page.name,
+            scientific: collected_page.scientific_name_string)
+  - if @collection.collections.empty?
+    %p= t(:collection_associations_empty)
+  - else
+    %h2= t(:collection_associations_title)
+    %table.collections
+      %tbody
+        - @collection.collections.each do |collection|
+          %tr
+            %th.collection-table-image{ scope: "row" }
+              = link_to(image_tag(collection.icon), collection)
+            %th{ scope: "row" }
+              .names.d-inline
+                = link_to(collection.name.html_safe, collection)
+%div.search_results

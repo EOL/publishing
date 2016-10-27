@@ -1,0 +1,10 @@
+%table.search_results
+  %tbody
+    %h1= "search results for \"#{q}\""
+    - collected_pages.each do |collected_page|
+      = render("pages/as_row",
+        page: collected_page.page,
+        icon: collected_page.icon,
+        media: collected_page.media,
+        common: collected_page.name,
+        scientific: collected_page.scientific_name_string)
