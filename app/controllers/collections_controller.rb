@@ -18,7 +18,7 @@ class CollectionsController < ApplicationController
           name: @collection.name, associated: collected.name,
           link: collection_path(@collection))
         redirect_to collected
-      else
+      else4
         flash[:notice] = I18n.t(:collection_created, name: @collection.name)
         redirect_to @collection
       end

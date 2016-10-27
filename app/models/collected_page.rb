@@ -12,6 +12,26 @@ class CollectedPage < ActiveRecord::Base
 
   accepts_nested_attributes_for :collected_pages_media
 
+  searchable do
+    integer :collection_id, stored: true
+    text(:name) { page.name }
+    text(:scientific_name) { page.scientific_name.gsub(/<\/?i>/, "") }
+    text(:preferred_scientific_names) { page.preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") } }
+    text(:synonyms) {page.scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") } }
+    text(:vernaculars) { page.vernaculars.preferred.map { |v| v.string } }
+  end
+
+  def self.find_page(q, collection_id)
+    CollectedPage.search do
+      fulltext q  do
+        fields(:name, :scientific_name, :preferred_scientific_names, :synonyms, :vernaculars)
+         # query_phrase_slop 1
+        
+       end
+        with(:collection_id, collection_id)
+    end
+  end
+
   # For convenience, this is duck-typed from CollectionAssociation (q.v.)
   def item
     page
