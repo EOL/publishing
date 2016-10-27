@@ -12,20 +12,22 @@
   %p= t(:collection_pages_empty)
 - else
   %h2= t(:collected_pages_title)
-  - if @collection.normal?
-    = render("normal", collection: @collection)
+  %div
+    - if @collection.normal?
+      = render("normal", collection: @collection)
+    - else
+      = render("gallery", collection: @collection)
+%div.collection_association
+  - if @collection.collections.empty?
+    %p= t(:collection_associations_empty)
   - else
-    = render("gallery", collection: @collection)
-- if @collection.collections.empty?
-  %p= t(:collection_associations_empty)
-- else
-  %h2= t(:collection_associations_title)
-  %table.collections
-    %tbody
-      - @collection.collections.each do |collection|
-        %tr
-          %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(collection.icon), collection)
-          %th{ scope: "row" }
-            .names.d-inline
-              = link_to(collection.name.html_safe, collection)
+    %h2= t(:collection_associations_title)
+    %table.collections
+      %tbody
+        - @collection.collections.each do |collection|
+          %tr
+            %th.collection-table-image{ scope: "row" }
+              = link_to(image_tag(collection.icon), collection)
+            %th{ scope: "row" }
+              .names.d-inline
+                = link_to(collection.name.html_safe, collection)
