@@ -16,7 +16,9 @@ RSpec.describe "collections/show" do
       allow(page).to receive(:name) { "funName" }
       collection = instance_double("Collection",
         collections: [collection1, collection2],
-        collected_pages: [collected_page], name: "Col Name 1",
+        collected_pages: [collected_page], 
+        id: 1,
+        name: "Col Name 1",
         description: "Col Description Here")
       assign(:collection, collection)
     end
@@ -47,12 +49,19 @@ RSpec.describe "collections/show" do
       expect(rendered).to have_selector("img[src*='#{collection2.icon}']")
       expect(rendered).to have_selector("img[src*='#{page.icon}']")
     end
+
+    context 'collection search' do 
+      it 'has collection search input' do
+        render
+        expect(rendered).to have_selector("div[class='input-group collection_search']")
+      end
+    end
   end
 
   context "(with empty collection)" do
     before do
       collection = instance_double("Collection", collections: [],
-        collected_pages: [], name: "Col Name Again", description: nil)
+        collected_pages: [], name: "Col Name Again", description: nil, id: 2)
       assign(:collection, collection)
       render
     end
