@@ -36,8 +36,6 @@ class CollectedPagesController < ApplicationController
           include: {
             preferred_vernaculars: { only: [:string],
               include: { language: { only: :code } } },
-            # NOTE I'm excluding a lot more for search than you would want for
-            # the basic page json:
             top_image: { only: [ :id, :guid, :owner, :name ],
               methods: [:small_icon_url, :medium_icon_url],
               include: { provider: { only: [:id, :name] },
@@ -52,9 +50,11 @@ class CollectedPagesController < ApplicationController
     collected_pages = CollectedPage.find_page(params[:q],
     params[:collection_id]).results
     respond_to do |format|
-      format.html {render partial: 'search_results', locals: {collected_pages: collected_pages, q: params[:q] }}
+      format.html {render partial: 'search_results', 
+        locals: {collected_pages: collected_pages, q: params[:q] }}
     end
   end
+
   private
 
   def collected_page_params
