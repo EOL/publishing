@@ -92,10 +92,10 @@ if(!EOL) {
     };
   }
 
-    function collectionSearchCtrl ($scope, $http) {
+  function collectionSearchCtrl ($scope, $http) {
     $scope.selected = undefined;
     $scope.showClearSearch = false;
-    
+
     $scope.querySearch = function(query, collection_id) {
       return $http.get("/collected_pages/search.json", {
         params: { q: query + "*", collection_id: collection_id }
@@ -141,10 +141,11 @@ if(!EOL) {
         return $model.scientific_name.replace(/<\/?i>/g, "");
       }
     };
+
     $scope.clearSearch = function() {
-        $("div.collected_pages").hide();
-        $('div.search_results').remove();
-        $scope.showClearSearch = false;
+      $("div.collected_pages").hide();
+      $('div.search_results').remove();
+      $scope.showClearSearch = false;
     };
   }
   function PageCtrl ($scope) {

@@ -1,6 +1,4 @@
-=# javascript_include_tag 'users/signup'
-
-%div
+%div{'ng-app': 'signupApp'}
   %h2 
     = I18n.t(:sign_up)
   = form_for resource, url: registration_path(resource_name), 

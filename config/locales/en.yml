@@ -35,6 +35,7 @@ en:
   collection_edit_button: "edit collection"
   collection_user_is_admin: "This user is an admin."
   collection_pages_empty: "This collection has no pages in it. Try clicking on the \"collect\" button on species pages to add some items!"
+  collection_search_title: "search results for \"%{q}\""
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"

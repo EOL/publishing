@@ -1,4 +1,4 @@
-.nav-search.navbar-form.navbar-right
+.nav-search.navbar-form.navbar-left
   %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
     .autocomplete-result
       .icon.col-md-9
@@ -12,7 +12,8 @@
   .row
     .col-md-9
       %div{ "ng-controller": "collectionSearchCtrl as ctrl", "layout": "column" }
-        = form_tag(search_results_collected_pages_path(q: "{{name}}", collection_id: @collection.id), method: :get, autocomplete: "off") do
+        = form_tag(search_results_collected_pages_path(q: "{{name}}",
+           collection_id: @collection.id), method: :get, autocomplete: "off") do
           .input-group
             = text_field_tag("q","",
               "ng-model": "selectedPage",
