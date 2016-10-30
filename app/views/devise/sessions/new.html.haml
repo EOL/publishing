@@ -30,6 +30,4 @@
         = I18n.t(:recaptcha_error)
     .actions
       = f.submit I18n.t(:sign_in), 'ng-disabled': " loginForm.$invalid || !recaptchaChecked", class: "btn btn-default"
-      %p{ ng: { bind: "loginForm.$invalid" } }= "here"
-      %p{ ng: { bind: "recaptchaChecked" } }= "missing"
 = render "devise/shared/links"
