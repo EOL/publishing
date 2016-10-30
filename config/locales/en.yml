@@ -102,6 +102,7 @@ en:
   sign_up: "Sign up"
   signature_basic: "The Encyclopedia of Life Team"
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
+  did_not_receive_confirmation_instructions: "Did't receive confirmation instructions"
   sign_in_up_with_facebook: "%{action} with Facebook"
   sign_in_up_with_google_oauth2: "%{action} with Google"
   sign_in_up_with_twitter: "%{action} with Twitter"
