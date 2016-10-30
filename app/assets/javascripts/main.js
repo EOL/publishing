@@ -103,6 +103,7 @@ if(!EOL) {
           console.log(query);
         var data = response.data;
         console.log(data);
+        console.log(data.length);
         $.each(data, function(i, match) {
           var re = new RegExp(query, "i");
           match.names = [];

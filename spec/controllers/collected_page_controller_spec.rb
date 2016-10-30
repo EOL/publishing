@@ -37,4 +37,8 @@ RSpec.describe CollectedPagesController do
     it { expect(flash[:notice]).to match(page.name) }
     it { expect(response).to redirect_to(page) }
   end
+
+  describe "#search" do
+    
+  end
 end
