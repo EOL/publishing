@@ -6,7 +6,7 @@ RSpec.describe CollectedPage do
   context "with NO overrides" do
     subject { CollectedPage.new(page: page) }
 
-    it "#item returns the page, to duck-type with CollectionItem" do
+    it "#item returns the page, to duck-type with CollectionAssociation" do
       expect(subject.item).to eq(page)
     end
 
@@ -50,16 +50,15 @@ RSpec.describe CollectedPage do
     let(:medium) { create(:medium) }
 
     subject do
-      CollectedPage.new(page: page, vernacular: vernacular,
-        scientific_name: scientific_name, medium: medium)
+      CollectedPage.new(page: page, media: [medium])
     end
 
     it "#name uses the override" do
-      expect(subject.name).to eq(vernacular.string)
+      expect(subject.name).to eq(page.name)
     end
 
     it "#scientific_name_string uses the override's canonical_form" do
-      expect(subject.scientific_name_string).to eq(scientific_name.canonical_form)
+      expect(subject.scientific_name_string).to eq(page.scientific_name)
     end
 
     it "#medium_icon_url uses the override" do

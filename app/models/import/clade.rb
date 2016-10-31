@@ -13,13 +13,14 @@ class Import::Clade
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
     end
-    
-        
+
     def parse_clade(pages)
       pages.each do |page|
         Import::Page.parse_page(page)
       end
+      puts "Finished: #{Page.count} pages, #{Node.count} nodes,"
+      puts "#{Medium.count} media, #{Article.count} articles,"
+      puts "#{Collection.count} collections."
     end
-    
-  end 
+  end
 end

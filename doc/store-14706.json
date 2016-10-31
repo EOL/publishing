@@ -1,0 +1,232 @@
+{
+  "id": 14706,
+  "moved_to_node_id": null,
+  "native_node": {
+    "resource": {
+      "name": "DWC",
+      "partner": "Biology of Aging"
+    },
+    "rank": "family",
+    "page_id": 14706,
+    "scientific_name": "Tipulidae",
+    "canonical_form": "Tipulidae",
+    "resource_pk": "0fbe7107-2fa5-42a7-b75b-5e02a5e88598",
+    "source_url": "",
+    "parent": null
+  },
+  "vernaculars": [
+    {
+      "string": "http://localhost:3000/data_objects/233",
+      "language": "eng",
+      "preferred": true
+    }
+  ],
+  "media": [
+    {
+      "guid": "3e2749d04f955628be390d9c9e0dc0a4",
+      "resource_pk": "image:21550",
+      "provider_type": "Resource",
+      "provider": {
+        "name": "BioLib.cz Import",
+        "partner": "BioLib.cz"
+      },
+      "license": {
+        "name": "public domain",
+        "source_url": "http://creativecommons.org/licenses/publicdomain/",
+        "icon_url": "",
+        "can_be_chosen_by_partners": true
+      },
+      "language": "eng",
+      "bibliographic_citation": null,
+      "owner": "Hollingsworth, John and Karen",
+      "name": "Image of <i>Procyon lotor</i>",
+      "source_url": "http://www.biolib.cz/en/image/id21550/",
+      "description": null,
+      "base_url": "http://media.eol.org/content/2009/07/24/11/75706"
+    }
+  ],
+  "traits": [
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "10101010",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "literal": "Neckeraceae",
+      "object_page": "http://eol.org/pages/14709",
+      "object_page_image": "http://media.eol.org/content/2011/08/04/15/94034_580_360.jpg" 
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "1",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/OBA_0000056",
+        "name": "volume",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "100",
+      "units": {
+        "uri": "http://eol.org/schema/terms/cubicMicrometer",
+        "name": "m^3",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "10",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "1",
+      "units": {
+        "uri": "http://purl.obolibrary.org/obo/UO_0000009",
+        "name": "kilograms",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "11",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "1000",
+      "units": {
+        "uri": "http://purl.obolibrary.org/obo/UO_0000009",
+        "name": "kilograms",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "12",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "hello",
+      "units": {
+        "uri": "http://purl.obolibrary.org/obo/UO_0000009",
+        "name": "kilograms",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "13",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "hello_again",
+      "units": {
+        "uri": "http://purl.obolibrary.org/obo/UO_0000009",
+        "name": "kilograms",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    },
+    {
+      "resource": {
+        "name": "3i database: Typhlocybinae",
+        "partner": "Biology of Aging"
+      },
+      "resource_pk": "14",
+      "predicate": {
+        "uri": "http://purl.obolibrary.org/obo/PATO_0000128",
+        "name": "weight",
+        "definition": "",
+        "comment": "",
+        "attribution": "",
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      },
+      "source": null,
+      "measurement": "source_2",
+      "units": {
+        "uri": "http://purl.obolibrary.org/obo/UO_0000009",
+        "name": "kilograms",
+        "definition": null,
+        "comment": null,
+        "attribution": null,
+        "is_hidden_from_overview": false,
+        "is_hidden_from_glossary": false
+      }
+    }
+  ]
+}

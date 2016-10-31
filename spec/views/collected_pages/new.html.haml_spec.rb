@@ -5,10 +5,11 @@ RSpec.describe "collected_pages/new" do
   # and mocking them is cluttered. I've doubled everything that it made sense to.
   before do
     allow(Language).to receive(:current) { "this" }
-    page = instance_double("Page", icon: "image_thingie.jpg",
-      id: 43123)
+    page = build(:page)
     allow(page).to receive(:name).with("this") { "Here Titled" }
-    collected_page = CollectedPage.new(page_id: page.id)
+    allow(page).to receive(:icon) { "image_thingie.jpg" }
+    allow(page).to receive(:id) { 43123 }
+    collected_page = CollectedPage.new(page: page)
     assign(:page, page)
     assign(:collection, Collection.new)
     assign(:collected_page, collected_page)
@@ -19,28 +20,13 @@ RSpec.describe "collected_pages/new" do
       user = instance_double("User", collections: [])
       assign(:bad_collection_ids, [])
       allow(view).to receive(:current_user) { user }
+      render
     end
 
-    it "shows the icon of the collected page" do
-      render
-      expect(rendered).to match /image_thingie.jpg/
-    end
-
-    it "shows the name of the collected page in the current language" do
-      render
-      expect(rendered).to match /Here Titled/
-    end
-
-    it "shows no collections to select" do
-      render
-      expect(rendered).to match(
-        /#{I18n.t(:collect_no_existing_collections)}/)
-    end
-
-    it "shows a form for a new collection" do
-      render
-      expect(rendered).to have_selector("form#new_collection")
-    end
+    it { expect(rendered).to match /image_thingie.jpg/ }
+    it { expect(rendered).to match /Here Titled/ }
+    it { expect(rendered).to match(/#{I18n.t(:collect_no_existing_collections)}/) }
+    it { expect(rendered).to have_selector("form#new_collection") }
   end
 
   context "with a user who has collections already" do
@@ -55,22 +41,20 @@ RSpec.describe "collected_pages/new" do
       user = instance_double("User", collections: user_collections)
       assign(:bad_collection_ids, [collection_bad.id])
       allow(view).to receive(:current_user) { user }
+      render
     end
 
     it "shows all of the available collections" do
-      render
       expect(rendered).to match /Collection One/
       expect(rendered).to match /Collection Two/
       expect(rendered).to match /Collection Bad/
     end
 
     it "shows the newest collection first" do
-      render
       expect(rendered).to match /Collection Two.*Collection One/m
     end
 
     it "disables the bad collection option" do
-      render
       expect(rendered).to have_selector(
         "input#collected_page_collection_id_3[disabled]")
     end

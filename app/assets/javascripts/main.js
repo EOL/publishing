@@ -93,9 +93,9 @@ if(!EOL) {
   }
 
   function CladeFilterCtrl ($scope, $http, $window) {
-	$scope.cladeFilter = function(clade_name, id) {
+	$scope.cladeFilter = function(clade_name, uri) {
 		return $http.get("/clade_filter.js", {
-       		params: { clade_name: clade_name, uri_id: id }
+       		params: { clade_name: clade_name, uri: uri }
     	}).then(function(response, $compile){
     		var elem = angular.element("div#traits_table");
     		$compile = elem.injector().get('$compile');
