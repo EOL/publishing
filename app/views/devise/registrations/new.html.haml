@@ -1,12 +1,11 @@
-= javascript_include_tag 'users/signup'
-
-%div{'ng-app': 'signupApp'}
+%div
   %h2 
     = I18n.t(:sign_up)
   = form_for resource, url: registration_path(resource_name), 
     html: { name: 'signupForm', 
             'novalidate': 'novalidate',
-            'ng-controller': 'signupValidate',
+             class: "recaptchad",
+            'ng-controller': "signupValidate as ctrl",
             'ng-submit': 'validateForm($event, signupForm)'.html_safe } do |f|
     = devise_error_messages!
     .field
@@ -82,5 +81,5 @@
       %span{class: 'ng-validation-error', 'ng-show': 'recaptchaError'.html_safe}
         = "#{I18n.t('recaptcha_error')}"
     .actions
-      = f.submit I18n.t(:create_account), 'ng-disabled': 'signupForm.$invalid || !recaptchaChecked'
+      = f.submit I18n.t(:create_account), 'ng-disabled': 'signupForm.$invalid || !recaptchaChecked', class: "btn btn-default"
   = render "devise/shared/links"
