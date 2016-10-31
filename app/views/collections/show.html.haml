@@ -1,5 +1,4 @@
-= render 'collection_search', collection: @collection
-
+= render 'collection_header', collection: @collection
 %div.collected_pages
   - if @collection.collected_pages.empty?
     %p= t(:collection_pages_empty)
