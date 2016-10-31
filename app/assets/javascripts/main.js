@@ -104,23 +104,28 @@ if(!EOL) {
         var data = response.data;
         console.log(data);
         console.log(data.length);
-        $.each(data, function(i, match) {
-          var re = new RegExp(query, "i");
-          match.names = [];
-          if(match.scientific_name.match(re)) {
-            match.names += { string: match.scientific_name };
-          };
-          match.names =
-            jQuery.grep(match.preferred_vernaculars, function(e) {
-              return e.string.match(re);
+        if(data.length > 0){
+            $.each(data, function(i, match) {
+              var re = new RegExp(query, "i");
+              match.names = [];
+              if(match.scientific_name.match(re)) {
+                match.names += { string: match.scientific_name };
+              };
+              match.names =
+                jQuery.grep(match.preferred_vernaculars, function(e) {
+                  return e.string.match(re);
+                });
             });
-        });
+        }else{
+            return ["No pages found!"];
+        }
         return data;
       });
     };
 
     $scope.onSelect = function($item, $model, $label, collection_id) {
       if (typeof $item !== 'undefined') {
+        if(typeof $scope.selectedPage.names == 'undefined') return;
         $scope.name = $scope.selectedPage.names[0].string;
         $scope.selected = $item.scientific_name;
         $("div.collected_pages").hide();
