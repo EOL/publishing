@@ -18,7 +18,7 @@
             -# TODO: I18n
             %li= link_to("EOL", "/")
             %li= link_to("About", "/about")
-            %li= link_to("Education", "/education")
+            %li= link_to("Education", "http://education.eol.org/")
             %li= link_to("Donate", "/donate")
             %li.dropdown
               = link_to(("English" + "<span class='caret'></span>").html_safe, "/donate", class: "dropdown-toggle", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" })
@@ -36,12 +36,15 @@
               %li= link_to(t(:layout_sign_up), new_user_registration_path)
           .nav-search.navbar-form.navbar-right
             %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
-              %a{ href: "#" }
-                %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}", height: "33" }
-              %a{ href: "#" }
-                %span{ "ng-bind-html" => "match.model.scientific_name | typeaheadHighlight:query" }
-              %span{ "ng-repeat" => "vern in match.model.preferred_vernaculars",
-                "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+              .autocomplete-result.row
+                .icon.col-md-2
+                  %a{ href: "#" }
+                    %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
+                .names.col-md-10
+                  %a{ href: "#" }
+                    %ul
+                      %li{ "ng-repeat" => "vern in match.model.names",
+                        "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
             %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
               = form_tag(search_path, method: "get", autocomplete: "off") do
                 .input-group
@@ -50,6 +53,7 @@
                     "placeholder" => t(:layout_search_placeholder),
                     "typeahead" => "page for page in querySearch($viewValue)",
                     "typeahead-template-url" => "layoutSearchTemplate.html",
+                    "typeahead-min-length" => 3,
                     "typeahead-loading" => "loadingLocations",
                     "typeahead-on-select" => "onSelect($item, $model, $label)",
                     "typeahead-input-formatter" => "nameOfModel($model)",

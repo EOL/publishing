@@ -1,9 +1,12 @@
 #collected_page.container
   .well
-    - if image = @page.icon
+    - if image = @collected_page.medium_icon_url # || @page.icon
       .collect-image
         = image_tag(image, size: "130x130")
-    %h2.clearfix= t(:collect_title, item: @page.name(Language.current))
+    - if @wants_icon
+      %h2.clearfix= t(:collect_icon_title, item: @collected_page.medium.name, page: @page.name(Language.current))
+    - else
+      %h2.clearfix= t(:collect_title, item: @page.name(Language.current))
     .row
       .col-md-6
         %h3= t(:collect_new_collection_title)
@@ -11,7 +14,12 @@
           = f.label(:name, class: "sr-only")
           = f.text_field(:name, class: "form-control", placeholder: t(:collect_new_collection))
           = f.fields_for :collected_pages do |page_f|
-            = page_f.hidden_field(:page_id, page_id: @collected_page.page_id)
+            - @collection.collected_pages.each do |collected_page|
+              = page_f.hidden_field(:page_id, page_id: collected_page.page_id)
+              - if @wants_icon
+                = page_f.fields_for(:collected_pages_media) do |cpm_fields|
+                  - collected_page.collected_pages_media.each do |medium|
+                    = cpm_fields.hidden_field(:medium_id, medium_id: medium.id)
           = f.submit(t(:button_create), class: "btn btn-default")
       .col-md-6
         %h3= t(:collect_select_collection)
@@ -20,13 +28,20 @@
         - else
           = form_for(@collected_page, html: { class: "form" }) do |f|
             = f.hidden_field(:page_id, page_id: @collected_page.page_id)
-            -# TODO: Nicer formatting, show # of pages, grey-out collections that already have this page...
+            - if @wants_icon
+              = f.fields_for(:collected_pages_media) do |cpm_fields|
+                - @collected_page.collected_pages_media.each do |medium|
+                  = cpm_fields.hidden_field(:medium_id, medium_id: medium.id)
             - now = Time.now
             - current_user.collections.sort_by { |c| [now - (c.updated_at || 10.years.ago), c.name] }.each do |collection|
-              - disable = @bad_collection_ids.include?(collection.id)
+              - included = @bad_collection_ids.include?(collection.id)
+              - disable = (! @wants_icon) && included
               .radio{ class: disable ? "disabled" : nil }
                 = f.radio_button(:collection_id, collection.id, disabled: disable)
                 = f.label(:collection_id, link_to(collection.name, collection))
                 - if disable
                   %span.disabled.danger= t(:collect_already_in_collection)
+                - elsif included
+                  %span.disabled.danger= t(:collect_already_in_collection_will_add_icon, page: @page.name(Language.current))
+
             = f.submit(t(:button_add), class: "btn btn-default")

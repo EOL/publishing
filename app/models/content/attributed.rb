@@ -10,8 +10,6 @@ module Content::Attributed
     belongs_to :bibliographic_citation
     belongs_to :provider, polymorphic: true # User or Resource
 
-    has_many :collection_items, as: :item
-    has_many :collection_item_exemplars, as: :exemplar
-    has_many :collections, through: :collection_items
+    has_many :attributions, as: :content
   end
 end

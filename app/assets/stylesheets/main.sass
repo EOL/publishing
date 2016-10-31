@@ -40,15 +40,17 @@ button a
 #main
   padding-top: 6em
 
-$high_jumbo: #f3f4f5
-$mid_jumbo: #eaecef
-$low_jumbo: #fafbfc
+$high_jumbo: #fafbfc
+$mid_jumbo: #eaebec
+$low_jumbo: #f3f4f5
+$high_crumb: #fbfcfe
+$low_crumb: #f7f7f7
 
 .jumbotron
-  box-shadow: 2px 2px 4px #ccc
+  box-shadow: 4px 4px 16px #eee
   border: 1px solid darken($mid_jumbo, 5%)
-  background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
-  background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 35%, $low_jumbo 100%) /* Most, not old IE */
+  background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
+  background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Most, not old IE */
 
 .actions
   text-align: right
@@ -57,10 +59,36 @@ $low_jumbo: #fafbfc
 .actions button
   margin: 1em 0.3em
 
+.autocomplete-result
+  height: 50px
+  padding-top: 3px
+
+.autocomplete-result .icon
+  padding-left: 22px
+
+.autocomplete-result .icon img
+  width: 44px
+  height: 44px
+
+.autocomplete-result .names
+  margin-left: 0
+
+.autocomplete-result .names ul
+  padding-left: 0
+  list-style-type: none
+
 // FORMS (SITE-WIDE)
 
 form .field
   margin-top: 2em
+
+.actions input[type="submit"]
+  box-shadow: 1px 1px 5px #ccc
+  margin: 1em 0.3em
+  font-weight: 600
+  // TODO: this color shouldn't be hard-coded here; figure out where the "link
+  // blue" comes from and use that.
+  color: rgb(40,53,147)
 
 // PAGE (SPECIES / TAXON / TAXON CONCEPT / CLADE)
 
@@ -80,10 +108,9 @@ form .field
   // Tighter, too:
   padding: 4px 15px
   font-size: 0.9em
-  // And darker:
-  background-color: #e6e6e6
+  background: -webkit-linear-gradient(top, $high_crumb 0%, $low_crumb 100%) /* Chrome10-25, Safari5.1-6 */
   border: 1px solid #ddd
-  box-shadow: 1px 1px 5px #ccc
+  box-shadow: 0.4px 0.4px 1px #ccc
 
 .page-ancestors .breadcrumb li:first-child::before
   content: ""
@@ -99,6 +126,27 @@ form .field
   margin-top: 2em
 
 // MEDIA & GALLERIA (Media browser)
+
+.media label
+  font-weight: 400
+  color: #777
+  margin-bottom: 0
+
+#media_title
+  font-size: 24pt
+  margin-top: 4px
+
+ul.appears_on
+  list-style-type: none
+
+ul.appears_on li:last-child::after
+  content: ""
+
+ul.appears_on li::after
+  content: ","
+
+.media .jumbotron p
+  margin-left: 2em
 
 .galleria-theme-classic
   border-radius: 4px
@@ -146,6 +194,32 @@ form .field
 .primary-name
   font-size: 1.3em
 
+table.collections
+  @extend .table
+  @extend .table-hover
+  @extend .table-bordered
+
+mark
+  font-weight: bold
+
+table.collections .names
+  padding-left: 6px
+
+table.collections .page-ancestors
+  margin-bottom: 1em
+
+table.collections ul.matches
+  list-style-type: none
+
+table.collections ul.matches li
+  display: inline-block
+
+table.collections ul.matches li:last-child::after
+  content: ""
+
+table.collections ul.matches li::after
+  content: ","
+
 .secondary-name
   font-weight: normal
 
@@ -176,7 +250,28 @@ form .field
   text-overflow: ellipsis
 
 .traits_by_page
+  margin-top: 1em
   table-layout: fixed
+
+.traits_by_page th
+  width: 20em
 
 .trait-table-image
   width: 99px
+
+.trait-table-name
+  width: 15em
+
+table.table .meta_trait table
+  margin: 1em 3em
+  @extend .table
+  width: 85%
+  background-color: inherit
+
+.meta_trait table th
+  font-weight: normal
+  width: 20%
+  vertical-align: top
+
+.meta_trait table td
+  width: 80%

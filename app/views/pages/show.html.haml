@@ -1,23 +1,26 @@
 #page.container
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
     .well
+      -# NOTE: it doesn't cache this, so we store it rather than call it over
+      -# and over:
+      - ancestors = @page.native_node.ancestors
       .page-ancestors
         %ol.breadcrumb
-          - @page.native_node.ancestors.each do |node|
+          - ancestors.each do |node|
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
       .row
         .page-names.col-md-9
           %h1= @page.name.titlecase
           %h2= @page.scientific_name.html_safe
           - trophic_strat = begin
-            - @page.glossary[@page.traits.find { |t| t[:predicate] == "http://www.wikidata.org/entity/Q1053008" }[:term]].name
+            - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
           - rescue => e
             -# Do nothing. This code doesn't even belong here. I'm rushing.
           -# TODO: this is all temporary! We need a real solution:
           %p
-            = "The #{@page.name} is a(n) #{trophic_strat} #{@page.native_node.ancestors[0].name} "
-            - if @page.native_node.ancestors[-2]
-              = "in the #{@page.native_node.ancestors[-2].rank.try(:name) || "clade"} #{@page.native_node.ancestors[-2].name}."
+            = "The #{@page.name} is a(n) #{trophic_strat} #{ancestors[0].name} "
+            - if ancestors[-2]
+              = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
             It lives in a variety of habitats around the world.
         %p.col-md-3.actions
           %button.btn.btn-default
@@ -35,7 +38,15 @@
             %tab{ heading: t(:page_article_header) }
               = render("page_article")
           %tab{ heading: "Maps (todo)" }
-          %tab{ heading: "Classification (todo)" }
+          %tab{ heading: "Classification (#{@page.native_node.children.size}) (todo)" }
+            %h2= t(:node_children_header)
+            .page-children
+              - if @page.native_node.children.size > 0
+                %ol
+                  - @page.native_node.children.each do |node|
+                    %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+              - else
+                = t(:node_children_empty)
           %tab{ heading: "Details (todo)" }
           %tab{ heading: "Names (todo)" }
           %tab{ heading: "References & Literature (todo)" }

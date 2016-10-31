@@ -4,42 +4,53 @@ RSpec.describe "pages/show" do
   let(:resource) do
     instance_double("Resource", id: 64333, name: "Short Res Name")
   end
+  let(:lic1) do
+    instance_double("License", name: "Image license name")
+  end
+  let(:image1) do
+    instance_double("Medium", license: lic1, owner: "Owner 1", id: 1,
+      large_size_url: "some_url_580_360.jpg", small_icon_url: "no_matter",
+      original_size_url: "no_matter",
+      name: "Awesome First Image")
+  end
+  let(:image2) do
+    instance_double("Medium", license: lic1, owner: "Owner 2",
+      small_icon_url: "no_matter", original_size_url: "no_matter", id: 2,
+      large_size_url: "another_url_580_360.jpg", name: "Great Second Image")
+  end
 
   let(:page) do
     parent = instance_double("Node", ancestors: [], name: "Parent Taxon",
       canonical_form: "Parent Taxon", page_id: 653421)
-    node = instance_double("Node", ancestors: [parent], name: "SomeTaxon")
-    lic1 = instance_double("License", name: "Image license name")
+    node = instance_double("Node", ancestors: [parent], name: "SomeTaxon",
+      children: [])
     lic2 = instance_double("License", name: "Article license name")
-    image1 = instance_double("Medium", license: lic1, owner: "Owner 1", id: 1,
-      large_size_url: "some_url_580_360.jpg", small_icon_url: "no_matter",
-      original_size_url: "no_matter",
-      name: "Awesome First Image")
-    image2 = instance_double("Medium", license: lic1, owner: "Owner 2",
-      small_icon_url: "no_matter", original_size_url: "no_matter", id: 2,
-      large_size_url: "another_url_580_360.jpg", name: "Great Second Image")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner")
     traits = [
-      { predicate: "http://predic.ate/one", measurement: "657",
-        units: "http://un.its/one", resource_id: resource.id },
-      { predicate: "http://predic.ate/one", term: "http://te.rm/one" },
-      { predicate: "http://predic.ate/two", literal: "literal trait value" } ]
+      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
+        measurement: "657", units: { uri: "http://un.its/one",
+        name: "Units URI" }, resource_id: resource.id },
+      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
+        object_term: { uri: "http://te.rm/one", name: "Term URI" } },
+      { predicate: { uri: "http://predic.ate/two", name: "Uri" },
+        literal: "literal trait value" } ]
     glossary = {
-      "http://predic.ate/one" => instance_double("Uri", name: "Predicate One"),
-      "http://predic.ate/two" => instance_double("Uri", name: "Predicate Two"),
-      "http://un.its/one" => instance_double("Uri", name: "Units URI"),
-      "http://te.rm/one" => instance_double("Uri", name: "Term URI")
+      "http://predic.ate/one" => { name: "Predicate One" },
+      "http://predic.ate/two" => { name: "Predicate Two" },
+      "http://un.its/one" => { name: "Units URI" },
+      "http://te.rm/one" => { name: "Term URI" }
     }
     instance_double("Page", id: 8293, name: "something common", native_node: node,
-      scientific_name: "<i>Nice scientific</i>", media: [image1, image2],
+      scientific_name: "<i>Nice scientific</i>",
       article: article, traits: traits, glossary: glossary,
-      predicates: traits.map { |t| t[:predicate] }, media_count: 2,
-      grouped_traits: traits.group_by { |t| t[:predicate] } )
+      predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
+      grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )
   end
 
   before do
     assign(:page, page)
+    assign(:media, [image1, image2])
     assign(:resources, { resource.id => resource })
   end
 

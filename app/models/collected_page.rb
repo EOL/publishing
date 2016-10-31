@@ -1,9 +1,6 @@
 class CollectedPage < ActiveRecord::Base
   belongs_to :page, inverse_of: :collected_pages
   belongs_to :collection, inverse_of: :collected_pages
-  belongs_to :vernacular
-  belongs_to :scientific_name
-  belongs_to :medium
 
   has_many :collected_pages_media, -> { order(position: :asc) },
     inverse_of: :collected_page
@@ -13,17 +10,24 @@ class CollectedPage < ActiveRecord::Base
 
   acts_as_list scope: :collection
 
-  # For convenience, this is duck-typed from CollectionItem (q.v.)
+  accepts_nested_attributes_for :collected_pages_media, allow_destroy: true
+
+  # For convenience, this is duck-typed from CollectionAssociation (q.v.)
   def item
     page
   end
 
+  # NOTE: we could achieve this with delegation, but: meh. That's not as clear.
   def name
-    vernacular.try(:string) or page.name
+    page.name
   end
 
   def scientific_name_string
-    scientific_name.try(:canonical_form) or page.scientific_name
+    page.scientific_name
+  end
+
+  def medium
+    media.first
   end
 
   def medium_icon_url

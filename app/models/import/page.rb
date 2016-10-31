@@ -4,51 +4,64 @@ class Import::Page
       # Test with:
       # Import::Page.from_file(Rails.root.join("doc", "store-328598.json")) OR
       # Import::Page.from_file("http://beta.eol.org/store-328598.json")
-      file =  if Uri.is_uri?(name.to_s)
-                open(name) { |f| f.read }
-              else
-                File.read(name)
-              end
+      file = if Uri.is_uri?(name.to_s)
+               open(name) { |f| f.read }
+             else
+               File.read(name)
+             end
       parse_page(JSON.parse(file))
       # NOTE: You mmmmmmight want to delete everything before you call this, but
       # I'm skipping that now. Sometimes you won't want to, anyway...
     end
 
-      
+    # TODO: pass a resource here. I started it but got lazy.
+    def create_page(id, node_data, name, canon)
+      @page = Page.where(id: id).first_or_initialize do |pg|
+        pg.id = id
+      end
+      puts "Created page: #{@page.id}"
+      page_node = TraitBank.create_page(@page.id)
+      node = build_node(node_data)
+      @page.native_node = node
+      build_sci_name(ital: name, canon: canon, node: node)
+      @page.save
+      return node, page_node
+    end
+
     def parse_page(data)
       @resource_nodes = {}
-      @page = Page.where(id: data["id"]).first_or_initialize do |pg|
-        pg.id = data["id"]
-      end
-      page_node = TraitBank.create_page(@page.id)
-      # TODO: pass a resource here. I started it but got lazy.
-      node = build_node(data["native_node"])
-      @page.native_node = node
-      build_sci_name(ital: data["native_node"]["scientific_name"],
-        canon: data["native_node"]["canonical_form"], node: node)
+      node, page_node = create_page(data["id"],
+        data["native_node"],
+        data["native_node"]["scientific_name"],
+        data["native_node"]["canonical_form"])
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
-      @page.save
       last_position = 0
-      if data["maps"]
-        data["maps"].each do |m|
-          build_map(m, node, last_position += 1)
-        end
-      end
       if data["articles"]
         data["articles"].each do |a|
+          # Some articles don't have a body:
+          a["body"] ||= "Ooops, body missing"
           build_article(a, node, last_position += 1)
         end
+        puts ".. #{data["articles"].size} articles"
       end
       if data["media"]
         data["media"].each do |m|
           build_image(m, node, last_position += 1)
         end
+        puts ".. #{data["media"].size} media"
+      end
+      if data["maps"]
+        data["maps"].each do |m|
+          build_map(m, node, last_position += 1)
+        end
+        puts ".. #{data["maps"].size} maps"
       end
       if data["collections"]
         data["collections"].each do |c|
           collection = build_collection(c)
           add_page_to_collection(collection)
         end
+        puts ".. #{data["collections"].size} collections"
       end
       if data["traits"]
         data["traits"].each do |t_data|
@@ -59,35 +72,47 @@ class Import::Page
             pred = create_uri(t_data["predicate"])
             units = create_uri(t_data["units"]) if t_data["units"]
             term = create_uri(t_data["term"]) if t_data["term"]
+            obj_page_id = nil
+            if t_data["object_page"]
+              obj_page_id = t_data["object_page"]["id"]
+              create_page(obj_page_id,
+                t_data["object_page"]["node"],
+                t_data["object_page"]["scientific_name"],
+                t_data["object_page"]["canonical_form"])
+            end
+            meta = []
+            t_data["metadata"].each do |md|
+              mpred = create_uri(md["predicate"])
+              next unless mpred
+              munits = create_uri(md["units"]) if md["units"]
+              mmeas = md["measurement"] if md["measurement"]
+              mterm = create_uri(md["term"]) if md["term"]
+              mlit = md["literal"]
+              meta << { predicate: mpred, units: munits, measurement: mmeas,
+                term: mterm, literal: mlit }
+            end
             TraitBank.create_trait(page: page_node,
               supplier: @resource_nodes[resource.id],
               resource_pk: t_data["resource_pk"],
-              scientific_name: t_data["scientific_name"],
-              predicate: pred.uri,
+              scientific_name: t_data["scientific_name"] || @page.scientific_name,
+              predicate: pred,
               source: t_data["source"],
               measurement: t_data["measurement"],
-              units: units ? units.uri : nil,
-              term: term ? term.uri : nil,
+              units: units,
+              object_term: term,
               literal: t_data["literal"],
-              object_page: t_data["object_page"]
+              object_page_id: obj_page_id,
+              metadata: meta
             )
           end
         end
+        puts ".. #{data["traits"].size} traits"
       end
       # TODO json_map ...we don't use it, yet, so leaving for later.
     end
 
     def create_uri(u_data)
-      Uri.where(uri: u_data["uri"]).first_or_create do |uri|
-        uri.name = u_data["name"]
-        uri.uri = u_data["uri"]
-        uri.name = u_data["name"]
-        uri.definition = u_data["definition"]
-        uri.comment = u_data["comment"]
-        uri.attribution = u_data["attribution"]
-        uri.is_hidden_from_overview = u_data["is_hidden_from_overview"]
-        uri.is_hidden_from_glossary = u_data["is_hidden_from_glossary"]
-      end
+      TraitBank.create_term(u_data.symbolize_keys)
     end
 
     # NOTE: collections have no users associated from this scirpt. Doesn't matter
@@ -129,7 +154,8 @@ class Import::Page
     end
 
     def build_map(m_data, node, position)
-      build_content(Map, m_data, node: node, page: @page, position: position)
+      build_content(Medium, m_data, node: node, page: @page, position: position,
+        subclass: :map)
     end
 
     def build_content(klass, c_data, options = {})
@@ -138,7 +164,7 @@ class Import::Page
       # NOTE this only allows us to import ONE version of a single GUID, but
       # that's desirable: the website is intended to only contain published
       # versions of data.
-      if klass.where(guid: c_data["guid"]).exists?
+      content = if klass.where(guid: c_data["guid"]).exists?
         klass.where(guid: c_data["guid"]).first
       else
         resource = build_resource(c_data["provider"])
@@ -147,7 +173,7 @@ class Import::Page
         hash = {
           guid: c_data["guid"],
           resource_pk: c_data["resource_pk"],
-          provider: resource,
+          resource: resource,
           license: build_license(c_data["license"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
           owner: c_data["owner"],
@@ -164,7 +190,9 @@ class Import::Page
         hash[:format] = ext if ext # Not always needed.
         hash[:language] = build_language(c_data["language"]) if
           c_data["language"]
-        content = klass.create(hash)
+        klass.create(hash)
+      end
+      begin
         PageContent.create(
           page: @page,
           source_page: @page,
@@ -172,21 +200,26 @@ class Import::Page
           content: content,
           trust: :trusted
         )
-        # TODO: this wasn't working, and isn't needed yet.
-        # options[:node].ancestors.each do |ancestor|
-        #   # TODO: we will have to figure out a proper algorithm for position. :S
-        #   pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
-        #   pos += 1
-        #   PageContent.create(
-        #     page_id: ancestor.page_id,
-        #     source_page: @page,
-        #     position: pos,
-        #     content: content,
-        #     trust: :trusted
-        #   )
-        # end
-        content
+      rescue
+        puts "don't care"
       end
+      options[:node].ancestors.each do |ancestor|
+        # TODO: we will have to figure out a proper algorithm for position. :S
+        pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
+        pos += 1
+        begin
+          PageContent.create(
+            page_id: ancestor.page_id,
+            source_page: @page,
+            position: pos,
+            content: content,
+            trust: :trusted
+          )
+        rescue
+          puts "don't care"
+        end
+      end
+      content
     end
 
     def build_node(node_data, resource = nil)
@@ -199,11 +232,11 @@ class Import::Page
                   else
                     nil
                   end
-        
-        TraitBank.adjust_node_parent_relationship(node_data["node_id"], 
+
+        TraitBank.adjust_node_parent_relationship(node_data["node_id"],
               node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
               && node_data["parent"]["node_id"]
-        
+
         build_rank(node_data["rank"])
         n.id = node_data["id"],
         n.resource_id = resource.id
@@ -213,7 +246,7 @@ class Import::Page
         # n.rgt = node_data["rgt"]
         n.scientific_name = node_data["scientific_name"] # denormalized
         n.canonical_form = node_data["canonical_form"]
-        n.resource_pk = node_data["resource_pk"]
+        n.resource_pk = node_data["resource_pk"] || node_data["scientific_name"]
         n.source_url = node_data["source_url"]
         n.is_hidden = false
         n.parent_id = parent ? parent.id : nil
@@ -280,6 +313,7 @@ class Import::Page
     end
 
     def build_rank(name)
+      name ||= "unknown" # Sigh.
       Rank.where(name: name).first_or_create do |r|
         r.name = name
       end

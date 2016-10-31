@@ -1,0 +1,49 @@
+- icon ||= page.icon
+- common ||= page.name
+- scientific ||= page.scientific_name
+%tr
+  %td.collection-table-image
+    = link_to(image_tag(icon), page)
+  %td
+    .page-ancestors
+      %ol.breadcrumb
+        - page.native_node.ancestors.each do |node|
+          %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+    .names.d-inline
+      - sci_name = defined?(@q) ? emphasize_match(scientific, @q) : scientific.html_safe
+      - if common.blank?
+        = link_to(sci_name, page, class: "primary-name")
+      - else
+        - if defined?(@q)
+          = link_to(emphasize_match(common.titleize, @q), page, class: "primary-name")
+        - else
+          = link_to(common.titleize.html_safe, page, class: "primary-name")
+        %br/
+        = link_to(sci_name, page, class: "secondary-name")
+    - if defined?(annotation)
+      = annotation
+    - if defined?(media)
+      %br/
+      %row.icons_12_wide
+        - media.each do |medium|
+          - next if medium.medium_icon_url == icon
+          .col-md-1
+            = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
+    - if defined?(@q)
+      %br/
+      %ul.matches
+        -# Other vernaculars that match:
+        - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.each do |name|
+          %li><
+            = "&nbsp;".html_safe
+            = emphasize_match(name.string, @q)
+            = "&nbsp;(#{name.language.code})".html_safe
+        -# Other scientific_names that match:
+        - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
+          %li= emphasize_match(name.canonical_form, @q)
+        -# Resources:
+        - page.resources.uniq.each do |resource|
+          %li
+            = emphasize_match(resource.name, @q)
+            - unless resource.name =~ /#{resource.partner.short_name}/
+              = "(#{emphasize_match(resource.partner.short_name, @q)})"

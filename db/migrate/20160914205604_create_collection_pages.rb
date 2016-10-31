@@ -1,5 +1,6 @@
 class CreateCollectionPages < ActiveRecord::Migration
   def change
+    # NOTE: we removed medium_id and the name stuff.
     create_table :collected_pages do |t|
       t.integer :collection_id, index: true, null: false
       t.integer :page_id, index: true, null: false
@@ -18,6 +19,7 @@ class CreateCollectionPages < ActiveRecord::Migration
       t.integer :position
     end
 
+    # TODO: remove these guys, they are a distraction until we need them.
     create_join_table :collected_pages, :articles do |t|
       t.index :collected_page_id
       t.integer :position

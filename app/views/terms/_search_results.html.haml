@@ -1,0 +1,81 @@
+%table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
+  %tbody
+    - grouped_traits = @object_terms.group_by { |t| t[:page_id] }
+    -# TODO: helper
+    - prev_page_id = nil
+    - grouped_traits.keys.sort.each do |page_id|
+      - TraitBank.sort(grouped_traits[page_id]).each do |trait|
+        %tr{ id: trait[:id] }
+          - page = @object_term_pages[page_id]
+          %th.trait-table-image{ scope: "row" }
+            - if prev_page_id != page_id
+              - if image = page.top_image
+                = link_to(image_tag(image.small_icon_url, alt: page.scientific_name.html_safe, size: "88x88"), page)
+          %th{ scope: "row" }
+            = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
+          %th.trait-table-name{ scope: "row" }
+            - if prev_page_id != page_id
+              .names.d-inline
+                - if page.name
+                  = link_to(page.name.titlecase, page, class: "primary-name")
+                  %br/
+                  = link_to(page.scientific_name.html_safe, page, class: "secondary-name")
+                - else
+                  = link_to(page.scientific_name.html_safe, page, class: "primary-name")
+            - prev_page_id = page_id
+          %td
+            - if trait[:measurement]
+              = trait[:measurement]
+              - if trait[:units]
+                = @glossary[trait[:units][:uri]] ? @glossary[trait[:units][:uri]][:name] : "Nope"
+              - else
+                = trait.inspect
+            - elsif trait[:object_term]
+              = emphasize_match(@glossary[trait[:object_term][:uri]][:name], @q)
+            - elsif trait[:literal]
+              = trait[:literal].html_safe
+            - else
+              Augh! Could not find a displayable value from keys of:
+              = trait.keys.join(", ")
+            - if trait[:meta] || trait[:source]
+              %br/
+              %a.toggle_meta= t(:trait_toggle_details)
+              - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
+              .meta_trait{ id: id }
+                %table
+                  - if trait[:meta]
+                    - trait[:meta].each do |meta_trait|
+                      %tr
+                        %th
+                          = meta_trait[:predicate][:name]
+                        %td
+                          -# NOTE: really, you are ONLY going to get object terms, here, but the rest included for completeness:
+                          - if meta_trait[:measurement]
+                            = meta_trait[:measurement]
+                            - if meta_trait[:units]
+                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Nope"
+                            - else
+                              = meta_trait.inspect
+                          - elsif meta_trait[:object_term]
+                            = @glossary[meta_trait[:object_term][:uri]][:name]
+                          - elsif meta_trait[:literal]
+                            = meta_trait[:literal].html_safe
+                  - if trait[:units] && trait[:units][:definition]
+                    %tr
+                      %th= @glossary[trait[:units][:uri]][:name]
+                      %td
+                        = trait[:units][:uri]
+                        %br/
+                        = trait[:units][:definition].html_safe
+                  - if trait[:source]
+                    %tr
+                      %th
+                        = t(:trait_source)
+                      %td
+                        = trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
+          -# TODO: Make this a proper link just yet. Later.
+          %td.table-source
+            - if resource = @resources[trait[:resource_id]]
+              = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
+            - else
+              t(:resource_missing)

@@ -1,10 +1,27 @@
 # Resetting (for development)
 
+## IF THIS IS YOUR FIRST TIME
+
+It should be safe to re-run this if you're not sure, but you won't want to keep
+doing this every time you load data into neo4j; particularly when it starts to
+fill up.
+
+```bash
+rails r "TraitBank.setup"
+```
+
+## Every Other Time
+
 We should probably eventually add this to seeds, but for the moment, you can do
 this:
 
 ```bash
 rake db:reset
-rails r "TraitBank.nuclear_option! ; Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
+rails r "TraitBank.nuclear_option! "
+
+rails s "Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
+# __OR__
+rails r "Import::Clade.from_file('http://beta.eol.org/store-7665-clade.json')"
+
 bundle exec rake sunspot:reindex
 ```

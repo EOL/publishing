@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "search/search" do
-  context "with results" do
+  context "with page results" do
     before do
       name = instance_double("Vernacular", string: "a common name")
       english = instance_double("English", code: "eng")
@@ -18,59 +18,84 @@ RSpec.describe "search/search" do
       partner = instance_double("Partner", short_name: "Partner One")
       resources = [instance_double("Resource", name: "Resource One",
         partner: partner)]
-      image1 = instance_double("Medium", license: lic, owner: "Owned Here",
-        small_icon_url: "some_image_url_88_88.jpg", name: "Thumbnail Image")
-      page = instance_double("Page", name: "a common name", top_image: image1,
-        scientific_name: scientific_names.first.canonical_form,
-        scientific_names: scientific_names, native_node: node,
-        vernaculars: [name, another_name, nonmatching_name], resources: resources)
+      page = create(:page)
+      allow(page).to receive(:name) { "a common name" }
+      allow(page).to receive(:icon) { "some_image_url_88_88.jpg" }
+      allow(page).to receive(:scientific_name) { scientific_names.first.canonical_form }
+      allow(page).to receive(:scientific_names) { scientific_names }
+      allow(page).to receive(:native_node) { node }
+      allow(page).to receive(:vernaculars) { [name, another_name, nonmatching_name] }
+      allow(page).to receive(:resources) { resources }
       search_results = double("Sunspot::Search", results: [page])
       assign(:pages, search_results)
+      assign(:empty, false)
       assign(:q, "common")
+      render
     end
 
-    it "shows the scientific name" do
-      render
-      # note the titlecase:
-      expect(rendered).to match /Our scientific/
-    end
-
-    it "shows the ancestor names" do
-      render
-      expect(rendered).to match /Ancestor name/
-    end
-
-    it "shows the highlighted common name in title case" do
-      render
-      expect(rendered).to match /A <b>Common<\/b> Name/
-    end
-
-    it "shows other vernaculars where the name matches (with language)" do
-      render
-      expect(rendered).to match /another <b>common<\/b> name\s+\(eng\)/m
-    end
-
-    it "does NOT show other vernaculars without matches" do
-      render
-      expect(rendered).not_to match /name that doesnt match/i
-    end
-
-    it "shows the icon" do
-      render
-      expect(rendered).to match /some_image_url_88_88.jpg/
-    end
+    # NOTE the titlized cases: }
+    it { expect(rendered).to match /Our scientific/ }
+    it { expect(rendered).to match /Ancestor name/ }
+    it { expect(rendered).to match /A <mark>Common<\/mark> Name/ }
+    it { expect(rendered).to match /another <mark>common<\/mark> name\&nbsp\;\(eng\)/m }
+    it { expect(rendered).not_to match /name that doesnt match/i }
+    it { expect(rendered).to match /some_image_url_88_88.jpg/ }
   end
 
   context "with no results" do
     before do
       search_results = double("Sunspot::Search", results: [])
       assign(:pages, search_results)
-      allow(view).to receive(:query_string) { "something" }
+      assign(:empty, true)
+      assign(:q, "nothing")
+      render
     end
 
-    it "shows a message" do
+    it { expect(rendered).to match(/No results found for.*nothing/) }
+  end
+
+  context "with collection results" do
+    before do
+      collection = build(:collection, name: "yo dude",
+        description: "a really LONG description that should be truncated "\
+          "enough that you dont see the capitalized word when searching, dude")
+      search_results = double("Sunspot::Search", results: [collection])
+      assign(:collections, search_results)
+      assign(:empty, false)
+      assign(:q, "dude")
       render
-      expect(rendered).to match /No results found for.*something/
     end
+
+    # NOTE the titlized case:
+    it { expect(rendered).to have_content("Yo Dude") }
+    it { expect(rendered).to match(/Yo <mark>Dude<\/mark>/) }
+    it { expect(rendered).to match(/searching, <mark>dude<\/mark>/) }
+    it { expect(rendered).not_to match(/LONG/) }
+  end
+
+  context "with media results" do
+    before do
+      # Create to avoid an error on the link, sigh:
+      medium = create(:medium, resource_pk: "this_earthling_was_here",
+        name: "greetings earthling", owner: "A random earthling",
+        description: "a really LONG description that should be lost so "\
+          "that you dont see the capitalized word when searching, earthling")
+      allow(medium).to receive(:medium_icon_url) { "some_url_here.jpg" }
+      search_results = double("Sunspot::Search", results: [medium])
+      assign(:media, search_results)
+      assign(:empty, false)
+      assign(:q, "earthling")
+      render
+    end
+
+    it { expect(rendered).to have_content("this_earthling_was_here") }
+    it { expect(rendered).to have_content("A random earthling") }
+    # NOTE the titlized case:
+    it { expect(rendered).to have_content("Greetings Earthling") }
+    it { expect(rendered).to match(/Greetings <mark>Earthling<\/mark>/) }
+    it { expect(rendered).to match(/this_<mark>earthling<\/mark>_was/) }
+    it { expect(rendered).to match(/searching, <mark>earthling<\/mark>/) }
+    it { expect(rendered).to match(/some_url_here.jpg/) }
+    it { expect(rendered).not_to match(/LONG/) }
   end
 end

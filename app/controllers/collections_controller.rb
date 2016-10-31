@@ -1,4 +1,4 @@
-class CollectionsController < ApplicationController
+  class CollectionsController < ApplicationController
   layout "collections"
 
   before_filter :find_collection_with_pages, only: [:edit, :show]
@@ -10,13 +10,14 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
-      collected = (@collection.collection_items + @collection.collected_pages).first
+      # This looks like it could be expensive on big collections. ...but
+      # remember: this is a NEW collection. It will be fast:
+      collected = (@collection.collections + @collection.pages).first
       if collected
-        item = collected.item
-        flash[:notice] = I18n.t(:collection_created_for_item,
-          name: @collection.name, item: item.name,
+        flash[:notice] = I18n.t(:collection_created_for_association,
+          name: @collection.name, associated: collected.name,
           link: collection_path(@collection))
-        redirect_to item
+        redirect_to collected
       else
         flash[:notice] = I18n.t(:collection_created, name: @collection.name)
         redirect_to @collection
@@ -35,6 +36,16 @@ class CollectionsController < ApplicationController
 
   def update
     authorize @collection
+    # This is obnoxious, but Rails can't handle deleting *associations* that
+    # lack primary keys, so we do it manually:
+    # TODO: later.
+    # c_params = collection_params
+    # if c_params["collected_pages_attributes"]
+    #   c_params["collected_pages_attributes"].each do |index, collected_page|
+    #
+    #   end
+    # end
+
     if @collection.update(collection_params)
       flash[:notice] = I18n.t(:collection_updated)
       redirect_to @collection
@@ -47,20 +58,19 @@ class CollectionsController < ApplicationController
   private
 
   def find_collection_with_pages
-    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
       collected_pages: { page: :preferred_vernaculars }).first
   end
 
   def find_collection
-    @collection = Collection.where(id: params[:id]).includes(:collection_items,
+    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
       :collected_pages).first
   end
 
-  # { "name" => "A", "description" => "B", "collected_pages_attributes" => { "0" => {
-  # "id" => "3", "medium_ids" => ["6", "7", "8"], "medium_id" => "5" } } }
   def collection_params
     params.require(:collection).permit(:name, :description,
-      collection_items_attributes: [:item_type, :item_id],
-      collected_pages_attributes: [:id, :page_id, :medium_id, medium_ids: []])
+      collection_associations_attributes: [:associated_id],
+      collected_pages_attributes: [:id, :page_id, :annotation,
+        collected_pages_media_attributes: [:medium_id, :collected_page_id, :_destroy]])
   end
 end

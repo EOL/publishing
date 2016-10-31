@@ -1,0 +1,23 @@
+%script{:src => "//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"}
+#trait.container{ ng: { controller: "PageCtrl as ctrl" } }
+  .jumbotron
+    %h1= @term[:name].titlecase
+    - def_blank = @term[:definition].blank?
+    %h2= @term[:uri]
+    %p.definition{ class: def_blank ? "empty" : nil }
+      - if def_blank
+        = t(:uri_definition_blank)
+      - else
+        = @term[:definition].html_safe
+    - debugger
+    %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
+      %form{ "ng-submit" => "cladeFilter(clade_name, #{URI.encode(#{params[:uri]})})", name: 'traitsForm' }
+        = t(:clade)
+        = text_field_tag("clade", nil,
+          "placeholder" => t(:clade_placeholder),
+          "autocomplete" => "off",
+          "ng-model" => "clade_name",
+          required: true)
+        .input-group-btn
+          = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+  = render 'traits_table', { traits: @grouped_traits, glossary: @glossary, pages: @pages, resources: @resources }

@@ -18,7 +18,6 @@ class Page < ActiveRecord::Base
   has_one :medium, through: :page_icon
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
-  has_many :maps, through: :page_contents, source: :content, source_type: "Map"
   has_many :articles, through: :page_contents,
     source: :content, source_type: "Article"
   has_many :media, through: :page_contents,
@@ -29,10 +28,11 @@ class Page < ActiveRecord::Base
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
   # NOTE: You CANNOT preload both the top article AND the media. This seems to
-  # be a Rails bug, but it is what it is.
+  # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
+  # ancestors; it needs to call the method from the module.
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, page_contents:
-      { content: [:license, :sections] })
+    includes(:preferred_vernaculars, :native_node, media: :license,
+      articles: [:license, :sections])
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
@@ -72,7 +72,6 @@ class Page < ActiveRecord::Base
   end
 
   # Without touching the DB:
-  # NOTE: not used or spec'ed yet.
   def media_count
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
@@ -83,10 +82,10 @@ class Page < ActiveRecord::Base
 
   def top_image
     @top_image ||= begin
-      if medium
-        medium
+      if page_contents.loaded?
+        page_contents.find { |pc| pc.content_type == "Medium" }.try(:content)
       else
-        first_image_content.try(:content)
+        media.first
       end
     end
   end
@@ -127,20 +126,10 @@ class Page < ActiveRecord::Base
   def traits
     return @traits if @traits
     traits = TraitBank.by_page(id)
+    # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
-    @traits = traits.sort do |a,b|
-      a_uri = @glossary[a[:predicate]]
-      b_uri = @glossary[b[:predicate]]
-      if a_uri && b_uri
-        a_uri.name.downcase <=> b_uri.name.downcase
-      elsif a_uri
-        1
-      elsif b_uri
-        -1
-      else
-        0
-      end
-    end
+    # TODO: do we need the sort here?
+    @traits = TraitBank.sort(traits)
   end
 
   def glossary
@@ -150,7 +139,7 @@ class Page < ActiveRecord::Base
   end
 
   def grouped_traits
-    @grouped_traits ||= traits.group_by { |t| t[:predicate] }
+    @grouped_traits ||= traits.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
@@ -170,7 +159,11 @@ class Page < ActiveRecord::Base
   def glossary_names
     @glossary_names ||= begin
       gn = {}
-      glossary.each { |uri, hash| gn[uri] = glossary[uri].try(:name).downcase }
+      glossary.each do |uri, hash|
+        name = glossary[uri][:name] ? glossary[uri][:name].downcase :
+          glossary[uri][:uri].downcase.gsub(/^.*\//, "").humanize.downcase
+        gn[uri] = name
+      end
       gn
     end
   end

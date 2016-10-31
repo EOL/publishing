@@ -14,17 +14,25 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections
-  # TODO: this wasn't working, not sure why.
-#   has_and_belongs_to_many :managed_collections,
-#     class_name: "Collection",
-#     association_foreign_key: "collection_id",
-#     -> { where(is_manager: true) }
+
+  # TODO: we want to pick the real sizes to use, here:
+  has_attached_file :icon, styles: { medium: "130x130>" },
+    default_url: "/images/:style/missing.png"
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+  # LATER: causes errors for now. :S
+  # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
 
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
   DUMMY_EMAIL_FOR_DELETE = "dummy@eol.org"
+
+  searchable do
+    text :username, :boost => 6.0
+    text :name, :boost => 4.0
+    text :tag_line
+    text :bio, :boost => 2.0
+  end
 
   # NOTE: this is a hook called by Devise
   def after_confirmation

@@ -3,7 +3,7 @@
     .col-md-9
       %h1= @collection.name
       - unless @collection.description.blank?
-        %p= @collection.description
+        %p= @collection.description.html_safe
     - if policy(@collection).update?
       %p.col-md-3.actions
         %button.btn.btn-default
@@ -12,40 +12,26 @@
   %p= t(:collection_pages_empty)
 - else
   %h2= t(:collected_pages_title)
-  %table.collection_items.table.table-hover.table-bordered
+  %table.collections
     %tbody
       - @collection.collected_pages.each do |collected_page|
-        - page = collected_page.page
-        %tr
-          %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(collected_page.icon), page)
-          %th{ scope: "row" }
-            .names.d-inline
-              - common = collected_page.name.titleize.html_safe
-              - scientific = collected_page.scientific_name_string.html_safe
-              - if common.blank?
-                = link_to(scientific, page, class: "primary-name")
-              - else
-                = link_to(common, page, class: "primary-name")
-                %br/
-                = link_to(scientific, page, class: "secondary-name")
-            %br/
-            -# - group_num = 0
-            %row.icons_12_wide
-              - collected_page.media.each do |medium|
-                .col-md-1
-                  = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
-- if @collection.collection_items.empty?
-  %p= t(:collection_items_empty)
+        = render("pages/as_row",
+          page: collected_page.page,
+          icon: collected_page.icon,
+          media: collected_page.media,
+          common: collected_page.name,
+          scientific: collected_page.scientific_name_string,
+          annotation: collected_page.annotation)
+- if @collection.collections.empty?
+  %p= t(:collection_associations_empty)
 - else
-  %h2= t(:collection_items_title)
-  %table.collection_items.table.table-hover.table-bordered
+  %h2= t(:collection_associations_title)
+  %table.collections
     %tbody
-      - @collection.collection_items.each do |collection_item|
-        - item = collection_item.item
+      - @collection.collections.each do |collection|
         %tr
           %th.collection-table-image{ scope: "row" }
-            = link_to(image_tag(item.icon), item)
+            = link_to(image_tag(collection.icon), collection)
           %th{ scope: "row" }
             .names.d-inline
-              = link_to(item.name.html_safe, item)
+              = link_to(collection.name.html_safe, collection)

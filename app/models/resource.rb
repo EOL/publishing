@@ -1,11 +1,9 @@
 class Resource < ActiveRecord::Base
   belongs_to :partner, inverse_of: :resources
-  belongs_to :default_language, class_name: "Language"
 
   has_many :nodes, inverse_of: :resource
   has_many :articles, as: :provider
   has_many :links, as: :provider
-  has_many :maps, as: :provider
   has_many :media, as: :provider
 
   enum publish_status: [ :unpublished, :publishing, :published, :deprecated ]
@@ -20,7 +18,6 @@ class Resource < ActiveRecord::Base
         r.content_trusted_by_default = true
         r.is_browsable = true
         r.has_duplicate_nodes = false
-        r.default_language = Language.english
       end
     end
   end
