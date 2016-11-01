@@ -23,8 +23,7 @@
               = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
             It lives in a variety of habitats around the world.
         %p.col-md-3.actions
-          %button.btn.btn-default
-            = link_to(t(:taxon_collect_button), new_collected_page_path(page_id: @page.id))
+          = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "btn btn-default"
       .media
         #gallery
           %h2= t(:page_media_header, count: @page.media_count)
