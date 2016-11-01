@@ -21,7 +21,9 @@
             - else
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
-            = [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.join(", ")
+            %br/
+            - [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.each do |type|
+              %span.trait_type= "(#{type})"
           %td
             - value = t(:trait_missing, keys: trait.keys.join(", "))
             - if trait[:object_page_id]
@@ -69,22 +71,20 @@
                             = meta_trait[:literal].html_safe
                   - if trait[:units] && trait[:units][:definition]
                     %tr
-                      %th= trait[:units][:name]
+                      %th= t(:trait_definition, trait: trait[:units][:name])
                       %td
                         %span.uri_defn= trait[:units][:uri]
                         %br/
-                        = t(:trait_unit_definition)
                         - if trait[:units][:definition].empty?
                           = t(:trait_unit_definition_blank)
                         - else
                           = trait[:units][:definition].html_safe
                   - if trait[:object_term] && trait[:object_term][:definition]
                     %tr
-                      %th= trait[:object_term][:name]
+                      %th= t(:trait_definition, trait: trait[:object_term][:name])
                       %td
                         %span.uri_defn= trait[:object_term][:uri]
                         %br/
-                        = t(:trait_unit_definition)
                         - if trait[:object_term][:definition].empty?
                           = t(:trait_unit_definition_blank)
                         - else
