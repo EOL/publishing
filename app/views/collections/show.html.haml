@@ -6,8 +6,7 @@
         %p= @collection.description.html_safe
     - if policy(@collection).update?
       %p.col-md-3.actions
-        %button.btn.btn-default
-          = link_to(t(:collection_edit_button), edit_collection_path(@collection))
+        = link_to t(:collection_edit_button), edit_collection_path(@collection), class: "btn btn-default"
 - if @collection.collected_pages.empty?
   %p= t(:collection_pages_empty)
 - else

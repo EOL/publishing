@@ -13,8 +13,7 @@
         %p.col-md-3.actions
           = f.submit(class: "btn btn-default")
           %br/
-          %button.btn.btn-default
-            = link_to(t(:cancel), collection_path(@collection))
+          = link_to t(:cancel), collection_path(@collection), class: "btn btn-default"
 
   - if @collection.collected_pages.empty?
     %p= t(:collection_pages_empty)
