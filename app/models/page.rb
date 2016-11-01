@@ -29,9 +29,11 @@ class Page < ActiveRecord::Base
 
   # NOTE: You CANNOT preload both the top article AND the media. This seems to
   # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
-  # ancestors; it needs to call the method from the module.
+  # ancestors; it needs to call the method from the module. NOTE: not loading
+  # media, because for large pages, that's a long query, and we only want one
+  # page. Besides, it's loaded in a separate instance variable...
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, media: :license,
+    includes(:preferred_vernaculars, :native_node,
       articles: [:license, :sections])
   end
 
