@@ -201,7 +201,7 @@ class Import::Page
           trust: :trusted
         )
       rescue
-        puts "don't care"
+        # Don't care
       end
       options[:node].ancestors.each do |ancestor|
         # TODO: we will have to figure out a proper algorithm for position. :S
@@ -216,7 +216,7 @@ class Import::Page
             trust: :trusted
           )
         rescue
-          puts "don't care"
+          # Don't care...
         end
       end
       content

@@ -162,8 +162,10 @@ class TraitBank
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[meta_predicate:predicate]->(meta_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_term"
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
       )
       # Neography recognizes the objects we get back, but the format is weird
       # for building pages, so I transform it here (temporarily, for
@@ -172,7 +174,7 @@ class TraitBank
       # tr[2] && tr[2]["data"]["uri"] ==
       # "http://purl.obolibrary.org/obo/VT_0001259" }
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units, :meta])
+        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
     # The problem is that the results are in a kind of "table" format, where
@@ -195,14 +197,20 @@ class TraitBank
         object_term = get_column_data(:object_term, trait_res, col)
         units = get_column_data(:units, trait_res, col)
         meta_data = get_column_data(:meta, trait_res, col)
+        if meta_data
+          meta_data = meta_data.symbolize_keys
+          meta_data[:predicate] = get_column_data(:meta_predicate, trait_res, col).try(:symbolize_keys)
+          meta_data[:object_term] = get_column_data(:meta_object_term, trait_res, col).try(:symbolize_keys)
+          meta_data[:units] = get_column_data(:meta_units_term, trait_res, col).try(:symbolize_keys)
+        end
         this_id = "trait:#{resource_id}:#{trait["resource_pk"]}"
         this_id += ":#{page["page_id"]}" if page
         if this_id == previous_id
           # the conditional at the end of this phrase actually detects duplicate
           # nodes, which we shouldn't have but I was getting in early tests:
-          traits.last[:metadata] << meta_data.symbolize_keys if meta_data
+          traits.last[:metadata] << meta_data if meta_data
         else
-          trait[:metadata] = meta_data ? [ meta_data.symbolize_keys ] : nil
+          trait[:metadata] = meta_data ? [ meta_data ] : nil
           trait[:page_id] = page["page_id"] if page
           trait[:resource_id] = resource_id if resource_id
           trait[:predicate] = predicate.symbolize_keys if predicate
@@ -276,6 +284,20 @@ class TraitBank
       trait
     end
 
+    def add_metadata_to_trait(trait, options)
+      predicate = parse_term(options.delete(:predicate))
+      units = parse_term(options.delete(:units))
+      object_term = parse_term(options.delete(:object_term))
+      meta = connection.create_node(options)
+      connection.add_label(meta, "MetaData")
+      connection.create_relationship("metadata", trait, meta)
+      connection.create_relationship("predicate", meta, predicate)
+      connection.create_relationship("units_term", meta, units) if units
+      connection.create_relationship("object_term", meta, object_term) if
+        object_term
+      meta
+    end
+
     # Note: I've named this create_node_in_hierarchy as there is another
     # methods called create_node in neography
     def create_node_in_hierarchy(node_id, page_id)
@@ -327,20 +349,6 @@ class TraitBank
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:
       hash["data"].symbolize_keys
-    end
-
-    def add_metadata_to_trait(trait, options)
-      predicate = parse_term(options.delete(:predicate))
-      units = parse_term(options.delete(:units))
-      object_term = parse_term(options.delete(:object_term))
-      trait = connection.create_node(options)
-      connection.add_label(trait, "MetaData")
-      connection.create_relationship("metadata", trait, trait)
-      connection.create_relationship("predicate", trait, predicate)
-      connection.create_relationship("units_term", trait, units) if units
-      connection.create_relationship("object_term", trait, object_term) if
-        object_term
-      trait
     end
 
     def sort_by_values(a, b)
