@@ -21,6 +21,7 @@
             - else
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
+            = [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.join(", ")
           %td
             - value = t(:trait_missing, keys: trait.keys.join(", "))
             - if trait[:object_page_id]
@@ -43,7 +44,7 @@
               = value
             - elsif trait[:literal]
               = trait[:literal].html_safe
-            - if trait[:meta] || trait[:source]
+            - if trait[:meta] || trait[:source] || trait[:object_term] || trait[:units]
               %br/
               %a.toggle_meta= t(:trait_toggle_details)
               - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
@@ -58,24 +59,36 @@
                           - if meta_trait[:measurement]
                             = meta_trait[:measurement]
                             - if meta_trait[:units]
-                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Missing URI"
+                              = meta_trait[:units][:name]
                             - else
+                              = "OOPS:"
                               = meta_trait.inspect
                           - elsif meta_trait[:object_term]
-                            = @glossary[meta_trait[:object_term][:uri]][:name]
+                            = meta_trait[:object_term][:name]
                           - elsif meta_trait[:literal]
                             = meta_trait[:literal].html_safe
                   - if trait[:units] && trait[:units][:definition]
                     %tr
-                      %th= @page.glossary[trait[:units][:uri]][:name]
+                      %th= trait[:units][:name]
                       %td
-                        = trait[:units][:uri]
+                        %span.uri_defn= trait[:units][:uri]
                         %br/
                         = t(:trait_unit_definition)
                         - if trait[:units][:definition].empty?
                           = t(:trait_unit_definition_blank)
                         - else
                           = trait[:units][:definition].html_safe
+                  - if trait[:object_term] && trait[:object_term][:definition]
+                    %tr
+                      %th= trait[:object_term][:name]
+                      %td
+                        %span.uri_defn= trait[:object_term][:uri]
+                        %br/
+                        = t(:trait_unit_definition)
+                        - if trait[:object_term][:definition].empty?
+                          = t(:trait_unit_definition_blank)
+                        - else
+                          = trait[:object_term][:definition].html_safe
                   - if trait[:source]
                     %tr
                       %th= t(:trait_source)
