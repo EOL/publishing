@@ -100,10 +100,7 @@ if(!EOL) {
       return $http.get("/collected_pages/search.json", {
         params: { q: query + "*", collection_id: collection_id }
       }).then(function(response){
-          console.log(query);
         var data = response.data;
-        console.log(data);
-        console.log(data.length);
         if(data.length > 0){
             $.each(data, function(i, match) {
               var re = new RegExp(query, "i");
@@ -117,7 +114,7 @@ if(!EOL) {
                 });
             });
         }else{
-            return ["No pages found!"];
+            data =  [{names: {string: "No pages found!" }}];
         }
         return data;
       });
@@ -125,7 +122,7 @@ if(!EOL) {
 
     $scope.onSelect = function($item, $model, $label, collection_id) {
       if (typeof $item !== 'undefined') {
-        if(typeof $scope.selectedPage.names == 'undefined') return;
+        if(typeof $scope.selectedPage.names[0] === 'undefined') return;
         $scope.name = $scope.selectedPage.names[0].string;
         $scope.selected = $item.scientific_name;
         $("div.collected_pages").hide();
@@ -261,9 +258,8 @@ var recaptchaError = false;
 function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
-  var $scope = angular.element(appElement).scope;
-  console.log("Recaptcha checked");
-  $scope.apply(function() {
+  var $scope = angular.element(appElement).scope();
+  $scope.$apply(function() { 
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;
   });
