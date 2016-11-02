@@ -20,6 +20,8 @@ class Collection < ActiveRecord::Base
 
   validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
   validates :name, presence: true
+  
+  enum collection_type: [ :normal, :gallery ]
 
   searchable do
     text :name, :boost => 3.0
