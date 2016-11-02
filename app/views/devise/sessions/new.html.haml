@@ -2,7 +2,7 @@
   %h2= t(:sign_in)
   = form_for(resource, as: resource_name, url: session_path(resource_name),
               html: { name: 'loginForm', class: "recaptchad",
-                      'ng-submit': 'validateForm($event, loginForm)'.html_safe}) do |f|
+              'ng-submit': 'validateForm($event, loginForm)'.html_safe}) do |f|
     .field
       = f.label :email
       %br/
@@ -19,7 +19,7 @@
       %br/
       = f.password_field :password, autocomplete: "off", 'ng-model': 'password', required: "true"
       %span{class: 'ng-validation-error',
-            'ng-show': "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched )".html_safe}
+            'ng-show': "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched || showErrors)".html_safe}
         = I18n.t('users.validations.empty_password_error')
     .field
       = f.check_box :remember_me
@@ -30,5 +30,4 @@
         = I18n.t(:recaptcha_error)
     .actions
       = f.submit I18n.t(:sign_in), 'ng-disabled': " loginForm.$invalid || !recaptchaChecked", class: "btn btn-default"
-
-= render "devise/shared/links"
+= render "devise/shared/links
