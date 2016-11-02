@@ -71,6 +71,8 @@ gem 'angular_rails_csrf'
 # Pagination:
 gem 'kaminari', "~> 0.17"
 
+gem 'Bootstrap-Image-Gallery-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
