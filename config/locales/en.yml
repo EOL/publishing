@@ -68,6 +68,7 @@ en:
   medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
+  no_pages_found: 'No pages found'
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
@@ -90,6 +91,7 @@ en:
   search_collections_title: "Collections"
   search_user_match_bio: "Matches the user's biography:"
   search_user_match_tag_line: "Matches the user's tag line:"
+  search_in_collection: "Search in Collection.."
   search_medium_match_description: "Matches the description:"
   search_medium_match_resource_pk: "Matches the external ID:"
   search_medium_match_owner: "Matches the copyright holder:"

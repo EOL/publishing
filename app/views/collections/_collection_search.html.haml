@@ -8,24 +8,19 @@
         %a{ href: "#" }
           %ul
             %li{ "ng-repeat" => "vern in match.model.names",
-              "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
-  .row
-    .col-md-9
-      %div{ "ng-controller": "collectionSearchCtrl as ctrl", "layout": "column" }
-        = form_tag("#", method: :get) do
-          .input-group.collection_search
-            = text_field_tag("q","",
-              "ng-model": "selectedPage",
-              "placeholder": "{{name || 'Search in collection' }}",
-              "typeahead": "page for page in querySearch($viewValue, #{collection.id})",
-              "typeahead-template-url": "layoutSearchTemplate.html",
-              "typeahead-min-length": 3,
-              "typeahead-on-select": "onSelect($item, $model, $label, #{collection.id})",
-              "typeahead-input-formatter": "nameOfModel($model)",
-              "class": "form-control",
-              "autocomplete": "off")
-            .input-group-btn
-              = submit_tag "Go", class: "btn btn-default", "ng-click": "querySearch(selectedPage, #{collection.id})"
-            .col-md-9.clear_search
-              = link_to "clear search",  collection_path(collection), 
-               "ng-click": "clearSearch()", "ng-show": "showClearSearch"
+              "ng-bind-html" => " vern.string ? ( vern.string + ' (' + vern.language.code + ')' | typeaheadHighlight:query) : '#{I18n.t(:no_pages_found)}' " }
+  %div.row.col-md-20{ "ng-controller": "collectionSearchCtrl as ctrl", "layout": "column" }
+    .input-group.collection_search
+      = text_field_tag("q","",
+        "ng-model": "selectedPage",
+        "placeholder": "{{name || '#{I18n.t(:search_in_collection)}' }}",
+        "typeahead": "page for page in querySearch($viewValue, #{collection.id})",
+        "typeahead-template-url": "layoutSearchTemplate.html",
+        "typeahead-min-length": 3,
+        "typeahead-on-select": "onSelect($item, $model, $label, #{collection.id})",
+        "typeahead-input-formatter": "nameOfModel($model)",
+        "class": "form-control",
+        "autocomplete": "off")
+    .clear_search
+      = link_to "clear search",  collection_path(collection), 
+       "ng-click": "clearSearch()", "ng-show": "showClearSearch"
