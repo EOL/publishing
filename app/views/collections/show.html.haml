@@ -1,21 +1,14 @@
-.jumbotron
-  .row
-    .col-md-9
-      %h1= @collection.name
-      - unless @collection.description.blank?
-        %p= @collection.description.html_safe
-    - if policy(@collection).update?
-      %p.col-md-3.actions
-        = link_to t(:collection_edit_button), edit_collection_path(@collection), class: "btn btn-default"
-- if @collection.collected_pages.empty?
-  %p= t(:collection_pages_empty)
-- else
-  %h2= t(:collected_pages_title)
-  %div
-    - if @collection.normal?
-      = render("normal", collection: @collection)
-    - else
-      = render("gallery", collection: @collection)
+= render 'collection_header', collection: @collection
+%div.collected_pages
+  - if @collection.collected_pages.empty?
+    %p= t(:collection_pages_empty)
+  - else
+    %h2= t(:collected_pages_title)
+    %div
+      - if @collection.normal?
+        = render("normal", collection: @collection)
+      - else
+        = render("gallery", collection: @collection)
 %div.collection_association
   - if @collection.collections.empty?
     %p= t(:collection_associations_empty)
@@ -30,3 +23,4 @@
             %th{ scope: "row" }
               .names.d-inline
                 = link_to(collection.name.html_safe, collection)
+%div.search_results
