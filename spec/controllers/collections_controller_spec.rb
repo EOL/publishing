@@ -109,6 +109,9 @@ RSpec.describe CollectionsController do
     end
 
     context "with a failure" do
+      
+      let(:collection_attributes) { attributes_for(:collection) }
+      
       it "redirects with flash" do
         allow(controller).to receive(:current_user) { user }
         collection.users << user
