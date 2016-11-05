@@ -89,7 +89,7 @@ RSpec.describe CollectionsController do
         allow(controller).to receive(:current_user) {nil}
         get :edit, id: collection.id
         expect(response).to redirect_to(collection)
-        expect(flash[:error]).not_to be_nilR
+        expect(flash[:error]).not_to be_nil
        end
     end
   end
