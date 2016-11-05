@@ -61,4 +61,9 @@ class User < ActiveRecord::Base
   def can_delete_account? (user)
     self.is_admin? || self == user
   end
+
+  def can_edit_collection?(collection)
+    self.collections.include?(collection)
+  end
+
 end
