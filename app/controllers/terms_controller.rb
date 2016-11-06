@@ -13,7 +13,10 @@ class TermsController < ApplicationController
     # Make a glossary:
     @glossary = TraitBank.glossary(traits)
     @resources = TraitBank.resources(traits)
-
+    paginate_traits(traits)    
+  end
+  
+  def paginate_traits(traits)
     group_traits = traits.group_by { |t| t[:page_id] }
     keys = group_traits.keys.sort
     @grouped_traits = []
@@ -27,7 +30,7 @@ class TermsController < ApplicationController
   def clade_filter
     pages = {}
     solr_matched_clade = Page.search {fulltext params[:clade_name]}.results.first
-    debugger
+    # debugger
     #for convention sake
     if solr_matched_clade
       pages[solr_matched_clade.id] = solr_matched_clade
@@ -38,7 +41,7 @@ class TermsController < ApplicationController
     respond_to do |fmt|
       fmt.html
       fmt.js do
-        render partial: 'traits_table', locals: {:traits => traits ? traits : [], :glossary => glossary, :pages => pages, :resources => resources}
+        render partial: 'traits_table', locals: {:traits => traits ? paginate_traits(traits) : [], :glossary => glossary, :pages => pages, :resources => resources}
       end
     end
   end
