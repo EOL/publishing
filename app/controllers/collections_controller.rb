@@ -1,8 +1,10 @@
   class CollectionsController < ApplicationController
   layout "collections"
 
+  before_filter :sanitize_collection_params
   before_filter :find_collection_with_pages, only: [:edit, :show]
   before_filter :find_collection, only: [:update]
+  before_filter :user_able_to_edit_collection, only: [:edit]
 
   # TODO: You cannot do this without being logged in.
   def create
@@ -68,9 +70,20 @@
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :description,
+    params.require(:collection).permit(:name, :description, :collection_type,
       collection_associations_attributes: [:associated_id],
       collected_pages_attributes: [:id, :page_id, :annotation,
         collected_pages_media_attributes: [:medium_id, :collected_page_id, :_destroy]])
+  end
+  
+  def sanitize_collection_params
+    params[:collection][:collection_type] = Collection.collection_types[params[:collection][:collection_type]] if params[:collection]
+  end
+
+  def user_able_to_edit_collection
+    unless @collection && current_user.try(:can_edit_collection?,@collection)
+      redirect_to collection_path(@collection), flash: { error:  I18n.t(:collection_unauthorized_edit) }
+    end
+    return true
   end
 end
