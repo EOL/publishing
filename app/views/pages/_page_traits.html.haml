@@ -80,8 +80,6 @@
                     %tr
                       %th= t(:trait_source)
                       %td= trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
-            - else
-              = value
           -# TODO: make this a proper link
           %td.table-source
             - if resource = @resources[trait[:resource_id]]

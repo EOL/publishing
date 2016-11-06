@@ -83,6 +83,15 @@ RSpec.describe CollectionsController do
       get :edit, id: collection.id
       expect(assigns(:collection)).to eq(collection)
     end
+
+    context 'non-authorized users' do
+      it 'restricts access to edit page' do
+        allow(controller).to receive(:current_user) {nil}
+        get :edit, id: collection.id
+        expect(response).to redirect_to(collection)
+        expect(flash[:error]).not_to be_nil
+       end
+    end
   end
 
   describe "#update" do
@@ -109,6 +118,9 @@ RSpec.describe CollectionsController do
     end
 
     context "with a failure" do
+      
+      let(:collection_attributes) { attributes_for(:collection) }
+      
       it "redirects with flash" do
         allow(controller).to receive(:current_user) { user }
         collection.users << user

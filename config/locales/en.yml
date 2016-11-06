@@ -38,6 +38,8 @@ en:
   collection_edit_button: "edit collection"
   collection_user_is_admin: "This user is an admin."
   collection_pages_empty: "This collection has no pages in it. Try clicking on the \"collect\" button on species pages to add some items!"
+  collection_search_title: "search results for \"%{q}\""
+  collection_unauthorized_edit: "Owner user only can edit this collection."
   collection_updated: "Collection updated."
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
@@ -71,6 +73,7 @@ en:
   medium_header_description: "Description:"
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
+  no_pages_found: 'No pages found'
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
@@ -95,6 +98,7 @@ en:
   search_collections_title: "Collections"
   search_user_match_bio: "Matches the user's biography:"
   search_user_match_tag_line: "Matches the user's tag line:"
+  search_in_collection: "Search in Collection.."
   search_medium_match_description: "Matches the description:"
   search_medium_match_resource_pk: "Matches the external ID:"
   search_medium_match_owner: "Matches the copyright holder:"
@@ -105,6 +109,7 @@ en:
   sign_up: "Sign up"
   signature_basic: "The Encyclopedia of Life Team"
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
+  did_not_receive_confirmation_instructions: "Did't receive confirmation instructions"
   sign_in_up_with_facebook: "%{action} with Facebook"
   sign_in_up_with_google_oauth2: "%{action} with Google"
   sign_in_up_with_twitter: "%{action} with Twitter"

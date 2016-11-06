@@ -19,6 +19,8 @@ RSpec.describe "collections/edit" do
     it { expect(rendered).to have_selector("form#edit_collection_#{collection.id}") }
     it { expect(rendered).to have_selector("input#collection_name") }
     it { expect(rendered).to have_selector("textarea#collection_description") }
+    it { expect(rendered).to have_selector("input#collection_collection_type_normal") }
+    it { expect(rendered).to have_selector("input#collection_collection_type_gallery") }
     it { expect(rendered).to match(collected_page.name) }
     it { expect(rendered).to match(collected_page.scientific_name_string) }
     it { expect(rendered).to match(I18n.t(:collected_pages_title)) }
