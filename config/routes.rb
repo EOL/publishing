@@ -16,7 +16,12 @@ Rails.application.routes.draw do
   # All of the "normal" resources:
   resources :collections
   resources :collection_associations, only: [:new, :create]
-  resources :collected_pages, only: [:new, :create]
+  resources :collected_pages, only: [:new, :create] do
+    collection do
+      get "search", defaults: { format: "json" }
+      get "search_results"
+    end
+  end
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
