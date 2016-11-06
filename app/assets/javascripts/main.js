@@ -294,9 +294,6 @@ function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
   var $scope = angular.element(appElement).scope;
-  console.log("Recaptcha checked");
-  $scope.apply(function() {
-  var $scope = angular.element(appElement).scope();
   $scope.$apply(function() { 
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;

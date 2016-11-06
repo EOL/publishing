@@ -224,6 +224,7 @@ class TraitBank
 
     def glossary(traits)
       uris = {}
+      debugger
       traits.each do |trait|
         [:predicate, :units, :object_term].each do |type|
           next unless trait[type] && trait[type].is_a?(Hash)
@@ -288,7 +289,9 @@ class TraitBank
 
     def adjust_node_parent_relationship(node_id, parent_id)
       node = get_node(node_id)
+      debugger
       parent_node = get_node(parent_id)
+      debugger
       connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
     end
 
@@ -316,7 +319,7 @@ class TraitBank
           "RETURN resource, trait, page, predicate, object_term, units, meta"
         )
         debugger
-        traits << build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
+        traits += build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
           :units, :meta])
       end
       traits
@@ -399,6 +402,7 @@ class TraitBank
     end
 
     def term_as_hash(uri)
+      debugger
       hash = term(uri)
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:
