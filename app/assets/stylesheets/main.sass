@@ -17,6 +17,9 @@ $base-color: rgb(51, 51, 51)
 .btn:focus
   background-color: rgb(147,147,147)
 
+a:hover
+  cursor: pointer
+
 button
   box-shadow: 1px 1px 5px #ccc
 
@@ -55,6 +58,13 @@ $low_crumb: #f7f7f7
 .actions
   text-align: right
   padding-top: 1.3em
+
+.actions a
+  box-shadow: 1px 1px 5px #ccc
+  color: #283593
+  font-weight: 600
+  margin: 1em 0.3em
+  font-family: Roboto,"Helvetica Neue",sans-serif
 
 .actions button
   margin: 1em 0.3em
@@ -226,6 +236,14 @@ table.collections ul.matches li::after
 .icons_12_wide .col-md-1
   margin: 0.5em
 
+.clear_search
+  display: inline-block
+  width: 20%
+
+.collection_search
+  display: inline-block
+  width: 80%
+
 // MEDIA
 
 .description-blank
@@ -237,6 +255,9 @@ table.collections ul.matches li::after
 .media-image img
   box-shadow: 4px 4px 12px #888
   margin: 3em
+  
+.collection_association
+  clear: left
 
 // TRAITS
 
