@@ -124,6 +124,21 @@ if(!EOL) {
       }
     };
   }
+  
+  // fix the autofill problem in password fields
+  app.directive('autofill', function () {
+	    return {
+	        require: 'ngModel',
+	        link: function (scope, element, attrs, ngModel) {
+	            scope.$watch(function () {
+	              return element.val();
+	            }, function(nv, ov) {
+	              if(nv !== ov)
+	                ngModel.$setViewValue(nv);
+	            });
+	        }
+	    };
+	});
 
   //custom validation for password match
   app.directive('passwordMatch', function () {
