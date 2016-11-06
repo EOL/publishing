@@ -93,3 +93,4 @@ vendor/eol_org
 tags
 public/files/solr_import_file.csv
 log/*gz
+.byebug_history
