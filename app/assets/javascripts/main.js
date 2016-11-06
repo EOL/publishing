@@ -48,9 +48,11 @@ if(!EOL) {
   // $(document).on("page:restore", function() { EOL.initialize(); });
 
   app.controller("SearchCtrl", SearchCtrl);
+  app.controller("collectionSearchCtrl", collectionSearchCtrl);
   app.controller("PageCtrl", PageCtrl);
   app.controller("loginValidate", LoginCtrl);
   app.controller('signupValidate', SignupCtrl);
+  app.controller('ConfirmDeleteCtrl', ConfirmDeleteCtrl);
 
   function SearchCtrl ($scope, $http, $window) {
     $scope.selected = undefined;
@@ -91,6 +93,65 @@ if(!EOL) {
     };
   }
 
+  function collectionSearchCtrl ($scope, $http) {
+    $scope.selected = undefined;
+    $scope.showClearSearch = false;
+
+    $scope.querySearch = function(query, collection_id) {
+      return $http.get("/collected_pages/search.json", {
+        params: { q: query + "*", collection_id: collection_id }
+      }).then(function(response){
+        var data = response.data;
+        if(data.length > 0){
+            $.each(data, function(i, match) {
+              var re = new RegExp(query, "i");
+              match.names = [];
+              if(match.scientific_name.match(re)) {
+                match.names += { string: match.scientific_name };
+              };
+              match.names =
+                jQuery.grep(match.preferred_vernaculars, function(e) {
+                  return e.string.match(re);
+                });
+            });
+        }else{
+            data =  [{names: {string: "No pages found!" }}];
+        }
+        return data;
+      });
+    };
+
+    $scope.onSelect = function($item, $model, $label, collection_id) {
+      if (typeof $item !== 'undefined') {
+        if(typeof $scope.selectedPage.names[0] === 'undefined') return;
+        $scope.name = $scope.selectedPage.names[0].string;
+        $scope.selected = $item.scientific_name;
+        $("div.collected_pages").hide();
+        $http.get("/collected_pages/search_results" , {
+        params: { q: $scope.name  , collection_id: collection_id}
+      }).then(function(response){
+        var data = response.data;
+        document.querySelector('div.search_results').innerHTML= response.data;
+        $scope.showClearSearch = true;
+        return data;
+      });
+      }
+    };
+
+    $scope.nameOfModel = function($model) {
+      if (typeof $item === 'undefined') {
+        return "";
+      } else {
+        return $model.scientific_name.replace(/<\/?i>/g, "");
+      }
+    };
+
+    $scope.clearSearch = function() {
+      $("div.collected_pages").hide();
+      $('div.search_results').remove();
+      $scope.showClearSearch = false;
+    };
+  }
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
@@ -206,6 +267,25 @@ if(!EOL) {
       };
   }
 
+  function ConfirmDeleteCtrl ($scope, $mdDialog, $mdMedia, $http, $window){
+  	   $scope.showConfirm = function(ev,user_id, msg) {
+  	    var confirm = $mdDialog.confirm()
+        .textContent(msg)
+        .targetEvent(ev)
+        .ok('ok')
+        .cancel('cancel');
+        $mdDialog.show(confirm).then(function() {	
+          $http({
+            method : 'POST',
+            url :'/users/delete_user?id=' + user_id.toString()
+           }).then(
+             function mySucces(response){
+               console.log("The response"+ response);
+               $window.location.href = "http://"+ $window.location.host;
+           });
+        });
+  	   };
+  }
 }());
 
 var recaptchaError = false;
@@ -214,8 +294,7 @@ function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
   var $scope = angular.element(appElement).scope();
-  console.log("Recaptcha checked");
-  $scope.$apply(function() {
+  $scope.$apply(function() { 
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;
   });
