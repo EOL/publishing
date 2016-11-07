@@ -1,4 +1,6 @@
 class TermsController < ApplicationController
+  helper :traits
+
   def show
     @term = TraitBank.term_as_hash(params[:uri])
     traits = TraitBank.by_predicate(@term[:uri])
