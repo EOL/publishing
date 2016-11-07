@@ -4,15 +4,12 @@
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %table.collections
-      %tbody
-        - @collection.collected_pages.each do |collected_page|
-          = render("pages/as_row",
-            page: collected_page.page,
-            icon: collected_page.icon,
-            media: collected_page.media,
-            common: collected_page.name,
-            scientific: collected_page.scientific_name_string)
+    %div
+      - if @collection.normal?
+        = render("normal", collection: @collection)
+      - else
+        = render("gallery", collection: @collection)
+%div.collection_association
   - if @collection.collections.empty?
     %p= t(:collection_associations_empty)
   - else
@@ -27,4 +24,3 @@
               .names.d-inline
                 = link_to(collection.name.html_safe, collection)
 %div.search_results
-

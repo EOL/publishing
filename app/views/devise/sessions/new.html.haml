@@ -17,7 +17,7 @@
     %div
       = f.label :password
       %br/
-      = f.password_field :password, autocomplete: "off", 'ng-model': 'password', required: "true"
+      = f.password_field :password, autocomplete: "off", 'ng-model': 'password', required: "true", 'autofill': ''
       %span{class: 'ng-validation-error',
             'ng-show': "loginForm['user[password]'].$invalid && (loginForm['user[password]'].$touched || showErrors)".html_safe}
         = I18n.t('users.validations.empty_password_error')
