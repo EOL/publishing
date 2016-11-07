@@ -33,7 +33,7 @@ class Page < ActiveRecord::Base
   # media, because for large pages, that's a long query, and we only want one
   # page. Besides, it's loaded in a separate instance variable...
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node,
+    includes(:preferred_vernaculars, :native_node, :medium,
       articles: [:license, :sections])
   end
 
@@ -84,7 +84,9 @@ class Page < ActiveRecord::Base
 
   def top_image
     @top_image ||= begin
-      if page_contents.loaded?
+      if medium
+        medium
+      elsif page_contents.loaded?
         page_contents.find { |pc| pc.content_type == "Medium" }.try(:content)
       else
         media.first

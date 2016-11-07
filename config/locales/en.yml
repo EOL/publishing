@@ -74,6 +74,8 @@ en:
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
   page_media_header: "Media (%{count})"
+  page_title: "Encyclopedia of Life"
+  page_title_search: "Search: %{query}"
   page_traits_header: "Trait Data (%{count})"
   password: "Password"
   password_confirmation: "Password confirmation"

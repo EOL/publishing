@@ -107,6 +107,27 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
+   # NOTE: given one of the "res" sets here, you can find a particular trait
+   # with this: trait_res = results["data"].find { |tr| tr[2] &&
+   # tr[2]["data"]["uri"] == "http://purl.obolibrary.org/obo/VT_0001259" }
+    def by_page(page_id)
+      # TODO: add proper pagination!
+      res = connection.execute_query(
+        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term "\
+        "LIMIT 2000"
+      )
+      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
+        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+    end
+
     def by_predicate(predicate)
       # TODO: pull in more for the metadata...
       res = connection.execute_query(
@@ -115,11 +136,13 @@ class TraitBank
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta"
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "RETURN resource, trait, page, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-        :units, :meta])
+        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
     def by_object_term_uri(object_term)
@@ -130,11 +153,13 @@ class TraitBank
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta"
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "RETURN resource, trait, page, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-        :units, :meta])
+        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
     def page_exists?(page_id)
@@ -154,35 +179,14 @@ class TraitBank
       res["data"]
     end
 
-    def by_page(page_id)
-      # TODO: add the three pair types for metadata!
-      res = connection.execute_query(
-        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
-      )
-      # Neography recognizes the objects we get back, but the format is weird
-      # for building pages, so I transform it here (temporarily, for
-      # simplicity). NOTE: given one of the "res" sets here, you can find a
-      # particular trait with this: trait_res = results["data"].find { |tr|
-      # tr[2] && tr[2]["data"]["uri"] ==
-      # "http://purl.obolibrary.org/obo/VT_0001259" }
-      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
-    end
-
-    # The problem is that the results are in a kind of "table" format, where
-    # columns on the left are duplicated to allow for multiple values on the
-    # right. This detects those duplicates to add them (as an array) to the
-    # trait, and adds all of the other data together into one object meant to
-    # represent a single trait, and then returns an array of those traits. It's
-    # really not as complicated as it seems! This is mostly bookkeeping.
+    # Neography recognizes the objects we get back, but the format is weird for
+    # building pages, so I transform it here (temporarily, for simplicity). The
+    # problem is that the results are in a kind of "table" format, where columns
+    # on the left are duplicated to allow for multiple values on the right. This
+    # detects those duplicates to add them (as an array) to the trait, and adds
+    # all of the other data together into one object meant to represent a single
+    # trait, and then returns an array of those traits. It's really not as
+    # complicated as it seems! This is mostly bookkeeping.
     def build_trait_array(results, col_array)
       traits = []
       previous_id = nil
