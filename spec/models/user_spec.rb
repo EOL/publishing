@@ -99,7 +99,7 @@ RSpec.describe User, type: :model do
     end
 
     context "soft delete user" do
-
+      let(:old_password) {current_user.password}
       before { current_user.soft_delete }
 
       it "should deactivate the user" do
@@ -111,11 +111,11 @@ RSpec.describe User, type: :model do
       end
 
       it "should set email to nil" do
-        expect(current_user.email).to eq("dummy@eol.org")
+        expect(current_user.email).to eq("dummy_#{current_user.id}@eol.org")
       end
 
       it "should set password to nil" do
-        expect(current_user.encrypted_password).to be_nil
+        expect(current_user.encrypted_password).not_to eq(old_password)
       end
     end
   end

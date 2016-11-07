@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
 
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
-  DUMMY_EMAIL_FOR_DELETE = "dummy@eol.org"
 
   searchable do
     text :username, :boost => 6.0
@@ -45,8 +44,9 @@ class User < ActiveRecord::Base
 
   def soft_delete
     self.skip_reconfirmation!
-    self.update_attributes!(deleted_at: Time.current, email: DUMMY_EMAIL_FOR_DELETE,
-      encrypted_password: nil, active: false)
+    Devise.send_password_change_notification = false
+    self.update_attributes!(deleted_at: Time.current, email: dummy_email_for_delete,
+      encrypted_password: SecureRandom.hex(8), active: false)
   end
 
   # def email_required?
@@ -61,4 +61,14 @@ class User < ActiveRecord::Base
   def can_delete_account? (user)
     self.is_admin? || self == user
   end
+
+  def can_edit_collection?(collection)
+    self.collections.include?(collection)
+  end
+
 end
+
+private
+  def dummy_email_for_delete
+    "dummy_#{self.id}@eol.org"
+  end

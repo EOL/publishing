@@ -52,6 +52,7 @@ if(!EOL) {
   app.controller("PageCtrl", PageCtrl);
   app.controller("loginValidate", LoginCtrl);
   app.controller('signupValidate', SignupCtrl);
+  app.controller('ConfirmDeleteCtrl', ConfirmDeleteCtrl);
 
   function SearchCtrl ($scope, $http, $window) {
     $scope.selected = undefined;
@@ -184,6 +185,21 @@ if(!EOL) {
       }
     };
   }
+  
+  // fix the autofill problem in password fields
+  app.directive('autofill', function () {
+	    return {
+	        require: 'ngModel',
+	        link: function (scope, element, attrs, ngModel) {
+	            scope.$watch(function () {
+	              return element.val();
+	            }, function(nv, ov) {
+	              if(nv !== ov)
+	                ngModel.$setViewValue(nv);
+	            });
+	        }
+	    };
+	});
 
   //custom validation for password match
   app.directive('passwordMatch', function () {
@@ -251,6 +267,25 @@ if(!EOL) {
       };
   }
 
+  function ConfirmDeleteCtrl ($scope, $mdDialog, $mdMedia, $http, $window){
+  	   $scope.showConfirm = function(ev,user_id, msg) {
+  	    var confirm = $mdDialog.confirm()
+        .textContent(msg)
+        .targetEvent(ev)
+        .ok('ok')
+        .cancel('cancel');
+        $mdDialog.show(confirm).then(function() {	
+          $http({
+            method : 'POST',
+            url :'/users/delete_user?id=' + user_id.toString()
+           }).then(
+             function mySucces(response){
+               console.log("The response"+ response);
+               $window.location.href = "http://"+ $window.location.host;
+           });
+        });
+  	   };
+  }
 }());
 
 var recaptchaError = false;
