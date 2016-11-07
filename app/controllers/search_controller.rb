@@ -1,8 +1,13 @@
 class SearchController < ApplicationController
   # TODO: Mammoth method, break up.
   def search
-    # TODO: we'll want some whitelist filtering here later:
+    # Doctoring for the view to find matches:
     @q = params[:q]
+    @q.chop! if params[:q] =~ /\*$/
+    @q = @q[1..-1] if params[:q] =~ /^\*/
+
+    # TODO: we'll want some whitelist filtering here later:
+    params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
 
     default = ! params.has_key?(:only)
     @types = {}
@@ -43,12 +48,9 @@ class SearchController < ApplicationController
       end
     end
 
-    # Doctoring for the view to find matches:
-    @q.chop! if params[:q] =~ /\*$/
-    @q = @q[1..-1] if params[:q] =~ /^\*/
-
     respond_to do |fmt|
       fmt.html do
+        @page_title = t(:page_title_search, query: @q)
         @empty = true
         [ @pages, @collections, @media, @users ].each do |set|
           @empty = false if set && ! set.results.empty?
