@@ -45,7 +45,8 @@
                           id: "password",
                          'ng-model': 'password',
                          'validate-password': '',
-                         required: true
+                         required: true,
+                         'autofill': ''
       %span{class: 'ng-validation-error',
             'ng-show': "signupForm['user[password]'].$error.required && (signupForm['user[password]'].$touched || showErrors)".html_safe}
         = I18n.t("users.validations.empty_password_error")
