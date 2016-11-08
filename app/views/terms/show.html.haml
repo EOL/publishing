@@ -9,7 +9,6 @@
         = t(:uri_definition_blank)
       - else
         = @term[:definition].html_safe
-    - debugger
     %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
       %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
         = t(:clade)
