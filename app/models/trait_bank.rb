@@ -224,7 +224,6 @@ class TraitBank
 
     def glossary(traits)
       uris = {}
-      debugger
       traits.each do |trait|
         [:predicate, :units, :object_term].each do |type|
           next unless trait[type] && trait[type].is_a?(Hash)
@@ -289,9 +288,7 @@ class TraitBank
 
     def adjust_node_parent_relationship(node_id, parent_id)
       node = get_node(node_id)
-      debugger
       parent_node = get_node(parent_id)
-      debugger
       connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
     end
 
@@ -306,7 +303,6 @@ class TraitBank
       ancestor_page_ids = get_pages_ids_from_clade(ancestors["data"] ? ancestors["data"] : nil)
       #adding the page
       ancestor_page_ids << clade_id
-      debugger
       traits = []
       ancestor_page_ids.each do |ancestor_page_id|
         res = connection.execute_query(
@@ -318,7 +314,6 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
           "RETURN resource, trait, page, predicate, object_term, units, meta"
         )
-        debugger
         traits += build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
           :units, :meta])
       end
@@ -363,7 +358,6 @@ class TraitBank
     end
 
     def term_as_hash(uri)
-      debugger
       hash = term(uri)
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:
