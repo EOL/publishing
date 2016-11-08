@@ -30,7 +30,6 @@ class TermsController < ApplicationController
   def clade_filter
     pages = {}
     solr_matched_clade = Page.search {fulltext params[:clade_name]}.results.first
-    # debugger
     #for convention sake
     if solr_matched_clade
       pages[solr_matched_clade.id] = solr_matched_clade

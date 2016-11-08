@@ -54,4 +54,55 @@ RSpec.describe TermsController do
       end
     end
   end
+  
+  describe '#clade filter' do
+    context 'empty result' do
+      before do
+        get :clade_filter, format: :js, uri: trait[:predicate][:uri], clade_name: page_term.name
+      end
+      
+      it { expect(assigns(:glossary)).to eq(nil) }
+      it { expect(assigns(:resources)).to eq(nil) }
+      it { expect(assigns(:grouped_traits)).to eq(nil) }
+    end
+    
+    context 'non-empty result' do
+      #TODO after writing traitbank specs
+      
+      # let(:solr_pages) { double("Sunspot::Search", results: pages) }
+# #       
+      # before do
+        # allow(Page).to receive(:search) { solr_pages }
+#         
+        # TraitBank.create_trait(page: page_measured,
+          # supplier: resource.id,
+          # resource_pk: resource.id,
+          # scientific_name: page_measured.scientific_name,
+          # predicate: trait[:predicate],
+          # source: resource.id,
+          # measurement: "657",
+          # units: units[:uri],
+          # object_term: term,
+          # literal: trait[:literal],
+          # # object_page_id: obj_page_id,
+          # # metadata: meta
+        # )
+# #         
+        # get :clade_filter, format: :js, uri: trait[:predicate][:uri], clade_name: trait[:predicate][:name]
+      # end
+# #       
+      # # it { expect(assigns(:term)[:uri]).to eq(trait[:predicate][:uri]) }
+      # it { expect(assigns(:glossary)).to eq(glossary) }
+      # it { expect(assigns(:resources)).to eq(resource) }
+      # it { expect(assigns(:grouped_traits)).to eq(grouped_traits) }
+  
+      # it "assigns pages" do
+        # pages.each do |page|
+          # expect(assigns(:pages).values).to include(page)
+        # end
+      # end
+      
+    end
+  end
+  
 end

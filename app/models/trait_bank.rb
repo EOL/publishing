@@ -337,45 +337,6 @@ class TraitBank
       end
       page_ids.compact.uniq
     end
-    
-    # def get_clade_traits(clade_id) 
-      # traits = []
-      # debugger
-      # res = connection.execute_query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
-      # debugger
-      # page_ids = get_pages_ids_from_clade(res["data"] ? res["data"] : nil)
-      # debugger
-      # page_ids.each do |page_id|
-        # debugger
-        # traits << by_page(page_id)
-      # end
-      # traits
-      # #get_page_traits(page_ids)
-    # end
-#     
-    # def get_pages_ids_from_clade(result)
-      # page_ids = []
-      # if result
-        # result.each do |element|
-          # data_element = element.first["data"] ? element.first["data"] : nil
-          # if data_element
-            # page_ids << data_element["page_id"]
-          # end
-        # end
-      # end
-      # page_ids.compact.uniq
-    # end
-#     
-    # def get_page_traits(page_ids)
-      # all_traits = by_predicate(Uri.find(uri_id).uri)
-      # traits = []
-      # all_traits.each do |trait|
-        # if page_ids.include?(trait[:page_id])
-          # traits << trait
-        # end
-      # end
-      # traits
-    # end
 
     def parse_term(term_options)
       return nil if term_options.nil?
