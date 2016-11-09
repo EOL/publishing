@@ -1,14 +1,26 @@
 %script{:src => "//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"}
 #trait.container{ ng: { controller: "PageCtrl as ctrl" } }
   .jumbotron
-    %h1= @term[:name].titlecase
-    - def_blank = @term[:definition].blank?
-    %h2= @term[:uri]
-    %p.definition{ class: def_blank ? "empty" : nil }
-      - if def_blank
-        = t(:uri_definition_blank)
-      - else
-        = @term[:definition].html_safe
+    .row
+      .col-md-9
+        %h1= @term[:name].titlecase
+        - def_blank = @term[:definition].blank?
+        %h2= @term[:uri]
+        %p.definition{ class: def_blank ? "empty" : nil }
+          - if def_blank
+            = t(:uri_definition_blank)
+          - else
+            = @term[:definition].html_safe
+      .actions.col-md-3
+        .btn-group{ uib: { dropdown: true } }
+          %button#sort_button.btn.btn-primary{ type: "button", uib: { dropdown: { toggle: true } } }
+            = t(:traits_sort_dropdown_name)
+            %span.caret= ""
+          %ul.dropdown-menu{ role: "menu", aria: { labelledby: "sort_button" }, uib: { dropdown: { menu: true } } }
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
   %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
     %tbody
       -# TODO: helper
@@ -23,6 +35,7 @@
           %th.trait-table-name{ scope: "row" }
             - if prev_page_id != page_id
               - show_trait_page_name(page)
+            - show_trait_modifiers(trait)
             - prev_page_id = page_id
           %td
             - show_trait_value(trait)

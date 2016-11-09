@@ -58,7 +58,7 @@ module TraitsHelper
       end
     elsif trait[:measurement]
       if trait[:units] && trait[:units][:name]
-        value = trait[:measurement] + " "
+        value = trait[:measurement].to_s + " "
         value += trait[:units][:name]
         haml_concat(value)
       else
@@ -127,6 +127,13 @@ module TraitsHelper
       else
         haml_concat(link_to(page.scientific_name.html_safe, page, class: "primary-name"))
       end
+    end
+  end
+
+  def show_trait_modifiers(trait)
+    haml_tag(:br)
+    [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.each do |type|
+      haml_tag(:span, "(#{type})", class: "trait_type")
     end
   end
 end

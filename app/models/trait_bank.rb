@@ -7,23 +7,21 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
-
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
   # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData),
   #          object_term(Term), units_term(Term)
   #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
-  #       source, measurement, object_page_id, literal }
+  #       source, measurement, object_page_id, literal, normal_measurement,
+  #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
   # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
-
   class << self
     @connected = false
 
-    # REST-style:
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
       @connected = true
@@ -128,7 +126,25 @@ class TraitBank
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
-    def by_predicate(predicate)
+    def by_predicate(predicate, options = {})
+      options[:sort] ||= ""
+      options[:sort_dir] ||= ""
+      sort = if options[:sort].downcase == "measurement"
+        "trait.normal_measurement"
+      else
+        # TODO: this is not good. multiple types of values will not
+        # "interweave", and the only way to change that is to store a
+        # "normal_value" value for all different "stringy" types (literals,
+        # object terms, and object page names). ...This is a resonable approach,
+        # though it will require more work to keep "up to date" (e.g.: if the
+        # name of an object term changes, all associated traits will have to
+        # change).
+        "trait.literal, object_term.name, trait.normal_measurement"
+      end
+      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
+      puts "************"
+      puts "** sort: #{sort}"
+      puts "** Direction: #{dir}"
       # TODO: pull in more for the metadata...
       res = connection.execute_query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
@@ -139,7 +155,9 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
+        "RETURN resource, trait, page, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term "\
+        "ORDER BY #{sort} #{dir}"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
@@ -276,6 +294,7 @@ class TraitBank
       predicate = parse_term(options.delete(:predicate))
       units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
+      convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.add_label(trait, "Trait")
       connection.create_relationship("trait", page, trait)
@@ -292,6 +311,7 @@ class TraitBank
       predicate = parse_term(options.delete(:predicate))
       units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
+      convert_measurement(options, units)
       meta = connection.create_node(options)
       connection.add_label(meta, "MetaData")
       connection.create_relationship("metadata", trait, meta)
@@ -300,6 +320,30 @@ class TraitBank
       connection.create_relationship("object_term", meta, object_term) if
         object_term
       meta
+    end
+
+    def convert_measurement(trait, units)
+      return unless trait[:measurement]
+      trait[:measurement] = begin
+        Integer(trait[:measurement])
+      rescue
+        Float(trait[:measurement]) rescue trait[:measurement]
+      end
+      # If we converted it (and thus it is numeric) AND we see units...
+      if trait[:measurement].is_a?(Numeric) &&
+         units && units["data"] && units["data"]["uri"]
+        (n_val, n_unit) = UnitConversions.convert(trait[:measurement],
+          units["data"]["uri"])
+        trait[:normal_measurement] = n_val
+        trait[:normal_units] = n_unit
+      else
+        trait[:normal_measurement] = trait[:measurement]
+        if units && units["data"] && units["data"]["uri"]
+          trait[:normal_units] = units["data"]["uri"]
+        else
+          trait[:normal_units] = "missing"
+        end
+      end
     end
 
     # Note: I've named this create_node_in_hierarchy as there is another
@@ -377,22 +421,30 @@ class TraitBank
       end
     end
 
-    def sort(traits)
-      traits.sort do |a,b|
-        name_a = get_name(a)
-        name_b = get_name(b)
-        if name_a && name_b
-          if name_a == name_b
-            sort_by_values(a,b)
-          else
-            name_a.downcase <=> name_b.downcase
-          end
-        elsif name_a
-          -1
-        elsif name_b
-          1
-        else
+    def sort_by_predicates(a, b)
+      name_a = get_name(a)
+      name_b = get_name(b)
+      if name_a && name_b
+        if name_a == name_b
           sort_by_values(a,b)
+        else
+          name_a.downcase <=> name_b.downcase
+        end
+      elsif name_a
+        -1
+      elsif name_b
+        1
+      else
+        sort_by_values(a,b)
+      end
+    end
+
+    def sort(traits, options = {})
+      traits.sort do |a, b|
+        if options[:by_value]
+          sort_by_values(a, b)
+        else
+          sort_by_predicates(a, b)
         end
       end
     end

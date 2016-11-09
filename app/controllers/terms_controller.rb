@@ -3,7 +3,7 @@ class TermsController < ApplicationController
 
   def show
     @term = TraitBank.term_as_hash(params[:uri])
-    traits = TraitBank.by_predicate(@term[:uri])
+    traits = TraitBank.by_predicate(@term[:uri], sort: params[:sort], sort_dir: params[:sort_dir])
     # TODO: a fast way to load pages with just summary info:
     pages = Page.where(id: traits.map { |t| t[:page_id] }).preloaded
     # Make a dictionary of pages:
@@ -13,13 +13,6 @@ class TermsController < ApplicationController
     @glossary = TraitBank.glossary(traits)
     @resources = TraitBank.resources(traits)
 
-    group_traits = traits.group_by { |t| t[:page_id] }
-    keys = group_traits.keys.sort
-    @grouped_traits = []
-    keys.each do |page_id|
-      @grouped_traits << TraitBank.sort(group_traits[page_id])
-    end
-    @grouped_traits = Kaminari.paginate_array(@grouped_traits.flatten).
-      page(params[:page])
+    @grouped_traits = Kaminari.paginate_array(traits).page(params[:page])
   end
 end
