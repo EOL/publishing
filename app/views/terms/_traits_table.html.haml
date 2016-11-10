@@ -1,0 +1,25 @@
+- traits = [] unless local_assigns.has_key?(:traits)
+- pages = [] unless local_assigns.has_key?(:pages)
+%div#traits_table
+  %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
+    %tbody
+      -# TODO: helper
+      - prev_page_id = nil
+      - traits.each do |trait|
+        %tr{ id: trait[:id] }
+          - page_id = trait[:page_id]
+          - page = pages[page_id]
+          %th.trait-table-image{ scope: "row" }
+            - if prev_page_id != page_id
+              - show_trait_page_icon(page)
+          %th.trait-table-name{ scope: "row" }
+            - if prev_page_id != page_id
+              - show_trait_page_name(page)
+            - show_trait_modifiers(trait)
+            - prev_page_id = page_id
+          %td
+            - show_trait_value(trait)
+            - show_metadata(trait)
+          - show_source_col(trait)
+    = paginate traits unless traits.empty?
+

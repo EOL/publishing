@@ -17,6 +17,8 @@ en:
   cancel: "cancel"
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
+  clade: "Clade"
+  clade_placeholder: "clade ..."
   collect_already_in_collection: "(it's already here)"
   collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
   collect_icon_title: "Add \"%{item}\" from the \"%{page}\" page to..."
@@ -51,6 +53,7 @@ en:
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
+  filter: "Filter"
   forgot_your_password: "Forgot your password?"
   helpers:
     label:
@@ -65,9 +68,9 @@ en:
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
   medium_collect_button: "collect media"
+  medium_description_blank: "There is no description provided for this object."
   medium_header_title: "Title:"
   medium_header_description: "Description:"
-  medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
   no_pages_found: 'No pages found'
