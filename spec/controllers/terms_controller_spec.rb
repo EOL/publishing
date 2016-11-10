@@ -54,4 +54,34 @@ RSpec.describe TermsController do
       end
     end
   end
+  
+  describe '#clade filter' do
+    context 'empty result' do
+      before do
+        get :clade_filter, format: :js, uri: trait[:predicate][:uri], clade_name: page_term.name
+      end
+      
+      it { expect(assigns(:glossary)).to eq(nil) }
+      it { expect(assigns(:resources)).to eq(nil) }
+      it { expect(assigns(:grouped_traits)).to eq(nil) }
+    end
+    
+    context 'non-empty result' do
+      
+      let(:solr_pages) { double("Sunspot::Search", results: pages) }
+      let(:returned_traits) {[{ page_id: page_measured.id, measurement: "657", 
+          units: units[:uri], resource_id: resource.id }]}
+
+      before do
+        allow(Page).to receive(:search) { solr_pages }
+        allow(TraitBank).to receive(:get_clade_traits) { returned_traits }   
+        get :clade_filter, format: :js, uri: trait[:predicate][:uri], clade_name: trait[:predicate][:name]
+      end
+ 
+      it { expect(assigns(:glossary)).to eq(glossary) }
+      it { expect(assigns(:resources)).to eq([resource]) }
+      it { expect(assigns(:grouped_traits)).to eq(returned_traits) }
+    end
+  end
+  
 end

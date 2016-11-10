@@ -81,7 +81,7 @@ class Import::Page
                 t_data["object_page"]["canonical_form"])
             end
             meta = []
-            if t_data["metadata"]
+            if t_data["metadata"] 
               t_data["metadata"].each do |md|
                 mpred = create_uri(md["predicate"])
                 next unless mpred
