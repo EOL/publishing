@@ -40,7 +40,8 @@ class TermsController < ApplicationController
     respond_to do |fmt|
       fmt.html
       fmt.js do
-        render partial: 'traits_table', locals: {:traits => traits ? paginate_traits(traits) : [], :glossary => @glossary, :pages => pages, :resources => @resources}
+        render partial: 'traits_table', locals: {:traits => traits ? paginate_traits(traits) : [], 
+          :glossary => @glossary, :pages => pages, :resources => @resources}
       end
     end
   end
