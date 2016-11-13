@@ -21,71 +21,11 @@
             - else
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
+            - show_trait_modifiers(trait)
           %td
-            - value = t(:trait_missing, keys: trait.keys.join(", "))
-            - if trait[:object_page_id]
-              - target = Page.find(trait[:object_page_id])
-              - if target.top_image
-                %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
-                  :cdata
-                    <div><img src="#{target.icon}"/></div>
-                #obj_page
-                  %a{ :href => "#{trait[:object_page_id]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{value}
-              - else
-                -# TODO: Gah! Fix this:
-                = link_to target.name.html_safe, target
-            - elsif trait[:measurement]
-              - value = trait[:measurement] + " "
-              - value +=  @page.glossary[trait[:units][:uri]][:name] if trait[:units]
-              = value
-            - elsif trait[:object_term]
-              - value = @page.glossary[trait[:object_term][:uri]][:name] if trait[:object_term]
-              = value
-            - elsif trait[:literal]
-              = trait[:literal].html_safe
-            - if trait[:meta] || trait[:source]
-              %br/
-              %a.toggle_meta= t(:trait_toggle_details)
-              - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
-              .meta_trait{ id: id }
-                %table
-                  - if trait[:metadata]
-                    - trait[:metadata].each do |meta_trait|
-                      %tr
-                        %th
-                          = meta_trait[:predicate][:name]
-                        %td
-                          - if meta_trait[:measurement]
-                            = meta_trait[:measurement]
-                            - if meta_trait[:units]
-                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Missing URI"
-                            - else
-                              = meta_trait.inspect
-                          - elsif meta_trait[:object_term]
-                            = @glossary[meta_trait[:object_term][:uri]][:name]
-                          - elsif meta_trait[:literal]
-                            = meta_trait[:literal].html_safe
-                  - if trait[:units] && trait[:units][:definition]
-                    %tr
-                      %th= @page.glossary[trait[:units][:uri]][:name]
-                      %td
-                        = trait[:units][:uri]
-                        %br/
-                        = t(:trait_unit_definition)
-                        - if trait[:units][:definition].empty?
-                          = t(:trait_unit_definition_blank)
-                        - else
-                          = trait[:units][:definition].html_safe
-                  - if trait[:source]
-                    %tr
-                      %th= t(:trait_source)
-                      %td= trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
-          -# TODO: make this a proper link
-          %td.table-source
-            - if resource = @resources[trait[:resource_id]]
-              = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
-            - else
-              t(:resource_missing)
+            - show_trait_value(trait)
+            - show_metadata(trait)
+          - show_source_col(trait)
 - if any_collapsed
   %p
     %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }

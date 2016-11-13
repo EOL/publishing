@@ -7,7 +7,12 @@ class Import::Clade
       file =  if Uri.is_uri?(name.to_s)
                 open(name) { |f| f.read }
               else
-                File.read(name)
+                begin
+                  File.read(name)
+                rescue Errno::ENOENT
+                  puts "NO SUCH FILE: #{name}"
+                  exit(1)
+                end
               end
       parse_clade(JSON.parse(file))
       # NOTE: You mmmmmmight want to delete everything before you call this, but

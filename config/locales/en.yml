@@ -17,6 +17,8 @@ en:
   cancel: "cancel"
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
+  clade: "Clade"
+  clade_placeholder: "clade ..."
   collect_already_in_collection: "(it's already here)"
   collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
   collect_icon_title: "Add \"%{item}\" from the \"%{page}\" page to..."
@@ -51,6 +53,7 @@ en:
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
+  filter: "Filter"
   forgot_your_password: "Forgot your password?"
   helpers:
     label:
@@ -65,9 +68,9 @@ en:
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
   medium_collect_button: "collect media"
+  medium_description_blank: "There is no description provided for this object."
   medium_header_title: "Title:"
   medium_header_description: "Description:"
-  medium_description_blank: "There is no description provided for this object."
   min_length: "(%{length} characters minimum)"
   new_password: 'New password'
   no_pages_found: 'No pages found'
@@ -75,6 +78,8 @@ en:
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
   page_media_header: "Media (%{count})"
+  page_title: "Encyclopedia of Life"
+  page_title_search: "Search: %{query}"
   page_traits_header: "Trait Data (%{count})"
   password: "Password"
   password_confirmation: "Password confirmation"
@@ -114,12 +119,19 @@ en:
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
   taxon_collect_button: "collect page"
   trait_source: "source"
+  trait_definition: "definition of \"%{trait}\""
   trait_toggle_details: "details..."
   trait_unit_definition: "definition:"
   trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"
+  traits_sort_dropdown:
+    alphabetical: "A-Z"
+    alphabetical_rev: "Z-A"
+    value: "1-100"
+    value_rev: "100-1"
+  traits_sort_dropdown_name: "sort by"
   uri_definition_blank: "No one has defined this trait yet."
   username: "Username"
   user_bio_title: "Brief Biography"

@@ -81,15 +81,17 @@ class Import::Page
                 t_data["object_page"]["canonical_form"])
             end
             meta = []
-            t_data["metadata"].each do |md|
-              mpred = create_uri(md["predicate"])
-              next unless mpred
-              munits = create_uri(md["units"]) if md["units"]
-              mmeas = md["measurement"] if md["measurement"]
-              mterm = create_uri(md["term"]) if md["term"]
-              mlit = md["literal"]
-              meta << { predicate: mpred, units: munits, measurement: mmeas,
-                term: mterm, literal: mlit }
+            if t_data["metadata"] 
+              t_data["metadata"].each do |md|
+                mpred = create_uri(md["predicate"])
+                next unless mpred
+                munits = create_uri(md["units"]) if md["units"]
+                mmeas = md["measurement"] if md["measurement"]
+                mterm = create_uri(md["term"]) if md["term"]
+                mlit = md["literal"]
+                meta << { predicate: mpred, units: munits, measurement: mmeas,
+                  term: mterm, literal: mlit }
+              end
             end
             TraitBank.create_trait(page: page_node,
               supplier: @resource_nodes[resource.id],
@@ -98,6 +100,10 @@ class Import::Page
               predicate: pred,
               source: t_data["source"],
               measurement: t_data["measurement"],
+              statistical_method: t_data["statistical_method"],
+              lifestage: t_data["lifestage"],
+              sex: t_data["sex"],
+              scientific_name: t_data["scientific_name"],
               units: units,
               object_term: term,
               literal: t_data["literal"],
@@ -201,7 +207,7 @@ class Import::Page
           trust: :trusted
         )
       rescue
-        puts "don't care"
+        # Don't care
       end
       options[:node].ancestors.each do |ancestor|
         # TODO: we will have to figure out a proper algorithm for position. :S
@@ -216,7 +222,7 @@ class Import::Page
             trust: :trusted
           )
         rescue
-          puts "don't care"
+          # Don't care...
         end
       end
       content

@@ -1,99 +1,34 @@
 %script{:src => "//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"}
 #trait.container{ ng: { controller: "PageCtrl as ctrl" } }
   .jumbotron
-    %h1= @term[:name].titlecase
-    - def_blank = @term[:definition].blank?
-    %h2= @term[:uri]
-    %p.definition{ class: def_blank ? "empty" : nil }
-      - if def_blank
-        = t(:uri_definition_blank)
-      - else
-        = @term[:definition].html_safe
-  %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
-    %tbody
-      -# TODO: helper
-      - prev_page_id = nil
-      - @grouped_traits.each do |trait|
-        %tr{ id: trait[:id] }
-          - page_id = trait[:page_id]
-          - page = @pages[page_id]
-          %th.trait-table-image{ scope: "row" }
-            - if prev_page_id != page_id
-              - if image = page.top_image
-                = link_to(image_tag(image.small_icon_url, alt: page.scientific_name.html_safe, size: "88x88"), page)
-          %th.trait-table-name{ scope: "row" }
-            - if prev_page_id != page_id
-              .names.d-inline
-                - if page.name
-                  = link_to(page.name.titlecase, page, class: "primary-name")
-                  %br/
-                  = link_to(page.scientific_name.html_safe, page, class: "secondary-name")
-                - else
-                  = link_to(page.scientific_name.html_safe, page, class: "primary-name")
-            - prev_page_id = page_id
-          %td
-            - if trait[:measurement]
-              = trait[:measurement]
-              - if trait[:units]
-                = @glossary[trait[:units][:uri]] ? @glossary[trait[:units][:uri]][:name] : "Nope"
-              - else
-                = trait.inspect
-            - elsif trait[:object_term]
-              = @glossary[trait[:object_term][:uri]][:name]
-            - elsif trait[:literal]
-              - if trait[:object_page]
-                - if trait[:object_page_image]
-                  %script{:id => "image#{trait[:resource_pk]}.html", :type => "text/ng-template"}
-                    :cdata
-                      <div><img src="#{trait[:object_page_image]}_260_190.jpg"/></div>
-                  #obj_page
-                    %a{ :href => "#{trait[:object_page]}", "popover-trigger" => "mouseenter",  "popover-placement" => "right", "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"} #{trait[:literal].html_safe}
-                - else
-                  = link_to trait[:literal].html_safe, trait[:object_page]
-              - else
-                = trait[:literal].html_safe
-            - else
-              Augh! Could not find a displayable value from keys of:
-              = trait.keys.join(", ")
-            - if trait[:meta] || trait[:source]
-              %br/
-              %a.toggle_meta= t(:trait_toggle_details)
-              - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
-              .meta_trait{ id: id }
-                %table
-                  - if trait[:meta]
-                    - trait[:meta].each do |meta_trait|
-                      %tr
-                        %th
-                          = meta_trait[:predicate][:name]
-                        %td
-                          - if meta_trait[:measurement]
-                            = meta_trait[:measurement]
-                            - if meta_trait[:units]
-                              = @glossary[meta_trait[:units][:uri]] ? @glossary[meta_trait[:units][:uri]][:name] : "Nope"
-                            - else
-                              = meta_trait.inspect
-                          - elsif meta_trait[:object_term]
-                            = @glossary[meta_trait[:object_term][:uri]][:name]
-                          - elsif meta_trait[:literal]
-                            = meta_trait[:literal].html_safe
-                  - if trait[:units] && trait[:units][:definition]
-                    %tr
-                      %th= @glossary[trait[:units][:uri]][:name]
-                      %td
-                        = trait[:units][:uri]
-                        %br/
-                        = trait[:units][:definition].html_safe
-                  - if trait[:source]
-                    %tr
-                      %th
-                        = t(:trait_source)
-                      %td
-                        = trait[:source].gsub(URI.regexp, '<a href="\0">\0</a>').html_safe
-          -# TODO: Make this a proper link just yet. Later.
-          %td.table-source
-            - if resource = @resources[trait[:resource_id]]
-              = link_to(resource.name, "#", title: resource.name, data: { toggle: "tooltip", placement: "left" } )
-            - else
-              t(:resource_missing)
-    = paginate @grouped_traits
+    .row
+      .col-md-9
+        %h1= @term[:name].titlecase
+        - def_blank = @term[:definition].blank?
+        %h2= @term[:uri]
+        %p.definition{ class: def_blank ? "empty" : nil }
+          - if def_blank
+            = t(:uri_definition_blank)
+          - else
+            = @term[:definition].html_safe
+      .actions.col-md-3
+        .btn-group{ uib: { dropdown: true } }
+          %button#sort_button.btn.btn-primary{ type: "button", uib: { dropdown: { toggle: true } } }
+            = t(:traits_sort_dropdown_name)
+            %span.caret= ""
+          %ul.dropdown-menu{ role: "menu", aria: { labelledby: "sort_button" }, uib: { dropdown: { menu: true } } }
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
+            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
+      %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
+        %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
+          = t(:clade)
+          = text_field_tag("clade", nil,
+            "placeholder" => t(:clade_placeholder),
+            "autocomplete" => "off",
+            "ng-model" => "clade_name",
+            required: true)
+          .input-group-btn
+            = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+  = render 'traits_table', { traits: @grouped_traits, pages: @pages }
