@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
+  get "/clade_filter" => "terms#clade_filter", :as => "clade_filter"
 
   # TODO: Change. We really want this to point to a (dynamic) CMS page of some
   # sort.

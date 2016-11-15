@@ -48,6 +48,7 @@ if(!EOL) {
   // $(document).on("page:restore", function() { EOL.initialize(); });
 
   app.controller("SearchCtrl", SearchCtrl);
+  app.controller("CladeFilterCtrl", CladeFilterCtrl);
   app.controller("collectionSearchCtrl", collectionSearchCtrl);
   app.controller("PageCtrl", PageCtrl);
   app.controller("loginValidate", LoginCtrl);
@@ -93,6 +94,19 @@ if(!EOL) {
     };
   }
 
+  function CladeFilterCtrl ($scope, $http, $window) {
+	$scope.cladeFilter = function(clade_name, uri) {
+		return $http.get("/clade_filter.js", {
+       		params: { clade_name: clade_name, uri: uri }
+    	}).then(function(response, $compile){
+    		var elem = angular.element("div#traits_table");
+    		$compile = elem.injector().get('$compile');
+    		var scope = elem.scope();
+    		elem.html( $compile(response.data)(scope) );
+		});	
+  	};
+  }
+  
   function collectionSearchCtrl ($scope, $http) {
     $scope.selected = undefined;
     $scope.showClearSearch = false;
@@ -152,6 +166,7 @@ if(!EOL) {
       $scope.showClearSearch = false;
     };
   }
+  
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
@@ -293,7 +308,7 @@ var recaptchaError = false;
 function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
-  var $scope = angular.element(appElement).scope();
+  var $scope = angular.element(appElement).scope;
   $scope.$apply(function() { 
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;

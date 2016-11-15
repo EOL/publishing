@@ -21,9 +21,7 @@
             - else
               = link_to(predicate[:name], term_path(uri: predicate[:uri]))
               - previous_predicate = predicate
-            %br/
-            - [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.each do |type|
-              %span.trait_type= "(#{type})"
+            - show_trait_modifiers(trait)
           %td
             - show_trait_value(trait)
             - show_metadata(trait)
