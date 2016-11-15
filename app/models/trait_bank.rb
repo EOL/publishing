@@ -180,6 +180,28 @@ class TraitBank
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
+    def get_clade_traits(clade_id, predicate)
+      ancestors = connection.execute_query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
+      ancestor_page_ids = get_pages_ids_from_clade(ancestors["data"] ? ancestors["data"] : nil)
+      #adding the page
+      ancestor_page_ids << clade_id
+      traits = []
+      ancestor_page_ids.each do |ancestor_page_id|
+        res = connection.execute_query(
+          "MATCH (page:Page { page_id: #{ancestor_page_id } })-[:trait]->(trait:Trait)"\
+            "-[:supplier]->(resource:Resource) "\
+          "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
+          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+          "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
+          "RETURN resource, trait, page, predicate, object_term, units, meta"
+        )
+        traits += build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
+          :units, :meta])
+      end
+      traits
+    end
+
     def page_exists?(page_id)
       res = connection.execute_query("MATCH (page:Page { page_id: #{page_id} }) "\
         "RETURN page")
@@ -367,29 +389,7 @@ class TraitBank
         "RETURN SIGN(COUNT(r))")
       res["data"] ? res["data"].first.first > 0 : false
     end
-    
-    def get_clade_traits(clade_id, predicate)
-      ancestors = connection.execute_query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
-      ancestor_page_ids = get_pages_ids_from_clade(ancestors["data"] ? ancestors["data"] : nil)
-      #adding the page
-      ancestor_page_ids << clade_id
-      traits = []
-      ancestor_page_ids.each do |ancestor_page_id|
-        res = connection.execute_query(
-          "MATCH (page:Page { page_id: #{ancestor_page_id } })-[:trait]->(trait:Trait)"\
-            "-[:supplier]->(resource:Resource) "\
-          "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-          "RETURN resource, trait, page, predicate, object_term, units, meta"
-        )
-        traits += build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-          :units, :meta])
-      end
-      traits
-    end
-    
+
     def get_pages_ids_from_clade(result)
       page_ids = []
       if result
