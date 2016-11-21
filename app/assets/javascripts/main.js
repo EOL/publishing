@@ -3,7 +3,7 @@ if(!EOL) {
   EOL.allow_meta_traits_to_toggle = function() {
     $(".toggle_meta").on("click", function (event) {
       event.stopPropagation();
-      var $table = $(this).next()
+      var $table = $(this).next();
       $table.toggle();
       if ($table.is(":visible")) {
         var $node = $(this).closest("tr");
