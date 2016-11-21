@@ -9,7 +9,8 @@ class SearchController < ApplicationController
     # TODO: we'll want some whitelist filtering here later:
     params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
 
-    default = ! params.has_key?(:only)
+    default = params.has_key?(:only)? false : true
+    
     @types = {}
     [ :pages, :collections, :media, :users, :object_terms ].each do |sym|
       @types[sym] = default
@@ -18,7 +19,7 @@ class SearchController < ApplicationController
     if params.has_key?(:only)
       Array(params[:only]).each { |type| @types[type.to_sym] = true }
     elsif params.has_key?(:except)
-      Array(params[:only]).each { |type| @types[type.to_sym] = false }
+      Array(params[:except]).each { |type| @types[type.to_sym] = false }
     end
 
     @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ])
