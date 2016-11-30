@@ -50,6 +50,7 @@ if(!EOL) {
   app.controller("SearchCtrl", SearchCtrl);
   app.controller("CladeFilterCtrl", CladeFilterCtrl);
   app.controller("collectionSearchCtrl", collectionSearchCtrl);
+  app.controller("CollectionSortCtrl", CollectionSortCtrl);
   app.controller("PageCtrl", PageCtrl);
   app.controller("loginValidate", LoginCtrl);
   app.controller('signupValidate', SignupCtrl);
@@ -95,16 +96,16 @@ if(!EOL) {
   }
 
   function CladeFilterCtrl ($scope, $http, $window) {
-	$scope.cladeFilter = function(clade_name, uri) {
-		return $http.get("/clade_filter.js", {
-       		params: { clade_name: clade_name, uri: uri }
-    	}).then(function(response, $compile){
-    		var elem = angular.element("div#traits_table");
-    		$compile = elem.injector().get('$compile');
-    		var scope = elem.scope();
-    		elem.html( $compile(response.data)(scope) );
-		});	
-  	};
+  $scope.cladeFilter = function(clade_name, uri) {
+    return $http.get("/clade_filter.js", {
+           params: { clade_name: clade_name, uri: uri }
+      }).then(function(response, $compile){
+        var elem = angular.element("div#traits_table");
+        $compile = elem.injector().get('$compile');
+        var scope = elem.scope();
+        elem.html( $compile(response.data)(scope) );
+    });  
+    };
   }
   
   function collectionSearchCtrl ($scope, $http) {
@@ -167,11 +168,28 @@ if(!EOL) {
     };
   }
   
+  function CollectionSortCtrl ($scope , $http){
+    $scope.ChangeValue = function(collection_id, sort){
+      console.log('sort' + sort );   	
+      if(sort != undefined){
+      	$scope.sort = sort.target.textContent;
+      }
+       $http.get('/collections/'+ collection_id + '/sort', {
+        params: { sort: $scope.sort, reverse: $scope.ReverseSort }
+      }).then(function(response){
+      	console.log('ana gowa ');
+        var data = response.data;
+        document.querySelector('div.pages_list').innerHTML= response.data;
+        return data;
+      });
+    };
+  }
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
     $scope.isCollapsed = false;
   }
+
 
   function LoginCtrl ($scope, $window) {
     $scope.recaptchaChecked = ($(".g-recaptcha").length === 0);
@@ -203,57 +221,57 @@ if(!EOL) {
   
   // fix the autofill problem in password fields
   app.directive('autofill', function () {
-	    return {
-	        require: 'ngModel',
-	        link: function (scope, element, attrs, ngModel) {
-	            scope.$watch(function () {
-	              return element.val();
-	            }, function(nv, ov) {
-	              if(nv !== ov)
-	                ngModel.$setViewValue(nv);
-	            });
-	        }
-	    };
-	});
+      return {
+          require: 'ngModel',
+          link: function (scope, element, attrs, ngModel) {
+              scope.$watch(function () {
+                return element.val();
+              }, function(nv, ov) {
+                if(nv !== ov)
+                  ngModel.$setViewValue(nv);
+              });
+          }
+      };
+  });
 
   //custom validation for password match
   app.directive('passwordMatch', function () {
-  	return {
-  		require: 'ngModel',
-  		link: function (scope, element, attrs, ctrl) {
-  			var firstPassword = '#' + attrs.passwordMatch;
-  			$(element).add(firstPassword).on('keyup', function () {
-  				scope.$apply(function () {
-  					ctrl.$setValidity('pwmismatch', element.val() === $(firstPassword).val());
-  				});
-  			});
-  		}
-  	};
+    return {
+      require: 'ngModel',
+      link: function (scope, element, attrs, ctrl) {
+        var firstPassword = '#' + attrs.passwordMatch;
+        $(element).add(firstPassword).on('keyup', function () {
+          scope.$apply(function () {
+            ctrl.$setValidity('pwmismatch', element.val() === $(firstPassword).val());
+          });
+        });
+      }
+    };
   });
 
   //custom validation for password match
   app.directive('validatePassword', function () {
-  	return {
-  		require: 'ngModel',
-  		link: function (scope, element, attrs, ctrl) {
-  			ctrl.$parsers.unshift(function(viewValue) {
-  				scope.violatePwdLowerLimit = (viewValue && viewValue.length < passwordMinLength ? true : false);
-  				scope.violatePwdUpperLimit = (viewValue && viewValue.length > passwordMaxLength ? true : false);
-  				if (!(scope.violatePwdLowerLimit || scope.violatePwdUpperLimit)){
-  					scope.ViolatepwdLetterCond = (viewValue && /[A-Za-z]/.test(viewValue)) ? false : true;
-  					scope.ViolatepwdNumberCond = (viewValue && /\d/.test(viewValue)) ? false : true;
-  				}
+    return {
+      require: 'ngModel',
+      link: function (scope, element, attrs, ctrl) {
+        ctrl.$parsers.unshift(function(viewValue) {
+          scope.violatePwdLowerLimit = (viewValue && viewValue.length < passwordMinLength ? true : false);
+          scope.violatePwdUpperLimit = (viewValue && viewValue.length > passwordMaxLength ? true : false);
+          if (!(scope.violatePwdLowerLimit || scope.violatePwdUpperLimit)){
+            scope.ViolatepwdLetterCond = (viewValue && /[A-Za-z]/.test(viewValue)) ? false : true;
+            scope.ViolatepwdNumberCond = (viewValue && /\d/.test(viewValue)) ? false : true;
+          }
 
-  				if (scope.violatePwdLowerLimit && scope.violatePwdUpperLimit && scope.ViolatepwdLetterCond && scope.ViolatepwdNumberCond){
-  					ctrl.$setValidity('pwd', false);
-  					return viewValue;
-  				} else {
-  					ctrl.$setValidity('pwd', true);
-  					return viewValue;
-  				}
-  			});
-  		}
-  	};
+          if (scope.violatePwdLowerLimit && scope.violatePwdUpperLimit && scope.ViolatepwdLetterCond && scope.ViolatepwdNumberCond){
+            ctrl.$setValidity('pwd', false);
+            return viewValue;
+          } else {
+            ctrl.$setValidity('pwd', true);
+            return viewValue;
+          }
+        });
+      }
+    };
   });
 
   function SignupCtrl ($scope, $window) {
@@ -270,9 +288,9 @@ if(!EOL) {
               if (grecaptcha.getResponse() != undefined &&
                   (grecaptcha.getResponse() === null) ||
                   (grecaptcha.getResponse() === '')) {
-  	                $scope.showErrors = true;
-  	                $scope.recaptchaError = $window.recaptchaError = true;
-  	                event.preventDefault();
+                    $scope.showErrors = true;
+                    $scope.recaptchaError = $window.recaptchaError = true;
+                    event.preventDefault();
               }
               else
               {
@@ -283,13 +301,13 @@ if(!EOL) {
   }
 
   function ConfirmDeleteCtrl ($scope, $mdDialog, $mdMedia, $http, $window){
-  	   $scope.showConfirm = function(ev,user_id, msg) {
-  	    var confirm = $mdDialog.confirm()
+       $scope.showConfirm = function(ev,user_id, msg) {
+        var confirm = $mdDialog.confirm()
         .textContent(msg)
         .targetEvent(ev)
         .ok('ok')
         .cancel('cancel');
-        $mdDialog.show(confirm).then(function() {	
+        $mdDialog.show(confirm).then(function() {  
           $http({
             method : 'POST',
             url :'/users/delete_user?id=' + user_id.toString()
@@ -299,7 +317,7 @@ if(!EOL) {
                $window.location.href = "http://"+ $window.location.host;
            });
         });
-  	   };
+       };
   }
 }());
 
@@ -308,7 +326,7 @@ var recaptchaError = false;
 function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
-  var $scope = angular.element(appElement).scope;
+  var $scope = angular.element(appElement).scope();
   $scope.$apply(function() { 
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;

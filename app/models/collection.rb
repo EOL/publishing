@@ -22,7 +22,7 @@ class Collection < ActiveRecord::Base
   validates :name, presence: true
   
   enum collection_type: [ :normal, :gallery ]
-
+  
   searchable do
     text :name, :boost => 3.0
     text :description

@@ -1,14 +1,14 @@
 = render 'collection_header', collection: @collection
 %div.collected_pages
-  - if @collection.collected_pages.empty?
+  - if @collected_pages.empty?
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %div
+    %div.pages_list
       - if @collection.normal?
-        = render("normal", collection: @collection)
+        = render("normal", collected_pages: @collected_pages)
       - else
-        = render("gallery", collection: @collection)
+        = render("gallery", collected_pages: @collected_pages)
 %div.collection_association
   - if @collection.collections.empty?
     %p= t(:collection_associations_empty)

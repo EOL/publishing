@@ -2,7 +2,7 @@
   layout "collections"
 
   before_filter :sanitize_collection_params
-  before_filter :find_collection_with_pages, only: [:edit, :show]
+  before_filter :find_collection_with_pages, only: [:edit, :show, :sort]
   before_filter :find_collection, only: [:update]
   before_filter :user_able_to_edit_collection, only: [:edit]
 
@@ -36,6 +36,28 @@
   def show
   end
 
+  def sort
+     if params["sort"]
+       case params["sort"]
+       when I18n.t("sort_by.annotation")
+         @collected_pages =  @collected_pages.sort_by{|o| o.annotation}
+       when I18n.t("sort_by.common_name")
+         @collected_pages =  @collected_pages.sort_by{|o| o.name}
+       when I18n.t("sort_by.date_added")
+         @collected_pages =  @collected_pages.sort_by{|o| o.position}
+       when I18n.t("sort_by.scientific_name")
+      @collected_pages = @collected_pages.sort_by{|o| o.scientific_name_string.to_s.gsub(/<\/?i>/, "")}
+     end
+    end
+    @collected_pages.reverse! if params["reverse"] == "true"
+    respond_to do |format|
+      if @collection.normal?
+        format.html{ render partial: "normal", locals: { collected_pages: @collected_pages } }
+      else
+        format.html{ render partial: "gallery", locals: { collected_pages: @collected_pages } }
+      end
+    end
+  end  
   def update
     authorize @collection
     # This is obnoxious, but Rails can't handle deleting *associations* that
@@ -62,6 +84,7 @@
   def find_collection_with_pages
     @collection = Collection.where(id: params[:id]).includes(:collection_associations,
       collected_pages: { page: :preferred_vernaculars }).first
+    @collected_pages = @collection.collected_pages.sort_by{|o| o.position} if @collection
   end
 
   def find_collection

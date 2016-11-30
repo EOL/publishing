@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   end
 
   # All of the "normal" resources:
-  resources :collections
+  resources :collections do
+    member do
+      get "sort"
+    end
+  end
   resources :collection_associations, only: [:new, :create]
   resources :collected_pages, only: [:new, :create] do
     collection do

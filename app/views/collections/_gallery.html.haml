@@ -1,6 +1,6 @@
 = render ("layouts/image_gallery_lightbox")
 %row.icons_12_wide
-  - collection.collected_pages.each do |collected_page|
+  - collected_pages.each do |collected_page|
     - media = collected_page.media
     - if media.blank?
       - media = [collected_page.page.top_image] unless collected_page.page.top_image.nil?

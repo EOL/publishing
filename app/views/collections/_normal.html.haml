@@ -1,6 +1,6 @@
 %table.collections
   %tbody
-    - collection.collected_pages.each do |collected_page|
+    - collected_pages.each do |collected_page|
       = render("pages/as_row",
         page: collected_page.page,
         icon: collected_page.icon,

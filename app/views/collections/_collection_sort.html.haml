@@ -1,0 +1,15 @@
+%div{ng: { controller: "CollectionSortCtrl as ctrl" }}
+  %div.dropdown
+    %button{class: 'btn btn-primary dropdown-toggle' ,type: 'button', "data-toggle": 'dropdown'}
+      = "Sort Items"
+      %span.caret
+    %ul.dropdown-menu{'ng-init':"sort='#{I18n.t('sort_by.date_added')}'"}
+      %li{ role: "menuitem",'ng-click': "ChangeValue(#{collection.id},$event)" }= link_to t("sort_by.annotation"), ''
+      %li{ role: "menuitem",'ng-click': "ChangeValue(#{collection.id},$event)" }= link_to t("sort_by.common_name"), ''
+      %li{ role: "menuitem",'ng-click': "ChangeValue(#{collection.id},$event)" }= link_to t("sort_by.date_added"), ''
+      %li{ role: "menuitem",'ng-click': "ChangeValue(#{collection.id},$event)" }= link_to t("sort_by.scientific_name"), ''
+    .actions.col-md-6 
+    %input{'ng-model': 'ReverseSort', 'ng-click': "ChangeValue(#{collection.id})", type: 'checkbox'}
+    %label.checkbox
+      = t("sort_by.reverse")
+  

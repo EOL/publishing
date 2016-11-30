@@ -117,6 +117,12 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  sort_by:
+    annotation: "Annotation"
+    common_name: "Common Name"
+    date_added: "Date Added"
+    scientific_name: "Scientific Name"
+    reverse: "reverse"
   taxon_collect_button: "collect page"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""

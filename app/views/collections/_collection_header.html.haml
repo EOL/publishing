@@ -9,3 +9,5 @@
         %button.btn.btn-default
           = link_to(t(:collection_edit_button), edit_collection_path(collection))
     = render 'collection_search', collection: collection
+.nav-search.navbar-form.navbar-right
+  = render 'collection_sort', collection: collection
