@@ -1,15 +1,15 @@
 class Import::Duplicate
   class << self
-    def duplicate_from_file(name, num_of_pages)
+    def duplicate_from_file(name, duplicate_from, duplicate_to)
       # Test with:
       # Import::Duplicate.duplicate_from_file(Rails.root.join("doc", "store-328598.json"), 1) OR
-      # Import::Duplicate.duplicate_from_file("http://beta.eol.org/store-328598.json")
+      # Import::Duplicate.duplicate_from_file("http://beta.eol.org/store-328598.json", 1)
       file = if Uri.is_uri?(name.to_s)
                open(name) { |f| f.read }
              else
                File.read(name)
              end
-      for i in 1..num_of_pages
+      for i in duplicate_from..duplicate_to
         parse_page(JSON.parse(file), i)
       end
     end
@@ -28,6 +28,8 @@ class Import::Duplicate
           resource = build_resource(t_data["resource"])
           next if resource.nil? # NOTE: we don't import user-added data.
           unless Trait.exists?(resource.id, "#{t_data["resource_pk"]}#{i}") #ddddddddddddddddddddddddddddd
+           t_data["predicate"]["name"] = "#{t_data["predicate"]["name"]}_a#{i}"
+           t_data["predicate"]["uri"] = "#{t_data["predicate"]["uri"]}_a#{i}"
             pred = create_uri(t_data["predicate"])
             units = create_uri(t_data["units"]) if t_data["units"]
             term = create_uri(t_data["term"]) if t_data["term"]
