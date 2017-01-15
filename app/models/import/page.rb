@@ -34,7 +34,11 @@ class Import::Page
         data["native_node"],
         data["native_node"]["scientific_name"],
         data["native_node"]["canonical_form"])
+      data["scientific_synonyms"].each {|sy| build_sci_name(ital: sy["italicized"], canon: sy["canonical"],
+                                        synonym: true, preferred: sy["preferred"], node: node)}
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
+      data["scientific_names"].each {|sn| build_sci_name(ital: sn["italicized"], canon: sn["canonical"],
+                                     synonym: false, preferred: sn["preferred"], node: node)}
       last_position = 0
       if data["articles"]
         data["articles"].each do |a|
@@ -77,7 +81,7 @@ class Import::Page
               obj_page_id = t_data["object_page"]["id"]
               create_page(obj_page_id,
                 t_data["object_page"]["node"],
-                t_data["object_page"]["scientific_name"],
+                t_data["object_page"]["scientific_ name"],
                 t_data["object_page"]["canonical_form"])
             end
             meta = []
@@ -260,19 +264,26 @@ class Import::Page
     end
 
     def build_sci_name(opts)
-      ScientificName.where(italicized: opts[:ital]).first_or_create do |sn|
+      ScientificName.where(italicized: opts[:ital], is_preferred: opts[:preferred]).first_or_create do |sn|
         sn.italicized = opts[:ital]
         sn.canonical_form = opts[:canon]
         sn.page_id = @page.id
         sn.node_id = opts[:node].id
-        sn.is_preferred = true
-        sn.taxonomic_status_id = TaxonomicStatus.preferred.id
+        if opts[:preferred].nil?
+          sn.is_preferred = true
+          sn.taxonomic_status_id = TaxonomicStatus.preferred.id
+        else
+          sn.is_preferred = opts[:preferred]
+          opts[:synonym] ? sn.taxonomic_status_id = TaxonomicStatus.synonym.id : sn.taxonomic_status_id = TaxonomicStatus.misnomer.id
+        end
+        
       end
     end
 
     def build_vernacular(v_data, node)
       lang = build_language(v_data["language"])
-      Vernacular.where(string: v_data["string"], language_id: lang.id, node_id: node.id).first_or_create do |v|
+#       TODO: Create a funtion to parse vetted information and set 'trust attribute accordingly'
+      Vernacular.where(string: v_data["string"], language_id: lang.id, node_id: node.id).create do |v|
         v.string = v_data["string"]
         v.language_id = lang.id
         v.node_id = node.id
