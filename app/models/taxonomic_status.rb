@@ -8,6 +8,20 @@ class TaxonomicStatus < ActiveRecord::Base
         ts.is_preferred = true
       end
     end
+    
+    def synonym
+      TaxonomicStatus.where(name: "synonym").first_or_create do |ts|
+        ts.name = "synonym"
+        ts.is_preferred = false
+      end
+    end
+    
+    def misnomer
+      TaxonomicStatus.where(name: "misnomer").first_or_create do |ts|
+        ts.name = "misnomer"
+        ts.is_preferred = false
+      end
+    end
   end
 
   # As of this writing, the following were the known "types":
