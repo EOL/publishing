@@ -13,7 +13,7 @@
     .input-group.collection_search
       = text_field_tag("q","",
         "ng-model": "selectedPage",
-        "placeholder": "{{name || '#{I18n.t(:search_in_collection)}' }}",
+        "placeholder": "{{ name || '#{I18n.t(:search_in_collection)}' }}",
         "typeahead": "page for page in querySearch($viewValue, #{collection.id})",
         "typeahead-template-url": "layoutSearchTemplate.html",
         "typeahead-min-length": 3,
@@ -22,5 +22,5 @@
         "class": "form-control",
         "autocomplete": "off")
     .clear_search
-      = link_to "clear search",  collection_path(collection), 
+      = link_to "clear search", collection_path(collection),
        "ng-click": "clearSearch()", "ng-show": "showClearSearch"

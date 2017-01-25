@@ -65,10 +65,14 @@ if(!EOL) {
         var data = response.data;
         $.each(data, function(i, match) {
           var re = new RegExp(query, "i");
+
           match.names = [];
+          // TODO: This is broken! We don't want to set the names to add a hash,
+          // we just want it to return the regex match.
           if(match.scientific_name.match(re)) {
             match.names += { string: match.scientific_name };
           };
+          // TODO: This is actually wrong; it should ADD to match.names, not replace it.
           match.names =
             jQuery.grep(match.preferred_vernaculars, function(e) {
               return e.string.match(re);
@@ -103,10 +107,10 @@ if(!EOL) {
     		$compile = elem.injector().get('$compile');
     		var scope = elem.scope();
     		elem.html( $compile(response.data)(scope) );
-		});	
+		});
   	};
   }
-  
+
   function collectionSearchCtrl ($scope, $http) {
     $scope.selected = undefined;
     $scope.showClearSearch = false;
@@ -117,19 +121,23 @@ if(!EOL) {
       }).then(function(response){
         var data = response.data;
         if(data.length > 0){
-            $.each(data, function(i, match) {
-              var re = new RegExp(query, "i");
-              match.names = [];
-              if(match.scientific_name.match(re)) {
-                match.names += { string: match.scientific_name };
-              };
-              match.names =
-                jQuery.grep(match.preferred_vernaculars, function(e) {
-                  return e.string.match(re);
-                });
-            });
+          $.each(data, function(i, match) {
+            var re = new RegExp(query, "i");
+            match.names = [];
+            // TODO: this is ALSO broken (see first querySearch above) Ideally,
+            // this would be an abstracted method that we used in both places.
+            // Quick note: probably better to abstract the inner then() call,
+            // since the rest isn't duplicated.
+            if(match.scientific_name.match(re)) {
+              match.names += { string: match.scientific_name };
+            };
+            match.names =
+              jQuery.grep(match.preferred_vernaculars, function(e) {
+                return e.string.match(re);
+              });
+          });
         }else{
-            data =  [{names: {string: "No pages found!" }}];
+          data =  [{names: {string: "No pages found!" }}];
         }
         return data;
       });
@@ -142,7 +150,7 @@ if(!EOL) {
         $scope.selected = $item.scientific_name;
         $("div.collected_pages").hide();
         $http.get("/collected_pages/search_results" , {
-        params: { q: $scope.name  , collection_id: collection_id}
+        params: { q: $scope.name, collection_id: collection_id}
       }).then(function(response){
         var data = response.data;
         document.querySelector('div.search_results').innerHTML= response.data;
@@ -166,7 +174,7 @@ if(!EOL) {
       $scope.showClearSearch = false;
     };
   }
-  
+
   function PageCtrl ($scope) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
@@ -200,7 +208,7 @@ if(!EOL) {
       }
     };
   }
-  
+
   // fix the autofill problem in password fields
   app.directive('autofill', function () {
 	    return {
@@ -289,7 +297,7 @@ if(!EOL) {
         .targetEvent(ev)
         .ok('ok')
         .cancel('cancel');
-        $mdDialog.show(confirm).then(function() {	
+        $mdDialog.show(confirm).then(function() {
           $http({
             method : 'POST',
             url :'/users/delete_user?id=' + user_id.toString()
@@ -309,7 +317,7 @@ function recaptchaCallback() {
   console.log("recaptchaCallback()");
   var appElement = $(".recaptchad")[0];
   var $scope = angular.element(appElement).scope;
-  $scope.$apply(function() { 
+  $scope.$apply(function() {
     $scope.recaptchaError = false;
     $scope.recaptchaChecked = true;
   });
