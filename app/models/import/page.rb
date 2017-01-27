@@ -85,7 +85,7 @@ class Import::Page
                 t_data["object_page"]["canonical_form"])
             end
             meta = []
-            if t_data["metadata"] 
+            if t_data["metadata"]
               t_data["metadata"].each do |md|
                 mpred = create_uri(md["predicate"])
                 next unless mpred
@@ -107,7 +107,6 @@ class Import::Page
               statistical_method: t_data["statistical_method"],
               lifestage: t_data["lifestage"],
               sex: t_data["sex"],
-              scientific_name: t_data["scientific_name"],
               units: units,
               object_term: term,
               literal: t_data["literal"],
@@ -276,7 +275,7 @@ class Import::Page
           sn.is_preferred = opts[:preferred]
           opts[:synonym] ? sn.taxonomic_status_id = TaxonomicStatus.synonym.id : sn.taxonomic_status_id = TaxonomicStatus.misnomer.id
         end
-        
+
       end
     end
 
