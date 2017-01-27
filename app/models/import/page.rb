@@ -30,6 +30,7 @@ class Import::Page
 
     def parse_page(data)
       @resource_nodes = {}
+      @roles = {}
       node, page_node = create_page(data["id"],
         data["native_node"],
         data["native_node"]["scientific_name"],
@@ -37,7 +38,7 @@ class Import::Page
       data["scientific_synonyms"].each {|sy| build_sci_name(ital: sy["italicized"], canon: sy["canonical"],
                                         synonym: true, preferred: sy["preferred"], node: node)}
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
-      data["scientific_names"].each {|sn| build_sci_name(ital: sn["italicized"], canon: sn["canonical"],
+      data["nonpreferred_scientific_names"].each {|sn| build_sci_name(ital: sn["italicized"], canon: sn["canonical"],
                                      synonym: false, preferred: sn["preferred"], node: node)}
       last_position = 0
       if data["articles"]
@@ -178,12 +179,15 @@ class Import::Page
       else
         resource = build_resource(c_data["provider"])
         return nil if resource.nil?
+        attributions = c_data.delete("attributions")
         # Common fields for all content:
         hash = {
           guid: c_data["guid"],
           resource_pk: c_data["resource_pk"],
           resource: resource,
           license: build_license(c_data["license"]),
+          rights_statement: c_data["rights_statement"],
+          location: build_location(c_data["location"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
           owner: c_data["owner"],
           name: c_data["name"],
@@ -199,7 +203,9 @@ class Import::Page
         hash[:format] = ext if ext # Not always needed.
         hash[:language] = build_language(c_data["language"]) if
           c_data["language"]
-        klass.create(hash)
+        c = klass.create(hash)
+        add_attributions(c, attributions)
+        c
       end
       begin
         PageContent.create(
@@ -229,6 +235,38 @@ class Import::Page
         end
       end
       content
+    end
+
+    # { role: attrib.agent_role.label, url: url, value: attrib.agent.full_name }
+    def add_attributions(content, attributions)
+      return if attributions.nil?
+      attributions.each do |attribution|
+        role = build_role(attribution["role"])
+        attribution = Attribution.create(role: role, url: attribution["url"],
+          value: attribution["value"])
+        attribution.content = content
+      end
+    end
+
+    def build_role(name)
+      @roles[name] ||= Role.where(name: name).first_or_create do |r|
+        r.name = name
+      end
+    end
+
+    def build_location(l_data)
+      return nil if l_data.nil? or l_data.empty?
+      attrs = {
+        location: l_data["verbatim"],
+        longitude: l_data["long"],
+        latitude: l_data["lat"]
+      }
+      Location.where(location: l_data["verbatim"], longitude: l_data["long"],
+                     latitude: l_data["lat"]).first_or_create do |l|
+        l.location: l_data["verbatim"],
+        l.longitude: l_data["long"],
+        l.latitude: l_data["lat"]
+      end
     end
 
     def build_node(node_data, resource = nil)
@@ -263,6 +301,7 @@ class Import::Page
     end
 
     def build_sci_name(opts)
+      opts[:italicized] ||= opts[:canon] # Was missing in some Betula nigra records...
       ScientificName.where(italicized: opts[:ital], is_preferred: opts[:preferred]).first_or_create do |sn|
         sn.italicized = opts[:ital]
         sn.canonical_form = opts[:canon]
@@ -275,13 +314,12 @@ class Import::Page
           sn.is_preferred = opts[:preferred]
           opts[:synonym] ? sn.taxonomic_status_id = TaxonomicStatus.synonym.id : sn.taxonomic_status_id = TaxonomicStatus.misnomer.id
         end
-
       end
     end
 
     def build_vernacular(v_data, node)
       lang = build_language(v_data["language"])
-#       TODO: Create a funtion to parse vetted information and set 'trust attribute accordingly'
+      # TODO: Create a funtion to parse vetted information and set 'trust attribute accordingly'
       Vernacular.where(string: v_data["string"], language_id: lang.id, node_id: node.id).create do |v|
         v.string = v_data["string"]
         v.language_id = lang.id
