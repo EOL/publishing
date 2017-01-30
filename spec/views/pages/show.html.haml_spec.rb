@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "pages/show" do
   let(:resource) do
-    instance_double("Resource", id: 64333, name: "Short Res Name")
+    instance_double("Resource", id: 64333, name: "Short Res Name", url: nil)
   end
   let(:lic1) do
     instance_double("License", name: "Image license name")
@@ -26,7 +26,9 @@ RSpec.describe "pages/show" do
       children: [])
     lic2 = instance_double("License", name: "Article license name")
     article = instance_double("Article", name: "Article Name", license: lic2,
-      body: "Article body", owner: "Article owner")
+      body: "Article body", owner: "Article owner", rights_statement: nil,
+      bibliographic_citation: nil, location: nil, attributions: [],
+      source_url: nil, resource: resource)
     traits = [
       { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
         measurement: "657", units: { uri: "http://un.its/one",
@@ -41,11 +43,14 @@ RSpec.describe "pages/show" do
       "http://un.its/one" => { name: "Units URI" },
       "http://te.rm/one" => { name: "Term URI" }
     }
-    instance_double("Page", id: 8293, name: "something common", native_node: node,
-      scientific_name: "<i>Nice scientific</i>",
-      article: article, traits: traits, glossary: glossary,
-      predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
+
+    instance_double("Page", id: 8293, name: "something common",
+      native_node: node, scientific_name: "<i>Nice scientific</i>",
+      article: article, articles: [article],  traits: traits,
+      glossary: glossary, predicates: traits.map { |t| t[:predicate][:uri] },
+      media_count: 2,
       grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )
+
   end
 
   before do

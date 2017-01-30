@@ -34,7 +34,8 @@ class Page < ActiveRecord::Base
   # page. Besides, it's loaded in a separate instance variable...
   scope :preloaded, -> do
     includes(:preferred_vernaculars, :native_node, :medium,
-      articles: [:license, :sections])
+      articles: [:license, :sections, :bibliographic_citation, :location,
+        attributions: :role])
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:

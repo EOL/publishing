@@ -158,13 +158,23 @@ ul.appears_on li::after
 .media .jumbotron p
   margin-left: 2em
 
+.galleria
+  height: 600px
+
 .galleria-theme-classic
   border-radius: 4px
   background-color: e0e0e0
 
 .galleria__credits
+  padding: 1em
+  color: #eee
   font-weight: 600
-  text-shadow: 4px 2px 4px #000 !important
+  // NOTE: someone changed this shadow width to 4px, but that really hurt the
+  // clarity, so I put it back to 2px.
+  text-shadow: 2px 2px 2px #000
+
+.galleria__credits a
+  color: #d0d0ff
 
 .galleria-theme-classic .galleria-info-text
   border: 2px solid #181818
@@ -255,7 +265,7 @@ table.collections ul.matches li::after
 .media-image img
   box-shadow: 4px 4px 12px #888
   margin: 3em
-  
+
 .collection_association
   clear: left
 

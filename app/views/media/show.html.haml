@@ -19,16 +19,7 @@
             %p= @medium.description.html_safe
         .attribution.col-md-4
           %h2= t(:content_attributions_header)
-          %ul
-            %li
-              = t("content_attributions_labels.license")
-              = @medium.license.name.html_safe
-            %li
-              = t("content_attributions_labels.owner")
-              = @medium.owner.html_safe.html_safe
-            -# - @medium.attributions.includes(:role).each do |attribution|
-            -#   = t("content_attributions_labels.#{attribution.role.name}")
-            -#   = attribution.value
+          = render("attributions/for_content", content: @medium)
           %h2= t(:content_associations)
           %ul
             - @medium.associations.each do |page|
@@ -38,7 +29,6 @@
             %h2= "Awards"
             %ul
               %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
-
       %h2= t(:content_appears_on)
       %ul.appears_on
         - @medium.pages.each do |page|

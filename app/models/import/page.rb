@@ -256,6 +256,8 @@ class Import::Page
 
     def build_location(l_data)
       return nil if l_data.nil? or l_data.empty?
+      return nil if l_data["long"].to_i == 0 && l_data["lat"].to_i == 0 &&
+        l_data["verbatim"].blank?
       Location.where(location: l_data["verbatim"], longitude: l_data["long"],
                      latitude: l_data["lat"]).first_or_create do |l|
         l.location = l_data["verbatim"]
@@ -369,6 +371,7 @@ class Import::Page
     end
 
     def build_citation(citation)
+      return nil if citation.blank?
       BibliographicCitation.where(body: citation).first_or_create do |cit|
         cit.body = citation
       end

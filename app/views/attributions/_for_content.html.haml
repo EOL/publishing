@@ -1,0 +1,50 @@
+%ul
+  %li
+    %strong= t("content_attributions_labels.license")
+    = content.license.name.html_safe
+  %li
+    %strong= t("content_attributions_labels.owner")
+    = content.owner.html_safe
+  - unless content.rights_statement.blank?
+    %li
+      %strong= t("content_attributions_labels.rights_statement")
+      = content.rights_statement.html_safe
+  - if content.bibliographic_citation && ! content.bibliographic_citation.body.blank?
+    %li
+      %strong= t("content_attributions_labels.bibliographic_citation")
+      = content.bibliographic_citation.body.html_safe
+  - if loc = content.location
+    %li
+      %strong= t("content_attributions_labels.location")
+      %ul
+        - unless loc.location.blank?
+          %li
+            %strong= t("content_attributions_labels.location_verbatim")
+            = loc.location
+        - if loc.latitude
+          %li
+            %strong= t("content_attributions_labels.latitude")
+            = loc.latitude
+        - if loc.longitude
+          %li
+            %strong= t("content_attributions_labels.longitude")
+            = loc.longitude
+        - if loc.altitude
+          %li
+            %strong= t("content_attributions_labels.altitude")
+            = loc.altitude
+        - unless loc.spatial_location.blank?
+          %li
+            %strong= t("content_attributions_labels.spatial_location")
+            = loc.spatial_location
+  - content.attributions.each do |attribution|
+    %li
+      %strong= t("content_attributions_labels.#{attribution.role.name}")
+      = attribution.value.html_safe
+  - if content.source_url
+    %li
+      %strong= t("content_attributions_labels.view_source_label")
+      = link_to(t("content_attributions_labels.view_source_link"), content.source_url)
+  %li
+    %strong= t("content_attributions_labels.resource_label")
+    = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
