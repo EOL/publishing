@@ -243,8 +243,8 @@ class Import::Page
       attributions.each do |attribution|
         role = build_role(attribution["role"])
         attribution = Attribution.create(role: role, url: attribution["url"],
-          value: attribution["value"])
-        attribution.content = content
+          value: attribution["value"], content_id: content.id,
+          content_type: content.class.name)
       end
     end
 
@@ -256,16 +256,11 @@ class Import::Page
 
     def build_location(l_data)
       return nil if l_data.nil? or l_data.empty?
-      attrs = {
-        location: l_data["verbatim"],
-        longitude: l_data["long"],
-        latitude: l_data["lat"]
-      }
       Location.where(location: l_data["verbatim"], longitude: l_data["long"],
                      latitude: l_data["lat"]).first_or_create do |l|
-        l.location: l_data["verbatim"],
-        l.longitude: l_data["long"],
-        l.latitude: l_data["lat"]
+        l.location = l_data["verbatim"]
+        l.longitude = l_data["long"]
+        l.latitude = l_data["lat"]
       end
     end
 
@@ -301,7 +296,7 @@ class Import::Page
     end
 
     def build_sci_name(opts)
-      opts[:italicized] ||= opts[:canon] # Was missing in some Betula nigra records...
+      opts[:ital] ||= opts[:canon] # Was missing in some Betula nigra records...
       ScientificName.where(italicized: opts[:ital], is_preferred: opts[:preferred]).first_or_create do |sn|
         sn.italicized = opts[:ital]
         sn.canonical_form = opts[:canon]
