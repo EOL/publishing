@@ -28,7 +28,7 @@ RSpec.describe "pages/show" do
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner", rights_statement: nil,
       bibliographic_citation: nil, location: nil, attributions: [],
-      source_url: nil, resource: resource)
+      source_url: nil, resource: resource, resource_pk: "1234")
     traits = [
       { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
         measurement: "657", units: { uri: "http://un.its/one",

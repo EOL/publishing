@@ -1,4 +1,4 @@
-%ul
+%ul.attributions
   %li
     %strong= t("content_attributions_labels.license")
     = content.license.name.html_safe
@@ -48,3 +48,4 @@
   %li
     %strong= t("content_attributions_labels.resource_label")
     = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
+    %small= t("content_attributions_labels.resource_pk", key: content.resource_pk)
