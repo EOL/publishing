@@ -1,0 +1,43 @@
+-# %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
+  -# %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
+    -# = t(:clade)
+    -# = text_field_tag("clade", nil,
+      -# "placeholder" => t(:clade_placeholder),
+      -# "autocomplete" => "off",
+      -# "ng-model" => "clade_name",
+      -# required: true)
+    -# .input-group-btn
+      -# = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+-#             
+
+
+.nav-search.navbar-form.navbar-right
+  %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
+    .autocomplete-result.row
+      .icon.col-md-2
+        %a{ href: "#" }
+          %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
+      .names.col-md-10
+        %a{ href: "#" }
+          %ul
+            %li{ "ng-repeat" => "vern in match.model.names",
+              "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+  %div{ "ng-controller" => "CladeFilterCtrl as ctrl", "layout" => "column" }
+    = form_tag(terms_path(uri), method: "get", autocomplete: "off") do
+       = t(:clade)
+      .input-group
+        = text_field_tag("clade_name", nil,
+          "ng-model" => "selectedPage",
+          "placeholder" => t(:clade_placeholder),
+          "typeahead" => "page for page in get_clades($viewValue)",
+          "typeahead-template-url" => "layoutSearchTemplate.html", # fix the layout as needed 
+          "typeahead-min-length" => 3,
+          "typeahead-loading" => "loadingLocations", # rename this
+          "typeahead-on-select" => "onSelect($item, $model, $label)", # reload page with selected clade
+          "typeahead-input-formatter" => "nameOfModel($model)",
+          "class" => "form-control",
+          "autocomplete" => "off")
+        .input-group-btn
+          = submit_tag "Go", class: "btn btn-default"
+.search-indicator.nav.navbar-nav.navbar-right
+  %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }

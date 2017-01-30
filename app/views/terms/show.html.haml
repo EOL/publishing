@@ -21,14 +21,5 @@
             %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
             %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
             %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
-      %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
-        %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
-          = t(:clade)
-          = text_field_tag("clade", nil,
-            "placeholder" => t(:clade_placeholder),
-            "autocomplete" => "off",
-            "ng-model" => "clade_name",
-            required: true)
-          .input-group-btn
-            = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+      = render 'clade_filter' , {uri: params[:uri]}
   = render 'traits_table', { traits: @grouped_traits, pages: @pages }

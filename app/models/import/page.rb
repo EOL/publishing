@@ -35,10 +35,10 @@ class Import::Page
         data["native_node"]["scientific_name"],
         data["native_node"]["canonical_form"])
       data["scientific_synonyms"].each {|sy| build_sci_name(ital: sy["italicized"], canon: sy["canonical"],
-                                        synonym: true, preferred: sy["preferred"], node: node)}
-      data["vernaculars"].each { |cn| build_vernacular(cn, node) }
+                                        synonym: true, preferred: sy["preferred"], node: node)} if data["scientific_synonyms"]
+      data["vernaculars"].each { |cn| build_vernacular(cn, node) } if data["vernaculars"]
       data["scientific_names"].each {|sn| build_sci_name(ital: sn["italicized"], canon: sn["canonical"],
-                                     synonym: false, preferred: sn["preferred"], node: node)}
+                                     synonym: false, preferred: sn["preferred"], node: node)} if data["scientific_names"]
       last_position = 0
       if data["articles"]
         data["articles"].each do |a|
@@ -265,7 +265,7 @@ class Import::Page
 
     def build_sci_name(opts)
       ScientificName.where(italicized: opts[:ital], is_preferred: opts[:preferred]).first_or_create do |sn|
-        sn.italicized = opts[:ital]
+        sn.italicized = opts[:ital]? opts[:ital] : "" 
         sn.canonical_form = opts[:canon]
         sn.page_id = @page.id
         sn.node_id = opts[:node].id

@@ -94,18 +94,74 @@ if(!EOL) {
     };
   }
 
-  function CladeFilterCtrl ($scope, $http, $window) {
-	$scope.cladeFilter = function(clade_name, uri) {
-		return $http.get("/clade_filter.js", {
-       		params: { clade_name: clade_name, uri: uri }
-    	}).then(function(response, $compile){
-    		var elem = angular.element("div#traits_table");
-    		$compile = elem.injector().get('$compile');
-    		var scope = elem.scope();
-    		elem.html( $compile(response.data)(scope) );
-		});	
-  	};
+ function CladeFilterCtrl ($scope, $http, $window) {
+    $scope.selected = undefined;
+
+    $scope.get_clades = function(clade_name) {
+      return $http.get("/search.json", {
+        params: { q: clade_name + "*", per_page: "6", only: "pages" }
+      }).then(function(response){
+        var data = response.data;
+        $.each(data, function(i, match) {
+          var re = new RegExp(query, "i");
+          match.names = [];
+          if(match.scientific_name.match(re)) {
+            match.names += { string: match.scientific_name };
+          };
+          match.names =
+            jQuery.grep(match.preferred_vernaculars, function(e) {
+              return e.string.match(re);
+            });
+        });
+        return data;
+      });
+    };
+
+    $scope.onSelect = function($item, $model, $label) {
+      if (typeof $item !== 'undefined') {
+        $scope.selected = $item.scientific_name;
+        $window.location = "/pages/" + $model.id; // chaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaange this!!!!!!!!!!!!
+      }
+    };
+
+    // $scope.onSelect = function($item, $model, $label, collection_id) {
+      // if (typeof $item !== 'undefined') {
+        // if(typeof $scope.selectedPage.names[0] === 'undefined') return;
+        // $scope.name = $scope.selectedPage.names[0].string;
+        // $scope.selected = $item.scientific_name;
+        // // $("div.collected_pages").hide();
+        // $http.get("/collected_pages/search_results" , {
+        // params: { q: $scope.name  , collection_id: collection_id}
+      // }).then(function(response){
+        // var data = response.data;
+        // document.querySelector('div.search_results').innerHTML= response.data;
+        // $scope.showClearSearch = true;
+        // return data;
+      // });
+      // }
+    // };
+    $scope.nameOfModel = function($model) {
+      if (typeof $item === 'undefined') {
+        return "";
+      } else {
+        return $model.scientific_name.replace(/<\/?i>/g, "");
+      }
+    };
   }
+  
+  
+  // function CladeFilterCtrl ($scope, $http, $window) {
+	// $scope.cladeFilter = function(clade_name, uri) {
+		// return $http.get("/clade_filter.js", {
+       		// params: { clade_name: clade_name, uri: uri }
+    	// }).then(function(response, $compile){
+    		// var elem = angular.element("div#traits_table");
+    		// $compile = elem.injector().get('$compile');
+    		// var scope = elem.scope();
+    		// elem.html( $compile(response.data)(scope) );
+		// });	
+  	// };
+  // }
   
   function collectionSearchCtrl ($scope, $http) {
     $scope.selected = undefined;

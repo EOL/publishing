@@ -146,9 +146,18 @@ class TraitBank
       puts "** sort: #{sort}"
       puts "** Direction: #{dir}"
       # TODO: pull in more for the metadata...
-      res = connection.execute_query(
-        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
+      
+      if options[:clade_id]
+         query = "MATCH (Node{page_id:#{options[:clade_id]}})-[:parent]->(node:Node)"\
+                 "MATCH (page:Page) where page.page_id = node.page_id"\
+                 "MATCH (page)-[:trait]->(trait:Trait)"\
+                 "-[:supplier]->(resource:Resource) " 
+      else
+         query = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+                 "-[:supplier]->(resource:Resource) " 
+      end
+      
+      res = connection.execute_query(query +
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
@@ -489,7 +498,8 @@ class TraitBank
         if trait[which].has_key?(:name)
           trait[which][:name]
         elsif trait[which].has_key?(:uri)
-          humanize_uri(trait[which][:uri]).downcase
+          # humanize_uri(trait[which][:uri]).downcase
+          trait[which][:uri].downcase
         else
           nil
         end
