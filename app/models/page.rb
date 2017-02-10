@@ -35,7 +35,7 @@ class Page < ActiveRecord::Base
   scope :preloaded, -> do
     includes(:preferred_vernaculars, :native_node, :medium,
       articles: [:license, :sections, :bibliographic_citation, :location,
-        attributions: :role])
+        :resource, attributions: :role])
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
