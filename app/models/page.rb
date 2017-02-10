@@ -103,6 +103,10 @@ class Page < ActiveRecord::Base
     vernacular(language).try(:string) || scientific_name
   end
 
+  def names_count
+    @names_count ||= vernaculars.size + scientific_names.size
+  end
+
   # TODO: this is duplicated with node; fix.
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)

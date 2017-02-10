@@ -6,4 +6,8 @@ class ScientificName < ActiveRecord::Base
 
   scope :preferred, -> { where(is_preferred: true) }
   scope :synonym, -> { where(is_preferred: false) }
+
+  def <=>(other)
+    italicized <=> other.italicized
+  end
 end

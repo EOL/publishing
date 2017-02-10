@@ -1,0 +1,29 @@
+-# NOTE: preventing defaults in this view makes is rather complicated, but is
+-# not all that computationally expensive and is worth the effort. TODO: it
+-# would be better to clean this up with helpers, and make it clear again.
+
+%h2= t(:scientific_names_header)
+%ul
+  - @page.scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
+    %li
+      = string.html_safe
+      %ul
+        - names.each do |name|
+          %li= t(:scientific_name_recognized, by: link_to(name.node.resource.name, name.node.resource), as: name.taxonomic_status.name).html_safe
+%h2= t(:vernacular_names_header)
+- @page.vernaculars.group_by { |n| n.language.group }.each do |lang, names_by_lang|
+  %h3= t("languages.#{lang}")
+  %ul
+    - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
+      %li
+        - preferred_name = names_by_string.any? { |n| n.is_preferred? }
+        - if preferred_name
+          %strong= string
+        - else
+          = string
+        %ul
+          - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
+            - str = resource.name
+            - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
+              - str = t(:vernacular_preferred_by_resource, resource: str)
+            %li= link_to(str, resource)

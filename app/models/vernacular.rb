@@ -9,4 +9,8 @@ class Vernacular < ActiveRecord::Base
   scope :current_language, -> { where(language_id: Language.current.id) }
 
   enum trust: [ :unreviewed, :trusted, :untrusted ]
+
+  def <=>(other)
+    string <=> other.string
+  end
 end

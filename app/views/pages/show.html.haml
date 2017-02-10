@@ -38,20 +38,14 @@
             %tab{ heading: t(:page_article_header) }
               = render("page_article", article: @page.article)
           %tab{ heading: "Maps (todo)" }
-          %tab{ heading: "Classification (#{@page.native_node.children.size}) (todo)" }
-            %h2= t(:node_children_header)
-            .page-children
-              - if @page.native_node.children.size > 0
-                %ol
-                  - @page.native_node.children.each do |node|
-                    %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-              - else
-                = t(:node_children_empty)
+          %tab{ heading: t("pages.tabs.classification") }
+            = render("page_classification")
           - if @page.articles.size > 1
             %tab{ heading: t("pages.tabs.details", count: @page.articles.size) }
               - @page.articles.each do |article|
                 = render("page_article", article: article)
                 %hr
-          %tab{ heading: "Names (todo)" }
+          %tab{ heading: t("pages.tabs.names", count: @page.names_count) }
+            = render("page_names")
           %tab{ heading: "References & Literature (todo)" }
           %tab{ heading: "Education (todo)" }
