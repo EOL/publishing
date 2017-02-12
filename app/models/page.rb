@@ -1,11 +1,13 @@
 class Page < ActiveRecord::Base
+  include Names
+  
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
 
   has_many :nodes, inverse_of: :page
   has_many :collected_pages, inverse_of: :page
+  
   has_many :vernaculars, inverse_of: :page
-  has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
   has_many :scientific_names, inverse_of: :page
   has_many :synonyms, -> { synonym }, class_name: "ScientificName"
   has_many :preferred_scientific_names, -> { preferred },
@@ -97,30 +99,8 @@ class Page < ActiveRecord::Base
 
   # NAMES METHODS
 
-  # TODO: this is duplicated with node; fix.
-  def name(language = nil)
-    language ||= Language.english
-    vernacular(language).try(:string) || scientific_name
-  end
-
-  # TODO: this is duplicated with node; fix.
-  # Can't (easily) use clever associations here because of language.
-  def vernacular(language = nil)
-    if preferred_vernaculars.loaded?
-      language ||= Language.english
-      preferred_vernaculars.find { |v| v.language_id == language.id }
-    else
-      if vernaculars.loaded?
-        language ||= Language.english
-        vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
-      else
-        preferred_vernaculars.current_language.first
-      end
-    end
-  end
-
   def scientific_name
-    native_node.try(:canonical_form) || "NO NAME!"
+    native_node.try(:canonical_form) || preferred_scientific_names.try(:first).try(:canonical_form) 
   end
 
   # TRAITS METHODS

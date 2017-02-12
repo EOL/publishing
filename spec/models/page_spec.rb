@@ -10,16 +10,20 @@ RSpec.describe Page do
     Section.brief_summary
   end
 
-  context "with many common names" do
+  context "with many vernaculars" do
     let!(:our_page) { create(:page) }
-    let!(:name1) { create(:vernacular, node: our_page.native_node) }
+    let(:lang) { create(:language) }
+    let!(:name1) { create(:vernacular, node: our_page.nodes.first) }
     let!(:pref_name) { create(:vernacular, node: our_page.native_node, is_preferred: true) }
-    let!(:name2) { create(:vernacular, node: our_page.native_node) }
-
+    let!(:name2) { create(:vernacular, node: our_page.nodes.first, is_preferred: true, language_id: lang.id) }
+     
     it "selects the preferred vernacular" do
       expect(our_page.name).to eq(pref_name.string)
     end
-
+    it "selects the preferred vernacular in current_language" do
+      I18n.locale = lang.group.to_sym
+      expect(our_page.name).to eq(name2.string)
+    end
     it "has access to all vernaculars" do
       expect(our_page.vernaculars).to include(name1)
       expect(our_page.vernaculars).to include(name2)

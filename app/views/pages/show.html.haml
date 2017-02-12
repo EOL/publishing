@@ -9,19 +9,7 @@
           - ancestors.each do |node|
             %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
       .row
-        .page-names.col-md-9
-          %h1= @page.name.titlecase
-          %h2= @page.scientific_name.html_safe
-          - trophic_strat = begin
-            - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
-          - rescue => e
-            -# Do nothing. This code doesn't even belong here. I'm rushing.
-          -# TODO: this is all temporary! We need a real solution:
-          %p
-            = "The #{@page.name} is a(n) #{trophic_strat} #{ancestors[0].name} "
-            - if ancestors[-2]
-              = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-            It lives in a variety of habitats around the world.
+        = render("title_and_summary", ancestors: ancestors)
         %p.col-md-3.actions
           = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "btn btn-default"
       .media
