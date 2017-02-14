@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "pages/show" do
   let(:resource) do
-    instance_double("Resource", id: 64333, name: "Short Res Name", url: nil)
+    create(:resource, id: 64333, name: "Short Res Name", url: nil)
   end
   let(:lic1) do
     instance_double("License", name: "Image license name")
@@ -23,12 +23,18 @@ RSpec.describe "pages/show" do
     parent = instance_double("Node", ancestors: [], name: "Parent Taxon",
       canonical_form: "Parent Taxon", page_id: 653421)
     node = instance_double("Node", ancestors: [parent], name: "SomeTaxon",
-      children: [])
+      children: [], resource: resource)
     lic2 = instance_double("License", name: "Article license name")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner", rights_statement: nil,
       bibliographic_citation: nil, location: nil, attributions: [],
       source_url: nil, resource: resource, resource_pk: "1234")
+    sci_name = instance_double("ScientificName", node: node,
+      italicized: "<i>Nice scientific</i>",
+      taxonomic_status: TaxonomicStatus.synonym)
+    vernacular = instance_double("Vernacular", string: "something common",
+      language: Language.english, is_preferred?: true, node: node,
+      is_preferred_by_resource: true)
     traits = [
       { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
         measurement: "657", units: { uri: "http://un.its/one",
@@ -44,12 +50,15 @@ RSpec.describe "pages/show" do
       "http://te.rm/one" => { name: "Term URI" }
     }
 
-    instance_double("Page", id: 8293, name: "something common",
-      native_node: node, scientific_name: "<i>Nice scientific</i>",
-      article: article, articles: [article],  traits: traits,
-      glossary: glossary, predicates: traits.map { |t| t[:predicate][:uri] },
-      media_count: 2,
+    instance_double("Page", id: 8293, name: vernacular.string,
+      native_node: node, scientific_name: sci_name.italicized,
+      scientific_names: [sci_name],
+      vernaculars: [vernacular], article: article, articles: [article],
+      traits: traits, glossary: glossary,
+      predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
+      nodes: [node], names_count: 2,
       grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )
+
 
   end
 
