@@ -28,23 +28,26 @@
         #gallery
           %h2= t(:page_media_header, count: @page.media_count)
           = render("page_media")
-      .tabs
+      .uib-tabs
         -# TODO: I18n. Follow the example of the details tab (below), please.
-        %tabset{ justified: "true", type: "pills" }
+        %uib-tabset{ justified: "true", type: "pills" }
           - if @page.traits
-            %tab{ heading: t(:page_traits_header, count: @page.traits.size) }
+            %uib-tab{ heading: t(:page_traits_header, count: @page.traits.size) }
               = render("page_traits")
           - if @page.article
-            %tab{ heading: t(:page_article_header) }
+            %uib-tab{ heading: t(:page_article_header) }
               = render("page_article", article: @page.article)
-          %tab{ heading: "Maps (todo)" }
-          %tab{ heading: t("pages.tabs.classification") }
+          - if @page.map?
+            -# TODO: We want a real count there, eventually.
+            %uib-tab{ heading: t("pages.tabs.maps", count: 1), select: "initMap()" }
+              = render("maps")
+          %uib-tab{ heading: t("pages.tabs.classification") }
             = render("page_classification")
           - if @page.articles.size > 1
-            %tab{ heading: t("pages.tabs.details", count: @page.articles.size) }
+            %uib-tab{ heading: t("pages.tabs.details", count: @page.articles.size) }
               - @page.articles.each do |article|
                 = render("page_article", article: article)
                 %hr
-          %tab{ heading: t("pages.tabs.names", count: @page.names_count) }
+          %uib-tab{ heading: t("pages.tabs.names", count: @page.names_count) }
             = render("page_names")
-          %tab{ heading: "References & Literature (todo)" }
+          %uib-tab{ heading: "References & Literature (todo)" }

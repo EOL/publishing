@@ -75,6 +75,8 @@ en:
   email: "Email"
   filter: "Filter"
   forgot_your_password: "Forgot your password?"
+  georeference_records_colon: "Georeference records:"
+  georef_occurrence_disclaimer: "This map is based on occurrence records available through %{link} and may not represent the entire distribution."
   helpers:
     label:
       collection:
@@ -91,6 +93,7 @@ en:
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
+  maps_empty: "There are no maps available for this page."
   medium_collect_button: "collect media"
   medium_description_blank: "There is no description provided for this object."
   medium_header_title: "Title:"
@@ -111,6 +114,9 @@ en:
       details:
         one: "Details"
         other: "Details (%{count})"
+      maps:
+        one: "Map"
+        other: "Maps (%{count})"
       names:
         one: "Name"
         other: "Names (%{count})"

@@ -27,13 +27,15 @@ class Page < ActiveRecord::Base
 
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
+  has_one :occurrence_map, inverse_of: :page
+
   # NOTE: You CANNOT preload both the top article AND the media. This seems to
   # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
   # ancestors; it needs to call the method from the module. NOTE: not loading
   # media, because for large pages, that's a long query, and we only want one
   # page. Besides, it's loaded in a separate instance variable...
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, :medium,
+    includes(:preferred_vernaculars, :native_node, :medium, :occurrence_map,
       articles: [:license, :sections, :bibliographic_citation, :location,
         :resource, attributions: :role])
   end
@@ -93,6 +95,19 @@ class Page < ActiveRecord::Base
         media.first
       end
     end
+  end
+
+  def occurrence_map?
+    occurrence_map
+  end
+
+  def map?
+    occurrence_map? || ! maps.blank?
+  end
+
+  def maps
+    # TODO
+    []
   end
 
   # NAMES METHODS
