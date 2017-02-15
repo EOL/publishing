@@ -10,6 +10,9 @@ class Node < ActiveRecord::Base
   has_many :vernaculars, inverse_of: :node
   has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
 
+  has_many :references, as: :parent
+  has_many :referents, through: :references
+
   acts_as_nested_set scope: :resource, counter_cache: :children_count
 
   counter_culture :resource
