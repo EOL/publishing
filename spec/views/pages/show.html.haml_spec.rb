@@ -56,7 +56,7 @@ RSpec.describe "pages/show" do
       vernaculars: [vernacular], article: article, articles: [article],
       traits: traits, glossary: glossary,
       predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
-      nodes: [node], names_count: 2,
+      nodes: [node], names_count: 2, map?: false,
       grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )
 
 
