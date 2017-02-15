@@ -12,6 +12,9 @@ module Content
     has_many :pages, through: :page_contents
     has_many :curations, through: :page_contents
 
+    has_many :references, as: :parent
+    has_many :referents, through: :references
+
     has_many :associations, -> { where("page_id = source_page_id") },
       through: :page_contents, source: :page
   end

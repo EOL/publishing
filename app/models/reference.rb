@@ -1,3 +1,4 @@
 class Reference < ActiveRecord::Base
-  has_and_belongs_to_many :articles
+  belongs_to :referent, inverse_of: :references
+  belongs_to :parent, polymorphic: true, inverse_of: :references
 end

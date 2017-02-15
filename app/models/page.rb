@@ -29,6 +29,8 @@ class Page < ActiveRecord::Base
 
   has_one :occurrence_map, inverse_of: :page
 
+  has_and_belongs_to_many :referents
+
   # NOTE: You CANNOT preload both the top article AND the media. This seems to
   # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
   # ancestors; it needs to call the method from the module. NOTE: not loading

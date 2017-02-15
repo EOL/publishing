@@ -39,6 +39,8 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     # we don't show maps anyway), it will suffice:
     PageContent.where(content_type: "Map").delete_all
 
+    # NOTE: Aaaaaand... we actually undid this in a subsequent migration,
+    # restoring it to the way it was. Alas!
     create_join_table(:articles, :references) do |t|
       t.index :article_id
     end
