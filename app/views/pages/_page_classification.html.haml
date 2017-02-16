@@ -4,7 +4,7 @@
     - @page.nodes.each do |node|
       %h3= node.resource.name
       %ol.breadcrumb
-        - @page.native_node.ancestors.each do |node|
+        - node.ancestors.each do |node|
           %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
 %h2= t(:node_children_header)
 .page-children
