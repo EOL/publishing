@@ -1,6 +1,6 @@
-raise "These seeds assume you have page 1149380 in your database." unless Page.exists?(1149380)
+page = Page.last
 
-page = Page.find(1149380)
+puts "Using page #{page.id} to attach references."
 
 ref = Referent.create(body: %Q{Govaerts R. (ed). For a full list of reviewers see: <a href="http://apps.kew.org/wcsp/compilersReviewers.do">http://apps.kew.org/wcsp/compilersReviewers.do</a> (2015). WCSP: World Checklist of Selected Plant Families (version Sep 2014). In: Species 2000 & ITIS Catalogue of Life, 26th August 2015 (Roskov Y., Abucay L., Orrell T., Nicolson D., Kunze T., Flann C., Bailly N., Kirk P., Bourgoin T., DeWalt R.E., Decock W., De Wever A., eds). Digital resource at <a href="http://www.catalogueoflife.org/col">www.catalogueoflife.org/col</a>. Species 2000: Naturalis, Leiden, the Netherlands. ISSN 2405-8858.})
 page.referents << ref
