@@ -35,6 +35,9 @@ class Import::Page
         data["native_node"],
         data["native_node"]["scientific_name"],
         data["native_node"]["canonical_form"])
+      data["scientific_synonyms"] ||= []
+      data["vernaculars"] ||= []
+      data["nonpreferred_scientific_names"] ||= []
       data["scientific_synonyms"].each {|sy| build_sci_name(ital: sy["italicized"], canon: sy["canonical"],
                                         synonym: true, preferred: sy["preferred"], node: node)}
       data["vernaculars"].each { |cn| build_vernacular(cn, node) }
