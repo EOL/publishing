@@ -52,7 +52,7 @@ RSpec.describe "pages/show" do
 
     instance_double("Page", id: 8293, name: vernacular.string,
       native_node: node, scientific_name: sci_name.italicized,
-      scientific_names: [sci_name],
+      scientific_names: [sci_name], literature_and_references_count: 0,
       vernaculars: [vernacular], article: article, articles: [article],
       traits: traits, glossary: glossary,
       predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,

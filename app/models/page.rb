@@ -38,8 +38,8 @@ class Page < ActiveRecord::Base
   # page. Besides, it's loaded in a separate instance variable...
   scope :preloaded, -> do
     includes(:preferred_vernaculars, :native_node, :medium, :occurrence_map,
-      articles: [:license, :sections, :bibliographic_citation, :location,
-        :resource, attributions: :role])
+      referents: :references, articles: [:license, :sections, :bibliographic_citation,
+        :location, :resource, attributions: :role])
   end
 
   # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
@@ -172,6 +172,10 @@ class Page < ActiveRecord::Base
     @predicates ||= grouped_traits.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
     end
+  end
+
+  def literature_and_references_count
+    @literature_and_references_count ||= referents.count
   end
 
   private

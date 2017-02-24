@@ -114,6 +114,9 @@ en:
       details:
         one: "Details"
         other: "Details (%{count})"
+      literature_and_references:
+        one: "Literature and References"
+        other: "Literature and References (%{count})"
       maps:
         one: "Map"
         other: "Maps (%{count})"
@@ -127,6 +130,8 @@ en:
   node_hierarchies_header: "Recognized as part of the following resource hierarchies:"
   recaptcha: "Recaptcha"
   recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
+  reference_compiled_from: "Referenced by %{links}"
+  reference_compiled_from_article: "%{source} article titled \"%{name}\""
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
   resource_missing: "resource not found"

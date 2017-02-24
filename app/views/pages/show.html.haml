@@ -50,4 +50,7 @@
                 %hr
           %uib-tab{ heading: t("pages.tabs.names", count: @page.names_count) }
             = render("page_names")
-          %uib-tab{ heading: "References & Literature (todo)" }
+          - if @page.literature_and_references_count > 1
+            %uib-tab{ heading: t("pages.tabs.literature_and_references",
+              count: @page.literature_and_references_count) }
+              = render("literature_and_references")
