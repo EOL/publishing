@@ -67,17 +67,17 @@ if(!EOL) {
           var re = new RegExp(query, "i");
 
           match.names = [];
-          // TODO: This is broken! We don't want to set the names to add a hash,
-          // we just want it to return the regex match.
           if(match.scientific_name.match(re)) {
-            match.names += { string: match.scientific_name };
+            match.names.push({ string: match.scientific_name, language: { code: "sci" } });
           };
-          // TODO: This is actually wrong; it should ADD to match.names, not replace it.
-          match.names =
-            jQuery.grep(match.preferred_vernaculars, function(e) {
-              return e.string.match(re);
-            });
+          $.each(match.preferred_vernaculars, function(j, vmatch) {
+            if(vmatch.string.match(re)) {
+              match.names.push(vmatch);
+            };
+          });
         });
+        console.log("Matches:");
+        console.log(data);
         return data;
       });
     };
