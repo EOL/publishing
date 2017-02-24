@@ -174,6 +174,8 @@ class Page < ActiveRecord::Base
     end
   end
 
+  # REFERENCES METHODS
+
   def literature_and_references_count
     @literature_and_references_count ||= referents.count
   end

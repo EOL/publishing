@@ -96,13 +96,14 @@ RSpec.describe "pages/show" do
     expect(rendered).to match /Parent Taxon/
   end
 
-  it "shows the article" do
-    render
-    expect(rendered).to match /Article license name/
-    expect(rendered).to match /Article Name/
-    expect(rendered).to match /Article body/
-    expect(rendered).to match /Article owner/
-  end
+  # TODO! This was moved to another (Ajaxy) view, so this won't work now.
+  # it "shows the article" do
+  #   render
+  #   expect(rendered).to match /Article license name/
+  #   expect(rendered).to match /Article Name/
+  #   expect(rendered).to match /Article body/
+  #   expect(rendered).to match /Article owner/
+  # end
 
   it "shows the article section name if article name is missing" do
     expect(page).to receive(:article) { nil }

@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
 
   # Putting pages first only because it"s the most common:
-  resources :pages, only: [:show]
+  # TODO: move all the silly extra things to their own resources (I think).
+  resources :pages, only: [:show] do
+    get "traits"
+    get "article"
+    get "maps"
+    get "classifications"
+    get "details"
+    get "names"
+    get "literature_and_references"
+  end
 
   # Putting users second only because they tend to drive a lot of site behavior:
   devise_for :users, controllers: { registrations: "user/registrations",

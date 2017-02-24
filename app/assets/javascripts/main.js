@@ -118,7 +118,7 @@ if(!EOL) {
     $scope.querySearch = function(query, collection_id) {
       return $http.get("/collected_pages/search.json", {
         params: { q: query + "*", collection_id: collection_id }
-      }).then(function(response){
+      }).then(function(response) {
         var data = response.data;
         if(data.length > 0){
           $.each(data, function(i, match) {
@@ -136,7 +136,7 @@ if(!EOL) {
                 return e.string.match(re);
               });
           });
-        }else{
+        } else {
           data =  [{names: {string: "No pages found!" }}];
         }
         return data;
@@ -175,12 +175,12 @@ if(!EOL) {
     };
   }
 
-  function PageCtrl ($scope) {
+  function PageCtrl ($scope, $http) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
     $scope.isCollapsed = false;
 
-    $scope.initMap = function() { console.log("I am here"); EoLMap.init(); }
+    $scope.initMap = function() { console.log("I am here"); EoLMap.init(); };
   }
 
   function LoginCtrl ($scope, $window) {

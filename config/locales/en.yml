@@ -12,6 +12,7 @@ en:
   account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
+  article_from_partner: "provided by %{partner}"
   button_create: "create"
   button_add: "add"
   cancel: "cancel"
@@ -107,22 +108,25 @@ en:
   page_media_header: "Media (%{count})"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
-  page_traits_header: "Trait Data (%{count})"
   pages:
     tabs:
-      classification: "Classification"
+      article: "Overview"
+      classifications: "Classification"
       details:
         one: "Details"
-        other: "Details (%{count})"
+        other: "Details <span class='badge'>%{count}</span>"
       literature_and_references:
         one: "Literature and References"
         other: "Literature and References (%{count})"
       maps:
-        one: "Map"
-        other: "Maps (%{count})"
+        one: "Maps"
+        other: "Maps <span class='badge'>%{count}</span>"
       names:
-        one: "Name"
-        other: "Names (%{count})"
+        one: "Names"
+        other: "Names <span class='badge'>%{count}</span>"
+      traits:
+        one: "Traits"
+        other: "Traits <span class='badge'>%{count}</span>"
   password: "Password"
   password_confirmation: "Password confirmation"
   node_children_header: "Children"

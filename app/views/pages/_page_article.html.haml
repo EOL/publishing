@@ -1,8 +1,12 @@
 - name = article.name.html_safe
 - name = article.sections.first.name if name.blank? || name.empty?
 .article
-  %h3= name
+  .page-header
+    %h1
+      = name
+      %small= t(:article_from_partner, partner: article.resource.name.html_safe)
   = article.body.html_safe
-  .attributions
-    %h4= t(:content_attributions_header)
-    = render("attributions/for_content", content: article)
+  .attributions.panel.panel-default
+    .panel-heading
+      %h4.panel-title= t(:content_attributions_header)
+    .panel-body= render("attributions/for_content", content: article)

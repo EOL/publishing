@@ -1,0 +1,5 @@
+$("#page_nav_content").html("<%= escape_javascript(render("maps")) %>");
+// TODO: does this work?
+initMap();
+$("#page_nav").children().removeClass("active");
+$("#page_nav_maps").addClass("active");
