@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get "details"
     get "names"
     get "literature_and_references"
+    get "breadcrumbs"
   end
 
   # Putting users second only because they tend to drive a lot of site behavior:

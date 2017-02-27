@@ -12,7 +12,7 @@
       %tbody
         - @pages.results.each do |page|
           = render("pages/as_row", page: page)
-  - if defined?(@collections) && ! @collections.results.empty?
+  - if defined?(@collections) && @collections && ! @collections.results.empty?
     %h2= t(:search_collections_title)
     %table.collections
       %tbody
@@ -29,7 +29,7 @@
                   %br/
                   %b= t(:search_collection_match_description)
                   = emphasize_match(collection.description, @q)
-  - if defined?(@media) && ! @media.results.empty?
+  - if defined?(@media) && @media && ! @media.results.empty?
     %h2= t(:search_media_title)
     %table.collections
       %tbody
@@ -54,7 +54,7 @@
                   %br/
                   %b= t(:search_medium_match_owner)
                   = emphasize_match(medium.owner, @q)
-  - if defined?(@users) && ! @users.results.empty?
+  - if defined?(@users) && @users && ! @users.results.empty?
     %h2= t(:search_users_title)
     %table.collections
       %tbody

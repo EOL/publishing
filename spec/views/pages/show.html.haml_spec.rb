@@ -21,9 +21,9 @@ RSpec.describe "pages/show" do
 
   let(:page) do
     parent = instance_double("Node", ancestors: [], name: "Parent Taxon",
-      canonical_form: "Parent Taxon", page_id: 653421)
+      canonical_form: "Parent Taxon", page_id: 653421, has_breadcrumb?: true)
     node = instance_double("Node", ancestors: [parent], name: "SomeTaxon",
-      children: [], resource: resource)
+      children: [], resource: resource, has_breadcrumb?: true)
     lic2 = instance_double("License", name: "Article license name")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner", rights_statement: nil,
@@ -54,7 +54,7 @@ RSpec.describe "pages/show" do
       native_node: node, scientific_name: sci_name.italicized,
       scientific_names: [sci_name], literature_and_references_count: 0,
       vernaculars: [vernacular], article: article, articles: [article],
-      traits: traits, glossary: glossary,
+      traits: traits, glossary: glossary, occurrence_map?: false,
       predicates: traits.map { |t| t[:predicate][:uri] }, media_count: 2,
       nodes: [node], names_count: 2, map?: false,
       grouped_traits: traits.group_by { |t| t[:predicate][:uri] } )

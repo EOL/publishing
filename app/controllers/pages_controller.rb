@@ -78,4 +78,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def breadcrumbs
+    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars,
+      :nodes, native_node: :children).first
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
 end

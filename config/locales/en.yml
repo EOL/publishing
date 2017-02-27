@@ -117,7 +117,7 @@ en:
         other: "Details <span class='badge'>%{count}</span>"
       literature_and_references:
         one: "Literature and References"
-        other: "Literature and References (%{count})"
+        other: "Literature and References <span class='badge'>%{count}</span>"
       maps:
         one: "Maps"
         other: "Maps <span class='badge'>%{count}</span>"

@@ -179,8 +179,6 @@ if(!EOL) {
     $scope.testVar = "foo";
     $scope.traitsCollapsed = false;
     $scope.isCollapsed = false;
-
-    $scope.initMap = function() { console.log("I am here"); EoLMap.init(); };
   }
 
   function LoginCtrl ($scope, $window) {

@@ -1,7 +1,11 @@
 %h2= t(:node_hierarchies_header)
 .page-hierarchies
   %ul
-    - @page.nodes.each do |node|
+    -# Push the native node to the top of the list:
+    - nodes = @page.nodes.to_a
+    - native_node = nodes.index { |n| n.id == @page.native_node.id }
+    - nodes.insert(0, nodes.delete_at(native_node))
+    - nodes.each do |node|
       %h3= node.resource.name
       %ol.breadcrumb
         - node.ancestors.each do |node|

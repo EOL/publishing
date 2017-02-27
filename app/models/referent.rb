@@ -1,4 +1,6 @@
 class Referent < ActiveRecord::Base
+  belongs_to :parent, polymorphic: true
+
   has_many :references, inverse_of: :referent
   has_many :articles, through: :references,
     source: :parent, source_type: "Article"
