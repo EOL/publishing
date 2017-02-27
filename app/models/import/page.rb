@@ -183,6 +183,8 @@ class Import::Page
         resource = build_resource(c_data["provider"])
         return nil if resource.nil?
         attributions = c_data.delete("attributions")
+        owner = c_data["owner"]
+        owner = resource.name if owner.blank?
         # Common fields for all content:
         hash = {
           guid: c_data["guid"],
@@ -192,7 +194,7 @@ class Import::Page
           rights_statement: c_data["rights_statement"],
           location: build_location(c_data["location"]),
           bibliographic_citation: build_citation(c_data["bibliographic_citation"]),
-          owner: c_data["owner"],
+          owner: owner,
           name: c_data["name"],
           source_url: c_data["source_url"]
         }
@@ -271,33 +273,32 @@ class Import::Page
 
     def build_node(node_data, resource = nil)
       resource ||= build_resource(node_data["resource"])
+      return Node.find(node_data["id"]) if Node.exists?(node_data["id"])
       TraitBank.create_node_in_hierarchy(node_data["node_id"].to_i, @page.id)
-      Node.where(resource_id: resource.id, resource_pk: node_data["resource_pk"]).
-           first_or_create do |n|
-        parent =  if node_data["parent"]
-                    build_node(node_data["parent"], resource)
-                  else
-                    nil
-                  end
+      parent = if node_data["parent"]
+                 build_node(node_data["parent"], resource)
+               else
+                 nil
+               end
+      TraitBank.adjust_node_parent_relationship(node_data["node_id"],
+            node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
+            && node_data["parent"]["node_id"]
 
-        TraitBank.adjust_node_parent_relationship(node_data["node_id"],
-              node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
-              && node_data["parent"]["node_id"]
-
-        build_rank(node_data["rank"])
-        n.id = node_data["id"],
-        n.resource_id = resource.id
-        n.page_id = node_data["page_id"]
+      Node.create(
+        id: node_data["id"],
+        rank_id: build_rank(node_data["rank"]).id,
+        resource_id: resource.id,
+        page_id: node_data["page_id"],
         # These get calculated, sadly. ...TODO: override.
-        # n.lft = node_data["lft"]
-        # n.rgt = node_data["rgt"]
-        n.scientific_name = node_data["scientific_name"] # denormalized
-        n.canonical_form = node_data["canonical_form"]
-        n.resource_pk = node_data["resource_pk"] || node_data["scientific_name"]
-        n.source_url = node_data["source_url"]
-        n.is_hidden = false
-        n.parent_id = parent ? parent.id : nil
-      end
+        # lft: node_data["lft"],
+        # rgt: node_data["rgt"],
+        scientific_name: node_data["scientific_name"], # denormalized
+        canonical_form: node_data["canonical_form"],
+        resource_pk: node_data["resource_pk"] || node_data["scientific_name"],
+        source_url: node_data["source_url"],
+        is_hidden: false,
+        parent_id: parent ? parent.id : nil
+      )
     end
 
     def build_sci_name(opts)
