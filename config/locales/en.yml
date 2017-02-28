@@ -100,6 +100,7 @@ en:
   medium_header_title: "Title:"
   medium_header_description: "Description:"
   min_length: "(%{length} characters minimum)"
+  name_preferred_label: "preferred"
   new_password: 'New password'
   no_pages_found: 'No pages found'
   page_article_header: "Overview"
@@ -129,6 +130,7 @@ en:
         other: "Traits <span class='badge'>%{count}</span>"
   password: "Password"
   password_confirmation: "Password confirmation"
+  name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: "This node has no children."
   node_hierarchies_header: "Recognized as part of the following resource hierarchies:"
@@ -139,8 +141,11 @@ en:
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
   resource_missing: "resource not found"
+  scientific_name:
+    status_title:
+      accepted: "Accepted Names"
+      synonym: "Synonyms"
   scientific_names_header: "Scientific Names"
-  scientific_name_recognized: "Recognized by %{by} as \"%{as}\""
   send_me_reset_password_instructions: "Send me reset password instructions"
   search_media_title: "Media"
   search_pages_title: "Pages"

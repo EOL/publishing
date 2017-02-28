@@ -3,27 +3,35 @@
 -# would be better to clean this up with helpers, and make it clear again.
 
 %h2= t(:scientific_names_header)
-%ul
-  - @page.scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
-    %li
-      = string.html_safe
-      %ul
-        - names.each do |name|
-          %li= t(:scientific_name_recognized, by: link_to(name.node.resource.name, name.node.resource), as: name.taxonomic_status.name).html_safe
+%ul.list-group
+  - @page.scientific_names.group_by { |n| n.taxonomic_status.name }.each do |status, scientific_names|
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title= t("scientific_name.status_title.#{status}")
+      .panel-body
+        %ul.list-group
+          - scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
+            %li.list-group-item
+              %strong= string.html_safe
+              - names.each do |name|
+                %br
+                = t(:name_recognized_by, by: link_to(name.node.resource.name, name.node.resource)).html_safe
 %h2= t(:vernacular_names_header)
 - @page.vernaculars.group_by { |n| n.language.group }.each do |lang, names_by_lang|
-  %h3= t("languages.#{lang}")
-  %ul
-    - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
-      %li
-        - preferred_name = names_by_string.any? { |n| n.is_preferred? }
-        - if preferred_name
-          %strong= string
-        - else
-          = string
-        %ul
-          - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
-            - str = resource.name
-            - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
-              - str = t(:vernacular_preferred_by_resource, resource: str)
-            %li= link_to(str, resource)
+  .panel.panel-default
+    .panel-heading
+      %h3.panel-title= t("languages.#{lang}")
+    .panel-body
+      %ul.list-group
+        - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
+          %li.list-group-item
+            - preferred_name = names_by_string.any? { |n| n.is_preferred? }
+            %strong= string
+            - if preferred_name
+              %span.label.label-primary= t(:name_preferred_label)
+            - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
+              %br
+              - str = resource.name
+              - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
+                - str = t(:vernacular_preferred_by_resource, resource: str)
+              = t(:name_recognized_by, by: link_to(str, resource)).html_safe

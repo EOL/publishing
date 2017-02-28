@@ -1,7 +1,7 @@
 %br
-%ul
+%ul.list-group
   - @page.referents.sort_by(&:body).each do |ref|
-    %li
+    %li.list-group-item
       -# TODO: this could have a <ul> or <ol> in it; if so, remove it (this
       -# should be done on IMPORT, not here):
       = ref.body.html_safe
