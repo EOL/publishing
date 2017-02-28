@@ -31,7 +31,7 @@ if(!EOL) {
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngAnimate", "ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .module("eolApp", ["ngAnimate", "ngMaterial", "ngSanitize"])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('brown', {

@@ -11,9 +11,6 @@ gem 'mysql2'
 
 # We're using Angular for our interactive client side stuff:
 gem 'angularjs-rails'
-# Bootstrap CSS:
-gem 'bootstrap-sass', '~> 3.3.6'
-# gem 'bootstrap', '~> 4.0.0.alpha3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
@@ -70,8 +67,6 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
 # Pagination:
 gem 'kaminari', "~> 0.17"
-
-gem 'Bootstrap-Image-Gallery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
