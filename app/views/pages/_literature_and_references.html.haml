@@ -1,19 +1,21 @@
-%br
-%ul.list-group
-  - @page.referents.sort_by(&:body).each do |ref|
-    %li.list-group-item
-      -# TODO: this could have a <ul> or <ol> in it; if so, remove it (this
-      -# should be done on IMPORT, not here):
-      = ref.body.html_safe
-      %br
-      %small
-        - references = ref.references.map do |reference|
-          -# TODO: we should probably preload the parents in the controller.
-          - case reference.parent_type
-          - when "Article"
-            - t(:reference_compiled_from_article, source: link_to(reference.parent.resource.name, reference.parent.resource), name: reference.parent.name)
-          - when "Medium"
-            - %Q{"#{link_to(reference.parent.name.html_safe, reference.parent)}"}
-          - when "Node"
-            - %Q{"#{link_to(reference.parent.resource.name.html_safe, reference.parent.resource)}"}
-        = t(:reference_compiled_from, links: references.to_sentence).html_safe
+.ui.hidden.divider
+.ui.container.text
+  .ui.very.relaxed.divided.list
+    - @page.referents.sort_by(&:body).each do |ref|
+      .item
+        .content
+          -# TODO: this could have a <ul> or <ol> in it; if so, remove it (this
+          -# should be done on IMPORT, not here):
+          .description
+            = ref.body.html_safe
+          %small.extra.ui.right.floated
+            - references = ref.references.map do |reference|
+              -# TODO: we should probably preload the parents in the controller.
+              - case reference.parent_type
+              - when "Article"
+                - t(:reference_compiled_from_article, source: link_to(reference.parent.resource.name, reference.parent.resource), name: reference.parent.name)
+              - when "Medium"
+                - %Q{"#{link_to(reference.parent.name.html_safe, reference.parent)}"}
+              - when "Node"
+                - %Q{"#{link_to(reference.parent.resource.name.html_safe, reference.parent.resource)}"}
+            = t(:reference_compiled_from, links: references.to_sentence).html_safe

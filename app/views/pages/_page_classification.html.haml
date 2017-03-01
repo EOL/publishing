@@ -1,20 +1,27 @@
-%h2= t(:node_hierarchies_header)
-.page-hierarchies
-  %ul
+.ui.container.text
+  .ui.raised.top.attached.segment.grey.inverted
+    %h3.ui.header= t(:node_hierarchies_header)
+  .ui.raised.attached.segment.page-hierarchies
     -# Push the native node to the top of the list:
     - nodes = @page.nodes.to_a
     - native_node = nodes.index { |n| n.id == @page.native_node.id }
     - nodes.insert(0, nodes.delete_at(native_node))
     - nodes.each do |node|
-      %h3= node.resource.name
-      %ol.breadcrumb
-        - node.ancestors.each do |node|
+      .ui.container
+        .content
+          %h3.header= node.resource.name
+        .ui.breadcrumb
+          - node.ancestors.each do |node|
+            = link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#", class: "section")
+            - unless node == node.ancestors.last
+              %i.right.chevron.icon.divider
+  .ui.divider.hidden
+  .ui.raised.top.attached.segment.grey.inverted
+    %h3.ui.header= t(:node_children_header)
+  .ui.raised.attached.segment.page-children
+    - if @page.native_node.children.size > 0
+      %ol
+        - @page.native_node.children.each do |node|
           %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-%h2= t(:node_children_header)
-.page-children
-  - if @page.native_node.children.size > 0
-    %ol
-      - @page.native_node.children.each do |node|
-        %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-  - else
-    = t(:node_children_empty)
+    - else
+      = t(:node_children_empty)

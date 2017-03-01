@@ -1,2 +1,4 @@
-- @page.articles.each do |article|
-  = render("page_article", article: article)
+.ui.container.text
+  - @page.articles.each do |article|
+    = render("page_article", article: article)
+    .ui.divider

@@ -17,6 +17,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Semantic UI CSS Framework:
+gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass.git'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 #Use sunspot to work with solr

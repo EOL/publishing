@@ -4,7 +4,7 @@
     -# TODO: some helpers would clean this up:
     - button = ""
     - unless index == 0
-      - button = "<button class='btn btn-info'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
+      - button = "<button class='ui basic button'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
     = link_to(image_tag(image.small_icon_url,
       title: link_to(image.name, medium_path(image)),
       alt: "<div class='media-info'>#{image.owner.html_safe} #{image.license.name}</div><div class='info-actions'>#{button}</div>".html_safe,

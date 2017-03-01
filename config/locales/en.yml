@@ -115,19 +115,19 @@ en:
       classifications: "Classification"
       details:
         one: "Details"
-        other: "Details <span class='badge'>%{count}</span>"
+        other: "Details <div class='ui label'>%{count}</div>"
       literature_and_references:
         one: "Literature and References"
-        other: "Literature and References <span class='badge'>%{count}</span>"
+        other: "Literature and References <div class='ui label'>%{count}</div>"
       maps:
         one: "Maps"
-        other: "Maps <span class='badge'>%{count}</span>"
+        other: "Maps <div class='ui label'>%{count}</div>"
       names:
         one: "Names"
-        other: "Names <span class='badge'>%{count}</span>"
+        other: "Names <div class='ui label'>%{count}</div>"
       traits:
         one: "Traits"
-        other: "Traits <span class='badge'>%{count}</span>"
+        other: "Traits <div class='ui label'>%{count}</div>"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"

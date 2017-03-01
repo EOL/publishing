@@ -1,51 +1,66 @@
-%dl.attributions.f6.lh-title.mv2
-  %dt.dib.b.dib.b= t("content_attributions_labels.license")
-  %dd.dib.ml0.gray= content.license.name.html_safe
-  %br
-  %dt.dib.b= t("content_attributions_labels.owner")
-  %dd.dib.ml0.gray= content.owner.html_safe
+.ui.list
+  .item
+    .content
+      .header= t("content_attributions_labels.license")
+      .description= content.license.name.html_safe
+  .item
+    .content
+      .header= t("content_attributions_labels.owner")
+      .description= content.owner.html_safe
   - unless content.rights_statement.blank?
-    %br
-    %dt.dib.b= t("content_attributions_labels.rights_statement")
-    %dd.dib.ml0.gray= content.rights_statement.html_safe
+    .item
+      .content
+        .header= t("content_attributions_labels.rights_statement")
+        .description= content.rights_statement.html_safe
   - if content.bibliographic_citation && ! content.bibliographic_citation.body.blank?
-    %br
-    %dt.dib.b= t("content_attributions_labels.bibliographic_citation")
-    %dd.dib.ml0.gray= content.bibliographic_citation.body.html_safe
+    .item
+      .content
+        .header= t("content_attributions_labels.bibliographic_citation")
+        .description= content.bibliographic_citation.body.html_safe
   - if loc = content.location
-    %br
-    %dt.dib.b= t("content_attributions_labels.location")
-    %dd.dib.ml0.gray
-      %dl.f6.lh-title.mv2
-        - unless loc.location.blank?
-          %dt.dib.b= t("content_attributions_labels.location_verbatim")
-          %dd.dib.ml0.gray= loc.location
-        - if loc.latitude
-          %br
-          %dt.dib.b= t("content_attributions_labels.latitude")
-          %dd.dib.ml0.gray= loc.latitude
-        - if loc.longitude
-          %br
-          %dt.dib.b= t("content_attributions_labels.longitude")
-          %dd.dib.ml0.gray= loc.longitude
-        - if loc.altitude
-          %br
-          %dt.dib.b= t("content_attributions_labels.altitude")
-          %dd.dib.ml0.gray= loc.altitude
-        - unless loc.spatial_location.blank?
-          %br
-          %dt.dib.b= t("content_attributions_labels.spatial_location")
-          %dd.dib.ml0.gray= loc.spatial_location
+    .item
+      .content
+        .header= t("content_attributions_labels.location")
+        .description
+        %dl.ui.list
+          - unless loc.location.blank?
+            .item
+              .content
+                .header= t("content_attributions_labels.location_verbatim")
+                .description= loc.location
+          - if loc.latitude
+            .item
+              .content
+                .header= t("content_attributions_labels.latitude")
+                .description= loc.latitude
+          - if loc.longitude
+            .item
+              .content
+                .header= t("content_attributions_labels.longitude")
+                .description= loc.longitude
+          - if loc.altitude
+            .item
+              .content
+                .header= t("content_attributions_labels.altitude")
+                .description= loc.altitude
+          - unless loc.spatial_location.blank?
+            .item
+              .content
+                .header= t("content_attributions_labels.spatial_location")
+                .description= loc.spatial_location
   - content.attributions.each do |attribution|
-    %br
-    %dt.dib.b= t("content_attributions_labels.#{attribution.role.name}")
-    %dd.dib.ml0.gray= attribution.value.html_safe
+    .item
+      .content
+        .header= t("content_attributions_labels.#{attribution.role.name}")
+        .description= attribution.value.html_safe
   - if content.source_url
-    %br
-    %dt.dib.b= t("content_attributions_labels.view_source_label")
-    %dd.dib.ml0.gray= link_to(t("content_attributions_labels.view_source_link"), content.source_url)
-  %br
-  %dt.dib.b= t("content_attributions_labels.resource_label")
-  %dd.dib.ml0.gray
-    = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
-    %small= t("content_attributions_labels.resource_pk", key: content.resource_pk)
+    .item
+      .content
+        .header= t("content_attributions_labels.view_source_label")
+        .description= link_to(t("content_attributions_labels.view_source_link"), content.source_url)
+    .item
+      .content
+        .header= t("content_attributions_labels.resource_label")
+        .description
+          = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
+          %small= t("content_attributions_labels.resource_pk", key: content.resource_pk)

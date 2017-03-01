@@ -1,3 +1,4 @@
-%ol.breadcrumb
-  - @page.native_node.ancestors.each do |node|
-    %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+- @page.native_node.ancestors.each do |node|
+  = link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#", class: "section")
+  - unless node == @page.native_node.ancestors.last
+    %i.right.chevron.icon.divider

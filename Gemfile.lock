@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/doabit/semantic-ui-sass.git
+  revision: 4abe03d57f2be11d8759823a440e62e8fb1afe77
+  specs:
+    semantic-ui-sass (2.2.9.0)
+      sass (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -379,6 +386,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  semantic-ui-sass!
   simplecov (~> 0.12)
   spring
   sunspot_rails (~> 2.2.5)

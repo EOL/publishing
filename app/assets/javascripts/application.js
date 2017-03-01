@@ -3,6 +3,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require semantic-ui
 //= require angular
 //= require angular-sanitize
 //= require main
