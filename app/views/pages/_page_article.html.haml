@@ -1,12 +1,15 @@
 - name = article.name.html_safe
 - name = article.sections.first.name if name.blank? || name.empty?
-.article
-  .page-header
-    %h1
+%article.cf.ph3.ph5-ns.pv5
+  %header.fn.fl-ns.w-50-ns.pr4-ns
+    %h1.f2.lh-title.fw9.mb3.mt0.pt3.bt.bw2
       = name
-      %small= t(:article_from_partner, partner: article.resource.name.html_safe)
-  = article.body.html_safe
-  .attributions.panel.panel-default
-    .panel-heading
-      %h4.panel-title= t(:content_attributions_header)
-    .panel-body= render("attributions/for_content", content: article)
+    %h2.f3.mid-gray.lh-title= t(:article_from_partner, partner: article.resource.name.html_safe)
+    .attributions.pa4.f6.ttu.tracked.gray
+      -# .panel-heading
+      -#   %h4.panel-title= t(:content_attributions_header)
+      = render("attributions/for_content", content: article)
+
+  .fn.fl-ns.w-50-ns
+    .f5.lh-copy.measure.mt0-ns
+      = article.body.html_safe
