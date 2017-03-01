@@ -3,29 +3,30 @@
 - any_collapsed = false
 - row_count = 0
 - any_collapsed = traits.size > max_rows + 1
-%table.traits_by_page.table.table-hover.table-condensed.table-bordered.table-striped
-  %tbody
-    -# TODO: helper
-    - @page.predicates.each do |uri|
-      - predicate = @page.glossary[uri]
-      - previous_predicate = nil
-      - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
-        - collapse = row_count > max_rows && any_collapsed
-        - any_collapsed = true if collapse
-        %tr{ id: trait[:id], collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
-          - row_count += 1
-          %th{ scope: "row" }
-            - if predicate == previous_predicate
-              / same predicate
-            - else
-              = link_to(predicate[:name], term_path(uri: predicate[:uri]))
-              - previous_predicate = predicate
-            - show_trait_modifiers(trait)
-          %td
-            - show_trait_value(trait)
-            - show_metadata(trait)
-          - show_source_col(trait)
+.uk-overflow-auto
+  %table.traits_by_page.uk-table.uk-table-small.uk-table-striped
+    %tbody
+      -# TODO: helper
+      - @page.predicates.each do |uri|
+        - predicate = @page.glossary[uri]
+        - previous_predicate = nil
+        - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
+          - collapse = row_count > max_rows && any_collapsed
+          - any_collapsed = true if collapse
+          %tr{ id: trait[:id], collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
+            - row_count += 1
+            %th{ scope: "row" }
+              - if predicate == previous_predicate
+                / same predicate
+              - else
+                = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                - previous_predicate = predicate
+              - show_trait_modifiers(trait)
+            %td
+              - show_trait_value(trait)
+              - show_metadata(trait)
+            - show_source_col(trait)
 - if any_collapsed
   %p
-    %button.btn.btn-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
+    %button.uk-button.uk-button-default{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
       = t(:traits_show_more, count: row_count - max_rows)

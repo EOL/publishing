@@ -106,7 +106,7 @@ en:
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
-  page_media_header: "Media (%{count})"
+  page_media_header: "Media <span class=\"uk-badge\">%{count}</span>"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
   pages:
@@ -115,19 +115,19 @@ en:
       classifications: "Classification"
       details:
         one: "Details"
-        other: "Details <span class='badge'>%{count}</span>"
+        other: "Details <span class='uk-badge'>%{count}</span>"
       literature_and_references:
         one: "Literature and References"
-        other: "Literature and References <span class='badge'>%{count}</span>"
+        other: "Literature and References <span class='uk-badge'>%{count}</span>"
       maps:
         one: "Maps"
-        other: "Maps <span class='badge'>%{count}</span>"
+        other: "Maps <span class='uk-badge'>%{count}</span>"
       names:
         one: "Names"
-        other: "Names <span class='badge'>%{count}</span>"
+        other: "Names <span class='uk-badge'>%{count}</span>"
       traits:
         one: "Traits"
-        other: "Traits <span class='badge'>%{count}</span>"
+        other: "Traits <span class='uk-badge'>%{count}</span>"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"
