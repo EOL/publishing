@@ -23,8 +23,9 @@
         - shown_ellipsis = false
         - unless node == ancestors.last
           %i.right.chevron.icon.divider
-    .row
-      .page-names.col-md-9
+    .ui.divider
+    .ui.grid
+      .page-names.twelve.wide.column
         %h1= @page.name.titlecase
         %h2= @page.scientific_name.html_safe
         - trophic_strat = begin
@@ -37,8 +38,14 @@
           - if ancestors[-2]
             = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
           It lives in a variety of habitats around the world.
-      %p.col-md-3.actions
-        = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "btn btn-default"
+      %p.four.wide.column.actions
+        = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "ui button"
+    .ui.divider.hidden
+    .media
+      #gallery
+        %h2= t(:page_media_header, count: @page.media_count).html_safe
+        = render("page_media")
+
     #page_nav.ui.secondary.pointing.menu
       - if @page.media_count > 0
         = link_to(t("pages.tabs.media", count: @page.traits.size).html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)
@@ -48,7 +55,7 @@
         -# TODO: We want a real count there, eventually.
           = link_to(t("pages.tabs.maps", count: 1).html_safe, page_maps_path(page_id: @page.id), class: "item", id: "page_nav_maps", remote: true)
       = link_to(t("pages.tabs.classifications").html_safe, page_classifications_path(page_id: @page.id), class: "item", id: "page_nav_classifications", remote: true)
-      - if @page.articles.size > 1
+      - if @page.articles.size > 0
         = link_to(t("pages.tabs.details", count: @page.articles.size).html_safe, page_details_path(page_id: @page.id), class: "item", id: "page_nav_details", remote: true)
       = link_to(t("pages.tabs.names", count: @page.names_count).html_safe, page_names_path(page_id: @page.id), class: "item", id: "page_nav_names", remote: true)
       - if @page.literature_and_references_count > 1
