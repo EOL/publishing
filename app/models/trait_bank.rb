@@ -241,7 +241,7 @@ class TraitBank
         object_term = get_column_data(:object_term, trait_res, col)
         units = get_column_data(:units, trait_res, col)
         meta_data = get_column_data(:meta, trait_res, col)
-        if meta_data
+        unless meta_data.blank?
           meta_data = meta_data.symbolize_keys
           meta_data[:predicate] = get_column_data(:meta_predicate, trait_res, col).try(:symbolize_keys)
           meta_data[:object_term] = get_column_data(:meta_object_term, trait_res, col).try(:symbolize_keys)
@@ -249,12 +249,19 @@ class TraitBank
         end
         this_id = "trait:#{resource_id}:#{trait["resource_pk"]}"
         this_id += ":#{page["page_id"]}" if page
-        if this_id == previous_id
-          # the conditional at the end of this phrase actually detects duplicate
-          # nodes, which we shouldn't have but I was getting in early tests:
-          traits.last[:metadata] << meta_data if meta_data
+        if this_id == previous_id && traits.last && ! meta_data.blank?
+          begin
+            traits.last[:metadata] ||= []
+            traits.last[:metadata] << meta_data
+          rescue NoMethodError => e
+            puts "++ Could not add:"
+            puts meta_data.inspect
+            puts "++ attempt to add to last member of #{traits.size} array:"
+            puts traits.last.inspect
+            puts "++ Sorry."
+          end
         else
-          trait[:metadata] = meta_data ? [ meta_data ] : nil
+          trait[:metadata] = meta_data.blank? ? nil : [ meta_data ]
           trait[:page_id] = page["page_id"] if page
           trait[:resource_id] = resource_id if resource_id
           trait[:predicate] = predicate.symbolize_keys if predicate
@@ -300,7 +307,16 @@ class TraitBank
       page
     end
 
+    def find_resource(id)
+      res = connection.execute_query("MATCH (resource:Resource { resource_id: #{id} }) "\
+        "RETURN resource LIMIT 1")
+      res["data"] ? res["data"].first : false
+    end
+
     def create_resource(id)
+      if resource = find_resource(id)
+        return resource
+      end
       resource = connection.create_node(resource_id: id)
       connection.add_label(resource, "Resource")
       resource
@@ -325,7 +341,7 @@ class TraitBank
       connection.create_relationship("units_term", trait, units) if units
       connection.create_relationship("object_term", trait, object_term) if
         object_term
-      meta.each { |md| add_metadata_to_trait(trait, md) } if meta
+      meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
     end
 
