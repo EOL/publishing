@@ -1,12 +1,35 @@
-.galleria
-  - @media.each_with_index do |image, index|
-    -# TODO: we will eventually know the actual size of the image; add that:
-    -# TODO: some helpers would clean this up:
-    - button = ""
-    - unless index == 0
-      - button = "<button class='btn btn-info'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
-    = link_to(image_tag(image.small_icon_url,
-      title: link_to(image.name, medium_path(image)),
-      alt: "<div class='media-info'>#{image.owner.html_safe} #{image.license.name}</div><div class='info-actions'>#{button}</div>".html_safe,
-      data: { layer: "<div class=\"galleria__credits\">#{image.owner.html_safe} #{image.license.name}</div>",
-      big: image.original_size_url }), image.large_size_url)
+#gallery
+  %ul.uk-subnav.uk-subnav-pill{ uk: { switcher: "animation: uk-animation-fade" } }
+    - @media.each do |image|
+      %li
+        = link_to(image_tag(image.small_icon_url, class: "uk-box-shadow-small"), "#")
+
+  %ul.uk-switcher.uk-margin.uk-text-center.uk-section.uk-section-secondary.uk-light.uk-padding
+    - @media.each do |image|
+      %li
+        = image_tag(image.original_size_url, class: "uk-box-shadow-small")
+  -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
+  .uk-child-width-1-4{ uk: { grid: true } }
+    - @media.each_with_index do |image, index|
+      -# TODO: we will eventually know the actual size of the image; add that:
+      -# TODO: some helpers would clean this up:
+      %div
+        .uk-card.uk-card-default.uk-card-small.uk-card-hover
+          - link_path = medium_path(image)
+          .uk-card-media-top.uk-inline-clip.uk-transition-toggle
+            = link_to(image_tag(image.large_size_url, class: "uk-box-shadow-small"), link_path)
+            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-overlay-default
+              .uk-margin-remove
+                = link_to(image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe, link_path)
+                %br
+                = image.owner.html_safe
+                %span.uk-label-success= "&nbsp;#{image.license.name.gsub(/\s/, "&nbsp;")}&nbsp;".html_safe
+          .uk-card-badge.uk-label.uk-box-shadow-medium= "trusted"
+          -# .uk-card-body
+          -#   = link_to(image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe, link_path)
+          -#   = image.owner.html_safe
+          -#   %span.uk-badge= image.license.name
+          .uk-card-footer
+            - unless index == 0
+              = link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), class: "uk-button uk-button-default uk-button-small", method: :post)
+            %a.uk-icon-button.uk-float-right{ href: "#", uk: { icon: "icon: plus" } }

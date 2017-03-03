@@ -42,13 +42,12 @@
     .space
       %br
       %br
-    .media
-      #gallery
-        %h2= t(:page_media_header, count: @page.media_count).html_safe
-        = render("page_media")
     %ul#page_nav.uk-tab.uk-child-width-expand
+      - if @page.media_count > 0
+        %li#page_nav_media.uk-active{ role: "presentation" }
+          = link_to(t("pages.tabs.media", count: @page.media_count).html_safe, page_media_path(page_id: @page.id), remote: true)
       - if @page.traits
-        %li#page_nav_traits.uk-active{ role: "presentation" }
+        %li#page_nav_traits{ role: "presentation" }
           = link_to(t("pages.tabs.traits", count: @page.traits.size).html_safe, page_traits_path(page_id: @page.id), remote: true)
       - if @page.article
         %li#page_nav_article{ role: "presentation" }
@@ -67,6 +66,5 @@
       - if @page.literature_and_references_count > 1
         %li#page_nav_literature_and_references{ role: "presentation" }
           = link_to(t("pages.tabs.literature_and_references", count: @page.literature_and_references_count).html_safe, page_literature_and_references_path(page_id: @page.id), remote: true)
-
     #page_nav_content
-      = render("page_traits")
+      = render("page_media")

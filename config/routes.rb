@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "traits"
     get "article"
     get "maps"
+    get "media"
     get "classifications"
     get "details"
     get "names"

@@ -106,7 +106,6 @@ en:
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
-  page_media_header: "Media <span class=\"uk-badge\">%{count}</span>"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
   pages:
@@ -122,6 +121,9 @@ en:
       maps:
         one: "Maps"
         other: "Maps <span class='uk-badge'>%{count}</span>"
+      media:
+        one: "Media"
+        other: "Media <span class='uk-badge'>%{count}</span>"
       names:
         one: "Names"
         other: "Names <span class='uk-badge'>%{count}</span>"
