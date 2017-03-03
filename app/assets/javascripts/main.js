@@ -309,6 +309,8 @@ if(!EOL) {
         });
   	   };
   }
+
+  $(".pops.up").popup();
 }());
 
 var recaptchaError = false;

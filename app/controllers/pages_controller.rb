@@ -42,6 +42,14 @@ class PagesController < ApplicationController
     end
   end
 
+  def media
+    @page = Page.where(id: params[:page_id]).first
+    @media = @page.media.includes(:license).page(params[:page])
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   # TODO: move; this should be more RESTful.
   def classifications
     # TODO: can't preload ancestors, eeeesh.
