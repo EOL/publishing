@@ -1,29 +1,42 @@
+#media_nav.ui.inverted.top.attached.pointing.menu
+  - @media.each_with_index do |image, index|
+    = link_to(image_tag(image.small_icon_url, class: "ui fluid image"), medium_path(image), remote: true, class: index == 0 ? "active item" : "item", id: "medium_#{image.id}")
+.ui.bottom.attached.segment
+  #page_media_content.item.raised
+    - @medium = @media.first
+    = render("media/page_medium")
+
+-# NOTE: the following formatting would work well as a view for collections.
+-# .ui.items
+-#   - @media.each_with_index do |image, index|
+-#     - name = image.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "").html_safe
+-#     - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+-#     .ui.item.raised
+-#       .ui.image
+-#         = link_to(image_tag(image.small_icon_url, class: "ui fluid image"), medium_path(image))
+-#       .ui.content
+-#         .header= link_to(name, medium_path(image))
+-#         - if image.description
+-#           .content= image.description.html_safe
+-#         .meta
+-#           .ui.label
+-#             %i.copyright.icon
+-#             = owner
+-#           .ui.label= image.license.name
 .ui.doubling.eight.column.grid.cards
   - @media.each_with_index do |image, index|
+    - name = image.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "")
+    - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
     -# TODO: we will eventually know the actual size of the image; add that:
     .ui.fluid.raised.card
-      .image
-        = link_to(image_tag(image.medium_icon_url, class: "pops up ui fluid image", data: { html: "#{image.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "")}<br/>#{image.owner.html_safe}<br/>#{image.license.name}" }), medium_path(image))
-        -# .ui.move.right.reveal
-        -#   .visible.content
-        -#     = link_to(image_tag(image.medium_icon_url, class: "ui fluid image"), medium_path(image))
-        -#   .hidden.content
-        -#     .ui.vertical.segment
-        -#       .header= link_to(image.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "").html_safe, medium_path(image))
-        -#       .meta= image.owner.html_safe
-        -#     .ui.vertical.segment
-        -#       .ui.label= image.license.name
-      .extra.content
-        - unless index == 0
-          = link_to("<i class='icon trophy'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), method: :post, class: "ui icon button right floated")
-        %a.ui.icon.button.right.floated{ href: new_collected_page_path(page_id: @page.id, medium_ids: [image.id]) }
-          %i.icon.plus
-
-    -# - button = ""
-    -# - unless index == 0
-    -#   - button = "<button class='ui basic button'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
-    -# = link_to(image_tag(image.small_icon_url,
-    -#   title: link_to(image.name, medium_path(image)),
-    -#   alt: "<div class='media-info'>#{image.owner.html_safe} #{image.license.name}</div><div class='info-actions'>#{button}</div>".html_safe,
-    -#   data: { layer: "<div class=\"galleria__credits\">#{image.owner.html_safe} #{image.license.name}</div>",
-    -#   big: image.original_size_url }), image.large_size_url)
+      .ui.move.up.reveal
+        .image.visible.content
+          = link_to(image_tag(image.medium_icon_url, class: "pops up ui fluid image", data: { html: "<div class='ui header'>#{name}</div><div class='meta'><div class='ui label'><i class='copyright icon'></i>#{owner}</div></div><div class='ui divider hidden'></div><div class='ui label'>#{image.license.name}</div>" }), medium_path(image))
+        .extra.hidden.content
+          .ui.secondary.vertical.menu
+            - unless index == 0
+              .ui.item
+                = link_to("promote", page_icons_path(page_id: @page.id, medium_id: image.id), method: :post, class: "ui default button")
+            .ui.item
+              %a.ui.default.button{ href: new_collected_page_path(page_id: @page.id, medium_ids: [image.id]) }
+                collect

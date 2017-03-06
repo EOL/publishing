@@ -114,22 +114,22 @@ en:
       classifications: "Classification"
       details:
         one: "Details"
-        other: "Details <div class='ui label'>%{count}</div>"
+        other: "Details <div class='ui circular label'>%{count}</div>"
       literature_and_references:
         one: "Literature and References"
-        other: "Literature and References <div class='ui label'>%{count}</div>"
+        other: "Literature and References <div class='ui circular label'>%{count}</div>"
       maps:
         one: "Maps"
-        other: "Maps <div class='ui label'>%{count}</div>"
+        other: "Maps <div class='ui circular label'>%{count}</div>"
       media:
         one: "Media"
-        other: "Media <div class='ui label'>%{count}</div>"
+        other: "Media <div class='ui circular label'>%{count}</div>"
       names:
         one: "Names"
-        other: "Names <div class='ui label'>%{count}</div>"
+        other: "Names <div class='ui circular label'>%{count}</div>"
       traits:
         one: "Traits"
-        other: "Traits <div class='ui label'>%{count}</div>"
+        other: "Traits <div class='ui circular label'>%{count}</div>"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"

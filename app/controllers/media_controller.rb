@@ -4,5 +4,9 @@ class MediaController < ApplicationController
   def show
     @medium = Medium.where(id: params[:id]).includes(:license,
       :bibliographic_citation, :location, attributions: :role).first
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 end

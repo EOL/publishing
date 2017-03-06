@@ -1,0 +1,24 @@
+- name = @medium.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "").html_safe
+- owner = @medium.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+
+= link_to(image_tag(@medium.original_size_url, class: "ui fluid image"), "#", id: "lightbox_image")
+.ui.fullscreen.modal
+  .header
+    = link_to(name, medium_path(@medium))
+    .ui.label
+      %i.copyright.icon
+      = owner
+    .ui.label= @medium.license.name  
+  = image_tag(@medium.original_size_url, class: "content image")
+
+.ui.divider
+.ui.item.raised
+  .ui.content
+    %h5.header= link_to(name, medium_path(@medium))
+    - if @medium.description
+      .content= @medium.description.html_safe
+    .meta
+      .ui.label
+        %i.copyright.icon
+        = owner
+      .ui.label= @medium.license.name

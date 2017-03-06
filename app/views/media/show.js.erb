@@ -1,0 +1,5 @@
+$(".fullscreen.modal").remove();
+$("#page_media_content").html("<%= escape_javascript(render("page_medium")) %>");
+$("#media_nav").children().removeClass("active");
+$("#medium_<%= @medium.id %>").addClass("active");
+$("#lightbox_image").on("click", function(e) { $(".fullscreen.modal").modal("show"); e.stopPropagation(); });

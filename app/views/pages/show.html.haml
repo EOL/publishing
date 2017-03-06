@@ -40,15 +40,9 @@
           It lives in a variety of habitats around the world.
       %p.four.wide.column.actions
         = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "ui button"
-    .ui.divider.hidden
-    .media
-      #gallery
-        %h2= t(:page_media_header, count: @page.media_count).html_safe
-        = render("page_media")
-
     #page_nav.ui.secondary.pointing.menu
       - if @page.media_count > 0
-        = link_to(t("pages.tabs.media", count: @page.traits.size).html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)
+        = link_to(t("pages.tabs.media", count: @page.media_count).html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)
       - if @page.traits
         = link_to(t("pages.tabs.traits", count: @page.traits.size).html_safe, page_traits_path(page_id: @page.id), class: "item", id: "page_nav_traits", remote: true)
       - if @page.map?
