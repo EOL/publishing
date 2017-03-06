@@ -21,6 +21,15 @@ if(!EOL) {
     }
     EOL.allow_meta_traits_to_toggle();
   };
+
+  EOL.reset_page = function() {
+    $(".pops.up").popup();
+    $("#page_nav a").on("click", function() {
+      $("#page_nav_content")
+        .append("<div class=\"ui dimmer inverted\"></div>");
+      $("#page_nav_content").dimmer("show");
+    });
+  };
 }
 
 (function () {
@@ -286,7 +295,7 @@ if(!EOL) {
               {
                   recaptchaError = false;
               }
-          }
+        }
       };
   }
 
@@ -310,7 +319,9 @@ if(!EOL) {
   	   };
   }
 
-  $(".pops.up").popup();
+  $(document).on("turbolinks:load", function() {
+    EOL.reset_page();
+  });
 }());
 
 var recaptchaError = false;

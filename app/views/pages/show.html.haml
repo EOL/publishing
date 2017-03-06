@@ -48,11 +48,11 @@
       - if @page.map?
         -# TODO: We want a real count there, eventually.
           = link_to(t("pages.tabs.maps", count: 1).html_safe, page_maps_path(page_id: @page.id), class: "item", id: "page_nav_maps", remote: true)
-      = link_to(t("pages.tabs.classifications").html_safe, page_classifications_path(page_id: @page.id), class: "item", id: "page_nav_classifications", remote: true)
+      = link_to(t("pages.tabs.classifications", count: @page.nodes.size).html_safe, page_classifications_path(page_id: @page.id), class: "item", id: "page_nav_classifications", remote: true)
       - if @page.articles.size > 0
         = link_to(t("pages.tabs.details", count: @page.articles.size).html_safe, page_details_path(page_id: @page.id), class: "item", id: "page_nav_details", remote: true)
       = link_to(t("pages.tabs.names", count: @page.names_count).html_safe, page_names_path(page_id: @page.id), class: "item", id: "page_nav_names", remote: true)
       - if @page.literature_and_references_count > 1
         = link_to(t("pages.tabs.literature_and_references", count: @page.literature_and_references_count).html_safe, page_literature_and_references_path(page_id: @page.id), class: "item", id: "page_nav_literature_and_references", remote: true)
-    #page_nav_content.ui.segment
+    #page_nav_content.ui.content.dimmable
       = render("page_media")

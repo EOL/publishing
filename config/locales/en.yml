@@ -111,25 +111,13 @@ en:
   pages:
     tabs:
       article: "Overview"
-      classifications: "Classification"
-      details:
-        one: "Details"
-        other: "Details <div class='ui circular label'>%{count}</div>"
-      literature_and_references:
-        one: "Literature and References"
-        other: "Literature and References <div class='ui circular label'>%{count}</div>"
-      maps:
-        one: "Maps"
-        other: "Maps <div class='ui circular label'>%{count}</div>"
-      media:
-        one: "Media"
-        other: "Media <div class='ui circular label'>%{count}</div>"
-      names:
-        one: "Names"
-        other: "Names <div class='ui circular label'>%{count}</div>"
-      traits:
-        one: "Traits"
-        other: "Traits <div class='ui circular label'>%{count}</div>"
+      classifications: "Classification <div class='ui circular olive label'>%{count}</div>"
+      details: "Details <div class='ui circular violet label'>%{count}</div>"
+      literature_and_references: "Literature and References <div class='ui circular pink label'>%{count}</div>"
+      maps: "Maps <div class='ui circular brown label'>%{count}</div>"
+      media: "Media <div class='ui circular blue label'>%{count}</div>"
+      names: "Names <div class='ui circular orange label'>%{count}</div>"
+      traits: "Traits <div class='ui circular red label'>%{count}</div>"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"

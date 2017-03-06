@@ -4,13 +4,13 @@
   - native_node = nodes.index { |n| n.id == @page.native_node.id }
   - nodes.insert(0, nodes.delete_at(native_node))
   - nodes.each do |node|
-    .ui.floating.card
+    .ui.raised.card
       .ui.content
         %h3.header= node.resource.name
       .ui.content
         .ui.link.list
           -# TODO: Push the native node to the top of the list:
-          - classification(node.ancestors)
+          - classification(node.ancestors.push(node))
       .ui.content
         %h3.ui.header= t(:node_children_header)
       .ui.content
