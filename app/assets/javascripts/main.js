@@ -16,7 +16,7 @@ if(!EOL) {
 
 $(document).ready(function() {
   $("#page_nav a").on("click", function() {
-    $("#page_nav_content").children().fadeOut();
+    $("#page_nav_content").children().slideUp({ duration: 500 });
     $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
   });
 });

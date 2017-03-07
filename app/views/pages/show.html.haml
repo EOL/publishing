@@ -32,8 +32,9 @@
         - rescue => e
           -# Do nothing. This code doesn't even belong here. I'm rushing.
         -# TODO: this is all temporary! We need a real solution:
+        - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
         %p.uk-text-lead
-          = "The #{@page.name} is a(n) #{trophic_strat} #{ancestors[0].name} "
+          = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
           - if ancestors[-2]
             = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
           It lives in a variety of habitats around the world.

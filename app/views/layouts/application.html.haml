@@ -19,7 +19,8 @@
     = csrf_meta_tags
     = yield :head
   %body.uk-container.uk-container
-    %nav#navbar.uk-navbar-container{ uk: { sticky: true, navbar: true } }
+    -# %nav#navbar.uk-navbar-container{ uk: { sticky: true, navbar: true } }
+    %nav#navbar.uk-navbar-container{ uk: { navbar: true } }
       %div.uk-navbar-left
         %ul.uk-navbar-nav
           -# TODO: I18n
