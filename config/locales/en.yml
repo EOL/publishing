@@ -20,6 +20,7 @@ en:
   change_your_password: 'Change your password'
   clade: "Clade"
   clade_placeholder: "clade ..."
+  classification_list_this_page: "(this page)"
   collect_already_in_collection: "(it's already here)"
   collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
   collect_icon_title: "Add \"%{item}\" from the \"%{page}\" page to..."
@@ -94,6 +95,7 @@ en:
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
+  literature_and_references_header: "Literature and References"
   maps_empty: "There are no maps available for this page."
   medium_collect_button: "collect media"
   medium_description_blank: "There is no description provided for this object."
@@ -112,24 +114,12 @@ en:
     tabs:
       article: "Overview"
       classifications: "Classification"
-      details:
-        one: "Details"
-        other: "Details <span class='uk-badge'>%{count}</span>"
-      literature_and_references:
-        one: "Literature and References"
-        other: "Literature and References <span class='uk-badge'>%{count}</span>"
-      maps:
-        one: "Maps"
-        other: "Maps <span class='uk-badge'>%{count}</span>"
-      media:
-        one: "Media"
-        other: "Media <span class='uk-badge'>%{count}</span>"
-      names:
-        one: "Names"
-        other: "Names <span class='uk-badge'>%{count}</span>"
-      traits:
-        one: "Traits"
-        other: "Traits <span class='uk-badge'>%{count}</span>"
+      details: "Details"
+      literature_and_references: "Literature and References"
+      maps: "Maps"
+      media: "Media"
+      names: "Names"
+      traits: "Traits"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"

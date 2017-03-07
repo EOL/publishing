@@ -1,16 +1,33 @@
 #gallery
-  %ul.uk-subnav.uk-subnav-pill{ uk: { switcher: "animation: uk-animation-fade" } }
+  %ul.uk-subnav.uk-section-secondary.uk-light.uk-subnav-pill.uk-padding{ uk: { switcher: "animation: uk-animation-fade" } }
     - @media.each do |image|
       %li
         = link_to(image_tag(image.small_icon_url, class: "uk-box-shadow-small"), "#")
 
-  %ul.uk-switcher.uk-margin.uk-text-center.uk-section.uk-section-secondary.uk-light.uk-padding
+  %ul.uk-switcher.uk-margin.uk-text-center.uk-section.uk-padding
     - @media.each do |image|
+      - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
       %li
-        = image_tag(image.original_size_url, class: "uk-box-shadow-small")
+        - img_id = "modal_image_#{image.id}"
+        .uk-section.uk-section-muted.uk-box-shadow-small
+          %h3= name
+          %p= image.owner.html_safe
+          %p
+            %span.uk-label-success= "&nbsp;#{image.license.name.gsub(/\s/, "&nbsp;")}&nbsp;".html_safe
+          %a{ href: "##{img_id}", uk: { toggle: true } }
+            = image_tag(image.large_size_url, class: "uk-box-shadow-small")
+          -# %div{ id: "#modal_image_#{image.id}", uk: { modal: "center: true" } }
+          %div{ id: img_id, uk: { modal: true } }
+            .uk-modal-dialog
+              %button.uk-modal-close-outside{ type: "button", uk: { close: true } }
+              .uk-modal-header
+                = name
+              .uk-modal-body
+                = image_tag(image.original_size_url)
   -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
   .uk-child-width-1-4{ uk: { grid: true } }
     - @media.each_with_index do |image, index|
+      - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
       -# TODO: we will eventually know the actual size of the image; add that:
       -# TODO: some helpers would clean this up:
       %div
@@ -20,7 +37,7 @@
             = link_to(image_tag(image.large_size_url, class: "uk-box-shadow-small"), link_path)
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-overlay-default
               .uk-margin-remove
-                = link_to(image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe, link_path)
+                = link_to(name, link_path)
                 %br
                 = image.owner.html_safe
                 %span.uk-label-success= "&nbsp;#{image.license.name.gsub(/\s/, "&nbsp;")}&nbsp;".html_safe

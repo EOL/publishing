@@ -1,7 +1,7 @@
 #trait.container{ ng: { controller: "PageCtrl as ctrl" } }
   .jumbotron
     .row
-      .col-md-9
+      .col-md-10
         %h1= @term[:name].titlecase
         - def_blank = @term[:definition].blank?
         %h2= @term[:uri]
@@ -10,7 +10,7 @@
             = t(:uri_definition_blank)
           - else
             = @term[:definition].html_safe
-      .actions.col-md-3
+      .actions.col-md-2
         .btn-group{ uib: { dropdown: true } }
           %button#sort_button.btn.btn-primary{ type: "button", uib: { dropdown: { toggle: true } } }
             = t(:traits_sort_dropdown_name)

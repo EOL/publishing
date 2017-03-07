@@ -6,7 +6,12 @@ class PagesController < ApplicationController
     @page = Page.where(id: params[:id]).preloaded.first
     raise "404" unless @page
     @page_title = @page.name
-    @media = @page.media.includes(:license).page(params[:page])
+    @media = @page.media.includes(:license).page(params[:page]).per(8)
+  end
+
+  # TODO: move; this should be more RESTful.
+  def traits
+    @page = Page.where(id: params[:page_id]).first
     @resources = TraitBank.resources(@page.traits)
 
     @associations =
@@ -15,11 +20,6 @@ class PagesController < ApplicationController
         # TODO: include more when we need it
         Page.where(id: ids).includes(:medium, :native_node, :preferred_vernaculars)
       end
-  end
-
-  # TODO: move; this should be more RESTful.
-  def traits
-    @page = Page.where(id: params[:page_id]).first
     respond_to do |format|
       format.js {}
     end
@@ -45,7 +45,7 @@ class PagesController < ApplicationController
   # TODO: move; this should be more RESTful.
   def media
     @page = Page.where(id: params[:page_id]).first
-    @media = @page.media.includes(:license).page(params[:page])
+    @media = @page.media.includes(:license).page(params[:page]).per(8)
     respond_to do |format|
       format.js {}
     end

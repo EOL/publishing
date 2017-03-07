@@ -1,13 +1,29 @@
 - name = article.name.html_safe
 - name = article.sections.first.name if name.blank? || name.empty?
-.article.uk-card.uk-card-default.uk-margin
-  .uk-card-body
-    %h2.uk-card-title
-      = name
-      %small= t(:article_from_partner, partner: article.resource.name.html_safe)
-    .uk-column-1-2
-      = article.body.html_safe
-    %hr
-    .attributions
-      %h4.panel-title= t(:content_attributions_header)
-      = render("attributions/for_content", content: article)
+.article.uk-card.uk-card-default.uk-margin{ id: "article_#{article.id}" }
+  .uk-card-header
+    .uk-grid
+      .uk-width-2-3
+        %h2.uk-card-title.uk-margin-remove-bottom
+          = name
+        %p.uk-text-meta.uk-margin-remove-top= t(:article_from_partner, partner: article.resource.name.html_safe)
+      .uk-width-1-3
+        %ul.uk-iconnav.uk-float-right
+          -# TODO: I18n
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: bookmark", tooltip: true }, title: "Bookmark" }
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: arrow-up", tooltip: true }, title: "Set as exemplar" }
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: ban", tooltip: true }, title: "Hide" }
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: plus-circle", tooltip: true }, title: "Add to collection" }
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: facebook", tooltip: true }, title: "Share on Facebook" }
+          %li
+            %a{ href: "#TODO", uk: { icon: "icon: twitter", tooltip: true }, title: "Share on Twitter" }
+  .uk-card-body.uk-padding
+    = article.body.html_safe
+  .uk-card-footer
+    %h3.panel-title= t(:content_attributions_header)
+    = render("attributions/for_content", content: article)

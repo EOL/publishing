@@ -6,10 +6,9 @@
     - native_node = nodes.index { |n| n.id == @page.native_node.id }
     - nodes.insert(0, nodes.delete_at(native_node))
     - nodes.each do |node|
-      %h3.uk-card-title= node.resource.name
-      %ul.uk-breadcrumb
-        - node.ancestors.each do |node|
-          %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+      %h3.uk-card-title.uk-heading-divider= node.resource.name
+      %ul.uk-list
+        - classification(node, node.ancestors)
 %h2= t(:node_children_header)
 .page-children.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
   - if @page.native_node.children.size > 0
