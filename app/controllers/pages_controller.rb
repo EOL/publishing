@@ -55,6 +55,7 @@ class PagesController < ApplicationController
     # TODO: can't preload ancestors, eeeesh.
     @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars,
       :nodes, native_node: :children).first
+    @nodes = @page.nodes.includes(:children).page(params[:page]).per(32)
     respond_to do |format|
       format.js {}
     end

@@ -7,39 +7,53 @@
     = javascript_include_tag "maps"
 #page.container{"data-turbolinks": "false"}
   #page_control{ ng: { controller: "PageCtrl as ctrl" } }
-    -# NOTE: it doesn't cache this, so we store it rather than call it over
-    -# and over:
-    - ancestors = @page.native_node.ancestors
-    #breadcrumbs.page-ancestors.ui.breadcrumb
-      - shown_ellipsis = false
-      - ancestors.each do |node|
-        - unless node.has_breadcrumb?
-          - unless shown_ellipsis
-            = link_to("…", page_breadcrumbs_path(page_id: @page.id), class: "section", remote: true)
-            %i.right.chevron.icon.divider
-            - shown_ellipsis = true
-          - next
-        = link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#", class: "section")
-        - shown_ellipsis = false
-        - unless node == ancestors.last
-          %i.right.chevron.icon.divider
-    .ui.divider
-    .ui.grid
-      .page-names.twelve.wide.column
-        %h1= @page.name.titlecase
-        %h2= @page.scientific_name.html_safe
-        - trophic_strat = begin
-          - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
-        - rescue => e
-          -# Do nothing. This code doesn't even belong here. I'm rushing.
-        -# TODO: this is all temporary! We need a real solution:
-        %p
-          = "The #{@page.name} is a(n) #{trophic_strat} #{ancestors[0].name} "
-          - if ancestors[-2]
-            = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-          It lives in a variety of habitats around the world.
-      %p.four.wide.column.actions
-        = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "ui button"
+    .ui.container
+      .ui.grid
+        .eight.wide.column
+          -# NOTE: it doesn't cache this, so we store it rather than call it over
+          -# and over:
+          - ancestors = @page.native_node.ancestors
+          #breadcrumbs.page-ancestors.ui.breadcrumb
+            - shown_ellipsis = false
+            - ancestors.each do |node|
+              - unless node.has_breadcrumb?
+                - unless shown_ellipsis
+                  = link_to("…", page_breadcrumbs_path(page_id: @page.id), class: "section", remote: true)
+                  %i.right.chevron.icon.divider
+                  - shown_ellipsis = true
+                - next
+              = link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#", class: "section")
+              - shown_ellipsis = false
+              - unless node == ancestors.last
+                %i.right.chevron.icon.divider
+          .ui.divider
+          .ui.grid
+            .page-names.ten.wide.column
+              %h1= @page.name.titlecase
+              %h2= @page.scientific_name.html_safe
+            %p.six.wide.column.actions
+              = link_to("<i class='plus icon'></i>".html_safe + t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "ui labeled small icon button")
+          .ui.segment.light.orange.secondary
+            = "The #{@page.name} are animals "
+            - if ancestors[-2]
+              = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
+            They live in a variety of habitats around the world.
+          .ui.section
+            %h3.ui.dividing.header= "Key Traits"
+            .ui.list
+              - preds = {}
+              - @page.traits.each do |trait|
+                - unless preds.keys.size >= 5
+                  - predicate = @page.glossary[trait[:predicate][:uri]]
+                  - unless preds.has_key?(predicate)
+                    - preds[predicate] = true
+                    .item
+                      = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                      .header
+                        - show_trait_value(trait)
+
+        .eight.wide.column
+          .ui.container= image_tag(@page.media.first.large_size_url, class: "ui fluid bordered image")
     #page_nav.ui.secondary.pointing.menu
       - if @page.media_count > 0
         = link_to("<div data-tooltip='#{t("pages.tabs.media")}'><i class='big image icon'></i><div class='ui circular orange label' >#{@page.media_count}</div></div>".html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)

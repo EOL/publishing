@@ -1,8 +1,9 @@
 %h3.ui.header= t(:node_hierarchies_header)
-.ui.grid.two.column.cards
-  - nodes = @page.nodes.to_a
+.ui.two.column.cards.grid.container
+  - nodes = @nodes || @page.nodes.to_a
+  - nodes = Array(nodes)
   - native_node = nodes.index { |n| n.id == @page.native_node.id }
-  - nodes.insert(0, nodes.delete_at(native_node))
+  - nodes.insert(0, nodes.delete_at(native_node)) if nodes.include?(native_node)
   - nodes.each do |node|
     .ui.raised.card
       .ui.content

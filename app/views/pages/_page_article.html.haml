@@ -1,13 +1,12 @@
 - name = article.name.html_safe
 - name = article.sections.first.name if name.blank? || name.empty?
-%article.container.text
-  .ui.top.attached.header.text.raised.segment
+%article.container.text{ id: "article_#{article.id}" }
+  .ui.top.attached.header.text.raised.secondary.segment
     %h1
       = name
       .sub.header= t(:article_from_partner, partner: article.resource.name.html_safe)
   .ui.attached.raised.segment.text
     = article.body.html_safe
-  .ui.bottom.attached.text.raised.segment.secondary
-    -# .panel-heading
-    -#   %h4.panel-title= t(:content_attributions_header)
+  .ui.bottom.attached.text.raised.segment
+    %h4.ui.heading= t(:content_attributions_header)
     = render("attributions/for_content", content: article)

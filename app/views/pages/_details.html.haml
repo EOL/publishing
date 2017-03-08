@@ -1,4 +1,16 @@
-.ui.container.text
-  - @page.articles.each do |article|
-    = render("page_article", article: article)
-    .ui.divider
+.ui.grid
+  .ui.three.wide.column
+    .ui.sticky.top
+      .ui.container.following
+        .ui.hidden.divider
+        -# TODO: I18n
+        %h4.ui.header= "Table of Contents"
+        .ui.vertical.fluid.text.menu
+          - @page.articles.each do |article|
+            %a.item{ href: "#article_#{article.id}" }= article.name.html_safe
+
+  #articles.ui.thirteen.wide.column
+    .ui.container.text
+      - @page.articles.each do |article|
+        .ui.hidden.divider
+        = render("page_article", article: article)

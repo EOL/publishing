@@ -23,6 +23,7 @@ if(!EOL) {
   };
 
   EOL.reset_page = function() {
+    $(".ui.popup.visible").remove();
     $(".pops.up").popup();
     $("#page_nav a").on("click", function() {
       $("#page_nav_content")
@@ -35,6 +36,7 @@ if(!EOL) {
       $($(this).attr("data-target")).modal("show"); e.stopPropagation();
       console.log($(this).attr("data-target"));
     });
+    $(".ui.sticky").sticky({ offset: 45 });
   };
 }
 
