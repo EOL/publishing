@@ -1,32 +1,9 @@
 #gallery
-  %ul.uk-subnav.uk-section-secondary.uk-light.uk-subnav-pill.uk-padding{ uk: { switcher: "animation: uk-animation-fade" } }
-    - @media.each do |image|
-      %li
-        = link_to(image_tag(image.small_icon_url, class: "uk-box-shadow-small"), "#")
-
-  %ul.uk-switcher.uk-margin.uk-text-center.uk-section.uk-padding
-    - @media.each do |image|
-      - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
-      %li
-        - img_id = "modal_image_#{image.id}"
-        .uk-section.uk-section-muted.uk-box-shadow-small
-          %h3= name
-          %p= image.owner.html_safe
-          %p
-            %span.uk-label-success= "&nbsp;#{image.license.name.gsub(/\s/, "&nbsp;")}&nbsp;".html_safe
-          %a{ href: "##{img_id}", uk: { toggle: true } }
-            = image_tag(image.large_size_url, class: "uk-box-shadow-small")
-          -# %div{ id: "#modal_image_#{image.id}", uk: { modal: "center: true" } }
-          %div{ id: img_id, uk: { modal: true } }
-            .uk-modal-dialog
-              %button.uk-modal-close-default{ type: "button", uk: { close: true } }
-              .uk-modal-header
-                = name
-              .uk-modal-body
-                = image_tag(image.original_size_url)
   -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
-  .uk-child-width-1-4{ uk: { grid: true } }
+  .uk-child-width-1-6{ uk: { grid: true } }
     - @media.each_with_index do |image, index|
+      - img_id = "image_modal_#{image.id}"
+      - nav_id = "image_nav_#{image.id}"
       - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
       -# TODO: we will eventually know the actual size of the image; add that:
       -# TODO: some helpers would clean this up:
@@ -34,21 +11,27 @@
         .uk-card.uk-card-default.uk-card-small.uk-card-hover
           - link_path = medium_path(image)
           .uk-card-media-top.uk-inline-clip.uk-transition-toggle
-            .uk-cover-container
+            %a.uk-cover-container{ href: "##{img_id}", uk: { toggle: true } }
               %canvas{ width: "200", height: "200" }
               %img{ src: image.medium_icon_url, "uk-cover": true }
-            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-overlay-default
-              .uk-margin-remove
-                = link_to(name, link_path)
-                %br
-                = image.owner.html_safe
-                %span.uk-label-success= "&nbsp;#{image.license.name.gsub(/\s/, "&nbsp;")}&nbsp;".html_safe
-          .uk-card-badge.uk-label.uk-box-shadow-medium= "trusted"
-          -# .uk-card-body
-          -#   = link_to(image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe, link_path)
-          -#   = image.owner.html_safe
-          -#   %span.uk-badge= image.license.name
-          .uk-card-footer
-            - unless index == 0
-              = link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), class: "uk-button uk-button-default uk-button-small", method: :post)
-            %a.uk-icon-button.uk-float-right{ href: "#", uk: { icon: "icon: plus" } }
+              %div{ id: img_id, uk: { modal: true } }
+                .uk-modal-dialog
+                  %a.uk-modal-close-default{ href: "", uk: { close: true } }
+                  .uk-modal-header
+                    = link_to(name.html_safe, link_path)
+                  .uk-modal-body
+                    = image_tag(image.original_size_url)
+
+            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
+              .uk-margin-remove.uk-text-small.uk-text-center
+                %span.uk-label-warning.uk-padding-small.uk-padding-remove-vertical= "#{image.license.name.gsub(/\s/, "&nbsp;")}".html_safe
+                %span.uk-label-success.uk-padding-small.uk-padding-remove-vertical= "trusted"
+          .uk-card-footer.uk-text-small.uk-text-truncate{ uk: { toggle: "target: ##{nav_id}; mode: hover" }}
+            = link_to(name, link_path)
+            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
+          .uk-card-footer.uk-text-small{ id: nav_id, hidden: true }
+            %ul.uk-iconnav
+              %li
+                %a{ href: "#", uk: { icon: "icon: trophy" } }
+              %li
+                %a{ href: "#", uk: { icon: "icon: plus" } }
