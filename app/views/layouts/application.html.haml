@@ -1,6 +1,7 @@
 !!!
 %html
   %head
+    = csrf_meta_tags
     %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
     %title
       - if defined?(@page_title)
