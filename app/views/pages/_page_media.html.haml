@@ -34,7 +34,9 @@
         .uk-card.uk-card-default.uk-card-small.uk-card-hover
           - link_path = medium_path(image)
           .uk-card-media-top.uk-inline-clip.uk-transition-toggle
-            = link_to(image_tag(image.large_size_url, class: "uk-box-shadow-small"), link_path)
+            .uk-cover-container
+              %canvas{ width: "200", height: "200" }
+              %img{ src: image.medium_icon_url, "uk-cover": true }
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-overlay-default
               .uk-margin-remove
                 = link_to(name, link_path)
