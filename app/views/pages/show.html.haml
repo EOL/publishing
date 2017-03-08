@@ -37,6 +37,18 @@
             - if ancestors[-2]
               = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
             It lives in a variety of habitats around the world.
+          .uk-section.uk-margin-remove-top
+            %h3.uk-heading-divider= "Key Traits"
+            %dl.uk-description-list
+              - preds = {}
+              - @page.traits.each do |trait|
+                - unless preds.keys.size >= 5
+                  - predicate = @page.glossary[trait[:predicate][:uri]]
+                  - unless preds.has_key?(predicate)
+                    - preds[predicate] = true
+                    %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                    %dd
+                      - show_trait_value(trait)
         %p{ class: "uk-width-1-3@m" }
           = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-default"
       .grid.uk-width-1-3{ uk: { grid: true } }
