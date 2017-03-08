@@ -1,31 +1,27 @@
 - max_rows = 10
 - traits = @page.traits
-- any_collapsed = false
-- row_count = 0
-- any_collapsed = traits.size > max_rows + 1
-%table.traits_by_page.ui.striped.table.padded.selectable.definition.celled
+%table.traits_by_page.ui.striped.table.padded.selectable
   %tbody
-    -# TODO: helper
+    -# TODO: I18n of header
+    %thead
+      %tr
+        %th.four.wide= "Trait"
+        %th.nine.wide= "Value"
+        %th= "Source"
     - @page.predicates.each do |uri|
       - predicate = @page.glossary[uri]
       - previous_predicate = nil
       - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
-        - collapse = row_count > max_rows && any_collapsed
-        - any_collapsed = true if collapse
-        %tr{ id: trait[:id], collapse: collapse ? "traitsCollapsed" : nil, ng: { hide: collapse ? "traitsCollapsed" : nil } }
-          - row_count += 1
+        %tr.top.aligned{ id: trait[:id] }
           %td{ scope: "row" }
             - if predicate == previous_predicate
               / same predicate
             - else
-              = link_to(predicate[:name], term_path(uri: predicate[:uri]))
-              - previous_predicate = predicate
+              %span.ui.small.header
+                = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                - previous_predicate = predicate
             - show_trait_modifiers(trait)
           %td
             - show_trait_value(trait)
             - show_metadata(trait)
           - show_source_col(trait)
-- if any_collapsed
-  %p
-    %button.ui.basic.button{ type: "button", ng: { init: "traitsCollapsed = true", click: "traitsCollapsed = !traitsCollapsed" } }
-      = t(:traits_show_more, count: row_count - max_rows)

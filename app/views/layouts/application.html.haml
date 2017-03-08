@@ -79,16 +79,43 @@
               .item= link_to(t(:layout_sign_up), new_user_registration_path)
 
     #main.ui.padded.container
-      - unless flash.empty?
-        - flash.each do |name, msg|
-          .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
-            %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
-              %span{ aria: { hidden: "true" } }
-                &times;
-            - next if name ==  :recaptcha_error.to_s
-            - if msg.class == Array
-              - msg.each do |message|
-                = content_tag :p, message.html_safe, :id => "flash_#{name}"
-            - else
-              = content_tag :p, msg.html_safe, :id => "flash_#{name}"
-      = content_for?(:content) ? yield(:content) : yield
+      .ui.vertical.stripe
+        - unless flash.empty?
+          - flash.each do |name, msg|
+            .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
+              %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
+                %span{ aria: { hidden: "true" } }
+                  &times;
+              - next if name ==  :recaptcha_error.to_s
+              - if msg.class == Array
+                - msg.each do |message|
+                  = content_tag :p, message.html_safe, :id => "flash_#{name}"
+              - else
+                = content_tag :p, msg.html_safe, :id => "flash_#{name}"
+        = content_for?(:content) ? yield(:content) : yield
+      .ui.vertical.stripe
+        -# TODO: figure out why the padding that should be here ... isn't.
+        \&nbsp;
+    -# TODO: a real footer...
+    .ui.inverted.vertical.footer.segment
+      .ui.container
+        .ui.stackable.inverted.divided.equal.height.stackable.grid
+          .three.wide.column
+            %h4.ui.inverted.header= "About"
+
+            .ui.inverted.link.list
+              = link_to("Stuff", "#", class: "item")
+              = link_to("More stuff", "#", class: "item")
+              = link_to("Things", "#", class: "item")
+              = link_to("Content", "#", class: "item")
+          .three.wide.column
+            %h4.ui.inverted.header= "Explore"
+
+            .ui.inverted.link.list
+              = link_to("Stuff", "#", class: "item")
+              = link_to("More stuff", "#", class: "item")
+              = link_to("Things", "#", class: "item")
+              = link_to("Content", "#", class: "item")
+          .seven.wide.column
+            %h4.ui.inverted.header= "Some Cool Footer Stuff"
+            %p= "Something interesting and engaging would go here and you would enjoy reading it, having been called to immediate action thusly."

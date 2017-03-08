@@ -1,10 +1,11 @@
-#media_nav.ui.inverted.top.attached.pointing.menu
-  - @media.each_with_index do |image, index|
-    = link_to(image_tag(image.small_icon_url, class: "ui fluid image"), medium_path(image), remote: true, class: index == 0 ? "active item" : "item", id: "medium_#{image.id}")
-.ui.bottom.attached.segment
-  #page_media_content.item.raised
-    - @medium = @media.first
-    = render("media/page_medium")
+-# #media_nav.ui.inverted.top.attached.pointing.menu
+-#   - @media.each_with_index do |image, index|
+-#     = link_to(image_tag(image.small_icon_url, class: "ui fluid image"), medium_path(image), remote: true, class: index == 0 ? "active item" : "item", id: "medium_#{image.id}")
+-#
+-# .ui.bottom.attached.segment
+-#   #page_media_content.item.raised
+-#     - @medium = @media.first
+-#     = render("media/page_medium")
 
 -# NOTE: the following formatting would work well as a view for collections.
 -# .ui.items
@@ -27,16 +28,26 @@
   - @media.each_with_index do |image, index|
     - name = image.name.sub(/^File:/, "").sub(/\.\w{2,4}$/, "")
     - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+    - img_id = "lightbox_#{image.id}"
     -# TODO: we will eventually know the actual size of the image; add that:
-    .ui.fluid.raised.card
+    .ui.fluid.raised.card.pops.up{data: { html: "<div class='ui header'>#{name}</div><div class='meta'><div class='ui label'><i class='copyright icon'></i>#{owner}</div></div><div class='ui divider hidden'></div><div class='ui label'>#{image.license.name}</div>" } }
       .ui.move.up.reveal
         .image.visible.content
-          = link_to(image_tag(image.medium_icon_url, class: "pops up ui fluid image", data: { html: "<div class='ui header'>#{name}</div><div class='meta'><div class='ui label'><i class='copyright icon'></i>#{owner}</div></div><div class='ui divider hidden'></div><div class='ui label'>#{image.license.name}</div>" }), medium_path(image))
+          = link_to(image_tag(image.medium_icon_url, class: "ui fluid image"), medium_path(image))
         .extra.hidden.content
-          .ui.secondary.vertical.menu
-            - unless index == 0
-              .ui.item
-                = link_to("promote", page_icons_path(page_id: @page.id, medium_id: image.id), method: :post, class: "ui default button")
-            .ui.item
-              %a.ui.default.button{ href: new_collected_page_path(page_id: @page.id, medium_ids: [image.id]) }
-                collect
+          .ui.container
+            .ui.vertical.small.labeled.icon.buttons
+              -# TODO: I18n
+              = link_to("<i class='zoom icon'></i>preview".html_safe, "#", class: "ui button lightboxy", data: { target: "##{img_id}" })
+              .ui.fullscreen.modal{ id: img_id }
+                .header
+                  = link_to(name.html_safe, medium_path(image))
+                  .ui.label
+                    %i.copyright.icon
+                    = owner
+                  .ui.label= image.license.name
+                .ui.segment.inverted
+                  = image_tag(image.original_size_url, class: "ui centered image")
+              - unless index == 0
+                = link_to("<i class='trophy icon'></i>exemplar".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), method: :post, class: "ui button")
+              = link_to("<i class='plus icon'></i>collect".html_safe, new_collected_page_path(page_id: @page.id, medium_ids: [image.id]), class: "ui button")

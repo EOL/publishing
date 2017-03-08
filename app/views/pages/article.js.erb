@@ -1,3 +1,4 @@
 $("#page_nav_content").html("<%= escape_javascript(render("page_article", article: @page.article)) %>");
 $("#page_nav").children().removeClass("active");
 $("#page_nav_article").addClass("active");
+EOL.reset_page();

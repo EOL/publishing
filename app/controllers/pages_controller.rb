@@ -6,7 +6,7 @@ class PagesController < ApplicationController
     @page = Page.where(id: params[:id]).preloaded.first
     raise "404" unless @page
     @page_title = @page.name
-    @media = @page.media.includes(:license).page(params[:page]).per(8)
+    @media = @page.media.includes(:license).page(params[:page]).per(32)
   end
 
   # TODO: move; this should be more RESTful.
@@ -44,7 +44,7 @@ class PagesController < ApplicationController
 
   def media
     @page = Page.where(id: params[:page_id]).first
-    @media = @page.media.includes(:license).page(params[:page]).per(8)
+    @media = @page.media.includes(:license).page(params[:page]).per(32)
     respond_to do |format|
       format.js {}
     end

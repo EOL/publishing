@@ -42,17 +42,17 @@
         = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "ui button"
     #page_nav.ui.secondary.pointing.menu
       - if @page.media_count > 0
-        = link_to(t("pages.tabs.media", count: @page.media_count).html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)
+        = link_to("<div data-tooltip='#{t("pages.tabs.media")}'><i class='big image icon'></i><div class='ui circular orange label' >#{@page.media_count}</div></div>".html_safe, page_media_path(page_id: @page.id), class: "active item", id: "page_nav_media", remote: true)
       - if @page.traits
-        = link_to(t("pages.tabs.traits", count: @page.traits.size).html_safe, page_traits_path(page_id: @page.id), class: "item", id: "page_nav_traits", remote: true)
+        = link_to("<div data-tooltip='#{t("pages.tabs.traits")}'><i class='big bar chart icon'></i><div class='ui circular orange label'>#{@page.traits.size}</div></div>".html_safe, page_traits_path(page_id: @page.id), class: "item", id: "page_nav_traits", remote: true)
       - if @page.map?
         -# TODO: We want a real count there, eventually.
           = link_to(t("pages.tabs.maps", count: 1).html_safe, page_maps_path(page_id: @page.id), class: "item", id: "page_nav_maps", remote: true)
-      = link_to(t("pages.tabs.classifications", count: @page.nodes.size).html_safe, page_classifications_path(page_id: @page.id), class: "item", id: "page_nav_classifications", remote: true)
+      = link_to("<div data-tooltip='#{t("pages.tabs.classifications")}'><i class='big sitemap icon'></i><div class='ui circular orange label' >#{@page.nodes.size}</div></div>".html_safe, page_classifications_path(page_id: @page.id), class: "item", id: "page_nav_classifications", remote: true)
       - if @page.articles.size > 0
-        = link_to(t("pages.tabs.details", count: @page.articles.size).html_safe, page_details_path(page_id: @page.id), class: "item", id: "page_nav_details", remote: true)
-      = link_to(t("pages.tabs.names", count: @page.names_count).html_safe, page_names_path(page_id: @page.id), class: "item", id: "page_nav_names", remote: true)
+        = link_to("<div data-tooltip='#{t("pages.tabs.details")}'><i class='big book icon'></i><div class='ui circular orange label' >#{@page.articles.size}</div></div>".html_safe, page_details_path(page_id: @page.id), class: "item", id: "page_nav_details", remote: true)
+      = link_to("<div data-tooltip='#{t("pages.tabs.names")}'><i class='big comments icon'></i><div class='ui circular orange label' >#{@page.names_count}</div></div>".html_safe, page_names_path(page_id: @page.id), class: "item", id: "page_nav_names", remote: true)
       - if @page.literature_and_references_count > 1
-        = link_to(t("pages.tabs.literature_and_references", count: @page.literature_and_references_count).html_safe, page_literature_and_references_path(page_id: @page.id), class: "item", id: "page_nav_literature_and_references", remote: true)
+        = link_to("<div data-tooltip='#{t("pages.tabs.literature_and_references")}'><i class='big bookmark icon'></i><div class='ui circular orange label' >#{@page.literature_and_references_count}</div></div>".html_safe, page_literature_and_references_path(page_id: @page.id), class: "item", id: "page_nav_literature_and_references", remote: true)
     #page_nav_content.ui.content.dimmable
       = render("page_media")

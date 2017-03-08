@@ -29,6 +29,12 @@ if(!EOL) {
         .append("<div class=\"ui dimmer inverted\"></div>");
       $("#page_nav_content").dimmer("show");
     });
+    $('.ui.modal').modal();
+    $(".lightboxy").on("click", function(e) {
+      console.log("Hiya.");
+      $($(this).attr("data-target")).modal("show"); e.stopPropagation();
+      console.log($(this).attr("data-target"));
+    });
   };
 }
 
