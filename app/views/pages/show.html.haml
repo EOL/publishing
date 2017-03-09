@@ -33,7 +33,9 @@
           -# TODO: this is all temporary! We need a real solution:
           - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
         .uk-width-1-3
-          = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-primary uk-button-small uk-box-shadow-medium"
+          %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
+            %i.plus.icon
+            = t(:taxon_collect_button)
       .uk-section.uk-section-muted.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-top{style: "font-weight: 300; font-color: #111" }
         = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
         - if ancestors[-2]

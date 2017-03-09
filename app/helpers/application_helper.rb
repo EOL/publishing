@@ -21,4 +21,8 @@ module ApplicationHelper
     return name.html_safe unless name =~ /(#{match})/i
     highlight(excerpt(name, match, separator: " ", radius: 5), match)
   end
+
+  def icon(which)
+    haml_tag("span", uk: { icon: "icon: #{which}" })
+  end
 end
