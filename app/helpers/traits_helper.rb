@@ -7,7 +7,7 @@ module TraitsHelper
       trait[:object_term] ||
       trait[:units]
     id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
-    haml_tag(:a, %Q{<span class="uk-margin-small-right" uk-icon="icon: info"></span>}.html_safe, uk: { toggle: "target: ##{id}; animation: uk-animation-slide-top-medium", tooltip: true }, title: t(:trait_toggle_details), class: "uk-float-right")
+    haml_tag(:a, %Q{<span class="uk-margin-small-right" uk-icon="icon: info"></span>}.html_safe, uk: { toggle: "target: ##{id}; animation: uk-animation-fade", tooltip: true }, title: t(:trait_toggle_details), class: "uk-float-right")
     haml_tag(:div, class: "meta_trait", id: id, hidden: true) do
       haml_tag(:table) do
         if trait[:metadata]

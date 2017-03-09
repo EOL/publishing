@@ -6,11 +6,9 @@
     = javascript_include_tag "http://media.eol.org/content/maps/#{prefix}/#{@page.id}.json"
     = javascript_include_tag "maps"
 #page
-  -# #page{"data-turbolinks": "false"}
-    -# #page_control{ ng: { controller: "PageCtrl as ctrl" } }
-  #page_control
-    -# NOTE: it doesn't cache this, so we store it rather than call it over
-    -# and over:
+  -# NOTE: it doesn't cache this, so we store it rather than call it over
+  -# and over:
+  .uk-section.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ style: "background-color: white;", uk: { grid: true } }
     - ancestors = @page.native_node.ancestors
     #breadcrumbs.page-ancestors
       %ul.uk-breadcrumb
@@ -23,43 +21,45 @@
             - next
           %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
           - shown_ellipsis = false
-    .uk-container.uk-grid-small{ uk: { grid: true } }
-      .uk-width-2-3
-        .uk-container{ uk: { grid: true } }
-          #names.page-names.uk-width-2-3
-            %h1.uk-heading-divider= @page.name.titlecase
-            %h2.uk-margin-remove-top= @page.scientific_name.html_safe
-            - trophic_strat = begin
-              - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
-            - rescue => e
-              -# Do nothing. This code doesn't even belong here. I'm rushing.
-            -# TODO: this is all temporary! We need a real solution:
-            - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
-            .uk-section.uk-section-muted.uk-text-lead.uk-padding-small
-              = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
-              - if ancestors[-2]
-                = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-              It lives in a variety of habitats around the world.
-            .uk-section.uk-padding-remove-top.uk-margin-top
-              %h3.uk-heading-divider= "Key Traits"
-              %dl.uk-description-list
-                - preds = {}
-                - @page.traits.each do |trait|
-                  - unless preds.keys.size >= 5
-                    - predicate = @page.glossary[trait[:predicate][:uri]]
-                    - unless preds.has_key?(predicate)
-                      - preds[predicate] = true
-                      %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                      %dd
-                        - show_trait_value(trait)
+    .uk-section.uk-padding-remove-vertical.uk-width-3-5
+      .uk-section{ uk: { grid: true } }
+        #names.page-names.uk-width-2-3
+          %h1.uk-heading-divider.uk-margin-small-bottom= @page.name.titlecase
+          %h3.uk-margin-remove-top= @page.scientific_name.html_safe
+          - trophic_strat = begin
+            - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
+          - rescue => e
+            -# Do nothing. This code doesn't even belong here. I'm rushing.
+          -# TODO: this is all temporary! We need a real solution:
+          - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
         .uk-width-1-3
-          %p
-            = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-primary uk-button-small"
-      .uk-width-1-3.uk-margin-remove-top{ uk: { grid: true } }
-        .uk-cover-container
-          %canvas{ width: "auto", height: "auto" }
-          %img{ src: @page.top_image.original_size_url, "uk-cover": true }
+          = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-primary uk-button-small uk-box-shadow-medium"
+      .uk-section.uk-section-muted.uk-box-shadow-large.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-top{style: "font-weight: 300; font-color: #111" }
+        = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
+        - if ancestors[-2]
+          = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
+        It lives in a variety of habitats around the world.
+      .uk-section.uk-padding-remove-vertical.uk-margin-top
+        %h3.uk-heading-divider= "Key Traits"
+        %dl.uk-description-list
+          - preds = {}
+          - @page.traits.each do |trait|
+            - unless preds.keys.size >= 5
+              - predicate = @page.glossary[trait[:predicate][:uri]]
+              - unless preds.has_key?(predicate)
+                - preds[predicate] = true
+                %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                %dd
+                  - show_trait_value(trait)
+    .uk-width-2-5
+      .uk-margin-remove-top
+        .uk-overflow-hidden
+          %img.uk-animation-kenburns.uk-animation-reverse.uk-box-shadow-medium{ src: @page.top_image.original_size_url, style: "border: 2px solid #eee;" }
+        -# .uk-cover-container
+        -#   %canvas{ width: "1600", height: "1600" }
+        -#   %img{ src: @page.top_image.original_size_url, "uk-cover": true }
 
+  .uk-section.uk-padding-remove-vertical.uk-margin-top
     %ul#page_nav.uk-tab.uk-child-width-expand
       - if @page.media_count > 0
         %li#page_nav_media.uk-active{ role: "presentation", title: t("pages.tabs.media"), uk: { tooltip: "delay: 100" } }

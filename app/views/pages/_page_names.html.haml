@@ -12,7 +12,7 @@
         .uk-card-body
           %dl.uk-description-list.uk-description-list-divider
             - scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
-              %dt= string.html_safe
+              %dt.uk-padding-remove-vertical.uk-margin-small-top= string.html_safe
               - names.each do |name|
                 %dd.uk-text-meta
                   = t(:name_recognized_by, by: link_to(name.node.resource.name, name.node.resource)).html_safe
@@ -27,7 +27,7 @@
           %dl.uk-description-list.uk-description-list-divider
             - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
               - preferred_name = names_by_string.any? { |n| n.is_preferred? }
-              %dt
+              %dt.uk-padding-remove-vertical.uk-margin-small-top
                 = string
                 - if preferred_name
                   %span.uk-label.uk-label-primary.uk-margin-left= t(:name_preferred_label)

@@ -1,21 +1,21 @@
 %h2= t(:literature_and_references_header)
-%div.uk-grid-medium{ uk: { grid: true } }
+%div.uk-list
   - @page.referents.sort_by(&:body).each do |ref|
-    .uk-width-1-3
-      .uk-card.uk-card-default.uk-card-small
-        .uk-card-body
-          -# TODO: this could have a <ul> or <ol> in it; if so, remove it (this
-          -# should be done on IMPORT, not here):
-          = ref.body.html_safe
-        .uk-card-footer
-          .uk-text-meta
-            - references = ref.references.map do |reference|
-              -# TODO: we should probably preload the parents in the controller.
-              - case reference.parent_type
-              - when "Article"
-                - t(:reference_compiled_from_article, source: link_to(reference.parent.resource.name, reference.parent.resource), name: reference.parent.name)
-              - when "Medium"
-                - %Q{"#{link_to(reference.parent.name.html_safe, reference.parent)}"}
-              - when "Node"
-                - %Q{"#{link_to(reference.parent.resource.name.html_safe, reference.parent.resource)}"}
-            = t(:reference_compiled_from, links: references.to_sentence).html_safe
+    .uk-section.uk-section-small.uk-padding-remove
+      .uk-overflow-hidden.uk-card-body
+        -# TODO: this could have a <ul> or <ol> in it; if so, remove it (this
+        -# should be done on IMPORT, not here):
+        = ref.body.html_safe
+      .uk-card-footer
+        .uk-text-meta
+          - references = ref.references.map do |reference|
+            -# TODO: we should probably preload the parents in the controller.
+            - case reference.parent_type
+            - when "Article"
+              - t(:reference_compiled_from_article, source: link_to(reference.parent.resource.name, reference.parent.resource), name: reference.parent.name)
+            - when "Medium"
+              - %Q{"#{link_to(reference.parent.name.html_safe, reference.parent)}"}
+            - when "Node"
+              - %Q{"#{link_to(reference.parent.resource.name.html_safe, reference.parent.resource)}"}
+          = t(:reference_compiled_from, links: references.to_sentence).html_safe
+    %hr

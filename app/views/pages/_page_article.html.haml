@@ -1,13 +1,13 @@
 - name = article.name.html_safe
 - name = article.sections.first.name if name.blank? || name.empty?
 .article.uk-card.uk-card-default.uk-margin{ id: "article_#{article.id}" }
-  .uk-card-header
+  .uk-card-header.uk-card-primary
     .uk-grid
-      .uk-width-2-3
+      .uk-width-3-5
         %h2.uk-card-title.uk-margin-remove-bottom
           = name
         %p.uk-text-meta.uk-margin-remove-top= t(:article_from_partner, partner: article.resource.name.html_safe)
-      .uk-width-1-3
+      .uk-width-2-5
         %ul.uk-iconnav.uk-float-right
           -# TODO: I18n
           %li
