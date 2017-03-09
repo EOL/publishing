@@ -34,7 +34,7 @@
           - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
         .uk-width-1-3
           = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-primary uk-button-small uk-box-shadow-medium"
-      .uk-section.uk-section-muted.uk-box-shadow-large.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-top{style: "font-weight: 300; font-color: #111" }
+      .uk-section.uk-section-muted.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-top{style: "font-weight: 300; font-color: #111" }
         = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
         - if ancestors[-2]
           = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
@@ -53,8 +53,8 @@
                   - show_trait_value(trait)
     .uk-width-2-5
       .uk-margin-remove-top
-        .uk-overflow-hidden
-          %img.uk-animation-kenburns.uk-animation-reverse.uk-box-shadow-medium{ src: @page.top_image.original_size_url, style: "border: 2px solid #eee;" }
+        .uk-overflow-hidden.uk-box-shadow-large
+          %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url, style: "border: 2px solid #eee;" }
         -# .uk-cover-container
         -#   %canvas{ width: "1600", height: "1600" }
         -#   %img{ src: @page.top_image.original_size_url, "uk-cover": true }
@@ -62,24 +62,16 @@
   .uk-section.uk-padding-remove-vertical.uk-margin-top
     %ul#page_nav.uk-tab.uk-child-width-expand
       - if @page.media_count > 0
-        %li#page_nav_media.uk-active{ role: "presentation", title: t("pages.tabs.media"), uk: { tooltip: "delay: 100" } }
-          = link_to("<span uk-icon='icon: image; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.media_count}</span>".html_safe, page_media_path(page_id: @page.id), remote: true)
+        - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id), active: true)
       - if @page.traits
-        %li#page_nav_traits{ role: "presentation", title: t("pages.tabs.traits"), uk: { tooltip: "delay: 100" } }
-          = link_to("<span uk-icon='icon: tag; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.traits.size}</span>".html_safe, page_traits_path(page_id: @page.id), remote: true)
+        - tab(name: "traits", icon: "tag", count: @page.traits.size, path: page_traits_path(page_id: @page.id))
       - if @page.map?
-        %li#page_nav_maps{ role: "presentation", title: t("pages.tabs.maps"), uk: { tooltip: "delay: 100" } }
-          -# TODO: We want a real count there, eventually.
-          = link_to("<span uk-icon='icon: world; ratio: 2'></span>&ensp;<span class='uk-badge'>1</span>".html_safe, page_maps_path(page_id: @page.id), remote: true)
-      %li#page_nav_classifications{ role: "presentation", title: t("pages.tabs.classifications"), uk: { tooltip: "delay: 100" } }
-        = link_to("<span uk-icon='icon: social; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.nodes.size}</span>".html_safe, page_classifications_path(page_id: @page.id), remote: true)
+        -# TODO: We want a real count there, eventually.
+        - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
       - if @page.articles.size > 1
-        %li#page_nav_details{ role: "presentation", title: t("pages.tabs.details"), uk: { tooltip: "delay: 100" } }
-          = link_to("<span uk-icon='icon: info; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.articles.size}</span>".html_safe, page_details_path(page_id: @page.id), remote: true)
-      %li#page_nav_names{ role: "presentation", title: t("pages.tabs.names"), uk: { tooltip: "delay: 100" } }
-        = link_to("<span uk-icon='icon: quote-right; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.names_count}</span>".html_safe, page_names_path(page_id: @page.id), remote: true)
+        - tab(name: "details", icon: "info", count: @page.articles.size, path: page_details_path(page_id: @page.id))
+      - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
       - if @page.literature_and_references_count > 1
-        %li#page_nav_literature_and_references{ role: "presentation", title: t("pages.tabs.literature_and_references"), uk: { tooltip: "delay: 100" } }
-          = link_to("<span uk-icon='icon: bookmark; ratio: 2'></span>&ensp;<span class='uk-badge'>#{@page.literature_and_references_count}</span>".html_safe, page_literature_and_references_path(page_id: @page.id), remote: true)
+        - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
     #page_nav_content
       = render("page_media")

@@ -1,4 +1,17 @@
 module PagesHelper
+  # Options: icon, count, path, name, active
+  def tab(options)
+    text = t("pages.tabs.#{options[:name]}")
+    haml_tag("li", id: "page_nav_#{options[:name]}", class: options[:active] ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
+      haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
+      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count]}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
+      # Alt large version with floating number:
+      # haml_concat link_to("<span class='uk-text-large'>#{text}</span><span class='floating ui tiny basic blue label'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-visible@m")
+      # Alt version with icon:
+      # haml_concat link_to("<span class='uk-text-large'><span uk-icon='icon: #{options[:icon]}'></span>&nbsp;#{text}</span><span class='floating ui tiny basic blue label'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-visible@m")
+    end
+  end
+
   def classification(this_node, ancestors)
     ancestors = Array(ancestors)
     return nil if ancestors.empty?
@@ -6,26 +19,6 @@ module PagesHelper
     page = this_node.nil? ? @page : node.page
     vernacular = page.name if page
     names = vernacular && vernacular != node.canonical_form ? "#{vernacular} (#{node.canonical_form})" : node.canonical_form
-
-    # <article class="uk-comment">
-    #     <header class="uk-comment-header uk-grid-medium uk-flex-middle" uk-grid>
-    #         <div class="uk-width-auto">
-    #             <img class="uk-comment-avatar" src="../docs/images/avatar.jpg" width="80" height="80" alt="">
-    #         </div>
-    #         <div class="uk-width-expand">
-    #             <h4 class="uk-comment-title uk-margin-remove"><a class="uk-link-reset" href="#">Author</a></h4>
-    #             <ul class="uk-comment-meta uk-subnav uk-subnav-divider uk-margin-remove-top">
-    #                 <li><a href="#">12 days ago</a></li>
-    #                 <li><a href="#">Reply</a></li>
-    #             </ul>
-    #         </div>
-    #     </header>
-    #     <div class="uk-comment-body">
-    #         <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-    #     </div>
-    # </article>
-
-
     haml_tag("li") do
       haml_tag("div.uk-grid-collapse.uk-flex-middle", uk: {grid: true}) do
         haml_tag("div.uk-width-auto") do
