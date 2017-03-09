@@ -5,8 +5,10 @@
     = javascript_include_tag "maps_vendored"
     = javascript_include_tag "http://media.eol.org/content/maps/#{prefix}/#{@page.id}.json"
     = javascript_include_tag "maps"
-#page.container{"data-turbolinks": "false"}
-  #page_control{ ng: { controller: "PageCtrl as ctrl" } }
+#page
+  -# #page{"data-turbolinks": "false"}
+    -# #page_control{ ng: { controller: "PageCtrl as ctrl" } }
+  #page_control
     -# NOTE: it doesn't cache this, so we store it rather than call it over
     -# and over:
     - ancestors = @page.native_node.ancestors
@@ -21,39 +23,41 @@
             - next
           %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
           - shown_ellipsis = false
-    .grid.uk-grid-small{ uk: { grid: true } }
-      .grid.uk-width-2-3{ uk: { grid: true } }
-        #names{ class: "page-names uk-width-2-3@m" }
-          %h1.uk-heading-divider= @page.name.titlecase
-          %h2.uk-margin-remove-top= @page.scientific_name.html_safe
-          - trophic_strat = begin
-            - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
-          - rescue => e
-            -# Do nothing. This code doesn't even belong here. I'm rushing.
-          -# TODO: this is all temporary! We need a real solution:
-          - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
-          .uk-section.uk-section-muted.uk-text-lead.uk-padding-small
-            = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
-            - if ancestors[-2]
-              = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-            It lives in a variety of habitats around the world.
-          .uk-section.uk-margin-remove-top
-            %h3.uk-heading-divider= "Key Traits"
-            %dl.uk-description-list
-              - preds = {}
-              - @page.traits.each do |trait|
-                - unless preds.keys.size >= 5
-                  - predicate = @page.glossary[trait[:predicate][:uri]]
-                  - unless preds.has_key?(predicate)
-                    - preds[predicate] = true
-                    %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                    %dd
-                      - show_trait_value(trait)
-        %p{ class: "uk-width-1-3@m" }
-          = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-default"
-      .grid.uk-width-1-3{ uk: { grid: true } }
+    .uk-container.uk-grid-small{ uk: { grid: true } }
+      .uk-width-2-3
+        .uk-container{ uk: { grid: true } }
+          #names.page-names.uk-width-2-3
+            %h1.uk-heading-divider= @page.name.titlecase
+            %h2.uk-margin-remove-top= @page.scientific_name.html_safe
+            - trophic_strat = begin
+              - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
+            - rescue => e
+              -# Do nothing. This code doesn't even belong here. I'm rushing.
+            -# TODO: this is all temporary! We need a real solution:
+            - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
+            .uk-section.uk-section-muted.uk-text-lead.uk-padding-small
+              = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
+              - if ancestors[-2]
+                = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
+              It lives in a variety of habitats around the world.
+            .uk-section.uk-padding-remove-top.uk-margin-top
+              %h3.uk-heading-divider= "Key Traits"
+              %dl.uk-description-list
+                - preds = {}
+                - @page.traits.each do |trait|
+                  - unless preds.keys.size >= 5
+                    - predicate = @page.glossary[trait[:predicate][:uri]]
+                    - unless preds.has_key?(predicate)
+                      - preds[predicate] = true
+                      %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                      %dd
+                        - show_trait_value(trait)
+        .uk-width-1-3
+          %p
+            = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "uk-button uk-button-primary uk-button-small"
+      .uk-width-1-3.uk-margin-remove-top{ uk: { grid: true } }
         .uk-cover-container
-          %canvas{ width: "1280", height: "1280" }
+          %canvas{ width: "auto", height: "auto" }
           %img{ src: @page.top_image.original_size_url, "uk-cover": true }
 
     %ul#page_nav.uk-tab.uk-child-width-expand

@@ -19,13 +19,12 @@
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/js/uikit-icons.min.js"
     = csrf_meta_tags
     = yield :head
-  %body.uk-container.uk-container
-    -# %nav#navbar.uk-navbar-container{ uk: { sticky: true, navbar: true } }
+  %body
     %nav#navbar.uk-navbar-container{ uk: { navbar: true } }
       %div.uk-navbar-left
         %ul.uk-navbar-nav
           -# TODO: I18n
-          %li= link_to("EOL", "/")
+          = link_to("EOL", "/", class: "uk-navbar-item uk-logo")
           %li= link_to("About", "/about")
           %li= link_to("Education", "http://education.eol.org/")
           %li= link_to("Donate", "/donate")
@@ -75,18 +74,22 @@
           - else
             %li= link_to(t(:layout_sign_in), new_user_session_path)
             %li= link_to(t(:layout_sign_up), new_user_registration_path)
-
-    #main.container
-      - unless flash.empty?
-        - flash.each do |name, msg|
-          .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
-            %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
-              %span{ aria: { hidden: "true" } }
-                &times;
-            - next if name ==  :recaptcha_error.to_s
-            - if msg.class == Array
-              - msg.each do |message|
-                = content_tag :p, message.html_safe, :id => "flash_#{name}"
-            - else
-              = content_tag :p, msg.html_safe, :id => "flash_#{name}"
-      = content_for?(:content) ? yield(:content) : yield
+    .uk-container
+      .uk-grid.uk-grid-collapse
+        #main.uk-width-4-5.column
+          - unless flash.empty?
+            - flash.each do |name, msg|
+              .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
+                %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
+                  %span{ aria: { hidden: "true" } }
+                    &times;
+                - next if name ==  :recaptcha_error.to_s
+                - if msg.class == Array
+                  - msg.each do |message|
+                    = content_tag :p, message.html_safe, :id => "flash_#{name}"
+                - else
+                  = content_tag :p, msg.html_safe, :id => "flash_#{name}"
+          = content_for?(:content) ? yield(:content) : yield
+        #sidebar.uk-width-1-5.column
+          %p
+            Pretend there are links here and stuff.
