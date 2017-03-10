@@ -3,6 +3,7 @@
   .uk-child-width-1-6.uk-grid-small{ uk: { grid: true } }
     - @media.each_with_index do |image, index|
       - img_id = "image_modal_#{image.id}"
+      - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
       - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
       -# TODO: we will eventually know the actual size of the image; add that:
       -# TODO: some helpers would clean this up:
@@ -18,26 +19,30 @@
                   %a.uk-modal-close-default{ href: "", uk: { close: true } }
                   .uk-modal-header
                     = link_to(name.html_safe, link_path)
-                    %span.uk-label-warning.uk-padding-small.uk-padding-remove-vertical= "#{image.license.name.gsub(/\s/, "&nbsp;")}".html_safe
-                    %span.uk-label-success.uk-padding-small.uk-padding-remove-vertical= "trusted"
-                    %p= image.owner.html_safe
+                    .ui.label
+                      %i.copyright.icon
+                      = owner
+                    .ui.label= image.license.name
                   .uk-modal-body
                     = image_tag(image.original_size_url)
                   -# TODO: can't use this now because we need the image sizes, and we don't have them yet.
                   -# .uk-modal-body.uk-cover-container
                   -#   %canvas{ width: "1280", height: "1280" }
                   -#   %img{ src: image.original_size_url, "uk-cover": true }
-
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
               .uk-margin-remove.uk-text-center
-                %span.uk-label-warning.uk-padding-small.uk-padding-remove-vertical= "#{image.license.name.gsub(/\s/, "&nbsp;")}".html_safe
-                %span.uk-label-success.uk-padding-small.uk-padding-remove-vertical= "trusted"
+                .ui.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
+                -# TODO: the actual state...
+                .ui.green.label= "trusted"
           .uk-card-footer.uk-text-truncate
+            %ul.uk-iconnav.uk-float-right
+              %li
+                = link_to("<i class='violet pin icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+              %li
+                = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+              %li
+                %a{ href: "#", alt: "add to collection" }
+                  %i.grey.plus.icon
+          .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
             = link_to(name, link_path)
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
-          .uk-section.uk-section-primary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
-            %ul.uk-iconnav
-              %li
-                = link_to("", page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post, "uk-icon": "icon: heart")
-              %li
-                %a{ href: "#", alt: "add to collection", uk: { icon: "icon: plus" } }

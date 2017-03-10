@@ -43,7 +43,8 @@
                     = content_tag :p, message.html_safe, :id => "flash_#{name}"
                 - else
                   = content_tag :p, msg.html_safe, :id => "flash_#{name}"
-          = content_for?(:content) ? yield(:content) : yield
+          .uk-section
+            = content_for?(:content) ? yield(:content) : yield
         #sidebar.uk-width-1-5.column
           .uk-container.text.uk-margin-large-top
             %ul.uk-list.uk-flex.uk-flex-column
