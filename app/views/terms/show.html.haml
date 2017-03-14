@@ -1,33 +1,31 @@
-#trait.container{ ng: { controller: "PageCtrl as ctrl" } }
-  .jumbotron
-    .row
-      .col-md-10
-        %h1= @term[:name].titlecase
-        - def_blank = @term[:definition].blank?
-        %h2= @term[:uri]
-        %p.definition{ class: def_blank ? "empty" : nil }
-          - if def_blank
-            = t(:uri_definition_blank)
-          - else
-            = @term[:definition].html_safe
-      .actions.col-md-2
-        .btn-group{ uib: { dropdown: true } }
-          %button#sort_button.btn.btn-primary{ type: "button", uib: { dropdown: { toggle: true } } }
-            = t(:traits_sort_dropdown_name)
-            %span.caret= ""
-          %ul.dropdown-menu{ role: "menu", aria: { labelledby: "sort_button" }, uib: { dropdown: { menu: true } } }
-            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
-            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
-            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
-            %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
-      %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
-        %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
-          = t(:clade)
-          = text_field_tag("clade", nil,
-            "placeholder" => t(:clade_placeholder),
-            "autocomplete" => "off",
-            "ng-model" => "clade_name",
-            required: true)
-          .input-group-btn
-            = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+#trait.uk-container{ ng: { controller: "PageCtrl as ctrl" } }
+  .uk-card.uk-card-default.uk-grid
+    .uk-width-4-5
+      %h1= @term[:name].titlecase
+      - def_blank = @term[:definition].blank?
+      %h3.uk-text-muted.uk-margin-remove-top
+        = @term[:uri]
+      %p.definition{ class: def_blank ? "empty" : nil }
+        - if def_blank
+          = t(:uri_definition_blank)
+        - else
+          = @term[:definition].html_safe
+    .actions.uk-width-1-5
+      %a#sort_button.ui.labeled.small.icon.button.uk-box-shadow-medium{ uk: { dropdown: true } }= t(:traits_sort_dropdown_name)
+      %div
+        %ul.uk-dropdown.uk-list
+          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
+          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
+          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
+          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
+    %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
+      %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
+        = t(:clade)
+        = text_field_tag("clade", nil,
+          "placeholder" => t(:clade_placeholder),
+          "autocomplete" => "off",
+          "ng-model" => "clade_name",
+          required: true)
+        .input-group-btn
+          = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
   = render 'traits_table', { traits: @grouped_traits, pages: @pages }

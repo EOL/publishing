@@ -19,6 +19,10 @@ class TraitBank
   #     { measurement, literal }
   # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
+  #
+  # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
+  # an image (which should be handled with an icon) ... and possibly a
+  # collection to build a slideshow [using its images].)
   class << self
     @connected = false
 
@@ -108,6 +112,8 @@ class TraitBank
    # NOTE: given one of the "res" sets here, you can find a particular trait
    # with this: trait_res = results["data"].find { |tr| tr[2] &&
    # tr[2]["data"]["uri"] == "http://purl.obolibrary.org/obo/VT_0001259" }
+   #
+   # MATCH (page:Page { page_id: 1680 })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) MATCH (trait)-[:predicate]->(predicate:Term) OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) OPTIONAL MATCH (trait)-[:units_term]->(units:Term) OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term LIMIT 20
     def by_page(page_id)
       # TODO: add proper pagination!
       res = connection.execute_query(

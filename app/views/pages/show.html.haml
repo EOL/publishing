@@ -9,19 +9,19 @@
   -# NOTE: it doesn't cache this, so we store it rather than call it over
   -# and over:
   .uk-section.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ style: "background-color: white;", uk: { grid: true } }
-    - ancestors = @page.native_node.ancestors
-    #breadcrumbs.page-ancestors
-      %ul.uk-breadcrumb
-        - shown_ellipsis = false
-        - ancestors.each do |node|
-          - unless node.has_breadcrumb?
-            - unless shown_ellipsis
-              %li= link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
-              - shown_ellipsis = true
-            - next
-          %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-          - shown_ellipsis = false
     .uk-section.uk-padding-remove-vertical.uk-width-3-5
+      #breadcrumbs.page-ancestors.uk-column-span
+        %ul.uk-breadcrumb
+          - ancestors = @page.native_node.ancestors
+          - shown_ellipsis = false
+          - ancestors.each do |node|
+            - unless node.has_breadcrumb?
+              - unless shown_ellipsis
+                %li= link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
+                - shown_ellipsis = true
+              - next
+            %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+            - shown_ellipsis = false
       .uk-section{ uk: { grid: true } }
         #names.page-names.uk-width-2-3
           %h1.uk-heading-divider.uk-margin-small-bottom= @page.name.titlecase
