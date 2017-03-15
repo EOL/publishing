@@ -1,12 +1,14 @@
 class PagesController < ApplicationController
 
+  before_action :set_media_page_size, only: [:show, :media]
+
   helper :traits
 
   def show
     @page = Page.where(id: params[:id]).preloaded.first
     raise "404" unless @page
     @page_title = @page.name
-    @media = @page.media.includes(:license).page(params[:page]).per(32)
+    @media = @page.media.includes(:license).page(params[:page]).per(@media_page_size)
   end
 
   # TODO: move; this should be more RESTful.
@@ -22,6 +24,7 @@ class PagesController < ApplicationController
       end
     respond_to do |format|
       format.js {}
+      format.json { render json: { glossary: @page.glossary, traits: @page.grouped_traits } }
     end
   end
 
@@ -45,7 +48,7 @@ class PagesController < ApplicationController
   # TODO: move; this should be more RESTful.
   def media
     @page = Page.where(id: params[:page_id]).first
-    @media = @page.media.includes(:license).page(params[:page]).per(32)
+    @media = @page.media.includes(:license).page(params[:page]).per(@media_page_size)
     respond_to do |format|
       format.js {}
     end
@@ -67,6 +70,7 @@ class PagesController < ApplicationController
       :bibliographic_citation, :location, :resource, attributions: :role]).first
     respond_to do |format|
       format.js {}
+      format.json { render json: @page.articles } # TODO: add sections later.
     end
   end
 
@@ -93,6 +97,12 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.js {}
     end
+  end
+
+private
+
+  def set_media_page_size
+    @media_page_size = 24
   end
 
 end

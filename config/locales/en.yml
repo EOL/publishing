@@ -168,6 +168,11 @@ en:
   taxon_collect_button: "collect page"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""
+  trait_table:
+    headers:
+      predicate: "Type"
+      value: "Value"
+      source: "Source"
   trait_toggle_details: "details..."
   trait_unit_definition: "definition:"
   trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"

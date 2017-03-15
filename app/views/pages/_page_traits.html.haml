@@ -2,6 +2,11 @@
 - traits = @page.traits
 .uk-overflow-auto
   %table.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle
+    %thead
+      %tr
+        %th.uk-width-1-5= t("trait_table.headers.predicate")
+        %th.uk-width-3-5= t("trait_table.headers.value")
+        %th.uk-width-1-5= t("trait_table.headers.source")
     %tbody
       -# TODO: helper
       - @page.predicates.each do |uri|
