@@ -70,8 +70,9 @@
       - if @page.map?
         -# TODO: We want a real count there, eventually.
         - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
-      - if @page.articles.size > 1
+      - if @page.articles.size > 0
         - tab(name: "details", icon: "info", count: @page.articles.size, path: page_details_path(page_id: @page.id))
+      - tab(name: "classifications", icon: "network", count: @page.nodes.size, path: page_classifications_path(page_id: @page.id))
       - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
       - if @page.literature_and_references_count > 1
         - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))

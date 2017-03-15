@@ -1,7 +1,7 @@
 .uk-grid
   .uk-width-1-3
     %h3.uk-heading-divider= "Table of Contents"
-    .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 10" } }
+    .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
       %ul.uk-nav.uk-nav-default.tm-nav.uk-nav-parent-icon{ uk: { scrollspy: { nav: "closest: li; scroll: true" } } }
         - @page.articles.each do |article|
           %li= link_to(article.name.html_safe, "#article_#{article.id}")
