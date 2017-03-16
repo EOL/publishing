@@ -46,4 +46,12 @@ Rails.application.routes.draw do
   # TODO: Change. We really want this to point to a (dynamic) CMS page of some
   # sort.
   root "users#index"
+  # This line mounts Refinery's routes at the root of your application.
+  # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
+  # If you would like to change where this extension is mounted, simply change the
+  # configuration option `mounted_path` to something different in config/initializers/refinery/core.rb
+  #
+  # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
+  #keep this at the end of the routes (Refinery smetimes can override other routes) 
+  mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
 end

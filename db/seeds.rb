@@ -18,3 +18,13 @@ add_referent(%Q{Govaerts R. (ed). For a full list of reviewers see: <a href="htt
 add_referent(%Q{L. 1753. In: Sp. Pl. : 982}, page, page.nodes.first)
 
 add_referent(%Q{Marticorena C & R Rodríguez . 1995-2005. Flora de Chile. Vols 1, 2(1-3). Ed. Universidad de Concepción, Concepción. 351 pp., 99 pp., 93 pp., 128 pp. Matthei O. 1995. Manual de las malezas que crecen en Chile. Alfabeta Impresores. 545 p.}, page, [page.articles.first, page.media.last])
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+#
+# Examples:
+#
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Added by Refinery CMS Pages extension
+Refinery::Pages::Engine.load_seed
