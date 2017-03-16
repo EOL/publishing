@@ -31,7 +31,11 @@ gem 'therubyracer'
 gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
+# RefineryCMS
+gem 'refinerycms' 
+gem 'refinerycms-wymeditor'
+gem 'refinerycms-ckeditor'
+gem 'refinerycms-i18n'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,11 +49,11 @@ gem 'uglifier', '>= 1.3.0'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 0.7.6'
 # Nested set for Node:
-gem 'awesome_nested_set', '~> 3.1.1'
+gem 'awesome_nested_set', '~> 3.0.0'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 0.1.33'
 # Devise handles authentication and some authorization:
-gem 'devise'
+gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
 # Because ERB is just plain silly compared to Haml:
