@@ -1,7 +1,7 @@
 - max_rows = 10
 - traits = @page.traits
 .uk-overflow-auto
-  %table.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle
+  %table.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover
     %thead
       %tr
         %th.uk-width-1-5= t("trait_table.headers.predicate")
@@ -13,7 +13,8 @@
         - predicate = @page.glossary[uri]
         - previous_predicate = nil
         - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
-          %tr{ id: trait[:id] }
+          - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "") # TODO: helper
+          %tr{ id: trait[:id], uk: { toggle: "target: ##{id}; animation: uk-animation-fade" } }
             %th.uk-table-middle{ scope: "row" }
               - if predicate == previous_predicate
                 / same predicate

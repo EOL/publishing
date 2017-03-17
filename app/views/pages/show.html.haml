@@ -53,13 +53,14 @@
                 %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
                 %dd
                   - show_trait_value(trait)
-    .uk-width-2-5
-      .uk-margin-remove-top
-        .uk-overflow-hidden.uk-box-shadow-large
-          %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url, style: "border: 2px solid #eee;" }
-        -# .uk-cover-container
-        -#   %canvas{ width: "1600", height: "1600" }
-        -#   %img{ src: @page.top_image.original_size_url, "uk-cover": true }
+    - if @page.top_image
+      .uk-width-2-5
+        .uk-margin-remove-top
+          .uk-overflow-hidden.uk-box-shadow-large
+            %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url, style: "border: 2px solid #eee;" }
+          -# .uk-cover-container
+          -#   %canvas{ width: "1600", height: "1600" }
+          -#   %img{ src: @page.top_image.original_size_url, "uk-cover": true }
 
   .uk-section.uk-padding-remove-vertical.uk-margin-top
     %ul#page_nav.uk-tab.uk-child-width-expand
@@ -72,7 +73,7 @@
         - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
       - if @page.articles.size > 0
         - tab(name: "details", icon: "info", count: @page.articles.size, path: page_details_path(page_id: @page.id))
-      - tab(name: "classifications", icon: "network", count: @page.nodes.size, path: page_classifications_path(page_id: @page.id))
+      - tab(name: "classifications", icon: "git-branch", count: @page.nodes.size, path: page_classifications_path(page_id: @page.id))
       - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
       - if @page.literature_and_references_count > 1
         - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))

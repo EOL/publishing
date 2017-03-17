@@ -17,7 +17,7 @@ class TraitBank
   #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
-  # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
+  # * Term: { *uri, *name, *section_ids(csv), , comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
   #
   # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
@@ -96,14 +96,16 @@ class TraitBank
     end
 
     def trait_count
-      res = connection.execute_query("MATCH (trait:Trait)<-[:trait]-(page:Page) "\
+      res = connection.execute_query(
+        "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
     end
 
     def trait_exists?(resource_id, pk)
-      res = connection.execute_query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
+      res = connection.execute_query(
+        "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
         "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
         "RETURN trait")
       res["data"] ? res["data"].first : false
@@ -125,7 +127,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term "\
+        "RETURN resource, trait, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term "\
         "LIMIT 2000"
       )
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
@@ -180,7 +183,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
+        "RETURN resource, trait, page, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
@@ -421,6 +425,7 @@ class TraitBank
       end
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
+      options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       term_node = connection.create_node(options)
       connection.add_label(term_node, "Term")
       term_node

@@ -6,8 +6,7 @@ module TraitsHelper
       trait[:source] ||
       trait[:object_term] ||
       trait[:units]
-    id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")
-    haml_tag(:a, %Q{<span class="uk-margin-small-right" uk-icon="icon: info"></span>}.html_safe, uk: { toggle: "target: ##{id}; animation: uk-animation-fade", tooltip: true }, title: t(:trait_toggle_details), class: "uk-float-right")
+    id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")  # TODO: helper
     haml_tag(:div, class: "meta_trait", id: id, hidden: true) do
       haml_tag(:table) do
         if trait[:metadata]
@@ -37,24 +36,7 @@ module TraitsHelper
     value = t(:trait_missing, keys: trait.keys.join(", "))
     if trait[:object_page_id] && defined?(@associations)
       target = @associations.find { |a| a.id == trait[:object_page_id] }
-      # TODO: We want to use page icon here, not medium. ...but that's
-      # slow. We need to re-think this: I believe it needs
-      # denormalization.
-      if target.medium
-        haml_tag :script,
-          "<cdata><div><img src=\"#{target.medium.medium_icon_url}\"/>"\
-          "</div></cdata>",
-          id: "image#{trait[:resource_pk]}.html",
-          type: "text/ng-template"
-        haml_tag :div, class: "obj_page" do
-          haml_concat(link_to(target.name.html_safe, target,
-            "popover-trigger" => "mouseenter",
-            "popover-placement" => "right",
-            "uib-popover-template" => "'image#{trait[:resource_pk]}.html'"))
-        end
-      else
-        haml_concat(link_to(target.name.html_safe, target))
-      end
+      summarize(target, options = {})
     elsif trait[:measurement]
       if trait[:units] && trait[:units][:name]
         value = trait[:measurement].to_s + " "
@@ -68,7 +50,7 @@ module TraitsHelper
       value = trait[:object_term][:name]
       haml_concat value
     elsif trait[:literal]
-      haml_concat trait[:literal].html_safe
+      haml_concat unlink(trait[:literal])
     else
       haml_concat "OOPS: "
       haml_concat value
@@ -94,7 +76,7 @@ module TraitsHelper
   def show_source(src)
     haml_tag(:tr) do
       haml_tag(:th, I18n.t(:trait_source))
-      haml_tag(:td, src.gsub(URI.regexp, '<a href="\0">\0</a>').html_safe)
+      haml_tag(:td, unlink(src))
     end
   end
 
@@ -102,8 +84,10 @@ module TraitsHelper
     # TODO: make this a proper link
     haml_tag(:td, class: "table-source") do
       if @resources && resource = @resources[trait[:resource_id]]
-        haml_concat(link_to(resource.name, "#", title: resource.name,
-          data: { toggle: "tooltip", placement: "left" } ))
+        haml_tag("div.uk-overflow-auto") do
+          haml_concat(link_to(resource.name, "#", title: resource.name,
+            data: { toggle: "tooltip", placement: "left" } ))
+        end
       else
         haml_concat(I18n.t(:resource_missing))
       end

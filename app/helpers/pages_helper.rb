@@ -17,46 +17,8 @@ module PagesHelper
     return nil if ancestors.empty?
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
-    vernacular = page.name if page
-    names = vernacular && vernacular != node.canonical_form ? "#{vernacular} (#{node.canonical_form})" : node.canonical_form
     haml_tag("li") do
-      haml_tag("div.uk-grid-collapse.uk-flex-middle", uk: {grid: true}) do
-        haml_tag("div.uk-width-auto") do
-          if page && page.icon
-            haml_concat image_tag(page.icon, size: "40x40", class: "uk-margin-right")
-          end
-        end
-        haml_tag("div.uk-width-expand") do
-          haml_tag("h5.uk-header.uk-margin-remove") do
-            if this_node
-              haml_concat link_to(names.html_safe, node.page_id ? page_path(node.page_id) : "#")
-            else
-              haml_concat names.html_safe
-              haml_concat t(:classification_list_this_page)
-            end
-            haml_tag("ul.uk-subnav.uk-subnav-divider.uk-margin-remove-top.uk-padding-remove-horizontal") do
-              if page
-                haml_tag("li.uk-padding-remove-horizontal") do
-                  haml_concat "<span uk-icon='icon: image'></span>&ensp;<span class='uk-badge'>#{page.media_count}</span>".html_safe
-                end
-                haml_tag("li") do
-                  haml_concat "<span uk-icon='icon: tag'></span>&ensp;<span class='uk-badge'>#{page.traits.size}</span>".html_safe
-                end
-                haml_tag("li") do
-                  haml_concat "<span uk-icon='icon: social'></span>&ensp;<span class='uk-badge'>#{page.nodes.size}</span>".html_safe
-                end
-                haml_tag("li.uk-text-muted") do
-                  haml_concat "etc..."
-                end
-              else
-                haml_tag("li.uk-padding-remove-horizontal.uk-text-muted") do
-                  haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
-                end
-              end
-            end
-          end
-        end
-      end
+      summarize(page, current_page: ! this_node, node: node)
       if ancestors.empty? && this_node
         haml_tag("ul.uk-list") do
           classification(nil, [this_node])
@@ -67,5 +29,56 @@ module PagesHelper
         end
       end
     end
+  end
+
+  def summarize(page, options = {})
+    node = options[:node] || page.native_node
+    page_id = page ? page.id : node.page_id
+    vernacular = page.name.titleize if page
+    icon_size = "tiny"
+    names = vernacular && vernacular != node.canonical_form ? "#{vernacular} <span class='uk-text-muted uk-text-small'>#{node.canonical_form}</span>" : node.canonical_form
+    haml_tag("span.#{icon_size}") do
+      if options[:current_page]
+        haml_concat names.html_safe
+        haml_concat t(:classification_list_this_page)
+      else
+        haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
+      end
+      haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
+        if page
+          if page.media_count > 0
+            haml_tag("div.ui.#{icon_size}.label") do
+              haml_concat "<i class='image icon'></i>#{page.media_count}".html_safe
+            end
+          end
+          # haml_tag("div.ui.#{icon_size}.label") do
+          #   haml_concat "<i class='tag icon'></i>#{page.traits.size}".html_safe
+          # end
+          # haml_tag("div.ui.#{icon_size}.label") do
+          #   haml_concat "<i class='sitemap icon'></i>#{page.nodes.size}".html_safe
+          # end
+          # haml_tag("div.ui.#{icon_size}.label") do
+          #   haml_concat "etc..."
+          # end
+        else
+          haml_tag("li.uk-padding-remove-horizontal.uk-text-muted") do
+            haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
+          end
+        end
+      end
+    end
+  end
+
+  # TODO: we should really store the values like this! :S
+  def unlink(text)
+    return text.html_safe if text =~ /<a / # They already linked it.
+    text.gsub(URI.regexp) { |match|
+      if match.size < 20
+        "<a href=\"#{match}\">#{match}</a>"
+      else
+        host = URI::parse(match).host
+        "<a href=\"#{match}\">#{host}</a>"
+      end
+    }.html_safe
   end
 end

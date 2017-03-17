@@ -1,6 +1,6 @@
 #gallery
   -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
-  .uk-child-width-1-6.uk-grid-small{ uk: { grid: true } }
+  %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
     - @media.each_with_index do |image, index|
       - img_id = "image_modal_#{image.id}"
       - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
@@ -8,12 +8,13 @@
       -# TODO: we will eventually know the actual size of the image; add that:
       -# TODO: some helpers would clean this up:
       %div
-        .uk-card.uk-card-default.uk-card-small.uk-card-hover
+        %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
           - link_path = medium_path(image)
           .uk-card-media-top.uk-inline-clip.uk-transition-toggle
             %a.uk-cover-container{ href: "##{img_id}", uk: { toggle: true } }
-              %canvas{ width: "200", height: "200" }
-              %img{ src: image.medium_icon_url, "uk-cover": true }
+              -# %canvas{ width: "200", height: "200" }
+              -# %img{ src: image.medium_size_url, "uk-cover": true }
+              %img{ src: image.medium_size_url }
               %div{ id: img_id, uk: { modal: true } }
                 .uk-modal-dialog
                   %a.uk-modal-close-default{ href: "", uk: { close: true } }
@@ -24,7 +25,10 @@
                       = owner
                     .ui.label= image.license.name
                   .uk-modal-body
-                    = image_tag(image.original_size_url)
+                    .uk-inline.uk-visible-toggle
+                      = image_tag(image.original_size_url)
+                      %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } } }= ""
+                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } } }= ""
                   -# TODO: can't use this now because we need the image sizes, and we don't have them yet.
                   -# .uk-modal-body.uk-cover-container
                   -#   %canvas{ width: "1280", height: "1280" }
@@ -34,8 +38,10 @@
                 .ui.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
                 -# TODO: the actual state...
                 .ui.green.label= "trusted"
-          .uk-card-footer.uk-text-truncate
+          .uk-card-footer.uk-text-truncate{ style: "padding: 10px !important;" }
             %ul.uk-iconnav.uk-float-right
+              %li
+                %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
               %li
                 = link_to("<i class='violet pin icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
               %li

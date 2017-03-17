@@ -9,6 +9,13 @@ class PagesController < ApplicationController
     raise "404" unless @page
     @page_title = @page.name
     @media = @page.media.includes(:license).page(params[:page]).per(@media_page_size)
+    # TODO: extract this (and again from #traits)
+    @associations =
+      begin
+        ids = @page.traits.map { |t| t[:object_page_id] }.compact.sort.uniq
+        # TODO: include more when we need it
+        Page.where(id: ids).includes(:medium, :native_node, :preferred_vernaculars)
+      end
   end
 
   # TODO: move; this should be more RESTful.
