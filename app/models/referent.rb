@@ -10,4 +10,5 @@ class Referent < ActiveRecord::Base
     source: :parent, source_type: "Medium"
 
   has_and_belongs_to_many :pages
+
 end

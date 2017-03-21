@@ -79,7 +79,7 @@ class Page < ActiveRecord::Base
   end
 
   # Without touching the DB:
-  def media_count
+  def _media_count
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
