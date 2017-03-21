@@ -24,12 +24,10 @@ class TraitBank
   # an image (which should be handled with an icon) ... and possibly a
   # collection to build a slideshow [using its images].)
   class << self
-    @connected = false
+    @iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
 
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
-      @connected = true
-      @connection
     end
 
     def ping

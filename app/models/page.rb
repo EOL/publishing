@@ -159,8 +159,24 @@ class Page < ActiveRecord::Base
     end
     # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
+    @traits_loaded = true
     # TODO: do we need the sort here?
     @traits = TraitBank.sort(traits)
+  end
+
+  def iucn_status_key
+    if @traits_loaded
+      if grouped_traits.has_key?("http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus")
+        # TODO: there's a lot of work to do here, but I don't have a test case. Eeep!
+      else
+        status = "unknown"
+        if iucn_status != status
+          update_attribute(:iucn_status, status)
+        end
+        status
+    else
+      iucn_status
+    end
   end
 
   def glossary

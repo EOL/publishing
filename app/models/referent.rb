@@ -11,6 +11,4 @@ class Referent < ActiveRecord::Base
 
   has_and_belongs_to_many :pages
 
-  counter_culture :page
-
 end

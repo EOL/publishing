@@ -14,7 +14,7 @@ class AddMetaDataToPages < ActiveRecord::Migration
     # These are not technically counts, but they are metadata that are associated with counts on pages, so:
     add_column :pages, :species_count, :integer, :null => false, :default => 0
     add_column :pages, :is_extinct, :boolean, null: false, default: false
-    add_column :pages, :iucn_status, :string, length: 32, comment: "I18n key"
+    add_column :pages, :iucn_status, :string, length: 8, comment: "I18n key, using their two-letter abbreviation, plus 'unknown' for those we don't have a record for. NULL, however, means 'I haven't looked at our traits yet', which is the default value."
     add_column :pages, :trophic_strategy, :string, length: 32, comment: "I18n key"
     add_column :pages, :geographic_context, :string, length: 32, comment: "I18n key"
     add_column :pages, :habitat, :string, length: 32, comment: "I18n key"

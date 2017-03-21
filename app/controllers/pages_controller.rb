@@ -16,6 +16,14 @@ class PagesController < ApplicationController
         # TODO: include more when we need it
         Page.where(id: ids).includes(:medium, :native_node, :preferred_vernaculars)
       end
+      # Required mostly for paginating the first tab on the page (kaminari doesn't know how to build the nested view...)
+      respond_to do |format|
+        format.html {}
+        # TODO: you have to tell it which tab was first, sadly... This won't
+        # work if there are no media, but paginatable traits. Really, we need to
+        # fix the problem with kaminari.
+        format.js { render action: :media }
+      end
   end
 
   # TODO: move; this should be more RESTful.

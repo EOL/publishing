@@ -273,7 +273,10 @@ class Import::Page
 
     def build_node(node_data, resource = nil)
       resource ||= build_resource(node_data["resource"])
-      return Node.find(node_data["id"]) if Node.exists?(node_data["id"])
+      return Node.where(scientific_name: node_data["scientific_name"],
+                        resource_id: resource.id).first if
+        Node.exists?(scientific_name: node_data["scientific_name"],
+                     resource_id: resource.id)
       TraitBank.create_node_in_hierarchy(node_data["node_id"].to_i, @page.id)
       parent = if node_data["parent"]
                  build_node(node_data["parent"], resource)
