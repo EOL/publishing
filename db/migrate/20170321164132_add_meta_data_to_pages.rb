@@ -4,6 +4,7 @@ class AddMetaDataToPages < ActiveRecord::Migration
     add_column :pages, :page_contents_count, :integer, :null => false, :default => 0
     add_column :pages, :media_count, :integer, :null => false, :default => 0
     add_column :pages, :articles_count, :integer, :null => false, :default => 0
+    add_column :pages, :links_count, :integer, :null => false, :default => 0
     add_column :pages, :maps_count, :integer, :null => false, :default => 0
     add_column :pages, :traits_count, :integer, :null => false, :default => 0
     add_column :pages, :nodes_count, :integer, :null => false, :default => 0
@@ -20,8 +21,10 @@ class AddMetaDataToPages < ActiveRecord::Migration
   end
 
   def self.down
+    remove_column :pages, :page_contents_count
     remove_column :pages, :media_count
     remove_column :pages, :articles_count
+    remove_column :pages, :links_count
     remove_column :pages, :maps_count
     remove_column :pages, :traits_count
     remove_column :pages, :nodes_count

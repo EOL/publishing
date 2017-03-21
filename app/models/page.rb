@@ -78,7 +78,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  # Without touching the DB:
+  # Without touching the DB, if you have the media preloaded:
   def _media_count
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
@@ -121,7 +121,8 @@ class Page < ActiveRecord::Base
   end
 
   def names_count
-    @names_count ||= vernaculars.size + scientific_names.size
+    # NOTE: there are no "synonyms!" Those are a flavor of scientific name.
+    @names_count ||= vernaculars_count + scientific_names_count
   end
 
   # TODO: this is duplicated with node; fix.
@@ -146,12 +147,16 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
-  # TODO: ideally we want to be able to limit these! ...but that's really hard,
-  # and ATM the query is pretty fast even for >100 traits, so we're not doing
-  # that yet.
+  # TODO: ideally we want to be able to paginate these! ...but that's really
+  # hard, and ATM the query is pretty fast even for >100 traits, so we're not
+  # doing that yet.
   def traits
     return @traits if @traits
     traits = TraitBank.by_page(id)
+    # Self-healing count of number of traits:
+    if traits.size != traits_count
+      update_attribute(:traits_count, traits.size)
+    end
     # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
     # TODO: do we need the sort here?
@@ -177,7 +182,10 @@ class Page < ActiveRecord::Base
   # REFERENCES METHODS
 
   def literature_and_references_count
-    @literature_and_references_count ||= referents.count
+    if referents.count != referents_count
+      update_attribute(:referents_count, referents.count)
+    end
+    @literature_and_references_count ||= referents_count
   end
 
   private

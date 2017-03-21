@@ -67,13 +67,13 @@
       - if @page.media_count > 0
         - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id), active: true)
       - if @page.traits
-        - tab(name: "traits", icon: "tag", count: @page.traits.size, path: page_traits_path(page_id: @page.id))
+        - tab(name: "traits", icon: "tag", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
       - if @page.map?
         -# TODO: We want a real count there, eventually.
-        - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
+        - tab(name: "maps", icon: "world", count: @page.maps_count, path: page_maps_path(page_id: @page.id))
       - if @page.articles.size > 0
-        - tab(name: "details", icon: "info", count: @page.articles.size, path: page_details_path(page_id: @page.id))
-      - tab(name: "classifications", icon: "git-branch", count: @page.nodes.size, path: page_classifications_path(page_id: @page.id))
+        - tab(name: "details", icon: "info", count: @page.articles_count, path: page_details_path(page_id: @page.id))
+      - tab(name: "classifications", icon: "git-branch", count: @page.nodes_count, path: page_classifications_path(page_id: @page.id))
       - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
       - if @page.literature_and_references_count > 1
         - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
