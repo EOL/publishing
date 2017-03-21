@@ -1,6 +1,14 @@
 %div
   %h2 
     = I18n.t(:sign_up)
+  - username = ""
+  - email = ""
+  - if session["devise.data"].blank?
+    - open = false 
+  - else
+    - open = true
+    - username = session['devise.data']['info']['name']
+    - email = session['devise.data']['info'].try(: [], 'email')
   = form_for resource, url: registration_path(resource_name), 
     html: { name: 'signupForm', 
             'novalidate': 'novalidate',
@@ -8,6 +16,8 @@
             'ng-controller': "signupValidate as ctrl",
             'ng-submit': 'validateForm($event, signupForm)'.html_safe } do |f|
     = devise_error_messages!
+    
+    %div{id: "session", 'data-username': "#{username}", 'data-email': "#{email}"}         
     .field
       = f.label I18n.t(:username)
       %br/
@@ -15,72 +25,42 @@
                       'ng-model': 'username', 
                       'ng-minlength': User::USERNAME_MIN_LENGTH,
                       'ng-maxlength': User::USERNAME_MAX_LENGTH,
-                      required: true
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$error.required && (signupForm['user[username]'].$touched || showErrors)".html_safe}
-        = I18n.t("users.validations.empty_username_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[username]'].$error.minlength".html_safe}
-        = I18n.t("users.validations.short_username_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[username]'].$error.maxlength".html_safe}
-        = I18n.t("users.validations.long_username_error")
+                       required: true,
+                       value: resource.username,
+                       readonly: open
+      = render "errors", context: "username"
     .field
       = f.label I18n.t(:email)
       %br/
       = f.email_field :email, 
                       'ng-model': 'email',
                       'ng-pattern': $mail_regexp,
-                      required: true 
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[email]'].$error.required && (signupForm['user[email]'].$touched || showErrors)".html_safe}
-        = I18n.t("users.validations.empty_email_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[username]'].$touched && signupForm['user[email]'].$error.pattern".html_safe}
-        = I18n.t("users.validations.invalid_email")
-    .field
-      = f.label I18n.t(:password)
-      %br/
-      = f.password_field :password, autocomplete: "off",
-                          id: "password",
-                         'ng-model': 'password',
-                         'validate-password': '',
-                         required: true,
-                         'autofill': ''
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password]'].$error.required && (signupForm['user[password]'].$touched || showErrors)".html_safe}
-        = I18n.t("users.validations.empty_password_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "violatePwdLowerLimit && signupForm['user[password]'].$touched".html_safe}
-        = I18n.t("users.validations.short_password_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "violatePwdUpperLimit && signupForm['user[password]'].$touched".html_safe}
-        = I18n.t("users.validations.long_password_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "ViolatepwdLetterCond && signupForm['user[password]'].$touched".html_safe}
-        = I18n.t("users.validations.password_must_have_letter_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "ViolatepwdNumberCond && signupForm['user[password]'].$touched".html_safe}
-        = I18n.t("users.validations.password_must_have_number_error")
-    .field
-      = f.label I18n.t(:password_confirmation)
-      %br/
-      = f.password_field :password_confirmation, autocomplete: "off",
-                         'ng-model': 'password_confirmation',
-                         'password-match': "password",
-                         'ng-required': true
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password_confirmation]'].$error.required && (signupForm['user[password_confirmation]'].$touched || showErrors)".html_safe}
-        = I18n.t("users.validations.empty_password_confirmation_error")
-      %span{class: 'ng-validation-error',
-            'ng-show': "signupForm['user[password_confirmation]'].$touched && signupForm['user[password_confirmation]'].$error.pwmismatch && !signupForm['user[password_confirmation]'].$error.required".html_safe}
-        = I18n.t("users.validations.password_confirmation_mismatch")
-    .field
-      = f.label I18n.t(:recaptcha)
-      = recaptcha_tags(theme: 'clean', callback: 'recaptchaCallback')
-      %br
-      %span{class: 'ng-validation-error', 'ng-show': 'recaptchaError'.html_safe}
-        = "#{I18n.t('recaptcha_error')}"
+                      required: true
+      = render "errors", context: "email"
+    - if !open
+      .field
+        = f.label I18n.t(:password)
+        %br/
+        = f.password_field :password, autocomplete: "off",
+                            id: "password",
+                           'ng-model': 'password',
+                           'validate-password': '',
+                           required: true,
+                           'autofill': ''
+        = render "errors", context: "password"
+      .field
+        = f.label I18n.t(:password_confirmation)
+        %br/
+        = f.password_field :password_confirmation, autocomplete: "off",
+                           'ng-model': 'password_confirmation',
+                           'password-match': "password",
+                           'ng-required': true
+        = render "errors", context: "confirmation"
+      .field
+        = f.label I18n.t(:recaptcha)
+        = recaptcha_tags(theme: 'clean', callback: 'recaptchaCallback')
+        %br
+        = render "errors", context: "recaptcha"
     .actions
       = f.submit I18n.t(:create_account), 'ng-disabled': 'signupForm.$invalid || !recaptchaChecked', class: "btn btn-default"
   = render "devise/shared/links"

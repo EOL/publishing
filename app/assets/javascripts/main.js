@@ -268,6 +268,11 @@ if(!EOL) {
       $scope.showErrors = false;
       $scope.recaptchaChecked = ($(".g-recaptcha").length === 0);
       $scope.recaptchaError = false;
+  
+      var div = document.getElementById('session');
+      $scope.username = div.getAttribute("data-username");
+      $scope.email = div.getAttribute("data-email");
+                  
       $scope.validateForm = function(event, signupForm) {
           if (signupForm.$invalid) {
               $scope.showErrors = true;
