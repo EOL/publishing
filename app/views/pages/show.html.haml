@@ -11,7 +11,7 @@
   .uk-section.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ style: "background-color: white;", uk: { grid: true } }
     .uk-section.uk-padding-remove-vertical.uk-width-3-5
       #breadcrumbs.page-ancestors.uk-column-span
-        %ul.uk-breadcrumb
+        %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
           - ancestors = @page.native_node.ancestors
           - shown_ellipsis = false
           - ancestors.each do |node|
@@ -24,8 +24,8 @@
             - shown_ellipsis = false
       .uk-section{ uk: { grid: true } }
         #names.page-names.uk-width-2-3
-          %h1.uk-heading-divider.uk-margin-small-bottom= @page.name.titlecase
-          %h3.uk-margin-remove-top= @page.scientific_name.html_safe
+          %h1.uk-margin-small-bottom= @page.name.titlecase
+          %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
           - trophic_strat = begin
             - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
           - rescue => e
@@ -36,7 +36,7 @@
           %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
             %i.plus.icon
             = t(:taxon_collect_button)
-      .uk-section.uk-section-muted.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right{style: "font-weight: 300; font-color: #111" }
+      .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
         = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
         - if ancestors[-2]
           = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
@@ -69,8 +69,8 @@
       - if @page.traits
         - tab(name: "traits", icon: "tag", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
       - if @page.map?
-        -# TODO: We want a real count there, eventually.
-        - tab(name: "maps", icon: "world", count: @page.maps_count, path: page_maps_path(page_id: @page.id))
+        -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
+        - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
       - if @page.articles.size > 0
         - tab(name: "details", icon: "info", count: @page.articles_count, path: page_details_path(page_id: @page.id))
       - tab(name: "classifications", icon: "git-branch", count: @page.nodes_count, path: page_classifications_path(page_id: @page.id))

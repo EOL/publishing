@@ -165,15 +165,23 @@ class Page < ActiveRecord::Base
   end
 
   def iucn_status_key
-    if @traits_loaded
+    # NOTE this is NOT self-healing. If you store the wrong value or change it,
+    # it is up to you to fix the value on the Page instance. This is something
+    # to be aware of! TODO: this should be one of the things we can "fix" with a
+    # page reindex.
+    if iucn_status.nil? && @traits_loaded
       if grouped_traits.has_key?("http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus")
         # TODO: there's a lot of work to do here, but I don't have a test case. Eeep!
+        # Find the right record to use if there's more than one
+        # Grab the value
+        # Parse out the abbreviation
       else
         status = "unknown"
         if iucn_status != status
           update_attribute(:iucn_status, status)
         end
         status
+      end
     else
       iucn_status
     end
