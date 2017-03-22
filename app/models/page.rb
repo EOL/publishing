@@ -170,18 +170,18 @@ class Page < ActiveRecord::Base
     # to be aware of! TODO: this should be one of the things we can "fix" with a
     # page reindex.
     if iucn_status.nil? && @traits_loaded
-      if grouped_traits.has_key?("http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus")
-        # TODO: there's a lot of work to do here, but I don't have a test case. Eeep!
-        # Find the right record to use if there's more than one
-        # Grab the value
-        # Parse out the abbreviation
+      status = if grouped_traits.has_key?(TraitBank.iucn_uri)
+        recs = grouped_traits[TraitBank.iucn_uri]
+        record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
+        record ||= recs.first
+        TraitBank.iucn_status_key(record)
       else
-        status = "unknown"
-        if iucn_status != status
-          update_attribute(:iucn_status, status)
-        end
-        status
+        "unkonwn"
       end
+      if iucn_status != status
+        update_attribute(:iucn_status, status)
+      end
+      status
     else
       iucn_status
     end

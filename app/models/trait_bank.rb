@@ -7,6 +7,8 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
+  @@iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
+
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
@@ -24,7 +26,36 @@ class TraitBank
   # an image (which should be handled with an icon) ... and possibly a
   # collection to build a slideshow [using its images].)
   class << self
-    @iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
+    def iucn_uri
+      @@iucn_uri
+    end
+
+    def iucn_status_key(record)
+      unknown = "unkonwn"
+      return unknown unless record && record[:object_term]
+      case record[:object_term][:uri]
+      when "http://eol.org/schema/terms/extinct"
+        "ex"
+      when "http://eol.org/schema/terms/exinctInTheWild"
+        "ew"
+      when "http://eol.org/schema/terms/criticallyEndangered"
+        "cr"
+      when "http://eol.org/schema/terms/endangered"
+        "en"
+      when "http://eol.org/schema/terms/vulnerable"
+        "vu"
+      when "http://eol.org/schema/terms/nearThreatened"
+        "nt"
+      when "http://eol.org/schema/terms/leastConcern"
+        "lc"
+      when "http://eol.org/schema/terms/dataDeficient"
+        "dd"
+      when "http://eol.org/schema/terms/notEvaluated"
+        "ne"
+      else
+        unknown
+      end
+    end
 
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
@@ -423,6 +454,7 @@ class TraitBank
       end
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
+      options[:definition] ||= "{definition missing}"
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       term_node = connection.create_node(options)
       connection.add_label(term_node, "Term")

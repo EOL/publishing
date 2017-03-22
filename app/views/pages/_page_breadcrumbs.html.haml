@@ -1,3 +1,3 @@
-%ul.uk-breadcrumb
+%ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
   - @page.native_node.ancestors.each do |node|
     %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
