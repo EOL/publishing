@@ -17,7 +17,7 @@ module PagesHelper
     return nil if ancestors.empty?
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
-    haml_tag("li") do
+    haml_tag("li.one") do
       summarize(page, current_page: ! this_node, node: node)
       if ancestors.empty? && this_node
         haml_tag("ul.uk-list") do
@@ -61,7 +61,7 @@ module PagesHelper
           #   haml_concat "etc..."
           # end
         else
-          haml_tag("li.uk-padding-remove-horizontal.uk-text-muted") do
+          haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
             haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
           end
         end

@@ -420,7 +420,11 @@ class TraitBank
     def adjust_node_parent_relationship(node_id, parent_id)
       node = get_node(node_id)
       parent_node = get_node(parent_id)
-      connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
+      begin
+        connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
+      rescue => e
+        puts "** ERROR: #{e.message}. Skipping this parent relationship..."
+      end
     end
 
     def relationship_exists?(node_a, node_b)

@@ -111,6 +111,7 @@ en:
   page_key_traits_header: "Key Traits"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
+  page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     tabs:
       article: "Overview"

@@ -24,8 +24,11 @@
             - shown_ellipsis = false
       .uk-section{ uk: { grid: true } }
         #names.page-names.uk-width-2-3
-          %h1.uk-margin-small-bottom= @page.name.titlecase
-          %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
+          - if @page.name == @page.scientific_name
+            %h1.uk-margin-small-bottom= @page.name.html_safe
+          - else
+            %h1.uk-margin-small-bottom= @page.name.titlecase.html_safe
+            %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
           - trophic_strat = begin
             - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
           - rescue => e
@@ -37,26 +40,27 @@
             %i.plus.icon
             = t(:taxon_collect_button)
       .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
-        = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} "
+        = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} ".html_safe
         - if ancestors[-2]
           = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
         It lives in a variety of habitats around the world.
-      .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
-        %h3.uk-heading-divider
-          = t(:page_key_traits_header)
-          -# .ui.label.uk-float-right.eol-secondary
-          -#   = t("pages.iucn_status.label")
-          -#   .detail= t("pages.iucn_status.#{@page.iucn_status_key}")
-        %dl.uk-description-list
-          - preds = {}
-          - @page.traits.each do |trait|
-            - unless preds.keys.size >= 5
-              - predicate = @page.glossary[trait[:predicate][:uri]]
-              - unless preds.has_key?(predicate)
-                - preds[predicate] = true
-                %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                %dd
-                  - show_trait_value(trait)
+      - unless @page.traits.empty?
+        .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
+          %h3.uk-heading-divider
+            = t(:page_key_traits_header)
+            -# .ui.label.uk-float-right.eol-secondary
+            -#   = t("pages.iucn_status.label")
+            -#   .detail= t("pages.iucn_status.#{@page.iucn_status_key}")
+          %dl.uk-description-list
+            - preds = {}
+            - @page.traits.each do |trait|
+              - unless preds.keys.size >= 5
+                - predicate = @page.glossary[trait[:predicate][:uri]]
+                - unless preds.has_key?(predicate)
+                  - preds[predicate] = true
+                  %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  %dd
+                    - show_trait_value(trait)
     - if @page.top_image
       .uk-width-2-5
         .uk-margin-remove-top
@@ -71,7 +75,7 @@
     %ul#page_nav.uk-tab.uk-child-width-expand
       - if @page.media_count > 0
         - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id), active: true)
-      - if @page.traits
+      - unless @page.traits.empty?
         - tab(name: "traits", icon: "tag", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
       - if @page.map?
         -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
@@ -83,4 +87,9 @@
       - if @page.literature_and_references_count > 1
         - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
     #page_nav_content
-      = render("page_media")
+      - if @page.media_count > 0
+        = render("page_media")
+      - elsif ! @page.traits.empty?
+        = render("page_traits")
+      - else
+        = render("page_classification")

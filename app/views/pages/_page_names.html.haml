@@ -18,22 +18,25 @@
                   = t(:name_recognized_by, by: link_to(name.node.resource.name, name.node.resource)).html_safe
 %h2= t(:vernacular_names_header)
 %div{ uk: { grid: true } }
-  - @page.vernaculars.group_by { |n| n.language.group }.each do |lang, names_by_lang|
-    .uk-width-1-3
-      .uk-card.uk-card-default
-        .uk-card-header
-          %h3.uk-card-title= t("languages.#{lang}")
-        .uk-card-body
-          %dl.uk-description-list.uk-description-list-divider
-            - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
-              - preferred_name = names_by_string.any? { |n| n.is_preferred? }
-              %dt.uk-padding-remove-vertical.uk-margin-small-top
-                = string
-                - if preferred_name
-                  %span.uk-label.uk-label-primary.uk-margin-left= t(:name_preferred_label)
-              %dd.uk-text-meta
-                - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
-                  - str = resource.name
-                  - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
-                    - str = t(:vernacular_preferred_by_resource, resource: str)
-                  = t(:name_recognized_by, by: link_to(str, resource)).html_safe
+  .uk-width-1-3
+    .uk-card.uk-card-default
+      - if @page.vernaculars.empty?
+        .uk-card-body= t(:page_vernaculars_empty)
+      - else
+        - @page.vernaculars.group_by { |n| n.language.group }.each do |lang, names_by_lang|
+          .uk-card-header
+            %h3.uk-card-title= t("languages.#{lang}")
+          .uk-card-body
+            %dl.uk-description-list.uk-description-list-divider
+              - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
+                - preferred_name = names_by_string.any? { |n| n.is_preferred? }
+                %dt.uk-padding-remove-vertical.uk-margin-small-top
+                  = string
+                  - if preferred_name
+                    %span.uk-label.uk-label-primary.uk-margin-left= t(:name_preferred_label)
+                %dd.uk-text-meta
+                  - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
+                    - str = resource.name
+                    - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
+                      - str = t(:vernacular_preferred_by_resource, resource: str)
+                    = t(:name_recognized_by, by: link_to(str, resource)).html_safe
