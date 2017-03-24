@@ -48,9 +48,6 @@
         .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
           %h3.uk-heading-divider
             = t(:page_key_traits_header)
-            -# .ui.label.uk-float-right.eol-secondary
-            -#   = t("pages.iucn_status.label")
-            -#   .detail= t("pages.iucn_status.#{@page.iucn_status_key}")
           %dl.uk-description-list
             - preds = {}
             - @page.traits.each do |trait|
