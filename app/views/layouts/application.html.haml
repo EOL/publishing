@@ -27,7 +27,7 @@
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/sticky.min.js"
     = csrf_meta_tags
     = yield :head
-  %body{ style: "background-color: snow;" }
+  %body
     = render("navbar")
     .uk-container
       .uk-grid-medium{ uk: { grid: true } }

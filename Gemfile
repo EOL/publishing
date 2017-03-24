@@ -29,7 +29,7 @@ gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # RefineryCMS
-gem 'refinerycms' 
+gem 'refinerycms'
 gem 'refinerycms-wymeditor'
 gem 'refinerycms-ckeditor'
 gem 'refinerycms-i18n'
@@ -70,7 +70,7 @@ gem "pundit", "~> 1.1"
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'angular_rails_csrf'
 # Pagination:
-gem 'kaminari', "~> 0.17"
+gem "kaminari", "~> 1.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
