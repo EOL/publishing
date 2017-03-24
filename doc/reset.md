@@ -26,4 +26,5 @@ rails r "Import::Clade.from_file('http://beta.eol.org/store-7665-clade.json')"
 rails r "OccurrenceMap.create(page_id: 1149380, url: 'https://demo.gbif.org/species/5331532')"
 
 bundle exec rake sunspot:reindex
+rails r "[CollectionAssociation, Node, PageContent, ScientificName, Vernacular].each { |k| k.counter_culture_fix_counts }"
 ```

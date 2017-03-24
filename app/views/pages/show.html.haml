@@ -5,64 +5,88 @@
     = javascript_include_tag "maps_vendored"
     = javascript_include_tag "http://media.eol.org/content/maps/#{prefix}/#{@page.id}.json"
     = javascript_include_tag "maps"
-#page.container{"data-turbolinks": "false"}
-  #page_control{ ng: { controller: "PageCtrl as ctrl" } }
-    .well
-      -# NOTE: it doesn't cache this, so we store it rather than call it over
-      -# and over:
-      - ancestors = @page.native_node.ancestors
-      #breadcrumbs.page-ancestors
-        %ol.breadcrumb
+#page
+  -# NOTE: it doesn't cache this, so we store it rather than call it over
+  -# and over:
+  .uk-section.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ style: "background-color: white;", uk: { grid: true } }
+    .uk-section.uk-padding-remove-vertical.uk-width-3-5
+      #breadcrumbs.page-ancestors.uk-column-span
+        %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
+          - ancestors = @page.native_node.ancestors
           - shown_ellipsis = false
           - ancestors.each do |node|
             - unless node.has_breadcrumb?
               - unless shown_ellipsis
-                %li.breadcrumb-item= link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
+                %li= link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
                 - shown_ellipsis = true
               - next
-            %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+            %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
             - shown_ellipsis = false
-      .row
-        .page-names.col-md-9
-          %h1= @page.name.titlecase
-          %h2= @page.scientific_name.html_safe
+      .uk-section{ uk: { grid: true } }
+        #names.page-names.uk-width-2-3
+          - if @page.name == @page.scientific_name
+            %h1.uk-margin-small-bottom= @page.name.html_safe
+          - else
+            %h1.uk-margin-small-bottom= @page.name.titlecase.html_safe
+            %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
           - trophic_strat = begin
             - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
           - rescue => e
             -# Do nothing. This code doesn't even belong here. I'm rushing.
           -# TODO: this is all temporary! We need a real solution:
-          %p
-            = "The #{@page.name} is a(n) #{trophic_strat} #{ancestors[0].name} "
-            - if ancestors[-2]
-              = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-            It lives in a variety of habitats around the world.
-        %p.col-md-3.actions
-          = link_to t(:taxon_collect_button), new_collected_page_path(page_id: @page.id), class: "btn btn-default"
-      .media
-        #gallery
-          %h2= t(:page_media_header, count: @page.media_count)
-          = render("page_media")
-      %ul#page_nav.nav.nav-pills
-        - if @page.traits
-          %li#page_nav_traits.active{ role: "presentation" }
-            = link_to(t("pages.tabs.traits", count: @page.traits.size).html_safe, page_traits_path(page_id: @page.id), remote: true)
-        - if @page.article
-          %li#page_nav_article{ role: "presentation" }
-            = link_to(t("pages.tabs.article").html_safe, page_article_path(page_id: @page.id), remote: true)
-        - if @page.map?
-          %li#page_nav_maps{ role: "presentation" }
-            -# TODO: We want a real count there, eventually.
-            = link_to(t("pages.tabs.maps", count: 1).html_safe, page_maps_path(page_id: @page.id), remote: true)
-        %li#page_nav_classifications{ role: "presentation" }
-          = link_to(t("pages.tabs.classifications").html_safe, page_classifications_path(page_id: @page.id), remote: true)
-        - if @page.articles.size > 1
-          %li#page_nav_details{ role: "presentation" }
-            = link_to(t("pages.tabs.details", count: @page.articles.size).html_safe, page_details_path(page_id: @page.id), remote: true)
-        %li#page_nav_names{ role: "presentation" }
-          = link_to(t("pages.tabs.names", count: @page.names_count).html_safe, page_names_path(page_id: @page.id), remote: true)
-        - if @page.literature_and_references_count > 1
-          %li#page_nav_literature_and_references{ role: "presentation" }
-            = link_to(t("pages.tabs.literature_and_references", count: @page.literature_and_references_count).html_safe, page_literature_and_references_path(page_id: @page.id), remote: true)
+          - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
+        .uk-width-1-3
+          %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
+            %i.plus.icon
+            = t(:taxon_collect_button)
+      .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
+        = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} ".html_safe
+        - if ancestors[-2]
+          = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
+        It lives in a variety of habitats around the world.
+      - unless @page.traits.empty?
+        .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
+          %h3.uk-heading-divider
+            = t(:page_key_traits_header)
+          %dl.uk-description-list
+            - preds = {}
+            - @page.traits.each do |trait|
+              - unless preds.keys.size >= 5
+                - predicate = @page.glossary[trait[:predicate][:uri]]
+                - unless preds.has_key?(predicate)
+                  - preds[predicate] = true
+                  %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  %dd
+                    - show_trait_value(trait)
+    - if @page.top_image
+      .uk-width-2-5
+        .uk-margin-remove-top
+          .uk-overflow-hidden.uk-box-shadow-large
+            %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url, style: "border: 2px solid #d8d8d8;" }
+        .uk-float-right.uk-margin-medium-top
+          .ui.label.eol-secondary.uk-box-shadow-medium
+            = t("pages.iucn_status.label")
+            .detail= t("pages.iucn_status.#{@page.iucn_status_key}")
 
-      #page_nav_content
+  .uk-section.uk-padding-remove-vertical.uk-margin-top
+    %ul#page_nav.uk-tab.uk-child-width-expand
+      - if @page.media_count > 0
+        - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id), active: true)
+      - unless @page.traits.empty?
+        - tab(name: "traits", icon: "tag", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
+      - if @page.map?
+        -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
+        - tab(name: "maps", icon: "world", count: 1, path: page_maps_path(page_id: @page.id))
+      - if @page.articles.size > 0
+        - tab(name: "details", icon: "info", count: @page.articles_count, path: page_details_path(page_id: @page.id))
+      - tab(name: "classifications", icon: "git-branch", count: @page.nodes_count, path: page_classifications_path(page_id: @page.id))
+      - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
+      - if @page.literature_and_references_count > 1
+        - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
+    #page_nav_content
+      - if @page.media_count > 0
+        = render("page_media")
+      - elsif ! @page.traits.empty?
         = render("page_traits")
+      - else
+        = render("page_classification")

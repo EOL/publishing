@@ -82,7 +82,7 @@ RSpec.describe "terms/show" do
     render
     expect(rendered).to match /Unit URI/
     expect(rendered).to match /Term URI/
-    expect(rendered).to match /literal trait value/
+    expect(rendered).to match /Literal trait value/ # NOTE initial cap...
   end
 
   it "shows the resource's short name" do

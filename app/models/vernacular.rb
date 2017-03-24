@@ -10,6 +10,8 @@ class Vernacular < ActiveRecord::Base
 
   enum trust: [ :unreviewed, :trusted, :untrusted ]
 
+  counter_culture :page
+
   def <=>(other)
     string <=> other.string
   end

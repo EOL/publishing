@@ -1,3 +1,5 @@
+raise "You have nothing in your database" unless Article.count > 0
+raise "Youy have no articles linked to pages" if Article.last.pages.empty? 
 page = Article.last.pages.first
 raise "You need a page that has both an article and an image" unless
   page.media.count > 0

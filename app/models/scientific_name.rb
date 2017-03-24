@@ -7,6 +7,8 @@ class ScientificName < ActiveRecord::Base
   scope :preferred, -> { where(is_preferred: true) }
   scope :synonym, -> { where(is_preferred: false) }
 
+  counter_culture :page
+
   def <=>(other)
     italicized <=> other.italicized
   end

@@ -29,6 +29,16 @@ class PageContent < ActiveRecord::Base
   scope :sounds, -> { media_by_subclass(:sound) }
   scope :videos, -> { media_by_subclass(:video) }
 
+# TODO: make sure these both work.
+  counter_culture :page
+  counter_culture :page,
+    column_name: proc { |model| "#{model.content_type.pluralize.downcase}_count" },
+    column_names: {
+      ["page_contents.content_type = ?", "Medium"] => "media_count",
+      ["page_contents.content_type = ?", "Article"] => "articles_count",
+      ["page_contents.content_type = ?", "Link"] => "links_count"
+    }
+
   # TODO: think about this. We might want to make the scope [:page,
   # :content_type]... then we can interlace other media types (or always show
   # them separately, which I think has advantages)

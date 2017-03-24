@@ -78,8 +78,8 @@ class Page < ActiveRecord::Base
     end
   end
 
-  # Without touching the DB:
-  def media_count
+  # Without touching the DB, if you have the media preloaded:
+  def _media_count
     page_contents.select { |pc| pc.content_type == "Medium" }.size
   end
 
@@ -121,7 +121,8 @@ class Page < ActiveRecord::Base
   end
 
   def names_count
-    @names_count ||= vernaculars.size + scientific_names.size
+    # NOTE: there are no "synonyms!" Those are a flavor of scientific name.
+    @names_count ||= vernaculars_count + scientific_names_count
   end
 
   # TODO: this is duplicated with node; fix.
@@ -146,16 +147,44 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
-  # TODO: ideally we want to be able to limit these! ...but that's really hard,
-  # and ATM the query is pretty fast even for >100 traits, so we're not doing
-  # that yet.
+  # TODO: ideally we want to be able to paginate these! ...but that's really
+  # hard, and ATM the query is pretty fast even for >100 traits, so we're not
+  # doing that yet.
   def traits
     return @traits if @traits
     traits = TraitBank.by_page(id)
+    # Self-healing count of number of traits:
+    if traits.size != traits_count
+      update_attribute(:traits_count, traits.size)
+    end
     # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
+    @traits_loaded = true
     # TODO: do we need the sort here?
     @traits = TraitBank.sort(traits)
+  end
+
+  def iucn_status_key
+    # NOTE this is NOT self-healing. If you store the wrong value or change it,
+    # it is up to you to fix the value on the Page instance. This is something
+    # to be aware of! TODO: this should be one of the things we can "fix" with a
+    # page reindex.
+    if iucn_status.nil? && @traits_loaded
+      status = if grouped_traits.has_key?(TraitBank.iucn_uri)
+        recs = grouped_traits[TraitBank.iucn_uri]
+        record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
+        record ||= recs.first
+        TraitBank.iucn_status_key(record)
+      else
+        "unkonwn"
+      end
+      if iucn_status != status
+        update_attribute(:iucn_status, status)
+      end
+      status
+    else
+      iucn_status
+    end
   end
 
   def glossary
@@ -177,7 +206,10 @@ class Page < ActiveRecord::Base
   # REFERENCES METHODS
 
   def literature_and_references_count
-    @literature_and_references_count ||= referents.count
+    if referents.count != referents_count
+      update_attribute(:referents_count, referents.count)
+    end
+    @literature_and_references_count ||= referents_count
   end
 
   private

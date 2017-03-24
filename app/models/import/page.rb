@@ -16,6 +16,7 @@ class Import::Page
 
     # TODO: pass a resource here. I started it but got lazy.
     def create_page(id, node_data, name, canon)
+      raise "No ID" if id.nil?
       @page = Page.where(id: id).first_or_initialize do |pg|
         pg.id = id
       end
@@ -31,6 +32,7 @@ class Import::Page
     def parse_page(data)
       @resource_nodes = {}
       @roles = {}
+      debugger if data["id"].nil?
       node, page_node = create_page(data["id"],
         data["native_node"],
         data["native_node"]["scientific_name"],
@@ -81,8 +83,9 @@ class Import::Page
             units = create_uri(t_data["units"]) if t_data["units"]
             term = create_uri(t_data["term"]) if t_data["term"]
             obj_page_id = nil
-            if t_data["object_page"]
+            if t_data["object_page"].is_a?(Hash) # Older versions used a string, doesn't work that way anymore.
               obj_page_id = t_data["object_page"]["id"]
+              debugger if obj_page_id.nil?
               create_page(obj_page_id,
                 t_data["object_page"]["node"],
                 t_data["object_page"]["scientific_ name"],
@@ -273,7 +276,10 @@ class Import::Page
 
     def build_node(node_data, resource = nil)
       resource ||= build_resource(node_data["resource"])
-      return Node.find(node_data["id"]) if Node.exists?(node_data["id"])
+      return Node.where(scientific_name: node_data["scientific_name"],
+                        resource_id: resource.id).first if
+        Node.exists?(scientific_name: node_data["scientific_name"],
+                     resource_id: resource.id)
       TraitBank.create_node_in_hierarchy(node_data["node_id"].to_i, @page.id)
       parent = if node_data["parent"]
                  build_node(node_data["parent"], resource)

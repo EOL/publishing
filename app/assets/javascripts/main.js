@@ -12,16 +12,14 @@ if(!EOL) {
     });
     $(".meta_trait").hide();
   };
-
-  EOL.initialize = function() {
-    angular.bootstrap(document.body, ['eolApp']);
-    if($(".galleria").length) {
-      Galleria.loadTheme("/assets/galleria/themes/classic/galleria.classic.min.js");
-      Galleria.run(".galleria");
-    }
-    EOL.allow_meta_traits_to_toggle();
-  };
 }
+
+$(document).ready(function() {
+  $("#page_nav a").on("click", function() {
+    $("#page_nav_content").children().slideUp({ duration: 500 });
+    $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
+  });
+});
 
 (function () {
   'use strict';
@@ -31,7 +29,7 @@ if(!EOL) {
   var passwordMaxLength = 32;
 
   var app = angular
-    .module("eolApp", ["ngAnimate", "ngMaterial", "ui.bootstrap", "ngSanitize"])
+    .module("eolApp", ["ngAnimate", "ngMaterial", "ngSanitize"])
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('brown', {
@@ -41,11 +39,6 @@ if(!EOL) {
           'default': '800'
         });
     });
-
-  // You have to reload the app's JS in a few cases:
-  $(document).on("turbolinks:load", function() { EOL.initialize(); });
-  //TODO: this doesn't work... was attempting to fix the initialize of the site when you click the back button.
-  // $(document).on("page:restore", function() { EOL.initialize(); });
 
   app.controller("SearchCtrl", SearchCtrl);
   app.controller("CladeFilterCtrl", CladeFilterCtrl);

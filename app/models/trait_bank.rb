@@ -7,6 +7,8 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
+  @@iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
+
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
@@ -17,15 +19,46 @@ class TraitBank
   #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
-  # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
+  # * Term: { *uri, *name, *section_ids(csv), , comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
+  #
+  # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
+  # an image (which should be handled with an icon) ... and possibly a
+  # collection to build a slideshow [using its images].)
   class << self
-    @connected = false
+    def iucn_uri
+      @@iucn_uri
+    end
+
+    def iucn_status_key(record)
+      unknown = "unkonwn"
+      return unknown unless record && record[:object_term]
+      case record[:object_term][:uri]
+      when "http://eol.org/schema/terms/extinct"
+        "ex"
+      when "http://eol.org/schema/terms/exinctInTheWild"
+        "ew"
+      when "http://eol.org/schema/terms/criticallyEndangered"
+        "cr"
+      when "http://eol.org/schema/terms/endangered"
+        "en"
+      when "http://eol.org/schema/terms/vulnerable"
+        "vu"
+      when "http://eol.org/schema/terms/nearThreatened"
+        "nt"
+      when "http://eol.org/schema/terms/leastConcern"
+        "lc"
+      when "http://eol.org/schema/terms/dataDeficient"
+        "dd"
+      when "http://eol.org/schema/terms/notEvaluated"
+        "ne"
+      else
+        unknown
+      end
+    end
 
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
-      @connected = true
-      @connection
     end
 
     def ping
@@ -92,14 +125,16 @@ class TraitBank
     end
 
     def trait_count
-      res = connection.execute_query("MATCH (trait:Trait)<-[:trait]-(page:Page) "\
+      res = connection.execute_query(
+        "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
     end
 
     def trait_exists?(resource_id, pk)
-      res = connection.execute_query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
+      res = connection.execute_query(
+        "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
         "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
         "RETURN trait")
       res["data"] ? res["data"].first : false
@@ -108,6 +143,8 @@ class TraitBank
    # NOTE: given one of the "res" sets here, you can find a particular trait
    # with this: trait_res = results["data"].find { |tr| tr[2] &&
    # tr[2]["data"]["uri"] == "http://purl.obolibrary.org/obo/VT_0001259" }
+   #
+   # MATCH (page:Page { page_id: 1680 })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) MATCH (trait)-[:predicate]->(predicate:Term) OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) OPTIONAL MATCH (trait)-[:units_term]->(units:Term) OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term LIMIT 20
     def by_page(page_id)
       # TODO: add proper pagination!
       res = connection.execute_query(
@@ -119,7 +156,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term "\
+        "RETURN resource, trait, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term "\
         "LIMIT 2000"
       )
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
@@ -174,7 +212,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term"
+        "RETURN resource, trait, page, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
@@ -397,7 +436,11 @@ class TraitBank
     def adjust_node_parent_relationship(node_id, parent_id)
       node = get_node(node_id)
       parent_node = get_node(parent_id)
-      connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
+      begin
+        connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
+      rescue => e
+        puts "** ERROR: #{e.message}. Skipping this parent relationship..."
+      end
     end
 
     def relationship_exists?(node_a, node_b)
@@ -431,6 +474,8 @@ class TraitBank
       end
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
+      options[:definition] ||= "{definition missing}"
+      options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       term_node = connection.create_node(options)
       connection.add_label(term_node, "Term")
       term_node

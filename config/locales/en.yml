@@ -20,6 +20,7 @@ en:
   change_your_password: 'Change your password'
   clade: "Clade"
   clade_placeholder: "clade ..."
+  classification_list_this_page: "(this page)"
   cms_page_date: " Last Modified at: "
   collect_already_in_collection: "(it's already here)"
   collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
@@ -95,6 +96,7 @@ en:
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
+  literature_and_references_header: "Literature and References"
   maps_empty: "There are no maps available for this page."
   medium_collect_button: "collect media"
   medium_description_blank: "There is no description provided for this object."
@@ -107,28 +109,32 @@ en:
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
-  page_media_header: "Media (%{count})"
+  page_key_traits_header: "Key Traits"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
+  page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     tabs:
       article: "Overview"
       classifications: "Classification"
-      details:
-        one: "Details"
-        other: "Details <span class='badge'>%{count}</span>"
-      literature_and_references:
-        one: "Literature and References"
-        other: "Literature and References <span class='badge'>%{count}</span>"
-      maps:
-        one: "Maps"
-        other: "Maps <span class='badge'>%{count}</span>"
-      names:
-        one: "Names"
-        other: "Names <span class='badge'>%{count}</span>"
-      traits:
-        one: "Traits"
-        other: "Traits <span class='badge'>%{count}</span>"
+      details: "Details"
+      literature_and_references: "References"
+      maps: "Maps"
+      media: "Media"
+      names: "Names"
+      traits: "Traits"
+    iucn_status:
+      label: "IUCN Status:"
+      ex: "Extinct (EX)"
+      ew: "Extinct in the Wild (EW)"
+      cr: "Critically Endangered (CR)"
+      en: "Endangered (EN)"
+      vu: "Vulnerable (VU)"
+      nt: "Near Threatened (NT)"
+      lc: "Least Concern (LC)"
+      dd: "Data Deficient (DD)"
+      ne: "Not Evaluated (NE)"
+      unknown: "Unknown (no record)"
   password: "Password"
   password_confirmation: "Password confirmation"
   name_recognized_by: "Recognized by %{by}"
@@ -178,6 +184,11 @@ en:
   taxon_collect_button: "collect page"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""
+  trait_table:
+    headers:
+      predicate: "Type"
+      value: "Value"
+      source: "Source"
   trait_toggle_details: "details..."
   trait_unit_definition: "definition:"
   trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"

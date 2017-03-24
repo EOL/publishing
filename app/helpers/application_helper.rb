@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def first_cap(string)
+    string.slice(0,1).capitalize + string.slice(1..-1)
+  end
+
   def resource_error_messages(resource)
     return "" if resource.errors.empty?
 
@@ -20,6 +24,10 @@ module ApplicationHelper
   def emphasize_match(name, match)
     return name.html_safe unless name =~ /(#{match})/i
     highlight(excerpt(name, match, separator: " ", radius: 5), match)
+  end
+
+  def icon(which)
+    haml_tag("span", uk: { icon: "icon: #{which}" })
   end
   
   def get_last_modified_date

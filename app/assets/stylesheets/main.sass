@@ -1,15 +1,40 @@
-// Fix for Angular + Bootstrap:
-.nav, .pagination, .carousel, .panel-title a
-  cursor: pointer
-
-// OVERRIDE BOOTSTRAP / ANGULAR DEFAULTS
-
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700)
-body
+html
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight: 400
+  font-size: 85%
 
 $base-color: rgb(51, 51, 51)
+
+a
+  color: #23699a
+
+.page-ancestors
+  background-color: #F8FAFA
+
+.eol-section-aged
+  background-color: #f8e9ca
+  font-weight: 300
+  color: #111
+
+.eol-secondary
+  background-color: #edc6b7 !important
+
+.eol-secondary-alt
+  background-color: #c0d2a2 !important
+
+.eol-section-secondary
+  @extend .eol-secondary
+  font-weight: 300
+  color: #111
+
+.eol-section-secondary-alt
+  @extend .eol-secondary-alt
+  font-weight: 300
+  color: #111
+
+.eol-padding-tiny
+  padding: 4px 12px
 
 .ng-validation-error
   color: #ff0000
@@ -53,7 +78,7 @@ button a
 // PAGE HEADERS / JUMBOTRONS
 
 #main
-  padding-top: 6em
+  padding-top: 1em
 
 $high_jumbo: #fafbfc
 $mid_jumbo: #eaebec
@@ -114,107 +139,8 @@ form .field
 
 // PAGE (SPECIES / TAXON / TAXON CONCEPT / CLADE)
 
-.page-names h1
-  font-size: 3em
-  font-weight: 300
-
-.page-names h2
-  font-size: 2em
-  font-weight: 300
-  color: #666
-  margin-top: 0
-
-.page-ancestors .breadcrumb
-  // The ancestors don't need extra space below them:
-  margin-bottom: 0
-  // Tighter, too:
-  padding: 4px 15px
-  font-size: 0.9em
-  background: -webkit-linear-gradient(top, $high_crumb 0%, $low_crumb 100%) /* Chrome10-25, Safari5.1-6 */
-  border: 1px solid #ddd
-  box-shadow: 0.4px 0.4px 1px #ccc
-
-.page-ancestors .breadcrumb li:first-child::before
-  content: ""
-
-.page-ancestors .breadcrumb li::before
-  content: ">"
-  color: #999
-
-.page-ancestors .breadcrumb.active
-  color: #444
-
-.uib-tabs
-  margin-top: 2em
-
-// MEDIA & GALLERIA (Media browser)
-
-.media label
-  font-weight: 400
-  color: #777
-  margin-bottom: 0
-
-#media_title
-  font-size: 24pt
-  margin-top: 4px
-
-ul.appears_on
-  list-style-type: none
-
-ul.appears_on li:last-child::after
-  content: ""
-
-ul.appears_on li::after
-  content: ","
-
-.media .jumbotron p
-  margin-left: 2em
-
-.galleria
-  height: 600px
-
-.galleria-theme-classic
-  border-radius: 4px
-  background-color: e0e0e0
-
-.galleria__credits
-  padding: 1em
-  color: #eee
-  font-weight: 600
-  // NOTE: someone changed this shadow width to 4px, but that really hurt the
-  // clarity, so I put it back to 2px.
-  text-shadow: 2px 2px 2px #000
-
-.galleria__credits a
-  color: #d0d0ff
-
-.galleria-theme-classic .galleria-info-text
-  border: 2px solid #181818
-  border-radius: 4px
-  padding: 1.2em
-  opacity: 0.9
-  box-shadow: 3px 3px 10px #000
-
-.galleria-theme-classic .galleria-info-title
-  color: white
-  font: normal 14pt/1.3 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
-
-.galleria-theme-classic .galleria-info-title a
-  color: #ccf
-  text-decoration: underline
-
-.galleria-theme-classic .media-info
-  color: #eee
-  font: normal 12pt/1.2 "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
-
-.galleria-theme-classic .info-actions
-  margin-top: 1em
-  font-style: normal
-
-.galleria-theme-classic .galleria-info-close
-  margin: 0.75em
-
-// MAP TAB
+#page_nav_content
+  min-height: 40em
 
 #map
   p
@@ -277,120 +203,3 @@ ul.appears_on li::after
     height: auto
     width: 100%
   /* The above was added from Eli's CSS: */
-
-// COLLECTIONS
-
-.collect-image
-  float: left !important
-  padding-right: 2em
-
-.collection-table-image
-  width: 147px
-
-.primary-name
-  font-size: 1.3em
-
-table.collections
-  @extend .table
-  @extend .table-hover
-  @extend .table-bordered
-
-mark
-  font-weight: bold
-
-table.collections .names
-  padding-left: 6px
-
-table.collections .page-ancestors
-  margin-bottom: 1em
-
-table.collections ul.matches
-  list-style-type: none
-
-table.collections ul.matches li
-  display: inline-block
-
-table.collections ul.matches li:last-child::after
-  content: ""
-
-table.collections ul.matches li::after
-  content: ","
-
-.secondary-name
-  font-weight: normal
-
-.icons_12_wide .col-md-1
-  margin: 0.5em
-
-.clear_search
-  display: inline-block
-  width: 20%
-
-.collection_search
-  display: inline-block
-  width: 80%
-
-// MEDIA
-
-.description-blank
-  color: lighten($base-color, 30%)
-
-.media-image
-  text-align: center
-
-.media-image img
-  box-shadow: 4px 4px 12px #888
-  margin: 3em
-
-.collection_association
-  clear: left
-
-ul.attributions
-  list-style-type: none
-ul.attributions li strong
-  padding-right: 0.4em
-
-// TRAITS
-
-.traits
-  margin-top: 1em
-
-.table-source
-  width: 15em
-  white-space: nowrap
-  overflow: hidden
-  text-overflow: ellipsis
-
-.traits_by_page
-  margin-top: 1em
-  table-layout: fixed
-
-.traits_by_page th
-  width: 20em
-
-.trait-table-image
-  width: 99px
-
-.trait-table-name
-  width: 15em
-
-table.table .meta_trait table
-  margin: 1em 3em
-  @extend .table
-  width: 85%
-  background-color: inherit
-
-.meta_trait table th
-  font-weight: normal
-  width: 20%
-  vertical-align: top
-
-.meta_trait table td
-  width: 80%
-
-span.uri_defn
-  color: #777
-
-span.trait_type
-  color: #777
-  font-weight: 400

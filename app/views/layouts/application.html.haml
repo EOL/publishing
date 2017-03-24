@@ -1,84 +1,59 @@
 !!!
 %html
   %head
+    = csrf_meta_tags
     %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
     %title
       - if defined?(@page_title)
         = @page_title
         \-
       = t(:page_title)
+    -# TODO: we need to compile our own set of includes with only the bits we need.
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/css/uikit.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/button.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/icon.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/label.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/menu.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/statistic.min.css"
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/sticky.min.css"
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
     = stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css'
     = javascript_include_tag 'application', 'data-turbolinks-track': true
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"
     = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/js/uikit.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/js/uikit-icons.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/sticky.min.js"
     = csrf_meta_tags
     = yield :head
-  %body
-    %nav.navbar.navbar-default.navbar-fixed-top
-      .container
-        #navbar.navbar-collapse.collapse
-          %ul.nav.navbar-nav
-            -# TODO: I18n
-            %li= link_to("EOL", "/")
-            %li= link_to("About", "/about")
-            %li= link_to("Education", "http://education.eol.org/")
-            %li= link_to("Donate", "/donate")
-            %li.dropdown
-              = link_to(("English" + "<span class='caret'></span>").html_safe, "/donate", class: "dropdown-toggle", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" })
-              %ul.dropdown-menu
-                %li= link_to("French", "#")
-                %li= link_to("German", "#")
-                %li= link_to("Russian", "#")
-                %li= link_to("Spanish", "#")
-          %ul.session.nav.navbar-nav.navbar-right
-            - if current_user
-              %li= link_to(current_user.username, main_app.user_path(current_user))
-              %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
-            - else
-              %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
-              %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
-          .nav-search.navbar-form.navbar-right
-            %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
-              .autocomplete-result.row
-                .icon.col-md-2
-                  %a{ href: "#" }
-                    %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
-                .names.col-md-10
-                  %a{ href: "#" }
-                    %ul
-                      %li{ "ng-repeat" => "vern in match.model.names",
-                        "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
-            %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
-              = form_tag(main_app.search_path, method: "get", autocomplete: "off") do
-                .input-group
-                  = text_field_tag("q", nil,
-                    "ng-model" => "selectedPage",
-                    "placeholder" => t(:layout_search_placeholder),
-                    "typeahead" => "page for page in querySearch($viewValue)",
-                    "typeahead-template-url" => "layoutSearchTemplate.html",
-                    "typeahead-min-length" => 3,
-                    "typeahead-loading" => "loadingLocations",
-                    "typeahead-on-select" => "onSelect($item, $model, $label)",
-                    "typeahead-input-formatter" => "nameOfModel($model)",
-                    "class" => "form-control",
-                    "autocomplete" => "off")
-                  .input-group-btn
-                    = submit_tag "Go", class: "btn btn-default"
-          .search-indicator.nav.navbar-nav.navbar-right
-            %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
-    #main.container
-      - unless flash.empty?
-        - flash.each do |name, msg|
-          .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
-            %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
-              %span{ aria: { hidden: "true" } }
-                &times;
-            - next if name ==  :recaptcha_error.to_s
-            - if msg.class == Array
-              - msg.each do |message|
-                = content_tag :p, message.html_safe, :id => "flash_#{name}"
-            - else
-              = content_tag :p, msg.html_safe, :id => "flash_#{name}"
-      = content_for?(:content) ? yield(:content) : yield
+  %body{ style: "background-color: snow;" }
+    = render("navbar")
+    .uk-container
+      .uk-grid-medium{ uk: { grid: true } }
+        #main.uk-width-4-5.column
+          - unless flash.empty?
+            - flash.each do |name, msg|
+              .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
+                %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
+                  %span{ aria: { hidden: "true" } }
+                    &times;
+                - next if name ==  :recaptcha_error.to_s
+                - if msg.class == Array
+                  - msg.each do |message|
+                    = content_tag :p, message.html_safe, :id => "flash_#{name}"
+                - else
+                  = content_tag :p, msg.html_safe, :id => "flash_#{name}"
+          .uk-section
+            = content_for?(:content) ? yield(:content) : yield
+        #sidebar.uk-width-1-5.column
+          .uk-container.text.uk-margin-large-top
+            %ul.uk-list.uk-flex.uk-flex-column
+              %li.uk-card.uk-card-default.eol-section-secondary.uk-card-hover.uk-text-center.uk-padding
+                Go visit this collection.
+              %li.uk-card.uk-card-default.eol-section-secondary-alt.uk-card-hover.uk-text-center.uk-padding
+                Or check out some educational site.
+              %li.uk-card.uk-card-default.eol-section-secondary.uk-card-hover.uk-text-center.uk-padding
+                Perhaps you would like to see some endangered species.
+              %li.uk-card.uk-card-default.eol-section-secondary-alt.uk-card-hover.uk-text-center.uk-padding
+                But then again, maybe you just want to look at pretty blue things.

@@ -20,5 +20,10 @@ class Resource < ActiveRecord::Base
         r.has_duplicate_nodes = false
       end
     end
+
+    # Required to read the IUCN status
+    def iucn
+      @@iucn ||= Resource.where(name: "IUCN Structured Data").first
+    end
   end
 end

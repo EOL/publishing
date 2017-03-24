@@ -1,12 +1,55 @@
-.galleria
-  - @media.each_with_index do |image, index|
-    -# TODO: we will eventually know the actual size of the image; add that:
-    -# TODO: some helpers would clean this up:
-    - button = ""
-    - unless index == 0
-      - button = "<button class='btn btn-info'>#{link_to(t(:page_icon_create_button), page_icons_path(page_id: @page.id, medium_id: image.id), method: :post)}</button>"
-    = link_to(image_tag(image.small_icon_url,
-      title: link_to(image.name, medium_path(image)),
-      alt: "<div class='media-info'>#{image.owner.html_safe} #{image.license.name}</div><div class='info-actions'>#{button}</div>".html_safe,
-      data: { layer: "<div class=\"galleria__credits\">#{image.owner.html_safe} #{image.license.name}</div>",
-      big: image.original_size_url }), image.large_size_url)
+#gallery
+  -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
+  %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
+    - @media.each_with_index do |image, index|
+      - img_id = "image_modal_#{image.id}"
+      - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+      - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+      -# TODO: we will eventually know the actual size of the image; add that:
+      -# TODO: some helpers would clean this up:
+      %div
+        %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
+          - link_path = medium_path(image)
+          .uk-card-media-top.uk-inline-clip.uk-transition-toggle
+            %a.uk-cover-container{ href: "##{img_id}", uk: { toggle: true } }
+              -# %canvas{ width: "200", height: "200" }
+              -# %img{ src: image.medium_size_url, "uk-cover": true }
+              %img{ src: image.medium_size_url }
+              %div{ id: img_id, uk: { modal: true } }
+                .uk-modal-dialog
+                  %a.uk-modal-close-default{ href: "", uk: { close: true } }
+                  .uk-modal-header
+                    = link_to(name.html_safe, link_path)
+                    .ui.label
+                      %i.copyright.icon
+                      = owner
+                    .ui.label= image.license.name
+                  .uk-modal-body
+                    .uk-inline.uk-visible-toggle
+                      = image_tag(image.original_size_url)
+                      %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } } }= ""
+                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } } }= ""
+                  -# TODO: can't use this now because we need the image sizes, and we don't have them yet.
+                  -# .uk-modal-body.uk-cover-container
+                  -#   %canvas{ width: "1280", height: "1280" }
+                  -#   %img{ src: image.original_size_url, "uk-cover": true }
+            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
+              .uk-margin-remove.uk-text-center
+                .ui.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
+                -# TODO: the actual state...
+                .ui.green.label= "trusted"
+          .uk-card-footer.uk-text-truncate{ style: "padding: 10px !important;" }
+            %ul.uk-iconnav.uk-float-right
+              %li
+                %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+              %li
+                = link_to("<i class='violet pin icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+              %li
+                = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+              %li
+                %a{ href: "#", alt: "add to collection" }
+                  %i.grey.plus.icon
+          .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
+            = link_to(name, link_path)
+            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
+  = paginate @media, remote: true

@@ -16,6 +16,7 @@ class Node < ActiveRecord::Base
   acts_as_nested_set scope: :resource, counter_cache: :children_count
 
   counter_culture :resource
+  counter_culture :page
 
   # TODO: this is duplicated with page; fix.
   def name(language = nil)

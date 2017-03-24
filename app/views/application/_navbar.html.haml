@@ -1,0 +1,50 @@
+.ui.following.bar.fixed.menu
+  .uk-container
+    #navbar.ui.large.secondary.network.menu
+      -# TODO: I18n
+      = link_to("EOL", "/", class: "item uk-logo")
+      = link_to("About", "/about", class: "item")
+      = link_to("Education", "http://education.eol.org/", class: "item")
+      = link_to("Donate", "/donate", class: "item")
+      .ui.simple.dropdown.item
+        = link_to(("English").html_safe, "/set_language", class: "ui basic button", type: "button")
+        .uk-list.uk-padding-small{ uk: { dropdown: true } }
+          %li= link_to("French", "#")
+          %li= link_to("German", "#")
+          %li= link_to("Russian", "#")
+          %li= link_to("Spanish", "#")
+      .right.menu
+        .nav-search.item
+          %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
+            .autocomplete-result.row
+              .icon.col-md-2
+                %a{ href: "#" }
+                  %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
+              .names.col-md-10
+                %a{ href: "#" }
+                  %ul
+                    %li{ "ng-repeat" => "vern in match.model.names",
+                      "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+          %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
+            = form_tag(main_app.search_path, method: "get", autocomplete: "off") do
+              .ui.icon.input
+                = text_field_tag("q", nil,
+                  "ng-model" => "selectedPage",
+                  "placeholder" => t(:layout_search_placeholder),
+                  "typeahead" => "page for page in querySearch($viewValue)",
+                  "typeahead-template-url" => "layoutSearchTemplate.html",
+                  "typeahead-min-length" => 3,
+                  "typeahead-loading" => "loadingLocations",
+                  "typeahead-on-select" => "onSelect($item, $model, $label)",
+                  "typeahead-input-formatter" => "nameOfModel($model)",
+                  "class" => "form-control",
+                  "autocomplete" => "off")
+                - icon("search")
+        .search-indicator.nav.navbar-nav.navbar-right
+          %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
+        - if current_user
+          .item= link_to(current_user.username, main_app.user_path(current_user))
+          .item= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
+        - else
+          .item= link_to(t(:layout_sign_in), main_app.new_user_session_path)
+          .item= link_to(t(:layout_sign_up), main_app.new_user_registration_path)

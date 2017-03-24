@@ -2,8 +2,8 @@
   EOL.allow_meta_traits_to_toggle();
 - traits = [] unless local_assigns.has_key?(:traits)
 - pages = [] unless local_assigns.has_key?(:pages)
-%div#traits_table
-  %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
+#traits_table.uk-overflow-auto
+  %table.traits_by_predicate.uk-table.uk-table-small.uk-table-striped.uk-table-middle
     %tbody
       -# TODO: helper
       - prev_page_id = nil
@@ -24,4 +24,3 @@
             - show_metadata(trait)
           - show_source_col(trait)
     = paginate traits unless traits.empty?
-
