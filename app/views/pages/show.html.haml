@@ -8,7 +8,7 @@
 #page
   -# NOTE: it doesn't cache this, so we store it rather than call it over
   -# and over:
-  .uk-section.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ style: "background-color: white;", uk: { grid: true } }
+  .uk-section.uk-section-default.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ uk: { grid: true } }
     .uk-section.uk-padding-remove-vertical.uk-width-3-5
       #breadcrumbs.page-ancestors.uk-column-span
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
@@ -61,8 +61,8 @@
     - if @page.top_image
       .uk-width-2-5
         .uk-margin-remove-top
-          .uk-overflow-hidden.uk-box-shadow-large
-            %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url, style: "border: 2px solid #d8d8d8;" }
+          .uk-overflow-hidden.uk-box-shadow-large.eol-bordered-image
+            %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url }
         .uk-float-right.uk-margin-medium-top
           .ui.label.eol-secondary.uk-box-shadow-medium
             = t("pages.iucn_status.label")

@@ -176,7 +176,7 @@ class Page < ActiveRecord::Base
         record ||= recs.first
         TraitBank.iucn_status_key(record)
       else
-        "unkonwn"
+        "unknown"
       end
       if iucn_status != status
         update_attribute(:iucn_status, status)

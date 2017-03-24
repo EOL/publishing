@@ -33,11 +33,11 @@
       .uk-grid-medium{ uk: { grid: true } }
         #main.uk-width-4-5.column
           - unless flash.empty?
+            - first = true # Stupid system for padding the first message... :(
             - flash.each do |name, msg|
-              .alert.alert-danger.alert-dismissible.fade.in{ role: "alert" }
-                %button.close{ type: "button", data: { dismiss: "alert" }, aria: { label: "Close" } }
-                  %span{ aria: { hidden: "true" } }
-                    &times;
+              .uk-alert-success{ uk: { alert: true }, class: first ? "uk-margin-large-top" : "" }
+                - first = false
+                %a.uk-alert-close{ uk: { close: true } }
                 - next if name ==  :recaptcha_error.to_s
                 - if msg.class == Array
                   - msg.each do |message|

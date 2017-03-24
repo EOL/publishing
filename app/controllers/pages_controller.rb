@@ -49,8 +49,7 @@ class PagesController < ApplicationController
   def media
     @page = Page.where(id: params[:page_id]).first
     return render(status: :not_found) unless @page # 404
-    @media = @page.media.includes(:license).
-      page(params[:page]).per(@media_page_size)
+    get_media
     respond_to do |format|
       format.js {}
     end
@@ -120,8 +119,9 @@ private
   end
 
   def get_media
+    # TODO: this broke for some reason ( the #per call ); fix:
     @media = @page.media.includes(:license).
-      page(params[:page]).per(@media_page_size)
+      page(params[:page]) # .per(@media_page_size)
   end
 
 end

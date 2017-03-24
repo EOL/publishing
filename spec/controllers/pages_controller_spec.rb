@@ -9,8 +9,10 @@ RSpec.describe PagesController do
       allow(TraitBank).to receive(:by_page) { [] }
       allow(TraitBank).to receive(:resources) { [resource] }
       allow_any_instance_of(Page).to \
-        receive_message_chain(:media, :includes, :page, :per).
+        receive_message_chain(:media, :includes, :page).
         and_return([])
+      allow_any_instance_of(Page).to \
+        receive_message_chain(:media, :empty?).and_return(true)
     end
 
     describe '#show' do

@@ -31,7 +31,7 @@ class TraitBank
     end
 
     def iucn_status_key(record)
-      unknown = "unkonwn"
+      unknown = "unknown"
       return unknown unless record && record[:object_term]
       case record[:object_term][:uri]
       when "http://eol.org/schema/terms/extinct"
