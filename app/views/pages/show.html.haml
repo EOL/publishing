@@ -29,21 +29,12 @@
           - else
             %h1.uk-margin-small-bottom= @page.name.titlecase.html_safe
             %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
-          - trophic_strat = begin
-            - @page.traits.find { |t| t[:predicate][:uri] == "http://www.wikidata.org/entity/Q1053008" }[:object_term][:name]
-          - rescue => e
-            -# Do nothing. This code doesn't even belong here. I'm rushing.
-          -# TODO: this is all temporary! We need a real solution:
-          - trophic_strat = "Plant" if trophic_strat =~ /Plantae/
         .uk-width-1-3
           %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
             %i.plus.icon
             = t(:taxon_collect_button)
       .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
-        = "The #{@page.name} is a #{trophic_strat} #{ancestors[0].name} ".html_safe
-        - if ancestors[-2]
-          = "in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].name}."
-        It lives in a variety of habitats around the world.
+        = construct_summary(@page)
       - unless @page.traits.empty?
         .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
           %h3.uk-heading-divider

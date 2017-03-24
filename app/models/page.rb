@@ -145,6 +145,10 @@ class Page < ActiveRecord::Base
     native_node.try(:canonical_form) || "NO NAME!"
   end
 
+  def rank
+    native_node.rank
+  end
+
   # TRAITS METHODS
 
   # TODO: ideally we want to be able to paginate these! ...but that's really
@@ -184,6 +188,60 @@ class Page < ActiveRecord::Base
       status
     else
       iucn_status
+    end
+  end
+
+  def habitats
+    if geographic_context.nil? && @traits_loaded
+      keys = grouped_traits.keys & TraitBank.geographic_uris
+      habitat = unless keys.empty?
+        recs = grouped_traits[TraitBank.iucn_uri]
+        recs.map do |rec|
+          rec[:object_uri] ?  rec[:object_uri][:name] : rec[:literal]
+        end.join(", ")
+      else
+        ""
+      end
+      if geographic_context != habitat
+        update_attribute(:geographic_context, habitat)
+      end
+      habitat
+    else
+      geographic_context
+    end
+  end
+
+  def is_it_marine?
+    if ! has_checked_marine? && @traits_loaded
+      env = grouped_traits.has_key?(TraitBank.environment_uri)
+      recs = grouped_traits[TraitBank.environment_uri]
+      if recs && recs.any? { |r| r[:object_uri] &&
+         r[:object_uri][:uri] == TraitBank.marine_uri }
+        update_attribute(:is_marine, true)
+        return true
+      else
+        update_attribute(:is_marine, false)
+        return false
+      end
+    else
+      is_marine?
+    end
+  end
+
+  def is_it_extinct?
+    if ! has_checked_extinct? && @traits_loaded
+      env = grouped_traits.has_key?(TraitBank.environment_uri)
+      recs = grouped_traits[TraitBank.environment_uri]
+      if recs && recs.any? { |r| r[:object_uri] &&
+         r[:object_uri][:uri] == TraitBank.extinct_uri }
+        update_attribute(:is_extinct, true)
+        return true
+      else
+        update_attribute(:is_extinct, false)
+        return false
+      end
+    else
+      is_extinct?
     end
   end
 

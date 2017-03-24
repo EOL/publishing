@@ -1,5 +1,5 @@
 raise "You have nothing in your database" unless Article.count > 0
-raise "Youy have no articles linked to pages" if Article.last.pages.empty? 
+raise "Youy have no articles linked to pages" if Article.last.pages.empty?
 page = Article.last.pages.first
 raise "You need a page that has both an article and an image" unless
   page.media.count > 0
@@ -30,3 +30,33 @@ add_referent(%Q{Marticorena C & R Rodríguez . 1995-2005. Flora de Chile. Vols 1
 
 # Added by Refinery CMS Pages extension
 Refinery::Pages::Engine.load_seed
+
+if Page.exists?(1149380)
+  OccurrenceMap.create(page_id: 1149380, url: 'https://demo.gbif.org/species/5331532')
+end
+
+animals = Node.where(scientific_name: "Animalia")
+animal = animals.first
+
+animal_page = Page.where(id: animal.page_id).first_or_create do |p|
+  p.id = animal.page_id
+  p.native_node_id = animal.id
+end
+
+animals.each do |animal|
+  cmn = Vernacular.where(string: "animals", node_id: animal.id,
+    page_id: animal_page.id, language_id: Language.english.id).first_or_create do |n|
+      n.string = "animals"
+      n.node_id = animal.id
+      n.page_id = animal_page.id
+      n.language_id = Language.english.id
+      n.is_preferred = true
+      n.is_preferred_by_resource = true
+    end
+  animal.vernaculars << cmn
+end
+
+[CollectionAssociation, Node, PageContent, ScientificName, Vernacular].
+  each do |k|
+    k.counter_culture_fix_counts
+  end

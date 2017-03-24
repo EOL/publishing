@@ -8,6 +8,13 @@
 # this to work, first.
 class TraitBank
   @@iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
+  @@environment_uri = "http://eol.org/schema/terms/Habitat"
+  @@marine_uri = "http://purl.obolibrary.org/obo/ENVO_00000569"
+  @@geographic_uris = [
+     "http://rs.tdwg.org/dwc/terms/continent",
+     "http://rs.tdwg.org/dwc/terms/waterBody",
+     "http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution"
+  ]
 
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
@@ -26,8 +33,21 @@ class TraitBank
   # an image (which should be handled with an icon) ... and possibly a
   # collection to build a slideshow [using its images].)
   class << self
+    # TODO: these deserve their own class...
     def iucn_uri
       @@iucn_uri
+    end
+
+    def environment_uri
+      @@environment_uri
+    end
+
+    def marine_uri
+      @@marine_uri
+    end
+
+    def geographic_uris
+      @@geographic_uris
     end
 
     def iucn_status_key(record)

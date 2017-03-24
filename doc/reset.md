@@ -22,9 +22,7 @@ rails r "TraitBank.nuclear_option! "
 rails r "Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
 # __OR__
 rails r "Import::Clade.from_file('http://beta.eol.org/store-7665-clade.json')"
-# If you have Betula nigra (1149380) imported, you can use its map:
-rails r "OccurrenceMap.create(page_id: 1149380, url: 'https://demo.gbif.org/species/5331532')"
+rake db:seed
 
 bundle exec rake sunspot:reindex
-rails r "[CollectionAssociation, Node, PageContent, ScientificName, Vernacular].each { |k| k.counter_culture_fix_counts }"
 ```
