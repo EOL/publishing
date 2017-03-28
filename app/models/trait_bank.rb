@@ -10,6 +10,8 @@ class TraitBank
   @@iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
   @@environment_uri = "http://eol.org/schema/terms/Habitat"
   @@marine_uri = "http://purl.obolibrary.org/obo/ENVO_00000569"
+  @@extinction_uri = "http://eol.org/schema/terms/ExtinctionStatus"
+  @@extinct_uri = "http://eol.org/schema/terms/extinct"
   @@geographic_uris = [
      "http://rs.tdwg.org/dwc/terms/continent",
      "http://rs.tdwg.org/dwc/terms/waterBody",
@@ -48,6 +50,14 @@ class TraitBank
 
     def geographic_uris
       @@geographic_uris
+    end
+
+    def extinction_uri
+      @@extinction_uri
+    end
+
+    def extinct_uri
+      @@extinct_uri
     end
 
     def iucn_status_key(record)
@@ -99,6 +109,16 @@ class TraitBank
       end
     end
 
+    # TODO: we want to be wiser, here.
+    def query(q)
+      begin
+        connection.execute_query(q)
+      rescue Excon::Error::Timeout => e
+        sleep(1)
+        connection.execute_query(q)
+      end
+    end
+
     def quote(string)
       return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
       %Q{"#{string.gsub(/"/, "\\\"")}"}
@@ -114,7 +134,7 @@ class TraitBank
       indexes = %w{ Page(page_id) Trait(resource_pk) Trait(predicate)
         Term(predicate) MetaData(predicate) }
       indexes.each do |index|
-        connection.execute_query("CREATE INDEX ON :#{index};")
+        query("CREATE INDEX ON :#{index};")
       end
     end
 
@@ -129,7 +149,7 @@ class TraitBank
       contraints.each do |label, fields|
         fields.each do |field|
           begin
-            connection.execute_query(
+            query(
               "CREATE CONSTRAINT ON (o:#{label}) ASSERT o.#{field} IS UNIQUE;"
             )
           rescue Neography::NeographyError => e
@@ -141,11 +161,11 @@ class TraitBank
 
     # Your gun, your foot: USE CAUTION. This erases EVERYTHING irrevocably.
     def nuclear_option!
-      connection.execute_query("MATCH (n) DETACH DELETE n")
+      query("MATCH (n) DETACH DELETE n")
     end
 
     def trait_count
-      res = connection.execute_query(
+      res = query(
         "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
         "RETURN count")
@@ -153,7 +173,7 @@ class TraitBank
     end
 
     def trait_exists?(resource_id, pk)
-      res = connection.execute_query(
+      res = query(
         "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
         "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
         "RETURN trait")
@@ -167,7 +187,7 @@ class TraitBank
    # MATCH (page:Page { page_id: 1680 })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) MATCH (trait)-[:predicate]->(predicate:Term) OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) OPTIONAL MATCH (trait)-[:units_term]->(units:Term) OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term LIMIT 20
     def by_page(page_id)
       # TODO: add proper pagination!
-      res = connection.execute_query(
+      res = query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -204,7 +224,7 @@ class TraitBank
       puts "** sort: #{sort}"
       puts "** Direction: #{dir}"
       # TODO: pull in more for the metadata...
-      res = connection.execute_query(
+      res = query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
@@ -223,7 +243,7 @@ class TraitBank
 
     def by_object_term_uri(object_term)
       # TODO: pull in more for the metadata...
-      res = connection.execute_query(
+      res = query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -240,13 +260,13 @@ class TraitBank
     end
 
     def get_clade_traits(clade_id, predicate)
-      ancestors = connection.execute_query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
+      ancestors = query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
       ancestor_page_ids = get_pages_ids_from_clade(ancestors["data"] ? ancestors["data"] : nil)
       #adding the page
       ancestor_page_ids << clade_id
       traits = []
       ancestor_page_ids.each do |ancestor_page_id|
-        res = connection.execute_query(
+        res = query(
           "MATCH (page:Page { page_id: #{ancestor_page_id } })-[:trait]->(trait:Trait)"\
             "-[:supplier]->(resource:Resource) "\
           "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
@@ -262,7 +282,7 @@ class TraitBank
     end
 
     def page_exists?(page_id)
-      res = connection.execute_query("MATCH (page:Page { page_id: #{page_id} }) "\
+      res = query("MATCH (page:Page { page_id: #{page_id} }) "\
         "RETURN page")
       res["data"] ? res["data"].first : false
     end
@@ -273,7 +293,7 @@ class TraitBank
     end
 
     def get_node(node_id)
-      res = connection.execute_query("MATCH (node:Node { node_id: #{node_id} })"\
+      res = query("MATCH (node:Node { node_id: #{node_id} })"\
         "RETURN node")
       res["data"]
     end
@@ -367,7 +387,7 @@ class TraitBank
     end
 
     def find_resource(id)
-      res = connection.execute_query("MATCH (resource:Resource { resource_id: #{id} }) "\
+      res = query("MATCH (resource:Resource { resource_id: #{id} }) "\
         "RETURN resource LIMIT 1")
       res["data"] ? res["data"].first : false
     end
@@ -464,7 +484,7 @@ class TraitBank
     end
 
     def relationship_exists?(node_a, node_b)
-      res = connection.execute_query("MATCH (node_a:Node { node_id: #{node_a} }) - [r:parent] - (node_b:Node { node_id: #{node_b} })"\
+      res = query("MATCH (node_a:Node { node_id: #{node_a} }) - [r:parent] - (node_b:Node { node_id: #{node_b} })"\
         "RETURN SIGN(COUNT(r))")
       res["data"] ? res["data"].first.first > 0 : false
     end
@@ -502,7 +522,7 @@ class TraitBank
     end
 
     def term(uri)
-      res = connection.execute_query("MATCH (term:Term { uri: '#{uri}' }) "\
+      res = query("MATCH (term:Term { uri: '#{uri}' }) "\
         "RETURN term")
       return nil unless res["data"] && res["data"].first
       res["data"].first.first

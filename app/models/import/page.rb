@@ -289,10 +289,10 @@ class Import::Page
       TraitBank.adjust_node_parent_relationship(node_data["node_id"],
             node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
             && node_data["parent"]["node_id"]
-
+      rank = build_rank(node_data["rank"])
       Node.create(
         id: node_data["id"],
-        rank_id: build_rank(node_data["rank"]).id,
+        rank_id: rank.id,
         resource_id: resource.id,
         page_id: node_data["page_id"],
         # These get calculated, sadly. ...TODO: override.
@@ -303,7 +303,8 @@ class Import::Page
         resource_pk: node_data["resource_pk"] || node_data["scientific_name"],
         source_url: node_data["source_url"],
         is_hidden: false,
-        parent_id: parent ? parent.id : nil
+        parent_id: parent ? parent.id : nil,
+        has_breadcrumb: ["kingdom", "phylum", "class", "order", "family", "species", "subspecies"].include?(rank.name.downcase)
       )
     end
 

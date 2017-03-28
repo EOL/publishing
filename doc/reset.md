@@ -19,9 +19,13 @@ this:
 rake db:reset
 rails r "TraitBank.nuclear_option! "
 
-rails r "Import::Page.from_file('http://beta.eol.org/store-328598.json') ; Import::Page.from_file('http://beta.eol.org/store-19831.json')"
-# __OR__
-rails r "Import::Clade.from_file('http://beta.eol.org/store-7665-clade.json')"
+rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-14706.json})"
+rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-14709.json})"
+rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-328598.json})"
+
+# __OPTIONALLY, and, of course, you want to use your own source dir__
+rails r "Import::Clade.from_file('/Users/jrice/t/store-clade-1642-part132.json')"
+
 rake db:seed
 
 bundle exec rake sunspot:reindex

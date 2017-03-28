@@ -3,6 +3,16 @@ module ApplicationHelper
     string.slice(0,1).capitalize + string.slice(1..-1)
   end
 
+  def languages_hash
+    {
+      en: "English",
+      fr: "Francais",
+      de: "Deutsch",
+      ru: "Pусский",
+      es: "Español"
+    }
+  end
+
   def resource_error_messages(resource)
     return "" if resource.errors.empty?
 
@@ -29,7 +39,7 @@ module ApplicationHelper
   def icon(which)
     haml_tag("span", uk: { icon: "icon: #{which}" })
   end
-  
+
   def get_last_modified_date
     last_modified_part = []
     page_parts = Refinery::PagePart.where(refinery_page_id: @page.id).pluck(:id)
@@ -38,7 +48,7 @@ module ApplicationHelper
     end
     last_modified_part.max.join(' ')
   end
-  
+
   def set_page_date(date)
     Refinery::Page.where(show_date: true)
   end

@@ -20,7 +20,7 @@ class Node < ActiveRecord::Base
 
   # TODO: this is duplicated with page; fix.
   def name(language = nil)
-    language ||= Language.english
+    language ||= Language.find_by_group(I18n.locale)
     vernacular(language).try(:string) || scientific_name
   end
 

@@ -116,7 +116,7 @@ class Page < ActiveRecord::Base
 
   # TODO: this is duplicated with node; fix.
   def name(language = nil)
-    language ||= Language.english
+    language ||= Language.find_by_group(I18n.locale)
     vernacular(language).try(:string) || scientific_name
   end
 
@@ -194,13 +194,17 @@ class Page < ActiveRecord::Base
   def habitats
     if geographic_context.nil? && @traits_loaded
       keys = grouped_traits.keys & TraitBank.geographic_uris
-      habitat = unless keys.empty?
-        recs = grouped_traits[TraitBank.iucn_uri]
-        recs.map do |rec|
-          rec[:object_uri] ?  rec[:object_uri][:name] : rec[:literal]
-        end.join(", ")
-      else
+      habitat = if keys.empty?
         ""
+      else
+        habitats = []
+        keys.each do |uri|
+          recs = grouped_traits[uri]
+          habitats += recs.map do |rec|
+            rec[:object_term] ? rec[:object_term][:name] : rec[:literal]
+          end
+        end
+        habitats.join(", ")
       end
       if geographic_context != habitat
         update_attribute(:geographic_context, habitat)
@@ -215,8 +219,8 @@ class Page < ActiveRecord::Base
     if ! has_checked_marine? && @traits_loaded
       env = grouped_traits.has_key?(TraitBank.environment_uri)
       recs = grouped_traits[TraitBank.environment_uri]
-      if recs && recs.any? { |r| r[:object_uri] &&
-         r[:object_uri][:uri] == TraitBank.marine_uri }
+      if recs && recs.any? { |r| r[:object_term] &&
+         r[:object_term][:uri] == TraitBank.marine_uri }
         update_attribute(:is_marine, true)
         return true
       else
@@ -230,10 +234,10 @@ class Page < ActiveRecord::Base
 
   def is_it_extinct?
     if ! has_checked_extinct? && @traits_loaded
-      env = grouped_traits.has_key?(TraitBank.environment_uri)
-      recs = grouped_traits[TraitBank.environment_uri]
-      if recs && recs.any? { |r| r[:object_uri] &&
-         r[:object_uri][:uri] == TraitBank.extinct_uri }
+      env = grouped_traits.has_key?(TraitBank.extinction_uri)
+      recs = grouped_traits[TraitBank.extinction_uri]
+      if recs && recs.any? { |r| r[:object_term] &&
+         r[:object_term][:uri] == TraitBank.extinct_uri }
         update_attribute(:is_extinct, true)
         return true
       else

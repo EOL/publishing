@@ -3,9 +3,9 @@ module PagesHelper
     # TODO: we should use cache here.
     ancestors = page.native_node.ancestors.select { |a| a.has_breadcrumb? }
     str = if page.name == page.scientific_name
-      "The #{page.name}"
+      page.name
     else
-      "The #{page.scientific_name} (#{page.name})"
+      "#{page.scientific_name} (#{page.name})"
     end
     if ancestors[0]
       str += " #{page.scientific_name =~ /\s[a-z]/ ? "is" : "are" } #{indefinite_articleize(ancestors[0].name.singularize)}"
@@ -22,7 +22,7 @@ module PagesHelper
       str += " It is marine."
     end
     unless page.habitats.empty?
-      str += " It it found in #{page.habitats.split(", ").to_sentence}."
+      str += " It is found in #{page.habitats.split(", ").to_sentence}."
     end
     str.html_safe
   end

@@ -41,7 +41,7 @@ module TraitsHelper
       if trait[:units] && trait[:units][:name]
         value = trait[:measurement].to_s + " "
         value += trait[:units][:name]
-        haml_concat(first_cap(value))
+        haml_concat(first_cap(value).html_safe)
       else
         haml_concat("OOPS: ")
         haml_concat(trait.inspect)
@@ -50,7 +50,7 @@ module TraitsHelper
       value = trait[:object_term][:name]
       haml_concat(first_cap(value))
     elsif trait[:literal]
-      haml_concat first_cap(unlink(trait[:literal]))
+      haml_concat first_cap(unlink(trait[:literal])).html_safe
     else
       haml_concat "OOPS: "
       haml_concat value

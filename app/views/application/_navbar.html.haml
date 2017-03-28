@@ -7,12 +7,14 @@
       = link_to("Education", "http://education.eol.org/", class: "item")
       = link_to("Donate", "/donate", class: "item")
       .ui.simple.dropdown.item
-        = link_to(("English").html_safe, "/set_language", class: "ui basic button", type: "button")
+        - langs = languages_hash
+        - keys = langs.keys
+        - keys.delete_at(keys.index(I18n.locale))
+        - button_text = langs[I18n.locale] || "Language"
+        = link_to(button_text, "#", class: "ui basic button", type: "button")
         .uk-list.uk-padding-small{ uk: { dropdown: true } }
-          %li= link_to("French", "#")
-          %li= link_to("German", "#")
-          %li= link_to("Russian", "#")
-          %li= link_to("Spanish", "#")
+          - keys.each do |key|
+            %li= link_to(langs[key], lang: key)
       .right.menu
         .nav-search.item
           %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }

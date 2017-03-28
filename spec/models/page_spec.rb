@@ -13,8 +13,12 @@ RSpec.describe Page do
   context "with many common names" do
     let!(:our_page) { create(:page) }
     let!(:name1) { create(:vernacular, node: our_page.native_node) }
-    let!(:pref_name) { create(:vernacular, node: our_page.native_node, is_preferred: true) }
+    let!(:pref_name) { create(:vernacular, node: our_page.native_node,
+      is_preferred: true) }
     let!(:name2) { create(:vernacular, node: our_page.native_node) }
+    let!(:lang) { create(:language, group: "de") }
+    let!(:lang_name) { create(:vernacular, node: our_page.native_node,
+      language: lang, is_preferred: true) }
 
     it "selects the preferred vernacular" do
       expect(our_page.name).to eq(pref_name.string)
@@ -24,6 +28,22 @@ RSpec.describe Page do
       expect(our_page.vernaculars).to include(name1)
       expect(our_page.vernaculars).to include(name2)
       expect(our_page.vernaculars).to include(pref_name)
+      expect(our_page.vernaculars).to include(lang_name)
+    end
+
+    context "in another language" do
+      before do
+        @old_locale = I18n.locale
+        I18n.locale = :de
+      end
+
+      after do
+        I18n.locale = @old_locale
+      end
+
+      it "gets the right vernacular for language" do
+        expect(our_page.name).to eq(lang_name.string)
+      end
     end
   end
 
