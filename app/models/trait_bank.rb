@@ -7,17 +7,6 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
-  @@iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
-  @@environment_uri = "http://eol.org/schema/terms/Habitat"
-  @@marine_uri = "http://purl.obolibrary.org/obo/ENVO_00000569"
-  @@extinction_uri = "http://eol.org/schema/terms/ExtinctionStatus"
-  @@extinct_uri = "http://eol.org/schema/terms/extinct"
-  @@geographic_uris = [
-     "http://rs.tdwg.org/dwc/terms/continent",
-     "http://rs.tdwg.org/dwc/terms/waterBody",
-     "http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution"
-  ]
-
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
@@ -35,52 +24,28 @@ class TraitBank
   # an image (which should be handled with an icon) ... and possibly a
   # collection to build a slideshow [using its images].)
   class << self
-    # TODO: these deserve their own class...
-    def iucn_uri
-      @@iucn_uri
-    end
-
-    def environment_uri
-      @@environment_uri
-    end
-
-    def marine_uri
-      @@marine_uri
-    end
-
-    def geographic_uris
-      @@geographic_uris
-    end
-
-    def extinction_uri
-      @@extinction_uri
-    end
-
-    def extinct_uri
-      @@extinct_uri
-    end
-
+    # TODO: This doesn't seem to belong here. ...Move?
     def iucn_status_key(record)
       unknown = "unknown"
       return unknown unless record && record[:object_term]
       case record[:object_term][:uri]
-      when "http://eol.org/schema/terms/extinct"
+      when Eol::Uris::Iucn.ex
         "ex"
-      when "http://eol.org/schema/terms/exinctInTheWild"
+      when Eol::Uris::Iucn.ew
         "ew"
-      when "http://eol.org/schema/terms/criticallyEndangered"
+      when Eol::Uris::Iucn.cr
         "cr"
-      when "http://eol.org/schema/terms/endangered"
+      when Eol::Uris::Iucn.en
         "en"
-      when "http://eol.org/schema/terms/vulnerable"
+      when Eol::Uris::Iucn.vu
         "vu"
-      when "http://eol.org/schema/terms/nearThreatened"
+      when Eol::Uris::Iucn.nt
         "nt"
-      when "http://eol.org/schema/terms/leastConcern"
+      when Eol::Uris::Iucn.lc
         "lc"
-      when "http://eol.org/schema/terms/dataDeficient"
+      when Eol::Uris::Iucn.dd
         "dd"
-      when "http://eol.org/schema/terms/notEvaluated"
+      when Eol::Uris::Iucn.ne
         "ne"
       else
         unknown

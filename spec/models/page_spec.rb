@@ -91,7 +91,7 @@ RSpec.describe Page do
 
   end
 
-  context "with traits" do
+  context "with simple traits" do
     let(:our_page) { create(:page) }
     let(:predicate1) { { uri: "http://a/pred.1", name: "First predicate" } }
     let(:predicate2) { { uri: "http://a/pred.2", name: "Second predicate" } }
@@ -138,6 +138,66 @@ RSpec.describe Page do
     it "#predicates orders predicates" do
       expect(our_page.predicates).
         to eq([predicate1, predicate2].sort { |a,b| a[:name] <=> b[:name] }.map { |p| p[:uri] })
+    end
+
+    it "#is_it_extinct false" do
+      expect(our_page.is_it_extinct?).not_to be_truthy
+    end
+
+    it "#is_it_marine false" do
+      expect(our_page.is_it_marine?).not_to be_truthy
+    end
+
+    it "#habitats nil" do
+      expect(our_page.habitats).to be_nil
+    end
+
+    it "#iucn_status_key nil" do
+      expect(our_page.iucn_status_key).to be_nil
+    end
+  end
+
+  context "with faked traits" do
+    let!(:iucn) do
+      Resource.where(name: "IUCN Structured Data").first_or_create do |r|
+        r.name = "IUCN Structured Data"
+        r.partner = create(:partner)
+      end
+    end
+
+    let(:our_page) { create(:page) }
+    let(:traits) { [
+      extinct_trait,
+      dd_iucn_trait(iucn),
+      marine_trait,
+      fake_literal_trait(Eol::Uris.geographics.first, "atlantis"),
+      fake_fact(Eol::Uris.geographics.second, "http://earth.com", name: "Earth")
+    ] }
+
+    before do
+      allow(TraitBank).to receive(:by_page) { traits }
+      # These specs only work when traits are pre-loaded:
+      our_page.traits
+    end
+
+    it "#is_it_extinct true" do
+      expect(our_page.is_it_extinct?).to be_truthy
+    end
+
+    it "#is_it_marine true" do
+      expect(our_page.is_it_marine?).to be_truthy
+    end
+
+    it "#iucn_status_key dd" do
+      expect(our_page.iucn_status_key.to_s).to eq("dd")
+    end
+
+    # NOTE: we test two of them for TWO resons: one, to test that both literal
+    # values and term values are read, and two: so we see that the values are
+    # joined with the ", " that we expect.
+    it "#habitats atlantis, Earth" do
+      expect(our_page.habitats.split(", ").sort).
+        to eq(["atlantis", "Earth"].sort)
     end
   end
 end

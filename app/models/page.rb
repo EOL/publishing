@@ -175,8 +175,8 @@ class Page < ActiveRecord::Base
     # to be aware of! TODO: this should be one of the things we can "fix" with a
     # page reindex.
     if iucn_status.nil? && @traits_loaded
-      status = if grouped_traits.has_key?(TraitBank.iucn_uri)
-        recs = grouped_traits[TraitBank.iucn_uri]
+      status = if grouped_traits.has_key?(Eol::Uris::Iucn.status)
+        recs = grouped_traits[Eol::Uris::Iucn.status]
         record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
         record ||= recs.first
         TraitBank.iucn_status_key(record)
@@ -194,7 +194,7 @@ class Page < ActiveRecord::Base
 
   def habitats
     if geographic_context.nil? && @traits_loaded
-      keys = grouped_traits.keys & TraitBank.geographic_uris
+      keys = grouped_traits.keys & Eol::Uris.geographics
       habitat = if keys.empty?
         ""
       else
@@ -218,10 +218,10 @@ class Page < ActiveRecord::Base
 
   def is_it_marine?
     if ! has_checked_marine? && @traits_loaded
-      env = grouped_traits.has_key?(TraitBank.environment_uri)
-      recs = grouped_traits[TraitBank.environment_uri]
+      env = grouped_traits.has_key?(Eol::Uris.environment)
+      recs = grouped_traits[Eol::Uris.environment]
       if recs && recs.any? { |r| r[:object_term] &&
-         r[:object_term][:uri] == TraitBank.marine_uri }
+         r[:object_term][:uri] == Eol::Uris.marine }
         update_attribute(:is_marine, true)
         return true
       else
@@ -235,10 +235,10 @@ class Page < ActiveRecord::Base
 
   def is_it_extinct?
     if ! has_checked_extinct? && @traits_loaded
-      env = grouped_traits.has_key?(TraitBank.extinction_uri)
-      recs = grouped_traits[TraitBank.extinction_uri]
+      env = grouped_traits.has_key?(Eol::Uris.extinction)
+      recs = grouped_traits[Eol::Uris.extinction]
       if recs && recs.any? { |r| r[:object_term] &&
-         r[:object_term][:uri] == TraitBank.extinct_uri }
+         r[:object_term][:uri] == Eol::Uris.extinct }
         update_attribute(:is_extinct, true)
         return true
       else
