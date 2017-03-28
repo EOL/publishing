@@ -22,7 +22,7 @@ module PagesHelper
       str += " It is marine."
     end
     unless page.habitats.empty?
-      str += " It is found in #{page.habitats.split(", ").to_sentence}."
+      str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
     end
     str.html_safe
   end
