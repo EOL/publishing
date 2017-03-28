@@ -11,7 +11,7 @@ RSpec.describe Node do
   context "with vernaculars" do
     let!(:node) { create(:node) }
     let!(:ver) { create(:vernacular, node: node, is_preferred: true) }
-    let!(:lang) { create(:language, group: "de") }
+    let!(:lang) { another_language }
     let!(:lang_name) { create(:vernacular, node: node, language: lang,
       is_preferred: true) }
 

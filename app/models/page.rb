@@ -136,7 +136,8 @@ class Page < ActiveRecord::Base
         language ||= Language.english
         vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
       else
-        preferred_vernaculars.current_language.first
+        language ||= Language.english
+        preferred_vernaculars.find { |v| v.language_id == language.id }
       end
     end
   end

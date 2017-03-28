@@ -16,7 +16,7 @@ RSpec.describe Page do
     let!(:pref_name) { create(:vernacular, node: our_page.native_node,
       is_preferred: true) }
     let!(:name2) { create(:vernacular, node: our_page.native_node) }
-    let!(:lang) { create(:language, group: "de") }
+    let!(:lang) { another_language }
     let!(:lang_name) { create(:vernacular, node: our_page.native_node,
       language: lang, is_preferred: true) }
 

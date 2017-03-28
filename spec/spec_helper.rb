@@ -19,7 +19,7 @@
 
 require "factory_girl"
 require "rack_session_access/capybara"
-require "omniauth_helper"
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |file| require file }
 require "sunspot/rails/spec_helper"
 require "coveralls"
 require "pundit/rspec"
@@ -42,6 +42,7 @@ RSpec.configure do |config|
   end
 
   config.include FactoryGirl::Syntax::Methods
+  config.include EolSpecHelpers
 
   config.before(:suite) do
     FactoryGirl.find_definitions
