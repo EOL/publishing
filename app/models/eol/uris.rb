@@ -5,6 +5,10 @@ module Eol
         "http://eol.org/schema/terms/Habitat"
       end
 
+      def marine
+        "http://purl.obolibrary.org/obo/ENVO_00000569"
+      end
+
       def extinction
         "http://eol.org/schema/terms/ExtinctionStatus"
       end
@@ -20,15 +24,6 @@ module Eol
          "http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution"
         ]
       end
-
-      def marine
-        "http://purl.obolibrary.org/obo/ENVO_00000569"
-      end
-
-      def redlist_status
-        "http://eol.org/schema/terms/RedListCategory"
-      end
-
     end
 
     module Iucn

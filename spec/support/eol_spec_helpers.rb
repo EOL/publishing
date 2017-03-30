@@ -1,13 +1,4 @@
 module EolSpecHelpers
-
-  def clear_class_variables
-    ActiveRecord::Base.subclasses.each do |model|
-      model.class_variables.each do |var|
-        model.remove_class_variable(var) rescue nil
-      end
-    end
-  end
-
   def another_language
     Language.where(group: "de").first_or_create do |l|
       l.code = "deu"; l.group = "de"
