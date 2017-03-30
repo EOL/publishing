@@ -157,6 +157,121 @@ RSpec.describe Page do
     end
   end
 
+  # IF ExtinctionStatusResource and PaleoDB records are available and their values are not the same, consider the ExtinctionStatusResource record
+  # IF ExtinctionStatusResource is available and PaleoDB is not, consider the ExtinctionStatusResource record
+  # IF PaleoDB is available and ExtinctionStatusResource is not, consider the PaleoDB record
+  # IF the record selected for consideration has value http://eol.org/schema/terms/extinct, display the record on the cover.
+  # IF the record selected for consideration has any other value, display no /ExtinctionStatus records on the cover
+  # IF neither ExtinctionStatusResource nor PaleoDB records are available AND
+  # IF records from any other resource are available, AND have value = http://eol.org/schema/terms/extinct, display one such record on the cover. If multiple such records exist, one can be selected arbitrarily by any method.
+
+  context "#displayed_extinction_trait" do
+    let!(:paleo_db) do
+      Resource.where(name: "The Paleobiology Database").first_or_create do |r|
+        r.name = "The Paleobiology Database"
+        r.partner = create(:partner)
+      end
+    end
+    let(:paleo_extinct) do
+      fake_fact(Eol::Uris.extinction, Eol::Uris.extinct, resource_id: paleo_db.id)
+    end
+    let(:paleo_extant) do
+      fake_fact(Eol::Uris.extinction, "http://alive.com", resource_id: paleo_db.id)
+    end
+
+    let!(:ex_stat) do
+      Resource.where(name: "Extinction Status").first_or_create do |r|
+        r.name = "Extinction Status"
+        r.partner = create(:partner)
+      end
+    end
+    let(:ex_stat_extinct) do
+      fake_fact(Eol::Uris.extinction, Eol::Uris.extinct, resource_id: ex_stat.id)
+    end
+    let(:ex_stat_extant) do
+      fake_fact(Eol::Uris.extinction, "http://alive.com", resource_id: ex_stat.id)
+    end
+
+    let(:other_extinct) do
+      fake_fact(Eol::Uris.extinction, Eol::Uris.extinct)
+    end
+    let(:other_extant) do
+      fake_fact(Eol::Uris.extinction, "http://alive.com")
+    end
+
+    let!(:our_page) { create(:page) }
+
+    context "when extinct from both resources" do
+      let(:traits) { [ex_stat_extinct, paleo_extinct, other_extinct] }
+
+      it "returns the PaleoDB record" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to eq(paleo_extinct)
+      end
+    end
+
+    context "when extinct from PaleoDB and extant from ExStatRes" do
+      let(:traits) { [ex_stat_extant, paleo_extinct, other_extinct] }
+
+      it "returns nil" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to be_nil
+      end
+    end
+
+    context "when extant from PaleoDB and extinct from ExStatRes" do
+      let(:traits) { [ex_stat_extinct, paleo_extant, other_extinct] }
+
+      it "returns ExStatRes record" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to eq(ex_stat_extinct)
+      end
+    end
+
+    context "when only PaleoDB extinct" do
+      let(:traits) { [paleo_extinct, other_extinct] }
+
+      it "returns PaleoDB record" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to eq(paleo_extinct)
+      end
+    end
+
+    context "when only ExStatRes extinct" do
+      let(:traits) { [ex_stat_extinct, other_extinct] }
+
+      it "returns ExStatRes record" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to eq(ex_stat_extinct)
+      end
+    end
+
+    context "when only extinct in other resource" do
+      let(:traits) { [other_extinct] }
+
+      it "returns that other record" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to eq(other_extinct)
+      end
+    end
+
+    context "when only extant in other resource" do
+      let(:traits) { [other_extant] }
+
+      it "returns nil" do
+        allow(TraitBank).to receive(:by_page) { traits }
+        our_page.traits
+        expect(our_page.displayed_extinction_trait).to be_nil
+      end
+    end
+  end
+
   context "with faked traits" do
     let!(:iucn) do
       Resource.where(name: "IUCN Structured Data").first_or_create do |r|

@@ -25,5 +25,16 @@ class Resource < ActiveRecord::Base
     def iucn
       @@iucn ||= Resource.where(name: "IUCN Structured Data").first
     end
+
+    # Required to find the "best" Extinction Status: TODO: update the name when
+    # we actually have the darn resource.
+    def extinction_status
+      @@extinction_status ||= Resource.where(name: "Extinction Status").first
+    end
+
+    # Required to find the "best" Extinction Status:
+    def paleo_db
+      @@paleo_db ||= Resource.where(name: "The Paleobiology Database").first
+    end
   end
 end

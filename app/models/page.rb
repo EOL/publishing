@@ -192,6 +192,10 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def redlist_status
+    # TODO
+  end
+
   def habitats
     if geographic_context.nil? && @traits_loaded
       keys = grouped_traits.keys & Eol::Uris.geographics
@@ -218,7 +222,6 @@ class Page < ActiveRecord::Base
 
   def is_it_marine?
     if ! has_checked_marine? && @traits_loaded
-      env = grouped_traits.has_key?(Eol::Uris.environment)
       recs = grouped_traits[Eol::Uris.environment]
       if recs && recs.any? { |r| r[:object_term] &&
          r[:object_term][:uri] == Eol::Uris.marine }
@@ -233,12 +236,45 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def displayed_extinction_trait
+    # IF ExtinctionStatusResource and PaleoDB records are available and their values are the same, consider the PaleoDB record
+    # IF ExtinctionStatusResource and PaleoDB records are available and their values are not the same, consider the ExtinctionStatusResource record
+    # IF ExtinctionStatusResource is available and PaleoDB is not, consider the ExtinctionStatusResource record
+    # IF PaleoDB is available and ExtinctionStatusResource is not, consider the PaleoDB record
+    # IF the record selected for consideration has value http://eol.org/schema/terms/extinct, display the record on the cover.
+    # IF the record selected for consideration has any other value, display no /ExtinctionStatus records on the cover
+    # IF neither ExtinctionStatusResource nor PaleoDB records are available AND
+    # IF records from any other resource are available, AND have value = http://eol.org/schema/terms/extinct, display one such record on the cover. If multiple such records exist, one can be selected arbitrarily by any method.
+    recs = grouped_traits[Eol::Uris.extinction]
+    return nil if recs.empty?
+    # TODO: perhaps a better algorithm to pick which trait to use if there's
+    # more than one from a resource (probably the most recent):
+    paleo = recs.find { |r| r[:resource_id] == Resource.paleo_db.id }
+    ex_stat = recs.find { |r| r[:resource_id] == Resource.extinction_status.id }
+    if paleo && ex_stat
+      if ex_stat[:object_term] && ex_stat[:object_term][:uri] == Eol::Uris.extinct
+        if paleo[:object_term] && paleo[:object_term][:uri] == Eol::Uris.extinct
+          paleo
+        else
+          ex_stat
+        end
+      else
+        nil
+      end
+    elsif paleo || ex_stat
+      rec = [paleo, ex_stat].compact
+      rec[:object_term] && rec[:object_term][:uri] == Eol::Uris.extinct ? rec :
+        nil
+    else
+      recs.find { |rec| rec[:object_term] && rec[:object_term][:uri] == Eol::Uris.extinct }
+    end
+  end
+
   def is_it_extinct?
     if ! has_checked_extinct? && @traits_loaded
-      env = grouped_traits.has_key?(Eol::Uris.extinction)
-      recs = grouped_traits[Eol::Uris.extinction]
-      if recs && recs.any? { |r| r[:object_term] &&
-         r[:object_term][:uri] == Eol::Uris.extinct }
+      # NOTE: this relies on #displayed_extinction_trait ONLY returning an
+      # "exinct" record. ...which, as of this writing, it is designed to do.
+      if displayed_extinction_trait
         update_attribute(:is_extinct, true)
         return true
       else

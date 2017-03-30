@@ -54,6 +54,10 @@ RSpec.configure do |config|
 
   config.after(:each) do
     ::Sunspot.session = ::Sunspot.session.original_session
+    # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
+    Rails.cache.clear if Rails.cache
+    I18n.locale = :en
+    clear_class_variables
   end
 
   # Sadly, Pundit gem causes errors with implementing #policy, sooo:
