@@ -254,7 +254,7 @@ class Page < ActiveRecord::Base
         nil
       end
     elsif paleo || ex_stat
-      rec = [paleo, ex_stat].compact
+      rec = [paleo, ex_stat].compact.first
       rec[:object_term] && rec[:object_term][:uri] == Eol::Uris.extinct ? rec :
         nil
     else

@@ -57,7 +57,6 @@ RSpec.configure do |config|
     # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
     Rails.cache.clear if Rails.cache
     I18n.locale = :en
-    clear_class_variables
   end
 
   # Sadly, Pundit gem causes errors with implementing #policy, sooo:
