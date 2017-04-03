@@ -17,33 +17,24 @@
             %li= link_to(langs[key], lang: key)
       .right.menu
         .nav-search.item
-          %script{ type: "text/ng-template", id: "layoutSearchTemplate.html" }
-            .autocomplete-result.row
-              .icon.col-md-2
-                %a{ href: "#" }
-                  %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
-              .names.col-md-10
-                %a{ href: "#" }
-                  %ul
-                    %li{ "ng-repeat" => "vern in match.model.names",
-                      "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
-          %div{ "ng-controller" => "SearchCtrl as ctrl", "layout" => "column" }
-            = form_tag(main_app.search_path, method: "get", autocomplete: "off") do
-              .ui.icon.input
-                = text_field_tag("q", nil,
-                  "ng-model" => "selectedPage",
-                  "placeholder" => t(:layout_search_placeholder),
-                  "typeahead" => "page for page in querySearch($viewValue)",
-                  "typeahead-template-url" => "layoutSearchTemplate.html",
-                  "typeahead-min-length" => 3,
-                  "typeahead-loading" => "loadingLocations",
-                  "typeahead-on-select" => "onSelect($item, $model, $label)",
-                  "typeahead-input-formatter" => "nameOfModel($model)",
-                  "class" => "form-control",
-                  "autocomplete" => "off")
-                - icon("search")
-        .search-indicator.nav.navbar-nav.navbar-right
-          %i{ "ng-show" => "loadingLocations", "class" => "glyphicon glyphicon-refresh" }
+          -# TODO: move this to where you'll use it...
+          -# .autocomplete-result.row
+          -#   .icon.col-md-2
+          -#     %a{ href: "#" }
+          -#       %img{ "ng-src" => "{{ match.model.top_image.small_icon_url }}" }
+          -#   .names.col-md-10
+          -#     %a{ href: "#" }
+          -#       %ul
+          -#         %li{ "ng-repeat" => "vern in match.model.names",
+          -#           "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
+          = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
+            = text_field_tag("q", nil, class: "uk-search-input")
+            %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
+            -# # "typeahead" => "page for page in querySearch($viewValue)",
+            -# # "typeahead-template-url" => "layoutSearchTemplate.html",
+            -# # "typeahead-min-length" => 3,
+            -# # "typeahead-on-select" => "onSelect($item, $model, $label)",
+            -# # "typeahead-input-formatter" => "nameOfModel($model)",
         - if current_user
           .item= link_to(current_user.username, main_app.user_path(current_user))
           .item= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)

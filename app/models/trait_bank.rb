@@ -17,7 +17,7 @@ class TraitBank
   #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
-  # * Term: { *uri, *name, *section_ids(csv), , comment, attribution,
+  # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
   #       is_hidden_from_overview, is_hidden_from_glossary }
   #
   # TODO: add to term: "story" attribute. (And possibly story_attribution. Also

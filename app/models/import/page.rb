@@ -211,9 +211,14 @@ class Import::Page
         hash[:format] = ext if ext # Not always needed.
         hash[:language] = build_language(c_data["language"]) if
           c_data["language"]
-        c = klass.create(hash)
-        add_attributions(c, attributions)
-        c
+        begin
+          c = klass.create(hash)
+          add_attributions(c, attributions)
+          c
+        rescue => e
+          puts "FAILED to add class: #{klass}: #{e.message}"
+          nil
+        end
       end
       begin
         PageContent.create(

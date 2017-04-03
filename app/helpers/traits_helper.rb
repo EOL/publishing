@@ -38,14 +38,9 @@ module TraitsHelper
       target = @associations.find { |a| a.id == trait[:object_page_id] }
       summarize(target, options = {})
     elsif trait[:measurement]
-      if trait[:units] && trait[:units][:name]
-        value = trait[:measurement].to_s + " "
-        value += trait[:units][:name]
-        haml_concat(first_cap(value).html_safe)
-      else
-        haml_concat("OOPS: ")
-        haml_concat(trait.inspect)
-      end
+      value = trait[:measurement].to_s + " "
+      value += trait[:units][:name] if trait[:units] && trait[:units][:name]
+      haml_concat(first_cap(value).html_safe)
     elsif trait[:object_term] && trait[:object_term][:name]
       value = trait[:object_term][:name]
       haml_concat(first_cap(value))
