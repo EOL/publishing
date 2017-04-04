@@ -6,10 +6,12 @@ class Language < ActiveRecord::Base
 
   class << self
     def english
-      @english ||= where(code: "eng").first_or_create do |l|
-        l.code = "eng"
-        l.group = "en"
-        l.can_browse_site = true
+      Rails.cache.fetch("languages/english") do
+        where(code: "eng").first_or_create do |l|
+          l.code = "eng"
+          l.group = "en"
+          l.can_browse_site = true
+        end
       end
     end
 
