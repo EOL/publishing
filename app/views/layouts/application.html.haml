@@ -31,10 +31,10 @@
           - unless flash.empty?
             - first = true # Stupid system for padding the first message... :(
             - flash.each do |name, msg|
+              - next if name == "recaptcha_error"
               .uk-alert-success{ uk: { alert: true }, class: first ? "uk-margin-large-top" : "" }
                 - first = false
                 %a.uk-alert-close{ uk: { close: true } }
-                - next if name ==  :recaptcha_error.to_s
                 - if msg.class == Array
                   - msg.each do |message|
                     = content_tag :p, message.html_safe, :id => "flash_#{name}"

@@ -72,7 +72,6 @@ en:
     spatial_location: "Spatial"
     view_source_label: "Original"
     view_source_link: "view source material"
-  create_account: "create account"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
@@ -88,6 +87,8 @@ en:
     submit:
       collection:
         update: "save changes"
+      user:
+        create: "Create account"
   languages:
     en: "English"
     fi: "Finnish"
@@ -142,7 +143,7 @@ en:
   node_children_empty: "This node has no children."
   node_hierarchies_header: "Recognized as part of the following resource hierarchies:"
   recaptcha: "Recaptcha"
-  recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
+  recaptcha_error: "Please tell us you are not a robot."
   reference_compiled_from: "Referenced by %{links}"
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   remember_me: "remember me"
@@ -181,6 +182,35 @@ en:
   sign_in_up_with_twitter: "%{action} with Twitter"
   sign_in_up_with_yahoo: "%{action} with Yahoo"
   sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Please review the problems below:"
+    # Examples
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+    # include_blanks:
+    #   defaults:
+    #     age: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     age: 'Select your age'
+
+    labels:
+      defaults:
+        email:
+        password:
+        password_confirmation:
+        username:
   taxon_collect_button: "collect page"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""
@@ -207,6 +237,7 @@ en:
   user_collections_header: "Collections"
   user_not_active: "The user is not active"
   users:
+    sign_in: "Sign In"
     validations:
       empty_username_error: "Username cannot be empty"
       short_username_error: "Username is too short. It should be at least 4 characters"

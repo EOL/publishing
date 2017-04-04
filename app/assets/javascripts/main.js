@@ -40,40 +40,9 @@ $(document).ready(function() {
         });
     });
 
-  app.controller("SearchCtrl", SearchCtrl);
   app.controller("CladeFilterCtrl", CladeFilterCtrl);
   app.controller("collectionSearchCtrl", collectionSearchCtrl);
-  app.controller("PageCtrl", PageCtrl);
-  app.controller("loginValidate", LoginCtrl);
-  app.controller('signupValidate', SignupCtrl);
   app.controller('ConfirmDeleteCtrl', ConfirmDeleteCtrl);
-
-  function SearchCtrl ($scope, $http, $window) {
-    $scope.selected = undefined;
-
-    $scope.querySearch = function(query) {
-      return $http.get("/search.json", {
-        params: { q: query + "*", per_page: "6", only: "pages" }
-      }).then(function(response){
-        var data = response.data;
-        $.each(data, function(i, match) {
-          var re = new RegExp(query, "i");
-
-          match.names = [];
-          if(match.scientific_name.match(re)) {
-            match.names.push({ string: match.scientific_name, language: { code: "sci" } });
-          };
-          $.each(match.preferred_vernaculars, function(j, vmatch) {
-            if(vmatch.string.match(re)) {
-              match.names.push(vmatch);
-            };
-          });
-        });
-        console.log("Matches:");
-        console.log(data);
-        return data;
-      });
-    };
 
     $scope.onSelect = function($item, $model, $label) {
       if (typeof $item !== 'undefined') {
@@ -165,40 +134,6 @@ $(document).ready(function() {
       $("div.collected_pages").hide();
       $('div.search_results').remove();
       $scope.showClearSearch = false;
-    };
-  }
-
-  function PageCtrl ($scope, $http) {
-    $scope.testVar = "foo";
-    $scope.traitsCollapsed = false;
-    $scope.isCollapsed = false;
-  }
-
-  function LoginCtrl ($scope, $window) {
-    $scope.recaptchaChecked = ($(".g-recaptcha").length === 0);
-    $scope.recaptchaError = false;
-    $scope.showErrors = false;
-
-    $scope.validateForm = function(event, loginForm) {
-      if (loginForm.$invalid) {
-        $scope.showErrors = true;
-        event.preventDefault();
-      }
-      if (typeof(grecaptcha) !== 'undefined') {
-        var recaptchaResponse = grecaptcha.getResponse();
-        if (grecaptcha.getResponse() !== undefined &&
-          (grecaptcha.getResponse() === null) ||
-          (grecaptcha.getResponse() === '')) {
-          $scope.showErrors = true;
-          $scope.recaptchaError = $window.recaptchaError = true;
-          event.preventDefault();
-        }
-        else
-        {
-           $scope.recaptchaError = false;
-           $scope.recaptchaChecked = true;
-        }
-      }
     };
   }
 

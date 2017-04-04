@@ -1,25 +1,15 @@
 .container
   .well
-    %div{ "ng-controller" => "loginValidate as ctrl" }
+    %div
       %h2
         = I18n.t(:complete_registration)
-      = form_for @user, url: open_authentications_path,
-        html: { name: 'oauthConfirmationForm', class: "recaptchad",
-                'novalidate': 'novalidate'.html_safe } do |f|
+      = simple_form_for @user, url: open_authentications_path,
+        html: { class: "eol-userform recaptchad uk-form-stacked" },
+        defaults: { input_html: { class: 'uk-input' },
+        wrapper_html: { class: 'field' },
+        label_html: { class: 'uk-form-label' } } do |f|
         = resource_error_messages(@user)
-        .field
-          = f.label I18n.t(:email)
-          %br/
-          = f.email_field :email,
-                          'ng-model': 'email',
-                          'ng-pattern': $mail_regexp,
-                          required: true
-          %span{class: 'ng-validation-error',
-                'ng-show': "oauthConfirmationForm['user[email]'].$error.required && oauthConfirmationForm['user[email]'].$touched".html_safe}
-            = I18n.t("users.validations.empty_email_error")
-          %span{class: 'ng-validation-error',
-                'ng-show': "oauthConfirmationForm['user[email]'].$error.pattern".html_safe}
-            = I18n.t("users.validations.invalid_email")
+        = f.input :email
         .actions
-          = f.submit I18n.t(:create_account), 'ng-disabled': 'oauthConfirmationForm.$invalid', class: "btn btn-default"
+          = f.button :submit, class: "uk-button uk-button-default eol-secondary-alt"
           = link_to I18n.t(:cancel), :back

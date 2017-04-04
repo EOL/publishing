@@ -68,7 +68,8 @@ gem "paperclip", "~> 5.1"
 gem "pundit", "~> 1.1"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
-gem 'angular_rails_csrf'
+# Simplify Forms:
+gem 'simple_form'
 # Pagination:
 gem "kaminari", "~> 1.0"
 
