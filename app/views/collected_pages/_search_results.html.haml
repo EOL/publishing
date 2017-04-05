@@ -1,7 +1,7 @@
-%table.search_results
-  %tbody
-    %h1= t(:collection_search_title, q: q)
+%h1= t(:collection_search_title, q: q)
+  %ul.found_pages.uk-list
     - collected_pages.each do |collected_page|
+      -# TODO: Change this. ...it's no longer a row.
       = render("pages/as_row",
         page: collected_page.page,
         icon: collected_page.icon,

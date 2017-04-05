@@ -1,65 +1,67 @@
 - icon ||= page.icon
 - common ||= page.name
 - scientific ||= page.scientific_name
-.uk-card.uk-card-hover
-  %td.collection-table-image
-    %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
-      %canvas{ width: "130", height: "130" }
-      %img{ src: icon, "uk-cover": true }
-  %td
-    -# .page-ancestors
-    -#   %ol.breadcrumb
-    -#     - page.native_node.ancestors.each do |node|
-    -#       %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-    -# #breadcrumbs.page-ancestors.uk-column-span   CHANGED
-    #breadcrumbs.page-ancestors
-      %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
-        - ancestors = page.native_node.ancestors
-        - shown_ellipsis = false
-        - ancestors.each do |node|
-          - unless node.has_breadcrumb?
-            - unless shown_ellipsis
-              …
-              - shown_ellipsis = true
-            - next
-          %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+%li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
+  .uk-card-body.uk-grid-small{ uk: { grid: true } }
+    - if icon
+      .eol-width-medium-icon
+        %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
+          %canvas{ width: "130", height: "130" }
+          %img{ src: icon, "uk-cover": true }
+    .uk-width-auto
+      -# .page-ancestors
+      -#   %ol.breadcrumb
+      -#     - page.native_node.ancestors.each do |node|
+      -#       %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+      -# #breadcrumbs.page-ancestors.uk-column-span   CHANGED
+      #breadcrumbs.page-ancestors
+        %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
+          - ancestors = page.native_node.ancestors
           - shown_ellipsis = false
+          - ancestors.each do |node|
+            - unless node.has_breadcrumb?
+              - unless shown_ellipsis
+                …
+                - shown_ellipsis = true
+              - next
+            %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+            - shown_ellipsis = false
 
-    .names.d-inline
-      - sci_name = defined?(@q) ? emphasize_match(scientific, @q) : scientific.html_safe
-      - if common.blank?
-        = link_to(sci_name, page, class: "primary-name")
-      - else
-        - if defined?(@q)
-          = link_to(emphasize_match(common.titleize, @q), page, class: "primary-name")
+      .names.d-inline
+        - sci_name = defined?(@q) ? emphasize_match(scientific, @q) : scientific.html_safe
+        - if common.blank?
+          .uk-text-large= link_to(sci_name, page, class: "primary-name")
         - else
-          = link_to(common.titleize.html_safe, page, class: "primary-name")
+          .uk-text-large
+            - if defined?(@q)
+              = link_to(emphasize_match(common.titleize, @q), page, class: "primary-name")
+            - else
+              = link_to(common.titleize.html_safe, page, class: "primary-name")
+          .uk-text-muted= link_to(sci_name, page, class: "secondary-name")
+      - if defined?(annotation)
+        = annotation
+      - if defined?(media)
         %br/
-        = link_to(sci_name, page, class: "secondary-name")
-    - if defined?(annotation)
-      = annotation
-    - if defined?(media)
-      %br/
-      %row.icons_12_wide
-        - media.each do |medium|
-          - next if medium.medium_icon_url == icon
-          .col-md-1
-            = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
-    - if defined?(@q)
-      %br/
-      %ul.matches
-        -# Other vernaculars that match:
-        - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.each do |name|
-          %li><
-            = "&nbsp;".html_safe
-            = emphasize_match(name.string, @q)
-            = "&nbsp;(#{name.language.code})".html_safe
-        -# Other scientific_names that match:
-        - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
-          %li= emphasize_match(name.canonical_form, @q)
-        -# Resources:
-        - page.resources.uniq.each do |resource|
-          %li
-            = emphasize_match(resource.name, @q)
-            - unless resource.name =~ /#{resource.partner.short_name}/
-              = "(#{emphasize_match(resource.partner.short_name, @q)})"
+        %row.icons_12_wide
+          - media.each do |medium|
+            - next if medium.medium_icon_url == icon
+            .col-md-1
+              = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
+      - if defined?(@q)
+        %br/
+        %ul.matches
+          -# Other vernaculars that match:
+          - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.each do |name|
+            %li><
+              = "&nbsp;".html_safe
+              = emphasize_match(name.string, @q)
+              = "&nbsp;(#{name.language.code})".html_safe
+          -# Other scientific_names that match:
+          - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
+            %li= emphasize_match(name.canonical_form, @q)
+          -# Resources:
+          - page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.each do |resource|
+            %li
+              = emphasize_match(resource.name, @q)
+              - unless resource.name =~ /#{resource.partner.short_name}/
+                = "(#{emphasize_match(resource.partner.short_name, @q)})"

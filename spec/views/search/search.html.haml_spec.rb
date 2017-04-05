@@ -11,8 +11,8 @@ RSpec.describe "search/search" do
         string: "name that doesnt match", language: english)
       lic = instance_double("License", name: "Image license name")
       parent = instance_double("Node", ancestors: [], page_id: 342356,
-        canonical_form: "Ancestor name")
-      node = instance_double("Node", ancestors: [parent])
+        canonical_form: "Ancestor name", has_breadcrumb?: true)
+      node = instance_double("Node", ancestors: [parent], has_breadcrumb?: false)
       scientific_names = [instance_double("ScientificName",
         canonical_form: "<i>Our scientific</i>")]
       partner = instance_double("Partner", short_name: "Partner One")
