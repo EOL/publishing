@@ -18,20 +18,26 @@ class Section < ActiveRecord::Base
     end
 
     def brief_summary
-      @brief_summary ||= Section.where(name: "brief_summary").first_or_create do |s|
-        s.name = "brief_summary"
+      Rails.cache.fetch("sections/brief_summary") do
+        Section.where(name: "brief_summary").first_or_create do |s|
+          s.name = "brief_summary"
+        end
       end
     end
 
     def comprehensive_description
-      @comprehensive_description ||= Section.where(name: "comprehensive_description").first_or_create do |s|
-        s.name = "comprehensive_description"
+      Rails.cache.fetch("sections/comprehensive_description") do
+        Section.where(name: "comprehensive_description").first_or_create do |s|
+          s.name = "comprehensive_description"
+        end
       end
     end
 
     def distribution
-      @distribution ||= Section.where(name: "distribution").first_or_create do |s|
-        s.name = "distribution"
+      Rails.cache.fetch("sections/distribution") do
+        Section.where(name: "distribution").first_or_create do |s|
+          s.name = "distribution"
+        end
       end
     end
   end

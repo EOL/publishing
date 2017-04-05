@@ -112,6 +112,10 @@ class Page < ActiveRecord::Base
     []
   end
 
+  def sections
+    @sections = articles.flat_map { |a| a.sections }.uniq
+  end
+
   # NAMES METHODS
 
   # TODO: this is duplicated with node; fix.
@@ -301,6 +305,10 @@ class Page < ActiveRecord::Base
       update_attribute(:referents_count, referents.count)
     end
     @literature_and_references_count ||= referents_count
+  end
+
+  def richness_score
+    RichnessScore.calculate(self)
   end
 
   private

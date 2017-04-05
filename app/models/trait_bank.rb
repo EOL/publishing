@@ -137,6 +137,14 @@ class TraitBank
       res["data"] ? res["data"].first.first : false
     end
 
+    def glossary_count
+      res = query(
+        "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
+        "WITH count(distinct(term.uri)) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
+    end
+
     def trait_exists?(resource_id, pk)
       res = query(
         "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
