@@ -29,7 +29,6 @@ RSpec.describe User::RegistrationsController, type: :controller do
   
   
   describe "Adding user" do
-    
     before do
       request.env["devise.mapping"] = Devise.mappings[:user]
     end
