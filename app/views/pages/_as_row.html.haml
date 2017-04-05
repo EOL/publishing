@@ -1,14 +1,30 @@
 - icon ||= page.icon
 - common ||= page.name
 - scientific ||= page.scientific_name
-%tr
+.uk-card.uk-card-hover
   %td.collection-table-image
-    = link_to(image_tag(icon), page)
+    %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
+      %canvas{ width: "130", height: "130" }
+      %img{ src: icon, "uk-cover": true }
   %td
-    .page-ancestors
-      %ol.breadcrumb
-        - page.native_node.ancestors.each do |node|
-          %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+    -# .page-ancestors
+    -#   %ol.breadcrumb
+    -#     - page.native_node.ancestors.each do |node|
+    -#       %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+    -# #breadcrumbs.page-ancestors.uk-column-span   CHANGED
+    #breadcrumbs.page-ancestors
+      %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
+        - ancestors = page.native_node.ancestors
+        - shown_ellipsis = false
+        - ancestors.each do |node|
+          - unless node.has_breadcrumb?
+            - unless shown_ellipsis
+              …
+              - shown_ellipsis = true
+            - next
+          %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+          - shown_ellipsis = false
+
     .names.d-inline
       - sci_name = defined?(@q) ? emphasize_match(scientific, @q) : scientific.html_safe
       - if common.blank?

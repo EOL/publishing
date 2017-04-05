@@ -8,10 +8,10 @@
     = render("terms/search_results")
   - if defined?(@pages) && ! @pages.results.empty?
     %h2= t(:search_pages_title)
-    %table.collections
-      %tbody
-        - @pages.results.each do |page|
-          = render("pages/as_row", page: page)
+    .found_pages
+      - @pages.results.each do |page|
+        -# TODO: rename; it's no longer a row, it's a card.
+        = render("pages/as_row", page: page)
   - if defined?(@collections) && @collections && ! @collections.results.empty?
     %h2= t(:search_collections_title)
     %table.collections

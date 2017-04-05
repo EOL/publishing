@@ -10,6 +10,7 @@
   -# and over:
   .uk-section.uk-section-default.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ uk: { grid: true } }
     .uk-section.uk-padding-remove-vertical.uk-width-3-5
+      -# Duplicating this on Seach page; generalize?  (It's also used in a Partial to render the full view!)
       #breadcrumbs.page-ancestors.uk-column-span
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
           - ancestors = @page.native_node.ancestors
