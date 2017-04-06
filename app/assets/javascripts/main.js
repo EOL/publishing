@@ -19,6 +19,8 @@ $(document).ready(function() {
     $("#page_nav_content").children().slideUp({ duration: 500 });
     $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
   });
+  // TODO: this is not great; duplicated with media.js.erb. Generalize.
+  $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
 });
 
 (function () {

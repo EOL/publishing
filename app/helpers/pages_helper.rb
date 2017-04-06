@@ -39,10 +39,6 @@ module PagesHelper
     haml_tag("li", id: "page_nav_#{options[:name]}", class: options[:active] ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
       haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
       haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count]}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
-      # Alt large version with floating number:
-      # haml_concat link_to("<span class='uk-text-large'>#{text}</span><span class='floating ui tiny basic blue label'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-visible@m")
-      # Alt version with icon:
-      # haml_concat link_to("<span class='uk-text-large'><span uk-icon='icon: #{options[:icon]}'></span>&nbsp;#{text}</span><span class='floating ui tiny basic blue label'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-visible@m")
     end
   end
 

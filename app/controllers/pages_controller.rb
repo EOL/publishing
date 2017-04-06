@@ -119,9 +119,15 @@ private
   end
 
   def get_media
-    # TODO: this broke for some reason ( the #per call ); fix:
-    @media = @page.media.includes(:license).
-      page(params[:page]) # .per(@media_page_size)
+    @media = @page.media.includes(:license)
+    @license = nil
+    if params[:license]
+      @media = @media.joins(:license).
+        where(["licenses.name LIKE ?", "#{params[:license]}%"])
+      @license = params[:license]
+    end
+    # TODO: #per broke for some reason; fix:
+    @media = @media.page(params[:page]) # .per(@media_page_size)
   end
 
 end

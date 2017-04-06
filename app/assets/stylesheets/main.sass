@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700)
+@import url(http://fonts.googleapis.com/css?family=Open+Sans)
 html
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight: 400
@@ -7,8 +7,15 @@ html
 
 $base-color: rgb(51, 51, 51)
 
+// Official EOL colors:
+$eol-green: rgb(192, 213, 48)
+
+
 a
   color: #23699a
+
+.eol-text-tiny
+  font-size: 0.75em
 
 .uk-text-muted
   a
@@ -16,6 +23,10 @@ a
 
 .eol-userform
   width: 37em
+
+.eol-one-line
+  height: 1.5em
+  white-space: nowrap
 
 .page-ancestors
   background-color: #F8FAFA
@@ -48,7 +59,7 @@ a
   width: 130px
 
 .eol-padding-tiny
-  padding: 4px 12px
+  padding: 4px 12px !important
 
 .eol-padding-iconnav
   padding: 6px !important

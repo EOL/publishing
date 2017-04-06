@@ -1,6 +1,7 @@
 #gallery
-  -# .uk-child-width-1-4{ uk: { grid: true, height: { match: "target: > div > .uk-card" } } }
-  %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
+  -# If you want the list to be sortable:
+  -# %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
+  %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true } }
     - @media.each_with_index do |image, index|
       - img_id = "image_modal_#{image.id}"
       - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
@@ -29,27 +30,50 @@
                       = image_tag(image.original_size_url)
                       %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } } }= ""
                       %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } } }= ""
-                  -# TODO: can't use this now because we need the image sizes, and we don't have them yet.
-                  -# .uk-modal-body.uk-cover-container
-                  -#   %canvas{ width: "1280", height: "1280" }
-                  -#   %img{ src: image.original_size_url, "uk-cover": true }
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
               .uk-margin-remove.uk-text-center
-                .ui.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
+                .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
                 -# TODO: the actual state...
-                .ui.green.label= "trusted"
-          .uk-card-footer.uk-text-truncate.eol-padding-iconnav
+                .ui.mini.green.label= "trusted"
+          .uk-text-truncate.eol-padding-iconnav
             %ul.uk-iconnav.uk-float-right
-              %li
-                %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-              %li
-                = link_to("<i class='violet pin icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
-              %li
-                = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+              -# If you want the list to be sortable...
+              -# %li
+              -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+              - if index > 0
+                %li
+                  = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+              -# %li
+              -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
               %li
                 %a{ href: "#", alt: "add to collection" }
                   %i.grey.plus.icon
-          .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
-            = link_to(name, link_path)
-            .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
+          -# Make it drop down on hover:
+          -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
+          .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted
+            .uk-overflow-auto.eol-one-line
+              = link_to(name, link_path)
+              -# The other part to make it drop down on hover:
+              -# .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
+  -# TODO: need to pull along the params, if they have selected a license:
   = paginate @media, remote: true
+  %hr
+  .ui.menu.uk-text-small
+    .ui.dropdown.item
+      - if @license
+        %b= @license
+      - else
+        = t(:filter_by_license)
+      %i.dropdown.icon
+      .menu
+        = link_to(t(:filter_by_license_any_item), page_media_path(page_id: @page.id),
+          remote: true, class: "item#{ @license.nil? ? " active" : ""}")
+        - License.types.each do |lic|
+          = link_to(lic, page_media_path(page_id: @page.id, license: lic),
+            remote: true, class: "item#{ lic == @license ? " active" : ""}")
+    .ui.dropdown.item
+      = t(:filter_by_medium_subtype)
+      %i.dropdown.icon
+      .menu
+        - Medium.subclasses.each do |sc|
+          = link_to(sc, "#", remote: true, class: "item#{ sc == @license ? " active" : ""}")
