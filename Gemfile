@@ -98,11 +98,13 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
-
-  gem 'better_errors'
-  gem 'capybara'
-  gem 'factory_girl'
-  gem 'faker'
-  gem 'rack_session_access'
+  gem "rspec-rails"
+  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`",
+  # but it didn't help, so I'm removing it. Hmmn.
+  # gem "rspec-html-matchers"
+  gem "better_errors"
+  gem "capybara"
+  gem "factory_girl"
+  gem "faker"
+  gem "rack_session_access"
 end

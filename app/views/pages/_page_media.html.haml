@@ -46,7 +46,7 @@
               -# %li
               -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
               %li
-                %a{ href: "#", alt: "add to collection" }
+                %a{ href: new_collected_page_path(page_id: @page.id, medium_ids: [image.id]), alt: "add to collection" }
                   %i.grey.plus.icon
           -# Make it drop down on hover:
           -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }

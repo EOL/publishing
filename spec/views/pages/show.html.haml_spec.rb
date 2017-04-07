@@ -7,14 +7,17 @@ RSpec.describe "pages/show" do
   let(:lic1) do
     instance_double("License", name: "Image license name")
   end
+  let(:lic2) do
+    instance_double("License", name: "Image2 LicName")
+  end
   let(:image1) do
-    instance_double("Medium", license: lic1, owner: "Owner 1", id: 1,
+    instance_double("Medium", license: lic1, owner: "(c) Owner 1", id: 1,
       large_size_url: "some_url_580_360.jpg", medium_size_url: "img1_med.jpg",
       small_icon_url: "no_matter", original_size_url: "img1_full_size.jpg",
       name: "Awesome First Image")
   end
   let(:image2) do
-    instance_double("Medium", license: lic1, owner: "Owner 2", id: 2,
+    instance_double("Medium", license: lic2, owner: "&copy; Owner 2", id: 2,
       small_icon_url: "no_matter", original_size_url: "img2_full_size.jpg",
       large_size_url: "second_url_580_360.jpg", medium_size_url: "img2_med.jpg",
       name: "Great Second Image")
@@ -100,37 +103,78 @@ RSpec.describe "pages/show" do
 
   it "shows the title" do
     render
-    expect(rendered).to match /Something Common/
-    expect(rendered).to match /Nice scientific/
+    expect(rendered).to match "Something Common"
+    expect(rendered).to match "Nice scientific"
+  end
+
+  context "with the media subtab showing" do
+
+    before { render }
+
+    it "shows the image names" do
+      expect(rendered).to match image1.name
+      expect(rendered).to match image2.name
+    end
+
+    it "shows the image medium icon" do
+      # NOTE: I had a much fancier #have_tag implementation here, but it was
+      # failing with "expected [HTML] to respond to `has_tag?`" ...and I
+      # couldn't fix it. Easier to just move on right now. This will do.
+      expect(rendered).to match image1.medium_size_url
+      expect(rendered).to match image2.medium_size_url
+    end
+
+    it "shows the image original size (modal)" do
+      expect(rendered).to match image1.original_size_url
+      expect(rendered).to match image2.original_size_url
+    end
+
+    # NOTE: implementation as of this writing:
+    # image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "")
+    it "shows the image owner" do
+      expect(rendered).to match "Owner 1"
+      expect(rendered).to match "Owner 2"
+    end
+
+    # Note: this is a weak test. Each
+    it "shows the license name" do
+      expect(rendered).to match lic1.name
+      expect(rendered).to match lic2.name
+    end
+
+    it "shows the trust state" # TODO (we haven't implemented this yet)
+
+    it "has a link to make exemplar (but NOT the first image!)" do
+      expect(rendered).not_to have_link(href: page_icons_path(page_id: page.id, medium_id: image1.id))
+      expect(rendered).to have_link(href: page_icons_path(page_id: page.id, medium_id: image2.id))
+    end
+
+    it "has a link to add to collection" do
+      expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image1.id]))
+      expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image2.id]))
+    end
+
+    it "has a link to the image page" do
+      expect(rendered).to have_link(href: medium_path(image1))
+      expect(rendered).to have_link(href: medium_path(image2))
+    end
   end
 
   it "shows the top images' metadata" do
     render
     # NOTE: these don't work with "have content" because they are stored in data
     # attributes.
-    expect(rendered).to match /Image license name/
-    expect(rendered).to match /Owner 1/
-    expect(rendered).to match /Owner 2/
-    expect(rendered).to match /Awesome First Image/
-    expect(rendered).to match /Great Second Image/
-  end
-
-  it "shows the medium size images" do
-    render
-    expect(rendered).to match /img1_med.jpg/
-    expect(rendered).to match /img2_med.jpg/
-  end
-
-  it "allows original size images (lightbox)" do
-    render
-    expect(rendered).to match /img1_full_size.jpg/
-    expect(rendered).to match /img2_full_size.jpg/
+    expect(rendered).to match "Image license name"
+    expect(rendered).to match "Owner 1"
+    expect(rendered).to match "Owner 2"
+    expect(rendered).to match "Awesome First Image"
+    expect(rendered).to match "Great Second Image"
   end
 
   it "shows the ancestor names" do
     render
-    expect(rendered).to match /Parent Canon/
-    expect(rendered).to match /Ancestor Canon/
+    expect(rendered).to match "Parent Canon"
+    expect(rendered).to match "Ancestor Canon"
   end
 
   it "shows a media subtab" do
