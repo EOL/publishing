@@ -19,14 +19,19 @@ RSpec.describe "pages/show" do
       large_size_url: "second_url_580_360.jpg", medium_size_url: "img2_med.jpg",
       name: "Great Second Image")
   end
+  let(:rank) { create(:rank) }
 
   # NOTE: I think we'll eventually want to extract this into a nice class to
   # mock pages for views... but ATM we only need it once, here, so I'm leaving
   # it despite its gross size and complexity:
   let(:page) do
-    parent = instance_double("Node", ancestors: [], name: "Parent Taxon",
-      canonical_form: "Parent Taxon", page_id: 653421, has_breadcrumb?: true)
-    node = instance_double("Node", ancestors: [parent], name: "SomeTaxon",
+    ancestor = instance_double("Node", ancestors: [], name: "Ancestor Name",
+      canonical_form: "Ancestor Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Ancestor Sci")
+    invisible_ancestor = instance_double("Node", ancestors: [ancestor], name: "InvisibleAncestor Name",
+      canonical_form: "InvisibleAncestor Canon", page_id: 653421, has_breadcrumb?: false, rank: rank, scientific_name: "InvisibleAncestor Sci")
+    parent = instance_double("Node", ancestors: [ancestor, invisible_ancestor], name: "Parent Name",
+      canonical_form: "Parent Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Parent Sci")
+    node = instance_double("Node", ancestors: [ancestor, invisible_ancestor, parent], name: "SomeTaxon",
       children: [], resource: resource, has_breadcrumb?: true)
     lic2 = instance_double("License", name: "Article license name")
     article = instance_double("Article", name: "Article Name", license: lic2,
@@ -124,7 +129,8 @@ RSpec.describe "pages/show" do
 
   it "shows the ancestor names" do
     render
-    expect(rendered).to match /Parent Taxon/
+    expect(rendered).to match /Parent Canon/
+    expect(rendered).to match /Ancestor Canon/
   end
 
   # TODO! Articles were moved to another (Ajaxy) view, so this won't work now.
