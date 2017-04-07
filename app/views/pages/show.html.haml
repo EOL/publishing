@@ -13,7 +13,8 @@
       -# Duplicating this on Seach page; generalize?  (It's also used in a Partial to render the full view!)
       #breadcrumbs.page-ancestors.uk-column-span
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
-          - ancestors = @page.native_node.ancestors
+          - node = @page.native_node || @page.nodes.first
+          - ancestors = node.ancestors
           - shown_ellipsis = false
           - ancestors.each do |node|
             - unless node.has_breadcrumb?

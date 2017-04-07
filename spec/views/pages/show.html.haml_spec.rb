@@ -70,7 +70,7 @@ RSpec.describe "pages/show" do
       iucn_status_key: :lc,
       is_it_extinct?: false,
       is_it_marine?: false,
-      literature_and_references_count: 0,
+      literature_and_references_count: 3,
       map?: false,
       media_count: 2,
       nodes: [node],
@@ -131,6 +131,114 @@ RSpec.describe "pages/show" do
     render
     expect(rendered).to match /Parent Canon/
     expect(rendered).to match /Ancestor Canon/
+  end
+
+  it "shows a media subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/media")
+    expect(rendered).to have_content /2\s*Media/
+  end
+
+  it "shows a data subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/traits")
+    expect(rendered).to have_content /3\s*Traits/
+  end
+
+  it "shows a details subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/details")
+    expect(rendered).to have_content /1\s*Details/
+  end
+
+  it "shows a classification subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/classifications")
+    expect(rendered).to have_content /1\s*Classification/
+  end
+
+  it "shows a names subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/names")
+    expect(rendered).to have_content /2\s*Names/
+  end
+
+  it "shows a literature_and_references subtab" do
+    render
+    expect(rendered).to have_link(href: "/pages/#{page.id}/literature_and_references")
+    expect(rendered).to have_content /3\s*References/
+  end
+
+  context "Empty page" do
+    let (:empty_page) do
+      node = instance_double("Node", ancestors: [], name: "SomeTaxon", id: 1,
+        children: [], resource: resource, has_breadcrumb?: true)
+      sci_name = instance_double("ScientificName", node: node,
+        italicized: "<i>Nice scientific</i>",
+        taxonomic_status: TaxonomicStatus.synonym)
+      instance_double("Page",
+        id: 3497,
+        articles: [],
+        articles_count: 0,
+        nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...
+        glossary: [],
+        grouped_traits: nil,
+        habitats: "",
+        iucn_status_key: nil,
+        is_it_extinct?: false,
+        is_it_marine?: false,
+        literature_and_references_count: 0,
+        map?: false,
+        media_count: 0,
+        nodes: [node],
+        name: sci_name.italicized,
+        names_count: 0,
+        native_node: nil,
+        occurrence_map?: false,
+        predicates: [],
+        scientific_name: sci_name.italicized,
+        scientific_names: [sci_name],
+        top_image: nil,
+        traits: [],
+        traits_count: 0,
+        vernaculars: []
+      )
+    end
+
+    before do
+      assign(:page, empty_page)
+      render
+    end
+
+    it "does NOT show a media subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/media")
+    end
+
+    it "does NOT show a data subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/traits")
+    end
+
+    it "does NOT show a details subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/details")
+    end
+
+    it "does NOT show a classification subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/classifications")
+    end
+
+    it "does NOT show a names subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/names")
+    end
+
+    it "does NOT show a literature_and_references subtab" do
+      render
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/literature_and_references")
+    end
   end
 
   # TODO! Articles were moved to another (Ajaxy) view, so this won't work now.

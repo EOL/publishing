@@ -1,7 +1,8 @@
 module PagesHelper
   def construct_summary(page)
     Rails.cache.fetch("constructed_summary/#{page.id}") do
-      ancestors = page.native_node.ancestors.select { |a| a.has_breadcrumb? }
+      node = page.native_node || page.nodes.first
+      ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
       str = if page.name == page.scientific_name
         page.name
       else
@@ -67,7 +68,7 @@ module PagesHelper
   end
 
   def summarize(page, options = {})
-    node = options[:node] || page.native_node
+    node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
     vernacular = page.name.titleize if page
     icon_size = "tiny"
