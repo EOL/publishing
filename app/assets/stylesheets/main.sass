@@ -7,15 +7,35 @@ html
 
 $base-color: rgb(51, 51, 51)
 
-// Official EOL colors:
-$eol-green: rgb(192, 213, 48)
+// Official EOL colors (kind of... sloppy picker):
 
+$eol-black: #272727
+$eol-logo-green: #c1d72e
+$eol-green: rgb(192, 213, 48)
+$eol-light-green: #99cc33
+$eol-blue: #91bde5   
+$eol-dark-blue: #426c96
+$eol-red: #993333
+$eol-gray: #666666
+$eol-green: #447766
+$eol-orange: #d59046
+
+h1, h2, h3
+  color: $eol-dark-blue
+  font-weight: 700
 
 a
   color: #23699a
 
+.ui.label
+  font-family: Avenir
+
+.uk-text-muted
+  font-weight: 300
+
 .eol-text-tiny
-  font-size: 0.75em
+  font-size: 0.75rem
+  font-family: Avenir
 
 .uk-text-muted
   a
@@ -40,10 +60,10 @@ a
   background-color: white !important
 
 .eol-secondary
-  background-color: #edc6b7 !important
+  background-color: $eol-blue !important
 
 .eol-secondary-alt
-  background-color: #c8e0b8 !important
+  background-color: $eol-orange !important
 
 .eol-section-secondary
   @extend .eol-secondary
