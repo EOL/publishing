@@ -9,6 +9,17 @@ class ApplicationController < ActionController::Base
     session[:user_id] && current_user.active?
   end
 
+  def clear_cached_summaries
+    (0..9).each do |bucket|
+      array = Rails.cache.read("constructed_summaries/#{bucket}")
+      if array
+        array.each do |page_id|
+          Rails.cache.delete("constructed_summary/#{page_id}")
+        end
+      end
+    end
+  end
+
 private
 
   def set_locale

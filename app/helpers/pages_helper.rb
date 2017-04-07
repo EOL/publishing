@@ -1,30 +1,35 @@
 module PagesHelper
   def construct_summary(page)
-    # TODO: we should use cache here.
-    ancestors = page.native_node.ancestors.select { |a| a.has_breadcrumb? }
-    str = if page.name == page.scientific_name
-      page.name
-    else
-      "#{page.scientific_name} (#{page.name})"
-    end
-    if ancestors[0]
-      str += " #{page.scientific_name =~ /\s[a-z]/ ? "is" : "are" } #{indefinite_articleize(ancestors[0].name.singularize)}"
-      if ancestors[-2]
-        str += " in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].scientific_name}."
+    Rails.cache.fetch("constructed_summary/#{page.id}") do
+      ancestors = page.native_node.ancestors.select { |a| a.has_breadcrumb? }
+      str = if page.name == page.scientific_name
+        page.name
+      else
+        "#{page.scientific_name} (#{page.name})"
       end
-    else
-      str += " is a top-level classification."
+      if ancestors[0]
+        str += " #{page.scientific_name =~ /\s[a-z]/ ? "is" : "are" } #{indefinite_articleize(ancestors[0].name.singularize)}"
+        if ancestors[-2]
+          str += " in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].scientific_name}."
+        end
+      else
+        str += " is a top-level classification."
+      end
+      if page.is_it_extinct?
+        str += " This species is extinct."
+      end
+      if page.is_it_marine?
+        str += " It is marine."
+      end
+      unless page.habitats.empty?
+        str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+      end
+      bucket = page.id.to_s[0]
+      summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
+      summaries << page.id
+      Rails.cache.write("constructed_summaries/#{bucket}", summaries)
+      str.html_safe
     end
-    if page.is_it_extinct?
-      str += " This species is extinct."
-    end
-    if page.is_it_marine?
-      str += " It is marine."
-    end
-    unless page.habitats.empty?
-      str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
-    end
-    str.html_safe
   end
 
   # Note: this does not always work (e.g.: "an unicorn")

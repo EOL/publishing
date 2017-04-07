@@ -29,6 +29,7 @@ describe PagesHelper do
     context "simple page" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: node,
           name: "something",
           scientific_name: "Sci foo",
@@ -47,6 +48,7 @@ describe PagesHelper do
     context "page with animal ancestor" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: node_with_an,
           name: "something",
           scientific_name: "Sci foo",
@@ -65,6 +67,7 @@ describe PagesHelper do
     context "page with no vernacular" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: node_with_an,
           name: "Sci foo",
           scientific_name: "Sci foo",
@@ -83,6 +86,7 @@ describe PagesHelper do
     context "page with no ancestors" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: top_node,
           name: "Sci foo",
           scientific_name: "Sci foo",
@@ -101,6 +105,7 @@ describe PagesHelper do
     context "extinct page" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: top_node,
           name: "Sci foo",
           scientific_name: "Sci foo",
@@ -119,6 +124,7 @@ describe PagesHelper do
     context "marine page" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: top_node,
           name: "Sci foo",
           scientific_name: "Sci foo",
@@ -137,6 +143,7 @@ describe PagesHelper do
     context "page with habitats" do
       let(:page) do
         instance_double("Page",
+          id: 1,
           native_node: top_node,
           name: "Sci foo",
           scientific_name: "Sci foo",
