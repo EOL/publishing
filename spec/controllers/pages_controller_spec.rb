@@ -15,6 +15,20 @@ RSpec.describe PagesController do
         receive_message_chain(:media, :empty?).and_return(true)
     end
 
+    describe "#breadcrumbs" do
+      it "assigns page" do
+        xhr :get, :breadcrumbs, page_id: page.id
+        expect(assigns(:page)).to eq(page)
+      end
+    end
+
+    describe "#traits" do
+      it "assigns page" do
+        xhr :get, :traits, page_id: page.id
+        expect(assigns(:page)).to eq(page)
+      end
+    end
+
     describe '#show' do
       it "assigns page" do
         get :show, id: page.id
@@ -48,6 +62,12 @@ RSpec.describe PagesController do
     describe "#show" do
       it "raises a 404" do
         get :show, id: page_id
+        expect(response.status).to eq(404)
+      end
+    end
+    describe "#breadcrumbs" do
+      it "raises a 404" do
+        xhr :get, :breadcrumbs, page_id: page_id
         expect(response.status).to eq(404)
       end
     end
