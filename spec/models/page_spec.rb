@@ -2,12 +2,15 @@ require 'rails_helper'
 
 RSpec.describe Page do
   before(:all) do
-    # TODO: this is problematic: class variables seem to become invalid between
-    # specs (if they are first called from within them) because of the
-    # first_or_create stuff. We'll have to have some kind of bootstrap to load
-    # into the DB... or add some code to clear class variables between specs
-    # (which sounds expensive).
     Section.brief_summary
+  end
+
+  describe "#richness_score" do
+    let(:page) { create(:page) }
+    it "should use the RichnessScore class" do
+      expect(RichnessScore).to receive(:calculate).with(page) { :done }
+      expect(page.richness_score).to eq(:done)
+    end
   end
 
   context "with many common names" do

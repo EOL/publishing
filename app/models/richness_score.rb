@@ -38,7 +38,7 @@ class RichnessScore
   end
 
   def score_media_diversity
-    @scores[:media_diversity] = media_diversity_score ? @weights[:media_diversity] : 0
+    @scores[:media_diversity] = media_diversity_score > 0 ? @weights[:media_diversity] : 0
   end
 
   def score_map
@@ -87,7 +87,7 @@ class RichnessScore
   end
 
   def content_types_count
-    @page.page_contents.map(&:content_type).uniq.size
+    @page.page_contents.map(&:content_type).uniq.compact.size
   end
 
   def section_diversity_score
