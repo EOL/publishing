@@ -56,6 +56,9 @@ RSpec.configure do |config|
     ::Sunspot.session = ::Sunspot.session.original_session
     # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
     Rails.cache.clear if Rails.cache
+    # Important to clear the language cache:
+    Language.remove_instance_variable :@current if
+      Language.instance_variable_defined?(:@current)
     I18n.locale = :en
   end
 
