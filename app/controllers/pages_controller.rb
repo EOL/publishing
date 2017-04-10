@@ -126,6 +126,16 @@ private
         where(["licenses.name LIKE ?", "#{params[:license]}%"])
       @license = params[:license]
     end
+    if params[:subclass_id]
+      @media = @media.where(subclass: params[:subclass_id])
+      @subclass_id = params[:subclass_id].to_i
+      @subclass = Medium.subclasses.find { |n, id| id == @subclass_id }[0]
+    end
+    if params[:resource_id]
+      @media = @media.where(resource_id: params[:resource_id])
+      @resource_id = params[:resource_id].to_i
+      @resource = Resource.find(@resource_id)
+    end
     # TODO: #per broke for some reason; fix:
     @media = @media.page(params[:page]) # .per(@media_page_size)
   end

@@ -66,14 +66,36 @@
         = t(:filter_by_license)
       %i.dropdown.icon
       .menu
-        = link_to(t(:filter_by_license_any_item), page_media_path(page_id: @page.id),
+        = link_to(t(:filter_by_license_any_item),
+          page_media_path(page_id: @page.id, license: nil, subclass_id: @subclass_id, resource_id: @resource_id),
           remote: true, class: "item#{ @license.nil? ? " active" : ""}")
         - License.types.each do |lic|
-          = link_to(lic, page_media_path(page_id: @page.id, license: lic),
+          = link_to(lic, page_media_path(page_id: @page.id, license: lic, subclass_id: @subclass_id, resource_id: @resource_id),
             remote: true, class: "item#{ lic == @license ? " active" : ""}")
     .ui.dropdown.item
-      = t(:filter_by_medium_subtype)
+      - if @subclass
+        %b= t("medium.subclasses.#{@subclass}")
+      - else
+        = t(:filter_by_medium_subtype)
       %i.dropdown.icon
       .menu
-        - Medium.subclasses.each do |sc|
-          = link_to(sc, "#", remote: true, class: "item#{ sc == @license ? " active" : ""}")
+        = link_to(t(:filter_by_medium_any_item),
+          page_media_path(page_id: @page.id, subclass_id: nil, license: @license, resource_id: @resource_id),
+          remote: true, class: "item#{ @subclass_id.nil? ? " active" : ""}")
+        - Medium.subclasses.each do |sc_name, sc_id|
+          = link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass_id: sc_id, resource_id: @resource_id),
+            remote: true, class: "item#{ sc_id == @subclass_id ? " active" : ""}")
+    .ui.dropdown.item
+      - if @resource
+        %b= @resource.name
+      - else
+        = t(:filter_by_resource)
+      %i.dropdown.icon
+      .menu.uk-height-medium.uk-overflow-auto
+        = link_to(t(:filter_by_resource_any_item),
+          page_media_path(page_id: @page.id, subclass_id: @subclass_id, license: @license, resource_id: nil),
+          remote: true, class: "item#{ @subclass_id.nil? ? " active" : ""}")
+        -# TODO: Cache or use autocomplete or ... something. :S
+        - Resource.all.order(:name).each do |resource|
+          = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
+            remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
