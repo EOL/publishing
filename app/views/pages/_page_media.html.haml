@@ -2,8 +2,9 @@
   -# If you want the list to be sortable:
   -# %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
   %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true } }
+    - media_ids = @media.map { |image| "image_modal_#{image.id}" }
     - @media.each_with_index do |image, index|
-      - img_id = "image_modal_#{image.id}"
+      - img_id = media_ids[index]
       - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
       - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
       -# TODO: we will eventually know the actual size of the image; add that:
@@ -28,8 +29,8 @@
                   .uk-modal-body
                     .uk-inline.uk-visible-toggle
                       = image_tag(image.original_size_url)
-                      %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } } }= ""
-                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } } }= ""
+                      %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
+                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: media_ids[index+1] } }= ""
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
               .uk-margin-remove.uk-text-center
                 .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
@@ -57,7 +58,6 @@
               -# .uk-transition-slide-bottom.uk-position-bottom.uk-overlay
   -# TODO: need to pull along the params, if they have selected a license:
   = paginate @media, remote: true
-  %hr
   .ui.menu.uk-text-small
     .ui.dropdown.item
       - if @license

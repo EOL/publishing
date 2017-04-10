@@ -43,6 +43,13 @@ $(document).ready(function() {
   });
   // TODO: this is not great; duplicated with media.js.erb. Generalize.
   $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
+  $(".uk-modal-body a[uk-slidenav-next]").on("click", function(e) {
+    var link = $(this);
+    thisId = link.data("this-id");
+    tgtId = link.data("tgt-id");
+    UIkit.modal("#"+thisId).hide();
+    UIkit.modal("#"+tgtId).show();
+  });
   EOL.enable_trait_toc();
 });
 
