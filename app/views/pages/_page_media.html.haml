@@ -30,7 +30,8 @@
                     .uk-inline.uk-visible-toggle
                       = image_tag(image.original_size_url)
                       %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
-                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: media_ids[index+1] } }= ""
+                      - next_id = media_ids[index+1] || media_ids[0]
+                      %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
             .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
               .uk-margin-remove.uk-text-center
                 .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe

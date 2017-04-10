@@ -14,6 +14,17 @@ if(!EOL) {
     $(".meta_trait").hide();
   };
 
+  EOL.enable_media_navigation = function() {
+    $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
+    $(".uk-modal-body a.uk-slidenav-large").on("click", function(e) {
+      var link = $(this);
+      thisId = link.data("this-id");
+      tgtId = link.data("tgt-id");
+      UIkit.modal("#"+thisId).hide();
+      UIkit.modal("#"+tgtId).show();
+    });
+  };
+
   EOL.enable_trait_toc = function() {
     console.log("Enabling Data Tab TOC.");
     $("#section_links a").on("click", function(e) {
@@ -41,15 +52,7 @@ $(document).ready(function() {
     $("#page_nav_content").children().slideUp({ duration: 500 });
     $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
   });
-  // TODO: this is not great; duplicated with media.js.erb. Generalize.
-  $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
-  $(".uk-modal-body a[uk-slidenav-next]").on("click", function(e) {
-    var link = $(this);
-    thisId = link.data("this-id");
-    tgtId = link.data("tgt-id");
-    UIkit.modal("#"+thisId).hide();
-    UIkit.modal("#"+tgtId).show();
-  });
+  EOL.enable_media_navigation();
   EOL.enable_trait_toc();
 });
 
