@@ -170,6 +170,14 @@ class Page < ActiveRecord::Base
     end
     # TODO: do we need a glossary anymore, really?
     @glossary = TraitBank.glossary(traits)
+    @data_toc_needs_other = false
+    @data_toc = traits.flat_map do |t|
+      next if t[:predicate][:section_ids].nil? # Usu. test data...
+      secs = t[:predicate][:section_ids].split(",")
+      @data_toc_needs_other = true if secs.empty?
+      secs.map(&:to_i)
+    end.uniq
+    @data_toc = Section.where(id: @data_toc) unless @data_toc.empty?
     @traits_loaded = true
     # TODO: do we need the sort here?
     @traits = TraitBank.sort(traits)
@@ -244,7 +252,7 @@ class Page < ActiveRecord::Base
 
   def displayed_extinction_trait
     recs = grouped_traits[Eol::Uris.extinction]
-    return nil if recs.empty?
+    return nil if recs.nil? || recs.empty?
     # TODO: perhaps a better algorithm to pick which trait to use if there's
     # more than one from a resource (probably the most recent):
     paleo = recs.find { |r| r[:resource_id] == Resource.paleo_db.id }
@@ -288,6 +296,18 @@ class Page < ActiveRecord::Base
     return @glossary if @glossary
     traits
     @glossary
+  end
+
+  def data_toc
+    return @data_toc if @data_toc
+    traits
+    @data_toc
+  end
+
+  def data_toc_needs_other?
+    return @data_toc_needs_other if @data_toc_needs_other
+    traits
+    @data_toc_needs_other
   end
 
   def grouped_traits

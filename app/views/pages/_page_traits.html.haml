@@ -1,28 +1,43 @@
 - max_rows = 10
 - traits = @page.traits
-.uk-overflow-auto
-  %table.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover
-    %thead
-      %tr
-        %th.uk-width-1-5= t("trait_table.headers.predicate")
-        %th.uk-width-3-5= t("trait_table.headers.value")
-        %th.uk-width-1-5= t("trait_table.headers.source")
-    %tbody
-      -# TODO: helper
-      - @page.predicates.each do |uri|
-        - predicate = @page.glossary[uri]
-        - previous_predicate = nil
-        - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
-          - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "") # TODO: helper
-          %tr{ id: trait[:id], uk: { toggle: "target: ##{id}; animation: uk-animation-fade" } }
-            %th.uk-table-middle{ scope: "row" }
-              - if predicate == previous_predicate
-                / same predicate
-              - else
-                = link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                - previous_predicate = predicate
-              - show_trait_modifiers(trait)
-            %td
-              - show_trait_value(trait)
-              - show_metadata(trait)
-            - show_source_col(trait)
+%div{ uk: { grid: true } }
+  .uk-width-1-5
+    #section_links.ui.small.fluid.vertical.secondary.pointing.menu
+      .active.item
+        -# TODO: these links should probably be "real" for those without JS.
+        = link_to(t(:page_traits_toc_all_items), "#", data: { section_id: "all" })
+      - @page.data_toc.each do |section|
+        .item
+          = link_to(t("sections.#{section.name.gsub(/\s+/, "").underscore}"), "#", data: { section_id: section.id })
+      - if @page.data_toc_needs_other?
+        .item
+          = link_to(t(:page_traits_toc_other), "#", data: { section_id: "other" })
+  .uk-width-expand.uk-overflow-auto
+    %table#traits.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
+      %thead
+        %tr
+          %th.uk-width-1-5= t("trait_table.headers.predicate")
+          %th.uk-width-3-5= t("trait_table.headers.value")
+          %th.uk-width-1-5= t("trait_table.headers.source")
+      %tbody
+        -# TODO: helper
+        - @page.predicates.each do |uri|
+          - predicate = @page.glossary[uri]
+          - previous_predicate = nil
+          - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
+            - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "") # TODO: helper
+            -# TODO: I'm not happy with storing the ids of sections as a string. Should have helper. :S
+            - sections = predicate[:section_ids].split(",").map { |i| "section_#{i}" }
+            - sections = ["section_other"] if sections.empty?
+            %tr{ id: trait[:id], uk: { toggle: "target: ##{id}; animation: uk-animation-fade" }, class: sections.join(" ") }
+              %th.uk-table-middle{ scope: "row" }
+                - if predicate == previous_predicate
+                  / same predicate
+                - else
+                  = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  - previous_predicate = predicate
+                - show_trait_modifiers(trait)
+              %td
+                - show_trait_value(trait)
+                - show_metadata(trait)
+              - show_source_col(trait)

@@ -1,6 +1,7 @@
 if(!EOL) {
   var EOL = {};
   EOL.allow_meta_traits_to_toggle = function() {
+    console.log("Enabling Meta Traits to Toggle.");
     $(".toggle_meta").on("click", function (event) {
       event.stopPropagation();
       var $table = $(this).next();
@@ -12,6 +13,27 @@ if(!EOL) {
     });
     $(".meta_trait").hide();
   };
+
+  EOL.enable_trait_toc = function() {
+    console.log("Enabling Data Tab TOC.");
+    $("#section_links a").on("click", function(e) {
+      var link = $(this);
+      $("#section_links .item.active").removeClass("active");
+      link.parent().addClass("active");
+      var secId = link.data("section-id");
+      if(secId == "all") {
+        $("table#traits tbody tr").show();
+      } else if (secId == "other") {
+        $("table#traits tbody tr").hide();
+        $("table#traits tbody tr.section_other").show();
+      } else {
+        $("table#traits tbody tr").hide();
+        $("table#traits tbody tr.section_"+secId).show();
+      }
+      e.stopPropagation();
+      e.preventDefault();
+    });
+  };
 }
 
 $(document).ready(function() {
@@ -21,6 +43,7 @@ $(document).ready(function() {
   });
   // TODO: this is not great; duplicated with media.js.erb. Generalize.
   $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
+  EOL.enable_trait_toc();
 });
 
 // (function () {

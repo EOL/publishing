@@ -128,6 +128,12 @@ class Import::Page
     end
 
     def create_uri(u_data)
+      if secs = u_data.delete("sections")
+        u_data["section_ids"] = []
+        secs.each do |section|
+          u_data["section_ids"] << build_section(section).id
+        end
+      end
       TraitBank.create_term(u_data.symbolize_keys)
     end
 
@@ -155,13 +161,26 @@ class Import::Page
     end
 
     def build_article(a_data, node, position)
-      section = build_section(a_data["section"])
+      sections = build_sections(a_data["sections"])
       build_content(Article, a_data, node: node, page: @page, position: position,
-        section: section)
+        sections: sections)
+    end
+
+    def build_sections(s_data)
+      sections = []
+      s_data.each do |sec|
+        sections << build_section(sec)
+      end
+      sections
     end
 
     def build_section(s_data)
       return nil if s_data.nil?
+      parent = if s_data["parent"]
+                 build_section(s_data["parent"])
+               else
+                 nil
+               end
       Section.where(name: s_data["name"]).first_or_create do |s|
         s.name = s_data["name"]
         s.position = s_data["position"]
@@ -206,7 +225,7 @@ class Import::Page
           c_data["description"]
         hash[:body] = c_data["body"] if c_data["body"]
         hash[:base_url] = c_data["base_url"] if c_data["base_url"]
-        hash[:section_id] = options[:section].id if options[:section]
+        hash[:section_ids] = options[:sections].map(&:id) if options[:sections]
         hash[:subclass] = subclass if subclass # Not always needed.
         hash[:format] = ext if ext # Not always needed.
         hash[:language] = build_language(c_data["language"]) if

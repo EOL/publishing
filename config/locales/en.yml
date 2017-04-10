@@ -126,6 +126,8 @@ en:
   page_key_traits_header: "Key Traits"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
+  page_traits_toc_all_items: "all items"
+  page_traits_toc_other: "other"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     tabs:
@@ -182,6 +184,8 @@ en:
   search_medium_match_resource_pk: "Matches the external ID:"
   search_medium_match_owner: "Matches the copyright holder:"
   search_terms_title: "TraitBank Data"
+  sections:
+    physical_description: "physical description"
   send_me_reset_password_instructions: "Send me reset password instructions"
   show_more: "show more"
   show_date: "Show published date"

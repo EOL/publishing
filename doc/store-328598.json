@@ -2429,15 +2429,26 @@
         "name": "Milk Chemical Data",
         "partner": "Milk Chemical Database"
       },
-      "resource_pk": "m_00008532",
+      "resource_pk": "m_00008532jr",
       "predicate": {
-        "uri": "http://eol.org/schema/terms/FattyAcidCompositionOfMilk",
-        "name": "fatty acid composition of milk",
-        "definition": "",
+        "uri": "http://eol.org/schema/terms/FartyAcidCompositionOfMilk",
+        "name": "Fake acid composition of milk",
+        "definition": "This is a fake trait",
         "comment": "",
         "attribution": "",
         "is_hidden_from_overview": false,
-        "is_hidden_from_glossary": false
+        "is_hidden_from_glossary": false,
+        "sections": [
+          {
+            "parent": {
+              "parent": null,
+              "position": 1,
+              "name": "Overview"
+            },
+            "position": 3,
+            "name": "Physical Description"
+          }
+        ]
       },
       "source": null,
       "term": {
