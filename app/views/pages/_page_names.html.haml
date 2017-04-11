@@ -23,7 +23,9 @@
       .uk-card.uk-card-default
         .uk-card-body= t(:page_vernaculars_empty)
   - else
-    - @page.vernaculars.group_by { |n| n.language.group }.each do |lang, names_by_lang|
+    - all_names = @page.vernaculars.group_by { |n| n.language.group }
+    - all_names.keys.sort_by { |l| tl = t("languages.#{l}") ; tl == 0 ? l : tl }.each do |lang|
+      - names_by_lang = all_names[lang]
       %div
         .uk-card.uk-card-default
           .uk-card-header
