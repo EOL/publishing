@@ -79,7 +79,7 @@ class Page < ActiveRecord::Base
     end
     @articles =
       @articles.sort_by do |a|
-        a.first_section.position
+        a.first_section.try(:position) || 1000
       end
   end
 

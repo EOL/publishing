@@ -45,8 +45,8 @@ def add_sections_to_articles
   end
 
   secs = Section.all
-  Article.find_each do |art|
-    art.sections << secs.shuffle.first
+  Article.includes(:sections).find_each do |art|
+    art.sections << secs.shuffle.first if art.sections.empty?
     art.save!
   end
 end
