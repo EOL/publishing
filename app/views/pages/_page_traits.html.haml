@@ -8,7 +8,7 @@
         = link_to(t(:page_traits_toc_all_items), "#", data: { section_id: "all" })
       - @page.data_toc.each do |section|
         .item
-          = link_to(t("sections.#{section.name.gsub(/\s+/, "").underscore}"), "#", data: { section_id: section.id })
+          = link_to(t("sections.#{section.name}"), "#", data: { section_id: section.id })
       - if @page.data_toc_needs_other?
         .item
           = link_to(t(:page_traits_toc_other), "#", data: { section_id: "other" })

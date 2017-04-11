@@ -70,11 +70,61 @@ class Page < ActiveRecord::Base
 
   # MEDIA METHODS
 
-  def article
-    if page_contents.loaded?
-      page_contents.find { |pc| pc.content_type == "Article" }.try(:content)
+  def sorted_articles
+    return @articles if @articles
+    @articles = if page_contents.loaded?
+      page_contents.select { |pc| pc.content_type == "Article" }.map(&:content)
     else
-      articles.first
+      articles
+    end
+    @articles =
+      @articles.sort_by do |a|
+        a.first_section.position
+      end
+  end
+
+  def article
+    sorted_articles.first
+  end
+
+  def toc
+    return @toc if @toc
+    secs = sorted_articles.flat_map(&:sections).uniq
+    @toc = if secs.empty?
+      []
+    else
+      # Each section may have one (and ONLY one) parent, so we need to load
+      # those, too...
+      parent_ids = secs.map(&:parent_id).uniq
+      parent_ids.delete(0)
+      sec_ids = secs.map(&:id)
+      parent_ids.delete_if { |pid| sec_ids.include?(pid) }
+      parents = Section.where(id: parent_ids)
+      secs.sort_by { |s| s.position }
+      toc = []
+      last_section = nil
+      last_parent = nil
+      # NOTE: UUUUUUGHHHHH! This is SOOO UGLY!  ...Can we do this a better way?
+      sorted_articles.each do |a|
+        this_section = a.first_section
+        if this_section == last_section
+          # DO nothing.
+        else
+          last_section = this_section
+          if this_section.parent
+            if last_parent == this_section.parent
+              toc.last[this_section.parent] << this_section
+            else
+              last_parent = this_section.parent
+              toc << {this_section.parent => [this_section]}
+            end
+          else
+            last_parent = nil
+            toc << this_section
+          end
+        end
+      end
+      toc
     end
   end
 

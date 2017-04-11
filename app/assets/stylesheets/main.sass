@@ -13,12 +13,13 @@ $eol-black: #272727
 $eol-logo-green: #c1d72e
 $eol-green: rgb(192, 213, 48)
 $eol-light-green: #99cc33
-$eol-blue: #91bde5   
+$eol-blue: #91bde5
 $eol-dark-blue: #426c96
 $eol-red: #993333
 $eol-gray: #666666
 $eol-green: #447766
 $eol-orange: #d59046
+$eol-brown: #784848
 
 h1, h2, h3
   color: $eol-dark-blue
@@ -65,6 +66,9 @@ a
 .eol-secondary-alt
   background-color: $eol-orange !important
 
+  .uk-text-meta, .uk-iconnav > * > *
+    color: $eol-brown
+
 .eol-section-secondary
   @extend .eol-secondary
   font-weight: 300
@@ -90,8 +94,9 @@ a
   border-right: 2px solid #ccc
   border-top: 2px solid #dadada
 
-.ng-validation-error
-  color: #ff0000
+.uk-nav-default li.uk-active > a
+  font-size: 1.2em
+  color: #000
 
 .btn:focus
   background-color: rgb(147,147,147)

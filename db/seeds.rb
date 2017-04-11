@@ -5,6 +5,52 @@ raise "You need a page that has both an article and an image" unless
   page.media.count > 0
 puts "Attaching references to page #{page.id}"
 
+def add_sections_to_articles
+  [
+    { id: 1, parent_id: 0, name: "overview", position: 1 },
+    { id: 2, parent_id: 1, name: "brief_summary", position: 2 },
+    { id: 3, parent_id: 0, name: "physical_description", position: 5 },
+    { id: 4, parent_id: 0, name: "ecology", position: 203 },
+    { id: 6, parent_id: 0, name: "relevance_to_humans_and_ecosystems", position: 270 },
+    { id: 8, parent_id: 0, name: "conservation", position: 264 },
+    { id: 41, parent_id: 4, name: "habitat", position: 204 },
+    { id: 218, parent_id: 4, name: "dispersal", position: 206 },
+    { id: 242, parent_id: 4, name: "general_ecology", position: 211 },
+    { id: 251, parent_id: 6, name: "benefits", position: 271 },
+    { id: 267, parent_id: 3, name: "morphology", position: 6 },
+    { id: 285, parent_id: 4, name: "associations", position: 208 },
+    { id: 286, parent_id: 8, name: "conservation_status", position: 265 },
+    { id: 293, parent_id: 3, name: "diagnostic_description", position: 8 },
+    { id: 296, parent_id: 8, name: "management", position: 269 },
+    { id: 300, parent_id: 0, name: "wikipedia", position: 291 },
+    { id: 303, parent_id: 0, name: "names_and_taxonomy", position: 320 },
+    { id: 308, parent_id: 1, name: "comprehensive_description", position: 3 },
+    { id: 309, parent_id: 1, name: "distribution", position: 4 },
+    { id: 313, parent_id: 4, name: "diseases_and_parasites", position: 209 },
+    { id: 315, parent_id: 0, name: "life_history_and_behavior", position: 234 },
+    { id: 317, parent_id: 315, name: "cyclicity", position: 236 },
+    { id: 320, parent_id: 315, name: "reproduction", position: 239 },
+    { id: 321, parent_id: 315, name: "growth", position: 240 },
+    { id: 326, parent_id: 0, name: "molecular_biology_and_genetics", position: 258 },
+    { id: 329, parent_id: 326, name: "genetics", position: 259 },
+    { id: 333, parent_id: 326, name: "molecular_biology", position: 263 },
+    { id: 336, parent_id: 0, name: "notes", position: 292 },
+    { id: 347, parent_id: 303, name: "taxonomy", position: 324 }
+  ].each do |hash|
+    Section.where(hash).first_or_create do |s|
+      s.id = hash[:id]
+      s.parent_id = hash[:parent_id]
+      s_name = hash[:name]
+    end
+  end
+
+  secs = Section.all
+  Article.find_each do |art|
+    art.sections << secs.shuffle.first
+    art.save!
+  end
+end
+
 def add_referent(body, page, parents)
   ref = Referent.where(body: body).first_or_create do |r|
     r.body = body
@@ -80,6 +126,8 @@ animals.each do |animal|
     end
   animal.vernaculars << cmn
 end
+
+add_sections_to_articles
 
 [CollectionAssociation, Node, PageContent, ScientificName, Vernacular].
   each do |k|
