@@ -96,8 +96,16 @@ en:
       user:
         create: "Create account"
   languages:
+    ca: "Catalan"
+    de: "German"
     en: "English"
     fi: "Finnish"
+    fr: "French"
+    it: "Italian"
+    nl: "Dutch"
+    oc: "Occitan"
+    po: "Polish"
+    ru: "Russian"
     sp: "Spanish"
   layout_search_placeholder: "Search..."
   layout_sign_in: "Sign In"
