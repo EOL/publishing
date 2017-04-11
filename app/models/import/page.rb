@@ -250,20 +250,22 @@ class Import::Page
       rescue
         # Don't care
       end
-      options[:node].ancestors.each do |ancestor|
-        # TODO: we will have to figure out a proper algorithm for position. :S
-        pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
-        pos += 1
-        begin
-          PageContent.create(
-            page_id: ancestor.page_id,
-            source_page: @page,
-            position: pos,
-            content: content,
-            trust: :trusted
-          )
-        rescue
-          # Don't care...
+      unless klass == Article # Articles don't propagate!
+        options[:node].ancestors.each do |ancestor|
+          # TODO: we will have to figure out a proper algorithm for position. :S
+          pos = PageContent.where(page_id: ancestor.page_id).maximum(:position) || 0
+          pos += 1
+          begin
+            PageContent.create(
+              page_id: ancestor.page_id,
+              source_page: @page,
+              position: pos,
+              content: content,
+              trust: :trusted
+            )
+          rescue
+            # Don't care...
+          end
         end
       end
       content
