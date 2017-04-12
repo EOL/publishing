@@ -13,9 +13,8 @@
                   %li= link_to(t("sections.#{child.name}"), "#section_#{child.id}")
           - else
   .uk-width-2-3
-    - last_section = nil
-    - last_parent = nil
     - shown = {}
+    - shown_duplicates = {}
     - @page.sorted_articles.each do |article|
       - if section = article.first_section
         - if parent = section.parent
@@ -25,8 +24,14 @@
               %h2
                 = t("sections.#{parent.name}")
         - unless shown[section]
+          - unless shown.empty? || section.parent
+            %hr.uk-divider-icon
           - shown[section] = true
           .section.uk-margin.uk-text-center{ id: "section_#{section.id}" }
             %h3
               = t("sections.#{section.name}")
+        - if ! shown_duplicates[section] && @page.duplicate_articles.has_key?(section)
+          - shown_duplicates[section] = true
+          - @page.duplicate_articles[section].each do |dupe|
+            = render("page_article", article: dupe, duplicate: true)
       = render("page_article", article: article)

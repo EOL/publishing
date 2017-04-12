@@ -33,13 +33,23 @@ if(!EOL) {
       link.parent().addClass("active");
       var secId = link.data("section-id");
       if(secId == "all") {
+        $("table#traits thead tr").show();
         $("table#traits tbody tr").show();
+        $("#trait_glossary").show();
       } else if (secId == "other") {
+        $("table#traits thead tr").show();
         $("table#traits tbody tr").hide();
         $("table#traits tbody tr.section_other").show();
+        $("#trait_glossary").hide();
+      } else if (secId == "glossary") {
+        $("table#traits thead tr").hide();
+        $("table#traits tbody tr").hide();
+        $("#trait_glossary").show();
       } else {
+        $("table#traits thead tr").show();
         $("table#traits tbody tr").hide();
         $("table#traits tbody tr.section_"+secId).show();
+        $("#trait_glossary").hide();
       }
       e.stopPropagation();
       e.preventDefault();

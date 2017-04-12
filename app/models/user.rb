@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
   end
 
   def activate
-    self.update_attributes(active: true)
+    skip_confirmation!
+    self.active = true
+    save
   end
 
   def soft_delete
@@ -56,6 +58,14 @@ class User < ActiveRecord::Base
   # TODO: switch this to a role (once we have roles)
   def is_admin?
     admin?
+  end
+
+  def grant_admin
+    self.update_attribute(:admin, true)
+  end
+
+  def revoke_admin
+    self.update_attribute(:admin, false)
   end
 
   def can_delete_account? (user)

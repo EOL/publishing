@@ -13,6 +13,7 @@ en:
   account_not_linked: "your account is not linked to EOL"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
   article_from_partner: "provided by %{partner}"
+  article_duplicate: "this article is also shown in \"%{section}\""
   button_create: "create"
   button_add: "add"
   cancel: "cancel"
@@ -329,6 +330,7 @@ en:
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
   page_traits_toc_all_items: "all items"
+  page_traits_toc_glossary: "glossary"
   page_traits_toc_other: "other"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
@@ -469,6 +471,7 @@ en:
   trait_toggle_details: "details..."
   trait_unit_definition: "definition:"
   trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
+  traits_header_glossary: "Glossary"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"

@@ -81,6 +81,21 @@ class Page < ActiveRecord::Base
       @articles.sort_by do |a|
         a.first_section.try(:position) || 1000
       end
+    @duplicate_articles = {}
+    @articles.select { |a| a.sections.size > 1 }.each do |article|
+      # NOTE: don't try to use a #delete here, it calls the Rails #delete!
+      article.sections.each do |section|
+        next if section == article.first_section
+        @duplicate_articles[section] ||= []
+        @duplicate_articles[section] << article
+      end
+    end
+    @articles
+  end
+
+  def duplicate_articles
+    sorted_articles unless @duplicate_articles
+    @duplicate_articles
   end
 
   def article

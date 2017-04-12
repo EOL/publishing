@@ -12,6 +12,8 @@
       - if @page.data_toc_needs_other?
         .item
           = link_to(t(:page_traits_toc_other), "#", data: { section_id: "other" })
+      .item
+        = link_to(t(:page_traits_toc_glossary), "#", data: { section_id: "glossary" })
   .uk-width-expand.uk-overflow-auto
     %table#traits.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
       %thead
@@ -41,3 +43,15 @@
                 - show_trait_value(trait)
                 - show_metadata(trait)
               - show_source_col(trait)
+    #trait_glossary
+      %h3= t(:traits_header_glossary)
+      .uk-column-1-2
+        %dl.uk-description-list
+          - @page.glossary.each do |pair|
+            - term = pair.last
+            - next if term[:is_hidden_from_glossary]
+            %dt= link_to(term[:name], term_path(uri: term[:uri]))
+            %dd
+              .uk-text-muted.uk-text-small= term[:uri]
+              = term[:definition]
+              .uk-text-muted= term[:attribution]
