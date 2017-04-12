@@ -37,7 +37,7 @@ def add_sections_to_articles
     { id: 336, parent_id: 0, name: "notes", position: 292 },
     { id: 347, parent_id: 303, name: "taxonomy", position: 324 }
   ].each do |hash|
-    Section.where(hash).first_or_create do |s|
+    Section.where(id: hash[:id]).first_or_create do |s|
       s.id = hash[:id]
       s.parent_id = hash[:parent_id]
       s_name = hash[:name]

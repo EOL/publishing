@@ -2388,10 +2388,10 @@
           "parent": {
             "parent": null,
             "position": 1,
-            "name": "Overview"
+            "name": "overview"
           },
           "position": 2,
-          "name": "Brief Summary"
+          "name": "brief_summary"
         }
       ]
     }
@@ -2443,10 +2443,10 @@
             "parent": {
               "parent": null,
               "position": 1,
-              "name": "Overview"
+              "name": "overview"
             },
             "position": 3,
-            "name": "Physical Description"
+            "name": "physical_description"
           }
         ]
       },
