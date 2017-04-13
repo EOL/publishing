@@ -47,7 +47,7 @@
       %h3= t(:traits_header_glossary)
       .uk-column-1-2
         %dl.uk-description-list
-          - @page.glossary.each do |pair|
+          - @page.glossary.sort { |p| p[1][:name] }.each do |pair|
             - term = pair.last
             - next if term[:is_hidden_from_glossary]
             %dt= link_to(term[:name], term_path(uri: term[:uri]))
