@@ -4,12 +4,11 @@ if(!EOL) {
     console.log("Enabling Meta Traits to Toggle.");
     $(".toggle_meta").on("click", function (event) {
       event.stopPropagation();
-      var $table = $(this).next();
-      $table.toggle();
-      if ($table.is(":visible")) {
-        var $node = $(this).closest("tr");
-        $($('html,body')).unbind().animate({scrollTop: $node.offset().top - 50}, 400);
-      }
+      var $div = $(this).find(".meta_trait");
+      $.ajax({
+        type: "GET",
+        url: $(this).data("action")
+      });
     });
     $(".meta_trait").hide();
   };

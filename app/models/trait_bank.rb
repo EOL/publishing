@@ -158,7 +158,7 @@ class TraitBank
    # tr[2]["data"]["uri"] == "http://purl.obolibrary.org/obo/VT_0001259" }
    #
    # MATCH (page:Page { page_id: 1680 })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) MATCH (trait)-[:predicate]->(predicate:Term) OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) OPTIONAL MATCH (trait)-[:units_term]->(units:Term) OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term LIMIT 20
-    def by_page(page_id)
+    def by_page_with_metadata(page_id)
       # TODO: add proper pagination!
       res = query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
@@ -175,6 +175,41 @@ class TraitBank
       )
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+    end
+
+    def by_trait(full_id)
+      (_, resource_id, id) = full_id.split("--")
+      # TODO: add proper pagination!
+      q =
+        "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
+          "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "RETURN resource, trait, predicate, object_term, units, meta, "\
+          "meta_predicate, meta_object_term, meta_units_term "\
+        "LIMIT 2000"
+      res = query(q)
+      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
+        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+    end
+
+    def by_page(page_id)
+      # TODO: add proper pagination!
+      res = query(
+        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "RETURN resource, trait, predicate, object_term, units "\
+        "LIMIT 2000"
+      )
+      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
+        :units])
     end
 
     def by_predicate(predicate, options = {})
@@ -292,15 +327,17 @@ class TraitBank
         predicate = get_column_data(:predicate, trait_res, col)
         object_term = get_column_data(:object_term, trait_res, col)
         units = get_column_data(:units, trait_res, col)
-        meta_data = get_column_data(:meta, trait_res, col)
-        unless meta_data.blank?
-          meta_data = meta_data.symbolize_keys
-          meta_data[:predicate] = get_column_data(:meta_predicate, trait_res, col).try(:symbolize_keys)
-          meta_data[:object_term] = get_column_data(:meta_object_term, trait_res, col).try(:symbolize_keys)
-          meta_data[:units] = get_column_data(:meta_units_term, trait_res, col).try(:symbolize_keys)
+        if col_array.include?(:meta)
+          meta_data = get_column_data(:meta, trait_res, col)
+          unless meta_data.blank?
+            meta_data = meta_data.symbolize_keys
+            meta_data[:predicate] = get_column_data(:meta_predicate, trait_res, col).try(:symbolize_keys)
+            meta_data[:object_term] = get_column_data(:meta_object_term, trait_res, col).try(:symbolize_keys)
+            meta_data[:units] = get_column_data(:meta_units_term, trait_res, col).try(:symbolize_keys)
+          end
         end
-        this_id = "trait:#{resource_id}:#{trait["resource_pk"]}"
-        this_id += ":#{page["page_id"]}" if page
+        this_id = "trait--#{resource_id}--#{trait["resource_pk"]}"
+        this_id += "--#{page["page_id"]}" if page
         if this_id == previous_id && traits.last && ! meta_data.blank?
           begin
             traits.last[:metadata] ||= []

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get "traits"
   end
 
+  resources :traits, only: [:show]
+
   # Putting users second only because they tend to drive a lot of site behavior:
   devise_for :users, controllers: { registrations: "user/registrations",
                                     sessions: "user/sessions",
@@ -44,7 +46,7 @@ Rails.application.routes.draw do
 
   # TODO: Change. We really want this to point to a (dynamic) CMS page of some
   # sort.
-  root "users#index" 
+  root "users#index"
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

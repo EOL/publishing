@@ -27,11 +27,11 @@
           - predicate = @page.glossary[uri]
           - previous_predicate = nil
           - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
-            - id = "hide_#{trait[:id]}".underscore.gsub(/:/, "") # TODO: helper
-            -# TODO: I'm not happy with storing the ids of sections as a string. Should have helper. :S
+            -# TODO: I'm not happy with storing the ids of sections as a string in TraitBank. Should have helper. :S
             - sections = predicate[:section_ids].split(",").map { |i| "section_#{i}" }
             - sections = ["section_other"] if sections.empty?
-            %tr{ id: trait[:id], uk: { toggle: "target: ##{id}; animation: uk-animation-fade" }, class: sections.join(" ") }
+            - sections << "toggle_meta"
+            %tr{ id: trait[:id], class: sections.join(" "), data: { action: trait_path(trait[:id]) } }
               %th.uk-table-middle{ scope: "row" }
                 - if predicate == previous_predicate
                   / same predicate
@@ -41,13 +41,13 @@
                 - show_trait_modifiers(trait)
               %td
                 - show_trait_value(trait)
-                - show_metadata(trait)
+                - metadata_container(trait)
               - show_source_col(trait)
     #trait_glossary
       %h3= t(:traits_header_glossary)
       .uk-column-1-2
         %dl.uk-description-list
-          - @page.glossary.sort { |p| p[1][:name] }.each do |pair|
+          - @page.glossary.sort_by { |p| p[1][:name] }.each do |pair|
             - term = pair.last
             - next if term[:is_hidden_from_glossary]
             %dt= link_to(term[:name], term_path(uri: term[:uri]))

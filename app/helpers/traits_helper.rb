@@ -1,23 +1,28 @@
 # NOTE that you use the show_* methods with a - not a = because it's writing
 # to the stream directly, NOT building an output for you to show...
 module TraitsHelper
+  def metadata_container(trait)
+    return unless trait[:meta] ||
+      trait[:source] ||
+      trait[:object_term] ||
+      trait[:units]
+    haml_tag(:div, class: "meta_trait", style: "display: none;")
+  end
+
   def show_metadata(trait)
     return unless trait[:meta] ||
       trait[:source] ||
       trait[:object_term] ||
       trait[:units]
-    id = "hide_#{trait[:id]}".underscore.gsub(/:/, "")  # TODO: helper
-    haml_tag(:div, class: "meta_trait", id: id, hidden: true) do
-      haml_tag(:table) do
-        if trait[:metadata]
-          trait[:metadata].each do |meta_trait|
-            show_meta_trait(meta_trait)
-          end
+    haml_tag(:table) do
+      if trait[:metadata]
+        trait[:metadata].each do |meta_trait|
+          show_meta_trait(meta_trait)
         end
-        show_definition(trait[:units])
-        show_definition(trait[:object_term]) if trait[:object_term]
-        show_source(trait[:source]) if trait[:source]
       end
+      show_definition(trait[:units])
+      show_definition(trait[:object_term]) if trait[:object_term]
+      show_source(trait[:source]) if trait[:source]
     end
   end
 
