@@ -394,7 +394,7 @@ class Page < ActiveRecord::Base
     @literature_and_references_count ||= referents_count
   end
 
-  def richness_score
+  def score_richness
     RichnessScore.calculate(self)
   end
 

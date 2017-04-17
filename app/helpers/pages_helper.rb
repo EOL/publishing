@@ -76,7 +76,7 @@ module PagesHelper
     haml_tag("span.#{icon_size}") do
       if options[:current_page]
         haml_concat names.html_safe
-        haml_concat t(:classification_list_this_page)
+        haml_concat t("classifications.hierarchies.this_page")
       else
         haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
       end

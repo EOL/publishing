@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe RichnessScore do
-  describe "#richness_score" do
+  describe "#calculate" do
     let(:medium) { instance_double("PageContent", content_type: "medium") }
     let(:article) { instance_double("PageContent", content_type: "article") }
     let(:link) { instance_double("PageContent", content_type: "link") }

@@ -5,11 +5,11 @@ RSpec.describe Page do
     Section.brief_summary
   end
 
-  describe "#richness_score" do
+  describe "#score_richness" do
     let(:page) { create(:page) }
     it "should use the RichnessScore class" do
       expect(RichnessScore).to receive(:calculate).with(page) { :done }
-      expect(page.richness_score).to eq(:done)
+      expect(page.score_richness).to eq(:done)
     end
   end
 
