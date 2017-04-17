@@ -87,7 +87,16 @@ RSpec.describe "pages/show" do
       top_image: image1,
       traits: traits,
       traits_count: 3,
-      vernaculars: [vernacular]
+      vernaculars: [vernacular],
+      score_richness: 0,
+      page_contents_count: 0,
+      links_count: 0,
+      maps_count: 0,
+      vernaculars_count: 0,
+      scientific_names_count: 0,
+      referents_count: 0,
+      species_count: 0,
+      updated_at: Time.now
     )
   end
 
@@ -245,7 +254,16 @@ RSpec.describe "pages/show" do
         top_image: nil,
         traits: [],
         traits_count: 0,
-        vernaculars: []
+        vernaculars: [],
+        score_richness: 0,
+        page_contents_count: 0,
+        links_count: 0,
+        maps_count: 0,
+        vernaculars_count: 0,
+        scientific_names_count: 0,
+        referents_count: 0,
+        species_count: 0,
+        updated_at: Time.now
       )
     end
 
