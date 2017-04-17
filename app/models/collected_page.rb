@@ -22,7 +22,7 @@ class CollectedPage < ActiveRecord::Base
     text(:vernaculars) { page.vernaculars.preferred.map { |v| v.string } }
   end
 
-  def self.find_page(q, collection_id)
+  def self.find_pages(q, collection_id)
     CollectedPage.search do
       fulltext q  do
         fields(:name, :scientific_name, :preferred_scientific_names, :synonyms, :vernaculars)

@@ -75,7 +75,7 @@
       collected_pages_attributes: [:id, :page_id, :annotation,
         collected_pages_media_attributes: [:medium_id, :collected_page_id, :_destroy]])
   end
-  
+
   def sanitize_collection_params
     params[:collection][:collection_type] = Collection.collection_types[params[:collection][:collection_type]] if params[:collection]
   end

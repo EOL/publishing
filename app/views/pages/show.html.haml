@@ -61,7 +61,7 @@
             = t("pages.iucn_status.label")
             .detail= t("pages.iucn_status.#{@page.iucn_status_key}")
 
-  .uk-section.uk-padding-remove-vertical.uk-margin-top
+  .uk-margin-top
     %ul#page_nav.uk-tab.uk-child-width-expand
       - if @page.media_count > 0
         - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id), active: true)

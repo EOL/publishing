@@ -22,7 +22,7 @@ module PagesHelper
       if page.is_it_marine?
         str += " It is marine."
       end
-      unless page.habitats.empty?
+      unless page.habitats.blank?
         str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
       end
       bucket = page.id.to_s[0]
@@ -50,12 +50,12 @@ module PagesHelper
 
   def classification(this_node, ancestors)
     ancestors = Array(ancestors)
-    return nil if ancestors.empty?
+    return nil if ancestors.blank?
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("li.one") do
       summarize(page, current_page: ! this_node, node: node)
-      if ancestors.empty? && this_node
+      if ancestors.blank? && this_node
         haml_tag("ul.uk-list") do
           classification(nil, [this_node])
         end

@@ -1,15 +1,27 @@
-= render 'collection_header', collection: @collection
-%div.collected_pages
+.uk-section-default.uk-padding.uk-box-shadow-medium
+  .uk-header.uk-grid-medium{ uk: { grid: true } }
+    .uk-width-4-5
+      %h1= @collection.name
+      - unless @collection.description.blank?
+        .uk-text-muted= @collection.description.html_safe
+    - if policy(@collection).update?
+      .actions.uk-width-1-5
+        .ui.button
+          = link_to(t(:collection_edit_button), edit_collection_path(@collection))
+.collected_pages.uk-margin-top
   - if @collection.collected_pages.empty?
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %div
-      - if @collection.normal?
-        = render("normal", collection: @collection)
-      - else
-        = render("gallery", collection: @collection)
-%div.collection_association
+    = render "collected_pages_search"
+    %div.uk-margin-top
+      #collected_pages
+        -# TODO: pagination
+        - if @collection.gallery?
+          = render("collected_pages/gallery", collected_pages: @collection.collected_pages)
+        - else
+          = render("collected_pages/index", collected_pages: @collection.collected_pages)
+.collection_association.uk-margin-top
   - if @collection.collections.empty?
     %p= t(:collection_associations_empty)
   - else
@@ -23,4 +35,3 @@
             %th{ scope: "row" }
               .names.d-inline
                 = link_to(collection.name.html_safe, collection)
-%div.search_results

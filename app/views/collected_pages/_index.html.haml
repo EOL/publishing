@@ -1,6 +1,6 @@
-%ul.found_pages.uk-list
-  -# TODO: This will change...
-  - collection.collected_pages.each do |collected_page|
+%ul.uk-list
+  -# TODO: Pagination!
+  - collected_pages.each do |collected_page|
     = render("pages/as_row",
       page: collected_page.page,
       icon: collected_page.icon,

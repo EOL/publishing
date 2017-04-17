@@ -119,6 +119,8 @@ GEM
       multipart-post (>= 1.2, < 3)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
+    font-kit-rails (1.2.0)
+      rails
     friendly_id (5.2.0)
       activerecord (>= 4.0.0)
     globalid (0.3.7)
@@ -450,6 +452,7 @@ DEPENDENCIES
   devise-i18n-views
   factory_girl
   faker
+  font-kit-rails (~> 1.2.0)
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails

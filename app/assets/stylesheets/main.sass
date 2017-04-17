@@ -1,4 +1,7 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans)
+// NOTE: OpenSans is added via font-kit-rails. If you stop using that font,
+// REMOVE THAT GEM FROM THE GEMFILE (and this line):
+@import "font-kit-rails/open-sans"
+
 html
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight: 400
@@ -137,54 +140,11 @@ button a
 .search-indicator
   padding-top: 1.2em
 
-// PAGE HEADERS / JUMBOTRONS
-
 #main
   padding-top: 1em
 
-$high_jumbo: #fafbfc
-$mid_jumbo: #eaebec
-$low_jumbo: #f3f4f5
-$high_crumb: #fbfcfe
-$low_crumb: #f7f7f7
-
-.jumbotron
-  box-shadow: 4px 4px 16px #eee
-  border: 1px solid darken($mid_jumbo, 5%)
-  background: -webkit-linear-gradient(top, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Chrome10-25, Safari5.1-6 */
-  background: linear-gradient(to bottom, $high_jumbo 0%, $mid_jumbo 20%, $low_jumbo 100%) /* Most, not old IE */
-
-.actions
-  text-align: right
-  padding-top: 1.3em
-
-.actions a
-  box-shadow: 1px 1px 5px #ccc
-  color: #283593
-  font-weight: 600
-  margin: 1em 0.3em
-  font-family: Roboto,"Helvetica Neue",sans-serif
-
-.actions button
-  margin: 1em 0.3em
-
-.autocomplete-result
-  height: 50px
-  padding-top: 3px
-
-.autocomplete-result .icon
-  padding-left: 22px
-
-.autocomplete-result .icon img
-  width: 44px
-  height: 44px
-
-.autocomplete-result .names
-  margin-left: 0
-
-.autocomplete-result .names ul
-  padding-left: 0
-  list-style-type: none
+#collected_pages_search
+  height: 4em
 
 // FORMS (SITE-WIDE)
 

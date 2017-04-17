@@ -53,6 +53,9 @@ gem 'counter_culture', '~> 0.1.33'
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
+# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
+# YOU SHOULD REMOVE THIS GEM!
+gem 'font-kit-rails', '~> 1.2.0'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:

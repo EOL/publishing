@@ -25,14 +25,11 @@ Rails.application.routes.draw do
   end
 
   # All of the "normal" resources:
-  resources :collections
-  resources :collection_associations, only: [:new, :create]
-  resources :collected_pages, only: [:new, :create] do
-    collection do
-      get "search", defaults: { format: "json" }
-      get "search_results"
-    end
+  resources :collections do
+    resources :collected_pages, only: [:index]
   end
+  resources :collection_associations, only: [:new, :create]
+  resources :collected_pages, only: [:new, :create]
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
@@ -42,7 +39,6 @@ Rails.application.routes.draw do
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
-  get "/clade_filter" => "terms#clade_filter", :as => "clade_filter"
 
   # TODO: Change. We really want this to point to a (dynamic) CMS page of some
   # sort.

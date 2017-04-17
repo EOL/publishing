@@ -1,6 +1,14 @@
 class CollectedPagesController < ApplicationController
   layout "application"
 
+  def index
+    if params[:q]
+      @results = CollectedPage.find_pages(params[:q], params[:collection_id])
+    else
+      @collection = Collection.find(params[:collection_id])
+    end
+  end
+
   def new
     @collected_page = CollectedPage.new(new_page_params)
     @page = @collected_page.page
@@ -24,38 +32,7 @@ class CollectedPagesController < ApplicationController
     end
   end
 
-  def search
-    pages = CollectedPage.find_page(params[:q],
-     params[:collection_id]).results.map(&:page)
-    respond_to do |format|
-         # TODO: JSON results for other types!
-      format.json do
-        render json: JSON.pretty_generate(pages.as_json(
-          except: :native_node_id,
-          methods: :scientific_name,
-          include: {
-            preferred_vernaculars: { only: [:string],
-              include: { language: { only: :code } } },
-            top_image: { only: [ :id, :guid, :owner, :name ],
-              methods: [:small_icon_url, :medium_icon_url],
-              include: { provider: { only: [:id, :name] },
-                license: { only: [:id, :name, :icon_url] } } }
-          }
-        ))
-      end
-    end
-  end
-
-  def search_results
-    collected_pages = CollectedPage.find_page(params[:q],
-    params[:collection_id]).results
-    respond_to do |format|
-      format.html {render partial: 'search_results', 
-        locals: {collected_pages: collected_pages, q: params[:q] }}
-    end
-  end
-
-  private
+private
 
   def collected_page_params
     params.require(:collected_page).permit(:collection_id, :page_id, collected_pages_media_attributes: [:medium_id])
