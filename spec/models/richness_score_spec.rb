@@ -19,8 +19,8 @@ RSpec.describe RichnessScore do
           page_contents: [medium, article, link])
       end
 
-      it "should score 0.31 as configured" do
-        expect(RichnessScore.calculate(page)).to eq 0.31
+      it "should score 3086 as configured" do
+        expect(RichnessScore.calculate(page)).to eq 3086
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe RichnessScore do
           "Section Diversity: 0 / 10 -> 0.0 * 0.25 = 0.0\n"\
           "Data Diversity: 0 / 100 -> 0.0 * 0.25 = 0.0\n"\
           "References: 0 -> 0 * 0.03 = 0.0\n"\
-          "TOTAL: 0.0")
+          "TOTAL: 0")
       end
 
       it "scores 0" do

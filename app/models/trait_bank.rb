@@ -228,9 +228,6 @@ class TraitBank
         "trait.literal, object_term.name, trait.normal_measurement"
       end
       dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
-      puts "************"
-      puts "** sort: #{sort}"
-      puts "** Direction: #{dir}"
       # TODO: pull in more for the metadata...
       res = query(
         "MATCH (page:Page)-[:trait]->(trait:Trait)"\
@@ -586,7 +583,12 @@ class TraitBank
     end
 
     def sort(traits, options = {})
-      traits.sort_by do |a, b|
+      traits.sort do |a, b|
+        if a.nil?
+          return b.nil? ? 0 : 1
+        elsif b.nil?
+          return -1
+        end
         if options[:by_value]
           sort_by_values(a, b)
         else
