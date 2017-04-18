@@ -30,7 +30,7 @@ class RichnessScore
     score_section_diversity
     score_data_diversity
     score_references
-    @scores.values.inject(0, &:+ ).round(2)
+    (@scores.values.inject(0, &:+ ).round(4) * 10_000).to_i
   end
 
   def score_media

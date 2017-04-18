@@ -21,32 +21,35 @@
     .uk-text-lead= t("classifications.children.empty")
 %h2= t("classifications.richness.header")
 #page-richness.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
-  .uk-column-1-4
+  .uk-grid-small.uk-child-width-1-4{ uk: { grid: true } }
     %dl.uk-description-list
       %dt= t("classifications.richness.score")
       -# TODO: change this to the cached value.
-      %dd= @page.score_richness
+      %dd= @page.richness / 100.0
       %dt.uk-margin-small-top= t("classifications.richness.page_contents_count")
       %dd= @page.page_contents_count
       %dt.uk-margin-small-top= t("classifications.richness.media_count")
       %dd= @page.media_count
+      %dt.uk-margin-small-top= t("classifications.richness.updated_at")
+      %dd= l(@page.updated_at, format: :short)
+    %dl.uk-description-list
       %dt.uk-margin-small-top= t("classifications.richness.articles_count")
       %dd= @page.articles_count
       %dt.uk-margin-small-top= t("classifications.richness.links_count")
       %dd= @page.links_count
       %dt.uk-margin-small-top= t("classifications.richness.maps_count")
       %dd= @page.maps_count
+    %dl.uk-description-list
       %dt.uk-margin-small-top= t("classifications.richness.traits_count")
       %dd= @page.traits_count
       %dt.uk-margin-small-top= t("classifications.richness.nodes_count")
       %dd= @page.nodes_count
       %dt.uk-margin-small-top= t("classifications.richness.vernaculars_count")
       %dd= @page.vernaculars_count
+    %dl.uk-description-list
       %dt.uk-margin-small-top= t("classifications.richness.scientific_names_count")
       %dd= @page.scientific_names_count
       %dt.uk-margin-small-top= t("classifications.richness.referents_count")
       %dd= @page.referents_count
       %dt.uk-margin-small-top= t("classifications.richness.species_count")
       %dd= @page.species_count
-      %dt.uk-margin-small-top= t("classifications.richness.updated_at")
-      %dd= l(@page.updated_at, format: :short)

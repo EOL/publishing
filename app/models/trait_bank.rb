@@ -586,7 +586,7 @@ class TraitBank
     end
 
     def sort(traits, options = {})
-      traits.sort do |a, b|
+      traits.sort_by do |a, b|
         if options[:by_value]
           sort_by_values(a, b)
         else
@@ -596,7 +596,7 @@ class TraitBank
     end
 
     def get_name(trait, which = :predicate)
-      if trait.has_key?(which)
+      if trait && trait.has_key?(which)
         if trait[which].has_key?(:name)
           trait[which][:name]
         elsif trait[which].has_key?(:uri)
