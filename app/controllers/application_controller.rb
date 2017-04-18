@@ -1,6 +1,21 @@
 class ApplicationController < ActionController::Base
   before_filter :set_locale
 
+  # For demo, we're using Basic Auth:
+  if Rails.application.secrets.user_id
+    before_filter :authenticate
+  end
+
+  protected
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+        username == Rails.application.secrets.user_id &&
+        password == Rails.application.secrets.password
+      end
+    end
+
+  public
+
   # Authorization:
   include Pundit
   # TODO: we may want to use :null_session when for the API, when we set that up.
