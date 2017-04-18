@@ -5,7 +5,7 @@ namespace :stats do
     scores = Hash.new(0)
     examples = {}
     count = 0
-    print "#{Page.count} pages"
+    puts "#{Page.count} pages"
     Page.find_each do |page|
       band = page.richness / 500
       if scores[band] == 0
@@ -24,7 +24,7 @@ namespace :stats do
   end
 
   task score_richness: :environment do
-    print "#{Page.count} pages"
+    puts "#{Page.count} pages"
     count = 0
     Page.find_each do |page|
       page.score_richness

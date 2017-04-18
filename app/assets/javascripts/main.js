@@ -3,12 +3,22 @@ if(!EOL) {
   EOL.allow_meta_traits_to_toggle = function() {
     console.log("Enabling Meta Traits to Toggle.");
     $(".toggle_meta").on("click", function (event) {
-      event.stopPropagation();
       var $div = $(this).find(".meta_trait");
-      $.ajax({
-        type: "GET",
-        url: $(this).data("action")
-      });
+      if($div.is(':visible')) {
+        $div.hide();
+      } else {
+        if($div.html() === "") {
+          console.log("Loading row...");
+          $.ajax({
+            type: "GET",
+            url: $(this).data("action")
+          });
+        } else {
+          $(".meta_trait").hide();
+          $div.show();
+        }
+      }
+      return event.stopPropagation();
     });
     $(".meta_trait").hide();
   };

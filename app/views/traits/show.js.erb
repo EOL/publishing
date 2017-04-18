@@ -1,4 +1,2 @@
-console.log("here");
-console.log("row: tr#<%= params[:id] %> .meta_trait");
-console.log("render: <%= escape_javascript(render("show", trait: @trait)) %>");
+$(".meta_trait").hide();
 $("tr#<%= params[:id] %> .meta_trait").html("<%= escape_javascript(render("show", trait: @trait)) %>").show();
