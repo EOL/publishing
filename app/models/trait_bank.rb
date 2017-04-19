@@ -242,7 +242,7 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units, meta, "\
           "meta_predicate, meta_object_term, meta_units_term "\
-        "ORDER BY #{sort} #{dir}"\
+        "ORDER BY #{sort} #{dir} "\
         "LIMIT 50"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
