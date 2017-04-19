@@ -1,5 +1,7 @@
 module PagesHelper
   def construct_summary(page)
+    # TODO: really this should be "treat_as" tests, not rank names
+    return "" unless page.rank && ["species", "genus", "family"].include?(page.rank.name)
     Rails.cache.fetch("constructed_summary/#{page.id}") do
       node = page.native_node || page.nodes.first
       ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
@@ -10,11 +12,14 @@ module PagesHelper
       end
       if ancestors[0]
         str += " #{page.scientific_name =~ /\s[a-z]/ ? "is" : "are" } #{indefinite_articleize(ancestors[0].name.singularize)}"
-        if ancestors[-2]
+        if ancestors[-2] && ancestors[-2] != ancestors[0]
           str += " in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].scientific_name}."
         end
-      else
-        str += " is a top-level classification."
+      end
+      # TODO: really this should be "treat_as" tests, not rank names
+      if ["genus", "family"].include?(page.rank.name)
+        count = page.species_count
+        str += " It has #{count} species."
       end
       if page.is_it_extinct?
         str += " This species is extinct."
@@ -37,7 +42,6 @@ module PagesHelper
   def indefinite_articleize(word)
     %w(a e i o u).include?(word[0].downcase) ? "an #{word}" : "a #{word}"
   end
-
 
   # Options: icon, count, path, name, active
   def tab(options)

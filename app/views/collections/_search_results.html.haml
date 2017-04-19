@@ -10,9 +10,9 @@
         %td
           .names
             = link_to(emphasize_match(collection.name.titleize, @q), collection, class: "primary-name")
-          .names
+          .fields
             - if collection.description =~ /#{@q}/
-              %br/
-              %b= t("search_results.field_matches.description")
+              - unless @q.blank?
+                %b= t("search_results.field_matches.description")
               = emphasize_match(collection.description, @q)
 = paginate @collections.results, remote: true, params: { only: "collections" }

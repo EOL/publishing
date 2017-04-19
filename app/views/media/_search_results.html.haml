@@ -10,17 +10,21 @@
         %td
           .names
             = link_to(emphasize_match(medium.name.titleize, @q), medium, class: "primary-name")
-          .names
-            - if medium.description =~ /#{@q}/
-              %br/
+          .fields
+            - unless @q.blank?
               %b= t("search_results.field_matches.description")
-              = emphasize_match(medium.description, @q)
-            - if medium.resource_pk =~ /#{@q}/
-              %br/
-              %b= t("search_results.field_matches.resource_pk")
-              = emphasize_match(medium.resource_pk, @q)
-            - if medium.owner =~ /#{@q}/
-              %br/
+            = emphasize_match(medium.description, @q)
+            - unless @q.blank?
+              - if medium.resource_pk =~ /#{@q}/
+                %br/
+                %b= t("search_results.field_matches.resource_pk")
+                = emphasize_match(medium.resource_pk, @q)
+            %br/
+            - if @q.blank? && medium.owner !~ /^[&(©]/
+              %b
+                = t("content_attributions_labels.owner")
+                \:
+            - elsif ! @q.blank?
               %b= t("search_results.field_matches.owner")
-              = emphasize_match(medium.owner, @q)
+            = emphasize_match(medium.owner, @q)
 = paginate @media.results, remote: true, params: { only: "media" }

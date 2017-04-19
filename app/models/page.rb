@@ -68,6 +68,18 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def descendant_species
+    return species_count unless species_count.nil?
+    count_species
+  end
+
+  def count_species
+    count = native_node.leaves.
+      where(["rank_id IN (?)", Rank.all_species_ids]).count
+    update_attribute(:species_count, count)
+    count
+  end
+
   # MEDIA METHODS
 
   def sorted_articles

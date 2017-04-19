@@ -23,6 +23,7 @@ RSpec.describe "pages/show" do
       name: "Great Second Image")
   end
   let(:rank) { create(:rank) }
+  let(:rank_sp) { create(:rank, name: "species") }
 
   # NOTE: I think we'll eventually want to extract this into a nice class to
   # mock pages for views... but ATM we only need it once, here, so I'm leaving
@@ -82,6 +83,7 @@ RSpec.describe "pages/show" do
       native_node: node,
       occurrence_map?: false,
       predicates: traits.map { |t| t[:predicate][:uri] },
+      rank: rank_sp,
       scientific_name: sci_name.italicized,
       scientific_names: [sci_name],
       top_image: image1,
@@ -234,6 +236,7 @@ RSpec.describe "pages/show" do
         articles: [],
         articles_count: 0,
         nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...
+        descendant_species: 0,
         glossary: [],
         grouped_traits: nil,
         habitats: "",
@@ -249,6 +252,7 @@ RSpec.describe "pages/show" do
         native_node: nil,
         occurrence_map?: false,
         predicates: [],
+        rank: rank_sp,
         scientific_name: sci_name.italicized,
         scientific_names: [sci_name],
         top_image: nil,

@@ -179,7 +179,7 @@ class TraitBank
 
     def by_trait(full_id)
       (_, resource_id, id) = full_id.split("--")
-      # TODO: add proper pagination!
+      # TODO: add proper pagination!  For now, limiting to 50 results to speed things up. 2000 was waaaaaaay too slow.
       q =
         "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
@@ -191,7 +191,7 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "RETURN resource, trait, predicate, object_term, units, meta, "\
           "meta_predicate, meta_object_term, meta_units_term "\
-        "LIMIT 2000"
+        "LIMIT 50"
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])

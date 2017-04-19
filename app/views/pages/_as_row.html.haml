@@ -62,5 +62,6 @@
               - unless resource.name =~ /#{resource.partner.short_name}/
                 = "(#{emphasize_match(resource.partner.short_name, @q)})"
       - else # (no query string)
-        .uk-margin-top-small
-          = construct_summary(page)
+        - if summary = construct_summary(page)
+          .uk-margin-top-small
+            = summary

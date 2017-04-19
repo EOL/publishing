@@ -1,15 +1,19 @@
 require "rails_helper"
 
 describe PagesHelper do
+  let(:rank_sp) { instance_double("Rank", name: "species") }
+  let(:rank_g) { instance_double("Rank", name: "genus") }
+  let(:rank_fam) { instance_double("Rank", name: "family") }
+
   describe "#construct_summary" do
-    let(:rank) { instance_double("Rank", name: "class") }
+    let(:rank_class) { instance_double("Rank", name: "class") }
     let(:invisible_ancestor) { instance_double("Node", has_breadcrumb?: false) }
     let(:first_ancestor) { instance_double("Node", has_breadcrumb?: true,
       name: "boobars") }
     let(:an_ancestor) { instance_double("Node", has_breadcrumb?: true,
       name: "animal") }
     let(:penultimate_ancestor) { instance_double("Node", has_breadcrumb?: true,
-      rank: rank, scientific_name: "Sci bar") }
+      rank: rank_class, scientific_name: "Sci bar") }
     let(:last_ancestor) { instance_double("Node", has_breadcrumb?: true) }
 
     let(:node) do
@@ -35,13 +39,20 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: false,
           is_it_marine?: false,
-          habitats: ""
+          habitats: "",
+          rank: rank_sp,
+          species_count: 123
         )
       end
 
       it "constructs a summary" do
         expect(helper.construct_summary(page)).
           to eq("Sci foo (something) is a boobar in the class Sci bar.")
+      end
+
+      it "does NOT count species" do
+        expect(helper.construct_summary(page)).
+          not_to match /has 123 species/
       end
     end
 
@@ -54,13 +65,55 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: false,
           is_it_marine?: false,
-          habitats: ""
+          habitats: "",
+          rank: rank_sp
         )
       end
 
       it "uses 'an'" do
         expect(helper.construct_summary(page)).
           to match("an animal")
+      end
+    end
+
+    context "higher-level page" do
+      let(:page) do
+        instance_double("Page",
+          id: 1,
+          native_node: node_with_an,
+          name: "something",
+          scientific_name: "Sci foo",
+          is_it_extinct?: false,
+          is_it_marine?: false,
+          habitats: "",
+          rank: rank_class
+        )
+      end
+
+      it "should be blank" do
+        expect(helper.construct_summary(page)).
+          to be_blank
+      end
+    end
+
+    context "genus-level page" do
+      let(:page) do
+        instance_double("Page",
+          id: 1,
+          native_node: node_with_an,
+          name: "something",
+          scientific_name: "Sci foo",
+          is_it_extinct?: false,
+          is_it_marine?: false,
+          habitats: "",
+          rank: rank_g,
+          species_count: 123
+        )
+      end
+
+      it "should count species" do
+        expect(helper.construct_summary(page)).
+          to match /it has 123 species/i
       end
     end
 
@@ -73,32 +126,14 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: false,
           is_it_marine?: false,
-          habitats: ""
+          habitats: "",
+          rank: rank_sp
         )
       end
 
       it "has no parens" do
         expect(helper.construct_summary(page)).
           not_to match(/\(/)
-      end
-    end
-
-    context "page with no ancestors" do
-      let(:page) do
-        instance_double("Page",
-          id: 1,
-          native_node: top_node,
-          name: "Sci foo",
-          scientific_name: "Sci foo",
-          is_it_extinct?: false,
-          is_it_marine?: false,
-          habitats: ""
-        )
-      end
-
-      it "says it is top level" do
-        expect(helper.construct_summary(page)).
-          to match(/is a top-level classification/)
       end
     end
 
@@ -111,7 +146,8 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: true,
           is_it_marine?: false,
-          habitats: ""
+          habitats: "",
+          rank: rank_sp
         )
       end
 
@@ -130,7 +166,8 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: false,
           is_it_marine?: true,
-          habitats: ""
+          habitats: "",
+          rank: rank_sp
         )
       end
 
@@ -149,7 +186,8 @@ describe PagesHelper do
           scientific_name: "Sci foo",
           is_it_extinct?: true,
           is_it_marine?: true,
-          habitats: "foo, bar, baz"
+          habitats: "foo, bar, baz",
+          rank: rank_sp
         )
       end
 

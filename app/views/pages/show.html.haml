@@ -35,8 +35,9 @@
           %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
             %i.plus.icon
             = t(:taxon_collect_button)
-      .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
-        = construct_summary(@page)
+      - if summary = construct_summary(@page)
+        .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
+          = summary
       - unless @page.traits.empty?
         .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
           %h3.uk-heading-divider

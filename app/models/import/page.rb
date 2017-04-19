@@ -402,8 +402,12 @@ class Import::Page
 
     def build_rank(name)
       name ||= "unknown" # Sigh.
+      treat_as_sym = Rank.guess_treat_as(name)
+      treat_as = treat_as_sym ? Rank.treat_as[treat_as_sym] : nil
+
       Rank.where(name: name).first_or_create do |r|
         r.name = name
+        r.treat_as = treat_as
       end
     end
 

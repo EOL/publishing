@@ -133,3 +133,5 @@ add_sections_to_articles
   each do |k|
     k.counter_culture_fix_counts
   end
+
+Rank.fill_in_missing_treat_as
