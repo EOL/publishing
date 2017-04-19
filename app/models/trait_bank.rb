@@ -548,7 +548,11 @@ class TraitBank
         a[:literal].downcase.gsub(/<\/?[^>]+>/, "") <=>
           b[:literal].downcase.gsub(/<\/?[^>]+>/, "")
       elsif a[:measurement] && b[:measurement]
-        a[:measurement] <=> b[:measurement]
+        if a[:measurement].is_a?(String) || b[:measurement].is_a?(String)
+          a[:measurement].to_s <=> b[:measurement].to_s
+        else
+          a[:measurement] <=> b[:measurement]
+        end
       else
         term_a = get_name(a, :object_term)
         term_b = get_name(b, :object_term)
@@ -569,7 +573,7 @@ class TraitBank
       name_b = get_name(b)
       if name_a && name_b
         if name_a == name_b
-          sort_by_values(a,b)
+          sort_by_values(a, b)
         else
           name_a.downcase <=> name_b.downcase
         end
@@ -578,22 +582,26 @@ class TraitBank
       elsif name_b
         1
       else
-        sort_by_values(a,b)
+        sort_by_values(a, b)
       end
     end
 
     def sort(traits, options = {})
-      traits.sort do |a, b|
-        if a.nil?
-          return b.nil? ? 0 : 1
-        elsif b.nil?
-          return -1
+      begin
+        traits.sort do |a, b|
+          if a.nil?
+            return b.nil? ? 0 : 1
+          elsif b.nil?
+            return -1
+          end
+          if options[:by_value]
+            sort_by_values(a, b)
+          else
+            sort_by_predicates(a, b)
+          end
         end
-        if options[:by_value]
-          sort_by_values(a, b)
-        else
-          sort_by_predicates(a, b)
-        end
+      rescue => e
+        debugger
       end
     end
 

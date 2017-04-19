@@ -30,6 +30,10 @@ if(!EOL) {
       var link = $(this);
       thisId = link.data("this-id");
       tgtId = link.data("tgt-id");
+      console.log("Switching images. This: "+thisId+" Target: "+tgtId);
+      // Odd: removing this (extra show()) causes a RELOADED page of image
+      // modals to stop working:
+      UIkit.modal("#"+thisId).show();
       UIkit.modal("#"+thisId).hide();
       UIkit.modal("#"+tgtId).show();
     });
@@ -69,7 +73,7 @@ if(!EOL) {
 
 $(document).ready(function() {
   $("#page_nav a").on("click", function() {
-    $("#page_nav_content").children().slideUp({ duration: 500 });
+    $("#page_nav_content").children().hide();
     $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
   });
   if ($("#gallery").length === 1) {
