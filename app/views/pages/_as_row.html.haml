@@ -1,6 +1,7 @@
 - icon ||= page.icon
 - common ||= page.name
 - scientific ||= page.scientific_name
+- has_query = defined?(@q) && ! @q.blank?
 %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
   .uk-card-body.uk-grid-small{ uk: { grid: true } }
     - if icon
@@ -8,12 +9,7 @@
         %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
           %canvas{ width: "130", height: "130" }
           %img{ src: icon, "uk-cover": true }
-    .uk-width-4-5
-      -# .page-ancestors
-      -#   %ol.breadcrumb
-      -#     - page.native_node.ancestors.each do |node|
-      -#       %li.breadcrumb-item= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
-      -# #breadcrumbs.page-ancestors.uk-column-span   CHANGED
+    .uk-width-2-3
       .page-ancestors
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
           - ancestors = page.native_node.ancestors
@@ -21,20 +17,19 @@
           - ancestors.each do |node|
             - unless node.has_breadcrumb?
               - unless shown_ellipsis
-                %li
-                  …
+                &nbsp;…
                 - shown_ellipsis = true
               - next
             %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
             - shown_ellipsis = false
 
       .names.d-inline
-        - sci_name = defined?(@q) ? emphasize_match(scientific, @q) : scientific.html_safe
+        - sci_name = has_query ? emphasize_match(scientific, @q) : scientific.html_safe
         - if common.blank?
           .uk-text-large= link_to(sci_name, page, class: "primary-name")
         - else
           .uk-text-large
-            - if defined?(@q)
+            - if has_query
               = link_to(emphasize_match(common.titleize, @q), page, class: "primary-name")
             - else
               = link_to(common.titleize.html_safe, page, class: "primary-name")
@@ -48,7 +43,7 @@
             - next if medium.medium_icon_url == icon
             .col-md-1
               = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
-      - if defined?(@q)
+      - if has_query
         %ul.matches.uk-margin-top-small
           -# TODO: redo the formatting here. It was meant to join all of the names on one line; that's not working anymore.
           -# Other vernaculars that match:

@@ -1,0 +1,26 @@
+%h2= t("search_results.section_titles.media", count: @media.total)
+= paginate @media.results, remote: true, params: { only: "media" }
+%table.media
+  %tbody
+    - @media.results.each do |medium|
+      %tr
+        %td.medium-table-image
+          -# TODO: media don't have icons yet; change this.
+          = link_to(image_tag(medium.medium_icon_url), medium)
+        %td
+          .names
+            = link_to(emphasize_match(medium.name.titleize, @q), medium, class: "primary-name")
+          .names
+            - if medium.description =~ /#{@q}/
+              %br/
+              %b= t("search_results.field_matches.description")
+              = emphasize_match(medium.description, @q)
+            - if medium.resource_pk =~ /#{@q}/
+              %br/
+              %b= t("search_results.field_matches.resource_pk")
+              = emphasize_match(medium.resource_pk, @q)
+            - if medium.owner =~ /#{@q}/
+              %br/
+              %b= t("search_results.field_matches.owner")
+              = emphasize_match(medium.owner, @q)
+= paginate @media.results, remote: true, params: { only: "media" }

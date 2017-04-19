@@ -26,7 +26,7 @@ RSpec.describe "search/search" do
       allow(page).to receive(:native_node) { node }
       allow(page).to receive(:vernaculars) { [name, another_name, nonmatching_name] }
       allow(page).to receive(:resources) { resources }
-      search_results = double("Sunspot::Search", results: [page])
+      search_results = fake_search_results([page])
       assign(:pages, search_results)
       assign(:empty, false)
       assign(:q, "common")
@@ -44,7 +44,7 @@ RSpec.describe "search/search" do
 
   context "with no results" do
     before do
-      search_results = double("Sunspot::Search", results: [])
+      search_results = fake_search_results([])
       assign(:pages, search_results)
       assign(:empty, true)
       assign(:q, "nothing")
@@ -59,10 +59,13 @@ RSpec.describe "search/search" do
       collection = build(:collection, name: "yo dude",
         description: "a really LONG description that should be truncated "\
           "enough that you dont see the capitalized word when searching, dude")
-      search_results = double("Sunspot::Search", results: [collection])
+      search_results = fake_search_results([collection])
       assign(:collections, search_results)
       assign(:empty, false)
       assign(:q, "dude")
+      # TODO: something about the image_tag helper in the view takes ***20***
+      # seconds to work! So I'm stubbing it here. Yeesh!
+      allow(view).to receive(:image_tag) { "<img foo>" }
       render
     end
 
@@ -81,7 +84,7 @@ RSpec.describe "search/search" do
         description: "a really LONG description that should be lost so "\
           "that you dont see the capitalized word when searching, earthling")
       allow(medium).to receive(:medium_icon_url) { "some_url_here.jpg" }
-      search_results = double("Sunspot::Search", results: [medium])
+      search_results = fake_search_results([medium])
       assign(:media, search_results)
       assign(:empty, false)
       assign(:q, "earthling")

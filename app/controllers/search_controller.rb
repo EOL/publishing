@@ -10,7 +10,7 @@ class SearchController < ApplicationController
     params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
 
     default = params.has_key?(:only)? false : true
-    
+
     @types = {}
     [ :pages, :collections, :media, :users, :object_terms ].each do |sym|
       @types[sym] = default
@@ -59,6 +59,8 @@ class SearchController < ApplicationController
         # Object terms is unusual:
         @empty = false if @object_terms && ! @object_terms.empty?
       end
+
+      fmt.js { }
 
       # TODO: JSON results for other types!
       fmt.json do

@@ -42,4 +42,12 @@ module EolSpecHelpers
       is_hidden_from_overview: false
     }
   end
+
+  def fake_search_results(array)
+    results = Array(array)
+    allow(results).to receive(:total_pages) { 1 }
+    allow(results).to receive(:current_page) { 1 }
+    allow(results).to receive(:limit_value) { 1 }
+    double("Sunspot::Search", results: results, total: 1)
+  end
 end

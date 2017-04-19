@@ -398,19 +398,30 @@ en:
       synonym: "Synonyms"
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
-  search_media_title: "Media"
-  search_pages_title: "Pages"
-  search_users_title: "Users"
   search_empty: "No results found for \"%{q}\"."
   search_header: "Search Results for \"%{q}\""
-  search_collection_match_description: "Matches the collection's description:"
-  search_collections_title: "Collections"
-  search_user_match_bio: "Matches the user's biography:"
-  search_user_match_tag_line: "Matches the user's tag line:"
-  search_medium_match_description: "Matches the description:"
-  search_medium_match_resource_pk: "Matches the external ID:"
-  search_medium_match_owner: "Matches the copyright holder:"
-  search_terms_title: "TraitBank Data"
+  search_results:
+    header: "results"
+    section_titles:
+      collections:
+        one: "%{count} collection"
+        other: "%{count} collections"
+      media:
+        one: "%{count} medium"
+        other: "%{count} media"
+      pages:
+        one: "%{count} eol page (species)"
+        other: "%{count} eol pages (species)"
+      terms: "data records (TraitBank)"
+      users:
+        one: "%{count} user"
+        other: "%{count} users"
+    field_matches:
+      description: "matches the description:"
+      resource_pk: "matches the external ID:"
+      owner: "matches the copyright holder:"
+      bio: "matches the biography:"
+      tag_line: "matches the tag line:"
   sections:
     overview: "Overview"
     physical_description: "Physical Description"

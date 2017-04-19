@@ -1,3 +1,5 @@
+%h2= t("search_results.section_titles.terms")
+= paginate @object_terms, remote: true, params: { only: "object_terms" }
 %table.traits_by_predicate.table.table-hover.table-condensed.table-bordered.table-striped
   %tbody
     - grouped_traits = @object_terms.group_by { |t| t[:page_id] }

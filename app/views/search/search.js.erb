@@ -1,0 +1,10 @@
+console.log("Rendering paginated search results.");
+<% if @pages %>
+  $("#search_pages").html("<%= escape_javascript(render("pages/search_results")) %>");
+<% elsif @collections %>
+  $("#search_collections").html("<%= escape_javascript(render("collections/search_results")) %>");
+<% elsif @media %>
+  $("#search_media").html("<%= escape_javascript(render("media/search_results")) %>");
+<% elsif @users %>
+  $("#search_users").html("<%= escape_javascript(render("users/search_results")) %>");
+<% end %>

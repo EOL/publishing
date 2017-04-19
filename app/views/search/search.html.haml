@@ -2,78 +2,34 @@
 - if @empty
   %h2= t(:search_empty, q: @q)
 - else
-  - if defined?(@object_terms)
-    %h2= t(:search_terms_title)
-    = render("terms/search_results")
-  - if defined?(@pages) && ! @pages.results.empty?
-    %h2= t(:search_pages_title)
-    %ul.found_pages.uk-list
-      - @pages.results.each do |page|
-        -# TODO: rename; it's no longer a row, it's a card.
-        = render("pages/as_row", page: page)
-  - if defined?(@collections) && @collections && ! @collections.results.empty?
-    %h2= t(:search_collections_title)
-    %table.collections
-      %tbody
-        - @collections.results.each do |collection|
-          %tr
-            %td.collection-table-image
-              -# TODO: collections don't have icons yet; change this.
-              = link_to(image_tag("medium/collection.png"), collection)
-            %td
-              .names
-                = link_to(emphasize_match(collection.name.titleize, @q), collection, class: "primary-name")
-              .names
-                - if collection.description =~ /#{@q}/
-                  %br/
-                  %b= t(:search_collection_match_description)
-                  = emphasize_match(collection.description, @q)
-  - if defined?(@media) && @media && ! @media.results.empty?
-    %h2= t(:search_media_title)
-    %table.collections
-      %tbody
-        - @media.results.each do |medium|
-          %tr
-            %td.medium-table-image
-              -# TODO: media don't have icons yet; change this.
-              = link_to(image_tag(medium.medium_icon_url), medium)
-            %td
-              .names
-                = link_to(emphasize_match(medium.name.titleize, @q), medium, class: "primary-name")
-              .names
-                - if medium.description =~ /#{@q}/
-                  %br/
-                  %b= t(:search_medium_match_description)
-                  = emphasize_match(medium.description, @q)
-                - if medium.resource_pk =~ /#{@q}/
-                  %br/
-                  %b= t(:search_medium_match_resource_pk)
-                  = emphasize_match(medium.resource_pk, @q)
-                - if medium.owner =~ /#{@q}/
-                  %br/
-                  %b= t(:search_medium_match_owner)
-                  = emphasize_match(medium.owner, @q)
-  - if defined?(@users) && @users && ! @users.results.empty?
-    %h2= t(:search_users_title)
-    %table.collections
-      %tbody
-        - @users.results.each do |user|
-          %tr
-            %td.collection-table-image
-              -# TODO: users don't have icons yet; change this.
-              = link_to(image_tag("medium/missing.png"), user)
-            %td
-              .names.username
-                = link_to(emphasize_match(user.username.titleize, @q), user, class: "primary-name")
-              .names
-                - if user.is_admin?
-                  %br/
-                  = t(:collection_user_is_admin)
-                - if user.tag_line =~ /#{@q}/
-                  %br/
-                  %b= t(:search_user_match_tag_line)
-                  = emphasize_match(user.tag_line, @q)
-                - if user.bio =~ /#{@q}/
-                  %br/
-                  %b= t(:search_user_match_bio)
-                  = emphasize_match(user.bio, @q)
+.uk-grid
+  .uk-width-1-5
+    .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
+      %h4.uk-heading-divider= t("search_results.header")
+      %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 80" } } }
+        - if defined?(@object_terms)
+          %li= link_to(t("search_results.section_titles.terms"), "#search_terms")
+        - if defined?(@pages) && ! @pages.results.empty?
+          %li= link_to(t("search_results.section_titles.pages", count: @pages.total), "#search_pages")
+        - if defined?(@collections) && @collections && ! @collections.results.empty?
+          %li= link_to(t("search_results.section_titles.collections", count: @collections.total), "#search_collections")
+        - if defined?(@media) && @media && ! @media.results.empty?
+          %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
+        - if defined?(@users) && @users && ! @users.results.empty?
+          %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
+  .uk-width-4-5
+    - if defined?(@object_terms)
+      #search_terms
+        = render("terms/search_results")
+    - if defined?(@pages) && ! @pages.results.empty?
+      #search_pages
+        = render("pages/search_results")
+    - if defined?(@collections) && @collections && ! @collections.results.empty?
+      #search_collections
+        = render("collections/search_results")
+    - if defined?(@media) && @media && ! @media.results.empty?
+      #search_media
+        = render("media/search_results")
+    - if defined?(@users) && @users && ! @users.results.empty?
+      #search_users
+        = render("users/search_results")
