@@ -36,7 +36,7 @@
             %i.plus.icon
             = t(:taxon_collect_button)
       - summary = construct_summary(@page)
-      - if summary ! summary.blank?
+      - if summary && ! summary.blank?
         .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
           = summary
       - unless @page.traits.empty?

@@ -212,6 +212,9 @@ class TraitBank
         :units])
     end
 
+    # e.g.: uri = "http://eol.org/schema/terms/Habitat"
+    # TraitBank.by_predicate(uri)
+
     def by_predicate(predicate, options = {})
       # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
       # breaking the internet.
