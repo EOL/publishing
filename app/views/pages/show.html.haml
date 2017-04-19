@@ -35,7 +35,8 @@
           %a.ui.labeled.small.icon.button.uk-box-shadow-medium{ href: new_collected_page_path(page_id: @page.id) }
             %i.plus.icon
             = t(:taxon_collect_button)
-      - if summary = construct_summary(@page)
+      - summary = construct_summary(@page)
+      - if summary ! summary.blank?
         .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
           = summary
       - unless @page.traits.empty?

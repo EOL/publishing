@@ -179,7 +179,7 @@ class TraitBank
 
     def by_trait(full_id)
       (_, resource_id, id) = full_id.split("--")
-      # TODO: add proper pagination!  For now, limiting to 50 results to speed things up. 2000 was waaaaaaay too slow.
+      # TODO: add proper pagination!
       q =
         "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
@@ -191,7 +191,7 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "RETURN resource, trait, predicate, object_term, units, meta, "\
           "meta_predicate, meta_object_term, meta_units_term "\
-        "LIMIT 50"
+        "LIMIT 2000"
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
@@ -213,6 +213,8 @@ class TraitBank
     end
 
     def by_predicate(predicate, options = {})
+      # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
+      # breaking the internet.
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
       sort = if options[:sort].downcase == "measurement"
@@ -240,7 +242,8 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units, meta, "\
           "meta_predicate, meta_object_term, meta_units_term "\
-        "ORDER BY #{sort} #{dir}"
+        "ORDER BY #{sort} #{dir}"\
+        "LIMIT 50"
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
