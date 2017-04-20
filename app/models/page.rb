@@ -134,7 +134,7 @@ class Page < ActiveRecord::Base
       # NOTE: UUUUUUGHHHHH! This is SOOO UGLY!  ...Can we do this a better way?
       sorted_articles.each do |a|
         this_section = a.first_section
-        if this_section == last_section
+        if this_section.nil? || this_section == last_section
           # DO nothing.
         else
           last_section = this_section
