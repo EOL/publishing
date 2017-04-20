@@ -22,7 +22,6 @@ if(!EOL) {
             },
             success: function(resp){
               console.log("Calling success...");
-              console.log(resp);
             },
             error: function(xhr, textStatus, error){
               console.log("There was an error...");
