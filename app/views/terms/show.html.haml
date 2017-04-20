@@ -1,5 +1,5 @@
 #trait.uk-container
-  .uk-card.uk-card-default.uk-grid
+  .uk-card.uk-card-default.uk-grid.uk-padding
     .uk-width-4-5
       %h1= @term[:name].titlecase
       - def_blank = @term[:definition].blank?
@@ -11,21 +11,20 @@
         - else
           = @term[:definition].html_safe
     .actions.uk-width-1-5
-      %a#sort_button.ui.labeled.small.icon.button.uk-box-shadow-medium{ uk: { dropdown: true } }= t(:traits_sort_dropdown_name)
-      %div
-        %ul.uk-dropdown.uk-list
-          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
-          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
-          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
-          %li{ role: "menuitem" }= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
-    %div{ "ng-controller" => "CladeFilterCtrl as ctrl" }
-      %form{ "ng-submit" => "cladeFilter(clade_name, '#{params[:uri]}')", name: 'traitsForm' }
-        = t(:clade)
+      %button#sort_button.ui.labeled.small.icon.button
+        %i.down.arrow.icon
+        = t(:traits_sort_dropdown_name)
+      %div{ uk: { dropdown: true } }
+        %ul.uk-dropdown-nav.uk-nav
+          %li= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri]))
+          %li= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], sort_dir: "desc"))
+          %li= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], sort: "measurement"))
+          %li= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], sort: "measurement", sort_dir: "desc"))
+    .uk-margin-top
+      = form_tag(term_path(@term[:uri])) do
+        = t("term.show.clade_filter")
         = text_field_tag("clade", nil,
-          "placeholder" => t(:clade_placeholder),
-          "autocomplete" => "off",
-          "ng-model" => "clade_name",
-          required: true)
-        .input-group-btn
-          = submit_tag t("filter"), class: "btn btn-default", 'ng-disabled': 'traitsForm.$invalid'
+          placeholder: t(:clade_placeholder),
+          remote: true, class: "uk-input uk-form-width-medium")
+        = submit_tag(t("filter"), class: "ui basic button")
   = render 'traits_table', { traits: @grouped_traits, pages: @pages }

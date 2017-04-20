@@ -1,8 +1,8 @@
 <% if defined?(@results) %>
   console.log("Found <%= @results.total %> results.");
-  $("#collected_pages").html("<%= escape_javascript(render("collected_pages/index", collected_pages: @results.results)) %>");
+  $("#collected_pages").html("<%= j(render("collected_pages/index", collected_pages: @results.results)) %>");
 <% else %>
   console.log("Clearing any collected pages results.");
-  $("#collected_pages").html("<%= escape_javascript(render("collected_pages/index", collected_pages: @collection.collected_pages)) %>");
+  $("#collected_pages").html("<%= j(render("collected_pages/index", collected_pages: @collection.collected_pages)) %>");
   $("#collected_pages_search input#q").val("");
 <% end %>

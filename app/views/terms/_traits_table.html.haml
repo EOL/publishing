@@ -1,16 +1,14 @@
-:javascript
-  EOL.allow_meta_traits_to_toggle();
 - traits = [] unless local_assigns.has_key?(:traits)
 - pages = [] unless local_assigns.has_key?(:pages)
 #traits_table.uk-overflow-auto
-  %table.traits_by_predicate.uk-table.uk-table-small.uk-table-striped.uk-table-middle
+  %table.traits_by_predicate.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
     %tbody
       -# TODO: helper
       - prev_page_id = nil
       - traits.each do |trait|
         - page_id = trait[:page_id]
         - if page = pages[page_id]
-          %tr{ id: trait[:id] }
+          %tr.toggle_meta{ id: trait[:id], data: { action: trait_path(trait[:id]) }  }
             %th.trait-table-image{ scope: "row" }
               - if prev_page_id != page_id
                 - show_trait_page_icon(page)
@@ -21,6 +19,7 @@
               - prev_page_id = page_id
             %td
               - show_trait_value(trait)
-              - show_metadata(trait)
+              - metadata_container(trait)
+              -# - show_metadata(trait)
             - show_source_col(trait)
     = paginate traits unless traits.empty?

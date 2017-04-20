@@ -495,6 +495,9 @@ en:
         password_confirmation:
         username:
   taxon_collect_button: "collect page"
+  term:
+    show:
+      clade_filter: "Filter by clade:"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""
   trait_table:

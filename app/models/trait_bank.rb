@@ -176,7 +176,7 @@ class TraitBank
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
     end
 
-    def by_trait(full_id)
+    def by_trait_with_metadata(full_id)
       (_, resource_id, id) = full_id.split("--")
       # TODO: add proper pagination!
       q =
@@ -194,6 +194,22 @@ class TraitBank
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+    end
+
+    def by_trait(full_id)
+      (_, resource_id, id) = full_id.split("--")
+      # TODO: add proper pagination!
+      q =
+        "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
+          "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "RETURN resource, trait, predicate, object_term, units "\
+        "LIMIT 2000"
+      res = query(q)
+      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
+        :units])
     end
 
     def by_page(page_id)

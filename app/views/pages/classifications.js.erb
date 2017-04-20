@@ -1,3 +1,3 @@
-$("#page_nav_content").html("<%= escape_javascript(render("page_classification")) %>");
+$("#page_nav_content").html("<%= j(render("page_classification")) %>");
 $("#page_nav").children().removeClass("uk-active");
 $("#page_nav_classifications").addClass("uk-active");

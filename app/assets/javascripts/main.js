@@ -8,12 +8,29 @@ if(!EOL) {
         $div.hide();
       } else {
         if($div.html() === "") {
-          console.log("Loading row...");
+          console.log("Loading row "+$(this).data("action")+"...");
           $.ajax({
             type: "GET",
-            url: $(this).data("action")
+            url: $(this).data("action"),
+            // While they serve no purpose NOW... I am keeping these here for
+            // future use.
+            beforeSend: function() {
+              console.log("Calling before send...");
+            },
+            complete: function(){
+              console.log("Calling complete...");
+            },
+            success: function(resp){
+              console.log("Calling success...");
+              console.log(resp);
+            },
+            error: function(xhr, textStatus, error){
+              console.log("There was an error...");
+              console.log(xhr.statusText+" : "+textStatus+" : "+error);
+            }
           });
         } else {
+          console.log("Using cached row...");
           $(".meta_trait").hide();
           $div.show();
         }
@@ -80,6 +97,8 @@ $(document).ready(function() {
     EOL.enable_media_navigation();
   } else if ($("#page_traits").length === 1) {
     EOL.enable_trait_toc();
+    EOL.allow_meta_traits_to_toggle();
+  } else if ($("#traits_table").length === 1) {
     EOL.allow_meta_traits_to_toggle();
   }
 });
