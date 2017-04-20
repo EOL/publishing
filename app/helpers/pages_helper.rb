@@ -1,34 +1,79 @@
 module PagesHelper
+  def is_allowed_summary?(page)
+    page.rank &&
+      ["r_species", "r_genus", "r_family"].include?(page.rank.treat_as)
+  end
+
+  def is_higher_level_clade?(page)
+    ["r_genus", "r_family"].include?(page.rank.treat_as)
+  end
+
+  # TODO: it would be nice to make these into a module included by the Page
+  # class.
+  def is_family?(page)
+    page.rank.treat_as == "r_family"
+  end
+
+  def is_genus?(page)
+    page.rank.treat_as == "r_genus"
+  end
+
   def construct_summary(page)
-    # TODO: really this should be "treat_as" tests, not rank names
-    return "" unless page.rank && ["species", "genus", "family"].include?(page.rank.name)
+    return "" unless is_allowed_summary?(page)
+    my_rank = page.rank.name || "taxon"
     Rails.cache.fetch("constructed_summary/#{page.id}") do
       node = page.native_node || page.nodes.first
       ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
+      # taxonomy sentence...
       str = if page.name == page.scientific_name
         page.name
       else
         "#{page.scientific_name} (#{page.name})"
       end
+      # A1: There will be nodes in the dynamic hierarchy that will be flagged as
+      # A1 taxa. If there are vernacularNames associated with the page of such a
+      # taxon, use the preferred vernacularName. If not use the scientificName
+      # from dynamic hierarchy. If the name starts with a vowel, it should be
+      # preceded by an, if not it should be preceded by a.
+      # A2: There will be nodes in the dynamic hierarchy that will be flagged as
+      # A2 taxa. Use the scientificName from dynamic hierarchy.
       if ancestors[0]
-        str += " #{page.scientific_name =~ /\s[a-z]/ ? "is" : "are" } #{indefinite_articleize(ancestors[0].name.singularize)}"
-        if ancestors[-2] && ancestors[-2] != ancestors[0]
-          str += " in the #{ancestors[-2].rank.try(:name) || "clade"} #{ancestors[-2].scientific_name}."
+        if is_family?(page)
+          # [name] ([common name]) is a family of [A1].
+          str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}"
+        elsif is_higher_level_clade?(page)
+          # [name] ([common name]) is a genus in the [A1] [rank] [A2].
+          str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
+        else
+          # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
+          str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
+          if ancestors[-2] && ancestors[-2] != ancestors[0]
+            str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
+          end
         end
       end
-      # TODO: really this should be "treat_as" tests, not rank names
-      if ["genus", "family"].include?(page.rank.name)
+      # Number of species sentence:
+      if is_higher_level_clade?(page)
         count = page.species_count
         str += " It has #{count} species."
       end
+      # Extinction status sentence:
       if page.is_it_extinct?
-        str += " This species is extinct."
+        str += " This #{my_rank} is extinct."
       end
+      # Environment sentence:
       if page.is_it_marine?
         str += " It is marine."
       end
+      # Distribution sentence:
       unless page.habitats.blank?
-        str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+        if is_family?(page)
+          # Do nothing.
+        elsif is_genus?(page)
+          str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+        else
+          str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+        end
       end
       bucket = page.id.to_s[0]
       summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
@@ -38,8 +83,16 @@ module PagesHelper
     end
   end
 
+  def rank_or_clade(node)
+    node.rank.try(:name) || "clade"
+  end
+
+  def is_or_are(page)
+    page.scientific_name =~ /\s[a-z]/ ? "is" : "are"
+  end
+
   # Note: this does not always work (e.g.: "an unicorn")
-  def indefinite_articleize(word)
+  def a_or_an(word)
     %w(a e i o u).include?(word[0].downcase) ? "an #{word}" : "a #{word}"
   end
 
