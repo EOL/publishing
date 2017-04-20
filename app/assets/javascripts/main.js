@@ -90,7 +90,11 @@ if(!EOL) {
 $(document).ready(function() {
   $("#page_nav a").on("click", function() {
     $("#page_nav_content").children().hide();
-    $("#page_nav_content").append("<div class='uk-text-center'><div uk-spinner></div></div>");
+    $("#page_nav_content").append("<div id='spinner' class='uk-text-center'><div uk-spinner></div></div>");
+  }).bind("ajax:error", function(evt, data, status, xhr) {
+    $("#page_nav_content #spinner").remove();
+    UIkit.modal.alert('Sorry, there was an error loading this subtab.');
+    console.log(data.responseText)
   });
   if ($("#gallery").length === 1) {
     EOL.enable_media_navigation();

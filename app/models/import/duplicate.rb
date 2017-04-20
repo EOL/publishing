@@ -62,7 +62,6 @@ class Import::Duplicate
               statistical_method: t_data["statistical_method"],
               lifestage: t_data["lifestage"],
               sex: t_data["sex"],
-              scientific_name: "#{t_data["scientific_name"]}-#{i}",
               units: units,
               object_term: term,
               literal: t_data["literal"],
@@ -75,10 +74,10 @@ class Import::Duplicate
       end
       # TODO json_map ...we don't use it, yet, so leaving for later.
     end
-    
-    
-    
-    
+
+
+
+
     def create_page(id, node_data, name, canon, i)
       @page = Page.where(id: id).first_or_initialize do |pg|
         pg.id = id
@@ -155,7 +154,7 @@ class Import::Duplicate
       end
     end
 
-  
+
 
     def build_resource(res_data)
       return nil if res_data.nil?
