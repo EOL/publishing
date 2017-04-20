@@ -25,7 +25,7 @@ if(!EOL) {
 
   EOL.enable_media_navigation = function() {
     console.log("Enabling Media Navigation.");
-    $("#page_nav_content .dropdown").dropdown({ direction: "upward" });
+    $("#page_nav_content .dropdown").dropdown();
     $(".uk-modal-body a.uk-slidenav-large").on("click", function(e) {
       var link = $(this);
       thisId = link.data("this-id");
