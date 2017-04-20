@@ -96,16 +96,15 @@ class TraitBank
 
     # You only have to run this once, and it's best to do it before loading TB:
     def create_indexes
-      indexes = %w{ Page(page_id) Trait(resource_pk) Trait(predicate)
-        Term(predicate) MetaData(predicate) }
+      indexes = %w{ Page(page_id) Trait(resource_pk) Term(uri)
+        Resource(resource_id) }
       indexes.each do |index|
         query("CREATE INDEX ON :#{index};")
       end
     end
 
-    # TODO: Can we create a constraint where a Trait only has one of
-    # [measurement, object_page_id, literal, term]? I don't think so... NOTE:
-    # You only have to run this once, and it's best to do it before loading TB:
+    # NOTE: You only have to run this once, and it's best to do it before
+    # loading TB:
     def create_constraints
       contraints = {
         "Page" => [:page_id],
