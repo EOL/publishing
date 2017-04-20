@@ -1,12 +1,12 @@
 require "rails_helper"
 
 describe PagesHelper do
-  let(:rank_sp) { instance_double("Rank", name: "species") }
-  let(:rank_g) { instance_double("Rank", name: "genus") }
-  let(:rank_fam) { instance_double("Rank", name: "family") }
+  let(:rank_sp) { instance_double("Rank", name: "species", treat_as: "r_species") }
+  let(:rank_g) { instance_double("Rank", name: "genus", treat_as: "r_genus") }
+  let(:rank_fam) { instance_double("Rank", name: "family", treat_as: "r_family") }
 
   describe "#construct_summary" do
-    let(:rank_class) { instance_double("Rank", name: "class") }
+    let(:rank_class) { instance_double("Rank", name: "class", treat_as: "r_class") }
     let(:invisible_ancestor) { instance_double("Node", has_breadcrumb?: false) }
     let(:first_ancestor) { instance_double("Node", has_breadcrumb?: true,
       name: "boobars") }
