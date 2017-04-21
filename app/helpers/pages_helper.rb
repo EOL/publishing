@@ -106,6 +106,15 @@ module PagesHelper
     end
   end
 
+  def index_stat(key, count)
+    count = count > 1_000_000 ? "#{(count / 100_000) / 10.0}M" :
+      number_with_delimiter(count)
+    haml_tag("div.ui.orange.statistic") do
+      haml_tag("div.value") { haml_concat count }
+      haml_tag("div.label") { haml_concat t("landing_page.stats.#{key}") }
+    end
+  end
+
   def classification(this_node, ancestors)
     ancestors = Array(ancestors)
     return nil if ancestors.blank?

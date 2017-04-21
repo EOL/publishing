@@ -125,6 +125,14 @@ en:
     title: "Encyclopedia of Life"
     header: "Global access to knowledge about life on Earth"
     search_placeholder: "Search..."
+    stats:
+      pages: "pages"
+      data: "data records"
+      media: "media"
+      articles: "articles"
+      users: "users"
+      collections: "collections"
+
   languages:
     aa: "Afar"
     ab: "Abkhazian"

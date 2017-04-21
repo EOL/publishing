@@ -6,6 +6,16 @@ class PagesController < ApplicationController
 
   def index
     @title = I18n.t("landing_page.title")
+    @stats = Rails.cache.fetch("pages/index/stats", expires_in: 1.week) do
+      {
+        pages: Page.count,
+        data: TraitBank.trait_count,
+        media: Medium.count,
+        articles: Article.count,
+        users: User.count,
+        collections: Collection.count
+      }
+    end
     render layout: "head_only"
   end
 

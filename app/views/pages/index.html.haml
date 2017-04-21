@@ -12,27 +12,6 @@
   .uk-container
     .uk-section
       %ul#page_nav.uk-grid.uk-child-width-expand{ uk: { grid: true } }
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter Page.count
-            .label= "Pages"
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter TraitBank.trait_count
-            .label= "Data Records"
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter Medium.count
-            .label= "Media"
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter Article.count
-            .label= "Articles"
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter User.count
-            .label= "Users"
-        %li
-          .ui.orange.statistic
-            .value= number_with_delimiter Collection.count
-            .label= "Collections"
+        - @stats.each do |key, value|
+          %li
+            - index_stat(key, value)
