@@ -4,6 +4,11 @@ class PagesController < ApplicationController
 
   helper :traits
 
+  def index
+    @title = I18n.t("landing_page.title")
+    render layout: "head_only"
+  end
+
   def show
     @page = Page.where(id: params[:id]).preloaded.first
     return render(status: :not_found) unless @page # 404
@@ -137,7 +142,6 @@ private
       @resource = Resource.find(@resource_id)
     end
     # TODO: #per broke for some reason; fix:
-    @media = @media.page(params[:page]) # .per(@media_page_size)
+    @media = @media.page(params[:page]).per_page(@media_page_size)
   end
-
 end

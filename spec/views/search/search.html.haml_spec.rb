@@ -3,23 +3,24 @@ require "rails_helper"
 RSpec.describe "search/search" do
   context "with page results" do
     before do
-      name = instance_double("Vernacular", string: "a common name")
+      name = instance_double("Vernacular", string: "a vernacular name")
       english = instance_double("English", code: "eng")
       another_name = instance_double("Vernacular",
         string: "another common name", language: english)
       nonmatching_name = instance_double("Vernacular",
         string: "name that doesnt match", language: english)
       lic = instance_double("License", name: "Image license name")
+      rank = instance_double("Rank", name: "Whatever", treat_as: "r_class")
       parent = instance_double("Node", ancestors: [], page_id: 342356,
         canonical_form: "Ancestor name", has_breadcrumb?: true)
-      node = instance_double("Node", ancestors: [parent], has_breadcrumb?: false)
+      node = instance_double("Node", ancestors: [parent], has_breadcrumb?: false, rank: rank)
       scientific_names = [instance_double("ScientificName",
         canonical_form: "<i>Our scientific</i>")]
       partner = instance_double("Partner", short_name: "Partner One")
       resources = [instance_double("Resource", name: "Resource One",
         partner: partner)]
       page = create(:page)
-      allow(page).to receive(:name) { "a common name" }
+      allow(page).to receive(:name) { "a vernacular name" }
       allow(page).to receive(:icon) { "some_image_url_88_88.jpg" }
       allow(page).to receive(:scientific_name) { scientific_names.first.canonical_form }
       allow(page).to receive(:scientific_names) { scientific_names }
@@ -36,7 +37,7 @@ RSpec.describe "search/search" do
     # NOTE the titlized cases: }
     it { expect(rendered).to match /Our scientific/ }
     it { expect(rendered).to match /Ancestor name/ }
-    it { expect(rendered).to match /A <mark>Common<\/mark> Name/ }
+    it { expect(rendered).to match /A Vernacular Name/ }
     it { expect(rendered).to match /another <mark>common<\/mark> name\&nbsp\;\(eng\)/m }
     it { expect(rendered).not_to match /name that doesnt match/i }
     it { expect(rendered).to match /some_image_url_88_88.jpg/ }

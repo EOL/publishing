@@ -1,0 +1,57 @@
+%ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true } }
+  - media_ids = media.map { |image| "image_modal_#{image.id}" }
+  - media.each_with_index do |image, index|
+    - img_id = media_ids[index]
+    - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+    - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+    -# TODO: we will eventually know the actual size of the image; add that:
+    -# TODO: some helpers would clean this up:
+    %div
+      %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
+        - link_path = medium_path(image)
+        .uk-card-media-top.uk-inline-clip.uk-transition-toggle
+          %a.uk-cover-container{ href: "##{img_id}", uk: { toggle: true } }
+            %img{ src: image.medium_size_url }
+            %div{ id: img_id, uk: { modal: true } }
+              .uk-modal-dialog
+                %a.uk-modal-close-default{ href: "", uk: { close: true } }
+                .uk-modal-header
+                  = link_to(name.html_safe, link_path)
+                  .ui.label= image.license.name
+                  %br
+                  %i.copyright.icon
+                  = owner
+                  %br
+                  = link_to(image.resource.name, image.resource)
+                .uk-modal-body
+                  .uk-inline.uk-visible-toggle
+                    = image_tag(image.original_size_url)
+                    %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
+                    - next_id = media_ids[index+1] || media_ids[0]
+                    %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
+          .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
+            .uk-margin-remove.uk-text-center
+              .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
+              -# TODO: the actual state...
+              .ui.mini.green.label= "trusted"
+        - if defined?(@page)
+          .uk-text-truncate.eol-padding-iconnav
+            %ul.uk-iconnav.uk-float-right
+              -# If you want the list to be sortable...
+              -# %li
+              -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+              - if index > 0 || params[:page] && params[:page].to_i > 0
+                %li
+                  = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: @page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+              -# %li
+              -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+              %li
+                %a{ href: new_collected_page_path(page_id: @page.id, medium_ids: [image.id]), alt: "add to collection" }
+                  %i.grey.plus.icon
+        -# Make it drop down on hover:
+        -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
+        .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted
+          .uk-overflow-auto.eol-one-line
+            = link_to(name, link_path)
+            -# The other part to make it drop down on hover:
+            -# .uk-transition-slide-bottom.uk-position-bottom.uk-overlay

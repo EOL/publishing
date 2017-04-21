@@ -1,5 +1,13 @@
 if(!EOL) {
   var EOL = {};
+
+  EOL.dim_tab_on_pagination = function() {
+    $("#tab_content").dimmer("hide");
+    $(".uk-pagination a").on("click", function(e) {
+      $("#tab_content").dimmer("show");
+    });
+  };
+
   EOL.allow_meta_traits_to_toggle = function() {
     console.log("Enabling Meta Traits to Toggle.");
     $(".toggle_meta").on("click", function (event) {
@@ -37,6 +45,7 @@ if(!EOL) {
       return event.stopPropagation();
     });
     $(".meta_trait").hide();
+    EOL.dim_tab_on_pagination();
   };
 
   EOL.enable_media_navigation = function() {
@@ -53,6 +62,7 @@ if(!EOL) {
       UIkit.modal("#"+thisId).hide();
       UIkit.modal("#"+tgtId).show();
     });
+    EOL.dim_tab_on_pagination();
   };
 
   EOL.enable_trait_toc = function() {
@@ -83,16 +93,17 @@ if(!EOL) {
       }
       e.stopPropagation();
       e.preventDefault();
+      EOL.dim_tab_on_pagination();
     });
   };
 }
 
 $(document).ready(function() {
   $("#page_nav a").on("click", function() {
-    $("#page_nav_content").children().hide();
-    $("#page_nav_content").append("<div id='spinner' class='uk-text-center'><div uk-spinner></div></div>");
+    $("#tab_content").dimmer("show");
+  }).bind("ajax:complete", function() {
+    $("#tab_content").dimmer("hide");
   }).bind("ajax:error", function(evt, data, status, xhr) {
-    $("#page_nav_content #spinner").remove();
     UIkit.modal.alert('Sorry, there was an error loading this subtab.');
     console.log(data.responseText)
   });

@@ -2,6 +2,8 @@
 - common ||= page.name
 - scientific ||= page.scientific_name
 - has_query = defined?(@q) && ! @q.blank?
+- matches_scientific = has_query && scientific =~ /#{@q}/
+- matches_common = has_query && common =~ /#{@q}/
 %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
   .uk-card-body.uk-grid-small{ uk: { grid: true } }
     - if icon
@@ -44,24 +46,28 @@
             .col-md-1
               = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
       - if has_query
-        %ul.matches.uk-margin-top-small
-          -# TODO: redo the formatting here. It was meant to join all of the names on one line; that's not working anymore.
-          -# Other vernaculars that match:
-          - page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.group_by(&:string).each do |string, names|
-            %li><
-              = "&nbsp;".html_safe
-              = emphasize_match(string, @q)
-              = "&nbsp;(#{names.map { |n| n.language.code }.uniq.join(", ")})".html_safe
-          -# Other scientific_names that match:
-          - page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.each do |name|
-            %li= emphasize_match(name.canonical_form, @q)
-          -# Resources:
-          - page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.each do |resource|
-            %li
-              = emphasize_match(resource.name, @q)
-              - unless resource.name =~ /#{resource.partner.short_name}/
-                = "(#{emphasize_match(resource.partner.short_name, @q)})"
+        .matches.uk-margin-top-small
+          - other_vernaculars = nil
+          - other_scientifics = nil
+          - other_resources = nil
+          - unless matches_common
+            - other_vernaculars = page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.group_by(&:string).map { |string, names| (emphasize_match(string, @q) + "&nbsp;(#{names.map { |n| n.language.code }.uniq.join(", ")})".html_safe) }
+            - unless other_vernaculars.blank?
+              %b= t("search_results.field_matches.vernaculars", count: other_vernaculars.size)
+              = other_vernaculars.join(", ").html_safe
+          - unless matches_common
+            - other_scientifics =  page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.map { |name| emphasize_match(name.canonical_form, @q) }
+            - unless other_scientifics.blank?
+              %b= t("search_results.field_matches.synonyms", count: other_scientifics.size)
+              = other_scientifics.join(", ").html_safe
+          - other_resources = page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.map { |resource| n = emphasize_match(resource.name, @q) ; n += " (#{emphasize_match(resource.partner.short_name, @q)})".html_safe unless resource.name =~ /#{resource.partner.short_name}/ }
+          - unless other_resources.blank?
+            %b= t("search_results.field_matches.resources", count: other_resources.size)
+            = other_resources.join(", ").html_safe
+          - if other_vernaculars.blank? && other_scientifics.blank? && other_resources.blank?
+            - if summary = construct_summary(page)
+              .uk-margin-top-small= summary
+
       - else # (no query string)
         - if summary = construct_summary(page)
-          .uk-margin-top-small
-            = summary
+          .uk-margin-top-small= summary

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
-  resources :pages, only: [:show] do
+  resources :pages, only: [:index, :show] do
     get "breadcrumbs"
     get "classifications"
     get "details"
@@ -40,9 +40,7 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
 
-  # TODO: Change. We really want this to point to a (dynamic) CMS page of some
-  # sort.
-  root "users#index"
+  root "pages#index"
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

@@ -24,8 +24,8 @@
   .uk-grid-small.uk-child-width-1-4{ uk: { grid: true } }
     %dl.uk-description-list
       %dt= t("classifications.richness.score")
-      -# TODO: change this to the cached value.
-      %dd= @page.richness / 100.0
+      -# NOTE: this is the CACHED value. It needs to be calculated in the bg:
+      %dd= @page.page_richness / 100.0
       %dt.uk-margin-small-top= t("classifications.richness.page_contents_count")
       %dd= @page.page_contents_count
       %dt.uk-margin-small-top= t("classifications.richness.media_count")

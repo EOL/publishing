@@ -20,11 +20,9 @@
                 %b= t("search_results.field_matches.resource_pk")
                 = emphasize_match(medium.resource_pk, @q)
             %br/
-            - if @q.blank? && medium.owner !~ /^[&(©]/
+            - if @q.blank? || medium.owner !~ /^[&(©]/
               %b
                 = t("content_attributions_labels.owner")
                 \:
-            - elsif ! @q.blank?
-              %b= t("search_results.field_matches.owner")
             = emphasize_match(medium.owner, @q)
 = paginate @media.results, remote: true, params: { only: "media" }

@@ -1,0 +1,38 @@
+%body
+  .landing_page
+    .uk-container
+      .uk-section
+        = image_tag("large_logo.png")
+      .uk-section.uk-section-small.uk-text-center
+        %h1.uk-title= t("landing_page.header")
+        .uk-section
+          = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
+            = text_field_tag("q", nil, placeholder: t("landing_page.search_placeholder"), class: "uk-search-input")
+            %a.uk-search-icon-flip{ uk: { search: { icon: true } } }
+  .uk-container
+    .uk-section
+      %ul#page_nav.uk-grid.uk-child-width-expand{ uk: { grid: true } }
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter Page.count
+            .label= "Pages"
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter TraitBank.trait_count
+            .label= "Data Records"
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter Medium.count
+            .label= "Media"
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter Article.count
+            .label= "Articles"
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter User.count
+            .label= "Users"
+        %li
+          .ui.orange.statistic
+            .value= number_with_delimiter Collection.count
+            .label= "Collections"

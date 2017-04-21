@@ -1,49 +1,22 @@
-!!!
-%html
-  %head
-    = csrf_meta_tags
-    %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
-    %title
-      - if defined?(@page_title)
-        = @page_title
-        \-
-      = t(:page_title)
-    -# TODO: we need to compile our own set of includes with only the bits we need.
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/css/uikit.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/button.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/icon.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/label.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/menu.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/dropdown.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/statistic.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/sticky.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/transition.min.css"
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': true
-    = javascript_include_tag 'application', 'data-turbolinks-track': true
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/js/uikit.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.13/js/uikit-icons.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/sticky.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/dropdown.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/components/transition.min.js"
-    = csrf_meta_tags
-    = yield :head
+- content_for :body  do
   %body
     = render("navbar")
     .uk-container
       .uk-grid-medium{ uk: { grid: true } }
         #main.uk-width-4-5.column
           - unless flash.empty?
-            - first = true # Stupid system for padding the first message... :(
             - flash.each do |name, msg|
               - next if name == "recaptcha_error"
-              .uk-alert-success{ uk: { alert: true }, class: first ? "uk-margin-large-top" : "" }
-                - first = false
-                %a.uk-alert-close{ uk: { close: true } }
-                - if msg.class == Array
-                  - msg.each do |message|
-                    = content_tag :p, message.html_safe, :id => "flash_#{name}"
-                - else
-                  = content_tag :p, msg.html_safe, :id => "flash_#{name}"
+              :javascript
+                $(document).ready(function() {
+                  UIkit.notification({
+                      message: "#{j(Array(msg).join("; "))}",
+                      status: 'primary',
+                      pos: 'top-center',
+                      offset: '100px',
+                      timeout: 5000
+                  });
+                });
           .uk-section
             = content_for?(:content) ? yield(:content) : yield
         #sidebar.uk-width-1-5.column
@@ -57,3 +30,4 @@
                 Perhaps you would like to see some endangered species.
               %li.uk-card.uk-card-default.eol-section-secondary-alt.uk-card-hover.uk-text-center.uk-padding
                 But then again, maybe you just want to look at pretty blue things.
+= render template: "layouts/head_only"

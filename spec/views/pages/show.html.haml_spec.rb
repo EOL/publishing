@@ -14,13 +14,13 @@ RSpec.describe "pages/show" do
     instance_double("Medium", license: lic1, owner: "(c) Owner 1", id: 1,
       large_size_url: "some_url_580_360.jpg", medium_size_url: "img1_med.jpg",
       small_icon_url: "no_matter", original_size_url: "img1_full_size.jpg",
-      name: "Awesome First Image")
+      name: "Awesome First Image", resource: resource)
   end
   let(:image2) do
     instance_double("Medium", license: lic2, owner: "&copy; Owner 2", id: 2,
       small_icon_url: "no_matter", original_size_url: "img2_full_size.jpg",
       large_size_url: "second_url_580_360.jpg", medium_size_url: "img2_med.jpg",
-      name: "Great Second Image")
+      name: "Great Second Image", resource: resource)
   end
   let(:rank) { create(:rank) }
   let(:rank_sp) { create(:rank, name: "species") }
@@ -90,7 +90,7 @@ RSpec.describe "pages/show" do
       traits: traits,
       traits_count: 3,
       vernaculars: [vernacular],
-      richness: 0,
+      page_richness: 0,
       page_contents_count: 0,
       links_count: 0,
       maps_count: 0,
@@ -259,7 +259,7 @@ RSpec.describe "pages/show" do
         traits: [],
         traits_count: 0,
         vernaculars: [],
-        richness: 0,
+        page_richness: 0,
         page_contents_count: 0,
         links_count: 0,
         maps_count: 0,
