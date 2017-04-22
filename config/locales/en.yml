@@ -374,6 +374,7 @@ en:
     tabs:
       article: "Overview"
       classifications: "Classification"
+      cover: "Home"
       details: "Details"
       literature_and_references: "References"
       maps: "Maps"
@@ -522,7 +523,7 @@ en:
         password:
         password_confirmation:
         username:
-  taxon_collect_button: "collect page"
+  taxon_collect_button: "collect"
   term:
     show:
       clade_filter: "Filter by clade:"

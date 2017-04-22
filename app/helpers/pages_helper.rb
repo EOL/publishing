@@ -63,7 +63,7 @@ module PagesHelper
         str += " This #{my_rank} is extinct."
       end
       # Environment sentence:
-      if page.is_it_marine?
+      if ! is_higher_level_clade?(page) && page.is_it_marine?
         str += " It is marine."
       end
       # Distribution sentence:
@@ -101,8 +101,8 @@ module PagesHelper
   def tab(options)
     text = t("pages.tabs.#{options[:name]}")
     haml_tag("li", id: "page_nav_#{options[:name]}", class: options[:active] ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
-      haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count]}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
-      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count]}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
+      haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count] || "&nbsp;".html_safe}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
+      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
     end
   end
 
@@ -145,25 +145,14 @@ module PagesHelper
         haml_concat names.html_safe
         haml_concat t("classifications.hierarchies.this_page")
       else
+        # TODO: test this; I don't have enough data locally! :(
+        # if page.rank && page.rank.c_species? && page.icon
+        #   haml_concat image_tag(page.icon, size: "88x88")
+        # end
         haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
-        if page
-          if page.media_count > 0
-            haml_tag("div.ui.#{icon_size}.label") do
-              haml_concat "<i class='image icon'></i>#{page.media_count}".html_safe
-            end
-          end
-          # haml_tag("div.ui.#{icon_size}.label") do
-          #   haml_concat "<i class='tag icon'></i>#{page.traits.size}".html_safe
-          # end
-          # haml_tag("div.ui.#{icon_size}.label") do
-          #   haml_concat "<i class='sitemap icon'></i>#{page.nodes.size}".html_safe
-          # end
-          # haml_tag("div.ui.#{icon_size}.label") do
-          #   haml_concat "etc..."
-          # end
-        else
+        if page.nil?
           haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
             haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
           end

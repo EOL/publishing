@@ -118,69 +118,70 @@ RSpec.describe "pages/show" do
     expect(rendered).to match "Nice scientific"
   end
 
-  context "with the media subtab showing" do
-
-    before { render }
-
-    it "shows the image names" do
-      expect(rendered).to match image1.name
-      expect(rendered).to match image2.name
-    end
-
-    it "shows the image medium icon" do
-      # NOTE: I had a much fancier #have_tag implementation here, but it was
-      # failing with "expected [HTML] to respond to `has_tag?`" ...and I
-      # couldn't fix it. Easier to just move on right now. This will do.
-      expect(rendered).to match image1.medium_size_url
-      expect(rendered).to match image2.medium_size_url
-    end
-
-    it "shows the image original size (modal)" do
-      expect(rendered).to match image1.original_size_url
-      expect(rendered).to match image2.original_size_url
-    end
-
-    # NOTE: implementation as of this writing:
-    # image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "")
-    it "shows the image owner" do
-      expect(rendered).to match "Owner 1"
-      expect(rendered).to match "Owner 2"
-    end
-
-    # Note: this is a weak test. Each
-    it "shows the license name" do
-      expect(rendered).to match lic1.name
-      expect(rendered).to match lic2.name
-    end
-
-    it "shows the trust state" # TODO (we haven't implemented this yet)
-
-    it "has a link to make exemplar (but NOT the first image!)" do
-      expect(rendered).not_to have_link(href: page_icons_path(page_id: page.id, medium_id: image1.id))
-      expect(rendered).to have_link(href: page_icons_path(page_id: page.id, medium_id: image2.id))
-    end
-
-    it "has a link to add to collection" do
-      expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image1.id]))
-      expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image2.id]))
-    end
-
-    it "has a link to the image page" do
-      expect(rendered).to have_link(href: medium_path(image1))
-      expect(rendered).to have_link(href: medium_path(image2))
-    end
-  end
-
-  it "shows the top images' metadata" do
-    render
-    # NOTE: these don't work with "have content" because they are stored in data
-    # attributes.
-    expect(rendered).to match "Image license name"
-    expect(rendered).to match "Owner 1"
-    expect(rendered).to match "Owner 2"
-    expect(rendered).to match "Awesome First Image"
-    expect(rendered).to match "Great Second Image"
-  end
+#TODO: move these to a media spec
+  # context "with the media subtab showing" do
+  #
+  #   before { render }
+  #
+  #   it "shows the image names" do
+  #     expect(rendered).to match image1.name
+  #     expect(rendered).to match image2.name
+  #   end
+  #
+  #   it "shows the image medium icon" do
+  #     # NOTE: I had a much fancier #have_tag implementation here, but it was
+  #     # failing with "expected [HTML] to respond to `has_tag?`" ...and I
+  #     # couldn't fix it. Easier to just move on right now. This will do.
+  #     expect(rendered).to match image1.medium_size_url
+  #     expect(rendered).to match image2.medium_size_url
+  #   end
+  #
+  #   it "shows the image original size (modal)" do
+  #     expect(rendered).to match image1.original_size_url
+  #     expect(rendered).to match image2.original_size_url
+  #   end
+  #
+  #   # NOTE: implementation as of this writing:
+  #   # image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "")
+  #   it "shows the image owner" do
+  #     expect(rendered).to match "Owner 1"
+  #     expect(rendered).to match "Owner 2"
+  #   end
+  #
+  #   # Note: this is a weak test. Each
+  #   it "shows the license name" do
+  #     expect(rendered).to match lic1.name
+  #     expect(rendered).to match lic2.name
+  #   end
+  #
+  #   it "shows the trust state" # TODO (we haven't implemented this yet)
+  #
+  #   it "has a link to make exemplar (but NOT the first image!)" do
+  #     expect(rendered).not_to have_link(href: page_icons_path(page_id: page.id, medium_id: image1.id))
+  #     expect(rendered).to have_link(href: page_icons_path(page_id: page.id, medium_id: image2.id))
+  #   end
+  #
+  #   it "has a link to add to collection" do
+  #     expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image1.id]))
+  #     expect(rendered).to have_link(href: new_collected_page_path(page_id: page.id, medium_ids: [image2.id]))
+  #   end
+  #
+  #   it "has a link to the image page" do
+  #     expect(rendered).to have_link(href: medium_path(image1))
+  #     expect(rendered).to have_link(href: medium_path(image2))
+  #   end
+  # end
+  #
+  # it "shows the top images' metadata" do
+  #   render
+  #   # NOTE: these don't work with "have content" because they are stored in data
+  #   # attributes.
+  #   expect(rendered).to match "Image license name"
+  #   expect(rendered).to match "Owner 1"
+  #   expect(rendered).to match "Owner 2"
+  #   expect(rendered).to match "Awesome First Image"
+  #   expect(rendered).to match "Great Second Image"
+  # end
 
   it "shows the ancestor names" do
     render

@@ -2,32 +2,34 @@
   %body
     = render("navbar")
     .uk-container
-      .uk-grid-medium{ uk: { grid: true } }
-        #main.uk-width-4-5.column
-          - unless flash.empty?
-            - flash.each do |name, msg|
-              - next if name == "recaptcha_error"
-              :javascript
-                $(document).ready(function() {
-                  UIkit.notification({
-                      message: "#{j(Array(msg).join("; "))}",
-                      status: 'primary',
-                      pos: 'top-center',
-                      offset: '100px',
-                      timeout: 5000
-                  });
+      #main
+        - unless flash.empty?
+          - flash.each do |name, msg|
+            - next if name == "recaptcha_error"
+            :javascript
+              $(document).ready(function() {
+                UIkit.notification({
+                    message: "#{j(Array(msg).join("; "))}",
+                    status: 'primary',
+                    pos: 'top-center',
+                    offset: '100px',
+                    timeout: 5000
                 });
-          .uk-section
-            = content_for?(:content) ? yield(:content) : yield
-        #sidebar.uk-width-1-5.column
-          .uk-container.text.uk-margin-large-top
-            %ul.uk-list.uk-flex.uk-flex-column
-              %li.uk-card.uk-card-default.eol-section-secondary.uk-card-hover.uk-text-center.uk-padding
+              });
+        .uk-section.uk-padding-remove-bottom
+          = content_for?(:content) ? yield(:content) : yield
+        .uk-container.uk-margin-top
+          .uk-grid.uk-grid-match.uk-child-width-expand{ uk: { grid: true } }
+            .div
+              .uk-tile.uk-tile-default.eol-section-secondary.uk-text-center.uk-padding
                 Go visit this collection.
-              %li.uk-card.uk-card-default.eol-section-secondary-alt.uk-card-hover.uk-text-center.uk-padding
+            .div
+              .uk-tile.uk-tile-default.eol-section-secondary-alt.uk-text-center.uk-padding
                 Or check out some educational site.
-              %li.uk-card.uk-card-default.eol-section-secondary.uk-card-hover.uk-text-center.uk-padding
+            .div
+              .uk-tile.uk-tile-default.eol-section-secondary.uk-text-center.uk-padding
                 Perhaps you would like to see some endangered species.
-              %li.uk-card.uk-card-default.eol-section-secondary-alt.uk-card-hover.uk-text-center.uk-padding
+            .div
+              .uk-tile.uk-tile-default.eol-section-secondary-alt.uk-text-center.uk-padding
                 But then again, maybe you just want to look at pretty blue things.
 = render template: "layouts/head_only"

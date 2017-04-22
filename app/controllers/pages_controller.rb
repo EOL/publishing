@@ -19,29 +19,38 @@ class PagesController < ApplicationController
     render layout: "head_only"
   end
 
+  # This is effectively the "cover":
   def show
     @page = Page.where(id: params[:id]).preloaded.first
     return render(status: :not_found) unless @page # 404
     @page_title = @page.name
     get_media
-    if @media.empty?
-      # We are going to show traits instead of media!
-      @resources = TraitBank.resources(@page.traits)
-    end
+    # TODO: we should really only load Associations if we need to:
     get_associations
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     respond_to do |format|
       format.html {}
-      # TODO: you have to tell it which tab was first, sadly... This won't work
-      # if there are no media, but paginatable traits. Really, we need to fix
-      # the problem with kaminari. ATM it's fine because we only paginate media,
-      # but we want to paginate other things!
-      format.js { render action: :media }
     end
   end
 
   # TODO: Decide whether serving the subtabs from here is actually RESTful.
+
+  # TODO: Remove duplication with show (be mindful of id / page_id).
+  def cover
+    @page = Page.where(id: params[:page_id]).preloaded.first
+    return render(status: :not_found) unless @page # 404
+    @page_title = @page.name
+    get_media
+    # TODO: we should really only load Associations if we need to:
+    get_associations
+    # Required mostly for paginating the first tab on the page (kaminari
+    # doesn't know how to build the nested view...)
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
+  end
 
   def traits
     @page = Page.where(id: params[:page_id]).first
@@ -129,7 +138,7 @@ private
         ids = @page.traits.map { |t| t[:object_page_id] }.compact.sort.uniq
         # TODO: include more when we need it
         Page.where(id: ids).
-          includes(:medium, :native_node, :preferred_vernaculars)
+          includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end
   end
 
