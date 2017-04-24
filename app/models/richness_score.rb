@@ -1,14 +1,13 @@
 class RichnessScore
   def self.calculate(page)
-    self.new(page).calculate
+    self.new.calculate(page)
   end
 
   def self.explain(page)
-    self.new(page).explain
+    self.new.explain(page)
   end
 
-  def initialize(page)
-    @page = page
+  def initialize
     @section_count = Section.count
     @section_count = 1 if @section_count.nil? || @section_count <= 0
     @glossary_count = TraitBank.glossary_count
@@ -20,10 +19,15 @@ class RichnessScore
       data_diversity: 0.25,
       references: 0.03
     }
+  end
+
+  def new_page(page)
+    @page = page
     @scores = {}
   end
 
-  def calculate
+  def calculate(page)
+    new_page(page)
     score_media
     score_media_diversity
     score_map
@@ -58,8 +62,8 @@ class RichnessScore
     @scores[:references] = weighted_score(@page.literature_and_references_count) * @weights[:references]
   end
 
-  def explain
-    total = calculate
+  def explain(page)
+    total = calculate(page)
     "Media: #{@page.media_count} -> #{weighted_score(@page.media_count)} * #{@weights[:media]} = #{@scores[:media]}\n"\
     "Media Diversity: #{content_types_count} -> #{media_diversity_score} * #{@weights[:media_diversity]} = #{@scores[:media_diversity]}\n"\
     "Map: #{@page.map?} -> #{@weights[:map]} = #{@scores[:map]}\n"\

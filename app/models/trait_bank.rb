@@ -137,11 +137,13 @@ class TraitBank
     end
 
     def glossary_count
-      res = query(
-        "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
-        "WITH count(distinct(term.uri)) as count "\
-        "RETURN count")
-      res["data"] ? res["data"].first.first : false
+      Rails.cache.fetch("trait_bank/glossary_count") do
+        res = query(
+          "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
+          "WITH count(distinct(term.uri)) as count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
     end
 
     def trait_exists?(resource_id, pk)
@@ -215,6 +217,7 @@ class TraitBank
     def by_page(page_id)
       # TODO: add proper pagination!
       res = query(
+      # res = connection.execute_query(
         "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\

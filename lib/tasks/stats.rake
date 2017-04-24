@@ -19,9 +19,11 @@ namespace :stats do
     examples = {}
     count = 0
     puts "#{pages.count} pages"
+    calc = RichnessScore.new
     pages.find_each do |page|
-      page.score_richness
-      band = page.page_richness / 500
+      score = calc.calculate(page)
+      page.update_attribute(:page_richness, score)
+      band = score / 500
       if scores[band] == 0
         examples[band] = page
       end
