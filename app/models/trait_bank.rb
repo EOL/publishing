@@ -85,7 +85,7 @@ class TraitBank
     end
 
     def quote(string)
-      return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
+      return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
       %Q{"#{string.gsub(/"/, "\\\"")}"}
     end
 
@@ -117,7 +117,7 @@ class TraitBank
               "CREATE CONSTRAINT ON (o:#{label}) ASSERT o.#{field} IS UNIQUE;"
             )
           rescue Neography::NeographyError => e
-            rails e unless e.message =~ /already exists/
+            raise e unless e.message =~ /already exists/
           end
         end
       end
@@ -213,6 +213,8 @@ class TraitBank
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
     end
+
+    # TESTS - You were here
 
     def by_page(page_id)
       # TODO: add proper pagination!
