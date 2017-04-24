@@ -305,4 +305,38 @@ RSpec.describe TraitBank do
       TraitBank.by_predicate(predicate, sort_dir: "DEsc")
     end
   end
+
+  describe ".by_object_term_uri" do
+    let(:term_uri) { "http://foo.bar/baz" }
+    before do
+      allow(TraitBank).to receive(:query) { }
+      allow(TraitBank).to receive(:build_trait_array) { :result_set }
+    end
+
+    it "finds a quoted URI" do
+      expect(TraitBank).to receive(:query).with(/Term { uri: *\"#{term_uri}\" *}/)
+      TraitBank.by_predicate(term_uri)
+    end
+
+    it "calls .build_trait_array" do
+      expect(TraitBank).to receive(:build_trait_array) { :results }
+      expect(TraitBank.by_page(term_uri)).to eq(:results)
+    end
+  end
+
+  # NOTE: there's a lot we could test here, but it all feels very ... "internal"
+  # and too fragile to bother writing as a spec. That said, it's important that
+  # we use a consistent ID format, so let's test that:
+  describe ".build_trait_array" do
+    it "should produce the expected ID format" do
+      results = {"columns" => ["resource", "trait"],
+        "data" => [[
+            { "data" => {"resource_id"=>"TheRes_ID"} },
+            { "data" => {"resource_pk"=>"ResPKHere"} }
+          ]]}
+      col_array = [:resource, :trait]
+      expect(TraitBank.build_trait_array(results, col_array).first[:id]).
+        to eq("trait--TheRes_ID--ResPKHere")
+    end
+  end
 end

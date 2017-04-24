@@ -313,14 +313,11 @@ class TraitBank
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta, "\
-          "meta_predicate, meta_object_term, meta_units_term"
+        "RETURN resource, trait, page, predicate, object_term, units "\
+        "LIMIT 50"
       )
-      build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+      build_trait_array(res, [:resource, :trait, :page, :predicate,
+        :object_term, :units])
     end
 
     def get_clade_traits(clade_id, predicate)
