@@ -235,7 +235,7 @@ class TraitBank
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
 
-    def by_predicate(predicate, options = {})
+    def by_predicate_with_metadata(predicate, options = {})
       # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
       # breaking the internet.
       options[:sort] ||= ""
@@ -270,6 +270,39 @@ class TraitBank
       )
       build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
+    end
+
+    def by_predicate(predicate, options = {})
+      # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
+      # breaking the internet.
+      options[:sort] ||= ""
+      options[:sort_dir] ||= ""
+      sort = if options[:sort].downcase == "measurement"
+        "trait.normal_measurement"
+      else
+        # TODO: this is not good. multiple types of values will not
+        # "interweave", and the only way to change that is to store a
+        # "normal_value" value for all different "stringy" types (literals,
+        # object terms, and object page names). ...This is a resonable approach,
+        # though it will require more work to keep "up to date" (e.g.: if the
+        # name of an object term changes, all associated traits will have to
+        # change).
+        "trait.literal, object_term.name, trait.normal_measurement"
+      end
+      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
+      # TODO: pull in more for the metadata...
+      res = query(
+        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "RETURN resource, trait, page, predicate, object_term, units "\
+        "ORDER BY #{sort} #{dir} "\
+        "LIMIT 50"
+      )
+      build_trait_array(res, [:resource, :trait, :page, :predicate,
+        :object_term, :units])
     end
 
     def by_object_term_uri(object_term)

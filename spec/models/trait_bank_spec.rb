@@ -200,4 +200,109 @@ RSpec.describe TraitBank do
       expect(TraitBank.by_trait(full_id)).to eq(:results)
     end
   end
+
+  describe ".by_page" do
+    before do
+      allow(TraitBank).to receive(:query) { }
+      allow(TraitBank).to receive(:build_trait_array) { :result_set }
+    end
+
+    it "finds a page" do
+      expect(TraitBank).to receive(:query).with(/page:Page.*page_id: 432/)
+      TraitBank.by_page(432)
+    end
+
+    it "finds traits" do
+      expect(TraitBank).to receive(:query).with(/:trait.*trait:Trait/)
+      TraitBank.by_page(1)
+    end
+
+    it "finds the supplier resource" do
+      expect(TraitBank).to receive(:query).with(/:supplier.*resource:Resource/)
+      TraitBank.by_page(1)
+    end
+
+    it "finds the predicate" do
+      expect(TraitBank).to receive(:query).with(/:predicate.*predicate:Term/)
+      TraitBank.by_page(1)
+    end
+
+    it "optionally finds the object term" do
+      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:object_term.*object_term:Term/)
+      TraitBank.by_page(1)
+    end
+
+    it "optionally finds the units term" do
+      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:units_term.*units:Term/)
+      TraitBank.by_page(1)
+    end
+
+    it "calls .build_trait_array" do
+      expect(TraitBank).to receive(:build_trait_array) { :results }
+      expect(TraitBank.by_page(1)).to eq(:results)
+    end
+  end
+
+  describe ".by_predicate" do
+    let(:predicate) { "http://foo.bar/baz" }
+    before do
+      allow(TraitBank).to receive(:query) { }
+      allow(TraitBank).to receive(:build_trait_array) { :result_set }
+    end
+
+    it "finds a page" do
+      expect(TraitBank).to receive(:query).with(/page:Page/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "finds traits" do
+      expect(TraitBank).to receive(:query).with(/:trait.*trait:Trait/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "finds the supplier resource" do
+      expect(TraitBank).to receive(:query).with(/:supplier.*resource:Resource/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "finds the predicate" do
+      expect(TraitBank).to receive(:query).with(/:predicate.*predicate:Term/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "optionally finds the object term" do
+      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:object_term.*object_term:Term/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "optionally finds the units term" do
+      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:units_term.*units:Term/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "calls .build_trait_array" do
+      expect(TraitBank).to receive(:build_trait_array) { :results }
+      expect(TraitBank.by_predicate(predicate)).to eq(:results)
+    end
+
+    it "adds measurement sort to the query when specified" do
+      expect(TraitBank).to receive(:query).with(/trait.normal_measurement/)
+      TraitBank.by_predicate(predicate, sort: "MEASurement")
+    end
+
+    it "adds default sort to the query by default" do
+      expect(TraitBank).to receive(:query).with(/trait\.literal, object_term\.name, trait\.normal_measurement/)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "does NOT add desc to the query by default" do
+      expect(TraitBank).not_to receive(:query).with(/ desc/i)
+      TraitBank.by_predicate(predicate)
+    end
+
+    it "DOES add desc to the query when specified" do
+      expect(TraitBank).to receive(:query).with(/ desc/i)
+      TraitBank.by_predicate(predicate, sort_dir: "DEsc")
+    end
+  end
 end
