@@ -29,77 +29,7 @@ RSpec.describe "pages/show" do
   # mock pages for views... but ATM we only need it once, here, so I'm leaving
   # it despite its gross size and complexity:
   let(:page) do
-    ancestor = instance_double("Node", ancestors: [], name: "Ancestor Name",
-      canonical_form: "Ancestor Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Ancestor Sci")
-    invisible_ancestor = instance_double("Node", ancestors: [ancestor], name: "InvisibleAncestor Name",
-      canonical_form: "InvisibleAncestor Canon", page_id: 653421, has_breadcrumb?: false, rank: rank, scientific_name: "InvisibleAncestor Sci")
-    parent = instance_double("Node", ancestors: [ancestor, invisible_ancestor], name: "Parent Name",
-      canonical_form: "Parent Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Parent Sci")
-    node = instance_double("Node", ancestors: [ancestor, invisible_ancestor, parent], name: "SomeTaxon",
-      children: [], resource: resource, has_breadcrumb?: true)
-    lic2 = instance_double("License", name: "Article license name")
-    article = instance_double("Article", name: "Article Name", license: lic2,
-      body: "Article body", owner: "Article owner", rights_statement: nil,
-      bibliographic_citation: nil, location: nil, attributions: [],
-      source_url: nil, resource: resource, resource_pk: "1234")
-    sci_name = instance_double("ScientificName", node: node,
-      italicized: "<i>Nice scientific</i>",
-      taxonomic_status: TaxonomicStatus.synonym)
-    vernacular = instance_double("Vernacular", string: "something common",
-      language: Language.english, is_preferred?: true, node: node,
-      is_preferred_by_resource: true)
-    traits = [
-      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
-        measurement: "657", units: { uri: "http://un.its/one",
-        name: "Units URI" }, resource_id: resource.id },
-      { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
-        object_term: { uri: "http://te.rm/one", name: "Term URI" } },
-      { predicate: { uri: "http://predic.ate/two", name: "Uri" },
-        literal: "literal trait value" } ]
-    glossary = {
-      "http://predic.ate/one" => { name: "Predicate One" },
-      "http://predic.ate/two" => { name: "Predicate Two" },
-      "http://un.its/one" => { name: "Units URI" },
-      "http://te.rm/one" => { name: "Term URI" }
-    }
-
-    instance_double("Page",
-      id: 8293,
-      articles: [article],
-      articles_count: 1,
-      nodes_count: 1,
-      glossary: glossary,
-      grouped_traits: traits.group_by { |t| t[:predicate][:uri] },
-      habitats: "",
-      iucn_status_key: :lc,
-      is_it_extinct?: false,
-      is_it_marine?: false,
-      literature_and_references_count: 3,
-      map?: false,
-      media_count: 2,
-      nodes: [node],
-      name: vernacular.string,
-      names_count: 2,
-      native_node: node,
-      occurrence_map?: false,
-      predicates: traits.map { |t| t[:predicate][:uri] },
-      rank: rank_sp,
-      scientific_name: sci_name.italicized,
-      scientific_names: [sci_name],
-      top_image: image1,
-      traits: traits,
-      traits_count: 3,
-      vernaculars: [vernacular],
-      page_richness: 0,
-      page_contents_count: 0,
-      links_count: 0,
-      maps_count: 0,
-      vernaculars_count: 0,
-      scientific_names_count: 0,
-      referents_count: 0,
-      species_count: 0,
-      updated_at: Time.now
-    )
+    double_page(rank: rank, resource: resource, media: [image1, image2])
   end
 
   before do
@@ -110,6 +40,12 @@ RSpec.describe "pages/show" do
     allow(media).to receive(:limit_value) { 2 } # kaminari
     assign(:media, media)
     assign(:resources, { resource.id => resource })
+  end
+
+  it "shows the ancestor names" do
+    render
+    expect(rendered).to match "Parent Canon"
+    expect(rendered).to match "Ancestor Canon"
   end
 
   it "shows the title" do
@@ -183,93 +119,10 @@ RSpec.describe "pages/show" do
   #   expect(rendered).to match "Great Second Image"
   # end
 
-  it "shows the ancestor names" do
-    render
-    expect(rendered).to match "Parent Canon"
-    expect(rendered).to match "Ancestor Canon"
-  end
-
-  it "shows a media subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/media")
-    expect(rendered).to have_content /2\s*Media/
-  end
-
-  it "shows a data subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/traits")
-    expect(rendered).to have_content /3\s*Traits/
-  end
-
-  it "shows a details subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/details")
-    expect(rendered).to have_content /1\s*Details/
-  end
-
-  it "shows a classification subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/classifications")
-    expect(rendered).to have_content /1\s*Classification/
-  end
-
-  it "shows a names subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/names")
-    expect(rendered).to have_content /2\s*Names/
-  end
-
-  it "shows a literature_and_references subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/literature_and_references")
-    expect(rendered).to have_content /3\s*References/
-  end
 
   context "Empty page" do
     let (:empty_page) do
-      node = instance_double("Node", ancestors: [], name: "SomeTaxon", id: 1,
-        children: [], resource: resource, has_breadcrumb?: true)
-      sci_name = instance_double("ScientificName", node: node,
-        italicized: "<i>Nice scientific</i>",
-        taxonomic_status: TaxonomicStatus.synonym)
-      instance_double("Page",
-        id: 3497,
-        articles: [],
-        articles_count: 0,
-        nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...
-        descendant_species: 0,
-        glossary: [],
-        grouped_traits: nil,
-        habitats: "",
-        iucn_status_key: nil,
-        is_it_extinct?: false,
-        is_it_marine?: false,
-        literature_and_references_count: 0,
-        map?: false,
-        media_count: 0,
-        nodes: [node],
-        name: sci_name.italicized,
-        names_count: 0,
-        native_node: nil,
-        occurrence_map?: false,
-        predicates: [],
-        rank: rank_sp,
-        scientific_name: sci_name.italicized,
-        scientific_names: [sci_name],
-        top_image: nil,
-        traits: [],
-        traits_count: 0,
-        vernaculars: [],
-        page_richness: 0,
-        page_contents_count: 0,
-        links_count: 0,
-        maps_count: 0,
-        vernaculars_count: 0,
-        scientific_names_count: 0,
-        referents_count: 0,
-        species_count: 0,
-        updated_at: Time.now
-      )
+      double_empty_page(rank: rank_sp, resource: resource)
     end
 
     before do

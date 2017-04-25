@@ -14,7 +14,8 @@
         = link_to(button_text, "#", class: "ui basic button", type: "button")
         .uk-list.uk-padding-small{ uk: { dropdown: true } }
           - keys.each do |key|
-            %li= link_to(langs[key], lang: key)
+            -# NOTE the stupid check for test env here. Yuck.
+            %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
       .right.menu
         .nav-search.item
           = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
