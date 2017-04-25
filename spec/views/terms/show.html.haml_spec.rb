@@ -70,7 +70,9 @@ RSpec.describe "terms/show" do
       small_icon_url: "http://this/path_88_88.jpg")
     expect(page1).to receive(:top_image) { image }
     render
-    expect(rendered).to have_selector("tr#1\\:1 th.trait-table-image img")
+    # We're not actually testing the image here, because it's rendered in a
+    # helper and that gets hairy with tests ... but the div should be there!:
+    expect(rendered).to have_selector("tr#1\\:1 th.trait-table-image")
   end
 
   it "shows NO icon for pages that do NOT have one" do

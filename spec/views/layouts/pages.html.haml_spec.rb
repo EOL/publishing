@@ -20,10 +20,6 @@ RSpec.describe "layouts/pages" do
   end
 
   before do
-    allow(view).to receive(:stylesheet_link_tag) { "<style />" }
-    allow(view).to receive(:javascript_include_tag) { "<script />" }
-    allow(view).to receive(:image_tag) { "<img src='foo'/>" }
-    allow(view).to receive(:csrf_meta_tags) { "<meta/>" }
     allow(view).to receive(:current_user) { }
     assign(:page, page)
   end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User::RegistrationsController, type: :controller do
   render_views
+
   describe 'check_captcha' do
     before do
       request.env["devise.mapping"] = Devise.mappings[:user]

@@ -64,9 +64,6 @@ RSpec.describe "search/search" do
       assign(:collections, search_results)
       assign(:empty, false)
       assign(:q, "dude")
-      # TODO: something about the image_tag helper in the view takes ***20***
-      # seconds to work! So I'm stubbing it here. Yeesh!
-      allow(view).to receive(:image_tag) { "<img foo>" }
       render
     end
 

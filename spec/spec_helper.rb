@@ -52,6 +52,37 @@ RSpec.configure do |config|
     ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
   end
 
+  config.before(:each, type: :controller) do
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:stylesheet_link_tag) { "<style />".html_safe }
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:javascript_include_tag) { "<script />".html_safe }
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:image_tag) { |arg1, arg2| "<img src='#{arg1}'></img>".html_safe }
+    allow_any_instance_of(ActionView::Helpers::CsrfHelper).
+      to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+  end
+
+  config.before(:each, type: :request) do
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:stylesheet_link_tag) { "<style />".html_safe }
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:javascript_include_tag) { "<script />".html_safe }
+    allow_any_instance_of(ActionView::Helpers::AssetTagHelper).
+      to receive(:image_tag) { |arg1, arg2| "<img src='#{arg1}'></img>".html_safe }
+    allow_any_instance_of(ActionView::Helpers::CsrfHelper).
+      to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+  end
+
+  config.before(:each, type: :view) do
+    allow(view).to receive(:stylesheet_link_tag) { "<style />".html_safe }
+    allow(view).to receive(:javascript_include_tag) { "<script />".html_safe }
+    allow(view).to receive(:image_tag) do |arg1, arg2|
+      "<img src='#{arg1}'></img>".html_safe
+    end
+    allow(view).to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+  end
+
   config.after(:each) do
     ::Sunspot.session = ::Sunspot.session.original_session
     # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
