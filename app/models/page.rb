@@ -185,8 +185,11 @@ class Page < ActiveRecord::Base
   end
 
   def maps
-    # TODO
-    []
+    media.where(subclass: Medium.subclasses[:map])
+  end
+
+  def map_count
+    maps.count + (occurrence_map? ? 1 : 0)
   end
 
   def sections

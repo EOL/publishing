@@ -47,7 +47,7 @@ class PagesController < ApplicationController
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     respond_to do |format|
-      format.html {}
+      format.html { render :show }
       format.js {}
     end
   end
@@ -58,14 +58,20 @@ class PagesController < ApplicationController
     @resources = TraitBank.resources(@page.traits)
     get_associations
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
 
   def maps
     @page = Page.where(id: params[:page_id]).first
+    # NOTE: sorry, no, you cannot choose the page size for maps.
+    @media = @page.maps.page(params[:page]).per_page(18)
+    @subclass = "map"
+    @subclass_id = Medium.subclasses[:map]
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -75,6 +81,7 @@ class PagesController < ApplicationController
     return render(status: :not_found) unless @page # 404
     get_media
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -85,6 +92,7 @@ class PagesController < ApplicationController
       :nodes, native_node: :children).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -94,6 +102,7 @@ class PagesController < ApplicationController
       :bibliographic_citation, :location, :resource, attributions: :role]).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
+      format.html {}
       format.js {}
       format.json { render json: @page.articles } # TODO: add sections later.
     end
@@ -104,6 +113,7 @@ class PagesController < ApplicationController
       :native_node).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -113,6 +123,7 @@ class PagesController < ApplicationController
     @page = Page.where(id: params[:page_id]).includes(referents: :parent).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
+      format.html {}
       format.js {}
     end
   end
@@ -144,7 +155,6 @@ private
 
   def get_media
     @media = @page.media.includes(:license)
-    @license = nil
     if params[:license]
       @media = @media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])

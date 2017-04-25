@@ -1,7 +1,27 @@
 if(!EOL) {
   var EOL = {};
 
+  EOL.enable_tab_nav = function() {
+    console.log("enable_tab_nav");
+    $("#page_nav a").on("click", function() {
+      console.log("page_nav click");
+      $("#tab_content").dimmer("show");
+    }).unbind("ajax:complete")
+    .bind("ajax:complete", function() {
+      console.log("page_nav complete");
+      $("#tab_content").dimmer("hide");
+      history.pushState(null, "", this.href);
+    }).unbind("ajax:error")
+    .bind("ajax:error", function(evt, data, status, xhr) {
+      console.log("page_nav error:");
+      UIkit.modal.alert('Sorry, there was an error loading this subtab.');
+      console.log(data.responseText);
+    });
+    EOL.dim_tab_on_pagination();
+  };
+
   EOL.dim_tab_on_pagination = function() {
+    console.log("dim_tab_on_pagination");
     $("#tab_content").dimmer("hide");
     $(".uk-pagination a").on("click", function(e) {
       $("#tab_content").dimmer("show");
@@ -9,7 +29,7 @@ if(!EOL) {
   };
 
   EOL.allow_meta_traits_to_toggle = function() {
-    console.log("Enabling Meta Traits to Toggle.");
+    console.log("allow_meta_traits_to_toggle");
     $(".toggle_meta").on("click", function (event) {
       var $div = $(this).find(".meta_trait");
       if($div.is(':visible')) {
@@ -45,11 +65,11 @@ if(!EOL) {
       return event.stopPropagation();
     });
     $(".meta_trait").hide();
-    EOL.dim_tab_on_pagination();
+    EOL.enable_tab_nav();
   };
 
   EOL.enable_media_navigation = function() {
-    console.log("Enabling Media Navigation.");
+    console.log("enable_media_navigation");
     $("#page_nav_content .dropdown").dropdown();
     $(".uk-modal-body a.uk-slidenav-large").on("click", function(e) {
       var link = $(this);
@@ -62,11 +82,11 @@ if(!EOL) {
       UIkit.modal("#"+thisId).hide();
       UIkit.modal("#"+tgtId).show();
     });
-    EOL.dim_tab_on_pagination();
+    EOL.enable_tab_nav();
   };
 
   EOL.enable_trait_toc = function() {
-    console.log("Enabling Data Tab TOC.");
+    console.log("enable_trait_toc");
     $("#section_links a").on("click", function(e) {
       var link = $(this);
       $("#section_links .item.active").removeClass("active");
@@ -93,20 +113,11 @@ if(!EOL) {
       }
       e.stopPropagation();
       e.preventDefault();
-      EOL.dim_tab_on_pagination();
     });
   };
 }
 
 $(document).ready(function() {
-  $("#page_nav a").on("click", function() {
-    $("#tab_content").dimmer("show");
-  }).bind("ajax:complete", function() {
-    $("#tab_content").dimmer("hide");
-  }).bind("ajax:error", function(evt, data, status, xhr) {
-    UIkit.modal.alert('Sorry, there was an error loading this subtab.');
-    console.log(data.responseText)
-  });
   if ($("#gallery").length === 1) {
     EOL.enable_media_navigation();
   } else if ($("#page_traits").length === 1) {
@@ -114,24 +125,15 @@ $(document).ready(function() {
     EOL.allow_meta_traits_to_toggle();
   } else if ($("#traits_table").length === 1) {
     EOL.allow_meta_traits_to_toggle();
+  } else {
+    EOL.enable_tab_nav();
   }
+  // No "else" because it also has a gallery, so you can need both!
+  if ($("#gmap").length == 1) {
+    EoLMap.init();
+  }
+  $(window).bind("popstate", function () {
+    console.log("popstate "+location.href);
+    $.getScript(location.href);
+  });
 });
-
-// (function () {
-//   'use strict';
-//   // These depend on devise configurations. DON'T FORGET TO CHANGE IT when you
-//   // change in devise.rb
-//   var passwordMinLength = 8;
-//   var passwordMaxLength = 32;
-//
-//   var app = angular
-//     .module("eolApp", ["ngAnimate", "ngMaterial", "ngSanitize"])
-//     .config(function($mdThemingProvider) {
-//       $mdThemingProvider.theme('default')
-//         .primaryPalette('brown', {
-//           'default': '800'
-//         })
-//         .accentPalette('indigo', {
-//           'default': '800'
-//         });
-//     });

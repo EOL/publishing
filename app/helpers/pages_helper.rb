@@ -100,7 +100,8 @@ module PagesHelper
   # Options: icon, count, path, name, active
   def tab(options)
     text = t("pages.tabs.#{options[:name]}")
-    haml_tag("li", id: "page_nav_#{options[:name]}", class: options[:active] ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
+    active = options[:active] || current_page?(options[:path])
+    haml_tag("li", id: "page_nav_#{options[:name]}", class: active ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
       haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count] || "&nbsp;".html_safe}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
       haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
     end

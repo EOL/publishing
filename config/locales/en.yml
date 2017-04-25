@@ -344,7 +344,9 @@ en:
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
   literature_and_references_header: "Literature and References"
-  maps_empty: "There are no maps available for this page."
+  maps:
+    empty: "There are no maps available for this page."
+    other_maps_title: "Other Maps"
   medium:
     subclasses:
       image: "image"
