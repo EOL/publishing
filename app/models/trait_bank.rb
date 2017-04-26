@@ -79,6 +79,7 @@ class TraitBank
       begin
         connection.execute_query(q)
       rescue Excon::Error::Timeout => e
+        Rails.logger.error("Timed out on query: #{q}")
         sleep(1)
         connection.execute_query(q)
       end

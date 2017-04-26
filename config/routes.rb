@@ -37,8 +37,8 @@ Rails.application.routes.draw do
   resources :resources, only: [:show]
 
   # This isn't really a model, so we'll go oldschool:
-  get "/terms" => "terms#show", :as => "term"
   get "/terms/glossary" => "terms#glossary", :as => "glossary"
+  get "/terms" => "terms#show", :as => "term"
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
