@@ -1,22 +1,25 @@
 - cache("term/glossary", expires_in: 1.day) do
-  %h1= t("term.glossary.title")
-  .toc.uk-grid.uk-grid-small.uk-child-width-expand
-    .link
-      = link_to("0-9", "#0-9")
-    - Array('A'..'Z').each do |letter|
-      .link
-        = link_to(letter, "##{letter}")
-  .uk-margin-top
-    %dl.uk-description-list
-      - last_head = nil
-      - @glossary.each do |term|
-        - this_head = term[:name][0].upcase
-        - this_head = "0-9" if this_head =~ /[0-9]/
-        - unless this_head == last_head
-          - last_head = this_head
-          %h3{ id: this_head }= this_head
-        %dt= link_to(term[:name], term_path(uri: term[:uri]))
-        %dd
-          .uk-text-muted.uk-text-small= term[:uri]
-          = term[:definition]
-          .uk-text-muted= term[:attribution]
+  #terms_glossary{ uk: { grid: true } }
+    .uk-width-1-5
+      .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
+        %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 100" } } }
+          %li= link_to("0-9", "#", data: { section_id: "0-9" })
+          - Array('A'..'Z').each do |letter|
+            %li= link_to(letter, "##{letter}")
+
+    .uk-width-expand.uk-overflow-auto
+      %h1= t("term.glossary.title")
+      .uk-margin-top
+        %dl.uk-description-list
+          - last_head = nil
+          - @glossary.sort_by { |t| t[:name][0].upcase }.each do |term|
+            - this_head = term[:name][0].upcase
+            - this_head = "0-9" if this_head =~ /[0-9]/
+            - unless this_head == last_head
+              - last_head = this_head
+              %h3{ id: this_head }= this_head
+            %dt= link_to(term[:name], term_path(uri: term[:uri]))
+            %dd
+              .uk-text-muted.uk-text-small= term[:uri]
+              = term[:definition]
+              .uk-text-muted= term[:attribution]
