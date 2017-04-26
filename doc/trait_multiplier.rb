@@ -76,37 +76,6 @@ while true
   n += limit
 end
 
-####################################
-# Run:
-rails runner foo.rb
-^z
-bg
-jobs -l # Copy the number NOT in brackets
-disown -h [that number]
-tail -f runner.log
-
-# Count traits:
-TraitBank.trait_count
-
-# If the query fails:
-
-page_id = page.id
-connection = TraitBank.connection
-results = connection.execute_query(
-        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term "\
-        "LIMIT 2000"
-      ) ; results["data"].size
-col_array = [:resource, :trait, :predicate, :object_term,
-  :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term]
-
 def get_column_data(name, results, col)
   return nil unless col.has_key?(name)
   return nil unless results[col[name]].is_a?(Hash)

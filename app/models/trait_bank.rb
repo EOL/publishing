@@ -129,7 +129,7 @@ class TraitBank
       query("MATCH (n) DETACH DELETE n")
     end
 
-    def trait_count
+    def count
       res = query(
         "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
@@ -158,12 +158,17 @@ class TraitBank
     end
 
     def terms(page = 1, per = 50)
-      skip = (page - 1) * per
-      q = "MATCH (term:Term) RETURN term ORDER BY term.name, term.uri "\
-        "LIMIT #{per}"
-      q += " SKIP #{skip}" if skip > 0
+      q = "MATCH (term:Term) RETURN term ORDER BY term.name, term.uri"
+      add_limit_and_skip(q, page, per)
       res = query(q)
       res["data"] ? res["data"].map { |t| t.first["data"] } : false
+    end
+
+    def add_limit_and_skip(q, page = 1, per = 50)
+      skip = (page - 1) * per
+      q += " LIMIT #{per}"
+      q += " SKIP #{skip}" if skip > 0
+      q
     end
 
     def full_glossary
@@ -183,61 +188,15 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-   # NOTE: given one of the "res" sets here, you can find a particular trait
-   # with this: trait_res = results["data"].find { |tr| tr[2] &&
-   # tr[2]["data"]["uri"] == "http://purl.obolibrary.org/obo/VT_0001259" }
-   #
-   # MATCH (page:Page { page_id: 1680 })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) MATCH (trait)-[:predicate]->(predicate:Term) OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) OPTIONAL MATCH (trait)-[:units_term]->(units:Term) OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) RETURN resource, trait, predicate, object_term, units, meta, meta_predicate, meta_object_term, meta_units_term LIMIT 20
-    def by_page_with_metadata(page_id)
-      # TODO: add proper pagination!
-      res = query(
-        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, "\
-          "meta_predicate, meta_object_term, meta_units_term "\
-        "LIMIT 2000"
-      )
-      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
-    end
-
-    def by_trait_with_metadata(full_id)
+    def by_trait(full_id, page = 1, per = 200)
       (_, resource_id, id) = full_id.split("--")
-      # TODO: add proper pagination!
-      q =
-        "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
+      q = "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, meta, "\
-          "meta_predicate, meta_object_term, meta_units_term "\
-        "LIMIT 2000"
-      res = query(q)
-      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
-    end
-
-    def by_trait(full_id)
-      (_, resource_id, id) = full_id.split("--")
-      # TODO: add proper pagination!
-      q =
-        "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
-          "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, predicate, object_term, units "\
-        "LIMIT 2000"
+        "RETURN resource, trait, predicate, object_term, units"
+      add_limit_and_skip(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
@@ -245,65 +204,22 @@ class TraitBank
 
     # TESTS - You were here
 
-    def by_page(page_id)
-      # TODO: add proper pagination!
-      res = query(
-      # res = connection.execute_query(
-        "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+    def by_page(page_id, page = 1, per = 200)
+      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, predicate, object_term, units "\
-        "LIMIT 2000"
-      )
+        "RETURN resource, trait, predicate, object_term, units"
+      add_limit_and_skip(q, page, per)
+      res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
     end
 
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
-
-    def by_predicate_with_metadata(predicate, options = {})
-      # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
-      # breaking the internet.
-      options[:sort] ||= ""
-      options[:sort_dir] ||= ""
-      sort = if options[:sort].downcase == "measurement"
-        "trait.normal_measurement"
-      else
-        # TODO: this is not good. multiple types of values will not
-        # "interweave", and the only way to change that is to store a
-        # "normal_value" value for all different "stringy" types (literals,
-        # object terms, and object page names). ...This is a resonable approach,
-        # though it will require more work to keep "up to date" (e.g.: if the
-        # name of an object term changes, all associated traits will have to
-        # change).
-        "trait.literal, object_term.name, trait.normal_measurement"
-      end
-      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
-      # TODO: pull in more for the metadata...
-      res = query(
-        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units, meta, "\
-          "meta_predicate, meta_object_term, meta_units_term "\
-        "ORDER BY #{sort} #{dir} "\
-        "LIMIT 50"
-      )
-      build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_object_term, :meta_units_term])
-    end
-
     def by_predicate(predicate, options = {})
-      # TODO: proper pagination. I had to add a limit of 50 because NO LIMIT was
-      # breaking the internet.
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
       sort = if options[:sort].downcase == "measurement"
@@ -320,31 +236,30 @@ class TraitBank
       end
       dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
       # TODO: pull in more for the metadata...
-      res = query(
-        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units "\
-        "ORDER BY #{sort} #{dir} "\
-        "LIMIT 50"
-      )
+        "ORDER BY #{sort} #{dir}"
+      add_limit_and_skip(q, options[:page] || 1, options[:per] || 50)
+      res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
     end
 
-    def by_object_term_uri(object_term)
+    def by_object_term_uri(object_term, page = 1, per = 200)
       # TODO: pull in more for the metadata...
-      res = query(
-        "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units "\
         "LIMIT 50"
-      )
+      add_limit_and_skip(q, page, per)
+      res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
     end
