@@ -1,0 +1,22 @@
+- cache("term/glossary", expires_in: 1.day) do
+  %h1= t("term.glossary.title")
+  .toc.uk-grid.uk-grid-small.uk-child-width-expand
+    .link
+      = link_to("0-9", "#0-9")
+    - Array('A'..'Z').each do |letter|
+      .link
+        = link_to(letter, "##{letter}")
+  .uk-margin-top
+    %dl.uk-description-list
+      - last_head = nil
+      - @glossary.each do |term|
+        - this_head = term[:name][0].upcase
+        - this_head = "0-9" if this_head =~ /[0-9]/
+        - unless this_head == last_head
+          - last_head = this_head
+          %h3{ id: this_head }= this_head
+        %dt= link_to(term[:name], term_path(uri: term[:uri]))
+        %dd
+          .uk-text-muted.uk-text-small= term[:uri]
+          = term[:definition]
+          .uk-text-muted= term[:attribution]

@@ -527,6 +527,8 @@ en:
         username:
   taxon_collect_button: "collect"
   term:
+    glossary:
+      title: "Glossary of Data Terms on EOL"
     show:
       clade_filter: "Filter by clade:"
   trait_source: "source"

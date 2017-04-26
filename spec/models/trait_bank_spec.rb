@@ -139,11 +139,11 @@ RSpec.describe TraitBank do
     end
   end
 
-  describe ".glossary_count" do
+  describe ".predicate_count" do
     it "should return a count" do
       result = { "data" => [[234, 456], :not_this] }
       expect(TraitBank).to receive(:query).with(/RETURN count/) { result }
-      expect(TraitBank.glossary_count).to eq(234)
+      expect(TraitBank.predicate_count).to eq(234)
     end
   end
 

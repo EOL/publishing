@@ -136,13 +136,41 @@ class TraitBank
       res["data"] ? res["data"].first.first : false
     end
 
-    def glossary_count
-      Rails.cache.fetch("trait_bank/glossary_count") do
+    def predicate_count
+      Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
         res = query(
           "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
-          "WITH count(distinct(term.uri)) as count "\
+          "WITH count(distinct(term.uri)) AS count "\
           "RETURN count")
         res["data"] ? res["data"].first.first : false
+      end
+    end
+
+    def terms_count
+      Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
+        res = query(
+          "MATCH (term:Term) "\
+          "WITH count(distinct(term.uri)) AS count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
+    end
+
+    def terms(page = 1, per = 50)
+      skip = (page - 1) * per
+      q = "MATCH (term:Term) RETURN term ORDER BY term.name, term.uri "\
+        "LIMIT #{per}"
+      q += " SKIP #{skip}" if skip > 0
+      res = query(q)
+      res["data"] ? res["data"].map { |t| t.first["data"] } : false
+    end
+
+    def full_glossary
+      Rails.cache.fetch("trait_bank/full_glossary", expires_in: 1.day) do
+        q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+          "RETURN term ORDER BY term.name, term.uri"
+        res = query(q)
+        res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
       end
     end
 

@@ -8,7 +8,7 @@ RSpec.describe RichnessScore do
 
     before(:each) do
       allow(Section).to receive(:count) { 10 }
-      allow(TraitBank).to receive(:glossary_count) { 100 }
+      allow(TraitBank).to receive(:predicate_count) { 100 }
     end
 
     context("with a rich-ish page") do
