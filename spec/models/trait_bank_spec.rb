@@ -4,8 +4,12 @@ RSpec.describe TraitBank do
   let(:conn) { instance_double(Neography::Rest) }
 
   describe ".connection" do
-    after do
-      TraitBank.class_eval { remove_instance_variable(:@connection) }
+    before do
+      begin
+        TraitBank.class_eval { remove_instance_variable(:@connection) }
+      rescue NameError
+        nil # This is fine; it wasn't defined.
+      end
     end
 
     it "uses Neography::Rest exactly once, resuses connection" do

@@ -52,6 +52,20 @@ class Rank < ActiveRecord::Base
       end
     end
 
+    # Useful for deciding whether or not it's worth showing an icon, among other
+    # things.
+    def species_or_below
+      Rails.cache.fetch("ranks/species_or_below") do
+        where(["treat_as IN ?", [
+          Rank.treat_as[:r_superspecies],
+          Rank.treat_as[:r_species],
+          Rank.treat_as[:r_subspecies],
+          Rank.treat_as[:r_infraspecies],
+          Rank.treat_as[:r_form],
+        ]]).pluck(:id)
+      end
+    end
+
     def fill_in_missing_treat_as
       where(treat_as: nil).find_each do |rank|
         guess = guess_treat_as(rank.name)

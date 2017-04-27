@@ -238,18 +238,20 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
-  # TODO: ideally we want to be able to paginate these! ...but that's really
-  # hard, and ATM the query is pretty fast even for >100 traits, so we're not
-  # doing that yet.
-  def traits
-    return @traits if @traits
+  # NOTE: This page size is "huge" because we don't want pagination for traits.
+  # ...Mainly because it gets complicated quickly. Data rows can be in multiple
+  # TOC items, and we want to be able to show all of the traits in a single TOC
+  # item. ...which I suppose we could manage by passing in a section id.
+  # ...Hmmmn. We could. But we haven't been asked to, I'm going to hold off for
+  # now. (NOTE: If we do that, we're going to need another method to pull in the
+  # full TOC.)
+  def traits(page = 1, per = 2000)
+    return @traits[0..per] if @traits
     traits = TraitBank.by_page(id)
     # Self-healing count of number of traits:
     if traits.size != traits_count
       update_attribute(:traits_count, traits.size)
     end
-    # TODO: do we need a glossary anymore, really?
-    @glossary = TraitBank.glossary(traits)
     @data_toc_needs_other = false
     @data_toc = traits.flat_map do |t|
       next if t[:predicate][:section_ids].nil? # Usu. test data...
@@ -314,6 +316,10 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def should_show_icon?
+    @should_show_icon ||= Rank.species_or_below.include?(rank_id)
+  end
+
   def is_it_marine?
     if ! has_checked_marine? && @traits_loaded
       recs = grouped_traits[Eol::Uris.environment]
@@ -373,9 +379,9 @@ class Page < ActiveRecord::Base
   end
 
   def glossary
-    return @glossary if @glossary
-    traits
-    @glossary
+    @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
+      TraitBank.page_glossary(id)
+    end
   end
 
   def data_toc

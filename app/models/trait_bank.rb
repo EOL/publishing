@@ -202,9 +202,23 @@ class TraitBank
         :units])
     end
 
-    # TESTS - You were here
+    def page_glossary(page_id)
+      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "RETURN predicate, object_term, units"
+      res = query(q)
+      uris = {}
+      res["data"].each do |row|
+        row.each do |col|
+          uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if col
+        end
+      end
+      uris
+    end
 
-    def by_page(page_id, page = 1, per = 200)
+    def by_page(page_id, page = 1, per = 100)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -365,17 +379,6 @@ class TraitBank
       return nil unless col.has_key?(name)
       return nil unless results[col[name]].is_a?(Hash)
       results[col[name]]["data"]
-    end
-
-    def glossary(traits)
-      uris = {}
-      traits.each do |trait|
-        [:predicate, :units, :object_term].each do |type|
-          next unless trait[type] && trait[type].is_a?(Hash)
-          uris[trait[type][:uri]] ||= trait[type]
-        end
-      end
-      uris
     end
 
     def resources(traits)

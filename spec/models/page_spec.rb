@@ -126,11 +126,8 @@ RSpec.describe Page do
     end
 
     it "#glosasry builds a glossary" do
-      allow(TraitBank).to receive(:by_page) { traits_out_of_order }
-      expect(our_page.glossary.keys).to include(predicate1[:uri])
-      expect(our_page.glossary.keys).to include(predicate2[:uri])
-      expect(our_page.glossary.keys).to include(units[:uri])
-      expect(our_page.glossary.keys).to include(term[:uri])
+      allow(TraitBank).to receive(:page_glossary).with(our_page.id) { true }
+      our_page.glossary
     end
 
     it "#grouped_traits groups traits" do

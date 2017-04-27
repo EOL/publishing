@@ -41,6 +41,7 @@ module TraitsHelper
     value = t(:trait_missing, keys: trait.keys.join(", "))
     if trait[:object_page_id] && defined?(@associations)
       target = @associations.find { |a| a.id == trait[:object_page_id] }
+      show_trait_page_icon(target) if target.should_show_icon?
       summarize(target, options = {})
     elsif trait[:measurement]
       value = trait[:measurement].to_s + " "

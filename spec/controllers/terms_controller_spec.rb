@@ -34,7 +34,7 @@ RSpec.describe TermsController do
   before do
     allow(TraitBank).to receive(:term_as_hash) { trait[:predicate] }
     allow(TraitBank).to receive(:by_predicate) { grouped_traits }
-    allow(TraitBank).to receive(:glossary) { glossary }
+    # allow(TraitBank).to receive(:glossary) { glossary }
     allow(TraitBank).to receive(:resources) { [resource] }
   end
 
@@ -44,7 +44,7 @@ RSpec.describe TermsController do
     end
 
     it { expect(assigns(:term)[:uri]).to eq(trait[:predicate][:uri]) }
-    it { expect(assigns(:glossary)).to eq(glossary) }
+    # it { expect(assigns(:glossary)).to eq(glossary) }
     it { expect(assigns(:resources)).to eq([resource]) }
     it { expect(assigns(:grouped_traits)).to eq(grouped_traits) }
 
