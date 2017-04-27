@@ -74,6 +74,7 @@ class Page < ActiveRecord::Base
   end
 
   def count_species
+    return nil unless native_node
     count = native_node.leaves.
       where(["rank_id IN (?)", Rank.all_species_ids]).count
     update_attribute(:species_count, count)
@@ -317,7 +318,8 @@ class Page < ActiveRecord::Base
   end
 
   def should_show_icon?
-    @should_show_icon ||= Rank.species_or_below.include?(rank_id)
+    return nil unless native_node
+    @should_show_icon ||= Rank.species_or_below.include?(native_node.rank_id)
   end
 
   def is_it_marine?
