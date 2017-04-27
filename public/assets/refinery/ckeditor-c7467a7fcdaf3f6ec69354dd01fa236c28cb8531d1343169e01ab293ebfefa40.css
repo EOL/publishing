@@ -1,0 +1,100 @@
+/* line 6, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#page_part_body, #page_part_side_body {
+  width: 100%;
+}
+
+/* line 9, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#page_part_body textarea, #page_part_new_0 textarea {
+  width: 65%;
+  min-width: 65%;
+  max-width: 65%;
+}
+
+/* line 12, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#page_part_side_body textarea, #page_part_new_1 textarea {
+  width: 40%;
+  min-width: 40%;
+  max-width: 40%;
+}
+
+/* line 15, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+.ui-tabs-nav {
+  float: left;
+  margin-left: 4px;
+}
+/* line 18, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+.ui-tabs-nav li {
+  margin-bottom: 0;
+}
+
+/* line 21, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#page_part_editors {
+  float: left;
+  display: block;
+  width: 100%;
+}
+
+/* line 26, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#more_options_field {
+  clear: both;
+}
+
+/* line 31, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+.rightbar {
+  float: left;
+  width: 286px;
+  margin-left: 9px;
+  margin-top: -39px;
+}
+/* line 36, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+.rightbar .ui-tabs-nav {
+  float: left;
+  margin-bottom: 0;
+}
+
+/* line 40, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#cke_page_parts_attributes_0_body, #cke_page_parts_attributes_1_body, #page_part_body, #page_part_side_body {
+  float: left;
+}
+
+/* line 43, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#images_container, #files_container {
+  float: left;
+  clear: left;
+  width: 100%;
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid lightGrey;
+  padding: 5px;
+}
+
+/* line 52, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#images_container li {
+  float: left;
+  margin: 0px 6px 10px 0px;
+  border: 2px solid #fcfcfc;
+  font-size: 0.9em;
+}
+
+/* line 57, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+.box_of_holding {
+  width: 125px;
+  height: 125px;
+  overflow: hidden;
+}
+
+/* line 64, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#files_container li:nth-child(odd) {
+  background: #EAEAEA;
+}
+/* line 66, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+#files_container a {
+  display: block;
+  padding: 6px 6px 6px 26px;
+  background: transparent url(/assets/refinery/ckeditor/pdf-27420ea72e036ea1511bf0a0a4b263a02a2bf52ecd0e297c05ea1d50e7bb218a.png) no-repeat 4px center;
+}
+
+/* line 75, /home/ba/.rvm/gems/ruby-2.3.1/gems/refinerycms-ckeditor-0.2.0/app/assets/stylesheets/refinery/ckeditor.css.sass */
+table.cke_editor tr:hover {
+  background: none;
+}

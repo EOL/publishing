@@ -1,6 +1,7 @@
 // Be sure to read the Rails docs before modifying this file.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
 //= require angular

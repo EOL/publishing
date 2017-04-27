@@ -1,3 +1,5 @@
+= javascript_include_tag 'search/autocomplete'
+
 .ui.following.bar.fixed.menu
   .uk-container
     #navbar.ui.large.secondary.network.menu
@@ -27,9 +29,10 @@
           -#       %ul
           -#         %li{ "ng-repeat" => "vern in match.model.names",
           -#           "ng-bind-html" => "vern.string + ' (' + vern.language.code + ') ' | typeaheadHighlight:query" }
-          = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
-            = text_field_tag("q", nil, class: "uk-search-input")
-            %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
+          .ui-widget
+            = form_tag(search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
+              = text_field_tag("q", nil, class: "uk-search-input", id: "main_search_autocomplete")
+              %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
             -# # "typeahead" => "page for page in querySearch($viewValue)",
             -# # "typeahead-template-url" => "layoutSearchTemplate.html",
             -# # "typeahead-min-length" => 3,

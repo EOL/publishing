@@ -28,11 +28,11 @@ class User < ActiveRecord::Base
 
   searchable do
     text :username, :boost => 6.0
+    # autocomplete :user_username, :using => :username
     text :name, :boost => 4.0
     text :tag_line
     text :bio, :boost => 2.0
   end
-
   # NOTE: this is a hook called by Devise
   def after_confirmation
     activate

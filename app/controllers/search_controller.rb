@@ -1,7 +1,91 @@
 class SearchController < ApplicationController
   # TODO: Mammoth method, break up.
+  
+  
+  def autocomplete
+    
+    
+    
+    
+    users = User.search do
+      keywords params[:q], :fields => [:username_ac], :minimum_match => 3
+    end
+    # perform_search
+    # @q = params[:q]
+    # if @q.blank? || @q.length < 3 || @q.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
+      # json = {}
+    # else
+      # default = params.has_key?(:only)? false : true
+      # @types = {}
+      # [ :pages, :collections, :media, :users, :object_terms ].each do |sym|
+        # @types[sym] = default
+      # end
+      # # @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ])
+      # # @collections = search_class(Collection)
+      # # @media = search_class(Medium)
+      # @users = search_class(User)
+      # # @users = User.search do
+        # # starting_with(params[:q])
+      # end
+      debugger
+      json = users.results.each_with_index.map do |result, index|
+      { id: result.id,
+        value: result.username,
+        label: render_to_string(
+          partial: 'search/user_summary_autocomplete', locals: { user: result }
+        )
+      }
+      end.delete_if { |r| r.nil? }
+    # end
+    # respond_to do |format|
+      # format.js { 
+        # render json: json
+      # }
+    # end
+    respond_to do |format|  
+      format.json {    render json: json }
+    end
+    # respond_to do |format|
+      # format.json { render :partial => "result_list.html.haml" }
+    # end
+    # data = []
+    # users.results.each do |object|
+      # data << object.username
+    # end
+    # render json: data
+  end
+  
   def search
-    # Doctoring for the view to find matches:
+    perform_search
+  end
+
+  private
+  
+
+  # TODO: Whoa, you can do them all at the same time!
+  # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
+
+  def search_class(klass, options = {})
+    # NOTE: @q DOES NOT WORK in search blocks, and you can't call external
+    # methods.
+    if @types[klass.name.tableize.to_sym]
+      klass.send(:search, options) do
+        if params[:q] =~ /\*$/
+          any do
+            fulltext params[:q]
+            fulltext params[:q].sub(/\*$/, "")
+          end
+        else
+          fulltext params[:q]
+        end
+        paginate page: params[:page] || 1, per_page: params[:per_page] || 30
+      end
+    end
+  end
+  
+  
+  def perform_search
+        # Doctoring for the view to find matches:
     @q = params[:q]
     @q.chop! if params[:q] =~ /\*$/
     @q = @q[1..-1] if params[:q] =~ /^\*/
@@ -26,6 +110,7 @@ class SearchController < ApplicationController
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
+    
 
     # YOU WERE HERE - You just wrote this; not positive it will work. Need to
     # try it at a prompt. Assuming it does, you need to steal the view code from
@@ -79,27 +164,5 @@ class SearchController < ApplicationController
       end
     end
   end
-
-  private
-
-  # TODO: Whoa, you can do them all at the same time!
-  # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
-
-  def search_class(klass, options = {})
-    # NOTE: @q DOES NOT WORK in search blocks, and you can't call external
-    # methods.
-    if @types[klass.name.tableize.to_sym]
-      klass.send(:search, options) do
-        if params[:q] =~ /\*$/
-          any do
-            fulltext params[:q]
-            fulltext params[:q].sub(/\*$/, "")
-          end
-        else
-          fulltext params[:q]
-        end
-        paginate page: params[:page] || 1, per_page: params[:per_page] || 30
-      end
-    end
-  end
+  
 end

@@ -1,0 +1,19 @@
+%tr
+  %td.collection-table-image
+    -# TODO: users don't have icons yet; change this.
+    = link_to(image_tag("medium/missing.png"), user)
+  %td
+    .names.username
+      = link_to(emphasize_match(user.username.titleize, @q), user, class: "primary-name")
+    .names
+      - if user.is_admin?
+        %br/
+        = t(:collection_user_is_admin)
+      - if user.tag_line =~ /#{@q}/
+        %br/
+        %b= t(:search_user_match_tag_line)
+        = emphasize_match(user.tag_line, @q)
+      - if user.bio =~ /#{@q}/
+        %br/
+        %b= t(:search_user_match_bio)
+        = emphasize_match(user.bio, @q)
