@@ -62,7 +62,7 @@ class Rank < ActiveRecord::Base
           Rank.treat_as[:r_subspecies],
           Rank.treat_as[:r_infraspecies],
           Rank.treat_as[:r_form],
-        ]]).pluck(:id)
+        ]).pluck(:id)
       end
     end
 
