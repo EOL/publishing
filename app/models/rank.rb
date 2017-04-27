@@ -56,7 +56,7 @@ class Rank < ActiveRecord::Base
     # things.
     def species_or_below
       Rails.cache.fetch("ranks/species_or_below") do
-        where(["treat_as IN ?", [
+        where(["treat_as IN (?)", [
           Rank.treat_as[:r_superspecies],
           Rank.treat_as[:r_species],
           Rank.treat_as[:r_subspecies],
