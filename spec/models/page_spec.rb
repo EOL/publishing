@@ -116,9 +116,7 @@ RSpec.describe Page do
     end
     # This is a "fake" response from TraitBank (which normally needs neo4j)
     let(:traits_out_of_order) { [ trait1, trait2 ] }
-    let(:grouped_traits_out_of_order) do
-      { predicate1[:uri] => trait2, predicate2[:uri] => trait1 }
-    end
+    let(:glossary) { { predicate1[:uri] => predicate1, predicate2[:uri] => predicate2 }}
 
     before do
       allow(TraitBank).to receive(:by_page) { traits_out_of_order }
@@ -140,7 +138,7 @@ RSpec.describe Page do
     end
 
     it "#predicates orders predicates" do
-      allow(our_page).to receive(:grouped_traits) { grouped_traits_out_of_order }
+      allow(TraitBank).to receive(:page_glossary) { glossary }
       expect(our_page.predicates).
         to eq([predicate1, predicate2].sort { |a,b| a[:name] <=> b[:name] }.map { |p| p[:uri] })
     end

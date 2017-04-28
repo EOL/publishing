@@ -375,6 +375,11 @@ en:
   page_traits_toc_other: "other"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
+    actions:
+      collect: "collect"
+      reindex: "reindex"
+    flash:
+      reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."
     tabs:
       article: "Overview"
       classifications: "Classification"
@@ -527,7 +532,6 @@ en:
         password:
         password_confirmation:
         username:
-  taxon_collect_button: "collect"
   term:
     glossary:
       title: "Glossary of Data Terms on EOL"
