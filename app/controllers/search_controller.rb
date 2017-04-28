@@ -24,7 +24,7 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ], page_richness: true)
+    @pages = search_class(Page, include: [:medium, native_node: :rank, vernaculars: :language ], page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
@@ -105,7 +105,6 @@ class SearchController < ApplicationController
         end
         if page_richness
           order_by(:page_richness, :desc)
-          puts "DEBUG: adding page richness sort..."
         end
         paginate page: params[:page] || 1, per_page: params[:per_page] || 30
       end

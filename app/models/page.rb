@@ -38,8 +38,9 @@ class Page < ActiveRecord::Base
   # long query, and we only want one page. Besides, it's loaded in a separate
   # instance variable...
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :medium, :native_node, :occurrence_map,
-      referents: :references, articles: [:license, :sections, :bibliographic_citation,
+    includes(:preferred_vernaculars, :medium, :occurrence_map,
+      referents: :references, native_node: :rank,
+      articles: [:license, :sections, :bibliographic_citation,
         :location, :resource, attributions: :role])
   end
 

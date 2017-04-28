@@ -25,7 +25,12 @@
               - next
             %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
             - shown_ellipsis = false
-
+      .uk-float-right.uk-text-muted.eol-text-tiny
+        - if page.page_richness.nil?
+          -# NOTE: yes, I want this hard-coded, not translated. It's a DB value.
+          nil
+        - else
+          = page.page_richness / 100.0
       .names.d-inline
         - sci_name = has_query ? emphasize_match(scientific, @q) : scientific.html_safe
         - if common.blank?
