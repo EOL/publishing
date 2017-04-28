@@ -38,6 +38,8 @@ RSpec.describe "pages/show" do
     allow(media).to receive(:total_pages) { 1 } # kaminari
     allow(media).to receive(:current_page) { 1 } # kaminari
     allow(media).to receive(:limit_value) { 2 } # kaminari
+    user = instance_double("User", collections: [], is_admin?: false)
+    allow(view).to receive(:current_user) { user }
     assign(:media, media)
     assign(:resources, { resource.id => resource })
   end
