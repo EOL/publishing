@@ -12,7 +12,7 @@ class PagesController < ApplicationController
         data: TraitBank.count,
         media: Medium.count,
         articles: Article.count,
-        users: User.count,
+        users: User.active.count,
         collections: Collection.count
       }
     end

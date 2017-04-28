@@ -5,7 +5,7 @@ class AddMediumIdToPages < ActiveRecord::Migration
       t.integer :user_id, index: true, comment: "Indexed so we know how many icons a curator has set."
       t.integer :medium_id, index: true, comment: "indexed so we can show 'this image was made an exemplar' on the object page."
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
   end
 end
