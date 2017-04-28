@@ -4,6 +4,7 @@
 - has_query = defined?(@q) && ! @q.blank?
 - matches_scientific = has_query && scientific =~ /#{@q}/
 - matches_common = has_query && common =~ /#{@q}/
+- media = (defined?(media) && media && ! media.empty?) ? media.compact.delete_if { |m| m.medium_icon_url == icon }.uniq : []
 %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
   .uk-card-body.uk-grid-small{ uk: { grid: true } }
     - if icon
@@ -25,12 +26,13 @@
               - next
             %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
             - shown_ellipsis = false
-      .uk-float-right.uk-text-muted.eol-text-tiny
-        - if page.page_richness.nil?
-          -# NOTE: yes, I want this hard-coded, not translated. It's a DB value.
-          nil
-        - else
-          = page.page_richness / 100.0
+      - if is_admin?
+        .uk-float-right.uk-text-muted.eol-text-tiny
+          - if page.page_richness.nil?
+            -# NOTE: yes, I want this hard-coded, not translated. It's a DB value.
+            nil
+          - else
+            = page.page_richness / 100.0
       .names.d-inline
         - sci_name = has_query ? emphasize_match(scientific, @q) : scientific.html_safe
         - if common.blank?
@@ -71,11 +73,10 @@
       - else # (no query string)
         - if summary = construct_summary(page)
           .uk-margin-top-small= summary
-      - if defined?(media) && ! media.empty?
+      - unless media.empty?
         .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
           %h5.uk-text-center= t("search_results.collected_media.title")
           .uk-grid.uk-child-width-expand{ uk: { grid: true } }
             - media.uniq.each do |medium|
-              - next if medium.medium_icon_url == icon
               .child
                 = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)

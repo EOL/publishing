@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def is_admin?
+    current_user && current_user.is_admin?
+  end
+
   def first_cap(string)
     string.slice(0,1).capitalize + string.slice(1..-1)
   end

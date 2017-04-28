@@ -25,7 +25,7 @@
         -# TODO: remote...
         - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id))
         -# TODO: helper
-        - if current_user && current_user.is_admin?
+        - if is_admin?
           - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true)
     - summary = construct_summary(@page)
     - if summary && ! summary.blank?

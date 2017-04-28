@@ -9,6 +9,7 @@ RSpec.describe "collections/show" do
 
   before do
     allow(view).to receive(:policy).and_return(double("some policy", update?: false))
+    allow(view).to receive(:is_admin?) { false }
     allow(page).to receive(:icon) { "some_icon" }
     allow(page).to receive(:name) { "funName" }
   end

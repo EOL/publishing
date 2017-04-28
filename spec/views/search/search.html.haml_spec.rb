@@ -1,6 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "search/search" do
+  before do
+    allow(view).to receive(:is_admin?) { false }
+  end
+
   context "with page results" do
     before do
       name = instance_double("Vernacular", string: "a vernacular name")
