@@ -124,6 +124,8 @@ en:
   landing_page:
     title: "Encyclopedia of Life"
     header: "Global access to knowledge about life on Earth"
+    reindex: "reindex"
+    stats_cleared: "The stats have been recalculated. Reload to see the current values."
     search_placeholder: "Search..."
     stats:
       pages: "pages"

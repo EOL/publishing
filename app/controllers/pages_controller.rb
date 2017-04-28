@@ -19,11 +19,16 @@ class PagesController < ApplicationController
     render layout: "head_only"
   end
 
-  def clear_index_cache
-    Rails.cache.delete("pages/index/stats")
-    # This is overkill (we only want to clear the trait count, not e.g. the
-    # glossary), but we want to be overzealous, not under:
-    TraitBank.clear_caches
+  def clear_index_stats
+    respond_to do |fmt|
+      fmt.js do
+        Rails.cache.delete("pages/index/stats")
+        # This is overkill (we only want to clear the trait count, not e.g. the
+        # glossary), but we want to be overzealous, not under:
+        TraitBank.clear_caches
+        Rails.logger.warn("LANDING PAGE STATS CLEARED.")
+      end
+    end
   end
 
   # This is effectively the "cover":
@@ -41,9 +46,13 @@ class PagesController < ApplicationController
     end
   end
 
-  def clear_page_cache
-    @page = Page.where(id: params[:id]).first
-    @page.clear_caches
+  def reindex
+    respond_to do |fmt|
+      fmt.js do
+        @page = Page.where(id: params[:id]).first
+        @page.clear_caches
+      end
+    end
   end
 
   # TODO: Decide whether serving the subtabs from here is actually RESTful.

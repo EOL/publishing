@@ -15,3 +15,7 @@
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
+    - if current_user.is_admin?
+      .uk-section
+        .ui.button
+          = link_to(t("landing_page.reindex"), clear_index_stats_pages_path(), remote: true)
