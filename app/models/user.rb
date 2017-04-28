@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections
 
+  scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
+
   # TODO: we want to pick the real sizes to use, here:
   has_attached_file :icon, styles: { medium: "130x130>" },
     default_url: "/images/:style/missing.png"

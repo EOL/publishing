@@ -19,7 +19,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :icon_url
       t.boolean :can_be_chosen_by_partners, null: false, default: false
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     create_table(:resources) do |t|
@@ -58,7 +58,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :dataset_rights_statement,
         comment: "applies to the set of data itself (not its individual members)"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
     add_attachment :resources, :icon
 
@@ -70,7 +70,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.text :notes, comment: "was: project_notes"
       t.text :admin_notes
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
     add_attachment :partners, :icon
     create_join_table :partners, :users
@@ -101,7 +101,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :depth, :null => false, :default => 0
       t.integer :children_count, :null => false, :default => 0
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
     add_index :nodes, [:resource_id, :rgt], name: "resource_rgt_index"
     add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
@@ -121,7 +121,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :position, null: false,
         comment: "how deep down from the root (0)"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a
@@ -140,7 +140,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
           "children, and names; null implies 'floating' taxon and should only have one node associated"
       t.integer :moved_to_page_id, comment: "moved/merged/split by curator"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: this does NOT capture ratings or exemplars, which we need to add,
@@ -171,7 +171,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_low_quality, null: false, default: false,
         comment: "implies hidden"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
     add_index(:page_contents, [:page_id, :content_type],
       name: "page_content_by_type_index")
@@ -191,7 +191,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_preferred_by_resource, null: false, default: false
       t.boolean :is_hidden, null: false, default: false
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
     add_index :vernaculars, [:page_id, :language_id],
       name: "preferred_names_index"
@@ -211,7 +211,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_preferred, null: false, default: true,
         comment: "denormalized from taxonomic_status (it saves having to join the other table)"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # Taxonomic Statuses are meant to describe the type of scientific name (or
@@ -245,7 +245,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.decimal :crop_w, precision: 5, scale: 2,
         comment: "width (and thus height), as a percent"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: the FK is in the content table, which helps us know if there IS a
@@ -296,7 +296,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :base_url, null: false,
         comment: "for images, you will add size info to this; was: object_url"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: provider became a resource (only)
@@ -322,7 +322,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.text :body, null: false,
         comment: "html; run through namelinks; was description_linked"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOT: changed the base_url to just be an icon_url, later
@@ -342,7 +342,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :base_url, null: false,
         comment: "icon; you will add size info to this; was: object_url"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: we removed this and just made it a subclass of image ... for now.
@@ -367,7 +367,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.string :base_url, null: false,
         comment: "the image of the map; you will add size info to this; was: object_url"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # There are currently 1,084,941 published data objects with a non-empty
@@ -379,7 +379,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     create_table :bibliographic_citations do |t|
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # These are citations made by the partner, citing sources used to synthesize
@@ -388,7 +388,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     create_table :references do |t|
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: we made this apply only to articles, later.
@@ -400,7 +400,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     create_table :roles do |t|
       t.string :name, null: false, comment: "passed to I18n.t"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: we merged this table with the join table; duplicates okay. NOTE: the
@@ -411,7 +411,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :role_id, null: false, index: true
       t.text :value, null: false, comment: "html"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     create_table :content_attributions do |t|
@@ -439,7 +439,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_low_quality, null: false, default: false,
         comment: "implies hidden"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     # NOTE: we drop this, later; this will be stored in TraitBank.
@@ -459,7 +459,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_low_quality, null: false, default: false,
         comment: "implies hidden"
 
-      t.timestamps, null: false
+      t.timestamps null: false
     end
 
     create_table :sections do |t|
