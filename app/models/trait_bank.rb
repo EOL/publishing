@@ -137,6 +137,17 @@ class TraitBank
       res["data"] ? res["data"].first.first : false
     end
 
+    # NOTE: if you add any new caches IN THIS CLASS, add them here.
+    def clear_caches
+      [
+        "trait_bank/predicate_count",
+        "trait_bank/terms_count",
+        "trait_bank/full_glossary"
+      ].each do |key|
+        Rails.cache.delete(key)
+      end
+    end
+
     def predicate_count
       Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
         res = query(

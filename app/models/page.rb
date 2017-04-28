@@ -269,8 +269,7 @@ class Page < ActiveRecord::Base
   def iucn_status_key
     # NOTE this is NOT self-healing. If you store the wrong value or change it,
     # it is up to you to fix the value on the Page instance. This is something
-    # to be aware of! TODO: this should be one of the things we can "fix" with a
-    # page reindex.
+    # to be aware of!
     if iucn_status.nil? && @traits_loaded
       status = if grouped_traits.has_key?(Eol::Uris::Iucn.status)
         recs = grouped_traits[Eol::Uris::Iucn.status]
@@ -328,6 +327,7 @@ class Page < ActiveRecord::Base
       if recs && recs.any? { |r| r[:object_term] &&
          r[:object_term][:uri] == Eol::Uris.marine }
         update_attribute(:is_marine, true)
+        update_attribute(:has_checked_marine, true)
         return true
       else
         update_attribute(:is_marine, false)
@@ -368,6 +368,7 @@ class Page < ActiveRecord::Base
     if ! has_checked_extinct? && @traits_loaded
       # NOTE: this relies on #displayed_extinction_trait ONLY returning an
       # "exinct" record. ...which, as of this writing, it is designed to do.
+      update_attribute(:has_checked_extinct, true)
       if displayed_extinction_trait
         update_attribute(:is_extinct, true)
         return true
@@ -383,6 +384,38 @@ class Page < ActiveRecord::Base
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
       TraitBank.page_glossary(id)
+    end
+  end
+
+  def reindex
+    clear_caches
+    count_species
+    literature_and_references_count
+    traits # Just to load them
+    iucn_status = nil
+    iucn_status_key
+    geographic_context = nil
+    habitats
+    has_checked_marine = nil
+    is_it_marine?
+    has_checked_extinct = nil
+    is_it_extinct?
+    score_richness
+    # TODO: we should also re-index all of the page_contents by checking direct
+    # relationships to this page and its children. (I think this is better than
+    # descendants; if you want to do an entire tree, that should be another
+    # process; this reindex should just check that it's honoring the
+    # relationships it has direct influence on.) We may also want to check node
+    # relationships, but I'm not sure that's necessary. It's also possible there
+    # will be other denormalized relationships to re-build here.
+  end
+
+  # NOTE: if you add caches IN THIS CLASS, then add them here:
+  def clear_caches
+    [
+      "/pages/#{id}/glossary"
+    ].each do |cache|
+      Rails.delete(cache)
     end
   end
 
