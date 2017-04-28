@@ -7,7 +7,7 @@ class CreateRefinerycmsPagesSchema < ActiveRecord::Migration
       t.text     :body
       t.integer  :position
 
-      t.timestamps
+      t.timestamps, null: false
     end
 
     add_index :refinery_page_parts, :id
@@ -30,7 +30,7 @@ class CreateRefinerycmsPagesSchema < ActiveRecord::Migration
       t.string    :view_template
       t.string    :layout_template
 
-      t.timestamps
+      t.timestamps, null: false
     end
 
     add_index :refinery_pages, :depth
