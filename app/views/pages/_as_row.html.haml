@@ -11,7 +11,8 @@
         %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
           %canvas{ width: "130", height: "130" }
           %img{ src: icon, "uk-cover": true }
-    .uk-width-2-3
+    -# .uk-width-2-3
+    .uk-width-expand
       .page-ancestors
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
           - ancestors = page.native_node.ancestors
@@ -37,14 +38,8 @@
               = link_to(common.titleize.html_safe, page, class: "primary-name")
           .uk-text-muted= link_to(sci_name, page, class: "secondary-name")
       - if defined?(annotation)
-        = annotation
-      - if defined?(media)
-        %br/
-        %row.icons_12_wide
-          - media.each do |medium|
-            - next if medium.medium_icon_url == icon
-            .col-md-1
-              = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)
+        .uk-margin-top-small
+          = annotation
       - if has_query
         .matches.uk-margin-top-small
           - other_vernaculars = nil
@@ -66,8 +61,16 @@
             = other_resources.join(", ").html_safe
           - if other_vernaculars.blank? && other_scientifics.blank? && other_resources.blank?
             - if summary = construct_summary(page)
-              .uk-margin-top-small= summary
+              .uk-margin-small-top= summary
 
       - else # (no query string)
         - if summary = construct_summary(page)
           .uk-margin-top-small= summary
+      - if defined?(media) && ! media.empty?
+        .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
+          %h5.uk-text-center= t("search_results.collected_media.title")
+          .uk-grid.uk-child-width-expand{ uk: { grid: true } }
+            - media.uniq.each do |medium|
+              - next if medium.medium_icon_url == icon
+              .child
+                = link_to(image_tag(medium.small_icon_url, class: "img-responsive", size: "88x88"), medium)

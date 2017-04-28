@@ -72,7 +72,7 @@ class SearchController < ApplicationController
               include: { language: { only: :code } } },
             # NOTE I'm excluding a lot more for search than you would want for
             # the basic page json:
-            top_image: { only: [ :id, :guid, :owner, :name ],
+            top_media: { only: [ :id, :guid, :owner, :name ],
               methods: [:small_icon_url, :medium_icon_url],
               include: { provider: { only: [:id, :name] },
                 license: { only: [:id, :name, :icon_url] } } }

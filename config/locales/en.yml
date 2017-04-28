@@ -423,6 +423,8 @@ en:
   search_empty: "No results found for \"%{q}\"."
   search_header: "Search Results for \"%{q}\""
   search_results:
+    collected_media:
+      title: "collected media from this page:"
     header: "results"
     section_titles:
       collections:

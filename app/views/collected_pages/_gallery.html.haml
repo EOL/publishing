@@ -1,7 +1,7 @@
 - media = []
 - collected_pages.each do |collected_page|
   - if collected_page.media.blank?
-    - media << collected_page.page.top_image unless collected_page.page.top_image.nil?
+    - media << collected_page.page.medium unless collected_page.page.medium.nil?
   - else
-    media += collected_page.media
+    - media += collected_page.media
 = render("media/grid", media: media)
