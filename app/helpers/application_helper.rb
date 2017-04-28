@@ -31,6 +31,13 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def basic_button(icon, label, url, options = {})
+    haml_tag("div.ui.labeled.small.icon.basic.button.uk-margin-small-bottom") do
+      haml_tag("i.#{icon}.icon")
+      haml_concat(link_to(label, url, options))
+    end
+  end
+
   def emphasize_match(name, match)
     return "" if name.nil?
     return name if match.nil?

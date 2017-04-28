@@ -49,8 +49,8 @@ class PagesController < ApplicationController
   def reindex
     respond_to do |fmt|
       fmt.js do
-        @page = Page.where(id: params[:id]).first
-        @page.clear_caches
+        @page = Page.where(id: params[:page_id]).first
+        @page.reindex
       end
     end
   end

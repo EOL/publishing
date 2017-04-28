@@ -378,8 +378,7 @@ class Page < ActiveRecord::Base
 
   def reindex
     clear_caches
-    count_species
-    literature_and_references_count
+    recount
     traits # Just to load them
     iucn_status = nil
     iucn_status_key
@@ -390,6 +389,16 @@ class Page < ActiveRecord::Base
     has_checked_extinct = nil
     is_it_extinct?
     score_richness
+    instance_variables.each do |v|
+      # Skip Rails variables:
+      next if [
+        :@attributes, :@aggregation_cache, :@association_cache, :@readonly,
+        :@destroyed, :@marked_for_destruction, :@destroyed_by_association,
+        :@new_record, :@txn, :@_start_transaction_state, :@transaction_state,
+        :@reflects_state, :@original_raw_attributes
+      ].include?(v)
+      remove_instance_variable(v)
+    end
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
     # descendants; if you want to do an entire tree, that should be another
@@ -404,8 +413,17 @@ class Page < ActiveRecord::Base
     [
       "/pages/#{id}/glossary"
     ].each do |cache|
-      Rails.delete(cache)
+      Rails.cache.delete(cache)
     end
+  end
+
+  def recount
+    [ "synonyms", "page_contents", "media", "articles", "links", "maps",
+      "traits", "nodes", "vernaculars", "scientific_names", "referents"
+    ].each do |field|
+      update_column("#{field}_count".to_sym, send(field).count)
+    end
+    count_species
   end
 
   def data_toc
