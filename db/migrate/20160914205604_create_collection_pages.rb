@@ -9,7 +9,7 @@ class CreateCollectionPages < ActiveRecord::Migration
       t.integer :medium_id, comment: "NULL means 'use the page icon'; a value here is an override"
       t.integer :position
 
-      t.timestamps
+      t.timestamps, null: false
     end
     add_index(:collected_pages, [:collection_id, :page_id],
       name: "enforce_unique_pairs", unique: true)
