@@ -100,20 +100,24 @@ RSpec.describe Page do
     let(:predicate2) { { uri: "http://a/pred.2", name: "Second predicate" } }
     let(:units) { { uri: "http://a/unit", name: "Units URI" } }
     let(:term) { { uri: "http://a/term", name: "Term 1 URI" } }
+    let(:trait1) do
+      { predicate: predicate2,
+        resource_pk: "4003",
+        object_term: term,
+        metadata: nil }
+    end
+    let(:trait2) do
+      { predicate: predicate1,
+        resource_pk: "745",
+        source: "Source One",
+        units: units,
+        measurement: "10.428",
+        metadata: nil }
+    end
     # This is a "fake" response from TraitBank (which normally needs neo4j)
-    let(:traits_out_of_order) do
-      [
-        { predicate: predicate2,
-          resource_pk: "4003",
-          object_term: term,
-          metadata: nil },
-        { predicate: predicate1,
-          resource_pk: "745",
-          source: "Source One",
-          units: units,
-          measurement: "10.428",
-          metadata: nil }
-      ]
+    let(:traits_out_of_order) { [ trait1, trait2 ] }
+    let(:grouped_traits_out_of_order) do
+      { predicate1[:uri] => trait2, predicate2[:uri] => trait1 }
     end
 
     before do
@@ -136,6 +140,7 @@ RSpec.describe Page do
     end
 
     it "#predicates orders predicates" do
+      allow(our_page).to receive(:grouped_traits) { grouped_traits_out_of_order }
       expect(our_page.predicates).
         to eq([predicate1, predicate2].sort { |a,b| a[:name] <=> b[:name] }.map { |p| p[:uri] })
     end
