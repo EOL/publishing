@@ -5,11 +5,15 @@ Rails.application.routes.draw do
     get "breadcrumbs"
     get "cover"
     get "classifications"
+    # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
+    # collection:
+    get "clear_index_stats", on: :collection
     get "details"
     get "literature_and_references"
     get "maps"
     get "media"
     get "names"
+    get "reindex"
     get "traits"
   end
 
