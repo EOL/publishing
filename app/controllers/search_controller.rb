@@ -22,7 +22,9 @@ class SearchController < ApplicationController
       Array(params[:except]).each { |type| @types[type.to_sym] = false }
     end
 
-    @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ])
+    # NOTE: no search is performed unless the @types hash indicates a search for
+    # that class is required:
+    @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ], page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
@@ -90,6 +92,7 @@ class SearchController < ApplicationController
   def search_class(klass, options = {})
     # NOTE: @q DOES NOT WORK in search blocks, and you can't call external
     # methods.
+    page_richness = options.delete(:page_richness)
     if @types[klass.name.tableize.to_sym]
       klass.send(:search, options) do
         if params[:q] =~ /\*$/
@@ -99,6 +102,10 @@ class SearchController < ApplicationController
           end
         else
           fulltext params[:q]
+        end
+        if page_richness
+          order_by(:page_richness, :desc)
+          puts "DEBUG: adding page richness sort..."
         end
         paginate page: params[:page] || 1, per_page: params[:per_page] || 30
       end

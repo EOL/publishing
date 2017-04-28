@@ -1,6 +1,10 @@
-%h1.text-center= t(:search_header, q: @q)
+%h1.text-center
+  - if @q.blank?
+    = t("search.everything_header")
+  - else
+    = t("search.header", q: @q)
 - if @empty
-  %h2= t(:search_empty, q: @q)
+  %h2= t("search.empty", q: @q)
 - else
 .uk-grid
   .uk-width-1-5

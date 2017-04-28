@@ -427,8 +427,10 @@ en:
       synonym: "Synonyms"
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
-  search_empty: "No results found for \"%{q}\"."
-  search_header: "Search Results for \"%{q}\""
+  search:
+    empty: "No results found for \"%{q}\"."
+    everything_header: "Listing ALL Site Contents..."
+    header: "Search Results for \"%{q}\""
   search_results:
     collected_media:
       title: "collected media from this page:"

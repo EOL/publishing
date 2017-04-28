@@ -67,6 +67,7 @@ class Page < ActiveRecord::Base
         [r.name, r.partner.full_name, r.partner.short_name]
       end
     end
+    integer :page_richness
   end
 
   def descendant_species
