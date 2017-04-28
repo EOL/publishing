@@ -20,25 +20,25 @@ RSpec.describe CollectedPage do
       expect(subject.scientific_name_string).to eq("thisSciName")
     end
 
-    context "with a top_image on the page" do
+    context "with a medium on the page" do
       let(:image) do
         instance_double("Medium", medium_icon_url: "thisIconMed",
           small_icon_url: "thisIconSm")
       end
 
       before do
-        allow(page).to receive(:top_image) { image }
+        allow(page).to receive(:medium) { image }
       end
 
-      it "#medium_icon_url uses the page's top_image" do
+      it "#medium_icon_url uses the page's medium" do
         expect(subject.medium_icon_url).to eq("thisIconMed")
       end
 
-      it "#icon uses the page's top_image's medium_icon_url" do
+      it "#icon uses the page's medium's medium_icon_url" do
         expect(subject.icon).to eq("thisIconMed")
       end
 
-      it "#small_icon_url uses the page's top_image" do
+      it "#small_icon_url uses the page's medium" do
         expect(subject.small_icon_url).to eq("thisIconSm")
       end
     end

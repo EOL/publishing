@@ -2,7 +2,10 @@ class Medium < ActiveRecord::Base
   include Content
   include Content::Attributed
 
+  # Yes, we store this in two places. First, we log who set the icon when:
   has_many :page_icons, inverse_of: :medium
+  # And then we denormlize the latest so we can query it efficiently:
+  has_many :pages, inverse_of: :medium
 
   has_one :image_info, inverse_of: :image
 

@@ -96,7 +96,7 @@ module TraitsHelper
   end
 
   def show_trait_page_icon(page)
-    if image = page.top_image
+    if image = page.medium
       haml_concat(link_to(image_tag(image.small_icon_url,
         alt: page.scientific_name.html_safe, size: "44x44"), page))
     end

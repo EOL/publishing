@@ -1,6 +1,7 @@
 class Page < ActiveRecord::Base
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
+  belongs_to :medium, inverse_of: :pages
 
   has_many :nodes, inverse_of: :page
   has_many :collected_pages, inverse_of: :page
@@ -12,10 +13,11 @@ class Page < ActiveRecord::Base
     class_name: "ScientificName"
   has_many :resources, through: :nodes
 
+  # NOTE: this is too complicated, I think: it's not working as expected when
+  # preloading. (Perhaps due to the scope.)
   has_many :page_icons, inverse_of: :page
   # Only the last one "sticks":
   has_one :page_icon, -> { most_recent }
-  has_one :medium, through: :page_icon
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :articles, through: :page_contents,
@@ -31,14 +33,14 @@ class Page < ActiveRecord::Base
 
   has_and_belongs_to_many :referents
 
-  # NOTE: You CANNOT preload both the top article AND the media. This seems to
-  # be a Rails bug, but it is what it is. NOTE: you cannot preload the node
-  # ancestors; it needs to call the method from the module. NOTE: not loading
-  # media, because for large pages, that's a long query, and we only want one
-  # page. Besides, it's loaded in a separate instance variable...
+  # NOTE: you cannot preload the node ancestors; it needs to call the method
+  # from the module. NOTE: not loading media, because for large pages, that's a
+  # long query, and we only want one page. Besides, it's loaded in a separate
+  # instance variable...
   scope :preloaded, -> do
-    includes(:preferred_vernaculars, :native_node, :medium, :occurrence_map,
-      referents: :references, articles: [:license, :sections, :bibliographic_citation,
+    includes(:preferred_vernaculars, :medium, :occurrence_map,
+      referents: :references, native_node: :rank,
+      articles: [:license, :sections, :bibliographic_citation,
         :location, :resource, attributions: :role])
   end
 
@@ -163,19 +165,7 @@ class Page < ActiveRecord::Base
   end
 
   def icon
-    top_image && top_image.medium_icon_url
-  end
-
-  def top_image
-    @top_image ||= begin
-      if medium
-        medium
-      elsif page_contents.loaded?
-        page_contents.find { |pc| pc.content_type == "Medium" }.try(:content)
-      else
-        media.first
-      end
-    end
+    medium && medium.medium_icon_url
   end
 
   def occurrence_map?

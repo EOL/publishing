@@ -1,4 +1,4 @@
-class AddMediumIdToPages < ActiveRecord::Migration
+class CreatePageIcons < ActiveRecord::Migration
   def change
     create_table :page_icons do |t|
       t.integer :page_id, index: true

@@ -432,6 +432,8 @@ en:
     everything_header: "Listing ALL Site Contents..."
     header: "Search Results for \"%{q}\""
   search_results:
+    collected_media:
+      title: "collected media from this page:"
     header: "results"
     section_titles:
       collections:

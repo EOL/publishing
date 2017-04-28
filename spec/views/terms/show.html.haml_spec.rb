@@ -60,7 +60,7 @@ RSpec.describe "terms/show" do
   it "shows icons for pages that have them" do
     image = instance_double("Medium",
       small_icon_url: "http://this/path_88_88.jpg")
-    expect(page1).to receive(:top_image) { image }
+    expect(page1).to receive(:medium) { image }
     render
     expect(rendered).to match "http://this/path_88_88.jpg"
   end
@@ -68,7 +68,7 @@ RSpec.describe "terms/show" do
   it "shows icon for pages" do
     image = instance_double("Medium",
       small_icon_url: "http://this/path_88_88.jpg")
-    expect(page1).to receive(:top_image) { image }
+    expect(page1).to receive(:medium) { image }
     render
     # We're not actually testing the image here, because it's rendered in a
     # helper and that gets hairy with tests ... but the div should be there!:

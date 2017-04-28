@@ -24,7 +24,7 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page, include: [:page_contents, :native_node, vernaculars: :language ], page_richness: true)
+    @pages = search_class(Page, include: [:medium, native_node: :rank, vernaculars: :language ], page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
@@ -74,7 +74,7 @@ class SearchController < ApplicationController
               include: { language: { only: :code } } },
             # NOTE I'm excluding a lot more for search than you would want for
             # the basic page json:
-            top_image: { only: [ :id, :guid, :owner, :name ],
+            top_media: { only: [ :id, :guid, :owner, :name ],
               methods: [:small_icon_url, :medium_icon_url],
               include: { provider: { only: [:id, :name] },
                 license: { only: [:id, :name, :icon_url] } } }
@@ -105,7 +105,6 @@ class SearchController < ApplicationController
         end
         if page_richness
           order_by(:page_richness, :desc)
-          puts "DEBUG: adding page richness sort..."
         end
         paginate page: params[:page] || 1, per_page: params[:per_page] || 30
       end

@@ -45,11 +45,11 @@
                 %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
                 %dd
                   - show_trait_value(trait)
-  - if @page.top_image
+  - if @page.medium
     .uk-width-3-5
       .uk-margin-remove-top.uk-text-center
         .uk-overflow-hidden.uk-box-shadow-large.eol-bordered-image
-          %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.top_image.original_size_url }
+          %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.medium.original_size_url }
       .uk-float-right.uk-margin-medium-top
         .ui.label.eol-secondary.uk-box-shadow-medium.uk-margin-small-bottom
           = t("pages.iucn_status.label")

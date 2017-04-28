@@ -20,8 +20,8 @@ module PagesHelper
 
   def construct_summary(page)
     return "" unless is_allowed_summary?(page)
-    my_rank = page.rank.name || "taxon"
     Rails.cache.fetch("constructed_summary/#{page.id}") do
+      my_rank = page.rank.name || "taxon"
       node = page.native_node || page.nodes.first
       ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
       # taxonomy sentence...
