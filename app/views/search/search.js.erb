@@ -8,3 +8,4 @@ console.log("Rendering paginated search results.");
 <% elsif @users %>
   $("#search_users").html("<%= j(render("users/search_results")) %>");
 <% end %>
+EOL.enable_search_pagination();

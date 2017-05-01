@@ -1,3 +1,5 @@
+.ui.inverted.dimmer
+  .ui.loader
 %h2= t("search_results.section_titles.users", count: @users.total)
 = paginate @users.results, remote: true, params: { only: "users" }
 %table.users

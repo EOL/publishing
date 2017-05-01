@@ -1,6 +1,15 @@
 if(!EOL) {
   var EOL = {};
 
+  EOL.enable_search_pagination = function() {
+    $("#search_results .uk-pagination a")
+    .unbind("click")
+    .on("click", function() {
+      console.log("search pagination click");
+      $(this).closest(".search_result_container").dimmer("show");
+    });
+  };
+
   EOL.enable_tab_nav = function() {
     console.log("enable_tab_nav");
     $("#page_nav a").on("click", function() {
@@ -127,6 +136,8 @@ $(document).ready(function() {
     EOL.allow_meta_traits_to_toggle();
   } else if ($("#traits_table").length === 1) {
     EOL.allow_meta_traits_to_toggle();
+  } else if ($("#search_results").length === 1) {
+    EOL.enable_search_pagination();
   } else {
     EOL.enable_tab_nav();
   }

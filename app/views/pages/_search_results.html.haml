@@ -1,7 +1,10 @@
-%h2= t("search_results.section_titles.pages", count: @pages.total)
-= paginate @pages.results, remote: true, params: { only: "pages" }
-%ul.found_pages.uk-list
-  - @pages.results.each do |page|
-    -# TODO: rename; it's no longer a row, it's a card.
-    = render("pages/as_row", page: page)
-= paginate @pages.results, remote: true, params: { only: "pages" }
+.search_result_container
+  .ui.inverted.dimmer
+    .ui.loader
+  %h2= t("search_results.section_titles.pages", count: @pages.total)
+  = paginate @pages.results, remote: true, params: { only: "pages" }
+  %ul.found_pages.uk-list
+    - @pages.results.each do |page|
+      -# TODO: rename; it's no longer a row, it's a card.
+      = render("pages/as_row", page: page)
+  = paginate @pages.results, remote: true, params: { only: "pages" }

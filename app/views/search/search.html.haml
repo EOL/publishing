@@ -23,12 +23,12 @@
           %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
         - if defined?(@users) && @users && ! @users.results.empty?
           %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
-  .uk-width-4-5
+  #search_results.uk-width-4-5
     - if defined?(@predicates) && ! @predicates.blank?
-      #search_terms
+      #search_predicates
         = render("terms/search_results", terms: @predicates)
     - if defined?(@object_terms) && ! @object_terms.blank?
-      #search_terms
+      #search_object_terms
         = render("terms/search_results", terms: @object_terms, object: true)
     - if defined?(@pages) && ! @pages.results.empty?
       #search_pages
