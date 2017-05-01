@@ -117,7 +117,7 @@ module TraitsHelper
   def show_trait_modifiers(trait)
     haml_tag(:br)
     [trait[:statistical_method], trait[:sex], trait[:lifestage]].compact.each do |type|
-      haml_tag(:span, "(#{type})", class: "trait_type")
+      haml_tag(:div, "#{type}", class: "trait_type uk-text-muted uk-text-small")
     end
   end
 end
