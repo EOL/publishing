@@ -543,7 +543,7 @@ en:
         username:
   term:
     actions:
-      glossary: "glossary"
+      glossary: "full glossary"
       reindex: "reindex"
       sort: "sort by"
     glossary:
