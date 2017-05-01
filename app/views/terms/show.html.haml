@@ -1,7 +1,13 @@
 #trait.uk-container
   .uk-card.uk-card-default.uk-grid.uk-padding
     .uk-width-4-5
-      %h1= @term[:name].titlecase
+      %h1
+        = @term[:name].titlecase
+        .uk-text-muted.uk-margin-remove-top.uk-text-small
+          - if @object
+            = t("term.object_term_header")
+          - else
+            = t("term.predicate_header")
       - def_blank = @term[:definition].blank?
       %h3.uk-text-muted.uk-margin-remove-top
         = @term[:uri]

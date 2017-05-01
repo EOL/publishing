@@ -544,6 +544,8 @@ en:
   term:
     glossary:
       title: "Glossary of Data Terms on EOL"
+    object_term_header: "a data record value"
+    predicate_header: "a data record type"
     show:
       clade_filter: "Filter by clade:"
   trait_source: "source"

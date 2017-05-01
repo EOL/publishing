@@ -26,10 +26,10 @@
   .uk-width-4-5
     - if defined?(@predicates) && ! @predicates.blank?
       #search_terms
-        = render("terms/search_results", id: "predicates", terms: @predicates)
+        = render("terms/search_results", terms: @predicates)
     - if defined?(@object_terms) && ! @object_terms.blank?
       #search_terms
-        = render("terms/search_results", terms: @object_terms)
+        = render("terms/search_results", terms: @object_terms, object: true)
     - if defined?(@pages) && ! @pages.results.empty?
       #search_pages
         = render("pages/search_results")

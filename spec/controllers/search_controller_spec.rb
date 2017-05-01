@@ -16,6 +16,8 @@ RSpec.describe SearchController do
     allow(Medium).to receive(:search) { media }
     allow(User).to receive(:search) { users }
     allow(SearchSuggestion).to receive(:search) {suggestions}
+    allow(TraitBank).to receive(:search_object_terms) { }
+    allow(TraitBank).to receive(:search_predicate_terms) { }
   end
 
   describe "#show" do

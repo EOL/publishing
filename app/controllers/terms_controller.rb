@@ -4,7 +4,10 @@ class TermsController < ApplicationController
 
   def show
     @term = TraitBank.term_as_hash(params[:uri])
-    traits = TraitBank.by_predicate(@term[:uri], sort: params[:sort], sort_dir: params[:sort_dir])
+    @object = params[:object]
+    traits = @object ?
+      [] :
+      TraitBank.by_predicate(@term[:uri], sort: params[:sort], sort_dir: params[:sort_dir])
     # TODO: a fast way to load pages with just summary info:
     pages = Page.where(id: traits.map { |t| t[:page_id] }).preloaded
     # Make a dictionary of pages:
