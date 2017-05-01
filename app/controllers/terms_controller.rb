@@ -20,7 +20,20 @@ class TermsController < ApplicationController
   end
 
   def glossary
-    @glossary = TraitBank.full_glossary
+    per_page = 100
+    @page = params[:page] || 1
+    @count = TraitBank.terms_count
+    if params[:reindex] && is_admin?
+      TraitBank.clear_caches
+      @count = TraitBank.terms_count # May as well re-load this value!
+      lim = (@count / per_page.to_f).ceil
+      (0..lim).each do |index|
+        expire_fragment("term/glossary/#{index}")
+      end
+    end
+    @glossary = Kaminari.paginate_array(
+        TraitBank.full_glossary(@page, per_page), total_count: @count
+      ).page(@page)
   end
 
   def paginate_traits(traits)

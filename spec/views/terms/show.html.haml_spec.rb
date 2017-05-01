@@ -27,6 +27,7 @@ RSpec.describe "terms/show" do
     assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
     assign(:resources, { 65422 => resource })
+    allow(view).to receive(:is_admin?) { false }
   end
 
   it "shows the title" do

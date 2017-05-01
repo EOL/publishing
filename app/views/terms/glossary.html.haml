@@ -1,17 +1,23 @@
-- cache("term/glossary", expires_in: 1.day) do
+- cache("term/glossary/#{@page}", expires_in: 1.day) do
+  - Rails.logger.warn("DATA GLOSSARY REBUILT.")
+  = paginate(@glossary)
   #terms_glossary{ uk: { grid: true } }
     .uk-width-1-5
       .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
         %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 100" } } }
+          %li= link_to_previous_page @glossary, t("term.pagination.previous")
           %li= link_to("0-9", "#", data: { section_id: "0-9" })
-          - Array('A'..'Z').each do |letter|
+          - @glossary.map { |t| t[:name][0].upcase }.uniq.each do |letter|
             %li= link_to(letter, "##{letter}")
+          %li= link_to_next_page @glossary, t("term.pagination.next")
+        %button.ui.small.basic.button.uk-margin-small-top
+          = link_to(t("term.actions.reindex"), glossary_path(reindex: true))
     .uk-width-expand.uk-overflow-auto
       %h1= t("term.glossary.title")
       .uk-margin-top
         %dl.uk-description-list
           - last_head = nil
-          - @glossary.sort_by { |t| t[:name][0].upcase }.each do |term|
+          - @glossary.each do |term|
             - this_head = term[:name][0].upcase
             - this_head = "0-9" if this_head =~ /[0-9]/
             - unless this_head == last_head
@@ -22,3 +28,4 @@
               .uk-text-muted.uk-text-small= term[:uri]
               = term[:definition]
               .uk-text-muted= term[:attribution]
+  = paginate(@glossary)

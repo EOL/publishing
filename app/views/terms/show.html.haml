@@ -17,15 +17,18 @@
         - else
           = @term[:definition].html_safe
     .actions.uk-width-1-5
-      %button#sort_button.ui.labeled.small.icon.button
+      %button#sort_button.ui.labeled.small.icon.basic.button.uk-margin-small-top
         %i.down.arrow.icon
-        = t(:traits_sort_dropdown_name)
+        = t("term.actions.sort")
       %div{ uk: { dropdown: true } }
         %ul.uk-dropdown-nav.uk-nav
           %li= link_to(t("traits_sort_dropdown.alphabetical"), term_path(uri: @term[:uri], object: @object))
           %li= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(uri: @term[:uri], object: @object, sort_dir: "desc"))
           %li= link_to(t("traits_sort_dropdown.value"), term_path(uri: @term[:uri], object: @object, sort: "measurement"))
           %li= link_to(t("traits_sort_dropdown.value_rev"), term_path(uri: @term[:uri], object: @object, sort: "measurement", sort_dir: "desc"))
+      - if is_admin?
+        %button.ui.small.basic.button.uk-margin-small-top
+          = link_to(t("term.actions.glossary"), glossary_path)
     .uk-margin-top
       = form_tag(term_path(@term[:uri])) do
         = t("term.show.clade_filter")

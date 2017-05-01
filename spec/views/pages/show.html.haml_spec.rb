@@ -42,6 +42,7 @@ RSpec.describe "pages/show" do
     allow(view).to receive(:current_user) { user }
     assign(:media, media)
     assign(:resources, { resource.id => resource })
+    allow(view).to receive(:is_admin?) { false }
   end
 
   it "shows the ancestor names" do

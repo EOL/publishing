@@ -139,12 +139,18 @@ class TraitBank
 
     # NOTE: if you add any new caches IN THIS CLASS, add them here.
     def clear_caches
+      Rails.logger.warn("TRAITBANK CACHES CLEARED.")
       [
         "trait_bank/predicate_count",
-        "trait_bank/terms_count",
-        "trait_bank/full_glossary"
+        "trait_bank/terms_count"
       ].each do |key|
         Rails.cache.delete(key)
+      end
+      count = terms_count
+      # NOTE: unfortunately, we don't KNOW here that it's 100 per page. Yech!
+      lim = (count / 100.to_f).ceil
+      (0..lim).each do |index|
+        Rails.cache.delete("trait_bank/full_glossary/#{index}")
       end
     end
 
@@ -169,7 +175,7 @@ class TraitBank
     end
 
     def terms(page = 1, per = 50)
-      q = "MATCH (term:Term) RETURN term ORDER BY term.name, term.uri"
+      q = "MATCH (term:Term) RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
       q = add_limit_and_skip(q, page, per)
       res = query(q)
       res["data"] ? res["data"].map { |t| t.first["data"] } : false
@@ -179,9 +185,9 @@ class TraitBank
       # I don't know why the default values don't work, but:
       page ||= 1
       per ||= 50
-      skip = (page - 1) * per
-      q += " LIMIT #{per}"
+      skip = (page.to_i - 1) * per.to_i
       q += " SKIP #{skip}" if skip > 0
+      q += " LIMIT #{per}"
       q
     end
 
@@ -198,17 +204,20 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        "trait.literal, object_term.name, trait.normal_measurement"
+        "LOWER(trait.literal), LOWER(object_term.name), trait.normal_measurement"
       end
       dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
       q += " ORDER BY #{sort} #{dir}"
       q
     end
 
-    def full_glossary
-      Rails.cache.fetch("trait_bank/full_glossary", expires_in: 1.day) do
+    def full_glossary(page = 1, per = 100)
+      page ||= 1
+      Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
+        # "RETURN term ORDER BY term.name, term.uri"
         q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
-          "RETURN term ORDER BY term.name, term.uri"
+          "RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
+        q = add_limit_and_skip(q, page, per)
         res = query(q)
         res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
       end

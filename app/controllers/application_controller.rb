@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_filter :set_locale
 
+  helper_method :is_admin?
+
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
     before_filter :authenticate
@@ -12,6 +14,10 @@ class ApplicationController < ActionController::Base
         username == Rails.application.secrets.user_id &&
         password == Rails.application.secrets.password
       end
+    end
+
+    def is_admin?
+      current_user && current_user.is_admin?
     end
 
   public

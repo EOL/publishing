@@ -542,9 +542,16 @@ en:
         password_confirmation:
         username:
   term:
+    actions:
+      glossary: "glossary"
+      reindex: "reindex"
+      sort: "sort by"
     glossary:
       title: "Glossary of Data Terms on EOL"
     object_term_header: "a data record value"
+    pagination:
+      next: "next page"
+      previous: "previous page"
     predicate_header: "a data record type"
     show:
       clade_filter: "Filter by clade:"
@@ -568,7 +575,6 @@ en:
     alphabetical_rev: "record type, Z-A"
     value: "value, 1-100"
     value_rev: "value, 100-1"
-  traits_sort_dropdown_name: "sort by"
   uri_definition_blank: "No one has defined this trait yet."
   username: "Username"
   user_bio_title: "Brief Biography"
