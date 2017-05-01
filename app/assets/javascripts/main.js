@@ -131,7 +131,7 @@ $(document).ready(function() {
     EOL.enable_tab_nav();
   }
   // No "else" because it also has a gallery, so you can need both!
-  if ($("#gmap").length == 1) {
+  if ($("#gmap").length >= 1) {
     EoLMap.init();
   }
   $(window).bind("popstate", function () {

@@ -1,2 +1,4 @@
 $("#page_nav_content").html("<%= j(render("maps")) %>");
-EoLMap.init();
+if ($("#gmap").length >= 1) {
+  EoLMap.init();
+}
