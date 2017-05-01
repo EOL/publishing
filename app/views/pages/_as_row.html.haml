@@ -45,10 +45,10 @@
               = link_to(common.titleize.html_safe, page, class: "primary-name")
           .uk-text-muted= link_to(sci_name, page, class: "secondary-name")
       - if defined?(annotation)
-        .uk-margin-top-small
+        .uk-margin-small-top
           = annotation
       - if has_query
-        .matches.uk-margin-top-small
+        .matches.uk-margin-small-top
           - other_vernaculars = nil
           - other_scientifics = nil
           - other_resources = nil
@@ -62,7 +62,7 @@
             - unless other_scientifics.blank?
               %b= t("search_results.field_matches.synonyms", count: other_scientifics.size)
               = other_scientifics.join(", ").html_safe
-          - other_resources = page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.map { |resource| n = emphasize_match(resource.name, @q) ; n += " (#{emphasize_match(resource.partner.short_name, @q)})".html_safe unless resource.name =~ /#{resource.partner.short_name}/ }
+          - other_resources = page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.map { |resource| n = emphasize_match(resource.name, @q) ; n += " (#{emphasize_match(resource.partner.short_name, @q)})".html_safe unless resource.name =~ /#{resource.partner.short_name}/ ; n }
           - unless other_resources.blank?
             %b= t("search_results.field_matches.resources", count: other_resources.size)
             = other_resources.join(", ").html_safe
@@ -72,7 +72,7 @@
 
       - else # (no query string)
         - if summary = construct_summary(page)
-          .uk-margin-top-small= summary
+          .uk-margin-small-top= summary
       - unless media.empty?
         .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
           %h5.uk-text-center= t("search_results.collected_media.title")

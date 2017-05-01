@@ -12,9 +12,10 @@ class SearchController < ApplicationController
     default = params.has_key?(:only)? false : true
 
     @types = {}
-    [ :pages, :collections, :media, :users, :object_terms ].each do |sym|
-      @types[sym] = default
-    end
+    [ :pages, :collections, :media, :users, :predicates, :object_terms ].
+      each do |sym|
+        @types[sym] = default
+      end
 
     if params.has_key?(:only)
       Array(params[:only]).each { |type| @types[type.to_sym] = true }
@@ -24,31 +25,20 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page, include: [:medium, native_node: :rank, vernaculars: :language ], page_richness: true)
+    @pages = search_class(Page, include: [:medium, native_node: :rank,
+      vernaculars: :language ], page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
 
-    # YOU WERE HERE - You just wrote this; not positive it will work. Need to
-    # try it at a prompt. Assuming it does, you need to steal the view code from
-    # the other trait views (should be mostly a partial) and add that to the
-    # search results view.
     if @types[:object_terms]
-      # TODO: relocate this. But, ATM, this only makes sense with suggestions:
-      # TODO: maybe some filtering of the term? NOTE: remember, the scope of the
-      # block does NOT include our instance variables:
-      suggestions = SearchSuggestion.search { fulltext(params[:q]) }.results
-      suggestion = suggestions.find { |s| s.object_term? }
-      if suggestion
-        traits = TraitBank.by_object_term_uri(suggestion.object_term)
-        glossary = TraitBank.glossary(traits)
-        @object_terms = TraitBank.sort(traits)
-        @object_term_pages = {}
-        pages = Page.where(id: @object_terms.map { |t| t[:page_id] }).preloaded
-        pages.each { |page| @object_term_pages[page.id] = page }
-        @glossary = TraitBank.glossary(@object_terms)
-        @resources = TraitBank.resources(@object_terms)
-      end
+      # NOTE we use @q here because it has no wildcard.
+      @object_terms = TraitBank.search_object_terms(@q)
+    end
+
+    if @types[:predicates]
+      # NOTE we use @q here because it has no wildcard.
+      @predicates = TraitBank.search_predicate_terms(@q)
     end
 
     respond_to do |fmt|
@@ -60,11 +50,12 @@ class SearchController < ApplicationController
         end
         # Object terms is unusual:
         @empty = false if @object_terms && ! @object_terms.empty?
+        @empty = false if @predicates && ! @predicates.empty?
       end
 
       fmt.js { }
 
-      # TODO: JSON results for other types!
+      # TODO: JSON results for other types! TODO: move: this is view logic...
       fmt.json do
         render json: JSON.pretty_generate(@pages.results.as_json(
           except: :native_node_id,
@@ -86,7 +77,8 @@ class SearchController < ApplicationController
 
   private
 
-  # TODO: Whoa, you can do them all at the same time!
+  # TODO: Whoa, you can do them all at the same time! I'm not sure we *want* to,
+  # though, so I'm holding this comment here:
   # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
 
   def search_class(klass, options = {})

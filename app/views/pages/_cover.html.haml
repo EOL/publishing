@@ -14,6 +14,7 @@
             - next
           %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
           - shown_ellipsis = false
+        %i.uk.icon.long.arrow.right
     .uk-section{ uk: { grid: true } }
       #names.page-names.uk-width-2-3
         - if @page.name == @page.scientific_name

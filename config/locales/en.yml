@@ -445,7 +445,12 @@ en:
       pages:
         one: "%{count} eol page (species)"
         other: "%{count} eol pages (species)"
-      terms: "data records (TraitBank)"
+      object_terms:
+        one: "%{count} data record value (TraitBank)"
+        other: "%{count} data record values (TraitBank)"
+      predicates:
+        one: "%{count} data record type (TraitBank)"
+        other: "%{count} data record types (TraitBank)"
       users:
         one: "%{count} user"
         other: "%{count} users"

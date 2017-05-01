@@ -281,12 +281,33 @@ class TraitBank
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units "\
-        "LIMIT 50"
+        "RETURN resource, trait, page, predicate, object_term, units "
       add_limit_and_skip(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
+    end
+
+    # NOTE: this is not indexed. It could get slow later, so you should check
+    # and optimize if needed. Do not prematurely optimize!
+    def search_predicate_terms(q, page = 1, per = 50)
+      q = "MATCH (trait)-[:predicate]->(term:Term) "\
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+      add_limit_and_skip(q, page, per)
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"].map { |r| r[0]["data"] }
+    end
+
+    # NOTE: this is not indexed. It could get slow later, so you should check
+    # and optimize if needed. Do not prematurely optimize!
+    def search_object_terms(q, page = 1, per = 50)
+      q = "MATCH (trait)-[:object_term]->(term:Term) "\
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+      add_limit_and_skip(q, page, per)
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"].map { |r| r[0]["data"] }
     end
 
     def get_clade_traits(clade_id, predicate)
