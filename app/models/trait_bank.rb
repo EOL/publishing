@@ -170,15 +170,38 @@ class TraitBank
 
     def terms(page = 1, per = 50)
       q = "MATCH (term:Term) RETURN term ORDER BY term.name, term.uri"
-      add_limit_and_skip(q, page, per)
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       res["data"] ? res["data"].map { |t| t.first["data"] } : false
     end
 
     def add_limit_and_skip(q, page = 1, per = 50)
+      # I don't know why the default values don't work, but:
+      page ||= 1
+      per ||= 50
       skip = (page - 1) * per
       q += " LIMIT #{per}"
       q += " SKIP #{skip}" if skip > 0
+      q
+    end
+
+    def add_sort(q, options)
+      options[:sort] ||= ""
+      options[:sort_dir] ||= ""
+      sort = if options[:sort].downcase == "measurement"
+        "trait.normal_measurement"
+      else
+        # TODO: this is not good. multiple types of values will not
+        # "interweave", and the only way to change that is to store a
+        # "normal_value" value for all different "stringy" types (literals,
+        # object terms, and object page names). ...This is a resonable approach,
+        # though it will require more work to keep "up to date" (e.g.: if the
+        # name of an object term changes, all associated traits will have to
+        # change).
+        "trait.literal, object_term.name, trait.normal_measurement"
+      end
+      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
+      q += " ORDER BY #{sort} #{dir}"
       q
     end
 
@@ -207,7 +230,7 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
-      add_limit_and_skip(q, page, per)
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
@@ -236,7 +259,7 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
-      add_limit_and_skip(q, page, per)
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
@@ -245,36 +268,21 @@ class TraitBank
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
     def by_predicate(predicate, options = {})
-      options[:sort] ||= ""
-      options[:sort_dir] ||= ""
-      sort = if options[:sort].downcase == "measurement"
-        "trait.normal_measurement"
-      else
-        # TODO: this is not good. multiple types of values will not
-        # "interweave", and the only way to change that is to store a
-        # "normal_value" value for all different "stringy" types (literals,
-        # object terms, and object page names). ...This is a resonable approach,
-        # though it will require more work to keep "up to date" (e.g.: if the
-        # name of an object term changes, all associated traits will have to
-        # change).
-        "trait.literal, object_term.name, trait.normal_measurement"
-      end
-      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
       # TODO: pull in more for the metadata...
       q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units "\
-        "ORDER BY #{sort} #{dir}"
-      add_limit_and_skip(q, options[:page] || 1, options[:per] || 50)
+        "RETURN resource, trait, page, predicate, object_term, units"
+      q = add_sort(q, options)
+      q = add_limit_and_skip(q, options[:page], options[:per])
       res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
     end
 
-    def by_object_term_uri(object_term, page = 1, per = 200)
+    def by_object_term_uri(object_term, options = {})
       # TODO: pull in more for the metadata...
       q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
@@ -282,7 +290,8 @@ class TraitBank
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units "
-      add_limit_and_skip(q, page, per)
+      q = add_sort(q, options)
+      q = add_limit_and_skip(q, options[:page], options[:per])
       res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
@@ -293,7 +302,7 @@ class TraitBank
     def search_predicate_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
-      add_limit_and_skip(q, page, per)
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
@@ -304,7 +313,7 @@ class TraitBank
     def search_object_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:object_term]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
-      add_limit_and_skip(q, page, per)
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }

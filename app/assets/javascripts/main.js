@@ -10,6 +10,8 @@ if(!EOL) {
     .bind("ajax:complete", function() {
       console.log("page_nav complete");
       $("#tab_content").dimmer("hide");
+      $("#page_nav").children().removeClass("uk-active");
+      $(this).parent().addClass("uk-active");
       history.pushState(null, "", this.href);
     }).unbind("ajax:error")
     .bind("ajax:error", function(evt, data, status, xhr) {

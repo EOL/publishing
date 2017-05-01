@@ -1,7 +1,19 @@
 - traits = [] unless local_assigns.has_key?(:traits)
 - pages = [] unless local_assigns.has_key?(:pages)
+= paginate traits unless traits.empty?
 #traits_table.uk-overflow-auto
   %table.traits_by_predicate.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
+    %thead
+      %tr
+        - if @object
+          %th.uk-width-1-4= t("trait_table.headers.page")
+          %th.uk-width-1-4= t("trait_table.headers.predicate")
+          %th.uk-width-1-4= t("trait_table.headers.value")
+          %th.uk-width-1-4= t("trait_table.headers.source")
+        - else
+          %th.uk-width-1-5= t("trait_table.headers.page")
+          %th.uk-width-3-5= t("trait_table.headers.value")
+          %th.uk-width-1-5= t("trait_table.headers.source")
     %tbody
       -# TODO: helper
       - prev_page_id = nil
@@ -9,17 +21,21 @@
         - page_id = trait[:page_id]
         - if page = pages[page_id]
           %tr.toggle_meta{ id: trait[:id], data: { action: trait_path(trait[:id]) }  }
-            %th.trait-table-image{ scope: "row" }
+            %td
               - if prev_page_id != page_id
-                - show_trait_page_icon(page)
-            %th.trait-table-name{ scope: "row" }
-              - if prev_page_id != page_id
-                - show_trait_page_name(page)
+                .uk-grid{ uk: { grid: true } }
+                  .uk-width-1-4
+                    - show_trait_page_icon(page)
+                  .uk-width-3-4
+                    - show_trait_page_name(page)
               - show_trait_modifiers(trait)
               - prev_page_id = page_id
+            - if @object
+              %th{ scope: "row" }
+                = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
             %td
               - show_trait_value(trait)
               - metadata_container(trait)
               -# - show_metadata(trait)
             - show_source_col(trait)
-    = paginate traits unless traits.empty?
+= paginate traits unless traits.empty?
