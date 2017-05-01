@@ -147,8 +147,9 @@ class TraitBank
         Rails.cache.delete(key)
       end
       count = terms_count
-      # NOTE: unfortunately, we don't KNOW here that it's 100 per page. Yech!
-      lim = (count / 100.to_f).ceil
+      # NOTE: unfortunately, we don't KNOW here how many there are per page.
+      # Yech! Perhaps a Rails config?
+      lim = (count / Rails.configuration.data_glossary_page_size.to_f).ceil
       (0..lim).each do |index|
         Rails.cache.delete("trait_bank/full_glossary/#{index}")
       end
@@ -158,16 +159,6 @@ class TraitBank
       Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
         res = query(
           "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
-          "WITH count(distinct(term.uri)) AS count "\
-          "RETURN count")
-        res["data"] ? res["data"].first.first : false
-      end
-    end
-
-    def terms_count
-      Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
-        res = query(
-          "MATCH (term:Term) "\
           "WITH count(distinct(term.uri)) AS count "\
           "RETURN count")
         res["data"] ? res["data"].first.first : false
@@ -211,8 +202,19 @@ class TraitBank
       q
     end
 
-    def full_glossary(page = 1, per = 100)
+    def terms_count
+      Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
+        res = query(
+          "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+          "WITH count(distinct(term.uri)) AS count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
+    end
+
+    def full_glossary(page = 1, per = nil)
       page ||= 1
+      per ||= Rails.configuration.data_glossary_page_size
       Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
         # "RETURN term ORDER BY term.name, term.uri"
         q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\

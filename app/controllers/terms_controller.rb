@@ -20,7 +20,7 @@ class TermsController < ApplicationController
   end
 
   def glossary
-    per_page = 100
+    per_page = Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
     @count = TraitBank.terms_count
     if params[:reindex] && is_admin?
@@ -33,7 +33,7 @@ class TermsController < ApplicationController
     end
     @glossary = Kaminari.paginate_array(
         TraitBank.full_glossary(@page, per_page), total_count: @count
-      ).page(@page)
+      ).page(@page).per(per_page)
   end
 
   def paginate_traits(traits)
