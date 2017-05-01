@@ -7,7 +7,7 @@ class TermsController < ApplicationController
     @page_title = @term[:name].titleize
     @object = params[:object]
     @page = params[:page]
-    @per_page = 20 # TODO: config this or make it dynamic...
+    @per_page = 100 # TODO: config this or make it dynamic...
     options = {
       page: @page, per: @per_page, sort: params[:sort],
       sort_dir: params[:sort_dir]
