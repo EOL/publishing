@@ -348,7 +348,7 @@ en:
   literature_and_references_header: "Literature and References"
   maps:
     empty: "There are no maps available for this page."
-    other_maps_title: "Other Maps"
+    other_maps_title: "Non-interactive Maps"
   medium:
     subclasses:
       image: "image"
