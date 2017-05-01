@@ -104,7 +104,7 @@ module TraitsHelper
 
   def show_trait_page_name(page)
     haml_tag(:div, class: "names d-inline") do
-      if page.name
+      if page.name && page.name != page.scientific_name
         haml_concat(link_to(page.name.titlecase, page, class: "primary-name"))
         haml_tag(:br)
         haml_concat(link_to(page.scientific_name.html_safe, page, class: "secondary-name"))
