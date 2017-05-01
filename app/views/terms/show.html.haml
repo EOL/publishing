@@ -4,10 +4,11 @@
       %h1
         = @term[:name].titlecase
         .uk-text-muted.uk-margin-remove-top.uk-text-small
+          = t("term.header.count", count: @count)
           - if @object
-            = t("term.object_term_header")
+            = t("term.header.object_term")
           - else
-            = t("term.predicate_header")
+            = t("term.header.predicate")
       - def_blank = @term[:definition].blank?
       %h3.uk-text-muted.uk-margin-remove-top
         = @term[:uri]

@@ -548,11 +548,15 @@ en:
       sort: "sort by"
     glossary:
       title: "Glossary of Data Terms on EOL"
-    object_term_header: "a data record value"
+    header:
+      object_term: "a data record value"
+      predicate: "a data record type"
+      count:
+        one: "%{count} record."
+        other: "%{count} records."
     pagination:
       next: "next page"
       previous: "previous page"
-    predicate_header: "a data record type"
     show:
       clade_filter: "Filter by clade:"
   trait_source: "source"

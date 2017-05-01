@@ -293,6 +293,19 @@ class TraitBank
         :object_term, :units])
     end
 
+    def by_predicate_count(predicate)
+      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "WITH count(trait) AS count "\
+        "RETURN count"
+      res = query(q)
+      res["data"] ? res["data"].first.first : 0
+    end
+
+
     def by_object_term_uri(object_term, options = {})
       # TODO: pull in more for the metadata...
       q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
@@ -306,6 +319,18 @@ class TraitBank
       res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
+    end
+
+    def by_object_term_count(object_term)\
+      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource) "\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "WITH count(trait) AS count "\
+        "RETURN count"
+      res = query(q)
+      res["data"] ? res["data"].first.first : 0
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
