@@ -126,27 +126,56 @@ if(!EOL) {
       e.preventDefault();
     });
   };
+
+  EOL.ready = function() {
+    if ($("#gallery").length === 1) {
+      EOL.enable_media_navigation();
+    } else if ($("#page_traits").length === 1) {
+      EOL.enable_trait_toc();
+      EOL.allow_meta_traits_to_toggle();
+    } else if ($("#traits_table").length === 1) {
+      EOL.allow_meta_traits_to_toggle();
+    } else if ($("#search_results").length === 1) {
+      EOL.enable_search_pagination();
+    } else {
+      EOL.enable_tab_nav();
+    }
+    // No "else" because it also has a gallery, so you can need both!
+    if ($("#gmap").length >= 1) {
+      EoLMap.init();
+    }
+    $(window).bind("popstate", function () {
+      console.log("popstate "+location.href);
+      $.getScript(location.href);
+    });
+
+    // TODO: move this.
+    EOL.searchNames = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      // TODO: someday we should have a pre-populated list of common search terms
+      // and load that here. prefetch: '../data/films/post_1960.json',
+      remote: {
+        url: '/names/%QUERY.json',
+        wildcard: '%QUERY'
+      },
+      limit: 10
+    });
+    EOL.searchNames.initialize();
+
+    if ($('#nav-search .typeahead').length >= 1) {
+      console.log("Enable navigation typeahead.");
+      $('#nav-search .typeahead').typeahead(null, {
+        name: 'search-names',
+        display: 'value',
+        source: EOL.searchNames
+      }).bind('typeahead:selected', function(event, datum, name) {
+        console.debug('Suggestion clicked:', event, datum, name);
+        window.location.href = '/search/?q=' + datum.value;
+      });
+    };
+  };
 }
 
-$(document).ready(function() {
-  if ($("#gallery").length === 1) {
-    EOL.enable_media_navigation();
-  } else if ($("#page_traits").length === 1) {
-    EOL.enable_trait_toc();
-    EOL.allow_meta_traits_to_toggle();
-  } else if ($("#traits_table").length === 1) {
-    EOL.allow_meta_traits_to_toggle();
-  } else if ($("#search_results").length === 1) {
-    EOL.enable_search_pagination();
-  } else {
-    EOL.enable_tab_nav();
-  }
-  // No "else" because it also has a gallery, so you can need both!
-  if ($("#gmap").length >= 1) {
-    EoLMap.init();
-  }
-  $(window).bind("popstate", function () {
-    console.log("popstate "+location.href);
-    $.getScript(location.href);
-  });
-});
+// $(document).ready(EOL.ready);
+$(document).on("turbolinks:load", EOL.ready);

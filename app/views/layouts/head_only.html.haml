@@ -5,7 +5,7 @@
     %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
     %title
       - if defined?(@page_title)
-        = sanitize @page_title
+        = strip_tags(sanitize(@page_title))
         \-
       = t(:page_title)
     -# TODO: we need to compile our own set of includes with only the bits we need.
@@ -28,6 +28,7 @@
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/components/dimmer.min.js"
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/components/dropdown.min.js"
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/components/transition.min.js"
+    = javascript_include_tag "http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"
     = csrf_meta_tags
     - if content_for?(:head)
       = yield :head

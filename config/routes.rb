@@ -46,6 +46,7 @@ Rails.application.routes.draw do
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
+  get "/names/:name" => "search#names", :as => "names"
 
   root "pages#index"
 

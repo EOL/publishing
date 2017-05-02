@@ -75,6 +75,33 @@ class SearchController < ApplicationController
     end
   end
 
+  def names
+    respond_to do |fmt|
+      fmt.json do
+        q = Page.search do
+          fulltext "#{params[:name]}*" do
+            Page.stored_fields.each do |field|
+              highlight field
+            end
+          end
+          order_by(:page_richness, :desc)
+          paginate page: 1, per_page: 10
+        end
+        results = []
+        q.hits.each do |hit|
+          Page.stored_fields.each do |field|
+            hit.highlights(field).compact.each do |highlight|
+              word = highlight.format { |word| word }.downcase
+              results << { value: word, tokens: word.split } unless
+                results.any? { |r| r[:value] == word}
+            end
+          end
+        end
+        render json: JSON.pretty_generate(results)
+      end
+    end
+  end
+
   private
 
   # TODO: Whoa, you can do them all at the same time! I'm not sure we *want* to,
