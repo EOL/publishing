@@ -14,5 +14,6 @@ class PageIcon < ActiveRecord::Base
 
   def bump_icon
     page_content.move_to_top
+    page.update_attribute(:medium_id, medium_id)
   end
 end
