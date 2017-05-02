@@ -97,6 +97,7 @@ class SearchController < ApplicationController
             end
           end
         end
+        results = results.sort_by { |r| r[:value] }
         render json: JSON.pretty_generate(results)
       end
     end
