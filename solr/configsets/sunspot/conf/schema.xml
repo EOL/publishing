@@ -97,6 +97,21 @@
     <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
   </types>
+  
+  <fieldType name="txt_ngram" class="solr.TextField" omitNorms="false">
+  <analyzer type = "index">
+    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+    <filter class="solr.WordDelimiterFilterFactory" />
+    <filter class="solr.LowerCaseFilterFactory"/>
+    <filter class="solr.EdgeNGramFilterFactory" minGramSize="3" maxGramSize="30" side="front">
+  </analyzer>
+  <analyzer type = "query">
+    <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+    <filter class="solr.WordDelimiterFilterFactory">
+    <filter class="solr.LowerCaseFilterFactory"/>
+  </analyzer>
+</fieldType>
+  
   <fields>
     <!-- Valid attributes for fields:
      name: mandatory - the name for the field
@@ -256,6 +271,9 @@
     
     <!-- required by Solr 5 -->
     <field name="_version_" type="tlong" indexed="true" stored="true" multiValued="false" />
+    
+    <dynamicField name="*_ac" type="txt_ngram" indexed="true" multiValued="true" stored="false"/>
+	<dynamicField name="*_acs" type="txt_ngram" indexed="true" multiValued="true" stored="true"/>
   </fields>
   
   <!-- Field to use to determine and enforce document uniqueness.

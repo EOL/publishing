@@ -7,7 +7,7 @@
         %h1.uk-title= t("landing_page.header")
         .uk-section
           = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
-            = text_field_tag("q", nil, placeholder: t("landing_page.search_placeholder"), class: "uk-search-input")
+            = autocomplete_field :autocomplete, 'q', autocomplete_path, placeholder: t("landing_page.search_placeholder"), class: "uk-search-input", 'data-min-length' => 3
             %a.uk-search-icon-flip{ uk: { search: { icon: true } } }
   .uk-container
     .uk-section

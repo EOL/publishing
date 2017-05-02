@@ -1,0 +1,35 @@
+%h1.text-center= t(:search_header, q: @q)
+- if @empty
+  %h2= t(:search_empty, q: @q)
+- else
+.uk-grid
+  .uk-width-1-5
+    .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
+      %h4.uk-heading-divider= t("search_results.header")
+      %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 80" } } }
+        - if defined?(@object_terms)
+          %li= link_to(t("search_results.section_titles.terms"), "#search_terms")
+        - if defined?(@pages) && ! @pages.results.empty?
+          %li= link_to(t("search_results.section_titles.pages", count: @pages.total), "#search_pages")
+        - if defined?(@collections) && @collections && ! @collections.results.empty?
+          %li= link_to(t("search_results.section_titles.collections", count: @collections.total), "#search_collections")
+        - if defined?(@media) && @media && ! @media.results.empty?
+          %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
+        - if defined?(@users) && @users && ! @users.results.empty?
+          %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
+  .uk-width-4-5
+    - if defined?(@object_terms)
+      #search_terms
+        = render("terms/search_results")
+    - if defined?(@pages) && ! @pages.results.empty?
+      #search_pages
+        = render("pages/search_results")
+    - if defined?(@collections) && @collections && ! @collections.results.empty?
+      #search_collections
+        = render("collections/search_results")
+    - if defined?(@media) && @media && ! @media.results.empty?
+      #search_media
+        = render("media/search_results")
+    - if defined?(@users) && @users && ! @users.results.empty?
+      #search_users
+        = render("users/search_results")

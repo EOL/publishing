@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
   searchable do
     text :username, :boost => 6.0
+    text :username, :as => :username_ac
     text :name, :boost => 4.0
     text :tag_line
     text :bio, :boost => 2.0

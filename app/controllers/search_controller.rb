@@ -1,4 +1,31 @@
 class SearchController < ApplicationController
+  
+  def autocomplete
+    data = ["wal"]
+    @users = User.search do
+      keywords params[:term], :fields => [:username]
+      paginate page: 1, per_page: 3
+    end
+    # json = users.results.each_with_index.map do |result, index|
+    # { id: result['instance'].id,
+      # value: result['instance'].title_canonical,
+      # label: render_to_string(
+      # partial: 'shared/item_summary_taxon_autocomplete',
+      # locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
+    # }
+    # end.delete_if { |r| r[:value].blank? }
+    
+    respond_to do |format|
+      format.html { render }
+      format.json { 
+        render json: render_to_string(partial: "users/search_results")
+      }
+    end
+
+    # @users = users.results
+    # render json: render_to_string(partial: "users/search_results")
+  end
+  
   # TODO: Mammoth method, break up.
   def search
     # Doctoring for the view to find matches:

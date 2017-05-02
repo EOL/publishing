@@ -75,7 +75,8 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'simple_form'
 # Pagination:
 gem "kaminari", "~> 1.0"
-
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

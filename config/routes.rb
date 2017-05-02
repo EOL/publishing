@@ -42,7 +42,7 @@ Rails.application.routes.draw do
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
-
+  get "/autocomplete" => "search#autocomplete", :as => "autocomplete"
   root "pages#index"
 
   # This line mounts Refinery's routes at the root of your application.
