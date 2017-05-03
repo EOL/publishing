@@ -1,15 +1,15 @@
 class User::SessionsController < Devise::SessionsController
 
-prepend_before_action :increment_login_attempts, only: [:new]
-prepend_before_action :check_captcha, only: [:create]
+# prepend_before_action :increment_login_attempts, only: [:new]
+# prepend_before_action :check_captcha, only: [:create]
 prepend_before_action :disable_remember_me_for_admins, only: [:create]
 
 SHOW_CAPTCHA_ATTEMPTS = 3
 
   # GET /resource/sign_in
   def new
-    @verify_recaptcha = true if session[:login_attempts] >= SHOW_CAPTCHA_ATTEMPTS
-    logger.info "** Verify: #{@verify_recaptcha}, attempts: #{session[:login_attempts]} > #{SHOW_CAPTCHA_ATTEMPTS}"
+    # @verify_recaptcha = true if session[:login_attempts] >= SHOW_CAPTCHA_ATTEMPTS
+    # logger.info "** Verify: #{@verify_recaptcha}, attempts: #{session[:login_attempts]} > #{SHOW_CAPTCHA_ATTEMPTS}"
     super
   end
 

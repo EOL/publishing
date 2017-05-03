@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:facebook, :twitter,
                                              :google_oauth2, :yahoo]
@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
     default_url: "/images/:style/missing.png"
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+  validates :email, presence: true
+  validates :password, presence: true
+  validates :password_confirmation, presence: true
   # LATER: causes errors for now. :S
   # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
 
