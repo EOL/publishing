@@ -8,8 +8,9 @@
     label_html: { class: 'uk-form-label' } }) do |f|
     = f.input :username
     = f.input :email
-    = f.input :password
+    = f.input :password, html: { autocomplete: 'off' }
     = f.input :password_confirmation
+
     .field
       = f.label I18n.t(:recaptcha)
       = recaptcha_tags(theme: 'clean', callback: 'recaptchaCallback')
