@@ -72,6 +72,9 @@ class Import::Clade
           end
           puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
         end
+      rescue => e
+        puts "PROBLEM PARSING FILE?"
+        debugger
       ensure
         Sunspot.session = Sunspot.session.original_session
       end
