@@ -18,7 +18,11 @@ class TraitBank
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
   # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
-  #       is_hidden_from_overview, is_hidden_from_glossary }
+  #       is_hidden_from_overview, is_hidden_from_glossary, position, type }
+  #
+  # NOTE: the "type" for Term is one of "measurement", "association", "value",
+  #   or "metadata" ... at the time of this writing. I may rename "metadata" to
+  #   "units"
   #
   # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
   # an image (which should be handled with an icon) ... and possibly a
