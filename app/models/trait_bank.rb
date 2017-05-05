@@ -7,6 +7,11 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
+  # NOTE: should associated pages (below, stored as object_page_id) actually
+  # have an association, since we have Pages? ...Yes, but only if that's
+  # something we're going to query... and I don't think we do! So all the info
+  # is reall in the MySQL DB and thus just the ID is enough.
+
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
@@ -511,6 +516,23 @@ class TraitBank
       connection.create_relationship("object_term", meta, object_term) if
         object_term
       meta
+    end
+
+    def add_parent_to_page(parent, page)
+      if parent.nil?
+        if page.nil?
+          puts "** Cannot add :parent relationship from nil to nil!"
+        else
+          puts "** Cannot add :parent relationship to nil parent for page #{page["data"]["page_id"]}"
+        end
+      elsif page.nil?
+        puts "** Cannot add :parent relationship to nil page to parent #{parent["data"]["page_id"]}"
+      end
+      begin
+        connection.create_relationship("parent", page, parent)
+      rescue Neography::PropertyValueException
+        puts "** Unable to add :parent relationship from page #{page["data"]["page_id"]} to #{parent["data"]["page_id"]}"
+      end
     end
 
     def convert_measurement(trait, units)

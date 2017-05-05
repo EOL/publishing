@@ -27,7 +27,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.string :name, null: false, comment: "was: title"
       t.string :url,
-        comment: "the URL to download the resource froml; was: accesspoint_url"
+        comment: "the URL to download the resource from; was: accesspoint_url"
       t.text :description
       t.text :notes
       t.integer :nodes_count, :null => false, :default => 0

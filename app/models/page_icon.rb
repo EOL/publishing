@@ -8,12 +8,12 @@ class PageIcon < ActiveRecord::Base
   after_create :bump_icon
 
   def page_content
-    PageContent.where(page_id: page_id, content_type: Medium,
+    @page_content ||= PageContent.where(page_id: page_id, content_type: Medium,
       content_id: medium_id).first
   end
 
   def bump_icon
-    page_content.move_to_top
-    page.update_attribute(:medium_id, medium_id)
+    page_content.move_to_top if page_content
+    page.update_attribute(:medium_id, medium_id) if page
   end
 end
