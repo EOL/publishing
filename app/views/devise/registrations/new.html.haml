@@ -1,7 +1,7 @@
 %div
   %h2
     = I18n.t(:sign_up)
-  = simple_form_for(resource, url: registration_path(resource_name),
+  = simple_form_for(resource, url: registration_path(resource_name), :validate => true,
     html: { class: "eol-userform recaptchad uk-form-stacked" },
     defaults: { input_html: { class: 'uk-input' },
     wrapper_html: { class: 'field' },
