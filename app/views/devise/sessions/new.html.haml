@@ -1,6 +1,6 @@
 %div
   %h2= t(:sign_in)
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name),
+  = simple_form_for(resource, as: resource_name, url: session_path(resource_name), :validate => true,
     html: { class: "eol-userform recaptchad uk-form-stacked" },
     defaults: { input_html: { class: 'uk-input' },
     wrapper_html: { class: 'field' },

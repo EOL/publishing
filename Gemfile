@@ -73,6 +73,9 @@ gem "pundit", "~> 1.1"
 gem 'recaptcha', require: 'recaptcha/rails'
 # Simplify Forms:
 gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+
 # Pagination:
 gem "kaminari", "~> 1.0"
 
