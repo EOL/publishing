@@ -32,10 +32,12 @@ gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # RefineryCMS
-gem 'refinerycms' 
+gem 'refinerycms'
 gem 'refinerycms-wymeditor'
 gem 'refinerycms-ckeditor'
 gem 'refinerycms-i18n'
+# DiscourseAPI
+# gem 'discourse_api'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -56,6 +58,8 @@ gem 'counter_culture', '~> 0.1.33'
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
+# Using discourse-api
+gem 'discourse_api'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:
@@ -78,7 +82,7 @@ gem 'kaminari', "~> 0.17"
 gem 'Bootstrap-Image-Gallery-rails'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+# Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Coveralls tracks our spec coverage:
   gem 'coveralls', require: false
@@ -91,7 +95,7 @@ group :development, :test do
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
+# Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

@@ -20,3 +20,6 @@
         %ul.collections
           - @user.collections.each do |collection|
             %li= link_to(collection.name, collection)
+
+%div
+  = render 'discourse/embed_comments'

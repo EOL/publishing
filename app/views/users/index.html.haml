@@ -2,8 +2,6 @@
 %div
   = link_to :sign_in , new_user_session_path, 'data-no-turbolink': true
   = link_to :sign_up , new_user_registration_path, 'data-no-turbolink': true
-  %div
-    = "users:"
-    %ul
-      - @users.each do |user|
-        %li= link_to user.username, user_path(user)
+  
+%div
+  = render 'discourse/embed_comments'          
