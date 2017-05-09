@@ -6,52 +6,33 @@ if Page.exists?(1149380)
 end
 
 # --
+def fix_common_names(scientific, common)
 
-if plants = Node.where(scientific_name: "Plantae")
-  plant = plants.first
+  nodes = Node.where(scientific_name: scientific)
+  return nil if nodes.count == 0
+  node = nodes.first
 
-  plant_page = Page.where(id: plant.page_id).first_or_create do |p|
-    p.id = plant.page_id
-    p.native_node_id = plant.id
+  page = Page.where(id: node.page_id).first_or_create do |p|
+    p.id = node.page_id
+    p.native_node_id = node.id
   end
 
-  plants.each do |plant|
-    cmn = Vernacular.where(string: "plants", node_id: plant.id,
-      page_id: plant_page.id, language_id: Language.english.id).first_or_create do |n|
-        n.string = "plants"
-        n.node_id = plant.id
-        n.page_id = plant_page.id
+  nodes.each do |plant|
+    cmn = Vernacular.where(string: common, node_id: node.id,
+      page_id: page.id, language_id: Language.english.id).first_or_create do |n|
+        n.string = common
+        n.node_id = node.id
+        n.page_id = page.id
         n.language_id = Language.english.id
         n.is_preferred = true
         n.is_preferred_by_resource = true
       end
-    plant.vernaculars << cmn
+    node.vernaculars << cmn
   end
 end
 
-# --
-
-if animals = Node.where(scientific_name: "Animalia")
-  animal = animals.first
-
-  animal_page = Page.where(id: animal.page_id).first_or_create do |p|
-    p.id = animal.page_id
-    p.native_node_id = animal.id
-  end
-
-  animals.each do |animal|
-    cmn = Vernacular.where(string: "animals", node_id: animal.id,
-      page_id: animal_page.id, language_id: Language.english.id).first_or_create do |n|
-        n.string = "animals"
-        n.node_id = animal.id
-        n.page_id = animal_page.id
-        n.language_id = Language.english.id
-        n.is_preferred = true
-        n.is_preferred_by_resource = true
-      end
-    animal.vernaculars << cmn
-  end
-end
+fix_common_names("Plantae", "plants")
+fix_common_names("Animalia", "animals")
 
 [CollectionAssociation, Node, PageContent, ScientificName, Vernacular].
   each do |k|
