@@ -235,6 +235,8 @@ class TraitBank
     end
 
     def trait_exists?(resource_id, pk)
+      raise "NO resource ID!" if resource_id.blank?
+      raise "NO resource PK!" if pk.blank?
       res = query(
         "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
         "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
@@ -484,7 +486,15 @@ class TraitBank
     # TODO: we should probably do some checking here. For example, we should
     # only have ONE of [value/object_term/association/literal].
     def create_trait(options)
+      resource_id = options[:supplier]["data"]["resource_id"]
+      Rails.logger.warn "++ Create Trait: Resource##{resource_id}, "\
+        "PK:#{options[:resource_pk]}"
+      if trait = trait_exists?(resource_id, options[:resource_pk])
+        Rails.logger.warn "++ Already exists, skipping."
+        return trait
+      end
       page = options.delete(:page)
+      debugger if page.nil?
       supplier = options.delete(:supplier)
       meta = options.delete(:metadata)
       predicate = parse_term(options.delete(:predicate))
@@ -493,14 +503,29 @@ class TraitBank
       convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.add_label(trait, "Trait")
-      connection.create_relationship("trait", page, trait)
-      connection.create_relationship("supplier", trait, supplier)
-      connection.create_relationship("predicate", trait, predicate)
-      connection.create_relationship("units_term", trait, units) if units
-      connection.create_relationship("object_term", trait, object_term) if
+      relate("trait", page, trait)
+      relate("supplier", trait, supplier)
+      relate("predicate", trait, predicate)
+      relate("units_term", trait, units) if units
+      relate("object_term", trait, object_term) if
         object_term
       meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
+    end
+
+    def relate(how, from, to)
+      begin
+        connection.create_relationship(how, from, to)
+      rescue Neography::BadInputException => e
+        Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
+        Rails.logger.error("** from: #{from}")
+        Rails.logger.error("** to: #{to}")
+      rescue Neography::NeographyError => e
+      rescue => e
+        puts "Something else happened."
+        debugger
+        1
+      end
     end
 
     def add_metadata_to_trait(trait, options)
@@ -510,10 +535,10 @@ class TraitBank
       convert_measurement(options, units)
       meta = connection.create_node(options)
       connection.add_label(meta, "MetaData")
-      connection.create_relationship("metadata", trait, meta)
-      connection.create_relationship("predicate", meta, predicate)
-      connection.create_relationship("units_term", meta, units) if units
-      connection.create_relationship("object_term", meta, object_term) if
+      relate("metadata", trait, meta)
+      relate("predicate", meta, predicate)
+      relate("units_term", meta, units) if units
+      relate("object_term", meta, object_term) if
         object_term
       meta
     end
@@ -529,7 +554,7 @@ class TraitBank
         puts "** Cannot add :parent relationship to nil page to parent #{parent["data"]["page_id"]}"
       end
       begin
-        connection.create_relationship("parent", page, parent)
+        relate("parent", page, parent)
       rescue Neography::PropertyValueException
         puts "** Unable to add :parent relationship from page #{page["data"]["page_id"]} to #{parent["data"]["page_id"]}"
       end

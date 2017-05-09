@@ -19,12 +19,8 @@ this:
 rake db:reset
 rails r "TraitBank.nuclear_option! "
 
-rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-14706.json})"
-rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-14709.json})"
-rails r "Import::Page.from_file(%Q{#{Rails.root}/doc/store-328598.json})"
-
-# __OPTIONALLY, and, of course, you want to use your own source dir__
-rails r "Import::Clade.from_file('/Users/jrice/t/store-clade-1642-part132.json')"
+# Assuming you have a copy of the clade-7665.json clade file available:
+rails r "Import::Clade.read(%Q{clade-7665.json})"
 
 rake db:seed
 

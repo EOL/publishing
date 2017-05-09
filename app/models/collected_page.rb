@@ -12,7 +12,8 @@ class CollectedPage < ActiveRecord::Base
 
   accepts_nested_attributes_for :collected_pages_media, allow_destroy: true
 
-  searchable do
+  # NOTE: not indexed if the page is missing!
+  searchable if: :page do
     integer :collection_id, stored: true
     text(:name) { page.name }
     text(:scientific_name) { page.scientific_name.gsub(/<\/?i>/, "") }
