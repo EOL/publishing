@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :lockable,
          :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, omniauth_providers: [:facebook, :twitter,
-                                             :google_oauth2, :yahoo]
+                                             :google_oauth2]
 
   has_many :open_authentications, dependent: :delete_all
   has_many :curations, inverse_of: :user

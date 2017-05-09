@@ -1,14 +1,17 @@
 require 'devise'
 class OpenAuthenticationsController < ApplicationController
   def new
-    @user = User.new(email: params[:info][:email], password: Devise.friendly_token[0,16], 
+    password = Devise.friendly_token[0,16]
+    debugger
+    @user = User.new(email: params[:info][:email], password: password, password_confirmation: password, 
                      username:  params[:info][:name])
     session[:new_user] = params
   end
 
   def create
+     password = Devise.friendly_token[0,16]
      user = session[:new_user]
-     @user = User.new(email: params[:user][:email], password: Devise.friendly_token[0,16], 
+     @user = User.new(email: params[:user][:email], password: password, password_confirmation: password, 
                       username: user["info"]["name"])
      return render :new  unless @user.valid?
 

@@ -251,8 +251,8 @@ Devise.setup do |config|
                                force_login: 'true'
     config.omniauth :google_oauth2, "867896515251-fqndt93sjdeqe1ekrs24j6p0vu9b32l6.apps.googleusercontent.com", 
                        "uO_LJ9cKF7SSNd9FTo5VjpyL", skip_jwt: true
-    config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--" ,
-                    "b9e7b67ded48fcaa45d2522155d12cd400faeca4"
+    # config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--" ,
+                    # "b9e7b67ded48fcaa45d2522155d12cd400faeca4"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
