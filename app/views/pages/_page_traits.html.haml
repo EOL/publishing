@@ -25,6 +25,9 @@
         -# TODO: helper
         - @page.predicates.each do |uri|
           - predicate = @page.glossary[uri]
+          - if predicate.nil?
+            - Rails.logger.error("** ERROR: missing predicate #{uri}")
+            - next
           - previous_predicate = nil
           - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
             -# TODO: I'm not happy with storing the ids of sections as a string in TraitBank. Should have helper. :S

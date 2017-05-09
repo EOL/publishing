@@ -51,12 +51,12 @@ class Import::Clade
       puts "Starting. Before:"
       count_classes(keys)
 
-      contents = open(file) { |f| f.read }
-      json = JSON.parse(contents)
+      contents = open(file) { |f| f.read } ; 1
+      json = JSON.parse(contents) ; 1
 
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
       begin
-        create_active_records(keys, json)
+        # create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
       rescue => e
         puts "PROBLEM PARSING FILE?"
@@ -110,6 +110,11 @@ class Import::Clade
           end
         end
       end
+      json["page_icons"].each do |icon|
+        page = Page.find(icon["page_id"]) rescue nil
+        next unless page # Yes, this happens. Hmmn.
+        page.update_attribute(medium_id: icon["medium_id"])
+      end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
 
@@ -126,11 +131,11 @@ class Import::Clade
     # for all of the resources and put that in a hash, and skip the traits
     # that are already there. Would be much faster than our current system
     # of looking for the trait one and a time before creating them.
-    def create_terms_and_traits(terms, traits)
+    def create_terms_and_traits(j_terms, traits)
       terms = {}
       pages = {}
       suppliers = {}
-      terms.values.each do |term|
+      j_terms.values.each do |term|
         terms[term["uri"]] = TraitBank.create_term(term.symbolize_keys)
       end
       valid_page_id = Page.first.id
@@ -174,6 +179,15 @@ class Import::Clade
         # The rest of the keys are "just right" and will work as-is:
         begin
           TraitBank.create_trait(trait.symbolize_keys)
+        rescue Excon::Error::Socket => e
+          begin
+            TraitBank.create_trait(trait.symbolize_keys)
+          rescue
+            puts "** ERROR: could not add trait:"
+            puts "** ID: #{trait["resource_pk"]}"
+            puts "** Page: #{trait[:page]["data"]["page_id"]}"
+            puts "** Predicate: #{trait[:predicate]["data"]["uri"]}"
+          end
         rescue => e
           puts "NEOGRAPHY ERROR?"
           debugger
@@ -183,13 +197,13 @@ class Import::Clade
     end
 
     def add_page(page_id, pages)
-      tb_page = TraitBank.create_page(page_id).first
+      tb_page = TraitBank.create_page(page_id)
+      tb_page = tb_page.first if tb_page.is_a?(Array)
       if Page.exists?(page_id)
         page = Page.find(page_id)
         parent_id = page.try(:native_node).try(:parent).try(:page_id)
         if parent_id
           parent = pages[page_id] || add_page(parent_id, pages)
-          TraitBank.add_parent_to_page(parent, page)
         end
       else
         puts "Trait attempts to use missing page: #{page_id}, ignoring links"
@@ -206,6 +220,7 @@ class Import::Clade
     end
 
     def add_term(uri)
+      return(nil) if uri.blank?
       TraitBank.create_term(
         uri: uri,
         is_hidden_from_overview: true,

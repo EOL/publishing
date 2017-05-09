@@ -32,6 +32,7 @@ en:
       header: "Page Richness"
       score: "richness score"
       page_contents_count: "associated content"
+      missing: "The richness has not yet been calculated for this page."
       media_count: "media"
       articles_count: "articles"
       links_count: "links"

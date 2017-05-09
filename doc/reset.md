@@ -23,6 +23,7 @@ rails r "TraitBank.nuclear_option! "
 rails r "Import::Clade.read(%Q{clade-7665.json})"
 
 rake db:seed
+rake stats:score_richness
 
 bundle exec rake sunspot:reindex
 ```

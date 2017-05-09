@@ -87,6 +87,10 @@ class TraitBank
     def query(q)
       begin
         connection.execute_query(q)
+      rescue Excon::Error::Socket => e
+        Rails.logger.error("Connection refused on query: #{q}")
+        sleep(0.1)
+        connection.execute_query(q)
       rescue Excon::Error::Timeout => e
         Rails.logger.error("Timed out on query: #{q}")
         sleep(1)
@@ -268,7 +272,8 @@ class TraitBank
       uris = {}
       res["data"].each do |row|
         row.each do |col|
-          uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if col
+          uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if
+            col && col["data"] && col["data"]["uri"]
         end
       end
       uris
@@ -494,7 +499,6 @@ class TraitBank
         return trait
       end
       page = options.delete(:page)
-      debugger if page.nil?
       supplier = options.delete(:supplier)
       meta = options.delete(:metadata)
       predicate = parse_term(options.delete(:predicate))
@@ -516,15 +520,29 @@ class TraitBank
     def relate(how, from, to)
       begin
         connection.create_relationship(how, from, to)
-      rescue Neography::BadInputException => e
-        Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
-        Rails.logger.error("** from: #{from}")
-        Rails.logger.error("** to: #{to}")
-      rescue Neography::NeographyError => e
-      rescue => e
-        puts "Something else happened."
-        debugger
-        1
+      rescue
+        # Try again...
+        begin
+          sleep(0.1)
+          connection.create_relationship(how, from, to)
+        rescue Neography::BadInputException => e
+          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          Rails.logger.error("** from: #{from}")
+          Rails.logger.error("** to: #{to}")
+        rescue Neography::NeographyError => e
+          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          Rails.logger.error("** from: #{from}")
+          Rails.logger.error("** to: #{to}")
+        rescue Excon::Error::Socket => e
+          puts "** TIMEOUT adding relationship"
+          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          Rails.logger.error("** from: #{from}")
+          Rails.logger.error("** to: #{to}")
+        rescue => e
+          puts "Something else happened."
+          debugger
+          1
+        end
       end
     end
 

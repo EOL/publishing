@@ -40,6 +40,7 @@
           - @page.traits.each do |trait|
             - unless preds.keys.size >= 5
               - predicate = @page.glossary[trait[:predicate][:uri]]
+              - next unless predicate
               - unless preds.has_key?(predicate)
                 - preds[predicate] = true
                 %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))

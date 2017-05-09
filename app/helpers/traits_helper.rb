@@ -41,8 +41,12 @@ module TraitsHelper
     value = t(:trait_missing, keys: trait.keys.join(", "))
     if trait[:object_page_id] && defined?(@associations)
       target = @associations.find { |a| a.id == trait[:object_page_id] }
-      show_trait_page_icon(target) if target.should_show_icon?
-      summarize(target, options = {})
+      if target.nil?
+        haml_concat "[page #{trait[:object_page_id]} not imported]"
+      else
+        show_trait_page_icon(target) if target.should_show_icon?
+        summarize(target, options = {})
+      end
     elsif trait[:measurement]
       value = trait[:measurement].to_s + " "
       value += trait[:units][:name] if trait[:units] && trait[:units][:name]
