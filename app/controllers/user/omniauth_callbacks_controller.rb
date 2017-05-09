@@ -23,9 +23,9 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     connect(:google)
   end
   
-  def yahoo
-    connect(:yahoo)
-  end
+  # def yahoo
+    # connect(:yahoo)
+  # end
   
   def failure
     super
