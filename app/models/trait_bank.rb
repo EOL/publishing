@@ -592,6 +592,7 @@ class TraitBank
         return trait
       end
       page = options.delete(:page)
+      debugger if page.nil?
       supplier = options.delete(:supplier)
       meta = options.delete(:metadata)
       predicate = parse_term(options.delete(:predicate))
