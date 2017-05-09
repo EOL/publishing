@@ -29,7 +29,7 @@ class Import::Clade
 
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
       begin
-        create_active_records(keys, json)
+        # create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
         fix_page_icons
       rescue => e
@@ -121,6 +121,11 @@ class Import::Clade
         # [:title] } ...and while we'll have to write the set of fields for each
         # class, that's doable and will be nice to have!
         klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
+      end
+      json["page_icons"].each do |icon|
+        page = Page.find(icon["page_id"]) rescue nil
+        next unless page # Yes, this happens. Hmmn.
+        page.update_attribute(medium_id: icon["medium_id"])
       end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
