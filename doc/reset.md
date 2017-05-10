@@ -19,8 +19,12 @@ this:
 rake db:reset
 rails r "TraitBank.nuclear_option! "
 
-# Assuming you have a copy of the clade-7665.json clade file available:
+# Assuming you have a copy of the clade's json file available: NOTE: you are
+# MUCH better-off running these from rails runner than from a console, because
+# the amount of output you'll have sent to your terminal in the latter case. It
+# slows everything down *remarkably*. I recommend running these commands:
 rails r "Import::Clade.read(%Q{clade-7665.json})"
+rails r "Import::Clade.read(%Q{clade-18666.json})"
 
 rake db:seed
 rake stats:score_richness

@@ -30,7 +30,8 @@ class Import::Clade
       puts "#{Collection.count} collections."
     end
 
-    # E.g.: Import::Clade.read("clade-7665.json")
+    # E.g.: Import::Clade.read("clade-7665.json")    # Procyonidae
+    #       Import::Clade.read("clade-18666.json")   # Procyon
     def read(file)
       # Convenience. Less typing! Feel free to add your own.
       unless File.exist?(file)
@@ -79,41 +80,58 @@ class Import::Clade
         # Some collected pages (and their media) are not included in our pages:
         # TODO: ideally, we wouldn't export these. :\
         skip_collected_pages = {}
-        json[key].each do |instance|
-          begin
-            if klass == User
-              # We prefer the is_admin name, but in the DB, it's actually
-              # "admin" (I think because of Devise)
-              admin = instance.delete("is_admin")
+        data = json[key]
+        if klass == User
+          # We prefer the is_admin name, but in the DB, it's actually
+          # "admin" (I think because of Devise)
+          data.each do |instance|
+            if admin = instance.delete("is_admin")
               instance["admin"] = admin
-            elsif klass == Resource
-              # TODO Default value (at DB layer) might be better, here:
-              instance["is_browsable"] = false unless instance["is_browsable"]
-            elsif klass == CollectedPage
-              if instance["page_id"].nil? # Images collected for (our) missing pages
-                skip_collected_pages[instance["collected_page_id"]] = true
-                next
-              end
-            elsif klass == CollectedPagesMedium
-              next if skip_collected_pages[instance["collected_page_id"]]
-            elsif klass == Node
-              instance["parent_id"] = nil if instance["parent_id"] == 0
             end
-            klass.create(instance)
-          rescue ActiveRecord::RecordNotUnique
-            errors << "#{klass.name} already exists: #{instance}"
-          rescue ActiveRecord::RecordNotFound => e # Thrown by awesome_nested_set callbacks...
-            debugger
-            errors << "#{klass.name} with id #{instance["id"]} could not be moved: #{e.message}"
-          rescue => e
-            debugger
+          end
+        elsif klass == Resource
+          # TODO Default value (at DB layer) might be better, here:
+          data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
+        elsif klass == CollectedPage
+          data.each do |instance|
+            if instance["page_id"].nil? # Images collected for (our) missing pages
+              skip_collected_pages[instance["collected_page_id"]] = true
+            end
+          end
+          data.delete_if { |instance| instance["page_id"].nil? }
+        elsif klass == CollectedPagesMedium
+          data.delete_if { |instance| skip_collected_pages[instance["collected_page_id"]] }
+        elsif klass == Node
+          # We have to do these one at a time so that awesome_nested_set can do
+          # it's thing:
+          data.each do |instance|
+            # Parent ID of 0 screws things up; root nodes need to be nil:
+            instance["parent_id"] = nil if instance["parent_id"] == 0
+            begin
+              klass.create(instance)
+            rescue ActiveRecord::RecordNotUnique
+              errors << "#{klass.name} already exists: #{instance}"
+            rescue ActiveRecord::RecordNotFound => e
+              # Thrown by awesome_nested_set callbacks...
+              debugger
+              errors << "#{klass.name} with id #{instance["id"]} could not be "\
+                "moved: #{e.message}"
+            rescue => e
+              debugger
+            end
           end
         end
+        # Everything except Nodes: NOTE: when we move this algorithm over to
+        # publishing, note that there is a option: { on_duplicate_key_update:
+        # [:title] } ...and while we'll have to write the set of fields for each
+        # class, that's doable and will be nice to have!
+        klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
       end
+      # Now we need to add denomralized page icons, because that didn't happen
+      # automatically:
       json["page_icons"].each do |icon|
-        page = Page.find(icon["page_id"]) rescue nil
-        next unless page # Yes, this happens. Hmmn.
-        page.update_attribute(medium_id: icon["medium_id"])
+        Page.find(icon["page_id"]).update_attribute(:medium_id, icon["medium_id"]) if
+          Page.exists?(icon["page_id"])
       end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end

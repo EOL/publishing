@@ -87,13 +87,23 @@ class SearchController < ApplicationController
           order_by(:page_richness, :desc)
           paginate page: 1, per_page: 10
         end
+        matches = {}
         results = []
         q.hits.each do |hit|
           Page.stored_fields.each do |field|
             hit.highlights(field).compact.each do |highlight|
-              word = highlight.format { |word| word }.downcase
+              word = highlight.format { |word| word }
+              word = word.downcase if field == :name ||
+                field == :preferred_vernaculars ||
+                field == :vernaculars
               results << { value: word, tokens: word.split } unless
-                results.any? { |r| r[:value] == word}
+                matches.has_key?(word.downcase)
+              # NOTE: :name is a tricky little field. ...it COULD be a
+              # scientific_name, in which case we don't want to downcase it! So
+              # we store the DOWNCASED name as the key. ...Scientific names are
+              # checked first (because they appear first in Page.stored_fields),
+              # so they will take precendence over the name.
+              matches[word.downcase] = true
             end
           end
         end
