@@ -12,6 +12,9 @@ en:
   account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
+  article:
+    name:
+      missing: "Untitled"
   article_from_partner: "provided by %{partner}"
   article_duplicate: "this article is also shown in \"%{section}\""
   button_create: "create"

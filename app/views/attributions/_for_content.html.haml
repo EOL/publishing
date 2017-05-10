@@ -41,6 +41,10 @@
         %dt= t("content_attributions_labels.view_source_label")
         %dd= link_to(t("content_attributions_labels.view_source_link"), content.source_url)
       %dt= t("content_attributions_labels.resource_label")
-      %dd= link_to(content.resource.name, content.resource.url || resource_path(content.resource))
+      %dd
+        - if content.resource
+          = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
+        - else
+          = t(:resource_missing)
       %dt= "ID"
       %dd.uk-text-meta.uk-overflow-hidden.uk-margin-remove-top= content.resource_pk

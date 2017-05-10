@@ -72,6 +72,7 @@ class Import::Clade
     end
 
     def create_active_records(keys, json)
+      start_time = Time.now
       errors = []
       keys.each do |key|
         key = key.to_s
@@ -89,6 +90,8 @@ class Import::Clade
               instance["admin"] = admin
             end
           end
+        elsif klass == Page
+          data.delete_if { |instance| instance["native_node_id"].blank? }
         elsif klass == Resource
           # TODO Default value (at DB layer) might be better, here:
           data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
@@ -128,10 +131,18 @@ class Import::Clade
         klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
       end
       # Now we need to add denomralized page icons, because that didn't happen
-      # automatically:
-      json["page_icons"].each do |icon|
-        Page.find(icon["page_id"]).update_attribute(:medium_id, icon["medium_id"]) if
-          Page.exists?(icon["page_id"])
+      # automatically: TODO - this is useful enough to extract.
+      Page.where(["updated_at > ?", start_time]).find_each do |page|
+        icon = if page.page_icons.any?
+          page.page_icons.last
+        elsif page.media.where(subclass: Medium.subclasses[:image]).any?
+          page.media.where(subclass: Medium.subclasses[:image]).first
+        elsif page.media.any?
+          page.media.first
+        else
+          nil
+        end
+        page.update_attribute(:medium_id, icon.id) if icon
       end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
