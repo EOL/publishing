@@ -122,10 +122,11 @@ class Import::Clade
         # class, that's doable and will be nice to have!
         klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
       end
+      # Now we need to add denomralized page icons, because that didn't happen
+      # automatically:
       json["page_icons"].each do |icon|
-        page = Page.find(icon["page_id"]) rescue nil
-        next unless page # Yes, this happens. Hmmn.
-        page.update_attribute(medium_id: icon["medium_id"])
+        Page.find(icon["page_id"]).update_attribute(:medium_id, icon["medium_id"]) if
+          Page.exists?(icon["page_id"])
       end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
