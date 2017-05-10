@@ -2,14 +2,14 @@ development: &development
   adapter: mysql2
   host: localhost
   username: root
-  password:
+  password: root
   database: <%= Rails.application.engine_name.gsub(/_application/,'').downcase %>_development
 
 test: &test
   adapter: mysql2
   host: localhost
   username: root
-  password:
+  password: root
   database: <%= Rails.application.engine_name.gsub(/_application/,'').downcase %>_test
 
 production: &production

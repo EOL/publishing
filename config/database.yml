@@ -8,14 +8,14 @@ common: &common
 # common settings for any development databases
 devel_common: &dev
   host: localhost
-  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
-  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
+  username: root
+  password: root
 
 # common settings for all test databases
 tst_common: &tst
   host: localhost
-  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
-  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
+  username: root
+  password: root
 
 #######################
 development:
