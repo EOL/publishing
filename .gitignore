@@ -10,6 +10,8 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.txt
+/log/*gz
 /tmp
 !/tmp/cache/
 .sass-cache/
@@ -24,7 +26,7 @@ coverage
 .metadata
 
 # Byebug:
-.byebug_history
+/.byebug_history
 
 # Older stuff:
 *.bundle
@@ -61,7 +63,6 @@ db/schema.rb
 db/structure.sql
 doc/app
 lang/tmp.yml
-log/*.txt
 public/feeds
 public/*csv
 public/system
@@ -92,5 +93,3 @@ solr/data/site_search/spellchecker/segments.gen
 vendor/eol_org
 tags
 public/files/solr_import_file.csv
-log/*gz
-.byebug_history
