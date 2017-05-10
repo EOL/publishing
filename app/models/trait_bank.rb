@@ -7,6 +7,11 @@
 # its final form, there are no specs yet. ...We need to feel out how we want
 # this to work, first.
 class TraitBank
+  # NOTE: should associated pages (below, stored as object_page_id) actually
+  # have an association, since we have Pages? ...Yes, but only if that's
+  # something we're going to query... and I don't think we do! So all the info
+  # is reall in the MySQL DB and thus just the ID is enough.
+
   # The Labels, and their expected relationships { and (*required)properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
@@ -18,7 +23,11 @@ class TraitBank
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
   # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
-  #       is_hidden_from_overview, is_hidden_from_glossary }
+  #       is_hidden_from_overview, is_hidden_from_glossary, position, type }
+  #
+  # NOTE: the "type" for Term is one of "measurement", "association", "value",
+  #   or "metadata" ... at the time of this writing. I may rename "metadata" to
+  #   "units"
   #
   # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
   # an image (which should be handled with an icon) ... and possibly a
@@ -279,21 +288,26 @@ class TraitBank
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
     def by_predicate(predicate, options = {})
-      # TODO: pull in more for the metadata...
-      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
+
+      q = options[:clade] ?
+        "MATCH (ancestor:Page { page_id: #{options[:clade]}})<-[:parent*]-(page:Page)" :
+        "MATCH (page:Page)"
+
+      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, page, predicate, object_term, units"
       q = add_sort(q, options)
       q = add_limit_and_skip(q, options[:page], options[:per])
+      Rails.logger.warn("*" * 80)
+      Rails.logger.warn(q)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :page, :predicate,
         :object_term, :units])
     end
 
-    def by_predicate_count(predicate)
+    def by_predicate_count(predicate, options = {})
       q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
@@ -353,28 +367,6 @@ class TraitBank
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
-    end
-
-    def get_clade_traits(clade_id, predicate)
-      ancestors = query("Match (n:Node { node_id: #{clade_id} })-[p:parent*] -> (n2:Node) return n2")
-      ancestor_page_ids = get_pages_ids_from_clade(ancestors["data"] ? ancestors["data"] : nil)
-      #adding the page
-      ancestor_page_ids << clade_id
-      traits = []
-      ancestor_page_ids.each do |ancestor_page_id|
-        res = query(
-          "MATCH (page:Page { page_id: #{ancestor_page_id } })-[:trait]->(trait:Trait)"\
-            "-[:supplier]->(resource:Resource) "\
-          "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData) "\
-          "RETURN resource, trait, page, predicate, object_term, units, meta"
-        )
-        traits += build_trait_array(res, [:resource, :trait, :page, :predicate, :object_term,
-          :units, :meta])
-      end
-      traits
     end
 
     def page_exists?(page_id)
@@ -526,6 +518,23 @@ class TraitBank
       meta
     end
 
+    def add_parent_to_page(parent, page)
+      if parent.nil?
+        if page.nil?
+          puts "** Cannot add :parent relationship from nil to nil!"
+        else
+          puts "** Cannot add :parent relationship to nil parent for page #{page["data"]["page_id"]}"
+        end
+      elsif page.nil?
+        puts "** Cannot add :parent relationship to nil page to parent #{parent["data"]["page_id"]}"
+      end
+      begin
+        connection.create_relationship("parent", page, parent)
+      rescue Neography::PropertyValueException
+        puts "** Unable to add :parent relationship from page #{page["data"]["page_id"]} to #{parent["data"]["page_id"]}"
+      end
+    end
+
     def convert_measurement(trait, units)
       return unless trait[:measurement]
       trait[:measurement] = begin
@@ -548,45 +557,6 @@ class TraitBank
           trait[:normal_units] = "missing"
         end
       end
-    end
-
-    # Note: I've named this create_node_in_hierarchy as there is another
-    # methods called create_node in neography
-    def create_node_in_hierarchy(node_id, page_id)
-      if node = node_exists?(node_id)
-        return node
-      end
-      node = connection.create_node(node_id: node_id, page_id: page_id)
-      connection.add_label(node, "Node")
-    end
-
-    def adjust_node_parent_relationship(node_id, parent_id)
-      node = get_node(node_id)
-      parent_node = get_node(parent_id)
-      begin
-        connection.create_relationship("parent", node, parent_node) unless relationship_exists?(node_id, parent_id)
-      rescue => e
-        puts "** ERROR: #{e.message}. Skipping this parent relationship..."
-      end
-    end
-
-    def relationship_exists?(node_a, node_b)
-      res = query("MATCH (node_a:Node { node_id: #{node_a} }) - [r:parent] - (node_b:Node { node_id: #{node_b} })"\
-        "RETURN SIGN(COUNT(r))")
-      res["data"] ? res["data"].first.first > 0 : false
-    end
-
-    def get_pages_ids_from_clade(result)
-      page_ids = []
-      if result
-        result.each do |element|
-          data_element = element.first["data"] ? element.first["data"] : nil
-          if data_element
-            page_ids << data_element["page_id"]
-          end
-        end
-      end
-      page_ids.compact.uniq
     end
 
     def parse_term(term_options)

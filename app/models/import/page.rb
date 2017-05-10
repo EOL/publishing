@@ -306,15 +306,11 @@ class Import::Page
                         resource_id: resource.id).first if
         Node.exists?(scientific_name: node_data["scientific_name"],
                      resource_id: resource.id)
-      TraitBank.create_node_in_hierarchy(node_data["node_id"].to_i, @page.id)
       parent = if node_data["parent"]
                  build_node(node_data["parent"], resource)
                else
                  nil
                end
-      TraitBank.adjust_node_parent_relationship(node_data["node_id"],
-            node_data["parent"]["node_id"]) if node_data["node_id"] && node_data["parent"]\
-            && node_data["parent"]["node_id"]
       rank = build_rank(node_data["rank"])
       Node.create(
         id: node_data["id"],

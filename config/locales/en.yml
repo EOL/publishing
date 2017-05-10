@@ -361,6 +361,9 @@ en:
   medium_header_title: "Title:"
   medium_header_description: "Description:"
   min_length: "(%{length} characters minimum)"
+  nav:
+    search:
+      placeholder: "Search EOL..."
   name_preferred_label: "preferred"
   new_password: 'New password'
   no_pages_found: 'No pages found'

@@ -10,7 +10,8 @@ class TermsController < ApplicationController
     @per_page = 100 # TODO: config this or make it dynamic...
     options = {
       page: @page, per: @per_page, sort: params[:sort],
-      sort_dir: params[:sort_dir]
+      sort_dir: params[:sort_dir],
+      clade: params[:clade]
     }
     traits = @object ?
       TraitBank.by_object_term_uri(@term[:uri], options) :
@@ -44,28 +45,9 @@ class TermsController < ApplicationController
 
   def paginate_traits(traits)
     @count = @object ?
-      TraitBank.by_object_term_count(@term[:uri]) :
-      TraitBank.by_predicate_count(@term[:uri])
+      TraitBank.by_object_term_count(@term[:uri], clade: params[:clade]) :
+      TraitBank.by_predicate_count(@term[:uri], clade: params[:clade])
     @grouped_traits = Kaminari.paginate_array(traits, total_count: @count).
       page(@page).per(@per_page)
-  end
-
-  def clade_filter
-    pages = {}
-    solr_matched_clade = Page.search {fulltext params[:clade_name]}.results.first
-    #for convention sake
-    if solr_matched_clade
-      pages[solr_matched_clade.id] = solr_matched_clade
-      traits = TraitBank.get_clade_traits(solr_matched_clade.id, params[:uri])
-      @glossary = TraitBank.glossary(traits)
-      @resources = TraitBank.resources(traits)
-    end
-    respond_to do |fmt|
-      fmt.html
-      fmt.js do
-        render partial: 'traits_table', locals: {:traits => traits ? paginate_traits(traits) : [],
-          :glossary => @glossary, :pages => pages, :resources => @resources}
-      end
-    end
   end
 end

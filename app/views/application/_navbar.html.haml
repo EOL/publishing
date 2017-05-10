@@ -17,9 +17,9 @@
             -# NOTE the stupid check for test env here. Yuck.
             %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
       .right.menu
-        .nav-search.item
+        #nav-search.item
           = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
-            = text_field_tag("q", nil, class: "uk-search-input")
+            = text_field_tag("q", nil, class: "uk-search-input typeahead", placeholder: t("nav.search.placeholder"))
             %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
         - if current_user
           .item= link_to(current_user.username, main_app.user_path(current_user))

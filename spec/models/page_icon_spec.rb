@@ -19,7 +19,7 @@ RSpec.describe PageIcon do
     it "moves the content to the top" do
       content = instance_double("PageContent")
       expect(content).to receive(:move_to_top) { }
-      expect(page_icon).to receive(:page_content) { content }
+      expect(page_icon).to receive(:page_content).at_least(1).times { content }
       page_icon.save
     end
   end

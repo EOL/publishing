@@ -44,23 +44,29 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  # NOTE: Solr will be greatly expanded, later. For now, we ONLY need names:
+  def self.stored_fields
+    [:scientific_name, :preferred_scientific_names, :name, :synonyms,
+      :preferred_vernaculars, :vernaculars]
+  end
+
   searchable do
-    text :name, :boost => 4.0
-    text :scientific_name, :boost => 10.0 do
+    text :name, stored: true, boost: 4.0 do
+      name.gsub(/<\/?i>/, "") # Because this CAN be the scientific name!
+    end
+    text :scientific_name, stored: true, boost: 10.0 do
       scientific_name.gsub(/<\/?i>/, "")
     end
     # TODO: We would like to add attributions, later.
-    text :preferred_scientific_names, :boost => 8.0 do
+    text :preferred_scientific_names, stored: true, boost: 8.0 do
       preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
-    text :synonyms, :boost => 2.0 do
+    text :synonyms, stored: true, boost: 2.0 do
       scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
     end
-    text :preferred_vernaculars, :boost => 2.0 do
+    text :preferred_vernaculars, stored: true, boost: 2.0 do
       vernaculars.preferred.map { |v| v.string }
     end
-    text :vernaculars do
+    text :vernaculars, stored: true do
       vernaculars.nonpreferred.map { |v| v.string }
     end
     text :providers do
