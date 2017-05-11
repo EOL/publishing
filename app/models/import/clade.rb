@@ -82,19 +82,17 @@ class Import::Clade
         # TODO: ideally, we wouldn't export these. :\
         skip_collected_pages = {}
         data = json[key]
-        if klass == User
-          # We prefer the is_admin name, but in the DB, it's actually
-          # "admin" (I think because of Devise)
+        default_resource = Resource.native
+        if klass == Article
           data.each do |instance|
-            if admin = instance.delete("is_admin")
-              instance["admin"] = admin
-            end
+            # TODO: we should apply this to MANY OTHER FIELDS. Sigh.
+            sanitize_html(instance, "body")
           end
-        elsif klass == Page
-          data.delete_if { |instance| instance["native_node_id"].blank? }
-        elsif klass == Resource
-          # TODO Default value (at DB layer) might be better, here:
-          data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
+        elsif klass == BibliographicCitation
+          data.each do |instance|
+            # TODO: we should apply this to MANY OTHER FIELDS. Sigh.
+            sanitize_html(instance, "body")
+          end
         elsif klass == CollectedPage
           data.each do |instance|
             if instance["page_id"].nil? # Images collected for (our) missing pages
@@ -110,6 +108,8 @@ class Import::Clade
           data.each do |instance|
             # Parent ID of 0 screws things up; root nodes need to be nil:
             instance["parent_id"] = nil if instance["parent_id"] == 0
+            instance["resource_id"] = default_resource.id if
+              instance["resource_id"].nil?
             begin
               klass.create(instance)
             rescue ActiveRecord::RecordNotUnique
@@ -121,6 +121,19 @@ class Import::Clade
                 "moved: #{e.message}"
             rescue => e
               debugger
+            end
+          end
+        elsif klass == Page
+          data.delete_if { |instance| instance["native_node_id"].blank? }
+        elsif klass == Resource
+          # TODO Default value (at DB layer) might be better, here:
+          data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
+        elsif klass == User
+          # We prefer the is_admin name, but in the DB, it's actually
+          # "admin" (I think because of Devise)
+          data.each do |instance|
+            if admin = instance.delete("is_admin")
+              instance["admin"] = admin
             end
           end
         end
@@ -147,6 +160,19 @@ class Import::Clade
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
 
+    # NOTE the extra gsub is required to fix some weird unclosed e.g. bold tags.
+    def sanitize_html(instance, field)
+      @ok_tags ||= %w(a p b br i em strong ul li ol sup sub hr img small strike
+        table tbody tr td th thead var wbr dfn dl dd dt del blockquote bdo bdi
+        audio abbr)
+      include ActionView::Helpers::SanitizeHelper
+      instance[field] = Nokogiri::HTML::fragment(
+          ActionController::Base.helpers.
+          sanitize(instance[field], :tags => @ok_tags)).
+          to_xml.gsub(/<\w+\/>/, ""
+        )
+    end
+
     def count_classes(keys)
       keys.each do |key|
         key = key.to_s
@@ -168,7 +194,7 @@ class Import::Clade
         terms[term["uri"]] = TraitBank.create_term(term.symbolize_keys)
       end
       valid_page_id = Page.first.id
-      default_resource = Resource.first
+      default_resource = Resource.native
       traits.each do |trait|
         page_id = trait.delete("page_id")
         trait[:page] = pages[page_id] || add_page(page_id, pages)
@@ -250,16 +276,23 @@ class Import::Clade
 
     def add_term(uri)
       return(nil) if uri.blank?
-      TraitBank.create_term(
-        uri: uri,
-        is_hidden_from_overview: true,
-        is_hidden_from_glossary: true,
-        name: uri,
-        section_ids: [],
-        definition: "auto-created, was empty",
-        comment: "",
-        attribution: ""
-      )
+      begin
+        TraitBank.create_term(
+          uri: uri,
+          is_hidden_from_overview: true,
+          is_hidden_from_glossary: true,
+          name: uri,
+          section_ids: [],
+          definition: "auto-created, was empty",
+          comment: "",
+          attribution: ""
+        )
+      rescue Neography::PropertyValueException => e
+        puts "** WARNING: Failed to set property on term... #{e.message}"
+        puts "** This seems to occur with some bad trait data (passing in hashes instead of strings)"
+        debugger
+        1
+      end
     end
   end
 end

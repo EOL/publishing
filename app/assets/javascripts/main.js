@@ -169,9 +169,20 @@ if(!EOL) {
         name: 'search-names',
         display: 'value',
         source: EOL.searchNames
-      }).bind('typeahead:selected', function(event, datum, name) {
-        console.debug('Suggestion clicked:', event, datum, name);
-        window.location.href = '/search/?q=' + datum.value;
+      }).bind('typeahead:selected', function(evt, datum, name) {
+        console.log('typeahead:selected:', evt, datum, name);
+        window.location.href = '/search?q=' + datum.value;
+      }).bind('typeahead:uservalue', function(evt, value) {
+        console.log('typeahead:uservalue:', evt);
+        console.log('datum:', value);
+      }).bind('keypress', function(e) {
+        console.log('keypress:', e);
+        console.log('which:', e.which);
+        if (e.which == 13) {
+          var q = $('#nav-search input.typeahead.tt-input').val();
+          window.location.href = "/search?q=" + q;
+          return false;
+        }
       });
     };
   };

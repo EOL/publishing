@@ -617,6 +617,7 @@ class TraitBank
       options[:definition] ||= "{definition missing}"
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       term_node = connection.create_node(options)
+      # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
       connection.add_label(term_node, "Term")
       term_node
     end
