@@ -23,6 +23,26 @@
           %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
         - if defined?(@users) && @users && ! @users.results.empty?
           %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
+      .clade_filter.uk-margin-top
+        = form_tag(search_path, method: "get", autocomplete: "off") do
+          - hide_params_in_form(["clade"])
+          - if @clade
+            .uk-margin-right
+              - show_trait_page_icon(@clade)
+          %div
+            = t("term.show.clade_filter.label")
+          %div
+            = text_field_tag("clade", nil,
+              placeholder: @clade ? @clade.name : t(:clade_placeholder),
+              remote: true, class: "uk-input uk-form-width-medium typeahead")
+          %div
+            = submit_tag(t("filter"), class: "ui basic button")
+        - if @clade
+          .uk-panel.uk-margin-small-top
+            - mod_params = params.dup
+            - mod_params.delete(:clade)
+            = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
+
   #search_results.uk-width-4-5
     - if defined?(@predicates) && ! @predicates.blank?
       #search_predicates

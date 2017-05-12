@@ -10,6 +10,7 @@ module TraitsHelper
   end
 
   def show_metadata(trait)
+    return if trait.nil?
     return unless trait[:meta] ||
       trait[:source] ||
       trait[:object_term] ||

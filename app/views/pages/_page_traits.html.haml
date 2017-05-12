@@ -13,7 +13,9 @@
         .item
           = link_to(t(:page_traits_toc_other), "#", data: { section_id: "other" })
       .item
-        = link_to(t(:page_traits_toc_glossary), "#", data: { section_id: "glossary" })
+        = link_to(t(:page_traits_toc_type_glossary), "#", data: { section_id: "type_glossary" })
+      .item
+        = link_to(t(:page_traits_toc_value_glossary), "#", data: { section_id: "value_glossary" })
   .uk-width-expand.uk-overflow-auto
     %table#traits.traits_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
       %thead
@@ -46,14 +48,27 @@
                 - show_trait_value(trait)
                 - metadata_container(trait)
               - show_source_col(trait)
-    #trait_glossary
-      %h3= t(:traits_header_glossary)
+    #trait_type_glossary
+      %h3= t(:traits_header_type_glossary)
       .uk-column-1-2
         %dl.uk-description-list
-          - @page.glossary.sort_by { |p| p[1][:name] }.each do |pair|
-            - term = pair.last
+          -# - @page.glossary.sort_by { |p| p[1][:name] }.each do |pair|
+          - @page.predicates.sort_by { |p| @page.glossary[p][:name].downcase }.each do |predicate|
+            - term = @page.glossary[predicate]
             - next if term[:is_hidden_from_glossary]
             %dt= link_to(term[:name], term_path(uri: term[:uri]))
+            %dd
+              .uk-text-muted.uk-text-small= term[:uri]
+              = term[:definition]
+              .uk-text-muted= term[:attribution]
+    #trait_value_glossary.uk-margin-large-top
+      %h3= t(:traits_header_value_glossary)
+      .uk-column-1-2
+        %dl.uk-description-list
+          - @page.object_terms.sort_by { |t| @page.glossary[t][:name].downcase }.each do |name|
+            - term = @page.glossary[name]
+            - next if term[:is_hidden_from_glossary]
+            %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))
             %dd
               .uk-text-muted.uk-text-small= term[:uri]
               = term[:definition]

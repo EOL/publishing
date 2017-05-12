@@ -61,4 +61,12 @@ module ApplicationHelper
   def set_page_date(date)
     Refinery::Page.where(show_date: true)
   end
+
+  def hide_params_in_form(except = [])
+    except += %w(controller action utf8)
+    params.each do |param, val|
+      next if except.include?(param)
+      haml_concat hidden_field_tag(param, val)
+    end
+  end
 end

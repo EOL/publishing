@@ -1,5 +1,5 @@
-- cache("term/glossary/#{@page}", expires_in: 1.day) do
-  - Rails.logger.warn("DATA GLOSSARY REBUILT.")
+- cache("term/predicate_glossary/#{@page}", expires_in: 1.day) do
+  - Rails.logger.warn("PREDICATE TERM GLOSSARY REBUILT.")
   = paginate(@glossary)
   #terms_glossary{ uk: { grid: true } }
     .uk-width-1-5
@@ -11,9 +11,9 @@
             %li= link_to(letter, "##{letter}")
           %li= link_to_next_page @glossary, t("term.pagination.next")
         %button.ui.small.basic.button.uk-margin-small-top
-          = link_to(t("term.actions.reindex"), glossary_path(reindex: true))
+          = link_to(t("term.actions.reindex"), predicate_glossary_path(reindex: true))
     .uk-width-expand.uk-overflow-auto
-      %h1= t("term.glossary.title")
+      %h1= t("term.glossary.predicate_title")
       .uk-margin-top
         %dl.uk-description-list
           - last_head = nil

@@ -27,8 +27,5 @@ rails r "Import::Clade.read(%Q{clade-7662.json})"
 rails r "Import::Clade.read(%Q{clade-7665.json})"
 rails r "Import::Clade.read(%Q{clade-18666.json})"
 
-rake db:seed
-rake stats:score_richness
-
 bundle exec rake sunspot:reindex
 ```

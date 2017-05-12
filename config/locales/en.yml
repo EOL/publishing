@@ -77,6 +77,7 @@ en:
   complete_registration: "Please continue your registration"
   confirm_new_password: "Confirm new password"
   content_appears_on: "Included On The Following Pages:"
+  content_collected_in: "Featured In The Following Collections:"
   content_associations: "Taxa Shown"
   content_attributions_header: "Source Information"
   content_attributions_labels:
@@ -102,6 +103,7 @@ en:
     spatial_location: "spatial"
     view_source_label: "original"
     view_source_link: "view source material"
+  content_not_in_any_collection: "This media is not featured in any collections."
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
@@ -364,6 +366,7 @@ en:
   medium_description_blank: "There is no description provided for this object."
   medium_header_title: "Title:"
   medium_header_description: "Description:"
+  medium_untitled: "Untitled"
   min_length: "(%{length} characters minimum)"
   nav:
     search:
@@ -378,7 +381,8 @@ en:
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
   page_traits_toc_all_items: "all items"
-  page_traits_toc_glossary: "glossary"
+  page_traits_toc_type_glossary: "record type glossary"
+  page_traits_toc_value_glossary: "value glossary"
   page_traits_toc_other: "other"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
@@ -564,7 +568,9 @@ en:
       reindex: "reindex"
       sort: "sort by"
     glossary:
-      title: "Glossary of Data Terms on EOL"
+      predicate_title: "Glossary of Type Terms for Data on EOL"
+      object_term_title: "Glossary of Value Terms for Data on EOL"
+      units_title: "Glossary of Unit Terms for Data on EOL"
     header:
       object_term: "a data record value"
       predicate: "a data record type"
@@ -575,7 +581,9 @@ en:
       next: "next page"
       previous: "previous page"
     show:
-      clade_filter: "Filter by clade:"
+      clade_filter:
+        label: "Filter by clade:"
+        clear: "clear clade filter"
   trait_source: "source"
   trait_definition: "definition of \"%{trait}\""
   trait_table:
@@ -587,7 +595,8 @@ en:
   trait_toggle_details: "details…"
   trait_unit_definition: "definition:"
   trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
-  traits_header_glossary: "Glossary"
+  traits_header_type_glossary: "Glossary of Record Types"
+  traits_header_value_glossary: "Glossary of Record Values"
   traits_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"

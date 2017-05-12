@@ -1,36 +1,7 @@
 class Import::Clade
   class << self
-    # This is the OLD version, which, if you're reading this, is probably safe
-    # to delete:
-    def from_file(name)
-      @resource_nodes = {}
-      # Test with:
-      # Import::Clade.from_file(Rails.root.join("doc", "store-2858300-clade.json"))
-      file =  if Uri.is_uri?(name.to_s)
-                open(name) { |f| f.read }
-              else
-                begin
-                  File.read(name)
-                rescue Errno::ENOENT
-                  puts "NO SUCH FILE: #{name}"
-                  exit(1)
-                end
-              end
-      parse_clade(JSON.parse(file))
-      # NOTE: You mmmmmmight want to delete everything before you call this, but
-      # I'm skipping that now. Sometimes you won't want to, anyway...
-    end
-
-    def parse_clade(pages)
-      pages.each do |page|
-        Import::Page.parse_page(page)
-      end
-      puts "Finished: #{Page.count} pages, #{Node.count} nodes,"
-      puts "#{Medium.count} media, #{Article.count} articles,"
-      puts "#{Collection.count} collections."
-    end
-
-    # E.g.: Import::Clade.read("clade-7665.json")    # Procyonidae
+    # E.g.: Import::Clade.read("clade-7662.json")    # Carnivora
+    #       Import::Clade.read("clade-7665.json")    # Procyonidae
     #       Import::Clade.read("clade-18666.json")   # Procyon
     def read(file)
       # Convenience. Less typing! Feel free to add your own.
@@ -59,6 +30,7 @@ class Import::Clade
       begin
         create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
+        fix_page_icons
       rescue => e
         puts "PROBLEM PARSING FILE?"
         debugger
@@ -66,13 +38,15 @@ class Import::Clade
       ensure
         Sunspot.session = Sunspot.session.original_session
       end
+      Reindexer.fix_common_names("Plantae", "plants")
+      Reindexer.fix_common_names("Animalia", "animals")
+      Reindexer.fix_all_counter_culture_counts
       puts "Complete."
       count_classes(keys)
       true
     end
 
     def create_active_records(keys, json)
-      start_time = Time.now
       errors = []
       keys.each do |key|
         key = key.to_s
@@ -128,6 +102,10 @@ class Import::Clade
         elsif klass == Resource
           # TODO Default value (at DB layer) might be better, here:
           data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
+        elsif klass == Role
+           data.each { |instance| instance["name"] = instance["name"].downcase.gsub(/\s+/, "_") }
+        elsif klass == Section
+          data.each { |instance| instance["name"] = instance["name"].downcase.gsub(/\s+/, "_") }
         elsif klass == User
           # We prefer the is_admin name, but in the DB, it's actually
           # "admin" (I think because of Devise)
@@ -142,20 +120,6 @@ class Import::Clade
         # [:title] } ...and while we'll have to write the set of fields for each
         # class, that's doable and will be nice to have!
         klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
-      end
-      # Now we need to add denomralized page icons, because that didn't happen
-      # automatically: TODO - this is useful enough to extract.
-      Page.where(["updated_at > ?", start_time]).find_each do |page|
-        icon = if page.page_icons.any?
-          page.page_icons.last
-        elsif page.media.where(subclass: Medium.subclasses[:image]).any?
-          page.media.where(subclass: Medium.subclasses[:image]).first
-        elsif page.media.any?
-          page.media.first
-        else
-          nil
-        end
-        page.update_attribute(:medium_id, icon.id) if icon
       end
       puts "ERRORS:\n#{errors.join("\n")}" unless errors.empty?
     end
@@ -195,22 +159,24 @@ class Import::Clade
       end
       valid_page_id = Page.first.id
       default_resource = Resource.native
+      faked_resource_count = 0
       traits.each do |trait|
         page_id = trait.delete("page_id")
         trait[:page] = pages[page_id] || add_page(page_id, pages)
         trait[:object_page_id] = trait.delete("association")
-        # This happens. :( I'm not sure why, but we can't have it:
-        trait[:object_page_id] = valid_page_id if trait[:object_page_id] == 0
+        trait.delete(:object_page_id) if trait[:object_page_id] == 0
         res_id = trait.delete("resource_id")
         # You MUST have a resource ID...
         if res_id.nil?
-          puts "** Trait for #{page_id} (#{trait["predicate"]}) was missing a resource ID. Faked."
+          faked_resource_count += 1
           res_id = default_resource.id
         end
         trait[:supplier] = suppliers[res_id] || add_supplier(res_id, suppliers)
         pred = trait.delete("predicate")
         unit = trait.delete("units")
         val_uri = trait.delete("value_uri")
+        val_num = trait.delete("value_num")
+        trait[:measurement] = val_num if val_num
         trait[:predicate] = terms[pred] || add_term(pred)
         trait[:units] = terms[unit] || add_term(unit)
         trait[:object_term] = terms[val_uri] || add_term(val_uri)
@@ -249,6 +215,10 @@ class Import::Clade
           1
         end
       end
+      if faked_resource_count > 0
+        puts "** #{faked_resource_count} traits were missing their resource "\
+          "ID. They were set to #{default_resource.id}."
+      end
     end
 
     def add_page(page_id, pages)
@@ -259,6 +229,9 @@ class Import::Clade
         parent_id = page.try(:native_node).try(:parent).try(:page_id)
         if parent_id
           parent = pages[page_id] || add_page(parent_id, pages)
+          parent = parent.first if parent.is_a?(Array)
+          puts "Adding parent #{parent_id} to page #{page_id}..."
+          TraitBank.add_parent_to_page(parent, tb_page)
         end
       else
         puts "Trait attempts to use missing page: #{page_id}, ignoring links"
@@ -292,6 +265,23 @@ class Import::Clade
         puts "** This seems to occur with some bad trait data (passing in hashes instead of strings)"
         debugger
         1
+      end
+    end
+
+    def fix_page_icons
+      # Now we need to add denomralized page icons, because that didn't happen
+      # automatically: TODO - this is useful enough to extract.
+      Page.where(["updated_at > ?", 1.day.ago]).find_each do |page|
+        icon = if page.page_icons.any?
+          page.page_icons.last
+        elsif page.media.where(subclass: Medium.subclasses[:image]).any?
+          page.media.where(subclass: Medium.subclasses[:image]).first
+        elsif page.media.any?
+          page.media.first
+        else
+          nil
+        end
+        page.update_attribute(:medium_id, icon.id) if icon
       end
     end
   end

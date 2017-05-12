@@ -142,6 +142,42 @@ class TraitBank
       query("MATCH (n) DETACH DELETE n")
     end
 
+    # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
+    # between pages, and then rebuild them based on what's currently in the
+    # database. It skips relationships to pages that are missing (but reports on
+    # which those are), and it does not repeat any relationships. It takes a
+    # about a minute per 3000 nodes on jrice's machine.
+    def rebuild_hierarchies!
+      query("MATCH (:Page)-[parent:parent]->(:Page) DELETE parent")
+      missing = {}
+      related = {}
+      Node.where("parent_id IS NOT NULL AND page_id IS NOT NULL").
+        includes(:parent).
+        find_each do |node|
+          page_id = node.page_id
+          parent_id = node.parent.page_id
+          next if missing.has_key?(page_id) || missing.has_key?(parent_id)
+          next if related.has_key?(page_id) && related[page_id].include?(parent_id)
+          page = page_exists?(page_id)
+          page = page.first if page
+          parent = page_exists?(parent_id)
+          parent = parent.first if parent
+          if page && parent
+            relate("parent", page, parent)
+            related[page_id] ||= []
+            related[page_id] << parent_id
+            # puts("#{page_id}-[:parent]->#{parent_id}")
+          else
+            missing[page_id] = true unless page
+            missing[parent_id] = true unless parent
+          end
+        end
+      related.each do |page, parents|
+        puts("#{page}-[:parent*]->[#{parents.join(", ")}]")
+      end
+      puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
+    end
+
     def count
       res = query(
         "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
@@ -155,7 +191,10 @@ class TraitBank
       Rails.logger.warn("TRAITBANK CACHES CLEARED.")
       [
         "trait_bank/predicate_count",
-        "trait_bank/terms_count"
+        "trait_bank/terms_count",
+        "trait_bank/predicate_glossary/count",
+        "trait_bank/object_term_glossary/count",
+        "trait_bank/units_term_glossary/count",
       ].each do |key|
         Rails.cache.delete(key)
       end
@@ -165,7 +204,11 @@ class TraitBank
       lim = (count / Rails.configuration.data_glossary_page_size.to_f).ceil
       (0..lim).each do |index|
         Rails.cache.delete("trait_bank/full_glossary/#{index}")
+        Rails.cache.delete("trait_bank/predicate_glossary/#{index}")
+        Rails.cache.delete("trait_bank/object_term_glossary/#{index}")
+        Rails.cache.delete("trait_bank/units_term_glossary/#{index}")
       end
+      true
     end
 
     def predicate_count
@@ -231,11 +274,59 @@ class TraitBank
       Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
         # "RETURN term ORDER BY term.name, term.uri"
         q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
-          "RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
+          "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
         q = add_limit_and_skip(q, page, per)
         res = query(q)
         res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
       end
+    end
+
+    def sub_glossary(type, page = 1, per = nil, count = nil)
+      page ||= 1
+      per ||= Rails.configuration.data_glossary_page_size
+      Rails.cache.fetch("trait_bank/#{type}_glossary/#{count ? :count : page}", expires_in: 1.day) do
+        q = "MATCH (term:Term { is_hidden_from_glossary: false })<-[:#{type}]-(n) "
+        if count
+          q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
+        else
+          q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
+          q = add_limit_and_skip(q, page, per)
+        end
+        res = query(q)
+        if res["data"]
+          if count
+            res["data"].first.first
+          else
+            res["data"].map { |t| t.first["data"].symbolize_keys }
+          end
+        else
+          false
+        end
+      end
+    end
+
+    def predicate_glossary(page = nil, per = nil)
+      sub_glossary("predicate", page, per)
+    end
+
+    def object_term_glossary(page = nil, per = nil)
+      sub_glossary("object_term", page, per)
+    end
+
+    def units_glossary(page = nil, per = nil)
+      sub_glossary("units_term", page, per)
+    end
+
+    def predicate_glossary_count
+      sub_glossary("predicate", nil, nil, true)
+    end
+
+    def object_term_glossary_count
+      sub_glossary("object_term", nil, nil, true)
+    end
+
+    def units_glossary_count
+      sub_glossary("units_term", nil, nil, true)
     end
 
     def trait_exists?(resource_id, pk)
@@ -250,16 +341,21 @@ class TraitBank
 
     def by_trait(full_id, page = 1, per = 200)
       (_, resource_id, id) = full_id.split("--")
-      q = "MATCH (page:Page)-[:trait]->(trait:Trait { resource_pk: \"#{id}\" })"\
+      id = %Q{"#{id}"} unless id =~ /\A\d+\Z/
+      q = "MATCH (trait:Trait { resource_pk: #{id} })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, predicate, object_term, units"
+        "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+        "RETURN resource, trait, predicate, object_term, units, "\
+          "meta, meta_predicate, meta_units_term, meta_object_term"
       q = add_limit_and_skip(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units])
+        :units, :meta, :meta_predicate, :meta_units_term, :meta_object_term])
     end
 
     def page_glossary(page_id)
@@ -295,11 +391,7 @@ class TraitBank
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
     def by_predicate(predicate, options = {})
-
-      q = options[:clade] ?
-        "MATCH (ancestor:Page { page_id: #{options[:clade]}})<-[:parent*]-(page:Page)" :
-        "MATCH (page:Page)"
-
+      q = match_page_and_clade(options)
       q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
@@ -315,22 +407,24 @@ class TraitBank
     end
 
     def by_predicate_count(predicate, options = {})
-      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
+      q = match_page_and_clade(options)
+      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "WITH count(trait) AS count "\
         "RETURN count"
       res = query(q)
       res["data"] ? res["data"].first.first : 0
     end
 
+    def match_page_and_clade(options = {})
+      options[:clade] ?
+        "MATCH (ancestor:Page { page_id: #{options[:clade]}})<-[:parent*]-(page:Page)" :
+        "MATCH (page:Page)"
+    end
 
     def by_object_term_uri(object_term, options = {})
-      # TODO: pull in more for the metadata...
-      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
+      q = match_page_and_clade(options)
+      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
@@ -342,9 +436,9 @@ class TraitBank
         :object_term, :units])
     end
 
-    def by_object_term_count(object_term)\
-      q = "MATCH (page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
+    def by_object_term_count(object_term, options = {})\
+      q = match_page_and_clade(options)
+      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
@@ -487,7 +581,6 @@ class TraitBank
       resource
     end
 
-    # NOTE: this doesn't handle associations, yet. That s/b coming soon.
     # TODO: we should probably do some checking here. For example, we should
     # only have ONE of [value/object_term/association/literal].
     def create_trait(options)

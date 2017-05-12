@@ -78,6 +78,9 @@ class Page < ActiveRecord::Base
       end
     end
     integer :page_richness
+    integer :ancestor_ids, multiple: true do
+      Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
+    end
   end
 
   def descendant_species
@@ -458,6 +461,10 @@ class Page < ActiveRecord::Base
     @predicates ||= grouped_traits.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
     end
+  end
+
+  def object_terms
+    @object_terms ||= glossary.keys - predicates
   end
 
   # REFERENCES METHODS

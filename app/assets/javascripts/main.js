@@ -172,9 +172,6 @@ if(!EOL) {
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
         window.location.href = '/search?q=' + datum.value;
-      }).bind('typeahead:uservalue', function(evt, value) {
-        console.log('typeahead:uservalue:', evt);
-        console.log('datum:', value);
       }).bind('keypress', function(e) {
         console.log('keypress:', e);
         console.log('which:', e.which);
@@ -183,6 +180,19 @@ if(!EOL) {
           window.location.href = "/search?q=" + q;
           return false;
         }
+      });
+    };
+
+    if ($('.clade_filter .typeahead').length >= 1) {
+      console.log("Enable clade filter typeahead.");
+      $('.clade_filter .typeahead').typeahead(null, {
+        name: 'clade-filter-names',
+        display: 'value',
+        source: EOL.searchNames
+      }).bind('typeahead:selected', function(evt, datum, name) {
+        console.log('typeahead:selected:', evt, datum, name);
+        $(".clade_filter form input#clade").val(datum.id);
+        $(".clade_filter form").submit();
       });
     };
   };

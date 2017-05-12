@@ -8,10 +8,11 @@ class TermsController < ApplicationController
     @object = params[:object]
     @page = params[:page]
     @per_page = 100 # TODO: config this or make it dynamic...
+    @clade = params[:clade] ? Page.find(params[:clade]) : nil
     options = {
       page: @page, per: @per_page, sort: params[:sort],
       sort_dir: params[:sort_dir],
-      clade: params[:clade]
+      clade: @clade.try(:id)
     }
     traits = @object ?
       TraitBank.by_object_term_uri(@term[:uri], options) :
@@ -43,11 +44,43 @@ class TermsController < ApplicationController
       ).page(@page).per(@per_page)
   end
 
+  def predicate_glossary
+    @count = TraitBank.predicate_glossary_count
+    glossary
+  end
+
+  def object_term_glossary
+    @count = TraitBank.object_term_glossary_count
+    glossary
+  end
+
+  def units_glossary
+    @count = TraitBank.units_glossary_count
+    glossary
+  end
+
   def paginate_traits(traits)
     @count = @object ?
       TraitBank.by_object_term_count(@term[:uri], clade: params[:clade]) :
       TraitBank.by_predicate_count(@term[:uri], clade: params[:clade])
     @grouped_traits = Kaminari.paginate_array(traits, total_count: @count).
       page(@page).per(@per_page)
+  end
+
+private
+
+  def glossary
+    @per_page = Rails.configuration.data_glossary_page_size
+    @page = params[:page] || 1
+    if params[:reindex] && is_admin?
+      TraitBank.clear_caches
+      lim = (@count / @per_page.to_f).ceil
+      (0..lim+10).each do |index|
+        expire_fragment("term/glossary/#{index}")
+      end
+    end
+    @glossary = Kaminari.paginate_array(
+        TraitBank.send(params[:action], @page, @per_page), total_count: @count
+      ).page(@page).per(@per_page)
   end
 end
