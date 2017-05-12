@@ -4,6 +4,7 @@ class Import::Clade
     #       Import::Clade.read("clade-7665.json")    # Procyonidae
     #       Import::Clade.read("clade-18666.json")   # Procyon
     def read(file)
+      start_time = Time.now
       # Convenience. Less typing! Feel free to add your own.
       unless File.exist?(file)
         file = Rails.root.join("doc", file) if
@@ -41,7 +42,7 @@ class Import::Clade
       Reindexer.fix_common_names("Plantae", "plants")
       Reindexer.fix_common_names("Animalia", "animals")
       Reindexer.fix_all_counter_culture_counts
-      puts "Complete."
+      puts "\nDone. Took #{((Time.now - start_time) / 1.minute).round} minutes."
       count_classes(keys)
       true
     end
