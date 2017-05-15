@@ -452,7 +452,7 @@ class TraitBank
     # and optimize if needed. Do not prematurely optimize!
     def search_predicate_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
       q = add_limit_and_skip(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
@@ -461,7 +461,17 @@ class TraitBank
 
     def count_predicate_terms(q)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"] ? res["data"].first.first : 0
+    end
+
+    # NOTE: this is not indexed. It could get slow later, so you should check
+    # and optimize if needed. Do not prematurely optimize!
+    def search_object_terms(q, page = 1, per = 50)
+      q = "MATCH (trait)-[:object_term]->(term:Term) "\
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
       q = add_limit_and_skip(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
@@ -470,13 +480,12 @@ class TraitBank
 
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
-    def search_object_terms(q, page = 1, per = 50)
+    def count_object_terms(q)
       q = "MATCH (trait)-[:object_term]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
-      q = add_limit_and_skip(q, page, per)
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
       res = query(q)
       return [] if res["data"].empty?
-      res["data"].map { |r| r[0]["data"] }
+      res["data"] ? res["data"].first.first : 0
     end
 
     def page_exists?(page_id)

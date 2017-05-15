@@ -46,16 +46,22 @@ class SearchController < ApplicationController
     @media = search_class(Medium)
     @users = search_class(User)
 
-    if @types[:object_terms]
+    if @types[:predicates]
+      @predicates_count = TraitBank.count_predicate_terms(@q)
       # NOTE we use @q here because it has no wildcard.
-      @object_terms = TraitBank.search_object_terms(@q, params[:page], params[:per_page])
-      @object_terms_count = TraitBank.count_object_terms(@q)
+      @predicates = Kaminari.paginate_array(
+        TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
+        total_count: @predicates_count
+      ).page(params[:page]).per(params[:per_page] || 50)
     end
 
-    if @types[:predicates]
+    if @types[:object_terms]
+      @object_terms_count = TraitBank.count_object_terms(@q)
       # NOTE we use @q here because it has no wildcard.
-      @predicates = TraitBank.search_predicate_terms(@q, params[:page], params[:per_page])
-      @predicates_count = TraitBank.count_predicate_terms(@q)
+      @object_terms = Kaminari.paginate_array(
+        TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
+        total_count: @object_terms_count
+      ).page(params[:page]).per(params[:per_page] || 50)
     end
 
     respond_to do |fmt|

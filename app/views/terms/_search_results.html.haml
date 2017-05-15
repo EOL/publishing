@@ -1,11 +1,12 @@
 - object = false unless defined?(object)
 - id = object ? "object_terms" : "predicates"
 - div_id = "search_#{id}"
+- size = 50 unless defined?(size)
 .search_result_container
   .ui.inverted.dimmer
     .ui.loader
-  %h2{ id: div_id }= t("search_results.section_titles.#{id}", count: terms.size)
-  -# = paginate @object_terms, remote: true, params: { only: "object_terms" }
+  %h2{ id: div_id }= t("search_results.section_titles.#{id}", count: size)
+  = paginate terms, remote: true, params: { only: id }
   %ul.found_terms.uk-list
     - terms.each do |term|
       %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
@@ -15,4 +16,4 @@
             .uk-text-muted= link_to(term["uri"], term_path(uri: term["uri"], object: object))
           - if term["definition"]
             .uk-margin-small-top= term["definition"]
-  -# = paginate @object_terms, remote: true, params: { only: "object_terms" }
+  = paginate terms, remote: true, params: { only: id }

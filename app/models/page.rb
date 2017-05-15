@@ -251,7 +251,7 @@ class Page < ActiveRecord::Base
   # full TOC.)
   def traits(page = 1, per = 2000)
     return @traits[0..per] if @traits
-    traits = TraitBank.by_page(id)
+    traits = TraitBank.by_page(id, page, per)
     # Self-healing count of number of traits:
     if traits.size != traits_count
       update_attribute(:traits_count, traits.size)
