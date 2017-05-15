@@ -459,6 +459,15 @@ class TraitBank
       res["data"].map { |r| r[0]["data"] }
     end
 
+    def count_predicate_terms(q)
+      q = "MATCH (trait)-[:predicate]->(term:Term) "\
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+      q = add_limit_and_skip(q, page, per)
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"].map { |r| r[0]["data"] }
+    end
+
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
     def search_object_terms(q, page = 1, per = 50)

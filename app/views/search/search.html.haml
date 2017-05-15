@@ -12,9 +12,9 @@
       %h4.uk-heading-divider= t("search_results.header")
       %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 80" } } }
         - if defined?(@predicates) && ! @predicates.blank?
-          %li= link_to(t("search_results.section_titles.predicates", count: @predicates.size), "#search_predicates")
+          %li= link_to(t("search_results.section_titles.predicates", count: @predicates_count), "#search_predicates")
         - if defined?(@object_terms) && ! @object_terms.blank?
-          %li= link_to(t("search_results.section_titles.object_terms", count: @object_terms.size), "#search_object_terms")
+          %li= link_to(t("search_results.section_titles.object_terms", count: @object_terms_count), "#search_object_terms")
         - if defined?(@pages) && ! @pages.results.empty?
           %li= link_to(t("search_results.section_titles.pages", count: @pages.total), "#search_pages")
         - if defined?(@collections) && @collections && ! @collections.results.empty?
