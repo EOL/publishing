@@ -29,7 +29,7 @@ class Import::Clade
 
       Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
       begin
-        # create_active_records(keys, json)
+        create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
         fix_page_icons
       rescue => e

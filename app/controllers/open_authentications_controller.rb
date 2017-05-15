@@ -2,7 +2,6 @@ require 'devise'
 class OpenAuthenticationsController < ApplicationController
   def new
     password = Devise.friendly_token[0,16]
-    debugger
     @user = User.new(email: params[:info][:email], password: password, password_confirmation: password, 
                      username:  params[:info][:name])
     session[:new_user] = params

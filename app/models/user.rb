@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
   validates :email, presence: true
-  validates :password, presence: true
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, if: "encrypted_password.blank?"
+  validates :password_confirmation, presence: true, if: "encrypted_password.blank?"
   # LATER: causes errors for now. :S
   # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
 
@@ -52,8 +52,10 @@ class User < ActiveRecord::Base
   def soft_delete
     self.skip_reconfirmation!
     Devise.send_password_change_notification = false
-    self.update_attributes!(deleted_at: Time.current, email: dummy_email_for_delete,
-      encrypted_password: SecureRandom.hex(8), active: false)
+    weird_password = SecureRandom.hex(8)
+    self.update_attributes!(deleted_at: Time.current,
+      email: dummy_email_for_delete, active: false,
+      password: weird_password, password_confirmation: weird_password)
   end
 
   # def email_required?

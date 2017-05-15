@@ -4,10 +4,11 @@ RSpec.describe "media/show" do
   let(:page1) { create(:page) } # Involves a link
   let(:page2) { create(:page) } # Involves a link
   let(:medium) { build(:medium, description: "not empty") }
+  let(:page_content) { double(:page_content, page: page1, page_id: page1.id) }
 
   before do
     allow(medium).to receive(:large_size_url) { "this_guy.jpg" }
-    allow(medium).to receive(:pages) { [page1] }
+    allow(medium).to receive(:page_contents) { [page_content] }
     allow(medium).to receive(:associations) { [page2] }
     allow(medium).to receive(:page_icons) { [1,2,3] }
     assign(:medium, medium)

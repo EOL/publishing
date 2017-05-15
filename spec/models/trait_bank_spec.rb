@@ -175,7 +175,7 @@ RSpec.describe TraitBank do
 
     it "query with the QUOTED trait ID" do
       expect(TraitBank).to receive(:query).
-        with(/:trait.*Trait.*resource_pk: \"traitIDHere\"/) { }
+        with(/:Trait.*resource_pk: \"traitIDHere\"/) { }
       TraitBank.by_trait(full_id)
     end
 
