@@ -1,13 +1,11 @@
 require 'rails_helper'
+
 include Warden::Test::Helpers
 Warden.test_mode!
 
 RSpec.describe "Users", type: :request do
-
-  before do
-    # TODO: this did NOT solve the slow asset compile:
-    # allow_any_instance_of(ActionView::Helpers::AssetTagHelper).to receive(:image_tag) { "<img foo>" }
-  end
+  let(:providers) { User.omniauth_providers }
+  let(:first_provider) { providers.first }
 
   def signup_user(user)
     fill_in "user[username]", with: user.username
@@ -170,8 +168,6 @@ RSpec.describe "Users", type: :request do
   end
 
   context 'Open Authentication' do
-    let(:providers) { ["facebook", "twitter", "google_oauth2", "yahoo"] }
-
     context 'Sign Up' do
       before { visit new_user_registration_path }
 
@@ -200,10 +196,10 @@ RSpec.describe "Users", type: :request do
         end
 
         it 'activates the user if the submittied email is same as the oauth email' do
-            email = "yahoo_mail@example.org"
-            OmniAuth.config.add_mock(:yahoo, { info: { email: email }})
+            email = "#{providers.first}_mail@example.org"
+            OmniAuth.config.add_mock(providers.first, { info: { email: email }})
             visit new_user_registration_path
-            click_link I18n.t("sign_in_up_with_yahoo", action: "Sign Up")
+            click_link I18n.t("sign_in_up_with_#{providers.first}", action: "Sign Up")
              fill_in "user[email]", with: email
             click_button I18n.t("helpers.submit.user.create")
             expect(page.current_path).to eq(root_path)
@@ -269,7 +265,7 @@ RSpec.describe "Users", type: :request do
 
          it 'does not sign the non-confirmed users' do
           allow(user).to receive(:confirmed?) { false }
-          click_link I18n.t("sign_in_up_with_yahoo", action: "Sign In")
+          click_link I18n.t("sign_in_up_with_#{providers.first}", action: "Sign In")
           expect(page.current_path).to eq(new_user_session_path)
           # OOPS: TODO - I broke these by changing how we do flash messages. I shall fix...
           # expect(page.body).to include(I18n.t(:unconfirmed, scope: 'devise.failure'))

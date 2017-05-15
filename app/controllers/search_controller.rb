@@ -9,8 +9,22 @@ class SearchController < ApplicationController
     # TODO: we'll want some whitelist filtering here later:
     params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
 
-    default = params.has_key?(:only)? false : true
+    @clade = if params[:clade]
+      puts "*" * 100
+      puts "** Filtering by clade #{params[:clade]}"
+      # It doesn't make sense to filter some things by clade:
+      params[:only] = if params[:only]
+        [:pages, :media] - params[:only]
+      else
+        [:pages, :media]
+      end
+      puts "Only param should now be: #{params[:only]}"
+      Page.find(params[:clade])
+    else
+      nil
+    end
 
+    default = params.has_key?(:only)? false : true
     @types = {}
     [ :pages, :collections, :media, :users, :predicates, :object_terms ].
       each do |sym|
@@ -25,8 +39,9 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page, include: [:medium, native_node: :rank,
-      vernaculars: :language ], page_richness: true)
+    @pages = search_class(Page,
+      include: [:medium, :preferred_vernaculars, :native_node],
+      page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
@@ -79,7 +94,7 @@ class SearchController < ApplicationController
     respond_to do |fmt|
       fmt.json do
         q = Page.search do
-          fulltext "#{params[:name]}*" do
+          fulltext "#{params[:name].downcase}*" do
             Page.stored_fields.each do |field|
               highlight field
             end
@@ -87,13 +102,23 @@ class SearchController < ApplicationController
           order_by(:page_richness, :desc)
           paginate page: 1, per_page: 10
         end
+        matches = {}
         results = []
         q.hits.each do |hit|
           Page.stored_fields.each do |field|
             hit.highlights(field).compact.each do |highlight|
-              word = highlight.format { |word| word }.downcase
-              results << { value: word, tokens: word.split } unless
-                results.any? { |r| r[:value] == word}
+              word = highlight.format { |word| word }
+              word = word.downcase if field == :name ||
+                field == :preferred_vernaculars ||
+                field == :vernaculars
+              results << { value: word, tokens: word.split, id: hit.primary_key } unless
+                matches.has_key?(word.downcase)
+              # NOTE: :name is a tricky little field. ...it COULD be a
+              # scientific_name, in which case we don't want to downcase it! So
+              # we store the DOWNCASED name as the key. ...Scientific names are
+              # checked first (because they appear first in Page.stored_fields),
+              # so they will take precendence over the name.
+              matches[word.downcase] = true
             end
           end
         end
@@ -110,9 +135,9 @@ class SearchController < ApplicationController
   # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
 
   def search_class(klass, options = {})
-    # NOTE: @q DOES NOT WORK in search blocks, and you can't call external
-    # methods.
+    # NOTE: YOU CANNOT CALL METHODS OR INSTANCE VARIABLES FROM THE SEARCH BLOCK.
     page_richness = options.delete(:page_richness)
+    clade_id = @clade.try(:id)
     if @types[klass.name.tableize.to_sym]
       klass.send(:search, options) do
         if params[:q] =~ /\*$/
@@ -123,6 +148,8 @@ class SearchController < ApplicationController
         else
           fulltext params[:q]
         end
+        puts "** Filtering fulltext by clade #{clade_id}" if clade_id
+        with(:ancestor_ids, clade_id) if clade_id
         if page_richness
           order_by(:page_richness, :desc)
         end

@@ -44,15 +44,18 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
+  # This is a list of the fields used in .searchable so that other classes and
+  # controllers may act on them (e.g. to get a list of possible highlights).
+  # TODO: this should really be "stored" (heh) by sunspot, and I suggest we add
+  # that feature to their code.
   def self.stored_fields
-    [:scientific_name, :preferred_scientific_names, :name, :synonyms,
+    [:scientific_name, :preferred_scientific_names, :synonyms,
       :preferred_vernaculars, :vernaculars]
   end
 
+  # NOTE: we DON'T store :name becuse it will necessarily already be in one of
+  # the other fields.
   searchable do
-    text :name, stored: true, boost: 4.0 do
-      name.gsub(/<\/?i>/, "") # Because this CAN be the scientific name!
-    end
     text :scientific_name, stored: true, boost: 10.0 do
       scientific_name.gsub(/<\/?i>/, "")
     end
@@ -75,6 +78,9 @@ class Page < ActiveRecord::Base
       end
     end
     integer :page_richness
+    integer :ancestor_ids, multiple: true do
+      Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
+    end
   end
 
   def descendant_species
@@ -455,6 +461,10 @@ class Page < ActiveRecord::Base
     @predicates ||= grouped_traits.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
     end
+  end
+
+  def object_terms
+    @object_terms ||= glossary.keys - predicates
   end
 
   # REFERENCES METHODS

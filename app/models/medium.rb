@@ -6,6 +6,9 @@ class Medium < ActiveRecord::Base
   has_many :page_icons, inverse_of: :medium
   # And then we denormlize the latest so we can query it efficiently:
   has_many :pages, inverse_of: :medium
+  has_many :collected_pages_media, inverse_of: :medium
+  has_many :collected_pages, through: :collected_pages_media
+  has_many :collections, through: :collected_pages
 
   has_one :image_info, inverse_of: :image
 
@@ -21,6 +24,9 @@ class Medium < ActiveRecord::Base
     text :description, :boost => 2.0
     text :resource_pk
     text :owner
+    integer :ancestor_ids, multiple: true do
+      page_contents.pluck(:page_id)
+    end
   end
 
   # TODO: we will have our own media server with more intelligent names:

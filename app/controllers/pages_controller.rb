@@ -168,7 +168,6 @@ private
     @associations =
       begin
         ids = @page.traits.map { |t| t[:object_page_id] }.compact.sort.uniq
-        # TODO: include more when we need it
         Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end

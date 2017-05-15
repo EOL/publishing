@@ -41,7 +41,7 @@ module PagesHelper
         if is_family?(page)
           # [name] ([common name]) is a family of [A1].
           str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
-        elsif is_higher_level_clade?(page)
+        elsif is_higher_level_clade?(page) && ancestors[-2]
           # [name] ([common name]) is a genus in the [A1] [rank] [A2].
           str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
         else

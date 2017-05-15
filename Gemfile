@@ -43,6 +43,8 @@ gem 'refinerycms-i18n'
 # ..and with a comment above each gem (or block of related gems) explaining what
 # it's for. Let's keep this maintainable!
 
+# For bulk inserts:
+gem "activerecord-import", "~> 0.18.2"
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list', '~> 0.7.6'
 # Nested set for Node:

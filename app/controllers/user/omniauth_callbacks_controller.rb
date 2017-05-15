@@ -14,26 +14,26 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
     connect(:facebook)
   end
-  
+
   def twitter
     connect(:twitter)
   end
-  
+
   def google_oauth2
     connect(:google)
   end
-  
+
   # def yahoo
     # connect(:yahoo)
   # end
-  
+
   def failure
     super
   end
-  
+
   def connect(provider)
     auth = request.env["omniauth.auth"]
-    intent = env["omniauth.params"]["intent"] 
+    intent = env["omniauth.params"]["intent"]
     user = OpenAuthentication.oauth_user_exists?(auth)
     if intent == "sign_up"
       if user.blank?
@@ -44,11 +44,11 @@ class User::OmniauthCallbacksController < Devise::OmniauthCallbacksController
          reason: I18n.t(:account_already_linked)
         redirect_to new_user_registration_path
       end
-    else 
+    else
       #sign_in
       if user.blank?
         redirect_to new_user_session_path
-        set_flash_message :error,  :failure, kind: provider,
+        set_flash_message :error, :failure, kind: provider,
             reason: I18n.t(:account_not_linked)
       else
         sign_in_and_redirect user, event: :authentication

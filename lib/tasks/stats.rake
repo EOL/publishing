@@ -35,15 +35,6 @@ namespace :stats do
   end
 
   task score_richness: :environment do
-    puts "#{Page.count} pages"
-    start_time = Time.now
-    count = 0
-    Page.find_each do |page|
-      page.score_richness
-      score = page.richness
-      count += 1
-      print "." if count % 1000 == 0
-    end
-    puts "\nDone. Took #{((Time.now - start_time) / 1.minute).round} minutes."
+    Reindexer.score_richness
   end
 end

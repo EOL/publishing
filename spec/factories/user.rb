@@ -3,6 +3,7 @@ FactoryGirl.define do
     sequence(:username) { |n| "username_#{n}" }
     sequence(:email) { |n| "email_#{n}@example.com" }
     password "password"
+    password_confirmation "password"
     admin false
   end
 
@@ -10,6 +11,7 @@ FactoryGirl.define do
     sequence(:username) { |n| "username_#{n}" }
     sequence(:email) {|n| "email_#{n}@example.com" }
     password "password"
+    password_confirmation "password"
     active 1
     confirmed_at Time.now
     admin true

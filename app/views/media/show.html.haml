@@ -1,35 +1,47 @@
 #page.container.media
   #page_control
-    .jumbotron
-      .row
-        .col-md-9
-          %label= t(:medium_header_title)
-          %h1#media_title= @medium.name.html_safe
-        .col-md-3.actions
-          = link_to t(:medium_collect_button), new_collected_page_path(page_id: @medium.associations.first, medium_ids: [@medium.id]), class: "btn btn-default"
-    .media-body
-      .row
-        .media-image.col-md-8
+    .uk-section.uk-section-default.uk-grid-small.uk-padding-small.uk-box-shadow-medium{ uk: { grid: true } }
+      .uk-width-3-4
+        %label= t(:medium_header_title)
+        %h1#media_title.uk-margin-remove-top
+          - if @medium.name.blank?
+            = t(:medium_untitled)
+          - else
+            = @medium.name.html_safe
+      .uk-width-1-4.actions
+        - basic_button("plus", t(:medium_collect_button), new_collected_page_path(page_id: @medium.associations.first, medium_ids: [@medium.id]))
+    .media-body.uk-margin-large-top
+      %div{ uk: { grid: true } }
+        .media-image.uk-width-2-3
           = image_tag(@medium.large_size_url)
           %br/
-          %label= t(:medium_header_description)
+          %h3= t(:medium_header_description)
           - if @medium.description.blank?
             %p.description-blank= t(:medium_description_blank)
           - else
             %p= @medium.description.html_safe
-        .attribution.col-md-4
-          %h2= t(:content_attributions_header)
-          = render("attributions/for_content", content: @medium)
-          %h2= t(:content_associations)
+        .attribution.uk-width-1-3
+          %h3= t(:content_associations)
           %ul
             - @medium.associations.each do |page|
               %li= link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
           - icon_count = @medium.page_icons.count
           - if icon_count > 0
-            %h2= "Awards"
+            %h3= "Awards"
             %ul
               %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
-      %h2= t(:content_appears_on)
-      %ul.appears_on
-        - @medium.pages.each do |page|
-          %li= link_to(page.scientific_name.html_safe, page)
+          %h3= t(:content_appears_on)
+          %ul.appears_on
+            - @medium.page_contents.map(&:page).compact.sort_by(&:scientific_name).each do |page|
+              %li= link_to(page.scientific_name.html_safe, page)
+          - collections = @medium.collections.compact.sort_by(&:name)
+          - if collections.empty?
+            %p= t(:content_not_in_any_collection)
+          - else
+            %h3= t(:content_collected_in)
+            %ul.appears_on
+              - collections.each do |collection|
+                %li= link_to(collection.name, collection)
+
+      %h3= t(:content_attributions_header)
+      = render("attributions/for_content", content: @medium)
