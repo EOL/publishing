@@ -5,6 +5,12 @@ console.log("Rendering paginated search results.");
   $("#search_collections").html("<%= j(render("collections/search_results")) %>");
 <% elsif @media %>
   $("#search_media").html("<%= j(render("media/search_results")) %>");
+<% elsif @predicates %>
+  $("#search_predicates").html("<%= j(render("terms/search_results", terms: @predicates, size: @predicates_count)) %>");
+<% elsif @object_terms %>
+  $("#search_object_terms").html("<%= j(render("terms/search_results", object: true, terms: @object_terms, size: @object_terms_count)) %>");
+<% elsif @users %>
+  $("#search_users").html("<%= j(render("users/search_results")) %>");
 <% elsif @users %>
   $("#search_users").html("<%= j(render("users/search_results")) %>");
 <% end %>
