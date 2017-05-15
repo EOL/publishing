@@ -18,7 +18,8 @@ class TermsController < ApplicationController
       TraitBank.by_object_term_uri(@term[:uri], options) :
       TraitBank.by_predicate(@term[:uri], options)
     # TODO: a fast way to load pages with just summary info:
-    pages = Page.where(id: traits.map { |t| t[:page_id] }).preloaded
+    pages = Page.where(id: traits.map { |t| t[:page_id] }).
+      includes(:medium, :native_node, :preferred_vernaculars)
     # Make a dictionary of pages:
     @pages = {}
     pages.each { |page| @pages[page.id] = page }

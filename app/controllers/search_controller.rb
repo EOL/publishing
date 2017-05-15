@@ -39,8 +39,9 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page, include: [:medium, native_node: :rank,
-      vernaculars: :language ], page_richness: true)
+    @pages = search_class(Page,
+      include: [:medium, :preferred_vernaculars, :native_node],
+      page_richness: true)
     @collections = search_class(Collection)
     @media = search_class(Medium)
     @users = search_class(User)
