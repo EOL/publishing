@@ -461,10 +461,11 @@ class TraitBank
 
     def count_predicate_terms(q)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term)"
+      q = add_limit_and_skip(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
-      res["data"] ? res["data"].first.first : 0
+      res["data"].map { |r| r[0]["data"] }
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
