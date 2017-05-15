@@ -48,12 +48,14 @@ class SearchController < ApplicationController
 
     if @types[:object_terms]
       # NOTE we use @q here because it has no wildcard.
-      @object_terms = TraitBank.search_object_terms(@q)
+      @object_terms = TraitBank.search_object_terms(@q, params[:page], params[:per_page])
+      @object_terms_count = TraitBank.count_object_terms(@q)
     end
 
     if @types[:predicates]
       # NOTE we use @q here because it has no wildcard.
-      @predicates = TraitBank.search_predicate_terms(@q)
+      @predicates = TraitBank.search_predicate_terms(@q, params[:page], params[:per_page])
+      @predicates_count = TraitBank.count_predicate_terms(@q)
     end
 
     respond_to do |fmt|
