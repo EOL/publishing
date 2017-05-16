@@ -26,7 +26,7 @@
         -# TODO: remote...
         - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id))
         - if is_admin?
-          - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true)
+          - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true, data: { disable_with: "" }, class: "ui disable-on-click")
     - summary = construct_summary(@page)
     - if summary && ! summary.blank?
       .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
@@ -58,6 +58,7 @@
         .ui.label.eol-secondary-alt.uk-box-shadow-medium.uk-margin-small-bottom
           = t("pages.rank.label")
           .detail= @page.rank ? @page.rank.name : t("ranks.not_given")
-        .ui.label.eol-secondary-alt.uk-box-shadow-medium.uk-margin-small-bottom
-          = t("pages.richness.label")
-          .detail= @page.page_richness / 100
+        - if @page.page_richness
+          .ui.label.eol-secondary-alt.uk-box-shadow-medium.uk-margin-small-bottom
+            = t("pages.richness.label")
+            .detail= @page.page_richness / 100

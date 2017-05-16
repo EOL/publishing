@@ -21,12 +21,14 @@ class PagesController < ApplicationController
 
   def clear_index_stats
     respond_to do |fmt|
-      fmt.js do
+      fmt.html do
         Rails.cache.delete("pages/index/stats")
         # This is overkill (we only want to clear the trait count, not e.g. the
         # glossary), but we want to be overzealous, not under:
         TraitBank.clear_caches
         Rails.logger.warn("LANDING PAGE STATS CLEARED.")
+        flash[:notice] = t("landing_page.stats_cleared")
+        redirect_to("/")
       end
     end
   end

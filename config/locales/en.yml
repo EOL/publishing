@@ -132,7 +132,7 @@ en:
     title: "Encyclopedia of Life"
     header: "Global access to knowledge about life on Earth"
     reindex: "reindex"
-    stats_cleared: "The stats have been recalculated. Reload to see the current values."
+    stats_cleared: "The stats have been recalculated."
     search_placeholder: "Search..."
     stats:
       pages: "pages"
@@ -420,6 +420,8 @@ en:
       label: "richness:"
   password: "Password"
   password_confirmation: "Password confirmation"
+  please_wait: "please wait..."
+  please_wait_button: "..wait.."
   name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: ""

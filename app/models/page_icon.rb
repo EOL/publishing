@@ -7,6 +7,21 @@ class PageIcon < ActiveRecord::Base
 
   after_create :bump_icon
 
+  def self.fix
+    Page.where(["updated_at > ?", 1.day.ago]).find_each do |page|
+      icon = if page.page_icons.any?
+        page.page_icons.last
+      elsif page.media.where(subclass: Medium.subclasses[:image]).any?
+        page.media.where(subclass: Medium.subclasses[:image]).first
+      elsif page.media.any?
+        page.media.first
+      else
+        nil
+      end
+      page.update_attribute(:medium_id, icon.id) if icon
+    end
+  end
+
   def page_content
     @page_content ||= PageContent.where(page_id: page_id, content_type: Medium,
       content_id: medium_id).first

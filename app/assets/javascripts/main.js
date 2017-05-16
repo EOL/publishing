@@ -128,6 +128,21 @@ if(!EOL) {
   };
 
   EOL.ready = function() {
+    if ($(".eol-flash").length === 1) {
+      var flash = $(".eol-flash");
+      UIkit.notification({
+          message: $(".eol-flash").data("text"),
+          status: 'primary',
+          pos: 'top-center',
+          offset: '100px',
+          timeout: 5000
+      });
+    }
+
+    $(".disable-on-click").on("click", function() {
+      $(this).closest(".button").addClass("disabled loading");
+    });
+
     if ($("#gallery").length === 1) {
       EOL.enable_media_navigation();
     } else if ($("#page_traits").length === 1) {
