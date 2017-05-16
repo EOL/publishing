@@ -128,10 +128,9 @@ en:
       user:
         create: "Create account"
   landing_page:
-    title: "Encyclopedia of Life"
+    cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     reindex: "reindex"
-    stats_cleared: "The stats have been recalculated."
     search_placeholder: "Search..."
     stats:
       pages: "pages"
@@ -140,6 +139,8 @@ en:
       articles: "articles"
       users: "users"
       collections: "collections"
+    stats_cleared: "The stats have been recalculated."
+    title: "Encyclopedia of Life"
 
   languages:
     aa: "Afar"
