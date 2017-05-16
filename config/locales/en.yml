@@ -128,6 +128,7 @@ en:
       user:
         create: "Create account"
   landing_page:
+    cms: "Edit CMS"
     title: "Encyclopedia of Life"
     header: "Global access to knowledge about life on Earth"
     reindex: "reindex"
