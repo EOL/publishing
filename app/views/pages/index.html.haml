@@ -1,4 +1,5 @@
 %body
+  = render("layouts/flash")
   .landing_page
     .uk-container
       .uk-section
@@ -18,4 +19,4 @@
     - if is_admin?
       .uk-section
         .ui.button
-          = link_to(t("landing_page.reindex"), clear_index_stats_pages_path(), remote: true)
+          = link_to(t("landing_page.reindex"), clear_index_stats_pages_path())

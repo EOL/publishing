@@ -277,19 +277,8 @@ class Import::Clade
 
     def fix_page_icons
       # Now we need to add denomralized page icons, because that didn't happen
-      # automatically: TODO - this is useful enough to extract.
-      Page.where(["updated_at > ?", 1.day.ago]).find_each do |page|
-        icon = if page.page_icons.any?
-          page.page_icons.last
-        elsif page.media.where(subclass: Medium.subclasses[:image]).any?
-          page.media.where(subclass: Medium.subclasses[:image]).first
-        elsif page.media.any?
-          page.media.first
-        else
-          nil
-        end
-        page.update_attribute(:medium_id, icon.id) if icon
-      end
+      # automatically:
+      PageIcon.fix
     end
   end
 end
