@@ -570,6 +570,8 @@ en:
       glossary: "full glossary"
       reindex: "reindex"
       sort: "sort by"
+      show_records: "show records"
+      species_list: "species list"
     glossary:
       predicate_title: "Glossary of Type Terms for Data on EOL"
       object_term_title: "Glossary of Value Terms for Data on EOL"

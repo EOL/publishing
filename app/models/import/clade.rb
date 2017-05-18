@@ -237,8 +237,12 @@ class Import::Clade
         if parent_id
           parent = pages[page_id] || add_page(parent_id, pages)
           parent = parent.first if parent.is_a?(Array)
-          puts "Adding parent #{parent_id} to page #{page_id}..."
-          TraitBank.add_parent_to_page(parent, tb_page)
+          if parent_id == page_id
+            puts "** OOPS: we just tried to add #{parent_id} as a parent to itself!"
+          else
+            puts "Adding parent #{parent_id} to page #{page_id}..."
+            TraitBank.add_parent_to_page(parent, tb_page)
+          end
         end
       else
         puts "Trait attempts to use missing page: #{page_id}, ignoring links"

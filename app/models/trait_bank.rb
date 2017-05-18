@@ -85,6 +85,7 @@ class TraitBank
 
     # TODO: we want to be wiser, here.
     def query(q)
+      Rails.logger.warn("  TB TraitBank: #{q}")
       begin
         connection.execute_query(q)
       rescue Excon::Error::Socket => e
@@ -151,31 +152,52 @@ class TraitBank
       query("MATCH (:Page)-[parent:parent]->(:Page) DELETE parent")
       missing = {}
       related = {}
-      Node.where("parent_id IS NOT NULL AND page_id IS NOT NULL").
+      # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
+      itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
+      raise " I tried to use ITIS as the native node for the relationships, but it wasn't there." unless itis
+      Node.where(["resource_id = ? AND parent_id IS NOT NULL AND page_id IS NOT NULL",
+        itis.id]).
         includes(:parent).
         find_each do |node|
           page_id = node.page_id
           parent_id = node.parent.page_id
           next if missing.has_key?(page_id) || missing.has_key?(parent_id)
-          next if related.has_key?(page_id) && related[page_id].include?(parent_id)
+          next if related.has_key?(page_id)
           page = page_exists?(page_id)
           page = page.first if page
           parent = page_exists?(parent_id)
           parent = parent.first if parent
           if page && parent
-            relate("parent", page, parent)
-            related[page_id] ||= []
-            related[page_id] << parent_id
-            # puts("#{page_id}-[:parent]->#{parent_id}")
+            if page_id == parent_id
+              puts "** OOPS! Attempted to add #{page_id} as a parent of itself!"
+            else
+              relate("parent", page, parent)
+              related[page_id] = parent_id
+              # puts("#{page_id}-[:parent]->#{parent_id}")
+            end
           else
             missing[page_id] = true unless page
             missing[parent_id] = true unless parent
           end
         end
-      related.each do |page, parents|
-        puts("#{page}-[:parent*]->[#{parents.join(", ")}]")
+      related.each do |page, parent|
+        puts("#{page}-[:parent*]->#{parent}]")
       end
       puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
+    end
+
+    def rebuild_names
+      query("MATCH (page:Page) REMOVE page.name RETURN COUNT(*)")
+      # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
+      itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
+      Node.where(["resource_id = ?", itis.id]).find_each do |node|
+        name = node.canonical_form
+        page = page_exists?(node.page_id)
+        next unless page
+        page = page.first if page
+        connection.set_node_properties(page, { "name" => name })
+        puts "#{node.page_id} => #{name}"
+      end
     end
 
     def count
@@ -241,8 +263,8 @@ class TraitBank
     def add_sort(q, options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
-      sort = if options[:sort].downcase == "measurement"
-        "trait.normal_measurement"
+      sorts = if options[:sort].downcase == "measurement"
+        ["trait.normal_measurement"]
       else
         # TODO: this is not good. multiple types of values will not
         # "interweave", and the only way to change that is to store a
@@ -251,10 +273,11 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        "LOWER(trait.literal), LOWER(object_term.name), trait.normal_measurement"
+        ["LOWER(trait.literal)", "LOWER(info_term.name)", "trait.normal_measurement"]
       end
-      dir = options[:sort_dir].downcase == "desc" ? "desc" : ""
-      q += " ORDER BY #{sort} #{dir}"
+      sorts << "page.name"
+      dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
+      q += %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
       q
     end
 
@@ -388,37 +411,61 @@ class TraitBank
         :units])
     end
 
+# Doesn't work; 24 rows:
+# MATCH (ancestor:Page)<-[:parent*]-(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
+# MATCH (trait)-[:predicate]->(predicate:Term { uri: "http://polytraits.lifewatchgreece.eu/terms/MAT" })
+# MATCH (trait)-[info]->(info_term:Term)
+# WHERE ANY (x IN ["object_term", "units_term"] WHERE x = type(info))
+#   AND page.page_id = 19076 OR ancestor.page_id = 19076
+# RETURN page, trait, predicate, type(info), info_term, resource
+# ORDER BY LOWER(trait.literal), LOWER(info_term.name), trait.normal_measurement, page.name
+# LIMIT 100
+#
+# Works, 12 rows:
+# MATCH (ancestor:Page)<-[:parent*]-(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
+# MATCH (trait)-[:predicate]->(predicate:Term { uri: "http://polytraits.lifewatchgreece.eu/terms/MAT" })
+# MATCH (trait)-[info]->(info_term:Term)
+# WHERE page.page_id = 19076 OR ancestor.page_id = 19076
+#   AND ANY (x IN ["object_term", "units_term"] WHERE x = type(info))
+# RETURN page, collect(ancestor.page_id), trait, predicate, type(info), info_term, resource
+# ORDER BY LOWER(trait.literal), LOWER(info_term.name), trait.normal_measurement
+
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
     def by_predicate(predicate, options = {})
       q = match_page_and_clade(options)
       q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units"
-      q = add_sort(q, options)
-      q = add_limit_and_skip(q, options[:page], options[:per])
-      Rails.logger.warn("*" * 80)
-      Rails.logger.warn(q)
+        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "
+      unless options[:count]
+        q += "MATCH (trait)-[info]->(info_term:Term) "
+      end
+      if options[:clade]
+        q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
+      end
+      if options[:count]
+        q+= "WITH count(DISTINCT(trait)) AS count RETURN count"
+      else
+        q += %Q{AND ANY (x IN ["object_term", "units_term"] WHERE x = type(info)) }
+        q += "RETURN page, trait, predicate, type(info), info_term, resource"
+        q = add_sort(q, options)
+        q = add_limit_and_skip(q, options[:page], options[:per])
+      end
       res = query(q)
-      build_trait_array(res, [:resource, :trait, :page, :predicate,
-        :object_term, :units])
+      if options[:count]
+        res["data"] ? res["data"].first.first : 0
+      else
+        build_trait_array(res, [:page, :trait, :predicate,
+          :info_type, :info_term, :resource])
+      end
     end
 
     def by_predicate_count(predicate, options = {})
-      q = match_page_and_clade(options)
-      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "\
-        "WITH count(trait) AS count "\
-        "RETURN count"
-      res = query(q)
-      res["data"] ? res["data"].first.first : 0
+      by_predicate(predicate, options.merge(count: true))
     end
 
     def match_page_and_clade(options = {})
       options[:clade] ?
-        "MATCH (ancestor:Page { page_id: #{options[:clade]}})<-[:parent*]-(page:Page)" :
+        "MATCH (ancestor:Page)<-[:parent*]-(page:Page)" :
         "MATCH (page:Page)"
     end
 

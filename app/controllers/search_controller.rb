@@ -108,7 +108,7 @@ class SearchController < ApplicationController
             end
           end
           order_by(:page_richness, :desc)
-          paginate page: 1, per_page: 10
+          paginate page: 1, per_page: 20
         end
         matches = {}
         results = []

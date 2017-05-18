@@ -13,6 +13,17 @@ module ApplicationHelper
     }
   end
 
+  def cms_menu
+    menu_items = Refinery::Menu.new(Refinery::Page.in_menu)
+
+    Refinery::Pages::MenuPresenter.new(menu_items, self).tap do |presenter|
+      presenter.dom_id = "footer_menu"
+      presenter.css = "item"
+      presenter.menu_tag = :div
+    end
+  end
+
+
   def resource_error_messages(resource)
     return "" if resource.errors.empty?
 
@@ -29,6 +40,15 @@ module ApplicationHelper
     HTML
 
     html.html_safe
+  end
+
+  def params_less(*keys)
+    params_dup = params.dup
+    # These are NEVER required:
+    params_dup.delete(:controller)
+    params_dup.delete(:action)
+    keys.each { |k| params_dup.delete(k) }
+    params_dup
   end
 
   def basic_button(icon, label, url, options = {})

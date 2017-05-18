@@ -23,19 +23,22 @@
         = t("term.actions.sort")
       %div{ uk: { dropdown: true } }
         %ul.uk-dropdown-nav.uk-nav
-          - params_dup = params.dup
-          - params_dup.delete(:sort)
-          - params_dup.delete(:sort_dir)
+          - params_dup = params_less(:sort, :sort_dir)
           %li= link_to(t("traits_sort_dropdown.alphabetical"), term_path(params_dup))
           %li= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(params_dup.merge(sort_dir: "desc")))
           %li= link_to(t("traits_sort_dropdown.value"), term_path(params_dup.merge(sort: "measurement")))
           %li= link_to(t("traits_sort_dropdown.value_rev"), term_path(params_dup.merge(sort: "measurement", sort_dir: "desc")))
-      - if is_admin?
-        %button.ui.small.basic.button.uk-margin-small-top
-          - if params[:object]
-            = link_to(t("term.actions.glossary"), object_term_glossary_path)
-          - else
-            = link_to(t("term.actions.glossary"), predicate_glossary_path)
+      %button.ui.small.basic.button.uk-margin-small-top
+        - if params[:object]
+          = link_to(t("term.actions.glossary"), object_term_glossary_path)
+        - else
+          = link_to(t("term.actions.glossary"), predicate_glossary_path)
+      %button.ui.small.basic.button.uk-margin-small-top
+        - params_dup = params_less(:species_list)
+        - if @species_list
+          = link_to(t("term.actions.show_records"), term_path(params_dup))
+        - else
+          = link_to(t("term.actions.species_list"), term_path(params_dup.merge(species_list: true)))
     .clade_filter.uk-margin-top
       = form_tag(term_path, method: "get", autocomplete: "off") do
         - hide_params_in_form(["clade"])
@@ -53,8 +56,17 @@
             = submit_tag(t("filter"), class: "ui basic button")
       - if @clade
         .uk-panel.uk-margin-small-top
-          - mod_params = params.dup
-          - mod_params.delete(:clade)
+          - mod_params = params_less(:clade)
           = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
   .uk-margin-top
-    = render 'traits_table', { traits: @grouped_traits, pages: @pages }
+    - if @species_list
+      %ul.uk-list
+        - @pages.each do |_, page|
+          = render("pages/as_row",
+            page: page,
+            icon: page.icon,
+            media: [],
+            common: page.name,
+            scientific: page.scientific_name)
+    - else
+      = render 'traits_table', { traits: @grouped_traits, pages: @pages }

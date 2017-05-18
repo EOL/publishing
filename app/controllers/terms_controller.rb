@@ -8,7 +8,21 @@ class TermsController < ApplicationController
     @object = params[:object]
     @page = params[:page]
     @per_page = 100 # TODO: config this or make it dynamic...
-    @clade = params[:clade] ? Page.find(params[:clade]) : nil
+    @clade = if params[:clade]
+        if params[:clade] =~ /\A\d+\Z/
+          Page.find(params[:clade])
+        else
+          query = Page.search do
+            fulltext "#{params[:clade].downcase}"
+            order_by(:page_richness, :desc)
+            paginate page: 1, per_page: 1
+          end
+          params[:clade] = query.results.first.id
+          query.results.first
+        end
+      else
+        nil
+      end
     options = {
       page: @page, per: @per_page, sort: params[:sort],
       sort_dir: params[:sort_dir],
@@ -18,13 +32,14 @@ class TermsController < ApplicationController
       TraitBank.by_object_term_uri(@term[:uri], options) :
       TraitBank.by_predicate(@term[:uri], options)
     # TODO: a fast way to load pages with just summary info:
-    pages = Page.where(id: traits.map { |t| t[:page_id] }).
+    pages = Page.where(id: traits.map { |t| t[:page_id] }.uniq).
       includes(:medium, :native_node, :preferred_vernaculars)
     # Make a dictionary of pages:
     @pages = {}
     pages.each { |page| @pages[page.id] = page }
     # Make a glossary:
     @resources = TraitBank.resources(traits)
+    @species_list = params[:species_list]
     paginate_traits(traits)
   end
 
