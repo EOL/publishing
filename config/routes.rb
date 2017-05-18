@@ -48,6 +48,9 @@ Rails.application.routes.draw do
   get "/search" => "search#search", :as => "search"
   get "/names/:name" => "search#names", :as => "names"
 
+  # Routes for discourse_api
+  post "/topic" => "comments#topic"
+  post "/post" => "comments#new_post" 
   root "pages#index"
 
   # This line mounts Refinery's routes at the root of your application.
