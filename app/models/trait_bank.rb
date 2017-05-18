@@ -87,6 +87,7 @@ class TraitBank
     def query(q)
       start = Time.now
       results = nil
+      q.sub(/\A\s+/, "")
       begin
         results = connection.execute_query(q)
         stop = Time.now
@@ -99,8 +100,8 @@ class TraitBank
         sleep(1)
         connection.execute_query(q)
       ensure
-        Rails.logger.warn("  TB TraitBank (#{stop ? stop - start : "F"}): #{q}".
-          gsub(/ ([A-Z ]+)/, "\n  \\1"))
+        q.gsub!(/ ([A-Z ]+)/, "\n  \\1") if q.size > 80 && q != /\n/
+        Rails.logger.warn("  TB TraitBank (#{stop ? stop - start : "F"}): #{q}")
       end
       results
     end
@@ -200,7 +201,7 @@ class TraitBank
           end
         end
       related.each do |page, parent|
-        puts("#{page}-[:in_clade*]->#{parent}]")
+        puts("#{page}-[:in_clade*]->#{parent}")
       end
       puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
     end
@@ -264,22 +265,22 @@ class TraitBank
 
     def terms(page = 1, per = 50)
       q = "MATCH (term:Term) RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
-      q = add_limit_and_skip(q, page, per)
+      q += limit_and_skip_clause(q, page, per)
       res = query(q)
       res["data"] ? res["data"].map { |t| t.first["data"] } : false
     end
 
-    def add_limit_and_skip(q, page = 1, per = 50)
+    def limit_and_skip_clause(q, page = 1, per = 50)
       # I don't know why the default values don't work, but:
       page ||= 1
       per ||= 50
       skip = (page.to_i - 1) * per.to_i
-      q += " SKIP #{skip}" if skip > 0
-      q += " LIMIT #{per}"
-      q
+      add = " LIMIT #{per}"
+      add = " SKIP #{skip}#{add}" if skip > 0
+      add
     end
 
-    def add_sort(q, options)
+    def order_clause(q, options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
       sorts = if options[:sort].downcase == "measurement"
@@ -296,8 +297,7 @@ class TraitBank
       end
       sorts << "page.name"
       dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
-      q += %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
-      q
+      %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
     end
 
     def terms_count
@@ -317,7 +317,7 @@ class TraitBank
         # "RETURN term ORDER BY term.name, term.uri"
         q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
           "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-        q = add_limit_and_skip(q, page, per)
+        q += limit_and_skip_clause(q, page, per)
         res = query(q)
         res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
       end
@@ -332,7 +332,7 @@ class TraitBank
           q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
         else
           q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-          q = add_limit_and_skip(q, page, per)
+          q += limit_and_skip_clause(q, page, per)
         end
         res = query(q)
         if res["data"]
@@ -394,7 +394,7 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "RETURN resource, trait, predicate, object_term, units, "\
           "meta, meta_predicate, meta_units_term, meta_object_term"
-      q = add_limit_and_skip(q, page, per)
+      q += limit_and_skip_clause(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_units_term, :meta_object_term])
@@ -424,7 +424,7 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
-      q = add_limit_and_skip(q, page, per)
+      q += limit_and_skip_clause(q, page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
@@ -459,8 +459,8 @@ class TraitBank
         q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
         q += "RETURN page, trait, predicate, type(info), info_term, resource"
-        q = add_sort(q, options)
-        q = add_limit_and_skip(q, options[:page], options[:per])
+        q += order_clause(q, options)
+        q += limit_and_skip_clause(q, options[:page], options[:per])
       end
       res = query(q)
       if options[:count]
@@ -494,7 +494,7 @@ class TraitBank
     def search_predicate_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
-      q = add_limit_and_skip(q, page, per)
+      q += limit_and_skip_clause(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
@@ -513,7 +513,7 @@ class TraitBank
     def search_object_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:object_term]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
-      q = add_limit_and_skip(q, page, per)
+      q += limit_and_skip_clause(q, page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
