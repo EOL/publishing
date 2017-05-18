@@ -13,7 +13,7 @@ class TermsController < ApplicationController
           Page.find(params[:clade])
         else
           query = Page.search do
-            fulltext "#{params[:clade].downcase}"
+            fulltext "\"#{params[:clade].downcase}\""
             order_by(:page_richness, :desc)
             paginate page: 1, per_page: 1
           end

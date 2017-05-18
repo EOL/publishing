@@ -85,9 +85,11 @@ class TraitBank
 
     # TODO: we want to be wiser, here.
     def query(q)
-      Rails.logger.warn("  TB TraitBank: #{q}")
+      start = Time.now
+      results = nil
       begin
-        connection.execute_query(q)
+        results = connection.execute_query(q)
+        stop = Time.now
       rescue Excon::Error::Socket => e
         Rails.logger.error("Connection refused on query: #{q}")
         sleep(0.1)
@@ -96,7 +98,11 @@ class TraitBank
         Rails.logger.error("Timed out on query: #{q}")
         sleep(1)
         connection.execute_query(q)
+      ensure
+        Rails.logger.warn("  TB TraitBank (#{stop ? stop - start : "F"}): #{q}".
+          gsub(/ ([A-Z ]+)/, "\n  \\1"))
       end
+      results
     end
 
     def quote(string)
@@ -114,7 +120,15 @@ class TraitBank
       indexes = %w{ Page(page_id) Trait(resource_pk) Term(uri)
         Resource(resource_id) }
       indexes.each do |index|
-        query("CREATE INDEX ON :#{index};")
+        begin
+          query("CREATE INDEX ON :#{index};")
+        rescue Neography::NeographyError => e
+          if e.to_s =~ /already created/
+            puts "Already have an index on #{index}, skipping."
+          else
+            raise e
+          end
+        end
       end
     end
 
@@ -150,6 +164,7 @@ class TraitBank
     # about a minute per 3000 nodes on jrice's machine.
     def rebuild_hierarchies!
       query("MATCH (:Page)-[parent:parent]->(:Page) DELETE parent")
+      query("MATCH (:Page)-[in_clade:in_clade]->(:Page) DELETE in_clade")
       missing = {}
       related = {}
       # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
@@ -162,9 +177,12 @@ class TraitBank
           page_id = node.page_id
           parent_id = node.parent.page_id
           next if missing.has_key?(page_id) || missing.has_key?(parent_id)
-          next if related.has_key?(page_id)
           page = page_exists?(page_id)
           page = page.first if page
+          if page
+            relate("in_clade", page, page)
+          end
+          next if related.has_key?(page_id)
           parent = page_exists?(parent_id)
           parent = parent.first if parent
           if page && parent
@@ -172,6 +190,7 @@ class TraitBank
               puts "** OOPS! Attempted to add #{page_id} as a parent of itself!"
             else
               relate("parent", page, parent)
+              relate("in_clade", page, parent)
               related[page_id] = parent_id
               # puts("#{page_id}-[:parent]->#{parent_id}")
             end
@@ -181,7 +200,7 @@ class TraitBank
           end
         end
       related.each do |page, parent|
-        puts("#{page}-[:parent*]->#{parent}]")
+        puts("#{page}-[:in_clade*]->#{parent}]")
       end
       puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
     end
@@ -411,41 +430,34 @@ class TraitBank
         :units])
     end
 
-# Doesn't work; 24 rows:
-# MATCH (ancestor:Page)<-[:parent*]-(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
-# MATCH (trait)-[:predicate]->(predicate:Term { uri: "http://polytraits.lifewatchgreece.eu/terms/MAT" })
-# MATCH (trait)-[info]->(info_term:Term)
-# WHERE ANY (x IN ["object_term", "units_term"] WHERE x = type(info))
-#   AND page.page_id = 19076 OR ancestor.page_id = 19076
-# RETURN page, trait, predicate, type(info), info_term, resource
-# ORDER BY LOWER(trait.literal), LOWER(info_term.name), trait.normal_measurement, page.name
-# LIMIT 100
-#
-# Works, 12 rows:
-# MATCH (ancestor:Page)<-[:parent*]-(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
-# MATCH (trait)-[:predicate]->(predicate:Term { uri: "http://polytraits.lifewatchgreece.eu/terms/MAT" })
-# MATCH (trait)-[info]->(info_term:Term)
-# WHERE page.page_id = 19076 OR ancestor.page_id = 19076
-#   AND ANY (x IN ["object_term", "units_term"] WHERE x = type(info))
-# RETURN page, collect(ancestor.page_id), trait, predicate, type(info), info_term, resource
-# ORDER BY LOWER(trait.literal), LOWER(info_term.name), trait.normal_measurement
-
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
     # TraitBank.by_predicate(uri)
-    def by_predicate(predicate, options = {})
+    def by_predicate(uri, options = {})
       q = match_page_and_clade(options)
       q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term { uri: \"#{predicate}\" }) "
-      unless options[:count]
-        q += "MATCH (trait)-[info]->(info_term:Term) "
+        "MATCH (trait)-[:predicate]->"
+      if options[:object_term]
+        q += "(predicate:Term) "
+      else
+        q += "(predicate:Term { uri: \"#{uri}\" }) "
+      end
+      if options[:count]
+        if options[:object_term]
+          q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
+        end
+      else
+        if options[:object_term]
+          q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
+        else
+          q += "MATCH (trait)-[info]->(info_term:Term) "
+        end
       end
       if options[:clade]
         q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
       if options[:count]
-        q+= "WITH count(DISTINCT(trait)) AS count RETURN count"
+        q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
-        q += %Q{AND ANY (x IN ["object_term", "units_term"] WHERE x = type(info)) }
         q += "RETURN page, trait, predicate, type(info), info_term, resource"
         q = add_sort(q, options)
         q = add_limit_and_skip(q, options[:page], options[:per])
@@ -454,45 +466,27 @@ class TraitBank
       if options[:count]
         res["data"] ? res["data"].first.first : 0
       else
-        build_trait_array(res, [:page, :trait, :predicate,
-          :info_type, :info_term, :resource])
+        build_trait_array(res, [:page, :trait, :predicate, :info_type,
+          :info_term, :resource])
       end
     end
 
-    def by_predicate_count(predicate, options = {})
-      by_predicate(predicate, options.merge(count: true))
+    def by_predicate_count(uri, options = {})
+      by_predicate(uri, options.merge(count: true))
+    end
+
+    def by_object_term_uri(uri, options = {})
+      by_predicate(uri, options.merge(object_term: true))
+    end
+
+    def by_object_term_count(uri, options = {})\
+      by_predicate(uri, options.merge(object_term: true, count: true))
     end
 
     def match_page_and_clade(options = {})
       options[:clade] ?
-        "MATCH (ancestor:Page)<-[:parent*]-(page:Page)" :
+        "MATCH (ancestor:Page { page_id: #{options[:clade]} })<-[:in_clade*]-(page:Page)" :
         "MATCH (page:Page)"
-    end
-
-    def by_object_term_uri(object_term, options = {})
-      q = match_page_and_clade(options)
-      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, page, predicate, object_term, units "
-      q = add_sort(q, options)
-      q = add_limit_and_skip(q, options[:page], options[:per])
-      res = query(q)
-      build_trait_array(res, [:resource, :trait, :page, :predicate,
-        :object_term, :units])
-    end
-
-    def by_object_term_count(object_term, options = {})\
-      q = match_page_and_clade(options)
-      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "MATCH (trait)-[:object_term]->(object_term:Term { uri: \"#{object_term}\" }) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "WITH count(trait) AS count "\
-        "RETURN count"
-      res = query(q)
-      res["data"] ? res["data"].first.first : 0
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
@@ -565,14 +559,26 @@ class TraitBank
       previous_id = nil
       col = {}
       col_array.each_with_index { |c, i| col[c] = i }
+      has_info_term = col_array.include?(:info_term)
       results["data"].each do |trait_res|
+        object_term = nil
+        units = nil
+        if has_info_term
+          type = trait_res[col[:info_type]].to_sym
+          if type == :object_term
+            object_term = get_column_data_from(col[:info_term], trait_res)
+          elsif type == :units_term
+            units = get_column_data_from(col[:info_term], trait_res)
+          end
+        else
+          object_term = get_column_data(:object_term, trait_res, col)
+          units = get_column_data(:units, trait_res, col)
+        end
         resource = get_column_data(:resource, trait_res, col)
         resource_id = resource ? resource["resource_id"] : "MISSING"
         trait = get_column_data(:trait, trait_res, col)
         page = get_column_data(:page, trait_res, col)
         predicate = get_column_data(:predicate, trait_res, col)
-        object_term = get_column_data(:object_term, trait_res, col)
-        units = get_column_data(:units, trait_res, col)
         if col_array.include?(:meta)
           meta_data = get_column_data(:meta, trait_res, col)
           unless meta_data.blank?
@@ -612,8 +618,12 @@ class TraitBank
 
     def get_column_data(name, results, col)
       return nil unless col.has_key?(name)
-      return nil unless results[col[name]].is_a?(Hash)
-      results[col[name]]["data"]
+      get_column_data_from(col[name], results)
+    end
+
+    def get_column_data_from(col, results)
+      return nil unless results[col].is_a?(Hash)
+      results[col]["data"]
     end
 
     def resources(traits)

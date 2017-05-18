@@ -54,7 +54,7 @@ module TraitsHelper
       haml_concat(first_cap(value).html_safe)
     elsif trait[:object_term] && trait[:object_term][:name]
       value = trait[:object_term][:name]
-      haml_concat(first_cap(value))
+      haml_concat(link_to(first_cap(value), term_path(uri: trait[:object_term][:uri], object: true)))
     elsif trait[:literal]
       haml_concat first_cap(unlink(trait[:literal])).html_safe
     else

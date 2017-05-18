@@ -101,6 +101,7 @@ class SearchController < ApplicationController
   def names
     respond_to do |fmt|
       fmt.json do
+        # TODO: add weight to exact matches. Not sure how, yet. :S
         q = Page.search do
           fulltext "#{params[:name].downcase}*" do
             Page.stored_fields.each do |field|
