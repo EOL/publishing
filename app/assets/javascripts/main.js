@@ -129,12 +129,7 @@ if(!EOL) {
 
   EOL.teardown = function() {
     console.log("TEARDOWN");
-    // $(".uk-search-icon").$destroy(true);
-    // Idea stolen from https://github.com/uikit/uikit/issues/2541
-    $(".uk-search-icon > svg").remove();
-    // YOU WERE HERE ... these don't seem to quite work!  :S
-    $(".twitter-typeahead").typeahead("destroy");
-    $(".clade_filter .typeahead").typeahead("destroy");
+    $(".typeahead").typeahead("destroy");
   };
 
   EOL.ready = function() {
@@ -220,6 +215,11 @@ if(!EOL) {
         $(".clade_filter form input#clade").val(datum.id);
         $(".clade_filter form").submit();
       });
+    };
+
+    // Clean up duplicate search icons, argh:
+    if ($(".uk-search-icon > svg:nth-of-type(2)").length >= 1) {
+      $(".uk-search-icon > svg:nth-of-type(2)");
     };
   };
 }
