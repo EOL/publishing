@@ -1,4 +1,4 @@
-%ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-6@l uk-child-width-1-4@m uk-child-width-1-2@s" }
+%ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-6@l uk-child-width-1-3@m uk-child-width-1-1@s" }
   - media_ids = media.map { |image| "image_modal_#{image.id}" }
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
@@ -35,7 +35,7 @@
               -# TODO: the actual state...
               .ui.mini.green.label= "trusted"
         - if defined?(@page)
-          .uk-text-truncate.eol-padding-iconnav
+          .uk-text-truncate.eol-padding-iconnav{ class: "uk-visible@l" }
             %ul.uk-iconnav.uk-float-right
               -# If you want the list to be sortable...
               -# %li
