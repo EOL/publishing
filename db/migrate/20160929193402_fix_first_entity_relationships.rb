@@ -20,7 +20,7 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     remove_column(:media, :provider_type)
     remove_column(:media, :provider_id)
     # NOT reversible, but it's just a comment, shouldn't need to:
-    change_column(:media, :subclass, :string, null: false, default: 0, index: true,
+    change_column(:media, :subclass, :integer, null: false, default: 0, index: true,
       comment: "enum: image, video, sound, map, js_map")
 
     add_column(:articles, :resource_id, :integer)

@@ -1,7 +1,17 @@
-- filters = true if ! defined?(filters)
+- filters = defined?(filterable) ? filterable : true
 #gallery.ui.section
   - if filters
-    .ui.menu.uk-text-small
+    .uk-text-center
+      %ul.uk-subnav.uk-subnav-pill{ class: "uk-hidden@l" }
+        %li
+          = link_to(t(:filter_by_medium_any_item),
+            page_media_path(page_id: @page.id, subclass_id: nil, license: @license, resource_id: @resource_id),
+            remote: true, class: "item#{ @subclass_id.nil? ? " uk-active" : ""}")
+        - Medium.subclasses.each do |sc_name, sc_id|
+          %li= link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass_id: sc_id, resource_id: @resource_id),
+            remote: true, class: "item#{ sc_id == @subclass_id ? " uk-active" : ""}")
+
+    .ui.menu.uk-text-small{ class: "uk-visible@l" }
       .ui.dropdown.item
         - if @license
           %b= @license
@@ -42,7 +52,8 @@
           - Resource.all.order(:name).each do |resource|
             = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
               remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
-  = paginate @media, remote: true
+  %div{ class: "uk-visible@l" }
+    = paginate @media, remote: true
   -# If you want the list to be sortable:
   -# %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
   = render("media/grid", media: @media)
