@@ -9,20 +9,20 @@
   #page
     .uk-margin-top
       %ul#page_nav.uk-tab.uk-child-width-expand
-        - tab(name: "cover", icon: "browser", count: nil, path: page_cover_path(page_id: @page.id), active: current_page?(page_cover_path(page_id: @page.id)) || current_page?(page_path(@page)))
+        - tab(name: "cover", icon: "unhide", count: nil, path: page_cover_path(page_id: @page.id), active: current_page?(page_cover_path(page_id: @page.id)) || current_page?(page_path(@page)))
         - if @page.media_count > 0
           - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
         - unless @page.traits.empty?
-          - tab(name: "traits", icon: "tag", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
+          - tab(name: "traits", icon: "bar chart", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
         - if @page.map?
           -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
           - tab(name: "maps", icon: "world", count: @page.map_count, path: page_maps_path(page_id: @page.id))
         - if @page.articles.size > 0
           - tab(name: "details", icon: "info", count: @page.articles_count, path: page_details_path(page_id: @page.id))
-        - tab(name: "classifications", icon: "git-branch", count: @page.nodes_count, path: page_classifications_path(page_id: @page.id))
-        - tab(name: "names", icon: "quote-right", count: @page.names_count, path: page_names_path(page_id: @page.id))
+        - tab(name: "classifications", icon: "sitemap", count: @page.nodes_count, path: page_classifications_path(page_id: @page.id))
+        - tab(name: "names", icon: "tags", count: @page.names_count, path: page_names_path(page_id: @page.id))
         - if @page.literature_and_references_count > 1
-          - tab(name: "literature_and_references", icon: "bookmark", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
+          - tab(name: "literature_and_references", icon: "book", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
       #tab_content
         .ui.inverted.dimmer
           .ui.loader

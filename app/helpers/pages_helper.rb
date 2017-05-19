@@ -102,8 +102,10 @@ module PagesHelper
     text = t("pages.tabs.#{options[:name]}")
     active = options[:active] || current_page?(options[:path])
     haml_tag("li", id: "page_nav_#{options[:name]}", class: active ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
-      haml_concat link_to("<span uk-icon='icon: #{options[:icon]}'></span>&emsp;<span class='uk-badge'>#{options[:count] || "&nbsp;".html_safe}</span>".html_safe, options[:path], remote: true, class: "uk-hidden@m")
-      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@m")
+      mobile_link = "<i class='huge icon #{options[:icon]}'></i>&emsp;"
+      # mobile_link += "<span class='uk-badge'>#{options[:count]}</span>" if options[:count]
+      haml_concat link_to(mobile_link.html_safe, options[:path], remote: true, class: "uk-hidden@l")
+      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@l")
     end
   end
 
