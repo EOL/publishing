@@ -127,7 +127,18 @@ if(!EOL) {
     });
   };
 
+  EOL.teardown = function() {
+    console.log("TEARDOWN");
+    // $(".uk-search-icon").$destroy(true);
+    // Idea stolen from https://github.com/uikit/uikit/issues/2541
+    $(".uk-search-icon > svg").remove();
+    // YOU WERE HERE ... these don't seem to quite work!  :S
+    $(".twitter-typeahead").typeahead("destroy");
+    $(".clade_filter .typeahead").typeahead("destroy");
+  };
+
   EOL.ready = function() {
+    console.log("READY");
     if ($(".eol-flash").length === 1) {
       var flash = $(".eol-flash");
       UIkit.notification({
@@ -213,5 +224,5 @@ if(!EOL) {
   };
 }
 
-// $(document).ready(EOL.ready);
 $(document).on("turbolinks:load", EOL.ready);
+$(document).on("turbolinks:before-cache", EOL.teardown);
