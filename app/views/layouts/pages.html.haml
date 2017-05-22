@@ -6,10 +6,24 @@
       = javascript_include_tag "maps_vendored"
       = javascript_include_tag "http://media.eol.org/content/maps/#{prefix}/#{@page.id}.json"
       = javascript_include_tag "maps"
+  - is_cover_page = current_page?(page_cover_path(page_id: @page.id)) || current_page?(page_path(@page))
+  #name-header.toggle.uk-section{ hidden: is_cover_page, uk: { grid: true } }
+    -# NOTE: this is largely duplicated in _cover.html.haml ; not worth extracting.
+    #names.page-names.uk-width-2-3
+      - if @page.name == @page.scientific_name
+        %h1.uk-margin-small-bottom= @page.name.html_safe
+      - else
+        %h1.uk-margin-small-bottom= @page.name.titlecase.html_safe
+        %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
+    .uk-width-1-3
+      -# TODO: remote...
+      - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id))
+      - if is_admin?
+        - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true, data: { disable_with: "" }, class: "ui disable-on-click")
   #page
     .uk-margin-top
       %ul#page_nav.uk-tab.uk-child-width-expand
-        - tab(name: "cover", icon: "unhide", count: nil, path: page_cover_path(page_id: @page.id), active: current_page?(page_cover_path(page_id: @page.id)) || current_page?(page_path(@page)))
+        - tab(name: "cover", icon: "unhide", count: nil, path: page_cover_path(page_id: @page.id), active: is_cover_page)
         - if @page.media_count > 0
           - tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
         - unless @page.traits.empty?

@@ -16,6 +16,7 @@
           - shown_ellipsis = false
         %i.uk.icon.long.arrow.right
     .uk-section{ uk: { grid: true } }
+      -# NOTE: this is largely duplicated in _cover.html.haml ; not worth extracting.
       #names.page-names.uk-width-2-3
         - if @page.name == @page.scientific_name
           %h1.uk-margin-small-bottom= @page.name.html_safe

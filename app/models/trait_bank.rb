@@ -283,7 +283,9 @@ class TraitBank
     def order_clause(q, options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
-      sorts = if options[:sort].downcase == "measurement"
+      sorts = if options[:object_term]
+        [] # You already have a SINGLE term. Don't sort it.
+      elsif options[:sort].downcase == "measurement"
         ["trait.normal_measurement"]
       else
         # TODO: this is not good. multiple types of values will not
