@@ -192,8 +192,6 @@ private
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
-    Rails.logger.warn("** Found #{@media_page_size} media objects, showing #{@media.size}.")
-    debugger if @media.size == 0
     @media = @media.page(params[:page]).per_page(@media_page_size)
   end
 end

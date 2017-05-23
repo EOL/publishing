@@ -37,16 +37,16 @@ RSpec.describe TraitBank do
 
   describe "query" do
     it "passes the query along to the connection" do
-      expect(conn).to receive(:execute_query).with(:this) { :results }
+      expect(conn).to receive(:execute_query).with("this") { :results }
       allow(TraitBank).to receive(:connection) { conn }
-      expect(TraitBank.query(:this)).to eq(:results)
+      expect(TraitBank.query("this")).to eq(:results)
     end
 
     it "detects timeouts and sleeps before retrying" do
       expect(conn).to receive(:execute_query).exactly(2).times.and_raise(Excon::Error::Timeout.new)
       expect(TraitBank).to receive(:sleep).with(1)
       allow(TraitBank).to receive(:connection) { conn }
-      expect { TraitBank.query(:this) }.to raise_error(Excon::Error::Timeout)
+      expect { TraitBank.query("this") }.to raise_error(Excon::Error::Timeout)
     end
   end
 
@@ -190,12 +190,12 @@ RSpec.describe TraitBank do
     end
 
     it "query with the optional object term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:object_term.*:Term/) { }
+      expect(TraitBank).to receive(:query).with(/MATCH.*:object_term.*:Term/) { }
       TraitBank.by_trait(full_id)
     end
 
     it "query with the optional units term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:units_term.*:Term/) { }
+      expect(TraitBank).to receive(:query).with(/MATCH.*:units_term.*:Term/) { }
       TraitBank.by_trait(full_id)
     end
 
@@ -232,12 +232,12 @@ RSpec.describe TraitBank do
     end
 
     it "optionally finds the object term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:object_term.*object_term:Term/)
+      expect(TraitBank).to receive(:query).with(/MATCH.*:object_term.*object_term:Term/)
       TraitBank.by_page(1)
     end
 
     it "optionally finds the units term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:units_term.*units:Term/)
+      expect(TraitBank).to receive(:query).with(/MATCH.*:units_term.*units:Term/)
       TraitBank.by_page(1)
     end
 
@@ -275,12 +275,12 @@ RSpec.describe TraitBank do
     end
 
     it "optionally finds the object term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:object_term.*object_term:Term/)
+      expect(TraitBank).to receive(:query).with(/MATCH.*info_term:Term/)
       TraitBank.by_predicate(predicate)
     end
 
     it "optionally finds the units term" do
-      expect(TraitBank).to receive(:query).with(/OPTIONAL MATCH.*:units_term.*units:Term/)
+      expect(TraitBank).to receive(:query).with(/MATCH.*info_term:Term/)
       TraitBank.by_predicate(predicate)
     end
 
@@ -295,7 +295,7 @@ RSpec.describe TraitBank do
     end
 
     it "adds default sort to the query by default" do
-      expect(TraitBank).to receive(:query).with(/LOWER\(trait\.literal.*LOWER\(object_term\.name.*trait\.normal_measurement/)
+      expect(TraitBank).to receive(:query).with(/LOWER\(trait\.literal.*LOWER\(info_term\.name.*trait\.normal_measurement/)
       TraitBank.by_predicate(predicate)
     end
 
