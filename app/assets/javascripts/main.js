@@ -21,15 +21,11 @@ if(!EOL) {
       $("#tab_content").dimmer("hide");
       $("#page_nav").children().removeClass("uk-active");
       $(this).parent().addClass("uk-active");
-      console.log("here");
       if ($("#page_nav > li:first-of-type").hasClass("uk-active")) {
-        console.log("first");
         $("#name-header").attr("hidden", "hidden");
       } else {
-        console.log("other");
         $("#name-header").removeAttr("hidden");
       }
-      console.log("done");
       history.pushState(null, "", this.href);
     }).unbind("ajax:error")
     .bind("ajax:error", function(evt, data, status, xhr) {
