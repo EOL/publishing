@@ -369,6 +369,9 @@ en:
   medium_header_description: "Description:"
   medium_untitled: "Untitled"
   min_length: "(%{length} characters minimum)"
+  names:
+    prefer: "prefer"
+    preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
     search:
       placeholder: "Search EOL..."
