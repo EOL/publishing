@@ -1,0 +1,29 @@
+%div#api_test_form
+  %form
+    %table
+      %col.name
+      %col.required
+      %col.value
+      %thead
+      %tr
+        %th= 'Name'
+        %th= 'Required'
+        %th= 'Value'
+      - if @api_method.parameters 
+        - @api_method.parameters.each do |p|
+          %tr
+            %td= p.name
+            %td= p.required ? 'Yes' : ''
+            %td
+              -# when there is an array of possible values, use a drop-down list
+              - if p.array?
+                %select{ name: p.name }
+                  - p.values.each do |value|
+                    %option{ value: value}= value
+              - elsif p.boolean?    
+                %select{ name: p.name }
+                  %option{ value: 'false' }= 'False'
+                  %option{ value: 'true'}= 'True'
+              - else
+                - size = (p.integer?) ? 15 : 50
+                %input.standard{ name: p.name, type: 'text', size: size, value: p.test_value }

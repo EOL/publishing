@@ -25,5 +25,6 @@ module EolWebsite
     config.active_record.raise_in_transactional_callbacks = true
 
     config.data_glossary_page_size = 250
+    config.eager_load_paths << "#{Rails.root}/lib"
   end
 end

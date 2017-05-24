@@ -50,6 +50,10 @@ Rails.application.routes.draw do
   get "/search" => "search#search", :as => "search"
   get "/names/:name" => "search#names", :as => "names"
 
+
+   # API Routes
+  get "/api/pages" => "api#pages"
+  get "/api/collections" => "api#collections"
   root "pages#index"
 
   # This line mounts Refinery's routes at the root of your application.
