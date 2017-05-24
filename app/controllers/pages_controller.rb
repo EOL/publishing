@@ -193,5 +193,6 @@ private
       @resource = Resource.find(@resource_id)
     end
     @media = @media.page(params[:page]).per_page(@media_page_size)
+    @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))
   end
 end
