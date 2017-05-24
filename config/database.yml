@@ -6,51 +6,36 @@ common: &common
   wait_timeout: 300
 
 # common settings for any development databases
-devel_common: &dev
-  host: localhost
-  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Set your environment
-  # variables.
-  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
-  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
-
-# common settings for all test databases
-tst_common: &tst
-  host: localhost
-  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Set your environment
-  # variables.
-  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
-  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
-
-#######################
 development:
   <<: *common
-  <<: *dev
+  host: localhost
+  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Set your environment
+  # variables.
+  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
+  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
   database: eol_development
 
-############################
 test: &test
   <<: *common
-  <<: *tst
   database: eol_test
-
-# read-write split testing:
-test_master:
-  <<: *common
-  <<: *tst
-  database: eol_test_master
+  host: localhost
+  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Set your environment
+  # variables.
+  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
+  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
 
 staging:
   <<: *common
-  host: <%= ENV['EOL_DATABASE_HOST'] %>
-  port: <%= ENV['EOL_DATABASE_PORT'] %>
-  database: <%= ENV['EOL_DATABASE_NAME'] %>
-  username: <%= ENV['EOL_DATABASE_USER'] %>
-  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
+  host: <%= ENV['EOL_DB_HOST'] %>
+  port: <%= ENV['EOL_DB_PORT'] %>
+  database: <%= ENV['EOL_DB_STAGING_NAME'] %>
+  username: <%= ENV['EOL_DB_STAGING_USERNAME'] %>
+  password: <%= ENV['EOL_DB_STAGING_PASSWORD'] %>
 
 production:
   <<: *common
-  host: <%= ENV['EOL_DATABASE_HOST'] %>
-  port: <%= ENV['EOL_DATABASE_PORT'] %>
-  database: <%= ENV['EOL_DATABASE_NAME'] %>
-  username: <%= ENV['EOL_DATABASE_USER'] %>
-  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
+  host: <%= ENV['EOL_DB_HOST'] %>
+  port: <%= ENV['EOL_DB_PORT'] %>
+  database: <%= ENV['EOL_DB_PROD_NAME'] %>
+  username: <%= ENV['EOL_DB_PROD_USERNAME'] %>
+  password: <%= ENV['EOL_DB_PROD_PASSWORD'] %>
