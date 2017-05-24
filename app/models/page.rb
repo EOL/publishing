@@ -265,8 +265,7 @@ class Page < ActiveRecord::Base
     end.uniq
     @data_toc = Section.where(id: @data_toc) unless @data_toc.empty?
     @traits_loaded = true
-    # TODO: do we need the sort here?
-    @traits = TraitBank.sort(traits)
+    @traits = traits
   end
 
   def iucn_status_key
@@ -278,7 +277,7 @@ class Page < ActiveRecord::Base
         recs = grouped_traits[Eol::Uris::Iucn.status]
         record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
         record ||= recs.first
-        TraitBank.iucn_status_key(record)
+        TraitBank::Record.iucn_status_key(record)
       else
         "unknown"
       end
@@ -386,7 +385,7 @@ class Page < ActiveRecord::Base
 
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
-      TraitBank.page_glossary(id)
+      TraitBank::Terms.page_glossary(id)
     end
   end
 

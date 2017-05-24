@@ -48,7 +48,7 @@ class TermsController < ApplicationController
     @page = params[:page] || 1
     @count = TraitBank.terms_count
     if params[:reindex] && is_admin?
-      TraitBank.clear_caches
+      TraitBank::Admin.clear_caches
       @count = TraitBank.terms_count # May as well re-load this value!
       lim = (@count / @per_page.to_f).ceil
       (0..lim).each do |index|
@@ -56,22 +56,22 @@ class TermsController < ApplicationController
       end
     end
     @glossary = Kaminari.paginate_array(
-        TraitBank.full_glossary(@page, @per_page), total_count: @count
+        TraitBank::Terms.full_glossary(@page, @per_page), total_count: @count
       ).page(@page).per(@per_page)
   end
 
   def predicate_glossary
-    @count = TraitBank.predicate_glossary_count
+    @count = TraitBank::Terms.predicate_glossary_count
     glossary
   end
 
   def object_term_glossary
-    @count = TraitBank.object_term_glossary_count
+    @count = TraitBank::Terms.object_term_glossary_count
     glossary
   end
 
   def units_glossary
-    @count = TraitBank.units_glossary_count
+    @count = TraitBank::Terms.units_glossary_count
     glossary
   end
 
@@ -89,7 +89,7 @@ private
     @per_page = Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
     if params[:reindex] && is_admin?
-      TraitBank.clear_caches
+      TraitBank::Admin.clear_caches
       lim = (@count / @per_page.to_f).ceil
       (0..lim+10).each do |index|
         expire_fragment("term/glossary/#{index}")
