@@ -113,16 +113,22 @@ if(!EOL) {
       if(secId == "all") {
         $("table#traits thead tr").show();
         $("table#traits tbody tr").show();
-        $("#trait_glossary").show();
+        $("#trait_type_glossary").show();
+        $("#trait_value_glossary").show();
       } else if (secId == "other") {
         $("table#traits thead tr").show();
         $("table#traits tbody tr").hide();
         $("table#traits tbody tr.section_other").show();
-        $("#trait_glossary").hide();
-      } else if (secId == "glossary") {
-        $("table#traits thead tr").hide();
+        $("#trait_type_glossary").hide();
+        $("#trait_value_glossary").hide();
+      } else if (secId == "type_glossary") {
         $("table#traits tbody tr").hide();
-        $("#trait_glossary").show();
+        $("#trait_type_glossary").show();
+        $("#trait_value_glossary").hide();
+      } else if (secId == "value_glossary") {
+        $("table#traits thead tr").hide();
+        $("#trait_type_glossary").hide();
+        $("#trait_value_glossary").show();
       } else {
         $("table#traits thead tr").show();
         $("table#traits tbody tr").hide();
