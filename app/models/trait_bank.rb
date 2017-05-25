@@ -187,8 +187,9 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
+      q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
+        "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
-      q += order_clause(by: ["LOWER(predicate.name)", "LOWER(info_term.name)", "LOWER(trait.literal)", "trait.normal_measurement"])
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
