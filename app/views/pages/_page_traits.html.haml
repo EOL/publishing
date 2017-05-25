@@ -31,7 +31,7 @@
             - Rails.logger.error("** ERROR: missing predicate #{uri}")
             - next
           - previous_predicate = nil
-          - TraitBank.sort(@page.grouped_traits[uri]).each do |trait|
+          - @page.grouped_traits[uri].each do |trait|
             -# TODO: I'm not happy with storing the ids of sections as a string in TraitBank. Should have helper. :S
             - sections = predicate[:section_ids].split(",").map { |i| "section_#{i}" }
             - sections = ["section_other"] if sections.empty?

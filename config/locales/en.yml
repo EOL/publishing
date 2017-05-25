@@ -369,6 +369,9 @@ en:
   medium_header_description: "Description:"
   medium_untitled: "Untitled"
   min_length: "(%{length} characters minimum)"
+  names:
+    prefer: "prefer"
+    preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
     search:
       placeholder: "Search EOL..."
@@ -610,6 +613,10 @@ en:
     alphabetical_rev: "record type, Z-A"
     value: "value, 1-100"
     value_rev: "value, 100-1"
+  trust:
+    unreviewed: "unreviewed"
+    trusted: "trusted"
+    untrusted: "not trusted"
   uri_definition_blank: "No one has defined this trait yet."
   username: "Username"
   user_bio_title: "Brief Biography"

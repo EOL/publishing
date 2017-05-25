@@ -25,7 +25,7 @@ class PagesController < ApplicationController
         Rails.cache.delete("pages/index/stats")
         # This is overkill (we only want to clear the trait count, not e.g. the
         # glossary), but we want to be overzealous, not under:
-        TraitBank.clear_caches
+        TraitBank::Admin.clear_caches
         Rails.logger.warn("LANDING PAGE STATS CLEARED.")
         flash[:notice] = t("landing_page.stats_cleared")
         redirect_to("/")
@@ -193,5 +193,6 @@ private
       @resource = Resource.find(@resource_id)
     end
     @media = @media.page(params[:page]).per_page(@media_page_size)
+    @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))
   end
 end

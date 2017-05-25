@@ -217,6 +217,7 @@ class Import::Clade
             puts "** Predicate: #{trait[:predicate]["data"]["uri"]}"
           end
         rescue => e
+          require "byebug"
           puts "NEOGRAPHY ERROR?"
           debugger
           1

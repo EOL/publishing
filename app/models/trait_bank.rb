@@ -33,34 +33,6 @@ class TraitBank
   # an image (which should be handled with an icon) ... and possibly a
   # collection to build a slideshow [using its images].)
   class << self
-    # TODO: This doesn't seem to belong here. ...Move?
-    def iucn_status_key(record)
-      unknown = "unknown"
-      return unknown unless record && record[:object_term]
-      case record[:object_term][:uri]
-      when Eol::Uris::Iucn.ex
-        "ex"
-      when Eol::Uris::Iucn.ew
-        "ew"
-      when Eol::Uris::Iucn.cr
-        "cr"
-      when Eol::Uris::Iucn.en
-        "en"
-      when Eol::Uris::Iucn.vu
-        "vu"
-      when Eol::Uris::Iucn.nt
-        "nt"
-      when Eol::Uris::Iucn.lc
-        "lc"
-      when Eol::Uris::Iucn.dd
-        "dd"
-      when Eol::Uris::Iucn.ne
-        "ne"
-      else
-        unknown
-      end
-    end
-
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
     end
@@ -83,7 +55,6 @@ class TraitBank
       end
     end
 
-    # TODO: we want to be wiser, here.
     def query(q)
       start = Time.now
       results = nil
@@ -111,146 +82,12 @@ class TraitBank
       %Q{"#{string.gsub(/"/, "\\\"")}"}
     end
 
-    def setup
-      create_indexes
-      create_constraints
-    end
-
-    # You only have to run this once, and it's best to do it before loading TB:
-    def create_indexes
-      indexes = %w{ Page(page_id) Trait(resource_pk) Term(uri)
-        Resource(resource_id) }
-      indexes.each do |index|
-        begin
-          query("CREATE INDEX ON :#{index};")
-        rescue Neography::NeographyError => e
-          if e.to_s =~ /already created/
-            puts "Already have an index on #{index}, skipping."
-          else
-            raise e
-          end
-        end
-      end
-    end
-
-    # NOTE: You only have to run this once, and it's best to do it before
-    # loading TB:
-    def create_constraints
-      contraints = {
-        "Page" => [:page_id],
-        "Term" => [:uri]
-      }
-      contraints.each do |label, fields|
-        fields.each do |field|
-          begin
-            query(
-              "CREATE CONSTRAINT ON (o:#{label}) ASSERT o.#{field} IS UNIQUE;"
-            )
-          rescue Neography::NeographyError => e
-            raise e unless e.message =~ /already exists/
-          end
-        end
-      end
-    end
-
-    # Your gun, your foot: USE CAUTION. This erases EVERYTHING irrevocably.
-    def nuclear_option!
-      query("MATCH (n) DETACH DELETE n")
-    end
-
-    # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
-    # between pages, and then rebuild them based on what's currently in the
-    # database. It skips relationships to pages that are missing (but reports on
-    # which those are), and it does not repeat any relationships. It takes a
-    # about a minute per 3000 nodes on jrice's machine.
-    def rebuild_hierarchies!
-      query("MATCH (:Page)-[parent:parent]->(:Page) DELETE parent")
-      query("MATCH (:Page)-[in_clade:in_clade]->(:Page) DELETE in_clade")
-      missing = {}
-      related = {}
-      # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
-      itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
-      raise " I tried to use ITIS as the native node for the relationships, but it wasn't there." unless itis
-      Node.where(["resource_id = ? AND parent_id IS NOT NULL AND page_id IS NOT NULL",
-        itis.id]).
-        includes(:parent).
-        find_each do |node|
-          page_id = node.page_id
-          parent_id = node.parent.page_id
-          next if missing.has_key?(page_id) || missing.has_key?(parent_id)
-          page = page_exists?(page_id)
-          page = page.first if page
-          if page
-            relate("in_clade", page, page)
-          end
-          next if related.has_key?(page_id)
-          parent = page_exists?(parent_id)
-          parent = parent.first if parent
-          if page && parent
-            if page_id == parent_id
-              puts "** OOPS! Attempted to add #{page_id} as a parent of itself!"
-            else
-              relate("parent", page, parent)
-              relate("in_clade", page, parent)
-              related[page_id] = parent_id
-              # puts("#{page_id}-[:parent]->#{parent_id}")
-            end
-          else
-            missing[page_id] = true unless page
-            missing[parent_id] = true unless parent
-          end
-        end
-      related.each do |page, parent|
-        puts("#{page}-[:in_clade*]->#{parent}")
-      end
-      puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
-    end
-
-    def rebuild_names
-      query("MATCH (page:Page) REMOVE page.name RETURN COUNT(*)")
-      # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
-      itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
-      Node.where(["resource_id = ?", itis.id]).find_each do |node|
-        name = node.canonical_form
-        page = page_exists?(node.page_id)
-        next unless page
-        page = page.first if page
-        connection.set_node_properties(page, { "name" => name })
-        puts "#{node.page_id} => #{name}"
-      end
-    end
-
     def count
       res = query(
         "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
-    end
-
-    # NOTE: if you add any new caches IN THIS CLASS, add them here.
-    def clear_caches
-      Rails.logger.warn("TRAITBANK CACHES CLEARED.")
-      [
-        "trait_bank/predicate_count",
-        "trait_bank/terms_count",
-        "trait_bank/predicate_glossary/count",
-        "trait_bank/object_term_glossary/count",
-        "trait_bank/units_term_glossary/count",
-      ].each do |key|
-        Rails.cache.delete(key)
-      end
-      count = terms_count
-      # NOTE: unfortunately, we don't KNOW here how many there are per page.
-      # Yech! Perhaps a Rails config?
-      lim = (count / Rails.configuration.data_glossary_page_size.to_f).ceil
-      (0..lim).each do |index|
-        Rails.cache.delete("trait_bank/full_glossary/#{index}")
-        Rails.cache.delete("trait_bank/predicate_glossary/#{index}")
-        Rails.cache.delete("trait_bank/object_term_glossary/#{index}")
-        Rails.cache.delete("trait_bank/units_term_glossary/#{index}")
-      end
-      true
     end
 
     def predicate_count
@@ -265,12 +102,12 @@ class TraitBank
 
     def terms(page = 1, per = 50)
       q = "MATCH (term:Term) RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
-      q += limit_and_skip_clause(q, page, per)
+      q += limit_and_skip_clause(page, per)
       res = query(q)
       res["data"] ? res["data"].map { |t| t.first["data"] } : false
     end
 
-    def limit_and_skip_clause(q, page = 1, per = 50)
+    def limit_and_skip_clause(page = 1, per = 50)
       # I don't know why the default values don't work, but:
       page ||= 1
       per ||= 50
@@ -280,10 +117,12 @@ class TraitBank
       add
     end
 
-    def order_clause(q, options)
+    def order_clause(options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
-      sorts = if options[:object_term]
+      sorts = if options[:by]
+        options[:by]
+      elsif options[:object_term]
         [] # You already have a SINGLE term. Don't sort it.
       elsif options[:sort].downcase == "measurement"
         ["trait.normal_measurement"]
@@ -295,9 +134,9 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        ["LOWER(trait.literal)", "LOWER(info_term.name)", "trait.normal_measurement"]
+        ["LOWER(info_term.name)", "LOWER(trait.literal)", "trait.normal_measurement"]
       end
-      sorts << "page.name"
+      sorts << "page.name" unless options[:by]
       dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
       %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
     end
@@ -310,67 +149,6 @@ class TraitBank
           "RETURN count")
         res["data"] ? res["data"].first.first : false
       end
-    end
-
-    def full_glossary(page = 1, per = nil)
-      page ||= 1
-      per ||= Rails.configuration.data_glossary_page_size
-      Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
-        # "RETURN term ORDER BY term.name, term.uri"
-        q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
-          "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-        q += limit_and_skip_clause(q, page, per)
-        res = query(q)
-        res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
-      end
-    end
-
-    def sub_glossary(type, page = 1, per = nil, count = nil)
-      page ||= 1
-      per ||= Rails.configuration.data_glossary_page_size
-      Rails.cache.fetch("trait_bank/#{type}_glossary/#{count ? :count : page}", expires_in: 1.day) do
-        q = "MATCH (term:Term { is_hidden_from_glossary: false })<-[:#{type}]-(n) "
-        if count
-          q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
-        else
-          q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-          q += limit_and_skip_clause(q, page, per)
-        end
-        res = query(q)
-        if res["data"]
-          if count
-            res["data"].first.first
-          else
-            res["data"].map { |t| t.first["data"].symbolize_keys }
-          end
-        else
-          false
-        end
-      end
-    end
-
-    def predicate_glossary(page = nil, per = nil)
-      sub_glossary("predicate", page, per)
-    end
-
-    def object_term_glossary(page = nil, per = nil)
-      sub_glossary("object_term", page, per)
-    end
-
-    def units_glossary(page = nil, per = nil)
-      sub_glossary("units_term", page, per)
-    end
-
-    def predicate_glossary_count
-      sub_glossary("predicate", nil, nil, true)
-    end
-
-    def object_term_glossary_count
-      sub_glossary("object_term", nil, nil, true)
-    end
-
-    def units_glossary_count
-      sub_glossary("units_term", nil, nil, true)
     end
 
     def trait_exists?(resource_id, pk)
@@ -396,27 +174,10 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
         "RETURN resource, trait, predicate, object_term, units, "\
           "meta, meta_predicate, meta_units_term, meta_object_term"
-      q += limit_and_skip_clause(q, page, per)
+      q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units, :meta, :meta_predicate, :meta_units_term, :meta_object_term])
-    end
-
-    def page_glossary(page_id)
-      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN predicate, object_term, units"
-      res = query(q)
-      uris = {}
-      res["data"].each do |row|
-        row.each do |col|
-          uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if
-            col && col["data"] && col["data"]["uri"]
-        end
-      end
-      uris
     end
 
     def by_page(page_id, page = 1, per = 100)
@@ -426,7 +187,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
-      q += limit_and_skip_clause(q, page, per)
+      q += limit_and_skip_clause(page, per)
+      q += order_clause(by: ["LOWER(predicate.name)", "LOWER(info_term.name)", "LOWER(trait.literal)", "trait.normal_measurement"])
       res = query(q)
       build_trait_array(res, [:resource, :trait, :predicate, :object_term,
         :units])
@@ -461,8 +223,8 @@ class TraitBank
         q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
         q += "RETURN page, trait, predicate, type(info), info_term, resource"
-        q += order_clause(q, options)
-        q += limit_and_skip_clause(q, options[:page], options[:per])
+        q += order_clause(options)
+        q += limit_and_skip_clause(options[:page], options[:per])
       end
       res = query(q)
       if options[:count]
@@ -496,7 +258,7 @@ class TraitBank
     def search_predicate_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
-      q += limit_and_skip_clause(q, page, per)
+      q += limit_and_skip_clause(page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
@@ -515,7 +277,7 @@ class TraitBank
     def search_object_terms(q, page = 1, per = 50)
       q = "MATCH (trait)-[:object_term]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
-      q += limit_and_skip_clause(q, page, per)
+      q += limit_and_skip_clause(page, per)
       res = query(q)
       return [] if res["data"].empty?
       res["data"].map { |r| r[0]["data"] }
@@ -804,69 +566,6 @@ class TraitBank
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:
       hash["data"].symbolize_keys
-    end
-
-    def sort_by_values(a, b)
-      # TODO: associations
-      if a[:literal] && b[:literal]
-        a[:literal].downcase.gsub(/<\/?[^>]+>/, "") <=>
-          b[:literal].downcase.gsub(/<\/?[^>]+>/, "")
-      elsif a[:measurement] && b[:measurement]
-        if a[:measurement].is_a?(String) || b[:measurement].is_a?(String)
-          a[:measurement].to_s <=> b[:measurement].to_s
-        else
-          a[:measurement] <=> b[:measurement]
-        end
-      else
-        term_a = get_name(a, :object_term)
-        term_b = get_name(b, :object_term)
-        if term_a && term_b
-          term_a.downcase <=> term_b.downcase
-        elsif term_a
-          -1
-        elsif term_b
-          1
-        else
-          0
-        end
-      end
-    end
-
-    def sort_by_predicates(a, b)
-      name_a = get_name(a)
-      name_b = get_name(b)
-      if name_a && name_b
-        if name_a == name_b
-          sort_by_values(a, b)
-        else
-          name_a.downcase <=> name_b.downcase
-        end
-      elsif name_a
-        -1
-      elsif name_b
-        1
-      else
-        sort_by_values(a, b)
-      end
-    end
-
-    def sort(traits, options = {})
-      begin
-        traits.sort do |a, b|
-          if a.nil?
-            return b.nil? ? 0 : 1
-          elsif b.nil?
-            return -1
-          end
-          if options[:by_value]
-            sort_by_values(a, b)
-          else
-            sort_by_predicates(a, b)
-          end
-        end
-      rescue => e
-        debugger
-      end
     end
 
     def get_name(trait, which = :predicate)

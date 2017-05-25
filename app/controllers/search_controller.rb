@@ -112,6 +112,7 @@ class SearchController < ApplicationController
           paginate page: 1, per_page: 20
         end
         matches = {}
+        pages = {}
         results = []
         q.hits.each do |hit|
           Page.stored_fields.each do |field|
@@ -120,18 +121,21 @@ class SearchController < ApplicationController
               word = word.downcase if field == :name ||
                 field == :preferred_vernaculars ||
                 field == :vernaculars
-              results << { value: word, tokens: word.split, id: hit.primary_key } unless
-                matches.has_key?(word.downcase)
-              # NOTE: :name is a tricky little field. ...it COULD be a
-              # scientific_name, in which case we don't want to downcase it! So
-              # we store the DOWNCASED name as the key. ...Scientific names are
-              # checked first (because they appear first in Page.stored_fields),
-              # so they will take precendence over the name.
-              matches[word.downcase] = true
+              unless matches.has_key?(word.downcase) || pages.has_key?(hit.primary_key)
+                results << { value: word, tokens: word.split, id: hit.primary_key }
+                # NOTE: :name is a tricky little field. ...it COULD be a
+                # scientific_name, in which case we don't want to downcase it!
+                # So we store the DOWNCASED name as the key. ...Scientific names
+                # are checked first (because they appear first in
+                # Page.stored_fields), so they will take precendence over the
+                # name.
+                matches[word.downcase] = true
+                pages[hit.primary_key] = true
+              end
             end
           end
         end
-        results = results.sort_by { |r| r[:value] }
+        results = results # .sort_by { |r| r[:value] }
         render json: JSON.pretty_generate(results)
       end
     end

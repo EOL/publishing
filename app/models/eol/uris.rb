@@ -32,40 +32,27 @@ module Eol
           "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
         end
 
-        def ex
-          "http://eol.org/schema/terms/extinct"
+        @@codes = {
+          ex: "http://eol.org/schema/terms/extinct",
+          ew: "http://eol.org/schema/terms/exinctInTheWild",
+          cr: "http://eol.org/schema/terms/criticallyEndangered",
+          en: "http://eol.org/schema/terms/endangered",
+          vu: "http://eol.org/schema/terms/vulnerable",
+          nt: "http://eol.org/schema/terms/nearThreatened",
+          lc: "http://eol.org/schema/terms/leastConcern",
+          dd: "http://eol.org/schema/terms/dataDeficient",
+          ne: "http://eol.org/schema/terms/notEvaluated"
+        }
+
+        def uri_to_code(uri)
+          @@codes.each { |code, c_uri| return code if c_uri == uri }
+          nil
         end
 
-        def ew
-          "http://eol.org/schema/terms/exinctInTheWild"
-        end
-
-        def cr
-          "http://eol.org/schema/terms/criticallyEndangered"
-        end
-
-        def en
-          "http://eol.org/schema/terms/endangered"
-        end
-
-        def vu
-          "http://eol.org/schema/terms/vulnerable"
-        end
-
-        def nt
-          "http://eol.org/schema/terms/nearThreatened"
-        end
-
-        def lc
-          "http://eol.org/schema/terms/leastConcern"
-        end
-
-        def dd
-          "http://eol.org/schema/terms/dataDeficient"
-        end
-
-        def ne
-          "http://eol.org/schema/terms/notEvaluated"
+        @@codes.each do |code, uri|
+          define_method(code) do
+            uri
+          end
         end
       end
     end

@@ -7,7 +7,7 @@ doing this every time you load data into neo4j; particularly when it starts to
 fill up.
 
 ```bash
-rails r "TraitBank.setup"
+rails r "TraitBank::Admin.setup"
 ```
 
 ## Every Other Time
@@ -17,7 +17,7 @@ this:
 
 ```bash
 rake db:reset
-rails r "TraitBank.nuclear_option! && Rails.cache.clear"
+rails r "TraitBank::Admin.nuclear_option! && Rails.cache.clear"
 
 # Assuming you have a copy of the clade's json file available: NOTE: you are
 # MUCH better-off running these from rails runner than from a console, because

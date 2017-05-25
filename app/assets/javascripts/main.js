@@ -48,10 +48,12 @@ if(!EOL) {
     console.log("allow_meta_traits_to_toggle");
     $(".toggle_meta").on("click", function (event) {
       var $div = $(this).find(".meta_trait");
-      if($div.is(':visible')) {
+      var target  = $(event.target);
+      if( target.is('a') ) { return true; }
+      if( $div.is(':visible') ) {
         $div.hide();
       } else {
-        if($div.html() === "") {
+        if( $div.html() === "" ) {
           console.log("Loading row "+$(this).data("action")+"...");
           $.ajax({
             type: "GET",

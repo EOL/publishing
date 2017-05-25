@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
   get "/names/:name" => "search#names", :as => "names"
+  get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
 
   root "pages#index"
 
