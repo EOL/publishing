@@ -4,6 +4,7 @@ class TraitBank
       delegate :connection, to: TraitBank
       delegate :query, to: TraitBank
       delegate :page_exists?, to: TraitBank
+      delegate :relate, to: TraitBank
 
       def setup
         create_indexes
