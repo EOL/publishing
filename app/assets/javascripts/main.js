@@ -122,11 +122,13 @@ if(!EOL) {
         $("#trait_type_glossary").hide();
         $("#trait_value_glossary").hide();
       } else if (secId == "type_glossary") {
+        $("table#traits thead tr").hide();
         $("table#traits tbody tr").hide();
         $("#trait_type_glossary").show();
         $("#trait_value_glossary").hide();
       } else if (secId == "value_glossary") {
         $("table#traits thead tr").hide();
+        $("table#traits tbody tr").hide();
         $("#trait_type_glossary").hide();
         $("#trait_value_glossary").show();
       } else {
