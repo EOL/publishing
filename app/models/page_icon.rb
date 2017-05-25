@@ -10,7 +10,7 @@ class PageIcon < ActiveRecord::Base
   def self.fix
     Page.where(["updated_at > ?", 1.day.ago]).find_each do |page|
       icon = if page.page_icons.any?
-        page.page_icons.last
+        page.page_icons.last.medium
       elsif page.media.where(subclass: Medium.subclasses[:image]).any?
         page.media.where(subclass: Medium.subclasses[:image]).first
       elsif page.media.any?

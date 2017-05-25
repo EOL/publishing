@@ -180,23 +180,6 @@ class TraitBank
         :units, :meta, :meta_predicate, :meta_units_term, :meta_object_term])
     end
 
-    def page_glossary(page_id)
-      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN predicate, object_term, units"
-      res = query(q)
-      uris = {}
-      res["data"].each do |row|
-        row.each do |col|
-          uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if
-            col && col["data"] && col["data"]["uri"]
-        end
-      end
-      uris
-    end
-
     def by_page(page_id, page = 1, per = 100)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
