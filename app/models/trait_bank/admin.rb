@@ -3,6 +3,7 @@ class TraitBank
     class << self
       delegate :connection, to: TraitBank
       delegate :query, to: TraitBank
+      delegate :page_exists?, to: TraitBank
 
       def setup
         create_indexes
