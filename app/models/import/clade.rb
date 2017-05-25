@@ -31,7 +31,7 @@ class Import::Clade
       begin
         create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
-        fix_page_icons
+        PageIcon.fix
       rescue => e
         puts "PROBLEM PARSING FILE?"
         debugger
@@ -278,12 +278,6 @@ class Import::Clade
         debugger
         1
       end
-    end
-
-    def fix_page_icons
-      # Now we need to add denomralized page icons, because that didn't happen
-      # automatically:
-      PageIcon.fix
     end
   end
 end
