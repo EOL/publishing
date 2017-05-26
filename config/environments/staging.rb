@@ -1,5 +1,8 @@
 Rails.application.configure do
   config.cache_classes = true
+  cache_addr = ENV["EOL_STAGING_CACHE_URL"] || "memcached:11211"
+  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL",
+    compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true

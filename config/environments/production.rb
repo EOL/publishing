@@ -55,7 +55,9 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  cache_addr = ENV["EOL_PROD_CACHE_URL"] || "memcached:11211"
+  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL",
+    compress: true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'

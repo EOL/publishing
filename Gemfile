@@ -51,6 +51,8 @@ gem 'acts_as_list', '~> 0.7.6'
 gem 'awesome_nested_set', '~> 3.0.0'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 0.1.33'
+# Memcached (not for development):
+gem "dalli"
 # Devise handles authentication and some authorization:
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
