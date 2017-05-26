@@ -97,6 +97,7 @@ GEM
       thor (~> 0.19.1)
       tins (>= 1.6.0, < 2)
     daemons (1.2.4)
+    dalli (2.7.6)
     debug_inspector (0.0.2)
     decorators (2.0.2)
       railties (>= 4.0.0, < 5.1)
@@ -462,6 +463,7 @@ DEPENDENCIES
   client_side_validations-simple_form
   counter_culture (~> 0.1.33)
   coveralls
+  dalli
   devise (= 4.2.0)
   devise-encryptable
   devise-i18n-views

@@ -511,12 +511,14 @@ class TraitBank
       end
     end
 
+    # NOTE: this only work on IMPORT. Don't try to run it later! TODO: move it
+    # to import. ;)
     def convert_measurement(trait, units)
-      return unless trait[:measurement]
+      return unless trait[:literal]
       trait[:measurement] = begin
-        Integer(trait[:measurement])
+        Integer(trait[:literal])
       rescue
-        Float(trait[:measurement]) rescue trait[:measurement]
+        Float(trait[:literal]) rescue trait[:literal]
       end
       # If we converted it (and thus it is numeric) AND we see units...
       if trait[:measurement].is_a?(Numeric) &&
