@@ -3,8 +3,9 @@
     #navbar.ui.large.secondary.network.menu
       -# TODO: I18n
       = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "item uk-logo")
-      = cms_menu.to_html
-      = link_to("Education", "http://education.eol.org/", class: "item")
+      %div{ class: "uk-visible@m" }
+        = cms_menu.to_html
+      = link_to("Education", "http://education.eol.org/", class: "item uk-visible@m")
       .ui.simple.dropdown.item
         - langs = languages_hash
         - keys = langs.keys
@@ -21,8 +22,8 @@
             = text_field_tag("q", nil, class: "uk-search-input typeahead", placeholder: t("nav.search.placeholder"))
             %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
         - if current_user
-          .item= link_to(current_user.username, main_app.user_path(current_user))
-          .item= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
+          .item{ class: "uk-visible@m" }= link_to(current_user.username, main_app.user_path(current_user))
+          .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
         - else
-          .item= link_to(t(:layout_sign_in), main_app.new_user_session_path)
-          .item= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
+          .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_in), main_app.new_user_session_path)
+          .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
