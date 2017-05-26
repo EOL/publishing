@@ -98,15 +98,19 @@ module PagesHelper
   end
 
   # Options: icon, count, path, name, active
-  def tab(options)
+  def large_tab(options)
     text = t("pages.tabs.#{options[:name]}")
     active = options[:active] || current_page?(options[:path])
     haml_tag("li", id: "page_nav_#{options[:name]}", class: active ? "uk-active" : nil, role: "presentation", title: text, uk: { tooltip: "delay: 100" } ) do
-      mobile_link = "<i class='huge icon #{options[:icon]}'></i>&emsp;"
-      # mobile_link += "<span class='uk-badge'>#{options[:count]}</span>" if options[:count]
-      haml_concat link_to(mobile_link.html_safe, options[:path], remote: true, class: "uk-hidden@l")
-      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true, class: "uk-visible@l")
+      haml_concat link_to("<div class='ui orange mini statistic'><div class='value'>#{options[:count] || "&nbsp;".html_safe}</div><div class='label'>#{text}</div></div>".html_safe, options[:path], remote: true)
     end
+  end
+
+  def small_tab(options)
+    text = t("pages.tabs.#{options[:name]}")
+    active = options[:active] || current_page?(options[:path])
+    mobile_link = "<i class='icon #{options[:icon]}'></i>"
+    haml_concat link_to("#{mobile_link} #{text}".html_safe, options[:path], remote: true, id: "page_nav_#{options[:name]}", class: "#{active ? "active " : "" }item")
   end
 
   def index_stat(key, count)

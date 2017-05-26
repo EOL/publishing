@@ -4,13 +4,15 @@ RSpec.describe PagesController do
   context "with a valid page" do
     let(:page) { create(:page) }
     let(:resource) { create(:resource) }
+    let(:media) { double(Array, map: []) }
 
     before do
+      allow(media).to receive_message_chain(:page, :per_page) { media }
       allow(TraitBank).to receive(:by_page) { [] }
       allow(TraitBank).to receive(:resources) { [resource] }
       allow_any_instance_of(Page).to \
-        receive_message_chain(:media, :includes, :page, :per_page).
-        and_return([])
+        receive_message_chain(:media, :includes).
+        and_return(media)
       allow_any_instance_of(Page).to \
         receive_message_chain(:media, :empty?).and_return(true)
     end
@@ -47,12 +49,12 @@ RSpec.describe PagesController do
 
       it "assigns media" do
         get :show, id: page.id
-        expect(assigns(:media)).to eq([])
+        expect(assigns(:media)).to eq(media)
       end
 
       it "assigns associations" do
         get :show, id: page.id
-        expect(assigns(:media)).to eq([])
+        expect(assigns(:media)).to eq(media)
       end
     end
   end
