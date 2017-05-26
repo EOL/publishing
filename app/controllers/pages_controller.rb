@@ -64,7 +64,6 @@ class PagesController < ApplicationController
     @page = Page.where(id: params[:page_id]).preloaded.first
     return render(status: :not_found) unless @page # 404
     @page_title = @page.name
-    get_media
     # TODO: we should really only load Associations if we need to:
     get_associations
     # Required mostly for paginating the first tab on the page (kaminari
@@ -176,23 +175,23 @@ private
   end
 
   def get_media
-    @media = @page.media.includes(:license)
+    media = @page.media.includes(:license)
     if params[:license]
-      @media = @media.joins(:license).
+      media = media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])
       @license = params[:license]
     end
     if params[:subclass_id]
-      @media = @media.where(subclass: params[:subclass_id])
+      media = media.where(subclass: params[:subclass_id])
       @subclass_id = params[:subclass_id].to_i
       @subclass = Medium.subclasses.find { |n, id| id == @subclass_id }[0]
     end
     if params[:resource_id]
-      @media = @media.where(resource_id: params[:resource_id])
+      media = media.where(resource_id: params[:resource_id])
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
+    @media = media.page(params[:page]).per_page(@media_page_size)
     @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))
-    @media = @media.page(params[:page]).per_page(@media_page_size)
   end
 end

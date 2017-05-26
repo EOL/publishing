@@ -12,15 +12,15 @@ if(!EOL) {
 
   EOL.enable_tab_nav = function() {
     console.log("enable_tab_nav");
-    $("#page_nav,#small_page_nav a").on("click", function() {
+    $("#page_nav a,#small_page_nav a").on("click", function() {
       console.log("page_nav click");
       $("#tab_content").dimmer("show");
     }).unbind("ajax:complete")
     .bind("ajax:complete", function() {
       console.log("page_nav complete");
       $("#tab_content").dimmer("hide");
-      $("#page_nav").children().removeClass("uk-active");
-      $("#small_page_nav").children().removeClass("active");
+      $("#page_nav li").removeClass("uk-active");
+      $("#small_page_nav > a").removeClass("active");
       $(this).addClass("active").parent().addClass("uk-active");
       if ($("#page_nav > li:first-of-type").hasClass("uk-active")) {
         $("#name-header").attr("hidden", "hidden");
@@ -28,6 +28,7 @@ if(!EOL) {
         $("#name-header").removeAttr("hidden");
       }
       history.pushState(null, "", this.href);
+      console.log("page_nav complete exit");
     }).unbind("ajax:error")
     .bind("ajax:error", function(evt, data, status, xhr) {
       console.log("page_nav error:");
