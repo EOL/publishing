@@ -30,10 +30,11 @@ if(!EOL) {
       history.pushState(null, "", this.href);
       console.log("page_nav complete exit");
     }).unbind("ajax:error")
-    .bind("ajax:error", function(evt, data, status, xhr) {
+    .bind("ajax:error", function(evt, data, status) {
       console.log("page_nav error:");
       UIkit.modal.alert('Sorry, there was an error loading this subtab.');
-      console.log(data.responseText);
+      console.log("data response: "+data.responseText);
+      console.log("status: "+status);
     });
     EOL.dim_tab_on_pagination();
   };
