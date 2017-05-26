@@ -53,6 +53,7 @@ class PagesController < ApplicationController
       fmt.js do
         @page = Page.where(id: params[:page_id]).first
         @page.reindex
+        expire_fragment(page_traits_path(@page))
       end
     end
   end
