@@ -1,4 +1,4 @@
-- cache page_traits_path(@page) do
+- cache(page_traits_path(@page), expires_in: 1.day) do
   - max_rows = 10
   - traits = @page.traits
   #page_traits{ uk: { grid: true } }
@@ -49,7 +49,7 @@
                   - show_trait_value(trait)
                   - metadata_container(trait)
                 - show_source_col(trait)
-      #trait_type_glossary
+      #trait_type_glossary.uk-margin-large-bottom
         %h3= t(:traits_header_type_glossary)
         .uk-column-1-2
           %dl.uk-description-list
@@ -62,7 +62,7 @@
                 .uk-text-muted.uk-text-small= term[:uri]
                 = term[:definition]
                 .uk-text-muted= term[:attribution]
-      #trait_value_glossary.uk-margin-large-top
+      #trait_value_glossary.uk-margin-large-bottom
         %h3= t(:traits_header_value_glossary)
         .uk-column-1-2
           %dl.uk-description-list

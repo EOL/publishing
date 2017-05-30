@@ -41,15 +41,16 @@ class TermsController < ApplicationController
     @resources = TraitBank.resources(traits)
     @species_list = params[:species_list]
     paginate_traits(traits)
+    get_associations
   end
 
   def glossary
     @per_page = Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
-    @count = TraitBank.terms_count
+    @count = TraitBank::Terms.count
     if params[:reindex] && is_admin?
       TraitBank::Admin.clear_caches
-      @count = TraitBank.terms_count # May as well re-load this value!
+      @count = TraitBank::Terms.count # May as well re-load this value!
       lim = (@count / @per_page.to_f).ceil
       (0..lim).each do |index|
         expire_fragment("term/glossary/#{index}")
@@ -75,6 +76,8 @@ class TermsController < ApplicationController
     glossary
   end
 
+private
+
   def paginate_traits(traits)
     @count = @object ?
       TraitBank.by_object_term_count(@term[:uri], clade: params[:clade]) :
@@ -82,8 +85,6 @@ class TermsController < ApplicationController
     @grouped_traits = Kaminari.paginate_array(traits, total_count: @count).
       page(@page).per(@per_page)
   end
-
-private
 
   def glossary
     @per_page = Rails.configuration.data_glossary_page_size
@@ -98,5 +99,14 @@ private
     @glossary = Kaminari.paginate_array(
         TraitBank.send(params[:action], @page, @per_page), total_count: @count
       ).page(@page).per(@per_page)
+  end
+
+  def get_associations
+    @associations =
+      begin
+        ids = @grouped_traits.map { |t| t[:object_page_id] }.compact.sort.uniq
+        Page.where(id: ids).
+          includes(:medium, :preferred_vernaculars, native_node: [:rank])
+      end
   end
 end
