@@ -41,6 +41,7 @@ services:
     restart: always
     volumes:
       - /u/data/eol-backend-tramea:/u/apps/eol_website/public/data
+      - /u/data/eol-backend-tramea/solr:/u/apps/eol_website/solr/development
     depends_on:
       - eol-backend-mysql
       - eol-backend-neo4j
