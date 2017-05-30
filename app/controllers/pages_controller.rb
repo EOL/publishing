@@ -54,6 +54,8 @@ class PagesController < ApplicationController
         @page = Page.where(id: params[:page_id]).first
         @page.reindex
         expire_fragment(page_traits_path(@page))
+        expire_fragment(page_details_path(@page))
+        expire_fragment(page_classifications_path(@page))
       end
     end
   end
