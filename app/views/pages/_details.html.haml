@@ -1,37 +1,38 @@
-.details.uk-grid
-  .uk-width-1-3
-    %h4.uk-heading-divider= "Table of Contents"
-    .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
-      .toc.uk-panel-scrollable
-        %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 100" } } }
-          - @page.toc.each do |section|
-            - if section.is_a?(Hash)
-              - parent = section.keys.first
-              %li.uk-parent
-                = link_to(t("sections.#{parent.name}"), "#section_#{parent.id}")
-                %ul.uk-nav-sub
-                  - section[parent].each do |child|
-                    %li= link_to(t("sections.#{child.name}"), "#section_#{child.id}")
-  .uk-width-2-3
-    - shown = {}
-    - shown_duplicates = {}
-    - @page.sorted_articles.each do |article|
-      - if section = article.first_section
-        - if parent = section.parent
-          - unless shown[parent]
-            - shown[parent] = true
-            .section.uk-margin.uk-text-center{ id: "section_#{parent.id}" }
-              %h2
-                = t("sections.#{parent.name}")
-        - unless shown[section]
-          - unless shown.empty? || section.parent
-            %hr.uk-divider-icon
-          - shown[section] = true
-          .section.uk-margin.uk-text-center{ id: "section_#{section.id}" }
-            %h3
-              = t("sections.#{section.name}")
-        - if ! shown_duplicates[section] && @page.duplicate_articles.has_key?(section)
-          - shown_duplicates[section] = true
-          - @page.duplicate_articles[section].each do |dupe|
-            = render("page_article", article: dupe, duplicate: true)
-      = render("page_article", article: article)
+- cache(page_details_path(@page), expires_in: 1.day) do
+  .details.uk-grid
+    .uk-width-1-3
+      %h4.uk-heading-divider= "Table of Contents"
+      .uk-sticky.uk-sticky-fixed.uk-active{ uk: { sticky: "offset: 100" } }
+        .toc.uk-panel-scrollable
+          %ul.uk-nav.uk-nav-default.tm-nav{ uk: { scrollspy: { nav: "closest: li; scroll: true; offset: 100" } } }
+            - @page.toc.each do |section|
+              - if section.is_a?(Hash)
+                - parent = section.keys.first
+                %li.uk-parent
+                  = link_to(t("sections.#{parent.name}"), "#section_#{parent.id}")
+                  %ul.uk-nav-sub
+                    - section[parent].each do |child|
+                      %li= link_to(t("sections.#{child.name}"), "#section_#{child.id}")
+    .uk-width-2-3
+      - shown = {}
+      - shown_duplicates = {}
+      - @page.sorted_articles.each do |article|
+        - if section = article.first_section
+          - if parent = section.parent
+            - unless shown[parent]
+              - shown[parent] = true
+              .section.uk-margin.uk-text-center{ id: "section_#{parent.id}" }
+                %h2
+                  = t("sections.#{parent.name}")
+          - unless shown[section]
+            - unless shown.empty? || section.parent
+              %hr.uk-divider-icon
+            - shown[section] = true
+            .section.uk-margin.uk-text-center{ id: "section_#{section.id}" }
+              %h3
+                = t("sections.#{section.name}")
+          - if ! shown_duplicates[section] && @page.duplicate_articles.has_key?(section)
+            - shown_duplicates[section] = true
+            - @page.duplicate_articles[section].each do |dupe|
+              = render("page_article", article: dupe, duplicate: true)
+        = render("page_article", article: article)

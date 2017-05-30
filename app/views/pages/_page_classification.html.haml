@@ -1,58 +1,59 @@
-%h2= t("classifications.hierarchies.header")
-- page_node = @page.native_node || @page.nodes.first
-#page-hierarchies.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
-  %ul
-    -# Push the native node to the top of the list:
-    - nodes = @page.nodes.to_a
-    - native_node = nodes.index { |n| n.id == page_node.id }
-    - nodes.insert(0, nodes.delete_at(native_node)) if native_node
-    - nodes.each do |node|
-      %h3.uk-card-title.uk-heading-divider= node.resource.name
-      %ul.uk-list
-        - classification(node, node.ancestors)
-%h2= t("classifications.children.header")
-#page-children.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
-  - if page_node.children.size > 0
-    %ol
-      - page_node.children.each do |node|
+- cache(page_classifications_path(@page), expires_in: 1.day) do
+  %h2= t("classifications.hierarchies.header")
+  - page_node = @page.native_node || @page.nodes.first
+  #page-hierarchies.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
+    %ul
+      -# Push the native node to the top of the list:
+      - nodes = @page.nodes.to_a
+      - native_node = nodes.index { |n| n.id == page_node.id }
+      - nodes.insert(0, nodes.delete_at(native_node)) if native_node
+      - nodes.each do |node|
+        %h3.uk-card-title.uk-heading-divider= node.resource.name
         %ul.uk-list
-          - summarize(node.page, current_page: false, node: node)
-  - else
-    .uk-text-lead= t("classifications.children.empty")
-%h2= t("classifications.richness.header")
-#page-richness.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
-  .uk-grid-small.uk-child-width-1-4{ uk: { grid: true } }
-    - if @page.page_richness.nil?
-      %p= t("classifications.richness.missing")
+          - classification(node, node.ancestors)
+  %h2= t("classifications.children.header")
+  #page-children.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
+    - if page_node.children.size > 0
+      %ol
+        - page_node.children.each do |node|
+          %ul.uk-list
+            - summarize(node.page, current_page: false, node: node)
     - else
-      %dl.uk-description-list
-        %dt= t("classifications.richness.score")
-        -# NOTE: this is the CACHED value. It needs to be calculated in the bg:
-        %dd= @page.page_richness / 100.0
-        %dt.uk-margin-small-top= t("classifications.richness.page_contents_count")
-        %dd= @page.page_contents_count
-        %dt.uk-margin-small-top= t("classifications.richness.media_count")
-        %dd= @page.media_count
-        %dt.uk-margin-small-top= t("classifications.richness.updated_at")
-        %dd= l(@page.updated_at, format: :short)
-      %dl.uk-description-list
-        %dt.uk-margin-small-top= t("classifications.richness.articles_count")
-        %dd= @page.articles_count
-        %dt.uk-margin-small-top= t("classifications.richness.links_count")
-        %dd= @page.links_count
-        %dt.uk-margin-small-top= t("classifications.richness.maps_count")
-        %dd= @page.maps_count
-      %dl.uk-description-list
-        %dt.uk-margin-small-top= t("classifications.richness.traits_count")
-        %dd= @page.traits_count
-        %dt.uk-margin-small-top= t("classifications.richness.nodes_count")
-        %dd= @page.nodes_count
-        %dt.uk-margin-small-top= t("classifications.richness.vernaculars_count")
-        %dd= @page.vernaculars_count
-      %dl.uk-description-list
-        %dt.uk-margin-small-top= t("classifications.richness.scientific_names_count")
-        %dd= @page.scientific_names_count
-        %dt.uk-margin-small-top= t("classifications.richness.referents_count")
-        %dd= @page.referents_count
-        %dt.uk-margin-small-top= t("classifications.richness.species_count")
-        %dd= @page.descendant_species
+      .uk-text-lead= t("classifications.children.empty")
+  %h2= t("classifications.richness.header")
+  #page-richness.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
+    .uk-grid-small.uk-child-width-1-4{ uk: { grid: true } }
+      - if @page.page_richness.nil?
+        %p= t("classifications.richness.missing")
+      - else
+        %dl.uk-description-list
+          %dt= t("classifications.richness.score")
+          -# NOTE: this is the CACHED value. It needs to be calculated in the bg:
+          %dd= @page.page_richness / 100.0
+          %dt.uk-margin-small-top= t("classifications.richness.page_contents_count")
+          %dd= @page.page_contents_count
+          %dt.uk-margin-small-top= t("classifications.richness.media_count")
+          %dd= @page.media_count
+          %dt.uk-margin-small-top= t("classifications.richness.updated_at")
+          %dd= l(@page.updated_at, format: :short)
+        %dl.uk-description-list
+          %dt.uk-margin-small-top= t("classifications.richness.articles_count")
+          %dd= @page.articles_count
+          %dt.uk-margin-small-top= t("classifications.richness.links_count")
+          %dd= @page.links_count
+          %dt.uk-margin-small-top= t("classifications.richness.maps_count")
+          %dd= @page.maps_count
+        %dl.uk-description-list
+          %dt.uk-margin-small-top= t("classifications.richness.traits_count")
+          %dd= @page.traits_count
+          %dt.uk-margin-small-top= t("classifications.richness.nodes_count")
+          %dd= @page.nodes_count
+          %dt.uk-margin-small-top= t("classifications.richness.vernaculars_count")
+          %dd= @page.vernaculars_count
+        %dl.uk-description-list
+          %dt.uk-margin-small-top= t("classifications.richness.scientific_names_count")
+          %dd= @page.scientific_names_count
+          %dt.uk-margin-small-top= t("classifications.richness.referents_count")
+          %dd= @page.referents_count
+          %dt.uk-margin-small-top= t("classifications.richness.species_count")
+          %dd= @page.descendant_species
