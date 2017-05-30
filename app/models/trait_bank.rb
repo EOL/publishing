@@ -141,16 +141,6 @@ class TraitBank
       %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
     end
 
-    def terms_count
-      Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
-        res = query(
-          "MATCH (term:Term { is_hidden_from_glossary: false }) "\
-          "WITH count(distinct(term.uri)) AS count "\
-          "RETURN count")
-        res["data"] ? res["data"].first.first : false
-      end
-    end
-
     def trait_exists?(resource_id, pk)
       raise "NO resource ID!" if resource_id.blank?
       raise "NO resource PK!" if pk.blank?

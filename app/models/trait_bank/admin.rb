@@ -127,7 +127,7 @@ class TraitBank
         ].each do |key|
           Rails.cache.delete(key)
         end
-        count = terms_count
+        count = TraitBank::Terms.count
         # NOTE: unfortunately, we don't KNOW here how many there are per page.
         # Yech! Perhaps a Rails config?
         lim = (count / Rails.configuration.data_glossary_page_size.to_f).ceil

@@ -5,6 +5,16 @@ class TraitBank
       delegate :query, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
 
+      def count
+        Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
+          res = query(
+            "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+            "WITH count(distinct(term.uri)) AS count "\
+            "RETURN count")
+          res["data"] ? res["data"].first.first : false
+        end
+      end
+
       def full_glossary(page = 1, per = nil)
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
@@ -66,12 +76,12 @@ class TraitBank
         sub_glossary("units_term", nil, nil, true)
       end
 
+      # NOTE: I removed the units from this query after ea27411f8110b74 (q.v.)
       def page_glossary(page_id)
         q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
           "MATCH (trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "RETURN predicate, object_term, units"
+          "RETURN predicate, object_term"
         res = query(q)
         uris = {}
         res["data"].each do |row|

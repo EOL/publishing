@@ -31,10 +31,14 @@ if(!EOL) {
       console.log("page_nav complete exit");
     }).unbind("ajax:error")
     .bind("ajax:error", function(evt, data, status) {
-      console.log("page_nav error:");
-      UIkit.modal.alert('Sorry, there was an error loading this subtab.');
+      if (status === "parsererror") {
+        console.log("** Got that curious parsererror.");
+      } else {
+        UIkit.modal.alert('Sorry, there was an error loading this subtab.');
+      }
       console.log("data response: "+data.responseText);
       console.log("status: "+status);
+      console.log("page_nav error:");
     });
     EOL.dim_tab_on_pagination();
   };
