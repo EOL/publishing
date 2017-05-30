@@ -1,9 +1,6 @@
-%div#topic
-  = button_to "Start Discussion" ,topic_path ,class: "uk-button uk-button-default eol-secondary-alt",
+- if @topic.nil?
+  %div#topic
+    = button_to "Start Discussion" ,topic_path ,class: "uk-button uk-button-default eol-secondary-alt",
                   params: {page: @page}, remote: true
-%div
-  = form_tag post_path, id: 'post',remote: true, style: "display: none;" do
-    %p
-      = "Comments"
-    = text_area_tag 'post',  @post, size: "80x10"
-    = submit_tag "Add Comment", class: "uk-button uk-button-default eol-secondary-alt"
+- else
+  = render 'comments/comment_post'

@@ -39,6 +39,7 @@ class PagesController < ApplicationController
     get_media
     # TODO: we should really only load Associations if we need to:
     get_associations
+    @topic = get_topic
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     respond_to do |format|
@@ -193,5 +194,10 @@ private
     end
     # TODO: #per broke for some reason; fix:
     @media = @media.page(params[:page]).per_page(@media_page_size)
+  end
+  
+  def get_topic
+     topic = CLIENT.search("#{request.url}")
+     topic['topics'].first['id'] unless topic['topics'].nil?
   end
 end

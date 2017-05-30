@@ -1,14 +1,16 @@
 class CommentsController < ApplicationController
   
   def topic
-   @topic = CLIENT.create_topic(title: "#{request.referer}", raw: "Discussion about '#{params[:page]}'")
+   CLIENT.create_topic(title: "#{request.referer}", raw: "Discussion about '#{params[:page]}'")
     respond_to do |format|
       format.js {}
     end
+   
   end
  
   def new_post
-    topic = CLIENT.search("#{request.referer}")
+    debugger
+    topic = get_topic
     raw = params[:post]
     id = topic['topics'].first['id']
     CLIENT.create_post(topic_id: id, raw: raw)

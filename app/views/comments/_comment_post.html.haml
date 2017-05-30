@@ -1,5 +1,6 @@
-%div#post
-  = "Here is the comment form"
-  = form_tag post_path, remote: true do  
+%div
+  = form_tag post_path, id: 'post',remote: true do
+    %p
+      = "Comments"
     = text_area_tag 'post',  @post, size: "80x10"
     = submit_tag "Add Comment", class: "uk-button uk-button-default eol-secondary-alt"
