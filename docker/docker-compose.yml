@@ -20,7 +20,7 @@ services:
     volumes:
       - /u/data/eol-backend-neo4j/data:/data
       - /u/data/eol-backend-neo4j/logs:/logs
-      - /u/data/eol-backend-neo4j/conf:/conf
+      - ./resources/templates/neo4j.conf:/conf/neo4j.conf
     network_mode: "bridge"
   eol-backend-mysql:
     image: mysql
