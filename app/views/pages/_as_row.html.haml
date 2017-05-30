@@ -12,20 +12,22 @@
         %a.uk-cover-container{ href: page_path(page), uk: { toggle: true } }
           %canvas{ width: "130", height: "130" }
           %img{ src: icon, "uk-cover": true }
-    -# .uk-width-2-3
     .uk-width-expand
       .page-ancestors
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
-          - ancestors = page.native_node.ancestors
-          - shown_ellipsis = false
-          - ancestors.each do |node|
-            - unless node.has_breadcrumb?
-              - unless shown_ellipsis
-                &nbsp;…
-                - shown_ellipsis = true
-              - next
-            %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+          - ancestors = page.native_node.try(:ancestors)
+          - if ancestors
             - shown_ellipsis = false
+            - ancestors.each do |node|
+              - unless node.has_breadcrumb?
+                - unless shown_ellipsis
+                  &nbsp;…
+                  - shown_ellipsis = true
+                - next
+              %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
+              - shown_ellipsis = false
+          - else
+            = t("pages.native_node_missing_warning")
       - if is_admin?
         .uk-float-right.uk-text-muted.eol-text-tiny
           - if page.page_richness.nil?
