@@ -113,14 +113,14 @@ RSpec.describe CollectionsController do
       it { expect(assigns(:collection)).to eq(collection) }
       it { expect(collection.name).to eq("new name") }
       it { expect(collection.description).to eq("new description") }
-      it { expect(flash[:notice]).to eq(I18n.t(:collection_updated)) }
+      it { expect(flash[:notice]).to eq(I18n.t("collection.updated")) }
 
     end
 
     context "with a failure" do
-      
+
       let(:collection_attributes) { attributes_for(:collection) }
-      
+
       it "redirects with flash" do
         allow(controller).to receive(:current_user) { user }
         collection.users << user
