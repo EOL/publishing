@@ -45,7 +45,6 @@ module TraitsHelper
       if target.nil?
         haml_concat "[page #{trait[:object_page_id]} not imported]"
       else
-        show_trait_page_icon(target) if target.should_show_icon?
         summarize(target, options = {})
       end
     elsif trait[:measurement]
