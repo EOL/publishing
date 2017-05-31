@@ -58,6 +58,10 @@ en:
   collect_title: "Add \"%{item}\" to…"
   collected_page_added_to_collection: "Added \"%{page}\" to collection <a href='%{link}'>\"%{name}\"</a>."
   collected_pages_title: "Pages"
+  collected_pages:
+    delete_button: "delete"
+    delete_confirm: "are you sure?"
+    destroyed_flash: "%{name} removed from collection."
   collection_association_added_to_collection: "Added \"%{associated}\" to collection <a href='%{link}'>\"%{name}\"</a>."
   collection_associations_empty: "No other collections are associated with this one. You can click on the \"collect\" button on other collections to have them appear here."
   collection_associations_title: "Other Associated Content"
