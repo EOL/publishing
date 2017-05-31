@@ -1,5 +1,6 @@
 - icon ||= page.icon
 - common ||= page.name
+- show_delete = defined?(collected_page) ? policy(collected_page.collection).update? : nil
 - scientific ||= page.scientific_name
 - has_query = defined?(@q) && ! @q.blank?
 - matches_scientific = has_query && scientific =~ /#{@q}/
@@ -35,6 +36,9 @@
             nil
           - else
             = page.page_richness / 100.0
+      - if show_delete
+        .uk-float-right.uk-margin
+          = link_to(t("collected_pages.delete_button"), collected_page, method: "delete", data: { confirm: t("collected_pages.delete_confirm") }, class: "ui basic tiny button")
       .names.d-inline
         - sci_name = has_query ? emphasize_match(scientific, @q) : scientific.html_safe
         - if common.blank?

@@ -25,10 +25,11 @@ class CollectedPage < ActiveRecord::Base
 
   def self.find_pages(q, collection_id)
     CollectedPage.search do
-      fulltext q  do
+      q = "*#{q}" unless q[0] == "*"
+      fulltext q do
         fields(:name, :scientific_name, :preferred_scientific_names, :synonyms, :vernaculars)
-       end
-        with(:collection_id, collection_id)
+      end
+      with(:collection_id, collection_id)
     end
   end
 

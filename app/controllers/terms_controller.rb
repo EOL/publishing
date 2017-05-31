@@ -97,7 +97,7 @@ private
       end
     end
     @glossary = Kaminari.paginate_array(
-        TraitBank.send(params[:action], @page, @per_page), total_count: @count
+        TraitBank::Terms.send(params[:action], @page, @per_page), total_count: @count
       ).page(@page).per(@per_page)
   end
 

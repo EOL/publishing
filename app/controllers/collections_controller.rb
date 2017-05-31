@@ -21,7 +21,7 @@
           link: collection_path(@collection))
         redirect_to collected
       else
-        flash[:notice] = I18n.t(:collection_created, name: @collection.name)
+        flash[:notice] = I18n.t(:collection_created, name: @collection.name).html_safe
         redirect_to @collection
       end
     else
