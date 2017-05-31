@@ -155,9 +155,7 @@ module PagesHelper
         haml_concat names.html_safe
         haml_concat t("classifications.hierarchies.this_page")
       else
-        if page.rank && page.rank.try(:r_species?) && page.icon
-          haml_concat image_tag(page.icon, size: "88x88")
-        end
+        show_trait_page_icon(page) if page.should_show_icon?
         haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
