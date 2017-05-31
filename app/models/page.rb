@@ -237,7 +237,7 @@ class Page < ActiveRecord::Base
   end
 
   def rank
-    native_node.rank
+    native_node.try(:rank) || I18n.t("ranks.not_given")
   end
 
   # TRAITS METHODS
