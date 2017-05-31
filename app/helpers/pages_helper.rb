@@ -1,27 +1,30 @@
 module PagesHelper
   def is_allowed_summary?(page)
-    page.rank &&
+    page.rank && page.rank.respond_to?(:treat_as) &&
       ["r_species", "r_genus", "r_family"].include?(page.rank.treat_as)
   end
 
   def is_higher_level_clade?(page)
-    ["r_genus", "r_family"].include?(page.rank.treat_as)
+    page.rank && page.rank.respond_to?(:treat_as) &&
+      ["r_genus", "r_family"].include?(page.rank.treat_as)
   end
 
   # TODO: it would be nice to make these into a module included by the Page
   # class.
   def is_family?(page)
-    page.rank.treat_as == "r_family"
+    page.rank && page.rank.respond_to?(:treat_as) &&
+      page.rank.treat_as == "r_family"
   end
 
   def is_genus?(page)
-    page.rank.treat_as == "r_genus"
+    page.rank && page.rank.respond_to?(:treat_as) &&
+      page.rank.treat_as == "r_genus"
   end
 
   def construct_summary(page)
     return "" unless is_allowed_summary?(page)
     Rails.cache.fetch("constructed_summary/#{page.id}") do
-      my_rank = page.rank.name || "taxon"
+      my_rank = page.rank.try(:name) || "taxon"
       node = page.native_node || page.nodes.first
       ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
       # taxonomy sentence...
@@ -152,10 +155,9 @@ module PagesHelper
         haml_concat names.html_safe
         haml_concat t("classifications.hierarchies.this_page")
       else
-        # TODO: test this; I don't have enough data locally! :(
-        # if page.rank && page.rank.c_species? && page.icon
-        #   haml_concat image_tag(page.icon, size: "88x88")
-        # end
+        if page.rank && page.rank.try(:r_species?) && page.icon
+          haml_concat image_tag(page.icon, size: "88x88")
+        end
         haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
