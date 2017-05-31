@@ -26,12 +26,18 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       post "delete_user", defaults: { format: "json" }
+      get "search"
     end
   end
 
   # All of the "normal" resources:
   resources :collections do
     resources :collected_pages, only: [:index]
+    # TODO: this is not very restful; should be a nested resource, but the terms
+    # become somewhat tricky, so cheating for now. These aren't really
+    # "public-facing URLs" anyway, so less concerned about it.
+    post "add_user"
+    post "remove_user"
   end
   resources :collection_associations, only: [:new, :create]
   resources :collected_pages, only: [:new, :create, :destroy]

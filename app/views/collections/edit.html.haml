@@ -1,20 +1,40 @@
+-# This is a hidden form that helps with user management:
+= form_tag(collection_add_user_path(@collection), method: "post", remote: true, class: "find_users_form") do
+  = hidden_field_tag("user_id", "0")
+-# This is the main form:
 = form_for(@collection) do |f|
-  .jumbotron
-    .row
-      .col-md-9
-        .field
-          = label_tag(:name)
-          = f.text_field :name
-        .field
-          = label_tag(:description)
-          %br/
-          = f.text_area(:description, cols: "80", rows: "6")
-        = collection_radio_buttons(:collection, :collection_type, Collection.collection_types, :first, :first)
-      - if policy(@collection).update?
-        %p.col-md-3.actions
-          = f.submit(class: "btn btn-default")
-          %br/
-          = link_to t(:cancel), collection_path(@collection), class: "btn btn-default"
+  .uk-section.uk-grid{ uk: { grid: true } }
+    .uk-width-3-4
+      .field
+        = label_tag(:name)
+        = f.text_field :name
+      .field
+        = label_tag(:description)
+        %br/
+        = f.text_area(:description, cols: "80", rows: "6")
+      = collection_radio_buttons(:collection, :collection_type, Collection.collection_types, :first, :first)
+    - if policy(@collection).update?
+      .uk-width-1-4.actions
+        = f.submit(class: "ui button")
+        %br/
+        = link_to t(:cancel), collection_path(@collection), class: "ui basic button"
+
+  .uk-section
+    %h3.uk-title= t("collection.admins.header")
+    %ul.uk-list.collection_users
+      - @collection.users.each do |user|
+        %li{ id: "user_#{user.id}" }
+          = user.username
+          - unless user == current_user
+            = remove_collection_user_link(@collection, user)
+    .find_users.uk-margin-top
+      - hide_params_in_form(["user_id"])
+      %div
+        = t("collection.admins.label")
+      %div
+        = text_field_tag("user", nil,
+          placeholder: t("collection.admins.placeholder"),
+          remote: true, class: "uk-input uk-form-width-medium typeahead")
 
   - if @collection.collected_pages.empty?
     %p= t(:collection_pages_empty)
@@ -59,6 +79,6 @@
     /# TODO
     Ooops, collections-in-collections are not implemented
   %p.col-md-3.actions.col-md-offset-2
-    = f.submit(class: "btn btn-default")
+    = f.submit(class: "ui button")
   %p.col-md-3.actions
-    = link_to t(:cancel), collection_path(@collection), class: "btn btn-default"
+    = link_to t(:cancel), collection_path(@collection), class: "ui basic button"

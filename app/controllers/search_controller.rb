@@ -109,6 +109,7 @@ class SearchController < ApplicationController
             end
           end
           order_by(:page_richness, :desc)
+          # NOTE: the per_page here is ALSO restricted in main.js! Be careful.
           paginate page: 1, per_page: 20
         end
         matches = {}
@@ -135,7 +136,6 @@ class SearchController < ApplicationController
             end
           end
         end
-        results = results # .sort_by { |r| r[:value] }
         render json: JSON.pretty_generate(results)
       end
     end
