@@ -6,8 +6,8 @@
         .uk-text-muted= @collection.description.html_safe
     - if policy(@collection).update?
       .actions.uk-width-1-5
-        .ui.button
-          = link_to(t(:collection_edit_button), edit_collection_path(@collection))
+        = link_to(t("collection.edit_button"), edit_collection_path(@collection), class: "ui button")
+        = link_to(t("collection.delete_button"), collection_path(@collection), method: "delete", data: { confirm: t("collection.delete_confirm") }, class: "ui basic button")
 .collected_pages.uk-margin-top
   - if @collection.collected_pages.empty?
     %p= t(:collection_pages_empty)

@@ -1,0 +1,6 @@
+console.log("Adding user");
+// NOTE: this link_to is copied from app/views/collections/edit.html.haml and is thus duplicate code, but
+$(".uk-list.collection_users").append(
+  "<li id='user_<%= @user.id %>'><%= j(@user.username) %><%= j(remove_collection_user_link(@collection, @user)) %></li>"
+);
+console.log("Added user <%= j(@user.name) %>");

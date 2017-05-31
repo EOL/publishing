@@ -13,4 +13,12 @@ class CollectionPolicy
   def destroy?
     user && user.is_admin? or collection.users.include?(user)
   end
+
+  def add_user?
+    user && user.is_admin? or collection.users.include?(user)
+  end
+
+  def remove_user?
+    user && user.is_admin? or collection.users.include?(user)
+  end
 end

@@ -4,14 +4,10 @@ class Collection < ActiveRecord::Base
   has_many :collections, through: :collection_associations,
     source: :associated
   has_many :collected_pages, -> { order(position: :asc) },
-    inverse_of: :collection
+    inverse_of: :collection, dependent: :destroy
   has_many :pages, through: :collected_pages
 
   has_and_belongs_to_many :users
-  has_and_belongs_to_many :managers,
-    -> { where(is_manager: true) },
-    class_name: "User",
-    association_foreign_key: "user_id"
 
   has_attached_file :icon
 
@@ -20,7 +16,7 @@ class Collection < ActiveRecord::Base
 
   validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
   validates :name, presence: true
-  
+
   enum collection_type: [ :normal, :gallery ]
 
   searchable do

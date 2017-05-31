@@ -32,8 +32,8 @@ class User < ActiveRecord::Base
   USERNAME_MAX_LENGTH = 32
 
   searchable do
-    text :username, :boost => 6.0
-    text :name, :boost => 4.0
+    text :username, stored: true, :boost => 6.0
+    text :name, stored: true, :boost => 4.0
     text :tag_line
     text :bio, :boost => 2.0
   end
