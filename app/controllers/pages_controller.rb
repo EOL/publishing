@@ -34,7 +34,7 @@ class PagesController < ApplicationController
     end
   end
 
-  # This is effectively the "cover":
+  # This is effectively the "overview":
   def show
     @page = Page.where(id: params[:id]).preloaded.first
     return render(status: :not_found) unless @page # 404
@@ -64,7 +64,7 @@ class PagesController < ApplicationController
   # TODO: Decide whether serving the subtabs from here is actually RESTful.
 
   # TODO: Remove duplication with show (be mindful of id / page_id).
-  def cover
+  def overview
     @page = Page.where(id: params[:page_id]).preloaded.first
     return render(status: :not_found) unless @page # 404
     @page_title = @page.name
