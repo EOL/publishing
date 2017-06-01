@@ -10,7 +10,7 @@
       %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
         - link_path = medium_path(image)
         .uk-card-media-top.uk-inline-clip.uk-transition-toggle
-          %a.uk-cover-container{ href: "##{img_id}", uk: { toggle: true } }
+          %a.uk-overview-container{ href: "##{img_id}", uk: { toggle: true } }
             %img{ src: image.medium_size_url }
             %div{ id: img_id, uk: { modal: true } }
               .uk-modal-dialog

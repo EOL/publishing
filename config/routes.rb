@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
     get "breadcrumbs"
-    get "cover"
+    get "overview"
     get "classifications"
     # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
     # collection:

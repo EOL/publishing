@@ -6,13 +6,13 @@
       = javascript_include_tag "maps_vendored"
       = javascript_include_tag "http://media.eol.org/content/maps/#{prefix}/#{@page.id}.json"
       = javascript_include_tag "maps"
-  - is_cover_page = current_page?(page_cover_path(page_id: @page.id)) || current_page?(page_path(@page))
-  #name-header.toggle{ hidden: is_cover_page }
+  - is_overview_page = current_page?(page_overview_path(page_id: @page.id)) || current_page?(page_path(@page))
+  #name-header.toggle{ hidden: is_overview_page }
     - if @page.medium
       .ui.vertical.segment{ class: "uk-hidden@m" }
         = image_tag(@page.medium.original_size_url, class: "ui fluid image")
     .ui.vertical.segment{ uk: { grid: true } }
-      -# NOTE: this is largely duplicated in _cover.html.haml ; not worth extracting.
+      -# NOTE: this is largely duplicated in _overview.html.haml ; not worth extracting.
       #names.page-names{ class: "uk-width-2-3@m" }
         - if @page.name == @page.scientific_name
           %h1.uk-margin-small-bottom= @page.name.html_safe
@@ -27,7 +27,7 @@
   #page
     .uk-margin-top
       %ul#page_nav.uk-tab.uk-child-width-expand{ class: "uk-visible@m" }
-        - large_tab(name: "cover", icon: "unhide", count: nil, path: page_cover_path(page_id: @page.id), active: is_cover_page)
+        - large_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)
         - if @page.media_count > 0
           - large_tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
         - unless @page.traits.empty?
@@ -43,7 +43,7 @@
           - large_tab(name: "literature_and_references", icon: "book", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
       %div{ style: "white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; -ms-overflow-style: -ms-autohiding-scrollbar;" }
         #small_page_nav.ui.labeled.stackable.icon.menu{ class: "uk-hidden@m" }
-          - small_tab(name: "cover", icon: "unhide", count: nil, path: page_cover_path(page_id: @page.id), active: is_cover_page)
+          - small_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)
           - if @page.media_count > 0
             - small_tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
           - unless @page.traits.empty?
