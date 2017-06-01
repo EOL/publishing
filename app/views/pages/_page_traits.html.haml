@@ -1,4 +1,7 @@
 - cache(page_traits_path(@page), expires_in: 1.day) do
+  - Rails.logger.warn("// Rendering traits for page #{@page.id} (#{@page.name})")
+  - @resources = TraitBank.resources(@page.traits)
+  - get_associations
   - max_rows = 10
   - traits = @page.traits
   #page_traits{ uk: { grid: true } }

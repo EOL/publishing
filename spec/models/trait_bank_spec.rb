@@ -240,7 +240,7 @@ RSpec.describe TraitBank do
     end
 
     it "adds default sort to the query by default" do
-      expect(TraitBank).to receive(:query).with(/LOWER\(info_term\.name.*LOWER\(trait\.literal.*trait\.normal_measurement/)
+      expect(TraitBank).to receive(:query).with(/LOWER\(info_term\.name.*trait\.normal_measurement.*LOWER\(trait\.literal/)
       TraitBank.by_predicate(predicate)
     end
 

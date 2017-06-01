@@ -134,7 +134,7 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        ["LOWER(info_term.name)", "LOWER(trait.literal)", "trait.normal_measurement"]
+        ["LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       end
       sorts << "page.name" unless options[:by]
       dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
@@ -345,16 +345,14 @@ class TraitBank
         end
         this_id = "trait--#{resource_id}--#{trait["resource_pk"]}"
         this_id += "--#{page["page_id"]}" if page
-        if this_id == previous_id && traits.last && ! meta_data.blank?
-          begin
+        if this_id == previous_id && traits.last
+          unless meta_data.blank?
             traits.last[:metadata] ||= []
             traits.last[:metadata] << meta_data
-          rescue NoMethodError => e
-            puts "++ Could not add:"
-            puts meta_data.inspect
-            puts "++ attempt to add to last member of #{traits.size} array:"
-            puts traits.last.inspect
-            puts "++ Sorry."
+          end
+          unless meta_data.blank?
+            traits.last[:metadata] ||= []
+            traits.last[:metadata] << meta_data
           end
         else
           trait[:metadata] = meta_data.blank? ? nil : [ meta_data ]
