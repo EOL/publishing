@@ -584,6 +584,7 @@ en:
         username:
   term:
     actions:
+      download: "download"
       glossary: "full glossary"
       reindex: "reindex"
       sort: "sort by"
