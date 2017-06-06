@@ -36,8 +36,6 @@ module TraitsHelper
     end
   end
 
-  # NOTE: yes, this is a long method. It *might* be worth breaking up, but I'm
-  # not sure it would add to the clarity.
   def show_trait_value(trait)
     value = t(:trait_missing, keys: trait.keys.join(", "))
     if trait[:object_page_id] && defined?(@associations)

@@ -280,11 +280,10 @@ RSpec.describe TraitBank do
     it "should produce the expected ID format" do
       results = {"columns" => ["resource", "trait"],
         "data" => [[
-            { "data" => {"resource_id"=>"TheRes_ID"} },
-            { "data" => {"resource_pk"=>"ResPKHere"} }
+            { "metadata" => { "id" => "abc123" }, "data" => {"resource_id"=>"TheRes_ID"} },
+            { "metadata" => { "id" => "abc123" }, "data" => {"resource_pk"=>"ResPKHere"} }
           ]]}
-      col_array = [:resource, :trait]
-      expect(TraitBank.build_trait_array(results, col_array).first[:id]).
+      expect(TraitBank.build_trait_array(results).first[:id]).
         to eq("trait--TheRes_ID--ResPKHere")
     end
   end
