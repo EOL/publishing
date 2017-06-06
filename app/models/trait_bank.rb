@@ -377,7 +377,7 @@ class TraitBank
         else
           "MISSING"
         end
-        if has_info_term
+        if has_info_term && hash[:info_type]
           type = hash[:info_type].to_sym
           if type == :object_term
             hash[:object_term] = hash[:info_term]
