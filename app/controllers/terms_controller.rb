@@ -31,17 +31,25 @@ class TermsController < ApplicationController
     traits = @object ?
       TraitBank.by_object_term_uri(@term[:uri], options) :
       TraitBank.by_predicate(@term[:uri], options)
-    # TODO: a fast way to load pages with just summary info:
-    pages = Page.where(id: traits.map { |t| t[:page_id] }.uniq).
-      includes(:medium, :native_node, :preferred_vernaculars)
-    # Make a dictionary of pages:
-    @pages = {}
-    pages.each { |page| @pages[page.id] = page }
-    # Make a glossary:
-    @resources = TraitBank.resources(traits)
-    @species_list = params[:species_list]
-    paginate_traits(traits)
-    get_associations
+      
+    respond_to do |fmt|
+      fmt.html do
+        # TODO: a fast way to load pages with just summary info:
+        pages = Page.where(id: traits.map { |t| t[:page_id] }.uniq).
+          includes(:medium, :native_node, :preferred_vernaculars)
+        # Make a dictionary of pages:
+        @pages = {}
+        pages.each { |page| @pages[page.id] = page }
+        # Make a glossary:
+        @resources = TraitBank.resources(traits)
+        @species_list = params[:species_list]
+        paginate_traits(traits)
+        get_associations
+      end
+
+      fmt.csv { send_data TraitBank::DataDownload.to_arrays(traits),
+        filename: "#{@term[:name]}-#{Date.today}.csv" }
+    end
   end
 
   def glossary
