@@ -384,6 +384,8 @@ en:
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
+    cms:
+      menu_name: "More..."
     search:
       placeholder: "Search EOL..."
   name_preferred_label: "preferred"

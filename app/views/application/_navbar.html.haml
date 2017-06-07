@@ -3,8 +3,10 @@
     #navbar.ui.large.secondary.network.menu
       -# TODO: I18n
       = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "item uk-logo")
-      %div{ class: "uk-visible@m" }
-        = cms_menu.to_html
+      -# HACK HACK HACK - I need to "inject" content into the menu to make it
+      -# appear!
+      -# = cms_menu.to_html.gsub(/<ul/, "#{t("nav.cms.menu_name")}<i class='dropdown icon'></i><ul").html_safe
+      = cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
       = link_to("Education", "http://education.eol.org/", class: "item uk-visible@m")
       .ui.simple.dropdown.item
         - langs = languages_hash
