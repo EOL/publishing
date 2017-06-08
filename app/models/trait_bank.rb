@@ -205,6 +205,11 @@ class TraitBank
           q += "MATCH (trait)-[info]->(info_term:Term) "
         end
       end
+      if options[:meta]
+        q+= "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "
+      end
       if options[:clade]
         q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
@@ -212,6 +217,9 @@ class TraitBank
         q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
         q += "RETURN page, trait, predicate, type(info) AS info_type, info_term, resource"
+        if options[:meta]
+          q += ", meta, meta_predicate, meta_units_term, meta_object_term"
+        end
         q += order_clause(options)
         q += limit_and_skip_clause(options[:page], options[:per])
       end
@@ -346,7 +354,7 @@ class TraitBank
             # some knowledge of this, either something like "these columns could
             # have multiple values" or the opposite: "these columns identify a
             # row and cannot change". I prefer the latter, honestly.
-            if column =~ /\Ameta_/
+            if column =~ /\Ameta/
               hash[col] = [value]
             else
               hash[col] = value unless value.nil?
@@ -381,6 +389,7 @@ class TraitBank
         else
           "MISSING"
         end
+        # TODO: extract method
         if has_info_term && hash[:info_type]
           info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
             Array(hash[:info_term])
