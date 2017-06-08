@@ -28,12 +28,12 @@ class TermsController < ApplicationController
       sort_dir: params[:sort_dir],
       clade: @clade.try(:id)
     }
-    traits = @object ?
-      TraitBank.by_object_term_uri(@term[:uri], options) :
-      TraitBank.by_predicate(@term[:uri], options)
-      
+
     respond_to do |fmt|
       fmt.html do
+        traits = @object ?
+          TraitBank.by_object_term_uri(@term[:uri], options) :
+          TraitBank.by_predicate(@term[:uri], options)
         # TODO: a fast way to load pages with just summary info:
         pages = Page.where(id: traits.map { |t| t[:page_id] }.uniq).
           includes(:medium, :native_node, :preferred_vernaculars)
@@ -47,8 +47,14 @@ class TermsController < ApplicationController
         get_associations
       end
 
-      fmt.csv { send_data TraitBank::DataDownload.to_arrays(traits),
-        filename: "#{@term[:name]}-#{Date.today}.csv" }
+      fmt.csv do
+        options[:meta] = true
+        traits = @object ?
+          TraitBank.by_object_term_uri(@term[:uri], options) :
+          TraitBank.by_predicate(@term[:uri], options)
+        send_data TraitBank::DataDownload.to_arrays(traits),
+          filename: "#{@term[:name]}-#{Date.today}.tsv"
+      end
     end
   end
 
