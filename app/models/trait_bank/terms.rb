@@ -22,7 +22,7 @@ class TraitBank
           # "RETURN term ORDER BY term.name, term.uri"
           q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
             "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-          q += limit_and_skip_clause(q, page, per)
+          q += limit_and_skip_clause(page, per)
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
         end
@@ -37,7 +37,7 @@ class TraitBank
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
             q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
-            q += limit_and_skip_clause(q, page, per)
+            q += limit_and_skip_clause(page, per)
           end
           res = query(q)
           if res["data"]

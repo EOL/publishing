@@ -134,7 +134,7 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        ["LOWER(info_term.name)", "LOWER(trait.literal)", "trait.normal_measurement"]
+        ["LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       end
       sorts << "page.name" unless options[:by]
       dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
@@ -166,8 +166,7 @@ class TraitBank
           "meta, meta_predicate, meta_units_term, meta_object_term"
       q += limit_and_skip_clause(page, per)
       res = query(q)
-      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units, :meta, :meta_predicate, :meta_units_term, :meta_object_term])
+      build_trait_array(res)
     end
 
     def by_page(page_id, page = 1, per = 100)
@@ -181,8 +180,7 @@ class TraitBank
         "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
       res = query(q)
-      build_trait_array(res, [:resource, :trait, :predicate, :object_term,
-        :units])
+      build_trait_array(res)
     end
 
     # e.g.: uri = "http://eol.org/schema/terms/Habitat"
@@ -213,7 +211,7 @@ class TraitBank
       if options[:count]
         q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
-        q += "RETURN page, trait, predicate, type(info), info_term, resource"
+        q += "RETURN page, trait, predicate, type(info) AS info_type, info_term, resource"
         q += order_clause(options)
         q += limit_and_skip_clause(options[:page], options[:per])
       end
@@ -221,8 +219,7 @@ class TraitBank
       if options[:count]
         res["data"] ? res["data"].first.first : 0
       else
-        build_trait_array(res, [:page, :trait, :predicate, :info_type,
-          :info_term, :resource])
+        build_trait_array(res)
       end
     end
 
@@ -301,74 +298,119 @@ class TraitBank
       res["data"]
     end
 
-    # Neography recognizes the objects we get back, but the format is weird for
-    # building pages, so I transform it here (temporarily, for simplicity). The
-    # problem is that the results are in a kind of "table" format, where columns
-    # on the left are duplicated to allow for multiple values on the right. This
-    # detects those duplicates to add them (as an array) to the trait, and adds
-    # all of the other data together into one object meant to represent a single
-    # trait, and then returns an array of those traits. It's really not as
-    # complicated as it seems! This is mostly bookkeeping.
-    def build_trait_array(results, col_array)
-      traits = []
+    # Given a results array and the name of one of the returned columns to treat
+    # as the "identifier" (meaning the field who's ID will uniquely identify a
+    # row of related data ... e.g.: the "trait" for trait data)
+    def results_to_hashes(results, identifier = nil)
+      id_col = results["columns"].index(identifier ? identifier.to_s : "trait")
+      hashes = []
       previous_id = nil
-      col = {}
-      col_array.each_with_index { |c, i| col[c] = i }
-      has_info_term = col_array.include?(:info_term)
-      results["data"].each do |trait_res|
-        object_term = nil
-        units = nil
-        if has_info_term
-          type = trait_res[col[:info_type]].to_sym
-          if type == :object_term
-            object_term = get_column_data_from(col[:info_term], trait_res)
-          elsif type == :units_term
-            units = get_column_data_from(col[:info_term], trait_res)
-          end
-        else
-          object_term = get_column_data(:object_term, trait_res, col)
-          units = get_column_data(:units, trait_res, col)
+      hash = nil
+      results["data"].each do |row|
+        row_id = row[id_col] && row[id_col]["metadata"] &&
+          row[id_col]["metadata"]["id"]
+        debugger if row_id.nil? # Oooops, you found a row with NO identifier!
+        if row_id != previous_id
+          previous_id = row_id
+          hashes << hash unless hash.nil?
+          hash = {}
         end
-        resource = get_column_data(:resource, trait_res, col)
-        resource_id = resource ? resource["resource_id"] : "MISSING"
-        trait = get_column_data(:trait, trait_res, col)
-        page = get_column_data(:page, trait_res, col)
-        predicate = get_column_data(:predicate, trait_res, col)
-        if col_array.include?(:meta)
-          meta_data = get_column_data(:meta, trait_res, col)
-          unless meta_data.blank?
-            meta_data = meta_data.symbolize_keys
-            meta_data[:predicate] = get_column_data(:meta_predicate, trait_res, col).try(:symbolize_keys)
-            meta_data[:object_term] = get_column_data(:meta_object_term, trait_res, col).try(:symbolize_keys)
-            meta_data[:units] = get_column_data(:meta_units_term, trait_res, col).try(:symbolize_keys)
+        results["columns"].each_with_index do |column, i|
+          col = column.to_sym
+          value = row[i] && row[i]["data"]
+          value = value.symbolize_keys if value.is_a?(Hash)
+          if hash.has_key?(col)
+            # NOTE: this assumes neo4j never naturally returns an array...
+            if hash[col].is_a?(Array)
+              hash[col] << value
+            # If the value is changing (or if it's metadata)...
+            elsif hash[col] != value
+              # ...turn it into an array and add the new value.
+              hash[col] = [hash[col], value]
+            # Note the lack of "else" ... if the value is the same as the last
+            # row, we ignore it (assuming it's a duplicate value and another
+            # column is changing)
+            end
+          else
+            # Metadata will *always* be returned as an array...
+            # NOTE: it's important to catch columns that we KNOW could have
+            # multiple values for a given "row"! ...Otherwise, the "ignore
+            # duplicates" code will cause problems, above. If you know of a
+            # column that could have multiple values, you need to add detection
+            # for it here.
+            # TODO: this isn't a very general solution. Really we should pass in
+            # some knowledge of this, either something like "these columns could
+            # have multiple values" or the opposite: "these columns identify a
+            # row and cannot change". I prefer the latter, honestly.
+            if column =~ /\Ameta_/
+              hash[col] = [value]
+            else
+              hash[col] = value unless value.nil?
+            end
           end
         end
-        this_id = "trait--#{resource_id}--#{trait["resource_pk"]}"
-        this_id += "--#{page["page_id"]}" if page
-        if this_id == previous_id && traits.last && ! meta_data.blank?
-          begin
-            traits.last[:metadata] ||= []
-            traits.last[:metadata] << meta_data
-          rescue NoMethodError => e
-            puts "++ Could not add:"
-            puts meta_data.inspect
-            puts "++ attempt to add to last member of #{traits.size} array:"
-            puts traits.last.inspect
-            puts "++ Sorry."
-          end
-        else
-          trait[:metadata] = meta_data.blank? ? nil : [ meta_data ]
-          trait[:page_id] = page["page_id"] if page
-          trait[:resource_id] = resource_id if resource_id
-          trait[:predicate] = predicate.symbolize_keys if predicate
-          trait[:object_term] = object_term.symbolize_keys if object_term
-          trait[:units] = units.symbolize_keys if units
-          trait[:id] = this_id
-          traits << trait.symbolize_keys
-        end
-        previous_id = this_id
       end
-      traits
+      hashes << hash unless hash.nil? || hash == {}
+      # Symbolize everything!
+      hashes.each do |k,v|
+        if v.is_a?(Hash)
+          hashes[k] = v.symbolize_keys
+        elsif v.is_a?(Array)
+          hashes[k] = v.map { |sv| sv.symbolize_keys }
+        end
+      end
+      hashes
+    end
+
+    # NOTE: this method REQUIRES that some fields have a particular name.
+    # ...which isn't very generalized, but it will do for our purposes...
+    def build_trait_array(results)
+      hashes = results_to_hashes(results)
+      data = []
+      hashes.each do |hash|
+        has_info_term = hash.keys.include?(:info_term)
+        has_trait = hash.keys.include?(:trait)
+        hash.merge!(hash[:trait]) if has_trait
+        hash[:page_id] = hash[:page][:page_id] if hash[:page]
+        hash[:resource_id] = if hash[:resource]
+          hash[:resource][:resource_id]
+        else
+          "MISSING"
+        end
+        if has_info_term && hash[:info_type]
+          type = hash[:info_type].to_sym
+          if type == :object_term
+            hash[:object_term] = hash[:info_term]
+          elsif type == :units_term
+            hash[:units] = hash[:info_term]
+          end
+        end
+        # TODO: extract method
+        if hash.has_key?(:meta)
+        raise "Metadata not returned as an array" unless
+          hash[:meta].is_a?(Array)
+        length = hash[:meta].size
+          [:meta_predicate, :meta_units_term, :meta_object_term].each do |col|
+            raise "Missing meta column #{col}: #{hash.keys}" unless
+              hash.has_key?(col)
+            raise ":#{col} data was not the same size as :meta" unless
+              hash[col].size == length
+          end
+          hash[:metadata] = []
+          hash[:meta].each_with_index do |meta, i|
+            meta_hash = meta
+            meta_hash[:predicate] = hash[:meta_predicate][i]
+            meta_hash[:object_term] = hash[:meta_object_term][i]
+            meta_hash[:units] = hash[:meta_units_term][i]
+          end
+        end
+        if has_trait
+          hash[:id] = "trait--#{hash[:resource_id]}--#{hash[:resource_pk]}"
+          hash[:id] += "--#{hash[:page_id]}" if hash[:page_id]
+        end
+        data << hash
+      end
+      data
     end
 
     def get_column_data(name, results, col)

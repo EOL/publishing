@@ -202,9 +202,22 @@ if(!EOL) {
         url: '/names/%QUERY.json',
         wildcard: '%QUERY'
       },
-      limit: 10
+      limit: 20
     });
     EOL.searchNames.initialize();
+    // And this...
+    EOL.searchUsers = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      // TODO: someday we should have a pre-populated list of common search terms
+      // and load that here. prefetch: '../data/films/post_1960.json',
+      remote: {
+        url: '/users/search.json?q=%QUERY',
+        wildcard: '%QUERY'
+      },
+      limit: 10
+    });
+    EOL.searchUsers.initialize();
 
     if ($('#nav-search .typeahead').length >= 1) {
       console.log("Enable navigation typeahead.");
@@ -236,6 +249,19 @@ if(!EOL) {
         console.log('typeahead:selected:', evt, datum, name);
         $(".clade_filter form input#clade").val(datum.id);
         $(".clade_filter form").submit();
+      });
+    };
+
+    if ($('.find_users .typeahead').length >= 1) {
+      console.log("Enable username typeahead.");
+      $('.find_users .typeahead').typeahead(null, {
+        name: 'find-usernames',
+        display: 'value',
+        source: EOL.searchUsers
+      }).bind('typeahead:selected', function(evt, datum, name) {
+        console.log('typeahead:selected:', evt, datum, name);
+        $("form.find_users_form input#user_id").val(datum.id)
+        $("form.find_users_form").submit();
       });
     };
 

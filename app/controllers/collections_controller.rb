@@ -3,7 +3,7 @@
 
   before_filter :sanitize_collection_params
   before_filter :find_collection_with_pages, only: [:edit, :show]
-  before_filter :find_collection, only: [:update]
+  before_filter :find_collection, only: [:update, :destroy, :add_user, :remove_user]
   before_filter :user_able_to_edit_collection, only: [:edit]
 
   # TODO: You cannot do this without being logged in.
@@ -21,7 +21,7 @@
           link: collection_path(@collection))
         redirect_to collected
       else
-        flash[:notice] = I18n.t(:collection_created, name: @collection.name)
+        flash[:notice] = I18n.t(:collection_created, name: @collection.name).html_safe
         redirect_to @collection
       end
     else
@@ -31,6 +31,18 @@
   end
 
   def edit
+  end
+
+  def destroy
+    authorize @collection
+    name = @collection.name
+    if @collection.destroy
+      flash[:notice] = I18n.t("collection.destroyed", name: name)
+      redirect_to current_user
+    else
+      # TODO: some kind of hint as to the problem, in a flash...
+      redirect_to @collection
+    end
   end
 
   def show
@@ -49,11 +61,29 @@
     # end
 
     if @collection.update(collection_params)
-      flash[:notice] = I18n.t(:collection_updated)
+      flash[:notice] = I18n.t("collection.updated")
       redirect_to @collection
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "edit"
+    end
+  end
+
+  def add_user
+    authorize @collection
+    @user = User.find(params[:user_id])
+    @collection.users << @user
+    respond_to do |fmt|
+      fmt.js {}
+    end
+  end
+
+  def remove_user
+    authorize @collection
+    @user = User.find(params[:user_id])
+    @collection.users.delete(@user)
+    respond_to do |fmt|
+      fmt.js {}
     end
   end
 
@@ -65,7 +95,7 @@
   end
 
   def find_collection
-    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
+    @collection = Collection.where(id: params[:id] || params[:collection_id]).includes(:collection_associations,
       :collected_pages).first
   end
 

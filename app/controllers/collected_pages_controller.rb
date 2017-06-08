@@ -24,12 +24,21 @@ class CollectedPagesController < ApplicationController
       flash[:notice] = I18n.t(:collected_page_added_to_collection,
         name: @collected_page.collection.name,
         page: @collected_page.page.name,
-        link: collection_path(@collected_page.collection))
+        link: collection_path(@collected_page.collection)).html_safe
       redirect_to @collected_page.page
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"
     end
+  end
+
+  def destroy
+    @collected_page = CollectedPage.find(params[:id])
+    authorize @collected_page.collection
+    if @collected_page.destroy
+      flash[:notice] = I18n.t("collected_pages.destroyed_flash", name: @collected_page.page.name)
+    end
+    redirect_to @collected_page.collection
   end
 
 private

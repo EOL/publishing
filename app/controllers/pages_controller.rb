@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   before_action :set_media_page_size, only: [:show, :media]
 
   helper :traits
+  helper_method :get_associations
 
   def index
     @title = I18n.t("landing_page.title")
@@ -33,7 +34,7 @@ class PagesController < ApplicationController
     end
   end
 
-  # This is effectively the "cover":
+  # This is effectively the "overview":
   def show
     @page = Page.where(id: params[:id]).preloaded.first
     return render(status: :not_found) unless @page # 404
@@ -63,7 +64,7 @@ class PagesController < ApplicationController
   # TODO: Decide whether serving the subtabs from here is actually RESTful.
 
   # TODO: Remove duplication with show (be mindful of id / page_id).
-  def cover
+  def overview
     @page = Page.where(id: params[:page_id]).preloaded.first
     return render(status: :not_found) unless @page # 404
     @page_title = @page.name
@@ -80,8 +81,6 @@ class PagesController < ApplicationController
   def traits
     @page = Page.where(id: params[:page_id]).first
     return render(status: :not_found) unless @page # 404
-    @resources = TraitBank.resources(@page.traits)
-    get_associations
     respond_to do |format|
       format.html {}
       format.js {}
