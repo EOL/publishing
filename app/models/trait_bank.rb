@@ -317,8 +317,12 @@ class TraitBank
         end
         results["columns"].each_with_index do |column, i|
           col = column.to_sym
-          value = row[i] && row[i]["data"]
-          value = value.symbolize_keys if value.is_a?(Hash)
+
+          value = if row[i]
+                    row[i].is_a?(Hash) ? row[i]["data"].symbolize_keys : row[i]
+                  else
+                    nil
+                  end
           if hash.has_key?(col)
             # NOTE: this assumes neo4j never naturally returns an array...
             if hash[col].is_a?(Array)
@@ -378,11 +382,15 @@ class TraitBank
           "MISSING"
         end
         if has_info_term && hash[:info_type]
-          type = hash[:info_type].to_sym
-          if type == :object_term
-            hash[:object_term] = hash[:info_term]
-          elsif type == :units_term
-            hash[:units] = hash[:info_term]
+          info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
+            Array(hash[:info_term])
+          Array(hash[:info_type]).each_with_index do |info_type, i|
+            type = info_type.to_sym
+            if type == :object_term
+              hash[:object_term] = info_terms[i]
+            elsif type == :units_term
+              hash[:units] = info_terms[i]
+            end
           end
         end
         # TODO: extract method
@@ -390,18 +398,22 @@ class TraitBank
         raise "Metadata not returned as an array" unless
           hash[:meta].is_a?(Array)
         length = hash[:meta].size
+          raise "Missing meta column meta_predicate: #{hash.keys}" unless
+            hash.has_key?(:meta_predicate)
           [:meta_predicate, :meta_units_term, :meta_object_term].each do |col|
-            raise "Missing meta column #{col}: #{hash.keys}" unless
-              hash.has_key?(col)
-            raise ":#{col} data was not the same size as :meta" unless
-              hash[col].size == length
+            next unless hash.has_key?(col)
+              # debugger unless
+              #   hash[col].size == length
+              raise ":#{col} data was not the same size as :meta" unless
+                hash[col].size == length
           end
           hash[:metadata] = []
           hash[:meta].each_with_index do |meta, i|
-            meta_hash = meta
-            meta_hash[:predicate] = hash[:meta_predicate][i]
-            meta_hash[:object_term] = hash[:meta_object_term][i]
-            meta_hash[:units] = hash[:meta_units_term][i]
+            m_hash = meta
+            m_hash[:predicate] = hash[:meta_predicate][i]
+            m_hash[:object_term] = hash[:meta_object_term][i]
+            m_hash[:units] = hash[:meta_units_term][i]
+            hash[:metadata] << m_hash
           end
         end
         if has_trait
