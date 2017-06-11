@@ -6,7 +6,8 @@
       -# HACK HACK HACK - I need to "inject" content into the menu to make it
       -# appear!
       -# = cms_menu.to_html.gsub(/<ul/, "#{t("nav.cms.menu_name")}<i class='dropdown icon'></i><ul").html_safe
-      = cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
+      -#= cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
+      = link_to("About", "/docs/about", class: "item uk-visible@m")
       = link_to("Education", "http://education.eol.org/", class: "item uk-visible@m")
       .ui.simple.dropdown.item
         - langs = languages_hash

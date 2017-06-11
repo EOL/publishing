@@ -51,11 +51,11 @@ Refinery::Core.configure do |config|
   # Make sure you clear the `tmp/cache` directory after changing this setting.
    config.backend_route = "cms"
 
-   config.mounted_path = "/docs"
+   # config.mounted_path = "/docs"
 
   # Specify a different Refinery::Core::Engine mount path than the default of "/".
   # Make sure you clear the `tmp/cache` directory after changing this setting.
-  # config.mounted_path = "/"
+   config.mounted_path = "/docs"
 
   # Specify the order Refinery plugins appear in the admin view.
   # Plugins in the list are placed, as ordered, before any plugins not in the list.
