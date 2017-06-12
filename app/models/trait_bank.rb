@@ -46,15 +46,6 @@ class TraitBank
       true
     end
 
-    # Neography-style:
-    def connect
-      parts = ENV["EOL_TRAITBANK_URL"].split(%r{[/:@]})
-      Neography.configure do |cfg|
-        cfg.username = parts[3]
-        cfg.password = parts[4]
-      end
-    end
-
     def query(q)
       start = Time.now
       results = nil
@@ -296,17 +287,6 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def node_exists?(node_id)
-      result_node = get_node(node_id)
-      result_node ? result_node.first : false
-    end
-
-    def get_node(node_id)
-      res = query("MATCH (node:Node { node_id: #{node_id} })"\
-        "RETURN node")
-      res["data"]
-    end
-
     # Given a results array and the name of one of the returned columns to treat
     # as the "identifier" (meaning the field who's ID will uniquely identify a
     # row of related data ... e.g.: the "trait" for trait data)
@@ -433,16 +413,6 @@ class TraitBank
         data << hash
       end
       data
-    end
-
-    def get_column_data(name, results, col)
-      return nil unless col.has_key?(name)
-      get_column_data_from(col[name], results)
-    end
-
-    def get_column_data_from(col, results)
-      return nil unless results[col].is_a?(Hash)
-      results[col]["data"]
     end
 
     def resources(traits)
