@@ -380,4 +380,36 @@ RSpec.describe TraitBank do
       expect(TraitBank.resources(traits))
     end
   end
+
+  describe ".create_page" do
+    before do
+      allow(TraitBank).to receive(:page_exists?) { }
+    end
+
+    it "returns a page that already exists" do
+      expect(TraitBank).to receive(:page_exists?).with(6754) { :this_page }
+      expect(TraitBank.page_exists?(6754)).to eq(:this_page)
+    end
+
+    # Ugh. There's a long conversation in the RSpec community about how you
+    # cannot call #receive_method_chain more than once, so you MUST break it
+    # down like this:
+    it "creates a node if no page exists" do
+      connection = instance_double(Neography::Rest)
+      allow(TraitBank).to receive(:connection).at_least(1).times { connection }
+      expect(connection).to receive(:create_node).
+        with(page_id: 888854) { :a_page }
+      expect(connection).to receive(:add_label).
+        with(:a_page, "Page") { }
+      expect(TraitBank.create_page(888854)).to eq(:a_page)
+    end
+  end
+
+  describe ".find_resource" do
+    it "runs the expected query" do
+      expect(TraitBank).to receive(:query).with(/:resource { resource_id: 777555 }/i) { { "data" => [:hi] } }
+      expect(TraitBank.find_resource(777555)).to eq(:hi)
+    end
+  end
+
 end
