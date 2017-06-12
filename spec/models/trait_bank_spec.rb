@@ -193,7 +193,7 @@ RSpec.describe TraitBank do
   end
 
   describe ".by_predicate" do
-    let(:predicate) { "http://foo.bar/baz" }
+    let(:uri) { "http://foo.bar/baz" }
     before do
       allow(TraitBank).to receive(:query) { }
       allow(TraitBank).to receive(:build_trait_array) { :result_set }
@@ -201,57 +201,77 @@ RSpec.describe TraitBank do
 
     it "finds a page" do
       expect(TraitBank).to receive(:query).with(/page:Page/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "finds traits" do
       expect(TraitBank).to receive(:query).with(/:trait.*trait:Trait/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "finds the supplier resource" do
       expect(TraitBank).to receive(:query).with(/:supplier.*resource:Resource/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "finds the predicate" do
       expect(TraitBank).to receive(:query).with(/:predicate.*predicate:Term/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "optionally finds the object term" do
       expect(TraitBank).to receive(:query).with(/MATCH.*info_term:Term/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "optionally finds the units term" do
       expect(TraitBank).to receive(:query).with(/MATCH.*info_term:Term/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "calls .build_trait_array" do
       expect(TraitBank).to receive(:build_trait_array) { :results }
-      expect(TraitBank.by_predicate(predicate)).to eq(:results)
+      expect(TraitBank.by_predicate(uri)).to eq(:results)
     end
 
     it "adds measurement sort to the query when specified" do
       expect(TraitBank).to receive(:query).with(/trait.normal_measurement/)
-      TraitBank.by_predicate(predicate, sort: "MEASurement")
+      TraitBank.by_predicate(uri, sort: "MEASurement")
     end
 
     it "adds default sort to the query by default" do
       expect(TraitBank).to receive(:query).with(/LOWER\(info_term\.name.*trait\.normal_measurement.*LOWER\(trait\.literal/)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "does NOT add desc to the query by default" do
       expect(TraitBank).not_to receive(:query).with(/ desc/i)
-      TraitBank.by_predicate(predicate)
+      TraitBank.by_predicate(uri)
     end
 
     it "DOES add desc to the query when specified" do
       expect(TraitBank).to receive(:query).with(/ desc/i)
-      TraitBank.by_predicate(predicate, sort_dir: "DEsc")
+      TraitBank.by_predicate(uri, sort_dir: "DEsc")
+    end
+
+    it "can look up object terms" do
+      expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}"/i)
+      TraitBank.by_predicate(uri, object_term: true)
+    end
+
+    it "can count object terms" do
+      expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}".*count\(distinct\(trait\)\)/i) { { "data" => [[]] } }
+      TraitBank.by_predicate(uri, object_term: true, count: true)
+    end
+
+    it "can add metadata" do
+      expect(TraitBank).to receive(:query).with(/:metadata.*:units_term.*:object_term/i)
+      TraitBank.by_predicate(uri, meta: true)
+    end
+
+    it "can add clade" do
+      expect(TraitBank).to receive(:query).with(/where page.page_id = 123432 or ancestor.page_id = 123432/i)
+      TraitBank.by_predicate(uri, clade: 123432)
     end
   end
 
@@ -285,6 +305,79 @@ RSpec.describe TraitBank do
           ]]}
       expect(TraitBank.build_trait_array(results).first[:id]).
         to eq("trait--TheRes_ID--ResPKHere")
+    end
+  end
+
+  describe ".terms" do
+    it "orders the results by name (then uri)" do
+      allow(TraitBank).to receive(:query) { { "data" => [] } }
+      expect(TraitBank).to receive(:query).with(/order by lower\(term.name\), lower\(term.uri\)/i)
+      TraitBank.terms
+    end
+  end
+
+  describe "convenience aliases to .by_predicate" do
+    it "counts predicates" do
+      expect(TraitBank).to receive(:by_predicate).with(:abc, { count: true })
+      TraitBank.by_predicate_count(:abc)
+    end
+
+    it "by object term uri" do
+      expect(TraitBank).to receive(:by_predicate).with(:bcd, { object_term: true })
+      TraitBank.by_object_term_uri(:bcd)
+    end
+
+    it "count by object term uri" do
+      expect(TraitBank).to receive(:by_predicate).with(:def, { object_term: true, count: true })
+      TraitBank.by_object_term_count(:def)
+    end
+  end
+
+  describe ".search_predicate_terms" do
+    it "uses the important parts of query" do
+      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
+      TraitBank.search_predicate_terms(:trmy)
+    end
+  end
+
+  describe ".count_predicate_terms" do
+    it "uses the important parts of query" do
+      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
+      TraitBank.count_predicate_terms(:trmy)
+    end
+  end
+
+  describe ".search_object_terms" do
+    it "uses the important parts of query" do
+      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*wordy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
+      TraitBank.search_object_terms(:wordy)
+    end
+  end
+
+  describe ".count_object_terms" do
+    it "uses the important parts of query" do
+      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
+      TraitBank.count_object_terms(:trmy)
+    end
+  end
+
+  describe ".page_exists?" do
+    it "matches page ids" do
+      expect(TraitBank).to receive(:query).with(/:page {\s*page_id: 1234543/i) { { "data" => [] } }
+      TraitBank.page_exists?(1234543)
+    end
+  end
+
+  describe ".resources" do
+    it "pulls the resources from a set of traits" do
+      res1 = instance_double(Resource, id: 123)
+      res2 = instance_double(Resource, id: 234)
+      res3 = instance_double(Resource, id: 345)
+      expect(Resource).to receive(:where).
+        with(id: [123, 234, 345]) { [res1, res2, res3] }
+      traits = [ { resource_id: 123 }, { resource_id: 234 },
+        { resource_id: 345 } ]
+      expect(TraitBank.resources(traits))
     end
   end
 end
