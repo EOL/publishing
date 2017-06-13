@@ -335,29 +335,32 @@ RSpec.describe TraitBank do
 
   describe ".search_predicate_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
-      TraitBank.search_predicate_terms(:trmy)
+      expect(TraitBank).to receive(:query).
+        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { "data" => [[{ "data" => :this }]] } }
+      expect(TraitBank.search_predicate_terms(:trmy)).to eq([:this])
     end
   end
 
   describe ".count_predicate_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
-      TraitBank.count_predicate_terms(:trmy)
+      expect(TraitBank).to receive(:query).
+        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [[543]] } }
+      expect(TraitBank.count_predicate_terms(:trmy)).to eq(543)
     end
   end
 
   describe ".search_object_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*wordy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
-      TraitBank.search_object_terms(:wordy)
+      expect(TraitBank).to receive(:query).
+        with(/:object_term\]->\(\w+:term\).*name =\~ .*wordy.*order by lower\(\w+\.name\)/i) { { "data" => [[{ "data" => :tother }]] } }
+      expect(TraitBank.search_object_terms(:wordy)).to eq([:tother])
     end
   end
 
   describe ".count_object_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
-      TraitBank.count_object_terms(:trmy)
+      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [[876]] } }
+      expect(TraitBank.count_object_terms(:trmy)).to eq(876)
     end
   end
 
@@ -412,4 +415,8 @@ RSpec.describe TraitBank do
     end
   end
 
+  # NOTE: this is rather a complicated method. Brace yourself.
+  describe ".results_to_hashes" do
+
+  end
 end
