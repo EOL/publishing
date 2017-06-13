@@ -415,8 +415,52 @@ RSpec.describe TraitBank do
     end
   end
 
-  # NOTE: this is rather a complicated method. Brace yourself.
+  # NOTE: this is rather a complicated method... but parts of it are tested "in
+  # situ" elsewhere, so I'm only going to focus on the usual cases here:
   describe ".results_to_hashes" do
+    it "handles nil values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc1" }, "data" => {} },
+          nil
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).to be_nil
+    end
 
+    it "handles metadata over multiple lines" do
+      results = {"columns" => ["trait", "meta_foo"], "data" => [
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => :whatever }
+        ],
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => :second_value }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:meta_foo]).
+        to eq([:whatever, :second_value])
+    end
+
+    it "symbolizes hash values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc1" }, "data" => {} },
+          { "data" => { "this_key" => "value" } }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).
+        to eq({ this_key: "value" })
+    end
+
+    it "symbolizes all hashes in array values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => { "first" => "A" } }
+        ],
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => { "second" => "B" } }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).
+        to eq([{ first: "A" }, { second: "B" }])
+    end
   end
 end
