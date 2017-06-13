@@ -307,8 +307,21 @@ class TraitBank
         results["columns"].each_with_index do |column, i|
           col = column.to_sym
 
+          # This is pretty complicated. It symbolizes any hash that might be a
+          # return value, and leaves it alone otherwise. It also checks for a
+          # value in "data" first, but returns whatever it gets if that is
+          # missing. Just being flexible, since neography returns a variety of
+          # results.
           value = if row[i]
-                    row[i].is_a?(Hash) ? row[i]["data"].symbolize_keys : row[i]
+                    if row[i].is_a?(Hash)
+                      if row[i]["data"].is_a?(Hash)
+                        row[i]["data"].symbolize_keys
+                      else
+                        row[i]["data"] ? row[i]["data"] : row[i].symbolize_keys
+                      end
+                    else
+                      row[i]
+                    end
                   else
                     nil
                   end
