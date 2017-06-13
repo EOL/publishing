@@ -46,15 +46,6 @@ class TraitBank
       true
     end
 
-    # Neography-style:
-    def connect
-      parts = ENV["EOL_TRAITBANK_URL"].split(%r{[/:@]})
-      Neography.configure do |cfg|
-        cfg.username = parts[3]
-        cfg.password = parts[4]
-      end
-    end
-
     def query(q)
       start = Time.now
       results = nil
@@ -205,6 +196,12 @@ class TraitBank
           q += "MATCH (trait)-[info]->(info_term:Term) "
         end
       end
+      if options[:meta]
+        q+= "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "
+      end
+      q += "WHERE NOT (trait)-[:predicate]->(info_term)" if q =~ /info_term/
       if options[:clade]
         q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
@@ -212,6 +209,9 @@ class TraitBank
         q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
       else
         q += "RETURN page, trait, predicate, type(info) AS info_type, info_term, resource"
+        if options[:meta]
+          q += ", meta, meta_predicate, meta_units_term, meta_object_term"
+        end
         q += order_clause(options)
         q += limit_and_skip_clause(options[:page], options[:per])
       end
@@ -287,17 +287,6 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def node_exists?(node_id)
-      result_node = get_node(node_id)
-      result_node ? result_node.first : false
-    end
-
-    def get_node(node_id)
-      res = query("MATCH (node:Node { node_id: #{node_id} })"\
-        "RETURN node")
-      res["data"]
-    end
-
     # Given a results array and the name of one of the returned columns to treat
     # as the "identifier" (meaning the field who's ID will uniquely identify a
     # row of related data ... e.g.: the "trait" for trait data)
@@ -317,8 +306,12 @@ class TraitBank
         end
         results["columns"].each_with_index do |column, i|
           col = column.to_sym
-          value = row[i] && row[i]["data"]
-          value = value.symbolize_keys if value.is_a?(Hash)
+
+          value = if row[i]
+                    row[i].is_a?(Hash) ? row[i]["data"].symbolize_keys : row[i]
+                  else
+                    nil
+                  end
           if hash.has_key?(col)
             # NOTE: this assumes neo4j never naturally returns an array...
             if hash[col].is_a?(Array)
@@ -342,7 +335,7 @@ class TraitBank
             # some knowledge of this, either something like "these columns could
             # have multiple values" or the opposite: "these columns identify a
             # row and cannot change". I prefer the latter, honestly.
-            if column =~ /\Ameta_/
+            if column =~ /\Ameta/
               hash[col] = [value]
             else
               hash[col] = value unless value.nil?
@@ -377,12 +370,17 @@ class TraitBank
         else
           "MISSING"
         end
+        # TODO: extract method
         if has_info_term && hash[:info_type]
-          type = hash[:info_type].to_sym
-          if type == :object_term
-            hash[:object_term] = hash[:info_term]
-          elsif type == :units_term
-            hash[:units] = hash[:info_term]
+          info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
+            Array(hash[:info_term])
+          Array(hash[:info_type]).each_with_index do |info_type, i|
+            type = info_type.to_sym
+            if type == :object_term
+              hash[:object_term] = info_terms[i]
+            elsif type == :units_term
+              hash[:units] = info_terms[i]
+            end
           end
         end
         # TODO: extract method
@@ -390,18 +388,22 @@ class TraitBank
         raise "Metadata not returned as an array" unless
           hash[:meta].is_a?(Array)
         length = hash[:meta].size
+          raise "Missing meta column meta_predicate: #{hash.keys}" unless
+            hash.has_key?(:meta_predicate)
           [:meta_predicate, :meta_units_term, :meta_object_term].each do |col|
-            raise "Missing meta column #{col}: #{hash.keys}" unless
-              hash.has_key?(col)
-            raise ":#{col} data was not the same size as :meta" unless
-              hash[col].size == length
+            next unless hash.has_key?(col)
+              # debugger unless
+              #   hash[col].size == length
+              raise ":#{col} data was not the same size as :meta" unless
+                hash[col].size == length
           end
           hash[:metadata] = []
           hash[:meta].each_with_index do |meta, i|
-            meta_hash = meta
-            meta_hash[:predicate] = hash[:meta_predicate][i]
-            meta_hash[:object_term] = hash[:meta_object_term][i]
-            meta_hash[:units] = hash[:meta_units_term][i]
+            m_hash = meta
+            m_hash[:predicate] = hash[:meta_predicate][i]
+            m_hash[:object_term] = hash[:meta_object_term][i]
+            m_hash[:units] = hash[:meta_units_term][i]
+            hash[:metadata] << m_hash
           end
         end
         if has_trait
@@ -411,16 +413,6 @@ class TraitBank
         data << hash
       end
       data
-    end
-
-    def get_column_data(name, results, col)
-      return nil unless col.has_key?(name)
-      get_column_data_from(col[name], results)
-    end
-
-    def get_column_data_from(col, results)
-      return nil unless results[col].is_a?(Hash)
-      results[col]["data"]
     end
 
     def resources(traits)

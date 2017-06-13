@@ -11,7 +11,7 @@ class TraitBank
             "MATCH (term:Term { is_hidden_from_glossary: false }) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count")
-          res["data"] ? res["data"].first.first : false
+          res && res["data"] ? res["data"].first.first : false
         end
       end
 

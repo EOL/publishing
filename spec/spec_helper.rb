@@ -61,6 +61,8 @@ RSpec.configure do |config|
       to receive(:image_tag) { |arg1, arg2| "<img src='#{arg1}'></img>".html_safe }
     allow_any_instance_of(ActionView::Helpers::CsrfHelper).
       to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+    allow_any_instance_of(ApplicationHelper).
+      to receive_message_chain(:cms_menu, :to_html) { "" }
   end
 
   config.before(:each, type: :request) do
@@ -72,6 +74,8 @@ RSpec.configure do |config|
       to receive(:image_tag) { |arg1, arg2| "<img src='#{arg1}'></img>".html_safe }
     allow_any_instance_of(ActionView::Helpers::CsrfHelper).
       to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+    allow_any_instance_of(ApplicationHelper).
+      to receive_message_chain(:cms_menu, :to_html) { "" }
   end
 
   config.before(:each, type: :view) do
@@ -81,6 +85,8 @@ RSpec.configure do |config|
       "<img src='#{arg1}'></img>".html_safe
     end
     allow(view).to receive(:csrf_meta_tags) { "<meta/>".html_safe }
+    allow_any_instance_of(ApplicationHelper).
+      to receive_message_chain(:cms_menu, :to_html) { "" }
   end
 
   config.after(:each) do
