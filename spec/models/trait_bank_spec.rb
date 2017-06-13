@@ -463,4 +463,49 @@ RSpec.describe TraitBank do
         to eq([{ first: "A" }, { second: "B" }])
     end
   end
+
+  # NOTE: this is (also) rather a complicated method... but parts of it are
+  # tested "in situ" elsewhere, so I'm only going to focus on the usual cases
+  # here:
+  describe ".results_to_hashes" do
+    it "reveals missing resource_id" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{}]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:resource_id]).
+        to eq("MISSING")
+    end
+
+    it "handles object terms" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{info_term: { this: "thing" }, info_type: "object_term" }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:object_term]).
+        to eq({ this: "thing" })
+    end
+
+    it "handles unit terms" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{info_term: { that: "unit" }, info_type: "units_term" }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:units]).
+        to eq({ that: "unit" })
+    end
+
+    it "returns metadata predicate, units term, and object term" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{meta: [{ some: :val }], meta_predicate: [:pred_1], meta_object_term: [:obj_1], meta_units_term: [:unit_1] }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:meta]).
+        to eq([{ some: :val, predicate: :pred_1, object_term: :obj_1, units: :unit_1 }])
+    end
+
+    it "assigns the expected id" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{ resource: { resource_id: 777 }, trait: { resource_pk: "abc" }, page: { page_id: 453 } }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:id]).
+        to eq("trait--777--abc--453")
+    end
+  end
 end
