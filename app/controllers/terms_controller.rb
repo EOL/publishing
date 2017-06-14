@@ -1,5 +1,5 @@
 class TermsController < ApplicationController
-  helper :traits
+  helper :data
   protect_from_forgery except: :clade_filter
 
   def show
@@ -31,28 +31,28 @@ class TermsController < ApplicationController
 
     respond_to do |fmt|
       fmt.html do
-        traits = @object ?
+        data = @object ?
           TraitBank.by_object_term_uri(@term[:uri], options) :
           TraitBank.by_predicate(@term[:uri], options)
         # TODO: a fast way to load pages with just summary info:
-        pages = Page.where(id: traits.map { |t| t[:page_id] }.uniq).
+        pages = Page.where(id: data.map { |t| t[:page_id] }.uniq).
           includes(:medium, :native_node, :preferred_vernaculars)
         # Make a dictionary of pages:
         @pages = {}
         pages.each { |page| @pages[page.id] = page }
         # Make a glossary:
-        @resources = TraitBank.resources(traits)
+        @resources = TraitBank.resources(data)
         @species_list = params[:species_list]
-        paginate_traits(traits)
+        paginate_data(data)
         get_associations
       end
 
       fmt.csv do
         options[:meta] = true
-        traits = @object ?
+        data = @object ?
           TraitBank.by_object_term_uri(@term[:uri], options) :
           TraitBank.by_predicate(@term[:uri], options)
-        send_data TraitBank::DataDownload.to_arrays(traits),
+        send_data TraitBank::DataDownload.to_arrays(data),
           filename: "#{@term[:name]}-#{Date.today}.tsv"
       end
     end
@@ -92,11 +92,11 @@ class TermsController < ApplicationController
 
 private
 
-  def paginate_traits(traits)
+  def paginate_data(data)
     @count = @object ?
       TraitBank.by_object_term_count(@term[:uri], clade: params[:clade]) :
       TraitBank.by_predicate_count(@term[:uri], clade: params[:clade])
-    @grouped_traits = Kaminari.paginate_array(traits, total_count: @count).
+    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end
 
@@ -118,7 +118,7 @@ private
   def get_associations
     @associations =
       begin
-        ids = @grouped_traits.map { |t| t[:object_page_id] }.compact.sort.uniq
+        ids = @grouped_data.map { |t| t[:object_page_id] }.compact.sort.uniq
         Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end

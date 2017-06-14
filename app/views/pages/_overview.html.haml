@@ -32,13 +32,13 @@
     - if summary && ! summary.blank?
       .uk-section.eol-section-aged.uk-box-shadow-medium.uk-text-lead.uk-text-center.uk-padding-small.uk-margin-small-top.uk-margin-medium-right
         = summary
-    - unless @page.traits.empty?
+    - unless @page.data.empty?
       .uk-section.uk-padding-remove-vertical.uk-margin-top.uk-text-small
         %h3.uk-heading-divider
-          = t(:page_key_traits_header)
+          = t(:page_key_data_header)
         %dl.uk-description-list
           - preds = {}
-          - @page.traits.each do |trait|
+          - @page.data.each do |trait|
             - unless preds.keys.size >= 5
               - predicate = @page.glossary[trait[:predicate][:uri]]
               - next unless predicate
@@ -46,7 +46,7 @@
                 - preds[predicate] = true
                 %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
                 %dd
-                  - show_trait_value(trait)
+                  - show_data_value(trait)
   - if @page.medium
     .uk-width-3-5
       .uk-margin-remove-top.uk-text-center

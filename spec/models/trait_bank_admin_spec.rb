@@ -24,7 +24,7 @@ RSpec.describe TraitBank::Admin do
         TraitBank::Admin.create_indexes
       end
 
-      it "creates trait index" do
+      it "creates data index" do
         expect(TraitBank::Admin).to receive(:query).with("CREATE INDEX ON :Trait(resource_pk);")
         TraitBank::Admin.create_indexes
       end

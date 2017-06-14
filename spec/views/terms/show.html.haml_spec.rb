@@ -13,17 +13,17 @@ RSpec.describe "terms/show" do
 
     resource = instance_double("Resource", id: 65422, name: "Resource Name")
 
-    traits =
+    data =
       [ { page_id: 1234, measurement: "657", units: units, id: "1:1",
           resource_id: resource.id },
         { page_id: 2345, object_term: term, resource_id: resource.id, id: "1:2" },
-        { page_id: 2345, literal: "literal trait value", id: "1:3",
+        { page_id: 2345, literal: "literal data value", id: "1:3",
           resource_id: resource.id } ]
 
     glossary = { units[:uri] => units, term[:uri] => term }
 
     assign(:term, uri)
-    assign(:grouped_traits, Kaminari.paginate_array(traits).page(1))
+    assign(:grouped_data, Kaminari.paginate_array(data).page(1))
     assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
     assign(:resources, { 65422 => resource })
@@ -73,19 +73,19 @@ RSpec.describe "terms/show" do
   #   render
   #   # We're not actually testing the image here, because it's rendered in a
   #   # helper and that gets hairy with tests ... but the div should be there!:
-  #   expect(rendered).to have_selector("tr#1\\:1 th.trait-table-image")
+  #   expect(rendered).to have_selector("tr#1\\:1 th.data-table-image")
   # end
 
   it "shows NO icon for pages that do NOT have one" do
     render
-    expect(rendered).not_to have_selector("tr#1\\:2 th.trait-table-image img")
+    expect(rendered).not_to have_selector("tr#1\\:2 th.data-table-image img")
   end
 
-  it "shows all trait values" do
+  it "shows all data values" do
     render
     expect(rendered).to match /Unit URI/
     expect(rendered).to match /Term URI/
-    expect(rendered).to match /Literal trait value/ # NOTE initial cap...
+    expect(rendered).to match /Literal data value/ # NOTE initial cap...
   end
 
   it "shows the resource's short name" do

@@ -51,10 +51,10 @@ if(!EOL) {
     });
   };
 
-  EOL.allow_meta_traits_to_toggle = function() {
-    console.log("allow_meta_traits_to_toggle");
+  EOL.allow_meta_data_to_toggle = function() {
+    console.log("allow_meta_data_to_toggle");
     $(".toggle_meta").on("click", function (event) {
-      var $div = $(this).find(".meta_trait");
+      var $div = $(this).find(".meta_data");
       var target  = $(event.target);
       if( target.is('a') ) { return true; }
       if( $div.is(':visible') ) {
@@ -83,13 +83,13 @@ if(!EOL) {
           });
         } else {
           console.log("Using cached row...");
-          $(".meta_trait").hide();
+          $(".meta_data").hide();
           $div.show();
         }
       }
       return event.stopPropagation();
     });
-    $(".meta_trait").hide();
+    $(".meta_data").hide();
     EOL.enable_tab_nav();
   };
 
@@ -110,39 +110,39 @@ if(!EOL) {
     EOL.enable_tab_nav();
   };
 
-  EOL.enable_trait_toc = function() {
-    console.log("enable_trait_toc");
+  EOL.enable_data_toc = function() {
+    console.log("enable_data_toc");
     $("#section_links a").on("click", function(e) {
       var link = $(this);
       $("#section_links .item.active").removeClass("active");
       link.parent().addClass("active");
       var secId = link.data("section-id");
       if(secId == "all") {
-        $("table#traits thead tr").show();
-        $("table#traits tbody tr").show();
-        $("#trait_type_glossary").show();
-        $("#trait_value_glossary").show();
+        $("table#data thead tr").show();
+        $("table#data tbody tr").show();
+        $("#data_type_glossary").show();
+        $("#data_value_glossary").show();
       } else if (secId == "other") {
-        $("table#traits thead tr").show();
-        $("table#traits tbody tr").hide();
-        $("table#traits tbody tr.section_other").show();
-        $("#trait_type_glossary").hide();
-        $("#trait_value_glossary").hide();
+        $("table#data thead tr").show();
+        $("table#data tbody tr").hide();
+        $("table#data tbody tr.section_other").show();
+        $("#data_type_glossary").hide();
+        $("#data_value_glossary").hide();
       } else if (secId == "type_glossary") {
-        $("table#traits thead tr").hide();
-        $("table#traits tbody tr").hide();
-        $("#trait_type_glossary").show();
-        $("#trait_value_glossary").hide();
+        $("table#data thead tr").hide();
+        $("table#data tbody tr").hide();
+        $("#data_type_glossary").show();
+        $("#data_value_glossary").hide();
       } else if (secId == "value_glossary") {
-        $("table#traits thead tr").hide();
-        $("table#traits tbody tr").hide();
-        $("#trait_type_glossary").hide();
-        $("#trait_value_glossary").show();
+        $("table#data thead tr").hide();
+        $("table#data tbody tr").hide();
+        $("#data_type_glossary").hide();
+        $("#data_value_glossary").show();
       } else {
-        $("table#traits thead tr").show();
-        $("table#traits tbody tr").hide();
-        $("table#traits tbody tr.section_"+secId).show();
-        $("#trait_glossary").hide();
+        $("table#data thead tr").show();
+        $("table#data tbody tr").hide();
+        $("table#data tbody tr.section_"+secId).show();
+        $("#data_glossary").hide();
       }
       e.stopPropagation();
       e.preventDefault();
@@ -173,11 +173,11 @@ if(!EOL) {
 
     if ($("#gallery").length === 1) {
       EOL.enable_media_navigation();
-    } else if ($("#page_traits").length === 1) {
-      EOL.enable_trait_toc();
-      EOL.allow_meta_traits_to_toggle();
-    } else if ($("#traits_table").length === 1) {
-      EOL.allow_meta_traits_to_toggle();
+    } else if ($("#page_data").length === 1) {
+      EOL.enable_data_toc();
+      EOL.allow_meta_data_to_toggle();
+    } else if ($("#data_table").length === 1) {
+      EOL.allow_meta_data_to_toggle();
     } else if ($("#search_results").length === 1) {
       EOL.enable_search_pagination();
     } else {

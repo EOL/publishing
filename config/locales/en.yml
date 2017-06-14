@@ -40,7 +40,7 @@ en:
       articles_count: "articles"
       links_count: "links"
       maps_count: "maps"
-      traits_count: "traits"
+      data_count: "data"
       nodes_count: "nodes"
       vernaculars_count: "vernaculars"
       scientific_names_count: "scientific names"
@@ -394,13 +394,13 @@ en:
   page_article_header: "Overview"
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
-  page_key_traits_header: "Key Traits"
+  page_key_data_header: "Key Data"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
-  page_traits_toc_all_items: "all items"
-  page_traits_toc_type_glossary: "record type glossary"
-  page_traits_toc_value_glossary: "value glossary"
-  page_traits_toc_other: "other"
+  page_data_toc_all_items: "all items"
+  page_data_toc_type_glossary: "record type glossary"
+  page_data_toc_value_glossary: "value glossary"
+  page_data_toc_other: "other"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     actions:
@@ -418,7 +418,7 @@ en:
       maps: "Maps"
       media: "Media"
       names: "Names"
-      traits: "Traits"
+      data: "Data"
     iucn_status:
       label: "IUCN status:"
       ex: "extinct (EX)"
@@ -609,23 +609,23 @@ en:
       clade_filter:
         label: "Filter by clade:"
         clear: "clear clade filter"
-  trait_source: "source"
-  trait_definition: "definition of \"%{trait}\""
-  trait_table:
+  data_source: "source"
+  data_definition: "definition of \"%{data}\""
+  data_table:
     headers:
       page: "Page"
       predicate: "Type"
       value: "Value"
       source: "Source"
-  trait_toggle_details: "details…"
-  trait_unit_definition: "definition:"
-  trait_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
-  traits_header_type_glossary: "Glossary of Record Types"
-  traits_header_value_glossary: "Glossary of Record Values"
-  traits_show_more:
+  data_toggle_details: "details…"
+  data_unit_definition: "definition:"
+  data_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
+  data_header_type_glossary: "Glossary of Record Types"
+  data_header_value_glossary: "Glossary of Record Values"
+  data_show_more:
     one: "Toggle more"
     other: "Toggle %{count} more"
-  traits_sort_dropdown:
+  data_sort_dropdown:
     alphabetical: "record type, A-Z"
     alphabetical_rev: "record type, Z-A"
     value: "value, 1-100"
@@ -634,7 +634,7 @@ en:
     unreviewed: "unreviewed"
     trusted: "trusted"
     untrusted: "not trusted"
-  uri_definition_blank: "No one has defined this trait yet."
+  uri_definition_blank: "No one has defined this data yet."
   username: "Username"
   user_bio_title: "Brief Biography"
   user_collections_header: "Collections"
