@@ -155,7 +155,7 @@ module PagesHelper
         haml_concat names.html_safe
         haml_concat t("classifications.hierarchies.this_page")
       elsif page
-        show_trait_page_icon(page) if page.should_show_icon?
+        show_data_page_icon(page) if page.should_show_icon?
         haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do

@@ -5,19 +5,19 @@ module EolSpecHelpers
     end
   end
 
-  def extinct_trait
+  def extinct_data
     fake_fact(Eol::Uris.extinction, Eol::Uris.extinct)
   end
 
-  def marine_trait
+  def marine_data
     fake_fact(Eol::Uris.environment, Eol::Uris.marine)
   end
 
-  def dd_iucn_trait(resource)
+  def dd_iucn_data(resource)
     fake_fact(Eol::Uris::Iucn.status, Eol::Uris::Iucn.dd, resource_id: iucn.id)
   end
 
-  def fake_trait_shell
+  def fake_data_shell
     {
       resource_pk: "xyz", scientific_name: "hij", metadata: [], resource_id: 1,
       id: "abx"
@@ -25,14 +25,14 @@ module EolSpecHelpers
   end
 
   def fake_fact(predicate_uri, value_uri, options = {})
-    trait = fake_trait_shell.merge(predicate: fake_term(predicate_uri),
+    data = fake_data_shell.merge(predicate: fake_term(predicate_uri),
       object_term: fake_term(value_uri, options[:name]))
-    trait[:resource_id] = options[:resource_id] if options[:resource_id]
-    trait
+    data[:resource_id] = options[:resource_id] if options[:resource_id]
+    data
   end
 
-  def fake_literal_trait(predicate_uri, literal)
-    fake_trait_shell.merge(predicate: fake_term(predicate_uri), literal: literal)
+  def fake_literal_data(predicate_uri, literal)
+    fake_data_shell.merge(predicate: fake_term(predicate_uri), literal: literal)
   end
 
   def fake_term(uri, name = "xyz")
@@ -74,14 +74,14 @@ module EolSpecHelpers
     vernacular = instance_double("Vernacular", string: "something common",
       language: Language.english, is_preferred?: true, node: node,
       is_preferred_by_resource: true)
-    traits = [
+    data = [
       { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
         measurement: "657", units: { uri: "http://un.its/one",
         name: "Units URI" }, resource_id: resource.id },
       { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
         object_term: { uri: "http://te.rm/one", name: "Term URI" } },
       { predicate: { uri: "http://predic.ate/two", name: "Uri" },
-        literal: "literal trait value" } ]
+        literal: "literal data value" } ]
     glossary = {
       "http://predic.ate/one" => { name: "Predicate One" },
       "http://predic.ate/two" => { name: "Predicate Two" },
@@ -95,7 +95,7 @@ module EolSpecHelpers
       articles_count: 1,
       nodes_count: 1,
       glossary: glossary,
-      grouped_traits: traits.group_by { |t| t[:predicate][:uri] },
+      grouped_data: data.group_by { |t| t[:predicate][:uri] },
       habitats: "",
       iucn_status_key: :lc,
       is_it_extinct?: false,
@@ -108,13 +108,13 @@ module EolSpecHelpers
       names_count: 2,
       native_node: node,
       occurrence_map?: false,
-      predicates: traits.map { |t| t[:predicate][:uri] },
+      predicates: data.map { |t| t[:predicate][:uri] },
       rank: rank,
       scientific_name: sci_name.italicized,
       scientific_names: [sci_name],
       medium: media.first,
-      traits: traits,
-      traits_count: 3,
+      data: data,
+      data_count: 3,
       vernaculars: [vernacular],
       page_richness: 0,
       page_contents_count: 0,
@@ -143,7 +143,7 @@ module EolSpecHelpers
       nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...
       descendant_species: 0,
       glossary: [],
-      grouped_traits: nil,
+      grouped_data: nil,
       habitats: "",
       iucn_status_key: nil,
       is_it_extinct?: false,
@@ -161,8 +161,8 @@ module EolSpecHelpers
       scientific_name: sci_name.italicized,
       scientific_names: [sci_name],
       medium: nil,
-      traits: [],
-      traits_count: 0,
+      data: [],
+      data_count: 0,
       vernaculars: [],
       page_richness: 0,
       page_contents_count: 0,

@@ -94,19 +94,19 @@ RSpec.describe Page do
 
   end
 
-  context "with simple traits" do
+  context "with simple data" do
     let(:our_page) { create(:page) }
     let(:predicate1) { { uri: "http://a/pred.1", name: "First predicate" } }
     let(:predicate2) { { uri: "http://a/pred.2", name: "Second predicate" } }
     let(:units) { { uri: "http://a/unit", name: "Units URI" } }
     let(:term) { { uri: "http://a/term", name: "Term 1 URI" } }
-    let(:trait1) do
+    let(:data1) do
       { predicate: predicate2,
         resource_pk: "4003",
         object_term: term,
         metadata: nil }
     end
-    let(:trait2) do
+    let(:data2) do
       { predicate: predicate1,
         resource_pk: "745",
         source: "Source One",
@@ -115,11 +115,11 @@ RSpec.describe Page do
         metadata: nil }
     end
     # This is a "fake" response from TraitBank (which normally needs neo4j)
-    let(:traits_out_of_order) { [ trait1, trait2 ] }
+    let(:data_out_of_order) { [ data1, data2 ] }
     let(:glossary) { { predicate1[:uri] => predicate1, predicate2[:uri] => predicate2 }}
 
     before do
-      allow(TraitBank).to receive(:by_page) { traits_out_of_order }
+      allow(TraitBank).to receive(:by_page) { data_out_of_order }
     end
 
     it "#glosasry builds a glossary" do
@@ -127,8 +127,8 @@ RSpec.describe Page do
       our_page.glossary
     end
 
-    it "#grouped_traits groups traits" do
-      expect(our_page.grouped_traits.keys.sort).
+    it "#grouped_data groups data" do
+      expect(our_page.grouped_data.keys.sort).
         to eq([predicate1[:uri], predicate2[:uri]].sort)
     end
 
@@ -163,7 +163,7 @@ RSpec.describe Page do
   # IF neither ExtinctionStatusResource nor PaleoDB records are available AND
   # IF records from any other resource are available, AND have value = http://eol.org/schema/terms/extinct, display one such record on the cover. If multiple such records exist, one can be selected arbitrarily by any method.
 
-  context "#displayed_extinction_trait" do
+  context "#displayed_extinction_data" do
     let!(:paleo_db) do
       Resource.where(name: "The Paleobiology Database").first_or_create do |r|
         r.name = "The Paleobiology Database"
@@ -200,77 +200,77 @@ RSpec.describe Page do
     let!(:our_page) { create(:page) }
 
     context "when extinct from both resources" do
-      let(:traits) { [ex_stat_extinct, paleo_extinct, other_extinct] }
+      let(:data) { [ex_stat_extinct, paleo_extinct, other_extinct] }
 
       it "returns the PaleoDB record" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to eq(paleo_extinct)
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to eq(paleo_extinct)
       end
     end
 
     context "when extinct from PaleoDB and extant from ExStatRes" do
-      let(:traits) { [ex_stat_extant, paleo_extinct, other_extinct] }
+      let(:data) { [ex_stat_extant, paleo_extinct, other_extinct] }
 
       it "returns nil" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to be_nil
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to be_nil
       end
     end
 
     context "when extant from PaleoDB and extinct from ExStatRes" do
-      let(:traits) { [ex_stat_extinct, paleo_extant, other_extinct] }
+      let(:data) { [ex_stat_extinct, paleo_extant, other_extinct] }
 
       it "returns ExStatRes record" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to eq(ex_stat_extinct)
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to eq(ex_stat_extinct)
       end
     end
 
     context "when only PaleoDB extinct" do
-      let(:traits) { [paleo_extinct, other_extinct] }
+      let(:data) { [paleo_extinct, other_extinct] }
 
       it "returns PaleoDB record" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to eq(paleo_extinct)
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to eq(paleo_extinct)
       end
     end
 
     context "when only ExStatRes extinct" do
-      let(:traits) { [ex_stat_extinct, other_extinct] }
+      let(:data) { [ex_stat_extinct, other_extinct] }
 
       it "returns ExStatRes record" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to eq(ex_stat_extinct)
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to eq(ex_stat_extinct)
       end
     end
 
     context "when only extinct in other resource" do
-      let(:traits) { [other_extinct] }
+      let(:data) { [other_extinct] }
 
       it "returns that other record" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to eq(other_extinct)
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to eq(other_extinct)
       end
     end
 
     context "when only extant in other resource" do
-      let(:traits) { [other_extant] }
+      let(:data) { [other_extant] }
 
       it "returns nil" do
-        allow(TraitBank).to receive(:by_page) { traits }
-        our_page.traits
-        expect(our_page.displayed_extinction_trait).to be_nil
+        allow(TraitBank).to receive(:by_page) { data }
+        our_page.data
+        expect(our_page.displayed_extinction_data).to be_nil
       end
     end
   end
 
-  context "with faked traits" do
+  context "with faked data" do
     let!(:iucn) do
       Resource.where(name: "IUCN Structured Data").first_or_create do |r|
         r.name = "IUCN Structured Data"
@@ -279,18 +279,18 @@ RSpec.describe Page do
     end
 
     let(:our_page) { create(:page) }
-    let(:traits) { [
-      extinct_trait,
-      dd_iucn_trait(iucn),
-      marine_trait,
-      fake_literal_trait(Eol::Uris.geographics.first, "atlantis"),
+    let(:data) { [
+      extinct_data,
+      dd_iucn_data(iucn),
+      marine_data,
+      fake_literal_data(Eol::Uris.geographics.first, "atlantis"),
       fake_fact(Eol::Uris.geographics.second, "http://earth.com", name: "Earth")
     ] }
 
     before do
-      allow(TraitBank).to receive(:by_page) { traits }
-      # These specs only work when traits are pre-loaded:
-      our_page.traits
+      allow(TraitBank).to receive(:by_page) { data }
+      # These specs only work when data are pre-loaded:
+      our_page.data
     end
 
     it "#is_it_extinct true" do

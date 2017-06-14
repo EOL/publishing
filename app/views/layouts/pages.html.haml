@@ -30,8 +30,8 @@
         - large_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)
         - if @page.media_count > 0
           - large_tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
-        - unless @page.traits.empty?
-          - large_tab(name: "traits", icon: "bar chart", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
+        - unless @page.data.empty?
+          - large_tab(name: "data", icon: "bar chart", count: @page.data_count, path: page_data_path(page_id: @page.id))
         - if @page.map?
           -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
           - large_tab(name: "maps", icon: "world", count: @page.map_count, path: page_maps_path(page_id: @page.id))
@@ -46,8 +46,8 @@
           - small_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)
           - if @page.media_count > 0
             - small_tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))
-          - unless @page.traits.empty?
-            - small_tab(name: "traits", icon: "bar chart", count: @page.traits_count, path: page_traits_path(page_id: @page.id))
+          - unless @page.data.empty?
+            - small_tab(name: "data", icon: "bar chart", count: @page.data_count, path: page_data_path(page_id: @page.id))
           - if @page.map?
             -# TODO: We want to use @page.maps_count here, eventually. ...but we don't SHOW those maps yet...
             - small_tab(name: "maps", icon: "world", count: @page.map_count, path: page_maps_path(page_id: @page.id))

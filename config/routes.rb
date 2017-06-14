@@ -14,10 +14,10 @@ Rails.application.routes.draw do
     get "media"
     get "names"
     get "reindex"
-    get "traits"
+    get "data"
   end
 
-  resources :traits, only: [:show]
+  resources :data, only: [:show]
 
   # Putting users second only because they tend to drive a lot of site behavior:
   devise_for :users, controllers: { registrations: "user/registrations",

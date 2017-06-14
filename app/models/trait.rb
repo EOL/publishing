@@ -1,8 +1,8 @@
 class Trait
   class << self
-    # Checks for a trait based on its resource and their PK for the trait:
+    # Checks for a data based on its resource and their PK for the data:
     def exists?(resource_id, pk)
-      TraitBank.trait_exists?(resource_id, pk)
+      TraitBank.data_exists?(resource_id, pk)
     end
 
     def humanize_uri(uri)

@@ -24,15 +24,15 @@ RSpec.describe PagesController do
       end
     end
 
-    describe "#traits" do
+    describe "#data" do
       it "assigns page" do
-        xhr :get, :traits, page_id: page.id
+        xhr :get, :data, page_id: page.id
         expect(assigns(:page)).to eq(page)
       end
 
       # We no longer want to do this here; we do it in the view...
       # it "assigns resources" do
-      #   xhr :get, :traits, page_id: page.id
+      #   xhr :get, :data, page_id: page.id
       #   expect(assigns(:resources)).to eq([resource])
       # end
     end

@@ -242,39 +242,39 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
-  # NOTE: This page size is "huge" because we don't want pagination for traits.
+  # NOTE: This page size is "huge" because we don't want pagination for data.
   # ...Mainly because it gets complicated quickly. Data rows can be in multiple
-  # TOC items, and we want to be able to show all of the traits in a single TOC
+  # TOC items, and we want to be able to show all of the data in a single TOC
   # item. ...which I suppose we could manage by passing in a section id.
   # ...Hmmmn. We could. But we haven't been asked to, I'm going to hold off for
   # now. (NOTE: If we do that, we're going to need another method to pull in the
   # full TOC.)
-  def traits(page = 1, per = 2000)
-    return @traits[0..per] if @traits
-    traits = TraitBank.by_page(id, page, per)
-    # Self-healing count of number of traits:
-    if traits.size != traits_count
-      update_attribute(:traits_count, traits.size)
+  def data(page = 1, per = 2000)
+    return @data[0..per] if @data
+    data = TraitBank.by_page(id, page, per)
+    # Self-healing count of number of data:
+    if data.size != data_count
+      update_attribute(:data_count, data.size)
     end
     @data_toc_needs_other = false
-    @data_toc = traits.flat_map do |t|
+    @data_toc = data.flat_map do |t|
       next if t[:predicate][:section_ids].nil? # Usu. test data...
       secs = t[:predicate][:section_ids].split(",")
       @data_toc_needs_other = true if secs.empty?
       secs.map(&:to_i)
     end.uniq
     @data_toc = Section.where(id: @data_toc) unless @data_toc.empty?
-    @traits_loaded = true
-    @traits = traits
+    @data_loaded = true
+    @data = data
   end
 
   def iucn_status_key
     # NOTE this is NOT self-healing. If you store the wrong value or change it,
     # it is up to you to fix the value on the Page instance. This is something
     # to be aware of!
-    if iucn_status.nil? && @traits_loaded
-      status = if grouped_traits.has_key?(Eol::Uris::Iucn.status)
-        recs = grouped_traits[Eol::Uris::Iucn.status]
+    if iucn_status.nil? && @data_loaded
+      status = if grouped_data.has_key?(Eol::Uris::Iucn.status)
+        recs = grouped_data[Eol::Uris::Iucn.status]
         record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
         record ||= recs.first
         TraitBank::Record.iucn_status_key(record)
@@ -295,14 +295,14 @@ class Page < ActiveRecord::Base
   end
 
   def habitats
-    if geographic_context.nil? && @traits_loaded
-      keys = grouped_traits.keys & Eol::Uris.geographics
+    if geographic_context.nil? && @data_loaded
+      keys = grouped_data.keys & Eol::Uris.geographics
       habitat = if keys.empty?
         ""
       else
         habitats = []
         keys.each do |uri|
-          recs = grouped_traits[uri]
+          recs = grouped_data[uri]
           habitats += recs.map do |rec|
             rec[:object_term] ? rec[:object_term][:name] : rec[:literal]
           end
@@ -324,8 +324,8 @@ class Page < ActiveRecord::Base
   end
 
   def is_it_marine?
-    if ! has_checked_marine? && @traits_loaded
-      recs = grouped_traits[Eol::Uris.environment]
+    if ! has_checked_marine? && @data_loaded
+      recs = grouped_data[Eol::Uris.environment]
       if recs && recs.any? { |r| r[:object_term] &&
          r[:object_term][:uri] == Eol::Uris.marine }
         update_attribute(:is_marine, true)
@@ -340,10 +340,10 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def displayed_extinction_trait
-    recs = grouped_traits[Eol::Uris.extinction]
+  def displayed_extinction_data
+    recs = grouped_data[Eol::Uris.extinction]
     return nil if recs.nil? || recs.empty?
-    # TODO: perhaps a better algorithm to pick which trait to use if there's
+    # TODO: perhaps a better algorithm to pick which data to use if there's
     # more than one from a resource (probably the most recent):
     paleo = recs.find { |r| r[:resource_id] == Resource.paleo_db.id }
     ex_stat = recs.find { |r| r[:resource_id] == Resource.extinction_status.id }
@@ -367,11 +367,11 @@ class Page < ActiveRecord::Base
   end
 
   def is_it_extinct?
-    if ! has_checked_extinct? && @traits_loaded
-      # NOTE: this relies on #displayed_extinction_trait ONLY returning an
+    if ! has_checked_extinct? && @data_loaded
+      # NOTE: this relies on #displayed_extinction_data ONLY returning an
       # "exinct" record. ...which, as of this writing, it is designed to do.
       update_attribute(:has_checked_extinct, true)
-      if displayed_extinction_trait
+      if displayed_extinction_data
         update_attribute(:is_extinct, true)
         return true
       else
@@ -392,7 +392,7 @@ class Page < ActiveRecord::Base
   def reindex
     clear_caches
     recount
-    traits # Just to load them
+    data # Just to load them
     iucn_status = nil
     iucn_status_key
     geographic_context = nil
@@ -433,7 +433,7 @@ class Page < ActiveRecord::Base
 
   def recount
     [ "page_contents", "media", "articles", "links", "maps",
-      "traits", "nodes", "vernaculars", "scientific_names", "referents"
+      "data", "nodes", "vernaculars", "scientific_names", "referents"
     ].each do |field|
       update_column("#{field}_count".to_sym, send(field).count)
     end
@@ -442,22 +442,22 @@ class Page < ActiveRecord::Base
 
   def data_toc
     return @data_toc if @data_toc
-    traits
+    data
     @data_toc
   end
 
   def data_toc_needs_other?
     return @data_toc_needs_other if @data_toc_needs_other
-    traits
+    data
     @data_toc_needs_other
   end
 
-  def grouped_traits
-    @grouped_traits ||= traits.group_by { |t| t[:predicate][:uri] }
+  def grouped_data
+    @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
-    @predicates ||= grouped_traits.keys.sort do |a,b|
+    @predicates ||= grouped_data.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
     end
   end

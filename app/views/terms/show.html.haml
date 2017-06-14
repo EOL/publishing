@@ -24,10 +24,10 @@
       %div{ uk: { dropdown: true } }
         %ul.uk-dropdown-nav.uk-nav
           - params_dup = params_less(:sort, :sort_dir)
-          %li= link_to(t("traits_sort_dropdown.alphabetical"), term_path(params_dup))
-          %li= link_to(t("traits_sort_dropdown.alphabetical_rev"), term_path(params_dup.merge(sort_dir: "desc")))
-          %li= link_to(t("traits_sort_dropdown.value"), term_path(params_dup.merge(sort: "measurement")))
-          %li= link_to(t("traits_sort_dropdown.value_rev"), term_path(params_dup.merge(sort: "measurement", sort_dir: "desc")))
+          %li= link_to(t("data_sort_dropdown.alphabetical"), term_path(params_dup))
+          %li= link_to(t("data_sort_dropdown.alphabetical_rev"), term_path(params_dup.merge(sort_dir: "desc")))
+          %li= link_to(t("data_sort_dropdown.value"), term_path(params_dup.merge(sort: "measurement")))
+          %li= link_to(t("data_sort_dropdown.value_rev"), term_path(params_dup.merge(sort: "measurement", sort_dir: "desc")))
       %button.ui.small.basic.button.uk-margin-small-top
         - if params[:object]
           = link_to(t("term.actions.glossary"), object_term_glossary_path)
@@ -47,7 +47,7 @@
         .uk-panel{ uk: { height: { match: true }, grid: true } }
           - if @clade
             .uk-margin-right
-              - show_trait_page_icon(@clade)
+              - show_data_page_icon(@clade)
           %div
             = t("term.show.clade_filter.label")
           %div
@@ -71,4 +71,4 @@
             common: page.name,
             scientific: page.scientific_name)
     - else
-      = render 'traits_table', { traits: @grouped_traits, pages: @pages }
+      = render 'data_table', { data: @grouped_data, pages: @pages }
