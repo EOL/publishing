@@ -193,7 +193,7 @@ class TraitBank
         if options[:object_term]
           q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
         else
-          q += "MATCH (trait)-[info]->(info_term:Term) "
+          q += "MATCH (trait)-[info:units_term|object_term]->(info_term:Term) "
         end
       end
       if options[:meta]
@@ -201,7 +201,6 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "
       end
-      q += "WHERE NOT (trait)-[:predicate]->(info_term)" if q =~ /info_term/
       if options[:clade]
         q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end

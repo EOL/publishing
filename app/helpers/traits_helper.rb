@@ -36,6 +36,15 @@ module TraitsHelper
     end
   end
 
+  def build_associations(page)
+    @associations =
+      begin
+        ids = page.traits.map { |t| t[:object_page_id] }.compact.sort.uniq
+        Page.where(id: ids).
+          includes(:medium, :preferred_vernaculars, native_node: [:rank])
+      end
+  end
+
   def show_trait_value(trait)
     value = t(:trait_missing, keys: trait.keys.join(", "))
     if trait[:object_page_id] && defined?(@associations)

@@ -37,8 +37,9 @@ class TraitBank
         "Value" => -> (trait, page, resource, value) {value}, # NOTE this is actually more complicated...
         "Measurement URI" => -> (trait, page, resource, value) {trait[:predicate][:uri]},
         "Value URI" => -> (trait, page, resource, value) {trait[:object_term] && trait[:object_term][:uri]},
-        "Units (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]},
-        "Units URI (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]}, # TODO: this won't work; we're not storing it right now. Add it.
+        # TODO: these normalized units won't work; we're not storing it right now. Add it.
+        # "Units (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]},
+        # "Units URI (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]},
         "Raw Value (direct from source)" => -> (trait, page, resource, value) {trait[:measurement]},
         "Raw Units (direct from source)" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:name]},
         "Raw Units URI (direct from source)" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:uri]},
