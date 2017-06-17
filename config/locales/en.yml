@@ -404,7 +404,7 @@ en:
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     actions:
-      collect: "collect"
+      collect: "add to"
       reindex: "reindex"
     flash:
       reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."

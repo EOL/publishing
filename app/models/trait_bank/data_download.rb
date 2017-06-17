@@ -1,21 +1,5 @@
 class TraitBank
   class DataDownload
-
-    # I was using this query for testing:
-
-    # q = %Q{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
-    # MATCH (trait)-[:predicate]->(predicate:Term { uri: "http://polytraits.lifewatchgreece.eu/terms/MAT" })
-    # MATCH (trait)-[info]->(info_term:Term)
-    # OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
-    # OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
-    # OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-    # RETURN page, trait, predicate, type(info) AS info_type, info_term, resource,
-    # meta, meta_predicate, meta_units_term, meta_object_term
-    # ORDER BY trait.normal_measurement, page.name}
-
-    # results = TraitBank.query(q) ; 1
-    # hashes = TraitBank.build_trait_array(results) ; 1
-
     class << self
       def to_arrays(hashes)
         downloader = self.new(hashes)

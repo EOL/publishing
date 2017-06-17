@@ -16,6 +16,10 @@ class CollectedPagesController < ApplicationController
     @collection = Collection.new(collected_pages: [@collected_page])
     @bad_collection_ids = CollectedPage.where(page_id: @page.id).
       pluck(:collection_id)
+    respond_to do |fmt|
+      fmt.html {}
+      fmt.js {}
+    end
   end
 
   def create
