@@ -36,13 +36,13 @@
           placeholder: t("collection.admins.placeholder"),
           remote: true, class: "uk-input uk-form-width-medium typeahead")
 
-  - if @collection.collected_pages.empty?
+  - if @pages.empty?
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
     %table.collections
       %tbody
-        - @collection.collected_pages.each do |collected_page|
+        - @pages.each do |collected_page|
           - page = collected_page.page
           %tr
             %th.collection-table-image{ scope: "row" }

@@ -92,8 +92,24 @@
   private
 
   def find_collection_with_pages
-    @collection = Collection.where(id: params[:id]).includes(:collection_associations,
-      collected_pages: { page: :preferred_vernaculars }).first
+    @collection = Collection.where(id: params[:id]).includes(:collection_associations).first
+    @pages = CollectedPage.where(collection_id: @collection.id)
+    case params[:sort]
+    when "name"
+      @pages = @pages.joins(page: :native_node).
+        order("nodes.canonical_form#{params[:sort_dir] == "desc" ? " DESC" : ""}")
+    when "sort"
+      @pages = @pages.
+        includes(page: [:preferred_vernaculars, :native_node]).
+        order("annotation#{params[:sort_dir] == "desc" ? " DESC" : ""}")
+    when "hierarchy"
+      @pages = @pages.joins(page: :native_node).
+        order("nodes.depth#{params[:sort_dir] == "desc" ? " DESC" : ""}, nodes.canonical_form")
+    else
+      @pages = @pages.
+        includes(page: [:preferred_vernaculars, :native_node]).
+        order("position")
+    end
   end
 
   def find_collection

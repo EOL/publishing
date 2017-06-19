@@ -19,12 +19,12 @@ RSpec.describe "collections/show" do
       before do
         collection = instance_double("Collection",
           collections: [collection1, collection2],
-          collected_pages: [collected_page],
           id: 1,
           name: "Col Name 1",
           description: "Col Description Here",
           gallery?: false)
         @collection = collection
+        @pages = [collected_page]
       end
 
       it "shows the name" do
@@ -73,12 +73,12 @@ end
       before do
         collection = instance_double("Collection",
           collections: [collection1, collection2],
-          collected_pages: [collected_page],
           id: 2,
           name: "Col Name 1",
           description: "Col Description Here",
           gallery?: true)
         @collection = collection
+        @pages = [collected_page]
       end
 
       it "shows the name" do
@@ -108,8 +108,9 @@ end
   context "(with empty collection)" do
     before do
       collection = instance_double("Collection", collections: [],
-        collected_pages: [], name: "Col Name Again", description: nil, id: 3)
+        name: "Col Name Again", description: nil, id: 3)
       assign(:collection, collection)
+      assign(:pages, [])
       render
     end
 
@@ -120,7 +121,11 @@ end
 
     context "when owned by the user" do
       it "shows an edit button" do
-        expect(view).to receive(:policy).and_return(double("some policy", update?: true))
+        # Required to render one of the links:
+        allow(view).to receive(:params).
+          and_return({ action: "show", controller: "collections", id: 3 })
+        expect(view).to receive(:policy).
+          and_return(double("some policy", update?: true))
         render
         expect(rendered).to have_selector("a", text: "edit")
       end

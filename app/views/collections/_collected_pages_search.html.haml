@@ -4,7 +4,7 @@
       .uk-width-3-4
         .uk-fieldset
           = text_field_tag(:q, "", placeholder: t("collection.search.placeholder"), class: "uk-input")
-        .uk-margin-small-top
+        #clear_clade_filter.uk-hidden.uk-margin-small-top
           = link_to("clear search", collection_collected_pages_path(@collection), remote: true)
       .uk-width-1-4
         = submit_tag(t("collection.search.submit"), class: "ui basic button")

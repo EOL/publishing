@@ -3,6 +3,7 @@
   - collected_pages.each do |collected_page|
     = render("pages/as_row",
       page: collected_page.page,
+      annotation: collected_page.annotation,
       icon: collected_page.icon,
       media: collected_page.media,
       common: collected_page.name,

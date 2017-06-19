@@ -75,8 +75,16 @@ en:
       header: "Users who can edit this collection"
       label: "Add a user who can edit this collection:"
       placeholder: "full name or username"
-    edit_button: "edit"
-    delete_button: "delete"
+    actions:
+      delete: "delete"
+      edit: "edit"
+      sort:
+        date_added: "date added"
+        hierarchy: "hierarchy"
+        name: "scientific name, A-Z"
+        name_rev: "scientific name, Z-A"
+        sort_field: "annotation, A-Z"
+        sort_field_rev: "annotation, Z-A"
     delete_confirm: "This will remove the entire collection and CANNOT be undone. Are you sure?"
     destroyed: "\"%{name}\" has been permanently deleted."
     search:

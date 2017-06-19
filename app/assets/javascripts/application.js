@@ -2,7 +2,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require main
 //= require rails.validations
 //= require rails.validations.simple_form

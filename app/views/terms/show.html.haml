@@ -57,7 +57,7 @@
           %div
             = submit_tag(t("filter"), class: "ui basic button")
       - if @clade
-        .uk-panel.uk-margin-small-top
+        #clear_clade_filter.uk-panel.uk-margin-small-top
           - mod_params = params_less(:clade)
           = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
   .uk-margin-top
