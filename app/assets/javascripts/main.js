@@ -163,7 +163,7 @@ if(!EOL) {
           status: 'primary',
           pos: 'top-center',
           offset: '100px',
-          timeout: 5000
+          timeout: 10000
       });
     }
 

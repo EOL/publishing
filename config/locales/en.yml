@@ -49,14 +49,14 @@ en:
       updated_at: "last updated"
   cms_page_date: " Last Modified at: "
   collect_already_in_collection: "(it's already here)"
-  collect_already_in_collection_will_add_icon: "(\"%{page}\" is already here, so we'll add this image to it)"
+  collect_already_in_collection_will_add_icon: "(add media to \"%{page}\")"
   collect_icon_title: "Add \"%{item}\" from the \"%{page}\" page to…"
   collect_new_collection: "New Collection Name"
   collect_new_collection_title: "…a New Collection"
   collect_no_existing_collections: "You don't have any yet! Create one using the form on the left."
   collect_select_collection: "…One of Your Collections"
   collect_title: "Add \"%{item}\" to…"
-  collected_page_added_to_collection: "Added \"%{page}\" to collection <a href='%{link}'>\"%{name}\"</a>."
+  collected_page_added_to_collection: "Added %{page} to collection <a href='%{link}'>%{name}</a>."
   collected_pages_title: "Pages"
   collected_pages:
     delete_button: "delete"
@@ -368,6 +368,7 @@ en:
     empty: "There are no maps available for this page."
     other_maps_title: "Non-interactive Maps"
   medium:
+    untitled: "Untitled"
     subclasses:
       image: "image"
       video: "video"

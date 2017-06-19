@@ -25,11 +25,17 @@ class CollectedPagesController < ApplicationController
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
     if @collected_page.update(collected_page_params)
-      flash[:notice] = I18n.t(:collected_page_added_to_collection,
-        name: @collected_page.collection.name,
-        page: @collected_page.page.name,
-        link: collection_path(@collected_page.collection)).html_safe
-      redirect_to @collected_page.page
+      respond_to do |fmt|
+        fmt.html do
+          flash[:notice] = I18n.t(:collected_page_added_to_collection,
+            name: @collected_page.collection.name,
+            page: @collected_page.page.name,
+            link: collection_path(@collected_page.collection)).html_safe
+          redirect_to @collected_page.page
+        end
+        fmt.js { }
+      end
+
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"

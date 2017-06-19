@@ -1,5 +1,5 @@
 - unless flash.empty?
   - flash.each do |name, msg|
     - next if name == "recaptcha_error"
-    %p.eol-flash.uk-invisible{ class: name, data: { text: j(Array(msg).join("; ")) } }
+    %p.eol-flash.uk-invisible{ class: name, data: { text: Array(msg).join("; ") } }
       = Array(msg).join("; ")

@@ -9,17 +9,19 @@
   # TODO: You cannot do this without being logged in.
   def create
     # TODO: cleanup.
+    Rails.logger.error("Hi there.")
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
+      Rails.logger.error("SAved.")
       # This looks like it could be expensive on big collections. ...but
       # remember: this is a NEW collection. It will be fast:
-      collected = (@collection.collections + @collection.pages).first
-      if collected
+      @collected = (@collection.collections + @collection.pages).first
+      if @collected
         flash[:notice] = I18n.t(:collection_created_for_association,
-          name: @collection.name, associated: collected.name,
+          name: @collection.name, associated: @collected.name,
           link: collection_path(@collection))
-        redirect_to collected
+        redirect_to @collected
       else
         flash[:notice] = I18n.t(:collection_created, name: @collection.name).html_safe
         redirect_to @collection
