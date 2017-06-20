@@ -63,7 +63,7 @@ en:
     delete_confirm: "are you sure?"
     destroyed_flash: "%{name} removed from collection."
   collection_association_added_to_collection: "Added \"%{associated}\" to collection <a href='%{link}'>\"%{name}\"</a>."
-  collection_associations_empty: "No other collections are associated with this one. You can click on the \"collect\" button on other collections to have them appear here."
+  collection_associations_empty: "No other collections are associated with this one. You can click on the \"associate\" button on other collections to have them appear here."
   collection_associations_title: "Other Associated Content"
   collection_collected_pages_media_remove: "Remove images from the collection:"
   collection_created: "Created new collection \"%{name}\"."
@@ -76,15 +76,19 @@ en:
       label: "Add a user who can edit this collection:"
       placeholder: "full name or username"
     actions:
+      associate: "associate"
       delete: "delete"
       edit: "edit"
-      sort:
-        date_added: "date added"
-        hierarchy: "hierarchy"
-        name: "scientific name, A-Z"
-        name_rev: "scientific name, Z-A"
-        sort_field: "annotation, A-Z"
-        sort_field_rev: "annotation, Z-A"
+    sort:
+      hierarchy: "hierarchy"
+      position: "date added"
+      sci_name: "scientific name, A-Z"
+      sci_name_rev: "scientific name, Z-A"
+      sort_field: "annotation, A-Z"
+      sort_field_rev: "annotation, Z-A"
+    collection_type:
+      normal: "normal"
+      gallery: "gallery"
     delete_confirm: "This will remove the entire collection and CANNOT be undone. Are you sure?"
     destroyed: "\"%{name}\" has been permanently deleted."
     search:
@@ -141,6 +145,8 @@ en:
       collection:
         name: "name"
         description: "description"
+        collection_type: "display"
+        default_sort: "default sort"
     submit:
       collection:
         update: "save changes"

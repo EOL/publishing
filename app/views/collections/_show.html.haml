@@ -1,0 +1,6 @@
+= paginate @pages, remote: true
+- if @collection.gallery?
+  = render("collected_pages/gallery", collected_pages: @pages)
+- else
+  = render("collected_pages/index", collected_pages: @pages)
+= paginate @pages, remote: true

@@ -3,3 +3,6 @@
     - next if name == "recaptcha_error"
     %p.eol-flash.uk-invisible{ class: name, data: { text: Array(msg).join("; ") } }
       = Array(msg).join("; ")
+- unless session[:beta_views] && session[:beta_views] == Date.today.to_s
+  %p.eol-flash.uk-invisible{ class: "beta", data: { text: "YOU ARE VIEWING A BETA SITE. Please visit <a href='http://discuss.eol.org/'>Discuss</a> for details and to discuss features and bugs.".html_safe } }
+- session[:beta_views] = Date.today.to_s

@@ -31,7 +31,11 @@ class CollectedPagesController < ApplicationController
             name: @collected_page.collection.name,
             page: @collected_page.page.name,
             link: collection_path(@collected_page.collection)).html_safe
-          redirect_to @collected_page.page
+          has_media = params["collected_page"] &&
+            params["collected_page"].has_key?("collected_pages_media_attributes")
+          redirect_to has_media ?
+            page_media_path(@collected_page.page) :
+            @collected_page.page
         end
         fmt.js { }
       end

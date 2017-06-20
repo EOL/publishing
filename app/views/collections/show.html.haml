@@ -6,20 +6,17 @@
         .uk-text-muted= @collection.description.html_safe
     - if policy(@collection).update?
       .actions.uk-width-1-5
-        = link_to(t("collection.actions.edit"), edit_collection_path(@collection), class: "ui button")
-        = link_to(t("collection.actions.delete"), collection_path(@collection), method: "delete", data: { confirm: t("collection.delete_confirm") }, class: "ui basic button")
+        = link_to(t("collection.actions.edit"), edit_collection_path(@collection), class: "ui button uk-margin-small")
+        = link_to(t("collection.actions.delete"), collection_path(@collection), method: "delete", data: { confirm: t("collection.delete_confirm") }, class: "ui basic button uk-margin-small")
+        = link_to(t("collection.actions.associate"), new_collection_association_path(associated_id: @collection.id), class: "ui basic button uk-margin-small")
         %button#sort_button.ui.labeled.small.icon.basic.button.uk-margin-small-top
           %i.down.arrow.icon
           = t("term.actions.sort")
         %div{ uk: { dropdown: true } }
           %ul.uk-dropdown-nav.uk-nav
             - params_dup = params_less(:sort, :sort_dir)
-            %li= link_to(t("collection.actions.sort.date_added"), collection_path(params_dup))
-            %li= link_to(t("collection.actions.sort.name"), collection_path(params_dup.merge(sort: "name")))
-            %li= link_to(t("collection.actions.sort.name_rev"), collection_path(params_dup.merge(sort: "name", sort_dir: "desc")))
-            %li= link_to(t("collection.actions.sort.sort_field"), collection_path(params_dup.merge(sort: "sort")))
-            %li= link_to(t("collection.actions.sort.sort_field_rev"), collection_path(params_dup.merge(sort: "sort", sort_dir: "desc")))
-            %li= link_to(t("collection.actions.sort.hierarchy"), collection_path(params_dup.merge(sort: "hierarchy")))
+            - Collection.default_sorts.each do |name, num|
+              %li{ class: params[:sort].to_i == num ? "uk-active" : nil }= link_to(t("collection.sort.#{name}"), collection_path(params_dup.merge(sort: num)))
 .collected_pages.uk-margin-top
   - if @pages.empty?
     %p= t(:collection_pages_empty)
@@ -28,11 +25,7 @@
     = render "collected_pages_search"
     %div.uk-margin-top
       #collected_pages
-        -# TODO: pagination
-        - if @collection.gallery?
-          = render("collected_pages/gallery", collected_pages: @pages)
-        - else
-          = render("collected_pages/index", collected_pages: @pages)
+        = render("show")
 .collection_association.uk-margin-top
   - if @collection.collections.empty?
     %p= t(:collection_associations_empty)

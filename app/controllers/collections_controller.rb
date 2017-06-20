@@ -8,12 +8,10 @@
 
   # TODO: You cannot do this without being logged in.
   def create
-    # TODO: cleanup.
     Rails.logger.error("Hi there.")
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save
-      Rails.logger.error("SAved.")
       # This looks like it could be expensive on big collections. ...but
       # remember: this is a NEW collection. It will be fast:
       @collected = (@collection.collections + @collection.pages).first
@@ -48,6 +46,10 @@
   end
 
   def show
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
   def update
@@ -94,22 +96,27 @@
   def find_collection_with_pages
     @collection = Collection.where(id: params[:id]).includes(:collection_associations).first
     @pages = CollectedPage.where(collection_id: @collection.id)
-    case params[:sort]
-    when "name"
-      @pages = @pages.joins(page: :native_node).
-        order("nodes.canonical_form#{params[:sort_dir] == "desc" ? " DESC" : ""}")
-    when "sort"
+    params[:sort] ||= Collection.default_sorts[@collection.default_sort]
+    sort = Collection.default_sorts.keys[params[:sort].to_i].dup
+    rev = sort.sub!(/_rev$/, "")
+    case sort
+    when "sci_name"
+      @pages = @pages.joins(page: [:medium, { native_node: :rank }]).
+        order("nodes.canonical_form#{rev ? " DESC" : ""}")
+    when "sort_field"
       @pages = @pages.
-        includes(page: [:preferred_vernaculars, :native_node]).
-        order("annotation#{params[:sort_dir] == "desc" ? " DESC" : ""}")
+        includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
+        # NOTE: this ugly sort handles "if it's empty, put it at the end"
+        order("if(annotation = '' or annotation is null,1,0),annotation#{rev ? " DESC" : ""}")
     when "hierarchy"
-      @pages = @pages.joins(page: :native_node).
-        order("nodes.depth#{params[:sort_dir] == "desc" ? " DESC" : ""}, nodes.canonical_form")
+      @pages = @pages.joins(page: { native_node: :rank }).
+        order("nodes.depth#{rev ? " DESC" : ""}, nodes.canonical_form")
     else
       @pages = @pages.
-        includes(page: [:preferred_vernaculars, :native_node]).
+        includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
         order("position")
     end
+    @pages = @pages.page(params[:page]).per_page(@collection.gallery? ? 18 : 20)
   end
 
   def find_collection
@@ -118,7 +125,7 @@
   end
 
   def collection_params
-    params.require(:collection).permit(:name, :description, :collection_type,
+    params.require(:collection).permit(:name, :description, :collection_type, :default_sort,
       collection_associations_attributes: [:associated_id],
       collected_pages_attributes: [:id, :page_id, :annotation,
         collected_pages_media_attributes: [:medium_id, :collected_page_id, :_destroy]])
