@@ -51,6 +51,16 @@ module EolSpecHelpers
     double("Sunspot::Search", results: results, total: 1)
   end
 
+  def fake_pagination(array)
+    is_empty = array.empty?
+    results = Array(array)
+    allow(results).to receive(:total_pages) { 1 }
+    allow(results).to receive(:current_page) { 1 }
+    allow(results).to receive(:limit_value) { 1 }
+    allow(results).to receive(:empty?) { is_empty }
+    results
+  end
+
   def double_page(data)
     rank = data[:rank]
     resource = data[:resource]

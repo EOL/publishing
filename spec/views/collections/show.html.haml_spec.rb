@@ -24,7 +24,7 @@ RSpec.describe "collections/show" do
           description: "Col Description Here",
           gallery?: false)
         @collection = collection
-        @pages = [collected_page]
+        @pages = fake_pagination([collected_page])
       end
 
       it "shows the name" do
@@ -54,19 +54,19 @@ RSpec.describe "collections/show" do
         expect(rendered).to have_selector("img[src*='#{page.icon}']")
       end
 
-    context 'collection search' do
-      it 'has collection search input' do
-        render
-        expect(rendered).to have_selector("#collected_pages_search input#q")
-      end
+      context 'collection search' do
+        it 'has collection search input' do
+          render
+          expect(rendered).to have_selector("#collected_pages_search input#q")
+        end
 
-      it 'has collected page div (to be replaced)' do
-        render
-        expect(rendered).to have_selector("#collected_pages")
+        it 'has collected page div (to be replaced)' do
+          render
+          expect(rendered).to have_selector("#collected_pages")
+        end
       end
     end
   end
-end
 
   context "gallery view" do
     context "(with robust collection)" do
@@ -78,7 +78,7 @@ end
           description: "Col Description Here",
           gallery?: true)
         @collection = collection
-        @pages = [collected_page]
+        @pages = fake_pagination([collected_page])
       end
 
       it "shows the name" do
@@ -110,7 +110,7 @@ end
       collection = instance_double("Collection", collections: [],
         name: "Col Name Again", description: nil, id: 3)
       assign(:collection, collection)
-      assign(:pages, [])
+      assign(:pages, fake_pagination([]))
       render
     end
 

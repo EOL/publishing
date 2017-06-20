@@ -133,6 +133,7 @@
 
   def sanitize_collection_params
     params[:collection][:collection_type] = Collection.collection_types[params[:collection][:collection_type]] if params[:collection]
+    params[:collection][:default_sort] = Collection.default_sorts[params[:collection][:default_sort]] if params[:collection]
   end
 
   def user_able_to_edit_collection
