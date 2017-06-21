@@ -4,10 +4,12 @@ RSpec.describe "collections/edit" do
   let(:page) { create(:page) }
   let(:collected_page) { create(:collected_page, page: page) }
 
-  let(:collection) { create(:collection, collected_pages: [collected_page]) }
+  let(:collection) { create(:collection) }
+  let(:pages) { [collected_page] }
 
   before do
     assign(:collection, collection)
+    assign(:pages, pages)
     allow(view).to receive(:policy).and_return(double("some policy", update?: false))
   end
 

@@ -163,7 +163,7 @@ if(!EOL) {
           status: 'primary',
           pos: 'top-center',
           offset: '100px',
-          timeout: 5000
+          timeout: 10000
       });
     }
 
@@ -272,5 +272,5 @@ if(!EOL) {
   };
 }
 
-$(document).on("turbolinks:load", EOL.ready);
-$(document).on("turbolinks:before-cache", EOL.teardown);
+console.log("Are you ...");
+$(document).on("ready page:load page:change", EOL.ready);

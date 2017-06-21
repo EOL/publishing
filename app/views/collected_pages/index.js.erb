@@ -1,8 +1,10 @@
 <% if defined?(@results) %>
   console.log("Found <%= @results.total %> results.");
   $("#collected_pages").html("<%= j(render("collected_pages/index", collected_pages: @results.results)) %>");
+  $("#clear_clade_filter").removeClass("uk-hidden");
 <% else %>
   console.log("Clearing any collected pages results.");
   $("#collected_pages").html("<%= j(render("collected_pages/index", collected_pages: @collection.collected_pages)) %>");
   $("#collected_pages_search input#q").val("");
+  $("#clear_clade_filter").addClass("uk-hidden");
 <% end %>

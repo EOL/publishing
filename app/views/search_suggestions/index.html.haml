@@ -1,0 +1,28 @@
+%h3= t("search_suggestion.index.header")
+%p
+  = link_to(t("search_suggestion.actions.create"), new_search_suggestion_path)
+= paginate @search_suggestions
+%ul
+- @search_suggestions.each do |suggestion|
+  %li
+    = link_to(suggestion.match, edit_search_suggestion_path(suggestion))
+    (ID:
+    = suggestion.id
+    - if suggestion.page_id && ! suggestion.page_id.blank?
+      \&rarr;
+      = link_to(suggestion.page.name, suggestion.page)
+    - if suggestion.synonym_of_id && ! suggestion.synonym_of_id.blank?
+      SYNONYM OF &rarr;
+      = link_to(suggestion.synonym_of.match, edit_search_suggestion_path(suggestion.synonym_of))
+    - if suggestion.object_term && ! suggestion.object_term.blank?
+      \&rarr;
+      = link_to(suggestion.object_term, term_path(uri: suggestion.object_term, object: true))
+    - if suggestion.path && ! suggestion.path.blank?
+      \&rarr;
+      = link_to(suggestion.path)
+    - if suggestion.wkt_string && ! suggestion.wkt_string.blank?
+      \&rarr;
+      = link_to("[effechecka]", "http://www.effechecka.org/?limit=20&taxonSelector=Aves%2CInsecta&traitSelector=&wktString=#{suggestion.wkt_string}")
+    )
+    = link_to("delete", suggestion, method: "DELETE", data: { confirm: "Are you sure?" })
+= paginate @search_suggestions

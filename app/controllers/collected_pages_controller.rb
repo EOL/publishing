@@ -16,16 +16,29 @@ class CollectedPagesController < ApplicationController
     @collection = Collection.new(collected_pages: [@collected_page])
     @bad_collection_ids = CollectedPage.where(page_id: @page.id).
       pluck(:collection_id)
+    respond_to do |fmt|
+      fmt.html {}
+      fmt.js {}
+    end
   end
 
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
     if @collected_page.update(collected_page_params)
-      flash[:notice] = I18n.t(:collected_page_added_to_collection,
-        name: @collected_page.collection.name,
-        page: @collected_page.page.name,
-        link: collection_path(@collected_page.collection)).html_safe
-      redirect_to @collected_page.page
+      respond_to do |fmt|
+        fmt.html do
+          flash[:notice] = I18n.t(:collected_page_added_to_collection,
+            name: @collected_page.collection.name,
+            page: @collected_page.page.name,
+            link: collection_path(@collected_page.collection)).html_safe
+          has_media = params["collected_page"] &&
+            params["collected_page"].has_key?("collected_pages_media_attributes")
+          redirect_to has_media ?
+            page_media_path(@collected_page.page) :
+            @collected_page.page
+        end
+        fmt.js { }
+      end
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"

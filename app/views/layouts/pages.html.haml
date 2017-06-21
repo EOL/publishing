@@ -21,10 +21,16 @@
           %h3.uk-margin-remove-top.uk-text-muted= @page.scientific_name.html_safe
       .uk-width-1-3{ class: "uk-visible@m" }
         -# TODO: remote...
-        - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id))
+        - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id), remote: true)
         - if is_admin?
           - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true, data: { disable_with: "" }, class: "ui disable-on-click")
   #page
+    #collect_dialog{ uk: { modal: true } }
+      .uk-modal-dialog.uk-modal-body
+        %h2.uk-modal-title= t(:collect_title, item: @page.name(Language.current).html_safe)
+        .collect_form
+          -# Nothing here by default.
+        %button.uk-modal-close-default{ type: "button", uk: { close: true } }
     .uk-margin-top
       %ul#page_nav.uk-tab.uk-child-width-expand{ class: "uk-visible@m" }
         - large_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)

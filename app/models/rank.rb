@@ -93,4 +93,8 @@ class Rank < ActiveRecord::Base
       nil
     end
   end
+
+  def species_or_below?
+    Rank.species_or_below.include?(self.id)
+  end
 end

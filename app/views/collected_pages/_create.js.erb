@@ -1,0 +1,14 @@
+UIkit.modal("#collect_dialog").hide();
+var msg = "<%= I18n.t(:collected_page_added_to_collection, name: @collected_page.collection.name, page: @collected_page.page.name, link: collection_path(@collected_page.collection)).html_safe %>";
+<% Rails.logger.error("I was here too"); %>
+
+console.log(msg);
+
+UIkit.notification({
+    message: msg,
+    status: 'primary',
+    pos: 'top-center',
+    offset: '100px',
+    timeout: 5000
+});
+<% Rails.logger.error("I finished."); %>

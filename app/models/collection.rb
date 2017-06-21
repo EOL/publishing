@@ -18,6 +18,8 @@ class Collection < ActiveRecord::Base
   validates :name, presence: true
 
   enum collection_type: [ :normal, :gallery ]
+  enum default_sort: [ :position, :sci_name, :sci_name_rev, :sort_field,
+    :sort_field_rev, :hierarchy ]
 
   searchable do
     text :name, :boost => 3.0

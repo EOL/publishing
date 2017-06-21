@@ -57,7 +57,7 @@ module ApplicationHelper
   end
 
   def basic_button(icon, label, url, options = {})
-    haml_tag("div.ui.labeled.small.icon.basic.button.uk-margin-small-bottom") do
+    haml_tag("button.ui.labeled.small.icon.basic.button.uk-margin-small-bottom") do
       haml_tag("i.#{icon}.icon")
       haml_concat(link_to(label, url, options))
     end

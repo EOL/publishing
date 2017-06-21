@@ -5,14 +5,30 @@
 = form_for(@collection) do |f|
   .uk-section.uk-grid{ uk: { grid: true } }
     .uk-width-3-4
-      .field
-        = label_tag(:name)
-        = f.text_field :name
-      .field
-        = label_tag(:description)
+      .uk-fieldset
+        = label_tag(:name, nil, class: "uk-form-label")
+        = f.text_field :name, class: "uk-input"
+      .uk-fieldset.uk-margin
+        = label_tag(:description, nil, class: "uk-form-label")
         %br/
-        = f.text_area(:description, cols: "80", rows: "6")
-      = collection_radio_buttons(:collection, :collection_type, Collection.collection_types, :first, :first)
+        = f.text_area(:description, cols: "80", rows: "6", class: "uk-input")
+      .uk-fieldset.uk-margin.uk-grid{ uk: { grid: true } }
+        -# TODO: extract method for these lists...
+        = label_tag(:collection_type, nil, class: "uk-form-label")
+        .uk-form-controls
+          - Collection.collection_types.each do |name, num|
+            %label
+              %input{ type: "radio", value: name, name: "collection[collection_type]", id: "collection_collection_type_#{name}", checked: @collection.collection_type == name }
+              = I18n.t("collection.collection_type.#{name}")
+              %br
+      .uk-fieldset.uk-margin.uk-grid{ uk: { grid: true } }
+        = label_tag(:default_sort, nil, class: "uk-form-label")
+        .uk-form-controls
+          - Collection.default_sorts.each do |name, num|
+            %label
+              %input{ type: "radio", value: name, name: "collection[default_sort]", id: "collection_default_sort_#{name}", checked: @collection.default_sort == name }
+              = I18n.t("collection.sort.#{name}")
+              %br
     - if policy(@collection).update?
       .uk-width-1-4.actions
         = f.submit(class: "ui button")
@@ -36,13 +52,13 @@
           placeholder: t("collection.admins.placeholder"),
           remote: true, class: "uk-input uk-form-width-medium typeahead")
 
-  - if @collection.collected_pages.empty?
+  - if @pages.empty?
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
     %table.collections
       %tbody
-        - @collection.collected_pages.each do |collected_page|
+        - @pages.each do |collected_page|
           - page = collected_page.page
           %tr
             %th.collection-table-image{ scope: "row" }
@@ -60,7 +76,7 @@
                 %br/
                 = f.fields_for(:collected_pages, collected_page) do |cp_f|
                   .d-inline
-                    = label_tag(:annotation, nil, class: "clearfix")
+                    = label_tag(:annotation, nil)
                     %br/
                     = cp_f.text_area(:annotation, cols: "80", rows: "6")
                   - unless collected_page.media.empty?
