@@ -18,6 +18,9 @@
             - index_stat(key, value)
     - if is_admin?
       .uk-section
-        .ui.button
+        .ui.basic.button
           = link_to(t("landing_page.reindex"), clear_index_stats_pages_path())
-        = link_to(t("landing_page.cms"), "/docs/cms/pages")
+        .ui.basic.button
+          = link_to(t("landing_page.cms"), "/docs/cms/pages")
+        .ui.basic.button
+          = link_to(t("landing_page.search_suggestions"), search_suggestions_path)

@@ -152,11 +152,15 @@ en:
         update: "save changes"
       user:
         create: "Create account"
+      search_suggestion:
+        create: "create suggestion"
+        update: "update suggestion"
   landing_page:
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     reindex: "reindex"
     search_placeholder: "Search..."
+    search_suggestions: "Search Suggestions"
     stats:
       pages: "pages"
       data: "data records"
@@ -515,6 +519,17 @@ en:
       vernaculars:
         one: "matches the common name:"
         other: "matches the common names:"
+  search_suggestion:
+    actions:
+      create: "create a new search suggestion"
+    created: "Created search suggestion for \"%{match}\""
+    destroyed: "Destroyed search suggestion for \"%{match}\""
+    new:
+      header: "Create a Search Suggestion"
+    update:
+      header: "Update Search Suggestion"
+    index:
+      header: "Search Suggestions"
   sections:
     associations: "Associations"
     behavior: "Behavior"
@@ -599,6 +614,13 @@ en:
         password:
         password_confirmation:
         username:
+      search_suggestion:
+        match: "search string to match"
+        page_id: "ID of the EOL page to redirect to (or filter by)"
+        synonym_of_id: "ID (!) of the search suggestion to use instead"
+        object_term: "URI to redirect to (or filter by)"
+        path: "path (either full or relative) to redirect to"
+        wkt_string: "WKT string to pass to Effechecka"
   term:
     actions:
       download: "download"

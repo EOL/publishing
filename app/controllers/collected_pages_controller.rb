@@ -39,7 +39,6 @@ class CollectedPagesController < ApplicationController
         end
         fmt.js { }
       end
-
     else
       # TODO: some kind of hint as to the problem, in a flash...
       render "new"

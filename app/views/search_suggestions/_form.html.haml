@@ -1,0 +1,14 @@
+= simple_form_for(@search_suggestion,
+  html: { class: "uk-form-stacked" },
+  defaults: { input_html: { class: 'uk-input' },
+  wrapper_html: { class: 'field' },
+  label_html: { class: 'uk-form-label' } }) do |f|
+  = f.input :match
+  = f.input :page_id
+  = f.input :synonym_of_id
+  = f.input :object_term
+  = f.input :path
+  = f.input :wkt_string
+  .actions
+    - basic_button("cancel", t("cancel"), search_suggestions_path())
+    = f.button :submit, class: "ui basic button"
