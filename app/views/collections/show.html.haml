@@ -4,7 +4,7 @@
       %h1= @collection.name
       - unless @collection.description.blank?
         .uk-text-muted= @collection.description.html_safe
-      - if current_user.is_admin?
+      - if is_admin?
         .uk-text= link_to("show logs", collection_logs_path(@collection))
     - if policy(@collection).update?
       .actions.uk-width-1-5
