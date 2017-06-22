@@ -1,0 +1,55 @@
+%h1
+  Activity Log for
+  = link_to(@collection.name, @collection)
+.uk-margin-large
+  = paginate @logs
+  %ul.uk-list.uk-list-divider
+    - @logs.each do |collecting|
+      %li
+        .uk-float-right.uk-text-small.uk-text-muted= collecting.id
+        %span.uk-text-muted
+          = l(collecting.created_at, format: :long)
+        - if collecting.associated_collection
+          = t("collection.log.associated_collection.#{collecting.action}",
+            user: link_to(collecting.user.username, collecting.user),
+            associated: collecting.associated_collection).html_safe
+        - elsif collecting.content
+          - if collecting.content.is_a?(User)
+            = t("collection.log.user.#{collecting.action}",
+              user: link_to(collecting.user.username, collecting.user),
+              manager: link_to(collecting.content.name, collecting.content)).html_safe
+          - elsif collecting.changed_field.blank?
+            = t("collection.log.content.#{collecting.action}",
+              user: link_to(collecting.user.username, collecting.user),
+              medium: link_to(collecting.content.name, collecting.content),
+              page: link_to(collecting.page.name, collecting.page)).html_safe
+          - else
+            = t("collection.log.content.change",
+              user: link_to(collecting.user.username, collecting.user),
+              medium: link_to(collecting.content.name, collecting.content),
+              page: link_to(collecting.page.name, collecting.page),
+              field: collecting.changed_field,
+              from: collecting.changed_from, to: collecting.changed_to).html_safe
+        - elsif collecting.page
+          - if collecting.changed_field.blank?
+            = t("collection.log.page.#{collecting.action}",
+              user: link_to(collecting.user.username, collecting.user),
+              page: link_to(collecting.page.name, collecting.page)).html_safe
+          - else
+            = t("collection.log.page.change",
+              user: link_to(collecting.user.username, collecting.user),
+              page: link_to(collecting.page.name, collecting.page),
+              field: collecting.changed_field,
+              from: collecting.changed_from, to: collecting.changed_to).html_safe
+        - else
+          - if collecting.changed_field.blank?
+            -# Technically, it could be a delete-collection, but then you
+            -# wouldn't be here, so it MUST be a new collection:
+            = t("collection.log.collection.add",
+              user: link_to(collecting.user.username, collecting.user)).html_safe
+          - else
+            = t("collection.log.collection.change",
+              user: link_to(collecting.user.username, collecting.user),
+              field: collecting.changed_field,
+              from: collecting.changed_from, to: collecting.changed_to).html_safe
+  = paginate @logs

@@ -3,7 +3,7 @@
 
   before_filter :sanitize_collection_params
   before_filter :find_collection_with_pages, only: [:edit, :show]
-  before_filter :find_collection, only: [:update, :destroy, :add_user, :remove_user]
+  before_filter :find_collection, only: [:update, :destroy, :add_user, :remove_user, :logs]
   before_filter :user_able_to_edit_collection, only: [:edit]
 
   # TODO: You cannot do this without being logged in.
@@ -16,6 +16,7 @@
       # remember: this is a NEW collection. It will be fast:
       @collected = (@collection.collections + @collection.pages).first
       if @collected
+        log_create_activity
         flash[:notice] = I18n.t(:collection_created_for_association,
           name: @collection.name, associated: @collected.name,
           link: collection_path(@collection))
@@ -37,6 +38,7 @@
     authorize @collection
     name = @collection.name
     if @collection.destroy
+      Collecting.create(user: current_user, action: "remove", changed_from: name)
       flash[:notice] = I18n.t("collection.destroyed", name: name)
       redirect_to current_user
     else
@@ -54,17 +56,12 @@
 
   def update
     authorize @collection
-    # This is obnoxious, but Rails can't handle deleting *associations* that
-    # lack primary keys, so we do it manually:
-    # TODO: later.
-    # c_params = collection_params
-    # if c_params["collected_pages_attributes"]
-    #   c_params["collected_pages_attributes"].each do |index, collected_page|
-    #
-    #   end
-    # end
-
     if @collection.update(collection_params)
+      @collection.previous_changes.each do |field, values|
+        next if field == "updated_at"
+        Collecting.create(user: current_user, collection: @collection,
+          changed_field: field, changed_from: values[0], changed_to: values[1])
+      end
       flash[:notice] = I18n.t("collection.updated")
       redirect_to @collection
     else
@@ -77,6 +74,8 @@
     authorize @collection
     @user = User.find(params[:user_id])
     @collection.users << @user
+    Collecting.create(user: current_user, collection: @collection,
+      action: "add", content: @user)
     respond_to do |fmt|
       fmt.js {}
     end
@@ -86,9 +85,16 @@
     authorize @collection
     @user = User.find(params[:user_id])
     @collection.users.delete(@user)
+    Collecting.create(user: current_user, collection: @collection,
+      action: "remove", content: @user)
     respond_to do |fmt|
       fmt.js {}
     end
+  end
+
+  def logs
+    @logs = Collecting.where(collection_id: @collection.id).
+      page(params[:page]).per_page(50)
   end
 
   private
@@ -141,5 +147,20 @@
       redirect_to collection_path(@collection), flash: { error:  I18n.t(:collection_unauthorized_edit) }
     end
     return true
+  end
+
+  def log_create_activity
+    activity = { user: current_user, action: "add", collection: @collection }
+    Collecting.create(activity)
+    if @collected.is_a?(Collection)
+      Collecting.create(activity.merge(associated_collection: @collected))
+    else
+      col_page = @collection.collected_pages.first
+      Collecting.create(activity.merge(page: col_page.page))
+      unless col_page.collected_pages_media.empty?
+        Collecting.create(activity.merge(page: col_page.page,
+          content: col_page.collected_pages_media.first.medium))
+      end
+    end
   end
 end

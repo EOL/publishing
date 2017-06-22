@@ -79,6 +79,32 @@ en:
       associate: "associate"
       delete: "delete"
       edit: "edit"
+    collection_type:
+      normal: "normal"
+      gallery: "gallery"
+    delete_confirm: "This will remove the entire collection and CANNOT be undone. Are you sure?"
+    destroyed: "\"%{name}\" has been permanently deleted."
+    log:
+      associated_collection:
+        add: "%{user} added an association to collection %{associated}"
+        remove: "%{user} removed the association to collection %{associated}"
+      collection:
+        add: "%{user} changed created the collection"
+        change: "%{user} changed the %{field} from \"%{from}\" to \"%{to}\""
+      content:
+        add: "%{user} added the medium %{medium} for page %{page}"
+        change: "%{user} changed the %{field} on medium %{medium} for page %{page} from \"%{from}\" to \"%{to}\""
+        remove: "%{user} removed the medium %{medium} for page %{page}"
+      page:
+        add: "%{user} added page %{page}"
+        change: "%{user} changed the %{field} on page %{page} from \"%{from}\" to \"%{to}\""
+        remove: "%{user} removed page %{page}"
+      user:
+        add: "%{user} added the manager %{manager}"
+        remove: "%{user} removed the manager %{manager}"
+    search:
+      placeholder: "Search in collection…"
+      submit: "search"
     sort:
       hierarchy: "hierarchy"
       position: "date added"
@@ -86,14 +112,6 @@ en:
       sci_name_rev: "scientific name, Z-A"
       sort_field: "annotation, A-Z"
       sort_field_rev: "annotation, Z-A"
-    collection_type:
-      normal: "normal"
-      gallery: "gallery"
-    delete_confirm: "This will remove the entire collection and CANNOT be undone. Are you sure?"
-    destroyed: "\"%{name}\" has been permanently deleted."
-    search:
-      placeholder: "Search in collection…"
-      submit: "search"
     updated: "Collection updated."
   collection_search_title: "search results for \"%{q}\""
   collection_unauthorized_edit: "Owner user only can edit this collection."

@@ -21,6 +21,9 @@ class CollectionAssociationsController < ApplicationController
     # TODO: Access control
     @collection_association = CollectionAssociation.new(collection_association_params)
     if @collection_association.save
+      Collecting.create(user: current_user, action: "add",
+        collection: @collection_association.collection,
+        associated_collection: @collection_association.associated)
       flash[:notice] = I18n.t(:collection_association_added_to_collection,
         name: @collection_association.collection.name,
         associated: @collection_association.associated.name,
@@ -31,6 +34,8 @@ class CollectionAssociationsController < ApplicationController
       render "new"
     end
   end
+
+  # TODO: destroy.  ;)
 
   private
 

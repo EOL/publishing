@@ -1,21 +1,22 @@
 class CreateActivityLogs < ActiveRecord::Migration
   def change
     create_table :collectings do |t|
-      t.references :user, index: true, foreign_key: true
+      t.references :user, index: true
       t.references :collection, index: true
-      t.integer :action
+      t.integer :action, comment: "enum: add, change, remove"
       t.references :content, polymorphic: true, index: true
       t.references :page, index: true
+      t.references :associated_collection
       t.string :changed_field
-      t.text :changed_from
+      t.text :changed_from # Overloaded with removed name in the case of action=remove
       t.text :changed_to
 
       t.timestamps
     end
 
     create_table :content_repositions do |t|
-      t.references :user_id, foreign_key: true
-      t.references :page_content, foreign_key: true
+      t.references :user_id
+      t.references :page_content
       t.integer :changed_from
       t.integer :changed_to
 
@@ -25,8 +26,8 @@ class CreateActivityLogs < ActiveRecord::Migration
     # NOTE: this one is NOT USED YET ... but I am adding it because I want to
     # capture it in the changes table without having to migrate later.
     create_table :content_edits do |t|
-      t.references :user_id, foreign_key: true
-      t.references :page_content, foreign_key: true
+      t.references :user_id
+      t.references :page_content
       t.string :changed_field
       t.text :changed_from
       t.text :changed_to
@@ -42,9 +43,9 @@ class CreateActivityLogs < ActiveRecord::Migration
     # only using this to avoid a rather nasty UNION. The tables allowed are:
 
     create_table :changes do |t|
-      t.references :user_id, index: true, foreign_key: true
-      t.references :page_id, index: true, foreign_key: true
-      t.references :activity, polymorphic: true, foreign_key: true,
+      t.references :user_id, index: true
+      t.references :page_id, index: true
+      t.references :activity, polymorphic: true,
         comment: "references one of the following: Collecting, Curation, "\
           "ContentReposition, ContentEdit, TraitReposition, TraitEdit. Trait "\
           "FKs refer to TraitBank, not MySQL."
