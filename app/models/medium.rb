@@ -19,15 +19,15 @@ class Medium < ActiveRecord::Base
   scope :videos, -> { where(subclass: :video) }
   scope :sounds, -> { where(subclass: :sound) }
 
-  searchable do
-    text :name, :boost => 6.0
-    text :description, :boost => 2.0
-    text :resource_pk
-    text :owner
-    integer :ancestor_ids, multiple: true do
-      page_contents.pluck(:page_id)
-    end
-  end
+  # searchable do
+  #   text :name, :boost => 6.0
+  #   text :description, :boost => 2.0
+  #   text :resource_pk
+  #   text :owner
+  #   integer :ancestor_ids, multiple: true do
+  #     page_contents.pluck(:page_id)
+  #   end
+  # end
 
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url

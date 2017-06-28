@@ -21,8 +21,8 @@ class Collection < ActiveRecord::Base
   enum default_sort: [ :position, :sci_name, :sci_name_rev, :sort_field,
     :sort_field_rev, :hierarchy ]
 
-  searchable do
-    text :name, :boost => 3.0
-    text :description
-  end
+  # searchable do
+  #   text :name, :boost => 3.0
+  #   text :description
+  # end
 end

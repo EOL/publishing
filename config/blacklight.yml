@@ -1,0 +1,10 @@
+development:
+  adapter: solr
+  url: <%= ENV['EOL_SOLR_URL'] || "http://localhost:8983/solr/eol_website" %>
+test: &test
+  adapter: solr
+  url: <%= "http://127.0.0.1:#{ENV['EOL_TEST_JETTY_PORT'] || 8888}/solr/eol_website" %>
+production:
+  adapter: solr
+  url: <%= ENV['EOL_SOLR_URL'] || "http://solr:8983/solr/eol_website" %>
+

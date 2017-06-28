@@ -44,6 +44,37 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
+  after_commit :index_data_in_solr, on: [:create, :update]
+  before_destroy :remove_data_from_solr
+
+  # /usr/local/Cellar/solr\@5.5/5.5.0/server/solr/eol_website/conf/schema.xml
+
+  def to_solr
+    {
+      "id" => id,
+      "name" => scientific_name,
+      "p_scientific" => scientific_name.gsub(/<\/?i>/, ""),
+      "scientific" => scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") },
+      "p_vern" => vernaculars.preferred.map { |v| v.string },
+      "vern" => vernaculars.nonpreferred.map { |v| v.string },
+      "description" => "", # TODO: put in the auto-generated summary here? we DON'T search it for pages.
+      "richness" => richness / 100,
+      "ancestors" => Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id],
+      "resource" => resources.flat_map { |r| [r.name, r.partner.full_name, r.partner.short_name] },
+      "icon" => icon
+    }
+  end
+
+  def index_data_in_solr
+    SolrService.add(to_solr)
+    SolrService.commit
+  end
+
+  def remove_data_from_solr
+    SolrService.delete_by_id(id)
+    SolrService.commit
+  end
+
   # This is a list of the fields used in .searchable so that other classes and
   # controllers may act on them (e.g. to get a list of possible highlights).
   # TODO: this should really be "stored" (heh) by sunspot, and I suggest we add
@@ -55,33 +86,33 @@ class Page < ActiveRecord::Base
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
-  searchable do
-    text :scientific_name, stored: true, boost: 10.0 do
-      scientific_name.gsub(/<\/?i>/, "")
-    end
-    # TODO: We would like to add attributions, later.
-    text :preferred_scientific_names, stored: true, boost: 8.0 do
-      preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :synonyms, stored: true, boost: 2.0 do
-      scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :preferred_vernaculars, stored: true, boost: 2.0 do
-      vernaculars.preferred.map { |v| v.string }
-    end
-    text :vernaculars, stored: true do
-      vernaculars.nonpreferred.map { |v| v.string }
-    end
-    text :providers do
-      resources.flat_map do |r|
-        [r.name, r.partner.full_name, r.partner.short_name]
-      end
-    end
-    integer :page_richness
-    integer :ancestor_ids, multiple: true do
-      Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
-    end
-  end
+  # searchable do
+  #   text :scientific_name, stored: true, boost: 10.0 do
+  #     scientific_name.gsub(/<\/?i>/, "")
+  #   end
+  #   # TODO: We would like to add attributions, later.
+  #   text :preferred_scientific_names, stored: true, boost: 8.0 do
+  #     preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
+  #   end
+  #   text :synonyms, stored: true, boost: 2.0 do
+  #     scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
+  #   end
+  #   text :preferred_vernaculars, stored: true, boost: 2.0 do
+  #     vernaculars.preferred.map { |v| v.string }
+  #   end
+  #   text :vernaculars, stored: true do
+  #     vernaculars.nonpreferred.map { |v| v.string }
+  #   end
+  #   text :providers do
+  #     resources.flat_map do |r|
+  #       [r.name, r.partner.full_name, r.partner.short_name]
+  #     end
+  #   end
+  #   integer :page_richness
+  #   integer :ancestor_ids, multiple: true do
+  #     Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
+  #   end
+  # end
 
   def descendant_species
     return species_count unless species_count.nil?

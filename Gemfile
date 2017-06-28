@@ -7,6 +7,9 @@ gem 'rails', '4.2.7.1'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 
+# Pagination with kaminari benefits from being at the top of the Gemfile:
+gem "kaminari", "~> 1.0"
+
 # Asset-related gems next:
 
 # We're using Angular for our interactive client side stuff:
@@ -19,8 +22,6 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-#Use sunspot to work with solr
-gem 'sunspot_rails', '~> 2.2.5'
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer'
@@ -47,6 +48,9 @@ gem "activerecord-import", "~> 0.18.2"
 gem 'acts_as_list', '~> 0.7.6'
 # Nested set for Node:
 gem 'awesome_nested_set', '~> 3.0.0'
+# Blacklight is our Solr interface:
+gem 'blacklight', "~> 6.0"
+
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 0.1.33'
 # Memcached (not for development):
@@ -78,20 +82,13 @@ gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 
-# Pagination:
-gem "kaminari", "~> 1.0"
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Coveralls tracks our spec coverage:
   gem 'coveralls', require: false
-  # Progress bar for indexing solr items:
-  gem 'progress_bar', '~> 1.0.5'
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov", "~> 0.12"
-  #solr package. This is gonna be used in development and test environments
-  gem "sunspot_solr", '~> 2.2.5'
 end
 
 group :development do

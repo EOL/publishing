@@ -80,6 +80,8 @@ public/uploads/images/collection_icons/*jpeg
 public/uploads/images/collection_icons/*png
 public/uploads/images/collection_icons/*gif
 public/resource_contributions/*json
+solr/eol_website/data
+solr/eol_website/data/*
 solr/logs/*.*
 solr/development
 solr/pids/development

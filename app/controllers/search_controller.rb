@@ -39,31 +39,31 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page,
-      include: [:medium, :preferred_vernaculars, :native_node],
-      page_richness: true)
-    @collections = search_class(Collection)
-    @media = search_class(Medium)
-    @users = search_class(User)
-
-    if @types[:predicates]
-      @predicates_count = TraitBank.count_predicate_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @predicates = Kaminari.paginate_array(
-        TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
-        total_count: @predicates_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
-
-    if @types[:object_terms]
-      @object_terms_count = TraitBank.count_object_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @object_terms = Kaminari.paginate_array(
-        TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
-        total_count: @object_terms_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
-
+    # @pages = search_class(Page,
+    #   include: [:medium, :preferred_vernaculars, :native_node],
+    #   page_richness: true)
+    # @collections = search_class(Collection)
+    # @media = search_class(Medium)
+    # @users = search_class(User)
+    #
+    # if @types[:predicates]
+    #   @predicates_count = TraitBank.count_predicate_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @predicates = Kaminari.paginate_array(
+    #     TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @predicates_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
+    #
+    # if @types[:object_terms]
+    #   @object_terms_count = TraitBank.count_object_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @object_terms = Kaminari.paginate_array(
+    #     TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @object_terms_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
+    #
     respond_to do |fmt|
       fmt.html do
         @page_title = t(:page_title_search, query: @q)
