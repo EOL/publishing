@@ -2,6 +2,10 @@
 //
 //= require jquery
 //= require jquery_ujs
+//
+// Required by Blacklight
+//= require blacklight/blacklight
+
 //= require main
 //= require rails.validations
 //= require rails.validations.simple_form

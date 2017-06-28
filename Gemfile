@@ -113,3 +113,9 @@ group :test do
   gem "faker"
   gem "rack_session_access"
 end
+
+group :development, :test do
+  gem 'solr_wrapper', '>= 0.3'
+end
+
+gem 'rsolr', '>= 1.0'

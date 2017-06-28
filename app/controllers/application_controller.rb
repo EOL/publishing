@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  # Adds a few additional behaviors into the application controller
+  include Blacklight::Controller
+  layout 'blacklight'
+
   before_filter :set_locale
 
   helper_method :is_admin?
