@@ -28,7 +28,8 @@ rails r "Import::Clade.read(%Q{clade-7665.json})"
 rails r "Import::Clade.read(%Q{clade-18666.json})"
 
 rake stat:score_richness
-bundle exec rake sunspot:reindex
+# NOTE that you only need the "FORCE" the first time you run it:
+rake environment elasticsearch:import:model CLASS='Page' FORCE=y
 
 # Why isn't this working after the import? It should. :S  Perhaps it needs to reindex first?
 rails r "PageIcon.fix"

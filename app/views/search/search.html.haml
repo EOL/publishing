@@ -15,14 +15,15 @@
           %li= link_to(t("search_results.section_titles.predicates", count: @predicates_count), "#search_predicates")
         - if defined?(@object_terms) && ! @object_terms.blank?
           %li= link_to(t("search_results.section_titles.object_terms", count: @object_terms_count), "#search_object_terms")
-        - if defined?(@pages) && ! @pages.results.empty?
-          %li= link_to(t("search_results.section_titles.pages", count: @pages.total), "#search_pages")
-        - if defined?(@collections) && @collections && ! @collections.results.empty?
-          %li= link_to(t("search_results.section_titles.collections", count: @collections.total), "#search_collections")
-        - if defined?(@media) && @media && ! @media.results.empty?
-          %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
-        - if defined?(@users) && @users && ! @users.results.empty?
-          %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
+        -# TEST TEST TEST TEST TEST TODO fix these
+        -# - if defined?(@pages) && ! @pages.results.empty?
+        -#   %li= link_to(t("search_results.section_titles.pages", count: @pages.total), "#search_pages")
+        -# - if defined?(@collections) && @collections && ! @collections.results.empty?
+        -#   %li= link_to(t("search_results.section_titles.collections", count: @collections.total), "#search_collections")
+        -# - if defined?(@media) && @media && ! @media.results.empty?
+        -#   %li= link_to(t("search_results.section_titles.media", count: @media.total), "#search_media")
+        -# - if defined?(@users) && @users && ! @users.results.empty?
+        -#   %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
       .clade_filter.uk-margin-top
         = form_tag(search_path, method: "get", autocomplete: "off") do
           - hide_params_in_form(["clade"])
@@ -49,15 +50,16 @@
     - if defined?(@object_terms) && ! @object_terms.blank?
       #search_object_terms
         = render("terms/search_results", terms: @object_terms, object: true, size: @object_terms_count)
-    - if defined?(@pages) && ! @pages.results.empty?
+    - if defined?(@pages) && @pages
       #search_pages
         = render("pages/search_results")
-    - if defined?(@collections) && @collections && ! @collections.results.empty?
-      #search_collections
-        = render("collections/search_results")
-    - if defined?(@media) && @media && ! @media.results.empty?
-      #search_media
-        = render("media/search_results")
-    - if defined?(@users) && @users && ! @users.results.empty?
-      #search_users
-        = render("users/search_results")
+    -# TEST TEST TEST TEST  TEST TEST TEST TODO fix this
+    -# - if defined?(@collections) && @collections && ! @collections.results.empty?
+    -#   #search_collections
+    -#     = render("collections/search_results")
+    -# - if defined?(@media) && @media && ! @media.results.empty?
+    -#   #search_media
+    -#     = render("media/search_results")
+    -# - if defined?(@users) && @users && ! @users.results.empty?
+    -#   #search_users
+    -#     = render("users/search_results")

@@ -31,12 +31,12 @@ class User < ActiveRecord::Base
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
 
-  searchable do
-    text :username, stored: true, :boost => 6.0
-    text :name, stored: true, :boost => 4.0
-    text :tag_line
-    text :bio, :boost => 2.0
-  end
+  # searchable do
+  #   text :username, stored: true, :boost => 6.0
+  #   text :name, stored: true, :boost => 4.0
+  #   text :tag_line
+  #   text :bio, :boost => 2.0
+  # end
 
   # NOTE: this is a hook called by Devise
   def after_confirmation

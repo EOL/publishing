@@ -11,9 +11,9 @@ class SearchSuggestion < ActiveRecord::Base
 
   validates :match, uniqueness: true
 
-  searchable do
-    text :match, boost: 10.0 do
-      match.gsub(/\s/, " ")
-    end
-  end
+  # searchable do
+  #   text :match, boost: 10.0 do
+  #     match.gsub(/\s/, " ")
+  #   end
+  # end
 end

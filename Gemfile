@@ -19,8 +19,6 @@ gem 'jquery-rails'
 gem 'sass-rails', '~> 5.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-#Use sunspot to work with solr
-gem 'sunspot_rails', '~> 2.2.5'
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer'
@@ -36,6 +34,10 @@ gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+
+# Pagination with kaminari. It's out of order because the methods it uses need
+# to be defined first for other classes to recognize them:
+gem "kaminari", "~> 1.0"
 
 # All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
 # ..and with a comment above each gem (or block of related gems) explaining what
@@ -55,6 +57,9 @@ gem "dalli"
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
+# ElasticSearch for ... uhhh...  search?
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
 # YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2.0'
@@ -78,20 +83,13 @@ gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 
-# Pagination:
-gem "kaminari", "~> 1.0"
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Coveralls tracks our spec coverage:
   gem 'coveralls', require: false
-  # Progress bar for indexing solr items:
-  gem 'progress_bar', '~> 1.0.5'
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov", "~> 0.12"
-  #solr package. This is gonna be used in development and test environments
-  gem "sunspot_solr", '~> 2.2.5'
 end
 
 group :development do

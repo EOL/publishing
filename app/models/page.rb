@@ -1,4 +1,7 @@
 class Page < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
   belongs_to :medium, inverse_of: :pages
@@ -53,34 +56,62 @@ class Page < ActiveRecord::Base
       :preferred_vernaculars, :vernaculars]
   end
 
+  def self.search(query)
+    __elasticsearch__.search(
+      {
+        query: {
+          query_string: {
+            query: query,
+            fields: ["scientific_name_no_tags^10",
+              "preferred_scientific_names_no_tags^8",
+              "synonyms_no_tags^2", "preferred_vernacular_strings^2",
+              "vernacular_strings", "providers"]
+          }
+        }
+      })
+  end
+
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
-  searchable do
-    text :scientific_name, stored: true, boost: 10.0 do
-      scientific_name.gsub(/<\/?i>/, "")
-    end
-    # TODO: We would like to add attributions, later.
-    text :preferred_scientific_names, stored: true, boost: 8.0 do
-      preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :synonyms, stored: true, boost: 2.0 do
-      scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :preferred_vernaculars, stored: true, boost: 2.0 do
-      vernaculars.preferred.map { |v| v.string }
-    end
-    text :vernaculars, stored: true do
-      vernaculars.nonpreferred.map { |v| v.string }
-    end
-    text :providers do
-      resources.flat_map do |r|
-        [r.name, r.partner.full_name, r.partner.short_name]
-      end
-    end
-    integer :page_richness
-    integer :ancestor_ids, multiple: true do
-      Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
-    end
+  def as_indexed_json(options = nil)
+    self.as_json(only: [:id, :page_richness],
+      methods: [
+        :scientific_name_no_tags, :preferred_scientific_names_no_tags,
+        :synonyms_no_tags, :preferred_vernacular_strings,
+        :vernacular_strings, :providers, :ancestry_ids,
+        # Not searchable, but for rendering:
+        :icon, :name, :scientific_name, :native_node
+      ] )
+  end
+
+  def scientific_name_no_tags
+    scientific_name.gsub(/<\/?i>/, "")
+  end
+
+  def preferred_scientific_names_no_tags
+    preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
+  end
+
+  def synonyms_no_tags
+    scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
+  end
+
+  def preferred_vernacular_strings
+    vernaculars.preferred.map { |v| v.string }
+  end
+
+  def vernacular_strings
+    vernaculars.nonpreferred.map { |v| v.string }
+  end
+
+  def providers
+    resources.flat_map do |r|
+      [r.name, r.partner.full_name, r.partner.short_name]
+    end.uniq
+  end
+
+  def ancestry_ids
+    Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
   end
 
   def descendant_species

@@ -7,7 +7,8 @@ class SearchController < ApplicationController
     @q = @q[1..-1] if params[:q] =~ /^\*/
 
     # TODO: we'll want some whitelist filtering here later:
-    params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
+    params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
+    params[:q] = I18n.transliterate(params[:q]).downcase
 
     @clade = if params[:clade]
       puts "*" * 100
@@ -39,12 +40,11 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page,
-      include: [:medium, :preferred_vernaculars, :native_node],
-      page_richness: true)
-    @collections = search_class(Collection)
-    @media = search_class(Medium)
-    @users = search_class(User)
+    # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+    @pages = Page.search(params[:q]).page(params[:page]).per(50)
+    @collections = nil
+    @media = nil
+    @users = nil
 
     if @types[:predicates]
       @predicates_count = TraitBank.count_predicate_terms(@q)
@@ -69,7 +69,7 @@ class SearchController < ApplicationController
         @page_title = t(:page_title_search, query: @q)
         @empty = true
         [ @pages, @collections, @media, @users ].each do |set|
-          @empty = false if set && ! set.results.empty?
+          @empty = false if set && ! set.empty?
         end
         # Object terms is unusual:
         @empty = false if @object_terms && ! @object_terms.empty?
@@ -137,36 +137,6 @@ class SearchController < ApplicationController
           end
         end
         render json: JSON.pretty_generate(results)
-      end
-    end
-  end
-
-  private
-
-  # TODO: Whoa, you can do them all at the same time! I'm not sure we *want* to,
-  # though, so I'm holding this comment here:
-  # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
-
-  def search_class(klass, options = {})
-    # NOTE: YOU CANNOT CALL METHODS OR INSTANCE VARIABLES FROM THE SEARCH BLOCK.
-    page_richness = options.delete(:page_richness)
-    clade_id = @clade.try(:id)
-    if @types[klass.name.tableize.to_sym]
-      klass.send(:search, options) do
-        if params[:q] =~ /\*$/
-          any do
-            fulltext params[:q]
-            fulltext params[:q].sub(/\*$/, "")
-          end
-        else
-          fulltext params[:q]
-        end
-        puts "** Filtering fulltext by clade #{clade_id}" if clade_id
-        with(:ancestor_ids, clade_id) if clade_id
-        if page_richness
-          order_by(:page_richness, :desc)
-        end
-        paginate page: params[:page] || 1, per_page: params[:per_page] || 30
       end
     end
   end

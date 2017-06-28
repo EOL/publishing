@@ -4,6 +4,29 @@ module PagesHelper
       ["r_species", "r_genus", "r_family"].include?(page.rank.treat_as)
   end
 
+  def resource_names(page)
+    page.resources.select do |r|
+      r.name =~ /#{@q}/i
+    end.uniq.map do |resource|
+      n = emphasize_match(resource.name, @q)
+      n += " (#{emphasize_match(resource.partner.short_name, @q)})".html_safe unless
+        resource.name =~ /#{resource.partner.short_name}/
+      n
+    end
+  end
+
+  def vernacular_names(page)
+    page.vernaculars.select do |pv|
+      pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i
+    end.
+      group_by(&:string).
+      map do |string, names|
+        (emphasize_match(string, @q) +
+          "&nbsp;(#{names.map { |n| n.language.code }.uniq.join(", ")})".
+          html_safe)
+      end
+  end
+
   def is_higher_level_clade?(page)
     page.rank && page.rank.respond_to?(:treat_as) &&
       ["r_genus", "r_family"].include?(page.rank.treat_as)
