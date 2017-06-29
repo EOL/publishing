@@ -1,8 +1,7 @@
 .search_result_container
   .ui.inverted.dimmer
     .ui.loader
-  -# %h2= t("search_results.section_titles.pages", count: @pages.total)
-  %h2= t("search_results.section_titles.pages", count: @pages.size)
+  %h2= t("search_results.section_titles.pages", count: @pages.total_count)
   = paginate @pages, remote: true, params: { only: "pages" }
   %ul.found_pages.uk-list
     - @pages.each do |page|

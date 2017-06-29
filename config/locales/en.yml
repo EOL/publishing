@@ -523,6 +523,7 @@ en:
         one: "%{count} user"
         other: "%{count} users"
     field_matches:
+      body: "matches the body text:"
       description: "matches the description:"
       resource_pk: "matches the external ID:"
       owner: "matches the copyright holder:"

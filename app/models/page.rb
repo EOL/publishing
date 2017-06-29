@@ -47,53 +47,25 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  # This is a list of the fields used in .searchable so that other classes and
-  # controllers may act on them (e.g. to get a list of possible highlights).
-  # TODO: this should really be "stored" (heh) by sunspot, and I suggest we add
-  # that feature to their code.
-  def self.stored_fields
-    [:scientific_name, :preferred_scientific_names, :synonyms,
-      :preferred_vernaculars, :vernaculars]
-  end
-
-  def self.search(query)
-    __elasticsearch__.search(
-      {
-        query: {
-          query_string: {
-            query: query,
-            fields: ["scientific_name_no_tags^10",
-              "preferred_scientific_names_no_tags^8",
-              "synonyms_no_tags^2", "preferred_vernacular_strings^2",
-              "vernacular_strings", "providers"]
-          }
-        }
-      })
-  end
-
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
   def as_indexed_json(options = nil)
     self.as_json(only: [:id, :page_richness],
       methods: [
-        :scientific_name_no_tags, :preferred_scientific_names_no_tags,
-        :synonyms_no_tags, :preferred_vernacular_strings,
-        :vernacular_strings, :providers, :ancestry_ids,
+        :scientific_name, :preferred_scientific_names, :synonyms,
+        :preferred_vernacular_strings, :vernacular_strings,
+        :providers, :ancestry_ids, :resource_pks,
         # Not searchable, but for rendering:
         :icon, :name, :scientific_name, :native_node
       ] )
   end
 
-  def scientific_name_no_tags
-    scientific_name.gsub(/<\/?i>/, "")
+  def synonyms
+    scientific_names.synonym.map { |n| n.canonical_form }
   end
 
-  def preferred_scientific_names_no_tags
-    preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-  end
-
-  def synonyms_no_tags
-    scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
+  def resource_pks
+    nodes.map(&:resource_pk)
   end
 
   def preferred_vernacular_strings

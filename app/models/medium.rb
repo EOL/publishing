@@ -25,7 +25,7 @@ class Medium < ActiveRecord::Base
   #   text :resource_pk
   #   text :owner
   #   integer :ancestor_ids, multiple: true do
-  #     page_contents.pluck(:page_id)
+  #
   #   end
   # end
 

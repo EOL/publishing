@@ -1,22 +1,30 @@
 .search_result_container
   .ui.inverted.dimmer
     .ui.loader
-  %h2= t("search_results.section_titles.media", count: @media.total)
-  = paginate @media.results, remote: true, params: { only: "media" }
+  %h2= t("search_results.section_titles.media", count: @media.total_count)
+  = paginate @media, remote: true, params: { only: "media" }
   %table.media
     %tbody
-      - @media.results.each do |medium|
+      - @media.records.each_with_index do |medium, i|
+        - result = @media.results[i]
         %tr
           %td.medium-table-image
-            -# TODO: media don't have icons yet; change this.
-            = link_to(image_tag(medium.medium_icon_url), medium)
+            - if medium.respond_to?(:medium_icon_url)
+              = link_to(image_tag(medium.medium_icon_url), medium)
+            - else
+              %i.huge.ui.icon.file.text.outline
           %td
             .names
-              = link_to(emphasize_match(medium.name.titleize, @q), medium, class: "primary-name")
+              - name = result.try(:highlight).try(:name).try(:first) || medium.name
+              = link_to(name.titleize.html_safe, medium, class: "primary-name")
             .fields
               - unless @q.blank?
-                %b= t("search_results.field_matches.description")
-              = emphasize_match(medium.description, @q)
+                %b= t("search_results.field_matches.#{medium.is_a?(Medium) ? "description" : "body"}")
+              - desc = result.try(:highlight).try(:description).try(:first)
+              - if desc
+                = desc.html_safe
+              - else
+                = emphasize_match(medium.description, @q)
               - unless @q.blank?
                 - if medium.resource_pk =~ /#{@q}/
                   %br/
@@ -28,4 +36,4 @@
                   = t("content_attributions_labels.owner")
                   \:
               = emphasize_match(medium.owner, @q)
-  = paginate @media.results, remote: true, params: { only: "media" }
+  = paginate @media, remote: true, params: { only: "media" }

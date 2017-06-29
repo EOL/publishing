@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   # All of the "normal" resources:
+  resources :articles, only: [:show]
   resources :collections do
     get "logs"
     resources :collected_pages, only: [:index]

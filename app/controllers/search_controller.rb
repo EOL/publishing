@@ -41,9 +41,16 @@ class SearchController < ApplicationController
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
     # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    @pages = Page.search(params[:q]).page(params[:page]).per(50)
+    @pages = Page.search(basic_search([
+      "scientific_name^10", "preferred_scientific_names^8", "synonyms^2",
+      "preferred_vernacular_strings^2", "vernacular_strings", "providers",
+      "resource_pks"
+    ])).page(params[:page]).per(50)
+
     @collections = nil
-    @media = nil
+    @media = Elasticsearch::Model.search(basic_search([
+      "name^5", "resource_pk^10", "owner", "description^2"
+    ]), [Article, Medium, Link]).page(params[:page]).per(50)
     @users = nil
 
     if @types[:predicates]
@@ -104,7 +111,7 @@ class SearchController < ApplicationController
         # TODO: add weight to exact matches. Not sure how, yet. :S
         q = Page.search do
           fulltext "#{params[:name].downcase}*" do
-            Page.stored_fields.each do |field|
+            Page.first.attributes.each do |field|
               highlight field
             end
           end
@@ -116,7 +123,7 @@ class SearchController < ApplicationController
         pages = {}
         results = []
         q.hits.each do |hit|
-          Page.stored_fields.each do |field|
+          Page.first.attributes.each do |field|
             hit.highlights(field).compact.each do |highlight|
               word = highlight.format { |word| word }
               word = word.downcase if field == :name ||
@@ -128,7 +135,7 @@ class SearchController < ApplicationController
                 # scientific_name, in which case we don't want to downcase it!
                 # So we store the DOWNCASED name as the key. ...Scientific names
                 # are checked first (because they appear first in
-                # Page.stored_fields), so they will take precendence over the
+                # Page's stored fields), so they will take precendence over the
                 # name.
                 matches[word.downcase] = true
                 pages[hit.primary_key] = true
@@ -139,5 +146,12 @@ class SearchController < ApplicationController
         render json: JSON.pretty_generate(results)
       end
     end
+  end
+
+private
+
+  def basic_search(fields)
+    { query: { query_string: { query: params[:q], fields: fields } },
+    highlight: { tags_schema: "styled", fields: { :"*" => {} } } }
   end
 end
