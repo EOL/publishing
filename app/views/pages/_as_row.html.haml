@@ -1,6 +1,7 @@
 - icon ||= page.icon
-- common ||= page.try(:highlight).try(:preferred_vernacular_strings).try(:first) || page.name
-- scientific ||= page.try(:highlight).try(:scientific_name).try(:first) || page.scientific_name
+- result ||= page
+- common ||= page.try(:search_highlights).try(:[], :preferred_vernacular_strings) || page.name
+- scientific ||= page.try(:search_highlights).try(:[], :scientific_name) || page.scientific_name
 - show_delete = defined?(collected_page) ? policy(collected_page.collection).update? : nil
 - has_query = defined?(@q) && ! @q.blank?
 - media = (defined?(media) && media && ! media.empty?) ? media.compact.delete_if { |m| m.medium_icon_url == icon }.uniq : []
@@ -51,25 +52,25 @@
           = annotation
       - if has_query
         .matches.uk-margin-small-top
-          - others = page.try(:highlight).try(:vernacular_strings)
+          - others = page.try(:search_highlights).try(:[], :vernacular_strings)
           - unless others.blank?
-            %b= t("search_results.field_matches.vernaculars", count: others.size)
-            = others.join("; ").html_safe
+            %b= t("search_results.field_matches.vernaculars", count: 1)
+            = others.html_safe
 
-          - others = page.try(:highlight).try(:synonyms)
+          - others = page.try(:search_highlights).try(:[], :synonyms)
           - unless others.blank?
-            %b= t("search_results.field_matches.synonyms", count: others.size)
-            = others.join("; ").html_safe
+            %b= t("search_results.field_matches.synonyms", count: 1)
+            = others.html_safe
 
-          - others = page.try(:highlight).try(:providers)
+          - others = page.try(:search_highlights).try(:[], :providers)
           - unless others.blank?
-            %b= t("search_results.field_matches.resources", count: others.size)
-            = others.join("; ").html_safe
+            %b= t("search_results.field_matches.resources", count: 1)
+            = others.html_safe
 
-          - others = page.try(:highlight).try(:resource_pks)
+          - others = page.try(:search_highlights).try(:resource_pks)
           - unless others.blank?
-            %b= t("search_results.field_matches.resource_pk", count: others.size)
-            = others.join("; ").html_safe
+            %b= t("search_results.field_matches.resource_pk", count: 1)
+            = others.html_safe
 
       - else # (no query string)
         - if summary = construct_summary(page)

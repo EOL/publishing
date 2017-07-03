@@ -5,6 +5,10 @@ class PagesController < ApplicationController
   helper :data
   helper_method :get_associations
 
+  def autocomplete
+    render json: Page.autocomplete(params[:query])
+  end
+
   def index
     @title = I18n.t("landing_page.title")
     @stats = Rails.cache.fetch("pages/index/stats", expires_in: 1.week) do

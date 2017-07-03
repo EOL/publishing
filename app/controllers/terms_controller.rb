@@ -12,13 +12,10 @@ class TermsController < ApplicationController
         if params[:clade] =~ /\A\d+\Z/
           Page.find(params[:clade])
         else
-          query = Page.search do
-            fulltext "\"#{params[:clade].downcase}\""
-            order_by(:page_richness, :desc)
-            paginate page: 1, per_page: 1
-          end
-          params[:clade] = query.results.first.id
-          query.results.first
+          # TODO: generalize this
+          query = Page.autocomplete(params[:clade], limit: 1, load: true)
+          params[:clade] = query.first.id
+          query.first
         end
       else
         nil

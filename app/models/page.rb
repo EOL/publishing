@@ -1,6 +1,5 @@
 class Page < ActiveRecord::Base
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  searchkick word_start: [:scientific_name, :preferred_vernacular_strings]
 
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
@@ -47,17 +46,41 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
+  # NOTE: I've not tested this; might not be the most efficient set: ...I did
+  # notice that vernaculars doesn't quite work; the scopes that are attached to
+  # the (preferred and nonpreferred) interfere.
+  scope :search_import, -> { includes(:scientific_names, :vernaculars, :native_node, resources: :partner) }
+
+  def self.autocomplete(query, options = {})
+    search(query, options.reverse_merge({
+      fields: ["scientific_name^200", "preferred_vernacular_strings"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: false,
+      boost_by: { page_richness: { factor: 0.01 } }
+    }))
+  end
+
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
-  def as_indexed_json(options = nil)
-    self.as_json(only: [:id, :page_richness],
-      methods: [
-        :scientific_name, :preferred_scientific_names, :synonyms,
-        :preferred_vernacular_strings, :vernacular_strings,
-        :providers, :ancestry_ids, :resource_pks,
-        # Not searchable, but for rendering:
-        :icon, :name, :scientific_name, :native_node
-      ] )
+  def search_data
+    {
+      id: id,
+      page_richness: page_richness,
+      scientific_name: scientific_name,
+      preferred_scientific_names: preferred_scientific_names,
+      synonyms: synonyms,
+      preferred_vernacular_strings: preferred_vernacular_strings,
+      vernacular_strings: vernacular_strings,
+      providers: providers,
+      ancestry_ids: ancestry_ids,
+      resource_pks: resource_pks,
+      icon: icon,
+      name: name,
+      scientific_name: scientific_name,
+      native_node: native_node
+    }
   end
 
   def synonyms

@@ -1,27 +1,30 @@
-.ui.inverted.dimmer
-  .ui.loader
-%h2= t("search_results.section_titles.users", count: @users.total)
-= paginate @users.results, remote: true, params: { only: "users" }
-%table.users
-  %tbody
-    - @users.results.each do |user|
-      %tr
-        %td.collection-table-image
-          -# TODO: users don't have icons yet; change this.
-          = link_to(image_tag("medium/missing.png"), user)
-        %td
-          .names.username
-            = link_to(emphasize_match(user.username.titleize, @q), user, class: "primary-name")
-          .names
-            - if user.is_admin?
-              %br/
-              = t(:collection_user_is_admin)
-            - if user.tag_line =~ /#{@q}/
-              %br/
-              %b= t("search_results.field_matches.tag_line")
-              = emphasize_match(user.tag_line, @q)
-            - if user.bio =~ /#{@q}/
-              %br/
-              %b= t("search_results.field_matches.bio")
-              = emphasize_match(user.bio, @q)
-= paginate @users.results, remote: true, params: { only: "users" }
+.search_result_container
+  .ui.inverted.dimmer
+    .ui.loader
+  %h2= t("search_results.section_titles.users", count: @users.total_count)
+  = paginate @users.results, remote: true, params: { only: "users" }
+  %ul.uk-list
+    - @users.records.each_with_index do |user, i|
+      - result = @collections.results[i]
+      %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
+        .uk-card-body.uk-grid-small{ uk: { grid: true } }
+          .eol-width-medium-icon
+            -# TODO: users don't have icons yet; change this.
+            = link_to(image_tag("medium/missing.png"), user)
+          .uk-width-expand
+            .names.username
+              - name = result.try(:highlight).try(:username).try(:first) || user.username
+              = link_to(name.titleize.html_safe, user, class: "primary-name")
+            .names
+              - if user.is_admin?
+                %br/
+                = t(:collection_user_is_admin)
+              - if tag = result.try(:highlight).try(:tag_line).try(:first)
+                %br/
+                %b= t("search_results.field_matches.tag_line")
+                = tag.html_safe
+              - if bio = result.try(:highlight).try(:bio).try(:first)
+                %br/
+                %b= t("search_results.field_matches.bio")
+                = bio.html_safe
+  = paginate @users.results, remote: true, params: { only: "users" }

@@ -199,10 +199,10 @@ if(!EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/names/%QUERY.json',
+        url: '/pages/autocomplete?query=%QUERY',
         wildcard: '%QUERY'
       },
-      limit: 20
+      limit: 10
     });
     EOL.searchNames.initialize();
     // And this...
@@ -223,11 +223,11 @@ if(!EOL) {
       console.log("Enable navigation typeahead.");
       $('#nav-search .typeahead').typeahead(null, {
         name: 'search-names',
-        display: 'value',
+        display: 'scientific_name',
         source: EOL.searchNames
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
-        window.location.href = '/search?q=' + datum.value;
+        window.location.href = '/search?q=' + datum.scientific_name;
       }).bind('keypress', function(e) {
         console.log('keypress:', e);
         console.log('which:', e.which);
@@ -243,7 +243,7 @@ if(!EOL) {
       console.log("Enable clade filter typeahead.");
       $('.clade_filter .typeahead').typeahead(null, {
         name: 'clade-filter-names',
-        display: 'value',
+        display: 'scientific_name',
         source: EOL.searchNames
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
@@ -256,7 +256,7 @@ if(!EOL) {
       console.log("Enable username typeahead.");
       $('.find_users .typeahead').typeahead(null, {
         name: 'find-usernames',
-        display: 'value',
+        display: 'scientific_name',
         source: EOL.searchUsers
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);

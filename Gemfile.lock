@@ -122,11 +122,6 @@ GEM
       elasticsearch-transport (= 5.0.4)
     elasticsearch-api (5.0.4)
       multi_json
-    elasticsearch-model (5.0.1)
-      activesupport (> 3)
-      elasticsearch (~> 5)
-      hashie
-    elasticsearch-rails (5.0.1)
     elasticsearch-transport (5.0.4)
       faraday
       multi_json
@@ -382,6 +377,10 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchkick (2.3.0)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
     seo_meta (2.0.0)
       railties (>= 3.0.0)
     sexp_processor (4.7.0)
@@ -461,8 +460,6 @@ DEPENDENCIES
   devise (= 4.2.0)
   devise-encryptable
   devise-i18n-views
-  elasticsearch-model
-  elasticsearch-rails
   factory_girl
   faker
   font-kit-rails (~> 1.2.0)
@@ -489,6 +486,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchkick
   simple_form
   simplecov (~> 0.12)
   spring

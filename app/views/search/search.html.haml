@@ -15,15 +15,14 @@
           %li= link_to(t("search_results.section_titles.predicates", count: @predicates_count), "#search_predicates")
         - if defined?(@object_terms) && ! @object_terms.blank?
           %li= link_to(t("search_results.section_titles.object_terms", count: @object_terms_count), "#search_object_terms")
-        - if defined?(@pages) && ! @pages.empty?
+        - if defined?(@pages) && ! @pages.blank?
           %li= link_to(t("search_results.section_titles.pages", count: @pages.total_count), "#search_pages")
-        -# TEST TEST TEST TEST TEST TODO fix these
-        -# - if defined?(@collections) && @collections && ! @collections.results.empty?
-        -#   %li= link_to(t("search_results.section_titles.collections", count: @collections.total), "#search_collections")
-        - if defined?(@media) && ! @media.empty?
+        - if defined?(@collections) && ! @collections.blank?
+          %li= link_to(t("search_results.section_titles.collections", count: @collections.total_count), "#search_collections")
+        - if defined?(@media) && ! @media.blank?
           %li= link_to(t("search_results.section_titles.media", count: @media.total_count), "#search_media")
-        -# - if defined?(@users) && @users && ! @users.results.empty?
-        -#   %li= link_to(t("search_results.section_titles.users", count: @users.total), "#search_users")
+        - if defined?(@users) && ! @users.blank?
+          %li= link_to(t("search_results.section_titles.users", count: @users.total_count), "#search_users")
       .clade_filter.uk-margin-top
         = form_tag(search_path, method: "get", autocomplete: "off") do
           - hide_params_in_form(["clade"])
@@ -41,7 +40,7 @@
         - if @clade
           .uk-panel.uk-margin-small-top
             - mod_params = params_less(:clade)
-            = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
+            = link_to(t("term.show.clade_filter.clear"), search_path(mod_params))
 
   #search_results.uk-width-4-5
     - if defined?(@predicates) && ! @predicates.blank?
@@ -53,13 +52,12 @@
     - if defined?(@pages) && @pages
       #search_pages
         = render("pages/search_results")
-    -# TEST TEST TEST TEST  TEST TEST TEST TODO fix this
-    -# - if defined?(@collections) && @collections && ! @collections.results.empty?
-    -#   #search_collections
-    -#     = render("collections/search_results")
-    - if defined?(@media) && ! @media.empty?
+    - if defined?(@collections) && @collections
+      #search_collections
+        = render("collections/search_results")
+    - if defined?(@media) && ! @media.blank?
       #search_media
         = render("media/search_results")
-    -# - if defined?(@users) && @users && ! @users.results.empty?
-    -#   #search_users
-    -#     = render("users/search_results")
+    - if defined?(@users) && ! @users.blank?
+      #search_users
+        = render("users/search_results")

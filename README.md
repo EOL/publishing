@@ -11,6 +11,7 @@ Status](https://coveralls.io/repos/github/EOL/eol_website/badge.svg?branch=maste
 You should install the following before proceeding:
 * MySQL or MariaDB
 * Neo4j
+* ElasticSearch (```brew install elasticsearch```)
 
 ...You will need to define the following ENV variables (e.g.: export VAR=val):
 ```bash

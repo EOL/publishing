@@ -15,7 +15,7 @@ class SearchController < ApplicationController
       puts "** Filtering by clade #{params[:clade]}"
       # It doesn't make sense to filter some things by clade:
       params[:only] = if params[:only]
-        [:pages, :media] - params[:only]
+        Array(params[:only]) - [:collections, :users, :predicates, :object_terms]
       else
         [:pages, :media]
       end
@@ -40,18 +40,38 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    # TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-    @pages = Page.search(basic_search([
-      "scientific_name^10", "preferred_scientific_names^8", "synonyms^2",
-      "preferred_vernacular_strings^2", "vernacular_strings", "providers",
-      "resource_pks"
-    ])).page(params[:page]).per(50)
 
-    @collections = nil
-    @media = Elasticsearch::Model.search(basic_search([
-      "name^5", "resource_pk^10", "owner", "description^2"
-    ]), [Article, Medium, Link]).page(params[:page]).per(50)
-    @users = nil
+    @pages = if @types[:pages]
+      basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
+        fields: ["preferred_vernacular_strings^200", "scientific_name^400",
+          "vernacular_strings", "synonyms", "providers", "resource_pks"],
+          where: @clade ? { ancestry_ids: @clade.id } : nil,
+          highlight: true)
+    else
+      nil
+    end
+
+    @collections = if @types[:collections]
+      Collection.search(basic_search(["name^5", "description"])).
+        page(params[:page]).per(50)
+    else
+      nil
+    end
+
+    @media = if @types[:media]
+      Elasticsearch::Model.search(basic_search([
+        "name^5", "resource_pk^10", "owner", "description^2"
+      ]), [Article, Medium, Link]).page(params[:page]).per(50)
+    else
+      nil
+    end
+
+    @users = if @types[:users]
+      User.search(basic_search(["username^6", "name^4", "tag_line", "bio^2"])).
+        page(params[:page]).per(50)
+    else
+      nil
+    end
 
     if @types[:predicates]
       @predicates_count = TraitBank.count_predicate_terms(@q)
@@ -105,53 +125,10 @@ class SearchController < ApplicationController
     end
   end
 
-  def names
-    respond_to do |fmt|
-      fmt.json do
-        # TODO: add weight to exact matches. Not sure how, yet. :S
-        q = Page.search do
-          fulltext "#{params[:name].downcase}*" do
-            Page.first.attributes.each do |field|
-              highlight field
-            end
-          end
-          order_by(:page_richness, :desc)
-          # NOTE: the per_page here is ALSO restricted in main.js! Be careful.
-          paginate page: 1, per_page: 20
-        end
-        matches = {}
-        pages = {}
-        results = []
-        q.hits.each do |hit|
-          Page.first.attributes.each do |field|
-            hit.highlights(field).compact.each do |highlight|
-              word = highlight.format { |word| word }
-              word = word.downcase if field == :name ||
-                field == :preferred_vernaculars ||
-                field == :vernaculars
-              unless matches.has_key?(word.downcase) || pages.has_key?(hit.primary_key)
-                results << { value: word, tokens: word.split, id: hit.primary_key }
-                # NOTE: :name is a tricky little field. ...it COULD be a
-                # scientific_name, in which case we don't want to downcase it!
-                # So we store the DOWNCASED name as the key. ...Scientific names
-                # are checked first (because they appear first in
-                # Page's stored fields), so they will take precendence over the
-                # name.
-                matches[word.downcase] = true
-                pages[hit.primary_key] = true
-              end
-            end
-          end
-        end
-        render json: JSON.pretty_generate(results)
-      end
-    end
-  end
-
 private
 
-  def basic_search(fields)
-    { query: { query_string: { query: params[:q], fields: fields } },
-    highlight: { tags_schema: "styled", fields: { :"*" => {} } } }
+  def basic_search(klass, options = {})
+    klass.search(params[:q], options.reverse_merge(highlight: true,
+      page: params[:page], per_page: 50))
   end
 end

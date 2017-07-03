@@ -3,17 +3,17 @@
     .ui.loader
   %h2= t("search_results.section_titles.media", count: @media.total_count)
   = paginate @media, remote: true, params: { only: "media" }
-  %table.media
-    %tbody
-      - @media.records.each_with_index do |medium, i|
-        - result = @media.results[i]
-        %tr
-          %td.medium-table-image
+  %ul.uk-list
+    - @media.records.each_with_index do |medium, i|
+      - result = @media.results[i]
+      %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
+        .uk-card-body.uk-grid-small{ uk: { grid: true } }
+          .eol-width-medium-icon
             - if medium.respond_to?(:medium_icon_url)
               = link_to(image_tag(medium.medium_icon_url), medium)
             - else
               %i.huge.ui.icon.file.text.outline
-          %td
+          .uk-width-expand
             .names
               - name = result.try(:highlight).try(:name).try(:first) || medium.name
               = link_to(name.titleize.html_safe, medium, class: "primary-name")
@@ -29,11 +29,16 @@
                 - if medium.resource_pk =~ /#{@q}/
                   %br/
                   %b= t("search_results.field_matches.resource_pk")
-                  = emphasize_match(medium.resource_pk, @q)
+                  - rpk = result.try(:highlight).try(:resource_pk).try(:first)
+                  - if rpk
+                    = rpk.html_safe
+                  - else
+                    = emphasize_match(medium.resource_pk, @q)
               %br/
               - if @q.blank? || medium.owner !~ /^[&(©]/
                 %b
                   = t("content_attributions_labels.owner")
                   \:
-              = emphasize_match(medium.owner, @q)
+              - owner = result.try(:highlight).try(:owner).try(:first) || emphasize_match(medium.owner, @q)
+              = owner
   = paginate @media, remote: true, params: { only: "media" }

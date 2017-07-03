@@ -57,9 +57,7 @@ gem "dalli"
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
-# ElasticSearch for ... uhhh...  search?
-gem 'elasticsearch-model'
-gem 'elasticsearch-rails'
+
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
 # YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2.0'
@@ -78,6 +76,8 @@ gem "paperclip", "~> 5.1"
 gem "pundit", "~> 1.1"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
+# ElasticSearch via SearchKick:
+gem 'searchkick'
 # Simplify Forms:
 gem 'simple_form'
 gem 'client_side_validations'

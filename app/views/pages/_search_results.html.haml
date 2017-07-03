@@ -4,7 +4,7 @@
   %h2= t("search_results.section_titles.pages", count: @pages.total_count)
   = paginate @pages, remote: true, params: { only: "pages" }
   %ul.found_pages.uk-list
-    - @pages.each do |page|
+    - @pages.each_with_index do |page, i|
       -# TODO: rename; it's no longer a row, it's a card.
       = render("pages/as_row", page: page)
   = paginate @pages, remote: true, params: { only: "pages" }
