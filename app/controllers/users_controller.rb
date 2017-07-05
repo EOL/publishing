@@ -22,32 +22,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def search
-    q = User.search do
-      fulltext params[:q] do
-        highlight :name
-        highlight :username
-      end
-      field_list [:name, :username]
-      paginate page: params[:page] || 1, per_page: params[:per_page] || 30
-    end
-    matches = {}
-    users = {}
-    results = []
-    q.hits.each do |hit|
-      [:name, :username].each do |field|
-        hit.highlights(field).compact.each do |highlight|
-          word = highlight.format { |word| word }
-          word = word.downcase
-          unless matches.has_key?(word) || users.has_key?(hit.primary_key)
-            results << { value: word, tokens: word.split, id: hit.primary_key }
-            matches[word] = true
-            users[hit.primary_key] = true
-          end
-        end
-      end
-    end
-    render json: JSON.pretty_generate(results)
+  def autocomplete
+    render json: User.autocomplete(params[:query])
   end
 
   private

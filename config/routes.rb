@@ -26,6 +26,7 @@ Rails.application.routes.draw do
                                     omniauth_callbacks: "user/omniauth_callbacks"}
   resources :users do
     collection do
+      get "autocomplete"
       post "delete_user", defaults: { format: "json" }
       get "search"
     end

@@ -2,10 +2,9 @@
   .ui.inverted.dimmer
     .ui.loader
   %h2= t("search_results.section_titles.collections", count: @collections.total_count)
-  = paginate @collections.results, remote: true, params: { only: "collections" }
+  = paginate @collections, remote: true, params: { only: "collections" }
   %ul.uk-list
-    - @collections.records.each_with_index do |collection, i|
-      - result = @collections.results[i]
+    - @collections.results.each do |collection|
       %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
         .uk-card-body.uk-grid-small{ uk: { grid: true } }
           .eol-width-medium-icon
@@ -13,11 +12,11 @@
             = link_to(image_tag("medium/collection.png"), collection)
           .uk-width-expand
             .names
-              - name = result.try(:highlight).try(:name).try(:first) || emphasize_match(collection.name.titleize, @q)
+              - name = collection.try(:search_highlights).try(:[], :name) || emphasize_match(collection.name.titleize, @q)
               = link_to(name.titleize.html_safe, collection, class: "primary-name")
             .fields
-              - desc = result.try(:highlight).try(:description).try(:first) || emphasize_match(collection.description, @q)
+              - desc = collection.try(:search_highlights).try(:[], :description) || emphasize_match(collection.description, @q)
               - unless @q.blank?
                 %b= t("search_results.field_matches.description")
               = desc.html_safe
-  = paginate @collections.results, remote: true, params: { only: "collections" }
+  = paginate @collections, remote: true, params: { only: "collections" }

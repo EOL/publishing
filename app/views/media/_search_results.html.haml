@@ -4,8 +4,7 @@
   %h2= t("search_results.section_titles.media", count: @media.total_count)
   = paginate @media, remote: true, params: { only: "media" }
   %ul.uk-list
-    - @media.records.each_with_index do |medium, i|
-      - result = @media.results[i]
+    - @media.results.each_with_index do |medium, i|
       %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
         .uk-card-body.uk-grid-small{ uk: { grid: true } }
           .eol-width-medium-icon
@@ -15,12 +14,12 @@
               %i.huge.ui.icon.file.text.outline
           .uk-width-expand
             .names
-              - name = result.try(:highlight).try(:name).try(:first) || medium.name
+              - name = medium.try(:search_highlights).try(:[], :name) || medium.name
               = link_to(name.titleize.html_safe, medium, class: "primary-name")
             .fields
               - unless @q.blank?
                 %b= t("search_results.field_matches.#{medium.is_a?(Medium) ? "description" : "body"}")
-              - desc = result.try(:highlight).try(:description).try(:first)
+              - desc = medium.try(:search_highlights).try(:[], :description)
               - if desc
                 = desc.html_safe
               - else
@@ -29,7 +28,7 @@
                 - if medium.resource_pk =~ /#{@q}/
                   %br/
                   %b= t("search_results.field_matches.resource_pk")
-                  - rpk = result.try(:highlight).try(:resource_pk).try(:first)
+                  - rpk = medium.try(:search_highlights).try(:[], :resource_pk)
                   - if rpk
                     = rpk.html_safe
                   - else
@@ -39,6 +38,6 @@
                 %b
                   = t("content_attributions_labels.owner")
                   \:
-              - owner = result.try(:highlight).try(:owner).try(:first) || emphasize_match(medium.owner, @q)
+              - owner = medium.try(:search_highlights).try(:[], :owner) || emphasize_match(medium.owner, @q)
               = owner
   = paginate @media, remote: true, params: { only: "media" }

@@ -212,7 +212,7 @@ if(!EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/users/search.json?q=%QUERY',
+        url: '/users/autocomplete?query=%QUERY',
         wildcard: '%QUERY'
       },
       limit: 10
@@ -227,7 +227,7 @@ if(!EOL) {
         source: EOL.searchNames
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
-        window.location.href = '/search?q=' + datum.scientific_name;
+        window.location.href = '/pages/autocomplete?query=' + datum.scientific_name;
       }).bind('keypress', function(e) {
         console.log('keypress:', e);
         console.log('which:', e.which);
@@ -256,7 +256,7 @@ if(!EOL) {
       console.log("Enable username typeahead.");
       $('.find_users .typeahead').typeahead(null, {
         name: 'find-usernames',
-        display: 'scientific_name',
+        display: 'username',
         source: EOL.searchUsers
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);

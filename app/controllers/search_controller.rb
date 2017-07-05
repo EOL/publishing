@@ -45,33 +45,37 @@ class SearchController < ApplicationController
       basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
         fields: ["preferred_vernacular_strings^200", "scientific_name^400",
           "vernacular_strings", "synonyms", "providers", "resource_pks"],
-          where: @clade ? { ancestry_ids: @clade.id } : nil,
-          highlight: true)
+          where: @clade ? { ancestry_ids: @clade.id } : nil)
     else
       nil
     end
 
     @collections = if @types[:collections]
-      Collection.search(basic_search(["name^5", "description"])).
-        page(params[:page]).per(50)
+      basic_search(Collection, fields: ["name^5", "description"])
     else
       nil
     end
 
+    # YOU WERE HERE. ...for some reason, this isn't working IF there is a clade
+    # specified; it's returning no results in that case. Can you put all of
+    # these in one index? We don't need them broken up...
+
     @media = if @types[:media]
-      Elasticsearch::Model.search(basic_search([
-        "name^5", "resource_pk^10", "owner", "description^2"
-      ]), [Article, Medium, Link]).page(params[:page]).per(50)
+      basic_search(Searchkick,
+        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+        where: @clade ? { ancestry_ids: @clade.id } : nil,
+        index_name: [Article, Medium, Link])
     else
       nil
     end
 
     @users = if @types[:users]
-      User.search(basic_search(["username^6", "name^4", "tag_line", "bio^2"])).
-        page(params[:page]).per(50)
+      basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
     else
       nil
     end
+
+    Searchkick.multi_search([@pages, @collections, @media, @users].compact)
 
     if @types[:predicates]
       @predicates_count = TraitBank.count_predicate_terms(@q)
@@ -128,7 +132,7 @@ class SearchController < ApplicationController
 private
 
   def basic_search(klass, options = {})
-    klass.search(params[:q], options.reverse_merge(highlight: true,
-      page: params[:page], per_page: 50))
+    klass.search(params[:q], options.reverse_merge(highlight: { tag: "**" },
+      execute: false, page: params[:page], per_page: 50))
   end
 end

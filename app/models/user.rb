@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  searchkick
+  searchkick word_start: [:username, :name]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -32,6 +32,16 @@ class User < ActiveRecord::Base
 
   USERNAME_MIN_LENGTH = 4
   USERNAME_MAX_LENGTH = 32
+
+  def self.autocomplete(query, options = {})
+    search(query, options.reverse_merge({
+      fields: ["username", "name"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: false
+    }))
+  end
 
   # NOTE: this is a hook called by Devise
   def after_confirmation

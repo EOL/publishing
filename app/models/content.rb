@@ -20,7 +20,7 @@ module Content
     has_many :associations, -> { where("page_id = source_page_id") },
       through: :page_contents, source: :page
 
-    def search_fields
+    def search_data
       # NOTE: description is a method because articles have a body; we use an
       # alias to normalize it.
       {
@@ -28,12 +28,12 @@ module Content
         name: name,
         resource_pk: resource_pk,
         owner: owner,
-        ancestor_ids: ancestor_ids,
+        ancestry_ids: ancestry_ids,
         description: description
       }
     end
 
-    def ancestor_ids
+    def ancestry_ids
       page_contents.pluck(:page_id)
     end
   end
