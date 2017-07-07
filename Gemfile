@@ -57,6 +57,8 @@ gem "dalli"
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
+# Discourse handles comments and chat:
+gem 'discourse_api'
 
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
 # YOU SHOULD REMOVE THIS GEM!

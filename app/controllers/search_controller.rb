@@ -7,8 +7,33 @@ class SearchController < ApplicationController
     @q = @q[1..-1] if params[:q] =~ /^\*/
 
     # TODO: we'll want some whitelist filtering here later:
-    params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
+    # params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
     params[:q] = I18n.transliterate(params[:q]).downcase
+
+    # First step (and, yes, this will be slow—we will optimize later), look for
+    # search suggestions that match the query:
+    words = params[:q].split # TODO: we might want to remove words with ^-
+    suggestions = SearchSuggestion.search(params[:q],
+      fields: [{ match: :exact }])
+
+    # If we only found one thing and they only asked for one thing:
+    if suggestions.size == 1 && params[:q] !~ /\s/
+      # TODO: move this to a helper? It can't go on the model...
+      suggestion = suggestions.first
+      suggestion = suggestion.synonym_of if suggestion.synonym_of
+      where = if suggestion.page_id
+          suggestion.page
+        elsif suggestion.object_term
+          term_path(uri: suggestion.object_term, object: true)
+        elsif suggestion.path
+          suggestion.path
+        elsif suggestion.wkt_string
+          flash[:notice] = "Unimplemented, sorry."
+          "/"
+        end
+      return redirect_to(where)
+    end
+
 
     @clade = if params[:clade]
       puts "*" * 100

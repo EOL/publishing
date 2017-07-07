@@ -9,6 +9,19 @@ class PagesController < ApplicationController
     render json: Page.autocomplete(params[:query])
   end
 
+  def topics
+    @discourse_url = Rails.application.secrets.discourse_url
+    client = DiscourseApi::Client.new(
+      Rails.application.secrets.discourse_url,
+      Rails.application.secrets.discourse_key,
+      Rails.application.secrets.discourse_user
+    )
+    @topics = client.latest_topics
+    respond_to do |fmt|
+      fmt.js { }
+    end
+  end
+
   def index
     @title = I18n.t("landing_page.title")
     @stats = Rails.cache.fetch("pages/index/stats", expires_in: 1.week) do
@@ -57,7 +70,7 @@ class PagesController < ApplicationController
     respond_to do |fmt|
       fmt.js do
         @page = Page.where(id: params[:page_id]).first
-        @page.reindex
+        @page.clear
         expire_fragment(page_data_path(@page))
         expire_fragment(page_details_path(@page))
         expire_fragment(page_classifications_path(@page))

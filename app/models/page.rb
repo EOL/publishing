@@ -415,7 +415,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def reindex
+  def clear
     clear_caches
     recount
     data # Just to load them

@@ -16,6 +16,11 @@
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
+    .uk-section.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+      %div
+        %h3= t("landing_page.topics")
+        #topics
+          .spin{ uk: { spinner: true } }
     - if is_admin?
       .uk-section
         .ui.basic.button

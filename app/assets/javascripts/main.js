@@ -167,6 +167,13 @@ if(!EOL) {
       });
     }
 
+    if ($("#topics").length === 1) {
+      $.ajax({
+        url: "/pages/topics.js",
+        cache: false
+      });
+    }
+
     $(".disable-on-click").on("click", function() {
       $(this).closest(".button").addClass("disabled loading");
     });

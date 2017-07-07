@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
     get "autocomplete", on: :collection
+    get "topics", on: :collection
     get "breadcrumbs"
     get "overview"
     get "classifications"
