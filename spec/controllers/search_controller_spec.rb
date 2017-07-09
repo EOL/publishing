@@ -4,11 +4,11 @@ RSpec.describe SearchController do
 
 
   let(:page) { create(:page) }
-  let(:pages) { double("Sunspot::Search", results: [page], empty: false) }
-  let(:collections) { double("Sunspot::Search", results: [], empty: true) }
-  let(:media) { double("Sunspot::Search", results: [], empty: true) }
-  let(:users) { double("Sunspot::Search", results: [], empty: true) }
-  let(:suggestions) { double("Sunspot::Search", results: [SearchSuggestion.create(object_term: "something", match: "match")]) }
+  let(:pages) { fake_search_results([page]) }
+  let(:collections) { fake_search_results([]) }
+  let(:media) { fake_search_results([]) }
+  let(:users) { fake_search_results([]) }
+  let(:suggestions) { fake_search_results([SearchSuggestion.create(object_term: "something", match: "match")]) }
 
   before do
     allow(Page).to receive(:search) { pages }

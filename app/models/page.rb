@@ -438,7 +438,7 @@ class Page < ActiveRecord::Base
       ].include?(v)
       remove_instance_variable(v)
     end
-    Sunspot.index(self)
+    reindex
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
     # descendants; if you want to do an entire tree, that should be another
