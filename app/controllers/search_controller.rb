@@ -81,10 +81,6 @@ class SearchController < ApplicationController
       nil
     end
 
-    # YOU WERE HERE. ...for some reason, this isn't working IF there is a clade
-    # specified; it's returning no results in that case. Can you put all of
-    # these in one index? We don't need them broken up...
-
     @media = if @types[:media]
       basic_search(Searchkick,
         fields: ["name^5", "resource_pk^10", "owner", "description^2"],

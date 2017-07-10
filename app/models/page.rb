@@ -78,7 +78,6 @@ class Page < ActiveRecord::Base
       resource_pks: resource_pks,
       icon: icon,
       name: name,
-      scientific_name: scientific_name,
       native_node: native_node
     }
   end

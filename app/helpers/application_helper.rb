@@ -66,7 +66,7 @@ module ApplicationHelper
   def emphasize_match(name, match)
     return "" if name.nil?
     return name if match.nil?
-    return name.html_safe unless name =~ /(#{match})/i
+    return name.html_safe unless name =~ /(#{Regexp.escape(match)})/i
     highlight(excerpt(name, match, separator: " ", radius: 5), match)
   end
 

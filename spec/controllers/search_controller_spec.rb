@@ -13,19 +13,20 @@ RSpec.describe SearchController do
   before do
     allow(Page).to receive(:search) { pages }
     allow(Collection).to receive(:search) { collections }
-    allow(Medium).to receive(:search) { media }
     allow(User).to receive(:search) { users }
-    allow(SearchSuggestion).to receive(:search) {suggestions}
+    allow(SearchSuggestion).to receive(:search) { [] }
+    allow(Searchkick).to receive(:search) { media } # NOTE: Media uses multi-index search
     allow(TraitBank).to receive(:search_object_terms) { [] }
     allow(TraitBank).to receive(:search_predicate_terms) { [] }
     allow(TraitBank).to receive(:count_object_terms) { 0 }
     allow(TraitBank).to receive(:count_predicate_terms) { 0 }
+    allow(Searchkick).to receive(:multi_search) { }
   end
 
   describe "#show" do
 
     context "when requesting all results" do
-      before { get :search, q: "query", except: "object_terms" }
+      before { get :search, q: "query" }
       it { expect(assigns(:pages)).to eq(pages) }
       it { expect(assigns(:collections)).to eq(collections) }
       it { expect(assigns(:media)).to eq(media) }

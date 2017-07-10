@@ -44,7 +44,11 @@ module EolSpecHelpers
   end
 
   def fake_search_results(array)
-    results = Array(array)
+    results = Searchkick::Results.new(array.first.class, array)
+    allow(results).to receive(:empty?) { array.empty? }
+    allow(results).to receive(:[]) { |arg| array[arg] }
+    allow(results).to receive(:results) { array }
+    allow(results).to receive(:results) { array }
     allow(results).to receive(:total_count) { array.count }
     allow(results).to receive(:total_pages) { 1 }
     allow(results).to receive(:current_page) { 1 }

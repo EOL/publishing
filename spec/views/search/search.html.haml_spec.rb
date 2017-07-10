@@ -29,7 +29,15 @@ RSpec.describe "search/search" do
       allow(page).to receive(:scientific_name) { scientific_names.first.canonical_form }
       allow(page).to receive(:scientific_names) { scientific_names }
       allow(page).to receive(:native_node) { node }
-      allow(page).to receive(:vernaculars) { [name, another_name, nonmatching_name] }
+      highlights = {
+        scientific_name: "Our scientific",
+        preferred_vernacular_strings: "a vernacular name",
+        vernacular_strings: "another **common** name",
+        synonyms: nil,
+        providers: "Resource One",
+        resource_pks: nil
+      }
+      allow(page).to receive(:search_highlights) { highlights }
       allow(page).to receive(:resources) { resources }
       search_results = fake_search_results([page])
       assign(:pages, search_results)
@@ -42,7 +50,8 @@ RSpec.describe "search/search" do
     it { expect(rendered).to match /Our scientific/ }
     it { expect(rendered).to match /Ancestor name/ }
     it { expect(rendered).to match /A Vernacular Name/ }
-    it { expect(rendered).to match /another <mark>common<\/mark> name\&nbsp\;\(eng\)/m }
+    it { expect(rendered).to match /another \*\*common\*\* name/m }
+    # it { expect(rendered).to match /another **common** name\&nbsp\;\(eng\)/m }
     it { expect(rendered).not_to match /name that doesnt match/i }
     it { expect(rendered).to match /some_image_url_88_88.jpg/ }
   end
@@ -67,14 +76,19 @@ RSpec.describe "search/search" do
       search_results = fake_search_results([collection])
       assign(:collections, search_results)
       assign(:empty, false)
-      assign(:q, "dude")
+      assign(:q, "Yo **dude**")
+      highlights = {
+        name: nil,
+        description: "searching, **dude**"
+      }
+      allow(collection).to receive(:search_highlights) { highlights }
       render
     end
 
     # NOTE the titlized case:
     it { expect(rendered).to have_content("Yo Dude") }
-    it { expect(rendered).to match(/Yo <mark>Dude<\/mark>/) }
-    it { expect(rendered).to match(/searching, <mark>dude<\/mark>/) }
+    it { expect(rendered).to match(/Yo [*]+dude[*]+/) }
+    it { expect(rendered).to match(/searching, [*]+dude[*]+/) }
     it { expect(rendered).not_to match(/LONG/) }
   end
 
@@ -89,17 +103,20 @@ RSpec.describe "search/search" do
       search_results = fake_search_results([medium])
       assign(:media, search_results)
       assign(:empty, false)
+      highlights = {
+        name: "Greetings **earthling**",
+        description: "searching, **earthling**",
+        resource_pk: "this_**earthling**_was_here"
+      }
+      allow(medium).to receive(:search_highlights) { highlights }
       assign(:q, "earthling")
       render
     end
 
-    it { expect(rendered).to have_content("this_earthling_was_here") }
     it { expect(rendered).to have_content("A random earthling") }
-    # NOTE the titlized case:
-    it { expect(rendered).to have_content("Greetings Earthling") }
-    it { expect(rendered).to match(/Greetings <mark>Earthling<\/mark>/) }
-    it { expect(rendered).to match(/this_<mark>earthling<\/mark>_was/) }
-    it { expect(rendered).to match(/searching, <mark>earthling<\/mark>/) }
+    it { expect(rendered).to match(/Greetings \*\*Earthling\*\*/) }
+    it { expect(rendered).to match(/this_\*\*earthling\*\*_was/) }
+    it { expect(rendered).to match(/searching, \*\*earthling\*\*/) }
     it { expect(rendered).to match(/some_url_here.jpg/) }
     it { expect(rendered).not_to match(/LONG/) }
   end
