@@ -11,6 +11,7 @@ Status](https://coveralls.io/repos/github/EOL/eol_website/badge.svg?branch=maste
 You should install the following before proceeding:
 * MySQL or MariaDB
 * Neo4j
+* ElasticSearch (```brew install elasticsearch```)
 
 ...You will need to define the following ENV variables (e.g.: export VAR=val):
 ```bash
@@ -19,11 +20,12 @@ EOL_DEVEL_DB_USERNAME=username
 EOL_DEVEL_DB_PASSWORD=password
 ```
 
-Before getting far, you should start solr:
+Before getting far, you should install ElasticSearch:
 ```bash
-bundle exec rake sunspot:solr:start
+brew install elasticsearch   # Mac OS X
+sudo dpkg -i elasticsearch-[version].deb  # Ubuntu
 ```
 
 ## More information
 
-There is various addtional information about the project in the doc/ folder.
+There is various additional information about the project in the doc/ folder.

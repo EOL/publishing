@@ -7,14 +7,40 @@ class SearchController < ApplicationController
     @q = @q[1..-1] if params[:q] =~ /^\*/
 
     # TODO: we'll want some whitelist filtering here later:
-    params[:q] = "#{@q}*" unless params[:q] =~ /\*$/
+    # params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
+    params[:q] = I18n.transliterate(params[:q]).downcase
+
+    # First step (and, yes, this will be slow—we will optimize later), look for
+    # search suggestions that match the query:
+    words = params[:q].split # TODO: we might want to remove words with ^-
+    suggestions = SearchSuggestion.search(params[:q],
+      fields: [{ match: :exact }])
+
+    # If we only found one thing and they only asked for one thing:
+    if suggestions.size == 1 && params[:q] !~ /\s/
+      # TODO: move this to a helper? It can't go on the model...
+      suggestion = suggestions.first
+      suggestion = suggestion.synonym_of if suggestion.synonym_of
+      where = if suggestion.page_id
+          suggestion.page
+        elsif suggestion.object_term
+          term_path(uri: suggestion.object_term, object: true)
+        elsif suggestion.path
+          suggestion.path
+        elsif suggestion.wkt_string
+          flash[:notice] = "Unimplemented, sorry."
+          "/"
+        end
+      return redirect_to(where)
+    end
+
 
     @clade = if params[:clade]
       puts "*" * 100
       puts "** Filtering by clade #{params[:clade]}"
       # It doesn't make sense to filter some things by clade:
       params[:only] = if params[:only]
-        [:pages, :media] - params[:only]
+        Array(params[:only]) - [:collections, :users, :predicates, :object_terms]
       else
         [:pages, :media]
       end
@@ -39,12 +65,38 @@ class SearchController < ApplicationController
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
-    @pages = search_class(Page,
-      include: [:medium, :preferred_vernaculars, :native_node],
-      page_richness: true)
-    @collections = search_class(Collection)
-    @media = search_class(Medium)
-    @users = search_class(User)
+
+    @pages = if @types[:pages]
+      basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
+        fields: ["preferred_vernacular_strings^200", "scientific_name^400",
+          "vernacular_strings", "synonyms", "providers", "resource_pks"],
+          where: @clade ? { ancestry_ids: @clade.id } : nil)
+    else
+      nil
+    end
+
+    @collections = if @types[:collections]
+      basic_search(Collection, fields: ["name^5", "description"])
+    else
+      nil
+    end
+
+    @media = if @types[:media]
+      basic_search(Searchkick,
+        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+        where: @clade ? { ancestry_ids: @clade.id } : nil,
+        index_name: [Article, Medium, Link])
+    else
+      nil
+    end
+
+    @users = if @types[:users]
+      basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
+    else
+      nil
+    end
+
+    Searchkick.multi_search([@pages, @collections, @media, @users].compact)
 
     if @types[:predicates]
       @predicates_count = TraitBank.count_predicate_terms(@q)
@@ -69,7 +121,7 @@ class SearchController < ApplicationController
         @page_title = t(:page_title_search, query: @q)
         @empty = true
         [ @pages, @collections, @media, @users ].each do |set|
-          @empty = false if set && ! set.results.empty?
+          @empty = false if set && ! set.empty?
         end
         # Object terms is unusual:
         @empty = false if @object_terms && ! @object_terms.empty?
@@ -98,76 +150,10 @@ class SearchController < ApplicationController
     end
   end
 
-  def names
-    respond_to do |fmt|
-      fmt.json do
-        # TODO: add weight to exact matches. Not sure how, yet. :S
-        q = Page.search do
-          fulltext "#{params[:name].downcase}*" do
-            Page.stored_fields.each do |field|
-              highlight field
-            end
-          end
-          order_by(:page_richness, :desc)
-          # NOTE: the per_page here is ALSO restricted in main.js! Be careful.
-          paginate page: 1, per_page: 20
-        end
-        matches = {}
-        pages = {}
-        results = []
-        q.hits.each do |hit|
-          Page.stored_fields.each do |field|
-            hit.highlights(field).compact.each do |highlight|
-              word = highlight.format { |word| word }
-              word = word.downcase if field == :name ||
-                field == :preferred_vernaculars ||
-                field == :vernaculars
-              unless matches.has_key?(word.downcase) || pages.has_key?(hit.primary_key)
-                results << { value: word, tokens: word.split, id: hit.primary_key }
-                # NOTE: :name is a tricky little field. ...it COULD be a
-                # scientific_name, in which case we don't want to downcase it!
-                # So we store the DOWNCASED name as the key. ...Scientific names
-                # are checked first (because they appear first in
-                # Page.stored_fields), so they will take precendence over the
-                # name.
-                matches[word.downcase] = true
-                pages[hit.primary_key] = true
-              end
-            end
-          end
-        end
-        render json: JSON.pretty_generate(results)
-      end
-    end
-  end
+private
 
-  private
-
-  # TODO: Whoa, you can do them all at the same time! I'm not sure we *want* to,
-  # though, so I'm holding this comment here:
-  # ss = Sunspot.search [Page, Medium] { fulltext "raccoon*" } ; ss.results
-
-  def search_class(klass, options = {})
-    # NOTE: YOU CANNOT CALL METHODS OR INSTANCE VARIABLES FROM THE SEARCH BLOCK.
-    page_richness = options.delete(:page_richness)
-    clade_id = @clade.try(:id)
-    if @types[klass.name.tableize.to_sym]
-      klass.send(:search, options) do
-        if params[:q] =~ /\*$/
-          any do
-            fulltext params[:q]
-            fulltext params[:q].sub(/\*$/, "")
-          end
-        else
-          fulltext params[:q]
-        end
-        puts "** Filtering fulltext by clade #{clade_id}" if clade_id
-        with(:ancestor_ids, clade_id) if clade_id
-        if page_richness
-          order_by(:page_richness, :desc)
-        end
-        paginate page: params[:page] || 1, per_page: params[:per_page] || 30
-      end
-    end
+  def basic_search(klass, options = {})
+    klass.search(params[:q], options.reverse_merge(highlight: { tag: "**" },
+      execute: false, page: params[:page], per_page: 50))
   end
 end

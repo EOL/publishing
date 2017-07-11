@@ -140,7 +140,7 @@ RSpec.describe "pages/show" do
 
     it "does NOT show a data subtab" do
       render
-      expect(rendered).not_to have_link(href: "/pages/#{page.id}/traits")
+      expect(rendered).not_to have_link(href: "/pages/#{page.id}/data")
     end
 
     it "does NOT show a details subtab" do
@@ -179,10 +179,10 @@ RSpec.describe "pages/show" do
   #   expect(rendered).not_to have_content(I18n.t(:page_article_header))
   # end
 
-  # These only apply when traits tab is shown:
+  # These only apply when data tab is shown:
   # it "shows the predicates once each" do
   #   render
-  #   # NOTE: have_content doesn't seem to work with traits: it creates
+  #   # NOTE: have_content doesn't seem to work with data: it creates
   #   # duplicates. Not sure why.
   #   expect(rendered).to match(/Predicate One/)
   #   expect(rendered).not_to match(/Predicate One.*Predicate One/)
@@ -200,9 +200,9 @@ RSpec.describe "pages/show" do
   #   expect(rendered).to match /Term URI/
   # end
   #
-  # it "shows literal trait values" do
+  # it "shows literal data values" do
   #   render
-  #   expect(rendered).to match /literal trait value/
+  #   expect(rendered).to match /literal data value/
   # end
   #
   # it "shows resource names when available" do

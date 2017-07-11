@@ -112,11 +112,23 @@ GEM
     devise-i18n-views (0.3.7)
     diff-lcs (1.2.5)
     diffy (3.1.0)
+    discourse_api (0.17.0)
+      faraday (~> 0.9)
+      faraday_middleware (~> 0.10)
+      rack (>= 1.6)
     docile (1.1.5)
     dragonfly (1.0.12)
       addressable (~> 2.3)
       multi_json (~> 1.0)
       rack (>= 1.3.0)
+    elasticsearch (5.0.4)
+      elasticsearch-api (= 5.0.4)
+      elasticsearch-transport (= 5.0.4)
+    elasticsearch-api (5.0.4)
+      multi_json
+    elasticsearch-transport (5.0.4)
+      faraday
+      multi_json
     erubis (2.7.0)
     eventmachine (1.0.9.1)
     excon (0.53.0)
@@ -127,6 +139,8 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.11.0.1)
+      faraday (>= 0.7.4, < 1.0)
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
     font-kit-rails (1.2.0)
@@ -147,7 +161,6 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashie (3.4.6)
-    highline (1.7.8)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -239,7 +252,6 @@ GEM
       omniauth-oauth (~> 1.1)
     omniauth-yahoo (0.0.8)
       omniauth-oauth (~> 1.0)
-    options (2.3.2)
     orm_adapter (0.5.0)
     os (0.9.6)
     paperclip (5.1.0)
@@ -248,10 +260,6 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
-    pr_geohash (1.0.0)
-    progress_bar (1.0.5)
-      highline (~> 1.6)
-      options (~> 2.3.0)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.4)
@@ -345,8 +353,6 @@ GEM
     routing-filter (0.6.0)
       actionpack (>= 4.2, < 5.1)
       activesupport (>= 4.2, < 5.1)
-    rsolr (1.1.2)
-      builder (>= 2.1.2)
     rspec-core (3.5.4)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -377,6 +383,10 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchkick (2.3.0)
+      activemodel (>= 4.1)
+      elasticsearch (>= 1)
+      hashie
     seo_meta (2.0.0)
       railties (>= 3.0.0)
     sexp_processor (4.7.0)
@@ -407,14 +417,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.12)
-    sunspot (2.2.6)
-      pr_geohash (~> 1.0)
-      rsolr (~> 1.1.1)
-    sunspot_rails (2.2.6)
-      nokogiri
-      rails (>= 3)
-      sunspot (= 2.2.6)
-    sunspot_solr (2.2.6)
     term-ansicolor (1.4.0)
       tins (~> 1.0)
     therubyracer (0.12.2)
@@ -429,9 +431,6 @@ GEM
     tilt (2.0.5)
     tins (1.12.0)
     truncate_html (0.9.3)
-    turbolinks (5.0.1)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -467,6 +466,7 @@ DEPENDENCIES
   devise (= 4.2.0)
   devise-encryptable
   devise-i18n-views
+  discourse_api
   factory_girl
   faker
   font-kit-rails (~> 1.2.0)
@@ -482,7 +482,6 @@ DEPENDENCIES
   omniauth-twitter
   omniauth-yahoo
   paperclip (~> 5.1)
-  progress_bar (~> 1.0.5)
   pundit (~> 1.1)
   rack_session_access
   rails (= 4.2.7.1)
@@ -494,15 +493,13 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searchkick
   simple_form
   simplecov (~> 0.12)
   spring
-  sunspot_rails (~> 2.2.5)
-  sunspot_solr (~> 2.2.5)
   therubyracer
-  turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.6
+   1.15.1

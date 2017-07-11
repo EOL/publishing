@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  searchkick word_start: [:scientific_name, :preferred_vernacular_strings]
+
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
   belongs_to :medium, inverse_of: :pages
@@ -44,43 +46,66 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  # This is a list of the fields used in .searchable so that other classes and
-  # controllers may act on them (e.g. to get a list of possible highlights).
-  # TODO: this should really be "stored" (heh) by sunspot, and I suggest we add
-  # that feature to their code.
-  def self.stored_fields
-    [:scientific_name, :preferred_scientific_names, :synonyms,
-      :preferred_vernaculars, :vernaculars]
+  # NOTE: I've not tested this; might not be the most efficient set: ...I did
+  # notice that vernaculars doesn't quite work; the scopes that are attached to
+  # the (preferred and nonpreferred) interfere.
+  scope :search_import, -> { includes(:scientific_names, :vernaculars, :native_node, resources: :partner) }
+
+  def self.autocomplete(query, options = {})
+    search(query, options.reverse_merge({
+      fields: ["scientific_name^200", "preferred_vernacular_strings"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: false,
+      boost_by: { page_richness: { factor: 0.01 } }
+    }))
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
-  searchable do
-    text :scientific_name, stored: true, boost: 10.0 do
-      scientific_name.gsub(/<\/?i>/, "")
-    end
-    # TODO: We would like to add attributions, later.
-    text :preferred_scientific_names, stored: true, boost: 8.0 do
-      preferred_scientific_names.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :synonyms, stored: true, boost: 2.0 do
-      scientific_names.synonym.map { |n| n.canonical_form.gsub(/<\/?i>/, "") }
-    end
-    text :preferred_vernaculars, stored: true, boost: 2.0 do
-      vernaculars.preferred.map { |v| v.string }
-    end
-    text :vernaculars, stored: true do
-      vernaculars.nonpreferred.map { |v| v.string }
-    end
-    text :providers do
-      resources.flat_map do |r|
-        [r.name, r.partner.full_name, r.partner.short_name]
-      end
-    end
-    integer :page_richness
-    integer :ancestor_ids, multiple: true do
-      Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
-    end
+  def search_data
+    {
+      id: id,
+      page_richness: page_richness,
+      scientific_name: scientific_name,
+      preferred_scientific_names: preferred_scientific_names,
+      synonyms: synonyms,
+      preferred_vernacular_strings: preferred_vernacular_strings,
+      vernacular_strings: vernacular_strings,
+      providers: providers,
+      ancestry_ids: ancestry_ids,
+      resource_pks: resource_pks,
+      icon: icon,
+      name: name,
+      native_node: native_node
+    }
+  end
+
+  def synonyms
+    scientific_names.synonym.map { |n| n.canonical_form }
+  end
+
+  def resource_pks
+    nodes.map(&:resource_pk)
+  end
+
+  def preferred_vernacular_strings
+    vernaculars.preferred.map { |v| v.string }
+  end
+
+  def vernacular_strings
+    vernaculars.nonpreferred.map { |v| v.string }
+  end
+
+  def providers
+    resources.flat_map do |r|
+      [r.name, r.partner.full_name, r.partner.short_name]
+    end.uniq
+  end
+
+  def ancestry_ids
+    Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
   end
 
   def descendant_species
@@ -242,39 +267,39 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
-  # NOTE: This page size is "huge" because we don't want pagination for traits.
+  # NOTE: This page size is "huge" because we don't want pagination for data.
   # ...Mainly because it gets complicated quickly. Data rows can be in multiple
-  # TOC items, and we want to be able to show all of the traits in a single TOC
+  # TOC items, and we want to be able to show all of the data in a single TOC
   # item. ...which I suppose we could manage by passing in a section id.
   # ...Hmmmn. We could. But we haven't been asked to, I'm going to hold off for
   # now. (NOTE: If we do that, we're going to need another method to pull in the
   # full TOC.)
-  def traits(page = 1, per = 2000)
-    return @traits[0..per] if @traits
-    traits = TraitBank.by_page(id, page, per)
-    # Self-healing count of number of traits:
-    if traits.size != traits_count
-      update_attribute(:traits_count, traits.size)
+  def data(page = 1, per = 2000)
+    return @data[0..per] if @data
+    data = TraitBank.by_page(id, page, per)
+    # Self-healing count of number of data:
+    if data.size != data_count
+      update_attribute(:data_count, data.size)
     end
     @data_toc_needs_other = false
-    @data_toc = traits.flat_map do |t|
+    @data_toc = data.flat_map do |t|
       next if t[:predicate][:section_ids].nil? # Usu. test data...
       secs = t[:predicate][:section_ids].split(",")
       @data_toc_needs_other = true if secs.empty?
       secs.map(&:to_i)
     end.uniq
     @data_toc = Section.where(id: @data_toc) unless @data_toc.empty?
-    @traits_loaded = true
-    @traits = traits
+    @data_loaded = true
+    @data = data
   end
 
   def iucn_status_key
     # NOTE this is NOT self-healing. If you store the wrong value or change it,
     # it is up to you to fix the value on the Page instance. This is something
     # to be aware of!
-    if iucn_status.nil? && @traits_loaded
-      status = if grouped_traits.has_key?(Eol::Uris::Iucn.status)
-        recs = grouped_traits[Eol::Uris::Iucn.status]
+    if iucn_status.nil? && @data_loaded
+      status = if grouped_data.has_key?(Eol::Uris::Iucn.status)
+        recs = grouped_data[Eol::Uris::Iucn.status]
         record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
         record ||= recs.first
         TraitBank::Record.iucn_status_key(record)
@@ -295,14 +320,14 @@ class Page < ActiveRecord::Base
   end
 
   def habitats
-    if geographic_context.nil? && @traits_loaded
-      keys = grouped_traits.keys & Eol::Uris.geographics
+    if geographic_context.nil? && @data_loaded
+      keys = grouped_data.keys & Eol::Uris.geographics
       habitat = if keys.empty?
         ""
       else
         habitats = []
         keys.each do |uri|
-          recs = grouped_traits[uri]
+          recs = grouped_data[uri]
           habitats += recs.map do |rec|
             rec[:object_term] ? rec[:object_term][:name] : rec[:literal]
           end
@@ -324,8 +349,8 @@ class Page < ActiveRecord::Base
   end
 
   def is_it_marine?
-    if ! has_checked_marine? && @traits_loaded
-      recs = grouped_traits[Eol::Uris.environment]
+    if ! has_checked_marine? && @data_loaded
+      recs = grouped_data[Eol::Uris.environment]
       if recs && recs.any? { |r| r[:object_term] &&
          r[:object_term][:uri] == Eol::Uris.marine }
         update_attribute(:is_marine, true)
@@ -340,10 +365,10 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def displayed_extinction_trait
-    recs = grouped_traits[Eol::Uris.extinction]
+  def displayed_extinction_data
+    recs = grouped_data[Eol::Uris.extinction]
     return nil if recs.nil? || recs.empty?
-    # TODO: perhaps a better algorithm to pick which trait to use if there's
+    # TODO: perhaps a better algorithm to pick which data to use if there's
     # more than one from a resource (probably the most recent):
     paleo = recs.find { |r| r[:resource_id] == Resource.paleo_db.id }
     ex_stat = recs.find { |r| r[:resource_id] == Resource.extinction_status.id }
@@ -367,11 +392,11 @@ class Page < ActiveRecord::Base
   end
 
   def is_it_extinct?
-    if ! has_checked_extinct? && @traits_loaded
-      # NOTE: this relies on #displayed_extinction_trait ONLY returning an
+    if ! has_checked_extinct? && @data_loaded
+      # NOTE: this relies on #displayed_extinction_data ONLY returning an
       # "exinct" record. ...which, as of this writing, it is designed to do.
       update_attribute(:has_checked_extinct, true)
-      if displayed_extinction_trait
+      if displayed_extinction_data
         update_attribute(:is_extinct, true)
         return true
       else
@@ -389,10 +414,10 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def reindex
+  def clear
     clear_caches
     recount
-    traits # Just to load them
+    data # Just to load them
     iucn_status = nil
     iucn_status_key
     geographic_context = nil
@@ -412,7 +437,7 @@ class Page < ActiveRecord::Base
       ].include?(v)
       remove_instance_variable(v)
     end
-    Sunspot.index(self)
+    reindex
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
     # descendants; if you want to do an entire tree, that should be another
@@ -433,7 +458,7 @@ class Page < ActiveRecord::Base
 
   def recount
     [ "page_contents", "media", "articles", "links", "maps",
-      "traits", "nodes", "vernaculars", "scientific_names", "referents"
+      "data", "nodes", "vernaculars", "scientific_names", "referents"
     ].each do |field|
       update_column("#{field}_count".to_sym, send(field).count)
     end
@@ -442,22 +467,22 @@ class Page < ActiveRecord::Base
 
   def data_toc
     return @data_toc if @data_toc
-    traits
+    data
     @data_toc
   end
 
   def data_toc_needs_other?
     return @data_toc_needs_other if @data_toc_needs_other
-    traits
+    data
     @data_toc_needs_other
   end
 
-  def grouped_traits
-    @grouped_traits ||= traits.group_by { |t| t[:predicate][:uri] }
+  def grouped_data
+    @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
-    @predicates ||= grouped_traits.keys.sort do |a,b|
+    @predicates ||= grouped_data.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
     end
   end

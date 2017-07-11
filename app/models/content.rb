@@ -3,6 +3,8 @@ module Content
 
   included do
     include Content
+    searchkick
+
     belongs_to :resource
     belongs_to :language
 
@@ -17,5 +19,23 @@ module Content
 
     has_many :associations, -> { where("page_id = source_page_id") },
       through: :page_contents, source: :page
+
+    def search_data
+      # NOTE: description is a method because articles have a body; we use an
+      # alias to normalize it.
+      {
+        id: id,
+        name: name,
+        resource_pk: resource_pk,
+        owner: owner,
+        ancestry_ids: ancestry_ids,
+        description: description
+      }
+    end
+
+    def ancestry_ids
+      page_contents.pluck(:page_id)
+    end
   end
+
 end

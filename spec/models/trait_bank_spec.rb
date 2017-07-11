@@ -335,29 +335,32 @@ RSpec.describe TraitBank do
 
   describe ".search_predicate_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
-      TraitBank.search_predicate_terms(:trmy)
+      expect(TraitBank).to receive(:query).
+        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { "data" => [[{ "data" => :this }]] } }
+      expect(TraitBank.search_predicate_terms(:trmy)).to eq([:this])
     end
   end
 
   describe ".count_predicate_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
-      TraitBank.count_predicate_terms(:trmy)
+      expect(TraitBank).to receive(:query).
+        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [[543]] } }
+      expect(TraitBank.count_predicate_terms(:trmy)).to eq(543)
     end
   end
 
   describe ".search_object_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*wordy.*order by lower\(\w+\.name\)/i) { { "data" => [] } }
-      TraitBank.search_object_terms(:wordy)
+      expect(TraitBank).to receive(:query).
+        with(/:object_term\]->\(\w+:term\).*name =\~ .*wordy.*order by lower\(\w+\.name\)/i) { { "data" => [[{ "data" => :tother }]] } }
+      expect(TraitBank.search_object_terms(:wordy)).to eq([:tother])
     end
   end
 
   describe ".count_object_terms" do
     it "uses the important parts of query" do
-      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [] } }
-      TraitBank.count_object_terms(:trmy)
+      expect(TraitBank).to receive(:query).with(/:object_term\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { "data" => [[876]] } }
+      expect(TraitBank.count_object_terms(:trmy)).to eq(876)
     end
   end
 
@@ -412,4 +415,97 @@ RSpec.describe TraitBank do
     end
   end
 
+  # NOTE: this is rather a complicated method... but parts of it are tested "in
+  # situ" elsewhere, so I'm only going to focus on the usual cases here:
+  describe ".results_to_hashes" do
+    it "handles nil values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc1" }, "data" => {} },
+          nil
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).to be_nil
+    end
+
+    it "handles metadata over multiple lines" do
+      results = {"columns" => ["trait", "meta_foo"], "data" => [
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => :whatever }
+        ],
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => :second_value }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:meta_foo]).
+        to eq([:whatever, :second_value])
+    end
+
+    it "symbolizes hash values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc1" }, "data" => {} },
+          { "data" => { "this_key" => "value" } }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).
+        to eq({ this_key: "value" })
+    end
+
+    it "symbolizes all hashes in array values" do
+      results = {"columns" => ["trait", "foo"], "data" => [
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => { "first" => "A" } }
+        ],
+        [ { "metadata" => { "id" => "abc2" }, "data" => {} },
+          { "data" => { "second" => "B" } }
+        ]
+      ] }
+      expect(TraitBank.results_to_hashes(results).first[:foo]).
+        to eq([{ first: "A" }, { second: "B" }])
+    end
+  end
+
+  # NOTE: this is (also) rather a complicated method... but parts of it are
+  # tested "in situ" elsewhere, so I'm only going to focus on the usual cases
+  # here:
+  describe ".results_to_hashes" do
+    it "reveals missing resource_id" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{}]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:resource_id]).
+        to eq("MISSING")
+    end
+
+    it "handles object terms" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{info_term: { this: "thing" }, info_type: "object_term" }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:object_term]).
+        to eq({ this: "thing" })
+    end
+
+    it "handles unit terms" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{info_term: { that: "unit" }, info_type: "units_term" }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:units]).
+        to eq({ that: "unit" })
+    end
+
+    it "returns metadata predicate, units term, and object term" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{meta: [{ some: :val }], meta_predicate: [:pred_1], meta_object_term: [:obj_1], meta_units_term: [:unit_1] }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:meta]).
+        to eq([{ some: :val, predicate: :pred_1, object_term: :obj_1, units: :unit_1 }])
+    end
+
+    it "assigns the expected id" do
+      allow(TraitBank).to receive(:results_to_hashes) do
+        [{ resource: { resource_id: 777 }, trait: { resource_pk: "abc" }, page: { page_id: 453 } }]
+      end
+      expect(TraitBank.build_trait_array(nil).first[:id]).
+        to eq("trait--777--abc--453")
+    end
+  end
 end

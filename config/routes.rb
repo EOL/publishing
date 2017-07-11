@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
+    get "autocomplete", on: :collection
+    get "topics", on: :collection
     get "breadcrumbs"
     get "overview"
     get "classifications"
@@ -14,10 +16,10 @@ Rails.application.routes.draw do
     get "media"
     get "names"
     get "reindex"
-    get "traits"
+    get "data"
   end
 
-  resources :traits, only: [:show]
+  resources :data, only: [:show]
 
   # Putting users second only because they tend to drive a lot of site behavior:
   devise_for :users, controllers: { registrations: "user/registrations",
@@ -25,13 +27,16 @@ Rails.application.routes.draw do
                                     omniauth_callbacks: "user/omniauth_callbacks"}
   resources :users do
     collection do
+      get "autocomplete"
       post "delete_user", defaults: { format: "json" }
       get "search"
     end
   end
 
   # All of the "normal" resources:
+  resources :articles, only: [:show]
   resources :collections do
+    get "logs"
     resources :collected_pages, only: [:index]
     # TODO: this is not very restful; should be a nested resource, but the terms
     # become somewhat tricky, so cheating for now. These aren't really
@@ -45,6 +50,7 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:show]
+  resources :search_suggestions
 
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
@@ -54,7 +60,6 @@ Rails.application.routes.draw do
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
-  get "/names/:name" => "search#names", :as => "names"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
 
   root "pages#index"

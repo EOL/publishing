@@ -1,18 +1,16 @@
 - icon ||= page.icon
-- common ||= page.name
+- result ||= page
+- common ||= page.try(:search_highlights).try(:[], :preferred_vernacular_strings) || page.name
+- scientific ||= page.try(:search_highlights).try(:[], :scientific_name) || page.scientific_name
 - show_delete = defined?(collected_page) ? policy(collected_page.collection).update? : nil
-- scientific ||= page.scientific_name
 - has_query = defined?(@q) && ! @q.blank?
-- matches_scientific = has_query && scientific =~ /#{@q}/
-- matches_common = has_query && common =~ /#{@q}/
 - media = (defined?(media) && media && ! media.empty?) ? media.compact.delete_if { |m| m.medium_icon_url == icon }.uniq : []
 %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
   .uk-card-body.uk-grid-small{ uk: { grid: true } }
     - if icon
       .eol-width-medium-icon
-        %a.uk-overview-container{ href: page_path(page), uk: { toggle: true } }
-          %canvas{ width: "130", height: "130" }
-          %img{ src: icon, "uk-overview": true }
+        %a{ href: page_path(page) }
+          = image_tag(icon, class: "ui small image fluid")
     .uk-width-expand
       .page-ancestors
         %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
@@ -40,41 +38,39 @@
         .uk-float-right.uk-margin
           = link_to(t("collected_pages.delete_button"), collected_page, method: "delete", data: { confirm: t("collected_pages.delete_confirm") }, class: "ui basic tiny button")
       .names.d-inline
-        - sci_name = has_query ? emphasize_match(scientific, @q) : scientific.html_safe
+        -# Because these can be JSON results, we can't link to the model
+        -# directly: (e.g. link_to(:foo, page) <-- won't work)
+        - page_link = page_path(page.id)
         - if common.blank?
-          .uk-text-large= link_to(sci_name, page, class: "primary-name")
+          .uk-text-large= link_to(scientific.html_safe, page_link, class: "primary-name")
         - else
           .uk-text-large
-            - if has_query
-              = link_to(emphasize_match(common.titleize, @q), page, class: "primary-name")
-            - else
-              = link_to(common.titleize.html_safe, page, class: "primary-name")
-          .uk-text-muted= link_to(sci_name, page, class: "secondary-name")
+            = link_to(common.titleize.html_safe, page_link, class: "primary-name")
+          .uk-text-muted= link_to(scientific.html_safe, page_link, class: "secondary-name")
       - if defined?(annotation)
         .uk-margin-small-top
           = annotation
       - if has_query
         .matches.uk-margin-small-top
-          - other_vernaculars = nil
-          - other_scientifics = nil
-          - other_resources = nil
-          - unless matches_common
-            - other_vernaculars = page.vernaculars.select { |pv| pv.string.downcase != page.name.downcase && pv.string =~ /#{@q}/i }.group_by(&:string).map { |string, names| (emphasize_match(string, @q) + "&nbsp;(#{names.map { |n| n.language.code }.uniq.join(", ")})".html_safe) }
-            - unless other_vernaculars.blank?
-              %b= t("search_results.field_matches.vernaculars", count: other_vernaculars.size)
-              = other_vernaculars.join(", ").html_safe
-          - unless matches_common
-            - other_scientifics =  page.scientific_names.select { |pv| pv.canonical_form != page.scientific_name && pv.canonical_form =~ /#{@q}/i }.map { |name| emphasize_match(name.canonical_form, @q) }
-            - unless other_scientifics.blank?
-              %b= t("search_results.field_matches.synonyms", count: other_scientifics.size)
-              = other_scientifics.join(", ").html_safe
-          - other_resources = page.resources.select { |r| r.name =~ /#{@q}/i }.uniq.map { |resource| n = emphasize_match(resource.name, @q) ; n += " (#{emphasize_match(resource.partner.short_name, @q)})".html_safe unless resource.name =~ /#{resource.partner.short_name}/ ; n }
-          - unless other_resources.blank?
-            %b= t("search_results.field_matches.resources", count: other_resources.size)
-            = other_resources.join(", ").html_safe
-          - if other_vernaculars.blank? && other_scientifics.blank? && other_resources.blank?
-            - if summary = construct_summary(page)
-              .uk-margin-small-top= summary
+          - others = page.try(:search_highlights).try(:[], :vernacular_strings)
+          - unless others.blank?
+            %b= t("search_results.field_matches.vernaculars", count: 1)
+            = others.html_safe
+
+          - others = page.try(:search_highlights).try(:[], :synonyms)
+          - unless others.blank?
+            %b= t("search_results.field_matches.synonyms", count: 1)
+            = others.html_safe
+
+          - others = page.try(:search_highlights).try(:[], :providers)
+          - unless others.blank?
+            %b= t("search_results.field_matches.resources", count: 1)
+            = others.html_safe
+
+          - others = page.try(:search_highlights).try(:resource_pks)
+          - unless others.blank?
+            %b= t("search_results.field_matches.resource_pk", count: 1)
+            = others.html_safe
 
       - else # (no query string)
         - if summary = construct_summary(page)

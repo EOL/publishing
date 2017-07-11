@@ -1,4 +1,6 @@
 class Collection < ActiveRecord::Base
+  searchkick
+
   has_many :collection_associations, -> { order(position: :asc) },
     inverse_of: :collection
   has_many :collections, through: :collection_associations,
@@ -18,9 +20,7 @@ class Collection < ActiveRecord::Base
   validates :name, presence: true
 
   enum collection_type: [ :normal, :gallery ]
+  enum default_sort: [ :position, :sci_name, :sci_name_rev, :sort_field,
+    :sort_field_rev, :hierarchy ]
 
-  searchable do
-    text :name, :boost => 3.0
-    text :description
-  end
 end

@@ -1,5 +1,15 @@
 version: '2'
 services:
+  eol-backend-elasticsearch:
+    image: elasticsearch
+    container_name: eol-backend-elasticsearch
+    restart: always
+    environment: 
+      - TZ=America/New_York
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - /u/data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
+    network_mode: "bridge"
   eol-backend-memcached:
     image: memcached
     container_name: eol-backend-memcached
@@ -46,7 +56,9 @@ services:
       - eol-backend-mysql
       - eol-backend-neo4j
       - eol-backend-memcached
+      - eol-backend-elasticsearch
     links:
+      - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
       - eol-backend-mysql:mysql
       - eol-backend-neo4j:neo4j

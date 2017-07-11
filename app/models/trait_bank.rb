@@ -193,7 +193,7 @@ class TraitBank
         if options[:object_term]
           q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
         else
-          q += "MATCH (trait)-[info]->(info_term:Term) "
+          q += "MATCH (trait)-[info:units_term|object_term]->(info_term:Term) "
         end
       end
       if options[:meta]
@@ -201,7 +201,6 @@ class TraitBank
         "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
         "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "
       end
-      q += "WHERE NOT (trait)-[:predicate]->(info_term)" if q =~ /info_term/
       if options[:clade]
         q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
@@ -307,8 +306,21 @@ class TraitBank
         results["columns"].each_with_index do |column, i|
           col = column.to_sym
 
+          # This is pretty complicated. It symbolizes any hash that might be a
+          # return value, and leaves it alone otherwise. It also checks for a
+          # value in "data" first, but returns whatever it gets if that is
+          # missing. Just being flexible, since neography returns a variety of
+          # results.
           value = if row[i]
-                    row[i].is_a?(Hash) ? row[i]["data"].symbolize_keys : row[i]
+                    if row[i].is_a?(Hash)
+                      if row[i]["data"].is_a?(Hash)
+                        row[i]["data"].symbolize_keys
+                      else
+                        row[i]["data"] ? row[i]["data"] : row[i].symbolize_keys
+                      end
+                    else
+                      row[i]
+                    end
                   else
                     nil
                   end

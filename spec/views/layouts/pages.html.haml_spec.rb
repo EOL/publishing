@@ -33,8 +33,8 @@ RSpec.describe "layouts/pages" do
 
   it "shows a data subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/traits")
-    expect(rendered).to have_content /3\s*Traits/
+    expect(rendered).to have_link(href: "/pages/#{page.id}/data")
+    expect(rendered).to have_content /3\s*Data/
   end
 
   it "shows a details subtab" do

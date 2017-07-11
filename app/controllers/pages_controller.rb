@@ -2,8 +2,25 @@ class PagesController < ApplicationController
 
   before_action :set_media_page_size, only: [:show, :media]
 
-  helper :traits
+  helper :data
   helper_method :get_associations
+
+  def autocomplete
+    render json: Page.autocomplete(params[:query])
+  end
+
+  def topics
+    @discourse_url = Rails.application.secrets.discourse_url
+    client = DiscourseApi::Client.new(
+      Rails.application.secrets.discourse_url,
+      Rails.application.secrets.discourse_key,
+      Rails.application.secrets.discourse_user
+    )
+    @topics = client.latest_topics
+    respond_to do |fmt|
+      fmt.js { }
+    end
+  end
 
   def index
     @title = I18n.t("landing_page.title")
@@ -24,7 +41,7 @@ class PagesController < ApplicationController
     respond_to do |fmt|
       fmt.html do
         Rails.cache.delete("pages/index/stats")
-        # This is overkill (we only want to clear the trait count, not e.g. the
+        # This is overkill (we only want to clear the data count, not e.g. the
         # glossary), but we want to be overzealous, not under:
         TraitBank::Admin.clear_caches
         Rails.logger.warn("LANDING PAGE STATS CLEARED.")
@@ -53,8 +70,8 @@ class PagesController < ApplicationController
     respond_to do |fmt|
       fmt.js do
         @page = Page.where(id: params[:page_id]).first
-        @page.reindex
-        expire_fragment(page_traits_path(@page))
+        @page.clear
+        expire_fragment(page_data_path(@page))
         expire_fragment(page_details_path(@page))
         expire_fragment(page_classifications_path(@page))
       end
@@ -78,7 +95,7 @@ class PagesController < ApplicationController
     end
   end
 
-  def traits
+  def data
     @page = Page.where(id: params[:page_id]).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
@@ -170,14 +187,14 @@ private
   def get_associations
     @associations =
       begin
-        ids = @page.traits.map { |t| t[:object_page_id] }.compact.sort.uniq
+        ids = @page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
         Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end
   end
 
   def get_media
-    media = @page.media.includes(:license)
+    media = @page.media.includes(:license, :resource)
     if params[:license]
       media = media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])

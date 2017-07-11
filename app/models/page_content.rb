@@ -10,6 +10,8 @@ class PageContent < ActiveRecord::Base
 
   enum trust: [ :unreviewed, :trusted, :untrusted ]
 
+  scope :sources, -> { where("source_page_id = page_id") }
+
   scope :visible, -> { where(is_hidden: false) }
   scope :hidden, -> { where(is_hidden: true) }
 

@@ -27,7 +27,7 @@ class Import::Clade
       contents = open(file) { |f| f.read } ; 1
       json = JSON.parse(contents) ; 1
 
-      Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
+      Searchkick.disable_callbacks
       begin
         create_active_records(keys, json)
         create_terms_and_traits(json["terms"], json["traits"])
@@ -37,7 +37,7 @@ class Import::Clade
         debugger
         1
       ensure
-        Sunspot.session = Sunspot.session.original_session
+        Searchkick.enable_callbacks
       end
       Reindexer.fix_common_names("Plantae", "plants")
       Reindexer.fix_common_names("Animalia", "animals")

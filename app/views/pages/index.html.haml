@@ -16,8 +16,16 @@
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
+    .uk-section.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+      %div
+        %h3= t("landing_page.topics")
+        #topics
+          .spin{ uk: { spinner: true } }
     - if is_admin?
       .uk-section
-        .ui.button
+        .ui.basic.button
           = link_to(t("landing_page.reindex"), clear_index_stats_pages_path())
-        = link_to(t("landing_page.cms"), "/docs/cms/pages")
+        .ui.basic.button
+          = link_to(t("landing_page.cms"), "/docs/cms/pages")
+        .ui.basic.button
+          = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
