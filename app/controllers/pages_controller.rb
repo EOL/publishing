@@ -10,16 +10,62 @@ class PagesController < ApplicationController
   end
 
   def topics
-    @discourse_url = Rails.application.secrets.discourse_url
-    client = DiscourseApi::Client.new(
-      Rails.application.secrets.discourse_url,
-      Rails.application.secrets.discourse_key,
-      Rails.application.secrets.discourse_user
-    )
+    client = connect_to_discourse
     @topics = client.latest_topics
     respond_to do |fmt|
       fmt.js { }
     end
+  end
+
+  def comments
+    @page = Page.where(id: params[:page_id]).first
+    client = connect_to_discourse
+    # TODO: we should configure the name of this category:
+    cat = client.categories.find { |c| c["name"] == "EOL Pages" }
+    # TODO: we should probably create THAT ^ it if it's #nil?
+    @url = nil
+    @count = begin
+      tag = client.show_tag("id:#{@page.id}")
+      topic = tag["topic_list"]["topics"].first
+      if topic.nil?
+        0
+      else
+        @url = "#{@discourse_url}/t/#{topic["slug"]}/#{topic["id"]}"
+        topic["posts_count"]
+      end
+    rescue DiscourseApi::NotFoundError
+      0
+    end
+    respond_to do |fmt|
+      fmt.js { }
+    end
+  end
+
+  def create_topic
+    @page = Page.where(id: params[:page_id]).first
+    client = connect_to_discourse
+    name = @page.name == @page.scientific_name ?
+      "#{@page.scientific_name}" :
+      "#{@page.scientific_name} (#{@page.name})"
+    # TODO: we should configure the name of this category:
+    cat = client.categories.find { |c| c["name"] == "EOL Pages" }
+
+    # It seems their API is broken insomuch as you cannot use their
+    # #create_topic method AND add tags to it. Thus, I'm just calling the raw
+    # API here:
+    post = client.post("posts",
+      "title" => "Comments on #{@page.rank.try(:name)} #{name} page",
+      "category" => cat["id"],
+      "tags[]" => "id:#{@page.id}", # sigh.
+      "unlist_topic" => false,
+      "is_warning" => false,
+      "archetype" => "regular",
+      "nested_post" => true,
+      # TODO: move this to en.yml, I think?  Not sure we want to translate it. :S
+      "raw" => "A discussion about <a href='#{pages_url(@page)}'>#{name}</a>."
+    )
+    client.show_tag("id:#{@page.id}")
+    redirect_to "#{@discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
   end
 
   def index
@@ -179,6 +225,15 @@ class PagesController < ApplicationController
   end
 
 private
+
+  def connect_to_discourse
+    @discourse_url = Rails.application.secrets.discourse_url
+    DiscourseApi::Client.new(
+      @discourse_url,
+      Rails.application.secrets.discourse_key,
+      Rails.application.secrets.discourse_user
+    )
+  end
 
   def set_media_page_size
     @media_page_size = 24

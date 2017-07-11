@@ -1,0 +1,1 @@
+- basic_button("comment", t("pages.actions.comment", count: @count).gsub(" ", "&nbsp;").html_safe, @url.nil? ? page_create_topic_path(@page) : @url, target: "_blank")

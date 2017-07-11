@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get "autocomplete", on: :collection
     get "topics", on: :collection
     get "breadcrumbs"
+    get "comments"
+    get "create_topic"
     get "overview"
     get "classifications"
     # NOTE this is a Rails collecton (as opposed to member), *not* an EOL

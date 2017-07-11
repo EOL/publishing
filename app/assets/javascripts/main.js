@@ -168,8 +168,17 @@ if(!EOL) {
     }
 
     if ($("#topics").length === 1) {
+      console.log("Fetching topics...");
       $.ajax({
         url: "/pages/topics.js",
+        cache: false
+      });
+    }
+
+    if ($("#page_topics").length === 1) {
+      console.log("Fetching page comments...");
+      $.ajax({
+        url: "/pages/"+$("#page_topics").data("id")+"/comments.js",
         cache: false
       });
     }
