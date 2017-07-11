@@ -28,14 +28,8 @@ rails r "Import::Clade.read(%Q{clade-7665.json})"
 rails r "Import::Clade.read(%Q{clade-18666.json})"
 
 rake stat:score_richness
-# NOTE that you only need the "FORCE" the first time you run it, and NOTE, yes,
-# you have to do these one at a time:
-rake environment elasticsearch:import:model CLASS='Page' FORCE=y
-rake environment elasticsearch:import:model CLASS='Medium' FORCE=y
-rake environment elasticsearch:import:model CLASS='Article' FORCE=y
-rake environment elasticsearch:import:model CLASS='Link' FORCE=y
-rake environment elasticsearch:import:model CLASS='Collection' FORCE=y
-rake environment elasticsearch:import:model CLASS='User' FORCE=y
+
+rake searchkick:reindex:all
 
 # Why isn't this working after the import? It should. :S  Perhaps it needs to reindex first?
 rails r "PageIcon.fix"

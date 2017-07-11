@@ -231,10 +231,15 @@ if(!EOL) {
       $('#nav-search .typeahead').typeahead(null, {
         name: 'search-names',
         display: 'scientific_name',
-        source: EOL.searchNames
+        source: EOL.searchNames,
+        templates: {
+          suggestion: function (datum) {
+              return "<p><i>" + datum.scientific_name + "</i> (" + datum.preferred_vernacular_strings[0] + ")</p>";
+          }
+        }
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
-        window.location.href = '/pages/autocomplete?query=' + datum.scientific_name;
+        window.location.href = '/pages/' + datum.id;
       }).bind('keypress', function(e) {
         console.log('keypress:', e);
         console.log('which:', e.which);
