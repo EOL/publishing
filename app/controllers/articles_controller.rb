@@ -1,4 +1,4 @@
-class AriclesController < ApplicationController
+class ArticlesController < ApplicationController
   layout "application"
 
   def show

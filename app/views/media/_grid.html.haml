@@ -67,6 +67,6 @@
         - unless @page.rank.species_or_below?
           .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted{ class: "uk-visible@m" }
             .uk-overflow-auto.eol-one-line
-              = link_to(image.page_contents.sources.map { |s| s.page.scientific_name }.join("; "), link_path)
+              = link_to(image.page_contents.sources.map { |s| s.page.try(:scientific_name) || "MISSING" }.join("; "), link_path)
               -# The other part to make it drop down on hover:
               -# .uk-transition-slide-bottom.uk-position-bottom.uk-overlay

@@ -2,44 +2,28 @@
   #page_control
     .uk-section.uk-section-default.uk-grid-small.uk-padding-small.uk-box-shadow-article{ uk: { grid: true } }
       .uk-width-3-4
-        %label= t(:article_header_title)
+        %label= t("article.header.title")
         %h1#article_title.uk-margin-remove-top
           - if @article.name.blank?
-            = t(:article_untitled)
+            = t("article.header.untitled")
           - else
             = @article.name.html_safe
+        %label= t("article.header.language", language: t("languages.#{@article.language.group}"))
       .uk-width-1-4.actions
-        - basic_button("plus", t(:article_collect_button), new_collected_page_path(page_id: @article.associations.first, article_ids: [@article.id]))
+        - basic_button("plus", t("article.actions.collect"), new_collected_page_path(page_id: @article.associations.first, article_ids: [@article.id]))
     .articles-body.uk-margin-large-top
       %div{ uk: { grid: true } }
         .articles-image.uk-width-2-3
-          %h3= t(:article_header_body)
+          %h3= t("article.header.body")
           - if @article.body.blank?
-            %p.body-blank= t(:article_body_blank)
+            %p.body-blank= t("article.header.blank")
           - else
             %p= @article.body.html_safe
         .attribution.uk-width-1-3
-          %h3= t(:content_associations)
-          %ul
-            - @article.associations.each do |page|
-              %li= link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
-          - icon_count = @article.page_icons.count
-          - if icon_count > 0
-            %h3= "Awards"
-            %ul
-              %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
           %h3= t(:content_appears_on)
           %ul.appears_on
             - @article.page_contents.map(&:page).compact.sort_by(&:scientific_name).each do |page|
               %li= link_to(page.scientific_name.html_safe, page)
-          - collections = @article.collections.compact.sort_by(&:name)
-          - if collections.empty?
-            %p= t(:content_not_in_any_collection)
-          - else
-            %h3= t(:content_collected_in)
-            %ul.appears_on
-              - collections.each do |collection|
-                %li= link_to(collection.name, collection)
 
       %h3= t(:content_attributions_header)
       = render("attributions/for_content", content: @article)

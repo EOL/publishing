@@ -13,6 +13,14 @@ en:
   account_not_linked: "your account is not linked to EOL"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
   article:
+    actions:
+      collect: "collect"
+    header:
+      blank: "(There is no body to this article.)"
+      body: "Body"
+      language: "language: %{language}"
+      title: "Title"
+      untitled: "Untitled"
     name:
       missing: "Untitled"
   article_from_partner: "provided by %{partner}"

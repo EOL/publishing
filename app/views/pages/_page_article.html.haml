@@ -4,23 +4,23 @@
 .article.uk-card.uk-card-default.uk-margin{ id: "article_#{article.id}" }
   .uk-card-header.uk-card-default.eol-secondary-alt
     .uk-grid
-      -# .uk-width-3-5
-      %div
-        %h2.uk-card-title.uk-margin-remove-bottom
-          = name
-        %p.uk-text-meta.uk-margin-remove-top
-          - if article.resource
-            = t(:article_from_partner, partner: article.resource.name.html_safe)
-          - else
-            = t(:resource_missing)
-          - if defined?(duplicate)
-            ;
-            = t(:article_duplicate, section: t("sections.#{article.first_section.name}"))
-      -# .uk-width-2-5
-      -#   %ul.uk-iconnav.uk-float-right
-      -#     -# TODO: I18n
-      -#     %li
-      -#       %a{ href: "#TODO", uk: { icon: "icon: bookmark", tooltip: true }, title: "Bookmark" }
+      .uk-width-3-5
+        %div
+          %h2.uk-card-title.uk-margin-remove-bottom
+            = name
+          %p.uk-text-meta.uk-margin-remove-top
+            - if article.resource
+              = t(:article_from_partner, partner: article.resource.name.html_safe)
+            - else
+              = t(:resource_missing)
+            - if defined?(duplicate)
+              ;
+              = t(:article_duplicate, section: t("sections.#{article.first_section.name}"))
+      .uk-width-2-5
+        %ul.uk-iconnav.uk-float-right
+          -# TODO: I18n
+          %li
+            %a{ href: article_url(article), uk: { icon: "icon: bookmark", tooltip: true }, title: "Bookmark" }
       -#     %li
       -#       %a{ href: "#TODO", uk: { icon: "icon: arrow-up", tooltip: true }, title: "Set as exemplar" }
       -#     %li

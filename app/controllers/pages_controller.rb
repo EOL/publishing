@@ -53,6 +53,7 @@ class PagesController < ApplicationController
     # It seems their API is broken insomuch as you cannot use their
     # #create_topic method AND add tags to it. Thus, I'm just calling the raw
     # API here:
+    # TODO: rescue this and look for the existing post (again) and redirect there.
     post = client.post("posts",
       "title" => "Comments on #{@page.rank.try(:name)} #{name} page",
       "category" => cat["id"],
@@ -61,6 +62,7 @@ class PagesController < ApplicationController
       "is_warning" => false,
       "archetype" => "regular",
       "nested_post" => true,
+      # TODO: looks like this link is broken?
       # TODO: move this to en.yml, I think?  Not sure we want to translate it. :S
       "raw" => "A discussion about <a href='#{pages_url(@page)}'>#{name}</a>."
     )
@@ -99,7 +101,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = Page.where(id: params[:id]).preloaded.first
+    @page = Page.where(id: params[:id]).first
     return render(status: :not_found) unless @page # 404
     @page_title = @page.name
     get_media

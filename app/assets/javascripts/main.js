@@ -205,6 +205,7 @@ if(!EOL) {
     }
     $(window).bind("popstate", function () {
       console.log("popstate "+location.href);
+      // TODO: I'm not sure this is ever used. Check and remove, if not.
       $.getScript(location.href);
     });
 
