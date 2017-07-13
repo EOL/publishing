@@ -511,6 +511,10 @@ en:
   search:
     empty: "No results found for \"%{q}\"."
     everything_header: "Listing ALL Site Contents..."
+    flash:
+      cannot_combine_paths: "Unable to combine results with %{path}"
+      more_than_one_species: "Unable to combine results for %{species}"
+      more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
   search_results:
     collected_media:

@@ -12,8 +12,23 @@ class SearchSuggestion < ActiveRecord::Base
   belongs_to :synonym_of, class_name: "SearchSuggestion"
 
   validates :match, uniqueness: true
+  # TODO: validation to ensure only ONE type is used...
 
   def search_data
     { match: match } # That's it.
+  end
+
+  def type
+    if page_id
+      :page
+    elsif object_term
+      :object_term
+    elsif path
+      :path
+    elsif wkt_string
+      :wkt_string
+    elsif synonym_of
+      synonym_of.type
+    end
   end
 end

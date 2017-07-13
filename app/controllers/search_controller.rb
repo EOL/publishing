@@ -13,27 +13,68 @@ class SearchController < ApplicationController
     # First step (and, yes, this will be slow—we will optimize later), look for
     # search suggestions that match the query:
     words = params[:q].split # TODO: we might want to remove words with ^-
-    suggestions = SearchSuggestion.search(params[:q],
-      fields: [{ match: :exact }])
+    suggestions = []
+    # YUCK! This is the best way to do this in Searchkick at the moment, though.
+    # :S
+    words.each do |word|
+      suggestions += SearchSuggestion.search(word, fields: [{ match: :exact }]).results
+    end
+
+    debugger
 
     # If we only found one thing and they only asked for one thing:
     if suggestions.size == 1 && params[:q] !~ /\s/
+      Rails.logger.warn("One suggestion.")
       # TODO: move this to a helper? It can't go on the model...
       suggestion = suggestions.first
       suggestion = suggestion.synonym_of if suggestion.synonym_of
-      where = if suggestion.page_id
+      where = case suggestion.type
+        when :page
           suggestion.page
-        elsif suggestion.object_term
+        when :object_term
           term_path(uri: suggestion.object_term, object: true)
-        elsif suggestion.path
+        when :path
           suggestion.path
-        elsif suggestion.wkt_string
+        when :wkt_string
           flash[:notice] = "Unimplemented, sorry."
           "/"
         end
       return redirect_to(where)
+    elsif suggestions.size >= 2 && params[:q] =~ /\s/
+      Rails.logger.warn("Multiple suggestions.")
+      groups = suggestions.group_by(&:type)
+      # Easier to handle:
+      groups[:page] ||= []
+      groups[:object_term] ||= []
+      groups[:path] ||= []
+      groups[:wkt_string] ||= []
+      if groups[:page].size > 1
+        Rails.logger.warn("Multiple PAGE suggestions.")
+        # We can't use suggestions if there's more than one species. Sorry.
+        flash[:notice] = t("search.flash.more_than_one_species",
+          species: groups[:page].map(&:match).to_sentence)
+      else
+        Rails.logger.warn("0 or 1 Page suggestions.")
+        clade = groups[:page].try(:first).try(:page_id)
+        Rails.logger.warn("Page suggestion: #{clade}") if clade
+        if groups[:object_term].size > 2
+          Rails.logger.warn("Over two TERM suggestions.")
+          flash[:notice] = t("search.flash.more_than_two_terms",
+            terms: groups[:object_term].map(&:match).to_sentence)
+        elsif groups[:path].size > 0
+          Rails.logger.warn("...had PATH suggestions.")
+          flash[:notice] = t("search.flash.cannot_combine_paths",
+            path: groups[:path].map(&:match).to_sentence)
+        else
+          Rails.logger.warn("Usable suggestions...")
+          (first, second) = groups[:object_term] # Arbitrary which is first...
+          Rails.logger.warn("First term: #{first.object_term}")
+          Rails.logger.warn("Second term: #{second.object_term}") if second
+          return redirect_to(term_path(uri: first.object_term, object: true,
+            and_uri: second.try(:object_term), clade: clade))
+        end
+      end
     end
-
 
     @clade = if params[:clade]
       puts "*" * 100

@@ -20,6 +20,7 @@ class PagesController < ApplicationController
   def comments
     @page = Page.where(id: params[:page_id]).first
     client = connect_to_discourse
+    return nil unless client.respond_to?(:categories)
     # TODO: we should configure the name of this category:
     cat = client.categories.find { |c| c["name"] == "EOL Pages" }
     # TODO: we should probably create THAT ^ it if it's #nil?
@@ -230,6 +231,11 @@ private
 
   def connect_to_discourse
     @discourse_url = Rails.application.secrets.discourse_url
+    return Rails.logger.error("Missing discourse_url") if @discourse_url.nil?
+    return Rails.logger.error("Missing discourse_url") if
+      Rails.application.secrets.discourse_key.nil?
+    return Rails.logger.error("Missing discourse_url") if
+      Rails.application.secrets.discourse_user.nil?
     DiscourseApi::Client.new(
       @discourse_url,
       Rails.application.secrets.discourse_key,
