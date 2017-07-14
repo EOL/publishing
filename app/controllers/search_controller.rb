@@ -10,17 +10,19 @@ class SearchController < ApplicationController
     # params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
     params[:q] = I18n.transliterate(params[:q]).downcase
 
+    # TODO: This search suggestions block is large; extract.
+
     # First step (and, yes, this will be slow—we will optimize later), look for
     # search suggestions that match the query:
     words = params[:q].split # TODO: we might want to remove words with ^-
+    # TODO: we might also want to remove stopwords e.g.: https://github.com/brenes/stopwords-filter
     suggestions = []
     # YUCK! This is the best way to do this in Searchkick at the moment, though.
     # :S
     words.each do |word|
-      suggestions += SearchSuggestion.search(word, fields: [{ match: :exact }]).results
+      word_search = SearchSuggestion.search(word, fields: [{ match: :exact }])
+      suggestions += word_search.results if word_search.respond_to?(:results)
     end
-
-    debugger
 
     # If we only found one thing and they only asked for one thing:
     if suggestions.size == 1 && params[:q] !~ /\s/
