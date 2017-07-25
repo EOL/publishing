@@ -73,7 +73,7 @@ class SearchController < ApplicationController
           Rails.logger.warn("First term: #{first.object_term}")
           Rails.logger.warn("Second term: #{second.object_term}") if second
           return redirect_to(term_path(uri: first.object_term, object: true,
-            and_uri: second.try(:object_term), clade: clade))
+            and_object: second.try(:object_term), clade: clade))
         end
       end
     end

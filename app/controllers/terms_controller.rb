@@ -4,6 +4,7 @@ class TermsController < ApplicationController
 
   def show
     @term = TraitBank.term_as_hash(params[:uri])
+    @and_object = TraitBank.term_as_hash(params[:and_object])
     @page_title = @term[:name].titleize
     @object = params[:object]
     @page = params[:page]
@@ -26,11 +27,11 @@ class TermsController < ApplicationController
       clade: @clade.try(:id)
     }
 
+    add_uri_to_options(options)
+
     respond_to do |fmt|
       fmt.html do
-        data = @object ?
-          TraitBank.by_object_term_uri(@term[:uri], options) :
-          TraitBank.by_predicate(@term[:uri], options)
+        data = TraitBank.term_search(options)
         # TODO: a fast way to load pages with just summary info:
         pages = Page.where(id: data.map { |t| t[:page_id] }.uniq).
           includes(:medium, :native_node, :preferred_vernaculars)
@@ -46,9 +47,7 @@ class TermsController < ApplicationController
 
       fmt.csv do
         options[:meta] = true
-        data = @object ?
-          TraitBank.by_object_term_uri(@term[:uri], options) :
-          TraitBank.by_predicate(@term[:uri], options)
+        data = TraitBank.term_search(options)
         send_data TraitBank::DataDownload.to_arrays(data),
           filename: "#{@term[:name]}-#{Date.today}.tsv"
       end
@@ -77,6 +76,18 @@ class TermsController < ApplicationController
     glossary
   end
 
+  def add_uri_to_options(options)
+    if @object
+      options[:predicate] = nil # TODO
+      options[:object_term] = @and_object ?
+        [@term[:uri], @and_object[:uri]] :
+        @term[:uri]
+    else
+      options[:predicate] = @term[:uri]
+      options[:object_term] = @and_object && @and_object[:uri]
+    end
+  end
+
   def object_term_glossary
     @count = TraitBank::Terms.object_term_glossary_count
     glossary
@@ -90,9 +101,9 @@ class TermsController < ApplicationController
 private
 
   def paginate_data(data)
-    @count = @object ?
-      TraitBank.by_object_term_count(@term[:uri], clade: params[:clade]) :
-      TraitBank.by_predicate_count(@term[:uri], clade: params[:clade])
+    options = { clade: params[:clade], count: true }
+    add_uri_to_options(options)
+    @count = TraitBank.term_search(options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end

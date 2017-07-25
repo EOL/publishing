@@ -64,18 +64,18 @@
       = form_tag(term_path, method: "get", autocomplete: "off") do
         - hide_params_in_form(["term", "clade"])
         .uk-panel{ uk: { height: { match: true }, grid: true } }
-          - if @and_uri
+          - if @and_object
             .uk-margin-right
-              - @and_uri[:name].titlecase
+              - @and_object[:name].titlecase
           %div
             = t("term.show.term_filter.label")
           %div
-            = text_field_tag("and_uri", nil,
-              placeholder: @and_uri ? @and_uri[:uri] : t("term.show.term_filter.placeholder"),
+            = text_field_tag("and_object", nil,
+              placeholder: @and_object ? @and_object[:uri] : t("term.show.term_filter.placeholder"),
               remote: true, class: "uk-input uk-form-width-medium typeahead")
           %div
             = submit_tag(t("filter"), class: "ui basic button")
-      - if @and_uri
+      - if @and_object
         #clear_term_filter.uk-panel.uk-margin-small-top
           - mod_params = params_less(:term)
           = link_to(t("term.show.term_filter.clear"), term_path(mod_params))
