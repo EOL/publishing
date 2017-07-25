@@ -33,9 +33,7 @@ RSpec.describe TermsController do
 
   before do
     allow(TraitBank).to receive(:term_as_hash) { data[:predicate] }
-    allow(TraitBank).to receive(:by_predicate) { grouped_data }
-    allow(TraitBank).to receive(:by_predicate_count) { grouped_data.size }
-    # allow(TraitBank).to receive(:glossary) { glossary }
+    allow(TraitBank).to receive(:term_search).and_return(grouped_data, grouped_data.size)
     allow(TraitBank).to receive(:resources) { [resource] }
   end
 
