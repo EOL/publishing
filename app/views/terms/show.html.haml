@@ -43,7 +43,7 @@
         = link_to(t("term.actions.download"), term_path(params.merge(format: "csv")))
     .clade_filter.uk-margin-top
       = form_tag(term_path, method: "get", autocomplete: "off") do
-        - hide_params_in_form(["clade"])
+        - hide_params_in_form(["clade", "add_term"])
         .uk-panel{ uk: { height: { match: true }, grid: true } }
           - if @clade
             .uk-margin-right
@@ -60,6 +60,25 @@
         #clear_clade_filter.uk-panel.uk-margin-small-top
           - mod_params = params_less(:clade)
           = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
+    .term_filter.uk-margin-top
+      = form_tag(term_path, method: "get", autocomplete: "off") do
+        - hide_params_in_form(["term", "clade"])
+        .uk-panel{ uk: { height: { match: true }, grid: true } }
+          - if @and_uri
+            .uk-margin-right
+              - @and_uri[:name].titlecase
+          %div
+            = t("term.show.term_filter.label")
+          %div
+            = text_field_tag("and_uri", nil,
+              placeholder: @and_uri ? @and_uri[:uri] : t("term.show.term_filter.placeholder"),
+              remote: true, class: "uk-input uk-form-width-medium typeahead")
+          %div
+            = submit_tag(t("filter"), class: "ui basic button")
+      - if @and_uri
+        #clear_term_filter.uk-panel.uk-margin-small-top
+          - mod_params = params_less(:term)
+          = link_to(t("term.show.term_filter.clear"), term_path(mod_params))
   .uk-margin-top
     - if @species_list
       %ul.uk-list

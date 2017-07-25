@@ -682,6 +682,10 @@ en:
       clade_filter:
         label: "Filter by clade:"
         clear: "clear clade filter"
+      term_filter:
+        label: "Filter by term:"
+        clear: "clear term filter"
+        placeholder: "choose a term"
   data_source: "source"
   data_definition: "definition of \"%{data}\""
   data_table:

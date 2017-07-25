@@ -22,7 +22,7 @@
       .uk-width-1-3{ class: "uk-visible@m" }
         -# TODO: remote...
         - basic_button("plus", t("pages.actions.collect"), new_collected_page_path(page_id: @page.id), remote: true)
-        - basic_button("comment", t("pages.actions.comment", count: 0), "#", target: "_blank", disabled: true, data: { id: @page.id }, id: "page_comments")
+        #page_topics{ data: { id: @page.id } }
         - if is_admin?
           - basic_button("refresh", t("pages.actions.reindex"), page_reindex_path(@page), remote: true, data: { disable_with: "" }, class: "ui disable-on-click")
   #page

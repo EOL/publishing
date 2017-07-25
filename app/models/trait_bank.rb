@@ -12,11 +12,12 @@ class TraitBank
   # something we're going to query... and I don't think we do! So all the info
   # is reall in the MySQL DB and thus just the ID is enough.
 
-  # The Labels, and their expected relationships { and (*required)properties }:
+  # The Labels, and their expected relationships { and (*required) properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
   # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData),
   #          object_term(Term), units_term(Term)
+  #          # TODO: add a comment explaining that the normal_units is a string (a symbol)
   #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal, normal_measurement,
   #       normal_units }
@@ -108,7 +109,7 @@ class TraitBank
       add
     end
 
-    def order_clause(options)
+    def order_clause_array(options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
       sorts = if options[:by]
@@ -128,8 +129,14 @@ class TraitBank
         ["LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       end
       sorts << "page.name" unless options[:by]
-      dir = options[:sort_dir].downcase == "desc" ? " desc" : ""
-      %Q{ ORDER BY #{sorts.join("#{dir}, ")}}
+      if options[:sort_dir].downcase == "desc"
+        sorts.map! { |sort| "#{sort} DESC" }
+      end
+      sorts
+    end
+
+    def order_clause(options)
+      %Q{ ORDER BY #{order_clause_array(options).join(", ")}}
     end
 
     def trait_exists?(resource_id, pk)
@@ -174,47 +181,117 @@ class TraitBank
       build_trait_array(res)
     end
 
-    # e.g.: uri = "http://eol.org/schema/terms/Habitat"
-    # TraitBank.by_predicate(uri)
-    def by_predicate(uri, options = {})
-      q = match_page_and_clade(options)
-      q += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->"
-      if options[:object_term]
-        q += "(predicate:Term) "
+    def empty_query
+      { match: [], optional: [], where: [], with: [], return: [], order: [] }
+    end
+
+    def adv_query(clauses)
+      raise "no matches" unless clauses.has_key?(:match)
+      raise "no returns" unless clauses.has_key?(:return)
+      q = build_clause(clauses[:match], "MATCH")
+      q += build_clause(clauses[:optional], "OPTIONAL MATCH")
+      q += build_clause(clauses[:where], "WHERE", "#{clauses[:where_join] || "AND"} ")
+      q += build_clause(clauses[:with], "WITH")
+      q += build_clause(clauses[:return], "RETURN", ",")
+      q += build_clause(clauses[:order], "ORDER BY", ",")
+      q += limit_and_skip_clause(clauses[:page], clauses[:per])
+      query(q)
+    end
+
+    def build_clause(clause, directive, joiner = nil)
+      joiner ||= directive
+      if clause && ! clause.empty?
+        " #{directive} " + clause.join(" #{joiner} ")
       else
-        q += "(predicate:Term { uri: \"#{uri}\" }) "
+        ""
       end
-      if options[:count]
-        if options[:object_term]
-          q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
-        end
-      else
-        if options[:object_term]
-          q += "MATCH (trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" }) "
-        else
-          q += "MATCH (trait)-[info:units_term|object_term]->(info_term:Term) "
-        end
-      end
-      if options[:meta]
-        q+= "OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "
-      end
+    end
+
+    # Options:
+    # count: don't perform the query, but just count the results
+    # meta: whether to include metadata
+    # object_term: the object URI (or an array of them) to look for, specifically
+    # page: which page of long results you want
+    # page_list: only return a list of page_ids. page_list == "species list"
+    # per: how many results per page
+    # predicate: the predicate URI (or an array of them) to look for, specifically
+    def term_search(options = {})
+      q = empty_query
       if options[:clade]
-        q += "WHERE page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
+        q[:where] << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
+      end
+      if options[:page_list]
+        q[:match] = ["(page:Page)"]
+        if uris = options[:predicate]
+          q[:where] = Array(uris).map do |uri|
+            "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{uri}\" })"
+          end
+        end
+        # NOTE: if you want a page list specifying BOTH predicates AND objects,
+        # you are not going to get what you expect; the pages that match could
+        # have ANY predicate with the object terms specified; it only needs to
+        # have ALL of the object terms specified (somewhere). It's a tricky
+        # query. ...I think the results will be "close enough" to manage in a
+        # download.
+        if uris = options[:object_term]
+          q[:where] = Array(uris).map do |uri|
+            "(page)-[:trait]->(:Trait)-[:object_term]->(:Term { uri: \"#{uri}\" })"
+          end
+        end
+      else # NOT A PAGE_LIST:
+        main_match = options[:clade] ?
+          "(ancestor:Page { page_id: #{options[:clade]} })<-[:in_clade*]-(page:Page)" :
+          "(page:Page)"
+        main_match += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+        q[:match] << main_match
+
+        trait_to_predicate = "(trait)-[:predicate]->(predicate:Term"
+        if uri = options[:predicate]
+          if uri.is_a?(Array)
+            q[:where] << "predicate.uri IN [ \" (#{uri.join("\", \"")})\" ]"
+          else
+            trait_to_predicate += " { uri: \"#{uri}\" }"
+          end
+        end
+        trait_to_predicate += ")"
+        q[:match] << trait_to_predicate
+        if uri = options[:object_term]
+          if uri.is_a?(Array)
+            q[:match] << "(trait)-[info:object_term]->(info_term:Term)"
+            q[:where] << "info_term.uri IN [ \" (#{uri.join("\", \"")})\" ]"
+          else
+            q[:match] << "(trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" })"
+          end
+        elsif ! options[:count]
+          q[:optional] << "(trait)-[info:units_term|object_term]->(info_term:Term)"
+        end
+        if options[:meta]
+          q[:optional] += [
+            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
+            "(meta)-[:units_term]->(meta_units_term:Term)",
+            "(meta)-[:object_term]->(meta_object_term:Term)" ]
+        end
       end
       if options[:count]
-        q+= "WITH COUNT(DISTINCT(trait)) AS count RETURN count"
+        q[:with] << "COUNT(DISTINCT(#{options[:page_list] ? "page" : "trait"})) AS count"
+        q[:return] = ["count"]
       else
-        q += "RETURN page, trait, predicate, type(info) AS info_type, info_term, resource"
-        if options[:meta]
-          q += ", meta, meta_predicate, meta_units_term, meta_object_term"
+        q[:page] = options[:page]
+        q[:per] = options[:per]
+        if options[:page_list]
+          q[:return] = ["page"]
+          q[:order] = ["page.name"]
+        else
+          q[:return] = ["page", "trait", "predicate", "type(info) AS info_type",
+            "info_term", "resource"]
+          if options[:meta]
+            q[:return] += ["meta", "meta_predicate", "meta_units_term",
+              "meta_object_term"]
+          end
+          q[:order] = order_clause_array(options)
         end
-        q += order_clause(options)
-        q += limit_and_skip_clause(options[:page], options[:per])
       end
-      res = query(q)
+      res = adv_query(q)
       if options[:count]
         res["data"] ? res["data"].first.first : 0
       else
@@ -222,22 +299,20 @@ class TraitBank
       end
     end
 
+    def by_predicate(uri, options = {})
+      term_search(options.merge(predicate: uri))
+    end
+
     def by_predicate_count(uri, options = {})
-      by_predicate(uri, options.merge(count: true))
+      term_search(options.merge(predicate: uri, count: true))
     end
 
     def by_object_term_uri(uri, options = {})
-      by_predicate(uri, options.merge(object_term: true))
+      term_search(options.merge(object_term: uri))
     end
 
     def by_object_term_count(uri, options = {})\
-      by_predicate(uri, options.merge(object_term: true, count: true))
-    end
-
-    def match_page_and_clade(options = {})
-      options[:clade] ?
-        "MATCH (ancestor:Page { page_id: #{options[:clade]} })<-[:in_clade*]-(page:Page)" :
-        "MATCH (page:Page)"
+      term_search(options.merge(object_term: uri, count: true))
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
@@ -291,6 +366,7 @@ class TraitBank
     # row of related data ... e.g.: the "trait" for trait data)
     def results_to_hashes(results, identifier = nil)
       id_col = results["columns"].index(identifier ? identifier.to_s : "trait")
+      id_col ||= 0 # If there is no trait column and nothing was specified...
       hashes = []
       previous_id = nil
       hash = nil
@@ -601,6 +677,7 @@ class TraitBank
     end
 
     def term_as_hash(uri)
+      return nil if uri.nil? # Important for param-management!
       hash = term(uri)
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:

@@ -256,12 +256,12 @@ RSpec.describe TraitBank do
 
     it "can look up object terms" do
       expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}"/i)
-      TraitBank.by_predicate(uri, object_term: true)
+      TraitBank.by_object_term_uri(uri)
     end
 
     it "can count object terms" do
       expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}".*count\(distinct\(trait\)\)/i) { { "data" => [[]] } }
-      TraitBank.by_predicate(uri, object_term: true, count: true)
+      TraitBank.by_object_term_count(uri)
     end
 
     it "can add metadata" do
@@ -318,17 +318,17 @@ RSpec.describe TraitBank do
 
   describe "convenience aliases to .by_predicate" do
     it "counts predicates" do
-      expect(TraitBank).to receive(:by_predicate).with(:abc, { count: true })
+      expect(TraitBank).to receive(:term_search).with({predicate: :abc, count: true })
       TraitBank.by_predicate_count(:abc)
     end
 
     it "by object term uri" do
-      expect(TraitBank).to receive(:by_predicate).with(:bcd, { object_term: true })
+      expect(TraitBank).to receive(:term_search).with({ object_term: :bcd })
       TraitBank.by_object_term_uri(:bcd)
     end
 
     it "count by object term uri" do
-      expect(TraitBank).to receive(:by_predicate).with(:def, { object_term: true, count: true })
+      expect(TraitBank).to receive(:term_search).with({ object_term: :def, count: true })
       TraitBank.by_object_term_count(:def)
     end
   end
