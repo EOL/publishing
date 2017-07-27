@@ -5,7 +5,7 @@
         = @term[:name].titlecase
         .uk-text-muted.uk-margin-remove-top.uk-text-small
           = t("term.header.count", count: @count)
-          - if @object
+          - if @object || @and_predicate
             = t("term.header.object_term")
           - else
             = t("term.header.predicate")
@@ -43,7 +43,7 @@
         = link_to(t("term.actions.download"), term_path(params.merge(format: "csv")))
     .clade_filter.uk-margin-top
       = form_tag(term_path, method: "get", autocomplete: "off") do
-        - hide_params_in_form(["clade", "add_term"])
+        - hide_params_in_form(["and_object", "and_predicate"])
         .uk-panel{ uk: { height: { match: true }, grid: true } }
           - if @clade
             .uk-margin-right
@@ -60,25 +60,44 @@
         #clear_clade_filter.uk-panel.uk-margin-small-top
           - mod_params = params_less(:clade)
           = link_to(t("term.show.clade_filter.clear"), term_path(mod_params))
-    .term_filter.uk-margin-top
+    .object_filter.uk-margin-top
       = form_tag(term_path, method: "get", autocomplete: "off") do
-        - hide_params_in_form(["term", "clade"])
+        - hide_params_in_form(["term", "clade", "and_predicate"])
         .uk-panel{ uk: { height: { match: true }, grid: true } }
           - if @and_object
             .uk-margin-right
               - @and_object[:name].titlecase
           %div
-            = t("term.show.term_filter.label")
+            = t("term.show.object_filter.label")
           %div
             = text_field_tag("and_object", nil,
-              placeholder: @and_object ? @and_object[:uri] : t("term.show.term_filter.placeholder"),
+              placeholder: @and_object ? @and_object[:uri] : t("term.show.object_filter.placeholder"),
               remote: true, class: "uk-input uk-form-width-medium typeahead")
           %div
             = submit_tag(t("filter"), class: "ui basic button")
       - if @and_object
-        #clear_term_filter.uk-panel.uk-margin-small-top
-          - mod_params = params_less(:term)
-          = link_to(t("term.show.term_filter.clear"), term_path(mod_params))
+        #clear_object_filter.uk-panel.uk-margin-small-top
+          - mod_params = params_less(:and_object)
+          = link_to(t("term.show.object_filter.clear"), term_path(mod_params))
+    .predicate_filter.uk-margin-top
+      = form_tag(term_path, method: "get", autocomplete: "off") do
+        - hide_params_in_form(["term", "clade", "and_object"])
+        .uk-panel{ uk: { height: { match: true }, grid: true } }
+          - if @and_predicate
+            .uk-margin-right
+              - @and_predicate[:name].titlecase
+          %div
+            = t("term.show.predicate_filter.label")
+          %div
+            = text_field_tag("and_predicate", nil,
+              placeholder: @and_predicate ? @and_predicate[:uri] : t("term.show.predicate_filter.placeholder"),
+              remote: true, class: "uk-input uk-form-width-medium typeahead")
+          %div
+            = submit_tag(t("filter"), class: "ui basic button")
+      - if @and_predicate
+        #clear_predicate_filter.uk-panel.uk-margin-small-top
+          - mod_params = params_less(:and_predicate)
+          = link_to(t("term.show.predicate_filter.clear"), term_path(mod_params))
   .uk-margin-top
     - if @species_list
       %ul.uk-list

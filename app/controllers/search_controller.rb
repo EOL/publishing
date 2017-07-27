@@ -67,7 +67,7 @@ class SearchController < ApplicationController
           Rails.logger.warn("...had PATH suggestions.")
           flash[:notice] = t("search.flash.cannot_combine_paths",
             path: groups[:path].map(&:match).to_sentence)
-        else
+        else # NOTE: this assumes we only have OBJECT term suggestions, not predicates.
           Rails.logger.warn("Usable suggestions...")
           (first, second) = groups[:object_term] # Arbitrary which is first...
           Rails.logger.warn("First term: #{first.object_term}")

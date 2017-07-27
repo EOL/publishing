@@ -4,11 +4,13 @@ class TermsController < ApplicationController
 
   def show
     @term = TraitBank.term_as_hash(params[:uri])
+    @and_predicate = TraitBank.term_as_hash(params[:and_predicate])
     @and_object = TraitBank.term_as_hash(params[:and_object])
     @page_title = @term[:name].titleize
     @object = params[:object]
     @page = params[:page]
     @per_page = 100 # TODO: config this or make it dynamic...
+    @species_list = params[:species_list]
     @clade = if params[:clade]
         if params[:clade] =~ /\A\d+\Z/
           Page.find(params[:clade])
@@ -23,7 +25,7 @@ class TermsController < ApplicationController
       end
     options = {
       page: @page, per: @per_page, sort: params[:sort],
-      sort_dir: params[:sort_dir],
+      sort_dir: params[:sort_dir], page_list: @species_list,
       clade: @clade.try(:id)
     }
 
@@ -32,22 +34,22 @@ class TermsController < ApplicationController
     respond_to do |fmt|
       fmt.html do
         data = TraitBank.term_search(options)
+        # We want the results in this order:
+        ids = data.map { |t| t[:page_id] }.uniq
         # TODO: a fast way to load pages with just summary info:
-        pages = Page.where(id: data.map { |t| t[:page_id] }.uniq).
+        pages = Page.where(id: ids).
           includes(:medium, :native_node, :preferred_vernaculars)
         # Make a dictionary of pages:
         @pages = {}
-        pages.each { |page| @pages[page.id] = page }
+        ids.each { |id| @pages[id] = pages.find { |p| p.id == id } }
         # Make a glossary:
         @resources = TraitBank.resources(data)
-        @species_list = params[:species_list]
         paginate_data(data)
         get_associations
       end
 
       fmt.csv do
-        options[:meta] = true
-        data = TraitBank.term_search(options)
+        data = TraitBank.term_search(options.merge(page_list: false, meta: true))
         send_data TraitBank::DataDownload.to_arrays(data),
           filename: "#{@term[:name]}-#{Date.today}.tsv"
       end
@@ -76,14 +78,19 @@ class TermsController < ApplicationController
     glossary
   end
 
+  # We ultimately don't want to just pass a "URI" to the term search; we need to
+  # separate object terms and predicates. We handle that here, since there are
+  # two places where it matters.
   def add_uri_to_options(options)
     if @object
-      options[:predicate] = nil # TODO
+      options[:predicate] = @and_predicate && @and_predicate[:uri]
       options[:object_term] = @and_object ?
         [@term[:uri], @and_object[:uri]] :
         @term[:uri]
     else
-      options[:predicate] = @term[:uri]
+      options[:predicate] = @and_predicate ?
+        [@term[:uri], @and_predicate[:uri]] :
+        @term[:uri]
       options[:object_term] = @and_object && @and_object[:uri]
     end
   end

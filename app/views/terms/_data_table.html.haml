@@ -30,7 +30,7 @@
                     - show_data_page_name(page)
 
               - prev_page_id = page_id
-            - if @object
+            - if @object || @and_predicate
               %th{ scope: "row" }
                 = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
                 - show_data_modifiers(trait)

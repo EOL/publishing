@@ -682,10 +682,14 @@ en:
       clade_filter:
         label: "Filter by clade:"
         clear: "clear clade filter"
-      term_filter:
-        label: "Filter by term:"
-        clear: "clear term filter"
-        placeholder: "choose a term"
+      object_filter:
+        label: "Filter by data value:"
+        clear: "clear data value filter"
+        placeholder: "choose a data value"
+      predicate_filter:
+        label: "Filter by data type:"
+        clear: "clear data type filter"
+        placeholder: "choose a data type"
   data_source: "source"
   data_definition: "definition of \"%{data}\""
   data_table:

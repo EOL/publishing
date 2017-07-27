@@ -109,6 +109,8 @@ class TraitBank
       add
     end
 
+    # TODO: add association to the sort... normal_measurement comes after
+    # literal, so it will be ignored
     def order_clause_array(options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
@@ -128,6 +130,7 @@ class TraitBank
         # change).
         ["LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       end
+      # NOTE: "ties" for traits are resolved by species name.
       sorts << "page.name" unless options[:by]
       if options[:sort_dir].downcase == "desc"
         sorts.map! { |sort| "#{sort} DESC" }
@@ -174,6 +177,7 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units"
+
       q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
         "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
@@ -181,24 +185,33 @@ class TraitBank
       build_trait_array(res)
     end
 
+    # NOTE the match clauses are hashes. Values represent the "where" clause.
     def empty_query
-      { match: [], optional: [], where: [], with: [], return: [], order: [] }
+      { match: {}, optional: {}, with: [], return: [], order: [] }
     end
 
     def adv_query(clauses)
-      raise "no matches" unless clauses.has_key?(:match)
+      raise "no matches" unless clauses[:match].is_a?(Hash)
       raise "no returns" unless clauses.has_key?(:return)
-      q = build_clause(clauses[:match], "MATCH")
-      q += build_clause(clauses[:optional], "OPTIONAL MATCH")
-      q += build_clause(clauses[:where], "WHERE", "#{clauses[:where_join] || "AND"} ")
-      q += build_clause(clauses[:with], "WITH")
-      q += build_clause(clauses[:return], "RETURN", ",")
-      q += build_clause(clauses[:order], "ORDER BY", ",")
-      q += limit_and_skip_clause(clauses[:page], clauses[:per])
+      q = clause_with_where(clauses[:match], "MATCH")
+      q += clause_with_where(clauses[:optional], "OPTIONAL MATCH")
+      q += simple_clause(clauses[:with], "WITH")
+      q += simple_clause(clauses[:return], "RETURN", ",")
+      q += simple_clause(clauses[:order], "ORDER BY", ",")
+      q += limit_and_skip_clause(clauses[:page], clauses[:per]) unless clauses[:count]
       query(q)
     end
 
-    def build_clause(clause, directive, joiner = nil)
+    def clause_with_where(hash, directive)
+      q = ""
+      hash.each do |key, value|
+        q += " #{directive} #{key} "
+        q += "WHERE #{Array(value).join(" AND ")} " unless value.blank?
+      end
+      q.sub(/ $/, "")
+    end
+
+    def simple_clause(clause, directive, joiner = nil)
       joiner ||= directive
       if clause && ! clause.empty?
         " #{directive} " + clause.join(" #{joiner} ")
@@ -217,16 +230,18 @@ class TraitBank
     # predicate: the predicate URI (or an array of them) to look for, specifically
     def term_search(options = {})
       q = empty_query
+      q[:count] = options[:count]
+      wheres = []
       if options[:clade]
-        q[:where] << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
+        wheres << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
       if options[:page_list]
-        q[:match] = ["(page:Page)"]
         if uris = options[:predicate]
-          q[:where] = Array(uris).map do |uri|
+          wheres += Array(uris).map do |uri|
             "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{uri}\" })"
           end
         end
+        q[:match] = { "(page:Page)" => wheres }
         # NOTE: if you want a page list specifying BOTH predicates AND objects,
         # you are not going to get what you expect; the pages that match could
         # have ANY predicate with the object terms specified; it only needs to
@@ -234,7 +249,7 @@ class TraitBank
         # query. ...I think the results will be "close enough" to manage in a
         # download.
         if uris = options[:object_term]
-          q[:where] = Array(uris).map do |uri|
+          wheres += Array(uris).map do |uri|
             "(page)-[:trait]->(:Trait)-[:object_term]->(:Term { uri: \"#{uri}\" })"
           end
         end
@@ -243,33 +258,41 @@ class TraitBank
           "(ancestor:Page { page_id: #{options[:clade]} })<-[:in_clade*]-(page:Page)" :
           "(page:Page)"
         main_match += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
-        q[:match] << main_match
-
+        if uri = options[:predicate]
+          if uri.is_a?(Array)
+            wheres += uri.map do |this_uri|
+              "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{this_uri}\" })"
+            end
+          end
+        end
+        q[:match] = { main_match => wheres }
+        wheres = [] # new set
         trait_to_predicate = "(trait)-[:predicate]->(predicate:Term"
         if uri = options[:predicate]
           if uri.is_a?(Array)
-            q[:where] << "predicate.uri IN [ \" (#{uri.join("\", \"")})\" ]"
+            wheres << "predicate.uri IN [ \"#{uri.join("\", \"")}\" ]"
+            q[:order] << "page.name" unless q[:count]
           else
             trait_to_predicate += " { uri: \"#{uri}\" }"
           end
         end
         trait_to_predicate += ")"
-        q[:match] << trait_to_predicate
+        q[:match][trait_to_predicate] = wheres
         if uri = options[:object_term]
           if uri.is_a?(Array)
-            q[:match] << "(trait)-[info:object_term]->(info_term:Term)"
-            q[:where] << "info_term.uri IN [ \" (#{uri.join("\", \"")})\" ]"
+            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] =
+              "info_term.uri IN [ \"#{uri.join("\", \"")}\" ]"
           else
-            q[:match] << "(trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" })"
+            q[:match]["(trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" })"] = nil
           end
-        elsif ! options[:count]
-          q[:optional] << "(trait)-[info:units_term|object_term]->(info_term:Term)"
+        else
+          q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
         end
         if options[:meta]
-          q[:optional] += [
-            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
-            "(meta)-[:units_term]->(meta_units_term:Term)",
-            "(meta)-[:object_term]->(meta_object_term:Term)" ]
+          q[:optional] = {
+            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)" => nil,
+            "(meta)-[:units_term]->(meta_units_term:Term)" => nil,
+            "(meta)-[:object_term]->(meta_object_term:Term)" => nil }
         end
       end
       if options[:count]
@@ -288,7 +311,7 @@ class TraitBank
             q[:return] += ["meta", "meta_predicate", "meta_units_term",
               "meta_object_term"]
           end
-          q[:order] = order_clause_array(options)
+          q[:order] += order_clause_array(options)
         end
       end
       res = adv_query(q)
