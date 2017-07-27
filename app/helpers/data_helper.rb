@@ -2,10 +2,6 @@
 # to the stream directly, NOT building an output for you to show...
 module DataHelper
   def metadata_container(data)
-    return unless data[:meta] ||
-      data[:source] ||
-      data[:object_term] ||
-      data[:units]
     haml_tag(:div, class: "meta_data", style: "display: none;")
   end
 
@@ -29,7 +25,13 @@ module DataHelper
 
   def show_meta_data(meta_data)
     haml_tag :tr do
-      haml_tag :th, meta_data[:predicate][:name]
+      haml_tag :th do
+        haml_concat meta_data[:predicate][:name]
+        if meta_data[:predicate][:uri]
+          haml_tag(:br)
+          haml_tag(:div, meta_data[:predicate][:uri], class: "data_type uk-text-muted eol-text-tiny")
+        end
+      end
       haml_tag :td do
         show_data_value(meta_data)
       end

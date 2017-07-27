@@ -83,6 +83,7 @@ if(!EOL) {
           });
         } else {
           console.log("Using cached row...");
+          console.log($div.html());
           $(".meta_data").hide();
           $div.show();
         }

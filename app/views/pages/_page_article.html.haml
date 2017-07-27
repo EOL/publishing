@@ -8,6 +8,11 @@
         %div
           %h2.uk-card-title.uk-margin-remove-bottom
             = name
+            - if article.language && article.language.group.to_sym != I18n.locale
+              %span.uk-text-small
+                (
+                = t("languages.#{article.language.group}")
+                )
           %p.uk-text-meta.uk-margin-remove-top
             - if article.resource
               = t(:article_from_partner, partner: article.resource.name.html_safe)
