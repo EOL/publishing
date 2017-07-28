@@ -2,10 +2,12 @@ require "rails_helper"
 
 RSpec.describe "collections/show" do
 
-  let(:collection1) { create(:medium) }
-  let(:collection2) { create(:medium) }
+  let(:collection1) { create(:collection) }
+  let(:collection2) { create(:collection) }
   let(:page) { create(:page) }
   let(:collected_page) { create(:collected_page, page: page) }
+  let(:coll_assoc_1) { create(:collection_association, associated: collection1) }
+  let(:coll_assoc_2) { create(:collection_association, associated: collection2) }
 
   before do
     allow(view).to receive(:policy).and_return(double("some policy", update?: false))
@@ -18,7 +20,7 @@ RSpec.describe "collections/show" do
     context "(with robust collection)" do
       before do
         collection = instance_double("Collection",
-          collections: [collection1, collection2],
+          collection_associations: [coll_assoc_1, coll_assoc_2],
           id: 1,
           name: "Col Name 1",
           description: "Col Description Here",
@@ -47,10 +49,11 @@ RSpec.describe "collections/show" do
         expect(rendered).to have_content("Fun Name")
       end
 
-      it "shows the icons of all collected associations" do
+      it "shows the icons of all items" do
         render
-        expect(rendered).to have_selector("img[src*='#{collection1.icon}']")
-        expect(rendered).to have_selector("img[src*='#{collection2.icon}']")
+        # TODO: these aren't possible without collection icons:
+        # expect(rendered).to have_selector("img[src*='#{collection1.icon}']")
+        # expect(rendered).to have_selector("img[src*='#{collection2.icon}']")
         expect(rendered).to have_selector("img[src*='#{page.icon}']")
       end
 
@@ -72,7 +75,7 @@ RSpec.describe "collections/show" do
     context "(with robust collection)" do
       before do
         collection = instance_double("Collection",
-          collections: [collection1, collection2],
+          collection_associations: [coll_assoc_1, coll_assoc_2],
           id: 2,
           name: "Col Name 1",
           description: "Col Description Here",
@@ -97,17 +100,18 @@ RSpec.describe "collections/show" do
         expect(rendered).to have_content(collection2.name)
       end
 
-      it "shows the icons of all collected associations" do
-        render
-        expect(rendered).to have_selector("img[src='#{collection1.icon}']")
-        expect(rendered).to have_selector("img[src='#{collection2.icon}']")
-      end
+      # TODO: this isn't possible without collection icons yet.
+      # it "shows the icons of all collected associations" do
+      #   render
+      #   expect(rendered).to have_selector("img[src='#{collection1.icon}']")
+      #   expect(rendered).to have_selector("img[src='#{collection2.icon}']")
+      # end
     end
   end
 
   context "(with empty collection)" do
     before do
-      collection = instance_double("Collection", collections: [],
+      collection = instance_double("Collection", collection_associations: [],
         name: "Col Name Again", description: nil, id: 3)
       assign(:collection, collection)
       assign(:pages, fake_pagination([]))

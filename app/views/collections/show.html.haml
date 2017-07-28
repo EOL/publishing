@@ -29,16 +29,27 @@
       #collected_pages
         = render("show")
 .collection_association.uk-margin-top
-  - if @collection.collections.empty?
+  - show_delete = policy(@collection).update?
+  - if @collection.collection_associations.empty?
     %p= t(:collection_associations_empty)
   - else
     %h2= t(:collection_associations_title)
-    %table.collections
+    %table.collections.uk-table.uk-table-middle.uk-table-divider
       %tbody
-        - @collection.collections.each do |collection|
+        - @collection.collection_associations.each do |assoc_collection|
+          - collection = assoc_collection.associated
           %tr
             %th.collection-table-image{ scope: "row" }
-              = link_to(image_tag(collection.icon), collection)
-            %th{ scope: "row" }
+              -# TODO: collections don't have icons yet; change this.
+              -# = link_to(image_tag(collection.icon || "medium/collection.png"), collection)
+              = link_to(image_tag("medium/collection.png"), collection)
+            %td.uk-table-expand.uk-text-align-left
               .names.d-inline
                 = link_to(collection.name.html_safe, collection)
+                %br
+                = collection.description
+                = t("collection.pages_count", count: collection.collected_pages_count)
+            %td.uk-table-shrink
+              - if show_delete
+                .uk-float-right.uk-margin
+                  = link_to(t("collected_pages.delete_button"), assoc_collection, method: "delete", data: { confirm: t("collected_pages.delete_confirm") }, class: "ui basic tiny button")

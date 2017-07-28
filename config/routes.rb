@@ -46,7 +46,7 @@ Rails.application.routes.draw do
     post "add_user"
     post "remove_user"
   end
-  resources :collection_associations, only: [:new, :create]
+  resources :collection_associations, only: [:new, :create, :destroy]
   resources :collected_pages, only: [:new, :create, :destroy]
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]

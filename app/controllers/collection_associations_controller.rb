@@ -35,7 +35,17 @@ class CollectionAssociationsController < ApplicationController
     end
   end
 
-  # TODO: destroy.  ;)
+  def destroy
+    @collection_association = CollectionAssociation.find(params[:id])
+    authorize @collection_association.collection
+    associated = @collection_association.associated
+    if @collection_association.destroy
+      Collecting.create(user: current_user, collection: @collection_association.collection,
+        action: "remove", associated_collection: associated)
+      flash[:notice] = I18n.t("collection_associations.destroyed_flash", name: associated.name)
+    end
+    redirect_to @collection_association.collection
+  end
 
   private
 

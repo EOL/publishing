@@ -64,8 +64,8 @@ class PagesController < ApplicationController
       "archetype" => "regular",
       "nested_post" => true,
       # TODO: looks like this link is broken?
-      # TODO: move this to en.yml, I think?  Not sure we want to translate it. :S
-      "raw" => "A discussion about <a href='#{pages_url(@page)}'>#{name}</a>."
+      # NOTE: we do NOT want to translate this. The comments site is English.
+      "raw" => "Please leave your comments regarding <a href='#{pages_url(@page)}'>#{name}</a> in this thread by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
     )
     client.show_tag("id:#{@page.id}")
     redirect_to "#{Comments.discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
