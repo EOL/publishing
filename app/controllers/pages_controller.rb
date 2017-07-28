@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   end
 
   def topics
-    client = connect_to_discourse
+    client = Comments.discourse
     @topics = client.latest_topics
     respond_to do |fmt|
       fmt.js { }
@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 
   def comments
     @page = Page.where(id: params[:page_id]).first
-    client = connect_to_discourse
+    client = Comments.discourse
     return nil unless client.respond_to?(:categories)
     # TODO: we should configure the name of this category:
     cat = client.categories.find { |c| c["name"] == "EOL Pages" }
@@ -44,7 +44,7 @@ class PagesController < ApplicationController
 
   def create_topic
     @page = Page.where(id: params[:page_id]).first
-    client = connect_to_discourse
+    client = Comments.discourse
     name = @page.name == @page.scientific_name ?
       "#{@page.scientific_name}" :
       "#{@page.scientific_name} (#{@page.name})"
@@ -228,20 +228,6 @@ class PagesController < ApplicationController
   end
 
 private
-
-  def connect_to_discourse
-    @discourse_url = Rails.application.secrets.discourse_url
-    return Rails.logger.error("Missing discourse_url") if @discourse_url.nil?
-    return Rails.logger.error("Missing discourse_url") if
-      Rails.application.secrets.discourse_key.nil?
-    return Rails.logger.error("Missing discourse_url") if
-      Rails.application.secrets.discourse_user.nil?
-    DiscourseApi::Client.new(
-      @discourse_url,
-      Rails.application.secrets.discourse_key,
-      Rails.application.secrets.discourse_user
-    )
-  end
 
   def set_media_page_size
     @media_page_size = 24

@@ -98,6 +98,14 @@ module EolSpecHelpers
         object_term: { uri: "http://te.rm/one", name: "Term URI" } },
       { predicate: { uri: "http://predic.ate/two", name: "Uri" },
         literal: "literal data value" } ]
+    key_data = {
+      { uri: "http://predic.ate/one", name: "Predicate One" } =>
+        { predicate: { uri: "http://predic.ate/one", name: "Predicate One" },
+          measurement: "657", units: { uri: "http://un.its/one",
+          name: "Units URI" }, resource_id: resource.id },
+      { uri: "http://predic.ate/two", name: "Uri" } =>
+        { predicate: { uri: "http://predic.ate/two", name: "Uri" },
+          literal: "literal data value" } }
     glossary = {
       "http://predic.ate/one" => { name: "Predicate One" },
       "http://predic.ate/two" => { name: "Predicate Two" },
@@ -129,6 +137,7 @@ module EolSpecHelpers
       scientific_name: sci_name.italicized,
       scientific_names: [sci_name],
       medium: media.first,
+      key_data: key_data,
       data: data,
       data_count: 3,
       vernaculars: [vernacular],

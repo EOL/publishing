@@ -37,16 +37,10 @@
         %h3.uk-heading-divider
           = t(:page_key_data_header)
         %dl.uk-description-list
-          - preds = {}
-          - @page.data.each do |trait|
-            - unless preds.keys.size >= 5
-              - predicate = @page.glossary[trait[:predicate][:uri]]
-              - next unless predicate
-              - unless preds.has_key?(predicate)
-                - preds[predicate] = true
-                %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                %dd
-                  - show_data_value(trait)
+          - @page.key_data.sort_by { |k, v| k[:name] }.each do |predicate, trait|
+            %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+            %dd
+              - show_data_value(trait)
   - if @page.medium
     .uk-width-3-5
       .uk-margin-remove-top.uk-text-center

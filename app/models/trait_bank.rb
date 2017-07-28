@@ -186,6 +186,21 @@ class TraitBank
       build_trait_array(res)
     end
 
+    def key_data(page_id)
+      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+        "RETURN trait, predicate, object_term, units "\
+        "ORDER BY predicate.position, LOWER(object_term.name), "\
+          "LOWER(trait.literal), trait.normal_measurement "\
+        "LIMIT 100"
+        # NOTE "Huge" limit, in case there are TONS of values for the same
+        # predicate.
+      res = query(q)
+      build_trait_array(res).group_by { |r| r[:predicate] }
+    end
+
     # NOTE the match clauses are hashes. Values represent the "where" clause.
     def empty_query
       { match: {}, optional: {}, with: [], return: [], order: [] }

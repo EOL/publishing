@@ -1,5 +1,4 @@
 %ul.uk-list.uk-list-divider
-- @topics[0..5].each do |topic|
+- @topics.select { |t| t["visible"] && ! t["archived"] }[0..5].each do |topic|
   %li
-    %strong= link_to((topic["fancy_title"] || topic["title"]).html_safe, "#{@discourse_url}/t/#{topic["id"]}", target: "_blank")
-    = topic["excerpt"].try(:html_safe)
+    %strong= link_to((topic["fancy_title"] || topic["title"]).html_safe, "#{@discourse_url}/t/#{topic["slug"]}/#{topic["id"]}", target: "_blank") = topic["excerpt"].try(:html_safe)

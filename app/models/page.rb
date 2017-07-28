@@ -267,6 +267,22 @@ class Page < ActiveRecord::Base
 
   # TRAITS METHODS
 
+  def key_data
+    return @key_data if @key_data
+    data = TraitBank.key_data(id)
+    key_data = {}
+    seen = {}
+    data.each do |predicate, traits|
+      next if seen[predicate[:name]]
+      seen[predicate[:name]] = true
+        # TODO: we probably want to show multiple values, here, or at least
+        # "pick wisely" somehow.
+        key_data[predicate] = traits.first
+      break if seen.size >= 5
+    end
+    key_data
+  end
+
   # NOTE: This page size is "huge" because we don't want pagination for data.
   # ...Mainly because it gets complicated quickly. Data rows can be in multiple
   # TOC items, and we want to be able to show all of the data in a single TOC
