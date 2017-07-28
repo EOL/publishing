@@ -31,7 +31,7 @@ class PagesController < ApplicationController
       if topic.nil?
         0
       else
-        @url = "#{@discourse_url}/t/#{topic["slug"]}/#{topic["id"]}"
+        @url = "#{Comments.discourse_url}/t/#{topic["slug"]}/#{topic["id"]}"
         topic["posts_count"]
       end
     rescue DiscourseApi::NotFoundError
@@ -68,7 +68,7 @@ class PagesController < ApplicationController
       "raw" => "A discussion about <a href='#{pages_url(@page)}'>#{name}</a>."
     )
     client.show_tag("id:#{@page.id}")
-    redirect_to "#{@discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
+    redirect_to "#{Comments.discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
   end
 
   def index
