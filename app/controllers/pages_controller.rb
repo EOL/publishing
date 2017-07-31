@@ -2,6 +2,8 @@ class PagesController < ApplicationController
 
   before_action :set_media_page_size, only: [:show, :media]
 
+  after_filter :no_cache_json
+
   helper :data
   helper_method :get_associations
 
@@ -228,6 +230,15 @@ class PagesController < ApplicationController
   end
 
 private
+
+  def no_cache_json
+    # Prevents the back button from returning raw JSON
+    if request.xhr?
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
+  end
 
   def set_media_page_size
     @media_page_size = 24

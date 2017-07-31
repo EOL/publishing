@@ -1,0 +1,3 @@
+UIkit.modal.alert('<%= j(t("collected_pages_medium.destroyed_flash")) %>');
+$("#<%= "cpm--#{@collected_pages_medium.collected_page_id}--#{@collected_pages_medium.medium_id}" %>").remove();
+// TODO: we also want to change the icon of the page itself, if needed, to the first collected page (if one exists), otherwise to the default icon. ...Basically, we'll want to pass in the "new" icon for the collected page, whatever that is, and update it here.

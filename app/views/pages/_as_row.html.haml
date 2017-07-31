@@ -2,7 +2,7 @@
 - result ||= page
 - common ||= page.try(:search_highlights).try(:[], :preferred_vernacular_strings) || page.name
 - scientific ||= page.try(:search_highlights).try(:[], :scientific_name) || page.scientific_name
-- show_delete = defined?(collected_page) ? policy(collected_page.collection).update? : nil
+- show_actions = defined?(collected_page) ? policy(collected_page.collection).update? : nil
 - has_query = defined?(@q) && ! @q.blank?
 - media = (defined?(media) && media && ! media.empty?) ? media.compact.delete_if { |m| m.medium_icon_url == icon }.uniq : []
 %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
@@ -34,9 +34,10 @@
             nil
           - else
             = page.page_richness / 100.0
-      - if show_delete
+      - if show_actions
         .uk-float-right.uk-margin
           = link_to(t("collected_pages.delete_button"), collected_page, method: "delete", data: { confirm: t("collected_pages.delete_confirm") }, class: "ui basic tiny button")
+          = link_to(t("collected_pages.edit_button"), edit_collected_page_path(collected_page), remote: true, data: { confirm: t("collected_pages.delete_confirm") }, class: "ui basic tiny button")
       .names.d-inline
         -# Because these can be JSON results, we can't link to the model
         -# directly: (e.g. link_to(:foo, page) <-- won't work)

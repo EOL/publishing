@@ -22,6 +22,14 @@ class CollectedPagesController < ApplicationController
     end
   end
 
+  def edit
+    # YOU WERE HERE... js-only response to load in the partial with JS...
+  end
+
+  def update
+    # YOU WERE HERE too
+  end
+
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
     is_new_page = @collected_page.new_record?

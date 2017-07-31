@@ -47,7 +47,7 @@ Rails.application.routes.draw do
     post "remove_user"
   end
   resources :collection_associations, only: [:new, :create, :destroy]
-  resources :collected_pages, only: [:new, :create, :destroy]
+  resources :collected_pages
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
   get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
   get "/terms" => "terms#show", :as => "term"
+
+  post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"

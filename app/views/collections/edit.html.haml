@@ -56,44 +56,9 @@
     %p= t(:collection_pages_empty)
   - else
     %h2= t(:collected_pages_title)
-    %table.collections
-      %tbody
-        - @pages.each do |collected_page|
-          - page = collected_page.page
-          %tr
-            %th.collection-table-image{ scope: "row" }
-              = link_to(image_tag(collected_page.icon), page)
-            %th{ scope: "row" }
-              .names.d-inline
-                - common = collected_page.name.titleize.html_safe
-                - scientific = collected_page.scientific_name_string.html_safe
-                - if common.blank?
-                  = link_to(scientific, page, class: "primary-name")
-                - else
-                  = link_to(common, page, class: "primary-name")
-                  %br/
-                  = link_to(scientific, page, class: "secondary-name")
-                %br/
-                = f.fields_for(:collected_pages, collected_page) do |cp_f|
-                  .d-inline
-                    = label_tag(:annotation, nil)
-                    %br/
-                    = cp_f.text_area(:annotation, cols: "80", rows: "6")
-                  - unless collected_page.media.empty?
-                    = t(:collection_collected_pages_media_remove)
-                    %br/
-                    %row.icons_12_wide.d-inline
-                      - collected_page.collected_pages_media.each do |cpm|
-                        - next unless cpm.medium
-                        .col-md-1
-                          = cp_f.fields_for(:collected_pages_media, cpm) do |cpm_f|
-                            = cpm_f.hidden_field(:medium_id, id: cpm.medium_id)
-                            = cpm_f.hidden_field(:collected_page_id, id: cpm.collected_page_id)
-                            = cpm_f.check_box :_destroy
-                            = image_tag(cpm.medium.small_icon_url, class: "img-responsive", size: "88x88")
-  - unless @collection.collection_associations.empty?
-    /# TODO
-    Ooops, collections-in-collections are not implemented
+    %ul.uk-list
+      - @pages.each do |collected_page|
+        = render("collected_pages/edit", collected_page: collected_page, form: f)
   %p.col-md-3.actions.col-md-offset-2
     = f.submit(class: "ui button")
   %p.col-md-3.actions
