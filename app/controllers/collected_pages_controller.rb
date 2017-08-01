@@ -9,6 +9,13 @@ class CollectedPagesController < ApplicationController
     end
   end
 
+  def show
+    @collected_page = CollectedPage.find(params[:id])
+    respond_to do |fmt|
+      fmt.js {}
+    end
+  end
+
   def new
     @collected_page = CollectedPage.new(new_page_params)
     @page = @collected_page.page
@@ -23,19 +30,42 @@ class CollectedPagesController < ApplicationController
   end
 
   def edit
-    # YOU WERE HERE... js-only response to load in the partial with JS...
+    @collected_page = CollectedPage.find(params[:id])
+    respond_to do |fmt|
+      fmt.js {}
+    end
   end
 
   def update
-    # YOU WERE HERE too
+    @collected_page = CollectedPage.find(params[:id])
+    @collected_page.update_attributes(collected_page_params)
+    respond_to do |fmt|
+      fmt.js {}
+    end
   end
 
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
     is_new_page = @collected_page.new_record?
-    if @collected_page.update(collected_page_params)
-      has_media = params["collected_page"] &&
-        params["collected_page"].has_key?("collected_pages_media_attributes")
+    has_media = params["collected_page"].has_key?("collected_pages_media_attributes") &&
+      params["collected_page"]["collected_pages_media_attributes"].has_key?("0")
+    @media_exists =
+      if has_media
+        if @collected_page
+          CollectedPagesMedium.where(
+            collected_page_id: @collected_page.id,
+            medium_id: params["collected_page"]["collected_pages_media_attributes"]["0"]["medium_id"]).count > 0
+        end
+      end
+    if @media_exists
+      respond_to do |fmt|
+        fmt.html do
+          flash[:notice] = I18n.t(:collected_page_already_in_collection).html_safe
+          return redirect_to page_media_path(@collected_page.page)
+        end
+        fmt.js { }
+      end
+    elsif @collected_page.update(collected_page_params)
       if is_new_page
         Collecting.create(user: current_user, action: "add",
           collection: @collected_page.collection, page: @collected_page.page)
@@ -79,7 +109,7 @@ class CollectedPagesController < ApplicationController
 private
 
   def collected_page_params
-    params.require(:collected_page).permit(:collection_id, :page_id, collected_pages_media_attributes: [:medium_id])
+    params.require(:collected_page).permit(:collection_id, :page_id, :annotation, collected_pages_media_attributes: [:medium_id])
   end
 
   def existing_collected_page_params

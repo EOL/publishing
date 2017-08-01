@@ -1,0 +1,2 @@
+console.log("collected page row update: #page_row_<%= @collected_page.id %>");
+$("#page_row_<%= @collected_page.id %>").html("<%= j(render("pages/as_row", annotation: @collected_page.annotation, icon: @collected_page.icon, media: @collected_page.media, common: @collected_page.name, collected_page: @collected_page, scientific: @collected_page.scientific_name_string)) %>");

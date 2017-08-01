@@ -1,4 +1,6 @@
-console.log("I was here");
-$("#collect_dialog .collect_form").html("<%= j(render("new")) %>");
-UIkit.modal("#collect_dialog").show();
-console.log("I finished here");
+<% if @media_exists %>
+  UIkit.modal.alert('<%= j(t("collected_page_already_in_collection")) %>');
+<% else %>
+  $("#collect_dialog .collect_form").html("<%= j(render("new")) %>");
+  UIkit.modal("#collect_dialog").show();
+<% end %>

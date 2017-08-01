@@ -29,21 +29,26 @@
         - else
           .uk-text-large= link_to(common, page, class: "primary-name")
           .uk-text-muted= link_to(scientific, page, class: "secondary-name")
-        = form.fields_for(:collected_pages, collected_page) do |cp_f|
+        - if form.object_name == "collected_page"
           .d-inline
             = label_tag(:annotation, nil)
             %br/
-            = cp_f.text_area(:annotation, cols: "80", rows: "6")
-          - unless collected_page.media.empty?
-            = t(:collection_collected_pages_media_remove)
-            %br/
-            %ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
-              - collected_page.collected_pages_media.each do |cpm|
-                - next unless cpm.medium
-                %div{ id: "cpm--#{collected_page.id}--#{cpm.medium.id}" }
-                  -# = cp_f.fields_for(:collected_pages_media, cpm) do |cpm_f|
-                  -#   = cpm_f.hidden_field(:medium_id, id: cpm.medium_id)
-                  -#   = cpm_f.hidden_field(:collected_page_id, id: cpm.collected_page_id)
-                  -#   = cpm_f.check_box :_destroy
-                  = link_to("<i class='ui icon window close'></i>".html_safe, destroy_collected_pages_medium_path(collected_page_id: collected_page.id, medium_id: cpm.medium.id), method: "post", remote: true, data: { confirm: t("collected_pages.delete_confirm") })
-                  = image_tag(cpm.medium.small_icon_url, class: "img-responsive", size: "88x88")
+            = form.text_area(:annotation, cols: "80", rows: "6")
+        - else
+          = form.fields_for(:collected_pages, collected_page) do |cp_f|
+            .d-inline
+              = label_tag(:annotation, nil)
+              %br/
+              = cp_f.text_area(:annotation, cols: "80", rows: "6")
+        - unless collected_page.media.empty?
+          = t(:collection_collected_pages_media_remove)
+          %br/
+          %ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
+            - collected_page.collected_pages_media.each do |cpm|
+              - next unless cpm.medium
+              %div{ id: "cpm--#{collected_page.id}--#{cpm.medium.id}" }
+                = link_to("<i class='ui icon window close'></i>".html_safe, destroy_collected_pages_medium_path(collected_page_id: collected_page.id, medium_id: cpm.medium.id), method: "post", remote: true, data: { confirm: t("collected_pages.delete_confirm") })
+                = image_tag(cpm.medium.small_icon_url, class: "img-responsive", size: "88x88")
+      .uk-width-small.actions
+        = form.submit(class: "ui button")
+        = link_to t(:cancel), collected_page_path(collected_page), remote: true, class: "ui basic button"

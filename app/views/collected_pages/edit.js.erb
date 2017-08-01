@@ -1,0 +1,2 @@
+console.log("collected page row edit: #page_row_<%= @collected_page.id %>");
+$("#page_row_<%= @collected_page.id %>").html("<%= j(render("row_edit")) %>");

@@ -65,6 +65,7 @@ en:
   collect_select_collection: "…One of Your Collections"
   collect_title: "Add \"%{item}\" to…"
   collected_page_added_to_collection: "Added %{page} to collection <a href='%{link}'>%{name}</a>."
+  collected_page_already_in_collection: "That was already in your collection."
   collected_pages_title: "Pages"
   collected_pages_medium:
     destroyed_flash: "Image removed from collected page."
@@ -182,6 +183,8 @@ en:
         collection_type: "display"
         default_sort: "default sort"
     submit:
+      collected_page:
+        update: "save changes"
       collection:
         update: "save changes"
       user:
