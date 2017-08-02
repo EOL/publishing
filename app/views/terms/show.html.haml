@@ -71,7 +71,7 @@
             = t("term.show.object_filter.label")
           %div
             = text_field_tag("and_object", nil,
-              placeholder: @and_object ? @and_object[:uri] : t("term.show.object_filter.placeholder"),
+              placeholder: @and_object ? @and_object[:name] : t("term.show.object_filter.placeholder"),
               remote: true, class: "uk-input uk-form-width-medium typeahead")
           %div
             = submit_tag(t("filter"), class: "ui basic button")
