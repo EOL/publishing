@@ -236,6 +236,7 @@ if(!EOL) {
       limit: 10
     });
     EOL.searchUsers.initialize();
+
     // Aaaaand this...
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -245,6 +246,16 @@ if(!EOL) {
     });
     EOL.searchPredicates.clearPrefetchCache();
     EOL.searchPredicates.initialize();
+
+    // And this!
+    EOL.searchObjectTerms = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: '/terms/object_term_glossary.json?simple=1&per_page=1999',
+      limit: 10
+    });
+    EOL.searchObjectTerms.clearPrefetchCache();
+    EOL.searchObjectTerms.initialize();
 
     if ($('#nav-search .typeahead').length >= 1) {
       console.log("Enable navigation typeahead.");
@@ -308,6 +319,20 @@ if(!EOL) {
         console.log('typeahead:selected:', evt, datum, name);
         $(".predicate_filter form input#and_predicate").val(datum.uri);
         $(".predicate_filter form").submit();
+      });
+    };
+
+    if ($('.object_filter .typeahead').length >= 1) {
+      console.log("Enable object typeahead.");
+      $('.object_filter .typeahead').typeahead(null, {
+        name: 'find-object-terms',
+        display: 'object-terms',
+        source: EOL.searchObjectTerms,
+        display: "name",
+      }).bind('typeahead:selected', function(evt, datum, name) {
+        console.log('typeahead:selected:', evt, datum, name);
+        $(".object_filter form input#and_object").val(datum.uri);
+        $(".object_filter form").submit();
       });
     };
 
