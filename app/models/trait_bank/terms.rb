@@ -28,10 +28,15 @@ class TraitBank
         end
       end
 
-      def sub_glossary(type, page = 1, per = nil, count = nil)
+      def sub_glossary(type, page = 1, per = nil, options = {})
+        count = options[:count]
+        simple = options[:simple]
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
-        Rails.cache.fetch("trait_bank/#{type}_glossary/#{count ? :count : page}", expires_in: 1.day) do
+        key = "trait_bank/#{type}_glossary/"\
+          "#{count ? :count : "#{page}/#{per}"}/#{simple ? :simple : :full}"
+        Rails.logger.info("KK TraitBank key: #{key}")
+        Rails.cache.fetch(key, expires_in: 1.day) do
           q = "MATCH (term:Term { is_hidden_from_glossary: false })<-[:#{type}]-(n) "
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
@@ -44,7 +49,9 @@ class TraitBank
             if count
               res["data"].first.first
             else
-              res["data"].map { |t| t.first["data"].symbolize_keys }
+              all = res["data"].map { |t| t.first["data"].symbolize_keys }
+              all.map! { |h| { name: h[:name], uri: h[:uri] } } if simple
+              all
             end
           else
             false
@@ -52,28 +59,28 @@ class TraitBank
         end
       end
 
-      def predicate_glossary(page = nil, per = nil)
-        sub_glossary("predicate", page, per)
+      def predicate_glossary(page = nil, per = nil, simple = nil)
+        sub_glossary("predicate", page, per, simple: simple)
       end
 
-      def object_term_glossary(page = nil, per = nil)
-        sub_glossary("object_term", page, per)
+      def object_term_glossary(page = nil, per = nil, simple = nil)
+        sub_glossary("object_term", page, per, simple: simple)
       end
 
-      def units_glossary(page = nil, per = nil)
-        sub_glossary("units_term", page, per)
+      def units_glossary(page = nil, per = nil, simple = nil)
+        sub_glossary("units_term", page, per, simple: simple)
       end
 
       def predicate_glossary_count
-        sub_glossary("predicate", nil, nil, true)
+        sub_glossary("predicate", nil, nil, count: true)
       end
 
       def object_term_glossary_count
-        sub_glossary("object_term", nil, nil, true)
+        sub_glossary("object_term", nil, nil, count: true)
       end
 
       def units_glossary_count
-        sub_glossary("units_term", nil, nil, true)
+        sub_glossary("units_term", nil, nil, count: true)
       end
 
       # NOTE: I removed the units from this query after ea27411f8110b74 (q.v.)

@@ -90,7 +90,7 @@
             = t("term.show.predicate_filter.label")
           %div
             = text_field_tag("and_predicate", nil,
-              placeholder: @and_predicate ? @and_predicate[:uri] : t("term.show.predicate_filter.placeholder"),
+              placeholder: @and_predicate ? @and_predicate[:name] : t("term.show.predicate_filter.placeholder"),
               remote: true, class: "uk-input uk-form-width-medium typeahead")
           %div
             = submit_tag(t("filter"), class: "ui basic button")

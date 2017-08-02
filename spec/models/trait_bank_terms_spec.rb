@@ -57,7 +57,7 @@ RSpec.describe TraitBank::Terms do
         with( /COUNT\(DISTINCT\(term.uri\)\)/i ) {
         { "data" => [[:this]] }
       }
-      expect(TraitBank::Terms.sub_glossary(:which, 1, 1, true)).to eq(:this)
+      expect(TraitBank::Terms.sub_glossary(:which, 1, 1, count: true)).to eq(:this)
     end
   end
 end

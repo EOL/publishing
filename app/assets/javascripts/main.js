@@ -156,7 +156,7 @@ if(!EOL) {
   };
 
   EOL.ready = function() {
-    console.log("READY");
+    console.log("READY.");
     if ($(".eol-flash").length === 1) {
       var flash = $(".eol-flash");
       UIkit.notification({
@@ -236,6 +236,15 @@ if(!EOL) {
       limit: 10
     });
     EOL.searchUsers.initialize();
+    // Aaaaand this...
+    EOL.searchPredicates = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      prefetch: '/terms/predicate_glossary.json?simple=1&per_page=1999',
+      limit: 10
+    });
+    EOL.searchPredicates.clearPrefetchCache();
+    EOL.searchPredicates.initialize();
 
     if ($('#nav-search .typeahead').length >= 1) {
       console.log("Enable navigation typeahead.");
@@ -288,6 +297,20 @@ if(!EOL) {
       });
     };
 
+    if ($('.predicate_filter .typeahead').length >= 1) {
+      console.log("Enable predicate typeahead.");
+      $('.predicate_filter .typeahead').typeahead(null, {
+        name: 'find-predicates',
+        display: 'predicates',
+        source: EOL.searchPredicates,
+        display: "name",
+      }).bind('typeahead:selected', function(evt, datum, name) {
+        console.log('typeahead:selected:', evt, datum, name);
+        $(".predicate_filter form input#and_predicate").val(datum.uri);
+        $(".predicate_filter form").submit();
+      });
+    };
+
     // Clean up duplicate search icons, argh:
     if ($(".uk-search-icon > svg:nth-of-type(2)").length >= 1) {
       $(".uk-search-icon > svg:nth-of-type(2)");
@@ -295,5 +318,4 @@ if(!EOL) {
   };
 }
 
-console.log("Are you ...");
 $(document).on("ready page:load page:change", EOL.ready);

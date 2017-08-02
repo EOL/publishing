@@ -56,23 +56,6 @@ class TermsController < ApplicationController
     end
   end
 
-  def glossary
-    @per_page = Rails.configuration.data_glossary_page_size
-    @page = params[:page] || 1
-    @count = TraitBank::Terms.count
-    if params[:reindex] && is_admin?
-      TraitBank::Admin.clear_caches
-      @count = TraitBank::Terms.count # May as well re-load this value!
-      lim = (@count / @per_page.to_f).ceil
-      (0..lim).each do |index|
-        expire_fragment("term/glossary/#{index}")
-      end
-    end
-    @glossary = Kaminari.paginate_array(
-        TraitBank::Terms.full_glossary(@page, @per_page), total_count: @count
-      ).page(@page).per(@per_page)
-  end
-
   def predicate_glossary
     @count = TraitBank::Terms.predicate_glossary_count
     glossary
@@ -116,8 +99,9 @@ private
   end
 
   def glossary
-    @per_page = Rails.configuration.data_glossary_page_size
+    @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
+    simple = params[:simple]
     if params[:reindex] && is_admin?
       TraitBank::Admin.clear_caches
       lim = (@count / @per_page.to_f).ceil
@@ -125,9 +109,13 @@ private
         expire_fragment("term/glossary/#{index}")
       end
     end
-    @glossary = Kaminari.paginate_array(
-        TraitBank::Terms.send(params[:action], @page, @per_page), total_count: @count
-      ).page(@page).per(@per_page)
+    @glossary = TraitBank::Terms.send(params[:action], @page, @per_page, simple)
+    @glossary = Kaminari.paginate_array(@glossary, total_count: @count).
+      page(@page).per(@per_page) unless simple
+    respond_to do |fmt|
+      fmt.html {}
+      fmt.json { render json: @glossary }
+    end
   end
 
   def get_associations
