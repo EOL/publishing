@@ -41,7 +41,10 @@ class TermsController < ApplicationController
           includes(:medium, :native_node, :preferred_vernaculars)
         # Make a dictionary of pages:
         @pages = {}
-        ids.each { |id| @pages[id] = pages.find { |p| p.id == id } }
+        ids.each do |id|
+          page = pages.find { |p| p.id == id }
+          @pages[id] = page if page
+        end
         # Make a glossary:
         @resources = TraitBank.resources(data)
         paginate_data(data)

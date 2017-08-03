@@ -23,8 +23,9 @@ class TraitBank
   #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
-  # * Term: { *uri, *name, *section_ids(csv), definition, comment, attribution,
-  #       is_hidden_from_overview, is_hidden_from_glossary, position, type }
+  # * Term: include_with(Term) { *uri, *name, *section_ids(csv), definition, comment,
+  #     attribution, is_hidden_from_overview, is_hidden_from_glossary, position,
+  #     type }
   #
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
   #   or "metadata" ... at the time of this writing. I may rename "metadata" to
@@ -277,29 +278,32 @@ class TraitBank
         if uri = options[:predicate]
           if uri.is_a?(Array)
             wheres += uri.map do |this_uri|
-              "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{this_uri}\" })"
+              "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{this_uri}\" }) "\
+                "OR (page)-[:trait]->(:Trait)-[:predicate]->(:Term)-[:include_with]->(:Term { uri: \"#{this_uri}\" })"
             end
           end
         end
         q[:match] = { main_match => wheres }
         wheres = [] # new set
-        trait_to_predicate = "(trait)-[:predicate]->(predicate:Term"
         if uri = options[:predicate]
           if uri.is_a?(Array)
             wheres << "predicate.uri IN [ \"#{uri.join("\", \"")}\" ]"
             q[:order] << "page.name" unless q[:count]
           else
-            trait_to_predicate += " { uri: \"#{uri}\" }"
+            wheres << "predicate.uri = \"#{uri}\""
           end
         end
-        trait_to_predicate += ")"
-        q[:match][trait_to_predicate] = wheres
+        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = wheres
         if uri = options[:object_term]
           if uri.is_a?(Array)
-            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] =
-              "info_term.uri IN [ \"#{uri.join("\", \"")}\" ]"
+            where = "info_term.uri IN [ \"#{uri.join("\", \"")}\" ] "
+            uri.each do |this_uri|
+              where += "OR (info_term)-[:include_with]->(:Term { uri: \"#{uri.join("\", \"")}\" }) "
+            end
+            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] = where
           else
-            q[:match]["(trait)-[info:object_term]->(info_term:Term { uri: \"#{uri}\" })"] = nil
+            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] =
+              "info_term.uri = \"#{uri}\" OR (info_term)-[:include_with]->(:Term { uri: \"#{uri} })"
           end
         else
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
