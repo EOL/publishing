@@ -244,7 +244,6 @@ if(!EOL) {
       prefetch: '/terms/predicate_glossary.json?simple=1&per_page=1999',
       limit: 10
     });
-    EOL.searchPredicates.clearPrefetchCache();
     EOL.searchPredicates.initialize();
 
     // And this!
@@ -254,7 +253,6 @@ if(!EOL) {
       prefetch: '/terms/object_term_glossary.json?simple=1&per_page=1999',
       limit: 10
     });
-    EOL.searchObjectTerms.clearPrefetchCache();
     EOL.searchObjectTerms.initialize();
 
     if ($('#nav-search .typeahead').length >= 1) {
