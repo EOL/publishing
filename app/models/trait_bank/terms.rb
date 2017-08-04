@@ -37,7 +37,9 @@ class TraitBank
           "#{count ? :count : "#{page}/#{per}"}/#{simple ? :simple : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
         Rails.cache.fetch(key, expires_in: 1.day) do
-          q = "MATCH (term:Term { is_hidden_from_glossary: false })<-[:#{type}]-(n) "
+          q = "MATCH (term:Term"
+          q += " { is_hidden_from_glossary: false }" unless simple
+          q += ")<-[:#{type}]-(n) "
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else

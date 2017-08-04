@@ -176,10 +176,10 @@ if(!EOL) {
       });
     }
 
-    if ($("#page_topics").length === 1) {
+    if ($(".page_topics").length >= 1) {
       console.log("Fetching page comments...");
       $.ajax({
-        url: "/pages/"+$("#page_topics").data("id")+"/comments.js",
+        url: "/pages/"+$($(".page_topics")[0]).data("id")+"/comments.js",
         cache: false
       });
     }

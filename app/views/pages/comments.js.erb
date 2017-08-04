@@ -1,3 +1,1 @@
-console.log("I made it here.");
-$("#page_topics").html("<%= j(render("comments")) %>");
-console.log("<%= j(render("comments")) %>");
+$.each($(".page_topics"), function() { $(this).html("<%= j(render("comments")) %>"); });

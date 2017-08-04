@@ -50,7 +50,7 @@ gem 'acts_as_list', '~> 0.7.6'
 # Nested set for Node:
 gem 'awesome_nested_set', '~> 3.0.0'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 0.1.33'
+gem 'counter_culture', '~> 1.7'
 # Memcached (not for development):
 gem "dalli"
 # Devise handles authentication and some authorization:

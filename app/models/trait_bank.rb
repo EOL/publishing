@@ -303,7 +303,7 @@ class TraitBank
             q[:match]["(trait)-[info:object_term]->(info_term:Term)"] = where
           else
             q[:match]["(trait)-[info:object_term]->(info_term:Term)"] =
-              "info_term.uri = \"#{uri}\" OR (info_term)-[:include_with]->(:Term { uri: \"#{uri} })"
+              "info_term.uri = \"#{uri}\" OR (info_term)-[:include_with]->(:Term { uri: \"#{uri}\" })"
           end
         else
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil

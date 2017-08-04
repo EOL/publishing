@@ -12,6 +12,8 @@ class CollectedPage < ActiveRecord::Base
 
   accepts_nested_attributes_for :collected_pages_media, allow_destroy: true
 
+  counter_culture :collection
+
   # NOTE: not indexed if the page is missing!
   # searchable if: :page do
   #   integer :collection_id, stored: true
