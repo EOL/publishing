@@ -255,12 +255,12 @@ RSpec.describe TraitBank do
     end
 
     it "can look up object terms" do
-      expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}"/i)
+      expect(TraitBank).to receive(:query).with(/where \w+\.uri = "#{uri}"/i)
       TraitBank.by_object_term_uri(uri)
     end
 
     it "can count object terms" do
-      expect(TraitBank).to receive(:query).with(/:object_term.*Term { uri: "#{uri}".*count\(distinct\(trait\)\)/i) { { "data" => [[]] } }
+      expect(TraitBank).to receive(:query).with(/where \w+\.uri = "#{uri}"/i) { { "data" => [[]] } }
       TraitBank.by_object_term_count(uri)
     end
 
@@ -283,7 +283,7 @@ RSpec.describe TraitBank do
     end
 
     it "finds a quoted URI" do
-      expect(TraitBank).to receive(:query).with(/Term { uri: *\"#{term_uri}\" *}/)
+      expect(TraitBank).to receive(:query).with(/Term[^M]+WHERE predicate.uri = \"#{term_uri}\"/)
       TraitBank.by_predicate(term_uri)
     end
 
