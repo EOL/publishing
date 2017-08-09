@@ -270,7 +270,7 @@ RSpec.describe TraitBank do
     end
 
     it "can add clade" do
-      expect(TraitBank).to receive(:query).with(/where page.page_id = 123432 or ancestor.page_id = 123432/i)
+      expect(TraitBank).to receive(:query).with(/ancestor:Page { page_id: 123432/i)
       TraitBank.by_predicate(uri, clade: 123432)
     end
   end
@@ -283,7 +283,7 @@ RSpec.describe TraitBank do
     end
 
     it "finds a quoted URI" do
-      expect(TraitBank).to receive(:query).with(/Term[^M]+WHERE predicate.uri = \"#{term_uri}\"/)
+      expect(TraitBank).to receive(:query).with(/Term[^M]+WHERE \w+.uri = \"#{term_uri}\"/)
       TraitBank.by_predicate(term_uri)
     end
 

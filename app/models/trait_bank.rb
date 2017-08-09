@@ -23,7 +23,7 @@ class TraitBank
   #       normal_units }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
-  # * Term: include_with(Term) { *uri, *name, *section_ids(csv), definition, comment,
+  # * Term: child_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
   #     attribution, is_hidden_from_overview, is_hidden_from_glossary, position,
   #     type }
   #
@@ -64,8 +64,8 @@ class TraitBank
         sleep(1)
         connection.execute_query(q)
       ensure
-        q.gsub!(/ ([A-Z ]+)/, "\n  \\1") if q.size > 80 && q != /\n/
-        Rails.logger.warn("  TB TraitBank (#{stop ? stop - start : "F"}): #{q}")
+        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q != /\n/
+        Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
     end
@@ -253,58 +253,51 @@ class TraitBank
         wheres << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
       end
       if options[:page_list]
-        if uris = options[:predicate]
+        if uris = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
           wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{uri}\" })"
+            "(page)-[:trait]->(:Trait)-[:predicate|child_term*0..2]->(:Term { uri: \"#{uri}\" })"
           end
         end
-        q[:match] = { "(page:Page)" => wheres }
         # NOTE: if you want a page list specifying BOTH predicates AND objects,
         # you are not going to get what you expect; the pages that match could
         # have ANY predicate with the object terms specified; it only needs to
         # have ALL of the object terms specified (somewhere). It's a tricky
         # query. ...I think the results will be "close enough" to manage in a
         # download.
-        if uris = options[:object_term]
+        if uris = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
           wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:object_term]->(:Term { uri: \"#{uri}\" })"
+            "(page)-[:trait]->(:Trait)-[:object_term|child_term*0..2]->(:Term { uri: \"#{uri}\" })"
           end
         end
+        q[:match] = { "(page:Page)" => wheres }
       else # NOT A PAGE_LIST:
-        main_match = options[:clade] ?
-          "(ancestor:Page { page_id: #{options[:clade]} })<-[:in_clade*]-(page:Page)" :
-          "(page:Page)"
-        main_match += "-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
-        if uri = options[:predicate]
-          if uri.is_a?(Array)
-            wheres += uri.map do |this_uri|
-              "(page)-[:trait]->(:Trait)-[:predicate]->(:Term { uri: \"#{this_uri}\" }) "\
-                "OR (page)-[:trait]->(:Trait)-[:predicate]->(:Term)-[:include_with]->(:Term { uri: \"#{this_uri}\" })"
-            end
-          end
+        main_match = "(page:Page)-[:trait]->(trait:Trait)"\
+          "-[:supplier]->(resource:Resource)"
+        if options[:clade]
+          main_match = "(ancestor:Page { page_id: #{options[:clade]} })"\
+            "<-[:in_clade*]-#{main_match}"
         end
-        q[:match] = { main_match => wheres }
-        wheres = [] # new set
-        if uri = options[:predicate]
-          if uri.is_a?(Array)
-            wheres << "predicate.uri IN [ \"#{uri.join("\", \"")}\" ]"
-            q[:order] << "page.name" unless q[:count]
-          else
-            wheres << "predicate.uri = \"#{uri}\""
-          end
+        q[:match][main_match] = []
+        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = []
+        q[:match]["(trait)-[info:object_term]->(info_term:Term)"] = []
+        if uri = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
+          wheres =  if uri.is_a?(Array)
+                      q[:order] << "page.name" unless q[:count]
+                      "p_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
+                    else
+                      "p_match.uri = \"#{uri}\""
+                    end
+          q[:match]["(trait)-[:predicate|child_term*0..2]->(p_match:Term)"] =
+            wheres
         end
-        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = wheres
-        if uri = options[:object_term]
-          if uri.is_a?(Array)
-            where = "info_term.uri IN [ \"#{uri.join("\", \"")}\" ] "
-            uri.each do |this_uri|
-              where += "OR (info_term)-[:include_with]->(:Term { uri: \"#{uri.join("\", \"")}\" }) "
-            end
-            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] = where
-          else
-            q[:match]["(trait)-[info:object_term]->(info_term:Term)"] =
-              "info_term.uri = \"#{uri}\" OR (info_term)-[:include_with]->(:Term { uri: \"#{uri}\" })"
-          end
+        if uri = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
+          wheres =  if uri.is_a?(Array)
+                      "o_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
+                    else
+                      "o_match.uri = \"#{uri}\""
+                    end
+          q[:match]["(trait)-[:object_term|child_term*0..2]->(o_match:Term)"] =
+            wheres
         else
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
         end
