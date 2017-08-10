@@ -27,7 +27,6 @@ gem 'uglifier', '>= 1.3.0'
 # RefineryCMS
 gem 'refinerycms'
 gem 'refinerycms-wymeditor'
-gem 'refinerycms-ckeditor'
 gem 'refinerycms-i18n'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

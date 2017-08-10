@@ -308,7 +308,6 @@ GEM
       refinerycms-images (= 3.0.5)
       refinerycms-pages (= 3.0.5)
       refinerycms-resources (= 3.0.5)
-    refinerycms-ckeditor (0.2.0)
     refinerycms-core (3.0.5)
       actionpack (>= 4.2.3, < 5.0)
       activerecord (>= 4.2.3, < 5.0)
@@ -487,7 +486,6 @@ DEPENDENCIES
   rails (= 4.2.7.1)
   recaptcha
   refinerycms
-  refinerycms-ckeditor
   refinerycms-i18n
   refinerycms-wymeditor
   rspec-rails
