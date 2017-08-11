@@ -255,7 +255,7 @@ class TraitBank
       if options[:page_list]
         if uris = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
           wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:predicate|parent_term*0..2]->(:Term { uri: \"#{uri}\" })"
+            "(page)-[:trait]->(:Trait)-[:predicate|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
           end
         end
         # NOTE: if you want a page list specifying BOTH predicates AND objects,
@@ -266,7 +266,7 @@ class TraitBank
         # download.
         if uris = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
           wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:object_term|parent_term*0..2]->(:Term { uri: \"#{uri}\" })"
+            "(page)-[:trait]->(:Trait)-[:object_term|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
           end
         end
         q[:match] = { "(page:Page)" => wheres }
@@ -287,7 +287,7 @@ class TraitBank
                     else
                       "p_match.uri = \"#{uri}\""
                     end
-          q[:match]["(trait)-[:predicate|parent_term*0..2]->(p_match:Term)"] =
+          q[:match]["(trait)-[:predicate|parent_term*0..3]->(p_match:Term)"] =
             wheres
         end
         if uri = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
@@ -296,7 +296,7 @@ class TraitBank
                     else
                       "o_match.uri = \"#{uri}\""
                     end
-          q[:match]["(trait)-[:object_term|parent_term*0..2]->(o_match:Term)"] =
+          q[:match]["(trait)-[:object_term|parent_term*0..3]->(o_match:Term)"] =
             wheres
         else
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil

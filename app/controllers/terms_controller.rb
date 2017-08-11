@@ -104,7 +104,8 @@ private
   def glossary
     @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
-    simple = params[:simple]
+    query = params[:query]
+    @per_page = 10 if query
     if params[:reindex] && is_admin?
       TraitBank::Admin.clear_caches
       lim = (@count / @per_page.to_f).ceil
@@ -112,9 +113,9 @@ private
         expire_fragment("term/glossary/#{index}")
       end
     end
-    @glossary = TraitBank::Terms.send(params[:action], @page, @per_page, simple)
+    @glossary = TraitBank::Terms.send(params[:action], @page, @per_page, query)
     @glossary = Kaminari.paginate_array(@glossary, total_count: @count).
-      page(@page).per(@per_page) unless simple
+      page(@page).per(@per_page)
     respond_to do |fmt|
       fmt.html {}
       fmt.json { render json: @glossary }

@@ -241,7 +241,10 @@ if(!EOL) {
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: '/terms/predicate_glossary.json?simple=1&per_page=1999',
+      remote: {
+        url: '/terms/predicate_glossary.json?query=%QUERY',
+        wildcard: '%QUERY'
+      },
       limit: 10
     });
     EOL.searchPredicates.initialize();
@@ -250,7 +253,10 @@ if(!EOL) {
     EOL.searchObjectTerms = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: '/terms/object_term_glossary.json?simple=1&per_page=1999',
+      remote: {
+        url: '/terms/object_term_glossary.json?query=%QUERY',
+        wildcard: '%QUERY'
+      },
       limit: 10
     });
     EOL.searchObjectTerms.initialize();

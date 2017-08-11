@@ -30,16 +30,17 @@ class TraitBank
 
       def sub_glossary(type, page = 1, per = nil, options = {})
         count = options[:count]
-        simple = options[:simple]
+        qterm = options[:qterm]
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
         key = "trait_bank/#{type}_glossary/"\
-          "#{count ? :count : "#{page}/#{per}"}/#{simple ? :simple : :full}"
+          "#{count ? :count : "#{page}/#{per}"}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
         Rails.cache.fetch(key, expires_in: 1.day) do
           q = "MATCH (term:Term"
-          q += " { is_hidden_from_glossary: false }" unless simple
+          q += " { is_hidden_from_glossary: false }" unless qterm
           q += ")<-[:#{type}]-(n) "
+          q += "WHERE LOWER(term.name) STARTS WITH \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -52,7 +53,7 @@ class TraitBank
               res["data"].first.first
             else
               all = res["data"].map { |t| t.first["data"].symbolize_keys }
-              all.map! { |h| { name: h[:name], uri: h[:uri] } } if simple
+              all.map! { |h| { name: h[:name], uri: h[:uri] } } if qterm
               all
             end
           else
@@ -61,16 +62,16 @@ class TraitBank
         end
       end
 
-      def predicate_glossary(page = nil, per = nil, simple = nil)
-        sub_glossary("predicate", page, per, simple: simple)
+      def predicate_glossary(page = nil, per = nil, qterm = nil)
+        sub_glossary("predicate", page, per, qterm: qterm)
       end
 
-      def object_term_glossary(page = nil, per = nil, simple = nil)
-        sub_glossary("object_term", page, per, simple: simple)
+      def object_term_glossary(page = nil, per = nil, qterm = nil)
+        sub_glossary("object_term", page, per, qterm: qterm)
       end
 
-      def units_glossary(page = nil, per = nil, simple = nil)
-        sub_glossary("units_term", page, per, simple: simple)
+      def units_glossary(page = nil, per = nil, qterm = nil)
+        sub_glossary("units_term", page, per, qterm: qterm)
       end
 
       def predicate_glossary_count
