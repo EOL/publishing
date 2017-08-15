@@ -1,6 +1,6 @@
 %body
   = render("layouts/flash")
-  .landing_page
+  .landing_page{ class: "uk-visible@m" }
     .uk-container
       .uk-section
         = image_tag("large_logo.png")
@@ -10,13 +10,13 @@
           = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
             = text_field_tag("q", nil, placeholder: t("landing_page.search_placeholder"), class: "uk-search-input typeahead")
             %a.uk-search-icon-flip{ uk: { search: { icon: true } } }
-  .uk-container
-    .uk-section
-      %ul#page_nav.uk-grid.uk-child-width-expand{ uk: { grid: true } }
+  .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
+    .uk-section.uk-padding-remove-top
+      %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
-    .uk-section.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+    .uk-section.uk-grid{ uk: { grid: true } }
       %div
         %h3= t("landing_page.topics")
         #topics
@@ -29,3 +29,26 @@
           = link_to(t("landing_page.cms"), "/docs/cms/pages")
         .ui.basic.button
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
+  .uk-container{ class: "uk-hidden@m" }
+    %ul.uk-text-center{ uk: { accordion: true } }
+      %li.uk-open
+        %h3.uk-accordion-title
+          = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "ui tiny image eol-padding-tiny")
+          %br
+          .uk-text-small= "Global access to information about life on earth"
+        .uk-accordion-content
+          %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+            -# TODO - this should be all of the collections IN collection 1...
+            - Collection.all.limit(6).each do |collection|
+              %li
+                %a.uk-inline{ href: collection_path(collection) }
+                  = image_tag("medium/collection.png")
+                  .uk-overlay.uk-padding-small.uk-position-bottom.uk-text-small= collection.name
+      %li
+        %h3.uk-accordion-title
+          About EOL / Get Involved
+        .uk-accordion-content
+          I don't know what we want here, yet.
+      %li
+        %h3.uk-accordion-title
+          = link_to("Eduction", "http://education.eol.org")
