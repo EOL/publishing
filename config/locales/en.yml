@@ -195,6 +195,9 @@ en:
   landing_page:
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
+    heads:
+      about_eol: "About EOL / Get Involved"
+      featured_links: "Featured Links"
     reindex: "reindex"
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"

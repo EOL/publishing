@@ -30,25 +30,26 @@
         .ui.basic.button
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
   .uk-container{ class: "uk-hidden@m" }
-    %ul.uk-text-center{ uk: { accordion: true } }
-      %li.uk-open
-        %h3.uk-accordion-title
-          = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "ui tiny image eol-padding-tiny")
+    .ui.segments.uk-text-center
+      .ui.header.segment
+        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
+          = image_tag("blue logo.png", alt: "EOL")
           %br
-          .uk-text-small= "Global access to information about life on earth"
-        .uk-accordion-content
-          %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
-            -# TODO - this should be all of the collections IN collection 1...
-            - Collection.all.limit(6).each do |collection|
-              %li
-                %a.uk-inline{ href: collection_path(collection) }
-                  = image_tag("medium/collection.png")
-                  .uk-overlay.uk-padding-small.uk-position-bottom.uk-text-small= collection.name
-      %li
-        %h3.uk-accordion-title
-          About EOL / Get Involved
-        .uk-accordion-content
-          I don't know what we want here, yet.
-      %li
-        %h3.uk-accordion-title
-          = link_to("Eduction", "http://education.eol.org")
+          .uk-text-small= t("landing_page.header")
+      .ui.segment.eol-landing-content
+        %div.uk-margin-small-bottom
+          %b= t("landing_page.heads.featured_links")
+        %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+          -# TODO - this should be all of the collections IN collection 1...
+          - Collection.all.limit(6).each do |collection|
+            %li
+              %a.uk-inline{ href: collection_path(collection) }
+                = image_tag("medium/collection.png")
+                .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= collection.name
+      .ui.header.segment
+        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
+          = t("landing_page.heads.about_eol")
+      .eol-landing-content.ui.segment{ hidden: true }
+        I don't know what we want here, yet.
+      .ui.header.segment
+        = link_to("Education", "http://education.eol.org")
