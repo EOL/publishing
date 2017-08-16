@@ -46,7 +46,7 @@
             %li
               %a.uk-inline{ href: collection_path(collection) }
                 = image_tag("medium/collection.png")
-                .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= collection.name
+                .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= truncate(collection.name)
       .ui.header.segment
         %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
           = t("landing_page.heads.about_eol")

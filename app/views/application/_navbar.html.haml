@@ -1,8 +1,8 @@
 .ui.following.bar.fixed.menu
   .uk-container
-    #navbar.ui.large.secondary.network.menu
+    #navbar.ui.secondary.network.menu
       -# TODO: I18n
-      = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "item uk-logo")
+      = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "item ui tiny image")
       -# HACK HACK HACK - I need to "inject" content into the menu to make it
       -# appear!
       -# = cms_menu.to_html.gsub(/<ul/, "#{t("nav.cms.menu_name")}<i class='dropdown icon'></i><ul").html_safe
@@ -21,12 +21,14 @@
             %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
       .right.menu
         #nav-search.item
-          = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
-            = text_field_tag("q", nil, class: "uk-search-input typeahead", placeholder: t("nav.search.placeholder"))
-            %span.uk-search-icon-flip{ uk: { search: { icon: true } } }
+          = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
+            .ui.search
+              .ui.icon.input
+                = text_field_tag("q", nil, class: "prompt", placeholder: t("nav.search.placeholder"))
+                %i.search.icon
         - if current_user
-          .item{ class: "uk-visible@m" }= link_to(current_user.username, main_app.user_path(current_user))
+          .item= link_to(current_user.username, main_app.user_path(current_user))
           .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
         - else
-          .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_in), main_app.new_user_session_path)
+          .item= link_to(t(:layout_sign_in), main_app.new_user_session_path)
           .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_up), main_app.new_user_registration_path)

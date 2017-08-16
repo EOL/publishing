@@ -261,6 +261,14 @@ if(!EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
+    $('#nav-search .ui.search')
+      .search({
+        apiSettings: {
+          url: '/pages/autocomplete?query={query}'
+        }
+      })
+    ;
+
     if ($('#nav-search .typeahead').length >= 1) {
       console.log("Enable navigation typeahead.");
       $('#nav-search .typeahead').typeahead(null, {

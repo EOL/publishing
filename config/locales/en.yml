@@ -25,6 +25,10 @@ en:
       missing: "Untitled"
   article_from_partner: "provided by %{partner}"
   article_duplicate: "this article is also shown in \"%{section}\""
+  autocomplete:
+    see_all:
+      one: "see other results"
+      other: "see all %{count} results"
   button_create: "create"
   button_add: "add"
   cancel: "cancel"
