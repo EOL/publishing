@@ -30,10 +30,11 @@
         .ui.basic.button
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
   .uk-container{ class: "uk-hidden@m" }
-    .ui.segments.uk-text-center
+    = render("application/navbar")
+    .ui.segments.uk-text-center.eol-landing-page-container
       .ui.header.segment
         %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
-          = image_tag("blue logo.png", alt: "EOL")
+          = image_tag("blue logo.png", alt: "EOL", class: "ui centered tiny image")
           %br
           .uk-text-small= t("landing_page.header")
       .ui.segment.eol-landing-content
@@ -52,4 +53,4 @@
       .eol-landing-content.ui.segment{ hidden: true }
         I don't know what we want here, yet.
       .ui.header.segment
-        = link_to("Education", "http://education.eol.org")
+        = link_to(t("landing_page.heads.education"), "http://education.eol.org")

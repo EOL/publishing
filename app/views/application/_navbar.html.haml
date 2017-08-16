@@ -9,7 +9,7 @@
       -#= cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
       = link_to("About", "/docs/about", class: "item uk-visible@m")
       = link_to("Education", "http://education.eol.org/", class: "item uk-visible@m")
-      .ui.simple.dropdown.item
+      .ui.simple.dropdown.item{class: "uk-visible@m" }
         - langs = languages_hash
         - keys = langs.keys
         - keys.delete_at(keys.index(I18n.locale))

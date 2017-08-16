@@ -197,6 +197,7 @@ en:
     header: "Global access to knowledge about life on Earth"
     heads:
       about_eol: "About EOL / Get Involved"
+      education: "Education"
       featured_links: "Featured Links"
     reindex: "reindex"
     search_placeholder: "Search..."
