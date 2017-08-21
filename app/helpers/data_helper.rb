@@ -2,7 +2,7 @@
 # to the stream directly, NOT building an output for you to show...
 module DataHelper
   def metadata_container(data)
-    haml_tag(:div, class: "meta_data", style: "display: none;")
+    haml_tag(:div, id: data[:id], class: "ui segments meta_data", style: "display: none;")
   end
 
   def show_metadata(data)
@@ -11,30 +11,26 @@ module DataHelper
       data[:source] ||
       data[:object_term] ||
       data[:units]
-    haml_tag(:table) do
-      if data[:metadata]
-        data[:metadata].each do |meta_data|
-          show_meta_data(meta_data)
-        end
+    if data[:metadata]
+      data[:metadata].each do |meta_data|
+        show_meta_data(meta_data)
       end
-      show_definition(data[:units])
-      show_definition(data[:object_term]) if data[:object_term]
-      show_source(data[:source]) if data[:source]
     end
+    show_definition(data[:units])
+    show_definition(data[:object_term]) if data[:object_term]
+    show_source(data[:source]) if data[:source]
   end
 
   def show_meta_data(meta_data)
-    haml_tag :tr do
-      haml_tag :th do
-        haml_concat meta_data[:predicate][:name]
-        if meta_data[:predicate][:uri]
-          haml_tag(:br)
-          haml_tag(:div, meta_data[:predicate][:uri], class: "data_type uk-text-muted eol-text-tiny")
-        end
+    haml_tag(:div, class: "ui secondary segment") do
+      haml_concat meta_data[:predicate][:name]
+      if meta_data[:predicate][:uri]
+        haml_tag(:br)
+        haml_tag(:div, meta_data[:predicate][:uri], class: "data_type uk-text-muted eol-text-tiny")
       end
-      haml_tag :td do
-        show_data_value(meta_data)
-      end
+    end
+    haml_tag(:div, class: "ui tertiary segment") do
+      show_data_value(meta_data)
     end
   end
 
@@ -59,12 +55,12 @@ module DataHelper
     elsif data[:measurement]
       value = data[:measurement].to_s + " "
       value += data[:units][:name] if data[:units] && data[:units][:name]
-      haml_concat(first_cap(value).html_safe)
+      haml_concat(value.html_safe)
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
-      haml_concat(link_to(first_cap(value), term_path(uri: data[:object_term][:uri], object: true)))
+      haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
     elsif data[:literal]
-      haml_concat first_cap(unlink(data[:literal])).html_safe
+      haml_concat unlink(data[:literal]).html_safe
     else
       haml_concat "OOPS: "
       haml_concat value
@@ -73,16 +69,14 @@ module DataHelper
 
   def show_definition(uri)
     return unless uri && uri[:definition]
-    haml_tag(:tr) do
-      haml_tag(:th, I18n.t(:data_definition, data: uri[:name]))
-      haml_tag(:td) do
-        haml_tag(:span, uri[:uri], class: "uri_defn")
-        haml_tag(:br)
-        if uri[:definition].empty?
-          haml_concat(I18n.t(:data_unit_definition_blank))
-        else
-          haml_concat(uri[:definition].html_safe)
-        end
+    haml_tag(:div, I18n.t(:data_definition, data: uri[:name]), class: "ui secondary segment")
+    haml_tag(:div, class: "ui tertiary segment") do
+      haml_tag(:a, uri[:uri], href: uri[:uri], class: "uri_defn")
+      haml_tag(:br)
+      if uri[:definition].empty?
+        haml_concat(I18n.t(:data_unit_definition_blank))
+      else
+        haml_concat(uri[:definition].html_safe)
       end
     end
   end
@@ -94,10 +88,10 @@ module DataHelper
     end
   end
 
-  def show_source_col(data)
+  def show_source_segment(data)
     # TODO: make this a proper link
-    haml_tag(:td, class: "table-source") do
-      if @resources && resource = @resources[data[:resource_id]]
+    haml_tag(:div, class: "ui attached segment table-source uk-width-1-5 uk-visible@m eol-padding-tiny") do
+      if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
         haml_tag("div.uk-overflow-auto") do
           haml_concat(link_to(resource.name, "#", title: resource.name,
             data: { toggle: "tooltip", placement: "left" } ))
@@ -109,7 +103,7 @@ module DataHelper
   end
 
   def show_data_page_icon(page)
-    if image = page.medium
+    if image = page.medium # rubocop:disable Lint/AssignmentInCondition
       haml_concat(link_to(image_tag(image.small_icon_url,
         alt: page.scientific_name.html_safe, size: "44x44"), page))
     end
@@ -128,9 +122,8 @@ module DataHelper
   end
 
   def show_data_modifiers(data)
-    haml_tag(:br)
     [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
-      haml_tag(:div, "#{type}", class: "data_type uk-text-muted uk-text-small")
+      haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
   end
 end

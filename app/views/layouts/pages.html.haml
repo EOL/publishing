@@ -49,7 +49,7 @@
         - if @page.literature_and_references_count > 1
           - large_tab(name: "literature_and_references", icon: "book", count: @page.literature_and_references_count, path: page_literature_and_references_path(page_id: @page.id))
       %div{ style: "white-space: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; -ms-overflow-style: -ms-autohiding-scrollbar;" }
-        #small_page_nav.ui.labeled.stackable.icon.menu{ class: "uk-hidden@m" }
+        #small_page_nav.ui.labeled.icon.menu{ class: "uk-hidden@m" }
           - small_tab(name: "overview", icon: "unhide", count: nil, path: page_overview_path(page_id: @page.id), active: is_overview_page)
           - if @page.media_count > 0
             - small_tab(name: "media", icon: "image", count: @page.media_count, path: page_media_path(page_id: @page.id))

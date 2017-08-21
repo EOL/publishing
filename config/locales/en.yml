@@ -466,6 +466,8 @@ en:
   page_data_toc_type_glossary: "record type glossary"
   page_data_toc_value_glossary: "value glossary"
   page_data_toc_other: "other"
+  page_data:
+    source_column_header: "source &amp; metadata"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     actions:

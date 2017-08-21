@@ -279,7 +279,7 @@ class TraitBank
         end
         q[:match][main_match] = []
         q[:match]["(trait)-[:predicate]->(predicate:Term)"] = []
-        q[:match]["(trait)-[info:object_term]->(info_term:Term)"] = []
+        # q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = []
         if uri = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
           wheres =  if uri.is_a?(Array)
                       q[:order] << "page.name" unless q[:count]

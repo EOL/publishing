@@ -5,7 +5,7 @@
   - max_rows = 10
   - data = @page.data
   #page_data{ uk: { grid: true } }
-    .uk-width-1-5
+    .uk-width-1-5{ class: "uk-visible@m" }
       #section_links.ui.small.fluid.vertical.secondary.pointing.menu
         .active.item
           -# TODO: these links should probably be "real" for those without JS.
@@ -21,37 +21,36 @@
         .item
           = link_to(t(:page_data_toc_value_glossary), "#", data: { section_id: "value_glossary" })
     .uk-width-expand.uk-overflow-auto
-      %table#data.data_by_page.uk-table.uk-table-small.uk-table-striped.uk-table-middle.uk-table-hover.uk-text-small
-        %thead
-          %tr
-            %th.uk-width-1-5= t("data_table.headers.predicate")
-            %th.uk-width-3-5= t("data_table.headers.value")
-            %th.uk-width-1-5= t("data_table.headers.source")
-        %tbody
-          -# TODO: helper
-          - @page.predicates.each do |uri|
-            - predicate = @page.glossary[uri]
-            - if predicate.nil?
-              - Rails.logger.error("** ERROR: missing predicate #{uri}")
-              - next
-            - previous_predicate = nil
-            - @page.grouped_data[uri].each do |trait|
+      #data.data_by_page.uk-text-small
+        -# TODO: helper
+        - @page.predicates.each_with_index do |uri, index|
+          - predicate = @page.glossary[uri]
+          - if predicate.nil?
+            - Rails.logger.error("** ERROR: missing predicate #{uri}")
+            - next
+          - previous_predicate = nil
+          - @page.grouped_data[uri].each do |trait|
+            .row
               -# TODO: I'm not happy with storing the ids of sections as a string in TraitBank. Should have helper. :S
               - sections = predicate[:section_ids].split(",").map { |i| "section_#{i}" }
               - sections = ["section_other"] if sections.empty?
-              - sections << "toggle_meta"
-              %tr{ id: trait[:id], class: sections.join(" "), data: { action: datum_path(trait[:id]) } }
-                %th.uk-table-middle{ scope: "row" }
-                  - if predicate == previous_predicate
-                    / same predicate
-                  - else
-                    = link_to(predicate[:name], term_path(uri: predicate[:uri]))
-                    - previous_predicate = predicate
-                  - show_data_modifiers(trait)
-                %td
+              .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
+                - if index == 0
+                  %div{ class: "uk-hidden@m" }
+                    = t("page_data.source_column_header").html_safe
+                %i.icon.chevron.down.uk-margin-large-top
+              .ui.segments{ class: "uk-width-4-5@m uk-width-5-6 " + sections.join(" ") }
+                .ui.segment.eol-padding-tiny
+                  = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  - previous_predicate = predicate
+                  %div{ class: "uk-visible@m" }
+                    - show_data_modifiers(trait)
+                .ui.secondary.segment.uk-text-center.eol-padding-tiny
                   - show_data_value(trait)
-                  - metadata_container(trait)
-                - show_source_col(trait)
+                  %div{ class: "uk-hidden@m" }
+                    - show_data_modifiers(trait)
+                - show_source_segment(trait)
+              - metadata_container(trait)
       #data_type_glossary.uk-margin-large-bottom
         %h3= t(:data_header_type_glossary)
         .uk-column-1-2

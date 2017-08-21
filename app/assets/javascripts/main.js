@@ -51,6 +51,52 @@ if(!EOL) {
     });
   };
 
+  EOL.meta_data_toggle = function() {
+    console.log("enable meta_data_toggle");
+    $(".meta_data_toggle").on("click", function (event) {
+      var $parent = $(this).parent();
+      var $div = $parent.find(".meta_data");
+      if( $div.is(':visible') ) {
+        $div.hide();
+      } else {
+        if( $div.html() === "" ) {
+          console.log("Loading row "+$(this).data("action")+"...");
+          $.ajax({
+            type: "GET",
+            url: $(this).data("action"),
+            // While they serve no purpose NOW... I am keeping these here for
+            // future use.
+            beforeSend: function() {
+              console.log("Calling before send...");
+            },
+            complete: function(){
+              console.log("Calling complete...");
+              var offset = $parent.offset();
+              if (offset) {
+                $('html, body').animate({ scrollTop: offset.top - 100 }, 'fast');
+                return false;
+              }
+            },
+            success: function(resp){
+              console.log("Calling success...");
+            },
+            error: function(xhr, textStatus, error){
+              console.log("There was an error...");
+              console.log(xhr.statusText+" : "+textStatus+" : "+error);
+            }
+          });
+        } else {
+          console.log("Using cached row...");
+          console.log($div.html());
+          $div.show();
+        }
+      }
+      return event.stopPropagation();
+    });
+    $(".meta_data").hide();
+    EOL.enable_tab_nav();
+  };
+
   EOL.allow_meta_data_to_toggle = function() {
     console.log("allow_meta_data_to_toggle");
     $(".toggle_meta").on("click", function (event) {
@@ -192,7 +238,7 @@ if(!EOL) {
       EOL.enable_media_navigation();
     } else if ($("#page_data").length === 1) {
       EOL.enable_data_toc();
-      EOL.allow_meta_data_to_toggle();
+      EOL.meta_data_toggle();
     } else if ($("#data_table").length === 1) {
       EOL.allow_meta_data_to_toggle();
     } else if ($("#search_results").length === 1) {
