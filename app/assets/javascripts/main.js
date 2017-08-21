@@ -97,49 +97,6 @@ if(!EOL) {
     EOL.enable_tab_nav();
   };
 
-  EOL.allow_meta_data_to_toggle = function() {
-    console.log("allow_meta_data_to_toggle");
-    $(".toggle_meta").on("click", function (event) {
-      var $div = $(this).find(".meta_data");
-      var target  = $(event.target);
-      if( target.is('a') ) { return true; }
-      if( $div.is(':visible') ) {
-        $div.hide();
-      } else {
-        if( $div.html() === "" ) {
-          console.log("Loading row "+$(this).data("action")+"...");
-          $.ajax({
-            type: "GET",
-            url: $(this).data("action"),
-            // While they serve no purpose NOW... I am keeping these here for
-            // future use.
-            beforeSend: function() {
-              console.log("Calling before send...");
-            },
-            complete: function(){
-              console.log("Calling complete...");
-            },
-            success: function(resp){
-              console.log("Calling success...");
-            },
-            error: function(xhr, textStatus, error){
-              console.log("There was an error...");
-              console.log(xhr.statusText+" : "+textStatus+" : "+error);
-            }
-          });
-        } else {
-          console.log("Using cached row...");
-          console.log($div.html());
-          $(".meta_data").hide();
-          $div.show();
-        }
-      }
-      return event.stopPropagation();
-    });
-    $(".meta_data").hide();
-    EOL.enable_tab_nav();
-  };
-
   EOL.enable_media_navigation = function() {
     console.log("enable_media_navigation");
     $("#page_nav_content .dropdown").dropdown();
@@ -240,7 +197,7 @@ if(!EOL) {
       EOL.enable_data_toc();
       EOL.meta_data_toggle();
     } else if ($("#data_table").length === 1) {
-      EOL.allow_meta_data_to_toggle();
+      EOL.meta_data_toggle();
     } else if ($("#search_results").length === 1) {
       EOL.enable_search_pagination();
     } else {
