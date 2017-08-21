@@ -83,13 +83,13 @@ RSpec.describe "terms/show" do
 
   it "shows all data values" do
     render
-    expect(rendered).to match /Unit URI/
-    expect(rendered).to match /Term URI/
-    expect(rendered).to match /Literal data value/ # NOTE initial cap...
+    expect(rendered).to match(/Unit URI/)
+    expect(rendered).to match(/Term URI/)
+    expect(rendered).to match(/literal data value/) # NOTE NO initial cap...
   end
 
   it "shows the resource's short name" do
     render
-    expect(rendered).to match /Resource Name/
+    expect(rendered).to match(/Resource Name/)
   end
 end
