@@ -19,7 +19,7 @@
         - keys.each do |key|
           -# NOTE the stupid check for test env here. Yuck.
           %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
-    #nav-search.ui.item
+    #landing-search.ui.item
       = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
         .ui.search
           .ui.icon.input

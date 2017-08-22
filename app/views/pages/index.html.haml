@@ -1,15 +1,17 @@
 %body
   = render("layouts/flash")
   .landing_page{ class: "uk-visible@m" }
-    .uk-container
+    .ui.container
       .uk-section
         = image_tag("large_logo.png")
-      .uk-section.uk-section-small.uk-text-center
+      .uk-section.uk-text-center
         %h1.uk-title= t("landing_page.header")
-        #nav-search.uk-section
-          = form_tag(main_app.search_path, method: "get", autocomplete: "off", class: "uk-search uk-search-default") do |f|
-            = text_field_tag("q", nil, placeholder: t("landing_page.search_placeholder"), class: "uk-search-input typeahead")
-            %a.uk-search-icon-flip{ uk: { search: { icon: true } } }
+        #nav-search.uk-margin-large-top
+          = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
+            .ui.search
+              .ui.icon.input
+                = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
+                %i.search.icon
   .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
     .uk-section.uk-padding-remove-top
       %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
