@@ -264,38 +264,13 @@ if(!EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
-    $('#nav-search .ui.search')
+    $('.ui.names.search')
       .search({
         apiSettings: {
           url: '/pages/autocomplete?query={query}'
         }
       })
     ;
-
-    if ($('#nav-search .typeahead').length >= 1) {
-      console.log("Enable navigation typeahead.");
-      $('#nav-search .typeahead').typeahead(null, {
-        name: 'search-names',
-        display: 'scientific_name',
-        source: EOL.searchNames,
-        templates: {
-          suggestion: function (datum) {
-              return "<p><i>" + datum.scientific_name + "</i> (" + datum.preferred_vernacular_strings[0] + ")</p>";
-          }
-        }
-      }).bind('typeahead:selected', function(evt, datum, name) {
-        console.log('typeahead:selected:', evt, datum, name);
-        window.location.href = '/pages/' + datum.id;
-      }).bind('keypress', function(e) {
-        console.log('keypress:', e);
-        console.log('which:', e.which);
-        if (e.which == 13) {
-          var q = $('#nav-search input.typeahead.tt-input').val();
-          window.location.href = "/search?q=" + q;
-          return false;
-        }
-      });
-    };
 
     if ($('.clade_filter .typeahead').length >= 1) {
       console.log("Enable clade filter typeahead.");

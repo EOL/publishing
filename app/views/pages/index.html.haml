@@ -6,10 +6,10 @@
         = image_tag("large_logo.png")
       .uk-section.uk-text-center
         %h1.uk-title= t("landing_page.header")
-        #nav-search.uk-margin-large-top
+        #landing-search.uk-margin-large-top
           = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
-            .ui.search
-              .ui.icon.input
+            .ui.huge.names.search
+              .ui.huge.icon.input
                 = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
                 %i.search.icon
   .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
