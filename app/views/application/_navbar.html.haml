@@ -19,12 +19,12 @@
         - keys.each do |key|
           -# NOTE the stupid check for test env here. Yuck.
           %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
-    #nav-search.ui.item
-      = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
-        .ui.names.search
-          .ui.icon.input
-            = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("nav.search.placeholder"))
-            %i.search.icon
+    -# #nav-search.ui.item
+    -#   = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
+    -#     .ui.names.search
+    -#       .ui.icon.input
+    -#         = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("nav.search.placeholder"))
+    -#         %i.search.icon
     - if current_user
       .item= link_to(current_user.username, main_app.user_path(current_user))
       .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)

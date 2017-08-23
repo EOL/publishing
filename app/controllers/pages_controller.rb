@@ -9,16 +9,20 @@ class PagesController < ApplicationController
 
   def autocomplete
     full_results = Page.autocomplete(params[:query])
-    render json: {
-      results: full_results.map do |r|
-        name = r.scientific_name
-        vern = r.preferred_vernacular_strings.first
-        name += " (#{vern})" unless vern.blank?
-        { title: name, url: page_path(r.id), image: r.icon, id: r.id }
-      end,
-      action: { url: "/search?q=#{params[:query]}",
-        text: t("autocomplete.see_all", count: full_results.total_entries) }
-    }
+    if params[:full]
+      render json: full_results
+    else
+      render json: {
+        results: full_results.map do |r|
+          name = r.scientific_name
+          vern = r.preferred_vernacular_strings.first
+          name += " (#{vern})" unless vern.blank?
+          { title: name, url: page_path(r.id), image: r.icon, id: r.id }
+        end,
+        action: { url: "/search?q=#{params[:query]}",
+          text: t("autocomplete.see_all", count: full_results.total_entries) }
+      }
+    end
   end
 
   def topics

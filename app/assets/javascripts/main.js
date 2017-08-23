@@ -215,12 +215,12 @@ if(!EOL) {
 
     // TODO: move this.
     EOL.searchNames = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/pages/autocomplete?query=%QUERY',
+        url: '/pages/autocomplete?full=1&query=%QUERY',
         wildcard: '%QUERY'
       },
       limit: 10
@@ -269,8 +269,7 @@ if(!EOL) {
         apiSettings: {
           url: '/pages/autocomplete?query={query}'
         }
-      })
-    ;
+      });
 
     if ($('.clade_filter .typeahead').length >= 1) {
       console.log("Enable clade filter typeahead.");

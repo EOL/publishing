@@ -78,12 +78,14 @@
           - if @clade
             .uk-margin-right
               - show_data_page_icon(@clade)
-          %div
-            = t("term.show.clade_filter.label")
-          %div
-            = text_field_tag("clade", nil,
-              placeholder: @clade ? @clade.name : t(:clade_placeholder),
-              remote: true, class: "uk-input uk-form-width-medium typeahead")
+          .ui.names.search
+            .ui.labeled.icon.input
+              .ui.label
+                = t("term.show.clade_filter.label")
+              = text_field_tag("clade", nil,
+                placeholder: @clade ? @clade.name : t(:clade_placeholder),
+                remote: true, class: "uk-input uk-form-width-medium typeahead")
+              %i.search.icon
           %div
             = submit_tag(t("filter"), class: "ui basic button")
       - if @clade
