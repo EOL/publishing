@@ -129,7 +129,7 @@ class TraitBank
         # though it will require more work to keep "up to date" (e.g.: if the
         # name of an object term changes, all associated traits will have to
         # change).
-        ["LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+        ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       end
       # NOTE: "ties" for traits are resolved by species name.
       sorts << "page.name" unless options[:by]
@@ -298,6 +298,9 @@ class TraitBank
                     end
           q[:match]["(trait)-[:object_term|parent_term*0..3]->(o_match:Term)"] =
             wheres
+          # We still want to get the actual term used as the object (rather than
+          # the match)!
+          q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = nil
         else
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
         end
@@ -318,7 +321,7 @@ class TraitBank
           q[:return] = ["page"]
           q[:order] = ["page.name"]
         else
-          q[:return] = ["page", "trait", "predicate", "type(info) AS info_type",
+          q[:return] = ["page", "trait", "predicate", "TYPE(info) AS info_type",
             "info_term", "resource"]
           if options[:meta]
             q[:return] += ["meta", "meta_predicate", "meta_units_term",

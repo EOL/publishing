@@ -2,7 +2,37 @@
   .uk-card.uk-card-default.uk-grid.uk-padding
     .uk-width-4-5
       %h1
-        = @term[:name].titlecase
+        -# = @term[:name].titlecase
+        - if @clade
+          = @clade.name
+        - else
+          All page
+        - if @species_list
+          matching
+        - else
+          records for
+        - if @object && @and_predicate
+          = @and_predicate[:name]
+        - elsif @object
+          any record type
+        - else
+          = @term[:name]
+          - if @and_predicate
+            and
+            = @and_predicate[:name]
+        - if @object
+          matching
+          = %Q{"#{@term[:name]}"}
+          - if @and_object
+            - if @species_list
+              and
+            - else
+              or
+            = %Q{"#{@and_object[:name]}"}
+        - elsif @and_object
+          matching
+          = @and_object[:name]
+
         .uk-text-muted.uk-margin-remove-top.uk-text-small
           = t("term.header.count", count: @count)
           - if @object || @and_predicate
@@ -11,7 +41,7 @@
             = t("term.header.predicate")
       - def_blank = @term[:definition].blank?
       %h3.uk-text-muted.uk-margin-remove-top
-        = @term[:uri]
+        = "#{@term[:name]}: #{link_to(@term[:uri])}".html_safe
       %p.definition{ class: def_blank ? "empty" : nil }
         - if def_blank
           = t(:uri_definition_blank)

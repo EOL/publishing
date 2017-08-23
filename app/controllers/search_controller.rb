@@ -196,7 +196,7 @@ class SearchController < ApplicationController
 private
 
   def basic_search(klass, options = {})
-    klass.search(params[:q], options.reverse_merge(highlight: { tag: "**" },
+    klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       execute: false, page: params[:page], per_page: 50))
   end
 end
