@@ -3,25 +3,22 @@
     .uk-width-4-5
       %h1
         -# = @term[:name].titlecase
-        - if @clade
-          = @clade.name
-        - else
-          All page
         - if @species_list
-          matching
+          All pages matching
         - else
-          records for
+          All data records for
         - if @object && @and_predicate
           = @and_predicate[:name]
         - elsif @object
-          any record type
+          any attribute
         - else
           = @term[:name]
           - if @and_predicate
             and
             = @and_predicate[:name]
         - if @object
-          matching
+          with
+          = @and_object ? "values" : "value"
           = %Q{"#{@term[:name]}"}
           - if @and_object
             - if @species_list
@@ -30,8 +27,13 @@
               or
             = %Q{"#{@and_object[:name]}"}
         - elsif @and_object
-          matching
+          with value
           = @and_object[:name]
+        -# TODO: make this all one sentence from a helper and put that comma in
+        -# the right place:
+        - if @clade
+          , for
+          = @clade.name
 
         .uk-text-muted.uk-margin-remove-top.uk-text-small
           = t("term.header.count", count: @count)
