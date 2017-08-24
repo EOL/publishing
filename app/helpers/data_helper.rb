@@ -12,8 +12,8 @@ module DataHelper
       data[:object_term] ||
       data[:units]
     if data[:metadata]
-      data[:metadata].each do |meta_data|
-        show_meta_data(meta_data)
+      data[:metadata].each do |datum|
+        show_meta_data(datum)
       end
     end
     show_definition(data[:units])
@@ -21,16 +21,16 @@ module DataHelper
     show_source(data[:source]) if data[:source]
   end
 
-  def show_meta_data(meta_data)
+  def show_meta_data(datum)
     haml_tag(:div, class: "ui secondary segment") do
-      haml_concat meta_data[:predicate][:name]
-      if meta_data[:predicate][:uri]
+      haml_concat datum[:predicate][:name]
+      if datum[:predicate][:uri]
         haml_tag(:br)
-        haml_tag(:div, meta_data[:predicate][:uri], class: "data_type uk-text-muted eol-text-tiny")
+        haml_tag(:div, datum[:predicate][:uri], class: "data_type uk-text-muted eol-text-tiny")
       end
     end
     haml_tag(:div, class: "ui tertiary segment") do
-      show_data_value(meta_data)
+      show_data_value(datum)
     end
   end
 
