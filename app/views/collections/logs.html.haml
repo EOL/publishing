@@ -9,6 +9,7 @@
         .uk-float-right.uk-text-small.uk-text-muted= collecting.id
         %span.uk-text-muted
           = l(collecting.created_at, format: :long)
+        - page_name = collecting.page.try(:name) || "[missing page]"
         - if collecting.associated_collection
           = t("collection.log.associated_collection.#{collecting.action}",
             user: link_to(collecting.user.username, collecting.user),
@@ -22,23 +23,23 @@
             = t("collection.log.content.#{collecting.action}",
               user: link_to(collecting.user.username, collecting.user),
               medium: link_to(collecting.content.name, collecting.content),
-              page: link_to(collecting.page.name, collecting.page)).html_safe
+              page: link_to(page_name, collecting.page)).html_safe
           - else
             = t("collection.log.content.change",
               user: link_to(collecting.user.username, collecting.user),
               medium: link_to(collecting.content.name, collecting.content),
-              page: link_to(collecting.page.name, collecting.page),
+              page: link_to(page_name, collecting.page),
               field: collecting.changed_field,
               from: collecting.changed_from, to: collecting.changed_to).html_safe
         - elsif collecting.page
           - if collecting.changed_field.blank?
             = t("collection.log.page.#{collecting.action}",
               user: link_to(collecting.user.username, collecting.user),
-              page: link_to(collecting.page.name, collecting.page)).html_safe
+              page: link_to(page_name, collecting.page)).html_safe
           - else
             = t("collection.log.page.change",
               user: link_to(collecting.user.username, collecting.user),
-              page: link_to(collecting.page.name, collecting.page),
+              page: link_to(page_name, collecting.page),
               field: collecting.changed_field,
               from: collecting.changed_from, to: collecting.changed_to).html_safe
         - else

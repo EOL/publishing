@@ -17,7 +17,9 @@
           = t(:uri_definition_blank)
         - else
           = @term[:definition].html_safe
-    .actions.uk-width-1-5
+    .actions.uk-width-1-5.ui.loaders.basic.segment
+      .ui.dimmer
+        .ui.loader
       %button#sort_button.ui.labeled.small.icon.basic.button.uk-margin-small-top
         %i.down.arrow.icon
         = t("term.actions.sort")

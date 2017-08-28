@@ -43,6 +43,14 @@ if(!EOL) {
     EOL.dim_tab_on_pagination();
   };
 
+  EOL.enable_spinners = function() {
+    console.log("enable spin buttons");
+    $(".actions.loaders button").on("click", function(e) {
+      console.log("I am here");
+      $(this).parent().dimmer("show");
+    })
+  };
+
   EOL.dim_tab_on_pagination = function() {
     console.log("dim_tab_on_pagination");
     $("#tab_content").dimmer("hide");
@@ -169,6 +177,10 @@ if(!EOL) {
           offset: '100px',
           timeout: 10000
       });
+    }
+
+    if ($(".actions.loaders").length >= 1) {
+      EOL.enable_spinners();
     }
 
     if ($("#topics").length === 1) {
