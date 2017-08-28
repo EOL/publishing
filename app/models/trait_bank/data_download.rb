@@ -107,7 +107,7 @@ class TraitBank
     end
 
     def write_csv
-      CSV.open(@filename, "wb") do |csv|
+      CSV.open("public/#{@filename}", "wb") do |csv|
         @data.each { |row| csv << row }
       end
     end
