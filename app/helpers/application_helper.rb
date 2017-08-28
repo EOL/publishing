@@ -28,6 +28,76 @@ module ApplicationHelper
     end
   end
 
+  def term_search_name(options = nil) # rubocop:disable Metrics/CyclomaticComplexity
+    if options
+      set_term_search_instance_variables_from_options(options)
+    end
+    string =
+      if @species_list
+        "All pages matching"
+      else
+        "All data records for"
+      end
+    if @object && @and_predicate
+      string += " #{@and_predicate[:name]}"
+    elsif @object
+      string += " any attribute"
+    else
+      string += " #{@term[:name]}"
+      string += " and #{@and_predicate[:name]}" if @and_predicate
+    end
+    if @object
+      string += %Q{ with #{@and_object ? " values" : " value"} "#{@term[:name]}"}
+      if @and_object
+        string += %Q{ #{@species_list ? "and" : "or"} "#{@and_object[:name]}"}
+      end
+    elsif @and_object
+      string += " with value #{@and_object[:name]}"
+    end
+    if @clade
+      string += ", for #{@clade.name}"
+    end
+    string
+  end
+
+  # I kinda hate that I'm using instance variables, here, but it makes it much
+  # simpler for the views that already have them.
+  def set_term_search_instance_variables_from_options(options)
+    @species_list = options[:species_list]
+    @and_object = options[:object]
+    @and_predicate = options[:predicate]
+    # NOTE THAT YOU CANNOT HAVE TWO PREDICATES AND TWO OBJECTS!!!! (It's not
+    # allowed in the UI, so I'm not accounting for it in the code)
+    if @and_object.is_a?(Array)
+      @term = TraitBank.term_as_hash(@and_object.first)
+      @and_object = @and_object.size == 1 ? nil :
+        TraitBank.term_as_hash(@and_object.last)
+
+      @object = true
+    elsif @and_predicate.is_a?(Array)
+      @term = TraitBank.term_as_hash(@and_predicate.first)
+      @and_predicate = @and_predicate.size == 1 ? nil :
+        TraitBank.term_as_hash(@and_predicate.last)
+      @object = false
+    else
+      # TODO: the whole "object" flag is LAME. Remove it entirely!
+      @object = options[:object] && ! options[:predicate]
+      if options[:predicate] && options[:predicate]
+        @term = TraitBank.term_as_hash(options[:predicate])
+        @and_predicate = nil
+        @and_object = TraitBank.term_as_hash(options[:object])
+      elsif options[:predicate]
+        @term = TraitBank.term_as_hash(options[:predicate])
+        @and_predicate = nil
+        @and_object = nil
+      else
+        @term = TraitBank.term_as_hash(options[:object])
+        @and_predicate = nil
+        @and_object = nil
+      end
+    end
+    @clade = options[:clade]
+  end
 
   def resource_error_messages(resource)
     return "" if resource.errors.empty?

@@ -50,8 +50,12 @@ gem 'acts_as_list', '~> 0.7.6'
 gem 'awesome_nested_set', '~> 3.0.0'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 1.7'
+# Run background jobs:
+gem "daemons"
 # Memcached (not for development):
 gem "dalli"
+# Background jobs (to be run by daemons, q.v.):
+gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
 gem 'devise','4.2.0'
 gem 'devise-i18n-views'

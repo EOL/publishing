@@ -3,6 +3,8 @@ class TermsController < ApplicationController
   protect_from_forgery except: :clade_filter
 
   def show
+    # The whole "object" thing is lame! Get rid of it entirely. Just change
+    # which one you have, and if you have both, emphasize the predicate!
     @term = TraitBank.term_as_hash(params[:uri])
     @and_predicate = TraitBank.term_as_hash(params[:and_predicate])
     @and_object = TraitBank.term_as_hash(params[:and_object])
@@ -52,9 +54,16 @@ class TermsController < ApplicationController
       end
 
       fmt.csv do
-        data = TraitBank.term_search(options.merge(page_list: false, meta: true))
-        send_data TraitBank::DataDownload.to_arrays(data),
-          filename: "#{@term[:name]}-#{Date.today}.tsv"
+        data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
+        if data.is_a?(UserDownload)
+          flash[:notice] = t("user_download.created", url: user_path(current_user))
+          loc = params
+          loc.delete(:format)
+          redirect_to term_path(params)
+        else
+          send_data data,
+            filename: "#{@term[:name]}-#{Date.today}.tsv"
+        end
       end
     end
   end

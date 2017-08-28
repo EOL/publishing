@@ -12,11 +12,28 @@
               class: 'md-primary md-raised', remote: "true", authenticity_token: "true" }
               = link_to(t(:delete_account_button), user_path(current_user, method: :delete) )
     - unless @user.bio.blank?
-      %h2= t(:user_bio_title)
+      %h2= t("user.headers.bio")
       %p= @user.bio
+    - unless @user.user_downloads.empty?
+      %h2= t("user.headers.downloads")
+      %ul.downloads
+        -# TODO: expired_at and the like!
+        -# TODO i18n
+        - @user.user_downloads.each do |download|
+          - name = term_search_name(download.options)
+          %li
+            - if download.completed_at.nil?
+              = name
+              %br
+              = "enqueued - #{time_ago_in_words(download.created_at)}"
+            - else
+              = link_to(name, [@user, download])
+              %br
+              = "completed - #{time_ago_in_words(download.completed_at)}"
+
     - unless @user.collections.empty?
       %p.clearfix
-        %h2= t(:user_collections_header)
+        %h2= t("user.headers.collections")
         %ul.collections
           - @user.collections.each do |collection|
             %li= link_to(collection.name, collection)

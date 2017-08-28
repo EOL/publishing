@@ -738,8 +738,13 @@ en:
     untrusted: "not trusted"
   uri_definition_blank: "No one has defined this data yet."
   username: "Username"
-  user_bio_title: "Brief Biography"
-  user_collections_header: "Collections"
+  user:
+    headers:
+      bio: "Brief Biography"
+      collections: "Collections"
+      downloads: "Downloads"
+  user_download:
+    created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
   user_not_active: "The user is not active"
   users:
     sign_in: "Sign In"

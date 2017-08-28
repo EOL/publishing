@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       post "delete_user", defaults: { format: "json" }
       get "search"
     end
+    resources :user_downloads, only: [:show]
   end
 
   # All of the "normal" resources:

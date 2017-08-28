@@ -2,39 +2,7 @@
   .uk-card.uk-card-default.uk-grid.uk-padding
     .uk-width-4-5
       %h1
-        -# = @term[:name].titlecase
-        - if @species_list
-          All pages matching
-        - else
-          All data records for
-        - if @object && @and_predicate
-          = @and_predicate[:name]
-        - elsif @object
-          any attribute
-        - else
-          = @term[:name]
-          - if @and_predicate
-            and
-            = @and_predicate[:name]
-        - if @object
-          with
-          = @and_object ? "values" : "value"
-          = %Q{"#{@term[:name]}"}
-          - if @and_object
-            - if @species_list
-              and
-            - else
-              or
-            = %Q{"#{@and_object[:name]}"}
-        - elsif @and_object
-          with value
-          = @and_object[:name]
-        -# TODO: make this all one sentence from a helper and put that comma in
-        -# the right place:
-        - if @clade
-          , for
-          = @clade.name
-
+        = term_search_name
         .uk-text-muted.uk-margin-remove-top.uk-text-small
           = t("term.header.count", count: @count)
           - if @object || @and_predicate

@@ -101,6 +101,11 @@ GEM
     debug_inspector (0.0.2)
     decorators (2.0.2)
       railties (>= 4.0.0, < 5.1)
+    delayed_job (4.1.3)
+      activesupport (>= 3.0, < 5.2)
+    delayed_job_active_record (4.1.2)
+      activerecord (>= 3.0, < 5.2)
+      delayed_job (>= 3.0, < 5)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -461,7 +466,9 @@ DEPENDENCIES
   client_side_validations-simple_form
   counter_culture (~> 1.7)
   coveralls
+  daemons
   dalli
+  delayed_job_active_record
   devise (= 4.2.0)
   devise-encryptable
   devise-i18n-views

@@ -237,6 +237,24 @@ class TraitBank
       end
     end
 
+    # NOTE: "count" means something different here! In .term_search it's used to
+    # indicate you *want* the count; here it means you HAVE the count and are
+    # passing it in! Be careful.
+    def batch_term_search(options)
+      count = options.delete(:count)
+      count ||= TraitBank.term_search(options.merge(count: true))
+      found = 0
+      batch_found = 1 # Placeholder; will update in query.
+      page = 1
+      while(found < count && batch_found > 0)
+        batch = TraitBank.term_search(options.merge(page: page))
+        batch_found = batch.size
+        found += batch_found
+        yield(batch)
+        page += 1
+      end
+    end
+
     # Options:
     # count: don't perform the query, but just count the results
     # meta: whether to include metadata
@@ -245,6 +263,7 @@ class TraitBank
     # page_list: only return a list of page_ids. page_list == "species list"
     # per: how many results per page
     # predicate: the predicate URI (or an array of them) to look for, specifically
+    # TODO: long method; break up.
     def term_search(options = {})
       q = empty_query
       q[:count] = options[:count]
@@ -305,10 +324,10 @@ class TraitBank
           q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
         end
         if options[:meta]
-          q[:optional] = {
+          q[:optional].merge!(
             "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)" => nil,
             "(meta)-[:units_term]->(meta_units_term:Term)" => nil,
-            "(meta)-[:object_term]->(meta_object_term:Term)" => nil }
+            "(meta)-[:object_term]->(meta_object_term:Term)" => nil)
         end
       end
       if options[:count]
