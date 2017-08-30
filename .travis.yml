@@ -5,7 +5,7 @@ language: ruby
 services:
   - mysql
 before_script:
-  - mysql -e 'create database eol_test;'
+  - mysql -utravis -e 'create database eol_test;'
 script:
   - bin/rake db:migrate RAILS_ENV=test --trace
   - bundle exec rake db:test:prepare
