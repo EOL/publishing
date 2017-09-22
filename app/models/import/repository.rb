@@ -465,7 +465,6 @@ class Import::Repository
     end
 
     ScientificName.counter_culture_fix_counts
-    Page.counter_culture_fix_counts
     Page.reindex
     Reindexer.score_richness_for_pages(Page.where(id: node_id_by_page.keys))
   end
