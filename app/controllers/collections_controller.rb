@@ -8,7 +8,6 @@
 
   # TODO: You cannot do this without being logged in.
   def create
-    Rails.logger.error("Hi there.")
     @collection = Collection.new(collection_params)
     @collection.users << current_user
     if @collection.save

@@ -37,10 +37,14 @@ module Reindexer
     end
 
     def score_richness
+      score_richness_for_pages(Page.where("id IS NOT NULL"))
+    end
+
+    def score_richness_for_pages(pages)
       puts "#{Page.count} pages"
       start_time = Time.now
       count = 0
-      Page.find_each do |page|
+      pages.find_each do |page|
         page.score_richness
         score = page.richness
         count += 1
