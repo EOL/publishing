@@ -67,7 +67,7 @@ class Page < ActiveRecord::Base
   def search_data
     {
       id: id,
-      page_richness: page_richness,
+      page_richness: page_richness || 0,
       scientific_name: scientific_name,
       preferred_scientific_names: preferred_scientific_names,
       synonyms: synonyms,

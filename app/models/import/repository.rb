@@ -460,10 +460,10 @@ class Import::Repository
     end
 
     ScientificName.counter_culture_fix_counts
-    Page.reindex
     Node.rebuild!(false) # TODO: can we run this on a single resource?!?
     # This takes about 1 minute for each 1K pages. ...Too long for me to wait during tests:
     # Reindexer.score_richness_for_pages(Page.where(id: node_id_by_page.keys))
+    Page.reindex
   end
 
   def get_new_instances_from_repo(klass, resource)
