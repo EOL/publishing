@@ -12,18 +12,18 @@ gem 'mysql2'
 # We're using Angular for our interactive client side stuff:
 gem 'angularjs-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # RefineryCMS
 gem 'refinerycms'
 gem 'refinerycms-wymeditor'
@@ -36,20 +36,20 @@ gem 'refinerycms-i18n'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem "kaminari", "~> 1.0"
+gem "kaminari"
 
 # All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
 # ..and with a comment above each gem (or block of related gems) explaining what
 # it's for. Let's keep this maintainable!
 
 # For bulk inserts:
-gem "activerecord-import", "~> 0.20.1"
+gem "activerecord-import"
 # Acts As List simplifies ordered lists of models:
-gem 'acts_as_list', '~> 0.7.6'
+gem 'acts_as_list'
 # Nested set for Node:
-gem 'awesome_nested_set', '~> 3.0.0'
+gem 'awesome_nested_set'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 1.7'
+gem 'counter_culture'
 # Run background jobs:
 gem "daemons"
 # Memcached (not for development):
@@ -65,20 +65,20 @@ gem 'discourse_api'
 
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
 # YOU SHOULD REMOVE THIS GEM!
-gem 'font-kit-rails', '~> 1.2.0'
+gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:
-gem "neography", "~> 1.8"
+gem "neography"
 # OpenAuth logins from our preferred sources:
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
 # Handle attachments (icons):
-gem "paperclip", "~> 5.1"
+gem "paperclip"
 # Authorization:
-gem "pundit", "~> 1.1"
+gem "pundit"
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # ElasticSearch via SearchKick:
@@ -94,12 +94,12 @@ group :development, :test do
   # Coveralls tracks our spec coverage:
   gem 'coveralls', require: false
   # Simplecov, oddly, to add configuration for Coveralls.
-  gem "simplecov", "~> 0.12"
+  gem "simplecov"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
