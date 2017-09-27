@@ -53,6 +53,17 @@ class TraitBank
         query("MATCH (n) DETACH DELETE n")
       end
 
+      def remove_all_data_leave_terms
+        query("MATCH (meta:MetaData) DETACH DELETE meta")
+        query("MATCH (trait:Trait) DETACH DELETE trait")
+        query("MATCH (res:Resource) DETACH DELETE res")
+      end
+
+      def remove_for_resource(resource)
+        query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
+          "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
+      end
+
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
       # between pages, and then rebuild them based on what's currently in the
       # database. It skips relationships to pages that are missing (but reports on

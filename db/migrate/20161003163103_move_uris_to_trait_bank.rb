@@ -1,7 +1,7 @@
 class MoveUrisToTraitBank < ActiveRecord::Migration
 def up
     if TraitBank.ping
-      TraitBank.create_constraints
+      TraitBank::Admin.create_constraints
       ActiveRecord::Base.connection.select_all("SELECT * FROM uris").each do |hash|
         hash.delete("id") # We don't actually want this stored; it's meaningless.
         # NOTE: we didn't give our URIs categories, at the time of this

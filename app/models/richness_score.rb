@@ -34,7 +34,12 @@ class RichnessScore
     score_section_diversity
     score_data_diversity
     score_references
-    (@scores.values.inject(0, &:+ ).round(4) * 10_000).to_i
+    # TODO: it looks like we've tried to calculate this when it's not possible, during import; avoid.
+    begin
+      (@scores.values.inject(0, &:+ ).round(4) * 10_000).to_i
+    rescue
+      0
+    end
   end
 
   def score_media
