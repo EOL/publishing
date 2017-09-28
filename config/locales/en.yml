@@ -682,11 +682,13 @@ en:
     actions:
       download: "download"
       glossary: "full glossary"
+      new: "add new term"
       reindex: "reindex"
       sort: "sort by"
       show_records: "show records"
       species_list: "species list"
     glossary:
+      full_title: "Glossary of ALL Terms for Data on EOL"
       predicate_title: "Glossary of Type Terms for Data on EOL"
       object_term_title: "Glossary of Value Terms for Data on EOL"
       units_title: "Glossary of Unit Terms for Data on EOL"

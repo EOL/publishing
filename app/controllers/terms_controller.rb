@@ -2,6 +2,11 @@ class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
 
+  def index
+    @count = TraitBank::Terms.count
+    glossary("full_glossary")
+  end
+
   def show
     # The whole "object" thing is lame! Get rid of it entirely. Just change
     # which one you have, and if you have both, emphasize the predicate!
@@ -70,7 +75,7 @@ class TermsController < ApplicationController
 
   def predicate_glossary
     @count = TraitBank::Terms.predicate_glossary_count
-    glossary
+    glossary(params[:action])
   end
 
   # We ultimately don't want to just pass a "URI" to the term search; we need to
@@ -92,12 +97,12 @@ class TermsController < ApplicationController
 
   def object_term_glossary
     @count = TraitBank::Terms.object_term_glossary_count
-    glossary
+    glossary(params[:action])
   end
 
   def units_glossary
     @count = TraitBank::Terms.units_glossary_count
-    glossary
+    glossary(params[:action])
   end
 
 private
@@ -110,7 +115,7 @@ private
       page(@page).per(@per_page)
   end
 
-  def glossary
+  def glossary(which)
     @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
     query = params[:query]
@@ -122,7 +127,7 @@ private
         expire_fragment("term/glossary/#{index}")
       end
     end
-    @glossary = TraitBank::Terms.send(params[:action], @page, @per_page, query)
+    @glossary = TraitBank::Terms.send(which, @page, @per_page, query)
     @glossary = Kaminari.paginate_array(@glossary, total_count: @count).
       page(@page).per(@per_page)
     respond_to do |fmt|

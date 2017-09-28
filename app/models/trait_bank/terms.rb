@@ -15,7 +15,7 @@ class TraitBank
         end
       end
 
-      def full_glossary(page = 1, per = nil)
+      def full_glossary(page = 1, per = nil, options = {})
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
         Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do

@@ -59,7 +59,9 @@ Rails.application.routes.draw do
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
   get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
   get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
-  get "/terms" => "terms#show", :as => "term"
+  get "/terms/:uri" => "terms#show", :as => "term"
+  get "/terms" => "terms#index", :as => "terms"
+  get "/terms/new" => "terms#new", :as => "new_term"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
