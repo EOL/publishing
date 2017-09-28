@@ -575,7 +575,7 @@ class TraitBank
         return page
       end
       page = connection.create_node(page_id: id)
-      connection.add_label(page, "Page")
+      connection.set_label(page, "Page")
       page
     end
 
@@ -590,7 +590,7 @@ class TraitBank
         return resource
       end
       resource = connection.create_node(resource_id: id)
-      connection.add_label(resource, "Resource")
+      connection.set_label(resource, "Resource")
       resource
     end
 
@@ -612,7 +612,7 @@ class TraitBank
       object_term = parse_term(options.delete(:object_term))
       convert_measurement(options, units)
       trait = connection.create_node(options)
-      connection.add_label(trait, "Trait")
+      connection.set_label(trait, "Trait")
       relate("trait", page, trait)
       relate("supplier", trait, supplier)
       relate("predicate", trait, predicate)
@@ -658,7 +658,7 @@ class TraitBank
       object_term = parse_term(options.delete(:object_term))
       convert_measurement(options, units)
       meta = connection.create_node(options)
-      connection.add_label(meta, "MetaData")
+      connection.set_label(meta, "MetaData")
       relate("metadata", trait, meta)
       relate("predicate", meta, predicate)
       relate("units_term", meta, units) if units
@@ -726,7 +726,7 @@ class TraitBank
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       term_node = connection.create_node(options)
       # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-      connection.add_label(term_node, "Term")
+      connection.set_label(term_node, "Term")
       term_node
     end
 

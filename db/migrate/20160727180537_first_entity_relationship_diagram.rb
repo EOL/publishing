@@ -30,9 +30,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "the URL to download the resource from; was: accesspoint_url"
       t.text :description
       t.text :notes
-      t.integer :nodes_count, :null => false, :default => 0
-      t.boolean :content_trusted_by_default, null: false, default: true,
-        comment: "was: vetted"
+      t.integer :nodes_count
       t.boolean :is_browsable, null: false, default: false
       t.boolean :has_duplicate_nodes, null: false, default: false
 
@@ -48,8 +46,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.datetime :last_published_at
       t.integer :last_publish_seconds
-      t.integer :publish_status,
-        comment: "enum: unpublished, publishing, published, deprecated"
 
       t.integer :dataset_license_id,
         comment: "applies to the set of data itself (not its individual members)"
@@ -63,12 +59,13 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_attachment :resources, :icon
 
     create_table :partners do |t|
-      t.string :full_name, null: false
+      t.string :name, null: false
+      t.string :abbr, limit: 16, comment: "was: acronym"
       t.string :short_name, null: false, comment: "was: display_name"
       t.string :homepage_url, comment: "was: partner_url"
       t.text :description
       t.text :notes, comment: "was: project_notes"
-      t.text :admin_notes
+      t.text :links_json, comment: "allows multiple URLs (other than homepage) to be displayed"
 
       t.timestamps null: false
     end
@@ -97,6 +94,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
           "we currently have 318 partners that provide this"
 
       t.boolean :is_hidden, null: false, default: false
+      t.boolean :in_unmapped_area, null: false, default: false
 
       t.integer :depth, :null => false, :default => 0
       t.integer :children_count, :null => false, :default => 0

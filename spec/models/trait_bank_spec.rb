@@ -402,7 +402,7 @@ RSpec.describe TraitBank do
       allow(TraitBank).to receive(:connection).at_least(1).times { connection }
       expect(connection).to receive(:create_node).
         with(page_id: 888854) { :a_page }
-      expect(connection).to receive(:add_label).
+      expect(connection).to receive(:set_label).
         with(:a_page, "Page") { }
       expect(TraitBank.create_page(888854)).to eq(:a_page)
     end

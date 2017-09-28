@@ -6,8 +6,6 @@ class Resource < ActiveRecord::Base
   has_many :links, as: :provider
   has_many :media, as: :provider
 
-  enum publish_status: [ :unpublished, :publishing, :published, :deprecated ]
-
   class << self
     def native
       Rails.cache.fetch("resources/native") do
@@ -16,7 +14,6 @@ class Resource < ActiveRecord::Base
           r.partner = Partner.native
           r.description = "A synthesis of the hierarchies from EOL's trusted "\
             "partners, to be used for browsing eol.org"
-          r.content_trusted_by_default = true
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -30,7 +27,6 @@ class Resource < ActiveRecord::Base
           r.name = "IUCN Structured Data"
           r.partner = Partner.native
           r.description = "TBD"
-          r.content_trusted_by_default = true
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -45,7 +41,6 @@ class Resource < ActiveRecord::Base
           r.name = "Extinction Status"
           r.partner = Partner.native
           r.description = "TBD"
-          r.content_trusted_by_default = true
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -59,7 +54,6 @@ class Resource < ActiveRecord::Base
           r.name = "The Paleobiology Database"
           r.partner = Partner.native
           r.description = "TBD"
-          r.content_trusted_by_default = true
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end

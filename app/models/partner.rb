@@ -4,8 +4,8 @@ class Partner < ActiveRecord::Base
 
   class << self
     def native
-      where(full_name: "Encyclopedia of Life").first_or_create do |r|
-        r.full_name = "Encyclopedia of Life"
+      where(name: "Encyclopedia of Life").first_or_create do |r|
+        r.name = "Encyclopedia of Life"
         r.short_name = "EOL"
         r.homepage_url = "http://eol.org"
         r.description = "EOL seeks to build a webpage for every species and to "\

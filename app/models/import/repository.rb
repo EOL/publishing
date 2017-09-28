@@ -4,14 +4,68 @@ module Import
       # TODO.
     end
 
-    # rake db:reset ; rails runner "Import::Repository.start(Resource.first)"
-    def self.start(resource)
-      instance = self.new(resource)
+    # rake db:reset ; rails runner "Import::Repository.start(10.years.ago)"
+    def self.start(since)
+      instance = self.new(since)
       instance.start
     end
 
-    def initialize(resource)
-      @resource = resource
+    def initialize(since)
+      @since = since
+      @resource = nil
+      @resources = []
+    end
+
+    def start
+      get_resources
+      return nil if @resources.empty?
+      @resources.each do |resource|
+        # TODO: this is, of course, silly. create Import::Resource
+        @resource = resource
+        import_resource
+      end
+    end
+
+    # TODO: set these:
+    # t.datetime :last_published_at
+    # t.integer :last_publish_seconds
+
+    def get_resources
+      url = "http://localhost:3000/resources.json?since=#{@since.to_i}&"
+      loop_over_pages(url, "resources") do |resource_data|
+        resource = underscore_hash_keys(resource_data)
+        resource[:repository_id] = resource.delete(:id)
+        partner = resource.delete(:partner)
+        # NOTE: resources that have no associated partner are PURELY test data in the repository database:
+        next unless partner
+        partner[:repository_id] = partner.delete(:id)
+        partner = find_and_update_or_create(Partner, partner)
+        resource[:partner_id] = partner.id
+        resource = find_and_update_or_create(Resource, resource)
+        @resources << resource
+      end
+    end
+
+    def underscore_hash_keys(hash)
+      new_hash = {}
+      hash.each do |k, v|
+        val = v.is_a?(Hash) ? underscore_hash_keys(v) : v
+        new_hash[k.underscore.to_sym] = val
+      end
+      new_hash
+    end
+
+    def find_and_update_or_create(klass, model)
+      if klass.where(repository_id: model[:repository_id]).exists?
+        m = klass.find_by_repository_id(model[:repository_id])
+        m.update_attributes(model)
+        m
+      else
+        klass.create(model)
+      end
+    end
+
+    def reset_resource
       @nodes = []
       @names = []
       @node_id_by_page = {}
@@ -21,10 +75,8 @@ module Import
       @traitbank_terms = {}
     end
 
-    def start
-      # TODO: sync the resource (and content partner) itself.
-      # TEMP:
-
+    def import_resource
+      reset_resource
       import_nodes
       create_new_pages
       import_scientific_names
@@ -32,8 +84,9 @@ module Import
 
       Node.where(resource_id: @resource.id).rebuild!(false)
       # Note: this is quite slow, but searches won't work without it. :S
-      Reindexer.score_richness_for_pages(Page.where(id: @node_id_by_page.keys))
-      Page.reindex
+      pages = Page.where(id: @node_id_by_page.keys)
+      Reindexer.score_richness_for_pages(pages)
+      pages.reindex
     end
 
     def import_nodes
@@ -107,54 +160,75 @@ module Import
     def import_traits
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
 
+      url = "http://localhost:3000/resources/#{@resource.repository_id}/traits.json?"
+      loop_over_pages(url, "traits") do |trait_data|
+        trait = underscore_hash_keys(trait_data)
+        import_trait(trait)
+      end
+    end
+
+    def get_new_instances_from_repo(klass)
+      type = klass.class_name.underscore.pluralize.downcase
+      things = []
+      url = "http://localhost:3000/resources/#{@resource.repository_id}/#{type}.json?"
+      loop_over_pages(url, type.camelize(:lower)) do |thing_data|
+        thing = underscore_hash_keys(thing_data)
+        yield(thing)
+        things << klass.new(thing.merge(resource_id: @resource.id))
+      end
+      things
+    end
+
+    def loop_over_pages(url_without_page, key)
       page = 1
       total_pages = 2 # Dones't matter YET... will be populated in a bit...
       while page <= total_pages
-        url = "http://localhost:3000/resources/#{@resource.repository_id}/traits.json?page=#{page}"
+        url = "#{url_without_page}page=#{page}"
         puts "<< #{url}"
         html_response = Net::HTTP.get(URI.parse(url))
         response = JSON.parse(html_response)
         total_pages = response["totalPages"]
-        response["traits"].each do |trait_data|
-          trait_data.each { |k, v| trait[k.underscore.to_sym] = v }
-          import_trait(trait_data)
+        response[key].each do |data|
+          yield(data)
         end
         page += 1
       end
     end
 
     def import_trait(trait)
-      page_id = trait.delete("page_id")
+      page_id = trait.delete(:page_id)
+      debugger if page_id.nil?
       trait[:page] = @traitbank_pages[page_id] || add_page(page_id)
-      trait[:object_page_id] = trait.delete("association")
+      trait[:object_page_id] = trait.delete(:association)
       trait.delete(:object_page_id) if trait[:object_page_id] == 0
       res_id = @resource.id
-      trait[:supplier] = @traitbank_suppliers[res_id] || add_supplier(res_id, @traitbank_suppliers)
-      pred = trait.delete("predicate")
-      unit = trait.delete("units")
-      val_uri = trait.delete("value_uri")
-      val_num = trait.delete("value_num")
+      trait[:supplier] = @traitbank_suppliers[res_id] || add_supplier(res_id)
+      pred = trait.delete(:predicate)
+      unit = trait.delete(:units)
+      val_uri = trait.delete(:value_uri)
+      val_num = trait.delete(:value_num)
       trait[:measurement] = val_num if val_num
       trait[:predicate] = @traitbank_terms[pred] || add_term(pred)
       trait[:units] = @traitbank_terms[unit] || add_term(unit)
       trait[:object_term] = @traitbank_terms[val_uri] || add_term(val_uri)
-      trait[:metadata] = trait.delete("metadata").map do |md|
-        md_pred = md.delete("predicate")
-        md_val = md.delete("value_uri")
-        md_unit = md.delete("units")
+      trait[:metadata] = trait.delete(:metadata).map do |m_d|
+        md = underscore_hash_keys(m_d)
+        md_pred = md.delete(:predicate)
+        md_val = md.delete(:value_uri)
+        md_unit = md.delete(:units)
         md[:predicate] = @traitbank_terms[md_pred] || add_term(md_pred)
         md[:object_term] = @traitbank_terms[md_val] || add_term(md_val)
         md[:units] = @traitbank_terms[md_unit] || add_term(md_unit)
-        md[:literal] = md.delete("value_literal")
+        md[:literal] = md.delete(:value_literal)
         # TODO: I would feel better if we did more to check the measurement;
         # if there are units, we should have a measurement!
-        md[:measurement] = md.delete("value_num")
+        md[:measurement] = md.delete(:value_num)
         # TODO: add those back as links...
         md.symbolize_keys
       end
-      trait[:statistical_method] = trait.delete("statistical_method")
-      trait[:literal] = trait.delete("value_literal")
-      trait[:source] = trait.delete("source_url")
+      trait[:statistical_method] = trait.delete(:statistical_method)
+      trait[:literal] = trait.delete(:value_literal)
+      trait[:source] = trait.delete(:source_url)
       # The rest of the keys are "just right" and will work as-is:
       begin
         TraitBank.create_trait(trait.symbolize_keys)
@@ -163,9 +237,9 @@ module Import
           TraitBank.create_trait(trait.symbolize_keys)
         rescue
           puts "** ERROR: could not add trait:"
-          puts "** ID: #{trait["resource_pk"]}"
-          puts "** Page: #{trait[:page]["data"]["page_id"]}"
-          puts "** Predicate: #{trait[:predicate]["data"]["uri"]}"
+          puts "** ID: #{trait[:resource_pk]}"
+          puts "** Page: #{trait[:page][:data][:page_id]}"
+          puts "** Predicate: #{trait[:predicate][:data][:uri]}"
         end
       rescue => e
         require "byebug"
@@ -226,28 +300,6 @@ module Import
           1
         end
       @traitbank_terms[uri] = term
-    end
-
-    def get_new_instances_from_repo(klass)
-      type = klass.class_name.underscore.pluralize.downcase
-      things = []
-      page = 1
-      total_pages = 2 # Dones't matter YET... will be populated in a bit...
-      while page <= total_pages
-        url = "http://localhost:3000/resources/#{@resource.repository_id}/#{type}.json?page=#{page}"
-        puts "<< #{url}"
-        html_response = Net::HTTP.get(URI.parse(url))
-        response = JSON.parse(html_response)
-        total_pages = response["totalPages"]
-        response[type.camelize(:lower)].each do |thing_data|
-          thing = {}
-          thing_data.each { |k, v| thing[k.underscore.to_sym] = v }
-          yield(thing)
-          things << klass.new(thing.merge(resource_id: @resource.id))
-        end
-        page += 1
-      end
-      things
     end
 
     # I AM NOT A FAN OF SQL... but this is **way** more efficient than alternatives:

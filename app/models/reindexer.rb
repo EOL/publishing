@@ -41,7 +41,8 @@ module Reindexer
     end
 
     def score_richness_for_pages(pages)
-      puts "#{Page.count} pages"
+      puts "#{pages.count} pages"
+      puts "#{pages.select("id").limit(20).map(&:id).join(', ')}#{pages.count > 20 ? '...' : ''}"
       start_time = Time.now
       count = 0
       pages.find_each do |page|
