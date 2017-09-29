@@ -43,6 +43,9 @@
           = link_to(t("term.actions.species_list"), term_path(params_dup.merge(species_list: true)))
       %button.ui.small.basic.button.uk-margin-small-top
         = link_to(t("term.actions.download"), term_path(params.merge(format: "csv")))
+      - if is_admin?
+        %button.ui.small.basic.button.uk-margin-small-top
+          = link_to(t("term.actions.edit"), edit_term_path(@term[:uri]))
     .clade_filter.uk-margin-top
       = form_tag(term_path, method: "get", autocomplete: "off") do
         - hide_params_in_form(["page"])

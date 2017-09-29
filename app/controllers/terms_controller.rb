@@ -73,6 +73,19 @@ class TermsController < ApplicationController
     end
   end
 
+  def edit
+    @term = TraitBank.term_as_hash(params[:uri])
+  end
+
+  def update
+    # TODO: security check: admin only
+    term = params[:term].merge(uri: params[:uri])
+    # debugger
+    # TODO: sections ...  I can't properly test that right now.
+    TraitBank.update_term(term) # NOTE: *NOT* hash!
+    redirect_to(term_path(term[:uri]))
+  end
+
   def predicate_glossary
     @count = TraitBank::Terms.predicate_glossary_count
     glossary(params[:action])

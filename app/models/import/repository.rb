@@ -86,6 +86,10 @@ module Import
       # Note: this is quite slow, but searches won't work without it. :S
       pages = Page.where(id: @node_id_by_page.keys)
       Reindexer.score_richness_for_pages(pages)
+      # Clear caches that could have been affected TODO: more
+      pages.each do |page|
+        Rails.cache.delete("/pages/#{page.id}/glossary")
+      end
       pages.reindex
     end
 

@@ -1,4 +1,4 @@
--# TODO: this is an exact duplicate of object_term_glossary, except the H1 and the glossary path. ...Generalize! ...and the add button, but that can appear on all pages just fine...
+-# TODO: this is an exact duplicate of object_term_glossary, except the H1 and the glossary path. ...Generalize! 
 - cache("term/full_glossary/#{@page}", expires_in: 1.day) do
   - Rails.logger.warn("FULL TERM GLOSSARY REBUILT.")
   = paginate(@glossary)
@@ -13,9 +13,6 @@
           %li= link_to_next_page @glossary, t("term.pagination.next")
         %button.ui.small.basic.button.uk-margin-small-top
           = link_to(t("term.actions.reindex"), terms_path(reindex: true))
-        - if is_admin?
-          %button.ui.small.basic.button.uk-margin-small-top
-            = link_to(t("term.actions.new"), new_term_path)
     .uk-width-expand.uk-overflow-auto
       %h1= t("term.glossary.full_title")
       .uk-margin-top

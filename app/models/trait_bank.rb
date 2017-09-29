@@ -737,10 +737,24 @@ class TraitBank
     end
 
     def term(uri)
-      res = query("MATCH (term:Term { uri: '#{uri}' }) "\
-        "RETURN term")
+      res = query("MATCH (term:Term { uri: '#{uri}' }) RETURN term")
       return nil unless res["data"] && res["data"].first
       res["data"].first.first
+    end
+
+    def update_term(opts)
+      sets = []
+      sets += %i(name definition attribution comment sections).map do |field|
+        opts[field] = "" if opts[field].nil?
+        "term.#{field} = '#{opts[field].gsub("'", "''")}'"
+      end
+      sets += %i(is_hidden_from_glossary is_hidden_from_glossary).map do |field|
+        "term.#{field} = #{opts[field] ? 'true' : 'false'}"
+      end
+      q = "MATCH (term:Term { uri: '#{opts[:uri]}' }) SET #{sets.join(', ')} RETURN term"
+      res = query(q)
+      raise ActiveRecord::RecordNotFound if res.nil?
+      res["data"].first.first.symbolize_keys
     end
 
     def term_as_hash(uri)

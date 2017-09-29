@@ -1,0 +1,23 @@
+%h1= t("term.edit.header", uri: @term[:uri])
+= form_tag(update_term_path(@term[:uri]), method: 'post', class: "uk-form") do |f|
+  %fieldset
+    - %i(name).each do |field|
+      .uk-form-row
+        %label{ for: "term[#{field}]" }= t("term.fields.#{field}")
+        %input.uk-form-width-medium{ type: :text, id: "term[#{field}]", name: "term[#{field}]", placeholder: '' }= @term[field]
+    - %i(definition attribution comment).each do |field|
+      .uk-form-row
+        %label{ for: "term[#{field}]" }= t("term.fields.#{field}")
+        %textarea.uk-form-width-medium{ id: "term[#{field}]", name: "term[#{field}]", placeholder: '' }= @term[field]
+    - %i(is_hidden_from_glossary is_hidden_from_overview).each do |field|
+      .uk-form-row
+        %label{ for: "term[#{field}]" }= t("term.fields.#{field}")
+        %input{ type: :checkbox, id: "term[#{field}]", name: "term[#{field}]" }
+    %span.uk-form-label= t("term.fields.sections")
+    .uk-form-controls
+      - Section.all.each do |section|
+        - name = "section-#{section.id}"
+        %label{ for: "term[#{name}]" }= section.name
+        %input{ type: :checkbox, id: "term[#{name}]", name: "term[#{name}]" }
+
+  = submit_tag(t("term.edit.submit"), class: "ui button")
