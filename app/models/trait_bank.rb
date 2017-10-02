@@ -155,18 +155,17 @@ class TraitBank
 
     def by_trait(full_id, page = 1, per = 200)
       (_, resource_id, id) = full_id.split("--")
-      id = %Q{"#{id}"} unless id =~ /\A\d+\Z/
-      q = "MATCH (trait:Trait { resource_pk: #{id} })"\
+      q = "MATCH (trait:Trait { resource_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-        "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-        "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, "\
-          "meta, meta_predicate, meta_units_term, meta_object_term "\
-        "ORDER BY LOWER(meta_predicate.name)"
+          "MATCH (trait)-[:predicate]->(predicate:Term) "\
+          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+          "OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
+          "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
+          "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
+          "RETURN resource, trait, predicate, object_term, units, "\
+            "meta, meta_predicate, meta_units_term, meta_object_term "\
+          "ORDER BY LOWER(meta_predicate.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res)

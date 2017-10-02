@@ -215,7 +215,12 @@ module Import
       trait[:predicate] = @traitbank_terms[pred] || add_term(pred)
       trait[:units] = @traitbank_terms[unit] || add_term(unit)
       trait[:object_term] = @traitbank_terms[val_uri] || add_term(val_uri)
-      trait[:metadata] = trait.delete(:metadata).map do |m_d|
+      # TODO: we'll actually get a bunch of other meta-traits on the "children", but TraitBank can't show them yet, so
+      # I'm not harvesting them. This is post-MVP stuff anyway. So I'm handling them identically for now:
+      metadata = trait.delete(:metadata) || []
+      children = trait.delete(:children)
+      metadata += children if children
+      trait[:metadata] = metadata.compact.map do |m_d|
         md = underscore_hash_keys(m_d)
         md_pred = md.delete(:predicate)
         md_val = md.delete(:value_uri)
