@@ -22,3 +22,5 @@ partner = Partner.create(name: "Encyclopedia of Life", short_name: "EOL", descri
 Resource.create(name: "Dynamic Working Hierarchy", abbr: "DWH", description: "The 'consensus' tree of life.", partner_id: partner.id, repository_id: 1)
 
 TraitBank::Admin.remove_all_data_leave_terms
+
+# rake db:reset ; rails runner "Import::Repository.start(10.years.ago)"  <-- requies the harvesting server is running, sooo...
