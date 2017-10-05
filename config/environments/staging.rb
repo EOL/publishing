@@ -17,4 +17,4 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 end
 
-Rails.configuration.repository_url = 'http://repo-beta.eol.org'
+Rails.configuration.repository_url = 'http://beta-repo.eol.org'
