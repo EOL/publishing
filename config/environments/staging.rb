@@ -1,5 +1,4 @@
 Rails.application.configure do
-  config.force_ssl = true
   config.cache_classes = true
   cache_addr = ENV["EOL_STAGING_CACHE_URL"] || "memcached:11211"
   config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }

@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
       current_user && current_user.is_admin?
     end
 
+    def default_url_options(options={})
+     { secure: true }
+    end
+
   public
 
   # Authorization:
