@@ -16,3 +16,5 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 end
+
+Rails.configuration.repository_url = 'http://repo-beta.eol.org'

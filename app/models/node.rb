@@ -5,7 +5,7 @@ class Node < ActiveRecord::Base
 
   has_one :taxon_remark, inverse_of: :node
 
-  # TODO: do we need these with acts_as_nested_set?
+  has_many :identifiers, inverse_of: :node
   has_many :scientific_names, inverse_of: :node
   has_many :vernaculars, inverse_of: :node
   has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"

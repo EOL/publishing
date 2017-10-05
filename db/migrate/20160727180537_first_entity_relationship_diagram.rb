@@ -103,6 +103,11 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :nodes, [:resource_id, :rgt], name: "resource_rgt_index"
     add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
 
+    create_table :identifiers do |t|
+      t.integer :node_id, index: true, null: false
+      t.string :identifier
+    end
+
     create_table :ranks do |t|
       t.string :name, null: false
       t.integer :treat_as, default: nil,

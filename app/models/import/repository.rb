@@ -31,7 +31,7 @@ module Import
     # t.integer :last_publish_seconds
 
     def get_resources
-      url = "http://localhost:3000/resources.json?since=#{@since.to_i}&"
+      url = "#{Rails.configuration.repository_url}/resources.json?since=#{@since.to_i}&"
       loop_over_pages(url, "resources") do |resource_data|
         resource = underscore_hash_keys(resource_data)
         resource[:repository_id] = resource.delete(:id)
@@ -98,6 +98,8 @@ module Import
 
       @nodes = get_new_instances_from_repo(Node) do |node|
         rank = node.delete(:rank)
+        identifiers = node.delete(:identifiers)
+        node[:identifiers] = identifiers.map { |ident| Identifier.new(identifier: ident) }
         unless rank.nil?
           rank = Rank.where(name: rank).first_or_create do |r|
             r.name = rank
@@ -112,6 +114,7 @@ module Import
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
       end
       Node.import(@nodes)
+      # TODO: put in the identifiers that were removed above.
       # TODO: calculate lft and rgt... Ick.
       propagate_id(Node, resource: @resource, fk: 'parent_resource_pk',  other: 'nodes.resource_pk',
                          set: 'parent_id', with: 'id')
@@ -164,7 +167,7 @@ module Import
     def import_traits
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
 
-      url = "http://localhost:3000/resources/#{@resource.repository_id}/traits.json?"
+      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
       loop_over_pages(url, "traits") do |trait_data|
         trait = underscore_hash_keys(trait_data)
         import_trait(trait)
@@ -174,7 +177,7 @@ module Import
     def get_new_instances_from_repo(klass)
       type = klass.class_name.underscore.pluralize.downcase
       things = []
-      url = "http://localhost:3000/resources/#{@resource.repository_id}/#{type}.json?"
+      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/#{type}.json?"
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
         yield(thing)
