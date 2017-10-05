@@ -13,8 +13,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table :licenses do |t|
-      t.string :name, null: false,
-        comment: "was: title; either for Globalize or I18n key"
+      t.string :name, null: false, comment: "was: title; either for Globalize or I18n key"
       t.string :source_url
       t.string :icon_url
       t.boolean :can_be_chosen_by_partners, null: false, default: false
