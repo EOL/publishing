@@ -4,5 +4,5 @@
     %p.eol-flash.uk-invisible{ class: name, data: { text: Array(msg).join("; ") } }
       = Array(msg).join("; ")
 - unless session[:beta_views] && session[:beta_views] == Date.today.to_s
-  %p.eol-flash.uk-invisible{ class: "beta", data: { text: "This is an alpha/a beta version of EOL version 3. Provide feedback and join the discussion at <a href='http://discuss.eol.org/'>http://discuss.eol.org</a>.".html_safe } }
+  %p.eol-flash.uk-invisible{ class: "beta", data: { text: "This is an alpha/a beta version of EOL version 3. Provide feedback and join the discussion at <a href='https://discuss.eol.org/'>https://discuss.eol.org</a>.".html_safe } }
 - session[:beta_views] = Date.today.to_s

@@ -1,6 +1,6 @@
 xml.instruct!
 
-xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
+xml.urlset "xmlns" => "https://www.sitemaps.org/schemas/sitemap/0.9" do
 
   @locales.each do |locale|
     ::I18n.locale = locale

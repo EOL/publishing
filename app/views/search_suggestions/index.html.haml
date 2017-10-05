@@ -22,7 +22,7 @@
       = link_to(suggestion.path)
     - if suggestion.wkt_string && ! suggestion.wkt_string.blank?
       \&rarr;
-      = link_to("[effechecka]", "http://www.effechecka.org/?limit=20&taxonSelector=Aves%2CInsecta&traitSelector=&wktString=#{suggestion.wkt_string}")
+      = link_to("[effechecka]", "https://www.effechecka.org/?limit=20&taxonSelector=Aves%2CInsecta&traitSelector=&wktString=#{suggestion.wkt_string}")
     )
     = link_to("delete", suggestion, method: "DELETE", data: { confirm: "Are you sure?" })
 = paginate @search_suggestions
