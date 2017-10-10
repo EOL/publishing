@@ -2,8 +2,7 @@ class CollectedPage < ActiveRecord::Base
   belongs_to :page, inverse_of: :collected_pages
   belongs_to :collection, inverse_of: :collected_pages
 
-  has_many :collected_pages_media, -> { order(position: :asc) },
-    inverse_of: :collected_page
+  has_many :collected_pages_media, -> { order(position: :asc) }, inverse_of: :collected_page
   has_many :media, through: :collected_pages_media
   has_and_belongs_to_many :articles, -> { order(position: :asc) }
   has_and_belongs_to_many :links, -> { order(position: :asc) }

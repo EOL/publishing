@@ -9,8 +9,6 @@ gem 'mysql2'
 
 # Asset-related gems next:
 
-# We're using Angular for our interactive client side stuff:
-gem 'angularjs-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
