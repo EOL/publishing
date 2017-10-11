@@ -46,7 +46,6 @@ GEM
     after_commit_action (1.1.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-    angularjs-rails (1.6.2)
     arel (6.0.4)
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -469,7 +468,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   acts_as_list
-  angularjs-rails
   awesome_nested_set
   better_errors
   byebug
