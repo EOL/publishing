@@ -100,9 +100,17 @@ class Import::Clade
           end
         elsif klass == Page
           data.delete_if { |instance| instance["native_node_id"].blank? }
+        elsif klass == Partner
+          data.each do |instance|
+            instance.delete('admin_notes')
+          end
         elsif klass == Resource
           # TODO Default value (at DB layer) might be better, here:
-          data.each { |instance| instance["is_browsable"] = false unless instance["is_browsable"] }
+          data.each do |instance|
+            instance["is_browsable"] = false unless instance["is_browsable"]
+            instance.delete('admin_notes')
+            instance['name'] = instance.delete('full_name')
+          end
         elsif klass == Role
            data.each { |instance| instance["name"] = instance["name"].downcase.gsub(/\s+/, "_") }
         elsif klass == Section
@@ -120,7 +128,13 @@ class Import::Clade
         # publishing, note that there is a option: { on_duplicate_key_update:
         # [:title] } ...and while we'll have to write the set of fields for each
         # class, that's doable and will be nice to have!
-        klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
+        begin
+          klass.import(data, on_duplicate_key_ignore: true) unless klass == Node
+        rescue => e
+          puts "...Unable to import #{klass.name}"
+          debugger
+          1
+        end
       end
       # Now we need to add denomralized page icons, because that didn't happen
       # automatically:
@@ -133,9 +147,8 @@ class Import::Clade
 
     # NOTE the extra gsub is required to fix some weird unclosed e.g. bold tags.
     def sanitize_html(instance, field)
-      @ok_tags ||= %w(a p b br i em strong ul li ol sup sub hr img small strike
-        table tbody tr td th thead var wbr dfn dl dd dt del blockquote bdo bdi
-        audio abbr)
+      @ok_tags ||= %w(a p b br i em strong ul li ol sup sub hr img small strike table tbody tr td th thead var wbr dfn
+        dl dd dt del blockquote bdo bdi audio abbr)
       include ActionView::Helpers::SanitizeHelper
       instance[field] = Nokogiri::HTML::fragment(
           ActionController::Base.helpers.
