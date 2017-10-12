@@ -1,0 +1,42 @@
+%h3
+  = "parameters"
+- unless @api_method.parameters.blank?
+  %table
+    %col.name
+    %col.values
+    %col.default
+    %col.notes
+    %thead
+      %tr
+        %th= "name"
+        %th= "values"
+        %th= "default"
+        %th= "notes"
+    %tbody
+      - @api_method.parameters.each do |p|
+        %tr
+          %td= p.name
+          %td
+            - if p.array?
+              = p.values.join(", ")
+            - elsif p.range?
+              = "#{p.values.min} - #{p.values.max}"
+            - elsif p.values
+              = p.values
+            - elsif p.integer?
+              %em= "any_integer"
+            - elsif p.string?
+              %em= "any_string"
+            - elsif p.boolean?
+              = "true, false"
+          %td
+            - if p.default
+              = p.default.to_s
+            - elsif p.default == false
+              = 'false'
+            - else
+              %em= "---"
+          %td= raw(p.notes)
+- else
+  %p
+  %em= "none"

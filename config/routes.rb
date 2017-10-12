@@ -70,6 +70,13 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  
+  # API
+  get "api/:action" => "api/docs"
+  get "api/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
+  post "api/:action" => "api#default_render", :as => "api_post"
+  
+  get "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
 
   root "pages#index"
 
