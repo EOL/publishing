@@ -102,6 +102,7 @@ class Import::Clade
           data.delete_if { |instance| instance["native_node_id"].blank? }
         elsif klass == Partner
           data.each do |instance|
+            instance['name'] = instance.delete('full_name')
             instance.delete('admin_notes')
           end
         elsif klass == Resource
