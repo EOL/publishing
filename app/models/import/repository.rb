@@ -73,6 +73,7 @@ module Import
       @traitbank_pages = {}
       @traitbank_suppliers = {}
       @traitbank_terms = {}
+      @tax_stats = {}
     end
 
     def import_resource
@@ -145,9 +146,10 @@ module Import
         status = name.delete(:taxonomic_status)
         status = "accepted" if status.blank?
         unless status.nil?
-          name[:taxonomic_status_id] = TaxonomicStatus.find_or_create_by(name: status).id
+          name[:taxonomic_status_id] = get_tax_stat(something)
         end
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
+        name[:scientific_name].gsub(/, .*/, "et al.") if name[:scientific_name].size > 200
       end
       begin
         ScientificName.import(@names)
@@ -195,6 +197,7 @@ module Import
         html_response = Net::HTTP.get(URI.parse(url))
         response = JSON.parse(html_response)
         total_pages = response["totalPages"]
+        return unless response.key?(key) # Nothing returned.
         response[key].each do |data|
           yield(data)
         end
@@ -312,6 +315,11 @@ module Import
           1
         end
       @traitbank_terms[uri] = term
+    end
+
+    def get_tax_stat(status)
+      return @tax_stats[status] if @tax_stats.key?(status)
+      @tax_stats[status] = TaxonomicStatus.find_or_create_by(name: status).id
     end
 
     # I AM NOT A FAN OF SQL... but this is **way** more efficient than alternatives:
