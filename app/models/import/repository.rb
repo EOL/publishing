@@ -136,7 +136,7 @@ module Import
         Page.import!(pages)
       rescue => e
         debugger
-        puts "normal?"
+        1
       end
     end
 
@@ -161,7 +161,7 @@ module Import
                            set: 'scientific_name', with: 'italicized')
       rescue => e
         debugger
-        puts "hi"
+        2
       end
 
       ScientificName.counter_culture_fix_counts
@@ -258,9 +258,7 @@ module Import
           puts "** Predicate: #{trait[:predicate][:data][:uri]}"
         end
       rescue => e
-        require "byebug"
-        puts "NEOGRAPHY ERROR?"
-        debugger
+        debugger # "NEOGRAPHY ERROR?"
         1
       end
     end

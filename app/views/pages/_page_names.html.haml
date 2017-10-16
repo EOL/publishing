@@ -15,7 +15,7 @@
               %dt= string.html_safe
               %dd.uk-text-meta
                 - formatted_names = []
-                - names.map { |n| n.node.resource }.uniq.each do |resource|
+                - names.map { |n| n.node.try(:resource) }.compact.uniq.each do |resource|
                   - formatted_names << link_to(resource.name, resource)
                 = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 %h2= t(:vernacular_names_header)
