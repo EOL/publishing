@@ -170,7 +170,7 @@ module PagesHelper
   def summarize(page, options = {})
     node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
-    vernacular = page.name.titleize if page
+    vernacular = first_cap(page.name) if page
     icon_size = "tiny"
     names = vernacular && vernacular != node.canonical_form ? "#{vernacular} <span class='uk-text-muted uk-text-small'>#{node.canonical_form}</span>" : node.canonical_form
     haml_tag("span.#{icon_size}") do

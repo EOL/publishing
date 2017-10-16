@@ -124,7 +124,8 @@ module Import
 
     def create_new_pages
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
-      # regardless of other nodes.
+      # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
+      # itself to that page, then the native_node_id should *change* to the DWH id.)
       begin
         Node.where(resource_pk: @nodes.map { |n| n.resource_pk }).select("id, page_id").find_each do |node|
           @node_id_by_page[node.page_id] = node.id
@@ -146,10 +147,10 @@ module Import
         status = name.delete(:taxonomic_status)
         status = "accepted" if status.blank?
         unless status.nil?
-          name[:taxonomic_status_id] = get_tax_stat(something)
+          name[:taxonomic_status_id] = get_tax_stat(status)
         end
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
-        name[:scientific_name].gsub(/, .*/, "et al.") if name[:scientific_name].size > 200
+        name[:italicized].gsub!(/, .*/, ", et al.") if name[:italicized] && name[:italicized].size > 200
       end
       begin
         ScientificName.import(@names)
