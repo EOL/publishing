@@ -9,6 +9,8 @@ Reindexer.fix_all_counter_culture_counts
 
 Rank.fill_in_missing_treat_as
 
+License.public_domain # forces create
+
 u = User.create(username: "admin", email: "admin@eol.org", password: "admin4Tramea", admin: true)
 u.activate
 user = User.create(email: "foo2@bar.com", username: "cigarman", name: "Sigmond Freud", password: "foobarbaz")

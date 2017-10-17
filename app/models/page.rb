@@ -15,8 +15,7 @@ class Page < ActiveRecord::Base
     class_name: "ScientificName"
   has_many :resources, through: :nodes
 
-  # NOTE: this is too complicated, I think: it's not working as expected when
-  # preloading. (Perhaps due to the scope.)
+  # NOTE: this is too complicated, I think: it's not working as expected when preloading. (Perhaps due to the scope.)
   has_many :page_icons, inverse_of: :page
   # Only the last one "sticks":
   has_one :page_icon, -> { most_recent }
@@ -105,7 +104,9 @@ class Page < ActiveRecord::Base
   end
 
   def ancestry_ids
-    Array(native_node.try(:ancestors).try(:pluck, :page_id)) + [id]
+    # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
+    # data)
+    Array(native_node.try(:ancestors).try(:pluck, :page_id)).compact + [id]
   end
 
   def descendant_species
@@ -262,7 +263,7 @@ class Page < ActiveRecord::Base
   end
 
   def rank
-    native_node.try(:rank) || I18n.t("ranks.not_given")
+    native_node.try(:rank)
   end
 
   # TRAITS METHODS

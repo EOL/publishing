@@ -22,7 +22,7 @@ module Import
       @resources.each do |resource|
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
-        import_resource
+        import_resource if @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
       end
     end
 
@@ -81,20 +81,23 @@ module Import
       import_nodes
       create_new_pages
       import_scientific_names
+      import_media
       import_traits
 
-      Node.where(resource_id: @resource.id).rebuild!(false)
       # Note: this is quite slow, but searches won't work without it. :S
       pages = Page.where(id: @node_id_by_page.keys)
+      log('## score_richness_for_pages')
       Reindexer.score_richness_for_pages(pages)
       # Clear caches that could have been affected TODO: more
       pages.each do |page|
         Rails.cache.delete("/pages/#{page.id}/glossary")
       end
+      log('## pages.reindex')
       pages.reindex
     end
 
     def import_nodes
+      log('## import_nodes')
       Node.where(resource_id: @resource.id).delete_all # TEMP!!!
 
       @nodes = get_new_instances_from_repo(Node) do |node|
@@ -114,15 +117,19 @@ module Import
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
       end
+      log(".. importing #{@nodes.size} Nodes")
       Node.import(@nodes)
       # TODO: put in the identifiers that were removed above.
       # TODO: calculate lft and rgt... Ick.
       propagate_id(Node, resource: @resource, fk: 'parent_resource_pk',  other: 'nodes.resource_pk',
                          set: 'parent_id', with: 'id')
-      Node.counter_culture_fix_counts
+      # NOTE: it's required to rebuild the ancestry for later steps (e.g.: media propagation).
+      log('.. rebuilding Node hierarchies')
+      Node.where(resource_id: @resource.id).rebuild!(false)
     end
 
     def create_new_pages
+      log('## create_new_pages')
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
       # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
       # itself to that page, then the native_node_id should *change* to the DWH id.)
@@ -133,14 +140,18 @@ module Import
         have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
         missing = @node_id_by_page.keys - have_pages
         pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
+        log(".. importing #{pages.size} Pages")
         Page.import!(pages)
       rescue => e
         debugger
-        1
+        3
       end
+      log('.. fixing counter_culture counts for Node...')
+      Node.where(resource_id: @resource.id).counter_culture_fix_counts
     end
 
     def import_scientific_names
+      log('## import_scientific_names')
       ScientificName.where(resource_id: @resource.id).delete_all # TEMP!!!
 
       @names = get_new_instances_from_repo(ScientificName) do |name|
@@ -152,7 +163,14 @@ module Import
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
         name[:italicized].gsub!(/, .*/, ", et al.") if name[:italicized] && name[:italicized].size > 200
       end
+      num_bad = @names.select { |name| name[:page_id].nil? }.size
+      if num_bad > 0
+        puts "** WARNING: you've got #{num_bad} scientific_names with no page_id!"
+        puts @names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')
+        @names.delete_if { |name| name[:page_id].nil? }
+      end
       begin
+        log(".. importing #{@names.size} Names")
         ScientificName.import(@names)
         propagate_id(ScientificName, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
                            set: 'node_id', with: 'id')
@@ -161,13 +179,97 @@ module Import
                            set: 'scientific_name', with: 'italicized')
       rescue => e
         debugger
-        2
+        4
       end
-
+      log('.. fixing counter_culture counts for ScientificName...')
       ScientificName.counter_culture_fix_counts
     end
 
+    def import_media
+      log('## import_media')
+      Medium.where(resource_id: @resource.id).delete_all # TEMP!!!
+
+      @media_by_page = {}
+      @media_pks = []
+      log('.. get media from repo...')
+      @media = get_new_instances_from_repo(Medium) do |medium|
+        debugger if medium[:subclass] != 'image' # TODO
+        debugger if medium[:format] != 'jpg' # TODO
+        # TODO Add usage_statement to database. Argh.
+        medium.delete(:usage_statement)
+        # NOTE: sizes are really "informational," for other people using that API. We don't need them:
+        medium.delete(:sizes)
+        # TODO: locations import
+        # TODO: bibliographic_citations import
+        medium.delete(:language) if medium[:language].empty?
+        debugger if medium[:language] # Not sure what I get, yet!
+        medium[:license_id] ||= 1 # TEMP will look for source_url
+        page_id = medium.delete(:page_id)
+        @media_by_page[page_id] = medium[:resource_pk]
+        @media_pks << medium[:resource_pk]
+      end
+      begin
+        log('.. import media...')
+        Medium.import(@media)
+        @media_id_by_pk = {}
+        log('.. learn IDs...')
+        Medium.where(resource_pk: @media_pks).select('id, resource_pk').find_in_batches.each do |group|
+          group.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
+        end
+        @contents = []
+        @ancestry = {}
+        log('.. learn Ancestry...')
+        @naked_pages = {}
+        Page.includes(:native_node).where(id: @media_by_page.keys).find_in_batches do |group|
+          group.each do |page|
+            @ancestry[page.id] = page.ancestry_ids
+            if page.medium_id.nil?
+              @naked_pages[page.id] = page
+              # If this guy doesn't have an icon, we need to walk up the tree to find more! :S
+              Page.where(id: page.ancestry_ids).reverse.each do |ancestor|
+                next if ancestor.id == page.id
+                last if ancestor.medium_id
+                @naked_pages[ancestor.id] = ancestor
+              end
+            end
+          end
+        end
+        log('.. build page contents...')
+        @media_by_page.each do |page_id, medium_pk|
+          # TODO: position. :(
+          # TODO: trust...
+          @contents << { page_id: page_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+                         content_id: @media_id_by_pk[medium_pk] }
+          if @naked_pages.key?(page_id)
+            @naked_pages[page_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
+          end
+          if @ancestry.key?(page_id)
+            @ancestry[page_id].each do |ancestor_id|
+              next if ancestor_id == page_id
+              @contents << { page_id: ancestor_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+                content_id: @media_id_by_pk[medium_pk] }
+              if @naked_pages.key?(ancestor_id)
+                @naked_pages[ancestor_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
+              end
+            end
+          end
+        end
+        log(".. import #{@contents.size} page contents...")
+        PageContent.import(@contents)
+        unless @naked_pages.empty?
+          log(".. updating #{@naked_pages.values.size} pages with icons...")
+          Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
+        end
+      rescue => e
+        debugger
+        5
+      end
+      # Using the date here is not the best idea: :S
+      PageContent.where(['created_at > ?', 1.day.ago]).counter_culture_fix_counts
+    end
+
     def import_traits
+      log('## import_traits')
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
 
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
@@ -194,7 +296,7 @@ module Import
       total_pages = 2 # Dones't matter YET... will be populated in a bit...
       while page <= total_pages
         url = "#{url_without_page}page=#{page}"
-        puts "<< #{url}"
+        log "<< #{url}"
         html_response = Net::HTTP.get(URI.parse(url))
         response = JSON.parse(html_response)
         total_pages = response["totalPages"]
@@ -252,10 +354,10 @@ module Import
         begin
           TraitBank.create_trait(trait.symbolize_keys)
         rescue
-          puts "** ERROR: could not add trait:"
-          puts "** ID: #{trait[:resource_pk]}"
-          puts "** Page: #{trait[:page][:data][:page_id]}"
-          puts "** Predicate: #{trait[:predicate][:data][:uri]}"
+          log "** ERROR: could not add trait:"
+          log "** ID: #{trait[:resource_pk]}"
+          log "** Page: #{trait[:page][:data][:page_id]}"
+          log "** Predicate: #{trait[:predicate][:data][:uri]}"
         end
       rescue => e
         debugger # "NEOGRAPHY ERROR?"
@@ -273,14 +375,14 @@ module Import
           parent = @traitbank_pages[page_id] || add_page(parent_id)
           parent = parent.first if parent.is_a?(Array)
           if parent_id == page_id
-            puts "** OOPS: we just tried to add #{parent_id} as a parent to itself!"
+            log "** OOPS: we just tried to add #{parent_id} as a parent to itself!"
           else
-            puts "Adding parent #{parent_id} to page #{page_id}..."
+            log©© "Adding parent #{parent_id} to page #{page_id}..."
             TraitBank.add_parent_to_page(parent, tb_page)
           end
         end
       else
-        puts "Trait attempts to use missing page: #{page_id}, ignoring links"
+        log "Trait attempts to use missing page: #{page_id}, ignoring links"
       end
       @traitbank_pages[page_id] = tb_page
       tb_page
@@ -308,10 +410,10 @@ module Import
             attribution: ""
           )
         rescue Neography::PropertyValueException => e
-          puts "** WARNING: Failed to set property on term... #{e.message}"
-          puts "** This seems to occur with some bad trait data (passing in hashes instead of strings)"
+          log "** WARNING: Failed to set property on term... #{e.message}"
+          log "** This seems to occur with some bad trait data (passing in hashes instead of strings)"
           debugger
-          1
+          2
         end
       @traitbank_terms[uri] = term
     end
@@ -336,6 +438,12 @@ module Import
     def clean_execute(klass, args)
       clean_sql = klass.send(:sanitize_sql, args)
       klass.connection.execute(clean_sql)
+    end
+
+    def log(what)
+      what = "[#{Time.now.strftime('%H:%M:%S')}] #{what}"
+      Rails.logger.error(what)
+      puts what
     end
   end
 end
