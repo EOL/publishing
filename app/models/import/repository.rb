@@ -22,7 +22,7 @@ module Import
       @resources.each do |resource|
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
-        import_resource if @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
+        import_resource if @resource.id == 1 || @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
       end
     end
 
