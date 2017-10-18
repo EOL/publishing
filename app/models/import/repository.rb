@@ -22,7 +22,11 @@ module Import
       @resources.each do |resource|
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
-        import_resource if @resource.id == 1 || @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
+        begin
+          import_resource if @resource.id == 1 || @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
+        rescue => e
+          log("!! ERROR: #{e.message}\n#{e.backtrace}")
+        end
       end
     end
 
@@ -77,6 +81,7 @@ module Import
     end
 
     def import_resource
+      log('{{ START IMPORT')
       reset_resource
       import_nodes
       create_new_pages
@@ -94,11 +99,11 @@ module Import
       end
       log('## pages.reindex')
       pages.reindex
+      log('}} END IMPORT')
     end
 
     def import_nodes
       log('## import_nodes')
-      Node.where(resource_id: @resource.id).delete_all # TEMP!!!
 
       @nodes = get_new_instances_from_repo(Node) do |node|
         rank = node.delete(:rank)
@@ -118,7 +123,9 @@ module Import
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
       end
       log(".. importing #{@nodes.size} Nodes")
-      Node.import(@nodes)
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      Node.import(@nodes, on_duplicate_key_ignore: true)
       # TODO: put in the identifiers that were removed above.
       # TODO: calculate lft and rgt... Ick.
       propagate_id(Node, resource: @resource, fk: 'parent_resource_pk',  other: 'nodes.resource_pk',
@@ -133,26 +140,22 @@ module Import
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
       # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
       # itself to that page, then the native_node_id should *change* to the DWH id.)
-      begin
-        Node.where(resource_pk: @nodes.map { |n| n.resource_pk }).select("id, page_id").find_each do |node|
-          @node_id_by_page[node.page_id] = node.id
-        end
-        have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
-        missing = @node_id_by_page.keys - have_pages
-        pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
-        log(".. importing #{pages.size} Pages")
-        Page.import!(pages)
-      rescue => e
-        debugger
-        3
+      Node.where(resource_pk: @nodes.map { |n| n.resource_pk }).select("id, page_id").find_each do |node|
+        @node_id_by_page[node.page_id] = node.id
       end
+      have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
+      missing = @node_id_by_page.keys - have_pages
+      pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
+      log(".. importing #{pages.size} Pages")
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      Page.import!(pages, on_duplicate_key_ignore: true)
       log('.. fixing counter_culture counts for Node...')
       Node.where(resource_id: @resource.id).counter_culture_fix_counts
     end
 
     def import_scientific_names
       log('## import_scientific_names')
-      ScientificName.where(resource_id: @resource.id).delete_all # TEMP!!!
 
       @names = get_new_instances_from_repo(ScientificName) do |name|
         status = name.delete(:taxonomic_status)
@@ -169,26 +172,21 @@ module Import
         puts @names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')
         @names.delete_if { |name| name[:page_id].nil? }
       end
-      begin
-        log(".. importing #{@names.size} Names")
-        ScientificName.import(@names)
-        propagate_id(ScientificName, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                           set: 'node_id', with: 'id')
-        # TODO: This doesn't ensure we're getting *preferred* scientific_name.
-        propagate_id(Node, resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
-                           set: 'scientific_name', with: 'italicized')
-      rescue => e
-        debugger
-        4
-      end
+      log(".. importing #{@names.size} Names")
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      ScientificName.import(@names, on_duplicate_key_ignore: true)
+      propagate_id(ScientificName, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                         set: 'node_id', with: 'id')
+      # TODO: This doesn't ensure we're getting *preferred* scientific_name.
+      propagate_id(Node, resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
+                         set: 'scientific_name', with: 'italicized')
       log('.. fixing counter_culture counts for ScientificName...')
       ScientificName.counter_culture_fix_counts
     end
 
     def import_media
       log('## import_media')
-      Medium.where(resource_id: @resource.id).delete_all # TEMP!!!
-
       @media_by_page = {}
       @media_pks = []
       log('.. get media from repo...')
@@ -208,61 +206,60 @@ module Import
         @media_by_page[page_id] = medium[:resource_pk]
         @media_pks << medium[:resource_pk]
       end
-      begin
-        log('.. import media...')
-        Medium.import(@media)
-        @media_id_by_pk = {}
-        log('.. learn IDs...')
-        Medium.where(resource_pk: @media_pks).select('id, resource_pk').find_in_batches.each do |group|
-          group.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
-        end
-        @contents = []
-        @ancestry = {}
-        log('.. learn Ancestry...')
-        @naked_pages = {}
-        Page.includes(:native_node).where(id: @media_by_page.keys).find_in_batches do |group|
-          group.each do |page|
-            @ancestry[page.id] = page.ancestry_ids
-            if page.medium_id.nil?
-              @naked_pages[page.id] = page
-              # If this guy doesn't have an icon, we need to walk up the tree to find more! :S
-              Page.where(id: page.ancestry_ids).reverse.each do |ancestor|
-                next if ancestor.id == page.id
-                last if ancestor.medium_id
-                @naked_pages[ancestor.id] = ancestor
-              end
+      log('.. import media...')
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      Medium.import(@media, on_duplicate_key_ignore: true)
+      @media_id_by_pk = {}
+      log('.. learn IDs...')
+      Medium.where(resource_pk: @media_pks).select('id, resource_pk').find_in_batches.each do |group|
+        group.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
+      end
+      @contents = []
+      @ancestry = {}
+      log('.. learn Ancestry...')
+      @naked_pages = {}
+      Page.includes(:native_node).where(id: @media_by_page.keys).find_in_batches do |group|
+        group.each do |page|
+          @ancestry[page.id] = page.ancestry_ids
+          if page.medium_id.nil?
+            @naked_pages[page.id] = page
+            # If this guy doesn't have an icon, we need to walk up the tree to find more! :S
+            Page.where(id: page.ancestry_ids).reverse.each do |ancestor|
+              next if ancestor.id == page.id
+              last if ancestor.medium_id
+              @naked_pages[ancestor.id] = ancestor
             end
           end
         end
-        log('.. build page contents...')
-        @media_by_page.each do |page_id, medium_pk|
-          # TODO: position. :(
-          # TODO: trust...
-          @contents << { page_id: page_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
-                         content_id: @media_id_by_pk[medium_pk] }
-          if @naked_pages.key?(page_id)
-            @naked_pages[page_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
-          end
-          if @ancestry.key?(page_id)
-            @ancestry[page_id].each do |ancestor_id|
-              next if ancestor_id == page_id
-              @contents << { page_id: ancestor_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
-                content_id: @media_id_by_pk[medium_pk] }
-              if @naked_pages.key?(ancestor_id)
-                @naked_pages[ancestor_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
-              end
+      end
+      log('.. build page contents...')
+      @media_by_page.each do |page_id, medium_pk|
+        # TODO: position. :(
+        # TODO: trust...
+        @contents << { page_id: page_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+                       content_id: @media_id_by_pk[medium_pk] }
+        if @naked_pages.key?(page_id)
+          @naked_pages[page_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
+        end
+        if @ancestry.key?(page_id)
+          @ancestry[page_id].each do |ancestor_id|
+            next if ancestor_id == page_id
+            @contents << { page_id: ancestor_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+              content_id: @media_id_by_pk[medium_pk] }
+            if @naked_pages.key?(ancestor_id)
+              @naked_pages[ancestor_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
             end
           end
         end
-        log(".. import #{@contents.size} page contents...")
-        PageContent.import(@contents)
-        unless @naked_pages.empty?
-          log(".. updating #{@naked_pages.values.size} pages with icons...")
-          Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
-        end
-      rescue => e
-        debugger
-        5
+      end
+      log(".. import #{@contents.size} page contents...")
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      PageContent.import(@contents, on_duplicate_key_ignore: true)
+      unless @naked_pages.empty?
+        log(".. updating #{@naked_pages.values.size} pages with icons...")
+        Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
       end
       # Using the date here is not the best idea: :S
       PageContent.where(['created_at > ?', 1.day.ago]).counter_culture_fix_counts
@@ -359,9 +356,6 @@ module Import
           log "** Page: #{trait[:page][:data][:page_id]}"
           log "** Predicate: #{trait[:predicate][:data][:uri]}"
         end
-      rescue => e
-        debugger # "NEOGRAPHY ERROR?"
-        1
       end
     end
 
@@ -410,10 +404,8 @@ module Import
             attribution: ""
           )
         rescue Neography::PropertyValueException => e
-          log "** WARNING: Failed to set property on term... #{e.message}"
-          log "** This seems to occur with some bad trait data (passing in hashes instead of strings)"
-          debugger
-          2
+          log("** WARNING: Failed to set property on term... #{e.message}")
+          log('** This seems to occur with some bad trait data (passing in hashes instead of strings)')
         end
       @traitbank_terms[uri] = term
     end
@@ -442,7 +434,7 @@ module Import
 
     def log(what)
       what = "[#{Time.now.strftime('%H:%M:%S')}] #{what}"
-      Rails.logger.error(what)
+      Delayed::Worker.logger.error(what)
       puts what
     end
   end
