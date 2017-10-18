@@ -238,6 +238,7 @@ module Api
           unless no_objects_required?(params)
             params[:licenses] = nil if params[:licenses].include?('all')
             process_license_options!(params)
+            adjust_vetted_options!(params)
             
             return_hash['dataObjects'] = []
             
@@ -275,25 +276,28 @@ module Api
               content_object=content_objects[0]
               medium_object= Medium.find_by_id(medium_id)
               
-              media_hash={
-                'identifier' => medium_object.guid,
-                'dataObjectVersionID' => medium_object.id,
-                'vettedStatus' => content_object.trust
-    #             rating
-    #             schema value
-              }
+              if params[:vetted_types].include?(content_object.trust)
               
-              return_media << media_hash
+                media_hash={
+                  'identifier' => medium_object.guid,
+                  'dataObjectVersionID' => medium_object.id,
+                  'vettedStatus' => content_object.trust
+      #             rating
+      #             schema value
+                }
+                
+                return_media << media_hash
+             end
           end
         else
           license_ids=params[:licenses].map(&:id)
           media.response["hits"]["hits"].each do |medium|
               medium_id= medium["_id"]
               medium_object= Medium.find_by_id(medium_id)
+              content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
+              content_object=content_objects[0]
               
-              if license_ids.include?(medium_object.license_id)
-                content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
-                content_object=content_objects[0]
+              if license_ids.include?(medium_object.license_id) && parmas[:vetted_types].include?(content_object.trust)
                 
                 media_hash={
                   'identifier' => medium_object.guid,
@@ -318,6 +322,22 @@ module Api
               License.where("name REGEXP '^#{l}([^-]|$)'")
             end.compact
           end
+      end
+      
+      def self.adjust_vetted_options!(options)
+        vetted_types = {}
+        if options[:vetted] == 1  # 1 = trusted
+            vetted_types = ['trusted']
+          elsif options[:vetted] == 2  # 2 = everything except untrusted
+            vetted_types = ['trusted', 'unreviewed']
+          elsif options[:vetted] == 3  # 3 = unreviewed
+           vetted_types = ["unreviewed"]
+          elsif options[:vetted] == 4  # 4 = untrusted
+            vetted_types = ["untrusted"]
+          else  # 0 = everything
+            vetted_types = ['trusted', 'unreviewed', 'untrusted']
+          end
+        options[:vetted_types] = vetted_types
       end
 
     end
