@@ -16,6 +16,7 @@ module Import
       @since = since
       @resource = nil
       @resources = []
+      reset_resource # Not strictly required, but helps for debugging.
     end
 
     def start
