@@ -149,8 +149,12 @@ module PagesHelper
   end
 
   def classification(this_node, ancestors)
+    if ancestors.nil?
+      haml_tag("li.one") do
+        summarize(this_node.page, current_page: true, node: this_node)
+      end
+    end
     ancestors = Array(ancestors)
-    return summarize(this_node.page, current_page: true, node: this_node) if ancestors.blank?
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("li.one") do
