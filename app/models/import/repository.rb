@@ -1,5 +1,7 @@
 module Import
   class Repository
+    attr_accessor :resource
+
     def self.sync
       # TODO.
     end
@@ -122,6 +124,10 @@ module Import
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
       end
+      if @nodes.empty?
+        log('.. There were NO new nodes, skipping...')
+        return
+      end
       log(".. importing #{@nodes.size} Nodes")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
@@ -146,6 +152,10 @@ module Import
       have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
       missing = @node_id_by_page.keys - have_pages
       pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
+      if pages.empty?
+        log('.. There were NO new pages, skipping...')
+        return
+      end
       log(".. importing #{pages.size} Pages")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
@@ -171,6 +181,10 @@ module Import
         puts "** WARNING: you've got #{num_bad} scientific_names with no page_id!"
         puts @names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')
         @names.delete_if { |name| name[:page_id].nil? }
+      end
+      if @names.empty?
+        log('.. There were NO new scientific names, skipping...')
+        return
       end
       log(".. importing #{@names.size} Names")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
@@ -205,6 +219,10 @@ module Import
         page_id = medium.delete(:page_id)
         @media_by_page[page_id] = medium[:resource_pk]
         @media_pks << medium[:resource_pk]
+      end
+      if @media.empty?
+        log('.. There were NO new media, skipping...')
+        return
       end
       log('.. import media...')
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
