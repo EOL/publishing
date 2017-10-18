@@ -269,51 +269,94 @@ module Api
       
       
       def self.load_media(media, params, page, return_media)
-        if params[:licenses].nil?
-          media.response["hits"]["hits"].each do |medium|
-              medium_id= medium["_id"]
-              content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
-              content_object=content_objects[0]
-              medium_object= Medium.find_by_id(medium_id)
-              
-              if params[:vetted_types].include?(content_object.trust)
-              
-                media_hash={
-                  'identifier' => medium_object.guid,
-                  'dataObjectVersionID' => medium_object.id,
-                  'vettedStatus' => content_object.trust
-      #             rating
-      #             schema value
-                }
-                
-                return_media << media_hash
-             end
-          end
-        else
-          license_ids=params[:licenses].map(&:id)
-          media.response["hits"]["hits"].each do |medium|
-              medium_id= medium["_id"]
-              medium_object= Medium.find_by_id(medium_id)
-              content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
-              content_object=content_objects[0]
-              
-              if license_ids.include?(medium_object.license_id) && parmas[:vetted_types].include?(content_object.trust)
-                
-                media_hash={
-                  'identifier' => medium_object.guid,
-                  'dataObjectVersionID' => medium_object.id,
-                  'vettedStatus' => content_object.trust
-      #             rating
-      #             schema value
-                }
-                
-                return_media << media_hash
-              end
-          end
-              
-        end
-          
+        media_ids=media.records.map(&:id)
+        license_ids=params[:licenses].map(&:id) if params[:licenses]
+        
+        load_images(media_ids, license_ids, params, page, return_media)   
+        load_videos(media_ids, license_ids, params, page, return_media)
+        load_sounds(media_ids, license_ids, params, page, return_media)  
       end
+      
+      
+      def self.load_images(media_ids, license_ids, params, page, return_image)
+        if params_found_and_greater_than_zero(params[:images_page], params[:images_per_page])
+          
+          offset = (params[:images_page]-1)*params[:images_per_page]
+        
+          image_objects= PageContent.images.where("id in (?)", media_ids)
+          
+          image_objects[offset..offset+params[:images_per_page]-1].each do |image_object|
+            content_objects= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], image_object.id, "Medium")
+            content_object = content_objects[0]
+            
+            if (params[:licenses].nil? || license_ids.include?(image_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                image_hash={
+                  'identifier' => image_object.guid,
+                  'dataObjectVersionID' => image_object.id,
+                  'vettedStatus' => content_object.trust
+          #             rating
+          #             schema value
+                }
+                return_image << image_hash
+            end
+          end
+        end
+        
+      end
+      
+      def self.load_videos(media_ids, license_ids, params, page, return_video)
+        if params_found_and_greater_than_zero(params[:videos_page], params[:videos_per_page])
+          
+          offset = (params[:videos_page]-1)*params[:videos_per_page]
+        
+          video_objects= PageContent.videos.where("id in (?)", media_ids)
+          
+          video_objects[offset..offset+params[:videos_per_page]-1].each do |video_object|
+            content_objects= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], video_object.id, "Medium")
+            content_object = content_objects[0]
+            
+            if (params[:licenses].nil? || license_ids.include?(video_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                video_hash={
+                  'identifier' => video_object.guid,
+                  'dataObjectVersionID' => video_object.id,
+                  'vettedStatus' => content_object.trust
+          #             rating
+          #             schema value
+                }
+                return_video << video_hash
+            end
+          end
+        end
+        
+      end
+      
+      def self.load_sounds(media_ids, license_ids, params, page, return_sound)
+        if params_found_and_greater_than_zero(params[:sounds_page], params[:sounds_per_page])
+          
+          offset = (params[:sounds_page]-1)*params[:sounds_per_page]
+        
+          sound_objects= PageContent.sounds.where("id in (?)", media_ids)
+          
+          sound_objects[offset..offset+params[:sounds_per_page]-1].each do |sound_object|
+            content_objects= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], sound_object.id, "Medium")
+            content_object = content_objects[0]
+            
+            if (params[:licenses].nil? || license_ids.include?(sound_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                sound_hash={
+                  'identifier' => sound_object.guid,
+                  'dataObjectVersionID' => sound_object.id,
+                  'vettedStatus' => content_object.trust
+          #             rating
+          #             schema value
+                }
+                return_sound << sound_hash
+            end
+          end
+        end
+        
+      end
+      
+      
 
       def self.process_license_options!(options)
           if options[:licenses]
@@ -338,6 +381,10 @@ module Api
             vetted_types = ['trusted', 'unreviewed', 'untrusted']
           end
         options[:vetted_types] = vetted_types
+      end
+      
+      def self.params_found_and_greater_than_zero(page, per_page)
+          page && per_page && page > 0 && per_page > 0 ? true : false
       end
 
     end
