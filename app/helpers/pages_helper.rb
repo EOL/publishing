@@ -150,7 +150,8 @@ module PagesHelper
 
   def classification(this_node, ancestors)
     ancestors = Array(ancestors)
-    node = ancestors.blank? ? this_node : ancestors.shift
+    return summarize(this_node.page, current_page: true, node: this_node) if ancestors.blank?
+    node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("li.one") do
       summarize(page, current_page: ! this_node, node: node)
