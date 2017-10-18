@@ -1,6 +1,7 @@
 module Api
   module Pages
     class V0_0 < Api::Methods
+      Searchkick
       DEFAULT_OBJECTS_NUMBER=1
       VERSION='0.0'
       BRIEF_DESCRIPTION= Proc.new {"brife description" }
@@ -139,12 +140,12 @@ module Api
       def self.call(params)
         validate_and_normalize_input_parameters(params)
         adjust_sounds_images_videos_texts(params)
-        page_requests = params[:id].split(",").map do |id|
+        page_requests = params[:id].split(",").map do |page_id|
           #get from database need to be changed with elasticsearch 
-          # page_request=Page.search(id, fields: [:id]).records.to_a   
+          page_request=Page.search(page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0]  
           # page_request=request.response 
-          page_request=Page.find_by_id(id)
-          {id: id, page: page_request}
+          # page_request=Page.find_by_id(id)
+          {id: page_id, page: page_request}
         end.compact
 
         if (params[:batch] )
@@ -181,47 +182,46 @@ module Api
         return_hash = {}
         page = params[:batch] ? page_hash[:page] : page_hash
         unless page.nil?
-          return_hash['identifier'] = page[0].id
+          return_hash['identifier'] = page["_id"]
           # return_hash['scientificName'] = page.preferred_scientific_names.first.italicized
-          return_hash['scientificName'] = page.scientific_name
-          return_hash['richness_score'] = page.page_richness rescue 0
+          return_hash['scientificName'] = page["_source"]["scientific_name"]
+          return_hash['richness_score'] = page["_source"]["page_richness"]
 
           if params[:synonyms]
             return_hash["synonyms"] =
-            page.synonyms.map do |syn|
+            page["_source"]["synonyms"].map do |syn|
               relation = syn.taxonomic_status.try(:name) || ""
               resource_title = syn.node.try(:resource).try(:name) || ""
               { "synonym" => syn.italicized, "relationship" => relation, "resource" => resource_title}
             end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
           end
-
+# 
           if params[:common_names]
             return_hash['vernacularNames'] = []
-            page.vernaculars.each do |ver|
+            Vernacular.where("page_id = ? ", page["_id"]).each do |ver|
               lang = ver.language.group
               common_name_hash = {
                 'vernacularName' => ver.string,
                 'language'       => lang
               }
-              preferred = (ver.is_preferred == 1) ? true : nil
+              preferred = (ver.is_preferred?) ? true : nil
               common_name_hash['eol_preferred'] = preferred unless preferred.blank?
               return_hash['vernacularNames'] << common_name_hash
             end
           end
 
-          # if params[:references]
-          # return_hash['references'] = []
-          # references = Ref.find_refs_for(taxon_concept.id)
-          # references = Ref.sort_by_full_reference(references)
-          # references.each do |r|
-          # return_hash['references'] << r.full_reference
-          # end
-          # return_hash['references'].uniq!
-          # end
+          if params[:references]
+            return_hash['references'] = []
+            references = Referent.includes(:pages).where('pages.id'=> page["_id"])
+            references.each do |r|
+              return_hash['references'] << r.body
+            end
+            return_hash['references'].uniq!
+          end
 
           if params[:taxonomy]
             return_hash['taxonConcepts'] = []
-            page.nodes.each do |node|
+            Node.where("page_id = ?", page["_id"]).each do |node|
               node_hash = {
                 'identifier'      => node.id,
                 'scientificName'  => node.scientific_name ,
@@ -235,13 +235,20 @@ module Api
             end
           end
 
-          # unless no_objects_required?(params)
-            # return_hash['dataObjects'] = []
-            # data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(page, params)
-            # data_objects.each do |data_object|
-              # return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
-            # end
-          # end
+          unless no_objects_required?(params)
+            params[:licenses] = nil if params[:licenses].include?('all')
+            process_license_options!(params)
+            
+            return_hash['dataObjects'] = []
+            
+            media = Medium.search(page["_id"], fields:[{ancestry_ids: :exact}],execute: false)
+            articles = Article.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
+            links = Link.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
+            Searchkick.multi_search([media,articles,links])
+            
+            load_media(media, params, page, return_hash['dataObjects'])
+            
+          end
 
         end
 
@@ -259,78 +266,59 @@ module Api
         )
       end
       
-      def self.get_data_objects(page, params)
-        # setting some default search options which will get sent to the Solr methods
-          solr_search_params = {}
-          solr_search_params[:sort_by] = ['status']
-          solr_search_params[:visibility_types] = ['visible']
-          if params[:vetted] == 1  # 1 = trusted
-            solr_search_params[:vetted_types] = ['trusted']
-          elsif params[:vetted] == 2  # 2 = everything except untrusted
-            solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
-          elsif params[:vetted] == 3  # 3 = unreviewed
-            solr_search_params[:vetted_types] = ["unreviewed"]
-          elsif params[:vetted] == 4  # 4 = untrusted
-            solr_search_params[:vetted_types] = ["untrusted"]
-          else  # 0 = everything
-            solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
+      
+      def self.load_media(media, params, page, return_media)
+        if params[:licenses].nil?
+          media.response["hits"]["hits"].each do |medium|
+              medium_id= medium["_id"]
+              content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
+              content_object=content_objects[0]
+              medium_object= Medium.find_by_id(medium_id)
+              
+              media_hash={
+                'identifier' => medium_object.guid,
+                'dataObjectVersionID' => medium_object.id,
+                'vettedStatus' => content_object.trust
+    #             rating
+    #             schema value
+              }
+              
+              return_media << media_hash
           end
-          params[:vetted_types] = solr_search_params[:vetted_types]
-          
-          
-          license = params[:licenses]
-          process_license_params(params)
-          solr_search_params[:license_ids] = params[:licenses].blank? ? nil : params[:licenses].collect(&:id)
-          params[:license_ids] = solr_search_params[:license_ids]
-          # process_subject_params!(params)
-          video_objects = load_videos(page, params, solr_search_params)          
-          
-        
-      end
-      
-      def self.process_license_params(params)
-        params[:licenses] = nil if params[:licenses].include?('all')  
-        if params[:licenses]
-          params[:licenses] = params[:licenses].split("|").flat_map do |l|
-            l = 'public domain' if l == 'pd'
-            l = 'not applicable' if l == 'na'
-            License.find(:all, :conditions => "name REGEXP '^#{l}([^-]|$)'")
-          end.compact
-        end
-      end
-      
-      def self.params_found_and_greater_than_zero(page, per_page)
-          page && per_page ? true : false
-      end
-      
-      
-      def self.load_videos(page, params, solr_search_params)
-          video_objects = []
-          if params_found_and_greater_than_zero(options[:videos_page], options[:videos_per_page])
-            video_objects = page.data_objects_from_solr(solr_search_params.merge({
-              page: params[:videos_page],
-              per_page: params[:videos_per_page],
-              data_type_ids: DataType.video_type_ids,
-              return_hierarchically_aggregated_objects: true,
-              filter_by_subtype: false
-            }))
-            video_objects.each{ |d| d.data_type = DataType.video }
+        else
+          license_ids=params[:licenses].map(&:id)
+          media.response["hits"]["hits"].each do |medium|
+              medium_id= medium["_id"]
+              medium_object= Medium.find_by_id(medium_id)
+              
+              if license_ids.include?(medium_object.license_id)
+                content_objects= PageContent.where("page_id = ? and content_id = ?", page["_id"], medium_id)
+                content_object=content_objects[0]
+                
+                media_hash={
+                  'identifier' => medium_object.guid,
+                  'dataObjectVersionID' => medium_object.id,
+                  'vettedStatus' => content_object.trust
+      #             rating
+      #             schema value
+                }
+                
+                return_media << media_hash
+              end
           end
-          return video_objects
+              
         end
+          
+      end
 
-      
-      # def self.process_subject_options!(options)
-          # options[:subjects] ||= ""
-          # options[:text_subjects] = options[:subjects].split("|")
-          # options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-          # if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
-            # options[:text_subjects] = nil
-          # else
-            # options[:text_subjects] = options[:text_subjects].flat_map { |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.compact
-            # options[:toc_items] = options[:text_subjects].flat_map { |ii| ii.toc_item }.compact
-          # end
-      # end
+      def self.process_license_options!(options)
+          if options[:licenses]
+            options[:licenses] = options[:licenses].split("|").flat_map do |l|
+              l = 'public domain' if l == 'pd'
+              License.where("name REGEXP '^#{l}([^-]|$)'")
+            end.compact
+          end
+      end
 
     end
   end
