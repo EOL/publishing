@@ -5,8 +5,8 @@ module Import
     end
 
     # rake db:reset ; rails runner "Import::Repository.start(10.years.ago)"
-    def self.start(since)
-      instance = self.new(since)
+    def self.start(since = nil)
+      instance = self.new(since || 10.years.ago)
       instance.start
     end
 
