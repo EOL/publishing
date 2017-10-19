@@ -75,12 +75,14 @@ module Import
     def reset_resource
       @nodes = []
       @names = []
+      @verns = []
       @node_id_by_page = {}
       @traits = []
       @traitbank_pages = {}
       @traitbank_suppliers = {}
       @traitbank_terms = {}
       @tax_stats = {}
+      @languages = {}
     end
 
     def import_resource
@@ -89,6 +91,7 @@ module Import
       import_nodes
       create_new_pages
       import_scientific_names
+      import_vernaculars
       import_media
       import_traits
 
@@ -187,7 +190,7 @@ module Import
         log('.. There were NO new scientific names, skipping...')
         return
       end
-      log(".. importing #{@names.size} Names")
+      log(".. importing #{@names.size} ScientificNames")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       ScientificName.import(@names, on_duplicate_key_ignore: true)
@@ -198,6 +201,35 @@ module Import
                          set: 'scientific_name', with: 'italicized')
       log('.. fixing counter_culture counts for ScientificName...')
       ScientificName.counter_culture_fix_counts
+    end
+
+    def import_vernaculars
+      log('## import_vernaculars')
+
+      @verns = get_new_instances_from_repo(Vernacular) do |name|
+        name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
+        name[:string] = name.delete(:verbatim)
+        name.delete(:language_code_verbatim) # We don't use this.
+        lang = name.delete(:language)
+        # TODO: default language per resource?
+        name[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
+        name[:is_preferred_by_resource] = name.delete(:is_preferred)
+      end
+      if @verns.empty?
+        log('.. There were NO new vernaculars, skipping...')
+        return
+      end
+      log(".. importing #{@verns.size} Vernaculars")
+      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+      Vernacular.import(@verns, on_duplicate_key_ignore: true)
+      propagate_id(Vernacular, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                         set: 'node_id', with: 'id')
+      log('.. fixing counter_culture counts for ScientificName...')
+      Vernacular.counter_culture_fix_counts
+      # TODO: update preferred = true where page.vernaculars_count = 1...
+      Vernacular.joins(:page).where(['pages.vernaculars_count = 1 AND vernaculars.is_preferred_by_resource = ? '\
+        'AND vernaculars.resource_id = ?', true, @resource.id]).update_all(is_preferred: true)
     end
 
     def import_media
@@ -214,8 +246,9 @@ module Import
         medium.delete(:sizes)
         # TODO: locations import
         # TODO: bibliographic_citations import
-        medium.delete(:language) if medium[:language].empty?
-        debugger if medium[:language] # Not sure what I get, yet!
+        lang = medium.delete(:language)
+        # TODO: default language per resource?
+        medium[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
         medium[:license_id] ||= 1 # TEMP will look for source_url
         page_id = medium.delete(:page_id)
         @media_by_page[page_id] = medium[:resource_pk]
@@ -432,6 +465,15 @@ module Import
     def get_tax_stat(status)
       return @tax_stats[status] if @tax_stats.key?(status)
       @tax_stats[status] = TaxonomicStatus.find_or_create_by(name: status).id
+    end
+
+    def get_language(hash)
+      return @languages[hash[:group_code]] if @languages.key?(hash[:group_code])
+      lang = Language.where(group: hash[:group_code]).first_or_create do |l|
+        l.group = hash[:group_code]
+        l.code = hash[:code]
+      end
+      @languages[hash[:group_code]] = lang.id
     end
 
     # I AM NOT A FAN OF SQL... but this is **way** more efficient than alternatives:

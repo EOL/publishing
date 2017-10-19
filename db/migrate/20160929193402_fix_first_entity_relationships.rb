@@ -6,8 +6,7 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     remove_column(:resources, :default_rights_holder)
 
     remove_column(:vernaculars, :is_hidden)
-    add_column(:vernaculars, :trust, :integer, null: false, default: 0,
-      comment: "enum: unreviewed, trusted, untrusted")
+    add_column(:vernaculars, :trust, :integer, null: false, default: 0, comment: "enum: unreviewed, trusted, untrusted")
 
     add_column(:media, :unmodified_url, :string,
       comment: "This is the unmodified, original image that we store locally; includes extension (unlike base_url)")
