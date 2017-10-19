@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:show]
-  resources :search_suggestions
+  #resources :search_suggestions
 
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
@@ -68,7 +68,9 @@ Rails.application.routes.draw do
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
-  get "/search" => "search#search", :as => "search"
+  get "/search" => "search#index", :as => "search"
+  get "/search_results" => "search#search", :as => "search_results"
+  get "search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
 
   root "pages#index"

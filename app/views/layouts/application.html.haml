@@ -1,12 +1,13 @@
 - content_for :body  do
   %body
     = render("application/navbar")
-    .uk-container
+    -#.uk-container
+    .div
       #main
         = render("layouts/flash")
         .uk-section.uk-padding-remove-bottom
           = content_for?(:content) ? yield(:content) : yield
-        .uk-container.uk-margin-top{ class: "uk-visible@m" }
+        -#.uk-container.uk-margin-top{ class: "uk-visible@m" }
           .uk-grid.uk-grid-match.uk-child-width-expand{ uk: { grid: true } }
             .div
               .uk-tile.uk-tile-default.eol-section-secondary.uk-text-center.uk-padding

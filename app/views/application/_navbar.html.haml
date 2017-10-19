@@ -1,4 +1,4 @@
-.ui.tiny.fixed.menu
+-#.ui.tiny.fixed.menu
   #navbar.ui.container
     -# TODO: I18n
     .ui.item
@@ -31,3 +31,14 @@
     - else
       .item= link_to(t(:layout_sign_in), main_app.new_user_session_path)
       .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
+
+
+#navbar.navbar
+  .eol-menu
+    .icon.eol-logo
+  .search-text{:hidden => true}
+  -if @show_search_close
+    %i.big.remove.icon
+  -else
+    = link_to search_path, :class => 'nounderline' do
+      %i.big.search.icon

@@ -276,12 +276,32 @@ if(!EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
+    /*
     $('.ui.names.search')
       .search({
         apiSettings: {
           url: '/pages/autocomplete?query={query}'
         }
       });
+    */
+
+    /*
+    function showSearch() {
+      $('#main').attr('hidden', true);
+      $('#global-search').attr('hidden', false);
+    }
+
+    function hideSearch() {
+      $('#global-search').attr('hidden', true);
+      $('#main').attr('hidden', false);
+    }
+
+
+    $('#nav-search .prompt').focus(function() {
+      showSearch();
+    });
+    */
+
 
     if ($('.clade_filter .typeahead').length >= 1) {
       console.log("Enable clade filter typeahead.");

@@ -1,4 +1,8 @@
 class SearchController < ApplicationController
+  def index
+    @show_search_close = true
+  end
+
   # TODO: Mammoth method, break up.
   def search
     # Doctoring for the view to find matches:
@@ -191,6 +195,11 @@ class SearchController < ApplicationController
         ))
       end
     end
+  end
+
+  def suggestions
+    @results = Page.autocomplete(params[:query])
+    render :layout => false
   end
 
 private

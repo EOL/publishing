@@ -1,58 +1,61 @@
 %body
   = render("layouts/flash")
-  .landing_page{ class: "uk-visible@m" }
-    .ui.container
-      .uk-section
-        = image_tag("large_logo.png")
-      .uk-section.uk-text-center
-        %h1.uk-title= t("landing_page.header")
-        #landing-search.uk-margin-large-top
-          = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
-            .ui.huge.names.search
-              .ui.huge.icon.input
-                = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
-                %i.search.icon
-  .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
-    .uk-section.uk-padding-remove-top
-      %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
-        - @stats.each do |key, value|
-          %li
-            - index_stat(key, value)
-    .uk-section.uk-grid{ uk: { grid: true } }
-      %div
-        %h3= t("landing_page.topics")
-        #topics
-          .spin{ uk: { spinner: true } }
-    - if is_admin?
-      .uk-section
-        .ui.basic.button
-          = link_to(t("landing_page.reindex"), clear_index_stats_pages_path())
-        .ui.basic.button
-          = link_to(t("landing_page.cms"), "/docs/cms/pages")
-        .ui.basic.button
-          = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
-  .uk-container{ class: "uk-hidden@m" }
-    = render("application/navbar")
-    .ui.segments.uk-text-center.eol-landing-page-container
-      .ui.header.segment
-        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
-          = image_tag("blue logo.png", alt: "EOL", class: "ui centered tiny image")
-          %br
-          .uk-text-small= t("landing_page.header")
-      .ui.segment.eol-landing-content
-        %div.uk-margin-small-bottom
-          %b= t("landing_page.heads.featured_links")
-        %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
-          -# TODO - this should be all of the collections IN collection 1...
-          - Collection.all.limit(6).each do |collection|
+  = render ("application/search")
+  #main
+    -#.landing_page{ class: "uk-visible@m" }
+      .ui.container
+        .uk-section
+          = image_tag("large_logo.png")
+        .uk-section.uk-text-center
+          %h1.uk-title= t("landing_page.header")
+          #landing-search.uk-margin-large-top
+            = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
+              .ui.huge.names.search
+                .ui.huge.icon.input
+                  = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
+                  %i.search.icon
+    -#.uk-container.uk-margin-large-top{ class: "uk-visible@m" }
+      .uk-section.uk-padding-remove-top
+        %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
+          - @stats.each do |key, value|
             %li
-              %a.uk-inline{ href: collection_path(collection) }
-                = image_tag("medium/collection.png")
-                .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= truncate(collection.name)
-      .ui.header.segment
-        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
-          = t("landing_page.heads.about_eol")
-      .eol-landing-content.ui.segment{ hidden: true }
-        I don't know what we want here, yet.
-      .ui.header.segment
-        = link_to(t("landing_page.heads.education"), "https://education.eol.org")
+              - index_stat(key, value)
+      .uk-section.uk-grid{ uk: { grid: true } }
+        %div
+          %h3= t("landing_page.topics")
+          #topics
+            .spin{ uk: { spinner: true } }
+      - if is_admin?
+        .uk-section
+          .ui.basic.button
+            = link_to(t("landing_page.reindex"), clear_index_stats_pages_path())
+          .ui.basic.button
+            = link_to(t("landing_page.cms"), "/docs/cms/pages")
+          .ui.basic.button
+            = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
+    -#.uk-container{ class: "uk-hidden@m" }
+    .uk-container
+      = render("application/navbar")
+      #main-content.ui.segments.uk-text-center.eol-landing-page-container.page-content
+        .ui.header.segment
+          %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
+            = image_tag("blue logo.png", alt: "EOL", class: "ui centered tiny image")
+            %br
+            .uk-text-small= t("landing_page.header")
+        .ui.segment.eol-landing-content
+          %div.uk-margin-small-bottom
+            %b= t("landing_page.heads.featured_links")
+          %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
+            -# TODO - this should be all of the collections IN collection 1...
+            - Collection.all.limit(6).each do |collection|
+              %li
+                %a.uk-inline{ href: collection_path(collection) }
+                  = image_tag("medium/collection.png")
+                  .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= truncate(collection.name)
+        .ui.header.segment
+          %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
+            = t("landing_page.heads.about_eol")
+        .eol-landing-content.ui.segment{ hidden: true }
+          I don't know what we want here, yet.
+        .ui.header.segment
+          = link_to(t("landing_page.heads.education"), "https://education.eol.org")
