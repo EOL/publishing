@@ -12,3 +12,8 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( *.js application.css )
 Rails.application.config.assets.precompile += %w( refinery/ckeditor.css )
 Rails.application.config.assets.precompile += %w( ckeditor/ckeditor.js )
+
+# controller-specific assets
+%w( search ).each do |controller|
+  Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
+end

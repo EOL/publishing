@@ -3,11 +3,12 @@
     = render :partial => "partial_search_results",
       :locals => { :results => @pages, :partial => "pages/search_result",
       :url_proc => Proc.new { |page| page_path(page) }}
+  -# if defined?(@predicates) && ! @predicates.blank?
+    = render("terms/search_results", terms: @predicates, size: @predicates_count)
+
 .search-result-count= t("search.n_results", :count => result_total([@pages]))
 
--#
-  - if defined?(@predicates) && ! @predicates.blank?
-    = render("terms/search_results", terms: @predicates, size: @predicates_count)
+-#s
   - if defined?(@object_terms) && ! @object_terms.blank?
     = render("terms/search_results", terms: @object_terms, object: true, size: @object_terms_count)
   - if defined?(@collections) && @collections

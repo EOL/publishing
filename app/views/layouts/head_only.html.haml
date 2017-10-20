@@ -26,7 +26,11 @@
     = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/sticky.min.css"
     = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.css"
     = stylesheet_link_tag "application"
+    -if asset_exists? "#{params[:controller]}.css"
+      = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
+    -if asset_exists? "#{params[:controller]}.js"
+      = javascript_include_tag params[:controller]
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.25/js/uikit.min.js"
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.25/js/uikit-icons.min.js"
     = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/api.min.js"
