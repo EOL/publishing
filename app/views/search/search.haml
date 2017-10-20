@@ -1,0 +1,15 @@
+%ul.search-results
+  - if defined?(@pages) && @pages
+    = render :partial => "partial_search_results",
+      :locals => { :results => @pages, :partial => "pages/search_result" }
+  -#
+    - if defined?(@predicates) && ! @predicates.blank?
+      = render("terms/search_results", terms: @predicates, size: @predicates_count)
+    - if defined?(@object_terms) && ! @object_terms.blank?
+      = render("terms/search_results", terms: @object_terms, object: true, size: @object_terms_count)
+    - if defined?(@collections) && @collections
+      = render("collections/search_results")
+    - if defined?(@media) && ! @media.blank?
+      = render("media/search_results")
+    - if defined?(@users) && ! @users.blank?
+      = render("users/search_results")

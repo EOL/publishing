@@ -5,6 +5,9 @@ class SearchController < ApplicationController
 
   # TODO: Mammoth method, break up.
   def search
+    # for layout
+    @nopad = true
+
     # Doctoring for the view to find matches:
     @q = params[:q]
     @q.chop! if params[:q] =~ /\*$/
