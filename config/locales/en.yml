@@ -525,6 +525,7 @@ en:
   resource_missing: "resource not found"
   scientific_name:
     status_title:
+      accepted: "Accepted Names"
       preferred: "Accepted Names"
       synonym: "Synonyms"
   scientific_names_header: "Scientific Names"

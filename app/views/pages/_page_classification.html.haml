@@ -10,7 +10,11 @@
       - nodes.each do |node|
         %h3.uk-card-title.uk-heading-divider= node.resource.name
         %ul.uk-list
-          - classification(node, node.ancestors)
+          -# NOTE: using #none to force load; no sense in doing a count. We need the rows.
+          - if node.ancestors && !node.ancestors.none?
+            - classification(node, node.ancestors)
+          - else
+            - summarize(@page, current_page: true, node: node)
   %h2= t("classifications.children.header")
   #page-children.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
     - if page_node.children.size > 0

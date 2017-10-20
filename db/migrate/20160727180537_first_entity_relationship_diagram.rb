@@ -145,33 +145,24 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    # NOTE: this does NOT capture ratings or exemplars, which we need to add,
-    # but I need time to think about that! NOTE: we DO really need an id field
-    # on this table, because we curate these.
+    # NOTE: this does NOT capture ratings or exemplars, which we need to add, but I need time to think about that! NOTE:
+    # we DO really need an id field on this table, because we curate these.
     create_table :page_contents do |t|
-      t.integer :page_id, null: false, index: true,
-        comment: "the content is shown on this page."
+      t.integer :page_id, null: false, index: true, comment: "the content is shown on this page."
       t.integer :source_page_id, null: false, index: true,
-        comment: "which page the content was *propaged from* (can be == page_id)."
-      t.integer :position,
-        comment: "the order in which to show the content on the page"
+        comment: "which page the content was *propaged from* (can == page_id)."
+      t.integer :position, comment: "the order in which to show the content on the page"
       t.references :content, polymorphic: true, index: true, null: false
 
-      t.integer :association_added_by_user_id,
-        comment: "no resource added this association, it was added manually"
+      t.integer :association_added_by_user_id, comment: "no resource added this association, it was added manually"
 
       # Current curation status (see relationships for history):
-      t.integer :trust, null: false, default: false,
-        comment: "enum: unreviewed, trusted, untrusted"
-      t.boolean :is_incorrect, null: false, default: false,
-        comment: "implies untrusted"
-      t.boolean :is_misidentified, null: false, default: false,
-        comment: "implies untrusted"
+      t.integer :trust, null: false, default: 1, comment: "enum: unreviewed, trusted, untrusted"
+      t.boolean :is_incorrect, null: false, default: false, comment: "implies untrusted"
+      t.boolean :is_misidentified, null: false, default: false, comment: "implies untrusted"
       t.boolean :is_hidden, null: false, default: false
-      t.boolean :is_duplicate, null: false, default: false,
-        comment: "implies hidden"
-      t.boolean :is_low_quality, null: false, default: false,
-        comment: "implies hidden"
+      t.boolean :is_duplicate, null: false, default: false, comment: "implies hidden"
+      t.boolean :is_low_quality, null: false, default: false, comment: "implies hidden"
 
       t.timestamps null: false
     end

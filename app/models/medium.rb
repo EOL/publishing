@@ -19,6 +19,8 @@ class Medium < ActiveRecord::Base
   scope :videos, -> { where(subclass: :video) }
   scope :sounds, -> { where(subclass: :sound) }
 
+  # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
+
   # searchable do
   #   text :name, :boost => 6.0
   #   text :description, :boost => 2.0
@@ -31,20 +33,20 @@ class Medium < ActiveRecord::Base
 
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
-    base_url + "_orig.jpg"
+    base_url + ".jpg"
   end
 
   def large_size_url
-    base_url + "_580_360.jpg"
+    base_url + ".580x360.jpg"
   end
 
   def medium_icon_url
-    base_url + "_130_130.jpg"
+    base_url + ".130x130.jpg"
   end
   alias_method :icon, :medium_icon_url
 
   def medium_size_url
-    base_url + "_260_190.jpg"
+    base_url + ".260x190.jpg"
   end
 
   # Drat. :S
@@ -53,11 +55,11 @@ class Medium < ActiveRecord::Base
   end
 
   def small_size_url
-    base_url + "_98_68.jpg"
+    base_url + ".98x68.jpg"
   end
 
   def small_icon_url
-    base_url + "_88_88.jpg"
+    base_url + ".88x88.jpg"
   end
 
   def vitals
