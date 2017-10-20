@@ -23,6 +23,7 @@ $eol-green: #447766
 $eol-orange: #d59046
 $eol-brown: #784848
 $white: #fff
+$light-blue: #dfebf1
 
 $mobile-width: 337
 $navbar-height: 36px
@@ -397,8 +398,9 @@ body
   &:focus
     outline: none
 
+$search-result-count-height: 54px
 .search-results
-  padding: 0
+  padding: 0 0 $search-result-count-height 0
 
   .search-result
     border-bottom: 1px solid $eol-gray
@@ -430,6 +432,17 @@ body
 
   .hierarchy
     font-size: 10px
+
+.search-result-count
+  align-items: center
+  background: $light-blue
+  bottom: 0
+  display: flex
+  height: 54px
+  justify-content: center
+  left: 0
+  position: fixed
+  width: 100%
 
 #global-search
   background-color: #000

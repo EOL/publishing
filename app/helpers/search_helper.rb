@@ -14,6 +14,14 @@ module SearchHelper
     ancestor_name ? "#{ancestor_name} … / #{common_name}" : common_name
   end
 
+  def result_total(results)
+    total = 0
+    results.each do |r|
+      total += r.length
+    end
+    total
+  end
+
 private
   def page_family_ancestor_name(page)
     ancestors = page.native_node.try(:ancestors)
