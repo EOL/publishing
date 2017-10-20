@@ -37,8 +37,6 @@
   .eol-menu
     .icon.eol-logo
   .search-text{:hidden => true}
-  -if @show_search_close
-    %i.big.remove.icon
-  -else
+  -if !@suppress_search_icon
     = link_to search_path, :class => 'nounderline' do
       %i.big.search.icon

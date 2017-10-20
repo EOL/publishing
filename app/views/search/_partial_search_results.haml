@@ -1,3 +1,4 @@
 - results.each do |r|
   %li.search-result
-    = render :partial => partial, :locals => { :result => r}
+    %a.link{ :href => url_proc.call(r) }
+      = render :partial => partial, :locals => { :result => r}

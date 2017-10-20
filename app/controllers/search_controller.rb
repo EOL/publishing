@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    @show_search_close = true
+    @suppress_search_icon = true
   end
 
   # TODO: Mammoth method, break up.

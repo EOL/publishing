@@ -1,7 +1,8 @@
 %ul.search-results
   - if defined?(@pages) && @pages
     = render :partial => "partial_search_results",
-      :locals => { :results => @pages, :partial => "pages/search_result" }
+      :locals => { :results => @pages, :partial => "pages/search_result",
+      :url_proc => Proc.new { |page| page_path(page) }}
 .search-result-count= t("search.n_results", :count => result_total([@pages]))
 
 -#
