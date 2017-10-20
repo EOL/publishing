@@ -36,7 +36,11 @@
 #navbar.navbar
   .eol-menu
     .icon.eol-logo
-  .search-text{:hidden => true}
+      = image_tag "blue_logo"
+  -if @search_text
+    .search-text= @search_text
   -if !@suppress_search_icon
     = link_to search_path, :class => 'nounderline' do
       %i.big.search.icon
+  -else
+    %i.big.arrow.left.icon

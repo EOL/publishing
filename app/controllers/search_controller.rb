@@ -7,9 +7,10 @@ class SearchController < ApplicationController
   def search
     # for layout
     @nopad = true
+    @search_text = params[:q]
 
     # Doctoring for the view to find matches:
-    @q = params[:q]
+    @q = @search_text
     @q.chop! if params[:q] =~ /\*$/
     @q = @q[1..-1] if params[:q] =~ /^\*/
 

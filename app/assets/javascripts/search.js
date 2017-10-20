@@ -4,6 +4,7 @@ $(function() {''
     , queryCount = 0
     , $suggestionsContainer = $('.suggestions-container')
     , $searchInput = $('.search-input')
+    , $backArrow = $('.navbar .arrow.left')
     ;
 
   $searchInput.on('input', function() {
@@ -25,6 +26,13 @@ $(function() {''
           }
         }
       });
+    } else {
+      $suggestionsContainer.empty();
     }
+  });
+
+  $searchInput.focus();
+  $backArrow.click(function() {
+    window.history.back();
   });
 });
