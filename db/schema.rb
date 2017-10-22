@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170922173758) do
+ActiveRecord::Schema.define(version: 20171019144810) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -378,7 +378,7 @@ ActiveRecord::Schema.define(version: 20170922173758) do
     t.integer  "content_id",                   limit: 4,                   null: false
     t.string   "content_type",                 limit: 255,                 null: false
     t.integer  "association_added_by_user_id", limit: 4
-    t.integer  "trust",                        limit: 4,   default: 0,     null: false
+    t.integer  "trust",                        limit: 4,   default: 1,     null: false
     t.boolean  "is_incorrect",                             default: false, null: false
     t.boolean  "is_misidentified",                         default: false, null: false
     t.boolean  "is_hidden",                                default: false, null: false
@@ -756,15 +756,20 @@ ActiveRecord::Schema.define(version: 20170922173758) do
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   create_table "vernaculars", force: :cascade do |t|
-    t.string   "string",                   limit: 255,                 null: false
-    t.integer  "language_id",              limit: 4,                   null: false
-    t.integer  "node_id",                  limit: 4,                   null: false
-    t.integer  "page_id",                  limit: 4,                   null: false
-    t.boolean  "is_preferred",                         default: false, null: false
-    t.boolean  "is_preferred_by_resource",             default: false, null: false
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
-    t.integer  "trust",                    limit: 4,   default: 0,     null: false
+    t.string   "string",                   limit: 255,                   null: false
+    t.integer  "language_id",              limit: 4,                     null: false
+    t.integer  "node_id",                  limit: 4,                     null: false
+    t.integer  "page_id",                  limit: 4,                     null: false
+    t.boolean  "is_preferred",                           default: false, null: false
+    t.boolean  "is_preferred_by_resource",               default: false, null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.integer  "trust",                    limit: 4,     default: 0,     null: false
+    t.string   "node_resource_pk",         limit: 255
+    t.string   "locality",                 limit: 255
+    t.text     "remarks",                  limit: 65535
+    t.text     "source",                   limit: 65535
+    t.integer  "resource_id",              limit: 4
   end
 
   add_index "vernaculars", ["node_id"], name: "index_vernaculars_on_node_id", using: :btree
