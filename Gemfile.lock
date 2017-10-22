@@ -485,7 +485,7 @@ DEPENDENCIES
   discourse_api
   factory_girl
   faker
-  font-awesome-sass (~> 4.7.0)
+  font-awesome-sass
   font-kit-rails
   haml-rails
   jbuilder

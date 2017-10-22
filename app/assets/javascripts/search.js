@@ -4,7 +4,7 @@ $(function() {''
     , queryCount = 0
     , $suggestionsContainer = $('.suggestions-container')
     , $searchInput = $('.search-input')
-    , $backArrow = $('.navbar .arrow.left')
+    , $backArrow = $('.navbar-icon.fa-arrow-left')
     ;
 
   $searchInput.on('input', function() {
