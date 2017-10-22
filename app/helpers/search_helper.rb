@@ -22,6 +22,10 @@ module SearchHelper
     total
   end
 
+  def medium_name(medium)
+    medium.try(:search_highlights).try(:[], :name) || medium.name
+  end
+
 private
   def page_family_ancestor_name(page)
     ancestors = page.native_node.try(:ancestors)

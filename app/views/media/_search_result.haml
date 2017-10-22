@@ -1,0 +1,16 @@
+.page-icon
+  -if result.respond_to?(:medium_icon_url)
+    = image_tag(result.medium_icon_url, :class => "image")
+  -else
+    %i.fa.fa-file-text-o.fa-3x
+.details
+  .name= medium_name(result).titleize.html_safe
+  -#
+    .match
+      .match-type= t("search_results.field_matches.#{result.is_a?(Medium) ? "description" : "body"}")
+      .match-text
+        - desc = result.try(:search_highlights).try(:[], :description)
+        - if desc
+          = desc.html_safe
+        -elsif @q
+          = emphasize_match(result.description, @q)
