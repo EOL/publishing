@@ -26,7 +26,7 @@ module Import
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
         begin
-          import_resource if @resource.id == 1 || @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
+          import_resource
         rescue => e
           log("!! ERROR: #{e.message}\n#{e.backtrace}")
         end
@@ -495,7 +495,7 @@ module Import
 
     def log(what)
       what = "[#{Time.now.strftime('%H:%M:%S')}] #{what}"
-      Delayed::Worker.logger.error(what)
+      Delayed::Worker.logger.info(what)
       puts what
     end
   end
