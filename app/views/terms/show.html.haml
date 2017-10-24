@@ -11,7 +11,7 @@
             = t("term.header.predicate")
       - def_blank = @term[:definition].blank?
       %h3.uk-text-muted.uk-margin-remove-top
-        = "#{@term[:name]}: #{link_to(@term[:uri])}".html_safe
+        = "#{@term[:name]}: <a href='#{@term[:uri]}'>#{@term[:uri]}</a>".html_safe
       %p.definition{ class: def_blank ? "empty" : nil }
         - if def_blank
           = t(:uri_definition_blank)

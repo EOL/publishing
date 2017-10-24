@@ -25,7 +25,7 @@ RSpec.describe "collected_pages/new" do
 
     it { expect(rendered).to match /image_thingie.jpg/ }
     it { expect(rendered).to match /Here Titled/ }
-    it { expect(rendered).to match(/#{I18n.t(:collect_no_existing_collections)}/) }
+    it { expect(rendered).to match(/#{CGI.escapeHTML(I18n.t(:collect_no_existing_collections))}/) }
     it { expect(rendered).to have_selector("form#new_collection") }
   end
 
