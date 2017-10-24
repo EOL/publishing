@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # The REALLY basic stuff stays at the top:
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.10'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 
@@ -26,8 +26,6 @@ gem 'uglifier'
 gem 'refinerycms'
 gem 'refinerycms-wymeditor'
 gem 'refinerycms-i18n'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
