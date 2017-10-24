@@ -4,8 +4,9 @@ class Api::DocsController < ApiController
   
   def pages
   end
+  
 
   def default_render
-    render template: "api/docs/method_documentation"
+    render "api/docs/method_documentation"
   end
 end

@@ -1,8 +1,9 @@
 class ApiController < ApplicationController
-  skip_before_filter :verify_authenticity_token  
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
+    :keep_home_page_fresh, :verify_authenticity_token 
   before_filter :set_default_format_to_xml
-  before_filter :get_api_method, except: [ :render_test_response ]
-  
+  before_filter :get_api_method, except: [:render_test_response ]
+    
   def pages
   end
   
@@ -16,6 +17,7 @@ class ApiController < ApplicationController
     end
   end
   
+   
   def default_render
     # if this api_method is blank, and error should already have been rendered
     return if @api_method.blank?
@@ -27,7 +29,6 @@ class ApiController < ApplicationController
       rescue ActiveRecord::RecordNotFound => e
         return render_error(e.message, 404)
       rescue => e
-        
         return render_error('Sorry, there was a problem')
       end
     end
@@ -41,10 +42,10 @@ class ApiController < ApplicationController
         xml_template = "api/#{params[:action]}_#{@api_method::VERSION.tr('.', '_')}"
       end
       format.xml { render template: xml_template, layout: false }
-      format.json { render json: @json_response, callback: params[:callback] }
+      format.json  { render json: JSON.pretty_generate(@json_response), callback: params[:callback]  }
     end
   end
-  
+    
   def get_api_method
     begin
       # load the parent module (e.g. EOL::Api::Pages) to get the default version

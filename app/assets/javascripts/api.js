@@ -9,21 +9,25 @@ $(document).ready(function() {
     // fetch the result of the form and send the results to a simple API to be displayed via jQuery
     // should be more safe then sending a URL to the API so people don't fake URLs for us to fetch
     $.ajax({
-      url: 'api/pages',
+      url: url,
       type: 'POST',
       dataType: 'text',
       beforeSend: function(xhr) {
         $('#api_test_url').fadeTo(100, 0.3);
         $('#api_test_result').fadeTo(100, 0.3);
       },
-      error: function(xhr, stat, err) { $('#api_test_result').html('<p>Sorry, there was an error: '+stat+'</p>'); },
+      error: function(ts) { alert(ts.responseText);},
       complete: function() {
         $('#api_test_result').fadeTo(100, 1);
       },
       success: function(data) {
+      	
         $('#api_test_url').html("<strong>URL:</strong> " + url);
         $('#api_test_url').fadeTo(100, 1);
-        EOL.ajax_submit(null, { url: '/api/render_test_response', update: $('#api_test_result'), data: { code: data, format: 'js' } });
+        $('#api_test_result').html(data);
+        // $('#api_test_result').append("<%= escape_javascript("#{render :partial => 'api/render_test_response', :locals => { :code => data }}").html_safe %>");
+        // $('#api_test_result').replaceWith(data);
+        // EOL.ajax_submit(null, { url: '/api/render_test_response', update: $('#api_test_result'), data: { code: data, format: 'js' } });
       }
     });
     return(false);
