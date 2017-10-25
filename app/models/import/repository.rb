@@ -134,7 +134,7 @@ module Import
         node[:lft] = nil # NOTE: cannot calculate this ...
         node[:rgt] = nil # NOTE: cannot calculate this ...
         # We do store the landmark ID, but this is helpful.
-        node[:has_breadcrumb] = node.key?(:landmark) && node["landmark"].to_i > 0 && node["landmark"].to_i < 3
+        node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark].to_i > 0 && node[:landmark].to_i < 3
       end
       if @nodes.empty?
         log('.. There were NO new nodes, skipping...')
