@@ -124,6 +124,18 @@ class Page < ActiveRecord::Base
     count
   end
 
+  def content_types_count
+    PageContent.where(page_id: id, is_hidden: false)
+      .where.not(trust: PageContent.trusts[:untrusted]).group(:content_type).count.keys.size
+  end
+
+  def sections_count
+    return(sections.size) if articles.loaded?
+    ids = PageContent.where(page_id: id, is_hidden: false, content_type: 'Article')
+      .where.not(trust: PageContent.trusts[:untrusted]).pluck(:id)
+    ContentSection.where(content_id: ids, content_type: 'Article').group(:section_id).count.keys.count
+  end
+
   # MEDIA METHODS
 
   def sorted_articles
