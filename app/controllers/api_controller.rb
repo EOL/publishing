@@ -2,35 +2,22 @@ class ApiController < ApplicationController
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :keep_home_page_fresh, :verify_authenticity_token 
   before_filter :set_default_format_to_xml
-  before_filter :get_api_method, except: [:render_test_response ]
+  before_filter :get_api_method
+  after_filter :set_cache_headers
     
   def pages
-  end
-  
-  def render_test_response
-    code = params[:code] || "Sorry, there was a problem"
-    code = JSON.pretty_generate(JSON.parse(code)) if code.is_json?
-    respond_to do |format|
-      format.js do
-        render partial: "api/render_test_response", locals: { code: code }
-      end
-    end
   end
   
    
   def default_render
     # if this api_method is blank, and error should already have been rendered
     return if @api_method.blank?
-    if Rails.env.development? || Rails.env.test_dev?
+    begin
       @json_response = @api_method.call(params)
-    else
-      begin
-        @json_response = @api_method.call(params)
-      rescue ActiveRecord::RecordNotFound => e
-        return render_error(e.message, 404)
-      rescue => e
-        return render_error('Sorry, there was a problem')
-      end
+    rescue ActiveRecord::RecordNotFound => e
+      return render_error(e.message, 404)
+    rescue => e
+      return render_error('Sorry, there was a problem')
     end
 
     # return the JSON object generated above, OR
@@ -81,6 +68,19 @@ class ApiController < ApplicationController
   def set_default_format_to_xml
     # all APIs return XML by default when no extension is given
     request.format = "xml" unless params[:format]
+  end
+  
+  def set_cache_headers
+    return if response.status != 200
+    if params[:cache_ttl] && (params[:cache_ttl].class == Fixnum || params[:cache_ttl].is_numeric?)
+      # between 0 and 1 year
+      cache_seconds = params[:cache_ttl].to_i
+      if cache_seconds >= 0 && cache_seconds < 31536000
+        expires_in cache_seconds.seconds, public: true
+      end
+    else
+      response.cache_control.replace({})
+    end
   end
   
 

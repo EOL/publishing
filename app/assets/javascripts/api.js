@@ -16,7 +16,9 @@ $(document).ready(function() {
         $('#api_test_url').fadeTo(100, 0.3);
         $('#api_test_result').fadeTo(100, 0.3);
       },
-      error: function(ts) { alert(ts.responseText);},
+      error: function(xhr, stat, err) { 
+      	$('#api_test_result').html('<p>Sorry, there was an error: '+stat+'</p>'); 
+      },
       complete: function() {
         $('#api_test_result').fadeTo(100, 1);
       },
@@ -25,9 +27,6 @@ $(document).ready(function() {
         $('#api_test_url').html("<strong>URL:</strong> " + url);
         $('#api_test_url').fadeTo(100, 1);
         $('#api_test_result').html(data);
-        // $('#api_test_result').append("<%= escape_javascript("#{render :partial => 'api/render_test_response', :locals => { :code => data }}").html_safe %>");
-        // $('#api_test_result').replaceWith(data);
-        // EOL.ajax_submit(null, { url: '/api/render_test_response', update: $('#api_test_result'), data: { code: data, format: 'js' } });
       }
     });
     return(false);

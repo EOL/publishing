@@ -288,6 +288,8 @@ module Api
           offset = (params[:images_page]-1)*params[:images_per_page]
         
           image_objects= PageContent.images.where("id in (?)", media_ids)
+          exemplar_image= Page.find_by_id(page["_id"]).medium
+          promote_exemplar!(exemplar_image, image_objects, params, license_ids, page, "Medium")
           
           image_objects[offset..offset+params[:images_per_page]-1].each do |image_object|
             content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], image_object.id, "Medium").first
@@ -485,6 +487,7 @@ module Api
               Section.where("name = ?", l.gsub(' ','_'))
             end.compact
             options[:toc_items] = options[:text_subjects].map(&:id)
+            raise Error.new("subject not found") if options[:toc_items].empty?
           end
        end
       
@@ -506,6 +509,30 @@ module Api
       
       def self.params_found_and_greater_than_zero(page, per_page)
           page && per_page && page > 0 && per_page > 0 ? true : false
+      end
+      
+      def self.promote_exemplar!(exemplar_object, existing_objects_of_same_type, options={}, license_ids, page, type)
+        
+          return unless exemplar_object
+          
+          # confirm license
+          return if license_ids && license_ids.include?(exemplar_object.license_id)
+          # user array intersection (&) to confirm the subject of the examplar is within range
+          # return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
+
+          # confirm vetted state
+          content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], exemplar_object.id, type).first
+          best_vetted_label = content_object.trust
+          return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
+
+          # now add in the exemplar, and remove one if the array is now too large
+          original_length = existing_objects_of_same_type.length
+          # remove the exemplar if it is already in the list
+          existing_objects_of_same_type.delete_if { |d| d.guid == exemplar_object.guid }
+          # prepend the exemplar
+          existing_objects_of_same_type.unshift(exemplar_object)
+          # if the exemplar increased the size of our image array, remove the last one
+          existing_objects_of_same_type.pop if existing_objects_of_same_type.length > original_length && original_length != 0
       end
 
     end
