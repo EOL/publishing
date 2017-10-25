@@ -50,6 +50,8 @@ class Page < ActiveRecord::Base
   # the (preferred and nonpreferred) interfere.
   scope :search_import, -> { includes(:scientific_names, :vernaculars, :native_node, resources: :partner) }
 
+  delegate :ancestors, to: :native_node
+
   def self.autocomplete(query, options = {})
     search(query, options.reverse_merge({
       fields: ["scientific_name^200", "preferred_vernacular_strings"],
@@ -211,7 +213,7 @@ class Page < ActiveRecord::Base
   end
 
   def map?
-    occurrence_map? || ! maps.blank?
+    occurrence_map? || maps.count > 0
   end
 
   def maps

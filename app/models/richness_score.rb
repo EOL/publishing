@@ -8,7 +8,7 @@ class RichnessScore
   end
 
   def initialize
-    @section_count = Section.count
+    @section_count = Section.cached_count
     @section_count = 1 if @section_count.nil? || @section_count <= 0
     @predicate_count = TraitBank.predicate_count
     @weights = {
@@ -96,11 +96,15 @@ class RichnessScore
   end
 
   def content_types_count
-    @page.page_contents.map(&:content_type).uniq.compact.size
+    PageContent.where(page_id: @page.id, is_hidden: false)
+      .where.not(trust: PageContent.trusts[:untrusted]).group(:content_type).count.keys.size
   end
 
   def section_diversity_score
-    (@page.sections.size.to_f / @section_count)
+    return(@page.sections.size.to_f / @section_count) if @page.articles.loaded?
+    ids = PageContent.where(page_id: @page.id, is_hidden: false, content_type: 'Article')
+      .where.not(trust: PageContent.trusts[:untrusted]).pluck(:id)
+    ContentSection.where(content_id: ids, content_type: 'Article').group(:section_id).count.keys.count
   end
 
   def data_diversity_score

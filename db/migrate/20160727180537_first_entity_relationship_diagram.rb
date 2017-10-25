@@ -104,7 +104,9 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
 
     create_table :identifiers do |t|
-      t.integer :node_id, index: true, null: false
+      t.integer :resource_id, index: true, null: false
+      t.integer :node_id, index: true
+      t.string :node_resource_pk, index: true, null: false
       t.string :identifier
     end
 

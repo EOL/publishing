@@ -25,6 +25,12 @@ class Section < ActiveRecord::Base
       end
     end
 
+    def cached_count
+      Rails.cache.fetch("sections/count") do
+        Section.count
+      end
+    end
+
     def comprehensive_description
       Rails.cache.fetch("sections/comprehensive_description") do
         Section.where(name: "comprehensive_description").first_or_create do |s|
