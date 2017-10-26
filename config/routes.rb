@@ -70,7 +70,8 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#index", :as => "search"
   get "/search_results" => "search#search", :as => "search_results"
-  get "search_suggestions" => "search#suggestions", :as => "search_suggestions"
+  get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
+  get "/search_page" => "search#search_page", :as => "search_page"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
 
   root "pages#index"

@@ -1,22 +1,24 @@
-%ul.search-results
-  - if defined?(@pages) && @pages
-    = render :partial => "partial_search_results",
-      :locals => { :results => @pages, :partial => "pages/search_result",
-      :url_proc => Proc.new { |page| page_path(page) }}
-  - if defined?(@media) && ! @media.blank?
-    = render :partial => "partial_search_results",
-      :locals => { :results => @media, :partial => "media/search_result",
-      :url_proc => Proc.new{ |medium| medium_path(medium) }}
-    = render("media/search_results")
-  -# if defined?(@predicates) && ! @predicates.blank?
-    = render("terms/search_results", terms: @predicates, size: @predicates_count)
+%ul.search-results{ :data => { :query => @q } }
+  = render "search_page"
 
-.search-result-count= t("search.n_results", :count => result_total([@pages]))
+.searchFilter
+  .searchFilter-types
+    - if defined?(@pages) && @pages
+      .searchFilter-types-type.selected{ :data => { :type => :pages} }
+        %i.fa.fa-check.fa-lg
+        %span= t("search.n_taxon_pages", :count => @pages.total_count)
 
--#s
-  - if defined?(@object_terms) && ! @object_terms.blank?
-    = render("terms/search_results", terms: @object_terms, object: true, size: @object_terms_count)
-  - if defined?(@collections) && @collections
+    - if defined?(@media) && !@media.blank?
+      .searchFilter-types-type.selected{ :data => { :type => :media } }
+        %i.fa.fa-check.fa-lg
+        %span= t("search.n_media", :count => @media.total_count)
+
+  -# if defined?(@collections) && @collections
     = render("collections/search_results")
-  - if defined?(@users) && ! @users.blank?
+  -# if defined?(@users) && ! @users.blank?
     = render("users/search_results")
+
+.filterBar
+  %i.filterBar-icon.fa.fa-sliders.fa-2x.open
+  %i.filterBar-icon.fa.fa-close.fa-2x.close
+  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @media]))

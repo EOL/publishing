@@ -538,7 +538,11 @@ en:
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
+    n_collections: "%{count} collections"
+    n_media: "%{count} media"
     n_results: "%{count} results"
+    n_taxon_pages: "%{count} taxon pages"
+    n_users: "%{count} users"
     suggested: "Suggested (%{count})"
   search_results:
     collected_media:

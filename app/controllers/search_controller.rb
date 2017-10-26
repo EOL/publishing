@@ -3,8 +3,23 @@ class SearchController < ApplicationController
     @suppress_search_icon = true
   end
 
-  # TODO: Mammoth method, break up.
   def search
+    do_search
+  end
+
+  def search_page
+    do_search
+    render :layout => false
+  end
+
+  def suggestions
+    @results = Page.autocomplete(params[:query])
+    render :layout => false
+  end
+
+private
+  # TODO: Mammoth method, break up.
+  def do_search
     # for layout
     @nopad = true
     @search_text = params[:q]
@@ -108,11 +123,14 @@ class SearchController < ApplicationController
         @types[sym] = default
       end
 
-    if params.has_key?(:only)
-      Array(params[:only]).each { |type| @types[type.to_sym] = true }
-    elsif params.has_key?(:except)
-      Array(params[:except]).each { |type| @types[type.to_sym] = false }
-    end
+    @type = (params[:only] && params[:only].to_sym) || :pages
+    @types[@type] = true
+
+    # if params.has_key?(:only)
+    #   Array(params[:only]).each { |type| @types[type.to_sym] = true }
+    # elsif params.has_key?(:except)
+    #   Array(params[:except]).each { |type| @types[type.to_sym] = false }
+    # end
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
@@ -200,13 +218,6 @@ class SearchController < ApplicationController
       end
     end
   end
-
-  def suggestions
-    @results = Page.autocomplete(params[:query])
-    render :layout => false
-  end
-
-private
 
   def basic_search(klass, options = {})
     klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },

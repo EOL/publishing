@@ -1,0 +1,11 @@
+- if @type == :pages && @pages
+  = render :partial => "partial_search_results",
+    :locals => { :results => @pages, :partial => "pages/search_result",
+    :url_proc => Proc.new { |page| page_path(page) }, :type => :pages }
+- elsif @type == :media && @media
+  = render :partial => "partial_search_results",
+    :locals => { :results => @media, :partial => "media/search_result",
+    :url_proc => Proc.new{ |medium| medium_path(medium) }, :type => :media }
+- elsif @type == :collections && @collections
+
+- elsif @type == :users && @users

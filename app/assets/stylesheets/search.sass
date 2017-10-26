@@ -1,4 +1,5 @@
 @import "colors"
+@import "dimensions"
 
 .center-text
   text-align: center
@@ -83,13 +84,68 @@ $search-result-count-height: 54px
     height: 100%
     text-decoration: none
 
-.search-result-count
+.filterBar
   align-items: center
   background: $light-blue
   bottom: 0
+  cursor: pointer
   display: flex
   height: 54px
   justify-content: center
   left: 0
   position: fixed
   width: 100%
+
+  .filterBar-icon
+    color: $eol-blue
+    left: 50px
+    position: absolute
+    top: 12px
+
+    &.close
+      display: none
+
+  &.open
+    .filterBar-icon.close
+      display: inline
+
+    .filterBar-icon.open
+      display: none
+
+.searchFilter
+  background: rgba(82, 82, 82, 0.83)
+  display: none
+  height: 100%
+  left: 0
+  padding-top: $navbar-height
+  position: fixed
+  top: 0
+  width: 100%
+
+.searchFilter-types
+  $type-width: 174px
+  $type-space: 7px
+
+  cursor: pointer
+  display: flex
+  justify-content: space-between
+  margin: 144px auto 0 auto
+  width: 2 * $type-width + $type-space
+  wrap: row
+
+  .searchFilter-types-type
+    $height: 52px
+    background: $light-blue
+    font-size: 14px
+    height: $height
+    line-height: $height
+    text-align: center
+    width: $type-width
+
+    i
+      display: none
+
+    &.selected
+      background: $white
+      i
+        display: inline

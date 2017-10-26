@@ -1,4 +1,4 @@
 - results.each do |r|
-  %li.search-result
+  %li.search-result{ :data => { :type => type} }
     %a.link{ :href => url_proc.call(r) }
       = render :partial => partial, :locals => { :result => r}

@@ -17,7 +17,7 @@ module SearchHelper
   def result_total(results)
     total = 0
     results.each do |r|
-      total += r.length
+      total += r.total_count if r
     end
     total
   end
