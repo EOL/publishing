@@ -52,7 +52,13 @@ module SearchHelper
     nil
   end
 
+  def user_name(user)
+    user.try(:search_highlights).try(:[], :name) || user.name
+  end
 
+  def user_bio(user)
+    user.try(:search_highlights).try(:[], :bio) || user.bio
+  end
 private
   def medium_type(medium)
     return "article" if medium.is_a?(Article)
