@@ -9,13 +9,14 @@ $(function() {
     , $filter = $('.searchFilter')
     , $filterItem = $('.searchFilter-types-type')
     , $resultContainer = $('.search-results')
-    , resultTypeOrder = [ 'pages', 'media', 'collections', 'users' ]
-    , resultTypeIndex = 0
+    , resultTypeOrder = [ 'pages', 'articles', 'media', 'collections', 'users' ]
+    , resultTypeIndex
     , selectedResultTypes = {
         pages: true,
         media: true,
         collections: true,
-        users: true
+        users: true,
+        articles: true
       }
     , firstPageIndex = 1
     , pageIndex = firstPageIndex
@@ -107,6 +108,8 @@ $(function() {
       selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
     }
 
+    console.log('selectedResultTypeFound', selectedResultTypeFound);
+
     if (selectedResultTypeFound) {
       $.ajax({
         url: '/search_page', // TODO: get rid of hard-coded path
@@ -123,6 +126,7 @@ $(function() {
           } else {
             $resultContainer.append($(result));
             loadingPage = false;
+            $(window).scroll();
           }
         }
       });
@@ -136,12 +140,18 @@ $(function() {
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
 
-  $(window).scroll(function() {
-    var scrollBottomOffset = $(document).height() - $(this).scrollTop() - $(this).height();
+  if ($resultContainer.find('.search-result').length) {
+    resultTypeIndex = resultTypeOrder.indexOf($resultContainer.find('.search-result').last().data('type'));
 
-    if (scrollBottomOffset < nextPageScrollThreshold && !loadingPage) {
-      loadingPage = true;
-      loadNextPage();
-    }
-  });
+    $(window).scroll(function() {
+      var scrollBottomOffset = $(document).height() - $(this).scrollTop() - $(this).height();
+      console.log('offset', scrollBottomOffset)
+
+      if (scrollBottomOffset < nextPageScrollThreshold && !loadingPage) {
+        loadingPage = true;
+        loadNextPage();
+      }
+    });
+    $(window).scroll(); // If there's no scrollbar, the next page will never load without this
+  }
 });

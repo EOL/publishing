@@ -8,6 +8,7 @@ class SearchController < ApplicationController
   end
 
   def search_page
+    @type = params[:only].to_sym
     do_search
     render :layout => false
   end
@@ -118,13 +119,12 @@ private
 
     default = params.has_key?(:only)? false : true
     @types = {}
-    [ :pages, :collections, :media, :users, :predicates, :object_terms ].
+    [ :pages, :collections, :articles, :media, :links, :users, :predicates, :object_terms ].
       each do |sym|
         @types[sym] = default
       end
 
-    @type = (params[:only] && params[:only].to_sym) || :pages
-    @types[@type] = true
+    @types[params[:only].to_sym] = true if params.has_key?(:only)
 
     # if params.has_key?(:only)
     #   Array(params[:only]).each { |type| @types[type.to_sym] = true }
@@ -150,11 +150,29 @@ private
       nil
     end
 
+    @articles = if @types[:articles]
+      basic_search(Searchkick,
+        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+        where: @clade ? { ancestry_ids: @clade.id } : nil,
+        index_name: [Article])
+    else
+      nil
+    end
+
     @media = if @types[:media]
       basic_search(Searchkick,
         fields: ["name^5", "resource_pk^10", "owner", "description^2"],
         where: @clade ? { ancestry_ids: @clade.id } : nil,
-        index_name: [Article, Medium, Link])
+        index_name: [Medium])
+    else
+      nil
+    end
+
+    @links = if @types[:links]
+      basic_search(Searchkick,
+        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+        where: @clade ? { ancestry_ids: @clade.id } : nil,
+        index_name: [Link])
     else
       nil
     end
@@ -167,23 +185,23 @@ private
 
     Searchkick.multi_search([@pages, @collections, @media, @users].compact)
 
-    if @types[:predicates]
-      @predicates_count = TraitBank.count_predicate_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @predicates = Kaminari.paginate_array(
-        TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
-        total_count: @predicates_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
-
-    if @types[:object_terms]
-      @object_terms_count = TraitBank.count_object_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @object_terms = Kaminari.paginate_array(
-        TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
-        total_count: @object_terms_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
+    # if @types[:predicates]
+    #   @predicates_count = TraitBank.count_predicate_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @predicates = Kaminari.paginate_array(
+    #     TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @predicates_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
+    #
+    # if @types[:object_terms]
+    #   @object_terms_count = TraitBank.count_object_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @object_terms = Kaminari.paginate_array(
+    #     TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @object_terms_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
 
     respond_to do |fmt|
       fmt.html do

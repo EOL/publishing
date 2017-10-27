@@ -43,8 +43,13 @@ module SearchHelper
         I18n.t("search_results.no_title")
       end
     end
+  end
 
-
+  def first_type_with_results(pages, articles, media)
+    (defined?(pages) && pages.total_count > 0 && :pages) ||
+    (defined?(articles) && articles.total_count > 0 && :articles) ||
+    (defined?(media) && medial.total_count > 0 && :media) ||
+    nil
   end
 
 

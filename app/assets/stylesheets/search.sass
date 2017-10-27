@@ -51,7 +51,9 @@ $search-result-count-height: 54px
     cursor: pointer
     height: 60px
     list-style: none
-    overflow: hidden
+    overflow-x: auto
+    overflow-y: hidden
+    padding-right: 5px
     white-space: nowrap
 
   .page-icon
@@ -134,10 +136,11 @@ $search-result-count-height: 54px
 
   cursor: pointer
   display: flex
+  flex: 0 0 auto
   justify-content: space-between
-  margin: 144px auto 0 auto
+  margin: (144px - $type-space) auto 0 auto
   width: 2 * $type-width + $type-space
-  wrap: row
+  flex-wrap: wrap
 
   .searchFilter-types-type
     $height: 52px
@@ -145,6 +148,7 @@ $search-result-count-height: 54px
     font-size: 14px
     height: $height
     line-height: $height
+    margin-top: $type-space
     text-align: center
     width: $type-width
 

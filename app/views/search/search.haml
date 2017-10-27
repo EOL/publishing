@@ -1,17 +1,16 @@
 %ul.search-results{ :data => { :query => @q } }
-  = render "search_page"
+  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @media)}
 
 .searchFilter
   .searchFilter-types
     - if defined?(@pages) && @pages.total_count > 0
-      .searchFilter-types-type.selected{ :data => { :type => :pages} }
-        %i.fa.fa-check.fa-lg
-        %span= t("search.n_taxon_pages", :count => @pages.total_count)
+      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
+
+    - if defined?(@articles) && @articles.total_count > 0
+      = render :partial => "filter_type", :locals => { :type => :articles, :i18n_key => "search.n_articles", :results => @articles}
 
     - if defined?(@media) && @media.total_count > 0
-      .searchFilter-types-type.selected{ :data => { :type => :media } }
-        %i.fa.fa-check.fa-lg
-        %span= t("search.n_media", :count => @media.total_count)
+      = render :partial => "filter_type", :locals => { :type => :media, :i18n_key => "search.n_media", :results => @media}
 
   -# if defined?(@collections) && @collections
     = render("collections/search_results")
@@ -21,4 +20,4 @@
 .filterBar
   %i.filterBar-icon.fa.fa-sliders.fa-2x.open
   %i.filterBar-icon.fa.fa-close.fa-2x.close
-  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @media]))
+  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @articles, @media]))

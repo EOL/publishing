@@ -5,13 +5,5 @@
     %i.fa.fa-file-text-o.fa-3x
 .details
   .title= medium_title(result).html_safe
-  .content.match
-    %span= t("search_results.field_matches.#{result.is_a?(Medium) ? "description" : "body"}")
-    %span.match-text
-      - desc = result.try(:search_highlights).try(:[], :description)
-      - if desc
-        = desc.html_safe
-      -elsif @q
-        = emphasize_match(result.description, @q)
   - owner = result.try(:search_highlights).try(:[], :owner) || emphasize_match(result.owner, @q)
-  .misc-info.copyright= owner
+  .content= owner
