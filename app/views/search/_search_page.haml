@@ -7,10 +7,11 @@
   = render :partial => "partial_search_results",
     :locals => { :results => results, :partial => "media/search_result",
     :url_proc => Proc.new{ |medium| medium_path(medium) }, :type => type }
+- elsif type == :collections && @collections
+  = render :partial => "partial_search_results",
+    :locals => { :results => @collections, :partial => "collections/search_result",
+    :url_proc => Proc.new{ |collection| collection_path(collection) }, :type => :collections }
 - elsif type == :users && @users
   = render :partial => "partial_search_results",
     :locals => { :results => @users, :partial => "users/search_result",
     :url_proc => Proc.new{ |user| user_path(user) }, :type => :users }
--# elsif @type == :collections && @collections
-
--# elsif @type == :users && @users

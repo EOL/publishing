@@ -608,6 +608,7 @@ en:
       users:
         one: "%{count} user"
         other: "%{count} users"
+    collection_title_html: "Collection: <span class='sub'>%{name}</span>"
     user_title_html: "User: <span class='sub'>%{name}</span>"
   search_suggestion:
     actions:

@@ -45,10 +45,12 @@ module SearchHelper
     end
   end
 
-  def first_type_with_results(pages, articles, media)
+  # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
+  def first_type_with_results(pages, articles, media, collecitons, users)
     (defined?(pages) && pages.total_count > 0 && :pages) ||
     (defined?(articles) && articles.total_count > 0 && :articles) ||
     (defined?(media) && media.total_count > 0 && :media) ||
+    (defined?(collections) && collections.total_count > 0 && :collections) ||
     (defined?(users) && users.total_count > 0 && :users) ||
     nil
   end
@@ -60,6 +62,11 @@ module SearchHelper
   def user_bio(user)
     user.try(:search_highlights).try(:[], :bio) || user.bio
   end
+
+  def collection_name(collection)
+    collection.try(:search_highlights).try(:[], :name) || collection.name
+  end
+
 private
   def medium_type(medium)
     return "article" if medium.is_a?(Article)

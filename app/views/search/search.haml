@@ -1,5 +1,5 @@
 %ul.search-results{ :data => { :query => @q } }
-  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @media)}
+  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @media, @collections, @users)}
 
 .searchFilter
   .searchFilter-types
