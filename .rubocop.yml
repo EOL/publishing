@@ -94,12 +94,6 @@ Lint/HandleExceptions:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#dont-hide-exceptions'
   Enabled: true
 
-Lint/InvalidCharacterLiteral:
-  Description: >-
-                 Checks for invalid character literals with a non-escaped
-                 whitespace character.
-  Enabled: true
-
 Lint/LiteralInCondition:
   Description: 'Checks of literals used in conditions.'
   Enabled: true
@@ -372,7 +366,7 @@ Layout/AccessModifierIndentation:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#indent-public-private-protected'
   Enabled: false
 
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
   Description: Check the naming of accessor methods for get_/set_.
   Enabled: false
 
@@ -416,7 +410,7 @@ Style/AsciiComments:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#english-comments'
   Enabled: false
 
-Style/AsciiIdentifiers:
+Naming/AsciiIdentifiers:
   Description: 'Use only ascii symbols in identifiers.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#english-identifiers'
   Enabled: false
@@ -472,7 +466,7 @@ Style/CharacterLiteral:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-character-literals'
   Enabled: false
 
-Style/ClassAndModuleCamelCase:
+Naming/ClassAndModuleCamelCase:
   Description: 'Use CamelCase for classes and modules.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#camelcase-classes'
   Enabled: false
@@ -518,7 +512,7 @@ Layout/CommentIndentation:
   Description: 'Indentation of comments.'
   Enabled: false
 
-Style/ConstantName:
+Naming/ConstantName:
   Description: 'Constants should use SCREAMING_SNAKE_CASE.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#screaming-snake-case'
   Enabled: false
@@ -607,7 +601,7 @@ Layout/ExtraSpacing:
   Description: 'Do not use unnecessary spacing.'
   Enabled: false
 
-Style/FileName:
+Naming/FileName:
   Description: 'Use snake_case for source file names.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#snake-case-files'
   Enabled: false
@@ -723,7 +717,7 @@ Style/MethodDefParentheses:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#method-parens'
   Enabled: false
 
-Style/MethodName:
+Naming/MethodName:
   Description: 'Use the configured style when naming methods.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#snake-case-symbols-methods-vars'
   Enabled: false
@@ -811,10 +805,10 @@ Style/OneLineConditional:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#ternary-operator'
   Enabled: false
 
-Style/OpMethod:
+Naming/BinaryOperatorParameterName:
   Description: 'When defining binary operators, name the argument other.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#other-arg'
-  Enabled: false
+  Enabled: true
 
 Style/OptionalArguments:
   Description: >-
@@ -853,7 +847,7 @@ Style/PerlBackrefs:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-perl-regexp-last-matchers'
   Enabled: false
 
-Style/PredicateName:
+Naming/PredicateName:
   Description: 'Check the names of predicate methods.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#bool-methods-qmark'
   Enabled: false
@@ -1123,7 +1117,7 @@ Style/VariableInterpolation:
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#curlies-interpolate'
   Enabled: false
 
-Style/VariableName:
+Naming/VariableName:
   Description: 'Use the configured style when naming variables.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#snake-case-symbols-methods-vars'
   Enabled: false

@@ -50,6 +50,8 @@ class Page < ActiveRecord::Base
   # the (preferred and nonpreferred) interfere.
   scope :search_import, -> { includes(:scientific_names, :vernaculars, :native_node, resources: :partner) }
 
+  delegate :ancestors, to: :native_node
+
   def self.autocomplete(query, options = {})
     search(query, options.reverse_merge({
       fields: ["scientific_name^200", "preferred_vernacular_strings"],
@@ -120,6 +122,18 @@ class Page < ActiveRecord::Base
       where(["rank_id IN (?)", Rank.all_species_ids]).count
     update_attribute(:species_count, count)
     count
+  end
+
+  def content_types_count
+    PageContent.where(page_id: id, is_hidden: false)
+      .where.not(trust: PageContent.trusts[:untrusted]).group(:content_type).count.keys.size
+  end
+
+  def sections_count
+    return(sections.size) if articles.loaded?
+    ids = PageContent.where(page_id: id, is_hidden: false, content_type: 'Article')
+      .where.not(trust: PageContent.trusts[:untrusted]).pluck(:id)
+    ContentSection.where(content_id: ids, content_type: 'Article').group(:section_id).count.keys.count
   end
 
   # MEDIA METHODS
@@ -211,7 +225,7 @@ class Page < ActiveRecord::Base
   end
 
   def map?
-    occurrence_map? || ! maps.blank?
+    occurrence_map? || maps.count > 0
   end
 
   def maps

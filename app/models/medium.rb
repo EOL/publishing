@@ -33,20 +33,22 @@ class Medium < ActiveRecord::Base
 
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
-    base_url + ".jpg"
+    orig = Rails.configuration.x.image_path.original
+    ext = Rails.configuration.x.image_path.ext
+    base_url + "#{orig}#{ext}"
   end
 
   def large_size_url
-    base_url + ".580x360.jpg"
+    base_url + format_image_size(580, 360)
   end
 
   def medium_icon_url
-    base_url + ".130x130.jpg"
+    base_url + format_image_size(130, 130)
   end
   alias_method :icon, :medium_icon_url
 
   def medium_size_url
-    base_url + ".260x190.jpg"
+    base_url + format_image_size(260, 190)
   end
 
   # Drat. :S
@@ -55,11 +57,18 @@ class Medium < ActiveRecord::Base
   end
 
   def small_size_url
-    base_url + ".98x68.jpg"
+    base_url + format_image_size(98, 68)
   end
 
   def small_icon_url
-    base_url + ".88x88.jpg"
+    base_url + format_image_size(88, 88)
+  end
+
+  def format_image_size(w, h)
+    join = Rails.configuration.x.image_path.join
+    by = Rails.configuration.x.image_path.by
+    ext = Rails.configuration.x.image_path.ext
+    "#{join}#{w}#{by}#{h}#{ext}"
   end
 
   def vitals

@@ -33,7 +33,7 @@ RSpec.describe "collection_associations/new" do
     it "shows no collections to select" do
       render
       expect(rendered).to match(
-        /#{I18n.t(:collect_no_existing_collections)}/)
+        /#{CGI.escapeHTML(I18n.t(:collect_no_existing_collections))}/)
     end
 
     it "shows a form for a new collection" do

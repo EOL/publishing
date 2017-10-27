@@ -9,31 +9,31 @@ RSpec.describe Medium do
   end
 
   it "builds a #original_size_url" do
-    expect(subject.original_size_url).to eq("base_orig.jpg")
+    expect(subject.original_size_url).to eq("base.jpg")
   end
 
   it "builds a #large_size_url" do
-    expect(subject.large_size_url).to eq("base_580_360.jpg")
+    expect(subject.large_size_url).to eq("base.580x360.jpg")
   end
 
   it "builds a #medium_icon_url" do
-    expect(subject.medium_icon_url).to eq("base_130_130.jpg")
+    expect(subject.medium_icon_url).to eq("base.130x130.jpg")
   end
 
   it "builds an #icon" do
-    expect(subject.icon).to eq("base_130_130.jpg")
+    expect(subject.icon).to eq("base.130x130.jpg")
   end
 
   it "builds a #medium_size_url" do
-    expect(subject.medium_size_url).to eq("base_260_190.jpg")
+    expect(subject.medium_size_url).to eq("base.260x190.jpg")
   end
 
   it "builds a #small_size_url" do
-    expect(subject.small_size_url).to eq("base_98_68.jpg")
+    expect(subject.small_size_url).to eq("base.98x68.jpg")
   end
 
   it "builds a #small_icon_url" do
-    expect(subject.small_icon_url).to eq("base_88_88.jpg")
+    expect(subject.small_icon_url).to eq("base.88x88.jpg")
   end
 
   it "has is_type? booleans" do

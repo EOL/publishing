@@ -8,7 +8,7 @@ class RichnessScore
   end
 
   def initialize
-    @section_count = Section.count
+    @section_count = Section.cached_count
     @section_count = 1 if @section_count.nil? || @section_count <= 0
     @predicate_count = TraitBank.predicate_count
     @weights = {
@@ -72,7 +72,7 @@ class RichnessScore
     "Media: #{@page.media_count} -> #{weighted_score(@page.media_count)} * #{@weights[:media]} = #{@scores[:media]}\n"\
     "Media Diversity: #{content_types_count} -> #{media_diversity_score} * #{@weights[:media_diversity]} = #{@scores[:media_diversity]}\n"\
     "Map: #{@page.map?} -> #{@weights[:map]} = #{@scores[:map]}\n"\
-    "Section Diversity: #{@page.sections.size} / #{@section_count} -> #{section_diversity_score} * #{@weights[:section_diversity]} = #{@scores[:section_diversity]}\n"\
+    "Section Diversity: #{@page.sections_count} / #{@section_count} -> #{section_diversity_score} * #{@weights[:section_diversity]} = #{@scores[:section_diversity]}\n"\
     "Data Diversity: #{@page.glossary.size} / #{@predicate_count} -> #{data_diversity_score} * #{@weights[:data_diversity]} = #{@scores[:data_diversity]}\n"\
     "References: #{@page.literature_and_references_count} -> #{weighted_score(@page.literature_and_references_count)} * #{@weights[:references]} = #{@scores[:references]}\n"\
     "TOTAL: #{total}"
@@ -96,11 +96,11 @@ class RichnessScore
   end
 
   def content_types_count
-    @page.page_contents.map(&:content_type).uniq.compact.size
+    @page.content_types_count
   end
 
   def section_diversity_score
-    (@page.sections.size.to_f / @section_count)
+    @page.sections_count.to_f / @section_count
   end
 
   def data_diversity_score

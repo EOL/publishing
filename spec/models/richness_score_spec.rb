@@ -14,9 +14,8 @@ RSpec.describe RichnessScore do
     context("with a rich-ish page") do
 
       let(:page) do
-        instance_double("Page", media_count: 2, map?: true, sections: [1,2,3],
-          glossary: [1,2,3,4], literature_and_references_count: 3,
-          page_contents: [medium, article, link])
+        instance_double("Page", media_count: 2, map?: true, sections_count: 3,
+          glossary: [1,2,3,4], literature_and_references_count: 3, content_types_count: 3)
       end
 
       it "should score 3086 as configured" do
@@ -26,18 +25,17 @@ RSpec.describe RichnessScore do
 
     context("with an empty page") do
       let(:page) do
-        instance_double("Page", media_count: 0, map?: false, sections: [],
-          glossary: [], literature_and_references_count: 0,
-          page_contents: [])
+        instance_double("Page", media_count: 0, map?: false, sections_count: 0,
+          glossary: [], literature_and_references_count: 0, content_types_count: 0)
       end
 
       it "should check all of the counts" do
         expect(page).to receive(:media_count) { 0 }
         expect(page).to receive(:map?) { false }
-        expect(page).to receive(:sections) { [] }
+        expect(page).to receive(:sections_count) { 0 }
         expect(page).to receive(:glossary) { [] }
         expect(page).to receive(:literature_and_references_count) { 0 }
-        expect(page).to receive(:page_contents) { [] }
+        expect(page).to receive(:content_types_count) { 0 }
         RichnessScore.calculate(page)
       end
 

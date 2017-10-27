@@ -16,6 +16,7 @@ module Import
       @since = since
       @resource = nil
       @resources = []
+      @pages = {}
       reset_resource # Not strictly required, but helps for debugging.
     end
 
@@ -26,11 +27,22 @@ module Import
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
         begin
-          import_resource if @resource.id == 1 || @resource.abbr == 'flickrBHL' # TMP - TESTING! TODO: remove clause
+          import_resource
         rescue => e
           log("!! ERROR: #{e.message}\n#{e.backtrace}")
         end
       end
+      richness = RichnessScore.new
+      # Note: this is quite slow, but searches won't work without it. :S
+      pages = Page.where(id: @pages.keys).includes(:occurrence_map)
+      log('## score_richness_for_pages')
+      # Clear caches that could have been affected TODO: more
+      pages.each do |page|
+        richness.calculate(page)
+        Rails.cache.delete("/pages/#{page.id}/glossary")
+      end
+      log('## pages.reindex')
+      pages.reindex
     end
 
     # TODO: set these:
@@ -74,6 +86,7 @@ module Import
 
     def reset_resource
       @nodes = []
+      @identifiers = []
       @names = []
       @verns = []
       @node_id_by_page = {}
@@ -87,6 +100,7 @@ module Import
 
     def import_resource
       log('{{ START IMPORT')
+      log("?? Resource: #{@resource.name} (#{@resource.id})")
       reset_resource
       import_nodes
       create_new_pages
@@ -94,17 +108,7 @@ module Import
       import_vernaculars
       import_media
       import_traits
-
-      # Note: this is quite slow, but searches won't work without it. :S
-      pages = Page.where(id: @node_id_by_page.keys)
-      log('## score_richness_for_pages')
-      Reindexer.score_richness_for_pages(pages)
-      # Clear caches that could have been affected TODO: more
-      pages.each do |page|
-        Rails.cache.delete("/pages/#{page.id}/glossary")
-      end
-      log('## pages.reindex')
-      pages.reindex
+      @node_id_by_page.keys.each { |k| @pages[k] = true }
       log('}} END IMPORT')
     end
 
@@ -114,7 +118,7 @@ module Import
       @nodes = get_new_instances_from_repo(Node) do |node|
         rank = node.delete(:rank)
         identifiers = node.delete(:identifiers)
-        node[:identifiers] = identifiers.map { |ident| Identifier.new(identifier: ident) }
+        @identifiers += identifiers.map { |ident| { identifier: ident, node_resource_pk: node[:resource_pk] } }
         unless rank.nil?
           rank = Rank.where(name: rank).first_or_create do |r|
             r.name = rank
@@ -127,6 +131,10 @@ module Import
         # it here anyway:
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
+        node[:lft] = nil # NOTE: cannot calculate this ...
+        node[:rgt] = nil # NOTE: cannot calculate this ...
+        # We do store the landmark ID, but this is helpful.
+        node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark].to_i > 0 && node[:landmark].to_i < 3
       end
       if @nodes.empty?
         log('.. There were NO new nodes, skipping...')
@@ -135,11 +143,13 @@ module Import
       log(".. importing #{@nodes.size} Nodes")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Node.import(@nodes, on_duplicate_key_ignore: true)
-      # TODO: put in the identifiers that were removed above.
-      # TODO: calculate lft and rgt... Ick.
+      # NOTE: skipping validations because of lft/rgt, which cannot (?) be calculated now...
+      Node.import(@nodes, on_duplicate_key_ignore: true, validate: false)
+      Identifier.import(@identifiers, on_duplicate_key_ignore: true, validate: false)
       propagate_id(Node, resource: @resource, fk: 'parent_resource_pk',  other: 'nodes.resource_pk',
                          set: 'parent_id', with: 'id')
+      propagate_id(Identifier, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                               set: 'node_id', with: 'id')
       # NOTE: it's required to rebuild the ancestry for later steps (e.g.: media propagation).
       log('.. rebuilding Node hierarchies')
       Node.where(resource_id: @resource.id).rebuild!(false)
@@ -150,7 +160,7 @@ module Import
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
       # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
       # itself to that page, then the native_node_id should *change* to the DWH id.)
-      Node.where(resource_pk: @nodes.map { |n| n.resource_pk }).select("id, page_id").find_each do |node|
+      Node.where(resource_pk: @nodes.map { |n| n[:resource_pk] }).select("id, page_id").find_each do |node|
         @node_id_by_page[node.page_id] = node.id
       end
       have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
@@ -335,7 +345,12 @@ module Import
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
         yield(thing)
-        things << klass.new(thing.merge(resource_id: @resource.id))
+        begin
+          things << thing.merge(resource_id: @resource.id)
+        rescue
+          debugger
+          321
+        end
       end
       things
     end
@@ -495,7 +510,7 @@ module Import
 
     def log(what)
       what = "[#{Time.now.strftime('%H:%M:%S')}] #{what}"
-      Delayed::Worker.logger.error(what)
+      Delayed::Worker.logger.info(what)
       puts what
     end
   end
