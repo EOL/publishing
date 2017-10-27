@@ -538,14 +538,25 @@ en:
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
-    # TODO: singular forms for all search-related counts
-    n_articles: "%{count} articles"
-    n_collections: "%{count} collections"
-    n_media: "%{count} media"
-    n_results: "%{count} results"
-    n_taxon_pages: "%{count} taxon pages"
-    n_users: "%{count} users"
-    n_users: "%{count} users"
+    n_articles:
+      one: "%{count} article"
+      other: "%{count} articles"
+    n_collections:
+      one: "%{count} collection"
+      other: "%{count} collections"
+    n_media:
+      one: "%{count} medium"
+      other: "%{count} media"
+    n_results:
+      zero: "No results"
+      one: "%{count} result"
+      other: "%{count} results"
+    n_taxon_pages:
+      one: "%{count} taxon page"
+      other: "%{count} taxon pages"
+    n_users:
+      one: "%{count} user"
+      other: "%{count} users"
     suggested: "Suggested (%{count})"
   search_results:
     collected_media:
