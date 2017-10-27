@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019144810) do
+ActiveRecord::Schema.define(version: 20171024181455) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20171019144810) do
     t.datetime "updated_at",                                      null: false
     t.boolean  "has_breadcrumb",                  default: true
     t.string   "parent_resource_pk", limit: 255
+    t.integer  "landmark",           limit: 4,    default: 0
   end
 
   add_index "nodes", ["page_id"], name: "index_nodes_on_page_id", using: :btree

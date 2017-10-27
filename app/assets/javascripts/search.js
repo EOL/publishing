@@ -106,10 +106,12 @@ $(function() {''
         page: ++pageIndex
       },
       success: function(result) {
-        if (!result.trim().length && resultTypeIndex < resultTypeOrder.length - 1) {
-          resultTypeIndex++;
-          pageIndex = firstPageIndex - 1;
-          loadNextPage();
+        if (!result.replace(/\s/g, '').length) {
+          if (resultTypeIndex < resultTypeOrder.length - 1) {
+            resultTypeIndex++;
+            pageIndex = firstPageIndex - 1;
+            loadNextPage();
+          }
         } else {
           $resultContainer.append($(result));
           loadingPage = false;
