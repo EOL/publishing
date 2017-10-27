@@ -496,7 +496,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord-import
   acts_as_list
-  awesome_nested_set
   better_errors
   byebug
   capybara
