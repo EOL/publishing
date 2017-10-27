@@ -77,12 +77,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :rank_id,
         comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community"
       t.integer :parent_id, index: true, comment: "null means root node"
-      # NOTE: We talked about removing these, but nested_set actually makes
-      # really good use of them, so I am keeping them:
-      t.integer :lft,
-        comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
-      t.integer :rgt,
-        comment: "nested set; rgt is roughly the rightmost set boundary of this node's descendants"
 
       t.string :scientific_name, comment: "denormalized, italics included"
       t.string :canonical_form, comment: "denormalized, italics included"
@@ -95,13 +89,10 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_hidden, null: false, default: false
       t.boolean :in_unmapped_area, null: false, default: false
 
-      t.integer :depth, :null => false, :default => 0
       t.integer :children_count, :null => false, :default => 0
 
       t.timestamps null: false
     end
-    add_index :nodes, [:resource_id, :rgt], name: "resource_rgt_index"
-    add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
 
     create_table :identifiers do |t|
       t.integer :resource_id, index: true, null: false
@@ -116,21 +107,16 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "enum: r_domain r_kingdom r_phylum r_class r_order r_family r_genus r_species; when null, rank is ignored"
     end
 
-    # NOTE: there is no resource_id here because we'll never need all of the
-    # ancestors for a resource on this website. That's only used for harvesting.
     create_table :node_ancestors do |t|
-      t.integer :node_id, index: true, null: false
-      t.integer :ancestor_id, index: true, null: false,
-        comment: "another node id"
-      t.integer :position, null: false,
-        comment: "how deep down from the root (0)"
-
-      t.timestamps null: false
+      t.integer :resource_id, null: false
+      t.integer :node_id, index: true, comment: "the id of the descendant node"
+      t.integer :ancestor_id, index: true, comment: "the id of the node which is an ancestor"
+      t.string :node_resource_pk, index: true
+      t.string :ancestor_resource_pk, index: true
     end
 
-    # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a
-    # separate table entirely. No sense in having a text field that is usually
-    # empty.
+    # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a separate table entirely. No sense in
+    # having a text field that is usually empty.
     create_table :taxon_remarks do |t|
       t.integer :node_id, index: true
       t.text :body,

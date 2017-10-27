@@ -91,6 +91,8 @@ group :development, :test do
   gem 'coveralls', require: false
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov"
+  # Rubocop... which technically you want on your *system*, but ...
+  gem 'rubocop'
 end
 
 group :development do

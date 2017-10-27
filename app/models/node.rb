@@ -1,5 +1,6 @@
 class Node < ActiveRecord::Base
   belongs_to :page, inverse_of: :nodes
+  belongs_to :parent, class_name: 'Node', inverse_of: :children
   belongs_to :resource, inverse_of: :nodes
   belongs_to :rank
 
@@ -8,12 +9,14 @@ class Node < ActiveRecord::Base
   has_many :identifiers, inverse_of: :node
   has_many :scientific_names, inverse_of: :node
   has_many :vernaculars, inverse_of: :node
-  has_many :preferred_vernaculars, -> { preferred }, class_name: "Vernacular"
+  has_many :preferred_vernaculars, -> { preferred }, class_name: 'Vernacular'
+  has_many :node_ancestors, inverse_of: :node, dependent: :destroy
+  has_many :descendants, class_name: 'NodeAncestor', inverse_of: :ancestor, foreign_key: :ancestor_id
+  has_many :ancestors, through: :node_ancestors
+  has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
 
   has_many :references, as: :parent
   has_many :referents, through: :references
-
-  acts_as_nested_set scope: :resource, counter_cache: :children_count
 
   counter_culture :resource
   counter_culture :page

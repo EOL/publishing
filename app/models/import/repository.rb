@@ -86,6 +86,7 @@ module Import
 
     def reset_resource
       @nodes = []
+      @ancestors = []
       @identifiers = []
       @names = []
       @verns = []
@@ -126,13 +127,16 @@ module Import
           end
           node[:rank_id] = rank.id
         end
+        ancestors = node.delete(:ancestors)
+        ancestors.each do |anc|
+          next if anc == node[:resource_pk]
+          @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc, resource_id: @resource.id }
+        end
         # TODO: we should have the repository calculate the depth...
         # So, until we parse the WHOLE thing (at the source), we have to deal with this. Probably fair enough to include
         # it here anyway:
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
-        node[:lft] = nil # NOTE: cannot calculate this ...
-        node[:rgt] = nil # NOTE: cannot calculate this ...
         # We do store the landmark ID, but this is helpful.
         node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark].to_i > 0 && node[:landmark].to_i < 3
       end
@@ -143,16 +147,17 @@ module Import
       log(".. importing #{@nodes.size} Nodes")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      # NOTE: skipping validations because of lft/rgt, which cannot (?) be calculated now...
       Node.import(@nodes, on_duplicate_key_ignore: true, validate: false)
       Identifier.import(@identifiers, on_duplicate_key_ignore: true, validate: false)
-      propagate_id(Node, resource: @resource, fk: 'parent_resource_pk',  other: 'nodes.resource_pk',
+      NodeAncestor.import(@ancestors, on_duplicate_key_ignore: true, validate: false)
+      propagate_id(Node, resource: @resource, fk: 'parent_resource_pk', other: 'nodes.resource_pk',
                          set: 'parent_id', with: 'id')
-      propagate_id(Identifier, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+      propagate_id(Identifier, resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
                                set: 'node_id', with: 'id')
-      # NOTE: it's required to rebuild the ancestry for later steps (e.g.: media propagation).
-      log('.. rebuilding Node hierarchies')
-      Node.where(resource_id: @resource.id).rebuild!(false)
+      propagate_id(NodeAncestor, resource: @resource, fk: 'ancestor_resource_pk', other: 'nodes.resource_pk',
+                                 set: 'ancestor_id', with: 'id')
+      propagate_id(NodeAncestor, resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
+                                 set: 'node_id', with: 'id')
     end
 
     def create_new_pages
