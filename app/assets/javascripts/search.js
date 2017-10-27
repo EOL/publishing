@@ -1,4 +1,4 @@
-$(function() {''
+$(function() {
   var autocompletePath = '/search_suggestions/' // TODO: gross url
     , minAutocompleteLen = 3
     , queryCount = 0
@@ -58,15 +58,17 @@ $(function() {''
       selectedResultTypes[type] = selected;
     });
 
-    console.dir(selectedResultTypes);
-
     if (changed) {
       reloadResults();
     }
   }
 
   function reloadResults() {
-    console.log('reload!')
+    pageIndex = firstPageIndex - 1;
+    resultTypeIndex = 0;
+    loadingPage = true;
+    $resultContainer.empty();
+    loadNextPage();
   }
 
   function toggleSelected() {
@@ -85,9 +87,9 @@ $(function() {''
         success: function(result) {
           if (queryNum === queryCount) {
             $suggestionsContainer.html(result);
-            $suggestionsContainer.find('.suggestion').click(function() {
+            $suggestionsContainer.find('.suggestion').click(function() { // TODO: require at least one type to be selected
               $searchInput.val($(this).html());
-              $searchInput.focus()
+              $searchInput.focus();
             });
           }
         }
@@ -98,26 +100,33 @@ $(function() {''
   });
 
   function loadNextPage() {
-    $.ajax({
-      url: '/search_page', // TODO: get rid of hard-coded path
-      data: {
-        q: query,
-        only: resultTypeOrder[resultTypeIndex],
-        page: ++pageIndex
-      },
-      success: function(result) {
-        if (!result.replace(/\s/g, '').length) {
-          if (resultTypeIndex < resultTypeOrder.length - 1) {
-            resultTypeIndex++;
+    var selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
+
+    while(resultTypeIndex < resultTypeOrder.length - 1 && !selectedResultTypeFound) {
+      resultTypeIndex++;
+      selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
+    }
+
+    if (selectedResultTypeFound) {
+      $.ajax({
+        url: '/search_page', // TODO: get rid of hard-coded path
+        data: {
+          q: query,
+          only: resultTypeOrder[resultTypeIndex],
+          page: ++pageIndex
+        },
+        success: function(result) {
+          if (!result.replace(/\s/g, '').length) {
             pageIndex = firstPageIndex - 1;
+            resultTypeIndex++;
             loadNextPage();
+          } else {
+            $resultContainer.append($(result));
+            loadingPage = false;
           }
-        } else {
-          $resultContainer.append($(result));
-          loadingPage = false;
         }
-      }
-    });
+      });
+    }
   }
 
   $searchInput.focus();

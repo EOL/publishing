@@ -548,6 +548,17 @@ en:
     collected_media:
       title: "collected media from this page:"
     header: "results"
+    medium_article: "Article"
+    medium_image: "Image"
+    medium_map: "Map"
+    medium_sound: "Sound"
+    medium_video: "Video"
+    medium_title_article_html: "Article: <span class='sub'>%{title}</span>"
+    medium_title_image_html: "Image: <span class='sub'>%{title}</span>"
+    medium_title_map_html: "Map: <span class='sub'>%{title}</span>"
+    medium_title_sound_html: "Audio: <span class='sub'>%{title}</span>"
+    medium_title_video_html: "Video: <span class='sub'>%{title}</span>"
+    no_title: (no title)
     section_titles:
       collections:
         one: "%{count} collection"

@@ -74,25 +74,4 @@ class Medium < ActiveRecord::Base
   def vitals
     [name, "#{license.name} #{owner.html_safe}"]
   end
-
-  # TODO: spec these methods:
-  def is_image?
-    subclass == :image
-  end
-
-  def is_video?
-    subclass == :video
-  end
-
-  def is_sound?
-    subclass == :sound
-  end
-
-  def is_map?
-    subclass == :map
-  end
-
-  def is_js_map?
-    subclass == :js_map
-  end
 end

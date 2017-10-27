@@ -3,12 +3,12 @@
 
 .searchFilter
   .searchFilter-types
-    - if defined?(@pages) && @pages
+    - if defined?(@pages) && @pages.total_count > 0
       .searchFilter-types-type.selected{ :data => { :type => :pages} }
         %i.fa.fa-check.fa-lg
         %span= t("search.n_taxon_pages", :count => @pages.total_count)
 
-    - if defined?(@media) && !@media.blank?
+    - if defined?(@media) && @media.total_count > 0
       .searchFilter-types-type.selected{ :data => { :type => :media } }
         %i.fa.fa-check.fa-lg
         %span= t("search.n_media", :count => @media.total_count)

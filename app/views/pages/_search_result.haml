@@ -4,6 +4,6 @@
   -else
     %i.huge.image.icon
 .details>
-  .common-name= page_common_name(result).html_safe
-  .sci-name= page_sci_name(result).html_safe
-  .hierarchy= hierarchy_str(result).html_safe
+  .common-name.title= page_common_name(result).html_safe
+  .sci-name.content= page_sci_name(result).html_safe
+  .hierarchy.misc-info= hierarchy_str(result).html_safe

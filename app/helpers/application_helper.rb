@@ -136,9 +136,8 @@ module ApplicationHelper
 
   def emphasize_match(name, match)
     return "" if name.nil?
-    return name if match.nil?
-    return name.html_safe unless name =~ /(#{Regexp.escape(match)})/i
-    highlight(excerpt(name, match, separator: " ", radius: 5), match)
+    return name.html_safe unless !match.nil? && name =~ /(#{Regexp.escape(match)})/i
+    highlight(excerpt(name, match, separator: " ", radius: 5), match).html_safe
   end
 
   def icon(which)
