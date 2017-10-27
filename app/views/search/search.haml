@@ -12,6 +12,9 @@
     - if defined?(@media) && @media.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :media, :i18n_key => "search.n_media", :results => @media}
 
+    - if defined?(@collections && @collections.total_count > 0)
+      = render :partial => "filter_type", :locals => { :type => :collectinos, :i18n_key => "search.n_collections", :results => @collections}
+
     - if defined?(@users) && @users.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :media, :i18n_key => "search.n_users", :results => @users}
   -# if defined?(@collections) && @collections
@@ -22,4 +25,4 @@
 .filterBar
   %i.filterBar-icon.fa.fa-sliders.fa-2x.open
   %i.filterBar-icon.fa.fa-close.fa-2x.close
-  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @articles, @media, @users]))
+  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @articles, @media, @collections, @users]))
