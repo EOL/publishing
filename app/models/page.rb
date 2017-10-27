@@ -125,7 +125,7 @@ class Page < ActiveRecord::Base
   end
 
   def content_types_count
-    PageContent.where(page_id: id, is_hidden: false)
+    PageContent.unscoped.where(page_id: id, is_hidden: false)
       .where.not(trust: PageContent.trusts[:untrusted]).group(:content_type).count.keys.size
   end
 

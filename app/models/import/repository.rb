@@ -444,7 +444,7 @@ module Import
           if parent_id == page_id
             log "** OOPS: we just tried to add #{parent_id} as a parent to itself!"
           else
-            log©© "Adding parent #{parent_id} to page #{page_id}..."
+            log "Adding parent #{parent_id} to page #{page_id}..."
             TraitBank.add_parent_to_page(parent, tb_page)
           end
         end
