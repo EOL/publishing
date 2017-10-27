@@ -127,10 +127,11 @@ module Import
           end
           node[:rank_id] = rank.id
         end
-        ancestors = node.delete(:ancestors)
-        ancestors.each do |anc|
-          next if anc == node[:resource_pk]
-          @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc, resource_id: @resource.id }
+        if (ancestors = node.delete(:ancestors))
+          ancestors.each do |anc|
+            next if anc == node[:resource_pk]
+            @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc, resource_id: @resource.id }
+          end
         end
         # TODO: we should have the repository calculate the depth...
         # So, until we parse the WHOLE thing (at the source), we have to deal with this. Probably fair enough to include
