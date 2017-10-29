@@ -139,7 +139,7 @@ module Import
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
         # We do store the landmark ID, but this is helpful.
-        node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark].to_i > 0 && node[:landmark].to_i < 3
+        node[:has_breadcrumb] = node.key?(:landmark)
       end
       if @nodes.empty?
         log('.. There were NO new nodes, skipping...')
