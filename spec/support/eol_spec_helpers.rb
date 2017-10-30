@@ -24,6 +24,18 @@ module EolSpecHelpers
     }
   end
 
+  def fake_img_path(base_url, w, h = nil)
+    orig = Rails.configuration.x.image_path.original
+    ext = Rails.configuration.x.image_path.ext
+    join = Rails.configuration.x.image_path.join
+    by = Rails.configuration.x.image_path.by
+    if w == :orig
+      base_url + "#{orig}#{ext}"
+    else
+      "#{base_url}#{join}#{w}#{by}#{h}#{ext}"
+    end
+  end
+
   def fake_fact(predicate_uri, value_uri, options = {})
     data = fake_data_shell.merge(predicate: fake_term(predicate_uri),
       object_term: fake_term(value_uri, options[:name]))
