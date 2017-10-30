@@ -1,5 +1,5 @@
-.page-icon
+.search-results__icon
   %i.fa.fa-user-o.fa-3x
-.details
-  .title= t("search_results.user_title_html", :name => user_name(result).html_safe)
-  .content= user_bio(result).html_safe
+.search-results__details
+  .search-results__title= t("search_results.user_title_html", :name => user_name(result).html_safe)
+  .search-results__content= user_bio(result).html_safe

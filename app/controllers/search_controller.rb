@@ -177,14 +177,14 @@ private
       nil
     end
 
-    @links = if @types[:links]
-      basic_search(Searchkick,
-        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
-        where: @clade ? { ancestry_ids: @clade.id } : nil,
-        index_name: [Link])
-    else
-      nil
-    end
+    # @links = if @types[:links]
+    #   basic_search(Searchkick,
+    #     fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+    #     where: @clade ? { ancestry_ids: @clade.id } : nil,
+    #     index_name: [Link])
+    # else
+    #   nil
+    # end
 
     @users = if @types[:users]
       basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
@@ -215,13 +215,6 @@ private
     respond_to do |fmt|
       fmt.html do
         @page_title = t(:page_title_search, query: @q)
-        @empty = true
-        [ @pages, @collections, @media, @users ].each do |set|
-          @empty = false if set && ! set.empty?
-        end
-        # Object terms is unusual:
-        @empty = false if @object_terms && ! @object_terms.empty?
-        @empty = false if @predicates && ! @predicates.empty?
       end
 
       fmt.js { }

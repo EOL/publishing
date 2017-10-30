@@ -112,8 +112,6 @@ $(function() {
       selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
     }
 
-    console.log('selectedResultTypeFound', selectedResultTypeFound);
-
     if (selectedResultTypeFound) {
       $.ajax({
         url: '/search_page', // TODO: get rid of hard-coded path
@@ -144,8 +142,8 @@ $(function() {
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
 
-  if ($resultContainer.find('.search-result').length) {
-    resultTypeIndex = resultTypeOrder.indexOf($resultContainer.find('.search-result').last().data('type'));
+  if ($resultContainer.find('.search-results__item').length) {
+    resultTypeIndex = resultTypeOrder.indexOf($resultContainer.find('.search-results__item').last().data('type'));
 
     $(window).scroll(function() {
       var scrollBottomOffset = $(document).height() - $(this).scrollTop() - $(this).height();

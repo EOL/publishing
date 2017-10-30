@@ -1,34 +1,39 @@
 %ul.search-results{ :data => { :query => @q } }
-  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
+  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
+     @sounds, @collections, @users)}
 
 .searchFilter
   .searchFilter-types
     - if defined?(@pages) && @pages.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
+      = render :partial => "filter_type",
+        :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
 
     - if defined?(@articles) && @articles.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :articles, :i18n_key => "search.n_articles", :results => @articles}
+      = render :partial => "filter_type",
+        :locals => { :type => :articles, :i18n_key => "search.n_articles", :results => @articles}
 
     - if defined?(@images) && @images.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :images, :i18n_key => "search.n_images", :results => @images}
+      = render :partial => "filter_type",
+        :locals => { :type => :images, :i18n_key => "search.n_images", :results => @images}
 
     - if defined?(@videos) && @videos.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :videos, :i18n_key => "search.n_videos", :results => @videos}
+      = render :partial => "filter_type",
+        :locals => { :type => :videos, :i18n_key => "search.n_videos", :results => @videos}
 
     - if defined?(@sounds) && @sounds.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :sounds, :i18n_key => "search.n_sounds", :results => @sounds}
+      = render :partial => "filter_type",
+        :locals => { :type => :sounds, :i18n_key => "search.n_sounds", :results => @sounds}
 
     - if defined?(@collections) && @collections.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :collectinos, :i18n_key => "search.n_collections", :results => @collections}
+      = render :partial => "filter_type",
+        :locals => { :type => :collections, :i18n_key => "search.n_collections", :results => @collections}
 
     - if defined?(@users) && @users.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :media, :i18n_key => "search.n_users", :results => @users}
-  -# if defined?(@collections) && @collections
-    = render("collections/search_results")
-  -# if defined?(@users) && ! @users.blank?
-    = render("users/search_results")
+      = render :partial => "filter_type",
+        :locals => { :type => :media, :i18n_key => "search.n_users", :results => @users}
 
 .filterBar
   %i.filterBar-icon.fa.fa-sliders.fa-2x.open
   %i.filterBar-icon.fa.fa-close.fa-2x.close
-  .filterBar-resultCount= t("search.n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
+  .filterBar-resultCount= t("search.n_results",
+    :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))

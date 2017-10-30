@@ -7,21 +7,6 @@ module SearchHelper
     page.try(:search_highlights).try(:[], :scientific_name) || page.scientific_name
   end
 
-  def hierarchy_str(page)
-    ancestor_name = page_family_ancestor_name(page)
-    common_name = page_common_name(page)
-
-    ancestor_name ? "#{ancestor_name} … / #{common_name}" : common_name
-  end
-
-  def result_total(results)
-    total = 0
-    results.each do |r|
-      total += r.total_count if r
-    end
-    total
-  end
-
   def medium_name(medium)
     medium.try(:search_highlights).try(:[], :name) || medium.name
   end
@@ -49,24 +34,12 @@ module SearchHelper
     end
   end
 
-  # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
-  def first_type_with_results(pages, articles, images, videos, sounds, collecitons, users)
-    (defined?(pages) && pages.total_count > 0 && :pages) ||
-    (defined?(articles) && articles.total_count > 0 && :articles) ||
-    (defined?(images) && images.total_count > 0 && :images) ||
-    (defined?(videos) && videos.total_count > 0 && :videos) ||
-    (defined?(sounds) && sounds.total_count > 0 && :sounds) ||
-    (defined?(collections) && collections.total_count > 0 && :collections) ||
-    (defined?(users) && users.total_count > 0 && :users) ||
-    nil
-  end
-
   def user_name(user)
     user.try(:search_highlights).try(:[], :username) || user.username
   end
 
   def user_bio(user)
-    user.try(:search_highlights).try(:[], :bio) || user.bio || ''
+    user.try(:search_highlights).try(:[], :bio) || user.bio || ""
   end
 
   def collection_name(collection)
@@ -83,6 +56,33 @@ module SearchHelper
     else
       I18n.t("search_results.collection_page_count", :count => collection.pages.length)
     end
+  end
+
+  def hierarchy_str(page)
+    ancestor_name = page_family_ancestor_name(page)
+    common_name = page_common_name(page)
+
+    ancestor_name ? "#{ancestor_name} … / #{common_name}" : common_name
+  end
+
+  def result_total(results)
+    total = 0
+    results.each do |r|
+      total += r.total_count if r
+    end
+    total
+  end
+
+  # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
+  def first_type_with_results(pages, articles, images, videos, sounds, collections, users)
+    (defined?(pages) && pages.total_count > 0 && :pages) ||
+    (defined?(articles) && articles.total_count > 0 && :articles) ||
+    (defined?(images) && images.total_count > 0 && :images) ||
+    (defined?(videos) && videos.total_count > 0 && :videos) ||
+    (defined?(sounds) && sounds.total_count > 0 && :sounds) ||
+    (defined?(collections) && collections.total_count > 0 && :collections) ||
+    (defined?(users) && users.total_count > 0 && :users) ||
+    nil
   end
 
 private

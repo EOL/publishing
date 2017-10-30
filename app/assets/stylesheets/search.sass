@@ -46,51 +46,48 @@ $search-result-count-height: 54px
 .search-results
   padding: 0 0 $search-result-count-height 0
 
-  .search-result
-    border-bottom: 1px solid $eol-gray
-    cursor: pointer
-    height: 60px
-    list-style: none
-    overflow-x: auto
-    overflow-y: hidden
-    padding-right: 5px
-    white-space: nowrap
+.search-results__item
+  border-bottom: 1px solid $eol-gray
+  cursor: pointer
+  height: 60px
+  list-style: none
+  overflow-x: auto
+  overflow-y: hidden
+  padding-right: 5px
+  white-space: nowrap
 
-  .page-icon
-    align-items: center
-    display: inline-flex
-    height: 60px
-    justify-content: center
-    overflow: hidden
-    width: 60px
+.search-results__icon
+  align-items: center
+  display: inline-flex
+  height: 60px
+  justify-content: center
+  overflow: hidden
+  width: 60px
 
-  .details
-    display: inline-block
-    margin-left: 7px
-    vertical-align: top
+.search-results__details
+  display: inline-block
+  margin-left: 7px
+  vertical-align: top
 
-  .title
-    color: $eol-black
-    font-weight: bold
-    font-size: 14px
+.search-results__title
+  color: $eol-black
+  font-weight: bold
+  font-size: 14px
 
-    .sub
-      font-weight: normal
+  .sub
+    font-weight: normal
 
-  .match p
-    display: inline
+.search-results__content
+  font-size: 12px
 
-  .content
-    font-size: 12px
+.search-results__misc-info
+  font-size: 10px
 
-  .misc-info
-    font-size: 10px
-
-  .link
-    color: inherit
-    display: block
-    height: 100%
-    text-decoration: none
+.search-results__link, .search-results__link:hover
+  color: inherit
+  display: block
+  height: 100%
+  text-decoration: none
 
 .filterBar
   align-items: center
