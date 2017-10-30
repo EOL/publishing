@@ -74,4 +74,11 @@ class Medium < ActiveRecord::Base
   def vitals
     [name, "#{license.name} #{owner.html_safe}"]
   end
+
+  def extra_search_data
+    puts "add subclass #{subclass}"
+    {
+      :subclass => subclass
+    }
+  end
 end

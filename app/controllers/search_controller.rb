@@ -119,7 +119,7 @@ private
 
     default = params.has_key?(:only)? false : true
     @types = {}
-    [ :pages, :collections, :articles, :media, :links, :users, :predicates, :object_terms ].
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
       each do |sym|
         @types[sym] = default
       end
@@ -159,11 +159,20 @@ private
       nil
     end
 
-    @media = if @types[:media]
-      basic_search(Searchkick,
-        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
-        where: @clade ? { ancestry_ids: @clade.id } : nil,
-        index_name: [Medium])
+    @images = if @types[:images]
+      media_search("image")
+    else
+      nil
+    end
+
+    @videos = if @types[:videos]
+      media_search("video")
+    else
+      nil
+    end
+
+    @sounds = if @types[:sounds]
+      media_search("sound")
     else
       nil
     end
@@ -240,5 +249,15 @@ private
   def basic_search(klass, options = {})
     klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       execute: false, page: params[:page], per_page: 50))
+  end
+
+  def media_search(subtype_str)
+    where = { :subclass => subtype_str}
+    where.merge!({ :ancestry_ids => @clade.id }) if @clade
+
+    basic_search(Searchkick,
+      fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+      where: where,
+      index_name: [Medium])
   end
 end

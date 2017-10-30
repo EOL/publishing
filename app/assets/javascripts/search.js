@@ -9,21 +9,25 @@ $(function() {
     , $filter = $('.searchFilter')
     , $filterItem = $('.searchFilter-types-type')
     , $resultContainer = $('.search-results')
-    , resultTypeOrder = [ 'pages', 'articles', 'media', 'collections', 'users' ]
+    , resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
     , resultTypeIndex
-    , selectedResultTypes = {
-        pages: true,
-        media: true,
-        collections: true,
-        users: true,
-        articles: true
-      }
+    , selectedResultTypes = buildSelectedResultTypes()
     , firstPageIndex = 1
     , pageIndex = firstPageIndex
     , nextPageScrollThreshold = 300
     , query = $resultContainer.data('query')
     , loadingPage = false
     ;
+
+  function buildSelectedResultTypes() {
+    var selectedResultTypes = {}
+
+    $.each(resultTypeOrder, (i, type) => {
+      selectedResultTypes[type] = true;
+    });
+
+    return selectedResultTypes;
+  }
 
   function openFilter() {
     $filter.show();

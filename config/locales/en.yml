@@ -544,19 +544,25 @@ en:
     n_collections:
       one: "%{count} collection"
       other: "%{count} collections"
-    n_media:
-      one: "%{count} medium"
-      other: "%{count} media"
+    n_images:
+      one: "%{count} image"
+      other: "%{count} images"
     n_results:
       zero: "No results"
       one: "%{count} result"
       other: "%{count} results"
+    n_sounds:
+      one: "%{count} sound"
+      other: "%{count} sounds"
     n_taxon_pages:
       one: "%{count} taxon page"
       other: "%{count} taxon pages"
     n_users:
       one: "%{count} user"
       other: "%{count} users"
+    n_videos:
+      one: "%{count} video"
+      other: "%{count} videos"    
     suggested: "Suggested (%{count})"
   search_results:
     collection_page_count:

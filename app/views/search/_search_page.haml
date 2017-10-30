@@ -2,8 +2,8 @@
   = render :partial => "partial_search_results",
     :locals => { :results => @pages, :partial => "pages/search_result",
     :url_proc => Proc.new { |page| page_path(page) }, :type => :pages }
-- elsif ((type == :media && @media) || (type == :articles && @articles))
-  - results = (type == :media && @media) || (type == :articles && @articles)
+- elsif ((type == :images && @images) || (type == :videos && @videos) || (type == :sounds && @sounds) || (type == :articles && @articles))
+  - results = (type == :images && @images) || (type == :videos && @videos) || (type == :sounds && @sounds) || (type == :articles && @articles)
   = render :partial => "partial_search_results",
     :locals => { :results => results, :partial => "media/search_result",
     :url_proc => Proc.new{ |medium| medium_path(medium) }, :type => type }

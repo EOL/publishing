@@ -50,10 +50,12 @@ module SearchHelper
   end
 
   # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
-  def first_type_with_results(pages, articles, media, collecitons, users)
+  def first_type_with_results(pages, articles, images, videos, sounds, collecitons, users)
     (defined?(pages) && pages.total_count > 0 && :pages) ||
     (defined?(articles) && articles.total_count > 0 && :articles) ||
-    (defined?(media) && media.total_count > 0 && :media) ||
+    (defined?(images) && images.total_count > 0 && :images) ||
+    (defined?(videos) && videos.total_count > 0 && :videos) ||
+    (defined?(sounds) && sounds.total_count > 0 && :sounds) ||
     (defined?(collections) && collections.total_count > 0 && :collections) ||
     (defined?(users) && users.total_count > 0 && :users) ||
     nil
