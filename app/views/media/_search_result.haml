@@ -5,5 +5,4 @@
     %i.fa.fa-file-text-o.fa-3x
 .details
   .title= medium_title(result).html_safe
-  - owner = result.try(:search_highlights).try(:[], :owner) || emphasize_match(result.owner, @q)
-  .content= owner
+  .content= medium_owner(result).html_safe

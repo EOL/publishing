@@ -559,6 +559,12 @@ en:
       other: "%{count} users"
     suggested: "Suggested (%{count})"
   search_results:
+    collection_page_count:
+      one: "%{count} page"
+      other: "%{count} pages"
+    collection_page_count_and_users:
+      one: "%{count} page; maintained by %{users_sentence}"
+      other: "%{count} pages; maintained by %{users_sentence}"
     collected_media:
       title: "collected media from this page:"
     header: "results"

@@ -26,6 +26,10 @@ module SearchHelper
     medium.try(:search_highlights).try(:[], :name) || medium.name
   end
 
+  def medium_owner(medium)
+    medium.try(:search_highlights).try(:[], :owner) || medium.owner
+  end
+
   def medium_title(medium)
     title = medium_name(medium)
     type = medium_type(medium)
@@ -56,15 +60,27 @@ module SearchHelper
   end
 
   def user_name(user)
-    user.try(:search_highlights).try(:[], :name) || user.name
+    user.try(:search_highlights).try(:[], :username) || user.username
   end
 
   def user_bio(user)
-    user.try(:search_highlights).try(:[], :bio) || user.bio
+    user.try(:search_highlights).try(:[], :bio) || user.bio || ''
   end
 
   def collection_name(collection)
     collection.try(:search_highlights).try(:[], :name) || collection.name
+  end
+
+  def collection_desc(collection)
+    if (!collection.users.empty?)
+      users_sentence = collection.users.map do |u|
+        u.username
+      end.to_sentence
+      I18n.t("search_results.collection_page_count_and_users", :count => collection.pages.length,
+        :users_sentence => users_sentence)
+    else
+      I18n.t("search_results.collection_page_count", :count => collection.pages.length)
+    end
   end
 
 private

@@ -12,7 +12,7 @@
     - if defined?(@media) && @media.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :media, :i18n_key => "search.n_media", :results => @media}
 
-    - if defined?(@collections && @collections.total_count > 0)
+    - if defined?(@collections) && @collections.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :collectinos, :i18n_key => "search.n_collections", :results => @collections}
 
     - if defined?(@users) && @users.total_count > 0
