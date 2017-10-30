@@ -265,6 +265,7 @@ module Import
         lang = medium.delete(:language)
         # TODO: default language per resource?
         medium[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
+        medium.delete(:license)
         medium[:license_id] ||= 1 # TEMP will look for source_url
         page_id = medium.delete(:page_id)
         @media_by_page[page_id] = medium[:resource_pk]
@@ -380,7 +381,9 @@ module Import
 
     def import_trait(trait)
       page_id = trait.delete(:page_id)
-      debugger if page_id.nil?
+      if page_id.nil?
+        log("!! ERROR: No page ID for trait: #{trait.inspect}")
+      end
       trait[:page] = @traitbank_pages[page_id] || add_page(page_id)
       trait[:object_page_id] = trait.delete(:association)
       trait.delete(:object_page_id) if trait[:object_page_id] == 0
