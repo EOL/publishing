@@ -72,11 +72,25 @@ Rails.application.routes.draw do
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
   
   # API
-  get "api/:action" => "api/docs"
-  get "api/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
-  post "api/:action" => "api#default_render", :as => "api_post"
-  
+  get "api/docs/:action" => "api/docs"
+  get "api/docs/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
+
   get "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
+  post "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
+
+  post "api/:action" => "api"
+  
+  
+  post 'api/:action/:id' => 'api'
+  # looks for version, ID
+  post 'api/:action/:version/:id' => 'api', :constraints => {version:  /\d\.\d/}
+  
+  # get "api/:action" => "api/docs"
+  # get "api/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
+  # post "api/:action" => "api#default_render", :as => "api_post"
+#   
+  # get "api/:action/:version" => "api", :constraints => {version: /\d\.\d/}
+
 
   root "pages#index"
 

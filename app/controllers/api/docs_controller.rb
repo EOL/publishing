@@ -5,6 +5,10 @@ class Api::DocsController < ApiController
   def pages
   end
   
+  def collections
+  end
+    
+  
 
   def default_render
     render "api/docs/method_documentation"

@@ -8,6 +8,9 @@ class ApiController < ApplicationController
   def pages
   end
   
+  def collections
+  end
+  
    
   def default_render
     # if this api_method is blank, and error should already have been rendered
@@ -19,6 +22,19 @@ class ApiController < ApplicationController
     rescue => e
       return render_error('Sorry, there was a problem')
     end
+    
+    # if Rails.env.development? || Rails.env.test_dev?
+      # @json_response = @api_method.call(params)
+    # else
+      # begin
+        # @json_response = @api_method.call(params)
+      # rescue ActiveRecord::RecordNotFound => e
+        # return render_error(e.message, 404)
+      # rescue => e
+#         
+        # return render_error('Sorry, there was a problem')
+      # end
+    # end
 
     # return the JSON object generated above, OR
     # render the default (or custom) partial for this method: e.g. api/search_1_0.xml.builder
