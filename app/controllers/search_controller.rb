@@ -144,6 +144,7 @@ private
       nil
     end
 
+
     @collections = if @types[:collections]
       basic_search(Collection, fields: ["name^5", "description"])
     else
@@ -192,7 +193,17 @@ private
       nil
     end
 
-    Searchkick.multi_search([@pages, @collections, @media, @users].compact)
+    #Searchkick.multi_search([@pages, @collections, @media, @users].compact)
+
+    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users].compact)
+
+    @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
+    @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
+    @images = ImageSearchDecorator.decorate_collection(@images) if @images
+    @videos = VideoSearchDecorator.decorate_collection(@videos) if @videos
+    @sounds = SoundSearchDecorator.decorate_collection(@sounds) if @sounds
+    @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
+    @users = UserSearchDecorator.decorate_collection(@users) if @users
 
     # if @types[:predicates]
     #   @predicates_count = TraitBank.count_predicate_terms(@q)
