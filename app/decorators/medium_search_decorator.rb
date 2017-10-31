@@ -1,6 +1,4 @@
-class MediumSearchDecorator < Draper::Decorator
-  delegate :persisted? 
-
+class MediumSearchDecorator < SearchResultDecorator
   def icon
     if object.respond_to?(:medium_icon_url)
       object.medium_icon_url
@@ -30,10 +28,6 @@ class MediumSearchDecorator < Draper::Decorator
 
   def misc_info
     ""
-  end
-
-  def self.collection_decorator_class
-    SearchResultsDecorator
   end
 end
 

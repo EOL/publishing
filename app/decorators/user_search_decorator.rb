@@ -1,10 +1,5 @@
-class UserSearchDecorator < Draper::Decorator
+class UserSearchDecorator < SearchResultDecorator
   decorates :user
-  delegate :persisted?
-
-  def self.collection_decorator_class
-    SearchResultsDecorator
-  end
 
   def type
     :users
@@ -30,6 +25,5 @@ class UserSearchDecorator < Draper::Decorator
   def misc_info
     ""
   end
-
 end
 

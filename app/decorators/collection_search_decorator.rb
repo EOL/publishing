@@ -1,10 +1,5 @@
-class CollectionSearchDecorator < Draper::Decorator
+class CollectionSearchDecorator < SearchResultDecorator
   decorates :collection
-  delegate :persisted?
-
-  def self.collection_decorator_class
-    SearchResultsDecorator
-  end
 
   def icon
     nil
