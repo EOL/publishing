@@ -43,8 +43,8 @@ class CreateActivityLogs < ActiveRecord::Migration
     # only using this to avoid a rather nasty UNION. The tables allowed are:
 
     create_table :changes do |t|
-      t.references :user_id, index: true
-      t.references :page_id, index: true
+      t.references :user, index: true
+      t.references :page, index: true
       t.references :activity, polymorphic: true,
         comment: "references one of the following: Collecting, Curation, "\
           "ContentReposition, ContentEdit, TraitReposition, TraitEdit. Trait "\

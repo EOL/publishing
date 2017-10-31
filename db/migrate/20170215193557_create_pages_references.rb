@@ -3,6 +3,8 @@ class CreatePagesReferences < ActiveRecord::Migration
     rename_table :references, :referents
     rename_table :articles_references, :references
     add_column :references, :parent_type, :string, default: "Article", null: false
+    add_column :references, :resource_id, :integer, null: false
+    add_column :referents, :resource_id, :integer, null: false
     remove_index :references, column: :article_id
     rename_column :references, :article_id, :parent_id
     rename_column :references, :reference_id, :referent_id

@@ -6,15 +6,14 @@ module Import
       # TODO.
     end
 
-    # rake db:reset ; rails runner "Import::Repository.start(10.years.ago)"
-    def self.start(since = nil)
-      instance = self.new(since || 10.years.ago)
+    def self.start
+      instance = self.new
       instance.start
     end
 
-    def initialize(since)
-      @since = since
+    def initialize
       @resource = nil
+      @log = nil
       @resources = []
       @pages = {}
       reset_resource # Not strictly required, but helps for debugging.
@@ -26,22 +25,24 @@ module Import
       @resources.each do |resource|
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
+        @log = @resource.create_log
         begin
           import_resource
+          @log.complete
         rescue => e
-          log("!! ERROR: #{e.message}\n#{e.backtrace}")
+          @log.fail(e)
         end
       end
       richness = RichnessScore.new
       # Note: this is quite slow, but searches won't work without it. :S
       pages = Page.where(id: @pages.keys).includes(:occurrence_map)
-      log('## score_richness_for_pages')
+      log('score_richness_for_pages')
       # Clear caches that could have been affected TODO: more
       pages.each do |page|
         richness.calculate(page)
         Rails.cache.delete("/pages/#{page.id}/glossary")
       end
-      log('## pages.reindex')
+      log('pages.reindex')
       pages.reindex
     end
 
@@ -50,7 +51,11 @@ module Import
     # t.integer :last_publish_seconds
 
     def get_resources
-      url = "#{Rails.configuration.repository_url}/resources.json?since=#{@since.to_i}&"
+      # If there are only a handful of resources, we've just created the DB and the max created_at is useless.
+      since = Resource.count < 5 ?
+        10.years.ago :
+        Resource.maximum(:created_at)
+      url = "#{Rails.configuration.repository_url}/resources.json?since=#{since.to_i}&"
       loop_over_pages(url, "resources") do |resource_data|
         resource = underscore_hash_keys(resource_data)
         resource[:repository_id] = resource.delete(:id)
@@ -97,11 +102,13 @@ module Import
       @traitbank_terms = {}
       @tax_stats = {}
       @languages = {}
+      @since = @resource.import_logs.successful.any? ?
+        @resource.import_logs.successful.last.created_at :
+        10.years.ago
     end
 
     def import_resource
-      log('{{ START IMPORT')
-      log("?? Resource: #{@resource.name} (#{@resource.id})")
+      log("Importing Resource: #{@resource.name} (#{@resource.id})")
       reset_resource
       import_nodes
       create_new_pages
@@ -110,11 +117,11 @@ module Import
       import_media
       import_traits
       @node_id_by_page.keys.each { |k| @pages[k] = true }
-      log('}} END IMPORT')
+      log('Complete', cat: :ends)
     end
 
     def import_nodes
-      log('## import_nodes')
+      log('import_nodes')
 
       @nodes = get_new_instances_from_repo(Node) do |node|
         rank = node.delete(:rank)
@@ -142,10 +149,10 @@ module Import
         node[:has_breadcrumb] = node.key?(:landmark)
       end
       if @nodes.empty?
-        log('.. There were NO new nodes, skipping...')
+        log('There were NO new nodes, skipping...', cat: :warns)
         return
       end
-      log(".. importing #{@nodes.size} Nodes")
+      log("importing #{@nodes.size} Nodes")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       Node.import(@nodes, on_duplicate_key_ignore: true, validate: false)
@@ -162,7 +169,7 @@ module Import
     end
 
     def create_new_pages
-      log('## create_new_pages')
+      log('create_new_pages')
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
       # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
       # itself to that page, then the native_node_id should *change* to the DWH id.)
@@ -173,19 +180,19 @@ module Import
       missing = @node_id_by_page.keys - have_pages
       pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
       if pages.empty?
-        log('.. There were NO new pages, skipping...')
+        log('There were NO new pages, skipping...', cat: :warns)
         return
       end
-      log(".. importing #{pages.size} Pages")
+      log("importing #{pages.size} Pages", cat: :infos)
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       Page.import!(pages, on_duplicate_key_ignore: true)
-      log('.. fixing counter_culture counts for Node...')
+      log('fixing counter_culture counts for Node...')
       Node.where(resource_id: @resource.id).counter_culture_fix_counts
     end
 
     def import_scientific_names
-      log('## import_scientific_names')
+      log('import_scientific_names')
 
       @names = get_new_instances_from_repo(ScientificName) do |name|
         status = name.delete(:taxonomic_status)
@@ -198,15 +205,14 @@ module Import
       end
       num_bad = @names.select { |name| name[:page_id].nil? }.size
       if num_bad > 0
-        puts "** WARNING: you've got #{num_bad} scientific_names with no page_id!"
-        puts @names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')
+        log("** WARNING: you've got #{num_bad} scientific_names with no page_id! #{@names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')}", cat: :warns)
         @names.delete_if { |name| name[:page_id].nil? }
       end
       if @names.empty?
-        log('.. There were NO new scientific names, skipping...')
+        log('There were NO new scientific names, skipping...', cat: :warns)
         return
       end
-      log(".. importing #{@names.size} ScientificNames")
+      log("importing #{@names.size} ScientificNames")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       ScientificName.import(@names, on_duplicate_key_ignore: true)
@@ -215,12 +221,12 @@ module Import
       # TODO: This doesn't ensure we're getting *preferred* scientific_name.
       propagate_id(Node, resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
                          set: 'scientific_name', with: 'italicized')
-      log('.. fixing counter_culture counts for ScientificName...')
+      log('fixing counter_culture counts for ScientificName...')
       ScientificName.counter_culture_fix_counts
     end
 
     def import_vernaculars
-      log('## import_vernaculars')
+      log('import_vernaculars')
 
       @verns = get_new_instances_from_repo(Vernacular) do |name|
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
@@ -232,16 +238,16 @@ module Import
         name[:is_preferred_by_resource] = name.delete(:is_preferred)
       end
       if @verns.empty?
-        log('.. There were NO new vernaculars, skipping...')
+        log('There were NO new vernaculars, skipping...', cat: :warns)
         return
       end
-      log(".. importing #{@verns.size} Vernaculars")
+      log("importing #{@verns.size} Vernaculars")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       Vernacular.import(@verns, on_duplicate_key_ignore: true)
       propagate_id(Vernacular, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
                          set: 'node_id', with: 'id')
-      log('.. fixing counter_culture counts for ScientificName...')
+      log('fixing counter_culture counts for ScientificName...')
       Vernacular.counter_culture_fix_counts
       # TODO: update preferred = true where page.vernaculars_count = 1...
       Vernacular.joins(:page).where(['pages.vernaculars_count = 1 AND vernaculars.is_preferred_by_resource = ? '\
@@ -249,10 +255,9 @@ module Import
     end
 
     def import_media
-      log('## import_media')
+      log('import_media')
       @media_by_page = {}
       @media_pks = []
-      log('.. get media from repo...')
       @media = get_new_instances_from_repo(Medium) do |medium|
         debugger if medium[:subclass] != 'image' # TODO
         debugger if medium[:format] != 'jpg' # TODO
@@ -265,28 +270,28 @@ module Import
         lang = medium.delete(:language)
         # TODO: default language per resource?
         medium[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
-        medium.delete(:license)
+        medium.delete(:license) # TEMP: we're not harvesting this yet...
         medium[:license_id] ||= 1 # TEMP will look for source_url
         page_id = medium.delete(:page_id)
         @media_by_page[page_id] = medium[:resource_pk]
         @media_pks << medium[:resource_pk]
       end
       if @media.empty?
-        log('.. There were NO new media, skipping...')
+        log('There were NO new media, skipping...', cat: :warns)
         return
       end
-      log('.. import media...')
+      log('import media...')
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Medium.import(@media, on_duplicate_key_ignore: true)
+      Medium.import(@media, validations: false, on_duplicate_key_ignore: true)
       @media_id_by_pk = {}
-      log('.. learn IDs...')
+      log('learn IDs...')
       Medium.where(resource_pk: @media_pks).select('id, resource_pk').find_in_batches.each do |group|
         group.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
       end
       @contents = []
       @ancestry = {}
-      log('.. learn Ancestry...')
+      log('learn Ancestry...')
       @naked_pages = {}
       Page.includes(:native_node).where(id: @media_by_page.keys).find_in_batches do |group|
         group.each do |page|
@@ -302,12 +307,13 @@ module Import
           end
         end
       end
-      log('.. build page contents...')
+
+      log('build page contents...')
       @media_by_page.each do |page_id, medium_pk|
         # TODO: position. :(
         # TODO: trust...
         @contents << { page_id: page_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
-                       content_id: @media_id_by_pk[medium_pk] }
+                       content_id: @media_id_by_pk[medium_pk], resource_id: @resource.id }
         if @naked_pages.key?(page_id)
           @naked_pages[page_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
         end
@@ -315,19 +321,19 @@ module Import
           @ancestry[page_id].each do |ancestor_id|
             next if ancestor_id == page_id
             @contents << { page_id: ancestor_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
-              content_id: @media_id_by_pk[medium_pk] }
+              content_id: @media_id_by_pk[medium_pk], resource_id: @resource.id }
             if @naked_pages.key?(ancestor_id)
               @naked_pages[ancestor_id].assign_attributes(medium_id: @media_id_by_pk[medium_pk])
             end
           end
         end
       end
-      log(".. import #{@contents.size} page contents...")
+      log("import #{@contents.size} page contents...")
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       PageContent.import(@contents, on_duplicate_key_ignore: true)
       unless @naked_pages.empty?
-        log(".. updating #{@naked_pages.values.size} pages with icons...")
+        log("updating #{@naked_pages.values.size} pages with icons...")
         Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
       end
       # Using the date here is not the best idea: :S
@@ -335,7 +341,7 @@ module Import
     end
 
     def import_traits
-      log('## import_traits')
+      log('import_traits')
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
 
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
@@ -367,7 +373,7 @@ module Import
       total_pages = 2 # Dones't matter YET... will be populated in a bit...
       while page <= total_pages
         url = "#{url_without_page}page=#{page}"
-        log "<< #{url}"
+        log(url.gsub(/^.*?\w\//, ''), cat: :urls) if page == 1
         html_response = Net::HTTP.get(URI.parse(url))
         response = JSON.parse(html_response)
         total_pages = response["totalPages"]
@@ -382,7 +388,8 @@ module Import
     def import_trait(trait)
       page_id = trait.delete(:page_id)
       if page_id.nil?
-        log("!! ERROR: No page ID for trait: #{trait.inspect}")
+        log("Skipping trait with no page_id: #{trait.inspect}", cat: :warns)
+        return nil
       end
       trait[:page] = @traitbank_pages[page_id] || add_page(page_id)
       trait[:object_page_id] = trait.delete(:association)
@@ -427,10 +434,8 @@ module Import
         begin
           TraitBank.create_trait(trait.symbolize_keys)
         rescue
-          log "** ERROR: could not add trait:"
-          log "** ID: #{trait[:resource_pk]}"
-          log "** Page: #{trait[:page][:data][:page_id]}"
-          log "** Predicate: #{trait[:predicate][:data][:uri]}"
+          log("WARNING: could not add trait with ID: #{trait[:resource_pk]} Page: "\
+            "#{trait[:page][:data][:page_id]} Predicate: #{trait[:predicate][:data][:uri]}", cat: :warns)
         end
       end
     end
@@ -445,14 +450,13 @@ module Import
           parent = @traitbank_pages[page_id] || add_page(parent_id)
           parent = parent.first if parent.is_a?(Array)
           if parent_id == page_id
-            log "** OOPS: we just tried to add #{parent_id} as a parent to itself!"
+            log("Skipped attempt to add #{parent_id} as a parent to itself!", cat: :warns)
           else
-            log "Adding parent #{parent_id} to page #{page_id}..."
             TraitBank.add_parent_to_page(parent, tb_page)
           end
         end
       else
-        log "Trait attempts to use missing page: #{page_id}, ignoring links"
+        log("Trait attempts to use missing page: #{page_id}, ignoring links", cat: :warns)
       end
       @traitbank_pages[page_id] = tb_page
       tb_page
@@ -507,8 +511,8 @@ module Import
       resource = options[:resource]
       with_field = options[:with]
       (o_table, o_field) = options[:other].split(".")
-      sql = "UPDATE `#{klass.table_name}` t JOIN `#{o_table}` o ON (t.`#{fk}` = o.`#{o_field}` AND t.resource_id = ?) "\
-            "SET t.`#{set}` = o.`#{with_field}`"
+      sql = "UPDATE #{klass.table_name} t JOIN #{o_table} o ON (t.#{fk} = o.#{o_field} AND t.resource_id = ?) "\
+            "SET t.#{set} = o.#{with_field}"
       clean_execute(klass, [sql, @resource.id])
     end
 
@@ -517,10 +521,9 @@ module Import
       klass.connection.execute(clean_sql)
     end
 
-    def log(what)
-      what = "[#{Time.now.strftime('%H:%M:%S')}] #{what}"
-      Delayed::Worker.logger.info(what)
-      puts what
+    def log(what, type = nil)
+      return nil if @log.nil?
+      @log.log(what, type)
     end
   end
 end

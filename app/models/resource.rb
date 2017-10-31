@@ -6,6 +6,9 @@ class Resource < ActiveRecord::Base
   has_many :articles, as: :provider
   has_many :links, as: :provider
   has_many :media, as: :provider
+  has_many :import_logs, inverse_of: :resource
+
+  before_destroy :remove_content
 
   class << self
     def native
@@ -60,5 +63,85 @@ class Resource < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def create_log
+    ImportLog.create(resource_id: id)
+  end
+
+  def remove_content
+    # Node ancestors
+    nuke(NodeAncestor)
+    # Node identifiers
+    nuke(Identifier)
+    # Get list of affected pages
+    pages = Node.where(resource_id: id).pluck(:page_id)
+    # content_sections
+    [Medium, Article, Link].each do |klass|
+      klass.where(resource_id: id).select("id").find_in_batches do |batch|
+        ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, batch.map(&:id)]).delete_all
+      end
+      if klass == Medium
+        # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
+        # deleted):
+        PageIcon.where(["medium_id IN (?)", group]).delete_all
+      end
+    end
+    # javascripts
+    nuke(Javascript)
+    # locations
+    nuke(Location)
+    # Bibliographic Citations
+    nuke(BibliographicCitation)
+    # references, referents
+    nuke(Reference)
+    nuke(Referent)
+    # TODO: Update all these counts on affected pages:
+      # t.integer  "page_contents_count",    limit: 4,   default: 0,     null: false
+      # t.integer  "media_count",            limit: 4,   default: 0,     null: false
+      # t.integer  "articles_count",         limit: 4,   default: 0,     null: false
+      # t.integer  "links_count",            limit: 4,   default: 0,     null: false
+      # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
+      # t.integer  "data_count",             limit: 4,   default: 0,     null: false
+      # t.integer  "vernaculars_count",      limit: 4,   default: 0,     null: false
+      # t.integer  "scientific_names_count", limit: 4,   default: 0,     null: false
+      # t.integer  "referents_count",        limit: 4,   default: 0,     null: false
+      # t.integer  "species_count",          limit: 4,   default: 0,     null: false
+
+    # Media, image_info
+    nuke(ImageInfo)
+    nuke(Medium)
+    # Articles
+    nuke(Article)
+    # Links
+    nuke(Link)
+    # occurrence_maps
+    nuke(OccurrenceMap)
+    # Scientific Names
+    nuke(ScientificName)
+    # Vernaculars
+    nuke(Vernacular)
+    # Attributions
+    nuke(Attribution)
+    # Collected Pages (and their associated media, etc)
+    nuke(CollectedPage)
+    # Update page node counts
+    Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
+    nuke(Node)
+    # Delete pages that no longer have nodes
+    pages.in_groups_of(10_000, false) do |group|
+      have = Node.where(page_id: group).pluck(:page_id)
+      bad_pages = group - have
+      # TODO: PagesReferent
+      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
+       PageContent].each do |klass|
+        klass.where(page_id: bad_pages).delete_all
+      end
+      Page.where(id: bad_pages).delete_all
+    end
+  end
+
+  def nuke(klass)
+    klass.where(resource_id: id).delete_all
   end
 end

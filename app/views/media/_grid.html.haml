@@ -3,8 +3,8 @@
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
     - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
-    - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
-    - name = t("medium.untitled") if name.blank?
+    - name = image.name.blank? ? t("medium.untitled.#{image.subclass}") : image.name 
+    - name = name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
     %div

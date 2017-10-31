@@ -10,6 +10,7 @@ Reindexer.fix_all_counter_culture_counts
 Rank.fill_in_missing_treat_as
 
 # forces creates:
+Rails.cache.clear
 License.public_domain
 Language.english
 

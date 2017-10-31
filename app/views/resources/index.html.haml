@@ -1,0 +1,6 @@
+%h1
+  Resources
+
+%ul.uk-list
+  - @resources.each do |resource|
+    %li= link_to(resource.name, resource)

@@ -137,6 +137,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # we DO really need an id field on this table, because we curate these.
     create_table :page_contents do |t|
       t.integer :page_id, null: false, index: true, comment: "the content is shown on this page."
+      t.integer :resource_id, null: false, comment: "denormalized."
       t.integer :source_page_id, null: false, index: true,
         comment: "which page the content was *propaged from* (can == page_id)."
       t.integer :position, comment: "the order in which to show the content on the page"
@@ -212,26 +213,22 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table :image_info do |t|
-      t.integer :image_id, null: false, index: true, unique: true,
-        comment: "not polymorphic--only needed for images"
-      t.string :original_size, null: false, limit: 12,
-        comment: "e.g.: 1600x1200"
+      t.integer :resource_id, null: false, comment: "denormalized"
+      t.integer :medium_id, null: false, index: true, unique: true, comment: "not polymorphic--only needed for images"
+      t.string :original_size, null: false, limit: 12, comment: "e.g.: 1600x1200"
       t.string :large_size, limit: 12, comment: "e.g.: 1024x768"
       t.string :medium_size, limit: 12, comment: "e.g.: 600x400"
       t.string :small_size, limit: 12, comment: "e.g.: 100x80"
-      t.decimal :crop_x, precision: 5, scale: 2,
-        comment: "left edge, as a percent"
-      t.decimal :crop_y, precision: 5, scale: 2,
-        comment: "top edge, as a percent"
-      t.decimal :crop_w, precision: 5, scale: 2,
-        comment: "width (and thus height), as a percent"
+      t.decimal :crop_x, precision: 5, scale: 2, comment: "left edge, as a percent"
+      t.decimal :crop_y, precision: 5, scale: 2, comment: "top edge, as a percent"
+      t.decimal :crop_w, precision: 5, scale: 2, comment: "width (and thus height), as a percent"
 
       t.timestamps null: false
     end
 
-    # NOTE: the FK is in the content table, which helps us know if there IS a
-    # location for a given piece of content.
+    # NOTE: the FK is in the content table, which helps us know if there IS a location for a given piece of content.
     create_table :locations do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :location
       t.decimal :longitude, precision: 64, scale: 12
       t.decimal :latitude, precision: 64, scale: 12
@@ -240,10 +237,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table :javascripts do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :filename, null: false
     end
 
     create_table :stylesheets do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :filename, null: false
     end
 
@@ -358,6 +357,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # If you want to cite this article on EOL, use this citation. It describes
     # "this content." Appears in the attribution information for the content.
     create_table :bibliographic_citations do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
       t.timestamps null: false

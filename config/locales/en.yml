@@ -432,7 +432,12 @@ en:
     empty: "There are no maps available for this page."
     other_maps_title: "Non-interactive Maps"
   medium:
-    untitled: "Untitled"
+    untitled:
+      image: "Untitled image"
+      video: "Untitled video"
+      sound: "Untitled sound"
+      map: "Untitled map"
+      js_map: "Untitled interactive map"
     subclasses:
       image: "image"
       video: "video"

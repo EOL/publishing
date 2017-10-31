@@ -1,0 +1,28 @@
+%ul.uk-list
+  %li
+    %b= "Started:"
+    = l(@log.created_at, format: :long)
+  %li
+    %b= "Completed:"
+    - if @log.completed_at
+      = l(@log.completed_at, format: '%H:%M:%S.%3N')
+    - else
+      No.
+  %li
+    %b= "Failed:"
+    - if @log.failed_at
+      = l(@log.failed_at, format: '%H:%M:%S.%3N')
+    - else
+      No.
+  %li
+    %b= "Status:"
+    = @log.status || "[empty]"
+%h2= "Events:"
+%ul.uk-list
+  - @log.import_events.each do |event|
+    %li
+      %b= l(event.created_at, format: '%H:%M:%S.%3N')
+      (
+      = event.cat
+      )
+      = event.body
