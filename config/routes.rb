@@ -75,15 +75,13 @@ Rails.application.routes.draw do
   get "api/docs/:action" => "api/docs"
   get "api/docs/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
 
-  get "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
-  post "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
+  match "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}, via: [:get, :post]
+  # post "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
 
   post "api/:action" => "api"
   
   
-  post 'api/:action/:id' => 'api'
-  # looks for version, ID
-  post 'api/:action/:version/:id' => 'api', :constraints => {version:  /\d\.\d/}
+  match 'api/:action/:version/:id' => 'api', :constraints => {version:  /\d\.\d/}, via: [:get, :post]
   
   # get "api/:action" => "api/docs"
   # get "api/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
