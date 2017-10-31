@@ -3,7 +3,7 @@ class PageSearchDecorator < Draper::Decorator
   delegate :persisted?, :icon
 
   def self.collection_decorator_class
-    KaminariDecorator
+    SearchResultsDecorator
   end
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:

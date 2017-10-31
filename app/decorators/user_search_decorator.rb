@@ -3,7 +3,7 @@ class UserSearchDecorator < Draper::Decorator
   delegate :persisted?
 
   def self.collection_decorator_class
-    KaminariDecorator
+    SearchResultsDecorator
   end
 
   def type

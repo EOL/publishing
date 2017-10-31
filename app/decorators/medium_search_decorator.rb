@@ -33,7 +33,7 @@ class MediumSearchDecorator < Draper::Decorator
   end
 
   def self.collection_decorator_class
-    KaminariDecorator
+    SearchResultsDecorator
   end
 end
 
