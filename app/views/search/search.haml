@@ -5,19 +5,16 @@
 .searchFilter
   .searchFilter-types
     - if @pages && @pages.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_pages", :results => @pages}
+      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
     - if @articles && @articles.total_count > 0
       = render :partial => "filter_type",
         :locals => { :type => :articles, :i18n_key => "search.n_articles", :results => @articles}
     - if @images && @images.total_count > 0
       = render :partial => "filter_type",
         :locals => { :type => :images, :i18n_key => "search.n_images", :results => @images}
-
-    
     - if @videos && @videos.total_count > 0
       = render :partial => "filter_type",
         :locals => { :type => :videos, :i18n_key => "search.n_videos", :results => @videos}
-
     - if @sounds && @sounds.total_count > 0
       = render :partial => "filter_type",
         :locals => { :type => :sounds, :i18n_key => "search.n_sounds", :results => @sounds}
@@ -26,7 +23,7 @@
       = render :partial => "filter_type",
         :locals => { :type => :collections, :i18n_key => "search.n_collections", :results => @collections}
 
-    - if defined?(@users) && @users.total_count > 0
+    - if @users && @users.total_count > 0
       = render :partial => "filter_type",
         :locals => { :type => :media, :i18n_key => "search.n_users", :results => @users}
 

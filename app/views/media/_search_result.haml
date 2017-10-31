@@ -1,8 +1,0 @@
-.search-results__icon
-  -if result.respond_to?(:medium_icon_url)
-    = image_tag(result.medium_icon_url, :class => "image")
-  -else
-    %i.fa.fa-file-text-o.fa-3x
-.search-results__details
-  .search-results__title= medium_title(result).html_safe
-  .search-results__content= medium_owner(result).html_safe

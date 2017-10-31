@@ -1,9 +1,0 @@
-.search-results__icon>
-  -if result.icon
-    = image_tag(result.icon, :class => "image")
-  -else
-    %i.fa.fa-picture-o.fa-3x
-.search-results__details>
-  .search-results__title= page_common_name(result).html_safe
-  .search-results__content= page_sci_name(result).html_safe
-  .search-results__misc-info= hierarchy_str(result).html_safe
