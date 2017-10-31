@@ -8,6 +8,8 @@ class Api::DocsController < ApiController
   def collections
   end
     
+  def data_objects
+  end
   
 
   def default_render

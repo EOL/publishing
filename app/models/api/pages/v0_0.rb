@@ -236,21 +236,11 @@ module Api
           end
 
           unless no_objects_required?(params)
-            params[:licenses] = nil if params[:licenses].include?('all')
-            process_license_options!(params)
-            process_subject_options!(params)
-            adjust_vetted_options!(params)
-            
-            
             return_hash['dataObjects'] = []
-            
-            media = Medium.search(page["_id"], fields:[{ancestry_ids: :exact}],execute: false)
-            articles = Article.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
-            Searchkick.multi_search([media,articles])
-            
-            load_media(media, params, page, return_hash['dataObjects'])
-            load_articles(articles, params, page, return_hash['dataObjects'])
-            
+            data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(page, params)
+            data_objects.each do |data_object|
+              return_hash['dataObjects'] << Api::DataObjects::V0_0.prepare_hash(data_object, params, page)
+              end
           end
 
         end
@@ -261,6 +251,7 @@ module Api
 
       def self.no_objects_required?(params)
         return (
+        params[:action] == "pages" &&
         params[:texts_per_page] == 0 &&
         params[:images_per_page] == 0 &&
         params[:videos_per_page] == 0 &&
@@ -269,20 +260,41 @@ module Api
         )
       end
       
+      def self.get_data_objects(page, params)
+        
+        params[:licenses] = nil if params[:licenses].include?('all')
+        process_license_options!(params)
+        process_subject_options!(params)
+        adjust_vetted_options!(params)
+                        
+        media = Medium.search(page["_id"], fields:[{ancestry_ids: :exact}],execute: false)
+        articles = Article.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
+        Searchkick.multi_search([media,articles])
+            
+        media_objects = load_media(media, params, page)
+        articles_objects = load_articles(articles, params, page)
+        all_data_objects = [ media_objects, articles_objects ].flatten.compact
+        
+        return all_data_objects
+      end
       
-      def self.load_media(media, params, page, return_media)
+      
+      def self.load_media(media, params, page)
         media_ids=media.records.map(&:id)
         license_ids=params[:licenses].map(&:id) if params[:licenses]
         
-        load_images(media_ids, license_ids, params, page, return_media)   
-        load_videos(media_ids, license_ids, params, page, return_media)
-        load_sounds(media_ids, license_ids, params, page, return_media)  
-        load_maps(media_ids, license_ids, params, page, return_media)  
+        image_objects = load_images(media_ids, license_ids, params, page)   
+        video_objects = load_videos(media_ids, license_ids, params, page)
+        sound_objects = load_sounds(media_ids, license_ids, params, page)  
+        map_objects = load_maps(media_ids, license_ids, params, page) 
+        
+        all_media_objects = [ image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+        return all_media_objects
 
       end
       
       
-      def self.load_images(media_ids, license_ids, params, page, return_image)
+      def self.load_images(media_ids, license_ids, params, page)
         if params_found_and_greater_than_zero(params[:images_page], params[:images_per_page])
           
           offset = (params[:images_page]-1)*params[:images_per_page]
@@ -291,120 +303,126 @@ module Api
           exemplar_image= Page.find_by_id(page["_id"]).medium
           promote_exemplar!(exemplar_image, image_objects, params, license_ids, page, "Medium")
           
-          image_objects[offset..offset+params[:images_per_page]-1].each do |image_object|
-            content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], image_object.id, "Medium").first
-            
-            if (params[:licenses].nil? || license_ids.include?(image_object.license_id)) && params[:vetted_types].include?(content_object.trust)
-              image_hash={
-                  'identifier' => image_object.guid,
-                  'dataObjectVersionID' => image_object.id,
-                  # 'dataType' = data_object.data_type.schema_value
-                  # 'dataSubtype' = data_object.data_subtype.label rescue ''
-                  'vettedStatus' => content_object.trust
-                  # 'dataRatings' = data_object.rating_summary
-                  # 'dataRating' = data_object.data_rating
-                                 }
-              if params[:details]
-                # image_info= image_object.image_info                   
-                # return_image['height']               = image_info.height unless image_info.height.blank?
-                # return_image['width']                = image_info.width unless image_info.width.blank?
-                # return_image['crop_x']               = image_info.crop_x_pct * return_image['width'] / 100.0  unless image_info.crop_x_pct.blank? || return_image['width'].blank?
-                # return_image['crop_y']               = image_info.crop_y_pct * return_image['height'] / 100.0  unless image_info.crop_y_pct.blank? || return_image['height'].blank?
-                # return_image['crop_height']          = image_info.crop_height_pct * return_image['height'] / 100.0  unless image_info.crop_height_pct.blank? || return_image['height'].blank?
-                # return_image['crop_width'] = image_info.crop_width_pct * return_image['width'] / 100.0 unless image_info.crop_width_pct.blank? || return_image['width'].blank?  
-  #               
-                # return_image['mimeType'] = image_object.mime_type.label unless image_object.mime_type.blank?                
-                
-                image_hash['created']                = image_object.created_at unless image_object.created_at.blank?
-                image_hash['modified']               = image_object.updated_at unless image_object.updated_at.blank?
-                image_hash['title']                  = image_object.name unless image_object.name.blank?
-                image_hash['language']               = image_object.language.group unless image_object.language.blank?
-                image_hash['license']                = image_object.license.source_url unless image_object.license.blank?
-                image_hash['rights']                 = image_object.rights_statement unless image_object.rights_statement.blank?
-                image_hash['rightsHolder']           = image_object.owner unless image_object.owner.blank? 
-                image_hash['bibliographicCitation'] = image_object.bibliographic_citation_id.body unless image_object.bibliographic_citation_id.blank?
-                # image_hash['audience'] = image_object.audiences.collect{ |a| a.label }   
-                
-                image_hash['source']                 = image_object.source_url unless image_object.source_url.blank?
-                image_hash['description']            = image_object.description unless image_object.description.blank?
-                image_hash['mediaURL']               = image_object.source_page_url unless image_object.source_page_url.blank?
-                # image_hash['eolMediaURL']          = DataObject.image_cache_path(image_object.object_cache_url, :orig, :specified_content_host => Rails.configuration.asset_host) unless image_object.object_cache_url.blank?
-                # image_hash['eolThumbnailURL'] = DataObject.image_cache_path(image_object.object_cache_url, '98_68', :specified_content_host => Rails.configuration.asset_host) unless image_object.object_cache_url.blank?               
-                
-                
-                unless image_object.location_id.nil? 
-                  image_hash['location'] = image_object.location_id.location 
-                  unless image_object.location_id.latitude == 0 && image_object.location_id.longitude == 0 && image_object.location_id.altitude == 0
-                    image_hash['latitude'] = image_object.location_id.latitude 
-                    image_hash['longitude'] = image_object.location_id.longitude 
-                    image_hash['altitude'] = image_object.location_id.altitude 
-                  end
-                end
-                
-                
-              end
-              return_image << image_hash
-            end
-          end
+          return image_objects[offset..offset+params[:images_per_page]-1]
+          
+          # image_objects[offset..offset+params[:images_per_page]-1].each do |image_object|
+            # content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], image_object.id, "Medium").first
+#             
+            # if (params[:licenses].nil? || license_ids.include?(image_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+              # image_hash={
+                  # 'identifier' => image_object.guid,
+                  # 'dataObjectVersionID' => image_object.id,
+                  # # 'dataType' = data_object.data_type.schema_value
+                  # # 'dataSubtype' = data_object.data_subtype.label rescue ''
+                  # 'vettedStatus' => content_object.trust
+                  # # 'dataRatings' = data_object.rating_summary
+                  # # 'dataRating' = data_object.data_rating
+                                 # }
+              # if params[:details]
+                # # image_info= image_object.image_info                   
+                # # return_image['height']               = image_info.height unless image_info.height.blank?
+                # # return_image['width']                = image_info.width unless image_info.width.blank?
+                # # return_image['crop_x']               = image_info.crop_x_pct * return_image['width'] / 100.0  unless image_info.crop_x_pct.blank? || return_image['width'].blank?
+                # # return_image['crop_y']               = image_info.crop_y_pct * return_image['height'] / 100.0  unless image_info.crop_y_pct.blank? || return_image['height'].blank?
+                # # return_image['crop_height']          = image_info.crop_height_pct * return_image['height'] / 100.0  unless image_info.crop_height_pct.blank? || return_image['height'].blank?
+                # # return_image['crop_width'] = image_info.crop_width_pct * return_image['width'] / 100.0 unless image_info.crop_width_pct.blank? || return_image['width'].blank?  
+  # #               
+                # # return_image['mimeType'] = image_object.mime_type.label unless image_object.mime_type.blank?                
+#                 
+                # image_hash['created']                = image_object.created_at unless image_object.created_at.blank?
+                # image_hash['modified']               = image_object.updated_at unless image_object.updated_at.blank?
+                # image_hash['title']                  = image_object.name unless image_object.name.blank?
+                # image_hash['language']               = image_object.language.group unless image_object.language.blank?
+                # image_hash['license']                = image_object.license.source_url unless image_object.license.blank?
+                # image_hash['rights']                 = image_object.rights_statement unless image_object.rights_statement.blank?
+                # image_hash['rightsHolder']           = image_object.owner unless image_object.owner.blank? 
+                # image_hash['bibliographicCitation'] = image_object.bibliographic_citation_id.body unless image_object.bibliographic_citation_id.blank?
+                # # image_hash['audience'] = image_object.audiences.collect{ |a| a.label }   
+#                 
+                # image_hash['source']                 = image_object.source_url unless image_object.source_url.blank?
+                # image_hash['description']            = image_object.description unless image_object.description.blank?
+                # image_hash['mediaURL']               = image_object.source_page_url unless image_object.source_page_url.blank?
+                # # image_hash['eolMediaURL']          = DataObject.image_cache_path(image_object.object_cache_url, :orig, :specified_content_host => Rails.configuration.asset_host) unless image_object.object_cache_url.blank?
+                # # image_hash['eolThumbnailURL'] = DataObject.image_cache_path(image_object.object_cache_url, '98_68', :specified_content_host => Rails.configuration.asset_host) unless image_object.object_cache_url.blank?               
+#                 
+#                 
+                # unless image_object.location_id.nil? 
+                  # image_hash['location'] = image_object.location_id.location 
+                  # unless image_object.location_id.latitude == 0 && image_object.location_id.longitude == 0 && image_object.location_id.altitude == 0
+                    # image_hash['latitude'] = image_object.location_id.latitude 
+                    # image_hash['longitude'] = image_object.location_id.longitude 
+                    # image_hash['altitude'] = image_object.location_id.altitude 
+                  # end
+                # end
+#                 
+#                 
+              # end
+              # return_image << image_hash
+            # end
+          # end
         end
         
       end
       
-      def self.load_videos(media_ids, license_ids, params, page, return_video)
+      def self.load_videos(media_ids, license_ids, params, page)
         if params_found_and_greater_than_zero(params[:videos_page], params[:videos_per_page])
           
           offset = (params[:videos_page]-1)*params[:videos_per_page]
         
           video_objects= PageContent.videos.where("id in (?)", media_ids)
           
-          video_objects[offset..offset+params[:videos_per_page]-1].each do |video_object|
-            content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], video_object.id, "Medium").first
-            
-            if (params[:licenses].nil? || license_ids.include?(video_object.license_id)) && params[:vetted_types].include?(content_object.trust)
-                video_hash={
-                  'identifier' => video_object.guid,
-                  'dataObjectVersionID' => video_object.id,
-                  # 'dataType' = data_object.data_type.schema_value
-                  # 'dataSubtype' = data_object.data_subtype.label rescue ''
-                  'vettedStatus' => content_object.trust
-                  # 'dataRatings' = data_object.rating_summary
-                  # 'dataRating' = data_object.data_rating
-                }
-                return_video << video_hash
-            end
-          end
+          return video_objects[offset..offset+params[:videos_per_page]-1]
+          
+          # video_objects[offset..offset+params[:videos_per_page]-1].each do |video_object|
+            # content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], video_object.id, "Medium").first
+#             
+            # if (params[:licenses].nil? || license_ids.include?(video_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                # video_hash={
+                  # 'identifier' => video_object.guid,
+                  # 'dataObjectVersionID' => video_object.id,
+                  # # 'dataType' = data_object.data_type.schema_value
+                  # # 'dataSubtype' = data_object.data_subtype.label rescue ''
+                  # 'vettedStatus' => content_object.trust
+                  # # 'dataRatings' = data_object.rating_summary
+                  # # 'dataRating' = data_object.data_rating
+                # }
+                # return_video << video_hash
+            # end
+          # end
         end
         
       end
       
-      def self.load_sounds(media_ids, license_ids, params, page, return_sound)
+      def self.load_sounds(media_ids, license_ids, params, page)
         if params_found_and_greater_than_zero(params[:sounds_page], params[:sounds_per_page])
           
           offset = (params[:sounds_page]-1)*params[:sounds_per_page]
         
           sound_objects= PageContent.sounds.where("id in (?)", media_ids)
           
-          sound_objects[offset..offset+params[:sounds_per_page]-1].each do |sound_object|
-            content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], sound_object.id, "Medium").first
-            
-            if (params[:licenses].nil? || license_ids.include?(sound_object.license_id)) && params[:vetted_types].include?(content_object.trust)
-                sound_hash={
-                  'identifier' => sound_object.guid,
-                  'dataObjectVersionID' => sound_object.id,
-                 # 'dataType' = data_object.data_type.schema_value
-                  # 'dataSubtype' = data_object.data_subtype.label rescue ''
-                  'vettedStatus' => content_object.trust
-                  # 'dataRatings' = data_object.rating_summary
-                  # 'dataRating' = data_object.data_rating
-                }
-                return_sound << sound_hash
-            end
-          end
+          return sound_objects[offset..offset+params[:sounds_per_page]-1]
+          
+          # sound_objects[offset..offset+params[:sounds_per_page]-1].each do |sound_object|
+            # content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], sound_object.id, "Medium").first
+#             
+            # if (params[:licenses].nil? || license_ids.include?(sound_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                # sound_hash={
+                  # 'identifier' => sound_object.guid,
+                  # 'dataObjectVersionID' => sound_object.id,
+                 # # 'dataType' = data_object.data_type.schema_value
+                  # # 'dataSubtype' = data_object.data_subtype.label rescue ''
+                  # 'vettedStatus' => content_object.trust
+                  # # 'dataRatings' = data_object.rating_summary
+                  # # 'dataRating' = data_object.data_rating
+                # }
+                # return_sound << sound_hash
+            # end
+          # end
         end
         
       end
       
-      def self.load_maps(media_ids, license_ids, params, page, return_map)
+      def self.load_maps(media_ids, license_ids, params, page)
          if params_found_and_greater_than_zero(params[:maps_page], params[:maps_per_page])
           
           offset = (params[:sounds_page]-1)*params[:sounds_per_page]
@@ -413,27 +431,29 @@ module Api
         
           map_objects= page_object.maps
           
-          map_objects[offset..offset+params[:maps_per_page]-1].each do |map_object|
-            content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], map_object.id, "Medium").first
-            
-            if (params[:licenses].nil? || license_ids.include?(map_object.license_id)) && params[:vetted_types].include?(content_object.trust)
-                map_hash={
-                  'identifier' => map_object.guid,
-                  'dataObjectVersionID' => map_object.id,
-                 # 'dataType' = data_object.data_type.schema_value
-                  'dataSubtype' => "maps",
-                  'vettedStatus' => content_object.trust
-                  # 'dataRatings' = data_object.rating_summary
-                  # 'dataRating' = data_object.data_rating
-                }
-                map_sound << map_hash
-            end
-          end
+          return map_objects[offset..offset+params[:maps_per_page]-1]
+          
+          # map_objects[offset..offset+params[:maps_per_page]-1].each do |map_object|
+            # content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], map_object.id, "Medium").first
+#             
+            # if (params[:licenses].nil? || license_ids.include?(map_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                # map_hash={
+                  # 'identifier' => map_object.guid,
+                  # 'dataObjectVersionID' => map_object.id,
+                 # # 'dataType' = data_object.data_type.schema_value
+                  # 'dataSubtype' => "maps",
+                  # 'vettedStatus' => content_object.trust
+                  # # 'dataRatings' = data_object.rating_summary
+                  # # 'dataRating' = data_object.data_rating
+                # }
+                # map_sound << map_hash
+            # end
+          # end
         end
         
       end
       
-      def self.load_articles(articles, params, page, return_article)
+      def self.load_articles(articles, params, page)
         if params_found_and_greater_than_zero(params[:texts_page], params[:texts_per_page])
           
           articles_ids=articles.records.map(&:id)
@@ -444,23 +464,25 @@ module Api
           else
             content_sections= ContentSection.where("section_id in (?) and content_id in (?) and content_type = ?", params[:toc_items], articles_ids, "Article").map(&:content_id)
             article_objects= Article.where("id in (?)", content_sections)  
-          end  
-            article_objects[offset..offset+params[:texts_per_page]-1].each do |article_object|
-              content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], article_object.id, "Article").first
-              
-              if (params[:licenses].nil? || license_ids.include?(article_object.license_id)) && params[:vetted_types].include?(content_object.trust)
-                  article_hash={
-                    'identifier' => article_object.guid,
-                    'dataObjectVersionID' => article_object.id,
-                   # 'dataType' = data_object.data_type.schema_value
-                    # 'dataSubtype' = data_object.data_subtype.label rescue ''
-                    'vettedStatus' => content_object.trust
-                    # 'dataRatings' = data_object.rating_summary
-                    # 'dataRating' = data_object.data_rating
-                  }
-                  return_article << article_hash
-              end
-            end        
+          end 
+          
+          return article_objects[offset..offset+params[:texts_per_page]-1] 
+            # article_objects[offset..offset+params[:texts_per_page]-1].each do |article_object|
+              # content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], article_object.id, "Article").first
+#               
+              # if (params[:licenses].nil? || license_ids.include?(article_object.license_id)) && params[:vetted_types].include?(content_object.trust)
+                  # article_hash={
+                    # 'identifier' => article_object.guid,
+                    # 'dataObjectVersionID' => article_object.id,
+                   # # 'dataType' = data_object.data_type.schema_value
+                    # # 'dataSubtype' = data_object.data_subtype.label rescue ''
+                    # 'vettedStatus' => content_object.trust
+                    # # 'dataRatings' = data_object.rating_summary
+                    # # 'dataRating' = data_object.data_rating
+                  # }
+                  # return_article << article_hash
+              # end
+            # end        
         end
         
       end

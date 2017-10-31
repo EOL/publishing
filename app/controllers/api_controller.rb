@@ -11,6 +11,9 @@ class ApiController < ApplicationController
   def collections
   end
   
+  def data_objects
+  end
+  
    
   def default_render
     # if this api_method is blank, and error should already have been rendered
