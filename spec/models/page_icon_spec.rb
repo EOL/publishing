@@ -7,8 +7,7 @@ RSpec.describe PageIcon do
   let(:page_icon) { PageIcon.new(page: page, medium: image, user: user) }
 
   describe "#page_content" do
-    let!(:page_content) { PageContent.create(page: page, content: image,
-      source_page_id: page.id) }
+    let!(:page_content) { PageContent.create(page: page, content: image, source_page_id: page.id, resource_id: 1) }
 
     it "finds the page content affected" do
       expect(page_icon.page_content).to eq(page_content)

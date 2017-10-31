@@ -74,12 +74,12 @@ RSpec.describe Page do
     let!(:summary) do
        article = create(:article)
        ContentSection.create(content: article, section: Section.brief_summary)
-       PageContent.create(content: article, page: our_page, source_page: our_page)
+       PageContent.create(content: article, page: our_page, source_page: our_page, resource_id: 1)
        article
     end
     let!(:other_article) do
        article = create(:article)
-       PageContent.create(content: article, page: our_page, source_page: our_page)
+       PageContent.create(content: article, page: our_page, source_page: our_page, resource_id: 1)
        article
     end
 
