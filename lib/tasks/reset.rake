@@ -6,6 +6,7 @@ namespace :reset do
       Rake::Task['db:create'].invoke
       Rake::Task['db:migrate'].invoke
       Rake::Task['db:seed'].invoke
+      Rake::Task['searchkick:reindex:all'].invoke
     end
 
     desc 'rebuild the database, re-running migrations. Import is performed (harvester must be running on port 3000).'

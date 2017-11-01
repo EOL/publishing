@@ -111,6 +111,7 @@ module Import
       @traitbank_terms = {}
       @tax_stats = {}
       @languages = {}
+      @licenses = {}
       @since = @resource&.import_logs&.successful&.any? ?
         @resource.import_logs.successful.last.created_at :
         10.years.ago
@@ -279,8 +280,8 @@ module Import
         lang = medium.delete(:language)
         # TODO: default language per resource?
         medium[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
-        medium.delete(:license) # TEMP: we're not harvesting this yet...
-        medium[:license_id] ||= 1 # TEMP will look for source_url
+        license_url = medium.delete(:license)
+        medium[:license_id] = get_license(license_url)
         page_id = medium.delete(:page_id)
         @media_by_page[page_id] = medium[:resource_pk]
         @media_pks << medium[:resource_pk]
@@ -521,6 +522,24 @@ module Import
         l.code = hash[:code]
       end
       @languages[hash[:group_code]] = lang.id
+    end
+
+    def get_license(url)
+      if url.blank?
+        return @resource.default_license&.id || License.public_domain.id
+      end
+      return @licenses[url] if @licenses.key?(url)
+      if (license = License.find_by_source_url(url))
+        return @licenses[url] = license.id
+      end
+      name =
+        if url =~ /creativecommons\/licenses/
+          "cc-" + url.split('/')[-2..-1].join(' ')
+        else
+          url.split('/').last.titleize
+        end
+      license = License.create(name: name, source_url: url, can_be_chosen_by_partners: false)
+      @licenses[url] = license.id
     end
 
     # I AM NOT A FAN OF SQL... but this is **way** more efficient than alternatives:
