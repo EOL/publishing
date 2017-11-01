@@ -75,6 +75,9 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'activeresource'
+gem 'rest-client'
+gem 'httparty'
 
 # Pagination:
 gem "kaminari", "~> 1.0"

@@ -1,0 +1,12 @@
+= simple_form_for @content_partner, url: content_partners_path ,
+    html: { class: "eol-userform recaptchad uk-form-stacked" },
+    defaults: { input_html: { class: 'uk-input' },
+    wrapper_html: { class: 'field' },
+    label_html: { class: 'uk-form-label' } } do |f|
+  = f.input :name
+  = f.input :abbreviation
+  = f.input :url
+  = f.input :description, as: :text
+  = f.input :logo, as: :file
+  .actions
+    = f.button :submit

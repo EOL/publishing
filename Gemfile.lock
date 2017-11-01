@@ -30,6 +30,10 @@ GEM
       activemodel (= 4.2.7.1)
       activesupport (= 4.2.7.1)
       arel (~> 6.0)
+    activeresource (4.1.0)
+      activemodel (~> 4.0)
+      activesupport (~> 4.0)
+      rails-observers (~> 0.1.2)
     activesupport (4.2.7.1)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -110,6 +114,8 @@ GEM
     diff-lcs (1.2.5)
     diffy (3.1.0)
     docile (1.1.5)
+    domain_name (0.5.20170404)
+      unf (>= 0.0.5, < 1.0.0)
     dragonfly (1.0.12)
       addressable (~> 2.3)
       multi_json (~> 1.0)
@@ -150,6 +156,10 @@ GEM
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
+    httparty (0.15.5)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -206,6 +216,7 @@ GEM
       os (>= 0.9.6)
       rake (>= 0.8.7)
       rubyzip (>= 1.0.0)
+    netrc (0.11.0)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     oauth (0.5.1)
@@ -281,6 +292,8 @@ GEM
     rails-i18n (4.0.9)
       i18n (~> 0.7)
       railties (~> 4.0)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     railties (4.2.7.1)
       actionpack (= 4.2.7.1)
       activesupport (= 4.2.7.1)
@@ -339,6 +352,10 @@ GEM
     regexp_parser (0.4.3)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rest-client (2.0.2)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     routing-filter (0.6.0)
       actionpack (>= 4.2, < 5.1)
       activesupport (>= 4.2, < 5.1)
@@ -433,6 +450,9 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.4)
     warden (1.2.6)
       rack (>= 1.0)
     web-console (2.3.0)
@@ -449,6 +469,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeresource
   acts_as_list (~> 0.7.6)
   angularjs-rails
   awesome_nested_set (~> 3.0.0)
@@ -466,6 +487,7 @@ DEPENDENCIES
   faker
   font-kit-rails (~> 1.2.0)
   haml-rails
+  httparty
   jbuilder (~> 2.0)
   jquery-rails
   kaminari (~> 1.0)
@@ -486,6 +508,7 @@ DEPENDENCIES
   refinerycms-ckeditor
   refinerycms-i18n
   refinerycms-wymeditor
+  rest-client
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

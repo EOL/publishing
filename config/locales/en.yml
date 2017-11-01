@@ -101,6 +101,7 @@ en:
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
+  error_in_connection: "error in connection."
   filter: "Filter"
   filter_by_license: "license"
   filter_by_license_any_item: "any license"
@@ -544,6 +545,7 @@ en:
         password:
         password_confirmation:
         username:
+  successfuly_created_resource: "Successfully created resource."
   term:
     actions:
       glossary: "full glossary"

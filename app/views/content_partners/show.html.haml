@@ -1,0 +1,46 @@
+%table
+  %tr
+    %th
+      name
+    %td
+      = @content_partner.name
+  %tr
+    %th
+      abbreviation
+    %td
+      = @content_partner.abbreviation
+  %tr
+    %th
+      url
+    %td
+      = @content_partner.url
+  %tr
+    %th
+      description
+    %td
+      = @content_partner.description
+  %tr
+    %th
+      created at
+    %td
+      = @content_partner.created_at
+
+  %tr
+    %th
+      resources
+      %ul
+        - @content_partner.resources.each do |resource|
+          %li
+            = link_to(resource.name, content_partner_resource_path(@content_partner.id, resource.id))
+      
+  %tr
+    %th
+      managed_by
+    %td
+      = link_to(@content_partner.user.username, main_app.user_path(@content_partner.user))
+      
+  %tr
+    %th
+      - if current_user && current_user.can_update?(@content_partner)
+        = link_to("edit content partner", edit_content_partner_path(@content_partner.id), class: "button")
+

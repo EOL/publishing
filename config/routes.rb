@@ -38,7 +38,9 @@ Rails.application.routes.draw do
   resources :media, only: [:show]
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
-  resources :resources, only: [:show]
+  resources :content_partners do
+    resources :resources, :controller => 'content_partners/resources'
+  end
 
   # This isn't really a model, so we'll go oldschool:
   get "/terms/glossary" => "terms#glossary", :as => "glossary"
