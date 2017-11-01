@@ -20,12 +20,15 @@ module Import
     end
 
     def start
+      get_import_run
       get_resources
+      import_terms
       return nil if @resources.empty?
       @resources.each do |resource|
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
         @log = @resource.create_log
+        @run.update_attribute(:completed_at, Time.now)
         begin
           import_resource
           @log.complete
@@ -50,12 +53,18 @@ module Import
     # t.datetime :last_published_at
     # t.integer :last_publish_seconds
 
+    def get_import_run
+      last_run = ImportRun.completed.last
+      # NOTE: We use the CREATED time! We want all new data as of the START of the import. In pracice, this is less than
+      # perfect... ideally, we would want a start time for each resource... but this should be adequate for our
+      # purposes.
+      @last_run_at = (last_run&.created_at || 10.years.ago).to_i
+      @run = ImportRun.create
+    end
+
     def get_resources
       # If there are only a handful of resources, we've just created the DB and the max created_at is useless.
-      since = Resource.count < 5 ?
-        10.years.ago :
-        Resource.maximum(:created_at)
-      url = "#{Rails.configuration.repository_url}/resources.json?since=#{since.to_i}&"
+      url = "#{Rails.configuration.repository_url}/resources.json?since=#{@last_run_at}&"
       loop_over_pages(url, "resources") do |resource_data|
         resource = underscore_hash_keys(resource_data)
         resource[:repository_id] = resource.delete(:id)
@@ -102,7 +111,7 @@ module Import
       @traitbank_terms = {}
       @tax_stats = {}
       @languages = {}
-      @since = @resource.import_logs.successful.any? ?
+      @since = @resource&.import_logs&.successful&.any? ?
         @resource.import_logs.successful.last.created_at :
         10.years.ago
     end
@@ -348,6 +357,16 @@ module Import
       loop_over_pages(url, "traits") do |trait_data|
         trait = underscore_hash_keys(trait_data)
         import_trait(trait)
+      end
+    end
+
+    def import_terms
+      url = "#{Rails.configuration.repository_url}/terms.json?per_page=1000&since=#{@last_run_at}&"
+      loop_over_pages(url, "terms") do |term_data|
+        term = underscore_hash_keys(term_data)
+        # TODO: section_ids
+        term[:type] = term[:used_for]
+        TraitBank.create_term(term)
       end
     end
 

@@ -736,7 +736,7 @@ class TraitBank
     end
 
     def term(uri)
-      res = query("MATCH (term:Term { uri: '#{uri}' }) RETURN term")
+      res = query("MATCH (term:Term { uri: '#{uri.gsub(/'/, "\\'")}' }) RETURN term")
       return nil unless res["data"] && res["data"].first
       res["data"].first.first
     end
