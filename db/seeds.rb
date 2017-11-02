@@ -24,7 +24,7 @@ c = Collection.create(id: 1, name: "Featured Collections", description: "Items i
 c.users << u
 
 partner = Partner.create(name: "Encyclopedia of Life", short_name: "EOL", description: "You know it.", homepage_url: "https://eol.org", repository_id: 1)
-Resource.create(name: "Dynamic Working Hierarchy", abbr: "DWH", description: "The 'consensus' tree of life.", partner_id: partner.id, repository_id: 1)
+Resource.create(name: "EOL Dynamic Hierarchy", abbr: "DWH", description: "The 'consensus' tree of life.", partner_id: partner.id, repository_id: 1)
 
 TraitBank::Admin.remove_all_data_leave_terms
 

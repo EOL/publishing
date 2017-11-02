@@ -716,6 +716,7 @@ class TraitBank
     end
 
     def create_term(options)
+      return if Rails.env.development? # TOO SLOW.
       if existing_term = term(options[:uri]) # NO DUPLICATES!
         return existing_term
       end
