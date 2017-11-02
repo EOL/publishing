@@ -143,8 +143,6 @@ module Api
         page_requests = params[:id].split(",").map do |page_id|
           #get from database need to be changed with elasticsearch 
           page_request=Page.search(page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0]  
-          # page_request=request.response 
-          # page_request=Page.find_by_id(id)
           {id: page_id, page: page_request}
         end.compact
 
