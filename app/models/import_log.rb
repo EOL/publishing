@@ -34,6 +34,6 @@ class ImportLog < ActiveRecord::Base
       log(trace.gsub(/^.*2\.4\.0/, '..'), cat: :errors)
     end
     update_attribute(:failed_at, Time.now)
-    update_attribute(:status, e.message)
+    update_attribute(:status, e.message[0..250])
   end
 end
