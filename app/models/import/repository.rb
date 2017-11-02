@@ -306,7 +306,7 @@ module Import
       @ancestry = {}
       log('learn Ancestry...')
       @naked_pages = {}
-      Page.includes(:native_node).where(id: @media_by_page.keys).find_in_batches do |group|
+      Page.includes(native_node: :ancestors).where(id: @media_by_page.keys).find_in_batches do |group|
         group.each do |page|
           @ancestry[page.id] = page.ancestry_ids
           if page.medium_id.nil?
@@ -349,8 +349,7 @@ module Import
         log("updating #{@naked_pages.values.size} pages with icons...")
         Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
       end
-      # Using the date here is not the best idea: :S
-      PageContent.where(['created_at > ?', 1.day.ago]).counter_culture_fix_counts
+      PageContent.where(content_id: @media_id_by_pk.values).counter_culture_fix_counts
     end
 
     def import_traits

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171101173208) do
+ActiveRecord::Schema.define(version: 20171102151040) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -356,6 +356,7 @@ ActiveRecord::Schema.define(version: 20171101173208) do
     t.integer "ancestor_id",          limit: 4
     t.string  "node_resource_pk",     limit: 255
     t.string  "ancestor_resource_pk", limit: 255
+    t.integer "depth",                limit: 4
   end
 
   add_index "node_ancestors", ["ancestor_id"], name: "index_node_ancestors_on_ancestor_id", using: :btree
