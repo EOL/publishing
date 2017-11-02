@@ -31,6 +31,10 @@ class Node < ActiveRecord::Base
     vernacular(language).try(:string) || scientific_name
   end
 
+  def use_breadcrumb?
+    has_breadcrumb? && (minimal? || abbreviated?)
+  end
+
   # TODO: this is duplicated with page; fix.
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)

@@ -159,7 +159,8 @@ module Import
         node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
         node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
         # We do store the landmark ID, but this is helpful.
-        node[:has_breadcrumb] = node.key?(:landmark)
+        node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark] != "no_landmark"
+        node[:landmark] = Node.landmarks[node[:landmark]]
       end
       if @nodes.empty?
         log('There were NO new nodes, skipping...', cat: :warns)
@@ -379,9 +380,10 @@ module Import
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/#{type}.json?"
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
+        thing.merge(resource_id: @resource.id)
         yield(thing)
         begin
-          things << thing.merge(resource_id: @resource.id)
+          things << thing
         rescue
           debugger
           321
