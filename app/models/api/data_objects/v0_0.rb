@@ -4,7 +4,7 @@ module Api
       VERSION = '0.0'
       BRIEF_DESCRIPTION = Proc.new { "returns all metadata about a particular data object" }
       DESCRIPTION = Proc.new { 'data object api description' + '</p><p>' + 'image objects will contain two mediaurl elements' }
-      TEMPLATE = '/api/pages_0_4'
+      TEMPLATE = '/api/pages_0_0'
       PARAMETERS = Proc.new {
         [
           Api::DocumentationParameter.new(
