@@ -1,5 +1,5 @@
   module Api
-    METHODS = [ :pages, :collections ]
+    METHODS = [ :pages, :collections, :data_objects ]
     class Methods
       VERSION = nil
       BRIEF_DESCRIPTION = nil

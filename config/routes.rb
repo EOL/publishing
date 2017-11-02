@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   match "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}, via: [:get, :post]
   # post "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
 
-  post "api/:action" => "api"
+  get "api/:action" => "api"
   
   
   match 'api/:action/:version/:id' => 'api', :constraints => {version:  /\d\.\d/}, via: [:get, :post]
