@@ -10,7 +10,7 @@ class Node < ActiveRecord::Base
   has_many :scientific_names, inverse_of: :node
   has_many :vernaculars, inverse_of: :node
   has_many :preferred_vernaculars, -> { preferred }, class_name: 'Vernacular'
-  has_many :node_ancestors, inverse_of: :node, dependent: :destroy
+  has_many :node_ancestors, inverse_of: :node, dependent: :destroy, order: 'depth'
   has_many :descendants, class_name: 'NodeAncestor', inverse_of: :ancestor, foreign_key: :ancestor_id
   has_many :ancestors, through: :node_ancestors
   has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
