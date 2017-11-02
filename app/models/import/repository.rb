@@ -36,6 +36,7 @@ module Import
           @log.fail(e)
         end
       end
+      # TODO: these logs end up attatched to a resource. They shouldn't be. ...Not sure where to move them, though.
       richness = RichnessScore.new
       # Note: this is quite slow, but searches won't work without it. :S
       pages = Page.where(id: @pages.keys).includes(:occurrence_map)
@@ -47,6 +48,7 @@ module Import
       end
       log('pages.reindex')
       pages.reindex
+      log('All Harvests Complete, stopping.', cat: :ends)
     end
 
     # TODO: set these:
@@ -145,9 +147,10 @@ module Import
           node[:rank_id] = rank.id
         end
         if (ancestors = node.delete(:ancestors))
-          ancestors.each do |anc|
+          ancestors.each_with_index do |anc, depth|
             next if anc == node[:resource_pk]
-            @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc, resource_id: @resource.id }
+            @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc,
+                            resource_id: @resource.id, depth: depth }
           end
         end
         # TODO: we should have the repository calculate the depth...
