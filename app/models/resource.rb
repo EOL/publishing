@@ -74,8 +74,8 @@ class Resource < ActiveRecord::Base
     # content_sections
     [Medium, Article, Link].each do |klass|
       pages = klass.where(resource_id: id).pluck(:page_id)
-      field = klass.name.pluralize.downcase
-      Page.where(id: pages).update_all("#{field}_count = #{field} - 1")
+      field = "#{klass.name.pluralize.downcase}_count"
+      Page.where(id: pages).update_all("#{field} = #{field} - 1")
       klass.where(resource_id: id).select("id").find_in_batches do |group|
         ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group.map(&:id)]).delete_all
       end
