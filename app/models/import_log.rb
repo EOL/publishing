@@ -31,6 +31,7 @@ class ImportLog < ActiveRecord::Base
   def fail(e)
     log(e.message, cat: :errors)
     e.backtrace.each do |trace|
+      last if trace =~ /\/bundler/
       log(trace.gsub(/^.*2\.4\.0/, '..'), cat: :errors)
     end
     update_attribute(:failed_at, Time.now)

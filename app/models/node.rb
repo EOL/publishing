@@ -12,7 +12,7 @@ class Node < ActiveRecord::Base
   has_many :preferred_vernaculars, -> { preferred }, class_name: 'Vernacular'
   has_many :node_ancestors, -> { order(:depth) }, inverse_of: :node, dependent: :destroy
   has_many :descendants, class_name: 'NodeAncestor', inverse_of: :ancestor, foreign_key: :ancestor_id
-  has_many :unordered_ancestors, through: :node_ancestors
+  has_many :unordered_ancestors, through: :node_ancestors, source: :ancestor
   has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
 
   has_many :references, as: :parent
