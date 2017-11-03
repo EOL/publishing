@@ -40,7 +40,7 @@ class Page < ActiveRecord::Base
   # instance variable...
   scope :preloaded, -> do
     includes(:preferred_vernaculars, :medium, :occurrence_map,
-      referents: :references, native_node: :rank,
+      referents: :references, native_node: [:rank, { node_ancestors: :ancestor }],
       articles: [:license, :sections, :bibliographic_citation,
         :location, :resource, attributions: :role])
   end
@@ -48,7 +48,7 @@ class Page < ActiveRecord::Base
   # NOTE: I've not tested this; might not be the most efficient set: ...I did
   # notice that vernaculars doesn't quite work; the scopes that are attached to
   # the (preferred and nonpreferred) interfere.
-  scope :search_import, -> { includes(:scientific_names, :vernaculars, :native_node, resources: :partner) }
+  scope :search_import, -> { includes(:scientific_names, :vernaculars, native_node: { node_ancestors: :ancestor }, resources: :partner) }
 
   delegate :ancestors, to: :native_node
 
@@ -108,7 +108,7 @@ class Page < ActiveRecord::Base
   def ancestry_ids
     # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
     # data)
-    Array(native_node.try(:ancestors).try(:pluck, :page_id)).compact + [id]
+    Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
   end
 
   def descendant_species

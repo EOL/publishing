@@ -49,7 +49,7 @@ module PagesHelper
     Rails.cache.fetch("constructed_summary/#{page.id}") do
       my_rank = page.rank.try(:name) || "taxon"
       node = page.native_node || page.nodes.first
-      ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
+      ancestors = node.node_ancestors.map(&:ancestor).select { |a| a.has_breadcrumb? }
       # taxonomy sentence...
       str = if page.name == page.scientific_name
         page.name

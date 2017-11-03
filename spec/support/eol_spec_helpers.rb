@@ -84,13 +84,13 @@ module EolSpecHelpers
     resource = data[:resource]
     media = data[:media] || []
     ancestor = instance_double("Node", ancestors: [], name: "Ancestor Name",
-      canonical_form: "Ancestor Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Ancestor Sci")
+      canonical_form: "Ancestor Canon", page_id: 653421, use_breadcrumb?: true, has_breadcrumb?: true, rank: rank, scientific_name: "Ancestor Sci")
     invisible_ancestor = instance_double("Node", ancestors: [ancestor], name: "InvisibleAncestor Name",
-      canonical_form: "InvisibleAncestor Canon", page_id: 653421, has_breadcrumb?: false, rank: rank, scientific_name: "InvisibleAncestor Sci")
+      canonical_form: "InvisibleAncestor Canon", page_id: 653421, use_breadcrumb?: false, has_breadcrumb?: false, rank: rank, scientific_name: "InvisibleAncestor Sci")
     parent = instance_double("Node", ancestors: [ancestor, invisible_ancestor], name: "Parent Name",
-      canonical_form: "Parent Canon", page_id: 653421, has_breadcrumb?: true, rank: rank, scientific_name: "Parent Sci")
+      canonical_form: "Parent Canon", page_id: 653421, use_breadcrumb?: true, has_breadcrumb?: true, rank: rank, scientific_name: "Parent Sci")
     node = instance_double("Node", ancestors: [ancestor, invisible_ancestor, parent], name: "SomeTaxon",
-      children: [], resource: resource, has_breadcrumb?: true)
+      children: [], resource: resource, use_breadcrumb?: true, has_breadcrumb?: true)
     lic2 = instance_double("License", name: "Article license name")
     article = instance_double("Article", name: "Article Name", license: lic2,
       body: "Article body", owner: "Article owner", rights_statement: nil,
@@ -169,7 +169,7 @@ module EolSpecHelpers
     rank = data[:rank]
     resource = data[:resource]
     node = instance_double("Node", ancestors: [], name: "SomeTaxon", id: 1,
-      children: [], resource: resource, has_breadcrumb?: true)
+      children: [], resource: resource, use_breadcrumb?: true, has_breadcrumb?: true)
     sci_name = instance_double("ScientificName", node: node,
       italicized: "<i>Nice scientific</i>",
       taxonomic_status: TaxonomicStatus.synonym)

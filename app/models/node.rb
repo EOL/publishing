@@ -12,7 +12,7 @@ class Node < ActiveRecord::Base
   has_many :preferred_vernaculars, -> { preferred }, class_name: 'Vernacular'
   has_many :node_ancestors, -> { order(:depth) }, inverse_of: :node, dependent: :destroy
   has_many :descendants, class_name: 'NodeAncestor', inverse_of: :ancestor, foreign_key: :ancestor_id
-  has_many :ancestors, -> { order 'node_ancestors.depth' }, through: :node_ancestors
+  has_many :unordered_ancestors, through: :node_ancestors
   has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
 
   has_many :references, as: :parent
@@ -33,6 +33,13 @@ class Node < ActiveRecord::Base
 
   def use_breadcrumb?
     has_breadcrumb? && (minimal? || abbreviated?)
+  end
+
+  # NOTE: this is slow and clunky and should ONLY be used when you have ONE instance. If you have multiple nodes and
+  # want to call this on all of them, you should use #node_ancestors directly and pay attention to your includes and
+  # ordering.
+  def ancestors
+    node_ancestors.map(&:ancestor)
   end
 
   # TODO: this is duplicated with page; fix.
