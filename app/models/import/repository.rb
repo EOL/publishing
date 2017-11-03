@@ -380,7 +380,7 @@ module Import
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/#{type}.json?"
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
-        thing.merge(resource_id: @resource.id)
+        thing.merge!(resource_id: @resource.id)
         yield(thing)
         begin
           things << thing
