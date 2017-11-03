@@ -78,11 +78,11 @@ class Resource < ActiveRecord::Base
       Page.where(id: pages).update_all("#{field} = #{field} - 1")
       klass.where(resource_id: id).select("id").find_in_batches do |group|
         ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group.map(&:id)]).delete_all
-      end
-      if klass == Medium
-        # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
-        # deleted):
-        PageIcon.where(["medium_id IN (?)", group]).delete_all
+        if klass == Medium
+          # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
+          # deleted):
+          PageIcon.where(["medium_id IN (?)", group]).delete_all
+        end
       end
     end
     # javascripts
