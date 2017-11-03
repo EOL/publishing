@@ -286,9 +286,9 @@ module Import
         medium[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
         license_url = medium.delete(:license)
         medium[:license_id] = get_license(license_url)
-        medium[:base_url] = "#{Rails.configuration.repository_url}/#{medium[:base_url]}"
-        page_id = medium.delete(:page_id)
-        @media_by_page[page_id] = medium[:resource_pk]
+        medium[:base_url] = "#{Rails.configuration.repository_url}/#{medium[:base_url]}" unless
+          medium[:base_url] =~ /^http/
+        @media_by_page[medium[:page_id]] = medium[:resource_pk]
         @media_pks << medium[:resource_pk]
       end
       if @media.empty?
@@ -306,8 +306,8 @@ module Import
       end
       @contents = []
       @ancestry = {}
-      log('learn Ancestry...')
       @naked_pages = {}
+      log('learn Ancestry...')
       Page.includes(native_node: { node_ancestors: :ancestor }).where(id: @media_by_page.keys).find_in_batches do |group|
         group.each do |page|
           @ancestry[page.id] = page.ancestry_ids

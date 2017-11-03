@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102151040) do
+ActiveRecord::Schema.define(version: 20171103165626) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(version: 20171102151040) do
     t.string   "source_page_url",           limit: 4096
     t.integer  "resource_id",               limit: 4,                 null: false
     t.string   "rights_statement",          limit: 1024
+    t.integer  "page_id",                   limit: 4
   end
 
   add_index "media", ["guid"], name: "index_media_on_guid", using: :btree
