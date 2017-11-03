@@ -75,8 +75,8 @@ class Resource < ActiveRecord::Base
     pages = Node.where(resource_id: id).pluck(:page_id)
     # content_sections
     [Medium, Article, Link].each do |klass|
-      klass.where(resource_id: id).select("id").find_in_batches do |batch|
-        ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, batch.map(&:id)]).delete_all
+      klass.where(resource_id: id).select("id").find_in_batches do |group|
+        ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group.map(&:id)]).delete_all
       end
       if klass == Medium
         # TODO: really, we should make note of these pages and "fix" their icons, now (unless the page itself is being
