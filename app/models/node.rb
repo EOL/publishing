@@ -4,8 +4,6 @@ class Node < ActiveRecord::Base
   belongs_to :resource, inverse_of: :nodes
   belongs_to :rank
 
-  has_one :taxon_remark, inverse_of: :node
-
   has_many :identifiers, inverse_of: :node
   has_many :scientific_names, inverse_of: :node
   has_many :vernaculars, inverse_of: :node
@@ -14,7 +12,6 @@ class Node < ActiveRecord::Base
   has_many :descendants, class_name: 'NodeAncestor', inverse_of: :ancestor, foreign_key: :ancestor_id
   has_many :unordered_ancestors, through: :node_ancestors, source: :ancestor
   has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
-
   has_many :references, as: :parent
   has_many :referents, through: :references
 

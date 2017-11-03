@@ -156,8 +156,8 @@ module Import
         # TODO: we should have the repository calculate the depth...
         # So, until we parse the WHOLE thing (at the source), we have to deal with this. Probably fair enough to include
         # it here anyway:
-        node[:scientific_name] ||= "Unamed clade #{node[:resource_pk]}"
-        node[:canonical_form] ||= "Unamed clade #{node[:resource_pk]}"
+        node[:canonical_form] = "Unamed clade #{node[:resource_pk]}" if node[:canonical_form].blank?
+        node[:scientific_name] = node[:canonical_form] if node[:scientific_name].blank?
         # We do store the landmark ID, but this is helpful.
         node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark] != "no_landmark"
         node[:landmark] = Node.landmarks[node[:landmark]]
