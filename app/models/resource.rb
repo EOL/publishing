@@ -71,10 +71,11 @@ class Resource < ActiveRecord::Base
     nuke(NodeAncestor)
     # Node identifiers
     nuke(Identifier)
-    # Get list of affected pages
-    pages = Node.where(resource_id: id).pluck(:page_id)
     # content_sections
     [Medium, Article, Link].each do |klass|
+      pages = klass.where(resource_id: id).pluck(:page_id)
+      field = klass.name.pluralize.downcase
+      Page.where(id: pages).update_all("#{field}_count = #{field} - 1")
       klass.where(resource_id: id).select("id").find_in_batches do |group|
         ContentSection.where(["content_type = ? and content_id IN (?)", klass.name, group.map(&:id)]).delete_all
       end
@@ -123,6 +124,8 @@ class Resource < ActiveRecord::Base
     # Collected Pages (and their associated media, etc)
     nuke(CollectedPage)
     # Update page node counts
+    # Get list of affected pages
+    pages = Node.where(resource_id: id).pluck(:page_id)
     Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
     nuke(Node)
     # Delete pages that no longer have nodes

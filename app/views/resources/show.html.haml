@@ -20,19 +20,11 @@ With media:
     - @resource.import_logs.each do |log|
       %li
         %b= link_to(l(log.created_at, format: :long), [@resource, log])
-        .uk-list
-          %li
+          - if log.completed_at
             %b= "Completed:"
-            - if log.completed_at
-              = l(log.completed_at, format: '%H:%M:%S.%3N')
-            - else
-              No.
-          %li
+            = l(log.completed_at, format: '%H:%M:%S.%3N')
+          - elsif log.failed_at
             %b= "Failed:"
-            - if log.completed_at
-              = l(log.completed_at, format: '%H:%M:%S.%3N')
-            - else
-              No.
-          %li
-            %b= "Status:"
-            = log.status
+            = l(log.failed_at, format: '%H:%M:%S.%3N')
+          %b= "Status:"
+          = log.status
