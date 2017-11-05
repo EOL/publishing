@@ -15,7 +15,7 @@ class ContentPartnersController < ApplicationController
         flash[:notice] = :successfuly_created_resource
         redirect_to root_url
       else
-        flash[:notice] = "error in connection."
+        flash[:notice] = :error_in_connection
         render action: 'new'
       end
     else
@@ -39,10 +39,10 @@ class ContentPartnersController < ApplicationController
     if @content_partner.valid?
       result = ContentPartnerApi.update_content_partner?(params[:id], content_partner_params)
       if result
-        flash[:notice] = "Successfully updated content partner."
+        flash[:notice] = :Successfully_updated_content_partner
         redirect_to root_url
       else
-        flash[:notice] = "error in connection."
+        flash[:notice] = :error_in_connection
         render action: 'edit'
       end
     else

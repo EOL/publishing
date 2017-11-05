@@ -1,4 +1,4 @@
-= simple_form_for @resource, url: content_partner_resources_path,
+= simple_form_for @resource,url: { action: :update, controller: 'resources' }, method: "put",
     html: { class: "eol-userform recaptchad uk-form-stacked" },
     defaults: { input_html: { class: 'uk-input' },
     wrapper_html: { class: 'field' },
@@ -23,10 +23,10 @@
   = f.input :default_rights_holder
   = f.input :default_rights_statement
   = f.label :default_language_id
-  = f.collection_select :default_language_id , Language.all , :id, :code
+  = f.collection_select :default_language_id , Language.all , :id, :code 
   = f.input :description, as: :text
-  = f.label :dataset_license 
-  = f.collection_select :dataset_license , License.all , :id, :name
+  = f.label :default_license_string 
+  = f.collection_select :default_license_string , License.all , :id, :name 
 
   .actions
     = f.button :submit

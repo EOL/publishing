@@ -11,5 +11,8 @@ function file_show(){
     if(file_checkbox.checked){
       document.getElementById('display2').style.display = 'block';
       document.getElementById('display1').style.display = 'none';
+      document.getElementById('resource_harvest_frequency').value="once";
+      document.getElementById('resource_uploaded_url').value="";
+      
     } 
   }

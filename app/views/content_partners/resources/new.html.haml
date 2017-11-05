@@ -25,8 +25,8 @@
   = f.label :default_language_id
   = f.collection_select :default_language_id , Language.all , :id, :code
   = f.input :description, as: :text
-  = f.label :dataset_license 
-  = f.collection_select :dataset_license , License.all , :id, :name
+  = f.label :default_license_string 
+  = f.collection_select :default_license_string , License.all , :id, :name
 
   .actions
     = f.button :submit
