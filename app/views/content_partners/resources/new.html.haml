@@ -18,6 +18,8 @@
     = label_tag "Load Resource from file"
     #display2{:style => "display:none;"}
       = f.file_field :path
+  = f.label :dataset_license 
+  = f.collection_select :dataset_license  , License.all , :id, :name
   = f.input :dataset_rights_holder
   = f.input :dataset_rights_statement
   = f.input :default_rights_holder

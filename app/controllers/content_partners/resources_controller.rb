@@ -7,11 +7,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def create
     resource_params = { name: params[:resource][:name], origin_url: params[:resource][:origin_url],uploaded_url: params[:resource][:uploaded_url],
                         path: params[:resource][:path],type: params[:resource][:type],harvest_frequency: params[:resource][:harvest_frequency],
+                        dataset_license: params[:resource][:dataset_license],
                         dataset_rights_holder: params[:resource][:dataset_rights_holder],dataset_rights_statement: params[:resource][:dataset_rights_statement], 
                         default_rights_holder: params[:resource][:default_rights_holder], default_rights_statement: params[:resource][:default_rights_statement],
                         default_license_string: params[:resource][:default_license_string], default_language_id: params[:resource][:default_language_id]}
     @resource = Resource.new(resource_params)
-    debugger
     if @resource.valid?
       result = ResourceApi.add_resource?(resource_params, params[:content_partner_id])
       if result
@@ -36,6 +36,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
   def update
     resource_params = { name: params[:resource][:name], origin_url: params[:resource][:origin_url],uploaded_url: params[:resource][:uploaded_url],
                         path: params[:resource][:path],type: params[:resource][:type],harvest_frequency: params[:resource][:harvest_frequency],
+                        dataset_license: params[:resource][:dataset_license],
                         dataset_rights_holder: params[:resource][:dataset_rights_holder],dataset_rights_statement: params[:resource][:dataset_rights_statement], 
                         default_rights_holder: params[:resource][:default_rights_holder], default_rights_statement: params[:resource][:default_rights_statement],
                         default_license_string: params[:resource][:default_license_string], default_language_id: params[:resource][:default_language_id]}

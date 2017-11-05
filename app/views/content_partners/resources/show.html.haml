@@ -28,6 +28,11 @@
         = @resource.path
   %tr
     %th
+      dataset license 
+    %td
+      = License.find(@resource.dataset_license).name
+  %tr
+    %th
       dataset rights holder
     %td
       = @resource.dataset_rights_holder
@@ -56,14 +61,5 @@
       default license string
     %td
       = License.find(@resource.default_license_string).name
-  %tr
-    %th
-      created at
-    %td
-      = @resource.created_at
-  %tr
-    %th
-      updated at
-    %td
-      = @resource.updated_at
+
    
