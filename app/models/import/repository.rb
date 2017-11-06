@@ -1,6 +1,9 @@
 module Import
+  # Import::Repository
   class Repository
-    attr_accessor :resource
+    attr_accessor :resource, :resources, :log, :pages, :run, :last_run_at, :since, :nodes, :ancestors, :identifiers,
+      :names, :verns, :node_id_by_page, :traits, :traitbank_pages, :traitbank_suppliers, :traitbank_terms, :tax_stats,
+      :languages, :licenses
 
     def self.sync
       # TODO.

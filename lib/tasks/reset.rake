@@ -18,6 +18,7 @@ namespace :reset do
   desc 'reset the database, using the schema instead of migrations. Import is performed (harvester must be running).'
   task import: :environment do
     Rake::Task['db:reset'].invoke
+    Rake::Task['searchkick:reindex:all'].invoke
     Import::Repository.start
   end
 end

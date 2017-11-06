@@ -108,6 +108,7 @@ class Resource < ActiveRecord::Base
 
     # Media, image_info
     nuke(ImageInfo)
+    nuke(ImportLog)
     nuke(Medium)
     # Articles
     nuke(Article)
@@ -121,6 +122,8 @@ class Resource < ActiveRecord::Base
     nuke(Vernacular)
     # Attributions
     nuke(Attribution)
+    # Traits:
+    TraitBank::Admin.remove_for_resource(self)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
