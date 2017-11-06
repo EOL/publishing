@@ -121,8 +121,6 @@ class Resource < ActiveRecord::Base
     nuke(Vernacular)
     # Attributions
     nuke(Attribution)
-    # Collected Pages (and their associated media, etc)
-    nuke(CollectedPage)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
