@@ -82,9 +82,10 @@ module DataHelper
   end
 
   def show_source(src)
-    haml_tag(:tr) do
-      haml_tag(:th, I18n.t(:data_source))
-      haml_tag(:td, unlink(src))
+    haml_tag(:div, class: "ui secondary segment") do
+      haml_concat I18n.t(:data_source)
+      haml_tag(:br)
+      haml_concat unlink(src).html_safe
     end
   end
 

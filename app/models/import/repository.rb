@@ -363,10 +363,13 @@ module Import
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
 
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
+      count = 0
       loop_over_pages(url, "traits") do |trait_data|
         trait = underscore_hash_keys(trait_data)
-        import_trait(trait)
+        worked = import_trait(trait)
+        count += 1 if worked
       end
+      log("Created #{count} traits.")
     end
 
     def import_terms
@@ -455,7 +458,7 @@ module Import
       end
       trait[:statistical_method] = trait.delete(:statistical_method)
       trait[:literal] = trait.delete(:value_literal)
-      trait[:source] = trait.delete(:source_url)
+      trait[:source] = trait.delete(:source)
       # The rest of the keys are "just right" and will work as-is:
       begin
         TraitBank.create_trait(trait.symbolize_keys)
@@ -542,8 +545,8 @@ module Import
         return @licenses[url] = license.id
       end
       name =
-        if url =~ /creativecommons\/licenses/
-          "cc-" + url.split('/')[-2..-1].join(' ')
+        if url =~ /creativecommons.*\/licenses/
+          "cc-" + url.split('/')[-2]
         else
           url.split('/').last.titleize
         end

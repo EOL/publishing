@@ -24,7 +24,7 @@
           %h3= t(:content_associations)
           %ul
             - @medium.associations.each do |page|
-              %li= link_to(page.scientific_name.html_safe + " (#{page.name.titlecase})", page)
+              %li= link_to_page_by_name(page)
           - icon_count = @medium.page_icons.count
           - if icon_count > 0
             %h3= "Awards"

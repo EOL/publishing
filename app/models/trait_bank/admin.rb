@@ -30,7 +30,7 @@ class TraitBank
 
       # NOTE: You only have to run this once, and it's best to do it before
       # loading TB:
-      def create_constraints
+      def create_constraints(drop = nil)
         contraints = {
           "Page" => [:page_id],
           "Term" => [:uri]
@@ -38,11 +38,13 @@ class TraitBank
         contraints.each do |label, fields|
           fields.each do |field|
             begin
+              name = 'o'
+              name = label.downcase if drop && drop == :drop
               query(
-                "CREATE CONSTRAINT ON (o:#{label}) ASSERT o.#{field} IS UNIQUE;"
+                "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
               )
             rescue Neography::NeographyError => e
-              raise e unless e.message =~ /already exists/
+              raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
             end
           end
         end

@@ -273,7 +273,7 @@ class Page < ActiveRecord::Base
   end
 
   def scientific_name
-    native_node.try(:canonical_form) || "NO NAME!"
+    native_node.try(:italicized) || native_node.try(:scientific_name) || "NO NAME!"
   end
 
   def rank

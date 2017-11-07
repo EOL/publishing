@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103181623) do
+ActiveRecord::Schema.define(version: 20171107164342) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -693,6 +693,7 @@ ActiveRecord::Schema.define(version: 20171103181623) do
     t.boolean  "hybrid"
     t.boolean  "surrogate"
     t.boolean  "virus"
+    t.text     "attribution",           limit: 65535
   end
 
   add_index "scientific_names", ["node_id"], name: "index_scientific_names_on_node_id", using: :btree
