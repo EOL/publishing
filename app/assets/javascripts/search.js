@@ -1,8 +1,8 @@
 $(function() {
-  var autocompletePath = '/search_suggestions/' // TODO: gross url
+  var $suggestionsContainer = $('#search-sug-cont')
+    , autocompletePath = $suggestionsContainer.data('path')
     , minAutocompleteLen = 3
     , queryCount = 0
-    , $suggestionsContainer = $('#search-sug-cont')
     , $searchInput = $('.search-input')
     , $backArrow = $('.navbar-icon.fa-arrow-left')
     , $filterBar = $('#filter-bar')
@@ -17,6 +17,7 @@ $(function() {
     , pageIndex = firstPageIndex
     , nextPageScrollThreshold = 300
     , query = $resultContainer.data('query')
+    , pagePath = $resultContainer.data('pagePath')
     , loadingPage = false
     ;
 
@@ -115,7 +116,7 @@ $(function() {
 
     if (selectedResultTypeFound) {
       $.ajax({
-        url: '/search_page', // TODO: get rid of hard-coded path
+        url: pagePath,
         data: {
           q: query,
           only: resultTypeOrder[resultTypeIndex],

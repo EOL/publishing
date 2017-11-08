@@ -1,4 +1,4 @@
-%ul#search-results.search-results{ :data => { :query => @q } }
+%ul#search-results.search-results{ :data => { :query => @q, :'page-path' => search_page_path } } 
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
      @sounds, @collections, @users)}
 

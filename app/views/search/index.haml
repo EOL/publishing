@@ -1,4 +1,4 @@
-= form_tag(search_results_path, { :class => "search-form", :method => "get", :autocomplete => :off}) do
+= form_tag(search_results_path, { :id => "search-form", :class => "search-form", :method => "get", :autocomplete => :off }) do
   = text_field_tag("q", nil, :class => "search-input", :size => 16, :placeholder => t("nav.search.placeholder"))
 
-#search-sug-cont.search-sug-cont
+#search-sug-cont.search-sug-cont{ :data => { :path => search_suggestions_path } }
