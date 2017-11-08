@@ -34,11 +34,11 @@
 
 
 #navbar.navbar
-  .eol-menu
-    = link_to root_path, :class => "icon eol-logo" do
+  .navbar-menu-anchor
+    = link_to root_path, :class => "navbar-icon" do
       = image_tag "blue_logo"
   -if @search_text
-    .search-text= @search_text
+    .navbar-search-text= @search_text
   -if !@suppress_search_icon
     = link_to search_path, :class => 'nounderline' do
       %i.fa.fa-search.fa-search.fa-2x.navbar-icon

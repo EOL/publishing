@@ -452,21 +452,23 @@ body {
   width: 100%;
   z-index: 100;
 
-  .eol-menu {
-    height: 18px;
-    width: 50px;
-  }
 
-  .search-text {
-    border-bottom: 1px solid $eol-blue;
-    color: $eol-black;
-    font-size: 16px;
-    height: $navbar-height - 5px;
-    line-height: $navbar-height - 5px;
-    max-width: 225px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+}
+
+.navbar-search-text {
+  border-bottom: 1px solid $eol-blue;
+  color: $eol-black;
+  font-size: 16px;
+  height: $navbar-height - 5px;
+  line-height: $navbar-height - 5px;
+  max-width: 225px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar-menu-anchor {
+  height: 18px;
+  width: 50px;
 }
 
 .navbar-icon {
