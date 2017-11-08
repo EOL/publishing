@@ -1,0 +1,10 @@
+= javascript_include_tag 'api'
+%h3= "Description"
+%p= raw @api_method.description
+
+= render 'api/docs/parameters'
+
+%h3= "Test it Out"
+= render 'api/docs/api_test_form'
+#api_test_url{ :style => 'display:none' }
+%xmp#api_test_result{ :style => 'display:none' }

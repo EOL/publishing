@@ -1,0 +1,46 @@
+-# %form#api_test_form{:controller => "api", :action => @api_method.method_name, :method => "post" }
+%form#api_test_form{ action: url_for(controller: '/api', action: @api_method.method_name, version: @api_method::VERSION, only_path: false) }
+  %table
+    %col.name
+    %col.required
+    %col.value
+    %thead
+      %tr
+        %th= "name"
+        %th= "required"
+        %th= "value"
+    - required_label = "yes"
+    - unless @api_method.parameters.blank?
+      - @api_method.parameters.each do |p|
+        %tr
+          %td= p.name
+          %td= p.required ? required_label : ''
+          %td
+            - test_default = p.test_value || p.default
+            -# when there is an array of possible values, use a drop-down list
+            - if p.array?
+              %select{ name: p.name }
+                - if test_default.blank?
+                  %option{ value: '', selected: true }= "none"
+                - p.values.each do |value|
+                  %option{ value: value, selected: (value == test_default) }= value
+            - elsif p.boolean?
+              -# boolean values get a drop-down with True or False
+              %select{ name: p.name }
+                %option{ value: 'false' }= "false"
+                %option{ value: 'true', selected: (test_default == true) }= "true"
+            - else
+              -# integers get a shorter text field
+              - size = (p.integer?) ? 15 : 50
+              %input.standard{ name: p.name, type: 'text', size: size, value: test_default }
+    %tr
+      %td= 'format'
+      %td= required_label
+      %td
+        %select{ name: 'format' }
+          %option{ value: 'json' }= 'JSON'
+          %option{ value: 'xml' }= 'XML'
+    %tr
+      %td{ colspan: 3 }
+        %fieldset.actions
+  %input{ type: 'submit', value: "call api" }

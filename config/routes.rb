@@ -71,6 +71,25 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#search", :as => "search"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  
+  # API
+  get "api/docs/:action" => "api/docs"
+  get "api/docs/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
+
+  match "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}, via: [:get, :post]
+  # post "api/:action/:version" => "api", :constraints => {version:  /\d\.\d/}
+
+  get "api/:action" => "api"
+  
+  
+  match 'api/:action/:version/:id' => 'api', :constraints => {version:  /\d\.\d/}, via: [:get, :post]
+  
+  # get "api/:action" => "api/docs"
+  # get "api/:action/:version" => "api/docs", :constraints => {version:  /\d\.\d/}
+  # post "api/:action" => "api#default_render", :as => "api_post"
+#   
+  # get "api/:action/:version" => "api", :constraints => {version: /\d\.\d/}
+
 
   root "pages#index"
 
