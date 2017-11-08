@@ -59,7 +59,7 @@ RSpec.describe Page do
     let!(:name2) { create(:scientific_name, node: our_page.native_node) }
 
     it "selects the preferred scientific name" do
-      expect(our_page.scientific_name).to eq(our_page.native_node.canonical_form)
+      expect(our_page.scientific_name).to eq(our_page.native_node.scientific_name)
     end
 
     it "has access to all scientific names" do
