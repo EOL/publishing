@@ -5,10 +5,11 @@ $(function() {
     , $suggestionsContainer = $('.suggestions-container')
     , $searchInput = $('.search-input')
     , $backArrow = $('.navbar-icon.fa-arrow-left')
-    , $filterBar = $('.filterBar')
-    , $filter = $('.searchFilter')
-    , $filterItem = $('.searchFilter-types-type')
-    , $resultContainer = $('.search-results')
+    , $filterBar = $('#filter-bar')
+    , $filter = $('#search-filter')
+    , $filterItem = $filter.find('.search-filter-type')
+    , $resultContainer = $('#search-results')
+    , $results = $resultContainer.find('.search-result')
     , resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
     , resultTypeIndex
     , selectedResultTypes = buildSelectedResultTypes()
@@ -20,7 +21,7 @@ $(function() {
     ;
 
   function buildSelectedResultTypes() {
-    var selectedResultTypes = {}
+    var selectedResultTypes = {};
 
     $.each(resultTypeOrder, (i, type) => {
       selectedResultTypes[type] = true;
@@ -33,7 +34,7 @@ $(function() {
     $filter.show();
     $filterBar.off('click', openFilter);
     $filterBar.click(closeFilter);
-    $filterBar.addClass('open');
+    $filterBar.addClass('is-active');
     $('body').addClass('noscroll');
   }
 
@@ -41,7 +42,7 @@ $(function() {
     $filter.hide();
     $filterBar.off('click', closeFilter);
     $filterBar.click(openFilter);
-    $filterBar.removeClass('open');
+    $filterBar.removeClass('is-active');
     $('body').removeClass('noscroll');
 
     updateSelectedResultTypes();
@@ -51,7 +52,7 @@ $(function() {
     var changed = false;
 
     $filterItem.each(function(i, filter) {
-      var selected = $(filter).hasClass('selected')
+      var selected = $(filter).hasClass('is-active')
         , type = $(filter).data('type')
         , curSelected = selectedResultTypes[type]
         ;
@@ -77,7 +78,7 @@ $(function() {
   }
 
   function toggleSelected() {
-    $(this).toggleClass('selected');
+    $(this).toggleClass('is-active');
   }
 
   $searchInput.on('input', function() {
@@ -142,12 +143,11 @@ $(function() {
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
 
-  if ($resultContainer.find('.search-results__item').length) {
-    resultTypeIndex = resultTypeOrder.indexOf($resultContainer.find('.search-results__item').last().data('type'));
+  if ($results.length) {
+    resultTypeIndex = resultTypeOrder.indexOf($results.last().data('type'));
 
     $(window).scroll(function() {
       var scrollBottomOffset = $(document).height() - $(this).scrollTop() - $(this).height();
-      console.log('offset', scrollBottomOffset)
 
       if (scrollBottomOffset < nextPageScrollThreshold && !loadingPage) {
         loadingPage = true;

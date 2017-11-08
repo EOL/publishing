@@ -1,13 +1,12 @@
 - results.each do |result|
-  %li.search-results__item{ :data => { :type => result.type} }
-    = link_to result, :class => "search-results__link" do
-      -#= render :partial => partial, :locals => { :result => r}
-      .search-results__icon>
+  %li.search-result{ :data => { :type => result.type} }
+    = link_to result do
+      .search-result-icon>
         -if result.icon
           = image_tag(result.icon, :class => "image")
         -else
           %i{:class => "fa fa-3x fa-#{result.fa_icon}"}
-      .search-results__details>
-        .search-results__title= result.title.html_safe
-        .search-results__content= result.content.html_safe
-        .search-results__misc-info= result.misc_info.html_safe
+      .search-result-details>
+        .search-result-title= result.title.html_safe
+        .search-result-content= result.content.html_safe
+        .search-result-misc= result.misc_info.html_safe

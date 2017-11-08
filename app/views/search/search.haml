@@ -1,9 +1,9 @@
-%ul.search-results{ :data => { :query => @q } }
+%ul#search-results.search-results{ :data => { :query => @q } }
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
      @sounds, @collections, @users)}
 
-.searchFilter
-  .searchFilter-types
+#search-filter.search-filter
+  .search-filter-types
     - if @pages && @pages.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
     - if @articles && @articles.total_count > 0
@@ -25,8 +25,8 @@
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_users", :results => @users}
 
-.filterBar
-  %i.filterBar-icon.fa.fa-sliders.fa-2x.open
-  %i.filterBar-icon.fa.fa-close.fa-2x.close
-  .filterBar-resultCount= t("search.n_results",
+#filter-bar.filter-bar
+  %i.filter-bar-icon.filter-bar-icon-open.fa.fa-sliders.fa-2x
+  %i.filter-bar-icon.filter-bar-icon-close.fa.fa-close.fa-2x
+  .filter-bar-result-count= t("search.n_results",
     :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
