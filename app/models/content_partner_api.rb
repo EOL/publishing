@@ -1,6 +1,6 @@
 class ContentPartnerApi
-  @schedular_uri = 'http://localhost:8083/scheduler'
-  @storage_uri = 'http://localhost:8010/eol/archiver'
+  @schedular_uri = 'http://172.16.0.161:80/scheduler'
+  @storage_uri = 'http://172.16.0.99:80/eol/archiver'
   
   def self.add_content_partner?(params, current_user_id)
     logo = params[:logo].nil? ? File.new(DEFAULT_CONTENT_PARTNER_LOGO, 'rb') : params[:logo]

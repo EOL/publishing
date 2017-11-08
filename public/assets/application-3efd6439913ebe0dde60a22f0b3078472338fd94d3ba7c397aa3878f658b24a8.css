@@ -1,0 +1,534 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-Light-webfont-82080862c0635b3b9e1c0d6d2955a41d9ca3d25e3bbeb582fdcbd1dddfd4f06a.eot);
+  src: url(/assets/open-sans/OpenSans-Light-webfont-82080862c0635b3b9e1c0d6d2955a41d9ca3d25e3bbeb582fdcbd1dddfd4f06a.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-Light-webfont-a9304ab4ab6e2e9b1f2d3eaa82e18f631dea6f5f5c1c56a8941d98d0dfb02238.woff) format("woff"), url(/assets/open-sans/OpenSans-Light-webfont-488440124630f7b1458de92080069597db6a224f2d787c362d7176a5c884cc86.ttf) format("truetype"), url(/assets/open-sans/OpenSans-Light-webfont-5df87f2ef15ee1f05e0d4e3a856dbdc6f4585c0b2f5dea73e9525dab9952bd12.svg#OpenSansLight) format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-LightItalic-webfont-f0b395e798d5d3b3fc92898f390db3dea91d6e1ff8909ceda76152b9fdda5259.eot);
+  src: url(/assets/open-sans/OpenSans-LightItalic-webfont-f0b395e798d5d3b3fc92898f390db3dea91d6e1ff8909ceda76152b9fdda5259.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-LightItalic-webfont-81a029fc9eb9cb2cc70c167a318b4081b4ba436f4ce229418c3c4c356ef9cef7.woff) format("woff"), url(/assets/open-sans/OpenSans-LightItalic-webfont-2727230d370cab814d0cd97a9b0a7caf49bdfb3577472179de7aeaa8e613f90a.ttf) format("truetype"), url(/assets/open-sans/OpenSans-LightItalic-webfont-5c5353a194e544082ca77ff4d7f7ddf69dc7c80025dd172beefc17ebf3720464.svg#OpenSansLightItalic) format("svg");
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-Regular-webfont-8e9e1b3bfc423a801a1145e73c76bf44aabaf752a11362428cd264a6a6eca007.eot);
+  src: url(/assets/open-sans/OpenSans-Regular-webfont-8e9e1b3bfc423a801a1145e73c76bf44aabaf752a11362428cd264a6a6eca007.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-Regular-webfont-7d161ab06fa3d662498d87f84e612acda5b78887d586d030357be22d4ae9afc7.woff) format("woff"), url(/assets/open-sans/OpenSans-Regular-webfont-3098c00be7e6765d5f86bd98ba72dcdccf713d2087b2773e26954de4403bd7d5.ttf) format("truetype"), url(/assets/open-sans/OpenSans-Regular-webfont-ade3cacf00c9c967c9f7d3e2fac03e94b312f44b7e9f3319894c5144fb3397d2.svg#OpenSansRegular) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-Italic-webfont-da4c9e311ded6def2e0578639af3459feccbb5ebb804b39d9039010339bc13e7.eot);
+  src: url(/assets/open-sans/OpenSans-Italic-webfont-da4c9e311ded6def2e0578639af3459feccbb5ebb804b39d9039010339bc13e7.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-Italic-webfont-1617f5a058a7b704f9c4d8f2d3032fd67a71b815adeca1322c56e615a6a817fd.woff) format("woff"), url(/assets/open-sans/OpenSans-Italic-webfont-6aea384f2a661771f3d08487bedd4eaf4dd6b0bd0787e9f64d6e0357ba200ba9.ttf) format("truetype"), url(/assets/open-sans/OpenSans-Italic-webfont-8e122df119b9842f9d1f9336a3035966f64106fd55a6961abfbb0891a504b397.svg#OpenSansItalic) format("svg");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-Semibold-webfont-563a2efb83dfca418701f28fc8ecd979b6314f23213d200faa50e8a04bcb809c.eot);
+  src: url(/assets/open-sans/OpenSans-Semibold-webfont-563a2efb83dfca418701f28fc8ecd979b6314f23213d200faa50e8a04bcb809c.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-Semibold-webfont-533076c09e051889644171af030b5b2806e4277e311a0f2019f2440c97b70ee3.woff) format("woff"), url(/assets/open-sans/OpenSans-Semibold-webfont-ec259315a6529dee2b4cf519c29393321f3233cfd45a74789524b788b5eb76b0.ttf) format("truetype"), url(/assets/open-sans/OpenSans-Semibold-webfont-e378d6479f295fd9d5a096d1df201ae2db6147c31f9bc4c88ffd8647b4ed5360.svg#OpenSansSemibold) format("svg");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-SemiboldItalic-webfont-a440618db66d7613b172a2df880e61cf24f69a88099434e50ca7f99139fc6748.eot);
+  src: url(/assets/open-sans/OpenSans-SemiboldItalic-webfont-a440618db66d7613b172a2df880e61cf24f69a88099434e50ca7f99139fc6748.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-SemiboldItalic-webfont-82f3d2d0fb72f270e57f09009d591a7fd6dac6d4790da1759064f6a59d93027b.woff) format("woff"), url(/assets/open-sans/OpenSans-SemiboldItalic-webfont-4f8d5385a9bc8ace0afc78d1e4c6683c3c50a98dedf0424958016fae53718927.ttf) format("truetype"), url(/assets/open-sans/OpenSans-SemiboldItalic-webfont-25092a21d967f1975c0e2329eef2041a4d5d9e1a84e281e57a5e93366a0a4257.svg#OpenSansSemiboldItalic) format("svg");
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-Bold-webfont-710336ea5403bd2db4b38104477a2e8d61a533ebb575fe67a18f58ae1742b729.eot);
+  src: url(/assets/open-sans/OpenSans-Bold-webfont-710336ea5403bd2db4b38104477a2e8d61a533ebb575fe67a18f58ae1742b729.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-Bold-webfont-87f7d13b1abfab993c9d5f5e5c0719222db257832f934bb3d9e822098f609224.woff) format("woff"), url(/assets/open-sans/OpenSans-Bold-webfont-d6e15df40b5fa9f51e327f937d33656ec2e9729ab6bba7e6f45827b49187afd0.ttf) format("truetype"), url(/assets/open-sans/OpenSans-Bold-webfont-a3f95090e28cacf72eceed8622f51400ccfc7c937243acecf0f54ea2eed409d5.svg#OpenSansBold) format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-BoldItalic-webfont-678e7910f89499bbba5070e28633b1c468726914824c44f882fb455c3d4eeabd.eot);
+  src: url(/assets/open-sans/OpenSans-BoldItalic-webfont-678e7910f89499bbba5070e28633b1c468726914824c44f882fb455c3d4eeabd.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-BoldItalic-webfont-e642dbcc8ca9d2c8b7c53fe23979f560908aec5e99fd460cd9ed8bf454c119be.woff) format("woff"), url(/assets/open-sans/OpenSans-BoldItalic-webfont-4e6c06a407f11995a6cbe88c0cf43520b79468e22fdf67ed14a92824657ea354.ttf) format("truetype"), url(/assets/open-sans/OpenSans-BoldItalic-webfont-d66bcc791b1bf93f54b2b69717a455960525a6aaca98264183601261395158ef.svg#OpenSansBoldItalic) format("svg");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-ExtraBold-webfont-594312b1c530d35d1443722277303889866e7ddcaf2d15e88eacabbf9bd8a5d2.eot);
+  src: url(/assets/open-sans/OpenSans-ExtraBold-webfont-594312b1c530d35d1443722277303889866e7ddcaf2d15e88eacabbf9bd8a5d2.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-ExtraBold-webfont-9d6d9afa559775e6cbec5f6d555906d9dcc2e8bfb846506aa75687acee9ed769.woff) format("woff"), url(/assets/open-sans/OpenSans-ExtraBold-webfont-13668bd25f616ff75235f5b36736d9ff17a674e7c4c0644e275d7a17a18d2575.ttf) format("truetype"), url(/assets/open-sans/OpenSans-ExtraBold-webfont-a69e4250c1be5d3d37b7f7138bf0e295b2de923c47f8f3db3603aba3078f626e.svg#OpenSansExtrabold) format("svg");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url(/assets/open-sans/OpenSans-ExtraBoldItalic-webfont-8abc51792db27126daeccaf5a23e934e418c703356892318b23e214e4869aa3a.eot);
+  src: url(/assets/open-sans/OpenSans-ExtraBoldItalic-webfont-8abc51792db27126daeccaf5a23e934e418c703356892318b23e214e4869aa3a.eot?#iefix) format("embedded-opentype"), url(/assets/open-sans/OpenSans-ExtraBoldItalic-webfont-b01f7065c73c642902bd53755e673eb1f6f62ec10d665b16737456f3f9fd7c3f.woff) format("woff"), url(/assets/open-sans/OpenSans-ExtraBoldItalic-webfont-df66a59fdd4424fe06dc1f0a7ba7a1ba3cb0e206f5d29784d9c3637e8c0d6d20.ttf) format("truetype"), url(/assets/open-sans/OpenSans-ExtraBoldItalic-webfont-62f0b3766643af824c61e54a02b97ef4d71bfb9b81255646974aca05261b09bb.svg#OpenSansExtraboldItalic) format("svg");
+  font-weight: 900;
+  font-style: italic;
+}
+/* line 5, /var/www/eol_website/app/assets/stylesheets/main.sass */
+html {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 85%;
+  background-color: snow;
+}
+
+/* line 27, /var/www/eol_website/app/assets/stylesheets/main.sass */
+h1, h2, h3 {
+  color: #426c96;
+  font-weight: 700;
+}
+
+/* line 31, /var/www/eol_website/app/assets/stylesheets/main.sass */
+a {
+  color: #23699a;
+}
+
+/* line 36, /var/www/eol_website/app/assets/stylesheets/main.sass */
+section#body {
+  float: right;
+  width: 75%;
+  padding-left: 1em;
+}
+
+/* line 41, /var/www/eol_website/app/assets/stylesheets/main.sass */
+section#side_body {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  padding-left: 40px;
+  width: 20%;
+}
+
+/* line 50, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#landing-search .input {
+  width: 10em;
+}
+/* line 52, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#landing-search input {
+  font-size: 0.5em;
+  line-height: 3em;
+}
+/* line 55, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#landing-search .results {
+  font-size: 12pt;
+  line-height: 1em;
+  margin-left: 47% !important;
+}
+
+/* line 62, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.ui.statistic {
+  width: 100%;
+}
+
+/* line 65, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.ui.label {
+  font-family: Avenir;
+}
+
+/* line 68, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.ui.header.segment {
+  background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8);
+  z-index: 1;
+}
+
+/* line 72, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-notification-message-primary {
+  background-color: #444 !important;
+  color: #91bde5 !important;
+  padding: 24px;
+}
+
+/* line 77, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-text-muted {
+  font-weight: 300;
+}
+/* line 79, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-text-muted a {
+  color: #58a2d0;
+}
+
+/* line 82, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-text-tiny {
+  font-size: 0.75rem;
+  font-family: Avenir;
+}
+
+/* line 86, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-userform {
+  width: 37em;
+}
+
+/* line 89, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-one-line {
+  height: 1.5em;
+  white-space: nowrap;
+}
+
+/* line 93, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.page-ancestors {
+  background-color: #F8FAFA;
+}
+/* line 95, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.page-ancestors .uk-breadcrumb {
+  height: 1.5em;
+  overflow: auto;
+}
+
+/* line 99, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-section-aged {
+  background-color: #f8e9ca;
+  font-weight: 300;
+  color: #111;
+}
+
+/* line 104, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-bright {
+  background-color: white !important;
+}
+
+/* line 107, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-secondary, .eol-section-secondary {
+  background-color: #91bde5 !important;
+}
+
+/* line 110, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-secondary-alt, .eol-section-secondary-alt {
+  background-color: #d59046 !important;
+}
+/* line 113, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-secondary-alt .uk-text-meta, .eol-section-secondary-alt .uk-text-meta, .eol-secondary-alt .uk-iconnav > * > *, .eol-section-secondary-alt .uk-iconnav > * > * {
+  color: #784848;
+}
+
+/* line 116, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-section-secondary {
+  font-weight: 300;
+  color: #111;
+}
+
+/* line 121, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-section-secondary-alt {
+  font-weight: 300;
+  color: #111;
+}
+
+/* line 126, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-width-medium-icon {
+  width: 130px;
+}
+
+/* line 129, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-padding-tiny {
+  padding: 4px 12px !important;
+}
+
+/* line 132, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-padding-iconnav {
+  padding: 6px !important;
+}
+
+/* line 135, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.eol-bordered-image {
+  border-bottom: 2px solid #bbb;
+  border-left: 2px solid #d8d8d8;
+  border-right: 2px solid #ccc;
+  border-top: 2px solid #dadada;
+}
+
+/* line 141, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-nav-default li.uk-active > a {
+  font-size: 1.2em;
+  color: #000;
+}
+
+/* line 145, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-pagination li.uk-active {
+  color: #000;
+  font-size: 1em;
+  font-weight: 900;
+}
+
+/* line 151, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+  margin: 0 8px !important;
+}
+
+/* line 154, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.btn:focus {
+  background-color: #939393;
+}
+
+/* line 157, /var/www/eol_website/app/assets/stylesheets/main.sass */
+a:hover {
+  cursor: pointer;
+}
+
+/* line 160, /var/www/eol_website/app/assets/stylesheets/main.sass */
+button {
+  box-shadow: 1px 1px 5px #ccc;
+}
+
+/* line 163, /var/www/eol_website/app/assets/stylesheets/main.sass */
+button a {
+  font-weight: 600;
+}
+
+/* line 166, /var/www/eol_website/app/assets/stylesheets/main.sass */
+a.uk-inline {
+  color: black;
+}
+
+/* line 170, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#page_control .nav-pills {
+  margin-top: 2em;
+}
+
+/* line 173, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  box-shadow: 1px 1px 5px #444;
+  font-weight: 600;
+}
+
+/* line 179, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.nav-search .input-group {
+  width: 30em;
+}
+/* line 183, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.nav-search .input-group .dropdown-menu li.active div.names {
+  background-color: #eee;
+}
+/* line 185, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.nav-search .input-group .dropdown-menu div.names {
+  overflow: auto;
+  width: 24em;
+  height: 3em;
+}
+
+/* line 190, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.search-indicator {
+  padding-top: 1.2em;
+}
+
+/* line 193, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#main {
+  padding-top: 1em;
+}
+
+/* line 196, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#collected_pages_search {
+  height: 4em;
+}
+
+/* line 201, /var/www/eol_website/app/assets/stylesheets/main.sass */
+form .field {
+  margin-top: 2em;
+}
+
+/* line 204, /var/www/eol_website/app/assets/stylesheets/main.sass */
+form .error {
+  font-weight: 600;
+  color: #932835;
+}
+
+/* line 208, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.actions input[type="submit"] {
+  box-shadow: 1px 1px 5px #ccc;
+  margin: 1em 0.3em;
+  font-weight: 600;
+  color: #283593;
+}
+
+/* line 218, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#page_nav_content {
+  min-height: 40em;
+}
+
+/* line 221, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map {
+  /* The following was added from Eli's CSS: */
+  /* The above was added from Eli's CSS: */
+}
+/* line 222, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map p {
+  margin: 10px;
+}
+/* line 224, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #gmap {
+  margin: 0;
+  padding: 0;
+}
+/* line 227, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #panel {
+  float: left;
+  height: 0px;
+  width: 0px;
+}
+/* line 232, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #map-container {
+  height: 100%;
+  background: white;
+}
+/* line 235, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #map-canvas {
+  height: 500px;
+  width: 1100px;
+}
+/* line 238, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #goBackUI:hover, #map #goNextUI:hover, #map #goOrigUI:hover, #map #goPanelUI:hover, #map #goFullUI:hover {
+  background: #e0ecff;
+}
+/* line 240, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #goBackUI, #map #goNextUI, #map #goOrigUI, #map #goRadioUI, #map #goPanelUI, #map #goFullUI {
+  background-color: #fff;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  float: left;
+  text-align: center;
+  margin-left: 4px;
+}
+/* line 248, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #goBackText, #map #goNextText, #map #goOrigText, #map #goRadioText, #map #goPanelText, #map #goFullText {
+  color: #191919;
+  margin: 3px;
+}
+/* line 251, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map #markerlist {
+  height: 93%;
+  margin: 5px 2px 0 5px;
+  overflow: auto;
+}
+/* line 255, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .title {
+  border-bottom: 1px solid #e0ecff;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 2px 0;
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+/* line 263, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .title:visited {
+  color: #000;
+}
+/* line 265, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .title:hover, #map #goRadioUI:hover {
+  background: #e0ecff;
+}
+/* line 267, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .info {
+  width: 400px;
+}
+/* line 269, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .info img {
+  border: 0;
+}
+/* line 271, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .info-body {
+  width: 400px;
+  height: 200px;
+  line-height: 200px;
+  margin: 2px 0;
+  text-align: center;
+  overflow: hidden;
+}
+/* line 278, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#map .info-img {
+  height: auto;
+  width: 100%;
+}
+
+/* line 283, /var/www/eol_website/app/assets/stylesheets/main.sass */
+#data_table th, td {
+  vertical-align: top;
+}
+
+/* line 286, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-hint {
+  color: #ccc;
+}
+
+/* line 288, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-menu {
+  text-align: left;
+}
+/* line 290, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-menu .tt-dataset-search-names, .tt-menu .tt-dataset-clade-filter-names, .tt-menu .tt-dataset-find-usernames, .tt-menu .tt-dataset-find-predicates, .tt-menu .tt-dataset-find-object-terms {
+  box-sizing: border-box;
+  min-width: 200px;
+  padding: 5px 10px 10px 10px;
+  background: #fff;
+  color: #666;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+/* line 297, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-menu .tt-dataset-search-names .tt-suggestion, .tt-menu .tt-dataset-clade-filter-names .tt-suggestion, .tt-menu .tt-dataset-find-usernames .tt-suggestion, .tt-menu .tt-dataset-find-predicates .tt-suggestion, .tt-menu .tt-dataset-find-object-terms .tt-suggestion {
+  margin: 5px 0;
+  padding: 5px 0;
+}
+/* line 300, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-menu .tt-dataset-search-names .tt-suggestion:nth-child(n+2), .tt-menu .tt-dataset-clade-filter-names .tt-suggestion:nth-child(n+2), .tt-menu .tt-dataset-find-usernames .tt-suggestion:nth-child(n+2), .tt-menu .tt-dataset-find-predicates .tt-suggestion:nth-child(n+2), .tt-menu .tt-dataset-find-object-terms .tt-suggestion:nth-child(n+2) {
+  border-top: 1px solid #e5e5e5;
+}
+/* line 302, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.tt-menu .tt-dataset-search-names .tt-suggestion:hover, .tt-menu .tt-dataset-clade-filter-names .tt-suggestion:hover, .tt-menu .tt-dataset-find-usernames .tt-suggestion:hover, .tt-menu .tt-dataset-find-predicates .tt-suggestion:hover, .tt-menu .tt-dataset-find-object-terms .tt-suggestion:hover {
+  background: #eee;
+}
+
+/* line 306, /var/www/eol_website/app/assets/stylesheets/main.sass */
+.details .toc {
+  height: 30em;
+}
+
+/* line 311, /var/www/eol_website/app/assets/stylesheets/main.sass */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100em;
+}
+/* line 315, /var/www/eol_website/app/assets/stylesheets/main.sass */
+body .landing_page {
+  background-color: #272727;
+  color: #91bde5;
+}
+/* line 318, /var/www/eol_website/app/assets/stylesheets/main.sass */
+body .landing_page h1 {
+  color: #91bde5;
+}
+/* line 321, /var/www/eol_website/app/assets/stylesheets/main.sass */
+body .uk-container .eol-landing-page-container {
+  margin-top: 6em;
+}
+
+/* line 1, /var/www/eol_website/app/assets/stylesheets/main_en.sass */
+.ng-validation-error {
+  color: #ff0000;
+}
+
+/* line 2, /var/www/eol_website/app/assets/stylesheets/page.sass */
+#obj_page .popover {
+  max-width: 100%;
+}
+/* line 4, /var/www/eol_website/app/assets/stylesheets/page.sass */
+#obj_page span.ng-scope {
+  display: none;
+}

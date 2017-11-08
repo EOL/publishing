@@ -173,6 +173,13 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.datetime "updated_at"
   end
 
+  create_table "content_partner_users", force: :cascade do |t|
+    t.integer  "user_id",            limit: 4
+    t.integer  "content_partner_id", limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
   create_table "content_repositions", force: :cascade do |t|
     t.integer  "user_id_id",      limit: 4
     t.integer  "page_content_id", limit: 4
