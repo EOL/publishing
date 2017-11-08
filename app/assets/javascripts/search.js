@@ -35,7 +35,7 @@ $(function() {
     $filterBar.off('click', openFilter);
     $filterBar.click(closeFilter);
     $filterBar.addClass('is-active');
-    $('body').addClass('noscroll');
+    $('body').addClass('is-noscroll');
   }
 
   function closeFilter() {
