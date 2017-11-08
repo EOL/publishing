@@ -169,6 +169,8 @@ en:
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
+  error_in_connection: "error in connection."
+  file: "file"
   filter: "Filter"
   filter_by_license: "license"
   filter_by_license_any_item: "any license"
@@ -684,6 +686,11 @@ en:
         object_term: "URI to redirect to (or filter by)"
         path: "path (either full or relative) to redirect to"
         wkt_string: "WKT string to pass to Effechecka"
+
+  successfuly_created_resource: "Successfully created resource."
+  Successfully_updated_content_partner:  "Successfully updated content partner."
+  successfuly_updated_resource: "Successfully updated resource."
+
   term:
     actions:
       download: "download"
@@ -786,5 +793,6 @@ en:
       short_password_error: "Password is too short. Please make sure to type at least 8 characters password"
       short_username_error: "Username is too short. It should be at least 4 characters"
   username: "Username"
+  update_resource: "update resource"
   vernacular_names_header: "Common Names"
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"
