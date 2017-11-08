@@ -23,6 +23,7 @@ module Import
     end
 
     def start
+      log("Starting import run...")
       get_import_run
       get_resources
       import_terms
@@ -39,6 +40,7 @@ module Import
           @log.fail(e)
         end
       end
+      @log = nil
       # TODO: these logs end up attatched to a resource. They shouldn't be. ...Not sure where to move them, though.
       richness = RichnessScore.new
       # Note: this is quite slow, but searches won't work without it. :S
@@ -51,6 +53,7 @@ module Import
       end
       log('pages.reindex')
       pages.reindex
+      Rails.cache.delete("pages/index/stats")
       log('All Harvests Complete, stopping.', cat: :ends)
     end
 
@@ -68,6 +71,7 @@ module Import
     end
 
     def get_resources
+      log("Getting updated resources...")
       # If there are only a handful of resources, we've just created the DB and the max created_at is useless.
       url = "#{Rails.configuration.repository_url}/resources.json?since=#{@last_run_at}&"
       loop_over_pages(url, "resources") do |resource_data|
@@ -372,14 +376,38 @@ module Import
       log("Created #{count} traits.")
     end
 
+    def get_existing_terms
+      terms = {}
+      count = TraitBank::Terms.count
+      per = 2000
+      pages = (count / per.to_f).ceil
+      (1..pages).each do |page|
+        TraitBank::Terms.full_glossary(page, per).compact.map { |t| t[:uri] }.each { |uri| terms[uri] = true }
+      end
+      terms
+    end
+
     def import_terms
+      log("Importing terms...")
+      terms = get_existing_terms
+      knew = 0
+      new_terms = 0
+      skipped = 0
       url = "#{Rails.configuration.repository_url}/terms.json?per_page=1000&since=#{@last_run_at}&"
       loop_over_pages(url, "terms") do |term_data|
         term = underscore_hash_keys(term_data)
+        knew += 1 if terms.key?(term[:uri])
+        next if terms.key?(term[:uri])
+        if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
+          skipped += 1
+          next
+        end
+        new_terms += 1
         # TODO: section_ids
         term[:type] = term[:used_for]
         TraitBank.create_term(term)
       end
+      log("Finished importing terms: #{new_terms} new, #{knew} known, #{skipped} skipped.")
     end
 
     def get_new_instances_from_repo(klass)
@@ -407,7 +435,12 @@ module Import
         url = "#{url_without_page}page=#{page}"
         log(url.gsub(/^.*?\w\//, ''), cat: :urls) if page == 1
         html_response = Net::HTTP.get(URI.parse(url))
-        response = JSON.parse(html_response)
+        begin
+          response = JSON.parse(html_response)
+        rescue => e
+          debugger
+          log("An unexpected token means there's a *bunch* of HTML, so be careful.")
+        end
         total_pages = response["totalPages"]
         return unless response.key?(key) # Nothing returned.
         response[key].each do |data|
@@ -572,7 +605,10 @@ module Import
     end
 
     def log(what, type = nil)
-      return nil if @log.nil?
+      if @log.nil?
+        log("[#{Time.now.strftime('%H:%M:%S')}] (#{type || starts}) #{what}")
+        return nil
+      end
       @log.log(what, type)
     end
   end

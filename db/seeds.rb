@@ -1,8 +1,6 @@
 # Added by Refinery CMS Pages extension
 Refinery::Pages::Engine.load_seed
 
-# --
-
 Reindexer.fix_common_names("Plantae", "plants")
 Reindexer.fix_common_names("Animalia", "animals")
 Reindexer.fix_all_counter_culture_counts
@@ -27,5 +25,3 @@ partner = Partner.create(name: "Encyclopedia of Life", short_name: "EOL", descri
 Resource.create(name: "EOL Dynamic Hierarchy", abbr: "DWH", description: "The 'consensus' tree of life.", partner_id: partner.id, repository_id: 1)
 
 TraitBank::Admin.remove_all_data_leave_terms
-
-# rake db:reset ; rails runner "Import::Repository.start(10.years.ago)"  <-- requies the harvesting server is running, sooo...

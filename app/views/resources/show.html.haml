@@ -7,7 +7,7 @@ Sorry, we haven't built this page view, yet.
 
 With media:
 - if (contn = PageContent.where(resource_id: @resource.id).first)
-  = link_to(contn.source_page.name, contn.source_page)
+  = link_to_page_by_name(contn.source_page)
 - else
   (none)
 
