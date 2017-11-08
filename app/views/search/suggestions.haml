@@ -1,6 +1,6 @@
-%h2.suggested-hdr= t("search.suggested", :count => @results.length)
+%h2= t("search.suggested", :count => @results.length)
 
 -if !@results.empty?
-  %ul.suggestion-list
+  %ul.search-sugs
     - @results.each do |r|
-      %li.suggestion= r.scientific_name
+      %li.search-sug= r.scientific_name

@@ -2,7 +2,7 @@ $(function() {
   var autocompletePath = '/search_suggestions/' // TODO: gross url
     , minAutocompleteLen = 3
     , queryCount = 0
-    , $suggestionsContainer = $('.suggestions-container')
+    , $suggestionsContainer = $('#search-sug-cont')
     , $searchInput = $('.search-input')
     , $backArrow = $('.navbar-icon.fa-arrow-left')
     , $filterBar = $('#filter-bar')
@@ -93,7 +93,7 @@ $(function() {
         success: function(result) {
           if (queryNum === queryCount) {
             $suggestionsContainer.html(result);
-            $suggestionsContainer.find('.suggestion').click(function() { // TODO: require at least one type to be selected
+            $suggestionsContainer.find('.search-sug').click(function() { // TODO: require at least one type to be selected
               $searchInput.val($(this).html());
               $searchInput.focus();
             });
