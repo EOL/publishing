@@ -4,8 +4,6 @@
 $search-result-count-height: 54px;
 $filter-type-width: 174px;
 $filter-type-space: 7px;
-$hier-brown: #b17400;
-$plus-hover-green: #25bc1f;
 
 .search-form {
   margin-bottom: 68px;
@@ -64,62 +62,13 @@ $plus-hover-green: #25bc1f;
 .search-result {
   border-bottom: 1px solid $eol-gray;
   cursor: pointer;
-  height: 60px;
   list-style: none;
-  white-space: nowrap;
 }
 
 .search-result > a, .search-result > a:hover {
   color: inherit;
-  display: flex;
   height: 100%;
   text-decoration: none;
-}
-
-.search-result-icon {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.search-result-icon-main {
-  width: 60px;
-}
-
-.search-result-icon-plus {
-  width: 45px;
-
-  &:hover {
-    color: $plus-hover-green;
-  }
-}
-
-.search-result-details {
-  flex: 1 1 auto;
-  margin: 0 7px;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.search-result-title {
-  color: $eol-black;
-  font-weight: bold;
-  font-size: 14px;
-
-  .sub {
-    font-weight: normal;
-  }
-}
-
-.search-result-content {
-  font-size: 12px;
-}
-
-.search-result-hier {
-  color: $hier-brown;
-  font-size: 10px;
 }
 
 .filter-bar {

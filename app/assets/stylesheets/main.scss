@@ -6,6 +6,10 @@
 
 $base-color: rgb(51, 51, 51);
 
+// TODO: move
+$hier-brown: #b17400;
+$plus-hover-green: #25bc1f;
+
 html {
   box-sizing: border-box;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -517,4 +521,57 @@ body {
   color: $white;
   font-size: 18px;
   font-weight: 400;
+}
+
+/* Model summary card */
+.summary-card {
+  display: flex;
+  height: 60px;
+  white-space: nowrap;
+}
+
+.summary-card-icon {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.summary-card-icon-main {
+  width: 60px;
+}
+
+.summary-card-icon-plus {
+  width: 45px;
+
+  &:hover {
+    color: $plus-hover-green;
+  }
+}
+
+.summary-card-details {
+  flex: 1 1 auto;
+  margin: 0 7px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.summary-card-title {
+  color: $eol-black;
+  font-weight: bold;
+  font-size: 14px;
+
+  .sub {
+    font-weight: normal;
+  }
+}
+
+.summary-card-content {
+  font-size: 12px;
+}
+
+.summary-card-hier {
+  color: $hier-brown;
+  font-size: 10px;
 }
