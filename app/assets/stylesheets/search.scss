@@ -65,32 +65,37 @@ $hier-brown: #b17400;
   cursor: pointer;
   height: 60px;
   list-style: none;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-right: 5px;
   white-space: nowrap;
 }
 
 .search-result > a, .search-result > a:hover {
   color: inherit;
-  display: block;
+  display: flex;
   height: 100%;
   text-decoration: none;
 }
 
 .search-result-icon {
   align-items: center;
-  display: inline-flex;
-  height: 60px;
+  display: flex;
+  flex: 0 0 auto;
   justify-content: center;
   overflow: hidden;
+}
+
+.search-result-icon-main {
   width: 60px;
 }
 
+.search-result-icon-plus {
+  width: 45px;
+}
+
 .search-result-details {
-  display: inline-block;
-  margin-left: 7px;
-  vertical-align: top;
+  flex: 1 1 auto;
+  margin: 0 7px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .search-result-title {
@@ -111,6 +116,7 @@ $hier-brown: #b17400;
   color: $hier-brown;
   font-size: 10px;
 }
+
 
 .filter-bar {
   align-items: center;
