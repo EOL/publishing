@@ -5,6 +5,7 @@ $search-result-count-height: 54px;
 $filter-type-width: 174px;
 $filter-type-space: 7px;
 $hier-brown: #b17400;
+$plus-hover-green: #25bc1f;
 
 .search-form {
   margin-bottom: 68px;
@@ -89,6 +90,10 @@ $hier-brown: #b17400;
 
 .search-result-icon-plus {
   width: 45px;
+
+  &:hover {
+    color: $plus-hover-green
+  }
 }
 
 .search-result-details {
@@ -116,7 +121,6 @@ $hier-brown: #b17400;
   color: $hier-brown;
   font-size: 10px;
 }
-
 
 .filter-bar {
   align-items: center;
