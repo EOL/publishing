@@ -1,0 +1,5 @@
+%div.overlay.is-hidden{ :id => id }
+  .overlay-content
+    -if close
+      %i.overlay-close.fa.fa-close.fa-2x
+    = yield

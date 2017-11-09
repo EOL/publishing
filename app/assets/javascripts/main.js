@@ -276,6 +276,21 @@ if(!EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
+    // Show/hide overlay
+    EOL.showOverlay = function(id) {
+      EOL.hideOverlay();
+      var $overlay = $('#' + id); 
+      $overlay.removeClass('is-hidden');
+      $overlay.find('.overlay-close').click(EOL.hideOverlay);
+      $('body').addClass('is-noscroll');
+    }
+
+    EOL.hideOverlay = function() {
+      var $overlay = $('.overlay');
+      $overlay.addClass('is-hidden');
+      $('body').removeClass('is-noscroll');
+    }
+
     /*
     $('.ui.names.search')
       .search({

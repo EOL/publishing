@@ -483,3 +483,26 @@ body {
 .nounderline, .nounderline:hover {
   text-decoration: none;
 }
+
+/* Semi-transparent overlay */
+.overlay {
+  background: rgba(82, 82, 82, 0.83);
+  height: 100%;
+  left: 0;
+  padding-top: $navbar-height;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-content {
+  position: relative;
+}
+
+.overlay-close {
+  color: $white;
+  cursor: pointer;
+  left: 10px;
+  position: absolute;
+  top: 10px;
+}

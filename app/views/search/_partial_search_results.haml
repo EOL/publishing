@@ -1,12 +1,12 @@
 - results.each do |result|
   %li.search-result{ :data => { :type => result.type} }
     = link_to result do
-      .search-result-icon.search-result-icon-main>
+      .search-result-icon.search-result-icon-main
         -if result.icon
           = image_tag(result.icon, :class => "image")
         -else
           %i{:class => "fa fa-3x fa-#{result.fa_icon}"}
-      .search-result-details>
+      .search-result-details
         .search-result-title= result.title.html_safe
         .search-result-content= result.content.html_safe
         .search-result-hier= result.hierarchy.html_safe

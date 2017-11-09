@@ -10,6 +10,7 @@ $(function() {
     , $filterItem = $filter.find('.search-filter-type')
     , $resultContainer = $('#search-results')
     , $results = $resultContainer.find('.search-result')
+    , $addToColIcon = $resultContainer.find('.search-result-icon-plus')
     , resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
     , resultTypeIndex
     , selectedResultTypes = buildSelectedResultTypes()
@@ -32,19 +33,17 @@ $(function() {
   }
 
   function openFilter() {
-    $filter.show();
+    EOL.showOverlay('search-filter')
     $filterBar.off('click', openFilter);
     $filterBar.click(closeFilter);
     $filterBar.addClass('is-active');
-    $('body').addClass('is-noscroll');
   }
 
   function closeFilter() {
-    $filter.hide();
+    EOL.hideOverlay();
     $filterBar.off('click', closeFilter);
     $filterBar.click(openFilter);
     $filterBar.removeClass('is-active');
-    $('body').removeClass('noscroll');
 
     updateSelectedResultTypes();
   }
@@ -137,12 +136,18 @@ $(function() {
     }
   }
 
+  function addToCol() {
+    EOL.showOverlay('col-overlay');
+    return false;
+  }
+
   $searchInput.focus();
   $backArrow.click(function() {
     window.history.back();
   });
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
+  $addToColIcon.click(addToCol);
 
   if ($results.length) {
     resultTypeIndex = resultTypeOrder.indexOf($results.last().data('type'));

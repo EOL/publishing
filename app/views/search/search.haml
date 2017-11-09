@@ -2,7 +2,10 @@
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
      @sounds, @collections, @users)}
 
-#search-filter.search-filter
+= render :layout => "layouts/overlay", :locals => { :id => "col-overlay", :close => true } do
+  .div This is where you will be able to collect shiny things
+
+= render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => false } do
   .search-filter-types
     - if @pages && @pages.total_count > 0
       = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}

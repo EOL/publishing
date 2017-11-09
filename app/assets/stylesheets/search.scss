@@ -92,7 +92,7 @@ $plus-hover-green: #25bc1f;
   width: 45px;
 
   &:hover {
-    color: $plus-hover-green
+    color: $plus-hover-green;
   }
 }
 
@@ -154,17 +154,6 @@ $plus-hover-green: #25bc1f;
 
 .filter-bar-icon-close {
   display: none;
-}
-
-.search-filter {
-  background: rgba(82, 82, 82, 0.83);
-  display: none;
-  height: 100%;
-  left: 0;
-  padding-top: $navbar-height;
-  position: fixed;
-  top: 0;
-  width: 100%;
 }
 
 .search-filter-types {
