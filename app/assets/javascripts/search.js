@@ -136,18 +136,12 @@ $(function() {
     }
   }
 
-  function addToCol() {
-    EOL.showOverlay('col-overlay');
-    return false;
-  }
-
   $searchInput.focus();
   $backArrow.click(function() {
     window.history.back();
   });
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
-  $addToColIcon.click(addToCol);
 
   if ($results.length) {
     resultTypeIndex = resultTypeOrder.indexOf($results.last().data('type'));

@@ -5,6 +5,7 @@
     .div
       #main{ :class => (@nopad ? "nopad" : "")}
         = render("layouts/flash")
+        = render "collections/add_overlay"
         = content_for?(:content) ? yield(:content) : yield
         -#.uk-container.uk-margin-top{ class: "uk-visible@m" }
           .uk-grid.uk-grid-match.uk-child-width-expand{ uk: { grid: true } }
