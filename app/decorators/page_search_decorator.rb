@@ -18,7 +18,7 @@ class PageSearchDecorator < SearchResultDecorator
     object.try(:search_highlights).try(:[], :scientific_name) || object.scientific_name
   end
 
-  def misc_info
+  def hierarchy
     ancestor_name = family_ancestor_name()
     common_name = title
 

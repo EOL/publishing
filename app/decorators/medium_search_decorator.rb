@@ -26,7 +26,7 @@ class MediumSearchDecorator < SearchResultDecorator
     object.try(:search_highlights).try(:[], :owner) || object.owner
   end
 
-  def misc_info
+  def hierarchy
     ""
   end
 end

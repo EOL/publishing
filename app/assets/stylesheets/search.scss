@@ -4,6 +4,7 @@
 $search-result-count-height: 54px;
 $filter-type-width: 174px;
 $filter-type-space: 7px;
+$hier-brown: #b17400;
 
 .search-form {
   margin-bottom: 68px;
@@ -106,7 +107,8 @@ $filter-type-space: 7px;
   font-size: 12px;
 }
 
-.search-result-misc {
+.search-result-hier {
+  color: $hier-brown;
   font-size: 10px;
 }
 

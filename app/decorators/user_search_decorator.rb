@@ -22,7 +22,7 @@ class UserSearchDecorator < SearchResultDecorator
     object.try(:search_highlights).try(:[], :bio) || object.bio || ""
   end
 
-  def misc_info
+  def hierarchy
     ""
   end
 end

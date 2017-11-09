@@ -26,7 +26,7 @@ class CollectionSearchDecorator < SearchResultDecorator
     end
   end
 
-  def misc_info
+  def hierarchy
     ""
   end
 
