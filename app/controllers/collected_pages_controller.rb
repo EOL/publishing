@@ -29,6 +29,18 @@ class CollectedPagesController < ApplicationController
     end
   end
 
+  # TODO: clean up 'new' method when this is ready
+  def new_ajax
+    @collected_page = CollectedPage.new(new_page_params)
+    @page = PageSearchDecorator.decorate(@collected_page.page)
+
+    #@wants_icon = ! @collected_page.media.empty?
+    #@collection = Collection.new(collected_pages: [@collected_page])
+    #@bad_collection_ids = CollectedPage.where(page_id: @page.id).
+    #  pluck(:collection_id)
+    render :layout => false
+  end
+
   def edit
     @collected_page = CollectedPage.find(params[:id])
     respond_to do |fmt|

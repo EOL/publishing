@@ -506,3 +506,15 @@ body {
   position: absolute;
   top: 10px;
 }
+
+/* Add to collection overlay */
+.col-overlay-contain {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.col-overlay-contain > h2 {
+  color: $white;
+  font-size: 18px;
+  font-weight: 400;
+}

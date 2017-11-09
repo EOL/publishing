@@ -24,6 +24,10 @@ class PageSearchDecorator < SearchResultDecorator
 
     ancestor_name ? "#{ancestor_name} … / #{common_name}" : common_name
   end
+
+  def page_id
+    object.id
+  end
   
 private
   def family_ancestor_name()

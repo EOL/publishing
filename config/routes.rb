@@ -67,6 +67,8 @@ Rails.application.routes.draw do
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
+  get "/collected_pages_ajax/new" => "collected_pages#new_ajax", :as => "new_collected_page_ajax"
+
   # Non-resource routes last:
   get "/search" => "search#index", :as => "search"
   get "/search_results" => "search#search", :as => "search_results"
