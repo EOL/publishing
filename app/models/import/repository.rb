@@ -606,7 +606,8 @@ module Import
 
     def log(what, type = nil)
       if @log.nil?
-        log("[#{Time.now.strftime('%H:%M:%S')}] (#{type || starts}) #{what}")
+        cat = type && type.key?(:cat) ? type[:cat] : :starts
+        puts("[#{Time.now.strftime('%H:%M:%S')}] (#{cat}) #{what}")
         return nil
       end
       @log.log(what, type)
