@@ -135,6 +135,7 @@ module Import
       import_vernaculars
       import_media
       import_traits
+      import_associations
       @node_id_by_page.keys.each { |k| @pages[k] = true }
       log('Complete', cat: :ends)
     end
@@ -364,7 +365,7 @@ module Import
 
     def import_traits
       log('import_traits')
-      TraitBank::Admin.remove_for_resource(@resource) # TEMP!!!
+      TraitBank::Admin.remove_for_resource(@resource) # TEMP!!! DELETEME ... you don't want to do this forever, when we have deltas.
 
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
       count = 0
@@ -374,6 +375,22 @@ module Import
         count += 1 if worked
       end
       log("Created #{count} traits.")
+    end
+
+    def import_associations
+      log('import_associations')
+      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/assocs.json?"
+      count = 0
+      loop_over_pages(url, "assocs") do |assoc_data|
+        assoc = underscore_hash_keys(assoc_data)
+        # TEMP: Eventually, we'd like to store metadata about an object page, but in the meantime:
+        assoc.delete(:target_scientific_name)
+        # Just a slight rename:
+        assoc[:object_page_id] = assoc.delete(:target_page_id)
+        worked = import_trait(assoc)
+        count += 1 if worked
+      end
+      log("Created #{count} associations.")
     end
 
     def get_existing_terms
@@ -398,6 +415,7 @@ module Import
         term = underscore_hash_keys(term_data)
         knew += 1 if terms.key?(term[:uri])
         next if terms.key?(term[:uri])
+        puts "++ New term: #{term[:uri]}" if terms.size > 5000 # Dubious... I think we're not quoting something...
         if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
           skipped += 1
           next
@@ -457,8 +475,6 @@ module Import
         return nil
       end
       trait[:page] = @traitbank_pages[page_id] || add_page(page_id)
-      trait[:object_page_id] = trait.delete(:association)
-      trait.delete(:object_page_id) if trait[:object_page_id] == 0
       res_id = @resource.id
       trait[:supplier] = @traitbank_suppliers[res_id] || add_supplier(res_id)
       pred = trait.delete(:predicate)
@@ -494,10 +510,10 @@ module Import
       trait[:source] = trait.delete(:source)
       # The rest of the keys are "just right" and will work as-is:
       begin
-        TraitBank.create_trait(trait.symbolize_keys)
+        TraitBank.create_trait(trait)
       rescue Excon::Error::Socket => e
         begin
-          TraitBank.create_trait(trait.symbolize_keys)
+          TraitBank.create_trait(trait)
         rescue
           log("WARNING: could not add trait with ID: #{trait[:resource_pk]} Page: "\
             "#{trait[:page][:data][:page_id]} Predicate: #{trait[:predicate][:data][:uri]}", cat: :warns)

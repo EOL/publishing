@@ -1,3 +1,6 @@
+<%# NOTE: I'm not sure why, but this ONLY works with #gsub!, NOT with #gsub in situ. Weird. %>
+<% params[:id].gsub!(/:/, "\\\\:") %>
 console.log("loaded row.");
+console.log("#this_is_a\\test");
 $(".meta_data").hide();
-$("#<%= params[:id] %>").html("<%= j(render("show", data: @data)) %>").show();
+$("#<%= params[:id].gsub(/:/, "\\\\:") %>").html("<%= j(render("show", data: @data)) %>").show();
