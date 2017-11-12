@@ -6,6 +6,8 @@ class ResourceApi
     # resource_data_set = params[:path]
     if params[:type]=="file"
       resource_data_set_file = params[:path].tempfile
+      file_name = params[:path].original_filename
+      debugger
       params[:path]=""
     end
     # resource_params = params.except!(:resource_data_set).to_json_with_active_support_encoder  
