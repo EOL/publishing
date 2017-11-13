@@ -63,11 +63,9 @@ class CollectedPagesController < ApplicationController
       params["collected_page"]["collected_pages_media_attributes"].has_key?("0")
     @media_exists =
       if has_media
-        if @collected_page
-          CollectedPagesMedium.where(
-            collected_page_id: @collected_page.id,
-            medium_id: params["collected_page"]["collected_pages_media_attributes"]["0"]["medium_id"]).count > 0
-        end
+        CollectedPagesMedium.where(
+          collected_page_id: @collected_page.id,
+          medium_id: params["collected_page"]["collected_pages_media_attributes"]["0"]["medium_id"]).count > 0
       end
     if @media_exists
       respond_to do |fmt|
@@ -98,11 +96,20 @@ class CollectedPagesController < ApplicationController
             page_media_path(@collected_page.page) :
             @collected_page.page
         end
-        fmt.js { }
+        fmt.js do 
+          render :json => { :msg => "ok" }
+        end
       end
     else
-      # TODO: some kind of hint as to the problem, in a flash...
-      render "new"
+      respond_to do |fmt|
+        fmt.html do 
+          render "new"
+        end
+        fmt.js do 
+          render :json => { :msg => "Something went wrong" }
+        end
+        # TODO: some kind of hint as to the problem, in a flash...
+      end
     end
   end
 

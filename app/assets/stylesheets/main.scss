@@ -513,15 +513,56 @@ body {
 
 /* Add to collection overlay */
 .col-overlay-contain {
-  padding-top: 30px;
-  text-align: center;
+  padding-top: 15px;
 }
 
 .col-overlay-contain > h2 {
   color: $white;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
+  text-align: center;
 }
+
+/* Collection select */
+.col-sel {
+  margin: 10px auto;
+  width: 250px;
+}
+
+.col-sel-item {
+  $height: 60px;
+
+  background: $white;
+  cursor: pointer;
+  height: $height;
+  line-height: $height;
+  text-align: center;
+}
+
+.col-sel-items {
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.is-col-sel-open {
+  .col-sel-items {
+    display: block;
+  }
+
+  .col-sel-choice {
+    background: $eol-gray;
+    color: $white;
+  }
+}
+
+/*
+.col-sel-caret {
+  float: right;
+  margin-right: 15px;
+}
+*/
 
 /* Model summary card */
 .summary-card {
@@ -574,4 +615,12 @@ body {
 .summary-card-hier {
   color: $hier-brown;
   font-size: 10px;
+}
+
+/* Variant for "collect page" overlay */
+.summary-card-col-page {
+  background: $white;
+  height: 60px;
+  margin: 0 auto;
+  width: 350px;
 }

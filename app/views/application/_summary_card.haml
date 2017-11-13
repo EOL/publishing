@@ -1,4 +1,4 @@
-.summary-card
+%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
   .summary-card-icon.summary-card-icon-main
     -if object.icon
       = image_tag(object.icon, :class => "image")

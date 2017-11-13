@@ -1,4 +1,19 @@
 %h2= "Add #{@page.title} to collection"
 
-= render :partial => "search/partial_search_result", :locals => { :result => @page }
+= render :partial => "application/summary_card", :locals => { :object => @page, :show_plus => false, :extra_class => "summary-card-col-page" }
+
+- if current_user && !current_user.collections.empty?
+  = form_for(@collected_page, :html => { :class => "col-sel js-col-sel" }, :remote => true) do |f|
+    = f.hidden_field :collection_id, :class => "js-col-sel-id"
+    = f.hidden_field :page_id
+    .col-sel-item.col-sel-choice.js-col-sel-choice
+      %span.js-col-sel-choice-name
+      %i.fa.fa-caret-down.fa-lg.col-sel-caret
+    %ul.col-sel-items
+      %li.col-sel-item.js-col-sel-null-item.js-col-sel-item{ :data => { :name => "existing collection", :id => "-1" }}  &horbar;
+      - current_user.collections.each do |col|
+        %li.col-sel-item.js-col-sel-item{ :data => { :name => col.name, :id => col.id } }= col.name
+    = f.submit "Add to collection"
+- else
+  %p You must be logged in to do that
 
