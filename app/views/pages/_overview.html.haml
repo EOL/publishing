@@ -7,7 +7,7 @@
         - ancestors = node.ancestors
         - shown_ellipsis = false
         - ancestors.each do |node|
-          - unless node.has_breadcrumb?
+          - unless node.use_breadcrumb?
             - unless shown_ellipsis
               = link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
               - shown_ellipsis = true

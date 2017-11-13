@@ -77,12 +77,6 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.integer :rank_id,
         comment: "note that this is neither trustworthy nor 'scientific', but it's useful for matching and for the community"
       t.integer :parent_id, index: true, comment: "null means root node"
-      # NOTE: We talked about removing these, but nested_set actually makes
-      # really good use of them, so I am keeping them:
-      t.integer :lft,
-        comment: "nested set; lft is roughly how many set boundaries are to the left of this node"
-      t.integer :rgt,
-        comment: "nested set; rgt is roughly the rightmost set boundary of this node's descendants"
 
       t.string :scientific_name, comment: "denormalized, italics included"
       t.string :canonical_form, comment: "denormalized, italics included"
@@ -95,13 +89,10 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.boolean :is_hidden, null: false, default: false
       t.boolean :in_unmapped_area, null: false, default: false
 
-      t.integer :depth, :null => false, :default => 0
       t.integer :children_count, :null => false, :default => 0
 
       t.timestamps null: false
     end
-    add_index :nodes, [:resource_id, :rgt], name: "resource_rgt_index"
-    add_index :nodes, [:resource_id, :lft], name: "resource_lft_index"
 
     create_table :identifiers do |t|
       t.integer :resource_id, index: true, null: false
@@ -116,21 +107,16 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
         comment: "enum: r_domain r_kingdom r_phylum r_class r_order r_family r_genus r_species; when null, rank is ignored"
     end
 
-    # NOTE: there is no resource_id here because we'll never need all of the
-    # ancestors for a resource on this website. That's only used for harvesting.
     create_table :node_ancestors do |t|
-      t.integer :node_id, index: true, null: false
-      t.integer :ancestor_id, index: true, null: false,
-        comment: "another node id"
-      t.integer :position, null: false,
-        comment: "how deep down from the root (0)"
-
-      t.timestamps null: false
+      t.integer :resource_id, null: false
+      t.integer :node_id, index: true, comment: "the id of the descendant node"
+      t.integer :ancestor_id, index: true, comment: "the id of the node which is an ancestor"
+      t.string :node_resource_pk, index: true
+      t.string :ancestor_resource_pk, index: true
     end
 
-    # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a
-    # separate table entirely. No sense in having a text field that is usually
-    # empty.
+    # Since taxon_remarks are relatively rare (1.4M / 40M), we store them in a separate table entirely. No sense in
+    # having a text field that is usually empty.
     create_table :taxon_remarks do |t|
       t.integer :node_id, index: true
       t.text :body,
@@ -151,6 +137,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # we DO really need an id field on this table, because we curate these.
     create_table :page_contents do |t|
       t.integer :page_id, null: false, index: true, comment: "the content is shown on this page."
+      t.integer :resource_id, null: false, comment: "denormalized."
       t.integer :source_page_id, null: false, index: true,
         comment: "which page the content was *propaged from* (can == page_id)."
       t.integer :position, comment: "the order in which to show the content on the page"
@@ -226,26 +213,22 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table :image_info do |t|
-      t.integer :image_id, null: false, index: true, unique: true,
-        comment: "not polymorphic--only needed for images"
-      t.string :original_size, null: false, limit: 12,
-        comment: "e.g.: 1600x1200"
+      t.integer :resource_id, null: false, comment: "denormalized"
+      t.integer :medium_id, null: false, index: true, unique: true, comment: "not polymorphic--only needed for images"
+      t.string :original_size, null: false, limit: 12, comment: "e.g.: 1600x1200"
       t.string :large_size, limit: 12, comment: "e.g.: 1024x768"
       t.string :medium_size, limit: 12, comment: "e.g.: 600x400"
       t.string :small_size, limit: 12, comment: "e.g.: 100x80"
-      t.decimal :crop_x, precision: 5, scale: 2,
-        comment: "left edge, as a percent"
-      t.decimal :crop_y, precision: 5, scale: 2,
-        comment: "top edge, as a percent"
-      t.decimal :crop_w, precision: 5, scale: 2,
-        comment: "width (and thus height), as a percent"
+      t.decimal :crop_x, precision: 5, scale: 2, comment: "left edge, as a percent"
+      t.decimal :crop_y, precision: 5, scale: 2, comment: "top edge, as a percent"
+      t.decimal :crop_w, precision: 5, scale: 2, comment: "width (and thus height), as a percent"
 
       t.timestamps null: false
     end
 
-    # NOTE: the FK is in the content table, which helps us know if there IS a
-    # location for a given piece of content.
+    # NOTE: the FK is in the content table, which helps us know if there IS a location for a given piece of content.
     create_table :locations do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :location
       t.decimal :longitude, precision: 64, scale: 12
       t.decimal :latitude, precision: 64, scale: 12
@@ -254,10 +237,12 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     end
 
     create_table :javascripts do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :filename, null: false
     end
 
     create_table :stylesheets do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.string :filename, null: false
     end
 
@@ -372,6 +357,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
     # If you want to cite this article on EOL, use this citation. It describes
     # "this content." Appears in the attribution information for the content.
     create_table :bibliographic_citations do |t|
+      t.integer :resource_id, null: false, comment: 'denormalized'
       t.text :body, comment: "html; can be *quite* large (over 10K chrs)"
 
       t.timestamps null: false

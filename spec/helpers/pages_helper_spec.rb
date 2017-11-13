@@ -15,19 +15,24 @@ describe PagesHelper do
     let(:penultimate_ancestor) { instance_double("Node", has_breadcrumb?: true,
       rank: rank_class, scientific_name: "Sci bar") }
     let(:last_ancestor) { instance_double("Node", has_breadcrumb?: true) }
+    let(:n_a_invisible_ancestor) { instance_double("NodeAncestor", ancestor: invisible_ancestor) }
+    let(:n_a_first_ancestor) { instance_double("NodeAncestor", ancestor: first_ancestor) }
+    let(:n_a_an_ancestor) { instance_double("NodeAncestor", ancestor: an_ancestor) }
+    let(:n_a_penultimate_ancestor) { instance_double("NodeAncestor", ancestor: penultimate_ancestor) }
+    let(:n_a_last_ancestor) { instance_double("NodeAncestor", ancestor: last_ancestor) }
 
     let(:node) do
-      instance_double("Node", ancestors: [invisible_ancestor, first_ancestor,
-        penultimate_ancestor, last_ancestor])
+      instance_double("Node", node_ancestors: [n_a_invisible_ancestor, n_a_first_ancestor,
+        n_a_penultimate_ancestor, n_a_last_ancestor])
     end
 
     let(:node_with_an) do
-      instance_double("Node", ancestors: [invisible_ancestor, an_ancestor,
-        penultimate_ancestor, last_ancestor])
+      instance_double("Node", node_ancestors: [n_a_invisible_ancestor, n_a_an_ancestor,
+        n_a_penultimate_ancestor, n_a_last_ancestor])
     end
 
     let(:top_node) do
-      instance_double("Node", ancestors: [invisible_ancestor])
+      instance_double("Node", node_ancestors: [n_a_invisible_ancestor])
     end
 
     context "simple page" do

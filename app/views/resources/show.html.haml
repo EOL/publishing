@@ -1,4 +1,30 @@
-%h1
-  TODO
+%h1= @resource.name
 
 Sorry, we haven't built this page view, yet.
+
+%h2
+  Sample page
+
+With media:
+- if (contn = PageContent.where(resource_id: @resource.id).first)
+  = link_to_page_by_name(contn.source_page)
+- else
+  (none)
+
+- if @resource.import_logs.empty?
+  This resource has not been imported yet.
+- else
+  %h2
+    Imports:
+  %ul.uk-list
+    - @resource.import_logs.each do |log|
+      %li
+        %b= link_to(l(log.created_at, format: :long), [@resource, log])
+        - if log.completed_at
+          %b= "Completed:"
+          = l(log.completed_at, format: '%H:%M:%S.%3N')
+        - elsif log.failed_at
+          %b= "Failed:"
+          = l(log.failed_at, format: '%H:%M:%S.%3N')
+        %b= "Status:"
+        = log.status

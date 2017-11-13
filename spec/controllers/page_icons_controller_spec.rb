@@ -4,8 +4,7 @@ RSpec.describe PageIconsController do
   let(:page) { create(:page) }
   let(:image) { create(:image, name: "BurtImage") }
   let(:user) { create(:user) }
-  let!(:page_content) { PageContent.create(page: page, content: image,
-    source_page_id: page.id) }
+  let!(:page_content) { PageContent.create(page: page, content: image, source_page_id: page.id, resource_id: 1) }
 
   before do
     allow(controller).to receive(:current_user) { user }

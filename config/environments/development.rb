@@ -45,8 +45,8 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-Rails.configuration.repository_url = 'http://localhost:3000'
-Rails.configuration.x.image_path.original = '_orig'
+Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'http://localhost:3000'
+Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '_orig'
 Rails.configuration.x.image_path.ext = '.jpg'
-Rails.configuration.x.image_path.join = '_'
-Rails.configuration.x.image_path.by = '_'
+Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '_'
+Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || '_'

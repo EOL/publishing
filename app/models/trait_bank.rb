@@ -533,25 +533,24 @@ class TraitBank
         end
         # TODO: extract method
         if hash.has_key?(:meta)
-        raise "Metadata not returned as an array" unless
-          hash[:meta].is_a?(Array)
-        length = hash[:meta].size
-          raise "Missing meta column meta_predicate: #{hash.keys}" unless
-            hash.has_key?(:meta_predicate)
+          raise "Metadata not returned as an array" unless hash[:meta].is_a?(Array)
+          length = hash[:meta].size
+          raise "Missing meta column meta_predicate: #{hash.keys}" unless hash.has_key?(:meta_predicate)
           [:meta_predicate, :meta_units_term, :meta_object_term].each do |col|
             next unless hash.has_key?(col)
-              # debugger unless
-              #   hash[col].size == length
-              raise ":#{col} data was not the same size as :meta" unless
-                hash[col].size == length
+            raise ":#{col} data was not the same size as :meta" unless hash[col].size == length
           end
+          hash[:meta].compact!
           hash[:metadata] = []
-          hash[:meta].each_with_index do |meta, i|
-            m_hash = meta
-            m_hash[:predicate] = hash[:meta_predicate][i]
-            m_hash[:object_term] = hash[:meta_object_term][i]
-            m_hash[:units] = hash[:meta_units_term][i]
-            hash[:metadata] << m_hash
+          unless hash[:meta].empty?
+            hash[:meta].each_with_index do |meta, i|
+              m_hash = meta
+              debugger if meta.nil?
+              m_hash[:predicate] = hash[:meta_predicate][i]
+              m_hash[:object_term] = hash[:meta_object_term][i]
+              m_hash[:units] = hash[:meta_units_term][i]
+              hash[:metadata] << m_hash
+            end
           end
         end
         if has_trait
@@ -723,9 +722,18 @@ class TraitBank
         Array(options[:section_ids]).join(",") : ""
       options[:definition] ||= "{definition missing}"
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
-      term_node = connection.create_node(options)
-      # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-      connection.set_label(term_node, "Term")
+      begin
+        term_node = connection.create_node(options)
+        # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
+        connection.set_label(term_node, "Term")
+        # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
+        # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
+        count = Rails.cache.read("trait_bank/terms_count")
+        Rails.cache.write("trait_bank/terms_count", count + 1)
+      rescue => e
+        debugger
+        raise e
+      end
       term_node
     end
 
@@ -736,9 +744,11 @@ class TraitBank
     end
 
     def term(uri)
-      res = query("MATCH (term:Term { uri: '#{uri}' }) RETURN term")
+      @terms ||= {}
+      return @terms[uri] if @terms.key?(uri)
+      res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
       return nil unless res["data"] && res["data"].first
-      res["data"].first.first
+      @terms[uri] = res["data"].first.first
     end
 
     def update_term(opts)

@@ -16,7 +16,8 @@ module DataHelper
         show_meta_data(datum)
       end
     end
-    show_definition(data[:units])
+    show_definition(data[:units]) if data[:units]
+    show_definition(data[:predicate]) if data[:predicate]
     show_definition(data[:object_term]) if data[:object_term]
     show_source(data[:source]) if data[:source]
   end
@@ -45,12 +46,17 @@ module DataHelper
 
   def show_data_value(data)
     value = t(:data_missing, keys: data.keys.join(", "))
-    if data[:object_page_id] && defined?(@associations)
-      target = @associations.find { |a| a.id == data[:object_page_id] }
-      if target.nil?
-        haml_concat "[page #{data[:object_page_id]} not imported]"
+    if data[:object_page_id]
+      if defined?(@associations)
+        target = @associations.find { |a| a.id == data[:object_page_id] }
+        if target.nil?
+          haml_concat "[page #{data[:object_page_id]} not imported]"
+        else
+          summarize(target, options = {})
+        end
       else
-        summarize(target, options = {})
+        haml_concat "MISSING PAGE: "
+        haml_concat value
       end
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
@@ -63,6 +69,7 @@ module DataHelper
       haml_concat unlink(data[:literal]).html_safe
     else
       haml_concat "OOPS: "
+      debugger
       haml_concat value
     end
   end
@@ -82,9 +89,11 @@ module DataHelper
   end
 
   def show_source(src)
-    haml_tag(:tr) do
-      haml_tag(:th, I18n.t(:data_source))
-      haml_tag(:td, unlink(src))
+    haml_tag(:div, class: "ui secondary segment") do
+      haml_concat I18n.t(:data_source)
+    end
+    haml_tag(:div, class: "ui tertiary segment") do
+      haml_concat unlink(src).html_safe
     end
   end
 

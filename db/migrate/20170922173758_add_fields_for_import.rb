@@ -22,6 +22,21 @@ class AddFieldsForImport < ActiveRecord::Migration
     add_column :resources, :abbr, :string
     add_column :resources, :repository_id, :integer # NOTE: no need for index, never queried.
     add_column :partners, :repository_id, :integer # NOTE: no need for index, never queried.
+
+    create_table :import_logs do |t|
+      t.integer :resource_id, null: false
+      t.datetime :completed_at
+      t.datetime :failed_at
+      t.string :status, comment: 'amounts to the last message of the log.'
+      t.timestamps
+    end
+
+    create_table :import_events do |t|
+      t.integer :import_log_id, null: false
+      t.integer :cat, comment: 'enum: infos warnings errors starts ends urls'
+      t.text :body
+      t.timestamps
+    end
   end
 end
 # The year is from GNA:

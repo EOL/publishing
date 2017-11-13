@@ -17,8 +17,8 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 end
 
-Rails.configuration.repository_url = 'https://beta-repo.eol.org'
-Rails.configuration.x.image_path.original = '' # Yes, nothing.
+Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'https://beta-repo.eol.org'
+Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '' # Yes, nothing.
 Rails.configuration.x.image_path.ext = '.jpg'
-Rails.configuration.x.image_path.join = '.'
-Rails.configuration.x.image_path.by = 'x'
+Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '.'
+Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || 'x'

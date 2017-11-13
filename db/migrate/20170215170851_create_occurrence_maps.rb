@@ -6,6 +6,7 @@ class CreateOccurrenceMaps < ActiveRecord::Migration
     # JSON with the occurrence data will be in the "public/maps/%{page.id %
     # 100}" directory. Things will break mightily if it's missing.
     create_table :occurrence_maps do |t|
+      t.integer :resource_id
       t.integer :page_id
       t.string :url, limit: 256
     end
