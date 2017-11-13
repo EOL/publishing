@@ -88,7 +88,7 @@ RSpec.configure do |config|
 
   config.after(:each) do
     # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
-    Rails.cache.clear if Rails.cache
+    Rails.cache.clear if Rails.cache && !Rails.env.test?
     # Important to clear the language cache:
     Language.remove_instance_variable :@current if
       Language.instance_variable_defined?(:@current)

@@ -10,6 +10,18 @@ With media:
   = link_to_page_by_name(contn.source_page)
 - else
   (none)
+%br
+With synonyms:
+- if (name = ScientificName.where(resource_id: @resource.id, is_preferred: false).first)
+  = link_to_page_by_name(name.node.page)
+- else
+  (none)
+%br
+With vernaculars:
+- if (name = Vernacular.where(resource_id: @resource.id).first)
+  = link_to_page_by_name(name.node.page)
+- else
+  (none)
 
 - if @resource.import_logs.empty?
   This resource has not been imported yet.
