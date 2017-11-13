@@ -8,7 +8,6 @@
       PARAMETERS = nil
 
       class << self
-        Rails.application.routes.default_url_options[:host] = ActionMailer::Base.default_url_options[:host] || EOL::Server.domain
         include Rails.application.routes.url_helpers # for using user_url(id) type methods
 
         def brief_description

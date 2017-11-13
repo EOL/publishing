@@ -11,8 +11,8 @@ development:
   host: localhost
   # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Set your environment
   # variables.
-  username: <%= ENV['EOL_DB_DEVEL_USERNAME'] %>
-  password: <%= ENV['EOL_DB_DEVEL_PASSWORD'] %>
+  username: root
+  password: <%= ENV['database_pass'] %>
   database: eol_development
 
 test: &test
@@ -34,8 +34,7 @@ staging:
 
 production:
   <<: *common
-  host: <%= ENV['EOL_DB_HOST'] %>
-  port: <%= ENV['EOL_DB_PORT'] %>
-  database: <%= ENV['EOL_DB_PROD_NAME'] %>
-  username: <%= ENV['EOL_DB_PROD_USERNAME'] %>
-  password: <%= ENV['EOL_DB_PROD_PASSWORD'] %>
+  host: localhost
+  database: eol_development
+  username: root
+  password: <%= ENV['database_pass'] %>

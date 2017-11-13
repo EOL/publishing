@@ -18,7 +18,7 @@ module Api
           :name => 'id',
           :type => String,
           :required => true,
-          :test_value => (Page.find_by_id(328598) || Page.last).id ),
+          :test_value => 1),
           Api::DocumentationParameter.new(
           :name => 'images_per_page',
           :type => Integer,

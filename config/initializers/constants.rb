@@ -1,1 +1,1 @@
-DEFAULT_CONTENT_PARTNER_LOGO = "/home/ba/Pictures/images.jpg"
+DEFAULT_CONTENT_PARTNER_LOGO = "/home/a-amorad/images.jpg"

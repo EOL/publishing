@@ -1,11 +1,10 @@
 class ContentPartnerApi
-  @schedular_uri = 'http://172.16.0.161:80/scheduler'
-  @storage_uri = 'http://172.16.0.99:80/eol/archiver'
+  @schedular_uri = ENV['schedular_ip']
+  @storage_uri = ENV['storage_ip']
   
   def self.add_content_partner?(params, current_user_id)
     logo = params[:logo].nil? ? File.new(DEFAULT_CONTENT_PARTNER_LOGO, 'rb') : params[:logo]
     begin
-      debugger
       #TODO: change base uri to send to storage layer first and only when you get logo path back send all info to (logo path + info) schedular
       logo_request = RestClient::Request.new(
         :method => :post,
@@ -15,7 +14,6 @@ class ContentPartnerApi
       logo_response = logo_request.execute
       logo_path = logo_reponse 
 #       
-      debugger
       c=o
       request =RestClient::Request.new(
         :method => :post,
