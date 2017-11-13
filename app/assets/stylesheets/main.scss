@@ -9,6 +9,9 @@ $base-color: rgb(51, 51, 51);
 // TODO: move
 $hier-brown: #b17400;
 $plus-hover-green: #25bc1f;
+$col-sel-submit-green: #25991f;
+
+$col-sel-item-height: 60px;
 
 html {
   box-sizing: border-box;
@@ -488,6 +491,19 @@ body {
   text-decoration: none;
 }
 
+/* buttons */
+.btn {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  height: $col-sel-item-height;
+  line-height: $col-sel-item-height;
+  padding: none;
+  text-align: center;
+  width: 100%;
+}
+
 /* Semi-transparent overlay */
 .overlay {
   background: rgba(82, 82, 82, 0.83);
@@ -526,16 +542,16 @@ body {
 /* Collection select */
 .col-sel {
   margin: 10px auto;
+  position: relative;
   width: 250px;
 }
 
 .col-sel-item {
-  $height: 60px;
-
   background: $white;
+  border-bottom: 1px solid $eol-gray;
   cursor: pointer;
-  height: $height;
-  line-height: $height;
+  height: $col-sel-item-height;
+  line-height: $col-sel-item-height;
   text-align: center;
 }
 
@@ -544,6 +560,14 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
+  position: absolute;
+  top: $col-sel-item-height;
+  width: 100%;
+}
+
+.btn-col-sel {
+  background: $col-sel-submit-green;
+  color: $white;
 }
 
 .is-col-sel-open {

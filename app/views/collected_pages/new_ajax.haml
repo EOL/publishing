@@ -13,7 +13,7 @@
       %li.col-sel-item.js-col-sel-null-item.js-col-sel-item{ :data => { :name => "existing collection", :id => "-1" }}  &horbar;
       - current_user.collections.each do |col|
         %li.col-sel-item.js-col-sel-item{ :data => { :name => col.name, :id => col.id } }= col.name
-    = f.submit "Add to collection"
+    = f.submit "Add to collection", :class => "btn btn-col-sel"
 - else
   %p You must be logged in to do that
 
