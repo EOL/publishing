@@ -12,11 +12,12 @@ class ContentPartners::ResourcesController < ContentPartnersController
                         default_rights_holder: params[:resource][:default_rights_holder], default_rights_statement: params[:resource][:default_rights_statement],
                         default_license_string: params[:resource][:default_license_string], default_language_id: params[:resource][:default_language_id]}
     @resource = Resource.new(resource_params)
+    @resource.flag = true
     if @resource.valid?
       result = ResourceApi.add_resource?(resource_params, params[:content_partner_id])
-      if result
+      if !result.nil?
         flash.now[:notice] = :successfuly_created_resource
-        redirect_to root_url
+        redirect_to controller: 'resources', action: 'show', id: result
       else
         flash.now[:notice] = :error_in_connection
         render action: 'new'
@@ -41,9 +42,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
                         default_rights_holder: params[:resource][:default_rights_holder], default_rights_statement: params[:resource][:default_rights_statement],
                         default_license_string: params[:resource][:default_license_string], default_language_id: params[:resource][:default_language_id]}
     @resource = Resource.new(resource_params)
+    @resource.flag = false
     if @resource.valid?
       result = ResourceApi.update_resource?(resource_params, params[:content_partner_id],params[:id])
-      if result
+      if !result.nil?
         flash.now[:notice] = :successfuly_updated_resource
         redirect_to root_url
       else

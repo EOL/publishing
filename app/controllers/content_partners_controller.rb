@@ -11,11 +11,12 @@ class ContentPartnersController < ApplicationController
     @content_partner = ContentPartner.new(content_partner_params)
     if @content_partner.valid?
       result = ContentPartnerApi.add_content_partner?(content_partner_params, current_user.id)
-      if result
+      
+      if !result.nil?
         flash[:notice] = :successfuly_created_content_partner
-        redirect_to root_url
+        redirect_to controller: 'content_partners', action: 'show', id: result
       else
-        flash[:notice] = :error_in_connection
+        flash.now[:notice] = :error_in_connection
         render action: 'new'
       end
     else

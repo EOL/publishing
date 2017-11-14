@@ -24,14 +24,14 @@
       created at
     %td
       = @content_partner.created_at
-
-  %tr
-    %th
-      resources
-      %ul
-        - @content_partner.resources.each do |resource|
-          %li
-            = link_to(resource.name, content_partner_resource_path(@content_partner.id, resource.id))
+  -if !@content_partner.resources.nil?
+    %tr
+      %th
+        resources
+        %ul
+          - @content_partner.resources.each do |resource|
+            %li
+              = link_to(resource.name, content_partner_resource_path(@content_partner.id, resource.id))
       
   %tr
     %th
@@ -43,4 +43,7 @@
     %th
       - if current_user && current_user.can_update?(@content_partner)
         = link_to("edit content partner", edit_content_partner_path(@content_partner.id), class: "button")
+  %tr
+    %th
+      = link_to("add resource ", new_content_partner_resource_path(@content_partner.id), class: "button")
 

@@ -31,9 +31,9 @@ class ResourceApi
           :payload => {resId: resource_id, file: resource_data_set_file, isOrg: 1 }
         )
         response_storage = request.execute
-        true
+        resource_id
       rescue => e
-        false
+        nil
       end
       if(response_storage)
         params[:path]="/eol_workspace/resources/#{resource_id}/"
@@ -50,21 +50,21 @@ class ResourceApi
             :payload=> resource_params.to_json
           )
           response = request.execute
-          true
+          resource_id
         rescue => e
-          false
+          nil
         end
       end
     end
-      true
+      resource_id
     rescue => e
-      false
+      nil
     end
     
   end
   
   def self.update_resource?(params, content_partner_id,resource_id)
-    if params[:type]=="file"
+    if params[:type]=="file" && !params[:path].nil?
       resource_data_set_file = params[:path].tempfile
       params[:path]=""
       begin
@@ -74,9 +74,9 @@ class ResourceApi
           :payload => {resId: resource_id, file: resource_data_set_file, isOrg: 1 }
         )
         response_storage = request.execute
-        true
+        resource_id
       rescue => e
-        false
+        nil
       end
       if(response_storage)
         params[:path]="/eol_workspace/resources/#{resource_id}/"
@@ -94,9 +94,9 @@ class ResourceApi
         :payload=> resource_params.to_json
       )
       response = request.execute
-      true
+      resource_id
     rescue => e
-      false
+      nil
     end
   end
   
