@@ -23,9 +23,9 @@ def main_method
             create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           end
           
-          unless node["nodeData"]["ancestors"].nil?
-            build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
-          end
+          # unless node["nodeData"]["ancestors"].nil?
+            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+          # end
            
         end      
       end    
@@ -107,15 +107,15 @@ def create_location()
 end
 
 def create_page(params)
-  debugger
   unless params[:id].nil?
     res = Page.where(id: params[:id])
     if res.count > 0
       res.first.id
     else
-      native_node_id = params[:resource_id] == DYNAMIC_HIERARCHY_RESOURCE_ID ? params[:node_id] : nil 
-      page = Page.create(id: params[:id], native_node_id: native_node_id, iucn_status: params[:iucn_status])
-      page.id
+      if params[:resource_id] == DYNAMIC_HIERARCHY_RESOURCE_ID
+        page = Page.create(id: params[:id], native_node_id: params[:node_id], iucn_status: params[:iucn_status])
+        page.id
+      end
     end
     else
       nil    
