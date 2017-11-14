@@ -10,7 +10,7 @@
       %span.js-col-sel-choice-name
       %i.fa.fa-caret-down.fa-lg.col-sel-caret
     %ul.col-sel-items
-      %li.col-sel-item.js-col-sel-null-item.js-col-sel-item{ :data => { :name => "existing collection", :id => "-1" }}  &horbar;
+      %li.col-sel-item.js-col-sel-null-item.js-col-sel-item{ :data => { :name => "existing collection" } }  &horbar;
       - current_user.collections.each do |col|
         - classes = ["col-sel-item", "js-col-sel-item"]
         - if col.pages.include? @page.object
@@ -18,7 +18,7 @@
         %li{ :class => classes, :data => { :name => col.name, :id => col.id } }
           %span= col.name
           %i.fa.fa-check.fa-lg.col-sel-item-check
-    = f.submit "Add to collection", :class => "btn btn-col-sel"
+    = f.submit "Add to collection", :class => "btn btn-col-sel is-hidden js-col-sel-submit"
 - else
   %p You must be logged in to do that
 

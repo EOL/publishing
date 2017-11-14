@@ -44,13 +44,21 @@
 
   function setColSelectChoice() {
     var $form = $(this).closest('.js-col-sel')
+      , $submit = $form.find('.js-col-sel-submit')
       , $choice = $form.find('.js-col-sel-choice')
       , $field = $form.find('.js-col-sel-id')
+      , id = $(this).data('id')
       ; 
 
     $field.attr('value', $(this).data('id'));
     $choice.find('.js-col-sel-choice-name').html($(this).data('name'));
     closeColSelect.call($choice);
+
+    if (id) {
+      $submit.removeClass('is-hidden');
+    } else {
+      $submit.addClass('is-hidden');
+    }
   }
   
   function buildColSelect($elmt) {
