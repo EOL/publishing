@@ -16,7 +16,10 @@
       success: function(rslt) {
         var $contain = $('#col-overlay .col-overlay-contain');
         $contain.html($(rslt));
-        applyBehaviors($contain);
+        buildColSelect($contain.find('.js-col-sel'));
+        $contain.find('.js-col-sel').on('ajax:success', function(e, data) {
+          $contain.append($(data));
+        });
       }
     });
   }
@@ -56,12 +59,7 @@
     setColSelectChoice.call($elmt.find('.js-col-sel-item').first());
   }
 
-  function applyBehaviors($root) {
-    $root.find('.js-add-to-col').click(addToCol);
-    buildColSelect($('.js-col-sel'));
-  }
-
   $(function() {
-    applyBehaviors($('body'));
+    $('.js-add-to-col').click(addToCol);
   });
 })();

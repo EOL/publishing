@@ -9,9 +9,6 @@ $base-color: rgb(51, 51, 51);
 // TODO: move
 $hier-brown: #b17400;
 $plus-hover-green: #25bc1f;
-$col-sel-submit-green: #25991f;
-
-$col-sel-item-height: 60px;
 
 html {
   box-sizing: border-box;
@@ -493,12 +490,13 @@ body {
 
 /* buttons */
 .btn {
+  $height: 60px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
-  height: $col-sel-item-height;
-  line-height: $col-sel-item-height;
+  height: $height;
+  line-height: $height;
   padding: none;
   text-align: center;
   width: 100%;
@@ -527,66 +525,6 @@ body {
   top: 10px;
 }
 
-/* Add to collection overlay */
-.col-overlay-contain {
-  padding-top: 15px;
-}
-
-.col-overlay-contain > h2 {
-  color: $white;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: center;
-}
-
-/* Collection select */
-.col-sel {
-  margin: 10px auto;
-  position: relative;
-  width: 250px;
-}
-
-.col-sel-item {
-  background: $white;
-  border-bottom: 1px solid $eol-gray;
-  cursor: pointer;
-  height: $col-sel-item-height;
-  line-height: $col-sel-item-height;
-  text-align: center;
-}
-
-.col-sel-items {
-  display: none;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: $col-sel-item-height;
-  width: 100%;
-}
-
-.btn-col-sel {
-  background: $col-sel-submit-green;
-  color: $white;
-}
-
-.is-col-sel-open {
-  .col-sel-items {
-    display: block;
-  }
-
-  .col-sel-choice {
-    background: $eol-gray;
-    color: $white;
-  }
-}
-
-/*
-.col-sel-caret {
-  float: right;
-  margin-right: 15px;
-}
-*/
 
 /* Model summary card */
 .summary-card {
@@ -646,5 +584,5 @@ body {
   background: $white;
   height: 60px;
   margin: 0 auto;
-  width: 350px;
+  width: $card-width;
 }

@@ -1,4 +1,4 @@
-%h2= "Add #{@page.title} to collection"
+%h2= "Add #{@page.title} to collection".html_safe
 
 = render :partial => "application/summary_card", :locals => { :object => @page, :show_plus => false, :extra_class => "summary-card-col-page" }
 

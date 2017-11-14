@@ -1,0 +1,10 @@
+- num_icons = 6
+.collect-card
+  .collect-card-top
+    .collect-card-name= @collection.name
+    .collect-card-count= @collection.pages.count
+  %ul.collect-card-icons
+    - for i in 0...num_icons do
+      %li.collect-card-icon>
+        -if i < @collection.pages.length
+          = image_tag @collection.pages[i].icon # TODO: what's the right way to do this?
