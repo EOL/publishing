@@ -12,7 +12,7 @@ class ContentPartnersController < ApplicationController
     if @content_partner.valid?
       result = ContentPartnerApi.add_content_partner?(content_partner_params, current_user.id)
       if result
-        flash[:notice] = :successfuly_created_resource
+        flash[:notice] = :successfuly_created_content_partner
         redirect_to root_url
       else
         flash[:notice] = :error_in_connection

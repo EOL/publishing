@@ -547,6 +547,7 @@ en:
         password_confirmation:
         username:
   successfuly_created_resource: "Successfully created resource."
+  successfuly_created_content_partner: "Successfully created content partner."
   Successfully_updated_content_partner:  "Successfully updated content partner."
   successfuly_updated_resource: "Successfully updated resource."
   term:
