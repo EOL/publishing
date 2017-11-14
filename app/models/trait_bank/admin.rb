@@ -58,6 +58,7 @@ class TraitBank
       def remove_all_data_leave_terms
         query("MATCH (meta:MetaData) DETACH DELETE meta")
         query("MATCH (trait:Trait) DETACH DELETE trait")
+        query("MATCH (page:Page) DETACH DELETE page")
         query("MATCH (res:Resource) DETACH DELETE res")
       end
 

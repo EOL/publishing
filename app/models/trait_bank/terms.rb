@@ -5,10 +5,13 @@ class TraitBank
       delegate :query, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
 
-      def count
-        Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
+      def count(options = {})
+        hidden = options[:include_hidden]
+        key = "trait_bank/terms_count"
+        key += "/include_hidden" if hidden
+        Rails.cache.fetch(key, expires_in: 1.day) do
           res = query(
-            "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+            "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "WITH count(distinct(term.uri)) AS count "\
             "RETURN count")
           res && res["data"] ? res["data"].first.first : false
@@ -18,9 +21,11 @@ class TraitBank
       def full_glossary(page = 1, per = nil, options = {})
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
-        Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
-          # "RETURN term ORDER BY term.name, term.uri"
-          q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+        hidden = options[:include_hidden]
+        key = "trait_bank/full_glossary/#{page}"
+        key += "/include_hidden" if hidden
+        Rails.cache.fetch(key, expires_in: 1.day) do
+          q = "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
           q += limit_and_skip_clause(page, per)
           res = query(q)

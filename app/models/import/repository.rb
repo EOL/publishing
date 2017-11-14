@@ -23,6 +23,7 @@ module Import
     end
 
     def start
+      require 'csv'
       log("Starting import run...")
       get_import_run
       get_resources
@@ -381,25 +382,45 @@ module Import
       log('import_associations')
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/assocs.json?"
       count = 0
+      trait_rows = []
+      meta_rows = []
+      # TODO: review this list, make sure it's exhaustive. I doubt it is.
+      trait_rows << %i[page_id scientific_name resource_pk predicate sex lifestage statistical_method source
+         target_page_id target_scientific_name value_uri value_literal value_num units]
+      meta_rows << %i[trait_resource_pk predicate value_literal value_num value_uri units sex lifestage statistical_method source]
       loop_over_pages(url, "assocs") do |assoc_data|
         assoc = underscore_hash_keys(assoc_data)
-        # TEMP: Eventually, we'd like to store metadata about an object page, but in the meantime:
-        assoc.delete(:target_scientific_name)
-        # Just a slight rename:
-        assoc[:object_page_id] = assoc.delete(:target_page_id)
-        worked = import_trait(assoc)
-        count += 1 if worked
+        row = []
+        trait_rows.first.each do |header|
+          row << assoc[header]
+        end
+        trait_rows << row
+        meta = assoc_data.delete(:metadata)
+        meta_rows.first do |header|
+          if header == :trait_resource_pk
+            meta_rows << assoc[:resource_pk]
+          else
+            meta_rows << meta[header]
+          end
+        end
+        meta_rows << row
       end
-      log("Created #{count} associations.")
+      # TODO: better file names:
+      CSV.open(Rails.public_path.join('traits.csv'), 'w') { |csv| trait_rows.each { |row| csv << row } }
+      CSV.open(Rails.public_path.join('meta_traits.csv'), 'w') { |csv| meta_rows.each { |row| csv << row } }
+      count = TraitBank.slurp_traits(@resource.id)
+      log("Created #{count} associations (including metadata).")
     end
 
     def get_existing_terms
       terms = {}
-      count = TraitBank::Terms.count
+      Rails.cache.delete("trait_bank/terms_count/include_hidden")
+      count = TraitBank::Terms.count(include_hidden: true)
       per = 2000
       pages = (count / per.to_f).ceil
       (1..pages).each do |page|
-        TraitBank::Terms.full_glossary(page, per).compact.map { |t| t[:uri] }.each { |uri| terms[uri] = true }
+        Rails.cache.delete("trait_bank/full_glossary/#{page}/include_hidden")
+        TraitBank::Terms.full_glossary(page, per, include_hidden: true).compact.map { |t| t[:uri] }.each { |uri| terms[uri] = true }
       end
       terms
     end
@@ -415,11 +436,11 @@ module Import
         term = underscore_hash_keys(term_data)
         knew += 1 if terms.key?(term[:uri])
         next if terms.key?(term[:uri])
-        puts "++ New term: #{term[:uri]}" if terms.size > 5000 # Dubious... I think we're not quoting something...
         if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
           skipped += 1
           next
         end
+        puts "++ New term: #{term[:uri]}" if terms.size > 1000 # Don't bother saying if we didn't have any at all!
         new_terms += 1
         # TODO: section_ids
         term[:type] = term[:used_for]
@@ -474,7 +495,7 @@ module Import
         log("Skipping trait with no page_id: #{trait.inspect}", cat: :warns)
         return nil
       end
-      trait[:page] = @traitbank_pages[page_id] || add_page(page_id)
+      trait[:page] = find_or_add_page(page_id)
       res_id = @resource.id
       trait[:supplier] = @traitbank_suppliers[res_id] || add_supplier(res_id)
       pred = trait.delete(:predicate)
@@ -521,19 +542,19 @@ module Import
       end
     end
 
-    def add_page(page_id)
+    def find_or_add_page(page_id)
+      return @traitbank_pages[page_id] if @traitbank_pages.key?(page_id)
       tb_page = TraitBank.create_page(page_id)
       tb_page = tb_page.first if tb_page.is_a?(Array)
       if Page.exists?(page_id)
         page = Page.find(page_id)
         parent_id = page.try(:native_node).try(:parent).try(:page_id)
-        if parent_id
-          parent = @traitbank_pages[page_id] || add_page(parent_id)
+        if parent_id && !TraitBank.page_has_parent?(tb_page, parent_id)
+          parent = @traitbank_pages[page_id] || find_or_add_page(parent_id)
           parent = parent.first if parent.is_a?(Array)
-          if parent_id == page_id
-            log("Skipped attempt to add #{parent_id} as a parent to itself!", cat: :warns)
-          else
-            TraitBank.add_parent_to_page(parent, tb_page)
+          result = TraitBank.add_parent_to_page(parent, tb_page)
+          unless result[:added]
+            log("Skipped adding #{parent_id} as a parent to #{page_id}: #{result[:message]}", cat: :warns)
           end
         end
       else

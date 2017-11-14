@@ -14,13 +14,11 @@ class TraitBank
 
   # The Labels, and their expected relationships { and (*required) properties }:
   # * Resource: { *resource_id }
-  # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
-  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData),
-  #          object_term(Term), units_term(Term)
-  #          # TODO: add a comment explaining that the normal_units is a string (a symbol)
+  # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
+  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term)
   #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal, normal_measurement,
-  #       normal_units }
+  #       normal_units[NOTE: this is a literal STRING, used as symbol in Ruby] }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { measurement, literal }
   # * Term: parent_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
@@ -28,12 +26,7 @@ class TraitBank
   #     type }
   #
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
-  #   or "metadata" ... at the time of this writing. I may rename "metadata" to
-  #   "units"
-  #
-  # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
-  # an image (which should be handled with an icon) ... and possibly a
-  # collection to build a slideshow [using its images].)
+  #   or "metadata" ... at the time of this writing.
   class << self
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
@@ -68,6 +61,72 @@ class TraitBank
         Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
+    end
+
+    def slurp_traits(resource_id)
+      count = slurp_traits_with_count(resource_id)
+      count + slurp_traits_with_count(resource_id, true)
+    end
+
+    # HERE THERE BE DRAGONS. # Speed improvement using slurp over creating via neography was, for about 3000 traits, a
+    # reduction form 4m44s to 14s. ...sooo: worth it. But, yes, the query here is ugly as sin. Sorry. I generalized it a
+    # bit... if we really wanted to stay this path (as opposed to moving to something like APOC), we could generalize it
+    # further, but this will do for the one-off slurping we have to do for traits. ...Though I might do something
+    # similar for terms, later.
+    def slurp_traits_with_count(resource_id, meta = false)
+      # TODO: csv file location!
+      # TODO: (eventually) target_scientific_name: row.target_scientific_name
+      header = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "\
+        "'http://localhost:3001/#{'meta_' if meta}traits.csv' AS row WITH row"
+      plain_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NULL'
+      valued_traits_clause = 'WHERE row.value_uri IS NOT NULL AND row.units IS NULL'
+      measured_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NOT NULL'
+      # NOTE: there should NEVER be a trait with both a vaule_uri AND a measurement, so we skip that.
+      required_merge_clauses =
+        meta ?
+          <<~META_MERGE_CLAUSES
+            MERGE (predicate:Term { uri: row.predicate })
+            MERGE (trait:MetaData)
+            FOREACH(x IN CASE WHEN row.resource_pk IS NULL THEN [] ELSE [1] END | SET trait.resource_pk = row.resource_pk)
+            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
+            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
+            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
+            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
+            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
+            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = row.value_num)
+            MERGE (page)-[t_r:trait]->(trait)-[p_r:predicate]->(predicate)
+          META_MERGE_CLAUSES
+        : <<~MERGE_CLAUSES
+            MERGE (resource:Resource { resource_id: #{resource_id} })
+            MERGE (page:Page { page_id: toInt(row.page_id) })
+            MERGE (predicate:Term { uri: row.predicate })
+            MERGE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
+            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
+            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
+            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
+            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
+            FOREACH(x IN CASE WHEN row.target_page_id IS NULL THEN [] ELSE [1] END | SET trait.object_page_id = toInt(row.target_page_id))
+            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
+            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = toInt(row.value_num))
+            MERGE (page)-[:trait]->(trait)-[p_r:predicate]->(predicate)
+            MERGE (trait)-[:supplier]->(resource)
+          MERGE_CLAUSES
+      valued_merge_clause = 'MERGE (value:Term { uri: row.value_uri })'
+      valued_rel_clause = 'MERGE (trait)-[:object_term]->(value)'
+      measured_merge_clause = 'MERGE (units:Term { uri: row.units })'
+      measured_rel_clause = 'MERGE (trait)-[:units_term]->(units)'
+      return_clause = 'RETURN COUNT(trait)'
+
+      # So, here, we're just building a series of very similar queries (and again for meta, since metadata can have the
+      # same associations as traits where this code is concerned). Thus the heavy redundancy:
+      res = query([header, plain_traits_clause, required_merge_clauses, return_clause].join(' '))
+      new_count = res["data"] ? res["data"].first.first : 0
+      res = query([header, valued_traits_clause, required_merge_clauses, valued_merge_clause, valued_rel_clause,
+        return_clause].join(' '))
+      new_count += res["data"] ? res["data"].first.first : 0
+      res = query([header, measured_traits_clause, required_merge_clauses, measured_merge_clause, measured_rel_clause,
+        return_clause].join(' '))
+      new_count + (res["data"] ? res["data"].first.first : 0)
     end
 
     def quote(string)
@@ -416,9 +475,14 @@ class TraitBank
     end
 
     def page_exists?(page_id)
-      res = query("MATCH (page:Page { page_id: #{page_id} }) "\
-        "RETURN page")
-      res["data"] ? res["data"].first : false
+      res = query("MATCH (page:Page { page_id: #{page_id} }) RETURN page")
+      res["data"] && res["data"].first ? res["data"].first.first : false
+    end
+
+    def page_has_parent?(page, page_id)
+      node = Neography::Node.load(page["metadata"]["id"], connection)
+      return false unless node.rel?(:parent)
+      node.outgoing(:parent).map { |n| n[:page_id] }.include?(page_id)
     end
 
     # Given a results array and the name of one of the returned columns to treat
@@ -668,17 +732,22 @@ class TraitBank
     def add_parent_to_page(parent, page)
       if parent.nil?
         if page.nil?
-          puts "** Cannot add :parent relationship from nil to nil!"
+          return { added: false, message: 'Cannot add parent from nil to nil!' }
         else
-          puts "** Cannot add :parent relationship to nil parent for page #{page["data"]["page_id"]}"
+          return { added: false, message: "Cannot add parent to nil parent for page #{page["data"]["page_id"]}" }
         end
       elsif page.nil?
-        puts "** Cannot add :parent relationship to nil page to parent #{parent["data"]["page_id"]}"
+        return { added: false, message: "Cannot add parent for nil page to parent #{parent["data"]["page_id"]}" }
+      end
+      if page["data"]["page_id"] == parent["data"]["page_id"]
+        return { added: false, message: "Skipped adding :parent relationship to itself: #{parent["data"]["page_id"]}" }
       end
       begin
         relate("parent", page, parent)
+        return { added: true }
       rescue Neography::PropertyValueException
-        puts "** Unable to add :parent relationship from page #{page["data"]["page_id"]} to #{parent["data"]["page_id"]}"
+        return { added: false, message: "Cannot add parent for page #{page["data"]["page_id"]} to "\
+          "#{parent["data"]["page_id"]}" }
       end
     end
 
