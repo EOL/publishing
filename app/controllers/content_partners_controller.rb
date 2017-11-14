@@ -5,15 +5,15 @@ class ContentPartnersController < ApplicationController
   end
   
   def create
-    logo = params[:content_partner][:logo].nil? ? nil : params[:content_partner][:logo].tempfile
+    logo = params[:content_partner][:logo].nil? ? nil : params[:content_partner][:logo]
     content_partner_params = { name: params[:content_partner][:name], description: params[:content_partner][:description],
-                               abbreviation: params[:content_partner][:abbreviation], url: params[:content_partner][:url], logo: logo }
+                               abbreviation: params[:content_partner][:abbreviation], url: params[:content_partner][:url], logo: params[:content_partner][:logo] }
     @content_partner = ContentPartner.new(content_partner_params)
     if @content_partner.valid?
       result = ContentPartnerApi.add_content_partner?(content_partner_params, current_user.id)
       if result
         flash[:notice] = :successfuly_created_resource
-        redirect_to root_url
+        redirect_to @content_partner
       else
         flash[:notice] = :error_in_connection
         render action: 'new'

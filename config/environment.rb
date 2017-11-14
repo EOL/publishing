@@ -6,3 +6,4 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Rails.application.initialize!
+DYNAMIC_HIERARCHY_RESOURCE_ID = 1
