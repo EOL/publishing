@@ -7,6 +7,6 @@
   = f.input :abbreviation
   = f.input :url
   = f.input :description, as: :text
-  = f.input :logo, as: :file
+  = f.file_field :logo
   .actions
     = f.button :submit

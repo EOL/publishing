@@ -3,32 +3,45 @@ class ContentPartnerApi
   @storage_uri = 'http://localhost:8010/eol/archiver'
   
   def self.add_content_partner?(params, current_user_id)
-    logo = params[:logo].nil? ? File.new(DEFAULT_CONTENT_PARTNER_LOGO, 'rb') : params[:logo]
+    logo = params[:logo].nil? ? File.new(DEFAULT_CONTENT_PARTNER_LOGO, 'rb') : params[:logo].tempfile
+    # open(logo)
+    # logo.rewind
     begin
-      debugger
       #TODO: change base uri to send to storage layer first and only when you get logo path back send all info to (logo path + info) schedular
-      logo_request = RestClient::Request.new(
-        :method => :post,
-        :url => "#{@storage_uri}/contentPartners",
-        :payload => { logo: logo }
-      )
-      logo_response = logo_request.execute
-      logo_path = logo_reponse 
-#       
-      debugger
-      c=o
+      # logo_request = RestClient::Request.new(
+        # :method => :post,
+        # :url => "#{@storage_uri}/contentPartners",
+        # :payload => { logo: logo }
+      # )
+      # logo_response = logo_request.execute
+      # debugger
+      # logo_path = logo_reponse 
+      
+      # partner_params= { name: params[:name], description: params[:description], url: params[:url], abbreviation: params[:abbreviation], logo: logo, logoPath: logo_path }
       request =RestClient::Request.new(
         :method => :post,
         :url => "#{@schedular_uri}/contentPartners",
-        :payload => { name: params[:name], description: params[:description], url: params[:url], abbreviation: params[:abbreviation], logo: logo, logoPath: "path" }
+        :payload => { name: params[:name], description: params[:description], url: params[:url], abbreviation: params[:abbreviation], logo: logo , logoPath: "path" }
       )
-      # debugger
       response = request.execute
+      content_partner_id = response.body
       ContentPartnerUser.create(user_id: current_user_id , content_partner_id: response.body.to_i)
       true
     rescue => e
       false
     end
+    # begin
+      # logo_request =RestClient::Request.new(
+        # :method => :post,
+        # :url => "#{@storage_uri}/uploadCpLogo/#{content_partner_id}",
+        # :payload => { logo: logo }
+      # )
+      # logo_response = logo_request.execute
+      # true
+    # rescue => e
+      # debugger
+      # false
+    # end
   end
   
   def self.update_content_partner?(content_partner_id, params)
