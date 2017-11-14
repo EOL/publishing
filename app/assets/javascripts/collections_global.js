@@ -55,7 +55,7 @@
   
   function buildColSelect($elmt) {
     $elmt.find('.js-col-sel-choice').click(openColSelect);
-    $elmt.find('.js-col-sel-item').click(setColSelectChoice);
+    $elmt.find('.js-col-sel-item').not('.is-col-sel-item-disabled').click(setColSelectChoice);
     setColSelectChoice.call($elmt.find('.js-col-sel-item').first());
   }
 
