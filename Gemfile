@@ -42,8 +42,6 @@ gem "kaminari"
 gem "activerecord-import"
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list'
-# Nested set for Node:
-gem 'awesome_nested_set'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Run background jobs:
@@ -83,6 +81,8 @@ gem 'searchkick'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+gem 'rest-client'
+gem 'whenever'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -91,6 +91,8 @@ group :development, :test do
   gem 'coveralls', require: false
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov"
+  # Rubocop... which technically you want on your *system*, but ...
+  gem 'rubocop'
 end
 
 group :development do
