@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe CollectedPage do
   let(:page) { create(:page) }
 
+  describe "validations" do
+    subject { create(:collected_page) }
+    it { should validate_presence_of(:page) }
+    it { should validate_presence_of(:collection) }
+    it { should validate_uniqueness_of(:page_id).scoped_to(:collection_id) }
+  end
+
   context "with NO overrides" do
     subject { CollectedPage.new(page: page) }
 
