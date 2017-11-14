@@ -1,11 +1,12 @@
 class ResourceApi
-  @base_schedular_uri = ENV['schedular_ip']
-  @base_storage_uri = ENV['storage_ip']
+  @base_schedular_uri = 'http://172.16.0.161:80/scheduler'
+  @base_storage_uri = 'http://172.16.0.99:80/eol/archiver'
 
   def self.add_resource?(params, content_partner_id)
     # resource_data_set = params[:path]
     if params[:type]=="file"
       resource_data_set_file = params[:path].tempfile
+      file_name = params[:path].original_filename
       params[:path]=""
     end
     # resource_params = params.except!(:resource_data_set).to_json_with_active_support_encoder  

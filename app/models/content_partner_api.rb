@@ -14,7 +14,6 @@ class ContentPartnerApi
       logo_response = logo_request.execute
       logo_path = logo_reponse 
 #       
-      c=o
       request =RestClient::Request.new(
         :method => :post,
         :url => "#{@schedular_uri}/contentPartners",

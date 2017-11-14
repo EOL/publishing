@@ -56,6 +56,12 @@ class ContentPartners::ResourcesController < ContentPartnersController
   end
   
   def show
+    result_partner = ContentPartnerApi.get_content_partner(params[:content_partner_id])
+    returned_content_partner = result_partner[0]
+    content_partner_user = User.find(ContentPartnerUser.find_by_content_partner_id(returned_content_partner["id"].to_i).user_id)
+    @content_partner = ContentPartner.new(id: returned_content_partner["id"].to_i, name: returned_content_partner["name"],
+                                          logo: returned_content_partner["logo"],
+                                          user: content_partner_user)
     result = ResourceApi.get_resource(params[:content_partner_id], params[:id])
     mappings = {"_paused" => "is_paused", "_approved" => "is_approved" , "_trusted" => "is_trusted" , "_autopublished" => "is_autopublished" , "_forced" => "is_forced"}
     result.keys.each { |k| result[ mappings[k] ] = result.delete(k) if mappings[k] }

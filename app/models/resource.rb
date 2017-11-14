@@ -3,11 +3,11 @@ class Resource
   
   #missing bibliographic citation, description, resource data options
 
-  has_many :nodes, inverse_of: :resource
-  has_many :scientific_names, inverse_of: :resource
-  has_many :import_logs, inverse_of: :resource
+#  has_many :nodes, inverse_of: :resource
+#  has_many :scientific_names, inverse_of: :resource
+#  has_many :import_logs, inverse_of: :resource
 
-  before_destroy :remove_content
+#  before_destroy :remove_content
   attr_accessor :id, :name, :origin_url, :resource_data_set, :description,:type, :uploaded_url ,:path, :last_harvested_at, :harvest_frequency, :day_of_month, :nodes_count,
                 :position, :is_paused, :is_approved, :is_trusted, :is_autopublished, :is_forced, :dataset_license,
                 :dataset_rights_statement, :dataset_rights_holder, :default_license_string, :default_rights_statement,
