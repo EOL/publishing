@@ -5,7 +5,7 @@ module Content
     include Content
     searchkick
 
-    belongs_to :resource
+    # belongs_to :resource
     belongs_to :language
 
     has_many :content_sections, as: :content
