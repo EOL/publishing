@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'omniauth'
 require 'devise'
 require 'api/api'
+require 'capybara/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

@@ -14,24 +14,24 @@ RSpec.describe ApiController do
     end
   end
   
-  it 'should set cache headers' do
-    get :pages, :params => {:id => 328598, :cache_ttl => 100}
-    expect(response.header['Cache-Control']).to eq("max-age=100, public")
-    
-  end
-
-  it 'should only cache responses when requested' do
-    get :pages, :id => 328598
-    response.header['Cache-Control'].should == nil
-    get :pages, :id => 328598, :cache_ttl => 100
-    response.header['Cache-Control'].should == 'max-age=100, public'
-  end
-
-  it 'should not add cache headers when there is an error' do
-    get :pages, :id => 5625468165
-    response.status.should == 404
-    response.header['Cache-Control'].should == nil
-    get :pages, :id => 1234567890, :cache_ttl => 100
-    response.header['Cache-Control'].should == nil
-  end
+  # it 'should set cache headers' do
+    # get :pages, :params => {:id => 328598, :cache_ttl => 100}
+    # expect(response.header['Cache-Control']).to eq("max-age=100, public")
+#     
+  # end
+# 
+  # it 'should only cache responses when requested' do
+    # get :pages, :id => 328598
+    # response.header['Cache-Control'].should == nil
+    # get :pages, :id => 328598, :cache_ttl => 100
+    # response.header['Cache-Control'].should == 'max-age=100, public'
+  # end
+# 
+  # it 'should not add cache headers when there is an error' do
+    # get :pages, :id => 5625468165
+    # response.status.should == 404
+    # response.header['Cache-Control'].should == nil
+    # get :pages, :id => 1234567890, :cache_ttl => 100
+    # response.header['Cache-Control'].should == nil
+  # end
 end

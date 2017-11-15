@@ -73,7 +73,7 @@ class Page < ActiveRecord::Base
       synonyms: synonyms,
       preferred_vernacular_strings: preferred_vernacular_strings,
       vernacular_strings: vernacular_strings,
-      providers: providers,
+      # providers: providers,
       ancestry_ids: ancestry_ids,
       resource_pks: resource_pks,
       icon: icon,

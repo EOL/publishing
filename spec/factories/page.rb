@@ -6,5 +6,8 @@ FactoryGirl.define do
         page.save
       end
     end
+    factory :api_page do
+      sequence(:data_count){0}
+    end
   end
 end
