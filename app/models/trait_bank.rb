@@ -245,6 +245,15 @@ class TraitBank
       build_trait_array(res)
     end
 
+    def first_pages_for_resource(resource_id)
+      q = "MATCH (page:Page)-[:trait]->(:Trait)-[:supplier]->(:Resource { resource_id: #{resource_id} }) "\
+        "RETURN DISTINCT(page) LIMIT 10"
+      res = query(q)
+      found = res["data"]
+      return nil unless found
+      found.map { |f| f.first["data"]["page_id"] }
+    end
+
     def key_data(page_id)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -578,7 +587,11 @@ class TraitBank
         hash.merge!(hash[:trait]) if has_trait
         hash[:page_id] = hash[:page][:page_id] if hash[:page]
         hash[:resource_id] = if hash[:resource]
-          hash[:resource][:resource_id]
+          if hash[:resource].is_a?(Array)
+            hash[:resource].first[:resource_id]
+          else
+            hash[:resource][:resource_id]
+          end
         else
           "MISSING"
         end

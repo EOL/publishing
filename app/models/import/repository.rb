@@ -136,7 +136,6 @@ module Import
       import_vernaculars
       import_media
       import_traits
-      import_associations
       @node_id_by_page.keys.each { |k| @pages[k] = true }
       log('Complete', cat: :ends)
     end
@@ -367,27 +366,33 @@ module Import
     def import_traits
       log('import_traits')
       TraitBank::Admin.remove_for_resource(@resource) # TEMP!!! DELETEME ... you don't want to do this forever, when we have deltas.
-
-      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
-      count = 0
-      loop_over_pages(url, "traits") do |trait_data|
-        trait = underscore_hash_keys(trait_data)
-        worked = import_trait(trait)
-        count += 1 if worked
-      end
-      log("Created #{count} traits.")
-    end
-
-    def import_associations
-      log('import_associations')
-      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/assocs.json?"
-      count = 0
       trait_rows = []
       meta_rows = []
-      # TODO: review this list, make sure it's exhaustive. I doubt it is.
       trait_rows << %i[page_id scientific_name resource_pk predicate sex lifestage statistical_method source
-         target_page_id target_scientific_name value_uri value_literal value_num units]
-      meta_rows << %i[trait_resource_pk predicate value_literal value_num value_uri units sex lifestage statistical_method source]
+        target_page_id target_scientific_name value_uri value_literal value_num units]
+      meta_rows << %i[trait_resource_pk predicate value_literal value_num value_uri units sex lifestage
+        statistical_method source]
+      log('read_traits')
+      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/traits.json?"
+      loop_over_pages(url, "traits") do |trait_data|
+        trait = underscore_hash_keys(trait_data)
+        row = []
+        trait_rows.first.each do |header|
+          row << trait[header]
+        end
+        trait_rows << row
+        meta = trait_data.delete(:metadata)
+        meta_rows.first do |header|
+          if header == :trait_resource_pk
+            meta_rows << trait[:resource_pk]
+          else
+            meta_rows << meta[header]
+          end
+        end
+        meta_rows << row
+      end
+      log('read_associations')
+      url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/assocs.json?"
       loop_over_pages(url, "assocs") do |assoc_data|
         assoc = underscore_hash_keys(assoc_data)
         row = []
@@ -405,11 +410,15 @@ module Import
         end
         meta_rows << row
       end
-      # TODO: better file names:
-      CSV.open(Rails.public_path.join('traits.csv'), 'w') { |csv| trait_rows.each { |row| csv << row } }
-      CSV.open(Rails.public_path.join('meta_traits.csv'), 'w') { |csv| meta_rows.each { |row| csv << row } }
+      log('slurping traits and associations and all metadata')
+      traits_file = Rails.public_path.join("traits_#{@resource.id}.csv")
+      meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
+      CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
+      CSV.open(Rails.public_path.join("meta_traits.csv"), 'w') { |csv| meta_rows.each { |row| csv << row } }
       count = TraitBank.slurp_traits(@resource.id)
       log("Created #{count} associations (including metadata).")
+      File.unlink(traits_file) if File.exist?(traits_file)
+      File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
     end
 
     def get_existing_terms
