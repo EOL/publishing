@@ -5,9 +5,15 @@ class ResourceApi
   def self.add_resource?(params, content_partner_id)
     # resource_data_set = params[:path]
     if params[:type]=="file"
-      resource_data_set_file = params[:path].tempfile
+      input_file = params[:path].tempfile
       file_name = params[:path].original_filename
+      resource_data_set_file=Tempfile.new("#{file_name}")
+      resource_data_set_file.binmode
+      input_file.rewind
+      resource_data_set_file.write input_file.read
+      resource_data_set_file.flush
       params[:path]=""
+      debugger
     end
     # resource_params = params.except!(:resource_data_set).to_json_with_active_support_encoder  
     resource_params = params
