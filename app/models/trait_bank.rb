@@ -77,7 +77,7 @@ class TraitBank
       # TODO: csv file location!
       # TODO: (eventually) target_scientific_name: row.target_scientific_name
       header = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "\
-        "'http://localhost:3001/#{'meta_' if meta}traits.csv' AS row WITH row"
+        "'http://localhost:3001/#{'meta_' if meta}traits_#{resource_id}.csv' AS row WITH row"
       plain_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NULL'
       valued_traits_clause = 'WHERE row.value_uri IS NOT NULL AND row.units IS NULL'
       measured_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NOT NULL'
