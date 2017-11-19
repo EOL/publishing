@@ -79,6 +79,7 @@ gem 'activeresource'
 gem 'rest-client'
 gem 'httparty'
 
+
 # Pagination:
 gem "kaminari", "~> 1.0"
 

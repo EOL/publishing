@@ -33,7 +33,7 @@ class ContentPartnersController < ApplicationController
   end
   
   def update
-    logo = params[:content_partner][:logo].nil? ? nil : params[:content_partner][:logo].tempfile
+    logo = params[:content_partner][:logo].nil? ? nil : params[:content_partner][:logo]
     content_partner_params = { name: params[:content_partner][:name], description: params[:content_partner][:description],
                                abbreviation: params[:content_partner][:abbreviation], url: params[:content_partner][:url], logo: logo }
     @content_partner = ContentPartner.new(content_partner_params)
@@ -41,7 +41,7 @@ class ContentPartnersController < ApplicationController
       result = ContentPartnerApi.update_content_partner?(params[:id], content_partner_params)
       if result
         flash[:notice] = :Successfully_updated_content_partner
-        redirect_to root_url
+        redirect_to controller: 'content_partners', action: 'show', id: result
       else
         flash[:notice] = :error_in_connection
         render action: 'edit'

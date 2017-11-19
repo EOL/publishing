@@ -5,15 +5,11 @@ class ResourceApi
   def self.add_resource?(params, content_partner_id)
     # resource_data_set = params[:path]
     if params[:type]=="file"
-      input_file = params[:path].tempfile
-      file_name = params[:path].original_filename
-      resource_data_set_file=Tempfile.new("#{file_name}")
-      resource_data_set_file.binmode
-      input_file.rewind
-      resource_data_set_file.write input_file.read
-      resource_data_set_file.flush
-      params[:path]=""
-      debugger
+       input_file = params[:path].tempfile
+       file_name = params[:path].original_filename
+       resource_data_set_file = Tempfile.new("#{file_name}")
+       resource_data_set_file.write(input_file.read)
+       params[:path]=""
     end
     # resource_params = params.except!(:resource_data_set).to_json_with_active_support_encoder  
     resource_params = params
@@ -31,6 +27,7 @@ class ResourceApi
       resource_id = response_scheduler.body
       if params[:type]=="file"
       begin
+        resource_data_set_file.seek 0
         request =RestClient::Request.new(
           :method => :post,
           :url => "#{@base_storage_uri}/uploadResource/#{resource_id}/1",
