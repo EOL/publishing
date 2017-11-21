@@ -810,7 +810,7 @@ class TraitBank
         connection.set_label(term_node, "Term")
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
-        count = Rails.cache.read("trait_bank/terms_count")
+        count = Rails.cache.read("trait_bank/terms_count") || 0
         Rails.cache.write("trait_bank/terms_count", count + 1)
       rescue => e
         debugger

@@ -109,7 +109,7 @@ module Import
     end
 
     def reset_resource
-      @nodes = []
+      @node_pks = []
       @ancestors = []
       @identifiers = []
       @names = []
@@ -143,10 +143,12 @@ module Import
     def import_nodes
       log('import_nodes')
 
-      @nodes = get_new_instances_from_repo(Node) do |node|
+      count = get_new_instances_from_repo(Node) do |node|
+        node_pk = node[:resource_pk]
+        @node_pks << node_pk
         rank = node.delete(:rank)
         identifiers = node.delete(:identifiers)
-        @identifiers += identifiers.map { |ident| { identifier: ident, node_resource_pk: node[:resource_pk] } }
+        @identifiers += identifiers.map { |ident| { identifier: ident, node_resource_pk: node_pk } }
         unless rank.nil?
           rank = Rank.where(name: rank).first_or_create do |r|
             r.name = rank
@@ -156,8 +158,8 @@ module Import
         end
         if (ancestors = node.delete(:ancestors))
           ancestors.each_with_index do |anc, depth|
-            next if anc == node[:resource_pk]
-            @ancestors << { node_resource_pk: node[:resource_pk], ancestor_resource_pk: anc,
+            next if anc == node_pk
+            @ancestors << { node_resource_pk: node_pk, ancestor_resource_pk: anc,
                             resource_id: @resource.id, depth: depth }
           end
         end
@@ -170,16 +172,15 @@ module Import
         node[:has_breadcrumb] = node.key?(:landmark) && node[:landmark] != "no_landmark"
         node[:landmark] = Node.landmarks[node[:landmark]]
       end
-      if @nodes.empty?
-        log('There were NO new nodes, skipping...', cat: :warns)
-        return
-      end
-      log("importing #{@nodes.size} Nodes")
+      return if count.zero?
       # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Node.import(@nodes, on_duplicate_key_ignore: true, validate: false)
-      Identifier.import(@identifiers, on_duplicate_key_ignore: true, validate: false)
-      NodeAncestor.import(@ancestors, on_duplicate_key_ignore: true, validate: false)
+      @identifiers.in_groups_of(10_000, false) do |group|
+        Identifier.import(group, on_duplicate_key_ignore: true, validate: false)
+      end
+      @ancestors.in_groups_of(10_000, false) do |group|
+        NodeAncestor.import(group, on_duplicate_key_ignore: true, validate: false)
+      end
       propagate_id(Node, resource: @resource, fk: 'parent_resource_pk', other: 'nodes.resource_pk',
                          set: 'parent_id', with: 'id')
       propagate_id(Identifier, resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
@@ -195,28 +196,35 @@ module Import
       # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
       # regardless of other nodes. (Meaning: if a resource creates a weird page, the DWH later recognizes it and assigns
       # itself to that page, then the native_node_id should *change* to the DWH id.)
-      Node.where(resource_pk: @nodes.map { |n| n[:resource_pk] }).select("id, page_id").find_each do |node|
-        @node_id_by_page[node.page_id] = node.id
+      have_pages = []
+      @node_pks.in_groups_of(1000, false) do |group|
+        page_ids = []
+        Node.where(resource_pk: group).select("id, page_id").find_each do |node|
+          @node_id_by_page[node.page_id] = node.id
+          page_ids << node.page_id
+        end
+        have_pages += Page.where(id: page_ids).pluck(:id)
       end
-      have_pages = Page.where(id: @node_id_by_page.keys).pluck(:id)
       missing = @node_id_by_page.keys - have_pages
       pages = missing.map { |id| { id: id, native_node_id: @node_id_by_page[id], nodes_count: 1 } }
       if pages.empty?
         log('There were NO new pages, skipping...', cat: :warns)
         return
       end
-      log("importing #{pages.size} Pages", cat: :infos)
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Page.import!(pages, on_duplicate_key_ignore: true)
+      pages.in_groups_of(1000, false) do |group|
+        log("importing #{group.size} Pages", cat: :infos)
+        # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+        # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+        Page.import!(group, on_duplicate_key_ignore: true)
+      end
       log('fixing counter_culture counts for Node...')
       Node.where(resource_id: @resource.id).counter_culture_fix_counts
     end
 
     def import_scientific_names
       log('import_scientific_names')
-
-      @names = get_new_instances_from_repo(ScientificName) do |name|
+      bad_names = []
+      count = get_new_instances_from_repo(ScientificName) do |name|
         status = name.delete(:taxonomic_status)
         status = "accepted" if status.blank?
         unless status.nil?
@@ -224,20 +232,18 @@ module Import
         end
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
         name[:italicized].gsub!(/, .*/, ", et al.") if name[:italicized] && name[:italicized].size > 200
+        if name[:page_id].nil?
+          bad_names << name[:canonical_form]
+          name = nil
+        end
       end
-      num_bad = @names.select { |name| name[:page_id].nil? }.size
-      if num_bad > 0
-        log("** WARNING: you've got #{num_bad} scientific_names with no page_id! #{@names.select { |name| name[:page_id].nil? }.map { |n| n[:canonical_form] }.join('; ')}", cat: :warns)
-        @names.delete_if { |name| name[:page_id].nil? }
+      if bad_names.size.positive?
+        log("** WARNING: you've got #{bad_names.size} scientific_names with no page_id!")
+        bad_names.in_groups_of(20, false) do |group|
+          log("BAD: #{group.join('; ')}")
+        end
       end
-      if @names.empty?
-        log('There were NO new scientific names, skipping...', cat: :warns)
-        return
-      end
-      log("importing #{@names.size} ScientificNames")
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      ScientificName.import(@names, on_duplicate_key_ignore: true)
+      return if count.zero?
       propagate_id(ScientificName, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
                          set: 'node_id', with: 'id')
       # TODO: This doesn't ensure we're getting *preferred* scientific_name.
@@ -250,7 +256,7 @@ module Import
     def import_vernaculars
       log('import_vernaculars')
 
-      @verns = get_new_instances_from_repo(Vernacular) do |name|
+      count = get_new_instances_from_repo(Vernacular) do |name|
         name[:node_id] = 0 # This will be replaced, but it cannot be nil. :(
         name[:string] = name.delete(:verbatim)
         name.delete(:language_code_verbatim) # We don't use this.
@@ -259,14 +265,7 @@ module Import
         name[:language_id] = lang ? get_language(lang) : get_language(code: "eng", group_code: "en")
         name[:is_preferred_by_resource] = name.delete(:is_preferred)
       end
-      if @verns.empty?
-        log('There were NO new vernaculars, skipping...', cat: :warns)
-        return
-      end
-      log("importing #{@verns.size} Vernaculars")
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Vernacular.import(@verns, on_duplicate_key_ignore: true)
+      return if count.zero?
       propagate_id(Vernacular, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
                          set: 'node_id', with: 'id')
       log('fixing counter_culture counts for ScientificName...')
@@ -280,7 +279,7 @@ module Import
       log('import_media')
       @media_by_page = {}
       @media_pks = []
-      @media = get_new_instances_from_repo(Medium) do |medium|
+      count = get_new_instances_from_repo(Medium) do |medium|
         debugger if medium[:subclass] != 'image' # TODO
         debugger if medium[:format] != 'jpg' # TODO
         # TODO Add usage_statement to database. Argh.
@@ -300,25 +299,20 @@ module Import
         debugger if medium[:page_id].blank? # This would otherwise cause the medium to be invisible. :S
         @media_pks << medium[:resource_pk]
       end
-      if @media.empty?
-        log('There were NO new media, skipping...', cat: :warns)
-        return
-      end
-      log('import media...')
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      Medium.import(@media, validations: false, on_duplicate_key_ignore: true)
+      return if count.zero?
       @media_id_by_pk = {}
       log('learn IDs...')
-      Medium.where(resource_pk: @media_pks).select('id, resource_pk').find_in_batches.each do |group|
-        group.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
+      @media_pks.in_groups_of(1000, false) do |group|
+        media = Medium.where(resource_pk: group).select('id, resource_pk')
+        media.each { |med| @media_id_by_pk[med.resource_pk] = med.id }
       end
       @contents = []
       @ancestry = {}
       @naked_pages = {}
       log('learn Ancestry...')
-      Page.includes(native_node: { node_ancestors: :ancestor }).where(id: @media_by_page.keys).find_in_batches do |group|
-        group.each do |page|
+      @media_by_page.keys.in_groups_of(1000, false) do |group|
+        pages = Page.includes(native_node: { node_ancestors: :ancestor }).where(id: group)
+        pages.each do |page|
           @ancestry[page.id] = page.ancestry_ids
           if page.medium_id.nil?
             @naked_pages[page.id] = page
@@ -352,15 +346,21 @@ module Import
           end
         end
       end
-      log("import #{@contents.size} page contents...")
-      # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
-      # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-      PageContent.import(@contents, on_duplicate_key_ignore: true)
-      unless @naked_pages.empty?
-        log("updating #{@naked_pages.values.size} pages with icons...")
-        Page.import!(@naked_pages.values, on_duplicate_key_update: [:medium_id])
+      @contents.in_groups_of(10_000, false) do |group|
+        log("import #{group.size} page contents...")
+        # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when I
+        # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+        PageContent.import(group, on_duplicate_key_ignore: true)
       end
-      PageContent.where(content_id: @media_id_by_pk.values).counter_culture_fix_counts
+      unless @naked_pages.empty?
+        @naked_pages.values.in_groups_of(10_000, false) do |group|
+          log("updating #{group.size} pages with icons...")
+          Page.import!(group, on_duplicate_key_update: [:medium_id])
+        end
+      end
+      @media_id_by_pk.values.in_groups_of(1000, false) do |group|
+        PageContent.where(content_id: group).counter_culture_fix_counts
+      end
     end
 
     def import_traits
@@ -435,6 +435,7 @@ module Import
       terms
     end
 
+    # TODO: move this to a CSV import. So much faster...
     def import_terms
       log("Importing terms...")
       terms = get_existing_terms
@@ -461,20 +462,35 @@ module Import
 
     def get_new_instances_from_repo(klass)
       type = klass.class_name.underscore.pluralize.downcase
+      total_count = 0
       things = []
       url = "#{Rails.configuration.repository_url}/resources/#{@resource.repository_id}/#{type}.json?"
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
         thing.merge!(resource_id: @resource.id)
         yield(thing)
-        begin
+        if thing
           things << thing
-        rescue
-          debugger
-          321
+          total_count += 1
+        end
+        if things.size >= 10_000
+          log("importing #{things.size} #{klass.name.pluralize}")
+          # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when
+          # I want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+          klass.import(things, on_duplicate_key_ignore: true, validate: false)
+          things = []
         end
       end
-      things
+      if things.any?
+        log("importing #{things.size} #{klass.name.pluralize}")
+        klass.import(things, on_duplicate_key_ignore: true, validate: false)
+      end
+      if total_count.zero?
+        log("There were NO new #{klass.name.pluralize.downcase}, skipping...", cat: :warns)
+      else
+        log("Total #{klass.name.pluralize} Published: #{total_count}")
+      end
+      total_count
     end
 
     def loop_over_pages(url_without_page, key)
@@ -482,7 +498,7 @@ module Import
       total_pages = 2 # Dones't matter YET... will be populated in a bit...
       while page <= total_pages
         url = "#{url_without_page}page=#{page}"
-        log(url.gsub(/^.*?\w\//, ''), cat: :urls) if page == 1
+        log(url.gsub(/^.*?\w\//, ''), cat: :urls) if page == 1 || (page % 25).zero?
         html_response = Net::HTTP.get(URI.parse(url))
         begin
           response = JSON.parse(html_response)
