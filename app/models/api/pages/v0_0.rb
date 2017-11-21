@@ -368,33 +368,31 @@ module Api
         
       end
       
-      
-
       def self.process_license_options!(options)
-          if options[:licenses]
-            options[:licenses] = options[:licenses].split("|").flat_map do |l|
-              l = 'public domain' if l == 'pd'
-              License.where("name REGEXP '^#{l}([^-]|$)'")
-            end.compact.map(&:id)
-          else
-            options[:licenses]=License.ids
-          end
+        if options[:licenses]
+          options[:licenses] = options[:licenses].split("|").flat_map do |l|
+            l = 'public domain' if l == 'pd'
+            License.where("name REGEXP '^#{l}([^-]|$)'")
+          end.compact.map(&:id)
+        else
+          options[:licenses]=License.ids
+        end
       end
       
-       def self.process_subject_options!(options)
-          options[:subjects] ||= ""
-          options[:text_subjects] = options[:subjects].split("|").compact
-          options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
-          if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
-            options[:text_subjects] = nil
-          else
-            options[:text_subjects] = options[:text_subjects].flat_map do |l|
-              Section.where("name = ?", l.gsub(' ','_'))
-            end.compact
-            options[:toc_items] = options[:text_subjects].map(&:id)
-            raise Error.new("subject not found") if options[:toc_items].empty?
-          end
-       end
+      def self.process_subject_options!(options)
+        options[:subjects] ||= ""
+        options[:text_subjects] = options[:subjects].split("|").compact
+        options[:text_subjects] << 'Uses' if options[:text_subjects].include?('Use')
+        if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
+          options[:text_subjects] = nil
+        else
+          options[:text_subjects] = options[:text_subjects].flat_map do |l|
+            Section.where("name = ?", l.gsub(' ','_'))
+          end.compact
+          options[:toc_items] = options[:text_subjects].map(&:id)
+          raise ActiveRecord::RecordNotFound.new("subject not found") if options[:toc_items].empty?
+        end
+      end
       
       def self.adjust_vetted_options!(options)
         vetted_types = {}
@@ -418,13 +416,8 @@ module Api
       
       def self.promote_exemplar!(exemplar_object, existing_objects_of_same_type, options={}, license_ids, page, type)
           return unless exemplar_object
-          
-          # confirm license
-          return if license_ids && license_ids.include?(exemplar_object.license_id)
-          # user array intersection (&) to confirm the subject of the examplar is within range
-          # return if options[:text_subjects] && (options[:text_subjects] & exemplar_object.toc_items).blank?
-
-          # confirm vetted state
+          return unless license_ids.include?(exemplar_object.license_id)
+         
           content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], exemplar_object.id, type).first
           best_vetted_label = content_object.trust
           return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
