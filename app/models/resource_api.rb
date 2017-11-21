@@ -26,41 +26,44 @@ class ResourceApi
       response_scheduler = request.execute
       resource_id = response_scheduler.body
       if params[:type]=="file"
-      begin
-        resource_data_set_file.seek 0
-        request =RestClient::Request.new(
-          :method => :post,
-          :url => "#{@base_storage_uri}/uploadResource/#{resource_id}/1",
-          :payload => {resId: resource_id, file: resource_data_set_file, isOrg: 1 }
-        )
-        response_storage = request.execute
-        resource_id
-      rescue => e
-        nil
-      end
-      if(response_storage)
-        params[:path]="/eol_workspace/resources/#{resource_id}/"
-       # params[:id]=resource_id
-        resource_params = params
         begin
+          resource_data_set_file.seek 0
           request =RestClient::Request.new(
             :method => :post,
-            :url => "#{@base_schedular_uri}/#{content_partner_id}/resources/#{resource_id}",
-            headers: {
-              'Accept' => 'application/json',
-              'Content-Type' => 'application/json'
-              },
-            :payload=> resource_params.to_json
+            :url => "#{@base_storage_uri}/uploadResource/#{resource_id}/1",
+            :payload => {resId: resource_id, file: resource_data_set_file, isOrg: 1 }
           )
-          response = request.execute
-          resource_id
+        response_storage = request.execute
+        resource_id
         rescue => e
+          debugger
           nil
         end
+        if(response_storage)
+          params[:path]="/eol_workspace/resources/#{resource_id}/"
+       # params[:id]=resource_id
+          resource_params = params
+          begin
+            request =RestClient::Request.new(
+              :method => :post,
+              :url => "#{@base_schedular_uri}/#{content_partner_id}/resources/#{resource_id}",
+              headers: {
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json'
+                },
+              :payload=> resource_params.to_json
+            )
+            response = request.execute
+            resource_id
+          rescue => e
+            debugger
+            nil
+          end
+        end
       end
-    end
       resource_id
     rescue => e
+      debugger
       nil
     end
     
