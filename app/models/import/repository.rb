@@ -468,10 +468,15 @@ module Import
       loop_over_pages(url, type.camelize(:lower)) do |thing_data|
         thing = underscore_hash_keys(thing_data)
         thing.merge!(resource_id: @resource.id)
-        yield(thing)
         if thing
-          things << thing
-          total_count += 1
+          begin
+            yield(thing)
+            things << thing
+            total_count += 1
+          rescue => e
+            log("FAILED to add #{klass.class_name.downcase}: #{e.message}", cat: :errors)
+            log("MISSING #{klass.class_name.downcase}: #{thing.inspect}", cat: :errors)
+          end
         end
         if things.size >= 10_000
           log("importing #{things.size} #{klass.name.pluralize}")
