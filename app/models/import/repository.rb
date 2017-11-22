@@ -507,8 +507,7 @@ module Import
         begin
           response = JSON.parse(html_response)
         rescue => e
-          debugger
-          log("An unexpected token means there's a *bunch* of HTML, so be careful.")
+          log("!! Failed to read #{key} page #{page}! #{e.message[0..1000]}", cat: :errors)
         end
         total_pages = response["totalPages"]
         return unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
