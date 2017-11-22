@@ -503,7 +503,6 @@ module Import
       total_pages = 2 # Dones't matter YET... will be populated in a bit...
       while page <= total_pages
         url = "#{url_without_page}page=#{page}"
-        log(url.gsub(/^.*?\w\//, ''), cat: :urls) if page == 1 || (page % 25).zero?
         html_response = Net::HTTP.get(URI.parse(url))
         begin
           response = JSON.parse(html_response)
@@ -512,7 +511,11 @@ module Import
           log("An unexpected token means there's a *bunch* of HTML, so be careful.")
         end
         total_pages = response["totalPages"]
-        return unless response.key?(key) # Nothing returned.
+        return unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
+        if page == 1 || (page % 25).zero?
+          pct = (page / total_pages.to_f * 100).ceil rescue '??'
+          log("Importing #{key.pluralize}: page #{page}/#{total_pages} (#{pct}%)", cat: :infos)
+        end
         response[key].each do |data|
           yield(data)
         end
