@@ -17,12 +17,14 @@
   %li
     %b= "Status:"
     = @log.status || "[empty]"
-%h2= "Events:"
+%h2= "Events (most recent first):"
+= paginate @events
 %ul.uk-list
-  - @log.import_events.each do |event|
+  - @events.each do |event|
     %li
       %b= l(event.created_at, format: '%H:%M:%S.%3N')
       (
       = event.cat
       )
       = event.body
+= paginate @events
