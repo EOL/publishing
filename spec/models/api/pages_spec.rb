@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Api::Pages do
-  # let(:page) { create(:api_page, :id => 999) }
   
   context 'JSON response format' do
     it 'should return array of length 1 for one id' do

@@ -142,7 +142,7 @@ module Api
         adjust_sounds_images_videos_texts(params)
         page_requests = params[:id].split(",").map do |page_id|
           #get from database need to be changed with elasticsearch 
-          page_request=Page.search(page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0]  
+          page_request=Page.search(page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0] 
           {id: page_id, page: page_request}
         end.compact
 
@@ -181,16 +181,16 @@ module Api
         page = params[:batch] ? page_hash[:page] : page_hash
         unless page.nil?
           return_hash['identifier'] = page["_id"]
-          # return_hash['scientificName'] = page.preferred_scientific_names.first.italicized
           return_hash['scientificName'] = page["_source"]["scientific_name"]
           return_hash['richness_score'] = page["_source"]["page_richness"]
 
           if params[:synonyms]
             return_hash["synonyms"] =
             page["_source"]["synonyms"].map do |syn|
-              relation = syn.taxonomic_status.try(:name) || ""
-              resource_title = syn.node.try(:resource).try(:name) || ""
-              { "synonym" => syn.italicized, "relationship" => relation, "resource" => resource_title}
+              syn_object= ScientificName.where("page_id = ? and canonical_form = ?", page["_id"], syn).first
+              relation = syn_object.taxonomic_status.try(:name) || ""
+              resource_title = syn_object.node.try(:resource).try(:name) || ""
+              { "synonym" => syn_object.italicized, "relationship" => relation, "resource" => resource_title}
             end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
           end
 # 
@@ -224,7 +224,7 @@ module Api
                 'identifier'      => node.id,
                 'scientificName'  => node.scientific_name ,
                 'nameAccordingTo' => node.resource.name,
-                'canonicalForm'   => (node.canonical_form)
+                'canonicalForm'   => node.canonical_form
               }
               node_hash['sourceIdentifier'] = node.resource_pk unless node.resource_pk.blank?
               node_hash['taxonRank'] = node.rank.name unless node.rank.nil?
@@ -260,7 +260,7 @@ module Api
       
       def self.get_data_objects(page, params)
         
-        params[:licenses] = nil if params[:licenses].include?('all')
+        params[:licenses] = nil if params[:licenses] && params[:licenses].include?('all')
         process_license_options!(params)
         process_subject_options!(params)
         adjust_vetted_options!(params)
@@ -279,7 +279,7 @@ module Api
       
       def self.load_media(media, params, page)
         media_ids=media.records.map(&:id)
-        content_ids = PageContent.where("page_id = ? and content_id in (?) and content_type = ? and trust in (?)", page["_id"], media_ids, "Medium", params[:vetted_types]).map(&:content_id)
+        content_ids = PageContent.where("page_id = ? and content_id in (?) and content_type = ? and trust in (?) and is_incorrect = ? and is_misidentified = ? and is_hidden = ? and is_duplicate = ?", page["_id"], media_ids, "Medium", params[:vetted_types], false, false, false, false).map(&:content_id)
         media_ids = media_ids & content_ids
         
         image_objects = load_images(media_ids, params[:licenses], params, page)   
@@ -294,8 +294,7 @@ module Api
       
       
       def self.load_images(media_ids, license_ids, params, page)
-        if params_found_and_greater_than_zero(params[:images_page], params[:images_per_page])
-          
+        if params_found_and_greater_than_zero(params[:images_page], params[:images_per_page])  
           offset = (params[:images_page]-1)*params[:images_per_page]
           image_objects= PageContent.images.where("id in (?) and license_id in (?)", media_ids, license_ids) 
           exemplar_image= Page.find_by_id(page["_id"]).medium
@@ -349,9 +348,8 @@ module Api
       
       def self.load_articles(articles, params, page)
         if params_found_and_greater_than_zero(params[:texts_page], params[:texts_per_page])
-          
           articles_ids=articles.records.map(&:id)
-          content_ids = PageContent.where("page_id = ? and content_id in (?) and content_type = ? and trust in (?)", page["_id"], articles_ids, "Article", params[:vetted_types]).map(&:content_id)
+          content_ids = PageContent.where("page_id = ? and content_id in (?) and content_type = ? and trust in (?) and is_incorrect = ? and is_misidentified = ? and is_hidden = ? and is_duplicate = ?", page["_id"], articles_ids, "Article", params[:vetted_types], false, false, false, false).map(&:content_id)
           articles_ids = articles_ids & content_ids
           
           offset = (params[:texts_page]-1)*params[:texts_per_page]
@@ -360,7 +358,7 @@ module Api
             article_objects= Article.where("id in (?) and license_id in (?)", articles_ids, params[:licenses]) 
           else
             content_sections= ContentSection.where("section_id in (?) and content_id in (?) and content_type = ?", params[:toc_items], articles_ids, "Article").map(&:content_id)
-            article_objects= Article.where("id in (?) and license_id in (?)", articles_ids, params[:licenses])  
+            article_objects= Article.where("id in (?) and license_id in (?)", content_sections, params[:licenses])  
           end 
           
           return article_objects[offset..offset+params[:texts_per_page]-1]   
@@ -418,7 +416,7 @@ module Api
           return unless exemplar_object
           return unless license_ids.include?(exemplar_object.license_id)
          
-          content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? ", page["_id"], exemplar_object.id, type).first
+          content_object= PageContent.where("page_id = ? and content_id = ? and content_type = ? and is_incorrect = ? and is_misidentified = ? and is_hidden = ? and is_duplicate = ?", page["_id"], exemplar_object.id, type, false, false, false, false).first
           best_vetted_label = content_object.trust
           return if options[:vetted_types] && ! options[:vetted_types].include?(best_vetted_label)
 
