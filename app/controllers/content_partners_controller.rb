@@ -13,10 +13,10 @@ class ContentPartnersController < ApplicationController
       result = ContentPartnerApi.add_content_partner?(content_partner_params, current_user.id)
       
       if !result.nil?
-        flash[:notice] = :successfuly_created_content_partner
+        flash[:notice] = I18n.t(:successfuly_created_content_partner)
         redirect_to controller: 'content_partners', action: 'show', id: result
       else
-        flash.now[:notice] = :error_in_connection
+        flash.now[:notice] = I18n.t(:error_in_connection)
         render action: 'new'
       end
     else
@@ -40,10 +40,10 @@ class ContentPartnersController < ApplicationController
     if @content_partner.valid?
       result = ContentPartnerApi.update_content_partner?(params[:id], content_partner_params)
       if result
-        flash[:notice] = :Successfully_updated_content_partner
+        flash[:notice] = I18n.t(:Successfully_updated_content_partner)
         redirect_to controller: 'content_partners', action: 'show', id: result
       else
-        flash[:notice] = :error_in_connection
+        flash[:notice] = I18n.t(:error_in_connection)
         render action: 'edit'
       end
     else

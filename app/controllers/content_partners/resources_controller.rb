@@ -16,10 +16,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.valid?
       result = ResourceApi.add_resource?(resource_params, params[:content_partner_id])
       if !result.nil?
-        flash[:notice] = :successfuly_created_resource
+        flash[:notice] = I18n.t(:successfuly_created_resource)
         redirect_to controller: 'resources', action: 'show', id: result
       else
-        flash.now[:notice] = :error_in_connection
+        flash.now[:notice] =I18n.t( :error_in_connection)
         render action: 'new'
       end
     else
@@ -46,10 +46,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.valid?
       result = ResourceApi.update_resource?(resource_params, params[:content_partner_id],params[:id])
       if !result.nil?
-        flash.now[:notice] = :successfuly_updated_resource
-        redirect_to root_url
+        flash[:notice] = I18n.t(:successfuly_updated_resource)
+        redirect_to controller: 'resources', action: 'show', id: result
       else
-        flash.now[:notice] = :error_in_connection
+        flash.now[:notice] = I18n.t(:error_in_connection)
         render action: 'edit'
       end
     else
