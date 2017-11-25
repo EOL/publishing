@@ -18,6 +18,7 @@ Rails.application.configure do
 end
 
 Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'https://beta-repo.eol.org'
+Rails.configuration.eol_web_url = ENV['EOL_WEB_URL'] || 'https://repo.eol.org'
 Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '' # Yes, nothing.
 Rails.configuration.x.image_path.ext = '.jpg'
 Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '.'
