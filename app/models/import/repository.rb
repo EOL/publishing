@@ -181,14 +181,14 @@ module Import
       @ancestors.in_groups_of(10_000, false) do |group|
         NodeAncestor.import(group, on_duplicate_key_ignore: true, validate: false)
       end
-      propagate_id(Node, resource: @resource, fk: 'parent_resource_pk', other: 'nodes.resource_pk',
-                         set: 'parent_id', with: 'id')
-      propagate_id(Identifier, resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
-                               set: 'node_id', with: 'id')
-      propagate_id(NodeAncestor, resource: @resource, fk: 'ancestor_resource_pk', other: 'nodes.resource_pk',
-                                 set: 'ancestor_id', with: 'id')
-      propagate_id(NodeAncestor, resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
-                                 set: 'node_id', with: 'id')
+      Node.propagate_id(resource: @resource, fk: 'parent_resource_pk', other: 'nodes.resource_pk',
+                        set: 'parent_id', with: 'id', resource_id: @resource.id)
+      Identifier.propagate_id(resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
+                              set: 'node_id', with: 'id', resource_id: @resource.id)
+      NodeAncestor.propagate_id(resource: @resource, fk: 'ancestor_resource_pk', other: 'nodes.resource_pk',
+                                set: 'ancestor_id', with: 'id', resource_id: @resource.id)
+      NodeAncestor.propagate_id(resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
+                                set: 'node_id', with: 'id', resource_id: @resource.id)
     end
 
     def create_new_pages
@@ -244,11 +244,11 @@ module Import
         end
       end
       return if count.zero?
-      propagate_id(ScientificName, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                         set: 'node_id', with: 'id')
+      ScientificName.propagate_id(resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                         set: 'node_id', with: 'id', resource_id: @resource.id)
       # TODO: This doesn't ensure we're getting *preferred* scientific_name.
-      propagate_id(Node, resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
-                         set: 'scientific_name', with: 'italicized')
+      Node.propagate_id(resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
+                         set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
       log('fixing counter_culture counts for ScientificName...')
       ScientificName.counter_culture_fix_counts
     end
@@ -266,8 +266,8 @@ module Import
         name[:is_preferred_by_resource] = name.delete(:is_preferred)
       end
       return if count.zero?
-      propagate_id(Vernacular, resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                         set: 'node_id', with: 'id')
+      Vernacular.propagate_id(resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                         set: 'node_id', with: 'id', resource_id: @resource.id)
       log('fixing counter_culture counts for ScientificName...')
       Vernacular.counter_culture_fix_counts
       # TODO: update preferred = true where page.vernaculars_count = 1...
@@ -655,23 +655,6 @@ module Import
         end
       license = License.create(name: name, source_url: url, can_be_chosen_by_partners: false)
       @licenses[url] = license.id
-    end
-
-    # I AM NOT A FAN OF SQL... but this is **way** more efficient than alternatives:
-    def propagate_id(klass, options = {})
-      fk = options[:fk]
-      set = options[:set]
-      resource = options[:resource]
-      with_field = options[:with]
-      (o_table, o_field) = options[:other].split(".")
-      sql = "UPDATE #{klass.table_name} t JOIN #{o_table} o ON (t.#{fk} = o.#{o_field} AND t.resource_id = ?) "\
-            "SET t.#{set} = o.#{with_field}"
-      clean_execute(klass, [sql, @resource.id])
-    end
-
-    def clean_execute(klass, args)
-      clean_sql = klass.send(:sanitize_sql, args)
-      klass.connection.execute(clean_sql)
     end
 
     def log(what, type = nil)
