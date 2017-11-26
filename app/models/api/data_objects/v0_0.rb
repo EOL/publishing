@@ -91,7 +91,7 @@ module Api
         return_hash['license']                = data_object.license.source_url unless data_object.license.blank?
         return_hash['rights']                 = data_object.rights_statement unless data_object.rights_statement.blank?
         return_hash['rightsHolder']           = data_object.owner unless data_object.owner.blank?
-        return_hash['bibliographicCitation'] = data_object.bibliographic_citation_id.body unless data_object.bibliographic_citation_id.blank?
+        return_hash['bibliographicCitation'] = data_object.bibliographic_citation.body unless data_object.bibliographic_citation_id.blank?
         # return_hash['audience'] = data_object.audiences.collect{ |a| a.label }
 
         return_hash['source']                 = data_object.source_url unless data_object.source_url.blank?
@@ -101,11 +101,11 @@ module Api
         # return_hash['eolThumbnailURL'] = DataObject.image_cache_path(data_object.object_cache_url, '98_68', :specified_content_host => Rails.configuration.asset_host) unless data_object.object_cache_url.blank?
 
         unless data_object.location_id.nil?
-          return_hash['location'] = data_object.location_id.location
-          unless data_object.location_id.latitude == 0 && data_object.location_id.longitude == 0 && data_object.location_id.altitude == 0
-            return_hash['latitude'] = data_object.location_id.latitude
-            return_hash['longitude'] = data_object.location_id.longitude
-            return_hash['altitude'] = data_object.location_id.altitude
+          return_hash['location'] = data_object.location.location
+          unless data_object.location.latitude == 0 && data_object.location.longitude == 0 && data_object.location.altitude == 0
+            return_hash['latitude'] = data_object.location.latitude
+            return_hash['longitude'] = data_object.location.longitude
+            return_hash['altitude'] = data_object.location.altitude
           end
         end
         return return_hash

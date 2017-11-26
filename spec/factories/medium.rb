@@ -30,9 +30,13 @@ FactoryGirl.define do
     license { License.public_domain }
     language { Language.english }
     sequence(:owner) { |n| "Owned by #{n}" }
-    sequence(:name) { |n| "Article Title ##{n}" }
-    sequence(:description) { |n| "Body of article ##{n}" }
+    sequence(:name) { |n| "Media Title ##{n}" }
     sequence(:source_url) { |n| "http://some.place.com/#{n}" }
     sequence(:base_url) { |n| "http://some.place.com/#{n}" }
+    created_at {Date.new(2017,3,6)}
+    updated_at {Date.new(2017,3,6)}
+    sequence(:rights_statement) {|n| "rights #{n}"}
+    bibliographic_citation {create(:bibliographic_citation)}
+    location {create(:location)}
   end
 end
