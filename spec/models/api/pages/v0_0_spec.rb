@@ -147,7 +147,7 @@ RSpec.describe Api::Pages::V0_0 do
       article = FactoryGirl.create(:api_article) 
       page_content_1 = FactoryGirl.create(:page_content, page: page, content: medium)
       page_content_2 = FactoryGirl.create(:page_content, page: page, content: article)
-      
+      debugger
       Page.reindex
       Medium.reindex
       Article.reindex

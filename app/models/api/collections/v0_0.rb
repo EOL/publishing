@@ -81,9 +81,9 @@ module Api
           counts ={}
           collection_object.collected_pages.each do |collected_page|
             counts['articles'].nil? ? counts['articles'] = collected_page.articles.count : counts['articles'] +=collected_page.articles.count
-            counts['video'].nil? ? counts['video'] = collected_page.media.videos.count : counts['video'] +=collected_page.media.videos.count
-            counts['images'].nil? ? counts['images'] = collected_page.media.images.count : counts['images'] +=collected_page.media.images.count
-            counts['sounds'].nil? ? counts['sounds'] = collected_page.media.sounds.count : counts['videos'] +=collected_page.media.sounds.count
+            counts['video'].nil? ? counts['video'] = collected_page.media.where(subclass: 1).count : counts['video'] +=collected_page.media.where(subclass: 1).count
+            counts['images'].nil? ? counts['images'] = collected_page.media.where(subclass: 0).count : counts['images'] +=collected_page.media.where(subclass: 0).count
+            counts['sounds'].nil? ? counts['sounds'] = collected_page.media.where(subclass: 2).count : counts['sounds'] +=collected_page.media.where(subclass: 2).count
           end
           counts['taxa'] =  collection_object.collected_pages.count
           counts['users'] =  collection_object.users.count
@@ -91,7 +91,7 @@ module Api
           
           
           
-          return_hash['total_items'] =  adjust_total_items_count(collection_object, params, counts)
+          return_hash['total_items'] =  adjust_total_items_count(params, counts)
 
           
           return_hash['item_types'] = []
@@ -154,7 +154,7 @@ module Api
           return return_hash
       end
       
-      def self.adjust_total_items_count(collection_object, params, counts)
+      def self.adjust_total_items_count(params, counts)
         if params[:filter].nil?
           return counts.values.reduce(:+)
         else
