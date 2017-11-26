@@ -1,0 +1,17 @@
+#term.uk-container
+  .uk-card.uk-card-default.uk-grid.uk-padding
+    .uk-width-4-5
+      %h1 Data Search
+
+      = form_for @query, :url => term_search_path, :method => :get, :class => "uk-form-stacked" do |f|
+        = f.fields_for :pairs do |ff|
+          .js-trait-fields{:'uk-grid' => true}
+            .uk-width-1-2
+              = ff.label :predicate, :class => "uk-form-label"
+              .uk-form-controls
+                = ff.select :predicate, options_for_select(@predicate_options), {}, :class => "uk-select js-pred-select"
+              .uk-width-1-2
+                %label.uk-form-label{:for => :predicate}Trait
+                .uk-form-controls
+                  = select_tag :value, nil, :disabled => true, :class => "uk-select js-obj-select"
+        = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"

@@ -3,5 +3,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require main
+//= require terms
 //= require rails.validations
 //= require rails.validations.simple_form

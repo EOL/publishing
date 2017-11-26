@@ -19,6 +19,7 @@ class TraitBank
       end
 
       def full_glossary(page = 1, per = nil, options = {})
+        options ||= {} # callers may pass nil, bypassing the default
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
         hidden = options[:include_hidden]

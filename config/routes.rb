@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }
   get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
   get "/terms" => "terms#index", :as => "terms"
+  get "/terms/search" => "terms#search", :as => "term_search"
+  get "/terms/predicate_traits", :as => "predicate_traits"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
