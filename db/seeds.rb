@@ -19,7 +19,7 @@ user = User.create(email: "foo3@bar.com", username: "sweaver", name: "Sigourney 
 user = User.create(email: "foo@bar.com", username: "david", name: "David Attenboro", password: "foobarbaz")
 
 # TESTING this...
-Collection.connection.execute('SET GLOBAL: SET pxc_strict_mode=PERMISSIVE')
+Collection.connection.execute('SET GLOBAL pxc_strict_mode=PERMISSIVE')
 c = Collection.create(id: 1, name: "Featured Collections", description: "Items in this collection will be featured on the homepage.")
 c.users << u
 
