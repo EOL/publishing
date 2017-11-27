@@ -64,6 +64,8 @@ gem 'font-kit-rails'
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:
 gem "neography"
+# Site monitoring for staging and production:
+gem 'newrelic_rpm'
 # OpenAuth logins from our preferred sources:
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
