@@ -18,7 +18,7 @@ user = User.create(email: "foo2@bar.com", username: "cigarman", name: "Sigmond F
 user = User.create(email: "foo3@bar.com", username: "sweaver", name: "Sigourney Weaver", password: "foobarbaz")
 user = User.create(email: "foo@bar.com", username: "david", name: "David Attenboro", password: "foobarbaz")
 
-# TESTING this...
+# Required for Percona, until we get 'true' PKs:
 Collection.connection.execute('SET GLOBAL pxc_strict_mode=PERMISSIVE')
 c = Collection.create(id: 1, name: "Featured Collections", description: "Items in this collection will be featured on the homepage.")
 c.users << u
