@@ -33,7 +33,6 @@ module Import
         # TODO: this is, of course, silly. create Import::Resource
         @resource = resource
         @log = @resource.create_log
-        @run.update_attribute(:completed_at, Time.now)
         begin
           import_resource
           @log.complete
@@ -47,8 +46,8 @@ module Import
       # Note: this is quite slow, but searches won't work without it. :S
       pages = Page.where(id: @pages.keys).includes(:occurrence_map)
       log('score_richness_for_pages')
-      # Clear caches that could have been affected TODO: more
-      pages.each do |page|
+      # Clear caches that could have been affected TODO: more caches ... and move. It doesn't belong here.
+      pages.find_each do |page|
         richness.calculate(page)
         Rails.cache.delete("/pages/#{page.id}/glossary")
       end
@@ -56,6 +55,7 @@ module Import
       pages.reindex
       Rails.cache.delete("pages/index/stats")
       log('All Harvests Complete, stopping.', cat: :ends)
+      @run.update_attribute(:completed_at, Time.now)
     end
 
     # TODO: set these:
