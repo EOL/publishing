@@ -328,9 +328,6 @@ class TraitBank
     # TODO: merge with/replace term_search
     def term_query(trait_query, options={})
       # TODO:
-      # 1) Support options[:count]. Normal queries should 
-      #    be limited to one page of results, and count should
-      #    get total. This is used for pagination.
       # 1.2) Support options[:page], options[:per_page] (I think - see how term_search does it)
       # 2) Support page/trait record search. Make it an option.
       #    Don't bother with semantic differences at first. Deal      #    with that in 3)
@@ -343,19 +340,20 @@ class TraitBank
                           "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
 
-      return_clause =      options[:count] ? 
-                           "RETURN count" :
-                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
+      return_clause =     options[:count] ? 
+                          "RETURN count" :
+                          "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
 
-
-      # Where clauses for pred_parent_match
       pred_wheres = []
-      # Where clauses for pred_obj_parent_match
       pred_obj_wheres = []
+
+      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
       trait_query.pairs.each do |pair|
         if pair.object
-          pred_obj_wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-(trait)-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+          pred_obj_wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+                             "(trait)"\
+                             "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
         else
           pred_wheres << "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
@@ -375,22 +373,28 @@ class TraitBank
 
       q = if pred_part && pred_obj_part
         # TODO: distinct records? Is it possible to have overlap?
+
+        # The OPTIONAL before pred_obj_part is necessary for results to be returned in the case where pred_part matches but pred_obj_part
+        # doesn't. This doesn't work the other way around since we need to UNWIND all_rows, not rows.
         "#{pred_part} "\
           "WITH collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as rows "\
-        "#{pred_obj_part} "\
+        "OPTIONAL #{pred_obj_part} "\
           "WITH rows + collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as all_rows "\
         "UNWIND all_rows as row "\
         "WITH row.page as page, row.trait as trait, row.predicate as predicate, row.info as info, row.info_term as info_term, row.resource as resource "\
         "#{with_count_clause}"\
-        "#{return_clause}"
+        "#{return_clause} "\
+        "#{limit_and_skip}"
       elsif pred_part
         "#{pred_part} "\
         "#{with_count_clause}"\
-        "#{return_clause}"
+        "#{return_clause} "\
+        "#{limit_and_skip}"
       elsif pred_obj_part
         "#{pred_obj_part} "\
         "#{with_count_clause}"\
-        "#{return_clause}"
+        "#{return_clause} "\
+        "#{limit_and_skip}"
       else
         throw "Invalid query"
       end
