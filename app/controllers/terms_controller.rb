@@ -1,3 +1,5 @@
+require 'pp' #TODO: remove
+
 class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
@@ -8,13 +10,30 @@ class TermsController < ApplicationController
   end
 
   def search
-    if params[:uri]
-      do_search
-      render "show"
+    if params[:trait_bank_query]
+      @query = TraitBank::Query.new(tb_query_params)
+      @page = params[:page] || 1
+      data = TraitBank.term_query(@query)
+      ids = data.map { |t| t[:page_id] }.uniq
+      
+      pages = Page.where(:id => ids).
+        includes(:medium, :native_node, :preferred_vernaculars)
+
+      @pages = {}
+      ids.each do |id|
+        page = pages.find { |p| p.id == id }
+        @pages[id] = page if page
+      end
+
+      @per_page = 50
+      paginate_term_search_data(data, @query)
+      @is_terms_search = true
+      @resources = TraitBank.resources(data)
     else 
-      @predicate_options = [['---', nil]] + glossary_helper("predicate_glossary", false).collect { |item| [item[:name], item[:uri]] }
-      @query = TraitBank::Query.new
+      @query = TraitBank::Query.new(:pairs => [TraitBank::Query::Pair.new, TraitBank::Query::Pair.new])
     end
+
+    @predicate_options = [['---', nil]] + glossary_helper("predicate_glossary", false).collect { |item| [item[:name], item[:uri]] }
   end
 
   def predicate_traits
@@ -81,11 +100,20 @@ class TermsController < ApplicationController
   end
 
 private
+  def paginate_term_search_data(data, query)
+    options = {
+      :count => true
+    }
+    @count = TraitBank.term_query(query, options)
+    #@count = 1000
+    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
+      page(@page).per(@per_page)
+  end
 
   def paginate_data(data)
     options = { clade: params[:clade], count: true }
     add_uri_to_options(options)
-    @count = TraitBank.term_search(options)
+    TraitBank.term_search(options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end
@@ -194,5 +222,14 @@ private
         end
       end
     end
+  end
+
+  def tb_query_params
+    params.require(:trait_bank_query).permit(
+      :pairs_attributes => [
+        :predicate,
+        :object
+      ]
+    )
   end
 end

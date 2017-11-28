@@ -9,9 +9,11 @@
             .uk-width-1-2
               = ff.label :predicate, :class => "uk-form-label"
               .uk-form-controls
-                = ff.select :predicate, options_for_select(@predicate_options), {}, :class => "uk-select js-pred-select"
-              .uk-width-1-2
-                %label.uk-form-label{:for => :predicate}Trait
-                .uk-form-controls
-                  = select_tag :value, nil, :disabled => true, :class => "uk-select js-obj-select"
+                = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select"
+            .uk-width-1-2
+              = ff.label :object, :class=> "uk-form-label"
+              .uk-form-controls
+                = ff.select :object, [], {}, :disabled => true, :class => "uk-select js-obj-select"
         = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"
+  - if @pages
+    = render 'data_table', { data: @grouped_data, pages: @pages }

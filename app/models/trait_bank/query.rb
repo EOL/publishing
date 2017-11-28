@@ -2,26 +2,21 @@ class TraitBank
   class Query
     include ActiveModel::Model
 
-    def initialize(attributes={})
-      super
-      @pairs = []
-
-      2.times { @pairs << Pair.new }
-    end
-
-    def pairs 
-      @pairs
-    end
+    attr_accessor :pairs
 
     def pairs_attributes=(attributes)
-      pairs << Pair.new(attributes) 
+      @pairs ||= []
+
+      attributes.each do |i, pair_params|
+        @pairs.push(Pair.new(pair_params)) if pair_params[:predicate] && !pair_params[:predicate].blank?
+      end
     end
 
     class Pair
       include ActiveModel::Model
 
       attr_accessor :predicate
-      attr_accessor :trait
+      attr_accessor :object
     end
   end
 end

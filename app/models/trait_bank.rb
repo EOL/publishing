@@ -27,6 +27,9 @@ class TraitBank
   #
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
   #   or "metadata" ... at the time of this writing.
+  
+  CHILD_TERM_DEPTH = 4
+
   class << self
     def connection
       @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
@@ -319,6 +322,118 @@ class TraitBank
         found += batch_found
         yield(batch)
         page += 1
+      end
+    end
+
+    # TODO: merge with/replace term_search
+    def term_query(trait_query, options={})
+      # TODO:
+      # 1) Support options[:count]. Normal queries should 
+      #    be limited to one page of results, and count should
+      #    get total. This is used for pagination.
+      # 1.2) Support options[:page], options[:per_page] (I think - see how term_search does it)
+      # 2) Support page/trait record search. Make it an option.
+      #    Don't bother with semantic differences at first. Deal      #    with that in 3)
+      # 3) Support OR vs AND conditions
+      # 4) Clade filter
+      # 5) Any other filters
+      
+      # Query components
+      with_count_clause = options[:count] ? 
+                          "WITH COUNT(DISTINCT(trait)) AS count " :
+                          ""
+
+      return_clause =      options[:count] ? 
+                           "RETURN count" :
+                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
+
+
+      # Where clauses for pred_parent_match
+      pred_wheres = []
+      # Where clauses for pred_obj_parent_match
+      pred_obj_wheres = []
+
+      trait_query.pairs.each do |pair|
+        if pair.object
+          pred_obj_wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-(trait)-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+        else
+          pred_wheres << "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+        end
+      end
+
+      pred_part = pred_wheres.empty? ? nil :
+        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
+        "(trait)-[:predicate]->(predicate:Term), "\
+        "(trait)-[info:units_term|object_term]->(info_term:Term) "\
+          "WHERE #{pred_wheres.join(" OR ")}"
+
+      pred_obj_part = pred_obj_wheres.empty? ? nil :
+        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
+        "(trait)-[:predicate]->(predicate:Term), "\
+        "(trait)-[info:object_term]->(info_term:Term) "\
+          "WHERE #{pred_obj_wheres.join(" OR ")}"\
+
+      q = if pred_part && pred_obj_part
+        # TODO: distinct records? Is it possible to have overlap?
+        "#{pred_part} "\
+          "WITH collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as rows "\
+        "#{pred_obj_part} "\
+          "WITH rows + collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as all_rows "\
+        "UNWIND all_rows as row "\
+        "WITH row.page as page, row.trait as trait, row.predicate as predicate, row.info as info, row.info_term as info_term, row.resource as resource "\
+        "#{with_count_clause}"\
+        "#{return_clause}"
+      elsif pred_part
+        "#{pred_part} "\
+        "#{with_count_clause}"\
+        "#{return_clause}"
+      elsif pred_obj_part
+        "#{pred_obj_part} "\
+        "#{with_count_clause}"\
+        "#{return_clause}"
+      else
+        throw "Invalid query"
+      end
+
+
+#      pred_q = if pred_wheres.empty?
+#        nil
+#      else
+#        "MATCH #{page_match} "\
+#        "MATCH #{pred_match} "\
+#        "MATCH #{pred_info_match} "\
+#        "MATCH #{pred_parent_match} "\
+#        "WHERE #{pred_wheres.join(" OR ")} "\
+#        "#{with_clause ? "#{with_clause} " : ""}"\
+#        "#{return_clause}"
+#      end
+#
+#      pred_obj_q = if pred_obj_wheres.empty?
+#        nil
+#      else
+#        "MATCH #{page_match} "\
+#        "MATCH #{pred_match} "\
+#        "MATCH #{obj_match} "\
+#        "MATCH #{pred_obj_parent_match} "\
+#        "WHERE #{pred_obj_wheres.join(" OR ")} "\
+#        "#{with_clause ? "#{with_clause} " : ""}"\
+#        "#{return_clause}"
+#      end
+#
+#      q = if pred_q && pred_obj_q
+#        "#{pred_q} UNION #{pred_obj_q}"
+#      elsif pred_q
+#        pred_q
+#      else
+#        pred_obj_q
+#      end
+#
+      result = query(q)
+
+      if options[:count]
+        result["data"] ? result["data"].first.first : 0
+      else
+        build_trait_array(result)
       end
     end
 
