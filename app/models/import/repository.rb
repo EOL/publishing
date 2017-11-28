@@ -148,10 +148,15 @@ module Import
         @node_pks << node_pk
         rank = node.delete(:rank)
         identifiers = node.delete(:identifiers)
+        # Keeping these for posterity: I had altered the JSON output of the API and needed to parse out the sciname:
+        # sname = node.delete(:scientific_name)
+        # node[:scientific_name] = sname['normalized'] || sname['verbatim']
+        # node[:canonical_form] = sname['canonical'] || sname['verbatim']
         @identifiers += identifiers.map { |ident| { identifier: ident, node_resource_pk: node_pk } }
+        # TODO: move this to a hash-cache thingie... (mind the downcase)
         unless rank.nil?
           rank = Rank.where(name: rank).first_or_create do |r|
-            r.name = rank
+            r.name = rank.downcase
             r.treat_as = Rank.guess_treat_as(rank)
           end
           node[:rank_id] = rank.id
