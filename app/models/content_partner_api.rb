@@ -9,17 +9,6 @@ class ContentPartnerApi
     logo = Tempfile.new("#{file_name}")
     logo.write(input_logo.read.force_encoding(Encoding::UTF_8))
     begin
-      #TODO: change base uri to send to storage layer first and only when you get logo path back send all info to (logo path + info) schedular
-      # logo_request = RestClient::Request.new(
-        # :method => :post,
-        # :url => "#{@storage_uri}/contentPartners",
-        # :payload => { logo: logo }
-      # )
-      # logo_response = logo_request.execute
-      # debugger
-      # logo_path = logo_reponse 
-      
-      # partner_params= { name: params[:name], description: params[:description], url: params[:url], abbreviation: params[:abbreviation], logo: logo, logoPath: logo_path }
       request =RestClient::Request.new(
         :method => :post,
         :url => "#{@schedular_uri}/contentPartners",

@@ -9,5 +9,9 @@ FactoryGirl.define do
       name nil
     end
     
+    trait :default_logo do
+      logo nil
+    end
+    
   end
 end

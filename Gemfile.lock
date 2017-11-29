@@ -509,6 +509,7 @@ DEPENDENCIES
   refinerycms-i18n
   refinerycms-wymeditor
   rest-client
+  rspec-mocks
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
