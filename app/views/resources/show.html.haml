@@ -49,4 +49,7 @@ With traits:
           %b= "Failed:"
           = l(log.failed_at, format: '%H:%M:%S.%3N')
         %b= "Status:"
-        = log.status
+        - if log.status
+          = log.status
+        - else
+          = "unknown"
