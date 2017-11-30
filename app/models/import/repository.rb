@@ -85,6 +85,7 @@ module Import
         partner = find_and_update_or_create(Partner, partner)
         resource[:partner_id] = partner.id
         resource = find_and_update_or_create(Resource, resource)
+        log("Will import resource: #{resource[:name]}")
         @resources << resource
       end
     end
@@ -324,12 +325,33 @@ module Import
             # If this guy doesn't have an icon, we need to walk up the tree to find more! :S
             Page.where(id: page.ancestry_ids).reverse.each do |ancestor|
               next if ancestor.id == page.id
-              last if ancestor.medium_id
+              break if ancestor.medium_id
               @naked_pages[ancestor.id] = ancestor
             end
           end
         end
       end
+
+      # I ran this manually to clean up when things didn't work. It suggests we should abstract this and remove.
+      # Medium.where(resource: @resource.id).find_each do |medium|
+      #   page_id = medium.page_id
+      #   medium_pk = medium.resource_pk
+      #   @contents << { page_id: page_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+      #                  content_id: medium.id, resource_id: @resource.id }
+      #   if @naked_pages.key?(page_id)
+      #     @naked_pages[page_id].assign_attributes(medium_id: medium.id)
+      #   end
+      #   if @ancestry.key?(page_id)
+      #     @ancestry[page_id].each do |ancestor_id|
+      #       next if ancestor_id == page_id
+      #       @contents << { page_id: ancestor_id, source_page_id: page_id, position: 10000, content_type: 'Medium',
+      #         content_id: medium.id, resource_id: @resource.id }
+      #       if @naked_pages.key?(ancestor_id)
+      #         @naked_pages[ancestor_id].assign_attributes(medium_id: medium.id)
+      #       end
+      #     end
+      #   end
+      # end
 
       log('build page contents...')
       @media_by_page.each do |page_id, medium_pk|
