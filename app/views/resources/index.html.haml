@@ -4,3 +4,7 @@
 %ul.uk-list
   - @resources.each do |resource|
     %li= link_to(resource.name, resource)
+    - if (log = @resources.import_logs.last)
+      (last published
+      = l(log.created_at, format: '%H:%M:%S.%3N')
+      )

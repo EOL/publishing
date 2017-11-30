@@ -2,8 +2,8 @@ class ImportRun < ActiveRecord::Base
   # nothing but timestamps (including completed_at)
   scope :completed, -> { where("completed_at IS NOT NULL") }
 
-  # NOTE: shorthand for starting an import manually. Easier to type ImportRun.now than this other thing:
+  # NOTE: An alias for starting a publish manually.
   def self.now
-    Import::Repository.start
+    Publishing.start
   end
 end

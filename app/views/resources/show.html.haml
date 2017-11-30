@@ -39,7 +39,7 @@ With traits:
   %h2
     Imports:
   %ul.uk-list
-    - @resource.import_logs.each do |log|
+    - @resource.import_logs.order('created_at DESC').each do |log|
       %li
         %b= link_to(l(log.created_at, format: :long), [@resource, log])
         - if log.completed_at

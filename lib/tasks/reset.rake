@@ -11,7 +11,7 @@ namespace :reset do
 
     desc 'rebuild the database, re-running migrations. Import is performed (harvester must be running on port 3000).'
     task import: :empty do
-      Import::Repository.start
+      Publishing.start
     end
   end
 
@@ -19,6 +19,6 @@ namespace :reset do
   task import: :environment do
     Rake::Task['db:reset'].invoke
     Rake::Task['searchkick:reindex:all'].invoke
-    Import::Repository.start
+    Publishing.start
   end
 end
