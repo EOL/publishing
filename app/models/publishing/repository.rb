@@ -64,7 +64,8 @@ class Publishing::Repository
         response = JSON.parse(html_response)
       rescue => e
         @log.log("!! Failed to read #{key} page #{page}! url: #{url}", cat: :errors)
-        noko = Nokogiri.parse(response)
+        noko = Nokogiri.parse(response) rescue nil
+        return if noko.nil?
         @log.log(noko.css('html head title')&.text)
         @log.log(noko.css('html body h1')&.text)
         @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
@@ -72,7 +73,10 @@ class Publishing::Repository
         return
       end
       total_pages = response["totalPages"]
-      return unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
+      unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
+        @log.log("Empty #{key} page: #{url}", cat: :infos)
+        return
+      end
       if page == 1 || (page % 25).zero?
         pct = (page / total_pages.to_f * 100).ceil rescue '??'
         @log.log("Importing #{key.pluralize}: page #{page}/#{total_pages} (#{pct}%)", cat: :infos)
