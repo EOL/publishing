@@ -1,6 +1,6 @@
 class Publishing::PubScientificNames
   def self.import(resource, log, repo)
-    Publishing::PubMedia.new(resource, log, repo).import
+    Publishing::PubScientificNames.new(resource, log, repo).import
   end
 
   def initialize(resource, log, repo)

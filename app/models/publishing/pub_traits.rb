@@ -1,6 +1,6 @@
 class Publishing::PubTraits
   def self.import(resource, log, repo)
-    Publishing::PubMedia.new(resource, log, repo).import
+    Publishing::PubTraits.new(resource, log, repo).import
   end
 
   def initialize(resource, log, repo)
@@ -27,7 +27,7 @@ class Publishing::PubTraits
         row << trait[header]
       end
       trait_rows << row
-      meta = trait_data.delete(:metadata)
+      meta = trait.delete(:metadata)
       meta_rows.first do |header|
         if header == :trait_resource_pk
           meta_rows << trait[:resource_pk]

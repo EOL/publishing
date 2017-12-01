@@ -2,7 +2,7 @@ class Publishing::PubVernaculars
   include Publishing::GetsLanguages
 
   def self.import(resource, log, repo)
-    Publishing::PubMedia.new(resource, log, repo).import
+    Publishing::PubVernaculars.new(resource, log, repo).import
   end
 
   def initialize(resource, log, repo)

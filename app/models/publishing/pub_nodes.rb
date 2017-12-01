@@ -1,7 +1,7 @@
 class Publishing::PubNodes
   attr_reader :node_id_by_page
   def self.import(resource, log, repo)
-    Publishing::PubMedia.new(resource, log, repo).import
+    Publishing::PubNodes.new(resource, log, repo).import
   end
 
   def initialize(resource, log, repo)

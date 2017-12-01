@@ -146,11 +146,18 @@ class Resource < ActiveRecord::Base
     klass.where(resource_id: id).delete_all
   end
 
-  # Note this is flawed insomuch as it doesn't import terms and doesn't update pages after it's done. Use it at your own
+  # NOTE this is flawed insomuch as it doesn't import terms and doesn't update pages after it's done. Use it at your own
   # risk.
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
-    Publishing::PubMedia.import(res, log, repo)
+    Publishing::PubTraits.import(self, log, repo)
+  end
+
+  # NOTE this does NOT update pages when it's done. Use it at your own risk.
+  def import_media(since)
+    log = Publishing::PubLog.new(self)
+    repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    Publishing::PubMedia.import(self, log, repo)
   end
 end
