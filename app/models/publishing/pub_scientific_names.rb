@@ -42,6 +42,7 @@ class Publishing::PubScientificNames
   end
 
   def get_tax_stat(status)
+    @tax_stats ||= {}
     return @tax_stats[status] if @tax_stats.key?(status)
     @tax_stats[status] = TaxonomicStatus.find_or_create_by(name: status).id
   end
