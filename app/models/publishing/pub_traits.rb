@@ -39,8 +39,8 @@ class Publishing::PubTraits
             meta_row << m_datum[header]
           end
         end
+        meta_rows << meta_row
       end
-      meta_rows << meta_row
     end
     @log.log('read_associations')
     path = "resources/#{@resource.repository_id}/assocs.json?"

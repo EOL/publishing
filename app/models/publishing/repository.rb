@@ -53,6 +53,8 @@ class Publishing::Repository
     total_count
   end
 
+  # TODO: I would love to extract enough here to be able to call something like
+  # get_page(path, key, page)
   def loop_over_pages(path_without_page, key)
     page = 1
     total_pages = 2 # Dones't matter YET... will be populated in a bit...
