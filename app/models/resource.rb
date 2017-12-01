@@ -152,7 +152,7 @@ class Resource < ActiveRecord::Base
     log.log('Importing Traits ONLY...')
     begin
       Publishing::PubTraits.import(self, log, repo)
-      log.log('NOTE: traits have been loaded, but richness has not been recalculated.')
+      log.log('NOTE: traits have been loaded, but richness has not been recalculated.', cat: :infos)
       log.complete
     rescue => e
       log.fail(e)
@@ -166,7 +166,7 @@ class Resource < ActiveRecord::Base
     begin
       Publishing::PubMedia.import(self, log, repo)
       log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
-        'media counts may be off.')
+        'media counts may be off.', cat: :infos)
       log.complete
     rescue => e
       log.fail(e)

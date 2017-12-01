@@ -28,15 +28,16 @@ class Publishing::PubTraits
         row << trait[header]
       end
       trait_rows << row
+      meta_row = []
       meta = trait.delete(:metadata)
       meta_rows.first do |header|
         if header == :trait_resource_pk
-          meta_rows << trait[:resource_pk]
+          meta_row << trait[:resource_pk]
         else
-          meta_rows << meta[header]
+          meta_row << meta[header]
         end
       end
-      meta_rows << row
+      meta_rows << meta_row
     end
     @log.log('read_associations')
     path = "resources/#{@resource.repository_id}/assocs.json?"
@@ -46,18 +47,20 @@ class Publishing::PubTraits
         row << assoc[header]
       end
       trait_rows << row
+      meta_row = []
       meta = assoc_data.delete(:metadata)
       meta_rows.first do |header|
         if header == :trait_resource_pk
-          meta_rows << assoc[:resource_pk]
+          meta_row << assoc[:resource_pk]
         else
-          meta_rows << meta[header]
+          meta_row << meta[header]
         end
       end
-      meta_rows << row
+      meta_rows << meta_row
     end
     return if trait_rows.size <= 1
-    @log.log("slurping traits and associations (#{trait_rows.size - 1}) and all metadata (#{meta_rows.size - 1}, total #{trait_rows.size + meta_rows.size - 2})")
+    @log.log("slurping traits and associations (#{trait_rows.size - 1}) and all metadata (#{meta_rows.size - 1}, "\
+      "total #{trait_rows.size + meta_rows.size - 2})")
     traits_file = Rails.public_path.join("traits_#{@resource.id}.csv")
     meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
     CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
