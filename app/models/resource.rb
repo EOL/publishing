@@ -150,18 +150,26 @@ class Resource < ActiveRecord::Base
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
     log.log('Importing Traits ONLY...')
-    Publishing::PubTraits.import(self, log, repo)
-    log.log('NOTE: traits have been loaded, but richness has not been recalculated.')
-    log.complete
+    begin
+      Publishing::PubTraits.import(self, log, repo)
+      log.log('NOTE: traits have been loaded, but richness has not been recalculated.')
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
   end
 
   def import_media(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
     log.log('Importing Media ONLY...')
-    Publishing::PubMedia.import(self, log, repo)
-    log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
-      'media counts may be off.')
-    log.complete
+    begin
+      Publishing::PubMedia.import(self, log, repo)
+      log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
+        'media counts may be off.')
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
   end
 end

@@ -11,6 +11,7 @@ class Publishing::PubTraits
 
   def import
     @log.log('import_traits')
+    require 'csv'
     # TEMP!!! DELETEME (the remove_for_resource) ... you don't want to do this forever, when we have deltas.
     TraitBank::Admin.remove_for_resource(@resource)
     trait_rows = []

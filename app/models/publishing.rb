@@ -19,7 +19,6 @@ class Publishing
   end
 
   def start
-    require 'csv'
     @pub_log.log("Starting import run...")
     get_import_run
     get_resources
