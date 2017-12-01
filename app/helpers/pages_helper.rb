@@ -194,7 +194,7 @@ module PagesHelper
   # TODO: we should really store the values like this! :S
   def unlink(text)
     return text.html_safe if text =~ /<a / # They already linked it.
-    text.gsub(URI.regexp) { |match|
+    text.gsub(URI::ABS_URI) { |match|
       if match.size < 20
         "<a href=\"#{match}\">#{match}</a>"
       else
