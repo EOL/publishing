@@ -28,13 +28,16 @@ class Publishing::PubTraits
         row << trait[header]
       end
       trait_rows << row
-      meta_row = []
       meta = trait.delete(:metadata)
-      meta_rows.first do |header|
-        if header == :trait_resource_pk
-          meta_row << trait[:resource_pk]
-        else
-          meta_row << meta[header]
+      meta.each do |m_datum_camel|
+        meta_row = []
+        m_datum = Publishing::Repository.underscore_hash_keys(m_datum_camel)
+        meta_rows.first.each do |header|
+          if header == :trait_resource_pk
+            meta_row << trait[:resource_pk]
+          else
+            meta_row << m_datum[header]
+          end
         end
       end
       meta_rows << meta_row
