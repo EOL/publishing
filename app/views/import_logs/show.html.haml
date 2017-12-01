@@ -1,4 +1,4 @@
-%h1= t("resources.headers.import_log", resource: @resource.name)
+%h1= t("resources.headers.import_log", resource: link_to(@resource.name, @resource)).html_safe
 %ul.uk-list
   %li
     %b= "Started:"
@@ -33,8 +33,6 @@
     - @events.each do |event|
       %li
         %b= l(event.created_at, format: '%H:%M:%S.%3N')
-        (
-        = event.cat
-        )
+        %span.uk-text-muted= "(#{event.cat})"
         = event.body
 = paginate @events

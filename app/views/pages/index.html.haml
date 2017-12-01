@@ -31,6 +31,8 @@
           = link_to(t("landing_page.cms"), "/docs/cms/pages")
         .ui.basic.button
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
+        .ui.basic.button
+          = link_to(t("landing_page.resources"), resources_path)
   .uk-container{ class: "uk-hidden@m" }
     = render("application/navbar")
     .ui.segments.uk-text-center.eol-landing-page-container

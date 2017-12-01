@@ -29,7 +29,6 @@ class Publishing
       @log = Publishing::PubLog.new(@resource)
       @repo = Publishing::Repository.new(resource: @resource, log: @log, since: @since)
       begin
-        # TODO: extract the innards to a class, let this class just be the manager.
         import_resource
         @log.complete
       rescue => e
@@ -112,6 +111,7 @@ class Publishing
       10.years.ago
   end
 
+  # TODO: extract the innards to a class, let Publishing just be the manager.
   def import_resource
     @log.log("Importing Resource: #{@resource.name} (#{@resource.id})")
     reset_resource
@@ -128,8 +128,6 @@ class Publishing
     Publishing::PubVernaculars.import(@resource, @log, @repo)
     Publishing::PubMedia.import(@resource, @log, @repo)
     Publishing::PubTraits.import(@resource, @log, @repo)
-    @resource.touch # We want it to claim it's been updated, now, and trickle to the top of the list.
-    @log.log('Complete', cat: :ends)
   end
 
   def get_existing_terms
