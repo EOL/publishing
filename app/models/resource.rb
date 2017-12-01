@@ -146,18 +146,22 @@ class Resource < ActiveRecord::Base
     klass.where(resource_id: id).delete_all
   end
 
-  # NOTE this is flawed insomuch as it doesn't import terms and doesn't update pages after it's done. Use it at your own
-  # risk.
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Traits ONLY...')
     Publishing::PubTraits.import(self, log, repo)
+    log.log('NOTE: traits have been loaded, but richness has not been recalculated.')
+    log.complete
   end
 
-  # NOTE this does NOT update pages when it's done. Use it at your own risk.
   def import_media(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Media ONLY...')
     Publishing::PubMedia.import(self, log, repo)
+    log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
+      'media counts may be off.')
+    log.complete
   end
 end
