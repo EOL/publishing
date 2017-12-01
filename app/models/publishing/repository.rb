@@ -63,7 +63,13 @@ class Publishing::Repository
       begin
         response = JSON.parse(html_response)
       rescue => e
-        @log.log("!! Failed to read #{key} page #{page}! #{e.message[0..1000]}", cat: :errors)
+        @log.log("!! Failed to read #{key} page #{page}! url: #{url}", cat: :errors)
+        noko = Nokogiri.parse(response)
+        @log.log(noko.css('html head title')&.text)
+        @log.log(noko.css('html body h1')&.text)
+        @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
+        debugger if Rails.env.development?
+        return
       end
       total_pages = response["totalPages"]
       return unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
