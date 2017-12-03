@@ -112,10 +112,10 @@ def create_page(params)
     if res.count > 0
       res.first.id
     else
-      if params[:resource_id] == DYNAMIC_HIERARCHY_RESOURCE_ID
+      # if params[:resource_id] == DYNAMIC_HIERARCHY_RESOURCE_ID
         page = Page.create(id: params[:id], native_node_id: params[:node_id], iucn_status: params[:iucn_status])
         page.id
-      end
+      # end
     end
     else
       nil    
