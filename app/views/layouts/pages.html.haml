@@ -28,7 +28,7 @@
   #page
     #collect_dialog{ uk: { modal: true } }
       .uk-modal-dialog.uk-modal-body
-        %h2.uk-modal-title= t(:collect_title, item: @page.name(Language.current).html_safe)
+        %h2.uk-modal-title= t(:collect_title, item: @page.name(Language.current)).html_safe
         .collect_form
           -# Nothing here by default.
         %button.uk-modal-close-default{ type: "button", uk: { close: true } }

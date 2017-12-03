@@ -146,6 +146,8 @@ class Resource < ActiveRecord::Base
     klass.where(resource_id: id).delete_all
   end
 
+  # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
+
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
