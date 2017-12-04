@@ -63,6 +63,8 @@ class TraitBank
       results
     end
 
+    # TODO: move this to a class.
+    # TODO: http://www.markhneedham.com/blog/2014/10/23/neo4j-cypher-avoiding-the-eager/ ...break it up, boys.
     def slurp_traits(resource_id)
       count = slurp_traits_with_count(resource_id)
       count + slurp_traits_with_count(resource_id, true)
@@ -76,49 +78,53 @@ class TraitBank
     def slurp_traits_with_count(resource_id, meta = false)
       # TODO: csv file location!
       # TODO: (eventually) target_scientific_name: row.target_scientific_name
-      header = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "\
+      header = "USING PERIODIC COMMIT 10000 LOAD CSV WITH HEADERS FROM "\
         "'#{Rails.configuration.eol_web_url}/#{'meta_' if meta}traits_#{resource_id}.csv' AS row WITH row"
-      plain_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NULL'
-      valued_traits_clause = 'WHERE row.value_uri IS NOT NULL AND row.units IS NULL'
-      measured_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NOT NULL'
+
+      plain_traits_clause = "WHERE #{is_blank('row.value_uri')} AND #{is_blank('row.units')}"
+      valued_traits_clause = "WHERE #{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}"
+      measured_traits_clause = "WHERE #{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}"
       # NOTE: there should NEVER be a trait with both a vaule_uri AND a measurement, so we skip that.
       required_merge_clauses =
         meta ?
           <<~META_MERGE_CLAUSES
             MERGE (predicate:Term { uri: row.predicate })
-            MERGE (trait:MetaData)
-            FOREACH(x IN CASE WHEN row.resource_pk IS NULL THEN [] ELSE [1] END | SET trait.resource_pk = row.resource_pk)
-            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = row.value_num)
-            MERGE (page)-[t_r:trait]->(trait)-[p_r:predicate]->(predicate)
+            MERGE (parent:Trait { resource_pk: row.trait_resource_pk })
+            CREATE (trait:MetaData { trait_resource_pk: row.trait_resource_pk })
+            FOREACH(x IN CASE WHEN #{is_blank('row.sex')} THEN [] ELSE [1] END | SET trait.sex = row.sex)
+            FOREACH(x IN CASE WHEN #{is_blank('row.lifestage')} THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
+            FOREACH(x IN CASE WHEN #{is_blank('row.statistical_method')} THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
+            FOREACH(x IN CASE WHEN #{is_blank('row.source')} THEN [] ELSE [1] END | SET trait.source = row.source)
+            FOREACH(x IN CASE WHEN #{is_blank('row.value_literal')} THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
+            FOREACH(x IN CASE WHEN #{is_blank('row.value_num')} THEN [] ELSE [1] END | SET trait.value_num = row.value_num)
+            MERGE (parent)-[:metadata]->(trait)-[:predicate]->(predicate)
           META_MERGE_CLAUSES
         : <<~MERGE_CLAUSES
             MERGE (resource:Resource { resource_id: #{resource_id} })
             MERGE (page:Page { page_id: toInt(row.page_id) })
             MERGE (predicate:Term { uri: row.predicate })
-            MERGE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
-            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN row.target_page_id IS NULL THEN [] ELSE [1] END | SET trait.object_page_id = toInt(row.target_page_id))
-            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = toInt(row.value_num))
-            MERGE (page)-[:trait]->(trait)-[p_r:predicate]->(predicate)
+            CREATE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
+            FOREACH(x IN CASE WHEN #{is_blank('row.sex')} THEN [] ELSE [1] END | SET trait.sex = row.sex)
+            FOREACH(x IN CASE WHEN #{is_blank('row.lifestage')} THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
+            FOREACH(x IN CASE WHEN #{is_blank('row.statistical_method')} THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
+            FOREACH(x IN CASE WHEN #{is_blank('row.source')} THEN [] ELSE [1] END | SET trait.source = row.source)
+            FOREACH(x IN CASE WHEN #{is_blank('row.target_page_id')} THEN [] ELSE [1] END | SET trait.object_page_id = toInt(row.target_page_id))
+            FOREACH(x IN CASE WHEN #{is_blank('row.value_literal')} THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
+            FOREACH(x IN CASE WHEN #{is_blank('row.value_num')} THEN [] ELSE [1] END | SET trait.value_num = toFloat(row.value_num))
+            MERGE (page)-[:trait]->(trait)-[:predicate]->(predicate)
             MERGE (trait)-[:supplier]->(resource)
           MERGE_CLAUSES
+      # TODO: that toFloat is frustrating. Perhaps we should have multiple columns in the CSV.
       valued_merge_clause = 'MERGE (value:Term { uri: row.value_uri })'
       valued_rel_clause = 'MERGE (trait)-[:object_term]->(value)'
       measured_merge_clause = 'MERGE (units:Term { uri: row.units })'
       measured_rel_clause = 'MERGE (trait)-[:units_term]->(units)'
       return_clause = 'RETURN COUNT(trait)'
 
-      # So, here, we're just building a series of very similar queries (and again for meta, since metadata can have the
-      # same associations as traits where this code is concerned). Thus the heavy redundancy:
+      # TODO: this is inefficient. Write three files for each type, including only the rows that would be used, and
+      # import each of those files. It will be more efficient than slurping the whole file three times.
+      #
+      # So, here, we're just building a series of very similar queries, one for each type of row in the file:
       res = query([header, plain_traits_clause, required_merge_clauses, return_clause].join(' '))
       new_count = res["data"] ? res["data"].first.first : 0
       res = query([header, valued_traits_clause, required_merge_clauses, valued_merge_clause, valued_rel_clause,
@@ -127,6 +133,14 @@ class TraitBank
       res = query([header, measured_traits_clause, required_merge_clauses, measured_merge_clause, measured_rel_clause,
         return_clause].join(' '))
       new_count + (res["data"] ? res["data"].first.first : 0)
+    end
+
+    def is_not_blank(field)
+      "(#{field} IS NOT NULL AND TRIM(#{field}) <> '')"
+    end
+
+    def is_blank(field)
+      "(#{field} IS NULL OR TRIM(#{field}) = '')"
     end
 
     def quote(string)

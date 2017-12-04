@@ -77,7 +77,10 @@ class Publishing
       resource[:repository_id] = resource.delete(:id)
       partner = resource.delete(:partner)
       # NOTE: resources that have no associated partner are PURELY test data in the repository database:
-      next unless partner
+      if partner.nil?
+        @pub_log.log("!! WARNING: **SKIPPING** resource #{resource[:name]} (#{resource[:repository_id]}): "\
+          "no partner defined!", cat: :warns)
+      end
       partner[:repository_id] = partner.delete(:id)
       partner = find_and_update_or_create(Partner, partner)
       resource[:partner_id] = partner.id
@@ -106,9 +109,9 @@ class Publishing
     @traitbank_terms = {}
     @tax_stats = {}
     @licenses = {}
-    @since = @resource&.import_logs&.successful&.any? ?
+    @since = (@resource&.import_logs&.successful&.any? ?
       @resource.import_logs.successful.last.created_at :
-      10.years.ago
+      10.years.ago).to_i
   end
 
   # TODO: extract the innards to a class, let Publishing just be the manager.
@@ -118,12 +121,7 @@ class Publishing
     # TODO: All ipmorts s/ return a list of affected pages.
     pub_nodes = Publishing::PubNodes.new(@resource, @log, @repo)
     ids = pub_nodes.import
-    begin
-      @page_ids += ids
-    rescue ArgumentError
-      debugger
-      puts 'Sets are fragile.'
-    end
+    @page_ids += ids
     Publishing::PubScientificNames.import(@resource, @log, @repo)
     Publishing::PubVernaculars.import(@resource, @log, @repo)
     Publishing::PubMedia.import(@resource, @log, @repo)
@@ -159,7 +157,7 @@ class Publishing
         skipped += 1
         next
       end
-      puts "++ New term: #{term[:uri]}" if terms.size > 1000 # Don't bother saying if we didn't have any at all!
+      @pub_log.log("++ New term: #{term[:uri]}") if terms.size > 1000 # Don't bother saying if we didn't have any at all!
       new_terms += 1
       # TODO: section_ids
       term[:type] = term[:used_for]

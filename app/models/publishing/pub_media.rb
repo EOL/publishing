@@ -40,7 +40,10 @@ class Publishing::PubMedia
       medium[:base_url] = "#{Rails.configuration.repository_url}/#{medium[:base_url]}" unless
         medium[:base_url] =~ /^http/
       @media_by_page[medium[:page_id]] = medium[:resource_pk]
-      debugger if medium[:page_id].blank? # This would otherwise cause the medium to be invisible. :S
+      if medium[:page_id].blank?
+        @log.log("Medium {#{medium[:resource_pk]}} skipped: missing page_id——perhaps node is missing?")
+        next
+      end
       @media_pks << medium[:resource_pk]
     end
     return if count.zero?
