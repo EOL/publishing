@@ -11,19 +11,20 @@ class TermsController < ApplicationController
     if params[:trait_bank_query]
       @query = TraitBank::Query.new(tb_query_params)
       @page = params[:page] || 1
-      data = TraitBank.term_query(@query)
+      @per_page = 50
+      data = TraitBank.term_query(@query, {
+        :page => @page,
+        :per => @per_page          
+      })
       ids = data.map { |t| t[:page_id] }.uniq
-      
-      pages = Page.where(:id => ids).
-        includes(:medium, :native_node, :preferred_vernaculars)
-
+      pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
       @pages = {}
+      
       ids.each do |id|
         page = pages.find { |p| p.id == id }
         @pages[id] = page if page
       end
 
-      @per_page = 50
       paginate_term_search_data(data, @query)
       @is_terms_search = true
       @resources = TraitBank.resources(data)

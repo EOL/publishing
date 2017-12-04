@@ -335,9 +335,8 @@ class TraitBank
     # TODO: merge with/replace term_search
     def term_query(trait_query, options={})
       # TODO:
-      # 1.2) Support options[:page], options[:per_page] (I think - see how term_search does it)
       # 2) Support page/trait record search. Make it an option.
-      #    Don't bother with semantic differences at first. Deal      #    with that in 3)
+      #    Don't bother with semantic differences at first. Deal with that in 3)
       # 3) Support OR vs AND conditions
       # 4) Clade filter
       # 5) Any other filters
