@@ -343,25 +343,40 @@ class TraitBank
       # 6) Correct ORDER for page search.
       
       # Query components
+
+      q = if trait_query.type == "record"
+        term_record_query(trait_query, options)
+      else
+        term_page_query(trait_query, options)
+      end
+
+      res = query(q)
+
+      if options[:count]
+        res["data"] ? res["data"].first.first : 0
+      else
+        build_trait_array(res)
+      end
+    end
+
+    def term_record_query(trait_query, options)
       with_count_clause = options[:count] ? 
                           "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
       return_clause =     options[:count] ? 
                           "RETURN count" :
                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
-      wheres = []
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
-      trait_query.pairs.each do |pair|
+      wheres = trait_query.pairs.map do |pair|
         if pair.object
-          wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
                              "(trait)"\
                              "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
         else
-          wheres << "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+          "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
       end
-
 
       match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
@@ -371,25 +386,53 @@ class TraitBank
       where_part = if wheres.empty?
         ""
       else
-        "WHERE #{wheres.join(" #{trait_query.pair_join_op.upcase} ")}"
+        "WHERE #{wheres.join(" OR ")}"
       end
 
       order_part = options[:count] ? "" : "ORDER BY page.name, predicate.name, info_term.name"
 
-      q = "#{match_part} "\
-          "#{where_part} "\
-          "#{with_count_clause}"\
-          "#{return_clause} "\
-          "#{order_part} "\
-          "#{limit_and_skip}"
+      "#{match_part} "\
+      "#{where_part} "\
+      "#{with_count_clause}"\
+      "#{return_clause} "\
+      "#{order_part} "\
+      "#{limit_and_skip}"
+    end
 
-      result = query(q)
+    def term_page_query(trait_query, options)
+      with_count_clause = options[:count] ?
+        "WITH COUNT(DISTINCT(page)) AS count " :
+        ""
+      return_clause = options[:count] ?
+        "RETURN count" :
+        "RETURN page"
+      page_match = "MATCH (page:Page)"
+      # TODO: this is the same for both types of term query. Refactor.
+      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
-      if options[:count]
-        result["data"] ? result["data"].first.first : 0
-      else
-        build_trait_array(result)
+      trait_matches = trait_query.pairs.each_with_index.map do |pair, i|
+        trait_label = "t#{i}"
+        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
+
+        if pair.object
+          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          "(#{trait_label})"\
+          "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+        else
+          match += "(#{trait_label})-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+        end
+
+        match
       end
+
+      order_part = options[:count] ? "" : "ORDER BY page.name"
+
+      "#{page_match} "\
+      "#{trait_matches.join(" ")} "\
+      "#{with_count_clause}"\
+      "#{return_clause} "\
+      "#{order_part} "\
+      "#{limit_and_skip}"
     end
 
     # Options:

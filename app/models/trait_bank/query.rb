@@ -6,7 +6,7 @@ class TraitBank
     PER_PAGE = 50
 
     attr_accessor :pairs
-    attr_accessor :pair_join_op
+    attr_accessor :type
 
     def pairs_attributes=(attributes)
       @pairs ||= []

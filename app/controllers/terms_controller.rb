@@ -29,7 +29,7 @@ class TermsController < ApplicationController
       @is_terms_search = true
       @resources = TraitBank.resources(data)
     else 
-      @query = TraitBank::Query.new(:pair_join_op => :or)
+      @query = TraitBank::Query.new(:type => :record)
       puts @query
     end
 
@@ -216,7 +216,7 @@ private
 
   def tb_query_params
     params.require(:trait_bank_query).permit(
-      :pair_join_op,
+      :type,
       :pairs_attributes => [
         :predicate,
         :object

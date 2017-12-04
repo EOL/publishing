@@ -13,9 +13,9 @@
           = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select"
   %div{:'uk-grid' => true}
     %div
-      = f.label :pair_join_op_or, "Match ANY predicate/object pair"
-      = f.radio_button :pair_join_op, :or
+      = f.label :type_record, "Records matching ANY predicate/object pair"
+      = f.radio_button :type, :record
     %div
-      = f.label :pair_join_op_and, "Match ALL predicate/object pairs"
-      = f.radio_button :pair_join_op, :and
+      = f.label :search_type_page, "Taxa matching ALL predicate/object pairs"
+      = f.radio_button :type, :page
   = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"
