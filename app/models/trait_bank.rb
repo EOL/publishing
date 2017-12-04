@@ -78,7 +78,8 @@ class TraitBank
     def slurp_traits_with_count(resource_id, meta = false)
       # TODO: csv file location!
       # TODO: (eventually) target_scientific_name: row.target_scientific_name
-      header = "USING PERIODIC COMMIT 10000 LOAD CSV WITH HEADERS FROM "\
+      # TODO: tweak that commit size. 10,000 caused a Heap error, so it's probably too large...
+      header = "USING PERIODIC COMMIT 2000 LOAD CSV WITH HEADERS FROM "\
         "'#{Rails.configuration.eol_web_url}/#{'meta_' if meta}traits_#{resource_id}.csv' AS row WITH row"
 
       plain_traits_clause = "WHERE #{is_blank('row.value_uri')} AND #{is_blank('row.units')}"
