@@ -340,104 +340,49 @@ class TraitBank
       # 3) Support OR vs AND conditions
       # 4) Clade filter
       # 5) Any other filters
+      # 6) Correct ORDER for page search.
       
       # Query components
       with_count_clause = options[:count] ? 
                           "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
-
       return_clause =     options[:count] ? 
                           "RETURN count" :
                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
-
-      pred_wheres = []
-      pred_obj_wheres = []
-
+      wheres = []
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
       trait_query.pairs.each do |pair|
         if pair.object
-          pred_obj_wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          wheres << "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
                              "(trait)"\
                              "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
         else
-          pred_wheres << "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+          wheres << "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
       end
 
-      pred_part = pred_wheres.empty? ? nil :
+
+      match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
         "(trait)-[:predicate]->(predicate:Term), "\
-        "(trait)-[info:units_term|object_term]->(info_term:Term) "\
-          "WHERE #{pred_wheres.join(" OR ")}"
+        "(trait)-[info:units_term|object_term]->(info_term:Term)"
 
-      pred_obj_part = pred_obj_wheres.empty? ? nil :
-        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
-        "(trait)-[:predicate]->(predicate:Term), "\
-        "(trait)-[info:object_term]->(info_term:Term) "\
-          "WHERE #{pred_obj_wheres.join(" OR ")}"\
-
-      q = if pred_part && pred_obj_part
-        # TODO: distinct records? Is it possible to have overlap?
-
-        # The OPTIONAL before pred_obj_part is necessary for results to be returned in the case where pred_part matches but pred_obj_part
-        # doesn't. This doesn't work the other way around since we need to UNWIND all_rows, not rows.
-        "#{pred_part} "\
-          "WITH collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as rows "\
-        "OPTIONAL #{pred_obj_part} "\
-          "WITH rows + collect({page: page, trait: trait, predicate: predicate, info: info, info_term: info_term, resource: resource}) as all_rows "\
-        "UNWIND all_rows as row "\
-        "WITH row.page as page, row.trait as trait, row.predicate as predicate, row.info as info, row.info_term as info_term, row.resource as resource "\
-        "#{with_count_clause}"\
-        "#{return_clause} "\
-        "#{limit_and_skip}"
-      elsif pred_part
-        "#{pred_part} "\
-        "#{with_count_clause}"\
-        "#{return_clause} "\
-        "#{limit_and_skip}"
-      elsif pred_obj_part
-        "#{pred_obj_part} "\
-        "#{with_count_clause}"\
-        "#{return_clause} "\
-        "#{limit_and_skip}"
+      where_part = if wheres.empty?
+        ""
       else
-        throw "Invalid query"
+        "WHERE #{wheres.join(" #{trait_query.pair_join_op.upcase} ")}"
       end
 
+      order_part = options[:count] ? "" : "ORDER BY page.name, predicate.name, info_term.name"
 
-#      pred_q = if pred_wheres.empty?
-#        nil
-#      else
-#        "MATCH #{page_match} "\
-#        "MATCH #{pred_match} "\
-#        "MATCH #{pred_info_match} "\
-#        "MATCH #{pred_parent_match} "\
-#        "WHERE #{pred_wheres.join(" OR ")} "\
-#        "#{with_clause ? "#{with_clause} " : ""}"\
-#        "#{return_clause}"
-#      end
-#
-#      pred_obj_q = if pred_obj_wheres.empty?
-#        nil
-#      else
-#        "MATCH #{page_match} "\
-#        "MATCH #{pred_match} "\
-#        "MATCH #{obj_match} "\
-#        "MATCH #{pred_obj_parent_match} "\
-#        "WHERE #{pred_obj_wheres.join(" OR ")} "\
-#        "#{with_clause ? "#{with_clause} " : ""}"\
-#        "#{return_clause}"
-#      end
-#
-#      q = if pred_q && pred_obj_q
-#        "#{pred_q} UNION #{pred_obj_q}"
-#      elsif pred_q
-#        pred_q
-#      else
-#        pred_obj_q
-#      end
-#
+      q = "#{match_part} "\
+          "#{where_part} "\
+          "#{with_count_clause}"\
+          "#{return_clause} "\
+          "#{order_part} "\
+          "#{limit_and_skip}"
+
       result = query(q)
 
       if options[:count]
