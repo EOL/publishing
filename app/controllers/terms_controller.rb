@@ -1,5 +1,3 @@
-require 'pp' #TODO: remove
-
 class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
@@ -30,28 +28,18 @@ class TermsController < ApplicationController
       @is_terms_search = true
       @resources = TraitBank.resources(data)
     else 
-      @query = TraitBank::Query.new(:pairs => [TraitBank::Query::Pair.new, TraitBank::Query::Pair.new])
+      @query = TraitBank::Query.new()
     end
 
-    @predicate_options = [['---', nil]] + glossary_helper("predicate_glossary", false).collect { |item| [item[:name], item[:uri]] }
+    @query.fill_out_pairs!
+    set_predicate_options
   end
 
-  def predicate_traits
-    res = TraitBank.query("MATCH (predicate:Term) <-[:predicate]- (trait:Trait) -[:object_term]-> (object:Term) WHERE predicate.uri = \"#{params[:uri]}\" RETURN DISTINCT(object) ORDER BY LOWER(object.name), LOWER(object.uri)")
-    @traits = res["data"].map do |t|
-      t.first["data"].symbolize_keys 
-    end
-    #@traits = TraitBank.query("MATCH (Page) -[:trait]-> (trait:Trait) -[:predicate] -> (predicate:Term) WHERE predicate.uri = \"#{params[:uri]}\" AND trait.name IS NOT NULL RETURN distinct trait")
-
-    respond_to do |format|
-      format.json do 
-        render :json => @traits
-      end
-    end
-  end
-
-  def show
-    do_search
+  def search_form
+    @query = TraitBank::Query.new(params[:trait_bank_query])
+    @query.fill_out_pairs!
+    set_predicate_options
+    render :layout => false
   end
 
   def edit
@@ -231,5 +219,9 @@ private
         :object
       ]
     )
+  end
+
+  def set_predicate_options
+    @predicate_options = [['----', nil]] + glossary_helper("predicate_glossary", false).collect { |item| [item[:name], item[:uri]] }
   end
 end

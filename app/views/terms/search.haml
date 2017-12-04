@@ -2,18 +2,6 @@
   .uk-card.uk-card-default.uk-grid.uk-padding
     .uk-width-4-5
       %h1 Data Search
-
-      = form_for @query, :url => term_search_path, :method => :get, :class => "uk-form-stacked" do |f|
-        = f.fields_for :pairs do |ff|
-          .js-trait-fields{:'uk-grid' => true}
-            .uk-width-1-2
-              = ff.label :predicate, :class => "uk-form-label"
-              .uk-form-controls
-                = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select"
-            .uk-width-1-2
-              = ff.label :object, :class=> "uk-form-label"
-              .uk-form-controls
-                = ff.select :object, [], {}, :disabled => true, :class => "uk-select js-obj-select"
-        = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"
+      = render "search_form"
   - if @pages
     = render 'data_table', { data: @grouped_data, pages: @pages }

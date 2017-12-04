@@ -66,6 +66,13 @@ class TraitBank
       results
     end
 
+    def obj_terms_for_pred(pred_uri)
+      res = query("MATCH (predicate:Term) <-[:predicate]- (trait:Trait) -[:object_term]-> (object:Term) WHERE predicate.uri = \"#{pred_uri}\" RETURN DISTINCT(object) ORDER BY LOWER(object.name), LOWER(object.uri)")
+      res["data"].map do |t|
+        t.first["data"].symbolize_keys
+      end
+    end
+
     def slurp_traits(resource_id)
       count = slurp_traits_with_count(resource_id)
       count + slurp_traits_with_count(resource_id, true)
@@ -989,4 +996,5 @@ class TraitBank
       end
     end
   end
+  
 end
