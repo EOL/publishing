@@ -34,14 +34,19 @@ gem 'refinerycms-i18n'
 # to be defined first for other classes to recognize them:
 gem 'kaminari'
 
-# All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
-# ..and with a comment above each gem (or block of related gems) explaining what
+# All other non-environment-specific gems come next.
+#
+# ALPHABETICALLY, PLEASE.
+#
+# ...and with a comment above each gem (or block of related gems) explaining what
 # it's for. Let's keep this maintainable!
 
 # For bulk inserts:
 gem 'activerecord-import'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list'
+# Faster startup:
+gem 'bootsnap', require: false
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Run background jobs:
