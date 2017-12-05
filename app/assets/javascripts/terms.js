@@ -15,9 +15,7 @@ EOL.onReady(function() {
             setupForm();
           }
         });
-      } else {
-      
-      }
+      }    
     });
 
     $('.js-term-select').each(function() {

@@ -32,7 +32,6 @@ class TermsController < ApplicationController
       @resources = TraitBank.resources(data)
     else 
       @query = TraitBank::Query.new(:type => :record)
-      puts @query
     end
 
     @query.fill_out_pairs!

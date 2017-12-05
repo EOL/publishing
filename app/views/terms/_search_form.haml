@@ -17,6 +17,10 @@
       .uk-form-controls
         = text_field_tag(:clade_text, @clade_text, :class => "uk-input js-clade-typeahead typeahead")
         = f.hidden_field :clade, :class => "js-clade-field" 
+    .uk-width-1-2
+      = f.label :sort, :class => "uk-form-label"
+      .uk-form-controls
+      = f.select :sort, options_for_select(@query.sort_options), {}, :class => "uk-select"
   %div{:'uk-grid' => true}
     %div
       = f.label :type_record, "Records matching ANY predicate/object pair"
