@@ -934,8 +934,13 @@ class TraitBank
     def child_has_parent(curi, puri)
       cterm = term(curi)
       pterm = term(puri)
+      child_term_has_parent_term(cterm, pterm)
+    end
+
+    def child_term_has_parent_term(cterm, pterm)
       relate(:parent_term, cterm, pterm)
     end
+
 
     def term(uri)
       @terms ||= {}
