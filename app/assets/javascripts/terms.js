@@ -15,6 +15,16 @@ EOL.onReady(function() {
             setupForm();
           }
         });
+      } else {
+      
+      }
+    });
+
+    $('.js-term-select').each(function() {
+      if ($(this).find('option').length <= 1) {
+        $(this).attr('disabled', true);
+      } else {
+        $(this).attr('disabled', false);
       }
     });
 
@@ -24,6 +34,13 @@ EOL.onReady(function() {
       source: EOL.searchNames
     }).bind('typeahead:selected', function(evt, datum, name) {
       $('.js-clade-typeahead').closest('.js-typeahead-wrap').find('.js-clade-field').val(datum.id);
+    });
+
+    $('.js-clade-typeahead').on('input', function() {
+      console.log('input!');
+      if ($(this).val().length === 0) {
+        $(this).closest('.js-typeahead-wrap').find('.js-clade-field').val('');
+      }
     });
   }
 

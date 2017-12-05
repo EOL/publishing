@@ -4,13 +4,13 @@
       .uk-width-1-2
         = ff.label :predicate, :class => "uk-form-label"
         .uk-form-controls
-          = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select"
+          = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select js-term-select"
       .uk-width-1-2
         = ff.label :object, :class=> "uk-form-label"
         .uk-form-controls
           - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
           - disabled = options.empty?
-          = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select"
+          = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select js-term-select"
   %div{:'uk-grid' => true}
     .uk-width-1-2.js-typeahead-wrap
       = f.label :clade, :class => "uk-form-label"

@@ -8,7 +8,7 @@ class TermsController < ApplicationController
   end
 
   def search
-    @clade_text = params[:clade_text] || ""
+    @clade_text = params[:clade_text]
 
     if params[:trait_bank_query]
       @query = TraitBank::Query.new(tb_query_params)
@@ -108,6 +108,7 @@ class TermsController < ApplicationController
   def search_form
     @query = TraitBank::Query.new(params[:trait_bank_query])
     @query.fill_out_pairs!
+    @clade_text = params[:clade_text]
     set_predicate_options
     render :layout => false
   end

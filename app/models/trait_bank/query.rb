@@ -9,6 +9,11 @@ class TraitBank
     attr_accessor :type
     attr_accessor :clade
 
+    def initialize(*)
+      super
+      @clade = nil if @clade.blank?
+    end
+
     def pairs_attributes=(attributes)
       @pairs ||= []
       attributes.each do |i, pair_params|
