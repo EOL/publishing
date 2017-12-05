@@ -9,7 +9,6 @@ class ImportLog < ActiveRecord::Base
     cat = options[:cat] || :starts
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
-      puts "P[#{Time.now.strftime('%H:%M:%S')}] (#{cat}) #{chunk}"
     end
   end
 

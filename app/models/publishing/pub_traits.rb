@@ -14,11 +14,12 @@ class Publishing::PubTraits
     require 'csv'
     # TEMP!!! DELETEME (the remove_for_resource) ... you don't want to do this forever, when we have deltas.
     TraitBank::Admin.remove_for_resource(@resource)
+    TraitBank.create_resource(@resource.id)
     trait_rows = []
     meta_rows = []
     trait_rows << %i[page_id scientific_name resource_pk predicate sex lifestage statistical_method source
       target_page_id target_scientific_name value_uri value_literal value_num units]
-    meta_rows << %i[trait_resource_pk predicate value_literal value_num value_uri units sex lifestage
+    meta_rows << %i[eol_pk trait_resource_pk predicate value_literal value_num value_uri units sex lifestage
       statistical_method source]
     @log.log('read_traits')
     path = "resources/#{@resource.repository_id}/traits.json?"
@@ -68,7 +69,7 @@ class Publishing::PubTraits
     meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
     CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
     CSV.open(meta_traits_file, 'w') { |csv| meta_rows.each { |row| csv << row } }
-    TraitBank.slurp_traits(@resource.id)
+    TraitBank::Slurp.load_csvs(@resource)
     @log.log("Completed.")
     @log.log("Keeping: #{traits_file}.")
     @log.log("Keeping: #{meta_traits_file}.")

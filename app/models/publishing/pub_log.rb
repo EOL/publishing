@@ -20,7 +20,7 @@ class Publishing::PubLog
   end
 
   def complete
-    add_text_logs("(ends) completed resource #{@resource}")
+    add_text_logs("(ends) completed resource #{@resource.name} (#{@resource.id})")
     @logger&.complete
   end
 
