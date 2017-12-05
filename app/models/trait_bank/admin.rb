@@ -60,11 +60,13 @@ class TraitBank
         query("MATCH (trait:Trait) DETACH DELETE trait")
         query("MATCH (page:Page) DETACH DELETE page")
         query("MATCH (res:Resource) DETACH DELETE res")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       def remove_for_resource(resource)
         query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
           "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships

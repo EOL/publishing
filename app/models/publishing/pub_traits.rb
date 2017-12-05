@@ -68,8 +68,8 @@ class Publishing::PubTraits
     meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
     CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
     CSV.open(meta_traits_file, 'w') { |csv| meta_rows.each { |row| csv << row } }
-    count = TraitBank.slurp_traits(@resource.id)
-    @log.log("Created #{count} associations (including metadata).")
+    TraitBank.slurp_traits(@resource.id)
+    @log.log("Completed.")
     @log.log("Keeping: #{traits_file}.")
     @log.log("Keeping: #{meta_traits_file}.")
     # File.unlink(traits_file) if File.exist?(traits_file)

@@ -64,10 +64,9 @@ class TraitBank
     end
 
     # TODO: move this to a class.
-    # TODO: http://www.markhneedham.com/blog/2014/10/23/neo4j-cypher-avoiding-the-eager/ ...break it up, boys.
     def slurp_traits(resource_id)
-      count = slurp_traits_with_count(resource_id)
-      count + slurp_traits_with_count(resource_id, true)
+      slurp_traits_with_count(resource_id)
+      slurp_traits_with_count(resource_id, true)
     end
 
     # HERE THERE BE DRAGONS. # Speed improvement using slurp over creating via neography was, for about 3000 traits, a
@@ -85,55 +84,52 @@ class TraitBank
       plain_traits_clause = "WHERE #{is_blank('row.value_uri')} AND #{is_blank('row.units')}"
       valued_traits_clause = "WHERE #{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}"
       measured_traits_clause = "WHERE #{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}"
+      meta_fields = %i[sex lifestage statistical_method source value_literal value_num]
+      trait_fields = meta_fields + [:target_page_id]
       # NOTE: there should NEVER be a trait with both a vaule_uri AND a measurement, so we skip that.
-      required_merge_clauses =
-        meta ?
-          <<~META_MERGE_CLAUSES
-            MERGE (predicate:Term { uri: row.predicate })
-            MERGE (parent:Trait { resource_pk: row.trait_resource_pk })
-            CREATE (trait:MetaData { trait_resource_pk: row.trait_resource_pk })
-            FOREACH(x IN CASE WHEN #{is_blank('row.sex')} THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN #{is_blank('row.lifestage')} THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN #{is_blank('row.statistical_method')} THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN #{is_blank('row.source')} THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN #{is_blank('row.value_literal')} THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN #{is_blank('row.value_num')} THEN [] ELSE [1] END | SET trait.value_num = row.value_num)
-            MERGE (parent)-[:metadata]->(trait)-[:predicate]->(predicate)
-          META_MERGE_CLAUSES
-        : <<~MERGE_CLAUSES
-            MERGE (resource:Resource { resource_id: #{resource_id} })
-            MERGE (page:Page { page_id: toInt(row.page_id) })
-            MERGE (predicate:Term { uri: row.predicate })
-            CREATE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
-            FOREACH(x IN CASE WHEN #{is_blank('row.sex')} THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN #{is_blank('row.lifestage')} THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN #{is_blank('row.statistical_method')} THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN #{is_blank('row.source')} THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN #{is_blank('row.target_page_id')} THEN [] ELSE [1] END | SET trait.object_page_id = toInt(row.target_page_id))
-            FOREACH(x IN CASE WHEN #{is_blank('row.value_literal')} THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN #{is_blank('row.value_num')} THEN [] ELSE [1] END | SET trait.value_num = toFloat(row.value_num))
-            MERGE (page)-[:trait]->(trait)-[:predicate]->(predicate)
-            MERGE (trait)-[:supplier]->(resource)
-          MERGE_CLAUSES
-      # TODO: that toFloat is frustrating. Perhaps we should have multiple columns in the CSV.
-      valued_merge_clause = 'MERGE (value:Term { uri: row.value_uri })'
-      valued_rel_clause = 'MERGE (trait)-[:object_term]->(value)'
-      measured_merge_clause = 'MERGE (units:Term { uri: row.units })'
-      measured_rel_clause = 'MERGE (trait)-[:units_term]->(units)'
-      return_clause = 'RETURN COUNT(trait)'
+      merge_clause =
+        <<~MERGE_CLAUSE
+          MERGE (page:Page { page_id: toInt(row.page_id) })
+          MERGE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
+        MERGE_CLAUSE
+      set_clause = trait_fields.map { |field| set_field(field) }.join(' ')
+      relation_clauses = [
+        ' MERGE (page)-[:trait]->(trait)-[:predicate]->(:Term { uri: row.predicate })'\
+        " MERGE (trait)-[:supplier]->(:Resource { resource_id: #{resource_id} })"
+      ]
+      meta_merge_clause =
+        <<~META_MERGE_CLAUSE
+          MERGE (trait:MetaData { trait_resource_pk: row.trait_resource_pk })
+        META_MERGE_CLAUSE
+      meta_set_clause = meta_fields.map { |field| set_field(field) }.join(' ')
+      meta_relation_clause =
+        ' MERGE (:Trait { resource_pk: row.trait_resource_pk })-[:metadata]->(trait)-[:predicate]->(:Term { uri: row.predicate })'
+      # TODO: that toFloat (above) is frustrating. Perhaps we should have multiple columns in the CSV.
+      valued_rel_clause = 'MERGE (trait)-[:object_term]->(:Term { uri: row.value_uri })'
+      measured_rel_clause = 'MERGE (trait)-[:units_term]->(:Term { uri: row.units })'
+      set_clauses = (meta ? [meta_merge_clause, meta_set_clause] : [merge_clause, set_clause]).join(' ')
 
       # TODO: this is inefficient. Write three files for each type, including only the rows that would be used, and
       # import each of those files. It will be more efficient than slurping the whole file three times.
       #
       # So, here, we're just building a series of very similar queries, one for each type of row in the file:
-      res = query([header, plain_traits_clause, required_merge_clauses, return_clause].join(' '))
-      new_count = res["data"] ? res["data"].first.first : 0
-      res = query([header, valued_traits_clause, required_merge_clauses, valued_merge_clause, valued_rel_clause,
-        return_clause].join(' '))
-      new_count += res["data"] ? res["data"].first.first : 0
-      res = query([header, measured_traits_clause, required_merge_clauses, measured_merge_clause, measured_rel_clause,
-        return_clause].join(' '))
-      new_count + (res["data"] ? res["data"].first.first : 0)
+      query_with_join([header, plain_traits_clause, set_clauses])
+      if meta
+        query_with_join([header, plain_traits_clause, meta_merge_clause.gsub('MERGE', 'MATCH'), meta_relation_clause])
+      else
+        # Faster to break these up; together they cause an "Eager" query, which is Very Bad.
+        relation_clauses.each do |relation_clause|
+          query_with_join([header, plain_traits_clause, merge_clause.gsub('MERGE', 'MATCH'), relation_clause])
+        end
+      end
+      query_with_join([header, valued_traits_clause, set_clauses])
+      query_with_join([header, valued_traits_clause, valued_rel_clause])
+      query_with_join([header, measured_traits_clause, set_clauses])
+      query_with_join([header, measured_traits_clause, measured_rel_clause])
+    end
+
+    def query_with_join(a)
+      res = query(a.join(' '))
     end
 
     def is_not_blank(field)
@@ -142,6 +138,10 @@ class TraitBank
 
     def is_blank(field)
       "(#{field} IS NULL OR TRIM(#{field}) = '')"
+    end
+
+    def set_field(field)
+      "FOREACH(x IN CASE WHEN #{is_blank("row.#{field}")} THEN [] ELSE [1] END | SET trait.#{field} = row.#{field})"
     end
 
     def quote(string)
