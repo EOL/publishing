@@ -1,4 +1,27 @@
 EOL.onReady(function() {
+  function fetchForm(addPair) {
+    var data = $('#new_trait_bank_query').serializeArray();
+
+    if (addPair) {
+      data.push({
+        name: 'add_pair', 
+        value: true
+      });
+    }
+
+    console.log(data);
+
+    $.ajax({
+      method: 'GET',
+      data: $.param(data),
+      url: '/terms/search_form', // TODO: no hard-coded urls
+      success: function(res) {
+        $('#new_trait_bank_query').html(res)
+        setupForm();
+      }
+    });
+  }
+
   function setupForm() {
     $('.js-pred-select').change(function(e) {
       var val = $(this).val()
@@ -6,15 +29,7 @@ EOL.onReady(function() {
         ;
 
       if (val && val.length) {
-        $.ajax({
-          method: 'GET',
-          data: $('#new_trait_bank_query').serialize(),
-          url: '/terms/search_form', // TODO: no hard-coded urls
-          success: function(res) {
-            $('#new_trait_bank_query').html(res)
-            setupForm();
-          }
-        });
+        fetchForm(false);
       }    
     });
 
@@ -39,6 +54,11 @@ EOL.onReady(function() {
       if ($(this).val().length === 0) {
         $(this).closest('.js-typeahead-wrap').find('.js-clade-field').val('');
       }
+    });
+
+    $('.js-add-pair').click(function(e) {
+      e.preventDefault();
+      fetchForm(true);
     });
   }
 

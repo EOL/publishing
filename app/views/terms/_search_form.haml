@@ -11,6 +11,7 @@
           - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
           - disabled = options.empty?
           = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select js-term-select"
+  %button.uk-button.uk-margin.js-add-pair Add
   %div{:'uk-grid' => true}
     .uk-width-1-2.js-typeahead-wrap
       = f.label :clade, :class => "uk-form-label"

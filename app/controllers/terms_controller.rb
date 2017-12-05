@@ -32,11 +32,10 @@ class TermsController < ApplicationController
       @resources = TraitBank.resources(data)
     else 
       @query = TraitBank::Query.new(:type => :record)
+      @query.one_more_pair!
     end
 
-    @query.fill_out_pairs!
     set_predicate_options
-    puts "SORT: #{@query.sort}"
   end
 	
   def show
@@ -107,7 +106,7 @@ class TermsController < ApplicationController
 
   def search_form
     @query = TraitBank::Query.new(params[:trait_bank_query])
-    @query.fill_out_pairs!
+    @query.one_more_pair! if params[:add_pair]
     @clade_text = params[:clade_text]
     set_predicate_options
     render :layout => false

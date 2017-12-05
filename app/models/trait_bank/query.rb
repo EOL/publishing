@@ -49,17 +49,22 @@ class TraitBank
     def pairs_attributes=(attributes)
       @pairs ||= []
       attributes.each do |i, pair_params|
-        @pairs.push(Pair.new(pair_params)) if pair_params[:predicate] && !pair_params[:predicate].blank?
+        @pairs.push(Pair.new(pair_params))
       end
     end
 
-    def fill_out_pairs!
+    def search_pairs
+      @pairs.select do |pair|
+        !pair.predicate.blank?
+      end
+    end
+
+    def one_more_pair!
       @pairs ||= []
-      @pairs.push(Pair.new) while @pairs.length < NUM_PAIRS
+      @pairs.push(Pair.new)
     end
 
     def sort_options
-      puts "OPTIONS: #{SORT_OPTIONS}"
       SORT_OPTIONS
     end
 

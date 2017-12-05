@@ -365,7 +365,7 @@ class TraitBank
                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
-      wheres = trait_query.pairs.map do |pair|
+      wheres = trait_query.search_pairs.map do |pair|
         if pair.object
           "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
                              "(trait)"\
@@ -409,7 +409,7 @@ class TraitBank
       # TODO: this is the same for both types of term query. Refactor.
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
-      trait_matches = trait_query.pairs.each_with_index.map do |pair, i|
+      trait_matches = trait_query.search_pairs.each_with_index.map do |pair, i|
         trait_label = "t#{i}"
         match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
 
