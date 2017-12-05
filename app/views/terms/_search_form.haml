@@ -12,6 +12,11 @@
           - disabled = options.empty?
           = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select"
   %div{:'uk-grid' => true}
+    .uk-width-1-2.js-typeahead-wrap
+      = f.label :clade, :class => "uk-form-label"
+      = text_field_tag(:clade_text, @clade_text, :class => "uk-input js-clade-typeahead")
+      = f.hidden_field :clade, :class => "js-clade-field" 
+  %div{:'uk-grid' => true}
     %div
       = f.label :type_record, "Records matching ANY predicate/object pair"
       = f.radio_button :type, :record

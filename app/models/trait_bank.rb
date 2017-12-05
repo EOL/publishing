@@ -335,12 +335,9 @@ class TraitBank
     # TODO: merge with/replace term_search
     def term_query(trait_query, options={})
       # TODO:
-      # 2) Support page/trait record search. Make it an option.
-      #    Don't bother with semantic differences at first. Deal with that in 3)
-      # 3) Support OR vs AND conditions
-      # 4) Clade filter
+      # 4) Clade filter (page) -[:parent*]-> (ancestor:Page { page_id: #{options[:clade]} })
       # 5) Any other filters
-      # 6) Correct ORDER for page search.
+      # 6) SHOW
       
       # Query components
 
@@ -382,6 +379,7 @@ class TraitBank
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
         "(trait)-[:predicate]->(predicate:Term), "\
         "(trait)-[info:units_term|object_term]->(info_term:Term)"
+      match_part += ", (page)-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
 
       where_part = if wheres.empty?
         ""
@@ -407,6 +405,7 @@ class TraitBank
         "RETURN count" :
         "RETURN page"
       page_match = "MATCH (page:Page)"
+      page_match += "-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
       # TODO: this is the same for both types of term query. Refactor.
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
