@@ -36,6 +36,7 @@ class TermsController < ApplicationController
 
     @query.fill_out_pairs!
     set_predicate_options
+    puts "SORT: #{@query.sort}"
   end
 	
   def show
@@ -219,6 +220,7 @@ private
   def tb_query_params
     params.require(:trait_bank_query).permit(
       :clade,
+      :sort,
       :type,
       :pairs_attributes => [
         :predicate,

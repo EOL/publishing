@@ -40,7 +40,6 @@ class TraitBank
     attr_accessor :pairs
     attr_accessor :type
     attr_accessor :clade
-    attr_accessor :sort
 
     def initialize(*)
       super
@@ -62,6 +61,18 @@ class TraitBank
     def sort_options
       puts "OPTIONS: #{SORT_OPTIONS}"
       SORT_OPTIONS
+    end
+
+    def sort
+      if @sort 
+        SORTS.dig(@sort.to_sym, :sort)
+      else
+        nil
+      end
+    end
+
+    def sort=(sort)
+      @sort = sort
     end
   end
 end
