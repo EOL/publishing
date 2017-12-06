@@ -44,6 +44,7 @@ class TraitBank
     def initialize(*)
       super
       @clade = nil if @clade.blank?
+      @type = "record" if @type.blank?
     end
 
     def pairs_attributes=(attributes)

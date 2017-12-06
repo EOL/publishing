@@ -12,96 +12,84 @@ class TermsController < ApplicationController
 
     if params[:trait_bank_query]
       @query = TraitBank::Query.new(tb_query_params)
-      @page = params[:page] || 1
-      @per_page = 50
-      data = TraitBank.term_query(@query, {
-        :page => @page,
-        :per => @per_page          
-      })
-      ids = data.map { |t| t[:page_id] }.uniq
-      pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
-      @pages = {}
-      
-      ids.each do |id|
-        page = pages.find { |p| p.id == id }
-        @pages[id] = page if page
-      end
-
-      paginate_term_search_data(data, @query)
-      @is_terms_search = true
-      @resources = TraitBank.resources(data)
+      do_search
     else 
       @query = TraitBank::Query.new(:type => :record)
       @query.one_more_pair!
+      set_predicate_options
     end
-
-    set_predicate_options
   end
 	
   def show
+    @query = TraitBank::Query.new({
+      :pairs => [TraitBank::Query::Pair.new(
+        :predicate => params[:uri]
+      )]
+    })
+    do_search
     # The whole "object" thing is lame! Get rid of it entirely. Just change
     # which one you have, and if you have both, emphasize the predicate!
-    @term = TraitBank.term_as_hash(params[:uri])
-    @and_predicate = TraitBank.term_as_hash(params[:and_predicate])
-    @and_object = TraitBank.term_as_hash(params[:and_object])
-    @page_title = @term[:name].titleize
-    @object = params[:object]
-    @page = params[:page]
-    @per_page = 100 # TODO: config this or make it dynamic...
-    @species_list = params[:species_list]
-    @clade = if params[:clade]
-        if params[:clade] =~ /\A\d+\Z/
-          Page.find(params[:clade])
-        else
-          # TODO: generalize this
-          query = Page.autocomplete(params[:clade], limit: 1, load: true)
-          params[:clade] = query.first.id
-          query.first
-        end
-      else
-        nil
-      end
-    options = {
-      page: @page, per: @per_page, sort: params[:sort],
-      sort_dir: params[:sort_dir], page_list: @species_list,
-      clade: @clade.try(:id)
-    }
+    #@term = TraitBank.term_as_hash(params[:uri])
+    #@and_predicate = TraitBank.term_as_hash(params[:and_predicate])
+    #@and_object = TraitBank.term_as_hash(params[:and_object])
+    #@page_title = @term[:name].titleize
+    #@object = params[:object]
+    #@page = params[:page]
+    #@per_page = 100 # TODO: config this or make it dynamic...
+    #@species_list = params[:species_list]
+    #@clade = if params[:clade]
+    #    if params[:clade] =~ /\A\d+\Z/
+    #      Page.find(params[:clade])
+    #    else
+    #      # TODO: generalize this
+    #      query = Page.autocomplete(params[:clade], limit: 1, load: true)
+    #      params[:clade] = query.first.id
+    #      query.first
+    #    end
+    #  else
+    #    nil
+    #  end
+    #options = {
+    #  page: @page, per: @per_page, sort: params[:sort],
+    #  sort_dir: params[:sort_dir], page_list: @species_list,
+    #  clade: @clade.try(:id)
+    #}
 
-    add_uri_to_options(options)
+    #add_uri_to_options(options)
 
-    respond_to do |fmt|
-      fmt.html do
-        data = TraitBank.term_search(options)
-        # We want the results in this order:
-        ids = data.map { |t| t[:page_id] }.uniq
-        # TODO: a fast way to load pages with just summary info:
-        pages = Page.where(id: ids).
-          includes(:medium, :native_node, :preferred_vernaculars)
-        # Make a dictionary of pages:
-        @pages = {}
-        ids.each do |id|
-          page = pages.find { |p| p.id == id }
-          @pages[id] = page if page
-        end
-        # Make a glossary:
-        @resources = TraitBank.resources(data)
-        paginate_data(data)
-        get_associations
-      end
+    #respond_to do |fmt|
+    #  fmt.html do
+    #    data = TraitBank.term_search(options)
+    #    # We want the results in this order:
+    #    ids = data.map { |t| t[:page_id] }.uniq
+    #    # TODO: a fast way to load pages with just summary info:
+    #    pages = Page.where(id: ids).
+    #      includes(:medium, :native_node, :preferred_vernaculars)
+    #    # Make a dictionary of pages:
+    #    @pages = {}
+    #    ids.each do |id|
+    #      page = pages.find { |p| p.id == id }
+    #      @pages[id] = page if page
+    #    end
+    #    # Make a glossary:
+    #    @resources = TraitBank.resources(data)
+    #    paginate_data(data)
+    #    get_associations
+    #  end
 
-      fmt.csv do
-        data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
-        if data.is_a?(UserDownload)
-          flash[:notice] = t("user_download.created", url: user_path(current_user))
-          loc = params
-          loc.delete(:format)
-          redirect_to term_path(params)
-        else
-          send_data data,
-            filename: "#{@term[:name]}-#{Date.today}.tsv"
-        end
-      end
-    end
+    #  fmt.csv do
+    #    data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
+    #    if data.is_a?(UserDownload)
+    #      flash[:notice] = t("user_download.created", url: user_path(current_user))
+    #      loc = params
+    #      loc.delete(:format)
+    #      redirect_to term_path(params)
+    #    else
+    #      send_data data,
+    #        filename: "#{@term[:name]}-#{Date.today}.tsv"
+    #    end
+    #  end
+    #end
   end
 
   def search_form
@@ -230,5 +218,28 @@ private
 
   def set_predicate_options
     @predicate_options = [['----', nil]] + TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
+  end
+
+  def do_search
+    @page = params[:page] || 1
+    @per_page = 50
+    data = TraitBank.term_query(@query, {
+      :page => @page,
+      :per => @per_page          
+    })
+    ids = data.map { |t| t[:page_id] }.uniq
+    pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
+    @pages = {}
+    
+    ids.each do |id|
+      page = pages.find { |p| p.id == id }
+      @pages[id] = page if page
+    end
+
+    paginate_term_search_data(data, @query)
+    @is_terms_search = true
+    @resources = TraitBank.resources(data)
+    set_predicate_options
+    render "search"
   end
 end
