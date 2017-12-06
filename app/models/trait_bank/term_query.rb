@@ -1,5 +1,5 @@
 class TraitBank
-  class Query
+  class TermQuery
     class Sort 
       include ActiveModel::Model
 
@@ -61,12 +61,12 @@ class TraitBank
       end
     end
 
-    def one_more_pair!
+    def add_pair
       @pairs ||= []
       @pairs.push(Pair.new)
     end
 
-    def remove_pair!(index)
+    def remove_pair(index)
       @pairs.delete_at(index)
     end
 

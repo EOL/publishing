@@ -1,6 +1,7 @@
 class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
+  before_action :set_predicate_options, :only => [:search, :search_form, :show]
 
   def index
     @count = TraitBank::Terms.count
@@ -10,95 +11,30 @@ class TermsController < ApplicationController
   def search
     @clade_text = params[:clade_text]
 
-    if params[:trait_bank_query]
-      @query = TraitBank::Query.new(tb_query_params)
-      do_search
+    if params[:trait_bank_term_query]
+      @query = TraitBank::TermQuery.new(tb_query_params)
+      search_helper
     else 
-      @query = TraitBank::Query.new(:type => :record)
-      @query.one_more_pair!
-      set_predicate_options
+      @query = TraitBank::TermQuery.new(:type => :record)
+      @query.add_pair!
     end
-  end
-	
-  def show
-    @query = TraitBank::Query.new({
-      :pairs => [TraitBank::Query::Pair.new(
-        :predicate => params[:uri]
-      )]
-    })
-    do_search
-    # The whole "object" thing is lame! Get rid of it entirely. Just change
-    # which one you have, and if you have both, emphasize the predicate!
-    #@term = TraitBank.term_as_hash(params[:uri])
-    #@and_predicate = TraitBank.term_as_hash(params[:and_predicate])
-    #@and_object = TraitBank.term_as_hash(params[:and_object])
-    #@page_title = @term[:name].titleize
-    #@object = params[:object]
-    #@page = params[:page]
-    #@per_page = 100 # TODO: config this or make it dynamic...
-    #@species_list = params[:species_list]
-    #@clade = if params[:clade]
-    #    if params[:clade] =~ /\A\d+\Z/
-    #      Page.find(params[:clade])
-    #    else
-    #      # TODO: generalize this
-    #      query = Page.autocomplete(params[:clade], limit: 1, load: true)
-    #      params[:clade] = query.first.id
-    #      query.first
-    #    end
-    #  else
-    #    nil
-    #  end
-    #options = {
-    #  page: @page, per: @per_page, sort: params[:sort],
-    #  sort_dir: params[:sort_dir], page_list: @species_list,
-    #  clade: @clade.try(:id)
-    #}
-
-    #add_uri_to_options(options)
-
-    #respond_to do |fmt|
-    #  fmt.html do
-    #    data = TraitBank.term_search(options)
-    #    # We want the results in this order:
-    #    ids = data.map { |t| t[:page_id] }.uniq
-    #    # TODO: a fast way to load pages with just summary info:
-    #    pages = Page.where(id: ids).
-    #      includes(:medium, :native_node, :preferred_vernaculars)
-    #    # Make a dictionary of pages:
-    #    @pages = {}
-    #    ids.each do |id|
-    #      page = pages.find { |p| p.id == id }
-    #      @pages[id] = page if page
-    #    end
-    #    # Make a glossary:
-    #    @resources = TraitBank.resources(data)
-    #    paginate_data(data)
-    #    get_associations
-    #  end
-
-    #  fmt.csv do
-    #    data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
-    #    if data.is_a?(UserDownload)
-    #      flash[:notice] = t("user_download.created", url: user_path(current_user))
-    #      loc = params
-    #      loc.delete(:format)
-    #      redirect_to term_path(params)
-    #    else
-    #      send_data data,
-    #        filename: "#{@term[:name]}-#{Date.today}.tsv"
-    #    end
-    #  end
-    #end
   end
 
   def search_form
-    @query = TraitBank::Query.new(params[:trait_bank_query])
-    @query.one_more_pair! if params[:add_pair]
+    @query = TraitBank::TermQuery.new(params[:trait_bank_term_query])
+    @query.add_pair! if params[:add_pair]
     @query.remove_pair!(params[:remove_pair].to_i) if params[:remove_pair]
     @clade_text = params[:clade_text]
-    set_predicate_options
     render :layout => false
+  end
+	
+  def show
+    @query = TraitBank::TermQuery.new({
+      :pairs => [TraitBank::TermQuery::Pair.new(
+        :predicate => params[:uri]
+      )]
+    })
+    search_helper
   end
 
   def edit
@@ -151,7 +87,7 @@ private
     options = {
       :count => true
     }
-    @count = TraitBank.term_query(query, options)
+    @count = TraitBank.term_search(query, options)
     #@count = 1000
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
@@ -206,7 +142,7 @@ private
   end
 
   def tb_query_params
-    params.require(:trait_bank_query).permit(
+    params.require(:trait_bank_term_query).permit(
       :clade,
       :sort,
       :type,
@@ -218,13 +154,14 @@ private
   end
 
   def set_predicate_options
-    @predicate_options = [['----', nil]] + TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
+    @predicate_options = [['----', nil]] + 
+      TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
   end
 
-  def do_search
+  def search_helper
     @page = params[:page] || 1
     @per_page = 50
-    data = TraitBank.term_query(@query, {
+    data = TraitBank.term_search(@query, {
       :page => @page,
       :per => @per_page          
     })
@@ -240,7 +177,6 @@ private
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
-    set_predicate_options
     render "search"
   end
 end
