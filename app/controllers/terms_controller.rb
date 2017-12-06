@@ -95,6 +95,7 @@ class TermsController < ApplicationController
   def search_form
     @query = TraitBank::Query.new(params[:trait_bank_query])
     @query.one_more_pair! if params[:add_pair]
+    @query.remove_pair!(params[:remove_pair].to_i) if params[:remove_pair]
     @clade_text = params[:clade_text]
     set_predicate_options
     render :layout => false

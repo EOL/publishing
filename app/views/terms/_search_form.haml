@@ -1,16 +1,19 @@
 = form_for @query, :url => term_search_path, :method => :get, :class => "uk-form-stacked term-form" do |f|
   = f.fields_for :pairs do |ff|
     .js-trait-fields{:'uk-grid' => true}
-      .uk-width-1-2
+      .uk-width-expand
         = ff.label :predicate, t("term.label.attribute"), :class => "uk-form-label"
         .uk-form-controls
           = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select js-term-select"
-      .uk-width-1-2
+      .uk-width-expand
         = ff.label :object, t("term.label.value"), :class=> "uk-form-label"
         .uk-form-controls
           - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
           - disabled = options.empty?
           = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select js-term-select"
+      - if @query.pairs.length > 1
+        .uk-width-1-6.uk-position-relative
+          .minus-term-icon.js-remove-pair{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
   %button.uk-button.uk-margin.js-add-pair Add
   %div{:'uk-grid' => true}
     .uk-width-1-2.js-typeahead-wrap
@@ -18,7 +21,7 @@
       .uk-form-controls
         = text_field_tag(:clade_text, @clade_text, :class => "uk-input js-clade-typeahead typeahead")
         = f.hidden_field :clade, :class => "js-clade-field" 
-    -#
+    -# TODO: implement sort
       .uk-width-1-2
         = f.label :sort, :class => "uk-form-label"
         .uk-form-controls

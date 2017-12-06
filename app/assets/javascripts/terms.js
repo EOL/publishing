@@ -1,14 +1,11 @@
 EOL.onReady(function() {
-  function fetchForm(addPair) {
+  function fetchForm(option) {
     var data = $('#new_trait_bank_query').serializeArray();
 
     $('.js-term-form-dimmer').addClass('active');
 
-    if (addPair) {
-      data.push({
-        name: 'add_pair', 
-        value: true
-      });
+    if (option) {
+      data.push(option)
     }
 
     $.ajax({
@@ -59,7 +56,17 @@ EOL.onReady(function() {
 
     $('.js-add-pair').click(function(e) {
       e.preventDefault();
-      fetchForm(true);
+      fetchForm({
+        name: 'add_pair',
+        value: true
+      });
+    });
+
+    $('.js-remove-pair').click(function(e) {
+      fetchForm({
+        name: 'remove_pair',
+        value: $(this).data('index')
+      });
     });
   }
 

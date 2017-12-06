@@ -23,6 +23,7 @@ class TraitBank
 
     NUM_PAIRS = 4
     PER_PAGE = 50
+    # SORTS are not used at the moment
     SORTS = {
       :pred_asc => { 
         :name => "Predicate name (asc)",
@@ -63,6 +64,10 @@ class TraitBank
     def one_more_pair!
       @pairs ||= []
       @pairs.push(Pair.new)
+    end
+
+    def remove_pair!(index)
+      @pairs.delete_at(index)
     end
 
     def sort_options
