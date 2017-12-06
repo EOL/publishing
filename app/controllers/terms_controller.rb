@@ -16,6 +16,19 @@ class TermsController < ApplicationController
       @query = TraitBank::TermQuery.new(:type => :record)
       @query.add_pair
     end
+
+#    fmt.csv do
+#      data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
+#      if data.is_a?(UserDownload)
+#        flash[:notice] = t("user_download.created", url: user_path(current_user))
+#        loc = params
+#        loc.delete(:format)
+#        redirect_to term_path(params)
+#      else
+#        send_data data,
+#          filename: "#{@term[:name]}-#{Date.today}.tsv"
+#      end
+#    end 
   end
 
   def search_form

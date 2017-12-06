@@ -3,8 +3,9 @@ class TraitBank
     attr_reader :count
 
     class << self
-      def term_search(options)
+      def term_search(term_query, options)
         downloader = self.new(options)
+        # TODO: see if this case is necessary - if so, time to mess with the models
         if downloader.count > 1000
           UserDownload.create(
             user_id: options[:user_id],

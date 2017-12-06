@@ -332,8 +332,10 @@ class TraitBank
       end
     end
 
+    # TODO: rename and restore old term_search. That is used all over the place. :(
+    # ORRRR fix data_download model and batch_term_search to use this method. That may be necessary for
+    # CSV download anyway.
     def term_search(trait_query, options={})
-
       q = if trait_query.type == "record"
         term_record_search(trait_query, options)
       else
@@ -383,7 +385,12 @@ class TraitBank
         "WHERE #{wheres.join(" OR ")}"
       end
 
-      order_part = options[:count] ? "" : "ORDER BY page.name, predicate.name, info_term.name"
+      order_part = options[:count] ? "" : 
+        "ORDER BY "\
+        "#{["LOWER(predicate.name)", 
+            "LOWER(info_term.name)", 
+            "trait.normal_measurement", 
+            "LOWER(trait.literal)"].join(", ")}"
 
       "#{match_part} "\
       "#{where_part} "\
