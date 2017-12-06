@@ -70,6 +70,14 @@ class TraitBank
       @pairs.delete_at(index)
     end
 
+    def clade_name
+      if @clade
+        @clade_name ||= Page.find(@clade)&.name
+      else
+        nil
+      end
+    end
+    
     def sort_options
       SORT_OPTIONS
     end

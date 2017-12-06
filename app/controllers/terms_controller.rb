@@ -9,22 +9,19 @@ class TermsController < ApplicationController
   end
 
   def search
-    @clade_text = params[:clade_text]
-
     if params[:trait_bank_term_query]
       @query = TraitBank::TermQuery.new(tb_query_params)
-      search_helper
+      search_common
     else 
       @query = TraitBank::TermQuery.new(:type => :record)
-      @query.add_pair!
+      @query.add_pair
     end
   end
 
   def search_form
     @query = TraitBank::TermQuery.new(params[:trait_bank_term_query])
-    @query.add_pair! if params[:add_pair]
-    @query.remove_pair!(params[:remove_pair].to_i) if params[:remove_pair]
-    @clade_text = params[:clade_text]
+    @query.add_pair if params[:add_pair]
+    @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
     render :layout => false
   end
 	
@@ -34,7 +31,7 @@ class TermsController < ApplicationController
         :predicate => params[:uri]
       )]
     })
-    search_helper
+    search_common
   end
 
   def edit
@@ -158,7 +155,7 @@ private
       TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
   end
 
-  def search_helper
+  def search_common
     @page = params[:page] || 1
     @per_page = 50
     data = TraitBank.term_search(@query, {

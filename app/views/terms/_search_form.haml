@@ -19,7 +19,7 @@
     .uk-width-1-2.js-typeahead-wrap
       = f.label :clade, t("clade"), :class => "uk-form-label"
       .uk-form-controls
-        = text_field_tag(:clade_text, @clade_text, :class => "uk-input js-clade-typeahead typeahead")
+        = text_field_tag(:clade_name, f.object.clade_name, :class => "uk-input js-clade-typeahead typeahead")
         = f.hidden_field :clade, :class => "js-clade-field" 
     -# TODO: implement sort
       .uk-width-1-2
