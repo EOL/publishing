@@ -2,14 +2,14 @@ EOL.onReady(function() {
   function fetchForm(addPair) {
     var data = $('#new_trait_bank_query').serializeArray();
 
+    $('.js-term-form-dimmer').addClass('active');
+
     if (addPair) {
       data.push({
         name: 'add_pair', 
         value: true
       });
     }
-
-    console.log(data);
 
     $.ajax({
       method: 'GET',
@@ -18,6 +18,7 @@ EOL.onReady(function() {
       success: function(res) {
         $('#new_trait_bank_query').html(res)
         setupForm();
+        $('.js-term-form-dimmer').removeClass('active');
       }
     });
   }
