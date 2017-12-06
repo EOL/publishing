@@ -1,41 +1,30 @@
-  username: <%= Rails.application.secrets.db['username'] %>
-  password: <%= Rails.application.secrets.db['password'] %>
-  database: <%= Rails.application.secrets.db['database'] %># common settings for all databases
+# PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Modify your own config/secrets.yml
+
+# common settings for all databases
 common: &common
   adapter: mysql2
   encoding: utf8
   reconnect: true
   wait_timeout: 300
+  username: <%= Rails.application.secrets.db['username'] %>
+  password: <%= Rails.application.secrets.db['password'] %>
+  database: <%= Rails.application.secrets.db['name'] %>
 
 # common settings for any development databases
 development:
   <<: *common
   host: localhost
-  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Use config/secrets.yml
-  username: <%= Rails.application.secrets.db['username'] %>
-  password: <%= Rails.application.secrets.db['password'] %>
-  database: <%= Rails.application.secrets.db['database'] %>
 
 test: &test
   <<: *common
   host: localhost
-  # PLEASE DON'T PUT YOUR USER / PASS HERE (e.g.: "root"). Use config/secrets.yml
-  username: <%= Rails.application.secrets.db['username'] %>
-  password: <%= Rails.application.secrets.db['password'] %>
-  database: <%= Rails.application.secrets.db['database'] %>
 
 staging:
   <<: *common
   host: <%= Rails.application.secrets.db['host'] %>
   port: <%= Rails.application.secrets.db['port'] %>
-  username: <%= Rails.application.secrets.db['username'] %>
-  password: <%= Rails.application.secrets.db['password'] %>
-  database: <%= Rails.application.secrets.db['database'] %>
 
 production:
   <<: *common
-  host: <%= ENV['EOL_DB_HOST'] %>
-  port: <%= ENV['EOL_DB_PORT'] %>
-  database: <%= ENV['EOL_DB_PROD_NAME'] %>
-  username: <%= ENV['EOL_DB_PROD_USERNAME'] %>
-  password: <%= ENV['EOL_DB_PROD_PASSWORD'] %>
+  host: <%= Rails.application.secrets.db['host'] %>
+  port: <%= Rails.application.secrets.db['port'] %>
