@@ -12,7 +12,7 @@ class TraitBank::Slurp
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
           'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source value_literal value_num\
-                        target_page_id scientific_name],
+                        object_page_id scientific_name],
           wheres: {
             "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
               matches: {

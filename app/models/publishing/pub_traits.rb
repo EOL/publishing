@@ -18,7 +18,7 @@ class Publishing::PubTraits
     trait_rows = []
     meta_rows = []
     trait_rows << %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
-      target_page_id target_scientific_name value_uri value_literal value_num units]
+      object_page_id target_scientific_name value_uri value_literal value_num units]
     meta_rows << %i[eol_pk trait_eol_pk predicate value_literal value_num value_uri units sex lifestage
       statistical_method source]
     read_data_type('traits', trait_rows, meta_rows)
