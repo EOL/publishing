@@ -41,16 +41,17 @@ class TraitBank::Slurp
         "meta_traits_#{resource.id}.csv" =>
         {
           'MetaData' => %i[eol_pk sex lifestage statistical_method source value_literal value_num],
-          matches: {
-            trait: 'Trait { resource_pk: row.trait_resource_pk }',
-            predicate: 'Term { uri: row.predicate }'
-          },
-          merges: [
-            [:trait, :metadata, :metadata],
-            [:metadata, :predicate, :predicate]
-          ],
           wheres: {
-            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {}, # default
+            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
+              matches: {
+                trait: 'Trait { resource_pk: row.trait_resource_pk }',
+                predicate: 'Term { uri: row.predicate }'
+              },
+              merges: [
+                [:trait, :metadata, :metadata],
+                [:metadata, :predicate, :predicate]
+              ],
+            }, # default
             "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
