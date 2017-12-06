@@ -38,8 +38,8 @@ gem 'kaminari'
 #
 # ALPHABETICALLY, PLEASE.
 #
-# ...and with a comment above each gem (or block of related gems) explaining what
-# it's for. Let's keep this maintainable!
+# ...and with a comment above each gem (or block of related gems) explaining what it's for. Let's keep this
+# maintainable!
 
 # For bulk inserts:
 gem 'activerecord-import'
@@ -62,8 +62,7 @@ gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
 
-# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
-# YOU SHOULD REMOVE THIS GEM!
+# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
@@ -118,9 +117,8 @@ end
 
 group :test do
   gem 'rspec-rails'
-  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`",
-  # but it didn't help, so I'm removing it. Hmmn.
-  # gem "rspec-html-matchers"
+  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`", but it didn't help, so I'm removing it.
+  # Hmmn. gem "rspec-html-matchers"
   gem 'better_errors'
   gem 'capybara'
   gem 'factory_girl'
