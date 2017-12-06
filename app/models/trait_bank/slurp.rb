@@ -13,17 +13,18 @@ class TraitBank::Slurp
         { 'Page' => [:page_id],
           'Trait' => %i[resource_pk sex lifestage statistical_method source value_literal value_num target_page_id
                     scientific_name],
-          matches: {
-            predicate: 'Term { uri: row.predicate }',
-            resource: "Resource { resource_id: #{resource.id} }"
-          },
-          merges: [
-            [:page, :trait, :trait],
-            [:trait, :predicate, :predicate],
-            [:trait, :supplier, :resource]
-          ],
           wheres: {
-            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {}, # default
+            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
+              matches: {
+                predicate: 'Term { uri: row.predicate }',
+                resource: "Resource { resource_id: #{resource.id} }"
+              },
+              merges: [
+                [:page, :trait, :trait],
+                [:trait, :predicate, :predicate],
+                [:trait, :supplier, :resource]
+              ],
+            }, # default
             "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
@@ -67,11 +68,9 @@ class TraitBank::Slurp
 
     def load_csv(filename, config)
       wheres = config.delete(:wheres)
-      merges = config.delete(:merges)
-      matches = config.delete(:matches)
       nodes = config # what's left.
       wheres.each do |clause, where_config|
-        load_csv_where(clause, filename: filename, config: where_config, merges: merges, matches: matches, nodes: nodes)
+        load_csv_where(clause, filename: filename, config: where_config, nodes: nodes)
       end
     end
 
@@ -79,10 +78,8 @@ class TraitBank::Slurp
       filename = options[:filename]
       config = options[:config]
       nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
-      merges = Array(options[:merges]) + Array(config[:merges])
-      options[:matches] ||= {}
-      config[:matches] ||= {}
-      matches = options[:matches].merge(config[:matches])
+      merges = Array(config[:merges])
+      matches = config[:matches]
       head =
         <<~LOAD_CSV_QUERY_HEAD
           USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{filename}' AS row
