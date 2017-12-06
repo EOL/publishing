@@ -372,9 +372,10 @@ class TraitBank
 
       match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
-        "(trait)-[:predicate]->(predicate:Term), "\
-        "(trait)-[info:units_term|object_term]->(info_term:Term)"
+        "(trait)-[:predicate]->(predicate:Term)"
       match_part += ", (page)-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
+
+      optional_match_part = options[:count] ? "" : "OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)"
 
       where_part = if wheres.empty?
         ""
@@ -387,6 +388,7 @@ class TraitBank
       "#{match_part} "\
       "#{where_part} "\
       "#{with_count_clause}"\
+      "#{optional_match_part} "\
       "#{return_clause} "\
       "#{order_part} "
     end
