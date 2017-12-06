@@ -229,6 +229,6 @@ private
   end
 
   def set_predicate_options
-    @predicate_options = [['----', nil]] + glossary_helper("predicate_glossary", false).collect { |item| [item[:name], item[:uri]] }
+    @predicate_options = [['----', nil]] + TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
   end
 end
