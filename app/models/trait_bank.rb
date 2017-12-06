@@ -332,6 +332,112 @@ class TraitBank
       end
     end
 
+   	# Options:
+    # count: don't perform the query, but just count the results
+    # meta: whether to include metadata
+    # object_term: the object URI (or an array of them) to look for, specifically
+    # page: which page of long results you want
+    # page_list: only return a list of page_ids. page_list == "species list"
+    # per: how many results per page
+    # predicate: the predicate URI (or an array of them) to look for, specifically
+    # TODO: long method; break up.
+#    def term_search(options = {})
+#      q = empty_query
+#      q[:count] = options[:count]
+#      wheres = []
+#      if options[:clade]
+#        wheres << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
+#      end
+#      if options[:page_list]
+#        if uris = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
+#          wheres += Array(uris).map do |uri|
+#            "(page)-[:trait]->(:Trait)-[:predicate|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
+#          end
+#        end
+#        # NOTE: if you want a page list specifying BOTH predicates AND objects,
+#        # you are not going to get what you expect; the pages that match could
+#        # have ANY predicate with the object terms specified; it only needs to
+#        # have ALL of the object terms specified (somewhere). It's a tricky
+#        # query. ...I think the results will be "close enough" to manage in a
+#        # download.
+#        if uris = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
+#          wheres += Array(uris).map do |uri|
+#            "(page)-[:trait]->(:Trait)-[:object_term|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
+#          end
+#        end
+#        q[:match] = { "(page:Page)" => wheres }
+#      else # NOT A PAGE_LIST:
+#        main_match = "(page:Page)-[:trait]->(trait:Trait)"\
+#          "-[:supplier]->(resource:Resource)"
+#        if options[:clade]
+#          main_match = "(ancestor:Page { page_id: #{options[:clade]} })"\
+#            "<-[:in_clade*]-#{main_match}"
+#        end
+#        q[:match][main_match] = []
+#        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = []
+#        # q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = []
+#        if uri = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
+#          wheres =  if uri.is_a?(Array)
+#                      q[:order] << "page.name" unless q[:count]
+#                      "p_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
+#                    else
+#                      "p_match.uri = \"#{uri}\""
+#                    end
+#          q[:match]["(trait)-[:predicate|parent_term*0..3]->(p_match:Term)"] =
+#            wheres
+#        end
+#        if uri = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
+#          wheres =  if uri.is_a?(Array)
+#                      "o_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
+#                    else
+#                      "o_match.uri = \"#{uri}\""
+#                    end
+#          q[:match]["(trait)-[:object_term|parent_term*0..3]->(o_match:Term)"] =
+#            wheres
+#          # We still want to get the actual term used as the object (rather than
+#          # the match)!
+#          q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = nil
+#        else
+#          q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
+#        end
+#        if options[:meta]
+#          q[:optional].merge!(
+#            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)" => nil,
+#            "(meta)-[:units_term]->(meta_units_term:Term)" => nil,
+#            "(meta)-[:object_term]->(meta_object_term:Term)" => nil)
+#        end
+#      end
+#      if options[:count]
+#        q[:with] << "COUNT(DISTINCT(#{options[:page_list] ? "page" : "trait"})) AS count"
+#        q[:return] = ["count"]
+#      else
+#        q[:page] = options[:page]
+#        q[:per] = options[:per]
+#        if options[:page_list]
+#          q[:return] = ["page"]
+#          q[:order] = ["page.name"]
+#        else
+#          q[:return] = ["page", "trait", "predicate", "TYPE(info) AS info_type",
+#            "info_term", "resource"]
+#          if options[:meta]
+#            q[:return] += ["meta", "meta_predicate", "meta_units_term",
+#              "meta_object_term"]
+#          end
+#          q[:order] += order_clause_array(options)
+#        end
+#        if q[:meta]
+#          q[:order] << "meta_predicate.name"
+#        end
+#      end
+#      res = adv_query(q)
+#      if options[:count]
+#        res["data"] ? res["data"].first.first : 0
+#      else
+#        build_trait_array(res)
+#      end
+#    end
+ 
+
     # TODO: rename and restore old term_search. That is used all over the place. :(
     # ORRRR fix data_download model and batch_term_search to use this method. That may be necessary for
     # CSV download anyway.
@@ -362,6 +468,11 @@ class TraitBank
                           "RETURN count" :
                           "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
 
+      match_part = 
+        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
+        "(trait)-[:predicate]->(predicate:Term)"
+      match_part += ", (page)-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
+
       wheres = trait_query.search_pairs.map do |pair|
         if pair.object
           "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
@@ -371,26 +482,19 @@ class TraitBank
           "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
       end
+      where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
-      match_part = 
-        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
-        "(trait)-[:predicate]->(predicate:Term)"
-      match_part += ", (page)-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
+      optional_matches = options[:count] ? [] : ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
+			optional_matches += [
+				"(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
+				"(meta)-[:units_term]->(meta_units_term:Term)",
+				"(meta)-[:object_term]->(meta_object_term:Term)"
+			] if trait_query.meta
+			optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
-      optional_match_part = options[:count] ? "" : "OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)"
-
-      where_part = if wheres.empty?
-        ""
-      else
-        "WHERE #{wheres.join(" OR ")}"
-      end
-
-      order_part = options[:count] ? "" : 
-        "ORDER BY "\
-        "#{["LOWER(predicate.name)", 
-            "LOWER(info_term.name)", 
-            "trait.normal_measurement", 
-            "LOWER(trait.literal)"].join(", ")}"
+			orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+			orders << "meta_predicate.name" if trait_query.meta
+      order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
 
       "#{match_part} "\
       "#{where_part} "\
