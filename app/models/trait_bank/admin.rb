@@ -13,7 +13,7 @@ class TraitBank
 
       # You only have to run this once, and it's best to do it before loading TB:
       def create_indexes
-        indexes = %w{ Page(page_id) Trait(eol_pk) Term(uri)
+        indexes = %w{ Page(page_id) Trait(eol_pk) Trait(resource_pk) Term(uri)
           Resource(resource_id) MetaData(eol_pk)}
         indexes.each do |index|
           begin

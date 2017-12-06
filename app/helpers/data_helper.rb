@@ -68,8 +68,7 @@ module DataHelper
     elsif val = data[:literal] || data[:value_literal]
       haml_concat unlink(val).html_safe
     else
-      haml_concat "OOPS: "
-      debugger
+      haml_concat "CORRUPTED VALUE:"
       haml_concat value
     end
   end
