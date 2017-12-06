@@ -17,9 +17,9 @@ class Publishing::PubTraits
     TraitBank.create_resource(@resource.id)
     trait_rows = []
     meta_rows = []
-    trait_rows << %i[page_id scientific_name resource_pk predicate sex lifestage statistical_method source
+    trait_rows << %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
       target_page_id target_scientific_name value_uri value_literal value_num units]
-    meta_rows << %i[eol_pk trait_resource_pk predicate value_literal value_num value_uri units sex lifestage
+    meta_rows << %i[eol_pk trait_eol_pk predicate value_literal value_num value_uri units sex lifestage
       statistical_method source]
     read_data_type('traits', trait_rows, meta_rows)
     read_data_type('assocs', trait_rows, meta_rows)
@@ -45,8 +45,8 @@ class Publishing::PubTraits
       meta_row = []
       m_datum = Publishing::Repository.underscore_hash_keys(m_datum_camel)
       meta_rows.first.each do |header|
-        if header == :trait_resource_pk
-          meta_row << trait[:resource_pk]
+        if header == :trait_eol_pk
+          meta_row << trait[:eol_pk]
         else
           meta_row << m_datum[header]
         end

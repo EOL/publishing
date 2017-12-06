@@ -11,8 +11,8 @@ class TraitBank::Slurp
     def load_csv_config(resource)
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
-          'Trait' => %i[resource_pk sex lifestage statistical_method source value_literal value_num target_page_id
-                    scientific_name],
+          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source value_literal value_num\
+                        target_page_id scientific_name],
           wheres: {
             "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
               matches: {
@@ -44,7 +44,7 @@ class TraitBank::Slurp
           wheres: {
             "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
               matches: {
-                trait: 'Trait { resource_pk: row.trait_resource_pk }',
+                trait: 'Trait { eol_pk: row.trait_eol_pk }',
                 predicate: 'Term { uri: row.predicate }'
               },
               merges: [

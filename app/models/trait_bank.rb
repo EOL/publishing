@@ -16,7 +16,7 @@ class TraitBank
   # * Resource: { *resource_id }
   # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
   # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term)
-  #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
+  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal, normal_measurement,
   #       normal_units[NOTE: this is a literal STRING, used as symbol in Ruby] }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
@@ -529,6 +529,11 @@ class TraitBank
         else
           "MISSING"
         end
+        if hash[:predicate].is_a?(Array)
+          Rails.logger.error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
+            "#{hash[:predicate].size} predicates")
+          hash[:predicate] = hash[:predicate].first
+        end
         # TODO: extract method
         if has_info_term && hash[:info_type]
           info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
@@ -556,7 +561,6 @@ class TraitBank
           unless hash[:meta].empty?
             hash[:meta].each_with_index do |meta, i|
               m_hash = meta
-              debugger if meta.nil?
               m_hash[:predicate] = hash[:meta_predicate][i]
               m_hash[:object_term] = hash[:meta_object_term][i]
               m_hash[:units] = hash[:meta_units_term][i]
