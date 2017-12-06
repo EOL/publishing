@@ -3,7 +3,7 @@
     .uk-width-4-5
       .ui.dimmer.js-term-form-dimmer
         .ui.loader
-      %h1 Data Search
+      %h1= t("term.header.data_search")
       = render "search_form"
   - if @pages
     - if @query.type == "record"

@@ -710,11 +710,17 @@ en:
       object_term_title: "Glossary of Value Terms for Data on EOL"
       units_title: "Glossary of Unit Terms for Data on EOL"
     header:
+      data_search: "Data Search"
       object_term: "a data record value"
       predicate: "a data record type"
       count:
         one: "%{count} record."
         other: "%{count} records."
+    label:
+      attribute: "Attribute"
+      records_matching_any: "Records matching ANY attribute/value pair"
+      taxa_matching_all: "Taxa matching ALL attribute/value pairs"
+      value: "Value"
     pagination:
       next: "next page"
       previous: "previous page"

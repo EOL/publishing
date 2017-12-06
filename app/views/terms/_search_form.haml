@@ -2,11 +2,11 @@
   = f.fields_for :pairs do |ff|
     .js-trait-fields{:'uk-grid' => true}
       .uk-width-1-2
-        = ff.label :predicate, :class => "uk-form-label"
+        = ff.label :predicate, t("term.label.attribute"), :class => "uk-form-label"
         .uk-form-controls
           = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select js-term-select"
       .uk-width-1-2
-        = ff.label :object, :class=> "uk-form-label"
+        = ff.label :object, t("term.label.value"), :class=> "uk-form-label"
         .uk-form-controls
           - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
           - disabled = options.empty?
@@ -14,7 +14,7 @@
   %button.uk-button.uk-margin.js-add-pair Add
   %div{:'uk-grid' => true}
     .uk-width-1-2.js-typeahead-wrap
-      = f.label :clade, :class => "uk-form-label"
+      = f.label :clade, t("clade"), :class => "uk-form-label"
       .uk-form-controls
         = text_field_tag(:clade_text, @clade_text, :class => "uk-input js-clade-typeahead typeahead")
         = f.hidden_field :clade, :class => "js-clade-field" 
@@ -25,9 +25,9 @@
         = f.select :sort, options_for_select(@query.sort_options), {}, :class => "uk-select"
   %div{:'uk-grid' => true}
     %div
-      = f.label :type_record, "Records matching ANY predicate/object pair"
+      = f.label :type_record, t("term.label.records_matching_any")
       = f.radio_button :type, :record
     %div
-      = f.label :search_type_page, "Taxa matching ALL predicate/object pairs"
+      = f.label :search_type_page, t("term.label.taxa_matching_all")
       = f.radio_button :type, :page
   = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"
