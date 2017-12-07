@@ -1,7 +1,6 @@
 class TermQueryPair < ActiveRecord::Base
-  belongs_to :term_query
+  belongs_to :term_query, :inverse_of => :pairs
 
-  validates_presence_of :object
   validates_presence_of :predicate
   validates_presence_of :term_query
 

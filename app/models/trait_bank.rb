@@ -317,14 +317,13 @@ class TraitBank
     # NOTE: "count" means something different here! In .term_search it's used to
     # indicate you *want* the count; here it means you HAVE the count and are
     # passing it in! Be careful.
-    def batch_term_search(options)
-      count = options.delete(:count)
-      count ||= TraitBank.term_search(options.merge(count: true))
+    def batch_term_search(term_query, options, count)
       found = 0
       batch_found = 1 # Placeholder; will update in query.
       page = 1
       while(found < count && batch_found > 0)
-        batch = TraitBank.term_search(options.merge(page: page))
+        debugger
+        batch = TraitBank.term_search(term_query, options.merge(page: page))
         batch_found = batch.size
         found += batch_found
         yield(batch)
@@ -462,7 +461,7 @@ class TraitBank
 
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ? 
-                          "WITH COUNT(DISTINCT(trait)) AS count " :
+                          "WITH COUNT(trait) AS count " :
                           ""
       return_clause =     options[:count] ? 
                           "RETURN count" :

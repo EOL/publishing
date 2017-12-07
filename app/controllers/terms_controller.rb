@@ -29,23 +29,19 @@ class TermsController < ApplicationController
           loc.delete(:format)
           redirect_to term_search_path(params)
         else
-          data = TraitBank::DataDownload.term_search(@query)
-          send_data data 
-        end
-      end
+          data = TraitBank::DataDownload.term_search(@query, current_user.id)
 
-  #    fmt.csv do
-  #      data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
-  #      if data.is_a?(UserDownload)
-  #        flash[:notice] = t("user_download.created", url: user_path(current_user))
-  #        loc = params
-  #        loc.delete(:format)
-  #        redirect_to term_path(params)
-  #      else
-  #        send_data data,
-  #          filename: "#{@term[:name]}-#{Date.today}.tsv"
-  #      end
-  #    end 
+          if data.is_a?(UserDownload)
+            flash[:notice] = t("user_download.created", url: user_path(current_user))
+            # TODO: refactor, see above
+            loc = params
+            loc.delete(:format)
+            redirect_to term_search_path(params)
+          else
+            send_data data
+          end
+        end 
+      end
     end
   end
 
@@ -72,7 +68,6 @@ class TermsController < ApplicationController
   def update
     # TODO: security check: admin only
     term = params[:term].merge(uri: params[:uri])
-    # debugger
     # TODO: sections ...  I can't properly test that right now.
     TraitBank.update_term(term) # NOTE: *NOT* hash!
     redirect_to(term_path(term[:uri]))
@@ -113,7 +108,8 @@ class TermsController < ApplicationController
 private
   def paginate_term_search_data(data, query)
     options = {
-      :count => true
+      :count => true,
+      :result_type => @result_type
     }
     @count = TraitBank.term_search(query, options)
     #@count = 1000

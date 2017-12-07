@@ -1,33 +1,34 @@
 class TraitBank
   class DataDownload
+    BATCH_SIZE = 1000
+
     attr_reader :count
 
     class << self
-      def term_search(term_query)
-        downloader = self.new(term_query)
+      def term_search(term_query, user_id, count = nil)
+        downloader = self.new(term_query, count)
         # TODO: rework/re-enable user downloads for large result sets
-#        if downloader.count > 1000
-#          UserDownload.create(
-#            user_id: options[:user_id],
-#            clade: options[:clade],
-#            object_terms: options[:object_term],
-#            predicates: options[:predicate],
-#            count: downloader.count)
-#        else
-#          downloader.build
-#        end
-        downloader.build
+        if downloader.count > 10
+          term_query.save!
+          UserDownload.create(
+            :user_id => user_id,
+            :term_query => term_query,
+            :count => downloader.count
+          )
+        else
+          downloader.build
+        end
       end
     end
 
-    def initialize(term_query)
-      @query = term_query.clone
-      @options = { :per_page => 1000, :meta => true, :result_type => :record }
+    def initialize(term_query, count = nil)
+      @query = term_query
+      @options = { :per => BATCH_SIZE, :meta => true, :result_type => :record }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
       @filename = Digest::MD5.hexdigest(@query.as_json.to_s)
       @filename += ".tsv"
-      @count = TraitBank.term_search(@query, @options.merge(:count => true))
+      @count = count || TraitBank.term_search(@query, @options.merge(:count => true))
     end
 
     def build
@@ -42,7 +43,7 @@ class TraitBank
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
       @hashes = []
-      TraitBank.batch_term_search(@options) do |batch|
+      TraitBank.batch_term_search(@query, @options, @count) do |batch|
         @hashes += batch
       end
       get_predicates

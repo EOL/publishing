@@ -1,6 +1,8 @@
 class TermQuery < ActiveRecord::Base
-  has_many :pairs, :class_name => "TermQueryPair"
+  has_many :pairs, :class_name => "TermQueryPair", :inverse_of => :term_query
+  has_one :user_download
   accepts_nested_attributes_for :pairs
+  before_validation :cull_pairs
 
   def initialize(*)
     super
@@ -11,6 +13,7 @@ class TermQuery < ActiveRecord::Base
       !pair.predicate.blank?
     end
   end
+
 
   def remove_pair(index)
     new_pairs = pairs.to_a
@@ -25,4 +28,9 @@ class TermQuery < ActiveRecord::Base
       nil
     end
   end
+
+  private 
+    def cull_pairs
+      self.pairs = search_pairs
+    end
 end
