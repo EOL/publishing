@@ -37,20 +37,20 @@ RSpec.describe TermsController do
     allow(TraitBank).to receive(:resources) { [resource] }
   end
 
-  describe '#show' do
-    before do
-      get :show, uri: data[:predicate][:uri]
-    end
-
-    it { expect(assigns(:term)[:uri]).to eq(data[:predicate][:uri]) }
-    # it { expect(assigns(:glossary)).to eq(glossary) }
-    it { expect(assigns(:resources)).to eq([resource]) }
-    it { expect(assigns(:grouped_data)).to eq(grouped_data) }
-
-    it "assigns pages" do
-      pages.each do |page|
-        expect(assigns(:pages).values).to include(page)
-      end
-    end
-  end
+#  describe '#show' do
+#    before do
+#      get :show, uri: data[:predicate][:uri]
+#    end
+#
+#    it { expect(assigns(:term)[:uri]).to eq(data[:predicate][:uri]) }
+#    # it { expect(assigns(:glossary)).to eq(glossary) }
+#    it { expect(assigns(:resources)).to eq([resource]) }
+#    it { expect(assigns(:grouped_data)).to eq(grouped_data) }
+#
+#    it "assigns pages" do
+#      pages.each do |page|
+#        expect(assigns(:pages).values).to include(page)
+#      end
+#    end
+#  end
 end
