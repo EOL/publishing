@@ -687,9 +687,11 @@ en:
   term:
     actions:
       download: "download"
+      download_csv: "Download CSV"
       glossary: "full glossary"
       edit: "edit term"
       reindex: "reindex"
+      search: "Search"
       sort: "sort by"
       show_records: "show records"
       species_list: "species list"
@@ -770,6 +772,7 @@ en:
       downloads: "Downloads"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
+    you_must_select: "You must select at least one attribute"
   user_not_active: "The user is not active"
   users:
     sign_in: "Sign In"

@@ -20,23 +20,18 @@ class TermsController < ApplicationController
         end
       end
 
+      # TODO: This is somewhat broken due to a discrepancy between the count/result versions of the queries, at least with
+      # user downloads.
       fmt.csv do
         @query = TermQuery.new(tq_params)
 
         if @query.search_pairs.empty?
-          flash[:notice] = "You must select at least one attribute"
-          loc = params
-          loc.delete(:format)
-          redirect_to term_search_path(params)
+          flash_and_redirect_no_format(t("user_download.you_must_select"))
         else
           data = TraitBank::DataDownload.term_search(@query, current_user.id)
 
           if data.is_a?(UserDownload)
-            flash[:notice] = t("user_download.created", url: user_path(current_user))
-            # TODO: refactor, see above
-            loc = params
-            loc.delete(:format)
-            redirect_to term_search_path(params)
+            flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
           else
             send_data data
           end
@@ -202,5 +197,12 @@ private
     @is_terms_search = true
     @resources = TraitBank.resources(data)
     render "search"
+  end
+
+  def flash_and_redirect_no_format(msg)
+    flash[:notice] = msg
+    loc = params
+    loc.delete(:format)
+    redirect_to term_search_path(params)
   end
 end

@@ -322,7 +322,6 @@ class TraitBank
       batch_found = 1 # Placeholder; will update in query.
       page = 1
       while(found < count && batch_found > 0)
-        debugger
         batch = TraitBank.term_search(term_query, options.merge(page: page))
         batch_found = batch.size
         found += batch_found
@@ -331,115 +330,6 @@ class TraitBank
       end
     end
 
-    # Options:
-    # count: don't perform the query, but just count the results
-    # meta: whether to include metadata
-    # object_term: the object URI (or an array of them) to look for, specifically
-    # page: which page of long results you want
-    # page_list: only return a list of page_ids. page_list == "species list"
-    # per: how many results per page
-    # predicate: the predicate URI (or an array of them) to look for, specifically
-    # TODO: long method; break up.
-#    def term_search(options = {})
-#      q = empty_query
-#      q[:count] = options[:count]
-#      wheres = []
-#      if options[:clade]
-#        wheres << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
-#      end
-#      if options[:page_list]
-#        if uris = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
-#          wheres += Array(uris).map do |uri|
-#            "(page)-[:trait]->(:Trait)-[:predicate|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
-#          end
-#        end
-#        # NOTE: if you want a page list specifying BOTH predicates AND objects,
-#        # you are not going to get what you expect; the pages that match could
-#        # have ANY predicate with the object terms specified; it only needs to
-#        # have ALL of the object terms specified (somewhere). It's a tricky
-#        # query. ...I think the results will be "close enough" to manage in a
-#        # download.
-#        if uris = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
-#          wheres += Array(uris).map do |uri|
-#            "(page)-[:trait]->(:Trait)-[:object_term|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
-#          end
-#        end
-#        q[:match] = { "(page:Page)" => wheres }
-#      else # NOT A PAGE_LIST:
-#        main_match = "(page:Page)-[:trait]->(trait:Trait)"\
-#          "-[:supplier]->(resource:Resource)"
-#        if options[:clade]
-#          main_match = "(ancestor:Page { page_id: #{options[:clade]} })"\
-#            "<-[:in_clade*]-#{main_match}"
-#        end
-#        q[:match][main_match] = []
-#        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = []
-#        # q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = []
-#        if uri = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
-#          wheres =  if uri.is_a?(Array)
-#                      q[:order] << "page.name" unless q[:count]
-#                      "p_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
-#                    else
-#                      "p_match.uri = \"#{uri}\""
-#                    end
-#          q[:match]["(trait)-[:predicate|parent_term*0..3]->(p_match:Term)"] =
-#            wheres
-#        end
-#        if uri = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
-#          wheres =  if uri.is_a?(Array)
-#                      "o_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
-#                    else
-#                      "o_match.uri = \"#{uri}\""
-#                    end
-#          q[:match]["(trait)-[:object_term|parent_term*0..3]->(o_match:Term)"] =
-#            wheres
-#          # We still want to get the actual term used as the object (rather than
-#          # the match)!
-#          q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = nil
-#        else
-#          q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
-#        end
-#        if options[:meta]
-#          q[:optional].merge!(
-#            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)" => nil,
-#            "(meta)-[:units_term]->(meta_units_term:Term)" => nil,
-#            "(meta)-[:object_term]->(meta_object_term:Term)" => nil)
-#        end
-#      end
-#      if options[:count]
-#        q[:with] << "COUNT(DISTINCT(#{options[:page_list] ? "page" : "trait"})) AS count"
-#        q[:return] = ["count"]
-#      else
-#        q[:page] = options[:page]
-#        q[:per] = options[:per]
-#        if options[:page_list]
-#          q[:return] = ["page"]
-#          q[:order] = ["page.name"]
-#        else
-#          q[:return] = ["page", "trait", "predicate", "TYPE(info) AS info_type",
-#            "info_term", "resource"]
-#          if options[:meta]
-#            q[:return] += ["meta", "meta_predicate", "meta_units_term",
-#              "meta_object_term"]
-#          end
-#          q[:order] += order_clause_array(options)
-#        end
-#        if q[:meta]
-#          q[:order] << "meta_predicate.name"
-#        end
-#      end
-#      res = adv_query(q)
-#      if options[:count]
-#        res["data"] ? res["data"].first.first : 0
-#      else
-#        build_trait_array(res)
-#      end
-#    end
- 
-
-    # TODO: rename and restore old term_search. That is used all over the place. :(
-    # ORRRR fix data_download model and batch_term_search to use this method. That may be necessary for
-    # CSV download anyway.
     def term_search(term_query, options={})
       q = if options[:result_type] == :record
         term_record_search(term_query, options)
@@ -461,7 +351,7 @@ class TraitBank
 
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ? 
-                          "WITH COUNT(trait) AS count " :
+                          "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
       return_clause =     options[:count] ? 
                           "RETURN count" :
@@ -537,21 +427,22 @@ class TraitBank
       "#{order_part}"
     end
 
-    def by_predicate(uri, options = {})
-      term_search(options.merge(predicate: uri))
-    end
-
-    def by_predicate_count(uri, options = {})
-      term_search(options.merge(predicate: uri, count: true))
-    end
-
-    def by_object_term_uri(uri, options = {})
-      term_search(options.merge(object_term: uri))
-    end
-
-    def by_object_term_count(uri, options = {})\
-      term_search(options.merge(object_term: uri, count: true))
-    end
+# TODO: update and restore these methods
+#    def by_predicate(uri, options = {})
+#      term_search(options.merge(predicate: uri))
+#    end
+#
+#    def by_predicate_count(uri, options = {})
+#      term_search(options.merge(predicate: uri, count: true))
+#    end
+#
+#    def by_object_term_uri(uri, options = {})
+#      term_search(options.merge(object_term: uri))
+#    end
+#
+#    def by_object_term_count(uri, options = {})\
+#      term_search(options.merge(object_term: uri, count: true))
+#    end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!

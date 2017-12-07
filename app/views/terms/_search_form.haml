@@ -33,5 +33,5 @@
     %div
       = label_tag :search_type_page, t("term.label.taxa_matching_all")
       = radio_button_tag :result_type, :page, @result_type == :page
-  = f.submit "Search", :class => "uk-button uk-button-default uk-margin-top"
-  = f.submit "Download CSV", :formaction => term_search_path(:format => :csv), :class => "uk-button uk-button-default uk-margin-top uk-float-right"
+  = f.submit t("term.actions.search"), :class => "uk-button uk-button-default uk-margin-top"
+  = f.submit t("term.actions.download_csv"), :formaction => term_search_path(:format => :csv), :class => "uk-button uk-button-default uk-margin-top uk-float-right"
