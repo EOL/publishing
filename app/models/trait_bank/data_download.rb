@@ -8,7 +8,7 @@ class TraitBank
       def term_search(term_query, user_id, count = nil)
         downloader = self.new(term_query, count)
         # TODO: rework/re-enable user downloads for large result sets
-        if downloader.count > 10
+        if downloader.count > BATCH_SIZE
           term_query.save!
           UserDownload.create(
             :user_id => user_id,

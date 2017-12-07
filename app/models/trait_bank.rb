@@ -287,10 +287,6 @@ class TraitBank
       with_count_clause = options[:count] ? 
                           "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
-      return_clause =     options[:count] ? 
-                          "RETURN count" :
-                          "RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource"
-
       match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
         "(trait)-[:predicate]->(predicate:Term)"
@@ -312,12 +308,24 @@ class TraitBank
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
         "(meta)-[:object_term]->(meta_object_term:Term)"
-      ] if options[:meta]
+      ] if options[:meta] && !options[:count]
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
       orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       orders << "meta_predicate.name" if options[:meta]
       order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
+
+      returns = if options[:count]
+        ["count"]
+      else
+        ["page", "trait", "predicate", "TYPE(info) AS info_type", "info_term", "resource"]
+      end
+
+      if options[:meta] && !options[:count]
+        returns += ["meta", "meta_predicate", "meta_units_term", "meta_object_term"]
+      end
+
+      return_clause = "RETURN #{returns.join(", ")}"
 
       "#{match_part} "\
       "#{where_part} "\
