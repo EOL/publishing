@@ -332,7 +332,7 @@ class TraitBank
       end
     end
 
-   	# Options:
+    # Options:
     # count: don't perform the query, but just count the results
     # meta: whether to include metadata
     # object_term: the object URI (or an array of them) to look for, specifically
@@ -485,15 +485,15 @@ class TraitBank
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
       optional_matches = options[:count] ? [] : ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
-			optional_matches += [
-				"(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
-				"(meta)-[:units_term]->(meta_units_term:Term)",
-				"(meta)-[:object_term]->(meta_object_term:Term)"
-			] if trait_query.meta
-			optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+      optional_matches += [
+        "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
+        "(meta)-[:units_term]->(meta_units_term:Term)",
+        "(meta)-[:object_term]->(meta_object_term:Term)"
+      ] if options[:meta]
+      optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
-			orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
-			orders << "meta_predicate.name" if trait_query.meta
+      orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+      orders << "meta_predicate.name" if options[:meta]
       order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
 
       "#{match_part} "\

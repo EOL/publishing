@@ -41,7 +41,6 @@ class TraitBank
     attr_accessor :pairs
     attr_accessor :type
     attr_accessor :clade
-		attr_accessor :meta
 
     def initialize(*)
       super

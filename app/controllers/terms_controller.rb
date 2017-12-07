@@ -9,26 +9,44 @@ class TermsController < ApplicationController
   end
 
   def search
-    if params[:trait_bank_term_query]
-      @query = TraitBank::TermQuery.new(tb_query_params)
-      search_common
-    else 
-      @query = TraitBank::TermQuery.new(:type => :record)
-      @query.add_pair
-    end
+    respond_to do |fmt|
+      fmt.html do 
+        if params[:trait_bank_term_query]
+          @query = TraitBank::TermQuery.new(tb_query_params)
+          search_common
+        else 
+          @query = TraitBank::TermQuery.new(:type => :record)
+          @query.add_pair
+        end
+      end
 
-#    fmt.csv do
-#      data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
-#      if data.is_a?(UserDownload)
-#        flash[:notice] = t("user_download.created", url: user_path(current_user))
-#        loc = params
-#        loc.delete(:format)
-#        redirect_to term_path(params)
-#      else
-#        send_data data,
-#          filename: "#{@term[:name]}-#{Date.today}.tsv"
-#      end
-#    end 
+      fmt.csv do
+        @query = TraitBank::TermQuery.new(tb_query_params)
+
+        if @query.search_pairs.empty?
+          flash[:notice] = "You must select at least one attribute"
+          loc = params
+          loc.delete(:format)
+          redirect_to term_search_path(params)
+        else
+          data = TraitBank::DataDownload.term_search(@query)
+          send_data data 
+        end
+      end
+
+  #    fmt.csv do
+  #      data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
+  #      if data.is_a?(UserDownload)
+  #        flash[:notice] = t("user_download.created", url: user_path(current_user))
+  #        loc = params
+  #        loc.delete(:format)
+  #        redirect_to term_path(params)
+  #      else
+  #        send_data data,
+  #          filename: "#{@term[:name]}-#{Date.today}.tsv"
+  #      end
+  #    end 
+    end
   end
 
   def search_form
@@ -37,7 +55,7 @@ class TermsController < ApplicationController
     @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
     render :layout => false
   end
-	
+  
   def show
     @query = TraitBank::TermQuery.new({
       :pairs => [TraitBank::TermQuery::Pair.new(

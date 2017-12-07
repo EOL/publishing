@@ -3,33 +3,36 @@ class TraitBank
     attr_reader :count
 
     class << self
-      def term_search(term_query, options)
-        downloader = self.new(options)
-        # TODO: see if this case is necessary - if so, time to mess with the models
-        if downloader.count > 1000
-          UserDownload.create(
-            user_id: options[:user_id],
-            clade: options[:clade],
-            object_terms: options[:object_term],
-            predicates: options[:predicate],
-            count: downloader.count)
-        else
-          downloader.build
-        end
+      def term_search(term_query)
+        downloader = self.new(term_query)
+        # TODO: rework/re-enable user downloads for large result sets
+#        if downloader.count > 1000
+#          UserDownload.create(
+#            user_id: options[:user_id],
+#            clade: options[:clade],
+#            object_terms: options[:object_term],
+#            predicates: options[:predicate],
+#            count: downloader.count)
+#        else
+#          downloader.build
+#        end
+        downloader.build
       end
     end
 
-    def initialize(options)
-      @options = options.merge(page_list: false, meta: true, per_page: 1000)
+    def initialize(term_query)
+      @query = term_query.clone
+      @query.type = "record"
+      @options = { :per_page => 1000, :meta => true }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
-      @filename = Digest::MD5.hexdigest(@options.to_s)
+      @filename = Digest::MD5.hexdigest(@query.as_json.to_s)
       @filename += ".tsv"
-      @count = TraitBank.term_search(@options.merge(count: true))
+      @count = TraitBank.term_search(@query, @options.merge(:count => true))
     end
 
     def build
-      @hashes = TraitBank.term_search(@options)
+      @hashes = TraitBank.term_search(@query, @options)
       get_predicates
       to_arrays
       generate_csv
