@@ -46,9 +46,9 @@ module DataHelper
 
   def show_data_value(data)
     value = t(:data_missing, keys: data.keys.join(", "))
-    if data[:object_page_id]
+    if (target_id = data[:object_page_id] || data[:target_page_id])
       if defined?(@associations)
-        target = @associations.find { |a| a.id == data[:object_page_id] }
+        target = @associations.find { |a| a.id == target_id }
         if target.nil?
           haml_concat "[page #{data[:object_page_id]} not imported]"
         else
@@ -68,8 +68,7 @@ module DataHelper
     elsif val = data[:literal] || data[:value_literal]
       haml_concat unlink(val).html_safe
     else
-      haml_concat "OOPS: "
-      debugger
+      haml_concat "CORRUPTED VALUE:"
       haml_concat value
     end
   end

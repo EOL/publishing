@@ -32,7 +32,7 @@
           - @page.grouped_data[uri].each do |trait|
             .row
               -# TODO: I'm not happy with storing the ids of sections as a string in TraitBank. Should have helper. :S
-              - sections = predicate[:section_ids].split(",").map { |i| "section_#{i}" }
+              - sections = predicate[:section_ids]&.split(",")&.map { |i| "section_#{i}" } || []
               - sections = ["section_other"] if sections.empty?
               .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
                 - if index == 0
@@ -55,7 +55,7 @@
         %h3= t(:data_header_type_glossary)
         .uk-column-1-2
           %dl.uk-description-list
-            - @page.predicates.sort_by { |p| @page.glossary[p][:name].downcase }.each do |predicate|
+            - @page.predicates.sort_by { |p| @page.glossary[p][:name]&.downcase }.compact.each do |predicate|
               - term = @page.glossary[predicate]
               - next if term[:is_hidden_from_glossary]
               %dt= link_to(term[:name], term_path(uri: term[:uri]))
@@ -67,7 +67,7 @@
         %h3= t(:data_header_value_glossary)
         .uk-column-1-2
           %dl.uk-description-list
-            - @page.object_terms.sort_by { |t| @page.glossary[t][:name].downcase }.each do |name|
+            - @page.object_terms.sort_by { |t| @page.glossary[t][:name]&.downcase }.each do |name|
               - term = @page.glossary[name]
               - next if term[:is_hidden_from_glossary]
               %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))

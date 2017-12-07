@@ -206,6 +206,7 @@ en:
     reindex: "reindex"
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"
+    resources: "Resources"
     stats:
       pages: "pages"
       data: "data records"
@@ -527,6 +528,17 @@ en:
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
+  resources:
+    actions:
+      index: "back to all resources"
+      show_all:
+        other: "show all (%{count})"
+      show_warns:
+        one: "show warning (%{count})"
+        other: "show warnings (%{count})"
+    headers:
+      import_log: "Import Log for %{resource}"
+    no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
     status_title:

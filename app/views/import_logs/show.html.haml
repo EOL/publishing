@@ -1,3 +1,4 @@
+%h1= t("resources.headers.import_log", resource: link_to(@resource.name, @resource)).html_safe
 %ul.uk-list
   %li
     %b= "Started:"
@@ -18,13 +19,20 @@
     %b= "Status:"
     = @log.status || "[empty]"
 %h2= "Events (most recent first):"
+- unless params[:warns]
+  .ui.button
+    = link_to(t("resources.actions.show_warns", count: @log.import_events.warns.count), resource_import_log_path(@resource, @log, warns: true))
+- else
+  .ui.button
+    = link_to(t("resources.actions.show_all", count: @log.import_events.count), resource_import_log_path(@resource, @log))
 = paginate @events
 %ul.uk-list
-  - @events.each do |event|
-    %li
-      %b= l(event.created_at, format: '%H:%M:%S.%3N')
-      (
-      = event.cat
-      )
-      = event.body
+  - if @events.empty?
+    %p= t("resources.no_events")
+  - else
+    - @events.each do |event|
+      %li
+        %b= l(event.created_at, format: '%H:%M:%S.%3N')
+        %span.uk-text-muted= "(#{event.cat})"
+        = event.body
 = paginate @events

@@ -63,7 +63,7 @@ class Resource < ActiveRecord::Base
   end
 
   def create_log
-    ImportLog.create(resource_id: id)
+    ImportLog.create(resource_id: id, status: "currently running")
   end
 
   def remove_content
@@ -144,5 +144,34 @@ class Resource < ActiveRecord::Base
 
   def nuke(klass)
     klass.where(resource_id: id).delete_all
+  end
+
+  # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
+
+  def import_traits(since)
+    log = Publishing::PubLog.new(self)
+    repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Traits ONLY...')
+    begin
+      Publishing::PubTraits.import(self, log, repo)
+      log.log('NOTE: traits have been loaded, but richness has not been recalculated.', cat: :infos)
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
+  end
+
+  def import_media(since)
+    log = Publishing::PubLog.new(self)
+    repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Media ONLY...')
+    begin
+      Publishing::PubMedia.import(self, log, repo)
+      log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
+        'media counts may be off.', cat: :infos)
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
   end
 end

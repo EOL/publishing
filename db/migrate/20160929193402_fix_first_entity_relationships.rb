@@ -43,9 +43,10 @@ class FixFirstEntityRelationships < ActiveRecord::Migration
     create_join_table(:articles, :references) do |t|
       t.index :article_id
     end
-    Article.connection.execute("INSERT INTO articles_references (article_id, "\
-      "reference_id) SELECT content_id, reference_id FROM content_references "\
-      "WHERE content_type = 'Article'")
+    # Removing this because it breaks percona:
+    # Article.connection.execute("INSERT INTO articles_references (article_id, "\
+    #   "reference_id) SELECT content_id, reference_id FROM content_references "\
+    #   "WHERE content_type = 'Article'")
     drop_table :content_references
 
     add_column(:content_attributions, :role_id, :integer, null: false, index: true)

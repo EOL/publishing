@@ -13,8 +13,8 @@ class TraitBank
 
       # You only have to run this once, and it's best to do it before loading TB:
       def create_indexes
-        indexes = %w{ Page(page_id) Trait(resource_pk) Term(uri)
-          Resource(resource_id) }
+        indexes = %w{ Page(page_id) Trait(eol_pk) Trait(resource_pk) Term(uri)
+          Resource(resource_id) MetaData(eol_pk)}
         indexes.each do |index|
           begin
             query("CREATE INDEX ON :#{index};")
@@ -60,11 +60,13 @@ class TraitBank
         query("MATCH (trait:Trait) DETACH DELETE trait")
         query("MATCH (page:Page) DETACH DELETE page")
         query("MATCH (res:Resource) DETACH DELETE res")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       def remove_for_resource(resource)
         query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
           "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships

@@ -46,6 +46,7 @@ Rails.application.configure do
 end
 
 Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'http://localhost:3000'
+Rails.configuration.eol_web_url = ENV['EOL_WEB_URL'] || 'http://localhost:3001'
 Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '_orig'
 Rails.configuration.x.image_path.ext = '.jpg'
 Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '_'

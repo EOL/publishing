@@ -16,11 +16,11 @@ class TraitBank
   # * Resource: { *resource_id }
   # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
   # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term)
-  #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
+  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal, normal_measurement,
   #       normal_units[NOTE: this is a literal STRING, used as symbol in Ruby] }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
-  #     { measurement, literal }
+  #     { *eol_pk, measurement, literal }
   # * Term: parent_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
   #     attribution, is_hidden_from_overview, is_hidden_from_glossary, position,
   #     type }
@@ -60,7 +60,7 @@ class TraitBank
         sleep(1)
         connection.execute_query(q)
       ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q != /\n/
+        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
@@ -71,72 +71,6 @@ class TraitBank
       res["data"].map do |t|
         t.first["data"].symbolize_keys
       end
-    end
-
-    def slurp_traits(resource_id)
-      count = slurp_traits_with_count(resource_id)
-      count + slurp_traits_with_count(resource_id, true)
-    end
-
-    # HERE THERE BE DRAGONS. # Speed improvement using slurp over creating via neography was, for about 3000 traits, a
-    # reduction form 4m44s to 14s. ...sooo: worth it. But, yes, the query here is ugly as sin. Sorry. I generalized it a
-    # bit... if we really wanted to stay this path (as opposed to moving to something like APOC), we could generalize it
-    # further, but this will do for the one-off slurping we have to do for traits. ...Though I might do something
-    # similar for terms, later.
-    def slurp_traits_with_count(resource_id, meta = false)
-      # TODO: csv file location!
-      # TODO: (eventually) target_scientific_name: row.target_scientific_name
-      header = "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM "\
-        "'http://localhost:3001/#{'meta_' if meta}traits_#{resource_id}.csv' AS row WITH row"
-      plain_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NULL'
-      valued_traits_clause = 'WHERE row.value_uri IS NOT NULL AND row.units IS NULL'
-      measured_traits_clause = 'WHERE row.value_uri IS NULL AND row.units IS NOT NULL'
-      # NOTE: there should NEVER be a trait with both a vaule_uri AND a measurement, so we skip that.
-      required_merge_clauses =
-        meta ?
-          <<~META_MERGE_CLAUSES
-            MERGE (predicate:Term { uri: row.predicate })
-            MERGE (trait:MetaData)
-            FOREACH(x IN CASE WHEN row.resource_pk IS NULL THEN [] ELSE [1] END | SET trait.resource_pk = row.resource_pk)
-            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = row.value_num)
-            MERGE (page)-[t_r:trait]->(trait)-[p_r:predicate]->(predicate)
-          META_MERGE_CLAUSES
-        : <<~MERGE_CLAUSES
-            MERGE (resource:Resource { resource_id: #{resource_id} })
-            MERGE (page:Page { page_id: toInt(row.page_id) })
-            MERGE (predicate:Term { uri: row.predicate })
-            MERGE (trait:Trait { scientific_name: row.scientific_name, resource_pk: row.resource_pk })
-            FOREACH(x IN CASE WHEN row.sex IS NULL THEN [] ELSE [1] END | SET trait.sex = row.sex)
-            FOREACH(x IN CASE WHEN row.lifestage IS NULL THEN [] ELSE [1] END | SET trait.lifestage = row.lifestage)
-            FOREACH(x IN CASE WHEN row.statistical_method IS NULL THEN [] ELSE [1] END | SET trait.statistical_method = row.statistical_method)
-            FOREACH(x IN CASE WHEN row.source IS NULL THEN [] ELSE [1] END | SET trait.source = row.source)
-            FOREACH(x IN CASE WHEN row.target_page_id IS NULL THEN [] ELSE [1] END | SET trait.object_page_id = toInt(row.target_page_id))
-            FOREACH(x IN CASE WHEN row.value_literal IS NULL THEN [] ELSE [1] END | SET trait.value_literal = row.value_literal)
-            FOREACH(x IN CASE WHEN row.value_num IS NULL THEN [] ELSE [1] END | SET trait.value_num = toInt(row.value_num))
-            MERGE (page)-[:trait]->(trait)-[p_r:predicate]->(predicate)
-            MERGE (trait)-[:supplier]->(resource)
-          MERGE_CLAUSES
-      valued_merge_clause = 'MERGE (value:Term { uri: row.value_uri })'
-      valued_rel_clause = 'MERGE (trait)-[:object_term]->(value)'
-      measured_merge_clause = 'MERGE (units:Term { uri: row.units })'
-      measured_rel_clause = 'MERGE (trait)-[:units_term]->(units)'
-      return_clause = 'RETURN COUNT(trait)'
-
-      # So, here, we're just building a series of very similar queries (and again for meta, since metadata can have the
-      # same associations as traits where this code is concerned). Thus the heavy redundancy:
-      res = query([header, plain_traits_clause, required_merge_clauses, return_clause].join(' '))
-      new_count = res["data"] ? res["data"].first.first : 0
-      res = query([header, valued_traits_clause, required_merge_clauses, valued_merge_clause, valued_rel_clause,
-        return_clause].join(' '))
-      new_count += res["data"] ? res["data"].first.first : 0
-      res = query([header, measured_traits_clause, required_merge_clauses, measured_merge_clause, measured_rel_clause,
-        return_clause].join(' '))
-      new_count + (res["data"] ? res["data"].first.first : 0)
     end
 
     def quote(string)
@@ -596,6 +530,11 @@ class TraitBank
         else
           "MISSING"
         end
+        if hash[:predicate].is_a?(Array)
+          Rails.logger.error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
+            "#{hash[:predicate].size} predicates")
+          hash[:predicate] = hash[:predicate].first
+        end
         # TODO: extract method
         if has_info_term && hash[:info_type]
           info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
@@ -623,7 +562,6 @@ class TraitBank
           unless hash[:meta].empty?
             hash[:meta].each_with_index do |meta, i|
               m_hash = meta
-              debugger if meta.nil?
               m_hash[:predicate] = hash[:meta_predicate][i]
               m_hash[:object_term] = hash[:meta_object_term][i]
               m_hash[:units] = hash[:meta_units_term][i]

@@ -260,6 +260,7 @@ private
   def get_associations
     @associations =
       begin
+        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
         ids = @page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
         Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])

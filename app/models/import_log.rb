@@ -9,7 +9,6 @@ class ImportLog < ActiveRecord::Base
     cat = options[:cat] || :starts
     chop_into_text_chunks(body).each do |chunk|
       import_events << ImportEvent.create(import_log: self, cat: cat, body: chunk)
-      puts "[#{Time.now.strftime('%H:%M:%S')}] (#{cat}) #{chunk}"
     end
   end
 
@@ -26,6 +25,8 @@ class ImportLog < ActiveRecord::Base
   def complete
     update_attribute(:completed_at, Time.now)
     update_attribute(:status, "completed")
+    resource.touch # Ensure that we see the resource as having changed
+    log('Complete', cat: :ends)
   end
 
   def fail(e)
