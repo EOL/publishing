@@ -6,7 +6,7 @@
       %h1= t("term.header.data_search")
       = render "search_form"
   - if @pages
-    - if @query.type == "record"
+    - if @result_type == :record
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else
       %ul.uk-list

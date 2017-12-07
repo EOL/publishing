@@ -1,12 +1,5 @@
 class TraitBank
   class TermQuery
-    class Sort 
-      include ActiveModel::Model
-
-      attr_accessor :dir
-      attr_accessor :field
-    end
-
     class Pair
       include ActiveModel::Model
 
@@ -23,29 +16,13 @@ class TraitBank
 
     NUM_PAIRS = 4
     PER_PAGE = 50
-    # SORTS are not used at the moment
-    SORTS = {
-      :pred_asc => { 
-        :name => "Predicate name (asc)",
-        :sort => Sort.new(:dir => :asc, :field => :predicate)
-      },
-      :pred_desc => {
-        :name => "Predicate name (desc)",
-        :sort => Sort.new(:dir => :desc,  :field => :predicate)
-      }
-    }
-    SORT_OPTIONS = SORTS.collect do |param, val|
-      [val[:name], param]
-    end
 
     attr_accessor :pairs
-    attr_accessor :type
     attr_accessor :clade
 
     def initialize(*)
       super
       @clade = nil if @clade.blank?
-      @type = "record" if @type.blank?
     end
 
     def pairs_attributes=(attributes)
@@ -76,22 +53,6 @@ class TraitBank
       else
         nil
       end
-    end
-    
-    def sort_options
-      SORT_OPTIONS
-    end
-
-    def sort
-      if @sort 
-        SORTS.dig(@sort.to_sym, :sort)
-      else
-        nil
-      end
-    end
-
-    def sort=(sort)
-      @sort = sort
     end
   end
 end

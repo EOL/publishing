@@ -441,11 +441,11 @@ class TraitBank
     # TODO: rename and restore old term_search. That is used all over the place. :(
     # ORRRR fix data_download model and batch_term_search to use this method. That may be necessary for
     # CSV download anyway.
-    def term_search(trait_query, options={})
-      q = if trait_query.type == "record"
-        term_record_search(trait_query, options)
+    def term_search(term_query, options={})
+      q = if options[:result_type] == :record
+        term_record_search(term_query, options)
       else
-        term_page_search(trait_query, options)
+        term_page_search(term_query, options)
       end
 
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
@@ -460,7 +460,7 @@ class TraitBank
       end
     end
 
-    def term_record_search(trait_query, options)
+    def term_record_search(term_query, options)
       with_count_clause = options[:count] ? 
                           "WITH COUNT(DISTINCT(trait)) AS count " :
                           ""
@@ -471,9 +471,9 @@ class TraitBank
       match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
         "(trait)-[:predicate]->(predicate:Term)"
-      match_part += ", (page)-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
+      match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
-      wheres = trait_query.search_pairs.map do |pair|
+      wheres = term_query.search_pairs.map do |pair|
         if pair.object
           "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
                              "(trait)"\
@@ -504,7 +504,7 @@ class TraitBank
       "#{order_part} "
     end
 
-    def term_page_search(trait_query, options)
+    def term_page_search(term_query, options)
       with_count_clause = options[:count] ?
         "WITH COUNT(DISTINCT(page)) AS count " :
         ""
@@ -512,9 +512,9 @@ class TraitBank
         "RETURN count" :
         "RETURN page"
       page_match = "MATCH (page:Page)"
-      page_match += "-[:parent*]->(Page { page_id: #{trait_query.clade} })" if trait_query.clade
+      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
-      trait_matches = trait_query.search_pairs.each_with_index.map do |pair, i|
+      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
         trait_label = "t#{i}"
         match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
 

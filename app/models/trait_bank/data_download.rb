@@ -22,8 +22,7 @@ class TraitBank
 
     def initialize(term_query)
       @query = term_query.clone
-      @query.type = "record"
-      @options = { :per_page => 1000, :meta => true }
+      @options = { :per_page => 1000, :meta => true, :result_type => :record }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
       @filename = Digest::MD5.hexdigest(@query.as_json.to_s)

@@ -9,13 +9,15 @@ class TermsController < ApplicationController
   end
 
   def search
+    @result_type = params[:result_type]&.to_sym || :record
+
     respond_to do |fmt|
       fmt.html do 
         if params[:trait_bank_term_query]
           @query = TraitBank::TermQuery.new(tb_query_params)
           search_common
         else 
-          @query = TraitBank::TermQuery.new(:type => :record)
+          @query = TraitBank::TermQuery.new
           @query.add_pair
         end
       end
@@ -172,8 +174,6 @@ private
   def tb_query_params
     params.require(:trait_bank_term_query).permit(
       :clade,
-      :sort,
-      :type,
       :pairs_attributes => [
         :predicate,
         :object
@@ -191,7 +191,8 @@ private
     @per_page = 50
     data = TraitBank.term_search(@query, {
       :page => @page,
-      :per => @per_page          
+      :per => @per_page,
+      :result_type => @result_type
     })
     ids = data.map { |t| t[:page_id] }.uniq
     pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
