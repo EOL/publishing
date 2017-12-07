@@ -1,6 +1,6 @@
 EOL.onReady(function() {
   function fetchForm(option) {
-    var data = $('#new_trait_bank_term_query').serializeArray();
+    var data = $('#new_term_query').serializeArray();
 
     $('.js-term-form-dimmer').addClass('active');
 
@@ -13,7 +13,7 @@ EOL.onReady(function() {
       data: $.param(data),
       url: '/terms/search_form', // TODO: no hard-coded urls
       success: function(res) {
-        $('#new_trait_bank_term_query').html(res)
+        $('#new_term_query').html(res)
         setupForm();
         $('.js-term-form-dimmer').removeClass('active');
       }

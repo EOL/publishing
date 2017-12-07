@@ -1,7 +1,7 @@
 class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
-  before_action :set_predicate_options, :only => [:search, :search_form, :show]
+  before_action :search_setup, :only => [:search, :search_form, :show]
 
   def index
     @count = TraitBank::Terms.count
@@ -9,21 +9,19 @@ class TermsController < ApplicationController
   end
 
   def search
-    @result_type = params[:result_type]&.to_sym || :record
-
     respond_to do |fmt|
       fmt.html do 
-        if params[:trait_bank_term_query]
-          @query = TraitBank::TermQuery.new(tb_query_params)
+        if params[:term_query]
+          @query = TermQuery.new(tq_params)
           search_common
         else 
-          @query = TraitBank::TermQuery.new
-          @query.add_pair
+          @query = TermQuery.new
+          @query.pairs.build
         end
       end
 
       fmt.csv do
-        @query = TraitBank::TermQuery.new(tb_query_params)
+        @query = TermQuery.new(tq_params)
 
         if @query.search_pairs.empty?
           flash[:notice] = "You must select at least one attribute"
@@ -52,15 +50,15 @@ class TermsController < ApplicationController
   end
 
   def search_form
-    @query = TraitBank::TermQuery.new(params[:trait_bank_term_query])
-    @query.add_pair if params[:add_pair]
+    @query = TermQuery.new(tq_params)
+    @query.pairs.build if params[:add_pair]
     @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
     render :layout => false
   end
   
   def show
-    @query = TraitBank::TermQuery.new({
-      :pairs => [TraitBank::TermQuery::Pair.new(
+    @query = TermQuery.new({
+      :pairs => [TermQueryPair.new(
         :predicate => params[:uri]
       )]
     })
@@ -171,8 +169,8 @@ private
       end
   end
 
-  def tb_query_params
-    params.require(:trait_bank_term_query).permit(
+  def tq_params
+    params.require(:term_query).permit(
       :clade,
       :pairs_attributes => [
         :predicate,
@@ -181,9 +179,10 @@ private
     )
   end
 
-  def set_predicate_options
+  def search_setup
     @predicate_options = [['----', nil]] + 
       TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
+    @result_type = params[:result_type]&.to_sym || :record
   end
 
   def search_common

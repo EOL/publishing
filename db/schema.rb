@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107164342) do
+ActiveRecord::Schema.define(version: 20171207161854) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -746,6 +746,23 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.boolean "can_merge",                            default: true,  null: false
   end
 
+  create_table "term_queries", force: :cascade do |t|
+    t.string   "pairs",      limit: 255
+    t.integer  "clade",      limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "term_query_pairs", force: :cascade do |t|
+    t.string   "predicate",     limit: 255
+    t.string   "object",        limit: 255
+    t.integer  "term_query_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "term_query_pairs", ["term_query_id"], name: "index_term_query_pairs_on_term_query_id", using: :btree
+
   create_table "user_downloads", force: :cascade do |t|
     t.integer  "user_id",      limit: 4
     t.integer  "count",        limit: 4
@@ -817,4 +834,5 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
 
+  add_foreign_key "term_query_pairs", "term_queries"
 end
