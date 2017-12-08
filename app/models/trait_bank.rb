@@ -66,13 +66,6 @@ class TraitBank
       results
     end
 
-    def obj_terms_for_pred(pred_uri)
-      res = query("MATCH (predicate:Term) <-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]- (trait:Trait) -[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]-> (object:Term) WHERE predicate.uri = \"#{pred_uri}\" RETURN DISTINCT(object) ORDER BY LOWER(object.name), LOWER(object.uri)")
-      res["data"].map do |t|
-        t.first["data"].symbolize_keys
-      end
-    end
-
     def quote(string)
       return string if string.is_a?(Numeric) || string =~ /\A[-+]?[0-9,]*\.?[0-9]+\Z/
       %Q{"#{string.gsub(/"/, "\\\"")}"}
@@ -285,7 +278,7 @@ class TraitBank
 
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ? 
-                          "WITH COUNT(DISTINCT(trait)) AS count " :
+                          "WITH count(*) AS count " :
                           ""
       match_part = 
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
@@ -303,12 +296,12 @@ class TraitBank
       end
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
-      optional_matches = options[:count] ? [] : ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
+      optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
       optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
         "(meta)-[:object_term]->(meta_object_term:Term)"
-      ] if options[:meta] && !options[:count]
+      ] if options[:meta]
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
       orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
@@ -329,8 +322,8 @@ class TraitBank
 
       "#{match_part} "\
       "#{where_part} "\
-      "#{with_count_clause}"\
       "#{optional_match_part} "\
+      "#{with_count_clause}"\
       "#{return_clause} "\
       "#{order_part} "
     end
@@ -369,7 +362,7 @@ class TraitBank
       "#{order_part}"
     end
 
-# TODO: update and restore these methods
+# TODO: update and restore these methods (if needed)
 #    def by_predicate(uri, options = {})
 #      term_search(options.merge(predicate: uri))
 #    end

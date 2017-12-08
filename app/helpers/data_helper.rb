@@ -139,7 +139,7 @@ module DataHelper
     options = [["----", nil]]
 
     if (!pred_uri.blank?)
-      TraitBank.obj_terms_for_pred(pred_uri).each do |term|
+      TraitBank::Terms.obj_terms_for_pred(pred_uri).each do |term|
         options.push([term[:name], term[:uri]])
       end
     end
