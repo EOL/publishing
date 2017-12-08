@@ -80,6 +80,7 @@ class Publishing
       if partner.nil?
         @pub_log.log("!! WARNING: **SKIPPING** resource #{resource[:name]} (#{resource[:repository_id]}): "\
           "no partner defined!", cat: :warns)
+        next
       end
       partner[:repository_id] = partner.delete(:id)
       partner = find_and_update_or_create(Partner, partner)
