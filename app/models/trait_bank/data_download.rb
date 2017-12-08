@@ -7,7 +7,6 @@ class TraitBank
     class << self
       def term_search(term_query, user_id, count = nil)
         downloader = self.new(term_query, count)
-        # TODO: rework/re-enable user downloads for large result sets
         if downloader.count > BATCH_SIZE
           term_query.save!
           UserDownload.create(
