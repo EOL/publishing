@@ -20,7 +20,6 @@ private
 
   def background_build
     downloader = TraitBank::DataDownload.new(term_query, count)
-    puts "TERM_QUERY #{term_query}"
     self[:filename] = downloader.background_build
     self[:completed_at] = Time.now
     save!

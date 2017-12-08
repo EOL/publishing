@@ -20,22 +20,24 @@ class TermsController < ApplicationController
         end
       end
 
-      # TODO: This is somewhat broken due to a discrepancy between the count/result versions of the queries, at least with
-      # user downloads.
       fmt.csv do
-        @query = TermQuery.new(tq_params)
+        if !current_user
+          redirect_to new_user_session_path
+        else 
+          @query = TermQuery.new(tq_params)
 
-        if @query.search_pairs.empty?
-          flash_and_redirect_no_format(t("user_download.you_must_select"))
-        else
-          data = TraitBank::DataDownload.term_search(@query, current_user.id)
-
-          if data.is_a?(UserDownload)
-            flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
+          if @query.search_pairs.empty?
+            flash_and_redirect_no_format(t("user_download.you_must_select"))
           else
-            send_data data
-          end
-        end 
+            data = TraitBank::DataDownload.term_search(@query, current_user.id)
+
+            if data.is_a?(UserDownload)
+              flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
+            else
+              send_data data
+            end
+          end 
+        end
       end
     end
   end
