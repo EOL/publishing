@@ -27,7 +27,7 @@ class TraitBank
   #
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
   #   or "metadata" ... at the time of this writing.
-  
+
   CHILD_TERM_DEPTH = 4
 
   class << self
@@ -277,10 +277,10 @@ class TraitBank
     end
 
     def term_record_search(term_query, options)
-      with_count_clause = options[:count] ? 
+      with_count_clause = options[:count] ?
                           "WITH count(*) AS count " :
                           ""
-      match_part = 
+      match_part =
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
         "(trait)-[:predicate]->(predicate:Term)"
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
@@ -738,12 +738,17 @@ class TraitBank
 
     def create_term(options)
       if existing_term = term(options[:uri]) # NO DUPLICATES!
-        return existing_term
+        return existing_term unless options.delete(:force)
       end
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
       options[:definition] ||= "{definition missing}"
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
+      if existing_term
+        options.delete(:uri) # We already have this.
+        connection.set_node_properties(existing_term, options)
+        return existing_term
+      end
       begin
         term_node = connection.create_node(options)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
@@ -815,5 +820,5 @@ class TraitBank
       end
     end
   end
-  
+
 end

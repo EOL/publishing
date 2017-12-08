@@ -162,7 +162,7 @@ class Publishing
       new_terms += 1
       # TODO: section_ids
       term[:type] = term[:used_for]
-      TraitBank.create_term(term)
+      TraitBank.create_term(term.merge(force: true))
     end
     @pub_log.log("Finished importing terms: #{new_terms} new, #{knew} known, #{skipped} skipped.")
   end
