@@ -10,11 +10,11 @@ class TermsController < ApplicationController
 
   def search
     respond_to do |fmt|
-      fmt.html do 
+      fmt.html do
         if params[:term_query]
           @query = TermQuery.new(tq_params)
           search_common
-        else 
+        else
           @query = TermQuery.new
           @query.pairs.build
         end
@@ -48,7 +48,7 @@ class TermsController < ApplicationController
     @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
     render :layout => false
   end
-  
+
   def show
     @query = TermQuery.new({
       :pairs => [TermQueryPair.new(
@@ -143,7 +143,7 @@ private
         expire_fragment("term/glossary/#{index}")
       end
     end
-    result = TraitBank::Terms.send(which, @page, @per_page, query) 
+    result = TraitBank::Terms.send(which, @page, @per_page, query)
 
     if paginate
       result = Kaminari.paginate_array(result, total_count: @count).
@@ -173,7 +173,7 @@ private
   end
 
   def search_setup
-    @predicate_options = [['----', nil]] + 
+    @predicate_options = [['----', nil]] +
       TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
     @result_type = params[:result_type]&.to_sym || :record
   end
@@ -189,7 +189,7 @@ private
     ids = data.map { |t| t[:page_id] }.uniq
     pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
     @pages = {}
-    
+
     ids.each do |id|
       page = pages.find { |p| p.id == id }
       @pages[id] = page if page
@@ -198,7 +198,18 @@ private
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
+    @associations = get_associations(data)
     render "search"
+  end
+
+  # TODO: Schnarfed this (mostly) from the pages_controller; we should generalize as a helper.
+  def get_associations(data)
+    @associations =
+      begin
+        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
+        ids = data.map { |t| t[:object_page_id] }.compact.sort.uniq
+        Page.where(id: ids).includes(:medium, :preferred_vernaculars, native_node: [:rank])
+      end
   end
 
   def flash_and_redirect_no_format(msg)
