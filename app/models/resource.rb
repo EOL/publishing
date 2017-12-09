@@ -159,6 +159,7 @@ class Resource < ActiveRecord::Base
     rescue => e
       log.fail(e)
     end
+    Rails.cache.clear
   end
 
   def import_media(since)
@@ -173,5 +174,6 @@ class Resource < ActiveRecord::Base
     rescue => e
       log.fail(e)
     end
+    Rails.cache.clear
   end
 end

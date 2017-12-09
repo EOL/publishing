@@ -46,15 +46,10 @@ class Publishing
     else
       pages = Page.where(id: @page_ids).includes(:occurrence_map)
       @pub_log.log('score_richness_for_pages')
-      # Clear caches that could have been affected TODO: more caches ... and move. It doesn't belong here.
-      pages.find_each do |page|
-        richness.calculate(page)
-        Rails.cache.delete("/pages/#{page.id}/glossary")
-      end
       @pub_log.log('pages.reindex')
       pages.reindex
-      Rails.cache.delete("pages/index/stats")
     end
+    Rails.cache.clear
     @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
     @run.update_attribute(:completed_at, Time.now)
   end
