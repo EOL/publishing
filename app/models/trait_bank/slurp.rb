@@ -14,7 +14,8 @@ class TraitBank::Slurp
           'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source value_literal value_num\
                         object_page_id scientific_name],
           wheres: {
-            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
+            # This will be applied to ALL rows:
+            "1=1" => {
               matches: {
                 predicate: 'Term { uri: row.predicate }',
                 resource: "Resource { resource_id: #{resource.id} }"
@@ -42,7 +43,7 @@ class TraitBank::Slurp
         {
           'MetaData' => %i[eol_pk sex lifestage statistical_method source value_literal value_num],
           wheres: {
-            "#{is_blank('row.value_uri')} AND #{is_blank('row.units')}" => {
+            "1=1" => { # ALL ROWS
               matches: {
                 trait: 'Trait { eol_pk: row.trait_eol_pk }',
                 predicate: 'Term { uri: row.predicate }'
@@ -148,8 +149,6 @@ class TraitBank::Slurp
 
     def set_attribute(name, attribute, value, on_set)
       "\nON #{on_set} SET #{name}.#{attribute} = #{value}"
-      # "\nFOREACH(x IN CASE WHEN #{is_blank("row.#{attribute}")} THEN [] ELSE [1] END | "\
-      #   "ON #{on_set} SET #{name}.#{attribute} = #{value})"
     end
 
     def is_not_blank(field)
