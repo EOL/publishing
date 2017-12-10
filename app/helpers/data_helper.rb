@@ -67,6 +67,7 @@ module DataHelper
       haml_concat(value.html_safe)
     elsif val = data[:literal] || data[:value_literal]
       haml_concat unlink(val).html_safe
+      haml_tag(:span, class: 'uk-hidden') { haml_concat('(literal)') }
     else
       haml_concat "CORRUPTED VALUE:"
       haml_concat value
