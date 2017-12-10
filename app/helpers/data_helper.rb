@@ -58,19 +58,23 @@ module DataHelper
         haml_concat "MISSING PAGE: "
         haml_concat value
       end
+      haml_tag(:span, class: 'uk-hidden') { haml_concat('(association)') }
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
       haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+      haml_tag(:span, class: 'uk-hidden') { haml_concat('(object term)') }
     elsif val = data[:measurement] || data[:value_measurement]
       value = val.to_s + " "
       value += data[:units][:name] if data[:units] && data[:units][:name]
       haml_concat(value.html_safe)
+      haml_tag(:span, class: 'uk-hidden') { haml_concat('(measurement)') }
     elsif val = data[:literal] || data[:value_literal]
       haml_concat unlink(val).html_safe
       haml_tag(:span, class: 'uk-hidden') { haml_concat('(literal)') }
     else
       haml_concat "CORRUPTED VALUE:"
       haml_concat value
+      haml_tag(:span, class: 'uk-hidden') { haml_concat('(missing)') }
     end
   end
 
