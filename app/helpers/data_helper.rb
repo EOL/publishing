@@ -98,6 +98,10 @@ module DataHelper
 
   def show_modifier(type, value)
     haml_tag(:div, I18n.t("data.modifier.#{type}"), class: "ui secondary segment")
+    if value =~ URI::ABS_URI
+      term = TraitBank.term(value)
+      value = term.name if term
+    end
     haml_tag(:div, value, class: "ui tertiary segment")
   end
 
