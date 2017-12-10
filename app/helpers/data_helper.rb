@@ -16,9 +16,12 @@ module DataHelper
         show_meta_data(datum)
       end
     end
-    show_definition(data[:units]) if data[:units]
     show_definition(data[:predicate]) if data[:predicate]
     show_definition(data[:object_term]) if data[:object_term]
+    show_definition(data[:units]) if data[:units]
+    show_definition(data[:sex]) if data[:sex]
+    show_definition(data[:lifestage]) if data[:lifestage]
+    show_definition(data[:statistical_method]) if data[:statistical_method]
     show_source(data[:source]) if data[:source]
   end
 
