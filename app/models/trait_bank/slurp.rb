@@ -53,12 +53,12 @@ class TraitBank::Slurp
                 [:metadata, :predicate, :predicate]
               ],
             }, # default
-            "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
+            "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
               merges: [ [:metadata, :units_term, :units] ]
             },
-            "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
+            "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
               matches: { object_term: 'Term { uri: row.value_uri }' },
               merges: [ [:metadata, :object_term, :object_term] ]
