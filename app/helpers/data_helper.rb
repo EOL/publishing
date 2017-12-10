@@ -100,7 +100,7 @@ module DataHelper
     haml_tag(:div, I18n.t("data.modifier.#{type}"), class: "ui secondary segment")
     if value =~ URI::ABS_URI
       term = TraitBank.term(value)
-      value = term.name if term
+      value = term[:name] if term && term.key?(:name)
     end
     haml_tag(:div, value, class: "ui tertiary segment")
   end
