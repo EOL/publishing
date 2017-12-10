@@ -101,7 +101,7 @@ module DataHelper
     haml_tag(:div, class: "ui attached segment table-source uk-width-1-5 uk-visible@m eol-padding-tiny") do
       if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
         haml_tag("div.uk-overflow-auto") do
-          haml_concat(link_to(resource.name, "#", title: resource.name,
+          haml_concat(link_to(resource.name, resource, title: resource.name,
             data: { toggle: "tooltip", placement: "left" } ))
         end
       else
