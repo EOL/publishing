@@ -11,7 +11,7 @@ class TraitBank::Slurp
     def load_csv_config(resource)
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
-          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source value_literal value_num\
+          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source literal measurement\
                         object_page_id scientific_name],
           wheres: {
             # This will be applied to ALL rows:
@@ -41,7 +41,7 @@ class TraitBank::Slurp
 
         "meta_traits_#{resource.id}.csv" =>
         {
-          'MetaData' => %i[eol_pk sex lifestage statistical_method source value_literal value_num],
+          'MetaData' => %i[eol_pk sex lifestage statistical_method source literal measurement],
           wheres: {
             "1=1" => { # ALL ROWS
               matches: {

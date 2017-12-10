@@ -69,7 +69,7 @@ module DataHelper
       value += data[:units][:name] if data[:units] && data[:units][:name]
       haml_concat(value.html_safe)
       haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(measurement)') }
-    elsif val = data[:literal] || data[:value_literal]
+    elsif val = data[:literal]
       haml_concat unlink(val).html_safe
       haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(literal)') }
     else
