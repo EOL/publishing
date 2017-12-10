@@ -19,9 +19,9 @@ module DataHelper
     show_definition(data[:predicate]) if data[:predicate]
     show_definition(data[:object_term]) if data[:object_term]
     show_definition(data[:units]) if data[:units]
-    show_definition(data[:sex]) if data[:sex]
-    show_definition(data[:lifestage]) if data[:lifestage]
-    show_definition(data[:statistical_method]) if data[:statistical_method]
+    show_modifier(:sex, data[:sex]) if data[:sex]
+    show_modifier(:lifestage, data[:lifestage]) if data[:lifestage]
+    show_modifier(:statistical_method, data[:statistical_method]) if data[:statistical_method]
     show_source(data[:source]) if data[:source]
   end
 
@@ -94,6 +94,11 @@ module DataHelper
         haml_concat(uri[:definition].html_safe)
       end
     end
+  end
+
+  def show_modifier(type, value)
+    haml_tag(:div, I18n.t("data.modifier.#{type}"), class: "ui secondary segment")
+    haml_tag(:div, value, class: "ui tertiary segment")
   end
 
   def show_source(src)
