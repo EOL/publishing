@@ -151,7 +151,8 @@ module DataHelper
     [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
       # TEMP - this should really be expressed with a relationship.
       if type =~ URI::ABS_URI
-        type = TraitBank.term(type)[:name] rescue type
+        name = TraitBank.term(type)[:name] rescue nil
+        type = name unless name.blank?
       end
       haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
