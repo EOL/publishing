@@ -149,6 +149,7 @@ module DataHelper
 
   def show_data_modifiers(data)
     [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
+      # TEMP - this should really be expressed with a relationship.
       if type =~ URI::ABS_URI
         type = TraitBank.term(type)[:name] rescue type
       end
