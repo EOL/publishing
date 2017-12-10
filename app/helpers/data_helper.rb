@@ -149,6 +149,9 @@ module DataHelper
 
   def show_data_modifiers(data)
     [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
+      if type =~ URI::ABS_URI
+        type = TraitBank.term(type)[:name] rescue type
+      end
       haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
   end
