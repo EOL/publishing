@@ -94,15 +94,17 @@ class TraitBank::Slurp
       "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause}"
     end
 
+    # TODO: extract the file-writing to a method that takes a block.
     def rebuild_ancestry
       require 'csv'
-      file = Rails.public_path.join("ancestry.csv")
+      filename = "ancestry.csv"
+      file_with_path = Rails.public_path.join(filename)
       Page.includes(:native_node).joins(:native_node).find_in_batches(batch_size: 10_000) do |group|
-        CSV.open(file, 'w') do |csv|
+        CSV.open(file_with_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
           group.each { |page| csv << [page.id, page.native_node.parent_id] }
         end
-        rebuild_ancestry_group(file)
+        rebuild_ancestry_group(filename)
       end
     end
 
