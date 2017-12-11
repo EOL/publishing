@@ -9,9 +9,9 @@ ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement,
 LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
-# That takes about 13s, no results.
+// That takes about 13s, no results.
 
-# NO parent terms, takes about 6sec, no results.
+// NO parent terms, takes about 6sec, no results.
 query = %q{
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
 (trait)-[:predicate]->(predicate:Term),
@@ -23,7 +23,7 @@ LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
 
-# NO parent terms OR clade filter, takes about 7.5sec, 50 results
+// NO parent terms OR clade filter, takes about 7.5sec, 50 results
 query = %q{
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
 (trait)-[:predicate]->(predicate:Term)
@@ -34,7 +34,7 @@ LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
 
-# NO ORDER: Take no firggin time at all, 50 res.
+// NO ORDER: Take no firggin time at all, 50 res.
 query = %q{
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
 (trait)-[:predicate]->(predicate:Term)
@@ -44,9 +44,9 @@ LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
 
-# FULL, no order: TAKES LONGER (16s)
-# FULL, no clade, with ORDER: same time (12s)
-# FULL, no parent term, with ORDER: INSTANT.
+// FULL, no order: TAKES LONGER (16s)
+// FULL, no clade, with ORDER: same time (12s)
+// FULL, no parent term, with ORDER: INSTANT.
 
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
 (tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }),
@@ -80,6 +80,39 @@ AS info_type, info_term, resource
 ORDER BY LOWER(predicate.name),
 LOWER(info_term.name), trait.normal_measurement,
 LOWER(trait.literal)
+LIMIT 50
+}
+res = TraitBank.query(query)["data"].size
+
+// MOVE TO WHERE - Works, but takes 6 seconds:
+query = %q{
+MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+(tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }),
+(tgt_pred_2:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001933" }),
+(trait)-[:predicate]->(predicate:Term)
+WHERE (predicate)-[:parent_term*0..4]->(tgt_pred_1)
+  OR (predicate)-[:parent_term*0..4]->(tgt_pred_2)
+OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
+ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
+LIMIT 50
+}
+res = TraitBank.query(query)["data"].size
+
+// Works but no limit and takes 121s. :-O
+query = %q{
+MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+(tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }),
+(trait)-[:predicate]->(predicate:Term)-[parent_term*0..4]->(tgt_pred_1)
+OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
+UNION
+MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+(tgt_pred_2:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001933" }),
+(trait)-[:predicate]->(predicate:Term)-[parent_term*0..4]->(tgt_pred_2)
+OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
+ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
 LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
