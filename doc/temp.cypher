@@ -48,6 +48,14 @@ res = TraitBank.query(query)["data"].size
 # FULL, no clade, with ORDER: same time (12s)
 # FULL, no parent term, with ORDER: INSTANT.
 
+MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+(tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }),
+(trait)-[:predicate]->(predicate:Term),
+(trait)-[:predicate|parent_term*0..4]->(tgt_pred_1)
+OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
+ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
+LIMIT 50
 
 query = %q{
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
@@ -57,6 +65,21 @@ MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
 OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
 RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
 ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
+LIMIT 50
+}
+res = TraitBank.query(query)["data"].size
+
+query = %q{
+MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+(tgt_pred_1:Term{ uri: "http://rs.tdwg.org/dwc/terms/habitat" }),
+(tgt_obj_1:Term{ uri: "http://purl.obolibrary.org/obo/ENVO_00002037" }), (tgt_pred_1)<-[parent_term*0..4]-(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)-[parent_term*0..4]->(tgt_obj_1)
+OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+RETURN page, trait, predicate,
+TYPE(info)
+AS info_type, info_term, resource
+ORDER BY LOWER(predicate.name),
+LOWER(info_term.name), trait.normal_measurement,
+LOWER(trait.literal)
 LIMIT 50
 }
 res = TraitBank.query(query)["data"].size

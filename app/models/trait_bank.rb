@@ -276,8 +276,8 @@ class TraitBank
       end
     end
 
-    def or_rel_term
-      @or_rel_term ||= "|parent_term*0..#{CHILD_TERM_DEPTH}"
+    def parent_terms
+      @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
     end
 
     def term_record_search(term_query, options)
@@ -295,13 +295,12 @@ class TraitBank
         if pair.object
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
           match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
-          # TODO: I think these or_rel_term's could just be "parents", as written.
-          match_part += ", (tgt_pred_#{i})<-[:predicate#{or_rel_term}]-"\
-                        "(predicate:Term)<-[:predicate]-(trait)-[:predicate]->(object_term:Term)"\
-                        "-[:object_term#{or_rel_term}]->(tgt_obj_#{i})"
+          match_part += ", (tgt_pred_#{i})<-[#{parent_terms}]-"\
+                        "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
+                        "-[#{parent_terms}]->(tgt_obj_#{i})"
         else
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:predicate#{or_rel_term}]->(tgt_pred_#{i})"
+          match_part += ", (trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred_#{i})"
         end
       end
 
@@ -351,11 +350,11 @@ class TraitBank
         match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
 
         if pair.object
-          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate#{or_rel_term}]-"\
+          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
           "(#{trait_label})"\
-          "-[:object_term#{or_rel_term}]->(:Term{ uri: \"#{pair.object}\" })"
+          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
         else
-          match += "(#{trait_label})-[:predicate#{or_rel_term}]->(:Term{ uri: \"#{pair.predicate}\" })"
+          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
 
         match
