@@ -100,10 +100,10 @@ class TraitBank::Slurp
       puts '(starts) .rebuild_ancestry'
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
+      # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
       Page.where(['id >= ?', start_id])
         .includes(native_node: :parent)
         .joins(native_node: :parent)
-        # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
         .find_in_batches(batch_size: 5_000) do |group|
         first_id = group.first.id
         last_id = group.last.id
