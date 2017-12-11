@@ -7,7 +7,7 @@
   - data.each_with_index do |trait,index|
     - page_id = trait[:page_id]
     - if page = pages[page_id]
-      .row{ id: trait[:id], data: { action: datum_path(trait[:id]) }  }
+      .row
         .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
           - if index == 0
             %div{ class: "uk-hidden@m" }
