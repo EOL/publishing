@@ -100,10 +100,12 @@ class TraitBank::Slurp
       puts '(starts) .rebuild_ancestry'
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
-      # NOTE: DO NOT COPY-PASTE THIS AND RUN IT IN A CONSOLE!
-      nodes = Node.where(['page_id >= ?', start_id]).order('page_id').includes(:parent)
       # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
-      nodes.find_in_batches(batch_size: 5_000) do |group|
+      nodes = Node.where('page_id IS NOT NULL AND parent_id IS NOT NULL')
+        .where(['page_id >= ?', start_id])
+        .order('page_id')
+        .includes(:parent)
+        .find_in_batches(batch_size: 5_000) do |group|
         puts "(infos) rebuilding #{group.first.page_id} - #{group.last.page_id}"
         puts '(infos) delete relationships in group'
         TraitBank.query("MATCH (page:Page)-[p_r:parent]->(:Page) WHERE page.page_id >= #{group.first.page_id} AND "\
