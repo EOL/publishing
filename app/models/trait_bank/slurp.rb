@@ -82,15 +82,35 @@ class TraitBank::Slurp
       nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
       merges = Array(config[:merges])
       matches = config[:matches]
-      head =
-        <<~LOAD_CSV_QUERY_HEAD
-          USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{filename}' AS row
-          WITH row WHERE #{clause}
-        LOAD_CSV_QUERY_HEAD
+      head = csv_query_head("#{Rails.configuration.eol_web_url}/#{filename}", clause)
       # First, build all of the nodes:
       nodes.each { |label, attributes| build_nodes(label: label, attributes: attributes, head: head) }
       # Then the merges, one at a time:
       merges.each { |triple| merge_triple(triple: triple, head: head, nodes: nodes, matches: matches) }
+    end
+
+    def csv_query_head(file, where_clause = nil)
+      where_clause ||= '1=1'
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause}"
+    end
+
+    def rebuild_ancestry
+      file = Rails.public_path.join("ancestry.csv")
+      CSV.open(file, 'w') do |csv|
+        csv << ['page_id', 'parent_id']
+        Page.select('id, parent_id').find_each { |page| csv << [page.id, page.parent_id] }
+      end
+      # Nuke it from orbit:
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.page_id) })'])
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.parent_id) })'])
+      execute_clauses([csv_query_head(file),
+                      'MATCH (page:Page { page_id: toInt(row.page_id) })',
+                      'MATCH (parent:Page { page_id: toInt(row.parent_id) })',
+                      'MERGE (page)-[:parent]->(parent)'])
+    end
+
+    def execute_clauses(clauses)
+      query(clauses.join("\n"))
     end
 
     def build_nodes(options)
