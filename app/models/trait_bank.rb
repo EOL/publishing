@@ -280,6 +280,7 @@ class TraitBank
       @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
     end
 
+    # This is what the UI refers to as "Records matching ANY attribute/value pair"
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ?
                           "WITH count(*) AS count " :
@@ -290,19 +291,22 @@ class TraitBank
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
       i = 0
+      pair_parts = []
       term_query.search_pairs.map do |pair|
         i += 1
         if pair.object
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
           match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
-          match_part += ", (tgt_pred_#{i})<-[#{parent_terms}]-"\
+          pair_parts << "(tgt_pred_#{i})<-[#{parent_terms}]-"\
                         "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
                         "-[#{parent_terms}]->(tgt_obj_#{i})"
         else
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred_#{i})"
+          pair_parts << "(trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred_#{i})"
         end
       end
+
+      match_part += ", (#{pair_parts.join(' OR ')})"
 
       optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
       optional_matches += [
@@ -335,6 +339,7 @@ class TraitBank
       "#{order_part} "
     end
 
+    # This is what the UI refers to as "Taxa matching ALL attribute/value pairs"
     def term_page_search(term_query, options)
       with_count_clause = options[:count] ?
         "WITH COUNT(DISTINCT(page)) AS count " :
