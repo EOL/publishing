@@ -100,7 +100,7 @@ class TraitBank::Slurp
       Page.includes(:native_node).joins(:native_node).find_in_batches(10_000) do |group|
         CSV.open(file, 'w') do |csv|
         csv << ['page_id', 'parent_id']
-          group.each do { |page| csv << [page.id, page.native_node.parent_id] }
+          group.each { |page| csv << [page.id, page.native_node.parent_id] }
         end
         rebuild_ancestry_group(file)
       end
