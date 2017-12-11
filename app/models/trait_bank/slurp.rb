@@ -82,7 +82,7 @@ class TraitBank::Slurp
       nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
       merges = Array(config[:merges])
       matches = config[:matches]
-      head = csv_query_head("#{Rails.configuration.eol_web_url}/#{filename}", clause)
+      head = csv_query_head(filename, clause)
       # First, build all of the nodes:
       nodes.each { |label, attributes| build_nodes(label: label, attributes: attributes, head: head) }
       # Then the merges, one at a time:
@@ -91,7 +91,7 @@ class TraitBank::Slurp
 
     def csv_query_head(file, where_clause = nil)
       where_clause ||= '1=1'
-      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause}"
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause}"
     end
 
     def rebuild_ancestry
