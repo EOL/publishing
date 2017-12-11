@@ -99,7 +99,9 @@ class TraitBank::Slurp
       file = Rails.public_path.join("ancestry.csv")
       CSV.open(file, 'w') do |csv|
         csv << ['page_id', 'parent_id']
-        Page.select('id, parent_id').find_each { |page| csv << [page.id, page.parent_id] }
+        Page.includes(:native_node).joins(:native_node).find_each do |page|
+          csv << [page.id, page.native_node.parent_id]
+        end
       end
       # Nuke it from orbit:
       execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.page_id) })'])
