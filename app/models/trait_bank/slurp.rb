@@ -97,12 +97,16 @@ class TraitBank::Slurp
     def rebuild_ancestry
       require 'csv'
       file = Rails.public_path.join("ancestry.csv")
-      CSV.open(file, 'w') do |csv|
+      Page.includes(:native_node).joins(:native_node).find_in_batches(10_000) do |group|
+        CSV.open(file, 'w') do |csv|
         csv << ['page_id', 'parent_id']
-        Page.includes(:native_node).joins(:native_node).find_each do |page|
-          csv << [page.id, page.native_node.parent_id]
+          group.each do { |page| csv << [page.id, page.native_node.parent_id] }
         end
+        rebuild_ancestry_group(file)
       end
+    end
+
+    def rebuild_ancestry_group(file)
       # Nuke it from orbit:
       execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.page_id) })'])
       execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.parent_id) })'])
