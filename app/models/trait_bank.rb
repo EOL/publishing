@@ -296,12 +296,12 @@ class TraitBank
         if pair.object
           match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
           match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
-          match_part += ", (tgt_pred)<-[#{parent_terms}]-"\
+          match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
                         "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
-                        "-[#{parent_terms}]->(tgt_obj)"
+                        "-[:#{parent_terms}]->(tgt_obj)"
         else
           match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred)"
+          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
         end
       else
         wheres = []
@@ -312,12 +312,12 @@ class TraitBank
             match_part += ', (predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)'
             match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
             match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
-            wheres << "((predicate)-[#{parent_terms}]->(tgt_pred_#{i}) AND "\
-              "(object_term)-[#{parent_terms}]->(tgt_obj_#{i}))"
+            wheres << "((predicate)-[:#{parent_terms}]->(tgt_pred_#{i}) AND "\
+              "(object_term)-[:#{parent_terms}]->(tgt_obj_#{i}))"
           else
             match_part += ', (trait)-[:predicate]->(predicate:Term)'
             match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-            wheres << "(predicate)-[#{parent_terms}]->(tgt_pred_#{i})"
+            wheres << "(predicate)-[:#{parent_terms}]->(tgt_pred_#{i})"
           end
         end
         where_part = "WHERE #{wheres.join(' OR ')}"
