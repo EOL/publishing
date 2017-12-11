@@ -285,8 +285,8 @@ class TraitBank
                           "WITH count(*) AS count " :
                           ""
       match_part =
-        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), "\
-        "(trait)-[:predicate]->(predicate:Term)"
+        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.search_pairs.empty?
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
       i = 0
@@ -295,12 +295,13 @@ class TraitBank
         if pair.object
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
           match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
+          # TODO: I think these or_rel_term's could just be "parents", as written.
           match_part += ", (tgt_pred_#{i})<-[:predicate#{or_rel_term}]-"\
-                        "(trait)"\
+                        "(predicate:Term)<-[:predicate]-(trait)-[:predicate]->(object_term:Term)"\
                         "-[:object_term#{or_rel_term}]->(tgt_obj_#{i})"
         else
           match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate#{or_rel_term}]->(tgt_pred_#{i})"
+          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:predicate#{or_rel_term}]->(tgt_pred_#{i})"
         end
       end
 
