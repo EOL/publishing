@@ -138,6 +138,7 @@ module Api
         ] }
 
       def self.call(params)
+        debugger
         validate_and_normalize_input_parameters(params)
         adjust_sounds_images_videos_texts(params)
         page_requests = params[:id].split(",").map do |page_id|
@@ -177,6 +178,7 @@ module Api
       end
 
       def self.prepare_hash (page_hash, params={})
+        debugger
         return_hash = {}
         page = params[:batch] ? page_hash[:page] : page_hash
         unless page.nil?
