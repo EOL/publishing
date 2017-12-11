@@ -304,6 +304,7 @@ class TraitBank
           match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
         end
       else
+        match_part += ", (trait)-[:predicate]->(predicate:Term)"
         # NOTE: this is pretty slow... 12s or more.
         wheres = term_query.search_pairs.map do |pair|
           if pair.object
