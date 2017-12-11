@@ -303,7 +303,6 @@ class TraitBank
           match_part += ", (trait)-[:predicate#{or_rel_term}]->(tgt_pred_#{i})"
         end
       end
-      where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
       optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
       optional_matches += [
@@ -330,7 +329,6 @@ class TraitBank
       return_clause = "RETURN #{returns.join(", ")}"
 
       "#{match_part} "\
-      "#{where_part} "\
       "#{optional_match_part} "\
       "#{with_count_clause}"\
       "#{return_clause} "\
