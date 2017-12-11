@@ -95,6 +95,7 @@ class TraitBank::Slurp
     end
 
     def rebuild_ancestry
+      require 'csv'
       file = Rails.public_path.join("ancestry.csv")
       CSV.open(file, 'w') do |csv|
         csv << ['page_id', 'parent_id']
