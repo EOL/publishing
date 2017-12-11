@@ -101,7 +101,7 @@ class TraitBank::Slurp
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
       Page.includes(:native_node).joins(:native_node).find_in_batches(batch_size: 10_000) do |group|
-        puts "(..) #{group.first.id}"
+        puts "(infos) Starting with Page #{group.first.id}"
         CSV.open(file_with_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
           group.each do |page|
