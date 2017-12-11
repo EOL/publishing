@@ -100,27 +100,35 @@ class TraitBank::Slurp
       puts '(starts) .rebuild_ancestry'
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
-      # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
-      nodes = Node.where('page_id IS NOT NULL AND parent_id IS NOT NULL')
+      rows = []
+      Node.where('page_id IS NOT NULL AND parent_id IS NOT NULL')
         .where(['page_id >= ?', start_id])
         .order('page_id')
         .includes(:parent)
-        .find_in_batches(batch_size: 5_000) do |group|
-        puts "(infos) rebuilding #{group.first.page_id} - #{group.last.page_id}"
-        puts '(infos) delete relationships in group'
-        TraitBank.query("MATCH (page:Page)-[p_r:parent]->(:Page) WHERE page.page_id >= #{group.first.page_id} AND "\
-          "page.page_id <= #{group.last.page_id} DELETE p_r")
-        CSV.open(file_with_path, 'w') do |csv|
-        csv << ['page_id', 'parent_id']
-          group.each do |node|
-            next if node.page_id.nil?
-            next if node.parent.page_id.nil?
-            csv << [node.page_id, node.parent.page_id]
-          end
+        .find_each do |node|
+        next if node.page_id.nil?
+        next if node.parent.page_id.nil?
+        rows << [node.page_id, node.parent.page_id]
+        # NOTE: 10_000 was a bit too slow, and imagine it'll get worse with more pages.
+        if rows.size >= 5_000
+          flush_ancestry(rows, filename, file_with_path)
+          rows = []
         end
-        rebuild_ancestry_group(filename)
       end
       puts '(ends) .rebuild_ancestry'
+    end
+
+    def flush_ancestry(rows, filename, file_with_path)
+      puts "(infos) rebuilding #{rows.first.first} - #{rows.last.first}"
+      puts '(infos) delete relationships in group'
+      TraitBank.query("MATCH (page:Page)-[p_r:parent]->(:Page) WHERE page.page_id >= #{rows.first.first} AND "\
+        "page.page_id <= #{rows.last.first} DELETE p_r")
+      puts '(infos) build CSV'
+      CSV.open(file_with_path, 'w') do |csv|
+      csv << ['page_id', 'parent_id']
+      rows.each { |row| csv << row }
+      puts '(infos) add relationships'
+      rebuild_ancestry_group(filename)
     end
 
     def rebuild_ancestry_group(file)
