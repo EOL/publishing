@@ -289,7 +289,7 @@ class TraitBank
       match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.search_pairs.empty?
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
-      where_part = ''
+      wheres = []
 
       if term_query.search_pairs.size == 1
         pair = term_query.search_pairs.first
@@ -304,24 +304,18 @@ class TraitBank
           match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
         end
       else
-        wheres = []
-        i = 0
-        term_query.search_pairs.map do |pair|
-          i += 1
+        # NOTE: this is pretty slow... 12s or more.
+        wheres = term_query.search_pairs.map do |pair|
           if pair.object
-            match_part += ', (predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)'
-            match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-            match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
-            wheres << "((predicate)-[:#{parent_terms}]->(tgt_pred_#{i}) AND "\
-              "(object_term)-[:#{parent_terms}]->(tgt_obj_#{i}))"
+            "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+                               "(trait)"\
+                               "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
           else
-            match_part += ', (trait)-[:predicate]->(predicate:Term)'
-            match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
-            wheres << "(predicate)-[:#{parent_terms}]->(tgt_pred_#{i})"
+            "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
           end
         end
-        where_part = "WHERE #{wheres.join(' OR ')}"
       end
+      where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
       optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
       optional_matches += [
@@ -348,7 +342,7 @@ class TraitBank
       return_clause = "RETURN #{returns.join(", ")}"
 
       "#{match_part} "\
-      "#{where_part}"\
+      "#{where_part} "\
       "#{optional_match_part} "\
       "#{with_count_clause}"\
       "#{return_clause} "\
