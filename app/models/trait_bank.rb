@@ -276,6 +276,10 @@ class TraitBank
       end
     end
 
+    def or_rel_term
+      @or_rel_term ||= "|parent_term*0..#{CHILD_TERM_DEPTH}"
+    end
+
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ?
                           "WITH count(*) AS count " :
@@ -285,13 +289,18 @@ class TraitBank
         "(trait)-[:predicate]->(predicate:Term)"
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
 
-      wheres = term_query.search_pairs.map do |pair|
+      i = 0
+      term_query.search_pairs.map do |pair|
+        i += 1
         if pair.object
-          "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-                             "(trait)"\
-                             "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+          match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
+          match_part += ", (tgt_obj_#{i}:Term{ uri: \"#{pair.object}\" })"
+          match_part += ", (tgt_pred_#{i})<-[:predicate#{or_rel_term}]-"\
+                        "(trait)"\
+                        "-[:object_term#{or_rel_term}]->(tgt_obj_#{i})"
         else
-          "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+          match_part += ", (tgt_pred_#{i}:Term{ uri: \"#{pair.predicate}\" })"
+          match_part += ", (trait)-[:predicate#{or_rel_term}]->(tgt_pred_#{i})"
         end
       end
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
@@ -343,11 +352,11 @@ class TraitBank
         match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
 
         if pair.object
-          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate#{or_rel_term}]-"\
           "(#{trait_label})"\
-          "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+          "-[:object_term#{or_rel_term}]->(:Term{ uri: \"#{pair.object}\" })"
         else
-          match += "(#{trait_label})-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+          match += "(#{trait_label})-[:predicate#{or_rel_term}]->(:Term{ uri: \"#{pair.predicate}\" })"
         end
 
         match

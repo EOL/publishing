@@ -116,10 +116,9 @@ class TraitBank
         key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
-            "MATCH (predicate:Term)<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
             "(trait:Trait)"\
             "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "\
-            "WHERE predicate.uri = \"#{pred_uri}\" "\
             "RETURN DISTINCT(object) "\
             "ORDER BY LOWER(object.name), LOWER(object.uri)"
           )
