@@ -115,7 +115,7 @@ class TraitBank::Slurp
         CSV.open(file_with_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
           group.each do |page|
-            next if page.native_node.parent.pageid.nil?
+            next if page.native_node.parent.page_id.nil?
             csv << [page.id, page.native_node.parent.page_id]
           end
         end
