@@ -100,16 +100,20 @@ class TraitBank::Slurp
       puts '(starts) .rebuild_ancestry'
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
-      Page.where(['pages.id > ?', start_id])
-        .includes(:native_node)
-        .joins(:native_node)
-        .find_in_batches(batch_size: 10_000) do |group|
-        puts "(infos) Starting with Page #{group.first.id}"
+      # NOTE: DO NOT COPY-PASTE THIS AND RUN IT IN A CONSOLE!
+      nodes = Node.where(['page_id >= ?', start_id]).order('page_id').includes(:parent)
+      # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
+      nodes.find_in_batches(batch_size: 5_000) do |group|
+        puts "(infos) rebuilding #{group.first.page_id} - #{group.last.page_id}"
+        puts '(infos) delete relationships in group'
+        TraitBank.query("MATCH (page:Page)-[p_r:parent]->(:Page) WHERE page.page_id >= #{group.first.page_id} AND "\
+          "page.page_id <= #{group.last.page_id} DELETE p_r")
         CSV.open(file_with_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
-          group.each do |page|
-            next if page.native_node.parent_id.nil?
-            csv << [page.id, page.native_node.parent_id]
+          group.each do |node|
+            next if node.page_id.nil?
+            next if node.parent.page_id.nil?
+            csv << [node.page_id, node.parent.page_id]
           end
         end
         rebuild_ancestry_group(filename)
