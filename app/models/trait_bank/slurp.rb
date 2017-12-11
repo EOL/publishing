@@ -97,15 +97,21 @@ class TraitBank::Slurp
     # TODO: extract the file-writing to a method that takes a block.
     def rebuild_ancestry
       require 'csv'
+      puts '(starts) .rebuild_ancestry'
       filename = "ancestry.csv"
       file_with_path = Rails.public_path.join(filename)
       Page.includes(:native_node).joins(:native_node).find_in_batches(batch_size: 10_000) do |group|
+        puts "(..) #{group.first.id}"
         CSV.open(file_with_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
-          group.each { |page| csv << [page.id, page.native_node.parent_id] }
+          group.each do |page|
+            next if page.native_node.parent_id.nil?
+            csv << [page.id, page.native_node.parent_id]
+          end
         end
         rebuild_ancestry_group(filename)
       end
+      puts '(ends) .rebuild_ancestry'
     end
 
     def rebuild_ancestry_group(file)
