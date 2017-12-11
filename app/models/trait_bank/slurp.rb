@@ -106,7 +106,6 @@ class TraitBank::Slurp
         .order('page_id')
         .includes(:parent)
         .find_each do |node|
-        next if node.page_id.nil?
         next if node.parent.page_id.nil?
         rows << [node.page_id, node.parent.page_id]
         # NOTE: 10_000 was a bit too slow, and imagine it'll get worse with more pages.
@@ -125,8 +124,9 @@ class TraitBank::Slurp
         "page.page_id <= #{rows.last.first} DELETE p_r")
       puts '(infos) build CSV'
       CSV.open(file_with_path, 'w') do |csv|
-      csv << ['page_id', 'parent_id']
-      rows.each { |row| csv << row }
+        csv << ['page_id', 'parent_id']
+        rows.each { |row| csv << row }
+      end
       puts '(infos) add relationships'
       rebuild_ancestry_group(filename)
     end
