@@ -4,7 +4,7 @@
   .landing_page{ class: "uk-visible@m" }
     .ui.container.earth-image
       .uk-section
-        = image_tag("large_logo.png")
+        .uk-padding.uk-padding-remove-vertical= image_tag("large_logo.png")
       .uk-section.uk-text-center
         %h1.uk-title= t("landing_page.header")
         #landing-search.uk-margin-large-top
