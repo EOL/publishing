@@ -140,8 +140,14 @@ module PagesHelper
   end
 
   def index_stat(key, count)
-    count = count > 1_000_000 ? "#{(count / 100_000) / 10.0}M" :
-      number_with_delimiter(count)
+    count =
+      if count > 1_000_000
+        "#{(count / 100_000) / 10.0}M" :
+      elsif count > 10_000
+        "#{(count / 1_000) / 10.0}K" :
+      else
+        number_with_delimiter(count)
+      end
     haml_tag("div.ui.orange.statistic.uk-container-center") do
       haml_tag("div.value") { haml_concat count }
       haml_tag("div.label") { haml_concat t("landing_page.stats.#{key}") }
