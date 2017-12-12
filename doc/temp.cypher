@@ -84,36 +84,15 @@ LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
 
-// MOVE TO WHERE - Works, but takes 6 seconds:
+// MOVE TO WHERE - Works, but takes 6-8 seconds:
 query = %q{
 MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
-(tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }),
-(tgt_pred_2:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001933" }),
-(trait)-[:predicate]->(predicate:Term)
-WHERE (predicate)-[:parent_term*0..4]->(tgt_pred_1)
-  OR (predicate)-[:parent_term*0..4]->(tgt_pred_2)
+(trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred:Term)
+WHERE tgt_pred.uri = "http://purl.obolibrary.org/obo/VT_0001259" OR
+  tgt_pred.uri = "http://purl.obolibrary.org/obo/VT_0001933"
 OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
 RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
 ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
 LIMIT 50
-}
-res = TraitBank.query(query)["data"].size
-
-// UNION  (WIP)
-query = %q{
-  MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
-  (tgt_pred:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001256" })
-  (trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred)
-  OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
-  RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
-  ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
-  UNION
-  MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
-  (tgt_pred:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001933" })
-  (trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred)
-  OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
-  RETURN page, trait, predicate, TYPE(info) AS info_type, info_term, resource
-  ORDER BY LOWER(predicate.name), LOWER(info_term.name), trait.normal_measurement, LOWER(trait.literal)
-  LIMIT 50
 }
 res = TraitBank.query(query)["data"].size

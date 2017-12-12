@@ -312,15 +312,19 @@ class TraitBank
           match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
         end
       else
-        match_part += ", (trait)-[:predicate]->(predicate:Term)"
-        # NOTE: this is pretty slow... 12s or more.
+        match_part +=
+          if term_query.search_pairs.any? { |t| t.object }
+            ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
+            "<-[:predicate]-(trait)-[:object_term]->"\
+            "-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
+          else
+            ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+          end
         wheres = term_query.search_pairs.map do |pair|
           if pair.object
-            "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-                               "(trait)"\
-                               "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.object}\" })"
+            "(tgt_obj.uri = \"#{pair.object}\" AND tgt_pred.uri = \"#{pair.predicate}\")"
           else
-            "(trait)-[:predicate|parent_term*0..#{CHILD_TERM_DEPTH}]->(:Term{ uri: \"#{pair.predicate}\" })"
+            "tgt_pred.uri = \"#{pair.predicate}\""
           end
         end
       end
