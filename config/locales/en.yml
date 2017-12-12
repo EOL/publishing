@@ -202,6 +202,7 @@ en:
         create: "create suggestion"
         update: "update suggestion"
   landing_page:
+    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post</a> in the <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>EOL discussion forum</a>"
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     heads:
@@ -460,8 +461,11 @@ en:
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
+    about: "About"
     cms:
       menu_name: "More..."
+    discuss: "Discuss EOL v3 beta"
+    education: "Education"
     search:
       placeholder: "Search EOL..."
   name_preferred_label: "preferred"
@@ -521,6 +525,8 @@ en:
   password_confirmation: "Password confirmation"
   please_wait: "please wait..."
   please_wait_button: "..wait.."
+  nags:
+    beta: "This is an alpha version of EOL version 3. Provide feedback and join the discussion at <a href='https://discuss.eol.org/t/eolv3-beta-test/122'>http://discuss.eol.org</a>."
   name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: ""
@@ -765,7 +771,7 @@ en:
       source: "Source"
   data_toggle_details: "details…"
   data_unit_definition: "definition:"
-  data_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
+  data_unit_definition_blank: ""
   data_header_type_glossary: "Glossary of Record Types"
   data_header_value_glossary: "Glossary of Record Values"
   data_show_more:

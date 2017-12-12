@@ -24,6 +24,32 @@ $eol-green: #447766
 $eol-orange: #d59046
 $eol-brown: #784848
 
+.earth-image
+  overflow: hidden
+  position: relative
+  .uk-section
+    z-index: 2
+    position: relative
+
+.earth-image:before
+  content: ' '
+  display: block
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  z-index: 1
+  opacity: 0.35
+  background-image: url('https://www.nasa.gov/sites/default/files/bwhi1apicaaamlo.jpg_large.jpg') !important
+  background-repeat: no-repeat
+  background-position: 50% 0
+  -ms-background-size: cover
+  -o-background-size: cover
+  -moz-background-size: cover
+  -webkit-background-size: cover
+  background-size: cover
+
 h1, h2, h3
   color: $eol-dark-blue
   font-weight: 700
@@ -68,10 +94,15 @@ section#side_body
   background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8)
   z-index: 1
 
+.uk-notification
+  width: 400px
+
 .uk-notification-message-primary
-  background-color: #444 !important
-  color: $eol-blue !important
+  background-color: #666 !important
+  color: lighten($eol-blue, 15%) !important
   padding: 24px
+  a
+    color: $eol-blue !important
 
 .uk-text-muted
   font-weight: 300
@@ -307,7 +338,7 @@ form .error
       background: #eee
 
 // TODO: hack - remove
-.uk-form-controls .twitter-typeahead 
+.uk-form-controls .twitter-typeahead
   width: 100%
 
 .minus-term-icon

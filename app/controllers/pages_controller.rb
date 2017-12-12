@@ -11,6 +11,17 @@ class PagesController < ApplicationController
     full_results = Page.autocomplete(params[:query])
     if params[:full]
       render json: full_results
+    elsif params[:simple]
+      puts "*" * 120
+      puts "simple"
+      simplified = full_results.map do |r|
+          name = r.native_node.canonical_form
+          vern = r.preferred_vernacular_strings.first
+          name += " (#{vern})" unless vern.blank?
+          { name: name, id: r.id }
+        end
+      pp simplified
+      render json: simplified
     else
       render json: {
         results: full_results.map do |r|

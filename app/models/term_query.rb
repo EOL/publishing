@@ -22,14 +22,14 @@ class TermQuery < ActiveRecord::Base
   end
 
   def clade_name
-    if @clade
-      @clade_name ||= Page.find(@clade)&.name
+    if clade
+      @clade_name ||= Page.find(clade)&.name.gsub(/<[^>]+>/, '')
     else
       nil
     end
   end
 
-  private 
+  private
     def cull_pairs
       self.pairs = search_pairs
     end

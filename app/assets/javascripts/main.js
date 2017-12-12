@@ -175,12 +175,10 @@ if(!window.EOL) {
     console.log("READY.");
     if ($(".eol-flash").length === 1) {
       var flash = $(".eol-flash");
-      UIkit.notification({
-          message: $(".eol-flash").data("text"),
+      UIkit.notification($(".eol-flash").data("text"), {
           status: 'primary',
           pos: 'top-center',
-          offset: '100px',
-          timeout: 10000
+          offset: '100px'
       });
     }
 
@@ -237,7 +235,7 @@ if(!window.EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/pages/autocomplete?full=1&query=%QUERY',
+        url: '/pages/autocomplete?simple=1&query=%QUERY',
         wildcard: '%QUERY'
       },
       limit: 10
@@ -292,7 +290,7 @@ if(!window.EOL) {
       console.log("Enable clade filter typeahead.");
       $('.clade_filter .typeahead').typeahead(null, {
         name: 'clade-filter-names',
-        display: 'scientific_name',
+        display: 'name',
         source: EOL.searchNames
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);

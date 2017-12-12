@@ -1,7 +1,8 @@
 %body
+  = render("application/navbar", invert: true)
   = render("layouts/flash")
   .landing_page{ class: "uk-visible@m" }
-    .ui.container
+    .ui.container.earth-image
       .uk-section
         = image_tag("large_logo.png")
       .uk-section.uk-text-center
@@ -13,7 +14,9 @@
                 = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
                 %i.search.icon
   .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
-    .uk-section.uk-padding-remove-top
+    .uk-section.uk-margin-remove-top.eol-section-aged.uk-section-xsmall
+      %p.uk-text-lead.uk-text-center= t("landing_page.beta").html_safe
+    .uk-section.uk-section-small
       %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
         - @stats.each do |key, value|
           %li
@@ -34,7 +37,6 @@
         .ui.basic.button
           = link_to(t("landing_page.resources"), resources_path)
   .uk-container{ class: "uk-hidden@m" }
-    = render("application/navbar")
     .ui.segments.uk-text-center.eol-landing-page-container
       .ui.header.segment
         %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }

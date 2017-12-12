@@ -1,30 +1,32 @@
-.ui.tiny.fixed.menu
+- inverted = defined?(invert) ? 'inverted' : nil
+.ui.tiny.fixed.menu{ class: inverted }
   #navbar.ui.container
     -# TODO: I18n
-    .ui.item
-      = link_to(image_tag("blue logo.png", alt: "EOL"), "/", class: "ui mini image")
-      -# HACK HACK HACK - I need to "inject" content into the menu to make it
-      -# appear!
-      -# = cms_menu.to_html.gsub(/<ul/, "#{t("nav.cms.menu_name")}<i class='dropdown icon'></i><ul").html_safe
-      -#= cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
-      = link_to("About", "/docs/about", class: "item uk-visible@m")
-      = link_to("Education", "https://education.eol.org/", class: "item uk-visible@m")
+    = link_to(image_tag('blue logo.png', alt: 'EOL'), '/', class: 'ui item mini image')
+    -# HACK HACK HACK - I need to "inject" content into the menu to make it
+    -# appear!
+    -# = cms_menu.to_html.gsub(/<ul/, "#{t("nav.cms.menu_name")}<i class='dropdown icon'></i><ul").html_safe
+    -#= cms_menu.to_html.gsub(/(?<=.)<div/, %Q{<a class="ui basic button" type="button" href="#" aria-expanded="false">#{t("nav.cms.menu_name")}</a><div}).gsub(/uk-dropdown-bottom-left"/, %Q{uk-dropdown-bottom-left" uk-dropdown}).html_safe
+    = link_to(t("nav.about"), '/docs/about', class: 'item uk-visible@m')
+    = link_to(t("nav.education"), 'https://education.eol.org/', class: 'item uk-visible@m')
+    = link_to(t("nav.discuss"), 'http://discuss.eol.org/t/eolv3-beta-test/122', class: 'item uk-visible@m')
     .ui.simple.dropdown.item{class: "uk-visible@m" }
       - langs = languages_hash
       - keys = langs.keys
       - keys.delete_at(keys.index(I18n.locale))
       - button_text = langs[I18n.locale] || "Language"
-      = link_to(button_text, "#", class: "ui basic button", type: "button")
+      = link_to(button_text, "#", class: "ui basic button #{inverted}", type: "button")
       .uk-list.uk-padding-small{ uk: { dropdown: true } }
         - keys.each do |key|
           -# NOTE the stupid check for test env here. Yuck.
           %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
-    #nav-search.ui.item
-      = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
-        .ui.names.search
-          .ui.icon.input
-            = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("nav.search.placeholder"))
-            %i.search.icon
+    - unless inverted
+      #nav-search.ui.item
+        = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
+          .ui.names.search
+            .ui.icon.input
+              = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("nav.search.placeholder"))
+              %i.search.icon
     - if current_user
       .item= link_to(current_user.username, main_app.user_path(current_user))
       .item{ class: "uk-visible@m" }= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)

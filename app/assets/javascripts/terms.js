@@ -28,7 +28,7 @@ EOL.onReady(function() {
 
       if (val && val.length) {
         fetchForm(false);
-      }    
+      }
     });
 
     $('.js-term-select').each(function() {
@@ -41,14 +41,13 @@ EOL.onReady(function() {
 
     $('.js-clade-typeahead').typeahead(null, {
       name: 'clade-filter-names',
-      display: 'scientific_name',
+      display: 'name',
       source: EOL.searchNames
     }).bind('typeahead:selected', function(evt, datum, name) {
       $('.js-clade-typeahead').closest('.js-typeahead-wrap').find('.js-clade-field').val(datum.id);
     });
 
     $('.js-clade-typeahead').on('input', function() {
-      console.log('input!');
       if ($(this).val().length === 0) {
         $(this).closest('.js-typeahead-wrap').find('.js-clade-field').val('');
       }
