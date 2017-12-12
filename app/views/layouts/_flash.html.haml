@@ -3,6 +3,6 @@
     - next if name == "recaptcha_error"
     %p.eol-flash.uk-invisible{ class: name, data: { text: Array(msg).join("; ") } }
       = Array(msg).join("; ")
-- if true # unless session[:beta_views] && session[:beta_views] == Date.today.to_s
+- unless session[:beta_views] && session[:beta_views] == Date.today.to_s
   %p.eol-flash.uk-invisible{ class: "beta", data: { text: t("nags.beta") } }
 - session[:beta_views] = Date.today.to_s
