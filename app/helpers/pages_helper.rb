@@ -106,13 +106,15 @@ module PagesHelper
       end
       # Distribution sentence:
       unless page.habitats.blank?
-        if is_family?(page)
-          # Do nothing.
-        elsif is_genus?(page)
-          str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
-        else
-          str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
-        end
+        str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+        # TEMP: SKIP for now...
+        # if is_family?(page)
+        #   # Do nothing.
+        # elsif is_genus?(page)
+        #   str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+        # else
+        #   str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+        # end
       end
       bucket = page.id.to_s[0]
       summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
