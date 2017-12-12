@@ -25,10 +25,9 @@ $eol-orange: #d59046
 $eol-brown: #784848
 
 .earth-image
-  overflow: hidden
   position: relative
   .uk-section
-    z-index: 2
+    z-index: 1
     position: relative
 
 .earth-image:before
@@ -39,7 +38,7 @@ $eol-brown: #784848
   top: 0
   width: 100%
   height: 100%
-  z-index: 1
+  z-index: 0
   opacity: 0.35
   background-image: url('https://www.nasa.gov/sites/default/files/bwhi1apicaaamlo.jpg_large.jpg') !important
   background-repeat: no-repeat
@@ -92,7 +91,7 @@ section#side_body
 
 .ui.header.segment
   background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8)
-  z-index: 1
+  z-index: 0
 
 .uk-notification
   width: 400px
