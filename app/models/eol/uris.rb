@@ -2,26 +2,26 @@ module Eol
   module Uris
     class << self
       def environment
-        "http://eol.org/schema/terms/Habitat"
+        'http://eol.org/schema/terms/Habitat'
       end
 
       def marine
-        "http://purl.obolibrary.org/obo/ENVO_00000569"
+        'http://purl.obolibrary.org/obo/ENVO_01000024'
       end
 
       def extinction
-        "http://eol.org/schema/terms/ExtinctionStatus"
+        'http://eol.org/schema/terms/ExtinctionStatus'
       end
 
       def extinct
-        "http://eol.org/schema/terms/extinct"
+        'http://eol.org/schema/terms/extinct'
       end
 
       def geographics
         [
-         "http://rs.tdwg.org/dwc/terms/continent",
-         "http://rs.tdwg.org/dwc/terms/waterBody",
-         "http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution"
+         'http://rs.tdwg.org/dwc/terms/continent',
+         'http://rs.tdwg.org/dwc/terms/waterBody',
+         'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution'
         ]
       end
     end

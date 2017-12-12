@@ -46,8 +46,14 @@ module PagesHelper
       page.rank.treat_as == "r_genus"
   end
 
+  def nearest_landmark(page)
+    page.ancestors.reverse.find { |node| node.use_breadcrumb? }&.canonical_form
+  end
+
   def construct_summary(page)
-    return "" unless is_allowed_summary?(page)
+    # TEMP: return "" unless is_allowed_summary?(page)
+    group = nearest_landmark(page)
+    return "" unless group
     Rails.cache.fetch("constructed_summary/#{page.id}") do
       my_rank = page.rank.try(:name) || "taxon"
       node = page.native_node || page.nodes.first
@@ -65,20 +71,24 @@ module PagesHelper
       # preceded by an, if not it should be preceded by a.
       # A2: There will be nodes in the dynamic hierarchy that will be flagged as
       # A2 taxa. Use the scientificName from dynamic hierarchy.
-      if ancestors[0]
-        if is_family?(page)
-          # [name] ([common name]) is a family of [A1].
-          str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
-        elsif is_higher_level_clade?(page) && ancestors[-2]
-          # [name] ([common name]) is a genus in the [A1] [rank] [A2].
-          str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
-        else
-          # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
-          str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
-          if ancestors[-2] && ancestors[-2] != ancestors[0]
-            str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
+      if true # TEMP fix for broken stuff below:
+        str += " is in the group #{group}. "
+      else # THIS STUFF BROKE WITH THE LATEST DYNAMIC HIERARCHY. We'll fix it later.
+        if ancestors[0]
+          if is_family?(page)
+            # [name] ([common name]) is a family of [A1].
+            str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
+          elsif is_higher_level_clade?(page) && ancestors[-2]
+            # [name] ([common name]) is a genus in the [A1] [rank] [A2].
+            str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
+          else
+            # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
+            str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
+            if ancestors[-2] && ancestors[-2] != ancestors[0]
+              str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
+            end
+            str += "."
           end
-          str += "."
         end
       end
       # Number of species sentence:
