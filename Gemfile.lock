@@ -568,7 +568,7 @@ DEPENDENCIES
   spring
   therubyracer
   uglifier
-  unicorn (= 5.3.1)
+  unicorn
   web-console
 
 BUNDLED WITH

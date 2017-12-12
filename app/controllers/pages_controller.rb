@@ -130,7 +130,7 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     @page = Page.where(id: params[:id]).first
-    return render(status: :not_found) unless @page # 404
+    raise ActionController::RoutingError.new('Not Found') unless @page # 404
     @page_title = @page.name
     get_media
     # TODO: we should really only load Associations if we need to:

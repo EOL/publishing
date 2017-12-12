@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
+  get 'errors/internal_server_error'
+
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
@@ -72,10 +76,14 @@ Rails.application.routes.draw do
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
-  get "/search" => "search#search", :as => "search"
-  get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  get '/search' => 'search#search', :as => 'search'
+  get '/vernaculars/prefer/:id' => 'vernaculars#prefer', :as => 'prefer_vernacular'
 
-  root "pages#index"
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
+
+  root 'pages#index'
+
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
