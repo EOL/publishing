@@ -69,8 +69,8 @@ module Api
         return_hash['dataType'] = datatype
         return_hash['dataSubtype'] = datasubtype
         return_hash['vettedStatus'] = content_object.trust
-        # return_hash['dataRatings'] = data_object.rating_summary
-        # return_hash['dataRating'] = data_object.data_rating
+        return_hash['dataRatings'] = ""
+        return_hash['dataRating'] = ""
 
         if data_object.kind_of? Article
           return_hash['subject'] = data_object.sections.first.name
@@ -89,7 +89,7 @@ module Api
           end
         end
 
-        # return_hash['mimeType'] = data_object.mime_type.label unless data_object.mime_type.blank?
+        return_hash['mimeType'] = data_object.mime_type unless data_object.mime_type.blank?
         return_hash['created'] = data_object.created_at unless data_object.created_at.blank?
         return_hash['modified'] = data_object.updated_at unless data_object.updated_at.blank?
         return_hash['title'] = data_object.name unless data_object.name.blank?
@@ -98,7 +98,7 @@ module Api
         return_hash['rights'] = data_object.rights_statement unless data_object.rights_statement.blank?
         return_hash['rightsHolder'] = data_object.owner unless data_object.owner.blank?
         return_hash['bibliographicCitation'] = data_object.bibliographic_citation.body unless data_object.bibliographic_citation_id.blank?
-        # return_hash['audience'] = data_object.audiences.collect{ |a| a.label }
+        return_hash['audience'] = []
 
         return_hash['source'] = data_object.source_url unless data_object.source_url.blank?
         return_hash['description'] = data_object.description unless data_object.description.blank?
