@@ -107,6 +107,7 @@ class TraitBank::Slurp
       Page
         .includes(native_node: :parent)
         .joins(native_node: :parent)
+        .where('nodes.resource_id = 1') # AGAIN: Resource 1 is HARD-CODED to EOL's DH. It must be.
         .find_in_batches(batch_size: 5_000) do |group|
         first_id = group.first.id
         last_id = group.last.id
