@@ -25,31 +25,33 @@ services:
     environment:
       - TZ=America/New_York 
       - NEO4J_AUTH=neo4j/SomePasswordHere
-      - NEO4J_dbms_memory_pagecache_size=1G
-      - NEO4J_dbms_memory_heap_maxSize=4G
+      - NEO4J_dbms_memory_pagecache_size=4G
+      - NEO4J_dbms_memory_heap_maxSize=16G
     volumes:
       - /u/data/eol-backend-neo4j/data:/data
       - /u/data/eol-backend-neo4j/logs:/logs
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
     network_mode: "bridge"
-  eol-backend-mysql:
-    image: mysql
-    container_name: eol-backend-mysql
-    restart: always
-    environment:
-      - TZ=America/New_York
-      - MYSQL_ROOT_PASSWORD=EolRocks!
-      - MYSQL_DATABASE=eol_web_staging
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
-    volumes:
-       - /u/data/eol-backend-mysql:/var/lib/mysql
-    network_mode: "bridge"
+#  eol-backend-mysql:
+#    image: mysql
+#    container_name: eol-backend-mysql
+#    restart: always
+#    environment:
+#      - TZ=America/New_York
+#      - MYSQL_ROOT_PASSWORD=EolRocks!
+#      - MYSQL_DATABASE=eol_web_staging
+#      - MYSQL_USER=admin
+#      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
+#    volumes:
+#       - /u/data/eol-backend-mysql:/var/lib/mysql
+#    network_mode: "bridge"
   eol-backend-tramea:
     image: encoflife/eol-backend.tramea
     container_name: eol-backend-tramea
     restart: always
     volumes:
+      - ./resources/tramea_init.sh:/etc/my_init.d/tramea_init.sh
+      - ./resources/secrets.yml:/u/apps/secrets.yml
       - /u/data/eol-backend-tramea:/u/apps/eol_website/public/data
       - /u/data/eol-backend-tramea/solr:/u/apps/eol_website/solr/development
     depends_on:
@@ -60,7 +62,7 @@ services:
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
-      - eol-backend-mysql:mysql
+#      - eol-backend-mysql:mysql
       - eol-backend-neo4j:neo4j
     env_file:
       - resources/staging.env
