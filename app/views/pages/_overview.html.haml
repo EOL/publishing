@@ -13,7 +13,7 @@
         %li= link_to(node.canonical_form.html_safe, node.page_id ? page_path(node.page_id) : "#")
         - shown_ellipsis = false
       %i.uk.icon.long.arrow.right
-  .uk-grid-small.uk-width-1-1
+  .uk-grid.uk-grid-small.uk-width-1-1
     .uk-section.uk-padding-remove-vertical.uk-width-2-5
       -# Duplicating this on Seach page; generalize?  (It's also used in a Partial to render the full view!)
       .uk-section{ uk: { grid: true } }
