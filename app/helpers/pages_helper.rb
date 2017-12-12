@@ -1,5 +1,7 @@
 module PagesHelper
   def is_allowed_summary?(page)
+    # TEMP: we're hacking this because we don't have ranks yet.
+    return true
     page.rank && page.rank.respond_to?(:treat_as) &&
       ["r_species", "r_genus", "r_family"].include?(page.rank.treat_as)
   end
