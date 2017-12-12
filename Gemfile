@@ -28,7 +28,7 @@ gem 'refinerycms-wymeditor' #, ['~> 2.0', '>= 2.0.0']
 gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
-gem 'unicorn', '5.3.1'
+gem 'unicorn'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
