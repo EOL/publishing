@@ -316,7 +316,7 @@ class TraitBank
           if term_query.search_pairs.any? { |t| t.object }
             ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
             "<-[:predicate]-(trait)-[:object_term]->"\
-            "-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
+            "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
           else
             ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
           end
