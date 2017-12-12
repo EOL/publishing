@@ -202,7 +202,7 @@ en:
         create: "create suggestion"
         update: "update suggestion"
   landing_page:
-    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post</a> in the <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>EOL discussion forum</a>"
+    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post in the EOL discussion forum</a>"
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     heads:

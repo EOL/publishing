@@ -99,17 +99,18 @@ LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
 
+// UNION  (WIP)
 query = %q{
-MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait)-[:predicate]->(predicate:Term), (tgt_pred_1:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001259" }), (trait)-[:predicate]->(predicate:Term), (tgt_pred_2:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001933" })
-WHERE (predicate)-[:parent_term*0..4]->(tgt_pred_1)
-OR (predicate)-[:parent_term*0..4]->(tgt_pred_2)OPTIONAL
-MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
-RETURN page, trait, predicate,
-TYPE(info)
-AS info_type, info_term, resource
-ORDER BY LOWER(predicate.name),
-LOWER(info_term.name), trait.normal_measurement,
-LOWER(trait.literal)
-LIMIT 50
+  MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)
+  (tgt_pred:Term{ uri: "http://purl.obolibrary.org/obo/VT_0001256" })
+  (trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred)
+  OPTIONAL MATCH (trait)-[info:units_term|object_term]->(info_term:Term)
+  RETURN page, trait, predicate,
+  TYPE(info)
+  AS info_type, info_term, resource
+  ORDER BY LOWER(predicate.name),
+  LOWER(info_term.name), trait.normal_measurement,
+  LOWER(trait.literal)
+  LIMIT 50
 }
 res = TraitBank.query(query)["data"].size
