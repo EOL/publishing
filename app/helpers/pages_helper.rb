@@ -148,7 +148,7 @@ module PagesHelper
       else
         number_with_delimiter(count)
       end
-    haml_tag("div.ui.orange.statistic.uk-container-center") do
+    haml_tag("div.ui.orange.statistic") do
       haml_tag("div.value") { haml_concat count }
       haml_tag("div.label") { haml_concat t("landing_page.stats.#{key}") }
     end

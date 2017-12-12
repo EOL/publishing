@@ -17,7 +17,7 @@
     .uk-section.uk-margin-remove-top.eol-section-aged.uk-section-xsmall
       %p.uk-text-lead.uk-text-center= t("landing_page.beta").html_safe
     .uk-section.uk-section-small
-      %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
+      %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
