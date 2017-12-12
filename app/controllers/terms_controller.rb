@@ -23,7 +23,7 @@ class TermsController < ApplicationController
       fmt.csv do
         if !current_user
           redirect_to new_user_session_path
-        else 
+        else
           @query = TermQuery.new(tq_params)
 
           if @query.search_pairs.empty?
@@ -36,7 +36,7 @@ class TermsController < ApplicationController
             else
               send_data data
             end
-          end 
+          end
         end
       end
     end
