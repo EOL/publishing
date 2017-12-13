@@ -1,8 +1,8 @@
 class UserDownloadsController < ApplicationController
   def show
     download = UserDownload.find(params[:id])
-    send_file("#{Rails.root}/public/#{download.filename}",
-      filename: download.filename, # TODO: we should steal the "nice" name from the helper.
-      type: "text/tab-separated-values")
+    file = TraitBank::DataDownload.path.join(download.filename)
+    # TODO: we should steal the "nice" name from the view helper, and rename the file.
+    send_file(file, filename: download.filename, type: "text/tab-separated-values")
   end
 end

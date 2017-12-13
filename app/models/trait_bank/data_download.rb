@@ -18,6 +18,13 @@ class TraitBank
           downloader.build
         end
       end
+
+      def path
+        return @path if @path
+        @path = Rails.public_path.join('data', 'downloads')
+        FileUtils.mkdir_p(@path) unless Dir.exist?(path)
+        @path
+      end
     end
 
     def initialize(term_query, count = nil)
@@ -110,7 +117,7 @@ class TraitBank
     end
 
     def write_csv
-      CSV.open("public/#{@filename}", "wb") do |csv|
+      CSV.open(TraitBank::DataDownload.path.join(@filename), "wb") do |csv|
         @data.each { |row| csv << row }
       end
     end

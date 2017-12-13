@@ -35,6 +35,13 @@ ratings:
   - "**.module"
   - "**.php"
   - "**.py"
+plugins:
+  brakeman:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  rubocop:
+    enabled: true
 exclude_paths:
 - config/
 - db/

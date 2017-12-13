@@ -138,28 +138,16 @@ private
     @per_page = 10 if query
     if params[:reindex] && is_admin?
       TraitBank::Admin.clear_caches
-      lim = (@count / @per_page.to_f).ceil
-      (0..lim+10).each do |index|
-        expire_fragment("term/glossary/#{index}")
-      end
+      expire_trait_fragments
     end
     result = TraitBank::Terms.send(which, @page, @per_page, query)
-
-    if paginate
-      result = Kaminari.paginate_array(result, total_count: @count).
-      page(@page).per(@per_page)
-    end
-
-    result
+    paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result
   end
 
-  def get_associations
-    @associations =
-      begin
-        ids = @grouped_data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
-          includes(:medium, :preferred_vernaculars, native_node: [:rank])
-      end
+  def expire_trait_fragments
+    (0..100).each do |index|
+      expire_fragment("term/glossary/#{index}")
+    end
   end
 
   def tq_params
@@ -173,8 +161,16 @@ private
   end
 
   def search_setup
+    found_uri = false
     @predicate_options = [['----', nil]] +
-      TraitBank::Terms.predicate_glossary.collect { |item| [item[:name], item[:uri]] }
+      TraitBank::Terms.predicate_glossary.collect do |item|
+        found_uri = true if item[:uri] == params[:uri]
+        [item[:name], item[:uri]]
+      end
+    unless found_uri
+      term = TraitBank.term_as_hash(params[:uri])
+      @predicate_options << [term[:name], term[:uri]]
+    end
     @result_type = params[:result_type]&.to_sym || :record
   end
 

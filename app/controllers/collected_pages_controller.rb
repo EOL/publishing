@@ -82,9 +82,8 @@ class CollectedPagesController < ApplicationController
             page: @collected_page.page.name,
             link: collection_path(@collected_page.collection)).html_safe
 
-          redirect_to has_media ?
-            page_media_path(@collected_page.page) :
-            @collected_page.page
+          target = has_media ? page_media_path(@collected_page.page) : @collected_page.page
+          redirect_to target
         end
         fmt.js { }
       end
