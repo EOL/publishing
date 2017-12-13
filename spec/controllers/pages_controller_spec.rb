@@ -64,8 +64,7 @@ RSpec.describe PagesController do
     let(:page_id) { Page.any? ? Page.last.id + 1 : 1 }
     describe "#show" do
       it "raises a 404" do
-        get :show, id: page_id
-        expect(response.status).to eq(404)
+        expect { get :show, id: page_id }.to raise_error(ActionController::RoutingError)
       end
     end
     describe "#breadcrumbs" do

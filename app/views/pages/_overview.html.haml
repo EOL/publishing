@@ -20,7 +20,7 @@
         -# NOTE: this is largely duplicated in _overview.html.haml ; not worth extracting.
         #names.page-names.uk-width-2-3
           - if @page.name == @page.scientific_name
-            - if name = @page.native_node.scientific_names.preferred.first
+            - if name = @page.native_node&.scientific_names&.preferred&.first
               %h1.uk-margin-small-bottom
                 = name.canonical_form.html_safe
                 - unless name.authorship.blank?

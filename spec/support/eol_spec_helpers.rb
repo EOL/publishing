@@ -176,6 +176,7 @@ module EolSpecHelpers
       taxonomic_status: TaxonomicStatus.synonym)
     instance_double("Page",
       id: 3497,
+      ancestors: [],
       articles: [],
       articles_count: 0,
       nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...
