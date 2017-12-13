@@ -61,6 +61,9 @@ module PagesHelper
       # taxonomy sentence...
       str = if page.name == page.scientific_name
         page.name
+      elsif page.scientific_name =~ page.name
+        # Sometimes the "name" is part of the scientific name, and it looks really weird to double up.
+        page.scientific_name
       else
         "#{page.scientific_name} (#{page.name})"
       end

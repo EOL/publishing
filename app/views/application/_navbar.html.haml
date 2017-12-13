@@ -10,16 +10,16 @@
     = link_to(t("nav.about"), '/docs/about', class: 'item uk-visible@m')
     = link_to(t("nav.education"), 'http://education.eol.org/', class: 'item uk-visible@m')
     = link_to(t("nav.discuss"), 'http://discuss.eol.org/t/eolv3-beta-test/122', class: 'item uk-visible@m')
-    .ui.simple.dropdown.item{class: "uk-visible@m" }
-      - langs = languages_hash
-      - keys = langs.keys
-      - keys.delete_at(keys.index(I18n.locale))
-      - button_text = langs[I18n.locale] || "Language"
-      = link_to(button_text, "#", class: "ui basic button #{inverted}", type: "button")
-      .uk-list.uk-padding-small{ uk: { dropdown: true } }
-        - keys.each do |key|
-          -# NOTE the stupid check for test env here. Yuck.
-          %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
+    -# .ui.simple.dropdown.item{class: "uk-visible@m" }
+    -#   - langs = languages_hash
+    -#   - keys = langs.keys
+    -#   - keys.delete_at(keys.index(I18n.locale))
+    -#   - button_text = langs[I18n.locale] || "Language"
+    -#   = link_to(button_text, "#", class: "ui basic button #{inverted}", type: "button")
+    -#   .uk-list.uk-padding-small{ uk: { dropdown: true } }
+    -#     - keys.each do |key|
+    -#       -# NOTE the stupid check for test env here. Yuck.
+    -#       %li= link_to(langs[key], Rails.env.test? ? "/" : { lang: key })
     - unless inverted
       #nav-search.ui.item
         = form_tag(main_app.search_path, method: "get", autocomplete: "off") do |f|
