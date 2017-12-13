@@ -127,6 +127,7 @@ module EolSpecHelpers
 
     instance_double("Page",
       id: 8293,
+      ancestors: [ancestor, invisible_ancestor, parent],
       articles: [article],
       articles_count: 1,
       nodes_count: 1,
