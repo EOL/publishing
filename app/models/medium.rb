@@ -33,8 +33,8 @@ class Medium < ActiveRecord::Base
 
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
-    orig = Rails.configuration.x.image_path.original
-    ext = Rails.configuration.x.image_path.ext
+    orig = Rails.configuration.x.image_path['original']
+    ext = Rails.configuration.x.image_path['ext']
     base_url + "#{orig}#{ext}"
   end
 
@@ -65,9 +65,9 @@ class Medium < ActiveRecord::Base
   end
 
   def format_image_size(w, h)
-    join = Rails.configuration.x.image_path.join
-    by = Rails.configuration.x.image_path.by
-    ext = Rails.configuration.x.image_path.ext
+    join = Rails.configuration.x.image_path['join']
+    by = Rails.configuration.x.image_path['by']
+    ext = Rails.configuration.x.image_path['ext']
     "#{join}#{w}#{by}#{h}#{ext}"
   end
 

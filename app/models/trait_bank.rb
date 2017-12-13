@@ -32,7 +32,7 @@ class TraitBank
 
   class << self
     def connection
-      @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
+      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
 
     def ping
