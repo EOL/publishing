@@ -53,58 +53,64 @@ module Api
           params[:sort_by] = nil
         end
           begin
-            # collection = Collection.find(params[:id], include: [ :sort_style ])
             collection= Collection.search(params[:id], fields:[{id: :exact}], select: [:default_sort, :name, :description, :created_at, :updated_at]).response["hits"]["hits"][0]  
             params[:sort_by] ||= collection["_source"]["default_sort"]
           rescue
             raise ActiveRecord::RecordNotFound.new("Unknown collection id \"#{params[:id]}\"")
           end
-          prepare_hash(collection, params)
+        prepare_hash(collection, params)
       end
       
       
       def self.prepare_hash(collection, params)
-        # facet_counts = EOL::Solr::CollectionItems.get_facet_counts(collection.id)
-          # collection_results = collection.items_from_solr(:facet_type => params[:filter], :page => params[:page], :per_page => params[:per_page],
-            # :sort_by => params[:sort_by], :view_style => ViewStyle.list, :sort_field => params[:sort_field])
-          # collection_items = collection_results.map { |i| i['instance'] }
-          # CollectionItem.preload_associations(collection_items, :refs)
-          return_hash = {}
-          return_hash['name'] = collection["_source"]["name"]
-          return_hash['description'] = collection["_source"]["description"]
-          # return_hash['logo_url'] = collection.logo_cache_url.blank? ? nil : collection.logo_url
-          return_hash['created'] = collection["_source"]["created_at"]
-          return_hash['modified'] = collection["_source"]["updated_at"]
+        return_hash = {}
+        return_hash['name'] = collection["_source"]["name"]
+        return_hash['description'] = collection["_source"]["description"]
+        return_hash['logo_url'] = ""
+        return_hash['created'] = collection["_source"]["created_at"]
+        return_hash['modified'] = collection["_source"]["updated_at"]
           
-          collection_object=Collection.find_by_id(collection["_id"])
+        collection_object=Collection.find_by_id(collection["_id"])
           
-          counts ={}
-          collection_object.collected_pages.each do |collected_page|
-            counts['articles'].nil? ? counts['articles'] = collected_page.articles.count : counts['articles'] +=collected_page.articles.count
-            counts['video'].nil? ? counts['video'] = collected_page.media.where(subclass: 1).count : counts['video'] +=collected_page.media.where(subclass: 1).count
-            counts['images'].nil? ? counts['images'] = collected_page.media.where(subclass: 0).count : counts['images'] +=collected_page.media.where(subclass: 0).count
-            counts['sounds'].nil? ? counts['sounds'] = collected_page.media.where(subclass: 2).count : counts['sounds'] +=collected_page.media.where(subclass: 2).count
-          end
-          counts['taxa'] =  collection_object.collected_pages.count
-          counts['users'] =  collection_object.users.count
-          counts['collections'] =  collection_object.collections.count
+        counts ={}
+        @articles, @video, @images, @sounds, @taxa, @users, @collections = [], [], [], [], [], [], [] 
+        
+        collection_object.collected_pages.each do |collected_page|
+          counts['articles'].nil? ? counts['articles'] = collected_page.articles.count : counts['articles'] +=collected_page.articles.count
+          counts['video'].nil? ? counts['video'] = collected_page.media.where(subclass: 1).count : counts['video'] +=collected_page.media.where(subclass: 1).count
+          counts['images'].nil? ? counts['images'] = collected_page.media.where(subclass: 0).count : counts['images'] +=collected_page.media.where(subclass: 0).count
+          counts['sounds'].nil? ? counts['sounds'] = collected_page.media.where(subclass: 2).count : counts['sounds'] +=collected_page.media.where(subclass: 2).count
+          
+          @articles += collected_page.articles
+          @video += collected_page.media.where(subclass: 1)
+          @images += collected_page.media.where(subclass: 0)
+          @sounds += collected_page.media.where(subclass: 2)
           
           
-          
-          return_hash['total_items'] =  adjust_total_items_count(params, counts)
+        end
+        counts['taxa'] =  collection_object.collected_pages.count
+        counts['users'] =  collection_object.users.count
+        counts['collections'] =  collection_object.collections.count
+        
+        @taxa += collection_object.collected_pages
+        @users += collection_object.users
+        @collections += collection_object.collections
+        
 
           
-          return_hash['item_types'] = []
-          return_hash['item_types'] << { 'item_type' => "TaxonConcept", 'item_count' => counts['taxa']}
           
-          return_hash['item_types'] << { 'item_type' => "Text", 'item_count' => counts['articles'] }
-          
-          
-          return_hash['item_types'] << { 'item_type' => "Video", 'item_count' => counts['video'] }
-          return_hash['item_types'] << { 'item_type' => "Image", 'item_count' => counts['images'] }
-          return_hash['item_types'] << { 'item_type' => "Sound", 'item_count' => counts['sounds'] }
-          return_hash['item_types'] << { 'item_type' => "User", 'item_count' => counts['users'] }
-          return_hash['item_types'] << { 'item_type' => "Collection", 'item_count' => counts['collections'] }
+        return_hash['total_items'] =  adjust_total_items_count(params, counts)
+
+        return_hash['item_types'] = []
+        return_hash['item_types'] << { 'item_type' => "TaxonConcept", 'item_count' => counts['taxa']}
+        return_hash['item_types'] << { 'item_type' => "Text", 'item_count' => counts['articles'] }
+        return_hash['item_types'] << { 'item_type' => "Video", 'item_count' => counts['video'] }
+        return_hash['item_types'] << { 'item_type' => "Image", 'item_count' => counts['images'] }
+        return_hash['item_types'] << { 'item_type' => "Sound", 'item_count' => counts['sounds'] }
+        return_hash['item_types'] << { 'item_type' => "User", 'item_count' => counts['users'] }
+        return_hash['item_types'] << { 'item_type' => "Collection", 'item_count' => counts['collections'] }
+        
+        @items = adjust_requseted_items(params, collection)
           
           # this is dummy data without sorting
           count = params[:per_page]
@@ -159,6 +165,16 @@ module Api
           return counts.values.reduce(:+)
         else
           return counts[params[:filter]]
+        end
+      end
+      
+      def self.adjust_requseted_items(params, collection)
+        @items = []
+        .compact.sort_by(&:created_at)
+        if params[:filter].nil?
+          @items = @articles+@videos+@images+@sounds+@taxas+@users+@collections
+        else if params[:filter].eql? "taxa"
+          @items = @taxa
         end
       end
     end

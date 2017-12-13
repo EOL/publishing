@@ -57,11 +57,16 @@ RSpec.describe Api::Collections::V0_0 do
   context 'test prepare_hash method' do
     it "should return true counts of collection's items" do
       collection = FactoryGirl.create(:collection)
-      medium = FactoryGirl.create(:api_medium)
-      page = FactoryGirl.create(:api_page)      
+      medium_1 = FactoryGirl.create(:api_medium)
+      medium_2 = FactoryGirl.create(:api_medium)
+      page = FactoryGirl.create(:api_page) 
+      page_2 = FactoryGirl.create(:api_page)      
       
       collected_page_1 = FactoryGirl.create(:api_collected_page, collection: collection, page: page )
-      collected_page_medium = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_1, medium: medium)
+      collected_page_medium = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_1, medium: medium_1)
+      
+      collected_page_2 = FactoryGirl.create(:api_collected_page, collection: collection, page: page_2 )
+      collected_page_medium_2 = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_2, medium: medium_2)
       
       Page.reindex
       Medium.reindex
@@ -77,10 +82,10 @@ RSpec.describe Api::Collections::V0_0 do
       expect(hash['created']).to eql(collection_hash["_source"]["created_at"])
       expect(hash['modified']).to eql(collection_hash["_source"]["updated_at"])
       
-      expect(hash['item_types'][0]['item_count']).to eql(1) #taxa
-      expect(hash['item_types'][1]['item_count']).to eql(1) #articles
+      expect(hash['item_types'][0]['item_count']).to eql(2) #taxa
+      expect(hash['item_types'][1]['item_count']).to eql(2) #articles
       expect(hash['item_types'][2]['item_count']).to eql(0) #video
-      expect(hash['item_types'][3]['item_count']).to eql(1) #images
+      expect(hash['item_types'][3]['item_count']).to eql(2) #images
       expect(hash['item_types'][4]['item_count']).to eql(0) #sounds
       expect(hash['item_types'][5]['item_count']).to eql(1) #users
       expect(hash['item_types'][6]['item_count']).to eql(0) #collections

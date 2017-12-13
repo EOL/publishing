@@ -5,8 +5,8 @@ class CollectedPage < ActiveRecord::Base
   has_many :collected_pages_media, -> { order(position: :asc) },
     inverse_of: :collected_page
   has_many :media, through: :collected_pages_media
-  has_and_belongs_to_many :articles, -> { order(position: :asc) }
-  has_and_belongs_to_many :links, -> { order(position: :asc) }
+  has_and_belongs_to_many :articles, -> { order "position" }
+  has_and_belongs_to_many :links, -> { order "position" }
 
   acts_as_list scope: :collection
 
