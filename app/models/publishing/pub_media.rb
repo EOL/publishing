@@ -10,12 +10,6 @@ class Publishing::PubMedia
     @resource = resource
     @log = log
     @repo = repo
-    @media_by_page = {}
-    @media_pks = []
-    @media_id_by_pk = {}
-    @contents = []
-    @ancestry = {}
-    @naked_pages = {}
   end
 
   # TODO: set these:
@@ -45,12 +39,10 @@ class Publishing::PubMedia
       medium[:license_id] = get_license(license_url)
       medium[:base_url] = "#{Rails.configuration.repository_url}/#{medium[:base_url]}" unless
         medium[:base_url] =~ /^http/
-      @media_by_page[medium[:page_id]] = medium[:resource_pk]
       if medium[:page_id].blank?
         @log.log("Medium {#{medium[:resource_pk]}} skipped: missing page_id——perhaps node is missing?")
         next
       end
-      @media_pks << medium[:resource_pk]
     end
     return if count.zero?
     MediaContentCreator.by_resource(@resource, @log)

@@ -1,6 +1,6 @@
 class MediaContentCreator
   def self.by_resource(resource, log)
-    creator = self.new(resource, log).by_resource(resource, log)
+    creator = self.new(resource, log).by_resource
   end
 
   def initialize(resource, log)
@@ -17,7 +17,7 @@ class MediaContentCreator
 
   def by_resource
     @log.log('MediaContentCreator#by_resource', cat: :starts)
-    Medium.where(resource: @resource.id).find_in_batches do |batch|
+    Medium.where(resource: @resource.id).where('page_id IS NOT NULL').find_in_batches do |batch|
       reset_batch
       learn_ancestry(batch)
       batch.each do |medium|
