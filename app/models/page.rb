@@ -108,7 +108,12 @@ class Page < ActiveRecord::Base
   def ancestry_ids
     # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
     # data)
-    Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+    return [id] unless native_node
+    if native_node.unordered_ancestors&.loaded?
+      native_node.unordered_ancestors.map(&:page_id).compact + [id]
+    else
+      Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+    end
   end
 
   def descendant_species

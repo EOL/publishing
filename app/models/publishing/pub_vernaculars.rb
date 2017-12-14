@@ -24,8 +24,8 @@ class Publishing::PubVernaculars
       name[:is_preferred_by_resource] = name.delete(:is_preferred)
     end
     return if count.zero?
-    Vernacular.propagate_id(resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                       set: 'node_id', with: 'id', resource_id: @resource.id)
+    Vernacular.propagate_id(fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                            set: 'node_id', with: 'id', resource_id: @resource.id)
     @log.log('fixing counter_culture counts for ScientificName...')
     Vernacular.counter_culture_fix_counts
     # TODO: update preferred = true where page.vernaculars_count = 1...

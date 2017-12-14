@@ -60,13 +60,13 @@ class Publishing::PubNodes
     @ancestors.in_groups_of(10_000, false) do |group|
       NodeAncestor.import(group, on_duplicate_key_ignore: true, validate: false)
     end
-    Node.propagate_id(resource: @resource, fk: 'parent_resource_pk', other: 'nodes.resource_pk',
+    Node.propagate_id(fk: 'parent_resource_pk', other: 'nodes.resource_pk',
                       set: 'parent_id', with: 'id', resource_id: @resource.id)
-    Identifier.propagate_id(resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
+    Identifier.propagate_id(fk: 'node_resource_pk', other: 'nodes.resource_pk',
                             set: 'node_id', with: 'id', resource_id: @resource.id)
-    NodeAncestor.propagate_id(resource: @resource, fk: 'ancestor_resource_pk', other: 'nodes.resource_pk',
+    NodeAncestor.propagate_id(fk: 'ancestor_resource_pk', other: 'nodes.resource_pk',
                               set: 'ancestor_id', with: 'id', resource_id: @resource.id)
-    NodeAncestor.propagate_id(resource: @resource, fk: 'node_resource_pk', other: 'nodes.resource_pk',
+    NodeAncestor.propagate_id(fk: 'node_resource_pk', other: 'nodes.resource_pk',
                               set: 'node_id', with: 'id', resource_id: @resource.id)
     create_new_pages
     @node_id_by_page.keys || []

@@ -32,11 +32,11 @@ class Publishing::PubScientificNames
       end
     end
     return if count.zero?
-    ScientificName.propagate_id(resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                       set: 'node_id', with: 'id', resource_id: @resource.id)
+    ScientificName.propagate_id(fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                                set: 'node_id', with: 'id', resource_id: @resource.id)
     # TODO: This doesn't ensure we're getting *preferred* scientific_name.
-    Node.propagate_id(resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
-                       set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
+    Node.propagate_id(fk: 'id',  other: 'scientific_names.node_id',
+                      set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
     @log.log('fixing counter_culture counts for ScientificName...')
     ScientificName.counter_culture_fix_counts
   end

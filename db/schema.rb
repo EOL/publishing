@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171212202246) do
+ActiveRecord::Schema.define(version: 20171214152136) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -238,20 +238,22 @@ ActiveRecord::Schema.define(version: 20171212202246) do
   add_index "identifiers", ["resource_id"], name: "index_identifiers_on_resource_id", using: :btree
 
   create_table "image_info", force: :cascade do |t|
-    t.integer  "resource_id",   limit: 4,                          null: false
-    t.integer  "medium_id",     limit: 4,                          null: false
-    t.string   "original_size", limit: 12,                         null: false
+    t.integer  "resource_id",   limit: 4,                           null: false
+    t.integer  "medium_id",     limit: 4,                           null: false
+    t.string   "original_size", limit: 12,                          null: false
     t.string   "large_size",    limit: 12
     t.string   "medium_size",   limit: 12
     t.string   "small_size",    limit: 12
-    t.decimal  "crop_x",                   precision: 5, scale: 2
-    t.decimal  "crop_y",                   precision: 5, scale: 2
-    t.decimal  "crop_w",                   precision: 5, scale: 2
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.decimal  "crop_x",                    precision: 5, scale: 2
+    t.decimal  "crop_y",                    precision: 5, scale: 2
+    t.decimal  "crop_w",                    precision: 5, scale: 2
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "resource_pk",   limit: 255
   end
 
   add_index "image_info", ["medium_id"], name: "index_image_info_on_medium_id", using: :btree
+  add_index "image_info", ["resource_pk"], name: "index_image_info_on_resource_pk", using: :btree
 
   create_table "import_events", force: :cascade do |t|
     t.integer  "import_log_id", limit: 4,     null: false
@@ -348,9 +350,11 @@ ActiveRecord::Schema.define(version: 20171212202246) do
     t.integer  "resource_id",               limit: 4,                 null: false
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
+    t.string   "usage_statement",           limit: 255
   end
 
   add_index "media", ["guid"], name: "index_media_on_guid", using: :btree
+  add_index "media", ["resource_pk"], name: "index_media_on_resource_pk", using: :btree
   add_index "media", ["subclass"], name: "index_media_on_subclass", using: :btree
 
   create_table "node_ancestors", force: :cascade do |t|
