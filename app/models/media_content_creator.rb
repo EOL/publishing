@@ -1,6 +1,6 @@
 class MediaContentCreator
   def self.by_resource(resource, log)
-    creator = self.new(resource, log).by_resource
+    self.new(resource, log).by_resource
   end
 
   def initialize(resource, log)
@@ -86,6 +86,6 @@ class MediaContentCreator
 
   def fix_counter_culture_counts
     @log.log("Fixing counter-culture counts...")
-    PageContent.where(content_type: 'Medium', content_id: @contents.map(&:content_id)).counter_culture_fix_counts
+    PageContent.where(content_type: 'Medium', content_id: @contents.map { |c| c[:content_id] }).counter_culture_fix_counts
   end
 end
