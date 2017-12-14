@@ -32,8 +32,7 @@ class MediaContentCreator
   end
 
   def learn_ancestry(batch)
-    Page.select(:id, :medium_id, :native_node_id)
-        .includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }])
+    Page.includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }])
         .where(id: batch.map(&:page_id), medium_id: nil)
         .each do |page|
           @naked_pages[page.id] = page
