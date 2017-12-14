@@ -634,6 +634,12 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
+    def resource_count(id)
+      res = query("MATCH (trait:Trait)-[:supplier]->(resource:Resource { resource_id: #{id} }) "\
+        "RETURN COUNT(trait)")
+      res["data"] ? res["data"].first.first : false
+    end
+
     def create_resource(id)
       if resource = find_resource(id)
         return resource

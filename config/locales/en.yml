@@ -213,13 +213,6 @@ en:
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"
     resources: "Resources"
-    stats:
-      pages: "pages"
-      data: "data records"
-      media: "media"
-      articles: "articles"
-      users: "users"
-      collections: "collections"
     stats_cleared: "The stats have been recalculated."
     title: "Encyclopedia of Life"
     topics: "Latest Discussion Topics"
@@ -707,6 +700,15 @@ en:
         object_term: "URI to redirect to (or filter by)"
         path: "path (either full or relative) to redirect to"
         wkt_string: "WKT string to pass to Effechecka"
+  stats:
+    articles: "articles"
+    collections: "collections"
+    data: "data records"
+    media: "media"
+    pages: "pages"
+    nodes: "nodes"
+    scientific_names: "names"
+    users: "users"
   term:
     actions:
       download: "download"

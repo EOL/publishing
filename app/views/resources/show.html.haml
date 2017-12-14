@@ -2,7 +2,7 @@
 .ui.button= link_to(t("resources.actions.index"), resources_path)
 
 %h2
-  Sample page
+  Sample pages
 
 With media:
 - if (contn = PageContent.where(resource_id: @resource.id).first)
@@ -38,6 +38,18 @@ With traits:
 - if @resource.import_logs.empty?
   This resource has not been imported yet.
 - else
+  %h2 Content
+  .uk-section.uk-section-small
+    %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
+      %li
+        - index_stat(:nodes, @resource.nodes_count)
+      %li
+        - index_stat(:media, Medium.where(resource_id: @resource.id).count)
+      %li
+        - index_stat(:data, TraitBank.resource_count(@resource.id))
+      %li
+        - index_stat(:scientific_names, ScientificName.where(resource_id: @resource.id).count)
+
   %h2
     Imports:
   %ul.uk-list
