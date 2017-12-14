@@ -67,7 +67,7 @@ class MediaContentCreator
       push_pages[count] << page_id
     end
     push_pages.each do |count, pages|
-      PageContent.where(page_id: pages).update_all(['position = postion + ?', count])
+      PageContent.where(page_id: pages).update_all(['position = position + ?', count])
     end
   end
 
