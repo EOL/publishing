@@ -168,8 +168,15 @@ private
         [item[:name], item[:uri]]
       end
     unless found_uri
-      term = TraitBank.term_as_hash(params[:uri])
-      @predicate_options << [term[:name], term[:uri]] if term
+      if params[:uri].blank?
+        @query.pairs.each do |predicate, _|
+          term = TraitBank.term_as_hash(predicate)
+          @predicate_options << [term[:name], term[:uri]] if term
+        end
+      else
+        term = TraitBank.term_as_hash(params[:uri])
+        @predicate_options << [term[:name], term[:uri]] if term
+      end
     end
     @result_type = params[:result_type]&.to_sym || :record
   end
