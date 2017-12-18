@@ -65,7 +65,9 @@ module DataHelper
       haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(association)') }
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
-      haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+      # TODO: I've disabled links for object terms until they ... uhhh... work.
+      # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+      haml_concat(value)
       haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(object term)') }
     elsif val = data[:measurement] || data[:value_measurement]
       value = val.to_s + " "
