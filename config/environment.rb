@@ -8,5 +8,5 @@ require File.expand_path('../application', __FILE__)
 Rails.application.initialize!
 
 DYNAMIC_HIERARCHY_RESOURCE_ID = 1
-HBASE_ADDRESS = ""
-HBASE_GET_LATEST_UPDATES_ACTION = ""
+HBASE_ADDRESS = "http://172.16.0.99/hbase/api/"
+HBASE_GET_LATEST_UPDATES_ACTION = "getLatestUpdates"

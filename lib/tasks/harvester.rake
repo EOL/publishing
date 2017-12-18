@@ -1,8 +1,7 @@
 def main_method  
-  json_content = get_latest_updates_from_hbase
-  
-  # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes2.json')
-  # json_content = File.read(nodes_file_path)
+  # json_content = get_latest_updates_from_hbase
+  nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
+  json_content = File.read(nodes_file_path)
   unless json_content == false
     nodes = JSON.parse(json_content)
     nodes.each do |node|
@@ -45,6 +44,7 @@ def get_latest_updates_from_hbase
       response = request.execute
       response.body
   rescue => e
+    debugger
     false
   end
 end
