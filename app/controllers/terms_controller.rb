@@ -169,7 +169,7 @@ private
       end
     unless found_uri
       term = TraitBank.term_as_hash(params[:uri])
-      @predicate_options << [term[:name], term[:uri]]
+      @predicate_options << [term[:name], term[:uri]] if term
     end
     @result_type = params[:result_type]&.to_sym || :record
   end
