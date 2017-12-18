@@ -91,7 +91,7 @@ class TraitBank::Slurp
 
     def csv_query_head(file, where_clause = nil)
       where_clause ||= '1=1'
-      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause}"
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
     # TODO: extract the file-writing to a method that takes a block.
