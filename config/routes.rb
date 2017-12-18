@@ -58,6 +58,7 @@ Rails.application.routes.draw do
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
     resources :import_logs, only: [:show]
+    resources :nodes, only: [:index]
   end
   resources :search_suggestions
 

@@ -1,12 +1,25 @@
 %h1
   Resources
 
-%ul.uk-list
-  - @resources.each do |resource|
-    %li
-      = link_to(resource.name, resource)
-      (updated
-      = l(resource.updated_at, format: '%H:%M:%S.%3N')
-      )
-      - if resource.updated_at > 1.day.ago
-        .ui.label= "new"
+= paginate @resources
+%table.uk-table.uk-table-small.uk-table-striped.uk-table-divider
+  %thead
+    %tr
+      %th Name
+      %th Updated
+      %th Nodes
+      %th Media
+      %th Traits
+  %tbody
+    - @resources.each do |resource|
+      %tr
+        %td
+          = link_to(resource.name, resource)
+        %td
+          = l(resource.updated_at, format: '%H:%M:%S.%3N')
+          - if resource.updated_at > 1.day.ago
+            .ui.label= "new"
+        %td= link_to(number_with_delimiter(resource.nodes.count), resource_nodes_path(resource))
+        %td= number_with_delimiter(resource.media.count)
+        %td= number_with_delimiter(TraitBank.count_by_resource(resource.id))
+= paginate @resources
