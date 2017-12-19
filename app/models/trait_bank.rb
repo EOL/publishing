@@ -81,7 +81,7 @@ class TraitBank
 
     def count_by_resource(id)
       res = query(
-        "MATCH (Resource { resource_id: #{id} })<-[:provider]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "MATCH (Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
@@ -89,7 +89,7 @@ class TraitBank
 
     def count_by_resource_and_page(resource_id, page_id)
       res = query(
-        "MATCH (Resource { resource_id: #{resource_id} })<-[:provider]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
+        "MATCH (Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
