@@ -12,12 +12,12 @@
       %th Traits
   %tbody
     - @resources.each do |resource|
-      - cache("resources/#{resource.id}/summary_row/#{resource.updated_at}") do |
+      - cache("resources/#{resource.id}/summary_row/#{resource.updated_at.to_i}") do |
         %tr
           %td
             = link_to(resource.name, resource)
           %td
-            = l(resource.updated_at, format: '%H:%M:%S.%3N')
+            = l(resource.updated_at, format: '%b %d %H:%M')
             - if resource.updated_at > 1.day.ago
               .ui.label= "new"
           %td= link_to(number_with_delimiter(resource.nodes.count), resource_nodes_path(resource))

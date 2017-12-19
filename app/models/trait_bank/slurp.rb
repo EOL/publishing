@@ -5,6 +5,7 @@ class TraitBank::Slurp
     def load_csvs(resource)
       config = load_csv_config(resource)
       config.each { |filename, file_config| load_csv(filename, file_config) }
+      resource.touch
     end
 
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
