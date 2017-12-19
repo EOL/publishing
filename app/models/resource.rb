@@ -163,6 +163,10 @@ class Resource < ActiveRecord::Base
     Rails.cache.clear
   end
 
+  def slurp_traits
+    TraitBank::Slurp.load_csvs(self)
+  end
+
   def import_media(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
