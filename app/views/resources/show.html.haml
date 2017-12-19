@@ -1,39 +1,9 @@
 %h1= @resource.name
 .ui.button= link_to(t("resources.actions.index"), resources_path)
 
-%h2
-  Sample pages
-
-With media:
-- if (contn = PageContent.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(contn.source_page)
-- else
-  (none)
-%br
-With synonyms:
-- if (name = ScientificName.where(resource_id: @resource.id, is_preferred: false).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-%br
-With vernaculars:
-- if (name = Vernacular.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-%br
-With traits:
-- if (page_ids = TraitBank.first_pages_for_resource(@resource.id))
-  - if page_ids.empty?
-    (none)
-  - else
-    - pages = Page.where(id: page_ids)
-    - if pages.empty?
-      = "It claims to have pages #{page_ids.sort.to_sentence}, but they don't appear to exist."
-    - else
-      = link_to_page_by_name(pages.first)
-- else
-  (none)
+%p
+  Nodes:
+  = link_to(number_with_delimiter(@resource.nodes.count), resource_nodes_path(@resource))
 
 - if @resource.import_logs.empty?
   This resource has not been imported yet.
