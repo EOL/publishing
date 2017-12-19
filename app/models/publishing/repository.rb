@@ -81,7 +81,7 @@ class Publishing::Repository
     tries ||= 3
     html_response = Net::HTTP.get(URI.parse(url))
     response = JSON.parse(html_response)
-    return response if response.key?(key) && total_pages.positive?
+    return response if response.key?(key)
     @log.log("Empty #{key}: #{url}", cat: :infos)
     nil
   rescue => e
