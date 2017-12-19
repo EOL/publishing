@@ -22,29 +22,19 @@ class Publishing::Repository
     things = []
     path = "resources/#{@resource.repository_id}/#{type}.json?"
     loop_over_pages(path, type.camelize(:lower)) do |thing|
+      next unless thing
       thing.merge!(resource_id: @resource.id)
-      if thing
-        begin
-          yield(thing)
-          things << thing
-          total_count += 1
-        rescue => e
-          @log.log("FAILED to add #{klass.class_name.downcase}: #{e.message}", cat: :errors)
-          @log.log("MISSING #{klass.class_name.downcase}: #{thing.inspect}", cat: :errors)
-        end
+      begin
+        yield(thing)
+        things << thing
+        total_count += 1
+      rescue => e
+        @log.log("FAILED to add #{klass.class_name.downcase}: #{e.message}", cat: :errors)
+        @log.log("MISSING #{klass.class_name.downcase}: #{thing.inspect}", cat: :errors)
       end
-      if things.size >= 10_000
-        @log.log("importing #{things.size} #{klass.name.pluralize}")
-        # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when
-        # I want to ignore the ones we already had (I would delete things first if I wanted to replace them):
-        klass.import(things, on_duplicate_key_ignore: true, validate: false)
-        things = []
-      end
+      things = flush_things(klass, things) if things.size >= 10_000
     end
-    if things.any?
-      @log.log("importing #{things.size} #{klass.name.pluralize}")
-      klass.import(things, on_duplicate_key_ignore: true, validate: false)
-    end
+    flush_things(klass, things)
     if total_count.zero?
       @log.log("There were NO new #{klass.name.pluralize.downcase}, skipping...", cat: :warns)
     else
@@ -53,41 +43,59 @@ class Publishing::Repository
     total_count
   end
 
+  def flush_things(klass, things)
+    @log.log("importing #{things.size} #{klass.name.pluralize}")
+    # NOTE: these are supposed to be "new" records, so the only time there are duplicates is during testing, when
+    # I want to ignore the ones we already had (I would delete things first if I wanted to replace them):
+    klass.import(things, on_duplicate_key_ignore: true, validate: false)
+    []
+  end
+
   # TODO: I would love to extract enough here to be able to call something like
   # get_page(path, key, page)
   def loop_over_pages(path_without_page, key)
     page = 1
     total_pages = 2 # Dones't matter YET... will be populated in a bit...
     while page <= total_pages
-      url = "#{Rails.configuration.repository_url}/#{path_without_page}page=#{page}"
-      url += "&since=#{@since}" if @since
-      html_response = Net::HTTP.get(URI.parse(url))
-      begin
-        response = JSON.parse(html_response)
-      rescue => e
-        @log.log("!! Failed to read #{key} page #{page}! url: #{url}", cat: :errors)
-        noko = Nokogiri.parse(response) rescue nil
-        return if noko.nil?
-        @log.log(noko.css('html head title')&.text)
-        @log.log(noko.css('html body h1')&.text)
-        @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
-        debugger if Rails.env.development?
-        return
-      end
+      response = get_response_safely(key, page, path_without_page)
+      next unless response.is_a?(Hash) && response.key?("totalPages")
       total_pages = response["totalPages"]
       unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
         @log.log("Empty #{key} page: #{url}", cat: :infos)
-        return
+        next
       end
-      if page == 1 || (page % 25).zero?
-        pct = (page / total_pages.to_f * 100).ceil rescue '??'
-        @log.log("Importing #{key.pluralize}: page #{page}/#{total_pages} (#{pct}%)", cat: :infos)
-      end
+      report_on_import(key, page, total_pages)
       response[key].each do |data|
         thing = Publishing::Repository.underscore_hash_keys(data)
         yield(thing)
       end
       page += 1
     end
+  end
+
+  def report_on_import(key, page, total_pages)
+    return unless page == 1 || (page % 25).zero?
+    pct = (page / total_pages.to_f * 100).ceil rescue '??'
+    @log.log("Importing #{key.pluralize}: page #{page}/#{total_pages} (#{pct}%)", cat: :infos)
+  end
+
+  def get_response_safely(key, page, path_without_page)
+    url = "#{Rails.configuration.repository_url}/#{path_without_page}page=#{page}"
+    url += "&since=#{@since}" if @since
+    tries ||= 3
+    html_response = Net::HTTP.get(URI.parse(url))
+    response = JSON.parse(html_response)
+  rescue => e
+    tries -= 1
+    @log.log("!! Failed to read #{key} page #{page}! url: #{url} message: #{e.message[0..100]}", cat: :errors)
+    noko = Nokogiri.parse(response) rescue nil
+    if noko
+      @log.log(noko.css('html head title')&.text)
+      @log.log(noko.css('html body h1')&.text)
+      @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
+    end
+    retry if tries.positive?
+    @log.log("!! FAILURE: exceeded retry count.", cat: :errors)
+    nil
   end
 end
