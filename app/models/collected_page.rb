@@ -61,4 +61,8 @@ class CollectedPage < ActiveRecord::Base
   def small_icon_url
     medium.try(:small_icon_url) or page.medium.try(:small_icon_url)
   end
+  
+  def page_richness
+    page.page_richness
+  end
 end
