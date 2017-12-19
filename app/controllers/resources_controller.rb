@@ -7,6 +7,14 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
   end
 
+  def republish
+    raise "Unauthorized" unless is_admin?
+    @resource = Resource.find(params[:resource_id])
+    @resource.delay.republish!
+    flash[:notice] = "Background job for complete republish of #{@resource.abbr} started."
+    redirect_to @resource
+  end
+
   def import_traits
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])

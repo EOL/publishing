@@ -10,25 +10,19 @@ class Resource < ActiveRecord::Base
 
   class << self
     def native
-      Rails.cache.fetch("resources/native") do
-        where(name: "Dynamic Working Hierarchy").first_or_create do |r|
-          r.name = "Dynamic Working Hierarchy"
-          r.partner = Partner.native
-          r.description = "A synthesis of the hierarchies from EOL's trusted "\
-            "partners, to be used for browsing eol.org"
-          r.is_browsable = true
-          r.has_duplicate_nodes = false
-        end
+      Rails.cache.fetch('resources/native') do
+        find(1)
       end
     end
 
     # Required to read the IUCN status
     def iucn
-      Rails.cache.fetch("resources/iucn") do
-        Resource.where(name: "IUCN Structured Data").first_or_create do |r|
-          r.name = "IUCN Structured Data"
+      Rails.cache.fetch('resources/iucn') do
+        Resource.where(abbr: 'IUCN-SD').first_or_create do |r|
+          r.name = 'IUCN Structured Data'
           r.partner = Partner.native
-          r.description = "TBD"
+          r.description = 'TBD'
+          r.abbr = 'IUCN-SD'
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -51,11 +45,12 @@ class Resource < ActiveRecord::Base
 
     # Required to find the "best" Extinction Status:
     def paleo_db
-      Rails.cache.fetch("resources/paleo_db") do
-        Resource.where(name: "The Paleobiology Database").first_or_create do |r|
-          r.name = "The Paleobiology Database"
+      Rails.cache.fetch('resources/paleo_db') do
+        Resource.where(abbr: 'pbdb').first_or_create do |r|
+          r.name = 'The Paleobiology Database'
           r.partner = Partner.native
-          r.description = "TBD"
+          r.description = 'TBD'
+          r.abbr = 'pbdb'
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -148,6 +143,11 @@ class Resource < ActiveRecord::Base
   end
 
   # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
+
+  # NOTE: this is DANGEROUS. It deletes ALL of the existing data for the resource!
+  def republish!
+    Publishing.republish_resource(self)
+  end
 
   def import_traits(since)
     log = Publishing::PubLog.new(self)

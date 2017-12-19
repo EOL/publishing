@@ -6,6 +6,9 @@
       = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
     .ui.basic.button
       = link_to(t("resources.actions.slurp_traits"), resource_slurp_path(@resource))
+    .ui.red.inverted.button
+      = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
+        data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
   %p= link_to(number_with_delimiter(@resource.nodes.count) + ' nodes', resource_nodes_path(@resource))
 
 .uk-section

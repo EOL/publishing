@@ -8,6 +8,20 @@ class Publishing
     instance.start
   end
 
+  def self.republish_resource(resource)
+    instance = self.new
+    instance.republish_resource(resource)
+  end
+
+  def republish_resource(resource)
+    resource.remove_content
+    import_terms
+    @last_run_at = 1
+    @run = ImportRun.create
+    start_resource(resource)
+    reindex
+  end
+
   def initialize
     @resource = nil
     @pub_log = Publishing::PubLog.new(nil)
@@ -25,33 +39,38 @@ class Publishing
     import_terms
     return nil if @resources.empty?
     @resources.each do |resource|
-      @resource = resource
-      @log = Publishing::PubLog.new(@resource)
-      @repo = Publishing::Repository.new(resource: @resource, log: @log, since: @since)
-      begin
-        import_resource
-        @log.complete
-      rescue => e
-        debugger
-        @log.fail(e)
-      end
+      start_resource(resource)
     end
+    reindex
+    @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
+    @run.update_attribute(:completed_at, Time.now)
+  end
+
+  def reindex
     # TODO: these logs end up attatched to a resource. They shouldn't be. ...Not sure where to move them, though.
-    richness = RichnessScore.new
     # Note: this is quite slow, but searches won't work without it. :S
     if @page_ids.empty?
       # TODO: nononono, we need to mark ALL affected pages, not just new ones. EVERY class should return a list of
       # page_ids, and this must always run...
       @pub_log.log('No pages; skipping indexing.')
     else
+      # TODO: calculate richness of affected pages...
       pages = Page.where(id: @page_ids).includes(:occurrence_map)
       @pub_log.log('score_richness_for_pages')
       @pub_log.log('pages.reindex')
       pages.reindex
     end
     Rails.cache.clear
-    @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
-    @run.update_attribute(:completed_at, Time.now)
+  end
+
+  def start_resource(resource)
+    @resource = resource
+    @log = Publishing::PubLog.new(@resource)
+    @repo = Publishing::Repository.new(resource: @resource, log: @log, since: @since)
+    import_resource
+    @log.complete
+  rescue => e
+    @log.fail(e)
   end
 
   def get_import_run
