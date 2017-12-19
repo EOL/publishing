@@ -60,10 +60,6 @@ class Publishing::Repository
       response = get_response_safely(key, page, path_without_page)
       next unless response.is_a?(Hash) && response.key?("totalPages")
       total_pages = response["totalPages"]
-      unless response.key?(key) && total_pages.positive? # Nothing returned, otherwise.
-        @log.log("Empty #{key} page: #{url}", cat: :infos)
-        next
-      end
       report_on_import(key, page, total_pages)
       response[key].each do |data|
         thing = Publishing::Repository.underscore_hash_keys(data)
@@ -85,17 +81,23 @@ class Publishing::Repository
     tries ||= 3
     html_response = Net::HTTP.get(URI.parse(url))
     response = JSON.parse(html_response)
+    return response if response.key?(key) && total_pages.positive?
+    @log.log("Empty #{key}: #{url}", cat: :infos)
+    nil
   rescue => e
     tries -= 1
     @log.log("!! Failed to read #{key} page #{page}! url: #{url} message: #{e.message[0..100]}", cat: :errors)
-    noko = Nokogiri.parse(response) rescue nil
-    if noko
-      @log.log(noko.css('html head title')&.text)
-      @log.log(noko.css('html body h1')&.text)
-      @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
-    end
+    log_parsed_result(response)
     retry if tries.positive?
     @log.log("!! FAILURE: exceeded retry count.", cat: :errors)
     nil
+  end
+
+  def log_parsed_result(response)
+    noko = Nokogiri.parse(response) rescue nil
+    return unless noko
+    @log.log(noko.css('html head title')&.text)
+    @log.log(noko.css('html body h1')&.text)
+    @log.log(noko.css('html body p')&.map { |p| p.text }.join("; "))
   end
 end
