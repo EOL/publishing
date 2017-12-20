@@ -47,7 +47,7 @@
           %h3.uk-heading-divider
             = t(:page_key_data_header)
           %dl.uk-description-list
-            - @page.key_data.sort_by { |k, v| k[:name] }.each do |predicate, trait|
+            - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
               %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
               %dd
                 - show_data_value(trait)

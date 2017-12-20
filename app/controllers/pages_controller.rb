@@ -204,7 +204,7 @@ class PagesController < ApplicationController
   end
 
   def classifications
-    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, :nodes,
+    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, nodes: [:children, :page],
       native_node: [:children, node_ancestors: :ancestor]).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|

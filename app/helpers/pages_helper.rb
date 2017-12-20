@@ -171,7 +171,7 @@ module PagesHelper
     end
   end
 
-  def classification(this_node, ancestors)
+  def classification(this_node, ancestors, options = {})
     ancestors = Array(ancestors)
     return nil if ancestors.blank?
     node = ancestors.shift
@@ -181,6 +181,15 @@ module PagesHelper
       if ancestors.blank? && this_node
         haml_tag("ul.uk-list") do
           classification(nil, [this_node])
+          if this_node.children.any?
+            haml_tag("ul.uk-list") do
+              this_node.children.each do |child|
+                haml_tag("li.one") do
+                  summarize(child.page, node: child)
+                end
+              end
+            end
+          end
         end
       else
         haml_tag("ul.uk-list") do
@@ -196,7 +205,9 @@ module PagesHelper
     name = options[:node] ? node.name : name_for_page(page)
     haml_tag("span.tiny") do
       if options[:current_page]
-        haml_concat name.html_safe
+        haml_tag("b") do
+          haml_concat name.html_safe
+        end
         haml_concat t("classifications.hierarchies.this_page")
       elsif page
         show_data_page_icon(page) if page.should_show_icon?

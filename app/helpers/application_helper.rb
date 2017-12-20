@@ -61,7 +61,7 @@ module ApplicationHelper
   end
 
   def link_to_page_by_name(page)
-    link_to(name_for_page(page))
+    link_to(name_for_page(page), page)
   end
 
   def name_for_page(page)
