@@ -193,16 +193,14 @@ module PagesHelper
   def summarize(page, options = {})
     node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
-    vernacular = first_cap(page.name) if page
-    icon_size = "tiny"
-    names = vernacular && vernacular != node.canonical_form ? "#{vernacular} <span class='uk-text-muted uk-text-small'>#{node.canonical_form}</span>" : node.canonical_form
-    haml_tag("span.#{icon_size}") do
+    name = page ? name_for_page(page) : node.name
+    haml_tag("span.tiny") do
       if options[:current_page]
-        haml_concat names.html_safe
+        haml_concat name.html_safe
         haml_concat t("classifications.hierarchies.this_page")
       elsif page
         show_data_page_icon(page) if page.should_show_icon?
-        haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
         if page.nil?

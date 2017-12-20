@@ -131,18 +131,12 @@ class Resource < ActiveRecord::Base
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
     Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
+    node_ids = Node.where(resource_id: id).pluck(:id)
     nuke(Node)
-    # Delete pages that no longer have nodes
-    pages.in_groups_of(10_000, false) do |group|
-      have = Node.where(page_id: group).pluck(:page_id)
-      bad_pages = group - have
-      # TODO: PagesReferent
-      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
-       PageContent].each do |klass|
-        klass.where(page_id: bad_pages).delete_all
-      end
-      Page.where(id: bad_pages).delete_all
+    node_ids.in_groups_of(1000, false) do |group|
+      Page.fix_native_nodes(Page.where(native_node_id: group))
     end
+    Page.remove_if_nodeless
   end
 
   def nuke(klass)
