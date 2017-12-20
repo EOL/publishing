@@ -193,7 +193,7 @@ module PagesHelper
   def summarize(page, options = {})
     node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
-    name = page ? name_for_page(page) : node.name
+    name = options[:node] ? node.name : name_for_page(page)
     haml_tag("span.tiny") do
       if options[:current_page]
         haml_concat name.html_safe
