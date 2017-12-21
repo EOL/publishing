@@ -36,7 +36,7 @@ class TraitBank
   # collection to build a slideshow [using its images].)
   class << self
     def connection
-      @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
+      @connection ||= Neography::Rest.new('http://localhost:7474') 
     end
 
     def ping

@@ -22,6 +22,10 @@ def main_method
             create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           end
           
+          unless node["media"].nil?
+            create_media({media: node["media"],resource_id: node["resourceId"]})
+          end
+          
           # unless node["nodeData"]["ancestors"].nil?
             # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
           # end
@@ -62,6 +66,20 @@ def create_vernaculars(params)
   end
 end
 
+def create_media(params)
+    params[:media].each do |medium|
+      language_id = medium["language"].nil? ? create_language("eng") : create_language(medium["language"])
+      license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
+      location_id = medium["locationCreated"].nil? ? nil : create_location(location: medium["locationCreated"],
+                    spatial_location: medium["genericLocation"],latitude: medium["latitude"],longitude: medium["longitude"],
+                    altitude: medium["altitude"])
+      #base_url need to have default value
+      create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
+                     resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],
+                     language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
+    end
+  
+end
 
 def create_node(params)
   rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
@@ -93,17 +111,33 @@ def create_language(code)
   if res.count > 0
     res.first.id
   else
-    language = Language.create(code: code)
+    # group need to be changed to default group
+    language = Language.create(code: code, group: "en")
     language.id
   end
 end
 
 def create_license(source_url)
-  
+  res = License.where(source_url: source_url)
+  if res.count > 0
+    res.first.id
+  else
+    #name need to be changed
+    license = License.create(source_url: source_url, name: "cc-by 3.0") 
+    license.id
+  end
 end
 
-def create_location()
-  
+def create_location(params)
+  res = Location.where(location: params["location"] ,longitude: params["longitude"],latitude: params["latitude"],
+                       altitude: params["altitude"],spatial_location: params["spatial_location"])
+  if res.count > 0
+    res.first.id
+  else
+    location_id = Location.create(location: params["location"] ,longitude: params["longitude"],latitude: params["latitude"],
+                                  altitude: params["altitude"],spatial_location: params["spatial_location"])
+    location_id
+  end
 end
 
 def create_page(params)
@@ -137,6 +171,16 @@ def create_vernacular(params)
     vernacular.id
   end
   
+end
+
+def create_medium(params)
+  res = Medium.where(guid: params["guid"])
+  if res.count > 0
+    res.first.id
+  else
+    medium= Medium.create(params)
+    medium.id
+  end
 end
 
 def create_scientific_name(params)
