@@ -1,0 +1,112 @@
+%table
+  %tr
+    %th
+      name
+    %td
+      = @resource.name
+      
+  %tr
+    %th - Dataset
+    %td
+      %tr
+        %th
+          type
+        %td
+          = @resource.type
+          -if @resource.type.eql?("url")
+            %tr
+              %th
+                uploaded url
+              %td
+                = @resource.uploaded_url
+          -if @resource.type.eql?("file")
+            %tr
+              %th
+                file path
+              %td
+                = @resource.path
+          %tr
+            %th
+              default language
+            %td
+              =Language.find(@resource.default_language_id).code
+    
+  %tr
+    %th - Rights & attribution
+    %td
+      %tr
+        %th
+          dataset license 
+        %td
+          = License.find(@resource.dataset_license).name
+      %tr
+        %th
+          dataset rights holder
+        %td
+          = @resource.dataset_rights_holder
+      %tr
+        %th
+          dataset rights statement
+        %td
+          = @resource.dataset_rights_statement
+      %tr
+        %th
+          default rights holder
+        %td
+          = @resource.default_rights_holder
+      %tr
+        %th
+          default rights statement
+        %td
+          = @resource.default_rights_statement
+      %tr
+        %th
+          description
+        %td
+          = @resource.description
+      %tr
+        %th
+          default license string
+        %td
+          = License.find(@resource.default_license_string).name
+ 
+  %tr
+    %th - Processing status &settings
+    %td
+      %tr
+        %th
+          harvest_frequency
+        %td
+          = @resource.harvest_frequency
+          
+      %tr
+        %th
+          Auto-published
+        %td
+          =@resource.is_autopublished
+        
+  %tr
+    %th - Harvest events
+    %td
+      %tr
+        %th
+          last harvest
+      %td
+        = @resource.last_harvested_at
+      
+  %tr
+    %th
+      content partner name
+    %td
+      = @content_partner.name
+  %tr
+    %th 
+      managed by
+    %td
+      = link_to(@content_partner.user.username, main_app.user_path(@content_partner.user))
+   
+
+
+
+
+   

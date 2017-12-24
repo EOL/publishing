@@ -9508,7 +9508,7 @@
                 "guid": "3e2749d4f955628be390d9c9e0dcl0a4",
                 "type": "http://purl.org/dc/dcmitype/Text",
                 "subType": null,
-                "format": 1,
+                "format": "jpg",
                 "subject": "http://rs.tdwg.org/ontology/voc/SPMInfoItems#distribution",
                 "title": null,
                 "description": "<p><em>Native range</em>. Neotropics from Guatemala south to Brazil.<br /> \t<em>USA POE intercept records</em>. Arizona: Nogales (in <em>Randi </em>sp. from Mexico).    Florida: Miami (on bromeliads from Guatemala; on orchids from Honduras). Texas: Laredo (on bromeliads from Mexico). </p> ",

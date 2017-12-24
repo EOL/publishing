@@ -88,6 +88,10 @@ class User < ActiveRecord::Base
   def can_edit_collection?(collection)
     self.collections.include?(collection)
   end
+  
+  def can_update?(content_partner)
+    content_partner.user.id == self.id || self.is_admin?
+  end
 
 end
 

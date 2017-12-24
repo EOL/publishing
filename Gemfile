@@ -84,6 +84,14 @@ gem 'client_side_validations-simple_form'
 gem 'rest-client'
 gem 'whenever'
 
+gem 'activeresource'
+gem 'httparty'
+
+
+# Pagination:
+gem "kaminari", "~> 1.0"
+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -116,4 +124,6 @@ group :test do
   gem "factory_girl"
   gem "faker"
   gem "rack_session_access"
+  gem "rspec-mocks"
 end
+

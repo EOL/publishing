@@ -1,0 +1,35 @@
+= simple_form_for @resource, url: content_partner_resources_path,
+    html: { class: "eol-userform recaptchad uk-form-stacked" },
+    defaults: { input_html: { class: 'uk-input' },
+    wrapper_html: { class: 'field' },
+    label_html: { class: 'uk-form-label' } } do |f|
+  = f.input :name
+  = f.input :origin_url
+  = "Resource Dataset"
+  .resource_url
+    = f.radio_button :type, "url",id: "radio1",onClick: "url_show();"
+    = label_tag "Load Resource from Url"
+    #display1{:style => "display:none;"}
+      = f.input :uploaded_url
+      =f.label :harvest_frequency
+      = f.select :harvest_frequency, ['once','weekly','monthly','bimonthly','quarterly']
+  .resource_file
+    = f.radio_button :type, "file",id: "radio2" ,onClick: "file_show();"
+    = label_tag "Load Resource from file"
+    #display2{:style => "display:none;"}
+      = f.file_field :path
+  = f.label :dataset_license 
+  = f.collection_select :dataset_license  , License.all , :id, :name
+  = f.input :dataset_rights_holder
+  = f.input :dataset_rights_statement
+  = f.input :default_rights_holder
+  = f.input :default_rights_statement
+  = f.label :default_language_id
+  = f.collection_select :default_language_id , Language.all , :id, :code
+  = f.input :description, as: :text
+  = f.label :default_license_string 
+  = f.collection_select :default_license_string , License.all , :id, :name
+
+  .actions
+    = f.button :submit
+    =link_to I18n.t(:cancel),content_partner_path(params[:content_partner_id])
