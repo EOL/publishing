@@ -4,7 +4,7 @@ class Article < ActiveRecord::Base
 
   alias_attribute :description, :body
 
-  has_and_belongs_to_many :references
+  # has_and_belongs_to_many :references
   
   enum mime_type: [ 'text/html', 'text/plain' ]
 

@@ -138,7 +138,6 @@ module Api
         ] }
 
       def self.call(params)
-        debugger
         validate_and_normalize_input_parameters(params)
         adjust_sounds_images_videos_texts(params)
         page_requests = params[:id].split(",").map do |page_id|
@@ -178,7 +177,6 @@ module Api
       end
 
       def self.prepare_hash (page_hash, params={})
-        debugger
         return_hash = {}
         page = params[:batch] ? page_hash[:page] : page_hash
         unless page.nil?
@@ -261,7 +259,6 @@ module Api
       end
       
       def self.get_data_objects(page, params)
-        
         params[:licenses] = nil if params[:licenses] && params[:licenses].include?('all')
         process_license_options!(params)
         process_subject_options!(params)
@@ -269,11 +266,13 @@ module Api
                         
         media = Medium.search(page["_id"], fields:[{ancestry_ids: :exact}],execute: false)
         articles = Article.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
-        Searchkick.multi_search([media,articles])
+        links = Link.search(page["_id"], fields:[{ancestry_ids: :exact}], execute: false)
+        Searchkick.multi_search([media, articles, links])
             
         media_objects = load_media(media, params, page)
         articles_objects = load_articles(articles, params, page)
-        all_data_objects = [ media_objects, articles_objects ].flatten.compact
+        links_objects = load_links(links, params, page)
+        all_data_objects = [ media_objects, articles_objects, links_objects ].flatten.compact
         
         return all_data_objects
       end
@@ -365,7 +364,20 @@ module Api
           
           return article_objects[offset..offset+params[:texts_per_page]-1]   
         end
-        
+      end
+      
+      #assume links are a type of dataoject and subtype from articles
+      def self.load_links(links, params, page)
+        if params_found_and_greater_than_zero(params[:texts_page], params[:texts_per_page])
+          links_ids=links.records.map(&:id)
+          content_ids = PageContent.where("page_id = ? and content_id in (?) and content_type = ? and trust in (?) and is_incorrect = ? and is_misidentified = ? and is_hidden = ? and is_duplicate = ?", page["_id"], links_ids, "Link", params[:vetted_types], false, false, false, false).map(&:content_id)
+          links_ids = links_ids & content_ids
+          
+          offset = (params[:texts_page]-1)*params[:texts_per_page]
+          
+          link_objects= Link.where("id in (?)", params[:licenses])
+          return link_objects[offset..offset+params[:texts_per_page]-1]
+        end
       end
       
       def self.process_license_options!(options)

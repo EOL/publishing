@@ -65,4 +65,8 @@ class CollectedPage < ActiveRecord::Base
   def page_richness
     page.page_richness
   end
+  
+  def native_node_name
+    page.native_node.scientific_name
+  end
 end

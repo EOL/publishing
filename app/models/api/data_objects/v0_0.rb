@@ -33,12 +33,12 @@ module Api
         
       def self.call(params={})
         validate_and_normalize_input_parameters(params)
-        # I18n.locale = params[:language] unless params[:language].blank?
+        I18n.locale = params[:language] unless params[:language].blank?
         params[:details] = true
-        data_object = Medium.find_by_guid(params[:id]) || Article.find_by_guid(params[:id])
+        data_object = Medium.find_by_guid(params[:id]) || Article.find_by_guid(params[:id]) || Link.find_by_guid(params[:id])
         raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
         
-        page_content = PageContent.where("content_id = ? and content_type = ? ", data_object.id, "Medium").first || PageContent.where("content_id = ? and content_type = ? ", data_object.id, "Article").first
+        page_content = PageContent.where("content_id = ? and content_type = ? ", data_object.id, "Medium").first || PageContent.where("content_id = ? and content_type = ? ", data_object.id, "Article").first || PageContent.where("content_id = ? and content_type = ? ", data_object.id, "Link").first
         page_object = Page.search(page_content.page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0]
         Api::Pages::V0_0.prepare_hash(page_object, params.merge({ :data_object => data_object, :details => true }))
       end
@@ -76,18 +76,18 @@ module Api
           return_hash['subject'] = data_object.sections.first.name
         end
         return return_hash unless params[:details] == true
-
-        if data_object && (data_object.kind_of? Medium) && data_object.is_image?
-          if (info = data_object.image_info)
-            size = info.split('x')
-            height = size.last
-            width = size.first
-            crop_x = info.crop_x
-            crop_y = info.crop_y
-            crop_width = info.crop_w
-            crop_height = info.crop_w # We only suppose square crops right now!
-          end
-        end
+        debugger
+        # if data_object && (data_object.kind_of? Medium) && data_object.is_image?
+          # if (info = ImageInfo.where("image_id = ?", data_object.id).first)
+            # size = info.split('x')
+            # height = size.last
+            # width = size.first
+            # crop_x = info.crop_x
+            # crop_y = info.crop_y
+            # crop_width = info.crop_w
+            # crop_height = info.crop_w # We only suppose square crops right now!
+          # end
+        # end
 
         return_hash['mimeType'] = data_object.mime_type unless data_object.mime_type.blank?
         return_hash['created'] = data_object.created_at unless data_object.created_at.blank?
@@ -99,7 +99,8 @@ module Api
         return_hash['rightsHolder'] = data_object.owner unless data_object.owner.blank?
         return_hash['bibliographicCitation'] = data_object.bibliographic_citation.body unless data_object.bibliographic_citation_id.blank?
         return_hash['audience'] = []
-
+         
+        #duplicate source_url
         return_hash['source'] = data_object.source_url unless data_object.source_url.blank?
         return_hash['description'] = data_object.description unless data_object.description.blank?
         return_hash['mediaURL'] = data_object.source_url unless data_object.source_url.blank?
@@ -118,25 +119,17 @@ module Api
         
         return_hash['agents'] = []
         
-        # if udo = data_object.users_data_object
-          # return_hash['agents'] << {
-            # 'full_name' => data_object.user.full_name,
-            # 'homepage'  => "",
-            # 'role'      => (AgentRole.author.label.downcase rescue nil)
-          # }
-          # return_hash['agents'] << {
-            # 'full_name' => data_object.user.full_name,
-            # 'homepage'  => "",
-            # 'role'      => (AgentRole.provider.label.downcase rescue nil)
-          # }
-        # else
-          # data_object.attributions.each do |attribution|
-            # return_hash['agents'] << {
-              # 'full_name' => attribution.full_name, #value ?
-              # 'homepage'  => attribution.homepage,  #url ?
-              # 'role'      => (attribution.role.name.downcase rescue nil)
-            # }
-          # end
+        # links don't have attributions
+        if (data_object.kind_of? Medium) || (data_object.kind_of? Article)
+          data_object.attributions.each do |attribution|
+            return_hash['agents'] << {
+              'full_name' => attribution.value, #value ?
+              'homepage'  => attribution.url,  #url ?
+              'role'      => (attribution.role.name.downcase rescue nil)
+            }
+          end
+        end
+        
           # if data_object.content_partner
             # return_hash['agents'] << {
               # 'full_name' => data_object.content_partner.name,
@@ -144,7 +137,6 @@ module Api
               # 'role'      => (AgentRole.provider.label.downcase rescue nil)
             # }
           # end
-        # end
         
         return_hash['references'] = []
         data_object.referents.each do |r|

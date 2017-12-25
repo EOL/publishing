@@ -55,28 +55,28 @@ RSpec.describe Api::Collections::V0_0 do
   end
   
   context 'test prepare_hash method' do
-    it "should return true counts of collection's items" do
+    # collection_hash = []
+    collection, medium_1, medium_2, page, page_2, collected_page_1, collected_page_2, collected_page_medium, collected_page_medium_2 =nil
+    
+    before(:each) do
       collection = FactoryGirl.create(:collection)
       medium_1 = FactoryGirl.create(:api_medium)
       medium_2 = FactoryGirl.create(:api_medium)
-      page = FactoryGirl.create(:api_page) 
-      page_2 = FactoryGirl.create(:api_page)      
-      
-      collected_page_1 = FactoryGirl.create(:api_collected_page, collection: collection, page: page )
-      collected_page_medium = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_1, medium: medium_1)
-      
+      page_1 = FactoryGirl.create(:api_page) 
+      page_2 = FactoryGirl.create(:api_page, page_richness: 2)      
+      collected_page_1 = FactoryGirl.create(:api_collected_page, collection: collection, page: page_1 )
+      collected_page_medium_1 = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_1, medium: medium_1)
       collected_page_2 = FactoryGirl.create(:api_collected_page, collection: collection, page: page_2 )
       collected_page_medium_2 = FactoryGirl.create(:collected_pages_medium, collected_page: collected_page_2, medium: medium_2)
-      
-      Page.reindex
-      Medium.reindex
       Collection.reindex
       
+    end
+    it "should return true counts of collection's items" do
       collection_hash = Collection.search(collection.id, fields:[{id: :exact}], select: [:default_sort, :name, :description, :created_at, :updated_at]).response["hits"]["hits"][0]
+
       params = {}
       params[:per_page] = 1
       params[:sort_by] = "recently_added"
-      debugger
       hash = Api::Collections::V0_0.prepare_hash(collection_hash, params)
       
       expect(hash['name']).to eql(collection.name)
@@ -92,20 +92,63 @@ RSpec.describe Api::Collections::V0_0 do
       expect(hash['item_types'][5]['item_count']).to eql(1) #users
       expect(hash['item_types'][6]['item_count']).to eql(0) #collections
     end
+    
+    it 'should return item sorted by page richness and id descading' do
+      collection_hash = Collection.search(collection.id, fields:[{id: :exact}], select: [:default_sort, :name, :description, :created_at, :updated_at]).response["hits"]["hits"][0]
+      params = {}
+      params[:sort_by] = "richness"
+      hash = Api::Collections::V0_0.prepare_hash(collection_hash, params)
+      
+      expect(hash['collection_items'][0]['object_id']).to eql(collected_page_2.id*300)
+      expect(hash['collection_items'][1]['object_id']).to eql(medium_2.id)
+      expect(hash['collection_items'][2]['object_id']).to eql(collected_page_1.id*300)
+      expect(hash['collection_items'][3]['object_id']).to eql(medium_1.id)
+
+    end
+    
+    it 'should return item sorted by alphabetical and id ascading' do
+      collection_hash = Collection.search(collection.id, fields:[{id: :exact}], select: [:default_sort, :name, :description, :created_at, :updated_at]).response["hits"]["hits"][0]
+      params = {}
+      params[:sort_by] = "alphabetical"
+      hash = Api::Collections::V0_0.prepare_hash(collection_hash, params)
+      expect(hash['collection_items'][0]['object_id']).to eql(medium_1.id)
+      expect(hash['collection_items'][1]['object_id']).to eql(collected_page_1.id*300)
+      expect(hash['collection_items'][2]['object_id']).to eql(medium_2.id)
+      expect(hash['collection_items'][3]['object_id']).to eql(collected_page_2.id*300)
+    end
+    
+    it 'should return item sorted by reverse alphabetical and id descading' do
+      collection_hash = Collection.search(collection.id, fields:[{id: :exact}], select: [:default_sort, :name, :description, :created_at, :updated_at]).response["hits"]["hits"][0]
+      params = {}
+      params[:sort_by] = "reverse_alphabetical"
+      hash = Api::Collections::V0_0.prepare_hash(collection_hash, params)
+      expect(hash['collection_items'][0]['object_id']).to eql(collected_page_2.id*300)
+      expect(hash['collection_items'][1]['object_id']).to eql(medium_2.id)
+      expect(hash['collection_items'][2]['object_id']).to eql(collected_page_1.id*300)
+      expect(hash['collection_items'][3]['object_id']).to eql(medium_1.id)
+    end
+    
   end
   
   context 'test adjust_requseted_items method' do
-   
-    it 'should return all items' do
-      params ={}
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
+    params ={}
+    articles, videos, images, sounds, taxas, users, collections, total_items = [], [], [], [], [], [], [], []
+    let(:user) { create(:user) }
+    let(:article) { create(:api_article)}
+    let(:video) { create(:api_medium) }
+    let(:image) { create(:api_medium) }
+    let(:sound) { create(:api_medium) }
+    let(:taxa) { create(:api_page) }
+    let(:collection) { create(:collection_without_user) }
+    
+    before(:each) do
+      articles.clear
+      videos.clear
+      images.clear
+      sounds.clear
+      taxas.clear
+      users.clear
+      collections.clear
 
       articles << article
       videos << video
@@ -114,199 +157,67 @@ RSpec.describe Api::Collections::V0_0 do
       taxas << taxa
       users << user
       collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      
+      total_items = articles+videos+images+sounds
+    end
+   
+    it 'should return all items' do
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(7)
     end
     
     it 'should return only articles' do
-      params ={}
       params [:filter] = "articles"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(article.id)
+      expect(items.first.id).to eql(articles.first.id)
     end
     
     it 'should return only images' do
-      params ={}
       params [:filter] = "images"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(image.id)
+      expect(items.first.id).to eql(images.first.id)
     end
     
     it 'should return only videos' do
-      params ={}
       params [:filter] = "video"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(video.id)
+      expect(items.first.id).to eql(videos.first.id)
     end
     
     it 'should return only sounds' do
-      params ={}
       params [:filter] = "sounds"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(sound.id)
+      expect(items.first.id).to eql(sounds.first.id)
     end
     
     it 'should return only pages' do
-      params ={}
-      params [:filter] = "taxa"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      params[:filter] = "taxa"
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(taxa.id)
+      expect(items.first.id).to eql(taxas.first.id)
     end
     
     it 'should return only users' do
-      params ={}
       params [:filter] = "users"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
-      debugger
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(user.id)
+      expect(items.first.id).to eql(users.first.id)
     end
     
     it 'should return only collections' do
-      params ={}
       params [:filter] = "collections"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(1)
-      expect(items.first.id).to eql(collection.id)
+      expect(items.first.id).to eql(collections.first.id)
     end
     
     it 'should return all items as filter not found' do
-      params ={}
       params [:filter] = "vdhgvdgdvgd"
-      articles, videos, images, sounds, taxas, users, collections = [], [], [], [], [], [], []
-      article = FactoryGirl.create(:api_article)
-      video = FactoryGirl.create(:api_medium)
-      image = FactoryGirl.create(:api_medium)
-      sound = FactoryGirl.create(:api_medium)
-      taxa = FactoryGirl.create(:api_page)
-      user = FactoryGirl.create(:user)
-      collection = FactoryGirl.create(:collection)
-
-      articles << article
-      videos << video
-      images << image
-      sounds << sound
-      taxas << taxa
-      users << user
-      collections << collection
-      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections)
+      items = Api::Collections::V0_0.adjust_requseted_items(params, articles, videos, images, sounds, taxas, users, collections, total_items)
       expect(items.length).to eql(7)
     end
 

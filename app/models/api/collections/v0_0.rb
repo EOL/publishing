@@ -73,30 +73,39 @@ module Api
         collection_object=Collection.find_by_id(collection["_id"])
           
         counts ={}
-        @articles, @video, @images, @sounds, @taxa, @users, @collections = [], [], [], [], [], [], [] 
-        
-        # if params[:sort_by].eql? "richness"
-          # pages = collection_object.pages.sort_by(&:page_richness).reverse!
-          # pages_ids = pages.select(&:id)
-        # end
-        
+        @articles, @video, @images, @sounds, @taxa, @users, @collections, @total_items = [], [], [], [], [], [], [], [] 
         collected_pages = collection_object.collected_pages
         
         if params[:sort_by].eql? "richness"
-          collected_pages  = collected_pages.sort_by(&:page_richness)
+          collected_pages = collected_pages.sort_by(&:page_richness).reverse!
+        elsif params[:sort_by].eql? "alphabetical"
+          collected_pages = collected_pages.sort_by(&:native_node_name)
+        elsif params[:sort_by].eql? "reverse_alphabetical" 
+          collected_pages = collected_pages.sort_by(&:native_node_name).reverse!
         end  
         
         collected_pages.each do |collected_page|
           counts['articles'].nil? ? counts['articles'] = collected_page.articles.count : counts['articles'] +=collected_page.articles.count
-          counts['video'].nil? ? counts['video'] = collected_page.media.where(subclass: 1).count : counts['video'] +=collected_page.media.where(subclass: 1).count
           counts['images'].nil? ? counts['images'] = collected_page.media.where(subclass: 0).count : counts['images'] +=collected_page.media.where(subclass: 0).count
+          counts['video'].nil? ? counts['video'] = collected_page.media.where(subclass: 1).count : counts['video'] +=collected_page.media.where(subclass: 1).count
           counts['sounds'].nil? ? counts['sounds'] = collected_page.media.where(subclass: 2).count : counts['sounds'] +=collected_page.media.where(subclass: 2).count
           
+          @collected_page_items = []
           @articles += collected_page.articles
-          @video += collected_page.media.where(subclass: 1)
+          @collected_page_items += collected_page.articles
           @images += collected_page.media.where(subclass: 0)
+          @collected_page_items += collected_page.media.where(subclass: 0)
+          @video += collected_page.media.where(subclass: 1)
+          @collected_page_items += collected_page.media.where(subclass: 1)
           @sounds += collected_page.media.where(subclass: 2)
+          @collected_page_items += collected_page.media.where(subclass: 2)
           
+          if (params[:sort_by].eql? "richness") || (params[:sort_by].eql? "reverse_alphabetical")
+            @collected_page_items = @collected_page_items.sort_by(&:id).reverse!
+          elsif params[:sort_by].eql? "alphabetical"
+            @collected_page_items = @collected_page_items.sort_by(&:id)
+          end
+          @total_items += @collected_page_items
           
         end
         counts['taxa'] =  collection_object.collected_pages.count
@@ -119,7 +128,7 @@ module Api
         return_hash['item_types'] << { 'item_type' => "User", 'item_count' => counts['users'] }
         return_hash['item_types'] << { 'item_type' => "Collection", 'item_count' => counts['collections'] }
         
-        @items = adjust_requseted_items(params, @articles, @video, @images, @sounds, @taxa, @users, @collections)
+        @items = adjust_requseted_items(params, @articles, @video, @images, @sounds, @taxa, @users, @collections, @total_items)
         
         return_hash['collection_items'] = []
         @items.each do |item|
@@ -155,7 +164,7 @@ module Api
         end
       end
       
-      def self.adjust_requseted_items(params, articles, videos, images, sounds, taxa, users, collections)
+      def self.adjust_requseted_items(params, articles, videos, images, sounds, taxa, users, collections, total_items)
         @items = []
         if params[:filter].eql? "taxa"
           @items = taxa
@@ -172,7 +181,7 @@ module Api
         elsif params[:filter].eql? "collections"
           @items = collections
         else
-          @items = articles+videos+images+sounds+taxa+users+collections
+          @items = total_items+taxa+users+collections
         end
         
         return sort_items(params, @items)
@@ -184,8 +193,8 @@ module Api
           items = items.compact.sort_by(&:created_at).reverse!
         elsif params[:sort_by].eql? "oldest"
           items = items.compact.sort_by(&:created_at)
-        elsif params[:sort_by].eql? "alphabetical"
-        elsif params[:sort_by].eql? "reverse_alphabetical"
+        # elsif params[:sort_by].eql? "alphabetical"
+        # elsif params[:sort_by].eql? "reverse_alphabetical"
         # elsif params[:sort_by].eql? "richness"
         # elsif params[:sort_by].eql? "rating"
         elsif params[:sort_by].eql? "sort_field"

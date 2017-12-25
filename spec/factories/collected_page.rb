@@ -6,6 +6,7 @@ FactoryGirl.define do
   factory :api_collected_page, class: "CollectedPage" do
     collection
     page
-    article_ids {create(:api_article).id}
+    sequence(:id) {|n| n}
+    sequence(:article_ids) { |n| create(:api_article, id: n*300 ).id}
   end
 end
