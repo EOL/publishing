@@ -48,7 +48,7 @@ module Api
         
       def self.call(params={})
         validate_and_normalize_input_parameters(params)
-          # I18n.locale = params[:language] unless params[:language].blank?
+          I18n.locale = params[:language] unless params[:language].blank?
         if params[:sort_by].class != String
           params[:sort_by] = nil
         end
@@ -134,7 +134,7 @@ module Api
         @items.each do |item|
           item_hash = {
             'name' => item.name,
-            'object_type' => item.class,
+            'object_type' => item.class.name,
             'object_id' => item.id,
             # 'title' => collected_page.name,
             'created' => item.created_at,

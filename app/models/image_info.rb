@@ -1,3 +1,4 @@
 class ImageInfo < ActiveRecord::Base
-  belongs_to :image, class_name: "Medium", inverse_of: :image_info
+  self.table_name = 'image_info'
+  belongs_to :image, class_name: "Medium", inverse_of: :image_info, foreign_key: "image_id"
 end

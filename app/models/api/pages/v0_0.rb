@@ -141,7 +141,6 @@ module Api
         validate_and_normalize_input_parameters(params)
         adjust_sounds_images_videos_texts(params)
         page_requests = params[:id].split(",").map do |page_id|
-          #get from database need to be changed with elasticsearch 
           page_request=Page.search(page_id, fields:[{id: :exact}], select: [:scientific_name, :page_richness, :synonyms]).response["hits"]["hits"][0] 
           {id: page_id, page: page_request}
         end.compact

@@ -77,38 +77,41 @@ module Api
         end
         return return_hash unless params[:details] == true
         debugger
-        # if data_object && (data_object.kind_of? Medium) && data_object.is_image?
-          # if (info = ImageInfo.where("image_id = ?", data_object.id).first)
-            # size = info.split('x')
-            # height = size.last
-            # width = size.first
-            # crop_x = info.crop_x
-            # crop_y = info.crop_y
-            # crop_width = info.crop_w
-            # crop_height = info.crop_w # We only suppose square crops right now!
-          # end
-        # end
+        if data_object && (data_object.kind_of? Medium) && data_object.is_image?
+          if (info = ImageInfo.where("image_id = ?", data_object.id).first)
+            size = info.original_size.split('x') unless info.original_size.blank?
+            return_hash['height'] = size.last unless info.original_size.blank?
+            return_hash['width'] = size.first unless info.original_size.blank?
+            return_hash['crop_x'] = info.crop_x unless info.crop_x.blank?
+            return_hash['crop_y'] = info.crop_y unless info.crop_y.blank?
+            return_hash['crop_width'] = info.crop_w unless info.crop_w.blank?
+            return_hash['crop_height'] = info.crop_w unless info.crop_w.blank? # We only suppose square crops right now!
+          end
+        end
 
-        return_hash['mimeType'] = data_object.mime_type unless data_object.mime_type.blank?
+        if (data_object.kind_of? Article) || (data_object.kind_of? Medium)
+          return_hash['mimeType'] = data_object.mime_type unless data_object.mime_type.blank?
+          return_hash['license'] = data_object.license.source_url unless data_object.license.blank?
+          return_hash['rightsHolder'] = data_object.owner unless data_object.owner.blank?
+          return_hash['bibliographicCitation'] = data_object.bibliographic_citation.body unless data_object.bibliographic_citation_id.blank?
+          return_hash['description'] = data_object.description unless data_object.description.blank?
+        end
         return_hash['created'] = data_object.created_at unless data_object.created_at.blank?
         return_hash['modified'] = data_object.updated_at unless data_object.updated_at.blank?
         return_hash['title'] = data_object.name unless data_object.name.blank?
         return_hash['language'] = data_object.language.group unless data_object.language.blank?
-        return_hash['license'] = data_object.license.source_url unless data_object.license.blank?
         return_hash['rights'] = data_object.rights_statement unless data_object.rights_statement.blank?
-        return_hash['rightsHolder'] = data_object.owner unless data_object.owner.blank?
-        return_hash['bibliographicCitation'] = data_object.bibliographic_citation.body unless data_object.bibliographic_citation_id.blank?
+        
         return_hash['audience'] = []
          
         #duplicate source_url
         return_hash['source'] = data_object.source_url unless data_object.source_url.blank?
-        return_hash['description'] = data_object.description unless data_object.description.blank?
         return_hash['mediaURL'] = data_object.source_url unless data_object.source_url.blank?
         
         # return_hash['eolMediaURL'] = data_object. unless data_object.object_cache_url.blank?
         # return_hash['eolThumbnailURL'] = data_object.image_cache_path(data_object.object_cache_url, '98_68', :specified_content_host => Rails.configuration.asset_host) unless data_object.object_cache_url.blank?
 
-        unless data_object.location_id.nil?
+        unless (data_object.kind_of? Link) || (data_object.location_id.nil?)
           return_hash['location'] = data_object.location.location
           unless data_object.location.latitude == 0 && data_object.location.longitude == 0 && data_object.location.altitude == 0
             return_hash['latitude'] = data_object.location.latitude
