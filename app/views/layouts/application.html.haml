@@ -1,8 +1,7 @@
 - content_for :body  do
   %body
     = render("application/navbar")
-    -#.uk-container
-    .div
+    .uk-container
       #main{ :class => (@nopad ? "nopad" : "")}
         = render("layouts/flash")
         .uk-section.uk-padding-remove-bottom
