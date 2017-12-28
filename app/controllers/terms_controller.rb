@@ -1,76 +1,61 @@
 class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
+  before_action :search_setup, :only => [:search, :search_form, :show]
 
   def index
     @count = TraitBank::Terms.count
     glossary("full_glossary")
   end
 
-  def show
-    # The whole "object" thing is lame! Get rid of it entirely. Just change
-    # which one you have, and if you have both, emphasize the predicate!
-    @term = TraitBank.term_as_hash(params[:uri])
-    @and_predicate = TraitBank.term_as_hash(params[:and_predicate])
-    @and_object = TraitBank.term_as_hash(params[:and_object])
-    @page_title = @term[:name].titleize
-    @object = params[:object]
-    @page = params[:page]
-    @per_page = 100 # TODO: config this or make it dynamic...
-    @species_list = params[:species_list]
-    @clade = if params[:clade]
-        if params[:clade] =~ /\A\d+\Z/
-          Page.find(params[:clade])
-        else
-          # TODO: generalize this
-          query = Page.autocomplete(params[:clade], limit: 1, load: true)
-          params[:clade] = query.first.id
-          query.first
-        end
-      else
-        nil
-      end
-    options = {
-      page: @page, per: @per_page, sort: params[:sort],
-      sort_dir: params[:sort_dir], page_list: @species_list,
-      clade: @clade.try(:id)
-    }
-
-    add_uri_to_options(options)
-
+  def search
     respond_to do |fmt|
       fmt.html do
-        data = TraitBank.term_search(options)
-        # We want the results in this order:
-        ids = data.map { |t| t[:page_id] }.uniq
-        # TODO: a fast way to load pages with just summary info:
-        pages = Page.where(id: ids).
-          includes(:medium, :native_node, :preferred_vernaculars)
-        # Make a dictionary of pages:
-        @pages = {}
-        ids.each do |id|
-          page = pages.find { |p| p.id == id }
-          @pages[id] = page if page
+        if params[:term_query]
+          @query = TermQuery.new(tq_params)
+          search_common
+        else
+          @query = TermQuery.new
+          @query.pairs.build
         end
-        # Make a glossary:
-        @resources = TraitBank.resources(data)
-        paginate_data(data)
-        get_associations
       end
 
       fmt.csv do
-        data = TraitBank::DataDownload.term_search(options.merge(user_id: current_user.id))
-        if data.is_a?(UserDownload)
-          flash[:notice] = t("user_download.created", url: user_path(current_user))
-          loc = params
-          loc.delete(:format)
-          redirect_to term_path(params)
+        if !current_user
+          redirect_to new_user_session_path
         else
-          send_data data,
-            filename: "#{@term[:name]}-#{Date.today}.tsv"
+          @query = TermQuery.new(tq_params)
+
+          if @query.search_pairs.empty?
+            flash_and_redirect_no_format(t("user_download.you_must_select"))
+          else
+            data = TraitBank::DataDownload.term_search(@query, current_user.id)
+
+            if data.is_a?(UserDownload)
+              flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
+            else
+              send_data data
+            end
+          end
         end
       end
     end
+  end
+
+  def search_form
+    @query = TermQuery.new(tq_params)
+    @query.pairs.build if params[:add_pair]
+    @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
+    render :layout => false
+  end
+
+  def show
+    @query = TermQuery.new({
+      :pairs => [TermQueryPair.new(
+        :predicate => params[:uri]
+      )]
+    })
+    search_common
   end
 
   def edit
@@ -80,7 +65,6 @@ class TermsController < ApplicationController
   def update
     # TODO: security check: admin only
     term = params[:term].merge(uri: params[:uri])
-    # debugger
     # TODO: sections ...  I can't properly test that right now.
     TraitBank.update_term(term) # NOTE: *NOT* hash!
     redirect_to(term_path(term[:uri]))
@@ -119,42 +103,122 @@ class TermsController < ApplicationController
   end
 
 private
+  def paginate_term_search_data(data, query)
+    options = {
+      :count => true,
+      :result_type => @result_type
+    }
+    @count = TraitBank.term_search(query, options)
+    #@count = 1000
+    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
+      page(@page).per(@per_page)
+  end
 
   def paginate_data(data)
     options = { clade: params[:clade], count: true }
     add_uri_to_options(options)
-    @count = TraitBank.term_search(options)
+    TraitBank.term_search(options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end
 
   def glossary(which)
-    @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
-    @page = params[:page] || 1
-    query = params[:query]
-    @per_page = 10 if query
-    if params[:reindex] && is_admin?
-      TraitBank::Admin.clear_caches
-      lim = (@count / @per_page.to_f).ceil
-      (0..lim+10).each do |index|
-        expire_fragment("term/glossary/#{index}")
-      end
-    end
-    @glossary = TraitBank::Terms.send(which, @page, @per_page, query)
-    @glossary = Kaminari.paginate_array(@glossary, total_count: @count).
-      page(@page).per(@per_page)
+    @glossary = glossary_helper(which, true)
+
     respond_to do |fmt|
       fmt.html {}
       fmt.json { render json: @glossary }
     end
   end
 
-  def get_associations
+  def glossary_helper(which, paginate)
+    @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
+    @page = params[:page] || 1
+    query = params[:query]
+    @per_page = 10 if query
+    if params[:reindex] && is_admin?
+      TraitBank::Admin.clear_caches
+      expire_trait_fragments
+    end
+    result = TraitBank::Terms.send(which, @page, @per_page, query)
+    paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result
+  end
+
+  def expire_trait_fragments
+    (0..100).each do |index|
+      expire_fragment("term/glossary/#{index}")
+    end
+  end
+
+  def tq_params
+    params.require(:term_query).permit(
+      :clade,
+      :pairs_attributes => [
+        :predicate,
+        :object
+      ]
+    )
+  end
+
+  def search_setup
+    found_uri = false
+    @predicate_options = [['----', nil]] +
+      TraitBank::Terms.predicate_glossary.collect do |item|
+        found_uri = true if item[:uri] == params[:uri]
+        [item[:name], item[:uri]]
+      end
+    unless found_uri
+      if !params[:uri].blank?
+        term = TraitBank.term_as_hash(params[:uri])
+        @predicate_options << [term[:name], term[:uri]] if term
+      elsif @query
+        @query.pairs.each do |predicate, _|
+          term = TraitBank.term_as_hash(predicate)
+          @predicate_options << [term[:name], term[:uri]] if term
+        end
+      end
+    end
+    @result_type = params[:result_type]&.to_sym || :record
+  end
+
+  def search_common
+    @page = params[:page] || 1
+    @per_page = 50
+    data = TraitBank.term_search(@query, {
+      :page => @page,
+      :per => @per_page,
+      :result_type => @result_type
+    })
+    ids = data.map { |t| t[:page_id] }.uniq
+    pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
+    @pages = {}
+
+    ids.each do |id|
+      page = pages.find { |p| p.id == id }
+      @pages[id] = page if page
+    end
+
+    paginate_term_search_data(data, @query)
+    @is_terms_search = true
+    @resources = TraitBank.resources(data)
+    @associations = get_associations(data)
+    render "search"
+  end
+
+  # TODO: Schnarfed this (mostly) from the pages_controller; we should generalize as a helper.
+  def get_associations(data)
     @associations =
       begin
-        ids = @grouped_data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
-          includes(:medium, :preferred_vernaculars, native_node: [:rank])
+        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
+        ids = data.map { |t| t[:object_page_id] }.compact.sort.uniq
+        Page.where(id: ids).includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end
+  end
+
+  def flash_and_redirect_no_format(msg)
+    flash[:notice] = msg
+    loc = params
+    loc.delete(:format)
+    redirect_to term_search_path(params)
   end
 end

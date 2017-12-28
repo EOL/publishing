@@ -5,20 +5,6 @@
     .div
       #main{ :class => (@nopad ? "nopad" : "")}
         = render("layouts/flash")
-        = render "collections/add_overlay"
-        = content_for?(:content) ? yield(:content) : yield
-        -#.uk-container.uk-margin-top{ class: "uk-visible@m" }
-          .uk-grid.uk-grid-match.uk-child-width-expand{ uk: { grid: true } }
-            .div
-              .uk-tile.uk-tile-default.eol-section-secondary.uk-text-center.uk-padding
-                Go visit this collection.
-            .div
-              .uk-tile.uk-tile-default.eol-section-secondary-alt.uk-text-center.uk-padding
-                Or check out some educational site.
-            .div
-              .uk-tile.uk-tile-default.eol-section-secondary.uk-text-center.uk-padding
-                Perhaps you would like to see some endangered species.
-            .div
-              .uk-tile.uk-tile-default.eol-section-secondary-alt.uk-text-center.uk-padding
-                But then again, maybe you just want to look at pretty blue things.
+        .uk-section.uk-padding-remove-bottom
+          = content_for?(:content) ? yield(:content) : yield
 = render template: "layouts/head_only"

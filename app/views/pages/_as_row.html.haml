@@ -15,7 +15,7 @@
           = image_tag(icon, class: "ui small image fluid")
     .uk-width-expand
       .page-ancestors
-        %ul.uk-breadcrumb.uk-heading-divider.eol-padding-tiny
+        %ul.uk-breadcrumb.eol-padding-tiny
           - ancestors = page.native_node.try(:ancestors)
           - if ancestors
             - shown_ellipsis = false

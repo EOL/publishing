@@ -5,22 +5,31 @@ class TraitBank
       delegate :query, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
 
-      def count
-        Rails.cache.fetch("trait_bank/terms_count", expires_in: 1.day) do
+      CACHE_EXPIRATION_TIME = 1.day
+
+      def count(options = {})
+        hidden = options[:include_hidden]
+        key = "trait_bank/terms_count"
+        key += "/include_hidden" if hidden
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
-            "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+            "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "WITH count(distinct(term.uri)) AS count "\
-            "RETURN count")
+            "RETURN count"
+          )
           res && res["data"] ? res["data"].first.first : false
         end
       end
 
       def full_glossary(page = 1, per = nil, options = {})
+        options ||= {} # callers may pass nil, bypassing the default
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
-        Rails.cache.fetch("trait_bank/full_glossary/#{page}", expires_in: 1.day) do
-          # "RETURN term ORDER BY term.name, term.uri"
-          q = "MATCH (term:Term { is_hidden_from_glossary: false }) "\
+        hidden = options[:include_hidden]
+        key = "trait_bank/full_glossary/#{page}"
+        key += "/include_hidden" if hidden
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          q = "MATCH (term:Term#{hidden ? '' : ' { is_hidden_from_glossary: false }'}) "\
             "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
           q += limit_and_skip_clause(page, per)
           res = query(q)
@@ -36,7 +45,7 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/"\
           "#{count ? :count : "#{page}/#{per}"}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
-        Rails.cache.fetch(key, expires_in: 1.day) do
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (term:Term"
           q += " { is_hidden_from_glossary: false }" unless qterm
           q += ")<-[:#{type}]-(n) "
@@ -101,6 +110,20 @@ class TraitBank
           end
         end
         uris
+      end
+
+      def obj_terms_for_pred(pred_uri)
+        key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          res = query(
+            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+            "(trait:Trait)"\
+            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "\
+            "RETURN DISTINCT(object) "\
+            "ORDER BY LOWER(object.name), LOWER(object.uri)"
+          )
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
+        end
       end
     end
   end

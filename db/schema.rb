@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107164342) do
+ActiveRecord::Schema.define(version: 20171214152136) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -51,27 +51,30 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "url",          limit: 512
+    t.integer  "resource_id",  limit: 4,     null: false
+    t.string   "resource_pk",  limit: 255
   end
 
   add_index "attributions", ["content_type", "content_id"], name: "index_attributions_on_content_type_and_content_id", using: :btree
 
   create_table "bibliographic_citations", force: :cascade do |t|
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "resource_id", limit: 4,     null: false
+    t.text     "body",        limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "changes", force: :cascade do |t|
-    t.integer  "user_id_id",    limit: 4
-    t.integer  "page_id_id",    limit: 4
+    t.integer  "user_id",       limit: 4
+    t.integer  "page_id",       limit: 4
     t.integer  "activity_id",   limit: 4
     t.string   "activity_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "changes", ["page_id_id"], name: "index_changes_on_page_id_id", using: :btree
-  add_index "changes", ["user_id_id"], name: "index_changes_on_user_id_id", using: :btree
+  add_index "changes", ["page_id"], name: "index_changes_on_page_id", using: :btree
+  add_index "changes", ["user_id"], name: "index_changes_on_user_id", using: :btree
 
   create_table "collected_pages", force: :cascade do |t|
     t.integer  "collection_id", limit: 4,     null: false
@@ -224,26 +227,50 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "identifiers", force: :cascade do |t|
-    t.integer "node_id",    limit: 4,   null: false
-    t.string  "identifier", limit: 255
+    t.integer "resource_id",      limit: 4,   null: false
+    t.integer "node_id",          limit: 4
+    t.string  "node_resource_pk", limit: 255, null: false
+    t.string  "identifier",       limit: 255
   end
 
   add_index "identifiers", ["node_id"], name: "index_identifiers_on_node_id", using: :btree
+  add_index "identifiers", ["node_resource_pk"], name: "index_identifiers_on_node_resource_pk", using: :btree
+  add_index "identifiers", ["resource_id"], name: "index_identifiers_on_resource_id", using: :btree
 
   create_table "image_info", force: :cascade do |t|
-    t.integer  "image_id",      limit: 4,                          null: false
-    t.string   "original_size", limit: 12,                         null: false
+    t.integer  "resource_id",   limit: 4,                           null: false
+    t.integer  "medium_id",     limit: 4,                           null: false
+    t.string   "original_size", limit: 12,                          null: false
     t.string   "large_size",    limit: 12
     t.string   "medium_size",   limit: 12
     t.string   "small_size",    limit: 12
-    t.decimal  "crop_x",                   precision: 5, scale: 2
-    t.decimal  "crop_y",                   precision: 5, scale: 2
-    t.decimal  "crop_w",                   precision: 5, scale: 2
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.decimal  "crop_x",                    precision: 5, scale: 2
+    t.decimal  "crop_y",                    precision: 5, scale: 2
+    t.decimal  "crop_w",                    precision: 5, scale: 2
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.string   "resource_pk",   limit: 255
   end
 
-  add_index "image_info", ["image_id"], name: "index_image_info_on_image_id", using: :btree
+  add_index "image_info", ["medium_id"], name: "index_image_info_on_medium_id", using: :btree
+  add_index "image_info", ["resource_pk"], name: "index_image_info_on_resource_pk", using: :btree
+
+  create_table "import_events", force: :cascade do |t|
+    t.integer  "import_log_id", limit: 4,     null: false
+    t.integer  "cat",           limit: 4
+    t.text     "body",          limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "import_logs", force: :cascade do |t|
+    t.integer  "resource_id",  limit: 4,   null: false
+    t.datetime "completed_at"
+    t.datetime "failed_at"
+    t.string   "status",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "import_runs", force: :cascade do |t|
     t.datetime "completed_at"
@@ -252,7 +279,8 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   end
 
   create_table "javascripts", force: :cascade do |t|
-    t.string "filename", limit: 255, null: false
+    t.integer "resource_id", limit: 4,   null: false
+    t.string  "filename",    limit: 255, null: false
   end
 
   create_table "languages", force: :cascade do |t|
@@ -291,6 +319,7 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   add_index "links", ["guid"], name: "index_links_on_guid", using: :btree
 
   create_table "locations", force: :cascade do |t|
+    t.integer "resource_id",      limit: 4,                               null: false
     t.string  "location",         limit: 255
     t.decimal "longitude",                      precision: 64, scale: 12
     t.decimal "latitude",                       precision: 64, scale: 12
@@ -321,37 +350,38 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.integer  "resource_id",               limit: 4,                 null: false
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
+    t.string   "usage_statement",           limit: 255
   end
 
   add_index "media", ["guid"], name: "index_media_on_guid", using: :btree
+  add_index "media", ["resource_pk"], name: "index_media_on_resource_pk", using: :btree
   add_index "media", ["subclass"], name: "index_media_on_subclass", using: :btree
 
   create_table "node_ancestors", force: :cascade do |t|
-    t.integer  "node_id",     limit: 4, null: false
-    t.integer  "ancestor_id", limit: 4, null: false
-    t.integer  "position",    limit: 4, null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "depth",       limit: 4
+    t.integer "resource_id",          limit: 4,   null: false
+    t.integer "node_id",              limit: 4
+    t.integer "ancestor_id",          limit: 4
+    t.string  "node_resource_pk",     limit: 255
+    t.string  "ancestor_resource_pk", limit: 255
+    t.integer "depth",                limit: 4
   end
 
   add_index "node_ancestors", ["ancestor_id"], name: "index_node_ancestors_on_ancestor_id", using: :btree
+  add_index "node_ancestors", ["ancestor_resource_pk"], name: "index_node_ancestors_on_ancestor_resource_pk", using: :btree
   add_index "node_ancestors", ["node_id"], name: "index_node_ancestors_on_node_id", using: :btree
+  add_index "node_ancestors", ["node_resource_pk"], name: "index_node_ancestors_on_node_resource_pk", using: :btree
 
   create_table "nodes", force: :cascade do |t|
     t.integer  "resource_id",        limit: 4,                    null: false
     t.integer  "page_id",            limit: 4
     t.integer  "rank_id",            limit: 4
     t.integer  "parent_id",          limit: 4
-    t.integer  "lft",                limit: 4
-    t.integer  "rgt",                limit: 4
     t.string   "scientific_name",    limit: 255
     t.string   "canonical_form",     limit: 255
     t.string   "resource_pk",        limit: 255,                  null: false
     t.string   "source_url",         limit: 4096
     t.boolean  "is_hidden",                       default: false, null: false
     t.boolean  "in_unmapped_area",                default: false, null: false
-    t.integer  "depth",              limit: 4,    default: 0,     null: false
     t.integer  "children_count",     limit: 4,    default: 0,     null: false
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
@@ -362,14 +392,13 @@ ActiveRecord::Schema.define(version: 20171107164342) do
 
   add_index "nodes", ["page_id"], name: "index_nodes_on_page_id", using: :btree
   add_index "nodes", ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
-  add_index "nodes", ["resource_id", "lft"], name: "resource_lft_index", using: :btree
-  add_index "nodes", ["resource_id", "rgt"], name: "resource_rgt_index", using: :btree
   add_index "nodes", ["resource_id"], name: "index_nodes_on_resource_id", using: :btree
   add_index "nodes", ["resource_pk"], name: "index_nodes_on_resource_pk", using: :btree
 
   create_table "occurrence_maps", force: :cascade do |t|
-    t.integer "page_id", limit: 4
-    t.string  "url",     limit: 256
+    t.integer "resource_id", limit: 4
+    t.integer "page_id",     limit: 4
+    t.string  "url",         limit: 256
   end
 
   create_table "open_authentications", force: :cascade do |t|
@@ -384,6 +413,7 @@ ActiveRecord::Schema.define(version: 20171107164342) do
 
   create_table "page_contents", force: :cascade do |t|
     t.integer  "page_id",                      limit: 4,                   null: false
+    t.integer  "resource_id",                  limit: 4,                   null: false
     t.integer  "source_page_id",               limit: 4,                   null: false
     t.integer  "position",                     limit: 4
     t.integer  "content_id",                   limit: 4,                   null: false
@@ -485,14 +515,16 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.integer "parent_id",   limit: 4,                       null: false
     t.integer "referent_id", limit: 4,                       null: false
     t.string  "parent_type", limit: 255, default: "Article", null: false
+    t.integer "resource_id", limit: 4,                       null: false
   end
 
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
 
   create_table "referents", force: :cascade do |t|
-    t.text     "body",       limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "body",        limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "resource_id", limit: 4,     null: false
   end
 
   create_table "refinery_image_translations", force: :cascade do |t|
@@ -699,7 +731,8 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   add_index "seo_meta", ["seo_meta_id", "seo_meta_type"], name: "id_type_index_on_seo_meta", using: :btree
 
   create_table "stylesheets", force: :cascade do |t|
-    t.string "filename", limit: 255, null: false
+    t.integer "resource_id", limit: 4,   null: false
+    t.string  "filename",    limit: 255, null: false
   end
 
   create_table "taxon_remarks", force: :cascade do |t|
@@ -717,18 +750,35 @@ ActiveRecord::Schema.define(version: 20171107164342) do
     t.boolean "can_merge",                            default: true,  null: false
   end
 
+  create_table "term_queries", force: :cascade do |t|
+    t.string   "pairs",      limit: 255
+    t.integer  "clade",      limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "term_query_pairs", force: :cascade do |t|
+    t.string   "predicate",     limit: 255
+    t.string   "object",        limit: 255
+    t.integer  "term_query_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "term_query_pairs", ["term_query_id"], name: "index_term_query_pairs_on_term_query_id", using: :btree
+
   create_table "user_downloads", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.integer  "count",        limit: 4
-    t.integer  "clade",        limit: 4
-    t.text     "object_terms", limit: 65535
-    t.text     "predicates",   limit: 65535
-    t.string   "filename",     limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "count",         limit: 4
+    t.string   "filename",      limit: 255
     t.datetime "completed_at"
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "term_query_id", limit: 4
   end
+
+  add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: ""
@@ -788,4 +838,6 @@ ActiveRecord::Schema.define(version: 20171107164342) do
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
 
+  add_foreign_key "term_query_pairs", "term_queries"
+  add_foreign_key "user_downloads", "term_queries"
 end

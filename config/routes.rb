@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
+  get 'errors/internal_server_error'
+
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
@@ -53,7 +57,11 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
+    get :import_traits
+    get :republish
+    get :slurp
     resources :import_logs, only: [:show]
+    resources :nodes, only: [:index]
   end
   #resources :search_suggestions
 
@@ -66,6 +74,8 @@ Rails.application.routes.draw do
   post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }
   get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
   get "/terms" => "terms#index", :as => "terms"
+  get "/terms/search" => "terms#search", :as => "term_search"
+  get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
@@ -77,8 +87,10 @@ Rails.application.routes.draw do
   get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/search_page" => "search#search_page", :as => "search_page"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
 
-  root "pages#index"
+  root 'pages#index'
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

@@ -1,5 +1,7 @@
 module PagesHelper
   def is_allowed_summary?(page)
+    # TEMP: we're hacking this because we don't have ranks yet.
+    return true
     page.rank && page.rank.respond_to?(:treat_as) &&
       ["r_species", "r_genus", "r_family"].include?(page.rank.treat_as)
   end
@@ -44,15 +46,24 @@ module PagesHelper
       page.rank.treat_as == "r_genus"
   end
 
+  def nearest_landmark(page)
+    page.ancestors.reverse.find { |node| node.use_breadcrumb? }&.canonical_form
+  end
+
   def construct_summary(page)
-    return "" unless is_allowed_summary?(page)
+    # TEMP: return "" unless is_allowed_summary?(page)
+    group = nearest_landmark(page)
+    return "" unless group
     Rails.cache.fetch("constructed_summary/#{page.id}") do
       my_rank = page.rank.try(:name) || "taxon"
       node = page.native_node || page.nodes.first
-      ancestors = node.node_ancestors.map(&:ancestor).select { |a| a.has_breadcrumb? }
+      ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
       # taxonomy sentence...
       str = if page.name == page.scientific_name
         page.name
+      elsif page.scientific_name =~ /#{page.name}/
+        # Sometimes the "name" is part of the scientific name, and it looks really weird to double up.
+        page.scientific_name
       else
         "#{page.scientific_name} (#{page.name})"
       end
@@ -63,20 +74,24 @@ module PagesHelper
       # preceded by an, if not it should be preceded by a.
       # A2: There will be nodes in the dynamic hierarchy that will be flagged as
       # A2 taxa. Use the scientificName from dynamic hierarchy.
-      if ancestors[0]
-        if is_family?(page)
-          # [name] ([common name]) is a family of [A1].
-          str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
-        elsif is_higher_level_clade?(page) && ancestors[-2]
-          # [name] ([common name]) is a genus in the [A1] [rank] [A2].
-          str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
-        else
-          # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
-          str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
-          if ancestors[-2] && ancestors[-2] != ancestors[0]
-            str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
+      if true # TEMP fix for broken stuff below:
+        str += " is in the group #{group}. "
+      else # THIS STUFF BROKE WITH THE LATEST DYNAMIC HIERARCHY. We'll fix it later.
+        if ancestors[0]
+          if is_family?(page)
+            # [name] ([common name]) is a family of [A1].
+            str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
+          elsif is_higher_level_clade?(page) && ancestors[-2]
+            # [name] ([common name]) is a genus in the [A1] [rank] [A2].
+            str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
+          else
+            # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
+            str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
+            if ancestors[-2] && ancestors[-2] != ancestors[0]
+              str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
+            end
+            str += "."
           end
-          str += "."
         end
       end
       # Number of species sentence:
@@ -94,13 +109,15 @@ module PagesHelper
       end
       # Distribution sentence:
       unless page.habitats.blank?
-        if is_family?(page)
-          # Do nothing.
-        elsif is_genus?(page)
-          str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
-        else
-          str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
-        end
+        str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+        # TEMP: SKIP for now...
+        # if is_family?(page)
+        #   # Do nothing.
+        # elsif is_genus?(page)
+        #   str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+        # else
+        #   str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+        # end
       end
       bucket = page.id.to_s[0]
       summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
@@ -140,15 +157,21 @@ module PagesHelper
   end
 
   def index_stat(key, count)
-    count = count > 1_000_000 ? "#{(count / 100_000) / 10.0}M" :
-      number_with_delimiter(count)
-    haml_tag("div.ui.orange.statistic.uk-container-center") do
+    count =
+      if count > 1_000_000
+        "#{(count / 100_000) / 10.0}M"
+      elsif count > 10_000
+        "#{(count / 1_000) / 10.0}K"
+      else
+        number_with_delimiter(count)
+      end
+    haml_tag("div.ui.orange.statistic") do
       haml_tag("div.value") { haml_concat count }
-      haml_tag("div.label") { haml_concat t("landing_page.stats.#{key}") }
+      haml_tag("div.label") { haml_concat t("stats.#{key}") }
     end
   end
 
-  def classification(this_node, ancestors)
+  def classification(this_node, ancestors, options = {})
     ancestors = Array(ancestors)
     return nil if ancestors.blank?
     node = ancestors.shift
@@ -158,6 +181,15 @@ module PagesHelper
       if ancestors.blank? && this_node
         haml_tag("ul.uk-list") do
           classification(nil, [this_node])
+          if this_node.children.any?
+            haml_tag("ul.uk-list") do
+              this_node.children.each do |child|
+                haml_tag("li.one") do
+                  summarize(child.page, node: child)
+                end
+              end
+            end
+          end
         end
       else
         haml_tag("ul.uk-list") do
@@ -170,16 +202,16 @@ module PagesHelper
   def summarize(page, options = {})
     node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
-    vernacular = first_cap(page.name) if page
-    icon_size = "tiny"
-    names = vernacular && vernacular != node.canonical_form ? "#{vernacular} <span class='uk-text-muted uk-text-small'>#{node.canonical_form}</span>" : node.canonical_form
-    haml_tag("span.#{icon_size}") do
+    name = options[:node] ? node.name : name_for_page(page)
+    haml_tag("span.tiny") do
       if options[:current_page]
-        haml_concat names.html_safe
+        haml_tag("b") do
+          haml_concat name.html_safe
+        end
         haml_concat t("classifications.hierarchies.this_page")
       elsif page
         show_data_page_icon(page) if page.should_show_icon?
-        haml_concat link_to(names.html_safe, page_id ? page_path(page_id) : "#")
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
         if page.nil?
@@ -194,7 +226,7 @@ module PagesHelper
   # TODO: we should really store the values like this! :S
   def unlink(text)
     return text.html_safe if text =~ /<a / # They already linked it.
-    text.gsub(URI.regexp) { |match|
+    text.gsub(URI::ABS_URI) { |match|
       if match.size < 20
         "<a href=\"#{match}\">#{match}</a>"
       else

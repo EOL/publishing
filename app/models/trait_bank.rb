@@ -14,29 +14,25 @@ class TraitBank
 
   # The Labels, and their expected relationships { and (*required) properties }:
   # * Resource: { *resource_id }
-  # * Page: ancestor(Page), parent(Page), trait(Trait) { *page_id }
-  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData),
-  #          object_term(Term), units_term(Term)
-  #          # TODO: add a comment explaining that the normal_units is a string (a symbol)
-  #     { *resource_pk, *scientific_name, statistical_method, sex, lifestage,
+  # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
+  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term)
+  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage,
   #       source, measurement, object_page_id, literal, normal_measurement,
-  #       normal_units }
+  #       normal_units[NOTE: this is a literal STRING, used as symbol in Ruby] }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
-  #     { measurement, literal }
+  #     { *eol_pk, measurement, literal }
   # * Term: parent_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
   #     attribution, is_hidden_from_overview, is_hidden_from_glossary, position,
   #     type }
   #
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
-  #   or "metadata" ... at the time of this writing. I may rename "metadata" to
-  #   "units"
-  #
-  # TODO: add to term: "story" attribute. (And possibly story_attribution. Also
-  # an image (which should be handled with an icon) ... and possibly a
-  # collection to build a slideshow [using its images].)
+  #   or "metadata" ... at the time of this writing.
+
+  CHILD_TERM_DEPTH = 4
+
   class << self
     def connection
-      @connection ||= Neography::Rest.new(ENV["EOL_TRAITBANK_URL"])
+      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
 
     def ping
@@ -64,7 +60,7 @@ class TraitBank
         sleep(1)
         connection.execute_query(q)
       ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q != /\n/
+        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
@@ -78,6 +74,22 @@ class TraitBank
     def count
       res = query(
         "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
+    end
+
+    def count_by_resource(id)
+      res = query(
+        "MATCH (Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
+    end
+
+    def count_by_resource_and_page(resource_id, page_id)
+      res = query(
+        "MATCH (Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
@@ -186,6 +198,20 @@ class TraitBank
       build_trait_array(res)
     end
 
+    def page_ancestors(page_id)
+      res = query("MATCH (page{ page_id: #{page_id}})-[:parent*]->(parent) RETURN parent")["data"]
+      res.map { |r| r.first["data"]["page_id"] }
+    end
+
+    def first_pages_for_resource(resource_id)
+      q = "MATCH (page:Page)-[:trait]->(:Trait)-[:supplier]->(:Resource { resource_id: #{resource_id} }) "\
+        "RETURN DISTINCT(page) LIMIT 10"
+      res = query(q)
+      found = res["data"]
+      return nil unless found
+      found.map { |f| f.first["data"]["page_id"] }
+    end
+
     def key_data(page_id)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -239,14 +265,12 @@ class TraitBank
     # NOTE: "count" means something different here! In .term_search it's used to
     # indicate you *want* the count; here it means you HAVE the count and are
     # passing it in! Be careful.
-    def batch_term_search(options)
-      count = options.delete(:count)
-      count ||= TraitBank.term_search(options.merge(count: true))
+    def batch_term_search(term_query, options, count)
       found = 0
       batch_found = 1 # Placeholder; will update in query.
       page = 1
       while(found < count && batch_found > 0)
-        batch = TraitBank.term_search(options.merge(page: page))
+        batch = TraitBank.term_search(term_query, options.merge(page: page))
         batch_found = batch.size
         found += batch_found
         yield(batch)
@@ -254,104 +278,18 @@ class TraitBank
       end
     end
 
-    # Options:
-    # count: don't perform the query, but just count the results
-    # meta: whether to include metadata
-    # object_term: the object URI (or an array of them) to look for, specifically
-    # page: which page of long results you want
-    # page_list: only return a list of page_ids. page_list == "species list"
-    # per: how many results per page
-    # predicate: the predicate URI (or an array of them) to look for, specifically
-    # TODO: long method; break up.
-    def term_search(options = {})
-      q = empty_query
-      q[:count] = options[:count]
-      wheres = []
-      if options[:clade]
-        wheres << "page.page_id = #{options[:clade]} OR ancestor.page_id = #{options[:clade]} "
-      end
-      if options[:page_list]
-        if uris = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
-          wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:predicate|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
-          end
-        end
-        # NOTE: if you want a page list specifying BOTH predicates AND objects,
-        # you are not going to get what you expect; the pages that match could
-        # have ANY predicate with the object terms specified; it only needs to
-        # have ALL of the object terms specified (somewhere). It's a tricky
-        # query. ...I think the results will be "close enough" to manage in a
-        # download.
-        if uris = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
-          wheres += Array(uris).map do |uri|
-            "(page)-[:trait]->(:Trait)-[:object_term|parent_term*0..3]->(:Term { uri: \"#{uri}\" })"
-          end
-        end
-        q[:match] = { "(page:Page)" => wheres }
-      else # NOT A PAGE_LIST:
-        main_match = "(page:Page)-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource)"
-        if options[:clade]
-          main_match = "(ancestor:Page { page_id: #{options[:clade]} })"\
-            "<-[:in_clade*]-#{main_match}"
-        end
-        q[:match][main_match] = []
-        q[:match]["(trait)-[:predicate]->(predicate:Term)"] = []
-        # q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = []
-        if uri = options[:predicate] # rubocop:disable Lint/AssignmentInCondition
-          wheres =  if uri.is_a?(Array)
-                      q[:order] << "page.name" unless q[:count]
-                      "p_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
-                    else
-                      "p_match.uri = \"#{uri}\""
-                    end
-          q[:match]["(trait)-[:predicate|parent_term*0..3]->(p_match:Term)"] =
-            wheres
-        end
-        if uri = options[:object_term] # rubocop:disable Lint/AssignmentInCondition
-          wheres =  if uri.is_a?(Array)
-                      "o_match.uri IN [ \"#{uri.join("\", \"")}\" ]"
-                    else
-                      "o_match.uri = \"#{uri}\""
-                    end
-          q[:match]["(trait)-[:object_term|parent_term*0..3]->(o_match:Term)"] =
-            wheres
-          # We still want to get the actual term used as the object (rather than
-          # the match)!
-          q[:optional]["(trait)-[info:object_term]->(info_term:Term)"] = nil
-        else
-          q[:optional]["(trait)-[info:units_term|object_term]->(info_term:Term)"] = nil
-        end
-        if options[:meta]
-          q[:optional].merge!(
-            "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)" => nil,
-            "(meta)-[:units_term]->(meta_units_term:Term)" => nil,
-            "(meta)-[:object_term]->(meta_object_term:Term)" => nil)
-        end
-      end
-      if options[:count]
-        q[:with] << "COUNT(DISTINCT(#{options[:page_list] ? "page" : "trait"})) AS count"
-        q[:return] = ["count"]
+    def term_search(term_query, options={})
+      q = if options[:result_type] == :record
+        term_record_search(term_query, options)
       else
-        q[:page] = options[:page]
-        q[:per] = options[:per]
-        if options[:page_list]
-          q[:return] = ["page"]
-          q[:order] = ["page.name"]
-        else
-          q[:return] = ["page", "trait", "predicate", "TYPE(info) AS info_type",
-            "info_term", "resource"]
-          if options[:meta]
-            q[:return] += ["meta", "meta_predicate", "meta_units_term",
-              "meta_object_term"]
-          end
-          q[:order] += order_clause_array(options)
-        end
-        if q[:meta]
-          q[:order] << "meta_predicate.name"
-        end
+        term_page_search(term_query, options)
       end
-      res = adv_query(q)
+
+      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
+      q = "#{q} "\
+          "#{limit_and_skip}"
+      res = query(q)
+
       if options[:count]
         res["data"] ? res["data"].first.first : 0
       else
@@ -359,21 +297,137 @@ class TraitBank
       end
     end
 
-    def by_predicate(uri, options = {})
-      term_search(options.merge(predicate: uri))
+    def parent_terms
+      @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
     end
 
-    def by_predicate_count(uri, options = {})
-      term_search(options.merge(predicate: uri, count: true))
+    def term_record_search(term_query, options)
+      with_count_clause = options[:count] ?
+                          "WITH count(*) AS count " :
+                          ""
+      match_part =
+        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.search_pairs.empty?
+      # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
+      # the first page.
+      use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
+      match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
+
+      wheres = []
+
+      if term_query.search_pairs.size == 1
+        pair = term_query.search_pairs.first
+        if pair.object
+          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
+          match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
+          match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
+                        "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
+                        "-[:#{parent_terms}]->(tgt_obj)"
+        else
+          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
+          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
+        end
+      else
+        match_part +=
+          if term_query.search_pairs.any? { |t| t.object }
+            ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
+            "<-[:predicate]-(trait)-[:object_term]->"\
+            "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
+          else
+            ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+          end
+        wheres = term_query.search_pairs.map do |pair|
+          if pair.object
+            "(tgt_obj.uri = \"#{pair.object}\" AND tgt_pred.uri = \"#{pair.predicate}\")"
+          else
+            "tgt_pred.uri = \"#{pair.predicate}\""
+          end
+        end
+      end
+      where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
+
+      optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
+      optional_matches += [
+        "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
+        "(meta)-[:units_term]->(meta_units_term:Term)",
+        "(meta)-[:object_term]->(meta_object_term:Term)"
+      ] if options[:meta]
+      optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+
+      orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+      orders << "meta_predicate.name" if options[:meta]
+      order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
+
+      returns = if options[:count]
+        ["count"]
+      else
+        ["page", "trait", "predicate", "TYPE(info) AS info_type", "info_term", "resource"]
+      end
+
+      if options[:meta] && !options[:count]
+        returns += ["meta", "meta_predicate", "meta_units_term", "meta_object_term"]
+      end
+
+      return_clause = "RETURN #{returns.join(", ")}"
+
+      "#{match_part} "\
+      "#{where_part} "\
+      "#{optional_match_part} "\
+      "#{with_count_clause}"\
+      "#{return_clause} "\
+      "#{order_part} "
     end
 
-    def by_object_term_uri(uri, options = {})
-      term_search(options.merge(object_term: uri))
+    def term_page_search(term_query, options)
+      with_count_clause = options[:count] ?
+        "WITH COUNT(DISTINCT(page)) AS count " :
+        ""
+      return_clause = options[:count] ?
+        "RETURN count" :
+        "RETURN page"
+      page_match = "MATCH (page:Page)"
+      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
+
+      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
+        trait_label = "t#{i}"
+        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
+
+        if pair.object
+          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
+          "(#{trait_label})"\
+          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
+        else
+          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
+        end
+
+        match
+      end
+
+      order_part = options[:count] ? "" : "ORDER BY page.name"
+
+      "#{page_match} "\
+      "#{trait_matches.join(" ")} "\
+      "#{with_count_clause}"\
+      "#{return_clause} "\
+      "#{order_part}"
     end
 
-    def by_object_term_count(uri, options = {})\
-      term_search(options.merge(object_term: uri, count: true))
-    end
+# TODO: update and restore these methods (if needed)
+#    def by_predicate(uri, options = {})
+#      term_search(options.merge(predicate: uri))
+#    end
+#
+#    def by_predicate_count(uri, options = {})
+#      term_search(options.merge(predicate: uri, count: true))
+#    end
+#
+#    def by_object_term_uri(uri, options = {})
+#      term_search(options.merge(object_term: uri))
+#    end
+#
+#    def by_object_term_count(uri, options = {})\
+#      term_search(options.merge(object_term: uri, count: true))
+#    end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
@@ -416,9 +470,14 @@ class TraitBank
     end
 
     def page_exists?(page_id)
-      res = query("MATCH (page:Page { page_id: #{page_id} }) "\
-        "RETURN page")
-      res["data"] ? res["data"].first : false
+      res = query("MATCH (page:Page { page_id: #{page_id} }) RETURN page")
+      res["data"] && res["data"].first ? res["data"].first.first : false
+    end
+
+    def page_has_parent?(page, page_id)
+      node = Neography::Node.load(page["metadata"]["id"], connection)
+      return false unless node.rel?(:parent)
+      node.outgoing(:parent).map { |n| n[:page_id] }.include?(page_id)
     end
 
     # Given a results array and the name of one of the returned columns to treat
@@ -514,9 +573,18 @@ class TraitBank
         hash.merge!(hash[:trait]) if has_trait
         hash[:page_id] = hash[:page][:page_id] if hash[:page]
         hash[:resource_id] = if hash[:resource]
-          hash[:resource][:resource_id]
+          if hash[:resource].is_a?(Array)
+            hash[:resource].first[:resource_id]
+          else
+            hash[:resource][:resource_id]
+          end
         else
           "MISSING"
+        end
+        if hash[:predicate].is_a?(Array)
+          Rails.logger.error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
+            "#{hash[:predicate].size} predicates")
+          hash[:predicate] = hash[:predicate].first
         end
         # TODO: extract method
         if has_info_term && hash[:info_type]
@@ -545,7 +613,6 @@ class TraitBank
           unless hash[:meta].empty?
             hash[:meta].each_with_index do |meta, i|
               m_hash = meta
-              debugger if meta.nil?
               m_hash[:predicate] = hash[:meta_predicate][i]
               m_hash[:object_term] = hash[:meta_object_term][i]
               m_hash[:units] = hash[:meta_units_term][i]
@@ -668,17 +735,22 @@ class TraitBank
     def add_parent_to_page(parent, page)
       if parent.nil?
         if page.nil?
-          puts "** Cannot add :parent relationship from nil to nil!"
+          return { added: false, message: 'Cannot add parent from nil to nil!' }
         else
-          puts "** Cannot add :parent relationship to nil parent for page #{page["data"]["page_id"]}"
+          return { added: false, message: "Cannot add parent to nil parent for page #{page["data"]["page_id"]}" }
         end
       elsif page.nil?
-        puts "** Cannot add :parent relationship to nil page to parent #{parent["data"]["page_id"]}"
+        return { added: false, message: "Cannot add parent for nil page to parent #{parent["data"]["page_id"]}" }
+      end
+      if page["data"]["page_id"] == parent["data"]["page_id"]
+        return { added: false, message: "Skipped adding :parent relationship to itself: #{parent["data"]["page_id"]}" }
       end
       begin
         relate("parent", page, parent)
+        return { added: true }
       rescue Neography::PropertyValueException
-        puts "** Unable to add :parent relationship from page #{page["data"]["page_id"]} to #{parent["data"]["page_id"]}"
+        return { added: false, message: "Cannot add parent for page #{page["data"]["page_id"]} to "\
+          "#{parent["data"]["page_id"]}" }
       end
     end
 
@@ -716,19 +788,24 @@ class TraitBank
 
     def create_term(options)
       if existing_term = term(options[:uri]) # NO DUPLICATES!
-        return existing_term
+        return existing_term unless options.delete(:force)
       end
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
       options[:definition] ||= "{definition missing}"
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
+      if existing_term
+        options.delete(:uri) # We already have this.
+        connection.set_node_properties(existing_term, options)
+        return existing_term
+      end
       begin
         term_node = connection.create_node(options)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
         connection.set_label(term_node, "Term")
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
-        count = Rails.cache.read("trait_bank/terms_count")
+        count = Rails.cache.read("trait_bank/terms_count") || 0
         Rails.cache.write("trait_bank/terms_count", count + 1)
       rescue => e
         debugger
@@ -740,8 +817,13 @@ class TraitBank
     def child_has_parent(curi, puri)
       cterm = term(curi)
       pterm = term(puri)
+      child_term_has_parent_term(cterm, pterm)
+    end
+
+    def child_term_has_parent_term(cterm, pterm)
       relate(:parent_term, cterm, pterm)
     end
+
 
     def term(uri)
       @terms ||= {}
@@ -788,4 +870,5 @@ class TraitBank
       end
     end
   end
+
 end

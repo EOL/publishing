@@ -93,14 +93,13 @@ class CollectedPagesController < ApplicationController
         @collection = @collected_page.collection
         fmt.html do
           render "collections/card", :layout => false, :status => :created          
-#          flash[:notice] = I18n.t(:collected_page_added_to_collection,
-#            name: @collected_page.collection.name,
-#            page: @collected_page.page.name,
-#            link: collection_path(@collected_page.collection)).html_safe
-#
-#          redirect_to has_media ?
-#            page_media_path(@collected_page.page) :
-#            @collected_page.page
+          flash[:notice] = I18n.t(:collected_page_added_to_collection,
+            name: @collected_page.collection.name,
+            page: @collected_page.page.name,
+            link: collection_path(@collected_page.collection)).html_safe
+
+          target = has_media ? page_media_path(@collected_page.page) : @collected_page.page
+          redirect_to target
         end
 #        fmt.js do 
 #          render :json => { :msg => "ok" }

@@ -4,17 +4,18 @@ class Resource < ActiveRecord::Base
   has_many :nodes, inverse_of: :resource
   has_many :scientific_names, inverse_of: :resource
   has_many :import_logs, inverse_of: :resource
+  has_many :media, inverse_of: :resource
 
   before_destroy :remove_content
 
   class << self
     def native
-      Rails.cache.fetch("resources/native") do
-        where(name: "Dynamic Working Hierarchy").first_or_create do |r|
-          r.name = "Dynamic Working Hierarchy"
+      Rails.cache.fetch('resources/native') do
+        Resource.where(abbr: 'DWH').first_or_create do |r|
+          r.name = 'EOL Dynamic Hierarchy'
           r.partner = Partner.native
-          r.description = "A synthesis of the hierarchies from EOL's trusted "\
-            "partners, to be used for browsing eol.org"
+          r.description = 'TBD'
+          r.abbr = 'DWH'
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -23,11 +24,12 @@ class Resource < ActiveRecord::Base
 
     # Required to read the IUCN status
     def iucn
-      Rails.cache.fetch("resources/iucn") do
-        Resource.where(name: "IUCN Structured Data").first_or_create do |r|
-          r.name = "IUCN Structured Data"
+      Rails.cache.fetch('resources/iucn') do
+        Resource.where(abbr: 'IUCN-SD').first_or_create do |r|
+          r.name = 'IUCN Structured Data'
           r.partner = Partner.native
-          r.description = "TBD"
+          r.description = 'TBD'
+          r.abbr = 'IUCN-SD'
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -50,11 +52,12 @@ class Resource < ActiveRecord::Base
 
     # Required to find the "best" Extinction Status:
     def paleo_db
-      Rails.cache.fetch("resources/paleo_db") do
-        Resource.where(name: "The Paleobiology Database").first_or_create do |r|
-          r.name = "The Paleobiology Database"
+      Rails.cache.fetch('resources/paleo_db') do
+        Resource.where(abbr: 'pbdb').first_or_create do |r|
+          r.name = 'The Paleobiology Database'
           r.partner = Partner.native
-          r.description = "TBD"
+          r.description = 'TBD'
+          r.abbr = 'pbdb'
           r.is_browsable = true
           r.has_duplicate_nodes = false
         end
@@ -63,7 +66,7 @@ class Resource < ActiveRecord::Base
   end
 
   def create_log
-    ImportLog.create(resource_id: id)
+    ImportLog.create(resource_id: id, status: "currently running")
   end
 
   def remove_content
@@ -128,21 +131,55 @@ class Resource < ActiveRecord::Base
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
     Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
+    node_ids = Node.where(resource_id: id).pluck(:id)
     nuke(Node)
-    # Delete pages that no longer have nodes
-    pages.in_groups_of(10_000, false) do |group|
-      have = Node.where(page_id: group).pluck(:page_id)
-      bad_pages = group - have
-      # TODO: PagesReferent
-      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
-       PageContent].each do |klass|
-        klass.where(page_id: bad_pages).delete_all
-      end
-      Page.where(id: bad_pages).delete_all
+    node_ids.in_groups_of(1000, false) do |group|
+      Page.fix_native_nodes(Page.where(native_node_id: group))
     end
+    Page.remove_if_nodeless
   end
 
   def nuke(klass)
     klass.where(resource_id: id).delete_all
+  end
+
+  # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
+
+  # NOTE: this is DANGEROUS. It deletes ALL of the existing data for the resource!
+  def republish!
+    Publishing.republish_resource(self)
+  end
+
+  def import_traits(since)
+    log = Publishing::PubLog.new(self)
+    repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Traits ONLY...')
+    begin
+      Publishing::PubTraits.import(self, log, repo)
+      log.log('NOTE: traits have been loaded, but richness has not been recalculated.', cat: :infos)
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
+    Rails.cache.clear
+  end
+
+  def slurp_traits
+    TraitBank::Slurp.load_csvs(self)
+  end
+
+  def import_media(since)
+    log = Publishing::PubLog.new(self)
+    repo = Publishing::Repository.new(resource: self, log: log, since: since)
+    log.log('Importing Media ONLY...')
+    begin
+      Publishing::PubMedia.import(self, log, repo)
+      log.log('NOTE: Media have been loaded, but richness has not been recalculated, page icons aren''t updated, and '\
+        'media counts may be off.', cat: :infos)
+      log.complete
+    rescue => e
+      log.fail(e)
+    end
+    Rails.cache.clear
   end
 end

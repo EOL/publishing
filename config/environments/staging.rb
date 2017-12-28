@@ -1,15 +1,14 @@
 Rails.application.configure do
   config.cache_classes = true
-  cache_addr = ENV["EOL_STAGING_CACHE_URL"] || "memcached:11211"
+  cache_addr = Rails.application.secrets.cache_url
   config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
-  # TODO: set up mailing...
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = Rails.application.secrets.host
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025}
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
   config.assets.debug = false
@@ -17,8 +16,9 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 end
 
-Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'https://beta-repo.eol.org'
-Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '' # Yes, nothing.
-Rails.configuration.x.image_path.ext = '.jpg'
-Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '.'
-Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || 'x'
+# NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
+# sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

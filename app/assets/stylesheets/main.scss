@@ -2,23 +2,45 @@
 // REMOVE THAT GEM FROM THE GEMFILE (and this line):
 @import "font-kit-rails/open-sans";
 @import "colors";
-@import "dimensions";
-
-$base-color: rgb(51, 51, 51);
-
-// TODO: move
-$hier-brown: #b17400;
-$plus-hover-green: #25bc1f;
 
 html {
-  box-sizing: border-box;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 85%;
+  background-color: snow;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+$base-color: rgb(51, 51, 51);
+
+// Official EOL colors (kind of... sloppy picker):
+
+.earth-image {
+  position: relative;
+
+  .uk-section {
+    z-index: 1;
+    position: relative;
+  }
+}
+
+.earth-image:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("https://www.nasa.gov/sites/default/files/bwhi1apicaaamlo.jpg_large.jpg") !important;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
 }
 
 h1, h2, h3 {
@@ -79,13 +101,21 @@ section#side_body {
 
 .ui.header.segment {
   background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8);
-  z-index: 1;
+  z-index: 0;
+}
+
+.uk-notification {
+  width: 400px;
 }
 
 .uk-notification-message-primary {
-  background-color: #444 !important;
-  color: $eol-blue !important;
+  background-color: #666 !important;
+  color: lighten($eol-blue, 15%) !important;
   padding: 24px;
+
+  a {
+    color: $eol-blue !important;
+  }
 }
 
 .uk-text-muted {
@@ -112,11 +142,6 @@ section#side_body {
 
 .page-ancestors {
   background-color: #F8FAFA;
-
-  .uk-breadcrumb {
-    height: 1.5em;
-    overflow: auto;
-  }
 }
 
 .eol-section-aged {
@@ -172,6 +197,12 @@ section#side_body {
   border-left: 2px solid #d8d8d8;
   border-right: 2px solid #ccc;
   border-top: 2px solid #dadada;
+}
+
+.uk-accordion-title {
+  background: aliceblue;
+  background: linear-gradient(whitesmoke, aliceblue);
+  padding: 10px;
 }
 
 .uk-nav-default li.uk-active > a {
@@ -244,11 +275,7 @@ a.uk-inline {
 }
 
 #main {
-  padding: $navbar-height 10px 0 10px;
-
-  &.nopad {
-    padding: $navbar-height 0 0 0;
-  }
+  padding-top: 1em;
 }
 
 #collected_pages_search {
@@ -411,6 +438,17 @@ form .error {
   }
 }
 
+// TODO: hack - remove
+.uk-form-controls .twitter-typeahead {
+  width: 100%;
+}
+
+.minus-term-icon {
+  bottom: 8px;
+  left: 15px;
+  position: absolute;
+}
+
 .details {
   .toc {
     height: 30em;
@@ -422,9 +460,8 @@ form .error {
 body {
   margin: 0;
   padding: 0;
-  position: relative;
+  min-height: 100em;
 
-  //min-height: 100em
   .landing_page {
     background-color: $eol-black;
     color: $eol-blue;
@@ -441,148 +478,6 @@ body {
   }
 }
 
-// NAV (TODO: integrate with or eliminate other nav section)
-.navbar {
-  align-items: center;
-  background-color: $white;
-  box-sizing: border-box;
-  display: flex;
-  height: $navbar-height;
-  justify-content: space-between;
-  left: 0;
-  padding: 0 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
-
-
-}
-
-.navbar-search-text {
-  border-bottom: 1px solid $eol-blue;
-  color: $eol-black;
-  font-size: 16px;
-  height: $navbar-height - 5px;
-  line-height: $navbar-height - 5px;
-  max-width: 225px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.navbar-menu-anchor {
-  height: 18px;
-  width: 50px;
-}
-
-.navbar-icon {
-  color: $eol-blue;
-  cursor: pointer;
-}
-
-.page-content {
-  margin-top: $navbar-height;
-}
-
 .nounderline, .nounderline:hover {
   text-decoration: none;
-}
-
-/* buttons */
-.btn {
-  $height: 60px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
-  height: $height;
-  line-height: $height;
-  padding: none;
-  text-align: center;
-  width: 100%;
-}
-
-/* Semi-transparent overlay */
-.overlay {
-  background: rgba(82, 82, 82, 0.83);
-  height: 100%;
-  left: 0;
-  padding-top: $navbar-height;
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-.overlay-content {
-  position: relative;
-}
-
-.overlay-close {
-  color: $white;
-  cursor: pointer;
-  left: 10px;
-  position: absolute;
-  top: 10px;
-}
-
-
-/* Model summary card */
-.summary-card {
-  display: flex;
-  height: 60px;
-  white-space: nowrap;
-}
-
-.summary-card-icon {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.summary-card-icon-main {
-  width: 60px;
-}
-
-.summary-card-icon-plus {
-  width: 45px;
-
-  &:hover {
-    color: $plus-hover-green;
-  }
-}
-
-.summary-card-details {
-  flex: 1 1 auto;
-  margin: 0 7px;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.summary-card-title {
-  color: $eol-black;
-  font-weight: bold;
-  font-size: 14px;
-
-  .sub {
-    font-weight: normal;
-  }
-}
-
-.summary-card-content {
-  font-size: 12px;
-}
-
-.summary-card-hier {
-  color: $hier-brown;
-  font-size: 10px;
-}
-
-/* Variant for "collect page" overlay */
-.summary-card-col-page {
-  background: $white;
-  height: 60px;
-  margin: 0 auto;
-  width: $card-width;
 }

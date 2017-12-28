@@ -11,7 +11,8 @@ RSpec.describe "terms/show" do
     units = { uri: "http://un.its/one", name: "Unit URI" }
     term = { uri: "http://te.rm/one", name: "Term URI" }
 
-    resource = instance_double("Resource", id: 65422, name: "Resource Name")
+    # There's a link to it, so it's hard to use a double.
+    resource = build(:resource, name: "Resource Name")
 
     data =
       [ { page_id: 1234, measurement: "657", units: units, id: "1:1",
@@ -27,7 +28,7 @@ RSpec.describe "terms/show" do
     assign(:grouped_data, Kaminari.paginate_array(data).page(1))
     assign(:pages, { 1234 => page1, 2345 => page2 })
     assign(:glossary, glossary)
-    assign(:resources, { 65422 => resource })
+    assign(:resources, { resource.id => resource })
     allow(view).to receive(:is_admin?) { false }
   end
 

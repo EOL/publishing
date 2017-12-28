@@ -1,0 +1,37 @@
+= form_for @query, :url => term_search_path, :method => :get, :class => "uk-form-stacked term-form" do |f|
+  = f.fields_for :pairs do |ff|
+    .js-trait-fields{:'uk-grid' => true}
+      .uk-width-expand
+        = ff.label :predicate, t("term.label.attribute"), :class => "uk-form-label"
+        .uk-form-controls
+          = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select js-term-select"
+      .uk-width-expand
+        = ff.label :object, t("term.label.value"), :class=> "uk-form-label"
+        .uk-form-controls
+          - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
+          - disabled = options.empty?
+          = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select js-term-select"
+      - if @query.pairs.length > 1
+        .uk-width-1-6.uk-position-relative
+          .minus-term-icon.js-remove-pair{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
+  %button.uk-button.uk-margin.js-add-pair Add
+  %div{:'uk-grid' => true}
+    .uk-width-1-2.js-typeahead-wrap
+      = f.label :clade, t("clade"), :class => "uk-form-label"
+      .uk-form-controls
+        = text_field_tag(:clade_name, f.object.clade_name, :class => "uk-input js-clade-typeahead typeahead", placeholder: @clade_name)
+        = f.hidden_field :clade, :class => "js-clade-field"
+    -# TODO: implement sort
+      .uk-width-1-2
+        = f.label :sort, :class => "uk-form-label"
+        .uk-form-controls
+        = f.select :sort, options_for_select(@query.sort_options), {}, :class => "uk-select"
+  %div{:'uk-grid' => true}
+    %div
+      = label_tag :result_type_record, t("term.label.records_matching_any")
+      = radio_button_tag :result_type, :record, @result_type == :record
+    %div
+      = label_tag :search_type_page, t("term.label.taxa_matching_all")
+      = radio_button_tag :result_type, :page, @result_type == :page
+  = f.submit t("term.actions.search"), :class => "uk-button uk-button-default uk-margin-top"
+  = f.submit t("term.actions.download_csv"), :formaction => term_search_path(:format => :csv), :class => "uk-button uk-button-default uk-margin-top uk-float-right"

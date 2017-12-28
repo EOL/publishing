@@ -50,6 +50,8 @@ class Page < ActiveRecord::Base
   # the (preferred and nonpreferred) interfere.
   scope :search_import, -> { includes(:scientific_names, :vernaculars, native_node: { node_ancestors: :ancestor }, resources: :partner) }
 
+  scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
+
   delegate :ancestors, to: :native_node
 
   def self.autocomplete(query, options = {})
@@ -61,6 +63,31 @@ class Page < ActiveRecord::Base
       misspellings: false,
       boost_by: { page_richness: { factor: 0.01 } }
     }))
+  end
+
+  # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
+  # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
+  # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
+  def self.fix_missing_native_nodes
+    fix_native_nodes(missing_native_node)
+  end
+
+  def self.fix_native_nodes(pages)
+    pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes.first.id) }
+  end
+
+  def self.remove_if_nodeless
+    # Delete pages that no longer have nodes
+    pages.in_groups_of(10_000, false) do |group|
+      have = Node.where(page_id: group).pluck(:page_id)
+      bad_pages = group - have
+      # TODO: PagesReferent
+      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
+       PageContent].each do |klass|
+        klass.where(page_id: bad_pages).delete_all
+      end
+      Page.where(id: bad_pages).delete_all
+    end
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
@@ -108,7 +135,12 @@ class Page < ActiveRecord::Base
   def ancestry_ids
     # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
     # data)
-    Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+    return [id] unless native_node
+    if native_node.unordered_ancestors&.loaded?
+      native_node.unordered_ancestors.map(&:page_id).compact + [id]
+    else
+      Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+    end
   end
 
   def descendant_species

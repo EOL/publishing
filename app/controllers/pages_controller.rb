@@ -11,6 +11,17 @@ class PagesController < ApplicationController
     full_results = Page.autocomplete(params[:query])
     if params[:full]
       render json: full_results
+    elsif params[:simple]
+      puts "*" * 120
+      puts "simple"
+      simplified = full_results.map do |r|
+          name = r.native_node.canonical_form
+          vern = r.preferred_vernacular_strings.first
+          name += " (#{vern})" unless vern.blank?
+          { name: name, id: r.id }
+        end
+      pp simplified
+      render json: simplified
     else
       render json: {
         results: full_results.map do |r|
@@ -84,7 +95,7 @@ class PagesController < ApplicationController
       "raw" => "Please leave your comments regarding <a href='#{pages_url(@page)}'>#{name}</a> in this thread by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
     )
     client.show_tag("id:#{@page.id}")
-    redirect_to "#{Comments.discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
+    redirect_to Comments.post_url(post["post"])
   end
 
   def index
@@ -119,7 +130,7 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     @page = Page.where(id: params[:id]).first
-    return render(status: :not_found) unless @page # 404
+    raise ActionController::RoutingError.new('Not Found') unless @page # 404
     @page_title = @page.name
     get_media
     # TODO: we should really only load Associations if we need to:
@@ -193,7 +204,7 @@ class PagesController < ApplicationController
   end
 
   def classifications
-    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, :nodes,
+    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, nodes: [:children, :page],
       native_node: [:children, node_ancestors: :ancestor]).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
@@ -260,6 +271,7 @@ private
   def get_associations
     @associations =
       begin
+        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
         ids = @page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
         Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])

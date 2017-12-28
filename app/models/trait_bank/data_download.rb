@@ -1,34 +1,44 @@
 class TraitBank
   class DataDownload
+    BATCH_SIZE = 1000
+
     attr_reader :count
 
     class << self
-      def term_search(options)
-        downloader = self.new(options)
-        if downloader.count > 1000
+      def term_search(term_query, user_id, count = nil)
+        downloader = self.new(term_query, count)
+        if downloader.count > BATCH_SIZE
+          term_query.save!
           UserDownload.create(
-            user_id: options[:user_id],
-            clade: options[:clade],
-            object_terms: options[:object_term],
-            predicates: options[:predicate],
-            count: downloader.count)
+            :user_id => user_id,
+            :term_query => term_query,
+            :count => downloader.count
+          )
         else
           downloader.build
         end
       end
+
+      def path
+        return @path if @path
+        @path = Rails.public_path.join('data', 'downloads')
+        FileUtils.mkdir_p(@path) unless Dir.exist?(path)
+        @path
+      end
     end
 
-    def initialize(options)
-      @options = options.merge(page_list: false, meta: true, per_page: 1000)
+    def initialize(term_query, count = nil)
+      @query = term_query
+      @options = { :per => BATCH_SIZE, :meta => true, :result_type => :record }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
-      @filename = Digest::MD5.hexdigest(@options.to_s)
+      @filename = Digest::MD5.hexdigest(@query.as_json.to_s)
       @filename += ".tsv"
-      @count = TraitBank.term_search(@options.merge(count: true))
+      @count = count || TraitBank.term_search(@query, @options.merge(:count => true))
     end
 
     def build
-      @hashes = TraitBank.term_search(@options)
+      @hashes = TraitBank.term_search(@query, @options)
       get_predicates
       to_arrays
       generate_csv
@@ -39,7 +49,7 @@ class TraitBank
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
       @hashes = []
-      TraitBank.batch_term_search(@options) do |batch|
+      TraitBank.batch_term_search(@query, @options, @count) do |batch|
         @hashes += batch
       end
       get_predicates
@@ -107,7 +117,7 @@ class TraitBank
     end
 
     def write_csv
-      CSV.open("public/#{@filename}", "wb") do |csv|
+      CSV.open(TraitBank::DataDownload.path.join(@filename), "wb") do |csv|
         @data.each { |row| csv << row }
       end
     end

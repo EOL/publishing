@@ -166,6 +166,11 @@ en:
     view_source_label: "original"
     view_source_link: "view source material"
   content_not_in_any_collection: "This media is not featured in any collections."
+  data:
+    modifier:
+      sex: "Sex of the organism measured"
+      lifestage: "Lifestage of the organism measured"
+      statistical_method: "Statistical method used for measurement"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
@@ -197,6 +202,7 @@ en:
         create: "create suggestion"
         update: "update suggestion"
   landing_page:
+    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post in the EOL discussion forum</a>"
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     heads:
@@ -206,13 +212,7 @@ en:
     reindex: "reindex"
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"
-    stats:
-      pages: "pages"
-      data: "data records"
-      media: "media"
-      articles: "articles"
-      users: "users"
-      collections: "collections"
+    resources: "Resources"
     stats_cleared: "The stats have been recalculated."
     title: "Encyclopedia of Life"
     topics: "Latest Discussion Topics"
@@ -454,8 +454,11 @@ en:
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
+    about: "About"
     cms:
       menu_name: "More..."
+    discuss: "Discuss EOL v3 beta"
+    education: "Education"
     search:
       placeholder: "Search EOL..."
   name_preferred_label: "preferred"
@@ -515,6 +518,8 @@ en:
   password_confirmation: "Password confirmation"
   please_wait: "please wait..."
   please_wait_button: "..wait.."
+  nags:
+    beta: "This is an alpha version of EOL version 3. Provide feedback and join the discussion at <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>http://discuss.eol.org</a>."
   name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: ""
@@ -527,6 +532,20 @@ en:
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
+  resources:
+    actions:
+      import_traits: "import traits (from repository)"
+      republish: "republish"
+      slurp_traits: "slurp traits (from csv)"
+      index: "back to all resources"
+      show_all:
+        other: "show all (%{count})"
+      show_warns:
+        one: "show warning (%{count})"
+        other: "show warnings (%{count})"
+    headers:
+      import_log: "Import Log for %{resource}"
+    no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
     status_title:
@@ -729,12 +748,23 @@ en:
         object_term: "URI to redirect to (or filter by)"
         path: "path (either full or relative) to redirect to"
         wkt_string: "WKT string to pass to Effechecka"
+  stats:
+    articles: "articles"
+    collections: "collections"
+    data: "data records"
+    media: "media"
+    pages: "pages"
+    nodes: "nodes"
+    scientific_names: "names"
+    users: "users"
   term:
     actions:
       download: "download"
+      download_csv: "Download CSV"
       glossary: "full glossary"
       edit: "edit term"
       reindex: "reindex"
+      search: "Search"
       sort: "sort by"
       show_records: "show records"
       species_list: "species list"
@@ -755,11 +785,17 @@ en:
       object_term_title: "Glossary of Value Terms for Data on EOL"
       units_title: "Glossary of Unit Terms for Data on EOL"
     header:
+      data_search: "Data Search"
       object_term: "a data record value"
       predicate: "a data record type"
       count:
         one: "%{count} record."
         other: "%{count} records."
+    label:
+      attribute: "Attribute"
+      records_matching_any: "Records matching ANY attribute/value pair"
+      taxa_matching_all: "Taxa matching ALL attribute/value pairs"
+      value: "Value"
     pagination:
       next: "next page"
       previous: "previous page"
@@ -785,7 +821,7 @@ en:
       source: "Source"
   data_toggle_details: "details…"
   data_unit_definition: "definition:"
-  data_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
+  data_unit_definition_blank: ""
   data_header_type_glossary: "Glossary of Record Types"
   data_header_value_glossary: "Glossary of Record Values"
   data_show_more:
@@ -809,6 +845,7 @@ en:
       downloads: "Downloads"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
+    you_must_select: "You must select at least one attribute"
   user_not_active: "The user is not active"
   users:
     sign_in: "Sign In"

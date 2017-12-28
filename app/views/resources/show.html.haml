@@ -1,35 +1,36 @@
-%h1= @resource.name
+.uk-section
+  %h1= @resource.name
+  .ui.button= link_to(t("resources.actions.index"), resources_path)
+  - if is_admin?
+    .ui.basic.button
+      = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
+    .ui.basic.button
+      = link_to(t("resources.actions.slurp_traits"), resource_slurp_path(@resource))
+    .ui.red.inverted.button
+      = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
+        data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
+  %p= link_to(number_with_delimiter(@resource.nodes.count) + ' nodes', resource_nodes_path(@resource))
 
-Sorry, we haven't built this page view, yet.
+.uk-section
+  - if @resource.import_logs.empty?
+    This resource has not been imported yet.
+  - else
+    %h2 Content
+    .uk-section.uk-section-small
+      %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
+        %li
+          - index_stat(:nodes, @resource.nodes_count)
+        %li
+          - index_stat(:media, Medium.where(resource_id: @resource.id).count)
+        %li
+          - index_stat(:data, TraitBank.count_by_resource(@resource.id))
+        %li
+          - index_stat(:scientific_names, ScientificName.where(resource_id: @resource.id).count)
 
-%h2
-  Sample page
-
-With media:
-- if (contn = PageContent.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(contn.source_page)
-- else
-  (none)
-%br
-With synonyms:
-- if (name = ScientificName.where(resource_id: @resource.id, is_preferred: false).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-%br
-With vernaculars:
-- if (name = Vernacular.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-
-- if @resource.import_logs.empty?
-  This resource has not been imported yet.
-- else
   %h2
     Imports:
   %ul.uk-list
-    - @resource.import_logs.each do |log|
+    - @resource.import_logs.order('created_at DESC').each do |log|
       %li
         %b= link_to(l(log.created_at, format: :long), [@resource, log])
         - if log.completed_at
@@ -39,4 +40,7 @@ With vernaculars:
           %b= "Failed:"
           = l(log.failed_at, format: '%H:%M:%S.%3N')
         %b= "Status:"
-        = log.status
+        - if log.status
+          = log.status
+        - else
+          = "unknown"

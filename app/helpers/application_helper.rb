@@ -61,10 +61,14 @@ module ApplicationHelper
   end
 
   def link_to_page_by_name(page)
+    link_to(name_for_page(page), page)
+  end
+
+  def name_for_page(page)
     if page.scientific_name == page.name
-      link_to(page.scientific_name.html_safe, page)
+      page.scientific_name.html_safe
     else
-      link_to(page.scientific_name.html_safe + " (#{page.name})", page)
+      "#{page.scientific_name} (#{page.name})".html_safe
     end
   end
 

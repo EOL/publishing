@@ -7,7 +7,7 @@
   - data.each_with_index do |trait,index|
     - page_id = trait[:page_id]
     - if page = pages[page_id]
-      .row{ id: trait[:id], data: { action: datum_path(trait[:id]) }  }
+      .row
         .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
           - if index == 0
             %div{ class: "uk-hidden@m" }
@@ -23,7 +23,7 @@
                   - show_data_page_name(page)
 
             - prev_page_id = page_id
-          - if @object || @and_predicate
+          - if @object || @and_predicate || @is_terms_search
             .ui.segment.eol-padding-tiny
               = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
               - show_data_modifiers(trait)
