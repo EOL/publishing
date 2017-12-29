@@ -1,31 +1,36 @@
-%ul#search-results.search-results{ :data => { :query => @q, :'page-path' => search_page_path } } 
-  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
-     @sounds, @collections, @users)}
+%ul.uk-list.uk-list-divider.uk-position-relative.search-results
+  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
 
-= render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => false } do
-  .search-filter-types
-    - if @pages && @pages.total_count > 0
-      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
-    - if @articles && @articles.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_articles", :results => @articles}
-    - if @images && @images.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_images", :results => @images}
-    - if @videos && @videos.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_videos", :results => @videos}
-    - if @sounds && @sounds.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
-    - if @collections && @collections.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_collections", :results => @collections}
-    - if @users && @users.total_count > 0
-      = render :partial => "filter_type",
-        :locals => { :i18n_key => "search.n_users", :results => @users}
+-#
+  %ul#search-results.search-results{ :data => { :query => @q, :'page-path' => search_page_path } } 
+    = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
+       @sounds, @collections, @users)}
 
-#filter-bar.filter-bar
+-#
+  = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => false } do
+    .search-filter-types
+      - if @pages && @pages.total_count > 0
+        = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
+      - if @articles && @articles.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_articles", :results => @articles}
+      - if @images && @images.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_images", :results => @images}
+      - if @videos && @videos.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_videos", :results => @videos}
+      - if @sounds && @sounds.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
+      - if @collections && @collections.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_collections", :results => @collections}
+      - if @users && @users.total_count > 0
+        = render :partial => "filter_type",
+          :locals => { :i18n_key => "search.n_users", :results => @users}
+
+-#filter-bar.filter-bar
   %i.filter-bar-icon.filter-bar-icon-open.fa.fa-sliders.fa-2x
   %i.filter-bar-icon.filter-bar-icon-close.fa.fa-close.fa-2x
   .filter-bar-result-count= t("search.n_results",

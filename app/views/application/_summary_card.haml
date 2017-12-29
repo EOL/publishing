@@ -1,4 +1,14 @@
-%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
+.search-icon>
+  -if object.icon
+    = image_tag object.icon
+  -else
+    = image_tag "svg_icons/#{object.fa_icon}.svg"
+.search-content>
+  .search-hier.search-content-section= object.hierarchy.html_safe
+  .search-title.search-content-section= object.title.html_safe
+  .search-info.search-content-section= object.content.html_safe
+
+-#%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
   .summary-card-icon.summary-card-icon-main
     -if object.icon
       = image_tag(object.icon, :class => "image")

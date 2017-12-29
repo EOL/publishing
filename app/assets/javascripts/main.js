@@ -294,16 +294,13 @@ if(!window.EOL) {
       $('body').removeClass('is-noscroll');
     }
 
-    /*
     $('.ui.names.search')
       .search({
         apiSettings: {
           url: '/pages/autocomplete?query={query}'
         }
       });
-    */
 
-    /*
     function showSearch() {
       $('#main').attr('hidden', true);
       $('#global-search').attr('hidden', false);
@@ -318,7 +315,6 @@ if(!window.EOL) {
     $('#nav-search .prompt').focus(function() {
       showSearch();
     });
-    */
 
 
     if ($('.clade_filter .typeahead').length >= 1) {

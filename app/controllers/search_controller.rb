@@ -1,4 +1,6 @@
 class SearchController < ApplicationController
+  before_action :no_main_container, :only => :search
+
   def index
     @suppress_search_icon = true
   end

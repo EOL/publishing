@@ -1,6 +1,64 @@
 @import "colors";
 @import "dimensions";
 
+$result-height-s: 108px;
+
+.search-results {
+  background: $white;
+}
+
+.search-result {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  height: $result-height-s;
+
+  & > a {
+    display: block;
+    height: 100%;
+  }
+}
+
+.search-icon {
+  background: $white;
+  float: left;
+  height: $result-height-s;
+  margin-right: 6px;
+  position: relative;
+  width: $result-height-s;
+
+  & > img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.search-content {
+  height: 100%;
+  white-space: nowrap;
+}
+
+
+.search-hier {
+  background: $eol-hier-yellow;
+  color: $eol-hier-orange;
+  height: 23px;
+}
+
+.search-title {
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.search-info {
+  margin-top: 1px;
+  font-size: 14px;
+}
+
+/*
 $search-result-count-height: 54px;
 $filter-type-width: 174px;
 $filter-type-space: 7px;
@@ -138,3 +196,4 @@ $filter-type-space: 7px;
     }
   }
 }
+*/

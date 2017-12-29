@@ -82,8 +82,8 @@ Rails.application.routes.draw do
   get "/collected_pages_ajax/new" => "collected_pages#new_ajax", :as => "new_collected_page_ajax"
 
   # Non-resource routes last:
-  get "/search" => "search#index", :as => "search"
-  get "/search_results" => "search#search", :as => "search_results"
+  #get "/search" => "search#index", :as => "search"
+  get "/search" => "search#search", :as => "search"
   get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/search_page" => "search#search_page", :as => "search_page"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
