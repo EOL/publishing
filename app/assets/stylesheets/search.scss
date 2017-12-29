@@ -2,9 +2,24 @@
 @import "dimensions";
 
 $result-height-s: 108px;
+$filter-bar-height: 32px;
+
+.lSearch {
+  position: relative;
+}
+
+.search-filter-bar {
+  background: $light-blue;
+  color: $eol-dark-blue;
+  height: $filter-bar-height;
+  line-height: $filter-bar-height;
+  text-align: center;
+}
 
 .search-results {
   background: $white;
+  overflow: auto;
+  margin: 0;
 }
 
 .search-result {

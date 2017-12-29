@@ -2,6 +2,7 @@
 // REMOVE THAT GEM FROM THE GEMFILE (and this line):
 @import "font-kit-rails/open-sans";
 @import "colors";
+@import "dimensions";
 
 html {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -480,4 +481,50 @@ body {
 
 .nounderline, .nounderline:hover {
   text-decoration: none;
+}
+
+// GLOBAL NAV
+.lNav {
+  background: $white;
+  height: $nav-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-item {
+  color: $eol-blue;
+  display: inline-block;
+  height: $nav-height;
+  line-height: $nav-height !important;
+  padding: 0 16px;
+}
+
+.nav-logo {
+  & > img {
+    height: 30px;
+  }
+}
+
+.nav-search {
+  float: right;
+}
+
+.nav-eol-txt {
+  float: right;
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+.nav-eol-title {
+  color: $eol-blue;
+  font-size: 11px;
+  text-align: right;
+}
+
+.nav-eol-desc {
+  font-size: 9px;
+  text-align: right;
 }
