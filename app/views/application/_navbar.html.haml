@@ -5,8 +5,8 @@
     = link_to search_form_path, :class => 'nav-item nav-search-icon' do 
       %i.fa.fa-search.fa-2x
     .nav-eol-txt
-      .nav-eol-title Encyclopedia of Life
-      .nav-eol-desc global access to information about life on Earth
+      .nav-eol-title= t("landing_page.title")
+      .nav-eol-desc= t("landing_page.header")
 -#
   - inverted = defined?(invert) ? 'inverted' : nil
   .ui.tiny.menu{ class: inverted }
