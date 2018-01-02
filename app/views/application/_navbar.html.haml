@@ -1,6 +1,20 @@
 .l-nav
   .nav-left
-    = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-item nav-logo')
+    .nav-item.nav-menu-anchor
+      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
+      %span &nbsp;&nbsp;
+      %i.fa.fa-chevron-down
+      %ul.nav-menu
+        %li= link_to(t("nav.about"), '/docs/about')
+        %li= link_to(t("nav.education"), 'http://education.eol.org/')
+        %li= link_to(t("nav.discuss"), 'http://discuss.eol.org/t/eolv3-beta-test/122')
+        - if current_user
+          %li= link_to(current_user.username, main_app.user_path(current_user))
+          %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
+        - else
+          %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
+          %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
+    -#
   .nav-right
     = link_to search_form_path, :class => 'nav-item nav-search-icon' do 
       %i.fa.fa-search.fa-2x

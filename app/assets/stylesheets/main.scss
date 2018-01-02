@@ -497,6 +497,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  position: relative;
   white-space: nowrap;
   width: 100%;
   z-index: 10;
@@ -506,7 +507,7 @@ body {
   color: $eol-blue;
   display: inline-block;
   height: $nav-height;
-  line-height: $nav-height !important;
+  line-height: $nav-height;
   padding: 0 16px;
 
   &:hover {
@@ -547,6 +548,52 @@ body {
 .nav-eol-desc {
   font-size: 9px;
   text-align: right;
+}
+
+.nav-menu {
+  background: $white;
+  display: none;
+  font-size: 16px;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: $nav-height;
+
+  & > li {
+    $height: 35px;
+    border-bottom: 1px solid $eol-black;
+    color: $eol-black;
+    cursor: pointer;
+    height: $height;
+    line-height: $height;
+    padding: 0 18px;
+
+    & > a {
+      display: block;
+      color: inherit;
+      height: 100%;
+      width: 100%;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    
+    &:hover {
+      background: $eol-black;
+      color: $white;
+    }
+  }
+}
+
+.nav-menu-anchor {
+  cursor: pointer;
+}
+
+.nav-menu-anchor:hover .nav-menu {
+  display: block;
 }
 
 // overlays
