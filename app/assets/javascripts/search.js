@@ -137,8 +137,6 @@ $(function() {
   function restoreFilters() {
     $.each(Object.entries(selectedResultTypes), function(i, entry) {
       var $elmt = $filter.find('.search-filter-type[data-type="' + entry[0] + '"]');
-      console.log(entry);
-      console.log($elmt);
       
       if (entry[1]) {
         $elmt.addClass('is-search-filter-type-active');
