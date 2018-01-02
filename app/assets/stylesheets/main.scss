@@ -13,8 +13,6 @@ html {
 
 $base-color: rgb(51, 51, 51);
 
-// Official EOL colors (kind of... sloppy picker):
-
 .earth-image {
   position: relative;
 
@@ -488,12 +486,13 @@ body {
 }
 
 // GLOBAL NAV
-.lNav {
+.l-nav {
   background: $white;
   height: $nav-height;
   position: fixed;
   top: 0;
   left: 0;
+  white-space: nowrap;
   width: 100%;
   z-index: 10;
 }
@@ -506,13 +505,21 @@ body {
   padding: 0 16px;
 }
 
+.nav-left {
+  float: left;
+}
+
+.nav-right {
+  float: right;
+}
+
 .nav-logo {
   & > img {
     height: 30px;
   }
 }
 
-.nav-search {
+.nav-search-icon {
   float: right;
 }
 

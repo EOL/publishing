@@ -1,10 +1,12 @@
-.lNav
-  = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-item nav-logo')
-  = link_to search_path do 
-    %i.fa.fa-search.fa-2x.nav-item.nav-search
-  .nav-eol-txt 
-    .nav-eol-title Encyclopedia of Life
-    .nav-eol-desc global access to information about life on Earth
+.l-nav
+  .nav-left
+    = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-item nav-logo')
+  .nav-right
+    = link_to search_path, :class => 'nav-item nav-search-icon' do 
+      %i.fa.fa-search.fa-2x
+    .nav-eol-txt
+      .nav-eol-title Encyclopedia of Life
+      .nav-eol-desc global access to information about life on Earth
 -#
   - inverted = defined?(invert) ? 'inverted' : nil
   .ui.tiny.menu{ class: inverted }
