@@ -508,7 +508,7 @@ body {
   display: inline-block;
   height: $nav-height;
   line-height: $nav-height;
-  padding: 0 16px;
+  padding: 0 10px;
 
   &:hover {
     color: $eol-blue;
@@ -525,18 +525,19 @@ body {
 
 .nav-logo {
   & > img {
-    height: 30px;
+    height: 19px;
   }
 }
 
 .nav-search-icon {
   float: right;
+  padding-top: 3px;
 }
 
 .nav-eol-txt {
   float: right;
   font-weight: bold;
-  padding-top: 12px;
+  padding-top: 6px;
 }
 
 .nav-eol-title {
