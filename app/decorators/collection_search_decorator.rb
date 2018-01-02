@@ -26,10 +26,6 @@ class CollectionSearchDecorator < SearchResultDecorator
     end
   end
 
-  def hierarchy
-    ""
-  end
-
   def type
     :collections
   end

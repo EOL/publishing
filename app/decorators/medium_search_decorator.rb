@@ -25,9 +25,5 @@ class MediumSearchDecorator < SearchResultDecorator
   def content
     object.try(:search_highlights).try(:[], :owner) || object.owner
   end
-
-  def hierarchy
-    nil
-  end
 end
 

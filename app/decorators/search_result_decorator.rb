@@ -4,4 +4,8 @@ class SearchResultDecorator < Draper::Decorator
   def self.collection_decorator_class
     SearchResultsDecorator
   end
+
+  def hierarchy
+    nil
+  end
 end

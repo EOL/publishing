@@ -21,9 +21,5 @@ class UserSearchDecorator < SearchResultDecorator
   def content
     object.try(:search_highlights).try(:[], :bio) || object.bio || ""
   end
-
-  def hierarchy
-    ""
-  end
 end
 
