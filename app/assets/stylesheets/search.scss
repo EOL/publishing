@@ -4,22 +4,36 @@
 $result-height-s: 108px;
 $filter-bar-height: 32px;
 
-.lSearch {
-  position: relative;
+.search-form {
+  padding-top: 50px;
+}
+
+.search-input {
+  background: none;
+  border: none;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
 }
 
 .search-filter-bar {
   background: $light-blue;
   color: $eol-dark-blue;
+  cursor: pointer;
   height: $filter-bar-height;
+  left: 0;
   line-height: $filter-bar-height;
+  position: fixed;
   text-align: center;
+  top: $nav-height;
+  width: 100%;
+  z-index: 10;
 }
 
 .search-results {
   background: $white;
   overflow: auto;
-  margin: 0;
+  margin: $filter-bar-height 0 0 0;
 }
 
 .search-result {

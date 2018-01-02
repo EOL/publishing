@@ -1,6 +1,7 @@
 .lNav
   = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-item nav-logo')
-  %i.fa.fa-search.fa-2x.nav-item.nav-search
+  = link_to search_path do 
+    %i.fa.fa-search.fa-2x.nav-item.nav-search
   .nav-eol-txt 
     .nav-eol-title Encyclopedia of Life
     .nav-eol-desc global access to information about life on Earth

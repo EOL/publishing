@@ -1,4 +1,5 @@
 $(function() {
+  /*
   var $suggestionsContainer = $('#search-sug-cont')
     , autocompletePath = $suggestionsContainer.data('path')
     , minAutocompleteLen = 3
@@ -156,4 +157,5 @@ $(function() {
     });
     $(window).scroll(); // If there's no scrollbar, the next page will never load without this
   }
+  */
 });
