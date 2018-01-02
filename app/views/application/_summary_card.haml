@@ -4,9 +4,12 @@
   -else
     %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
 .search-content>
-  .search-hier.search-content-section= object.hierarchy.html_safe
-  .search-title.search-content-section= object.title.html_safe
-  .search-info.search-content-section= object.content.html_safe
+  -if object.hierarchy
+    .search-hier.is-search-hier-content= object.hierarchy.html_safe
+  -else
+    .search-hier
+  .search-title= object.title.html_safe
+  .search-info= object.content.html_safe
 
 -#%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
   .summary-card-icon.summary-card-icon-main

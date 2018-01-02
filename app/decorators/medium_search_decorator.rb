@@ -27,7 +27,7 @@ class MediumSearchDecorator < SearchResultDecorator
   end
 
   def hierarchy
-    ""
+    nil
   end
 end
 
