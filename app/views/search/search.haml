@@ -1,6 +1,6 @@
 .search-filter-bar.js-search-filter-bar= t("search.n_results",
   :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
-%ul.uk-list.uk-list-divider.uk-position-relative.search-results
+%ul.uk-list.uk-list-divider.uk-position-relative.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
 
 

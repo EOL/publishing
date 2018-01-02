@@ -2,7 +2,7 @@
   -if object.icon
     = image_tag object.icon
   -else
-    = image_tag "svg_icons/#{object.fa_icon}.svg"
+    %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
 .search-content>
   .search-hier.search-content-section= object.hierarchy.html_safe
   .search-title.search-content-section= object.title.html_safe

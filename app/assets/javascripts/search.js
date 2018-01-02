@@ -1,23 +1,28 @@
 $(function() {
-  /*
-  var $suggestionsContainer = $('#search-sug-cont')
-    , autocompletePath = $suggestionsContainer.data('path')
+  // constants
+  var resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
+    , firstPageIndex = 1
+    , nextPageScrollThreshold = 300
     , minAutocompleteLen = 3
-    , queryCount = 0
+    ;
+
+  // jquery
+  var $suggestionsContainer = $('#search-sug-cont')
     , $searchInput = $('.search-input')
-    , $backArrow = $('.navbar-icon.fa-arrow-left')
     , $filterBar = $('#filter-bar')
     , $filter = $('#search-filter')
     , $filterItem = $filter.find('.search-filter-type')
-    , $resultContainer = $('#search-results')
-    , $results = $resultContainer.find('.search-result')
+    , $resultContainer = $('.js-search-results')
+    , $results = $resultContainer.find('.js-search-result')
     , $addToColIcon = $resultContainer.find('.search-result-icon-plus')
-    , resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
+    ;
+
+  // state
+  var autocompletePath = $suggestionsContainer.data('path')
+    , queryCount = 0
     , resultTypeIndex
     , selectedResultTypes = buildSelectedResultTypes()
-    , firstPageIndex = 1
     , pageIndex = firstPageIndex
-    , nextPageScrollThreshold = 300
     , query = $resultContainer.data('query')
     , pagePath = $resultContainer.data('pagePath')
     , loadingPage = false
@@ -138,9 +143,6 @@ $(function() {
   }
 
   $searchInput.focus();
-  $backArrow.click(function() {
-    window.history.back();
-  });
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
 
@@ -157,5 +159,4 @@ $(function() {
     });
     $(window).scroll(); // If there's no scrollbar, the next page will never load without this
   }
-  */
 });
