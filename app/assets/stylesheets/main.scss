@@ -469,7 +469,6 @@ form .error {
 body {
   margin: 0;
   padding: 0;
-  min-height: 100em;
 
   .landing_page {
     background-color: $eol-black;
@@ -509,6 +508,10 @@ body {
   height: $nav-height;
   line-height: $nav-height !important;
   padding: 0 16px;
+
+  &:hover {
+    color: $eol-blue;
+  }
 }
 
 .nav-left {
