@@ -284,12 +284,11 @@ if(!window.EOL) {
       EOL.hideOverlay();
       var $overlay = $('#' + id); 
       $overlay.removeClass('is-hidden');
-      $overlay.find('.overlay-close').click(EOL.hideOverlay);
       $('body').addClass('is-noscroll');
     }
 
     EOL.hideOverlay = function() {
-      var $overlay = $('.overlay');
+      var $overlay = $('.js-overlay');
       $overlay.addClass('is-hidden');
       $('body').removeClass('is-noscroll');
     }
@@ -375,6 +374,8 @@ if(!window.EOL) {
     if ($(".uk-search-icon > svg:nth-of-type(2)").length >= 1) {
       $(".uk-search-icon > svg:nth-of-type(2)");
     };
+
+    $('.js-overlay-x').click(EOL.hideOverlay);
 
     $.each(eolReadyCbs, function(i, cb) {
       cb();

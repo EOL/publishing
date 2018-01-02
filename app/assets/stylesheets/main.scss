@@ -11,6 +11,10 @@ html {
   background-color: snow;
 }
 
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 $base-color: rgb(51, 51, 51);
 
 .earth-image {
@@ -278,7 +282,9 @@ a.uk-inline {
 }
 
 .l-basic-main {
+  box-sizing: border-box;
   padding-top: $nav-height;
+
 }
 
 #collected_pages_search {
@@ -538,4 +544,38 @@ body {
 .nav-eol-desc {
   font-size: 9px;
   text-align: right;
+}
+
+// overlays
+.l-overlay {
+  background: rgba(#3c3d41, .9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.overlay-x {
+  color: $white;
+  cursor: pointer;
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.overlay-btn {
+  $height: 84px;
+  background-color: #3d4652;
+  bottom: 0;
+  color: #84a1bd;
+  cursor: pointer;
+  font-size: 18px;
+  height: $height;
+  left: 0;
+  line-height: $height;
+  position: absolute;
+  text-align: center;
+  width: 100%;
 }

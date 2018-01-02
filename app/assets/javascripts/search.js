@@ -9,9 +9,9 @@ $(function() {
   // jquery
   var $suggestionsContainer = $('#search-sug-cont')
     , $searchInput = $('.search-input')
-    , $filterBar = $('#filter-bar')
-    , $filter = $('#search-filter')
-    , $filterItem = $filter.find('.search-filter-type')
+    , $filterBar = $('.js-search-filter-bar')
+    , $filter = $('.js-search-filter-types')
+    , $filterItem = $filter.find('.js-search-filter-type')
     , $resultContainer = $('.js-search-results')
     , $results = $resultContainer.find('.js-search-result')
     , $addToColIcon = $resultContainer.find('.search-result-icon-plus')
@@ -40,25 +40,13 @@ $(function() {
 
   function openFilter() {
     EOL.showOverlay('search-filter')
-    $filterBar.off('click', openFilter);
-    $filterBar.click(closeFilter);
-    $filterBar.addClass('is-active');
-  }
-
-  function closeFilter() {
-    EOL.hideOverlay();
-    $filterBar.off('click', closeFilter);
-    $filterBar.click(openFilter);
-    $filterBar.removeClass('is-active');
-
-    updateSelectedResultTypes();
   }
 
   function updateSelectedResultTypes() {
     var changed = false;
 
     $filterItem.each(function(i, filter) {
-      var selected = $(filter).hasClass('is-active')
+      var selected = $(filter).hasClass('is-search-filter-type-active')
         , type = $(filter).data('type')
         , curSelected = selectedResultTypes[type]
         ;
@@ -73,6 +61,8 @@ $(function() {
     if (changed) {
       reloadResults();
     }
+
+    EOL.hideOverlay();
   }
 
   function reloadResults() {
@@ -84,9 +74,10 @@ $(function() {
   }
 
   function toggleSelected() {
-    $(this).toggleClass('is-active');
+    $(this).toggleClass('is-search-filter-type-active');
   }
 
+  /*
   $searchInput.on('input', function() {
     if ($(this).val() && $(this).val().length >= minAutocompleteLen) {
       var queryNum = ++queryCount;
@@ -110,6 +101,7 @@ $(function() {
       $suggestionsContainer.empty();
     }
   });
+  */
 
   function loadNextPage() {
     var selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
@@ -142,9 +134,26 @@ $(function() {
     }
   }
 
+  function restoreFilters() {
+    $.each(Object.entries(selectedResultTypes), function(i, entry) {
+      var $elmt = $filter.find('.search-filter-type[data-type="' + entry[0] + '"]');
+      console.log(entry);
+      console.log($elmt);
+      
+      if (entry[1]) {
+        $elmt.addClass('is-search-filter-type-active');
+      } else {
+        $elmt.removeClass('is-search-filter-type-active');
+      }
+    });
+  }
+
   $searchInput.focus();
   $filterBar.click(openFilter);
   $filterItem.click(toggleSelected);
+
+  $('#search-filter .js-overlay-x').click(restoreFilters);
+  $('#search-filter .js-apply-filter-btn').click(updateSelectedResultTypes);
 
   if ($results.length) {
     resultTypeIndex = resultTypeOrder.indexOf($results.last().data('type'));

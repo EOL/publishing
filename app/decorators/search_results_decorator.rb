@@ -4,4 +4,8 @@ class SearchResultsDecorator < Draper::CollectionDecorator
   def type
     decorated_collection.first&.type
   end
+
+  def fa_icon
+    decorated_collection.first&.fa_icon
+  end
 end
