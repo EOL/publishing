@@ -1,6 +1,6 @@
 $(function() {
   // constants
-  var resultTypeOrder = [ 'pages', 'articles', 'images', 'videos', 'sounds', 'collections', 'users' ]
+  var resultTypeOrder = [ 'pages', 'images', 'videos', 'sounds', 'articles', 'collections', 'users' ]
     , firstPageIndex = 1
     , nextPageScrollThreshold = 300
     , minAutocompleteLen = 3

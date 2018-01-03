@@ -76,7 +76,6 @@ class Medium < ActiveRecord::Base
   end
 
   def extra_search_data
-    puts "add subclass #{subclass}"
     {
       :subclass => subclass
     }

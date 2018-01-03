@@ -3,7 +3,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require main
-//= require collections_global
 //= require terms
 //= require rails.validations
 //= require rails.validations.simple_form

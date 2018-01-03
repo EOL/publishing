@@ -92,8 +92,8 @@ $filter-bar-height: 32px;
 }
 
 /* search filter overlay */
-$filter-type-width: 161px;
-$filter-type-height: 39px;
+$filter-type-width: 230px;
+$filter-type-height: 45px;
 $filter-type-space: 7px;
 .search-filter-types {
   display: block;
@@ -108,10 +108,10 @@ $filter-type-space: 7px;
   border-radius: 19.5px;
   color: #bfc2c4;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 16px;
   height: $filter-type-height;
   line-height: $filter-type-height;
-  margin: 0 0 1px 0;
+  margin: 0 0 $filter-type-space 0;
   padding: 0 8px;
   width: $filter-type-width;
 
@@ -124,6 +124,8 @@ $filter-type-space: 7px;
 .search-filter-icon {
   float: left;
   margin-right: 5px;
+  text-align: center;
+  width: 38px;
 }
 
 .search-filter-check {

@@ -29,18 +29,6 @@ class CollectedPagesController < ApplicationController
     end
   end
 
-  # TODO: clean up 'new' method when this is ready
-  def new_ajax
-    @collected_page = CollectedPage.new(new_page_params)
-    @page = PageSearchDecorator.decorate(@collected_page.page)
-
-    #@wants_icon = ! @collected_page.media.empty?
-    #@collection = Collection.new(collected_pages: [@collected_page])
-    #@bad_collection_ids = CollectedPage.where(page_id: @page.id).
-    #  pluck(:collection_id)
-    render :layout => false
-  end
-
   def edit
     @collected_page = CollectedPage.find(params[:id])
     respond_to do |fmt|
@@ -63,23 +51,21 @@ class CollectedPagesController < ApplicationController
       params["collected_page"]["collected_pages_media_attributes"].has_key?("0")
     @media_exists =
       if has_media
-        CollectedPagesMedium.where(
-          collected_page_id: @collected_page.id,
-          medium_id: params["collected_page"]["collected_pages_media_attributes"]["0"]["medium_id"]).count > 0
+        if @collected_page
+          CollectedPagesMedium.where(
+            collected_page_id: @collected_page.id,
+            medium_id: params["collected_page"]["collected_pages_media_attributes"]["0"]["medium_id"]).count > 0
+        end
       end
-    @collected_page.assign_attributes(collected_page_params)
-    page_exists = !has_media && !is_new_page && !@collected_page.changed?
-    if @media_exists || page_exists
+    if @media_exists
       respond_to do |fmt|
         fmt.html do
           flash[:notice] = I18n.t(:collected_page_already_in_collection).html_safe
           return redirect_to page_media_path(@collected_page.page)
         end
-        fmt.js do
-          render :json => { :msg => "Page already in collection!" }, :status => :conflict
-        end
+        fmt.js { }
       end
-    elsif @collected_page.save(collected_page_params)
+    elsif @collected_page.update(collected_page_params)
       if is_new_page
         Collecting.create(user: current_user, action: "add",
           collection: @collected_page.collection, page: @collected_page.page)
@@ -90,9 +76,7 @@ class CollectedPagesController < ApplicationController
           content: @collected_page.collected_pages_media.first.medium)
       end
       respond_to do |fmt|
-        @collection = @collected_page.collection
         fmt.html do
-          render "collections/card", :layout => false, :status => :created          
           flash[:notice] = I18n.t(:collected_page_added_to_collection,
             name: @collected_page.collection.name,
             page: @collected_page.page.name,
@@ -101,20 +85,11 @@ class CollectedPagesController < ApplicationController
           target = has_media ? page_media_path(@collected_page.page) : @collected_page.page
           redirect_to target
         end
-#        fmt.js do 
-#          render :json => { :msg => "ok" }
-#        end
+        fmt.js { }
       end
     else
-      respond_to do |fmt|
-        fmt.html do 
-          render "new"
-        end
-        fmt.js do 
-          render :json => { :msg => "Something went wrong" }
-        end
-        # TODO: some kind of hint as to the problem, in a flash...
-      end
+      # TODO: some kind of hint as to the problem, in a flash...
+      render "new"
     end
   end
 
