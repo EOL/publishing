@@ -282,7 +282,16 @@ private
     if params[:resource_id]
       media = media.where(resource_id: params[:resource_id])
       @resource_id = params[:resource_id].to_i
-      @resource = Resource.find(@resource_id)
+      result = ResourceApi.get_resource_using_id(@resource_id)
+      @resource = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+                      type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+                      day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+                      is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+                      dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+                      dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+                      default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+                      default_language_id: result["default_language_id"])
+      #@resource = Resource.find(@resource_id)
     end
     @media = media.page(params[:page]).per_page(@media_page_size)
     @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))

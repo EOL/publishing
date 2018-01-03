@@ -9476,7 +9476,7 @@
     }
   },
   {
-    "resourceId": 68,
+    "resourceId": 147,
     "taxonId": null,
     "vernaculars": [
             {
@@ -9491,12 +9491,22 @@
             {
                 "name": "Cornfield Ant2",
                 "source": null,
-                "language": null,
+                "language": "und",
+                "locality": null,
+                "countryCode": null,
+                "isPreferred": null,
+                "taxonRemarks": null
+            },
+            {
+                "name": "Cornfield Ant 3",
+                "source": null,
+                "language": "fra",
                 "locality": null,
                 "countryCode": null,
                 "isPreferred": null,
                 "taxonRemarks": null
             }
+
 
         ],
     "references": null,

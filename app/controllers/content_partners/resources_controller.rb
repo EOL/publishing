@@ -59,15 +59,24 @@ class ContentPartners::ResourcesController < ContentPartnersController
   
   def show
     result_partner = ContentPartnerApi.get_content_partner(params[:content_partner_id])
+    # result_partner = ContentPartnerApi.get_content_partner(params[:content_partner_id])
     returned_content_partner = result_partner[0]
     content_partner_user = User.find(ContentPartnerUser.find_by_content_partner_id(returned_content_partner["id"].to_i).user_id)
     @content_partner = ContentPartner.new(id: returned_content_partner["id"].to_i, name: returned_content_partner["name"],
                                           logo: returned_content_partner["logo"],
                                           user: content_partner_user)
     result = ResourceApi.get_resource(params[:content_partner_id], params[:id])
-    mappings = {"_paused" => "is_paused", "_approved" => "is_approved" , "_trusted" => "is_trusted" , "_autopublished" => "is_autopublished" , "_forced" => "is_forced"}
-    result.keys.each { |k| result[ mappings[k] ] = result.delete(k) if mappings[k] }
-    @resource = Resource.new(result)
+    @resource = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+    type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+    day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+    is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+    dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+    dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+    default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+    default_language_id: result["default_language_id"])
+    # mappings = {"_paused" => "is_paused", "_approved" => "is_approved" , "_trusted" => "is_trusted" , "_autopublished" => "is_autopublished" , "_forced" => "is_forced", "forced_internally"=> "forced_internally"}
+    # result.keys.each { |k| result[ mappings[k] ] = result.delete(k) if mappings[k] }
+    #@resource = Resource.new(result)
   end
   
 end

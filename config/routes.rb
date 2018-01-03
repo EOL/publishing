@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :content_partners do
     resources :resources, :controller => 'content_partners/resources'
   end
+  
 
 
   # This isn't really a model, so we'll go oldschool:

@@ -42,9 +42,24 @@
         %dd= link_to(t("content_attributions_labels.view_source_link"), content.source_url)
       %dt= t("content_attributions_labels.resource_label")
       %dd
-        - if content.resource
-          = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
-        - else
+        -# - if content.resource
+          -# = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
+        -# - else
+          -# = t(:resource_missing)
+        -# -returned_content_partner = ContentPartnerApi.get_content_partner_resource_id(content.resource_id)
+        -# -result = ResourceApi.get_resource_using_id(content.resource_id)
+        -result = ResourceApi.get_resource(43,content.resource_id)
+        -@resource = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+                      type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+                      day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+                      is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+                      dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+                      dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+                      default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+                      default_language_id: result["default_language_id"])
+        -if !@resource.nil?
+          = link_to(@resource.name, content_partner_resource_path(43, result["id"]))
+        -else
           = t(:resource_missing)
       %dt= "ID"
       %dd.uk-text-meta.uk-overflow-hidden.uk-margin-remove-top= content.resource_pk

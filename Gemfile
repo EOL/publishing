@@ -32,7 +32,7 @@ gem 'refinerycms-i18n'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem "kaminari"
+#gem "kaminari"
 
 # All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
 # ..and with a comment above each gem (or block of related gems) explaining what
@@ -81,16 +81,17 @@ gem 'searchkick'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
-gem 'rest-client'
+
+# gem 'rest-client'
 gem 'whenever'
 
 gem 'activeresource'
+gem 'rest-client'
 gem 'httparty'
 
 
 # Pagination:
 gem "kaminari", "~> 1.0"
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

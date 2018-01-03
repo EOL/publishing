@@ -1,5 +1,6 @@
 class ResourceApi
-  @base_schedular_uri = 'http://localhost:8083/scheduler'
+  @base_schedular_uri = 'http://localhost:8084/scheduler'
+  # @base_schedular_uri = 'http://172.16.0.161:80/scheduler'
   @base_storage_uri = 'http://localhost:8010/eol/archiver'
 
   def self.add_resource?(params, content_partner_id)
@@ -112,6 +113,18 @@ class ResourceApi
         :method => :get,
         #:url => "#{@base_uri}/contentPartners?ids=#{ids}"
         :url => "#{@base_schedular_uri}/#{content_partner_id}/resources/#{resource_id}"
+      )
+      response = JSON.parse(request.execute)
+    rescue => e
+      nil
+    end
+  end
+  
+   def self.get_resource_using_id(resource_id)
+    begin
+      request =RestClient::Request.new(
+        :method => :get,
+        :url => "#{@base_schedular_uri}/resources/#{resource_id}"
       )
       response = JSON.parse(request.execute)
     rescue => e

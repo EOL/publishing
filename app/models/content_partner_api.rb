@@ -1,5 +1,6 @@
 class ContentPartnerApi
-  @schedular_uri = 'http://localhost:8083/scheduler'
+   # @schedular_uri = 'http://172.16.0.161:80/scheduler'
+  @schedular_uri = 'http://localhost:8084/scheduler'
   @storage_uri = 'http://localhost:8010/eol/archiver'
   
   def self.add_content_partner?(params, current_user_id)
@@ -19,6 +20,7 @@ class ContentPartnerApi
       ContentPartnerUser.create(user_id: current_user_id , content_partner_id: response.body.to_i)
       content_partner_id 
     rescue => e
+      debugger
       nil
     end
     begin
@@ -32,6 +34,7 @@ class ContentPartnerApi
       logo_response = logo_request.execute
       content_partner_id
     rescue => e
+      debugger
       nil
     end
     
@@ -46,6 +49,7 @@ class ContentPartnerApi
         response_update = request.execute
         content_partner_id
         rescue => e
+          debugger
           nil
       end
     end
@@ -70,6 +74,7 @@ class ContentPartnerApi
       logo_response = logo_request.execute
       content_partner_id
       rescue => e
+        debugger
         nil
       end
     end
@@ -85,6 +90,7 @@ class ContentPartnerApi
       response = request.execute
       content_partner_id
     rescue => e
+      debugger
       nil
     end
   end
@@ -97,10 +103,23 @@ class ContentPartnerApi
       )
       response = JSON.parse(request.execute)
     rescue => e
+      debugger
       nil
     end
   end
   
+  def self.get_content_partner_resource_id(id)
+    begin
+      request =RestClient::Request.new(
+        :method => :get,
+        :url => "#{@schedular_uri}/resources/#{id}/contentPartner"
+      )
+      response = JSON.parse(request.execute)
+    rescue => e
+      debugger
+      nil
+    end
+  end
 end
 
 
