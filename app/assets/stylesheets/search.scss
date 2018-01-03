@@ -2,7 +2,8 @@
 @import "dimensions";
 
 $result-height-s: 108px;
-$filter-bar-height: 32px;
+$filter-bar-height: 64px;
+$filter-bar-row-height: $filter-bar-height / 2;
 
 .search-form {
   padding-top: 50px;
@@ -18,18 +19,48 @@ $filter-bar-height: 32px;
   width: 375px;
 }
 
-.search-filter-bar {
+.filter-bar {
   background: $light-blue;
   color: $eol-dark-blue;
   cursor: pointer;
   height: $filter-bar-height;
   left: 0;
-  line-height: $filter-bar-height;
   position: fixed;
   text-align: center;
   top: $nav-height;
   width: 100%;
   z-index: 10;
+}
+
+.filter-bar-row {
+  $height: $filter-bar-row-height;
+  
+  height: $height;
+  line-height: $height;
+}
+
+.filter-bar-row-top {
+  border-bottom: 1px solid $eol-blue;
+}
+
+.filter-bar-seg {
+  border-right: 1px solid $eol-blue;
+  display: inline-block;
+  width: 50%;
+}
+
+.filter-bar-seg-last {
+  border-right: none;
+}
+
+.filter-bar-input {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  height: $filter-bar-row-height;
+  text-align: center;
+  width: 100%;
 }
 
 .search-results {
