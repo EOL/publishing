@@ -1,15 +1,19 @@
 .search-icon>
-  -if object.icon
+  - if object.icon
     = image_tag object.icon
-  -else
+  - else
     %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
 .search-content>
-  -if object.hierarchy
+  - if object.hierarchy
     .search-hier.is-search-hier-content= object.hierarchy.html_safe
-  -else
+  - else
     .search-hier
   .search-title= object.title.html_safe
   .search-info= object.content.html_safe
+  %ul.resource-bubbles
+    - object.top_resources.each do |resource|
+      %li>= t("search_results.resource_counts.n_#{resource[0]}", :count => resource[1])
+    
 
 -#%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
   .summary-card-icon.summary-card-icon-main

@@ -8,4 +8,8 @@ class SearchResultDecorator < Draper::Decorator
   def hierarchy
     nil
   end
+
+  def top_resources
+    []
+  end
 end

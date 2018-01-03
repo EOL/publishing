@@ -28,6 +28,14 @@ class PageSearchDecorator < SearchResultDecorator
   def page_id
     object.id
   end
+
+  def top_resources
+    [
+      ["media", object.media_count],
+      ["data", object.data_count],
+      ["articles", object.articles_count],
+    ].select { |x| x[1] > 0 }
+  end
   
 private
   def family_ancestor_name()

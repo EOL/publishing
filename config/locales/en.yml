@@ -645,6 +645,16 @@ en:
         one: "%{count} user"
         other: "%{count} users"
     collection_title_html: "Collection: <span class='sub'>%{name}</span>"
+    resource_counts:
+      n_articles:
+        one: "1 ARTICLE"
+        other: "%{count} ARTICLES"
+      n_data:
+        one: "1 DATUM"
+        other: "%{count} DATA"
+      n_media: 
+        one: "1 MEDIUM"
+        other: "%{count} MEDIA"
     user_title_html: "User: <span class='sub'>%{name}</span>"
   search_suggestion:
     actions:

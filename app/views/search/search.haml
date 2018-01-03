@@ -1,7 +1,7 @@
 .search-filter-bar.js-search-filter-bar
   %i.fa.fa-filter &nbsp;&nbsp;
   %span= t("search.n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
-%ul.uk-list.uk-list-divider.uk-position-relative.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
+%ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
 = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
   %ul.search-filter-types.js-search-filter-types
