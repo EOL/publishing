@@ -74,7 +74,11 @@ $(function() {
   }
 
   function toggleSelected() {
-    $(this).toggleClass('is-search-filter-type-active');
+    // Don't allow last filter to be unselected
+    if (!$(this).hasClass('is-search-filter-type-active') || 
+        $('.js-search-filter-type.is-search-filter-type-active').length > 1) {
+      $(this).toggleClass('is-search-filter-type-active');
+    }
   }
 
   /*
