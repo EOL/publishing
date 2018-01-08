@@ -507,7 +507,6 @@ body {
   display: inline-block;
   height: $nav-height;
   line-height: $nav-height;
-  padding: 0 10px;
 
   &:hover {
     color: $eol-blue;
@@ -516,10 +515,12 @@ body {
 
 .nav-left {
   float: left;
+  margin-left: 10px;
 }
 
 .nav-right {
   float: right;
+  margin-right: 10px;
 }
 
 .nav-logo {
@@ -536,6 +537,7 @@ body {
 .nav-eol-txt {
   float: right;
   font-weight: bold;
+  margin-right: 10px;
   padding-top: 6px;
 }
 

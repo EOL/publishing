@@ -40,13 +40,22 @@ $filter-bar-row-height: $filter-bar-height / 2;
 }
 
 .filter-bar-row-top {
+  background: $white;
   border-bottom: 1px solid $eol-blue;
+  border-top: 1px solid $eol-blue;
+  color: $eol-black;
 }
 
 .filter-bar-seg {
   border-right: 1px solid $eol-blue;
   display: inline-block;
   width: 50%;
+
+  & > a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+  }
 }
 
 .filter-bar-seg-last {
