@@ -1,10 +1,9 @@
-- contain_class = main_container? ? 'uk-container' : ''
 - content_for :body  do
   %body
     = render("application/navbar")
     - if main_container?
       .uk-container
-        #main{ :class => (@nopad ? "nopad" : "")}
+        #main
           = render("layouts/flash")
           .uk-section.uk-padding-remove-bottom
             = content_for?(:content) ? yield(:content) : yield

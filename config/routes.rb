@@ -80,7 +80,6 @@ Rails.application.routes.draw do
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
-  #get "/search" => "search#index", :as => "search"
   get "/search" => "search#index",  :as => "search_form"
   get "/search_results" => "search#search", :as => "search"
   #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"

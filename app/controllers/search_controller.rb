@@ -15,16 +15,14 @@ class SearchController < ApplicationController
     render :layout => false
   end
 
-  def suggestions
-    @results = Page.autocomplete(params[:query])
-    render :layout => false
-  end
+#  def suggestions
+#    @results = Page.autocomplete(params[:query])
+#    render :layout => false
+#  end
 
 private
   # TODO: Mammoth method, break up.
   def do_search
-    # for layout
-    @nopad = true
     @search_text = params[:q]
 
     # Doctoring for the view to find matches:

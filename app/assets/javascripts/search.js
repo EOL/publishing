@@ -81,32 +81,6 @@ $(function() {
     }
   }
 
-  /*
-  $searchInput.on('input', function() {
-    if ($(this).val() && $(this).val().length >= minAutocompleteLen) {
-      var queryNum = ++queryCount;
-
-      $.ajax({
-        url: autocompletePath,
-        data: {
-          query: $(this).val()
-        },
-        success: function(result) {
-          if (queryNum === queryCount) {
-            $suggestionsContainer.html(result);
-            $suggestionsContainer.find('.search-sug').click(function() { // TODO: require at least one type to be selected
-              $searchInput.val($(this).html());
-              $searchInput.focus();
-            });
-          }
-        }
-      });
-    } else {
-      $suggestionsContainer.empty();
-    }
-  });
-  */
-
   function loadNextPage() {
     var selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
 

@@ -36,14 +36,15 @@ RSpec.describe Medium do
     expect(subject.small_icon_url).to eq(fake_img_path("base", 88, 88))
   end
 
-  it "has is_type? booleans" do
+  it "has type? booleans" do
     types.each do |type|
       subject.subclass = type
-      types.map { |t| "is_#{t}?".to_sym }.each do |test_type|
+      types.each do |test_type|
+        type_fn = "#{test_type}?".to_sym
         if test_type == type
-          expect(subject.send(test_type)).to be_true
+          expect(subject.send(type_fn)).to be true
         else
-          expect(subject.send(test_type)).to be_falsey
+          expect(subject.send(type_fn)).to be false
         end
       end
     end

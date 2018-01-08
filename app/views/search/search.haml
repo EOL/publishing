@@ -34,15 +34,3 @@
         :locals => { :i18n_key => "search.n_users", :results => @users}
   .overlay-btn.js-apply-filter-btn apply filters
 
--#
-  %ul#search-results.search-results{ :data => { :query => @q, :'page-path' => search_page_path } } 
-    = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos,
-       @sounds, @collections, @users)}
-
--#
-
--#filter-bar.filter-bar
-  %i.filter-bar-icon.filter-bar-icon-open.fa.fa-sliders.fa-2x
-  %i.filter-bar-icon.filter-bar-icon-close.fa.fa-close.fa-2x
-  .filter-bar-result-count= t("search.n_results",
-    :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
