@@ -538,12 +538,16 @@ en:
       republish: "republish"
       slurp_traits: "slurp traits (from csv)"
       index: "back to all resources"
+      publish: "publish"
       show_all:
         other: "show all (%{count})"
       show_warns:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
+    confirm:
+      publish: "This should only be done if you are sure there are *completed* harvests ready to publish. Are you sure?"
     headers:
+      index: "Resources"
       import_log: "Import Log for %{resource}"
     no_events: "None!"
   resource_missing: "resource not found"

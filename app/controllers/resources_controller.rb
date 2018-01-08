@@ -7,6 +7,13 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
   end
 
+  def publish
+    raise "Unauthorized" unless is_admin?
+    ImportRun.delay.now
+    flash[:notice] = "New resources will be published in the background. Watch this page for updates."
+    redirect_to resources_path
+  end
+
   def republish
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])

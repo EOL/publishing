@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
+    get :publish, on: :collection
     get :import_traits
     get :republish
     get :slurp
