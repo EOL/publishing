@@ -46,20 +46,21 @@ $filter-bar-row-height: $filter-bar-height / 2;
   color: $eol-black;
 }
 
-.filter-bar-seg {
+.filter-bar-filters {
   border-right: 1px solid $eol-blue;
   display: inline-block;
-  width: 50%;
+  width: 70%;
+}
+
+.filter-bar-advanced {
+  display: inline-block;
+  width: 30%;
 
   & > a {
     display: block;
     text-decoration: none;
     width: 100%;
   }
-}
-
-.filter-bar-seg-last {
-  border-right: none;
 }
 
 .filter-bar-input {

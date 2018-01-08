@@ -11,7 +11,7 @@ en:
   account_already_linked: "your account is already linked to EOL"
   account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
-  advanced_search: "advanced search"
+  advanced: "advanced"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
   article:
     actions:
@@ -563,6 +563,9 @@ en:
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
+    filter_n_results: 
+      one: "filter 1 result"
+      other: "filter %{count} results"
     n_articles:
       one: "%{count} article"
       other: "%{count} articles"
