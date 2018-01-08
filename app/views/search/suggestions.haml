@@ -1,6 +1,0 @@
-%h2= t("search.suggested", :count => @results.length)
-
--if !@results.empty?
-  %ul.search-sugs
-    - @results.each do |r|
-      %li.search-sug= r.scientific_name
