@@ -22,6 +22,7 @@ RSpec.describe "layouts/pages" do
   before do
     allow(view).to receive(:current_user) { }
     allow(view).to receive(:is_admin?) { false }
+    allow(view).to receive(:main_container?) { true }
     assign(:page, page)
   end
 
