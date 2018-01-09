@@ -19,10 +19,7 @@ class PageSearchDecorator < SearchResultDecorator
   end
 
   def hierarchy
-    ancestor_name = family_ancestor_name()
-    common_name = title
-
-    ancestor_name ? "#{ancestor_name} … / #{common_name}" : common_name
+    object.scientific_name
   end
 
   def page_id
@@ -38,14 +35,14 @@ class PageSearchDecorator < SearchResultDecorator
   end
   
 private
-  def family_ancestor_name()
-    ancestors = object.native_node.try(:ancestors)
-
-    return nil unless ancestors
-
-    ancestor = ancestors.detect do |a|
-      Rank.guess_treat_as(a.rank.name) === :r_family
-    end
-    ancestor ? ancestor.name : nil
-  end
+#  def family_ancestor_name
+#    ancestors = object.native_node.try(:ancestors)
+#
+#    return nil unless ancestors
+#
+#    ancestor = ancestors.detect do |a|
+#      Rank.guess_treat_as(a.rank.name) === :r_family
+#    end
+#    ancestor ? ancestor.name : nil
+#  end
 end
