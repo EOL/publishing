@@ -44,6 +44,9 @@ class Publishing
     reindex
     @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
     @run.update_attribute(:completed_at, Time.now)
+  ensure
+    ImportRun.where(completed_at: nil).update_all(completed_at: Time.now)
+    ImportLog.where(completed_at: nil, failed_at: nil).update_all(failed_at: Time.now, status: 'failed')
   end
 
   def reindex
