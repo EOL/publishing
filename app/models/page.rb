@@ -79,8 +79,9 @@ class Page < ActiveRecord::Base
   def self.remove_if_nodeless
     # Delete pages that no longer have nodes
     Page.find_in_batches(batch_size: 10_000) do |group|
-      have = Node.where(page_id: group).pluck(:page_id)
-      bad_pages = group - have
+      group_ids = group.map(&:id)
+      have_ids = Node.where(page_id: group_ids).pluck(:page_id)
+      bad_pages = group_ids - have_ids
       next if bad_pages.empty?
       # TODO: PagesReferent
       [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
