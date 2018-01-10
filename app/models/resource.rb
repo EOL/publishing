@@ -144,7 +144,7 @@ class Resource < ActiveRecord::Base
   rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
-    retry
+    retry rescue nil # I really don't care THAT much... sheesh!
   end
 
   # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
