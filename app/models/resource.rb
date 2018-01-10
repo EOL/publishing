@@ -141,7 +141,7 @@ class Resource < ActiveRecord::Base
 
   def nuke(klass)
     klass.where(resource_id: id).delete_all
-  rescue Mysql2::Error
+  rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry
