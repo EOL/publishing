@@ -27,7 +27,7 @@ class Publishing::PubVernaculars
     Vernacular.propagate_id(fk: 'node_resource_pk',  other: 'nodes.resource_pk',
                             set: 'node_id', with: 'id', resource_id: @resource.id)
     @log.log('fixing counter_culture counts for ScientificName...')
-    Vernacular.counter_culture_fix_counts
+    # TMP: [faster for now] Vernacular.counter_culture_fix_counts
     # TODO: update preferred = true where page.vernaculars_count = 1...
     Vernacular.joins(:page).where(['pages.vernaculars_count = 1 AND vernaculars.is_preferred_by_resource = ? '\
       'AND vernaculars.resource_id = ?', true, @resource.id]).update_all(is_preferred: true)

@@ -99,6 +99,6 @@ class Publishing::PubNodes
       Page.import!(group, on_duplicate_key_ignore: true)
     end
     @log.log('fixing counter_culture counts for Node...')
-    Node.where(resource_id: @resource.id).counter_culture_fix_counts
+    # TMP: [faster for now] Node.where(resource_id: @resource.id).counter_culture_fix_counts
   end
 end

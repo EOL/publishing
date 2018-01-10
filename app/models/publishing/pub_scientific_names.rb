@@ -38,7 +38,7 @@ class Publishing::PubScientificNames
     Node.propagate_id(fk: 'id',  other: 'scientific_names.node_id',
                       set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
     @log.log('fixing counter_culture counts for ScientificName...')
-    ScientificName.counter_culture_fix_counts
+    # TMP: [faster for now] ScientificName.counter_culture_fix_counts
   end
 
   def get_tax_stat(status)
