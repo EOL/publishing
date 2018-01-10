@@ -141,6 +141,10 @@ class Resource < ActiveRecord::Base
 
   def nuke(klass)
     klass.where(resource_id: id).delete_all
+  rescue Mysql2::Error
+    sleep(2)
+    ActiveRecord::Base.connection.reconnect!
+    retry
   end
 
   # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
