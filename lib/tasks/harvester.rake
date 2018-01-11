@@ -1,39 +1,40 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-  nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
-  json_content = File.read(nodes_file_path)
-  unless json_content == false
-    nodes = JSON.parse(json_content)
-    nodes.each do |node|
-      res = Node.where(global_node_id: node["generatedNodeId"])
-      if res.count > 0
-        current_node = res.first
-      else
-        params = { resource_id: node["resourceId"],
-                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"] }
-        created_node = create_node(params)
-        
-        unless node["taxon"]["pageEolId"].nil? 
-          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
-          unless node["vernaculars"].nil?
-            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
-          end
-          
-          unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"]})
-          end
-          
-          # unless node["nodeData"]["ancestors"].nil?
-            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+  # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
+  # json_content = File.read(nodes_file_path)
+  # unless json_content == false
+    # nodes = JSON.parse(json_content)
+    add_neo4j
+    # nodes.each do |node|
+      # res = Node.where(global_node_id: node["generatedNodeId"])
+      # if res.count > 0
+        # current_node = res.first
+      # else
+        # params = { resource_id: node["resourceId"],
+                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"] }
+        # created_node = create_node(params)
+#         
+        # unless node["taxon"]["pageEolId"].nil? 
+          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
+          # unless node["vernaculars"].nil?
+            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           # end
-           
-        end      
-      end    
-    end
-  end    
+#           
+          # unless node["media"].nil?
+            # create_media({media: node["media"],resource_id: node["resourceId"]})
+          # end
+#           
+          # # unless node["nodeData"]["ancestors"].nil?
+            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+          # # end
+#            
+        # end      
+      # end    
+    # end
+  # end    
 end
 
 def get_latest_updates_from_hbase
@@ -199,6 +200,19 @@ def create_scientific_name(params)
   end  
 end
 
+def add_neo4j
+  tb_page = TraitBank.create_page(1)
+  resource = TraitBank.create_resource(147)
+  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk: "123", page: 1,metadata: "",predicate:"",units: "", object_term: ""}
+  # options[:supplier]["data"]["resource_id"]=147
+  # options[:resource_pk]="123"
+  # options[:page]["data"]["page_id"]=1
+  # options[:metadata]=""
+  # options[:predicate]["data"]["length"]=150
+  # options[:units]=""
+  # options[:object_term]=""
+  trait=TraitBank.create_trait(options)
+end
 
 
 namespace :harvester do

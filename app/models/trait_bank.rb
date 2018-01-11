@@ -146,11 +146,11 @@ class TraitBank
     def trait_exists?(resource_id, pk)
       raise "NO resource ID!" if resource_id.blank?
       raise "NO resource PK!" if pk.blank?
-      res = query(
-        "MATCH (trait:Trait { resource_pk: #{quote(pk)} })"\
-        "-[:supplier]->(res:Resource { resource_id: #{resource_id} }) "\
-        "RETURN trait")
+      # res = connection.execute_query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })-[:supplier]->(res:Resource { resource_id: #{resource_id} }) RETURN trait")
+      res = query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })-[:supplier]->(res:Resource { resource_id: #{resource_id} }) RETURN trait.resource_pk")
+      debugger
       res["data"] ? res["data"].first : false
+     
     end
 
     def by_trait(full_id, page = 1, per = 200)
@@ -599,6 +599,7 @@ class TraitBank
       resource_id = options[:supplier]["data"]["resource_id"]
       Rails.logger.warn "++ Create Trait: Resource##{resource_id}, "\
         "PK:#{options[:resource_pk]}"
+      debugger
       if trait = trait_exists?(resource_id, options[:resource_pk])
         Rails.logger.warn "++ Already exists, skipping."
         return trait
@@ -606,19 +607,19 @@ class TraitBank
       page = options.delete(:page)
       supplier = options.delete(:supplier)
       meta = options.delete(:metadata)
-      predicate = parse_term(options.delete(:predicate))
-      units = parse_term(options.delete(:units))
-      object_term = parse_term(options.delete(:object_term))
-      convert_measurement(options, units)
+      # predicate = parse_term(options.delete(:predicate))
+      # units = parse_term(options.delete(:units))
+      # object_term = parse_term(options.delete(:object_term))
+      # convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.set_label(trait, "Trait")
-      relate("trait", page, trait)
+      #relate("trait", page, trait)
       relate("supplier", trait, supplier)
-      relate("predicate", trait, predicate)
-      relate("units_term", trait, units) if units
-      relate("object_term", trait, object_term) if
-        object_term
-      meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
+      # relate("predicate", trait, predicate)
+      # relate("units_term", trait, units) if units
+      # relate("object_term", trait, object_term) if
+        # object_term
+      # meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
     end
 
@@ -634,15 +635,18 @@ class TraitBank
           Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
           Rails.logger.error("** from: #{from}")
           Rails.logger.error("** to: #{to}")
+          debugger
         rescue Neography::NeographyError => e
           Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
           Rails.logger.error("** from: #{from}")
           Rails.logger.error("** to: #{to}")
+          debugger
         rescue Excon::Error::Socket => e
           puts "** TIMEOUT adding relationship"
           Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
           Rails.logger.error("** from: #{from}")
           Rails.logger.error("** to: #{to}")
+          debugger
         rescue => e
           puts "Something else happened."
           debugger
