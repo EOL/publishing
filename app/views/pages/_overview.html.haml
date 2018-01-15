@@ -38,7 +38,7 @@
           = t(:page_key_data_header)
         %dl.uk-description-list
           - @page.key_data.sort_by { |k, v| k[:name] }.each do |predicate, trait|
-            %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
+            -# %dt.uk-margin-small-top= link_to(predicate[:name], term_path(uri: predicate[:uri]))
             %dd
               - show_data_value(trait)
   - if @page.medium

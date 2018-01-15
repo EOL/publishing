@@ -1,6 +1,6 @@
 - cache(page_data_path(@page), expires_in: 1.day) do
   - Rails.logger.warn("// Rendering data for page #{@page.id} (#{@page.name})")
-  - @resources = TraitBank.resources(@page.data)
+  -# - @resources = TraitBank.resources(@page.data)
   - build_associations(@page)
   - max_rows = 10
   - data = @page.data
@@ -41,7 +41,7 @@
                 %i.icon.chevron.down.uk-margin-large-top
               .ui.segments{ class: "uk-width-4-5@m uk-width-5-6 " + sections.join(" ") }
                 .ui.segment.eol-padding-tiny
-                  = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  -# = link_to(predicate[:name], term_path(uri: predicate[:uri]))
                   - previous_predicate = predicate
                   %div{ class: "uk-visible@m" }
                     - show_data_modifiers(trait)
@@ -58,7 +58,7 @@
             - @page.predicates.sort_by { |p| @page.glossary[p][:name].downcase }.each do |predicate|
               - term = @page.glossary[predicate]
               - next if term[:is_hidden_from_glossary]
-              %dt= link_to(term[:name], term_path(uri: term[:uri]))
+              -# %dt= link_to(term[:name], term_path(uri: term[:uri]))
               %dd
                 .uk-text-muted.uk-text-small= term[:uri]
                 = term[:definition]
@@ -70,7 +70,7 @@
             - @page.object_terms.sort_by { |t| @page.glossary[t][:name].downcase }.each do |name|
               - term = @page.glossary[name]
               - next if term[:is_hidden_from_glossary]
-              %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))
+              -# %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))
               %dd
                 .uk-text-muted.uk-text-small= term[:uri]
                 = term[:definition]

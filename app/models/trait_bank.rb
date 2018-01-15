@@ -48,12 +48,12 @@ class TraitBank
       true
     end
 
-    def query(q)
+    def query(q,params=nil)
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
       begin
-        results = connection.execute_query(q)
+        results = connection.execute_query(q,params)
         stop = Time.now
       rescue Excon::Error::Socket => e
         Rails.logger.error("Connection refused on query: #{q}")
@@ -62,7 +62,7 @@ class TraitBank
       rescue Excon::Error::Timeout => e
         Rails.logger.error("Timed out on query: #{q}")
         sleep(1)
-        connection.execute_query(q)
+        connection.execute_query(q,params)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q != /\n/
         Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
@@ -146,9 +146,12 @@ class TraitBank
     def trait_exists?(resource_id, pk)
       raise "NO resource ID!" if resource_id.blank?
       raise "NO resource PK!" if pk.blank?
+      params = { :resource_pk => pk, :resource_id => resource_id }
+ 
+      # res = Neography::Rest.new.execute_query("MATCH (trait:Trait { resource_pk: {resource_pk} })-[:supplier]->(res:Resource { resource_id: {resource_id} }) RETURN trait", params)
       # res = connection.execute_query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })-[:supplier]->(res:Resource { resource_id: #{resource_id} }) RETURN trait")
-      res = query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })-[:supplier]->(res:Resource { resource_id: #{resource_id} }) RETURN trait.resource_pk")
-      debugger
+      # res = query("MATCH (trait:Trait { resource_pk: #{quote(pk)} })-[:supplier]->(res:Resource { resource_id: #{resource_id} }) RETURN trait")
+      res = query("MATCH (trait:Trait { resource_pk: {resource_pk} })-[:supplier]->(res:Resource { resource_id: {resource_id} }) RETURN trait", params)
       res["data"] ? res["data"].first : false
      
     end
@@ -599,27 +602,29 @@ class TraitBank
       resource_id = options[:supplier]["data"]["resource_id"]
       Rails.logger.warn "++ Create Trait: Resource##{resource_id}, "\
         "PK:#{options[:resource_pk]}"
-      debugger
       if trait = trait_exists?(resource_id, options[:resource_pk])
         Rails.logger.warn "++ Already exists, skipping."
         return trait
       end
+      #page returns page_id and required id in db therefore i used page_exists?
       page = options.delete(:page)
+      page = page_exists?(page)
+      #supplier returns .......and required id in db therefore i used resource_find
       supplier = options.delete(:supplier)
+      supplier = find_resource(resource_id)
       meta = options.delete(:metadata)
-      # predicate = parse_term(options.delete(:predicate))
-      # units = parse_term(options.delete(:units))
-      # object_term = parse_term(options.delete(:object_term))
+      predicate = parse_term(options.delete(:predicate))
+      units = parse_term(options.delete(:units))
+      object_term = parse_term(options.delete(:object_term))
       # convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.set_label(trait, "Trait")
-      #relate("trait", page, trait)
+      relate("trait",page, trait)
       relate("supplier", trait, supplier)
-      # relate("predicate", trait, predicate)
-      # relate("units_term", trait, units) if units
-      # relate("object_term", trait, object_term) if
-        # object_term
-      # meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
+      relate("predicate", trait, predicate)
+      relate("units_term", trait, units) if units
+      relate("object_term", trait, object_term) if object_term
+      meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
     end
 
@@ -656,10 +661,11 @@ class TraitBank
     end
 
     def add_metadata_to_trait(trait, options)
+      debugger
       predicate = parse_term(options.delete(:predicate))
       units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
-      convert_measurement(options, units)
+      # convert_measurement(options, units)
       meta = connection.create_node(options)
       connection.set_label(meta, "MetaData")
       relate("metadata", trait, meta)
@@ -715,7 +721,8 @@ class TraitBank
 
     def parse_term(term_options)
       return nil if term_options.nil?
-      return term_options if term_options.is_a?(Hash)
+      #next line why?
+      #return term_options if term_options.is_a?(Hash)
       return create_term(term_options)
     end
 

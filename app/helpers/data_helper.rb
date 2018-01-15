@@ -54,7 +54,7 @@ module DataHelper
       end
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
-      haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+      # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
     elsif data[:measurement]
       value = data[:measurement].to_s + " "
       value += data[:units][:name] if data[:units] && data[:units][:name]

@@ -203,14 +203,13 @@ end
 def add_neo4j
   tb_page = TraitBank.create_page(1)
   resource = TraitBank.create_resource(147)
-  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk: "123", page: 1,metadata: "",predicate:"",units: "", object_term: ""}
-  # options[:supplier]["data"]["resource_id"]=147
-  # options[:resource_pk]="123"
-  # options[:page]["data"]["page_id"]=1
-  # options[:metadata]=""
-  # options[:predicate]["data"]["length"]=150
-  # options[:units]=""
-  # options[:object_term]=""
+  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
+             predicate:{"name"=>"lengthp","uri"=>"test/lengthp","section_ids"=>[1,2,3],"definition"=>"test predicate definition"},
+             object_term:{"name"=>"lengtho","uri"=>"test/lengtho","section_ids"=>[1,2,3],"definition"=>"test object_term definition"},
+             units: {"name"=>"cm","uri"=>"test/lengthu","section_ids"=>[1,2,3],"definition"=>"test units"},
+             metadata:{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp","section_ids"=>[1,2,3],"definition"=>"test predicate definition"},
+                       object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho","section_ids"=>[1,2,3],"definition"=>"test object_term definition"},
+                       units: {"name"=>"md_cm","uri"=>"test/md_lengthu","section_ids"=>[1,2,3],"definition"=>"test units"}} }
   trait=TraitBank.create_trait(options)
 end
 
