@@ -616,7 +616,7 @@ class TraitBank
       predicate = parse_term(options.delete(:predicate))
       units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
-      # convert_measurement(options, units)
+      convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.set_label(trait, "Trait")
       relate("trait",page, trait)
@@ -663,14 +663,14 @@ class TraitBank
     def add_metadata_to_trait(trait, options)
       debugger
       predicate = parse_term(options.delete(:predicate))
-      units = parse_term(options.delete(:units))
+      # units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
       # convert_measurement(options, units)
       meta = connection.create_node(options)
       connection.set_label(meta, "MetaData")
       relate("metadata", trait, meta)
       relate("predicate", meta, predicate)
-      relate("units_term", meta, units) if units
+      # relate("units_term", meta, units) if units
       relate("object_term", meta, object_term) if
         object_term
       meta
@@ -705,8 +705,8 @@ class TraitBank
       # If we converted it (and thus it is numeric) AND we see units...
       if trait[:measurement].is_a?(Numeric) &&
          units && units["data"] && units["data"]["uri"]
-        (n_val, n_unit) = UnitConversions.convert(trait[:measurement],
-          units["data"]["uri"])
+        (n_val, n_unit) = UnitConversions.convert(trait[:measurement],units["data"]["uri"])
+        debugger
         trait[:normal_measurement] = n_val
         trait[:normal_units] = n_unit
       else
@@ -717,6 +717,7 @@ class TraitBank
           trait[:normal_units] = "missing"
         end
       end
+      debugger
     end
 
     def parse_term(term_options)

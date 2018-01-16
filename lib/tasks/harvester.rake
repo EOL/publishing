@@ -206,10 +206,12 @@ def add_neo4j
   options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
              predicate:{"name"=>"lengthp","uri"=>"test/lengthp","section_ids"=>[1,2,3],"definition"=>"test predicate definition"},
              object_term:{"name"=>"lengtho","uri"=>"test/lengtho","section_ids"=>[1,2,3],"definition"=>"test object_term definition"},
-             units: {"name"=>"cm","uri"=>"test/lengthu","section_ids"=>[1,2,3],"definition"=>"test units"},
-             metadata:{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp","section_ids"=>[1,2,3],"definition"=>"test predicate definition"},
+             units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008","section_ids"=>[1,2,3],"definition"=>"test units"},
+             literal:"10",
+             metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp","section_ids"=>[1,2,3],"definition"=>"test predicate definition"},
                        object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho","section_ids"=>[1,2,3],"definition"=>"test object_term definition"},
-                       units: {"name"=>"md_cm","uri"=>"test/md_lengthu","section_ids"=>[1,2,3],"definition"=>"test units"}} }
+                       # units: {"name"=>"md_cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008","section_ids"=>[1,2,3],"definition"=>"test units"},
+                       literal:"15"}] }
   trait=TraitBank.create_trait(options)
 end
 
