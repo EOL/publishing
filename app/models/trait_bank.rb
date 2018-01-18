@@ -567,9 +567,12 @@ class TraitBank
     end
 
     def resources(traits)
-      resources = Resource.where(id: traits.map { |t| t[:resource_id] }.compact.uniq)
+      #resources will be array=># of resources?
+      #resources = ResourceApi.get_resource_using_id(id: traits.map { |t| t[:resource_id] }.compact.uniq)
+      resources = ResourceApi.get_resource_using_id(traits.map { |t| t[:resource_id] }.compact.uniq.first)
       # A little magic to index an array as a hash:
-      Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
+      #!!!!!!!!!!
+      #Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
     end
 
     def create_page(id)
@@ -661,16 +664,15 @@ class TraitBank
     end
 
     def add_metadata_to_trait(trait, options)
-      debugger
       predicate = parse_term(options.delete(:predicate))
-      # units = parse_term(options.delete(:units))
+      units = parse_term(options.delete(:units))
       object_term = parse_term(options.delete(:object_term))
-      # convert_measurement(options, units)
+      convert_measurement(options, units)
       meta = connection.create_node(options)
       connection.set_label(meta, "MetaData")
       relate("metadata", trait, meta)
       relate("predicate", meta, predicate)
-      # relate("units_term", meta, units) if units
+      relate("units_term", meta, units) if units
       relate("object_term", meta, object_term) if
         object_term
       meta
@@ -706,7 +708,6 @@ class TraitBank
       if trait[:measurement].is_a?(Numeric) &&
          units && units["data"] && units["data"]["uri"]
         (n_val, n_unit) = UnitConversions.convert(trait[:measurement],units["data"]["uri"])
-        debugger
         trait[:normal_measurement] = n_val
         trait[:normal_units] = n_unit
       else
@@ -717,7 +718,6 @@ class TraitBank
           trait[:normal_units] = "missing"
         end
       end
-      debugger
     end
 
     def parse_term(term_options)

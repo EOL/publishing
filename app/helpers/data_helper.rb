@@ -44,6 +44,7 @@ module DataHelper
   end
 
   def show_data_value(data)
+    debugger
     value = t(:data_missing, keys: data.keys.join(", "))
     if data[:object_page_id] && defined?(@associations)
       target = @associations.find { |a| a.id == data[:object_page_id] }

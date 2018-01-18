@@ -440,9 +440,10 @@ class Page < ActiveRecord::Base
   end
 
   def glossary
-    @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
-      TraitBank::Terms.page_glossary(id)
-    end
+    # @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
+      # TraitBank::Terms.page_glossary(id)
+    # end
+    @glossary ||= TraitBank::Terms.page_glossary(id)
   end
 
   def clear

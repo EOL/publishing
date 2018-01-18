@@ -1,6 +1,6 @@
 - cache(page_data_path(@page), expires_in: 1.day) do
   - Rails.logger.warn("// Rendering data for page #{@page.id} (#{@page.name})")
-  -# - @resources = TraitBank.resources(@page.data)
+  - @resources = TraitBank.resources(@page.data)
   - build_associations(@page)
   - max_rows = 10
   - data = @page.data
