@@ -19,7 +19,8 @@
                 -if resource_id
                   -result = ResourceApi.get_resource_using_id(resource_id)
                 -# - names.map { |n| n.node.try(:resource) }.compact.uniq.each do |resource|
-                  - formatted_names << link_to(result["name"], content_partner_resource_path(43, result["id"]))
+                  - content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource_id)
+                  - formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                 = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 %h2= t(:vernacular_names_header)
 .uk-grid-small.uk-child-width-1-3{ uk: { grid: true } }
@@ -57,5 +58,6 @@
                     - str = result["name"]
                     - if names_by_string.any? { |n| n.is_preferred_by_resource and not preferred_name }
                       = t(:vernacular_preferred_by_resource, resource: str)
-                    - formatted_names << link_to(result["name"], content_partner_resource_path(43, result["id"]))
+                    - content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource_id)
+                    - formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                   = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe

@@ -132,5 +132,17 @@ class ResourceApi
     end
   end
   
+  def self.get_content_partnerid_using_resourceid(resource_id)
+    begin
+      request =RestClient::Request.new(
+        :method => :get,
+        :url => "#{@base_schedular_uri}/resources/#{resource_id}/contentPartner"
+      )
+      response = JSON.parse(request.execute)
+    rescue => e
+      nil
+    end
+  end
+  
 end
 

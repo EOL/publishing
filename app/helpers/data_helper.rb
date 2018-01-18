@@ -96,7 +96,8 @@ module DataHelper
       # if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
       if resource = @resources 
         haml_tag("div.uk-overflow-auto") do
-          haml_concat(link_to(resource["name"], content_partner_resource_path(43, resource["id"]), title: resource["name"],
+          content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource["id"])
+          haml_concat(link_to(resource["name"], content_partner_resource_path(content_partner_id["id"], resource["id"]), title: resource["name"],
             data: { toggle: "tooltip", placement: "left" } ))
         end
       else
