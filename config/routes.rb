@@ -22,6 +22,8 @@ Rails.application.routes.draw do
     get "names"
     get "reindex"
     get "data"
+
+    get "overview", :to => redirect("/pages/%{page_id}", :status => 301) 
   end
 
   resources :data, only: [:show]

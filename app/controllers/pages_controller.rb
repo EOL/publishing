@@ -153,23 +153,6 @@ class PagesController < ApplicationController
     end
   end
 
-  # TODO: Decide whether serving the subtabs from here is actually RESTful.
-
-  # TODO: Remove duplication with show (be mindful of id / page_id).
-  def overview
-    @page = Page.where(id: params[:page_id]).preloaded.first
-    return render(status: :not_found) unless @page # 404
-    @page_title = @page.name
-    # TODO: we should really only load Associations if we need to:
-    get_associations
-    # Required mostly for paginating the first tab on the page (kaminari
-    # doesn't know how to build the nested view...)
-    respond_to do |format|
-      format.html { render :show }
-      format.js {}
-    end
-  end
-
   def data
     @page = Page.where(id: params[:page_id]).first
     return render(status: :not_found) unless @page # 404
