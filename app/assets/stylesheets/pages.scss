@@ -147,10 +147,10 @@ $border: 1px solid $light-gray;
 
   .sample-traits {
     font-size: 14px;
-    height: 58px;
 
     & > li {
       padding-left: 18px;
+      height: 58px;
     }
   }
 }
