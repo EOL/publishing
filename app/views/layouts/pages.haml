@@ -8,7 +8,7 @@
     %h2= @page.scientific_name.html_safe
 
   %ul.tabs
-    - tab("overview", page_overview_path(@page))
+    - tab("overview", page_path(@page))
     - if @page.articles.size > 0
       - tab("detail", page_details_path(@page))
       -#
