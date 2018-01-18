@@ -47,6 +47,7 @@ module DataHelper
       end
   end
   
+  # TODO: I18n
   def show_data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
@@ -77,6 +78,10 @@ module DataHelper
       parts << "CORRUPTED VALUE:"
       parts <<  value
     end
+    
+    modifier = data[:sex] || data[:lifestage] || data[:statistical_method]
+    parts << "(#{modifier})" if modifier
+
     parts.join(" ")
   end
 
