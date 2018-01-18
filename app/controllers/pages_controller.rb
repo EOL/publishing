@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   before_action :set_media_page_size, only: [:show, :media]
-
+  before_action :no_main_container
   after_filter :no_cache_json
 
   helper :data
@@ -129,8 +129,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = Page.where(id: params[:id]).first
-    raise ActionController::RoutingError.new('Not Found') unless @page # 404
+    @page = Page.find(params[:id])
     @page_title = @page.name
     get_media
     # TODO: we should really only load Associations if we need to:

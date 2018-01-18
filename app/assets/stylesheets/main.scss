@@ -8,7 +8,10 @@ html {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 85%;
-  background-color: snow;
+}
+
+body {
+  min-width: $mobile-width;
 }
 
 *, *:before, *:after {
@@ -284,7 +287,6 @@ a.uk-inline {
 .l-basic-main {
   box-sizing: border-box;
   padding-top: $nav-height;
-
 }
 
 #collected_pages_search {
@@ -497,7 +499,6 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  white-space: nowrap;
   width: 100%;
   z-index: 100;
 }

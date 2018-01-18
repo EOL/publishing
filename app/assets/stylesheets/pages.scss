@@ -1,0 +1,162 @@
+@import "dimensions";
+@import "colors";
+
+$trait-bg: #fefce5;
+$trait-key-color: #6f5a42;
+$trait-val-color: #c06a11;
+
+$padding-left-s: 17px;
+$padding-left-m: 20px;
+
+$border: 1px solid $light-gray;
+
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  padding-bottom: percentage(197px / $mobile-width);
+  position: relative;
+}
+
+.names {
+  height: 52px;
+  overflow: hidden;
+  padding: 0 $padding-left-s;
+  white-space: nowrap;
+  width: 100%;
+
+  & > h1 {
+    color: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 10px 0 0 0;
+  }
+
+  & > h2 {
+    color: inherit;
+    font-size: 11px;
+    font-weight: normal;
+    margin: 3px 0 0 0;
+  }
+}
+
+.tabs {
+  border-top: 1px solid $light-gray;
+  font-size: 11px;
+  height: 25px;
+  list-style: none;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 2px $padding-left-s;
+  white-space: nowrap;
+  
+}
+
+  .tab {
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 7px;
+    vertical-align: middle;
+
+    & > a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .is-tab-selected {
+    background: $eol-blue;
+    color: $white;
+
+    & > a {
+
+    }
+  }
+
+.desc {
+  border-top: $border;
+  font-size: 11px;
+  line-height: 1.36;
+  margin: 0;
+  padding: 13px $padding-left-s;
+}
+
+.sample-traits {
+  background: $trait-bg;
+  display: flex;
+  font-size: 11px;
+  height: 48px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    border-bottom: $border;
+    border-right: $border;
+    border-top: $border;
+    flex: 1 0 auto;
+    padding: 7px 13px;
+
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+}
+
+  .sample-trait-key {
+    color: $trait-key-color;
+  }
+
+  .sample-trait-val {
+    color: $trait-val-color;
+  }
+
+@media(min-width: 600px) {
+  .names {
+    height: 60px;  
+    padding: 0 $padding-left-m;
+
+    & > h1 {
+      font-size: 16px;
+      margin: 12px 0 0 0;
+    }
+
+    & > h2 {
+      font-size: 14px;
+      margin: 5px 0 0 0;
+    }
+  }
+
+  .tabs {
+    height: 30px;
+    padding: 3px $padding-left-m;
+    
+    & > li {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+  }
+
+  .desc {
+    font-size: 14px;
+    padding: 15px $padding-left-m;
+  }
+
+  .sample-traits {
+    font-size: 14px;
+    height: 58px;
+
+    & > li {
+      padding-left: 18px;
+    }
+  }
+}
+
+@media (min-width: 1220px) {
+  .hero {
+    height: 702px;
+    padding: 0;
+  }
+}

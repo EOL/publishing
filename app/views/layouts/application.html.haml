@@ -9,5 +9,5 @@
             = content_for?(:content) ? yield(:content) : yield
     - else
       .l-basic-main
-        = yield
+        = content_for?(:content) ? yield(:content) : yield
 = render template: "layouts/head_only"

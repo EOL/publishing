@@ -46,42 +46,38 @@ module DataHelper
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end
   end
-
+  
   def show_data_value(data)
-    haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(show data value)') }
+    parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
-    if (target_id = data[:object_page_id] || data[:target_page_id])
+    if (target_id = data[:object_page_id])
       if defined?(@associations)
         target = @associations.find { |a| a.id == target_id }
         if target.nil?
-          haml_concat "[page #{data[:object_page_id]} not imported]"
+          # TODO: log something? 
         else
-          summarize(target, options = {})
+          parts << name_for_page(target)
         end
       else
-        haml_concat "MISSING PAGE: "
-        haml_concat value
+        # TODO: log
+        #haml_concat "MISSING PAGE: "
+        #haml_concat value
       end
-      haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(association)') }
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
       # TODO: I've disabled links for object terms until they ... uhhh... work.
       # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
-      haml_concat(value)
-      haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(object term)') }
+      parts << value
     elsif val = data[:measurement] || data[:value_measurement]
-      value = val.to_s + " "
-      value += data[:units][:name] if data[:units] && data[:units][:name]
-      haml_concat(value.html_safe)
-      haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(measurement)') }
+      parts << val.to_s
+      parts << data[:units][:name] if data[:units] && data[:units][:name]
     elsif val = data[:literal]
-      haml_concat unlink(val).html_safe
-      haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(literal)') }
+      parts << unlink(val).html_safe
     else
-      haml_concat "CORRUPTED VALUE:"
-      haml_concat value
-      haml_tag(:span, class: 'uk-hidden uk-text-small') { haml_concat('(missing)') }
+      parts << "CORRUPTED VALUE:"
+      parts <<  value
     end
+    parts.join(" ")
   end
 
   def show_definition(uri)

@@ -223,6 +223,12 @@ module PagesHelper
     end
   end
 
+  def tab(name_key, path)
+    haml_tag(:li, :class => "tab #{(current_page?(path) ? "is-tab-selected" : "")}") do
+      haml_concat link_to(name_key, path)
+    end
+  end
+
   # TODO: we should really store the values like this! :S
   def unlink(text)
     return text.html_safe if text =~ /<a / # They already linked it.
