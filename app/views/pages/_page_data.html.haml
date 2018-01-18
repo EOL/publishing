@@ -42,15 +42,16 @@
               .ui.segments{ class: "uk-width-4-5@m uk-width-5-6 " + sections.join(" ") }
                 .ui.segment.eol-padding-tiny
                   -# = link_to(predicate[:name], term_path(uri: predicate[:uri]))
+                  = link_to(predicate[:name], '#')
                   - previous_predicate = predicate
                   %div{ class: "uk-visible@m" }
-                    - show_data_modifiers(trait)
+                    - show_data_modifiers(trait)      
                 .ui.secondary.segment.uk-text-center.eol-padding-tiny
-                  - show_data_value(trait)
+                  - show_data_value(trait) 
                   %div{ class: "uk-hidden@m" }
                     - show_data_modifiers(trait)
                 - show_source_segment(trait)
-              - metadata_container(trait)
+              - metadata_container(trait)         
       #data_type_glossary.uk-margin-large-bottom
         %h3= t(:data_header_type_glossary)
         .uk-column-1-2
@@ -59,6 +60,7 @@
               - term = @page.glossary[predicate]
               - next if term[:is_hidden_from_glossary]
               -# %dt= link_to(term[:name], term_path(uri: term[:uri]))
+              %dt= link_to(term[:name], '#')
               %dd
                 .uk-text-muted.uk-text-small= term[:uri]
                 = term[:definition]
@@ -71,6 +73,7 @@
               - term = @page.glossary[name]
               - next if term[:is_hidden_from_glossary]
               -# %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))
+              %dt= link_to(term[:name],'#')
               %dd
                 .uk-text-muted.uk-text-small= term[:uri]
                 = term[:definition]

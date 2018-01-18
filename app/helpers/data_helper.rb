@@ -44,7 +44,7 @@ module DataHelper
   end
 
   def show_data_value(data)
-    debugger
+    # debugger
     value = t(:data_missing, keys: data.keys.join(", "))
     if data[:object_page_id] && defined?(@associations)
       target = @associations.find { |a| a.id == data[:object_page_id] }
@@ -55,6 +55,7 @@ module DataHelper
       end
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
+      haml_concat(link_to(value,'#'))
       # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
     elsif data[:measurement]
       value = data[:measurement].to_s + " "
@@ -92,9 +93,10 @@ module DataHelper
   def show_source_segment(data)
     # TODO: make this a proper link
     haml_tag(:div, class: "ui attached segment table-source uk-width-1-5 uk-visible@m eol-padding-tiny") do
-      if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
+      # if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
+      if resource = @resources 
         haml_tag("div.uk-overflow-auto") do
-          haml_concat(link_to(resource.name, "#", title: resource.name,
+          haml_concat(link_to(resource["name"], content_partner_resource_path(43, resource["id"]), title: resource["name"],
             data: { toggle: "tooltip", placement: "left" } ))
         end
       else
