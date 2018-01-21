@@ -14,7 +14,7 @@ class Publishing
   end
 
   def republish_resource(resource)
-    resource.remove_content
+    # TMP: [speed things up] resource.remove_content
     # TMP: [speed things up] import_terms
     @last_run_at = 1
     @run = ImportRun.create
