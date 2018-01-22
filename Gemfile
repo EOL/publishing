@@ -54,6 +54,7 @@ gem 'daemons'
 # Memcached (not for development):
 gem 'dalli'
 # Background jobs (to be run by daemons, q.v.):
+gem 'delayed_job', '~> 4.1.4'
 gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
 gem 'devise','4.2.0'
