@@ -1,40 +1,40 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-  # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
-  # json_content = File.read(nodes_file_path)
-  # unless json_content == false
-    # nodes = JSON.parse(json_content)
+   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
+   json_content = File.read(nodes_file_path)
+   unless json_content == false
+     nodes = JSON.parse(json_content)
     add_neo4j
-    # nodes.each do |node|
-      # res = Node.where(global_node_id: node["generatedNodeId"])
-      # if res.count > 0
-        # current_node = res.first
-      # else
-        # params = { resource_id: node["resourceId"],
-                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"] }
-        # created_node = create_node(params)
-#         
-        # unless node["taxon"]["pageEolId"].nil? 
-          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
-          # unless node["vernaculars"].nil?
-            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
+    nodes.each do |node|
+      res = Node.where(global_node_id: node["generatedNodeId"])
+      if res.count > 0
+        current_node = res.first
+      else
+        params = { resource_id: node["resourceId"],
+                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        created_node = create_node(params)
+        
+        unless node["taxon"]["pageEolId"].nil? 
+          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+          create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
+          unless node["vernaculars"].nil?
+            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
+          end
+          
+          unless node["media"].nil?
+            create_media({media: node["media"],resource_id: node["resourceId"]})
+          end
+          
+          # unless node["nodeData"]["ancestors"].nil?
+            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
           # end
-#           
-          # unless node["media"].nil?
-            # create_media({media: node["media"],resource_id: node["resourceId"]})
-          # end
-#           
-          # # unless node["nodeData"]["ancestors"].nil?
-            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
-          # # end
-#            
-        # end      
-      # end    
-    # end
-  # end    
+           
+        end      
+      end    
+    end
+  end    
 end
 
 def get_latest_updates_from_hbase
@@ -84,14 +84,13 @@ end
 
 def create_node(params)
   rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
-  
   node = Node.create(
     resource_id: params[:resource_id],
     page_id: params[:page_id],
     rank_id: rank_id,
     scientific_name: params[:scientific_name],
     canonical_form: params[:canonical_form],
-    resource_pk: "#{params[:page_id]}-1",
+    resource_pk: params[:taxon_id],
     global_node_id: params[:global_node_id])                             
     node                          
 end
@@ -113,7 +112,7 @@ def create_language(code)
     res.first.id
   else
     # group need to be changed to default group
-    language = Language.create(code: code, group: "en")
+    language = Language.create(code: code, group: code)
     language.id
   end
 end

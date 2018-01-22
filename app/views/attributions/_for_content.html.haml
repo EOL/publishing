@@ -48,8 +48,9 @@
           -# = t(:resource_missing)
         -# -returned_content_partner = ContentPartnerApi.get_content_partner_resource_id(content.resource_id)
         -# -result = ResourceApi.get_resource_using_id(content.resource_id)
-        -result = ResourceApi.get_resource(43,content.resource_id)
-        -@resource = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+        -content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(content.resource_id)
+        -result = ResourceApi.get_resource(content_partner_id["id"],content.resource_id)
+        -@resource = Resource.new( name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
                       type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
                       day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
                       is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
