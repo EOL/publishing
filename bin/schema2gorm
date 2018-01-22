@@ -2,7 +2,6 @@
 
 require 'active_support/inflector'
 
-table = ''
 @tables = {}
 actual_tables = []
 prefixes_to_ignore = %w[From To Default Dataset Native RemovedBy Target Source AssociationAddedBy MovedTo Associated]
@@ -14,11 +13,11 @@ types = {
   'text' => 'string'
 }
 exceptional_relationships = {
-  'NormalizedName' => 'ScientificName',
-  'Ancestor' => 'Node',
-  'Parent' => 'Node',
-  'SynonymOf' => 'SearchSuggestion',
-  'Associated' => 'Collection'
+  'NormalizedName' => 'WebScientificName',
+  'Ancestor' => 'WebNode',
+  'Parent' => 'WebNode',
+  'SynonymOf' => 'WebSearchSuggestion',
+  'Associated' => 'WebCollection'
 }
 ignore_relationships = %w[Stylesheet Javascript Repository]
 
@@ -30,10 +29,11 @@ def add_field_to_table(field, type, table)
   @tables[table][field] = type
 end
 
+table = ''
 here = File.dirname(__FILE__)
 File.foreach(File.join(here, '../db', 'schema.rb')) do |line|
   if line =~ /create_table "(\w+)"/
-    table = Regexp.last_match[1].camelize.singularize
+    table = "Web" + Regexp.last_match[1].camelize.singularize
     actual_tables << table
     add_field_to_table('ID', 'uint', table) unless line.match?(/id: false/)
   elsif line =~ /\bt\.(\w+)\s+"(\w+)"/
@@ -50,9 +50,9 @@ File.foreach(File.join(here, '../db', 'schema.rb')) do |line|
     end
     add_field_to_table(column, type, table)
     if column.match?(/ID$/)
-      assoc = column.gsub('ID', '')
+      assoc = 'Web' + column.gsub('ID', '')
       # This next exception is for "recursive" node references... which I do not understand and don't have the time to:
-      next if (assoc == 'Node' || assoc == 'NativeNode') && (table == 'ScientificName' || table == 'Page')
+      next if (assoc == 'WebNode' || assoc == 'WebNativeNode') && (table == 'WebScientificName' || table == 'WebPage')
       next if ignore_relationships.include?(assoc)
       assoc_class = assoc.dup
       prefixes_to_ignore.each { |prefix| assoc_class.gsub!(/^#{prefix}(?=[A-Z])/, '') }
