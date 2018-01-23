@@ -13,13 +13,13 @@ types = {
   'text' => 'string'
 }
 exceptional_relationships = {
-  'NormalizedName' => 'WebScientificName',
-  'Ancestor' => 'WebNode',
-  'Parent' => 'WebNode',
-  'SynonymOf' => 'WebSearchSuggestion',
-  'Associated' => 'WebCollection'
+  'WebNormalizedName' => 'WebScientificName',
+  'WebAncestor' => 'WebNode',
+  'WebParent' => 'WebNode',
+  'WebSynonymOf' => 'WebSearchSuggestion',
+  'WebAssociated' => 'WebCollection'
 }
-ignore_relationships = %w[Stylesheet Javascript Repository]
+ignore_relationships = %w[WebStylesheet WebJavascript WebRepository]
 
 def add_field_to_table(field, type, table)
   @tables[table] ||= {}
@@ -43,7 +43,7 @@ File.foreach(File.join(here, '../db', 'schema.rb')) do |line|
     column.gsub!('Id', 'ID')
     type = types[type] if types.key?(type)
     if column =~ /^(\w+)Type$/ # Polymorphic!
-      @tables[table].delete(Regexp.last_match[1]) # Removes the "ID" version, assuming it came first (it usu. does)
+      @tables[table].delete('Web' + Regexp.last_match[1]) # Removes the "ID" version, assuming it came first (it usu. does)
       # NOTE: I don't think GORM can handle polymophism without haenous interfaces, and I don't have the time. We won't
       # need these, really, so ignore.
       next
@@ -55,7 +55,7 @@ File.foreach(File.join(here, '../db', 'schema.rb')) do |line|
       next if (assoc == 'WebNode' || assoc == 'WebNativeNode') && (table == 'WebScientificName' || table == 'WebPage')
       next if ignore_relationships.include?(assoc)
       assoc_class = assoc.dup
-      prefixes_to_ignore.each { |prefix| assoc_class.gsub!(/^#{prefix}(?=[A-Z])/, '') }
+      prefixes_to_ignore.each { |prefix| assoc_class.gsub!(/^Web#{prefix}(?=[A-Z])/, 'Web') }
       assoc_class.gsub!(/^.*Term$/, 'Term')
       # Argh, hard-coded exceptions:
       exceptional_relationships.each { |from, to| assoc_class = to if assoc_class == from }
@@ -77,4 +77,8 @@ actual_tables.each do |table|
     puts "  #{field.ljust(keylen)} #{type}"
   end
   puts '}'
+  puts
+  puts "func (#{table}) TableName() (string) {"
+  puts "  return \"#{table.sub(/^Web/, '').underscore}\""
+  puts "}"
 end
