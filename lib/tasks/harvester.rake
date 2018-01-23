@@ -27,6 +27,9 @@ def main_method
             create_media({media: node["media"],resource_id: node["resourceId"]})
           end
           
+          unless node["agents"].nil?
+            create_agents({agents: node["agents"]})
+          end
           # unless node["nodeData"]["ancestors"].nil?
             # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
           # end
@@ -56,6 +59,12 @@ end
 
 def build_hierarchy(ancestors, node_id)
   
+end
+
+def create_agents(params)
+  params[:agents].each do |agent|
+    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"])  
+  end
 end
 
 def create_vernaculars(params)
@@ -95,6 +104,16 @@ def create_node(params)
     node                          
 end
 
+def create_role(name)
+  res=Role.where(name: name)
+  if res.count > 0
+    res.first.id
+  else
+    role = Role.create(name: name)
+    role.id 
+  end
+end
+
 def create_rank(name)
   res = Rank.where(name: name)
   if res.count > 0
@@ -111,7 +130,6 @@ def create_language(code)
   if res.count > 0
     res.first.id
   else
-    # group need to be changed to default group
     language = Language.create(code: code, group: code)
     language.id
   end
@@ -154,6 +172,10 @@ def create_page(params)
     else
       nil    
   end
+end
+
+def create_agent(params)
+  
 end
 
 def create_vernacular(params)
