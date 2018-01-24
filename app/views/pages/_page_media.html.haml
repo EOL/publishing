@@ -42,7 +42,6 @@
       .ui.dropdown.item
         - if @resource
           %b= @resource.name
-        - else
           = t(:filter_by_resource)
         %i.dropdown.icon
         .menu.uk-height-medium.uk-overflow-auto
@@ -50,9 +49,11 @@
             page_media_path(page_id: @page.id, subclass_id: @subclass_id, license: @license, resource_id: nil),
             remote: true, class: "item#{ @subclass_id.nil? ? " active" : ""}")
           -# TODO: Cache or use autocomplete or ... something. :S
-          - Resource.all.order(:name).each do |resource|
-            = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
-              remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
+          -# - Resource.all.order(:name).each do |resource|
+            -# = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
+              -# remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
+          -# = link_to(@resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: @resource.id),
+            -# remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
   %div{ class: "uk-visible@m" }
     = paginate @media, remote: true
   -# If you want the list to be sortable:

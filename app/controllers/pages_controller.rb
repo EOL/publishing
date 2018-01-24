@@ -268,7 +268,9 @@ private
   end
 
   def get_media
-    media = @page.media.includes(:license, :resource)
+    # media = @page.media.includes(:license, :resource)
+    media = @page.media
+    params[:resource_id]=147
     if params[:license]
       media = media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])

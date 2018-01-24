@@ -59,7 +59,7 @@
                       default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
                       default_language_id: result["default_language_id"])
         -if !@resource.nil?
-          = link_to(@resource.name, content_partner_resource_path(43, result["id"]))
+          = link_to(@resource.name, content_partner_resource_path(content_partner_id["id"], result["id"]))
         -else
           = t(:resource_missing)
       %dt= "ID"
