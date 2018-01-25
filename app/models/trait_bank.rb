@@ -184,6 +184,7 @@ class TraitBank
     end
 
     def by_page(page_id, page = 1, per = 100)
+      # TODO: REMOVE REMOVE REMOVE
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -195,7 +196,161 @@ class TraitBank
         "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
       res = query(q)
-      build_trait_array(res)
+
+			# TODO: get rid of the fake data!
+      build_trait_array(res).concat(
+				[{:resource=>{:resource_id=>18},
+					:trait=>
+					 {:eol_pk=>"R13-PK5219",
+						:value_literal=>"1377",
+						:resource_pk=>"AETMean923",
+						:scientific_name=>"<i>Procyon pygmaeus</i>",
+						:source=>"http://esapubs.org/archive/ecol/E090/184/",
+						:measurement=>"1377",
+						:statistical_method=>"http://semanticscience.org/resource/SIO_001109",
+						:literal=>"1377"},
+					:predicate=>
+					 {:section_ids=>"4",
+						:attribution=>
+						 "https://en.wikipedia.org/w/index.php?title=Evapotranspiration&oldid=575637212",
+						:name=>"actual evapotranspiration rate in geographic range",
+						:is_hidden_from_glossary=>false,
+						:definition=>
+						 "Monthly AET (Actual Evapotranspiration Rate) within the geographic range of a taxon.  Evapotranspiration (ET) is the sum of evaporation and plant transpiration from the Earth's land surface to atmosphere.",
+						:comment=>"",
+						:is_hidden_from_overview=>false,
+						:position=>1748,
+						:type=>"measurement",
+						:uri=>"http://eol.org/schema/terms/AETinRange"},
+					:units=>
+					 {:section_ids=>"",
+						:name=>"millimeters per month",
+						:is_hidden_from_glossary=>false,
+						:comment=>"",
+						:definition=>"",
+						:is_hidden_from_overview=>false,
+						:position=>1746,
+						:type=>"value",
+						:uri=>"http://eol.org/schema/terms/millimeterspermonth"},
+					:meta=>
+					 [{:eol_pk=>"MetaTrait-8650",
+						 :value_literal=>
+							"Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O'Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.",
+						 :literal=>
+							"Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O'Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.",
+						 :predicate=>
+							{:section_ids=>"",
+							 :name=>"citation",
+							 :attribution=>"",
+							 :is_hidden_from_glossary=>false,
+							 :definition=>"A bibliographic reference for the resource.",
+							 :comment=>"",
+							 :is_hidden_from_overview=>false,
+							 :position=>1807,
+							 :type=>"metadata",
+							 :uri=>"http://purl.org/dc/terms/bibliographicCitation"},
+						 :object_term=>nil,
+						 :units=>nil},
+						{:eol_pk=>"MetaTrait-8649",
+						 :value_literal=>
+							"Variables describing the environmental conditions within the geographic range of a species were generated based on the extent of digital species range maps from Sechrest (2003) converted to the Wilson and Reeder (2005) taxonomy. The species ranges were first gridded at 0.5 degrees using a global geographic projection and species were scored as present in each cell if any of the range intersected that cell. Summary statistics for a species were then calculated by summarizing the value for each environmental variable (gridded to the same extent) for all the cells the species was present.  The summary statistics for each variable was adjusted for the fact that area varies with latitude by multiplying each cell by the area and then dividing by the total area of cells for that variable for a species.  Mean Monthly AET from 1920 to 1980 (mm) was calculated using the Global Resource Information Database of UNEP and is available from http://www.grid.unep.ch/data/grid/gnv183.php.",
+						 :literal=>
+							"Variables describing the environmental conditions within the geographic range of a species were generated based on the extent of digital species range maps from Sechrest (2003) converted to the Wilson and Reeder (2005) taxonomy. The species ranges were first gridded at 0.5 degrees using a global geographic projection and species were scored as present in each cell if any of the range intersected that cell. Summary statistics for a species were then calculated by summarizing the value for each environmental variable (gridded to the same extent) for all the cells the species was present.  The summary statistics for each variable was adjusted for the fact that area varies with latitude by multiplying each cell by the area and then dividing by the total area of cells for that variable for a species.  Mean Monthly AET from 1920 to 1980 (mm) was calculated using the Global Resource Information Database of UNEP and is available from http://www.grid.unep.ch/data/grid/gnv183.php.",
+						 :predicate=>
+							{:section_ids=>"",
+							 :attribution=>"",
+							 :name=>"measurement method",
+							 :is_hidden_from_glossary=>false,
+							 :definition=>
+								"A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.",
+							 :comment=>
+								"Examples: \"minimum convex polygon around burrow entrances\" for a home range area, \"barometric altimeter\" for an elevation\n" +
+								"Ontology Description: http://darwincore.googlecode.com/svn/trunk/terms/index.htm\n" +
+								"Ontology Source: http://rs.tdwg.org/dwc/rdf/dwcterms.rdf",
+							 :is_hidden_from_overview=>false,
+							 :position=>1665,
+							 :type=>"metadata",
+							 :uri=>"http://rs.tdwg.org/dwc/terms/measurementMethod"},
+						 :object_term=>nil,
+						 :units=>nil}],
+					:meta_predicate=>
+					 [{:section_ids=>"",
+						 :name=>"citation",
+						 :attribution=>"",
+						 :is_hidden_from_glossary=>false,
+						 :definition=>"A bibliographic reference for the resource.",
+						 :comment=>"",
+						 :is_hidden_from_overview=>false,
+						 :position=>1807,
+						 :type=>"metadata",
+						 :uri=>"http://purl.org/dc/terms/bibliographicCitation"},
+						{:section_ids=>"",
+						 :attribution=>"",
+						 :name=>"measurement method",
+						 :is_hidden_from_glossary=>false,
+						 :definition=>
+							"A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.",
+						 :comment=>
+							"Examples: \"minimum convex polygon around burrow entrances\" for a home range area, \"barometric altimeter\" for an elevation\n" +
+							"Ontology Description: http://darwincore.googlecode.com/svn/trunk/terms/index.htm\n" +
+							"Ontology Source: http://rs.tdwg.org/dwc/rdf/dwcterms.rdf",
+						 :is_hidden_from_overview=>false,
+						 :position=>1665,
+						 :type=>"metadata",
+						 :uri=>"http://rs.tdwg.org/dwc/terms/measurementMethod"}],
+					:meta_units_term=>[nil, nil],
+					:meta_object_term=>[nil, nil],
+					:eol_pk=>"R13-PK5219",
+					:value_literal=>"1377",
+					:resource_pk=>"AETMean923",
+					:scientific_name=>"<i>Procyon pygmaeus</i>",
+					:source=>"http://esapubs.org/archive/ecol/E090/184/",
+					:measurement=>"1377",
+					:statistical_method=>"http://semanticscience.org/resource/SIO_001109",
+					:literal=>"1377",
+					:resource_id=>18,
+					:metadata=>
+					 [{:eol_pk=>"MetaTrait-8650",
+						 :value_literal=>
+							"Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O'Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.",
+						 :literal=>
+							"Kate E. Jones, Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O'Dell, C. David L. Orme, Kamran Safi, Wes Sechrest, Elizabeth H. Boakes, Chris Carbone, Christina Connolly, Michael J. Cutts, Janine K. Foster, Richard Grenyer, Michael Habib, Christopher A. Plaster, Samantha A. Price, Elizabeth A. Rigby, Janna Rist, Amber Teacher, Olaf R. P. Bininda-Emonds, John L. Gittleman, Georgina M. Mace, and Andy Purvis. 2009. PanTHERIA: a species-level database of life history, ecology, and geography of extant and recently extinct mammals. Ecology 90:2648.",
+						 :predicate=>
+							{:section_ids=>"",
+							 :name=>"citation",
+							 :attribution=>"",
+							 :is_hidden_from_glossary=>false,
+							 :definition=>"A bibliographic reference for the resource.",
+							 :comment=>"",
+							 :is_hidden_from_overview=>false,
+							 :position=>1807,
+							 :type=>"metadata",
+							 :uri=>"http://purl.org/dc/terms/bibliographicCitation"},
+						 :object_term=>nil,
+						 :units=>nil},
+						{:eol_pk=>"MetaTrait-8649",
+						 :value_literal=>
+							"Variables describing the environmental conditions within the geographic range of a species were generated based on the extent of digital species range maps from Sechrest (2003) converted to the Wilson and Reeder (2005) taxonomy. The species ranges were first gridded at 0.5 degrees using a global geographic projection and species were scored as present in each cell if any of the range intersected that cell. Summary statistics for a species were then calculated by summarizing the value for each environmental variable (gridded to the same extent) for all the cells the species was present.  The summary statistics for each variable was adjusted for the fact that area varies with latitude by multiplying each cell by the area and then dividing by the total area of cells for that variable for a species.  Mean Monthly AET from 1920 to 1980 (mm) was calculated using the Global Resource Information Database of UNEP and is available from http://www.grid.unep.ch/data/grid/gnv183.php.",
+						 :literal=>
+							"Variables describing the environmental conditions within the geographic range of a species were generated based on the extent of digital species range maps from Sechrest (2003) converted to the Wilson and Reeder (2005) taxonomy. The species ranges were first gridded at 0.5 degrees using a global geographic projection and species were scored as present in each cell if any of the range intersected that cell. Summary statistics for a species were then calculated by summarizing the value for each environmental variable (gridded to the same extent) for all the cells the species was present.  The summary statistics for each variable was adjusted for the fact that area varies with latitude by multiplying each cell by the area and then dividing by the total area of cells for that variable for a species.  Mean Monthly AET from 1920 to 1980 (mm) was calculated using the Global Resource Information Database of UNEP and is available from http://www.grid.unep.ch/data/grid/gnv183.php.",
+						 :predicate=>
+							{:section_ids=>"",
+							 :attribution=>"",
+							 :name=>"measurement method",
+							 :is_hidden_from_glossary=>false,
+							 :definition=>
+								"A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion.",
+							 :comment=>
+								"Examples: \"minimum convex polygon around burrow entrances\" for a home range area, \"barometric altimeter\" for an elevation\n" +
+								"Ontology Description: http://darwincore.googlecode.com/svn/trunk/terms/index.htm\n" +
+								"Ontology Source: http://rs.tdwg.org/dwc/rdf/dwcterms.rdf",
+							 :is_hidden_from_overview=>false,
+							 :position=>1665,
+							 :type=>"metadata",
+							 :uri=>"http://rs.tdwg.org/dwc/terms/measurementMethod"},
+						 :object_term=>nil,
+						 :units=>nil}],
+						:id=>"trait--18--AETMean923"}])
     end
 
     def page_ancestors(page_id)

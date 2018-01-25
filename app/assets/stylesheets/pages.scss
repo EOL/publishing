@@ -126,6 +126,15 @@ $border: 1px solid $light-gray;
   .trait-source {
     float: right;
   }
+  
+.meta-items-arw {
+  bottom: 5px;
+  display: block;
+  cursor: pointer;
+  right: 12px;
+  text-align: center;
+  width: 100%;
+}
 
 @media(min-width: 600px) {
   .names {

@@ -362,6 +362,9 @@ if(!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
+    // Enable all semantic UI dropdowns
+    $('.ui.dropdown').dropdown();
+
     $.each(eolReadyCbs, function(i, cb) {
       cb();
     });

@@ -10,13 +10,13 @@
         %li.trait
           .trait-source= show_source_segment(trait)
           .trait-pred= link_to(predicate[:name], term_path(:uri => predicate[:uri]))
-          = predicate[:uri]
           .trait-val= show_data_value(trait)
           - modifier_content = modifier_txt(trait)
           - if modifier_content
             .trait-mod= modifier_txt(trait)
-          - if trait[:metadata] && trait[:metadata].any?
-            %ul.meta-items
+          - if trait[:metadata] && trait[:metadata].any? 
+            %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-meta-arw
+            %ul.meta-items.is-hidden.js-meta-items
               - trait[:metadata].each do |datum|
                 %li.meta-item
                   .meta-pred
