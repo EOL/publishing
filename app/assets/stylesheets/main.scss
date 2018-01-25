@@ -496,6 +496,7 @@ body {
 .l-nav {
   background: $white;
   height: $nav-height;
+  min-width: $mobile-width;
   position: fixed;
   top: 0;
   left: 0;

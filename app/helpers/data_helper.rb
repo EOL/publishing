@@ -47,7 +47,6 @@ module DataHelper
       end
   end
   
-  # TODO: I18n
   def show_data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
@@ -66,8 +65,6 @@ module DataHelper
       end
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
-      # TODO: I've disabled links for object terms until they ... uhhh... work.
-      # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
       parts << value
     elsif val = data[:measurement] || data[:value_measurement]
       parts << val.to_s
@@ -79,11 +76,19 @@ module DataHelper
       parts <<  value
     end
     
-    modifier = data[:sex] || data[:lifestage] || data[:statistical_method]
-    parts << "(#{modifier})" if modifier
-
     parts.join(" ")
   end
+
+  def modifier_txt(data)
+    modifiers = [ data[:sex], data[:lifestage], data[:statistical_method] ].reject { |x| x.nil? }
+
+    if modifiers.any?
+      separated_list(modifiers)
+    else
+      nil
+    end
+  end
+
 
   def show_definition(uri)
     return unless uri && uri[:definition]
@@ -108,26 +113,12 @@ module DataHelper
     haml_tag(:div, value, class: "ui tertiary segment")
   end
 
-  def show_source(src)
-    haml_tag(:div, class: "ui secondary segment") do
-      haml_concat I18n.t(:data_source)
-    end
-    haml_tag(:div, class: "ui tertiary segment") do
-      haml_concat unlink(src).html_safe
-    end
-  end
-
   def show_source_segment(data)
-    # TODO: make this a proper link
-    haml_tag(:div, class: "ui attached segment table-source uk-width-1-5 uk-visible@m eol-padding-tiny") do
-      if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
-        haml_tag("div.uk-overflow-auto") do
-          haml_concat(link_to(resource.name, resource, title: resource.name,
-            data: { toggle: "tooltip", placement: "left" } ))
-        end
-      else
-        haml_concat(I18n.t(:resource_missing))
-      end
+    if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
+      link_txt = resource.name.blank? ? resource_path(resource) : resource.name
+      link_to(link_txt, resource)
+    else
+      I18n.t(:resource_missing)
     end
   end
 

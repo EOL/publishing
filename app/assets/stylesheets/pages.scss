@@ -42,7 +42,8 @@ $border: 1px solid $light-gray;
 }
 
 .tabs {
-  border-top: 1px solid $light-gray;
+  border-top: $border;
+  border-top: $border;
   font-size: 11px;
   height: 25px;
   list-style: none;
@@ -69,10 +70,6 @@ $border: 1px solid $light-gray;
   .is-tab-selected {
     background: $eol-blue;
     color: $white;
-
-    & > a {
-
-    }
   }
 
 .desc {
@@ -114,6 +111,22 @@ $border: 1px solid $light-gray;
     color: $trait-val-color;
   }
 
+.traits {
+  list-style: none;
+  padding: 0 $padding-left-s;
+}
+
+  .trait {
+    border: $border;
+    margin-top: 3px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .trait-source {
+    float: right;
+  }
+
 @media(min-width: 600px) {
   .names {
     height: 60px;  
@@ -152,6 +165,11 @@ $border: 1px solid $light-gray;
       padding-left: 18px;
       height: 58px;
     }
+  }
+
+  .traits {
+    margin: 0;
+    padding: 0 $padding-left-m;
   }
 }
 

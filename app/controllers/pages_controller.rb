@@ -155,6 +155,7 @@ class PagesController < ApplicationController
 
   def data
     @page = Page.where(id: params[:page_id]).first
+    @resources = TraitBank.resources(@page.data)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
