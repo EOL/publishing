@@ -269,15 +269,17 @@ private
   def get_media
     media = @page.media.includes(:license, :resource)
     @licenses = media.map { |m| m.license.name }.uniq.sort
+    @subclasses = media.map { |m| m.subclass }.uniq.sort
+    @resources = media.map { |m| m.resource }.uniq.sort
+
     if params[:license]
       media = media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])
       @license = params[:license]
     end
-    if params[:subclass_id]
-      media = media.where(subclass: params[:subclass_id])
-      @subclass_id = params[:subclass_id].to_i
-      @subclass = Medium.subclasses.find { |n, id| id == @subclass_id }[0]
+    if params[:subclass]
+      @subclass = params[:subclass]
+      media = media.where(subclass: params[:subclass])
     end
     if params[:resource_id]
       media = media.where(resource_id: params[:resource_id])

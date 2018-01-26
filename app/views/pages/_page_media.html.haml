@@ -6,12 +6,12 @@
         %ul.uk-subnav.uk-subnav-pill
           %li
             = link_to(t(:filter_by_medium_any_item),
-              page_media_path(page_id: @page.id, subclass_id: nil, license: @license, resource_id: @resource_id),
-              remote: true, class: "item#{ @subclass_id.nil? ? " uk-active" : ""}")
+              page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
+              remote: true, class: "item#{ @subclass.nil? ? " uk-active" : ""}")
           - Medium.subclasses.each do |sc_name, sc_id|
             - next if sc_name == "js_map"
-            %li= link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass_id: sc_id, resource_id: @resource_id),
-              remote: true, class: "item#{ sc_id == @subclass_id ? " uk-active" : ""}")
+            %li= link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass: sc_id, resource_id: @resource_id),
+              remote: true, class: "item#{ sc_id == @subclass ? " uk-active" : ""}")
 
     -#
       .ui.menu.uk-text-small{ class: "uk-visible@m js-media-menus" }
@@ -24,12 +24,12 @@
         %i.dropdown.icon
         .menu
           = link_to(t(:filter_by_license_any_item),
-            page_media_path(page_id: @page.id, license: nil, subclass_id: @subclass_id, resource_id: @resource_id),
+            page_media_path(page_id: @page.id, license: nil, subclass: @subclass, resource_id: @resource_id),
             remote: true, data: { type: 'html' }, class: "item#{ @license.nil? ? " active" : ""}")
           -#
             - License.types.each do |lic|
           - @licenses.each do |lic|
-            = link_to(lic, page_media_path(page_id: @page.id, license: lic, subclass_id: @subclass_id, resource_id: @resource_id),
+            = link_to(lic, page_media_path(page_id: @page.id, license: lic, subclass: @subclass, resource_id: @resource_id),
               remote: true, data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
       .ui.dropdown.item
         - if @subclass
@@ -39,11 +39,13 @@
         %i.dropdown.icon
         .menu
           = link_to(t(:filter_by_medium_any_item),
-            page_media_path(page_id: @page.id, subclass_id: nil, license: @license, resource_id: @resource_id),
-            remote: true, data: { type: 'html' }, class: "item#{ @subclass_id.nil? ? " active" : ""}")
-          - Medium.subclasses.each do |sc_name, sc_id|
-            = link_to(t("medium.subclasses.#{sc_name}"), page_media_path(page_id: @page.id, license: @license, subclass_id: sc_id, resource_id: @resource_id),
-              remote: true, data: { type: 'html' }, class: "item#{ sc_id == @subclass_id ? " active" : ""}")
+            page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
+            remote: true, data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
+          -#
+            - Medium.subclasses.each do |sc_name, sc_id|
+          - @subclasses.each do |sc|
+            = link_to(t("medium.subclasses.#{sc}"), page_media_path(page_id: @page.id, license: @license, subclass: sc, resource_id: @resource_id),
+              remote: true, data: { type: 'html' }, class: "item#{ sc == @subclass ? " active" : ""}")
       .ui.dropdown.item
         - if @resource
           %b= @resource.name
@@ -52,11 +54,11 @@
         %i.dropdown.icon
         .menu.uk-height-medium.uk-overflow-auto
           = link_to(t(:filter_by_resource_any_item),
-            page_media_path(page_id: @page.id, subclass_id: @subclass_id, license: @license, resource_id: nil),
-            remote: true, data: { type: 'html' }, class: "item#{ @subclass_id.nil? ? " active" : ""}")
+            page_media_path(page_id: @page.id, subclass: @subclass, license: @license, resource_id: nil),
+            remote: true, data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
           -# TODO: Cache or use autocomplete or ... something. :S
-          - Resource.all.order(:name).each do |resource|
-            = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
+          - @resources.each do |resource|
+            = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass: @subclass, resource_id: resource.id),
               remote: true, data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
   %div{ class: "uk-visible@m" }
     = paginate @media, remote: true
