@@ -83,10 +83,10 @@ $border: 1px solid $light-gray;
 .sample-traits {
   background: $trait-bg;
   display: flex;
+  flex-wrap: wrap;
   font-size: 11px;
   list-style: none;
   margin: 0;
-  overflow-x: auto;
   padding: 0;
 
   & > li {
