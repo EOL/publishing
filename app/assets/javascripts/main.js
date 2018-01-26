@@ -224,9 +224,11 @@ if(!window.EOL) {
       EOL.enable_tab_nav();
     }
     // No "else" because it also has a gallery, so you can need both!
+    /*
     if ($("#gmap").length >= 1) {
       EoLMap.init();
     }
+    */
     $(window).bind("popstate", function () {
       console.log("popstate "+location.href);
       // TODO: I'm not sure this is ever used. Check and remove, if not.

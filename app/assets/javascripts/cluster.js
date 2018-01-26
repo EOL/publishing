@@ -1,4 +1,4 @@
-var EoLMap              = {};
+EoLMap                  = {};
 EoLMap.recs             = null;
 EoLMap.map              = null;
 EoLMap.markerClusterer  = null;
@@ -17,7 +17,7 @@ function clustersOnOff()
     EoLMap.change();
 }
 
-function get_center_lat_long()
+function get_center_lat_long(data)
 {
     var bound = new google.maps.LatLngBounds();
     EoLMap.recs = data.records;
@@ -29,10 +29,10 @@ function get_center_lat_long()
     return bound.getCenter();
 }
 
-EoLMap.init = function() {
+EoLMap.init = function(data) {
 
   //start centering map
-  center_latlong = get_center_lat_long();
+  center_latlong = get_center_lat_long(data);
   var latlng = new google.maps.LatLng(center_latlong.lat(), center_latlong.lng());
   //end centering map
 
@@ -201,3 +201,8 @@ EoLMap.time = function() {
         }
     }
 };
+
+$(function() {
+  var jsonPath = $('#map-canvas').data('jsonPath');
+  $.getJSON(jsonPath, EoLMap.init)
+});

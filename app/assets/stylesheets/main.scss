@@ -321,6 +321,9 @@ form .error {
 }
 
 #map {
+  max-width: 1100px;
+  margin: 0 auto;
+
   p {
     margin: 10px;
   }
@@ -344,7 +347,6 @@ form .error {
 
   #map-canvas {
     height: 500px;
-    width: 1100px;
   }
 
   #goBackUI:hover, #goNextUI:hover, #goOrigUI:hover, #goPanelUI:hover, #goFullUI:hover {
@@ -632,4 +634,13 @@ body {
   position: absolute;
   text-align: center;
   width: 100%;
+}
+
+@media(max-width: 616px) {
+  // TODO: these should all have a single class that is targeted
+  #map {
+    #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+      display: none;
+    }
+  }
 }
