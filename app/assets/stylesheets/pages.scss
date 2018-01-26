@@ -43,7 +43,7 @@ $border: 1px solid $light-gray;
 
 .tabs {
   border-top: $border;
-  border-top: $border;
+  border-bottom: $border;
   font-size: 11px;
   height: 25px;
   list-style: none;
@@ -73,7 +73,6 @@ $border: 1px solid $light-gray;
   }
 
 .desc {
-  border-top: $border;
   font-size: 11px;
   line-height: 1.36;
   margin: 0;
