@@ -181,8 +181,13 @@ class PagesController < ApplicationController
     return render(status: :not_found) unless @page # 404
     get_media
     respond_to do |format|
-      format.html {}
-      format.js {}
+      format.html do
+        if request.xhr?
+          render :layout => false
+        else
+          render
+        end 
+      end
     end
   end
 
@@ -263,6 +268,7 @@ private
 
   def get_media
     media = @page.media.includes(:license, :resource)
+    @licenses = media.map { |m| m.license.name }.uniq.sort
     if params[:license]
       media = media.joins(:license).
         where(["licenses.name LIKE ?", "#{params[:license]}%"])

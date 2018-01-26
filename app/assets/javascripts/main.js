@@ -170,6 +170,11 @@ if(!window.EOL) {
     console.log("TEARDOWN");
     $(".typeahead").typeahead("destroy");
   };
+ 
+  // Enable all semantic UI dropdowns
+  EOL.enableDropdowns = function() {
+    $('.ui.dropdown').dropdown();
+  }
 
   EOL.ready = function() {
     console.log("READY.");
@@ -362,14 +367,12 @@ if(!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
-    // Enable all semantic UI dropdowns
-    $('.ui.dropdown').dropdown();
+    EOL.enableDropdowns();
 
     $.each(eolReadyCbs, function(i, cb) {
       cb();
     });
   };
-
 }
 
 $(document).on("ready page:load page:change", EOL.ready);

@@ -23,9 +23,8 @@
                     - if datum[:predicate][:uri]
                       = link_to(datum[:predicate][:name], term_path(:uri => predicate[:uri]))
                     - else
-                      %div= datum[:predicate][:name]
-                  .meta-val
-                    %div= show_data_value(datum)
+                      = datum[:predicate][:name]
+                  .meta-val= show_data_value(datum)
 
 
   -# todo: move caching to controller if possible

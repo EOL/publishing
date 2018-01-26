@@ -1,3 +1,12 @@
+function setupMenus() {
+  EOL.enableDropdowns();
+
+  $('.js-media-menus a').on('ajax:success', function(e, data, status, xhr) {
+    $('#gallery').replaceWith(data);
+    setupMenus();
+  });
+}
+
 $(function() {
   $('.js-meta-arw').click(function() {
     var $metaList = $(this).siblings('.js-meta-items');
@@ -12,4 +21,6 @@ $(function() {
       $metaList.addClass('is-hidden');
     }
   });
+  
+  setupMenus();
 });
