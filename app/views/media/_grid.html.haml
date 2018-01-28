@@ -3,8 +3,9 @@
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
     - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
-    - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
-    - name = t("medium.untitled") if name.blank?
+    - name = image.name.blank? ? t("medium.untitled") : image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+    -# - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+    -# - name = t("medium.untitled") if name.blank?
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
     %div
@@ -23,6 +24,9 @@
                   %i.copyright.icon
                   = owner
                   %br
+                  -content_partner_id = ResourceApi.get_content_partnerid_using_resourceid(image.resource_id)
+                  -result = ResourceApi.get_resource(content_partner_id["id"],image.resource_id)
+                  = link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                   -# = link_to(image.resource.name, image.resource)
                   %ul.uk-iconnav.uk-float-right
                     -# If you want the list to be sortable...

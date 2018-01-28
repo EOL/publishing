@@ -24,7 +24,7 @@ def main_method
           end
           
           unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"]})
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
           end
           
           unless node["agents"].nil?
@@ -84,9 +84,11 @@ def create_media(params)
                     spatial_location: medium["genericLocation"],latitude: medium["latitude"],longitude: medium["longitude"],
                     altitude: medium["altitude"])
       #base_url need to have default value
-      create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
+      medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
                      resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],
                      language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
+      #need to check source_page_id value , position
+      fill_page_contents({page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
     end
   
 end
@@ -219,6 +221,18 @@ def create_scientific_name(params)
                                             node_resource_pk: params[:node_resource_pk], italicized: canonical_form , taxonomic_status_id: 1)
     scientific_name.id
   end  
+end
+
+def fill_page_contents(params)
+    res = PageContent.where(content_type:params[:content_type],content_id: params[:content_id]  ,page_id: params[:page_id] )
+    if res.count > 0
+      res.first.id
+    else
+      debugger
+      page_contents = PageContent.create(content_type:params[:content_type],content_id: params[:content_id],page_id: params[:page_id],source_page_id: params[:source_page_id])
+      page_contents.id
+    end
+      
 end
 
 def add_neo4j

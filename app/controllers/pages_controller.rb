@@ -268,14 +268,18 @@ private
   end
 
   def get_media
-    # media = @page.media.includes(:license, :resource)
+    #not working
+    #media = @page.media.includes(:license, :resource)
     media = @page.media
-    params[:resource_id]=147
-    if params[:license]
-      media = media.joins(:license).
-        where(["licenses.name LIKE ?", "#{params[:license]}%"])
-      @license = params[:license]
-    end
+    #params can't include paramaters in if conditionals
+    # if params[:license]
+      # media = media.joins(:license).
+        # where(["licenses.name LIKE ?", "#{params[:license]}%"])
+      # @license = params[:license]
+    # end
+    debugger
+    media=media.joins(:license)
+    debugger
     if params[:subclass_id]
       media = media.where(subclass: params[:subclass_id])
       @subclass_id = params[:subclass_id].to_i
