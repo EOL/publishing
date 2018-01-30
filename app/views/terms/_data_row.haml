@@ -2,16 +2,20 @@
   - pages = [] unless local_assigns.has_key?(:pages)
   - page_id = trait[:page_id]
   - page = page_id ? pages[page_id] : nil
-  - if show_thumb && page
+  - if show_taxon && page
     .trait-thumb
       - show_data_page_icon page
   - predicate = trait[:predicate]
   .trait-source= show_source_segment(trait)
-  .trait-pred= link_to(predicate[:name], term_path(:uri => predicate[:uri]))
-  .trait-val= show_data_value(trait)
-  - modifier_content = modifier_txt(trait)
-  - if modifier_content
-    .trait-mod= modifier_txt(trait)
+
+  .trait-data
+    - if show_taxon && page
+      = link_to(page.scientific_name.html_safe, page)
+    .trait-pred= link_to(predicate[:name], term_path(:uri => predicate[:uri]))
+    .trait-val= show_data_value(trait)
+    - modifier_content = modifier_txt(trait)
+    - if modifier_content
+      .trait-mod= modifier_txt(trait)
   - if trait[:metadata] && trait[:metadata].any? 
     %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-meta-arw
     %ul.meta-items.is-hidden.js-meta-items

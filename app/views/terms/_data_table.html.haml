@@ -5,7 +5,7 @@
   -# TODO: helper
   - prev_page_id = nil
   - data.each_with_index do |trait,index|
-    = render :partial => "terms/data_row", :locals => { :pages => pages, :trait => trait, :show_thumb => true }
+    = render :partial => "terms/data_row", :locals => { :pages => pages, :trait => trait, :show_taxon => true }
     -#
       - page_id = trait[:page_id]
       - if page = pages[page_id]
