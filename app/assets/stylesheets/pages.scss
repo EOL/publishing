@@ -1,12 +1,11 @@
 @import "dimensions";
 @import "colors";
+@import "shared/layout";
+@import "shared/traits";
 
 $trait-bg: #fefce5;
 $trait-key-color: #6f5a42;
 $trait-val-color: #c06a11;
-
-$padding-left-s: 17px;
-$padding-left-m: 20px;
 
 $border: 1px solid $light-gray;
 
@@ -110,32 +109,8 @@ $border: 1px solid $light-gray;
     color: $trait-val-color;
   }
 
-.traits {
-  list-style: none;
-  padding: 0 $padding-left-s;
-}
 
-  .trait {
-    border: $border;
-    margin-top: 3px;
-    padding: 10px;
-    width: 100%;
-  }
-
-  .trait-source {
-    float: right;
-  }
-  
-.meta-items-arw {
-  bottom: 5px;
-  display: block;
-  cursor: pointer;
-  right: 12px;
-  text-align: center;
-  width: 100%;
-}
-
-@media(min-width: 600px) {
+@media(min-width: $width-m) {
   .names {
     height: 60px;  
     padding: 0 $padding-left-m;
@@ -175,10 +150,6 @@ $border: 1px solid $light-gray;
     }
   }
 
-  .traits {
-    margin: 0;
-    padding: 0 $padding-left-m;
-  }
 }
 
 @media (min-width: 1220px) {

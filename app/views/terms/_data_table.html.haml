@@ -1,35 +1,37 @@
 - data = [] unless local_assigns.has_key?(:data)
 - pages = [] unless local_assigns.has_key?(:pages)
 = paginate data unless data.empty?
-#data_table.uk-overflow-auto.uk-text-small
+%ul.traits.traits-term-search
   -# TODO: helper
   - prev_page_id = nil
   - data.each_with_index do |trait,index|
-    - page_id = trait[:page_id]
-    - if page = pages[page_id]
-      .row
-        .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
-          - if index == 0
-            %div{ class: "uk-hidden@m" }
-              = t("page_data.source_column_header").html_safe
-          %i.icon.chevron.down.uk-margin-large-top
-        .ui.segments{ class: "uk-width-4-5@m uk-width-5-6 " }
-          .ui.segment.eol-padding-tiny
-            - if prev_page_id != page_id
-              .uk-grid{ uk: { grid: true } }
-                .uk-width-1-4
-                  - show_data_page_icon(page)
-                .uk-width-3-4
-                  - show_data_page_name(page)
-
-            - prev_page_id = page_id
-          - if @object || @and_predicate || @is_terms_search
+    = render :partial => "terms/data_row", :locals => { :pages => pages, :trait => trait, :show_thumb => true }
+    -#
+      - page_id = trait[:page_id]
+      - if page = pages[page_id]
+        .row
+          .uk-float-right.uk-text-center.meta_data_toggle{ class: "uk-width-1-5@m uk-width-1-6 ", data: { action: datum_path(trait[:id]) } }
+            - if index == 0
+              %div{ class: "uk-hidden@m" }
+                = t("page_data.source_column_header").html_safe
+            %i.icon.chevron.down.uk-margin-large-top
+          .ui.segments{ class: "uk-width-4-5@m uk-width-5-6 " }
             .ui.segment.eol-padding-tiny
-              = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
-              - show_data_modifiers(trait)
-          .ui.secondary.segment.uk-text-center.eol-padding-tiny
-            - show_data_value(trait)
-            - show_data_modifiers(trait) unless @object
-          - show_source_segment(trait)
-        - metadata_container(trait)
-= paginate data unless data.empty?
+              - if prev_page_id != page_id
+                .uk-grid{ uk: { grid: true } }
+                  .uk-width-1-4
+                    - show_data_page_icon(page)
+                  .uk-width-3-4
+                    - show_data_page_name(page)
+
+              - prev_page_id = page_id
+            - if @object || @and_predicate || @is_terms_search
+              .ui.segment.eol-padding-tiny
+                = link_to(trait[:predicate][:name], term_path(uri: trait[:predicate][:uri]))
+                - show_data_modifiers(trait)
+            .ui.secondary.segment.uk-text-center.eol-padding-tiny
+              - show_data_value(trait)
+              - show_data_modifiers(trait) unless @object
+            - show_source_segment(trait)
+          - metadata_container(trait)
+  = paginate data unless data.empty?
