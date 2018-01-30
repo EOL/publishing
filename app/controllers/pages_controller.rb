@@ -271,20 +271,19 @@ private
     #not working
     #media = @page.media.includes(:license, :resource)
     media = @page.media
-    #params can't include paramaters in if conditionals
-    # if params[:license]
-      # media = media.joins(:license).
-        # where(["licenses.name LIKE ?", "#{params[:license]}%"])
-      # @license = params[:license]
-    # end
-    debugger
-    media=media.joins(:license)
-    debugger
+    if params[:license]
+      debugger
+      media = media.joins(:license).
+        where(["licenses.name LIKE ?", "#{params[:license]}%"])
+      @license = params[:license]
+    end
+    
     if params[:subclass_id]
       media = media.where(subclass: params[:subclass_id])
       @subclass_id = params[:subclass_id].to_i
       @subclass = Medium.subclasses.find { |n, id| id == @subclass_id }[0]
     end
+    
     if params[:resource_id]
       media = media.where(resource_id: params[:resource_id])
       @resource_id = params[:resource_id].to_i

@@ -52,8 +52,11 @@
           -# - Resource.all.order(:name).each do |resource|
             -# = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: resource.id),
               -# remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
-          -# = link_to(@resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: @resource.id),
-            -# remote: true, class: "item#{ resource.id == @resource_id ? " active" : ""}")
+  
+          -if @resource
+            -content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(@resource_id)
+            = link_to(@resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: @resource_id),
+              remote: true, class: "item#{ @resource.id == @resource_id ? " active" : ""}")
   %div{ class: "uk-visible@m" }
     = paginate @media, remote: true
   -# If you want the list to be sortable:

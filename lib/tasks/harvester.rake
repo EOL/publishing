@@ -63,7 +63,11 @@ end
 
 def create_agents(params)
   params[:agents].each do |agent|
-    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"])  
+    # need role default name
+    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"]) 
+    #  
+    create_agent({content_id: ,content_type: "Medium"})
+    
   end
 end
 
@@ -177,7 +181,13 @@ def create_page(params)
 end
 
 def create_agent(params)
-  
+  # search in attributions not final
+  res= attribution.where(content_id: params[:content_id],content_type: params:[:content_type])
+  if res.first
+    res.first.id
+  else
+    atttribution=attribution.create(content_id: params[:content_id],content_type: params[:content_type],role_id: params[:role_id],value: params[:value])
+  end
 end
 
 def create_vernacular(params)
@@ -228,7 +238,6 @@ def fill_page_contents(params)
     if res.count > 0
       res.first.id
     else
-      debugger
       page_contents = PageContent.create(content_type:params[:content_type],content_id: params[:content_id],page_id: params[:page_id],source_page_id: params[:source_page_id])
       page_contents.id
     end
