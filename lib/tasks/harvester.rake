@@ -24,12 +24,12 @@ def main_method
           end
           
           unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id,agents: node["agents"]})
           end
           
-          unless node["agents"].nil?
-            create_agents({agents: node["agents"]})
-          end
+          # unless node["agents"].nil?
+            # create_agents({agents: node["agents"],media: node["media"]})
+          # end
           # unless node["nodeData"]["ancestors"].nil?
             # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
           # end
@@ -61,15 +61,6 @@ def build_hierarchy(ancestors, node_id)
   
 end
 
-def create_agents(params)
-  params[:agents].each do |agent|
-    # need role default name
-    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"]) 
-    #  
-    create_agent({content_id: ,content_type: "Medium"})
-    
-  end
-end
 
 def create_vernaculars(params)
   params[:vernaculars].each do |vernacular|
@@ -93,8 +84,23 @@ def create_media(params)
                      language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
       #need to check source_page_id value , position
       fill_page_contents({page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
+      unless params[:agents].nil?
+        create_agent({agents: params[:agents],agentId: medium["agentId"],medium_id: medium_id})
+      end
     end
   
+end
+
+def create_agent(params)
+  params[:agents].each do |agent|
+    if agent["agentId"]==params[:agentId]
+    # need role default name
+    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"]) 
+    #what is value and need default value
+    create_attribution({content_id: params[:medium_id] ,content_type: "Medium",role_id: role_id, value: "value test"})
+    end
+    
+  end
 end
 
 def create_node(params)
@@ -180,13 +186,14 @@ def create_page(params)
   end
 end
 
-def create_agent(params)
-  # search in attributions not final
-  res= attribution.where(content_id: params[:content_id],content_type: params:[:content_type])
+def create_attribution(params)
+  # search in attributions not final parameters
+  res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type])
   if res.first
     res.first.id
   else
-    atttribution=attribution.create(content_id: params[:content_id],content_type: params[:content_type],role_id: params[:role_id],value: params[:value])
+    attribution=Attribution.create(content_id: params[:content_id],content_type: params[:content_type],role_id: params[:role_id],value: params[:value])
+    attribution.id
   end
 end
 
