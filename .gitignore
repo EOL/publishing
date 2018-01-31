@@ -72,6 +72,7 @@ public/uploads/images/collection_icons/*jpeg
 public/uploads/images/collection_icons/*png
 public/uploads/images/collection_icons/*gif
 public/resource_contributions/*json
+public/data
 solr/logs/*.*
 solr/development
 solr/pids/development

@@ -1,22 +1,38 @@
+require 'zip'
+
 class TraitBank
   class DataDownload
     BATCH_SIZE = 1000
+
+    # These are handled as ordered columns
+    IGNORE_META_URIS = [
+      "http://rs.tdwg.org/dwc/terms/measurementAccuracy",
+      "http://purl.org/dc/terms/bibliographicCitation",
+      "http://purl.org/dc/terms/contributor",
+      "http://eol.org/schema/reference/referenceID"
+    ]
 
     attr_reader :count
 
     class << self
       def term_search(term_query, user_id, count = nil)
         downloader = self.new(term_query, count)
-        if downloader.count > BATCH_SIZE
-          term_query.save!
-          UserDownload.create(
-            :user_id => user_id,
-            :term_query => term_query,
-            :count => downloader.count
-          )
-        else
-          downloader.build
-        end
+#        if downloader.count > BATCH_SIZE
+#          term_query.save!
+#          UserDownload.create(
+#            :user_id => user_id,
+#            :term_query => term_query,
+#            :count => downloader.count
+#          )
+#        else
+#          downloader.build
+#        end
+         term_query.save!
+         UserDownload.create(
+           :user_id => user_id,
+           :term_query => term_query,
+           :count => downloader.count
+         )
       end
 
       def path
@@ -32,8 +48,10 @@ class TraitBank
       @options = { :per => BATCH_SIZE, :meta => true, :result_type => :record }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
-      @filename = Digest::MD5.hexdigest(@query.as_json.to_s)
-      @filename += ".tsv"
+
+      @base_filename = Digest::MD5.hexdigest(@query.as_json.to_s)
+      @zip_filename = "#{@base_filename}.zip"
+      @trait_filename = "traits.tsv"
       @count = count || TraitBank.term_search(@query, @options.merge(:count => true))
     end
 
@@ -42,6 +60,13 @@ class TraitBank
       get_predicates
       to_arrays
       generate_csv
+    end
+
+    def write_zip
+      Zip::File.open(File.join(TraitBank::DataDownload.path, @zip_filename), Zip::File::CREATE) do |zipfile|
+        zipfile.mkdir(@base_filename)
+        zipfile.add("#{@base_filename}/#{@trait_filename}", File.join(TraitBank::DataDownload.path, @trait_filename))
+      end
     end
 
     def background_build
@@ -55,34 +80,47 @@ class TraitBank
       get_predicates
       to_arrays
       write_csv
-      @filename
+      write_zip
+      @zip_filename
     end
 
+
     # rubocop:disable Lint/UnusedBlockArgument
-    def columns # rubocop:disable Metrics/CyclomaticComplexity
+    def start_cols # rubocop:disable Metrics/CyclomaticComplexity
       { "EOL Page ID" => -> (trait, page, resource, value) { page && page.id },# NOTE: might be nice to make this clickable?
         "Ancestry" => -> (trait, page, resource, value) { page && page.native_node.ancestors.map { |n| n.canonical_form }.join(" | ") },
         "Scientific Name" => -> (trait, page, resource, value) { page && page.scientific_name },
-        "Common Name" => -> (trait, page, resource, value) { page && page.vernacular.try(:string) },
-        "Measurement" => -> (trait, page, resource, value) {trait[:predicate][:name]},
-        "Value" => -> (trait, page, resource, value) {value}, # NOTE this is actually more complicated...
-        "Measurement URI" => -> (trait, page, resource, value) {trait[:predicate][:uri]},
-        "Value URI" => -> (trait, page, resource, value) {trait[:object_term] && trait[:object_term][:uri]},
+        "Measurement Type" => -> (trait, page, resource, value) {trait[:predicate][:name]},
+        "Measurement Value" => -> (trait, page, resource, value) {trait[:measurement]}, # Raw value, not sure if this works for associations
+        "Measurement Units" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:name]},
+        "Measurement Accuracy" => -> (trait, page, resource, value) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
+        "Statistical Method" => -> (trait, page, resource, value) {trait[:statistical_method]},
+        "Sex" => -> (trait, page, resource, value) {trait[:sex]},
+        "Life Stage" => -> (trait, page, resource, value) {trait[:lifestage]},
+        #"Value" => -> (trait, page, resource, value) { value }, # NOTE this is actually more complicated...Watch out for associations
+        #"Measurement URI" => -> (trait, page, resource, value) {trait[:predicate][:uri]},
+        #"Value URI" => -> (trait, page, resource, value) {trait[:object_term] && trait[:object_term][:uri]},
         # TODO: these normalized units won't work; we're not storing it right now. Add it.
         # "Units (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]},
         # "Units URI (normalized)" => -> (trait, page, resource, value) {trait[:predicate][:normal_units]},
-        "Raw Value (direct from source)" => -> (trait, page, resource, value) {trait[:measurement]},
-        "Raw Units (direct from source)" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:name]},
-        "Raw Units URI (direct from source)" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:uri]},
-        "Statistical Method" => -> (trait, page, resource, value) {trait[:statistical_method]},
-        "Life Stage" => -> (trait, page, resource, value) {trait[:lifestage]},
-        "Sex" => -> (trait, page, resource, value) {trait[:sex]},
-        "Supplier" => -> (trait, page, resource, value) { resource ? resource.name : "unknown" },
-        "Content Partner Resource URL" => -> (trait, page, resource, value) { resource ? resource.url : nil },
-        "Source" => -> (trait, page, resource, value) {trait[:source]}
+        #"Raw Units URI (direct from source)" => -> (trait, page, resource, value) {trait[:units] && trait[:units][:uri]},
+        #"Statistical Method" => -> (trait, page, resource, value) {trait[:statistical_method]},
+        #"Supplier" => -> (trait, page, resource, value) { resource ? resource.name : "unknown" },
+        #"Content Partner Resource URL" => -> (trait, page, resource, value) { resource ? resource.url : nil },
       }
     end
     # rubocop:enable Lint/UnusedBlockArgument
+    
+    def end_cols
+      {
+        "Source" => -> (trait, page, resource, value) {trait[:source]},
+        "Bibliographic Citation" => -> (trait, page, resource, value) { meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation") },
+        "Contributor" => -> (trait, page, resource, value) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
+        #"Reference" => -> (trait, page, resource, value) { meta_value(trait, "http://eol.org/schema/reference/referenceID") }
+
+      #TODO: deal with references
+      }
+    end
 
     def to_arrays
       require "csv"
@@ -90,21 +128,22 @@ class TraitBank
         includes(:medium, :native_node, :preferred_vernaculars)
       resources = Resource.where(id: resource_ids)
       associations = Page.where(id: association_ids)
-      cols = columns
       @data = []
-      @data << cols.keys + @predicates.keys
+      @data << start_cols.keys + @predicates.keys + end_cols.keys
       @hashes.each do |trait|
         page = pages.find { |p| p.id == trait[:page][:page_id] }
         resource = resources.find { |r| r.id == trait[:resource][:resource_id] }
         resource = resources.find { |r| r.id == trait[:resource][:resource_id] }
         value = build_value(trait, associations)
         row = []
-        cols.each do |_, lamb|
+        start_cols.each do |_, lamb|
           row << lamb[trait, page, resource, value]
         end
         @predicates.values.each do |predicate|
-          metas = trait[:metadata].select { |m| m[:predicate][:uri] == predicate[:uri] }
-          row << metas.any? ? join_metas(metas) : nil
+          row << meta_value(trait, predicate[:uri])
+        end
+        end_cols.each do |_, lamb|
+          row << lamb[trait, page, resource, value]
         end
         @data << row
       end
@@ -117,7 +156,7 @@ class TraitBank
     end
 
     def write_csv
-      CSV.open(TraitBank::DataDownload.path.join(@filename), "wb") do |csv|
+      CSV.open(TraitBank::DataDownload.path.join(@trait_filename), "wb") do |csv|
         @data.each { |row| csv << row }
       end
     end
@@ -135,6 +174,11 @@ class TraitBank
       else
         "unknown (missing)"
       end
+    end
+
+    def meta_value(trait, uri) 
+      metas = trait[:metadata].select { |m| m[:predicate][:uri] == uri }
+      metas.any? ? join_metas(metas) : nil
     end
 
     def join_metas(metas)
@@ -160,6 +204,7 @@ class TraitBank
       @hashes.each do |hash|
         next unless hash[:metadata]
         hash[:metadata].each do |meta|
+          next if IGNORE_META_URIS.include?(meta[:predicate][:uri])
           name = meta[:predicate][:name].titleize rescue ""
           name ||= meta[:predicate][:uri]
           @predicates[name] ||= meta[:predicate]

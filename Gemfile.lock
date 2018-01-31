@@ -572,6 +572,7 @@ DEPENDENCIES
   refinerycms-wymeditor
   rspec-rails
   rubocop
+  rubyzip (>= 1.0.0)
   sass-rails
   sdoc
   searchkick
