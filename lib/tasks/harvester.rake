@@ -87,8 +87,33 @@ def create_media(params)
       unless params[:agents].nil?
         create_agent({agents: params[:agents],agentId: medium["agentId"],medium_id: medium_id})
       end
+      
+      unless params[:references].nil?
+        create_referents({references: params[:references],reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium"})
+      end
+      
     end
   
+end
+
+def create_referents(params)
+  params[:references].each do |reference|
+    if reference["referenceId"] == params[:reference_id]
+    referent_id=
+    create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: "Medium"})
+  end
+end
+
+def create_references(params)
+  #check searching parameters
+  res = Reference.where(parent_id: params[:parent_id],parent_type: params[:parent_type])
+  if res.count > 0
+    res.first.id
+  else
+    reference = Reference.create(parent_id: params[:parent_id],referent_id: params[:referent_id] ,parent_type: params[:parent_type])
+    reference.first
+  end
+   
 end
 
 def create_agent(params)
