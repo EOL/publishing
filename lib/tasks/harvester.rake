@@ -24,7 +24,7 @@ def main_method
           end
           
           unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id,agents: node["agents"]})
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
           end
           
           # unless node["agents"].nil?
@@ -84,25 +84,47 @@ def create_media(params)
                      language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
       #need to check source_page_id value , position
       fill_page_contents({page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
-      unless params[:agents].nil?
-        create_agent({agents: params[:agents],agentId: medium["agentId"],medium_id: medium_id})
+      unless medium["agents"].nil?
+        create_agents({agents: medium["agents"],content_id: medium_id,content_type: "Medium"})
       end
       
-      unless params[:references].nil?
-        create_referents({references: params[:references],reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium"})
-      end
+      # unless params[:references].nil?
+        # create_referents({references: params[:references],reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium"})
+      # end
       
     end
   
 end
 
-def create_referents(params)
-  params[:references].each do |reference|
-    if reference["referenceId"] == params[:reference_id]
-    referent_id=
-    create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: "Medium"})
+def create_agents(params)
+  params[:agents].each do |agent|
+    create_agent(role: agent["role"],content_id: params[:content_id], content_type: params[:content_type])
   end
+  
 end
+
+
+# def create_referents(params)
+  # params[:references].each do |reference|
+    # if reference["referenceId"] == params[:reference_id]
+      # # create referent missing body (text can be null)
+      # referent_id = create_referent(body: )
+      # create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: "Medium"})
+    # end
+# 
+  # end
+# end
+
+def create_referent(params)
+    res = Referent.where(body: params[:body])
+    if res.count > 0
+      res.first.id
+    else
+      referent = Referent.create(body: params[:body])
+      referent.id
+    end
+    
+end 
 
 def create_references(params)
   #check searching parameters
@@ -111,22 +133,13 @@ def create_references(params)
     res.first.id
   else
     reference = Reference.create(parent_id: params[:parent_id],referent_id: params[:referent_id] ,parent_type: params[:parent_type])
-    reference.first
+    reference.id
   end
    
 end
+  
 
-def create_agent(params)
-  params[:agents].each do |agent|
-    if agent["agentId"]==params[:agentId]
-    # need role default name
-    role_id = agent["role"].nil? ? create_role("roletest") : create_role(agent["role"]) 
-    #what is value and need default value
-    create_attribution({content_id: params[:medium_id] ,content_type: "Medium",role_id: role_id, value: "value test"})
-    end
-    
-  end
-end
+  
 
 def create_node(params)
   rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
@@ -247,6 +260,13 @@ def create_medium(params)
     medium= Medium.create(params)
     medium.id
   end
+end
+
+def create_agent(params)
+  # need role default name
+  role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
+  #what is value and need default value
+  create_attribution({content_id: params[:content_id] ,content_type: params[:content_type],role_id: role_id, value: "value test"})
 end
 
 def create_scientific_name(params)
