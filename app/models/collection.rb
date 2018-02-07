@@ -8,8 +8,6 @@ class Collection < ActiveRecord::Base
 
   has_and_belongs_to_many :users
 
-  has_attached_file :icon
-
   accepts_nested_attributes_for :collection_associations, allow_destroy: true
   accepts_nested_attributes_for :collected_pages, allow_destroy: true
 

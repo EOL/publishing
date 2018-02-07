@@ -20,10 +20,6 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
-  # TODO: we want to pick the real sizes to use, here:
-  has_attached_file :icon, styles: { medium: "130x130>" },
-    default_url: "/images/:style/missing.png"
-
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
   validates :email, presence: true
   validates :password, presence: true, if: "encrypted_password.blank?"
