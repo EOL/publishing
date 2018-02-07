@@ -76,8 +76,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
-# Handle attachments (icons):
-gem 'paperclip'
 # Debugging:
 gem 'pry-rails'
 # Authorization:
