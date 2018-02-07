@@ -12,8 +12,9 @@ class Medium < ActiveRecord::Base
 
   has_one :image_info, inverse_of: :image
 
+  # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
   enum subclass: [ :image, :video, :sound, :map, :js_map ]
-  enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav ]
+  enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav, :mp4 ]
 
   scope :images, -> { where(subclass: :image) }
   scope :videos, -> { where(subclass: :video) }
