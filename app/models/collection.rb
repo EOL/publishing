@@ -11,10 +11,8 @@ class Collection < ActiveRecord::Base
   accepts_nested_attributes_for :collection_associations, allow_destroy: true
   accepts_nested_attributes_for :collected_pages, allow_destroy: true
 
-  validates_attachment_content_type :icon, content_type: /\Aimage\/.*\Z/
   validates :name, presence: true
 
   enum collection_type: [ :normal, :gallery ]
   enum default_sort: [ :position, :sci_name, :sci_name_rev, :sort_field, :sort_field_rev, :hierarchy ]
-
 end
