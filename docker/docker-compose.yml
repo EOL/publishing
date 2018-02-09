@@ -9,7 +9,9 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
-    network_mode: "bridge"
+    # network_mode: "bridge"
+    networks:
+      - eolnet
   eol-backend-memcached:
     image: memcached
     container_name: eol-backend-memcached
@@ -17,7 +19,9 @@ services:
     environment:
       - TZ=America/New_York
     command: memcached -m 4096m
-    network_mode: "bridge"
+    # network_mode: "bridge"
+    networks:
+      - eolnet
   eol-backend-neo4j:
     image: neo4j
     container_name: eol-backend-neo4j
@@ -31,7 +35,9 @@ services:
       - /data/eol-backend-neo4j/data:/data
       - /data/eol-backend-neo4j/logs:/logs
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
-    network_mode: "bridge"
+    # network_mode: "bridge"
+    networks:
+      - eolnet
   eol-backend-mysql:
     image: mysql
     container_name: eol-backend-mysql
@@ -44,7 +50,9 @@ services:
       - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
     volumes:
        - /u/data/eol-backend-mysql:/var/lib/mysql
-    network_mode: "bridge"
+    # network_mode: "bridge"
+    networks:
+      - eolnet
   eol-backend-tramea:
     image: encoflife/eol-backend.tramea
     container_name: eol-backend-tramea
@@ -69,4 +77,9 @@ services:
       - resources/staging.env
     ports:
        - 3000:3000
-    network_mode: "bridge"
+    # network_mode: "bridge"
+    networks:
+      - eolnet
+  networks:
+    eolnet:
+      driver: bridge
