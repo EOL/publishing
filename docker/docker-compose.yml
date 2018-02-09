@@ -1,4 +1,4 @@
-version: '4'
+version: '5'
 services:
   eol-backend-elasticsearch:
     image: elasticsearch
@@ -32,19 +32,19 @@ services:
       - /data/eol-backend-neo4j/logs:/logs
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
     network_mode: "bridge"
- eol-backend-mysql:
-   image: mysql
-   container_name: eol-backend-mysql
-   restart: always
-   environment:
-     - TZ=America/New_York
-     - MYSQL_ROOT_PASSWORD=EolRocks!
-     - MYSQL_DATABASE=eol_web_staging
-     - MYSQL_USER=admin
-     - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
-   volumes:
-      - /u/data/eol-backend-mysql:/var/lib/mysql
-   network_mode: "bridge"
+  eol-backend-mysql:
+    image: mysql
+    container_name: eol-backend-mysql
+    restart: always
+    environment:
+      - TZ=America/New_York
+      - MYSQL_ROOT_PASSWORD=EolRocks!
+      - MYSQL_DATABASE=eol_web_staging
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
+    volumes:
+       - /u/data/eol-backend-mysql:/var/lib/mysql
+    network_mode: "bridge"
   eol-backend-tramea:
     image: encoflife/eol-backend.tramea
     container_name: eol-backend-tramea
