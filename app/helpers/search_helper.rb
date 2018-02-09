@@ -1,8 +1,10 @@
 module SearchHelper
   def result_total(results)
     total = 0
-    results.each do |r|
-      total += r.total_count if r
+    results.compact.each do |r|
+      # TODO: this rescue is sloppy, but I was getting cases where the delegated array was nil and there was NO way to
+      # test that from "out here." We're not *overly* concerned about errors here...
+      total += r.total_count rescue 0
     end
     total
   end

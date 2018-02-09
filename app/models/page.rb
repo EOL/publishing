@@ -45,10 +45,8 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  # NOTE: I've not tested this; might not be the most efficient set: ...I did
-  # notice that vernaculars doesn't quite work; the scopes that are attached to
-  # the (preferred and nonpreferred) interfere.
-  scope :search_import, -> { includes(:scientific_names, :vernaculars, native_node: { node_ancestors: :ancestor }, resources: :partner) }
+  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
+                                      native_node: [:unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
@@ -97,6 +95,7 @@ class Page < ActiveRecord::Base
   def search_data
     {
       id: id,
+      # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
       scientific_name: scientific_name,
       preferred_scientific_names: preferred_scientific_names,
@@ -113,7 +112,11 @@ class Page < ActiveRecord::Base
   end
 
   def synonyms
-    scientific_names.synonym.map { |n| n.canonical_form }
+    if scientific_names.loaded?
+      scientific_names.select { |n| !n.is_preferred? }.map { |n| n.canonical_form }
+    else
+      scientific_names.synonym.map { |n| n.canonical_form }
+    end
   end
 
   def resource_pks
@@ -121,11 +124,19 @@ class Page < ActiveRecord::Base
   end
 
   def preferred_vernacular_strings
-    vernaculars.preferred.map { |v| v.string }
+    if vernaculars.loaded?
+      vernaculars.select { |v| v.is_preferred? }.map { |v| v.string }
+    else
+      vernaculars.preferred.map { |v| v.string }
+    end
   end
 
   def vernacular_strings
-    vernaculars.nonpreferred.map { |v| v.string }
+    if vernaculars.loaded?
+      vernaculars.select { |v| !v.is_preferred? }.map { |v| v.string }
+    else
+      vernaculars.nonpreferred.map { |v| v.string }
+    end
   end
 
   def providers
@@ -141,7 +152,7 @@ class Page < ActiveRecord::Base
     if native_node.unordered_ancestors&.loaded?
       native_node.unordered_ancestors.map(&:page_id).compact + [id]
     else
-      Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+      Array(native_node&.unordered_ancestors&.pluck(:page_id)).compact + [id]
     end
   end
 
