@@ -80,6 +80,6 @@ services:
     # network_mode: "bridge"
     networks:
       - eolnet
-  networks:
-    eolnet:
-      driver: bridge
+networks:
+  eolnet:
+    driver: bridge
