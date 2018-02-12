@@ -71,7 +71,8 @@ class Page < ActiveRecord::Base
   end
 
   def self.fix_native_nodes(pages)
-    pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes.first.id) }
+    pages ||= Page.where(native_node_id: nil)
+    pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes&.first&.id) }
   end
 
   def self.remove_if_nodeless
