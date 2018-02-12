@@ -50,7 +50,7 @@ class MediaContentCreator
     @contents << { page_id: page_id, source_page_id: page_id, position: @content_count_by_page[page_id],
                    content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
     if @naked_pages.key?(page_id)
-      @naked_pages[page_id].assign_attributes(@field: content.id)
+      @naked_pages[page_id].assign_attribute(@field, content.id)
     end
   end
 
