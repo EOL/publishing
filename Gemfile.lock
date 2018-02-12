@@ -530,7 +530,7 @@ DEPENDENCIES
   dalli
   delayed_job (~> 4.1.4)
   delayed_job_active_record
-  devise
+  devise (~> 4.4.1)
   devise-encryptable
   devise-i18n-views
   discourse_api
