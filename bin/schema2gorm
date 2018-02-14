@@ -1,0 +1,84 @@
+#!/usr/bin/env ruby
+
+require 'active_support/inflector'
+
+@tables = {}
+actual_tables = []
+prefixes_to_ignore = %w[From To Default Dataset Native RemovedBy Target Source AssociationAddedBy MovedTo Associated]
+types = {
+  'boolean' => 'bool',
+  'datetime' => 'time.Time',
+  'decimal' => 'float32',
+  'integer' => 'uint',
+  'text' => 'string'
+}
+exceptional_relationships = {
+  'WebNormalizedName' => 'WebScientificName',
+  'WebAncestor' => 'WebNode',
+  'WebParent' => 'WebNode',
+  'WebSynonymOf' => 'WebSearchSuggestion',
+  'WebAssociated' => 'WebCollection'
+}
+ignore_relationships = %w[WebStylesheet WebJavascript WebRepository]
+
+def add_field_to_table(field, type, table)
+  @tables[table] ||= {}
+  return if @tables[table].key?(field)
+  puts "// Yuck, empty field on table #{table}" && return unless field.match?(/\w/)
+  type = "*#{type}" if table == type # This is how you handle self-reference: with a pointer.
+  @tables[table][field] = type
+end
+
+table = ''
+here = File.dirname(__FILE__)
+File.foreach(File.join(here, '../db', 'schema.rb')) do |line|
+  if line =~ /create_table "(\w+)"/
+    table = "Web" + Regexp.last_match[1].camelize.singularize
+    actual_tables << table
+    add_field_to_table('ID', 'uint', table) unless line.match?(/id: false/)
+  elsif line =~ /\bt\.(\w+)\s+"(\w+)"/
+    type = Regexp.last_match[1]
+    column = Regexp.last_match[2].camelize
+    next if column.match?(/^Content/) # Can't handle these yet.
+    column.gsub!('Id', 'ID')
+    type = types[type] if types.key?(type)
+    if column =~ /^(\w+)Type$/ # Polymorphic!
+      @tables[table].delete('Web' + Regexp.last_match[1]) # Removes the "ID" version, assuming it came first (it usu. does)
+      # NOTE: I don't think GORM can handle polymophism without haenous interfaces, and I don't have the time. We won't
+      # need these, really, so ignore.
+      next
+    end
+    add_field_to_table(column, type, table)
+    if column.match?(/ID$/)
+      assoc = 'Web' + column.gsub('ID', '')
+      # This next exception is for "recursive" node references... which I do not understand and don't have the time to:
+      next if (assoc == 'WebNode' || assoc == 'WebNativeNode') && (table == 'WebScientificName' || table == 'WebPage')
+      next if ignore_relationships.include?(assoc)
+      assoc_class = assoc.dup
+      prefixes_to_ignore.each { |prefix| assoc_class.gsub!(/^Web#{prefix}(?=[A-Z])/, 'Web') }
+      assoc_class.gsub!(/^.*Term$/, 'Term')
+      # Argh, hard-coded exceptions:
+      exceptional_relationships.each { |from, to| assoc_class = to if assoc_class == from }
+      assoc_class = assoc_class.camelize
+      add_field_to_table(assoc, assoc_class, table)
+      many = table.pluralize
+      add_field_to_table(many, "[]#{table}", assoc_class) unless table == assoc_class
+    end
+  end
+end
+puts 'package importer'
+puts
+puts 'import "time"'
+actual_tables.each do |table|
+  fields = @tables[table]
+  puts "\ntype #{table} struct {"
+  keylen = fields.keys.map(&:size).max
+  fields.each do |field, type|
+    puts "  #{field.ljust(keylen)} #{type}"
+  end
+  puts '}'
+  puts
+  puts "func (#{table}) TableName() (string) {"
+  puts "  return \"#{table.sub(/^Web/, '').underscore}\""
+  puts "}"
+end

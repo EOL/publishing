@@ -122,8 +122,7 @@ class TraitBank
       add
     end
 
-    # TODO: add association to the sort... normal_measurement comes after
-    # literal, so it will be ignored
+    # TODO: add association to the sort... normal_measurement comes after literal, so it will be ignored
     def order_clause_array(options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""

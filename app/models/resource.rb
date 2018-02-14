@@ -136,7 +136,8 @@ class Resource < ActiveRecord::Base
     node_ids.in_groups_of(1000, false) do |group|
       Page.fix_native_nodes(Page.where(native_node_id: group))
     end
-    Page.remove_if_nodeless
+    # TODO:
+    # Page.where(native_node_id: nil).delete_all # This is slightly risky, perhaps we should... ?
   end
 
   def nuke(klass)
