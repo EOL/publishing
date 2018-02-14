@@ -54,6 +54,7 @@ db/*_structure.sql
 db/structure.sql
 doc/app
 lang/tmp.yml
+public/data
 public/feeds
 public/*csv
 public/*tsv
