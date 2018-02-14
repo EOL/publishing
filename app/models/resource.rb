@@ -126,11 +126,13 @@ class Resource < ActiveRecord::Base
     # Attributions
     nuke(Attribution)
     # Traits:
-    TraitBank::Admin.remove_for_resource(self)
+    # TODO: restore this. I'm removing it TEMP only... TraitBank::Admin.remove_for_resource(self)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
-    Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
+    pages.in_groups_of(10_000, false) do |group|
+      Page.where(id: group).update_all("nodes_count = nodes_count - 1")
+    end
     node_ids = Node.where(resource_id: id).pluck(:id)
     nuke(Node)
     node_ids.in_groups_of(1000, false) do |group|
