@@ -54,9 +54,10 @@ gem 'daemons'
 # Memcached (not for development):
 gem 'dalli'
 # Background jobs (to be run by daemons, q.v.):
+gem 'delayed_job', '~> 4.1.4'
 gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
-gem 'devise','4.2.0'
+gem 'devise', '~> 4.4.1'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
 # Discourse handles comments and chat:
@@ -75,8 +76,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
-# Handle attachments (icons):
-gem 'paperclip'
 # Debugging:
 gem 'pry-rails'
 # Authorization:

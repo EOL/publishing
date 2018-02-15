@@ -17,7 +17,7 @@ class ResourcesController < ApplicationController
   def republish
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
-    @resource.delay.republish!
+    Delayed::Job.enqueue(RepublishJob.new(@resource.id))
     flash[:notice] = "Background job for complete republish of #{@resource.abbr} started."
     redirect_to @resource
   end

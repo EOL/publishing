@@ -1,6 +1,9 @@
 class Publishing::PubNodes
   attr_reader :node_id_by_page
   def self.import(resource, log, repo)
+    log ||= Publishing::PubLog.new(resource)
+    a_long_long_time_ago = 1202911078 # 10 years ago when this was written; no sense coding it.
+    repo ||= Publishing::Repository.new(resource: resource, log: log, since: a_long_long_time_ago)
     Publishing::PubNodes.new(resource, log, repo).import
   end
 
@@ -99,6 +102,6 @@ class Publishing::PubNodes
       Page.import!(group, on_duplicate_key_ignore: true)
     end
     @log.log('fixing counter_culture counts for Node...')
-    Node.where(resource_id: @resource.id).counter_culture_fix_counts
+    # TMP: [faster for now] Node.where(resource_id: @resource.id).counter_culture_fix_counts
   end
 end

@@ -126,21 +126,28 @@ class Resource < ActiveRecord::Base
     # Attributions
     nuke(Attribution)
     # Traits:
-    TraitBank::Admin.remove_for_resource(self)
+    # TODO: restore this. I'm removing it TEMP only... TraitBank::Admin.remove_for_resource(self)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
-    Page.where(id: pages).update_all("nodes_count = nodes_count - 1")
+    pages.in_groups_of(10_000, false) do |group|
+      Page.where(id: group).update_all("nodes_count = nodes_count - 1")
+    end
     node_ids = Node.where(resource_id: id).pluck(:id)
     nuke(Node)
     node_ids.in_groups_of(1000, false) do |group|
       Page.fix_native_nodes(Page.where(native_node_id: group))
     end
-    Page.remove_if_nodeless
+    # TODO:
+    # Page.where(native_node_id: nil).delete_all # This is slightly risky, perhaps we should... ?
   end
 
   def nuke(klass)
     klass.where(resource_id: id).delete_all
+  rescue # reports as Mysql2::Error but that doesn't catch it. :S
+    sleep(2)
+    ActiveRecord::Base.connection.reconnect!
+    retry rescue nil # I really don't care THAT much... sheesh!
   end
 
   # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.

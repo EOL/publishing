@@ -1,15 +1,16 @@
-version: '2'
+version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of the config formatting to use. Keep it here.
 services:
   eol-backend-elasticsearch:
     image: elasticsearch
     container_name: eol-backend-elasticsearch
     restart: always
-    environment: 
+    environment:
       - TZ=America/New_York
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
-      - /u/data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
-    network_mode: "bridge"
+      - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - eolnet
   eol-backend-memcached:
     image: memcached
     container_name: eol-backend-memcached
@@ -17,34 +18,37 @@ services:
     environment:
       - TZ=America/New_York
     command: memcached -m 4096m
-    network_mode: "bridge"
+    networks:
+      - eolnet
   eol-backend-neo4j:
     image: neo4j
     container_name: eol-backend-neo4j
     restart: always
     environment:
-      - TZ=America/New_York 
+      - TZ=America/New_York
       - NEO4J_AUTH=neo4j/SomePasswordHere
       - NEO4J_dbms_memory_pagecache_size=4G
       - NEO4J_dbms_memory_heap_maxSize=16G
     volumes:
-      - /u/data/eol-backend-neo4j/data:/data
-      - /u/data/eol-backend-neo4j/logs:/logs
+      - /data/eol-backend-neo4j/data:/data
+      - /data/eol-backend-neo4j/logs:/logs
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
-    network_mode: "bridge"
-#  eol-backend-mysql:
-#    image: mysql
-#    container_name: eol-backend-mysql
-#    restart: always
-#    environment:
-#      - TZ=America/New_York
-#      - MYSQL_ROOT_PASSWORD=EolRocks!
-#      - MYSQL_DATABASE=eol_web_staging
-#      - MYSQL_USER=admin
-#      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
-#    volumes:
-#       - /u/data/eol-backend-mysql:/var/lib/mysql
-#    network_mode: "bridge"
+    networks:
+      - eolnet
+  eol-backend-mysql:
+    image: mysql
+    container_name: eol-backend-mysql
+    restart: always
+    environment:
+      - TZ=America/New_York
+      - MYSQL_ROOT_PASSWORD=EolRocks!
+      - MYSQL_DATABASE=eol_web_staging
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
+    volumes:
+       - /u/data/eol-backend-mysql:/var/lib/mysql
+    networks:
+      - eolnet
   eol-backend-tramea:
     image: encoflife/eol-backend.tramea
     container_name: eol-backend-tramea
@@ -52,8 +56,9 @@ services:
     volumes:
       - ./resources/tramea_init.sh:/etc/my_init.d/tramea_init.sh
       - ./resources/secrets.yml:/u/apps/secrets.yml
-      - /u/data/eol-backend-tramea:/u/apps/eol_website/public/data
-      - /u/data/eol-backend-tramea/solr:/u/apps/eol_website/solr/development
+      - /data/eol-backend-tramea:/u/apps/eol_website/public/data
+      - /data/eol-backend-tramea/solr:/u/apps/eol_website/solr/development
+      - ./resources/site-eol.conf:/etc/nginx/sites-available/default
     depends_on:
       - eol-backend-mysql
       - eol-backend-neo4j
@@ -62,11 +67,14 @@ services:
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
-#      - eol-backend-mysql:mysql
+      - eol-backend-mysql:mysql
       - eol-backend-neo4j:neo4j
     env_file:
       - resources/staging.env
     ports:
        - 3000:3000
-    network_mode: "bridge"
-
+    networks:
+      - eolnet
+networks:
+  eolnet:
+    driver: bridge

@@ -26,4 +26,13 @@ c.users << u
 partner = Partner.create(name: "Encyclopedia of Life", short_name: "EOL", description: "You know it.", homepage_url: "https://eol.org", repository_id: 1)
 Resource.create(name: "EOL Dynamic Hierarchy", abbr: "DWH", description: "The 'consensus' tree of life.", partner_id: partner.id, repository_id: 1)
 
+# Really, there are a great many of these. See the Harvesting code base for a complete list...
+{ accepted: true, preferred: true, valid: true, synonym: false, misnomer: false }.each do |name, pref|
+  TaxonomicStatus.where(name: name).first_or_create do |ts|
+    ts.name = name
+    ts.is_preferred = pref
+  end
+end
+
+
 TraitBank::Admin.remove_all_data_leave_terms

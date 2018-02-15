@@ -14,12 +14,12 @@ class Publishing
   end
 
   def republish_resource(resource)
-    resource.remove_content
-    import_terms
+    # TMP: [speed things up] resource.remove_content
+    # TMP: [speed things up] import_terms
     @last_run_at = 1
     @run = ImportRun.create
     start_resource(resource)
-    reindex
+    # TMP: [speed things up] reindex
   end
 
   def initialize
@@ -121,7 +121,7 @@ class Publishing
   def reset_resource
     @names = []
     @verns = []
-    @traits = []
+    # @traits = []
     @traitbank_pages = {}
     @traitbank_suppliers = {}
     @traitbank_terms = {}
@@ -136,14 +136,14 @@ class Publishing
   def import_resource
     @log.log("Importing Resource: #{@resource.name} (#{@resource.id})")
     reset_resource
-    # TODO: All ipmorts s/ return a list of affected pages.
+    # TODO: All imports s/ return a list of affected pages.
     pub_nodes = Publishing::PubNodes.new(@resource, @log, @repo)
     ids = pub_nodes.import
     @page_ids += ids
     Publishing::PubScientificNames.import(@resource, @log, @repo)
     Publishing::PubVernaculars.import(@resource, @log, @repo)
     Publishing::PubMedia.import(@resource, @log, @repo)
-    Publishing::PubTraits.import(@resource, @log, @repo)
+    # Publishing::PubTraits.import(@resource, @log, @repo)
   end
 
   def get_existing_terms
