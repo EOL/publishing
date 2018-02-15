@@ -1,6 +1,9 @@
 class TermQuery < ActiveRecord::Base
-  has_many :pairs, :class_name => "TermQueryPair", :inverse_of => :term_query
-  has_one :user_download
+  has_many :pairs, 
+    :class_name => "TermQueryPair", 
+    :inverse_of => :term_query,
+    :dependent => :destroy
+  has_one :user_download, :dependent => :destroy
   accepts_nested_attributes_for :pairs
   before_validation :cull_pairs
 

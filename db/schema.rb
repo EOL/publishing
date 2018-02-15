@@ -835,6 +835,4 @@ ActiveRecord::Schema.define(version: 20180215053513) do
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
 
-  add_foreign_key "term_query_pairs", "term_queries"
-  add_foreign_key "user_downloads", "term_queries"
 end
