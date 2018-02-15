@@ -109,8 +109,6 @@ private
       :result_type => @result_type
     }
     @count = TraitBank.term_search(query, options)
-    puts "TERM_SEARCH_COUNT: #{@count}"
-    #@count = 1000
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end
