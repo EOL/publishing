@@ -183,7 +183,6 @@ class TraitBank
     end
 
     def by_page(page_id, page = 1, per = 100)
-      # TODO: REMOVE REMOVE REMOVE
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
@@ -195,7 +194,7 @@ class TraitBank
         "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
       res = query(q)
-      build_trait_array(res)    
+      build_trait_array(res)
     end
 
     def page_ancestors(page_id)
