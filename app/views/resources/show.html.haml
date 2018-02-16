@@ -32,13 +32,13 @@
   %ul.uk-list
     - @resource.import_logs.order('created_at DESC').each do |log|
       %li
-        %b= link_to(l(log.created_at, format: :long), [@resource, log])
+        %b= link_to(l(log.created_at.localtime, format: :long), [@resource, log])
         - if log.completed_at
           %b= "Completed:"
-          = l(log.completed_at, format: '%H:%M:%S.%3N')
+          = l(log.completed_at.localtime, format: '%H:%M:%S.%3N')
         - elsif log.failed_at
           %b= "Failed:"
-          = l(log.failed_at, format: '%H:%M:%S.%3N')
+          = l(log.failed_at.localtime, format: '%H:%M:%S.%3N')
         %b= "Status:"
         - if log.status
           = log.status
