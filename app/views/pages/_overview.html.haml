@@ -1,4 +1,6 @@
-%p.desc Bandit-masked raccoons are a familiar sight just about everywhere, because they will eat just about anything. These ubiquitous mammals are found in forests, marshes, prairies, and even in cities.
+- summary = construct_summary(@page)
+- if !summary.blank?
+  %p.desc= summary
 
 - if @page.data.any?
   %ul.sample-traits
