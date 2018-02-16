@@ -28,37 +28,29 @@ RSpec.describe "layouts/pages" do
 
   it "shows a media subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/media")
-    expect(rendered).to have_content /1\s*Media/
+    expect(rendered).to have_link("media", href: page_media_path(page))
   end
 
   it "shows a data subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/data")
-    expect(rendered).to have_content /3\s*Data/
+    expect(rendered).to have_link("data", href: page_data_path(page))
   end
 
-  it "shows a details subtab" do
+  it "shows a detail subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/details")
-    expect(rendered).to have_content /1\s*Details/
-  end
-
-  it "shows a classification subtab" do
-    render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/classifications")
-    expect(rendered).to have_content /1\s*Classification/
+    expect(rendered).to have_link("detail", href: page_details_path(page))
   end
 
   it "shows a names subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/names")
-    expect(rendered).to have_content /2\s*Names/
+    expect(rendered).to have_link("names", href: page_names_path(page))
   end
 
   it "shows a literature_and_references subtab" do
     render
-    expect(rendered).to have_link(href: "/pages/#{page.id}/literature_and_references")
-    expect(rendered).to have_content /3\s*References/
+    expect(rendered).to have_link(
+      "literature & references",
+      href: page_literature_and_references_path(page)
+    )
   end
 end
