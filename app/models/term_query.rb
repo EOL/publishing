@@ -8,12 +8,16 @@ class TermQuery < ActiveRecord::Base
   has_many :object_term_filters,
     :class_name => "TermQueryObjectTermFilter",
     :dependent => :destroy
-#  has_many :pairs, 
-#    :class_name => "TermQueryPair", 
-#    :inverse_of => :term_query,
-#    :dependent => :destroy
+  has_many :predicate_filters,
+    :class_name => "TermQueryPredicateFilter",
+    :dependent => :destroy
   has_one :user_download, :dependent => :destroy
-#  accepts_nested_attributes_for :pairs
+
+  accepts_nested_attributes_for :numeric_filters
+  accepts_nested_attributes_for :range_filters
+  accepts_nested_attributes_for :object_term_filters
+  accepts_nested_attributes_for :predicate_filters
+
 #  before_validation :cull_pairs
 
   def initialize(*)

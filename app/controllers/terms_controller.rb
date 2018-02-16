@@ -152,9 +152,24 @@ private
   def tq_params
     params.require(:term_query).permit(
       :clade,
-      :pairs_attributes => [
-        :predicate,
-        :object
+      :predicate_filters_attributes => [
+        :pred_uri
+      ],
+      :numeric_filters_attributes => [
+        :value,
+        :op,
+        :units_uri,
+        :pred_uri
+      ],
+      :range_filters_attributes => [
+        :from_value,
+        :to_value,
+        :units_uri,
+        :pred_uri 
+      ],
+      :object_filters_attributes => [
+        :uri,
+        :pred_uri
       ]
     )
   end
