@@ -1,5 +1,6 @@
 class TermQueryObjectTermFilter < ActiveRecord::Base
-  has_one :term_query_filter, :as => :object
+  belongs_to :term_query
+  validates_presence_of :term_query
   validates_presence_of :uri
   validates_presence_of :pred_uri
 end

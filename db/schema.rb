@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216203612) do
+ActiveRecord::Schema.define(version: 20180216204502) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -753,28 +753,31 @@ ActiveRecord::Schema.define(version: 20180216203612) do
   end
 
   create_table "term_query_numeric_filters", force: :cascade do |t|
-    t.float    "value",      limit: 24
-    t.integer  "op",         limit: 4
-    t.string   "units_uri",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "pred_uri",   limit: 255
+    t.float    "value",         limit: 24
+    t.integer  "op",            limit: 4
+    t.string   "units_uri",     limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
+    t.integer  "term_query_id", limit: 4
   end
 
   create_table "term_query_object_term_filters", force: :cascade do |t|
-    t.string   "uri",        limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "pred_uri",   limit: 255
+    t.string   "uri",           limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
+    t.integer  "term_query_id", limit: 4
   end
 
   create_table "term_query_range_filters", force: :cascade do |t|
-    t.float    "from_value", limit: 24
-    t.float    "to_value",   limit: 24
-    t.string   "units_uri",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "pred_uri",   limit: 255
+    t.float    "from_value",    limit: 24
+    t.float    "to_value",      limit: 24
+    t.string   "units_uri",     limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
+    t.integer  "term_query_id", limit: 4
   end
 
   create_table "user_downloads", force: :cascade do |t|

@@ -1,5 +1,6 @@
 class TermQueryRangeFilter < ActiveRecord::Base
-  has_one :term_query_filter, :as => :object
+  belongs_to :term_query
+  validates_presence_of :term_query
   validates_presence_of :from_value
   validates_presence_of :to_value
   validates_presence_of :units_uri

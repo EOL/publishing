@@ -1,7 +1,12 @@
 class TermQuery < ActiveRecord::Base
-  has_many :filters,
-    :class_name => "TermQueryFilter",
-    :inverse_of => :term_query,
+  has_many :numeric_filters,
+    :class_name => "TermQueryNumericFilter",
+    :dependent => :destroy
+  has_many :range_filters,
+    :class_name => "TermQueryRangeFilter",
+    :dependent => :destroy
+  has_many :object_term_filters,
+    :class_name => "TermQueryObjectTermFilter",
     :dependent => :destroy
 #  has_many :pairs, 
 #    :class_name => "TermQueryPair", 
