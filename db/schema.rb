@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216192715) do
+ActiveRecord::Schema.define(version: 20180216193456) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -769,6 +769,12 @@ ActiveRecord::Schema.define(version: 20180216192715) do
     t.float    "value",      limit: 24
     t.integer  "op",         limit: 4
     t.string   "units_uri",  limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "term_query_object_term_objects", force: :cascade do |t|
+    t.string   "uri",        limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
