@@ -3,6 +3,7 @@ class TermQueryNumericFilter < ActiveRecord::Base
   validates_presence_of :value
   validates_presence_of :op
   validates_presence_of :units_uri
+  validates_presence_of :pred_uri
 
   enum :op => {
     :eq => 0,

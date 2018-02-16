@@ -6,5 +6,6 @@ RSpec.describe TermQueryRangeFilter do
     it { should validate_presence_of(:from_value) }
     it { should validate_presence_of(:to_value) }
     it { should validate_presence_of(:units_uri) }
+    it { should validate_presence_of(:pred_uri) }
   end
 end
