@@ -1,4 +1,4 @@
-class TermQueryRangeObject < ActiveRecord::Base
+class TermQueryRangeFilter < ActiveRecord::Base
   has_one :term_query_filter, :as => :object
   validates_presence_of :from_value
   validates_presence_of :to_value

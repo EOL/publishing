@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216201208) do
+ActiveRecord::Schema.define(version: 20180216202449) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -764,7 +764,7 @@ ActiveRecord::Schema.define(version: 20180216201208) do
   add_index "term_query_filters", ["object_type", "object_id"], name: "index_term_query_filters_on_object_type_and_object_id", using: :btree
   add_index "term_query_filters", ["term_query_id"], name: "index_term_query_filters_on_term_query_id", using: :btree
 
-  create_table "term_query_numeric_objects", force: :cascade do |t|
+  create_table "term_query_numeric_filters", force: :cascade do |t|
     t.float    "value",      limit: 24
     t.integer  "op",         limit: 4
     t.string   "units_uri",  limit: 255
@@ -772,13 +772,13 @@ ActiveRecord::Schema.define(version: 20180216201208) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "term_query_object_term_objects", force: :cascade do |t|
+  create_table "term_query_object_term_filters", force: :cascade do |t|
     t.string   "uri",        limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
-  create_table "term_query_range_objects", force: :cascade do |t|
+  create_table "term_query_range_filters", force: :cascade do |t|
     t.float    "from_value", limit: 24
     t.float    "to_value",   limit: 24
     t.string   "units_uri",  limit: 255
