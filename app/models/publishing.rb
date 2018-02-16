@@ -33,20 +33,31 @@ class Publishing
   end
 
   def start
-    @pub_log.log("Starting import run...")
-    get_import_run
-    get_resources
-    import_terms
-    return nil if @resources.empty?
-    @resources.each do |resource|
-      start_resource(resource)
+    abort_if_already_running
+    begin
+      @pub_log.log("Starting Publishing run...")
+      get_import_run
+      get_resources
+      import_terms
+      return nil if @resources.empty?
+      @resources.each do |resource|
+        start_resource(resource)
+      end
+      reindex
+      @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
+      @run.update_attribute(:completed_at, Time.now)
+    ensure
+      ImportRun.where(completed_at: nil).update_all(completed_at: Time.now)
+      ImportLog.where(completed_at: nil, failed_at: nil).update_all(failed_at: Time.now, status: 'failed')
     end
-    reindex
-    @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
-    @run.update_attribute(:completed_at, Time.now)
-  ensure
-    ImportRun.where(completed_at: nil).update_all(completed_at: Time.now)
-    ImportLog.where(completed_at: nil, failed_at: nil).update_all(failed_at: Time.now, status: 'failed')
+  end
+
+  def abort_if_already_running
+    raise Exception.new('ABORTING: A Publishing run appears to be active.') if ImportRun.where(completed_at: nil).any?
+    logging = ImportLog.where(completed_at: nil, failed_at: nil).includes(:resource)
+    if logging.any?
+      raise Exception.new("ABORTING: Currently publishing #{logging.map { |l| l.resource.name }.join('; ')}")
+    end
   end
 
   def reindex
