@@ -18,24 +18,26 @@ class TermQuery < ActiveRecord::Base
   accepts_nested_attributes_for :object_term_filters
   accepts_nested_attributes_for :predicate_filters
 
-#  before_validation :cull_pairs
+  before_validation :cull_filters
 
   def initialize(*)
     super
   end
 
-#  def search_pairs
-#    pairs.select do |pair|
-#      !pair.predicate.blank?
-#    end
-#  end
+  def filters=(the_filters)
+    self.numeric_filters     = the_filters.select { |f| f.is_a? TermQueryNumericFilter    } 
+    self.range_filters       = the_filters.select { |f| f.is_a? TermQueryRangeFilter      }
+    self.object_term_filters = the_filters.select { |f| f.is_a? TermQueryObjectTermFilter }
+    self.predicate_filters   = the_filters.select { |f| f.is_a? TermQueryPredicateFilter  }
+  end
 
+  def filters
+    [numeric_filters, range_filters, object_term_filters, predicate_filters].flatten
+  end
 
-#  def remove_pair(index)
-#    new_pairs = pairs.to_a
-#    new_pairs.delete_at(index)
-#    self.pairs = new_pairs
-#  end
+  def search_filters
+    filters.reject { |f| f.invalid? }
+  end
 
   def clade_name
     if clade
@@ -46,7 +48,7 @@ class TermQuery < ActiveRecord::Base
   end
 
   private
-#    def cull_pairs
-#      self.pairs = search_pairs
-#    end
+    def cull_filters
+      self.filters = search_filters
+    end
 end

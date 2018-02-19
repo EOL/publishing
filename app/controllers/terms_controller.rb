@@ -3,6 +3,7 @@ class TermsController < ApplicationController
   protect_from_forgery except: :clade_filter
   before_action :search_setup, :only => [:search, :search_form, :show]
   before_action :no_main_container, :only => [:search, :search_form, :show]
+  before_action :build_filters_from_params, :only => [:search, :search_form, :show]
 
   def index
     @count = TraitBank::Terms.count
@@ -12,12 +13,12 @@ class TermsController < ApplicationController
   def search
     respond_to do |fmt|
       fmt.html do
-        if params[:term_query]
-          @query = TermQuery.new(tq_params)
+        if @filters.any?
+          @query = TermQuery.new
+          @query.filters = @filters
           search_common
         else
-          @query = TermQuery.new
-          @filters = [TermQueryPredicateFilter.new]
+          @filters << TermQueryPredicateFilter.new
         end
       end
 
@@ -43,44 +44,44 @@ class TermsController < ApplicationController
     end
   end
 
-  def search_form
+  def build_filters_from_params
     filter_params = params[:filters]
-    filter_params.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
-
     @filters = []
 
-    filter_params.each do |filter_param|
-      this_filter = case filter_param[:op]
-        when ""
-          TermQueryPredicateFilter.new(:pred_uri => filter_param[:pred_uri])
-        when "is"
-          TermQueryObjectTermFilter.new(
-            :pred_uri => filter_param[:pred_uri],
-            :uri => filter_param[:uri]
-          )
-        when "range"
-          TermQueryRangeFilter.new(
-            :pred_uri => filter_param[:pred_uri],
-            :from_value => filter_param[:from_value],
-            :to_value => filter_param[:to_value],
-            :units_uri => filter_param[:units_uri]
-          )
-        else
-          TermQueryNumericFilter.new(
-            :pred_uri => filter_param[:pred_uri],
-            :value => filter_param[:value],
-            :units_uri => filter_param[:units_uri],
-            :op => filter_param[:op]
-          )
-        end
+    if filter_params
+      filter_params.each do |filter_param|
+        this_filter = case filter_param[:op]
+          when ""
+            TermQueryPredicateFilter.new(:pred_uri => filter_param[:pred_uri])
+          when "is"
+            TermQueryObjectTermFilter.new(
+              :pred_uri => filter_param[:pred_uri],
+              :uri => filter_param[:uri]
+            )
+          when "range"
+            TermQueryRangeFilter.new(
+              :pred_uri => filter_param[:pred_uri],
+              :from_value => filter_param[:from_value],
+              :to_value => filter_param[:to_value],
+              :units_uri => filter_param[:units_uri]
+            )
+          else
+            TermQueryNumericFilter.new(
+              :pred_uri => filter_param[:pred_uri],
+              :value => filter_param[:value],
+              :units_uri => filter_param[:units_uri],
+              :op => filter_param[:op]
+            )
+          end
 
-      @filters << (this_filter)
+        @filters << (this_filter)
+      end
     end
+  end
 
+  def search_form
+    @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
     @filters << TermQueryPredicateFilter.new if params[:add_filter] 
-
-   # @query = TermQuery.new(tq_params)
-   # @query.pairs.build if params[:add_pair]
     render :layout => false
   end
 
@@ -192,31 +193,6 @@ private
       :from_value,
       :to_value,
       :units_uri
-    )
-  end
-
-  def tq_params
-    params.require(:term_query).permit(
-      :clade,
-      :predicate_filters_attributes => [
-        :pred_uri
-      ],
-      :numeric_filters_attributes => [
-        :value,
-        :op,
-        :units_uri,
-        :pred_uri
-      ],
-      :range_filters_attributes => [
-        :from_value,
-        :to_value,
-        :units_uri,
-        :pred_uri 
-      ],
-      :object_filters_attributes => [
-        :uri,
-        :pred_uri
-      ]
     )
   end
 

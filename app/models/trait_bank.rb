@@ -300,49 +300,77 @@ class TraitBank
       @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
     end
 
+    def op_from_filter(num_filter)
+      case num_filter.op.to_sym
+      when :eq
+        "="
+      when :gt
+        ">"
+      when :lt
+        "<"
+      else
+        raise "unexpected filter op value: #{num_filter.op}"
+      end
+    end
+
+    def term_filter_wheres(term_query)
+      pred_wheres = term_query.predicate_filters.map do |filter|
+        "tgt_pred.uri = \"#{filter.pred_uri}\""
+      end
+
+      obj_wheres = term_query.object_term_filters.map do |filter|
+        "(tgt_obj.uri = \"#{filter.uri}\" AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+      end
+
+      num_wheres = term_query.numeric_filters.map do |filter|
+        "(trait.normal_measurement #{op_from_filter(filter)} #{filter.value} AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+      end
+
+      range_wheres = term_query.range_filters.map do |filter|
+        "(trait.normal_measurement >= #{filter.from_value} AND trait.normal_measurement <= #{filter.to_value} "\
+        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+      end
+
+      [pred_wheres, obj_wheres, num_wheres, range_wheres].flatten
+    end
+
     def term_record_search(term_query, options)
       with_count_clause = options[:count] ?
                           "WITH count(*) AS count " :
                           ""
       match_part =
         "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
-      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.search_pairs.empty?
+      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.filters.empty?
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
       match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
 
-      wheres = []
-
-      if term_query.search_pairs.size == 1
-        pair = term_query.search_pairs.first
-        if pair.object
-          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
-          match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
-                        "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
-                        "-[:#{parent_terms}]->(tgt_obj)"
+     # if term_query.search_pairs.size == 1
+     #   pair = term_query.search_pairs.first
+     #   if pair.object
+     #     match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
+     #     match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
+     #     match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
+     #                   "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
+     #                   "-[:#{parent_terms}]->(tgt_obj)"
+     #   else
+     #     match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
+     #     match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
+     #   end
+     # else
+      match_part +=
+        if term_query.object_term_filters.any?
+          ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
+          "<-[:predicate]-(trait)-[:object_term]->"\
+          "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
         else
-          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
+          ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
         end
-      else
-        match_part +=
-          if term_query.search_pairs.any? { |t| t.object }
-            ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
-            "<-[:predicate]-(trait)-[:object_term]->"\
-            "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
-          else
-            ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
-          end
-        wheres = term_query.search_pairs.map do |pair|
-          if pair.object
-            "(tgt_obj.uri = \"#{pair.object}\" AND tgt_pred.uri = \"#{pair.predicate}\")"
-          else
-            "tgt_pred.uri = \"#{pair.predicate}\""
-          end
-        end
-      end
+
+      wheres = term_filter_wheres(term_query)
+
+     # end
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
       optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]

@@ -1,5 +1,5 @@
 = form_tag term_search_path, :method => :get, :id => "new_term_query" do 
-  - @filters.each do |filter|
+  - @filters.each_with_index do |filter, index|
     .filter-row
       = fields_for "filters[]", filter do |ff|
         = ff.select :pred_uri, @predicate_options, {}, :class => "js-pred-select"
@@ -14,9 +14,12 @@
           %span= unit(ff.object.pred_uri)
         - elsif ff.object.is_a? TermQueryObjectTermFilter
           = ff.select :uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
-        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
+        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
 
   %button.js-add-filter Add filter
+  
+  %div
+    = submit_tag "Search"
 
 -#
   = f.fields_for :pairs do |ff|
