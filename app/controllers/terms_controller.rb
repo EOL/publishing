@@ -2,6 +2,7 @@ class TermsController < ApplicationController
   helper :data
   protect_from_forgery except: :clade_filter
   before_action :search_setup, :only => [:search, :search_form, :show]
+  before_action :no_main_container, :only => [:search, :search_form, :show]
 
   def index
     @count = TraitBank::Terms.count
@@ -16,7 +17,7 @@ class TermsController < ApplicationController
           search_common
         else
           @query = TermQuery.new
-          @query.pairs.build
+          @filters = [TermQueryPredicateFilter.new]
         end
       end
 
@@ -43,9 +44,43 @@ class TermsController < ApplicationController
   end
 
   def search_form
-    @query = TermQuery.new(tq_params)
-    @query.pairs.build if params[:add_pair]
-    @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
+    filter_params = params[:filters]
+    filter_params.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
+
+    @filters = []
+
+    filter_params.each do |filter_param|
+      this_filter = case filter_param[:op]
+        when ""
+          TermQueryPredicateFilter.new(:pred_uri => filter_param[:pred_uri])
+        when "is"
+          TermQueryObjectTermFilter.new(
+            :pred_uri => filter_param[:pred_uri],
+            :uri => filter_param[:uri]
+          )
+        when "range"
+          TermQueryRangeFilter.new(
+            :pred_uri => filter_param[:pred_uri],
+            :from_value => filter_param[:from_value],
+            :to_value => filter_param[:to_value],
+            :units_uri => filter_param[:units_uri]
+          )
+        else
+          TermQueryNumericFilter.new(
+            :pred_uri => filter_param[:pred_uri],
+            :value => filter_param[:value],
+            :units_uri => filter_param[:units_uri],
+            :op => filter_param[:op]
+          )
+        end
+
+      @filters << (this_filter)
+    end
+
+    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
+
+   # @query = TermQuery.new(tq_params)
+   # @query.pairs.build if params[:add_pair]
     render :layout => false
   end
 
@@ -147,6 +182,17 @@ private
     (0..100).each do |index|
       expire_fragment("term/glossary/#{index}")
     end
+  end
+
+  def permitted_filter_params(filter_params)
+    filter_params.permit(
+      :pred_uri,
+      :uri,
+      :value,
+      :from_value,
+      :to_value,
+      :units_uri
+    )
   end
 
   def tq_params

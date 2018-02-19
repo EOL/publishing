@@ -125,6 +125,33 @@ class TraitBank
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
         end
       end
+
+      # TODO: DRY up this and the above method
+      def unit_term_for_pred(pred_uri)
+        key = "trait_bank/unit_terms_for_pred/#{pred_uri}"
+
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          res = query(
+            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+            "(trait:Trait) "\
+            "OPTIONAL MATCH (unit_term:Term{uri: trait.normal_units}) "\
+            "WHERE trait.normal_units is not null "\
+            "RETURN trait.normal_units, unit_term.name "\
+            "LIMIT 1"
+          )
+
+          result = res["data"]&.first || nil
+
+          if result 
+            result = {
+              :trait => result[0],
+              :unit_term => result[1],
+            }
+          end
+
+          result
+        end
+      end
     end
   end
 end

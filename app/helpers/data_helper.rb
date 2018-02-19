@@ -165,4 +165,15 @@ module DataHelper
 
     options
   end
+
+  def unit(pred_uri)
+    if (!pred_uri.blank?)
+      res = TraitBank::Terms.unit_term_for_pred(pred_uri)
+      val = res ? (res[:unit_term] || res[:trait]) : nil
+      val = "(units unknown)" if !val || val == "missing"
+      val
+    else
+      nil
+    end
+  end
 end

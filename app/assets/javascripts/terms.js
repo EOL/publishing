@@ -21,14 +21,12 @@ EOL.onReady(function() {
   }
 
   function setupForm() {
-    $('.js-pred-select').change(function(e) {
-      var val = $(this).val()
-        , that = this
-        ;
+    $('.js-op-select').change(function() {
+      fetchForm(); 
+    });
 
-      if (val && val.length) {
-        fetchForm(false);
-      }
+    $('.js-pred-select').change(function(e) {
+      fetchForm(false);
     });
 
     $('.js-term-select').each(function() {
@@ -53,17 +51,17 @@ EOL.onReady(function() {
       }
     });
 
-    $('.js-add-pair').click(function(e) {
+    $('.js-add-filter').click(function(e) {
       e.preventDefault();
       fetchForm({
-        name: 'add_pair',
+        name: 'add_filter',
         value: true
       });
     });
 
-    $('.js-remove-pair').click(function(e) {
+    $('.js-remove-filter').click(function(e) {
       fetchForm({
-        name: 'remove_pair',
+        name: 'remove_filter',
         value: $(this).data('index')
       });
     });

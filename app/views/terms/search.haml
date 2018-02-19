@@ -1,10 +1,8 @@
-#term
-  .uk-card.uk-card-default.uk-grid.uk-padding
-    .uk-width-4-5
-      .ui.dimmer.js-term-form-dimmer
-        .ui.loader
-      %h1= t("term.header.data_search")
-      = render "search_form"
+.l-term
+  .ui.dimmer.js-term-form-dimmer
+    .ui.loader
+  %h1= t("term.header.data_search")
+  = render "search_form"
   - if @pages
     - if @result_type == :record
       = render 'data_table', { data: @grouped_data, pages: @pages }
