@@ -13,7 +13,7 @@
           = ff.number_field :to_value
           %span= unit(ff.object.pred_uri)
         - elsif ff.object.is_a? TermQueryObjectTermFilter
-          = ff.select :uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
+          = ff.select :obj_uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
         .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
 
   %button.js-add-filter Add filter

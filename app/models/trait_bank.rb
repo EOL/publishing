@@ -314,12 +314,13 @@ class TraitBank
     end
 
     def term_filter_wheres(term_query)
-      pred_wheres = term_query.predicate_filters.map do |filter|
-        "tgt_pred.uri = \"#{filter.pred_uri}\""
-      end
-
       obj_wheres = term_query.object_term_filters.map do |filter|
-        "(tgt_obj.uri = \"#{filter.uri}\" AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+        if filter.obj_uri
+          "((trait)-[:object_term]->(Term)-[:#{parent_terms}]->(Term{ uri: #{filter.obj_uri} }) "\
+          "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+        else
+          "tgt_pred.uri = \"#{filter.pred_uri}\""
+        end
       end
 
       num_wheres = term_query.numeric_filters.map do |filter|
@@ -331,54 +332,38 @@ class TraitBank
         "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
       end
 
-      [pred_wheres, obj_wheres, num_wheres, range_wheres].flatten
+      [obj_wheres, num_wheres, range_wheres].flatten
     end
 
     def term_record_search(term_query, options)
-      with_count_clause = options[:count] ?
-                          "WITH count(*) AS count " :
-                          ""
-      match_part =
-        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
-      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.filters.empty?
+      matches = []
+      matches << "(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+
+      if term_query.filters.any?
+        matches << "(trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+      else
+        matches << "(trait)-[:predicate]->(predicate:Term)"
+      end
+
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
-      match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
-
-     # if term_query.search_pairs.size == 1
-     #   pair = term_query.search_pairs.first
-     #   if pair.object
-     #     match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-     #     match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
-     #     match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
-     #                   "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
-     #                   "-[:#{parent_terms}]->(tgt_obj)"
-     #   else
-     #     match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-     #     match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
-     #   end
-     # else
-      match_part +=
-        if term_query.object_term_filters.any?
-          ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
-          "<-[:predicate]-(trait)-[:object_term]->"\
-          "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
-        else
-          ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
-        end
+      matches << "(page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
+      match_part = "MATCH #{matches.join(", ")}"
 
       wheres = term_filter_wheres(term_query)
-
-     # end
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
-      optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
+      optional_matches = [
+        "(trait)-[info:units_term|object_term]->(info_term:Term)",
+      ]
+
       optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
         "(meta)-[:object_term]->(meta_object_term:Term)"
       ] if options[:meta]
+
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
       orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
@@ -390,6 +375,10 @@ class TraitBank
       else
         ["page", "trait", "predicate", "TYPE(info) AS info_type", "info_term", "resource"]
       end
+
+      with_count_clause = options[:count] ?
+                          "WITH count(*) AS count " :
+                          ""
 
       if options[:meta] && !options[:count]
         returns += ["meta", "meta_predicate", "meta_units_term", "meta_object_term"]

@@ -18,7 +18,7 @@ class TermsController < ApplicationController
           @query.filters = @filters
           search_common
         else
-          @filters << TermQueryPredicateFilter.new
+          @filters << TermQueryObjectTermFilter.new
         end
       end
 
@@ -51,12 +51,10 @@ class TermsController < ApplicationController
     if filter_params
       filter_params.each do |filter_param|
         this_filter = case filter_param[:op]
-          when ""
-            TermQueryPredicateFilter.new(:pred_uri => filter_param[:pred_uri])
           when "is"
             TermQueryObjectTermFilter.new(
               :pred_uri => filter_param[:pred_uri],
-              :uri => filter_param[:uri]
+              :obj_uri => filter_param[:obj_uri].blank? ? nil : filter_param[:obj_uri]
             )
           when "range"
             TermQueryRangeFilter.new(
@@ -81,7 +79,7 @@ class TermsController < ApplicationController
 
   def search_form
     @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
-    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
+    @filters << TermQueryObjectTermFilter.new if params[:add_filter] 
     render :layout => false
   end
 

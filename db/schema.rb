@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216211035) do
+ActiveRecord::Schema.define(version: 20180219224516) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -763,7 +763,7 @@ ActiveRecord::Schema.define(version: 20180216211035) do
   end
 
   create_table "term_query_object_term_filters", force: :cascade do |t|
-    t.string   "uri",           limit: 255
+    t.string   "obj_uri",       limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.string   "pred_uri",      limit: 255
