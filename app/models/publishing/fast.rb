@@ -1,9 +1,15 @@
 class Publishing::Fast
   require 'net/http'
 
+  def self.by_resource(resource)
+    publr = new(resource)
+    publr.by_resource
+  end
+
   def initialize(resource)
+    @start_at = Time.now
     @resource = resource
-    @repo_site = Rails.configuration.secrets.repository['url']
+    @repo_site = URI(Rails.application.secrets.repository['url'])
     @relationships = {
       Referent => {},
       Node => { parent_id: Node },
@@ -14,79 +20,125 @@ class Publishing::Fast
       Article => {}, # Yes, really, nothing; these are managed with PageContent.
       Medium => {}, # Yes, really, nothing; these are managed with PageContent.
       ImageInfo => { image_id: Medium },
-      References => { referent_id: Referent } # The polymorphic relationship is handled specially.
+      Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
-    # @ids = {}
     @calcluated_types = [Reference]
     @log = Publishing::PubLog.new(@resource)
   end
 
   def by_resource
-    @resource.remove_content # CAUTION!!! All existing content will be destroyed for the resource. You have been warned.
+    log_start('#remove_content')
+    log_warn('All existing content will be destroyed for the resource. You have been warned.')
+    @resource.remove_content
+    files = []
     @relationships.each do |klass, propagations|
+      log_start(klass)
       @klass = klass
       @resource_path = @resource.abbr.gsub(/\s+/, '_')
-      # TODO: check whether the file exists!
-      @data_file = Rails.root.join('tmp', "#{resource_path}_#{@klass.table_name}.tsv")
-      grab_file
-      import
-      propagate_ids
-      PageCreator.create_new_pages(node_pks, @log)
-      MediaContentCreator.by_resource(@resource, @log) if page_contents_required?
-      propagate_reference_ids
+      @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
+      if grab_file
+        log_start('#import')
+        import
+        log_start('#propagate_ids')
+        propagate_ids
+        files << @data_file
+      end
     end
-    # TODO: remove temp files...
+    log_start('#create_new_pages')
+    PageCreator.by_node_pks(node_pks, @log)
+    log_start('#fix_missing_native_nodes')
+    fix_missing_native_nodes
+    if page_contents_required?
+      log_start('MediaContentCreator')
+      MediaContentCreator.by_resource(@resource, @log)
+    end
+    log_start('#propagate_reference_ids')
+    propagate_reference_ids
+    files.each do |file|
+      log("Removing #{file}")
+      File.unlink(file)
+    end
+    log_end("Complete. Took: #{Time.delta_str(@start_at)}")
   end
 
   def grab_file
-    url = "/data/#{resource_path}/publish_#{@klass.table_name}.tsv"
-    Net::HTTP.start(@repo_site) do |http|
+    url = "/data/#{@resource_path}/publish_#{@klass.table_name}.tsv"
+    resp = nil
+    result = Net::HTTP.start(@repo_site.host, @repo_site.port) do |http|
       resp = http.get(url)
-      open(data_file, 'wb') { |file| file.write(resp.body) }
     end
+    unless result.code.to_i < 400
+      log_warn("MISSING #{@repo_site}#{url} [#{result.code}] (#{resp.size} bytes); skipping")
+      return false
+    end
+    open(@data_file, 'wb') { |file| file.write(resp.body) }
   end
 
   def import
+    cols = @klass.connection.exec_query("DESCRIBE `#{@klass.table_name}`").rows.map(&:first)
+    cols.delete('id') # We never load the PK, since it's auto_inc.
     q = ['LOAD DATA']
-    q << 'LOCAL' unless Rails.env.development?
     q << "INFILE '#{@data_file}'"
-    # q << 'REPLACE ' unless cols
     q << "INTO TABLE `#{@klass.table_name}`"
-    # q << "(#{cols.join(',')})" if cols
+    q << "(#{cols.join(',')})"
     @klass.connection.execute(q.join(' '))
   end
 
   def propagate_ids
     @relationships[@klass].each do |field, source|
-      # learn_ids(source) unless @ids.key?(source)
+      next unless source
       # This is a little weird, so I'll explain. CURRENTLY, "field" is populated with the IDs FROM THE HARVEST DB. So
       # this code is joining the two tables via that harv_db_id, then re-setting the field with the REAL id (from THIS
       # DB).
-      @klass.propagate_id(fk: field, other: "#{@klass.table_name}.harv_db_id",
+      @klass.propagate_id(fk: field, other: "#{source.table_name}.harv_db_id",
                           set: field, with: 'id', resource_id: @resource.id)
 
     end
   end
 
   def propagate_reference_ids
-    # TODO: all of the things that CAN have references .each do |other|
-      update_clause  = "UPDATE `references` t JOIN `#{other}` o ON (t.parent_id = o.harv_db_id"
-      update_clause += " AND t.resource_id = #{@resource.id} AND t.parent_type = #{other})" # <-- TODO: check that format
-      set_clause = "SET t.parent_id = o.id"
-
-      # TODO: we should probably paginate that, argh.
-
-    # Reference.propagate_id(fk: field, other: "#{@klass.table_name}.harv_db_id",
-    #                     set: field, with: 'id', resource_id: @resource.id)
-
+    return nil if Reference.where(resource_id: @resource.id).count.zero?
+    [Node, ScientificName, Medium, Article].each do |klass|
+      next if Reference.where(resource_id: @resource.id, parent_type: klass.to_s).count.zero?
+      min = Reference.where(resource_id: @resource.id, parent_type: klass.to_s).minimum(:id)
+      max = Reference.where(resource_id: @resource.id, parent_type: klass.to_s).maximum(:id)
+      page_size = 100_000
+      clauses = []
+      clauses << "UPDATE `references` t JOIN `#{klass.table_name}` o ON (t.parent_id = o.harv_db_id"
+      clauses << "AND t.resource_id = #{@resource.id} AND t.parent_type = '#{klass}')"
+      clauses << "SET t.parent_id = o.id"
+      # TODO: this logic was pulled from config/initializers/propagate_ids.rb ; extract!
+      if max - min > page_size
+        while max > min
+          upper = min + page_size - 1
+          clauses << "WHERE t.id >= #{min} AND t.id <= #{upper}"
+          ActiveRecord::Base.connection.execute(clauses.join(' '))
+          also_propagate_referents(klass, min: min, upper: upper)
+          min += page_size
+        end
+      else
+        ActiveRecord::Base.connection.execute(clauses.join(' '))
+        also_propagate_referents(klass)
+      end
+    end
   end
 
-  # def learn_ids(klass)
-  #   @ids[klass] = {}
-  #   klass.selects('id, harv_db_id').find_each do |object|
-  #     @ids[klass][object.harv_db_id] = object.id
-  #   end
-  # end
+  def also_propagate_referents(klass, options = {})
+    clauses = []
+    clauses << "UPDATE `references` t JOIN referents o ON (t.referent_id = o.harv_db_id"
+    clauses << "AND t.resource_id = #{@resource.id} AND t.parent_type = '#{klass}')"
+    clauses << "SET t.referent_id = o.id"
+    clauses << "WHERE t.id >= #{options[:min]} AND t.id <= #{options[:upper]}" if options[:min]
+    ActiveRecord::Base.connection.execute(clauses.join(' '))
+  end
+
+  # TODO: this should really be part of the PageCreator. :|
+  def fix_missing_native_nodes
+    page_ids = Node.where(resource_id: @resource.id).pluck(:page_id)
+    page_ids.in_groups_of(10_000, false) do |batch|
+      Page.fix_native_nodes(Page.where(native_node_id: nil, id: batch))
+    end
+  end
 
   def page_contents_required?
     Medium.where(resource_id: @resource.id).any? || Article.where(resource_id: @resource.id).any?
@@ -94,5 +146,21 @@ class Publishing::Fast
 
   def node_pks
     Node.where(resource_id: @resource.id).pluck(:resource_pk)
+  end
+
+  def log_start(what)
+    @log.log(what.to_s, cat: :starts)
+  end
+
+  def log_end(what)
+    @log.log(what.to_s, cat: :ends)
+  end
+
+  def log_warn(what)
+    @log.log(what.to_s, cat: :warns)
+  end
+
+  def log(what)
+    @log.log(what.to_s, cat: :infos)
   end
 end

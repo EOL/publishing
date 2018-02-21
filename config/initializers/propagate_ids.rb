@@ -12,11 +12,7 @@ class ActiveRecord::Base
       max = nil
       if filter
         min = where(filter_field => filter).minimum(:id)
-        if min.nil?
-          debugger if where(filter_field => filter).count.positive?
-          # If there's more than zero rows, min should not be nil. If there were zero rows, nothing to do:
-          return
-        end
+        raise "None found!" if where(filter_field => filter).count.positive? if min.nil?
         max = where(filter_field => filter).maximum(:id)
       else
         min = minimum(:id)

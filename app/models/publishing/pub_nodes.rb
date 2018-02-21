@@ -1,5 +1,4 @@
 class Publishing::PubNodes
-  attr_reader :node_id_by_page
   def self.import(resource, log, repo)
     log ||= Publishing::PubLog.new(resource)
     a_long_long_time_ago = 1202911078 # 10 years ago when this was written; no sense coding it.
@@ -14,7 +13,6 @@ class Publishing::PubNodes
     @node_pks = []
     @identifiers = []
     @ancestors = []
-    @node_id_by_page = {}
   end
 
   def import
@@ -71,7 +69,6 @@ class Publishing::PubNodes
                               set: 'ancestor_id', with: 'id', resource_id: @resource.id)
     NodeAncestor.propagate_id(fk: 'node_resource_pk', other: 'nodes.resource_pk',
                               set: 'node_id', with: 'id', resource_id: @resource.id)
-    PageCreator.create_new_pages(@node_pks, @log)
-    @node_id_by_page.keys || []
+    PageCreator.by_node_pks(@node_pks, @log)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215053513) do
+ActiveRecord::Schema.define(version: 20180220185240) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -514,6 +514,7 @@ ActiveRecord::Schema.define(version: 20180215053513) do
     t.integer "referent_id", limit: 4,                       null: false
     t.string  "parent_type", limit: 255, default: "Article", null: false
     t.integer "resource_id", limit: 4,                       null: false
+    t.integer "id",          limit: 4,                       null: false
   end
 
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
@@ -835,4 +836,6 @@ ActiveRecord::Schema.define(version: 20180215053513) do
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
 
+  add_foreign_key "term_query_pairs", "term_queries"
+  add_foreign_key "user_downloads", "term_queries"
 end
