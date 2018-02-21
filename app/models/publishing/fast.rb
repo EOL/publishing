@@ -75,7 +75,7 @@ class Publishing::Fast
   def import
     cols = @klass.connection.exec_query("DESCRIBE `#{@klass.table_name}`").rows.map(&:first)
     cols.delete('id') # We never load the PK, since it's auto_inc.
-    q = ['LOAD DATA']
+    q = ['LOAD DATA LOCAL']
     q << "INFILE '#{@data_file}'"
     q << "INTO TABLE `#{@klass.table_name}`"
     q << "(#{cols.join(',')})"
