@@ -46,8 +46,6 @@ class Publishing::Fast
     end
     log_start('#create_new_pages')
     PageCreator.by_node_pks(node_pks, @log)
-    log_start('#fix_missing_native_nodes')
-    fix_missing_native_nodes
     if page_contents_required?
       log_start('MediaContentCreator')
       MediaContentCreator.by_resource(@resource, @log)
@@ -130,14 +128,6 @@ class Publishing::Fast
     clauses << "SET t.referent_id = o.id"
     clauses << "WHERE t.id >= #{options[:min]} AND t.id <= #{options[:upper]}" if options[:min]
     ActiveRecord::Base.connection.execute(clauses.join(' '))
-  end
-
-  # TODO: this should really be part of the PageCreator. :|
-  def fix_missing_native_nodes
-    page_ids = Node.where(resource_id: @resource.id).pluck(:page_id)
-    page_ids.in_groups_of(10_000, false) do |batch|
-      Page.fix_native_nodes(Page.where(native_node_id: nil, id: batch))
-    end
   end
 
   def page_contents_required?
