@@ -39,7 +39,8 @@
     %dl.attributions
       - if content.source_page_url
         %dt= t("content_attributions_labels.view_source_label")
-        %dd= link_to(t("content_attributions_labels.view_source_link"), content.source_page_url)
+        %dd= link_to(t("content_attributions_labels.view_source_label"), content.source_url)
+        %dd= link_to(t("content_attributions_labels.view_source_page_label"), content.source_page_url)
       %dt= t("content_attributions_labels.resource_label")
       %dd
         - if content.resource
