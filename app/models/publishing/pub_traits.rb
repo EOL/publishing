@@ -20,6 +20,8 @@ class Publishing::PubTraits
     TraitBank.create_resource(@resource.id)
     trait_rows = []
     meta_rows = []
+    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change # one, you
+    # must change the other.
     trait_rows << %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
       object_page_id target_scientific_name value_uri literal measurement units]
     meta_rows << %i[eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
@@ -30,16 +32,16 @@ class Publishing::PubTraits
     @log.log("slurping data (#{trait_rows.size - 1}) and all metadata (#{meta_rows.size - 1}, "\
       "total #{trait_rows.size + meta_rows.size - 2})")
     # TODO: move these to Resource; delete the files after a successful publish.
-    traits_file = Rails.public_path.join("traits_#{@resource.id}.csv")
-    meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
+    traits_file = @resource.traits_file
+    meta_traits_file = @resource.meta_traits_file
     CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
     CSV.open(meta_traits_file, 'w') { |csv| meta_rows.each { |row| csv << row } }
     TraitBank::Slurp.load_csvs(@resource)
     @log.log("Completed.")
-    @log.log("Keeping: #{traits_file}.")
-    @log.log("Keeping: #{meta_traits_file}.")
-    # File.unlink(traits_file) if File.exist?(traits_file)
-    # File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
+    # @log.log("Keeping: #{traits_file}.")
+    # @log.log("Keeping: #{meta_traits_file}.")
+    File.unlink(traits_file) if File.exist?(traits_file)
+    File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
   end
 
   def grab_metadata(trait, meta_rows)

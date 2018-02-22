@@ -31,10 +31,10 @@ class Publishing::Fast
     log_warn('All existing content will be destroyed for the resource. You have been warned.')
     @resource.remove_content
     files = []
+    @resource_path = @resource.abbr.gsub(/\s+/, '_')
     @relationships.each do |klass, propagations|
       log_start(klass)
       @klass = klass
-      @resource_path = @resource.abbr.gsub(/\s+/, '_')
       @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
       if grab_file
         log_start('#import')
@@ -44,7 +44,10 @@ class Publishing::Fast
         files << @data_file
       end
     end
-    log_start('#create_new_pages')
+    log_start('#publish_traits')
+    publish_traits
+    # TODO: you also have to do associations!
+    log_start('PageCreator')
     PageCreator.by_node_pks(node_pks, @log)
     if page_contents_required?
       log_start('MediaContentCreator')
@@ -128,6 +131,17 @@ class Publishing::Fast
     clauses << "SET t.referent_id = o.id"
     clauses << "WHERE t.id >= #{options[:min]} AND t.id <= #{options[:upper]}" if options[:min]
     ActiveRecord::Base.connection.execute(clauses.join(' '))
+  end
+
+  def publish_traits
+    # file = '/Users/jrice/drive/git/harvester/public/data/IUCN-SD/publish_traits.tsv'
+    # data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
+    # YOU WERE HERE: Read the file from the harv host and store it in the locations of these two variables:
+    traits_file = @resource.traits_file
+    meta_traits_file = @resource.meta_traits_file
+    TraitBank::Slurp.load_csvs(@resource)
+    File.unlink(traits_file) if File.exist?(traits_file)
+    File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
   end
 
   def page_contents_required?

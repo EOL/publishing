@@ -175,6 +175,14 @@ class Resource < ActiveRecord::Base
     TraitBank::Slurp.load_csvs(self)
   end
 
+  def traits_file
+    Rails.public_path.join("traits_#{id}.csv")
+  end
+
+  def meta_traits_file
+    Rails.public_path.join("meta_traits_#{id}.csv")
+  end
+
   def import_media(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
