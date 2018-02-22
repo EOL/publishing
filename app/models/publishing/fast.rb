@@ -47,7 +47,7 @@ class Publishing::Fast
     # YOU WERE HERE: publish_traits
     # TODO: you also have to do associations!
     log_start('PageCreator')
-    PageCreator.by_node_pks(node_pks, @log)
+    PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
     if page_contents_required?
       log_start('MediaContentCreator')
       MediaContentCreator.by_resource(@resource, @log)
