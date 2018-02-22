@@ -18,6 +18,7 @@ class ActiveRecord::Base
         min = minimum(:id)
         max = maximum(:id)
       end
+      return nil if min.nil? || max.nil?
       fk = options[:fk]
       set = options[:set]
       with_field = options[:with]

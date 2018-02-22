@@ -22,30 +22,29 @@ class Publishing::Fast
       ImageInfo => { image_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
-    @calcluated_types = [Reference]
     @log = Publishing::PubLog.new(@resource)
   end
 
   def by_resource
     log_start('#remove_content')
     log_warn('All existing content will be destroyed for the resource. You have been warned.')
-    @resource.remove_content
+    @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
     files = []
     @resource_path = @resource.abbr.gsub(/\s+/, '_')
-    @relationships.each do |klass, propagations|
-      log_start(klass)
+    @relationships.each_key do |klass|
       @klass = klass
+      log_start(@klass)
       @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
       if grab_file
-        log_start('#import')
+        log_start("#import #{@klass}")
         import
-        log_start('#propagate_ids')
+        log_start("#propagate_ids #{@klass}")
         propagate_ids
         files << @data_file
       end
     end
     log_start('#publish_traits')
-    publish_traits
+    # YOU WERE HERE: publish_traits
     # TODO: you also have to do associations!
     log_start('PageCreator')
     PageCreator.by_node_pks(node_pks, @log)
@@ -78,7 +77,8 @@ class Publishing::Fast
   def import
     cols = @klass.connection.exec_query("DESCRIBE `#{@klass.table_name}`").rows.map(&:first)
     cols.delete('id') # We never load the PK, since it's auto_inc.
-    q = ['LOAD DATA LOCAL']
+    q = ['LOAD DATA']
+    q << 'LOCAL' unless Rails.env.development?
     q << "INFILE '#{@data_file}'"
     q << "INTO TABLE `#{@klass.table_name}`"
     q << "(#{cols.join(',')})"
