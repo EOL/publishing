@@ -1,7 +1,7 @@
 class PageCreator
   # NOTE: You probably want to follow this with { Node.where(resource_id: @resource.id).counter_culture_fix_counts } (or
   # something like it)
-  def self.by_node_pks(node_pks, log)
+  def self.by_node_pks(node_pks, log, options = {})
     log.log('create_new_pages')
     node_id_by_page = {}
     # CREATE NEW PAGES: TODO: we need to recognize DWH and allow it to have its pages assign the native_node_id to it,
@@ -28,13 +28,19 @@ class PageCreator
       # want to ignore the ones we already had (I would delete things first if I wanted to replace them):
       Page.import!(group, on_duplicate_key_ignore: true)
     end
-    log.log('Reindexing new pages...')
-    missing.in_groups_of(10_000, false) { |group| Page.where(id: group).reindex }
-    log.log('Fixing native nodes...')
-    node_id_by_page.keys.in_groups_of(10_000, false) do |group|
-      Page.fix_native_nodes(Page.where(native_node_id: nil, id: group))
+    if options[:skip_reindex]
+      log.log('Skipping reindexing. You should reindex soon.', cat: :warns)
+    else
+      log.log('Reindexing new pages...')
+      missing.in_groups_of(10_000, false) { |group| Page.where(id: group).reindex }
     end
+    # This shouldn't be needed.  The pages we created have native nodes assigned above, and existing pages should have
+    # been fine. Sooo...
+    # log.log('Fixing native nodes...')
+    # bad_natives = Page.where(native_node_id: nil, id: missing).pluck(:id)
+    # bad_natives.in_groups_of(10_000, false) do |group|
+    #   Page.fix_native_nodes(Page.where(native_node_id: nil, id: group))
+    # end
     # TODO: Fix counter-culture counts on affected pages. :\
   end
-
 end
