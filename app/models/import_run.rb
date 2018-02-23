@@ -3,8 +3,8 @@ class ImportRun < ActiveRecord::Base
   scope :completed, -> { where("completed_at IS NOT NULL") }
 
   # NOTE: An alias for starting a publish manually.
-  def self.now
-    Publishing.start
+  def self.now(resource)
+    Publishing::Fast.by_resource(Resource.last)
   end
 
   def all_clear!
