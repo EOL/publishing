@@ -58,7 +58,8 @@ class Publishing::Fast
       log("Removing #{file}")
       File.unlink(file)
     end
-    log_end("Complete. Took: #{Time.delta_str(@start_at)}")
+    log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
+    log_close
   end
 
   def grab_file
@@ -166,5 +167,9 @@ class Publishing::Fast
 
   def log(what)
     @log.log(what.to_s, cat: :infos)
+  end
+
+  def log_close
+    @log.complete
   end
 end
