@@ -9,7 +9,7 @@ class ResourcesController < ApplicationController
 
   def republish
     raise "Unauthorized" unless is_admin?
-    @resource = Resource.find(params[:id])
+    @resource = Resource.find(params[:resource_id])
     ImportRun.delay(queue: 'harvest').now(@resource)
     flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
     redirect_to @resource
