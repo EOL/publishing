@@ -538,7 +538,6 @@ en:
     actions:
       import_traits: "import traits (from repository)"
       republish: "republish"
-      slurp_traits: "slurp traits (from csv)"
       index: "back to all resources"
       publish: "publish"
       show_all:

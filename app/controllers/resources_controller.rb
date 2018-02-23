@@ -22,12 +22,4 @@ class ResourcesController < ApplicationController
     flash[:notice] = "Background job for import of traits started."
     redirect_to @resource
   end
-
-  def slurp
-    raise "Unauthorized" unless is_admin?
-    @resource = Resource.find(params[:resource_id])
-    @resource.delay(queue: 'harvest').slurp_traits
-    flash[:notice] = "Background job for import of traits started."
-    redirect_to @resource
-  end
 end
