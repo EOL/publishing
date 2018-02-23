@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get "reindex"
     get "data"
 
-    get "overview", :to => redirect("/pages/%{page_id}", :status => 301) 
+    get "overview", :to => redirect("/pages/%{page_id}", :status => 301)
   end
 
   resources :data, only: [:show]
@@ -58,7 +58,6 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
-    get :publish, on: :collection
     get :import_traits
     get :republish
     get :slurp

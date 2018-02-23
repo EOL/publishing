@@ -1,9 +1,5 @@
 %h1= t("resources.headers.index")
 
-- if is_admin?
-  .ui.inverted.red.button
-    = link_to(t("resources.actions.publish"), publish_resources_path(), data: { confirm: t("resources.confirm.publish") })
-
 = paginate @resources
 %table.uk-table.uk-table-small.uk-table-striped.uk-table-divider
   %thead
