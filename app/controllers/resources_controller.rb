@@ -18,7 +18,7 @@ class ResourcesController < ApplicationController
   def import_traits
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
-    @resource.delay.import_traits(1)
+    @resource.delay(queue: 'harvest').import_traits(1)
     flash[:notice] = "Background job for import of traits started."
     redirect_to @resource
   end
@@ -26,7 +26,7 @@ class ResourcesController < ApplicationController
   def slurp
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
-    @resource.delay.slurp_traits
+    @resource.delay(queue: 'harvest').slurp_traits
     flash[:notice] = "Background job for import of traits started."
     redirect_to @resource
   end
