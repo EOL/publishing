@@ -681,8 +681,7 @@ class TraitBank
       relate("supplier", trait, supplier)
       relate("predicate", trait, predicate)
       relate("units_term", trait, units) if units
-      relate("object_term", trait, object_term) if
-        object_term
+      relate("object_term", trait, object_term) if object_term
       meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
     end
