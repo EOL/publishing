@@ -5,6 +5,10 @@ class Resource < ActiveRecord::Base
   has_many :scientific_names, inverse_of: :resource
   has_many :import_logs, inverse_of: :resource
   has_many :media, inverse_of: :resource
+  has_many :articles, inverse_of: :resource
+  has_many :links, inverse_of: :resource
+  has_many :vernaculars, inverse_of: :resource
+  has_many :referents, inverse_of: :resource
 
   before_destroy :remove_content
 
