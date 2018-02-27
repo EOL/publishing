@@ -35,7 +35,7 @@ class Publishing::Fast
       @klass = klass
       log_start(@klass)
       @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
-      if grab_file
+      if grab_file(@klass.table_name)
         log_start("#import #{@klass}")
         import
         log_start("#propagate_ids #{@klass}")
@@ -44,8 +44,8 @@ class Publishing::Fast
       end
     end
     log_start('#publish_traits')
-    # YOU WERE HERE: publish_traits
-    # TODO: you also have to do associations!
+    publish_traits
+    # TODO: you also have to do associations (but not here; on the other repo)!
     log_start('PageCreator')
     PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
     if page_contents_required?
@@ -62,8 +62,8 @@ class Publishing::Fast
     log_close
   end
 
-  def grab_file
-    url = "/data/#{@resource_path}/publish_#{@klass.table_name}.tsv"
+  def grab_file(name)
+    url = "/data/#{@resource_path}/publish_#{name}.tsv"
     resp = nil
     result = Net::HTTP.start(@repo_site.host, @repo_site.port) do |http|
       resp = http.get(url)
@@ -135,14 +135,12 @@ class Publishing::Fast
   end
 
   def publish_traits
-    # file = '/Users/jrice/drive/git/harvester/public/data/IUCN-SD/publish_traits.tsv'
-    # data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
-    # YOU WERE HERE: Read the file from the harv host and store it in the locations of these two variables:
-    traits_file = @resource.traits_file
-    meta_traits_file = @resource.meta_traits_file
+    @data_file = @resource.traits_file
+    grab_file('traits')
+    @data_file = @resource.meta_traits_file
+    grab_file('metadata')
     TraitBank::Slurp.load_csvs(@resource)
-    File.unlink(traits_file) if File.exist?(traits_file)
-    File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
+    @resource.remove_traits_files
   end
 
   def page_contents_required?
