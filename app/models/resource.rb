@@ -68,11 +68,15 @@ class Resource < ActiveRecord::Base
       end
     end
 
+    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change one, you
+    # must change the other.
     def trait_headers
       %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
          object_page_id target_scientific_name value_uri literal measurement units]
     end
 
+    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change one, you
+    # must change the other.
     def meta_headers
       %i[eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
         statistical_method source]

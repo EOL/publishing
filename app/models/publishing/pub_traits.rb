@@ -20,15 +20,13 @@ class Publishing::PubTraits
     TraitBank.create_resource(@resource.id)
     trait_rows = []
     meta_rows = []
-    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change # one, you
-    # must change the other.
     trait_rows << Resource.trait_headers
     meta_rows << Resource.meta_headers
     read_data_type('traits', trait_rows, meta_rows)
     read_data_type('assocs', trait_rows, meta_rows)
     return if trait_rows.size <= 1
     save_files(trait_rows, meta_rows)
-    slurp_traits(trait_rows, meta_rows)
+    slurp_traits
   end
 
   def save_files(trait_rows, meta_rows)
