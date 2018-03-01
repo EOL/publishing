@@ -164,7 +164,8 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def by_trait(full_id, page = 1, per = 200)
+    def by_trait(input, page = 1, per = 200)
+      full_id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes. 
       (_, resource_id, id) = full_id.split("--")
       q = "MATCH (trait:Trait { resource_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
