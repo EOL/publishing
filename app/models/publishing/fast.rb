@@ -22,13 +22,13 @@ class Publishing::Fast
       ImageInfo => { image_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
-    @log = Publishing::PubLog.new(@resource)
   end
 
   def by_resource
-    log_start('#remove_content')
-    log_warn('All existing content will be destroyed for the resource. You have been warned.')
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
+    @log = Publishing::PubLog.new(@resource)
+    log_start('#remove_content')
+    log_warn('All existing content has been destroyed for the resource.')
     files = []
     @resource_path = @resource.abbr.gsub(/\s+/, '_')
     @relationships.each_key do |klass|
@@ -139,6 +139,7 @@ class Publishing::Fast
     grab_file('traits')
     @data_file = @resource.meta_traits_file
     grab_file('metadata')
+    TraitBank.create_resource(@resource.id)
     TraitBank::Slurp.load_csvs(@resource)
     @resource.remove_traits_files
   end
