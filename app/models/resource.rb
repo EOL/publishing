@@ -87,6 +87,8 @@ class Resource < ActiveRecord::Base
     ImportLog.create(resource_id: id, status: "currently running")
   end
 
+  # NOTE: this does NOT remove TraitBank content (because there are cases where you want to reload the relational DB but
+  # leave the expensive traits in place) Run TraitBank::Admin.remove_for_resource(resource) to accomplish that.
   def remove_content
     # Node ancestors
     nuke(NodeAncestor)

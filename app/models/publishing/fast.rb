@@ -140,6 +140,7 @@ class Publishing::Fast
     @data_file = @resource.meta_traits_file
     grab_file('metadata')
     TraitBank.create_resource(@resource.id)
+    TraitBank::Admin.remove_for_resource(@resource)
     TraitBank::Slurp.load_csvs(@resource)
     @resource.remove_traits_files
   end
