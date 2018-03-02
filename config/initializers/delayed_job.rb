@@ -11,7 +11,7 @@ Delayed::Worker.queue_attributes = {
 # NOTE: If you add another one of these, you should really move them to a jobs folder.
 RepublishJob = Struct.new(:resource_id) do
   def perform
-    resource = Resource.find(resource_id).republish!
+    resource = Resource.find(resource_id)
     Publishing::Fast.by_resource(resource)
   end
 
