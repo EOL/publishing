@@ -1,5 +1,13 @@
 %h1= t("resources.headers.index")
 
+%p
+  .ui.label
+    %i.inbox.icon
+    = t("resources.index.jobs", count: Delayed::Job.count)
+  .ui.label
+    %i.inbox.icon
+    = t("resources.index.harvest_jobs", count: Delayed::Job.where(queue: 'harvest', locked_at: nil).count)
+
 = paginate @resources
 %table.uk-table.uk-table-small.uk-table-striped.uk-table-divider
   %thead

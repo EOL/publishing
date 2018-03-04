@@ -550,6 +550,13 @@ en:
     headers:
       index: "Resources"
       import_log: "Import Log for %{resource}"
+    index:
+      jobs:
+        one: "1 Delayed Job."
+        other: "Delayed Jobs: %{count}"
+      harvest_jobs:
+        one: "1 Delayed Publish."
+        other: "Delayed Publishes: %{count}"
     no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
