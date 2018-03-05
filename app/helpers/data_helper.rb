@@ -153,27 +153,4 @@ module DataHelper
       haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
   end
-
-  def obj_term_options(pred_uri)
-    options = [["----", nil]]
-
-    if (!pred_uri.blank?)
-      TraitBank::Terms.obj_terms_for_pred(pred_uri).each do |term|
-        options.push([term[:name], term[:uri]])
-      end
-    end
-
-    options
-  end
-
-  def unit(pred_uri)
-    if (!pred_uri.blank?)
-      res = TraitBank::Terms.unit_term_for_pred(pred_uri)
-      val = res ? (res[:unit_term] || res[:trait]) : nil
-      val = "(units unknown)" if !val || val == "missing"
-      val
-    else
-      nil
-    end
-  end
 end

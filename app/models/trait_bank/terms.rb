@@ -122,7 +122,7 @@ class TraitBank
             "RETURN DISTINCT(object) "\
             "ORDER BY LOWER(object.name), LOWER(object.uri)"
           )
-          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
       end
 
@@ -133,21 +133,23 @@ class TraitBank
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
             "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-            "(trait:Trait) "\
-            "OPTIONAL MATCH (unit_term:Term{uri: trait.normal_units}) "\
-            "WHERE trait.normal_units is not null "\
-            "RETURN trait.normal_units, unit_term.name "\
+            "(trait:Trait)"\
+            "-[:units_term]->(units_term:Term) "\
+            "WHERE trait.normal_units IS NOT NULL AND trait.normal_units <> \"missing\" "\
+            "OPTIONAL MATCH (normal_units_term:Term) "\
+            "WHERE normal_units_term.uri = trait.normal_units "\
+            "RETURN units_term.name, units_term.uri, normal_units_term.name, normal_units_term.uri "\
             "LIMIT 1"
           )
 
           result = res["data"]&.first || nil
 
-          if result 
-            result = {
-              :trait => result[0],
-              :unit_term => result[1],
-            }
-          end
+          result = {
+            :name => result[0],
+            :uri => result[1],
+            :normal_units_name => result[2],
+            :normal_units_uri => result[3]
+          } if result
 
           result
         end

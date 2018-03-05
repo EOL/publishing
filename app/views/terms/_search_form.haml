@@ -4,17 +4,19 @@
       = fields_for "filters[]", filter do |ff|
         = ff.select :pred_uri, @predicate_options, {}, :class => "js-pred-select"
         = ff.select :op, op_select_options(ff.object), {}, :class => "js-op-select"
-        - if ff.object.is_a? TermQueryNumericFilter
-          = ff.number_field :value
-          %span= unit(ff.object.pred_uri)
-        - elsif ff.object.is_a? TermQueryRangeFilter
-          = ff.number_field :from_value
-          %span to
-          = ff.number_field :to_value
-          %span= unit(ff.object.pred_uri)
+        - if ff.object.is_a?(TermQueryNumericFilter) || ff.object.is_a?(TermQueryRangeFilter)
+          - if ff.object.is_a? TermQueryNumericFilter
+            = ff.number_field :value
+          - elsif ff.object.is_a? TermQueryRangeFilter
+            = ff.number_field :from_value
+            %span to
+            = ff.number_field :to_value
+          - units = units(ff.object.pred_uri)
+          = ff.select :units_uri, units_select_options(units)
         - elsif ff.object.is_a? TermQueryObjectTermFilter
           = ff.select :obj_uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
-        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
+        - if @filters.length > 1
+          .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
 
   %button.js-add-filter Add filter
   

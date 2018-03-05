@@ -47,6 +47,19 @@ class TermQuery < ActiveRecord::Base
     end
   end
 
+  def self.filter_types_for_pred(uri)
+    types = [TermQueryPredicateFilter]
+
+    types << TermQueryObjectTermFilter if TraitBank::Terms.obj_terms_for_pred(uri).any?
+    
+    types += [
+      TermQueryNumericFilter,
+      TermQueryRangeFilter
+    ] if TraitBank::Terms.unit_term_for_pred(uri)
+
+    types
+  end
+
   private
     def cull_filters
       self.filters = search_filters

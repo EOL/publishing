@@ -5,6 +5,14 @@ class TermsController < ApplicationController
   before_action :no_main_container, :only => [:search, :search_form, :show]
   before_action :build_filters_from_params, :only => [:search, :search_form, :show]
 
+  OPS_TO_FILTER_TYPES = {
+    "is" => TermQueryObjectTermFilter,
+    "eq" => TermQueryNumericFilter,
+    "gt" => TermQueryNumericFilter,
+    "lt" => TermQueryNumericFilter,
+    "range" => TermQueryRangeFilter
+  }
+
   def index
     @count = TraitBank::Terms.count
     glossary("full_glossary")
@@ -18,7 +26,7 @@ class TermsController < ApplicationController
           @query.filters = @filters
           search_common
         else
-          @filters << TermQueryObjectTermFilter.new
+          @filters << TermQueryPredicateFilter.new
         end
       end
 
@@ -50,28 +58,45 @@ class TermsController < ApplicationController
 
     if filter_params
       filter_params.each do |filter_param|
-        this_filter = case filter_param[:op]
-          when "is"
-            TermQueryObjectTermFilter.new(
-              :pred_uri => filter_param[:pred_uri],
-              :obj_uri => filter_param[:obj_uri].blank? ? nil : filter_param[:obj_uri]
-            )
-          when "range"
-            TermQueryRangeFilter.new(
-              :pred_uri => filter_param[:pred_uri],
-              :from_value => filter_param[:from_value],
-              :to_value => filter_param[:to_value],
-              :units_uri => filter_param[:units_uri]
-            )
-          else
-            TermQueryNumericFilter.new(
-              :pred_uri => filter_param[:pred_uri],
-              :value => filter_param[:value],
-              :units_uri => filter_param[:units_uri],
-              :op => filter_param[:op]
-            )
-          end
+        this_filter = if filter_param[:op].blank?
+                        # TermQueryPredicateFilter is a valid type for all predicates
+                        TermQueryPredicateFilter.new(
+                          :pred_uri => filter_param[:pred_uri]
+                        )
+                      else
+                        valid_types = TermQuery.filter_types_for_pred(filter_param[:pred_uri])
+                        type_from_op = OPS_TO_FILTER_TYPES[filter_param[:op]]
 
+                        if type_from_op && valid_types.include?(type_from_op)
+                          # for some reason, a case statement doesn't work here
+                          if type_from_op == TermQueryObjectTermFilter  
+                            TermQueryObjectTermFilter.new(
+                              :pred_uri => filter_param[:pred_uri],
+                              :obj_uri => filter_param[:obj_uri].blank? ? nil : filter_param[:obj_uri]
+                            )
+                          elsif type_from_op == TermQueryNumericFilter
+                            TermQueryNumericFilter.new(
+                              :pred_uri => filter_param[:pred_uri],
+                              :value => filter_param[:value],
+                              :units_uri => filter_param[:units_uri],
+                              :op => filter_param[:op]
+                            )
+                          elsif type_from_op == TermQueryRangeFilter
+                            TermQueryRangeFilter.new(
+                              :pred_uri => filter_param[:pred_uri],
+                              :from_value => filter_param[:from_value],
+                              :to_value => filter_param[:to_value],
+                              :units_uri => filter_param[:units_uri]
+                            )
+                          else
+                            raise "unexpected filter type #{type_from_op}"
+                          end
+                        else
+                          TermQueryPredicateFilter.new(
+                            :pred_uri => filter_param[:pred_uri]
+                          )
+                        end            
+                      end
         @filters << (this_filter)
       end
     end
@@ -79,7 +104,7 @@ class TermsController < ApplicationController
 
   def search_form
     @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
-    @filters << TermQueryObjectTermFilter.new if params[:add_filter] 
+    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
     render :layout => false
   end
 

@@ -314,25 +314,31 @@ class TraitBank
     end
 
     def term_filter_wheres(term_query)
+      pred_wheres = term_query.predicate_filters.map do |filter|
+        "tgt_pred.uri = \"#{filter.pred_uri}\""
+      end
+
       obj_wheres = term_query.object_term_filters.map do |filter|
-        if filter.obj_uri
-          "((trait)-[:object_term]->(Term)-[:#{parent_terms}]->(Term{ uri: #{filter.obj_uri} }) "\
-          "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
-        else
-          "tgt_pred.uri = \"#{filter.pred_uri}\""
-        end
-      end
-
-      num_wheres = term_query.numeric_filters.map do |filter|
-        "(trait.normal_measurement #{op_from_filter(filter)} #{filter.value} AND tgt_pred.uri = \"#{filter.pred_uri}\")"
-      end
-
-      range_wheres = term_query.range_filters.map do |filter|
-        "(trait.normal_measurement >= #{filter.from_value} AND trait.normal_measurement <= #{filter.to_value} "\
+        "((trait)-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
         "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
       end
 
-      [obj_wheres, num_wheres, range_wheres].flatten
+      num_wheres = term_query.numeric_filters.map do |filter|
+        "(trait.measurement IS NOT NULL "\
+        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
+        "AND trait.measurement #{op_from_filter(filter)} #{filter.value} "\
+        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+      end
+
+      range_wheres = term_query.range_filters.map do |filter|
+        "(trait.measurement IS NOT NULL "\
+        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
+        "AND trait.measurement >= #{filter.from_value} "\
+        "AND trait.measurement <= #{filter.to_value} "\
+        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+      end
+
+      [pred_wheres, obj_wheres, num_wheres, range_wheres].flatten
     end
 
     def term_record_search(term_query, options)
