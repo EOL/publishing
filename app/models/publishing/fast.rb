@@ -27,43 +27,64 @@ class Publishing::Fast
   def by_resource
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
     @log = Publishing::PubLog.new(@resource)
-    log_start('#remove_content')
-    log_warn('All existing content has been destroyed for the resource.')
-    files = []
-    @resource_path = @resource.abbr.gsub(/\s+/, '_')
-    @relationships.each_key do |klass|
-      @klass = klass
-      log_start(@klass)
-      @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
-      if grab_file(@klass.table_name)
-        log_start("#import #{@klass}")
-        import
-        log_start("#propagate_ids #{@klass}")
-        propagate_ids
-        files << @data_file
+    begin
+      unless exists?('nodes')
+        raise('Nodes TSV does not exist! Are you sure the resource has successfully finished harvesting?')
       end
+      log_start('#remove_content')
+      log_warn('All existing content has been destroyed for the resource.')
+      files = []
+      @resource_path = @resource.abbr.gsub(/\s+/, '_')
+      @relationships.each_key do |klass|
+        @klass = klass
+        log_start(@klass)
+        @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
+        if grab_file(@klass.table_name)
+          log_start("#import #{@klass}")
+          import
+          log_start("#propagate_ids #{@klass}")
+          propagate_ids
+          files << @data_file
+        end
+      end
+      log_start('Remove traits')
+      TraitBank::Admin.remove_for_resource(@resource)
+      log_start('#publish_traits')
+      publish_traits
+      # TODO: you also have to do associations (but not here; on the other repo)!
+      log_start('PageCreator')
+      PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
+      if page_contents_required?
+        log_start('MediaContentCreator')
+        MediaContentCreator.by_resource(@resource, @log)
+      end
+      log_start('#propagate_reference_ids')
+      propagate_reference_ids
+      files.each do |file|
+        log("Removing #{file}")
+        File.unlink(file)
+      end
+    rescue => e
+      @log.fail(e)
+    ensure
+      log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
+      log_close
     end
-    log_start('#publish_traits')
-    publish_traits
-    # TODO: you also have to do associations (but not here; on the other repo)!
-    log_start('PageCreator')
-    PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
-    if page_contents_required?
-      log_start('MediaContentCreator')
-      MediaContentCreator.by_resource(@resource, @log)
-    end
-    log_start('#propagate_reference_ids')
-    propagate_reference_ids
-    files.each do |file|
-      log("Removing #{file}")
-      File.unlink(file)
-    end
-    log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
-    log_close
+  end
+
+  def repo_file_url(name)
+    "/data/#{@resource_path}/publish_#{name}.tsv"
+  end
+
+  def exists?(name)
+    url = URI.parse(repo_file_url(name))
+    req = Net::HTTP.new(url.host, url.port)
+    res = req.request_head(url.path)
+    res.code.to_i < 400
   end
 
   def grab_file(name)
-    url = "/data/#{@resource_path}/publish_#{name}.tsv"
+    url = repo_file_url(name)
     resp = nil
     result = Net::HTTP.start(@repo_site.host, @repo_site.port) do |http|
       resp = http.get(url)
@@ -140,7 +161,6 @@ class Publishing::Fast
     @data_file = @resource.meta_traits_file
     grab_file('metadata')
     TraitBank.create_resource(@resource.id)
-    TraitBank::Admin.remove_for_resource(@resource)
     TraitBank::Slurp.load_csvs(@resource)
     @resource.remove_traits_files
   end
