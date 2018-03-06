@@ -4,6 +4,31 @@ class ImportLog < ActiveRecord::Base
 
   scope :successful, -> { where("completed_at IS NOT NULL") }
 
+  class << self
+    def all_clear!
+      now = Time.now
+      where(completed_at: nil, failed_at: nil).find_each do |log|
+        log.update_attributes(completed_at: now, failed_at: now)
+      end
+    end
+
+    def already_running?
+      undo = 'rake publish:clear if you are SURE these are in an acceptable state.'
+      if ImportRun.where(completed_at: nil).any?
+        return("A Publishing run appears to be active. #{undo}")
+      end
+      logging = ImportLog.where(completed_at: nil, failed_at: nil).includes(:resource)
+      if logging.any?
+        info = "Currently publishing: "
+        info += logging.map do |log|
+          info += "ImportLog##{log.id}: #{log.resource.name} (Resource##{log.resource_id})"
+        end.join(' ; ')
+        return info
+      end
+      false
+    end
+  end
+
   def log(body, options = nil)
     options ||= {}
     cat = options[:cat] || :starts

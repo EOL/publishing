@@ -170,13 +170,6 @@ class Resource < ActiveRecord::Base
     retry rescue nil # I really don't care THAT much... sheesh!
   end
 
-  # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
-
-  # NOTE: this is DANGEROUS. It deletes ALL of the existing data for the resource!
-  def republish!
-    Publishing.republish_resource(self)
-  end
-
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)

@@ -28,6 +28,7 @@ class Publishing::Fast
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
     @log = Publishing::PubLog.new(@resource)
     begin
+      abort_if_already_running
       unless exists?('nodes')
         raise('Nodes TSV does not exist! Are you sure the resource has successfully finished harvesting?')
       end
@@ -69,6 +70,12 @@ class Publishing::Fast
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
       log_close
+    end
+  end
+
+  def abort_if_already_running
+    if (info = ImportLog.already_running?)
+      raise(info)
     end
   end
 
