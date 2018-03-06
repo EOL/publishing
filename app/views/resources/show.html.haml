@@ -17,7 +17,9 @@
     .uk-section.uk-section-small
       %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
         %li
-          - index_stat(:nodes, @resource.nodes_count)
+          - @resource.update_attribute(:nodes_count, @resource.nodes.count) if @resource.nodes_count == 0
+          - count = @resource.nodes_count
+          - index_stat(:nodes, count)
         %li
           - index_stat(:media, Medium.where(resource_id: @resource.id).count)
         %li
