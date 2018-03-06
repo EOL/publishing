@@ -9,7 +9,9 @@ class Publishing::Fast
   def initialize(resource)
     @start_at = Time.now
     @resource = resource
-    @repo_site = URI(Rails.application.secrets.repository['url'])
+    repo_url = Rails.application.secrets.repository['url']
+    @repo_site = URI(repo_url)
+    @repo_is_on_this_host = repo_url =~ /(128\.0\.0\.1|localhost)/
     @relationships = {
       Referent => {},
       Node => { parent_id: Node },
@@ -107,7 +109,9 @@ class Publishing::Fast
     cols = @klass.connection.exec_query("DESCRIBE `#{@klass.table_name}`").rows.map(&:first)
     cols.delete('id') # We never load the PK, since it's auto_inc.
     q = ['LOAD DATA']
-    q << 'LOCAL' unless Rails.env.development?
+    # NOTE: "LOCAL" is a strange directive; you only use it when you are REMOTE. ...The intention being, you're telling
+    # the remote server "the file I'm talking about is local to me." Confusing at best. I don't like it.
+    q << 'LOCAL' unless @repo_is_on_this_host
     q << "INFILE '#{@data_file}'"
     q << "INTO TABLE `#{@klass.table_name}`"
     q << "(#{cols.join(',')})"
