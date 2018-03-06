@@ -15,10 +15,10 @@ class TraitBank
   # The Labels, and their expected relationships { and (*required) properties }:
   # * Resource: { *resource_id }
   # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
-  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term)
-  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage,
-  #       source, measurement, object_page_id, literal, normal_measurement,
-  #       normal_units[NOTE: this is a literal STRING, used as symbol in Ruby] }
+  # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term),
+  #          normal_units_term(Term)
+  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage, source, measurement,
+  #       object_page_id, literal, normal_measurement }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { *eol_pk, measurement, literal }
   # * Term: parent_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
@@ -165,7 +165,7 @@ class TraitBank
     end
 
     def by_trait(input, page = 1, per = 200)
-      full_id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes. 
+      full_id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
       (_, resource_id, id) = full_id.split("--")
       q = "MATCH (trait:Trait { resource_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
@@ -659,34 +659,6 @@ class TraitBank
       resource
     end
 
-    # TODO: we should probably do some checking here. For example, we should
-    # only have ONE of [value/object_term/association/literal].
-    def create_trait(options)
-      resource_id = options[:supplier]["data"]["resource_id"]
-      Rails.logger.warn "++ Create Trait: Resource##{resource_id}, "\
-        "PK:#{options[:resource_pk]}"
-      if trait = trait_exists?(resource_id, options[:resource_pk])
-        Rails.logger.warn "++ Already exists, skipping."
-        return trait
-      end
-      page = options.delete(:page)
-      supplier = options.delete(:supplier)
-      meta = options.delete(:metadata)
-      predicate = parse_term(options.delete(:predicate))
-      units = parse_term(options.delete(:units))
-      object_term = parse_term(options.delete(:object_term))
-      convert_measurement(options, units)
-      trait = connection.create_node(options)
-      connection.set_label(trait, "Trait")
-      relate("trait", page, trait)
-      relate("supplier", trait, supplier)
-      relate("predicate", trait, predicate)
-      relate("units_term", trait, units) if units
-      relate("object_term", trait, object_term) if object_term
-      meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
-      trait
-    end
-
     def relate(how, from, to)
       begin
         connection.create_relationship(how, from, to)
@@ -716,21 +688,6 @@ class TraitBank
       end
     end
 
-    def add_metadata_to_trait(trait, options)
-      predicate = parse_term(options.delete(:predicate))
-      units = parse_term(options.delete(:units))
-      object_term = parse_term(options.delete(:object_term))
-      convert_measurement(options, units)
-      meta = connection.create_node(options)
-      connection.set_label(meta, "MetaData")
-      relate("metadata", trait, meta)
-      relate("predicate", meta, predicate)
-      relate("units_term", meta, units) if units
-      relate("object_term", meta, object_term) if
-        object_term
-      meta
-    end
-
     def add_parent_to_page(parent, page)
       if parent.nil?
         if page.nil?
@@ -750,32 +707,6 @@ class TraitBank
       rescue Neography::PropertyValueException
         return { added: false, message: "Cannot add parent for page #{page["data"]["page_id"]} to "\
           "#{parent["data"]["page_id"]}" }
-      end
-    end
-
-    # NOTE: this only work on IMPORT. Don't try to run it later! TODO: move it
-    # to import. ;)
-    def convert_measurement(trait, units)
-      return unless trait[:literal]
-      trait[:measurement] = begin
-        Integer(trait[:literal])
-      rescue
-        Float(trait[:literal]) rescue trait[:literal]
-      end
-      # If we converted it (and thus it is numeric) AND we see units...
-      if trait[:measurement].is_a?(Numeric) &&
-         units && units["data"] && units["data"]["uri"]
-        (n_val, n_unit) = UnitConversions.convert(trait[:measurement],
-          units["data"]["uri"])
-        trait[:normal_measurement] = n_val
-        trait[:normal_units] = n_unit
-      else
-        trait[:normal_measurement] = trait[:measurement]
-        if units && units["data"] && units["data"]["uri"]
-          trait[:normal_units] = units["data"]["uri"]
-        else
-          trait[:normal_units] = "missing"
-        end
       end
     end
 

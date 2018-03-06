@@ -13,7 +13,7 @@ class TraitBank::Slurp
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
           'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source literal measurement\
-                        object_page_id scientific_name],
+                        object_page_id scientific_name normal_measurement],
           wheres: {
             # This will be applied to ALL rows:
             "1=1" => {
@@ -21,16 +21,22 @@ class TraitBank::Slurp
                 predicate: 'Term { uri: row.predicate }',
                 resource: "Resource { resource_id: #{resource.id} }"
               },
+              # NOTE: merges are expressed as a triple, e.g.: [source variable, relationship name, target variable]
               merges: [
                 [:page, :trait, :trait],
                 [:trait, :predicate, :predicate],
                 [:trait, :supplier, :resource]
               ],
-            }, # default
+            },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
               merges: [ [:trait, :units_term, :units] ]
+            },
+            "#{is_not_blank('row.normal_units_uri')}" =>
+            {
+              matches: { normal_units: 'Term { uri: row.normal_units_uri }' },
+              merges: [ [:trait, :normal_units_term, :normal_units] ]
             },
             "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
@@ -53,7 +59,7 @@ class TraitBank::Slurp
                 [:trait, :metadata, :metadata],
                 [:metadata, :predicate, :predicate]
               ],
-            }, # default
+            },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
