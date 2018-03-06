@@ -17,6 +17,15 @@
           = ff.select :obj_uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
         - if @filters.length > 1
           .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
+  .filter-row
+    .js-typeahead-wrap
+      = text_field_tag "clade_name", @clade_name, :class => "js-clade-typeahead"
+      = hidden_field_tag "clade", @clade, :class => "js-clade-field"
+
+  -#
+    = label :clade, t("clade"), :class => "uk-form-label"
+    .uk-width-1-2.js-typeahead-wrap
+      = text_field_tag(:clade_name, @clade_name, :class => "uk-input js-clade-typeahead typeahead", placeholder: @clade_name)
 
   %button.js-add-filter Add filter
   

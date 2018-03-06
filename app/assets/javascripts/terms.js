@@ -37,7 +37,7 @@ EOL.onReady(function() {
       }
     });
 
-    $('.js-clade-typeahead').typeahead(null, {
+    $('.js-clade-typeahead').typeahead({}, {
       name: 'clade-filter-names',
       display: 'name',
       source: EOL.searchNames

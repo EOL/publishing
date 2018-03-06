@@ -1,9 +1,8 @@
 class TermsController < ApplicationController
   helper :data
-  protect_from_forgery except: :clade_filter
   before_action :search_setup, :only => [:search, :search_form, :show]
   before_action :no_main_container, :only => [:search, :search_form, :show]
-  before_action :build_filters_from_params, :only => [:search, :search_form, :show]
+  before_action :build_search_vars_from_params, :only => [:search, :search_form, :show]
 
   OPS_TO_FILTER_TYPES = {
     "is" => TermQueryObjectTermFilter,
@@ -24,6 +23,7 @@ class TermsController < ApplicationController
         if @filters.any?
           @query = TermQuery.new
           @query.filters = @filters
+          @query.clade = @clade
           search_common
         else
           @filters << TermQueryPredicateFilter.new
@@ -50,6 +50,23 @@ class TermsController < ApplicationController
         end
       end
     end
+  end
+
+  def build_search_vars_from_params
+    build_filters_from_params
+    @clade = params[:clade]
+
+    if @clade
+      clade_page = Page.find_by_id(@clade)
+
+      if clade_page
+        @clade_name = clade_page.native_node.scientific_name
+      else
+        @clade = nil
+        @clade_name = nil
+        logger.error "invalid clade id: #{params[:clade]}"
+      end
+    end 
   end
 
   def build_filters_from_params
@@ -168,14 +185,6 @@ private
       :result_type => @result_type
     }
     @count = TraitBank.term_search(query, options)
-    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
-      page(@page).per(@per_page)
-  end
-
-  def paginate_data(data)
-    options = { clade: params[:clade], count: true }
-    add_uri_to_options(options)
-    TraitBank.term_search(options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
   end
