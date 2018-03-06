@@ -1,10 +1,10 @@
 class TraitBank::Slurp
   class << self
-    # delegate :query, to: TraitBank
-    def query(q)
-      puts ">> TB: #{q}"
-      TraitBank.query(q)
-    end
+    delegate :query, to: TraitBank
+    # def query(q)
+    #   puts ">> TB: #{q}"
+    #   TraitBank.query(q)
+    # end
 
     def load_csvs(resource)
       config = load_csv_config(resource)
