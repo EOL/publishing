@@ -1,6 +1,10 @@
 class TraitBank::Slurp
   class << self
-    delegate :query, to: TraitBank
+    # delegate :query, to: TraitBank
+    def query(q)
+      puts ">> TB: #{q}"
+      TraitBank.query(q)
+    end
 
     def load_csvs(resource)
       config = load_csv_config(resource)
@@ -33,11 +37,11 @@ class TraitBank::Slurp
               matches: { units: 'Term { uri: row.units }' },
               merges: [ [:trait, :units_term, :units] ]
             },
-            "#{is_not_blank('row.normal_units_uri')}" =>
-            {
-              matches: { normal_units: 'Term { uri: row.normal_units_uri }' },
-              merges: [ [:trait, :normal_units_term, :normal_units] ]
-            },
+            # "#{is_not_blank('row.normal_units_uri')}" =>
+            # {
+            #   matches: { normal_units: 'Term { uri: row.normal_units_uri }' },
+            #   merges: [ [:trait, :normal_units_term, :normal_units] ]
+            # },
             "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
               matches: { object_term: 'Term { uri: row.value_uri }' },

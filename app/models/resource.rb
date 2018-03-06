@@ -83,6 +83,10 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def path
+    @path ||= abbr.gsub(/\s+/, '_')
+  end
+
   def create_log
     ImportLog.create(resource_id: id, status: "currently running")
   end

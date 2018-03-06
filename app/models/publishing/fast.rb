@@ -26,20 +26,19 @@ class Publishing::Fast
 
   def by_resource
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
+    abort_if_already_running
     @log = Publishing::PubLog.new(@resource)
     begin
-      abort_if_already_running
       unless exists?('nodes')
-        raise('Nodes TSV does not exist! Are you sure the resource has successfully finished harvesting?')
+        raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
       log_start('#remove_content')
       log_warn('All existing content has been destroyed for the resource.')
       files = []
-      @resource_path = @resource.abbr.gsub(/\s+/, '_')
       @relationships.each_key do |klass|
         @klass = klass
         log_start(@klass)
-        @data_file = Rails.root.join('tmp', "#{@resource_path}_#{@klass.table_name}.tsv")
+        @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
         if grab_file(@klass.table_name)
           log_start("#import #{@klass}")
           import
@@ -70,6 +69,7 @@ class Publishing::Fast
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
       log_close
+      ImportLog.all_clear!
     end
   end
 
@@ -80,12 +80,12 @@ class Publishing::Fast
   end
 
   def repo_file_url(name)
-    "/data/#{@resource_path}/publish_#{name}.tsv"
+    "/data/#{@resource.path}/publish_#{name}.tsv"
   end
 
   def exists?(name)
     url = URI.parse(repo_file_url(name))
-    req = Net::HTTP.new(url.host, url.port)
+    req = Net::HTTP.new(@repo_site.host, @repo_site.port)
     res = req.request_head(url.path)
     res.code.to_i < 400
   end
