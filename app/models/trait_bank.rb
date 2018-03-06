@@ -354,7 +354,7 @@ class TraitBank
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
-      matches << "(page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
+      matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade} })" if use_clade
       match_part = "MATCH #{matches.join(", ")}"
 
       wheres = term_filter_wheres(term_query)
