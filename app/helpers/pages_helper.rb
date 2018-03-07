@@ -160,9 +160,9 @@ module PagesHelper
     return '0' if count.nil?
     count =
       if count > 1_000_000
-        "#{(count / 100_000) / 10.0}M"
-      elsif count > 1_000
-        "#{(count / 1_000) / 10.0}K"
+        "#{(count / 100_000) / 1.0}M"
+      elsif count > 10_000
+        "#{(count / 1_000) / 1.0}K"
       else
         number_with_delimiter(count)
       end
