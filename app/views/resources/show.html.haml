@@ -17,9 +17,8 @@
     .uk-section.uk-section-small
       %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
         %li
-          - @resource.update_attribute(:nodes_count, @resource.nodes.count) if @resource.nodes_count.to_i == 0
-          - count = @resource.nodes_count
-          - index_stat(:nodes, count)
+          - @resource.update_attribute(:nodes_count, @resource.nodes.count) if @resource.nodes_count.to_i != @resource.nodes.count
+          - index_stat(:nodes, @resource.nodes_count)
         %li
           - index_stat(:media, Medium.where(resource_id: @resource.id).count)
         %li
@@ -28,7 +27,7 @@
           - index_stat(:scientific_names, ScientificName.where(resource_id: @resource.id).count)
 
   %h2
-    Imports:
+    Publish Logs:
   %ul.uk-list
     - @resource.import_logs.order('created_at DESC').each do |log|
       %li
