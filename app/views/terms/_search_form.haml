@@ -1,32 +1,31 @@
-= form_for @query, :url => term_search_path, :method => :get, :id => "new_term_query" do |f|
+= form_for @query, :url => term_search_results_path, :method => :get, :id => "new_term_query" do |f|
   .filter-row.filter-row-clade
     %span Clade: 
     %span.js-typeahead-wrap
-      = text_field_tag "clade_name", clade_name(@query.clade), :class => "js-clade-typeahead"
-      = f.hidden_field :clade, :class => "js-typeahead-field"
+      = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead"
+      = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
-  - @filters.each_with_index do |filter, index|
+  = f.fields_for :filters do |ff|
     .filter-row
-      = f.fields_for :filters do |ff|
+      %span.js-typeahead-wrap
+        = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "js-pred-typeahead"
+        = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
+      - op_options = op_select_options(ff.object)
+      - if op_options.length > 1
+        = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "js-op-select"
+      - if ff.object.numeric? || ff.object.range?
+        = ff.number_field :num_val1
+        - if ff.object.range?
+          %span to
+          = ff.number_field :num_val2
+        - units = units(ff.object.pred_uri)
+        = ff.select :units_uri, units_select_options(units)
+      - elsif ff.object.object_term?
         %span.js-typeahead-wrap
-          = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "js-pred-typeahead"
-          = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
-        - op_options = op_select_options(ff.object)
-        - if op_options.length > 1
-          = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "js-op-select"
-        - if ff.object.numeric? || ff.object.range?
-          = ff.number_field :num_val1
-          - if ff.object.range?
-            %span to
-            = ff.number_field :num_val2
-            - units = units(ff.object.pred_uri)
-            = ff.select :units_uri, units_select_options(units)
-        - elsif ff.object.object_term?
-          %span.js-typeahead-wrap
-            = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead", :data => { :'pred-uri' => ff.object.pred_uri }
-            = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
-        - if @filters.length > 1
-          .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
+          = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead", :data => { :'pred-uri' => ff.object.pred_uri }
+          = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
+      - if f.object.filters.length > 1
+        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
 
   %button.js-add-filter Add filter
 

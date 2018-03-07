@@ -1,16 +1,17 @@
 module TermsHelper
-  def op_select_options(filter)
-    filter_types = TermQuery.filter_types_for_pred(filter.pred_uri)
+  OP_DISPLAY = {
+    :is_any => "match any",
+    :is_obj => "is",
+    :eq => "=",
+    :lt => "<",
+    :gt => ">",
+    :range => "range"
+  }
 
-    options = [["---", nil]]
-    options << ["is", :is] if filter_types.include? TermQueryObjectTermFilter
-    options += [
-      ["=", :eq],
-      [">", :gt],
-      ["<", :lt]
-    ] if filter_types.include? TermQueryNumericFilter
-    options << ["range", :range] if filter_types.include? TermQueryRangeFilter
-    options
+  def op_select_options(filter)
+    filter.valid_ops.map do |op|
+      [OP_DISPLAY[op], op]
+    end
   end
 
   def obj_term_options(pred_uri)

@@ -1,8 +1,8 @@
 class TermsController < ApplicationController
   helper :data
   before_action :search_setup, :only => [:search, :search_form, :show]
-  before_action :no_main_container, :only => [:search, :search_form, :show]
-  before_action :build_search_vars_from_params, :only => [:search, :search_form, :show]
+  before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
+  before_action :build_query, :only => [:search_results, :search_form]
 
   OPS_TO_FILTER_TYPES = {
     "is" => :object_term,
@@ -18,14 +18,17 @@ class TermsController < ApplicationController
   end
 
   def search
+    @query = TermQuery.new
+    @query.filters.build(:op => :is_any)
+  end
+
+  def search_results
     respond_to do |fmt|
       fmt.html do
-        if @filters.any?
+        if @query.filters.any?
           search_common
         else
-          @query = TermQuery.new(
-            :filters => [TermQueryFilter.new(:filter_type => :predicate)]
-          )
+          # Error blah blah
         end
       end
 
@@ -117,71 +120,22 @@ class TermsController < ApplicationController
   end
 
 private
-  def build_search_vars_from_params
-    build_filters_from_params
-    @clade = params[:clade]
-
-    if @clade
-      clade_page = Page.find_by_id(@clade)
-
-      if clade_page
-        @clade_name = clade_page.native_node.canonical_form
-      else
-        @clade = nil
-        @clade_name = nil
-        logger.error "invalid clade id: #{params[:clade]}"
-      end
-    end 
+  def tq_params
+    params.require(:term_query).permit([
+      :clade_id,
+      :filters_attributes => [
+        :pred_uri,
+        :obj_uri,
+        :op,
+        :num_val1,
+        :num_val2,
+        :units_uri
+      ]
+    ])
   end
 
-  def build_filters_from_params
-    filter_params = params[:filters]
-    @filters = []
-
-    if filter_params
-      filter_params.each do |filter_param|
-        this_filter = if filter_param[:op].blank?
-                        # TermQueryPredicateFilter is a valid type for all predicates
-                        TermQueryPredicateFilter.new(
-                          :pred_uri => filter_param[:pred_uri]
-                        )
-                      else
-                        valid_types = TermQuery.filter_types_for_pred(filter_param[:pred_uri])
-                        type_from_op = OPS_TO_FILTER_TYPES[filter_param[:op]]
-
-                        if type_from_op && valid_types.include?(type_from_op)
-                          # for some reason, a case statement doesn't work here
-                          if type_from_op == TermQueryObjectTermFilter  
-                            TermQueryObjectTermFilter.new(
-                              :pred_uri => filter_param[:pred_uri],
-                              :obj_uri => filter_param[:obj_uri].blank? ? nil : filter_param[:obj_uri]
-                            )
-                          elsif type_from_op == TermQueryNumericFilter
-                            TermQueryNumericFilter.new(
-                              :pred_uri => filter_param[:pred_uri],
-                              :value => filter_param[:value],
-                              :units_uri => filter_param[:units_uri],
-                              :op => filter_param[:op]
-                            )
-                          elsif type_from_op == TermQueryRangeFilter
-                            TermQueryRangeFilter.new(
-                              :pred_uri => filter_param[:pred_uri],
-                              :from_value => filter_param[:from_value],
-                              :to_value => filter_param[:to_value],
-                              :units_uri => filter_param[:units_uri]
-                            )
-                          else
-                            raise "unexpected filter type #{type_from_op}"
-                          end
-                        else
-                          TermQueryPredicateFilter.new(
-                            :pred_uri => filter_param[:pred_uri]
-                          )
-                        end            
-                      end
-        @filters << (this_filter)
-      end
-    end
+  def build_query
+    @query = TermQuery.new(tq_params)
   end
 
   def paginate_term_search_data(data, query)
