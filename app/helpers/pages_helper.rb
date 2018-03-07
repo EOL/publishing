@@ -161,7 +161,7 @@ module PagesHelper
     count =
       if count > 1_000_000
         "#{(count / 100_000) / 10.0}M"
-      elsif count > 10_000
+      elsif count > 1_000
         "#{(count / 1_000) / 10.0}K"
       else
         number_with_delimiter(count)
