@@ -34,13 +34,13 @@ class PageCreator
       log.log('Reindexing new pages...')
       missing.in_groups_of(10_000, false) { |group| Page.where(id: group).reindex }
     end
-    # This shouldn't be needed.  The pages we created have native nodes assigned above, and existing pages should have
-    # been fine. Sooo...
-    # log.log('Fixing native nodes...')
-    # bad_natives = Page.where(native_node_id: nil, id: missing).pluck(:id)
-    # bad_natives.in_groups_of(10_000, false) do |group|
-    #   Page.fix_native_nodes(Page.where(native_node_id: nil, id: group))
-    # end
+    # TODO: This *shouldn't* be needed. The pages we created have native nodes assigned above, and existing pages should
+    # have been fine. But we keep seeing this happen, so there's a bug in the harvester's publishing code... ?
+    log.log('Fixing native nodes...')
+    bad_natives = Page.where(native_node_id: nil, id: missing).pluck(:id)
+    bad_natives.in_groups_of(10_000, false) do |group|
+      Page.fix_native_nodes(Page.where(native_node_id: nil, id: group))
+    end
     # TODO: Fix counter-culture counts on affected pages. :\
   end
 end
