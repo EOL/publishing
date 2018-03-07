@@ -5,11 +5,11 @@ class TermsController < ApplicationController
   before_action :build_search_vars_from_params, :only => [:search, :search_form, :show]
 
   OPS_TO_FILTER_TYPES = {
-    "is" => TermQueryObjectTermFilter,
-    "eq" => TermQueryNumericFilter,
-    "gt" => TermQueryNumericFilter,
-    "lt" => TermQueryNumericFilter,
-    "range" => TermQueryRangeFilter
+    "is" => :object_term,
+    "eq" => :numeric,
+    "gt" => :numeric,
+    "lt" => :numeric,
+    "range" => :range
   }
 
   def index
@@ -21,12 +21,11 @@ class TermsController < ApplicationController
     respond_to do |fmt|
       fmt.html do
         if @filters.any?
-          @query = TermQuery.new
-          @query.filters = @filters
-          @query.clade = @clade
           search_common
         else
-          @filters << TermQueryPredicateFilter.new
+          @query = TermQuery.new(
+            :filters => [TermQueryFilter.new(:filter_type => :predicate)]
+          )
         end
       end
 
@@ -53,8 +52,6 @@ class TermsController < ApplicationController
   end
 
   def search_form
-    @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
-    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
     render :layout => false
   end
 
