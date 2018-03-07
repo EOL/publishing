@@ -1,0 +1,52 @@
+/* line 5, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.traits {
+  list-style: none;
+  padding: 0 17px;
+}
+
+/* line 10, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait {
+  border: 1px solid #ddd;
+  margin-top: 3px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* line 17, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-source {
+  float: right;
+}
+
+/* line 21, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-thumb {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 26, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-data {
+  overflow: hidden;
+}
+
+/* line 30, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.meta-items-arw {
+  bottom: 5px;
+  display: block;
+  cursor: pointer;
+  right: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  /* line 40, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+  .traits {
+    margin: 0;
+    padding: 0 20px;
+  }
+}
+/* line 3, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.traits-term-search {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}

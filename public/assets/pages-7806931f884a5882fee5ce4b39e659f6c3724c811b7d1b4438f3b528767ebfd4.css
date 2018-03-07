@@ -1,0 +1,206 @@
+/* line 5, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.traits {
+  list-style: none;
+  padding: 0 17px;
+}
+
+/* line 10, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait {
+  border: 1px solid #ddd;
+  margin-top: 3px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* line 17, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-source {
+  float: right;
+}
+
+/* line 21, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-thumb {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 26, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-data {
+  overflow: hidden;
+}
+
+/* line 30, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.meta-items-arw {
+  bottom: 5px;
+  display: block;
+  cursor: pointer;
+  right: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  /* line 40, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+  .traits {
+    margin: 0;
+    padding: 0 20px;
+  }
+}
+/* line 12, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  padding-bottom: 52.5333333333%;
+  position: relative;
+}
+
+/* line 21, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.names {
+  height: 52px;
+  overflow: hidden;
+  padding: 0 17px;
+  white-space: nowrap;
+  width: 100%;
+}
+/* line 28, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.names > h1 {
+  color: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 10px 0 0 0;
+}
+/* line 35, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.names > h2 {
+  color: inherit;
+  font-size: 11px;
+  font-weight: normal;
+  margin: 3px 0 0 0;
+}
+
+/* line 43, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.tabs {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  font-size: 11px;
+  height: 25px;
+  list-style: none;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 2px 17px;
+  white-space: nowrap;
+}
+
+/* line 56, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.tab {
+  border-radius: 2px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 7px;
+  vertical-align: middle;
+}
+/* line 63, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.tab > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* line 69, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.is-tab-selected {
+  background: #91bde5;
+  color: #fff;
+}
+
+/* line 74, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.desc {
+  font-size: 11px;
+  line-height: 1.36;
+  margin: 0;
+  padding: 13px 17px;
+}
+
+/* line 81, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.sample-traits {
+  background: #fefce5;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 11px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 90, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.sample-traits > li {
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  flex: 1 0 auto;
+  height: 48px;
+  padding: 7px 13px;
+}
+/* line 98, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.sample-traits > li:last-of-type {
+  border-right: none;
+}
+
+/* line 104, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.sample-trait-key {
+  color: #6f5a42;
+}
+
+/* line 108, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+.sample-trait-val {
+  color: #c06a11;
+}
+
+@media (min-width: 600px) {
+  /* line 114, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .names {
+    height: 60px;
+    padding: 0 20px;
+  }
+  /* line 118, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .names > h1 {
+    font-size: 16px;
+    margin: 12px 0 0 0;
+  }
+  /* line 123, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .names > h2 {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+  }
+
+  /* line 129, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .tabs {
+    height: 30px;
+    padding: 3px 20px;
+  }
+  /* line 133, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .tabs > li {
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  /* line 139, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .desc {
+    font-size: 14px;
+    padding: 15px 20px;
+  }
+
+  /* line 144, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .sample-traits {
+    font-size: 14px;
+  }
+  /* line 147, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .sample-traits > li {
+    padding-left: 18px;
+    height: 58px;
+  }
+}
+@media (min-width: 1220px) {
+  /* line 156, /var/www/eol_website/app/assets/stylesheets/pages.scss */
+  .hero {
+    height: 702px;
+    padding: 0;
+  }
+}

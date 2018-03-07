@@ -47,7 +47,9 @@ end
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
 # sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
-Rails.configuration.repository_url = Rails.application.secrets.repository['url']
-Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
-Rails.configuration.x.image_path = Rails.application.secrets.image_path
-Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
+Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'http://localhost:3000'
+Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '_orig'
+Rails.configuration.x.image_path.ext = '.jpg'
+Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '_'
+Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || '_'
+

@@ -32,7 +32,7 @@ class TraitBank
 
   class << self
     def connection
-      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
+      @connection ||= Neography::Rest.new('http://localhost:7474')
     end
 
     def ping
