@@ -7,9 +7,8 @@ class ImportLog < ActiveRecord::Base
   class << self
     def all_clear!
       now = Time.now
-      where(completed_at: nil, failed_at: nil).find_each do |log|
-        log.update_attributes(completed_at: now, failed_at: now)
-      end
+      where(completed_at: nil, failed_at: nil).update_all(completed_at: now, failed_at: now)
+      ImportRun.where(completed_at: nil).update_all(completed_at: now)
     end
 
     def already_running?

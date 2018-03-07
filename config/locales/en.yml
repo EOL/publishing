@@ -546,7 +546,7 @@ en:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
       sync: "sync with repo"
-      clear_publishing: "clear locks"
+      clear_publishing: "clear lock"
       clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
     confirm:
       publish: "This should only be done if you are sure there are *completed* harvests ready to publish. Are you sure?"
