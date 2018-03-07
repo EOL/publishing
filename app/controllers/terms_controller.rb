@@ -52,6 +52,74 @@ class TermsController < ApplicationController
     end
   end
 
+  def search_form
+    @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
+    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
+    render :layout => false
+  end
+
+  def show
+    @query = TermQuery.new({
+      :pairs => [TermQueryPair.new(
+        :predicate => params[:uri]
+      )]
+    })
+    search_common
+  end
+
+  def edit
+    @term = TraitBank.term_as_hash(params[:uri])
+  end
+
+  def update
+    # TODO: security check: admin only
+    term = params[:term].merge(uri: params[:uri])
+    # TODO: sections ...  I can't properly test that right now.
+    TraitBank.update_term(term) # NOTE: *NOT* hash!
+    redirect_to(term_path(term[:uri]))
+  end
+
+  def predicate_glossary
+    @count = TraitBank::Terms.predicate_glossary_count
+    glossary(params[:action])
+  end
+
+  # We ultimately don't want to just pass a "URI" to the term search; we need to
+  # separate object terms and predicates. We handle that here, since there are
+  # two places where it matters.
+  def add_uri_to_options(options)
+    if @object
+      options[:predicate] = @and_predicate && @and_predicate[:uri]
+      options[:object_term] = @and_object ?
+        [@term[:uri], @and_object[:uri]] :
+        @term[:uri]
+    else
+      options[:predicate] = @and_predicate ?
+        [@term[:uri], @and_predicate[:uri]] :
+        @term[:uri]
+      options[:object_term] = @and_object && @and_object[:uri]
+    end
+  end
+
+  def object_terms_for_pred
+    render :json => TraitBank::Terms.obj_terms_for_pred(params[:pred_uri], params[:query])
+  end
+
+  def object_term_glossary
+    @count = TraitBank::Terms.object_term_glossary_count
+    glossary(params[:action])
+  end
+
+  def units_glossary
+    @count = TraitBank::Terms.units_glossary_count
+    glossary(params[:action])
+  end
+
+  def pred_autocomplete
+    render :json => TraitBank::Terms.predicate_glossary(nil, nil, params[:query])
+  end
+
+private
   def build_search_vars_from_params
     build_filters_from_params
     @clade = params[:clade]
@@ -60,7 +128,7 @@ class TermsController < ApplicationController
       clade_page = Page.find_by_id(@clade)
 
       if clade_page
-        @clade_name = clade_page.native_node.scientific_name
+        @clade_name = clade_page.native_node.canonical_form
       else
         @clade = nil
         @clade_name = nil
@@ -119,66 +187,6 @@ class TermsController < ApplicationController
     end
   end
 
-  def search_form
-    @filters.delete_at(params[:remove_filter].to_i) if params[:remove_filter]
-    @filters << TermQueryPredicateFilter.new if params[:add_filter] 
-    render :layout => false
-  end
-
-  def show
-    @query = TermQuery.new({
-      :pairs => [TermQueryPair.new(
-        :predicate => params[:uri]
-      )]
-    })
-    search_common
-  end
-
-  def edit
-    @term = TraitBank.term_as_hash(params[:uri])
-  end
-
-  def update
-    # TODO: security check: admin only
-    term = params[:term].merge(uri: params[:uri])
-    # TODO: sections ...  I can't properly test that right now.
-    TraitBank.update_term(term) # NOTE: *NOT* hash!
-    redirect_to(term_path(term[:uri]))
-  end
-
-  def predicate_glossary
-    @count = TraitBank::Terms.predicate_glossary_count
-    glossary(params[:action])
-  end
-
-  # We ultimately don't want to just pass a "URI" to the term search; we need to
-  # separate object terms and predicates. We handle that here, since there are
-  # two places where it matters.
-  def add_uri_to_options(options)
-    if @object
-      options[:predicate] = @and_predicate && @and_predicate[:uri]
-      options[:object_term] = @and_object ?
-        [@term[:uri], @and_object[:uri]] :
-        @term[:uri]
-    else
-      options[:predicate] = @and_predicate ?
-        [@term[:uri], @and_predicate[:uri]] :
-        @term[:uri]
-      options[:object_term] = @and_object && @and_object[:uri]
-    end
-  end
-
-  def object_term_glossary
-    @count = TraitBank::Terms.object_term_glossary_count
-    glossary(params[:action])
-  end
-
-  def units_glossary
-    @count = TraitBank::Terms.units_glossary_count
-    glossary(params[:action])
-  end
-
-private
   def paginate_term_search_data(data, query)
     options = {
       :count => true,

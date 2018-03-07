@@ -1,4 +1,4 @@
-EOL.onReady(function() {
+(function() {
   function fetchForm(option) {
     var data = $('#new_term_query').serializeArray();
 
@@ -20,13 +20,39 @@ EOL.onReady(function() {
     });
   }
 
+  function buildTypeahead(selector, options, datumField, selectFn) {
+    $(selector).typeahead({}, options).bind('typeahead:selected', function(evt, datum, name) {
+      var $target = $(evt.target);
+
+      $target.data('lastCleanVal', $target.val());
+      $(evt.target).closest('.js-typeahead-wrap').find('.js-typeahead-field').val(datum[datumField]);
+
+      if (selectFn) {
+        selectFn();
+      }
+    });
+
+    $(selector).on('input', function() {
+      var $this = $(this);
+      
+      if ($this.val().length === 0) {
+        $this.data('lastCleanVal', '');
+        $this.closest('.js-typeahead-wrap').find('.js-typeahead-field').val('');
+
+        if (selectFn) {
+          selectFn();
+        }
+      }
+    });
+
+    $(selector).on('blur', function() {
+      $(this).val($(this).data('lastCleanVal')); 
+    });
+  }
+
   function setupForm() {
     $('.js-op-select').change(function() {
       fetchForm(); 
-    });
-
-    $('.js-pred-select').change(function(e) {
-      fetchForm(false);
     });
 
     $('.js-term-select').each(function() {
@@ -37,18 +63,34 @@ EOL.onReady(function() {
       }
     });
 
-    $('.js-clade-typeahead').typeahead({}, {
+    buildTypeahead('.js-clade-typeahead', {
       name: 'clade-filter-names',
       display: 'name',
       source: EOL.searchNames
-    }).bind('typeahead:selected', function(evt, datum, name) {
-      $('.js-clade-typeahead').closest('.js-typeahead-wrap').find('.js-clade-field').val(datum.id);
-    });
+    }, 'id', null);
 
-    $('.js-clade-typeahead').on('input', function() {
-      if ($(this).val().length === 0) {
-        $(this).closest('.js-typeahead-wrap').find('.js-clade-field').val('');
-      }
+    buildTypeahead('.js-pred-typeahead', {
+      name: 'pred-names',
+      display: 'name',
+      source: EOL.searchPredicates
+    }, 'uri', fetchForm);
+
+    $('.js-obj-typeahead').each(function() {
+      var source = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/terms/object_terms_for_predicate.json?query=%QUERY&pred_uri=' + $(this).data('predUri'),
+          wildcard: '%QUERY'
+        },
+        limit: 10
+      });
+      source.initialize();
+
+      buildTypeahead(this, {
+        display: 'name',
+        source: source
+      }, 'uri', null)
     });
 
     $('.js-add-filter').click(function(e) {
@@ -67,5 +109,5 @@ EOL.onReady(function() {
     });
   }
 
-  setupForm();
-});
+  EOL.onReady(setupForm);
+})();

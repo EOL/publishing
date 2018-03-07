@@ -261,7 +261,7 @@ if(!window.EOL) {
       limit: 10
     });
     EOL.searchUsers.initialize();
-
+    
     // Aaaaand this...
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

@@ -1,9 +1,21 @@
 = form_tag term_search_path, :method => :get, :id => "new_term_query" do 
+  .filter-row.filter-row-clade
+    %span Clade: 
+    %span.js-typeahead-wrap
+      = text_field_tag "clade_name", @clade_name, :class => "js-clade-typeahead"
+      = hidden_field_tag "clade", @clade, :class => "js-typeahead-field"
+
   - @filters.each_with_index do |filter, index|
     .filter-row
       = fields_for "filters[]", filter do |ff|
-        = ff.select :pred_uri, @predicate_options, {}, :class => "js-pred-select"
-        = ff.select :op, op_select_options(ff.object), {}, :class => "js-op-select"
+        -#
+          = ff.select :pred_uri, @predicate_options, {}, :class => "js-pred-select"
+        %span.js-typeahead-wrap
+          = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "js-pred-typeahead"
+          = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
+        - op_options = op_select_options(ff.object)
+        - if op_options.length > 1
+          = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "js-op-select"
         - if ff.object.is_a?(TermQueryNumericFilter) || ff.object.is_a?(TermQueryRangeFilter)
           - if ff.object.is_a? TermQueryNumericFilter
             = ff.number_field :value
@@ -14,13 +26,11 @@
           - units = units(ff.object.pred_uri)
           = ff.select :units_uri, units_select_options(units)
         - elsif ff.object.is_a? TermQueryObjectTermFilter
-          = ff.select :obj_uri, obj_term_options(ff.object.pred_uri), {}, :class => "js-term-select"
+          %span.js-typeahead-wrap
+            = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead", :data => { :'pred-uri' => ff.object.pred_uri }
+            = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
         - if @filters.length > 1
           .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
-  .filter-row
-    .js-typeahead-wrap
-      = text_field_tag "clade_name", @clade_name, :class => "js-clade-typeahead"
-      = hidden_field_tag "clade", @clade, :class => "js-clade-field"
 
   -#
     = label :clade, t("clade"), :class => "uk-form-label"
@@ -28,9 +38,8 @@
       = text_field_tag(:clade_name, @clade_name, :class => "uk-input js-clade-typeahead typeahead", placeholder: @clade_name)
 
   %button.js-add-filter Add filter
-  
-  %div
-    = submit_tag "Search"
+
+  = submit_tag "Search", :class => "submit"
 
 -#
   = f.fields_for :pairs do |ff|

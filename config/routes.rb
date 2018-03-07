@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
   get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
+  get "/terms/object_terms_for_predicate" => "terms#object_terms_for_pred"
   get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
   get "/terms/new" => "terms#new", :as => "new_term"
   get "/terms/:uri" => "terms#show", :as => "term", :constraints => { uri: /http.*/ }

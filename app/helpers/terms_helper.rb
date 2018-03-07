@@ -10,8 +10,7 @@ module TermsHelper
       ["<", :lt]
     ] if filter_types.include? TermQueryNumericFilter
     options << ["range", :range] if filter_types.include? TermQueryRangeFilter
-
-    options_for_select(options, filter.op)
+    options
   end
 
   def obj_term_options(pred_uri)
@@ -34,5 +33,13 @@ module TermsHelper
     else
       nil
     end
+  end
+
+  def pred_name(uri)
+    TraitBank::Terms.name_for_pred_uri uri
+  end
+
+  def obj_name(uri)
+    TraitBank::Terms.name_for_obj_uri uri
   end
 end

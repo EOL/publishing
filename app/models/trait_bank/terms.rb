@@ -49,7 +49,7 @@ class TraitBank
           q = "MATCH (term:Term"
           q += " { is_hidden_from_glossary: false }" unless qterm
           q += ")<-[:#{type}]-(n) "
-          q += "WHERE LOWER(term.name) STARTS WITH \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q += "WHERE LOWER(term.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -73,6 +73,24 @@ class TraitBank
 
       def predicate_glossary(page = nil, per = nil, qterm = nil)
         sub_glossary("predicate", page, per, qterm: qterm)
+      end
+
+      def name_for_pred_uri(uri)
+        key = "trait_bank/predicate_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          predicate_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+        
+        map[uri]
+      end
+
+      def name_for_obj_uri(uri)
+        key = "trait_bank/object_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          object_term_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+
+        map[uri]
       end
 
       def object_term_glossary(page = nil, per = nil, qterm = nil)
@@ -112,16 +130,17 @@ class TraitBank
         uris
       end
 
-      def obj_terms_for_pred(pred_uri)
+      def obj_terms_for_pred(pred_uri, qterm = nil)
         key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = query(
-            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          q = "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
             "(trait:Trait)"\
-            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "\
-            "RETURN DISTINCT(object) "\
+            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "
+          q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q +=  "RETURN DISTINCT(object) "\
             "ORDER BY LOWER(object.name), LOWER(object.uri)"
-          )
+
+          res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
       end
