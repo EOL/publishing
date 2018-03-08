@@ -1,19 +1,31 @@
 .uk-section
-  %h1= @resource.name
-  .ui.button= link_to(t("resources.actions.index"), resources_path)
+  %h1.uk-article-title
+    = @resource.name
+    .uk-text-small= "(#{@resource.abbr})"
   - if is_admin?
     .ui.basic.button
       = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
     .ui.red.inverted.button
       = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
         data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
-  %p= link_to(number_with_delimiter(@resource.nodes.count) + ' nodes', resource_nodes_path(@resource))
+  %p
+    - if @resource.description.blank?
+      There is no description for this resource.
+    - else
+      = @resource.description
 
-.uk-section
   - if @resource.import_logs.empty?
-    This resource has not been imported yet.
+    %p This resource has not been imported yet.
   - else
     %h2 Content
+    %p
+      %ul.uk-subnav
+        %li= link_to(t("resources.actions.index"), resources_path)
+        -# TODO: Shoot, we need a public-facing version of Rails.application.secrets.repository['url'], because that one's
+        -# meant for internal use! = link_to("See harvests.", "/resources/#{@resource.repository_id}")
+        %li= link_to('see harvests', "https://beta-repo.eol.org/resources/#{@resource.repository_id}")
+        %li= link_to("browse #{number_with_delimiter(@resource.nodes.count)} nodes", resource_nodes_path(@resource))
+
     .uk-section.uk-section-small
       %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
         %li
