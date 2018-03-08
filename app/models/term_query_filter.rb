@@ -44,5 +44,4 @@ class TermQueryFilter < ActiveRecord::Base
 
     ops
   end
-
 end

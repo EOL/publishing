@@ -110,4 +110,11 @@
   }
 
   EOL.onReady(setupForm);
+  
+  $(function() {
+    $('.js-edit-filters').click(function() {
+      $('.js-filter-form').removeClass('is-hidden');
+      $('.js-filter-list').addClass('is-hidden');
+    });
+  });
 })();

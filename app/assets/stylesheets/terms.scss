@@ -1,11 +1,11 @@
 @import "shared/traits";
 
-.l-filters {
-  padding: 50px percentage(15 / 375);
+.l-terms {
+  padding: 10px percentage(15 / 375);
 }
 
 .filter {
-  margin-top: 5px;
+  margin-bottom: 16px;
   padding-left: 40px;
   position: relative;
 }
@@ -27,15 +27,16 @@
 
 
 .is-filter-row-with-errors {
-  margin-top: 30px;
+  margin-top: 25px;
 }
 
 .filter-error {
   color: #f00;
   font-size: 12px;
-  left: 5px;
   position: absolute;
+  text-align: center;
   top: -15px;
+  width: 100%;
 }
 
 .filter-field {
@@ -88,4 +89,29 @@
   margin-bottom: 10px;
   justify-content: center;
   width: 100%;
+}
+
+.edit-filters-row {
+  color: $eol-blue;
+  text-align: center;
+}
+
+.edit-filters {
+  cursor: pointer;
+}
+
+.show-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+
+  & > li {
+    border: 1px solid $eol-blue;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 12px 30px;
+  }
 }

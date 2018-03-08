@@ -51,4 +51,38 @@ module TermsHelper
       end
     end
   end
+
+  def filter_display_string(filter)
+    case filter.op.to_sym
+    when :is_any
+      is_any_display_string(filter)
+    when :is_obj
+      is_obj_display_string(filter)
+    when :eq
+      num_display_string(filter)
+    when :lt
+      num_display_string(filter)
+    when :gt
+      num_display_string(filter)
+    when :range
+      range_display_string(filter)
+    end
+  end
+
+  private 
+    def is_any_display_string(filter)
+      pred_name(filter.pred_uri)
+    end
+
+    def is_obj_display_string(filter)
+      "#{pred_name(filter.pred_uri)} is #{obj_name(filter.obj_uri)}"
+    end
+
+    def num_display_string(filter)
+      "#{pred_name(filter.pred_uri)} #{OP_DISPLAY[filter.op.to_sym]} #{filter.num_val1}"
+    end
+
+    def range_display_string(filter)
+      "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}]"
+    end
 end
