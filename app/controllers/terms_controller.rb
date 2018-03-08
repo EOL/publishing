@@ -1,16 +1,8 @@
 class TermsController < ApplicationController
   helper :data
-  before_action :search_setup, :only => [:search, :search_form, :show]
+  before_action :search_setup, :only => [:search, :search_results, :search_form, :show]
   before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
   before_action :build_query, :only => [:search_results, :search_form]
-
-  OPS_TO_FILTER_TYPES = {
-    "is" => :object_term,
-    "eq" => :numeric,
-    "gt" => :numeric,
-    "lt" => :numeric,
-    "range" => :range
-  }
 
   def index
     @count = TraitBank::Terms.count
@@ -25,10 +17,13 @@ class TermsController < ApplicationController
   def search_results
     respond_to do |fmt|
       fmt.html do
-        if @query.filters.any?
+        if @query.valid?
           search_common
         else
-          # Error blah blah
+          @query.errors.full_messages.each do |e|
+            puts e
+          end
+          render "search"
         end
       end
 
@@ -136,6 +131,17 @@ private
 
   def build_query
     @query = TermQuery.new(tq_params)
+    @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
+    @query.filters.build(:op => :is_any) if params[:add_filter]
+    fix_filters
+  end
+
+  def fix_filters
+    @query.filters.each do |f|
+      if f.pred_uri.blank?
+        f.op = :is_any
+      end
+    end
   end
 
   def paginate_term_search_data(data, query)

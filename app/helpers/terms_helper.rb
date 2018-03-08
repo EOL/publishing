@@ -43,4 +43,12 @@ module TermsHelper
   def obj_name(uri)
     TraitBank::Terms.name_for_obj_uri uri
   end
+
+  def show_error(obj, field) 
+    if obj.errors[field].any?
+      haml_tag(:div, :class => "filter-error") do
+        haml_concat obj.errors[field][0]
+      end
+    end
+  end
 end

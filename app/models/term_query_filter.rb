@@ -1,5 +1,5 @@
 class TermQueryFilter < ActiveRecord::Base
-  belongs_to :term_query
+  belongs_to :term_query, :inverse_of => :filters
   validates_presence_of :term_query
   validates_presence_of :pred_uri
   validates_presence_of :op
@@ -44,4 +44,5 @@ class TermQueryFilter < ActiveRecord::Base
 
     ops
   end
+
 end

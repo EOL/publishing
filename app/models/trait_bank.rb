@@ -326,15 +326,15 @@ class TraitBank
       num_wheres = term_query.numeric_filters.map do |filter|
         "(trait.measurement IS NOT NULL "\
         "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND trait.measurement #{op_from_filter(filter)} #{filter.value} "\
+        "AND trait.measurement #{op_from_filter(filter)} #{filter.num_val1} "\
         "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
       end
 
       range_wheres = term_query.range_filters.map do |filter|
         "(trait.measurement IS NOT NULL "\
         "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND trait.measurement >= #{filter.from_value} "\
-        "AND trait.measurement <= #{filter.to_value} "\
+        "AND trait.measurement >= #{filter.num_val1} "\
+        "AND trait.measurement <= #{filter.num_val2} "\
         "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
       end
 
@@ -400,38 +400,39 @@ class TraitBank
       "#{order_part} "
     end
 
+
     def term_page_search(term_query, options)
-      with_count_clause = options[:count] ?
-        "WITH COUNT(DISTINCT(page)) AS count " :
-        ""
-      return_clause = options[:count] ?
-        "RETURN count" :
-        "RETURN page"
-      page_match = "MATCH (page:Page)"
-      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
-
-      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
-        trait_label = "t#{i}"
-        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
-
-        if pair.object
-          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
-          "(#{trait_label})"\
-          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
-        else
-          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
-        end
-
-        match
-      end
-
-      order_part = options[:count] ? "" : "ORDER BY page.name"
-
-      "#{page_match} "\
-      "#{trait_matches.join(" ")} "\
-      "#{with_count_clause}"\
-      "#{return_clause} "\
-      "#{order_part}"
+#      with_count_clause = options[:count] ?
+#        "WITH COUNT(DISTINCT(page)) AS count " :
+#        ""
+#      return_clause = options[:count] ?
+#        "RETURN count" :
+#        "RETURN page"
+#      page_match = "MATCH (page:Page)"
+#      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
+#
+#      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
+#        trait_label = "t#{i}"
+#        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
+#
+#        if pair.object
+#          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
+#          "(#{trait_label})"\
+#          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
+#        else
+#          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
+#        end
+#
+#        match
+#      end
+#
+#      order_part = options[:count] ? "" : "ORDER BY page.name"
+#
+#      "#{page_match} "\
+#      "#{trait_matches.join(" ")} "\
+#      "#{with_count_clause}"\
+#      "#{return_clause} "\
+#      "#{order_part}"
     end
 
 # TODO: update and restore these methods (if needed)

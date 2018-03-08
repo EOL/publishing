@@ -21,3 +21,23 @@
   display: block;
   margin-top: 20px;
 }
+
+.filter-row {
+  margin-top: 5px;
+}
+
+.is-filter-row-with-errors {
+  margin-top: 30px;
+}
+
+.filter-error {
+  color: #f00;
+  font-size: 12px;
+  left: 5px;
+  position: absolute;
+  top: -15px;
+}
+
+.filter-field {
+  position: relative;
+}

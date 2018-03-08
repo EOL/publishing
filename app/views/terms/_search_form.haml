@@ -6,26 +6,35 @@
       = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
   = f.fields_for :filters do |ff|
-    .filter-row
-      %span.js-typeahead-wrap
+    - row_class = "filter-row"
+    - if ff.object.errors.any?
+      - row_class += " is-filter-row-with-errors"
+    %div{ :class => row_class }
+      %span.js-typeahead-wrap.filter-field
+        - show_error(ff.object, :pred_uri)
         = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "js-pred-typeahead"
         = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
       - op_options = op_select_options(ff.object)
       - if op_options.length > 1
         = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "js-op-select"
       - if ff.object.numeric? || ff.object.range?
-        = ff.number_field :num_val1
+        %span.filter-field
+          - show_error(ff.object, :num_val1)
+          = ff.number_field :num_val1
         - if ff.object.range?
           %span to
-          = ff.number_field :num_val2
+          %span.filter-field
+            - show_error(ff.object, :num_val2)
+            = ff.number_field :num_val2
         - units = units(ff.object.pred_uri)
         = ff.select :units_uri, units_select_options(units)
       - elsif ff.object.object_term?
-        %span.js-typeahead-wrap
+        %span.js-typeahead-wrap.filter-field
+          - show_error(ff.object, :obj_uri)
           = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead", :data => { :'pred-uri' => ff.object.pred_uri }
           = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
       - if f.object.filters.length > 1
-        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => index }}
+        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
 
   %button.js-add-filter Add filter
 
