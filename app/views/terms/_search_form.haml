@@ -41,10 +41,11 @@
             = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
             = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
 
-  .filter.add-filter.js-add-filter
-    .l-filter-first.filter-icon
-      %div{:'uk-icon' => "icon: plus; ratio: 1.4"}
-    .filter-txt trait filter
+  .filter-row
+    .filter.add-filter.js-add-filter
+      .l-filter-first.filter-icon
+        %div{:'uk-icon' => "icon: plus; ratio: 1.4"}
+      .filter-txt trait filter
   = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
 
 -#
