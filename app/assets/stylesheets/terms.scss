@@ -1,12 +1,15 @@
 @import "shared/traits";
 
-.l-term {
-  padding: 0 15px;
+.l-filters {
+  padding: 50px percentage(15 / 375);
 }
 
-.l-filters {
-  padding: 50px 0 0 35px;
+.filter {
+  margin-top: 5px;
+  padding-left: 40px;
+  position: relative;
 }
+
 
 .filter-row-clade {
   margin-bottom: 20px;
@@ -22,9 +25,6 @@
   margin-top: 20px;
 }
 
-.filter-row {
-  margin-top: 5px;
-}
 
 .is-filter-row-with-errors {
   margin-top: 30px;
@@ -40,4 +40,52 @@
 
 .filter-field {
   position: relative;
+}
+
+.filter-input {
+  vertical-align: bottom !important;
+}
+
+.l-filter-first {
+  position: absolute; 
+  vertical-align: bottom;
+  left: 0;
+  top: 6px;
+}
+
+.filter-icon {
+  padding-bottom: 5px;
+}
+
+.filter-txt {
+  display: inline-block;
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+  margin: 0 5px;
+  vertical-align: bottom;
+}
+
+.add-filter {
+  cursor: pointer;
+}
+
+.is-icon-disabled {
+  cursor: default;
+  color: #ccc;
+}
+
+.l-filter-full {
+  width: 100%;
+
+  & > span {
+    width: 100%;
+  }
+}
+
+.filter-row {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+  width: 100%;
 }

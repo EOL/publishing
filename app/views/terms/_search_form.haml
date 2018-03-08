@@ -1,44 +1,51 @@
-= form_for @query, :url => term_search_results_path, :method => :get, :id => "new_term_query" do |f|
-  .filter-row.filter-row-clade
-    %span Clade: 
-    %span.js-typeahead-wrap
-      = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead"
+= form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => "uk-form uk-form-horizontal"} do |f|
+  .filter.filter-clade.filter-row
+    %span.js-typeahead-wrap.l-filter-full
+      = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (optional)"
       = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
   = f.fields_for :filters do |ff|
-    - row_class = "filter-row"
+    - row_class = "filter uk-form-row"
     - if ff.object.errors.any?
-      - row_class += " is-filter-row-with-errors"
+      - row_class += " is-filter-with-errors"
     %div{ :class => row_class }
-      %span.js-typeahead-wrap.filter-field
+      - icon_class = f.object.filters.length > 1 ? "js-remove-filter" : "is-icon-disabled"
+      .l-filter-first.filter-icon
+        %div{:class => icon_class, :'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
+      %span.js-typeahead-wrap.filter-field.l-filter-full.filter-row
         - show_error(ff.object, :pred_uri)
-        = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "js-pred-typeahead"
+        = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "uk-input js-pred-typeahead", :placeholder => "attribute"
         = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
       - op_options = op_select_options(ff.object)
       - if op_options.length > 1
-        = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "js-op-select"
+        .filter-row
+          = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "filter-input uk-select uk-form-width-small js-op-select"
       - if ff.object.numeric? || ff.object.range?
-        %span.filter-field
-          - show_error(ff.object, :num_val1)
-          = ff.number_field :num_val1
-        - if ff.object.range?
-          %span to
+
+        .filter-row
           %span.filter-field
-            - show_error(ff.object, :num_val2)
-            = ff.number_field :num_val2
-        - units = units(ff.object.pred_uri)
-        = ff.select :units_uri, units_select_options(units)
+            - show_error(ff.object, :num_val1)
+            = ff.number_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
+          - if ff.object.range?
+            %span.filter-txt to
+            %span.filter-field
+              - show_error(ff.object, :num_val2)
+              = ff.number_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
+        .filter-row
+          - units = units(ff.object.pred_uri)
+          = ff.select :units_uri, units_select_options(units), {}, :class => "filter-input uk-select l-filter-full"
       - elsif ff.object.object_term?
-        %span.js-typeahead-wrap.filter-field
-          - show_error(ff.object, :obj_uri)
-          = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead", :data => { :'pred-uri' => ff.object.pred_uri }
-          = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
-      - if f.object.filters.length > 1
-        .minus-term-icon.js-remove-filter{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
+        .filter-row
+          %span.js-typeahead-wrap.filter-field.l-filter-full
+            - show_error(ff.object, :obj_uri)
+            = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
+            = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
 
-  %button.js-add-filter Add filter
-
-  = submit_tag "Search", :class => "submit"
+  .filter.add-filter.js-add-filter
+    .l-filter-first.filter-icon
+      %div{:'uk-icon' => "icon: plus; ratio: 1.4"}
+    .filter-txt trait filter
+  = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
 
 -#
   = f.fields_for :pairs do |ff|

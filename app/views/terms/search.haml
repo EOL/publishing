@@ -1,17 +1,16 @@
-.l-term
-  .ui.dimmer.js-term-form-dimmer
-    .ui.loader
-  .l-filters
-    = render "search_form"
-  - if @pages
-    - if @result_type == :record
-      = render 'data_table', { data: @grouped_data, pages: @pages }
-    - else
-      %ul.uk-list
-        - @pages.each do |_, page|
-          = render("pages/as_row",
-            page: page,
-            icon: page.icon,
-            media: [],
-            common: page.name,
-            scientific: page.scientific_name)
+.ui.dimmer.js-term-form-dimmer
+  .ui.loader
+.l-filters
+  = render "search_form"
+- if @pages
+  - if @result_type == :record
+    = render 'data_table', { data: @grouped_data, pages: @pages }
+  - else
+    %ul.uk-list
+      - @pages.each do |_, page|
+        = render("pages/as_row",
+          page: page,
+          icon: page.icon,
+          media: [],
+          common: page.name,
+          scientific: page.scientific_name)
