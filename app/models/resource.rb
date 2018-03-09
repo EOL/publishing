@@ -174,6 +174,22 @@ class Resource < ActiveRecord::Base
     retry rescue nil # I really don't care THAT much... sheesh!
   end
 
+  # This is kinda cool.... but probably doesn't scale to cases where there are tens of millions of page_contents.
+  def fix_missing_page_contents
+    contents =
+      PageContent.joins('LEFT JOIN media ON (page_contents.content_id = media.id)')
+                 .where(content_type: 'Medium', resource_id: id)
+                 .where('media.id IS NULL')
+    page_counts = {}
+    contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
+    by_count = {}
+    page_counts.each { |pid, count| by_count[count] ||= [] ; by_count[count] << pid }
+    contents.delete_all
+    by_count.each do |count, pages|
+      Page.where(id: pages).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count - #{count}),0)")
+    end
+  end
+
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
