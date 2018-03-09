@@ -717,7 +717,7 @@ class TraitBank
     end
 
     def create_term(options)
-      if existing_term = term(options[:uri]) # NO DUPLICATES!
+      if (existing_term = term(options[:uri])) # NO DUPLICATES!
         return existing_term unless options.delete(:force)
       end
       options[:section_ids] = options[:section_ids] ?
@@ -726,7 +726,14 @@ class TraitBank
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       if existing_term
         options.delete(:uri) # We already have this.
-        connection.set_node_properties(existing_term, options)
+        begin
+          connection.set_node_properties(existing_term, options)
+        rescue => e # What I saw was a Neography::PropertyValueException ...but I want to catch everything
+          puts "ERROR: failed to update term #{options[:uri]}"
+          puts "EXISTING: #{existing_term.inspect}"
+          puts "DESIRED: #{options.inspect}"
+          puts "You will need to fix this manually. Make note!"
+        end
         return existing_term
       end
       begin
@@ -753,7 +760,6 @@ class TraitBank
     def child_term_has_parent_term(cterm, pterm)
       relate(:parent_term, cterm, pterm)
     end
-
 
     def term(uri)
       @terms ||= {}
