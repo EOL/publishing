@@ -115,7 +115,14 @@ class Publishing::Fast
     q << "INFILE '#{@data_file}'"
     q << "INTO TABLE `#{@klass.table_name}`"
     q << "(#{cols.join(',')})"
-    @klass.connection.execute(q.join(' '))
+    begin
+      @klass.connection.execute(q.join(' '))
+    rescue => e
+      puts 'FAILED TO LOAD DATA. NOTE that it\'s possible you need to A) In Mysql,'
+      puts 'GRANT FILE ON *.* TO your_user@localhost IDENTIFIED BY "your_password";'
+      puts '...and B) add "local_infile=true" to your database.yml config for this to work.'
+      raise e
+    end
   end
 
   def propagate_ids

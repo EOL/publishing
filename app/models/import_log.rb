@@ -55,8 +55,8 @@ class ImportLog < ActiveRecord::Base
 
   def fail(e)
     e.backtrace.reverse.each_with_index do |trace, i|
-      last if trace =~ /\/bundler/
-      last if i > 9 # Too much info, man!
+      break if trace =~ /\/bundler/
+      break if i > 9 # Too much info, man!
       if i > 2
         # TODO: Add other filters here...
         next unless trace =~ /eol_website/
