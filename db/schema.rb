@@ -504,6 +504,14 @@ ActiveRecord::Schema.define(version: 20180307203738) do
     t.integer "user_id",    limit: 4, null: false
   end
 
+  create_table "processes", force: :cascade do |t|
+    t.integer  "resource_id", limit: 4,     null: false
+    t.string   "error",       limit: 255
+    t.text     "trace",       limit: 65535
+    t.datetime "created_at"
+    t.datetime "stopped_at"
+  end
+
   create_table "ranks", force: :cascade do |t|
     t.string  "name",     limit: 255, null: false
     t.integer "treat_as", limit: 4
@@ -514,6 +522,7 @@ ActiveRecord::Schema.define(version: 20180307203738) do
     t.integer "referent_id", limit: 4,                       null: false
     t.string  "parent_type", limit: 255, default: "Article", null: false
     t.integer "resource_id", limit: 4,                       null: false
+    t.integer "id",          limit: 4,                       null: false
   end
 
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
@@ -731,6 +740,16 @@ ActiveRecord::Schema.define(version: 20180307203738) do
     t.string  "filename",    limit: 255, null: false
   end
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "process_id", limit: 4
+    t.string   "method",     limit: 255
+    t.text     "info",       limit: 65535
+    t.string   "progress",   limit: 255
+    t.string   "summary",    limit: 255
+    t.datetime "created_at"
+    t.datetime "exited_at"
+  end
+
   create_table "taxon_remarks", force: :cascade do |t|
     t.integer "node_id", limit: 4
     t.text    "body",    limit: 65535
@@ -872,5 +891,10 @@ ActiveRecord::Schema.define(version: 20180307203738) do
   add_index "vernaculars", ["node_id"], name: "index_vernaculars_on_node_id", using: :btree
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
+
+  create_table "warnings", force: :cascade do |t|
+    t.integer "resource_id", limit: 4,   null: false
+    t.string  "message",     limit: 255
+  end
 
 end

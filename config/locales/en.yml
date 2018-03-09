@@ -165,7 +165,8 @@ en:
     source: "source"
     spatial_location: "spatial"
     view_source_label: "original"
-    view_source_link: "view source material"
+    view_source_link: "view original image"
+    view_source_page_link: "view source material"
   content_not_in_any_collection: "This media is not featured in any collections."
   data:
     modifier:
@@ -537,7 +538,6 @@ en:
     actions:
       import_traits: "import traits (from repository)"
       republish: "republish"
-      slurp_traits: "slurp traits (from csv)"
       index: "back to all resources"
       publish: "publish"
       show_all:
@@ -545,11 +545,21 @@ en:
       show_warns:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
+      sync: "sync with repo"
+      clear_publishing: "clear lock"
+      clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
     confirm:
       publish: "This should only be done if you are sure there are *completed* harvests ready to publish. Are you sure?"
     headers:
       index: "Resources"
       import_log: "Import Log for %{resource}"
+    index:
+      jobs:
+        one: "1 Delayed Job."
+        other: "Delayed Jobs: %{count}"
+      harvest_jobs:
+        one: "1 Delayed Publish."
+        other: "Delayed Publishes: %{count}"
     no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
@@ -567,7 +577,7 @@ en:
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
-    filter_n_results: 
+    filter_n_results:
       one: "filter 1 result"
       other: "filter %{count} results"
     n_articles:
@@ -594,7 +604,7 @@ en:
       other: "%{count} users"
     n_videos:
       one: "%{count} video"
-      other: "%{count} videos"    
+      other: "%{count} videos"
     suggested: "Suggested (%{count})"
   search_results:
     collection_page_count:
@@ -660,7 +670,7 @@ en:
       n_data:
         one: "1 DATUM"
         other: "%{count} DATA"
-      n_media: 
+      n_media:
         one: "1 MEDIUM"
         other: "%{count} MEDIA"
     user_title_html: "User: <span class='sub'>%{name}</span>"

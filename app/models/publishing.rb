@@ -1,25 +1,11 @@
 class Publishing
   attr_accessor :resource, :resources, :log, :pages, :run, :last_run_at, :since, :nodes, :ancestors, :identifiers,
-    :names, :verns, :node_id_by_page, :traits, :traitbank_pages, :traitbank_suppliers, :traitbank_terms, :tax_stats,
+    :names, :verns, :traits, :traitbank_pages, :traitbank_suppliers, :traitbank_terms, :tax_stats,
     :languages, :licenses
 
-  def self.start
+  def self.sync
     instance = self.new
-    instance.start
-  end
-
-  def self.republish_resource(resource)
-    instance = self.new
-    instance.republish_resource(resource)
-  end
-
-  def republish_resource(resource)
-    # TMP: [speed things up] resource.remove_content
-    # TMP: [speed things up] import_terms
-    @last_run_at = 1
-    @run = ImportRun.create
-    start_resource(resource)
-    # TMP: [speed things up] reindex
+    instance.sync
   end
 
   def initialize
@@ -29,62 +15,30 @@ class Publishing
     @repo = nil
     @resources = []
     @page_ids = Set.new
-    reset_resource # Not strictly required, but helps for debugging.
+    @since = (@resource&.import_logs&.successful&.any? ?
+      @resource.import_logs.successful.last.created_at :
+      10.years.ago).to_i
   end
 
-  def start
+  def sync
     abort_if_already_running
     begin
-      @pub_log.log("Starting Publishing run...")
+      @pub_log.log("Syncing with repository...")
       get_import_run
       get_resources
       import_terms
-      return nil if @resources.empty?
-      @resources.each do |resource|
-        start_resource(resource)
-      end
-      reindex
-      @pub_log.log('All Harvests Complete, stopping.', cat: :ends)
+      @pub_log.log('Sync with repository complete.', cat: :ends)
       @run.update_attribute(:completed_at, Time.now)
     ensure
-      ImportRun.where(completed_at: nil).update_all(completed_at: Time.now)
-      ImportLog.where(completed_at: nil, failed_at: nil).update_all(failed_at: Time.now, status: 'failed')
+      ImportLog.all_clear!
     end
   end
 
   def abort_if_already_running
-    raise Exception.new('ABORTING: A Publishing run appears to be active.') if ImportRun.where(completed_at: nil).any?
-    logging = ImportLog.where(completed_at: nil, failed_at: nil).includes(:resource)
-    if logging.any?
-      raise Exception.new("ABORTING: Currently publishing #{logging.map { |l| l.resource.name }.join('; ')}")
+    if (info = ImportLog.already_running?)
+      puts info
+      raise('ABORTED.')
     end
-  end
-
-  def reindex
-    # TODO: these logs end up attatched to a resource. They shouldn't be. ...Not sure where to move them, though.
-    # Note: this is quite slow, but searches won't work without it. :S
-    if @page_ids.empty?
-      # TODO: nononono, we need to mark ALL affected pages, not just new ones. EVERY class should return a list of
-      # page_ids, and this must always run...
-      @pub_log.log('No pages; skipping indexing.')
-    else
-      # TODO: calculate richness of affected pages...
-      pages = Page.where(id: @page_ids).includes(:occurrence_map)
-      @pub_log.log('score_richness_for_pages')
-      @pub_log.log('pages.reindex')
-      pages.reindex
-    end
-    Rails.cache.clear
-  end
-
-  def start_resource(resource)
-    @resource = resource
-    @log = Publishing::PubLog.new(@resource)
-    @repo = Publishing::Repository.new(resource: @resource, log: @log, since: @since)
-    import_resource
-    @log.complete
-  rescue => e
-    @log.fail(e)
   end
 
   def get_import_run
@@ -114,7 +68,7 @@ class Publishing
       partner = find_and_update_or_create(Partner, partner)
       resource[:partner_id] = partner.id
       resource = find_and_update_or_create(Resource, resource)
-      @pub_log.log("Will import resource: #{resource[:name]}")
+      @pub_log.log("New/updated resource: #{resource[:name]}")
       @resources << resource
     end
   end
@@ -127,34 +81,6 @@ class Publishing
     else
       klass.create(model)
     end
-  end
-
-  def reset_resource
-    @names = []
-    @verns = []
-    # @traits = []
-    @traitbank_pages = {}
-    @traitbank_suppliers = {}
-    @traitbank_terms = {}
-    @tax_stats = {}
-    @licenses = {}
-    @since = (@resource&.import_logs&.successful&.any? ?
-      @resource.import_logs.successful.last.created_at :
-      10.years.ago).to_i
-  end
-
-  # TODO: extract the innards to a class, let Publishing just be the manager.
-  def import_resource
-    @log.log("Importing Resource: #{@resource.name} (#{@resource.id})")
-    reset_resource
-    # TODO: All imports s/ return a list of affected pages.
-    pub_nodes = Publishing::PubNodes.new(@resource, @log, @repo)
-    ids = pub_nodes.import
-    @page_ids += ids
-    Publishing::PubScientificNames.import(@resource, @log, @repo)
-    Publishing::PubVernaculars.import(@resource, @log, @repo)
-    Publishing::PubMedia.import(@resource, @log, @repo)
-    # Publishing::PubTraits.import(@resource, @log, @repo)
   end
 
   def get_existing_terms

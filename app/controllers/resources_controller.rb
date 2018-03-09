@@ -7,10 +7,21 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:id])
   end
 
-  def publish
+  def sync
     raise "Unauthorized" unless is_admin?
-    ImportRun.delay.now
-    flash[:notice] = "New resources will be published in the background. Watch this page for updates."
+    if (info = ImportLog.already_running?)
+      flash[:alert] = info
+    else
+      Publishing.delay(queue: 'harvest').sync
+      flash[:notice] = "Resources will be checked against the repository."
+    end
+    redirect_to resources_path
+  end
+
+  def clear_publishing
+    raise "Unauthorized" unless is_admin?
+    ImportLog.all_clear!
+    flash[:notice] = "All clear. You can sync, now."
     redirect_to resources_path
   end
 
@@ -18,22 +29,14 @@ class ResourcesController < ApplicationController
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
     Delayed::Job.enqueue(RepublishJob.new(@resource.id))
-    flash[:notice] = "Background job for complete republish of #{@resource.abbr} started."
+    flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
     redirect_to @resource
   end
 
   def import_traits
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
-    @resource.delay.import_traits(1)
-    flash[:notice] = "Background job for import of traits started."
-    redirect_to @resource
-  end
-
-  def slurp
-    raise "Unauthorized" unless is_admin?
-    @resource = Resource.find(params[:resource_id])
-    @resource.delay.slurp_traits
+    @resource.delay(queue: 'harvest').import_traits(1)
     flash[:notice] = "Background job for import of traits started."
     redirect_to @resource
   end

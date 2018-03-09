@@ -3,7 +3,7 @@ class Publishing::PubTraits
     log ||= Publishing::PubLog.new(resource)
     a_long_long_time_ago = 1202911078 # 10 years ago when this was written; no sense coding it.
     repo ||= Publishing::Repository.new(resource: resource, log: log, since: a_long_long_time_ago)
-    Publishing::PubTraits.new(resource, log, repo).import
+    new(resource, log, repo).import
   end
 
   def initialize(resource, log, repo)
@@ -20,26 +20,26 @@ class Publishing::PubTraits
     TraitBank.create_resource(@resource.id)
     trait_rows = []
     meta_rows = []
-    trait_rows << %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
-      object_page_id target_scientific_name value_uri literal measurement units]
-    meta_rows << %i[eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
-      statistical_method source]
+    trait_rows << Resource.trait_headers
+    meta_rows << Resource.meta_headers
     read_data_type('traits', trait_rows, meta_rows)
     read_data_type('assocs', trait_rows, meta_rows)
     return if trait_rows.size <= 1
-    @log.log("slurping data (#{trait_rows.size - 1}) and all metadata (#{meta_rows.size - 1}, "\
-      "total #{trait_rows.size + meta_rows.size - 2})")
-    # TODO: move these to Resource; delete the files after a successful publish.
-    traits_file = Rails.public_path.join("traits_#{@resource.id}.csv")
-    meta_traits_file = Rails.public_path.join("meta_traits_#{@resource.id}.csv")
-    CSV.open(traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
-    CSV.open(meta_traits_file, 'w') { |csv| meta_rows.each { |row| csv << row } }
+    save_files(trait_rows, meta_rows)
+    slurp_traits
+  end
+
+  def save_files(trait_rows, meta_rows)
+    @log.log("saving data (#{trait_rows.size - 1}) and all metadata (#{meta_rows.size - 1}, "\
+             "total #{trait_rows.size + meta_rows.size - 2})")
+    CSV.open(@resource.traits_file, 'w') { |csv| trait_rows.each { |row| csv << row } }
+    CSV.open(@resource.meta_traits_file, 'w') { |csv| meta_rows.each { |row| csv << row } }
+  end
+
+  def slurp_traits
     TraitBank::Slurp.load_csvs(@resource)
+    @resource.remove_traits_files
     @log.log("Completed.")
-    @log.log("Keeping: #{traits_file}.")
-    @log.log("Keeping: #{meta_traits_file}.")
-    # File.unlink(traits_file) if File.exist?(traits_file)
-    # File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
   end
 
   def grab_metadata(trait, meta_rows)

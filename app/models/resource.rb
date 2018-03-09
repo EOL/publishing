@@ -5,6 +5,10 @@ class Resource < ActiveRecord::Base
   has_many :scientific_names, inverse_of: :resource
   has_many :import_logs, inverse_of: :resource
   has_many :media, inverse_of: :resource
+  has_many :articles, inverse_of: :resource
+  has_many :links, inverse_of: :resource
+  has_many :vernaculars, inverse_of: :resource
+  has_many :referents, inverse_of: :resource
 
   before_destroy :remove_content
 
@@ -63,12 +67,32 @@ class Resource < ActiveRecord::Base
         end
       end
     end
+
+    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change one, you
+    # must change the other.
+    def trait_headers
+      %i[eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
+         object_page_id target_scientific_name value_uri literal measurement units]
+    end
+
+    # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change one, you
+    # must change the other.
+    def meta_headers
+      %i[eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
+        statistical_method source]
+    end
+  end
+
+  def path
+    @path ||= abbr.gsub(/\s+/, '_')
   end
 
   def create_log
     ImportLog.create(resource_id: id, status: "currently running")
   end
 
+  # NOTE: this does NOT remove TraitBank content (because there are cases where you want to reload the relational DB but
+  # leave the expensive traits in place) Run TraitBank::Admin.remove_for_resource(resource) to accomplish that.
   def remove_content
     # Node ancestors
     nuke(NodeAncestor)
@@ -150,13 +174,6 @@ class Resource < ActiveRecord::Base
     retry rescue nil # I really don't care THAT much... sheesh!
   end
 
-  # TODO: BAAAAD smell here. Abstract the code for this, call it from Publishing, include it here.
-
-  # NOTE: this is DANGEROUS. It deletes ALL of the existing data for the resource!
-  def republish!
-    Publishing.republish_resource(self)
-  end
-
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)
@@ -173,6 +190,19 @@ class Resource < ActiveRecord::Base
 
   def slurp_traits
     TraitBank::Slurp.load_csvs(self)
+  end
+
+  def traits_file
+    Rails.public_path.join("traits_#{id}.csv")
+  end
+
+  def meta_traits_file
+    Rails.public_path.join("meta_traits_#{id}.csv")
+  end
+
+  def remove_traits_files
+    File.unlink(traits_file) if File.exist?(traits_file)
+    File.unlink(meta_traits_file) if File.exist?(meta_traits_file)
   end
 
   def import_media(since)

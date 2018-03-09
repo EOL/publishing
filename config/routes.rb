@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get "reindex"
     get "data"
 
-    get "overview", :to => redirect("/pages/%{page_id}", :status => 301) 
+    get "overview", :to => redirect("/pages/%{page_id}", :status => 301)
   end
 
   resources :data, only: [:show]
@@ -49,8 +49,8 @@ Rails.application.routes.draw do
     # TODO: this is not very restful; should be a nested resource, but the terms
     # become somewhat tricky, so cheating for now. These aren't really
     # "public-facing URLs" anyway, so less concerned about it.
-    post "add_user"
-    post "remove_user"
+    post 'add_user'
+    post 'remove_user'
   end
   resources :collection_associations, only: [:new, :create, :destroy]
   resources :collected_pages
@@ -58,10 +58,10 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
-    get :publish, on: :collection
-    get :import_traits
-    get :republish
-    get :slurp
+    get 'clear_publishing', on: :collection
+    get 'sync', on: :collection
+    get 'import_traits'
+    get 'republish'
     resources :import_logs, only: [:show]
     resources :nodes, only: [:index]
   end
