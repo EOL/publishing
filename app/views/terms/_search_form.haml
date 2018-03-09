@@ -31,7 +31,7 @@
           - units = units(ff.object.pred_uri)
           = ff.select :units_uri, units_select_options(units), {}, :class => "filter-input uk-select l-filter-full"
       - elsif ff.object.object_term?
-        .filter-row
+        .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
           %span.js-typeahead-wrap.filter-field.l-filter-full
             - show_error(ff.object, :obj_uri)
             = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
