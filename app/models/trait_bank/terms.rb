@@ -93,6 +93,14 @@ class TraitBank
         map[uri]
       end
 
+      def name_for_units_uri(uri)
+        key = "trait_bank/units_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          units_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+        map[uri]
+      end
+
       def object_term_glossary(page = nil, per = nil, qterm = nil)
         sub_glossary("object_term", page, per, qterm: qterm)
       end

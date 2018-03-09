@@ -44,6 +44,10 @@ module TermsHelper
     TraitBank::Terms.name_for_obj_uri uri
   end
 
+  def units_name(uri)
+    TraitBank::Terms.name_for_units_uri uri
+  end
+
   def show_error(obj, field) 
     if obj.errors[field].any?
       haml_tag(:div, :class => "filter-error") do
@@ -79,10 +83,10 @@ module TermsHelper
     end
 
     def num_display_string(filter)
-      "#{pred_name(filter.pred_uri)} #{OP_DISPLAY[filter.op.to_sym]} #{filter.num_val1}"
+      "#{pred_name(filter.pred_uri)} #{OP_DISPLAY[filter.op.to_sym]} #{filter.num_val1} #{units_name(filter.units_uri)}"
     end
 
     def range_display_string(filter)
-      "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}]"
+      "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}] #{units_name(filter.units_uri)}"
     end
 end
