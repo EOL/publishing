@@ -77,6 +77,11 @@ class UnitConversions
       all_starting_units.include?(units_uri)
     end
 
+    def starting_units(uri)
+      @ending_unit_to_starting_units ||= @functions.map { |f| [f[:ending_unit], f[:starting_units]] }.to_h
+      @ending_unit_to_starting_units[uri]
+    end
+
     def convert(val, units_uri)
       return([val, units_uri]) unless can_convert?(units_uri)
       fn = @functions.find { |f| f[:starting_units].include?(units_uri) }

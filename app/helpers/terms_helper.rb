@@ -1,6 +1,6 @@
 module TermsHelper
   OP_DISPLAY = {
-    :is_any => "match any",
+    :is_any => "any value",
     :is_obj => "is",
     :eq => "=",
     :lt => "<",
@@ -9,31 +9,25 @@ module TermsHelper
   }
 
   def op_select_options(filter)
-    filter.valid_ops.map do |op|
+    options = filter.valid_ops.map do |op|
       [OP_DISPLAY[op], op]
     end
+    options_for_select(options, filter.op)
   end
 
-  def obj_term_options(pred_uri)
-    if (!pred_uri.blank?)
-      TraitBank::Terms.obj_terms_for_pred(pred_uri).map do |term|
-        [term[:name], term[:uri]]
-      end
-    else
-      []
+  def units_select_options(filter)
+    result = TraitBank::Terms.units_for_pred(filter.pred_uri)
+
+    if result[:normal_units_uri]
+      uris = UnitConversions.starting_units(result[:normal_units_uri])
     end
-  end
 
-  def units_select_options(units) 
-    options_for_select([[units[:name], units[:uri]]], units[:uri])
-  end
-
-  def units(pred_uri)
-    if (!pred_uri.blank?)
-      TraitBank::Terms.unit_term_for_pred(pred_uri)
-    else
-      nil
+    uris = [result[:units_uri]] unless uris
+    options = uris.map do |uri| 
+      [TraitBank::Terms.name_for_units_uri(uri), uri]
     end
+
+    options_for_select(options, result[:units_uri])
   end
 
   def pred_name(uri)

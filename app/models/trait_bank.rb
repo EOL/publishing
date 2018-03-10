@@ -325,18 +325,31 @@ class TraitBank
       end
 
       num_wheres = term_query.numeric_filters.map do |filter|
+        "tgt_pred.uri = \"#{filter.pred_uri}\" AND "\
+        "("\
         "(trait.measurement IS NOT NULL "\
-        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND trait.measurement #{op_from_filter(filter)} #{filter.num_val1} "\
-        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+        "AND toFloat(trait.measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
+        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" })) "\
+        "OR "\
+        "(trait.normal_measurement IS NOT NULL "\
+        "AND toFloat(trait.normal_measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
+        "AND (trait)-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }))"\
+        ")"\
       end
 
       range_wheres = term_query.range_filters.map do |filter|
+        "tgt_pred.uri = \"#{filter.pred_uri}\" AND "\
+        "("\
         "(trait.measurement IS NOT NULL "\
         "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND trait.measurement >= #{filter.num_val1} "\
-        "AND trait.measurement <= #{filter.num_val2} "\
-        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
+        "AND toFloat(trait.measurement) >= #{filter.num_val1} "\
+        "AND toFloat(trait.measurement) <= #{filter.num_val2}) "\
+        "OR "\
+        "(trait.normal_measurement IS NOT NULL "\
+        "AND (trait)-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
+        "AND toFloat(trait.normal_measurement) >= #{filter.num_val1} "\
+        "AND toFloat(trait.normal_measurement) <= #{filter.num_val2}) "\
+        ") "\
       end
 
       [pred_wheres, obj_wheres, num_wheres, range_wheres].flatten
@@ -362,7 +375,9 @@ class TraitBank
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
       optional_matches = [
-        "(trait)-[info:units_term|object_term]->(info_term:Term)",
+        "(trait)-[:units_term]->(units:Term)",
+        "(trait)-[:normal_units_term]->(normal_units:Term)",
+        "(trait)-[:object_term]->(object_term:Term)",
       ]
 
       optional_matches += [
@@ -373,14 +388,14 @@ class TraitBank
 
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
-      orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+      orders = ["LOWER(predicate.name)", "LOWER(object_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       orders << "meta_predicate.name" if options[:meta]
       order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
 
       returns = if options[:count]
         ["count"]
       else
-        ["page", "trait", "predicate", "TYPE(info) AS info_type", "info_term", "resource"]
+        ["page", "trait", "predicate", "units", "normal_units", "object_term", "resource"]
       end
 
       with_count_clause = options[:count] ?
@@ -610,19 +625,7 @@ class TraitBank
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
-        # TODO: extract method
-        if has_info_term && hash[:info_type]
-          info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
-            Array(hash[:info_term])
-          Array(hash[:info_type]).each_with_index do |info_type, i|
-            type = info_type.to_sym
-            if type == :object_term
-              hash[:object_term] = info_terms[i]
-            elsif type == :units_term
-              hash[:units] = info_terms[i]
-            end
-          end
-        end
+        
         # TODO: extract method
         if hash.has_key?(:meta)
           raise "Metadata not returned as an array" unless hash[:meta].is_a?(Array)

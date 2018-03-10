@@ -13,23 +13,20 @@
         - show_error(ff.object, :pred_uri)
         = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "uk-input js-pred-typeahead", :placeholder => "attribute"
         = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
-      - op_options = op_select_options(ff.object)
-      - if op_options.length > 1
-        .filter-row
-          = ff.select :op, options_for_select(op_options, ff.object.op), {}, :class => "filter-input uk-select uk-form-width-small js-op-select"
+      .filter-row
+        = ff.select :op, op_select_options(ff.object), {}, :class => "filter-input uk-select uk-form-width-small js-op-select"
       - if ff.object.numeric? || ff.object.range?
         .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
           %span.filter-field
             - show_error(ff.object, :num_val1)
-            = ff.number_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
+            = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
           - if ff.object.range?
             %span.filter-txt to
             %span.filter-field
               - show_error(ff.object, :num_val2)
-              = ff.number_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
+              = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
         .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
-          - units = units(ff.object.pred_uri)
-          = ff.select :units_uri, units_select_options(units), {}, :class => "filter-input uk-select l-filter-full"
+          = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
       - elsif ff.object.object_term?
         .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
           %span.js-typeahead-wrap.filter-field.l-filter-full

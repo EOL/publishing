@@ -4,9 +4,9 @@ class TermQueryFilter < ActiveRecord::Base
   validates_presence_of :pred_uri
   validates_presence_of :op
   validates_presence_of :obj_uri, :if => :object_term?
-  validates_presence_of :num_val1, :if => :numeric?
   validates_presence_of :units_uri, :if => :numeric?
-  validates_presence_of :num_val2, :if => :range?
+  validates :num_val1, :presence => true, :numericality => true, :if => :numeric?
+  validates :num_val2, :presence => true, :numericality => true, :if => :range?
 
   enum :op => {
     :is_any => 0,
@@ -39,7 +39,7 @@ class TermQueryFilter < ActiveRecord::Base
         :lt,
         :gt,
         :range
-      ] if TraitBank::Terms.unit_term_for_pred(pred_uri)
+      ] if TraitBank::Terms.units_for_pred(pred_uri)
     end
 
     ops

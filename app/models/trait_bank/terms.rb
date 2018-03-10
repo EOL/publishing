@@ -154,17 +154,15 @@ class TraitBank
       end
 
       # TODO: DRY up this and the above method
-      def unit_term_for_pred(pred_uri)
-        key = "trait_bank/unit_terms_for_pred/#{pred_uri}"
+      def units_for_pred(pred_uri)
+        key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
 
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
             "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
             "(trait:Trait)"\
             "-[:units_term]->(units_term:Term) "\
-            "WHERE trait.normal_units IS NOT NULL AND trait.normal_units <> \"missing\" "\
-            "OPTIONAL MATCH (normal_units_term:Term) "\
-            "WHERE normal_units_term.uri = trait.normal_units "\
+            "OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units_term:Term) "\
             "RETURN units_term.name, units_term.uri, normal_units_term.name, normal_units_term.uri "\
             "LIMIT 1"
           )
@@ -172,8 +170,8 @@ class TraitBank
           result = res["data"]&.first || nil
 
           result = {
-            :name => result[0],
-            :uri => result[1],
+            :units_name => result[0],
+            :units_uri => result[1],
             :normal_units_name => result[2],
             :normal_units_uri => result[3]
           } if result
