@@ -1,7 +1,7 @@
 class PageSearchDecorator < SearchResultDecorator
   decorates :page
   delegate :icon
-  
+
   def type
     :pages
   end
@@ -23,7 +23,7 @@ class PageSearchDecorator < SearchResultDecorator
     node = object.native_node || object.nodes.first
     ancestors = node.ancestors
     shown_ellipsis = false
-    ancestors.each do |node|
+    ancestors.compact.each do |node|
       unless node.use_breadcrumb?
         unless shown_ellipsis
           parts << "…"
@@ -33,7 +33,7 @@ class PageSearchDecorator < SearchResultDecorator
       end
 
       parts << node.canonical_form.html_safe
-      shown_ellipsis = false 
+      shown_ellipsis = false
     end
 
     parts.join("/")
@@ -50,7 +50,7 @@ class PageSearchDecorator < SearchResultDecorator
       ["articles", object.articles_count],
     ].select { |x| x[1] > 0 }
   end
-  
+
 private
 #  def family_ancestor_name
 #    ancestors = object.native_node.try(:ancestors)
