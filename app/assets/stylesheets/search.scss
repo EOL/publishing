@@ -2,7 +2,6 @@
 @import "dimensions";
 @import "shared/summary_card";
 
-$result-height-s: 108px;
 $filter-bar-height: 64px;
 $filter-bar-row-height: $filter-bar-height / 2;
 
@@ -80,20 +79,6 @@ $filter-bar-row-height: $filter-bar-height / 2;
   overflow: auto;
   margin: $filter-bar-height 0 0 0;
   padding: 0;
-}
-
-.search-result {
-  border-bottom: 1px solid $light-gray;
-  height: $result-height-s;
-  margin: 0 !important;
-  overflow: hidden;
-  padding: 0 !important;
-  position: relative;
-
-  & > a {
-    display: block;
-    height: 100%;
-  }
 }
 
 
