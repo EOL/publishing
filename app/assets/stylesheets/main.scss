@@ -519,6 +519,7 @@ body {
 .nav-right {
   float: right;
   margin-right: 10px;
+  height: 100%;
 }
 
 .nav-logo {
@@ -529,24 +530,16 @@ body {
 
 .nav-search-icon {
   float: right;
-  padding-top: 3px;
-}
-
-.nav-eol-txt {
-  float: right;
-  font-weight: bold;
-  margin-right: 10px;
-  padding-top: 6px;
+  padding-top: 5px;
 }
 
 .nav-eol-title {
   color: $eol-blue;
-  font-size: 11px;
-  text-align: right;
-}
-
-.nav-eol-desc {
-  font-size: 9px;
+  float: right;
+  font-size: 24px;
+  height: 100%;
+  margin-right: 10px;
+  padding-top: 3px;
   text-align: right;
 }
 
