@@ -1,7 +1,8 @@
 class TermsController < ApplicationController
   helper :data
-  protect_from_forgery except: :clade_filter
-  before_action :search_setup, :only => [:search, :search_form, :show]
+  before_action :search_setup, :only => [:search, :search_results, :search_form, :show]
+  before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
+  before_action :build_query, :only => [:search_results, :search_form]
 
   def index
     @count = TraitBank::Terms.count
@@ -9,14 +10,17 @@ class TermsController < ApplicationController
   end
 
   def search
+    @query = TermQuery.new
+    @query.filters.build(:op => :is_any)
+  end
+
+  def search_results
     respond_to do |fmt|
       fmt.html do
-        if params[:term_query]
-          @query = TermQuery.new(tq_params)
+        if @query.valid?
           search_common
         else
-          @query = TermQuery.new
-          @query.pairs.build
+          render "search"
         end
       end
 
@@ -24,18 +28,17 @@ class TermsController < ApplicationController
         if !current_user
           redirect_to new_user_session_path
         else
-          @query = TermQuery.new(tq_params)
-
-          if @query.search_pairs.empty?
-            flash_and_redirect_no_format(t("user_download.you_must_select"))
-          else
+          if @query.valid?
             data = TraitBank::DataDownload.term_search(@query, current_user.id)
 
             if data.is_a?(UserDownload)
-              flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
+              flash[:notice] = t("user_download.created", url: user_path(current_user))
+              redirect_no_format
             else
               send_data data
             end
+          else
+            redirect_no_format
           end
         end
       end
@@ -43,9 +46,6 @@ class TermsController < ApplicationController
   end
 
   def search_form
-    @query = TermQuery.new(tq_params)
-    @query.pairs.build if params[:add_pair]
-    @query.remove_pair(params[:remove_pair].to_i) if params[:remove_pair]
     render :layout => false
   end
 
@@ -92,6 +92,10 @@ class TermsController < ApplicationController
     end
   end
 
+  def object_terms_for_pred
+    render :json => TraitBank::Terms.obj_terms_for_pred(params[:pred_uri], params[:query])
+  end
+
   def object_term_glossary
     @count = TraitBank::Terms.object_term_glossary_count
     glossary(params[:action])
@@ -102,7 +106,40 @@ class TermsController < ApplicationController
     glossary(params[:action])
   end
 
+  def pred_autocomplete
+    render :json => TraitBank::Terms.predicate_glossary(nil, nil, params[:query])
+  end
+
 private
+  def tq_params
+    params.require(:term_query).permit([
+      :clade_id,
+      :filters_attributes => [
+        :pred_uri,
+        :obj_uri,
+        :op,
+        :num_val1,
+        :num_val2,
+        :units_uri
+      ]
+    ])
+  end
+
+  def build_query
+    @query = TermQuery.new(tq_params)
+    @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
+    @query.filters.build(:op => :is_any) if params[:add_filter]
+    fix_filters
+  end
+
+  def fix_filters
+    @query.filters.each do |f|
+      if f.pred_uri.blank?
+        f.op = :is_any
+      end
+    end
+  end
+
   def paginate_term_search_data(data, query)
     options = {
       :count => true,
@@ -111,14 +148,13 @@ private
     @count = TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
-  end
 
-  def paginate_data(data)
-    options = { clade: params[:clade], count: true }
-    add_uri_to_options(options)
-    TraitBank.term_search(options)
-    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
-      page(@page).per(@per_page)
+    if @result_type == :page
+      @result_pages = @grouped_data.map do |datum|
+        @pages[datum[:page_id]]
+      end
+      @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
+    end
   end
 
   def glossary(which)
@@ -149,13 +185,14 @@ private
     end
   end
 
-  def tq_params
-    params.require(:term_query).permit(
-      :clade,
-      :pairs_attributes => [
-        :predicate,
-        :object
-      ]
+  def permitted_filter_params(filter_params)
+    filter_params.permit(
+      :pred_uri,
+      :uri,
+      :value,
+      :from_value,
+      :to_value,
+      :units_uri
     )
   end
 
@@ -214,10 +251,9 @@ private
       end
   end
 
-  def flash_and_redirect_no_format(msg)
-    flash[:notice] = msg
+  def redirect_no_format
     loc = params
     loc.delete(:format)
-    redirect_to term_search_path(params)
+    redirect_to term_search_results_path(params)
   end
 end

@@ -4,7 +4,7 @@
 
 .traits {
   list-style: none;
-  padding: 0 $padding-left-s;
+  padding: 0;
 }
 
   .trait {
@@ -36,9 +36,3 @@
   width: 100%;
 }
 
-@media(min-width: $width-m) {
-  .traits {
-    margin: 0;
-    padding: 0 $padding-left-m;
-  }
-}

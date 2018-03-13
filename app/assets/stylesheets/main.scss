@@ -428,7 +428,7 @@ form .error {
 .tt-menu {
   text-align: left;
 
-  .tt-dataset-search-names, .tt-dataset-clade-filter-names, .tt-dataset-find-usernames, .tt-dataset-find-predicates, .tt-dataset-find-object-terms {
+  .tt-dataset {
     box-sizing: border-box;
     min-width: 200px;
     padding: 5px 10px 10px 10px;
@@ -454,12 +454,6 @@ form .error {
 // TODO: hack - remove
 .uk-form-controls .twitter-typeahead {
   width: 100%;
-}
-
-.minus-term-icon {
-  bottom: 8px;
-  left: 15px;
-  position: absolute;
 }
 
 .details {

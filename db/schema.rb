@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180305005341) do
+ActiveRecord::Schema.define(version: 20180307203738) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -766,21 +766,59 @@ ActiveRecord::Schema.define(version: 20180305005341) do
   end
 
   create_table "term_queries", force: :cascade do |t|
-    t.string   "pairs",      limit: 255
-    t.integer  "clade",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "clade_id",   limit: 4
   end
 
-  create_table "term_query_pairs", force: :cascade do |t|
-    t.string   "predicate",     limit: 255
-    t.string   "object",        limit: 255
+  create_table "term_query_filters", force: :cascade do |t|
+    t.integer "term_query_id", limit: 4
+    t.string  "pred_uri",      limit: 255
+    t.string  "obj_uri",       limit: 255
+    t.string  "units_uri",     limit: 255
+    t.float   "num_val1",      limit: 24
+    t.float   "num_val2",      limit: 24
+    t.integer "op",            limit: 4
+  end
+
+  add_index "term_query_filters", ["term_query_id"], name: "index_term_query_filters_on_term_query_id", using: :btree
+
+  create_table "term_query_numeric_filters", force: :cascade do |t|
+    t.float    "value",         limit: 24
+    t.integer  "op",            limit: 4
+    t.string   "units_uri",     limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
     t.integer  "term_query_id", limit: 4
+  end
+
+  create_table "term_query_object_term_filters", force: :cascade do |t|
+    t.string   "obj_uri",       limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
+    t.integer  "term_query_id", limit: 4
+  end
+
+  create_table "term_query_predicate_filters", force: :cascade do |t|
+    t.integer  "term_query_id", limit: 4
+    t.string   "pred_uri",      limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
-  add_index "term_query_pairs", ["term_query_id"], name: "index_term_query_pairs_on_term_query_id", using: :btree
+  add_index "term_query_predicate_filters", ["term_query_id"], name: "index_term_query_predicate_filters_on_term_query_id", using: :btree
+
+  create_table "term_query_range_filters", force: :cascade do |t|
+    t.float    "from_value",    limit: 24
+    t.float    "to_value",      limit: 24
+    t.string   "units_uri",     limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "pred_uri",      limit: 255
+    t.integer  "term_query_id", limit: 4
+  end
 
   create_table "user_downloads", force: :cascade do |t|
     t.integer  "user_id",       limit: 4
@@ -859,6 +897,4 @@ ActiveRecord::Schema.define(version: 20180305005341) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "term_query_pairs", "term_queries"
-  add_foreign_key "user_downloads", "term_queries"
 end

@@ -1,4 +1,4 @@
-# Abstraction between our traits and the implementation of thir storage. ATM, we
+# Abstraction between our traits and the implementation of their storage. ATM, we
 # use neo4j.
 #
 # NOTE: in its current state, this is NOT done! Neography uses a plain hash to
@@ -301,68 +301,110 @@ class TraitBank
       @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
     end
 
+    def op_from_filter(num_filter)
+      case num_filter.op.to_sym
+      when :eq
+        "="
+      when :gt
+        ">"
+      when :lt
+        "<"
+      else
+        raise "unexpected filter op value: #{num_filter.op}"
+      end
+    end
+
+    def term_filter_wheres(term_query)
+      term_query.filters.map do |filter|
+        term_filter_where(filter, "trait", "tgt_pred")
+      end
+    end
+
+    def term_filter_where(filter, trait_label, pred_label)
+      if filter.predicate?
+        "#{pred_label}.uri = \"#{filter.pred_uri}\""
+      elsif filter.object_term?
+        "((#{trait_label})-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
+        "AND #{pred_label}.uri = \"#{filter.pred_uri}\")"
+      elsif filter.numeric? || filter.range?
+        conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
+        if filter.numeric?
+          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "("\
+          "(#{trait_label}.measurement IS NOT NULL "\
+          "AND toFloat(#{trait_label}.measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+          "OR "\
+          "(#{trait_label}.normal_measurement IS NOT NULL "\
+          "AND toFloat(#{trait_label}.normal_measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+          ")"\
+        elsif filter.range?
+          conv_num_val2, _ = UnitConversions.convert(filter.num_val2, filter.units_uri)
+          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "("\
+          "(#{trait_label}.measurement IS NOT NULL "\
+          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_label}.measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_label}.measurement) <= #{conv_num_val2}) "\
+          "OR "\
+          "(#{trait_label}.normal_measurement IS NOT NULL "\
+          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_label}.normal_measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_label}.normal_measurement) <= #{conv_num_val2}) "\
+          ") "\
+        end
+      else
+        raise "unable to determine filter type"
+      end
+    end
+
     def term_record_search(term_query, options)
-      with_count_clause = options[:count] ?
-                          "WITH count(*) AS count " :
-                          ""
-      match_part =
-        "MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
-      match_part += ", (trait)-[:predicate]->(predicate:Term)" if term_query.search_pairs.empty?
+      matches = []
+      matches << "(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+
+      if term_query.filters.any?
+        matches << "(trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+      else
+        matches << "(trait)-[:predicate]->(predicate:Term)"
+      end
+
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
-      match_part += ", (page)-[:parent*]->(Page { page_id: #{term_query.clade} })" if use_clade
+      matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if use_clade
+      match_part = "MATCH #{matches.join(", ")}"
 
-      wheres = []
-
-      if term_query.search_pairs.size == 1
-        pair = term_query.search_pairs.first
-        if pair.object
-          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (tgt_obj:Term{ uri: \"#{pair.object}\" })"
-          match_part += ", (tgt_pred)<-[:#{parent_terms}]-"\
-                        "(predicate:Term)<-[:predicate]-(trait)-[:object_term]->(object_term:Term)"\
-                        "-[:#{parent_terms}]->(tgt_obj)"
-        else
-          match_part += ", (tgt_pred:Term{ uri: \"#{pair.predicate}\" })"
-          match_part += ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred)"
-        end
-      else
-        match_part +=
-          if term_query.search_pairs.any? { |t| t.object }
-            ", (tgt_pred:Term)<-[:parent_term*0..4]-(predicate:Term)"\
-            "<-[:predicate]-(trait)-[:object_term]->"\
-            "(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)"
-          else
-            ", (trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
-          end
-        wheres = term_query.search_pairs.map do |pair|
-          if pair.object
-            "(tgt_obj.uri = \"#{pair.object}\" AND tgt_pred.uri = \"#{pair.predicate}\")"
-          else
-            "tgt_pred.uri = \"#{pair.predicate}\""
-          end
-        end
-      end
+      wheres = term_filter_wheres(term_query)
       where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
 
-      optional_matches = ["(trait)-[info:units_term|object_term]->(info_term:Term)"]
+      optional_matches = [
+        "(trait)-[:units_term]->(units:Term)",
+        "(trait)-[:normal_units_term]->(normal_units:Term)",
+        "(trait)-[:object_term]->(object_term:Term)",
+      ]
+
       optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
         "(meta)-[:object_term]->(meta_object_term:Term)"
       ] if options[:meta]
+
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
 
-      orders = ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+      orders = ["LOWER(predicate.name)", "LOWER(object_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       orders << "meta_predicate.name" if options[:meta]
       order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
 
       returns = if options[:count]
         ["count"]
       else
-        ["page", "trait", "predicate", "TYPE(info) AS info_type", "info_term", "resource"]
+        ["page", "trait", "predicate", "units", "normal_units", "object_term", "resource"]
       end
+
+      with_count_clause = options[:count] ?
+                          "WITH count(*) AS count " :
+                          ""
 
       if options[:meta] && !options[:count]
         returns += ["meta", "meta_predicate", "meta_units_term", "meta_object_term"]
@@ -378,38 +420,35 @@ class TraitBank
       "#{order_part} "
     end
 
+
     def term_page_search(term_query, options)
+      matches = []
+      wheres = []
+
+      page_match = "MATCH (page:Page)"
+      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      matches << page_match
+
+      term_query.filters.each_with_index do |filter, i|
+        trait_label = "t#{i}"
+        pred_label = "p#{i}"
+        matches << "MATCH (page)-[:trait]->(#{trait_label}:Trait)-[:predicate]->(:Term)-[:#{parent_terms}]->(#{pred_label}:Term)"
+        wheres << term_filter_where(filter, trait_label, pred_label)
+      end
+
       with_count_clause = options[:count] ?
         "WITH COUNT(DISTINCT(page)) AS count " :
         ""
       return_clause = options[:count] ?
         "RETURN count" :
         "RETURN page"
-      page_match = "MATCH (page:Page)"
-      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
+      order_clause = options[:count] ? "" : "ORDER BY page.name"
 
-      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
-        trait_label = "t#{i}"
-        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
-
-        if pair.object
-          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
-          "(#{trait_label})"\
-          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
-        else
-          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
-        end
-
-        match
-      end
-
-      order_part = options[:count] ? "" : "ORDER BY page.name"
-
-      "#{page_match} "\
-      "#{trait_matches.join(" ")} "\
+      "#{matches.join(" ")} "\
+      "WHERE #{wheres.join(" AND ")}"\
       "#{with_count_clause}"\
       "#{return_clause} "\
-      "#{order_part}"
+      "#{order_clause}"
     end
 
 # TODO: update and restore these methods (if needed)
@@ -586,19 +625,7 @@ class TraitBank
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
-        # TODO: extract method
-        if has_info_term && hash[:info_type]
-          info_terms = hash[:info_term].is_a?(Hash) ? [hash[:info_term]] :
-            Array(hash[:info_term])
-          Array(hash[:info_type]).each_with_index do |info_type, i|
-            type = info_type.to_sym
-            if type == :object_term
-              hash[:object_term] = info_terms[i]
-            elsif type == :units_term
-              hash[:units] = info_terms[i]
-            end
-          end
-        end
+        
         # TODO: extract method
         if hash.has_key?(:meta)
           raise "Metadata not returned as an array" unless hash[:meta].is_a?(Array)

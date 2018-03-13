@@ -1,4 +1,4 @@
-EOL.onReady(function() {
+(function() {
   function fetchForm(option) {
     var data = $('#new_term_query').serializeArray();
 
@@ -13,22 +13,46 @@ EOL.onReady(function() {
       data: $.param(data),
       url: '/terms/search_form', // TODO: no hard-coded urls
       success: function(res) {
-        $('#new_term_query').html(res)
+        $('#term_form_container').html(res)
         setupForm();
         $('.js-term-form-dimmer').removeClass('active');
       }
     });
   }
 
-  function setupForm() {
-    $('.js-pred-select').change(function(e) {
-      var val = $(this).val()
-        , that = this
-        ;
+  function buildTypeahead(selector, options, datumField, selectFn) {
+    $(selector).typeahead({}, options).bind('typeahead:selected', function(evt, datum, name) {
+      var $target = $(evt.target);
 
-      if (val && val.length) {
-        fetchForm(false);
+      $target.data('lastCleanVal', $target.val());
+      $(evt.target).closest('.js-typeahead-wrap').find('.js-typeahead-field').val(datum[datumField]);
+
+      if (selectFn) {
+        selectFn();
       }
+    });
+
+    $(selector).on('input', function() {
+      var $this = $(this);
+      
+      if ($this.val().length === 0) {
+        $this.data('lastCleanVal', '');
+        $this.closest('.js-typeahead-wrap').find('.js-typeahead-field').val('');
+
+        if (selectFn) {
+          selectFn();
+        }
+      }
+    });
+
+    $(selector).on('blur', function() {
+      $(this).val($(this).data('lastCleanVal')); 
+    });
+  }
+
+  function setupForm() {
+    $('.js-op-select').change(function() {
+      fetchForm(); 
     });
 
     $('.js-term-select').each(function() {
@@ -39,35 +63,58 @@ EOL.onReady(function() {
       }
     });
 
-    $('.js-clade-typeahead').typeahead(null, {
+    buildTypeahead('.js-clade-typeahead', {
       name: 'clade-filter-names',
       display: 'name',
       source: EOL.searchNames
-    }).bind('typeahead:selected', function(evt, datum, name) {
-      $('.js-clade-typeahead').closest('.js-typeahead-wrap').find('.js-clade-field').val(datum.id);
+    }, 'id', null);
+
+    buildTypeahead('.js-pred-typeahead', {
+      name: 'pred-names',
+      display: 'name',
+      source: EOL.searchPredicates
+    }, 'uri', fetchForm);
+
+    $('.js-obj-typeahead').each(function() {
+      var source = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/terms/object_terms_for_predicate.json?query=%QUERY&pred_uri=' + $(this).data('predUri'),
+          wildcard: '%QUERY'
+        },
+        limit: 10
+      });
+      source.initialize();
+
+      buildTypeahead(this, {
+        display: 'name',
+        source: source
+      }, 'uri', null)
     });
 
-    $('.js-clade-typeahead').on('input', function() {
-      if ($(this).val().length === 0) {
-        $(this).closest('.js-typeahead-wrap').find('.js-clade-field').val('');
-      }
-    });
-
-    $('.js-add-pair').click(function(e) {
+    $('.js-add-filter').click(function(e) {
       e.preventDefault();
       fetchForm({
-        name: 'add_pair',
+        name: 'add_filter',
         value: true
       });
     });
 
-    $('.js-remove-pair').click(function(e) {
+    $('.js-remove-filter').click(function(e) {
       fetchForm({
-        name: 'remove_pair',
+        name: 'remove_filter',
         value: $(this).data('index')
       });
     });
   }
 
-  setupForm();
-});
+  EOL.onReady(setupForm);
+  
+  $(function() {
+    $('.js-edit-filters').click(function() {
+      $('.js-filter-form').removeClass('is-hidden');
+      $('.js-filter-list').addClass('is-hidden');
+    });
+  });
+})();

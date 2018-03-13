@@ -153,16 +153,4 @@ module DataHelper
       haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
   end
-
-  def obj_term_options(pred_uri)
-    options = [["----", nil]]
-
-    if (!pred_uri.blank?)
-      TraitBank::Terms.obj_terms_for_pred(pred_uri).each do |term|
-        options.push([term[:name], term[:uri]])
-      end
-    end
-
-    options
-  end
 end
