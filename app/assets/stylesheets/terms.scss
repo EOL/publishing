@@ -44,6 +44,14 @@
 
 .filter-field-radio {
   margin: 0 15px;
+  white-space: nowrap;
+}
+
+.filter-radios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .filter-input {
@@ -92,6 +100,10 @@
   margin-bottom: 10px;
   justify-content: center;
   width: 100%;
+}
+
+.filter-row-flex {
+  flex-wrap: wrap;  
 }
 
 .edit-filters-row {

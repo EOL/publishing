@@ -8,7 +8,7 @@
     = f.fields_for :filters do |ff|
       .filter.uk-form-row
         - if f.object.filters.length > 1
-          .l-filter-first.filter-icon.js-remove-filter
+          .l-filter-first.filter-icon
             .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
         %span.js-typeahead-wrap.filter-field.l-filter-full.filter-row{:class => ff.object.errors[:pred_uri].any? ? "is-filter-row-with-errors" : ""}
           - show_error(ff.object, :pred_uri)
@@ -39,14 +39,15 @@
       .filter.add-filter.js-add-filter
         %span.filter-icon{:'uk-icon' => "icon: plus; ratio: 1.4"}
         .filter-txt trait filter
-    .filter-row
-      .filter-field.filter-field-radio
-        = label_tag :search_type_record, "records matching ANY filter"
-        = radio_button_tag :result_type, :record, @result_type == :record
-      .filter-field.filter-field-radio
-        = label_tag :search_type_page, "taxa matching ALL filters"
-        = radio_button_tag :result_type, :page, @result_type == :page
-
+    .filter-row.filter-row-flex
+      .filter-radios
+        .filter-field.filter-field-radio
+          = label_tag :search_type_record, "records matching ANY filter"
+          = radio_button_tag :result_type, :record, @result_type == :record
+        .filter-field.filter-field-radio
+          = label_tag :search_type_page, "taxa matching ALL filters"
+          = radio_button_tag :result_type, :page, @result_type == :page
+      = submit_tag "Download TSV", :formaction => term_search_results_path(:format => :csv), :class => "filter-field filter-field-radio"
     = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
 
   -#

@@ -20,9 +20,6 @@ class TermsController < ApplicationController
         if @query.valid?
           search_common
         else
-          @query.errors.full_messages.each do |e|
-            puts e
-          end
           render "search"
         end
       end
@@ -31,18 +28,17 @@ class TermsController < ApplicationController
         if !current_user
           redirect_to new_user_session_path
         else
-          @query = TermQuery.new(tq_params)
-
-          if @query.search_pairs.empty?
-            flash_and_redirect_no_format(t("user_download.you_must_select"))
-          else
+          if @query.valid?
             data = TraitBank::DataDownload.term_search(@query, current_user.id)
 
             if data.is_a?(UserDownload)
-              flash_and_redirect_no_format(t("user_download.created", url: user_path(current_user)))
+              flash[:notice] = t("user_download.created", url: user_path(current_user))
+              redirect_no_format
             else
               send_data data
             end
+          else
+            redirect_no_format
           end
         end
       end
@@ -255,10 +251,9 @@ private
       end
   end
 
-  def flash_and_redirect_no_format(msg)
-    flash[:notice] = msg
+  def redirect_no_format
     loc = params
     loc.delete(:format)
-    redirect_to term_search_path(params)
+    redirect_to term_search_results_path(params)
   end
 end
