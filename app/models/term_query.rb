@@ -22,7 +22,7 @@ class TermQuery < ActiveRecord::Base
   end
 
   def numeric_filters
-    filters.select { |f| f.eq? || f.gt? || f.lt? }
+    filters.select { |f| f.numeric? }
   end
 
   def range_filters

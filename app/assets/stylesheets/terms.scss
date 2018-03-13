@@ -1,4 +1,5 @@
 @import "shared/traits";
+@import "shared/summary_card";
 
 .l-terms {
   padding: 10px percentage(15 / 375);
@@ -41,6 +42,10 @@
 
 .filter-field {
   position: relative;
+}
+
+.filter-field-radio {
+  margin: 0 15px;
 }
 
 .filter-input {

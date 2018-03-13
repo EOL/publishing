@@ -39,6 +39,14 @@
       .l-filter-first.filter-icon
         %div{:'uk-icon' => "icon: plus; ratio: 1.4"}
       .filter-txt trait filter
+  .filter-row
+    .filter-field.filter-field-radio
+      = label_tag :search_type_record, "records matching ANY filter"
+      = radio_button_tag :result_type, :record, @result_type == :record
+    .filter-field.filter-field-radio
+      = label_tag :search_type_page, "taxa matching ALL filters"
+      = radio_button_tag :result_type, :page, @result_type == :page
+
   = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
 
 -#

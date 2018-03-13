@@ -152,6 +152,13 @@ private
     @count = TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
       page(@page).per(@per_page)
+
+    if @result_type == :page
+      @result_pages = @grouped_data.map do |datum|
+        @pages[datum[:page_id]]
+      end
+      @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
+    end
   end
 
   def glossary(which)

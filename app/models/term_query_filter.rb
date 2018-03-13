@@ -5,7 +5,7 @@ class TermQueryFilter < ActiveRecord::Base
   validates_presence_of :op
   validates_presence_of :obj_uri, :if => :object_term?
   validates_presence_of :units_uri, :if => :numeric?
-  validates :num_val1, :presence => true, :numericality => true, :if => :numeric?
+  validates :num_val1, :presence => true, :numericality => true, :if => :numeric_or_range?
   validates :num_val2, :presence => true, :numericality => true, :if => :range?
 
   enum :op => {
@@ -26,7 +26,7 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   def numeric?
-    eq? || gt? || lt? || range?
+    eq? || gt? || lt?
   end
 
   def valid_ops
@@ -43,5 +43,10 @@ class TermQueryFilter < ActiveRecord::Base
     end
 
     ops
+  end
+
+  private 
+  def numeric_or_range?
+    numeric? || range?
   end
 end

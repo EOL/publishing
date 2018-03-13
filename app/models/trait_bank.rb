@@ -315,44 +315,44 @@ class TraitBank
     end
 
     def term_filter_wheres(term_query)
-      pred_wheres = term_query.predicate_filters.map do |filter|
-        "tgt_pred.uri = \"#{filter.pred_uri}\""
+      term_query.filters.map do |filter|
+        term_filter_where(filter, "trait", "tgt_pred")
       end
+    end
 
-      obj_wheres = term_query.object_term_filters.map do |filter|
-        "((trait)-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
-        "AND tgt_pred.uri = \"#{filter.pred_uri}\")"
-      end
-
-      num_wheres = term_query.numeric_filters.map do |filter|
-        "tgt_pred.uri = \"#{filter.pred_uri}\" AND "\
+    def term_filter_where(filter, trait_label, pred_label)
+      if filter.predicate?
+        "#{pred_label}.uri = \"#{filter.pred_uri}\""
+      elsif filter.object_term?
+        "((#{trait_label})-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
+        "AND #{pred_label}.uri = \"#{filter.pred_uri}\")"
+      elsif filter.numeric?
+        "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
         "("\
-        "(trait.measurement IS NOT NULL "\
-        "AND toFloat(trait.measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
-        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" })) "\
+        "(#{trait_label}.measurement IS NOT NULL "\
+        "AND toFloat(#{trait_label}.measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
+        "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" })) "\
         "OR "\
-        "(trait.normal_measurement IS NOT NULL "\
-        "AND toFloat(trait.normal_measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
-        "AND (trait)-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }))"\
+        "(#{trait_label}.normal_measurement IS NOT NULL "\
+        "AND toFloat(#{trait_label}.normal_measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
+        "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }))"\
         ")"\
-      end
-
-      range_wheres = term_query.range_filters.map do |filter|
-        "tgt_pred.uri = \"#{filter.pred_uri}\" AND "\
+      elsif filter.range?
+        "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
         "("\
-        "(trait.measurement IS NOT NULL "\
-        "AND (trait)-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND toFloat(trait.measurement) >= #{filter.num_val1} "\
-        "AND toFloat(trait.measurement) <= #{filter.num_val2}) "\
+        "(#{trait_label}.measurement IS NOT NULL "\
+        "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
+        "AND toFloat(#{trait_label}.measurement) >= #{filter.num_val1} "\
+        "AND toFloat(#{trait_label}.measurement) <= #{filter.num_val2}) "\
         "OR "\
-        "(trait.normal_measurement IS NOT NULL "\
-        "AND (trait)-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND toFloat(trait.normal_measurement) >= #{filter.num_val1} "\
-        "AND toFloat(trait.normal_measurement) <= #{filter.num_val2}) "\
+        "(#{trait_label}.normal_measurement IS NOT NULL "\
+        "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
+        "AND toFloat(#{trait_label}.normal_measurement) >= #{filter.num_val1} "\
+        "AND toFloat(#{trait_label}.normal_measurement) <= #{filter.num_val2}) "\
         ") "\
+      else
+        raise "unable to determine filter type"
       end
-
-      [pred_wheres, obj_wheres, num_wheres, range_wheres].flatten
     end
 
     def term_record_search(term_query, options)
@@ -418,37 +418,33 @@ class TraitBank
 
 
     def term_page_search(term_query, options)
-#      with_count_clause = options[:count] ?
-#        "WITH COUNT(DISTINCT(page)) AS count " :
-#        ""
-#      return_clause = options[:count] ?
-#        "RETURN count" :
-#        "RETURN page"
-#      page_match = "MATCH (page:Page)"
-#      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade} })" if term_query.clade
-#
-#      trait_matches = term_query.search_pairs.each_with_index.map do |pair, i|
-#        trait_label = "t#{i}"
-#        match = "MATCH (page) -[:trait]-> (#{trait_label}:Trait), "
-#
-#        if pair.object
-#          match += "(:Term{ uri: \"#{pair.predicate}\" })<-[:predicate|#{parent_terms}]-"\
-#          "(#{trait_label})"\
-#          "-[:object_term|#{parent_terms}]->(:Term{ uri: \"#{pair.object}\" })"
-#        else
-#          match += "(#{trait_label})-[:predicate|#{parent_terms}]->(:Term{ uri: \"#{pair.predicate}\" })"
-#        end
-#
-#        match
-#      end
-#
-#      order_part = options[:count] ? "" : "ORDER BY page.name"
-#
-#      "#{page_match} "\
-#      "#{trait_matches.join(" ")} "\
-#      "#{with_count_clause}"\
-#      "#{return_clause} "\
-#      "#{order_part}"
+      matches = []
+      wheres = []
+
+      page_match = "MATCH (page:Page)"
+      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      matches << page_match
+
+      term_query.filters.each_with_index do |filter, i|
+        trait_label = "t#{i}"
+        pred_label = "p#{i}"
+        matches << "MATCH (page)-[:trait]->(#{trait_label}:Trait)-[:predicate]->(:Term)-[:#{parent_terms}]->(#{pred_label}:Term)"
+        wheres << term_filter_where(filter, trait_label, pred_label)
+      end
+
+      with_count_clause = options[:count] ?
+        "WITH COUNT(DISTINCT(page)) AS count " :
+        ""
+      return_clause = options[:count] ?
+        "RETURN count" :
+        "RETURN page"
+      order_clause = options[:count] ? "" : "ORDER BY page.name"
+
+      "#{matches.join(" ")} "\
+      "WHERE #{wheres.join(" AND ")}"\
+      "#{with_count_clause}"\
+      "#{return_clause} "\
+      "#{order_clause}"
     end
 
 # TODO: update and restore these methods (if needed)
