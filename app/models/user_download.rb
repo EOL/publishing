@@ -24,6 +24,6 @@ private
     self[:completed_at] = Time.now
     save!
   end
-  handle_asynchronously :background_build, :queue => "trait_download"
+  handle_asynchronously :background_build, :queue => "download"
 
 end
