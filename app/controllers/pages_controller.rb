@@ -268,7 +268,7 @@ private
   end
 
   def get_media
-    #not working
+    #not working.....
     #media = @page.media.includes(:license, :resource)
     media = @page.media
     if params[:license]
