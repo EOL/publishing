@@ -554,12 +554,18 @@ en:
       index: "Resources"
       import_log: "Import Log for %{resource}"
     index:
+      locked_jobs:
+        zero: "no running jobs"
+        one: "1 running job"
+        other: "%{count} running jobs"
       jobs:
-        one: "1 Delayed Job."
-        other: "Delayed Jobs: %{count}"
+        zero: "no pending jobs"
+        one: "1 pending job"
+        other: "%{count} pending jobs"
       harvest_jobs:
-        one: "1 Delayed Publish."
-        other: "Delayed Publishes: %{count}"
+        zero: "nothing to publish"
+        one: "1 pending publish"
+        other: "%{count} to publish"
     no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
