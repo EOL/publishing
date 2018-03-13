@@ -1,0 +1,3 @@
+%ul.traits.traits-term-search
+  - pages.each do |page|
+    = render :partial => "search/partial_search_result", :locals => { :result => page }

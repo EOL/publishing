@@ -13,7 +13,7 @@
       data: $.param(data),
       url: '/terms/search_form', // TODO: no hard-coded urls
       success: function(res) {
-        $('#new_term_query').html(res)
+        $('#term_form_container').html(res)
         setupForm();
         $('.js-term-form-dimmer').removeClass('active');
       }

@@ -1,4 +1,4 @@
-# Abstraction between our traits and the implementation of thir storage. ATM, we
+# Abstraction between our traits and the implementation of their storage. ATM, we
 # use neo4j.
 #
 # NOTE: in its current state, this is NOT done! Neography uses a plain hash to
@@ -326,30 +326,34 @@ class TraitBank
       elsif filter.object_term?
         "((#{trait_label})-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
         "AND #{pred_label}.uri = \"#{filter.pred_uri}\")"
-      elsif filter.numeric?
-        "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
-        "("\
-        "(#{trait_label}.measurement IS NOT NULL "\
-        "AND toFloat(#{trait_label}.measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
-        "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" })) "\
-        "OR "\
-        "(#{trait_label}.normal_measurement IS NOT NULL "\
-        "AND toFloat(#{trait_label}.normal_measurement) #{op_from_filter(filter)} #{filter.num_val1} "\
-        "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }))"\
-        ")"\
-      elsif filter.range?
-        "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
-        "("\
-        "(#{trait_label}.measurement IS NOT NULL "\
-        "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND toFloat(#{trait_label}.measurement) >= #{filter.num_val1} "\
-        "AND toFloat(#{trait_label}.measurement) <= #{filter.num_val2}) "\
-        "OR "\
-        "(#{trait_label}.normal_measurement IS NOT NULL "\
-        "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{filter.units_uri}\" }) "\
-        "AND toFloat(#{trait_label}.normal_measurement) >= #{filter.num_val1} "\
-        "AND toFloat(#{trait_label}.normal_measurement) <= #{filter.num_val2}) "\
-        ") "\
+      elsif filter.numeric? || filter.range?
+        conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
+        if filter.numeric?
+          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "("\
+          "(#{trait_label}.measurement IS NOT NULL "\
+          "AND toFloat(#{trait_label}.measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+          "OR "\
+          "(#{trait_label}.normal_measurement IS NOT NULL "\
+          "AND toFloat(#{trait_label}.normal_measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+          ")"\
+        elsif filter.range?
+          conv_num_val2, _ = UnitConversions.convert(filter.num_val2, filter.units_uri)
+          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "("\
+          "(#{trait_label}.measurement IS NOT NULL "\
+          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_label}.measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_label}.measurement) <= #{conv_num_val2}) "\
+          "OR "\
+          "(#{trait_label}.normal_measurement IS NOT NULL "\
+          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_label}.normal_measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_label}.normal_measurement) <= #{conv_num_val2}) "\
+          ") "\
+        end
       else
         raise "unable to determine filter type"
       end

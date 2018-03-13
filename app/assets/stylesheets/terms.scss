@@ -7,13 +7,11 @@
 
 .filter {
   margin-bottom: 16px;
-  padding-left: 40px;
   position: relative;
 }
 
-
-.filter-row-clade {
-  margin-bottom: 20px;
+.is-multiple-filters .filter {
+  padding-left: 40px;
 }
 
 .traits-term-search {
