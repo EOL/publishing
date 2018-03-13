@@ -71,8 +71,10 @@ class Page < ActiveRecord::Base
   end
 
   def self.fix_native_nodes(pages)
-    pages ||= Page.where(native_node_id: nil)
+    pages ||= missing_native_node
     pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes&.first&.id) }
+    # NOTE: I'm not re-using the scope here because I'm worried it might use a cached version instead.
+    pages.where(native_node_id: nil).delete_all # This is slightly risky, perhaps we shouldn't do it?
   end
 
   def self.remove_if_nodeless
