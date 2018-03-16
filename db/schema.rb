@@ -897,4 +897,5 @@ ActiveRecord::Schema.define(version: 20180307203738) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end
