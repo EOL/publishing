@@ -37,10 +37,10 @@ type.
 A `Resource` node corresponds to a 'resource' defined here as a file
 or set of files, imported from outside of the EOL project,
 that provides specific measured or curated information about
-taxa, such as habitat or average adult mass.  A resource usually?
-always? comes from the Web; usually? always? in the form of a Darwin
+taxa, such as habitat or average adult mass.  A resource comes from some supplier of 
+biodiversity or trait information, in the form of a Darwin
 Core Archive (DwCA).
-This information is recorded in the
+Some of the information from resources is recorded in the
 properties and links of `Trait` nodes.
 
 * `resource_id` property - Every `Resource` node has a different
@@ -60,14 +60,16 @@ data, in taxon record matching (the harvester), or in what we believe
 about nature.  These situations are errors and should be fixed when
 detected.
 
+The use of the word 'page' is a reference to the EOL user 
+interface, where each taxon known to EOL has its own web page.
+
 * `parent` link (to another `Page` node): taxonomic
   subsumption; the target is [intended to be] the `Page` node for the smallest
   taxon that has a `Page` node and contains, but is different from, the one
-  for this `Page`.  Unique, and always present except for the root
-  `Page`.  The use of the word 'page' is a reference to the EOL user interface where each
-  taxon known to EOL has its own web page.
-* `trait` relationship (to a `Trait` node): the target node gives information
-  (mostly but not always quantitative)
+  for this `Page`.  The `parent` link is unique, if present, and is only absent for
+  hierarchy roots.
+* `trait` relationship (to a `Trait` node): the target node gives categorical or
+  quantitative information
   about the taxon.  Many `Trait`s (or no
   `Trait`s) can be `trait`-linked from a given `Page`.
 * `page_id` property, a positive integer.
@@ -81,18 +83,18 @@ detected.
 ## Trait
 
 A `Trait` node corresponds to some kind of statement about a taxon (or
-rather its members).  As usual a statement can be true or false.  These `Trait`
-statements are intended to be true, but they will not
-always be so.
+its members).  As usual a statement can be true or false.
+These `Trait` statements are intended to be true, but as with any
+information recorded in a database, they will not always be so.
 
-The central statement of a `Trait` node, like most statements, has a subject,
+The statement expressed by a `Trait` node, like most statements, has a subject,
 a verb (or predicate), and an object (or value).  The subject is the taxon that
 the `Page` node is about (i.e. the taxon for the `Page` node that
 links to this `Trait` node via a `trait` link).  The verb is
 given by the `predicate` link, and the object is given by one of the
 `Trait` node properties or links, as described below.
 
-`Trait` nodes have many properties and links, so they are organized
+`Trait` nodes have many properties and links, which are organized
 below into groups.
 
 ### General information about the statement
@@ -101,7 +103,8 @@ below into groups.
   for every `Trait` node.  Always present.
 * `resource_pk` property: a key for the statement within the resource; 
   that is, each statement obtained from a given resource has a different `resource_pk`
-  value.  Always present.   (copied from a column in the DwCA?)
+  value.  Always present.  The value originates from a `measurementOrFactID` or 
+  `associationID` field in the resource DwCA.
 * `source` property: Value copied from a DwCA. Meant to describe the original source
   of the `Trait` information (since the resource is itself an aggregator).  
   Free text. Often quite long. Semantics unclear.
@@ -128,17 +131,18 @@ these four properties (or links) will be present.
 * `object_page_id`: if the object of the statement is a taxon, this is the 
   value of the `page_id` property of the `Page` node for the taxon.
 * `object_term` link: to a `Term` node for the object of the statement,
-  usually an ontology term for some qualititative choice (e.g. habitat type).
-* `normal_measurement` property: if the `predicate` indicates a quantitive
-   property of the subject taxon, then this property gives that quantity.
+  usually an ontology term for some qualitative choice (e.g. habitat type).
+* `normal_measurement` property: this value is the value of the statement,
+  indicating a quantity in normalized units.
 * `normal_units_term` link: when `normal_measurement` is present, the 
   target is a `Term` node (usually 
-  for an ontology term) describing the units of `normal_measurement`.  (??)
+  for an ontology term) that gives the units in which `normal_measurement` is given.
 * `normal_units` property: textual description of the units
 * `measurement` property: redundant with `normal_measurement`, but the value is given 
   as it occurs in the resource rather than normalized to EOL-favored units
 * `units_term` link: when `measurement` is present, the target is a `Term` node (usually 
-  for an ontology term) describing the units of `measurement`.  (?? to be removed)
+  for an ontology term) describing the units of `measurement` as the value 
+  is provided by the resource.
 * `literal` property: a string coming from an uncontrolled vocabulary such as 
   is found in certain Darwin Core attributes.
 
