@@ -30,9 +30,9 @@ class MediaContentCreator
         push_pages_down
         import_contents
         update_naked_pages if k == Medium
-        fix_counter_culture_counts
       end
     end
+    fix_counter_culture_counts
   end
 
   def learn_ancestry(batch)
@@ -90,6 +90,8 @@ class MediaContentCreator
 
   def fix_counter_culture_counts
     @log.log("Fixing counter-culture counts...")
-    PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).counter_culture_fix_counts
+    # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
+    #   counter_culture_fix_counts
+    @resource.fix_missing_page_contents # Faster.
   end
 end

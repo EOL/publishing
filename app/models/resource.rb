@@ -174,19 +174,27 @@ class Resource < ActiveRecord::Base
     retry rescue nil # I really don't care THAT much... sheesh!
   end
 
-  # This is kinda cool.... but probably doesn't scale to cases where there are tens of millions of page_contents.
+  # This is kinda cool... and faster than fix_counter_culture_counts
   def fix_missing_page_contents
+    [Medium, Article].each { |type| fix_missing_page_contents_by_type(type) }
+  end
+
+  def fix_missing_page_contents_by_type(type)
     contents =
       PageContent.joins('LEFT JOIN media ON (page_contents.content_id = media.id)')
-                 .where(content_type: 'Medium', resource_id: id)
+                 .where(content_type: type, resource_id: id)
                  .where('media.id IS NULL')
     page_counts = {}
-    contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
+    contents.select('id, page_id').find_in_batches(batch_size: 10_000) do |batch|
+      batch.map(&:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
+    end
     by_count = {}
     page_counts.each { |pid, count| by_count[count] ||= [] ; by_count[count] << pid }
     contents.delete_all
     by_count.each do |count, pages|
-      Page.where(id: pages).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count - #{count}),0)")
+      pages.in_groups_of(5_000, false) do |group|
+        Page.where(id: group).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count - #{count}),0)")
+      end
     end
   end
 
