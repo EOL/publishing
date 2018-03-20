@@ -1,6 +1,10 @@
 # Abstraction between our traits and the implementation of their storage. ATM, we
 # use neo4j.
 #
+# Please keep this schema summary comment in sync with the main
+# schema documentation file found in the doc/ directory, and reflect
+# and schema changes in the main documentation file.
+#
 # NOTE: in its current state, this is NOT done! Neography uses a plain hash to
 # store objects, and ultimately we're going to want our own models to represent
 # things. But in these early testing stages, this is adequate. Since this is not
