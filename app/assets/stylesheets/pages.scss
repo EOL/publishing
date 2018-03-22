@@ -16,6 +16,11 @@ $border: 1px solid $light-gray;
   overflow: hidden;
   padding-bottom: percentage(197px / $mobile-width);
   position: relative;
+  width: 100%;
+}
+
+.hero-after {
+  display: none;
 }
 
 .names {
@@ -152,30 +157,26 @@ $border: 1px solid $light-gray;
 
 }
 
-.tabs-above {
-  display: none;
-}
-
 .content {
   overflow: hidden;
 }
 
-@media(min-width: 1000px) {
-  .tabs-above {
-    display: block;
-  } 
+@media(min-width: 1100px) {
+  .l-flex {
+    display: flex;
+  }
 
-  .tabs-below {
+  .l-left-col {
+    flex: 0 0 auto; 
+    width: 600px;
+  }
+
+  .hero-before {
     display: none;
   }
 
-  .hero {
-    float: right;
-    width: 50%;
-  }
-
-  .content {
-    width: 50%;
+  .hero-after {
+    display: block; 
   }
 }
 
