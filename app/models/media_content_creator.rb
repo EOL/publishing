@@ -15,12 +15,19 @@ class MediaContentCreator
     @content_count_by_page = {}
   end
 
-  def by_resource
+  def by_resource(start = nil)
     @log.log('MediaContentCreator#by_resource', cat: :starts)
     [Medium, Article].each do |k|
       @klass = k
       @field = "#{@klass.name.underscore.downcase}_id".to_sym
-      @klass.where(resource: @resource.id).where('page_id IS NOT NULL').find_in_batches do |batch|
+      query = @klass.where(resource: @resource.id).where('page_id IS NOT NULL')
+      query = query.where(['id > ?', start]) if start
+      b_size = 1000 # Default is 1000, I just want to use this for calculation.
+      count = query.count
+      num_batches = (count / bsize.to_f).ceil
+      @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
+      query.find_in_batches(batch_size: b_size).with_index do |batch, number|
+        @log.log("Batch #{number}/#{num_batches}...", cat: :infos)
         reset_batch
         learn_ancestry(batch)
         batch.each do |content|
