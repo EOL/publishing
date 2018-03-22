@@ -9,6 +9,10 @@ $trait-val-color: #c06a11;
 
 $border: 1px solid $light-gray;
 
+$tabs-height: 25px;
+$tabs-m-height: 30px;
+$head-height: 70px;
+
 .hero {
   background-position: center;
   background-repeat: no-repeat;
@@ -50,16 +54,23 @@ $border: 1px solid $light-gray;
   }
 }
 
-.l-head {
+.l-tabs {
+  background: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.l-page-head {
   border-top: $border;
-  height: 70px;
+  height: $head-height;
 }
 
 .tabs {
   border-top: $border;
   border-bottom: $border;
   font-size: 11px;
-  height: 25px;
+  height: $tabs-height;
   list-style: none;
   margin: 0 auto;
   overflow: auto;
@@ -124,8 +135,16 @@ $border: 1px solid $light-gray;
     color: $trait-val-color;
   }
 
+.l-content {
+  overflow: hidden;
+  margin-top: $head-height + $tabs-height;
+}
 
 @media(min-width: $width-m) {
+  .l-content {
+    margin-top: $head-height + $tabs-m-height;
+  }
+
   .names {
     margin-top: 10px;
     padding: 0 $padding-left-m;
@@ -140,7 +159,7 @@ $border: 1px solid $light-gray;
   }
 
   .tabs {
-    height: 30px;
+    height: $tabs-m-height;
     padding: 3px $padding-left-m;
     
     & > li {
@@ -165,9 +184,6 @@ $border: 1px solid $light-gray;
 
 }
 
-.content {
-  overflow: hidden;
-}
 
 @media(min-width: 1100px) {
   .l-flex {
