@@ -23,18 +23,23 @@ $border: 1px solid $light-gray;
   display: none;
 }
 
+.head-icon {
+  float: left;
+  height: 100%;
+}
+
 .names {
-  height: 52px;
+  margin-top: 16px;
   overflow: hidden;
+  height: 100%;
   padding: 0 $padding-left-s;
   white-space: nowrap;
-  width: 100%;
 
   & > h1 {
     color: inherit;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
-    margin: 10px 0 0 0;
+    margin: 0;
   }
 
   & > h2 {
@@ -43,6 +48,11 @@ $border: 1px solid $light-gray;
     font-weight: normal;
     margin: 3px 0 0 0;
   }
+}
+
+.l-head {
+  border-top: $border;
+  height: 70px;
 }
 
 .tabs {
@@ -117,17 +127,15 @@ $border: 1px solid $light-gray;
 
 @media(min-width: $width-m) {
   .names {
-    height: 60px;  
+    margin-top: 10px;
     padding: 0 $padding-left-m;
 
     & > h1 {
-      font-size: 16px;
-      margin: 12px 0 0 0;
+      font-size: 20px;
     }
 
     & > h2 {
-      font-size: 14px;
-      margin: 5px 0 0 0;
+      font-size: 16px;
     }
   }
 

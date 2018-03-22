@@ -242,4 +242,8 @@ module PagesHelper
       end
     }.html_safe
   end
+
+  def overview?
+    current_page?(page_path(@page))
+  end
 end
