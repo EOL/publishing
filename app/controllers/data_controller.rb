@@ -3,9 +3,7 @@ class DataController < ApplicationController
   protect_from_forgery
 
   def show
-    respond_to do |format|
-      @data = TraitBank.by_trait(params[:id]).first
-      format.js { }
-    end
+    @data = TraitBank.by_trait(params[:id]).first
+    render :layout => false
   end
 end

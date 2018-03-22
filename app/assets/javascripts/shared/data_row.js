@@ -1,14 +1,3 @@
-//= require shared/data_row
-
-function setupMenus() {
-  EOL.enableDropdowns();
-
-  $('.js-media-menus a').on('ajax:success', function(e, data, status, xhr) {
-    $('#gallery').replaceWith(data);
-    setupMenus();
-  });
-}
-
 function bindMetaArrow($row) {
   $row.find('.js-meta-arw').click(function() {
     var $metaList = $(this).siblings('.js-meta-items');
@@ -26,5 +15,22 @@ function bindMetaArrow($row) {
 }
 
 $(function() {
-  setupMenus();
+  $('.js-load-arw').click(function() {
+    var $that = $(this)
+      , $row = $that.parent('.js-data-row')
+      ;
+
+    $that.removeClass('fa-angle-down');
+    $that.addClass('fa-spin fa-spinner');
+
+    $.ajax({
+      url: $row.data('showPath'),
+      success: function(result) {
+        var $result = $(result);
+        bindMetaArrow($result);
+        $row.replaceWith($result);
+      }
+    })
+  });
+  
 });

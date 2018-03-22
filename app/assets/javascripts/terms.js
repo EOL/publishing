@@ -1,3 +1,5 @@
+//= require shared/data_row
+
 (function() {
   function fetchForm(option) {
     var data = $('#new_term_query').serializeArray();

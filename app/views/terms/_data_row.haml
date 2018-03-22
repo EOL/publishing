@@ -1,4 +1,4 @@
-%li.trait
+%li.trait.js-data-row{ :data => { :'show-path' => datum_path(trait[:id]) } }
   - pages = [] unless local_assigns.has_key?(:pages)
   - page_id = trait[:page_id]
   - page = page_id ? pages[page_id] : nil
@@ -17,8 +17,7 @@
     - if modifier_content
       .trait-mod= modifier_txt(trait)
   - if trait[:metadata] && trait[:metadata].any? 
-    %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-meta-arw
-    %ul.meta-items.is-hidden.js-meta-items
+    %ul.meta-items.js-meta-items
       - trait[:metadata].each do |datum|
         %li.meta-item
           .meta-pred
@@ -27,3 +26,6 @@
             - else
               = datum[:predicate][:name]
           .meta-val= show_data_value(datum)
+    %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
+  - else
+    %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw
