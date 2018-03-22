@@ -1,4 +1,6 @@
 Rails.application.configure do
+  config.lograge.enabled = true
+  config.lograge.ignore_actions = ['PagesController#ping']
   config.cache_classes = true
   cache_addr = Rails.application.secrets.cache_url
   config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
