@@ -200,6 +200,15 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def fix_missing_base_urls
+    %w[base_url unmodified_url].each do |field|
+      all = Medium.where(resource_id: id).where("#{field} LIKE 'data%'").select("id, #{field}")
+      all.find_in_batches do |batch|
+        Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://beta-repo.eol.org/', #{field})")
+      end
+    end
+  end
+
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)

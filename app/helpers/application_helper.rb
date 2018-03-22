@@ -65,6 +65,7 @@ module ApplicationHelper
   end
 
   def name_for_page(page)
+    return "[MISSING]" if page.nil?
     if page.scientific_name == page.name
       page.scientific_name.html_safe
     else

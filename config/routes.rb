@@ -6,24 +6,24 @@ Rails.application.routes.draw do
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
-    get "autocomplete", on: :collection
-    get "topics", on: :collection
-    get "breadcrumbs"
-    get "comments"
-    get "create_topic"
-    get "classifications"
+    get 'autocomplete', on: :collection
+    get 'topics', on: :collection
+    get 'breadcrumbs'
+    get 'comments'
+    get 'create_topic'
+    get 'classifications'
     # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
     # collection:
-    get "clear_index_stats", on: :collection
-    get "details"
-    get "literature_and_references"
-    get "maps"
-    get "media"
-    get "names"
-    get "reindex"
-    get "data"
+    get 'clear_index_stats', on: :collection
+    get 'details'
+    get 'literature_and_references'
+    get 'maps'
+    get 'media'
+    get 'names'
+    get 'reindex'
+    get 'data'
 
-    get "overview", :to => redirect("/pages/%{page_id}", :status => 301)
+    get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
   end
 
   resources :data, only: [:show]
@@ -91,6 +91,8 @@ Rails.application.routes.draw do
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
   match '/404', :to => 'errors#not_found', :via => :all
   match '/500', :to => 'errors#internal_server_error', :via => :all
+
+  match '/ping', to: 'pages#ping', via: :all
 
   root 'pages#index'
 

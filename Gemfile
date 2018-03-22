@@ -67,6 +67,8 @@ gem 'discourse_api'
 gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
+# QUIET PLEASE MAKE IT STOP:
+gem 'lograge'
 # Neography is used for our Triple Store for now:
 gem 'neography'
 # Site monitoring for staging and production:

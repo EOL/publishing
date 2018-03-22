@@ -29,7 +29,7 @@ class Publishing::Fast
   def by_resource
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
     abort_if_already_running
-    @log = Publishing::PubLog.new(@resource)
+    @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
     begin
       unless exists?('nodes')
         raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
@@ -52,7 +52,11 @@ class Publishing::Fast
       log_start('Remove traits')
       TraitBank::Admin.remove_for_resource(@resource)
       log_start('#publish_traits')
-      publish_traits
+      begin
+        publish_traits
+      rescue => e
+        log_warn("Trait Publishing failed: {#{e.message}}<--#{e.backtrace[-2..-1].join('<--')}")
+      end
       # TODO: you also have to do associations (but not here; on the other repo)!
       log_start('PageCreator')
       PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)

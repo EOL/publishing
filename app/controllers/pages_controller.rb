@@ -7,6 +7,15 @@ class PagesController < ApplicationController
   helper :data
   helper_method :get_associations
 
+  # See your environment config; this action should be ignored by logs.
+  def ping
+    if ActiveRecord::Base.connection.active?
+      render text: 'pong'
+    else
+      render status: 500
+    end
+  end
+
   def autocomplete
     full_results = Page.autocomplete(params[:query])
     if params[:full]
@@ -186,7 +195,7 @@ class PagesController < ApplicationController
           render :layout => false
         else
           render
-        end 
+        end
       end
     end
   end
