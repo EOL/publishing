@@ -25,7 +25,7 @@ class MediaContentCreator
       query = query.where(['id > ?', @options[:start]]) if @options[:start]
       b_size = 1000 # Default is 1000, I just want to use this for calculation.
       count = query.count
-      num_batches = (count / bsize.to_f).ceil
+      num_batches = (count / b_size.to_f).ceil
       @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
       query.find_in_batches(batch_size: b_size).with_index do |batch, number|
         @log.log("Batch #{number}/#{num_batches}...", cat: :infos)
