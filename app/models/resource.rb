@@ -10,7 +10,7 @@ class Resource
    #missing bibliographic citation, description, resource data options
 
   attr_accessor :id, :name, :origin_url, :resource_data_set, :description,:type, :uploaded_url ,:path, :last_harvested_at, :harvest_frequency, :day_of_month, :nodes_count,
-                :position, :is_paused, :is_approved, :is_trusted, :is_autopublished, :is_forced, :dataset_license,
+                :position, :is_paused, :is_approved, :is_trusted, :is_autopublished, :is_forced, :dataset_license, :is_harvest_inprogress,:forced_internally,
                 :dataset_rights_statement, :dataset_rights_holder, :default_license_string, :default_rights_statement,
                 :default_rights_holder, :default_language_id, :harvests, :created_at, :updated_at, :flag 
                 

@@ -1,5 +1,5 @@
 class ResourceApi
-  @base_schedular_uri = 'http://localhost:8084/scheduler'
+  @base_schedular_uri = 'http://localhost:8083/scheduler'
   # @base_schedular_uri = 'http://172.16.0.161:80/scheduler'
   @base_storage_uri = 'http://localhost:8010/eol/archiver'
 

@@ -31,6 +31,14 @@ class ContentPartners::ResourcesController < ContentPartnersController
     result= ResourceApi.get_resource(params[:content_partner_id], params[:id])
     mappings = {"_paused" => "is_paused", "_approved" => "is_approved" , "_trusted" => "is_trusted" , "_autopublished" => "is_autopublished" , "_forced" => "is_forced"}
     result.keys.each { |k| result[ mappings[k] ] = result.delete(k) if mappings[k] }
+    # @resource = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+    # type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+    # day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+    # is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+    # dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+    # dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+    # default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+    # default_language_id: result["default_language_id"],is_harvest_inprogress: result["is_harvest_inprogress"])
     @resource = Resource.new(result)
   end
   

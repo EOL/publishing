@@ -1,6 +1,6 @@
 class ContentPartnerApi
    # @schedular_uri = 'http://172.16.0.161:80/scheduler'
-  @schedular_uri = 'http://localhost:8084/scheduler'
+  @schedular_uri = 'http://localhost:8083/scheduler'
   @storage_uri = 'http://localhost:8010/eol/archiver'
   
   def self.add_content_partner?(params, current_user_id)
