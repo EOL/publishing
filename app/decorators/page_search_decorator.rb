@@ -21,7 +21,7 @@ class PageSearchDecorator < SearchResultDecorator
   def hierarchy
     parts = []
     node = object.native_node || object.nodes.first
-    ancestors = node.ancestors
+    ancestors = node ? node.ancestors : []
     shown_ellipsis = false
     ancestors.compact.each do |node|
       unless node.use_breadcrumb?

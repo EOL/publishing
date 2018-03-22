@@ -152,6 +152,33 @@ $border: 1px solid $light-gray;
 
 }
 
+.tabs-above {
+  display: none;
+}
+
+.content {
+  overflow: hidden;
+}
+
+@media(min-width: 1000px) {
+  .tabs-above {
+    display: block;
+  } 
+
+  .tabs-below {
+    display: none;
+  }
+
+  .hero {
+    float: right;
+    width: 50%;
+  }
+
+  .content {
+    width: 50%;
+  }
+}
+
 @media (min-width: 1220px) {
   .hero {
     height: 702px;
