@@ -1,11 +1,12 @@
 class MediaContentCreator
-  def self.by_resource(resource, log)
-    self.new(resource, log).by_resource
+  def self.by_resource(resource, log, id = nil)
+    self.new(resource, log, start: id).by_resource
   end
 
-  def initialize(resource, log)
+  def initialize(resource, log, options = {})
     @resource = resource
     @log = log
+    @options = options
   end
 
   def reset_batch
@@ -15,13 +16,13 @@ class MediaContentCreator
     @content_count_by_page = {}
   end
 
-  def by_resource(start = nil)
+  def by_resource
     @log.log('MediaContentCreator#by_resource', cat: :starts)
     [Medium, Article].each do |k|
       @klass = k
       @field = "#{@klass.name.underscore.downcase}_id".to_sym
       query = @klass.where(resource: @resource.id).where('page_id IS NOT NULL')
-      query = query.where(['id > ?', start]) if start
+      query = query.where(['id > ?', @options[:start]]) if @options[:start]
       b_size = 1000 # Default is 1000, I just want to use this for calculation.
       count = query.count
       num_batches = (count / bsize.to_f).ceil
