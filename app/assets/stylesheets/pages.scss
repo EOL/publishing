@@ -9,6 +9,10 @@ $trait-val-color: #c06a11;
 
 $border: 1px solid $light-gray;
 
+$tabs-height: 25px;
+$tabs-m-height: 30px;
+$head-height: 70px;
+
 .hero {
   background-position: center;
   background-repeat: no-repeat;
@@ -16,35 +20,57 @@ $border: 1px solid $light-gray;
   overflow: hidden;
   padding-bottom: percentage(197px / $mobile-width);
   position: relative;
+  width: 100%;
+}
+
+.hero-after {
+  display: none;
+}
+
+.head-icon {
+  float: left;
+  height: 100%;
 }
 
 .names {
-  height: 52px;
+  margin-top: 16px;
   overflow: hidden;
+  height: 100%;
   padding: 0 $padding-left-s;
   white-space: nowrap;
-  width: 100%;
 
   & > h1 {
     color: inherit;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 600;
-    margin: 10px 0 0 0;
+    margin: 0;
   }
 
   & > h2 {
     color: inherit;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: normal;
     margin: 3px 0 0 0;
   }
+}
+
+.l-tabs {
+  background: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.l-page-head {
+  border-top: $border;
+  height: $head-height;
 }
 
 .tabs {
   border-top: $border;
   border-bottom: $border;
   font-size: 11px;
-  height: 25px;
+  height: $tabs-height;
   list-style: none;
   margin: 0 auto;
   overflow: auto;
@@ -109,25 +135,31 @@ $border: 1px solid $light-gray;
     color: $trait-val-color;
   }
 
+.l-content {
+  overflow: hidden;
+  margin-top: $head-height + $tabs-height;
+}
 
 @media(min-width: $width-m) {
+  .l-content {
+    margin-top: $head-height + $tabs-m-height;
+  }
+
   .names {
-    height: 60px;  
+    margin-top: 10px;
     padding: 0 $padding-left-m;
 
     & > h1 {
-      font-size: 16px;
-      margin: 12px 0 0 0;
+      font-size: 20px;
     }
 
     & > h2 {
-      font-size: 14px;
-      margin: 5px 0 0 0;
+      font-size: 16px;
     }
   }
 
   .tabs {
-    height: 30px;
+    height: $tabs-m-height;
     padding: 3px $padding-left-m;
     
     & > li {
@@ -150,6 +182,26 @@ $border: 1px solid $light-gray;
     }
   }
 
+}
+
+
+@media(min-width: 1100px) {
+  .l-flex {
+    display: flex;
+  }
+
+  .l-left-col {
+    flex: 0 0 auto; 
+    width: 600px;
+  }
+
+  .hero-before {
+    display: none;
+  }
+
+  .hero-after {
+    display: block; 
+  }
 }
 
 @media (min-width: 1220px) {
