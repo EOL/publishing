@@ -54,8 +54,13 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-a {
+a, .a {
   color: #23699a;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .is-noscroll {

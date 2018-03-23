@@ -845,6 +845,12 @@ en:
         label: "Filter by data type:"
         clear: "clear data type filter"
         placeholder: "choose a data type"
+  terms:
+    attribution_field_html: "<strong>Attribution:</strong> %{attribution}"
+    comment_field_html: "<strong>Comment:</strong> %{comment}"
+    definition_field_html: "<strong>Definition:</strong> %{definition}"
+    show_all_records: "show all records"
+    uri_field_html: "<strong>URI:</strong> %{uri}"
   data_source: "source"
   data_definition: "definition of \"%{data}\""
   data_table:

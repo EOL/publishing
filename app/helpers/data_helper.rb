@@ -47,7 +47,7 @@ module DataHelper
       end
   end
   
-  def show_data_value(data)
+  def data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
     if (target_id = data[:object_page_id])
@@ -77,6 +77,14 @@ module DataHelper
     end
     
     parts.join(" ")
+  end
+
+  def show_data_value(data)
+    value = data_value(data)
+
+    haml_tag_if(data[:object_term], ".a") do 
+      haml_concat value
+    end
   end
 
   def modifier_txt(data)

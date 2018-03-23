@@ -6,13 +6,18 @@
     .trait-thumb
       - show_data_page_icon page
   - predicate = trait[:predicate]
-  .trait-source= show_source_segment(trait)
 
+  .trait-source= show_source_segment(trait)
   .trait-data
     - if show_taxon && page
       = link_to(page.scientific_name.html_safe, page)
-    .trait-pred= link_to(predicate[:name], term_path(:uri => predicate[:uri]))
-    .trait-val= show_data_value(trait)
+    %div
+      .trait-pred.term-info-a.a= predicate[:name]
+      = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
+    .trait-val
+      - show_data_value(trait)
+      - if trait[:object_term]
+        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true }
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
@@ -20,12 +25,13 @@
     %ul.meta-items.js-meta-items
       - trait[:metadata].each do |datum|
         %li.meta-item
-          .meta-pred
-            - if datum[:predicate][:uri]
-              = link_to(datum[:predicate][:name], term_path(:uri => predicate[:uri]))
-            - else
-              = datum[:predicate][:name]
-          .meta-val= show_data_value(datum)
+          %div
+            .meta-pred.a= datum[:predicate][:name]
+            = render :partial => "terms/desc_meta", :locals => { :term => datum[:predicate], :search_link => false }
+          .meta-val
+            - show_data_value(datum)
+            - if datum[:object_term]
+              = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
     %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
   - else
     %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw
