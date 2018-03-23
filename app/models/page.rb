@@ -165,11 +165,7 @@ class Page < ActiveRecord::Base
   end
 
   def count_species
-    return nil unless native_node
-    count = native_node.leaves.
-      where(["rank_id IN (?)", Rank.all_species_ids]).count
-    update_attribute(:species_count, count)
-    count
+    return 0 # TODO. This was possible before, when we used the tree gem, but I got rid of it, so... hard.
   end
 
   def content_types_count

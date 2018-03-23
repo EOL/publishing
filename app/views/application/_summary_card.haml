@@ -9,8 +9,7 @@
   - else
     .search-hier
   .search-title= object.title.html_safe
-  -# NOTE: Attempt at fixing common HTML mistake because searchkick isn't HTML-aware:
-  .search-info= object.content.gsub('<<mark>i>', '<mark><i>').gsub('</i</mark>>', '</i></mark>').html_safe
+  .search-info= object.content.html_safe
   %ul.resource-bubbles
     - object.top_resources.each do |resource|
       %li>= t("search_results.resource_counts.n_#{resource[0]}", :count => resource[1])
