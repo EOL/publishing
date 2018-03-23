@@ -1,4 +1,4 @@
-%li.trait.js-data-row{ :data => { :'show-path' => datum_path(trait[:id]), :id => trait[:id] } }
+%li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }
   - pages = [] unless local_assigns.has_key?(:pages)
   - page_id = trait[:page_id]
 
