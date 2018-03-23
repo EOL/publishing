@@ -47,7 +47,7 @@ module PagesHelper
   end
 
   def nearest_landmark(page)
-    page.ancestors.reverse.find { |node| node.use_breadcrumb? }&.canonical_form
+    page.ancestors.reverse.compact.find { |node| node.use_breadcrumb? }&.canonical_form
   end
 
   def construct_summary(page)
