@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307203738) do
+ActiveRecord::Schema.define(version: 20180323205314) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -45,15 +45,16 @@ ActiveRecord::Schema.define(version: 20180307203738) do
   add_index "articles_collected_pages", ["collected_page_id"], name: "index_articles_collected_pages_on_collected_page_id", using: :btree
 
   create_table "attributions", force: :cascade do |t|
-    t.integer  "content_id",   limit: 4,     null: false
-    t.string   "content_type", limit: 255,   null: false
-    t.integer  "role_id",      limit: 4,     null: false
-    t.text     "value",        limit: 65535, null: false
+    t.integer  "content_id",          limit: 4
+    t.string   "content_type",        limit: 255,   null: false
+    t.integer  "role_id",             limit: 4,     null: false
+    t.text     "value",               limit: 65535, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "url",          limit: 512
-    t.integer  "resource_id",  limit: 4,     null: false
-    t.string   "resource_pk",  limit: 255
+    t.string   "url",                 limit: 512
+    t.integer  "resource_id",         limit: 4,     null: false
+    t.string   "resource_pk",         limit: 255
+    t.string   "content_resource_fk", limit: 255,   null: false
   end
 
   add_index "attributions", ["content_type", "content_id"], name: "index_attributions_on_content_type_and_content_id", using: :btree
