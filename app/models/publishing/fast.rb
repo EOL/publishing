@@ -21,7 +21,7 @@ class Publishing::Fast
       Vernacular => { node_id: Node },
       Article => {}, # Yes, really, nothing; these are managed with PageContent.
       Medium => {}, # Yes, really, nothing; these are managed with PageContent.
-      ImageInfo => { image_id: Medium },
+      ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
   end
