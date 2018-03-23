@@ -34,6 +34,10 @@
             - show_data_value(datum)
             - if datum[:object_term]
               = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
+      - if trait[:source]
+        %li.meta-item
+          .meta-pred= t("terms.source")
+          .meta-val= URI.parse(trait[:source]).kind_of?(URI::HTTP) ? link_to(trait[:source], trait[:source]) : trait[:source]
       - if page
         %li.meta-item
           .meta-pred= t("terms.record_url")
