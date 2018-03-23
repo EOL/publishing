@@ -8,4 +8,9 @@
     - if !term[:attribution].blank?
       %li= t("terms.attribution_field_html", :attribution => term[:attribution]).html_safe
   - if search_link
-    = link_to(t("terms.show_all_records"), term_path(:uri => term[:uri]))
+    - if local_assigns.has_key? :pred_uri
+      -# then term is an object term
+      - path_opts = { :uri => pred_uri, :obj_uri => term[:uri] }
+    - else
+      - path_opts = { :uri => term[:uri] }
+    = link_to(t("terms.show_all_records"), term_path(path_opts))

@@ -50,11 +50,21 @@ class TermsController < ApplicationController
   end
 
   def show
-    @query = TermQuery.new({
-      :filters => [TermQueryFilter.new(
+    filter_options = if params[:obj_uri]
+      {
+        :op => :is_obj,
+        :pred_uri => params[:uri],
+        :obj_uri => params[:obj_uri]
+      }
+    else 
+      {
         :op => :is_any,
         :pred_uri => params[:uri]
-      )]
+      }
+    end
+     
+    @query = TermQuery.new({
+      :filters => [TermQueryFilter.new(filter_options)]
     })
     search_common
   end
@@ -198,23 +208,6 @@ private
   end
 
   def search_setup
-    found_uri = false
-    @predicate_options = [['----', nil]] +
-      TraitBank::Terms.predicate_glossary.collect do |item|
-        found_uri = true if item[:uri] == params[:uri]
-        [item[:name], item[:uri]]
-      end
-    unless found_uri
-      if !params[:uri].blank?
-        term = TraitBank.term_as_hash(params[:uri])
-        @predicate_options << [term[:name], term[:uri]] if term
-      elsif @query
-        @query.pairs.each do |predicate, _|
-          term = TraitBank.term_as_hash(predicate)
-          @predicate_options << [term[:name], term[:uri]] if term
-        end
-      end
-    end
     @result_type = params[:result_type]&.to_sym || :record
   end
 

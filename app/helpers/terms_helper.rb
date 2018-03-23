@@ -31,7 +31,7 @@ module TermsHelper
   end
 
   def pred_name(uri)
-    TraitBank::Terms.name_for_pred_uri uri
+    TraitBank::Terms.name_for_pred_uri(uri) || uri
   end
 
   def obj_name(uri)

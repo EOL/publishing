@@ -19,7 +19,7 @@
     .trait-val
       - show_data_value(trait)
       - if trait[:object_term]
-        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => false }
+        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true, :pred_uri => trait[:predicate][:uri] }
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
