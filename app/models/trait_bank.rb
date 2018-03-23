@@ -169,10 +169,10 @@ class TraitBank
     end
 
     def by_trait(input, page = 1, per = 200)
-      full_id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
-      (_, resource_id, id) = full_id.split("--")
-      q = "MATCH (trait:Trait { resource_pk: '#{id.gsub("'", "''")}' })"\
-          "-[:supplier]->(resource:Resource { resource_id: #{resource_id} }) "\
+      id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
+      q = "MATCH (page:Page)"\
+          "-[:trait]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
+          "-[:supplier]->(resource:Resource) "\
           "MATCH (trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
@@ -180,7 +180,7 @@ class TraitBank
           "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
           "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
           "RETURN resource, trait, predicate, object_term, units, "\
-            "meta, meta_predicate, meta_units_term, meta_object_term "\
+            "meta, meta_predicate, meta_units_term, meta_object_term, page "\
           "ORDER BY LOWER(meta_predicate.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
@@ -652,8 +652,7 @@ class TraitBank
           end
         end
         if has_trait
-          hash[:id] = "trait--#{hash[:resource_id]}--#{hash[:resource_pk]}"
-          hash[:id] += "--#{hash[:page_id]}" if hash[:page_id]
+          hash[:id] = hash[:trait][:eol_pk]
         end
         data << hash
       end
@@ -837,5 +836,5 @@ class TraitBank
       end
     end
   end
-
 end
+

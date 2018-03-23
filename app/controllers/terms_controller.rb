@@ -51,8 +51,9 @@ class TermsController < ApplicationController
 
   def show
     @query = TermQuery.new({
-      :pairs => [TermQueryPair.new(
-        :predicate => params[:uri]
+      :filters => [TermQueryFilter.new(
+        :op => :is_any,
+        :pred_uri => params[:uri]
       )]
     })
     search_common

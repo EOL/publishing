@@ -25,6 +25,25 @@ function bindMetaArrow($row) {
   });
 }
 
+function scrollToRecord() {
+  var hashParams = EOL.parseHashParams();
+  
+  if ('trait_id' in hashParams) {
+    var $row = $('.js-data-row[data-id="' + hashParams.trait_id + '"]')
+      , $nav = $('.l-nav')
+      , $tabs = $('.l-tabs')
+      ;
+
+    if ($row.length) {
+      setTimeout(function() {
+        $(document).scrollTop($row.offset().top - $nav.height() - $tabs.height());
+        $row.find('.js-load-arw').click();
+      }, 1000);
+    }
+  }
+}
+
 $(function() {
   setupMenus();
+  scrollToRecord();
 });

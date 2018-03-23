@@ -1,7 +1,9 @@
-%li.trait.js-data-row{ :data => { :'show-path' => datum_path(trait[:id]) } }
+%li.trait.js-data-row{ :data => { :'show-path' => datum_path(trait[:id]), :id => trait[:id] } }
   - pages = [] unless local_assigns.has_key?(:pages)
   - page_id = trait[:page_id]
-  - page = page_id ? pages[page_id] : nil
+
+  - if !local_assigns.has_key?(:page)
+    - page = page_id ? pages[page_id] : nil
   - if show_taxon && page
     .trait-thumb
       - show_data_page_icon page
@@ -17,7 +19,7 @@
     .trait-val
       - show_data_value(trait)
       - if trait[:object_term]
-        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true }
+        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => false }
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
@@ -32,6 +34,11 @@
             - show_data_value(datum)
             - if datum[:object_term]
               = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
+      - if page
+        %li.meta-item
+          .meta-pred= t("terms.record_url")
+          - url = "#{page_data_url(page)}#trait_id=#{trait[:id]}"
+          .meta-val= link_to url, url
     %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
   - else
     %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw

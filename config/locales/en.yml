@@ -849,6 +849,7 @@ en:
     attribution_field_html: "<strong>Attribution:</strong> %{attribution}"
     comment_field_html: "<strong>Comment:</strong> %{comment}"
     definition_field_html: "<strong>Definition:</strong> %{definition}"
+    record_url: "record URL"
     show_all_records: "show all records"
     uri_field_html: "<strong>URI:</strong> %{uri}"
   data_source: "source"

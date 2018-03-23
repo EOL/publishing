@@ -6,6 +6,24 @@ if(!window.EOL) {
     eolReadyCbs.push(cb);
   }
 
+  EOL.parseHashParams = function() {
+    var hash = window.location.hash,
+        keyValPairs = null,
+        params = {};
+
+    if (hash) {
+      hash = hash.replace('#', '');
+      keyValPairs = hash.split('&');
+
+      $.each(keyValPairs, function(i, pair) {
+        var keyAndVal = pair.split('=');
+        params[keyAndVal[0]] = keyAndVal[1]
+      });
+    }
+
+    return params;
+  }
+
   EOL.enable_search_pagination = function() {
     $("#search_results .uk-pagination a")
     .unbind("click")

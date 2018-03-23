@@ -7,7 +7,7 @@
         - next
       - previous_predicate = nil
       - @page.grouped_data[uri].each do |trait|
-        = render :partial => "terms/data_row", :locals => { :trait => trait, :show_taxon => false }
+        = render :partial => "terms/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
         -#
           %li.trait
             .trait-source= show_source_segment(trait)
