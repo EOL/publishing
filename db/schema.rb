@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326172728) do
+ActiveRecord::Schema.define(version: 20180326175007) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 20180326172728) do
 
   create_table "home_page_feeds", force: :cascade do |t|
     t.string   "name",       limit: 255
-    t.integer  "fields",     limit: 4
+    t.integer  "field_mask", limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end

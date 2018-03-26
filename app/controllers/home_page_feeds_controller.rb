@@ -69,6 +69,6 @@ class HomePageFeedsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def home_page_feed_params
-      params.require(:home_page_feed).permit(:name, :fields)
+      params.require(:home_page_feed).permit(:name, :fields => [])
     end
 end

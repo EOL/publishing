@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :name
-    = f.input :fields
+    = f.input :fields, :as => :check_boxes, :collection => HomePageFeed::FIELDS, :checked => f.object.fields
 
   .form-actions
     = f.button :submit
