@@ -66,6 +66,8 @@ class Publishing::Fast
         log_start('MediaContentCreator')
         MediaContentCreator.by_resource(@resource, @log)
       end
+      log_start('#fix_native_nodes')
+      @resource.fix_native_nodes
       log_start('#propagate_reference_ids')
       propagate_reference_ids
       files.each do |file|

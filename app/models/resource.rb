@@ -159,13 +159,9 @@ class Resource < ActiveRecord::Base
     pages.in_groups_of(10_000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
-    node_ids = Node.where(resource_id: id).pluck(:id)
     nuke(Node)
-    node_ids.in_groups_of(1000, false) do |group|
-      Page.fix_native_nodes(Page.where(native_node_id: group))
-    end
-    # You should Page.fix_native_nodes now, but that can be slow, so it's the responsibility of the caller to do it if
-    # desired.
+    # You should run something like #fix_native_nodes (q.v.), but it's slow, so it's the responsibility of the caller to
+    # do it if desired.
   end
 
   def nuke(klass)
@@ -174,6 +170,13 @@ class Resource < ActiveRecord::Base
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue nil # I really don't care THAT much... sheesh!
+  end
+
+  def fix_native_nodes
+    node_ids = Node.where(resource_id: id).pluck(:id)
+    node_ids.in_groups_of(1000, false) do |group|
+      Page.fix_native_nodes(Page.where(native_node_id: group))
+    end
   end
 
   # This is kinda cool... and faster than fix_counter_culture_counts
@@ -187,7 +190,7 @@ class Resource < ActiveRecord::Base
                  .where(content_type: type, resource_id: id)
                  .where('media.id IS NULL')
     page_counts = {}
-    contents.select('id, page_id').find_in_batches(batch_size: 10_000) do |batch|
+    contents.select('page_contents.id, page_contents.page_id').find_in_batches(batch_size: 10_000) do |batch|
       batch.map(&:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
     end
     by_count = {}
