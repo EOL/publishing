@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307203738) do
+ActiveRecord::Schema.define(version: 20180326171714) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -222,6 +222,13 @@ ActiveRecord::Schema.define(version: 20180307203738) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "home_page_feeds", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "fields",     limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "identifiers", force: :cascade do |t|
     t.integer "resource_id",      limit: 4,   null: false
@@ -897,5 +904,4 @@ ActiveRecord::Schema.define(version: 20180307203738) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end
