@@ -1,0 +1,29 @@
+%h1 Listing home_page_feed_items
+
+%table
+  %thead
+    %tr
+      %th Img url
+      %th Link url
+      %th Label
+      %th Desc
+      %th Home page feed
+      %th
+      %th
+      %th
+
+  %tbody
+    - @home_page_feed_items.each do |home_page_feed_item|
+      %tr
+        %td= home_page_feed_item.img_url
+        %td= home_page_feed_item.link_url
+        %td= home_page_feed_item.label
+        %td= home_page_feed_item.desc
+        %td= home_page_feed_item.home_page_feed_id
+        %td= link_to 'Show', home_page_feed_item
+        %td= link_to 'Edit', edit_home_page_feed_item_path(home_page_feed_item)
+        %td= link_to 'Destroy', home_page_feed_item, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Home page feed item', new_home_page_feed_item_path

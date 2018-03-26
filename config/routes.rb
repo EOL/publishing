@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :home_page_feed_items
   resources :home_page_feeds
   get 'errors/not_found'
 

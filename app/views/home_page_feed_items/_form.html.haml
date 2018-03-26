@@ -1,0 +1,12 @@
+= simple_form_for(@home_page_feed_item) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :img_url
+    = f.input :link_url
+    = f.input :label
+    = f.input :desc
+    = f.input :home_page_feed_id
+
+  .form-actions
+    = f.button :submit
