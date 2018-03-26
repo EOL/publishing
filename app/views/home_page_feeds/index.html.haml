@@ -1,0 +1,23 @@
+%h1 Listing home_page_feeds
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Fields
+      %th
+      %th
+      %th
+
+  %tbody
+    - @home_page_feeds.each do |home_page_feed|
+      %tr
+        %td= home_page_feed.name
+        %td= home_page_feed.fields
+        %td= link_to 'Show', home_page_feed
+        %td= link_to 'Edit', edit_home_page_feed_path(home_page_feed)
+        %td= link_to 'Destroy', home_page_feed, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Home page feed', new_home_page_feed_path

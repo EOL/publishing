@@ -1,0 +1,9 @@
+= simple_form_for(@home_page_feed) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name
+    = f.input :fields
+
+  .form-actions
+    = f.button :submit

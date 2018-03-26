@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @home_page_feed.name
+%p
+  %b Fields:
+  = @home_page_feed.fields
+
+= link_to 'Edit', edit_home_page_feed_path(@home_page_feed)
+\|
+= link_to 'Back', home_page_feeds_path
