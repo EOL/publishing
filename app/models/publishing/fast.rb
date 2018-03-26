@@ -19,8 +19,10 @@ class Publishing::Fast
       ScientificName => { node_id: Node },
       NodeAncestor => { node_id: Node, ancestor_id: Node },
       Vernacular => { node_id: Node },
-      Article => {}, # Yes, really, nothing; these are managed with PageContent.
-      Medium => {}, # Yes, really, nothing; these are managed with PageContent.
+      # Yes, really, there is no ling to nodes or pages on Article or Medium; these are managed with PageContent.
+      Article => {},
+      Medium => {},
+      Attribution => { content_id: [Medium, Article] }, # Polymorphic implied with array.
       ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
@@ -130,13 +132,15 @@ class Publishing::Fast
   end
 
   def propagate_ids
-    @relationships[@klass].each do |field, source|
-      next unless source
-      # This is a little weird, so I'll explain. CURRENTLY, "field" is populated with the IDs FROM THE HARVEST DB. So
-      # this code is joining the two tables via that harv_db_id, then re-setting the field with the REAL id (from THIS
-      # DB).
-      @klass.propagate_id(fk: field, other: "#{source.table_name}.harv_db_id",
-                          set: field, with: 'id', resource_id: @resource.id)
+    @relationships[@klass].each do |field, sources|
+      next unless sources
+      Array(sources).each do |source| # Array implies polymorphic relationship
+        # This is a little weird, so I'll explain. CURRENTLY, "field" is populated with the IDs FROM THE HARVEST DB. So
+        # this code is joining the two tables via that harv_db_id, then re-setting the field with the REAL id (from THIS
+        # DB).
+        @klass.propagate_id(fk: field, other: "#{source.table_name}.harv_db_id",
+                            set: field, with: 'id', resource_id: @resource.id)
+      end
 
     end
   end
