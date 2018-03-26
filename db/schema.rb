@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323205314) do
+ActiveRecord::Schema.define(version: 20180326221314) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20180323205314) do
   end
 
   add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
+  add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
+  add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
   create_table "articles_collected_pages", id: false, force: :cascade do |t|
     t.integer "collected_page_id", limit: 4, null: false
@@ -57,7 +59,9 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.string   "content_resource_fk", limit: 255,   null: false
   end
 
+  add_index "attributions", ["content_id"], name: "index_attributions_on_content_id", using: :btree
   add_index "attributions", ["content_type", "content_id"], name: "index_attributions_on_content_type_and_content_id", using: :btree
+  add_index "attributions", ["resource_id"], name: "index_attributions_on_resource_id", using: :btree
 
   create_table "bibliographic_citations", force: :cascade do |t|
     t.integer  "resource_id", limit: 4,     null: false
@@ -252,7 +256,9 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.integer  "harv_db_id",    limit: 4
   end
 
+  add_index "image_info", ["harv_db_id"], name: "index_image_info_on_harv_db_id", using: :btree
   add_index "image_info", ["medium_id"], name: "index_image_info_on_medium_id", using: :btree
+  add_index "image_info", ["resource_id"], name: "index_image_info_on_resource_id", using: :btree
   add_index "image_info", ["resource_pk"], name: "index_image_info_on_resource_pk", using: :btree
 
   create_table "import_events", force: :cascade do |t|
@@ -355,6 +361,8 @@ ActiveRecord::Schema.define(version: 20180323205314) do
   end
 
   add_index "media", ["guid"], name: "index_media_on_guid", using: :btree
+  add_index "media", ["harv_db_id"], name: "index_media_on_harv_db_id", using: :btree
+  add_index "media", ["resource_id"], name: "index_media_on_resource_id", using: :btree
   add_index "media", ["resource_pk"], name: "index_media_on_resource_pk", using: :btree
   add_index "media", ["subclass"], name: "index_media_on_subclass", using: :btree
 
@@ -370,8 +378,10 @@ ActiveRecord::Schema.define(version: 20180323205314) do
 
   add_index "node_ancestors", ["ancestor_id"], name: "index_node_ancestors_on_ancestor_id", using: :btree
   add_index "node_ancestors", ["ancestor_resource_pk"], name: "index_node_ancestors_on_ancestor_resource_pk", using: :btree
+  add_index "node_ancestors", ["harv_db_id"], name: "index_node_ancestors_on_harv_db_id", using: :btree
   add_index "node_ancestors", ["node_id"], name: "index_node_ancestors_on_node_id", using: :btree
   add_index "node_ancestors", ["node_resource_pk"], name: "index_node_ancestors_on_node_resource_pk", using: :btree
+  add_index "node_ancestors", ["resource_id"], name: "index_node_ancestors_on_resource_id", using: :btree
 
   create_table "nodes", force: :cascade do |t|
     t.integer  "resource_id",        limit: 4,                    null: false
@@ -526,7 +536,9 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.integer "id",          limit: 4,                       null: false
   end
 
+  add_index "references", ["parent_id"], name: "index_references_on_parent_id", using: :btree
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
+  add_index "references", ["resource_id"], name: "index_references_on_resource_id", using: :btree
 
   create_table "referents", force: :cascade do |t|
     t.text     "body",        limit: 65535
@@ -535,6 +547,9 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.integer  "resource_id", limit: 4,     null: false
     t.integer  "harv_db_id",  limit: 4
   end
+
+  add_index "referents", ["harv_db_id"], name: "index_referents_on_harv_db_id", using: :btree
+  add_index "referents", ["resource_id"], name: "index_referents_on_resource_id", using: :btree
 
   create_table "refinery_image_translations", force: :cascade do |t|
     t.integer  "refinery_image_id", limit: 4,   null: false
@@ -706,8 +721,10 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.integer  "harv_db_id",            limit: 4
   end
 
+  add_index "scientific_names", ["harv_db_id"], name: "index_scientific_names_on_harv_db_id", using: :btree
   add_index "scientific_names", ["node_id"], name: "index_scientific_names_on_node_id", using: :btree
   add_index "scientific_names", ["page_id"], name: "index_scientific_names_on_page_id", using: :btree
+  add_index "scientific_names", ["resource_id"], name: "index_scientific_names_on_resource_id", using: :btree
 
   create_table "search_suggestions", force: :cascade do |t|
     t.integer "page_id",       limit: 4
@@ -889,9 +906,11 @@ ActiveRecord::Schema.define(version: 20180323205314) do
     t.integer  "harv_db_id",               limit: 4
   end
 
+  add_index "vernaculars", ["harv_db_id"], name: "index_vernaculars_on_harv_db_id", using: :btree
   add_index "vernaculars", ["node_id"], name: "index_vernaculars_on_node_id", using: :btree
   add_index "vernaculars", ["page_id", "language_id"], name: "preferred_names_index", using: :btree
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
+  add_index "vernaculars", ["resource_id"], name: "index_vernaculars_on_resource_id", using: :btree
 
   create_table "warnings", force: :cascade do |t|
     t.integer "resource_id", limit: 4,   null: false
