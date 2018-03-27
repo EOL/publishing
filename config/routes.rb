@@ -66,9 +66,9 @@ Rails.application.routes.draw do
     resources :nodes, only: [:index]
   end
   resources :search_suggestions
-  resources :home_page_feeds do 
+  resources :home_page_feeds, :only => [:index, :new, :create, :destroy] do 
     post "publish" => "home_page_feeds#publish", :as => "publish"
-    resources :home_page_feed_items, :as => "items"
+    resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
 
   # This isn't really a model, so we'll go oldschool:

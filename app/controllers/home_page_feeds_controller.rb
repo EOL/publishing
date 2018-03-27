@@ -8,29 +8,9 @@ class HomePageFeedsController < ApplicationController
     @home_page_feeds = HomePageFeed.all
   end
 
-  # GET /home_page_feeds/1
-  # GET /home_page_feeds/1.json
-  def show
-  end
-
   # GET /home_page_feeds/new
   def new
     @home_page_feed = HomePageFeed.new
-  end
-
-  # GET /home_page_feeds/1/edit
-  def edit
-  end
-
-  # GET /home_page_feeds/1/home_page_feed_items/edit
-  def edit_items
-    @home_page_feed.home_page_feed_items.build
-    @home_page_feed.assign_attributes(home_page_feed_params)
-  end
-
-  def edit_items_form
-    @home_page_feed.home_page_feed_items.build if params[:add_item]
-    render "edit_items_form", :layout => false
   end
 
   # POST /home_page_feeds
@@ -44,26 +24,6 @@ class HomePageFeedsController < ApplicationController
         format.json { render :show, status: :created, location: @home_page_feed }
       else
         format.html { render :new }
-        format.json { render json: @home_page_feed.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /home_page_feeds/1
-  # PATCH/PUT /home_page_feeds/1.json
-  def update
-    respond_to do |format|
-      if @home_page_feed.update(home_page_feed_params)
-        format.html { redirect_to @home_page_feed, notice: 'Home page feed was successfully updated.' }
-        format.json { render :show, status: :ok, location: @home_page_feed }
-      else
-        format.html do 
-          if params[:home_page_feed][:home_page_feed_items_attributes]
-            render :edit_items
-          else
-            render :edit
-          end
-        end
         format.json { render json: @home_page_feed.errors, status: :unprocessable_entity }
       end
     end

@@ -3,23 +3,17 @@ class HomePageFeedItemsController < ApplicationController
   before_action :set_home_page_feed
   before_action :set_home_page_feed_item, only: [:show, :edit, :update, :destroy]
 
-  # GET /home_page_feed_items
-  # GET /home_page_feed_items.json
+  # GET /home_page_feeds/1/home_page_feed_items
   def index
     @home_page_feed_items = HomePageFeedItem.where(:home_page_feed => @home_page_feed)
   end
 
-  # GET /home_page_feed_items/1
-  # GET /home_page_feed_items/1.json
-  def show
-  end
-
-  # GET /home_page_feed_items/new
+  # GET /home_page_feeds/1/home_page_feed_items/new
   def new
     @home_page_feed_item = HomePageFeedItem.new(:home_page_feed => @home_page_feed)
   end
 
-  # GET /home_page_feed_items/1/edit
+  # GET /home_page_feeds/1/home_page_feed_items/1/edit
   def edit
   end
 
@@ -38,8 +32,7 @@ class HomePageFeedItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /home_page_feed_items/1
-  # PATCH/PUT /home_page_feed_items/1.json
+  # PATCH/PUT /home_page_feeds/1/home_page_feed_items/1
   def update
     respond_to do |format|
       if @home_page_feed_item.update(home_page_feed_item_params)
@@ -64,13 +57,11 @@ class HomePageFeedItemsController < ApplicationController
       @home_page_feed = HomePageFeed.find(params[:home_page_feed_id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_home_page_feed_item
       @home_page_feed_item = HomePageFeedItem.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def home_page_feed_item_params
-      params.require(:home_page_feed_item).permit(:img_url, :link_url, :label, :desc, :home_page_feed_id)
+      params.require(:home_page_feed_item).permit(:img_url, :link_url, :label, :desc)
     end
 end
