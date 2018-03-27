@@ -33,6 +33,10 @@ class Medium < ActiveRecord::Base
   #   end
   # end
 
+  def source_pages
+    page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
+  end
+
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
     orig = Rails.configuration.x.image_path['original']

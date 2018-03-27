@@ -6,11 +6,11 @@ class AddIndexesOnResourceIdToPublishableTables < ActiveRecord::Migration
     add_index :media, :resource_id
     add_index :media, :harv_db_id
     add_index :attributions, :resource_id
-    add_index :attributions, :content_id
+    # add_index :attributions, :content_id # NOTE: I removed these because I wasn't convinced they actually helped.
     add_index :image_info, :resource_id
     add_index :image_info, :harv_db_id
     add_index :references, :resource_id
-    add_index :references, :parent_id
+    # add_index :references, :parent_id # NOTE: I removed these because I wasn't convinced they actually helped.
     add_index :vernaculars, :resource_id
     add_index :vernaculars, :harv_db_id
     add_index :node_ancestors, :resource_id
