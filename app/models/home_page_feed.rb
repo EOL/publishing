@@ -2,7 +2,7 @@ class HomePageFeed < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validate :validate_field_mask
 
-  has_many :items, :class_name => "HomePageFeedItems", :inverse_of => :home_page_feed
+  has_many :items, :dependent => :destroy, :class_name => "HomePageFeedItem", :inverse_of => :home_page_feed
   accepts_nested_attributes_for :items
   validates_associated :items
 
@@ -20,12 +20,34 @@ class HomePageFeed < ActiveRecord::Base
   end
 
   def has_field?(field)
-    !((self.field_mask || 0) & 2**FIELDS.index(field.to_sym)).zero?
+    !((field_mask || 0) & 2**FIELDS.index(field.to_sym)).zero?
+  end
+
+  def draft_version
+    published_version + 1
+  end
+
+  def published_items
+    items.where(:feed_version => published_version)
+  end
+
+  def draft_items
+    items.where(:feed_version => draft_version)
+  end
+
+  def publish!
+    self.published_version = draft_version
+    items << published_items.reload.map do |item|
+      new_item = item.dup
+      new_item.feed_version = draft_version
+      new_item
+    end
+    save!
   end
 
   private
   def validate_field_mask
-    if !self.field_mask || self.field_mask == 0
+    if !field_mask || field_mask == 0
       errors.add(:fields, "must pick at least one")
     end
   end

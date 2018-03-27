@@ -1,4 +1,4 @@
-%h1 Listing home_page_feeds
+%h1 All feeds
 
 %table
   %thead
@@ -14,11 +14,9 @@
       %tr
         %td= home_page_feed.name
         %td= home_page_feed.fields
-        %td= link_to 'Show', home_page_feed
-        %td= link_to 'Edit', edit_home_page_feed_path(home_page_feed)
-        %td= link_to 'Edit items', home_page_feed_edit_items_path(home_page_feed)
+        %td= link_to 'Items', home_page_feed_items_path(home_page_feed)
         %td= link_to 'Destroy', home_page_feed, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
 
-= link_to 'New Home page feed', new_home_page_feed_path
+= link_to 'New feed', new_home_page_feed_path

@@ -1,5 +1,6 @@
 class HomePageFeedsController < ApplicationController
-  before_action :set_home_page_feed, only: [:show, :edit, :edit_items, :edit_items_form, :update, :destroy]
+  before_action :require_admin
+  before_action :set_home_page_feed, only: [:show, :edit, :edit_items, :edit_items_form, :update, :destroy, :publish]
 
   # GET /home_page_feeds
   # GET /home_page_feeds.json
@@ -39,7 +40,7 @@ class HomePageFeedsController < ApplicationController
 
     respond_to do |format|
       if @home_page_feed.save
-        format.html { redirect_to @home_page_feed, notice: 'Home page feed was successfully created.' }
+        format.html { redirect_to home_page_feeds_path, notice: 'Home page feed was successfully created.' }
         format.json { render :show, status: :created, location: @home_page_feed }
       else
         format.html { render :new }
@@ -76,6 +77,12 @@ class HomePageFeedsController < ApplicationController
       format.html { redirect_to home_page_feeds_url, notice: 'Home page feed was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /home_page_feeds/1/publish
+  def publish
+    @home_page_feed.publish!
+    redirect_to home_page_feed_items_url(@home_page_feed)
   end
 
   private

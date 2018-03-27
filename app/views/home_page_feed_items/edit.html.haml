@@ -2,6 +2,6 @@
 
 = render 'form'
 
-= link_to 'Show', @home_page_feed_item
+= link_to 'Show', home_page_feed_item_path(@home_page_feed, @home_page_feed_item)
 \|
-= link_to 'Back', home_page_feed_items_path
+= link_to 'Back', home_page_feed_items_path(@home_page_feed)

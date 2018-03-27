@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   end
   resources :search_suggestions
   resources :home_page_feeds do 
+    post "publish" => "home_page_feeds#publish", :as => "publish"
     resources :home_page_feed_items, :as => "items"
   end
 
