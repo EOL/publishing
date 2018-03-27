@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326175007) do
+ActiveRecord::Schema.define(version: 20180327164310) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -231,15 +231,18 @@ ActiveRecord::Schema.define(version: 20180326175007) do
     t.integer  "home_page_feed_id", limit: 4
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.integer  "feed_version",      limit: 4
   end
 
+  add_index "home_page_feed_items", ["feed_version"], name: "index_home_page_feed_items_on_feed_version", using: :btree
   add_index "home_page_feed_items", ["home_page_feed_id"], name: "index_home_page_feed_items_on_home_page_feed_id", using: :btree
 
   create_table "home_page_feeds", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "field_mask", limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",              limit: 255
+    t.integer  "field_mask",        limit: 4
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "published_version", limit: 4,   default: 0
   end
 
   create_table "identifiers", force: :cascade do |t|
