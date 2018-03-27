@@ -16,6 +16,7 @@
         %td= home_page_feed.fields
         %td= link_to 'Show', home_page_feed
         %td= link_to 'Edit', edit_home_page_feed_path(home_page_feed)
+        %td= link_to 'Edit items', home_page_feed_edit_items_path(home_page_feed)
         %td= link_to 'Destroy', home_page_feed, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br

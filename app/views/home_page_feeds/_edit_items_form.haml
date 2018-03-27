@@ -1,0 +1,31 @@
+- @home_page_feed.home_page_feed_items.each do |item|
+  .item-preview.uk-width-1-2
+    - if ff.object.img_url
+      %img.preview-thumb{:src => ff.object.img_url}
+    - if ff.object.link_url
+      %div
+        %strong Link: 
+        %a{:href => ff.object.link_url}= ff.object.link_url
+    - if ff.object.label
+      %div 
+        %strong Label:
+        = ff.object.label
+    - if ff.object.desc
+      %div
+        %strong Description:
+        = ff.object.desc
+
+-#
+  = simple_form_for(@home_page_feed) do |f|
+    = f.error_notification
+    = f.simple_fields_for :home_page_feed_items, :class => "js-form" do |ff|
+      .uk-grid-large{ :'uk-grid' => true }
+        .form-inputs.uk-margin.uk-width-1-2
+          - f.object.fields.each do |field|
+            = ff.input field, :input_html => { :class => "uk-input" }, :label_html => { :class => "uk-form-label" }
+
+    .form-actions.uk-margin
+      = f.button :submit, "Add item", :class => "uk-button uk-button-secondary js-add-item"
+
+    .form-actions.uk-margin
+      = f.button :submit, :class => "uk-button uk-button-primary"

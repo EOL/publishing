@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :home_page_feed_items
-  resources :home_page_feeds
   get 'errors/not_found'
 
   get 'errors/internal_server_error'
@@ -68,6 +66,9 @@ Rails.application.routes.draw do
     resources :nodes, only: [:index]
   end
   resources :search_suggestions
+  resources :home_page_feeds do 
+    resources :home_page_feed_items, :as => "items"
+  end
 
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"

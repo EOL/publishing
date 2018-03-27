@@ -1,9 +1,13 @@
 class HomePageFeed < ActiveRecord::Base
-  validates_presence_of :name
+  validates :name, :presence => true, :uniqueness => true
   validate :validate_field_mask
 
+  has_many :items, :class_name => "HomePageFeedItems", :inverse_of => :home_page_feed
+  accepts_nested_attributes_for :items
+  validates_associated :items
+
   # XXX: don't ever change the order of these. Append only.
-  FIELDS = [:img_url, :field_url, :label, :desc]
+  FIELDS = [:img_url, :link_url, :label, :desc]
 
   def fields=(fields)
     self.field_mask = fields.reject{ |f| f.blank? }.map { |f| 2**FIELDS.index(f.to_sym) }.inject(0, :+)

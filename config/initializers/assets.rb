@@ -14,6 +14,6 @@ Rails.application.config.assets.precompile += %w( refinery/ckeditor.css )
 Rails.application.config.assets.precompile += %w( ckeditor/ckeditor.js )
 
 # controller-specific assets
-%w( search pages terms ).each do |controller|
+%w( search pages terms home_page_feeds ).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end

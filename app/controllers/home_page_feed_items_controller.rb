@@ -1,10 +1,11 @@
 class HomePageFeedItemsController < ApplicationController
+  before_action :set_home_page_feed
   before_action :set_home_page_feed_item, only: [:show, :edit, :update, :destroy]
 
   # GET /home_page_feed_items
   # GET /home_page_feed_items.json
   def index
-    @home_page_feed_items = HomePageFeedItem.all
+    @home_page_feed_items = HomePageFeedItem.where(:home_page_feed => @home_page_feed)
   end
 
   # GET /home_page_feed_items/1
@@ -14,7 +15,7 @@ class HomePageFeedItemsController < ApplicationController
 
   # GET /home_page_feed_items/new
   def new
-    @home_page_feed_item = HomePageFeedItem.new
+    @home_page_feed_item = HomePageFeedItem.new(:home_page_feed => @home_page_feed)
   end
 
   # GET /home_page_feed_items/1/edit
@@ -25,10 +26,11 @@ class HomePageFeedItemsController < ApplicationController
   # POST /home_page_feed_items.json
   def create
     @home_page_feed_item = HomePageFeedItem.new(home_page_feed_item_params)
+    @home_page_feed_item.home_page_feed = @home_page_feed
 
     respond_to do |format|
       if @home_page_feed_item.save
-        format.html { redirect_to @home_page_feed_item, notice: 'Home page feed item was successfully created.' }
+        format.html { redirect_to home_page_feed_item_path(@home_page_feed, @home_page_feed_item), notice: 'Home page feed item was successfully created.' }
         format.json { render :show, status: :created, location: @home_page_feed_item }
       else
         format.html { render :new }
@@ -62,6 +64,10 @@ class HomePageFeedItemsController < ApplicationController
   end
 
   private
+    def set_home_page_feed
+      @home_page_feed = HomePageFeed.find(params[:home_page_feed_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_home_page_feed_item
       @home_page_feed_item = HomePageFeedItem.find(params[:id])
