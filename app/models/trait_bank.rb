@@ -756,9 +756,8 @@ class TraitBank
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       if existing_term
         options.delete(:uri) # We already have this.
-        options = remove_nils(options) # Cypher is alergic to nils.
         begin
-          connection.set_node_properties(existing_term, options)
+          connection.set_node_properties(existing_term, remove_nils(options)) # Cypher is alergic to nils.
         # What I saw was a Neography::PropertyValueException: "null value not supported" ...but I want to catch
         # everything
         rescue => e
@@ -789,6 +788,7 @@ class TraitBank
       hash.each { |key, val| bad_keys << key if val.nil? }
       # NOTE: removing the key entirely would just skip updating it; we want the value to be empty.
       bad_keys.each { |key| hash[key] = "" }
+      hash
     end
 
     def child_has_parent(curi, puri)
