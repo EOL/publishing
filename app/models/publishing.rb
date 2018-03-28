@@ -103,7 +103,7 @@ class Publishing
     terms = if @skip_known_terms
               get_existing_terms # TODO: we don't need to do this unless there are old terms we want to skip.
             else
-              []
+              {}
             end
     knew = 0
     new_terms = 0
