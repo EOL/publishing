@@ -69,6 +69,15 @@ class TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
+      # NOTE: this code is unused, but please don't delete it; we use it manually.
+      def delete_terms_in_domain(domain)
+        before = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
+        query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' DETACH DELETE term")
+        after = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
+        raise "Not all were deleted (before: #{before}, after: #{after})" if after.positive?
+        before
+      end
+
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
       # between pages, and then rebuild them based on what's currently in the
       # database. It skips relationships to pages that are missing (but reports on
