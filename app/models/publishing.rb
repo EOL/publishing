@@ -3,18 +3,19 @@ class Publishing
     :names, :verns, :traits, :traitbank_pages, :traitbank_suppliers, :traitbank_terms, :tax_stats,
     :languages, :licenses
 
-  def self.sync
-    instance = self.new
+  def self.sync(options = {})
+    instance = self.new(options)
     instance.sync
   end
 
-  def initialize
+  def initialize(options)
     @resource = nil
     @pub_log = Publishing::PubLog.new(nil)
     @log = nil
     @repo = nil
     @resources = []
     @page_ids = Set.new
+    @skip_known_terms = options.key?(:skip_known_terms) ? options[:skip_known_terms] : false
     @since = (@resource&.import_logs&.successful&.any? ?
       @resource.import_logs.successful.last.created_at :
       10.years.ago).to_i
@@ -99,7 +100,11 @@ class Publishing
   # TODO: move this to a CSV import. So much faster...
   def import_terms
     @pub_log.log("Importing terms...")
-    terms = get_existing_terms # TODO: we don't need to do this unless there are new terms.
+    terms = if @skip_known_terms
+              get_existing_terms # TODO: we don't need to do this unless there are old terms we want to skip.
+            else
+              []
+            end
     knew = 0
     new_terms = 0
     skipped = 0
@@ -107,7 +112,7 @@ class Publishing
     repo = Publishing::Repository.new(log: @pub_log, since: @last_run_at)
     repo.loop_over_pages(path, "terms") do |term|
       knew += 1 if terms.key?(term[:uri])
-      next if terms.key?(term[:uri])
+      next if @skip_known_terms && terms.key?(term[:uri])
       if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
         skipped += 1
         next

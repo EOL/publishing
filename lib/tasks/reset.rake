@@ -13,7 +13,7 @@ namespace :reset do
 
     desc 'rebuild the database, sync with harvester.'
     task sync: :empty do
-      Publishing.sync
+      Publishing.sync(skip_known_terms: true)
       Rails.cache.clear
     end
   end
@@ -23,7 +23,7 @@ namespace :reset do
     Rake::Task['log:clear'].invoke
     Rake::Task['db:reset'].invoke
     Rake::Task['searchkick:reindex:all'].invoke
-    Publishing.sync
+    Publishing.sync(skip_known_terms: true)
     Rails.cache.clear
   end
 end
