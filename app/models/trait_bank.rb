@@ -629,7 +629,7 @@ class TraitBank
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
-        
+
         # TODO: extract method
         if hash.has_key?(:meta)
           raise "Metadata not returned as an array" unless hash[:meta].is_a?(Array)
@@ -756,9 +756,12 @@ class TraitBank
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       if existing_term
         options.delete(:uri) # We already have this.
+        options = remove_nils(options) # Cypher is alergic to nils.
         begin
           connection.set_node_properties(existing_term, options)
-        rescue => e # What I saw was a Neography::PropertyValueException ...but I want to catch everything
+        # What I saw was a Neography::PropertyValueException: "null value not supported" ...but I want to catch
+        # everything
+        rescue => e
           puts "ERROR: failed to update term #{options[:uri]}"
           puts "EXISTING: #{existing_term.inspect}"
           puts "DESIRED: #{options.inspect}"
@@ -779,6 +782,13 @@ class TraitBank
         raise e
       end
       term_node
+    end
+
+    def remove_nils(hash)
+      bad_keys = [] # Never modify a hash as you iterate over it.
+      hash.each { |key, val| bad_keys << key if val.nil? }
+      # NOTE: removing the key entirely would just skip updating it; we want the value to be empty.
+      bad_keys.each { |key| hash[key] = "" }
     end
 
     def child_has_parent(curi, puri)
@@ -837,4 +847,3 @@ class TraitBank
     end
   end
 end
-
