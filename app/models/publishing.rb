@@ -121,30 +121,11 @@ class Publishing
       new_terms += 1
       # TODO: section_ids
       term[:type] = term[:used_for]
+      # TODO: really, we should write these to CSV (or get CSV from the server) and import them like other traits.
+      # That's a lot of work, though, so I'm skipping it for now. The cost is that it is REALLY SLOW, esp. when there's
+      # more than a few dozen terms to import:
       TraitBank.create_term(term.merge(force: true))
     end
     @pub_log.log("Finished importing terms: #{new_terms} new, #{knew} known, #{skipped} skipped.")
-  end
-
-  # The following method can be removed when terms are capable of CSV import:
-  def add_term(uri)
-    return(nil) if uri.blank?
-    term =
-      begin
-        TraitBank.create_term(
-          uri: uri,
-          is_hidden_from_overview: true,
-          is_hidden_from_glossary: true,
-          name: uri,
-          section_ids: [],
-          definition: "auto-created, was empty",
-          comment: "",
-          attribution: ""
-        )
-      rescue Neography::PropertyValueException => e
-        @log.log("** WARNING: Failed to set property on term... #{e.message}")
-        @log.log('** This seems to occur with some bad trait data (passing in hashes instead of strings)')
-      end
-    @traitbank_terms[uri] = term
   end
 end
