@@ -19,9 +19,9 @@ module DataHelper
     show_definition(data[:predicate]) if data[:predicate]
     show_definition(data[:object_term]) if data[:object_term]
     show_definition(data[:units]) if data[:units]
-    show_modifier(:sex, data[:sex]) if data[:sex]
-    show_modifier(:lifestage, data[:lifestage]) if data[:lifestage]
-    show_modifier(:statistical_method, data[:statistical_method]) if data[:statistical_method]
+    show_modifier(:sex_term, data[:sex_term]) if data[:sex_term]
+    show_modifier(:lifestage_term, data[:lifestage_term]) if data[:lifestage_term]
+    show_modifier(:statistical_method_term, data[:statistical_method_term]) if data[:statistical_method_term]
     show_source(data[:source]) if data[:source]
   end
 
@@ -46,7 +46,7 @@ module DataHelper
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
       end
   end
-  
+
   def data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
@@ -54,7 +54,7 @@ module DataHelper
       if defined?(@associations)
         target = @associations.find { |a| a.id == target_id }
         if target.nil?
-          # TODO: log something? 
+          # TODO: log something?
         else
           parts << name_for_page(target)
         end
@@ -75,20 +75,20 @@ module DataHelper
       parts << "CORRUPTED VALUE:"
       parts <<  value
     end
-    
+
     parts.join(" ")
   end
 
   def show_data_value(data)
     value = data_value(data)
 
-    haml_tag_if(data[:object_term], ".a") do 
+    haml_tag_if(data[:object_term], ".a") do
       haml_concat value
     end
   end
 
   def modifier_txt(data)
-    modifiers = [ data[:sex], data[:lifestage], data[:statistical_method] ].reject { |x| x.nil? }
+    modifiers = [ data[:sex_term], data[:lifestage_term], data[:statistical_method_term] ].reject { |x| x.nil? }
 
     if modifiers.any?
       separated_list(modifiers)
@@ -152,13 +152,8 @@ module DataHelper
   end
 
   def show_data_modifiers(data)
-    [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
-      # TEMP - this should really be expressed with a relationship.
-      if type =~ URI::ABS_URI
-        name = TraitBank.term(type)['data']['name'] rescue nil
-        type = name unless name.blank?
-      end
-      haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
+    [data[:statistical_method_term], data[:sex_term], data[:lifestage_term]].compact.each do |type|
+      haml_tag(:div, type[:name], class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
   end
 end

@@ -170,9 +170,9 @@ en:
   content_not_in_any_collection: "This media is not featured in any collections."
   data:
     modifier:
-      sex: "Sex of the organism measured"
-      lifestage: "Lifestage of the organism measured"
-      statistical_method: "Statistical method used for measurement"
+      sex_term: "Sex of the organism measured"
+      lifestage_term: "Lifestage of the organism measured"
+      statistical_method_term: "Statistical method used for measurement"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"

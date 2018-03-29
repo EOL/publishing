@@ -17,18 +17,18 @@ class TraitBank
   # is reall in the MySQL DB and thus just the ID is enough.
 
   # The Labels, and their expected relationships { and (*required) properties }:
+
   # * Resource: { *resource_id }
   # * Page: ancestor(Page)[NOTE: unused as of Nov2017], parent(Page), trait(Trait) { *page_id }
   # * Trait: *predicate(Term), *supplier(Resource), metadata(MetaData), object_term(Term), units_term(Term),
-  #          normal_units_term(Term)
-  #     { *eol_pk, *resource_pk, *scientific_name, statistical_method, sex, lifestage, source, measurement,
-  #       object_page_id, literal, normal_measurement }
+  #          normal_units_term(Term), sex_term(Term), lifestage_term(Term), statistical_method_term(Term),
+  #     { *eol_pk, *resource_pk, *scientific_name, source, measurement, object_page_id, literal, normal_measurement }
   # * MetaData: *predicate(Term), object_term(Term), units_term(Term)
   #     { *eol_pk, measurement, literal }
   # * Term: parent_term(Term) { *uri, *name, *section_ids(csv), definition, comment,
   #     attribution, is_hidden_from_overview, is_hidden_from_glossary, position,
   #     type }
-  #
+
   # NOTE: the "type" for Term is one of "measurement", "association", "value",
   #   or "metadata" ... at the time of this writing.
 
@@ -175,11 +175,14 @@ class TraitBank
           "-[:supplier]->(resource:Resource) "\
           "MATCH (trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
           "OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
           "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
           "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-          "RETURN resource, trait, predicate, object_term, units, "\
+          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, "\
             "meta, meta_predicate, meta_units_term, meta_object_term, page "\
           "ORDER BY LOWER(meta_predicate.name)"
       q += limit_and_skip_clause(page, per)
@@ -192,8 +195,11 @@ class TraitBank
           "-[:supplier]->(resource:Resource) "\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, predicate, object_term, units"
+        "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
 
       q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
         "LOWER(trait.literal)", "trait.normal_measurement"])
@@ -220,8 +226,11 @@ class TraitBank
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
         "MATCH (trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
+        "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN trait, predicate, object_term, units "\
+        "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
         "ORDER BY predicate.position, LOWER(object_term.name), "\
           "LOWER(trait.literal), trait.normal_measurement "\
         "LIMIT 100"
@@ -386,12 +395,18 @@ class TraitBank
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
         "(trait)-[:object_term]->(object_term:Term)",
+        "(trait)-[:sex_term]->(sex_term:Term)",
+        "(trait)-[:lifestage_term]->(lifestage_term:Term)",
+        "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
       ]
 
       optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
-        "(meta)-[:object_term]->(meta_object_term:Term)"
+        "(meta)-[:object_term]->(meta_object_term:Term)",
+        "(meta)-[:sex_term]->(meta_sex_term:Term)",
+        "(meta)-[:lifestage_term]->(meta_lifestage_term:Term)",
+        "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
       ] if options[:meta]
 
       optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
@@ -403,7 +418,7 @@ class TraitBank
       returns = if options[:count]
         ["count"]
       else
-        ["page", "trait", "predicate", "units", "normal_units", "object_term", "resource"]
+        %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
       end
 
       with_count_clause = options[:count] ?
@@ -411,7 +426,8 @@ class TraitBank
                           ""
 
       if options[:meta] && !options[:count]
-        returns += ["meta", "meta_predicate", "meta_units_term", "meta_object_term"]
+        returns += %w[meta meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term
+          meta_statistical_method_term]
       end
 
       return_clause = "RETURN #{returns.join(", ")}"
@@ -454,23 +470,6 @@ class TraitBank
       "#{return_clause} "\
       "#{order_clause}"
     end
-
-# TODO: update and restore these methods (if needed)
-#    def by_predicate(uri, options = {})
-#      term_search(options.merge(predicate: uri))
-#    end
-#
-#    def by_predicate_count(uri, options = {})
-#      term_search(options.merge(predicate: uri, count: true))
-#    end
-#
-#    def by_object_term_uri(uri, options = {})
-#      term_search(options.merge(object_term: uri))
-#    end
-#
-#    def by_object_term_count(uri, options = {})\
-#      term_search(options.merge(object_term: uri, count: true))
-#    end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
@@ -635,7 +634,7 @@ class TraitBank
           raise "Metadata not returned as an array" unless hash[:meta].is_a?(Array)
           length = hash[:meta].size
           raise "Missing meta column meta_predicate: #{hash.keys}" unless hash.has_key?(:meta_predicate)
-          [:meta_predicate, :meta_units_term, :meta_object_term].each do |col|
+          %i[meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term meta_statistical_method_term].each do |col|
             next unless hash.has_key?(col)
             raise ":#{col} data was not the same size as :meta" unless hash[col].size == length
           end
@@ -646,6 +645,9 @@ class TraitBank
               m_hash = meta
               m_hash[:predicate] = hash[:meta_predicate][i]
               m_hash[:object_term] = hash[:meta_object_term][i]
+              m_hash[:sex_term] = hash[:meta_sex_term][i]
+              m_hash[:lifestage_term] = hash[:meta_lifestage_term][i]
+              m_hash[:statistical_method_term] = hash[:meta_statistical_method_term][i]
               m_hash[:units] = hash[:meta_units_term][i]
               hash[:metadata] << m_hash
             end
