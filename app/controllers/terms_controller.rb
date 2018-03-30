@@ -56,13 +56,13 @@ class TermsController < ApplicationController
         :pred_uri => params[:uri],
         :obj_uri => params[:obj_uri]
       }
-    else 
+    else
       {
         :op => :is_any,
         :pred_uri => params[:uri]
       }
     end
-     
+
     @query = TermQuery.new({
       :filters => [TermQueryFilter.new(filter_options)]
     })
@@ -73,8 +73,15 @@ class TermsController < ApplicationController
     @term = TraitBank.term_as_hash(params[:uri])
   end
 
+  def fetch_relationships
+    raise "unauthorized" unless is_admin? # TODO: generalize
+    @log = []
+    count = TraitBank::Terms::ParentChildRelationships.fetch(@log)
+    @log << "Loaded #{count} parent/child relationships."
+  end
+
   def update
-    # TODO: security check: admin only
+    raise "unauthorized" unless is_admin? # TODO: generalize
     term = params[:term].merge(uri: params[:uri])
     # TODO: sections ...  I can't properly test that right now.
     TraitBank.update_term(term) # NOTE: *NOT* hash!

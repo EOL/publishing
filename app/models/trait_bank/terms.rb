@@ -2,8 +2,8 @@ class TraitBank
   class Terms
     class << self
       delegate :connection, to: TraitBank
-      delegate :query, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
+      delegate :query, to: TraitBank
 
       CACHE_EXPIRATION_TIME = 1.day
 
@@ -80,7 +80,7 @@ class TraitBank
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
           predicate_glossary.map { |item| [item[:uri], item[:name]] }.to_h
         end
-        
+
         map[uri]
       end
 

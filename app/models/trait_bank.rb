@@ -794,6 +794,8 @@ class TraitBank
     def child_has_parent(curi, puri)
       cterm = term(curi)
       pterm = term(puri)
+      raise "missing child" if cterm.nil?
+      raise "missing parent" if pterm.nil?
       child_term_has_parent_term(cterm, pterm)
     end
 

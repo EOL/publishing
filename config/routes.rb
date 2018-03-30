@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   get "/terms/search" => "terms#search", :as => "term_search"
   get "/terms/search_results" => "terms#search_results", :as => "term_search_results"
   get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
+  get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 

@@ -37,6 +37,8 @@
           - index_stat(:data, TraitBank.count_by_resource(@resource.id))
         %li
           - index_stat(:scientific_names, ScientificName.where(resource_id: @resource.id).count)
+        %li
+          - index_stat(:references, Reference.where(resource_id: @resource.id).count)
 
   %h2
     Publish Logs:
