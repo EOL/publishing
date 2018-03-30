@@ -59,7 +59,8 @@ class TraitBank
               child_has_parent(pair.last, pair.first)
               count += 1
             rescue => e
-              message = "** WARNING: failed (#{pair.last},#{pair.first}) because #{e.message}"
+              # NOTE: the order here again is what the USER expects, not what the code called. :)
+              message = "** WARNING: failed (#{pair.first},#{pair.last}) because #{e.message}"
               if log
                 log << message
               else
