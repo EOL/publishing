@@ -1,0 +1,2 @@
+#!/bin/sh
+QUEUE=harvest nohup rake jobs:work > log/harvest.log 2>&1 &
