@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180326221314) do
+ActiveRecord::Schema.define(version: 20180330135809) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -403,6 +403,7 @@ ActiveRecord::Schema.define(version: 20180326221314) do
     t.integer  "harv_db_id",         limit: 4
   end
 
+  add_index "nodes", ["harv_db_id"], name: "index_nodes_on_harv_db_id", using: :btree
   add_index "nodes", ["page_id"], name: "index_nodes_on_page_id", using: :btree
   add_index "nodes", ["parent_id"], name: "index_nodes_on_parent_id", using: :btree
   add_index "nodes", ["resource_id"], name: "index_nodes_on_resource_id", using: :btree
