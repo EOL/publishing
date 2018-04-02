@@ -24,7 +24,7 @@
               .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
-                  = link_to(name.html_safe, link_path)
+                  = link_to(name.html_safe?, link_path)
                   .ui.label= image.license.try(:name)
                   %br
                   %i.copyright.icon
