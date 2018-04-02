@@ -1,0 +1,6 @@
+en: 
+  custom_support:
+    separated_list:
+      join: ', '
+      open: '('
+      close: ')'

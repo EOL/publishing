@@ -1,6 +1,16 @@
 require 'csv'
 
 namespace :terms do
+  desc "Make parent/child relationships between terms, reading the data from opendata (JR's method)"
+  task fetch: :environment do
+    count = TraitBank::Terms::ParentChildRelationships.fetch
+    puts "Loaded #{count} parent/child relationships."
+  end
+
+  # NOTE: (from JR) ...oops. I didn't know this existed when I wrote ParentChildRelationships. This is a fine solution,
+  # and if you have a local file, I recommend it. But you might want to peek at the class for a few additional
+  # options/details (for example, you can use one of its methods to MAKE a CSV file from what you already have...)
+  desc "Make the parents from a CSV file, provided as the fname argument (MV's method)"
   task :make_parents, [:fname] => :environment do |t, args|
     skip_count = 0
     done_count = 0
@@ -25,7 +35,7 @@ namespace :terms do
         skip_count += 1
         puts "Skipped"
       end
-    end 
+    end
 
     puts "#{done_count} relationships created"
     puts "#{skip_count} relationships skipped"

@@ -1,0 +1,4 @@
+%li.search-filter-type.is-search-filter-type-active.js-search-filter-type{ :data => { :type => results.type} }
+  %i.fa.fa-2x.search-filter-icon{ :class => "fa-#{results.fa_icon}"}
+  %i.fa.fa-check.fa-2x.search-filter-check
+  .search-filter-type-txt= t(i18n_key, :count => results.total_count)

@@ -25,10 +25,10 @@ module EolSpecHelpers
   end
 
   def fake_img_path(base_url, w, h = nil)
-    orig = Rails.configuration.x.image_path.original
-    ext = Rails.configuration.x.image_path.ext
-    join = Rails.configuration.x.image_path.join
-    by = Rails.configuration.x.image_path.by
+    orig = Rails.configuration.x.image_path['original']
+    ext = Rails.configuration.x.image_path['ext']
+    join = Rails.configuration.x.image_path['join']
+    by = Rails.configuration.x.image_path['by']
     if w == :orig
       base_url + "#{orig}#{ext}"
     else
@@ -127,6 +127,7 @@ module EolSpecHelpers
 
     instance_double("Page",
       id: 8293,
+      ancestors: [ancestor, invisible_ancestor, parent],
       articles: [article],
       articles_count: 1,
       nodes_count: 1,
@@ -175,6 +176,7 @@ module EolSpecHelpers
       taxonomic_status: TaxonomicStatus.synonym)
     instance_double("Page",
       id: 3497,
+      ancestors: [],
       articles: [],
       articles_count: 0,
       nodes_count: 0, # NOTE: this should actually be impossible, but JUST IN CASE...

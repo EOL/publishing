@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   helper_method :is_admin?
+  helper_method :main_container?
 
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
@@ -18,6 +19,14 @@ class ApplicationController < ActionController::Base
 
     def is_admin?
       current_user && current_user.is_admin?
+    end
+
+    def no_main_container
+      @nocontainer = true
+    end
+
+    def main_container?
+      !@nocontainer
     end
 
   public

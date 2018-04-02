@@ -1,0 +1,30 @@
+.search-icon>
+  - if object.icon
+    = image_tag object.icon
+  - else
+    %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
+.search-content>
+  - if object.hierarchy
+    .search-hier.is-search-hier-content= object.hierarchy.html_safe
+  - else
+    .search-hier
+  .search-title= object.title.html_safe
+  .search-info= object.content.html_safe
+  %ul.resource-bubbles
+    - object.top_resources.each do |resource|
+      %li>= t("search_results.resource_counts.n_#{resource[0]}", :count => resource[1])
+
+
+-#%div{:class => ["summary-card", (extra_class if defined? extra_class)]}
+  .summary-card-icon.summary-card-icon-main
+    -if object.icon
+      = image_tag(object.icon, :class => "image")
+    -else
+      %i{:class => "fa fa-3x fa-#{object.fa_icon}"}
+  .summary-card-details
+    .summary-card-title= object.title.html_safe
+    .summary-card-content= object.content.html_safe
+    .summary-card-hier= object.hierarchy.html_safe
+  -if show_plus && object.respond_to?(:page_id)
+    .summary-card-icon.summary-card-icon-plus.js-add-to-col{ :data => { :'page-id' => object.page_id } }
+      %i.fa.fa-plus.fa-2x

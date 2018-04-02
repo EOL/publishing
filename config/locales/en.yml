@@ -11,6 +11,7 @@ en:
   account_already_linked: "your account is already linked to EOL"
   account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
+  advanced: "advanced"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
   article:
     actions:
@@ -164,8 +165,14 @@ en:
     source: "source"
     spatial_location: "spatial"
     view_source_label: "original"
-    view_source_link: "view source material"
+    view_source_link: "view original image"
+    view_source_page_link: "view source material"
   content_not_in_any_collection: "This media is not featured in any collections."
+  data:
+    modifier:
+      sex: "Sex of the organism measured"
+      lifestage: "Lifestage of the organism measured"
+      statistical_method: "Statistical method used for measurement"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
@@ -199,6 +206,7 @@ en:
         create: "create suggestion"
         update: "update suggestion"
   landing_page:
+    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post in the EOL discussion forum</a>"
     cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
     heads:
@@ -209,13 +217,6 @@ en:
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"
     resources: "Resources"
-    stats:
-      pages: "pages"
-      data: "data records"
-      media: "media"
-      articles: "articles"
-      users: "users"
-      collections: "collections"
     stats_cleared: "The stats have been recalculated."
     title: "Encyclopedia of Life"
     topics: "Latest Discussion Topics"
@@ -457,8 +458,11 @@ en:
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
+    about: "About"
     cms:
       menu_name: "More..."
+    discuss: "Discuss EOL v3 beta"
+    education: "Education"
     search:
       placeholder: "Search EOL..."
   name_preferred_label: "preferred"
@@ -518,6 +522,8 @@ en:
   password_confirmation: "Password confirmation"
   please_wait: "please wait..."
   please_wait_button: "..wait.."
+  nags:
+    beta: "This is an alpha version of EOL version 3. Provide feedback and join the discussion at <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>http://discuss.eol.org</a>."
   name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: ""
@@ -532,14 +538,38 @@ en:
   resend_confirmations: "Resend confirmation instructions"
   resources:
     actions:
+      import_traits: "import traits (from repository)"
+      republish: "republish"
       index: "back to all resources"
+      publish: "publish"
       show_all:
         other: "show all (%{count})"
       show_warns:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
+      sync: "sync with repo"
+      fetch_relationships: "fetch relationships"
+      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
+      clear_publishing: "clear lock"
+      clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
+    confirm:
+      publish: "This should only be done if you are sure there are *completed* harvests ready to publish. Are you sure?"
     headers:
+      index: "Resources"
       import_log: "Import Log for %{resource}"
+    index:
+      locked_jobs:
+        zero: "no running jobs"
+        one: "1 running job"
+        other: "%{count} running jobs"
+      jobs:
+        zero: "no pending jobs"
+        one: "1 pending job"
+        other: "%{count} pending jobs"
+      harvest_jobs:
+        zero: "nothing to publish"
+        one: "1 pending publish"
+        other: "%{count} to publish"
     no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
@@ -557,10 +587,72 @@ en:
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
     header: "Search Results for \"%{q}\""
+    filter_n_results:
+      one: "filter 1 result"
+      other: "filter %{count} results"
+    n_articles:
+      one: "%{count} article"
+      other: "%{count} articles"
+    n_collections:
+      one: "%{count} collection"
+      other: "%{count} collections"
+    n_images:
+      one: "%{count} image"
+      other: "%{count} images"
+    n_results:
+      zero: "No results"
+      one: "%{count} result"
+      other: "%{count} results"
+    n_sounds:
+      one: "%{count} sound"
+      other: "%{count} sounds"
+    n_taxon_pages:
+      one: "%{count} taxon page"
+      other: "%{count} taxon pages"
+    n_users:
+      one: "%{count} user"
+      other: "%{count} users"
+    n_videos:
+      one: "%{count} video"
+      other: "%{count} videos"
+    suggested: "Suggested (%{count})"
   search_results:
+    collection_page_count:
+      one: "%{count} page"
+      other: "%{count} pages"
+    collection_page_count_and_users:
+      one: "%{count} page; maintained by %{users_sentence}"
+      other: "%{count} pages; maintained by %{users_sentence}"
     collected_media:
       title: "collected media from this page:"
     header: "results"
+    medium_article: "Article"
+    medium_image: "Image"
+    medium_map: "Map"
+    medium_sound: "Sound"
+    medium_video: "Video"
+    medium_title_article_html: "Article: <span class='sub'>%{title}</span>"
+    medium_title_image_html: "Image: <span class='sub'>%{title}</span>"
+    medium_title_map_html: "Map: <span class='sub'>%{title}</span>"
+    medium_title_sound_html: "Audio: <span class='sub'>%{title}</span>"
+    medium_title_video_html: "Video: <span class='sub'>%{title}</span>"
+    no_title: (no title)
+    field_matches:
+      body: "matches the body text:"
+      description: "matches the description:"
+      resource_pk: "matches the external ID:"
+      owner: "matches the copyright holder:"
+      bio: "matches the biography:"
+      tag_line: "matches the tag line:"
+      resources:
+        one: "matches the resource:"
+        other: "matches the resources:"
+      synonyms:
+        one: "matches the synonym:"
+        other: "matches the synonyms:"
+      vernaculars:
+        one: "matches the common name:"
+        other: "matches the common names:"
     section_titles:
       collections:
         one: "%{count} collection"
@@ -580,22 +672,18 @@ en:
       users:
         one: "%{count} user"
         other: "%{count} users"
-    field_matches:
-      body: "matches the body text:"
-      description: "matches the description:"
-      resource_pk: "matches the external ID:"
-      owner: "matches the copyright holder:"
-      bio: "matches the biography:"
-      tag_line: "matches the tag line:"
-      resources:
-        one: "matches the resource:"
-        other: "matches the resources:"
-      synonyms:
-        one: "matches the synonym:"
-        other: "matches the synonyms:"
-      vernaculars:
-        one: "matches the common name:"
-        other: "matches the common names:"
+    collection_title_html: "Collection: <span class='sub'>%{name}</span>"
+    resource_counts:
+      n_articles:
+        one: "1 ARTICLE"
+        other: "%{count} ARTICLES"
+      n_data:
+        one: "1 DATUM"
+        other: "%{count} DATA"
+      n_media:
+        one: "1 MEDIUM"
+        other: "%{count} MEDIA"
+    user_title_html: "User: <span class='sub'>%{name}</span>"
   search_suggestion:
     actions:
       create: "create a new search suggestion"
@@ -702,6 +790,15 @@ en:
   successfuly_created_content_partner: "Successfully created content partner."
   Successfully_updated_content_partner: "Successfully updated content partner."
   successfuly_updated_resource: "Successfully updated resource."
+  stats:
+    articles: "articles"
+    collections: "collections"
+    data: "data records"
+    media: "media"
+    pages: "pages"
+    nodes: "nodes"
+    scientific_names: "names"
+    users: "users"
   term:
     actions:
       download: "download"
@@ -756,6 +853,14 @@ en:
         label: "Filter by data type:"
         clear: "clear data type filter"
         placeholder: "choose a data type"
+  terms:
+    attribution_field_html: "<strong>Attribution:</strong> %{attribution}"
+    comment_field_html: "<strong>Comment:</strong> %{comment}"
+    definition_field_html: "<strong>Definition:</strong> %{definition}"
+    record_url: "record URL"
+    show_all_records: "show all records"
+    source: "source"
+    uri_field_html: "<strong>URI:</strong> %{uri}"
   data_source: "source"
   data_definition: "definition of \"%{data}\""
   data_table:
@@ -766,7 +871,7 @@ en:
       source: "Source"
   data_toggle_details: "details…"
   data_unit_definition: "definition:"
-  data_unit_definition_blank: "Sorry, we have not added a definition for this, yet!"
+  data_unit_definition_blank: ""
   data_header_type_glossary: "Glossary of Record Types"
   data_header_value_glossary: "Glossary of Record Values"
   data_show_more:

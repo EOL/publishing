@@ -63,9 +63,8 @@ RSpec.describe PagesController do
   context "with a missing page" do
     let(:page_id) { Page.any? ? Page.last.id + 1 : 1 }
     describe "#show" do
-      it "raises a 404" do
-        get :show, id: page_id
-        expect(response.status).to eq(404)
+      it "raises RecordNotFound" do
+        expect { get :show, id: page_id }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
     describe "#breadcrumbs" do

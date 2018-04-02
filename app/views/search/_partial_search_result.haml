@@ -1,0 +1,3 @@
+%li.search-result.js-search-result{ :data => { :type => result.type} }
+  = link_to result, :class => "uk-link-reset uk-display-block" do
+    = render :partial => 'application/summary_card', :locals => { :object => result, :show_plus => true }

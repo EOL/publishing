@@ -21,16 +21,22 @@ module Content
       through: :page_contents, source: :page
 
     def search_data
+      extra_data = {}
+
+      if respond_to? :extra_search_data
+        extra_data = extra_search_data
+      end
+
       # NOTE: description is a method because articles have a body; we use an
       # alias to normalize it.
-      {
+      extra_data.merge({
         id: id,
         name: name,
         resource_pk: resource_pk,
         owner: owner,
         ancestry_ids: ancestry_ids,
         description: description
-      }
+      })
     end
 
     def ancestry_ids

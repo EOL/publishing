@@ -1,12 +1,46 @@
-%h1
-  Resources
+%h1= t("resources.headers.index")
 
-%ul.uk-list
-  - @resources.each do |resource|
-    %li
-      = link_to(resource.name, resource)
-      (updated
-      = l(resource.updated_at, format: '%H:%M:%S.%3N')
-      )
-      - if resource.updated_at > 1.day.ago
-        .ui.label= "new"
+- if is_admin?
+  .ui.basic.button
+    = link_to(t("resources.actions.sync"), sync_resources_path)
+  .ui.basic.button
+    = link_to(t("resources.actions.fetch_relationships"), fetch_term_relationships_path, data: { confirm: t("resources.actions.fetch_relationships_confirm") })
+  - if ImportLog.already_running?
+    .ui.red.inverted.button
+      = link_to(t("resources.actions.clear_publishing"), clear_publishing_resources_path(@resource),
+        data: { confirm: t("resources.actions.clear_publishing_confirm") })
+
+%p
+  .ui.label
+    %i.inbox.icon
+    = t("resources.index.locked_jobs", count: Delayed::Job.count)
+  .ui.label
+    %i.inbox.icon
+    = t("resources.index.jobs", count: Delayed::Job.count, locked_at: nil)
+  .ui.label
+    %i.inbox.icon
+    = t("resources.index.harvest_jobs", count: Delayed::Job.where(queue: 'harvest', locked_at: nil).count)
+
+= paginate @resources
+%table.uk-table.uk-table-small.uk-table-striped.uk-table-divider
+  %thead
+    %tr
+      %th Name
+      %th Updated
+      %th Nodes
+      %th Media
+      %th Traits
+  %tbody
+    - @resources.each do |resource|
+      - cache("resources/#{resource.id}/summary_row/#{resource.updated_at.to_i}") do |
+        %tr
+          %td
+            = link_to(resource.name, resource)
+          %td
+            = l(resource.updated_at.localtime, format: '%b %d %H:%M')
+            - if resource.updated_at > 1.day.ago
+              .ui.label= "new"
+          %td= link_to(number_with_delimiter(resource.nodes.count), resource_nodes_path(resource))
+          %td= number_with_delimiter(resource.media.count)
+          %td= number_with_delimiter(TraitBank.count_by_resource(resource.id))
+= paginate @resources

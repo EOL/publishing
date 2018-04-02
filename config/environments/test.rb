@@ -39,11 +39,11 @@ Rails.application.configure do
 
    # Access to rack session
   config.middleware.use RackSessionAccess::Middleware
-
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
-  Rails.configuration.x.image_path.original = '_orig'
-  Rails.configuration.x.image_path.ext = '.jpg'
-  Rails.configuration.x.image_path.join = '_'
-  Rails.configuration.x.image_path.by = '_'
 end
+
+# NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
+# sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

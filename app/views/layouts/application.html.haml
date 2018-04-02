@@ -1,9 +1,14 @@
 - content_for :body  do
   %body
     = render("application/navbar")
-    .uk-container
-      #main
+    - if main_container?
+      .uk-container
+        #main
+          = render("layouts/flash")
+          .uk-section.uk-padding-remove-bottom
+            = content_for?(:content) ? yield(:content) : yield
+    - else
+      .l-basic-main
         = render("layouts/flash")
-        .uk-section.uk-padding-remove-bottom
-          = content_for?(:content) ? yield(:content) : yield
+        = content_for?(:content) ? yield(:content) : yield
 = render template: "layouts/head_only"

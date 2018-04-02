@@ -1,0 +1,9 @@
+- if type == :pages && @pages
+  = render :partial => "partial_search_results", :locals => { :results => @pages }
+- elsif ((type == :images && @images) || (type == :videos && @videos) || (type == :sounds && @sounds) || (type == :articles && @articles))
+  - results = (type == :images && @images) || (type == :videos && @videos) || (type == :sounds && @sounds) || (type == :articles && @articles)
+  = render :partial => "partial_search_results", :locals => { :results => results }
+- elsif type == :collections && @collections
+  = render :partial => "partial_search_results", :locals => { :results => @collections }
+- elsif type == :users && @users
+  = render :partial => "partial_search_results", :locals => { :results => @users }

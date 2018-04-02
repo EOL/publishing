@@ -45,10 +45,10 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  # NOTE: I've not tested this; might not be the most efficient set: ...I did
-  # notice that vernaculars doesn't quite work; the scopes that are attached to
-  # the (preferred and nonpreferred) interfere.
-  scope :search_import, -> { includes(:scientific_names, :vernaculars, native_node: { node_ancestors: :ancestor }, resources: :partner) }
+  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
+                                      native_node: [:unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
+
+  scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
   delegate :ancestors, to: :native_node
 
@@ -63,11 +63,42 @@ class Page < ActiveRecord::Base
     }))
   end
 
+  # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
+  # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
+  # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
+  def self.fix_missing_native_nodes
+    fix_native_nodes(missing_native_node)
+  end
+
+  def self.fix_native_nodes(pages)
+    pages ||= missing_native_node
+    pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes&.first&.id) }
+    # NOTE: I'm not re-using the scope here because I'm worried it might use a cached version instead.
+    pages.where(native_node_id: nil).delete_all # This is slightly risky, perhaps we shouldn't do it?
+  end
+
+  def self.remove_if_nodeless
+    # Delete pages that no longer have nodes
+    Page.find_in_batches(batch_size: 10_000) do |group|
+      group_ids = group.map(&:id)
+      have_ids = Node.where(page_id: group_ids).pluck(:page_id)
+      bad_pages = group_ids - have_ids
+      next if bad_pages.empty?
+      # TODO: PagesReferent
+      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
+       PageContent].each do |klass|
+        klass.where(page_id: bad_pages).delete_all
+      end
+      Page.where(id: bad_pages).delete_all
+    end
+  end
+
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
   def search_data
     {
       id: id,
+      # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
       scientific_name: scientific_name,
       preferred_scientific_names: preferred_scientific_names,
@@ -84,7 +115,11 @@ class Page < ActiveRecord::Base
   end
 
   def synonyms
-    scientific_names.synonym.map { |n| n.canonical_form }
+    if scientific_names.loaded?
+      scientific_names.select { |n| !n.is_preferred? }.map { |n| n.canonical_form }
+    else
+      scientific_names.synonym.map { |n| n.canonical_form }
+    end
   end
 
   def resource_pks
@@ -92,11 +127,19 @@ class Page < ActiveRecord::Base
   end
 
   def preferred_vernacular_strings
-    vernaculars.preferred.map { |v| v.string }
+    if vernaculars.loaded?
+      vernaculars.select { |v| v.is_preferred? }.map { |v| v.string }
+    else
+      vernaculars.preferred.map { |v| v.string }
+    end
   end
 
   def vernacular_strings
-    vernaculars.nonpreferred.map { |v| v.string }
+    if vernaculars.loaded?
+      vernaculars.select { |v| !v.is_preferred? }.map { |v| v.string }
+    else
+      vernaculars.nonpreferred.map { |v| v.string }
+    end
   end
 
   def providers
@@ -108,7 +151,12 @@ class Page < ActiveRecord::Base
   def ancestry_ids
     # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
     # data)
-    Array(native_node.try(:unordered_ancestors).try(:pluck, :page_id)).compact + [id]
+    return [id] unless native_node
+    if native_node.unordered_ancestors&.loaded?
+      native_node.unordered_ancestors.map(&:page_id).compact + [id]
+    else
+      Array(native_node&.unordered_ancestors&.pluck(:page_id)).compact + [id]
+    end
   end
 
   def descendant_species
@@ -117,11 +165,7 @@ class Page < ActiveRecord::Base
   end
 
   def count_species
-    return nil unless native_node
-    count = native_node.leaves.
-      where(["rank_id IN (?)", Rank.all_species_ids]).count
-    update_attribute(:species_count, count)
-    count
+    return 0 # TODO. This was possible before, when we used the tree gem, but I got rid of it, so... hard.
   end
 
   def content_types_count

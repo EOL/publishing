@@ -12,12 +12,18 @@
         %ul.uk-list
           -# NOTE: using #none to force load; no sense in doing a count. We need the rows.
           - if node.ancestors && !node.ancestors.none?
-            - classification(node, node.ancestors)
+            - classification(node, node.ancestors, children: true)
           - else
             - summarize(@page, current_page: true, node: node)
+            - if node.children.any?
+              %ol
+                - node.children.each do |child|
+                  %ul.uk-list
+                    - summarize(child.page, current_page: false, node: child)
+
   %h2= t("classifications.children.header")
   #page-children.uk-card.uk-card-body.uk-box-shadow-medium.uk-padding
-    - if page_node.children.size > 0
+    - if page_node.children.any?
       %ol
         - page_node.children.each do |node|
           %ul.uk-list
@@ -39,7 +45,7 @@
           %dt.uk-margin-small-top= t("classifications.richness.media_count")
           %dd= @page.media_count
           %dt.uk-margin-small-top= t("classifications.richness.updated_at")
-          %dd= l(@page.updated_at, format: :short)
+          %dd= l(@page.updated_at.localtime, format: :short)
         %dl.uk-description-list
           %dt.uk-margin-small-top= t("classifications.richness.articles_count")
           %dd= @page.articles_count

@@ -1,9 +1,10 @@
 %body
+  = render("application/navbar", invert: true)
   = render("layouts/flash")
-  .landing_page{ class: "uk-visible@m" }
-    .ui.container
+  .landing_page
+    .ui.container.earth-image
       .uk-section
-        = image_tag("large_logo.png")
+        .uk-padding.uk-padding-remove-vertical= image_tag("large_logo.png")
       .uk-section.uk-text-center
         %h1.uk-title= t("landing_page.header")
         #landing-search.uk-margin-large-top
@@ -12,9 +13,11 @@
               .ui.huge.icon.input
                 = text_field_tag("q", nil, class: "prompt", size: 16, placeholder: t("landing_page.search_placeholder"))
                 %i.search.icon
-  .uk-container.uk-margin-large-top{ class: "uk-visible@m" }
-    .uk-section.uk-padding-remove-top
-      %ul#page_nav.uk-grid-large.uk-child-width-expand{ uk: { grid: true } }
+  .uk-container.uk-margin-top
+    .uk-section.uk-margin-remove-top.eol-section-aged.uk-section-xsmall
+      %p.uk-text-lead.uk-text-center= t("landing_page.beta").html_safe
+    .uk-section.uk-section-small
+      %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
         - @stats.each do |key, value|
           %li
             - index_stat(key, value)
@@ -33,28 +36,3 @@
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
         .ui.basic.button
           = link_to(t("landing_page.resources"), resources_path)
-  .uk-container{ class: "uk-hidden@m" }
-    = render("application/navbar")
-    .ui.segments.uk-text-center.eol-landing-page-container
-      .ui.header.segment
-        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
-          = image_tag("blue logo.png", alt: "EOL", class: "ui centered tiny image")
-          %br
-          .uk-text-small= t("landing_page.header")
-      .ui.segment.eol-landing-content
-        %div.uk-margin-small-bottom
-          %b= t("landing_page.heads.featured_links")
-        %ul.uk-grid.uk-child-width-1-3{ uk: { grid: true } }
-          -# TODO - this should be all of the collections IN collection 1...
-          - Collection.all.limit(6).each do |collection|
-            %li
-              %a.uk-inline{ href: collection_path(collection) }
-                = image_tag("medium/collection.png")
-                .uk-overlay.uk-padding-small.uk-position-bottom.eol-text-tiny= truncate(collection.name)
-      .ui.header.segment
-        %a{ href: "#", uk: { toggle: "target: .eol-landing-content; animation: uk-animation-slide-top" } }
-          = t("landing_page.heads.about_eol")
-      .eol-landing-content.ui.segment{ hidden: true }
-        I don't know what we want here, yet.
-      .ui.header.segment
-        = link_to(t("landing_page.heads.education"), "http://education.eol.org")

@@ -6,6 +6,24 @@ if(!window.EOL) {
     eolReadyCbs.push(cb);
   }
 
+  EOL.parseHashParams = function() {
+    var hash = window.location.hash,
+        keyValPairs = null,
+        params = {};
+
+    if (hash) {
+      hash = hash.replace('#', '');
+      keyValPairs = hash.split('&');
+
+      $.each(keyValPairs, function(i, pair) {
+        var keyAndVal = pair.split('=');
+        params[keyAndVal[0]] = keyAndVal[1]
+      });
+    }
+
+    return params;
+  }
+
   EOL.enable_search_pagination = function() {
     $("#search_results .uk-pagination a")
     .unbind("click")
@@ -170,17 +188,20 @@ if(!window.EOL) {
     console.log("TEARDOWN");
     $(".typeahead").typeahead("destroy");
   };
+ 
+  // Enable all semantic UI dropdowns
+  EOL.enableDropdowns = function() {
+    $('.ui.dropdown').dropdown();
+  }
 
   EOL.ready = function() {
     console.log("READY.");
     if ($(".eol-flash").length === 1) {
       var flash = $(".eol-flash");
-      UIkit.notification({
-          message: $(".eol-flash").data("text"),
+      UIkit.notification($(".eol-flash").data("text"), {
           status: 'primary',
           pos: 'top-center',
-          offset: '100px',
-          timeout: 10000
+          offset: '100px'
       });
     }
 
@@ -221,9 +242,11 @@ if(!window.EOL) {
       EOL.enable_tab_nav();
     }
     // No "else" because it also has a gallery, so you can need both!
+    /*
     if ($("#gmap").length >= 1) {
       EoLMap.init();
     }
+    */
     $(window).bind("popstate", function () {
       console.log("popstate "+location.href);
       // TODO: I'm not sure this is ever used. Check and remove, if not.
@@ -237,7 +260,7 @@ if(!window.EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/pages/autocomplete?full=1&query=%QUERY',
+        url: '/pages/autocomplete?simple=1&query=%QUERY',
         wildcard: '%QUERY'
       },
       limit: 10
@@ -256,7 +279,7 @@ if(!window.EOL) {
       limit: 10
     });
     EOL.searchUsers.initialize();
-
+    
     // Aaaaand this...
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -281,6 +304,20 @@ if(!window.EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
+    // Show/hide overlay
+    EOL.showOverlay = function(id) {
+      EOL.hideOverlay();
+      var $overlay = $('#' + id); 
+      $overlay.removeClass('is-hidden');
+      $('body').addClass('is-noscroll');
+    }
+
+    EOL.hideOverlay = function() {
+      var $overlay = $('.js-overlay');
+      $overlay.addClass('is-hidden');
+      $('body').removeClass('is-noscroll');
+    }
+
     $('.ui.names.search')
       .search({
         apiSettings: {
@@ -288,11 +325,12 @@ if(!window.EOL) {
         }
       });
 
+
     if ($('.clade_filter .typeahead').length >= 1) {
       console.log("Enable clade filter typeahead.");
       $('.clade_filter .typeahead').typeahead(null, {
         name: 'clade-filter-names',
-        display: 'scientific_name',
+        display: 'name',
         source: EOL.searchNames
       }).bind('typeahead:selected', function(evt, datum, name) {
         console.log('typeahead:selected:', evt, datum, name);
@@ -347,11 +385,14 @@ if(!window.EOL) {
       $(".uk-search-icon > svg:nth-of-type(2)");
     };
 
+    $('.js-overlay-x').click(EOL.hideOverlay);
+
+    EOL.enableDropdowns();
+
     $.each(eolReadyCbs, function(i, cb) {
       cb();
     });
   };
-
 }
 
 $(document).on("ready page:load page:change", EOL.ready);

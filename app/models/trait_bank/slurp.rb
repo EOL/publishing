@@ -1,18 +1,23 @@
 class TraitBank::Slurp
   class << self
     delegate :query, to: TraitBank
+    # def query(q)
+    #   puts ">> TB: #{q}"
+    #   TraitBank.query(q)
+    # end
 
     def load_csvs(resource)
       config = load_csv_config(resource)
       config.each { |filename, file_config| load_csv(filename, file_config) }
+      resource.touch
     end
 
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
     def load_csv_config(resource)
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
-          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source value_literal value_num\
-                        object_page_id scientific_name],
+          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source literal measurement\
+                        object_page_id scientific_name normal_measurement],
           wheres: {
             # This will be applied to ALL rows:
             "1=1" => {
@@ -20,16 +25,22 @@ class TraitBank::Slurp
                 predicate: 'Term { uri: row.predicate }',
                 resource: "Resource { resource_id: #{resource.id} }"
               },
+              # NOTE: merges are expressed as a triple, e.g.: [source variable, relationship name, target variable]
               merges: [
                 [:page, :trait, :trait],
                 [:trait, :predicate, :predicate],
                 [:trait, :supplier, :resource]
               ],
-            }, # default
+            },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
               merges: [ [:trait, :units_term, :units] ]
+            },
+            "#{is_not_blank('row.normal_units_uri')}" =>
+            {
+              matches: { normal_units: 'Term { uri: row.normal_units_uri }' },
+              merges: [ [:trait, :normal_units_term, :normal_units] ]
             },
             "#{is_not_blank('row.value_uri')} AND #{is_blank('row.units')}" =>
             {
@@ -41,7 +52,7 @@ class TraitBank::Slurp
 
         "meta_traits_#{resource.id}.csv" =>
         {
-          'MetaData' => %i[eol_pk sex lifestage statistical_method source value_literal value_num],
+          'MetaData' => %i[eol_pk sex lifestage statistical_method source literal measurement],
           wheres: {
             "1=1" => { # ALL ROWS
               matches: {
@@ -52,7 +63,7 @@ class TraitBank::Slurp
                 [:trait, :metadata, :metadata],
                 [:metadata, :predicate, :predicate]
               ],
-            }, # default
+            },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
               matches: { units: 'Term { uri: row.units }' },
@@ -82,15 +93,62 @@ class TraitBank::Slurp
       nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
       merges = Array(config[:merges])
       matches = config[:matches]
-      head =
-        <<~LOAD_CSV_QUERY_HEAD
-          USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{filename}' AS row
-          WITH row WHERE #{clause}
-        LOAD_CSV_QUERY_HEAD
+      head = csv_query_head(filename, clause)
       # First, build all of the nodes:
       nodes.each { |label, attributes| build_nodes(label: label, attributes: attributes, head: head) }
       # Then the merges, one at a time:
       merges.each { |triple| merge_triple(triple: triple, head: head, nodes: nodes, matches: matches) }
+    end
+
+    def csv_query_head(file, where_clause = nil)
+      where_clause ||= '1=1'
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause} "
+    end
+
+    # TODO: extract the file-writing to a method that takes a block.
+    def rebuild_ancestry
+      require 'csv'
+      puts '(starts) .rebuild_ancestry'
+      # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
+      puts "(infos) delete relationships"
+      TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) DELETE rel")
+      filename = "ancestry.csv"
+      file_with_path = Rails.public_path.join(filename)
+      # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
+      Page
+        .includes(native_node: :parent)
+        .joins(native_node: :parent)
+        .where('nodes.resource_id = 1') # AGAIN: Resource 1 is HARD-CODED to EOL's DH. It must be.
+        .find_in_batches(batch_size: 5_000) do |group|
+        first_id = group.first.id
+        last_id = group.last.id
+        puts "(infos) Pages #{first_id} - #{last_id}"
+        puts "(infos) write CSV"
+        CSV.open(file_with_path, 'w') do |csv|
+        csv << ['page_id', 'parent_id']
+          group.each do |page|
+            next if page.native_node.parent.page_id.nil?
+            csv << [page.id, page.native_node.parent.page_id]
+          end
+        end
+        puts "(infos) add relationships"
+        rebuild_ancestry_group(filename)
+      end
+      puts '(ends) .rebuild_ancestry'
+    end
+
+    def rebuild_ancestry_group(file)
+      # Nuke it from orbit:
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.page_id) })'])
+      execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.parent_id) })'])
+      execute_clauses([csv_query_head(file),
+                      'MATCH (page:Page { page_id: toInt(row.page_id) })',
+                      'MATCH (parent:Page { page_id: toInt(row.parent_id) })',
+                      'MERGE (page)-[:parent]->(parent)'])
+    end
+
+    def execute_clauses(clauses)
+      query(clauses.join("\n"))
     end
 
     def build_nodes(options)

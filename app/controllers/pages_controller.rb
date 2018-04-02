@@ -1,16 +1,36 @@
 class PagesController < ApplicationController
 
   before_action :set_media_page_size, only: [:show, :media]
-
+  before_action :no_main_container
   after_filter :no_cache_json
 
   helper :data
   helper_method :get_associations
 
+  # See your environment config; this action should be ignored by logs.
+  def ping
+    if ActiveRecord::Base.connection.active?
+      render text: 'pong'
+    else
+      render status: 500
+    end
+  end
+
   def autocomplete
     full_results = Page.autocomplete(params[:query])
     if params[:full]
       render json: full_results
+    elsif params[:simple]
+      puts "*" * 120
+      puts "simple"
+      simplified = full_results.map do |r|
+          name = r.native_node.canonical_form
+          vern = r.preferred_vernacular_strings.first
+          name += " (#{vern})" unless vern.blank?
+          { name: name, id: r.id }
+        end
+      pp simplified
+      render json: simplified
     else
       render json: {
         results: full_results.map do |r|
@@ -84,7 +104,7 @@ class PagesController < ApplicationController
       "raw" => "Please leave your comments regarding <a href='#{pages_url(@page)}'>#{name}</a> in this thread by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
     )
     client.show_tag("id:#{@page.id}")
-    redirect_to "#{Comments.discourse_url}/t/#{post["post"]["topic_slug"]}/#{post["post"]["topic_id"]}"
+    redirect_to Comments.post_url(post["post"])
   end
 
   def index
@@ -118,8 +138,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = Page.where(id: params[:id]).first
-    return render(status: :not_found) unless @page # 404
+    @page = Page.find(params[:id])
     @page_title = @page.name
     get_media
     # TODO: we should really only load Associations if we need to:
@@ -143,25 +162,9 @@ class PagesController < ApplicationController
     end
   end
 
-  # TODO: Decide whether serving the subtabs from here is actually RESTful.
-
-  # TODO: Remove duplication with show (be mindful of id / page_id).
-  def overview
-    @page = Page.where(id: params[:page_id]).preloaded.first
-    return render(status: :not_found) unless @page # 404
-    @page_title = @page.name
-    # TODO: we should really only load Associations if we need to:
-    get_associations
-    # Required mostly for paginating the first tab on the page (kaminari
-    # doesn't know how to build the nested view...)
-    respond_to do |format|
-      format.html { render :show }
-      format.js {}
-    end
-  end
-
   def data
     @page = Page.where(id: params[:page_id]).first
+    @resources = TraitBank.resources(@page.data)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
@@ -187,13 +190,18 @@ class PagesController < ApplicationController
     return render(status: :not_found) unless @page # 404
     get_media
     respond_to do |format|
-      format.html {}
-      format.js {}
+      format.html do
+        if request.xhr?
+          render :layout => false
+        else
+          render
+        end
+      end
     end
   end
 
   def classifications
-    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, :nodes,
+    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, nodes: [:children, :page],
       native_node: [:children, node_ancestors: :ancestor]).first
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
@@ -271,6 +279,10 @@ private
     #not working.....
     #media = @page.media.includes(:license, :resource)
     media = @page.media
+    @licenses = media.map { |m| m.license.name }.uniq.sort
+    @subclasses = media.map { |m| m.subclass }.uniq.sort
+    @resources = media.map { |m| m.resource }.uniq.sort
+
     if params[:license]
       debugger
       media = media.joins(:license).
@@ -278,10 +290,9 @@ private
       @license = params[:license]
     end
     
-    if params[:subclass_id]
-      media = media.where(subclass: params[:subclass_id])
-      @subclass_id = params[:subclass_id].to_i
-      @subclass = Medium.subclasses.find { |n, id| id == @subclass_id }[0]
+    if params[:subclass]
+      @subclass = params[:subclass]
+      media = media.where(subclass: params[:subclass])
     end
     
     if params[:resource_id]

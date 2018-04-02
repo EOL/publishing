@@ -1,36 +1,31 @@
 class TermQuery < ActiveRecord::Base
-  has_many :pairs, :class_name => "TermQueryPair", :inverse_of => :term_query
-  has_one :user_download
-  accepts_nested_attributes_for :pairs
-  before_validation :cull_pairs
+  has_many :filters,
+    :class_name => "TermQueryFilter",
+    :dependent => :destroy,
+    :inverse_of => :term_query
+  validates_associated :filters
+  has_one :user_download, :dependent => :destroy
+  belongs_to :clade, :class_name => "Page"
 
-  def initialize(*)
-    super
+  accepts_nested_attributes_for :filters
+
+  def search_filters
+    filters.reject { |f| f.invalid? }
   end
 
-  def search_pairs
-    pairs.select do |pair|
-      !pair.predicate.blank?
-    end
+  def predicate_filters
+    filters.select { |f| f.predicate? }
   end
 
-
-  def remove_pair(index)
-    new_pairs = pairs.to_a
-    new_pairs.delete_at(index)
-    self.pairs = new_pairs
+  def object_term_filters
+    filters.select { |f| f.object_term? }
   end
 
-  def clade_name
-    if @clade
-      @clade_name ||= Page.find(@clade)&.name
-    else
-      nil
-    end
+  def numeric_filters
+    filters.select { |f| f.numeric? }
   end
 
-  private 
-    def cull_pairs
-      self.pairs = search_pairs
-    end
+  def range_filters
+    filters.select { |f| f.range? }
+  end
 end

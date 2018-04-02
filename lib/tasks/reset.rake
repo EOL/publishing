@@ -11,19 +11,19 @@ namespace :reset do
       Rails.cache.clear
     end
 
-    desc 'rebuild the database, re-running migrations. Import is performed (harvester must be running on port 3000).'
-    task import: :empty do
-      Publishing.start
+    desc 'rebuild the database, sync with harvester.'
+    task sync: :empty do
+      Publishing.sync(skip_known_terms: true)
       Rails.cache.clear
     end
   end
 
-  desc 'reset the database, using the schema instead of migrations. Import is performed (harvester must be running).'
-  task import: :environment do
+  desc 'reset the database, using the schema instead of migrations. Sync with harvester.'
+  task sync: :environment do
     Rake::Task['log:clear'].invoke
     Rake::Task['db:reset'].invoke
     Rake::Task['searchkick:reindex:all'].invoke
-    Publishing.start
+    Publishing.sync(skip_known_terms: true)
     Rails.cache.clear
   end
 end

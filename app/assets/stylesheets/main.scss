@@ -1,0 +1,638 @@
+// NOTE: OpenSans is added via font-kit-rails. If you stop using that font,
+// REMOVE THAT GEM FROM THE GEMFILE (and this line):
+@import "font-kit-rails/open-sans";
+@import "colors";
+@import "dimensions";
+
+html {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 85%;
+}
+
+body {
+  min-width: $mobile-width;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+$base-color: rgb(51, 51, 51);
+
+.earth-image {
+  position: relative;
+
+  .uk-section {
+    z-index: 1;
+    position: relative;
+  }
+}
+
+.earth-image:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("https://www.nasa.gov/sites/default/files/bwhi1apicaaamlo.jpg_large.jpg") !important;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+h1, h2, h3 {
+  color: $eol-dark-blue;
+  font-weight: 700;
+}
+
+a, .a {
+  color: #23699a;
+  cursor: pointer;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.is-noscroll {
+  overflow: hidden;
+}
+
+// Content (CMS) Pages:
+
+section#body {
+  float: right;
+  width: 75%;
+  padding-left: 1em;
+}
+
+section#side_body {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  max-width: 100%;
+  padding-left: 40px;
+  width: 20%;
+}
+
+#landing-search {
+  .input {
+    width: 10em;
+  }
+
+  input {
+    font-size: 0.5em;
+    line-height: 3em;
+  }
+
+  .results {
+    font-size: 12pt;
+    line-height: 1em;
+    margin-left: 47% !important;
+  }
+}
+
+// This helps center the elements on the screen. Surprising it's not a default:
+.ui.statistic {
+  width: 100%;
+}
+
+.ui.label {
+  font-family: Avenir;
+}
+
+.ui.header.segment {
+  background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8);
+  z-index: 0;
+}
+
+.uk-notification {
+  width: 400px;
+}
+
+.uk-notification-message-primary {
+  background-color: #666 !important;
+  color: lighten($eol-blue, 15%) !important;
+  padding: 24px;
+
+  a {
+    color: $eol-blue !important;
+  }
+}
+
+.uk-text-muted {
+  font-weight: 300;
+
+  a {
+    color: #58a2d0;
+  }
+}
+
+.eol-text-tiny {
+  font-size: 0.75rem;
+  font-family: Avenir;
+}
+
+.eol-userform {
+  width: 37em;
+}
+
+.eol-one-line {
+  height: 1.5em;
+  white-space: nowrap;
+}
+
+.page-ancestors {
+  background-color: #F8FAFA;
+}
+
+.eol-section-aged {
+  background-color: #f8e9ca;
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-bright {
+  background-color: white !important;
+}
+
+.eol-secondary {
+  background-color: $eol-blue !important;
+}
+
+.eol-secondary-alt {
+  background-color: $eol-orange !important;
+
+  .uk-text-meta, .uk-iconnav > * > * {
+    color: $eol-brown;
+  }
+}
+
+.eol-section-secondary {
+  @extend .eol-secondary;
+
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-section-secondary-alt {
+  @extend .eol-secondary-alt;
+
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-width-medium-icon {
+  width: 130px;
+}
+
+.eol-padding-tiny {
+  padding: 4px 12px !important;
+}
+
+.eol-padding-iconnav {
+  padding: 6px !important;
+}
+
+.eol-bordered-image {
+  border-bottom: 2px solid #bbb;
+  border-left: 2px solid #d8d8d8;
+  border-right: 2px solid #ccc;
+  border-top: 2px solid #dadada;
+}
+
+.uk-accordion-title {
+  background: aliceblue;
+  background: linear-gradient(whitesmoke, aliceblue);
+  padding: 10px;
+}
+
+.uk-nav-default li.uk-active > a {
+  font-size: 1.2em;
+  color: #000;
+}
+
+.uk-pagination li.uk-active {
+  color: #000;
+  font-size: 1em;
+  font-weight: 900;
+}
+
+// The padding in their breadcrumb list was REAAAAAALY loose...
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+  margin: 0 8px !important;
+}
+
+.btn:focus {
+  background-color: rgb(147, 147, 147);
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+button {
+  box-shadow: 1px 1px 5px #ccc;
+}
+
+button a {
+  font-weight: 600;
+}
+
+a.uk-inline {
+  color: black;
+}
+
+#page_control {
+  .nav-pills {
+    margin-top: 2em;
+  }
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  box-shadow: 1px 1px 5px #444;
+  font-weight: 600;
+}
+
+// HEADER
+
+.nav-search .input-group {
+  width: 30em;
+
+  .dropdown-menu {
+    li.active div.names {
+      background-color: #eee;
+    }
+
+    div.names {
+      overflow: auto;
+      width: 24em;
+      height: 3em;
+    }
+  }
+}
+
+.search-indicator {
+  padding-top: 1.2em;
+}
+
+#main {
+  padding-top: 1em;
+}
+
+.l-basic-main {
+  box-sizing: border-box;
+  padding-top: $nav-height;
+}
+
+#collected_pages_search {
+  height: 4em;
+}
+
+// FORMS (SITE-WIDE)
+
+form .field {
+  margin-top: 2em;
+}
+
+form .error {
+  font-weight: 600;
+  color: rgb(147, 40, 53);
+}
+
+.actions input[type="submit"] {
+  box-shadow: 1px 1px 5px #ccc;
+  margin: 1em 0.3em;
+  font-weight: 600;
+
+  // TODO: this color shouldn't be hard-coded here; figure out where the "link
+  // blue" comes from and use that.
+  color: rgb(40, 53, 147);
+}
+
+// PAGE (SPECIES / TAXON / TAXON CONCEPT / CLADE)
+
+#page_nav_content {
+  min-height: 40em;
+}
+
+#map {
+  max-width: 1100px;
+  margin: 0 auto;
+
+  p {
+    margin: 10px;
+  }
+
+  #gmap {
+    margin: 0;
+    padding: 0;
+  }
+
+  #panel {
+    float: left;
+    height: 0px;
+    width: 0px;
+  }
+
+  /* The following was added from Eli's CSS: */
+  #map-container {
+    height: 100%;
+    background: white;
+  }
+
+  #map-canvas {
+    height: 500px;
+  }
+
+  #goBackUI:hover, #goNextUI:hover, #goOrigUI:hover, #goPanelUI:hover, #goFullUI:hover {
+    background: #e0ecff;
+  }
+
+  #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+    background-color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    margin-left: 4px;
+  }
+
+  #goBackText, #goNextText, #goOrigText, #goRadioText, #goPanelText, #goFullText {
+    color: rgb(25, 25, 25);
+    margin: 3px;
+  }
+
+  #markerlist {
+    height: 93%;
+    margin: 5px 2px 0 5px;
+    overflow: auto;
+  }
+
+  .title {
+    border-bottom: 1px solid #e0ecff;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 2px 0;
+    display: block;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .title:visited {
+    color: #000;
+  }
+
+  .title:hover, #goRadioUI:hover {
+    background: #e0ecff;
+  }
+
+  .info {
+    width: 400px;
+  }
+
+  .info img {
+    border: 0;
+  }
+
+  .info-body {
+    width: 400px;
+    height: 200px;
+    line-height: 200px;
+    margin: 2px 0;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .info-img {
+    height: auto;
+    width: 100%;
+  }
+
+  /* The above was added from Eli's CSS: */
+}
+
+#data_table th, td {
+  vertical-align: top;
+}
+
+.tt-hint {
+  color: #ccc;
+}
+
+.tt-menu {
+  text-align: left;
+
+  .tt-dataset {
+    box-sizing: border-box;
+    min-width: 200px;
+    padding: 5px 10px 10px 10px;
+    background: #fff;
+    color: #666;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+
+    .tt-suggestion {
+      margin: 5px 0;
+      padding: 5px 0;
+    }
+
+    .tt-suggestion:nth-child(n+2) {
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .tt-suggestion:hover {
+      background: #eee;
+    }
+  }
+}
+
+// TODO: hack - remove
+.uk-form-controls .twitter-typeahead {
+  width: 100%;
+}
+
+.details {
+  .toc {
+    height: 30em;
+  }
+}
+
+// LANDING / HOMEPAGE:
+
+body {
+  margin: 0;
+  padding: 0;
+
+  .landing_page {
+    background-color: $eol-black;
+    color: $eol-blue;
+
+    h1 {
+      color: $eol-blue;
+    }
+  }
+
+  .uk-container {
+    .eol-landing-page-container {
+      margin-top: 6em;
+    }
+  }
+}
+
+.nounderline, .nounderline:hover {
+  text-decoration: none;
+}
+
+// GLOBAL NAV
+.l-nav {
+  background: $white;
+  height: $nav-height;
+  min-width: $mobile-width;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav-item {
+  color: $eol-blue;
+  display: inline-block;
+  height: $nav-height;
+  line-height: $nav-height;
+
+  &:hover {
+    color: $eol-blue;
+  }
+}
+
+.nav-left {
+  float: left;
+  margin-left: 10px;
+}
+
+.nav-right {
+  float: right;
+  margin-right: 10px;
+  height: 100%;
+}
+
+.nav-logo {
+  & > img {
+    height: 19px;
+  }
+}
+
+.nav-search-icon {
+  float: right;
+  padding-top: 5px;
+}
+
+.nav-eol-title {
+  color: $eol-blue;
+  float: right;
+  font-size: 24px;
+  height: 100%;
+  margin-right: 10px;
+  padding-top: 3px;
+  text-align: right;
+}
+
+.nav-menu {
+  background: $white;
+  display: none;
+  font-size: 16px;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: $nav-height;
+
+  & > li {
+    $height: 35px;
+    border-bottom: 1px solid $eol-black;
+    color: $eol-black;
+    cursor: pointer;
+    height: $height;
+    line-height: $height;
+    padding: 0 18px;
+
+    & > a {
+      display: block;
+      color: inherit;
+      height: 100%;
+      width: 100%;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    
+    &:hover {
+      background: $eol-black;
+      color: $white;
+    }
+  }
+}
+
+.nav-menu-anchor {
+  cursor: pointer;
+}
+
+.nav-menu-anchor:hover .nav-menu {
+  display: block;
+}
+
+// overlays
+.l-overlay {
+  background: rgba(#3c3d41, .9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.overlay-x {
+  color: $white;
+  cursor: pointer;
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.overlay-btn {
+  $height: 84px;
+  background-color: #3d4652;
+  bottom: 0;
+  color: #84a1bd;
+  cursor: pointer;
+  font-size: 18px;
+  height: $height;
+  left: 0;
+  line-height: $height;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+@media(max-width: 616px) {
+  // TODO: these should all have a single class that is targeted
+  #map {
+    #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+      display: none;
+    }
+  }
+}

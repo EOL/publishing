@@ -45,18 +45,6 @@ RSpec.describe "pages/show" do
     allow(view).to receive(:is_admin?) { false }
   end
 
-  it "shows the ancestor names" do
-    render
-    expect(rendered).to match "Parent Canon"
-    expect(rendered).to match "Ancestor Canon"
-  end
-
-  it "shows the title" do
-    render
-    expect(rendered).to match "Something Common"
-    expect(rendered).to match "Nice scientific"
-  end
-
 #TODO: move these to a media spec
   # context "with the media subtab showing" do
   #

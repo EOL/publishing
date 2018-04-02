@@ -55,7 +55,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_attachment :resources, :icon
+    # add_attachment :resources, :icon
 
     create_table :partners do |t|
       t.string :name, null: false
@@ -68,7 +68,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_attachment :partners, :icon
+    # add_attachment :partners, :icon
     create_join_table :partners, :users
 
     create_table :nodes do |t|
@@ -473,7 +473,7 @@ class FirstEntityRelationshipDiagram < ActiveRecord::Migration
       t.text :description
       t.integer :collection_items_count
     end
-    add_attachment :collections, :icon
+    # add_attachment :collections, :icon
 
     # NOTE: we renamed this to collection_associations and changed the item
     # reference to "associated_id", later.

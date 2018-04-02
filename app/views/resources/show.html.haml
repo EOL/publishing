@@ -1,55 +1,57 @@
-%h1= @resource.name
-.ui.button= link_to(t("resources.actions.index"), resources_path)
-
-%h2
-  Sample page
-
-With media:
-- if (contn = PageContent.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(contn.source_page)
-- else
-  (none)
-%br
-With synonyms:
-- if (name = ScientificName.where(resource_id: @resource.id, is_preferred: false).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-%br
-With vernaculars:
-- if (name = Vernacular.where(resource_id: @resource.id).first)
-  = link_to_page_by_name(name.node.page)
-- else
-  (none)
-%br
-With traits:
-- if (page_ids = TraitBank.first_pages_for_resource(@resource.id))
-  - if page_ids.empty?
-    (none)
-  - else
-    - pages = Page.where(id: page_ids)
-    - if pages.empty?
-      = "It claims to have pages #{page_ids.sort.to_sentence}, but they don't appear to exist."
+.uk-section
+  %h1.uk-article-title
+    = @resource.name
+    .uk-text-small= "(#{@resource.abbr})"
+  - if is_admin?
+    .ui.basic.button
+      = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
+    .ui.red.inverted.button
+      = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
+        data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
+  %p
+    - if @resource.description.blank?
+      There is no description for this resource.
     - else
-      = link_to_page_by_name(pages.first)
-- else
-  (none)
+      = @resource.description
 
-- if @resource.import_logs.empty?
-  This resource has not been imported yet.
-- else
+  - if @resource.import_logs.empty?
+    %p This resource has not been imported yet.
+  - else
+    %h2 Content
+    %p
+      %ul.uk-subnav
+        %li= link_to(t("resources.actions.index"), resources_path)
+        -# TODO: Shoot, we need a public-facing version of Rails.application.secrets.repository['url'], because that one's
+        -# meant for internal use! = link_to("See harvests.", "/resources/#{@resource.repository_id}")
+        %li= link_to('see harvests', "https://beta-repo.eol.org/resources/#{@resource.repository_id}")
+        %li= link_to("browse #{number_with_delimiter(@resource.nodes.count)} nodes", resource_nodes_path(@resource))
+
+    .uk-section.uk-section-small
+      %ul#page_nav.uk-grid-large{ class: 'uk-child-width-1-2@s uk-child-width-1-6@m', uk: { grid: true } }
+        %li
+          - @resource.update_attribute(:nodes_count, @resource.nodes.count) if @resource.nodes_count.to_i != @resource.nodes.count
+          - index_stat(:nodes, @resource.nodes_count)
+        %li
+          - index_stat(:media, Medium.where(resource_id: @resource.id).count)
+        %li
+          - index_stat(:data, TraitBank.count_by_resource(@resource.id))
+        %li
+          - index_stat(:scientific_names, ScientificName.where(resource_id: @resource.id).count)
+        %li
+          - index_stat(:references, Reference.where(resource_id: @resource.id).count)
+
   %h2
-    Imports:
+    Publish Logs:
   %ul.uk-list
     - @resource.import_logs.order('created_at DESC').each do |log|
       %li
-        %b= link_to(l(log.created_at, format: :long), [@resource, log])
+        %b= link_to(l(log.created_at.localtime, format: :long), [@resource, log])
         - if log.completed_at
           %b= "Completed:"
-          = l(log.completed_at, format: '%H:%M:%S.%3N')
+          = l(log.completed_at.localtime, format: '%H:%M:%S.%3N')
         - elsif log.failed_at
           %b= "Failed:"
-          = l(log.failed_at, format: '%H:%M:%S.%3N')
+          = l(log.failed_at.localtime, format: '%H:%M:%S.%3N')
         %b= "Status:"
         - if log.status
           = log.status

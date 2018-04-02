@@ -1,0 +1,136 @@
+@import "colors";
+@import "dimensions";
+@import "shared/summary_card";
+
+$filter-bar-height: 64px;
+$filter-bar-row-height: $filter-bar-height / 2;
+
+.search-form {
+  padding-top: 50px;
+}
+
+.search-input {
+  background: none;
+  border: none;
+  display: block;
+  font-size: 16px;
+  margin: 0 auto;
+  text-align: center;
+  width: 375px;
+}
+
+.filter-bar {
+  background: $light-blue;
+  color: $eol-dark-blue;
+  cursor: pointer;
+  height: $filter-bar-height;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  top: $nav-height;
+  width: 100%;
+  z-index: 10;
+}
+
+.filter-bar-row {
+  $height: $filter-bar-row-height;
+  
+  height: $height;
+  line-height: $height;
+}
+
+.filter-bar-row-top {
+  background: $white;
+  border-bottom: 1px solid $eol-blue;
+  border-top: 1px solid $eol-blue;
+  color: $eol-black;
+}
+
+.filter-bar-filters {
+  border-right: 1px solid $eol-blue;
+  display: inline-block;
+  width: 70%;
+}
+
+.filter-bar-advanced {
+  display: inline-block;
+  width: 30%;
+
+  & > a {
+    display: block;
+    text-decoration: none;
+    width: 100%;
+  }
+}
+
+.filter-bar-input {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  height: $filter-bar-row-height;
+  text-align: center;
+  width: 100%;
+}
+
+.search-results {
+  background: $white;
+  list-style: none;
+  overflow: auto;
+  margin: $filter-bar-height 0 0 0;
+  padding: 0;
+}
+
+
+/* search filter overlay */
+$filter-type-width: 230px;
+$filter-type-height: 45px;
+$filter-type-space: 7px;
+.search-filter-types {
+  display: block;
+  list-style: none;
+  margin: 75px auto 0 auto;
+  padding: 0;
+  width: $filter-type-width;
+}
+
+.search-filter-type {
+  background-color: #6b737a;
+  border-radius: 19.5px;
+  color: #bfc2c4;
+  cursor: pointer;
+  font-size: 16px;
+  height: $filter-type-height;
+  line-height: $filter-type-height;
+  margin: 0 0 $filter-type-space 0;
+  padding: 0 8px;
+  width: $filter-type-width;
+
+  & > i {
+    height: $filter-type-height;
+    line-height: $filter-type-height;
+  }
+}
+
+.search-filter-icon {
+  float: left;
+  margin-right: 5px;
+  text-align: center;
+  width: 38px;
+}
+
+.search-filter-check {
+  color: $eol-green;
+  display: none;
+  float: right;
+}
+
+.is-search-filter-type-active {
+  background: $white;
+  color: $eol-black;
+
+  .search-filter-check {
+    display: inline;
+  }
+}
+

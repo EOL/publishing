@@ -13,7 +13,7 @@ class TraitBank
 
       # You only have to run this once, and it's best to do it before loading TB:
       def create_indexes
-        indexes = %w{ Page(page_id) Trait(eol_pk) Trait(resource_pk) Term(uri)
+        indexes = %w{ Page(page_id) Trait(eol_pk) Trait(resource_pk) Term(uri) Term(name)
           Resource(resource_id) MetaData(eol_pk)}
         indexes.each do |index|
           begin
@@ -67,6 +67,15 @@ class TraitBank
         query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
           "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
         Rails.cache.clear # Sorry, this is easiest. :|
+      end
+
+      # NOTE: this code is unused, but please don't delete it; we use it manually.
+      def delete_terms_in_domain(domain)
+        before = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
+        query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' DETACH DELETE term")
+        after = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
+        raise "Not all were deleted (before: #{before}, after: #{after})" if after.positive?
+        before
       end
 
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships

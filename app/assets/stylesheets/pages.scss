@@ -1,0 +1,212 @@
+@import "dimensions";
+@import "colors";
+@import "shared/layout";
+@import "shared/traits";
+
+$trait-bg: #fefce5;
+$trait-key-color: #6f5a42;
+$trait-val-color: #c06a11;
+
+$border: 1px solid $light-gray;
+
+$tabs-height: 25px;
+$tabs-m-height: 30px;
+$head-height: 70px;
+
+.hero {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  padding-bottom: percentage(197px / $mobile-width);
+  position: relative;
+  width: 100%;
+}
+
+.hero-after {
+  display: none;
+}
+
+.head-icon {
+  float: left;
+  height: 100%;
+}
+
+.names {
+  margin-top: 16px;
+  overflow: hidden;
+  height: 100%;
+  padding: 0 $padding-left-s;
+  white-space: nowrap;
+
+  & > h1 {
+    color: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  & > h2 {
+    color: inherit;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 3px 0 0 0;
+  }
+}
+
+.l-tabs {
+  background: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 10;
+}
+
+.l-page-head {
+  border-top: $border;
+  height: $head-height;
+}
+
+.tabs {
+  border-top: $border;
+  border-bottom: $border;
+  font-size: 11px;
+  height: $tabs-height;
+  list-style: none;
+  margin: 0 auto;
+  overflow: auto;
+  padding: 2px $padding-left-s;
+  white-space: nowrap;
+  
+}
+
+  .tab {
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 7px;
+    vertical-align: middle;
+
+    & > a {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+
+  .is-tab-selected {
+    background: $eol-blue;
+    color: $white;
+  }
+
+.desc {
+  font-size: 11px;
+  line-height: 1.36;
+  margin: 0;
+  padding: 13px $padding-left-s;
+}
+
+.sample-traits {
+  background: $trait-bg;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 11px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    border-bottom: $border;
+    border-right: $border;
+    border-top: $border;
+    flex: 1 0 auto;
+    height: 48px;
+    padding: 7px 13px;
+
+    &:last-of-type {
+      border-right: none;
+    }
+  }
+}
+
+  .sample-trait-key {
+    color: $trait-key-color;
+  }
+
+  .sample-trait-val {
+    color: $trait-val-color;
+  }
+
+.l-content {
+  overflow: hidden;
+  margin-top: $head-height + $tabs-height;
+}
+
+@media(min-width: $width-m) {
+  .l-content {
+    margin-top: $head-height + $tabs-m-height;
+  }
+
+  .names {
+    margin-top: 10px;
+    padding: 0 $padding-left-m;
+
+    & > h1 {
+      font-size: 20px;
+    }
+
+    & > h2 {
+      font-size: 16px;
+    }
+  }
+
+  .tabs {
+    height: $tabs-m-height;
+    padding: 3px $padding-left-m;
+    
+    & > li {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+  }
+
+  .desc {
+    font-size: 14px;
+    padding: 15px $padding-left-m;
+  }
+
+  .sample-traits {
+    font-size: 14px;
+
+    & > li {
+      padding-left: 18px;
+      height: 58px;
+    }
+  }
+
+}
+
+
+@media(min-width: 1100px) {
+  .l-flex {
+    display: flex;
+  }
+
+  .l-left-col {
+    flex: 0 0 auto; 
+    width: 600px;
+  }
+
+  .hero-before {
+    display: none;
+  }
+
+  .hero-after {
+    display: block; 
+  }
+}
+
+@media (min-width: 1220px) {
+  .hero {
+    height: 702px;
+    padding: 0;
+  }
+}

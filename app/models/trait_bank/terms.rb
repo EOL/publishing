@@ -2,8 +2,8 @@ class TraitBank
   class Terms
     class << self
       delegate :connection, to: TraitBank
-      delegate :query, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
+      delegate :query, to: TraitBank
 
       CACHE_EXPIRATION_TIME = 1.day
 
@@ -49,7 +49,7 @@ class TraitBank
           q = "MATCH (term:Term"
           q += " { is_hidden_from_glossary: false }" unless qterm
           q += ")<-[:#{type}]-(n) "
-          q += "WHERE LOWER(term.name) STARTS WITH \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q += "WHERE LOWER(term.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -73,6 +73,32 @@ class TraitBank
 
       def predicate_glossary(page = nil, per = nil, qterm = nil)
         sub_glossary("predicate", page, per, qterm: qterm)
+      end
+
+      def name_for_pred_uri(uri)
+        key = "trait_bank/predicate_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          predicate_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+
+        map[uri]
+      end
+
+      def name_for_obj_uri(uri)
+        key = "trait_bank/object_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          object_term_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+
+        map[uri]
+      end
+
+      def name_for_units_uri(uri)
+        key = "trait_bank/units_uris_to_names"
+        map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
+          units_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+        end
+        map[uri]
       end
 
       def object_term_glossary(page = nil, per = nil, qterm = nil)
@@ -112,18 +138,45 @@ class TraitBank
         uris
       end
 
-      def obj_terms_for_pred(pred_uri)
+      def obj_terms_for_pred(pred_uri, qterm = nil)
         key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = query(
-            "MATCH (predicate:Term)<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+          q = "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
             "(trait:Trait)"\
-            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "\
-            "WHERE predicate.uri = \"#{pred_uri}\" "\
-            "RETURN DISTINCT(object) "\
+            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "
+          q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q +=  "RETURN DISTINCT(object) "\
             "ORDER BY LOWER(object.name), LOWER(object.uri)"
+
+          res = query(q)
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
+        end
+      end
+
+      # TODO: DRY up this and the above method
+      def units_for_pred(pred_uri)
+        key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
+
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          res = query(
+            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+            "(trait:Trait)"\
+            "-[:units_term]->(units_term:Term) "\
+            "OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units_term:Term) "\
+            "RETURN units_term.name, units_term.uri, normal_units_term.name, normal_units_term.uri "\
+            "LIMIT 1"
           )
-          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
+
+          result = res["data"]&.first || nil
+
+          result = {
+            :units_name => result[0],
+            :units_uri => result[1],
+            :normal_units_name => result[2],
+            :normal_units_uri => result[3]
+          } if result
+
+          result
         end
       end
     end

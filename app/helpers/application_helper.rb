@@ -61,10 +61,15 @@ module ApplicationHelper
   end
 
   def link_to_page_by_name(page)
+    link_to(name_for_page(page), page)
+  end
+
+  def name_for_page(page)
+    return "[MISSING]" if page.nil?
     if page.scientific_name == page.name
-      link_to(page.scientific_name.html_safe, page)
+      page.scientific_name.html_safe
     else
-      link_to(page.scientific_name.html_safe + " (#{page.name})", page)
+      "#{page.scientific_name} (#{page.name})".html_safe
     end
   end
 
@@ -144,9 +149,8 @@ module ApplicationHelper
 
   def emphasize_match(name, match)
     return "" if name.nil?
-    return name if match.nil?
-    return name.html_safe unless name =~ /(#{Regexp.escape(match)})/i
-    highlight(excerpt(name, match, separator: " ", radius: 5), match)
+    return name.html_safe unless !match.nil? && name =~ /(#{Regexp.escape(match)})/i
+    highlight(excerpt(name, match, separator: " ", radius: 5), match).html_safe
   end
 
   def icon(which)
@@ -171,6 +175,15 @@ module ApplicationHelper
     params.each do |param, val|
       next if except.include?(param)
       haml_concat hidden_field_tag(param, val)
+    end
+  end
+
+  # different checks for dev and prod
+  def asset_exists?(path)
+    if Rails.configuration.assets.compile
+      Rails.application.precompiled_assets.include? path
+    else
+      Rails.application.assets_manifest.assets[path].present?
     end
   end
 end

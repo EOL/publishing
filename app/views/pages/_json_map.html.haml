@@ -8,7 +8,7 @@
         %span#total_markers
       #markerlist
     #map-container
-      #map-canvas
+      #map-canvas{ :'data-json-path' => maps_json_path(@page) }
     %p
       -# TODO: We need to pull the link out of the database somewhere...
       = I18n.t(:georef_occurrence_disclaimer, link: link_to(@page.occurrence_map.url, @page.occurrence_map.url)).html_safe

@@ -1,0 +1,36 @@
+.filter-bar
+  .filter-bar-row.filter-bar-row-top
+    = form_tag(search_path, { :method => "get", :autocomplete => :off }) do
+      = text_field_tag("q", nil, :class => "filter-bar-input", :size => 16, :value => @q)
+  .filter-bar-row
+    .filter-bar-filters>
+      .js-search-filter-bar
+        %span= t("search.filter_n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
+    .filter-bar-advanced>
+      = link_to t("advanced"), term_search_path
+%ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
+  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
+= render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
+  %ul.search-filter-types.js-search-filter-types
+    - if @pages && @pages.total_count > 0
+      = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
+    - if @images && @images.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_images", :results => @images}
+    - if @videos && @videos.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_videos", :results => @videos}
+    - if @sounds && @sounds.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
+    - if @articles && @articles.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_articles", :results => @articles}
+    - if @collections && @collections.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_collections", :results => @collections}
+    - if @users && @users.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_users", :results => @users}
+  .overlay-btn.js-apply-filter-btn apply filters
+

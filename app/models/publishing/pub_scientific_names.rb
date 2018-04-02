@@ -1,5 +1,8 @@
 class Publishing::PubScientificNames
-  def self.import(resource, log, repo)
+  def self.import(resource, log = nil, repo = nil)
+    log ||= Publishing::PubLog.new(resource)
+    a_long_long_time_ago = 1202911078 # 10 years ago when this was written; no sense coding it.
+    repo ||= Publishing::Repository.new(resource: resource, log: log, since: a_long_long_time_ago)
     Publishing::PubScientificNames.new(resource, log, repo).import
   end
 
@@ -32,13 +35,13 @@ class Publishing::PubScientificNames
       end
     end
     return if count.zero?
-    ScientificName.propagate_id(resource: @resource, fk: 'node_resource_pk',  other: 'nodes.resource_pk',
-                       set: 'node_id', with: 'id', resource_id: @resource.id)
+    ScientificName.propagate_id(fk: 'node_resource_pk',  other: 'nodes.resource_pk',
+                                set: 'node_id', with: 'id', resource_id: @resource.id)
     # TODO: This doesn't ensure we're getting *preferred* scientific_name.
-    Node.propagate_id(resource: @resource, fk: 'id',  other: 'scientific_names.node_id',
-                       set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
+    Node.propagate_id(fk: 'id',  other: 'scientific_names.node_id',
+                      set: 'scientific_name', with: 'italicized', resource_id: @resource.id)
     @log.log('fixing counter_culture counts for ScientificName...')
-    ScientificName.counter_culture_fix_counts
+    # TMP: [faster for now] ScientificName.counter_culture_fix_counts
   end
 
   def get_tax_stat(status)

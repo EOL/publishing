@@ -1,3 +1,4 @@
+# TODO: unmodified URL is probably not required; it's currently unused. ...Maybe delete it? Maybe use it. Not sure.
 class Medium < ActiveRecord::Base
   include Content
   include Content::Attributed
@@ -12,8 +13,9 @@ class Medium < ActiveRecord::Base
 
   has_one :image_info, inverse_of: :image
 
+  # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
   enum subclass: [ :image, :video, :sound, :map, :js_map ]
-  enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav ]
+  enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav, :mp4 ]
 
   scope :images, -> { where(subclass: :image) }
   scope :videos, -> { where(subclass: :video) }
@@ -31,10 +33,14 @@ class Medium < ActiveRecord::Base
   #   end
   # end
 
+  def source_pages
+    page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
+  end
+
   # TODO: we will have our own media server with more intelligent names:
   def original_size_url
-    orig = Rails.configuration.x.image_path.original
-    ext = Rails.configuration.x.image_path.ext
+    orig = Rails.configuration.x.image_path['original']
+    ext = Rails.configuration.x.image_path['ext']
     base_url + "#{orig}#{ext}"
   end
 
@@ -65,9 +71,9 @@ class Medium < ActiveRecord::Base
   end
 
   def format_image_size(w, h)
-    join = Rails.configuration.x.image_path.join
-    by = Rails.configuration.x.image_path.by
-    ext = Rails.configuration.x.image_path.ext
+    join = Rails.configuration.x.image_path['join']
+    by = Rails.configuration.x.image_path['by']
+    ext = Rails.configuration.x.image_path['ext']
     "#{join}#{w}#{by}#{h}#{ext}"
   end
 
@@ -75,24 +81,9 @@ class Medium < ActiveRecord::Base
     [name, "#{license.name} #{owner.html_safe}"]
   end
 
-  # TODO: spec these methods:
-  def is_image?
-    subclass == :image
-  end
-
-  def is_video?
-    subclass == :video
-  end
-
-  def is_sound?
-    subclass == :sound
-  end
-
-  def is_map?
-    subclass == :map
-  end
-
-  def is_js_map?
-    subclass == :js_map
+  def extra_search_data
+    {
+      :subclass => subclass
+    }
   end
 end

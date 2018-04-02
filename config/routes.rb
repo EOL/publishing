@@ -1,24 +1,29 @@
 Rails.application.routes.draw do
+  get 'errors/not_found'
+
+  get 'errors/internal_server_error'
+
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
-    get "autocomplete", on: :collection
-    get "topics", on: :collection
-    get "breadcrumbs"
-    get "comments"
-    get "create_topic"
-    get "overview"
-    get "classifications"
+    get 'autocomplete', on: :collection
+    get 'topics', on: :collection
+    get 'breadcrumbs'
+    get 'comments'
+    get 'create_topic'
+    get 'classifications'
     # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
     # collection:
-    get "clear_index_stats", on: :collection
-    get "details"
-    get "literature_and_references"
-    get "maps"
-    get "media"
-    get "names"
-    get "reindex"
-    get "data"
+    get 'clear_index_stats', on: :collection
+    get 'details'
+    get 'literature_and_references'
+    get 'maps'
+    get 'media'
+    get 'names'
+    get 'reindex'
+    get 'data'
+
+    get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
   end
 
   resources :data, only: [:show]
@@ -44,8 +49,8 @@ Rails.application.routes.draw do
     # TODO: this is not very restful; should be a nested resource, but the terms
     # become somewhat tricky, so cheating for now. These aren't really
     # "public-facing URLs" anyway, so less concerned about it.
-    post "add_user"
-    post "remove_user"
+    post 'add_user'
+    post 'remove_user'
   end
   resources :collection_associations, only: [:new, :create, :destroy]
   resources :collected_pages
@@ -54,7 +59,12 @@ Rails.application.routes.draw do
   resources :page_icons, only: [:create]
 
   resources :resources, only: [:index, :show] do
+    get 'clear_publishing', on: :collection
+    get 'sync', on: :collection
+    get 'import_traits'
+    get 'republish'
     resources :import_logs, only: [:show]
+    resources :nodes, only: [:index]
   end
 
   resources :search_suggestions
@@ -68,6 +78,7 @@ Rails.application.routes.draw do
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
   get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
+  get "/terms/object_terms_for_predicate" => "terms#object_terms_for_pred"
   get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
   get "/terms/new" => "terms#new", :as => "new_term"
   get "/terms/:uri" => "terms#show", :as => "term", :constraints => { uri: /http.*/ }
@@ -75,15 +86,24 @@ Rails.application.routes.draw do
   get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
   get "/terms" => "terms#index", :as => "terms"
   get "/terms/search" => "terms#search", :as => "term_search"
+  get "/terms/search_results" => "terms#search_results", :as => "term_search_results"
   get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
+  get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
-  get "/search" => "search#search", :as => "search"
+  get "/search" => "search#index",  :as => "search_form"
+  get "/search_results" => "search#search", :as => "search"
+  #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
+  get "/search_page" => "search#search_page", :as => "search_page"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
 
-  root "pages#index"
+  match '/ping', to: 'pages#ping', via: :all
+
+  root 'pages#index'
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

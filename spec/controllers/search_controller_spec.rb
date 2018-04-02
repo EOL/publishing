@@ -1,5 +1,15 @@
 require 'rails_helper'
 
+def verify_search_results(actual, orig, deco_klazz)
+  expect(actual).to be_decorated_with(SearchResultsDecorator)
+  expect(actual.length).to equal(orig.length)
+    
+  actual.each_with_index do |item, i|
+    expect(item).to be_decorated_with(deco_klazz)
+    expect(item).to eql(orig[i])
+  end
+end
+
 RSpec.describe SearchController do
 
 
@@ -27,22 +37,36 @@ RSpec.describe SearchController do
 
     context "when requesting all results" do
       before { get :search, q: "query" }
-      it { expect(assigns(:pages)).to eq(pages) }
-      it { expect(assigns(:collections)).to eq(collections) }
-      it { expect(assigns(:media)).to eq(media) }
-      it { expect(assigns(:users)).to eq(users) }
-      it { expect(assigns(:empty)).to eq(false) }
+      it "assigns @pages" do 
+        verify_search_results(assigns(:pages), pages, PageSearchDecorator)
+      end
+
+      it "assigns @collections" do
+        verify_search_results(assigns(:collections), collections, CollectionSearchDecorator)
+      end
+
+      it "assigns @images" do
+        verify_search_results(assigns(:images), media, ImageSearchDecorator)
+      end
+
+      it "assigns @videos" do
+        verify_search_results(assigns(:videos), media, VideoSearchDecorator)
+      end
+
+      it "assigns @sounds" do
+        verify_search_results(assigns(:sounds), media, SoundSearchDecorator)
+      end
+
+      it "assigns @users" do
+        verify_search_results(assigns(:users), users, UserSearchDecorator)
+      end
+
       it { expect(assigns(:q)).to eq("query") }
       it { expect(Page).to have_received(:search) }
     end
 
     context "when only requesting pages" do
       before { get :search, q: "query", only: "pages" }
-      it { expect(Collection).not_to have_received(:search) }
-    end
-
-    context "when requesting all except collections" do
-      before { get :search, q: "query", except: ["collections", "object_terms"] }
       it { expect(Collection).not_to have_received(:search) }
     end
   end

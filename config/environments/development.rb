@@ -19,7 +19,7 @@ Rails.application.configure do
   #Devise Mailer settings.
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025}
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -45,9 +45,9 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 end
 
-Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'http://localhost:3000'
-Rails.configuration.eol_web_url = ENV['EOL_WEB_URL'] || 'http://localhost:3001'
-Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '_orig'
-Rails.configuration.x.image_path.ext = '.jpg'
-Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '_'
-Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || '_'
+# NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
+# sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

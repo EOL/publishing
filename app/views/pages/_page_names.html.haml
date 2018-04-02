@@ -18,24 +18,20 @@
                 .description.uk-text-meta
                   - formatted_names = []
                   - names.each do |name|
+
                     -resource_id = name.resource_id
                     -if !resource_id.nil? && !name.attribution.blank?
                       -result = ResourceApi.get_resource_using_id(resource_id)
                       - content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource_id)
                       - formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
-                  = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 
-              -# .item
-                -# .header= string.html_safe
-                -# .description.uk-text-meta
-                  -# - formatted_names = []
-                  -# - names.each do |name|
                     -# - next if name.resource.nil? && name.attribution.blank?
                     -# - note = ''
-                    -# - note += "#{link_to(name.resource.name, name.resource)} " if name&.resource
-                    -# - note += name.attribution.html_safe unless name.attribution.blank?
+                    -# - note += link_to(name.resource.name, name.resource) if name&.resource
+                    -# - note += " #{name.attribution.html_safe}" unless name.attribution.blank?
                     -# - formatted_names << note
-                  -# = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+
+                  = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 
 %h2= t(:vernacular_names_header)
 .uk-grid-small.uk-child-width-1-3{ uk: { grid: true } }
@@ -79,22 +75,4 @@
                       - formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                     = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 
-                -# .item
-                  -# - preferred_name = names_by_string.any? { |n| n.is_preferred? }
-                  -# .header
-                    -# = string
-                    -# - if preferred_name
-                      -# %span.uk-label.uk-label-primary.uk-float-right.uk-margin-left= t(:name_preferred_label)
-                    -# - elsif is_admin?
-                      -# -# TODO: admin OR curator...
-                      -# .uk-float-right
-                        -# = link_to(t("names.prefer"), prefer_vernacular_path(names_by_string.first))
-                  -# .description.uk-text-meta
-                    -# - formatted_names = []
-                    -# - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
-                      -# - str = resource.name
-                      -# - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
-                        -# - str = t(:vernacular_preferred_by_resource, resource: str)
-                      -# - formatted_names << link_to(str, resource)
-                    -# = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 

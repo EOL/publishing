@@ -1,0 +1,46 @@
+@import "colors";
+@import "dimensions";
+@import "shared/layout";
+
+.traits {
+  list-style: none;
+  padding: 0;
+}
+
+  .trait {
+    border: 1px solid $light-gray;
+    margin-top: 3px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .trait-source {
+    float: right;
+  }
+
+  .trait-thumb {
+    float: left;
+    margin-right: 10px;
+  }
+  
+  .trait-data {
+    overflow: hidden;
+  }
+
+.meta-items-arw {
+  bottom: 5px;
+  display: block;
+  cursor: pointer;
+  right: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+.term-info-a {
+  cursor: pointer;
+}
+
+.desc-meta {
+  list-style: none;
+  padding: 0;
+}

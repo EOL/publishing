@@ -28,7 +28,7 @@ gem 'refinerycms-wymeditor' #, ['~> 2.0', '>= 2.0.0']
 gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
@@ -56,9 +56,10 @@ gem 'daemons'
 # Memcached (not for development):
 gem 'dalli'
 # Background jobs (to be run by daemons, q.v.):
+gem 'delayed_job', '~> 4.1.4'
 gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
-gem 'devise','4.2.0'
+gem 'devise', '~> 4.4.1'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
 # Discourse handles comments and chat:
@@ -68,6 +69,8 @@ gem 'discourse_api'
 gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
+# QUIET PLEASE MAKE IT STOP:
+gem 'lograge'
 # Neography is used for our Triple Store for now:
 gem 'neography'
 # Site monitoring for staging and production:
@@ -77,8 +80,6 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
-# Handle attachments (icons):
-gem 'paperclip'
 # Debugging:
 gem 'pry-rails'
 # Authorization:
@@ -91,6 +92,14 @@ gem 'searchkick'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
+# Icons
+gem 'font-awesome-sass'
+# Model decoration
+gem 'draper', '~> 2.1.0'
+# Zip file support
+gem 'rubyzip', '>= 1.0.0'
+
+
 
 # gem 'rest-client'
 gem 'whenever'
@@ -104,6 +113,8 @@ gem 'httparty'
 gem "kaminari", "~> 1.0"
 
 group :development, :test do
+  # Security analysis:
+  gem 'brakeman', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Coveralls tracks our spec coverage:
@@ -131,14 +142,20 @@ end
 
 group :test do
 
-  gem 'rspec-rails'
-  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`", but it didn't help, so I'm removing it.
-  # Hmmn. gem "rspec-html-matchers"
+  gem 'rspec-rails', '~> 3.7.2'
+  # TEMP - remove rack-protection, required by rspec, eventually. Here
+  # temporarily to circumvent https://nvd.nist.gov/vuln/detail/CVE-2018-1000119
+  gem 'rack-protection', '~> 1.5.5'
+  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`",
+  # but it didn't help, so I'm removing it. Hmmn.
+  # gem "rspec-html-matchers"
   gem 'better_errors'
   gem 'capybara'
   gem 'factory_girl'
   gem 'faker'
   gem 'rack_session_access'
+
+  gem 'shoulda-matchers', '~> 3.1'
 
 end
 

@@ -1,8 +1,32 @@
 class SearchController < ApplicationController
-  # TODO: Mammoth method, break up.
+  before_action :no_main_container
+
+  def index
+    @suppress_search_icon = true
+  end
+
   def search
+    do_search
+  end
+
+  def search_page
+    @type = params[:only].to_sym
+    do_search
+    render :layout => false
+  end
+
+#  def suggestions
+#    @results = Page.autocomplete(params[:query])
+#    render :layout => false
+#  end
+
+private
+  # TODO: Mammoth method, break up.
+  def do_search
+    @search_text = params[:q]
+
     # Doctoring for the view to find matches:
-    @q = params[:q]
+    @q = @search_text
     @q.chop! if params[:q] =~ /\*$/
     @q = @q[1..-1] if params[:q] =~ /^\*/
 
@@ -95,16 +119,18 @@ class SearchController < ApplicationController
 
     default = params.has_key?(:only)? false : true
     @types = {}
-    [ :pages, :collections, :media, :users, :predicates, :object_terms ].
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
       each do |sym|
         @types[sym] = default
       end
 
-    if params.has_key?(:only)
-      Array(params[:only]).each { |type| @types[type.to_sym] = true }
-    elsif params.has_key?(:except)
-      Array(params[:except]).each { |type| @types[type.to_sym] = false }
-    end
+    @types[params[:only].to_sym] = true if params.has_key?(:only)
+
+    # if params.has_key?(:only)
+    #   Array(params[:only]).each { |type| @types[type.to_sym] = true }
+    # elsif params.has_key?(:except)
+    #   Array(params[:except]).each { |type| @types[type.to_sym] = false }
+    # end
 
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
@@ -118,20 +144,48 @@ class SearchController < ApplicationController
       nil
     end
 
+
     @collections = if @types[:collections]
       basic_search(Collection, fields: ["name^5", "description"])
     else
       nil
     end
 
-    @media = if @types[:media]
+    @articles = if @types[:articles]
       basic_search(Searchkick,
         fields: ["name^5", "resource_pk^10", "owner", "description^2"],
         where: @clade ? { ancestry_ids: @clade.id } : nil,
-        index_name: [Article, Medium, Link])
+        index_name: [Article])
     else
       nil
     end
+
+    @images = if @types[:images]
+      media_search("image")
+    else
+      nil
+    end
+
+    @videos = if @types[:videos]
+      media_search("video")
+    else
+      nil
+    end
+
+    @sounds = if @types[:sounds]
+      media_search("sound")
+    else
+      nil
+    end
+
+    # @links = if @types[:links]
+    #   basic_search(Searchkick,
+    #     fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+    #     where: @clade ? { ancestry_ids: @clade.id } : nil,
+    #     index_name: [Link])
+    # else
+    #   nil
+    # end
 
     @users = if @types[:users]
       basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
@@ -139,36 +193,39 @@ class SearchController < ApplicationController
       nil
     end
 
-    Searchkick.multi_search([@pages, @collections, @media, @users].compact)
+    #Searchkick.multi_search([@pages, @collections, @media, @users].compact)
 
-    if @types[:predicates]
-      @predicates_count = TraitBank.count_predicate_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @predicates = Kaminari.paginate_array(
-        TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
-        total_count: @predicates_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
+    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users].compact)
 
-    if @types[:object_terms]
-      @object_terms_count = TraitBank.count_object_terms(@q)
-      # NOTE we use @q here because it has no wildcard.
-      @object_terms = Kaminari.paginate_array(
-        TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
-        total_count: @object_terms_count
-      ).page(params[:page]).per(params[:per_page] || 50)
-    end
+    @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
+    @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
+    @images = ImageSearchDecorator.decorate_collection(@images) if @images
+    @videos = VideoSearchDecorator.decorate_collection(@videos) if @videos
+    @sounds = SoundSearchDecorator.decorate_collection(@sounds) if @sounds
+    @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
+    @users = UserSearchDecorator.decorate_collection(@users) if @users
+
+    # if @types[:predicates]
+    #   @predicates_count = TraitBank.count_predicate_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @predicates = Kaminari.paginate_array(
+    #     TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @predicates_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
+    #
+    # if @types[:object_terms]
+    #   @object_terms_count = TraitBank.count_object_terms(@q)
+    #   # NOTE we use @q here because it has no wildcard.
+    #   @object_terms = Kaminari.paginate_array(
+    #     TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
+    #     total_count: @object_terms_count
+    #   ).page(params[:page]).per(params[:per_page] || 50)
+    # end
 
     respond_to do |fmt|
       fmt.html do
         @page_title = t(:page_title_search, query: @q)
-        @empty = true
-        [ @pages, @collections, @media, @users ].each do |set|
-          @empty = false if set && ! set.empty?
-        end
-        # Object terms is unusual:
-        @empty = false if @object_terms && ! @object_terms.empty?
-        @empty = false if @predicates && ! @predicates.empty?
       end
 
       fmt.js { }
@@ -193,10 +250,18 @@ class SearchController < ApplicationController
     end
   end
 
-private
-
   def basic_search(klass, options = {})
     klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       execute: false, page: params[:page], per_page: 50))
+  end
+
+  def media_search(subtype_str)
+    where = { :subclass => subtype_str}
+    where.merge!({ :ancestry_ids => @clade.id }) if @clade
+
+    basic_search(Searchkick,
+      fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+      where: where,
+      index_name: [Medium])
   end
 end

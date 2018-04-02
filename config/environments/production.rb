@@ -1,4 +1,5 @@
 Rails.application.configure do
+  config.lograge.enabled = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -55,9 +56,8 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  cache_addr = ENV["EOL_PROD_CACHE_URL"] || "memcached:11211"
-  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL",
-    compress: true }
+  cache_addr = Rails.application.secrets.cache_url
+  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
@@ -80,3 +80,10 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   
 end
+
+# NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
+# sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

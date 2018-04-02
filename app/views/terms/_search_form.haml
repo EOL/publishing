@@ -1,37 +1,52 @@
-= form_for @query, :url => term_search_path, :method => :get, :class => "uk-form-stacked term-form" do |f|
-  = f.fields_for :pairs do |ff|
-    .js-trait-fields{:'uk-grid' => true}
-      .uk-width-expand
-        = ff.label :predicate, t("term.label.attribute"), :class => "uk-form-label"
-        .uk-form-controls
-          = ff.select :predicate, @predicate_options, {}, :class => "uk-select js-pred-select js-term-select"
-      .uk-width-expand
-        = ff.label :object, t("term.label.value"), :class=> "uk-form-label"
-        .uk-form-controls
-          - options = ff.object.predicate ? obj_term_options(ff.object.predicate) : []
-          - disabled = options.empty?
-          = ff.select :object, obj_term_options(ff.object.predicate), {}, :disabled => disabled, :class => "uk-select js-obj-select js-term-select"
-      - if @query.pairs.length > 1
-        .uk-width-1-6.uk-position-relative
-          .minus-term-icon.js-remove-pair{:'uk-icon' => "icon: minus-circle", :data => { :index => ff.index }}
-  %button.uk-button.uk-margin.js-add-pair Add
-  %div{:'uk-grid' => true}
-    .uk-width-1-2.js-typeahead-wrap
-      = f.label :clade, t("clade"), :class => "uk-form-label"
-      .uk-form-controls
-        = text_field_tag(:clade_name, f.object.clade_name, :class => "uk-input js-clade-typeahead typeahead")
-        = f.hidden_field :clade, :class => "js-clade-field" 
-    -# TODO: implement sort
-      .uk-width-1-2
-        = f.label :sort, :class => "uk-form-label"
-        .uk-form-controls
-        = f.select :sort, options_for_select(@query.sort_options), {}, :class => "uk-select"
-  %div{:'uk-grid' => true}
-    %div
-      = label_tag :result_type_record, t("term.label.records_matching_any")
-      = radio_button_tag :result_type, :record, @result_type == :record
-    %div
-      = label_tag :search_type_page, t("term.label.taxa_matching_all")
-      = radio_button_tag :result_type, :page, @result_type == :page
-  = f.submit t("term.actions.search"), :class => "uk-button uk-button-default uk-margin-top"
-  = f.submit t("term.actions.download_csv"), :formaction => term_search_path(:format => :csv), :class => "uk-button uk-button-default uk-margin-top uk-float-right"
+#term_form_container
+  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", ("is-multiple-filters" if (@query.filters.length > 1))]} do |f|
+    .filter.filter-row
+      %span.js-typeahead-wrap.l-filter-full
+        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (optional)"
+        = f.hidden_field :clade_id, :class => "js-typeahead-field"
+
+    = f.fields_for :filters do |ff|
+      .filter.uk-form-row
+        - if f.object.filters.length > 1
+          .l-filter-first.filter-icon
+            .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
+        %span.js-typeahead-wrap.filter-field.l-filter-full.filter-row{:class => ff.object.errors[:pred_uri].any? ? "is-filter-row-with-errors" : ""}
+          - show_error(ff.object, :pred_uri)
+          = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "uk-input js-pred-typeahead", :placeholder => "attribute"
+          = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
+        .filter-row
+          = ff.select :op, op_select_options(ff.object), {}, :class => "filter-input uk-select uk-form-width-small js-op-select"
+        - if ff.object.numeric? || ff.object.range?
+          .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
+            %span.filter-field
+              - show_error(ff.object, :num_val1)
+              = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
+            - if ff.object.range?
+              %span.filter-txt to
+              %span.filter-field
+                - show_error(ff.object, :num_val2)
+                = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
+          .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
+            = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
+        - elsif ff.object.object_term?
+          .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
+            %span.js-typeahead-wrap.filter-field.l-filter-full
+              - show_error(ff.object, :obj_uri)
+              = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
+              = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
+
+    .filter-row
+      .filter.add-filter.js-add-filter
+        %span.filter-icon{:'uk-icon' => "icon: plus; ratio: 1.4"}
+        .filter-txt trait filter
+    .filter-row.filter-row-flex
+      .filter-radios
+        .filter-field.filter-field-radio
+          = label_tag :search_type_record, "records matching ANY filter"
+          = radio_button_tag :result_type, :record, @result_type == :record
+        .filter-field.filter-field-radio
+          = label_tag :search_type_page, "taxa matching ALL filters"
+          = radio_button_tag :result_type, :page, @result_type == :page
+      = submit_tag "Download TSV", :formaction => term_search_results_path(:format => :csv), :class => "filter-field filter-field-radio"
+    = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
+

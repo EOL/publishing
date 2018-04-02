@@ -1,0 +1,16 @@
+%div{:'uk-dropdown' => "mode: click"}
+  %ul.desc-meta
+    %li= t("terms.uri_field_html", :uri => link_to(term[:uri], term[:uri])).html_safe
+    - if !term[:definition].blank?
+      %li= t("terms.definition_field_html", :definition => term[:definition]).html_safe
+    - if !term[:comment].blank?
+      %li= t("terms.comment_field_html", :comment => term[:comment]).html_safe
+    - if !term[:attribution].blank?
+      %li= t("terms.attribution_field_html", :attribution => term[:attribution]).html_safe
+  - if search_link
+    - if local_assigns.has_key? :pred_uri
+      -# then term is an object term
+      - path_opts = { :uri => pred_uri, :obj_uri => term[:uri] }
+    - else
+      - path_opts = { :uri => term[:uri] }
+    = link_to(t("terms.show_all_records"), term_path(path_opts))
