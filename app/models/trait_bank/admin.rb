@@ -13,8 +13,8 @@ class TraitBank
 
       # You only have to run this once, and it's best to do it before loading TB:
       def create_indexes
-        indexes = %w{ Page(page_id) Trait(resource_pk) Term(uri)
-          Resource(resource_id) }
+        indexes = %w{ Page(page_id) Trait(eol_pk) Trait(resource_pk) Term(uri)
+          Resource(resource_id) MetaData(eol_pk)}
         indexes.each do |index|
           begin
             query("CREATE INDEX ON :#{index};")
@@ -30,7 +30,7 @@ class TraitBank
 
       # NOTE: You only have to run this once, and it's best to do it before
       # loading TB:
-      def create_constraints
+      def create_constraints(drop = nil)
         contraints = {
           "Page" => [:page_id],
           "Term" => [:uri]
@@ -38,11 +38,13 @@ class TraitBank
         contraints.each do |label, fields|
           fields.each do |field|
             begin
+              name = 'o'
+              name = label.downcase if drop && drop == :drop
               query(
-                "CREATE CONSTRAINT ON (o:#{label}) ASSERT o.#{field} IS UNIQUE;"
+                "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
               )
             rescue Neography::NeographyError => e
-              raise e unless e.message =~ /already exists/
+              raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
             end
           end
         end
@@ -56,12 +58,15 @@ class TraitBank
       def remove_all_data_leave_terms
         query("MATCH (meta:MetaData) DETACH DELETE meta")
         query("MATCH (trait:Trait) DETACH DELETE trait")
+        query("MATCH (page:Page) DETACH DELETE page")
         query("MATCH (res:Resource) DETACH DELETE res")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       def remove_for_resource(resource)
         query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
           "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
+        Rails.cache.clear # Sorry, this is easiest. :|
       end
 
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships

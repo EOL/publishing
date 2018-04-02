@@ -42,4 +42,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  Rails.configuration.x.image_path.original = '_orig'
+  Rails.configuration.x.image_path.ext = '.jpg'
+  Rails.configuration.x.image_path.join = '_'
+  Rails.configuration.x.image_path.by = '_'
 end

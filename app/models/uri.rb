@@ -5,7 +5,7 @@
 module Uri
   class << self
     def is_uri?(url)
-      url =~ URI::regexp
+      url =~ URI::ABS_URI
     end
   end
 end

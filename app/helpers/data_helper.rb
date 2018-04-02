@@ -16,7 +16,8 @@ module DataHelper
         show_meta_data(datum)
       end
     end
-    show_definition(data[:units])
+    show_definition(data[:units]) if data[:units]
+    show_definition(data[:predicate]) if data[:predicate]
     show_definition(data[:object_term]) if data[:object_term]
     show_source(data[:source]) if data[:source]
   end
@@ -44,28 +45,45 @@ module DataHelper
   end
 
   def show_data_value(data)
-    # debugger
+
+    haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(show data value)') }
     value = t(:data_missing, keys: data.keys.join(", "))
-    if data[:object_page_id] && defined?(@associations)
-      target = @associations.find { |a| a.id == data[:object_page_id] }
-      if target.nil?
-        haml_concat "[page #{data[:object_page_id]} not imported]"
+    if (target_id = data[:object_page_id] || data[:target_page_id])
+      if defined?(@associations)
+        target = @associations.find { |a| a.id == target_id }
+        if target.nil?
+          haml_concat "[page #{data[:object_page_id]} not imported]"
+        else
+          summarize(target, options = {})
+        end
       else
-        summarize(target, options = {})
+        haml_concat "MISSING PAGE: "
+        haml_concat value
       end
+      haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(association)') }
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
-      haml_concat(link_to(value,'#'))
-      # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
-    elsif data[:measurement]
-      value = data[:measurement].to_s + " "
+
+      # haml_concat(link_to(value,'#'))
+      # # haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+    # elsif data[:measurement]
+      # value = data[:measurement].to_s + " "
+
+      haml_concat(link_to(value, term_path(uri: data[:object_term][:uri], object: true)))
+      haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(object term)') }
+    elsif val = data[:measurement] || data[:value_measurement]
+      value = val.to_s + " "
+
       value += data[:units][:name] if data[:units] && data[:units][:name]
       haml_concat(value.html_safe)
-    elsif data[:literal]
-      haml_concat unlink(data[:literal]).html_safe
+      haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(measurement)') }
+    elsif val = data[:literal] || data[:value_literal]
+      haml_concat unlink(val).html_safe
+      haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(literal)') }
     else
-      haml_concat "OOPS: "
+      haml_concat "CORRUPTED VALUE:"
       haml_concat value
+      haml_tag(:span, class: 'uk-text-muted uk-text-small') { haml_concat('(missing)') }
     end
   end
 
@@ -84,9 +102,11 @@ module DataHelper
   end
 
   def show_source(src)
-    haml_tag(:tr) do
-      haml_tag(:th, I18n.t(:data_source))
-      haml_tag(:td, unlink(src))
+    haml_tag(:div, class: "ui secondary segment") do
+      haml_concat I18n.t(:data_source)
+    end
+    haml_tag(:div, class: "ui tertiary segment") do
+      haml_concat unlink(src).html_safe
     end
   end
 
@@ -96,8 +116,10 @@ module DataHelper
       # if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
       if resource = @resources 
         haml_tag("div.uk-overflow-auto") do
+
           content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource["id"])
           haml_concat(link_to(resource["name"], content_partner_resource_path(content_partner_id["id"], resource["id"]), title: resource["name"],
+
             data: { toggle: "tooltip", placement: "left" } ))
         end
       else
@@ -129,5 +151,17 @@ module DataHelper
     [data[:statistical_method], data[:sex], data[:lifestage]].compact.each do |type|
       haml_tag(:div, type, class: "data_type uk-text-muted uk-text-small uk-text-left")
     end
+  end
+
+  def obj_term_options(pred_uri)
+    options = [["----", nil]]
+
+    if (!pred_uri.blank?)
+      TraitBank::Terms.obj_terms_for_pred(pred_uri).each do |term|
+        options.push([term[:name], term[:uri]])
+      end
+    end
+
+    options
   end
 end

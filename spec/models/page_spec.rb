@@ -59,7 +59,7 @@ RSpec.describe Page do
     let!(:name2) { create(:scientific_name, node: our_page.native_node) }
 
     it "selects the preferred scientific name" do
-      expect(our_page.scientific_name).to eq(our_page.native_node.canonical_form)
+      expect(our_page.scientific_name).to eq(our_page.native_node.scientific_name)
     end
 
     it "has access to all scientific names" do
@@ -74,12 +74,12 @@ RSpec.describe Page do
     let!(:summary) do
        article = create(:article)
        ContentSection.create(content: article, section: Section.brief_summary)
-       PageContent.create(content: article, page: our_page, source_page: our_page)
+       PageContent.create(content: article, page: our_page, source_page: our_page, resource_id: 1)
        article
     end
     let!(:other_article) do
        article = create(:article)
-       PageContent.create(content: article, page: our_page, source_page: our_page)
+       PageContent.create(content: article, page: our_page, source_page: our_page, resource_id: 1)
        article
     end
 

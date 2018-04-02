@@ -208,6 +208,7 @@ en:
     reindex: "reindex"
     search_placeholder: "Search..."
     search_suggestions: "Search Suggestions"
+    resources: "Resources"
     stats:
       pages: "pages"
       data: "data records"
@@ -434,7 +435,12 @@ en:
     empty: "There are no maps available for this page."
     other_maps_title: "Non-interactive Maps"
   medium:
-    untitled: "Untitled"
+    untitled:
+      image: "Untitled image"
+      video: "Untitled video"
+      sound: "Untitled sound"
+      map: "Untitled map"
+      js_map: "Untitled interactive map"
     subclasses:
       image: "image"
       video: "video"
@@ -524,6 +530,17 @@ en:
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   remember_me: "remember me"
   resend_confirmations: "Resend confirmation instructions"
+  resources:
+    actions:
+      index: "back to all resources"
+      show_all:
+        other: "show all (%{count})"
+      show_warns:
+        one: "show warning (%{count})"
+        other: "show warnings (%{count})"
+    headers:
+      import_log: "Import Log for %{resource}"
+    no_events: "None!"
   resource_missing: "resource not found"
   scientific_name:
     status_title:
@@ -688,9 +705,11 @@ en:
   term:
     actions:
       download: "download"
+      download_csv: "Download CSV"
       glossary: "full glossary"
       edit: "edit term"
       reindex: "reindex"
+      search: "Search"
       sort: "sort by"
       show_records: "show records"
       species_list: "species list"
@@ -711,11 +730,17 @@ en:
       object_term_title: "Glossary of Value Terms for Data on EOL"
       units_title: "Glossary of Unit Terms for Data on EOL"
     header:
+      data_search: "Data Search"
       object_term: "a data record value"
       predicate: "a data record type"
       count:
         one: "%{count} record."
         other: "%{count} records."
+    label:
+      attribute: "Attribute"
+      records_matching_any: "Records matching ANY attribute/value pair"
+      taxa_matching_all: "Taxa matching ALL attribute/value pairs"
+      value: "Value"
     pagination:
       next: "next page"
       previous: "previous page"
@@ -765,6 +790,7 @@ en:
       downloads: "Downloads"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
+    you_must_select: "You must select at least one attribute"
   user_not_active: "The user is not active"
   users:
     sign_in: "Sign In"

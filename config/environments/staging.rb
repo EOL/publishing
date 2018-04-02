@@ -17,4 +17,11 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 end
 
-Rails.configuration.repository_url = 'http://beta-repo.eol.org' # TODO: ENV var
+Rails.configuration.repository_url = ENV['EOL_IMAGE_REPO_URL'] || 'https://beta-repo.eol.org'
+# Ummmn... maybe we should move this to secrets ... but ATM anyone who care enough to read this and poke at our server
+# probably deserves to see it. :)
+Rails.configuration.eol_web_url = ENV['EOL_WEB_URL'] || 'https://demo:fungi@beta.eol.org'
+Rails.configuration.x.image_path.original = ENV['EOL_IMAGE_ORIGINAL'] || '' # Yes, nothing.
+Rails.configuration.x.image_path.ext = '.jpg'
+Rails.configuration.x.image_path.join = ENV['EOL_IMAGE_JOIN'] || '.'
+Rails.configuration.x.image_path.by = ENV['EOL_IMAGE_BY'] || 'x'

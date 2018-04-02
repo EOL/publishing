@@ -24,7 +24,7 @@ gem 'therubyracer'
 gem 'uglifier'
 # RefineryCMS
 gem 'refinerycms'
-gem 'refinerycms-wymeditor'
+gem 'refinerycms-wymeditor' #, ['~> 2.0', '>= 2.0.0']
 gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
@@ -32,22 +32,29 @@ gem 'refinerycms-i18n'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-#gem "kaminari"
 
-# All other non-environment-specific gems come next. ALPHABETICALLY, PLEASE.
-# ..and with a comment above each gem (or block of related gems) explaining what
-# it's for. Let's keep this maintainable!
+
+
+# All other non-environment-specific gems come next.
+#
+# ALPHABETICALLY, PLEASE.
+#
+# ...and with a comment above each gem (or block of related gems) explaining what it's for. Let's keep this
+# maintainable!
 
 # For bulk inserts:
-gem "activerecord-import"
+gem 'activerecord-import'
 # Acts As List simplifies ordered lists of models:
 gem 'acts_as_list'
+
+# Faster startup:
+gem 'bootsnap', require: false
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Run background jobs:
-gem "daemons"
+gem 'daemons'
 # Memcached (not for development):
-gem "dalli"
+gem 'dalli'
 # Background jobs (to be run by daemons, q.v.):
 gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
@@ -57,22 +64,25 @@ gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
 
-# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS,
-# YOU SHOULD REMOVE THIS GEM!
+# This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # Neography is used for our Triple Store for now:
-gem "neography"
+gem 'neography'
+# Site monitoring for staging and production:
+gem 'newrelic_rpm'
 # OpenAuth logins from our preferred sources:
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-yahoo'
 # Handle attachments (icons):
-gem "paperclip"
+gem 'paperclip'
+# Debugging:
+gem 'pry-rails'
 # Authorization:
-gem "pundit"
+gem 'pundit'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # ElasticSearch via SearchKick:
@@ -100,6 +110,7 @@ group :development, :test do
   gem 'coveralls', require: false
   # Simplecov, oddly, to add configuration for Coveralls.
   gem "simplecov"
+
   # Rubocop... which technically you want on your *system*, but ...
   gem 'rubocop'
 end
@@ -113,18 +124,21 @@ group :development do
 
   #for simulating confirmation mails
   gem 'mailcatcher'
+
+  # For benchmarking queries:
+  gem 'meta_request'
 end
 
 group :test do
-  gem "rspec-rails"
-  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`",
-  # but it didn't help, so I'm removing it. Hmmn.
-  # gem "rspec-html-matchers"
-  gem "better_errors"
-  gem "capybara"
-  gem "factory_girl"
-  gem "faker"
-  gem "rack_session_access"
-  gem "rspec-mocks"
+
+  gem 'rspec-rails'
+  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`", but it didn't help, so I'm removing it.
+  # Hmmn. gem "rspec-html-matchers"
+  gem 'better_errors'
+  gem 'capybara'
+  gem 'factory_girl'
+  gem 'faker'
+  gem 'rack_session_access'
+
 end
 

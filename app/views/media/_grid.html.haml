@@ -3,20 +3,26 @@
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
     - owner = image.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
-    - name = image.name.blank? ? t("medium.untitled") : image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
-    -# - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
-    -# - name = t("medium.untitled") if name.blank?
+    - name = image.name.blank? ? t("medium.untitled.#{image.subclass}") : image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+    
+    -# -# - name = image.name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+    -# -# - name = t("medium.untitled") if name.blank?
+
+    -# - name = image.name.blank? ? t("medium.untitled.#{image.subclass}") : image.name
+    -# - name = name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
     %div
       %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
         - link_path = medium_path(image)
-        .uk-card-media-top.uk-inline-clip.uk-transition-toggle
+        -# Sorry for the style; temporary.
+        .uk-card-media-top.uk-inline-clip.uk-transition-toggle{ style: "width: 260px; height: 190px" }
           %a.uk-overview-container{ href: "##{img_id}", uk: { toggle: true } }
-            %img{ src: image.medium_size_url }
+            %img{ src: image.medium_size_url, width: '260', height: '190' }
             %div{ id: img_id, uk: { modal: true } }
               .uk-modal-dialog
-                %a.uk-modal-close-default{ href: "", uk: { close: true } }
+                %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
                   = link_to(name.html_safe, link_path)
                   .ui.label= image.license.try(:name)
@@ -47,7 +53,7 @@
                     - next_id = media_ids[index+1] || media_ids[0]
                     %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
 
-          .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-small
+          .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
               - if image.license
                 .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
@@ -71,7 +77,8 @@
         -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
         - unless @page.rank.try(:species_or_below?)
           .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted{ class: "uk-visible@m" }
-            .uk-overflow-auto.eol-one-line
-              = link_to(image.page_contents.sources.map { |s| s.page.try(:scientific_name) || "MISSING" }.join("; "), link_path)
+            .uk-overflow-hidden.eol-one-line
+              = image.page_contents.sources.map { |s| link_to_page_by_name(s.page) }.join("; ").html_safe
+              -# = link_to(image.page_contents.sources.map { |s| s.page.try(:scientific_name) || "MISSING" }.join("; "), link_path)
               -# The other part to make it drop down on hover:
               -# .uk-transition-slide-bottom.uk-position-bottom.uk-overlay

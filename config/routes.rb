@@ -53,7 +53,10 @@ Rails.application.routes.draw do
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
 
-  # resources :resources, only: [:show]
+  resources :resources, only: [:index, :show] do
+    resources :import_logs, only: [:show]
+  end
+
   resources :search_suggestions
 
   resources :content_partners do
@@ -71,6 +74,8 @@ Rails.application.routes.draw do
   post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }
   get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
   get "/terms" => "terms#index", :as => "terms"
+  get "/terms/search" => "terms#search", :as => "term_search"
+  get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 

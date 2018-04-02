@@ -1,5 +1,10 @@
-if(!EOL) {
-  var EOL = {};
+if(!window.EOL) {
+  EOL = {};
+
+  var eolReadyCbs = [];
+  EOL.onReady = function(cb) {
+    eolReadyCbs.push(cb);
+  }
 
   EOL.enable_search_pagination = function() {
     $("#search_results .uk-pagination a")
@@ -341,7 +346,12 @@ if(!EOL) {
     if ($(".uk-search-icon > svg:nth-of-type(2)").length >= 1) {
       $(".uk-search-icon > svg:nth-of-type(2)");
     };
+
+    $.each(eolReadyCbs, function(i, cb) {
+      cb();
+    });
   };
+
 }
 
 $(document).on("ready page:load page:change", EOL.ready);

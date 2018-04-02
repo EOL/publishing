@@ -7,7 +7,7 @@
         - ancestors = node.ancestors
         - shown_ellipsis = false
         - ancestors.each do |node|
-          - unless node.has_breadcrumb?
+          - unless node.use_breadcrumb?
             - unless shown_ellipsis
               = link_to("…", page_breadcrumbs_path(page_id: @page.id), remote: true)
               - shown_ellipsis = true
@@ -46,6 +46,14 @@
       .uk-margin-remove-top.uk-text-center
         .uk-overflow-hidden.uk-box-shadow-large.eol-bordered-image
           %img.uk-animation-kenburns.uk-animation-reverse{ src: @page.medium.original_size_url }
+          -# NOTE: probably worth abstracting this pattern of attribution for images, taken from
+          -# app/views/media/_grid.html.haml
+          - owner = @page.medium.owner.html_safe.sub(/^\(c\)\s+/i, "").sub(/^&copy;\s+/i, "").html_safe
+          .uk-text-left.uk-text-small
+            .ui.label= @page.medium.license.try(:name)
+            %i.copyright.icon
+            = "#{owner},"
+            = link_to(@page.medium.resource.name, @page.medium.resource)
       .uk-float-right.uk-margin-medium-top
         .ui.label.eol-secondary.uk-box-shadow-medium.uk-margin-small-bottom
           = t("pages.iucn_status.label")

@@ -60,6 +60,14 @@ module ApplicationHelper
     string
   end
 
+  def link_to_page_by_name(page)
+    if page.scientific_name == page.name
+      link_to(page.scientific_name.html_safe, page)
+    else
+      link_to(page.scientific_name.html_safe + " (#{page.name})", page)
+    end
+  end
+
   # I kinda hate that I'm using instance variables, here, but it makes it much
   # simpler for the views that already have them.
   def set_term_search_instance_variables_from_options(options)

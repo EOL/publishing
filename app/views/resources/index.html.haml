@@ -1,0 +1,12 @@
+%h1
+  Resources
+
+%ul.uk-list
+  - @resources.each do |resource|
+    %li
+      = link_to(resource.name, resource)
+      (updated
+      = l(resource.updated_at, format: '%H:%M:%S.%3N')
+      )
+      - if resource.updated_at > 1.day.ago
+        .ui.label= "new"

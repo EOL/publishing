@@ -6,12 +6,13 @@ services:
   - mysql
 before_script:
   - mysql -uroot -e 'create database eol_test;'
+  - cp config/secrets.sample.yml config/secrets.yml
 script:
   - bin/rake db:migrate RAILS_ENV=test --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
 env:
-  - EOL_DB_DEVEL_USERNAME="root" EOL_DB_DEVEL_PASSWORD="" EOL_TRAITBANK_URL="http://neo4j:neo4j@localhost:7474"
+  - EOL_TRAITBANK_URL="http://neo4j:neo4j@localhost:7474"
 bundler_args: --binstubs
 addons:
   code_climate:

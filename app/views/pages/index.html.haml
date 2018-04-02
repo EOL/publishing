@@ -31,6 +31,8 @@
           = link_to(t("landing_page.cms"), "/docs/cms/pages")
         .ui.basic.button
           = link_to(t("landing_page.search_suggestions"), search_suggestions_path)
+        .ui.basic.button
+          = link_to(t("landing_page.resources"), resources_path)
   .uk-container{ class: "uk-hidden@m" }
     = render("application/navbar")
     .ui.segments.uk-text-center.eol-landing-page-container
@@ -55,4 +57,4 @@
       .eol-landing-content.ui.segment{ hidden: true }
         I don't know what we want here, yet.
       .ui.header.segment
-        = link_to(t("landing_page.heads.education"), "https://education.eol.org")
+        = link_to(t("landing_page.heads.education"), "http://education.eol.org")

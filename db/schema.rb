@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171109054230) do
+ActiveRecord::Schema.define(version: 20171207180920) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20171109054230) do
     t.datetime "updated_at"
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
+    t.integer  "page_id",                   limit: 4
   end
 
   add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
@@ -312,6 +313,7 @@ ActiveRecord::Schema.define(version: 20171109054230) do
     t.datetime "updated_at"
     t.integer  "resource_id",      limit: 4
     t.string   "rights_statement", limit: 1024
+    t.integer  "page_id",          limit: 4
   end
 
   add_index "links", ["guid"], name: "index_links_on_guid", using: :btree
@@ -346,6 +348,7 @@ ActiveRecord::Schema.define(version: 20171109054230) do
     t.string   "source_page_url",           limit: 4096
     t.integer  "resource_id",               limit: 4,                   null: false
     t.string   "rights_statement",          limit: 1024
+    t.integer  "page_id",                   limit: 4
   end
 
   add_index "media", ["guid"], name: "index_media_on_guid", using: :btree
@@ -357,6 +360,7 @@ ActiveRecord::Schema.define(version: 20171109054230) do
     t.integer  "position",    limit: 4, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "depth",       limit: 4
   end
 
   add_index "node_ancestors", ["ancestor_id"], name: "index_node_ancestors_on_ancestor_id", using: :btree
@@ -690,6 +694,7 @@ ActiveRecord::Schema.define(version: 20171109054230) do
     t.boolean  "hybrid"
     t.boolean  "surrogate"
     t.boolean  "virus"
+    t.text     "attribution",           limit: 65535
   end
 
   add_index "scientific_names", ["node_id"], name: "index_scientific_names_on_node_id", using: :btree
@@ -759,17 +764,17 @@ ActiveRecord::Schema.define(version: 20171109054230) do
   add_index "term_query_pairs", ["term_query_id"], name: "index_term_query_pairs_on_term_query_id", using: :btree
 
   create_table "user_downloads", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.integer  "count",        limit: 4
-    t.integer  "clade",        limit: 4
-    t.text     "object_terms", limit: 65535
-    t.text     "predicates",   limit: 65535
-    t.string   "filename",     limit: 255
+    t.integer  "user_id",       limit: 4
+    t.integer  "count",         limit: 4
+    t.string   "filename",      limit: 255
     t.datetime "completed_at"
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "term_query_id", limit: 4
   end
+
+  add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: ""
@@ -830,4 +835,5 @@ ActiveRecord::Schema.define(version: 20171109054230) do
   add_index "vernaculars", ["page_id"], name: "index_vernaculars_on_page_id", using: :btree
 
   add_foreign_key "term_query_pairs", "term_queries"
+  add_foreign_key "user_downloads", "term_queries"
 end
