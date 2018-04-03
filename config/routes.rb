@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     get 'sync', on: :collection
     get 'import_traits'
     get 'republish'
+    get 'reindex'
     resources :import_logs, only: [:show]
     resources :nodes, only: [:index]
   end

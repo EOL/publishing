@@ -33,6 +33,14 @@ class ResourcesController < ApplicationController
     redirect_to @resource
   end
 
+  def reindex
+    raise "Unauthorized" unless is_admin?
+    @resource = Resource.find(params[:resource_id])
+    Delayed::Job.enqueue(ReindexJob.new(@resource.id))
+    flash[:notice] = "#{@resource.name} will be reindexed in the background. Watch this page for updates."
+    redirect_to @resource
+  end
+
   def import_traits
     raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])

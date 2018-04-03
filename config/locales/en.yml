@@ -538,6 +538,7 @@ en:
     actions:
       import_traits: "import traits (from repository)"
       republish: "republish"
+      reindex: "reindex"
       index: "back to all resources"
       publish: "publish"
       show_all:
