@@ -96,7 +96,8 @@ class MediaContentCreator
     end
   end
 
-  def fix_counter_culture_counts
+  def fix_counter_culture_counts(options = {})
+    delete = options.key?(:delete) ? options[:delete] : false
     @log.log("Fixing counter-culture counts...")
     # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
     #   counter_culture_fix_counts

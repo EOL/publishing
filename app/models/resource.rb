@@ -114,6 +114,7 @@ class Resource < ActiveRecord::Base
         end
       end
     end
+    fix_counter_culture_counts(delete: true)
     # javascripts
     nuke(Javascript)
     # locations
@@ -180,25 +181,29 @@ class Resource < ActiveRecord::Base
   end
 
   # This is kinda cool... and faster than fix_counter_culture_counts
-  def fix_missing_page_contents
-    [Medium, Article].each { |type| fix_missing_page_contents_by_type(type) }
+  def fix_missing_page_contents(options = {})
+    delete = options.key?(:delete) ? options[:delete] : false
+    [Medium, Article].each { |type| fix_missing_page_contents_by_type(type, delete: delete) }
   end
 
-  def fix_missing_page_contents_by_type(type)
+  # NOTE: The original version of this included a "where media.id IS NULL" ... and I think that was to fix *deleted* content, which is important! We probably need that "flavor" of this query to fix remove_content. Argh.
+  def fix_missing_page_contents_by_type(type, options = {})
+    delete = options.key?(:delete) ? options[:delete] : false
+    page_counts = {}
     contents =
       PageContent.joins('LEFT JOIN media ON (page_contents.content_id = media.id)')
                  .where(content_type: type, resource_id: id)
-                 .where('media.id IS NULL')
-    page_counts = {}
+    contents = contents.where('media.is IS NULL') if delete
     contents.select('page_contents.id, page_contents.page_id').find_in_batches(batch_size: 10_000) do |batch|
       batch.map(&:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
     end
     by_count = {}
     page_counts.each { |pid, count| by_count[count] ||= [] ; by_count[count] << pid }
-    contents.delete_all
+    contents.delete_all if delete
+    fn = delete ? '-' : '+'
     by_count.each do |count, pages|
       pages.in_groups_of(5_000, false) do |group|
-        Page.where(id: group).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count - #{count}),0)")
+        Page.where(id: group).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count #{fn} #{count}),0)")
       end
     end
   end
