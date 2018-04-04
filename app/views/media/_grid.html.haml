@@ -30,7 +30,8 @@
                   %i.copyright.icon
                   = owner
                   %br
-                  -content_partner_id = ResourceApi.get_content_partnerid_using_resourceid(image.resource_id)
+                  -# -content_partner_id = ResourceApi.get_content_partnerid_using_resourceid(image.resource_id)
+                  -content_partner_id=ContentPartnerApi.get_content_partner_resource_id(image.resource_id)
                   -result = ResourceApi.get_resource(content_partner_id["id"],image.resource_id)
                   = link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                   -# = link_to(image.resource.name, image.resource)

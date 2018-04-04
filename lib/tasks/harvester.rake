@@ -1,43 +1,43 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
-   json_content = File.read(nodes_file_path)
-   unless json_content == false
-     nodes = JSON.parse(json_content)
-    add_neo4j
-    nodes.each do |node|
-      res = Node.where(global_node_id: node["generatedNodeId"])
-      if res.count > 0
-        current_node = res.first
-      else
-        params = { resource_id: node["resourceId"],
-                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
-        created_node = create_node(params)
-        
-        unless node["taxon"]["pageEolId"].nil? 
-          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
-          unless node["vernaculars"].nil?
-            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
-          end
-          
-          unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
-          end
-          
-          # unless node["agents"].nil?
-            # create_agents({agents: node["agents"],media: node["media"]})
+   # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
+   # json_content = File.read(nodes_file_path)
+   # unless json_content == false
+     # nodes = JSON.parse(json_content)
+     add_neo4j
+    # nodes.each do |node|
+      # res = Node.where(global_node_id: node["generatedNodeId"])
+      # if res.count > 0
+        # current_node = res.first
+      # else
+        # params = { resource_id: node["resourceId"],
+                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        # created_node = create_node(params)
+#         
+        # unless node["taxon"]["pageEolId"].nil? 
+          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
+          # unless node["vernaculars"].nil?
+            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           # end
-          # unless node["nodeData"]["ancestors"].nil?
-            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+#           
+          # unless node["media"].nil?
+            # create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
           # end
-           
-        end      
-      end    
-    end
-  end    
+#           
+          # # unless node["agents"].nil?
+            # # create_agents({agents: node["agents"],media: node["media"]})
+          # # end
+          # # unless node["nodeData"]["ancestors"].nil?
+            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+          # # end
+#            
+        # end      
+      # end    
+    # end
+  # end    
 end
 
 def get_latest_updates_from_hbase
@@ -80,9 +80,9 @@ def create_media(params)
                     altitude: medium["altitude"])
       #base_url need to have default value
       medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
-                     resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],
+                     resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
                      language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
-      #need to check source_page_id value , position
+      #need to check  value , position
       fill_page_contents({page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
       unless medium["agents"].nil?
         create_agents({agents: medium["agents"],content_id: medium_id,content_type: "Medium"})
@@ -190,8 +190,8 @@ def create_license(source_url)
   if res.count > 0
     res.first.id
   else
-    #name need to be changed
-    license = License.create(source_url: source_url, name: "cc-by 3.0") 
+    #in the name attribute , put the word "license" . to be able to edit it
+    license = License.create(source_url: source_url, name: "license") 
     license.id
   end
 end
