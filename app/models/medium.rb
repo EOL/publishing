@@ -34,9 +34,12 @@ class Medium < ActiveRecord::Base
   # end
 
   def source_pages
+    Rails.logger.warn("******************* #source_pages")
     if page_contents.loaded? && page_contents.first&.page&.loaded?
+      Rails.logger.warn("******************* (loaded)")
       page_contents.select { |pc| pc.source_page_id == pc.page_id }.map(&:page)
     else
+      Rails.logger.warn("******************* (NOT loaded)")
       page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
     end
   end
