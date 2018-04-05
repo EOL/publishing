@@ -304,11 +304,6 @@ private
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
-    @media =
-      if @page.media_count > 1000
-        media.page(params[:page]).without_count.per_page(@media_page_size)
-      else
-        media.page(params[:page]).per_page(@media_page_size)
-      end
+    @media = media.page(params[:page]).per_page(@media_page_size)
   end
 end
