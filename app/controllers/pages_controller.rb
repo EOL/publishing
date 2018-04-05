@@ -287,7 +287,7 @@ private
       @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
     end
     media = @page.media
-                 .includes(:license, :resource), page_contents: { page: %i[native_node preferred_vernaculars] })
+                 .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license]
