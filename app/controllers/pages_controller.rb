@@ -306,9 +306,9 @@ private
     end
     @media =
       if @page.media_count > 1000
-        media.page(params[:page]).per_page(@media_page_size)
-      else
         media.page(params[:page]).without_count.per_page(@media_page_size)
+      else
+        media.page(params[:page]).per_page(@media_page_size)
       end
   end
 end
