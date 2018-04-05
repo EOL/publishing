@@ -276,18 +276,22 @@ private
   end
 
   def get_media
-    if @page.media_count > 1000
-      # Too many. Just use ALL of them for filtering:
-      @licenses = License.all.pluck(:name).uniq.sort
-      @subclasses = Medium.subclasses.keys.sort
-      @resources = Resource.all.select('id, name').sort
-    else
-      @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
-      @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
-      @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
-    end
-    media = @page.media
-                 .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
+    # NOTE: restricting these based on what's available is WAAY too slow on higher-level pages.
+    # TODO: cache these in the view.
+    @licenses = License.all.pluck(:name).uniq.sort
+    @subclasses = Medium.subclasses.keys.sort
+    @resources = Resource.all.select('id, name').sort
+
+    @page_contents = @page.page_contents
+                          .includes(content: %i[license resource])
+                          .where(content_type: 'Medium').page(params[:page]).per_page(@media_page_size)
+
+    # We need to add page: %i[native_node preferred_vernaculars] ... BUT FOR ALL THE CONTENT'S (images') SOURCE PAGES.
+    # YUCK. This is NOT the same as source pages on this page. That was a mistake.
+
+
+    # media = @page.media.includes(:license, :resource)
+    , page_contents: {  })
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license]
