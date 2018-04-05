@@ -276,12 +276,17 @@ private
   end
 
   def get_media
-    Rails.logger.warn("******************* START get_media...") # Sanity Check
     # These have to look through ALLLLLLL the media. Ick. We should probably cache these. On carnivora, these took:
-    @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort # 149 ms
-    @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) } # 96 ms
-    @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).sort # 80 ms
-    Rails.logger.warn("******************* START loading media...") # Sanity Check
+    if @page.media_count > 5000
+      # Too many. Just use ALL of them for filtering:
+      @licenses = License.all.pluck(:name).uniq.sort
+      @subclasses = Medium.subclasses.keys.sort
+      @resources = Resource.all.select('id, name').sort
+    else
+      @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort # 149 ms
+      @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) } # 96 ms
+      @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort # 80 ms
+    end
     media = @page.media
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
@@ -300,8 +305,6 @@ private
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
-    Rails.logger.warn("******************* START media query...") # Sanity Check
     @media = media.page(params[:page]).per_page(@media_page_size)
-    Rails.logger.warn("******************* FINISHED #get_media...") # Sanity Check
   end
 end
