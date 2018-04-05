@@ -7,7 +7,7 @@ class HomePageFeedsController < ApplicationController
   def index
     @home_page_feeds = [
       HomePageFeed.create_with(:fields => [:img_url, :link_url, :label]).find_or_create_by!(:name => "main"),
-      HomePageFeed.create_with(:fields => [:img_url, :link_url, :label]).find_or_create_by!(:name => "partner"),
+      HomePageFeed.create_with(:fields => [:img_url, :link_url, :label, :desc]).find_or_create_by!(:name => "partner"),
     ]
   end
 

@@ -31,6 +31,7 @@ h1 {
   }
 
   .main-feed-txt {
+    font-size: 14px;
     padding: 5px 0;
     text-align: center;
   }
@@ -45,8 +46,8 @@ h1 {
     border-radius: 2px;
     height: 100%;
     margin-right: 5px;
-    overflow: hidden;
     padding: 3px 8px;
+    position: relative;
     text-align: left;
     width: 200px;
 
@@ -74,3 +75,19 @@ h1 {
     width: 110px;
     white-space: normal;
   }
+
+@media (min-width: 1300px) {
+  h1 {
+    font-size: 18px;
+  }
+
+  .main-feed-img {
+    height: 234px;
+    width: 208px;
+  }
+
+  .main-feed-txt {
+    font-size: 18px;
+    padding: 8px 0;
+  }
+}
