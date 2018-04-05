@@ -276,10 +276,12 @@ private
   end
 
   def get_media
+    Rails.logger.warn("******************* START get_media...") # Sanity Check
     # These have to look through ALLLLLLL the media. Ick. We should probably cache these.
     @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
     @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
     @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).sort
+    Rails.logger.warn("******************* START loading media...") # Sanity Check
     media = @page.media
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
@@ -298,7 +300,9 @@ private
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
+    Rails.logger.warn("******************* START media query...") # Sanity Check
     @media = media.page(params[:page]).per_page(@media_page_size)
     @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))
+    Rails.logger.warn("******************* FINISHED #get_media...") # Sanity Check
   end
 end
