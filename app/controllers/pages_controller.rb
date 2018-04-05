@@ -276,16 +276,15 @@ private
   end
 
   def get_media
-    # These have to look through ALLLLLLL the media. Ick. We should probably cache these. On carnivora, these took:
     if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
       @licenses = License.all.pluck(:name).uniq.sort
       @subclasses = Medium.subclasses.keys.sort
       @resources = Resource.all.select('id, name').sort
     else
-      @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort # 149 ms
-      @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) } # 96 ms
-      @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort # 80 ms
+      @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
+      @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+      @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
     end
     media = @page.media
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
