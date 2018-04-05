@@ -35,7 +35,7 @@ class Medium < ActiveRecord::Base
 
   def source_pages
     Rails.logger.warn("******************* #source_pages")
-    if page_contents.loaded?
+    if page_contents.loaded? && page_contents.first&.association(:page)&.loaded?
       Rails.logger.warn("******************* (loaded)")
       page_contents.select { |pc| pc.source_page_id == pc.page_id }.map(&:page)
     else
