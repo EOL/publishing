@@ -140,7 +140,7 @@ class PagesController < ApplicationController
   def show
     @page = Page.find(params[:id])
     @page_title = @page.name
-    get_media
+    # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
     get_associations
     # Required mostly for paginating the first tab on the page (kaminari
@@ -276,10 +276,13 @@ private
   end
 
   def get_media
-    media = @page.media.includes(:license, :resource)
-    @licenses = media.map { |m| m.license.name }.uniq.sort
-    @subclasses = media.map { |m| m.subclass }.uniq.sort
-    @resources = media.map { |m| m.resource }.uniq.sort
+    # These have to look through ALLLLLLL the media. Ick. We should probably cache these.
+    @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
+    @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+    @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).sort
+    media = @page.media
+                 .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
+                 .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license]
       media = media.joins(:license).

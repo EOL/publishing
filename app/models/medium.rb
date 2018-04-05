@@ -34,7 +34,11 @@ class Medium < ActiveRecord::Base
   # end
 
   def source_pages
-    page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
+    if page_contents.loaded? && page_contents.first&.page&.loaded?
+      page_contents.select { |pc| pc.source_page_id == pc.page_id }.map(&:page)
+    else
+      page_contents.includes(page: %i[native_node preferred_vernaculars]).sources.map(&:page)
+    end
   end
 
   # TODO: we will have our own media server with more intelligent names:
