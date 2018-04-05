@@ -1,0 +1,7 @@
+%ul.feed.partner-feed
+  - @partner_feed.published_items.each do |item|
+    %li.feed-item.partner-feed-item>
+      %a{:href => item.link_url}
+        %img.partner-feed-img{:src => item.img_url}
+        %div.partner-feed-txt
+          %div.partner-feed-label= item.label

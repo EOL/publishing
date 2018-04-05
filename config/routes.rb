@@ -98,7 +98,7 @@ Rails.application.routes.draw do
 
   match '/ping', to: 'pages#ping', via: :all
 
-  root 'pages#index'
+  root 'home_page#index'
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
