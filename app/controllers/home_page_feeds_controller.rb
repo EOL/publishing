@@ -5,7 +5,10 @@ class HomePageFeedsController < ApplicationController
   # GET /home_page_feeds
   # GET /home_page_feeds.json
   def index
-    @home_page_feeds = HomePageFeed.all
+    @home_page_feeds = [
+      HomePageFeed.create_with(:fields => [:img_url, :link_url, :label]).find_or_create_by!(:name => "main"),
+      HomePageFeed.create_with(:fields => [:img_url, :link_url, :label]).find_or_create_by!(:name => "partner"),
+    ]
   end
 
   # GET /home_page_feeds/new
@@ -26,16 +29,6 @@ class HomePageFeedsController < ApplicationController
         format.html { render :new }
         format.json { render json: @home_page_feed.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /home_page_feeds/1
-  # DELETE /home_page_feeds/1.json
-  def destroy
-    @home_page_feed.destroy
-    respond_to do |format|
-      format.html { redirect_to home_page_feeds_url, notice: 'Home page feed was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

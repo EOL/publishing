@@ -17,10 +17,9 @@
 
 %br
 
-%div.uk-margin= link_to "Back to feeds", home_page_feeds_path
-
-%br
-
 = form_tag(home_page_feed_publish_path(@home_page_feed)) do
   = submit_tag "Publish", :class => "uk-button uk-button-danger uk-margin-large", :'data-confirm' => "Are you sure you want to publish this draft?"
 
+%br
+
+%div.uk-margin= link_to "Back to feeds", home_page_feeds_path

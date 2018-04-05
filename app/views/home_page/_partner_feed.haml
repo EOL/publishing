@@ -1,6 +1,6 @@
 %ul.feed.partner-feed
-  - @partner_feed.published_items.each do |item|
-    %li.feed-item.partner-feed-item>
+  - @partner_feed.published_items.each_with_index do |item, i|
+    %li.feed-item.partner-feed-item{:class => (i == @partner_feed.published_items.length - 1 ? "partner-feed-item-last" : "")}>
       %a{:href => item.link_url}
         %img.partner-feed-img{:src => item.img_url}
         %div.partner-feed-txt
