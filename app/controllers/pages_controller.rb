@@ -277,7 +277,7 @@ private
 
   def get_media
     # These have to look through ALLLLLLL the media. Ick. We should probably cache these. On carnivora, these took:
-    if @page.media_count > 5000
+    if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
       @licenses = License.all.pluck(:name).uniq.sort
       @subclasses = Medium.subclasses.keys.sort
