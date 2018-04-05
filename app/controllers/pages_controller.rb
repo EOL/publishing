@@ -262,8 +262,7 @@ private
   end
 
   def set_media_page_size
-    @media_page_size = 2
-    # @media_page_size = 24
+    @media_page_size = 24
   end
 
   def get_associations
