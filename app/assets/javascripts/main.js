@@ -69,7 +69,6 @@ if(!window.EOL) {
   EOL.enable_spinners = function() {
     console.log("enable spin buttons");
     $(".actions.loaders button").on("click", function(e) {
-      console.log("I am here");
       $(this).parent().dimmer("show");
     })
   };
@@ -188,7 +187,7 @@ if(!window.EOL) {
     console.log("TEARDOWN");
     $(".typeahead").typeahead("destroy");
   };
- 
+
   // Enable all semantic UI dropdowns
   EOL.enableDropdowns = function() {
     $('.ui.dropdown').dropdown();
@@ -279,7 +278,7 @@ if(!window.EOL) {
       limit: 10
     });
     EOL.searchUsers.initialize();
-    
+
     // Aaaaand this...
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -307,7 +306,7 @@ if(!window.EOL) {
     // Show/hide overlay
     EOL.showOverlay = function(id) {
       EOL.hideOverlay();
-      var $overlay = $('#' + id); 
+      var $overlay = $('#' + id);
       $overlay.removeClass('is-hidden');
       $('body').addClass('is-noscroll');
     }
