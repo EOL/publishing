@@ -534,16 +534,6 @@ body {
   padding-top: 5px;
 }
 
-.nav-eol-title {
-  color: $eol-logo-blue;
-  float: right;
-  font-size: 24px;
-  height: 100%;
-  margin-right: 10px;
-  padding-top: 3px;
-  text-align: right;
-}
-
 .nav-menu {
   background: $white;
   display: none;
@@ -611,9 +601,9 @@ body {
 
 .overlay-btn {
   $height: 84px;
-  background-color: #3d4652;
+  background-color: $eol-logo-blue;
   bottom: 0;
-  color: #84a1bd;
+  color: $white;
   cursor: pointer;
   font-size: 18px;
   height: $height;

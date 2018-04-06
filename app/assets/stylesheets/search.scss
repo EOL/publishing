@@ -20,8 +20,8 @@ $filter-bar-row-height: $filter-bar-height / 2;
 }
 
 .filter-bar {
-  background: $light-blue;
-  color: $eol-dark-blue;
+  background: $eol-logo-blue;
+  color: $white;
   cursor: pointer;
   height: $filter-bar-height;
   left: 0;
@@ -30,6 +30,10 @@ $filter-bar-row-height: $filter-bar-height / 2;
   top: $nav-height;
   width: 100%;
   z-index: 10;
+  
+  & a {
+    color: $white;
+  }
 }
 
 .filter-bar-row {
@@ -41,13 +45,13 @@ $filter-bar-row-height: $filter-bar-height / 2;
 
 .filter-bar-row-top {
   background: $white;
-  border-bottom: 1px solid $eol-blue;
-  border-top: 1px solid $eol-blue;
+  border-bottom: 1px solid $eol-logo-blue;
+  border-top: 1px solid $eol-logo-blue;
   color: $eol-black;
 }
 
 .filter-bar-filters {
-  border-right: 1px solid $eol-blue;
+  border-right: 1px solid $white;
   display: inline-block;
   width: 70%;
 }
