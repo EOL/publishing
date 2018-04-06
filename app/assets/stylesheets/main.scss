@@ -502,13 +502,13 @@ body {
 }
 
 .nav-item {
-  color: $eol-blue;
+  color: $eol-logo-blue;
   display: inline-block;
   height: $nav-height;
   line-height: $nav-height;
 
   &:hover {
-    color: $eol-blue;
+    color: $eol-logo-blue;
   }
 }
 
@@ -535,7 +535,7 @@ body {
 }
 
 .nav-eol-title {
-  color: $eol-blue;
+  color: $eol-logo-blue;
   float: right;
   font-size: 24px;
   height: 100%;
