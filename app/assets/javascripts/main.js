@@ -194,13 +194,14 @@ if(!window.EOL) {
   }
 
   EOL.ready = function() {
-    console.log("READY.");
-    if ($(".eol-flash").length === 1) {
-      var flash = $(".eol-flash");
-      UIkit.notification($(".eol-flash").data("text"), {
-          status: 'primary',
-          pos: 'top-center',
-          offset: '100px'
+    var $flashes = $('.eol-flash');
+    if ($flashes.length) {
+      $flashes.each(function() {
+        UIkit.notification($(this).data("text"), {
+            status: 'primary',
+            pos: 'top-center',
+            offset: '100px'
+        });
       });
     }
 
