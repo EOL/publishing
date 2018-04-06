@@ -6,21 +6,26 @@ class HomePageFeed < ActiveRecord::Base
   accepts_nested_attributes_for :items
   validates_associated :items
 
-  # XXX: don't ever change the order of these. Append only.
-  FIELDS = [:img_url, :link_url, :label, :desc]
+  # Don't change these mappings. Add as necessary.
+  FIELDS = {
+    :img_url => 0, 
+    :link_url => 1, 
+    :label => 2, 
+    :desc => 3
+  }
 
   def fields=(fields)
-    self.field_mask = fields.reject{ |f| f.blank? }.map { |f| 2**FIELDS.index(f.to_sym) }.inject(0, :+)
+    self.field_mask = fields.reject{ |f| f.blank? }.map { |f| 2**FIELDS[f.to_sym] }.inject(0, :+)
   end
 
   def fields
-    FIELDS.reject do |f|
+    FIELDS.keys.reject do |f|
       !has_field?(f)
     end
   end
 
   def has_field?(field)
-    !((field_mask || 0) & 2**FIELDS.index(field.to_sym)).zero?
+    !((field_mask || 0) & 2**FIELDS[field.to_sym]).zero?
   end
 
   def draft_version
