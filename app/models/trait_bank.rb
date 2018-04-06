@@ -651,12 +651,12 @@ class TraitBank
           unless hash[:meta].empty?
             hash[:meta].each_with_index do |meta, i|
               m_hash = meta
-              m_hash[:predicate] = hash[:meta_predicate][i]
-              m_hash[:object_term] = hash[:meta_object_term][i]
-              m_hash[:sex_term] = hash[:meta_sex_term][i]
-              m_hash[:lifestage_term] = hash[:meta_lifestage_term][i]
-              m_hash[:statistical_method_term] = hash[:meta_statistical_method_term][i]
-              m_hash[:units] = hash[:meta_units_term][i]
+              m_hash[:predicate] = hash[:meta_predicate] && hash[:meta_predicate][i]
+              m_hash[:object_term] = hash[:meta_object_term] && hash[:meta_object_term][i]
+              m_hash[:sex_term] = hash[:meta_sex_term] && hash[:meta_sex_term][i]
+              m_hash[:lifestage_term] = hash[:meta_lifestage_term] && hash[:meta_lifestage_term][i]
+              m_hash[:statistical_method_term] = hash[:meta_statistical_method_term] && hash[:meta_statistical_method_term][i]
+              m_hash[:units] = hash[:meta_units_term] && hash[:meta_units_term][i]
               hash[:metadata] << m_hash
             end
           end
