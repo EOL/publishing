@@ -5,6 +5,7 @@
 @import "dimensions";
 
 html {
+  color: $black;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 85%;
@@ -17,8 +18,6 @@ body {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
-$base-color: rgb(51, 51, 51);
 
 .earth-image {
   position: relative;
@@ -50,15 +49,16 @@ $base-color: rgb(51, 51, 51);
 }
 
 h1, h2, h3 {
-  color: $eol-dark-blue;
+  color: $black;
   font-weight: 700;
 }
 
 a, .a {
-  color: #23699a;
+  color: $link-color;
   cursor: pointer;
   
   &:hover {
+    color: $link-color;
     text-decoration: underline;
   }
 }
@@ -131,10 +131,6 @@ section#side_body {
 
 .uk-text-muted {
   font-weight: 300;
-
-  a {
-    color: #58a2d0;
-  }
 }
 
 .eol-text-tiny {
@@ -474,7 +470,7 @@ body {
   padding: 0;
 
   .landing_page {
-    background-color: $eol-black;
+    background-color: $black;
     color: $eol-blue;
 
     h1 {
@@ -561,8 +557,8 @@ body {
 
   & > li {
     $height: 35px;
-    border-bottom: 1px solid $eol-black;
-    color: $eol-black;
+    border-bottom: 1px solid $black;
+    color: $black;
     cursor: pointer;
     height: $height;
     line-height: $height;
@@ -580,7 +576,7 @@ body {
     }
     
     &:hover {
-      background: $eol-black;
+      background: $black;
       color: $white;
     }
   }

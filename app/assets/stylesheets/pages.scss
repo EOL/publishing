@@ -3,11 +3,11 @@
 @import "shared/layout";
 @import "shared/traits";
 
-$trait-bg: #fefce5;
 $trait-key-color: #6f5a42;
 $trait-val-color: #c06a11;
 
-$border: 1px solid $light-gray;
+$border-width: 1px;
+$border: $border-width solid $light-gray;
 
 $tabs-height: 25px;
 $tabs-m-height: 30px;
@@ -40,14 +40,12 @@ $head-height: 70px;
   white-space: nowrap;
 
   & > h1 {
-    color: inherit;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
   }
 
   & > h2 {
-    color: inherit;
     font-size: 13px;
     font-weight: normal;
     margin: 3px 0 0 0;
@@ -73,31 +71,33 @@ $head-height: 70px;
   height: $tabs-height;
   list-style: none;
   margin: 0 auto;
-  overflow: auto;
-  padding: 2px $padding-left-s;
+  overflow: hidden;
+  padding: 0 $padding-left-s;
   white-space: nowrap;
-  
 }
 
   .tab {
-    border-radius: 2px;
+    $height: $tabs-height - 2 * $border-width;
     cursor: pointer;
     display: inline-block;
+    height: $height;
+    line-height: $height;
     padding: 0 7px;
     vertical-align: middle;
+  }
+
+  .is-tab-selected {
+    background: $eol-logo-blue;
 
     & > a {
-      color: inherit;
+      color: $white; 
+      cursor: normal;
       text-decoration: none;
     }
   }
 
-  .is-tab-selected {
-    background: $eol-blue;
-    color: $white;
-  }
-
 .desc {
+  border-bottom: $border;
   font-size: 11px;
   line-height: 1.36;
   margin: 0;
@@ -105,7 +105,6 @@ $head-height: 70px;
 }
 
 .sample-traits {
-  background: $trait-bg;
   display: flex;
   flex-wrap: wrap;
   font-size: 11px;
@@ -116,24 +115,11 @@ $head-height: 70px;
   & > li {
     border-bottom: $border;
     border-right: $border;
-    border-top: $border;
     flex: 1 0 auto;
     height: 48px;
     padding: 7px 13px;
-
-    &:last-of-type {
-      border-right: none;
-    }
   }
 }
-
-  .sample-trait-key {
-    color: $trait-key-color;
-  }
-
-  .sample-trait-val {
-    color: $trait-val-color;
-  }
 
 .l-content {
   overflow: hidden;
@@ -160,9 +146,12 @@ $head-height: 70px;
 
   .tabs {
     height: $tabs-m-height;
-    padding: 3px $padding-left-m;
+    padding: 0 $padding-left-m;
     
     & > li {
+      $height: $tabs-m-height - 2 * $border-width;
+      height: $height;
+      line-height: $height;
       font-size: 14px;
       padding: 0 10px;
     }
