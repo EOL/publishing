@@ -67,6 +67,10 @@ Rails.application.routes.draw do
     resources :nodes, only: [:index]
   end
   resources :search_suggestions
+  resources :home_page_feeds, :only => [:index, :new, :create] do 
+    post "publish" => "home_page_feeds#publish", :as => "publish"
+    resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
+  end
 
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
@@ -96,7 +100,7 @@ Rails.application.routes.draw do
 
   match '/ping', to: 'pages#ping', via: :all
 
-  root 'pages#index'
+  root 'home_page#index'
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

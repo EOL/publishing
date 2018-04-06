@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405204714) do
+ActiveRecord::Schema.define(version: 20180406163631) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 20180405204714) do
     t.string   "content_resource_fk", limit: 255,   null: false
   end
 
-  add_index "attributions", ["content_id"], name: "index_attributions_on_content_id", using: :btree
   add_index "attributions", ["content_type", "content_id"], name: "index_attributions_on_content_type_and_content_id", using: :btree
   add_index "attributions", ["resource_id"], name: "index_attributions_on_resource_id", using: :btree
 
@@ -227,6 +226,27 @@ ActiveRecord::Schema.define(version: 20180405204714) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "home_page_feed_items", force: :cascade do |t|
+    t.string   "img_url",           limit: 255
+    t.string   "link_url",          limit: 255
+    t.string   "label",             limit: 255
+    t.text     "desc",              limit: 65535
+    t.integer  "home_page_feed_id", limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "feed_version",      limit: 4
+  end
+
+  add_index "home_page_feed_items", ["home_page_feed_id", "feed_version"], name: "index_home_page_feed_items_on_home_page_feed_id_and_feed_version", using: :btree
+
+  create_table "home_page_feeds", force: :cascade do |t|
+    t.string   "name",              limit: 255
+    t.integer  "field_mask",        limit: 4
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "published_version", limit: 4,   default: 0
+  end
 
   create_table "identifiers", force: :cascade do |t|
     t.integer "resource_id",      limit: 4,   null: false
@@ -538,7 +558,6 @@ ActiveRecord::Schema.define(version: 20180405204714) do
     t.integer "id",          limit: 4,                       null: false
   end
 
-  add_index "references", ["parent_id"], name: "index_references_on_parent_id", using: :btree
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
   add_index "references", ["resource_id"], name: "index_references_on_resource_id", using: :btree
 
@@ -919,5 +938,4 @@ ActiveRecord::Schema.define(version: 20180405204714) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end

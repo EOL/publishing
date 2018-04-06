@@ -1,0 +1,8 @@
+= simple_form_for(@home_page_feed_item, :url => (@home_page_feed_item.id ? home_page_feed_item_path(@home_page_feed, @home_page_feed_item) : home_page_feed_items_path(@home_page_feed))) do |f|
+  = f.error_notification
+  .form-inputs.uk-margin
+    - f.object.fields.each do |field|
+      = f.input field, :input_html => { :class => "uk-input" }, :label_html => { :class => "uk-form-label" }
+
+  .form-actions
+    = f.button :submit, :class => "uk-button uk-button-primary"
