@@ -1,6 +1,6 @@
 class ResourcesController < ApplicationController
   def index
-    @resources = Resource.order('updated_at DESC').page(params[:page] || 1).per_page(10)
+    @resources = Resource.order('updated_at DESC').by_page(params[:page] || 1).per(10)
   end
 
   def show

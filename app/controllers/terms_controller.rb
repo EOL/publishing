@@ -165,7 +165,7 @@ private
     }
     @count = TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).
-      page(@page).per(@per_page)
+      by_page(@page).per(@per_page)
 
     if @result_type == :page
       @result_pages = @grouped_data.map do |datum|
@@ -194,7 +194,7 @@ private
       expire_trait_fragments
     end
     result = TraitBank::Terms.send(which, @page, @per_page, query)
-    paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result
+    paginate ? Kaminari.paginate_array(result, total_count: @count).by_page(@page).per(@per_page) : result
   end
 
   def expire_trait_fragments

@@ -25,7 +25,7 @@ RSpec.describe "terms/show" do
 #
 #    assign(:term, uri)
 #    allow(view).to receive(:term_path) { "http://blah/blah" }
-#    assign(:grouped_data, Kaminari.paginate_array(data).page(1))
+#    assign(:grouped_data, Kaminari.paginate_array(data).by_page(1))
 #    assign(:pages, { 1234 => page1, 2345 => page2 })
 #    assign(:glossary, glossary)
 #    assign(:resources, { resource.id => resource })

@@ -175,7 +175,7 @@ class PagesController < ApplicationController
   def maps
     @page = Page.where(id: params[:page_id]).first
     # NOTE: sorry, no, you cannot choose the page size for maps.
-    @media = @page.maps.page(params[:page]).per_page(18)
+    @media = @page.maps.by_page(params[:page]).per(18)
     @subclass = "map"
     @subclass_id = Medium.subclasses[:map]
     return render(status: :not_found) unless @page # 404
@@ -304,6 +304,6 @@ private
       @resource_id = params[:resource_id].to_i
       @resource = Resource.find(@resource_id)
     end
-    @media = media.page(params[:page]).per_page(@media_page_size)
+    @media = media.by_page(params[:page]).per(@media_page_size).without_count
   end
 end

@@ -4,6 +4,6 @@ class ImportLogsController < ApplicationController
     @resource = @log.resource
     @events = @log.import_events.order("id DESC")
     @events = @events.warns if params[:warns]
-    @events = @events.page(params[:page]).per_page(50)
+    @events = @events.by_page(params[:page]).per(50)
   end
 end

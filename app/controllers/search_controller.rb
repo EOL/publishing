@@ -211,7 +211,7 @@ private
     #   @predicates = Kaminari.paginate_array(
     #     TraitBank.search_predicate_terms(@q, params[:page], params[:per_page]),
     #     total_count: @predicates_count
-    #   ).page(params[:page]).per(params[:per_page] || 50)
+    #   ).by_page(params[:page]).per(params[:per_page] || 50)
     # end
     #
     # if @types[:object_terms]
@@ -220,7 +220,7 @@ private
     #   @object_terms = Kaminari.paginate_array(
     #     TraitBank.search_object_terms(@q, params[:page], params[:per_page]),
     #     total_count: @object_terms_count
-    #   ).page(params[:page]).per(params[:per_page] || 50)
+    #   ).by_page(params[:page]).per(params[:per_page] || 50)
     # end
 
     respond_to do |fmt|

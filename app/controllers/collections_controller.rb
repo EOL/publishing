@@ -93,7 +93,7 @@
 
   def logs
     @logs = Collecting.where(collection_id: @collection.id).
-      page(params[:page]).per_page(50)
+      by_page(params[:page]).per(50)
   end
 
   private
@@ -121,7 +121,7 @@
         includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
         order("position")
     end
-    @pages = @pages.page(params[:page]).per_page(@collection.gallery? ? 18 : 20)
+    @pages = @pages.by_page(params[:page]).per(@collection.gallery? ? 18 : 20)
   end
 
   def find_collection

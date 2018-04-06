@@ -99,6 +99,14 @@ class TraitBank
       res["data"] ? res["data"].first.first : false
     end
 
+    def count_by_page(page_id)
+      res = query(
+        "MATCH (trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
+    end
+
     def predicate_count
       Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
         res = query(
