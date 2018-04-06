@@ -44,12 +44,22 @@ h1 {
   .partner-feed-item {
     background: $white;
     border-radius: 2px;
+    display: inline-block;
     height: 100%;
     margin-right: 5px;
+    max-width: 200px;
+    overflow: hidden;
     padding: 3px 8px;
     position: relative;
     text-align: left;
-    width: 200px;
+    vertical-align: top;
+
+    & > a {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
 
     & > a:hover {
       text-decoration: none;
@@ -61,19 +71,36 @@ h1 {
     }
 
   .partner-feed-img {
-    display: inline-block;
-    height: 100%;
+    border-right: 1px solid black;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding-right: 5px;
+    text-align: center;
+
+    & > img {
+      max-height: 78px;
+      max-width: 78px;
+    }
   }
 
   .partner-feed-txt {
-    border-left: 1px solid black;
     display: inline-block;
+    flex: 1 1 auto;
     height: 100%;
     overflow: hidden;
-    padding: 5px 8px;
+    padding: 0 8px;
     vertical-align: top;
-    width: 110px;
     white-space: normal;
+  }
+
+  .partner-feed-label {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .partner-feed-desc {
+    font-size: 12px;
   }
 
 @media (min-width: 1300px) {
