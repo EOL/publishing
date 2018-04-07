@@ -123,7 +123,7 @@ class Resource < ActiveRecord::Base
     # references, referents
     nuke(Reference)
     nuke(Referent)
-    fix_counter_culture_counts(delete: true)
+    fix_missing_page_contents(delete: true)
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
       # t.integer  "data_count",             limit: 4,   default: 0,     null: false
