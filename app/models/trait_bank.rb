@@ -297,11 +297,20 @@ class TraitBank
     end
 
     def term_search(term_query, options={})
-      q = if options[:result_type] == :record
-        term_record_search(term_query, options)
-      else
-        term_page_search(term_query, options)
+      key = nil # scope
+      if options[:count]
+        key = "trait_bank/term_search/counts/#{Digest::MD5.hexdigest(term_query.inspect)}"
+        if Rails.cache.exist?(key)
+          count = Rails.cache.read(key)
+          Rails.logger.warn("USING cached count: #{key} = #{count}")
+          return count
+        end
       end
+      q = if options[:result_type] == :record
+            term_record_search(term_query, options)
+          else
+            term_page_search(term_query, options)
+          end
 
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
       q = "#{q} "\
@@ -309,7 +318,10 @@ class TraitBank
       res = query(q)
 
       if options[:count]
-        res["data"] ? res["data"].first.first : 0
+        count = res["data"] ? res["data"].first.first : 0
+        Rails.cache.write(key, count, expires_in: 1.day)
+        Rails.logger.warn("Cached count: #{key} = #{count}")
+        count
       else
         build_trait_array(res)
       end
@@ -420,11 +432,12 @@ class TraitBank
       orders << "meta_predicate.name" if options[:meta]
       order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
 
-      returns = if options[:count]
-        ["count"]
-      else
-        %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
-      end
+      returns =
+        if options[:count]
+          ["count"]
+        else
+          %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
+        end
 
       with_count_clause = options[:count] ?
                           "WITH count(*) AS count " :
