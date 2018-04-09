@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20180406163631) do
     t.string   "content_resource_fk", limit: 255,   null: false
   end
 
+  add_index "attributions", ["content_id"], name: "index_attributions_on_content_id", using: :btree
   add_index "attributions", ["content_type", "content_id"], name: "index_attributions_on_content_type_and_content_id", using: :btree
   add_index "attributions", ["resource_id"], name: "index_attributions_on_resource_id", using: :btree
 
@@ -558,6 +559,7 @@ ActiveRecord::Schema.define(version: 20180406163631) do
     t.integer "id",          limit: 4,                       null: false
   end
 
+  add_index "references", ["parent_id"], name: "index_references_on_parent_id", using: :btree
   add_index "references", ["parent_type", "parent_id"], name: "references_by_parent_index", using: :btree
   add_index "references", ["resource_id"], name: "index_references_on_resource_id", using: :btree
 
@@ -938,4 +940,5 @@ ActiveRecord::Schema.define(version: 20180406163631) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end
