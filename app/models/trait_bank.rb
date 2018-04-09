@@ -181,7 +181,7 @@ class TraitBank
       q = "MATCH (page:Page)"\
           "-[:trait]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource) "\
-          "MATCH (trait)-[:predicate]->(predicate:Term) "\
+          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
           "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
@@ -201,7 +201,7 @@ class TraitBank
     def by_page(page_id, page = 1, per = 100)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
         "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
@@ -232,7 +232,7 @@ class TraitBank
 
     def key_data(page_id)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-        "MATCH (trait)-[:predicate]->(predicate:Term) "\
+        "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
         "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
         "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
         "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
@@ -385,9 +385,9 @@ class TraitBank
       matches << "(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
 
       if term_query.filters.any?
-        matches << "(trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+        matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
       else
-        matches << "(trait)-[:predicate]->(predicate:Term)"
+        matches << "(trait:Trait)-[:predicate]->(predicate:Term)"
       end
 
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
@@ -482,7 +482,7 @@ class TraitBank
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
     def search_predicate_terms(q, page = 1, per = 50)
-      q = "MATCH (trait)-[:predicate]->(term:Term) "\
+      q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
@@ -491,7 +491,7 @@ class TraitBank
     end
 
     def count_predicate_terms(q)
-      q = "MATCH (trait)-[:predicate]->(term:Term) "\
+      q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
       res = query(q)
       return [] if res["data"].empty?
@@ -501,7 +501,7 @@ class TraitBank
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
     def search_object_terms(q, page = 1, per = 50)
-      q = "MATCH (trait)-[:object_term]->(term:Term) "\
+      q = "MATCH (trait:Trait)-[:object_term]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
@@ -512,7 +512,7 @@ class TraitBank
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
     def count_object_terms(q)
-      q = "MATCH (trait)-[:object_term]->(term:Term) "\
+      q = "MATCH (trait:Trait)-[:object_term]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
       res = query(q)
       return [] if res["data"].empty?

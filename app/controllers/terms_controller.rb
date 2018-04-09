@@ -147,15 +147,12 @@ private
     @query = TermQuery.new(tq_params)
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
-    fix_filters
+    blank_predicate_filters_must_search_any
   end
 
-  def fix_filters
-    @query.filters.each do |f|
-      if f.pred_uri.blank?
-        f.op = :is_any
-      end
-    end
+  # TODO: Does this logic belong in TermQuery?
+  def blank_predicate_filters_must_search_any
+    @query.filters.each { |f| f.op = :is_any if f.pred_uri.blank? }
   end
 
   def paginate_term_search_data(data, query)
