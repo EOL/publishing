@@ -76,10 +76,7 @@ class TraitBank
     end
 
     def count
-      res = query(
-        "MATCH (trait:Trait)<-[:trait]-(page:Page) "\
-        "WITH count(trait) as count "\
-        "RETURN count")
+      res = query("MATCH (trait:Trait)<-[:trait]-(page:Page) WITH count(trait) as count RETURN count")
       res["data"] ? res["data"].first.first : false
     end
 
@@ -341,38 +338,38 @@ class TraitBank
       end
     end
 
-    def term_filter_where(filter, trait_label, pred_label)
+    def term_filter_where(filter, trait_var, pred_var)
       if filter.predicate?
-        "#{pred_label}.uri = \"#{filter.pred_uri}\""
+        "#{pred_var}.uri = \"#{filter.pred_uri}\""
       elsif filter.object_term?
-        "((#{trait_label})-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
-        "AND #{pred_label}.uri = \"#{filter.pred_uri}\")"
+        "((#{trait_var}:Trait)-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
+        "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.numeric? || filter.range?
         conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
         if filter.numeric?
-          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
           "("\
-          "(#{trait_label}.measurement IS NOT NULL "\
-          "AND toFloat(#{trait_label}.measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
-          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+          "(#{trait_var}.measurement IS NOT NULL "\
+          "AND toFloat(#{trait_var}.measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
           "OR "\
-          "(#{trait_label}.normal_measurement IS NOT NULL "\
-          "AND toFloat(#{trait_label}.normal_measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
-          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+          "(#{trait_var}.normal_measurement IS NOT NULL "\
+          "AND toFloat(#{trait_var}.normal_measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
+          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
           ")"\
         elsif filter.range?
           conv_num_val2, _ = UnitConversions.convert(filter.num_val2, filter.units_uri)
-          "#{pred_label}.uri = \"#{filter.pred_uri}\" AND "\
+          "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
           "("\
-          "(#{trait_label}.measurement IS NOT NULL "\
-          "AND (#{trait_label})-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
-          "AND toFloat(#{trait_label}.measurement) >= #{conv_num_val1} "\
-          "AND toFloat(#{trait_label}.measurement) <= #{conv_num_val2}) "\
+          "(#{trait_var}.measurement IS NOT NULL "\
+          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_var}.measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_var}.measurement) <= #{conv_num_val2}) "\
           "OR "\
-          "(#{trait_label}.normal_measurement IS NOT NULL "\
-          "AND (#{trait_label})-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
-          "AND toFloat(#{trait_label}.normal_measurement) >= #{conv_num_val1} "\
-          "AND toFloat(#{trait_label}.normal_measurement) <= #{conv_num_val2}) "\
+          "(#{trait_var}.normal_measurement IS NOT NULL "\
+          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
+          "AND toFloat(#{trait_var}.normal_measurement) >= #{conv_num_val1} "\
+          "AND toFloat(#{trait_var}.normal_measurement) <= #{conv_num_val2}) "\
           ") "\
         end
       else
@@ -458,10 +455,10 @@ class TraitBank
       matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
-        trait_label = "t#{i}"
-        pred_label = "p#{i}"
-        matches << "MATCH (page)-[:trait]->(#{trait_label}:Trait)-[:predicate]->(:Term)-[:#{parent_terms}]->(#{pred_label}:Term)"
-        wheres << term_filter_where(filter, trait_label, pred_label)
+        trait_var = "t#{i}"
+        pred_var = "p#{i}"
+        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[:#{parent_terms}]->(#{pred_var}:Term)"
+        wheres << term_filter_where(filter, trait_var, pred_var)
       end
 
       with_count_clause = options[:count] ?
@@ -680,7 +677,7 @@ class TraitBank
         return page
       end
       page = connection.create_node(page_id: id)
-      connection.set_label(page, "Page")
+      connection.set_var(page, "Page")
       page
     end
 
@@ -695,7 +692,7 @@ class TraitBank
         return resource
       end
       resource = connection.create_node(resource_id: id)
-      connection.set_label(resource, "Resource")
+      connection.set_var(resource, "Resource")
       resource
     end
 
@@ -781,7 +778,7 @@ class TraitBank
       begin
         term_node = connection.create_node(options)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_label(term_node, "Term")
+        connection.set_var(term_node, "Term")
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
         count = Rails.cache.read("trait_bank/terms_count") || 0
