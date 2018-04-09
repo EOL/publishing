@@ -164,8 +164,7 @@ private
       :result_type => @result_type
     }
     @count = TraitBank.term_search(query, options)
-    @grouped_data = Kaminari.paginate_array(data, total_count: @count).
-      page(@page).per(@per_page)
+    @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
     if @result_type == :page
       @result_pages = @grouped_data.map do |datum|
