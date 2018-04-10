@@ -1,0 +1,120 @@
+/* line 3, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+h1 {
+  font-size: 14px;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* line 10, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.feed {
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* line 19, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.feed-item {
+  display: inline-block;
+}
+
+/* line 25, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.main-feed-item {
+  overflow: hidden;
+  width: 160px;
+}
+
+/* line 30, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.main-feed-img {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* line 36, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.main-feed-txt {
+  font-size: 14px;
+  height: 50px;
+  padding: 5px 0;
+  text-align: center;
+  white-space: normal;
+}
+
+/* line 44, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed {
+  background: #91bde5;
+  height: 100px;
+  padding: 8px 12px;
+}
+
+/* line 49, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-item {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 100%;
+  margin-right: 5px;
+  max-width: 200px;
+  overflow: hidden;
+  padding: 3px 8px;
+  position: relative;
+  text-align: left;
+  vertical-align: top;
+}
+/* line 62, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-item > a {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+/* line 69, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-item > a:hover {
+  text-decoration: none;
+}
+
+/* line 74, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-item-last {
+  margin-right: 0;
+}
+
+/* line 78, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-img {
+  align-items: center;
+  border-right: 1px solid black;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  padding-right: 5px;
+  text-align: center;
+}
+/* line 87, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-img > img {
+  max-height: 78px;
+  max-width: 78px;
+}
+
+/* line 93, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-txt {
+  display: inline-block;
+  flex: 1 1 auto;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 8px;
+  vertical-align: top;
+  white-space: normal;
+}
+
+/* line 103, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-label {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* line 108, /var/www/eol_website/app/assets/stylesheets/home_page.scss */
+.partner-feed-desc {
+  font-size: 12px;
+}

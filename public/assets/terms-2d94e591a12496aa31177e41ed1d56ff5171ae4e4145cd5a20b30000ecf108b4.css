@@ -1,0 +1,273 @@
+/* line 5, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.traits {
+  list-style: none;
+  padding: 0;
+}
+
+/* line 10, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait {
+  border: 1px solid #ddd;
+  margin-top: 3px;
+  padding: 10px;
+  width: 100%;
+}
+
+/* line 17, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-source {
+  float: right;
+}
+
+/* line 21, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-thumb {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 26, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.trait-data {
+  overflow: hidden;
+}
+
+/* line 30, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.meta-items-arw {
+  bottom: 5px;
+  display: block;
+  cursor: pointer;
+  right: 12px;
+  text-align: center;
+  width: 100%;
+}
+
+/* line 39, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.term-info-a {
+  cursor: pointer;
+}
+
+/* line 43, /var/www/eol_website/app/assets/stylesheets/shared/traits.scss */
+.desc-meta {
+  list-style: none;
+  padding: 0;
+}
+
+/* line 3, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-result {
+  border-bottom: 1px solid #ddd;
+  height: 108px;
+  margin: 0 !important;
+  overflow: hidden;
+  padding: 0 !important;
+  position: relative;
+}
+/* line 11, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-result > a {
+  display: block;
+  height: 100%;
+}
+
+/* line 17, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-icon {
+  align-items: center;
+  background: #fff;
+  display: flex;
+  float: left;
+  height: 108px;
+  justify-content: center;
+  margin-right: 6px;
+  position: relative;
+  width: 108px;
+}
+
+/* line 29, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-content {
+  height: 100%;
+  white-space: nowrap;
+}
+
+/* line 34, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-title {
+  font-size: 16px;
+  margin-top: 3px;
+}
+
+/* line 39, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-info {
+  margin-top: 1px;
+  font-size: 14px;
+}
+
+/* line 44, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.search-hier {
+  color: #c06a11;
+  height: 23px;
+}
+
+/* line 49, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.is-search-hier-content {
+  background: #fefce5;
+}
+
+/* line 53, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.resource-bubbles {
+  margin: 5px;
+}
+/* line 56, /var/www/eol_website/app/assets/stylesheets/shared/summary_card.scss */
+.resource-bubbles > li {
+  background: #d8e0e6;
+  border-radius: 100px;
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  margin-right: 8px;
+  padding: 0 8px;
+}
+
+/* line 4, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.l-terms {
+  padding: 10px 4%;
+}
+
+/* line 8, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+/* line 13, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.is-multiple-filters .filter {
+  padding-left: 40px;
+}
+
+/* line 17, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.traits-term-search {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+/* line 22, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.submit {
+  display: block;
+  margin-top: 20px;
+}
+
+/* line 28, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.is-filter-row-with-errors {
+  margin-top: 25px;
+}
+
+/* line 32, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-error {
+  color: #f00;
+  font-size: 12px;
+  position: absolute;
+  text-align: center;
+  top: -15px;
+  width: 100%;
+}
+
+/* line 41, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-field {
+  position: relative;
+}
+
+/* line 45, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-field-radio {
+  margin: 0 15px;
+  white-space: nowrap;
+}
+
+/* line 50, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-radios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* line 57, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-input {
+  vertical-align: bottom !important;
+}
+
+/* line 61, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.l-filter-first {
+  position: absolute;
+  vertical-align: bottom;
+  left: 0;
+  top: 6px;
+}
+
+/* line 68, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-icon {
+  padding-bottom: 5px;
+}
+
+/* line 72, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-txt {
+  display: inline-block;
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+  margin: 0 5px;
+  vertical-align: bottom;
+}
+
+/* line 81, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.add-filter {
+  cursor: pointer;
+}
+
+/* line 85, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.is-icon-disabled {
+  cursor: default;
+  color: #ccc;
+}
+
+/* line 90, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.l-filter-full {
+  width: 100%;
+}
+/* line 93, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.l-filter-full > span {
+  width: 100%;
+}
+
+/* line 98, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-row {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* line 105, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.filter-row-flex {
+  flex-wrap: wrap;
+}
+
+/* line 109, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.edit-filters-row {
+  color: #91bde5;
+  text-align: center;
+}
+
+/* line 114, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.edit-filters {
+  cursor: pointer;
+}
+
+/* line 118, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.show-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+/* line 126, /var/www/eol_website/app/assets/stylesheets/terms.scss */
+.show-filters > li {
+  border: 1px solid #91bde5;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 12px 30px;
+}

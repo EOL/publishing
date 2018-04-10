@@ -3,6 +3,10 @@
 
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
-
+ENV['schedular_ip'] = 'http://172.16.0.161:80/scheduler'
+ENV['storage_ip'] = 'http://172.16.0.99:80/eol/archiver'
 # Initialize the Rails application.
 Rails.application.initialize!
+DYNAMIC_HIERARCHY_RESOURCE_ID = 1
+HBASE_ADDRESS = "http://172.16.0.99/hbase/api/"
+HBASE_GET_LATEST_UPDATES_ACTION = "getLatestUpdates"

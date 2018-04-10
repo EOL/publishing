@@ -1,0 +1,9 @@
+/* line 2, /var/www/eol_website/app/assets/stylesheets/home_page_feeds.scss */
+.fields > .checkbox {
+  margin: 0 10px;
+}
+
+/* line 7, /var/www/eol_website/app/assets/stylesheets/home_page_feeds.scss */
+.checkbox-input {
+  margin-right: 3px;
+}

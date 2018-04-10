@@ -1,0 +1,8 @@
+/* line 2, /var/www/eol_website/app/assets/stylesheets/home_page_feed_items.scss */
+.item-table img {
+  max-height: 200px;
+}
+/* line 6, /var/www/eol_website/app/assets/stylesheets/home_page_feed_items.scss */
+.item-table td {
+  padding: 10px;
+}
