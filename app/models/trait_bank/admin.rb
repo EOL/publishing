@@ -66,6 +66,8 @@ class TraitBank
       def remove_for_resource(resource)
         query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
           "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
+        # Also need to remove traits with no metadata!
+        query("MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait")
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
