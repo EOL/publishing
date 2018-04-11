@@ -41,9 +41,14 @@ class PageContent < ActiveRecord::Base
   def self.fix_exemplars
     # NOTE: this does NOT restrict by content_type because that slows the query WAAAAAAY down (it's not indexed)
     page_ids = uniq.pluck(:page_id)
+    puts "++ Cleaning up exemplars..."
+    i = 0
     Page.where(id: page_ids).find_each do |page|
       # NOTE: yes, this will produce a query for EVERY page in the array. ...But it's very hard to limit the number of results from a join, and this isn't a method we'll run very often, so this is "Fine."
       page.update_attribute(:medium_id, page.media.limit(1).pluck(:id))
+      i += 1
+      puts "++ #{i}" if (i % 1000).zero?
     end
+    puts "++ Done."
   end
 end
