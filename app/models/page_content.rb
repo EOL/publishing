@@ -41,13 +41,19 @@ class PageContent < ActiveRecord::Base
   def self.fix_exemplars
     # NOTE: this does NOT restrict by content_type because that slows the query WAAAAAAY down (it's not indexed)
     page_ids = uniq.pluck(:page_id)
-    puts "++ Cleaning up exemplars..."
-    i = 0
-    Page.where(id: page_ids).find_each do |page|
-      # NOTE: yes, this will produce a query for EVERY page in the array. ...But it's very hard to limit the number of results from a join, and this isn't a method we'll run very often, so this is "Fine."
-      page.update_attribute(:medium_id, page.media.limit(1).pluck(:id))
-      i += 1
-      puts "++ #{i}" if (i % 1000).zero?
+    batches = (page_ids.size / 1000).ceil
+    puts "++ Cleaning up #{page_ids.size} exemplars (#{batches} batches)..."
+    batch = 1
+    page_ids.in_groups_of(1000, false) do |group|
+      puts "++ Batch #{batch}/#{batches}..."
+      # NOTE: The #search_import is required because we're going to update Search... without that scope added, we end up
+      # doing dozens of extra DB queries to build the Search JSON!
+      Page.search_import.where(id: group).find_each do |page|
+        # NOTE: yes, this will produce a query for EVERY page in the array. ...But it's very hard to limit the number of results from a join, and this isn't a method we'll run very often, so this is "Fine."
+        medium_id = page.media.limit(1).pluck(:id).first
+        page.update_attribute(:medium_id, medium_id) unless page.medium_id == medium_id
+      end
+      batch += 1
     end
     puts "++ Done."
   end
