@@ -37,4 +37,13 @@ class PageContent < ActiveRecord::Base
   # :content_type]... then we can interlace other media types (or always show
   # them separately, which I think has advantages)
   acts_as_list scope: :page
+
+  def self.fix_exemplars
+    # NOTE: this does NOT restrict by content_type because that slows the query WAAAAAAY down (it's not indexed)
+    page_ids = uniq.pluck(:page_id)
+    Page.where(id: page_ids).find_each do |page|
+      # NOTE: yes, this will produce a query for EVERY page in the array. ...But it's very hard to limit the number of results from a join, and this isn't a method we'll run very often, so this is "Fine."
+      page.update_attribute(:medium_id, page.media.limit(1).pluck(:id))
+    end
+  end
 end
