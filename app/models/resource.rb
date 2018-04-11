@@ -149,7 +149,7 @@ class Resource < ActiveRecord::Base
     # Attributions
     nuke(Attribution)
     # Traits:
-    # TODO: restore this. I'm removing it TEMP only... TraitBank::Admin.remove_for_resource(self)
+    TraitBank::Admin.remove_for_resource(self)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
