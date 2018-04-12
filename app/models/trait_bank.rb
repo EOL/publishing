@@ -39,7 +39,7 @@ class TraitBank
 
       @connection ||= Neography::Rest.new('http://localhost:7474') 
 
-      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
+      # @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
 
     end
 

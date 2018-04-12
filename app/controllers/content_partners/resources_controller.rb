@@ -72,9 +72,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
   end
   
   def show
-    result_partner = ContentPartnerApi.get_content_partner(params[:content_partner_id])
+    returned_content_partner = ContentPartnerApi.get_content_partner_without_resources(params[:content_partner_id])
     # result_partner = ContentPartnerApi.get_content_partner(params[:content_partner_id])
-    returned_content_partner = result_partner[0]
+     
     content_partner_user = User.find(ContentPartnerUser.find_by_content_partner_id(returned_content_partner["id"].to_i).user_id)
     @content_partner = ContentPartner.new(id: returned_content_partner["id"].to_i, name: returned_content_partner["name"],
                                           logo: returned_content_partner["logo"],

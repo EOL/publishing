@@ -1,43 +1,40 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-   # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes3.json')
-   # json_content = File.read(nodes_file_path)
-   # unless json_content == false
-     # nodes = JSON.parse(json_content)
-     add_neo4j
-    # nodes.each do |node|
-      # res = Node.where(global_node_id: node["generatedNodeId"])
-      # if res.count > 0
-        # current_node = res.first
-      # else
-        # params = { resource_id: node["resourceId"],
-                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
-        # created_node = create_node(params)
-#         
-        # unless node["taxon"]["pageEolId"].nil? 
-          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
-          # unless node["vernaculars"].nil?
-            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
+   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
+   json_content = File.read(nodes_file_path)
+   unless json_content == false
+     nodes = JSON.parse(json_content)
+     # add_neo4j
+    nodes.each do |node|
+      res = Node.where(global_node_id: node["generatedNodeId"])
+      if res.count > 0
+        current_node = res.first
+      else
+        params = { resource_id: node["resourceId"],
+                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        created_node = create_node(params)
+        
+        unless node["taxon"]["pageEolId"].nil? 
+          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+          create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
+          unless node["vernaculars"].nil?
+            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
+          end
+          
+          unless node["media"].nil?
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
+          end
+          
+          # unless node["nodeData"]["ancestors"].nil?
+            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
           # end
-#           
-          # unless node["media"].nil?
-            # create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
-          # end
-#           
-          # # unless node["agents"].nil?
-            # # create_agents({agents: node["agents"],media: node["media"]})
-          # # end
-          # # unless node["nodeData"]["ancestors"].nil?
-            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
-          # # end
-#            
-        # end      
-      # end    
-    # end
-  # end    
+           
+        end      
+      end    
+    end
+  end    
 end
 
 def get_latest_updates_from_hbase
@@ -77,15 +74,16 @@ def create_media(params)
       license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
       location_id = medium["locationCreated"].nil? ? nil : create_location(location: medium["locationCreated"],
                     spatial_location: medium["genericLocation"],latitude: medium["latitude"],longitude: medium["longitude"],
-                    altitude: medium["altitude"])
+                    altitude: medium["altitude"], resource_id: params[:resource_id])
       #base_url need to have default value
       medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
                      resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
                      language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
       #need to check  value , position
-      fill_page_contents({page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
+      fill_page_contents({resource_id: params[:resource_id],page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
+      
       unless medium["agents"].nil?
-        create_agents({agents: medium["agents"],content_id: medium_id,content_type: "Medium"})
+        create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium", resource_pk: medium["mediaId"]})
       end
       
       # unless params[:references].nil?
@@ -98,11 +96,20 @@ end
 
 def create_agents(params)
   params[:agents].each do |agent|
-    create_agent(role: agent["role"],content_id: params[:content_id], content_type: params[:content_type])
+    create_agent(resource_id: params[:resource_id],role: agent["role"],content_id: params[:content_id], 
+                 content_type: params[:content_type], resource_pk: params[:resource_pk],value: agent["fullName"],url: agent["homepage"])
   end
   
 end
 
+def create_agent(params)
+  # need role default name
+  role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
+  #what is value and need default value
+  # we need to know what is content_resource_fk attribute and wha is its default value
+  create_attribution({resource_id: params[:resource_id],content_id: params[:content_id] ,content_type: params[:content_type],
+                      role_id: role_id,url: params[:url], resource_pk: params[:resource_pk], value: params[:value], content_resource_fk: "content_resource_fk"})
+end
 
 # def create_referents(params)
   # params[:references].each do |reference|
@@ -197,13 +204,14 @@ def create_license(source_url)
 end
 
 def create_location(params)
-  res = Location.where(location: params["location"] ,longitude: params["longitude"],latitude: params["latitude"],
-                       altitude: params["altitude"],spatial_location: params["spatial_location"])
+  #need to add resource_id in seach??????
+  res = Location.where(location: params[:location] ,longitude: params[:longitude],latitude: params[:latitude],
+                       altitude: params[:altitude],spatial_location: params[:spatial_location])
   if res.count > 0
     res.first.id
   else
-    location_id = Location.create(location: params["location"] ,longitude: params["longitude"],latitude: params["latitude"],
-                                  altitude: params["altitude"],spatial_location: params["spatial_location"])
+    location_id = Location.create(location: params[:location] ,longitude: params[:longitude],latitude: params[:latitude],
+                                  altitude: params[:altitude],spatial_location: params[:spatial_location],resource_id: params[:resource_id])
     location_id
   end
 end
@@ -230,7 +238,9 @@ def create_attribution(params)
   if res.first
     res.first.id
   else
-    attribution=Attribution.create(content_id: params[:content_id],content_type: params[:content_type],role_id: params[:role_id],value: params[:value])
+    attribution=Attribution.create(content_id: params[:content_id],content_type: params[:content_type],role_id: params[:role_id],
+                                   value: params[:value], url: params[:url], resource_id: params[:resource_id], resource_pk: params[:resource_pk], 
+                                   content_resource_fk: params[:content_resource_fk])
     attribution.id
   end
 end
@@ -253,7 +263,7 @@ def create_vernacular(params)
 end
 
 def create_medium(params)
-  res = Medium.where(guid: params["guid"])
+  res = Medium.where(guid: params[:guid])
   if res.count > 0
     res.first.id
   else
@@ -262,12 +272,7 @@ def create_medium(params)
   end
 end
 
-def create_agent(params)
-  # need role default name
-  role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
-  #what is value and need default value
-  create_attribution({content_id: params[:content_id] ,content_type: params[:content_type],role_id: role_id, value: "value test"})
-end
+
 
 def create_scientific_name(params)
   # node_resource_pk = taxon_id
@@ -286,11 +291,12 @@ def create_scientific_name(params)
 end
 
 def fill_page_contents(params)
+  #need to add resource_id in seach??????
     res = PageContent.where(content_type:params[:content_type],content_id: params[:content_id]  ,page_id: params[:page_id] )
     if res.count > 0
       res.first.id
     else
-      page_contents = PageContent.create(content_type:params[:content_type],content_id: params[:content_id],page_id: params[:page_id],source_page_id: params[:source_page_id])
+      page_contents = PageContent.create(resource_id: params[:resource_id], content_type:params[:content_type],content_id: params[:content_id],page_id: params[:page_id],source_page_id: params[:source_page_id])
       page_contents.id
     end
       

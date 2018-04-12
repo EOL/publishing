@@ -92,11 +92,11 @@ class ContentPartnerApi
     end
   end
   
-  def self.get_content_partner(ids)
+  def self.get_content_partner_without_resources(content_partner_id)
     begin
       request =RestClient::Request.new(
         :method => :get,
-        :url => "#{@schedular_uri}/contentPartners?ids=#{ids}"
+        :url => "#{@schedular_uri}/contentPartners/#{content_partner_id}"
       )
       response = JSON.parse(request.execute)
     rescue => e
@@ -104,20 +104,20 @@ class ContentPartnerApi
     end
   end
   
-  # def self.get_content_partner_resource_id(id)
-    # begin
-      # request =RestClient::Request.new(
-        # :method => :get,
-        # :url => "#{@schedular_uri}/resources/#{id}/contentPartner"
-      # )
-      # response = JSON.parse(request.execute)
-    # rescue => e
-      # debugger
-      # nil
-    # end
-  # end
+    def self.get_content_partner_with_resources(content_partner_id)
+    begin
+      request =RestClient::Request.new(
+        :method => :get,
+        :url => "#{@schedular_uri}/contentPartners/contentPartnerWithResources/#{content_partner_id}"
+      )
+      response = JSON.parse(request.execute)
+    rescue => e
+      debugger
+      nil
+    end
+  end
   
-    def self.get_content_partner_resource_id(id)
+  def self.get_content_partner_resource_id(id)
     begin
       request =RestClient::Request.new(
         :method => :post,
