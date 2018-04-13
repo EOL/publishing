@@ -20,7 +20,8 @@
                   - names.each do |name|
 
                     -resource_id = name.resource_id
-                    -if !resource_id.nil? && !name.attribution.blank?
+                    -# -if !resource_id.nil? && !name.attribution.blank?
+                    -if !resource_id.nil?
                       -result = ResourceApi.get_resource_using_id(resource_id)
                       -# - content_partner_id=ResourceApi.get_content_partnerid_using_resourceid(resource_id)
                       -content_partner_id=ContentPartnerApi.get_content_partner_resource_id(resource_id)
@@ -28,7 +29,7 @@
                       - note += link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                       - note += " #{name.attribution.html_safe}" unless name.attribution.blank?
                       - formatted_names << note
-                      -# - formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
+                      -#- formatted_names << link_to(result["name"], content_partner_resource_path(content_partner_id["id"], result["id"]))
                       
                   = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 

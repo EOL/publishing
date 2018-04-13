@@ -18,13 +18,13 @@ def main_method
         unless node["taxon"]["pageEolId"].nil? 
           page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
           create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"] })      
+                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
           unless node["vernaculars"].nil?
             create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           end
           
           unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id})
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
           end
           
           # unless node["nodeData"]["ancestors"].nil?
@@ -78,17 +78,16 @@ def create_media(params)
       #base_url need to have default value
       medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
                      resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
-                     language_id: language_id, license_id: license_id,location_id: location_id,base_url: "default"})
+                     language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
       #need to check  value , position
       fill_page_contents({resource_id: params[:resource_id],page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
       
       unless medium["agents"].nil?
-        create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium", resource_pk: medium["mediaId"]})
+        create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
       end
-      
-      # unless params[:references].nil?
-        # create_referents({references: params[:references],reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium"})
-      # end
+      unless params[:references].nil?
+        create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
+      end
       
     end
   
@@ -97,7 +96,7 @@ end
 def create_agents(params)
   params[:agents].each do |agent|
     create_agent(resource_id: params[:resource_id],role: agent["role"],content_id: params[:content_id], 
-                 content_type: params[:content_type], resource_pk: params[:resource_pk],value: agent["fullName"],url: agent["homepage"])
+                 content_type: params[:content_type], resource_pk: agent["agentId"],value: agent["fullName"],url: agent["homepage"],content_resource_fk:params[:content_resource_fk])
   end
   
 end
@@ -105,29 +104,31 @@ end
 def create_agent(params)
   # need role default name
   role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
-  #what is value and need default value
-  # we need to know what is content_resource_fk attribute and wha is its default value
   create_attribution({resource_id: params[:resource_id],content_id: params[:content_id] ,content_type: params[:content_type],
-                      role_id: role_id,url: params[:url], resource_pk: params[:resource_pk], value: params[:value], content_resource_fk: "content_resource_fk"})
+                      role_id: role_id,url: params[:url], resource_pk: params[:resource_pk], value: params[:value], content_resource_fk: params[:content_resource_fk]})
 end
 
-# def create_referents(params)
-  # params[:references].each do |reference|
-    # if reference["referenceId"] == params[:reference_id]
-      # # create referent missing body (text can be null)
-      # referent_id = create_referent(body: )
-      # create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: "Medium"})
-    # end
-# 
-  # end
-# end
+def create_referents(params)
+  params[:references].each do |reference|
+    if reference["referenceId"] == params[:reference_id]
+      body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
+            "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
+            "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
+      body = body.blank? ? nil : body
+      referent_id = create_referent(body: body ,resource_id: params[:resource_id])
+      create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
+    end
+
+  end
+end
 
 def create_referent(params)
-    res = Referent.where(body: params[:body])
+    
+    res = Referent.where(body: params[:body],resource_id: params[:resource_id])
     if res.count > 0
       res.first.id
     else
-      referent = Referent.create(body: params[:body])
+      referent = Referent.create(body: params[:body],resource_id: params[:resource_id])
       referent.id
     end
     
@@ -135,16 +136,16 @@ end
 
 def create_references(params)
   #check searching parameters
-  res = Reference.where(parent_id: params[:parent_id],parent_type: params[:parent_type])
+  res = Reference.where(parent_id: params[:parent_id],parent_type: params[:parent_type],referent_id: params[:referent_id])
   if res.count > 0
     res.first.id
   else
-    reference = Reference.create(parent_id: params[:parent_id],referent_id: params[:referent_id] ,parent_type: params[:parent_type])
+    # id attribute must be autoincrement need to be edited in schema
+    reference = Reference.create(parent_id: params[:parent_id],referent_id: params[:referent_id] ,parent_type: params[:parent_type],resource_id: params[:resource_id], id: 1)
     reference.id
   end
    
 end
-  
 
   
 
@@ -234,7 +235,7 @@ end
 
 def create_attribution(params)
   # search in attributions not final parameters
-  res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type])
+  res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type],value: params[:value])
   if res.first
     res.first.id
   else
@@ -284,7 +285,7 @@ def create_scientific_name(params)
     res.first.id
   else
     canonical_form = params[:canonical_form].nil? ? params[:scientific_name] : params[:canonical_form]
-    scientific_name = ScientificName.create(node_id: params[:node_id], page_id: params[:page_id], canonical_form: canonical_form,
+    scientific_name = ScientificName.create(node_id: params[:node_id], page_id: params[:page_id], resource_id: params[:resource_id],canonical_form: canonical_form,
                                             node_resource_pk: params[:node_resource_pk], italicized: canonical_form , taxonomic_status_id: 1)
     scientific_name.id
   end  
