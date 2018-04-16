@@ -226,6 +226,161 @@ private
     pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
     @pages = {}
 
+    if false
+      # ORIGINAL:
+      orig = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred:Term)
+      WHERE ((trait:Trait)-[:object_term]->(:Term)-[:parent_term*0..4]->(:Term{ uri: "http://www.geonames.org/6255150" })
+        AND tgt_pred.uri = "http://eol.org/schema/terms/Present")
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 70s
+
+      no_parents = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term { uri: "http://eol.org/schema/terms/Present" })
+      WHERE (trait:Trait)-[:object_term]->(:Term{ uri: "http://www.geonames.org/6255150" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 13.0s, no data. NOTE: object is at least matching "http://www.geonames.org/3865483", sooo...
+
+      no_parents_specific_obj = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term { uri: "http://eol.org/schema/terms/Present" })
+      WHERE (trait:Trait)-[:object_term]->(:Term{ uri: "http://www.geonames.org/3865483" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 14.1
+
+      fast = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term { uri: "http://eol.org/schema/terms/Present" }),
+      (trait:Trait)-[:object_term]->(object_term:Term { uri: "http://www.geonames.org/3865483" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 1.6
+
+      no_where = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(:Term { uri: "http://eol.org/schema/terms/Present"}),
+      (trait:Trait)-[:object_term]->(object_term:Term)-[:parent_term*0..4]->(:Term{ uri: "http://www.geonames.org/6255150" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 14.9, 15.5
+      no_where_less_step = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term*0..2]->(:Term { uri: "http://eol.org/schema/terms/Present"}),
+      (trait:Trait)-[:object_term]->(object_term:Term)-[:parent_term*0..2]->(:Term{ uri: "http://www.geonames.org/6255150" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 16.2, 16.6 .... how is this WORSE?  :D
+
+      named_where = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred:Term),
+      (trait)-[:object_term]->(object_term:Term)
+      WHERE ((trait:Trait)-[:object_term]->(object_term:Term)-[:parent_term*0..4]->(:Term{ uri: "http://www.geonames.org/6255150" })
+        AND tgt_pred.uri = "http://eol.org/schema/terms/Present")
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 79. So, the theory here was that WHERE was doing a sep. query for object_term, but that doesn't hold.
+
+      fast_plus_parent_depth = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term*0..4]->(tgt_pred:Term { uri: "http://eol.org/schema/terms/Present" }),
+      (trait:Trait)-[:object_term]->(object_term:Term { uri: "http://www.geonames.org/3865483" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 14.7 ... so, as soon as you look for parent_terms, it slows WAAAAY down.
+
+      fast_plus_obj_depth = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term { uri: "http://eol.org/schema/terms/Present" }),
+      (trait:Trait)-[:object_term]->(object_term:Term)-[:parent_term*0..4]->(:Term{ uri: "http://www.geonames.org/6255150" })
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 13.7 ... better than predicate, still too slow.
+
+      possible_object_term_uris = TraitBank.query(%{
+        MATCH (term:Term)-[:parent_term*0..4]->(:Term{ uri: "http://www.geonames.org/6255150" })
+        RETURN term.uri
+      })["data"].map(&:first) # 0.02
+      possible_pred_term_uris = TraitBank.query(%{
+        MATCH (term:Term)-[:parent_term*0..4]->(:Term{ uri: "http://eol.org/schema/terms/Present" })
+        RETURN term.uri
+      })["data"].map(&:first) # 0.02
+
+      fast_but_where = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term),
+      (trait:Trait)-[:object_term]->(object_term:Term)
+      WHERE predicate.uri = "http://eol.org/schema/terms/Present"
+        AND object_term.uri = "http://www.geonames.org/3865483"
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 1.8, 1.31 ... Not bad.
+
+      where_in = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term),
+      (trait:Trait)-[:object_term]->(object_term:Term)
+      WHERE predicate.uri IN ['#{possible_pred_term_uris.join("','")}']
+        AND object_term.uri IN ['#{possible_object_term_uris.join("','")}']
+      OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+      OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+      OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+      OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+      OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+      RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 14.3, 10.4 ...Well... poopy. I can't get it faster, then. Hmmmn.
+
+      where_in_no_optionals = TraitBank.query(%{MATCH (page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource), (trait:Trait)-[:predicate]->(predicate:Term),
+      (trait:Trait)-[:object_term]->(object_term:Term)
+      WHERE predicate.uri IN ['#{possible_pred_term_uris.join("','")}']
+        AND object_term.uri IN ['#{possible_object_term_uris.join("','")}']
+      RETURN page, trait, predicate, object_term, resource
+      ORDER BY LOWER(predicate.name), LOWER(object_term.name), trait.normal_measurement, LOWER(trait.literal)
+      LIMIT 20}) # 7.3 ... probably not a big enough saving to force two queries.
+    end
+
     ids.each do |id|
       page = pages.find { |p| p.id == id }
       @pages[id] = page if page

@@ -135,22 +135,23 @@ class TraitBank
     def order_clause_array(options)
       options[:sort] ||= ""
       options[:sort_dir] ||= ""
-      sorts = if options[:by]
-        options[:by]
-      elsif options[:object_term]
-        [] # You already have a SINGLE term. Don't sort it.
-      elsif options[:sort].downcase == "measurement"
-        ["trait.normal_measurement"]
-      else
-        # TODO: this is not good. multiple types of values will not
-        # "interweave", and the only way to change that is to store a
-        # "normal_value" value for all different "stringy" types (literals,
-        # object terms, and object page names). ...This is a resonable approach,
-        # though it will require more work to keep "up to date" (e.g.: if the
-        # name of an object term changes, all associated traits will have to
-        # change).
-        ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
-      end
+      sorts =
+        if options[:by]
+          options[:by]
+        elsif options[:object_term]
+          [] # You already have a SINGLE term. Don't sort it.
+        elsif options[:sort].downcase == "measurement"
+          ["trait.normal_measurement"]
+        else
+          # TODO: this is not good. multiple types of values will not
+          # "interweave", and the only way to change that is to store a
+          # "normal_value" value for all different "stringy" types (literals,
+          # object terms, and object page names). ...This is a resonable approach,
+          # though it will require more work to keep "up to date" (e.g.: if the
+          # name of an object term changes, all associated traits will have to
+          # change).
+          ["LOWER(predicate.name)", "LOWER(info_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
+        end
       # NOTE: "ties" for traits are resolved by species name.
       sorts << "page.name" unless options[:by]
       if options[:sort_dir].downcase == "desc"
@@ -346,15 +347,15 @@ class TraitBank
 
     def term_filter_wheres(term_query)
       term_query.filters.map do |filter|
-        term_filter_where(filter, "trait", "tgt_pred")
+        term_filter_where(filter, "trait", "tgt_pred", "tgt_obj")
       end
     end
 
-    def term_filter_where(filter, trait_var, pred_var)
+    def term_filter_where(filter, trait_var, pred_var, obj_var)
       if filter.predicate?
         "#{pred_var}.uri = \"#{filter.pred_uri}\""
       elsif filter.object_term?
-        "((#{trait_var}:Trait)-[:object_term]->(:Term)-[:#{parent_terms}]->(:Term{ uri: \"#{filter.obj_uri}\" }) "\
+        "#{obj_var}.uri = \"#{filter.obj_uri}\" "\
         "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.numeric? || filter.range?
         conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
@@ -402,7 +403,10 @@ class TraitBank
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
+      object_term_in_match = @query.filters.any?(&:object_term?)
+
       matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if use_clade
+
       match_part = "MATCH #{matches.join(", ")}"
 
       wheres = term_filter_wheres(term_query)
@@ -411,11 +415,12 @@ class TraitBank
       optional_matches = [
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
-        "(trait)-[:object_term]->(object_term:Term)",
         "(trait)-[:sex_term]->(sex_term:Term)",
         "(trait)-[:lifestage_term]->(lifestage_term:Term)",
         "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
       ]
+      # It's a bit quicker (15% or so) to skip an optional filter if you know it's in the MATCH:
+      optional_matches << "(trait)-[:object_term]->(object_term:Term)" unless object_term_in_match
 
       optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
@@ -426,7 +431,12 @@ class TraitBank
         "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
       ] if options[:meta]
 
-      optional_match_part = optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+      optional_match_part =
+        if options["count"]
+          ''
+        else
+          optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+        end
 
       orders = ["LOWER(predicate.name)", "LOWER(object_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
       orders << "meta_predicate.name" if options[:meta]
@@ -470,8 +480,11 @@ class TraitBank
       term_query.filters.each_with_index do |filter, i|
         trait_var = "t#{i}"
         pred_var = "p#{i}"
-        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[:#{parent_terms}]->(#{pred_var}:Term)"
-        wheres << term_filter_where(filter, trait_var, pred_var)
+        obj_var = "o#{i}"
+        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(#{pred_var}:Term)"
+        matches += ", (#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(#{obj_var}:Term)" if
+          filter.object_term?
+        wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
       end
 
       with_count_clause = options[:count] ?
@@ -552,7 +565,7 @@ class TraitBank
       results["data"].each do |row|
         row_id = row[id_col] && row[id_col]["metadata"] &&
           row[id_col]["metadata"]["id"]
-        debugger if row_id.nil? # Oooops, you found a row with NO identifier!
+        raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         if row_id != previous_id
           previous_id = row_id
           hashes << hash unless hash.nil?
@@ -628,19 +641,19 @@ class TraitBank
       hashes = results_to_hashes(results)
       data = []
       hashes.each do |hash|
-        has_info_term = hash.keys.include?(:info_term)
         has_trait = hash.keys.include?(:trait)
         hash.merge!(hash[:trait]) if has_trait
         hash[:page_id] = hash[:page][:page_id] if hash[:page]
-        hash[:resource_id] = if hash[:resource]
-          if hash[:resource].is_a?(Array)
-            hash[:resource].first[:resource_id]
+        hash[:resource_id] =
+          if hash[:resource]
+            if hash[:resource].is_a?(Array)
+              hash[:resource].first[:resource_id]
+            else
+              hash[:resource][:resource_id]
+            end
           else
-            hash[:resource][:resource_id]
+            "MISSING"
           end
-        else
-          "MISSING"
-        end
         if hash[:predicate].is_a?(Array)
           Rails.logger.error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
             "#{hash[:predicate].size} predicates")
@@ -686,7 +699,7 @@ class TraitBank
     end
 
     def create_page(id)
-      if page = page_exists?(id)
+      if (page = page_exists?(id))
         return page
       end
       page = connection.create_node(page_id: id)
@@ -701,7 +714,7 @@ class TraitBank
     end
 
     def create_resource(id)
-      if resource = find_resource(id)
+      if (resource = find_resource(id))
         return resource
       end
       resource = connection.create_node(resource_id: id)
@@ -797,7 +810,6 @@ class TraitBank
         count = Rails.cache.read("trait_bank/terms_count") || 0
         Rails.cache.write("trait_bank/terms_count", count + 1)
       rescue => e
-        debugger
         raise e
       end
       term_node
