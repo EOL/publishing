@@ -406,6 +406,8 @@ class TraitBank
       object_term_in_match = term_query.filters.any?(&:object_term?)
 
       matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if use_clade
+      matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)" if
+        object_term_in_match
 
       match_part = "MATCH #{matches.join(", ")}"
 
