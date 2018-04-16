@@ -466,8 +466,9 @@ class TraitBank
       "#{where_part} "\
       "#{optional_match_part} "\
       "#{with_count_clause}"\
-      "#{return_clause} "\
-      "#{order_part} "
+      "#{return_clause} " #\
+      # WHAT THE WHAT?!? NO ORDER?! ARE YOU LOCO?!?  ...Kinda. It super-speeds things up, so we're trying it.
+      # "#{order_part} "
     end
 
 
