@@ -355,7 +355,7 @@ class TraitBank
       if filter.predicate?
         "#{pred_var}.uri = \"#{filter.pred_uri}\""
       elsif filter.object_term?
-        "#{obj_var}.uri = \"#{filter.obj_uri}\" "\
+        "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
         "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.numeric? || filter.range?
         conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
