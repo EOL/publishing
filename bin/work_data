@@ -1,0 +1,2 @@
+#!/bin/sh
+nohup rails r "worker = Delayed::Worker.new(queues: ['download']).start ; worker.name_prefix = 'download ' ; worker.start " > log/download.log 2>&1 &

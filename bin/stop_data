@@ -1,5 +1,5 @@
 #!/bin/bash
-ps aux | grep worker.start | grep harvest | awk '{print $2}' | while read -r pid ; do
+ps aux | grep worker.start | grep download | awk '{print $2}' | while read -r pid ; do
   echo "Killing $pid"
   kill $pid
   echo "Killed $pid at `date`" >> log/harvest.log
