@@ -501,8 +501,9 @@ class TraitBank
       "#{matches.join(" ")} "\
       "WHERE #{wheres.join(" AND ")}"\
       "#{with_count_clause}"\
-      "#{return_clause} "\
-      "#{order_clause}"
+      "#{return_clause} "# \
+      # TEMP: trying this out without the order clause, since it's SOOOO much faster...
+      # "#{order_clause}"
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
