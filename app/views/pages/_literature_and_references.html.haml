@@ -14,7 +14,7 @@
             - when "Article"
               - t(:reference_compiled_from_article, source: link_to(reference.parent.resource.name, reference.parent.resource), name: reference.parent.name)
             - when "Medium"
-              - %Q{"#{link_to(reference.parent.name.html_safe, reference.parent)}"}
+              - %Q{"#{link_to(reference.parent.name.html_safe?, reference.parent)}"}
             - when "Node"
               - %Q{"#{link_to(reference.parent.resource.name.html_safe, reference.parent.resource)}"}
           = t(:reference_compiled_from, links: references.to_sentence).html_safe

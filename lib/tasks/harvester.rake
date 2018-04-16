@@ -85,6 +85,8 @@ def create_media(params)
       unless medium["agents"].nil?
         create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
       end
+      
+      #to show literature and references tab need to fill pages_referents table which won't be filled by us 
       unless params[:references].nil?
         create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
       end
@@ -109,21 +111,22 @@ def create_agent(params)
 end
 
 def create_referents(params)
-  params[:references].each do |reference|
-    if reference["referenceId"] == params[:reference_id]
-      body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
-            "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
-            "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
-      body = body.blank? ? nil : body
-      referent_id = create_referent(body: body ,resource_id: params[:resource_id])
-      create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
+  reference_ids=params[:reference_id].split(';')
+  reference_ids.each do|reference_id|
+    params[:references].each do |reference|
+      if reference["referenceId"] == reference_id
+        body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
+              "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
+              "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
+        body = body.blank? ? nil : body
+        referent_id = create_referent(body: body ,resource_id: params[:resource_id])
+        create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
+      end
     end
-
   end
 end
 
 def create_referent(params)
-    
     res = Referent.where(body: params[:body],resource_id: params[:resource_id])
     if res.count > 0
       res.first.id

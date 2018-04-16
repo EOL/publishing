@@ -20,6 +20,7 @@
                   - names.each do |name|
 
                     -resource_id = name.resource_id
+                    -# need to fill attribution field in scientific_names table from resource file
                     -# -if !resource_id.nil? && !name.attribution.blank?
                     -if !resource_id.nil?
                       -result = ResourceApi.get_resource_using_id(resource_id)
