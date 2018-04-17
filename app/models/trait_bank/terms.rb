@@ -45,11 +45,21 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/"\
           "#{count ? :count : "#{page}/#{per}"}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
+        types = {
+          'predicate' => 'measurement',
+          'object_term' => 'value'
+        }
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          q = "MATCH (term:Term"
-          q += " { is_hidden_from_glossary: false }" unless qterm
-          q += ")<-[:#{type}]-(n) "
-          q += "WHERE LOWER(term.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q = 'MATCH (term:Term'
+          # NOTE: UUUUUUGGGGGGH.  This is super-ugly. Alas... we don't have a nice query-builder.
+          q += ' {' if !qterm || types.key?(type)
+          q += ' is_hidden_from_glossary: false' unless qterm
+          q += ',' if !qterm && types.key?(type)
+          q += " type: \"#{types[type]}\"" if types.key?(type)
+          q += ' }' if !qterm || types.key?(type)
+          q += ')'
+          q += "<-[:#{type}]-(n) " if type == 'units_term'
+          q += " WHERE LOWER(term.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -102,19 +112,19 @@ class TraitBank
       end
 
       def object_term_glossary(page = nil, per = nil, qterm = nil)
-        sub_glossary("object_term", page, per, qterm: qterm)
+        sub_glossary('object_term', page, per, qterm: qterm)
       end
 
       def units_glossary(page = nil, per = nil, qterm = nil)
-        sub_glossary("units_term", page, per, qterm: qterm)
+        sub_glossary('units_term', page, per, qterm: qterm)
       end
 
       def predicate_glossary_count
-        sub_glossary("predicate", nil, nil, count: true)
+        sub_glossary('predicate', nil, nil, count: true)
       end
 
       def object_term_glossary_count
-        sub_glossary("object_term", nil, nil, count: true)
+        sub_glossary('object_term', nil, nil, count: true)
       end
 
       def units_glossary_count

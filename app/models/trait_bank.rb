@@ -254,11 +254,11 @@ class TraitBank
     def adv_query(clauses)
       raise "no matches" unless clauses[:match].is_a?(Hash)
       raise "no returns" unless clauses.has_key?(:return)
-      q = clause_with_where(clauses[:match], "MATCH")
-      q += clause_with_where(clauses[:optional], "OPTIONAL MATCH")
-      q += simple_clause(clauses[:with], "WITH")
-      q += simple_clause(clauses[:return], "RETURN", ",")
-      q += simple_clause(clauses[:order], "ORDER BY", ",")
+      q = clause_with_where(clauses[:match], 'MATCH')
+      q += clause_with_where(clauses[:optional], 'OPTIONAL MATCH')
+      q += simple_clause(clauses[:with], 'WITH')
+      q += simple_clause(clauses[:return], 'RETURN', ",")
+      q += simple_clause(clauses[:order], 'ORDER BY', ",")
       q += limit_and_skip_clause(clauses[:page], clauses[:per]) unless clauses[:count]
       query(q)
     end
@@ -434,7 +434,7 @@ class TraitBank
       ] if options[:meta]
 
       optional_match_part =
-        if options["count"]
+        if options[:count]
           ''
         else
           optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
