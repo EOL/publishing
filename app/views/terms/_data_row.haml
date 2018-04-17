@@ -23,7 +23,7 @@
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
-  - if trait[:metadata] && trait[:metadata].any? 
+  - if trait[:metadata] && trait[:metadata].any?
     %ul.meta-items.js-meta-items
       - trait[:metadata].each do |datum|
         %li.meta-item
@@ -37,7 +37,8 @@
       - if trait[:source]
         %li.meta-item
           .meta-pred= t("terms.source")
-          .meta-val= URI.parse(trait[:source]).kind_of?(URI::HTTP) ? link_to(trait[:source], trait[:source]) : trait[:source]
+          - is_uri = URI.parse(trait[:source]).kind_of?(URI::HTTP) rescue nil
+          .meta-val= is_uri ? link_to(trait[:source], trait[:source]) : trait[:source]
       - if page
         %li.meta-item
           .meta-pred= t("terms.record_url")

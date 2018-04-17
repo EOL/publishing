@@ -63,14 +63,19 @@
             = link_to(@resource.name, page_media_path(page_id: @page.id, license: @license, subclass_id: @subclass_id, resource_id: @resource_id),
               remote: true, class: "item#{ @resource.id == @resource_id ? " active" : ""}")
               
-          -# new code of master
+
+
           -# - @resources.each do |resource|
             -# = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass: @subclass, resource_id: resource.id),
               -# remote: true, data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
+  - total_pages = (@page.media_count.to_f / @media_page_size).ceil
 
   %div{ class: "uk-visible@m" }
-    = paginate @media, remote: true
+    -# TODO: #paginate *forces* a count, and we don't want that here. Alas...
+    = paginate @media, total_pages: total_pages
   -# If you want the list to be sortable:
   -# %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
   = render("media/grid", media: @media)
-  = paginate @media, remote: true
+  -# TODO: remote isn't working. I don't have time to figure out why, right now.
+  -# = paginate @media, remote: true, total_pages: total_pages
+  = paginate @media, total_pages: total_pages

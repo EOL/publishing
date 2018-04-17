@@ -1,2 +1,2 @@
 #!/bin/sh
-QUEUE=harvest nohup rake jobs:work > log/harvest.log 2>&1 &
+nohup rails r "worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1 &

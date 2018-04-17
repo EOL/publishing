@@ -136,10 +136,10 @@ private
     # that class is required:
 
     @pages = if @types[:pages]
+      fields = %w[preferred_vernacular_strings^200 scientific_name^400 vernacular_strings synonyms providers resource_pks]
       basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
-        fields: ["preferred_vernacular_strings^200", "scientific_name^400",
-          "vernacular_strings", "synonyms", "providers", "resource_pks"],
-          where: @clade ? { ancestry_ids: @clade.id } : nil)
+                         fields: fields, where: @clade ? { ancestry_ids: @clade.id } : nil,
+                         includes: [:medium, { native_node: { node_ancestors: :ancestor } }])
     else
       nil
     end
@@ -192,8 +192,6 @@ private
     else
       nil
     end
-
-    #Searchkick.multi_search([@pages, @collections, @media, @users].compact)
 
     Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users].compact)
 

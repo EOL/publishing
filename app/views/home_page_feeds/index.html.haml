@@ -1,0 +1,21 @@
+%h1 All feeds
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Fields
+      %th
+      %th
+      %th
+
+  %tbody
+    - @home_page_feeds.each do |home_page_feed|
+      %tr
+        %td= home_page_feed.name
+        %td= home_page_feed.fields
+        %td= link_to 'Items', home_page_feed_items_path(home_page_feed)
+
+%br
+
+= link_to 'New feed', new_home_page_feed_path

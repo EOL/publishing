@@ -1,40 +1,40 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
-   json_content = File.read(nodes_file_path)
-   unless json_content == false
-     nodes = JSON.parse(json_content)
-     # add_neo4j
-    nodes.each do |node|
-      res = Node.where(global_node_id: node["generatedNodeId"])
-      if res.count > 0
-        current_node = res.first
-      else
-        params = { resource_id: node["resourceId"],
-                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
-        created_node = create_node(params)
-        
-        unless node["taxon"]["pageEolId"].nil? 
-          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
-          unless node["vernaculars"].nil?
-            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
-          end
-          
-          unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
-          end
-          
-          # unless node["nodeData"]["ancestors"].nil?
-            # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+   # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
+   # json_content = File.read(nodes_file_path)
+   # unless json_content == false
+     # nodes = JSON.parse(json_content)
+     add_neo4j
+    # nodes.each do |node|
+      # res = Node.where(global_node_id: node["generatedNodeId"])
+      # if res.count > 0
+        # current_node = res.first
+      # else
+        # params = { resource_id: node["resourceId"],
+                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        # created_node = create_node(params)
+#         
+        # unless node["taxon"]["pageEolId"].nil? 
+          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
+          # unless node["vernaculars"].nil?
+            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
           # end
-           
-        end      
-      end    
-    end
-  end    
+#           
+          # unless node["media"].nil?
+            # create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
+          # end
+#           
+          # # unless node["nodeData"]["ancestors"].nil?
+            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
+          # # end
+#            
+        # end      
+      # end    
+    # end
+  # end    
 end
 
 def get_latest_updates_from_hbase
@@ -118,7 +118,6 @@ def create_referents(params)
         body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
               "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
               "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
-        body = body.blank? ? nil : body
         referent_id = create_referent(body: body ,resource_id: params[:resource_id])
         create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
       end

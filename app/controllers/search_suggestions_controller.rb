@@ -2,7 +2,7 @@ class SearchSuggestionsController < ApplicationController
   layout "application"
 
   def index
-    @search_suggestions = SearchSuggestion.order(:match).page(params[:page]).per_page(50)
+    @search_suggestions = SearchSuggestion.order(:match).by_page(params[:page]).per(50)
   end
 
   def new

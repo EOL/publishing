@@ -23,3 +23,19 @@ RepublishJob = Struct.new(:resource_id) do
     1
   end
 end
+
+ReindexJob = Struct.new(:resource_id) do
+  def perform
+    resource = Resource.find(resource_id)
+    # TODO: there are likely other things to do, here, but this is what we need now.
+    resource.fix_missing_page_contents
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end

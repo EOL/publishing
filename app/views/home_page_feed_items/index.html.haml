@@ -1,0 +1,25 @@
+%h1 Items for feed #{@home_page_feed.name}
+
+%h2 Published
+= render :partial => "table", :locals => { :items => @home_page_feed.published_items, :edit_links => false }
+
+%br
+
+%h2 Draft
+%p Changes to these items will not affect published items.
+
+= render :partial => "table", :locals => { :items => @home_page_feed.draft_items, :edit_links => true }
+
+%br
+
+= link_to new_home_page_feed_item_path, :class => "uk-margin" do
+  %button.uk-button.uk-button-primary New item
+
+%br
+
+= form_tag(home_page_feed_publish_path(@home_page_feed)) do
+  = submit_tag "Publish", :class => "uk-button uk-button-danger uk-margin-large", :'data-confirm' => "Are you sure you want to publish this draft?"
+
+%br
+
+%div.uk-margin= link_to "Back to feeds", home_page_feeds_path

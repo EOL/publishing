@@ -63,11 +63,16 @@ Rails.application.routes.draw do
     get 'sync', on: :collection
     get 'import_traits'
     get 'republish'
+    get 'reindex'
     resources :import_logs, only: [:show]
     resources :nodes, only: [:index]
   end
 
   resources :search_suggestions
+  resources :home_page_feeds, :only => [:index, :new, :create] do 
+    post "publish" => "home_page_feeds#publish", :as => "publish"
+    resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
+  end
 
   resources :content_partners do
     resources :resources, :controller => 'content_partners/resources'
@@ -103,7 +108,7 @@ Rails.application.routes.draw do
 
   match '/ping', to: 'pages#ping', via: :all
 
-  root 'pages#index'
+  root 'home_page#index'
 
   # This line mounts Refinery's routes at the root of your application.
   # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.

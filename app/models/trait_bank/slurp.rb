@@ -16,8 +16,7 @@ class TraitBank::Slurp
     def load_csv_config(resource)
       { "traits_#{resource.id}.csv" =>
         { 'Page' => [:page_id],
-          'Trait' => %i[eol_pk resource_pk sex lifestage statistical_method source literal measurement\
-                        object_page_id scientific_name normal_measurement],
+          'Trait' => %i[eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement],
           wheres: {
             # This will be applied to ALL rows:
             "1=1" => {
@@ -31,6 +30,21 @@ class TraitBank::Slurp
                 [:trait, :predicate, :predicate],
                 [:trait, :supplier, :resource]
               ],
+            },
+            "#{is_not_blank('row.sex')}" =>
+            {
+              matches: { sex: 'Term { uri: row.sex }' },
+              merges: [ [:trait, :sex_term, :sex] ]
+            },
+            "#{is_not_blank('row.lifestage')}" =>
+            {
+              matches: { lifestage: 'Term { uri: row.lifestage }' },
+              merges: [ [:trait, :lifestage_term, :lifestage] ]
+            },
+            "#{is_not_blank('row.statistical_method')}" =>
+            {
+              matches: { statistical_method: 'Term { uri: row.statistical_method }' },
+              merges: [ [:trait, :statistical_method_term, :statistical_method] ]
             },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {
@@ -52,7 +66,7 @@ class TraitBank::Slurp
 
         "meta_traits_#{resource.id}.csv" =>
         {
-          'MetaData' => %i[eol_pk sex lifestage statistical_method source literal measurement],
+          'MetaData' => %i[eol_pk source literal measurement],
           wheres: {
             "1=1" => { # ALL ROWS
               matches: {
@@ -63,6 +77,21 @@ class TraitBank::Slurp
                 [:trait, :metadata, :metadata],
                 [:metadata, :predicate, :predicate]
               ],
+            },
+            "#{is_not_blank('row.sex')}" =>
+            {
+              matches: { sex: 'Term { uri: row.sex }' },
+              merges: [ [:metadata, :sex_term, :sex] ]
+            },
+            "#{is_not_blank('row.lifestage')}" =>
+            {
+              matches: { lifestage: 'Term { uri: row.lifestage }' },
+              merges: [ [:metadata, :lifestage_term, :lifestage] ]
+            },
+            "#{is_not_blank('row.statistical_method')}" =>
+            {
+              matches: { statistical_method: 'Term { uri: row.statistical_method }' },
+              merges: [ [:metadata, :statistical_method_term, :statistical_method] ]
             },
             "#{is_blank('row.value_uri')} AND #{is_not_blank('row.units')}" =>
             {

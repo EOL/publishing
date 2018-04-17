@@ -1,0 +1,6 @@
+%ul.feed.main-feed
+  - @main_feed.published_items.each do |item|
+    %li.feed-item.main-feed-item>
+      %a{:href => item.link_url}
+        %img.main-feed-img{:src => item.img_url}
+        %div.main-feed-txt= item.label

@@ -1,0 +1,11 @@
+= simple_form_for(@home_page_feed) do |f|
+  - @home_page_feed.errors.full_messages.each do |m|
+    %div= m
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, :input_html => { :class => "uk-input" }, :label_html => { :class => "uk-form-label" }, :wrapper_html => { :class => "uk-margin" }
+    = f.input :fields, :as => :check_boxes, :collection => HomePageFeed::FIELDS.keys, :checked => f.object.fields, :input_html => { :class => "uk-checkbox checkbox-input" }, :label_html => { :class => "uk-form-label" }, :wrapper_html => { :class => "uk-margin fields" }, :boolean_style => :inline
+
+  .form-actions
+    = f.button :submit, :class => "uk-button uk-button-primary"

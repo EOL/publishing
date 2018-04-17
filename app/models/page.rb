@@ -269,7 +269,7 @@ class Page < ActiveRecord::Base
   end
 
   def map?
-    occurrence_map? || maps.count > 0
+    occurrence_map? || map_count > 0
   end
 
   def maps
@@ -277,7 +277,7 @@ class Page < ActiveRecord::Base
   end
 
   def map_count
-    maps.count + (occurrence_map? ? 1 : 0)
+    PageContent.where(source_page_id: id, content_type: 'Map').visible.not_untrusted.count + (occurrence_map? ? 1 : 0)
   end
 
   def sections
@@ -342,6 +342,10 @@ class Page < ActiveRecord::Base
     key_data
   end
 
+  def has_data?
+    data_count > 0
+  end
+
   # NOTE: This page size is "huge" because we don't want pagination for data.
   # ...Mainly because it gets complicated quickly. Data rows can be in multiple
   # TOC items, and we want to be able to show all of the data in a single TOC
@@ -353,9 +357,7 @@ class Page < ActiveRecord::Base
     return @data[0..per] if @data
     data = TraitBank.by_page(id, page, per)
     # Self-healing count of number of data:
-    if data.size != data_count
-      update_attribute(:data_count, data.size)
-    end
+    update_attribute(:data_count, data.size) unless data.size == data_count
     @data_toc_needs_other = false
     @data_toc = data.flat_map do |t|
       next if t[:predicate][:section_ids].nil? # Usu. test data...

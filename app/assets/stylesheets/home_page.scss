@@ -1,0 +1,111 @@
+@import "colors";
+
+h1 {
+  font-size: 14px;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.feed {
+  list-style: none;
+  margin: 0;
+  overflow: auto;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+  .feed-item {
+    display: inline-block;
+  }
+
+.main-feed {}
+
+  .main-feed-item {
+    overflow: hidden;
+    width: 160px;
+  }
+
+  .main-feed-img {
+    height: 180px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .main-feed-txt {
+    font-size: 14px;
+    height: 50px;
+    padding: 5px 0;
+    text-align: center;
+    white-space: normal;
+  }
+
+.partner-feed {
+  background: $eol-blue;
+  height: 100px;
+  padding: 8px 12px;
+}
+  .partner-feed-item {
+    background: $white;
+    border-radius: 2px;
+    display: inline-block;
+    height: 100%;
+    margin-right: 5px;
+    max-width: 200px;
+    overflow: hidden;
+    padding: 3px 8px;
+    position: relative;
+    text-align: left;
+    vertical-align: top;
+
+    & > a {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    & > a:hover {
+      text-decoration: none;
+    }
+  }
+
+    .partner-feed-item-last {
+      margin-right: 0;
+    }
+
+  .partner-feed-img {
+    align-items: center;
+    border-right: 1px solid black;
+    display: flex;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding-right: 5px;
+    text-align: center;
+
+    & > img {
+      max-height: 78px;
+      max-width: 78px;
+    }
+  }
+
+  .partner-feed-txt {
+    display: inline-block;
+    flex: 1 1 auto;
+    height: 100%;
+    overflow: hidden;
+    padding: 0 8px;
+    vertical-align: top;
+    white-space: normal;
+  }
+
+  .partner-feed-label {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .partner-feed-desc {
+    font-size: 12px;
+  }
+

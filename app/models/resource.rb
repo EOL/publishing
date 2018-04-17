@@ -161,11 +161,8 @@ class Resource
     # references, referents
     nuke(Reference)
     nuke(Referent)
-    # TODO: Update all these counts on affected pages:
-      # t.integer  "page_contents_count",    limit: 4,   default: 0,     null: false
-      # t.integer  "media_count",            limit: 4,   default: 0,     null: false
-      # t.integer  "articles_count",         limit: 4,   default: 0,     null: false
-      # t.integer  "links_count",            limit: 4,   default: 0,     null: false
+    fix_missing_page_contents(delete: true)
+    # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
       # t.integer  "data_count",             limit: 4,   default: 0,     null: false
       # t.integer  "vernaculars_count",      limit: 4,   default: 0,     null: false
@@ -190,7 +187,7 @@ class Resource
     # Attributions
     nuke(Attribution)
     # Traits:
-    # TODO: restore this. I'm removing it TEMP only... TraitBank::Admin.remove_for_resource(self)
+    TraitBank::Admin.remove_for_resource(self)
     # Update page node counts
     # Get list of affected pages
     pages = Node.where(resource_id: id).pluck(:page_id)
@@ -218,25 +215,43 @@ class Resource
   end
 
   # This is kinda cool... and faster than fix_counter_culture_counts
-  def fix_missing_page_contents
-    [Medium, Article].each { |type| fix_missing_page_contents_by_type(type) }
+  def fix_missing_page_contents(options = {})
+    delete = options.key?(:delete) ? options[:delete] : false
+    [Medium, Article, Link].each { |type| fix_missing_page_contents_by_type(type, delete: delete) }
   end
 
-  def fix_missing_page_contents_by_type(type)
-    contents =
-      PageContent.joins('LEFT JOIN media ON (page_contents.content_id = media.id)')
-                 .where(content_type: type, resource_id: id)
-                 .where('media.id IS NULL')
+  # TODO: this should be extracted and generalized so that a resource_id is options (thus allowing ALL contents to be
+  # fixed). TODO: I think the pluck at the beginning will need to be MANUALLY segmented, as it takes too long
+  # (285749.5ms on last go).
+  def fix_missing_page_contents_by_type(type, options = {})
+    delete = options.key?(:delete) ? options[:delete] : false
     page_counts = {}
-    contents.select('page_contents.id, page_contents.page_id').find_in_batches(batch_size: 10_000) do |batch|
-      batch.map(&:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
+    type_table = type.table_name
+    contents = PageContent.where(content_type: type.name, resource_id: id)
+    if delete
+      contents.joins(
+        %Q{LEFT JOIN #{type_table} ON (page_contents.content_id = #{type_table}.id)}
+      ).where("#{type_table}.id IS NULL")
+    else
+      PageContent
     end
+    # .where('page_contents.id > 31617148').pluck(:page_id)
+    contents.pluck(:page_id).each { |pid| page_counts[pid] ||= 0 ; page_counts[pid] += 1 }
     by_count = {}
     page_counts.each { |pid, count| by_count[count] ||= [] ; by_count[count] << pid }
-    contents.delete_all
+    contents.delete_all if delete
     by_count.each do |count, pages|
       pages.in_groups_of(5_000, false) do |group|
-        Page.where(id: group).update_all("page_contents_count = IF(page_contents_count > #{count},(page_contents_count - #{count}),0)")
+        pages = Page.where(id: group)
+        type_field = "#{type.table_name}_count"
+        update =
+          if delete
+            "page_contents_count = IF(page_contents_count > #{count}, (page_contents_count - #{count}),0), "\
+              "#{type_field} = IF(#{type_field} > #{count}, (#{type_field} - #{count}),0)"
+          else
+            "page_contents_count = page_contents_count + #{count}, #{type_field} = #{type_field} + #{count}"
+          end
+        pages.update_all(update)
       end
     end
   end

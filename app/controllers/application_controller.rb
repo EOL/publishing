@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
       current_user && current_user.is_admin?
     end
 
+    def require_admin
+      raise "Unauthorized" unless is_admin?
+    end
+
     def no_main_container
       @nocontainer = true
     end

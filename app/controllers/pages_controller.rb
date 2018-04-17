@@ -140,7 +140,7 @@ class PagesController < ApplicationController
   def show
     @page = Page.find(params[:id])
     @page_title = @page.name
-    get_media
+    # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
     get_associations
     # Required mostly for paginating the first tab on the page (kaminari
@@ -175,7 +175,7 @@ class PagesController < ApplicationController
   def maps
     @page = Page.where(id: params[:page_id]).first
     # NOTE: sorry, no, you cannot choose the page size for maps.
-    @media = @page.maps.page(params[:page]).per_page(18)
+    @media = @page.maps.by_page(params[:page]).per(18)
     @subclass = "map"
     @subclass_id = Medium.subclasses[:map]
     return render(status: :not_found) unless @page # 404
@@ -276,8 +276,8 @@ private
   end
 
   def get_media
-    #not working.....
-    #media = @page.media.includes(:license, :resource)
+
+
     media = @page.media
     @licenses = media.map { |m| m.license.name }.uniq.sort
     @subclasses = media.map { |m| m.subclass }.uniq.sort
@@ -294,6 +294,42 @@ private
                       dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
                       default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
                       default_language_id: result["default_language_id"])
+
+    # if @page.media_count > 1000
+      # # Too many. Just use ALL of them for filtering:
+      # @licenses = License.all.pluck(:name).uniq.sort
+      # @subclasses = Medium.subclasses.keys.sort
+      # # @resources = Resource.all.select('id, name').sort
+      # @resource_id = media.first.resource_id
+      # result = ResourceApi.get_resource_using_id(@resource_id)
+      # @resources = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+                        # type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+                        # day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+                        # is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+                        # dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+                        # dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+                        # default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+                        # default_language_id: result["default_language_id"])
+# 
+    # else
+      # @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
+      # @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+      # # @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
+      # @resource_id = media.first.resource_id
+      # result = ResourceApi.get_resource_using_id(@resource_id)
+      # @resources = Resource.new(name: result["name"],origin_url: result["original_url"],uploaded_url: result["uploaded_url"],
+                      # type: result["type"],path: result["path"],last_harvested_at: result["last_harvested_at"],harvest_frequency: result["harvest_frequency"],
+                      # day_of_month: result["day_of_month"],nodes_count: result["nodes_count"],position: result["position"],is_paused: result["_paused"],
+                      # is_approved: result["_approved"],is_trusted: result["_trusted"],is_autopublished: result["_autopublished"],is_forced: result["_forced"],
+                      # dataset_license: result["dataset_license"],dataset_rights_statement: result["dataset_rights_statement"],
+                      # dataset_rights_holder: result["dataset_rights_holder"],default_license_string: result["default_license_string"],
+                      # default_rights_statement: result["default_rights_statement"],default_rights_holder: result["default_rights_holder"],
+                      # default_language_id: result["default_language_id"])
+
+    # end
+    # media = @page.media
+                 # .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
+                 # .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license]
       debugger
@@ -321,7 +357,6 @@ private
                       default_language_id: result["default_language_id"])
       #@resource = Resource.find(@resource_id)
     end
-    @media = media.page(params[:page]).per_page(@media_page_size)
-    @page_contents = PageContent.where(content_type: "Medium", content_id: @media.map(&:id))
+    @media = media.by_page(params[:page]).per(@media_page_size).without_count
   end
 end

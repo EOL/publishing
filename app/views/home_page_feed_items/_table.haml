@@ -1,0 +1,26 @@
+%table.item-table
+  %thead
+    %tr
+      - @home_page_feed.fields.each do |field|
+        %th= field
+      %th
+      - if edit_links
+        %th
+        %th
+
+  %tbody
+    - items.each do |home_page_feed_item|
+      %tr
+        - home_page_feed_item.fields.each do |field|
+          %td
+            - value = home_page_feed_item.attributes[field.to_s]
+            - if field == :link_url || field == :img_url
+              %div
+                %a{:href => value}= value
+              - if field == :img_url
+                %img{:src => value}
+            - else 
+              = value
+        - if edit_links
+          %td= link_to 'Edit', edit_home_page_feed_item_path(@home_page_feed, home_page_feed_item)
+          %td= link_to 'Destroy', home_page_feed_item_path(@home_page_feed, home_page_feed_item), method: :delete, data: { confirm: 'Are you sure?' }
