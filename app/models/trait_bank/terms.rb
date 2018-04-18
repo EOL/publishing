@@ -88,7 +88,7 @@ class TraitBank
       def name_for_pred_uri(uri)
         key = "trait_bank/predicate_uris_to_names"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
-          predicate_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+          predicate_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
 
         map[uri]
@@ -97,7 +97,7 @@ class TraitBank
       def name_for_obj_uri(uri)
         key = "trait_bank/object_uris_to_names"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
-          object_term_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+          object_term_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
 
         map[uri]
@@ -106,7 +106,7 @@ class TraitBank
       def name_for_units_uri(uri)
         key = "trait_bank/units_uris_to_names"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
-          units_glossary.map { |item| [item[:uri], item[:name]] }.to_h
+          units_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
         map[uri]
       end
