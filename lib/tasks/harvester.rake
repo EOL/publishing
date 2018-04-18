@@ -1,9 +1,9 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-   # nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
-   # json_content = File.read(nodes_file_path)
-   # unless json_content == false
-     # nodes = JSON.parse(json_content)
+   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
+   json_content = File.read(nodes_file_path)
+   unless json_content == false
+     nodes = JSON.parse(json_content)
      add_neo4j
     # nodes.each do |node|
       # res = Node.where(global_node_id: node["generatedNodeId"])
@@ -34,7 +34,7 @@ def main_method
         # end      
       # end    
     # end
-  # end    
+  end    
 end
 
 def get_latest_updates_from_hbase
@@ -308,15 +308,16 @@ end
 def add_neo4j
   tb_page = TraitBank.create_page(1)
   resource = TraitBank.create_resource(147)
-  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
-             predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
-             object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
-             units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
-             literal:"10",
-             metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
-                       object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
-                       units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squarekilometer",section_ids:[1,2,3],definition:"test units"},
-                       literal:"15"}] }
+  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1}
+  # options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
+             # predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+             # object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+             # units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
+             # literal:"10",
+             # metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+                       # object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+                       # units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squarekilometer",section_ids:[1,2,3],definition:"test units"},
+                       # literal:"15"}] }
   trait=TraitBank.create_trait(options)
 end
 
