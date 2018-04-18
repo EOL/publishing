@@ -16,7 +16,9 @@
           %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
     -#
   .nav-right
-    - if !(current_page?(search_path rescue nil) || current_page?(search_form_path rescue nil))
-      = link_to search_form_path resuce '/search', :class => 'nav-item nav-search-icon' do
+    - search = search_path rescue '/search_results'
+    - search_form = search_form_path rescue '/search'
+    - if !(current_page?(search) || current_page?(search_form))
+      = link_to search_form, :class => 'nav-item nav-search-icon' do
         %i.fa.fa-search.fa-2x
     .nav-eol-title= t("landing_page.title")
