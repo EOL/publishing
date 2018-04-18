@@ -16,14 +16,12 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    result = TraitBank::Terms.units_for_pred(filter.pred_uri)
-
-    if result[:normal_units_uri]
-      uris = UnitConversions.starting_units(result[:normal_units_uri])
+    result = Rails.cache.fetch("units_select_options/#{filter.pred_uri}") do
+      TraitBank::Terms.units_for_pred(filter.pred_uri)
     end
 
     uris = [result[:units_uri]] unless uris
-    options = uris.map do |uri| 
+    options = uris.map do |uri|
       [TraitBank::Terms.name_for_units_uri(uri), uri]
     end
 
@@ -42,7 +40,7 @@ module TermsHelper
     TraitBank::Terms.name_for_units_uri uri
   end
 
-  def show_error(obj, field) 
+  def show_error(obj, field)
     if obj.errors[field].any?
       haml_tag(:div, :class => "filter-error") do
         haml_concat obj.errors[field][0]
@@ -67,7 +65,7 @@ module TermsHelper
     end
   end
 
-  private 
+  private
     def is_any_display_string(filter)
       pred_name(filter.pred_uri)
     end

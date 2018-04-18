@@ -111,7 +111,10 @@ class TermsController < ApplicationController
   end
 
   def object_terms_for_pred
-    render :json => TraitBank::Terms.obj_terms_for_pred(params[:pred_uri], params[:query])
+    pred = params[:pred_uri]
+    q = params[:query]
+    res = Rails.cache.fetch("object_terms_for_pred/#{pred}/#{q}") { TraitBank::Terms.obj_terms_for_pred(pred, q) }
+    render :json => res
   end
 
   def object_term_glossary
@@ -125,7 +128,9 @@ class TermsController < ApplicationController
   end
 
   def pred_autocomplete
-    render :json => TraitBank::Terms.predicate_glossary(nil, nil, params[:query])
+    q = params[:query]
+    res = Rails.cache.fetch("pred_autocomplete/#{q}") { TraitBank::Terms.predicate_glossary(nil, nil, q) }
+    render :json => res
   end
 
 private

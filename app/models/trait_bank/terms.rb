@@ -149,31 +149,30 @@ class TraitBank
       end
 
       def obj_terms_for_pred(pred_uri, qterm = nil)
+        return [] if qterm.blank? # We're no longer allowing this... TEMP: Boo.
         key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          q = "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-            "(trait:Trait)"\
-            "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->(object:Term) "
+          q = # TEMP "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
+            # "(trait:Trait)"\
+            # "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->"\
+            "(object:Term) " # TEMP: We want to speed things up, so we're doing ... this.
           q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
           q +=  "RETURN DISTINCT(object) "\
-            "ORDER BY LOWER(object.name), LOWER(object.uri)"
+            "ORDER BY LOWER(object.name), LOWER(object.uri) "\
+            "LIMIT 12"
 
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
       end
 
-      # TODO: DRY up this and the above method
       def units_for_pred(pred_uri)
         key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
 
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
-            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-            "(trait:Trait)"\
-            "-[:units_term]->(units_term:Term) "\
-            "OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units_term:Term) "\
-            "RETURN units_term.name, units_term.uri, normal_units_term.name, normal_units_term.uri "\
+            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })-[:units_term]->(units_term:Term) "\
+            "RETURN units_term.name, units_term.uri "\
             "LIMIT 1"
           )
 
