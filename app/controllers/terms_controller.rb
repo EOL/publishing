@@ -18,6 +18,7 @@ class TermsController < ApplicationController
     respond_to do |fmt|
       fmt.html do
         if @query.valid?
+          Rails.logger.warn @query.to_s
           search_common
         else
           render "search"
@@ -165,6 +166,7 @@ private
       :count => true,
       :result_type => @result_type
     }
+    Rails.logger.warn "&&TS Running count:"
     @count = TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
@@ -222,6 +224,7 @@ private
   def search_common
     @page = params[:page] || 1
     @per_page = 50
+    Rails.logger.warn "&&TS Running search:"
     data = TraitBank.term_search(@query, {
       :page => @page,
       :per => @per_page,

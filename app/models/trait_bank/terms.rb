@@ -148,19 +148,16 @@ class TraitBank
         uris
       end
 
+      # TEMP: We're no longer checking this against the passed-in pred_uri. Sorry. Keeping the interface for it, though,
+      # since we will want it back. :) You'll have to look at an older version (e.g.: aaf4ba91e7 ) to see the changes; I
+      # kept them around as comments for one version, but it was really hairy, so I removed it.
       def obj_terms_for_pred(pred_uri, qterm = nil)
-        return [] if qterm.blank? # We're no longer allowing this... TEMP: Boo.
+        return [] if qterm.blank?
         key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          q = # TEMP "MATCH (predicate:Term { uri: \"#{pred_uri}\" })<-[:predicate|:parent_term*0..#{CHILD_TERM_DEPTH}]-"\
-            # "(trait:Trait)"\
-            # "-[:object_term|parent_term*0..#{CHILD_TERM_DEPTH}]->"\
-            "(object:Term) " # TEMP: We want to speed things up, so we're doing ... this.
-          q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
-          q +=  "RETURN DISTINCT(object) "\
-            "ORDER BY LOWER(object.name), LOWER(object.uri) "\
-            "LIMIT 12"
-
+          q = '(object:Term { type: "value" }) '
+          q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.delete('"').downcase}\" " if qterm
+          q +=  'RETURN object ORDER BY object.position LIMIT 6'
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
@@ -172,8 +169,7 @@ class TraitBank
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(
             "MATCH (predicate:Term { uri: \"#{pred_uri}\" })-[:units_term]->(units_term:Term) "\
-            "RETURN units_term.name, units_term.uri "\
-            "LIMIT 1"
+            'RETURN units_term.name, units_term.uri LIMIT 1'
           )
 
           result = res["data"]&.first || nil

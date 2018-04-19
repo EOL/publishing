@@ -636,6 +636,7 @@ en:
     medium_title_sound_html: "Audio: <span class='sub'>%{title}</span>"
     medium_title_video_html: "Video: <span class='sub'>%{title}</span>"
     no_title: (no title)
+    empty: "No results."
     field_matches:
       body: "matches the body text:"
       description: "matches the description:"

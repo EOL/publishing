@@ -269,10 +269,10 @@ class TraitBank
     def term_search(term_query, options={})
       key = nil # scope
       if options[:count]
-        key = "trait_bank/term_search/counts/#{Digest::MD5.hexdigest(term_query.inspect)}"
+        key = "trait_bank/term_search/counts/#{term_query.to_s}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
-          Rails.logger.warn("USING cached count: #{key} = #{count}")
+          Rails.logger.warn("&&TS USING cached count: #{key} = #{count}")
           return count
         end
       end
@@ -288,9 +288,10 @@ class TraitBank
       res = query(q)
 
       if options[:count]
+        raise "&&TS Lost key" if key.blank?
         count = res["data"] ? res["data"].first.first : 0
         Rails.cache.write(key, count, expires_in: 1.day)
-        Rails.logger.warn("Cached count: #{key} = #{count}")
+        Rails.logger.warn("&&TS SAVING Cached count: #{key} = #{count}")
         count
       else
         build_trait_array(res)

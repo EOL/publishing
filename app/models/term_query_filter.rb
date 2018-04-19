@@ -31,7 +31,7 @@ class TermQueryFilter < ActiveRecord::Base
 
   def valid_ops
     ops = [:is_any]
-    
+
     if pred_uri
       ops << :is_obj if TraitBank::Terms.obj_terms_for_pred(pred_uri).any?
       ops += [
@@ -45,7 +45,18 @@ class TermQueryFilter < ActiveRecord::Base
     ops
   end
 
-  private 
+  def to_s
+    pieces = []
+    pieces << "op: :#{op}"
+    pieces << "pred_uri:'#{pred_uri}'"
+    pieces << "obj_uri:'#{obj_uri}'" unless obj_uri.blank?
+    pieces << "units_uri:'#{units_uri}'" unless units_uri.blank?
+    pieces << "num_val1:#{num_val1}" unless num_val1.blank?
+    pieces << "num_val1:#{num_val2}" unless num_val2.blank?
+    "{#{pieces.join(',')}}"
+  end
+
+  private
   def numeric_or_range?
     numeric? || range?
   end

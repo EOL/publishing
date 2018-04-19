@@ -28,4 +28,8 @@ class TermQuery < ActiveRecord::Base
   def range_filters
     filters.select { |f| f.range? }
   end
+
+  def to_s
+    "&&TermQuery.new(filters_attributes: [#{filters.map(&:to_s).join(', ')}]) "
+  end
 end
