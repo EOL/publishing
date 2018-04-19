@@ -97,7 +97,8 @@ gem 'draper', '~> 2.1.0'
 # Zip file support
 gem 'rubyzip', '>= 1.0.0'
 
-
+# VULNERABILITY FIXES (these can be removed when their parent gems are updated):
+gem 'loofah', '2.2.1' # Used by spec, addresses https://github.com/flavorjones/loofah/issues/144
 
 group :development, :test do
   # Security analysis:

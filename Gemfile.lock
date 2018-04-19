@@ -94,7 +94,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    crass (1.0.3)
+    crass (1.0.4)
     daemons (1.2.5)
     dalli (2.7.6)
     debug_inspector (0.0.3)
@@ -216,7 +216,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.1.1)
+    loofah (2.2.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.6)
@@ -549,6 +549,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   lograge
+  loofah (= 2.2.1)
   mailcatcher
   meta_request
   mysql2
