@@ -153,13 +153,20 @@ class TraitBank
       # kept them around as comments for one version, but it was really hairy, so I removed it.
       def obj_terms_for_pred(pred_uri, qterm = nil)
         return [] if qterm.blank?
-        key = "trait_bank/obj_terms_for_pred/#{pred_uri}"
-        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          q = '(object:Term { type: "value" }) '
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+          q = 'MATCH (object:Term { type: "value" }) '
           q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.delete('"').downcase}\" " if qterm
           q +=  'RETURN object ORDER BY object.position LIMIT 6'
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
+        end
+      end
+
+      def any_obj_terms_for_pred?(pred)
+        Rails.cache.fetch("trait_bank/any_obj_terms_for_pred/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
+          query(
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term { uri: '#{pred}'}) RETURN COUNT(term)}
+          )["data"].first.first.positive?
         end
       end
 

@@ -33,7 +33,7 @@ class TermQueryFilter < ActiveRecord::Base
     ops = [:is_any]
 
     if pred_uri
-      ops << :is_obj if TraitBank::Terms.obj_terms_for_pred(pred_uri).any?
+      ops << :is_obj if TraitBank::Terms.any_obj_terms_for_pred?(pred_uri)
       ops += [
         :eq,
         :lt,
