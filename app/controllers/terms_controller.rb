@@ -5,8 +5,7 @@ class TermsController < ApplicationController
   before_action :build_query, :only => [:search_results, :search_form]
 
   def index
-    @count = TraitBank::Terms.count
-    glossary("full_glossary")
+    glossary("full_glossary", count_method: :count)
   end
 
   def search
@@ -90,8 +89,7 @@ class TermsController < ApplicationController
   end
 
   def predicate_glossary
-    @count = TraitBank::Terms.predicate_glossary_count
-    glossary(params[:action])
+    glossary(params[:action], count_method: :predicate_glossary_count)
   end
 
   # We ultimately don't want to just pass a "URI" to the term search; we need to
@@ -119,13 +117,11 @@ class TermsController < ApplicationController
   end
 
   def object_term_glossary
-    @count = TraitBank::Terms.object_term_glossary_count
-    glossary(params[:action])
+    glossary(params[:action], count_method: :object_term_glossary_count)
   end
 
   def units_glossary
-    @count = TraitBank::Terms.units_glossary_count
-    glossary(params[:action])
+    glossary(params[:action], count_method: :units_glossary_count)
   end
 
   def pred_autocomplete
@@ -178,12 +174,15 @@ private
     end
   end
 
-  def glossary(which)
-    @glossary = glossary_helper(which, true)
-
+  def glossary(which, count_method = nil)
     respond_to do |fmt|
-      fmt.html {}
-      fmt.json { render json: @glossary }
+      fmt.html do
+        @glossary = glossary_helper(which, true)
+        @count = TraitBank::Terms.send(count_method || :count)
+      end
+      fmt.json do
+        render json: glossary_helper(which, false)
+      end
     end
   end
 
@@ -197,7 +196,8 @@ private
       expire_trait_fragments
     end
     result = TraitBank::Terms.send(which, @page, @per_page, query)
-    paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result
+    Rails.logger.warn "GLOSSARY RESULTS: #{result.map { |r| r[:name] }.join(', ')}"
+    res = paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result[0..@per_page+1]
   end
 
   def expire_trait_fragments

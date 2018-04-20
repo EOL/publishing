@@ -1,4 +1,4 @@
-if(!window.EOL) {
+if (!window.EOL) {
   EOL = {};
 
   var eolReadyCbs = [];
@@ -8,8 +8,8 @@ if(!window.EOL) {
 
   EOL.parseHashParams = function() {
     var hash = window.location.hash,
-        keyValPairs = null,
-        params = {};
+      keyValPairs = null,
+      params = {};
 
     if (hash) {
       hash = hash.replace('#', '');
@@ -26,43 +26,43 @@ if(!window.EOL) {
 
   EOL.enable_search_pagination = function() {
     $("#search_results .uk-pagination a")
-    .unbind("click")
-    .on("click", function() {
-      console.log("search pagination click");
-      $(this).closest(".search_result_container").dimmer("show");
-    });
+      .unbind("click")
+      .on("click", function() {
+        console.log("search pagination click");
+        $(this).closest(".search_result_container").dimmer("show");
+      });
   };
 
   EOL.enable_tab_nav = function() {
     console.log("enable_tab_nav");
     $("#page_nav a,#small_page_nav a").on("click", function() {
-      console.log("page_nav click");
-      $("#tab_content").dimmer("show");
-    }).unbind("ajax:complete")
-    .bind("ajax:complete", function() {
-      console.log("page_nav complete");
-      $("#tab_content").dimmer("hide");
-      $("#page_nav li").removeClass("uk-active");
-      $("#small_page_nav > a").removeClass("active");
-      $(this).addClass("active").parent().addClass("uk-active");
-      if ($("#page_nav > li:first-of-type").hasClass("uk-active")) {
-        $("#name-header").attr("hidden", "hidden");
-      } else {
-        $("#name-header").removeAttr("hidden");
-      }
-      history.pushState(null, "", this.href);
-      console.log("page_nav complete exit");
-    }).unbind("ajax:error")
-    .bind("ajax:error", function(evt, data, status) {
-      if (status === "parsererror") {
-        console.log("** Got that curious parsererror.");
-      } else {
-        UIkit.modal.alert('Sorry, there was an error loading this subtab.');
-      }
-      console.log("data response: "+data.responseText);
-      console.log("status: "+status);
-      console.log("page_nav error:");
-    });
+        console.log("page_nav click");
+        $("#tab_content").dimmer("show");
+      }).unbind("ajax:complete")
+      .bind("ajax:complete", function() {
+        console.log("page_nav complete");
+        $("#tab_content").dimmer("hide");
+        $("#page_nav li").removeClass("uk-active");
+        $("#small_page_nav > a").removeClass("active");
+        $(this).addClass("active").parent().addClass("uk-active");
+        if ($("#page_nav > li:first-of-type").hasClass("uk-active")) {
+          $("#name-header").attr("hidden", "hidden");
+        } else {
+          $("#name-header").removeAttr("hidden");
+        }
+        history.pushState(null, "", this.href);
+        console.log("page_nav complete exit");
+      }).unbind("ajax:error")
+      .bind("ajax:error", function(evt, data, status) {
+        if (status === "parsererror") {
+          console.log("** Got that curious parsererror.");
+        } else {
+          UIkit.modal.alert('Sorry, there was an error loading this subtab.');
+        }
+        console.log("data response: " + data.responseText);
+        console.log("status: " + status);
+        console.log("page_nav error:");
+      });
     EOL.dim_tab_on_pagination();
   };
 
@@ -83,14 +83,14 @@ if(!window.EOL) {
 
   EOL.meta_data_toggle = function() {
     console.log("enable meta_data_toggle");
-    $(".meta_data_toggle").on("click", function (event) {
+    $(".meta_data_toggle").on("click", function(event) {
       var $parent = $(this).parent();
       var $div = $parent.find(".meta_data");
-      if( $div.is(':visible') ) {
+      if ($div.is(':visible')) {
         $div.hide();
       } else {
-        if( $div.html() === "" ) {
-          console.log("Loading row "+$(this).data("action")+"...");
+        if ($div.html() === "") {
+          console.log("Loading row " + $(this).data("action") + "...");
           $.ajax({
             type: "GET",
             url: $(this).data("action"),
@@ -99,20 +99,22 @@ if(!window.EOL) {
             beforeSend: function() {
               console.log("Calling before send...");
             },
-            complete: function(){
+            complete: function() {
               console.log("Calling complete...");
               var offset = $parent.offset();
               if (offset) {
-                $('html, body').animate({ scrollTop: offset.top - 100 }, 'fast');
+                $('html, body').animate({
+                  scrollTop: offset.top - 100
+                }, 'fast');
                 return false;
               }
             },
-            success: function(resp){
+            success: function(resp) {
               console.log("Calling success...");
             },
-            error: function(xhr, textStatus, error){
+            error: function(xhr, textStatus, error) {
               console.log("There was an error...");
-              console.log(xhr.statusText+" : "+textStatus+" : "+error);
+              console.log(xhr.statusText + " : " + textStatus + " : " + error);
             }
           });
         } else {
@@ -134,12 +136,12 @@ if(!window.EOL) {
       var link = $(this);
       thisId = link.data("this-id");
       tgtId = link.data("tgt-id");
-      console.log("Switching images. This: "+thisId+" Target: "+tgtId);
+      console.log("Switching images. This: " + thisId + " Target: " + tgtId);
       // Odd: removing this (extra show()) causes a RELOADED page of image
       // modals to stop working:
-      UIkit.modal("#"+thisId).show();
-      UIkit.modal("#"+thisId).hide();
-      UIkit.modal("#"+tgtId).show();
+      UIkit.modal("#" + thisId).show();
+      UIkit.modal("#" + thisId).hide();
+      UIkit.modal("#" + tgtId).show();
     });
     EOL.enable_tab_nav();
   };
@@ -151,7 +153,7 @@ if(!window.EOL) {
       $("#section_links .item.active").removeClass("active");
       link.parent().addClass("active");
       var secId = link.data("section-id");
-      if(secId == "all") {
+      if (secId == "all") {
         $("table#data thead tr").show();
         $("table#data tbody tr").show();
         $("#data_type_glossary").show();
@@ -175,7 +177,7 @@ if(!window.EOL) {
       } else {
         $("table#data thead tr").show();
         $("table#data tbody tr").hide();
-        $("table#data tbody tr.section_"+secId).show();
+        $("table#data tbody tr.section_" + secId).show();
         $("#data_glossary").hide();
       }
       e.stopPropagation();
@@ -198,9 +200,9 @@ if(!window.EOL) {
     if ($flashes.length) {
       $flashes.each(function() {
         UIkit.notification($(this).data("text"), {
-            status: 'primary',
-            pos: 'top-center',
-            offset: '100px'
+          status: 'primary',
+          pos: 'top-center',
+          offset: '100px'
         });
       });
     }
@@ -220,7 +222,7 @@ if(!window.EOL) {
     if ($(".page_topics").length >= 1) {
       console.log("Fetching page comments...");
       $.ajax({
-        url: "/pages/"+$($(".page_topics")[0]).data("id")+"/comments.js",
+        url: "/pages/" + $($(".page_topics")[0]).data("id") + "/comments.js",
         cache: false
       });
     }
@@ -247,8 +249,8 @@ if(!window.EOL) {
       EoLMap.init();
     }
     */
-    $(window).bind("popstate", function () {
-      console.log("popstate "+location.href);
+    $(window).bind("popstate", function() {
+      console.log("popstate " + location.href);
       // TODO: I'm not sure this is ever used. Check and remove, if not.
       $.getScript(location.href);
     });
@@ -262,8 +264,7 @@ if(!window.EOL) {
       remote: {
         url: '/pages/autocomplete?simple=1&query=%QUERY',
         wildcard: '%QUERY'
-      },
-      limit: 10
+      }
     });
     EOL.searchNames.initialize();
     // And this...
@@ -275,20 +276,18 @@ if(!window.EOL) {
       remote: {
         url: '/users/autocomplete?query=%QUERY',
         wildcard: '%QUERY'
-      },
-      limit: 10
+      }
     });
     EOL.searchUsers.initialize();
 
     // Aaaaand this...
     EOL.searchPredicates = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.nonword,
       remote: {
         url: '/terms/predicate_glossary.json?query=%QUERY',
         wildcard: '%QUERY'
-      },
-      limit: 10
+      }
     });
     EOL.searchPredicates.initialize();
 
@@ -299,8 +298,7 @@ if(!window.EOL) {
       remote: {
         url: '/terms/object_term_glossary.json?query=%QUERY',
         wildcard: '%QUERY'
-      },
-      limit: 10
+      }
     });
     EOL.searchObjectTerms.initialize();
 

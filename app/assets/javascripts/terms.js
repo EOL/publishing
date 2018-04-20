@@ -36,7 +36,7 @@
 
     $(selector).on('input', function() {
       var $this = $(this);
-      
+
       if ($this.val().length === 0) {
         $this.data('lastCleanVal', '');
         $this.closest('.js-typeahead-wrap').find('.js-typeahead-field').val('');
@@ -48,13 +48,13 @@
     });
 
     $(selector).on('blur', function() {
-      $(this).val($(this).data('lastCleanVal')); 
+      $(this).val($(this).data('lastCleanVal'));
     });
   }
 
   function setupForm() {
     $('.js-op-select').change(function() {
-      fetchForm(); 
+      fetchForm();
     });
 
     $('.js-term-select').each(function() {
@@ -68,12 +68,14 @@
     buildTypeahead('.js-clade-typeahead', {
       name: 'clade-filter-names',
       display: 'name',
+      limit: Infinity,
       source: EOL.searchNames
     }, 'id', null);
 
     buildTypeahead('.js-pred-typeahead', {
       name: 'pred-names',
       display: 'name',
+      limit: Infinity,
       source: EOL.searchPredicates
     }, 'uri', fetchForm);
 
@@ -84,14 +86,14 @@
         remote: {
           url: '/terms/object_terms_for_predicate.json?query=%QUERY&pred_uri=' + $(this).data('predUri'),
           wildcard: '%QUERY'
-        },
-        limit: 10
+        }
       });
       source.initialize();
 
       buildTypeahead(this, {
         display: 'name',
-        source: source
+        source: source,
+        limit: Infinity
       }, 'uri', null)
     });
 
@@ -112,7 +114,7 @@
   }
 
   EOL.onReady(setupForm);
-  
+
   $(function() {
     $('.js-edit-filters').click(function() {
       $('.js-filter-form').removeClass('is-hidden');
