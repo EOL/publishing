@@ -4,36 +4,36 @@ def main_method
    json_content = File.read(nodes_file_path)
    unless json_content == false
      nodes = JSON.parse(json_content)
-     add_neo4j
-    # nodes.each do |node|
-      # res = Node.where(global_node_id: node["generatedNodeId"])
-      # if res.count > 0
-        # current_node = res.first
-      # else
-        # params = { resource_id: node["resourceId"],
-                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
-        # created_node = create_node(params)
-#         
-        # unless node["taxon"]["pageEolId"].nil? 
-          # page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-          # create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 # node_resource_pk: node["taxon_id"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
-          # unless node["vernaculars"].nil?
-            # create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
-          # end
-#           
-          # unless node["media"].nil?
-            # create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
-          # end
-#           
-          # # unless node["nodeData"]["ancestors"].nil?
-            # # build_hierarchy({vernaculars: node["nodeData"]["ancestors"], node_id: created_node.id })
-          # # end
-#            
-        # end      
-      # end    
-    # end
+     nodes.each do |node|
+      res = Node.where(global_node_id: node["generatedNodeId"])
+      if res.count > 0
+        current_node = res.first
+      else
+        params = { resource_id: node["resourceId"],
+                   scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        created_node = create_node(params)
+        
+        unless node["taxon"]["pageEolId"].nil? 
+          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+         scientific_name = create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 node_resource_pk: node["taxonId"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
+          unless node["vernaculars"].nil?
+            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
+          end
+          
+          unless node["media"].nil?
+            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
+          end
+          if node["resourceId"]==147
+          add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: scientific_name,occurrences: node["occurrences"],
+                    associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
+          # add_neo4j
+          end
+           
+        end      
+      end    
+    end
   end    
 end
 
@@ -284,12 +284,12 @@ def create_scientific_name(params)
   
   res = ScientificName.where(node_id: params[:node_id], canonical_form: params[:canonical_form])
   if res.count > 0
-    res.first.id
+    res.first.canonical_form
   else
     canonical_form = params[:canonical_form].nil? ? params[:scientific_name] : params[:canonical_form]
     scientific_name = ScientificName.create(node_id: params[:node_id], page_id: params[:page_id], resource_id: params[:resource_id],canonical_form: canonical_form,
                                             node_resource_pk: params[:node_resource_pk], italicized: canonical_form , taxonomic_status_id: 1)
-    scientific_name.id
+    scientific_name.canonical_form
   end  
 end
 
@@ -305,20 +305,44 @@ def fill_page_contents(params)
       
 end
 
-def add_neo4j
-  tb_page = TraitBank.create_page(1)
-  resource = TraitBank.create_resource(147)
-  options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1}
-  # options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
-             # predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
-             # object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
-             # units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
-             # literal:"10",
-             # metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+def add_neo4j(params)
+    # tb_page = TraitBank.create_page(1)
+  # resource = TraitBank.create_resource(147)
+  tb_page = TraitBank.create_page(params[:page_id])
+  resource = TraitBank.create_resource(params[:resource_id])
+  options = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
+             resource_pk:params[:resource_pk] , page:params[:page_id], eol_pk: params[:page_id], scientific_name: params[:scientific_name],
+             predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+             object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+             units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
+             literal:"10",
+             metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+                        object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+                        units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squarekilometer",section_ids:[1,2,3],definition:"test units"},
+                        literal:"15"}] } 
+  
+
+  options_new = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
+             resource_pk:"12345", page:params[:page_id], eol_pk: params[:page_id], scientific_name: params[:scientific_name],
+             predicate:{"name"=>"lengthp/","uri"=>"test/lengthp//",section_ids:[1,2,3],definition:"test predicate definition"},
+             object_term:{"name"=>"lengtho/","uri"=>"test/lengtho//",section_ids:[1,2,3],definition:"test object_term definition"},
+             units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000033",section_ids:[1,2,3],definition:"test units"},
+             literal:"10",
+             metadata:[{predicate:{"name"=>"md_lengthp/","uri"=>"test/md_lengthp//",section_ids:[1,2,3],definition:"test predicate definition"},
+                        object_term:{"name"=>"md_lengtho/","uri"=>"test/md_lengtho//",section_ids:[1,2,3],definition:"test object_term definition"},
+                        units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squareMicrometer",section_ids:[1,2,3],definition:"test units"},
+                        literal:"15"}] } 
+   # options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
+              # predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
+              # object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+              # units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
+              # literal:"10",
+              # metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
                        # object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
                        # units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squarekilometer",section_ids:[1,2,3],definition:"test units"},
-                       # literal:"15"}] }
+                       # literal:"15"}] }                   
   trait=TraitBank.create_trait(options)
+  trait=TraitBank.create_trait(options_new)
 end
 
 

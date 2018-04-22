@@ -122,9 +122,9 @@ module DataHelper
   end
 
   def show_source_segment(data)
-    if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
-      link_txt = resource.name.blank? ? resource_path(resource) : resource.name
-      link_to(link_txt, resource)
+    if resource = @resources
+      content_partner=ContentPartnerApi.get_content_partner_resource_id(resource["id"])
+      link_to(resource["name"], content_partner_resource_path(content_partner["id"], resource["id"]))
     else
       I18n.t(:resource_missing)
     end

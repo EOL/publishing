@@ -754,18 +754,18 @@ class TraitBank
       supplier = options.delete(:supplier)
       supplier = find_resource(resource_id)
       meta = options.delete(:metadata)
-      # predicate = parse_term(options.delete(:predicate))
-      # units = parse_term(options.delete(:units))
-      # object_term = parse_term(options.delete(:object_term))
-      # convert_measurement(options, units)
+      predicate = parse_term(options.delete(:predicate))
+      units = parse_term(options.delete(:units))
+      object_term = parse_term(options.delete(:object_term))
+      convert_measurement(options, units)
       trait = connection.create_node(options)
       connection.set_label(trait, "Trait")
       relate("trait",page, trait)
       relate("supplier", trait, supplier)
-      # relate("predicate", trait, predicate)
-      # relate("units_term", trait, units) if units
-      # relate("object_term", trait, object_term) if object_term
-      # meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
+      relate("predicate", trait, predicate)
+      relate("units_term", trait, units) if units
+      relate("object_term", trait, object_term) if object_term
+      meta.each { |md| add_metadata_to_trait(trait, md) } unless meta.blank?
       trait
     end
 
@@ -800,7 +800,21 @@ class TraitBank
         end
       end
     end
-
+    
+    def add_metadata_to_trait(trait, options)
+      predicate = parse_term(options.delete(:predicate))
+      units = parse_term(options.delete(:units))
+      object_term = parse_term(options.delete(:object_term))
+      convert_measurement(options, units)
+      meta = connection.create_node(options)
+      connection.set_label(meta, "MetaData")
+      relate("metadata", trait, meta)
+      relate("predicate", meta, predicate)
+      relate("units_term", meta, units) if units
+      relate("object_term", meta, object_term) if
+        object_term
+      meta
+    end
     def add_parent_to_page(parent, page)
       if parent.nil?
         if page.nil?
@@ -828,28 +842,28 @@ class TraitBank
 # 
     # # NOTE: this only work on IMPORT. Don't try to run it later! TODO: move it
     # # to import. ;)
-    # def convert_measurement(trait, units)
-      # return unless trait[:literal]
-      # trait[:measurement] = begin
-        # Integer(trait[:literal])
-      # rescue
-        # Float(trait[:literal]) rescue trait[:literal]
-      # end
-      # # If we converted it (and thus it is numeric) AND we see units...
-      # if trait[:measurement].is_a?(Numeric) &&
-         # units && units["data"] && units["data"]["uri"]
-        # (n_val, n_unit) = UnitConversions.convert(trait[:measurement],units["data"]["uri"])
-        # trait[:normal_measurement] = n_val
-        # trait[:normal_units] = n_unit
-      # else
-        # trait[:normal_measurement] = trait[:measurement]
-        # if units && units["data"] && units["data"]["uri"]
-          # trait[:normal_units] = units["data"]["uri"]
-        # else
-          # trait[:normal_units] = "missing"
-        # end
-      # end
-    # end
+    def convert_measurement(trait, units)
+      return unless trait[:literal]
+      trait[:measurement] = begin
+        Integer(trait[:literal])
+      rescue
+        Float(trait[:literal]) rescue trait[:literal]
+      end
+      # If we converted it (and thus it is numeric) AND we see units...
+      if trait[:measurement].is_a?(Numeric) &&
+         units && units["data"] && units["data"]["uri"]
+        (n_val, n_unit) = UnitConversions.convert(trait[:measurement],units["data"]["uri"])
+        trait[:normal_measurement] = n_val
+        trait[:normal_units] = n_unit
+      else
+        trait[:normal_measurement] = trait[:measurement]
+        if units && units["data"] && units["data"]["uri"]
+          trait[:normal_units] = units["data"]["uri"]
+        else
+          trait[:normal_units] = "missing"
+        end
+      end
+    end
 
 
     def parse_term(term_options)
@@ -918,7 +932,11 @@ class TraitBank
     def term(uri)
       @terms ||= {}
       return @terms[uri] if @terms.key?(uri)
-      res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
+      if uri.present?
+        uri.gsub(/"/, '""')
+      end
+      
+      res = query(%Q{MATCH (term:Term { uri: "#{uri}" }) RETURN term})
       return nil unless res["data"] && res["data"].first
       @terms[uri] = res["data"].first.first
     end
@@ -930,7 +948,7 @@ class TraitBank
         "term.#{field} = '#{opts[field].gsub("'", "''")}'"
       end
       sets += %i(is_hidden_from_glossary is_hidden_from_glossary).map do |field|
-        "term.#{field} = #{opts[field] ? 'true' : 'false'}"
+        "term.#{field} = #{opts[field] ? 'true' : 'false'}'"
       end
       q = "MATCH (term:Term { uri: '#{opts[:uri]}' }) SET #{sets.join(', ')} RETURN term"
       res = query(q)
