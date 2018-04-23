@@ -19,6 +19,7 @@ class Publishing
     @since = (@resource&.import_logs&.successful&.any? ?
       @resource.import_logs.successful.last.created_at :
       10.years.ago).to_i
+    @last_run_at = options[:last_run_at].to_i if options.key?(:last_run_at)
   end
 
   def sync
@@ -43,11 +44,13 @@ class Publishing
   end
 
   def get_import_run
-    last_run = ImportRun.completed.last
-    # NOTE: We use the CREATED time! We want all new data as of the START of the import. In pracice, this is less than
-    # perfect... ideally, we would want a start time for each resource... but this should be adequate for our
-    # purposes.
-    @last_run_at = (last_run&.created_at || 10.years.ago).to_i
+    unless @last_run_at
+      last_run = ImportRun.completed.last
+      # NOTE: We use the CREATED time! We want all new data as of the START of the import. In pracice, this is less than
+      # perfect... ideally, we would want a start time for each resource... but this should be adequate for our
+      # purposes.
+      @last_run_at = (last_run&.created_at || 10.years.ago).to_i
+    end
     @run = ImportRun.create
   end
 
