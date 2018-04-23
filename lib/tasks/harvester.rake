@@ -311,7 +311,7 @@ def add_neo4j(params)
   tb_page = TraitBank.create_page(params[:page_id])
   resource = TraitBank.create_resource(params[:resource_id])
   options = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
-             resource_pk:params[:resource_pk] , page:params[:page_id], eol_pk: params[:page_id], scientific_name: params[:scientific_name],
+             resource_pk:params[:resource_pk] , page:params[:page_id], eol_pk:" 124", scientific_name: params[:scientific_name],
              predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
              object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
              units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
@@ -323,13 +323,13 @@ def add_neo4j(params)
   
 
   options_new = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
-             resource_pk:"12345", page:params[:page_id], eol_pk: params[:page_id], scientific_name: params[:scientific_name],
-             predicate:{"name"=>"lengthp/","uri"=>"test/lengthp//",section_ids:[1,2,3],definition:"test predicate definition"},
-             object_term:{"name"=>"lengtho/","uri"=>"test/lengtho//",section_ids:[1,2,3],definition:"test object_term definition"},
+             resource_pk:"12345", page:params[:page_id], eol_pk: "123", scientific_name: params[:scientific_name],
+             predicate:{"name"=>"ppppp","uri"=>"test/ppppp",section_ids:[1,2,3],definition:"test predicate definition"},
+             object_term:{"name"=>"ooooo","uri"=>"test/ooooo",section_ids:[1,2,3],definition:"test object_term definition"},
              units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000033",section_ids:[1,2,3],definition:"test units"},
              literal:"10",
-             metadata:[{predicate:{"name"=>"md_lengthp/","uri"=>"test/md_lengthp//",section_ids:[1,2,3],definition:"test predicate definition"},
-                        object_term:{"name"=>"md_lengtho/","uri"=>"test/md_lengtho//",section_ids:[1,2,3],definition:"test object_term definition"},
+             metadata:[{predicate:{"name"=>"md_ppppp","uri"=>"test/md_ppppp",section_ids:[1,2,3],definition:"test predicate definition"},
+                        object_term:{"name"=>"md_ooooo","uri"=>"test/md_ooooo",section_ids:[1,2,3],definition:"test object_term definition"},
                         units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squareMicrometer",section_ids:[1,2,3],definition:"test units"},
                         literal:"15"}] } 
    # options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,

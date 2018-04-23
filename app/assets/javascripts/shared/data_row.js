@@ -20,6 +20,7 @@ $(function() {
       , $row = $that.parent('.js-data-row')
       ;
 
+
     $that.removeClass('fa-angle-down');
     $that.addClass('fa-spin fa-spinner');
 

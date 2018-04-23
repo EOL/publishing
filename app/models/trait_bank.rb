@@ -184,7 +184,7 @@ class TraitBank
     def by_trait(input, page = 1, per = 200)
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
       q = "MATCH (page:Page)"\
-          "-[:trait]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
+          "-[:trait]->(trait:Trait { eol_pk: '#{id}' })"\
           "-[:supplier]->(resource:Resource) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
@@ -706,7 +706,9 @@ class TraitBank
     def resources(traits)
       #resources will be array=># of resources?
       #resources = ResourceApi.get_resource_using_id(id: traits.map { |t| t[:resource_id] }.compact.uniq)
+      
       resources = ResourceApi.get_resource_using_id(traits.map { |t| t[:resource_id] }.compact.uniq.first)
+ 
       # A little magic to index an array as a hash:
       #!!!!!!!!!!
       #Hash[ *resources.map { |r| [ r.id, r ] }.flatten ]
