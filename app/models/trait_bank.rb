@@ -677,7 +677,7 @@ class TraitBank
         return page
       end
       page = connection.create_node(page_id: id)
-      connection.set_var(page, "Page")
+      connection.set_label(page, "Page")
       page
     end
 
@@ -692,7 +692,7 @@ class TraitBank
         return resource
       end
       resource = connection.create_node(resource_id: id)
-      connection.set_var(resource, "Resource")
+      connection.set_label(resource, "Resource")
       resource
     end
 
@@ -778,7 +778,7 @@ class TraitBank
       begin
         term_node = connection.create_node(options)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_var(term_node, "Term")
+        connection.set_label(term_node, "Term")
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
         count = Rails.cache.read("trait_bank/terms_count") || 0
