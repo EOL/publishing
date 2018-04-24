@@ -3,12 +3,17 @@ class TraitBank
   class Terms
     class ParentChildRelationships
       class << self
-        delegate :child_has_parent, to: TraitBank
         delegate :connection, to: TraitBank
         delegate :query, to: TraitBank
 
-        def remove_all
-          query(%Q{MATCH (:Term)-[rel:parent_term]->(:Term) DELETE rel})
+        def remove_all(type = nil)
+          type ||= :parent_term
+          query(%Q{MATCH (:Term)-[rel:#{type}]->(:Term) DELETE rel})
+          remove_hide_from_dropdowns if type == :synonym_of
+        end
+
+        def remove_hide_from_dropdowns
+          query(%Q{MATCH (term:Term { hide_from_dropdowns: true }) SET term.hide_from_dropdowns = false})
         end
 
         def current
@@ -21,7 +26,14 @@ class TraitBank
           # TODO: Don't hard-code this.
           link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/'\
             'resource/f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child.csv'
-          reload(download_csv(link), log)
+          reload(download_csv(link), :child_has_parent, log: log, type: :parent_term)
+        end
+
+        def fetch_synonyms(log = nil)
+          # TODO: Don't hard-code this.
+          link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/resource/'\
+            '41f7fed1-3dc1-44d7-bbe5-6104156d1c1e/download/preferredsynonym.csv'
+          reload(download_csv(link), :is_synonym_of, log: log, type: :synonym_of)
         end
 
         # TODO: truly, this does not belong in this class. :D
@@ -43,7 +55,8 @@ class TraitBank
           lines.map { |l| l.split(/,\s*/) }
         end
 
-        def reload(pairs, log = nil)
+        def reload(pairs, fn, options = nil)
+          log = options[:log]
           pairs.each do |pair|
             raise "The pairs must ALL be of exactly length 2. Aborting." unless pair.size == 2
             pair.each do |uri|
@@ -51,12 +64,12 @@ class TraitBank
                 uri =~ URI::ABS_URI && Regexp.last_match.begin(0).zero?
             end
           end
-          remove_all
+          remove_all(options[:type])
           count = 0
           pairs.each do |pair|
-            # NOTE: parent first, child second...
             begin
-              child_has_parent(pair.last, pair.first)
+              # NOTE: parent first, child second...
+              TraitBank.send(fn, pair.last, pair.first)
               count += 1
             rescue => e
               # NOTE: the order here again is what the USER expects, not what the code called. :)

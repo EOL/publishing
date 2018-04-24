@@ -549,6 +549,8 @@ en:
       sync: "sync with repo"
       fetch_relationships: "fetch relationships"
       fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
+      fetch_synonyms: "fetch synonyms"
+      fetch_synonyms_confirm: "This removes existing synonyms and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
       clear_publishing: "clear lock"
       clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
     confirm:

@@ -1,8 +1,6 @@
 # Abstraction between our traits and the implementation of their storage. ATM, we use neo4j. THE SCHEMA FOR TRAITS CAN
 # BE FOUND IN db/neo4j_schema.md ...please read that file before attempting to understand this one. :D
 class TraitBank
-  CHILD_TERM_DEPTH = 4
-
   class << self
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
@@ -299,7 +297,7 @@ class TraitBank
     end
 
     def parent_terms
-      @parent_terms ||= "parent_term*0..#{CHILD_TERM_DEPTH}"
+      @parent_terms ||= ":parent_term|:synonym_of*"
     end
 
     def op_from_filter(num_filter)
@@ -365,7 +363,7 @@ class TraitBank
       matches << "(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
 
       if term_query.filters.any?
-        matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(tgt_pred:Term)"
+        matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
       else
         matches << "(trait:Trait)-[:predicate]->(predicate:Term)"
       end
@@ -376,7 +374,7 @@ class TraitBank
       object_term_in_match = term_query.filters.all?(&:object_term?)
 
       matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if use_clade
-      matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(tgt_obj:Term)" if
+      matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(tgt_obj:Term)" if
         object_term_in_match
 
       match_part = "MATCH #{matches.join(", ")}"
@@ -454,8 +452,8 @@ class TraitBank
         trait_var = "t#{i}"
         pred_var = "p#{i}"
         obj_var = "o#{i}"
-        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[:#{parent_terms}]->(#{pred_var}:Term)"
-        matches += ", (#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[:#{parent_terms}]->(#{obj_var}:Term)" if
+        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        matches += ", (#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
           filter.object_term?
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
       end
@@ -803,6 +801,14 @@ class TraitBank
       raise "missing child" if cterm.nil?
       raise "missing parent" if pterm.nil?
       child_term_has_parent_term(cterm, pterm)
+    end
+
+    def is_synonym_of(curi, puri)
+      cterm = term(curi)
+      pterm = term(puri)
+      raise "missing synonym" if cterm.nil?
+      raise "missing source of synonym" if pterm.nil?
+      relate(:synonym_of, cterm, pterm)
     end
 
     def child_term_has_parent_term(cterm, pterm)

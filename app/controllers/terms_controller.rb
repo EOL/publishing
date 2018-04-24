@@ -80,6 +80,13 @@ class TermsController < ApplicationController
     @log << "Loaded #{count} parent/child relationships."
   end
 
+  def fetch_synonyms
+    raise "unauthorized" unless is_admin? # TODO: generalize
+    @log = []
+    count = TraitBank::Terms::ParentChildRelationships.fetch_synonyms(@log)
+    @log << "Loaded #{count} synonym relationships."
+  end
+
   def update
     raise "unauthorized" unless is_admin? # TODO: generalize
     term = params[:term].merge(uri: params[:uri])

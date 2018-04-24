@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     resources :nodes, only: [:index]
   end
   resources :search_suggestions
-  resources :home_page_feeds, :only => [:index, :new, :create] do 
+  resources :home_page_feeds, :only => [:index, :new, :create] do
     post "publish" => "home_page_feeds#publish", :as => "publish"
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   get "/terms/search_results" => "terms#search_results", :as => "term_search_results"
   get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
   get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
+  get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
