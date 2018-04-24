@@ -360,13 +360,15 @@ class TraitBank
 
     def term_record_search(term_query, options)
       matches = []
-      matches << "(page:Page)-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource)"
+      matches << '(page:Page)-[:trait]->(trait:Trait)'
 
       if term_query.filters.any?
         matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
       else
-        matches << "(trait:Trait)-[:predicate]->(predicate:Term)"
+        matches << '(trait:Trait)-[:predicate]->(predicate:Term)'
       end
+
+      matches << '(trait)-[:supplier]->(resource:Resource)' unless options[:count]
 
       # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
       # the first page.
