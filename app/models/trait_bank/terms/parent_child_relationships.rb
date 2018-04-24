@@ -5,15 +5,20 @@ class TraitBank
       class << self
         delegate :connection, to: TraitBank
         delegate :query, to: TraitBank
+        delegate :term, to: TraitBank
 
         def remove_all(type = nil)
           type ||= :parent_term
           query(%Q{MATCH (:Term)-[rel:#{type}]->(:Term) DELETE rel})
-          remove_hide_from_dropdowns if type == :synonym_of
+          remove_is_hidden_from_select if type == :synonym_of
         end
 
-        def remove_hide_from_dropdowns
-          query(%Q{MATCH (term:Term { hide_from_dropdowns: true }) SET term.hide_from_dropdowns = false})
+        def remove_is_hidden_from_select
+          query(%Q{MATCH (term:Term { is_hidden_from_select: true }) SET term.is_hidden_from_select = false})
+        end
+
+        def is_hidden_from_select(curi)
+          query(%Q{MATCH (term:Term { uri: '#{curi}' }) SET term.is_hidden_from_select = true})
         end
 
         def current
@@ -70,6 +75,7 @@ class TraitBank
             begin
               # NOTE: parent first, child second...
               TraitBank.send(fn, pair.last, pair.first)
+              is_hidden_from_select(pair.last) if fn == :child_has_parent
               count += 1
             rescue => e
               # NOTE: the order here again is what the USER expects, not what the code called. :)

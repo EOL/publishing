@@ -85,6 +85,7 @@ class TermsController < ApplicationController
     @log = []
     count = TraitBank::Terms::ParentChildRelationships.fetch_synonyms(@log)
     @log << "Loaded #{count} synonym relationships."
+    render :fetch_relationships # same log-only layout.
   end
 
   def update
@@ -181,11 +182,11 @@ private
     end
   end
 
-  def glossary(which, count_method = nil)
+  def glossary(which, options = nil)
     respond_to do |fmt|
       fmt.html do
         @glossary = glossary_helper(which, true)
-        @count = TraitBank::Terms.send(count_method || :count)
+        @count = TraitBank::Terms.send(options[:count_method] || :count)
       end
       fmt.json do
         render json: glossary_helper(which, false)

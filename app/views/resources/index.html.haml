@@ -6,7 +6,7 @@
   .ui.basic.button
     = link_to(t("resources.actions.fetch_relationships"), fetch_term_relationships_path, data: { confirm: t("resources.actions.fetch_relationships_confirm") })
   .ui.basic.button
-    = link_to(t("resources.actions.fetch_synonyms"), fetch_term_synonyms_path, data: { confirm: t("resources.actions.fetch_synonyms_confirm") })
+    = link_to(t("resources.actions.fetch_synonyms"), fetch_synonyms_path, data: { confirm: t("resources.actions.fetch_synonyms_confirm") })
   - if ImportLog.already_running?
     .ui.red.inverted.button
       = link_to(t("resources.actions.clear_publishing"), clear_publishing_resources_path(@resource),
