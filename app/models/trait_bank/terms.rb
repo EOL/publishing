@@ -165,8 +165,8 @@ class TraitBank
       def any_obj_terms_for_pred?(pred)
         Rails.cache.fetch("trait_bank/any_obj_terms_for_pred/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
           query(
-            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term { uri: '#{pred}'}) RETURN COUNT(term)}
-          )["data"].first.first.positive?
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term { uri: '#{pred}'}) RETURN term LIMIT 1}
+          )["data"].any?
         end
       end
 
