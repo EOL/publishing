@@ -154,7 +154,7 @@ class TraitBank
       def obj_terms_for_pred(pred_uri, qterm = nil)
         return [] if qterm.blank?
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
-          q = 'MATCH (object:Term { type: "value" }) '
+          q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
           q += "WHERE LOWER(object.name) CONTAINS \"#{qterm.delete('"').downcase}\" " if qterm
           q +=  'RETURN object ORDER BY object.position LIMIT 6'
           res = query(q)

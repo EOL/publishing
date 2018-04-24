@@ -120,7 +120,7 @@ class TermsController < ApplicationController
   def object_terms_for_pred
     pred = params[:pred_uri]
     q = params[:query]
-    res = Rails.cache.fetch("object_terms_for_pred/#{pred}/#{q}") { TraitBank::Terms.obj_terms_for_pred(pred, q) }
+    res = TraitBank::Terms.obj_terms_for_pred(pred, q) # NOTE: this is already cached in that method. ...is that wise?
     render :json => res
   end
 
