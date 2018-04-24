@@ -26,7 +26,7 @@ def main_method
             create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
           end
           if node["resourceId"]==147
-          add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: scientific_name,occurrences: node["occurrences"],
+          add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: node["taxon"]["scientificName"],occurrences: node["occurrences"],
                     associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
           # add_neo4j
           end
@@ -312,24 +312,24 @@ def add_neo4j(params)
   resource = TraitBank.create_resource(params[:resource_id])
   options = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
              resource_pk:params[:resource_pk] , page:params[:page_id], eol_pk:" 124", scientific_name: params[:scientific_name],
-             predicate:{"name"=>"lengthp","uri"=>"test/lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
-             object_term:{"name"=>"lengtho","uri"=>"test/lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+             predicate:{"name"=>"event date","uri"=>"test/event",section_ids:[1,2,3],definition:"test predicate definition"},
+             object_term:{"name"=>"5/2/15","uri"=>"test/date",section_ids:[1,2,3],definition:"test object_term definition"},
              units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000008",section_ids:[1,2,3],definition:"test units"},
              literal:"10",
-             metadata:[{predicate:{"name"=>"md_lengthp","uri"=>"test/md_lengthp",section_ids:[1,2,3],definition:"test predicate definition"},
-                        object_term:{"name"=>"md_lengtho","uri"=>"test/md_lengtho",section_ids:[1,2,3],definition:"test object_term definition"},
+             metadata:[{predicate:{"name"=>"md_event","uri"=>"test/md_event",section_ids:[1,2,3],definition:"test predicate definition"},
+                        object_term:{"name"=>"md_length1","uri"=>"test/md_length1",section_ids:[1,2,3],definition:"test object_term definition"},
                         units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squarekilometer",section_ids:[1,2,3],definition:"test units"},
                         literal:"15"}] } 
   
 
   options_new = {supplier:{"data"=>{"resource_id"=>params[:resource_id]}},
              resource_pk:"12345", page:params[:page_id], eol_pk: "123", scientific_name: params[:scientific_name],
-             predicate:{"name"=>"ppppp","uri"=>"test/ppppp",section_ids:[1,2,3],definition:"test predicate definition"},
-             object_term:{"name"=>"ooooo","uri"=>"test/ooooo",section_ids:[1,2,3],definition:"test object_term definition"},
+             predicate:{"name"=>"geographic dist","uri"=>"test/geographic",section_ids:[1,2,3],definition:"test predicate definition"},
+             object_term:{"name"=>"gazetteer","uri"=>"test/gazetter",section_ids:[1,2,3],definition:"test object_term definition"},
              units: {"name"=>"cm","uri"=>"http://purl.obolibrary.org/obo/UO_0000033",section_ids:[1,2,3],definition:"test units"},
              literal:"10",
-             metadata:[{predicate:{"name"=>"md_ppppp","uri"=>"test/md_ppppp",section_ids:[1,2,3],definition:"test predicate definition"},
-                        object_term:{"name"=>"md_ooooo","uri"=>"test/md_ooooo",section_ids:[1,2,3],definition:"test object_term definition"},
+             metadata:[{predicate:{"name"=>"md_geographic","uri"=>"test/md_geographic",section_ids:[1,2,3],definition:"test predicate definition"},
+                        object_term:{"name"=>"md_length2","uri"=>"test/md_length2",section_ids:[1,2,3],definition:"test object_term definition"},
                         units: {"name"=>"cm","uri"=>"http://eol.org/schema/terms/squareMicrometer",section_ids:[1,2,3],definition:"test units"},
                         literal:"15"}] } 
    # options = {supplier:{"data"=>{"resource_id"=>147}}, resource_pk:"123" , page: 1,
