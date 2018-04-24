@@ -5,7 +5,7 @@ class TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
       delegate :query, to: TraitBank
 
-      CACHE_EXPIRATION_TIME = 1.day
+      CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
 
       def count(options = {})
         hidden = options[:include_hidden]
@@ -151,7 +151,7 @@ class TraitBank
       # TEMP: We're no longer checking this against the passed-in pred_uri. Sorry. Keeping the interface for it, though,
       # since we will want it back. :) You'll have to look at an older version (e.g.: aaf4ba91e7 ) to see the changes; I
       # kept them around as comments for one version, but it was really hairy, so I removed it.
-      def obj_terms_for_pred(pred_uri, qterm = nil)
+      def obj_terms_for_pred(_, qterm = nil)
         return [] if qterm.blank?
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
@@ -189,6 +189,18 @@ class TraitBank
           } if result
 
           result
+        end
+      end
+
+      def warm_caches
+        page = 1
+        begin
+          gloss = predicate_glossary(page)
+          break if gloss.empty?
+          gloss.each do |term|
+            # YOU WERE HERE.
+          end
+          raise "Whoa! Huge predicate glossary, aborting." if page > 200
         end
       end
     end
