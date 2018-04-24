@@ -194,7 +194,7 @@ class TraitBank
 
       def warm_caches
         page = 1
-        begin
+        loop do
           gloss = predicate_glossary(page)
           break if gloss.empty?
           gloss.each do |term|
