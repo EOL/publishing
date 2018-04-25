@@ -456,7 +456,7 @@ class TraitBank
       matches = []
       wheres = []
 
-      page_match = "MATCH (page:Page)"
+      page_match = "(page:Page)"
       page_match += "-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
@@ -464,22 +464,18 @@ class TraitBank
         trait_var = "t#{i}"
         pred_var = "p#{i}"
         obj_var = "o#{i}"
-        matches << "MATCH (page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-        matches += ", (#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        matches << "(#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
           filter.object_term?
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
       end
 
-      with_count_clause = options[:count] ?
-        "WITH COUNT(DISTINCT(page)) AS count " :
-        ""
-      return_clause = options[:count] ?
-        "RETURN count" :
-        "RETURN page"
+      with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
+      return_clause = options[:count] ? "RETURN count" : "RETURN page"
       order_clause = options[:count] ? "" : "ORDER BY page.name"
 
-      "#{matches.join(" ")} "\
-      "WHERE #{wheres.join(" AND ")}"\
+      "MATCH #{matches.join(', ')} "\
+      "WHERE #{wheres.join(' AND ')}"\
       "#{with_count_clause}"\
       "#{return_clause} "# \
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...
