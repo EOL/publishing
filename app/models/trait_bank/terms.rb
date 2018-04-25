@@ -86,7 +86,7 @@ class TraitBank
       end
 
       def name_for_pred_uri(uri)
-        key = "trait_bank/predicate_uris_to_names"
+        key = "trait_bank/predicate_uris_to_names/#{uri}"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
           predicate_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
