@@ -17,6 +17,7 @@ class CollectedPagesController < ApplicationController
   end
 
   def new
+    redirect_to new_user_session_path unless current_user
     @collected_page = CollectedPage.new(new_page_params)
     @page = @collected_page.page
     @wants_icon = ! @collected_page.media.empty?

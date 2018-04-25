@@ -12,6 +12,7 @@ $border: 1px solid $light-gray;
 $tabs-height: 25px;
 $tabs-m-height: 30px;
 $head-height: 70px;
+$actions-height: 45px;
 
 .hero {
   background-position: center;
@@ -66,6 +67,18 @@ $head-height: 70px;
   height: $head-height;
 }
 
+.l-page-actions {
+  height: $actions-height;
+  text-align: right;
+  margin-right: 10px;
+
+  & > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 .tabs {
   border-top: $border;
   border-bottom: $border;
@@ -76,7 +89,7 @@ $head-height: 70px;
   overflow: auto;
   padding: 2px $padding-left-s;
   white-space: nowrap;
-  
+
 }
 
   .tab {
@@ -137,12 +150,12 @@ $head-height: 70px;
 
 .l-content {
   overflow: hidden;
-  margin-top: $head-height + $tabs-height;
+  margin-top: $head-height + $tabs-height + $actions-height;
 }
 
 @media(min-width: $width-m) {
   .l-content {
-    margin-top: $head-height + $tabs-m-height;
+    margin-top: $head-height + $tabs-m-height  + $actions-height;
   }
 
   .names {
@@ -161,7 +174,7 @@ $head-height: 70px;
   .tabs {
     height: $tabs-m-height;
     padding: 3px $padding-left-m;
-    
+
     & > li {
       font-size: 14px;
       padding: 0 10px;
@@ -191,7 +204,7 @@ $head-height: 70px;
   }
 
   .l-left-col {
-    flex: 0 0 auto; 
+    flex: 0 0 auto;
     width: 600px;
   }
 
@@ -200,7 +213,7 @@ $head-height: 70px;
   }
 
   .hero-after {
-    display: block; 
+    display: block;
   }
 }
 
