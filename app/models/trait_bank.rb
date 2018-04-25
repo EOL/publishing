@@ -366,7 +366,7 @@ class TraitBank
     # for the first page.
     def term_record_search(term_query, options)
       matches = []
-      use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
+      use_clade = term_query.clade && ((options[:page] && options[:page].to_i > 1) || !options[:count])
 
       matches <<
         if use_clade
