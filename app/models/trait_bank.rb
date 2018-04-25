@@ -186,7 +186,7 @@ class TraitBank
     end
 
     def page_ancestors(page_id)
-      res = query("MATCH (page{ page_id: #{page_id}})-[:parent*]->(parent) RETURN parent")["data"]
+      res = query("MATCH (page{ page_id: #{page_id}})-[:parent*0..]->(parent) RETURN parent")["data"]
       res.map { |r| r.first["data"]["page_id"] }
     end
 
@@ -301,7 +301,7 @@ class TraitBank
     end
 
     def parent_terms
-      @parent_terms ||= ":parent_term|:synonym_of*"
+      @parent_terms ||= ":parent_term|:synonym_of*0.."
     end
 
     def op_from_filter(num_filter)
@@ -370,7 +370,7 @@ class TraitBank
 
       matches <<
         if use_clade
-          "(page:Page)-[:parent*]->(:Page { page_id: #{term_query.clade.id} }), (page:Page)-[:trait]->(trait:Trait)"
+          "(page:Page)-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} }), (page:Page)-[:trait]->(trait:Trait)"
         else
           '(page:Page)-[:trait]->(trait:Trait)'
         end
@@ -457,7 +457,7 @@ class TraitBank
       wheres = []
 
       page_match = "MATCH (page:Page)"
-      page_match += "-[:parent*]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      page_match += "-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
