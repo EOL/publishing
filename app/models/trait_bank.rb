@@ -362,25 +362,78 @@ class TraitBank
       end
     end
 
+query %q{MATCH (trait:Trait)<-[:trait]-(page:Page)-[:parent*]->(Page { page_id: 1642 }),
+(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*]->(tgt_pred:Term),
+(trait)-[:supplier]->(resource:Resource)
+WHERE tgt_pred.uri = "http://eol.org/schema/terms/Present"
+OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+RETURN page, trait, predicate, units, normal_units, object_term, sex_term, lifestage_term, statistical_method_term, resource
+LIMIT 50
+}
+
+no_opts = query %q{MATCH (trait:Trait)<-[:trait]-(page:Page)-[:parent*]->(Page { page_id: 1642 }),
+(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*]->(tgt_pred:Term),
+(trait)-[:supplier]->(resource:Resource)
+WHERE tgt_pred.uri = "http://eol.org/schema/terms/Present"
+RETURN page, trait, predicate, resource
+LIMIT 1
+}
+
+sp_t = query %q{MATCH (trait:Trait { eol_pk: 'R96-PK12237234' })<-[:trait]-(page:Page)-[:parent*]->(Page { page_id: 1642 }),
+(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*]->(tgt_pred:Term),
+(trait)-[:supplier]->(resource:Resource)
+WHERE tgt_pred.uri = "http://eol.org/schema/terms/Present"
+RETURN page, trait, predicate, resource
+LIMIT 1
+}
+
+sp_t_no_clade = query %q{MATCH (trait:Trait { eol_pk: 'R96-PK12237234' })<-[:trait]-(page:Page),
+(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*]->(tgt_pred:Term),
+(trait)-[:supplier]->(resource:Resource)
+WHERE tgt_pred.uri = "http://eol.org/schema/terms/Present"
+RETURN page, trait, predicate, resource
+LIMIT 1
+} # no results
+
+sp_t = query %q{MATCH (trait:Trait { eol_pk: 'R96-PK12237234' })<-[:trait]-(page:Page)-[:parent*]->(Page { page_id: 1642 }),
+(trait:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*]->(tgt_pred:Term),
+(trait)-[:supplier]->(resource:Resource)
+WHERE tgt_pred.uri = "http://eol.org/schema/terms/Present"
+RETURN page, trait, predicate, resource
+LIMIT 1
+}
+
+works = query %{MATCH (ancestor:Page { page_id: 1642 })<-[:parent*]-(page:Page)-[:trait]->(trait:Trait { eol_pk: 'R96-PK12237234' })-[:predicate]->(pred:Term) RETURN ancestor, page, trait, pred }
+
+works_sep = query %{MATCH (page:Page)-[:parent*]->(ancestor:Page { page_id: 1642 }), (page)-[:trait]->(trait:Trait { eol_pk: 'R96-PK12237234' }), (trait)-[:predicate]->(pred:Term) RETURN ancestor, page, trait, pred } # yup, fine.
+
+
+
+    # TEMP: I'm skippping clade for count on the first page. This yields the wrong result, but speeds things up x2 ...
+    # for the first page.
     def term_record_search(term_query, options)
       matches = []
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
 
       matches <<
         if use_clade
-          "(page)-[:parent*]->(Page { page_id: #{term_query.clade.id} })-[:trait]->(trait:Trait)"
+          "(page:Page)-[:parent*]->(:Page { page_id: #{term_query.clade.id} }), (page:Page)-[:trait]->(trait:Trait)"
         else
-          '(page:Page)-[:trait]->(trait:Trait)' unless use_clade
+          '(page:Page)-[:trait]->(trait:Trait)'
         end
 
-      if term_query.filters.any?
-        matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
-      else
-        matches << '(trait:Trait)-[:predicate]->(predicate:Term)'
-      end
+      matches <<
+        if term_query.filters.any?
+          "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
+        else
+          matches << '(trait:Trait)-[:predicate]->(predicate:Term)'
+        end
 
-      # TEMP: I'm skippping clade for count on the first. This yields the wrong result, but speeds things up x2 ... for
-      # the first page.
       object_term_in_match = term_query.filters.all?(&:object_term?)
 
       matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(tgt_obj:Term)" if
