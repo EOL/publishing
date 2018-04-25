@@ -48,19 +48,23 @@ class TraitBank
     end
 
     def count_by_resource(id)
-      res = query(
-        "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
-        "WITH count(trait) as count "\
-        "RETURN count")
-      res["data"] ? res["data"].first.first : false
+      Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
+        res = query(
+          "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+          "WITH count(trait) as count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
     end
 
     def count_by_resource_and_page(resource_id, page_id)
-      res = query(
-        "MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
-        "WITH count(trait) as count "\
-        "RETURN count")
-      res["data"] ? res["data"].first.first : false
+      Rails.cache.fetch("trait_bank/count_by_resource/#{resource_id}/pages/#{page_id}") do
+        res = query(
+          "MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
+          "WITH count(trait) as count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
     end
 
     def count_by_page(page_id)
@@ -362,7 +366,12 @@ class TraitBank
       matches = []
       use_clade = term_query.clade && ((options[:page] && options[:page] > 1) || !options[:count])
 
-      matches << '(page:Page)-[:trait]->(trait:Trait)' unless use_clade
+      matches <<
+        if use_clade
+          "(page)-[:parent*]->(Page { page_id: #{term_query.clade.id} })-[:trait]->(trait:Trait)"
+        else
+          '(page:Page)-[:trait]->(trait:Trait)' unless use_clade
+        end
 
       if term_query.filters.any?
         matches << "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
@@ -374,7 +383,6 @@ class TraitBank
       # the first page.
       object_term_in_match = term_query.filters.all?(&:object_term?)
 
-      matches << "(page)-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if use_clade
       matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(tgt_obj:Term)" if
         object_term_in_match
 

@@ -164,6 +164,10 @@ class TraitBank
           Rails.cache.delete("trait_bank/object_term_glossary/#{index}")
           Rails.cache.delete("trait_bank/units_term_glossary/#{index}")
         end
+        Resource.pluck(:id).each do |id|
+          Rails.cache.delete("trait_bank/count_by_resource/#{id}")
+          # NOTE: there's also a resource-by-page, but... that's waaaaay too much work to do here.
+        end
         true
       end
     end
