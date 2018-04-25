@@ -475,8 +475,8 @@ class TraitBank
       order_clause = options[:count] ? "" : "ORDER BY page.name"
 
       "MATCH #{matches.join(', ')} "\
-      "WHERE #{wheres.join(' AND ')}"\
-      "#{with_count_clause}"\
+      "WHERE #{wheres.join(' AND ')} "\
+      "#{with_count_clause} "\
       "#{return_clause} "# \
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...
       # "#{order_clause}"
