@@ -247,6 +247,7 @@ private
       @pages[id] = page if page
     end
 
+    # TODO: code review here. I think we're creating a lot of cruft we don't use.
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
