@@ -9,7 +9,8 @@
     %ul
       %li
         - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
-        - basic_button("plus", t("pages.actions.collect"), dest, remote: current_user)
+        -# TODO: once upon a time, this worked as a remote link, but it wasn't working when I checked. Fix.
+        - basic_button("plus", t("pages.actions.collect"), dest)
   %ul.tabs
     - tab("overview", page_path(@page))
     - if @page.articles.size > 0
