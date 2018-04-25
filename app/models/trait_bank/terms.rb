@@ -94,6 +94,19 @@ class TraitBank
         map[uri]
       end
 
+      def name_for_uri(uri)
+        Rails.cache.fetch("trait_bank/name_for_uri/#{uri}", :expires_in => CACHE_EXPIRATION_TIME) do
+          res = TraitBank.term(uri)
+          name =
+            if res.key?('data')
+              if res['data'].key?('name')
+                res['data']['name']
+              end
+            end
+          name || uri.split('/').last # Some of these end up gobbledigook, but ... hey.
+        end
+      end
+
       def name_for_obj_uri(uri)
         key = "trait_bank/name_for_obj_uri/#{uri}"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do

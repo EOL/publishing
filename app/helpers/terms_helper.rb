@@ -22,22 +22,22 @@ module TermsHelper
 
     uris = [result[:units_uri]] unless uris
     options = uris.map do |uri|
-      [TraitBank::Terms.name_for_units_uri(uri), uri]
+      [TraitBank::Terms.name_for_uri(uri), uri]
     end
 
     options_for_select(options, result[:units_uri])
   end
 
   def pred_name(uri)
-    TraitBank::Terms.name_for_pred_uri(uri) || uri
+    TraitBank::Terms.name_for_uri(uri)
   end
 
   def obj_name(uri)
-    TraitBank::Terms.name_for_obj_uri uri
+    TraitBank::Terms.name_for_uri(uri)
   end
 
   def units_name(uri)
-    TraitBank::Terms.name_for_units_uri uri
+    TraitBank::Terms.name_for_uri(uri)
   end
 
   def show_error(obj, field)
