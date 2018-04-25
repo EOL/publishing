@@ -30,7 +30,10 @@ class TermQuery < ActiveRecord::Base
   end
 
   def to_s
-    "&&TermQuery.new(filters_attributes: [#{filters.map(&:to_s).join(', ')}]) "
+    attrs = []
+    attrs << "clade_id: #{clade_id}" if clade_id
+    attrs << "filters_attributes: [#{filters.map(&:to_s).join(', ')}]"
+    "&&TermQuery.new(#{attrs.join(',')}) "
   end
 
   # NOTE: this method is never called; it's used in a console.

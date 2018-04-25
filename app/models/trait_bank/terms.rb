@@ -95,7 +95,7 @@ class TraitBank
       end
 
       def name_for_obj_uri(uri)
-        key = "trait_bank/object_uris_to_names"
+        key = "trait_bank/name_for_obj_uri/#{uri}"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
           object_term_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
@@ -104,7 +104,7 @@ class TraitBank
       end
 
       def name_for_units_uri(uri)
-        key = "trait_bank/units_uris_to_names"
+        key = "trait_bank/name_for_units_uri/#{uri}"
         map = Rails.cache.fetch(key, :expires_in => CACHE_EXPIRATION_TIME) do
           units_glossary(1, 10_000).map { |item| [item[:uri], item[:name]] }.to_h
         end
