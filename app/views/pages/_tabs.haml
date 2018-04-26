@@ -4,7 +4,8 @@
       = image_tag @page.icon, :class => "head-icon"
     .names
       %h1= @page.name.titlecase.html_safe
-      %h2= @page.scientific_name.html_safe
+      - if @page.name != @page.scientific_name
+        %h2= @page.scientific_name.html_safe
 
   %ul.tabs
     - tab("overview", page_path(@page))
