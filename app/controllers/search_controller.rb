@@ -250,7 +250,8 @@ private
 
   def basic_search(klass, options = {})
     klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
-      match: :text_start, execute: false, page: params[:page], per_page: 50))
+      match: :word_start, execute: false, page: params[:page], per_page: 50))
+      # TODO: match: :text_start,
   end
 
   def media_search(subtype_str)
