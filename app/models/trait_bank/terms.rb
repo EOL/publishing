@@ -166,7 +166,7 @@ class TraitBank
       # since we will want it back. :) You'll have to look at an older version (e.g.: aaf4ba91e7 ) to see the changes; I
       # kept them around as comments for one version, but it was really hairy, so I removed it.
       def obj_terms_for_pred(_, orig_qterm = nil)
-        return [] if qterm.blank?
+        return [] if orig_qterm.blank?
         qterm = orig_qterm.delete('"').downcase
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
