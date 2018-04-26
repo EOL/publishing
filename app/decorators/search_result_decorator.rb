@@ -5,10 +5,6 @@ class SearchResultDecorator < Draper::Decorator
     SearchResultsDecorator
   end
 
-  def hierarchy
-    nil
-  end
-
   def top_resources
     []
   end

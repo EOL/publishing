@@ -138,7 +138,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = Page.find(params[:id])
+    @page = PageDecorator.decorate(Page.find(params[:id]))
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
@@ -163,7 +163,7 @@ class PagesController < ApplicationController
   end
 
   def data
-    @page = Page.where(id: params[:page_id]).first
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     @resources = TraitBank.resources(@page.data)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
@@ -173,7 +173,7 @@ class PagesController < ApplicationController
   end
 
   def maps
-    @page = Page.where(id: params[:page_id]).first
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     # NOTE: sorry, no, you cannot choose the page size for maps.
     @media = @page.maps.by_page(params[:page]).per(18)
     @subclass = "map"
@@ -186,7 +186,7 @@ class PagesController < ApplicationController
   end
 
   def media
-    @page = Page.where(id: params[:page_id]).first
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     return render(status: :not_found) unless @page # 404
     get_media
     respond_to do |format|
@@ -211,8 +211,8 @@ class PagesController < ApplicationController
   end
 
   def details
-    @page = Page.where(id: params[:page_id]).includes(articles: [:license, :sections,
-      :bibliographic_citation, :location, :resource, attributions: :role]).first
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).includes(articles: [:license, :sections,
+      :bibliographic_citation, :location, :resource, attributions: :role]).first)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
@@ -222,8 +222,8 @@ class PagesController < ApplicationController
   end
 
   def names
-    @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars,
-      :native_node).first
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).includes(:preferred_vernaculars,
+      :native_node).first)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}

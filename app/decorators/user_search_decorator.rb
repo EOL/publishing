@@ -1,4 +1,4 @@
-class UserSearchDecorator < SearchResultDecorator
+class UserSearchDecorator < NoHierSearchResultDecorator
   decorates :user
 
   def type

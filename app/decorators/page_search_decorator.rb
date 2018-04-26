@@ -1,6 +1,8 @@
 class PageSearchDecorator < SearchResultDecorator
+  include PageDecoratorHelper
+
   decorates :page
-  delegate :icon, :hierarchy
+  delegate :icon
 
   def type
     :pages

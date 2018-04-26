@@ -586,27 +586,6 @@ class Page < ActiveRecord::Base
     update_attribute(:page_richness, RichnessScore.calculate(self))
   end
 
-  def hierarchy
-    parts = []
-    node = native_node || nodes.first
-    ancestors = node ? node.ancestors : []
-    shown_ellipsis = false
-    ancestors.compact.each do |anc_node|
-      unless anc_node.use_breadcrumb?
-        unless shown_ellipsis
-          parts << "…"
-          shown_ellipsis = true
-        end
-        next
-      end
-
-      parts << node.canonical_form.html_safe
-      shown_ellipsis = false
-    end
-
-    parts.join("/")
-  end
-
   private
 
   def first_image_content
