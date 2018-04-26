@@ -52,7 +52,7 @@
                         = link_to(t("names.prefer"), prefer_vernacular_path(names_by_string.first))
                   .description.uk-text-meta
                     - formatted_names = []
-                    - names_by_string.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
+                    - names_by_string.select { |n| n.node }.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
                       - str = resource.name
                       - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
                         - str = t(:vernacular_preferred_by_resource, resource: str)
