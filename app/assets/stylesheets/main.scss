@@ -261,22 +261,6 @@ a.uk-inline {
 
 // HEADER
 
-.nav-search .input-group {
-  width: 30em;
-
-  .dropdown-menu {
-    li.active div.names {
-      background-color: #eee;
-    }
-
-    div.names {
-      overflow: auto;
-      width: 24em;
-      height: 3em;
-    }
-  }
-}
-
 .search-indicator {
   padding-top: 1.2em;
 }
@@ -519,8 +503,9 @@ body {
 
 .nav-right {
   float: right;
-  margin-right: 10px;
   height: 100%;
+  margin-right: 10px;
+  position: relative;
 }
 
 .nav-logo {
@@ -529,9 +514,20 @@ body {
   }
 }
 
+.nav-search {
+  $margin-tb: 5px;
+  font-size: 13px;
+  height: $nav-height - 2 * $margin-tb;
+  margin: $margin-tb 0;
+  padding: 0 24px 0 4px;
+  text-align: right;
+  width: 235px;
+}
+
 .nav-search-icon {
-  float: right;
-  padding-top: 5px;
+  position: absolute;
+  right: 5px;
+  top: 14px;
 }
 
 .nav-menu {
@@ -622,3 +618,4 @@ body {
     }
   }
 }
+

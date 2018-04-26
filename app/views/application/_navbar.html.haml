@@ -15,8 +15,8 @@
           %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
           %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
     -#
-  .nav-right
-    - if !(current_page?(search_path) || current_page?(search_form_path))
-      = link_to search_form_path, :class => 'nav-item nav-search-icon' do 
-        %i.fa.fa-search.fa-2x
+  -if !current_page?(search_path)
+    = form_tag search_path, :method => :get, :class => "nav-right" do
+      = text_field_tag "q", nil, :class => "nav-search"
+      %i.fa.fa-search.fa-lg.nav-item.nav-search-icon
 
