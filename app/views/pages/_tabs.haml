@@ -3,6 +3,8 @@
     - if (!overview? && @page.icon)
       = image_tag @page.icon, :class => "head-icon"
     .names
+      - if !@page.hierarchy.blank?
+        .names-hier= @page.hierarchy.html_safe
       %h1= @page.name.titlecase.html_safe
       - if @page.name != @page.scientific_name
         %h2= @page.scientific_name.html_safe

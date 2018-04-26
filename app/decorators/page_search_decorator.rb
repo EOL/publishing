@@ -1,6 +1,6 @@
 class PageSearchDecorator < SearchResultDecorator
   decorates :page
-  delegate :icon
+  delegate :icon, :hierarchy
 
   def type
     :pages
@@ -16,27 +16,6 @@ class PageSearchDecorator < SearchResultDecorator
 
   def content
     object.try(:search_highlights).try(:[], :scientific_name) || object.scientific_name
-  end
-
-  def hierarchy
-    parts = []
-    node = object.native_node || object.nodes.first
-    ancestors = node ? node.ancestors : []
-    shown_ellipsis = false
-    ancestors.compact.each do |node|
-      unless node.use_breadcrumb?
-        unless shown_ellipsis
-          parts << "…"
-          shown_ellipsis = true
-        end
-        next
-      end
-
-      parts << node.canonical_form.html_safe
-      shown_ellipsis = false
-    end
-
-    parts.join("/")
   end
 
   def page_id

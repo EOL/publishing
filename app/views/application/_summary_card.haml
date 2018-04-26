@@ -4,7 +4,7 @@
   - else
     %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
 .search-content>
-  - if object.hierarchy
+  - if !object.hierarchy.blank?
     .search-hier.is-search-hier-content= object.hierarchy.html_safe
   - else
     .search-hier

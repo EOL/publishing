@@ -33,7 +33,7 @@ $head-height: 70px;
 }
 
 .names {
-  margin-top: 16px;
+  margin-top: 2px;
   overflow: hidden;
   height: 100%;
   padding: 0 $padding-left-s;
@@ -42,14 +42,19 @@ $head-height: 70px;
   & > h1 {
     font-size: 16px;
     font-weight: 600;
-    margin: 0;
+    margin: 3px 0 0 0;
   }
 
   & > h2 {
     font-size: 13px;
     font-weight: normal;
-    margin: 3px 0 0 0;
+    margin: 2px 0 0 0;
   }
+}
+
+.names-hier {
+  font-size: 11px;
+  overflow: auto;
 }
 
 .l-tabs {
@@ -132,16 +137,19 @@ $head-height: 70px;
   }
 
   .names {
-    margin-top: 10px;
     padding: 0 $padding-left-m;
 
     & > h1 {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     & > h2 {
-      font-size: 16px;
+      font-size: 14px;
     }
+  }
+
+  .names-hier {
+    font-size: 12px;
   }
 
   .tabs {
