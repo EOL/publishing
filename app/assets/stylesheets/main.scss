@@ -5,6 +5,7 @@
 @import "dimensions";
 
 html {
+  color: $black;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 85%;
@@ -17,8 +18,6 @@ body {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
-$base-color: rgb(51, 51, 51);
 
 .earth-image {
   position: relative;
@@ -50,15 +49,16 @@ $base-color: rgb(51, 51, 51);
 }
 
 h1, h2, h3 {
-  color: $eol-dark-blue;
+  color: $black;
   font-weight: 700;
 }
 
 a, .a {
-  color: #23699a;
+  color: $link-color;
   cursor: pointer;
   
   &:hover {
+    color: $link-color;
     text-decoration: underline;
   }
 }
@@ -131,10 +131,6 @@ section#side_body {
 
 .uk-text-muted {
   font-weight: 300;
-
-  a {
-    color: #58a2d0;
-  }
 }
 
 .eol-text-tiny {
@@ -264,22 +260,6 @@ a.uk-inline {
 }
 
 // HEADER
-
-.nav-search .input-group {
-  width: 30em;
-
-  .dropdown-menu {
-    li.active div.names {
-      background-color: #eee;
-    }
-
-    div.names {
-      overflow: auto;
-      width: 24em;
-      height: 3em;
-    }
-  }
-}
 
 .search-indicator {
   padding-top: 1.2em;
@@ -474,7 +454,7 @@ body {
   padding: 0;
 
   .landing_page {
-    background-color: $eol-black;
+    background-color: $black;
     color: $eol-blue;
 
     h1 {
@@ -506,13 +486,13 @@ body {
 }
 
 .nav-item {
-  color: $eol-blue;
+  color: $eol-logo-blue;
   display: inline-block;
   height: $nav-height;
   line-height: $nav-height;
 
   &:hover {
-    color: $eol-blue;
+    color: $eol-logo-blue;
   }
 }
 
@@ -523,8 +503,9 @@ body {
 
 .nav-right {
   float: right;
-  margin-right: 10px;
   height: 100%;
+  margin-right: 10px;
+  position: relative;
 }
 
 .nav-logo {
@@ -533,19 +514,23 @@ body {
   }
 }
 
-.nav-search-icon {
-  float: right;
-  padding-top: 5px;
+.nav-search {
+  $margin-tb: 5px;
+  $border-sz: 1px;
+  border: $border-sz solid $light-gray;
+  font-size: 13px;
+  height: $nav-height - 2 * $margin-tb - 2 * $border-sz;
+  margin: $margin-tb 0;
+  padding: 0 24px 0 4px;
+  text-align: right;
+  vertical-align: middle;
+  width: 235px;
 }
 
-.nav-eol-title {
-  color: $eol-blue;
-  float: right;
-  font-size: 24px;
-  height: 100%;
-  margin-right: 10px;
-  padding-top: 3px;
-  text-align: right;
+.nav-search-icon {
+  position: absolute;
+  right: 5px;
+  top: 12px;
 }
 
 .nav-menu {
@@ -561,8 +546,8 @@ body {
 
   & > li {
     $height: 35px;
-    border-bottom: 1px solid $eol-black;
-    color: $eol-black;
+    border-bottom: 1px solid $black;
+    color: $black;
     cursor: pointer;
     height: $height;
     line-height: $height;
@@ -580,7 +565,7 @@ body {
     }
     
     &:hover {
-      background: $eol-black;
+      background: $black;
       color: $white;
     }
   }
@@ -615,9 +600,9 @@ body {
 
 .overlay-btn {
   $height: 84px;
-  background-color: #3d4652;
+  background-color: $eol-logo-blue;
   bottom: 0;
-  color: #84a1bd;
+  color: $white;
   cursor: pointer;
   font-size: 18px;
   height: $height;
@@ -636,3 +621,4 @@ body {
     }
   }
 }
+

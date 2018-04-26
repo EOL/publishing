@@ -3,11 +3,11 @@
 @import "shared/layout";
 @import "shared/traits";
 
-$trait-bg: #fefce5;
 $trait-key-color: #6f5a42;
 $trait-val-color: #c06a11;
 
-$border: 1px solid $light-gray;
+$border-width: 1px;
+$border: $border-width solid $light-gray;
 
 $tabs-height: 25px;
 $tabs-m-height: 30px;
@@ -34,25 +34,28 @@ $actions-height: 45px;
 }
 
 .names {
-  margin-top: 16px;
+  margin-top: 2px;
   overflow: hidden;
   height: 100%;
   padding: 0 $padding-left-s;
   white-space: nowrap;
 
   & > h1 {
-    color: inherit;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    margin: 0;
+    margin: 2px 0 0 0;
   }
 
   & > h2 {
-    color: inherit;
     font-size: 13px;
     font-weight: normal;
-    margin: 3px 0 0 0;
+    margin: 2px 0 0 0;
   }
+}
+
+.names-hier {
+  font-size: 11px;
+  overflow: auto;
 }
 
 .l-tabs {
@@ -86,31 +89,33 @@ $actions-height: 45px;
   height: $tabs-height;
   list-style: none;
   margin: 0 auto;
-  overflow: auto;
-  padding: 2px $padding-left-s;
+  overflow: hidden;
+  padding: 0 $padding-left-s;
   white-space: nowrap;
-
 }
 
   .tab {
-    border-radius: 2px;
+    $height: $tabs-height - 2 * $border-width;
     cursor: pointer;
     display: inline-block;
+    height: $height;
+    line-height: $height;
     padding: 0 7px;
     vertical-align: middle;
+  }
+
+  .is-tab-selected {
+    background: $eol-logo-blue;
 
     & > a {
-      color: inherit;
+      color: $white; 
+      cursor: normal;
       text-decoration: none;
     }
   }
 
-  .is-tab-selected {
-    background: $eol-blue;
-    color: $white;
-  }
-
 .desc {
+  border-bottom: $border;
   font-size: 11px;
   line-height: 1.36;
   margin: 0;
@@ -118,7 +123,6 @@ $actions-height: 45px;
 }
 
 .sample-traits {
-  background: $trait-bg;
   display: flex;
   flex-wrap: wrap;
   font-size: 11px;
@@ -129,24 +133,11 @@ $actions-height: 45px;
   & > li {
     border-bottom: $border;
     border-right: $border;
-    border-top: $border;
     flex: 1 0 auto;
     height: 48px;
     padding: 7px 13px;
-
-    &:last-of-type {
-      border-right: none;
-    }
   }
 }
-
-  .sample-trait-key {
-    color: $trait-key-color;
-  }
-
-  .sample-trait-val {
-    color: $trait-val-color;
-  }
 
 .l-content {
   overflow: hidden;
@@ -159,23 +150,16 @@ $actions-height: 45px;
   }
 
   .names {
-    margin-top: 10px;
     padding: 0 $padding-left-m;
-
-    & > h1 {
-      font-size: 20px;
-    }
-
-    & > h2 {
-      font-size: 16px;
-    }
   }
 
   .tabs {
     height: $tabs-m-height;
-    padding: 3px $padding-left-m;
 
     & > li {
+      $height: $tabs-m-height - 2 * $border-width;
+      height: $height;
+      line-height: $height;
       font-size: 14px;
       padding: 0 10px;
     }

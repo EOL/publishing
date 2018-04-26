@@ -610,4 +610,5 @@ class Page < ActiveRecord::Base
       gn
     end
   end
+
 end

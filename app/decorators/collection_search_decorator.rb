@@ -1,4 +1,4 @@
-class CollectionSearchDecorator < SearchResultDecorator
+class CollectionSearchDecorator < NoHierSearchResultDecorator
   decorates :collection
 
   def icon

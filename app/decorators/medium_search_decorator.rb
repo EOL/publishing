@@ -1,4 +1,4 @@
-class MediumSearchDecorator < SearchResultDecorator
+class MediumSearchDecorator < NoHierSearchResultDecorator
   def icon
     if object.respond_to?(:medium_icon_url)
       object.medium_icon_url

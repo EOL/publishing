@@ -1,9 +1,16 @@
 @import "colors";
 
 h1 {
+  color: $eol-logo-blue;
+  font-size: 28px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+h2 {
   font-size: 14px;
-  margin: 0;
-  padding: 20px 0;
+  margin: 20px 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -42,7 +49,7 @@ h1 {
   }
 
 .partner-feed {
-  background: $eol-blue;
+  background: $light-bg-blue;
   height: 100px;
   padding: 8px 12px;
 }
