@@ -473,7 +473,7 @@ class TraitBank
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
-      return_clause = options[:count] ? "RETURN count" : "RETURN page"
+      return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
       order_clause = options[:count] ? "" : "ORDER BY page.name"
 
       "MATCH #{matches.join(', ')} "\
