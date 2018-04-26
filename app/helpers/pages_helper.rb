@@ -247,4 +247,30 @@ module PagesHelper
   def overview?
     current_page?(page_path(@page))
   end
+
+  def hierarchy(page, link)
+    parts = []
+    node = page.native_node || page.nodes.first
+    ancestors = node ? node.ancestors : []
+    shown_ellipsis = false
+    ancestors.compact.each do |anc_node|
+      unless anc_node.use_breadcrumb?
+        unless shown_ellipsis
+          parts << "…"
+          shown_ellipsis = true
+        end
+        next
+      end
+
+      if link
+        parts << h.link_to(anc_node.canonical_form.html_safe, h.page_path(anc_node.page)).html_safe
+      else
+        parts << anc_node.canonical_form.html_safe
+      end
+
+      shown_ellipsis = false
+    end
+
+    parts.join("/").html_safe
+  end
 end

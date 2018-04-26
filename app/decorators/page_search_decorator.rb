@@ -1,6 +1,4 @@
 class PageSearchDecorator < SearchResultDecorator
-  include PageDecoratorHelper
-
   decorates :page
   delegate :icon
 
@@ -30,6 +28,10 @@ class PageSearchDecorator < SearchResultDecorator
       ["data", object.data_count],
       ["articles", object.articles_count],
     ].select { |x| x[1] > 0 }
+  end
+
+  def hierarchy
+    h.hierarchy(object, false)
   end
 
 private

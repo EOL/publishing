@@ -1,5 +1,8 @@
 class PageDecorator < Draper::Decorator
-  include PageDecoratorHelper
   delegate_all
+
+  def hierarchy
+    h.hierarchy(object, true)
+  end
 end
 
