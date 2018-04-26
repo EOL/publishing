@@ -271,7 +271,7 @@ class TraitBank
     def term_search(term_query, options={})
       key = nil # scope
       if options[:count]
-        key = "trait_bank/term_search/counts/#{term_query.to_s}"
+        key = "trait_bank/term_search/counts/#{term_query}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
           Rails.logger.warn("&&TS USING cached count: #{key} = #{count}")
@@ -420,9 +420,9 @@ class TraitBank
           optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
         end
 
-      orders = ["LOWER(predicate.name)", "LOWER(object_term.name)", "trait.normal_measurement", "LOWER(trait.literal)"]
-      orders << "meta_predicate.name" if options[:meta]
-      order_part = options[:count] ? "" : "ORDER BY #{orders.join(", ")}"
+      orders = ['LOWER(predicate.name)', 'LOWER(object_term.name)', 'trait.normal_measurement', 'LOWER(trait.literal)']
+      orders << 'meta_predicate.name' if options[:meta]
+      order_part = options[:count] ? '' : "ORDER BY #{orders.join(", ")}"
 
       returns =
         if options[:count]
@@ -725,10 +725,6 @@ class TraitBank
           Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
           Rails.logger.error("** from: #{from}")
           Rails.logger.error("** to: #{to}")
-        rescue => e
-          puts "Something else happened."
-          debugger
-          1
         end
       end
     end
@@ -768,6 +764,8 @@ class TraitBank
       options[:section_ids] = options[:section_ids] ?
         Array(options[:section_ids]).join(",") : ""
       options[:definition] ||= "{definition missing}"
+      options[:is_hidden_from_select] = (options.key?(:is_hidden_from_select) && options[:is_hidden_from_select]) ?
+        true : false
       options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
       if existing_term
         options.delete(:uri) # We already have this.
