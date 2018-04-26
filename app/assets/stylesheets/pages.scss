@@ -40,9 +40,9 @@ $head-height: 70px;
   white-space: nowrap;
 
   & > h1 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    margin: 3px 0 0 0;
+    margin: 2px 0 0 0;
   }
 
   & > h2 {
@@ -138,18 +138,6 @@ $head-height: 70px;
 
   .names {
     padding: 0 $padding-left-m;
-
-    & > h1 {
-      font-size: 18px;
-    }
-
-    & > h2 {
-      font-size: 14px;
-    }
-  }
-
-  .names-hier {
-    font-size: 12px;
   }
 
   .tabs {
