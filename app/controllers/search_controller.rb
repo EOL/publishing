@@ -136,7 +136,7 @@ private
     # that class is required:
 
     @pages = if @types[:pages]
-      fields = %w[preferred_vernacular_strings^200 scientific_name^400 vernacular_strings synonyms providers resource_pks]
+      fields = %w[preferred_vernacular_strings^30 scientific_name^40 vernacular_strings^30 synonyms providers resource_pks]
       basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
                          fields: fields, where: @clade ? { ancestry_ids: @clade.id } : nil,
                          includes: [:medium, { native_node: { node_ancestors: :ancestor } }])
