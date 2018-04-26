@@ -516,18 +516,21 @@ body {
 
 .nav-search {
   $margin-tb: 5px;
+  $border-sz: 1px;
+  border: $border-sz solid $light-gray;
   font-size: 13px;
-  height: $nav-height - 2 * $margin-tb;
+  height: $nav-height - 2 * $margin-tb - 2 * $border-sz;
   margin: $margin-tb 0;
   padding: 0 24px 0 4px;
   text-align: right;
+  vertical-align: middle;
   width: 235px;
 }
 
 .nav-search-icon {
   position: absolute;
   right: 5px;
-  top: 14px;
+  top: 12px;
 }
 
 .nav-menu {
