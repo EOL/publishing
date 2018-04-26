@@ -226,7 +226,7 @@ private
   end
 
   def search_setup
-    @result_type = params[:result_type]&.to_sym || :record
+    @result_type = params[:result_type]&.to_sym || :page
   end
 
   def search_common

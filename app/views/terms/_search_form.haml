@@ -42,10 +42,10 @@
     .filter-row.filter-row-flex
       .filter-radios
         .filter-field.filter-field-radio
-          = label_tag :search_type_record, "records matching ALL filters"
-          = radio_button_tag :result_type, :record, @result_type == :record
-        .filter-field.filter-field-radio
           = label_tag :search_type_page, "taxa matching ALL filters"
           = radio_button_tag :result_type, :page, @result_type == :page
+        .filter-field.filter-field-radio
+          = label_tag :search_type_record, "records matching ALL filters"
+          = radio_button_tag :result_type, :record, @result_type == :record
       = submit_tag "Download TSV", :formaction => term_search_results_path(:format => :csv), :class => "filter-field filter-field-radio"
     = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
