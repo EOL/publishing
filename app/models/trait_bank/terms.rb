@@ -95,6 +95,7 @@ class TraitBank
       end
 
       def name_for_uri(uri)
+        return '' if uri.blank?
         Rails.cache.fetch("trait_bank/name_for_uri/#{uri}", :expires_in => CACHE_EXPIRATION_TIME) do
           res = TraitBank.term(uri)
           name =

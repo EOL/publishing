@@ -824,7 +824,7 @@ class TraitBank
     end
 
     def term(uri)
-      return '' if uri.blank?
+      return { name: '', uri: '' } if uri.blank?
       @terms ||= {}
       return @terms[uri] if @terms.key?(uri)
       res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
