@@ -11,8 +11,12 @@
       %ul.sample-traits
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
           %li 
-            .sample-trait-key= link_to(predicate[:name], term_path(:uri => predicate[:uri]))
-            .sample-trait-val= data_value(trait)
+            .sample-trait-key= predicate[:name]
+            .sample-trait-val
+              - if trait[:object_term] && trait[:object_term][:name]
+                = link_to(trait[:object_term][:name], term_path(:uri => trait[:object_term][:uri]))
+              - else
+                = data_value(trait)
 
   - if @page.medium
     .hero.hero-after{ :style => "background-image: url(#{image_path @page.medium.original_size_url}" }
