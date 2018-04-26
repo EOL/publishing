@@ -457,7 +457,7 @@ class TraitBank
       wheres = []
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
