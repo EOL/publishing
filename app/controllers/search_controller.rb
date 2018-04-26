@@ -136,7 +136,7 @@ private
     # that class is required:
 
     @pages = if @types[:pages]
-      fields = %w[preferred_vernacular_strings^10 vernacular_strings^10 scientific_name^10 synonyms^10 providers resource_pks]
+      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 scientific_name^10 synonyms^10 providers resource_pks]
       basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
                          fields: fields, where: @clade ? { ancestry_ids: @clade.id } : nil,
                          includes: [:medium, { native_node: { node_ancestors: :ancestor } }])
@@ -250,7 +250,7 @@ private
 
   def basic_search(klass, options = {})
     klass.search(params[:q], options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
-      match: :word_start, execute: false, page: params[:page], per_page: 50))
+      match: :text_start, execute: false, page: params[:page], per_page: 50))
   end
 
   def media_search(subtype_str)

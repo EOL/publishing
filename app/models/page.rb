@@ -96,6 +96,9 @@ class Page < ActiveRecord::Base
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
   def search_data
+    verns = vernacular_strings.uniq
+    pref_verns = preferred_vernacular_strings
+    pref_verns = verns if pref_verns.empty?
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
@@ -103,8 +106,8 @@ class Page < ActiveRecord::Base
       scientific_name: scientific_name,
       preferred_scientific_names: preferred_scientific_names,
       synonyms: synonyms,
-      preferred_vernacular_strings: preferred_vernacular_strings,
-      vernacular_strings: vernacular_strings,
+      preferred_vernacular_strings: pref_verns,
+      vernacular_strings: verns,
       providers: providers,
       ancestry_ids: ancestry_ids,
       resource_pks: resource_pks,
