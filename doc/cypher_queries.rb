@@ -1,5 +1,30 @@
 cd TraitBank
 
+no_results = query(%{MATCH (page:Page)-[:parent*0..]->(Page { page_id: 1642 }), (page)-[:trait]->(t0:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), (page)-[:trait]->(t1:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p1:Term)
+WHERE p0.uri = "http://eol.org/schema/terms/Present"
+AND p1.uri = "http://eol.org/schema/terms/Habitat"
+RETURN page
+LIMIT 50})["data"]
+
+one_clause = query(%{MATCH (page:Page)-[:parent*0..]->(Page { page_id: 1642 }),  (page)-[:trait]->(t1:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p1:Term)
+WHERE p1.uri = "http://eol.org/schema/terms/Habitat"
+RETURN page
+LIMIT 2})["data"].map { |r| r ? r.first["data"]["page_id"] : nil }
+
+other_clause = query(%{MATCH (page:Page)-[:parent*0..]->(Page { page_id: 1642 }),  (page)-[:trait]->(t1:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p1:Term)
+WHERE p1.uri = "http://eol.org/schema/terms/Present"
+RETURN page
+LIMIT 2})["data"].map { |r| r ? r.first["data"]["page_id"] : nil }
+
+totally_will_work = query(%{MATCH (page:Page)-[:parent*0..]->(Page { page_id: 1642 }), (page)-[:trait]->(t0:Trait)-[:predicate]->(predicate0:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), (page)-[:trait]->(t1:Trait)-[:predicate]->(predicate1:Term)-[:parent_term|:synonym_of*0..]->(p1:Term)
+WHERE p0.uri = "http://eol.org/schema/terms/Present"
+AND p1.uri = "http://eol.org/schema/terms/Habitat"
+RETURN page
+LIMIT 50})["data"].map { |r| r ? r.first["data"]["page_id"] : nil }
+
+
+--
+
 modified = query %q{MATCH (page:Page)-[:parent*]->(:Page { page_id: 1642 }),
 (page)-[:trait]->(trait:Trait),
 (trait)-[:predicate]->(predicate:Term),

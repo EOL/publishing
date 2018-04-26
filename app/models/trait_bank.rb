@@ -464,8 +464,10 @@ class TraitBank
         trait_var = "t#{i}"
         pred_var = "p#{i}"
         obj_var = "o#{i}"
-        matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-        matches << "(#{trait_var}:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
+        # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
+        # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        matches << "(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
           filter.object_term?
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
       end

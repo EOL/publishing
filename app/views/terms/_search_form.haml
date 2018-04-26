@@ -42,7 +42,7 @@
     .filter-row.filter-row-flex
       .filter-radios
         .filter-field.filter-field-radio
-          = label_tag :search_type_record, "records matching ANY filter"
+          = label_tag :search_type_record, "records matching ALL filters"
           = radio_button_tag :result_type, :record, @result_type == :record
         .filter-field.filter-field-radio
           = label_tag :search_type_page, "taxa matching ALL filters"
