@@ -39,6 +39,10 @@
           .meta-pred= t("terms.source")
           - is_uri = URI.parse(trait[:source]).kind_of?(URI::HTTP) rescue nil
           .meta-val= is_uri ? link_to(trait[:source], trait[:source]) : trait[:source]
+      - if trait[:scientific_name]
+        %li.meta-item
+          .meta-pred= t("terms.scientific_name")
+          .meta-val= trait[:scientific_name].html_safe
       - if page
         %li.meta-item
           .meta-pred= t("terms.record_url")

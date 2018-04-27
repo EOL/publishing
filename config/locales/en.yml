@@ -856,6 +856,7 @@ en:
     comment_field_html: "<strong>Comment:</strong> %{comment}"
     definition_field_html: "<strong>Definition:</strong> %{definition}"
     record_url: "record URL"
+    scientific_name: "scientific name"
     show_all_records: "show all records"
     source: "source"
     uri_field_html: "<strong>URI:</strong> %{uri}"
