@@ -1,5 +1,9 @@
 @import "colors";
 
+body {
+  background-color: $navbar-light-gray;
+}
+
 h1 {
   color: $eol-logo-blue;
   font-size: 28px;
