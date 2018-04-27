@@ -263,7 +263,7 @@ module PagesHelper
       end
 
       if link
-        parts << h.link_to(anc_node.canonical_form.html_safe, h.page_path(anc_node.page)).html_safe
+        parts << link_to(anc_node.canonical_form.html_safe, page_path(anc_node.page)).html_safe
       else
         parts << anc_node.canonical_form.html_safe
       end
