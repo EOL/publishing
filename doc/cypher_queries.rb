@@ -1,5 +1,35 @@
 cd TraitBank
 
+no_results = query(%{MATCH (page:Page)-[:parent*0..]->(:Page { page_id: 1 }),
+(page)-[:trait]->(t0:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term),
+(t0:Trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(o0:Term)
+WHERE (o0.uri = "http://www.wikidata.org/entity/Q16"
+AND p0.uri = "http://eol.org/schema/terms/Present")
+RETURN DISTINCT(page)
+LIMIT 5})["data"].map { |r| r.first && r.first["data"] }
+
+other_canada = query(%{MATCH (page:Page)-[:parent*0..]->(:Page { page_id: 1 }),
+(page)-[:trait]->(t0:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term),
+(t0:Trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(o0:Term)
+WHERE (o0.uri = "http://www.geonames.org/6251999"
+AND p0.uri = "http://eol.org/schema/terms/Present")
+RETURN DISTINCT(page)
+LIMIT 5})["data"].map { |r| r.first && r.first["data"] }
+
+only_canada = query(%{MATCH (page:Page)-[:parent*0..]->(:Page { page_id: 1 }),
+(page)-[:trait]->(t0:Trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(o0:Term)
+WHERE (o0.uri = "http://www.wikidata.org/entity/Q16")
+RETURN DISTINCT(page)
+LIMIT 5})["data"].map { |r| r.first && r.first["data"] }
+
+only_canada_no_clade = query(%{MATCH
+(page)-[:trait]->(t0:Trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(o0:Term)
+WHERE (o0.uri = "http://www.wikidata.org/entity/Q16")
+RETURN DISTINCT(page)
+LIMIT 50})["data"].map { |r| r.first && r.first["data"]["page_id"] }
+
+--
+
 no_results = query(%{MATCH (page:Page)-[:parent*0..]->(Page { page_id: 1642 }), (page)-[:trait]->(t0:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), (page)-[:trait]->(t1:Trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(p1:Term)
 WHERE p0.uri = "http://eol.org/schema/terms/Present"
 AND p1.uri = "http://eol.org/schema/terms/Habitat"

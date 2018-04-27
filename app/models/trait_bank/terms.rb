@@ -59,7 +59,7 @@ class TraitBank
           q += ' }' if !qterm || types.key?(type)
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
-          q += " WHERE LOWER(term.name) CONTAINS \"#{qterm.gsub(/"/, '').downcase}\" " if qterm
+          q += " WHERE LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -170,7 +170,7 @@ class TraitBank
         qterm = orig_qterm.delete('"').downcase
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
-          q += "WHERE LOWER(object.name) CONTAINS \"#{qterm}\" " if qterm
+          q += "WHERE LOWER(object.name) =~ \"#{qterm}.*\" " if qterm
           q +=  'RETURN object ORDER BY object.position LIMIT 6'
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
