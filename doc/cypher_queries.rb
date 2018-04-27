@@ -1,5 +1,7 @@
 cd TraitBank
 
+--
+
 no_results = query(%{MATCH (page:Page)-[:parent*0..]->(:Page { page_id: 1 }),
 (page)-[:trait]->(t0:Trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term),
 (t0:Trait)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(o0:Term)

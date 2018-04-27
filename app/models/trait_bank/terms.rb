@@ -185,6 +185,11 @@ class TraitBank
         end
       end
 
+      def set_units_for_pred(pred_uri, units_uri)
+        query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
+          CREATE (predicate)-[:units_term]->(units_term)})
+      end
+
       def units_for_pred(pred_uri)
         key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
 

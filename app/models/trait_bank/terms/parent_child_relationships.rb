@@ -1,7 +1,7 @@
 # TraitBank::Terms::ParentChildRelationships.fetch is probably what you came here to call.
 class TraitBank
   class Terms
-    class ParentChildRelationships
+    class Relationships
       class << self
         delegate :connection, to: TraitBank
         delegate :query, to: TraitBank
@@ -27,7 +27,7 @@ class TraitBank
           res["data"]
         end
 
-        def fetch(log = nil)
+        def fetch_parent_child_relationships(log = nil)
           # TODO: Don't hard-code this.
           link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/'\
             'resource/f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child.csv'
