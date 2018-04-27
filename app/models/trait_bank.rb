@@ -847,6 +847,17 @@ class TraitBank
       res["data"].first.first.symbolize_keys
     end
 
+    # NOTE: this isn't used in the code, I use it for debugging.
+    def descendants_of_term(uri)
+      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*0..]->(:Term { uri: "#{uri}" }) RETURN term})
+      terms["data"].map { |r| r.first["data"] }
+    end
+
+    def term_member_of(uri)
+      terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*0..]->(term:Term) RETURN term})
+      terms["data"].map { |r| r.first["data"] }
+    end
+
     def term_as_hash(uri)
       return nil if uri.nil? # Important for param-management!
       hash = term(uri)
