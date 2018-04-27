@@ -1,4 +1,4 @@
-# TraitBank::Terms::ParentChildRelationships.fetch is probably what you came here to call.
+# TraitBank::Terms::Relationships.fetch_* are the methods you probably came here to call.
 class TraitBank
   class Terms
     class Relationships
@@ -41,6 +41,13 @@ class TraitBank
           reload(download_csv(link), :is_synonym_of, log: log, type: :synonym_of)
         end
 
+        def fetch_units(log = nil)
+          # TODO: Don't hard-code this.
+          link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/resource/'\
+            'SOMETHING ELSE HERE TODO'
+          reload(download_csv(link), :set_units_for_pred, log: log, type: :synonym_of)
+        end
+
         # TODO: truly, this does not belong in this class. :D
         def download_csv(link)
           require 'open-uri'
@@ -74,8 +81,8 @@ class TraitBank
           pairs.each do |pair|
             begin
               # NOTE: parent first, child second...
-              TraitBank.send(fn, pair.last, pair.first)
-              is_hidden_from_select(pair.last) if fn == :child_has_parent
+              TraitBank::Terms.send(fn, pair.last, pair.first)
+              is_hidden_from_select(pair.last) if fn != :set_units_for_pred
               count += 1
             rescue => e
               # NOTE: the order here again is what the USER expects, not what the code called. :)

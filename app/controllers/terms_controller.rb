@@ -76,15 +76,23 @@ class TermsController < ApplicationController
   def fetch_relationships
     raise "unauthorized" unless is_admin? # TODO: generalize
     @log = []
-    count = TraitBank::Terms::ParentChildRelationships.fetch(@log)
+    count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(@log)
     @log << "Loaded #{count} parent/child relationships."
   end
 
   def fetch_synonyms
     raise "unauthorized" unless is_admin? # TODO: generalize
     @log = []
-    count = TraitBank::Terms::ParentChildRelationships.fetch_synonyms(@log)
+    count = TraitBank::Terms::Relationships.fetch_synonyms(@log)
     @log << "Loaded #{count} synonym relationships."
+    render :fetch_relationships # same log-only layout.
+  end
+
+  def fetch_units
+    raise "unauthorized" unless is_admin? # TODO: generalize
+    @log = []
+    count = TraitBank::Terms::Relationships.fetch_units(@log)
+    @log << "Loaded #{count} predicate/unit relationships."
     render :fetch_relationships # same log-only layout.
   end
 

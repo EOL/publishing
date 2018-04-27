@@ -4,6 +4,8 @@ class TraitBank
       delegate :connection, to: TraitBank
       delegate :limit_and_skip_clause, to: TraitBank
       delegate :query, to: TraitBank
+      delegate :child_has_parent, to: TraitBank
+      delegate :is_synonym_of, to: TraitBank
 
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
 
