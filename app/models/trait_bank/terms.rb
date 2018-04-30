@@ -42,6 +42,7 @@ class TraitBank
       def sub_glossary(type, page = 1, per = nil, options = {})
         count = options[:count]
         qterm = options[:qterm]
+        for_select = options[:for_select]
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
         key = "trait_bank/#{type}_glossary/"\
@@ -53,7 +54,7 @@ class TraitBank
         }
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
-          # NOTE: UUUUUUGGGGGGH.  This is super-ugly. Alas... we don't have a nice query-builder.
+          # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
           q += ' {' if !qterm || types.key?(type)
           q += ' is_hidden_from_glossary: false' unless qterm
           q += ',' if !qterm && types.key?(type)
@@ -62,6 +63,10 @@ class TraitBank
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
+          if for_select
+            q += qterm ? " AND" : " WHERE"
+            q += " term.is_hidden_from_select = false "
+          end
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
@@ -83,8 +88,8 @@ class TraitBank
         end
       end
 
-      def predicate_glossary(page = nil, per = nil, qterm = nil)
-        sub_glossary("predicate", page, per, qterm: qterm)
+      def predicate_glossary(page = nil, per = nil, options = {})
+        sub_glossary("predicate", page, per, qterm: options[:qterm])
       end
 
       def name_for_pred_uri(uri)
@@ -127,12 +132,12 @@ class TraitBank
         map[uri]
       end
 
-      def object_term_glossary(page = nil, per = nil, qterm = nil)
-        sub_glossary('object_term', page, per, qterm: qterm)
+      def object_term_glossary(page = nil, per = nil, options = {})
+        sub_glossary('object_term', page, per, qterm: options[:qterm])
       end
 
-      def units_glossary(page = nil, per = nil, qterm = nil)
-        sub_glossary('units_term', page, per, qterm: qterm)
+      def units_glossary(page = nil, per = nil, options = {})
+        sub_glossary('units_term', page, per, qterm: options[:qterm])
       end
 
       def predicate_glossary_count

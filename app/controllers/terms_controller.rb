@@ -128,7 +128,7 @@ class TermsController < ApplicationController
   def object_terms_for_pred
     pred = params[:pred_uri]
     q = params[:query]
-    res = TraitBank::Terms.obj_terms_for_pred(pred, q) # NOTE: this is already cached in that method. ...is that wise?
+    res = TraitBank::Terms.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
     render :json => res
   end
 
@@ -142,7 +142,7 @@ class TermsController < ApplicationController
 
   def pred_autocomplete
     q = params[:query]
-    res = Rails.cache.fetch("pred_autocomplete/#{q}") { TraitBank::Terms.predicate_glossary(nil, nil, q) }
+    res = Rails.cache.fetch("pred_autocomplete/#{q}") { TraitBank::Terms.predicate_glossary(nil, nil, qterm: q) }
     render :json => res
   end
 
@@ -211,7 +211,7 @@ private
       TraitBank::Admin.clear_caches
       expire_trait_fragments
     end
-    result = TraitBank::Terms.send(which, @page, @per_page, query)
+    result = TraitBank::Terms.send(which, @page, @per_page, qterm: query, for_select: !paginate)
     Rails.logger.warn "GLOSSARY RESULTS: #{result.map { |r| r[:name] }.join(', ')}"
     res = paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result[0..@per_page+1]
   end
