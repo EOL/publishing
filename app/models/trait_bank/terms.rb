@@ -45,8 +45,8 @@ class TraitBank
         for_select = options[:for_select]
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
-        key = "trait_bank/#{type}_glossary/"\
-          "#{count ? :count : "#{page}/#{per}"}/#{qterm ? qterm : :full}"
+        key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
+          "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
         types = {
           'predicate' => 'measurement',
@@ -89,7 +89,7 @@ class TraitBank
       end
 
       def predicate_glossary(page = nil, per = nil, options = {})
-        sub_glossary("predicate", page, per, qterm: options[:qterm])
+        sub_glossary("predicate", page, per, options)
       end
 
       def name_for_pred_uri(uri)
@@ -133,11 +133,11 @@ class TraitBank
       end
 
       def object_term_glossary(page = nil, per = nil, options = {})
-        sub_glossary('object_term', page, per, qterm: options[:qterm])
+        sub_glossary('object_term', page, per, options)
       end
 
       def units_glossary(page = nil, per = nil, options = {})
-        sub_glossary('units_term', page, per, qterm: options[:qterm])
+        sub_glossary('units_term', page, per, options)
       end
 
       def predicate_glossary_count
