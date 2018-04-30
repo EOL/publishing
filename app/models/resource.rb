@@ -176,23 +176,6 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  def fix_missing_native_nodes
-    start = 1 # Don't bother checking minimum, this is always 1.
-    upper = Page.maximum(:id)
-    batch_size = 10_000
-    while start < upper
-      Page.where("pages.id >= #{start} AND pages.id < #{start + batch_size}").joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL').includes(:nodes).find_each do |page|
-            if page.nodes.empty?
-              # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-              page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
-            else
-              page.update_attribute(:native_node_id, page.nodes.first.id)
-            end
-          end
-      start += batch_size
-    end
-  end
-
   # This is kinda cool... and faster than fix_counter_culture_counts
   def fix_missing_page_contents(options = {})
     delete = options.key?(:delete) ? options[:delete] : false

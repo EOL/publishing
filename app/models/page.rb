@@ -69,14 +69,20 @@ class Page < ActiveRecord::Base
   # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
   # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
   def self.fix_missing_native_nodes
-    fix_native_nodes(missing_native_node)
-  end
-
-  def self.fix_native_nodes(pages)
-    pages ||= missing_native_node
-    pages.includes(:nodes).find_each { |p| p.update_attribute(:native_node_id, p.nodes&.first&.id) }
-    # NOTE: I'm not re-using the scope here because I'm worried it might use a cached version instead.
-    pages.where(native_node_id: nil).delete_all # This is slightly risky, perhaps we shouldn't do it?
+    start = 1 # Don't bother checking minimum, this is always 1.
+    upper = maximum(:id)
+    batch_size = 10_000
+    while start < upper
+      where("pages.id >= #{start} AND pages.id < #{start + batch_size}").joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL').includes(:nodes).find_each do |page|
+            if page.nodes.empty?
+              # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
+              page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+            else
+              page.update_attribute(:native_node_id, page.nodes.first.id)
+            end
+          end
+      start += batch_size
+    end
   end
 
   def self.remove_if_nodeless
