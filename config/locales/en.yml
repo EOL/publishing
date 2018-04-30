@@ -517,7 +517,7 @@ en:
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     actions:
-      collect: "add to"
+      collect: "collect"
       comment:
         zero: "comment"
         one: "%{count} comment"
