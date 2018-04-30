@@ -187,7 +187,8 @@ class TraitBank
         end
       end
 
-      def set_units_for_pred(pred_uri, units_uri)
+      # NOTE the order of args, here.
+      def set_units_for_pred(units_uri, pred_uri)
         if units_uri =~ /^u/ # 'unitless', a secret code for "this is an ordinal measurement (and has no units)"
           query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }) SET predicate.is_ordinal = true})
         else
