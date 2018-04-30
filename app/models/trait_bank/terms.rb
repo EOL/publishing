@@ -188,29 +188,35 @@ class TraitBank
       end
 
       def set_units_for_pred(pred_uri, units_uri)
-        query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
-          CREATE (predicate)-[:units_term]->(units_term)})
+        if units_uri =~ /^u/ # 'unitless', a secret code for "this is an ordinal measurement (and has no units)"
+          query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }) SET predicate.is_ordinal = true})
+        else
+          query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
+            CREATE (predicate)-[:units_term]->(units_term)})
+        end
       end
 
       def units_for_pred(pred_uri)
         key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
 
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = query(
-            "MATCH (predicate:Term { uri: \"#{pred_uri}\" })-[:units_term]->(units_term:Term) "\
-            'RETURN units_term.name, units_term.uri LIMIT 1'
-          )
-
-          result = res["data"]&.first || nil
-
-          result = {
-            :units_name => result[0],
-            :units_uri => result[1],
-            :normal_units_name => result[2],
-            :normal_units_uri => result[3]
-          } if result
-
-          result
+          ordinal = query(%{
+            MATCH (predicate:Term { uri: "#{pred_uri}", is_ordinal: true }) RETURN predicate LIMIT 1
+          })["data"].any?
+          if ordinal
+            :ordinal
+          else
+            res = query(%{
+              MATCH (predicate:Term { uri: "#{pred_uri}" })-[:units_term]->(units_term:Term)
+              RETURN units_term.name, units_term.uri LIMIT 1
+            })["data"]
+            if (result = res&.first)
+              (name, uri) = result
+              { units_name: name, units_uri: uri, normal_units_name: name, normal_units_uri: uri }
+            else
+              nil
+            end
+          end
         end
       end
 

@@ -29,30 +29,29 @@ class TraitBank
 
         def fetch_parent_child_relationships(log = nil)
           # TODO: Don't hard-code this.
-          link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/'\
-            'resource/f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child.csv'
+          link = "f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child.csv"
           reload(download_csv(link), :child_has_parent, log: log, type: :parent_term)
         end
 
         def fetch_synonyms(log = nil)
           # TODO: Don't hard-code this.
-          link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/resource/'\
-            '41f7fed1-3dc1-44d7-bbe5-6104156d1c1e/download/preferredsynonym.csv'
+          link = "41f7fed1-3dc1-44d7-bbe5-6104156d1c1e/download/preferredsynonym.csv"
           reload(download_csv(link), :is_synonym_of, log: log, type: :synonym_of)
         end
 
         def fetch_units(log = nil)
           # TODO: Don't hard-code this.
-          link = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/resource/'\
-            'SOMETHING ELSE HERE TODO'
+          link = "d90b165f-92ad-44fe-aef2-ecd25721caac/download/defaultunits.csv"
           reload(download_csv(link), :set_units_for_pred, log: log, type: :synonym_of)
         end
 
         # TODO: truly, this does not belong in this class. :D
         def download_csv(link)
           require 'open-uri'
+          # TODO: Don't hard-code this.
+          opendata_dataset_path = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/'
           raw =
-            open(link, 'rb') do |input|
+            open("#{opendata_dataset_path}resource/#{link}", 'rb') do |input|
               input.read
             end
           # stip off the magic number that may be at the start:
