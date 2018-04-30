@@ -42,7 +42,7 @@ class TraitBank
         def fetch_units(log = nil)
           # TODO: Don't hard-code this.
           link = "d90b165f-92ad-44fe-aef2-ecd25721caac/download/defaultunits.csv"
-          reload(download_csv(link), :set_units_for_pred, log: log, type: :synonym_of)
+          reload(download_csv(link), :set_units_for_pred, log: log, type: :units_term)
         end
 
         # TODO: truly, this does not belong in this class. :D
