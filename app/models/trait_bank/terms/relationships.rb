@@ -52,10 +52,8 @@ class TraitBank
           opendata_dataset_path = 'https://opendata.eol.org/dataset/237b69b7-8aba-4cc4-8223-c433d700a1cc/'
           raw =
             open("#{opendata_dataset_path}resource/#{link}", 'rb') do |input|
-              input.read
+              input.read.force_encoding(Encoding::ISO_8859_1)
             end
-          # stip off the magic number that may be at the start:
-          raw = raw.sub(/^[^h]+/i, '')
           lines = if raw.match?(/\r\n/m)
                     raw.split(/\r\n/)
                   elsif raw.match?(/\n/m)
@@ -73,7 +71,9 @@ class TraitBank
             pair.each do |uri|
               next if uri == 'unitless' && fn == :set_units_for_pred && uri == pair[1]
               raise "This doesn't look like a URI to me: #{uri} ...ABORTING." unless
-                uri =~ URI::ABS_URI && Regexp.last_match.begin(0).zero?
+                # NOTE: It "feels" silly to escape the string and then test it for being a URI. ...But without it,
+                # characters like mu (μ) fail this test, and really we're just testing it for the http:// and the like.
+                URI.escape(uri) =~ URI::ABS_URI && Regexp.last_match.begin(0).zero?
             end
           end
           remove_all(options[:type])
