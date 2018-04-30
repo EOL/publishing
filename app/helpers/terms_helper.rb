@@ -16,9 +16,9 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    result = Rails.cache.fetch("units_select_options/#{filter.pred_uri}") do
-      TraitBank::Terms.units_for_pred(filter.pred_uri)
-    end
+    result = TraitBank::Terms.units_for_pred(filter.pred_uri) # NOTE: this is cached in the class.
+
+    return [] if result == :ordinal # TODO: better handling of this.
 
     uris = [result[:units_uri]] unless uris
     options = uris.map do |uri|
