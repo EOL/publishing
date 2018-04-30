@@ -212,7 +212,7 @@ private
       expire_trait_fragments
     end
     result = TraitBank::Terms.send(which, @page, @per_page, qterm: query, for_select: !paginate)
-    Rails.logger.warn "GLOSSARY RESULTS: #{result.map { |r| r[:name] }.join(', ')}"
+    Rails.logger.warn "GLOSSARY RESULTS: (for select: #{!paginate}) #{result.map { |r| r[:name] }.join(', ')}"
     res = paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result[0..@per_page+1]
   end
 
