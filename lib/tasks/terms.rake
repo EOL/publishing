@@ -4,24 +4,30 @@ namespace :terms do
   desc "Make parent/child relationships between terms, reading the data from opendata (JR's method, "\
     "includes synonyms and units)"
   task fetch: :environment do
-    count = TraitBank::Terms::Relationships.fetch_parent_child_relationships
+    log = []
+    count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(log)
     puts "Loaded #{count} parent/child relationships."
-    count = TraitBank::Terms::Relationships.fetch_synonyms
+    count = TraitBank::Terms::Relationships.fetch_synonyms(log)
     puts "Loaded #{count} synonym relationships."
-    count = TraitBank::Terms::Relationships.fetch_units
-    puts "Loaded #{count} predicate/unit relationships."
+    count = TraitBank::Terms::Relationships.fetch_units(log)
+    puts "Loaded #{count} predicate/unit relationships. Log:"
+    log.each { |l| puts(l) }
   end
 
   desc 'Make synonym relationships between terms (ONLY), reading the data from opendata'
   task synonyms: :environment do
-    count = TraitBank::Terms::Relationships.fetch_synonyms
-    puts "Loaded #{count} synonym relationships."
+    log = []
+    count = TraitBank::Terms::Relationships.fetch_synonyms(log)
+    puts "Loaded #{count} synonym relationships. Log:"
+    log.each { |l| puts(l) }
   end
 
   desc 'Make unit relationships between terms (ONLY), reading the data from opendata'
   task units: :environment do
-    count = TraitBank::Terms::Relationships.fetch_units
-    puts "Loaded #{count} predicate/unit relationships."
+    log = []
+    count = TraitBank::Terms::Relationships.fetch_units(log)
+    puts "Loaded #{count} predicate/unit relationships. Log:"
+    log.each { |l| puts(l) }
   end
 
   # NOTE: (from JR) ...oops. I didn't know this existed when I wrote Terms::Relationships. This is a fine solution,
