@@ -1,8 +1,7 @@
 - page ||= defined?(collected_page) ? collected_page.page : nil
 - icon ||= page.icon
-- result ||= page
-- common ||= page.try(:search_highlights).try(:[], :preferred_vernacular_strings) || page.name
-- scientific ||= page.try(:search_highlights).try(:[], :scientific_name) || page.scientific_name
+- common ||= search_highlight(page, :preferred_vernacular_strings, :name)
+- scientific ||= search_highlight(page, :scientific_name, :scientific_name)
 - show_actions = defined?(collected_page) ? policy(collected_page.collection).update? : nil
 - has_query = defined?(@q) && ! @q.blank?
 - media = (defined?(media) && media && ! media.empty?) ? media.compact.delete_if { |m| m.medium_icon_url == icon }.uniq : []
@@ -55,25 +54,25 @@
           = annotation
       - if has_query
         .matches.uk-margin-small-top
-          - others = page.try(:search_highlights).try(:[], :vernacular_strings)
+          - others = search_highlight(page, :vernacular_strings)
           - unless others.blank?
             %b= t("search_results.field_matches.vernaculars", count: 1)
-            = others.html_safe
+            = others
 
-          - others = page.try(:search_highlights).try(:[], :synonyms)
+          - others = search_highlight(page, :synonyms)
           - unless others.blank?
             %b= t("search_results.field_matches.synonyms", count: 1)
-            = others.html_safe
+            = others
 
-          - others = page.try(:search_highlights).try(:[], :providers)
+          - others = search_highlight(page, :providers)
           - unless others.blank?
             %b= t("search_results.field_matches.resources", count: 1)
-            = others.html_safe
+            = others
 
-          - others = page.try(:search_highlights).try(:resource_pks)
+          - others = search_highlight(page, :resource_pks)
           - unless others.blank?
             %b= t("search_results.field_matches.resource_pk", count: 1)
-            = others.html_safe
+            = others
 
       - else # (no query string)
         - if summary = construct_summary(page)

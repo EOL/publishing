@@ -45,6 +45,7 @@ class PagesController < ApplicationController
     end
   end
 
+  # TODO: I suspect this method and its compatriots can be made redundant.
   def topics
     client = Comments.discourse
     @topics = client.latest_topics

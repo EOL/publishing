@@ -139,7 +139,7 @@ private
       fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 scientific_name^10 synonyms^10 providers resource_pks]
       basic_search(Page, boost_by: { page_richness: { factor: 0.01 } },
                          fields: fields, where: @clade ? { ancestry_ids: @clade.id } : nil,
-                         includes: [:medium, { native_node: { node_ancestors: :ancestor } }])
+                         includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }])
     else
       nil
     end

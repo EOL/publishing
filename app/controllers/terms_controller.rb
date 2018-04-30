@@ -206,7 +206,7 @@ private
     @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
     query = params[:query]
-    @per_page = 10 if query
+    @per_page = 10 if !paginate
     if params[:reindex] && is_admin?
       TraitBank::Admin.clear_caches
       expire_trait_fragments

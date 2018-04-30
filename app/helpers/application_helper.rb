@@ -186,4 +186,16 @@ module ApplicationHelper
       Rails.application.assets_manifest.assets[path].present?
     end
   end
+
+  def search_highlight(page, field, attribute = nil)
+    highlight = page.try(:search_highlights).try(:[], field)
+    highlight ||= page.try(:search_highlights).try(field)
+    if highlight
+      CGI.unescapeHTML(highlight).html_safe
+    elsif attribute.nil?
+      nil # They don't want us to look at the page for a default.
+    else
+      page.send(attribute).html_safe
+    end
+  end
 end
