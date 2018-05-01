@@ -61,6 +61,7 @@ class TraitBank
                   else
                     raw.split(/\r/)
                   end
+          lines.first.sub!(/^\W+/, '') # Strip any magic number at the start of the file. This happens.
           lines.map { |l| l.split(/,\s*/) }
         end
 
