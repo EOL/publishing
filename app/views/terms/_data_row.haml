@@ -1,3 +1,4 @@
+- open_row = defined?(open_row) ? open_row : false
 %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }
   - pages = [] unless local_assigns.has_key?(:pages)
   - page_id = trait[:page_id]
@@ -23,7 +24,7 @@
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
-  - if (trait[:metadata] && trait[:metadata].any?) || trait[:source] || trait[:scientific_name] || page
+  - if (trait[:metadata] && trait[:metadata].any?) || (open_row && trait[:source] || trait[:scientific_name] || page)
     %ul.meta-items.js-meta-items
       - Array(trait[:metadata]).each do |datum|
         %li.meta-item
