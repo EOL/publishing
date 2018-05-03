@@ -1,6 +1,6 @@
 def main_method  
   # json_content = get_latest_updates_from_hbase
-   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes4.json')
+   nodes_file_path = File.join(Rails.root, 'lib', 'tasks', 'publishing_api', 'nodes5.json')
    json_content = File.read(nodes_file_path)
    unless json_content == false
      nodes = JSON.parse(json_content)
@@ -13,28 +13,28 @@ def main_method
                    scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
                    rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
         created_node = create_node(params)
-        
-        unless node["taxon"]["pageEolId"].nil? 
-          page_id = create_page({ resource_id: node["resourceId"], node_id: created_node.id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-         scientific_name = create_scientific_name({ node_id: created_node.id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+      end
+      unless node["taxon"]["pageEolId"].nil? 
+        node_id = Node.where(global_node_id: node["generatedNodeId"]).first.id
+        page_id = create_page({ resource_id: node["resourceId"], node_id: node_id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
+        scientific_name = create_scientific_name({ node_id: node_id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
                                  node_resource_pk: node["taxonId"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
-          unless node["vernaculars"].nil?
-            create_vernaculars({vernaculars: node["vernaculars"], node_id: created_node.id, page_id: page_id, resource_id: node["resourceId"] })
-          end
+        unless node["vernaculars"].nil?
+          check_deltastatus_vernaculars({vernaculars: node["vernaculars"], node_id: node_id, page_id: page_id, resource_id: node["resourceId"] })
+        end
           
-          unless node["media"].nil?
-            create_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
-          end
-          if node["resourceId"]==147
+        unless node["media"].nil?
+          check_deltastatus_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
+        end
+        if node["resourceId"]==147
           add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: node["taxon"]["scientificName"],occurrences: node["occurrences"],
                     associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
           # add_neo4j
-          end
+        end
            
-        end      
-      end    
-    end
-  end    
+      end          
+     end
+   end    
 end
 
 def get_latest_updates_from_hbase
@@ -59,37 +59,61 @@ def build_hierarchy(ancestors, node_id)
 end
 
 
-def create_vernaculars(params)
+def check_deltastatus_vernaculars(params)
   params[:vernaculars].each do |vernacular|
-    language_id= vernacular["language"].nil? ? create_language("eng") : create_language(vernacular["language"])
-    create_vernacular({ string: vernacular["name"], node_id: params[:node_id], page_id: params[:page_id],
+    if vernacular["deltaStatus"] == "I"
+      language_id= vernacular["language"].nil? ? create_language("eng") : create_language(vernacular["language"])
+      create_vernacular({ string: vernacular["name"], node_id: params[:node_id], page_id: params[:page_id],
                         is_preferred_by_resource: vernacular["isPreferred"], language_id: language_id,
                         resource_id: params[:resource_id]  })
+    elsif vernacular["deltaStatus"] == "U"
+      language_id= vernacular["language"].nil? ? create_language("eng") : create_language(vernacular["language"])
+      update_vernacular({string: vernacular["name"], node_id: params[:node_id], page_id: params[:page_id],
+                        is_preferred_by_resource: vernacular["isPreferred"], language_id: language_id,
+                        resource_id: params[:resource_id]})
+    elsif vernacular["deltaStatus"] == "D"
+      delete_vernacular({string: vernacular["name"], node_id: params[:node_id]})
+    end
+                        
   end
 end
 
-def create_media(params)
+def check_deltastatus_media(params)
     params[:media].each do |medium|
-      language_id = medium["language"].nil? ? create_language("eng") : create_language(medium["language"])
-      license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
-      location_id = medium["locationCreated"].nil? ? nil : create_location(location: medium["locationCreated"],
+      if medium["deltaStatus"] == "I"
+        language_id = medium["language"].nil? ? create_language("eng") : create_language(medium["language"])
+        license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
+        location_id = medium["locationCreated"].nil? ? nil : create_location(location: medium["locationCreated"],
                     spatial_location: medium["genericLocation"],latitude: medium["latitude"],longitude: medium["longitude"],
                     altitude: medium["altitude"], resource_id: params[:resource_id])
       #base_url need to have default value
-      medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
+        medium_id = create_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
                      resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
                      language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
-      #need to check  value , position
-      fill_page_contents({resource_id: params[:resource_id],page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
-      
-      unless medium["agents"].nil?
-        create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
+
+        fill_page_contents({resource_id: params[:resource_id],page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
+      elsif medium["deltaStatus"] == "U"
+        language_id = medium["language"].nil? ? create_language("eng") : create_language(medium["language"])
+        license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
+        location_id = medium["locationCreated"].nil? ? nil : create_location(location: medium["locationCreated"],
+                    spatial_location: medium["genericLocation"],latitude: medium["latitude"],longitude: medium["longitude"],
+                    altitude: medium["altitude"], resource_id: params[:resource_id])
+      #base_url need to have default value
+        medium_id = update_medium({ format: medium["format"],description: medium["description"],owner: medium["owner"],
+                     resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
+                     language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
+      elsif medium["deltaStatus"] == "D"
+        delete_medium({guid: medium["guid"]})
       end
       
-      #to show literature and references tab need to fill pages_referents table which won't be filled by us 
-      unless params[:references].nil?
-        create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
-      end
+        # unless medium["agents"].nil?
+          # create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
+        # end
+#       
+      # #to show literature and references tab need to fill pages_referents table which won't be filled by us 
+        # unless params[:references].nil?
+          # create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
+        # end
       
     end
   
@@ -265,6 +289,22 @@ def create_vernacular(params)
   
 end
 
+def delete_vernacular(params)
+  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id])
+  if vernacular.count > 0
+    vernacular.first.destroy
+  end
+end
+
+def update_vernacular(params)
+  vernacular_attributes = {  language_id: params[:language_id] , page_id: params[:page_id], resource_id: params[:resource_id] }
+  unless params[:is_preferred_by_resource].nil?
+    vernacular_attributes[:is_preferred_by_resource] = params[:is_preferred_by_resource]
+  end
+    
+  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id]).first.update(vernacular_attributes)
+end
+
 def create_medium(params)
   res = Medium.where(guid: params[:guid])
   if res.count > 0
@@ -275,6 +315,20 @@ def create_medium(params)
   end
 end
 
+def delete_medium(params)
+  res = Medium.where(guid: params[:guid])
+  if res.count > 0
+    res.first.destroy
+  end
+end
+
+def update_medium(params)
+  medium_attributes = { format: params[:format],description: params[:description],owner: params[:owner],
+                     resource_id: params[:resource_id],resource_pk: params[:resource_pk],source_page_url: params[:source_page_url],
+                     language_id: params[:language_id], license_id: params[:license_id],location_id: params[:location_id], base_url: params[:base_url]}
+  medium = Medium.where(guid: params[:guid]).first.update(medium_attributes)
+  medium.id
+end
 
 
 def create_scientific_name(params)
@@ -352,6 +406,6 @@ namespace :harvester do
     main_method
   end
 end
-  
-  
+
+
   
