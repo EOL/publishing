@@ -24,7 +24,7 @@
     - modifier_content = modifier_txt(trait)
     - if modifier_content
       .trait-mod= modifier_txt(trait)
-  - if (trait[:metadata] && trait[:metadata].any?) || (open_row && trait[:source] || trait[:scientific_name] || page)
+  - if (trait[:metadata] && trait[:metadata].any?) || (open_row && (trait[:source] || trait[:scientific_name] || page))
     %ul.meta-items.js-meta-items
       - Array(trait[:metadata]).each do |datum|
         %li.meta-item
