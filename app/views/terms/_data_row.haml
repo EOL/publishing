@@ -25,7 +25,7 @@
       .trait-mod= modifier_txt(trait)
   - if (trait[:metadata] && trait[:metadata].any?) || trait[:source] || trait[:scientific_name] || page
     %ul.meta-items.js-meta-items
-      - trait[:metadata].each do |datum|
+      - Array(trait[:metadata]).each do |datum|
         %li.meta-item
           %div
             .meta-pred.a= datum[:predicate][:name]
