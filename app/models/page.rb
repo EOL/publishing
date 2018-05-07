@@ -85,6 +85,17 @@ class Page < ActiveRecord::Base
     end
   end
 
+  # TODO: abstract this to allow updates of the other count fields.
+  def self.fix_media_counts
+    # This isn't as hairy as it looks. Currently takes about 12 seconds.
+    pids = PageContent.connection.execute('select DISTINCT(page_id) from page_contents where content_type = "Medium"')
+    pids.each do |page_id|
+      count = PageContent.where(page_id: page_id, content_type: 'Medium').count
+      # NOTE: Skipping loading any models; this just calls the DB, even though it looks weird to "update_all" one row.
+      Page.where(id: page_id).update_all(media_count: count)
+    end
+  end
+
   def self.remove_if_nodeless
     # Delete pages that no longer have nodes
     Page.find_in_batches(batch_size: 10_000) do |group|
