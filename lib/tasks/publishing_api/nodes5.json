@@ -191,10 +191,11 @@
                 "locationCreated": null,
                 "genericLocation": null,
                 "latitude": null,
-               "longitude": null,
+                "longitude": null,
                 "altitude": null,
                 "referenceId": "abcdefghij999a;abcdefghij999c",
                 "storageLayerPath": "/storageLayerPath",
+                "deltaStatus":"I",
                 
                 "agents": [{  
                              "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14",
@@ -209,7 +210,7 @@
 			     "organization": "test org1",
 		             "accountName": "account1",
 			     "openId": "test9openID1",
-			     "deltaStatus": "test1"
+			     "deltaStatus": "I"
                            },
                            {   
 		             "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14a",
@@ -224,7 +225,7 @@
 			     "organization": "test org2",
 			     "accountName": "account2",
 			     "openId": "test9openID1",
-			     "deltaStatus": "test2"
+			     "deltaStatus": "I"
                            }]
             },
             {
@@ -247,7 +248,7 @@
                 "audience": null,
                 "license": "http://creativecommons.org/licences/by-sa/3.0/",
                 "rights": null,
-                "owner": "Eli Sarnat",
+                "owner": "Neli Sarnat",
                 "bibliographicCitation": null,
                 "publisher": null,
                 "contributor": null,
@@ -255,14 +256,45 @@
                 "locationCreated": null,
                 "genericLocation": null,
                 "storageLayerPath": "storageLayerPath",
-                "agents": null,
+                "agents": [{   
+		             "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14ff",
+		             "fullName": "salma sami",
+			     "firstName": "salma",
+			     "familyName": "sami",
+			     "role": "photographer",
+			     "email": "salma@gmail.com",
+			     "homepage": "test/homepage55",
+			     "logoURL": "test/logourl5",
+			     "project": "test proj5",
+			     "organization": "test org5",
+			     "accountName": "account5",
+			     "openId": "test9openID5",
+			     "deltaStatus": "U"
+                           },
+{   
+		             "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14ee",
+		             "fullName": "john smith",
+			     "firstName": "john",
+			     "familyName": "smith",
+			     "role": "photographer",
+			     "email": "john@gmail.com",
+			     "homepage": "test/homepage9",
+			     "logoURL": "test/logourl9",
+			     "project": "test proj9",
+			     "organization": "test org9",
+			     "accountName": "account9",
+			     "openId": "test9openID9",
+			     "deltaStatus": "N"
+                           }
+                      ],
                 "latitude": null,
                 "longitude": null,
                 "altitude": null,
-                "referenceId": "abcdefghij999b"
+                "referenceId": "abcdefghij999b",
+                "deltaStatus":"U"
             }],
     "generatedNodeId": "21",  
-    "deltaStatus":"U",
+    "deltaStatus":"I",
     "taxon": {
       "identifier": "-100003",
       "scientificName": "Brachycoenia leptophyllia Reuss, 1854",
@@ -287,7 +319,7 @@
       "scientificNameID": null,
       "datasetId": "c33ce2f2-c3cc-43a5-a380-fe4526d63650",
       "eolIdAnnotations": null,
-      "deltaStatus": null,
+      "deltaStatus": "I",
       "guids": null
     },
     "deltaStatus": null,
@@ -332,6 +364,7 @@
                 "publisher": null,
                 "contributor": null,
                 "creator": null,
+                "deltaStatus":"D",
                 "agents":[{  
                              "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14cc",
 			     "fullName": "rana",
@@ -345,7 +378,7 @@
 			     "organization": "test org1",
 		             "accountName": "account1",
 			     "openId": "test9openID1",
-			     "deltaStatus": "test1"
+			     "deltaStatus": "D"
                            },
                            {   
 		             "agentId": "5dc13bd3-e1d0-4d1b-bdc8-d4066ec6fb14acc",
@@ -360,7 +393,7 @@
 			     "organization": "test org2",
 			     "accountName": "account2",
 			     "openId": "test9openID1",
-			     "deltaStatus": "test2"
+			     "deltaStatus": "D"
                            }],
                 "locationCreated": null,
                 "genericLocation": null,
@@ -370,7 +403,7 @@
                 "referenceId": null
             }],
     "generatedNodeId": "210",
-    "deltaStatus":"D",
+    "deltaStatus":"I",
     "taxon": {
       "identifier": "-1002330",
       "scientificName": "Protaphorura nemorata (Gisin, 1952) Gisin, 1952",
@@ -395,13 +428,79 @@
       "scientificNameID": null,
       "datasetId": "90d9e8a6-0ce1-472d-b682-3451095dbc5a",
       "eolIdAnnotations": null,
-      "deltaStatus": null,
+      "deltaStatus": "I",
       "guids": null
     },
     "deltaStatus": null,
     "nodeData": {
       "ancestors": [
         "205"
+      ],
+      "children": [],
+      "synonyms": []
+    }
+  },
+{
+    "resourceId": 146,
+    "taxonId": "test155testtaxonid",
+    "vernaculars":  [
+            {
+                "name": "Cornfield Ant5",
+                "source": null,
+                "language": null,
+                "locality": null,
+                "countryCode": null,
+                "isPreferred": false,
+                "taxonRemarks": null,
+                "deltaStatus": "I"
+            },
+            {
+                "name": "Cornfield Ant6",
+                "source": null,
+                "language": "und",
+                "locality": null,
+                "countryCode": null,
+                "isPreferred": null,
+                "taxonRemarks": null,
+                "deltaStatus": "I"
+            }],
+    "references": null,
+    "occurrences": null,
+    "associations": null,
+    "measurementOrFacts": null,
+    "media": null,
+    "generatedNodeId": "1005",
+    "taxon": {
+      "identifier": "-1006862",
+      "scientificName": "Ctenobolbina cavimarginata Ulrich",
+      "parentTaxonId": "-678538",
+      "kingdom": null,
+      "phylum": null,
+      "class_": null,
+      "order": null,
+      "family": null,
+      "genus": null,
+      "taxonRank": "species",
+      "furtherInformationURI": "https://www.gbif-uat.org/species/7836404",
+      "taxonomicStatus": "accepted",
+      "taxonRemarks": null,
+      "namePublishedIn": null,
+      "referenceId": null,
+      "pageEolId": "2",
+      "acceptedNodeId": "-1006862",
+      "source": "gbif:7836404",
+      "canonicalName": "Ctenobolbina cavimarginata1",
+      "scientificNameAuthorship": "Ulrich",
+      "scientificNameID": null,
+      "datasetId": "6cfd67d6-4f9b-400b-8549-1933ac27936f",
+      "eolIdAnnotations": null,
+      "deltaStatus": "D",
+      "guids": null
+    },
+    "deltaStatus": null,
+    "nodeData": {
+      "ancestors": [
+        "1000"
       ],
       "children": [],
       "synonyms": []

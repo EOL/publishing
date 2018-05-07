@@ -5,20 +5,24 @@ def main_method
    unless json_content == false
      nodes = JSON.parse(json_content)
      nodes.each do |node|
-      res = Node.where(global_node_id: node["generatedNodeId"])
-      if res.count > 0
-        current_node = res.first
-      else
-        params = { resource_id: node["resourceId"],
+       check_deltastatus_node({delta_status: node["taxon"]["deltaStatus"],resource_id: node["resourceId"],page_id: node["taxon"]["pageEolId"],
                    scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
-                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
-        created_node = create_node(params)
-      end
-      unless node["taxon"]["pageEolId"].nil? 
+                   rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"]})
+      # res = Node.where(global_node_id: node["generatedNodeId"])
+      # if res.count > 0
+        # current_node = res.first
+      # else
+        # params = { resource_id: node["resourceId"],
+                   # scientific_name: node["taxon"]["scientificName"], canonical_form: node["taxon"]["canonicalName"],
+                   # rank: node["taxon"]["taxonRank"], global_node_id: node["generatedNodeId"],taxon_id: node["taxonId"] }
+        # created_node = create_node(params)
+      # end
+      unless node["taxon"]["pageEolId"].nil? ||  node["taxon"]["deltaStatus"]== "D"
         node_id = Node.where(global_node_id: node["generatedNodeId"]).first.id
         page_id = create_page({ resource_id: node["resourceId"], node_id: node_id, id: node["taxon"]["pageEolId"] }) # iucn status, medium_id
-        scientific_name = create_scientific_name({ node_id: node_id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
-                                 node_resource_pk: node["taxonId"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
+        
+         # create_scientific_name({ node_id: node_id, page_id: page_id, canonical_form: node["taxon"]["canonicalName"],
+                                 # node_resource_pk: node["taxonId"], scientific_name: node["taxon"]["scientificName"],resource_id: node["resourceId"] })      
         unless node["vernaculars"].nil?
           check_deltastatus_vernaculars({vernaculars: node["vernaculars"], node_id: node_id, page_id: page_id, resource_id: node["resourceId"] })
         end
@@ -26,12 +30,11 @@ def main_method
         unless node["media"].nil?
           check_deltastatus_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
         end
-        if node["resourceId"]==147
-          add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: node["taxon"]["scientificName"],occurrences: node["occurrences"],
-                    associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
-          # add_neo4j
-        end
-           
+        # if node["resourceId"]==147
+          # add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: node["taxon"]["scientificName"],occurrences: node["occurrences"],
+                    # associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
+        # end
+#            
       end          
      end
    end    
@@ -58,6 +61,36 @@ def build_hierarchy(ancestors, node_id)
   
 end
 
+def check_deltastatus_node(params)
+
+if params[:delta_status]=="I"
+  node_id = create_node({resource_id: params[:resource_id],
+                         scientific_name: params[:scientific_name], canonical_form: params[:canonical_form],
+                         rank: params[:rank], global_node_id: params[:global_node_id],taxon_id: params[:taxon_id]})
+  unless params[:page_id].nil?
+   create_scientific_name({ node_id: node_id, page_id: params[:page_id], canonical_form: params[:canonical_form],
+                           node_resource_pk: params[:taxon_id], scientific_name: params[:scientific_name],resource_id: params[:reference_id]})
+  end
+elsif params[:delta_status] == "U"
+  node_id = update_node({resource_id: params[:resource_id],
+                         scientific_name: params[:scientific_name], canonical_form: params[:canonical_form],
+                         rank: params[:rank], global_node_id: params[:global_node_id],taxon_id: params[:taxon_id]})
+  update_scientific_name({ node_id: node_id, page_id: params[:page_id], canonical_form: params[:canonical_form],
+                           node_resource_pk: params[:taxon_id], scientific_name: params[:scientific_name],resource_id: params[:reference_id]})
+elsif params [:delta_status] == "D"
+  node_id = delete_node(global_node_id: params[:global_node_id])
+  scientific_names= ScientificName.where(node_id: node_id)
+  if scientific_names.count > 0
+    scientific_names.destroy_all
+  end
+  vernaculars = Vernacular.where(node_id: node_id)
+  if vernaculars.count >0 
+    vernaculars.destroy_all
+  end
+  
+end
+      
+end
 
 def check_deltastatus_vernaculars(params)
   params[:vernaculars].each do |vernacular|
@@ -103,13 +136,20 @@ def check_deltastatus_media(params)
                      resource_id: params[:resource_id],guid: medium["guid"],resource_pk: medium["mediaId"],source_page_url: medium["furtherInformationURI"],
                      language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
       elsif medium["deltaStatus"] == "D"
-        delete_medium({guid: medium["guid"]})
+       medium_id = delete_medium({guid: medium["guid"]})
+       
+      elsif medium["deltaStatus"] == "N"
+        medium = Medium.where(guid: medium["guid"])
+        if medium.count >0
+          medium_id = medium.first.id
+        end
+         
       end
       
-        # unless medium["agents"].nil?
-          # create_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
-        # end
-#       
+      unless medium["agents"].nil?
+        check_status_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
+      end
+      
       # #to show literature and references tab need to fill pages_referents table which won't be filled by us 
         # unless params[:references].nil?
           # create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
@@ -119,10 +159,17 @@ def check_deltastatus_media(params)
   
 end
 
-def create_agents(params)
+def check_status_agents(params)
   params[:agents].each do |agent|
-    create_agent(resource_id: params[:resource_id],role: agent["role"],content_id: params[:content_id], 
-                 content_type: params[:content_type], resource_pk: agent["agentId"],value: agent["fullName"],url: agent["homepage"],content_resource_fk:params[:content_resource_fk])
+    if agent["deltaStatus"] == "I"
+      create_agent(resource_id: params[:resource_id],role: agent["role"],content_id: params[:content_id], content_type: params[:content_type],
+                   resource_pk: agent["agentId"],value: agent["fullName"],url: agent["homepage"],content_resource_fk:params[:content_resource_fk])
+    elsif agent["deltaStatus"] == "U"
+      update_agent(resource_id: params[:resource_id],role: agent["role"],content_id: params[:content_id], content_type: params[:content_type],
+                   resource_pk: agent["agentId"],value: agent["fullName"],url: agent["homepage"],content_resource_fk:params[:content_resource_fk])
+    elsif agent["deltaStatus"] == "D"
+      delete_agent(content_id: params[:content_id], content_type: params[:content_type], value: agent["fullName"])
+    end
   end
   
 end
@@ -132,6 +179,17 @@ def create_agent(params)
   role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
   create_attribution({resource_id: params[:resource_id],content_id: params[:content_id] ,content_type: params[:content_type],
                       role_id: role_id,url: params[:url], resource_pk: params[:resource_pk], value: params[:value], content_resource_fk: params[:content_resource_fk]})
+end
+
+def update_agent(params)
+  # need role default name
+  role_id = params[:role].nil? ? create_role("roletest") : create_role(params[:role]) 
+  update_attribution({resource_id: params[:resource_id],content_id: params[:content_id] ,content_type: params[:content_type],
+                      role_id: role_id,url: params[:url], resource_pk: params[:resource_pk], value: params[:value], content_resource_fk: params[:content_resource_fk]})
+end
+
+def delete_agent(params)
+  delete_attribution(params)
 end
 
 def create_referents(params)
@@ -176,18 +234,38 @@ end
   
 
 def create_node(params)
-  rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
-  node = Node.create(
-    resource_id: params[:resource_id],
-    page_id: params[:page_id],
-    rank_id: rank_id,
-    scientific_name: params[:scientific_name],
-    canonical_form: params[:canonical_form],
-    resource_pk: params[:taxon_id],
-    global_node_id: params[:global_node_id])                             
-    node                          
+  res = Node.where(global_node_id: params[:global_node_id])
+  if res.count > 0
+    current_node = res.first.id
+  else
+    rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
+    node = Node.create(resource_id: params[:resource_id],page_id: params[:page_id],rank_id: rank_id, scientific_name: params[:scientific_name],
+                       canonical_form: params[:canonical_form], resource_pk: params[:taxon_id], global_node_id: params[:global_node_id])                             
+    node.id     
+  end                     
 end
 
+def update_node(params)
+  rank_id = params[:rank].nil? ? nil : create_rank(params[:rank])
+  res = Node.where(global_node_id: params[:global_node_id])
+  if res.count > 0
+    node = res.first
+    node.update(resource_id: params[:resource_id],page_id: params[:page_id],rank_id: rank_id, scientific_name: params[:scientific_name],
+                       canonical_form: params[:canonical_form], resource_pk: params[:taxon_id])
+    node.id
+    
+  end
+end
+
+def delete_node(params)
+  node = Node.where(global_node_id: params[:global_node_id])
+  if node.count > 0
+    node_id = node.first.id
+    node.first.destroy
+  end
+  node_id
+end
+  
 def create_role(name)
   res=Role.where(name: name)
   if res.count > 0
@@ -272,6 +350,21 @@ def create_attribution(params)
   end
 end
 
+def update_attribution(params)
+  attribution= Attribution.where(content_id: params[:content_id],content_type: params [:content_type],value: params[:value])
+  if attribution.count > 0
+    attribution = attribution.first
+    attribution.update(role_id: params[:role_id], url: params[:url], resource_id: params[:resource_id], resource_pk: params[:resource_pk], 
+                       content_resource_fk: params[:content_resource_fk])
+  end
+end
+def delete_attribution(params)
+  res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type],value: params[:value])
+  if res.count > 0
+    res.first.destroy
+  end
+end
+
 def create_vernacular(params)
   res = Vernacular.where(string: params[:string], node_id: params[:node_id])
   if res.count > 0
@@ -302,7 +395,10 @@ def update_vernacular(params)
     vernacular_attributes[:is_preferred_by_resource] = params[:is_preferred_by_resource]
   end
     
-  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id]).first.update(vernacular_attributes)
+  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id])
+  if vernacular.count > 0
+    vernacular.first.update(vernacular_attributes)
+  end
 end
 
 def create_medium(params)
@@ -318,7 +414,9 @@ end
 def delete_medium(params)
   res = Medium.where(guid: params[:guid])
   if res.count > 0
+    medium_id = res.first.id
     res.first.destroy
+    
   end
 end
 
@@ -326,25 +424,48 @@ def update_medium(params)
   medium_attributes = { format: params[:format],description: params[:description],owner: params[:owner],
                      resource_id: params[:resource_id],resource_pk: params[:resource_pk],source_page_url: params[:source_page_url],
                      language_id: params[:language_id], license_id: params[:license_id],location_id: params[:location_id], base_url: params[:base_url]}
-  medium = Medium.where(guid: params[:guid]).first.update(medium_attributes)
-  medium.id
+  medium = Medium.where(guid: params[:guid])
+  if medium.count > 0 
+    medium = medium.first
+    medium.update(medium_attributes)
+    medium.id
+  end
 end
 
 
 def create_scientific_name(params)
+  #assumption each node has 1 scientific name
   # node_resource_pk = taxon_id
   # for now, we set italicized by canonical form but we should use global names tool
   # to separate scientific name and authority an surrond canonical form part with <i> </i> tags
-  
-  res = ScientificName.where(node_id: params[:node_id], canonical_form: params[:canonical_form])
+  canonical_form = params[:canonical_form].nil? ? params[:scientific_name] : params[:canonical_form]
+  res = ScientificName.where(node_id: params[:node_id])
   if res.count > 0
     res.first.canonical_form
   else
-    canonical_form = params[:canonical_form].nil? ? params[:scientific_name] : params[:canonical_form]
     scientific_name = ScientificName.create(node_id: params[:node_id], page_id: params[:page_id], resource_id: params[:resource_id],canonical_form: canonical_form,
                                             node_resource_pk: params[:node_resource_pk], italicized: canonical_form , taxonomic_status_id: 1)
     scientific_name.canonical_form
   end  
+end
+
+def update_scientific_name(params)
+  canonical_form = params[:canonical_form].nil? ? params[:scientific_name] : params[:canonical_form]
+  res = ScientificName.where(node_id: params[:node_id])
+  if res.count > 0
+    res.first.update(page_id: params[:page_id], resource_id: params[:resource_id],node_resource_pk: params[:node_resource_pk],canonical_form: canonical_form,
+                     italicized: canonical_form , taxonomic_status_id: 1)
+  else
+    ScientificName.create(node_id: params[:node_id], page_id: params[:page_id], resource_id: params[:resource_id],canonical_form: canonical_form,
+                                            node_resource_pk: params[:node_resource_pk], italicized: canonical_form , taxonomic_status_id: 1)
+  end
+end
+
+def delete_scientific_name(params)
+   res = ScientificName.where(node_id: params[:node_id])
+   if res.count > 0
+     res.first.destroy
+   end
 end
 
 def fill_page_contents(params)
