@@ -55,11 +55,8 @@ class TraitBank
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
-          q += ' {' if !qterm || types.key?(type)
+          q += ' {' unless qterm
           q += ' is_hidden_from_glossary: false' unless qterm
-          # q += ',' if !qterm && types.key?(type)
-          # q += " type: \"#{types[type]}\"" if types.key?(type)
-          # q += ' }' if !qterm || types.key?(type)
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || types.key?(type)
