@@ -5,9 +5,15 @@
     .names
       - if !@page.hierarchy.blank?
         .names-hier= @page.hierarchy.html_safe
-      %h1= @page.name.titlecase.html_safe
-      - if @page.name != @page.scientific_name
-        %h2= @page.scientific_name.html_safe
+      - if @page.name == @page.scientific_name
+        - name = @page.scientific_name
+        - sci_name = nil
+      - else
+        - name = @page.name.titlecase
+        - sci_name = @page.scientific_name
+      %h1= name.html_safe
+      - if sci_name
+        %h2= sci_name.html_safe
   .l-page-actions
     %ul
       %li
