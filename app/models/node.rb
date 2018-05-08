@@ -39,6 +39,10 @@ class Node < ActiveRecord::Base
     node_ancestors.map(&:ancestor)
   end
 
+  def italicized
+    scientific_names.preferred.first.italicized
+  end
+
   # TODO: this is duplicated with page; fix.
   # Can't (easily) use clever associations here because of language.
   def vernacular(language = nil)
