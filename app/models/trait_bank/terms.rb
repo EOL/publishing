@@ -49,7 +49,7 @@ class TraitBank
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
         types = {
-          'predicate' => 'measurement',
+          'predicate' => ['measurement', 'association'],
           'object_term' => 'value'
         }
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
@@ -57,12 +57,15 @@ class TraitBank
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
           q += ' {' if !qterm || types.key?(type)
           q += ' is_hidden_from_glossary: false' unless qterm
-          q += ',' if !qterm && types.key?(type)
-          q += " type: \"#{types[type]}\"" if types.key?(type)
-          q += ' }' if !qterm || types.key?(type)
+          # q += ',' if !qterm && types.key?(type)
+          # q += " type: \"#{types[type]}\"" if types.key?(type)
+          # q += ' }' if !qterm || types.key?(type)
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
-          q += " WHERE LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
+          q += " WHERE " if qterm || types.key?(type)
+          q += "LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
+          q += " AND " if qterm && types.key?(type)
+          q += %{term.type IN ["#{Array(types[type]).join('","')}"]} if types.key?(type)
           if for_select
             q += qterm ? " AND" : " WHERE"
             q += " term.is_hidden_from_select = false "

@@ -849,12 +849,12 @@ class TraitBank
 
     # NOTE: this isn't used in the code, I use it for debugging.
     def descendants_of_term(uri)
-      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*0..]->(:Term { uri: "#{uri}" }) RETURN term})
+      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN term})
       terms["data"].map { |r| r.first["data"] }
     end
 
     def term_member_of(uri)
-      terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*0..]->(term:Term) RETURN term})
+      terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
       terms["data"].map { |r| r.first["data"] }
     end
 
