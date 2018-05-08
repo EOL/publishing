@@ -2,7 +2,11 @@
   .uk-width-1-3
     %dl.attributions
       %dt= t("content_attributions_labels.license")
-      %dd= content.license.name.html_safe
+      - if content.license.source_url
+        - license_content = link_to(content.license.name.html_safe, content.license.source_url)
+      - else
+        - license_content = content.license.name.html_safe
+      %dd= license_content
       %dt= t("content_attributions_labels.owner")
       %dd= content.owner.html_safe
       - unless content.rights_statement.blank?
