@@ -40,7 +40,7 @@ class Node < ActiveRecord::Base
   end
 
   def italicized
-    scientific_names.preferred.first.italicized
+    scientific_names&.preferred&.first&.italicized
   end
 
   # TODO: this is duplicated with page; fix.
