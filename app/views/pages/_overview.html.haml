@@ -11,8 +11,11 @@
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
           %li 
             .sample-trait-key= predicate[:name]
-            .sample-trait-val 
-              - show_data_value(trait)
+            - val = data_value(trait)
+            - if trait[:object_term]
+              = link_to val, term_path(:uri => predicate[:uri], :obj_uri => trait[:object_term][:uri]), :class => "sample-trait-val"
+            - else
+              .sample-trait-val= val
 
   - if @page.medium
     = render :partial => "hero", :locals => { :class_name => "hero-after" }
