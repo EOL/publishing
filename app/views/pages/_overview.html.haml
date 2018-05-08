@@ -1,8 +1,7 @@
 - summary = construct_summary(@page)
 
 - if @page.medium
-  .hero.hero-before{ :style => "background-image: url(#{image_path @page.medium.original_size_url}" }
-
+  = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "") }
     - if !summary.blank?
@@ -16,7 +15,7 @@
               - show_data_value(trait)
 
   - if @page.medium
-    .hero.hero-after{ :style => "background-image: url(#{image_path @page.medium.original_size_url}" }
+    = render :partial => "hero", :locals => { :class_name => "hero-after" }
 
 -#.uk-section.uk-section-default.uk-padding-small.uk-box-shadow-medium{ uk: { grid: true } }
   #breadcrumbs.uk-section.uk-padding-remove-vertical.uk-width-1-1

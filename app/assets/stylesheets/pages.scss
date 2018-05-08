@@ -14,6 +14,24 @@ $tabs-m-height: 30px;
 $head-height: 70px;
 $actions-height: 45px;
 
+$pad-l-sm: 13px;
+$pad-l-m: 17px;
+
+$font-sz-sm: 11px;
+$font-sz-m: 14px;
+
+.img-info {
+  background: rgba(0, 0, 0, .8);
+  color: $white;
+  bottom: 0;
+  font-size: $font-sz-sm;
+  height: 20px;
+  line-height: 20px;
+  padding-left: $pad-l-sm;
+  position: absolute;
+  width: 100%;
+}
+
 .hero {
   background-position: center;
   background-repeat: no-repeat;
@@ -125,7 +143,7 @@ $actions-height: 45px;
 .sample-traits {
   display: flex;
   flex-wrap: wrap;
-  font-size: 11px;
+  font-size: $font-sz-sm;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -135,7 +153,7 @@ $actions-height: 45px;
     border-right: $border;
     flex: 1 0 auto;
     height: 48px;
-    padding: 7px 13px;
+    padding: 7px $pad-l-sm;
   }
 }
 
@@ -165,16 +183,23 @@ $actions-height: 45px;
     }
   }
 
+  .img-info {
+    font-size: $font-sz-m;
+    height: 30px;
+    line-height: 30px;
+    padding-left: $pad-l-m
+  }
+
   .desc {
     font-size: 14px;
     padding: 15px $padding-left-m;
   }
 
   .sample-traits {
-    font-size: 14px;
+    font-size: $font-sz-m;
 
     & > li {
-      padding-left: 18px;
+      padding-left: $pad-l-m;
       height: 58px;
     }
   }
