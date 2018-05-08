@@ -11,7 +11,7 @@
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
           %li 
             .sample-trait-key= predicate[:name]
-            - val = data_value(trait)
+            - val = data_value(trait).html_safe
             - if trait[:object_term] || trait[:object_page_id]
               - if trait[:object_term]
                 - url = term_path(:uri => predicate[:uri], :obj_uri => trait[:object_term][:uri])
