@@ -170,7 +170,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def provider_names
+  def providers
     resources.flat_map do |r|
       [r.name, r.partner.name, r.partner.short_name]
     end.uniq
