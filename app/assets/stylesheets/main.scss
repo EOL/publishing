@@ -56,7 +56,7 @@ h1, h2, h3 {
 a, .a {
   color: $link-color;
   cursor: pointer;
-  
+
   &:hover {
     color: $link-color;
     text-decoration: underline;
@@ -131,6 +131,10 @@ section#side_body {
 
 .uk-text-muted {
   font-weight: 300;
+}
+
+ul.uk-list.descends {
+  padding-left: 3px !important;
 }
 
 .eol-text-tiny {
@@ -563,7 +567,7 @@ body {
         text-decoration: none;
       }
     }
-    
+
     &:hover {
       background: $black;
       color: $white;
@@ -649,4 +653,3 @@ body {
     }
   }
 }
-

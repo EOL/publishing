@@ -181,10 +181,10 @@ module PagesHelper
     haml_tag("li.one") do
       summarize(page, current_page: ! this_node, node: node)
       if ancestors.blank? && this_node
-        haml_tag("ul.uk-list") do
+        haml_tag("ul.uk-list.descends") do
           classification(nil, [this_node])
           if this_node.children.any?
-            haml_tag("ul.uk-list") do
+            haml_tag("ul.uk-list.descends") do
               this_node.children.each do |child|
                 haml_tag("li.one") do
                   summarize(child.page, node: child)
@@ -194,7 +194,7 @@ module PagesHelper
           end
         end
       else
-        haml_tag("ul.uk-list") do
+        haml_tag("ul.uk-list.descends") do
           classification(this_node, ancestors)
         end
       end

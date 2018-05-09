@@ -59,3 +59,4 @@
                           - str = t(:vernacular_preferred_by_resource, resource: str)
                         - formatted_names << link_to(str, resource)
                       = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+  = render('pages/page_classification')
