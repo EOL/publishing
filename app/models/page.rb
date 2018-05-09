@@ -134,7 +134,7 @@ class Page < ActiveRecord::Base
       name: name,
       native_node_id: native_node_id,
       resource_ids: resource_ids,
-      rank_ids: page.nodes.map(&:rank_id).uniq.compact
+      rank_ids: nodes.map(&:rank_id).uniq.compact
     }
   end
 
