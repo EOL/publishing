@@ -122,8 +122,8 @@ class Page < ActiveRecord::Base
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
-      scientific_name: scientific_name,
-      preferred_scientific_names: preferred_scientific_names,
+      scientific_name: ActionView::Base.full_sanitizer.sanitize(scientific_name),
+      preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
       vernacular_strings: verns,
@@ -132,7 +132,9 @@ class Page < ActiveRecord::Base
       resource_pks: resource_pks,
       icon: icon,
       name: name,
-      native_node: native_node
+      native_node_id: native_node_id,
+      resource_ids: resource_ids,
+      rank_ids: page.nodes.map(&:rank_id).uniq.compact
     }
   end
 
@@ -156,6 +158,10 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def preferred_scientific_strings
+    preferred_scientific_names.map { |n| n.italicized }.uniq.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
+  end
+
   def vernacular_strings
     if vernaculars.loaded?
       vernaculars.select { |v| !v.is_preferred? }.map { |v| v.string }
@@ -164,7 +170,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def providers
+  def provider_names
     resources.flat_map do |r|
       [r.name, r.partner.name, r.partner.short_name]
     end.uniq

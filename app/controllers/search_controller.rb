@@ -228,7 +228,7 @@ private
 
       fmt.js { }
 
-      # TODO: JSON results for other types! TODO: move: this is view logic...
+      # TODO: JSON results for other types! TODO: move; this is view logic...
       fmt.json do
         render json: JSON.pretty_generate(@pages.results.as_json(
           except: :native_node_id,
