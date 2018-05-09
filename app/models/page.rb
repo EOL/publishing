@@ -1,6 +1,7 @@
 class Page < ActiveRecord::Base
   searchkick word_start: [:scientific_name, :preferred_vernacular_strings, :synonyms, :vernacular_strings, :providers],
-             text_start: [:scientific_name, :preferred_vernacular_strings, :synonyms, :vernacular_strings, :providers]
+             text_start: [:scientific_name, :preferred_vernacular_strings, :synonyms, :vernacular_strings, :providers],
+             batch_size: 250 # NOTE: default is 1000... that seemed to timeout a lot.
 
   belongs_to :native_node, class_name: "Node"
   belongs_to :moved_to_page, class_name: "Page"
