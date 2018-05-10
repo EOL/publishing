@@ -9,37 +9,21 @@
         = strip_tags(sanitize(@page_title))
         \-
       = t(:page_title)
-    -# TODO: we need to compile our own set of includes with only the bits we need.
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.25/css/uikit.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/button.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/icon.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/image.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/input.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/label.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/loader.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/list.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/menu.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dropdown.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/search.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/segment.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/statistic.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/sticky.min.css"
-    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.css"
+    - cdn = 'https://cdnjs.cloudflare.com/ajax/libs'
+    -# TODO: we need to compile our own set of includes with only the bits we need for UIKit (as we did with semantic)!
+    = stylesheet_link_tag "#{cdn}/uikit/3.0.0-beta.25/css/uikit.min.css"
+    - %w[button dimmer icon image input label loader list menu dropdown search segment statistic sticky transition].each do |name|
+      = stylesheet_link_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.css"
     = stylesheet_link_tag "application"
     -if asset_exists? "#{params[:controller]}.css"
       = stylesheet_link_tag params[:controller]
     = javascript_include_tag "application"
     -if asset_exists? "#{params[:controller]}.js"
       = javascript_include_tag params[:controller]
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.25/js/uikit.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.25/js/uikit-icons.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/api.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/search.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/sticky.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dropdown.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.js"
+    = javascript_include_tag "#{cdn}/uikit/3.0.0-beta.25/js/uikit.min.js"
+    = javascript_include_tag "#{cdn}/uikit/3.0.0-beta.25/js/uikit-icons.min.js"
+    - %w[api search sticky dimmer dropdown transition].each do |name|
+      = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js"
     = javascript_include_tag "https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"
     = csrf_meta_tags
     - if content_for?(:head)

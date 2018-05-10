@@ -39,8 +39,7 @@ en:
   clade_placeholder: "clade …"
   classifications:
     children:
-      header: "Children"
-      empty: "This node has no children."
+      header: "%{name} includes:"
     hierarchies:
       header: "Recognized as part of the following resource hierarchies:"
       this_page: "(this page)"

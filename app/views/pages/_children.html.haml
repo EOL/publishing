@@ -1,0 +1,8 @@
+- page_node = @page.native_node || @page.nodes.first
+- if page_node.children.any?
+  #page-children.ui.segment
+    %h4.ui.header= t("classifications.children.header", name: @page.short_name).html_safe
+    .ui.list
+      - page_node.children.each do |node|
+        .item
+          - summarize(node.page, current_page: false, node: node)

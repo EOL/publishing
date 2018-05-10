@@ -48,7 +48,7 @@ class Page < ActiveRecord::Base
   end
 
   scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
-                                      native_node: [:unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
+                                      native_node: [:scientific_names, :unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
@@ -315,10 +315,14 @@ class Page < ActiveRecord::Base
 
   # NAMES METHODS
 
-  # TODO: this is duplicated with node; fix.
   def name(language = nil)
     language ||= Language.current
-    vernacular(language).try(:string) || scientific_name
+    vernacular(language)&.string || scientific_name
+  end
+
+  def short_name(language = nil)
+    language ||= Language.current
+    vernacular(language)&.string || canonical
   end
 
   def names_count
@@ -347,6 +351,10 @@ class Page < ActiveRecord::Base
 
   def scientific_name
     native_node.try(:italicized) || native_node.try(:scientific_name) || "NO NAME!"
+  end
+
+  def canonical
+    native_node.try(:canonical) || "NO NAME!"
   end
 
   def rank
@@ -451,7 +459,9 @@ class Page < ActiveRecord::Base
 
   def should_show_icon?
     return nil unless native_node
-    @should_show_icon ||= Rank.species_or_below.include?(native_node.rank_id)
+    # WAS: Rank.species_or_below.include?(native_node.rank_id) ||
+    # HACK: This one weird trick ... saves us in a lot of cases!
+    @should_show_icon ||= (native_node.scientific_name =~ /<i/)
   end
 
   def is_it_marine?

@@ -9,7 +9,7 @@
     - if @page.data.any?
       %ul.sample-traits
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
-          %li 
+          %li
             .sample-trait-key= predicate[:name]
             - val = data_value(trait).html_safe
             - if trait[:object_term] || trait[:object_page_id]
@@ -20,7 +20,7 @@
               = link_to val, url, :class => "sample-trait-val"
             - else
               .sample-trait-val= val
+    = render('pages/children')
 
   - if @page.medium
     = render :partial => "hero", :locals => { :class_name => "hero-after" }
-

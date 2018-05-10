@@ -133,8 +133,11 @@ section#side_body {
   font-weight: 300;
 }
 
-ul.uk-list.descends {
-  padding-left: 3px !important;
+.list.descends {
+  padding: 3px !important;
+  .list {
+    padding-bottom: 0 !important;
+  }
 }
 
 .eol-text-tiny {
