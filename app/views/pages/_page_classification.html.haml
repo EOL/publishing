@@ -9,7 +9,7 @@
     - nodes.each do |node|
       .ui.segment
         %h4.ui.header= node.resource.name
-        .ui.list
+        .ui.middle.aligned.list
           -# NOTE: using #none to force load; no sense in doing a count. We need the rows.
           - if node.ancestors && !node.ancestors.none?
             - classification(node, node.ancestors, children: true)
@@ -17,7 +17,7 @@
             - summarize(@page, current_page: true, node: node)
             - if node.children.any?
               .item
-                .ui.list
+                .ui.middle.aligned.animated.list
                   - node.children.each do |child|
                     .item
                       - summarize(child.page, current_page: false, node: child)

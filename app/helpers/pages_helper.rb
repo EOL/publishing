@@ -181,34 +181,42 @@ module PagesHelper
     haml_tag("div.item") do
       if (page.should_show_icon? && image = page.medium)
         haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
+        haml_tag("div.content") do
+          classification_content(page, this_node, node, ancestors)
+        end
+      else
+        classification_content(page, this_node, node, ancestors)
       end
-      haml_tag("div.content") do
-        summarize(page, current_page: ! this_node, node: node, no_icon: true)
-        if ancestors.blank? && this_node
-          haml_tag("div.ui.list.descends") do
-            classification(nil, [this_node])
-            if this_node.children.any?
-              haml_tag("div.item") do
-                haml_tag("div.ui.list.descends") do
-                  this_node.children.each do |child|
-                    haml_tag("div.item") do
-                      if (child.page.should_show_icon? && image = child.page.medium)
-                        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
-                      end
-                      haml_tag("div.content") do
-                        summarize(child.page, node: child, no_icon: true)
-                      end
+    end
+  end
+
+  def classification_content(page, this_node, node, ancestors)
+    summarize(page, current_page: ! this_node, node: node, no_icon: true)
+    if ancestors.blank? && this_node
+      haml_tag("div.ui.middle.aligned.list.descends") do
+        classification(nil, [this_node])
+        if this_node.children.any?
+          haml_tag("div.item") do
+            haml_tag("div.ui.middle.aligned.animated.list.descends") do
+              this_node.children.each do |child|
+                haml_tag("div.item") do
+                  if (child.page.should_show_icon? && image = child.page.medium)
+                    haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
+                    haml_tag("div.content") do
+                      summarize(child.page, node: child, no_icon: true)
                     end
+                  else
+                    summarize(child.page, node: child, no_icon: true)
                   end
                 end
               end
             end
           end
-        else
-          haml_tag("div.ui.list.descends") do
-            classification(this_node, ancestors)
-          end
         end
+      end
+    else
+      haml_tag("div.ui.middle.aligned.list.descends") do
+        classification(this_node, ancestors)
       end
     end
   end
@@ -224,13 +232,11 @@ module PagesHelper
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(link_to(image_tag(image.small_icon_url, class: 'ui avatar image'), page)) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     end
-    haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
-      if page.nil?
-        haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
-          haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
-        end
+    haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+    if page.nil?
+      haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
+        haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
       end
     end
   end
