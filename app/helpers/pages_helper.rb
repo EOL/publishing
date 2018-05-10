@@ -207,21 +207,19 @@ module PagesHelper
     node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
     name = options[:node] ? node.name : name_for_page(page)
-    haml_tag("span.tiny") do
-      if options[:current_page]
-        haml_tag("b") do
-          haml_concat name.html_safe
-        end
-        haml_concat t("classifications.hierarchies.this_page")
-      elsif page
-        show_data_page_icon(page) if page.should_show_icon?
-        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+    if options[:current_page]
+      haml_tag("b") do
+        haml_concat name.html_safe
       end
-      haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
-        if page.nil?
-          haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
-            haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
-          end
+      haml_concat t("classifications.hierarchies.this_page")
+    elsif page
+      haml_concat(link_to(image_tag(image.small_icon_url, class: 'ui avatar image'), page)) if page.should_show_icon?
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+    end
+    haml_tag("div.uk-margin-remove-top.uk-padding-remove-horizontal") do
+      if page.nil?
+        haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
+          haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
         end
       end
     end
