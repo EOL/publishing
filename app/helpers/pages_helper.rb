@@ -179,25 +179,35 @@ module PagesHelper
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("div.item") do
-      summarize(page, current_page: ! this_node, node: node)
-      if ancestors.blank? && this_node
-        haml_tag("div.ui.list.descends") do
-          classification(nil, [this_node])
-          if this_node.children.any?
-            haml_tag("div.item") do
-              haml_tag("div.ui.list.descends") do
-                this_node.children.each do |child|
-                  haml_tag("div.item") do
-                    summarize(child.page, node: child)
+      if (page.should_show_icon? && image == page.medium)
+        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui avatar image'), page))
+      end
+      haml_tag("div.content") do
+        summarize(page, current_page: ! this_node, node: node)
+        if ancestors.blank? && this_node
+          haml_tag("div.ui.list.descends") do
+            classification(nil, [this_node])
+            if this_node.children.any?
+              haml_tag("div.item") do
+                haml_tag("div.ui.list.descends") do
+                  this_node.children.each do |child|
+                    haml_tag("div.item") do
+                      if (child.page.should_show_icon? && image == child.page.medium)
+                        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui avatar image'), page))
+                      end
+                      haml_tag("div.content") do
+                        summarize(child.page, node: child)
+                      end
+                    end
                   end
                 end
               end
             end
           end
-        end
-      else
-        haml_tag("div.ui.list.descends") do
-          classification(this_node, ancestors)
+        else
+          haml_tag("div.ui.list.descends") do
+            classification(this_node, ancestors)
+          end
         end
       end
     end
