@@ -30,6 +30,11 @@ def main_method
         unless node["media"].nil?
           check_deltastatus_media({media: node["media"],resource_id: node["resourceId"],page_id: page_id, references: node["references"]})
         end
+        
+        #here delete and update refrences only as create is inside the media
+        unless node["references"].nil?
+            check_deltastatus_references(references: node["references"],resource_id: node["resourceId"])
+        end
         # if node["resourceId"]==147
           # add_neo4j(page_id: page_id,resource_id: node["resourceId"],resource_pk: node["taxonId"],scientific_name: node["taxon"]["scientificName"],occurrences: node["occurrences"],
                     # associations: node["associations"],measurementOrFacts: node["measurementOrFacts"])
@@ -125,6 +130,12 @@ def check_deltastatus_media(params)
                      language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
 
         fill_page_contents({resource_id: params[:resource_id],page_id: params[:page_id],source_page_id: params[:page_id],content_type: "Medium", content_id: medium_id})
+       # when create mediasearch for its references to create
+       #to show literature and references tab need to fill pages_referents table which won't be filled by us 
+       unless params[:references].nil?
+         create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],
+                           parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
+       end
       elsif medium["deltaStatus"] == "U"
         language_id = medium["language"].nil? ? create_language("eng") : create_language(medium["language"])
         license_id = medium["license"].nil? ? create_license("test") : create_license(medium["license"])
@@ -137,6 +148,7 @@ def check_deltastatus_media(params)
                      language_id: language_id, license_id: license_id,location_id: location_id, base_url: "#{STORAGE_LAYER_IP}#{medium["storageLayerPath"]}"})
       elsif medium["deltaStatus"] == "D"
        medium_id = delete_medium({guid: medium["guid"]})
+       delete_attribution_media(content_id: medium_id,content_type: "Medium")
        
       elsif medium["deltaStatus"] == "N"
         medium = Medium.where(guid: medium["guid"])
@@ -150,10 +162,7 @@ def check_deltastatus_media(params)
         check_status_agents({resource_id: params[:resource_id], agents: medium["agents"], content_id: medium_id, content_type: "Medium",content_resource_fk: medium["mediaId"]})
       end
       
-      # #to show literature and references tab need to fill pages_referents table which won't be filled by us 
-        # unless params[:references].nil?
-          # create_referents({references: params[:references],resource_id: params[:resource_id], reference_id: medium["referenceId"],parent_id: medium_id,parent_type: "Medium",page_id: params[:page_id]})
-        # end
+
       
     end
   
@@ -189,20 +198,22 @@ def update_agent(params)
 end
 
 def delete_agent(params)
-  delete_attribution(params)
+  delete_attribution_agent(params)
 end
 
 def create_referents(params)
   reference_ids=params[:reference_id].split(';')
   reference_ids.each do|reference_id|
     params[:references].each do |reference|
-      if reference["referenceId"] == reference_id
-        body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
-              "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
-              "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
-        referent_id = create_referent(body: body ,resource_id: params[:resource_id])
-        create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
-      end
+      if reference["deltaStatus"] == "I"
+        if reference["referenceId"] == reference_id
+          body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
+                "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
+                "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
+          referent_id = create_referent(body: body ,resource_id: params[:resource_id])
+          create_references({referent_id: referent_id,parent_id: params[:parent_id],parent_type: params[:parent_type], resource_id: params[:resource_id]})
+        end
+       end
     end
   end
 end
@@ -218,6 +229,41 @@ def create_referent(params)
     
 end 
 
+def check_deltastatus_references(params)
+  params[:references].each do |reference|
+    body = "#{reference["primaryTitle"]} #{reference["secondaryTitle"]} #{reference["pages"]} #{reference["pageStart"]} "+
+                "#{reference["pageEnd"]} #{reference["volume"]} #{reference["editor"]} #{reference["publisher"]} "+
+                "#{reference["authorsList"]} #{reference["editorsList"]} #{reference["dataCreated"]} #{reference["doi"]}"
+    # by updating referents table fields fields in refernces table won't be updated
+    if reference["deltaStatus"] == "U"
+     refere_id = update_referents(body: body,resource_id: params[:resource_id])
+    elsif reference["deltaStatus"] == "D"
+      referent_id = delete_referents(body: body, resource_id: params[:resource_id] )
+      unless referent_id.nil?
+        delete_references(referent_id: referent_id)
+      end
+    end
+  end
+  
+end
+
+# how update body as body is field of unique key
+def update_referents(params)
+  # res = Referent.where(body: params[:body],resource_id: params[:resource_id])
+    # if res.count > 0
+      # res.first.update(body: params[:body])
+    # end
+end
+
+def delete_referents(params)
+  referents = Referent.where(body: params[:body],resource_id: params[:resource_id])
+    if referents.count > 0
+      referent_id = referents.first.id
+      referents.first.destroy
+    end
+      referent_id
+end
+
 def create_references(params)
   #check searching parameters
   res = Reference.where(parent_id: params[:parent_id],parent_type: params[:parent_type],referent_id: params[:referent_id])
@@ -231,7 +277,12 @@ def create_references(params)
    
 end
 
-  
+def delete_references(params)
+  res = Reference.where(referent_id: params[:referent_id])
+  if res.count > 0
+    res.delete_all
+  end
+end
 
 def create_node(params)
   res = Node.where(global_node_id: params[:global_node_id])
@@ -358,10 +409,17 @@ def update_attribution(params)
                        content_resource_fk: params[:content_resource_fk])
   end
 end
-def delete_attribution(params)
+def delete_attribution_agent(params)
   res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type],value: params[:value])
   if res.count > 0
     res.first.destroy
+  end
+end
+
+def delete_attribution_media(params)
+  res= Attribution.where(content_id: params[:content_id],content_type: params [:content_type])
+  if res.count > 0
+    res.destroy_all
   end
 end
 
