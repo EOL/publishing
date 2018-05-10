@@ -1,8 +1,12 @@
-- page_node = @page.native_node || @page.nodes.first
-- if page_node.children.any?
-  #page-children.ui.segment
+- limit ||= 20
+- node ||= @page.native_node || @page.nodes.first
+- if node.children.any?
+  .ui.segment{ id: "page-children-#{node.id}"}
     %h4.ui.header= t("classifications.children.header", name: @page.short_name).html_safe
     .ui.list
-      - page_node.children.each do |node|
+      - node.children[0..limit-1].each do |child|
         .item
-          - summarize(node.page, current_page: false, node: node)
+          - summarize(child.page, current_page: false, node: child)
+      - if node.children.size > limit
+        -# TODO: link to call Ajax to show them all.
+        .item= t("classifications.children.too_many_children", count: node.children.size)

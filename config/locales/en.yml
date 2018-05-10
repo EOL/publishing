@@ -40,6 +40,9 @@ en:
   classifications:
     children:
       header: "%{name} includes:"
+      too_many_children:
+        one: "Too many children (%{count}) to show."
+        other: "Too many children (%{count}) to show."
     hierarchies:
       header: "Recognized as part of the following resource hierarchies:"
       this_page: "(this page)"
