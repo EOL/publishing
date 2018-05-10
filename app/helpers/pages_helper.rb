@@ -201,7 +201,7 @@ module PagesHelper
               this_node.children.each do |child|
                 haml_tag("div.item") do
                   if (child.page.should_show_icon? && image = child.page.medium)
-                    haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page)
+                    haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
                     haml_tag("div.content") do
                       summarize(child.page, node: child, no_icon: true)
                     end
