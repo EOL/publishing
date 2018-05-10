@@ -86,6 +86,19 @@ class Page < ActiveRecord::Base
     end
   end
 
+  # Sometimes pages CAN be in the DH, but for several reasons, AREN'T. This fixes that, because we prefer DH if
+  # its available (and it's a bit too computationally expensive to look for it every time):
+  def self.fix_non_dh_native_nodes
+    count = 0
+    Page.includes(:nodes).find_each do |page|
+      if (page.dh_node && page.dh_node.id != page.native_node_id)
+        count += 1
+        page.update_attribute(:native_node_id, page.dh_node.id)
+      end
+    end
+    count
+  end
+
   # TODO: abstract this to allow updates of the other count fields.
   def self.fix_media_counts
     # This isn't as hairy as it looks. Currently takes about 12 seconds.
@@ -173,7 +186,7 @@ class Page < ActiveRecord::Base
   end
 
   def dh_node
-    nodes.find { |n| n.resource_id == 1 }
+    @dh_node = nodes.find { |n| n.resource_id == 1 }
   end
 
   def dh_scientific_names
