@@ -179,7 +179,7 @@ module PagesHelper
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("div.item") do
-      if (page.should_show_icon? && image == page.medium)
+      if (page.should_show_icon? && image = page.medium)
         haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui avatar image'), page))
       end
       haml_tag("div.content") do
@@ -222,7 +222,7 @@ module PagesHelper
         haml_concat name.html_safe
       end
       haml_concat t("classifications.hierarchies.this_page")
-    elsif page
+    elsif (page && image = page.medium)
       haml_concat(link_to(image_tag(image.small_icon_url, class: 'ui avatar image'), page)) if page.should_show_icon?
       haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     end
