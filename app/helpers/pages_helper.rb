@@ -179,7 +179,7 @@ module PagesHelper
     node = ancestors.shift
     page = this_node.nil? ? @page : node.page
     haml_tag("div.item") do
-      if (page.should_show_icon? && !this_node && image = page.medium)
+      if (page.should_show_icon? && this_node && image = page.medium)
         haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
         haml_tag("div.content") do
           classification_content(page, this_node, node, ancestors)
@@ -200,7 +200,7 @@ module PagesHelper
             haml_tag("div.ui.middle.aligned.animated.list.descends") do
               this_node.children.each do |child|
                 haml_tag("div.item") do
-                  if (child.page.should_show_icon? && !this_node && image = child.page.medium)
+                  if (child.page.should_show_icon? && this_node && image = child.page.medium)
                     haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
                     haml_tag("div.content") do
                       summarize(child.page, node: child, no_icon: true)
