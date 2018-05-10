@@ -180,10 +180,10 @@ module PagesHelper
     page = this_node.nil? ? @page : node.page
     haml_tag("div.item") do
       if (page.should_show_icon? && image = page.medium)
-        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui avatar image'), page))
+        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
       end
       haml_tag("div.content") do
-        summarize(page, current_page: ! this_node, node: node)
+        summarize(page, current_page: ! this_node, node: node, no_icon: true)
         if ancestors.blank? && this_node
           haml_tag("div.ui.list.descends") do
             classification(nil, [this_node])
@@ -193,10 +193,10 @@ module PagesHelper
                   this_node.children.each do |child|
                     haml_tag("div.item") do
                       if (child.page.should_show_icon? && image = child.page.medium)
-                        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui avatar image'), page))
+                        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
                       end
                       haml_tag("div.content") do
-                        summarize(child.page, node: child)
+                        summarize(child.page, node: child, no_icon: true)
                       end
                     end
                   end
@@ -222,7 +222,7 @@ module PagesHelper
         haml_concat name.html_safe
       end
       haml_concat t("classifications.hierarchies.this_page")
-    elsif (page && image = page.medium)
+    elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(link_to(image_tag(image.small_icon_url, class: 'ui avatar image'), page)) if page.should_show_icon?
       haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     end
