@@ -123,6 +123,7 @@ class Page < ActiveRecord::Base
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
+      dh_scientific_names: dh_scientific_names, # NOTE: IMPLIES that this page is in the DH, too!
       scientific_name: ActionView::Base.full_sanitizer.sanitize(scientific_name),
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
@@ -169,6 +170,14 @@ class Page < ActiveRecord::Base
     else
       vernaculars.nonpreferred.map { |v| v.string }
     end
+  end
+
+  def dh_node
+    nodes.find { |n| n.resource_id == 1 }
+  end
+
+  def dh_scientific_names
+    dh_node&.scientific_names&.map { |n| n.canonical_form }&.uniq&.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
   end
 
   def providers
