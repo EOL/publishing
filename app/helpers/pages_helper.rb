@@ -180,7 +180,7 @@ module PagesHelper
     page = this_node.nil? ? @page : node.page
     haml_tag("div.item") do
       if (page.should_show_icon? && image = page.medium)
-        haml_concat(link_to(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'), page))
+        haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
         haml_tag("div.content") do
           classification_content(page, this_node, node, ancestors)
         end
