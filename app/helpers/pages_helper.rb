@@ -231,7 +231,7 @@ module PagesHelper
       end
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
-      haml_concat(link_to(image_tag(image.small_icon_url, class: 'ui mini image'), page)) if page.should_show_icon?
+      haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
     end
     haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     if page.nil?
