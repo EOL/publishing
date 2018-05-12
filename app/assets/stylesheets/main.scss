@@ -521,17 +521,20 @@ body {
   }
 }
 
+// TODO: Errr... resolve this. I've added the !importants because I "needed" to use semantic-ui's "search". PTB forgive
+// me for my sins!
 .nav-search {
   $margin-tb: 5px;
   $border-sz: 1px;
-  border: $border-sz solid $light-gray;
-  font-size: 13px;
-  height: $nav-height - 2 * $margin-tb - 2 * $border-sz;
-  margin: $margin-tb 0;
-  padding: 0 24px 0 4px;
-  text-align: right;
-  vertical-align: middle;
-  width: 235px;
+  border: $border-sz solid $light-gray !important;
+  font-size: 13px !important;
+  height: $nav-height - 2 * $margin-tb - 2 * $border-sz !important;
+  margin: $margin-tb 0 !important;
+  padding: 0 24px 0 4px !important;
+  text-align: right !important;
+  vertical-align: middle !important;
+  width: 235px !important;
+  border-radius: 2px !important;
 }
 
 .nav-search-icon {

@@ -21,15 +21,13 @@ class PagesController < ApplicationController
     if params[:full]
       render json: full_results
     elsif params[:simple]
-      puts "*" * 120
-      puts "simple"
       simplified = full_results.map do |r|
-          name = r.native_node.canonical_form
+          name = r.name
           vern = r.preferred_vernacular_strings.first
           name += " (#{vern})" unless vern.blank?
-          { name: name, id: r.id }
+          { name: name, title: name, id: r.id, url: page_path(r.id) }
         end
-      pp simplified
+      simplified = { results: simplified } if params[:simple] == 'hash'
       render json: simplified
     else
       render json: {

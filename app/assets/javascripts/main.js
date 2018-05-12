@@ -390,6 +390,14 @@ if (!window.EOL) {
     $.each(eolReadyCbs, function(i, cb) {
       cb();
     });
+
+    $.fn.api.settings.api = {
+      'search': '/pages/autocomplete?simple=hash&query={query}'
+    };
+
+    $('.ui.search').search({
+      minCharacters: 2
+    });
   };
 }
 

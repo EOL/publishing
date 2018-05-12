@@ -14,10 +14,8 @@
         - else
           %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
           %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
-    -#
   - search = search_path rescue '/search_results'
-  -if !current_page?(search)
-    = form_tag search, :method => :get, :class => "nav-right" do
-      = text_field_tag "q", nil, :class => "nav-search"
+  - if !current_page?(search)
+    = form_tag search, :method => :get, :class => 'nav-right ui search' do
+      = text_field_tag 'q', nil, class: 'nav-search prompt', autocomplete: :off
       %i.fa.fa-search.fa-lg.nav-item.nav-search-icon
-

@@ -56,13 +56,13 @@ class Page < ActiveRecord::Base
 
   def self.autocomplete(query, options = {})
     search(query, options.reverse_merge({
-      fields: ["scientific_name^3", "preferred_vernacular_strings^5", "vernacular_strings^2", "synonyms^2"],
+      fields: ["dh_scientific_names^30", "preferred_scientific_names^5", "scientific_name^2", "preferred_vernacular_strings^5"],
       match: :text_start,
       limit: 10,
       load: false,
       misspellings: false,
       boost_by: { page_richness: { factor: 0.01 } },
-      where: { 'native_node.resource_id' => 1 }
+      where: { dh_scientific_names: { not: nil }}
     }))
   end
 
