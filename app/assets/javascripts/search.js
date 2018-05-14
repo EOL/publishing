@@ -75,7 +75,7 @@ $(function() {
 
   function toggleSelected() {
     // Don't allow last filter to be unselected
-    if (!$(this).hasClass('is-search-filter-type-active') || 
+    if (!$(this).hasClass('is-search-filter-type-active') ||
         $('.js-search-filter-type.is-search-filter-type-active').length > 1) {
       $(this).toggleClass('is-search-filter-type-active');
     }
@@ -115,7 +115,7 @@ $(function() {
   function restoreFilters() {
     $.each(Object.entries(selectedResultTypes), function(i, entry) {
       var $elmt = $filter.find('.search-filter-type[data-type="' + entry[0] + '"]');
-      
+
       if (entry[1]) {
         $elmt.addClass('is-search-filter-type-active');
       } else {
@@ -144,4 +144,13 @@ $(function() {
     });
     $(window).scroll(); // If there's no scrollbar, the next page will never load without this
   }
+
+  // TODO: next 2 paragraphs are duplicated with main.js ... extract.
+  $.fn.api.settings.api = {
+    'search': '/pages/autocomplete?simple=hash&query={query}'
+  };
+
+  $('.ui.search').search({
+    minCharacters: 3
+  });
 });

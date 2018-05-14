@@ -30,7 +30,7 @@ $filter-bar-row-height: $filter-bar-height / 2;
   top: $nav-height;
   width: 100%;
   z-index: 10;
-  
+
   & a {
     color: $white;
   }
@@ -38,7 +38,7 @@ $filter-bar-row-height: $filter-bar-height / 2;
 
 .filter-bar-row {
   $height: $filter-bar-row-height;
-  
+
   height: $height;
   line-height: $height;
 }
@@ -67,14 +67,16 @@ $filter-bar-row-height: $filter-bar-height / 2;
   }
 }
 
+// TODO: resolve all of the !importants by styling Semantic UI, which is why I put them here. :S Please forgive me!
 .filter-bar-input {
   background: none;
-  border: none;
-  color: inherit;
-  font-size: inherit;
-  height: $filter-bar-row-height;
-  text-align: center;
-  width: 100%;
+  border: none !important;
+  color: inherit !important;
+  font-size: inherit !important;
+  height: $filter-bar-row-height !important;
+  text-align: center !important;
+  width: 100% !important;
+  border-radias: 0 !important;
 }
 
 .search-results {
@@ -137,4 +139,3 @@ $filter-type-space: 7px;
     display: inline;
   }
 }
-

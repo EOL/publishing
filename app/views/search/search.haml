@@ -1,7 +1,7 @@
 .filter-bar
   .filter-bar-row.filter-bar-row-top
-    = form_tag(search_path, { :method => "get", :autocomplete => :off }) do
-      = text_field_tag("q", nil, :class => "filter-bar-input", :size => 16, :value => @q)
+    = form_tag(search_path, method: 'get', autocomplete: :off, class: 'ui search') do
+      = text_field_tag('q', nil, class: 'filter-bar-input', size: 16, value: @q)
   .filter-bar-row
     .filter-bar-filters>
       .js-search-filter-bar
@@ -33,4 +33,3 @@
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_users", :results => @users}
   .overlay-btn.js-apply-filter-btn apply filters
-
