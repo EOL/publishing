@@ -396,7 +396,7 @@ if (!window.EOL) {
     };
 
     $('.ui.search').search({
-      minCharacters: 2
+      minCharacters: 3
     });
   };
 }

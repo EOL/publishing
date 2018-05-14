@@ -61,6 +61,7 @@ class Page < ActiveRecord::Base
       limit: 10,
       load: false,
       misspellings: false,
+      highlight: { tag: "<mark>", encoder: "html" },
       boost_by: { page_richness: { factor: 0.01 } },
       where: { dh_scientific_names: { not: nil }}
     }))

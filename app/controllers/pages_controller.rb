@@ -22,9 +22,8 @@ class PagesController < ApplicationController
       render json: full_results
     elsif params[:simple]
       simplified = full_results.map do |r|
-          name = r.name
-          vern = r.preferred_vernacular_strings.first
-          name += " (#{vern})" unless vern.blank?
+          field = r['highlight']&.first&.first&.split('.').first
+          name = r.send(field) || r.scientific_name
           { name: name, title: name, id: r.id, url: page_path(r.id) }
         end
       simplified = { results: simplified } if params[:simple] == 'hash'
