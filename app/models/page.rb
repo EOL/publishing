@@ -54,19 +54,6 @@ class Page < ActiveRecord::Base
 
   delegate :ancestors, to: :native_node
 
-  def self.autocomplete(query, options = {})
-    search(query, options.reverse_merge({
-      fields: ["dh_scientific_names^30", "preferred_scientific_names^5", "scientific_name^2", "preferred_vernacular_strings^5"],
-      match: :text_start,
-      limit: 10,
-      load: false,
-      misspellings: false,
-      highlight: { tag: "<mark>", encoder: "html" },
-      boost_by: { page_richness: { factor: 0.01 } },
-      where: { dh_scientific_names: { not: nil }}
-    }))
-  end
-
   # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
   # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
   # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
@@ -125,6 +112,19 @@ class Page < ActiveRecord::Base
       end
       Page.where(id: bad_pages).delete_all
     end
+  end
+
+  def self.autocomplete(query, options = {})
+    search(query, options.reverse_merge({
+      fields: ['dh_scientific_names^30', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+      match: :text_start,
+      limit: 10,
+      load: false,
+      misspellings: false,
+      highlight: { tag: "<mark>", encoder: "html" },
+      boost_by: { page_richness: { factor: 0.01 } },
+      where: { dh_scientific_names: { not: nil }}
+    }))
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of

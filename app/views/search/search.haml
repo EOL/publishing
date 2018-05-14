@@ -1,13 +1,14 @@
 .filter-bar
   .filter-bar-row.filter-bar-row-top
     = form_tag(search_path, method: 'get', autocomplete: :off, class: 'ui search') do
-      = text_field_tag('q', nil, class: 'filter-bar-input', size: 16, value: @q)
+      = text_field_tag('q', nil, class: 'prompt filter-bar-input', size: 16, value: @q)
   .filter-bar-row
     .filter-bar-filters>
       .js-search-filter-bar
         %span= t("search.filter_n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
     .filter-bar-advanced>
       = link_to t("advanced"), term_search_path
+
 %ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
   = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
 = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do

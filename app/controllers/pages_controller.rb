@@ -24,6 +24,10 @@ class PagesController < ApplicationController
       simplified = full_results.map do |r|
           field = r['highlight']&.first&.first&.split('.').first
           name = r.send(field) || r.scientific_name
+          if name.is_a?(Array)
+            first_hit = name.grep(/#{params[:query]}/i)&.first
+            name = first_hit || name.first
+          end
           { name: name, title: name, id: r.id, url: page_path(r.id) }
         end
       simplified = { results: simplified } if params[:simple] == 'hash'

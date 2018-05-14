@@ -41,6 +41,10 @@ $filter-bar-row-height: $filter-bar-height / 2;
 
   height: $height;
   line-height: $height;
+
+  .results {
+    width: 100% !important;
+  }
 }
 
 .filter-bar-row-top {
@@ -86,7 +90,6 @@ $filter-bar-row-height: $filter-bar-height / 2;
   margin: $filter-bar-height 0 0 0;
   padding: 0;
 }
-
 
 /* search filter overlay */
 $filter-type-width: 230px;

@@ -1,32 +1,28 @@
 $(function() {
   // constants
-  var resultTypeOrder = [ 'pages', 'images', 'videos', 'sounds', 'articles', 'collections', 'users' ]
-    , firstPageIndex = 1
-    , nextPageScrollThreshold = 300
-    , minAutocompleteLen = 3
-    ;
+  var resultTypeOrder = ['pages', 'images', 'videos', 'sounds', 'articles', 'collections', 'users'],
+    firstPageIndex = 1,
+    nextPageScrollThreshold = 300,
+    minAutocompleteLen = 3;
 
   // jquery
-  var $suggestionsContainer = $('#search-sug-cont')
-    , $searchInput = $('.search-input')
-    , $filterBar = $('.js-search-filter-bar')
-    , $filter = $('.js-search-filter-types')
-    , $filterItem = $filter.find('.js-search-filter-type')
-    , $resultContainer = $('.js-search-results')
-    , $results = $resultContainer.find('.js-search-result')
-    , $addToColIcon = $resultContainer.find('.search-result-icon-plus')
-    ;
+  var $suggestionsContainer = $('#search-sug-cont'),
+    $searchInput = $('.search-input'),
+    $filterBar = $('.js-search-filter-bar'),
+    $filter = $('.js-search-filter-types'),
+    $filterItem = $filter.find('.js-search-filter-type'),
+    $resultContainer = $('.js-search-results'),
+    $results = $resultContainer.find('.js-search-result'),
+    $addToColIcon = $resultContainer.find('.search-result-icon-plus');
 
   // state
-  var autocompletePath = $suggestionsContainer.data('path')
-    , queryCount = 0
-    , resultTypeIndex
-    , selectedResultTypes = buildSelectedResultTypes()
-    , pageIndex = firstPageIndex
-    , query = $resultContainer.data('query')
-    , pagePath = $resultContainer.data('pagePath')
-    , loadingPage = false
-    ;
+  var autocompletePath = $suggestionsContainer.data('path'),
+    queryCount = 0,
+    resultTypeIndex, selectedResultTypes = buildSelectedResultTypes(),
+    pageIndex = firstPageIndex,
+    query = $resultContainer.data('query'),
+    pagePath = $resultContainer.data('pagePath'),
+    loadingPage = false;
 
   function buildSelectedResultTypes() {
     var selectedResultTypes = {};
@@ -46,10 +42,9 @@ $(function() {
     var changed = false;
 
     $filterItem.each(function(i, filter) {
-      var selected = $(filter).hasClass('is-search-filter-type-active')
-        , type = $(filter).data('type')
-        , curSelected = selectedResultTypes[type]
-        ;
+      var selected = $(filter).hasClass('is-search-filter-type-active'),
+        type = $(filter).data('type'),
+        curSelected = selectedResultTypes[type];
 
       if (curSelected !== selected) {
         changed = true;
@@ -76,7 +71,7 @@ $(function() {
   function toggleSelected() {
     // Don't allow last filter to be unselected
     if (!$(this).hasClass('is-search-filter-type-active') ||
-        $('.js-search-filter-type.is-search-filter-type-active').length > 1) {
+      $('.js-search-filter-type.is-search-filter-type-active').length > 1) {
       $(this).toggleClass('is-search-filter-type-active');
     }
   }
@@ -84,7 +79,7 @@ $(function() {
   function loadNextPage() {
     var selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
 
-    while(resultTypeIndex < resultTypeOrder.length - 1 && !selectedResultTypeFound) {
+    while (resultTypeIndex < resultTypeOrder.length - 1 && !selectedResultTypeFound) {
       resultTypeIndex++;
       selectedResultTypeFound = selectedResultTypes[resultTypeOrder[resultTypeIndex]];
     }
@@ -144,13 +139,4 @@ $(function() {
     });
     $(window).scroll(); // If there's no scrollbar, the next page will never load without this
   }
-
-  // TODO: next 2 paragraphs are duplicated with main.js ... extract.
-  $.fn.api.settings.api = {
-    'search': '/pages/autocomplete?simple=hash&query={query}'
-  };
-
-  $('.ui.search').search({
-    minCharacters: 3
-  });
 });
