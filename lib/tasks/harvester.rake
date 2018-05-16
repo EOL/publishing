@@ -424,7 +424,7 @@ def delete_attribution_media(params)
 end
 
 def create_vernacular(params)
-  res = Vernacular.where(string: params[:string], node_id: params[:node_id])
+  res = Vernacular.where(string: params[:string], node_id: params[:node_id], language_id: params[:language_id])
   if res.count > 0
     res.first.id
   else
@@ -441,19 +441,19 @@ def create_vernacular(params)
 end
 
 def delete_vernacular(params)
-  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id])
+  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id], language_id: params[:language_id])
   if vernacular.count > 0
     vernacular.first.destroy
   end
 end
 
 def update_vernacular(params)
-  vernacular_attributes = {  language_id: params[:language_id] , page_id: params[:page_id], resource_id: params[:resource_id] }
+  vernacular_attributes = { page_id: params[:page_id], resource_id: params[:resource_id] }
   unless params[:is_preferred_by_resource].nil?
     vernacular_attributes[:is_preferred_by_resource] = params[:is_preferred_by_resource]
   end
     
-  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id])
+  vernacular = Vernacular.where(string: params[:string], node_id: params[:node_id],language_id: params[:language_id])
   if vernacular.count > 0
     vernacular.first.update(vernacular_attributes)
   end

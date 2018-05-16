@@ -22,6 +22,10 @@
 set :environment, "development"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
-every 1.day, :at => '8:25 am' do
+every 1.day, :at => '3:05 pm' do
   rake "harvester:get_latest_updates"
+  
+# every 2.minutes do
+  # rake "harvester:get_latest_updates"
 end
+
