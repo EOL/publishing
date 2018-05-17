@@ -167,6 +167,7 @@ class PagesController < ApplicationController
   def data
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     @resources = TraitBank.resources(@page.data)
+    get_associations
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}

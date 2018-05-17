@@ -59,9 +59,8 @@ module DataHelper
           parts << name_for_page(target)
         end
       else
-        # TODO: log
-        #haml_concat "MISSING PAGE: "
-        #haml_concat value
+        Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
+        parts << name_for_page(Page.find(data[:object_page_id]))
       end
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
