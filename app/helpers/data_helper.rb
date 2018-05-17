@@ -82,7 +82,7 @@ module DataHelper
     value = data_value(data)
 
     haml_tag_if(data[:object_term], ".a") do
-      haml_concat value
+      haml_concat value.html_safe # Traits allow HTML.
     end
   end
 
