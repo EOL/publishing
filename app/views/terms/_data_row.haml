@@ -12,7 +12,7 @@
 
   .trait-source= show_source_segment(trait)
   .trait-data
-    - if page
+    - if show_taxon && page
       = link_to(page.scientific_name.html_safe, page)
     %div
       .trait-pred.term-info-a.a= predicate[:name]
