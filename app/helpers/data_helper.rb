@@ -51,17 +51,17 @@ module DataHelper
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
     if (target_id = data[:object_page_id])
-      if defined?(@associations)
+      page = if defined?(@associations)
         target = @associations.find { |a| a.id == target_id }
-        if target.nil?
-          # TODO: log something?
-        else
+        if target
           parts << name_for_page(target)
         end
-      else
-        Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
-        parts << name_for_page(Page.find(data[:object_page_id]))
       end
+      unless page
+        Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
+        page = Page.find(data[:object_page_id])
+      end
+      parts << link_to(name_for_page(page), pages_path(page))
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
       parts << value
