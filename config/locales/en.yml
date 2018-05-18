@@ -143,7 +143,7 @@ en:
   confirm_new_password: "Confirm new password"
   content_appears_on: "Included On The Following Pages:"
   content_collected_in: "Featured In The Following Collections:"
-  content_associations: "Taxa Shown"
+  content_associations: "Taxon Links"
   content_attributions_header: "Source Information"
   content_attributions_labels:
     altitude: "altitude"

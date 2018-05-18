@@ -22,7 +22,7 @@
             %p= @medium.description.html_safe
         .attribution.uk-width-1-3
           %h3= t(:content_associations)
-          %ul
+          %ul.appears-on
             - @medium.source_pages.each do |page|
               %li= link_to_page_by_name(page)
           - icon_count = @medium.page_icons.count
