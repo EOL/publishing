@@ -31,7 +31,7 @@
             %ul
               %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
           %h3= t(:content_appears_on)
-          %ul.appears_on
+          %ul.appears-on
             - @medium.page_contents.map(&:page).compact.sort_by(&:scientific_name).each do |page|
               %li= link_to(page.scientific_name.html_safe, page)
           - collections = @medium.collections.compact.sort_by(&:name)
@@ -39,7 +39,7 @@
             %p= t(:content_not_in_any_collection)
           - else
             %h3= t(:content_collected_in)
-            %ul.appears_on
+            %ul.appears-on
               - collections.each do |collection|
                 %li= link_to(collection.name, collection)
 
