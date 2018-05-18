@@ -73,6 +73,18 @@ module ApplicationHelper
     end
   end
 
+  def link_to_page_canonical(page)
+    link_to(name_for_page_canonical(page), page)
+  end
+
+  def name_for_page_canonical(page)
+    if page.scientific_name == page.name
+      page.canonical.html_safe
+    else
+      "#{page.canonical} (#{page.name})".html_safe
+    end
+  end
+
   # I kinda hate that I'm using instance variables, here, but it makes it much
   # simpler for the views that already have them.
   def set_term_search_instance_variables_from_options(options)
