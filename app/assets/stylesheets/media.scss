@@ -1,0 +1,13 @@
+@import "colors";
+
+.appears-on {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    border: 1px solid $eol-gray;
+    margin: -1px 0 0 0;
+    padding: 2px 8px;
+  }
+}
