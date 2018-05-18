@@ -3,7 +3,7 @@
 - if node.children.any?
   .ui.segment{ id: "page-children-#{node.id}"}
     %h4.ui.header= t("classifications.children.header", name: @page.short_name).html_safe
-    .ui.middle.aligned.animated.list
+    .ui.middle.aligned.list
       - node.children[0..limit-1].each do |child|
         .item
           - summarize(child.page, current_page: false, node: child)

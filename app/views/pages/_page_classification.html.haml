@@ -17,7 +17,7 @@
             - summarize(@page, current_page: true, node: node)
             - if node.children.any?
               .item
-                .ui.middle.aligned.animated.list
+                .ui.middle.aligned.list
                   - node.children.each do |child|
                     .item
                       - summarize(child.page, current_page: false, node: child)

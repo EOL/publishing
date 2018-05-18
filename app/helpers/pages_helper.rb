@@ -197,7 +197,7 @@ module PagesHelper
         classification(nil, [this_node])
         if this_node.children.any?
           haml_tag("div.item") do
-            haml_tag("div.ui.middle.aligned.animated.list.descends") do
+            haml_tag("div.ui.middle.aligned.list.descends") do
               this_node.children.each do |child|
                 haml_tag("div.item") do
                   if (child.page.should_show_icon? && this_node && image = child.page.medium)
