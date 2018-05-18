@@ -36,7 +36,7 @@
               %li= link_to_page_canonical(page)
           - collections = @medium.collections.compact.sort_by(&:name)
           - if collections.empty?
-            %p= t(:content_not_in_any_collection)
+            %p= medium_not_in_collection_text(@medium)
           - else
             %h3= t(:content_collected_in)
             %ul
