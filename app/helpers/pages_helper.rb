@@ -52,80 +52,83 @@ module PagesHelper
   end
 
   def construct_summary(page)
-    # TEMP: return "" unless is_allowed_summary?(page)
+    Rails.cache.fetch("constructed_summary/#{page.id}") do
+      cached_summary(page)
+    end
+  end
+
+  def cached_summary(page)
     group = nearest_landmark(page)
     return "" unless group
-    Rails.cache.fetch("constructed_summary/#{page.id}") do
-      my_rank = page.rank.try(:name) || "taxon"
-      node = page.native_node || page.nodes.first
-      ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
-      # taxonomy sentence...
-      str = if page.name == page.scientific_name
-        page.name
-      elsif page.scientific_name =~ /#{page.name}/
-        # Sometimes the "name" is part of the scientific name, and it looks really weird to double up.
-        page.scientific_name
-      else
-        "#{page.scientific_name} (#{page.name})"
-      end
-      # A1: There will be nodes in the dynamic hierarchy that will be flagged as
-      # A1 taxa. If there are vernacularNames associated with the page of such a
-      # taxon, use the preferred vernacularName. If not use the scientificName
-      # from dynamic hierarchy. If the name starts with a vowel, it should be
-      # preceded by an, if not it should be preceded by a.
-      # A2: There will be nodes in the dynamic hierarchy that will be flagged as
-      # A2 taxa. Use the scientificName from dynamic hierarchy.
-      if true # TEMP fix for broken stuff below:
-        str += " is in the group #{group}. "
-      else # THIS STUFF BROKE WITH THE LATEST DYNAMIC HIERARCHY. We'll fix it later.
-        if ancestors[0]
-          if is_family?(page)
-            # [name] ([common name]) is a family of [A1].
-            str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
-          elsif is_higher_level_clade?(page) && ancestors[-2]
-            # [name] ([common name]) is a genus in the [A1] [rank] [A2].
-            str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
-          else
-            # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
-            str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
-            if ancestors[-2] && ancestors[-2] != ancestors[0]
-              str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
-            end
-            str += "."
+    my_rank = page.rank.try(:name) || "taxon"
+    node = page.native_node || page.nodes.first
+    ancestors = node.ancestors.select { |a| a.has_breadcrumb? }
+    # taxonomy sentence...
+    str = if page.name == page.scientific_name
+      page.name
+    elsif page.scientific_name =~ /#{page.name}/
+      # Sometimes the "name" is part of the scientific name, and it looks really weird to double up.
+      page.scientific_name
+    else
+      "#{page.scientific_name} (#{page.name})"
+    end
+    # A1: There will be nodes in the dynamic hierarchy that will be flagged as
+    # A1 taxa. If there are vernacularNames associated with the page of such a
+    # taxon, use the preferred vernacularName. If not use the scientificName
+    # from dynamic hierarchy. If the name starts with a vowel, it should be
+    # preceded by an, if not it should be preceded by a.
+    # A2: There will be nodes in the dynamic hierarchy that will be flagged as
+    # A2 taxa. Use the scientificName from dynamic hierarchy.
+    if true # TEMP fix for broken stuff below:
+      str += " is in the group #{group}. "
+    else # THIS STUFF BROKE WITH THE LATEST DYNAMIC HIERARCHY. We'll fix it later.
+      if ancestors[0]
+        if is_family?(page)
+          # [name] ([common name]) is a family of [A1].
+          str += " is #{a_or_an(my_rank)} of #{ancestors[0].name}."
+        elsif is_higher_level_clade?(page) && ancestors[-2]
+          # [name] ([common name]) is a genus in the [A1] [rank] [A2].
+          str += " is #{a_or_an(my_rank)} in the #{ancestors[0].name} #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}."
+        else
+          # [name] ([common name]) is a[n] [A1] in the [rank] [A2].
+          str += " #{is_or_are(page)} #{a_or_an(ancestors[0].name.singularize)}"
+          if ancestors[-2] && ancestors[-2] != ancestors[0]
+            str += " in the #{rank_or_clade(ancestors[-2])} #{ancestors[-2].scientific_name}"
           end
+          str += "."
         end
       end
-      # Number of species sentence:
-      if is_higher_level_clade?(page)
-        count = page.species_count
-        str += " It has #{count} species."
-      end
-      # Extinction status sentence:
-      if page.is_it_extinct?
-        str += " This #{my_rank} is extinct."
-      end
-      # Environment sentence:
-      if ! is_higher_level_clade?(page) && page.is_it_marine?
-        str += " It is marine."
-      end
-      # Distribution sentence:
-      unless page.habitats.blank?
-        str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
-        # TEMP: SKIP for now...
-        # if is_family?(page)
-        #   # Do nothing.
-        # elsif is_genus?(page)
-        #   str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
-        # else
-        #   str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
-        # end
-      end
-      bucket = page.id.to_s[0]
-      summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
-      summaries << page.id
-      Rails.cache.write("constructed_summaries/#{bucket}", summaries)
-      str.html_safe
     end
+    # Number of species sentence:
+    if is_higher_level_clade?(page)
+      count = page.species_count
+      str += " It has #{count} species."
+    end
+    # Extinction status sentence:
+    if page.is_it_extinct?
+      str += " This #{my_rank} is extinct."
+    end
+    # Environment sentence:
+    if ! is_higher_level_clade?(page) && page.is_it_marine?
+      str += " It is marine."
+    end
+    # Distribution sentence:
+    unless page.habitats.blank?
+      str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+      # TEMP: SKIP for now...
+      # if is_family?(page)
+      #   # Do nothing.
+      # elsif is_genus?(page)
+      #   str += " #{page.scientific_name} #{is_or_are(page)} found in #{page.habitats.split(", ").sort.to_sentence}."
+      # else
+      #   str += " It is found in #{page.habitats.split(", ").sort.to_sentence}."
+      # end
+    end
+    bucket = page.id.to_s[0]
+    summaries = Rails.cache.read("constructed_summaries/#{bucket}") || []
+    summaries << page.id
+    Rails.cache.write("constructed_summaries/#{bucket}", summaries)
+    str
   end
 
   def rank_or_clade(node)

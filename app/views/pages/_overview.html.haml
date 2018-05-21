@@ -1,4 +1,4 @@
-- summary = construct_summary(@page)
+- summary = cached_summary(@page).html_safe
 
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
