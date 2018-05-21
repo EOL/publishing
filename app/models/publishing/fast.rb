@@ -6,6 +6,24 @@ class Publishing::Fast
     publr.by_resource
   end
 
+  # e.g.: Publishing::Fast.load_local_file(Resource.first, NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
+  def self.load_local_file(resource, klass, file)
+    publr = new(resource)
+    publr.load_local_file(file)
+  end
+
+  def load_local_file(klass, file)
+    @klass = klass
+    @data_file = file
+    log_start("One-shot manual import of #{@klass} starting...")
+    @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
+    log_start("#import #{@klass}")
+    import
+    log_start("#propagate_ids #{@klass}")
+    propagate_ids
+    log_start("One-shot manual import of #{@klass} COMPLETED.")
+  end
+
   def initialize(resource)
     @start_at = Time.now
     @resource = resource
@@ -26,12 +44,12 @@ class Publishing::Fast
       ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
+    @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
   end
 
   def by_resource
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
     abort_if_already_running
-    @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
     begin
       unless exists?('nodes')
         raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")

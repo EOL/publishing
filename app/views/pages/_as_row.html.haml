@@ -75,7 +75,7 @@
             = others
 
       - else # (no query string)
-        - if summary = construct_summary(page)
+        - if summary = cached_summary(page).html_safe
           .uk-margin-small-top= summary
       - unless media.empty?
         .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
