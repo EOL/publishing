@@ -1,12 +1,11 @@
 class MediaContentCreator
-  def self.by_resource(resource, log, id = nil)
+  def self.by_resource(resource, log = nil, id = nil)
     self.new(resource, log, start: id).by_resource
   end
 
-  def initialize(resource, log, options = {})
+  def initialize(resource, log = nil, options = {})
     @resource = resource
-    @log = log
-    @log ||= ImportLog.where(resource_id: @resource.id).last
+    @log = log || ImportLog.where(resource_id: @resource.id).last
     @options = options
   end
 
