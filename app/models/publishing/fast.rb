@@ -44,12 +44,12 @@ class Publishing::Fast
       ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
+    abort_if_already_running
     @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
   end
 
   def by_resource
     @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
-    abort_if_already_running
     begin
       unless exists?('nodes')
         raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
