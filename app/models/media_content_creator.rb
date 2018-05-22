@@ -31,16 +31,27 @@ class MediaContentCreator
         @log.log("Batch #{number}/#{num_batches}...", cat: :infos)
         reset_batch
         learn_ancestry(batch)
+        # TEMP: we're putting images at the bottom now so we count how many images per page...
+        count_images_in(batch)
         batch.each do |content|
           add_content(content.page_id, content)
           add_ancestry_content(content)
         end
-        push_pages_down
+        # TEMP: we're putting images at the bottom now - push_pages_down
         import_contents
         update_naked_pages if k == Medium
       end
     end
     fix_counter_culture_counts
+  end
+
+  def count_images_in(batch)
+    pages = batch.map(&:page_id).compact.uniq
+    pages -= @content_count_by_page.keys
+    counts = PageContent.where(page_id: pages).group('page_id').count
+    pages.each do |page_id|
+      @content_count_by_page[page_id] = counts[page_id] || 0
+    end
   end
 
   def learn_ancestry(batch)
