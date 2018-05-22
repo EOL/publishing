@@ -6,6 +6,7 @@ class MediaContentCreator
   def initialize(resource, log, options = {})
     @resource = resource
     @log = log
+    @log ||= ImportLog.where(resource_id: @resource.id).last
     @options = options
   end
 
