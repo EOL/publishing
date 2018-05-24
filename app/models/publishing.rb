@@ -1,25 +1,36 @@
 class Publishing
-  attr_accessor :resource, :resources, :log, :pages, :run, :last_run_at, :since, :nodes, :ancestors, :identifiers,
-    :names, :verns, :traits, :traitbank_pages, :traitbank_suppliers, :traitbank_terms, :tax_stats,
-    :languages, :licenses
+  attr_accessor :log, :run, :last_run_at
 
   def self.sync(options = {})
     instance = self.new(options)
     instance.sync
   end
 
+  def self.get_terms_since(time, options)
+    instance = self.new(options)
+    instance.get_terms_since(time)
+  end
+
   def initialize(options)
-    @resource = nil
     @pub_log = Publishing::PubLog.new(nil)
     @log = nil
     @repo = nil
-    @resources = []
     @page_ids = Set.new
     @skip_known_terms = options.key?(:skip_known_terms) ? options[:skip_known_terms] : false
-    @since = (@resource&.import_logs&.successful&.any? ?
-      @resource.import_logs.successful.last.created_at :
-      10.years.ago).to_i
     @last_run_at = options[:last_run_at].to_i if options.key?(:last_run_at)
+  end
+
+  def get_terms_since(time)
+    @last_run_at = time.to_i
+    begin
+      @pub_log.log("Syncing TERMS with repository...")
+      get_import_run
+      import_terms
+      @pub_log.log('Sync TERMS with repository complete.', cat: :ends)
+      @run.update_attribute(:completed_at, Time.now)
+    ensure
+      ImportLog.all_clear!
+    end
   end
 
   def sync
@@ -73,7 +84,6 @@ class Publishing
       resource[:partner_id] = partner.id
       resource = find_and_update_or_create(Resource, resource)
       @pub_log.log("New/updated resource: #{resource[:name]}")
-      @resources << resource
     end
   end
 

@@ -43,6 +43,10 @@ class MediaContentCreator
       end
     end
     fix_counter_culture_counts
+    if @options[:start]
+      @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
+        ' Also, technically, the temp files should be removed.', cat: :warns)
+    end
   end
 
   def count_images_in(batch)
