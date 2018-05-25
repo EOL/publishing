@@ -6,7 +6,7 @@ class Publishing
     instance.sync
   end
 
-  def self.get_terms_since(time, options)
+  def self.get_terms_since(time, options = {})
     instance = self.new(options)
     instance.get_terms_since(time)
   end

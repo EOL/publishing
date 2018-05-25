@@ -75,7 +75,7 @@ class Publishing::Fast
       begin
         publish_traits
       rescue => e
-        log_warn("Trait Publishing failed: {#{e.message}}<--#{e.backtrace[-2..-1].join('<--')}")
+        log_warn("Trait Publishing failed: #{e.message}")
       end
       # TODO: you also have to do associations (but not here; on the other repo)!
       log_start('PageCreator')
