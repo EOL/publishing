@@ -182,7 +182,7 @@ class Resource < ActiveRecord::Base
   def fix_native_nodes
     node_ids = Node.where(resource_id: id).pluck(:id)
     node_ids.in_groups_of(1000, false) do |group|
-      Page.fix_native_nodes(Page.where(native_node_id: group))
+      Page.fix_missing_native_nodes(Page.where(native_node_id: group))
     end
   end
 

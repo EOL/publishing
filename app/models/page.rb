@@ -57,26 +57,31 @@ class Page < ActiveRecord::Base
   # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
   # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
   # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
-  def self.fix_missing_native_nodes
+  def self.fix_all_missing_native_nodes
     start = 1 # Don't bother checking minimum, this is always 1.
     upper = maximum(:id)
     batch_size = 10_000
     while start < upper
-      where("pages.id >= #{start} AND pages.id < #{start + batch_size}").joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL').includes(:nodes).find_each do |page|
-            if page.nodes.empty?
-              # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-              page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
-            else
-              page.update_attribute(:native_node_id, page.nodes.first.id)
-            end
-          end
+      fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
       start += batch_size
+    end
+  end
+
+  def self.fix_missing_native_nodes(scope)
+    pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
+    pages.includes(:nodes).find_each do |page|
+      if page.nodes.empty?
+        # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
+        page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+      else
+        page.update_attribute(:native_node_id, page.nodes.first.id)
+      end
     end
   end
 
   # Sometimes pages CAN be in the DH, but for several reasons, AREN'T. This fixes that, because we prefer DH if
   # its available (and it's a bit too computationally expensive to look for it every time):
-  def self.fix_non_dh_native_nodes
+  def self.fix_missing_native_nodes
     count = 0
     Page.includes(:nodes).find_each do |page|
       if (page.dh_node && page.dh_node.id != page.native_node_id)

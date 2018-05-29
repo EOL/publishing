@@ -39,7 +39,7 @@ class PageCreator
     log.log('Fixing native nodes...')
     bad_natives = Page.where(native_node_id: nil, id: missing).pluck(:id)
     bad_natives.in_groups_of(10_000, false) do |group|
-      Page.fix_native_nodes(Page.where(native_node_id: nil, id: group))
+      Page.fix_missing_native_nodes(Page.where(native_node_id: nil, id: group))
     end
     # TODO: Fix counter-culture counts on affected pages. :\
   end
