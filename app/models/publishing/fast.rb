@@ -49,13 +49,16 @@ class Publishing::Fast
   end
 
   def by_resource
-    @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
+    unless @resource.nodes.count.zero? # slow, skip if not needed.
+      log = @resource.remove_content
+      @log = Publishing::PubLog.new(@resource)
+      log.each { |msg| log_warn(msg) }
+      log_warn('All existing content has been destroyed for the resource.')
+    end
     begin
       unless exists?('nodes')
         raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
-      log_start('#remove_content')
-      log_warn('All existing content has been destroyed for the resource.')
       files = []
       @relationships.each_key do |klass|
         @klass = klass

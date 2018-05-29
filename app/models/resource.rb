@@ -94,10 +94,11 @@ class Resource < ActiveRecord::Base
   # NOTE: this does NOT remove TraitBank content (because there are cases where you want to reload the relational DB but
   # leave the expensive traits in place) Run TraitBank::Admin.remove_for_resource(resource) to accomplish that.
   def remove_content
+    log = []
     # Node ancestors
-    nuke(NodeAncestor)
+    log << nuke(NodeAncestor)
     # Node identifiers
-    nuke(Identifier)
+    log << nuke(Identifier)
     # content_sections
     [Medium, Article, Link].each do |klass|
       all_pages = klass.where(resource_id: id).pluck(:page_id)
@@ -115,14 +116,14 @@ class Resource < ActiveRecord::Base
       end
     end
     # javascripts
-    nuke(Javascript)
+    log << nuke(Javascript)
     # locations
-    nuke(Location)
+    log << nuke(Location)
     # Bibliographic Citations
-    nuke(BibliographicCitation)
+    log << nuke(BibliographicCitation)
     # references, referents
-    nuke(Reference)
-    nuke(Referent)
+    log << nuke(Reference)
+    log << nuke(Referent)
     fix_missing_page_contents(delete: true)
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
@@ -133,36 +134,45 @@ class Resource < ActiveRecord::Base
       # t.integer  "species_count",          limit: 4,   default: 0,     null: false
 
     # Media, image_info
-    nuke(ImageInfo)
-    nuke(ImportLog)
-    nuke(Medium)
+    log << nuke(ImageInfo)
+    log << nuke(ImportLog)
+    log << nuke(Medium)
     # Articles
-    nuke(Article)
+    log << nuke(Article)
     # Links
-    nuke(Link)
+    log << nuke(Link)
     # occurrence_maps
-    nuke(OccurrenceMap)
+    log << nuke(OccurrenceMap)
     # Scientific Names
-    nuke(ScientificName)
+    log << nuke(ScientificName)
     # Vernaculars
-    nuke(Vernacular)
+    log << nuke(Vernacular)
     # Attributions
-    nuke(Attribution)
+    log << nuke(Attribution)
     # Traits:
-    TraitBank::Admin.remove_for_resource(self)
+    count = TraitBank.count_by_resource(id)
+    if count.zero?
+      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping."
+    else
+      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits"
+      TraitBank::Admin.remove_for_resource(self)
+    end
     # Update page node counts
     # Get list of affected pages
+    log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts..."
     pages = Node.where(resource_id: id).pluck(:page_id)
     pages.in_groups_of(10_000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
-    nuke(Node)
+    log << nuke(Node)
     # You should run something like #fix_native_nodes (q.v.), but it's slow, so it's the responsibility of the caller to
     # do it if desired.
+    log
   end
 
   def nuke(klass)
-    klass.where(resource_id: id).delete_all
+    count = klass.where(resource_id: id).delete_all
+    "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
   rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
