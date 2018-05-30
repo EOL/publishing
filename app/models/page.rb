@@ -125,6 +125,7 @@ class Page < ActiveRecord::Base
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     pref_verns = verns if pref_verns.empty?
+    anc_ids = ancestry_ids
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
@@ -136,7 +137,8 @@ class Page < ActiveRecord::Base
       preferred_vernacular_strings: pref_verns,
       vernacular_strings: verns,
       providers: providers,
-      ancestry_ids: ancestry_ids,
+      ancestry_ids: anc_ids,
+      depth: anc_ids.size,
       resource_pks: resource_pks,
       icon: icon,
       name: name,

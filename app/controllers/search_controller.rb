@@ -132,8 +132,9 @@ private
 
     @pages = if @types[:pages]
       fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 scientific_name^10 synonyms^10 providers resource_pks]
-      basic_search(Page, boost_by: { page_richness: { factor: 0.01 } }, match: :text_start,
-                         fields: fields, where: @clade ? { ancestry_ids: @clade.id } : nil,
+      match = words.size == 1 ? :text_start : :phrase
+      basic_search(Page, boost_by: [:page_richness], match: match, fields: fields,
+                         where: @clade ? { ancestry_ids: @clade.id } : nil,
                          includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }])
     else
       nil
