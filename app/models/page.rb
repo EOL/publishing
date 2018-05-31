@@ -151,7 +151,7 @@ class Page < ActiveRecord::Base
   end
 
   def specificity
-    return 0 if dh_scientific_names.empty?
+    return 0 if dh_scientific_names.nil? || dh_scientific_names.empty?
     sum = dh_scientific_names&.map do |name|
       case name.split.size
       when 1 # Genera or higher
