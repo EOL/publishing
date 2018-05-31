@@ -146,12 +146,13 @@ class Page < ActiveRecord::Base
       name: name,
       native_node_id: native_node_id,
       resource_ids: resource_ids,
-      rank_ids: nodes.map(&:rank_id).uniq.compact
+      rank_ids: nodes&.map(&:rank_id).uniq.compact
     }
   end
 
   def specificity
-    sum = dh_scientific_names.map do |name|
+    return 0 if dh_scientific_names.empty?
+    sum = dh_scientific_names&.map do |name|
       case name.split.size
       when 1 # Genera or higher
         1000
@@ -163,6 +164,7 @@ class Page < ActiveRecord::Base
         1
       end
     end
+    sum ||= 0
     sum.inject { |sum, el| sum + el }.to_f / dh_scientific_names.size
   end
 
