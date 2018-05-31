@@ -114,7 +114,7 @@ class Page < ActiveRecord::Base
       load: false,
       misspellings: false,
       highlight: { tag: "<mark>", encoder: "html" },
-      boost_by: { page_richness: { factor: 0.01 } },
+      boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 } },
       where: { dh_scientific_names: { not: nil }}
     }))
   end
@@ -126,12 +126,14 @@ class Page < ActiveRecord::Base
     pref_verns = preferred_vernacular_strings
     pref_verns = verns if pref_verns.empty?
     anc_ids = ancestry_ids
+    sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
       dh_scientific_names: dh_scientific_names, # NOTE: IMPLIES that this page is in the DH, too!
-      scientific_name: ActionView::Base.full_sanitizer.sanitize(scientific_name),
+      scientific_name: sci_name,
+      specificity: specificity,
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
@@ -146,6 +148,22 @@ class Page < ActiveRecord::Base
       resource_ids: resource_ids,
       rank_ids: nodes.map(&:rank_id).uniq.compact
     }
+  end
+
+  def specificity
+    sum = dh_scientific_names.map do |name|
+      case name.split.size
+      when 1 # Genera or higher
+        1000
+      when 2 # Species
+        100
+      when 3
+        10
+      else
+        1
+      end
+    end
+    sum.inject { |sum, el| sum + el }.to_f / dh_scientific_names.size
   end
 
   def synonyms
@@ -185,7 +203,8 @@ class Page < ActiveRecord::Base
   end
 
   def dh_scientific_names
-    dh_node&.scientific_names&.map { |n| n.canonical_form }&.uniq&.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
+    names = dh_node&.scientific_names&.map { |n| n.canonical_form }&.uniq
+    names&.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
   end
 
   def providers
