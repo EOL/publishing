@@ -44,18 +44,21 @@ class Publishing::Fast
       ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
+    abort_if_already_running
     @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
   end
 
   def by_resource
-    @resource.remove_content unless @resource.nodes.count.zero? # slow, skip if not needed.
-    abort_if_already_running
+    unless @resource.nodes.count.zero? # slow, skip if not needed.
+      log = @resource.remove_content
+      @log = Publishing::PubLog.new(@resource)
+      log.each { |msg| log_warn(msg) }
+      log_warn('All existing content has been destroyed for the resource.')
+    end
     begin
       unless exists?('nodes')
         raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
-      log_start('#remove_content')
-      log_warn('All existing content has been destroyed for the resource.')
       files = []
       @relationships.each_key do |klass|
         @klass = klass
@@ -75,7 +78,7 @@ class Publishing::Fast
       begin
         publish_traits
       rescue => e
-        log_warn("Trait Publishing failed: {#{e.message}}<--#{e.backtrace[-2..-1].join('<--')}")
+        log_warn("Trait Publishing failed: #{e.message}")
       end
       # TODO: you also have to do associations (but not here; on the other repo)!
       log_start('PageCreator')

@@ -57,34 +57,26 @@ class Page < ActiveRecord::Base
   # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
   # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
   # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
-  def self.fix_missing_native_nodes
+  def self.fix_all_missing_native_nodes
     start = 1 # Don't bother checking minimum, this is always 1.
     upper = maximum(:id)
     batch_size = 10_000
     while start < upper
-      where("pages.id >= #{start} AND pages.id < #{start + batch_size}").joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL').includes(:nodes).find_each do |page|
-            if page.nodes.empty?
-              # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-              page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
-            else
-              page.update_attribute(:native_node_id, page.nodes.first.id)
-            end
-          end
+      fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
       start += batch_size
     end
   end
 
-  # Sometimes pages CAN be in the DH, but for several reasons, AREN'T. This fixes that, because we prefer DH if
-  # its available (and it's a bit too computationally expensive to look for it every time):
-  def self.fix_non_dh_native_nodes
-    count = 0
-    Page.includes(:nodes).find_each do |page|
-      if (page.dh_node && page.dh_node.id != page.native_node_id)
-        count += 1
-        page.update_attribute(:native_node_id, page.dh_node.id)
+  def self.fix_missing_native_nodes(scope)
+    pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
+    pages.includes(:nodes).find_each do |page|
+      if page.nodes.empty?
+        # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
+        page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+      else
+        page.update_attribute(:native_node_id, page.nodes.first.id)
       end
     end
-    count
   end
 
   # TODO: abstract this to allow updates of the other count fields.
@@ -122,7 +114,7 @@ class Page < ActiveRecord::Base
       load: false,
       misspellings: false,
       highlight: { tag: "<mark>", encoder: "html" },
-      boost_by: { page_richness: { factor: 0.01 } },
+      boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
       where: { dh_scientific_names: { not: nil }}
     }))
   end
@@ -133,25 +125,47 @@ class Page < ActiveRecord::Base
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     pref_verns = verns if pref_verns.empty?
+    anc_ids = ancestry_ids
+    sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
       dh_scientific_names: dh_scientific_names, # NOTE: IMPLIES that this page is in the DH, too!
-      scientific_name: ActionView::Base.full_sanitizer.sanitize(scientific_name),
+      scientific_name: sci_name,
+      specificity: specificity,
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
       vernacular_strings: verns,
       providers: providers,
-      ancestry_ids: ancestry_ids,
+      ancestry_ids: anc_ids,
+      depth: anc_ids.size,
       resource_pks: resource_pks,
       icon: icon,
       name: name,
       native_node_id: native_node_id,
       resource_ids: resource_ids,
-      rank_ids: nodes.map(&:rank_id).uniq.compact
+      rank_ids: nodes&.map(&:rank_id).uniq.compact
     }
+  end
+
+  def specificity
+    return 0 if dh_scientific_names.nil? || dh_scientific_names.empty?
+    sum = dh_scientific_names&.map do |name|
+      case name.split.size
+      when 1 # Genera or higher
+        1000
+      when 2 # Species
+        100
+      when 3
+        10
+      else
+        1
+      end
+    end
+    sum ||= 0
+    sum.inject { |sum, el| sum + el }.to_f / dh_scientific_names.size
   end
 
   def synonyms
@@ -191,7 +205,8 @@ class Page < ActiveRecord::Base
   end
 
   def dh_scientific_names
-    dh_node&.scientific_names&.map { |n| n.canonical_form }&.uniq&.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
+    names = dh_node&.scientific_names&.map { |n| n.canonical_form }&.uniq
+    names&.map { |n| ActionView::Base.full_sanitizer.sanitize(n) }
   end
 
   def providers

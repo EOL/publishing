@@ -7,7 +7,7 @@ class ImportRun < ActiveRecord::Base
     Publishing::Fast.by_resource(Resource.last)
   end
 
-  def all_clear!
+  def self.all_clear!
     ImportRun.where(completed_at: nil).update_all(completed_at: Time.now)
     ImportLog.where(completed_at: nil, failed_at: nil).update_all(failed_at: Time.now, status: 'failed')
   end
