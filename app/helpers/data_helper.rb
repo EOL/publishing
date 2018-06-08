@@ -56,7 +56,7 @@ module DataHelper
         Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
         page = Page.find(data[:object_page_id])
       end
-      parts << link_to(name_for_page(page), pages_path(page))
+      parts << link_to(name_for_page(page), page_overview_path(page))
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
       parts << value

@@ -847,7 +847,6 @@ class TraitBank
       res["data"].first.first.symbolize_keys
     end
 
-    # NOTE: this isn't used in the code, I use it for debugging.
     def descendants_of_term(uri)
       terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN term})
       terms["data"].map { |r| r.first["data"] }
