@@ -31,6 +31,8 @@
               = link_to(name, [@user, download])
               %br
               = "completed - #{time_ago_in_words(download.completed_at)}"
+            %br
+            = "query URL: #{download.search_url}"
 
     - unless @user.collections.empty?
       %p.clearfix

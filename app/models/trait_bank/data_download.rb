@@ -55,8 +55,8 @@ class TraitBank
     attr_reader :count
 
     class << self
-      def term_search(term_query, user_id, count = nil)
-        downloader = self.new(term_query, count)
+      def term_search(term_query, user_id, url)
+        downloader = self.new(term_query, nil, url)
 #        if downloader.count > BATCH_SIZE
 #          term_query.save!
 #          UserDownload.create(
@@ -71,7 +71,8 @@ class TraitBank
          UserDownload.create(
            :user_id => user_id,
            :term_query => term_query,
-           :count => downloader.count
+           :count => downloader.count,
+           :search_url => url
          )
       end
 
@@ -83,7 +84,7 @@ class TraitBank
       end
     end
 
-    def initialize(term_query, count = nil)
+    def initialize(term_query, count, url)
       @query = term_query
       @options = { :per => BATCH_SIZE, :meta => true, :result_type => :record }
       # TODO: would be great if we could detect whether a version already exists
@@ -98,6 +99,7 @@ class TraitBank
       @citations = Set.new
       @ref_id = 0
       @references = {}
+      @url = url
     end
 
     def build
@@ -266,6 +268,10 @@ class TraitBank
         @references.map { |ref, id| [id, ref] }.sort { |a, b| a[0] <=> b[0] }.each do |pair|
           csv << [pair]
         end
+
+        csv << []
+        csv << ["Search URL"]
+        csv << [@url]
       end
     end
 

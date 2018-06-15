@@ -4,6 +4,7 @@ class UserDownload < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :count
   validates_presence_of :term_query
+  validates_presence_of :search_url
 
   # NOTE: should be created by populating clade, object_terms, predicates, and
   # count. Also NOTE that using after_commit avoids racing conditions where
@@ -19,7 +20,7 @@ class UserDownload < ActiveRecord::Base
 private
 
   def background_build
-    downloader = TraitBank::DataDownload.new(term_query, count)
+    downloader = TraitBank::DataDownload.new(term_query, count, search_url)
     self[:filename] = downloader.background_build
     self[:completed_at] = Time.now
     save!

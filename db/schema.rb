@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180406163631) do
+ActiveRecord::Schema.define(version: 20180615194742) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -868,6 +868,7 @@ ActiveRecord::Schema.define(version: 20180406163631) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "term_query_id", limit: 4
+    t.text     "search_url",    limit: 65535
   end
 
   add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree
@@ -938,5 +939,4 @@ ActiveRecord::Schema.define(version: 20180406163631) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end

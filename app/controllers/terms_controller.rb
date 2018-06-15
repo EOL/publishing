@@ -29,7 +29,8 @@ class TermsController < ApplicationController
           redirect_to new_user_session_path
         else
           if @query.valid?
-            data = TraitBank::DataDownload.term_search(@query, current_user.id)
+            url = term_search_results_url(:term_query => tq_params, :result_type => @result_type)
+            data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
 
             if data.is_a?(UserDownload)
               flash[:notice] = t("user_download.created", url: user_path(current_user))
