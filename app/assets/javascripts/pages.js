@@ -25,6 +25,22 @@ function bindMetaArrow($row) {
   });
 }
 
+function setupBreadcrumbs() {
+  var $summary = $('.js-hier-summary')
+    , $full = $('.js-hier-full')
+    ;
+
+  $('.js-show-full-hier').click(function() { 
+    $summary.addClass('is-hidden');
+    $full.removeClass('is-hidden');
+  })
+
+  $('.js-show-summary-hier').click(function() {
+    $full.addClass('is-hidden');
+    $summary.removeClass('is-hidden');
+  })
+}
+
 function scrollToRecord() {
   var hashParams = EOL.parseHashParams();
   
@@ -45,5 +61,6 @@ function scrollToRecord() {
 
 $(function() {
   setupMenus();
+  setupBreadcrumbs();
   scrollToRecord();
 });

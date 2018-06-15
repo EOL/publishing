@@ -2,18 +2,20 @@
   .l-page-head
     - if (!overview? && @page.icon)
       = image_tag @page.icon, :class => "head-icon"
-    .names
-      - if !@page.hierarchy.blank?
-        .names-hier= @page.hierarchy.html_safe
-      - if @page.name == @page.scientific_name
-        - name = @page.scientific_name
-        - sci_name = nil
-      - else
-        - name = @page.name.titlecase
-        - sci_name = @page.scientific_name
-      %h1= name.html_safe
-      - if sci_name
-        %h2= sci_name.html_safe
+    .head-txt
+      - if !@page.summary_hierarchy.blank?
+        .hier.js-hier-summary= @page.summary_hierarchy.html_safe
+        .hier.is-hidden.js-hier-full= @page.full_hierarchy.html_safe 
+      .names
+        - if @page.name == @page.scientific_name
+          - name = @page.scientific_name
+          - sci_name = nil
+        - else
+          - name = @page.name.titlecase
+          - sci_name = @page.scientific_name
+        %h1= name.html_safe
+        - if sci_name
+          %h2= sci_name.html_safe
   .l-page-actions
     %ul
       %li

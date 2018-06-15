@@ -56,11 +56,14 @@ $font-sz-m: 14px;
   height: 100%;
 }
 
+.head-txt {
+  padding: 0 $padding-left-s;
+}
+
 .names {
   margin-top: 2px;
-  overflow: auto;
   height: 100%;
-  padding: 0 $padding-left-s;
+  overflow: auto;
   white-space: nowrap;
 
   & > h1 {
@@ -76,9 +79,10 @@ $font-sz-m: 14px;
   }
 }
 
-.names-hier {
+.hier {
   font-size: 11px;
   margin: 2px 0;
+  width: 100%;
 }
 
 .l-tabs {
@@ -172,7 +176,7 @@ $font-sz-m: 14px;
     margin-top: $head-height + $tabs-m-height  + $actions-height;
   }
 
-  .names {
+  .head-txt {
     padding: 0 $padding-left-m;
   }
 

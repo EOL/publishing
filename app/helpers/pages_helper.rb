@@ -158,29 +158,52 @@ module PagesHelper
     current_page?(page_path(@page))
   end
 
-  def hierarchy(page, link)
-    parts = []
-    node = page.native_node || page.nodes.first
-    ancestors = node ? node.ancestors : []
-    shown_ellipsis = false
-    ancestors.compact.each do |anc_node|
-      unless anc_node.use_breadcrumb?
-        unless shown_ellipsis
-          parts << "…"
-          shown_ellipsis = true
-        end
-        next
-      end
-
-      if link
-        parts << link_to(anc_node.canonical_form.html_safe, page_path(anc_node.page)).html_safe
-      else
-        parts << anc_node.canonical_form.html_safe
-      end
-
-      shown_ellipsis = false
-    end
-
-    parts.join("/").html_safe
+  def summary_hierarchy(page, link)
+    hierarchy_helper(page, link, :partial)
   end
+
+  def full_hierarchy(page, link)
+    hierarchy_helper(page, link, :full)
+  end
+
+  private
+    def hierarchy_helper(page, link, mode)
+      parts = []
+      node = page.native_node || page.nodes.first
+      ancestors = node ? node.ancestors : []
+      shown_ellipsis = false
+      ancestors.compact.each do |anc_node|
+        unless mode == :full || anc_node.use_breadcrumb?
+          unless shown_ellipsis
+            if link
+              parts << content_tag(:span, "»", :class => "a js-show-full-hier")
+            else
+              parts << "»"
+            end
+            shown_ellipsis = true
+          end
+          next
+        end
+
+        if link
+          parts << link_to(anc_node.canonical_form.html_safe, page_path(anc_node.page)).html_safe
+        else
+          parts << anc_node.canonical_form.html_safe
+        end
+
+        shown_ellipsis = false
+      end
+
+      if mode == :full
+        if link
+          parts << content_tag(:span, "«", :class => "a js-show-summary-hier")
+        else
+          parts << "«"
+        end
+      end
+
+      # surround / with zero-length spaces so text can wrap
+      parts.join(" / ").html_safe
+      #parts.join("&#8203;/&#8203;").html_safe
+    end
 end

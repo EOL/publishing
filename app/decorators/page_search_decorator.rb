@@ -31,7 +31,7 @@ class PageSearchDecorator < SearchResultDecorator
   end
 
   def hierarchy
-    h.hierarchy(object, false)
+    h.summary_hierarchy(object, false)
   end
 
 private
