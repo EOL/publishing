@@ -44,7 +44,7 @@
                   .item
                     - preferred_name = names_by_string.any? { |n| n.is_preferred? }
                     .header
-                      = string
+                      = string.html_safe
                       - if preferred_name
                         %span.uk-label.uk-label-primary.uk-float-right.uk-margin-left= t(:name_preferred_label)
                       - elsif is_admin?

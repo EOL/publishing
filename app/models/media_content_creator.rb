@@ -52,7 +52,9 @@ class MediaContentCreator
   def count_images_in(batch)
     pages = batch.map(&:page_id).compact.uniq
     pages -= @content_count_by_page.keys
-    counts = PageContent.where(page_id: pages).group('page_id').count
+    # NOTE: the call to #reoder helps avoid "Expression #1 of ORDER BY clause is not in GROUP BY clause and contains
+    # nonaggregated column".
+    counts = PageContent.where(page_id: pages).group('page_id').reorder('').count
     pages.each do |page_id|
       @content_count_by_page[page_id] = counts[page_id] || 0
     end

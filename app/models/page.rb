@@ -502,23 +502,6 @@ class Page < ActiveRecord::Base
     @should_show_icon ||= (native_node.scientific_name =~ /<i/)
   end
 
-  def is_it_marine?
-    if ! has_checked_marine? && @data_loaded
-      recs = grouped_data[Eol::Uris.environment]
-      if recs && recs.any? { |r| r[:object_term] &&
-         r[:object_term][:uri] == Eol::Uris.marine }
-        update_attribute(:is_marine, true)
-        update_attribute(:has_checked_marine, true)
-        return true
-      else
-        update_attribute(:is_marine, false)
-        return false
-      end
-    else
-      is_marine?
-    end
-  end
-
   def displayed_extinction_data
     recs = grouped_data[Eol::Uris.extinction]
     return nil if recs.nil? || recs.empty?
@@ -545,23 +528,6 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def is_it_extinct?
-    if ! has_checked_extinct? && @data_loaded
-      # NOTE: this relies on #displayed_extinction_data ONLY returning an
-      # "exinct" record. ...which, as of this writing, it is designed to do.
-      update_attribute(:has_checked_extinct, true)
-      if displayed_extinction_data
-        update_attribute(:is_extinct, true)
-        return true
-      else
-        update_attribute(:is_extinct, false)
-        return false
-      end
-    else
-      is_extinct?
-    end
-  end
-
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
       TraitBank::Terms.page_glossary(id)
@@ -577,9 +543,7 @@ class Page < ActiveRecord::Base
     geographic_context = nil
     habitats
     has_checked_marine = nil
-    is_it_marine?
     has_checked_extinct = nil
-    is_it_extinct?
     score_richness
     instance_variables.each do |v|
       # Skip Rails variables:

@@ -16,7 +16,7 @@ class Node < ActiveRecord::Base
   has_many :referents, through: :references
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
-  # https://github.com/EOL/eol_website/issues/5
+  # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
   enum landmark: %i[no_landmark minimal abbreviated extended full]
 
   counter_culture :resource
