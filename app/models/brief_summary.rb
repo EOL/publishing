@@ -18,10 +18,10 @@ class BriefSummary
     end
   end
 
-  # STAGING [15] pry(main)> Node.landmarks
-  # => {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4}
-  # For P. lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia.
-  # ...I am not sure (ARRRRRRGH), but I'm going to start with a1 as minimal and a2 as abbreviated.
+  # Landmarks are documented here https://github.com/EOL/eol_website/issues/5
+  # STAGING [15] pry(main)> Node.landmarks => {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3,
+  # "full"=>4} For P. lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is
+  # Mammalia. JR believes this is usually a Class, but for different types of life, different ranks may make more sense.
   def a1
     return @a1_name if @a1_name
     @a1 ||= page.ancestors.reverse.find { |a| a.minimal? }
@@ -32,8 +32,8 @@ class BriefSummary
   end
 
   # A2: There will be nodes in the dynamic hierarchy that will be flagged as A2 taxa. Use the scientificName from
-  # dynamic hierarchy.
-  # TODO: do they really mean "scientific name"? Or canonical form? I'm assuming the latter.
+  # dynamic hierarchy. JR believes this should, roughly, be the family (note that for certain types of life, different
+  # ranks make more sense). TODO: do they really mean "scientific name"? Or canonical form? I'm assuming the latter.
   def a2
     return @a2_name if @a2_name
     return '[UNKNOWN A2]' if a2_node.nil?
@@ -53,6 +53,7 @@ class BriefSummary
   # you can use: http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution) Some taxa may have multiple values, and
   # there may be some that have both continent and waterBody values. If there is no continent or waterBody information
   # available, omit the second sentence.
+  # TODO: these URIs are likely to change, check with JH again when you get back to these.
   def g1
     @g1 ||= values_to_sentence(['http://rs.tdwg.org/dwc/terms/continent', 'http://rs.tdwg.org/dwc/terms/waterBody', 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution'])
   end
@@ -181,7 +182,7 @@ class BriefSummary
         end
       end
     end
-    if values.any? ? values.uniq.to_sentence : nil
+    values.any? ? values.uniq.to_sentence : nil
   end
 
   def old_for(page)
