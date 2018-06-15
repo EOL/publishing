@@ -185,7 +185,8 @@ private
     if @result_type == :page
       @result_pages = @grouped_data.map do |datum|
         @pages[datum[:page_id]]
-      end
+      end.compact
+
       @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
     end
   end
