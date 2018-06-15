@@ -9,6 +9,7 @@ class BriefSummary
   end
 
   def english
+    return "The brief summary is in development. Please check back later."
     if is_species?
       species
     elsif is_genus?
