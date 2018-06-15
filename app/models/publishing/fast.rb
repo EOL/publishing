@@ -9,14 +9,13 @@ class Publishing::Fast
   # e.g.: Publishing::Fast.load_local_file(Resource.first, NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
   def self.load_local_file(resource, klass, file)
     publr = new(resource)
-    publr.load_local_file(file)
+    publr.load_local_file(klass, file)
   end
 
   def load_local_file(klass, file)
     @klass = klass
     @data_file = file
     log_start("One-shot manual import of #{@klass} starting...")
-    @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
     log_start("#import #{@klass}")
     import
     log_start("#propagate_ids #{@klass}")
