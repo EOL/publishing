@@ -202,6 +202,7 @@ class TraitBank
         "Bibliographic Citation" => -> (trait, page, resource) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
         "Contributor" => -> (trait, page, resource) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
         "Reference ID" => -> (trait, page, resource) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
+        # XXX: This is a hack-y way of getting the host, but I didn't want to mess with configs just for this
         "Resource URL" => -> (trait, page, resource) do 
           (
             trait[:resource] ? 
