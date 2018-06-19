@@ -158,9 +158,9 @@ class TraitBank
         end,
         "Measurement Unit" => -> (trait, page, resource) { handle_term(trait[:units]) },
         "Measurement Accuracy" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
-        "Statistical Method" => -> (trait, page, resource) { meta_value(trait, "http://eol.org/schema/terms/statisticalMethod") },
-        "Sex" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/sex")},
-        "Life Stage" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/lifeStage") },
+        "Statistical Method" => -> (trait, page, resource) { handle_term(trait[:statistical_method_term]) },
+        "Sex" => -> (trait, page, resource) { handle_term(trait[:sex_term])},
+        "Life Stage" => -> (trait, page, resource) { handle_term(trait[:lifestage_term]) },
         #"Value" => -> (trait, page, resource) { value }, # NOTE this is actually more complicated...Watch out for associations
         #"Measurement URI" => -> (trait, page, resource) {trait[:predicate][:uri]},
         #"Value URI" => -> (trait, page, resource) {trait[:object_term] && trait[:object_term][:uri]},
