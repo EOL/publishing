@@ -156,7 +156,7 @@ class TraitBank
         "Measurement Value" => -> (trait, page, resource) do 
           trait[:measurement] || handle_term(trait[:object_term]) # Raw value, not sure if this works for associations
         end,
-        "Measurement Unit" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementUnit") },
+        "Measurement Unit" => -> (trait, page, resource) { handle_term(trait[:units]) },
         "Measurement Accuracy" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
         "Statistical Method" => -> (trait, page, resource) { meta_value(trait, "http://eol.org/schema/terms/statisticalMethod") },
         "Sex" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/sex")},
