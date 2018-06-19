@@ -198,11 +198,17 @@ class TraitBank
 
     def end_cols
       {
-        "Source" => -> (trait, page, resource) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/source")) },
+        "Source" => -> (trait, page, resource) { trait[:source] },
         "Bibliographic Citation" => -> (trait, page, resource) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
         "Contributor" => -> (trait, page, resource) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
-        "Reference ID" => -> (trait, page, resource) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) }
-
+        "Reference ID" => -> (trait, page, resource) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
+        "Resource URL" => -> (trait, page, resource) do 
+          (
+            trait[:resource] ? 
+            Rails.application.routes.url_helpers.resource_url(trait[:resource][:resource_id], :host => Rails.application.config.action_mailer.default_url_options[:host]) :
+            nil
+          )
+        end
       #TODO: deal with references
       }
     end
