@@ -6,6 +6,9 @@ class TermQuery < ActiveRecord::Base
   validates_associated :filters
   has_one :user_download, :dependent => :destroy
   belongs_to :clade, :class_name => "Page"
+  validates_presence_of :result_type
+
+  enum :result_type => { :record => 0, :taxa => 1 }
 
   accepts_nested_attributes_for :filters
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180615194742) do
+ActiveRecord::Schema.define(version: 20180619191957) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -805,9 +805,10 @@ ActiveRecord::Schema.define(version: 20180615194742) do
   end
 
   create_table "term_queries", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "clade_id",   limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "clade_id",    limit: 4
+    t.integer  "result_type", limit: 4
   end
 
   create_table "term_query_filters", force: :cascade do |t|

@@ -15,7 +15,7 @@
         %span.js-edit-filters.edit-filters 
           %i{:'uk-icon' => "icon: pencil"}
           %span edit filters
-    - if @result_type == :record
+    - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else
       = render 'page_table', { pages: @result_pages }

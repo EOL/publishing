@@ -1,6 +1,5 @@
 class TermsController < ApplicationController
   helper :data
-  before_action :search_setup, :only => [:search, :search_results, :search_form, :show]
   before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
   before_action :build_query, :only => [:search_results, :search_form]
 
@@ -9,7 +8,7 @@ class TermsController < ApplicationController
   end
 
   def search
-    @query = TermQuery.new
+    @query = TermQuery.new(:result_type => :taxa)
     @query.filters.build(:op => :is_any)
   end
 
@@ -29,7 +28,7 @@ class TermsController < ApplicationController
           redirect_to new_user_session_path
         else
           if @query.valid?
-            url = term_search_results_url(:term_query => tq_params, :result_type => @result_type)
+            url = term_search_results_url(:term_query => tq_params)
             data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
 
             if data.is_a?(UserDownload)
@@ -65,7 +64,8 @@ class TermsController < ApplicationController
     end
 
     @query = TermQuery.new({
-      :filters => [TermQueryFilter.new(filter_options)]
+      :filters => [TermQueryFilter.new(filter_options)],
+      :result_type => :record
     })
     search_common
   end
@@ -151,6 +151,7 @@ private
   def tq_params
     params.require(:term_query).permit([
       :clade_id,
+      :result_type,
       :filters_attributes => [
         :pred_uri,
         :obj_uri,
@@ -177,13 +178,12 @@ private
   def paginate_term_search_data(data, query)
     options = {
       :count => true,
-      :result_type => @result_type
     }
     Rails.logger.warn "&&TS Running count:"
     @count = TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
-    if @result_type == :page
+    if query.taxa?
       @result_pages = @grouped_data.map do |datum|
         @pages[datum[:page_id]]
       end.compact
@@ -235,10 +235,6 @@ private
     )
   end
 
-  def search_setup
-    @result_type = params[:result_type]&.to_sym || :page
-  end
-
   def search_common
     @page = params[:page] || 1
     @per_page = 50
@@ -246,7 +242,6 @@ private
     data = TraitBank.term_search(@query, {
       :page => @page,
       :per => @per_page,
-      :result_type => @result_type
     })
     ids = data.map { |t| t[:page_id] }.uniq
     pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)

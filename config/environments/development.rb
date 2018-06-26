@@ -43,7 +43,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  
 end
+
+# Keep failed jobs around so we can look at stacktraces
+Delayed::Worker.destroy_failed_jobs = false
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
 # sense, because it allows people to bypass Secrets and use custom configs with their own environments, if need-be.

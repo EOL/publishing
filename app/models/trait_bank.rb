@@ -278,7 +278,7 @@ class TraitBank
           return count
         end
       end
-      q = if options[:result_type] == :record
+      q = if term_query.record?
             term_record_search(term_query, options)
           else
             term_page_search(term_query, options)
