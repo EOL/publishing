@@ -47,7 +47,7 @@ class TraitBank::RecordDownloadWriter
 
   def start_cols # rubocop:disable Metrics/CyclomaticComplexity
     { "EOL Page ID" => -> (trait, page, resource) { page && page.id },# NOTE: might be nice to make this clickable?
-      "Ancestry" => -> (trait, page, resource) { page && page.native_node.ancestors.map { |n| n.canonical_form }.join(" | ") },
+      "Ancestry" => -> (trait, page, resource) { TraitBank::DownloadUtils.ancestry(page) },
       "Scientific Name" => -> (trait, page, resource) { page && page.scientific_name },
       "Measurement Type" => -> (trait, page, resource) { handle_term(trait[:predicate]) },
       "Measurement Value" => -> (trait, page, resource) do 
@@ -77,11 +77,10 @@ class TraitBank::RecordDownloadWriter
       "Bibliographic Citation" => -> (trait, page, resource) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
       "Contributor" => -> (trait, page, resource) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
       "Reference ID" => -> (trait, page, resource) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
-      # XXX: This is a hack-y way of getting the host, but I didn't want to mess with configs just for this
       "Resource URL" => -> (trait, page, resource) do 
         (
           trait[:resource] ? 
-          Rails.application.routes.url_helpers.resource_url(trait[:resource][:resource_id], :host => Rails.application.config.action_mailer.default_url_options[:host]) :
+          TraitBank::DownloadUtils.url(:resource_url, trait[:resource][:resource_id]) :
           nil
         )
       end
@@ -148,7 +147,7 @@ class TraitBank::RecordDownloadWriter
 
   def to_arrays
     pages = Page.where(id: page_ids).
-      includes(:medium, :native_node, :preferred_vernaculars)
+      includes(:native_node, :preferred_vernaculars)
     resources = Resource.where(id: resource_ids)
     associations = Page.where(id: association_ids)
     @data = []
@@ -226,7 +225,7 @@ class TraitBank::RecordDownloadWriter
   end
 
   def page_ids
-    @hashes.map { |hash| hash[:page_id] || hash[:page] && hash[:page][:page_id] }.uniq.compact
+    TraitBank::DownloadUtils.page_ids(@hashes)
   end
 
   def resource_ids

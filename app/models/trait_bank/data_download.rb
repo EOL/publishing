@@ -45,7 +45,6 @@ class TraitBank
       # for download and use that.
 
       @base_filename = Digest::MD5.hexdigest(@query.as_json.to_s)
-      puts "new DataDownload. Filename: #{@base_filename}"
       @url = url
       @count = count || TraitBank.term_search(@query, @options.merge(:count => true))
     end
@@ -60,8 +59,9 @@ class TraitBank
       end
 
       if @query.record?
-        puts "Create writer with filename #{@base_filename}"
         TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
+      elsif @query.taxa?
+        TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
       else
         raise "unsupported result type"
       end
