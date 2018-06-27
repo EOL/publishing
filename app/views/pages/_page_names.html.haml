@@ -32,12 +32,12 @@
           .uk-card-body= t(:page_vernaculars_empty)
     - else
       - all_names = @page.vernaculars.group_by { |n| n.language.group }
-      - all_names.keys.sort_by { |l| tl = t("languages.#{l}") ; tl == 0 ? l : tl }.each do |lang|
+      - all_names.keys.sort_by { |l| language_header(l) }.each do |lang|
         - names_by_lang = all_names[lang]
         %div
           .uk-card.uk-card-default
             .uk-card-header
-              %h3.uk-card-title= t("languages.#{lang}")
+              %h3.uk-card-title= language_header(lang)
             .uk-card-body
               .ui-list
                 - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|

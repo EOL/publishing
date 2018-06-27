@@ -261,6 +261,7 @@ en:
     topics: "Latest Discussion Topics"
 
   languages:
+    none: "Unspecified"
     aa: "Afar"
     ab: "Abkhazian"
     ae: "Avestan"

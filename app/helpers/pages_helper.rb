@@ -166,6 +166,13 @@ module PagesHelper
     hierarchy_helper(page, link, :full)
   end
 
+  def language_header(l)
+    return t("languages.none") if l.blank?
+    tl = t("languages.#{l}")
+    return l if tl =~ /^translation missing/
+    tl == 0 ? l : tl
+  end
+
   private
     def hierarchy_helper(page, link, mode)
       parts = []
