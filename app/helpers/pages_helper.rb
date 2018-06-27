@@ -170,6 +170,7 @@ module PagesHelper
     return t("languages.none") if l.blank?
     tl = t("languages.#{l}")
     return l if tl =~ /^translation missing/
+    return l if tl =~ /^I18n:/
     tl == 0 ? l : tl
   end
 
