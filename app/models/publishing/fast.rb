@@ -84,7 +84,7 @@ class Publishing::Fast
       PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
       if page_contents_required?
         log_start('MediaContentCreator')
-        MediaContentCreator.by_resource(@resource, @log)
+        MediaContentCreator.by_resource(@resource, log: @log)
       end
       log_start('#fix_native_nodes')
       @resource.fix_native_nodes
