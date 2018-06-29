@@ -4,6 +4,7 @@ class Node
     # TODO: logging
     class << self
       def by_resource(resource)
+        require 'csv'
         # Go grab the file from beta-repo
         publisher = Publishing::Fast.new(resource)
         # You must specify the data file to write to before calling #grab_file #TODO: perhaps it should be an arg, eh?
