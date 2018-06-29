@@ -34,6 +34,7 @@ class Node
         # Update all of the nodes, duh
         nodes_to_pages.keys.in_groups_of(5000, false) do |pks|
           log.log("nodes to pages group of #{pks.size}", cat: :starts)
+          # TODO: from a console, this #includes works. But when I ran it for reals, it looked up each page. Fix.
           nodes = Node.where(resource_pk: pks).includes(:page)
           # re-arrange them into a hash:
           nodes.each { |node| nodes_by_pk[node.resource_pk] = node }
