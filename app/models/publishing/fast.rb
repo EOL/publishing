@@ -1,5 +1,6 @@
 class Publishing::Fast
   require 'net/http'
+  attr_accessor :data_file, :log
 
   def self.by_resource(resource)
     publr = new(resource)
@@ -23,12 +24,16 @@ class Publishing::Fast
     log_start("One-shot manual import of #{@klass} COMPLETED.")
   end
 
-  def initialize(resource)
+  def initialize(resource, log = nil)
     @start_at = Time.now
     @resource = resource
     repo_url = Rails.application.secrets.repository['url']
     @repo_site = URI(repo_url)
     @repo_is_on_this_host = repo_url =~ /(128\.0\.0\.1|localhost)/
+    @log = log # Okay if it's nil.
+  end
+
+  def by_resource
     @relationships = {
       Referent => {},
       Node => { parent_id: Node },
@@ -44,10 +49,7 @@ class Publishing::Fast
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
     abort_if_already_running
-    @log = Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
-  end
-
-  def by_resource
+    @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
     unless @resource.nodes.count.zero? # slow, skip if not needed.
       log = @resource.remove_content
       @log = Publishing::PubLog.new(@resource)
@@ -55,15 +57,15 @@ class Publishing::Fast
       log_warn('All existing content has been destroyed for the resource.')
     end
     begin
-      unless exists?('nodes')
-        raise("#{repo_file_url('nodes')} does not exist! Are you sure the resource has successfully finished harvesting?")
+      unless exists?('nodes.tsv')
+        raise("#{repo_file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
       files = []
       @relationships.each_key do |klass|
         @klass = klass
         log_start(@klass)
         @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
-        if grab_file(@klass.table_name)
+        if grab_file("#{@klass.table_name}.tsv")
           log_start("#import #{@klass}")
           import
           log_start("#propagate_ids #{@klass}")
@@ -110,7 +112,7 @@ class Publishing::Fast
   end
 
   def repo_file_url(name)
-    "/data/#{@resource.path}/publish_#{name}.tsv"
+    "/data/#{@resource.path}/publish_#{name}"
   end
 
   def exists?(name)
@@ -163,7 +165,6 @@ class Publishing::Fast
         @klass.propagate_id(fk: field, other: "#{source.table_name}.harv_db_id",
                             set: field, with: 'id', resource_id: @resource.id)
       end
-
     end
   end
 
@@ -205,9 +206,9 @@ class Publishing::Fast
 
   def publish_traits
     @data_file = @resource.traits_file
-    grab_file('traits')
+    grab_file('traits.tsv')
     @data_file = @resource.meta_traits_file
-    grab_file('metadata')
+    grab_file('metadata.tsv')
     TraitBank.create_resource(@resource.id)
     TraitBank::Slurp.load_csvs(@resource)
     @resource.remove_traits_files

@@ -1,14 +1,33 @@
 class Node
   class Mover
     # TODO: refactor. This is super-sloppy
-    # TODO: a method that pulls the data from the harvesting site and runs by_hash on the parsed results...
     # TODO: logging
     class << self
+      def by_resource(resource)
+        # Go grab the file from beta-repo
+        publisher = Publishing::Fast.new(resource)
+        # You must specify the data file to write to before calling #grab_file #TODO: perhaps it should be an arg, eh?
+        data_file = Rails.root.join('tmp', "#{resource.abbr}_nodes_remap.csv")
+        publisher.data_file = data_file
+        log = Publishing::PubLog.new(resource)
+        publisher.log = log
+        publisher.grab_file('nodes_remap')
+        # Parse the file to pull out the PK (1st col) and map that to the page (third col); WE IGNORE COLUMN 2 (which,
+        # FTR, was the page the harvester thought the node *used* to be on, but we don't trust that. It's archival.)
+        nodes_to_pages = {}
+        CSV.read(data_file).each do |line|
+          nodes_to_pages[line.first] = line.last
+        end
+        # Then do it to it:
+        by_hash(resource, nodes_to_pages, log)
+      end
+
       # Assumes you are passing in a list of node_pks with their new page ids as a (single) value.
-      def by_hash(resource, nodes_to_pages)
+      def by_hash(resource, nodes_to_pages, log = nil)
         pages_that_lost_native_node = []
         page_changes = {}
         nodes_by_pk = {}
+        log ||= Publishing::PubLog.new(resource)
 
         # Update all of the nodes, duh
         nodes_to_pages.keys.in_groups_of(5000, false) do |pks|
