@@ -10,13 +10,14 @@ class Node
         data_file = Rails.root.join('tmp', "#{resource.abbr}_nodes_remap.csv")
         publisher.data_file = data_file
         log = Publishing::PubLog.new(resource)
+        log.log("START: Move Nodes", cat: :starts)
         publisher.log = log
-        publisher.grab_file('nodes_remap')
+        publisher.grab_file('nodes_remap.csv')
         # Parse the file to pull out the PK (1st col) and map that to the page (third col); WE IGNORE COLUMN 2 (which,
         # FTR, was the page the harvester thought the node *used* to be on, but we don't trust that. It's archival.)
         nodes_to_pages = {}
         CSV.read(data_file).each do |line|
-          nodes_to_pages[line.first] = line.last
+          nodes_to_pages[line.first] = line.last.to_i
         end
         # Then do it to it:
         by_hash(resource, nodes_to_pages, log)
@@ -31,6 +32,7 @@ class Node
 
         # Update all of the nodes, duh
         nodes_to_pages.keys.in_groups_of(5000, false) do |pks|
+          log.log("nodes to pages group of #{pks.size}", cat: :starts)
           nodes = Node.where(resource_pk: pks).includes(:page)
           # re-arrange them into a hash:
           nodes.each { |node| nodes_by_pk[node.resource_pk] = node }
@@ -52,6 +54,7 @@ class Node
             end
             pages_that_lost_native_node << from_page_id if nodes_by_pk[pk].page&.native_node_id == nodes_by_pk[pk].id
           end
+          log.log("Importing #{updated.size}", cat: :infos)
           Node.import!(updated, on_duplicate_key_update: [:page_id])
         end
 
@@ -59,6 +62,7 @@ class Node
         affected_nodes_by_id = {}
         nodes_by_pk.values.each { |node| affected_nodes_by_id[node.id] = node.page_id }
         [ScientificName, Vernacular].each do |klass|
+          log.log("Fixing #{klass}", cat: :starts)
           affected_nodes_by_id.keys.in_groups_of(5000, false) do |group|
             instances = klass.where(resource_id: resource.id, node_id: group)
             instances.each do |instance|
@@ -77,6 +81,7 @@ class Node
         pages.in_groups_of(5000, false) do |group|
           # Rebuild PageContent instances... this also updates page media_count, link_count, articles_count, and
           # page_contents_count
+          log.log("MediaContentCreator for #{group.size} pages...", cat: :starts)
           MediaContentCreator.by_resource(resource, clause: { id: group })
           # TODO:  "data_count" ... Skipping this for now because I'm skipping traits.
 
@@ -87,6 +92,7 @@ class Node
         end
 
         # Update nodes_count on pages.
+        log.log("Updating nodes counts...", cat: :starts)
         page_changes_by_count =
           page_changes.each_with_object({}) do |(key,value),out|
             out[value] ||= []
@@ -100,11 +106,13 @@ class Node
 
         # Fix pages that lost their native node...
         if pages_that_lost_native_node.any?
+          log.log("Fixing missing native nodes on #{pages_that_lost_native_node.size} pages...", cat: :starts)
           Page.where(id: pages_that_lost_native_node).includes(:nodes).find_each do |page|
             page.update_attribute(:native_node_id, page.nodes&.first&.id)
             # TODO: delete the page instead, if the nodes are now empty.
           end
         end
+        log.log("END: Move Nodes", cat: :ends)
       end
     end
   end
