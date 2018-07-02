@@ -90,7 +90,8 @@ class Node
           # Rebuild PageContent instances... this also updates page media_count, link_count, articles_count, and
           # page_contents_count
           log.log("MediaContentCreator for #{group.size} pages (starting with #{group.first})...", cat: :starts)
-          MediaContentCreator.by_resource(resource, clause: { id: group })
+          # NOTE: skipping counts here because we are better-suited to do it ourselves!
+          MediaContentCreator.by_resource(resource, clause: { id: group }, skip_counts: true)
           # TODO:  "data_count" ... Skipping this for now because I'm skipping traits.
 
           #  ...Skipping these for now because it's expensive and not terribly useful:
