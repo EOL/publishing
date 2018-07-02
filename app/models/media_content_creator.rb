@@ -43,7 +43,7 @@ class MediaContentCreator
         update_naked_pages if k == Medium
       end
     end
-    fix_counter_culture_counts
+    fix_counter_culture_counts(clause: clause)
     if @options[:start]
       @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
         ' Also, technically, the temp files should be removed.', cat: :warns)
@@ -119,6 +119,6 @@ class MediaContentCreator
     @log.log("Fixing counter-culture counts...")
     # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
     #   counter_culture_fix_counts
-    @resource.fix_missing_page_contents # Faster.
+    @resource.fix_missing_page_contents(options) # Faster.
   end
 end
