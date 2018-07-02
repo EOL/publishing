@@ -22,6 +22,7 @@ class Node
         end
         # Then do it to it:
         by_hash(resource, nodes_to_pages, log)
+        File.unlink(data_file)
       end
 
       # Assumes you are passing in a list of node_pks with their new page ids as a (single) value.
@@ -32,7 +33,7 @@ class Node
         log ||= Publishing::PubLog.new(resource)
 
         # Update all of the nodes, duh
-        nodes_to_pages.keys.in_groups_of(5000, false) do |pks|
+        nodes_to_pages.keys.in_groups_of(2000, false) do |pks|
           log.log("nodes to pages group of #{pks.size}", cat: :starts)
           # TODO: from a console, this #includes works. But when I ran it for reals, it looked up each page. Fix.
           nodes = Node.where(resource_pk: pks).includes(:page)
@@ -65,7 +66,7 @@ class Node
         nodes_by_pk.values.each { |node| affected_nodes_by_id[node.id] = node.page_id }
         [ScientificName, Vernacular].each do |klass|
           log.log("Fixing #{klass}", cat: :starts)
-          affected_nodes_by_id.keys.in_groups_of(5000, false) do |group|
+          affected_nodes_by_id.keys.in_groups_of(2000, false) do |group|
             instances = klass.where(resource_id: resource.id, node_id: group)
             instances.each do |instance|
               instance.page_id = affected_nodes_by_id[instance.node_id]
@@ -80,10 +81,15 @@ class Node
         # %{(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })}
 
         pages = page_changes.keys.uniq
-        pages.in_groups_of(5000, false) do |group|
+        page_changes_csv = Rails.root.join('tmp', "#{resource.abbr}_page_changes.csv")
+        CSV.open(page_changes_csv, 'wb') do |csv|
+          @nodes_to_pages.each { |line| csv << line }
+        end
+
+        pages.in_groups_of(1000, false) do |group|
           # Rebuild PageContent instances... this also updates page media_count, link_count, articles_count, and
           # page_contents_count
-          log.log("MediaContentCreator for #{group.size} pages...", cat: :starts)
+          log.log("MediaContentCreator for #{group.size} pages (starting with #{group.first})...", cat: :starts)
           MediaContentCreator.by_resource(resource, clause: { id: group })
           # TODO:  "data_count" ... Skipping this for now because I'm skipping traits.
 
@@ -92,6 +98,7 @@ class Node
           # TODO: "scientific_names_count"
           # TODO: "referents_count"
         end
+        unlink(page_changes_csv)
 
         # Update nodes_count on pages.
         log.log("Updating nodes counts...", cat: :starts)
