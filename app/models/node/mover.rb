@@ -80,12 +80,13 @@ class Node
         # page. This Cypher isn't finished, clearly, but it's handy enough that I'm keeping it here...
         # %{(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })}
 
-        pages = page_changes.keys.uniq
         page_changes_csv = Rails.root.join('tmp', "#{resource.abbr}_page_changes.csv")
+        # Let's store the pages affected as well as the change count, so we don't lose them.
         CSV.open(page_changes_csv, 'wb') do |csv|
-          @nodes_to_pages.each { |line| csv << line }
+          page_changes_by_count.each { |page, change| csv << [page, change] }
         end
 
+        pages = page_changes.keys.uniq
         pages.in_groups_of(1000, false) do |group|
           # Rebuild PageContent instances... this also updates page media_count, link_count, articles_count, and
           # page_contents_count
