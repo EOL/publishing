@@ -238,6 +238,11 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  # Goes and asks the Harvesting site for information on how to move the nodes between pages...
+  def move_nodes
+    Node::Mover.by_resource(self)
+  end
+
   def import_traits(since)
     log = Publishing::PubLog.new(self)
     repo = Publishing::Repository.new(resource: self, log: log, since: since)

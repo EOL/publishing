@@ -11,34 +11,42 @@ class Node
         data_file = Rails.root.join('tmp', "#{resource.abbr}_nodes_remap.csv")
         publisher.data_file = data_file
         log = Publishing::PubLog.new(resource)
-        log.log("START: Move Nodes", cat: :starts)
-        publisher.log = log
-        publisher.grab_file('nodes_remap.csv')
-        # Parse the file to pull out the PK (1st col) and map that to the page (third col); WE IGNORE COLUMN 2 (which,
-        # FTR, was the page the harvester thought the node *used* to be on, but we don't trust that. It's archival.)
-        nodes_to_pages = {}
-        CSV.read(data_file).each do |line|
-          nodes_to_pages[line.first] = line.last.to_i
+        begin
+          log.log("START: Move Nodes", cat: :starts)
+          publisher.log = log
+          publisher.grab_file('nodes_remap.csv')
+          # Parse the file to pull out the PK (1st col) and map that to the page (third col); WE IGNORE COLUMN 2 (which,
+          # FTR, was the page the harvester thought the node *used* to be on, but we don't trust that. It's archival.)
+          nodes_to_pages = {}
+          CSV.read(data_file).each do |line|
+            nodes_to_pages[line.first] = line.last.to_i
+          end
+          # Then do it to it:
+          by_hash(resource, nodes_to_pages, log)
+        rescue => e
+          log.fail(e)
+          raise e
+        ensure
+          log.complete
+          File.unlink(data_file)
         end
-        # Then do it to it:
-        by_hash(resource, nodes_to_pages, log)
-        File.unlink(data_file)
       end
 
       # Assumes you are passing in a list of node_pks with their new page ids as a (single) value.
       def by_hash(resource, nodes_to_pages, log = nil)
         pages_that_lost_native_node = []
         page_changes = {}
+        new_pages = {}
         nodes_by_pk = {}
-        log ||= Publishing::PubLog.new(resource)
+        log ||= resource.import_logs.last
 
         # Update all of the nodes, duh
         nodes_to_pages.keys.in_groups_of(2000, false) do |pks|
           log.log("nodes to pages group of #{pks.size}", cat: :starts)
-          # TODO: from a console, this #includes works. But when I ran it for reals, it looked up each page. Fix.
-          nodes = Node.where(resource_pk: pks).includes(:page)
+          nodes = Node.where(resource_id: resource.id, resource_pk: pks).includes(:page)
+          node_page = {}
           # re-arrange them into a hash:
-          nodes.each { |node| nodes_by_pk[node.resource_pk] = node }
+          nodes.each { |node| nodes_by_pk[node.resource_pk] = node ; node_page[node.resource_pk] = node.page }
           updated = []
           pks.each do |pk|
             from_page_id = nodes_by_pk[pk].page_id
@@ -52,13 +60,22 @@ class Node
               page_changes[from_page_id] -= 1
               page_changes[to_page_id] ||= 0
               page_changes[to_page_id] += 1
+              new_pages[to_page_id] ||= nodes_by_pk[pk].id # NOTE: will take the first one, if several. This is OK.
               nodes_by_pk[pk].page_id = to_page_id
               updated << nodes_by_pk[pk]
             end
-            pages_that_lost_native_node << from_page_id if nodes_by_pk[pk].page&.native_node_id == nodes_by_pk[pk].id
+            pages_that_lost_native_node << from_page_id if node_page[pk]&.native_node_id == nodes_by_pk[pk].id
           end
           log.log("Importing #{updated.size}", cat: :infos)
           Node.import!(updated, on_duplicate_key_update: [:page_id])
+        end
+
+        # Create pages that didn't exist:
+        new_pages.keys.in_groups_of(1000, false) do |group|
+          new_pages = group - Page.where(id: group).pluck(:id)
+          new_pages.each do |id|
+            Page.create(id: id, native_node_id: new_pages[id])
+          end
         end
 
         # Update the denormalized page ids on scientific_names and vernaculars
@@ -83,7 +100,7 @@ class Node
         page_changes_csv = Rails.root.join('tmp', "#{resource.abbr}_page_changes.csv")
         # Let's store the pages affected as well as the change count, so we don't lose them.
         CSV.open(page_changes_csv, 'wb') do |csv|
-          page_changes_by_count.each { |page, change| csv << [page, change] }
+          page_changes.each { |page, change| csv << [page, change] }
         end
 
         pages = page_changes.keys.uniq
@@ -100,7 +117,7 @@ class Node
           # TODO: "scientific_names_count"
           # TODO: "referents_count"
         end
-        unlink(page_changes_csv)
+        File.unlink(page_changes_csv)
 
         # Update nodes_count on pages.
         log.log("Updating nodes counts...", cat: :starts)
@@ -112,7 +129,7 @@ class Node
         page_changes_by_count.each do |count, page_ids|
           next if count == 0
           sign = count.positive? ? '+' : '-'
-          Page.where(id: page_ids).update_all("nodes_count = nodes_count #{sign} #{count}")
+          Page.where(id: page_ids).update_all("nodes_count = nodes_count #{sign} #{count.abs}")
         end
 
         # Fix pages that lost their native node...
@@ -123,6 +140,7 @@ class Node
             # TODO: delete the page instead, if the nodes are now empty.
           end
         end
+
         log.log("END: Move Nodes", cat: :ends)
       end
     end
