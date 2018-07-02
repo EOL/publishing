@@ -1,6 +1,6 @@
 class MediaContentCreator
   def self.by_resource(resource, options = {})
-    self.new(resource, options[:log], start: options[:id]).by_resource(options[:clause])
+    self.new(resource, options[:log], start: options[:id]).by_resource(options)
   end
 
   def initialize(resource, log = nil, options = {})
@@ -16,8 +16,8 @@ class MediaContentCreator
     @content_count_by_page = {}
   end
 
-  def by_resource(clause = nil)
-    clause ||= 'page_id IS NOT NULL'
+  def by_resource(options = {})
+    clause = options[:clause] || 'page_id IS NOT NULL'
     @log.log('MediaContentCreator#by_resource', cat: :starts)
     [Medium, Article].each do |k|
       @klass = k
