@@ -32,11 +32,11 @@ class BriefSummary
     what = a1
     family = a2
     if family
-      @sentences << "#{name_clause} is #{a_or_an(what)} #{what} in the family #{a2}."
+      @sentences << "#{name_clause} is #{a_or_an(what)} in the family #{a2}."
     else
       # We may have a few species that don't have a family in their ancestry. In those cases, shorten the taxonomy
       # sentence: [name clause] is a[n] [A1].
-      @sentences << "#{name_clause} is #{a_or_an(what)} #{what}."
+      @sentences << "#{name_clause} is #{a_or_an(what)}."
     end
     # If the species [is extinct], insert an extinction status sentence between the taxonomy sentence
     # and the distribution sentence. extinction status sentence: This species is extinct.
