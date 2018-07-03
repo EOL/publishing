@@ -148,13 +148,13 @@ class BriefSummary
     return nil if recs.empty?
     values = gather_terms(options[:values])
     return nil if values.empty?
-    return true if recs.any? { |r| r[:object_term] && values.inlcude?(r[:object_term][:uri]) }
+    return true if recs.any? { |r| r[:object_term] && values.include?(r[:object_term][:uri]) }
     return false
   end
 
   def gather_terms(uris)
     terms = []
-    Array(uris).each { |uri| terms += TraitBank.descendants_of_term(uri) }
+    Array(uris).each { |uri| terms += TraitBank.descendants_of_term(uri).map { |t| t['uri'] } }
     terms.compact
   end
 
