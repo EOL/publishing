@@ -12,6 +12,8 @@ class BriefSummary
   # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
   # putting species last because it is the most likely to trigger a false-positive. :|
   def english
+    # There's really nothing to do if there's no minimal ancestor:
+    return '' if a1.nil?
     if is_family?
       family
     elsif is_genus?
