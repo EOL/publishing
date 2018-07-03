@@ -12,15 +12,15 @@
             %h3.uk-card-title= status
           .uk-card-body
             .ui-list
+              - accepted = t('scientific_name.status_title.accepted')
               - scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
+                - next if status == accepted && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
                 .item
                   .header= string.html_safe
                   .description.uk-text-meta
                     - formatted_names = []
-                    - accepted = t('scientific_name.status_title.accepted')
                     - names.each do |name|
                       - next if name.resource.nil? && name.attribution.blank?
-                      - next if status == accepted && !name.is_preferred? # These are almost always bogus.
                       - note = ''
                       - note += link_to(name.resource.name, name.resource) if name&.resource
                       - note += " #{name.attribution.html_safe}" unless name.attribution.blank?
