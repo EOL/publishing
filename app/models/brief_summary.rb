@@ -79,6 +79,7 @@ class BriefSummary
   def a1
     return @a1_name if @a1_name
     @a1 ||= @page.ancestors.reverse.find { |a| a.minimal? }
+    return nil if @a1.nil?
     @a1_name = @a1.vernacular || @a1.canonical
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
