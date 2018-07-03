@@ -76,7 +76,7 @@ class BriefSummary
   # available, else use the canonical.
   def a1
     return @a1_name if @a1_name
-    @a1 ||= page.ancestors.reverse.find { |a| a.minimal? }
+    @a1 ||= @page.ancestors.reverse.find { |a| a.minimal? }
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
     # dynamic hierarchy. If the name starts with a vowel, it should be preceded by an, if not it should be preceded by
@@ -96,7 +96,7 @@ class BriefSummary
   end
 
   def a2_node
-    @a2_node ||= page.ancestors.reverse.find { |a| a.abbreviated? }
+    @a2_node ||= @page.ancestors.reverse.find { |a| a.abbreviated? }
   end
 
   # Geographic data (G1) will initially be sourced from a pair of measurement types:
@@ -111,13 +111,13 @@ class BriefSummary
 
   def name_clause
     @name_clause ||=
-      if page.name == page.canonical
-        page.name
-      elsif page.canonical =~ /#{page.name}/
+      if @page.name == @page.canonical
+        @page.name
+      elsif @page.canonical =~ /#{@page.name}/
         # Sometimes the "name" is part of the canonical, and it looks really weird to double up.
-        page.canonical
+        @page.canonical
       else
-        "#{page.canonical} (#{page.name})"
+        "#{@page.canonical} (#{@page.name})"
       end
   end
 
@@ -189,26 +189,26 @@ class BriefSummary
   end
 
   # TODO: it would be nice to make these into a module included by the Page class.
-  def is_species?(page)
-    is_rank?(page, 'r_species')
+  def is_species?
+    is_rank?('r_species')
   end
 
-  def is_family?(page)
-    is_rank?(page, 'r_family')
+  def is_family?
+    is_rank?('r_family')
   end
 
-  def is_genus?(page)
-    is_rank?(page, 'r_genus')
+  def is_genus?
+    is_rank?('r_genus')
   end
 
   # NOTE: the secondary clause here is quite... expensive. I recommend we remove it, or if we keep it, preload ranks.
   # NOTE: Because species is a reasonable default for many resources, I would caution against *trusting* a rank of
   # species for *any* old resource. You have been warned.
-  def is_rank?(page, rank)
-    if page.rank
-      page.rank.treat_as == rank
+  def is_rank?(rank)
+    if @page.rank
+      @page.rank.treat_as == rank
     else
-      page.nodes.any? { |n| n.rank&.treat_as == rank }
+      @page.nodes.any? { |n| n.rank&.treat_as == rank }
     end
   end
 
