@@ -1,5 +1,6 @@
 # At the time of writing, this was an implementation of
-# https://github.com/EOL/eol_website/issues/5#issuecomment-397708511
+# https://github.com/EOL/eol_website/issues/5#issuecomment-397708511 and
+# https://github.com/EOL/eol_website/issues/5#issuecomment-402848623
 class BriefSummary
   def initialize(page)
     @page = page
@@ -32,11 +33,11 @@ class BriefSummary
     what = a1
     family = a2
     if family
-      @sentences << "#{name_clause} is #{a_or_an(what)} in the family #{a2}."
+      @sentences << "#{name_clause} is a species of #{what} in the family #{a2}."
     else
       # We may have a few species that don't have a family in their ancestry. In those cases, shorten the taxonomy
       # sentence: [name clause] is a[n] [A1].
-      @sentences << "#{name_clause} is #{a_or_an(what)}."
+      @sentences << "#{name_clause} is a species of #{what}."
     end
     # If the species [is extinct], insert an extinction status sentence between the taxonomy sentence
     # and the distribution sentence. extinction status sentence: This species is extinct.
@@ -54,7 +55,7 @@ class BriefSummary
   def genus
     family = a2
     if family
-      @sentences << "#{name_clause} is a genus in the #{a1} family #{family}."
+      @sentences << "#{name_clause} is a genus of #{a1} in the family #{family}."
     else
       @sentences << "#{name_clause} is a family of #{a1}."
     end
@@ -116,13 +117,10 @@ class BriefSummary
 
   def name_clause
     @name_clause ||=
-      if @page.name == @page.canonical
-        @page.name
-      elsif @page.canonical =~ /#{@page.name}/
-        # Sometimes the "name" is part of the canonical, and it looks really weird to double up.
-        @page.canonical
+      if @page.vernacular
+        "#{@page.canonical} (#{@page.vernacular})"
       else
-        "#{@page.canonical} (#{@page.name})"
+        @page.canonical
       end
   end
 
