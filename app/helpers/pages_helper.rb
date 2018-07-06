@@ -94,7 +94,7 @@ module PagesHelper
             haml_tag("div.ui.middle.aligned.list.descends") do
               this_node.children.each do |child|
                 haml_tag("div.item") do
-                  if (child.page.should_show_icon? && this_node && image = child.page.medium)
+                  if (child.page&.should_show_icon? && this_node && image = child.page.medium)
                     haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
                     haml_tag("div.content") do
                       summarize(child.page, node: child, no_icon: true)
@@ -164,6 +164,14 @@ module PagesHelper
 
   def full_hierarchy(page, link)
     hierarchy_helper(page, link, :full)
+  end
+
+  def language_header(l)
+    return t("languages.none") if l.blank?
+    tl = t("languages.#{l}")
+    return l if tl =~ /^translation missing/
+    return l if tl =~ /^I18n:/
+    tl == 0 ? l : tl
   end
 
   private

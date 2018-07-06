@@ -48,7 +48,7 @@ class Publishing::PubMedia
       end
     end
     return if count.zero?
-    MediaContentCreator.by_resource(@resource, @log)
+    MediaContentCreator.by_resource(@resource, log: @log)
     unless @image_info.empty?
       @log.log("Importing #{@image_info.size} image info records...")
       ImageInfo.import!(@image_info, on_duplicate_key_ignore: true)

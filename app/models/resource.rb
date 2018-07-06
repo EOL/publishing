@@ -189,7 +189,7 @@ class Resource < ActiveRecord::Base
   # This is kinda cool... and faster than fix_counter_culture_counts
   def fix_missing_page_contents(options = {})
     delete = options.key?(:delete) ? options[:delete] : false
-    [Medium, Article, Link].each { |type| fix_missing_page_contents_by_type(type, delete: delete) }
+    [Medium, Article, Link].each { |type| fix_missing_page_contents_by_type(type, options.merge(delete: delete)) }
   end
 
   # TODO: this should be extracted and generalized so that a resource_id is options (thus allowing ALL contents to be
@@ -200,6 +200,7 @@ class Resource < ActiveRecord::Base
     page_counts = {}
     type_table = type.table_name
     contents = PageContent.where(content_type: type.name, resource_id: id)
+    contents = contents.where(options[:clause]) if options[:clause]
     if delete
       contents.joins(
         %Q{LEFT JOIN #{type_table} ON (page_contents.content_id = #{type_table}.id)}
@@ -235,6 +236,11 @@ class Resource < ActiveRecord::Base
         Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://beta-repo.eol.org/', #{field})")
       end
     end
+  end
+
+  # Goes and asks the Harvesting site for information on how to move the nodes between pages...
+  def move_nodes
+    Node::Mover.by_resource(self)
   end
 
   def import_traits(since)

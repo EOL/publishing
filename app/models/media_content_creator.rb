@@ -1,6 +1,6 @@
 class MediaContentCreator
-  def self.by_resource(resource, log = nil, id = nil)
-    self.new(resource, log, start: id).by_resource
+  def self.by_resource(resource, options = {})
+    self.new(resource, options[:log], start: options[:id]).by_resource(options)
   end
 
   def initialize(resource, log = nil, options = {})
@@ -16,12 +16,13 @@ class MediaContentCreator
     @content_count_by_page = {}
   end
 
-  def by_resource
+  def by_resource(options = {})
+    clause = options[:clause] || 'page_id IS NOT NULL'
     @log.log('MediaContentCreator#by_resource', cat: :starts)
     [Medium, Article].each do |k|
       @klass = k
       @field = "#{@klass.name.underscore.downcase}_id".to_sym
-      query = @klass.where(resource: @resource.id).where('page_id IS NOT NULL')
+      query = @klass.where(resource: @resource.id).where(clause)
       query = query.where(['id > ?', @options[:start]]) if @options[:start]
       b_size = 1000 # Default is 1000, I just want to use this for calculation.
       count = query.count
@@ -42,7 +43,7 @@ class MediaContentCreator
         update_naked_pages if k == Medium
       end
     end
-    fix_counter_culture_counts
+    fix_counter_culture_counts(clause: clause) unless options[:skip_counts]
     if @options[:start]
       @log.log('FINISHED ... but this was a MANUAL run. If the resource has refs, YOU NEED TO PROPAGATE THE REF IDS.'\
         ' Also, technically, the temp files should be removed.', cat: :warns)
@@ -118,6 +119,6 @@ class MediaContentCreator
     @log.log("Fixing counter-culture counts...")
     # PageContent.where(content_type: @klass.name, content_id: @contents.map { |c| c[:content_id] }).
     #   counter_culture_fix_counts
-    @resource.fix_missing_page_contents # Faster.
+    @resource.fix_missing_page_contents(options) # Faster.
   end
 end
