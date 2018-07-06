@@ -1,7 +1,7 @@
 .l-terms
   .ui.dimmer.js-term-form-dimmer
     .ui.loader
-  .js-filter-form{:class => @pages ? "is-hidden" : ""}
+  .js-filter-form-contain{:class => @pages ? "is-hidden" : ""}
     = render "search_form"
 
   - if @pages
@@ -11,10 +11,13 @@
           %li.show-filter.show-filter-clade= "clade #{@query.clade.native_node&.canonical_form}"
         - @query.filters.each do |f|
           %li.show-filter= filter_display_string(f)
-      .edit-filters-row
-        %span.js-edit-filters.edit-filters 
+      %ul.edit-filters-row
+        %li.js-edit-filters
           %i{:'uk-icon' => "icon: pencil"}
           %span edit filters
+        %li.js-download-tsv{:'data-url' => term_search_results_path(:format => :csv)}
+          %i{:'uk-icon' => "icon: download"}
+          %span download tsv
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else

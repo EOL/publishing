@@ -117,8 +117,14 @@
 
   $(function() {
     $('.js-edit-filters').click(function() {
-      $('.js-filter-form').removeClass('is-hidden');
+      $('.js-filter-form-contain').removeClass('is-hidden');
       $('.js-filter-list').addClass('is-hidden');
+    });
+    $('.js-download-tsv').click(function() {
+      var $form = $('.js-filter-form');
+      // XXX: this is scary but shouldn't matter in practice since the submit is synchronous and the form will be gone after that
+      $form.attr('action', $(this).data('url'));
+      $form.submit();
     });
   });
 })();

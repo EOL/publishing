@@ -108,12 +108,17 @@
 
 .edit-filters-row {
   color: $eol-blue;
+  list-style: none;
+  padding: 0;
   text-align: center;
+
+  & > li {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 8px;
+  }
 }
 
-.edit-filters {
-  cursor: pointer;
-}
 
 .show-filters {
   display: flex;

@@ -1,5 +1,5 @@
 #term_form_container
-  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", ("is-multiple-filters" if (@query.filters.length > 1))]} do |f|
+  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))]} do |f|
     .filter.filter-row
       %span.js-typeahead-wrap.l-filter-full
         = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (optional)"
@@ -47,5 +47,4 @@
         .filter-field.filter-field-radio
           = label_tag :search_type_record, "records matching ALL filters"
           = f.radio_button :result_type, :record
-      = submit_tag "Download TSV", :formaction => term_search_results_path(:format => :csv), :class => "filter-field filter-field-radio"
     = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1"
