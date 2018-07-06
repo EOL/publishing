@@ -2,8 +2,7 @@
 @import "dimensions";
 @import "shared/summary_card";
 
-$filter-bar-height: 64px;
-$filter-bar-row-height: $filter-bar-height / 2;
+$filter-bar-height: 32px;
 
 .search-form {
   padding-top: 50px;
@@ -25,6 +24,7 @@ $filter-bar-row-height: $filter-bar-height / 2;
   cursor: pointer;
   height: $filter-bar-height;
   left: 0;
+  line-height: $filter-bar-height;
   position: fixed;
   text-align: center;
   top: $nav-height;
@@ -34,24 +34,6 @@ $filter-bar-row-height: $filter-bar-height / 2;
   & a {
     color: $white;
   }
-}
-
-.filter-bar-row {
-  $height: $filter-bar-row-height;
-
-  height: $height;
-  line-height: $height;
-
-  .results {
-    width: 100% !important;
-  }
-}
-
-.filter-bar-row-top {
-  background: $white;
-  border-bottom: 1px solid $eol-logo-blue;
-  border-top: 1px solid $eol-logo-blue;
-  color: $eol-black;
 }
 
 .filter-bar-filters {
@@ -72,17 +54,6 @@ $filter-bar-row-height: $filter-bar-height / 2;
 }
 
 // TODO: resolve all of the !importants by styling Semantic UI, which is why I put them here. :S Please forgive me!
-.filter-bar-input {
-  background: none;
-  border: none !important;
-  color: inherit !important;
-  font-size: inherit !important;
-  height: $filter-bar-row-height !important;
-  text-align: center !important;
-  width: 100% !important;
-  border-radias: 0 !important;
-}
-
 .search-results {
   background: $white;
   list-style: none;
