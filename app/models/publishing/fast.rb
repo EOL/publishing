@@ -7,6 +7,12 @@ class Publishing::Fast
     publr.by_resource
   end
 
+  # e.g.: Publishing::Fast.update_attribute_by_resource(Resource.first, Node, :rank_id)
+  def self.update_attribute_by_resource(resource, klass, field)
+    publr = new(resource)
+    publr.update_attribute(klass, field)
+  end
+
   # e.g.: Publishing::Fast.load_local_file(Resource.first, NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
   def self.load_local_file(resource, klass, file)
     publr = new(resource)
@@ -31,6 +37,52 @@ class Publishing::Fast
     @repo_site = URI(repo_url)
     @repo_is_on_this_host = repo_url =~ /(128\.0\.0\.1|localhost)/
     @log = log # Okay if it's nil.
+    @files = []
+  end
+
+  # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
+  def update_attribute(klass, field)
+    require 'csv'
+    abort_if_already_running
+    @klass = klass
+    # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
+    pos = @klass.column_names.index(field) - 1
+    new_log
+    begin
+      plural = @klass.table_name
+      unless exists?("#{plural}.tsv")
+        raise("#{repo_file_url("#{plural}.tsv")} does not exist! Are you sure the resource has successfully finished harvesting?")
+      end
+      log_start("Updating attribute #{field} (#{pos}) for #{plural}")
+      @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
+      if grab_file("#{plural}.tsv")
+        all_data = CSV.read(@data_file, col_sep: "\t", encoding: 'ISO-8859-1')
+        pk_pos = @klass.column_names.index('resource_pk') - 1
+        all_data.in_groups_of(2000, false) do |lines|
+          pks = lines.map { |l| l[pk_pos] }
+          instances = @klass.where(resource_id: @resource.id, resource_pk: pks)
+          keyed_instances = instances.group_by(&:resource_pk)
+          changes = []
+          lines.each do |line|
+            pk = line[pk_pos]
+            val = line[pos]
+            keyed_instances[pk].each do |instance|
+              next if instance[field] == val
+              instance[field] = val
+              changes << instance
+            end
+          end
+          @klass.import(changes, on_duplicate_key_update: [field])
+        end
+        @files << @data_file
+      end
+    rescue => e
+      @log.fail(e)
+    ensure
+      log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
+      log_close
+      ImportLog.all_clear!
+    end
   end
 
   def by_resource
@@ -49,7 +101,7 @@ class Publishing::Fast
       Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
     }
     abort_if_already_running
-    @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
+    new_log
     unless @resource.nodes.count.zero? # slow, skip if not needed.
       log = @resource.remove_content
       @log = Publishing::PubLog.new(@resource)
@@ -60,7 +112,6 @@ class Publishing::Fast
       unless exists?('nodes.tsv')
         raise("#{repo_file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
-      files = []
       @relationships.each_key do |klass|
         @klass = klass
         log_start(@klass)
@@ -70,7 +121,7 @@ class Publishing::Fast
           import
           log_start("#propagate_ids #{@klass}")
           propagate_ids
-          files << @data_file
+          @files << @data_file
         end
       end
       log_start('Remove traits')
@@ -92,10 +143,7 @@ class Publishing::Fast
       @resource.fix_native_nodes
       log_start('#propagate_reference_ids')
       propagate_reference_ids
-      files.each do |file|
-        log("Removing #{file}")
-        File.unlink(file)
-      end
+      clean_up
     rescue => e
       @log.fail(e)
     ensure
@@ -108,6 +156,17 @@ class Publishing::Fast
   def abort_if_already_running
     if (info = ImportLog.already_running?)
       raise(info)
+    end
+  end
+
+  def new_log
+    @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
+  end
+
+  def clean_up
+    @files.each do |file|
+      log("Removing #{file}")
+      File.unlink(file)
     end
   end
 
@@ -136,7 +195,7 @@ class Publishing::Fast
   end
 
   def import
-    cols = @klass.connection.exec_query("DESCRIBE `#{@klass.table_name}`").rows.map(&:first)
+    cols = @klass.column_names
     cols.delete('id') # We never load the PK, since it's auto_inc.
     q = ['LOAD DATA']
     # NOTE: "LOCAL" is a strange directive; you only use it when you are REMOTE. ...The intention being, you're telling
