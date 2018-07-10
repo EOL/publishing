@@ -118,7 +118,7 @@ class BriefSummary
   def name_clause
     @name_clause ||=
       if @page.vernacular
-        "#{@page.canonical} (#{@page.vernacular})"
+        "#{@page.canonical} (#{@page.vernacular.string})"
       else
         @page.canonical
       end
