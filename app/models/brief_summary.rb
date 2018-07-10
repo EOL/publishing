@@ -134,7 +134,8 @@ class BriefSummary
         has_data(predicates: ['http://eol.org/schema/terms/Habitat'],
                  values: ['http://purl.obolibrary.org/obo/ENVO_00000447'])
       @page.update_attribute(:has_checked_marine, true)
-      @page.update_attribute(:is_marine, marine)
+      # NOTE: this DOES NOT WORK without the true / false thing. :|
+      @page.update_attribute(:is_marine, marine ? true : false)
       marine
     end
   end
