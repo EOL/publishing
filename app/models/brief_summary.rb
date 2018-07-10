@@ -213,8 +213,8 @@ class BriefSummary
   def is_rank?(rank)
     if @page.rank
       @page.rank.treat_as == rank
-    else
-      @page.nodes.any? { |n| n.rank&.treat_as == rank }
+    # else
+    #   @page.nodes.any? { |n| n.rank&.treat_as == rank }
     end
   end
 
