@@ -96,7 +96,7 @@ class BriefSummary
   def a2
     return @a2_name if @a2_name
     return nil if a2_node.nil?
-    @a2_name = a2_node.page&.vernacular || a2_node.vernacular
+    @a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
     @a2_name = nil if @a2_name && @a2_name =~ /family/i
     @a2_name ||= a2_node.canonical_form
   end
