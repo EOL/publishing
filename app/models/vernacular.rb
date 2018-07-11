@@ -33,7 +33,7 @@ class Vernacular < ActiveRecord::Base
 
     def prefer_names_per_page_id(clause = nil)
       batch = 10_000
-      low_bound = batch.dup
+      low_bound = 0
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
