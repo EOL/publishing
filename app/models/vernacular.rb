@@ -33,14 +33,15 @@ class Vernacular < ActiveRecord::Base
 
     def prefer_names_per_page_id(clause = nil)
       batch = 10_000
-      limit = batch.dup
+      low_bound = batch.dup
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
       loop do
+        limit = low_bound + batch
         pages = {}
-        verns = Vernacular.where(['page_id >= ? AND page_id < ?', limit, limit + batch]) ; 1
+        verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit]) ; 1
         verns = verns.where(clause) if clause
         verns.where(is_preferred: true).pluck(:page_id).each { |id| pages[id] = true }
         verns.find_each do |vern|
@@ -48,7 +49,7 @@ class Vernacular < ActiveRecord::Base
           vern.update_attribute(:is_preferred, true)
           pages[vern.page_id] = true
         end
-        limit += batch
+        low_bound = limit
         iterations += 1
         puts "... that was iteration #{iterations}/#{iter_max}"
         break if limit >= max || iterations > iter_max # Just making SURE we break...
