@@ -184,9 +184,9 @@ module PagesHelper
         unless mode == :full || anc_node.use_breadcrumb?
           unless shown_ellipsis
             if link
-              parts << content_tag(:span, "»", :class => "a js-show-full-hier")
+              parts << content_tag(:span, "…", :class => "a js-show-full-hier")
             else
-              parts << "»"
+              parts << "…"
             end
             shown_ellipsis = true
           end
@@ -202,16 +202,10 @@ module PagesHelper
         shown_ellipsis = false
       end
 
-      if mode == :full
-        if link
-          parts << content_tag(:span, "«", :class => "a js-show-summary-hier")
-        else
-          parts << "«"
-        end
+      if mode == :full && link
+        parts << content_tag(:span, "«", :class => "a js-show-summary-hier")
       end
 
-      # surround / with zero-length spaces so text can wrap
-      parts.join(" / ").html_safe
-      #parts.join("&#8203;/&#8203;").html_safe
+      parts.join(" » ").html_safe
     end
 end
