@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180619191957) do
+ActiveRecord::Schema.define(version: 20180701234758) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -893,17 +893,17 @@ ActiveRecord::Schema.define(version: 20180619191957) do
     t.datetime "updated_at",                                           null: false
     t.string   "username",               limit: 255,                   null: false
     t.string   "name",                   limit: 255
-    t.boolean  "active"
     t.string   "api_key",                limit: 255
     t.string   "tag_line",               limit: 255
     t.text     "bio",                    limit: 65535
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
     t.datetime "deleted_at"
-    t.boolean  "admin",                                default: false
     t.integer  "failed_attempts",        limit: 4,     default: 0,     null: false
     t.string   "unlock_token",           limit: 255
     t.datetime "locked_at"
+    t.boolean  "active",                               default: false, null: false
+    t.integer  "role",                   limit: 4,     default: 10,    null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
