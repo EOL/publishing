@@ -368,10 +368,9 @@ class Page < ActiveRecord::Base
     @names_count ||= vernaculars_count + scientific_names_count
   end
 
-  # TODO: this is duplicated with node; fix. Can't (easily) use clever
-  # associations here because of language. TODO: Aaaaaactually, we really need
-  # to use GROUPS, not language IDs. (Or, at least, both, to make it efficient.)
-  # Switch to that. Yeeesh.
+  # TODO: this is duplicated with node; fix. Can't (easily) use clever associations here because of language. TODO:
+  # Aaaaaactually, we really need to use GROUPS, not language IDs. (Or, at least, both, to make it efficient.) Switch to
+  # that. Yeeesh.
   def vernacular(language = nil)
     if preferred_vernaculars.loaded?
       language ||= Language.english

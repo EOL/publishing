@@ -7,7 +7,7 @@ class Publishing::Fast
     publr.by_resource
   end
 
-  # e.g.: Publishing::Fast.update_attribute_by_resource(Resource.first, Node, :rank_id)
+  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.first, Node, :rank_id)" > dwh_ranks.log 2>&1 &
   def self.update_attribute_by_resource(resource, klass, field)
     publr = new(resource)
     publr.update_attribute(klass, field)
@@ -46,7 +46,7 @@ class Publishing::Fast
     abort_if_already_running
     @klass = klass
     # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
-    pos = @klass.column_names.index(field) - 1
+    pos = @klass.column_names.index(field.to_s) - 1
     new_log
     begin
       plural = @klass.table_name

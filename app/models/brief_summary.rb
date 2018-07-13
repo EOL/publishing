@@ -81,7 +81,7 @@ class BriefSummary
     return @a1_name if @a1_name
     @a1 ||= @page.ancestors.reverse.find { |a| a.minimal? }
     return nil if @a1.nil?
-    @a1_name = @a1.vernacular&.singularize
+    @a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
     @a1_name ||= @a1.canonical
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
@@ -96,7 +96,7 @@ class BriefSummary
   def a2
     return @a2_name if @a2_name
     return nil if a2_node.nil?
-    @a2_name = a2_node.vernacular
+    @a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
     @a2_name = nil if @a2_name && @a2_name =~ /family/i
     @a2_name ||= a2_node.canonical_form
   end
@@ -118,7 +118,7 @@ class BriefSummary
   def name_clause
     @name_clause ||=
       if @page.vernacular
-        "#{@page.canonical} (#{@page.vernacular})"
+        "#{@page.canonical} (#{@page.vernacular.string})"
       else
         @page.canonical
       end
@@ -134,7 +134,8 @@ class BriefSummary
         has_data(predicates: ['http://eol.org/schema/terms/Habitat'],
                  values: ['http://purl.obolibrary.org/obo/ENVO_00000447'])
       @page.update_attribute(:has_checked_marine, true)
-      @page.update_attribute(:is_marine, marine)
+      # NOTE: this DOES NOT WORK without the true / false thing. :|
+      @page.update_attribute(:is_marine, marine ? true : false)
       marine
     end
   end
@@ -212,8 +213,8 @@ class BriefSummary
   def is_rank?(rank)
     if @page.rank
       @page.rank.treat_as == rank
-    else
-      @page.nodes.any? { |n| n.rank&.treat_as == rank }
+    # else
+    #   @page.nodes.any? { |n| n.rank&.treat_as == rank }
     end
   end
 
