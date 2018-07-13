@@ -68,7 +68,7 @@ class TraitBank
         def reload(pairs, fn, options = nil)
           log = options[:log]
           pairs.each do |pair|
-            raise "The pairs must ALL be of exactly length 2. Aborting." unless pair.size == 2
+            raise "The pairs must ALL be of exactly length 2. Aborting. (#{pair.inspect})" unless pair.size == 2
             pair.each do |uri|
               next if uri == 'unitless' && fn == :set_units_for_pred && uri == pair[1]
               raise "This doesn't look like a URI to me: #{uri} ...ABORTING." unless

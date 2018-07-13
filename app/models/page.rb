@@ -81,14 +81,26 @@ class Page < ActiveRecord::Base
     end
 
     # TODO: abstract this to allow updates of the other count fields.
+    # NOTE: This isn't as hairy as it looks. Currently (July 2018) takes under 10 minutes.
     def fix_media_counts
-      # This isn't as hairy as it looks. Currently takes about 12 seconds.
       pids = PageContent.connection.execute('select DISTINCT(page_id) from page_contents where content_type = "Medium"')
       pids.each do |page_id|
         count = PageContent.where(page_id: page_id, content_type: 'Medium').count
         # NOTE: Skipping loading any models; this just calls the DB, even though it looks weird to "update_all" one row.
         Page.where(id: page_id).update_all(media_count: count)
       end
+    end
+
+    # NOTE: you prrrrrrobaby want to fix_media_counts before you call this.
+    def fix_missing_icons
+      pages = []
+      Page.where(medium_id: nil).where('media_count > 0').find_each do |page|
+        # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
+        # method often enough to warrant speeding it up.
+        page.medium_id = page.media.first.id
+        pages << page
+      end
+      Page.import!(pages, on_duplicate_key_update: [:medium_id])
     end
 
     def remove_if_nodeless
