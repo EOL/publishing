@@ -71,7 +71,7 @@ class TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
-      # NOTE: this code is unused, but please don't delete it; we use it manually.
+      # NOTE: this code is unused, but please don't delete it; we call it manually.
       def delete_terms_in_domain(domain)
         before = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
         query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' DETACH DELETE term")
