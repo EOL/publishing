@@ -55,8 +55,7 @@ class TraitBank
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
-          q += ' {' unless qterm
-          q += ' is_hidden_from_glossary: false' unless qterm
+          q += ' { is_hidden_from_glossary: false }' unless qterm
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || types.key?(type)
@@ -232,8 +231,13 @@ class TraitBank
           gloss = predicate_glossary(page)
           break if gloss.empty?
           gloss.each do |term|
-            # YOU WERE HERE.
+            q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }])
+            # NOTE: it's probably important that the per-page is the same as in the search_controller:
+            TraitBank.term_search(q, page: 1, per: 50)
+            ('a'..'z').each { |letter| obj_terms_for_pred(term[:uri], letter) }
+            sleep(0.25) # Give it a *little* rest. Heh.
           end
+          page += 1
           raise "Whoa! Huge predicate glossary, aborting." if page > 200
         end
       end

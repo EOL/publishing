@@ -54,69 +54,83 @@ class Page < ActiveRecord::Base
 
   delegate :ancestors, to: :native_node
 
-  # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
-  # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
-  # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
-  def self.fix_all_missing_native_nodes
-    start = 1 # Don't bother checking minimum, this is always 1.
-    upper = maximum(:id)
-    batch_size = 10_000
-    while start < upper
-      fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
-      start += batch_size
-    end
-  end
-
-  def self.fix_missing_native_nodes(scope)
-    pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
-    pages.includes(:nodes).find_each do |page|
-      if page.nodes.empty?
-        # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-        page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
-      else
-        page.update_attribute(:native_node_id, page.nodes.first.id)
+  class << self
+    # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
+    # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
+    # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
+    def fix_all_missing_native_nodes
+      start = 1 # Don't bother checking minimum, this is always 1.
+      upper = maximum(:id)
+      batch_size = 10_000
+      while start < upper
+        fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
+        start += batch_size
       end
     end
-  end
 
-  # TODO: abstract this to allow updates of the other count fields.
-  def self.fix_media_counts
-    # This isn't as hairy as it looks. Currently takes about 12 seconds.
-    pids = PageContent.connection.execute('select DISTINCT(page_id) from page_contents where content_type = "Medium"')
-    pids.each do |page_id|
-      count = PageContent.where(page_id: page_id, content_type: 'Medium').count
-      # NOTE: Skipping loading any models; this just calls the DB, even though it looks weird to "update_all" one row.
-      Page.where(id: page_id).update_all(media_count: count)
-    end
-  end
-
-  def self.remove_if_nodeless
-    # Delete pages that no longer have nodes
-    Page.find_in_batches(batch_size: 10_000) do |group|
-      group_ids = group.map(&:id)
-      have_ids = Node.where(page_id: group_ids).pluck(:page_id)
-      bad_pages = group_ids - have_ids
-      next if bad_pages.empty?
-      # TODO: PagesReferent
-      [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
-       PageContent].each do |klass|
-        klass.where(page_id: bad_pages).delete_all
+    def fix_missing_native_nodes(scope)
+      pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
+      pages.includes(:nodes).find_each do |page|
+        if page.nodes.empty?
+          # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
+          page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+        else
+          page.update_attribute(:native_node_id, page.nodes.first.id)
+        end
       end
-      Page.where(id: bad_pages).delete_all
     end
-  end
 
-  def self.autocomplete(query, options = {})
-    search(query, options.reverse_merge({
-      fields: ['dh_scientific_names^30', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
-      match: :text_start,
-      limit: 10,
-      load: false,
-      misspellings: false,
-      highlight: { tag: "<mark>", encoder: "html" },
-      boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
-      where: { dh_scientific_names: { not: nil }}
-    }))
+    # TODO: abstract this to allow updates of the other count fields.
+    def fix_media_counts
+      # This isn't as hairy as it looks. Currently takes about 12 seconds.
+      pids = PageContent.connection.execute('select DISTINCT(page_id) from page_contents where content_type = "Medium"')
+      pids.each do |page_id|
+        count = PageContent.where(page_id: page_id, content_type: 'Medium').count
+        # NOTE: Skipping loading any models; this just calls the DB, even though it looks weird to "update_all" one row.
+        Page.where(id: page_id).update_all(media_count: count)
+      end
+    end
+
+    def remove_if_nodeless
+      # Delete pages that no longer have nodes
+      Page.find_in_batches(batch_size: 10_000) do |group|
+        group_ids = group.map(&:id)
+        have_ids = Node.where(page_id: group_ids).pluck(:page_id)
+        bad_pages = group_ids - have_ids
+        next if bad_pages.empty?
+        # TODO: PagesReferent
+        [PageIcon, ScientificName, SearchSuggestion, Vernacular, CollectedPage, Collecting, OccurrenceMap,
+         PageContent].each do |klass|
+          klass.where(page_id: bad_pages).delete_all
+        end
+        Page.where(id: bad_pages).delete_all
+      end
+    end
+
+    def warm_autocomplete
+      ('a'..'z').each do |first_letter|
+        autocomplete(first_letter)
+        ('a'..'z').each do |second_letter|
+          autocomplete("#{first_letter}#{second_letter}")
+          ('a'..'z').each do |third_letter|
+            autocomplete("#{first_letter}#{second_letter}#{third_letter}")
+          end
+        end
+      end
+    end
+
+    def autocomplete(query, options = {})
+      search(query, options.reverse_merge({
+        fields: ['dh_scientific_names^30', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+        match: :text_start,
+        limit: 10,
+        load: false,
+        misspellings: false,
+        highlight: { tag: "<mark>", encoder: "html" },
+        boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
+        where: { dh_scientific_names: { not: nil }}
+      }))
+    end
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
