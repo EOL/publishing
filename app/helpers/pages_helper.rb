@@ -202,10 +202,13 @@ module PagesHelper
         shown_ellipsis = false
       end
 
+      result = parts.join(" » ").html_safe
+
       if mode == :full && link
-        parts << content_tag(:span, "«", :class => "a js-show-summary-hier")
+        result += " "
+        result += content_tag(:span, "«", :class => "a js-show-summary-hier")
       end
 
-      parts.join(" » ").html_safe
+      result
     end
 end
