@@ -89,6 +89,8 @@ Rails.application.routes.draw do
   get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
   get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
 
+  get "/findings/cypher" => "findings#cypher"
+
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
   # Non-resource routes last:
