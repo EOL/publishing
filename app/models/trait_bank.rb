@@ -382,7 +382,7 @@ class TraitBank
           matches << '(trait:Trait)-[:predicate]->(predicate:Term)'
         end
 
-      object_term_in_match = term_query.filters.all?(&:object_term?)
+      object_term_in_match = term_query.filters.any?(&:object_term?)
 
       matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(tgt_obj:Term)" if
         object_term_in_match
