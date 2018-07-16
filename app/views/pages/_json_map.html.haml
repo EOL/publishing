@@ -16,4 +16,4 @@
     = javascript_include_tag "5169"
     = javascript_include_tag "maps_leaflet"
 
-#map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png") } }
+#map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png"), :'map-data-path' => map_json_path(@page) } }
