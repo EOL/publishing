@@ -283,7 +283,10 @@ private
       # Too many. Just use ALL of them for filtering:
       @licenses = License.all.pluck(:name).uniq.sort
       @subclasses = Medium.subclasses.keys.sort
-      @resources = Resource.all.select('id, name').sort
+      # List of resources, as of Jul 2018 (query takes about 32 seconds), that HAVE images, i.e.:
+      # Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id) # NOTE: delete the [0].
+      resource_ids = [2, 4, 8, 9, 10, 11, 12, 46, 53, 181, 395, 410, 416, 417, 418, 420, 459, 461, 462, 463, 464, 465, 468, 469, 470, 475]
+      @resources = Resource.where(id: resource_ids).select('id, name').sort_by { |r| r.name.downcase }
     else
       @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
       @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
