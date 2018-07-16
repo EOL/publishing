@@ -1,14 +1,19 @@
--# These IDs are all used by JavaScript to populate the page with the proper map
--# content.
-#map
-  #gmap
-    #panel
-      %div
-        = I18n.t(:georeference_records_colon)
-        %span#total_markers
-      #markerlist
-    #map-container
-      #map-canvas{ :'data-json-path' => maps_json_path(@page) }
-    %p
-      -# TODO: We need to pull the link out of the database somewhere...
-      = I18n.t(:georef_occurrence_disclaimer, link: link_to(@page.occurrence_map.url, @page.occurrence_map.url)).html_safe
+- content_for :content do
+  - content_for :head do
+    = stylesheet_link_tag "leaflet"
+    = stylesheet_link_tag "MarkerCluster"
+    = stylesheet_link_tag "MarkerCluster.Default"
+    = stylesheet_link_tag "Control.FullScreen"
+    = stylesheet_link_tag "Leaflet.NavBar"
+    = stylesheet_link_tag "Control.Loading"
+
+    = javascript_include_tag "leaflet"
+    = javascript_include_tag "leaflet.markercluster"
+    = javascript_include_tag "Control.FullScreen"
+    = javascript_include_tag "Leaflet.NavBar"
+    = javascript_include_tag "freezable"
+    = javascript_include_tag "Control.Loading"
+    = javascript_include_tag "5169"
+    = javascript_include_tag "maps_leaflet"
+
+#map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png") } }

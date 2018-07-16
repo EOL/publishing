@@ -1,0 +1,6 @@
+examples/
+*.map
+build/
+src/
+.gitignore
+Jakefile.js

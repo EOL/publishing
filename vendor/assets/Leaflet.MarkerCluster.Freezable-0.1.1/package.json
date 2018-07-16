@@ -1,0 +1,38 @@
+{
+  "name": "leaflet.markercluster.freezable",
+  "_name": "Leaflet.MarkerCluster.Freezable",
+  "version": "0.1.1",
+  "_year": "2015-2016",
+  "description": "Sub-plugin for Leaflet.markercluster plugin; adds the ability to freeze clusters at a specified zoom.",
+  "main": "dist/leaflet.markercluster.freezable",
+  "files": ["dist/*.js"],
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "build": "jake build",
+    "prepublish": "jake"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghybs/Leaflet.MarkerCluster.Freezable.git"
+  },
+  "keywords": [
+    "leaflet",
+    "leaflet.markercluster",
+    "plugins",
+    "maps",
+    "freezable"
+  ],
+  "author": "Boris Seang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghybs/Leaflet.MarkerCluster.Freezable/issues"
+  },
+  "homepage": "https://github.com/ghybs/Leaflet.MarkerCluster.Freezable#readme",
+  "devDependencies": {
+    "git-rev": "^0.2.1",
+    "magic-string": "^0.11.4",
+    "uglify-js": "^2.6.2"
+  }
+}
