@@ -30,7 +30,7 @@
       - tab("data", page_data_path(@page))
     - if @page.media_count > 0
       - tab("media", page_media_path(@page))
-    - if @page.map?
+    - if true || @page.map?
       - tab("maps", page_maps_path(@page))
     - tab("names", page_names_path(@page))
     - if @page.referents_count > 1

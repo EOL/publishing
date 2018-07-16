@@ -235,6 +235,14 @@ $font-sz-m: 14px;
   }
 }
 
+// leaflet map
+#map {
+  border: 1px solid #aaa;
+  height: 500px;
+  max-width: 90%;
+  margin: 20px auto;
+}
+
 @media (min-width: 1220px) {
   .hero {
     height: 702px;
