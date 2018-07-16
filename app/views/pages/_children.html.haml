@@ -1,12 +1,12 @@
 - limit ||= 20
 - node ||= @page.native_node || @page.nodes.first
 - if node.children.any?
-  .ui.segment{ id: "page-children-#{node.id}"}
-    %h4.ui.header= t("classifications.children.header", name: @page.short_name).html_safe
-    .ui.middle.aligned.list
+  .page-children
+    %h4= t("classifications.children.header", name: @page.short_name).html_safe
+    %ul.page-child-list
       - node.children[0..limit-1].each do |child|
-        .item
-          - summarize(child.page, current_page: false, node: child)
+        %li
+          - summarize(child.page, current_page: false, no_icon: true, node: child)
       - if node.children.size > limit
         -# TODO: link to call Ajax to show them all.
-        .item= t("classifications.children.too_many_children", count: node.children.size)
+        %li= t("classifications.children.too_many_children", count: node.children.size)
