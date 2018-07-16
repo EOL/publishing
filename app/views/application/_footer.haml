@@ -4,12 +4,14 @@
     %li= link_to(t("footer.eol_info.whats_new"), "/docs/what-is-eol/whats-new")
     %li= link_to(t("footer.eol_info.the_eol_forum"), "http://discuss.eol.org")
     %li= link_to(t("footer.eol_info.education"), "https://education.eol.org")
-    %li= link_to(t("footer.eol_info.glossary"), "/terms")
+    -#
+      %li= link_to(t("footer.eol_info.glossary"), "/terms")
     %li= link_to(t("footer.eol_info.citing_eol"), "/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content")
-    %li= link_to(t("footer.eol_info.help"), "/docs/help")
+    -#
+      %li= link_to(t("footer.eol_info.help"), "/docs/help")
     %li= link_to(t("footer.eol_info.terms_of_use"), "/docs/what-is-eol/terms-of-use")
-    %li= link_to(t("footer.eol_info.contact_us"), "http://discuss.eol.org")
     %li= link_to(t('footer.eol_info.data_services'), 'https://opendata.eol.org/')
+    %li= link_to(t("footer.eol_info.contact_us"), "http://discuss.eol.org/t/contact-us-at-eol/181")
   %ul.footer-section.footer-section-discover
     %li= link_to(t("footer.discover.animals"), "/docs/discover/animals")
     %li= link_to(t("footer.discover.mammals"), "/docs/discover/mammals")

@@ -537,9 +537,7 @@ body {
 
 // FOOTER
 .footer {
-  background: $white;
-  border-top: 1px solid $eol-gray;
-  padding: 20px 10px 40px 10px;
+  padding: 0 0 40px 0;
   margin-top: 40px;
 }
 
@@ -547,7 +545,7 @@ body {
   font-size: 12px;
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 10px;
   text-align: center;
 
   & > li {
@@ -558,8 +556,13 @@ body {
 }
 
   .footer-section-eol-info {
+    $border: 1px solid $eol-gray;
+    background: $white;
+    border-bottom: $border;
+    border-top: $border;
     font-size: 16px;
     margin-bottom: 10px;
+    padding: 10px 0;
   }
 
 
