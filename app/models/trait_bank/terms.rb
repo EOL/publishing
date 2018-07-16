@@ -226,6 +226,7 @@ class TraitBank
       end
 
       def warm_caches
+        pages_to_filter_by_predicate = read_clade_filter_warmers
         page = 1
         loop do
           gloss = predicate_glossary(page)
@@ -235,11 +236,46 @@ class TraitBank
             # NOTE: it's probably important that the per-page is the same as in the search_controller:
             TraitBank.term_search(q, page: 1, per: 50)
             ('a'..'z').each { |letter| obj_terms_for_pred(term[:uri], letter) }
+            if pages_to_filter_by_predicate.key?(term[:uri])
+              pages_to_filter_by_predicate[term[:uri]].each do |clade_id|
+                q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }], clade_id: clade_id)
+                TraitBank.term_search(q, page: 1, per: 50)
+              end
+            end
             sleep(0.25) # Give it a *little* rest. Heh.
           end
           page += 1
-          raise "Whoa! Huge predicate glossary, aborting." if page > 200
+          raise "Whoa! Huge predicate glossary, aborting." if page > 10
         end
+      end
+
+      def read_clade_filter_warmers
+        require 'csv'
+        pks_to_filter_by_predicate = {}
+        pages_to_filter_by_predicate = {}
+        pks = {}
+        clade_filter_warmer_csv = Rails.root.join('doc', "clade_filter_warmers.csv")
+        CSV.read(clade_filter_warmer_csv).each do |line|
+          predicate = line[1]
+          pk = line[0]
+          pks_to_filter_by_predicate[predicate] ||= []
+          pks_to_filter_by_predicate[predicate] << pk
+          pks[pk] ||= true
+        end
+        pairs = Node.where(resource_id: 1, resource_pk: pks.keys).pluck('resource_pk, page_id')
+        page_id_by_pk = {}
+        pairs.each { |pair| page_id_by_pk[pair.first] = pair.last }
+        pks_to_filter_by_predicate.each do |predicate, pks|
+          pks.each do |pk|
+            unless page_id_by_pk.key?(pk)
+              puts "** WARNING: Missing PK #{pk} in Dynamic Hierarchy. Skipping."
+              next
+            end
+            pages_to_filter_by_predicate[predicate] ||= []
+            pages_to_filter_by_predicate[predicate] << page_id_by_pk[pk]
+          end
+        end
+        pages_to_filter_by_predicate
       end
     end
   end
