@@ -4,11 +4,17 @@
 @import "colors";
 @import "dimensions";
 
+$font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
 html {
   color: $black;
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: $font-family;
   font-weight: 400;
   font-size: 85%;
+}
+
+h1, h2 {
+  font-family: $font-family;
 }
 
 body {
