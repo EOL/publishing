@@ -3,7 +3,7 @@
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
-  %div{ :class => (@page.medium ? "l-left-col" : "") }
+  %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
     - if !summary.blank?
       %p.desc= summary
     - if @page.data.any?
@@ -20,6 +20,8 @@
               = link_to val, url, :class => "sample-trait-val"
             - else
               .sample-trait-val= val
+    - if @page.occurrence_map?
+      = render "json_map"
     = render('pages/children')
 
   - if @page.medium

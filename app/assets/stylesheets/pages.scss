@@ -235,12 +235,21 @@ $font-sz-m: 14px;
   }
 }
 
+.l-overview-full {
+  width: 100%;
+}
+
 // leaflet map
-#map {
+.map {
   border: 1px solid #aaa;
   height: 500px;
   max-width: 90%;
   margin: 20px auto;
+}
+
+.map-overview {
+  max-width: 100%;
+  width: 100%;
 }
 
 @media (min-width: 1220px) {
