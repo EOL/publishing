@@ -564,7 +564,7 @@ en:
   please_wait: "please wait..."
   please_wait_button: "..wait.."
   nags:
-    beta: "This is an alpha version of EOL version 3. Provide feedback and join the discussion at <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>http://discuss.eol.org</a>."
+    beta: "This is a beta version of EOL v.3. It is optimized for the Chrome browser. This site uses cookies."
   name_recognized_by: "Recognized by %{by}"
   node_children_header: "Children"
   node_children_empty: ""
