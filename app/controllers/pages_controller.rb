@@ -306,8 +306,8 @@ private
       media = media.where(subclass: params[:subclass])
     end
     if params[:resource_id]
-      media = media.where(resource_id: params[:resource_id])
       @resource_id = params[:resource_id].to_i
+      media = media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
     @media = media.by_page(params[:page]).per(@media_page_size).without_count
