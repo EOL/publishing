@@ -50,7 +50,7 @@ module DataHelper
   def data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
-    if (target_id = data[:object_page_id])
+    if @associations && (target_id = data[:object_page_id])
       page = @associations.find { |a| a.id == target_id }
       unless page
         Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
