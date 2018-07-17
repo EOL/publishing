@@ -80,6 +80,13 @@ class TraitBank
         before
       end
 
+      def delete_terms_with_no_relationships
+        raise "Naw."
+        # TODO: write this. I don't want to run it... there are way too many terms, I'm scare it will break s/t.
+        puts query(%{MATCH (term:Term) WHERE NOT ()-->(term) AND NOT (term)-->() RETURN term.uri LIMIT 1000})["data"]
+        puts query(%{MATCH (term:Term) WHERE NOT ()-->(term) AND NOT (term)-->() RETURN COUNT(term)})
+      end
+
       # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
       # between pages, and then rebuild them based on what's currently in the
       # database. It skips relationships to pages that are missing (but reports on

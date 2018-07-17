@@ -298,7 +298,7 @@ private
 
     if params[:license]
       media = media.joins(:license).
-        where(["licenses.name LIKE ?", "#{params[:license]}%"])
+        where(["licenses.name = ?", "#{params[:license]}%"])
       @license = params[:license]
     end
     if params[:subclass]
