@@ -297,8 +297,7 @@ private
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license]
-      media = media.joins(:license).
-        where(["licenses.name = ?", "#{params[:license]}%"])
+      media = media.joins(:license).where(["licenses.name = ? OR licenses.name LIKE ?", params[:license], "#{params[:license]} %"])
       @license = params[:license]
     end
     if params[:subclass]
