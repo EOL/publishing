@@ -15,6 +15,7 @@
       %h2= t("user.headers.bio")
       %p= @user.bio
     - unless @user.user_downloads.empty?
+      -# - pending = Delayed::Job.where(queue: 'download').count
       %h2= t("user.headers.downloads")
       %ul.downloads
         -# TODO: expired_at and the like!
