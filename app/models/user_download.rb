@@ -27,6 +27,7 @@ private
       Rails.logger.error("!! ERROR in background_build for User Download #{id}")
       Rails.logger.error("!! #{e.message}")
       Rails.logger.error("!! #{e.backtrace.join('->')}")
+      raise e
     ensure
       self[:completed_at] = Time.now
       save! # NOTE: this could fail and we lose everything.
