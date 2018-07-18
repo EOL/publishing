@@ -80,7 +80,7 @@ class TraitBank::RecordDownloadWriter
       "Resource URL" => -> (trait, page, resource) do 
         (
           trait[:resource] ? 
-          TraitBank::DownloadUtils.url(:resource_url, trait[:resource][:resource_id]) :
+          TraitBank::DownloadUtils.resource_path(:resource, trait[:resource][:resource_id]) :
           nil
         )
       end

@@ -21,7 +21,7 @@ module TraitBank::PageDownloadWriter
 
   def self.cols
     {
-      "Taxon URL" => -> (page, sci_name) { TraitBank::DownloadUtils.url(:page_url, page.id) },
+      "Taxon URL" => -> (page, sci_name) { TraitBank::DownloadUtils.resource_path(:page, page.id) },
       "Ancestry" => -> (page, sci_name) { TraitBank::DownloadUtils.ancestry(page) },
       "Scientific Name" => -> (page, sci_name) { sci_name&.canonical_form },
       "Common Name" => -> (page, sci_name) { page.name === page.scientific_name ? nil : page.name },
