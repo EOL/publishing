@@ -76,7 +76,7 @@ class PagesController < ApplicationController
       0
     end
     respond_to do |fmt|
-      fmt.js { }
+      fmt.js { render(layout: false) }
     end
   end
 
@@ -94,16 +94,18 @@ class PagesController < ApplicationController
     # API here:
     # TODO: rescue this and look for the existing post (again) and redirect there.
     post = client.post("posts",
-      "title" => "Comments on #{@page.rank.try(:name)} #{name} page",
+      "title" => "Comments on #{@page.rank&.name} #{name} page (#{@page.id})".gsub('  ', ' '),
       "category" => cat["id"],
       "tags[]" => "id:#{@page.id}", # sigh.
       "unlist_topic" => false,
       "is_warning" => false,
       "archetype" => "regular",
       "nested_post" => true,
-      # TODO: looks like this link is broken?
       # NOTE: we do NOT want to translate this. The comments site is English.
-      "raw" => "Please leave your comments regarding <a href='#{pages_url(@page)}'>#{name}</a> in this thread by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
+      "raw" => "Please leave your comments regarding <a href='#{page_overview_path(@page)}'>#{name}</a> in this thread
+        by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For
+        additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
+
     )
     client.show_tag("id:#{@page.id}")
     redirect_to Comments.post_url(post["post"])
