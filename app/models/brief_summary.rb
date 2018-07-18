@@ -82,6 +82,8 @@ class BriefSummary
     @a1 ||= @page.ancestors.reverse.find { |a| a.minimal? }
     return nil if @a1.nil?
     @a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
+    # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
+    @a1_name = nil if @a1_name.match(' and ')
     @a1_name ||= @a1.canonical
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
@@ -105,14 +107,10 @@ class BriefSummary
     @a2_node ||= @page.ancestors.reverse.find { |a| a.abbreviated? }
   end
 
-  # Geographic data (G1) will initially be sourced from a pair of measurement types:
-  # http://rs.tdwg.org/dwc/terms/continent, http://rs.tdwg.org/dwc/terms/waterBody (not yet available, but for testing
-  # you can use: http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution) Some taxa may have multiple values, and
-  # there may be some that have both continent and waterBody values. If there is no continent or waterBody information
-  # available, omit the second sentence.
-  # TODO: these URIs are likely to change, check with JH again when you get back to these.
+  # If the species has a value for measurement type http://purl.obolibrary.org/obo/GAZ_00000071, insert a Distribution
+  # Sentence:  "It is found in [G1]."
   def g1
-    @g1 ||= values_to_sentence(['http://rs.tdwg.org/dwc/terms/continent', 'http://rs.tdwg.org/dwc/terms/waterBody', 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution'])
+    @g1 ||= values_to_sentence(['http://purl.obolibrary.org/obo/GAZ_00000071'])
   end
 
   def name_clause

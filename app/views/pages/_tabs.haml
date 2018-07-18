@@ -5,7 +5,7 @@
     .head-txt
       - if !@page.summary_hierarchy.blank?
         .hier.js-hier-summary= @page.summary_hierarchy.html_safe
-        .hier.is-hidden.js-hier-full= @page.full_hierarchy.html_safe 
+        .hier.is-hidden.js-hier-full= @page.full_hierarchy.html_safe
       .names
         - if @page.name == @page.scientific_name
           - name = @page.scientific_name
@@ -17,8 +17,12 @@
         - if sci_name
           %h2= sci_name.html_safe
   .l-page-actions
-    %ul
-      %li
+    .ui.horizontal.list
+      -# - if is_admin?
+      -#   .item
+      -#     - basic_button("undo", t("pages.actions.reindex"), page_reindex_path(@page))
+      .item.page_topics{ data: { id: @page.id } }
+      .item
         - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
         -# TODO: once upon a time, this worked as a remote link, but it wasn't working when I checked. Fix.
         - basic_button("plus", t("pages.actions.collect"), dest)
