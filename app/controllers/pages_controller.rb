@@ -162,6 +162,7 @@ class PagesController < ApplicationController
         expire_fragment(page_data_path(@page))
         expire_fragment(page_details_path(@page))
         expire_fragment(page_classifications_path(@page))
+        Rails.cache.delete("brief_summary/#{page.id}")
       end
     end
   end
