@@ -56,7 +56,7 @@ module TermsHelper
       is_obj_display_string(filter)
     when :eq
       num_display_string(filter)
-    when :lt
+    whn :lt
       num_display_string(filter)
     when :gt
       num_display_string(filter)
@@ -71,7 +71,7 @@ module TermsHelper
     end
 
     def is_obj_display_string(filter)
-      "#{pred_name(filter.pred_uri)} is #{obj_name(filter.obj_uri)}"
+      "#{pred_name(filter.pred_uri)}:  #{obj_name(filter.obj_uri)}"
     end
 
     def num_display_string(filter)
