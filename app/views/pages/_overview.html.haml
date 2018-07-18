@@ -21,7 +21,7 @@
             - else
               .sample-trait-val= val
     - if @page.occurrence_map?
-      = render "json_map"
+      = render partial: "json_map", locals: { extra_class: "map-overview" }
     = render('pages/children')
 
   - if @page.medium

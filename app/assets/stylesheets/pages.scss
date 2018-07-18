@@ -245,7 +245,12 @@ $font-sz-m: 14px;
   .hero-after {
     display: block;
   }
+
+  .map-overview {
+    width: 100%;
+  }
 }
+
 
 .l-overview-full {
   width: 100%;
@@ -257,11 +262,11 @@ $font-sz-m: 14px;
   height: 500px;
   max-width: 90%;
   margin: 20px auto;
+  z-index: 1;
 }
 
 .map-overview {
-  max-width: 100%;
-  width: 100%;
+  width: 70%;
 }
 
 @media (min-width: 1220px) {
