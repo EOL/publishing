@@ -26,6 +26,8 @@ module DataHelper
   end
 
   def show_meta_data(datum)
+    # Hard-coded exception for source, since it's duplicated:
+    return if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
     haml_tag(:div, class: "ui secondary segment") do
       haml_concat datum[:predicate][:name]
       if datum[:predicate][:uri]

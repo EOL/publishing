@@ -177,6 +177,7 @@ en:
       sex_term: "Sex of the organism measured"
       lifestage_term: "Lifestage of the organism measured"
       statistical_method_term: "Statistical method used for measurement"
+  data_missing: "(data missing, keys: %{keys})"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
   email: "Email"
