@@ -75,15 +75,17 @@ a, .a {
 
 // Content (CMS) Pages:
 
+// JRice modified the next two elements to make the side hidden (display: none) and the body full-width (instead of 75%)
+
 section#body {
-  float: right;
-  width: 75%;
+  // float: right;
+  width: 100%;
   padding-left: 1em;
 }
 
 section#side_body {
   box-sizing: border-box;
-  display: block;
+  display: none;
   margin: 0;
   max-width: 100%;
   padding-left: 40px;
