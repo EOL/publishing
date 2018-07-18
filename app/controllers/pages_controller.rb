@@ -155,16 +155,15 @@ class PagesController < ApplicationController
   end
 
   def reindex
-    respond_to do |fmt|
-      fmt.js do
-        @page = Page.where(id: params[:page_id]).first
-        @page.clear
-        expire_fragment(page_data_path(@page))
-        expire_fragment(page_details_path(@page))
-        expire_fragment(page_classifications_path(@page))
-        Rails.cache.delete("brief_summary/#{page.id}")
-      end
-    end
+    raise "Unauthorized" unless is_admin?
+    @page = Page.where(id: params[:page_id]).first
+    @page.clear
+    expire_fragment(page_data_path(@page))
+    expire_fragment(page_details_path(@page))
+    expire_fragment(page_classifications_path(@page))
+    Rails.cache.delete("brief_summary/#{page.id}")
+    flash[:notice] = t("pages.flash.reindexed")
+    redirect_to page_overview_path(@page)
   end
 
   def data
