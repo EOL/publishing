@@ -27,6 +27,8 @@
   - if (trait[:metadata] && trait[:metadata].any?) || (open_row && (trait[:source] || trait[:scientific_name] || page))
     %ul.meta-items.js-meta-items
       - Array(trait[:metadata]).each do |datum|
+        -# Skip duplicated source:
+        - next if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
         %li.meta-item
           %div
             .meta-pred.a= datum[:predicate][:name]
