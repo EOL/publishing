@@ -181,6 +181,7 @@ class BriefSummary
   def values_to_sentence(uris)
     values = []
     uris.flat_map { |uri| gather_terms(uri) }.each do |term|
+      next if @page.grouped_data[term].nil?
       @page.grouped_data[term].each do |trait|
         if trait.key?(:object_term)
           values << trait[:object_term][:name]
