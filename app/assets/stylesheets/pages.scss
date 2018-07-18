@@ -11,7 +11,7 @@ $border: $border-width solid $light-gray;
 
 $tabs-height: 25px;
 $tabs-m-height: 30px;
-$head-height: 70px;
+$head-height: 133px;
 $actions-height: 45px;
 
 $pad-l-sm: 13px;
@@ -54,6 +54,7 @@ $font-sz-m: 14px;
 .head-icon {
   float: left;
   height: 100%;
+  height: 70px;
   margin-right: $padding-left-s;
 }
 
@@ -89,6 +90,7 @@ $font-sz-m: 14px;
 
 .l-tabs {
   background: #fff;
+  overflow: hidden;
   position: fixed;
   width: 100%;
   z-index: 10;
@@ -97,17 +99,17 @@ $font-sz-m: 14px;
 .l-page-head {
   border-top: $border;
   height: $head-height;
+  overflow: auto;
 }
 
-.l-page-actions {
-  height: $actions-height;
-  text-align: right;
-  margin-right: 10px;
+.page-actions {
+  padding-left: $pad-l-m;
+  list-style-type: none;
+  margin: 10px 0 0 0;
 
-  & > ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  & > li {
+    display: inline-block;
+    margin-right: 3px;
   }
 }
 
@@ -170,7 +172,7 @@ $font-sz-m: 14px;
 
 .l-content {
   overflow: hidden;
-  margin-top: $head-height + $tabs-height + $actions-height;
+  margin-top: $head-height + $tabs-height;
 }
 
 .page-children {
@@ -186,7 +188,7 @@ $font-sz-m: 14px;
 
 @media(min-width: $width-m) {
   .l-content {
-    margin-top: $head-height + $tabs-m-height  + $actions-height;
+    margin-top: $head-height + $tabs-height;
   }
 
   .head-txt {
