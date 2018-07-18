@@ -1,3 +1,28 @@
+
+fn = Rails.root.join('public', 'data', 'uris_to_rm.txt')
+contents = File.open(fn).read
+uris = contents.split("\r\n")
+uris[0] = uris.first[1..-1]
+# smuris = uris[0..10]
+# ["http://eol.org/schema/terms/average\\n", "http://eol.org/schema/terms/average\\n", "http://eol.org/schema/terms/average\\n"]
+
+missing = []
+# uris.each do |uri|
+uris[2785..-1].each do |uri|
+  uri = uri[1..-2] if uri =~ /^".*"$/
+  t = TraitBank.term(uri)
+  if t.nil?
+    missing << uri
+    next
+  end
+  TraitBank.query(%{MATCH (term:Term { uri: "#{uri}" })-[r]->() DELETE r})
+  TraitBank.query(%{MATCH ()-[r]->(term:Term { uri: "#{uri}" }) DELETE r})
+  TraitBank.query(%{MATCH (term:Term { uri: "#{uri}" }) DELETE term})
+end ; 1
+puts "The following terms were NOT deleted:"
+puts missing.join("\n")
+
+
 class TraitBank
   class Terms
     class << self
