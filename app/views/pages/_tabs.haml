@@ -20,7 +20,7 @@
     .ui.horizontal.list
       - if is_admin?
         .item
-          - basic_button("undo", t("pages.actions.reindex"), dest)
+          - basic_button("undo", t("pages.actions.reindex"), page_reindex_path(@page))
       .item.page_topics{ data: { id: @page.id } }
       .item
         - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
