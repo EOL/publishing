@@ -20,11 +20,18 @@ class UserDownload < ActiveRecord::Base
 private
 
   def background_build
-    downloader = TraitBank::DataDownload.new(term_query, count, search_url)
-    self[:filename] = downloader.background_build
-    self[:completed_at] = Time.now
-    save!
+    begin
+      downloader = TraitBank::DataDownload.new(term_query, count, search_url)
+      self[:filename] = downloader.background_build
+    rescue => e
+      Rails.logger.error("!! ERROR in background_build for User Download #{id}")
+      Rails.logger.error("!! #{e.message}")
+      Rails.logger.error("!! #{e.backtrace.join('->')}")
+      raise e
+    ensure
+      self[:completed_at] = Time.now
+      save! # NOTE: this could fail and we lose everything.
+    end
   end
   handle_asynchronously :background_build, :queue => "download"
-
 end

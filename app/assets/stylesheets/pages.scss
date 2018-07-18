@@ -64,7 +64,8 @@ $font-sz-m: 14px;
 .names {
   margin-top: 2px;
   height: 100%;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
 
   & > h1 {
@@ -136,7 +137,7 @@ $font-sz-m: 14px;
     background: $eol-logo-blue;
 
     & > a {
-      color: $white; 
+      color: $white;
       cursor: normal;
       text-decoration: none;
     }
