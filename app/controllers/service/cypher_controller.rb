@@ -1,6 +1,6 @@
 # Cypher query via web services API
 
-class CypherController < ServicesController
+class Service::CypherController < ServicesController
 
   def index
     authorize_user_from_token!

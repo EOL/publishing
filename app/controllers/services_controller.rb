@@ -55,6 +55,8 @@ class ServicesController < ApplicationController
   # to stop working whenever the user's password changes.
   def jwt_token(user)
                # , 'encrypted_password' => user.encrypted_password
+    puts user.username
+    puts user.email
     TokenAuthentication.encode('user' => user.email)
   end
 
