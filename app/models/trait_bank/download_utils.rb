@@ -3,12 +3,14 @@ module TraitBank::DownloadUtils
     hash[:page_id] || hash[:page] && hash[:page][:page_id]
   end
 
-  def self.page_ids(hashes) 
+  def self.page_ids(hashes)
     hashes.map { |hash| self.page_id(hash) }.uniq.compact
   end
 
   def self.ancestry(page)
-    page ? page.native_node.ancestors.map { |n| n.canonical_form }.join(" | ") : nil
+    return nil if page.nil?
+    return nil if page.native_node.nil?
+    page.native_node.ancestors.map { |n| n.canonical_form }.join(" | ")
   end
 
   def self.resource_path(model_name, id)
