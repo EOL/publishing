@@ -7,6 +7,7 @@
   - if @pages
     .js-filter-list
       %ul.show-filters
+          %li.show-filter= @query.record? ? 'records' : 'taxa'
         - if @query.clade
           %li.show-filter.show-filter-clade= "clade #{@query.clade.native_node&.canonical_form}"
         - @query.filters.each do |f|
