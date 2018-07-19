@@ -83,7 +83,7 @@ class BriefSummary
     return nil if @a1.nil?
     @a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
     # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
-    @a1_name = nil if @a1_name.match(' and ')
+    @a1_name = nil if @a1_name&.match(' and ')
     @a1_name ||= @a1.canonical
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
@@ -100,6 +100,7 @@ class BriefSummary
     return nil if a2_node.nil?
     @a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
     @a2_name = nil if @a2_name && @a2_name =~ /family/i
+    @a2_name = nil if @a2_name && @a2_name =~ / and /i
     @a2_name ||= a2_node.canonical_form
   end
 
