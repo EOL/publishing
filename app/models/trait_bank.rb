@@ -49,12 +49,16 @@ class TraitBank
 
     def count_by_resource(id)
       Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
-        res = query(
-          "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
-          "WITH count(trait) as count "\
-          "RETURN count")
-        res["data"] ? res["data"].first.first : false
+        count_by_resource_no_cache(id)
       end
+    end
+
+    def count_by_resource_no_cache(id)
+      res = query(
+        "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
     end
 
     def count_by_resource_and_page(resource_id, page_id)
