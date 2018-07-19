@@ -121,12 +121,14 @@ module PagesHelper
     name = options[:node] ? node.name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
-        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+        haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
       end
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
+    else
+      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
     end
     if page.nil?
       haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
@@ -155,7 +157,7 @@ module PagesHelper
   end
 
   def overview?
-    current_page?(page_path(@page))
+    current_page?(page_overview_path(@page))
   end
 
   def summary_hierarchy(page, link)
@@ -194,7 +196,7 @@ module PagesHelper
         end
 
         if link
-          parts << link_to(anc_node.canonical_form.html_safe, page_path(anc_node.page)).html_safe
+          parts << link_to(anc_node.canonical_form.html_safe, page_overview_path(anc_node.page)).html_safe
         else
           parts << anc_node.canonical_form.html_safe
         end
