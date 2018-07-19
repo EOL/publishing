@@ -121,13 +121,13 @@ module PagesHelper
     name = options[:node] ? node.name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
-        haml_concat name.html_safe
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     end
-    haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     if page.nil?
       haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
         haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
