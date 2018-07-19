@@ -9,7 +9,11 @@ class ServicesController < ApplicationController
     # Future: provide an automated service so scripts can fetch a token.
     # n.b. token only gives access to services, not to the rest of the
     # web site.
-    render json: { token: jwt_token(@current_user) }
+    if current_user
+      render json: { token: jwt_token(current_user) }
+    else
+      return render_unauthorized errors: { unauthorized: ["You are not logged in."] }
+    end
   end
 
   protected
