@@ -131,7 +131,7 @@ private
     # that class is required:
 
     @pages = if @types[:pages]
-      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 scientific_name^10 synonyms^10 providers resource_pks]
+      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks]
       match = words.size == 1 ? :text_start : :phrase
       basic_search(Page, boost_by: [:page_richness, :specificity, :depth], match: match, fields: fields,
                          where: @clade ? { ancestry_ids: @clade.id } : nil,
