@@ -10,9 +10,13 @@ class ServicesController < ApplicationController
     # n.b. token only gives access to services, not to the rest of the
     # web site.
     if current_user
-      render json: { token: jwt_token(current_user) }
+      if current_user.is_power_user?
+        render json: { token: jwt_token(current_user) }
+      else
+        return render_unauthorized errors: { forbidden: ["You are not authorized to use the web services."] }
+      end
     else
-      return render_unauthorized errors: { unauthorized: ["You are not logged in."] }
+      return render_unauthorized errors: { unauthorized: ["Please log in, then try again."] }
     end
   end
 
@@ -21,22 +25,17 @@ class ServicesController < ApplicationController
   # No args - act as a guard on any web service action that wants authentication
 
   def authorize_user_from_token!
-    if @current_user
-      return @current_user
-    end
-    the_claims = claims
-    if the_claims and
-       user = User.find_by(email: the_claims[0]['user']) and
-       the_claims[0]['encrypted_password'] = user.encrypted_password      
-      if user.is_power_user?
-        @current_user = user
-      else
-        # Unauthenticated
-        return render_unauthorized errors: { unauthorized: ["Missing or invalid token."] }
-      end
+    if current_user
+      raise "Forbidden" unless @current_user.is_power_user?    # Unauthorized
+      @current_user = current_user
     else
-      # Unauthorized
-      return render_unauthorized errors: { forbidden: ["You are not authorized perform this action."] }
+      the_claims = claims
+      raise "Unauthenticated" unless the_claims    # Unauthenticated
+      if user = User.find_by(email: the_claims[0]['user']) and
+         the_claims[0]['encrypted_password'] == user.encrypted_password
+        raise "Forbidden" unless user.is_power_user?    # Unauthorized
+        @current_user = user
+      end
     end
   end
 
@@ -54,10 +53,8 @@ class ServicesController < ApplicationController
   # The purpose of the password is just to cause tokens
   # to stop working whenever the user's password changes.
   def jwt_token(user)
-               # , 'encrypted_password' => user.encrypted_password
-    puts user.username
-    puts user.email
-    TokenAuthentication.encode('user' => user.email)
+    TokenAuthentication.encode({'user' => user.email,
+                                'encrypted_password' => user.encrypted_password})
   end
 
   def render_unauthorized(payload)

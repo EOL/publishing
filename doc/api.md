@@ -1,16 +1,51 @@
+# About the web services API
 
-= About the web services API
+## Authorization
 
-Stub.  To be written.
+In order for you to be able to use the web services API, an EOL
+administrator needs to do the following:
+
+    rails r User.where(email: "you@you.you").last.grant_power_user
+
+where you@you.you is the email address for your account on the EOL site.
+
+## Getting a token
 
 You need to get a token using the ordinary UI in the browser; later
-you'll be able to do this from a script.  The page to visit, after you
-log in, is called `/services/authenticate`.
+you'll be able to do this from a script.  
+
+The page to visit, after you log in, is called
+`/services/authenticate` (preceded with `https://eol-beta.org` or
+whatever the applicable EOL site happens to be).  Copy the token
+(without the quotes) from the web browser into a file, so you can use
+it in API calls.  Keep the token in a safe place; it is similar to a
+password.
+
+## Invoking API methods
 
 The services are under `/service/`.  Currently the only service is `/service/cypher`.
 
-Here is a simple python program that does an API call (assuming the
-API token has already been written to a file).
+Services are invoked using HTTP, either from a browser, using a
+command line tool such as `curl` or `wget`, or a library such as
+`requests` in python.
+
+With each request, it is necessary to provide the token in an HTTP
+`Authorization:` header, for example:
+
+    Authorization: JWT eyJ0eXAzczOzJZUzZ1NzJ9.eyJ1c2VyZjoTA1QWJsZzfQ.Xf5FSA2P_lJBGyBYGTsRPczAkg
+
+Don't forget to use `https:` instead of `http:`, to keep the token private.
+
+## Example: Access using curl
+
+[to be written]
+
+## Example: Access using python
+
+Here is a simple python program that invokes the `/service/cypher` API
+call.  The name of the file containins the token is given as a command
+line argument, and the query is given as a second command line
+argument.
 
 ```
 #!/usr/bin/python
@@ -41,3 +76,7 @@ if __name__ == '__main__':
 
     doit(args.tokenfile, args.query)
 ```
+
+## Example query: show traits
+
+[to be written]
