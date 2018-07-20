@@ -161,7 +161,7 @@ information.
 * `sex` property
 * `lifestage` property
 
-### Metadata
+## Metadata
 
 A `Metadata` node expresses something we know or believe, either
 about the `Trait` node's statement, the way the statement was
@@ -179,7 +179,7 @@ the `Trait` node, providing an ontology term rather than free text.
 * `units_term` link (to a `Term` node): units that apply to `measurement`, when it is present
 * `literal` property: similar to same property on a `Trait`
 
-### Term
+## Term
 
 `Term` nodes correspond (usually?) to ontology terms defined in some
 origin document such as an OWL ontology or controlled vocabulary.  Terms

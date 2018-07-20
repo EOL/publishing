@@ -5,7 +5,7 @@
 In order for you to be able to use the web services API, an EOL
 administrator needs to do the following:
 
-    rails r User.where(email: "you@you.you").last.grant_power_user
+    rails r 'User.find_by_email("you@you.you").grant_power_user'
 
 where you@you.you is the email address for your account on the EOL site.
 
