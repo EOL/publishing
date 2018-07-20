@@ -18,7 +18,7 @@ class ServicesController < ApplicationController
         render_unauthorized errors: {forbidden: ["You are not authorized to use the web services."]}
       end
     else
-      render_unauthenticated errors: {unauthorized: ["Please log in, then try again."]}
+      render_unauthenticated errors: {unauthenticated: ["Please log in, then try again."]}
     end
   end
 
@@ -36,10 +36,10 @@ class ServicesController < ApplicationController
       @current_user = current_user
     else
       the_claims = claims
-      return render_unauthenticated errors: {unauthorized: ["Missing or invalid token."]} \
+      return render_unauthenticated errors: {unauthenticated: ["Missing or invalid token."]} \
         unless the_claims    # Unauthenticated
       user = User.find_by_email(the_claims[0]['user'])
-      return render_unauthenticated errors: {unauthorized: ["Invalid token."]} \
+      return render_unauthenticated errors: {unauthenticated: ["Invalid token."]} \
         unless user          # ill-formed token
       if user &&
          the_claims[0]['encrypted_password'] == user.encrypted_password
@@ -80,6 +80,10 @@ class ServicesController < ApplicationController
     TokenAuthentication.encode({'user' => user.email,
                                 'encrypted_password' => user.encrypted_password})
   end
+
+  # The form of the payload is up for redesign; probably someone has
+  # put forth a 'standard' way for services to report problems, but I
+  # haven't found it yet.  Later.
 
   def render_unauthenticated(payload)
     render json: payload.merge(response: { status: 401 }), :status => 401
