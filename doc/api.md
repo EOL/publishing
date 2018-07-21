@@ -1,5 +1,20 @@
 # About the web services API
 
+## Installation
+
+To enable token authentication, one must add a single line to the
+`config/secrets.yml` to set the `json_web_token_secret`.
+In my own (JAR's) debugging setup I do this under the `development:`
+section of the file by adding a line
+
+    json_web_token_secret: e949a...
+
+For other installations it might have to go under a different section.
+I don't know how the key should be generated; I used a random
+64-hex-digit string but maybe it doesn't have to be hex or so long.
+
+Any change to this key will require 'power users' to get new tokens.
+
 ## Authorization
 
 In order for you to be able to use the web services API, an EOL
