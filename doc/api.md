@@ -65,10 +65,10 @@ following illustrates use of `wget` with the `cypher` service:
     wget -O cypher.out --header "Authorization: JWT `cat api.token`" \
       https://beta.eol.org/service/cypher?query="MATCH (n:Trait) RETURN n LIMIT 1;"
 
-Or, if the query is in a file.
+Or, if the Cypher query is in a file called `query.cypher`:
 
     wget -O cypher.out --header "Authorization: JWT `cat api.token`" \
-      https://beta.eol.org/service/cypher?query="MATCH (n:Trait) RETURN n LIMIT 1;"
+      https://beta.eol.org/service/cypher?query="`cat query.cypher`"
 
 These commands may only work from `bash`, which is the shell that I
 use, and the standard shell on most GNU/Linux systems.
