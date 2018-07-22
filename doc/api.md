@@ -91,7 +91,7 @@ argument, for example (typed at the shell):
 
     python cypher.py --tokenfile=api.token --query="MATCH (n:Trait) RETURN n LIMIT 1;"
 
-where `cypher.py` is the file containing the following Python script:
+where [`cypher.py`](cypher.py) is the file containing the following Python script:
 
 ```
 import requests, argparse, json, sys
@@ -137,7 +137,6 @@ Put the following in a file with extension `.html`, and open it in a browser
 
 ```
 <h1>Cypher query</h1>
-
 <form action='https://beta.eol.org/service/cypher'>
   <textarea name='query' id='query' cols='50' rows='5'>MATCH (n:Trait) RETURN n LIMIT 1;</textarea>
   <input type='submit' />
