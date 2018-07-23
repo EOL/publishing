@@ -4,6 +4,8 @@ Rails.application.configure do
   config.cache_classes = true
   cache_addr = Rails.application.secrets.cache_url
   config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
+  # TODO: move this (value) to secrets:
+  config.action_mailer.default_url_options = { host: 'beta.eol.org' }
   config.eager_load = true
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
