@@ -7,7 +7,7 @@ administrator needs to do the following:
 
     rails r 'User.find_by_email("you@you.you").grant_power_user'
 
-where you@you.you is the email address for your account on the EOL site.
+where you@you.you is the email address for your account on the EOL site. Please contact hammockj AT si.edu
 
 ## Getting a token
 
@@ -15,8 +15,7 @@ You need to get a token using the ordinary UI in the browser; later
 you'll be able to do this from a script.  
 
 The page to visit, after you log in, is called
-`/services/authenticate` (preceded with `https://eol-beta.org` or
-whatever the applicable EOL site happens to be).  Copy the token
+https://beta.eol.org/services/authenticate.  Copy the token
 (without the quotes) from the web browser into a file, so you can use
 it in API calls.  Keep the token in a safe place; it is similar to a
 password.
