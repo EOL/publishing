@@ -1,4 +1,4 @@
-class Node::Serializer
+class Page::Serializer
   class << self
     def store_clade(node)
       serializer = new(node)
@@ -19,10 +19,18 @@ class Node::Serializer
     nodes_dir.join("#{table}.csv")
   end
 
+  # TODO: collections and users ... maybe? Nice for testing...
+  # TODO: curations
   def store_clade
     class_structure = {
-      nodes: [:identifiers, :node_ancestors,
-              { scientific_names: [ :resource, :taxonomic_status ], vernaculars: [:language, :resource], references: :referents }]
+      nodes: [ :identifiers, :node_ancestors, :page,
+               { scientific_names: [ :resource, :taxonomic_status ],
+                 vernaculars: [ :language, :resource ],
+                 # Media does NOT include page_icons or pages or collected_pages, because we don't know the scope of
+                 # pages to care about.
+                 media: [ :image_info, :license, :resource, :language,
+                          { content_sections: :section, references: :referents } ],
+                 references: :referents } ]
     }
     # nodes, identifiers, ancestors, references (and referents), vernaculars, languages, scientific_names, media,
     # licenses, bibliographic_citations, locations, attributions, articles, maps, resources, ranks
