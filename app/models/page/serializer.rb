@@ -52,6 +52,7 @@ class Page::Serializer
   end
 
   def gather(source, source_ids, relationship)
+    # YOU WERE HERE: You still need to handle "FILTER" in the names. ...At least for the first relationship.
     source_class = Object.const_get(source.to_s.singularize.classify)
     if relationship.is_a?(Symbol) # e.g. :occurrence_map
       gather_relationship_ids(source_class, source_ids, relationship)
