@@ -12,12 +12,13 @@ class Page::Serializer
     log("Made pages data dir") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
     @pages_dir = @pages_dir.join(@page.id.to_s)
     log("Made new page dir #{@page.id}") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
+    FileUtils.rm_rf Dir.glob("#{@pages_dir}/*")
     @filenames = []
     @limit = 100
   end
 
-  def filename_for(table)
-    pages_dir.join("#{table}.csv")
+  def filename_for(klass)
+    @pages_dir.join("#{klass.table_name}.csv")
   end
 
   # TODO: collections and users ... maybe? Nice for testing...
@@ -32,14 +33,14 @@ class Page::Serializer
                    references_AS_parent: :referents } ],
         page_contents: [{
           media_AS_content: [
-            # TODO: :sytlesheet, :javascript,
+            # TODO: :sytlesheet, :javascript, { content_sections: :section }
             :image_infos, :license, :resource, :language, :bibliographic_citation, :location, # TODO: :attributions,
-              { content_sections: :section, references_AS_parent: :referents }
+              { references_AS_parent: :referents }
           ],
           articles_AS_content: [
-            # TODO: :sytlesheet, :javascript,
+            # TODO: :sytlesheet, :javascript, { content_sections: :section }
             :license, :resource, :language, :bibliographic_citation, :location, # TODO: :attributions,
-              { content_sections: :section, references_AS_parent: :referents }
+              { references_AS_parent: :referents }
           ]
         }]
       }
@@ -50,12 +51,18 @@ class Page::Serializer
     page_ids = Node.where(id: node_ids).pluck(:page_id)
     @tables = { Page: page_ids }
     structure.each { |relationship| gather(:pages, page_ids, relationship) }
-    # Write the tables as CSV to files...
+    require 'csv'
+    @tables.each do |klass, ids|
+      data = []
+      fields = klass.column_names
+      data << fields
+      data += klass.where(id: ids).pluck(fields.join(','))
+      CSV.open(filename_for(klass), 'w') { |csv| data.each { |row| csv << row } }
+    end
     @filenames
   end
 
   def gather(source, source_ids, relationship)
-    # YOU WERE HERE: You still need to handle "FILTER" in the names. ...At least for the first relationship.
     log("GATHER #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
     if relationship.is_a?(Symbol) # e.g. :occurrence_map
       log(".. SYMBOL")
@@ -122,7 +129,8 @@ class Page::Serializer
 
   def log(what)
     # TODO: better logging. For now:
-    puts "** #{what}"
-    Rails.logger.info("[#{Time.now.strftime('%H:%M:%S.%3N')}] SERIALIZER: #{what}")
+    ts = "[#{Time.now.strftime('%H:%M:%S.%3N')}]"
+    puts "** #{ts} #{what}"
+    Rails.logger.info("#{ts} SERIALIZER: #{what}")
   end
 end
