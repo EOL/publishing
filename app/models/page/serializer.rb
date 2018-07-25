@@ -23,23 +23,24 @@ class Page::Serializer
   # TODO: curations
   # TODO: Resource filter
   def store_clade
-    structure = [
-      :occurrence_map,
-      { nodes: [ :identifiers, :node_ancestors, :resource, :rank,
-                 { scientific_names: [ :resource, :taxonomic_status ],
-                   vernaculars: [ :language, :resource ],
-                   references: :referents } ],
+    structure = {
+      pages: [
+        :occurence_map,
+        { nodes: [ :identifiers, :node_ancestors, :resource, :rank,
+                   { scientific_names: [ :resource, :taxonomic_status ],
+                     vernaculars: [ :language, :resource ],
+                     references: :referents } ] },
         page_contents_FILTER_media: [
           :image_info, :license, :resource, :language, :bibliographic_citation, :location, :sytlesheet, :javascript,
             :attributions,
-          { content_sections: :section, references: :referents }
+            { content_sections: :section, references: :referents }
         ],
         page_contents_FILTER_articles: [
           :license, :resource, :language, :bibliographic_citation, :location, :sytlesheet, :javascript, :attributions,
-          { content_sections: :section, references: :referents }
+            { content_sections: :section, references: :referents }
         ]
-      }
-    ]
+      ]
+    }
 
     node_ids = @page.native_node.descendants.pluck(:id)
     node_ids << @page.native_node_id unless node_ids.include?(@page.native_node_id)
