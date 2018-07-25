@@ -56,7 +56,7 @@ class Page::Serializer
       data = []
       fields = klass.column_names
       data << fields
-      data += klass.where(id: ids).pluck(fields.join(','))
+      data += klass.where(id: ids).pluck("`#{fields.join('`,`')}`")
       CSV.open(filename_for(klass), 'w') { |csv| data.each { |row| csv << row } }
     end
     @filenames
