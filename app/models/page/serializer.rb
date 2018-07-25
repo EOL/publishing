@@ -53,6 +53,7 @@ class Page::Serializer
     structure.each { |relationship| gather(:pages, page_ids, relationship) }
     require 'csv'
     @tables.each do |klass, ids|
+      next if ids.empty?
       data = []
       fields = klass.column_names
       data << fields
