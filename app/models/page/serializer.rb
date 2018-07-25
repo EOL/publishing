@@ -49,7 +49,7 @@ class Page::Serializer
     node_ids = @page.native_node.descendants.pluck(:node_id)
     node_ids << @page.native_node_id
     page_ids = Node.where(id: node_ids).pluck(:page_id)
-    @tables = { Page: page_ids }
+    @tables = { Page => page_ids }
     structure.each { |relationship| gather(:pages, page_ids, relationship) }
     require 'csv'
     @tables.each do |klass, ids|
