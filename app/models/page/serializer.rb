@@ -10,9 +10,9 @@ class Page::Serializer
     @page = page
     @pages_dir = Rails.root.join('public', 'data', 'pages')
     log("Made pages data dir") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
-    @pages_dir = @pages_dir.join(@page.id.to_s)
-    log("Made new page dir #{@page.id}") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
-    FileUtils.rm_rf Dir.glob("#{@pages_dir}/*")
+    @page_dir = @pages_dir.join(@page.id.to_s)
+    log("Made new page dir #{@page.id}") if Dir.mkdir(@page_dir, 0755) unless Dir.exist?(@page_dir)
+    FileUtils.rm_rf Dir.glob("#{@page_dir}/*")
     @filenames = []
     @limit = options[:limit] || 100
     trait_fields = %w(eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
@@ -25,7 +25,7 @@ class Page::Serializer
   end
 
   def filename_for(klass)
-    @pages_dir.join("#{klass.table_name}.csv")
+    @page_dir.join("#{klass.table_name}.csv")
   end
 
   # TODO: collections and users ... maybe? Nice for testing...
@@ -70,6 +70,7 @@ class Page::Serializer
       @filenames << filename
     end
     write_traits(page_ids)
+    `/bin/tar cvzf #{@pages_dir.join("#{@page.id}_data.tgz")} #{@page_dir}`
     @filenames
   end
 
@@ -99,7 +100,7 @@ class Page::Serializer
   end
 
   def store_trait_data(name, data)
-    filename = @pages_dir.join("#{name}.csv")
+    filename = @page_dir.join("#{name}.csv")
     CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
     @filenames << filename
   end
