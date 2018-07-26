@@ -1,4 +1,4 @@
-class Page::Serializer
+class Serializer
   class << self
     def store_clade(page, options = {})
       serializer = new(page, options)
@@ -8,7 +8,11 @@ class Page::Serializer
 
   def initialize(page, options = {})
     @page = page
-    @pages_dir = Rails.root.join('public', 'data', 'pages')
+    data_dir = Rails.root.join('public', 'data')
+    log("Made data dir") if Dir.mkdir(data_dir, 0755) unless Dir.exist?(data_dir)
+    raise "Page required" unless @page.is_a?(Page)
+    @page_dir = @pages_dir.join(@page.id.to_s)
+    @pages_dir = data_dir.join('pages')
     log("Made pages data dir") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
     @page_dir = @pages_dir.join(@page.id.to_s)
     log("Made new page dir #{@page.id}") if Dir.mkdir(@page_dir, 0755) unless Dir.exist?(@page_dir)
@@ -16,7 +20,8 @@ class Page::Serializer
     @filenames = []
     @limit = options[:limit] || 100
     trait_fields = %w(eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
-      object_page_id target_scientific_name value_uri literal measurement units normal_measurement normal_units_uri)
+      object_page_id target_scientific_name value_uri literal measurement units normal_measurement normal_units_uri
+      resource_id)
     metadata_fields = %w(eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
       statistical_method source)
     # Wellllll... surprisingly, grabbing these one page at a time was WAAAAAAY faster than using { IN [ids] }, so:

@@ -216,7 +216,7 @@ class TraitBank
         RETURN trait.eol_pk, page.page_id, trait.scientific_name, trait.resource_pk, predicate.uri, sex_term.uri,
           lifestage_term.uri, statistical_method_term.uri, trait.source, trait.object_page_id,
           trait.target_scientific_name, object_term.uri, trait.literal, trait.measurement, units.uri,
-          trait.normal_measurement, normal_units.uri
+          trait.normal_measurement, normal_units.uri, resource.resource_id
       })
     end
 

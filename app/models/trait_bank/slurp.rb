@@ -6,6 +6,14 @@ class TraitBank::Slurp
     #   TraitBank.query(q)
     # end
 
+    # Same as load_csvs, but rather than using the standard file location, we have special files in a special directory
+    # (dir), with traits.csv and metadata.csv, and the traits.csv file there includes a resource_id column (the last
+    # column). This is intended for multi-resource serialized clades.
+    def load_full_csvs(dir)
+      config = load_csv_config(nil, from_dir: dir) # No specific resource!
+      config.each { |filename, file_config| load_csv(filename, file_config) }
+    end
+
     def load_csvs(resource)
       config = load_csv_config(resource)
       config.each { |filename, file_config| load_csv(filename, file_config) }
@@ -13,8 +21,11 @@ class TraitBank::Slurp
     end
 
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
-    def load_csv_config(resource)
-      { "traits_#{resource.id}.csv" =>
+    def load_csv_config(resource, options = {})
+      options[:from_dir] = "#{options[:from_dir]}/" if options[:from_dir] && options[:from_dir] !~ /\/$/
+      traits_filename = resource ? "traits_#{resource.id}.csv" : "#{options[:from_dir]}traits.csv"
+      metadata_filename = resource ? "meta_traits_#{resource.id}.csv" : "#{options[:from_dir]}metadata.csv"
+      { traits_filename =>
         { 'Page' => [:page_id],
           'Trait' => %i[eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement],
           wheres: {
@@ -22,7 +33,7 @@ class TraitBank::Slurp
             "1=1" => {
               matches: {
                 predicate: 'Term { uri: row.predicate }',
-                resource: "Resource { resource_id: #{resource.id} }"
+                resource: "Resource { resource_id: #{resource ? resource.id : 'row.resource_id'} }"
               },
               # NOTE: merges are expressed as a triple, e.g.: [source variable, relationship name, target variable]
               merges: [
@@ -64,7 +75,7 @@ class TraitBank::Slurp
           }
         },
 
-        "meta_traits_#{resource.id}.csv" =>
+        metadata_filename =>
         {
           'MetaData' => %i[eol_pk source literal measurement],
           wheres: {
@@ -129,9 +140,10 @@ class TraitBank::Slurp
       merges.each { |triple| merge_triple(triple: triple, head: head, nodes: nodes, matches: matches) }
     end
 
-    def csv_query_head(file, where_clause = nil)
+    def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
-      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause} "
+      file = filename =~ /\// ? filename : "#{Rails.configuration.eol_web_url}/#{filename}"
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
     # TODO: extract the file-writing to a method that takes a block.

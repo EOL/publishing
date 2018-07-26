@@ -666,7 +666,7 @@ class Page < ActiveRecord::Base
   end
 
   def store_clade(options = {})
-    Page::Serializer.store_clade(self, options)
+    Serializer.store_clade(self, options)
   end
 
   private
