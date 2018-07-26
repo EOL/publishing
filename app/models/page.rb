@@ -665,6 +665,10 @@ class Page < ActiveRecord::Base
     update_attribute(:page_richness, RichnessScore.calculate(self))
   end
 
+  def store_clade
+    Page::Serializer.store_clade(self)
+  end
+
   private
 
   def first_image_content
@@ -684,5 +688,4 @@ class Page < ActiveRecord::Base
       gn
     end
   end
-
 end

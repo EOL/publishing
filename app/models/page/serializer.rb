@@ -1,12 +1,12 @@
 class Page::Serializer
   class << self
-    def store_clade(page)
-      serializer = new(page)
+    def store_clade(page, options = {})
+      serializer = new(page, options)
       serializer.store_clade
     end
   end
 
-  def initialize(page)
+  def initialize(page, options = {})
     @page = page
     @pages_dir = Rails.root.join('public', 'data', 'pages')
     log("Made pages data dir") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
@@ -14,7 +14,7 @@ class Page::Serializer
     log("Made new page dir #{@page.id}") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
     FileUtils.rm_rf Dir.glob("#{@pages_dir}/*")
     @filenames = []
-    @limit = 100
+    @limit = options[:limit] || 100
     trait_fields = %w(eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
       object_page_id target_scientific_name value_uri literal measurement units normal_measurement normal_units_uri)
     metadata_fields = %w(eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
