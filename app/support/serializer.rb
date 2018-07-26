@@ -76,10 +76,11 @@ class Serializer
       data += klass.where(id: ids).pluck("`#{fields.join('`,`')}`")
       filename = filename_for(klass)
       CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
-      @filenames << filename
+      @filenames << File.basename(filename)
     end
     write_traits(page_ids)
-    `/bin/tar cvzf #{@pages_dir.join("#{@page.id}_data.tgz")} #{@page_dir}`
+    `cd #{@pages_dir} && /bin/tar cvzf #{@page.id}_data.tgz #{@page.id}`
+    FileUtils.rm_rf(@page_dir)
     @filenames
   end
 

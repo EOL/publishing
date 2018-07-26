@@ -24,7 +24,9 @@ class Importer
   def read_each_file
     require 'csv'
     page_id = File.basename(@file, '.*')
+    page_id.sub!('_data', '')
     page_dir = "#{@tmp_dir}/#{page_id}"
+    debugger
     integer_like = /\A[0-9]+\Z/
     Dir.foreach(page_dir) do |file|
       next if file == '.' or file == '..'
