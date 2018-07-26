@@ -665,8 +665,8 @@ class Page < ActiveRecord::Base
     update_attribute(:page_richness, RichnessScore.calculate(self))
   end
 
-  def store_clade
-    Page::Serializer.store_clade(self)
+  def store_clade(options = {})
+    Page::Serializer.store_clade(self, options)
   end
 
   private
