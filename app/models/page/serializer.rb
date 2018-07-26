@@ -15,6 +15,13 @@ class Page::Serializer
     FileUtils.rm_rf Dir.glob("#{@pages_dir}/*")
     @filenames = []
     @limit = 100
+    trait_fields = %w(eol_pk page_id scientific_name resource_pk predicate sex lifestage statistical_method source
+      object_page_id target_scientific_name value_uri literal measurement units normal_measurement normal_units_uri)
+    metadata_fields = %w(eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
+      statistical_method source)
+    # Wellllll... surprisingly, grabbing these one page at a time was WAAAAAAY faster than using { IN [ids] }, so:
+    @traits = [trait_fields] # NOTE: that's an array with an array in it.
+    @metadata = [metadata_fields] # NOTE: that's an array with an array in it.
   end
 
   def filename_for(klass)
@@ -58,9 +65,43 @@ class Page::Serializer
       fields = klass.column_names
       data << fields
       data += klass.where(id: ids).pluck("`#{fields.join('`,`')}`")
-      CSV.open(filename_for(klass), 'w') { |csv| data.each { |row| csv << row } }
+      filename = filename_for(klass)
+      CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
+      @filenames << filename
     end
+    write_traits(page_ids)
     @filenames
+  end
+
+  def write_traits(page_ids)
+    gather_traits(page_ids)
+    store_trait_data('traits', @traits)
+    store_trait_data('metadata', @metadata)
+  end
+
+  def gather_traits(page_ids)
+    page_ids.each do |page_id|
+      response = TraitBank.data_dump_page(page_id)
+      next if response.nil?
+      next if response['data'].nil? || response['data'].empty?
+      @traits += response['data']
+      gather_metadata(response['data'].map(&:first))
+    end
+  end
+
+  def gather_metadata(keys)
+    keys.each do |id|
+      meta_response = TraitBank.data_dump_trait(id)
+      next if meta_response.nil?
+      next if meta_response['data'].nil? || meta_response['data'].empty?
+      @metadata += meta_response['data']
+    end
+  end
+
+  def store_trait_data(name, data)
+    filename = @pages_dir.join("#{name}.csv")
+    CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
+    @filenames << filename
   end
 
   def gather(source, source_ids, relationship)
