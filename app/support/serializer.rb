@@ -28,7 +28,6 @@ class Serializer
       resource_id)
     metadata_fields = %w(eol_pk trait_eol_pk predicate literal measurement value_uri units sex lifestage
       statistical_method source)
-    # Wellllll... surprisingly, grabbing these one page at a time was WAAAAAAY faster than using { IN [ids] }, so:
     @traits = [trait_fields] # NOTE: that's an array with an array in it.
     @metadata = [metadata_fields] # NOTE: that's an array with an array in it.
   end
@@ -88,9 +87,11 @@ class Serializer
     gather_traits(page_ids)
     store_trait_data('traits', @traits)
     store_trait_data('metadata', @metadata)
+    # YOU WERE HERE: You have to comb through all of those things and get the gorram terms. :| Obnoxious.
   end
 
   def gather_traits(page_ids)
+    # Wellllll... surprisingly, grabbing these one page at a time was WAAAAAAY faster than using { IN [ids] }, so:
     page_ids.each do |page_id|
       response = TraitBank.data_dump_page(page_id)
       next if response.nil?
