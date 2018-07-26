@@ -1,5 +1,10 @@
 class Serializer
   class << self
+    def store_clade_id(id, options = {})
+      page = Page.find(id)
+      store_clade(page, options)
+    end
+
     def store_clade(page, options = {})
       serializer = new(page, options)
       serializer.store_clade
@@ -11,11 +16,10 @@ class Serializer
     data_dir = Rails.root.join('public', 'data')
     log("Made data dir") if Dir.mkdir(data_dir, 0755) unless Dir.exist?(data_dir)
     raise "Page required" unless @page.is_a?(Page)
-    @page_dir = @pages_dir.join(@page.id.to_s)
     @pages_dir = data_dir.join('pages')
     log("Made pages data dir") if Dir.mkdir(@pages_dir, 0755) unless Dir.exist?(@pages_dir)
     @page_dir = @pages_dir.join(@page.id.to_s)
-    log("Made new page dir #{@page.id}") if Dir.mkdir(@page_dir, 0755) unless Dir.exist?(@page_dir)
+    log("Made new page data dir #{@page.id}") if Dir.mkdir(@page_dir, 0755) unless Dir.exist?(@page_dir)
     FileUtils.rm_rf Dir.glob("#{@page_dir}/*")
     @filenames = []
     @limit = options[:limit] || 100

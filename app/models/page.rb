@@ -665,10 +665,6 @@ class Page < ActiveRecord::Base
     update_attribute(:page_richness, RichnessScore.calculate(self))
   end
 
-  def store_clade(options = {})
-    Serializer.store_clade(self, options)
-  end
-
   private
 
   def first_image_content
