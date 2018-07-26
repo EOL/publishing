@@ -43,7 +43,7 @@ Core Archive (DwCA).
 Some of the information from resources is recorded in the
 properties and links of `Trait` nodes.
 
-* `resource_id` property - Every `Resource` node has a different
+* `resource_id` property - Each `Resource` node has a different
   `resource_id` property value.  
   This value can be used as a key 
   in tables stored in one of the relational databases, where further
@@ -158,19 +158,20 @@ ontology terms that are not stored.  Those terms can be found in
 information.
 
 * `statistical_method` property [more documentation needed]
-* `sex` property
-* `lifestage` property
+* `statistical_method_term` link
+* `sex_term` link
+* `lifestage_term` link
 
 ## Metadata
 
-A `Metadata` node expresses something we know or believe, either
+A `MetaData` node expresses something we know or believe, either
 about the `Trait` node's statement, the way the statement was
 determined, or the way in which the statement is expressed in the `Trait` node.
 
-Some `Metadata` nodes are a more rigorous expression of information in
+Some `MetaData` nodes are a more rigorous expression of information in
 the `Trait` node, providing an ontology term rather than free text.
 
-* `eol_pk` property:     always present - unique to this `Metadata` node
+* `eol_pk` property:     always present - unique to this `MetaData` node
 * `predicate` link (to a `Term`):      Example: the target could be an ontology term 
       indicating that the measurement value gives the sample size.  Always present
 * `object_term` link (to a `Term`): either this link, or a `measurement`
@@ -193,9 +194,9 @@ site RDB.
 * `uri` property:    always present - the standard URI (URL) for this property
 * `name` property:   an English word or phrase, chosen by EOL curators, but 
   usually the same as the canonical name as provided by the origin ontology.  Always present
-* `type` property:      predicate, object, unit, ?metadata? - for type checking.
+* `type` property:     for type checking.
   Possible values as of this writing are `"measurement"`, `"association"`, `"value"`,
-  and `"metadata"`.  Always present
+  and `"metadata"` reflecting how the term is used in EOL.  Always present
 * `definition` property:   from the ontology
 * `comment` property:      EOL curator note
 * `attribution` property:  string, e.g. might say that term's source is a particular OBO ontology
