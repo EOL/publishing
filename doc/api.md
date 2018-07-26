@@ -143,7 +143,6 @@ in to the EOL site.
 </form>
 ```
 
-
 ## Example query: show traits
 
 The following Cypher query shows basic information recorded in an
@@ -161,6 +160,20 @@ RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific
 LIMIT 5
 ```
 
+## Example query: show traits for one taxon, with minimal metadata
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+      (t)-[:supplier]->(r:Resource),
+      (t)-[:predicate]->(pred:Term)
+WHERE p.page_id = 1101163
+OPTIONAL MATCH (t)-[:object_term]->(obj:Term)
+OPTIONAL MATCH (t)-[:units_term]->(units:Term)
+OPTIONAL MATCH (lit:Term) WHERE lit.uri = t.literal
+RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.uri, pred.name,
+       t.object_page_id, obj.uri, obj.name, t.measurement, units.uri, units.name, t.units, t.literal, lit.name
+LIMIT 50;
+```
 
 ## Installation
 
@@ -179,4 +192,3 @@ I don't know how the key should be generated; I used a random
 64-hex-digit string but maybe it doesn't have to be hex or so long.
 
 Any change to this key will require 'power users' to get new tokens.
-
