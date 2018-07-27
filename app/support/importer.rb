@@ -27,10 +27,14 @@ class Importer
     page_id.sub!('_data', '')
     page_dir = "#{@tmp_dir}/#{page_id}"
     integer_like = /\A[0-9]+\Z/
+    has_traits = false
+    has_terms = false
     Dir.foreach(page_dir) do |file|
       next if file == '.' or file == '..'
-      next if file =~ /\Atraits/
-      next if file =~ /\Ametadata/
+      has_traits = true && next if file =~ /\Atraits/
+      has_traits = true && next if file =~ /\Ametadata/
+      has_terms = file && next if file =~ /\Aterms/
+      log("Reading #{file}...")
       data = CSV.read("#{page_dir}/#{file}")
       table = File.basename(file, '.*')
       fields = data.shift
@@ -56,9 +60,40 @@ class Importer
       updatable_fields.shift # Remove PK
       updatable_fields -= bad_fields
       updatable_fields.map! { |k| k.to_sym }
-      klass.import!(instances, on_duplicate_key_update: updatable_fields)
+      results = klass.import!(instances, on_duplicate_key_update: updatable_fields)
+      log(results.inspect)
     end
-    TraitBank::Slurp.load_full_csvs(page_dir)
+    if has_traits
+      log("Reading traits...")
+      TraitBank::Slurp.load_full_csvs(page_dir)
+      log("Read traits.")
+    else
+      log("NO TRAITS; skipping.")
+    end
+    if has_terms
+      log("Reading terms...")
+      read_terms("#{page_dir}/#{has_terms}")
+      log("Read terms.")
+    else
+      log("NO TERMS; skipping.")
+    end
+  end
+
+  def read_terms(file)
+    importer = Term::Importer.new(skip_known_terms: false)
+    data = CSV.read(file)
+    fields = data.shift
+    data.each do |values|
+      properties = Hash[fields.zip(values)]
+      importer.from_hash(properties)
+    end
+    new_terms = importer.new_terms
+    if new_terms.size > 100 # Don't bother saying if we didn't have any at all!
+      log("There were #{new_terms.size} new terms, which is too many to show.")
+    else
+      log("New terms: #{new_terms.join("\n  ")}")
+    end
+    log("Finished importing terms: #{new_terms.size} new, #{importer.knew} known, #{importer.skipped} skipped.")
   end
 
   def create_temp_dir
