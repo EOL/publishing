@@ -30,6 +30,7 @@ class Serializer
       statistical_method source)
     @traits = [trait_fields] # NOTE: that's an array with an array in it.
     @metadata = [metadata_fields] # NOTE: that's an array with an array in it.
+    @terms = {} # A hash, to avoid duplicates.
   end
 
   def filename_for(klass)
@@ -87,7 +88,7 @@ class Serializer
     gather_traits(page_ids)
     store_trait_data('traits', @traits)
     store_trait_data('metadata', @metadata)
-    # YOU WERE HERE: You have to comb through all of those things and get the gorram terms. :| Obnoxious.
+    store_terms
   end
 
   def gather_traits(page_ids)
@@ -97,6 +98,7 @@ class Serializer
       next if response.nil?
       next if response['data'].nil? || response['data'].empty?
       @traits += response['data']
+      gather_terms(response['data'])
       gather_metadata(response['data'].map(&:first))
     end
   end
@@ -107,7 +109,30 @@ class Serializer
       next if meta_response.nil?
       next if meta_response['data'].nil? || meta_response['data'].empty?
       @metadata += meta_response['data']
+      gather_terms(meta_response['data'])
     end
+  end
+
+  def gather_terms(rows)
+    rows.flatten.each do |v|
+      @terms[v] = true if v && v.is_a?(String) && (v[0..3].downcase == 'http' || v[0..2].downcase == 'doi')
+    end
+  end
+
+  def store_terms
+    # NOTE this is an array of arrays.
+    headers = %w(uri name definition type is_hidden_from_select is_hidden_from_glossary is_hidden_from_overview
+      ontology_source_url ontology_information_url is_verbatim_only is_text_only section_ids attribution used_for
+      comment position)
+    terms = [headers]
+    @terms.keys.each do |uri|
+      response = TraitBank.term(uri)
+      next if response.nil? || !response.key?("data")
+      row = []
+      headers.each { |header| row << response["data"][header] }
+      terms << row
+    end
+    store_trait_data('terms', terms)
   end
 
   def store_trait_data(name, data)
