@@ -14,13 +14,14 @@ class Term::Importer
   end
 
   def from_hash(term)
+    term.symbolize_keys!
     @knew += 1 if @terms.key?(term[:uri])
-    next if @skip_known_terms && @terms.key?(term[:uri])
+    return if @skip_known_terms && @terms.key?(term[:uri])
     if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
       @skipped += 1
-      next
+      return
     end
-    @term[term[:uri]] = true # Now it's "known"
+    @terms[term[:uri]] = true # Now it's "known"
     @new_terms[term[:uri]] = 1
     # TODO: section_ids
     term[:type] = term[:used_for] if term.key?(:used_for)

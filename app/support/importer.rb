@@ -23,19 +23,28 @@ class Importer
 
   def read_each_file
     require 'csv'
-    page_id = File.basename(@file, '.*')
-    page_id.sub!('_data', '')
-    page_dir = "#{@tmp_dir}/#{page_id}"
     integer_like = /\A[0-9]+\Z/
     has_traits = false
     has_terms = false
-    Dir.foreach(page_dir) do |file|
-      next if file == '.' or file == '..'
-      has_traits = true && next if file =~ /\Atraits/
-      has_traits = true && next if file =~ /\Ametadata/
-      has_terms = file && next if file =~ /\Aterms/
+    Dir.foreach(@page_dir) do |file|
+      next if file == '.' || file == '..'
+      if file =~ /\Atraits/
+        has_traits = true
+        puts "Skipping (for the moment) the traits file. *************************************************************"
+        next
+      end
+      if file =~ /\Ametadata/
+        has_traits = true
+        puts "Skipping (for the moment) the metadata file. *************************************************************"
+        next
+      end
+        if file =~ /\Aterms/
+        has_terms = file
+        puts "Skipping (for the moment) the terms file. *************************************************************"
+        next
+      end
       log("Reading #{file}...")
-      data = CSV.read("#{page_dir}/#{file}")
+      data = CSV.read("#{@page_dir}/#{file}")
       table = File.basename(file, '.*')
       fields = data.shift
       klass = Kernel.const_get(table.classify)
@@ -63,19 +72,28 @@ class Importer
       results = klass.import!(instances, on_duplicate_key_update: updatable_fields)
       log(results.inspect)
     end
-    if has_traits
-      log("Reading traits...")
-      TraitBank::Slurp.load_full_csvs(page_dir)
-      log("Read traits.")
-    else
-      log("NO TRAITS; skipping.")
-    end
+    # NOTE: you have to read terms BEFORE traits, or they will fail (because it cannot build relationships to terms)!
+    # read_terms_if_needed(has_terms)
+    read_traits_if_needed(has_traits)
+  end
+
+  def read_terms_if_needed(has_terms)
     if has_terms
       log("Reading terms...")
-      read_terms("#{page_dir}/#{has_terms}")
+      read_terms("#{@page_dir}/#{has_terms}")
       log("Read terms.")
     else
       log("NO TERMS; skipping.")
+    end
+  end
+
+  def read_traits_if_needed(has_traits)
+    if has_traits
+      log("Reading traits...")
+      TraitBank::Slurp.load_full_csvs(@page_dir)
+      log("Read traits.")
+    else
+      log("NO TRAITS; skipping.")
     end
   end
 
@@ -98,6 +116,9 @@ class Importer
 
   def create_temp_dir
     @tmp_dir = Dir.mktmpdir('eol-importer-', '/tmp')
+    @page_id = File.basename(@file, '.*')
+    @page_id.sub!('_data', '')
+    @page_dir = "#{@tmp_dir}/#{@page_id}"
   end
 
   def extract_files
