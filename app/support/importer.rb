@@ -1,12 +1,13 @@
 class Importer
   class << self
-    def read_clade(file)
-      new(file).read_clade
+    def read_clade(file, options = {})
+      new(file, options).read_clade
     end
   end
 
-  def initialize(file)
+  def initialize(file, options = {})
     @file = file
+    @skip_known_terms = options[:skip_known_terms] || false
   end
 
   def read_clade
@@ -73,7 +74,7 @@ class Importer
       log(results.inspect)
     end
     # NOTE: you have to read terms BEFORE traits, or they will fail (because it cannot build relationships to terms)!
-    # read_terms_if_needed(has_terms)
+    read_terms_if_needed(has_terms)
     read_traits_if_needed(has_traits)
   end
 
@@ -90,7 +91,18 @@ class Importer
   def read_traits_if_needed(has_traits)
     if has_traits
       log("Reading traits...")
-      TraitBank::Slurp.load_full_csvs(@page_dir)
+      # neo4j can't read a file (?!?), so we have to provide a URL, which means **** YOUR SERVER MUST BE RUNNING. ****
+      # ...and we have to copy the files into place:
+      traits_filename = Rails.root.join('public', "traits_#{@page_id}.csv")
+      metadata_filename = Rails.root.join('public', "meta_traits_#{@page_id}.csv")
+      begin
+        FileUtils.copy_file("#{@page_dir}/traits.csv", traits_filename)
+        FileUtils.copy_file("#{@page_dir}/metadata.csv", metadata_filename) if File.exist?("#{@page_dir}/metadata.csv")
+        TraitBank::Slurp.load_full_csvs(@page_id)
+      ensure
+        FileUtils.rm(traits_filename)
+        FileUtils.rm(metadata_filename) if File.exist?(metadata_filename)
+      end
       log("Read traits.")
     else
       log("NO TRAITS; skipping.")
@@ -98,7 +110,7 @@ class Importer
   end
 
   def read_terms(file)
-    importer = Term::Importer.new(skip_known_terms: false)
+    importer = Term::Importer.new(skip_known_terms: @skip_known_terms)
     data = CSV.read(file)
     fields = data.shift
     data.each do |values|

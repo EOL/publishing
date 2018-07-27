@@ -43,20 +43,22 @@ class Serializer
   def store_clade
     structure = [
       :occurrence_maps, {
-        nodes: [ :identifiers, :node_ancestors, :resource, :rank,
-                 { scientific_names: [ :resource, :taxonomic_status ],
-                   vernaculars: [ :language, :resource ],
+        nodes: [ :identifiers, :node_ancestors, :rank,
+                 # NOTE: skipping resources of the names because ... they should be 100% the same as the nodes!
+                 { scientific_names: [ :taxonomic_status ],
+                   vernaculars: [ :language ],
+                   resource: [ :partner ],
                    references_AS_parent: :referents } ],
         page_contents: [{
           media_AS_content: [
             # TODO: :sytlesheet, :javascript, { content_sections: :section }
-            :image_infos, :license, :resource, :language, :bibliographic_citation, :location, # TODO: :attributions,
-              { references_AS_parent: :referents }
+            :image_infos, :license, :language, :bibliographic_citation, :location, # TODO: :attributions,
+              { references_AS_parent: :referents, resource: [ :partner ] }
           ],
           articles_AS_content: [
             # TODO: :sytlesheet, :javascript, { content_sections: :section }
-            :license, :resource, :language, :bibliographic_citation, :location, # TODO: :attributions,
-              { references_AS_parent: :referents }
+            :license, :language, :bibliographic_citation, :location, # TODO: :attributions,
+              { references_AS_parent: :referents, resource: [ :partner ] }
           ]
         }]
       }

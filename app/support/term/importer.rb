@@ -6,11 +6,8 @@ class Term::Importer
     @knew = 0
     @new_terms = {}
     @skipped = 0
-    @terms = if @skip_known_terms
-              get_existing_terms # TODO: we don't need to do this unless there are old terms we want to skip.
-            else
-              {}
-            end
+    @terms = {}
+    get_existing_terms if @skip_known_terms
   end
 
   def from_hash(term)
@@ -42,7 +39,7 @@ class Term::Importer
     pages = (count / per.to_f).ceil
     (1..pages).each do |page|
       terms = TraitBank::Terms.full_glossary(page, per, include_hidden: true).compact
-      terms.map { |t| t[:uri] } .each { |uri| @terms[uri] = true }
+      terms.map { |t| t[:uri] }.each { |uri| @terms[uri] = true }
     end
   end
 end

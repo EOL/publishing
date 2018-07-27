@@ -9,23 +9,21 @@ class TraitBank::Slurp
     # Same as load_csvs, but rather than using the standard file location, we have special files in a special directory
     # (dir), with traits.csv and metadata.csv, and the traits.csv file there includes a resource_id column (the last
     # column). This is intended for multi-resource serialized clades.
-    def load_full_csvs(dir)
-      config = load_csv_config(nil, from_dir: dir) # No specific resource!
+    def load_full_csvs(id)
+      config = load_csv_config(id, single_resource: false) # No specific resource!
       config.each { |filename, file_config| load_csv(filename, file_config) }
     end
 
     def load_csvs(resource)
-      config = load_csv_config(resource)
+      config = load_csv_config(resource.id, single_resource: true)
       config.each { |filename, file_config| load_csv(filename, file_config) }
       resource.touch
     end
 
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
-    def load_csv_config(resource, options = {})
-      options[:from_dir] = "#{options[:from_dir]}/" if options[:from_dir] && options[:from_dir] !~ /\/$/
-      traits_filename = resource ? "traits_#{resource.id}.csv" : "#{options[:from_dir]}traits.csv"
-      metadata_filename = resource ? "meta_traits_#{resource.id}.csv" : "#{options[:from_dir]}metadata.csv"
-      { traits_filename =>
+    def load_csv_config(id, options = {})
+      single_resource = options[:single_resource]
+      { "traits_#{id}.csv" =>
         { 'Page' => [:page_id],
           'Trait' => %i[eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement],
           wheres: {
@@ -33,7 +31,7 @@ class TraitBank::Slurp
             "1=1" => {
               matches: {
                 predicate: 'Term { uri: row.predicate }',
-                resource: "Resource { resource_id: #{resource ? resource.id : 'row.resource_id'} }"
+                resource: "Resource { resource_id: #{single_resource ? id : 'row.resource_id'} }"
               },
               # NOTE: merges are expressed as a triple, e.g.: [source variable, relationship name, target variable]
               merges: [
@@ -75,7 +73,7 @@ class TraitBank::Slurp
           }
         },
 
-        metadata_filename =>
+        "meta_traits_#{id}.csv" =>
         {
           'MetaData' => %i[eol_pk source literal measurement],
           wheres: {
