@@ -138,9 +138,10 @@ class Serializer
   end
 
   def store_trait_data(name, data)
-    filename = @page_dir.join("#{name}.csv")
+    file_base_name = "#{name}.csv"
+    filename = @page_dir.join(file_base_name)
     CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
-    @filenames << filename
+    @filenames << file_base_name
   end
 
   def gather(source, source_ids, relationship)
