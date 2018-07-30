@@ -12,11 +12,19 @@ class TraitBank::Slurp
     def load_full_csvs(id)
       config = load_csv_config(id, single_resource: false) # No specific resource!
       config.each { |filename, file_config| load_csv(filename, file_config) }
+      post_load_cleanup
     end
 
     def load_csvs(resource)
       config = load_csv_config(resource.id, single_resource: true)
       config.each { |filename, file_config| load_csv(filename, file_config) }
+      post_load_cleanup
+    end
+
+    def post_load_cleanup
+      # read the traits file and pluck out the page IDs...
+      # ...and then feed those to Denormalizer to be checked for their canonicals...
+      # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
     end
 
