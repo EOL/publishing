@@ -1,7 +1,7 @@
 class TraitBank::Denormalizer
   delegate :connection, to: TraitBank
   delegate :query, to: TraitBank
-  delegate :get_pages_count, to: TraitBank
+  delegate :count_pages, to: TraitBank
   attr_reader :fixed
 
   class << self
@@ -15,7 +15,7 @@ class TraitBank::Denormalizer
     @limit = 10_000
     @skip = 0
     @fixed = 0
-    @pages_count = get_pages_count # 4,332,394 as of this writing...
+    @pages_count = count_pages # 4,332,394 as of this writing...
   end
 
   def set_canonicals
