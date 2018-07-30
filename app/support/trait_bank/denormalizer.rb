@@ -1,6 +1,7 @@
 class TraitBank::Denormalizer
   delegate :connection, to: TraitBank
   delegate :query, to: TraitBank
+  delegate :get_pages_count, to: TraitBank
   attr_reader :fixed
 
   class << self
