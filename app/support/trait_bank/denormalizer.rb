@@ -50,4 +50,11 @@ class TraitBank::Denormalizer
     return nil if results.nil? || !results.key?("data") || results["data"].empty?
     results["data"]
   end
+
+  # TODO: handle this better.
+  def log(what)
+    ts = "[#{Time.now.strftime('%H:%M:%S.%3N')}]"
+    puts "** #{ts} #{what}"
+    Rails.logger.info("#{ts} IMPORTER: #{what}")
+  end
 end
