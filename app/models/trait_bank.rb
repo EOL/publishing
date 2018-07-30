@@ -538,6 +538,13 @@ class TraitBank
       res["data"] ? res["data"].first.first : 0
     end
 
+    def count_pages
+      q = "MATCH (page:Page) RETURN COUNT(page)"
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"] ? res["data"].first.first : 0
+    end
+
     # NOTE: this is not indexed. It could get slow later, so you should check
     # and optimize if needed. Do not prematurely optimize!
     def search_object_terms(q, page = 1, per = 50)

@@ -55,8 +55,12 @@ module DataHelper
     if @associations && (target_id = data[:object_page_id])
       page = @associations.find { |a| a.id == target_id }
       unless page
-        Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
-        page = Page.find(data[:object_page_id])
+        Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
+        if Page.exists?(data[:object_page_id])
+          page = Page.find(data[:object_page_id])
+        else
+          return "[MISSING PAGE #{data[:object_page_id]}]"
+        end
       end
       parts << link_to(name_for_page(page), page_overview_path(page))
     elsif data[:object_term] && data[:object_term][:name]
