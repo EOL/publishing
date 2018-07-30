@@ -43,8 +43,9 @@ class TraitBank::Denormalizer
   end
 
   def get_pages
-    q = %{MATCH (page:Page) RETURN page.page_id, page.canonical LIMIT #{@limit}}
+    q = %{MATCH (page:Page) RETURN page.page_id, page.canonical}
     q += " SKIP #{@skip}" if @skip.positive?
+    q += " LIMIT #{@limit}"
     results = query(q)
     @skip += @limit
     return nil if results.nil? || !results.key?("data") || results["data"].empty?
