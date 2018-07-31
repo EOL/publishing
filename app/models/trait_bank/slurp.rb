@@ -12,20 +12,35 @@ class TraitBank::Slurp
     def load_full_csvs(id)
       config = load_csv_config(id, single_resource: false) # No specific resource!
       config.each { |filename, file_config| load_csv(filename, file_config) }
-      post_load_cleanup
+      post_load_cleanup(id)
     end
 
     def load_csvs(resource)
       config = load_csv_config(resource.id, single_resource: true)
       config.each { |filename, file_config| load_csv(filename, file_config) }
-      post_load_cleanup
+      post_load_cleanup(resource.id)
     end
 
-    def post_load_cleanup
-      # read the traits file and pluck out the page IDs...
-      # ...and then feed those to Denormalizer to be checked for their canonicals...
+    def post_load_cleanup(id)
+      page_ids = read_page_ids_from_traits_file(id)
+      fix_page_names_for_new_pages(page_ids)
       # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
+    end
+
+    def read_page_ids_from_traits_file(id)
+      # read the traits file and pluck out the page IDs...
+      require 'csv'
+      data = CSV.read(Rails.public_path.join("traits_#{id}.csv"))
+      pages = {}
+      data.each do |row|
+        pages[row[1]] = true # NOTE: page_id is always the second field, thus [1]
+      end
+      pages.keys
+    end
+
+    def fix_page_names_for_new_pages(page_ids)
+      TraitBank::Denormalizer.set_canonicals_by_page_id(page_ids)
     end
 
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
@@ -206,7 +221,6 @@ class TraitBank::Slurp
       pk = attributes.shift # Pull the first attribute off...
       pk_val = autocast_val("row.#{pk}")
       q = "#{head}MERGE (#{name}:#{label} { #{pk}: #{pk_val} })"
-      attribute_sets = []
       attributes.each do |attribute|
         value = autocast_val("row.#{attribute}")
         q << set_attribute(name, attribute, value, 'CREATE')

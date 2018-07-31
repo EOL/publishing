@@ -9,6 +9,11 @@ class TraitBank::Denormalizer
       denormalizer = new()
       denormalizer.set_canonicals
     end
+
+    def set_canonicals_by_page_id(ids)
+      denormalizer = new()
+      denormalizer.set_canonicals_by_page_id(ids)
+    end
   end
 
   def initialize
@@ -24,12 +29,22 @@ class TraitBank::Denormalizer
       results = get_pages
       break if results.nil?
       log "Handing #{@skip}/#{@pages_count}..."
-      pages = map_page_ids_to_canonical(results.map(&:first))
-      results.each do |page_id, canonical|
-        fix_canonical(page_id, pages[page_id]) if pages[page_id] != canonical
-      end
+      fix_page_ids(results.map(&:first))
     end
     @fixed
+  end
+
+  def set_canonicals_by_page_id(ids)
+    ids.in_groups_of(@limit, false) do |group_of_ids|
+      map_page_ids_to_canonical(group_of_ids)
+    end
+  end
+
+  def fix_page_ids(ids)
+    pages = map_page_ids_to_canonical(ids)
+    results.each do |page_id, canonical|
+      fix_canonical(page_id, pages[page_id]) if pages[page_id] != canonical
+    end
   end
 
   def fix_canonical(id, name)
