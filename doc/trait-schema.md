@@ -1,20 +1,22 @@
 
 # The Trait Schema
 
-This document expands on a comment on class `TraitBank` in file
-[trait_bank.rb](../app/models/trait_bank.rb) and incorporates
-additional information provided by Jeremy and other sources.  Any
-errors (as of initial checkin) are my own (JAR), and I am not an
-expert so there may be many of them.
+This document describes the Neo4j schema for Trait and affiliated
+node types.  It expands on the contents of
+[db/neo4j_schema.md](../db/neo4j_schema.md), incorporating additional
+information provided by Jeremy Rice and other sources.  The schema is
+exercised in the Rails `TraitBank` model in file
+[trait_bank.rb](../app/models/trait_bank.rb), and it may be helpful to
+consult that file in conjunction with this one.
 
-I've used this opportunity to experiment with rhetorical use/mention
+I (JAR) have used this opportunity to experiment with rhetorical use/mention
 separation.  I don't know whether this writing style is going to work
-for everyone, so let me know if it's hard to understand.
+for everyone, so let me know if it's hard to understand and I'll fix it.
 
 ## About neo4j - in case you don't know all this already
 
 Neo4j doesn't have a notion of schema, exactly, but in the general
-sense 'schema' meaning how the information at hand relates to what is
+sense of 'schema' meaning how the information at hand relates to what is
 stored in the database, the following describes the schema for traits
 and neighboring entities.
 
@@ -37,15 +39,16 @@ type.
 A `Resource` node corresponds to a 'resource' defined here as a file
 or set of files, imported from outside of the EOL project,
 that provides specific measured or curated information about
-taxa, such as habitat or average adult mass.  A resource comes from some supplier of
+taxa, such as habitat or average adult mass.  A resource comes
+from some supplier of
 biodiversity or trait information, in the form of a Darwin
 Core Archive (DwCA).
 Some of the information from resources is recorded in the
 properties and links of `Trait` nodes.
 
 * `resource_id` property - Each `Resource` node has a different
-  `resource_id` property value.  
-  This value can be used as a key
+  `resource_id` property value.
+  This value can be used as a key 
   in tables stored in one of the relational databases, where further
   information about the resource can be found.
 

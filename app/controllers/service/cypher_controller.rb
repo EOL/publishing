@@ -11,8 +11,10 @@ class Service::CypherController < ServicesController
     # accidental; one shouldn't expect it to be secure against a concerted attack.
     if cypher =~ /\b(delete|create|set|remove|merge|call|drop|load)\b/i
       render_unauthorized errors: {forbidden: ["You are not authorized to use this command."]}
-    else
+    elsif cypher =~ /\b(limit)\b/i
       render json: TraitBank.query(cypher)
+    else
+      render_unauthorized errors: {forbidden: ["You must specify a LIMIT for this operation."]}
     end
   end
 end
