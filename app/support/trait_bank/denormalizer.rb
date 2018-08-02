@@ -38,7 +38,10 @@ class TraitBank::Denormalizer
     ids.in_groups_of(@limit, false) do |group_of_ids|
       current_names = []
       group_of_ids.each { |id| current_names << [id, ''] }
-      map_page_ids_to_canonical(current_names)
+      pages = map_page_ids_to_canonical(current_names)
+      pages.each do |id, name|
+        fix_canonical(id, name)
+      end
     end
   end
 
