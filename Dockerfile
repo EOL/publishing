@@ -15,6 +15,7 @@ RUN apt-get update -q && \
     apt-get install -qq -y nginx && \
     echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
     chown -R www-data:www-data /var/lib/nginx && \
+    apt-get -qq -y --force-yes install cron && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -27,6 +28,10 @@ WORKDIR /app
 
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY . /app
+COPY config/crontab /etc/cron.d/rake-cron
+
+RUN chmod 0644 /etc/cron.d/rake-cron
+RUN crontab /etc/cron.d/rake-cron
 
 RUN bundle install --without test development staging
 

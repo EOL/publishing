@@ -29,20 +29,23 @@ class TraitBank::Denormalizer
       results = get_pages
       break if results.nil?
       log "Handing #{@skip}/#{@pages_count}..."
-      fix_page_ids(results.map(&:first))
+      fix_page_ids(results)
     end
     @fixed
   end
 
   def set_canonicals_by_page_id(ids)
     ids.in_groups_of(@limit, false) do |group_of_ids|
-      map_page_ids_to_canonical(group_of_ids)
+      current_names = []
+      group_of_ids.each { |id| current_names << [id, ''] }
+      map_page_ids_to_canonical(current_names)
     end
   end
 
-  def fix_page_ids(ids)
-    pages = map_page_ids_to_canonical(ids)
-    results.each do |page_id, canonical|
+  # NOTE: current_names is an array of arrays; each inner array is [id, name]
+  def fix_page_ids(current_names)
+    pages = map_page_ids_to_canonical(current_names.map(&:first))
+    current_names.each do |page_id, canonical|
       fix_canonical(page_id, pages[page_id]) if pages[page_id] != canonical
     end
   end
