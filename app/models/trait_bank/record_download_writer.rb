@@ -46,19 +46,19 @@ class TraitBank::RecordDownloadWriter
   IGNORE_META_URIS = HEADER_GLOSSARY.keys
 
   def start_cols # rubocop:disable Metrics/CyclomaticComplexity
-    { "EOL Page ID" => -> (trait, page, resource) { page && page.id },# NOTE: might be nice to make this clickable?
-      "Ancestry" => -> (trait, page, resource) { TraitBank::DownloadUtils.ancestry(page) },
-      "Scientific Name" => -> (trait, page, resource) { page && page.scientific_name },
-      "Measurement Type" => -> (trait, page, resource) { handle_term(trait[:predicate]) },
-      "Measurement Value" => -> (trait, page, resource) do 
-        trait[:measurement] || handle_term(trait[:object_term]) # Raw value, not sure if this works for associations
+    { "EOL Page ID" => -> (trait, page, resource, association) { page && page.id },# NOTE: might be nice to make this clickable?
+      "Ancestry" => -> (trait, page, resource, association) { TraitBank::DownloadUtils.ancestry(page) },
+      "Scientific Name" => -> (trait, page, resource, association) { page && page.scientific_name },
+      "Measurement Type" => -> (trait, page, resource, association) { handle_term(trait[:predicate]) },
+      "Measurement Value" => -> (trait, page, resource, association) do 
+        trait[:measurement] || handle_term(trait[:object_term]) || handle_association(trait, association) # Raw value, not sure if this works for associations
       end,
-      "Measurement Unit" => -> (trait, page, resource) { handle_term(trait[:units]) },
-      "Measurement Accuracy" => -> (trait, page, resource) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
-      "Statistical Method" => -> (trait, page, resource) { handle_term(trait[:statistical_method_term]) },
-      "Sex" => -> (trait, page, resource) { handle_term(trait[:sex_term])},
-      "Life Stage" => -> (trait, page, resource) { handle_term(trait[:lifestage_term]) },
-      #"Value" => -> (trait, page, resource) { value }, # NOTE this is actually more complicated...Watch out for associations
+      "Measurement Unit" => -> (trait, page, resource, association) { handle_term(trait[:units]) },
+      "Measurement Accuracy" => -> (trait, page, resource, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
+      "Statistical Method" => -> (trait, page, resource, association) { handle_term(trait[:statistical_method_term]) },
+      "Sex" => -> (trait, page, resource, association) { handle_term(trait[:sex_term])},
+      "Life Stage" => -> (trait, page, resource, association) { handle_term(trait[:lifestage_term]) },
+      #"Value" => -> (trait, page, resource, association) { value }, # NOTE this is actually more complicated...Watch out for associations
       #"Measurement URI" => -> (trait, page, resource) {trait[:predicate][:uri]},
       #"Value URI" => -> (trait, page, resource) {trait[:object_term] && trait[:object_term][:uri]},
       # TODO: these normalized units won't work; we're not storing it right now. Add it.
@@ -124,6 +124,10 @@ class TraitBank::RecordDownloadWriter
     end
   end
 
+  def handle_association(term, association)
+  
+  end 
+
   def handle_citation(cit)
     if !cit.blank?
       @citations.add(cit)
@@ -146,16 +150,19 @@ class TraitBank::RecordDownloadWriter
   end
 
   def to_arrays
-    pages = Page.where(id: page_ids).
-      includes(:native_node, :preferred_vernaculars)
-    resources = Resource.where(id: resource_ids)
+    pages = Page.where(id: page_ids)
+      .includes(:native_node, :preferred_vernaculars)
+      .map { |p| [p.id, p] }.to_h
+    resources = Resource.where(id: resource_ids).map { |r| [r.id, r] }.to_h
     associations = Page.where(id: association_ids)
+      .includes(:preferred_vernaculars, native_node: [:rank])
+      .map { |p| [p.id, p] }.to_h
     @data = []
     @data << start_cols.keys + @predicates.keys + end_cols.keys
     @hashes.each do |trait|
-      page = pages.find { |p| p.id == trait[:page][:page_id] }
-      resource = resources.find { |r| r.id == trait[:resource][:resource_id] }
-      resource = resources.find { |r| r.id == trait[:resource][:resource_id] }
+      page = pages[trait[:page][:page_id]]
+      resource = resources[trait[:resource][:resource_id]]
+      association = associations[trait[:object_page_id]]
       row = []
       start_cols.each do |_, lamb|
         row << lamb[trait, page, resource]
