@@ -22,7 +22,7 @@ relationships, if enforced, are preceded by a :Colon, and notes about either typ
 
 ### Page:
 * **Relationships**: ancestor:Page[NOTE: unused as of Nov2017], parent:Page, trait:Trait
-* **Attributes**: *page_id*
+* **Attributes**: *page_id*, canonical_form
 
 ### Trait:
 * **Relationships**: *predicate*:Term, *supplier*:Resource, metadata:MetaData, object_term:Term, units_term:Term,

@@ -121,13 +121,15 @@ module PagesHelper
     name = options[:node] ? node.name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
-        haml_concat name.html_safe
+        haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
       end
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
+      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
+    else
+      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
     end
-    haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     if page.nil?
       haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
         haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
@@ -155,7 +157,7 @@ module PagesHelper
   end
 
   def overview?
-    current_page?(page_path(@page))
+    current_page?(page_overview_path(@page))
   end
 
   def summary_hierarchy(page, link)
@@ -183,7 +185,7 @@ module PagesHelper
       ancestors.compact.each do |anc_node|
         if anc_node.use_breadcrumb? || (mode == :full && anc_node.use_abbreviated?)
           if link
-            parts << link_to(anc_node.canonical_form.html_safe, page_path(anc_node.page)).html_safe
+            parts << link_to(anc_node.canonical_form.html_safe, page_overview_path(anc_node.page)).html_safe
           else
             parts << anc_node.canonical_form.html_safe
           end

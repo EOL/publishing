@@ -97,48 +97,19 @@ class Publishing
     end
   end
 
-  def get_existing_terms
-    terms = {}
-    Rails.cache.delete("trait_bank/terms_count/include_hidden")
-    count = TraitBank::Terms.count(include_hidden: true)
-    per = 2000
-    pages = (count / per.to_f).ceil
-    (1..pages).each do |page|
-      Rails.cache.delete("trait_bank/full_glossary/#{page}/include_hidden")
-      TraitBank::Terms.full_glossary(page, per, include_hidden: true).compact.map { |t| t[:uri] }.each { |uri| terms[uri] = true }
-    end
-    terms
-  end
-
   # TODO: move this to a CSV import. So much faster...
   def import_terms
     @pub_log.log("Importing terms...")
-    terms = if @skip_known_terms
-              get_existing_terms # TODO: we don't need to do this unless there are old terms we want to skip.
-            else
-              {}
-            end
-    knew = 0
-    new_terms = 0
-    skipped = 0
+    importer = Term::Importer.new(skip_known_terms: @skip_known_terms)
     path = "terms.json?per_page=1000&"
     repo = Publishing::Repository.new(log: @pub_log, since: @last_run_at)
-    repo.loop_over_pages(path, "terms") do |term|
-      knew += 1 if terms.key?(term[:uri])
-      next if @skip_known_terms && terms.key?(term[:uri])
-      if Rails.env.development? && term[:uri] =~ /wikidata\.org\/entity/ # There are many, many of these. :S
-        skipped += 1
-        next
-      end
-      @pub_log.log("++ New term: #{term[:uri]}") if terms.size > 1000 # Don't bother saying if we didn't have any at all!
-      new_terms += 1
-      # TODO: section_ids
-      term[:type] = term[:used_for]
-      # TODO: really, we should write these to CSV (or get CSV from the server) and import them like other traits.
-      # That's a lot of work, though, so I'm skipping it for now. The cost is that it is REALLY SLOW, esp. when there's
-      # more than a few dozen terms to import:
-      TraitBank.create_term(term.merge(force: true))
+    repo.loop_over_pages(path, "terms") { |term| importer.from_hash(term) }
+    new_terms = importer.new_terms
+    if new_terms.size > 100 # Don't bother saying if we didn't have any at all!
+      @pub_log.log("++ There were #{new_terms.size} new terms, which is too many to show.")
+    else
+      @pub_log.log("++ New terms: #{new_terms.join("\n  ")}")
     end
-    @pub_log.log("Finished importing terms: #{new_terms} new, #{knew} known, #{skipped} skipped.")
+    @pub_log.log("Finished importing terms: #{new_terms.size} new, #{importer.knew} known, #{importer.skipped} skipped.")
   end
 end

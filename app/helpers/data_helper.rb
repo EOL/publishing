@@ -55,8 +55,12 @@ module DataHelper
     if @associations && (target_id = data[:object_page_id])
       page = @associations.find { |a| a.id == target_id }
       unless page
-        Rails.logger("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
-        page = Page.find(data[:object_page_id])
+        Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
+        if Page.exists?(data[:object_page_id])
+          page = Page.find(data[:object_page_id])
+        else
+          return "[MISSING PAGE #{data[:object_page_id]}]"
+        end
       end
       parts << link_to(name_for_page(page), page_overview_path(page))
     elsif data[:object_term] && data[:object_term][:name]
@@ -84,6 +88,7 @@ module DataHelper
   end
 
   def modifier_txt(data)
+    # TODO: I am not confident enough to do this right now (demo tonight), but IO think this #reject should be #compact
     modifiers = [ data[:sex_term], data[:lifestage_term], data[:statistical_method_term] ].reject { |x| x.nil? }
 
     if modifiers.any?
@@ -92,7 +97,6 @@ module DataHelper
       nil
     end
   end
-
 
   def show_definition(uri)
     return unless uri && uri[:definition]

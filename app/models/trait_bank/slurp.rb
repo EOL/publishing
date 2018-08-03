@@ -6,15 +6,47 @@ class TraitBank::Slurp
     #   TraitBank.query(q)
     # end
 
-    def load_csvs(resource)
-      config = load_csv_config(resource)
+    # Same as load_csvs, but rather than using the standard file location, we have special files in a special directory
+    # (dir), with traits.csv and metadata.csv, and the traits.csv file there includes a resource_id column (the last
+    # column). This is intended for multi-resource serialized clades.
+    def load_full_csvs(id)
+      config = load_csv_config(id, single_resource: false) # No specific resource!
       config.each { |filename, file_config| load_csv(filename, file_config) }
+      post_load_cleanup(id)
+    end
+
+    def load_csvs(resource)
+      config = load_csv_config(resource.id, single_resource: true)
+      config.each { |filename, file_config| load_csv(filename, file_config) }
+      post_load_cleanup(resource.id)
+    end
+
+    def post_load_cleanup(id)
+      page_ids = read_page_ids_from_traits_file(id)
+      fix_page_names_for_new_pages(page_ids)
+      # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
     end
 
+    def read_page_ids_from_traits_file(id)
+      # read the traits file and pluck out the page IDs...
+      require 'csv'
+      data = CSV.read(Rails.public_path.join("traits_#{id}.csv"))
+      pages = {}
+      data.each do |row|
+        pages[row[1]] = true # NOTE: page_id is always the second field, thus [1]
+      end
+      pages.keys
+    end
+
+    def fix_page_names_for_new_pages(page_ids)
+      TraitBank::Denormalizer.set_canonicals_by_page_id(page_ids)
+    end
+
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
-    def load_csv_config(resource)
-      { "traits_#{resource.id}.csv" =>
+    def load_csv_config(id, options = {})
+      single_resource = options[:single_resource]
+      { "traits_#{id}.csv" =>
         { 'Page' => [:page_id],
           'Trait' => %i[eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement],
           wheres: {
@@ -22,7 +54,7 @@ class TraitBank::Slurp
             "1=1" => {
               matches: {
                 predicate: 'Term { uri: row.predicate }',
-                resource: "Resource { resource_id: #{resource.id} }"
+                resource: "Resource { resource_id: #{single_resource ? id : 'row.resource_id'} }"
               },
               # NOTE: merges are expressed as a triple, e.g.: [source variable, relationship name, target variable]
               merges: [
@@ -64,7 +96,7 @@ class TraitBank::Slurp
           }
         },
 
-        "meta_traits_#{resource.id}.csv" =>
+        "meta_traits_#{id}.csv" =>
         {
           'MetaData' => %i[eol_pk source literal measurement],
           wheres: {
@@ -129,9 +161,10 @@ class TraitBank::Slurp
       merges.each { |triple| merge_triple(triple: triple, head: head, nodes: nodes, matches: matches) }
     end
 
-    def csv_query_head(file, where_clause = nil)
+    def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
-      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{Rails.configuration.eol_web_url}/#{file}' AS row WITH row WHERE #{where_clause} "
+      file = filename =~ /\// ? filename : "#{Rails.configuration.eol_web_url}/#{filename}"
+      "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
     # TODO: extract the file-writing to a method that takes a block.
@@ -188,7 +221,6 @@ class TraitBank::Slurp
       pk = attributes.shift # Pull the first attribute off...
       pk_val = autocast_val("row.#{pk}")
       q = "#{head}MERGE (#{name}:#{label} { #{pk}: #{pk_val} })"
-      attribute_sets = []
       attributes.each do |attribute|
         value = autocast_val("row.#{attribute}")
         q << set_attribute(name, attribute, value, 'CREATE')

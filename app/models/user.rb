@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections
 
+  # The enum defines user? user! power_user? power_user! admin? admin!
+  # We give explicit integer values for the sake of stability of
+  # scripts that don't know the symbolic names (e.g. the migration).
+  enum role: {deleted: 0, user: 10, power_user: 50, admin: 100}
+
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
@@ -55,24 +60,37 @@ class User < ActiveRecord::Base
     weird_password = SecureRandom.hex(8)
     self.update_attributes!(deleted_at: Time.current,
       email: dummy_email_for_delete, active: false,
-      password: weird_password, password_confirmation: weird_password)
+      password: weird_password, password_confirmation: weird_password,
+      role: "deleted")
   end
 
   # def email_required?
     # false
   # end
 
-  # TODO: switch this to a role (once we have roles)
+  # "admin" is a role.  admin? is defined by the enum.
   def is_admin?
     admin?
   end
 
+  def is_power_user?
+    power_user? or admin?
+  end
+
   def grant_admin
-    self.update_attribute(:admin, true)
+    admin!
   end
 
   def revoke_admin
-    self.update_attribute(:admin, false)
+    user!
+  end
+
+  def grant_power_user
+    power_user! unless admin?
+  end
+
+  def revoke_power_user
+    user!
   end
 
   def can_delete_account? (user)

@@ -37,15 +37,15 @@ type.
 A `Resource` node corresponds to a 'resource' defined here as a file
 or set of files, imported from outside of the EOL project,
 that provides specific measured or curated information about
-taxa, such as habitat or average adult mass.  A resource comes from some supplier of 
+taxa, such as habitat or average adult mass.  A resource comes from some supplier of
 biodiversity or trait information, in the form of a Darwin
 Core Archive (DwCA).
 Some of the information from resources is recorded in the
 properties and links of `Trait` nodes.
 
-* `resource_id` property - Every `Resource` node has a different
+* `resource_id` property - Each `Resource` node has a different
   `resource_id` property value.  
-  This value can be used as a key 
+  This value can be used as a key
   in tables stored in one of the relational databases, where further
   information about the resource can be found.
 
@@ -60,7 +60,7 @@ data, in taxon record matching (the harvester), or in what we believe
 about nature.  These situations are errors and should be fixed when
 detected.
 
-The use of the word 'page' is a reference to the EOL user 
+The use of the word 'page' is a reference to the EOL user
 interface, where each taxon known to EOL has its own web page.
 
 * `parent` link (to another `Page` node): taxonomic
@@ -73,10 +73,17 @@ interface, where each taxon known to EOL has its own web page.
   about the taxon.  Many `Trait`s (or no
   `Trait`s) can be `trait`-linked from a given `Page`.
 * `page_id` property, a positive integer.
-  Every `Page` has a different `page_id` value.  The page id is used as a key in 
+  Every `Page` has a different `page_id` value.  The page id is used as a key in
   the EOL relational databases (or ORM), which contain additional taxon
   information such as scientific name.
   Always present.
+* `canonical_form` property, a string.
+  Each page should have its own scientific name, represented here in its
+  canonical form (e.g.: "*Procyon lotor*" and NOT "*P. lotor* (Linnaeus,
+  1758)").
+  *Should* always be present, but this value is *denormalized* and may therefore
+  be "stale" or missing in rare cases. For the most trustworthy value, it is
+  advised to check the EOL page (https://eol.org/pages/PAGE_ID/names).
 
 
 
@@ -101,9 +108,9 @@ below into groups.
 
 * `eol_pk` property: an uninterpreted string that is different
   for every `Trait` node.  Always present.
-* `resource_pk` property: a key for the statement within the resource; 
+* `resource_pk` property: a key for the statement within the resource;
   that is, each statement obtained from a given resource has a different `resource_pk`
-  value.  Always present.  The value originates from a `measurementOrFactID` or 
+  value.  Always present.  The value originates from a `measurementOrFactID` or
   `associationID` field in the resource DwCA.
 * `source` property: Value copied from a DwCA. Meant to describe the original source
   of the `Trait` information (since the resource is itself an aggregator).  
@@ -113,9 +120,9 @@ below into groups.
 
 ### Subject and predicate
 
-* `Page` link source: The subject is indicated by the (unique) `Page` node 
+* `Page` link source: The subject is indicated by the (unique) `Page` node
   that `trait`-links to this `Trait` node.  Always present and unique.
-* `scientific_name` property: the name that the resource provided for the 
+* `scientific_name` property: the name that the resource provided for the
   subject taxon; not necessarily the same as EOL's name for the taxon (which is the name
   associated in the RDB with the `page_id` for the subject's `Page`).
 * `predicate` link: links to a `Term` node, usually one for an ontology
@@ -128,22 +135,22 @@ The 'object' or value of the statement is given by the
 as determined by the nature of the `predicate`.  Exactly one of of
 these four properties (or links) will be present.
 
-* `object_page_id`: if the object of the statement is a taxon, this is the 
+* `object_page_id`: if the object of the statement is a taxon, this is the
   value of the `page_id` property of the `Page` node for the taxon.
 * `object_term` link: to a `Term` node for the object of the statement,
   usually an ontology term for some qualitative choice (e.g. habitat type).
 * `normal_measurement` property: this value is the value of the statement,
   indicating a quantity in normalized units.
-* `normal_units_term` link: when `normal_measurement` is present, the 
-  target is a `Term` node (usually 
+* `normal_units_term` link: when `normal_measurement` is present, the
+  target is a `Term` node (usually
   for an ontology term) that gives the units in which `normal_measurement` is given.
 * `normal_units` property: textual description of the units
-* `measurement` property: redundant with `normal_measurement`, but the value is given 
+* `measurement` property: redundant with `normal_measurement`, but the value is given
   as it occurs in the resource rather than normalized to EOL-favored units
-* `units_term` link: when `measurement` is present, the target is a `Term` node (usually 
-  for an ontology term) describing the units of `measurement` as the value 
+* `units_term` link: when `measurement` is present, the target is a `Term` node (usually
+  for an ontology term) describing the units of `measurement` as the value
   is provided by the resource.
-* `literal` property: a string coming from an uncontrolled vocabulary such as 
+* `literal` property: a string coming from an uncontrolled vocabulary such as
   is found in certain Darwin Core attributes.
 
 ### Qualifiers
@@ -158,20 +165,21 @@ ontology terms that are not stored.  Those terms can be found in
 information.
 
 * `statistical_method` property [more documentation needed]
-* `sex` property
-* `lifestage` property
+* `statistical_method_term` link
+* `sex_term` link
+* `lifestage_term` link
 
-### Metadata
+## Metadata
 
-A `Metadata` node expresses something we know or believe, either
+A `MetaData` node expresses something we know or believe, either
 about the `Trait` node's statement, the way the statement was
 determined, or the way in which the statement is expressed in the `Trait` node.
 
-Some `Metadata` nodes are a more rigorous expression of information in
+Some `MetaData` nodes are a more rigorous expression of information in
 the `Trait` node, providing an ontology term rather than free text.
 
-* `eol_pk` property:     always present - unique to this `Metadata` node
-* `predicate` link (to a `Term`):      Example: the target could be an ontology term 
+* `eol_pk` property:     always present - unique to this `MetaData` node
+* `predicate` link (to a `Term`):      Example: the target could be an ontology term
       indicating that the measurement value gives the sample size.  Always present
 * `object_term` link (to a `Term`): either this link, or a `measurement`
      or `literal` property, is present, similarly to `Trait` nodes
@@ -179,7 +187,7 @@ the `Trait` node, providing an ontology term rather than free text.
 * `units_term` link (to a `Term` node): units that apply to `measurement`, when it is present
 * `literal` property: similar to same property on a `Trait`
 
-### Term
+## Term
 
 `Term` nodes correspond (usually?) to ontology terms defined in some
 origin document such as an OWL ontology or controlled vocabulary.  Terms
@@ -191,18 +199,18 @@ Terms live in neo4j (copied from harvesting db) and *not* in the web
 site RDB.
 
 * `uri` property:    always present - the standard URI (URL) for this property
-* `name` property:   an English word or phrase, chosen by EOL curators, but 
+* `name` property:   an English word or phrase, chosen by EOL curators, but
   usually the same as the canonical name as provided by the origin ontology.  Always present
-* `type` property:      predicate, object, unit, ?metadata? - for type checking.
+* `type` property:     for type checking.
   Possible values as of this writing are `"measurement"`, `"association"`, `"value"`,
-  and `"metadata"`.  Always present
+  and `"metadata"` reflecting how the term is used in EOL.  Always present
 * `definition` property:   from the ontology
 * `comment` property:      EOL curator note
 * `attribution` property:  string, e.g. might say that term's source is a particular OBO ontology
 * `section_ids` property:  string with comma separated fields giving the
-   sections of the TOC in which the term occurs.  The exact 
+   sections of the TOC in which the term occurs.  The exact
    syntax and semantics are hairy; see RDB documentation for details.
 * `is_hidden_from_overview` property: hidden from the trait overview on a web page
-* `is_hidden_from_glossary` property 
+* `is_hidden_from_glossary` property
 * `position` property:  an integer assigned only to this term, related to the
   ordering of this `Trait` information in the summary on the web page

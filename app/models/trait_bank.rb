@@ -49,12 +49,16 @@ class TraitBank
 
     def count_by_resource(id)
       Rails.cache.fetch("trait_bank/count_by_resource/#{id}") do
-        res = query(
-          "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
-          "WITH count(trait) as count "\
-          "RETURN count")
-        res["data"] ? res["data"].first.first : false
+        count_by_resource_no_cache(id)
       end
+    end
+
+    def count_by_resource_no_cache(id)
+      res = query(
+        "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "WITH count(trait) as count "\
+        "RETURN count")
+      res["data"] ? res["data"].first.first : false
     end
 
     def count_by_resource_and_page(resource_id, page_id)
@@ -167,6 +171,20 @@ class TraitBank
       build_trait_array(res)
     end
 
+    def data_dump_trait(pk)
+      id = pk.gsub("'", "''")
+      query(%{
+        MATCH (trait:Trait { eol_pk: '#{id}' })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+        OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
+        OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
+        OPTIONAL MATCH (meta)-[:sex_term]->(sex_term:Term)
+        OPTIONAL MATCH (meta)-[:lifestage_term]->(lifestage_term:Term)
+        OPTIONAL MATCH (meta)-[:statistical_method_term]->(statistical_method_term:Term)
+        RETURN meta.eol_pk, trait.eol_pk, meta_predicate.uri, meta.literal, meta.measurement, meta_object_term.uri,
+          meta_units_term.uri, sex_term.uri, lifestage_term.uri, statistical_method_term.uri, meta.source
+      })
+    end
+
     def by_page(page_id, page = 1, per = 100)
       q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
           "-[:supplier]->(resource:Resource) "\
@@ -183,6 +201,23 @@ class TraitBank
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res)
+    end
+
+    def data_dump_page(page_id)
+      query(%{
+        MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)-[:supplier]->(resource:Resource),
+          (trait:Trait)-[:predicate]->(predicate:Term)
+        OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+        OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+        OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+        OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+        OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+        OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+        RETURN trait.eol_pk, page.page_id, trait.scientific_name, trait.resource_pk, predicate.uri, sex_term.uri,
+          lifestage_term.uri, statistical_method_term.uri, trait.source, trait.object_page_id,
+          trait.target_scientific_name, object_term.uri, trait.literal, trait.measurement, units.uri,
+          trait.normal_measurement, normal_units.uri, resource.resource_id
+      })
     end
 
     def page_ancestors(page_id)
@@ -498,6 +533,13 @@ class TraitBank
     def count_predicate_terms(q)
       q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
+      res = query(q)
+      return [] if res["data"].empty?
+      res["data"] ? res["data"].first.first : 0
+    end
+
+    def count_pages
+      q = "MATCH (page:Page) RETURN COUNT(page)"
       res = query(q)
       return [] if res["data"].empty?
       res["data"] ? res["data"].first.first : 0

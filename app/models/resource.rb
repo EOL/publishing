@@ -150,7 +150,7 @@ class Resource < ActiveRecord::Base
     # Attributions
     log << nuke(Attribution)
     # Traits:
-    count = TraitBank.count_by_resource(id)
+    count = TraitBank.count_by_resource_no_cache(id)
     if count.zero?
       log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping."
     else

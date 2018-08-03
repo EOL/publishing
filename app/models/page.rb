@@ -93,14 +93,27 @@ class Page < ActiveRecord::Base
 
     # NOTE: you prrrrrrobaby want to fix_media_counts before you call this.
     def fix_missing_icons
+      fix_zombie_icons
       pages = []
       Page.where(medium_id: nil).where('media_count > 0').find_each do |page|
         # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
         # method often enough to warrant speeding it up.
         page.medium_id = page.media.first.id
         pages << page
+        if pages.size > 999 # FLUSH!
+          Page.import!(pages, on_duplicate_key_update: [:medium_id])
+          pages = []
+        end
       end
-      Page.import!(pages, on_duplicate_key_update: [:medium_id])
+      Page.import!(pages, on_duplicate_key_update: [:medium_id]) unless pages.empty?
+    end
+
+    def fix_zombie_icons
+      # NOTE: this is less than stellar efficiency, since it loads the batches into memory but doesn't need them. But
+      # this isn't important enough code to explode it to the verbose, efficient verison:
+      Page.where('medium_id IS NOT NULL').eager_load(:medium).merge(Medium.where(id: nil)).find_in_batches do |batch|
+        Page.where(id: batch.map(&:id)).update_all(medium_id: nil)
+      end
     end
 
     def remove_if_nodeless
@@ -671,5 +684,4 @@ class Page < ActiveRecord::Base
       gn
     end
   end
-
 end

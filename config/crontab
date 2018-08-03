@@ -1,0 +1,2 @@
+# At 3:00 AM run the cache warmer:
+0 3 * * * /usr/local/rvm/gems/ruby-2.4.2/bin/rake cache:warm > /u/apps/eol_website/log/cache_warmer.log 2>&1
