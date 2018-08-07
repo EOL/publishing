@@ -12,7 +12,7 @@ Rails.cache.clear
 License.public_domain
 Language.english
 
-u = User.create(username: "admin", email: "admin@eol.org", password: "admin4Tramea", admin: true)
+u = User.create(username: "admin", email: "admin@eol.org", password: "admin4Tramea", role: :admin)
 u.activate
 user = User.create(email: "foo2@bar.com", username: "cigarman", name: "Sigmond Freud", password: "foobarbaz")
 user = User.create(email: "foo3@bar.com", username: "sweaver", name: "Sigourney Weaver", password: "foobarbaz")
