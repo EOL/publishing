@@ -1,5 +1,6 @@
 @import "shared/traits";
 @import "shared/summary_card";
+@import "colors";
 
 .l-terms {
   padding: 10px percentage(15 / 375);
@@ -15,6 +16,7 @@
 }
 
 .traits-term-search {
+  border-top: 1px solid $light-gray;
   margin-bottom: 30px;
   margin-top: 30px;
 }
