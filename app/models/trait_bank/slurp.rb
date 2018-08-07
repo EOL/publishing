@@ -19,13 +19,13 @@ class TraitBank::Slurp
       config = load_csv_config(resource.id, single_resource: true)
       config.each { |filename, file_config| load_csv(filename, file_config) }
       post_load_cleanup(resource.id)
+      # "Touch" the resource so that it looks like it's been changed (it has):
+      resource.touch
     end
 
     def post_load_cleanup(id)
       page_ids = read_page_ids_from_traits_file(id)
       fix_page_names_for_new_pages(page_ids)
-      # "Touch" the resource so that it looks like it's been changed (it has):
-      resource.touch
     end
 
     def read_page_ids_from_traits_file(id)
