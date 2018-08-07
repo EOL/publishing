@@ -17,7 +17,7 @@ class TraitBank::Denormalizer
   end
 
   def initialize(options = {})
-    @limit = options[:limit] || 10_000
+    @limit = options[:limit] || 5_000
     @skip = options[:skip] || 0
     @fixed = 0
     @pages_count = count_pages # 4,332,394 as of this writing...
@@ -54,7 +54,7 @@ class TraitBank::Denormalizer
   end
 
   def fix_canonical(id, name)
-    name.gsub!('"', '""')
+    name.gsub!('"', '\\"')
     query(%{MATCH (page:Page { page_id: #{id} }) SET page.canonical = "#{name}" })
     @fixed += 1
   end
