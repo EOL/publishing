@@ -5,20 +5,20 @@ class TraitBank::Denormalizer
   attr_reader :fixed
 
   class << self
-    def set_canonicals
-      denormalizer = new()
+    def set_canonicals(options = {})
+      denormalizer = new(options)
       denormalizer.set_canonicals
     end
 
-    def set_canonicals_by_page_id(ids)
-      denormalizer = new()
+    def set_canonicals_by_page_id(ids, options = {})
+      denormalizer = new(options)
       denormalizer.set_canonicals_by_page_id(ids)
     end
   end
 
-  def initialize
-    @limit = 10_000
-    @skip = 0
+  def initialize(options = {})
+    @limit = options[:limit] || 10_000
+    @skip = options[:skip] || 0
     @fixed = 0
     @pages_count = count_pages # 4,332,394 as of this writing...
   end
