@@ -5,11 +5,11 @@
     = render "search_form"
 
   - if @pages
+    %h2.filter-hdr= "Showing #{@query.record? ? 'records' : 'taxa'} with"
     .js-filter-list
       %ul.show-filters
-        %li.show-filter= @query.record? ? 'records' : 'taxa'
         - if @query.clade
-          %li.show-filter.show-filter-clade= "clade #{@query.clade.native_node&.canonical_form}"
+          %li.show-filter.show-filter-clade= "clade: #{@query.clade.native_node&.canonical_form}"
         - @query.filters.each do |f|
           %li.show-filter= filter_display_string(f)
       %ul.edit-filters-row
