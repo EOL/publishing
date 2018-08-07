@@ -56,6 +56,9 @@ class TraitBank::RecordDownloadWriter
       "Measurement Unit" => -> (trait, page, resource, association) { handle_term(trait[:units]) },
       "Measurement Accuracy" => -> (trait, page, resource, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
       "Statistical Method" => -> (trait, page, resource, association) { handle_term(trait[:statistical_method_term]) },
+      "Target EOL ID" => -> (trait, page, resource, association) { association && association.id },
+      "Target EOL Name" => -> (trait, page, resource, association) { association && association.scientific_name },
+      "Target Source Name" => -> (trait, page, resource, association) { trait[:target_scientific_name] },
       "Sex" => -> (trait, page, resource, association) { handle_term(trait[:sex_term])},
       "Life Stage" => -> (trait, page, resource, association) { handle_term(trait[:lifestage_term]) },
       #"Value" => -> (trait, page, resource, association) { value }, # NOTE this is actually more complicated...Watch out for associations
@@ -149,36 +152,55 @@ class TraitBank::RecordDownloadWriter
     end
   end
 
+  def track_value(i, val, cols_with_vals)
+    cols_with_vals.add(i) if val
+    val
+  end
+
   def to_arrays
     pages = Page.where(id: page_ids)
       .includes(:native_node, :preferred_vernaculars)
       .map { |p| [p.id, p] }.to_h
     resources = Resource.where(id: resource_ids).map { |r| [r.id, r] }.to_h
     associations = Page.where(id: association_ids)
-      .includes(:preferred_vernaculars, native_node: [:rank])
       .map { |p| [p.id, p] }.to_h
     @data = []
     @data << start_cols.keys + @predicates.keys + end_cols.keys
+    cols_with_vals = Set.new
     @hashes.each do |trait|
       page = pages[trait[:page][:page_id]]
       resource = resources[trait[:resource][:resource_id]]
       association = associations[trait[:object_page_id]]
       row = []
+      i = 0
       start_cols.each do |_, lamb|
-        row << lamb[trait, page, resource]
+        row << track_value(i, lamb[trait, page, resource, association], cols_with_vals)
+        i += 1
       end
       @predicates.values.each do |predicate|
         @glossary[predicate[:uri]] = {
           :label => predicate[:name],
           :definition => predicate[:definition]
         }
-        row << meta_value(trait, predicate[:uri])
+        row << track_value(i, meta_value(trait, predicate[:uri]), cols_with_vals)
+        i += 1
       end
       end_cols.each do |_, lamb|
-        row << lamb[trait, page, resource]
+        row << track_value(i, lamb[trait, page, resource], cols_with_vals)
+        i += 1
       end
       @data << row
     end
+    remove_blank_cols(@data, cols_with_vals)
+    @data
+  end
+
+  def remove_blank_cols(data, cols_with_vals)
+    data.each do |row| 
+      row.delete_if.with_index { |_, i| !cols_with_vals.include? i }
+    end
+
+    data
   end
 
   def generate_csv
