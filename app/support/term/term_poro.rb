@@ -1,5 +1,8 @@
+# NOTE: this is just a helper class for debugging purposes, it is never called in the code.
+# NOTE: the method you want may not be here. I'm only adding methods as I have needs for them.
 class TermPoro
   delegate :query, to: TraitBank
+  attr_reader :uri, :instance
 
   def initialize(uri)
     @uri = uri
@@ -17,28 +20,31 @@ class TermPoro
   end
 
   def synonyms
-    query(%{MATCH (term:Term { uri: "#{@uri}" })-[:synonym_of]->(rel:Term) RETURN rel.uri})["data"].first
+    query(%{MATCH (term:Term { uri: "#{@uri}" })-[:synonym_of]->(rel:Term) RETURN rel.uri})["data"].map { |e| e.first  }
   end
 
   def parents
-    query(%{MATCH (term:Term { uri: "#{@uri}" })-[:parent_term]->(rel:Term) RETURN rel.uri})["data"].first
+    query(%{MATCH (term:Term { uri: "#{@uri}" })-[:parent_term]->(rel:Term) RETURN rel.uri})["data"].map { |e| e.first  }
   end
 
   def synonyms_of
-    query(%{MATCH (term:Term { uri: "#{@uri}" })<-[:synonym_of]-(rel:Term) RETURN rel.uri})["data"].first
+    query(%{MATCH (term:Term { uri: "#{@uri}" })<-[:synonym_of]-(rel:Term) RETURN rel.uri})["data"].map { |e| e.first  }
   end
 
   def children
-    query(%{MATCH (term:Term { uri: "#{@uri}" })<-[:parent_term]-(rel:Term) RETURN rel.uri})["data"].first
+    query(%{MATCH (term:Term { uri: "#{@uri}" })<-[:parent_term]-(rel:Term) RETURN rel.uri})["data"].map { |e| e.first  }
   end
 
   def relationships
-    puts "Parents: #{expalin_rel(parents)}"
-    puts "Children: #{expalin_rel(children)}"
-    puts "Synonyms: #{expalin_rel(synonyms)}"
-    puts "Synonyms Of: #{expalin_rel(synonyms_of)}"
-    puts "Used as a predicate #{predicate_uses} times."
-    puts "Used as an object #{object_uses} times."
+    rels = {
+      'Parents' => expalin_rel(parents),
+      'Children' => expalin_rel(children),
+      'Preferred Synonyms' => expalin_rel(synonyms),
+      'Preferred to Synonyms' => expalin_rel(synonyms_of),
+      '# predicate uses' => predicate_uses,
+      '# object uses' => object_uses
+    }
+    rels.each { |title, value| puts "#{title}:\n  #{value}" }
   end
 
   def expalin_rel(rel)

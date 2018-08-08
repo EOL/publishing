@@ -184,9 +184,12 @@ class TraitBank
       end
 
       def any_obj_terms_for_pred?(pred)
-        Rails.cache.fetch("trait_bank/pred_has_object_terms/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
+        Rails.cache.fetch("trait_bank/pred_has_object_terms_2_checks/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
           query(
             %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)<-[:synonym_of|:parent_term*0..]-(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
+          )["data"].any? ||
+          query(
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)-[:synonym_of|:parent_term*0..]->(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
           )["data"].any?
         end
       end
