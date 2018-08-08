@@ -1,5 +1,4 @@
-# NOTE: this is a PORO, NOT (!!!) a Rails model. We do NOT hage terms in the Database. They come from neo4j.
-class Term
+class TermPoro
   delegate :query, to: TraitBank
 
   def initialize(uri)
