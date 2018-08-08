@@ -183,10 +183,20 @@ class TraitBank
         end
       end
 
-      def any_obj_terms_for_pred?(pred)
+      # NOTE: this is meant to be the new method, but doesn't work.
+      def pred_as_object_terms?(pred)
         Rails.cache.fetch("trait_bank/pred_as_object_terms/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
           query(
             %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: '#{pred}'}) RETURN term LIMIT 1}
+          )["data"].any?
+        end
+      end
+
+      # NOTE: this is the existing method. It works, but not for some predicates.
+      def any_obj_terms_for_pred?(pred)
+        Rails.cache.fetch("trait_bank/any_obj_terms_for_pred/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
+          query(
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term { uri: '#{pred}'}) RETURN term LIMIT 1}
           )["data"].any?
         end
       end
