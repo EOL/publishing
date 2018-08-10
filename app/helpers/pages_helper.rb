@@ -183,25 +183,21 @@ module PagesHelper
       ancestors = node ? node.ancestors : []
       shown_ellipsis = false
       ancestors.compact.each do |anc_node|
-        unless mode == :full || anc_node.use_breadcrumb?
-          unless shown_ellipsis
-            if link
-              parts << content_tag(:span, "…", :class => "a js-show-full-hier")
-            else
-              parts << "…"
-            end
-            shown_ellipsis = true
+        if anc_node.use_breadcrumb? || (mode == :full && anc_node.use_abbreviated?)
+          if link
+            parts << link_to(anc_node.canonical_form.html_safe, page_overview_path(anc_node.page)).html_safe
+          else
+            parts << anc_node.canonical_form.html_safe
           end
-          next
+          shown_ellipsis = false
+        elsif anc_node.use_abbreviated? && !shown_ellipsis
+          if link
+            parts << content_tag(:span, "…", :class => "a js-show-full-hier")
+          else
+            parts << "…"
+          end
+          shown_ellipsis = true
         end
-
-        if link
-          parts << link_to(anc_node.canonical_form.html_safe, page_overview_path(anc_node.page)).html_safe
-        else
-          parts << anc_node.canonical_form.html_safe
-        end
-
-        shown_ellipsis = false
       end
 
       result = parts.join(" » ").html_safe

@@ -32,6 +32,10 @@ class Node < ActiveRecord::Base
     has_breadcrumb? && (minimal? || abbreviated?)
   end
 
+  def use_abbreviated?
+    minimal? || abbreviated? || (rank && rank.r_family?)
+  end
+
   # NOTE: this is slow and clunky and should ONLY be used when you have ONE instance. If you have multiple nodes and
   # want to call this on all of them, you should use #node_ancestors directly and pay attention to your includes and
   # ordering.
