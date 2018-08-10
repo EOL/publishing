@@ -160,6 +160,15 @@ RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific
 LIMIT 5
 ```
 
+## Restrictions
+
+* A LIMIT clause is required, in order to encourage you to put a cap on
+  result set sizes (remember that small errors in a query can lead to 
+  enormous query result sets)
+* Queries (commands) that would cause changes to the graph database
+  are rejected: create, set, delete, and so on
+
+
 ## Installation
 
 This section is for those managing the EOL web site itself.  Users of
