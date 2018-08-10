@@ -77,7 +77,7 @@ interface, where each taxon known to EOL has its own web page.
   the EOL relational databases (or ORM), which contain additional taxon
   information such as scientific name.
   Always present.
-* `canonical_form` property, a string.
+* `canonical` property, a string.
   Each page should have its own scientific name, represented here in its
   canonical form (e.g.: "*Procyon lotor*" and NOT "*P. lotor* (Linnaeus,
   1758)").
