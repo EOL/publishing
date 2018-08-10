@@ -124,6 +124,14 @@ class Publishing::Fast
           @files << @data_file
         end
       end
+      # You have to create pages BEFORE you slurp traits, because now it needs the scientific names from the page
+      # objects.
+      log_start('PageCreator')
+      PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
+      if page_contents_required?
+        log_start('MediaContentCreator')
+        MediaContentCreator.by_resource(@resource, log: @log)
+      end
       log_start('Remove traits')
       TraitBank::Admin.remove_for_resource(@resource)
       log_start('#publish_traits')
@@ -131,13 +139,6 @@ class Publishing::Fast
         publish_traits
       rescue => e
         log_warn("Trait Publishing failed: #{e.message}")
-      end
-      # TODO: you also have to do associations (but not here; on the other repo)!
-      log_start('PageCreator')
-      PageCreator.by_node_pks(node_pks, @log, skip_reindex: true)
-      if page_contents_required?
-        log_start('MediaContentCreator')
-        MediaContentCreator.by_resource(@resource, log: @log)
       end
       log_start('#fix_native_nodes')
       @resource.fix_native_nodes
