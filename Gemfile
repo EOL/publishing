@@ -51,6 +51,8 @@ gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
+# Cron jobs:
+gem 'crono'
 # Run background jobs:
 gem 'daemons'
 # Memcached (not for development):
@@ -95,8 +97,6 @@ gem 'rubyzip'
 gem 'searchkick'
 # Simplify Forms:
 gem 'simple_form'
-# Cron jobs:
-gem 'whenever', require: false
 
 group :development, :test do
   # Security analysis:
