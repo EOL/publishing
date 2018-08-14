@@ -8,7 +8,7 @@ ENV LANG en_US.UTF-8
 
 RUN apt-get update -q && \
     apt-get install -qq -y curl wget openssh-server openssh-client \
-    software-properties-common nodejs \
+    software-properties-common nodejs gnupg2 \
     libmysqlclient-dev libqt4-dev supervisor vim && \
     add-apt-repository -y ppa:nginx/stable && \
     apt-get update && \
@@ -19,6 +19,7 @@ RUN apt-get update -q && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN \gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN \curl -ksSL https://get.rvm.io | bash -s stable --ruby
 RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 
