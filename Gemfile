@@ -96,11 +96,6 @@ gem 'searchkick'
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
-# Required for stripped-down servers:
-gem 'tzinfo-data'
-
-# VULNERABILITY FIXES (these can be removed when their parent gems are updated):
-gem 'loofah', '2.2.1' # Used by spec, addresses https://github.com/flavorjones/loofah/issues/144
 
 group :development, :test do
   # Security analysis:
@@ -130,7 +125,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.7.2'
+  gem 'rspec-rails', '~> 3.8'
   # TEMP - remove rack-protection, required by rspec, eventually. Here
   # temporarily to circumvent https://nvd.nist.gov/vuln/detail/CVE-2018-1000119
   gem 'rack-protection', '~> 1.5.5'

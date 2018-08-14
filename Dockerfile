@@ -19,7 +19,7 @@ COPY config/crontab /etc/cron.d/rake-cron
 RUN chmod 0644 /etc/cron.d/rake-cron
 RUN crontab /etc/cron.d/rake-cron
 
-RUN bundle install --without test development staging
+RUN bundle install --jobs 10 --retry 5 --without test development staging
 
 EXPOSE 3000
 CMD ["/usr/bin/supervisord", "-c", "/app/config/supervisord.conf"]
