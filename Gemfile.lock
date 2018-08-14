@@ -401,23 +401,23 @@ GEM
     routing-filter (0.6.1)
       actionpack (>= 4.2, < 5.2)
       activesupport (>= 4.2, < 5.2)
-    rspec-core (3.7.1)
-      rspec-support (~> 3.7.0)
-    rspec-expectations (3.7.0)
+    rspec-core (3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-expectations (3.8.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-mocks (3.7.0)
+      rspec-support (~> 3.8.0)
+    rspec-mocks (3.8.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-rails (3.7.2)
+      rspec-support (~> 3.8.0)
+    rspec-rails (3.8.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 3.7.0)
-      rspec-expectations (~> 3.7.0)
-      rspec-mocks (~> 3.7.0)
-      rspec-support (~> 3.7.0)
-    rspec-support (3.7.1)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-support (3.8.0)
     rubocop (0.51.0)
       parallel (~> 1.10)
       parser (>= 2.3.3.1, < 3.0)
@@ -533,13 +533,13 @@ DEPENDENCIES
   coveralls
   daemons
   dalli
-  delayed_job (~> 4.1.4)
+  delayed_job
   delayed_job_active_record
-  devise (~> 4.4.1)
+  devise
   devise-encryptable
   devise-i18n-views
   discourse_api
-  draper (~> 2.1.0)
+  draper
   factory_girl
   faker
   font-awesome-sass
@@ -549,7 +549,6 @@ DEPENDENCIES
   jquery-rails
   kaminari
   lograge
-  loofah (= 2.2.1)
   mailcatcher
   meta_request
   mysql2
@@ -561,16 +560,15 @@ DEPENDENCIES
   omniauth-yahoo
   pry-rails
   pundit
-  rack-protection (~> 1.5.5)
   rack_session_access
   rails (= 4.2.10)
   recaptcha
   refinerycms
   refinerycms-i18n
   refinerycms-wymeditor
-  rspec-rails (~> 3.7.2)
+  rspec-rails (~> 3.8)
   rubocop
-  rubyzip (>= 1.0.0)
+  rubyzip
   sass-rails
   sdoc
   searchkick
@@ -584,4 +582,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.16.0
+   1.16.3
