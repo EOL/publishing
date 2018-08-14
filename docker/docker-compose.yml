@@ -55,9 +55,9 @@ services:
     restart: always
     volumes:
       - ./resources/tramea_init.sh:/etc/my_init.d/tramea_init.sh
-      - ./resources/secrets.yml:/u/apps/secrets.yml
-      - /data/eol-backend-tramea:/u/apps/eol_website/public/data
-      - /data/eol-backend-tramea/solr:/u/apps/eol_website/solr/development
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - /data/eol-backend-tramea:/app/public/data
+      - /var/tmp:/app/tmp
       - ./resources/site-eol.conf:/etc/nginx/sites-available/default
     depends_on:
       - eol-backend-mysql

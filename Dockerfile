@@ -41,4 +41,4 @@ RUN crontab /etc/cron.d/rake-cron
 
 RUN bundle install --without test development staging
 
-CMD /usr/bin/supervisord
+CMD /usr/bin/supervisord -c /app/config/supervisord.conf
