@@ -1,4 +1,4 @@
-FROM ubuntu:yakkety
+FROM ubuntu:xenial
 MAINTAINER Jeremy Rice <jrice@eol.org>
 
 ENV LAST_FULL_REBUILD 2016-11-10
@@ -7,7 +7,7 @@ ENV INITRD No
 ENV LANG en_US.UTF-8
 
 RUN apt-get update -q && \
-    apt-get install -qq -y openssh-server openssh-client
+    apt-get install -qq -y openssh-server openssh-client \
     software-properties-common nodejs \
     libmysqlclient-dev libqt4-dev supervisor vim && \
     add-apt-repository -y ppa:nginx/stable && \
