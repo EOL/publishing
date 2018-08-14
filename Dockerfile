@@ -4,12 +4,8 @@ MAINTAINER Jeremy Rice <jrice@eol.org>
 ENV LAST_FULL_REBUILD 2018-08-14
 
 RUN apt-get update -q && \
-    apt-get install -qq -y curl wget openssh-server openssh-client \
-    software-properties-common nodejs procps supervisor vim && \
-    add-apt-repository -y ppa:nginx/stable && \
-    apt-get update && \
-    apt-get install -qq -y nginx && \
-    apt-get -qq -y --force-yes install cron && \
+    apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client cron \
+    apache2-utils nodejs procps supervisor vim nginx && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -17,7 +13,7 @@ WORKDIR /app
 
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY . /app
-COPY Gemfile Gemfile.lock ./
+COPY Gemfile ./
 COPY config/crontab /etc/cron.d/rake-cron
 
 RUN chmod 0644 /etc/cron.d/rake-cron
