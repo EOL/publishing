@@ -62,6 +62,10 @@ gem 'devise-i18n-views'
 gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
+# Model decoration
+gem 'draper', '~> 2.1.0'
+# Icons
+gem 'font-awesome-sass'
 
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
@@ -84,18 +88,16 @@ gem 'pry-rails'
 gem 'pundit'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
+# Zip file support
+gem 'rubyzip', '>= 1.0.0'
 # ElasticSearch via SearchKick:
 gem 'searchkick'
 # Simplify Forms:
 gem 'simple_form'
 gem 'client_side_validations'
 gem 'client_side_validations-simple_form'
-# Icons
-gem 'font-awesome-sass'
-# Model decoration
-gem 'draper', '~> 2.1.0'
-# Zip file support
-gem 'rubyzip', '>= 1.0.0'
+# Required for stripped-down servers:
+gem 'tzinfo-data'
 
 # VULNERABILITY FIXES (these can be removed when their parent gems are updated):
 gem 'loofah', '2.2.1' # Used by spec, addresses https://github.com/flavorjones/loofah/issues/144

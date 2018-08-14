@@ -15,7 +15,7 @@ RUN apt-get update -q && \
     apt-get install -qq -y nginx && \
     echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
     chown -R www-data:www-data /var/lib/nginx && \
-    apt-get -qq -y --force-yes install cron && \
+    apt-get -qq -y --force-yes install cron procps && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
