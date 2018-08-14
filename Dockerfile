@@ -21,7 +21,12 @@ RUN apt-get update -q && \
 
 RUN \command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 RUN \curl -ksSL https://get.rvm.io | bash -s stable --ruby
-RUN \gem install bundler --no-ri --no-rdoc
+RUN echo 'source /etc/profile.d/rvm.sh' >> ~/.bashrc
+RUN /usr/local/rvm/bin/rvm-shell -c "rvm requirements"
+RUN /bin/bash -l -c "rvm autolibs enable"
+RUN /bin/bash -l -c "rvm install 2.4.2"
+RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc
+RUN /bin/bash -l -c "gem install bundler"
 
 ENV PATH /usr/local/rvm/bin:/usr/local/rvm/rubies/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
