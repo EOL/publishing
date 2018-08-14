@@ -5,8 +5,7 @@ ENV LAST_FULL_REBUILD 2018-08-14
 
 RUN apt-get update -q && \
     apt-get install -qq -y curl wget openssh-server openssh-client \
-    software-properties-common nodejs procps \
-    libmysqlclient-dev libqt4-dev supervisor vim && \
+    software-properties-common nodejs procps supervisor vim && \
     add-apt-repository -y ppa:nginx/stable && \
     apt-get update && \
     apt-get install -qq -y nginx && \
