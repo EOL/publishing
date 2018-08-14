@@ -1,4 +1,4 @@
-FROM ruby:2.4.2
+FROM ruby:2.4.4
 MAINTAINER Jeremy Rice <jrice@eol.org>
 
 ENV LAST_FULL_REBUILD 2018-08-14
