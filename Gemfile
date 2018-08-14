@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.10'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
@@ -54,16 +53,16 @@ gem 'daemons'
 # Memcached (not for development):
 gem 'dalli'
 # Background jobs (to be run by daemons, q.v.):
-gem 'delayed_job', '~> 4.1.4'
+gem 'delayed_job'
 gem 'delayed_job_active_record'
 # Devise handles authentication and some authorization:
-gem 'devise', '~> 4.4.1'
+gem 'devise'
 gem 'devise-i18n-views'
 gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
 # Model decoration
-gem 'draper', '~> 2.1.0'
+gem 'draper'
 # Icons
 gem 'font-awesome-sass'
 
@@ -89,7 +88,7 @@ gem 'pundit'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
-gem 'rubyzip', '>= 1.0.0'
+gem 'rubyzip'
 # ElasticSearch via SearchKick:
 gem 'searchkick'
 # Simplify Forms:
