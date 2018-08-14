@@ -17,5 +17,10 @@ COPY Gemfile ./
 
 RUN bundle install --jobs 10 --retry 5 --without test development staging
 
+RUN touch /tmp/supervisor.sock
+RUN chmod 777 /tmp/supervisor.sock
+
+
+
 EXPOSE 3000
 CMD ["/usr/bin/supervisord", "-c", "/app/config/supervisord.conf"]
