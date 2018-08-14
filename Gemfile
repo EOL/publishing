@@ -126,12 +126,6 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.8'
-  # TEMP - remove rack-protection, required by rspec, eventually. Here
-  # temporarily to circumvent https://nvd.nist.gov/vuln/detail/CVE-2018-1000119
-  gem 'rack-protection', '~> 1.5.5'
-  # NOTE: I added this when I got a "expected [HTML] to respond to `has_tag?`",
-  # but it didn't help, so I'm removing it. Hmmn.
-  # gem "rspec-html-matchers"
   gem 'better_errors'
   gem 'capybara'
   gem 'factory_girl'
