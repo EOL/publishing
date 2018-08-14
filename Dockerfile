@@ -21,7 +21,7 @@ RUN apt-get update -q && \
 
 RUN \command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 RUN \curl -ksSL https://get.rvm.io | bash -s stable --ruby
-RUN gem install bundler --no-ri --no-rdoc
+RUN \gem install bundler --no-ri --no-rdoc
 
 ENV PATH /usr/local/rvm/bin:/usr/local/rvm/rubies/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
