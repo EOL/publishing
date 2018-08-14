@@ -26,9 +26,7 @@ RUN /usr/local/rvm/bin/rvm-shell -c "rvm requirements"
 RUN /bin/bash -l -c "rvm autolibs enable"
 RUN /bin/bash -l -c "rvm install 2.4.2"
 RUN echo "gem: --no-rdoc --no-ri" >> ~/.gemrc
-RUN /bin/bash -l -c "gem install bundler"
-# This seems to put a copy in /usr/local/rvm/rubies/default/bin which is in our path...
-RUN /usr/local/rvm/rubies/default/bin/gem install bundler
+RUN ln -s /usr/local/rvm/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/bin/bundle /usr/local/rvm/rubies/default/bin/bundle
 
 ENV PATH /usr/local/rvm/bin:/usr/local/rvm/rubies/default/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
