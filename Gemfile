@@ -46,6 +46,9 @@ gem 'activerecord-import'
 gem 'acts_as_list'
 # Faster startup:
 gem 'bootsnap', require: false
+# I didn't add these, not sure what they are for, specifically:
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Run background jobs:
@@ -65,7 +68,6 @@ gem 'discourse_api'
 gem 'draper'
 # Icons
 gem 'font-awesome-sass'
-
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
 # Because ERB is just plain silly compared to Haml:
@@ -93,8 +95,8 @@ gem 'rubyzip'
 gem 'searchkick'
 # Simplify Forms:
 gem 'simple_form'
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
+# Cron jobs:
+gem 'whenever', require: false
 
 group :development, :test do
   # Security analysis:
