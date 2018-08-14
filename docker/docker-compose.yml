@@ -50,7 +50,8 @@ services:
     networks:
       - eolnet
   eol-backend-tramea:
-    image: encoflife/eol-backend.tramea
+    build: ..
+    image: eol_website
     container_name: eol-backend-tramea
     restart: always
     volumes:
