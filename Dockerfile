@@ -19,7 +19,7 @@ RUN apt-get update -q && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN \gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN \command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 RUN \curl -ksSL https://get.rvm.io | bash -s stable --ruby
 RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 
