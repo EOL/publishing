@@ -1,5 +1,6 @@
 class Publishing
   attr_accessor :log, :run, :last_run_at
+  attr_reader :pub_log
 
   def self.sync(options = {})
     instance = self.new(options)
@@ -31,6 +32,7 @@ class Publishing
     ensure
       ImportLog.all_clear!
     end
+    @pub_log
   end
 
   def sync
@@ -45,6 +47,7 @@ class Publishing
     ensure
       ImportLog.all_clear!
     end
+    @pub_log
   end
 
   def abort_if_already_running
