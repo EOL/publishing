@@ -58,7 +58,7 @@ services:
       - ./resources/tramea_init.sh:/etc/my_init.d/tramea_init.sh
       - ./resources/secrets.yml:/app/config/secrets.yml
       - /data/eol-backend-tramea:/app/public/data
-      - /var/tmp:/app/tmp
+      - /eol/tmp/eol_website:/tmp
       - ./resources/site-eol.conf:/etc/nginx/sites-available/default
     depends_on:
       - eol-backend-mysql
