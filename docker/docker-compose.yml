@@ -59,7 +59,6 @@ services:
       - ./resources/secrets.yml:/app/config/secrets.yml
       - /data/eol-backend-tramea:/app/public/data
       - /eol/tmp/eol_website:/tmp
-      - ./resources/site-eol.conf:/etc/nginx/sites-available/default
     depends_on:
       - eol-backend-mysql
       - eol-backend-neo4j
