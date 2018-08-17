@@ -16,7 +16,7 @@ ENV LAST_SOURCE_UPDATE 2018-08-17-01
 COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
 # NOTE: supervisord *service* doesn't work with custom config files, so just use default:
-COPY /app/config/supervisord.conf /etc/supervisor/supervisord.conf
+COPY config/supervisord.conf /etc/supervisor/supervisord.conf
 COPY Gemfile ./
 
 RUN bundle install --jobs 10 --retry 5 --without test development staging
