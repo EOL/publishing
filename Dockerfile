@@ -15,6 +15,7 @@ ENV LAST_SOURCE_UPDATE 2018-08-17-02
 
 COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
+COPY config/nginx.conf /etc/nginx/nginx.conf
 # NOTE: supervisord *service* doesn't work with custom config files, so just use default:
 COPY config/supervisord.conf /etc/supervisord.conf
 COPY Gemfile ./
