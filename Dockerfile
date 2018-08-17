@@ -11,8 +11,10 @@ RUN apt-get update -q && \
 
 WORKDIR /app
 
-COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
+ENV LAST_SOURCE_UPDATE 2018-08-17
+
 COPY . /app
+COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY Gemfile ./
 
 RUN bundle install --jobs 10 --retry 5 --without test development staging
@@ -20,7 +22,6 @@ RUN bundle install --jobs 10 --retry 5 --without test development staging
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
 
-
-
 EXPOSE 3000
+
 CMD ["/usr/bin/supervisord", "-c", "/app/config/supervisord.conf"]
