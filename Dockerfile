@@ -11,7 +11,7 @@ RUN apt-get update -q && \
 
 WORKDIR /app
 
-ENV LAST_SOURCE_UPDATE 2018-08-17
+ENV LAST_SOURCE_UPDATE 2018-08-17-01
 
 COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
