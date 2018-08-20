@@ -1,7 +1,3 @@
-- if @raw_query
-  #raw-query{style: "display: none"}= @raw_query
-- if @raw_res
-  #raw-res{style: "display: none"}=@raw_res
 .l-terms
   .ui.dimmer.js-term-form-dimmer
     .ui.loader
@@ -27,3 +23,7 @@
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else
       = render 'page_table', { pages: @result_pages }
+- if @raw_query
+  .raw-query
+    .show-raw-query.js-show-raw-query show query
+    %textarea.is-hidden.raw-query-txt.js-raw-query= @raw_query

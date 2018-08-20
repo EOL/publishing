@@ -314,8 +314,7 @@ class TraitBank
         end
       end
       q = if term_query.record?
-            term_record_search_v2(term_query, options)
-            #term_record_search(term_query, options)
+            term_record_search(term_query, options)
           else
             term_page_search(term_query, options)
           end
@@ -398,100 +397,7 @@ class TraitBank
       end
     end
 
-    # TEMP: I'm skippping clade for count on the first page. This yields the wrong result, but speeds things up x2 ...
-    # for the first page.
-    def term_record_search(term_query, options)
-      matches = []
-      use_clade = term_query.clade && ((options[:page] && options[:page].to_i > 1) || !options[:count])
-
-      matches <<
-        if use_clade
-          "(page:Page)-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} }), (page:Page)-[:trait]->(trait:Trait)"
-        else
-          '(page:Page)-[:trait]->(trait:Trait)'
-        end
-
-      matches <<
-        if term_query.filters.any?
-          "(trait:Trait)-[:predicate]->(predicate:Term)-[#{parent_terms}]->(tgt_pred:Term)"
-        else
-          matches << '(trait:Trait)-[:predicate]->(predicate:Term)'
-        end
-
-      object_term_in_match = term_query.filters.any?(&:object_term?)
-
-      matches << "(trait:Trait)-[:object_term]->(object_term:Term)-[#{parent_terms}]->(tgt_obj:Term)" if
-        object_term_in_match
-
-      # TODO: restore
-      #matches << '(trait)-[:supplier]->(resource:Resource)' unless options[:count]
-
-
-      match_part = "MATCH #{matches.join(", ")}"
-
-      wheres = term_filter_wheres(term_query)
-      where_part = wheres.empty? ? "" : "WHERE #{wheres.join(" OR ")}"
-
-      optional_matches = [
-        "(trait)-[:units_term]->(units:Term)",
-        "(trait)-[:normal_units_term]->(normal_units:Term)",
-        "(trait)-[:sex_term]->(sex_term:Term)",
-        "(trait)-[:lifestage_term]->(lifestage_term:Term)",
-        "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
-        "(trait)-[:supplier]->(resource:Resource)"
-      ]
-      # It's a bit quicker (15% or so) to skip an optional filter if you know it's in the MATCH:
-      optional_matches << "(trait)-[:object_term]->(object_term:Term)" unless object_term_in_match
-
-      optional_matches += [
-        "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
-        "(meta)-[:units_term]->(meta_units_term:Term)",
-        "(meta)-[:object_term]->(meta_object_term:Term)",
-        "(meta)-[:sex_term]->(meta_sex_term:Term)",
-        "(meta)-[:lifestage_term]->(meta_lifestage_term:Term)",
-        "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
-      ] if options[:meta]
-
-      optional_match_part =
-        if options[:count]
-          ''
-        else
-          optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
-        end
-
-      orders = ['LOWER(predicate.name)', 'LOWER(object_term.name)', 'trait.normal_measurement', 'LOWER(trait.literal)']
-      orders << 'meta_predicate.name' if options[:meta]
-      order_part = options[:count] ? '' : "ORDER BY #{orders.join(", ")}"
-
-      returns =
-        if options[:count]
-          ["count"]
-        else
-          %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
-        end
-
-      with_count_clause = options[:count] ?
-                          "WITH count(*) AS count " :
-                          ""
-
-      if options[:meta] && !options[:count]
-        returns += %w[meta meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term
-          meta_statistical_method_term]
-      end
-
-      return_clause = "RETURN #{returns.join(", ")}"
-
-      "#{match_part} "\
-      "#{where_part} "\
-      "#{optional_match_part} "\
-      "#{with_count_clause}"\
-      "#{return_clause} " #\
-      # WHAT THE WHAT?!? NO ORDER?! ARE YOU LOCO?!?  ...Kinda. It super-speeds things up, so we're trying it.
-      # "#{order_part} "
-    end
-
-    # TODO: break up scary long method, remove term_record_search, rename this to that.
-    def term_record_search_v2(term_query, options) 
+    def term_record_search(term_query, options) 
       matches = []
       wheres = []
       collects = []
@@ -572,11 +478,11 @@ class TraitBank
 
       return_clause = "RETURN #{returns.join(", ")}"
 
-      "MATCH #{matches.join(', ')} "\
-      "WHERE #{wheres.join(' AND ')} "\
-      "#{collect_unwind_part} "\
-      "#{optional_match_part} "\
-      "#{with_count_clause} "\
+      "MATCH #{matches.join(', ')}\n"\
+      "WHERE #{wheres.join(' AND ')}\n"\
+      "#{collect_unwind_part}\n"\
+      "#{optional_match_part}\n"\
+      "#{with_count_clause}\n"\
       "#{return_clause} "# \
     end
 

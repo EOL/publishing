@@ -126,5 +126,9 @@
       $form.attr('action', $(this).data('url'));
       $form.submit();
     });
+    $('.show-raw-query').click(function() {
+      $('.js-raw-query').removeClass('is-hidden');
+      $(this).remove();
+    });
   });
 })();

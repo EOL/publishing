@@ -143,3 +143,20 @@
     padding: 12px 30px;
   }
 }
+
+.raw-query {
+  position: relative;
+  margin: 10px auto 0 auto;
+  width: 500px;  
+}
+
+.show-raw-query {
+  cursor: pointer;
+  color: $eol-blue;
+  text-align: center;
+}
+
+.raw-query-txt {
+  height: 300px;
+  width: 100%;
+}

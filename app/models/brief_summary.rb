@@ -79,7 +79,7 @@ class BriefSummary
   # available, else use the canonical.
   def a1
     return @a1_name if @a1_name
-    @a1 ||= @page.ancestors.reverse.find { |a| a.minimal? }
+    @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
     return nil if @a1.nil?
     @a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
     # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
