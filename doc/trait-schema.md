@@ -115,6 +115,8 @@ below into groups.
   that is, each statement obtained from a given resource has a different `resource_pk`
   value.  Always present.  The value originates from a `measurementOrFactID` or
   `associationID` field in the resource DwCA.
+* `supplier` link: links to the Resource node for the resource from which 
+  this statement is drawn.
 * `source` property: Value copied from a DwCA. Meant to describe the original source
   of the `Trait` information (since the resource is itself an aggregator).  
   Free text. Often quite long. Semantics unclear.
