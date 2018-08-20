@@ -36,6 +36,7 @@ class TermQuery < ActiveRecord::Base
     attrs = []
     attrs << "clade_id: #{clade_id}" if clade_id
     attrs << "filters_attributes: [#{filters.map(&:to_s).join(', ')}]"
+    attrs << "result_type: #{result_type}"
     "&&TermQuery.new(#{attrs.join(',')}) "
   end
 
