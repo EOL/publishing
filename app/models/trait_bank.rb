@@ -523,7 +523,7 @@ class TraitBank
         collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}, object_term: #{obj_mapping}}) AS #{rows_var}"
       end
 
-      collect_unwind_clause = 
+      collect_unwind_part = 
         "WITH #{collects.join(", ")} "\
         "WITH #{rows_vars.join(" + ")} as all_rows "\
         "UNWIND all_rows as row "\
@@ -574,7 +574,7 @@ class TraitBank
 
       "MATCH #{matches.join(', ')} "\
       "WHERE #{wheres.join(' AND ')} "\
-      "#{collect_unwind_clause} "\
+      "#{collect_unwind_part} "\
       "#{optional_match_part} "\
       "#{with_count_clause} "\
       "#{return_clause} "# \
