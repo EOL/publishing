@@ -170,12 +170,11 @@ class TraitBank::Slurp
     # TODO: extract the file-writing to a method that takes a block.
     def rebuild_ancestry
       require 'csv'
+      build_ancestry_csv
       puts '(starts) .rebuild_ancestry'
       # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
       puts "(infos) delete relationships"
       TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) DELETE rel")
-      filename = "ancestry.csv"
-      file_with_path = Rails.public_path.join(filename)
       # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
       Page
         .includes(native_node: :parent)
@@ -186,7 +185,7 @@ class TraitBank::Slurp
         last_id = group.last.id
         puts "(infos) Pages #{first_id} - #{last_id}"
         puts "(infos) write CSV"
-        CSV.open(file_with_path, 'w') do |csv|
+        CSV.open(ancestry_file_path, 'w') do |csv|
         csv << ['page_id', 'parent_id']
           group.each do |page|
             next if page.native_node.parent.page_id.nil?
@@ -194,9 +193,13 @@ class TraitBank::Slurp
           end
         end
         puts "(infos) add relationships"
-        rebuild_ancestry_group(filename)
+        rebuild_ancestry_group('ancestry.csv')
       end
       puts '(ends) .rebuild_ancestry'
+    end
+
+    def ancestry_file_path
+      @ancestry_file_path ||= Rails.public_path.join('ancestry.csv')
     end
 
     def rebuild_ancestry_group(file)
