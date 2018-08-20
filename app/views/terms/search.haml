@@ -20,7 +20,6 @@
           %i{:'uk-icon' => "icon: download"}
           %span download tsv
     - if @query.record?
-      = @grouped_data
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else
       = render 'page_table', { pages: @result_pages }
