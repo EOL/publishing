@@ -239,10 +239,13 @@ private
     @page = params[:page] || 1
     @per_page = 50
     Rails.logger.warn "&&TS Running search:"
-    data = TraitBank.term_search(@query, {
+    res = TraitBank.term_search(@query, {
       :page => @page,
       :per => @per_page,
     })
+    data = res[:data]
+    @raw_query = res[:raw_query]
+    @raw_res = res[:raw_res].to_json
     ids = data.map { |t| t[:page_id] }.uniq
     pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
     @pages = {}

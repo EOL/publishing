@@ -42,6 +42,6 @@ class TermQuery < ActiveRecord::Base
   # NOTE: this method is never called; it's used in a console.
   def run(options = {})
     options.reverse_merge(per: 10, page: 1, result_type: :record) # Smaller number for console testing.
-    TraitBank.term_search(self, options)
+    TraitBank.term_search(self, options)[:data]
   end
 end

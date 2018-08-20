@@ -295,7 +295,7 @@ class TraitBank
       batch_found = 1 # Placeholder; will update in query.
       page = 1
       while(found < count && batch_found > 0)
-        batch = TraitBank.term_search(term_query, options.merge(page: page))
+        batch = TraitBank.term_search(term_query, options.merge(page: page))[:data]
         batch_found = batch.size
         found += batch_found
         yield(batch)
@@ -332,7 +332,7 @@ class TraitBank
         Rails.logger.warn("&&TS SAVING Cached count: #{key} = #{count}")
         count
       else
-        build_trait_array(res)
+        { data: build_trait_array(res), raw_query: q, raw_res: res }
       end
     end
 
