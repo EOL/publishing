@@ -144,6 +144,7 @@ class Serializer
     file_base_name = "#{name}.csv"
     filename = @page_dir.join(file_base_name)
     CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
+    log("--> #{data.size} rows written to #{filename}.")
     @filenames << file_base_name
   end
 
@@ -199,7 +200,7 @@ class Serializer
       end
     new_ids.uniq!
     @tables[relationship_class] += new_ids
-    log(".. FOUND #{new_ids.size} new IDs")
+    # log(".. FOUND #{new_ids.size} new IDs")
     new_ids
   end
 
