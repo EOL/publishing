@@ -5,7 +5,7 @@ ENV LAST_FULL_REBUILD 2018-08-14
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
-    apache2-utils nodejs procps supervisor vim nginx logrotate && \
+    apache2-utils nodejs procps supervisor vim nginx logrotate ssmtp && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -20,7 +20,18 @@ COPY config/nginx.conf /etc/nginx/nginx.conf
 COPY config/supervisord.conf /etc/supervisord.conf
 COPY Gemfile ./
 
+# Set up mail (for user notifications, which are rare but critical)
+
+# root is the person who gets all mail for userids < 1000
+RUN echo "root=admin@eol.org" >> /etc/ssmtp/ssmtp.conf
+# Here is the gmail configuration (or change it to your private smtp server)
+RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
+
+RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
+RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
+
 RUN bundle install --jobs 10 --retry 5 --without test development staging
+RUN /bin/bash -l -c "cd /app && bundle exec assets:precompile RAILS_ENV=staging"
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
