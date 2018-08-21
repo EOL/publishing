@@ -81,9 +81,12 @@ class Serializer
       @filenames << File.basename(filename)
     end
     write_traits(page_ids)
+    full_tgz_path = "#{@pages_dir}/#{@page.id}_data.tgz"
+    File.unlink(full_tgz_path) if File.exist?(full_tgz_path)
     `cd #{@pages_dir} && /bin/tar cvzf #{@page.id}_data.tgz #{@page.id}`
     FileUtils.rm_rf(@page_dir)
-    @filenames
+    log(full_tgz_path)
+    full_tgz_path
   end
 
   def write_traits(page_ids)
