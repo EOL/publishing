@@ -1,7 +1,7 @@
 FROM ruby:2.4.4
-MAINTAINER Jeremy Rice <jrice@eol.org>
+LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
-ENV LAST_FULL_REBUILD 2018-08-14
+LABEL last_full_rebuild="2018-08-21"
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
@@ -11,7 +11,7 @@ RUN apt-get update -q && \
 
 WORKDIR /app
 
-ENV LAST_SOURCE_UPDATE 2018-08-17-02
+LABEL last_source_update="2018-08-17-02"
 
 COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
@@ -33,7 +33,7 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 COPY docker/resources/secrets.yml /app/config/secrets.yml
 
 RUN bundle install --jobs 10 --retry 5 --without test development staging
-RUN /bin/bash -l -c "cd /app && bundle exec rake assets:precompile RAILS_ENV=staging"
+ENV RAILS_ENV staging
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
@@ -41,4 +41,4 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT "bundle exec rake assets:precompile && /usr/bin/supervisord -c /etc/supervisord.conf"
