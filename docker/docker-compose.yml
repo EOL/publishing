@@ -55,7 +55,6 @@ services:
     container_name: eol-backend-tramea
     restart: always
     volumes:
-      - ./resources/secrets.yml:/app/config/secrets.yml
       - /data/eol-backend-tramea:/app/public/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
