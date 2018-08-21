@@ -41,4 +41,4 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-ENTRYPOINT "/usr/local/bin/bundle exec rake assets:precompile && /usr/bin/supervisord -c /etc/supervisord.conf"
+RUN ["bundle", "exec", "rake", "assets:precompile", "&&", "/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
