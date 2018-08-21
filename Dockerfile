@@ -30,8 +30,6 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-COPY docker/resources/secrets.yml /app/config/secrets.yml
-
 RUN bundle install --jobs 10 --retry 5 --without test development staging
 ENV RAILS_ENV staging
 
@@ -41,4 +39,4 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-RUN ["bundle", "exec", "rake", "assets:precompile", "&&", "/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+RUN ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
