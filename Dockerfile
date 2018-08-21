@@ -31,7 +31,7 @@ RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
 RUN bundle install --jobs 10 --retry 5 --without test development staging
-RUN /bin/bash -l -c "cd /app && bundle exec assets:precompile RAILS_ENV=staging"
+RUN /bin/bash -l -c "cd /app && bundle exec rake assets:precompile RAILS_ENV=staging"
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
