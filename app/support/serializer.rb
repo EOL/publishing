@@ -150,17 +150,17 @@ class Serializer
   def gather(source, source_ids, relationship)
     log("GATHER #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
     if relationship.is_a?(Symbol) # e.g. :occurrence_map
-      log(".. SYMBOL")
+      # log(".. SYMBOL")
       gather_relationship_ids(source, source_ids, relationship)
     elsif relationship.is_a?(Array)
-      log(".. ARRAY")
+      # log(".. ARRAY")
       relationship.each do |specific_relationship|
         gather(source, source_ids, specific_relationship)
       end
     elsif relationship.is_a?(Hash)
-      log(".. HASH")
+      # log(".. HASH")
       relationship.each do |child, descendants|
-        log(".. CHILD: #{child} ; DESC: #{descendants.inspect}")
+        # log(".. CHILD: #{child} ; DESC: #{descendants.inspect}")
         children_ids = gather_relationship_ids(source, source_ids, child)
         gather(child, children_ids, descendants)
       end
@@ -170,30 +170,30 @@ class Serializer
   end
 
   def gather_relationship_ids(source, source_ids, relationship)
-    log("GATHER_REL_IDS #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
+    # log("GATHER_REL_IDS #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
     relationship_class = objectify(relationship)
     relationship_name = strip_name(relationship)
     source_class = objectify(source)
     @tables[relationship_class] ||= []
     new_ids =
       if relationship_name == relationship_name.singularize
-        log("(singular)")
+        # log("(singular)")
         source_class.where(id: source_ids).limit(@limit).pluck("#{relationship_name.singularize}_id")
       else
-        log("(plural)")
+        # log("(plural)")
         filter = { "#{source_class.name.underscore.singularize}_id" => source_ids }
         parent_field = nil
         if relationship.to_s =~ /_AS_(\w+)$/
-          log(".. SPECIAL 'AS' HANDLER")
+          # log(".. SPECIAL 'AS' HANDLER")
           parent_field = $1
           filter = { "#{parent_field}_id" => source_ids }
         end
         # AUGH! This is hard. Content is polymorphic, so handle the case specially:
         if parent_field == 'content'
-          log(".. SPECIAL CONTENT HANDLER")
+          # log(".. SPECIAL CONTENT HANDLER")
           source_class.where(id: source_ids).limit(@limit).pluck("content_id")
         else
-          log(".. NORMAL PLURAL")
+          # log(".. NORMAL PLURAL")
           relationship_class.where(filter).limit(@limit).pluck(:id)
         end
       end
