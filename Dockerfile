@@ -39,4 +39,4 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-RUN ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
