@@ -41,6 +41,12 @@ class Serializer
   # TODO: curations
   # TODO: Resource filter
   def store_clade
+
+# YOU WERE HERE:
+    # /usr/local/bundle/gems/mysql2-0.4.9/lib/mysql2/client.rb:120:in `_query': Mysql2::Error: Unknown column 'referents.reference_id' in 'where clause': SELECT  `referents`.`id` FROM `referents` WHERE `referents`.`reference_id` = 0 LIMIT 20000 (ActiveRecord::StatementInvalid)
+
+  # That's the wrong way: the references has a referent_id.
+
     structure = [
       :occurrence_maps, {
         nodes: [ :identifiers, :node_ancestors, :rank,
@@ -192,7 +198,10 @@ class Serializer
         # AUGH! This is hard. Content is polymorphic, so handle the case specially:
         if parent_field == 'content'
           # log(".. SPECIAL CONTENT HANDLER")
-          source_class.where(id: source_ids).limit(@limit).pluck("content_id")
+          source_class.where(id: source_ids).limit(@limit).pluck('content_id')
+        # ...and Referents keep the id in References:
+        elsif source_class == Reference
+          source_class.where(id: source_ids).limit(@limit).pluck('referent_id')
         else
           # log(".. NORMAL PLURAL")
           relationship_class.where(filter).limit(@limit).pluck(:id)
