@@ -11,8 +11,6 @@ script:
   - bin/rake db:migrate RAILS_ENV=test --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
-env:
-  - EOL_TRAITBANK_URL="http://neo4j:neo4j@localhost:7474"
 bundler_args: --binstubs
 addons:
   code_climate:
@@ -26,4 +24,3 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
-
