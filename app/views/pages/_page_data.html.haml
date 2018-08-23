@@ -1,6 +1,6 @@
 - cache(page_data_path(@page), expires_in: 1.day) do
   %ul.traits
-    - @page.predicates.each_with_index do |uri, index|
+    - @page.predicates.each do |uri|
       - predicate = @page.glossary[uri]
       - if predicate.nil?
         - Rails.logger.error("** ERROR: missing predicate #{uri}")

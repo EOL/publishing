@@ -78,6 +78,7 @@ class Publishing::Fast
       end
     rescue => e
       @log.fail(e)
+      raise e
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
       log_close
@@ -93,7 +94,7 @@ class Publishing::Fast
       ScientificName => { node_id: Node },
       NodeAncestor => { node_id: Node, ancestor_id: Node },
       Vernacular => { node_id: Node },
-      # Yes, really, there is no ling to nodes or pages on Article or Medium; these are managed with PageContent.
+      # Yes, really, there is no link to nodes or pages on Article or Medium; these are managed with PageContent.
       Article => {},
       Medium => {},
       Attribution => { content_id: [Medium, Article] }, # Polymorphic implied with array.

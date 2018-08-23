@@ -52,8 +52,6 @@ class Page < ActiveRecord::Base
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
-  delegate :ancestors, to: :native_node
-
   class << self
     # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
     # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
@@ -252,6 +250,11 @@ class Page < ActiveRecord::Base
     resources.flat_map do |r|
       [r.name, r.partner.name, r.partner.short_name]
     end.uniq
+  end
+
+  def ancestors
+    return [] if native_node.nil?
+    native_node.ancestors
   end
 
   def ancestry_ids

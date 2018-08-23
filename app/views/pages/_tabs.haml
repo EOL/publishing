@@ -33,6 +33,8 @@
       - tab("data", page_data_path(@page))
     - if @page.media_count > 0
       - tab("media", page_media_path(@page))
+    - if @page.articles_count > 0
+      - tab("articles", page_articles_path(@page))
     - if @page.map?
       - tab("maps", page_maps_path(@page))
     - tab("names", page_names_path(@page))

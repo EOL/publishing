@@ -1,0 +1,3 @@
+%ul.articles
+  - @articles.each_with_index do |article, index|
+    = render :partial => "page_article", :locals => { article: article }
