@@ -143,7 +143,9 @@ in to the EOL site.
 </form>
 ```
 
-## Example query: show traits
+## Example queries: 
+
+## show traits
 
 The following Cypher query shows basic information recorded in an
 arbitrarily chosen set of Trait nodes.
@@ -157,6 +159,60 @@ OPTIONAL MATCH (t)-[:normal_units_term]->(units:Term)
 OPTIONAL MATCH (lit:Term) WHERE lit.uri = t.literal
 RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.uri, pred.name,
        t.object_page_id, obj.uri, obj.name, t.normal_measurement, units.uri, units.name, t.normal_units, t.literal, lit.name
+LIMIT 5
+```
+## show (numerical) value for this taxon for this predicate
+
+This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon and trait predicate
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+(t)-[:supplier]->(r:Resource),
+(t)-[:predicate]->(pred:Term)
+WHERE p.page_id = 328651 AND pred.uri = "http://purl.obolibrary.org/obo/VT_0001259"
+OPTIONAL MATCH (t)-[:units_term]->(units:Term)
+RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
+t.measurement, units.name
+LIMIT 1
+```
+or using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+(t)-[:supplier]->(r:Resource),
+(t)-[:predicate]->(pred:Term)
+WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "body mass"
+OPTIONAL MATCH (t)-[:units_term]->(units:Term)
+RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
+t.measurement, units.name
+LIMIT 1
+```
+## show (categorical) value for this taxon for this predicate
+
+This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has categorical values known to EOL by structured terms with URIs. Here is the construction using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+(t)-[:supplier]->(r:Resource),
+(t)-[:predicate]->(pred:Term)
+WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "ecomorphological guild"
+OPTIONAL MATCH (t)-[:object_term]->(obj:Term)
+RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
+obj.name
+LIMIT 1
+```
+## show (taxa) values for this taxon for this predicate
+
+This query shows the EOL taxa for five ecological partners associated by a specific predicate to a taxon, with limited metadata. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name, and returning strings for the ecological partner taxon name (with attendant risk of homonym confusion)
+
+```
+MATCH (p:Page)-[:trait]->(t:Trait),
+(t)-[:supplier]->(r:Resource),
+(t)-[:predicate]->(pred:Term)
+WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "interacts with"
+WITH p, pred, t, r
+MATCH (p2:Page {page_id:t.object_page_id}) 
+RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, t.source
 LIMIT 5
 ```
 
