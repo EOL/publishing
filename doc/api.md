@@ -219,14 +219,14 @@ Provenance metadata can be found as properties on the trait node or as linked Me
 
 Properties: t.source, if available, is a URL provided by the data partner, pointing to the original data source. Other properties are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://beta.eol.org/resources/396. The EOL trait record URL of the form https://beta.eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk.  
 
-Nodes: Most other provenance information can be found on MetaData nodes with three predicates. Adding the following to your query will fetch them, if present:
+Nodes: Most other provenance information can be found on MetaData nodes with three predicates. Adding the following to your query will fetch one of each, if present:
 ```
 OPTIONAL MATCH (t)-[:metadata]->(contr:MetaData)-[:predicate]->(:Term {name:"contributor"})
 OPTIONAL MATCH (t)-[:metadata]->(cite:MetaData)-[:predicate]->(:Term {name:"citation"})
 OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
 RETURN contr.literal, cite.literal, ref.literal
 ```
-Where references are present, there may be more than one; to ensure you have them all would require an additional query.
+Where references are present, there may be more than one; to ensure you have them all would require an additional query. Multiple contributors are also possible, but rare.
 
 See https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md for more detail.
 
