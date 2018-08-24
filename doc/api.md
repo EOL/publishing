@@ -206,10 +206,10 @@ This query shows the EOL taxa for five ecological partners associated by a speci
 MATCH (p:Page)-[:trait]->(t:Trait),
 (t)-[:supplier]->(r:Resource),
 (t)-[:predicate]->(pred:Term)
-WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "interacts with"
+WHERE p.canonical = "Enhydra lutris" AND pred.name = "eats"
 WITH p, pred, t, r
 MATCH (p2:Page {page_id:t.object_page_id}) 
-RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, t.source
+RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 5
 ```
 
