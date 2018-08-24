@@ -203,13 +203,16 @@ LIMIT 1
 ```
 ## show (taxon ID) values for this taxon for this predicate
 
-THis query shows the EOL taxon IDs for five ecological partners associated by a specific predicate to a taxon. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name (with attendant risk of homonym confusion)
+This query shows the EOL taxa for five ecological partners associated by a specific predicate to a taxon, with limited metadata. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name, and returning strings for the ecological partner taxon name (with attendant risk of homonym confusion)
 
 ```
 MATCH (p:Page)-[:trait]->(t:Trait),
+(t)-[:supplier]->(r:Resource),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "interacts with"
-RETURN p.canonical, pred.name, t.object_page_id
+WITH p, pred, t, r
+MATCH (p2:Page {page_id:t.object_page_id}) 
+RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, t.source
 LIMIT 5
 ```
 
