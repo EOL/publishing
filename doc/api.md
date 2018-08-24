@@ -201,7 +201,7 @@ RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific
 obj.name
 LIMIT 1
 ```
-## show (taxon ID) values for this taxon for this predicate
+## show (taxa) values for this taxon for this predicate
 
 This query shows the EOL taxa for five ecological partners associated by a specific predicate to a taxon, with limited metadata. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name, and returning strings for the ecological partner taxon name (with attendant risk of homonym confusion)
 
