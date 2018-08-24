@@ -171,8 +171,7 @@ MATCH (t:Trait)<-[:trait]-(p:Page),
 (t)-[:predicate]->(pred:Term)
 WHERE p.page_id = 328651 AND pred.uri = "http://purl.obolibrary.org/obo/VT_0001259"
 OPTIONAL MATCH (t)-[:units_term]->(units:Term)
-RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
-t.measurement, units.name
+RETURN p.canonical, pred.name, t.measurement, units.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
 or using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)
@@ -183,8 +182,7 @@ MATCH (t:Trait)<-[:trait]-(p:Page),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "body mass"
 OPTIONAL MATCH (t)-[:units_term]->(units:Term)
-RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
-t.measurement, units.name
+RETURN p.canonical, pred.name, t.measurement, units.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
 ## show (categorical) value for this taxon for this predicate
@@ -197,8 +195,7 @@ MATCH (t:Trait)<-[:trait]-(p:Page),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "ecomorphological guild"
 OPTIONAL MATCH (t)-[:object_term]->(obj:Term)
-RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific_name, pred.name,
-obj.name
+RETURN p.canonical, pred.name, obj.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
 ## show (taxa) values for this taxon for this predicate
@@ -215,6 +212,10 @@ MATCH (p2:Page {page_id:t.object_page_id})
 RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, t.source
 LIMIT 5
 ```
+
+## Provenance
+
+Provenance metadata can be found in several places, some of which are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://beta.eol.org/resources/396. The EOL trait record URL of the form https://beta.eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk. t.source, if available, is a URL provided by the data partner, pointing to the original data source. 
 
 ## Restrictions
 
