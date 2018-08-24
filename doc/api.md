@@ -226,6 +226,8 @@ OPTIONAL MATCH (t)-[:metadata]->(cite:MetaData)-[:predicate]->(:Term {name:"cita
 OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
 RETURN contr.literal, cite.literal, ref.literal
 ```
+Where references are present, there may be more than one; to ensure you have them all would require an additional query.
+
 See https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md for more detail.
 
 ## Restrictions
