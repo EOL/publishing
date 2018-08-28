@@ -5,11 +5,40 @@ services:
     container_name: eol-backend-elasticsearch
     restart: always
     environment:
+      - RAILS_ENV
       - TZ=America/New_York
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - bootstrap.memory_lock=true
+      - cluster.name=eol-search-${RAILS_ENV}
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
-      # - full_path_to/custom_elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+    networks:
+      - eolnet
+  eol-backend-elasticsearch2:
+    image: elasticsearch
+    container_name: eol-backend-elasticsearch
+    restart: always
+    environment:
+      - RAILS_ENV
+      - TZ=America/New_York
+      - bootstrap.memory_lock=true
+      - cluster.name=eol-search-${RAILS_ENV}
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - "discovery.zen.ping.unicast.hosts=eol-search-${RAILS_ENV}"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - /data/eol-backend-elasticsearch/data2:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
     networks:
       - eolnet
   eol-backend-memcached:
