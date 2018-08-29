@@ -426,16 +426,17 @@ class TraitBank
 
         rows_var = "rows#{i}"
         rows_vars << rows_var
-        collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}, object_term: #{obj_mapping}}) AS #{rows_var}"
+        collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
       end
 
       collect_unwind_part = 
         "WITH #{collects.join(", ")} "\
         "WITH #{rows_vars.join(" + ")} as all_rows "\
         "UNWIND all_rows as row "\
-        "WITH row.page as page, row.trait as trait, row.predicate as predicate, row.object_term as object_term "
+        "WITH row.page as page, row.trait as trait, row.predicate as predicate "
 
       optional_matches = [
+        "(trait)-[:object_term]->(object_term:Term)",
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
         "(trait)-[:sex_term]->(sex_term:Term)",
@@ -451,7 +452,6 @@ class TraitBank
         "(meta)-[:lifestage_term]->(meta_lifestage_term:Term)",
         "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
       ] if options[:meta]
-      optional_matches << "(trait)-[:object_term]->(object_term:Term)" unless term_query.filters.all?(&:object_term?)
 
       optional_match_part =
         if options[:count]
