@@ -13,6 +13,7 @@ $tabs-height: 25px;
 $tabs-m-height: 30px;
 $head-height: 133px;
 $actions-height: 45px;
+$head-icon-height: 70px;
 
 $pad-l-sm: 13px;
 $pad-l-m: 17px;
@@ -53,12 +54,12 @@ $font-sz-m: 14px;
 
 .head-icon {
   float: left;
-  height: 100%;
-  height: 70px;
+  height: $head-icon-height;
   margin-right: $padding-left-s;
 }
 
 .head-txt {
+  min-height: $head-icon-height;
   padding: 0 $padding-left-s;
 }
 
@@ -105,7 +106,7 @@ $font-sz-m: 14px;
 .page-actions {
   padding-left: $pad-l-m;
   list-style-type: none;
-  margin: 10px 0 0 0;
+  margin: 13px 0 0 0;
 
   & > li {
     display: inline-block;
