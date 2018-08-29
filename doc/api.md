@@ -5,12 +5,7 @@ The web services API is in its infancy.  Suggestions welcome.
 ## Authorization
 
 In order for you to be able to use the web services API, an EOL
-administrator needs to make you a "power user" by doing the following:
-
-    rails r 'User.find_by_email("you@you.you").grant_power_user'
-
-where you@you.you is the email address for your account on the EOL
-site. Please contact hammockj AT si.edu
+administrator needs to make you a "power user". Please contact hammockj AT si.edu
 
 ## Getting a token
 
@@ -22,7 +17,7 @@ that tells the web services who you are.
 For now, you need to get a token using a web browser; later you'll be
 able to do this from a script.
 
-To obtain a token, visit the page
+To obtain a token, log in to your power user account and visit the page
 [`https://beta.eol.org/services/authenticate`](https://beta.eol.org/services/authenticate).
 (Note: `services` is plural here since the token applies to all of the
 services.)  Copy the token (without the quotes) from the web browser
@@ -145,6 +140,8 @@ in to the EOL site.
 
 ## Example queries: 
 
+The taxa and records are modeled as a graph, which is described in the [Trait Schema](https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md). New Cypher users may also find neo4j's [Cypher documentation](https://neo4j.com/docs/developer-manual/current/cypher/) helpful.
+
 ## show traits
 
 The following Cypher query shows basic information recorded in an
@@ -163,7 +160,7 @@ LIMIT 5
 ```
 ## show (numerical) value for this taxon for this predicate
 
-This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon and trait predicate
+This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the number in the taxon page URL, eg: https://beta.eol.org/pages/328651) and trait predicate (the term URI for the predicate)
 
 ```
 MATCH (t:Trait)<-[:trait]-(p:Page),
@@ -228,7 +225,14 @@ RETURN contr.literal, cite.literal, ref.literal
 ```
 Where references are present, there may be more than one; to ensure you have them all would require an additional query. Multiple contributors are also possible, but rare.
 
-See https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md for more detail.
+to fetch multiple references for a given trait record:
+
+```
+MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
+WHERE t.eol_pk = "R483-PK24828656"
+RETURN ref.literal
+LIMIT 5
+```
 
 ## Restrictions
 
