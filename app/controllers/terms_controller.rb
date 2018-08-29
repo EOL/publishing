@@ -1,4 +1,5 @@
 class TermsController < ApplicationController
+  include DataAssociations
   helper :data
   before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
   before_action :build_query, :only => [:search_results, :search_form]
@@ -259,18 +260,8 @@ private
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
-    @associations = get_associations(data)
+    build_associations(data)
     render "search"
-  end
-
-  # TODO: Schnarfed this (mostly) from the pages_controller; we should generalize as a helper.
-  def get_associations(data)
-    @associations =
-      begin
-        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
-        ids = data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).includes(:medium, :preferred_vernaculars, native_node: [:rank])
-      end
   end
 
   def redirect_no_format

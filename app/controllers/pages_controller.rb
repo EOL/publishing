@@ -1,11 +1,10 @@
 class PagesController < ApplicationController
-
+  include DataAssociations
   before_action :set_media_page_size, only: [:show, :media]
   before_action :no_main_container
   after_filter :no_cache_json
 
   helper :data
-  helper_method :get_associations
 
   # See your environment config; this action should be ignored by logs.
   def ping
@@ -146,7 +145,7 @@ class PagesController < ApplicationController
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
-    get_associations
+    build_associations(@page.data)
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     respond_to do |format|
@@ -169,7 +168,7 @@ class PagesController < ApplicationController
   def data
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     @resources = TraitBank.resources(@page.data)
-    get_associations
+    build_associations(@page.data)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
@@ -268,16 +267,6 @@ private
 
   def set_media_page_size
     @media_page_size = 24
-  end
-
-  def get_associations
-    @associations =
-      begin
-        # TODO: this pattern (from #map to #uniq) is repeated three times in the code, suggests extraction:
-        ids = @page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
-          includes(:medium, :preferred_vernaculars, native_node: [:rank])
-      end
   end
 
   def get_media
