@@ -140,7 +140,7 @@ in to the EOL site.
 
 ## Example queries: 
 
-The taxa and records are modeled as a graph, which is described in the [Trait Schema](https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md). New Cypher users may also find neo4j's [cypher documentation](https://neo4j.com/docs/developer-manual/current/cypher/) helpful.
+The taxa and records are modeled as a graph, which is described in the [Trait Schema](https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md). New Cypher users may also find neo4j's [Cypher documentation](https://neo4j.com/docs/developer-manual/current/cypher/) helpful.
 
 ## show traits
 
