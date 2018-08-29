@@ -41,6 +41,12 @@ class Serializer
   # TODO: curations
   # TODO: Resource filter
   def store_clade
+
+# YOU WERE HERE:
+    # /usr/local/bundle/gems/mysql2-0.4.9/lib/mysql2/client.rb:120:in `_query': Mysql2::Error: Unknown column 'referents.reference_id' in 'where clause': SELECT  `referents`.`id` FROM `referents` WHERE `referents`.`reference_id` = 0 LIMIT 20000 (ActiveRecord::StatementInvalid)
+
+  # That's the wrong way: the references has a referent_id.
+
     structure = [
       :occurrence_maps, {
         nodes: [ :identifiers, :node_ancestors, :rank,
@@ -81,9 +87,12 @@ class Serializer
       @filenames << File.basename(filename)
     end
     write_traits(page_ids)
+    full_tgz_path = "#{@pages_dir}/#{@page.id}_data.tgz"
+    File.unlink(full_tgz_path) if File.exist?(full_tgz_path)
     `cd #{@pages_dir} && /bin/tar cvzf #{@page.id}_data.tgz #{@page.id}`
     FileUtils.rm_rf(@page_dir)
-    @filenames
+    log(full_tgz_path)
+    full_tgz_path
   end
 
   def write_traits(page_ids)
@@ -141,23 +150,24 @@ class Serializer
     file_base_name = "#{name}.csv"
     filename = @page_dir.join(file_base_name)
     CSV.open(filename, 'w') { |csv| data.each { |row| csv << row } }
+    log("--> #{data.size} rows written to #{filename}.")
     @filenames << file_base_name
   end
 
   def gather(source, source_ids, relationship)
     log("GATHER #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
     if relationship.is_a?(Symbol) # e.g. :occurrence_map
-      log(".. SYMBOL")
+      # log(".. SYMBOL")
       gather_relationship_ids(source, source_ids, relationship)
     elsif relationship.is_a?(Array)
-      log(".. ARRAY")
+      # log(".. ARRAY")
       relationship.each do |specific_relationship|
         gather(source, source_ids, specific_relationship)
       end
     elsif relationship.is_a?(Hash)
-      log(".. HASH")
+      # log(".. HASH")
       relationship.each do |child, descendants|
-        log(".. CHILD: #{child} ; DESC: #{descendants.inspect}")
+        # log(".. CHILD: #{child} ; DESC: #{descendants.inspect}")
         children_ids = gather_relationship_ids(source, source_ids, child)
         gather(child, children_ids, descendants)
       end
@@ -167,36 +177,39 @@ class Serializer
   end
 
   def gather_relationship_ids(source, source_ids, relationship)
-    log("GATHER_REL_IDS #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
+    # log("GATHER_REL_IDS #{source}, (#{source_ids.size} ids), #{relationship.inspect}")
     relationship_class = objectify(relationship)
     relationship_name = strip_name(relationship)
     source_class = objectify(source)
     @tables[relationship_class] ||= []
     new_ids =
       if relationship_name == relationship_name.singularize
-        log("(singular)")
+        # log("(singular)")
         source_class.where(id: source_ids).limit(@limit).pluck("#{relationship_name.singularize}_id")
       else
-        log("(plural)")
+        # log("(plural)")
         filter = { "#{source_class.name.underscore.singularize}_id" => source_ids }
         parent_field = nil
         if relationship.to_s =~ /_AS_(\w+)$/
-          log(".. SPECIAL 'AS' HANDLER")
+          # log(".. SPECIAL 'AS' HANDLER")
           parent_field = $1
           filter = { "#{parent_field}_id" => source_ids }
         end
         # AUGH! This is hard. Content is polymorphic, so handle the case specially:
         if parent_field == 'content'
-          log(".. SPECIAL CONTENT HANDLER")
-          source_class.where(id: source_ids).limit(@limit).pluck("content_id")
+          # log(".. SPECIAL CONTENT HANDLER")
+          source_class.where(id: source_ids).limit(@limit).pluck('content_id')
+        # ...and Referents keep the id in References:
+        elsif source_class == Reference
+          source_class.where(id: source_ids).limit(@limit).pluck('referent_id')
         else
-          log(".. NORMAL PLURAL")
+          # log(".. NORMAL PLURAL")
           relationship_class.where(filter).limit(@limit).pluck(:id)
         end
       end
     new_ids.uniq!
     @tables[relationship_class] += new_ids
-    log(".. FOUND #{new_ids.size} new IDs")
+    # log(".. FOUND #{new_ids.size} new IDs")
     new_ids
   end
 

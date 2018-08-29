@@ -29,7 +29,7 @@ class MediaContentCreator
       num_batches = (count / b_size.to_f).ceil
       @log.log("#{count} #{@klass.name.pluralize} to process (in #{num_batches} batches)", cat: :infos)
       query.find_in_batches(batch_size: b_size).with_index do |batch, number|
-        @log.log("Batch #{number}/#{num_batches}...", cat: :infos)
+        @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
         reset_batch
         learn_ancestry(batch)
         # TEMP: we're putting images at the bottom now so we count how many images per page...
@@ -65,7 +65,8 @@ class MediaContentCreator
     Page.includes(native_node: [:unordered_ancestors, { node_ancestors: :ancestor }])
         .where(id: batch.map(&:page_id))
         .each do |page|
-          @naked_pages[page.id] = page if page.send(@field).nil?
+          # NOTE: if we decide to have exemplar articles on pages, page.send(@field).nil? here...
+          @naked_pages[page.id] = page if @field == :medium_id && page.medium_id.nil?
           @ancestry[page.id] = page.ancestry_ids
         end
   end

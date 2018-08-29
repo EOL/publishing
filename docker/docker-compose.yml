@@ -9,6 +9,7 @@ services:
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
+      # - full_path_to/custom_elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     networks:
       - eolnet
   eol-backend-memcached:
@@ -54,6 +55,9 @@ services:
     image: eol_website
     container_name: eol-backend-tramea
     restart: always
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
       - /data/eol-backend-tramea:/app/public/data
@@ -68,8 +72,6 @@ services:
       - eol-backend-memcached:memcached
       - eol-backend-mysql:mysql
       - eol-backend-neo4j:neo4j
-    env_file:
-      - resources/staging.env
     ports:
        - 3000:3000
     networks:

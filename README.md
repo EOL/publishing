@@ -16,16 +16,8 @@ You should install the following before proceeding:
     * visit `http://localhost:7474/browser/`
     * login with neo4j:neo4j
     * change your password as directed, e.g.: YOURNEWPASSWORD
-    * export EOL_TRAITBANK_URL=http://neo4j:YOURNEWPASSWORD@localhost:7474
     * `rails runner "TraitBank::Admin.setup"`
 * ElasticSearch (`brew install elasticsearch`)
-
-...You will need to define the following ENV variables (e.g.: export VAR=val):
-```bash
-EOL_TRAITBANK_URL=http://username:password@localhost:7474
-EOL_DEVEL_DB_USERNAME=username
-EOL_DEVEL_DB_PASSWORD=password
-```
 
 Before getting far, you should install ElasticSearch:
 ```bash

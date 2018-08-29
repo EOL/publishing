@@ -204,6 +204,23 @@ class PagesController < ApplicationController
     end
   end
 
+  def articles
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    return render(status: :not_found) unless @page # 404
+    @articles = @page.articles
+                 .includes(:license, :resource)
+                 .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
+    respond_to do |format|
+      format.html do
+        if request.xhr?
+          render :layout => false
+        else
+          render
+        end
+      end
+    end
+  end
+
   def classifications
     @page = Page.where(id: params[:page_id]).includes(:preferred_vernaculars, nodes: [:children, :page],
       native_node: [:children, node_ancestors: :ancestor]).first

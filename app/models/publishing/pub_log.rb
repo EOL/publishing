@@ -16,6 +16,18 @@ class Publishing::PubLog
 
   def fail(e)
     add_text_logs("(errors) !! #{e.message}")
+    count = 1
+    root = Rails.root.to_s
+    e.backtrace.each do |trace|
+      trace = trace.sub(root, '[root]').sub(%r{\A.*/gems/}, '[gems]/')
+      add_text_logs("(errors) (trace) #{trace}")
+      if count >= 10
+        more = e.backtrace.size - 10
+        add_text_logs("(errors) (trace) SKIPPING #{more} MORE")
+        break
+      end
+      count += 1
+    end
     @logger&.fail(e)
   end
 

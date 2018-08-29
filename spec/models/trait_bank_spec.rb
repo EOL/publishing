@@ -18,7 +18,7 @@ RSpec.describe TraitBank do
       expect(TraitBank.connection).to eq(:connected)
     end
 
-    it 'connects with EOL_TRAITBANK_URL from ENV' do
+    it 'connects with Rails.configuration.traitbank_url' do
       expect(Rails.configuration).to receive(:traitbank_url) { :this_val }
       expect(Neography::Rest).to receive(:new).with(:this_val)
       TraitBank.connection
