@@ -160,7 +160,7 @@ LIMIT 5
 ```
 ## show (numerical) value for this taxon for this predicate
 
-This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the taxon page URL, eg: https://beta.eol.org/pages/328651) and trait predicate (the term URI for the predicate)
+This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the number in the taxon page URL, eg: https://beta.eol.org/pages/328651) and trait predicate (the term URI for the predicate)
 
 ```
 MATCH (t:Trait)<-[:trait]-(p:Page),
