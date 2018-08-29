@@ -225,7 +225,14 @@ RETURN contr.literal, cite.literal, ref.literal
 ```
 Where references are present, there may be more than one; to ensure you have them all would require an additional query. Multiple contributors are also possible, but rare.
 
-See https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md for more detail.
+to fetch multiple references for a given trait record:
+
+```
+MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
+WHERE t.eol_pk = "R483-PK24828656"
+RETURN ref.literal
+LIMIT 5
+```
 
 ## Restrictions
 
