@@ -59,8 +59,10 @@ $font-sz-m: 14px;
 }
 
 .head-txt {
-  min-height: $head-icon-height;
-  padding: 0 $padding-left-s;
+  height: $head-icon-height;
+  overflow: auto;
+  margin: 0 $padding-left-s 0 0;
+  white-space: nowrap;
 }
 
 .names {
@@ -99,14 +101,12 @@ $font-sz-m: 14px;
 
 .l-page-head {
   border-top: $border;
-  height: $head-height;
-  overflow: auto;
 }
 
 .page-actions {
-  padding-left: $pad-l-m;
+  padding: 10px $pad-l-m;
   list-style-type: none;
-  margin: 13px 0 0 0;
+  margin: 0;
 
   & > li {
     display: inline-block;
@@ -190,10 +190,6 @@ $font-sz-m: 14px;
 @media(min-width: $width-m) {
   .l-content {
     margin-top: $head-height + $tabs-height;
-  }
-
-  .head-txt {
-    padding: 0 $padding-left-m;
   }
 
   .tabs {
