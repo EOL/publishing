@@ -272,7 +272,6 @@ class PagesController < ApplicationController
   end
 
 private
-
   def no_cache_json
     # Prevents the back button from returning raw JSON
     if request.xhr?
