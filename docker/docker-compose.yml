@@ -24,7 +24,7 @@ services:
       - eolnet
   eol-backend-elasticsearch2:
     image: elasticsearch
-    container_name: eol-backend-elasticsearch
+    container_name: eol-backend-elasticsearch2
     restart: always
     environment:
       - RAILS_ENV
