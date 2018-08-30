@@ -10,4 +10,3 @@ bootstrap.memory_lock: true
 cluster.name: eol-search-${RAILS_ENV}
 network.host: "_local_,_site_"
 network.publish_host: "_local_"
-bootstrap.mlockall: true
