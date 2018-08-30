@@ -41,8 +41,6 @@ services:
       - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - /data/eol-backend-elasticsearch/data2:/var/data/elasticsearch
       - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
-    ports:
-      - 9200:9200
     networks:
       - eolnet
   eol-backend-memcached:
