@@ -57,6 +57,7 @@ services:
     container_name: eol-backend-neo4j
     restart: always
     environment:
+      - RAILS_ENV
       - TZ=America/New_York
       - NEO4J_AUTH=neo4j/SomePasswordHere
       - NEO4J_dbms_memory_pagecache_size=4G
