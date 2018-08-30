@@ -15,7 +15,9 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
+      - ./docker/templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /data/eol-backend-elasticsearch/data:/var/data/elasticsearch
+      - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
     networks:
@@ -36,7 +38,9 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - /data/eol-backend-elasticsearch/data2:/usr/share/elasticsearch/data
+      - ./docker/templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /data/eol-backend-elasticsearch/data2:/var/data/elasticsearch
+      - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
     ports:
       - 9200:9200
     networks:
