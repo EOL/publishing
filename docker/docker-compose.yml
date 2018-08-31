@@ -21,25 +21,25 @@ services:
       - 9200:9200
     networks:
       - eolnet
-  eol-backend-elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
-    container_name: eol-backend-elasticsearch2
-    environment:
-      - RAILS_ENV
-      - bootstrap.memory_lock=true
-      - cluster.name=eol-search-${RAILS_ENV}
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - "discovery.zen.ping.unicast.hosts=eol-backend-elasticsearch"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - /data/eol-backend-elasticsearch/data2:/var/data/elasticsearch
-      - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
-    networks:
-      - eolnet
+  # eol-backend-elasticsearch2:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+  #   container_name: eol-backend-elasticsearch2
+  #   environment:
+  #     - RAILS_ENV
+  #     - bootstrap.memory_lock=true
+  #     - cluster.name=eol-search-${RAILS_ENV}
+  #     - ES_JAVA_OPTS=-Xms1g -Xmx1g
+  #     - "discovery.zen.ping.unicast.hosts=eol-backend-elasticsearch"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #     - /data/eol-backend-elasticsearch/data2:/var/data/elasticsearch
+  #     - /data/eol-backend-elasticsearch/log2:/var/log/elasticsearch
+  #   networks:
+  #     - eolnet
   eol-backend-memcached:
     image: memcached
     container_name: eol-backend-memcached
