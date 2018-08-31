@@ -1,7 +1,7 @@
 http.host: 0.0.0.0
 transport.host: 0.0.0.0
 # Rule of thumb here is (master_eligible_nodes / 2) + 1
-discovery.zen.minimum_master_nodes: 2
+# discovery.zen.minimum_master_nodes: 2
 node.name: ${HOSTNAME}
 path:
   logs: /var/log/elasticsearch
