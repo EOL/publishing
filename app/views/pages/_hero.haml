@@ -1,5 +1,6 @@
 = link_to @page.medium, :class => "hero-link" do
-  .hero.hero-before{ :class => class_name, :style => "background-image: url(#{image_path @page.medium.original_size_url}" }
+  .hero{ :class => class_name }
+    = image_tag @page.medium.original_size_url
     .img-info
       %i.copyright.icon
       = image_owner(@page.medium)
