@@ -235,21 +235,24 @@ class TraitBank
     end
 
     def key_data(page_id)
-      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-        "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
-        "ORDER BY predicate.position, LOWER(object_term.name), "\
-          "LOWER(trait.literal), trait.normal_measurement "\
-        "LIMIT 100"
-        # NOTE "Huge" limit, in case there are TONS of values for the same
-        # predicate.
-      res = query(q)
-      build_trait_array(res).group_by { |r| r[:predicate] }
+      Rails.cache.fetch("trait_bank/key_data/#{page_id}", expires_in: 1.day) do
+        q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
+          "WHERE NOT predicate.is_hidden_from_overview "\
+          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+          "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
+          "ORDER BY predicate.position, LOWER(object_term.name), "\
+            "LOWER(trait.literal), trait.normal_measurement "\
+          "LIMIT 100"
+          # NOTE "Huge" limit, in case there are TONS of values for the same
+          # predicate.
+        res = query(q)
+        build_trait_array(res).group_by { |r| r[:predicate] }
+      end
     end
 
     # NOTE the match clauses are hashes. Values represent the "where" clause.
