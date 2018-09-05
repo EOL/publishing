@@ -1,15 +1,61 @@
 version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of the config formatting to use. Keep it here.
 services:
   eol-backend-elasticsearch:
-    image: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
     container_name: eol-backend-elasticsearch
     restart: always
     environment:
-      - TZ=America/New_York
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - RAILS_ENV
+      - bootstrap.memory_lock=true
+      - cluster.name=eol-search-${RAILS_ENV}
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
-      - /data/eol-backend-elasticsearch/data:/usr/share/elasticsearch/data
-      # - full_path_to/custom_elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /data/eol-backend-elasticsearch/data:/var/data/elasticsearch
+      - /data/eol-backend-elasticsearch/log:/var/log/elasticsearch
+    ports:
+      - 9200:9200
+    networks:
+      - eolnet
+  eol-backend-elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    container_name: eol-backend-elasticsearch2
+    environment:
+      - RAILS_ENV
+      - cluster.name=eol-search-${RAILS_ENV}
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch3]"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /data/eol-backend-elasticsearch2/data:/var/data/elasticsearch
+      - /data/eol-backend-elasticsearch2/log:/var/log/elasticsearch
+    networks:
+      - eolnet
+  eol-backend-elasticsearch3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    container_name: eol-backend-elasticsearch3
+    environment:
+      - cluster.name=eol-search-${RAILS_ENV}
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch2]"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./templates/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /data/eol-backend-elasticsearch3/data:/var/data/elasticsearch
+      - /data/eol-backend-elasticsearch3/log:/var/log/elasticsearch
     networks:
       - eolnet
   eol-backend-memcached:
@@ -26,6 +72,7 @@ services:
     container_name: eol-backend-neo4j
     restart: always
     environment:
+      - RAILS_ENV
       - TZ=America/New_York
       - NEO4J_AUTH=neo4j/SomePasswordHere
       - NEO4J_dbms_memory_pagecache_size=4G

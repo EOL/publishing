@@ -170,7 +170,6 @@ class TraitBank::Slurp
     # TODO: extract the file-writing to a method that takes a block.
     def rebuild_ancestry
       require 'csv'
-      build_ancestry_csv
       puts '(starts) .rebuild_ancestry'
       # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
       puts "(infos) delete relationships"

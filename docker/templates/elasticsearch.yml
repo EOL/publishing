@@ -1,0 +1,12 @@
+http.host: 0.0.0.0
+transport.host: 0.0.0.0
+# Rule of thumb here is (master_eligible_nodes / 2) + 1
+# discovery.zen.minimum_master_nodes: 2
+node.name: ${HOSTNAME}
+path:
+  logs: /var/log/elasticsearch
+  data: /var/data/elasticsearch
+bootstrap.memory_lock: true
+cluster.name: eol-search-${RAILS_ENV}
+network.host: "_local_,_site_"
+network.publish_host: "_local_"
