@@ -59,20 +59,8 @@ function scrollToRecord() {
   }
 }
 
-function processHero() {
-  var $hero = $('.js-hero')
-    , testImg = new Image
-    ;
-  
-  testImg.src = $hero.css('background-image');
-  console.log('test img', testImg);
-  console.log('height', testImg.naturalHeight);
-  console.log('width', testImg.naturalWidth);
-}
-
 $(function() {
   setupMenus();
   setupBreadcrumbs();
   scrollToRecord();
-  processHero();
 });

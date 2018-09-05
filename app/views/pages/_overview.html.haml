@@ -29,4 +29,5 @@
     = render('pages/children')
 
   - if @page.medium
-    = render :partial => "hero", :locals => { :class_name => "hero-after" }
+    .l-right-col
+      = render :partial => "hero", :locals => { :class_name => "hero-after" }

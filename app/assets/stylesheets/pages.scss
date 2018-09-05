@@ -107,6 +107,11 @@ $font-sz-m: 14px;
   border-top: $border;
 }
 
+.l-right-col {
+  padding-right: 10px;
+  width: 100%;
+}
+
 .page-actions {
   padding: 10px $pad-l-m;
   list-style-type: none;
