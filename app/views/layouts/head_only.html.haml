@@ -12,8 +12,8 @@
     - cdn = 'https://cdnjs.cloudflare.com/ajax/libs'
     -# TODO: we need to compile our own set of includes with only the bits we need for UIKit (as we did with semantic)!
     = stylesheet_link_tag "#{cdn}/uikit/3.0.0-beta.25/css/uikit.min.css"
-    - %w[button dimmer icon image input label loader list menu dropdown search segment statistic sticky transition].each do |name|
-      = stylesheet_link_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.css"
+    - %w[button dimmer header icon image input label loader list menu dropdown search segment statistic sticky transition].each do |name|
+      = stylesheet_link_tag "#{cdn}/semantic-ui/2.3.3/components/#{name}.min.css"
     = stylesheet_link_tag "application"
     -if asset_exists? "#{params[:controller]}.css"
       = stylesheet_link_tag params[:controller]

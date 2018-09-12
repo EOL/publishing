@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180814195851) do
+ActiveRecord::Schema.define(version: 20180912145138) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20180814195851) do
     t.integer "section_id",   limit: 4,   null: false
     t.integer "content_id",   limit: 4,   null: false
     t.string  "content_type", limit: 255, null: false
+    t.integer "resource_id",  limit: 4,   null: false
   end
 
   add_index "content_sections", ["content_type", "content_id"], name: "index_content_sections_on_content_type_and_content_id", using: :btree
@@ -767,10 +768,14 @@ ActiveRecord::Schema.define(version: 20180814195851) do
     t.text    "wkt_string",    limit: 65535
   end
 
+  create_table "section_parents", force: :cascade do |t|
+    t.integer "section_id", limit: 4
+    t.integer "parent_id",  limit: 4
+  end
+
   create_table "sections", force: :cascade do |t|
-    t.integer "parent_id", limit: 4
-    t.integer "position",  limit: 4
-    t.string  "name",      limit: 255, null: false
+    t.integer "position", limit: 4
+    t.string  "name",     limit: 255, null: false
   end
 
   create_table "seo_meta", force: :cascade do |t|
@@ -951,4 +956,5 @@ ActiveRecord::Schema.define(version: 20180814195851) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end

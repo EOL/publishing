@@ -99,7 +99,8 @@ class Publishing::Fast
       Medium => {},
       Attribution => { content_id: [Medium, Article] }, # Polymorphic implied with array.
       ImageInfo => { medium_id: Medium },
-      Reference => { referent_id: Referent } # The polymorphic relationship is handled specially.
+      Reference => { referent_id: Referent }, # The polymorphic relationship is handled specially.
+      ContentSection => { content_id: [Article] } # NOTE: at the moment, only articles have sections...
     }
     abort_if_already_running
     new_log
