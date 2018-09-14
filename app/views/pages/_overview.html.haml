@@ -27,6 +27,8 @@
                 = render partial: "terms/desc_meta", locals: { term: trait[:object_term], search_link: true, pred_uri: trait[:predicate][:uri] }
               - else
                 .sample-trait-val= val
+        %li.sample-traits-more 
+          %div= link_to(t(".more"), page_data_path(@page))
 
     - if @page.occurrence_map?
       = render partial: "json_map", locals: { extra_class: "map-overview" }

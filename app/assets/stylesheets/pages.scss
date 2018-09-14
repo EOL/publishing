@@ -186,6 +186,19 @@ $font-sz-m: 14px;
   }
 }
 
+.sample-traits-more { 
+  max-width: 100px;
+  position: relative;
+  text-align: center;
+
+  & > div {
+    bottom: 7px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+}
+
 .l-content {
   overflow: hidden;
   margin-top: $head-height + $tabs-height;
