@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180912145138) do
+ActiveRecord::Schema.define(version: 20180914170841) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -505,7 +505,6 @@ ActiveRecord::Schema.define(version: 20180912145138) do
     t.integer  "articles_count",         limit: 4,   default: 0,     null: false
     t.integer  "links_count",            limit: 4,   default: 0,     null: false
     t.integer  "maps_count",             limit: 4,   default: 0,     null: false
-    t.integer  "data_count",             limit: 4,   default: 0,     null: false
     t.integer  "nodes_count",            limit: 4,   default: 0,     null: false
     t.integer  "vernaculars_count",      limit: 4,   default: 0,     null: false
     t.integer  "scientific_names_count", limit: 4,   default: 0,     null: false
@@ -956,5 +955,4 @@ ActiveRecord::Schema.define(version: 20180912145138) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end

@@ -156,11 +156,17 @@ $font-sz-m: 14px;
   }
 
 .desc {
+  $padding-tb: 13px;
+
   border-bottom: $border;
   font-size: 11px;
   line-height: 1.36;
   margin: 0;
-  padding: 13px $padding-left-s;
+  padding: 0 $padding-left-s $padding-tb $padding-left-s;
+
+  & > p {
+    margin: $padding-tb 0 0 0;
+  }
 }
 
 .sample-traits {
@@ -221,8 +227,13 @@ $font-sz-m: 14px;
   }
 
   .desc {
+    $padding-tb: 15px;
     font-size: 14px;
-    padding: 15px $padding-left-m;
+    padding: 0 $padding-left-m $padding-tb $padding-left-m;
+
+    & > p {
+      margin: $padding-tb 0 0 0;
+    }
   }
 
   .sample-traits {

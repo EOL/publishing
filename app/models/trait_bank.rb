@@ -72,11 +72,13 @@ class TraitBank
     end
 
     def count_by_page(page_id)
-      res = query(
-        "MATCH (trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
-        "WITH count(trait) as count "\
-        "RETURN count")
-      res["data"] ? res["data"].first.first : false
+      Rails.cache.fetch("trait_bank/count_by_page/#{page_id}", expires_in: 1.day) do
+        res = query(
+          "MATCH (trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
+          "WITH count(trait) as count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : false
+      end
     end
 
     def predicate_count
@@ -236,9 +238,10 @@ class TraitBank
 
     def key_data(page_id)
       Rails.cache.fetch("trait_bank/key_data/#{page_id}", expires_in: 1.day) do
-        q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+        # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
+        q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-          "WHERE NOT predicate.is_hidden_from_overview "\
+          "WHERE predicate.is_hidden_from_overview <> true "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
           "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\

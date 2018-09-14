@@ -4,9 +4,13 @@
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    - if !summary.blank?
-      %p.desc= summary
-    - if @page.data.any?
+    - if !summary.blank? || @page.has_data?
+      .desc
+        - if !summary.blank?
+          %p= summary
+        - if @page.has_data?
+          %p= t(".eol_has_data_for_n_attributes", :count => @page.data_count)
+    -if @page.key_data.any?
       %ul.sample-traits
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
           %li
