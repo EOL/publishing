@@ -167,11 +167,20 @@ class PagesController < ApplicationController
 
   def data
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
+    @predicates = @predicate ? [@predicate[:uri]] : @page.predicates
     @resources = TraitBank.resources(@page.data)
     build_associations(@page.data)
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
-      format.html {}
+      format.html do
+        if request.xhr?
+          render layout: false
+        else
+          render
+        end
+      end
+
       format.js {}
     end
   end

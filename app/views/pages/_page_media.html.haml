@@ -1,5 +1,5 @@
 - filters = defined?(filterable) ? filterable : true
-#gallery.ui.section
+#gallery.ui.section.js-content
   - if filters
     -#
       .uk-text-center{ class: "uk-hidden@m" }
@@ -15,7 +15,7 @@
 
     -#
       .ui.menu.uk-text-small{ class: "uk-visible@m js-media-menus" }
-    .ui.menu.uk-text-small{ class: "js-media-menus" }
+    .ui.menu.uk-text-small{ class: "js-menus" }
       .ui.dropdown.item
         - if @license
           %b= @license

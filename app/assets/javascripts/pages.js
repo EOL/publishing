@@ -3,8 +3,8 @@
 function setupMenus() {
   EOL.enableDropdowns();
 
-  $('.js-media-menus a').on('ajax:success', function(e, data, status, xhr) {
-    $('#gallery').replaceWith(data);
+  $('.js-menus a').on('ajax:success', function(e, data, status, xhr) {
+    $('.js-content').replaceWith(data);
     setupMenus();
   });
 }
