@@ -533,10 +533,9 @@ en:
         other: "%{count} comments"
       reindex: "reindex"
     overview:
-      eol_has_data_for_n_attributes:
-        one: "EOL has data for one attribute."
-        other: "EOL has data for %{count} attributes."
-      more: more…
+      eol_has_data_for_n_attributes_html:
+        one: "EOL has data for <a href=\"%{data_path}\">one attribute</a>:"
+        other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>, including:"
     flash:
       reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."
     native_node_missing_warning: "no hierarchy information available"
