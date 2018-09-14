@@ -14,7 +14,7 @@ function bindMetaArrow($row) {
   });
 }
 
-$(function() {
+function bindLoadArrows() {
   $('.js-load-arw').click(function() {
     var $that = $(this)
       , $row = $that.parent('.js-data-row')
@@ -32,4 +32,8 @@ $(function() {
       }
     })
   });
+}
+
+$(function() {
+  bindLoadArrows();
 });
