@@ -441,7 +441,7 @@ class Page < ActiveRecord::Base
   end
 
   def vernacular_or_canonical
-    vernacular || canonical
+    vernacular&.string || canonical
   end
 
 
