@@ -1,5 +1,5 @@
 - @articles.group_by(&:first_section).each do |section, articles|
-  %h2.ui.top.attached.header= section.name
+  %h2.ui.top.attached.header= section&.name || "Other Articles"
   %ul.ui.attached.segment.articles
     - articles.sort_by(&:first_section).each_with_index do |article, index|
       = render :partial => "page_article", :locals => { article: article }

@@ -48,7 +48,7 @@ class Node < ActiveRecord::Base
   end
 
   # NOTE: the "canonical_form" on this node is NOT italicized. In retrospect, that was a mistake, though we do need it
-  # for searches. Just use this version.
+  # for searches. Just use this method instead of canonical_form everywhere that it's shown to a user.
   def canonical
     if scientific_names.loaded?
       scientific_names.select {|n| n.is_preferred? }&.first&.canonical_form
