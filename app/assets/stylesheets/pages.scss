@@ -189,6 +189,7 @@ $font-sz-m: 14px;
 .l-content {
   overflow: hidden;
   margin-top: $head-height + $tabs-height;
+  min-height: 400px;
 }
 
 .page-children {
