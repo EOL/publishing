@@ -21,7 +21,14 @@
         - Rails.logger.error("** ERROR: missing predicate #{uri}")
         - next
       - previous_predicate = nil
-      - @page.grouped_data[uri].each do |trait|
+      - pred_data = @page.grouped_data[uri]
+      - pred_data_slice = pred_data
+      - if !@predicate
+        - pred_data_slice = pred_data[0, records_per_pred]
+      - pred_data_slice.each do |trait|
         -# TODO: this partial shouldn't be in terms, it should be in traits.
         = render :partial => "terms/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
         -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde
+      - if pred_data_slice.length < pred_data.length
+        %li.more-traits
+          = link_to(t(".n_hidden_show_all", count: pred_data.length - pred_data_slice.length, pred_name: predicate[:name]), page_data_path(page_id: @page.id, predicate: uri))

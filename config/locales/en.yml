@@ -538,6 +538,9 @@ en:
         other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>, including:"
     page_data:
       filter_by_attribute: "filter by attribute"
+      n_hidden_show_all:
+        one: "1 “%{pred_name}” record hidden — show all"
+        other: "%{count} “%{pred_name}” records hidden — show all"
       show_all: "show all"
     flash:
       reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."
