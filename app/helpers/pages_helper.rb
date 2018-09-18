@@ -185,9 +185,9 @@ module PagesHelper
       ancestors.compact.each do |anc_node|
         if anc_node.use_breadcrumb? || (mode == :full && anc_node.use_abbreviated?)
           if link
-            parts << link_to(anc_node.canonical_form.html_safe, page_overview_path(anc_node.page)).html_safe
+            parts << link_to(anc_node.vernacular_or_canonical.html_safe, page_overview_path(anc_node.page)).html_safe
           else
-            parts << anc_node.canonical_form.html_safe
+            parts << anc_node.vernacular_or_canonical.html_safe
           end
           shown_ellipsis = false
         elsif anc_node.use_abbreviated? && !shown_ellipsis

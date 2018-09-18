@@ -28,6 +28,10 @@ class Node < ActiveRecord::Base
     vernacular(language).try(:string) || scientific_name
   end
 
+  def vernacular_or_canonical
+    vernacular || canonical
+  end
+
   def use_breadcrumb?
     has_breadcrumb? && (minimal? || abbreviated?)
   end
