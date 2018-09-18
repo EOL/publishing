@@ -440,6 +440,11 @@ class Page < ActiveRecord::Base
     native_node.try(:rank)
   end
 
+  def vernacular_or_canonical
+    vernacular || canonical
+  end
+
+
   # TRAITS METHODS
 
   def key_data
