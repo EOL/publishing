@@ -194,14 +194,14 @@ module PagesHelper
       shown_ellipsis = false
       ancestors.compact.each do |anc_node|
         anc_page = anc_node.page
-        if anc_node.use_breadcrumb? || (mode == :full && anc_node.use_abbreviated?)
+        if anc_node.use_breadcrumb? || mode == :full
           if link
             parts << link_to(anc_page.vernacular_or_canonical.html_safe, page_overview_path(anc_page)).html_safe
           else
             parts << anc_page.vernacular_or_canonical.html_safe
           end
           shown_ellipsis = false
-        elsif anc_node.use_abbreviated? && !shown_ellipsis
+        elsif !shown_ellipsis
           if link
             parts << content_tag(:span, "…", :class => "a js-show-full-hier")
           else
