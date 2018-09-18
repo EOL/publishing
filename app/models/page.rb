@@ -441,7 +441,7 @@ class Page < ActiveRecord::Base
   end
 
   def vernacular_or_canonical
-    vernacular&.string || canonical
+    vernacular(Language.current)&.string&.capitalize || canonical
   end
 
 
