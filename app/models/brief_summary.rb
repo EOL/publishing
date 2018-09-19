@@ -105,7 +105,7 @@ class BriefSummary
   end
 
   def a2_node
-    @a2_node ||= @page.ancestors.reverse.find { |a| a.abbreviated? }
+    @a2_node ||= @page.ancestors.reverse.compact.find { |a| a.abbreviated? }
   end
 
   # If the species has a value for measurement type http://purl.obolibrary.org/obo/GAZ_00000071, insert a Distribution

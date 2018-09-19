@@ -6,12 +6,11 @@ class TraitBank::Slurp
     #   TraitBank.query(q)
     # end
 
-    # Same as load_csvs, but rather than using the standard file location, we have special files in a special directory
-    # (dir), with traits.csv and metadata.csv, and the traits.csv file there includes a resource_id column (the last
-    # column). This is intended for multi-resource serialized clades.
+    # Same as load_csvs, the traits file there includes a resource_id column (the last column). This is intended for
+    # multi-resource serialized clades.
     def load_full_csvs(id)
       config = load_csv_config(id, single_resource: false) # No specific resource!
-      config.each { |filename, file_config| load_csv(filename, file_config, read_resources: true) }
+      config.each { |filename, file_config| load_csv(filename, file_config, read_resources: id) }
       post_load_cleanup(id)
     end
 
@@ -24,19 +23,21 @@ class TraitBank::Slurp
     end
 
     def post_load_cleanup(id)
-      page_ids = read_page_ids_from_traits_file(id)
+      page_ids = read_field_from_traits_file(id, 'page_id')
       fix_page_names_for_new_pages(page_ids)
     end
 
-    def read_page_ids_from_traits_file(id)
+    def read_field_from_traits_file(id, field)
       # read the traits file and pluck out the page IDs...
       require 'csv'
       data = CSV.read(Rails.public_path.join("traits_#{id}.csv"))
-      pages = {}
+      headers = data.shift
+      position = headers.find_index('resource_id')
+      values = {}
       data.each do |row|
-        pages[row[1]] = true # NOTE: page_id is always the second field, thus [1]
+        values[row[position]] = true
       end
-      pages.keys
+      values.keys
     end
 
     def fix_page_names_for_new_pages(page_ids)
@@ -144,15 +145,8 @@ class TraitBank::Slurp
       wheres = config.delete(:wheres)
       nodes = config # what's left.
       if params[:read_resources]
-        data = CSV.read(filename)
-        headers = data.shift
-        res_position = headers.find_index('resource_id')
-        res_ids = {}
-        data.each do |row|
-          res_ids[row[res_position]] = true
-        end
-        puts "** Creating #{res_ids.size} resources..."
-        res_ids.keys.each do |resource_id|
+        res_ids = read_field_from_traits_file(params[:read_resources], 'resource_id')
+        res_ids.each do |resource_id|
           TraitBank.create_resource(resource_id)
         end
       end
