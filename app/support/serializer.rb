@@ -72,8 +72,10 @@ class Serializer
 
     node_ids = @page.native_node.descendants.pluck(:node_id)
     node_ids << @page.native_node_id
+    ancestor_page_ids = @page.native_node.ancestors.compact.map(&:page_id)
     page_ids = Node.where(id: node_ids).pluck(:page_id)
-    @tables = { Page => page_ids }
+    @tables = { Page => page_ids + ancestor_page_ids }
+    gather(:pages, ancestor_page_ids, { nodes: [ {scientific_names: [ :taxonomic_status ] }]})
     structure.each { |relationship| gather(:pages, page_ids, relationship) }
     require 'csv'
     @tables.each do |klass, ids|

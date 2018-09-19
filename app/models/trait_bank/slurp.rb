@@ -11,7 +11,7 @@ class TraitBank::Slurp
     # column). This is intended for multi-resource serialized clades.
     def load_full_csvs(id)
       config = load_csv_config(id, single_resource: false) # No specific resource!
-      config.each { |filename, file_config| load_csv(filename, file_config) }
+      config.each { |filename, file_config| load_csv(filename, file_config, read_resources: true) }
       post_load_cleanup(id)
     end
 
@@ -140,9 +140,22 @@ class TraitBank::Slurp
       }
     end
 
-    def load_csv(filename, config)
+    def load_csv(filename, config, params = {})
       wheres = config.delete(:wheres)
       nodes = config # what's left.
+      if params[:read_resources]
+        data = CSV.read(filename)
+        headers = data.shift
+        res_position = headers.find_index('resource_id')
+        res_ids = {}
+        data.each do |row|
+          res_ids[row[res_position]] = true
+        end
+        puts "** Creating #{res_ids.size} resources..."
+        res_ids.keys.each do |resource_id|
+          TraitBank.create_resource(resource_id)
+        end
+      end
       wheres.each do |clause, where_config|
         load_csv_where(clause, filename: filename, config: where_config, nodes: nodes)
       end
