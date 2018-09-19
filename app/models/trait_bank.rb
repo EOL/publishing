@@ -403,7 +403,7 @@ class TraitBank
       end
     end
 
-    def term_record_search(term_query, options) 
+    def term_record_search(term_query, options)
       matches = []
       wheres = []
       collects = []
@@ -435,7 +435,7 @@ class TraitBank
         collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
       end
 
-      collect_unwind_part = 
+      collect_unwind_part =
         "WITH #{collects.join(", ")} "\
         "WITH #{rows_vars.join(" + ")} as all_rows "\
         "UNWIND all_rows as row "\
@@ -742,7 +742,9 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def create_resource(id)
+    def create_resource(id_param)
+      id = id_param.to_i
+      return "#{id_param} is not a valid positive integer id!" unless id.positive? && id.to_s == id_param
       if (resource = find_resource(id))
         return resource
       end
