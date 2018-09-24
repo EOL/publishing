@@ -170,7 +170,7 @@ class Page < ActiveRecord::Base
       page_richness: page_richness || 0,
       dh_scientific_names: dh_scientific_names, # NOTE: IMPLIES that this page is in the DH, too!
       scientific_name: sci_name,
-      specificity: specificity,
+      specificity: specificity.to_f,
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
