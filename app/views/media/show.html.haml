@@ -4,10 +4,7 @@
       .uk-width-3-4
         %label= t(:medium_header_title)
         %h1#media_title.uk-margin-remove-top
-          - if @medium.name.blank?
-            = t(:medium_untitled)
-          - else
-            = @medium.name.html_safe
+          = medium_name_html(@medium)
       .uk-width-1-4.actions
         - basic_button("plus", t(:medium_collect_button), new_collected_page_path(page_id: @medium.associations.first, medium_ids: [@medium.id]))
     .media-body.uk-margin-large-top

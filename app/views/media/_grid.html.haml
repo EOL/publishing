@@ -3,8 +3,6 @@
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
     - owner = image_owner(image)
-    - name = image.name.blank? ? t("medium.untitled.#{image.subclass}") : image.name
-    - name = name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
     %div
@@ -18,7 +16,7 @@
               .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
-                  = link_to(name.html_safe, link_path)
+                  = link_to(medium_name_html(image), link_path)
                   .ui.label= image.license.try(:name)
                   %br
                   %i.copyright.icon
