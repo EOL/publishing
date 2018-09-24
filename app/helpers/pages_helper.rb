@@ -186,15 +186,15 @@ module PagesHelper
     def hierarchy_helper(page, link, mode)
       parts = []
       node = page.native_node || page.nodes.first
-      ancestors = node ? 
+      ancestors = (node ? 
         node.node_ancestors
           .includes(ancestor: [:page])
           .collect(&:ancestor) :
-        []
+        []).compact
       shown_ellipsis = false
-      unmapped = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
+      unresolved = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
 
-      if mode == :partial && unmapped
+      if mode == :partial && unresolved
         parts << content_tag(:span, t("pages.unresolved_name"), "a js-show-summary-hier")
       else
         ancestors.compact.each do |anc_node|
@@ -229,7 +229,7 @@ module PagesHelper
         final_parts << result
 
         if link
-          final_parts += content_tag(:span, "«", class: "a js-show-summary-hier")
+          final_parts << content_tag(:span, "«", class: "a js-show-summary-hier")
         end
 
         result = final_parts.join(" ")
