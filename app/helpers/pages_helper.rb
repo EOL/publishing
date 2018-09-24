@@ -192,30 +192,47 @@ module PagesHelper
           .collect(&:ancestor) :
         []
       shown_ellipsis = false
-      ancestors.compact.each do |anc_node|
-        anc_page = anc_node.page
-        if anc_node.use_breadcrumb? || mode == :full
-          if link
-            parts << link_to(anc_page.vernacular_or_canonical.html_safe, page_overview_path(anc_page)).html_safe
-          else
-            parts << anc_page.vernacular_or_canonical.html_safe
+      unmapped = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
+
+      if mode == :partial && unmapped
+        parts << content_tag(:span, t("pages.unresolved_name"), "a js-show-summary-hier")
+      else
+        ancestors.compact.each do |anc_node|
+          anc_page = anc_node.page
+          if anc_node.use_breadcrumb? || mode == :full
+            if link
+              parts << link_to(anc_page.vernacular_or_canonical.html_safe, page_overview_path(anc_page)).html_safe
+            else
+              parts << anc_page.vernacular_or_canonical.html_safe
+            end
+            shown_ellipsis = false
+          elsif !shown_ellipsis
+            if link
+              parts << content_tag(:span, "…", class: "a js-show-full-hier")
+            else
+              parts << "…"
+            end
+            shown_ellipsis = true
           end
-          shown_ellipsis = false
-        elsif !shown_ellipsis
-          if link
-            parts << content_tag(:span, "…", :class => "a js-show-full-hier")
-          else
-            parts << "…"
-          end
-          shown_ellipsis = true
         end
       end
 
       result = parts.join(" » ").html_safe
 
-      if mode == :full && link
-        result += " "
-        result += content_tag(:span, "«", :class => "a js-show-summary-hier")
+      if mode == :full
+        final_parts = []
+
+        if unresolved
+          final_parts << t("pages.unresolved_name_prefix")
+        end
+
+        final_parts << result
+
+        if link
+          final_parts += content_tag(:span, "«", class: "a js-show-summary-hier")
+        end
+
+        result = final_parts.join(" ")
       end
 
       result

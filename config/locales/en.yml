@@ -571,6 +571,8 @@ en:
       label: "rank:"
     richness:
       label: "richness:"
+    unresolved_name: "Unresolved name"
+    unresolved_name_prefix: "Unresolved name:"
   password: "Password"
   password_confirmation: "Password confirmation"
   please_wait: "please wait..."
