@@ -5,10 +5,9 @@ class BriefSummary
   def initialize(page)
     @page = page
     @sentences = []
-    @a1_node = nil
-    @a1_link = nil
+    @a1_name = nil
     @a2_node = nil
-    @a2_link = nil
+    @a2_name = nil
   end
 
   # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
@@ -79,15 +78,13 @@ class BriefSummary
   # A1: Use the landmark with value 1 that is the closest ancestor of the species. Use the English vernacular name, if
   # available, else use the canonical.
   def a1
-    return @a1_link if @a1_link
+    return @a1_name if @a1_name
     @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
     return nil if @a1.nil?
-    a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
+    @a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
     # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
-    a1_name = nil if @a1_name&.match(' and ')
-    a1_name ||= @a1.canonical
-
-    @a1_link = link_to(a1_name, @a1.page)
+    @a1_name = nil if @a1_name&.match(' and ')
+    @a1_name ||= @a1.canonical
     # A1: There will be nodes in the dynamic hierarchy that will be flagged as A1 taxa. If there are vernacularNames
     # associated with the page of such a taxon, use the preferred vernacularName.  If not use the scientificName from
     # dynamic hierarchy. If the name starts with a vowel, it should be preceded by an, if not it should be preceded by
@@ -99,13 +96,12 @@ class BriefSummary
   # Rosaceae is the rose family. In that case, the vernacular would make for a very awkward sentence. It would be great
   # if we could implement a rule, use the English vernacular, if available, unless it has the string "family" in it.
   def a2
-    return @a2_link if @a2_link
+    return @a2_name if @a2_name
     return nil if a2_node.nil?
-    a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
-    a2_name = nil if a2_name && a2_name =~ /family/i
-    a2_name = nil if a2_name && a2_name =~ / and /i
-    a2_name ||= a2_node.canonical_form
-    @a2_link = link_to(a2_name, a2_node.page)
+    @a2_name = a2_node.page&.vernacular&.string || a2_node.vernacular
+    @a2_name = nil if @a2_name && @a2_name =~ /family/i
+    @a2_name = nil if @a2_name && @a2_name =~ / and /i
+    @a2_name ||= a2_node.canonical_form
   end
 
   def a2_node
@@ -135,7 +131,7 @@ class BriefSummary
     else
       marine =
         has_data(predicates: ['http://eol.org/schema/terms/Habitat'],
-                 values: [Eol::Uris.marine])
+                 values: ['http://purl.obolibrary.org/obo/ENVO_00000447'])
       @page.update_attribute(:has_checked_marine, true)
       # NOTE: this DOES NOT WORK without the true / false thing. :|
       @page.update_attribute(:is_marine, marine ? true : false)
