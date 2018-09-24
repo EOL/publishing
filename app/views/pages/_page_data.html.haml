@@ -7,11 +7,10 @@
         = t(".filter_by_attribute")
       %i.dropdown.icon
       .menu
-        = link_to(t(".show_all"), page_data_path(@page), remote: true, data: { type: 'html' }, class: "item#{ @predicate.nil? ? " active" : ""}")
+        = link_to(t(".show_all"), page_data_path(@page), data: { type: 'html' }, class: "item#{ @predicate.nil? ? " active" : ""}")
         - @page.predicates.each do |uri|
           - predicate = @page.glossary[uri]
-          = link_to(predicate[:name], page_data_path(page_id: @page.id, predicate: uri), 
-            remote: true, data: { type: 'html' }, class: "item#{ @predicate && uri == @predicate[:uri] ? " active" : ""}")
+          = link_to(predicate[:name], page_data_path(page_id: @page.id, predicate: uri), data: { type: 'html' }, class: "item#{ @predicate && uri == @predicate[:uri] ? " active" : ""}")
           -#
             remote: true, data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
   %ul.traits
