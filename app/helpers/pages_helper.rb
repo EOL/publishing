@@ -195,7 +195,7 @@ module PagesHelper
       unresolved = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
 
       if mode == :partial && unresolved
-        parts << content_tag(:span, t("pages.unresolved_name"), "a js-show-summary-hier")
+        parts << content_tag(:span, t("pages.unresolved_name"), class: "a js-show-summary-hier")
       else
         ancestors.compact.each do |anc_node|
           anc_page = anc_node.page
