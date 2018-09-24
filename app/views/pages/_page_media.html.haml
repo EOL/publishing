@@ -25,12 +25,12 @@
         .menu
           = link_to(t(:filter_by_license_any_item),
             page_media_path(page_id: @page.id, license: nil, subclass: @subclass, resource_id: @resource_id),
-            remote: true, data: { type: 'html' }, class: "item#{ @license.nil? ? " active" : ""}")
+              data: { type: 'html' }, class: "item#{ @license.nil? ? " active" : ""}")
           -#
             - License.types.each do |lic|
           - @licenses.each do |lic|
             = link_to(lic, page_media_path(page_id: @page.id, license: lic, subclass: @subclass, resource_id: @resource_id),
-              remote: true, data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
+              data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
       -# .ui.dropdown.item
       -#   - if @subclass
       -#     %b= t("medium.subclasses.#{@subclass}")
@@ -54,12 +54,12 @@
         %i.dropdown.icon
         .menu.uk-height-medium.uk-overflow-auto
           = link_to(t(:filter_by_resource_any_item),
-            page_media_path(page_id: @page.id, subclass: @subclass, license: @license, resource_id: nil),
-            remote: true, data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
+            page_media_path(page_id: @page.id, subclass: @subclass, license: @license, resource_id: nil), 
+              data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
           -# TODO: Cache or use autocomplete or ... something. :S
           - @resources.each do |resource|
             = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass: @subclass, resource_id: resource.id),
-              remote: true, data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
+              data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
   %div{ class: "uk-visible@m" }
     -# TODO: if the counting done by paginate is too expensive, use rails cache to store counts
     = paginate @media
