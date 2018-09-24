@@ -1,3 +1,6 @@
+- if !local_assigns.has_key? :page
+  - page = nil
+  
 %ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
   - media_ids = media.map { |image| "image_modal_#{image.id}" }
   - media.each_with_index do |image, index|
@@ -16,7 +19,7 @@
               .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
-                  = link_to(medium_name_html(image), link_path)
+                  = link_to(medium_name_html(image, page), link_path)
                   .ui.label= image.license.try(:name)
                   %br
                   %i.copyright.icon

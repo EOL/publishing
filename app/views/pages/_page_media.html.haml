@@ -65,7 +65,7 @@
     = paginate @media
   -# If you want the list to be sortable:
   -# %ul.uk-child-width-1-6.uk-grid-small{ uk: { grid: true, sortable: "handle: .uk-sortable-handle" } }
-  = render("media/grid", media: @media)
+  = render("media/grid", media: @media, page: @page)
   -# TODO: remote isn't working. I don't have time to figure out why, right now.
   -# = paginate @media, remote: true, total_pages: total_pages
   = paginate @media

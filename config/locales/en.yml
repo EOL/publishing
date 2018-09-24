@@ -481,10 +481,15 @@ en:
   medium:
     untitled:
       image: "Untitled image"
+      image_of: "Image of %{page_name}"
       video: "Untitled video"
+      video_of: "Image of %{page_name}"
       sound: "Untitled sound"
+      sound_of: "Sound of %{page_name}"
       map: "Untitled map"
+      map_of: "Map of %{page_name}"
       js_map: "Untitled interactive map"
+      js_map_of: "Interactive map of %{page_name}"
     subclasses:
       image: "image"
       video: "video"
