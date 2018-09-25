@@ -110,7 +110,6 @@ class Node
           log.log("MediaContentCreator for #{group.size} pages (starting with #{group.first})...", cat: :starts)
           # NOTE: skipping counts here because we are better-suited to do it ourselves!
           MediaContentCreator.by_resource(resource, clause: { id: group }, skip_counts: true)
-          # TODO:  "data_count" ... Skipping this for now because I'm skipping traits.
 
           #  ...Skipping these for now because it's expensive and not terribly useful:
           # TODO: "vernaculars_count"
