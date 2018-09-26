@@ -327,6 +327,7 @@ private
       media = media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
-    @media = media.by_page(params[:page]).per(@media_page_size)
+    @media_count = media.limit(1000).count
+    @media = media.by_page(params[:page]).per(@media_page_size).without_count
   end
 end
