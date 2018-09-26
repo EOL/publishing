@@ -300,8 +300,10 @@ private
       @licenses = License.all.pluck(:name).uniq.sort
       @subclasses = Medium.subclasses.keys.sort
       # List of resources, as of Jul 2018 (query takes about 32 seconds), that HAVE images, i.e.:
-      # Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id) # NOTE: delete the [0].
-      resource_ids = [2, 4, 8, 9, 10, 11, 12, 46, 53, 181, 395, 410, 416, 417, 418, 420, 459, 461, 462, 463, 464, 465, 468, 469, 470, 475]
+      # a = Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id).sort
+      # a.delete(0) ; puts a.join(',')
+      resource_ids = [2,4,8,9,10,11,12,14,46,53,181,395,410,416,417,418,420,459,461,462,463,464,465,468,469,470,474,475,
+        481,486,493,494,495,496,507,508]
       @resources = Resource.where(id: resource_ids).select('id, name').sort_by { |r| r.name.downcase }
     else
       @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
