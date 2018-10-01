@@ -90,13 +90,14 @@ class Publishing::Fast
     @relationships = {
       Referent => {},
       Node => { parent_id: Node },
+      BibliographicCitation => { },
       Identifier => { node_id: Node },
       ScientificName => { node_id: Node },
       NodeAncestor => { node_id: Node, ancestor_id: Node },
       Vernacular => { node_id: Node },
       # Yes, really, there is no link to nodes or pages on Article or Medium; these are managed with PageContent.
-      Article => {},
-      Medium => {},
+      Article => { bibliographic_citation_id: BibliographicCitation },
+      Medium => { bibliographic_citation_id: BibliographicCitation },
       Attribution => { content_id: [Medium, Article] }, # Polymorphic implied with array.
       ImageInfo => { medium_id: Medium },
       Reference => { referent_id: Referent }, # The polymorphic relationship is handled specially.
