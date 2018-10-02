@@ -6,7 +6,7 @@ module Eol
       end
 
       def marine
-        'http://purl.obolibrary.org/obo/ENVO_01000024'
+        "http://purl.obolibrary.org/obo/ENVO_00000447"
       end
 
       def extinction
