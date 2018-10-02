@@ -43,6 +43,9 @@
     %dl.attributions
       - source_page_url = content.respond_to?(:source_page_url) && content.source_page_url
       - source_url = content.respond_to?(:source_url) && content.source_url
+      - if content.is_a?(Article) # Sigh... articles are backwards. We should fix that in the DB...
+        - source_page_url = source_url
+        - source_url = nil
       - source = source_page_url || source_url
       - if source
         %dt= t("content_attributions_labels.view_source_label")
