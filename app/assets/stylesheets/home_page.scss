@@ -6,12 +6,11 @@ body {
 
 
 .home-head {
-  background: $black;
   overflow: hidden;
   padding-top: 40px;
 
   & > h2 {
-    color: $white;
+    color: $eol-logo-blue;
     font-size: 24px;
     font-weight: normal;
     margin: 0 auto;
