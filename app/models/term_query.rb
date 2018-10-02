@@ -40,6 +40,14 @@ class TermQuery < ActiveRecord::Base
     "&&TermQuery.new(#{attrs.join(',')}) "
   end
 
+  def to_cache_key
+    parts = ["term_query"]
+    parts << "clade_#{clade_id}" if clade_id
+    parts << filters.map(&:to_cache_key).join('/') unless filters.empty?
+    parts << "type_#{result_type}"
+    parts.join('/')
+  end
+
   # NOTE: this method is never called; it's used in a console.
   def run(options = {})
     options.reverse_merge(per: 10, page: 1, result_type: :record) # Smaller number for console testing.

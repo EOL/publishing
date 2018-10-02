@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180914170841) do
+ActiveRecord::Schema.define(version: 20181001182258) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -67,7 +67,10 @@ ActiveRecord::Schema.define(version: 20180914170841) do
     t.text     "body",        limit: 65535
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "harv_db_id",  limit: 4
   end
+
+  add_index "bibliographic_citations", ["harv_db_id"], name: "index_bibliographic_citations_on_harv_db_id", using: :btree
 
   create_table "changes", force: :cascade do |t|
     t.integer  "user_id",       limit: 4

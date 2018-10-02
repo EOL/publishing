@@ -56,6 +56,17 @@ class TermQueryFilter < ActiveRecord::Base
     "{#{pieces.join(',')}}"
   end
 
+  def to_cache_key
+    pieces = []
+    pieces << "op_#{op}"
+    pieces << "pred_uri_#{pred_uri}"
+    pieces << "obj_uri_#{obj_uri}" unless obj_uri.blank?
+    pieces << "units_uri_#{units_uri}'" unless units_uri.blank?
+    pieces << "num_val1_#{num_val1}" unless num_val1.blank?
+    pieces << "num_val1_#{num_val2}" unless num_val2.blank?
+    pieces.join('/')
+  end
+
   private
   def numeric_or_range?
     numeric? || range?

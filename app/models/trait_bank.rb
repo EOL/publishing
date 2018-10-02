@@ -309,32 +309,49 @@ class TraitBank
       end
     end
 
+    # Call this with an option of cache: false if you want to skip caching the RESULTS. Result counts will ALWAYS be
+    # cached.
     def term_search(term_query, options={})
-      key = nil # scope
+      key = term_query.to_cache_key
       if options[:count]
-        key = "trait_bank/term_search/counts/#{term_query}"
+        key = "trait_bank/term_search/counts/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
-          Rails.logger.warn("&&TS USING cached count: #{key} = #{count}")
+          Rails.logger.warn("&& TS USING cached count: #{key} = #{count}")
           return count
         end
+      else
+        options.each do |k, v|
+          key += "/#{k}_#{v}"
+        end
       end
+      if options.key?(:cache) && !options[:cache]
+        term_seach_uncached(term_query, key, options)
+      else
+        Rails.cache.fetch(key) do
+          term_seach_uncached(term_query, key, options)
+        end
+      end
+    end
+
+    def term_seach_uncached(term_query, key, options)
       q = if term_query.record?
-            term_record_search(term_query, options)
-          else
-            term_page_search(term_query, options)
-          end
+        term_record_search(term_query, options)
+      else
+        term_page_search(term_query, options)
+      end
 
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
       q = "#{q} "\
-          "#{limit_and_skip}"
+      "#{limit_and_skip}"
       res = query(q)
 
+      Rails.logger.warn("&& TS SAVING Cache: #{key}")
       if options[:count]
-        raise "&&TS Lost key" if key.blank?
+        raise "&& TS Lost key" if key.blank?
         count = res["data"] ? res["data"].first.first : 0
         Rails.cache.write(key, count, expires_in: 1.day)
-        Rails.logger.warn("&&TS SAVING Cached count: #{key} = #{count}")
+        Rails.logger.warn("&& TS SAVING Cached count: #{key} = #{count}")
         count
       else
         { data: build_trait_array(res), raw_query: q, raw_res: res }

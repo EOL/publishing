@@ -1,56 +1,59 @@
 - open_row = defined?(open_row) ? open_row : false
-%li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }
-  - pages = [] unless local_assigns.has_key?(:pages)
-  - page_id = trait[:page_id]
+- key = "trait_bank/data_row#{'/open' if open_row}#{'/show_taxon' if show_taxon}/#{trait[:id]}"
+- cache(key) do
+  - Rails.logger.info("&& TB Cached #{key}")
+  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }
+    - pages = [] unless local_assigns.has_key?(:pages)
+    - page_id = trait[:page_id]
 
-  - if !local_assigns.has_key?(:page)
-    - page = page_id ? pages[page_id] : nil
-  - if show_taxon && page
-    .trait-thumb
-      - show_data_page_icon page
-  - predicate = trait[:predicate]
-
-  .trait-source= show_source_segment(trait)
-  .trait-data
+    - if !local_assigns.has_key?(:page)
+      - page = page_id ? pages[page_id] : nil
     - if show_taxon && page
-      = link_to(page.scientific_name.html_safe, page)
-    %div
-      .trait-pred.term-info-a.a= predicate[:name]
-      = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
-    .trait-val
-      - show_data_value(trait)
-      - if trait[:object_term]
-        = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true, :pred_uri => trait[:predicate][:uri] }
-    - modifier_content = modifier_txt(trait)
-    - if modifier_content
-      .trait-mod= modifier_txt(trait)
-  - if (trait[:metadata] && trait[:metadata].any?) || (open_row && (trait[:source] || trait[:scientific_name] || page))
-    %ul.meta-items.js-meta-items
-      - Array(trait[:metadata]).each do |datum|
-        -# Skip duplicated source:
-        - next if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
-        %li.meta-item
-          %div
-            .meta-pred.a= datum[:predicate][:name]
-            = render :partial => "terms/desc_meta", :locals => { :term => datum[:predicate], :search_link => false }
-          .meta-val
-            - show_data_value(datum)
-            - if datum[:object_term]
-              = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
-      - if trait[:source]
-        %li.meta-item
-          .meta-pred= t("terms.source")
-          - is_uri = URI.parse(trait[:source]).kind_of?(URI::HTTP) rescue nil
-          .meta-val= is_uri ? link_to(trait[:source], trait[:source]) : trait[:source]
-      - if trait[:scientific_name]
-        %li.meta-item
-          .meta-pred= t("terms.scientific_name")
-          .meta-val= trait[:scientific_name].html_safe
-      - if page
-        %li.meta-item
-          .meta-pred= t("terms.record_url")
-          - url = "#{page_data_url(page)}#trait_id=#{trait[:id]}"
-          .meta-val= link_to url, url
-    %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
-  - else
-    %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw
+      .trait-thumb
+        - show_data_page_icon page
+    - predicate = trait[:predicate]
+
+    .trait-source= show_source_segment(trait)
+    .trait-data
+      - if show_taxon && page
+        = link_to(page.scientific_name.html_safe, page)
+      %div
+        .trait-pred.term-info-a.a= predicate[:name]
+        = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
+      .trait-val
+        - show_data_value(trait)
+        - if trait[:object_term]
+          = render :partial => "terms/desc_meta", :locals => { :term => trait[:object_term], :search_link => true, :pred_uri => trait[:predicate][:uri] }
+      - modifier_content = modifier_txt(trait)
+      - if modifier_content
+        .trait-mod= modifier_txt(trait)
+    - if (trait[:metadata] && trait[:metadata].any?) || (open_row && (trait[:source] || trait[:scientific_name] || page))
+      %ul.meta-items.js-meta-items
+        - Array(trait[:metadata]).each do |datum|
+          -# Skip duplicated source:
+          - next if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
+          %li.meta-item
+            %div
+              .meta-pred.a= datum[:predicate][:name]
+              = render :partial => "terms/desc_meta", :locals => { :term => datum[:predicate], :search_link => false }
+            .meta-val
+              - show_data_value(datum)
+              - if datum[:object_term]
+                = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
+        - if trait[:source]
+          %li.meta-item
+            .meta-pred= t("terms.source")
+            - is_uri = URI.parse(trait[:source]).kind_of?(URI::HTTP) rescue nil
+            .meta-val= is_uri ? link_to(trait[:source], trait[:source]) : trait[:source]
+        - if trait[:scientific_name]
+          %li.meta-item
+            .meta-pred= t("terms.scientific_name")
+            .meta-val= trait[:scientific_name].html_safe
+        - if page
+          %li.meta-item
+            .meta-pred= t("terms.record_url")
+            - url = "#{page_data_url(page)}#trait_id=#{trait[:id]}"
+            .meta-val= link_to url, url
+      %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
+    - else
+      %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw
