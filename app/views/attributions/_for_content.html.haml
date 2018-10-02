@@ -41,7 +41,8 @@
         %dd= attribution.value.html_safe
   %div.uk-margin-remove-top
     %dl.attributions
-      - source = content&.source_page_url || content&.source_url
+      - source = content.respond_to?(:source_page_url) && content.source_page_url
+      - source ||= content.respond_to?(:source_url) && content.source_url
       - if source
         %dt= t("content_attributions_labels.view_source_label")
         %dd= link_to(t("content_attributions_labels.view_source_link"), source)
