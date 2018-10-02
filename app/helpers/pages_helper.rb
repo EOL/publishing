@@ -116,9 +116,8 @@ module PagesHelper
   end
 
   def summarize(page, options = {})
-    node = options[:node] || page.native_node || page.nodes.first
     page_id = page ? page.id : node.page_id
-    name = options[:node] ? node.name : name_for_page(page)
+    name = options[:node] ? options[:node].name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
         haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
