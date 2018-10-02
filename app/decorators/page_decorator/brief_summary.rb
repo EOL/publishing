@@ -1,9 +1,7 @@
 # At the time of writing, this was an implementation of
 # https://github.com/EOL/eol_website/issues/5#issuecomment-397708511 and
 # https://github.com/EOL/eol_website/issues/5#issuecomment-402848623
-
-# TODO: this really shouldn't be a model since it does things like generate links. Not sure where to put it yet, thought.
-class BriefSummary
+class PageDecorator::BriefSummary
   attr_accessor :view
 
   def initialize(page, view)
