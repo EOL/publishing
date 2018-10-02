@@ -35,12 +35,6 @@ module PagesHelper
       end
   end
 
-  def cached_summary(page)
-    Rails.cache.fetch("brief_summary/#{page.id}") do
-      BriefSummary.new(page).english # TODO: Someday we need to I18n this. ...somehow.
-    end
-  end
-
   # Options: icon, count, path, name, active
   def large_tab(options)
     text = t("pages.tabs.#{options[:name]}")
