@@ -41,10 +41,11 @@
         %dd= attribution.value.html_safe
   %div.uk-margin-remove-top
     %dl.attributions
-      - if content.respond_to?(:source_page_url) && content.source_page_url
+      - source = content&.source_page_url || content&.source_url
+      - if source
         %dt= t("content_attributions_labels.view_source_label")
-        %dd= link_to(t("content_attributions_labels.view_source_link"), content.source_url)
-        %dd= link_to(t("content_attributions_labels.view_source_page_link"), content.source_page_url)
+        %dd= link_to(t("content_attributions_labels.view_source_link"), source)
+        %dd= link_to(t("content_attributions_labels.view_source_page_link"), source)
       %dt= t("content_attributions_labels.resource_label")
       %dd
         - if content.resource
