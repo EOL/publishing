@@ -4,18 +4,26 @@ body {
   background-color: $navbar-light-gray;
 }
 
-h1 {
-  color: $eol-logo-blue;
-  font-size: 28px;
-  margin: 10px 0;
-  text-align: center;
-}
 
-h2 {
-  font-size: 14px;
-  margin: 20px 0;
-  padding: 0;
-  text-align: center;
+.home-head {
+  background: $black;
+  overflow: hidden;
+  padding-top: 40px;
+
+  & > h2 {
+    color: $white;
+    font-size: 24px;
+    font-weight: normal;
+    margin: 0 auto;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  & > img {
+    display: block;
+    margin: 0 auto;
+    width: 135px;
+  }
 }
 
 .feed {

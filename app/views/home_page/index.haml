@@ -1,5 +1,6 @@
 .home
-  %h1= t("landing_page.title")
-  %h2= t("landing_page.header")
+  .home-head
+    = image_tag "large_logo.png"
+    %h2= t("landing_page.header")
   = render "main_feed"
   = render "partner_feed"
