@@ -169,7 +169,7 @@ en:
     spatial_location: "spatial"
     view_source_label: "original"
     view_source_link: "view original image"
-    view_source_page_link: "view source material"
+    view_source_page_link: "visit source"
   content_not_in_any_collection_image: "This image is not featured in any collections."
   content_not_in_any_collection_sound: "This sound is not featured in any collections."
   content_not_in_any_collection_video: "This video is not featured in any collections."

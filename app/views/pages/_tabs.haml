@@ -27,8 +27,6 @@
         - basic_button("plus", t("pages.actions.collect"), dest, no_margin: true)
   %ul.tabs
     - tab("overview", page_path(@page))
-    - if @page.articles.size > 0
-      - tab("detail", page_details_path(@page))
     - if @page.has_data?
       - tab("data", page_data_path(@page))
     - if @page.media_count > 0
