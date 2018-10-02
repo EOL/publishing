@@ -10,7 +10,7 @@ class PageDecorator < Draper::Decorator
   end
 
   def cached_summary
-    Rails.cache.fetch("brief_summary/#{id}") do
+    Rails.cache.fetch("pages/#{id}/brief_summary") do
       BriefSummary.new(object, h).english # TODO: Someday we need to I18n this. ...somehow.
     end
   end

@@ -26,6 +26,10 @@ module Eol
       end
     end
 
+    def marine
+      'http://purl.obolibrary.org/obo/ENVO_00000447'
+    end
+
     module Iucn
       class << self
         def status

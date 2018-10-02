@@ -1,13 +1,15 @@
-- summary = @page.cached_summary.html_safe
+- summary = @page.cached_summary
 
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
 .l-flex
   %div{ :class => (@page.medium ? "l-left-col" : "l-overview-full") }
-    - if !summary.blank? || @page.has_data?
+    - if !summary.sentence.blank? || @page.has_data?
       .desc
-        - if !summary.blank?
-          %p= summary
+        - if !summary.sentence.blank?
+          %p= summary.sentence.html_safe
+          - summary.terms.each do |term|
+            = render "terms/desc_meta", term: term.obj, pred_uri: term.pred_uri, toggle: term.toggle_selector, search_link: true
         - if @page.has_data?
           %p= t(".eol_has_data_for_n_attributes_html", :count => @page.data_count, data_path: page_data_path(@page))
     -if @page.key_data.any?
