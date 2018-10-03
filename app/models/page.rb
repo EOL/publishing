@@ -624,7 +624,7 @@ class Page < ActiveRecord::Base
 
   def recount
     [ "page_contents", "media", "articles", "links", "maps",
-      "data", "nodes", "vernaculars", "scientific_names", "referents"
+      "nodes", "vernaculars", "scientific_names", "referents"
     ].each do |field|
       update_column("#{field}_count".to_sym, send(field).count)
     end
