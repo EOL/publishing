@@ -12,7 +12,7 @@ class Service::CypherController < ServicesController
     return unless authorize_user_from_token!
     cypher = params[:query]
     format = params[:format]
-    format = "json" unless format != nil
+    format = "cypher" unless format != nil
 
     if cypher == nil
       render_bad_request(title: "Missing a 'query' parameter.")
@@ -24,7 +24,7 @@ class Service::CypherController < ServicesController
       render_unauthorized(title: "You are not authorized to use this Cypher command.")
     elsif cypher =~ /\b(limit)\b/i
       case format
-      when "json" then
+      when "cypher" then
         render json: TraitBank.query(cypher)
       when "csv" then
         self.content_type = 'text/csv'

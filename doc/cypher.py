@@ -19,7 +19,7 @@ def doit(tokenfile, server, query, queryfile, format):
     with open(tokenfile, 'r') as infile:
         api_token = infile.read().strip()
     url = "%s/service/cypher" % server.rstrip('/')
-    if format == None: format = "json"
+    if format == None: format = "cypher"
     data = {"query": query, "format": format}
     r = requests.get(url,
                      stream=(format=="csv"),
