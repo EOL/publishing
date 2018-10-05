@@ -2,6 +2,7 @@ class CollectionAssociationsController < ApplicationController
   layout "application"
 
   def new
+    redirect_to new_user_session_path unless current_user
     @collection_association = CollectionAssociation.new(new_associated_params)
     @associated = @collection_association.associated
     @collection = Collection.new
