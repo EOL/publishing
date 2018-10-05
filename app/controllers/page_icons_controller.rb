@@ -1,6 +1,6 @@
 class PageIconsController < ApplicationController
   def create
-    redirect_to new_user_session_path unless signed_in?
+    return redirect_to new_user_session_path unless signed_in?
     authorize :page_icon, :create?
     PageIcon.create(icon_params.merge(user_id: current_user.id))
     medium = Medium.find(icon_params[:medium_id])
