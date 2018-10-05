@@ -602,8 +602,7 @@ class Page < ActiveRecord::Base
       ].include?(v)
       remove_instance_variable(v)
     end
-    medium = media.first
-    medium_id = medium.id
+    medium_id = media.first&.id
     save # NOTE: this calls "reindex" so no need to do that here.
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
