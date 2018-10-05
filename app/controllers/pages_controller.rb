@@ -160,7 +160,7 @@ class PagesController < ApplicationController
     expire_fragment(page_data_path(@page))
     expire_fragment(page_details_path(@page))
     expire_fragment(page_classifications_path(@page))
-    Rails.cache.delete("brief_summary/#{page.id}")
+    Rails.cache.delete("brief_summary/#{@page.id}")
     flash[:notice] = t("pages.flash.reindexed")
     redirect_to page_overview_path(@page)
   end
