@@ -585,14 +585,13 @@ class Page < ActiveRecord::Base
   def clear
     clear_caches
     recount
-    data # Just to load them
     iucn_status = nil
     iucn_status_key
     geographic_context = nil
     habitats
     has_checked_marine = nil
     has_checked_extinct = nil
-    score_richness
+    # TODO: (for now) score_richness
     instance_variables.each do |v|
       # Skip Rails variables:
       next if [
@@ -603,7 +602,9 @@ class Page < ActiveRecord::Base
       ].include?(v)
       remove_instance_variable(v)
     end
-    reindex
+    medium = media.first
+    medium_id = medium.id
+    save # NOTE: this calls "reindex" so no need to do that here.
     # TODO: we should also re-index all of the page_contents by checking direct
     # relationships to this page and its children. (I think this is better than
     # descendants; if you want to do an entire tree, that should be another
