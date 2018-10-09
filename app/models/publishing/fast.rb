@@ -148,6 +148,10 @@ class Publishing::Fast
       log_start('#propagate_reference_ids')
       propagate_reference_ids
       clean_up
+      if page_contents_required?
+        log_start('#fix_missing_icons (just to be safe)')
+        Page.fix_missing_icons
+      end
     rescue => e
       @log.fail(e)
     ensure
