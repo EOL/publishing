@@ -39,7 +39,10 @@ en:
   clade_placeholder: "clade …"
   classifications:
     children:
-      header: "%{name} includes:"
+      header_html:
+        one: "%{name} includes <a href=\"%{names_path}\">%{count} child</a>:"
+        other: "%{name} includes <a href=\"%{names_path}\">%{count} children</a>:"
+      see_more: "see more"
       too_many_children:
         one: "Too many children (%{count}) to show."
         other: "Too many children (%{count}) to show."
