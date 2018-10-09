@@ -53,6 +53,10 @@ module Eol
           nil
         end
 
+        def code_to_uri(code)
+          @@codes[code]
+        end
+
         @@codes.each do |code, uri|
           define_method(code) do
             uri

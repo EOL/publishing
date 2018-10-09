@@ -1,6 +1,9 @@
 # At the time of writing, this was an implementation of
 # https://github.com/EOL/eol_website/issues/5#issuecomment-397708511 and
 # https://github.com/EOL/eol_website/issues/5#issuecomment-402848623
+
+require "set"
+
 class PageDecorator::BriefSummary
   attr_accessor :view
 
@@ -34,6 +37,8 @@ class PageDecorator::BriefSummary
     LandmarkChildLimit = 3
     Result = Struct.new(:sentence, :terms)
     ResultTerm = Struct.new(:pred_uri, :obj, :toggle_selector)
+
+    IucnKeys = Set[:en, :cr, :ew, :nt, :vu]
     
     # [name clause] is a[n] [A1] in the family [A2].
     def species
@@ -48,9 +53,15 @@ class PageDecorator::BriefSummary
         # sentence: [name clause] is a[n] [A1].
         @sentences << "#{name_clause} is a species of #{what}."
       end
+
+      if is_it_extinct?
+        handle_term("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
+      elsif IucnKeys.include? @page.iucn_status_key.to_sym
+        handle_iucn @page.iucn_status_key.to_sym
+      end
+
       # If the species [is extinct], insert an extinction status sentence between the taxonomy sentence
       # and the distribution sentence. extinction status sentence: This species is extinct.
-      handle_term("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct) if is_it_extinct?
 
       # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
       # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
@@ -83,7 +94,7 @@ class PageDecorator::BriefSummary
     end
 
     def landmark_children
-      children = @page.native_node.landmark_children(LandmarkChildLimit)
+      children = @page.native_node&.landmark_children(LandmarkChildLimit) || []
 
       if children.any?
         taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
@@ -250,7 +261,19 @@ class PageDecorator::BriefSummary
     end
 
     def term_toggle_id(term_name)
-      "brief-summary-#{term_name}"
+      "brief-summary-#{term_name.gsub(/\s/, "-")}"
+    end
+
+    def handle_iucn(code)
+      uri = Eol::Uris::Iucn.code_to_uri(code)
+      code_term = TraitBank.term_as_hash(uri)
+
+      handle_term(
+        "It is listed as %s by IUCN.", 
+        code_term[:name], 
+        Eol::Uris::Iucn.status,
+        uri
+      )
     end
 
     def handle_term(format_str, label, pred_uri, obj_uri)
