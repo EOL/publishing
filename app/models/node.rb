@@ -77,4 +77,15 @@ class Node < ActiveRecord::Base
       end
     end
   end
+
+  def landmark_children(limit=10)
+    children.where(landmark: [
+      Node.landmarks[:minimal],
+      Node.landmarks[:abbreviated],
+      Node.landmarks[:extended],
+      Node.landmarks[:full]
+    ])
+    .order(:landmark)
+    .limit(limit)
+  end
 end

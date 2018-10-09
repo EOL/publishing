@@ -25,10 +25,13 @@ class PageDecorator::BriefSummary
       end
     end
 
+    landmark_children
+
     Result.new(@sentences.join(' '), @terms)
   end
 
   private
+    LandmarkChildLimit = 3
     Result = Struct.new(:sentence, :terms)
     ResultTerm = Struct.new(:pred_uri, :obj, :toggle_selector)
     
@@ -52,7 +55,7 @@ class PageDecorator::BriefSummary
       # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
       # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
       # extinction status sentence and the environment sentence, with the extinction status sentence first.
-      handle_term("It is %s.", "marine", Eol::Uris.environment, Eol::Uris.marine) if is_it_marine?
+      handle_term("It is found in %s.", "marine habitat", Eol::Uris.environment, Eol::Uris.marine) if is_it_marine?
 
       # Distribution sentence: It is found in [G1].
       @sentences << "It is found in #{g1}." if g1
@@ -77,6 +80,15 @@ class PageDecorator::BriefSummary
     # Rosaceae (rose family) is a family of plants.
     def family
       @sentences << "#{name_clause} is a family of #{a1}."
+    end
+
+    def landmark_children
+      children = @page.native_node.landmark_children(LandmarkChildLimit)
+
+      if children.any?
+        taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
+        @sentences << "#{name_clause} includes groups like #{taxa_links.to_sentence}."
+      end
     end
 
     # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
