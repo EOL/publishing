@@ -1,3 +1,4 @@
+# 20180814195851
 class CreateCronoJobs < ActiveRecord::Migration
   def self.up
     create_table :crono_jobs do |t|
