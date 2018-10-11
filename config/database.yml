@@ -3,7 +3,7 @@
 # common settings for all databases
 common: &common
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
   reconnect: true
   wait_timeout: 300
   local_infile: true
