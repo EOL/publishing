@@ -52,14 +52,14 @@ class TraitBank
 
       # Your gun, your foot: USE CAUTION. This erases EVERYTHING irrevocably.
       def nuclear_option!
-        query("MATCH (n) DETACH DELETE n")
+        remove_with_query(name: :n, q: "(n)")
       end
 
       def remove_all_data_leave_terms
-        query("MATCH (meta:MetaData) DETACH DELETE meta")
-        query("MATCH (trait:Trait) DETACH DELETE trait")
-        query("MATCH (page:Page) DETACH DELETE page")
-        query("MATCH (res:Resource) DETACH DELETE res")
+        remove_with_query(name: :meta, q: "(meta:MetaData)")
+        remove_with_query(name: :trait, q: "(trait:Trait)")
+        remove_with_query(name: :page, q: "(page:Page)")
+        remove_with_query(name: :res, q: "(res:Resource)")
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
@@ -84,7 +84,7 @@ class TraitBank
           res = query("MATCH #{q} WITH #{name} LIMIT 10000 DETACH DELETE #{name}")
           iters -= 1
           raise "I have been attempting to delete #{name} data for too many iterations. Aborting." if iters <= -20
-          break if (iters <= 0 && count_type_for_resource <= 0)
+          break if (iters <= 0 && count_type_for_resource(name, q) <= 0)
         end
       end
 
@@ -95,27 +95,22 @@ class TraitBank
       # NOTE: this code is unused, but please don't delete it; we call it manually.
       def delete_terms_in_domain(domain)
         before = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
-        query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' DETACH DELETE term")
-        after = query("MATCH (term:Term) WHERE term.uri =~ '#{domain}.*' RETURN COUNT(term)")["data"].first.first
-        raise "Not all were deleted (before: #{before}, after: #{after})" if after.positive?
+        remove_with_query(name: :term, q: "(term:Term) WHERE term.uri =~ '#{domain}.*'")
         before
       end
 
       def delete_terms_with_no_relationships
-        raise "Naw."
-        # TODO: write this. I don't want to run it... there are way too many terms, I'm scare it will break s/t.
-        puts query(%{MATCH (term:Term) WHERE NOT ()-->(term) AND NOT (term)-->() RETURN term.uri LIMIT 1000})["data"]
-        puts query(%{MATCH (term:Term) WHERE NOT ()-->(term) AND NOT (term)-->() RETURN COUNT(term)})
+        raise "Naw." # TODO: See if this works properly (in a test graph), then remove this line.
+        remove_with_query(name: :term, q: "(term:Term) WHERE NOT ()-->(term) AND NOT (term)-->()")
       end
 
-      # AGAIN! Use CAUTION. This is intended to DELETE all parent relationships
-      # between pages, and then rebuild them based on what's currently in the
-      # database. It skips relationships to pages that are missing (but reports on
-      # which those are), and it does not repeat any relationships. It takes a
-      # about a minute per 3000 nodes on jrice's machine.
+      # AGAIN! Use CAUTION. This is intended to delete all parent relationships between pages, and then rebuild them
+      # based on what's currently in the database. It skips relationships to pages that are missing (but reports on
+      # which those are), and it does not repeat any relationships. It takes a about a minute per 3000 nodes on jrice's
+      # machine.
       def rebuild_hierarchies!
-        query("MATCH (:Page)-[parent:parent]->(:Page) DELETE parent")
-        query("MATCH (:Page)-[in_clade:in_clade]->(:Page) DELETE in_clade")
+        remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
+        remove_with_query(name: :in_clade, q: "(:Page)-[in_clade:in_clade]->(:Page)")
         missing = {}
         related = {}
         # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
