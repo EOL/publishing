@@ -19,8 +19,8 @@ class TraitBank
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
-      begin
-        results = connection.execute_query(q)
+      results = begin
+        connection.execute_query(q)
         stop = Time.now
       rescue Excon::Error::Socket => e
         Rails.logger.error("Connection refused on query: #{q}")

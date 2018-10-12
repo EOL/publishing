@@ -64,11 +64,32 @@ class TraitBank
       end
 
       def remove_for_resource(resource)
-        query("MATCH (meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->"\
-          "(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait, meta")
-        # Also need to remove traits with no metadata!
-        query("MATCH (trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} }) DETACH DELETE trait")
+        remove_with_query(
+          name: :meta,
+          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
+        remove_with_query(
+          name: :trait,
+          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+        )
         Rails.cache.clear # Sorry, this is easiest. :|
+      end
+
+      def remove_with_query(options = {})
+        name = options[:name]
+        q = options[:q]
+        count = count_type_for_resource(name, q)
+        iters = (count / 10_000.0).ceil
+        loop do
+          res = query("MATCH #{q} WITH #{name} LIMIT 10000 DETACH DELETE #{name}")
+          iters -= 1
+          raise "I have been attempting to delete #{name} data for too many iterations. Aborting." if iters <= -20
+          break if (iters <= 0 && count_type_for_resource <= 0)
+        end
+      end
+
+      def count_type_for_resource(name, q)
+        query("MATCH #{q} RETURN COUNT(#{name})")['data']&.first&.first
       end
 
       # NOTE: this code is unused, but please don't delete it; we call it manually.
