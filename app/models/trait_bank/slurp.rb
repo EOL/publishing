@@ -19,7 +19,8 @@ class TraitBank::Slurp
       repo = Repository.new(resource)
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       config = load_csv_config(resource.id, single_resource: true)
-      load_csv(resource.meta_traits_file, config[resource.meta_traits_file])
+      basename = File.basename(resource.meta_traits_file)
+      load_csv(basename, config[basename])
       # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
       resource.remove_traits_files
