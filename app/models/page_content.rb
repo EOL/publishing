@@ -57,4 +57,24 @@ class PageContent < ActiveRecord::Base
     end
     puts "++ Done."
   end
+
+  def self.export_for_ordering
+    collection_num = 1
+    collection = []
+    where('content_type = "Medium" AND page_id IS NOT NULL').includes(:content).find_each do |item|
+        collection << [item.content_id, item.page_id, item.content.source_url, item.position]
+        flush_collection(collection, collection_num) if collection.size > 10_000
+      end
+    flush_collection(collection)
+  end
+
+  def self.flush_collection(collection, collection_num)
+    require 'csv'
+    CSV.open(Rails.root.join('public', "images_for_sorting_#{collection_num}.csv"), 'wb') do |csv|
+      csv << %w[eol_pk page_id source_url position]
+      collection.each { |row| csv << row }
+    end
+    collection = []
+    collection_num += 1
+  end
 end
