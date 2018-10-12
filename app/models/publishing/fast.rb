@@ -33,9 +33,7 @@ class Publishing::Fast
   def initialize(resource, log = nil)
     @start_at = Time.now
     @resource = resource
-    repo_url = Rails.application.secrets.repository['url']
-    @repo_site = URI(repo_url)
-    @repo_is_on_this_host = repo_url =~ /(128\.0\.0\.1|localhost)/
+    @repo = Repository.new(resource, log)
     @log = log # Okay if it's nil.
     @files = []
   end
@@ -50,8 +48,8 @@ class Publishing::Fast
     new_log
     begin
       plural = @klass.table_name
-      unless exists?("#{plural}.tsv")
-        raise("#{repo_file_url("#{plural}.tsv")} does not exist! Are you sure the resource has successfully finished harvesting?")
+      unless @repo.exists?("#{plural}.tsv")
+        raise("#{@repo.file_url("#{plural}.tsv")} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
       log_start("Updating attribute #{field} (#{pos}) for #{plural}")
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
@@ -112,8 +110,8 @@ class Publishing::Fast
       log_warn('All existing content has been destroyed for the resource.')
     end
     begin
-      unless exists?('nodes.tsv')
-        raise("#{repo_file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
+      unless @repo.exists?('nodes.tsv')
+        raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
       @relationships.each_key do |klass|
         @klass = klass
@@ -178,28 +176,8 @@ class Publishing::Fast
     end
   end
 
-  def repo_file_url(name)
-    "/data/#{@resource.path}/publish_#{name}"
-  end
-
-  def exists?(name)
-    url = URI.parse(repo_file_url(name))
-    req = Net::HTTP.new(@repo_site.host, @repo_site.port)
-    res = req.request_head(url.path)
-    res.code.to_i < 400
-  end
-
   def grab_file(name)
-    url = repo_file_url(name)
-    resp = nil
-    result = Net::HTTP.start(@repo_site.host, @repo_site.port) do |http|
-      resp = http.get(url)
-    end
-    unless result.code.to_i < 400
-      log_warn("MISSING #{@repo_site}#{url} [#{result.code}] (#{resp.size} bytes); skipping")
-      return false
-    end
-    open(@data_file, 'wb') { |file| file.write(resp.body) }
+    open(@data_file, 'wb') { |file| file.write(@repo.file(name)) }
   end
 
   def import
@@ -208,7 +186,7 @@ class Publishing::Fast
     q = ['LOAD DATA']
     # NOTE: "LOCAL" is a strange directive; you only use it when you are REMOTE. ...The intention being, you're telling
     # the remote server "the file I'm talking about is local to me." Confusing at best. I don't like it.
-    q << 'LOCAL' unless @repo_is_on_this_host
+    q << 'LOCAL' unless @repo.is_on_this_host?
     q << "INFILE '#{@data_file}'"
     q << "INTO TABLE `#{@klass.table_name}`"
     q << "(#{cols.join(',')})"
@@ -272,13 +250,7 @@ class Publishing::Fast
   end
 
   def publish_traits
-    @data_file = @resource.traits_file
-    grab_file('traits.tsv')
-    @data_file = @resource.meta_traits_file
-    grab_file('metadata.tsv')
-    TraitBank.create_resource(@resource.id)
-    TraitBank::Slurp.load_csvs(@resource)
-    @resource.remove_traits_files
+    TraitBank::Slurp.load_resource_from_repo(@resource)
   end
 
   def page_contents_required?

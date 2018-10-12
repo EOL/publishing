@@ -6,6 +6,25 @@ class TraitBank::Slurp
     #   TraitBank.query(q)
     # end
 
+    def load_resource_from_repo(resource)
+      repo = Repository.new(resource)
+      repo.copy_file(resource.traits_file, 'traits.tsv')
+      repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
+      TraitBank.create_resource(resource.id)
+      load_csvs(resource)
+      resource.remove_traits_files
+    end
+
+    def load_resource_metadata_from_repo(resource)
+      repo = Repository.new(resource)
+      repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
+      config = load_csv_config(resource.id, single_resource: true)
+      load_csv(resource.meta_traits_file, config[resource.meta_traits_file])
+      # "Touch" the resource so that it looks like it's been changed (it has):
+      resource.touch
+      resource.remove_traits_files
+    end
+
     # Same as load_csvs, the traits file there includes a resource_id column (the last column). This is intended for
     # multi-resource serialized clades.
     def load_full_csvs(id)
