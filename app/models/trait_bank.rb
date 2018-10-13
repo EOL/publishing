@@ -19,17 +19,17 @@ class TraitBank
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
-      results = begin
-        connection.execute_query(q)
+      begin
+        results = connection.execute_query(q)
         stop = Time.now
       rescue Excon::Error::Socket => e
         Rails.logger.error("Connection refused on query: #{q}")
         sleep(0.1)
-        connection.execute_query(q)
+        results = connection.execute_query(q)
       rescue Excon::Error::Timeout => e
         Rails.logger.error("Timed out on query: #{q}")
         sleep(1)
-        connection.execute_query(q)
+        results = connection.execute_query(q)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
