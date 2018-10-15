@@ -116,7 +116,13 @@ module PagesHelper
   end
 
   def summarize(page, options = {})
-    page_id = page ? page.id : node.page_id
+    page_id = if page
+                page.id
+              elsif options[:node]
+                options[:node].page_id
+              else
+                return '[unknown page]'
+              end
     name = options[:node] ? options[:node].name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
@@ -179,7 +185,7 @@ module PagesHelper
     def hierarchy_helper(page, link, mode)
       parts = []
       node = page.native_node || page.nodes.first
-      ancestors = (node ? 
+      ancestors = (node ?
         node.node_ancestors
           .includes(ancestor: [:page])
           .collect(&:ancestor) :
