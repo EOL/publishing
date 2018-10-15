@@ -7,7 +7,7 @@ class Repository
   end
 
   def is_on_this_host?
-    @repo_is_on_this_host ||= repo_url.match(/(128\.0\.0\.1|localhost)/)
+    @repo_is_on_this_host ||= (@repo_site.host == '128.0.0.1' ||  @repo_site.host == 'localhost')
   end
 
   def file_url(name)
