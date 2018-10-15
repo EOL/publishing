@@ -326,15 +326,15 @@ class TraitBank
         end
       end
       if options.key?(:cache) && !options[:cache]
-        term_seach_uncached(term_query, key, options)
+        term_search_uncached(term_query, key, options)
       else
         Rails.cache.fetch(key) do
-          term_seach_uncached(term_query, key, options)
+          term_search_uncached(term_query, key, options)
         end
       end
     end
 
-    def term_seach_uncached(term_query, key, options)
+    def term_search_uncached(term_query, key, options)
       q = if term_query.record?
         term_record_search(term_query, options)
       else
@@ -425,10 +425,9 @@ class TraitBank
       wheres = []
       collects = []
       rows_vars = []
-      use_clade = term_query.clade && ((options[:page] && options[:page].to_i > 1) || !options[:count])
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if use_clade
+      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
