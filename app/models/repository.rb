@@ -39,6 +39,10 @@ class Repository
   end
 
   def log_warn(what)
-    @log.log(what.to_s, cat: :warns)
+    if @log.respond_to?(:log)
+      @log.log(what.to_s, cat: :warns)
+    else
+      puts "!! WARNING: #{what}"
+    end
   end
 end
