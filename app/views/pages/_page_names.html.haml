@@ -14,8 +14,10 @@
             .ui-list
               - accepted = t('scientific_name.status_title.accepted')
               - names_by_res = scientific_names.group_by { |n| n.resource.dwh? ? :dwh : :other }
-              = render "resource_names", status: status, scientific_names: names_by_res[:dwh], accepted: accepted
-              = render "resource_names", status: status, scientific_names: names_by_res[:other], accepted: accepted
+              - if names_by_res[:dwh]
+                = render "resource_names", status: status, scientific_names: names_by_res[:dwh], accepted: accepted
+              - if names_by_res[:other]
+                = render "resource_names", status: status, scientific_names: names_by_res[:other], accepted: accepted
   %h2= t(:vernacular_names_header)
   .uk-grid-small{ uk: { grid: true }, class: 'uk-child-width-1-3@m' }
     - if @page.vernaculars.empty?
