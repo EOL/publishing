@@ -7,7 +7,8 @@
       - names.each do |name|
         - next if name.resource.nil? && name.attribution.blank?
         - note = ''
-        - note += link_to(name.resource.name, name.resource) if name&.resource
-        - note += " #{name.attribution.html_safe}" unless name.attribution.blank?
+        - if name.resource
+          - note += link_to(name.resource.name, name.resource)
+          - note += " #{name.attribution.html_safe}" if name.resource.dwh? && !name.attribution.blank?
         - formatted_names << note
       = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
