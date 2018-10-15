@@ -121,8 +121,9 @@ module PagesHelper
               elsif options[:node]
                 options[:node].page_id
               else
-                return '[unknown page]'
+                nil
               end
+    return('[unknown page]') if page_id.nil?
     name = options[:node] ? options[:node].name : name_for_page(page)
     if options[:current_page]
       haml_tag("b") do
