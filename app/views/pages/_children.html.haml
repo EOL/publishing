@@ -2,7 +2,7 @@
 - node ||= @page.native_node || @page.nodes.first
 - if node && node.children.any?
   .page-children
-    %h4= t("classifications.children.header_html", name: @page.short_name, count: node.children.size, names_path: page_names_path(@page)).html_safe
+    %h4= t("classifications.children.header_html", name: @page.short_name.html_safe, count: node.children.size, names_path: page_names_path(@page)).html_safe
     %ul.page-child-list
       - node.children[0..limit-1].each do |child|
         %li
