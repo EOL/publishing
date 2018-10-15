@@ -500,12 +500,15 @@ class TraitBank
 
       return_clause = "RETURN #{returns.join(", ")}"
 
-      "MATCH #{matches.join(', ')}\n"\
+      q = "MATCH #{matches.join(', ')}\n"\
       "WHERE #{wheres.join(' AND ')}\n"\
       "#{collect_unwind_part}\n"\
       "#{optional_match_part}\n"\
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
+
+      q += "ORDER BY page.page_id " if !options[:count]
+      q
     end
 
     def term_page_search(term_query, options)
