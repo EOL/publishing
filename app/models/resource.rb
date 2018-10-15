@@ -12,6 +12,10 @@ class Resource < ActiveRecord::Base
 
   before_destroy :remove_content
 
+  def dwh?
+    id == Resource.native.id
+  end
+
   class << self
     def native
       Rails.cache.fetch('resources/native') do
