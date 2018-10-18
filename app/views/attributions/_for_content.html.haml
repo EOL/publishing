@@ -2,7 +2,7 @@
   %p.references
     %h4.ui.header= t("content_attributions_labels.references_header", count: content.references.size)
     - if content.references.size > 1
-      %ul.ui.bulleted.list
+      %ul.ui.bulleted.list.uk-margin-remove-top
         - content.references.map(&:referent).compact.each do |reference|
           %li.item= reference.body.html_safe
     - else
