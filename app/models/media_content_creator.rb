@@ -71,10 +71,6 @@ class MediaContentCreator
         end
   end
 
-Article.where("1=1").find_each do |art|
-  art.page_contents.where(["page_id != ?", art.page_id]).delete_all
-end
-
   def add_content(page_id, content, options = {})
     @content_count_by_page[page_id] ||= -1
     @content_count_by_page[page_id] += 1
