@@ -12,7 +12,7 @@
         %td
           = link_to_page_by_name(node.page)
         %td= number_with_delimiter(node.children_count)
-        %td=
+        %td
           - if node.page
             = number_with_delimiter(node.page.page_contents.where(resource_id: @resource.id).count)
           - else
