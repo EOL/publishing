@@ -165,6 +165,9 @@ en:
     publisher: "publisher"
     project: "project"
     provider: "provider"
+    references_header:
+      one: "Reference"
+      other: "References"
     resource_label: "partner site"
     resource_pk: "(id: %{key})"
     rights_statement: "rights statement"
