@@ -4,9 +4,9 @@
     - if content.references.size > 1
       %ul.ui.bulleted.list
         - content.references.map(&:referent).compact.each do |reference|
-          %li.item= reference.body
+          %li.item= reference.body.html_safe
     - else
-      %p= content.references.first.referent.body
+      %p= content.references.first.referent.body.html_safe
 %div{ uk: { grid: true }, class: 'uk-child-width-1-3@m uk-child-width-1-1@s' }
   %div.uk-margin-remove-top
     %dl.attributions
