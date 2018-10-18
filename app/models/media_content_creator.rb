@@ -71,10 +71,15 @@ class MediaContentCreator
         end
   end
 
-  def add_content(page_id, content)
+Article.where("1=1").find_each do |art|
+  art.page_contents.where(["page_id != ?", art.page_id]).delete_all
+end
+
+  def add_content(page_id, content, options = {})
     @content_count_by_page[page_id] ||= -1
     @content_count_by_page[page_id] += 1
-    @contents << { page_id: page_id, source_page_id: page_id, position: @content_count_by_page[page_id],
+    source = options[:source] || page_id
+    @contents << { page_id: page_id, source_page_id: source, position: @content_count_by_page[page_id],
                    content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
     if @naked_pages.key?(page_id)
       @naked_pages[page_id].assign_attributes(@field => content.id)
@@ -84,7 +89,7 @@ class MediaContentCreator
   def add_ancestry_content(content)
     if @ancestry.key?(content.page_id)
       @ancestry[content.page_id].each do |ancestor_id|
-        add_content(ancestor_id, content) unless ancestor_id == content.page_id
+        add_content(ancestor_id, content, source: content.page_id) unless ancestor_id == content.page_id
       end
     end
   end
