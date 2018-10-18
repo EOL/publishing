@@ -1,7 +1,6 @@
 - if content.references.any?
-  %div.references
-    %h4.ui.header= t("content_attributions_labels.references_header", count: content.references.size)
-    %p
+  %p.references
+      %h4.ui.header= t("content_attributions_labels.references_header", count: content.references.size)
       - if content.references.size > 1
         %ul.ui.bulleted.list
           - content.references.map(&:referent).compact.each do |reference|
