@@ -865,6 +865,7 @@ en:
     nodes: "nodes"
     scientific_names: "names"
     users: "users"
+    references: "references"
   term:
     actions:
       download: "download"

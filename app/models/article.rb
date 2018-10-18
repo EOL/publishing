@@ -4,7 +4,8 @@ class Article < ActiveRecord::Base
 
   alias_attribute :description, :body
 
-  has_and_belongs_to_many :references
+  has_many :references, as: :parent
+  has_many :referents, through: :references
 
   def first_section
     @first_section ||= sections.sort_by { |s| s.position }.first
