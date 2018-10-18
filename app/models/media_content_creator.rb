@@ -31,12 +31,12 @@ class MediaContentCreator
       query.find_in_batches(batch_size: b_size).with_index do |batch, number|
         @log.log("Batch #{number+1}/#{num_batches}...", cat: :infos)
         reset_batch
-        learn_ancestry(batch)
+        learn_ancestry(batch) unless k == Article
         # TEMP: we're putting images at the bottom now so we count how many images per page...
         count_images_in(batch)
         batch.each do |content|
           add_content(content.page_id, content)
-          add_ancestry_content(content)
+          add_ancestry_content(content) unless k == Article
         end
         # TEMP: we're putting images at the bottom now - push_pages_down
         import_contents
