@@ -9,6 +9,10 @@ module Eol
         "http://purl.obolibrary.org/obo/ENVO_00000447"
       end
 
+      def terrestrial
+        "http://purl.obolibrary.org/obo/ENVO_00000446"
+      end
+
       def extinction
         'http://eol.org/schema/terms/ExtinctionStatus'
       end

@@ -162,9 +162,17 @@ class PageDecorator::BriefSummary
       if @page.has_checked_marine?
         @page.is_marine?
       else
+        env_terms = gather_terms([Eol::Uris.environment])
         marine =
-          has_data(predicates: [Eol::Uris.environment],
-                   values: [Eol::Uris.marine])
+          has_data_for_pred_terms(
+            env_terms,
+            values: [Eol::Uris.marine]
+          ) && 
+          !has_data_for_pred_terms(
+            env_terms,
+            values: [Eol::Uris.terrestrial]
+          )
+
         @page.update_attribute(:has_checked_marine, true)
         # NOTE: this DOES NOT WORK without the true / false thing. :|
         @page.update_attribute(:is_marine, marine ? true : false)
@@ -173,8 +181,12 @@ class PageDecorator::BriefSummary
     end
 
     def has_data(options)
+      has_data_for_pred_terms(gather_terms(options[:predicates]), options)
+    end
+
+    def has_data_for_pred_terms(pred_terms, options)
       recs = []
-      gather_terms(options[:predicates]).each do |term|
+      pred_terms.each do |term|
         next if @page.grouped_data[term].nil?
         next if @page.grouped_data[term].empty?
         recs += @page.grouped_data[term]
