@@ -354,7 +354,8 @@ class TraitBank
         Rails.logger.warn("&& TS SAVING Cached count: #{key} = #{count}")
         count
       else
-        { data: build_trait_array(res), raw_query: q, raw_res: res }
+        Rails.logger.debug("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
+        { data: build_trait_array(res, key), raw_query: q, raw_res: res }
       end
     end
 
@@ -685,8 +686,9 @@ class TraitBank
 
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
-    def build_trait_array(results)
+    def build_trait_array(results, key=nil)
       hashes = results_to_hashes(results)
+      Rails.logger.debug("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []
       hashes.each do |hash|
         has_trait = hash.keys.include?(:trait)
@@ -737,6 +739,7 @@ class TraitBank
         end
         data << hash
       end
+      Rails.logger.debug("RESULT COUNT #{key}: #{data.length} after build_trait_array") if key
       data
     end
 
