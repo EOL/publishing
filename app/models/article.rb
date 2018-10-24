@@ -10,4 +10,29 @@ class Article < ActiveRecord::Base
   def first_section
     @first_section ||= sections.sort_by { |s| s.position }.first
   end
+
+  def self.fix_quotes
+    # owner: "\"<a href=\"\"http://www.nps.gov/plants.sos/\"\">USDI BLM</a>. United States, UT. 2003.\""
+    count = 0
+    Searchkick.disable_callbacks
+    puts "Starting"
+    STDOUT.flush
+    Article.where('body LIKE "\"%" OR owner LIKE "\"%" OR name LIKE "\"%"').find_each do |m|
+      m.body = clean_val(m.body)
+      m.owner = clean_val(m.owner)
+      m.name = clean_val(m.name)
+      if m.changed?
+        m.save
+        count += 1
+        puts "... #{count}" if (count % 1000).zero?
+        STDOUT.flush
+      end
+    end
+    Searchkick.enable_callbacks
+  end
+
+  def self.clean_val(val)
+    return nil if val.nil?
+    val.gsub(/""+/, '"').gsub(/^\s+/, '').gsub(/\s+$/, '').gsub(/^\"\s*(.*)\s*\"$/, '\\1')
+  end
 end

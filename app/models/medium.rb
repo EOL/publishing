@@ -33,32 +33,6 @@ class Medium < ActiveRecord::Base
   #   end
   # end
 
-  def self.fix_quotes
-    # owner: "\"<a href=\"\"http://www.nps.gov/plants.sos/\"\">USDI BLM</a>. United States, UT. 2003.\""
-    count = 0
-    rids = [2, 8, 11, 12, 53, 181, 395, 410, 417, 418, 420, 459, 462, 464, 468, 475, 486, 496, 511, 528, 529, 530, 540, 561, 563, 573, 594]
-    Searchkick.disable_callbacks
-    puts "Starting"
-    STDOUT.flush
-    Medium.where(resource_id: rids).where('description LIKE "\"%" OR owner LIKE "\"%" OR name LIKE "\"%"').find_each do |m|
-      m.description = clean_val(m.description)
-      m.owner = clean_val(m.owner)
-      m.name = clean_val(m.name)
-      if m.changed?
-        m.save
-        count += 1
-        puts "... #{count}" if (count % 1000).zero?
-        STDOUT.flush
-      end
-    end
-    Searchkick.enable_callbacks
-  end
-
-  def self.clean_val(val)
-    return nil if val.nil?
-    val.gsub(/""+/, '"').gsub(/^\s+/, '').gsub(/\s+$/, '').gsub(/^\"\s*(.*)\s*\"$/, '\\1')
-  end
-
   def source_pages
     if page_contents.loaded? && page_contents.first&.association(:page)&.loaded?
       page_contents.select { |pc| pc.source_page_id == page_id }.map(&:page)
