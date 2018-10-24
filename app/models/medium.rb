@@ -55,6 +55,7 @@ class Medium < ActiveRecord::Base
   end
 
   def self.clean_val(val)
+    return nil if val.nil?
     val.gsub(/""+/, '"').gsub(/^\s+/, '').gsub(/\s+$/, '').gsub(/^\"\s*(.*)\s*\"$/, '\\1')
   end
 
