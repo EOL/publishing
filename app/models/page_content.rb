@@ -43,7 +43,6 @@ class PageContent < ActiveRecord::Base
     page_ids = uniq.pluck(:page_id)
     batches = (page_ids.size / 1000).ceil
     puts "++ Cleaning up #{page_ids.size} exemplars (#{batches} batches)..."
-    STD
     batch = 1
     page_ids.in_groups_of(1000, false) do |group|
       puts "++ Batch #{batch}/#{batches}..."
@@ -71,11 +70,12 @@ class PageContent < ActiveRecord::Base
         if collection.size >= 10_000
           flush_collection(collection, collection_num)
           collection = []
-          collection_num + 1
+          collection_num += 1
           puts "flushed ##{collection_num - 1} @ #{Time.now}"
         end
       end
     end
+    puts "end #{Time.now}"
     flush_collection(collection, collection_num) unless collection.empty?
   end
 
