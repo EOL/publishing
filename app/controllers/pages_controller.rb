@@ -30,9 +30,9 @@ class PagesController < ApplicationController
           end
           result_hash[name] = if result_hash.key?(name)
             new_string = "#{name} (multiple hits)"
-            { name: new_string, title: new_string, id: r.id, url: app.search_path(q: name, utf8: true) }
+            { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
           else
-            { name: name, title: name, id: r.id, url: app.page_path(r.id) }
+            { name: name, title: name, id: r.id, url: page_path(r.id) }
           end
         end
       simplified = result_hash.values
