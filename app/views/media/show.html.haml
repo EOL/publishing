@@ -24,9 +24,10 @@
               %li= link_to_page_canonical(page)
           - icon_count = @medium.page_icons.count
           - if icon_count > 0
-            %h3= "Awards"
+            %h3= t('page_icon_counts.header', count: icon_count)
             %ul
-              %li= "This image has been used as a page icon #{icon_count} times! (TODO I18n, but not until we decide how to show this)"
+              - @medium.page_icons.includes(:page).each do |page_icon|
+                %li= link_to_page_canonical(page_icon.page)
           %h3= t(:content_appears_on)
           %ul
             - @medium.page_contents.map(&:page).compact.sort_by(&:scientific_name).each do |page|

@@ -523,6 +523,10 @@ en:
   new_password: 'New password'
   no_pages_found: 'No pages found'
   page_article_header: "Overview"
+  page_icon_counts:
+    header:
+      one: 'Best Image for Page'
+      other: 'Best Image for Pages'
   page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
   page_key_data_header: "Key Data"
