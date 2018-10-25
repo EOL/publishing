@@ -3,7 +3,7 @@ module RefineryAdminControllerAuthenticationDecorator
 
   def authenticate_refinery_user!
    @user =  authenticate_user!
-   redirect_to root_path unless @user.admin
+   redirect_to root_path unless @user.is_admin?
   end
 end
 
