@@ -1,8 +1,9 @@
 # Dumping Traitbank
 
 The `dump_traits` family of `rake` commands is intended to create
-Traitbank dumps, which anyone can download either from the main web
-site or from the opendata site.
+Traitbank dumps, which anyone can download, from the main web site or
+from the opendata site (depending on how we eventually decide to
+deploy them).
 
 At present (October 2018) the scripts are driven entirely from the
 neo4j graphdb.  This is based on the hypothesis that when people say
@@ -12,18 +13,17 @@ tables (e.g. synonyms or vernaculars from the MySQL database), they
 will be able to get them in some other way.  I don't know if this is
 true; there may be more work to do here.
 
-## `dump_traits:dump`
+### `dump_traits:dump`
 
-Purpose of this command: At the command line, generate a ZIP file
-dump of the entire trait graphdb.  See the associated support module
-[traits_dumper.rb](../app/support/trait_bank/traits_dumper.rb).
+Purpose of this command: At the command line, generate a ZIP file dump
+of the entire trait graphdb.  See the associated support module
+[traits_dumper.rb](../app/support/trait_bank/traits_dumper.rb) to see
+how it's implemented.
 
 The ZIP file will contain four `.csv` files, one for each major kind
 of node: pages, traits, metadata, and terms.
 
 The command can also be used for partial dumps of particular clades.
-To obtain csv files via the web service, use the format=csv option
-for the appropriate web service.
 
 Command parameters are passed via environment variables:
 
@@ -44,7 +44,28 @@ Command parameters are passed via environment variables:
         care of this eventually, and in the meantime they are there
         for examination.
 
-## `dump_traits:smoke`
+### `dump_traits:smoke`
 
-This is for testing only.  Same as `dump` but sets `ID` to 7662
-(Carnivora) and `LIMIT` to 100 and takes a few other shortcuts.
+This is for testing only.  Same as `dump` but defaults `ID` to 7662
+(Carnivora), defaults `LIMIT` to 100, and defaults `ZIP` to a file in
+the current directory.
+
+## Testing this module
+
+Tests to do in sequence (easier to harder):
+
+  1. Smoke test: 
+         bundle exec rake dump_traits:smoke
+     - should write a file in the current directory whose name starts with 'traitbank_' and ends with _smoke.zip
+     - size of file should be >= 7000 bytes and < 70000 bytes
+     - you can delete the .zip file
+  2. Carnivora:
+         time bundle exec rake ID=7662 ZIP=test1.zip dump_traits:dump
+     - size of test1.zip should be >= 400000
+     - you can delete test1.zip
+  3. Vertebrates:
+         time bundle exec rake ID=2774383 ZIP=test2.zip dump_traits:dump
+     - also tell me the size of the file
+     - you can delete test1.zip
+  4. All life:
+         time bundle exec rake ZIP=test3.zip dump_traits:dump
