@@ -36,7 +36,7 @@ Command parameters are passed via environment variables:
         be dumped.  Default is all life (2913056).
  - `LIMIT`: size limit for the query result sets.  You can make this a small
             number, if you're just debugging the infrastructure or queries.
-            Default is big (1000000).
+            Default is big (100 million as of this writing).
  - `CSVDIR`:  pathname of the directory to which the intermediate CSV 
             files will be written.  Default is a directory created
         under `/tmp` with a name starting with `traitbank_`.

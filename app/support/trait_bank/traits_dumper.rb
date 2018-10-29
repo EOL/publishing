@@ -6,13 +6,13 @@ require 'fileutils'
 
 class TraitBank::TraitsDumper
   def self.dump_clade(clade_page_id, dest, csvdir, limit)
-    new(Integer(clade_page_id), dest, csvdir, limit).doit
+    new(clade_page_id, dest, csvdir, limit).doit
   end
   def initialize(clade_page_id, dest, csvdir, limit)
-    @clade = clade_page_id
+    @clade = Integer(clade_page_id)
     @dest = dest
     @csvdir = csvdir
-    @limit = limit
+    @limit = Integer(limit)
   end
   def doit
     write_zip [spew_pages,
