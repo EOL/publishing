@@ -56,7 +56,7 @@ class PageDecorator::BriefSummary
 
       if is_it_extinct?
         handle_term("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
-      elsif @page.iucn_status_key && IucnKeys.include? @page.iucn_status_key.to_sym
+      elsif @page.iucn_status_key && IucnKeys.include?(@page.iucn_status_key.to_sym)
         handle_iucn @page.iucn_status_key.to_sym
       end
 
