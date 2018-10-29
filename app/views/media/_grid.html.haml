@@ -36,7 +36,7 @@
                     -# %li
                     -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
                     %li
-                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image&.id]), alt: "add to collection")
+                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [image&.id]), alt: "add to collection")
 
                 .uk-modal-body
                   .uk-inline.uk-visible-toggle
