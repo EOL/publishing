@@ -54,18 +54,18 @@ the current directory.
 
 Tests to do in sequence (easier to harder):
 
-  1. Smoke test: 
-         bundle exec rake dump_traits:smoke
+  1. Smoke test: \
+         `bundle exec rake dump_traits:smoke`
      - should write a file in the current directory whose name starts with 'traitbank_' and ends with _smoke.zip
      - size of file should be >= 7000 bytes and < 70000 bytes
      - you can delete the .zip file
-  2. Carnivora:
-         time bundle exec rake ID=7662 ZIP=test1.zip dump_traits:dump
+  2. Carnivora:\
+         `time bundle exec rake ID=7662 ZIP=test1.zip dump_traits:dump`
      - size of test1.zip should be >= 400000
      - you can delete test1.zip
-  3. Vertebrates:
-         time bundle exec rake ID=2774383 ZIP=test2.zip dump_traits:dump
+  3. Vertebrates:\
+         `time bundle exec rake ID=2774383 ZIP=test2.zip dump_traits:dump`
      - also tell me the size of the file
      - you can delete test1.zip
-  4. All life:
-         time bundle exec rake ZIP=test3.zip dump_traits:dump
+  4. All life:\
+         `time bundle exec rake ZIP=test3.zip dump_traits:dump`
