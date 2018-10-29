@@ -2,7 +2,7 @@
   - page = @page # Which could be nil!
 
 %ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
-  - media_ids = media.map { |image| "image_modal_#{image.id}" }
+  - media_ids = media.map { |image| "image_modal_#{image&.id}" }
   - media.each_with_index do |image, index|
     - img_id = media_ids[index]
     - owner = image_owner(image)
@@ -14,45 +14,45 @@
         -# Sorry for the style; temporary.
         .uk-card-media-top.uk-inline-clip.uk-transition-toggle{ style: "width: 260px; height: 190px" }
           %a.uk-overview-container{ href: "##{img_id}", uk: { toggle: true } }
-            %img{ src: image.medium_size_url, width: '260', height: '190' }
+            %img{ src: image&.medium_size_url, width: '260', height: '190' }
             %div{ id: img_id, uk: { modal: true } }
               .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
                   = link_to(medium_name_html(image, page), link_path)
-                  .ui.label= image.license.try(:name)
+                  .ui.label= image&.license&.name
                   %br
                   %i.copyright.icon
                   = owner
                   %br
-                  = link_to(image.resource.name, image.resource)
+                  = link_to(image&.resource&.name, image&.resource)
                   %ul.uk-iconnav.uk-float-right
                     -# If you want the list to be sortable...
                     -# %li
                     -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
                     - if index > 0 || params[:page] && params[:page].to_i > 0
                       %li
-                        = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+                        = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image&.id), alt: "make exemplar", method: :post)
                     -# %li
                     -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
                     %li
-                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image.id]), alt: "add to collection")
+                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image&.id]), alt: "add to collection")
 
                 .uk-modal-body
                   .uk-inline.uk-visible-toggle
-                    = image_tag(image.original_size_url)
+                    = image_tag(image&.original_size_url)
                     %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
                     - next_id = media_ids[index+1] || media_ids[0]
                     %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
                     - unless page.rank.try(:species_or_below?)
                       .uk-margin-top.uk-overflow-hidden.eol-one-line
-                        = image.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
+                        = image&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
 
           .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
-              - if image.license
+              - if image&.license
                 .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
-              - content = image.page_contents.find { |c| c.content_id == image.id }
+              - content = image&.page_contents.find { |c| c.content_id == image&.id }
               .ui.mini.green.label= t("trust.#{content.trust}")
         - if defined?(page)
           .uk-text-truncate.eol-padding-iconnav{ class: "uk-visible@m" }
@@ -62,14 +62,14 @@
               -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
               - if index > 0 || params[:page] && params[:page].to_i > 0
                 %li
-                  = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image.id), alt: "make exemplar", method: :post)
+                  = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image&.id), alt: "make exemplar", method: :post)
               -# %li
               -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
               %li
-                = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image.id]), alt: "add to collection")
+                = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image&.id]), alt: "add to collection")
         -# Make it drop down on hover:
         -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
-        - unless page.rank.try(:species_or_below?)
+        - unless page.rank.try(:species_or_below?) || image.nil?
           .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted
             .uk-overflow-hidden.eol-one-line
               = image.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
