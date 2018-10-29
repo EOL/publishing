@@ -5,12 +5,13 @@ require 'csv'
 require 'fileutils'
 
 class TraitBank::TraitsDumper
-  def self.dump_clade(clade_page_id, destdir, limit)
-    new(clade_page_id, destdir, limit).doit
+  def self.dump_clade(clade_page_id, dest, csvdir, limit)
+    new(Integer(clade_page_id), dest, csvdir, limit).doit
   end
-  def initialize(clade_page_id, destdir, limit)
+  def initialize(clade_page_id, dest, csvdir, limit)
     @clade = clade_page_id
-    @destdir = destdir
+    @dest = dest
+    @csvdir = csvdir
     @limit = limit
   end
   def doit
@@ -18,11 +19,23 @@ class TraitBank::TraitsDumper
                spew_traits,
                spew_metadatas,
                spew_terms]
-    # TBD: Zip them all up into a .zip file!
   end
 
+  # There is probably a way to do this without creating the temporary
+  # files at all.
   def write_zip(paths)
-    "done"
+    File.delete(@dest) if File.exists?(@dest)
+    Zip::File.open(@dest, Zip::File::CREATE) do |zipfile|
+      directory = "trait_bank"
+      zipfile.mkdir(directory)
+      paths.each do |path|
+        name = File.basename(path)
+        STDERR.puts "storing #{name} into zip file"
+        zipfile.add(File.join(directory, name), path)
+      end
+      # Put it on its own line for easier cut/paste
+      STDERR.puts @dest
+    end
   end
 
   #---- Query #3: Pages
@@ -39,6 +52,7 @@ class TraitBank::TraitsDumper
     pages_keys = ["page_id", "parent_id", "canonical"] #fragile
 
     pages_result = TraitBank.query(pages_query)
+
     spew_csv(pages_result, pages_keys, "pages.csv")
 
   end
@@ -107,6 +121,9 @@ class TraitBank::TraitsDumper
 
   def spew_terms
 
+    # Many Term nodes have 'uri' properties that are not URIs.  Would it 
+    # be useful to filter those out?  It's about 2% of the nodes.
+
     # I'm not sure where there exist multiple Term nodes for a single URI?
 
     terms_query =
@@ -124,10 +141,10 @@ class TraitBank::TraitsDumper
 
   # Utility
   def spew_csv(start, keys, fname)
-    STDERR.puts "#{fname} #{start["data"].length}"
-    FileUtils.mkdir_p @destdir
-    path = "#{@destdir}/#{fname}"
+    FileUtils.mkdir_p @csvdir
+    path = File.join(@csvdir, fname)
     csv = CSV.open(path, "wb")
+    STDERR.puts "writing #{start["data"].length} csv records to #{path}"
     csv << keys
     start["data"].each do |row|
       csv << row

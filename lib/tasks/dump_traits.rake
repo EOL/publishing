@@ -1,27 +1,32 @@
-# Purpose of this command: At the command line, generate a CSV file
-# dump of the entire trait graphdb.  See the associated support module.
-# This can also be used for partial dumps of particular clades.
-# To obtain csv files via the web service, use the format=csv option
-# for the appropriate web service.
+# See ../../doc/dump_traits.md
 
 namespace :dump_traits do
 
   desc 'Dump traits information from neo4j graphdb into a set of .csv files.'
   task dump: :environment do
-    clade = ENV['ID'] ? ENV['ID'] : 2913056     # default = life
-    limit = ENV['LIMIT'] ? ENV['LIMIT'] : 1000000
-    TraitBank::TraitsDumper.dump_clade(clade,
-                                       "sample-dumps/#{clade}-csv",
-                                       limit)
+    clade = ENV['ID'] || '2913056'     # default = life
+    limit = ENV['LIMIT'] || 1000000
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
+    prefix = "#{prefix}_#{clade}" if ENV['ID']
+    prefix = "#{prefix}_limit_#{limit}" if ENV['LIMIT']
+    csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
+    # This is not very rubyesque
+    if ENV['ZIP']
+      dest = ENV['ZIP']
+    else
+      dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
+    end
+    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, limit)
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
   task smoke: :environment do
-    clade = ENV['ID'] ? ENV['ID'] : 7662     # Carnivora
-    limit = ENV['LIMIT'] ? ENV['LIMIT'] : 100
-    TraitBank::TraitsDumper.dump_clade(clade,
-                                       "sample-dumps/#{clade}-smoke-csv",
-                                       limit)
+    clade = ENV['ID'] || 7662     # Carnivora
+    limit = ENV['LIMIT'] || 100
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}_#{clade}_#{limit}"
+    csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
+    dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
+    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, limit)
   end
 
 end
