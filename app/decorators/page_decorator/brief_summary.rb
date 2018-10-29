@@ -39,7 +39,7 @@ class PageDecorator::BriefSummary
     ResultTerm = Struct.new(:pred_uri, :obj, :toggle_selector)
 
     IucnKeys = Set[:en, :cr, :ew, :nt, :vu]
-    
+
     # [name clause] is a[n] [A1] in the family [A2].
     def species
       # taxonomy sentence:
@@ -56,7 +56,7 @@ class PageDecorator::BriefSummary
 
       if is_it_extinct?
         handle_term("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
-      elsif IucnKeys.include? @page.iucn_status_key.to_sym
+      elsif @page.iucn_status_key && IucnKeys.include? @page.iucn_status_key.to_sym
         handle_iucn @page.iucn_status_key.to_sym
       end
 
@@ -167,7 +167,7 @@ class PageDecorator::BriefSummary
           has_data_for_pred_terms(
             env_terms,
             values: [Eol::Uris.marine]
-          ) && 
+          ) &&
           !has_data_for_pred_terms(
             env_terms,
             values: [Eol::Uris.terrestrial]
@@ -281,8 +281,8 @@ class PageDecorator::BriefSummary
       code_term = TraitBank.term_as_hash(uri)
 
       handle_term(
-        "It is listed as %s by IUCN.", 
-        code_term[:name], 
+        "It is listed as %s by IUCN.",
+        code_term[:name],
         Eol::Uris::Iucn.status,
         uri
       )
@@ -291,7 +291,7 @@ class PageDecorator::BriefSummary
     def handle_term(format_str, label, pred_uri, obj_uri)
       toggle_id = term_toggle_id(label)
       @sentences << sprintf(
-        format_str, 
+        format_str,
         view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
       )
       @terms << ResultTerm.new(
@@ -301,4 +301,3 @@ class PageDecorator::BriefSummary
       )
     end
 end
-
