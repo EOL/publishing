@@ -44,7 +44,7 @@
                     %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
                     - next_id = media_ids[index+1] || media_ids[0]
                     %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
-                    - unless page.rank.try(:species_or_below?)
+                    - unless page&.rank&.species_or_below?
                       .uk-margin-top.uk-overflow-hidden.eol-one-line
                         = image&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
 
@@ -69,7 +69,7 @@
                 = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [image&.id]), alt: "add to collection")
         -# Make it drop down on hover:
         -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
-        - unless page.rank.try(:species_or_below?) || image.nil?
+        - unless page&.rank&.species_or_below? || image.nil?
           .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted
             .uk-overflow-hidden.eol-one-line
               = image.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
