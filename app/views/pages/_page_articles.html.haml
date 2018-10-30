@@ -1,18 +1,18 @@
 .js-content
-  - if @languages.length > 1
+  - if @lang_groups.length > 1
     .ui.menu.uk-text-small{ class: "js-menus" }
       .ui.scrolling.dropdown.item
-        - if @language
-          %b= t("languages.#{@language}")
+        - if @lang_group
+          %b= t("languages.#{@lang_group}")
         -else
           = t(".filter_by_language")
         %i.dropdown.icon
         .menu
-          = link_to(t(".show_all"), page_articles_path(@page), data: { type: 'html' }, class: "item#{ @language.nil? ? " active" : ""}")
-          - @languages.each do |lang|
+          = link_to(t(".show_all"), page_articles_path(@page), data: { type: 'html' }, class: "item#{ @lang_group.nil? ? " active" : ""}")
+          - @lang_groups.each do |lang|
             - name = t("languages.#{lang}")
-            = link_to(name, page_articles_path(page_id: @page.id, language: lang), data: { type: 'html' }, class: "item#{ @language && lang == @language ? " active" : ""}")
-  - articles = @language ? articles.select { |a| a.language.code == @language } : articles
+            = link_to(name, page_articles_path(page_id: @page.id, lang_group: lang), data: { type: 'html' }, class: "item#{ @lang_group && lang == @lang_group ? " active" : ""}")
+  - articles = @lang_group ? articles.select { |a| a.lang_or_default.group == @lang_group } : articles
   - articles.group_by(&:first_section).each do |section, articles|
     %h2.ui.top.attached.header= section&.name || "Other Articles"
     %ul.ui.attached.segment.articles

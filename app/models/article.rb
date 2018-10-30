@@ -7,6 +7,12 @@ class Article < ActiveRecord::Base
   has_many :references, as: :parent
   has_many :referents, through: :references
 
+  DEFAULT_LANG_CODE = "eng"
+
+  def lang_or_default
+    language ? language : Language.find_by(code: DEFAULT_LANG_CODE)
+  end
+
   def first_section
     @first_section ||= sections.sort_by { |s| s.position }.first
   end
