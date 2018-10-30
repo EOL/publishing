@@ -499,7 +499,7 @@ class TraitBank
                           "WITH count(*) AS count " :
                           ""
 
-      return_clause = "RETURN #{returns.join(", ")}"
+      return_clause = "RETURN DISTINCT #{returns.join(", ")}"
 
       q = "MATCH #{matches.join(', ')}\n"\
       "WHERE #{wheres.join(' AND ')}\n"\
