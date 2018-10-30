@@ -1,5 +1,20 @@
-- @articles.group_by(&:first_section).each do |section, articles|
-  %h2.ui.top.attached.header= section&.name || "Other Articles"
-  %ul.ui.attached.segment.articles
-    - articles.sort_by(&:first_section).each_with_index do |article, index|
-      = render :partial => "page_article", :locals => { article: article }
+.js-content
+  - if @languages.length > 1
+    .ui.menu.uk-text-small{ class: "js-menus" }
+      .ui.scrolling.dropdown.item
+        - if @language
+          %b= t("languages.#{@language}")
+        -else
+          = t(".filter_by_language")
+        %i.dropdown.icon
+        .menu
+          = link_to(t(".show_all"), page_articles_path(@page), data: { type: 'html' }, class: "item#{ @language.nil? ? " active" : ""}")
+          - @languages.each do |lang|
+            - name = t("languages.#{lang}")
+            = link_to(name, page_articles_path(page_id: @page.id, language: lang), data: { type: 'html' }, class: "item#{ @language && lang == @language ? " active" : ""}")
+  - articles = @language ? articles.select { |a| a.language.code == @language } : articles
+  - articles.group_by(&:first_section).each do |section, articles|
+    %h2.ui.top.attached.header= section&.name || "Other Articles"
+    %ul.ui.attached.segment.articles
+      - articles.sort_by(&:first_section).each_with_index do |article, index|
+        = render :partial => "page_article", :locals => { article: article }

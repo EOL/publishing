@@ -551,6 +551,9 @@ en:
       eol_has_data_for_n_attributes_html:
         one: "EOL has data for <a href=\"%{data_path}\">one attribute</a>:"
         other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>, including:"
+    page_articles:
+      filter_by_language: "filter by language"
+      show_all: "show all"
     page_data:
       filter_by_attribute: "filter by attribute"
       n_hidden_show_all:

@@ -221,11 +221,15 @@ class PagesController < ApplicationController
   end
 
   def articles
+    @language = params[:language]
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     return render(status: :not_found) unless @page # 404
     @articles = @page.articles
-                 .includes(:license, :resource)
+                 .includes(:license, :resource, :language)
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
+    @languages = @articles.map do |a|
+      a.language.code
+    end.sort.uniq
     respond_to do |format|
       format.html do
         if request.xhr?
