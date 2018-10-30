@@ -221,7 +221,7 @@ class PagesController < ApplicationController
   end
 
   def articles
-    @lang_group = params[:language]
+    @lang_group = params[:lang_group] || "en"
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     return render(status: :not_found) unless @page # 404
     @articles = @page.articles
