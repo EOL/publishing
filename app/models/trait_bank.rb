@@ -453,9 +453,10 @@ class TraitBank
       end
 
       collect_unwind_part =
-        "WITH #{collects.join(", ")} "\
-        "WITH #{rows_vars.join(" + ")} as all_rows "\
-        "UNWIND all_rows as row "\
+        "WITH #{collects.join(", ")}\n"\
+        "WITH #{rows_vars.join(" + ")} as all_rows\n"\
+        "UNWIND all_rows as row\n"\
+        "WITH DISTINCT row\n"\
         "WITH row.page as page, row.trait as trait, row.predicate as predicate "
 
       optional_matches = [
@@ -499,7 +500,7 @@ class TraitBank
                           "WITH count(*) AS count " :
                           ""
 
-      return_clause = "RETURN DISTINCT #{returns.join(", ")}"
+      return_clause = "RETURN #{returns.join(", ")}"
 
       q = "MATCH #{matches.join(', ')}\n"\
       "WHERE #{wheres.join(' AND ')}\n"\
