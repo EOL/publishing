@@ -222,6 +222,7 @@ class PagesController < ApplicationController
 
   def articles
     @lang_group = params[:lang_group] || "en"
+    @lang_group = nil if @lang_group == "show_all"
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     return render(status: :not_found) unless @page # 404
     @articles = @page.articles
