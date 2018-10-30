@@ -341,6 +341,9 @@ class TraitBank
         term_page_search(term_query, options)
       end
 
+      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
+      q = "#{q} "\
+      "#{limit_and_skip}"
       res = query(q)
 
       Rails.logger.warn("&& TS SAVING Cache: #{key}")
@@ -498,13 +501,15 @@ class TraitBank
 
       return_clause = "RETURN #{returns.join(", ")}"
 
-      "MATCH #{matches.join(', ')}\n"\
+      q = "MATCH #{matches.join(', ')}\n"\
       "WHERE #{wheres.join(' AND ')}\n"\
       "#{collect_unwind_part}\n"\
-      "#{term_search_limit_and_skip(options)}\n"\
       "#{optional_match_part}\n"\
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
+
+      q += "ORDER BY page.page_id " if !options[:count]
+      q
     end
 
     def term_page_search(term_query, options)
@@ -529,20 +534,14 @@ class TraitBank
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
       return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
-      #order_clause = options[:count] ? "" : "ORDER BY page.name"
+      order_clause = options[:count] ? "" : "ORDER BY page.name"
 
-      "MATCH #{matches.join(', ')}\n"\
-      "WHERE #{wheres.join(' AND ')}\n"\
-      "#{with_count_clause}\n"\
-      "#{return_clause}\n"\
-      "#{term_search_limit_and_skip(options)}"
-
+      "MATCH #{matches.join(', ')} "\
+      "WHERE #{wheres.join(' AND ')} "\
+      "#{with_count_clause} "\
+      "#{return_clause} "# \
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...
       # "#{order_clause}"
-    end
-
-    def term_search_limit_and_skip(options)
-      options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
