@@ -54,7 +54,7 @@
                 .ui.mini.brown.label= image.license.name.gsub(/\s/, "&nbsp;").html_safe
               - content = image&.page_contents.find { |c| c.content_id == image&.id }
               .ui.mini.green.label= t("trust.#{content.trust}")
-        - if defined?(page)
+        - if defined?(page) && page
           .uk-text-truncate.eol-padding-iconnav{ class: "uk-visible@m" }
             %ul.uk-iconnav.uk-float-right
               -# If you want the list to be sortable...
