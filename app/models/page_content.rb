@@ -59,22 +59,30 @@ class PageContent < ActiveRecord::Base
   end
 
   def self.export_for_ordering
+    require 'csv'
     collection_num = 1
     collection = []
-    where('content_type = "Medium" AND page_id IS NOT NULL').includes(:content).find_each do |item|
+    puts "start #{Time.now}"
+    # NOTE: YES! Really, one at a time was *fastest*. Go. Figure.
+    Page.select('id').find_each do |page|
+      where(page_id: page.id).visible.not_untrusted.media.includes(:content).find_each do |item|
         collection << [item.content_id, item.page_id, item.content.source_url, item.position]
-        flush_collection(collection, collection_num) if collection.size > 10_000
+        if collection.size >= 10_000
+          flush_collection(collection, collection_num)
+          collection = []
+          collection_num += 1
+          puts "flushed ##{collection_num - 1} @ #{Time.now}"
+        end
       end
-    flush_collection(collection)
+    end
+    puts "end #{Time.now}"
+    flush_collection(collection, collection_num) unless collection.empty?
   end
 
   def self.flush_collection(collection, collection_num)
-    require 'csv'
     CSV.open(Rails.root.join('public', "images_for_sorting_#{collection_num}.csv"), 'wb') do |csv|
       csv << %w[eol_pk page_id source_url position]
       collection.each { |row| csv << row }
     end
-    collection = []
-    collection_num += 1
   end
 end

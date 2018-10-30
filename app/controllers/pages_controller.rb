@@ -20,15 +20,22 @@ class PagesController < ApplicationController
     if params[:full]
       render json: full_results
     elsif params[:simple]
-      simplified = full_results.map do |r|
+      result_hash = {}
+      full_results.each do |r|
           field = r['highlight']&.first&.first&.split('.').first
           name = r.send(field) || r.scientific_name
           if name.is_a?(Array)
             first_hit = name.grep(/#{params[:query]}/i)&.first
             name = first_hit || name.first
           end
-          { name: name, title: name, id: r.id, url: page_path(r.id) }
+          result_hash[name] = if result_hash.key?(name)
+            new_string = "#{name} (multiple hits)"
+            { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
+          else
+            { name: name, title: name, id: r.id, url: page_path(r.id) }
+          end
         end
+      simplified = result_hash.values
       simplified = { results: simplified } if params[:simple] == 'hash'
       render json: simplified
     else

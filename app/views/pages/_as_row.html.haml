@@ -1,4 +1,5 @@
-- page ||= defined?(collected_page) ? collected_page.page : nil
+- c_page ||= defined?(collected_page) ? collected_page.page : nil
+- page = PageDecorator.decorate(c_page)
 - icon ||= page.icon
 - common ||= search_highlight(page, :preferred_vernacular_strings, :name)
 - scientific ||= search_highlight(page, :scientific_name, :scientific_name)
@@ -75,7 +76,8 @@
             = others
 
       - else # (no query string)
-        - if summary = cached_summary(page).html_safe
+        - summary = page&.cached_summary&.sentence&.html_safe
+        - unless summary.blank?
           .uk-margin-small-top= summary
       - unless media.empty?
         .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
