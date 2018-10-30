@@ -105,8 +105,8 @@ class TraitBank
         Rails.cache.fetch("trait_bank/name_for_uri/#{uri}", :expires_in => CACHE_EXPIRATION_TIME) do
           res = TraitBank.term(uri)
           name =
-            if res.key?('data')
-              if res['data'].key?('name')
+            if res&.key?('data')
+              if res['data']&.key?('name')
                 res['data']['name']
               end
             end
