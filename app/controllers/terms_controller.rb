@@ -194,18 +194,19 @@ private
   end
 
   def glossary(which, options = nil)
+    @count = TraitBank::Terms.send(options[:count_method] || :count)
+
     respond_to do |fmt|
       fmt.html do
-        @glossary = glossary_helper(which, true)
-        @count = TraitBank::Terms.send(options[:count_method] || :count)
+        @glossary = glossary_helper(which, @count, true)
       end
       fmt.json do
-        render json: glossary_helper(which, false)
+        render json: glossary_helper(which, @count, false)
       end
     end
   end
 
-  def glossary_helper(which, paginate)
+  def glossary_helper(which, count, paginate)
     @per_page = params[:per_page] || Rails.configuration.data_glossary_page_size
     @page = params[:page] || 1
     query = params[:query]
@@ -216,7 +217,7 @@ private
     end
     result = TraitBank::Terms.send(which, @page, @per_page, qterm: query, for_select: !paginate)
     Rails.logger.warn "GLOSSARY RESULTS: (for select: #{!paginate}) #{result.map { |r| r[:name] }.join(', ')}"
-    res = paginate ? Kaminari.paginate_array(result, total_count: @count).page(@page).per(@per_page) : result[0..@per_page+1]
+    paginate ? Kaminari.paginate_array(result, total_count: count).page(@page).per(@per_page) : result[0..@per_page+1]
   end
 
   def expire_trait_fragments
