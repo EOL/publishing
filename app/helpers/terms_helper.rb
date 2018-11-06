@@ -65,6 +65,12 @@ module TermsHelper
     end
   end
 
+  def term_query_display_string(tq)
+    tq.filters.map do |f|
+      filter_display_string(f)
+    end.join(', ')
+  end
+
   private
     def is_any_display_string(filter)
       pred_name(filter.pred_uri)

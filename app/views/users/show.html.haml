@@ -35,7 +35,7 @@
             - if !download.search_url.blank?
               %br
               %span query URL:&nbsp;
-              = link_to(download.search_url, download.search_url)
+              = link_to(term_query_display_string(download.term_query), download.search_url)
 
     - unless @user.collections.empty?
       %p.clearfix
