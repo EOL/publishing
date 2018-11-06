@@ -74,6 +74,16 @@ class Medium < ActiveRecord::Base
     base_url + format_image_size(88, 88)
   end
 
+  def sound_url
+    # TODO:
+    '#'
+  end
+
+  def video_url
+    # TODO:
+    '#'
+  end
+
   def format_image_size(w, h)
     join = Rails.configuration.x.image_path['join']
     by = Rails.configuration.x.image_path['by']

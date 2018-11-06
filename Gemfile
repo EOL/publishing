@@ -80,6 +80,8 @@ gem 'lograge'
 gem 'neography'
 # Site monitoring for staging and production:
 gem 'newrelic_rpm'
+# Speed up JSON, including for ElasticSearch:
+gem 'oj'
 # OpenAuth logins from our preferred sources:
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -97,6 +99,8 @@ gem 'rubyzip'
 gem 'searchkick'
 # Simplify Forms:
 gem 'simple_form'
+# Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
+gem 'typhoeus'
 
 group :development, :test do
   # Security analysis:
