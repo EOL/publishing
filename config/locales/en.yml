@@ -231,8 +231,7 @@ en:
       trees: "Trees"
       viruses: "Viruses"
       worms: "Worms"
-
-
+    eol_is_hosted_by: "EOL is hosted by:"
   forgot_your_password: "Forgot your password?"
   georeference_records_colon: "Georeference records:"
   georef_occurrence_disclaimer: "This map is based on occurrence records available through %{link} and may not represent the entire distribution."
