@@ -43,11 +43,15 @@ class Node < ActiveRecord::Base
     node_ancestors.map(&:ancestor)
   end
 
+  def preferred_scientific_name
+    @preferred_scientific_name ||= scientific_names.select {|n| n.is_preferred? }&.first
+  end
+
   # NOTE: the "canonical_form" on this node is NOT italicized. In retrospect, that was a mistake, though we do need it
   # for searches. Just use this method instead of canonical_form everywhere that it's shown to a user.
   def canonical
     if scientific_names.loaded?
-      scientific_names.select {|n| n.is_preferred? }&.first&.canonical_form
+      preferred_scientific_name&.canonical_form
     else
       scientific_names&.preferred&.first&.canonical_form
     end
@@ -55,7 +59,7 @@ class Node < ActiveRecord::Base
 
   def italicized
     if scientific_names.loaded?
-      scientific_names.select {|n| n.is_preferred? }&.first&.italicized
+      preferred_scientific_name&.italicized
     else
       scientific_names&.preferred&.first&.italicized
     end

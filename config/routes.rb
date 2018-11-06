@@ -73,6 +73,39 @@ Rails.application.routes.draw do
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
 
+  scope '/api' do
+    scope '/v1' do
+      scope '/ping' do
+        get '/' => 'api_ping#index'
+      end
+      scope '/pages' do
+        get '/' => 'api_pages#index'
+      end
+      scope '/search' do
+        get '/' => 'api_search#index'
+      end
+      scope '/collections' do
+        get '/' => 'api_collections#index'
+      end
+      scope '/data_objects' do
+        get '/' => 'api_data_objects#index'
+      end
+      scope '/hierarchy_entries' do
+        get '/' => 'api_hierarchy_entries#index'
+      end
+      scope '/hierarchies' do
+        get '/' => 'api_hierarchies#index'
+      end
+      scope '/provider_hierarchies' do
+        get '/' => 'api_provider_hierarchies#index'
+      end
+      scope '/search_by_provider' do
+        get '/' => 'api_search_by_provider#index'
+      end
+    end
+  end
+
+
   # This isn't really a model, so we'll go oldschool:
   get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
   get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"

@@ -210,7 +210,7 @@ class PageDecorator::BriefSummary
       if @page.has_checked_extinct?
         @page.is_extinct?
       else
-        # NOTE: this relies on #displayed_extinction_data ONLY returning an "exinct" record. ...which, as of this writing,
+        # NOTE: this relies on #displayed_extinction_data ONLY returning an "extinct" record. ...which, as of this writing,
         # it is designed to do.
         @page.update_attribute(:has_checked_extinct, true)
         if @page.displayed_extinction_data # TODO: this method doesn't check descendants yet.
