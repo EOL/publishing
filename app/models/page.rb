@@ -471,6 +471,10 @@ class Page < ActiveRecord::Base
     TraitBank.count_by_page(id)
   end
 
+  def predicate_count
+    TraitBank.predicate_count_by_page(id)
+  end
+
   # NOTE: This page size is "huge" because we don't want pagination for data.
   # ...Mainly because it gets complicated quickly. Data rows can be in multiple
   # TOC items, and we want to be able to show all of the data in a single TOC

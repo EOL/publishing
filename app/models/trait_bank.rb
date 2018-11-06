@@ -81,6 +81,17 @@ class TraitBank
       end
     end
 
+    def predicate_count_by_page(page_id)
+      Rails.cache.fetch("trait_bank/predicate_count_by_page/#{page_id}", expires_in: 1.day) do
+        res = query(
+          "MATCH (page:Page { page_id: #{page_id} }) -[:trait]->"\
+          "(trait:Trait)-[:predicate]->(term:Term) "\
+          "WITH count(distinct(term.uri)) AS count "\
+          "RETURN count")
+        res["data"] ? res["data"].first.first : 0 
+      end
+    end
+
     def predicate_count
       Rails.cache.fetch("trait_bank/predicate_count", expires_in: 1.day) do
         res = query(
