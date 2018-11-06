@@ -1,7 +1,11 @@
 .l-tabs
   .l-page-head
-    - if (!overview? && @page.icon)
-      = image_tag @page.icon, :class => "head-icon"
+    - if @page.icon
+      - if !overview?
+        = link_to page_path(@page) do
+          = image_tag @page.icon, :class => "head-icon"
+      - else
+        = image_tag @page.icon, :class => "head-icon"
     .head-txt
       - if !@page.summary_hierarchy.blank?
         .hier.js-hier-summary= @page.summary_hierarchy.html_safe

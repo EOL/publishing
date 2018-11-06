@@ -163,7 +163,7 @@ module PagesHelper
   end
 
   def overview?
-    current_page?(page_overview_path(@page))
+    current_page?(page_path(@page))
   end
 
   def summary_hierarchy(page, link)
