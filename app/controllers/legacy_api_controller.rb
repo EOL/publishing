@@ -26,15 +26,17 @@ protected
       object_hash[:source]                 = object.source_url if object.source_url
     end
     object_hash[:description]            = object.description if object.description
-    if object.image?
-      object_hash[:eolMediaURL]          = object.original_size_url
-      object_hash[:eolThumbnailURL]      = object.small_size_url
-    elsif object.video?
-      object_hash[:eolMediaURL]          = object.video_url if object.video_url || object.video_url == object.object_url
-      object_hash[:eolThumbnailURL]      = object.medium_size_url
-    elsif object.sound?
-      object_hash[:eolMediaURL]          = object.sound_url if object.sound_url || object.sound_url == object.object_url
-      object_hash[:eolThumbnailURL]      = object.medium_size_url
+    if object.respond_to?(:image?)
+      if object.image?
+        object_hash[:eolMediaURL]          = object.original_size_url
+        object_hash[:eolThumbnailURL]      = object.small_size_url
+      elsif object.video?
+        object_hash[:eolMediaURL]          = object.video_url if object.video_url || object.video_url == object.object_url
+        object_hash[:eolThumbnailURL]      = object.medium_size_url
+      elsif object.sound?
+        object_hash[:eolMediaURL]          = object.sound_url if object.sound_url || object.sound_url == object.object_url
+        object_hash[:eolThumbnailURL]      = object.medium_size_url
+      end
     end
 
     # TODO: locations.
