@@ -19,18 +19,24 @@ protected
     object_hash[:rights]                 = object.rights_statement if object.rights_statement
     object_hash[:rightsHolder]           = object.owner if object.owner
     object_hash[:bibliographicCitation]  = object.bibliographic_citation.body if object.bibliographic_citation
-    object_hash[:source]                 = object.source_page_url if object.source_page_url
+    if object.respond_to?(:source_page_url)
+      object_hash[:source]                 = object.source_page_url if object.source_page_url
+      object_hash[:mediaURL]               = object.source_url if object.source_url
+    else
+      object_hash[:source]                 = object.source_url if object.source_url
+    end
     object_hash[:description]            = object.description if object.description
-    object_hash[:mediaURL]               = object.source_url if object.source_url
-    if object.image?
-      object_hash[:eolMediaURL]          = object.original_size_url
-      object_hash[:eolThumbnailURL]      = object.small_size_url
-    elsif object.video?
-      object_hash[:eolMediaURL]          = object.video_url if object.video_url || object.video_url == object.object_url
-      object_hash[:eolThumbnailURL]      = object.medium_size_url
-    elsif object.sound?
-      object_hash[:eolMediaURL]          = object.sound_url if object.sound_url || object.sound_url == object.object_url
-      object_hash[:eolThumbnailURL]      = object.medium_size_url
+    if object.respond_to?(:image?)
+      if object.image?
+        object_hash[:eolMediaURL]          = object.original_size_url
+        object_hash[:eolThumbnailURL]      = object.small_size_url
+      elsif object.video?
+        object_hash[:eolMediaURL]          = object.video_url if object.video_url || object.video_url == object.object_url
+        object_hash[:eolThumbnailURL]      = object.medium_size_url
+      elsif object.sound?
+        object_hash[:eolMediaURL]          = object.sound_url if object.sound_url || object.sound_url == object.object_url
+        object_hash[:eolThumbnailURL]      = object.medium_size_url
+      end
     end
 
     # TODO: locations.
