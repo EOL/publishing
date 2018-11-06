@@ -34,7 +34,7 @@
               = "completed - #{time_ago_in_words(download.completed_at)}"
             - if !download.search_url.blank?
               %br
-              %span query URL:&nbsp;
+              %span query:&nbsp;
               = link_to(term_query_display_string(download.term_query), download.search_url)
 
     - unless @user.collections.empty?
