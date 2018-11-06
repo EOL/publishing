@@ -73,35 +73,38 @@ Rails.application.routes.draw do
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
 
+
   scope '/api' do
-    scope '/v1' do
-      scope '/ping' do
-        get '/' => 'api_ping#index'
-      end
-      scope '/pages' do
-        get '/' => 'api_pages#index'
-      end
-      scope '/search' do
-        get '/' => 'api_search#index'
-      end
-      scope '/collections' do
-        get '/' => 'api_collections#index'
-      end
-      scope '/data_objects' do
-        get '/' => 'api_data_objects#index'
-      end
-      scope '/hierarchy_entries' do
-        get '/' => 'api_hierarchy_entries#index'
-      end
-      scope '/hierarchies' do
-        get '/' => 'api_hierarchies#index'
-      end
-      scope '/provider_hierarchies' do
-        get '/' => 'api_provider_hierarchies#index'
-      end
-      scope '/search_by_provider' do
-        get '/' => 'api_search_by_provider#index'
-      end
+    # ping is a bit of an exception - it didn't really get versioned and takes no ID
+    scope '/ping' do
+      get '/1.0' => 'api_ping#index'
+      get '/' => 'api_ping#index'
+    end
+    scope '/pages' do
+      get '/1.0/:id' => 'api_pages#index'
+      get '/:id' => 'api_pages#index'
+      get '/:version' => 'api_pages#index', version: /1\.0/
+    end
+    scope '/search' do
+      get '/' => 'api_search#index'
+    end
+    scope '/collections' do
+      get '/' => 'api_collections#index'
+    end
+    scope '/data_objects' do
+      get '/' => 'api_data_objects#index'
+    end
+    scope '/hierarchy_entries' do
+      get '/' => 'api_hierarchy_entries#index'
+    end
+    scope '/hierarchies' do
+      get '/' => 'api_hierarchies#index'
+    end
+    scope '/provider_hierarchies' do
+      get '/' => 'api_provider_hierarchies#index'
+    end
+    scope '/search_by_provider' do
+      get '/' => 'api_search_by_provider#index'
     end
   end
 
