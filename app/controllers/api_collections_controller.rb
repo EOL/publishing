@@ -60,13 +60,12 @@ class ApiCollectionsController < LegacyApiController
     @pages = @pages.by_page(@page).per(@per_page)
   end
 
-  def add_page(c_page)
-    page = c_page.page
+  def add_page(page)
     @return_hash[:collection_items] << {
-      'name' => page.name,
+      'name' => page.page.name,
       'object_type' => 'TaxonConcept', # Remember, this is V2 terminology
-      'object_id' => page.id,
-      'title' => page.canonical,
+      'object_id' => page.page_id,
+      'title' => page.page.canonical,
       'created' => page.created_at,
       'updated' => page.updated_at,
       'annotation' => page.annotation,
