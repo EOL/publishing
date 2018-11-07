@@ -86,25 +86,39 @@ Rails.application.routes.draw do
       get '/:version' => 'api_pages#index', version: /1\.0/
     end
     scope '/search' do
-      get '/' => 'api_search#index'
+      get '/1.0/:id' => 'api_search#index'
+      get '/:q' => 'api_search#index'
+      get '/:version' => 'api_search#index', version: /1\.0/
     end
     scope '/collections' do
-      get '/' => 'api_collections#index'
+      get '/1.0/:id' => 'api_collections#index'
+      get '/:id' => 'api_collections#index'
+      get '/:version' => 'api_collections#index', version: /1\.0/
     end
     scope '/data_objects' do
-      get '/' => 'api_data_objects#index'
+      get '/1.0/:id' => 'api_data_objects#index'
+      get '/:id' => 'api_data_objects#index'
+      get '/:version' => 'api_data_objects#index', version: /1\.0/
     end
     scope '/hierarchy_entries' do
-      get '/' => 'api_hierarchy_entries#index'
+      get '/1.0/:id' => 'api_hierarchy_entries#index'
+      get '/:id' => 'api_hierarchy_entries#index'
+      get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
     end
     scope '/hierarchies' do
-      get '/' => 'api_hierarchies#index'
+      get '/1.0/:id' => 'api_hierarchies#index'
+      get '/:id' => 'api_hierarchies#index'
+      get '/:version' => 'api_hierarchies#index', version: /1\.0/
     end
     scope '/provider_hierarchies' do
-      get '/' => 'api_provider_hierarchies#index'
+      get '/1.0/:id' => 'api_provider_hierarchies#index'
+      get '/:id' => 'api_provider_hierarchies#index'
+      get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
     end
     scope '/search_by_provider' do
-      get '/' => 'api_search_by_provider#index'
+      get '/1.0/:id' => 'api_search_by_provider#index'
+      get '/:id' => 'api_search_by_provider#index'
+      get '/:version' => 'api_search_by_provider#index', version: /1\.0/
     end
   end
 
