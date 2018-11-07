@@ -100,26 +100,27 @@ Rails.application.routes.draw do
       get '/:id' => 'api_data_objects#index'
       get '/:version' => 'api_data_objects#index', version: /1\.0/
     end
-    scope '/hierarchy_entries' do
-      get '/1.0/:id' => 'api_hierarchy_entries#index'
-      get '/:id' => 'api_hierarchy_entries#index'
-      get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
-    end
-    scope '/hierarchies' do
-      get '/1.0/:id' => 'api_hierarchies#index'
-      get '/:id' => 'api_hierarchies#index'
-      get '/:version' => 'api_hierarchies#index', version: /1\.0/
-    end
-    scope '/provider_hierarchies' do
-      get '/1.0/:id' => 'api_provider_hierarchies#index'
-      get '/:id' => 'api_provider_hierarchies#index'
-      get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
-    end
-    scope '/search_by_provider' do
-      get '/1.0/:id' => 'api_search_by_provider#index'
-      get '/:id' => 'api_search_by_provider#index'
-      get '/:version' => 'api_search_by_provider#index', version: /1\.0/
-    end
+    # TODO: we decided we could go live without these. Which is good, they are lame:
+    # scope '/hierarchy_entries' do
+    #   get '/1.0/:id' => 'api_hierarchy_entries#index'
+    #   get '/:id' => 'api_hierarchy_entries#index'
+    #   get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
+    # end
+    # scope '/hierarchies' do
+    #   get '/1.0/:id' => 'api_hierarchies#index'
+    #   get '/:id' => 'api_hierarchies#index'
+    #   get '/:version' => 'api_hierarchies#index', version: /1\.0/
+    # end
+    # scope '/provider_hierarchies' do
+    #   get '/1.0/:id' => 'api_provider_hierarchies#index'
+    #   get '/:id' => 'api_provider_hierarchies#index'
+    #   get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
+    # end
+    # scope '/search_by_provider' do
+    #   get '/1.0/:id' => 'api_search_by_provider#index'
+    #   get '/:id' => 'api_search_by_provider#index'
+    #   get '/:version' => 'api_search_by_provider#index', version: /1\.0/
+    # end
   end
 
 
