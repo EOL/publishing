@@ -53,7 +53,7 @@ class ApiSearchController < LegacyApiController
 
     return_hash = {}
     return_hash[:totalResults] = pages.total_count
-    return_hash[:startIndex]   = ((params[:page]) * @per_page) - @per_page + 1
+    return_hash[:startIndex]   = ((params[:page].to_i) * @per_page) - @per_page + 1
     return_hash[:itemsPerPage] = @per_page
     return_hash[:results]      = results
     return_hash
