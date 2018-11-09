@@ -54,7 +54,7 @@ class Publishing::Fast
       log_start("Updating attribute #{field} (#{pos}) for #{plural}")
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
       if grab_file("#{plural}.tsv")
-        all_data = CSV.read(@data_file, col_sep: "\t", encoding: 'ISO-8859-1')
+        all_data = CSV.read(@data_file, col_sep: "\t")
         pk_pos = @klass.column_names.index('resource_pk') - 1
         all_data.in_groups_of(2000, false) do |lines|
           pks = lines.map { |l| l[pk_pos] }

@@ -88,7 +88,7 @@ class TraitBank
           "(trait:Trait)-[:predicate]->(term:Term) "\
           "WITH count(distinct(term.uri)) AS count "\
           "RETURN count")
-        res["data"] ? res["data"].first.first : 0 
+        res["data"] ? res["data"].first.first : 0
       end
     end
 
@@ -778,12 +778,13 @@ class TraitBank
 
     def create_resource(id_param)
       id = id_param.to_i
-      return "#{id_param} is not a valid positive integer id!" unless id.positive? && id.to_s == id_param
+      return "#{id_param} is not a valid positive integer id!" if
+        id_param.is_a?(String) && !id.positive? && id.to_s != id_param
       if (resource = find_resource(id))
         return resource
       end
       resource = connection.create_node(resource_id: id)
-      connection.set_label(resource, "Resource")
+      connection.set_label(resource, 'Resource')
       resource
     end
 
