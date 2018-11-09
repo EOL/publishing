@@ -13,7 +13,7 @@
             - name = t("languages.#{lang}")
             = link_to(name, page_articles_path(page_id: @page.id, lang_group: lang), data: { type: 'html' }, class: "item#{ @lang_group && lang == @lang_group ? " active" : ""}")
   - articles = @lang_group ? @articles.select { |a| a.lang_or_default.group == @lang_group } : @articles
-  - articles.group_by(&:first_section).each do |section, articles|
+  - articles.group_by(&:first_section_sort_order).each do |section, articles|
     %h2.ui.top.attached.header= section&.name || "Other Articles"
     %ul.ui.attached.segment.articles
       - articles.sort_by(&:first_section).each_with_index do |article, index|

@@ -17,6 +17,10 @@ class Article < ActiveRecord::Base
     @first_section ||= sections.sort_by { |s| s.position }.first
   end
 
+  def first_section_sort_order
+    first_section&.position || 9999
+  end
+
   def self.fix_quotes
     # owner: "\"<a href=\"\"http://www.nps.gov/plants.sos/\"\">USDI BLM</a>. United States, UT. 2003.\""
     count = 0
