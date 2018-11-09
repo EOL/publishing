@@ -18,7 +18,7 @@ For now, you need to get a token using a web browser; later you'll be
 able to do this from a script.
 
 To obtain a token, log in to your power user account and visit the page
-[`https://beta.eol.org/services/authenticate`](https://beta.eol.org/services/authenticate).
+[`https://eol.org/services/authenticate`](https://eol.org/services/authenticate).
 (Note: `services` is plural here since the token applies to all of the
 services.)  Copy the token (without the quotes) from the web browser
 into a file, so you can use it in API calls.  Keep the token in a safe
@@ -56,7 +56,7 @@ requests.  Suppose the API token is in a file called `api.token`.  The
 following illustrates use of `wget` with the `cypher` service:
 
     wget -O cypher.out --header "Authorization: JWT `cat api.token`" \
-      https://beta.eol.org/service/cypher?query="MATCH (n:Trait) RETURN n LIMIT 1;"
+      https://eol.org/service/cypher?query="MATCH (n:Trait) RETURN n LIMIT 1;"
 
 Or, if the Cypher query is in a file called `query.cypher`:
 
@@ -160,7 +160,7 @@ LIMIT 5
 ```
 ## show (numerical) value for this taxon for this predicate
 
-This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the number in the taxon page URL, eg: https://beta.eol.org/pages/328651) and trait predicate (the term URI for the predicate)
+This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the number in the taxon page URL, eg: https://eol.org/pages/328651) and trait predicate (the term URI for the predicate)
 
 ```
 MATCH (t:Trait)<-[:trait]-(p:Page),
@@ -214,7 +214,7 @@ LIMIT 5
 
 Provenance metadata can be found as properties on the trait node or as linked MetaData nodes. 
 
-Properties: t.source, if available, is a URL provided by the data partner, pointing to the original data source. Other properties are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://beta.eol.org/resources/396. The EOL trait record URL of the form https://beta.eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk.  
+Properties: t.source, if available, is a URL provided by the data partner, pointing to the original data source. Other properties are identifiers which can be used to construct URLs. For instance, r.resource_id can be used to construct a resource url like https://eol.org/resources/396. The EOL trait record URL of the form https://eol.org/pages/328651/data#trait_id=R261-PK22175282 can be constructed from p.page_id and t.eol_pk.  
 
 Nodes: Most other provenance information can be found on MetaData nodes with three predicates. Adding the following to your query will fetch one of each, if present:
 ```
