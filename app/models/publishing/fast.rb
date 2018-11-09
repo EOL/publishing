@@ -226,9 +226,10 @@ class Publishing::Fast
       # TODO: this logic was pulled from config/initializers/propagate_ids.rb ; extract!
       if max - min > page_size
         while max > min
+          inner_clauses = clauses.dup
           upper = min + page_size - 1
-          clauses << "WHERE t.id >= #{min} AND t.id <= #{upper}"
-          ActiveRecord::Base.connection.execute(clauses.join(' '))
+          inner_clauses << "WHERE t.id >= #{min} AND t.id <= #{upper}"
+          ActiveRecord::Base.connection.execute(inner_clauses.join(' '))
           also_propagate_referents(klass, min: min, upper: upper)
           min += page_size
         end
