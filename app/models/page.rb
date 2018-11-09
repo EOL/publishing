@@ -96,7 +96,7 @@ class Page < ActiveRecord::Base
       Page.where(medium_id: nil).where('media_count > 0').find_each do |page|
         # There's no NICE way to include the media, so this, yes, will make a query for every page. We don't run this
         # method often enough to warrant speeding it up.
-        page.medium_id = page.media.first.id
+        page.medium_id = page.media.first&.id
         pages << page
         if pages.size > 999 # FLUSH!
           Page.import!(pages, on_duplicate_key_update: [:medium_id])
