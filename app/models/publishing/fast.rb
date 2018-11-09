@@ -187,8 +187,7 @@ class Publishing::Fast
     # NOTE: "LOCAL" is a strange directive; you only use it when you are REMOTE. ...The intention being, you're telling
     # the remote server "the file I'm talking about is local to me." Confusing at best. I don't like it.
     q << 'LOCAL' unless @repo.is_on_this_host?
-    q << "INFILE '#{@data_file}'"
-    q << "INTO TABLE `#{@klass.table_name}`"
+    q << %{INFILE '#{@data_file}' INTO TABLE `#{@klass.table_name}` FIELDS OPTIONALLY ENCLOSED BY '"'}
     q << "(#{cols.join(',')})"
     begin
       @klass.connection.execute(q.join(' '))
