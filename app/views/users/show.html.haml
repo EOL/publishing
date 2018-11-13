@@ -20,9 +20,10 @@
       %ul.downloads
         -# TODO: expired_at and the like!
         -# TODO i18n
-        - @user.user_downloads.order(created_at: :desc).each_with_index do |download, index|
+        - downloads = @user.user_downloads.order(created_at: :desc)
+        - downloads.each_with_index do |download, index|
           -# name = term_search_name(download.options)
-          - name = "Search ##{index}"
+          - name = "Search ##{downloads.length - index}"
           %li
             - if download.completed_at.nil?
               = name
