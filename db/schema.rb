@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181010193654) do
+ActiveRecord::Schema.define(version: 20181113135546) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,      null: false
@@ -483,6 +483,7 @@ ActiveRecord::Schema.define(version: 20181010193654) do
   add_index "page_contents", ["page_id", "content_type", "content_id"], name: "effective_pk", unique: true, using: :btree
   add_index "page_contents", ["page_id", "content_type", "position"], name: "contents_for_page_index", using: :btree
   add_index "page_contents", ["page_id", "content_type"], name: "page_content_by_type_index", using: :btree
+  add_index "page_contents", ["page_id", "position"], name: "page_id_by_position", using: :btree
   add_index "page_contents", ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   add_index "page_contents", ["source_page_id"], name: "index_page_contents_on_source_page_id", using: :btree
 

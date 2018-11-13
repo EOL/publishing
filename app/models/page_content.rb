@@ -23,7 +23,7 @@ class PageContent < ActiveRecord::Base
 
   scope :media, -> { where(content_type: "Medium") }
 
-# TODO: make sure these both work.
+  # TODO: make sure these both work.
   counter_culture :page
   counter_culture :page,
     column_name: proc { |model| "#{model.content_type.pluralize.downcase}_count" },
@@ -37,6 +37,37 @@ class PageContent < ActiveRecord::Base
   # :content_type]... then we can interlace other media types (or always show
   # them separately, which I think has advantages)
   acts_as_list scope: :page
+
+  def self.set_v2_exemplars
+    require 'csv'
+    file = Rails.root.join('image_order.tsv')
+    all_data = CSV.read(file, col_sep: "\t")
+    all_data[1..-1].each do |row|
+      medium_id = row[0]
+      page_id = row[1]
+      order = row[2].to_i # 0-index
+      last = (row[3] =~ /last/i) # 'first' or 'last'
+      contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
+      if contents.any?
+        content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
+        if contents.size > 1
+          contents[1..-1].each { |extra| extra.destroy }
+        end
+        if last
+          content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.
+        else
+          if order.zero?
+            PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
+            page = Page.find(page_id)
+            page.update_attribute(:medium_id, medium_id) unless page.medium_id == medium_id
+            content.move_to_top
+          else
+            content.insert_at(order)
+          end
+        end
+      end
+    end
+  end
 
   def self.fix_exemplars
     # NOTE: this does NOT restrict by content_type because that slows the query WAAAAAAY down (it's not indexed)
