@@ -58,8 +58,6 @@ class PageContent < ActiveRecord::Base
         else
           if order.zero?
             PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
-            page = Page.find(page_id)
-            page.update_attribute(:medium_id, medium_id) unless page.medium_id == medium_id
             content.move_to_top
           else
             content.insert_at(order)
