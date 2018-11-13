@@ -123,7 +123,7 @@ class TraitBank
         dumb_log('Starting')
         nodes.includes(:parent).find_each do |node|
           i += 1
-          dumb_log("Percent complete: #{((i / count.to_f) * 100).ceil}% (#{i}/#{count})") if (per_cent % i).zero?
+          dumb_log("Percent complete: #{((i / count.to_f) * 100).ceil}% (#{i}/#{count})") if (i % per_cent).zero?
           page_id = node.page_id
           parent_id = node.parent.page_id
           next if page_id == parent_id
