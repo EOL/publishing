@@ -108,47 +108,46 @@ class TraitBank
       # based on what's currently in the database. It skips relationships to pages that are missing (but reports on
       # which those are), and it does not repeat any relationships. It takes a about a minute per 3000 nodes on jrice's
       # machine.
-      def rebuild_hierarchies!
-        remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
-        remove_with_query(name: :in_clade, q: "(:Page)-[in_clade:in_clade]->(:Page)")
-        missing = {}
-        related = {}
-        # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
-        itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
-        raise " I tried to use ITIS as the native node for the relationships, but it wasn't there." unless itis
-        Node.where(["resource_id = ? AND parent_id IS NOT NULL AND page_id IS NOT NULL",
-          itis.id]).
-          includes(:parent).
-          find_each do |node|
-            page_id = node.page_id
-            parent_id = node.parent.page_id
-            next if missing.has_key?(page_id) || missing.has_key?(parent_id)
-            page = page_exists?(page_id)
-            page = page.first if page
-            if page
-              relate("in_clade", page, page)
-            end
-            next if related.has_key?(page_id)
-            parent = page_exists?(parent_id)
-            parent = parent.first if parent
-            if page && parent
-              if page_id == parent_id
-                puts "** OOPS! Attempted to add #{page_id} as a parent of itself!"
-              else
-                relate("parent", page, parent)
-                relate("in_clade", page, parent)
-                related[page_id] = parent_id
-                # puts("#{page_id}-[:parent]->#{parent_id}")
-              end
-            else
-              missing[page_id] = true unless page
-              missing[parent_id] = true unless parent
-            end
-          end
-        related.each do |page, parent|
-          puts("#{page}-[:in_clade*]->#{parent}")
+      def rebuild_hierarchies(remove_old = false)
+        if remove_old
+          remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
         end
-        puts "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
+        @pages = {}
+        related = {}
+        eol = Resource.native
+        raise "I tried to use EOL as the native node for the relationships, but it wasn't there." unless eol
+        nodes = Node.where(["resource_id = ? AND parent_id IS NOT NULL AND page_id IS NOT NULL", eol.id])
+        count = nodes.count
+        i = 0
+        dumb_log('Starting')
+        nodes.includes(:parent).find_each do |node|
+          i += 1
+          dumb_log("Percent complete: #{count / i} (#{i}/#{count})") if (count % i).zero?
+          page_id = node.page_id
+          parent_id = node.parent.page_id
+          next if page_id == parent_id
+          next if related[page_id] == parent_id
+          page = get_cached_pages(page_id)
+          parent = get_cached_pages(page_id)
+          if page && parent
+            relate('parent', page, parent)
+            related[page_id] = parent_id
+          end
+        end
+        dumb_log('Done.')
+        dumb_log "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
+      end
+
+      def dumb_log(what)
+        puts "[#{Time.now}] #{what}"
+        STDOUT.flush
+      end
+
+      def get_cached_pages(page_id)
+        return @pages[page_id] if @pages.has_key?(page_id)
+        page = page_exists?(page_id)
+        page = page.first if page && page.is_a?(Array)
+        @pages[page_id] = page
       end
 
       def rebuild_names
