@@ -128,7 +128,7 @@ class TraitBank
           next if page_id == parent_id
           next if related[page_id] == parent_id
           page = get_cached_pages(page_id)
-          parent = get_cached_pages(page_id)
+          parent = get_cached_pages(parent_id)
           if page && parent
             relate('parent', page, parent)
             related[page_id] = parent_id
