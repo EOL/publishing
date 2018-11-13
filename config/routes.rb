@@ -142,7 +142,8 @@ Rails.application.routes.draw do
   get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
 
   get "/services/authenticate" => "services#authenticate_service"
-  get "/service/cypher" => "service/cypher#index"
+  get "/service/cypher" => "service/cypher#query", as: "cypher_query"
+  get "/service/cypher_form" => "service/cypher#form"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 

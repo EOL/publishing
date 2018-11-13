@@ -1,0 +1,5 @@
+%h2 Cypher Query
+= form_tag(cypher_query_path, method: "GET") do
+  %textarea#query{name: "query", cols: 100, rows: 20}
+  .div
+    %input{type: "submit"}

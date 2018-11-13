@@ -1,8 +1,12 @@
 # Cypher query via web services API
 
 class Service::CypherController < ServicesController
+  before_action :require_power_user, only: :form
 
-  def index
+  def form
+  end
+
+  def query
     return unless authorize_user_from_token!
     cypher = params[:query]
 
