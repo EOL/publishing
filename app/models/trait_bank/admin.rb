@@ -111,6 +111,7 @@ class TraitBank
       def rebuild_hierarchies(remove_old = false)
         if remove_old
           remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
+          remove_with_query(name: :in_clade, q: "(:Page)-[in_clade:in_clade]->(:Page)")
         end
         @pages = {}
         related = {}
