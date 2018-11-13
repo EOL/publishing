@@ -234,17 +234,17 @@ class TraitBank
     end
 
     def page_ancestors(page_id)
-      res = query("MATCH (page{ page_id: #{page_id}})-[:parent*0..]->(parent) RETURN parent")["data"]
-      res.map { |r| r.first["data"]["page_id"] }
+      res = query("MATCH (page{ page_id: #{page_id}})-[:parent*0..]->(parent) RETURN parent")['data']
+      res.map { |r| r.first['data']['page_id'] }
     end
 
     def first_pages_for_resource(resource_id)
       q = "MATCH (page:Page)-[:trait]->(:Trait)-[:supplier]->(:Resource { resource_id: #{resource_id} }) "\
         "RETURN DISTINCT(page) LIMIT 10"
       res = query(q)
-      found = res["data"]
+      found = res['data']
       return nil unless found
-      found.map { |f| f.first["data"]["page_id"] }
+      found.map { |f| f.first['data']['page_id'] }
     end
 
     def key_data(page_id)
