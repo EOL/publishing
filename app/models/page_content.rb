@@ -39,10 +39,12 @@ class PageContent < ActiveRecord::Base
   acts_as_list scope: :page
 
   def self.set_v2_exemplars
+    puts "[#{Time.now}] starting"
     require 'csv'
     file = Rails.root.join('image_order.tsv')
     all_data = CSV.read(file, col_sep: "\t")
-    all_data[1..-1].each do |row|
+    per_cent = all_data.size / 100
+    all_data[1..-1].each_with_index do |row, i|
       medium_id = row[0]
       page_id = row[1]
       order = row[2].to_i # 0-index
@@ -63,8 +65,12 @@ class PageContent < ActiveRecord::Base
             content.insert_at(order)
           end
         end
+        puts "[#{Time.now}] ... #{i / per_cent}" if (i % per_cent).zero?
+      else
+        puts "[#{Time.now}] missing: content_type: 'Medium', content_id: #{medium_id}, page_id: #{page_id}"
       end
     end
+    puts "[#{Time.now}] done."
   end
 
   def self.fix_exemplars
