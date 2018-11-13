@@ -66,9 +66,15 @@ module TermsHelper
   end
 
   def term_query_display_string(tq)
-    tq.filters.map do |f|
+    filter_part = tq.filters.map do |f|
       filter_display_string(f)
     end.join(', ')
+
+    clade_part = tq.clade ? 
+      "clade: #{tq.clade.native_node&.canonical_form}, " : 
+      ""
+
+    "#{tq.record? ? "Records" : "Taxa"} with #{clade_part}#{filter_part}"
   end
 
   private
