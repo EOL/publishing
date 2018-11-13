@@ -971,6 +971,8 @@ en:
       bio: "Brief Biography"
       collections: "Collections"
       downloads: "Downloads"
+      links: "Links"
+    trait_bank_cypher_form: "Trait bank cypher form"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
     you_must_select: "You must select at least one attribute"

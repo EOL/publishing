@@ -43,3 +43,7 @@
         %ul.collections
           - @user.collections.each do |collection|
             %li= link_to(collection.name, collection)
+    - if @user.is_power_user?
+      %h2= t("user.headers.links")
+      %ul.links
+        %li= link_to t("user.trait_bank_cypher_form"), cypher_form_path
