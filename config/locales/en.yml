@@ -654,6 +654,7 @@ en:
     status_title:
       accepted: "Accepted Names"
       preferred: "Accepted Names"
+      unusable: "Unusable Names"
       synonym: "Synonyms"
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
