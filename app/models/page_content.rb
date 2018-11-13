@@ -62,7 +62,7 @@ class PageContent < ActiveRecord::Base
             PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
             content.move_to_top
           else
-            content.insert_at(order)
+            content.insert_at(order + 1)
           end
         end
         puts "[#{Time.now}] ... #{i / per_cent}" if (i % per_cent).zero?
