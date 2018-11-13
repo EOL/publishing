@@ -118,11 +118,12 @@ class TraitBank
         raise "I tried to use EOL as the native node for the relationships, but it wasn't there." unless eol
         nodes = Node.where(["resource_id = ? AND parent_id IS NOT NULL AND page_id IS NOT NULL", eol.id])
         count = nodes.count
+        per_cent = count / 100
         i = 0
         dumb_log('Starting')
         nodes.includes(:parent).find_each do |node|
           i += 1
-          dumb_log("Percent complete: #{count / i} (#{i}/#{count})") if (count % i).zero?
+          dumb_log("Percent complete: #{((i / count.to_f) * 100).ceil}% (#{i}/#{count})") if (per_cent % i).zero?
           page_id = node.page_id
           parent_id = node.parent.page_id
           next if page_id == parent_id
