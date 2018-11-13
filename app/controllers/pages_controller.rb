@@ -108,7 +108,7 @@ class PagesController < ApplicationController
       "archetype" => "regular",
       "nested_post" => true,
       # NOTE: we do NOT want to translate this. The comments site is English.
-      "raw" => "Please leave your comments regarding <a href='#{page_overview_path(@page)}'>#{name}</a> in this thread
+      "raw" => "Please leave your comments regarding <a href='#{page_overview_url(@page)}'>#{name}</a> in this thread
         by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For
         additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
 
