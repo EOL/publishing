@@ -21,6 +21,10 @@ module Eol
         'http://eol.org/schema/terms/extinct'
       end
 
+      def trophic_level
+        'https://www.wikidata.org/wiki/Q1053008'
+      end
+
       def geographics
         [
          'http://rs.tdwg.org/dwc/terms/continent',

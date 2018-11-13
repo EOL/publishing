@@ -29,6 +29,7 @@ class PageDecorator::BriefSummary
     end
 
     landmark_children
+    trophic_level
 
     Result.new(@sentences.join(' '), @terms)
   end
@@ -99,6 +100,18 @@ class PageDecorator::BriefSummary
       if children.any?
         taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
         @sentences << "#{name_clause} includes groups like #{taxa_links.to_sentence}."
+      end
+    end
+
+    def trophic_level
+      trait = first_trait_for_pred_uri(Eol::Uris.trophic_level)
+
+      if trait && trait[:object_term]
+        obj = trait[:object_term]
+        obj_label = obj[:name]
+        obj_uri = obj[:uri]
+        pred_uri = trait[:predicate][:uri]
+        term_sentence("It is #{a_or_an(obj_label)} %s", obj_label, pred_uri, obj_uri)
       end
     end
 
@@ -197,6 +210,20 @@ class PageDecorator::BriefSummary
       return nil if values.empty?
       return true if recs.any? { |r| r[:object_term] && values.include?(r[:object_term][:uri]) }
       return false
+    end
+
+    def first_trait_for_pred_uri(pred_uri)
+      terms = gather_terms(pred_uri)
+      
+      terms.each do |term|
+        recs = @page.grouped_data[term]
+
+        if recs && recs.any?
+          return recs.first
+        end
+      end
+
+      nil
     end
 
     def gather_terms(uris)
