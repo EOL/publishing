@@ -55,7 +55,7 @@ class PageDecorator::BriefSummary
       end
 
       if is_it_extinct?
-        handle_term("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
+        term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
       elsif @page.iucn_status_key && IucnKeys.include?(@page.iucn_status_key.to_sym)
         handle_iucn @page.iucn_status_key.to_sym
       end
@@ -66,7 +66,7 @@ class PageDecorator::BriefSummary
       # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
       # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
       # extinction status sentence and the environment sentence, with the extinction status sentence first.
-      handle_term("It is found in %s.", "marine habitat", Eol::Uris.environment, Eol::Uris.marine) if is_it_marine?
+      term_sentence("It is found in %s.", "marine habitat", Eol::Uris.environment, Eol::Uris.marine) if is_it_marine?
 
       # Distribution sentence: It is found in [G1].
       @sentences << "It is found in #{g1}." if g1
@@ -230,7 +230,8 @@ class PageDecorator::BriefSummary
         next if @page.grouped_data[term].nil?
         @page.grouped_data[term].each do |trait|
           if trait.key?(:object_term)
-            values << trait[:object_term][:name]
+            obj_term = trait[:object_term]
+            values << term_tag(obj_term[:name], term, obj_term[:uri])
           else
             values << trait[:literal]
           end
@@ -272,15 +273,11 @@ class PageDecorator::BriefSummary
       %w(a e i o u).include?(word[0].downcase) ? "an #{word}" : "a #{word}"
     end
 
-    def term_toggle_id(term_name)
-      "brief-summary-#{term_name.gsub(/\s/, "-")}"
-    end
-
     def handle_iucn(code)
       uri = Eol::Uris::Iucn.code_to_uri(code)
       code_term = TraitBank.term_as_hash(uri)
 
-      handle_term(
+      term_sentence(
         "It is listed as %s by IUCN.",
         code_term[:name],
         Eol::Uris::Iucn.status,
@@ -288,16 +285,24 @@ class PageDecorator::BriefSummary
       )
     end
 
-    def handle_term(format_str, label, pred_uri, obj_uri)
+    def term_toggle_id(term_name)
+      "brief-summary-#{term_name.gsub(/\s/, "-")}"
+    end
+
+    def term_tag(label, pred_uri, obj_uri)
       toggle_id = term_toggle_id(label)
-      @sentences << sprintf(
-        format_str,
-        view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
-      )
       @terms << ResultTerm.new(
         pred_uri,
         TraitBank.term_as_hash(obj_uri),
         "##{toggle_id}"
+      )
+      view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
+    end
+
+    def term_sentence(format_str, label, pred_uri, obj_uri)
+      @sentences << sprintf(
+        format_str,
+        term_tag(label, pred_uri, obj_uri)
       )
     end
 end
