@@ -26,8 +26,8 @@
       = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js"
     = javascript_include_tag "https://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.min.js"
     - if Rails.env.staging? || Rails.env.production?
-      = javascript_include_tag "http://edge.quantserve.com/quant.js"
-      = javascript_include_tag "http://www.google-analytics.com/ga.js"
+      = javascript_include_tag "https://edge.quantserve.com/quant.js"
+      = javascript_include_tag "https://www.google-analytics.com/ga.js"
     = csrf_meta_tags
     - if content_for?(:head)
       = yield :head
