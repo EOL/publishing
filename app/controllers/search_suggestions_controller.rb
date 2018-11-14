@@ -1,6 +1,8 @@
 class SearchSuggestionsController < ApplicationController
   layout "application"
 
+  before_filter :require_admin
+
   def index
     @search_suggestions = SearchSuggestion.order(:match).by_page(params[:page]).per(50)
   end

@@ -1,8 +1,11 @@
 class TermsController < ApplicationController
   include DataAssociations
   helper :data
-  before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
-  before_action :build_query, :only => [:search_results, :search_form]
+
+  before_filter :require_admin, only: [:fetch_units, :update]
+
+  before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
+  before_action :build_query, only: [:search_results, :search_form]
 
   def index
     glossary("full_glossary", count_method: :count)
@@ -91,7 +94,6 @@ class TermsController < ApplicationController
   end
 
   def fetch_units
-    raise "unauthorized" unless is_admin? # TODO: generalize
     @log = []
     count = TraitBank::Terms::Relationships.fetch_units(@log)
     @log << "Loaded #{count} predicate/unit relationships."
@@ -99,7 +101,6 @@ class TermsController < ApplicationController
   end
 
   def update
-    raise "unauthorized" unless is_admin? # TODO: generalize
     term = params[:term].merge(uri: params[:uri])
     # TODO: sections ...  I can't properly test that right now.
     TraitBank.update_term(term) # NOTE: *NOT* hash!

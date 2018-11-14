@@ -136,7 +136,6 @@ class TraitBank
           end
         end
         dumb_log('Done.')
-        dumb_log "Missing pages in TraitBank: #{missing.keys.sort.join(", ")}"
       end
 
       def dumb_log(what)

@@ -1,4 +1,6 @@
 class ResourcesController < ApplicationController
+  before_filter :require_admin, except: [:index, :show]
+
   def index
     @resources = Resource.order('updated_at DESC').by_page(params[:page] || 1).per(10)
   end
@@ -8,7 +10,6 @@ class ResourcesController < ApplicationController
   end
 
   def sync
-    raise "Unauthorized" unless is_admin?
     if (info = ImportLog.already_running?)
       flash[:alert] = info
     else
@@ -19,14 +20,12 @@ class ResourcesController < ApplicationController
   end
 
   def clear_publishing
-    raise "Unauthorized" unless is_admin?
     ImportLog.all_clear!
     flash[:notice] = "All clear. You can sync, now."
     redirect_to resources_path
   end
 
   def republish
-    raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
     Delayed::Job.enqueue(RepublishJob.new(@resource.id))
     flash[:notice] = "#{@resource.name} will be published in the background. Watch this page for updates."
@@ -34,7 +33,6 @@ class ResourcesController < ApplicationController
   end
 
   def reindex
-    raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
     Delayed::Job.enqueue(ReindexJob.new(@resource.id))
     flash[:notice] = "#{@resource.name} will be reindexed in the background. Watch this page for updates."
@@ -42,7 +40,6 @@ class ResourcesController < ApplicationController
   end
 
   def import_traits
-    raise "Unauthorized" unless is_admin?
     @resource = Resource.find(params[:resource_id])
     @resource.delay(queue: 'harvest').import_traits(1)
     flash[:notice] = "Background job for import of traits started."

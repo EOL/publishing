@@ -161,7 +161,7 @@ class PagesController < ApplicationController
   end
 
   def reindex
-    raise "Unauthorized" unless is_admin?
+    require_admin
     @page = Page.where(id: params[:page_id]).first
     @page.clear
     expire_fragment(page_data_path(@page))

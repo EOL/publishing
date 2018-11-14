@@ -19,8 +19,8 @@ class CollectionAssociationsController < ApplicationController
   end
 
   def create
-    # TODO: Access control
     @collection_association = CollectionAssociation.new(collection_association_params)
+    authorize @collection_association.collection
     if @collection_association.save
       Collecting.create(user: current_user, action: "add",
         collection: @collection_association.collection,
