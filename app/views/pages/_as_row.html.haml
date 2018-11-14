@@ -19,7 +19,7 @@
           - ancestors = page.native_node.try(:ancestors)
           - if ancestors
             - shown_ellipsis = false
-            - ancestors.each do |node|
+            - ancestors.compact.each do |node|
               - unless node.has_breadcrumb?
                 - unless shown_ellipsis
                   &nbsp;…

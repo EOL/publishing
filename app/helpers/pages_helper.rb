@@ -71,7 +71,7 @@ module PagesHelper
     ancestors = Array(ancestors)
     return nil if ancestors.blank?
     node = ancestors.shift
-    page = this_node.nil? ? @page : node.page
+    page = this_node.nil? ? @page : this_node.page
     haml_tag("div.item") do
       if (page.should_show_icon? && this_node && image = page.medium)
         haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
