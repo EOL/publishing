@@ -177,8 +177,8 @@ class TraitBank
           "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
           "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
           "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, "\
-            "meta, meta_predicate, meta_units_term, meta_object_term, page "\
-          "ORDER BY LOWER(meta_predicate.name)"
+            "meta, meta_predicate, meta_units_term, meta_object_term, page " # \
+          # "ORDER BY LOWER(meta_predicate.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res)
@@ -209,8 +209,8 @@ class TraitBank
         "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
         "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
 
-      q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
-        "LOWER(trait.literal)", "trait.normal_measurement"])
+      # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
+      #   "LOWER(trait.literal)", "trait.normal_measurement"])
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res)
@@ -259,8 +259,8 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
           "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
-          "ORDER BY predicate.position, LOWER(object_term.name), "\
-            "LOWER(trait.literal), trait.normal_measurement "\
+          # "ORDER BY predicate.position, LOWER(object_term.name), "\
+          #   "LOWER(trait.literal), trait.normal_measurement "\
           "LIMIT 100"
           # NOTE "Huge" limit, in case there are TONS of values for the same
           # predicate.
@@ -520,7 +520,7 @@ class TraitBank
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
 
-      q += "ORDER BY page.page_id " if !options[:count]
+      # q += "ORDER BY page.page_id " if !options[:count]
       q
     end
 
@@ -546,7 +546,8 @@ class TraitBank
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
       return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
-      order_clause = options[:count] ? "" : "ORDER BY page.name"
+      # order_clause = options[:count] ? "" : "ORDER BY page.name"
+      order_clause = ''
 
       "MATCH #{matches.join(', ')} "\
       "WHERE #{wheres.join(' AND ')} "\
@@ -560,7 +561,7 @@ class TraitBank
     # and optimize if needed. Do not prematurely optimize!
     def search_predicate_terms(q, page = 1, per = 50)
       q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) " # ORDER BY LOWER(term.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
       return [] if res["data"].empty?
@@ -586,7 +587,7 @@ class TraitBank
     # and optimize if needed. Do not prematurely optimize!
     def search_object_terms(q, page = 1, per = 50)
       q = "MATCH (trait:Trait)-[:object_term]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) ORDER BY LOWER(term.name)"
+        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) " # ORDER BY LOWER(term.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
       return [] if res["data"].empty?
