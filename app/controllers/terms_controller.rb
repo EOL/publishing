@@ -182,7 +182,7 @@ private
       :count => true,
     }
     Rails.logger.warn "&&TS Running count:"
-    @count = TraitBank.term_search(query, options)
+    @count = 1_000_000 # WAIT: TraitBank.term_search(query, options)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
     if query.taxa?
