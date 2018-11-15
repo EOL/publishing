@@ -17,6 +17,10 @@ Rails.application.configure do
   config.assets.debug = false
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+  end
 end
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
@@ -25,8 +29,3 @@ Rails.configuration.repository_url = Rails.application.secrets.repository['url']
 Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
 Rails.configuration.x.image_path = Rails.application.secrets.image_path
 Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
-
-config.after_initialize do
-  ActiveRecord::Base.logger = Rails.logger.clone
-  ActiveRecord::Base.logger.level = Logger::INFO
-end
