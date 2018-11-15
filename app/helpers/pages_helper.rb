@@ -185,12 +185,19 @@ module PagesHelper
   private
     def hierarchy_helper(page, link, mode)
       parts = []
-      node = page.native_node || page.nodes.first
-      ancestors = (node ?
-        node.node_ancestors
-          .includes(ancestor: [:page])
-          .collect(&:ancestor) :
-        []).compact
+      node = page.safe_native_node
+      ancestors = if node
+                    if node.node_ancestors.loaded?
+                      node.node_ancestors.collect(&:ancestor).compact
+                    else
+                      Rails.logger.warn('INEFFICIENT LOAD OF PAGE ANCESTORS FOR #hierarchy_helper')
+                      node.node_ancestors.
+                        includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
+                        collect(&:ancestor).compact
+                    end
+                  else
+                    []
+                  end
       shown_ellipsis = false
       unresolved = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
 

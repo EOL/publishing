@@ -34,7 +34,7 @@ class ApiSearchController < LegacyApiController
     pages.results.each do |result|
       result_hash = {}
       result_hash[:id] = result.id
-      node = result.native_node || result.nodes.first
+      node = result.safe_native_node
       next unless node
       result_hash[:title] = node.canonical_form
       result_hash[:link] = url_for(controller: 'pages', action: 'show', id: result.id)

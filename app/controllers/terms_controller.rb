@@ -250,7 +250,8 @@ private
     @raw_query = res[:raw_query]
     @raw_res = res[:raw_res].to_json
     ids = data.map { |t| t[:page_id] }.uniq
-    pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
+    # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
+    pages = Page.where(:id => ids).for_search_results
     @pages = {}
 
     ids.each do |id|

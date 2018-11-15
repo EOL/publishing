@@ -50,7 +50,7 @@ class ApiPagesController < LegacyApiController
   end
 
   def build_page(page)
-    node = page.native_node || page.nodes.first
+    node = page.safe_native_node
     @return_hash = {
       identifier: page.id,
       scientificName: node.preferred_scientific_name.verbatim,
