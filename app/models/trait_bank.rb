@@ -55,7 +55,8 @@ class TraitBank
 
     def count_by_resource_no_cache(id)
       res = query(
-        "MATCH (:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "MATCH (res:Resource { resource_id: #{id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page) "\
+        "USING INDEX res:Resource(resource_id) "\
         "WITH count(trait) as count "\
         "RETURN count")
       res["data"] ? res["data"].first.first : false
@@ -65,6 +66,7 @@ class TraitBank
       Rails.cache.fetch("trait_bank/count_by_resource/#{resource_id}/pages/#{page_id}") do
         res = query(
           "MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(trait:Trait)<-[:trait]-(page:Page { page_id: #{page_id} }) "\
+          "USING INDEX res:Resource(resource_id) USING INDEX page:Page(page_id) "\
           "WITH count(trait) as count "\
           "RETURN count")
         res["data"] ? res["data"].first.first : false
@@ -529,9 +531,13 @@ class TraitBank
     def term_page_search(term_query, options)
       matches = []
       wheres = []
+      indexes = []
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      if term_query.clade
+        page_match += "-[:parent*0..]->(anc:Page { page_id: #{term_query.clade.id} })"
+        indexes << 'USING INDEX anc:Page(page_id)'
+      end
       matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
@@ -544,6 +550,8 @@ class TraitBank
         matches << "(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
           filter.object_term?
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
+        indexes << "USING INDEX #{pred_var}:Term(uri)"
+        indexes << "USING INDEX #{obj_var}:Term(uri)" if filter.object_term?
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
@@ -552,6 +560,7 @@ class TraitBank
       order_clause = ''
 
       "MATCH #{matches.join(', ')} "\
+      "#{indexes.join(' ')} "\
       "WHERE #{wheres.join(' AND ')} "\
       "#{with_count_clause} "\
       "#{return_clause} "# \

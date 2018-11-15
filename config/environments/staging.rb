@@ -13,6 +13,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = Rails.application.secrets.smtp.symbolize_keys
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
+  config.log_level = :info
   config.assets.debug = false
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
@@ -24,3 +25,8 @@ Rails.configuration.repository_url = Rails.application.secrets.repository['url']
 Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
 Rails.configuration.x.image_path = Rails.application.secrets.image_path
 Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
+
+config.after_initialize do
+  ActiveRecord::Base.logger = Rails.logger.clone
+  ActiveRecord::Base.logger.level = Logger::INFO
+end

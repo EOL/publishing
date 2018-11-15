@@ -1,5 +1,6 @@
 Rails.application.configure do
   config.lograge.enabled = true
+  config.lograge.ignore_actions = ['PagesController#ping', 'HomePageController#index']
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -14,6 +15,11 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
+
+  config.action_mailer.default_url_options = Rails.application.secrets.host.symbolize_keys
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp.symbolize_keys
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
