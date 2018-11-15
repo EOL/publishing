@@ -4,10 +4,10 @@ namespace :dump_traits do
 
   desc 'Dump traits information from neo4j graphdb into a set of .csv files.'
   task dump: :environment do
-    clade = ENV['ID'] || '2913056'     # default = life
+    clade = ENV['ID']       # nil if not provided
     limit = ENV['LIMIT'] || '100000000'
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
-    prefix = "#{prefix}_#{clade}" if ENV['ID']
+    prefix = "#{prefix}_#{clade}" if clade
     prefix = "#{prefix}_limit_#{limit}" if ENV['LIMIT']
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     # This is not very rubyesque
