@@ -182,8 +182,10 @@ module PagesHelper
     tl == 0 ? l : tl
   end
 
-  private
-    def hierarchy_helper(page, link, mode)
+private
+
+  def hierarchy_helper(page, link, mode)
+    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}", expires_in: 1.day) do
       parts = []
       node = page.safe_native_node
       ancestors = if node
@@ -244,4 +246,5 @@ module PagesHelper
 
       result
     end
+  end
 end

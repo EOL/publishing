@@ -251,7 +251,7 @@ private
     @raw_res = res[:raw_res].to_json
     ids = data.map { |t| t[:page_id] }.uniq
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
-    pages = Page.where(:id => ids).for_search_results
+    pages = Page.where(:id => ids).with_hierarchy
     @pages = {}
 
     ids.each do |id|

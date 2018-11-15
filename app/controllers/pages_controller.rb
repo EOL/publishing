@@ -148,7 +148,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = PageDecorator.decorate(Page.find(params[:id]))
+    @page = PageDecorator.decorate(Page.where(id: params[:id]).with_hierarchy.first)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
@@ -173,7 +173,7 @@ class PagesController < ApplicationController
   end
 
   def data
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).with_hierarchy.first)
     @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
     @predicates = @predicate ? [@predicate[:uri]] : @page.predicates
     @resources = TraitBank.resources(@page.data)

@@ -11,10 +11,12 @@ class PageSearchDecorator < SearchResultDecorator
   end
 
   def title
+    Rails.logger.warn "____ GIMMIE A TITLE!"
     object.try(:search_highlights).try(:[], :preferred_vernacular_strings) || object.name
   end
 
   def content
+    Rails.logger.warn "____ GIMMIE YER CONTENT!"
     object.try(:search_highlights).try(:[], :scientific_name) || object.scientific_name
   end
 

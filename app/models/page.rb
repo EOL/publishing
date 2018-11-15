@@ -47,11 +47,11 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
-  scope :for_search_results, -> do
+  scope :with_hierarchy, -> do
     includes(:medium, :preferred_vernaculars,
-      native_node: { node_ancestors: { ancestor: {
+      native_node: [:scientific_names, { node_ancestors: { ancestor: {
         page: [:preferred_vernaculars, { native_node: :scientific_names }]
-      } } })
+      } } }])
   end
 
   scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
