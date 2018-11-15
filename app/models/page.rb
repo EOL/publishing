@@ -633,7 +633,8 @@ class Page < ActiveRecord::Base
   # NOTE: if you add caches IN THIS CLASS, then add them here:
   def clear_caches
     [
-      "/pages/#{id}/glossary"
+      "/pages/#{id}/glossary",
+      "trait_bank/by_page/#{page_id}"
     ].each do |cache|
       Rails.cache.delete(cache)
     end

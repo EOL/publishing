@@ -199,21 +199,23 @@ class TraitBank
     end
 
     def by_page(page_id, page = 1, per = 100)
-      q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
-          "-[:supplier]->(resource:Resource) "\
-        "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-        "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
-        "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-        "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
+      Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
+        q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait)"\
+            "-[:supplier]->(resource:Resource) "\
+          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
+          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
+          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
+          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
 
-      # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
-      #   "LOWER(trait.literal)", "trait.normal_measurement"])
-      q += limit_and_skip_clause(page, per)
-      res = query(q)
-      build_trait_array(res)
+        # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
+        #   "LOWER(trait.literal)", "trait.normal_measurement"])
+        q += limit_and_skip_clause(page, per)
+        res = query(q)
+        build_trait_array(res)
+      end
     end
 
     def data_dump_page(page_id)
