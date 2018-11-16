@@ -398,11 +398,11 @@ class TraitBank
     end
 
     def term_filter_where(filter, trait_var, pred_var, obj_var)
-      if filter.predicate?
+      if filter.object_term?
+        "(#{obj_var}.uri = \"#{filter.obj_uri}\" "#\
+        # "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
+      elsif filter.predicate?
         "#{pred_var}.uri = \"#{filter.pred_uri}\""
-      elsif filter.object_term?
-        "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
-        "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.numeric? || filter.range?
         conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
         if filter.numeric?
@@ -453,11 +453,14 @@ class TraitBank
         obj_var = "o#{i}"
         tgt_obj_var = "to#{i}"
         obj_mapping = "null"
-        matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
 
         if filter.object_term?
-          matches << "(#{trait_var}:Trait)-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
+          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(#{obj_var}:Term)"\
+            "-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
           obj_mapping = obj_var
+        else
+          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
+            "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
 
         wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
@@ -546,9 +549,11 @@ class TraitBank
         obj_var = "o#{i}"
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
-        matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-        matches << "(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)" if
-          filter.object_term?
+        if filter.object_term?
+          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
+        else
+          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        end
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
         indexes << "USING INDEX #{pred_var}:Term(uri)"
         indexes << "USING INDEX #{obj_var}:Term(uri)" if filter.object_term?
