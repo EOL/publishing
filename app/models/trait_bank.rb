@@ -456,7 +456,8 @@ class TraitBank
         obj_mapping = "null"
 
         if filter.object_term?
-          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term), "\ "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(#{obj_var}:Term)"\
+          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term), "\
+            "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(#{obj_var}:Term)"\
             "-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
           obj_mapping = obj_var
         else
