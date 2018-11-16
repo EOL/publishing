@@ -399,7 +399,8 @@ class TraitBank
 
     def term_filter_where(filter, trait_var, pred_var, obj_var)
       if filter.object_term?
-        "(#{obj_var}.uri = \"#{filter.obj_uri}\" "#\
+        "#{obj_var}.uri = \"#{filter.obj_uri}\""
+        # "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
         # "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.predicate?
         "#{pred_var}.uri = \"#{filter.pred_uri}\""
