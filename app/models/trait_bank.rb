@@ -554,9 +554,9 @@ class TraitBank
           matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
         else
           matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+          indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
-        indexes << "USING INDEX #{pred_var}:Term(uri)"
         indexes << "USING INDEX #{obj_var}:Term(uri)" if filter.object_term?
       end
 
