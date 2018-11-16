@@ -343,7 +343,7 @@ Rails.application.routes.draw do
     get 'tree_challenge', to: redirect('/docs/what-is-eol')
     get 'api_overview', to: redirect('/docs/what-is-eol/data-services')
     get '152', to: redirect('/docs/what-is-eol/data-services')
-    get 'services', to: redirect('/docs/what-is-eol/data-services')
+    get 'services', to: redirect('/')
     get 'the_history_of_eol', to: redirect('/docs/what-is-eol/eol-history')
     get 'how_is_eol_managed', to: redirect('/docs/what-is-eol/eol-history')
     get '277', to: redirect('/docs/what-is-eol/eol-history')
