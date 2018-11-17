@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   def route_not_found
     respond_to do |format|
-      format.html { render 'error_pages/404', status: :not_found }
-      format.all { redirect_to controller: 'application', action: 'route_not_found' }
+      format.png { redirect_to controller: 'application', action: 'route_not_found' }
+      format.all { render 'error_pages/404', status: :not_found }
     end
   end
 
