@@ -413,7 +413,7 @@ Rails.application.routes.draw do
   #keep this at the end of the routes (Refinery smetimes can override other routes)
   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
 
-  scope 'content'
+  scope 'content' do
     scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
       get '/*anything', to: proc { [404, {}, ['']] }
     end
