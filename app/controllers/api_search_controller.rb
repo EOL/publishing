@@ -45,7 +45,7 @@ class ApiSearchController < LegacyApiController
         result_hash[:content] << name.verbatim if name.verbatim =~ /#{params[:q]}/i
       end
       result.synonyms.each do |name|
-        result_hash[:content] << name.verbatim if name.verbatim =~ /#{params[:q]}/i
+        result_hash[:content] << name if name =~ /#{params[:q]}/i
       end
       result.vernacular_strings.each do |name|
         result_hash[:content] << name.string if name.string =~ /#{params[:q]}/i

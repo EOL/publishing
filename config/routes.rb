@@ -412,4 +412,6 @@ Rails.application.routes.draw do
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   #keep this at the end of the routes (Refinery smetimes can override other routes)
   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+
+  get '*unmatched_route', to: 'application#route_not_found'
 end

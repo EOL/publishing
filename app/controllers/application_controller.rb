@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
     before_filter :authenticate
   end
 
+  def route_not_found
+    render 'error_pages/404', status: :not_found
+  end
+
+
   protected
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
