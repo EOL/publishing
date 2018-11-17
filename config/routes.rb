@@ -413,6 +413,9 @@ Rails.application.routes.draw do
   #keep this at the end of the routes (Refinery smetimes can override other routes)
   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
 
+  scope 'content'
+    get '*unmatched_route', to: 'application#route_not_found'
+  end
   scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
     get '/*anything', to: proc { [404, {}, ['']] }
   end
