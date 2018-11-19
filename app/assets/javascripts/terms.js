@@ -119,6 +119,8 @@
         value: $(this).data('index')
       });
     });
+
+    $('#new_term_query').submit(showNotification);
   }
 
   EOL.onReady(setupForm);
@@ -134,7 +136,6 @@
       $form.attr('action', $(this).data('url'));
       $form.submit();
     });
-    $('.js-term-search-submit').click(showNotification);
     $('.show-raw-query').click(function() {
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();

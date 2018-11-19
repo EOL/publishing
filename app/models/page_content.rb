@@ -91,7 +91,7 @@ class PageContent < ActiveRecord::Base
       # doing dozens of extra DB queries to build the Search JSON!
       Page.search_import.where(id: group).find_each do |page|
         # NOTE: yes, this will produce a query for EVERY page in the array. ...But it's very hard to limit the number of results from a join, and this isn't a method we'll run very often, so this is "Fine."
-        medium_id = page.media.limit(1).pluck(:id).first
+        medium_id = page.media.order(:position).limit(1).pluck(:id).first
         page.update_attribute(:medium_id, medium_id) unless page.medium_id == medium_id
       end
       batch += 1
