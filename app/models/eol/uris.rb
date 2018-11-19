@@ -22,7 +22,7 @@ module Eol
       end
 
       def trophic_level
-        'https://www.wikidata.org/wiki/Q1053008'
+        'http://eol.org/schema/terms/TrophicGuild'
       end
 
       def geographics
