@@ -48,7 +48,7 @@ class CollectedPagesController < ApplicationController
 
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
-    authorize @collected_page
+    authorize @collected_page.collection, :update?
     is_new_page = @collected_page.new_record?
     has_media = params["collected_page"].has_key?("collected_pages_media_attributes") &&
       params["collected_page"]["collected_pages_media_attributes"].has_key?("0")

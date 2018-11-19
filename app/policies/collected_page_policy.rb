@@ -6,10 +6,6 @@ class CollectedPagePolicy
     @collected_page = collected_page
   end
 
-  def create?
-    user && user.is_admin? or collected_page.collection.users.include?(user)
-  end
-
   def update?
     user && user.is_admin? or collected_page.collection.users.include?(user)
   end
