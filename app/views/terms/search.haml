@@ -7,6 +7,7 @@
   - if @pages
     .js-filter-list
       %h2.filter-hdr= "Showing #{@grouped_data.offset_value + 1} - #{@grouped_data.offset_value + @grouped_data.length} of #{@grouped_data.total_count} #{@query.record? ? 'records' : 'taxa'} with"
+      -# %h2.filter-hdr= "Showing #{@grouped_data.offset_value + 1} - #{@grouped_data.offset_value + @grouped_data.length} #{@query.record? ? 'records' : 'taxa'} with"
       %ul.show-filters
         - if @query.clade
           %li.show-filter.show-filter-clade= "clade: #{@query.clade.native_node&.canonical_form}"

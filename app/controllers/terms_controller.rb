@@ -1,8 +1,11 @@
 class TermsController < ApplicationController
   include DataAssociations
   helper :data
-  before_action :no_main_container, :only => [:search, :search_results, :search_form, :show]
-  before_action :build_query, :only => [:search_results, :search_form]
+
+  before_filter :require_admin, only: [:fetch_units, :update]
+
+  before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
+  before_action :build_query, only: [:search_results, :search_form]
 
   def index
     glossary("full_glossary", count_method: :count)
@@ -91,7 +94,6 @@ class TermsController < ApplicationController
   end
 
   def fetch_units
-    raise "unauthorized" unless is_admin? # TODO: generalize
     @log = []
     count = TraitBank::Terms::Relationships.fetch_units(@log)
     @log << "Loaded #{count} predicate/unit relationships."
@@ -99,7 +101,6 @@ class TermsController < ApplicationController
   end
 
   def update
-    raise "unauthorized" unless is_admin? # TODO: generalize
     term = params[:term].merge(uri: params[:uri])
     # TODO: sections ...  I can't properly test that right now.
     TraitBank.update_term(term) # NOTE: *NOT* hash!
@@ -177,11 +178,9 @@ private
   end
 
   def paginate_term_search_data(data, query)
-    options = {
-      :count => true,
-    }
     Rails.logger.warn "&&TS Running count:"
-    @count = TraitBank.term_search(query, options)
+    # @count = 1_000_000
+    @count = TraitBank.term_search(query, { count: true })
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
     if query.taxa?
@@ -249,7 +248,8 @@ private
     @raw_query = res[:raw_query]
     @raw_res = res[:raw_res].to_json
     ids = data.map { |t| t[:page_id] }.uniq
-    pages = Page.where(:id => ids).includes(:medium, :native_node, :preferred_vernaculars)
+    # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
+    pages = Page.where(:id => ids).with_hierarchy
     @pages = {}
 
     ids.each do |id|

@@ -71,7 +71,7 @@ module PagesHelper
     ancestors = Array(ancestors)
     return nil if ancestors.blank?
     node = ancestors.shift
-    page = this_node.nil? ? @page : node.page
+    page = this_node.nil? ? @page : this_node.page
     haml_tag("div.item") do
       if (page.should_show_icon? && this_node && image = page.medium)
         haml_concat(image_tag(image.small_icon_url, alt: '', class: 'ui mini image'))
@@ -182,15 +182,24 @@ module PagesHelper
     tl == 0 ? l : tl
   end
 
-  private
-    def hierarchy_helper(page, link, mode)
+private
+
+  def hierarchy_helper(page, link, mode)
+    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}", expires_in: 1.day) do
       parts = []
-      node = page.native_node || page.nodes.first
-      ancestors = (node ?
-        node.node_ancestors
-          .includes(ancestor: [:page])
-          .collect(&:ancestor) :
-        []).compact
+      node = page.safe_native_node
+      ancestors = if node
+                    if node.node_ancestors.loaded?
+                      node.node_ancestors.collect(&:ancestor).compact
+                    else
+                      Rails.logger.warn('INEFFICIENT LOAD OF PAGE ANCESTORS FOR #hierarchy_helper')
+                      node.node_ancestors.
+                        includes(ancestor: { page: [:preferred_vernaculars, { native_node: :scientific_names }] }).
+                        collect(&:ancestor).compact
+                    end
+                  else
+                    []
+                  end
       shown_ellipsis = false
       unresolved = ancestors.any? && ancestors.none? { |anc| anc.use_breadcrumb? }
 
@@ -237,4 +246,5 @@ module PagesHelper
 
       result
     end
+  end
 end

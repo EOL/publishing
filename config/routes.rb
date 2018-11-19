@@ -343,7 +343,7 @@ Rails.application.routes.draw do
     get 'tree_challenge', to: redirect('/docs/what-is-eol')
     get 'api_overview', to: redirect('/docs/what-is-eol/data-services')
     get '152', to: redirect('/docs/what-is-eol/data-services')
-    get 'services', to: redirect('/docs/what-is-eol/data-services')
+    get 'services', to: redirect('/')
     get 'the_history_of_eol', to: redirect('/docs/what-is-eol/eol-history')
     get 'how_is_eol_managed', to: redirect('/docs/what-is-eol/eol-history')
     get '277', to: redirect('/docs/what-is-eol/eol-history')
@@ -412,4 +412,11 @@ Rails.application.routes.draw do
   # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
   #keep this at the end of the routes (Refinery smetimes can override other routes)
   mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+
+  scope 'content' do
+    scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
+      get '/*anything', to: proc { [404, {}, ['']] }
+    end
+  end
+  get '*unmatched_route', to: 'application#route_not_found'
 end

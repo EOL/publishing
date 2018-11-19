@@ -46,11 +46,13 @@ class ApiPagesController < LegacyApiController
          find_each do |page|
            @pages << build_page(page)
          end
-    @pages = @pages.first if @pages.size == 1 && !params[:batch]
+    if @pages.size == 1 && !params[:batch]
+      @pages = { taxonConcept: @pages.first }
+    end
   end
 
   def build_page(page)
-    node = page.native_node || page.nodes.first
+    node = page.safe_native_node
     @return_hash = {
       identifier: page.id,
       scientificName: node.preferred_scientific_name.verbatim,
@@ -69,7 +71,7 @@ class ApiPagesController < LegacyApiController
       page.vernaculars.each do |name|
         @return_hash[:vernacularNames] << {
           vernacularName: name.string,
-          language: name&.language&.code || name&.language&.group || '',
+          language: name&.language&.group || 'en', # Yes, the API defaulted to EN.
           eol_preferred: name.is_preferred?
         }
       end
@@ -81,20 +83,8 @@ class ApiPagesController < LegacyApiController
         flatten.compact.uniq!
     end
 
-    if params[:taxonomy]
-      @return_hash[:taxonConcepts] =
-        page.nodes.map do |node|
-          node_hash = {
-            identifier: node.id,
-            scientificName: node.preferred_scientific_name&.verbatim,
-            nameAccordingTo: node.resource&.name,
-            canonicalForm: node.canonical,
-            sourceIdentifier: node.resource_pk
-          }
-          node_hash[:taxonRank] = node.rank.name if node.rank
-          node_hash
-        end
-    end
+    add_taxonomy_to_page(@return_hash, page) if params[:taxonomy]
+
     @return_hash[:dataObjects] = []
     add_text(page) if params[:texts_per_page].positive?
     add_images(page) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
@@ -114,7 +104,7 @@ class ApiPagesController < LegacyApiController
         dataSubtype: '',
         vettedStatus: '', # TODO
         dataRatings: '', # TODO
-        dataRating: '', # TODO
+        dataRating: '2.5', # TODO
         subject: article.sections&.map(&:name)
       }
       add_details_to_data_object(article_hash, article)
@@ -133,7 +123,7 @@ class ApiPagesController < LegacyApiController
         dataSubtype: image.format,
         vettedStatus: '', # TODO
         dataRatings: '', # TODO
-        dataRating: '', # TODO
+        dataRating: '2.5', # TODO; this is faked for now per Yan Wang's request.
         mimeType: 'image/jpeg'
       }
       if (info = image.image_info)

@@ -1,7 +1,7 @@
 class VernacularsController < ApplicationController
-  # TODO: permissions
   def prefer
     name = Vernacular.find(params[:id])
+    authorize name, :update?
     Vernacular.transaction do
       name.page.vernaculars.where(language_id: name.language_id).update_all(is_preferred: false)
       name.update_attribute(:is_preferred, true)

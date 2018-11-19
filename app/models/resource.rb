@@ -237,7 +237,7 @@ class Resource < ActiveRecord::Base
     %w[base_url unmodified_url].each do |field|
       all = Medium.where(resource_id: id).where("#{field} LIKE 'data%'").select("id, #{field}")
       all.find_in_batches do |batch|
-        Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://beta-repo.eol.org/', #{field})")
+        Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://repo.eol.org/', #{field})")
       end
     end
   end

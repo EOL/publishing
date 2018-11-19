@@ -39,6 +39,7 @@ class CollectedPagesController < ApplicationController
 
   def update
     @collected_page = CollectedPage.find(params[:id])
+    authorize @collected_page
     @collected_page.update_attributes(collected_page_params)
     respond_to do |fmt|
       fmt.js {}
@@ -47,6 +48,7 @@ class CollectedPagesController < ApplicationController
 
   def create
     @collected_page = CollectedPage.find_or_initialize_by(existing_collected_page_params)
+    authorize @collected_page
     is_new_page = @collected_page.new_record?
     has_media = params["collected_page"].has_key?("collected_pages_media_attributes") &&
       params["collected_page"]["collected_pages_media_attributes"].has_key?("0")
@@ -96,7 +98,7 @@ class CollectedPagesController < ApplicationController
 
   def destroy
     @collected_page = CollectedPage.find(params[:id])
-    authorize @collected_page.collection
+    authorize @collected_page
     page = @collected_page.page
     if @collected_page.destroy
       Collecting.create(user: current_user, collection: @collected_page.collection,

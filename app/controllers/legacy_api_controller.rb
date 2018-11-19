@@ -14,8 +14,8 @@ protected
     object_hash[:modified]               = object.updated_at if object.updated_at
     object_hash[:title]                  = object.name if object.respond_to?(:name) && !object.name.blank?
     object_hash[:title]                  = object.title if object.respond_to?(:title) && !object.title.blank?
-    object_hash[:language]               = object.language.code if object.language
-    object_hash[:license]                = object.license.name if object.license
+    object_hash[:license]                = object.license.source_url if object.license
+    object_hash[:language]               = object.language.group if object.language
     object_hash[:rights]                 = object.rights_statement if object.rights_statement
     object_hash[:rightsHolder]           = object.owner if object.owner
     object_hash[:bibliographicCitation]  = object.bibliographic_citation.body if object.bibliographic_citation
@@ -68,5 +68,22 @@ protected
     object_hash[:references] = object.references.flat_map(&:referent).map(&:body)
     object_hash.delete(:references) if object_hash[:references].empty?
     object_hash # no real need to return this, but hey.
+  end
+
+  def add_taxonomy_to_page(object_hash, page)
+    object_hash[:taxonConcepts] =
+      page.nodes.map do |node|
+        node_hash = {
+          identifier: node.id,
+          scientificName: node.preferred_scientific_name&.verbatim,
+          name: node.preferred_scientific_name&.verbatim,
+          nameAccordingTo: node.resource&.name,
+          canonicalForm: node.canonical,
+          sourceIdentifier: node.resource_pk
+        }
+        node_hash[:taxonRank] = node.rank.name if node.rank
+        node_hash
+      end
+    object_hash
   end
 end

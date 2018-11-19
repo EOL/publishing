@@ -11,14 +11,13 @@ class UsersController < ApplicationController
 
   def delete_user
     @user = User.find(params[:id])
-    if @user && current_user.try(:can_delete_account?, @user)
-      @user.soft_delete
-      Devise.sign_out_all_scopes ? sign_out : sign_out(User)
-      flash[:notice] = I18n.t(:destroyed, scope: 'devise.registrations')
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.json { render json: true }
-      end
+    authenticate @user, :destroy?
+    @user.soft_delete
+    Devise.sign_out_all_scopes ? sign_out : sign_out(User)
+    flash[:notice] = I18n.t(:destroyed, scope: 'devise.registrations')
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.json { render json: true }
     end
   end
 

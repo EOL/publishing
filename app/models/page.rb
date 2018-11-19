@@ -47,6 +47,13 @@ class Page < ActiveRecord::Base
         :location, :resource, attributions: :role])
   end
 
+  scope :with_hierarchy, -> do
+    includes(:medium, :preferred_vernaculars,
+      native_node: [:scientific_names, { node_ancestors: { ancestor: {
+        page: [:preferred_vernaculars, { native_node: :scientific_names }]
+      } } }])
+  end
+
   scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
                                       native_node: [:scientific_names, :unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
 
@@ -185,6 +192,13 @@ class Page < ActiveRecord::Base
       resource_ids: resource_ids,
       rank_ids: nodes&.map(&:rank_id).uniq.compact
     }
+  end
+
+  def safe_native_node
+    return native_node if native_node
+    return nil if nodes.empty?
+    update_attribute(:native_node_id, nodes.first.id)
+    return nodes.first
   end
 
   def specificity
@@ -444,7 +458,6 @@ class Page < ActiveRecord::Base
     vernacular(Language.current)&.string&.capitalize || canonical
   end
 
-
   # TRAITS METHODS
 
   def key_data
@@ -620,7 +633,8 @@ class Page < ActiveRecord::Base
   # NOTE: if you add caches IN THIS CLASS, then add them here:
   def clear_caches
     [
-      "/pages/#{id}/glossary"
+      "/pages/#{id}/glossary",
+      "trait_bank/by_page/#{page_id}"
     ].each do |cache|
       Rails.cache.delete(cache)
     end

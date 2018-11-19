@@ -34,18 +34,23 @@ class ApiSearchController < LegacyApiController
     pages.results.each do |result|
       result_hash = {}
       result_hash[:id] = result.id
-      node = result.native_node || result.nodes.first
+      node = result.safe_native_node
       next unless node
       result_hash[:title] = node.canonical_form
       result_hash[:link] = url_for(controller: 'pages', action: 'show', id: result.id)
 
       result_hash[:content] = []
+      result_hash[:content] << node.canonical_form if node.canonical_form =~ /#{params[:q]}/i
       result.scientific_names.each do |name|
-        result_hash[:content] << name.verbatim if name.verbatim =~ /#{params[:q]}/
+        result_hash[:content] << name.verbatim if name.verbatim =~ /#{params[:q]}/i
       end
-      result.preferred_vernaculars.each do |name|
-        result_hash[:content] << name.string if name.string =~ /#{params[:q]}/
+      result.synonyms.each do |name|
+        result_hash[:content] << name if name =~ /#{params[:q]}/i
       end
+      result.vernacular_strings.each do |name|
+        result_hash[:content] << name if name =~ /#{params[:q]}/i
+      end
+      result_hash[:content] = result_hash[:content].uniq.join('; ')
       results << result_hash
     end
 

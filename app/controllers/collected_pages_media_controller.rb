@@ -7,7 +7,7 @@ class CollectedPagesMediaController < ApplicationController
         medium_id: params[:medium_id])
     @collected_pages_medium = q.first
     page = @collected_pages_medium.collected_page
-    authorize page.collection
+    authorize page
     if q.delete_all
       Collecting.create(user: current_user, collection: @collected_pages_medium.collected_page.collection,
         action: "remove", content: @collected_pages_medium.medium)

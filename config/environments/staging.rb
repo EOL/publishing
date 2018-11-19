@@ -13,9 +13,14 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = Rails.application.secrets.smtp.symbolize_keys
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
+  config.log_level = :info
   config.assets.debug = false
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+  end
 end
 
 # NOTE: it does seem a *little* silly to me to move all of the secrets to the configuration, but I think that makes
