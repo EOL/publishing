@@ -14,13 +14,13 @@
           - if node.ancestors && !node.ancestors.none?
             - classification(node, node.ancestors, children: true)
           - else
-            - summarize(@page, current_page: true, node: node)
+            - summarize(@page, current_page: true, node: node, no_icon: true)
             - if node.children.any?
               .item
                 .ui.middle.aligned.list
                   - node.children.each do |child|
                     .item
-                      - summarize(child.page, current_page: false, node: child)
+                      - summarize(child.page, current_page: false, node: child, no_icon: true)
   -# NOTE: we should remove this conditional when most pages have had their richness calculated.
   - if @page.page_richness
     %h2= t("classifications.richness.header")
