@@ -479,6 +479,13 @@ en:
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
+  license_group:
+    labels:
+      cc_by_nc_sa: "CC-BY-NC-SA"
+      no_known: "no known copyright"
+      cc_by_nc: "CC-BY-NC"
+      cc_by_sa: "CC-BY-SA"
+      cc_by: "CC-BY"
   literature_and_references_header: "Literature and References"
   maps:
     empty: "There are no maps available for this page."
