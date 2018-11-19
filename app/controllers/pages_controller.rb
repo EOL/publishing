@@ -148,8 +148,9 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    @page = PageDecorator.decorate(Page.where(id: params[:id]).with_hierarchy.first)
-    raise "Missing" if @page.nil?
+    page = Page.where(id: params[:id]).with_hierarchy.first
+    redirect_to(controller: 'application', action: 'route_not_found') if page.nil?
+    @page = PageDecorator.decorate(page)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
