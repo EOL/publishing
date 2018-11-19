@@ -69,4 +69,21 @@ protected
     object_hash.delete(:references) if object_hash[:references].empty?
     object_hash # no real need to return this, but hey.
   end
+
+  def add_taxonomy_to_page(object_hash, page)
+    object_hash[:taxonConcepts] =
+      page.nodes.map do |node|
+        node_hash = {
+          identifier: node.id,
+          scientificName: node.preferred_scientific_name&.verbatim,
+          name: node.preferred_scientific_name&.verbatim,
+          nameAccordingTo: node.resource&.name,
+          canonicalForm: node.canonical,
+          sourceIdentifier: node.resource_pk
+        }
+        node_hash[:taxonRank] = node.rank.name if node.rank
+        node_hash
+      end
+    object_hash
+  end
 end

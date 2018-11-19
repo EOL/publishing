@@ -1,4 +1,4 @@
-class CollectionPolicy
+class CollectedPagePolicy
   attr_reader :user, :collection
 
   def initialize(user, collected_page)
