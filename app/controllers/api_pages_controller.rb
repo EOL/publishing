@@ -69,7 +69,7 @@ class ApiPagesController < LegacyApiController
       page.vernaculars.each do |name|
         @return_hash[:vernacularNames] << {
           vernacularName: name.string,
-          language: name&.language&.code || name&.language&.group || '',
+          language: name&.language&.group || 'en', # Yes, the API defaulted to EN.
           eol_preferred: name.is_preferred?
         }
       end
@@ -87,6 +87,7 @@ class ApiPagesController < LegacyApiController
           node_hash = {
             identifier: node.id,
             scientificName: node.preferred_scientific_name&.verbatim,
+            name: node.preferred_scientific_name&.verbatim,
             nameAccordingTo: node.resource&.name,
             canonicalForm: node.canonical,
             sourceIdentifier: node.resource_pk
