@@ -1,6 +1,14 @@
 //= require shared/data_row
 
 (function() {
+  function showNotification() {
+    UIkit.notification('This may take a minute', {
+      status: 'primary',
+      pos: 'top-center',
+      offset: '100px'
+    })
+  }
+
   function fetchForm(option) {
     var data = $('#new_term_query').serializeArray();
 
@@ -126,6 +134,7 @@
       $form.attr('action', $(this).data('url'));
       $form.submit();
     });
+    $('.js-term-search-submit').click(showNotification);
     $('.show-raw-query').click(function() {
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
