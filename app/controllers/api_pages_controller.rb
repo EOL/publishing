@@ -40,22 +40,30 @@ class ApiPagesController < LegacyApiController
     # Valid Options: 'cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd, na, all'
     @licenses =
       if params[:licenses]
-        licenses = License.where('1=1')
-        licenses =  if params[:licenses].match(/^cc-/)
-                      licenses = licenses.where('name LIKE "cc%" OR name LIKE "%creativecommons%"')
-                      # NOTE: that funny looking pattern is the MySQL version of a word boundary, /\b/ to Rubyists.
-                      licenses.where("name REGEXP '[[:<:]]#{params[:licenses].sub(/^cc-/, '')}(-[[:digit:]]|[^-]|$)'")
-                    elsif params[:licenses] == 'pd'
-                      licenses.where('name LIKE "%publicdomain%" OR name LIKE "%public domain%"')
-                    elsif params[:licenses] == 'na'
-                      licenses.where('name LIKE "%no known%" OR name LIKE "%not applicable%"')
-                    else
-                      nil
-                    end
-        licenses ? licenses.pluck(:id) : []
+        ids = []
+        params[:licenses].split('|').each do |name|
+          ids += get_license_ids(name)
+        end
+        ids.sort.uniq
       else
         nil
       end
+  end
+
+  def get_license_ids(name)
+    licenses = License.where('1=1')
+    licenses =  if name.match(/^cc-/)
+                  licenses = licenses.where('name LIKE "cc%" OR name LIKE "%creativecommons%"')
+                  # NOTE: that funny looking pattern is the MySQL version of a word boundary, /\b/ to Rubyists.
+                  licenses.where("name REGEXP '[[:<:]]#{name.sub(/^cc-/, '')}(-[[:digit:]]|[^-]|$)'")
+                elsif name == 'pd'
+                  licenses.where('name LIKE "%publicdomain%" OR name LIKE "%public domain%"')
+                elsif name == 'na'
+                  licenses.where('name LIKE "%no known%" OR name LIKE "%not applicable%"')
+                else
+                  nil
+                end
+    licenses ? licenses.pluck(:id) : []
   end
 
   def get_pages
