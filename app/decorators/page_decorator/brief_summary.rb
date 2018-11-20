@@ -297,7 +297,7 @@ class PageDecorator::BriefSummary
 
     # Note: this does not always work (e.g.: "an unicorn")
     def a_or_an(word)
-      %w(a e i o u).include?(word[0].downcase) ? "an #{word}" : "a #{word}"
+      %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
     end
 
     def handle_iucn(code)
