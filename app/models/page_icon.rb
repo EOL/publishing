@@ -33,7 +33,7 @@ class PageIcon < ActiveRecord::Base
               content.update_column :position, index
             end
           end
-          page.page_icons.sort(&:created_at).each do |icon|
+          page.page_icons.each do |icon|
             icon.bump_icon
           end
         end
