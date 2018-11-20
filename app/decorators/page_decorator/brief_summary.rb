@@ -111,7 +111,7 @@ class PageDecorator::BriefSummary
         obj_label = obj[:name]
         obj_uri = obj[:uri]
         pred_uri = trait[:predicate][:uri]
-        term_sentence("It is #{a_or_an(obj_label)} %s", obj_label, pred_uri, obj_uri)
+        term_sentence("It is #{a_or_an(obj_label)} %s.", obj_label, pred_uri, obj_uri)
       end
     end
 
