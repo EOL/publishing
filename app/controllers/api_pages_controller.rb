@@ -44,7 +44,7 @@ class ApiPagesController < LegacyApiController
         licenses =  if params[:licenses].match(/^cc-/)
                       licenses = licenses.where('name LIKE "cc%" OR name LIKE "%creativecommons%"')
                       # NOTE: that funny looking pattern is the MySQL version of a word boundary, /\b/ to Rubyists.
-                      licenses.where("name REGEXP '[[:<:]]#{params[:licenses].sub(/^cc-/, '')}([^-]|$)'")
+                      licenses.where("name REGEXP '[[:<:]]#{params[:licenses].sub(/^cc-/, '')}(-[[:digit:]]|[^-]|$)'")
                     elsif params[:licenses] == 'pd'
                       licenses.where('name LIKE "%publicdomain%" OR name LIKE "%public domain%"')
                     elsif params[:licenses] == 'na'
@@ -136,7 +136,8 @@ class ApiPagesController < LegacyApiController
     return nil if params[:vetted] == '3' || params[:vetted] == '4'
     images = page.media.image.
       includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
-    images = images.where(license_id: licenses) if @licenses
+    images = images.where(license_id: @licenses) if @licenses
+    @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" }
     images.limit(params[:images_per_page]).each do |image|
       image_hash = {
         identifier: image.guid,
