@@ -26,7 +26,7 @@ class PageIcon < ActiveRecord::Base
     def fix_all
       Page.includes(:page_icons).find_each do |page|
         fix_all_at_position(0)
-        # fix_all_at_position(1)
+        # fix_all_at_position(1) # TODO: reenable this before you run it again.
       end
     end
 
