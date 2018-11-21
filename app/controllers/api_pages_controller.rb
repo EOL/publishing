@@ -39,7 +39,7 @@ class ApiPagesController < LegacyApiController
     end
     # Valid Options: 'cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd, na, all'
     @licenses =
-      if params[:licenses]
+      if params[:licenses] && params[:licenses] !~ /\ball\b/ 
         ids = []
         params[:licenses].split('|').each do |name|
           ids += get_license_ids(name)
