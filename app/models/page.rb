@@ -121,6 +121,13 @@ class Page < ActiveRecord::Base
       end
     end
 
+    def fix_low_position_exmplars
+      PageContent.media.where(position: 1).joins(:page).
+        where('`pages`.`medium_id` != `page_contents`.`content_id`').includes(:page).find_each do |pc|
+          pc.move_to_top
+        end
+    end
+
     def remove_if_nodeless
       # Delete pages that no longer have nodes
       Page.find_in_batches(batch_size: 10_000) do |group|

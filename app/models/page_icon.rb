@@ -25,17 +25,22 @@ class PageIcon < ActiveRecord::Base
 
     def fix_all
       Page.includes(:page_icons).find_each do |page|
-        if PageContent.where(page_id: page.id, position: 1).limit(2).count > 1
-          PageContent.acts_as_list_no_update do
-            index = 0
-            PageContent.where(page_id: page.id, position: 1).find_each do |content|
-              index += 1
-              content.update_column :position, index
-            end
+        fix_all_at_position(0)
+        # fix_all_at_position(1)
+      end
+    end
+
+    def fix_all_at_position(pos)
+      if PageContent.where(page_id: page.id, position: pos).limit(2).count > 1
+        PageContent.acts_as_list_no_update do
+          index = 0
+          PageContent.where(page_id: page.id, position: pos).find_each do |content|
+            index += 1
+            content.update_column :position, index
           end
-          page.page_icons.each do |icon|
-            icon.bump_icon
-          end
+        end
+        page.page_icons.each do |icon|
+          icon.bump_icon
         end
       end
     end
