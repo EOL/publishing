@@ -1,0 +1,2 @@
+#!/bin/sh
+bundle exec rails r "worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1
