@@ -101,6 +101,11 @@ Rails.application.routes.draw do
       get '/:id' => 'api_data_objects#index', id: id_match, format: /json|xml/
       get '/:version' => 'api_data_objects#index', version: /1\.0/, id: id_match, format: /json|xml/
     end
+    scope '/data_objects_articles' do
+      get '/1.0/:id' => 'api_data_objects#index_articles', id: id_match, format: /json|xml/
+      get '/:id' => 'api_data_objects#index_articles', id: id_match, format: /json|xml/
+      get '/:version' => 'api_data_objects#index_articles', version: /1\.0/, id: id_match, format: /json|xml/
+    end
     # TODO: we decided we could go live without these. Which is good, they are lame:
     # scope '/hierarchy_entries' do
     #   get '/1.0/:id' => 'api_hierarchy_entries#index'

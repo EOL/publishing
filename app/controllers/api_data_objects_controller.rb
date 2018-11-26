@@ -7,8 +7,17 @@ class ApiDataObjectsController < LegacyApiController
     end
   end
 
+  def index_articles
+    respond_to do |format|
+      build_objects(true)
+      format.json { render json: @object }
+      format.xml { render xml: @object.to_xml }
+    end
+  end
+
   def medium_or_article(attrs)
-    if Medium.exists?(attrs)
+    skip_media = attrs.delete(:skip_media)
+    if !skip_media && Medium.exists?(attrs)
       Medium.where(attrs)
     elsif Article.exists?(attrs)
       Article.where(attrs)
@@ -17,13 +26,13 @@ class ApiDataObjectsController < LegacyApiController
     end
   end
 
-  def build_objects
+  def build_objects(skip_media = false)
     @object = {}
     content =
       if params[:id] =~ /\A\d+\Z/
-        medium_or_article(id: params[:id])
+        medium_or_article(id: params[:id], skip_media: skip_media)
       else
-        medium_or_article(guid: params[:id])
+        medium_or_article(guid: params[:id], skip_media: skip_media)
       end
     if content.nil?
       raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
