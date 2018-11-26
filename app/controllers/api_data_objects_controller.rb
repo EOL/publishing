@@ -45,12 +45,12 @@ class ApiDataObjectsController < LegacyApiController
       type = 'http://purl.org/dc/dcmitype/Text'
       mime = 'text/html' # really, this could be text/plain, but we're not sure. I think this is safer.
     end
-    format = content.respond_to?(:format) ? content.format : ''
+    subtype = content.respond_to?(:format) ? content.format : ''
     @object = {
       identifier: content.guid,
       dataObjectVersionID: content.id,
       dataType: type,
-      dataSubtype: format,
+      dataSubtype: subtype,
       vettedStatus: 'Trusted',
       dataRatings: '', # TODO
       dataRating: '2.5', # Faked per Yan Wang's suggestion.

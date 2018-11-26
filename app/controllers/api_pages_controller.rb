@@ -4,7 +4,13 @@ class ApiPagesController < LegacyApiController
       set_default_params
       get_pages
       format.json { render json: @pages }
-      format.xml { render xml: @pages.to_xml }
+      format.xml do
+        if @pages.keys.first.is_a?(Integer)
+          # XML cannot use integers as tags!
+          @pages = @pages.values
+        end
+        render xml: @pages.to_xml
+      end
     end
   end
 
@@ -39,7 +45,7 @@ class ApiPagesController < LegacyApiController
     end
     # Valid Options: 'cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd, na, all'
     @licenses =
-      if params[:licenses] && params[:licenses] !~ /\ball\b/ 
+      if params[:licenses] && params[:licenses] !~ /\ball\b/
         ids = []
         params[:licenses].split('|').each do |name|
           ids += get_license_ids(name)
@@ -67,11 +73,11 @@ class ApiPagesController < LegacyApiController
   end
 
   def get_pages
-    @pages = []
+    @pages = {}
     Page.where(id: params[:id].split(/\D+/)).
-         includes(scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
+         includes(native_node: :scientific_names, scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
          find_each do |page|
-           @pages << build_page(page)
+           @pages[page.id] = build_page(page)
          end
     if @pages.size == 1 && !params[:batch]
       @pages = { taxonConcept: @pages.first }

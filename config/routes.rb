@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   end
 
   scope '/api' do
-    id_match = /[-\w\.]+(?=\.(json|xml))/
+    id_match = /[-\w\.,]+(?=\.(json|xml))/
     # id_match = /[-\w\.]+/
     # ping is a bit of an exception - it didn't really get versioned and takes no ID
     scope '/ping' do
