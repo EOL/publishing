@@ -73,32 +73,33 @@ Rails.application.routes.draw do
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
 
-
   scope '/api' do
+    id_match = /[-\w\.]+(?=\.(json|xml))/
+    # id_match = /[-\w\.]+/
     # ping is a bit of an exception - it didn't really get versioned and takes no ID
     scope '/ping' do
-      get '/1.0' => 'api_ping#index'
-      get '/' => 'api_ping#index'
+      get '/1.0' => 'api_ping#index', id: id_match, format: /json|xml/
+      get '/' => 'api_ping#index', id: id_match, format: /json|xml/
     end
     scope '/pages' do
-      get '/1.0/:id' => 'api_pages#index'
-      get '/:id' => 'api_pages#index'
-      get '/:version' => 'api_pages#index', version: /1\.0/
+      get '/1.0/:id' => 'api_pages#index', id: id_match, format: /json|xml/
+      get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
     end
     scope '/search' do
-      get '/1.0/:id' => 'api_search#index'
-      get '/:q' => 'api_search#index'
-      get '/:version' => 'api_search#index', version: /1\.0/
+      get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/
+      get '/:q' => 'api_search#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_search#index', version: /1\.0/, id: id_match, format: /json|xml/
     end
     scope '/collections' do
-      get '/1.0/:id' => 'api_collections#index'
-      get '/:id' => 'api_collections#index'
-      get '/:version' => 'api_collections#index', version: /1\.0/
+      get '/1.0/:id' => 'api_collections#index', id: id_match, format: /json|xml/
+      get '/:id' => 'api_collections#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_collections#index', version: /1\.0/, id: id_match, format: /json|xml/
     end
     scope '/data_objects' do
-      get '/1.0/:id' => 'api_data_objects#index'
-      get '/:id' => 'api_data_objects#index'
-      get '/:version' => 'api_data_objects#index', version: /1\.0/
+      get '/1.0/:id' => 'api_data_objects#index', id: id_match, format: /json|xml/
+      get '/:id' => 'api_data_objects#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_data_objects#index', version: /1\.0/, id: id_match, format: /json|xml/
     end
     # TODO: we decided we could go live without these. Which is good, they are lame:
     # scope '/hierarchy_entries' do

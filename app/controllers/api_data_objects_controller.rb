@@ -7,35 +7,54 @@ class ApiDataObjectsController < LegacyApiController
     end
   end
 
-  def build_objects
-    medium = if params[:id] =~ /\A\d+\Z/
-      begin
-        medium = Medium.where(id: params[:id]).includes(:language, :license).first
-      rescue
-        raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
-      end
+  def medium_or_article(attrs)
+    if Medium.exists?(attrs)
+      Medium.where(attrs)
+    elsif Article.exists?(attrs)
+      Article.where(attrs)
     else
-      Medium.find_by_guid(params[:id])
+      nil
     end
+  end
+
+  def build_objects
+    @object = {}
+    content =
+      if params[:id] =~ /\A\d+\Z/
+        medium_or_article(id: params[:id])
+      else
+        medium_or_article(guid: params[:id])
+      end
+    if content.nil?
+      raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
+    end
+    content = content.includes(:language, :license).first
     # TODO: handle non-images here...
+    type = 'http://purl.org/dc/dcmitype/StillImage'
+    mime = 'image/jpeg'
+    if content.is_a?(Article)
+      type = 'http://purl.org/dc/dcmitype/Text'
+      mime = 'text/html' # really, this could be text/plain, but we're not sure. I think this is safer.
+    end
+    format = content.respond_to?(:format) ? content.format : ''
     @object = {
-      identifier: medium.guid,
-      dataObjectVersionID: medium.id,
-      dataType: 'http://purl.org/dc/dcmitype/StillImage',
-      dataSubtype: medium.format,
-      vettedStatus: '', # TODO
+      identifier: content.guid,
+      dataObjectVersionID: content.id,
+      dataType: type,
+      dataSubtype: format,
+      vettedStatus: 'Trusted',
       dataRatings: '', # TODO
-      dataRating: '2.5', # TODO
-      mimeType: 'image/jpeg'
+      dataRating: '2.5', # Faked per Yan Wang's suggestion.
+      mimeType: mime
     }
-    add_details_to_data_object(@object, medium)
-    page = Page.where(id: medium.page_id).
+    add_details_to_data_object(@object, content)
+    page = Page.where(id: content.page_id).
       includes(native_node: :scientific_names, nodes: { references: :referent }).first
 
     @object = {
       taxon: {
         identifier: page.id,
-        scientificName: page.native_node.preferred_scientific_name.verbatim,
+        scientificName: page.safe_native_node.preferred_scientific_name&.verbatim,
         richness_score: page.page_richness,
         dataObjects: [@object]
       }
