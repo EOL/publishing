@@ -28,6 +28,12 @@
     - if Rails.env.staging? || Rails.env.production?
       = javascript_include_tag "https://edge.quantserve.com/quant.js"
       = javascript_include_tag "https://www.google-analytics.com/ga.js"
+      %script{async: true, src: "https://www.googletagmanager.com/gtag/js?id=UA-3298646-16"}
+      :javascript
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-3298646-16');
     = csrf_meta_tags
     - if content_for?(:head)
       = yield :head
