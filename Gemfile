@@ -91,6 +91,8 @@ gem 'omniauth-yahoo'
 gem 'pry-rails'
 # Authorization:
 gem 'pundit'
+# Enable CORS (see config/application for specifics):
+gem 'rack-cors', require: 'rack/cors'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
