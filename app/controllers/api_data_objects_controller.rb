@@ -2,6 +2,9 @@ class ApiDataObjectsController < LegacyApiController
   def index
     respond_to do |format|
       build_objects
+      if @object.nil?
+        return raise ActionController::RoutingError.new('Not Found')
+      end
       format.json { render json: @object }
       format.xml { render xml: @object.to_xml }
     end
@@ -27,7 +30,7 @@ class ApiDataObjectsController < LegacyApiController
   end
 
   def build_objects(skip_media = false)
-    @object = {}
+    @object = nil
     content =
       if params[:id] =~ /\A\d+\Z/
         medium_or_article(id: params[:id], skip_media: skip_media)
@@ -38,6 +41,8 @@ class ApiDataObjectsController < LegacyApiController
       raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
     end
     content = content.includes(:language, :license).first
+    return if content.nil?
+    @object = {}
     # TODO: handle non-images here...
     type = 'http://purl.org/dc/dcmitype/StillImage'
     mime = 'image/jpeg'

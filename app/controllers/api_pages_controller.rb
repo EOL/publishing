@@ -3,6 +3,9 @@ class ApiPagesController < LegacyApiController
     respond_to do |format|
       set_default_params
       get_pages
+      if @pages.empty?
+        return raise ActionController::RoutingError.new('Not Found')
+      end
       format.json { render json: @pages }
       format.xml do
         if @pages.keys.first.is_a?(Integer)

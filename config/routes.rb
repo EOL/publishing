@@ -106,12 +106,12 @@ Rails.application.routes.draw do
       get '/:id' => 'api_data_objects#index_articles', id: id_match, format: /json|xml/
       get '/:version' => 'api_data_objects#index_articles', version: /1\.0/, id: id_match, format: /json|xml/
     end
+    scope '/hierarchy_entries' do
+      get '/1.0/:id' => 'api_hierarchy_entries#index'
+      get '/:id' => 'api_hierarchy_entries#index'
+      get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
+    end
     # TODO: we decided we could go live without these. Which is good, they are lame:
-    # scope '/hierarchy_entries' do
-    #   get '/1.0/:id' => 'api_hierarchy_entries#index'
-    #   get '/:id' => 'api_hierarchy_entries#index'
-    #   get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
-    # end
     # scope '/hierarchies' do
     #   get '/1.0/:id' => 'api_hierarchies#index'
     #   get '/:id' => 'api_hierarchies#index'
@@ -159,7 +159,7 @@ Rails.application.routes.draw do
   #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/search_page" => "search#search_page", :as => "search_page"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
-  match '/404', :to => 'errors#not_found', :via => :all
+  match '/404', to: 'errors#not_found', via: :all, as: 'route_not_found'
   match '/500', :to => 'errors#internal_server_error', :via => :all
 
   match '/ping', to: 'pages#ping', via: :all
