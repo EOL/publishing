@@ -2,7 +2,7 @@ class ApiHierarchyEntriesController < LegacyApiController
   def index
     set_default_params
     get_entry
-    if @entry.nil?
+    if @entry.empty?
       return raise ActionController::RoutingError.new('Not Found')
     end
     respond_to do |format|
@@ -20,7 +20,7 @@ class ApiHierarchyEntriesController < LegacyApiController
   end
 
   def get_entry
-    @entry = nil
+    @entry = {}
     entry = Node.where(id: params[:id]).
          includes(:resource, :rank,
            node_ancestors: { ancestor: :rank },
@@ -29,7 +29,6 @@ class ApiHierarchyEntriesController < LegacyApiController
            scientific_names: :taxonomic_status,
            references: :referent).first
     return if entry.nil?
-    @entry = {}
     @entry[:entry] = entry
     @entry[:sourceIdentifier] = entry.resource_pk
     @entry[:taxonID] = entry.id
