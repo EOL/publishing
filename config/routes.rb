@@ -83,8 +83,8 @@ Rails.application.routes.draw do
     end
     scope '/pages' do
       get '/1.0/:id' => 'api_pages#index', id: id_match, format: /json|xml/
-      get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
       get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
+      get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
     end
     scope '/search' do
       get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/
