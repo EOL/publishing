@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   include DataAssociations
+  before_filter :handle_page_redirects
   before_action :set_media_page_size, only: [:show, :media]
   before_action :no_main_container
   after_filter :no_cache_json
@@ -295,6 +296,18 @@ class PagesController < ApplicationController
   end
 
 private
+  def handle_page_redirects
+    # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more
+    # elegantly than this. I suggest we build a page_redirects table.
+    if PageRedirect.exists?(id: params[:id])
+      redirect_to_id = PageRedirect.where(id: params[:id]).pluck(:redirect_to_id).first
+      redirect_to(controller: :pages, action: params[:action], id: redirect_to_id, status: :moved_permanently)
+    elsif PageRedirect.exists?(id: params[:page_id])
+      redirect_to_id = PageRedirect.where(id: params[:page_id]).pluck(:redirect_to_id).first
+      redirect_to(controller: :pages, action: params[:action], page_id: redirect_to_id, status: :moved_permanently)
+    end
+  end
+
   def no_cache_json
     # Prevents the back button from returning raw JSON
     if request.xhr?

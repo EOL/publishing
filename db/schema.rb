@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181120153738) do
+ActiveRecord::Schema.define(version: 20181129174446) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,      null: false
@@ -498,6 +498,10 @@ ActiveRecord::Schema.define(version: 20181120153738) do
   add_index "page_icons", ["medium_id"], name: "index_page_icons_on_medium_id", using: :btree
   add_index "page_icons", ["page_id"], name: "index_page_icons_on_page_id", using: :btree
   add_index "page_icons", ["user_id"], name: "index_page_icons_on_user_id", using: :btree
+
+  create_table "page_redirects", force: :cascade do |t|
+    t.integer "redirect_to_id", limit: 4
+  end
 
   create_table "pages", force: :cascade do |t|
     t.integer  "native_node_id",         limit: 4
