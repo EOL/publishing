@@ -1,6 +1,6 @@
 # About the web services API
 
-The web services API is in its infancy.  Suggestions welcome.
+This EOL v3 web services API is in its infancy.  Suggestions welcome.
 
 ## Authorization
 
@@ -27,14 +27,12 @@ place; it is similar to a password.
 
 ## Invoking API methods
 
-Individual API services are all under `/service/` (singular).
+Individual API services all have URLs starting `https://eol.org/service/` (singular).
 
-Services are invoked using HTTP, either from a browser, using a
-command line tool such as `curl` or `wget`, or a library such as
-`requests` in python.
+Services are invoked using HTTPS.
 
 With each request, it is necessary to provide the token in an HTTP
-`Authorization:` header.  For example:
+`Authorization:` header, preceded by `JWT`.  For example:
 
     Authorization: JWT eyJ0eXAzczOzJZUzZ1NzJ9.eyJ1c2VyZjoTA1QWJsZzfQ.Xf5FSA2P_lJBGyBYGTsRPczAkg
 
@@ -49,8 +47,11 @@ file is called `api.token`)
 
     chmod 600 api.token
 
-There is [documentation on using the API from various
-platforms](api-access.md) (shell, python, etc.).
+Services can be used whenever an HTTPS client is available, e.g. from
+a web browser, using a command line tool such as `curl` or `wget`, or
+a library such as `requests` in python.  See [the documentation on
+using the API from various platforms](api-access.md) for a few
+examples.
 
 ## The `cypher` service
 
@@ -66,22 +67,16 @@ Two output formats are available:
  - `cypher` (the default) - the JSON format natively returned by the neo4j Cypher query engine
  - `csv` - comma separated values format, with a header row naming the returned variables listed in the query, and each subsequent row being a result record
 
-Examples follow.
-
-
-## Example queries
-
 A number of examples of queries against the traits database are
 [provided](query-examples.md).
-
-The example queries illustrate both the use of Cypher (the query language)
-and the use of the traits database schema.
+These example queries illustrate both the use of Cypher (the query
+language) and the use of the traits database schema.
 
 
 ## Restrictions
 
 * A LIMIT clause is required, in order to encourage you to put a cap on
-  result set sizes (remember that small errors in a query can lead to 
+  result set sizes (remember that small errors in a query might lead to 
   enormous query result sets)
 * Queries (commands) that would cause changes to the graph database
   are rejected: create, set, delete, and so on

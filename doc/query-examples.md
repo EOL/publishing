@@ -10,6 +10,10 @@ helpful.  [This
 document](https://www.remwebdevelopment.com/blog/sql/some-basic-and-useful-cypher-queries-for-neo4j-201.html)
 on basic Cypher use is also handy.
 
+For general information on using the API, see [api.md](api.md) and
+[api-access.md](api-access.md).
+
+
 ## Show ancestry (lineage)
 
 Find the lineage of a given taxon (page) using the Cypher transitive

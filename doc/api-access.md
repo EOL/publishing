@@ -3,6 +3,8 @@
 Following is documentation on ways to access the API from various
 software contexts.
 
+For general information on using the API, see [api.md](api.md).
+
 ## Access from shell (bash) using wget
 
 `wget` is a common shell utility, similar to `curl`, for doing HTTP
@@ -23,10 +25,10 @@ use, and the standard shell on most GNU/Linux systems.
 
 ## Access from shell using curl
 
-When submitting a query it's necessary to convert any spaces to `%20`.
-This is not something you want to do manually.  `wget` does this
-automatically, but `curl` does not, as far as I can tell.  So I
-recommend using `wget` instead of `curl`.
+When submitting a query it's necessary to convert any spaces in the
+query to `%20`.  This is not something you want to do manually.
+`wget` does this conversion automatically, but `curl` does not, as far
+as I can tell.  So we recommend using `wget` instead of `curl`.
 
 
 ## Access using python
