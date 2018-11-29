@@ -11,11 +11,12 @@ administrator needs to make you a "power user". Please contact hammockj AT si.ed
 
 The API can be used directly in a browser, but to use it from a
 program (including a shell script) it is necessary to obtain a
-'token'.  This is simply a string that holds encrypted information
+'token'.  The token is simply a string that holds encrypted information
 that tells the web services who you are.
 
-For now, you need to get a token using a web browser; later you'll be
-able to do this from a script.
+For now, you need to get a token using a web browser.  (The idea is
+that in the future you'll be able to get a token via a shell script or
+web service.)
 
 To obtain a token, log in to your power user account and visit the page
 [`https://eol.org/services/authenticate`](https://eol.org/services/authenticate).
@@ -27,7 +28,6 @@ place; it is similar to a password.
 ## Invoking API methods
 
 Individual API services are all under `/service/` (singular).
-Currently the only service is `/service/cypher`.
 
 Services are invoked using HTTP, either from a browser, using a
 command line tool such as `curl` or `wget`, or a library such as
@@ -49,6 +49,22 @@ file is called `api.token`)
 
     chmod 600 api.token
 
+## The `cypher` service
+
+Currently (October 2018) the only API service is `/service/cypher`.
+This service takes the following parameters via the usual CGI
+key=value convention.
+
+ - `query` - a Cypher query (see [here](https://neo4j.com/docs/developer-manual/current/cypher/))
+ - `format` - requests a particular output format
+
+Two output formats are available:
+
+ - `cypher` (the default) - the JSON format natively returned by the neo4j Cypher query engine
+ - `csv` - comma separated values format, with a header row naming the returned variables listed in the query, and each subsequent row being a result record
+
+Examples follow.
+
 ## Example: Access from shell (bash) using wget
 
 `wget` is a common shell utility, similar to `curl`, for doing HTTP
@@ -66,63 +82,33 @@ Or, if the Cypher query is in a file called `query.cypher`:
 These commands may only work from `bash`, which is the shell that I
 use, and the standard shell on most GNU/Linux systems.
 
-
 ## Access from shell using curl
 
 When submitting a query it's necessary to convert any spaces to `%20`.
 This is not something you want to do manually.  `wget` does this
 automatically, but `curl` does not, as far as I can tell.  So I
-recommend you use `wget` instead of `curl`.
-
+recommend using `wget` instead of `curl`.
 
 ## Example: Access using python
 
-Here is a simple python program that invokes the `/service/cypher` API
-call.  The name of the file containins the token is given as a command
-line argument, and the query is given as a second command line
+A simple python program that invokes the `/service/cypher` API call is
+given here.  The name of the file containins the token is given as a
+command line argument, and the query is given as a second command line
 argument, for example (typed at the shell):
 
     python cypher.py --tokenfile=api.token --query="MATCH (n:Trait) RETURN n LIMIT 1;"
 
-where [`cypher.py`](cypher.py) is the file containing the following Python script:
-
-```
-import requests, argparse, json, sys
-
-default_server = "https://beta.eol.org"
-sample_data = {"a": "has space", "b": "has %", "c": "has &"}
-
-def doit(tokenfile, server, query):
-    with open(tokenfile, 'r') as infile:
-        api_token = infile.read().strip()
-    url = "%s/service/cypher" % server.rstrip('/')
-    data = {"query": query}
-    r = requests.get(url,
-                    headers={"accept": "application/json",
-                             "authorization": "JWT " + api_token},
-                    params=data)
-    if r.status_code != 200:
-        sys.stderr.write('HTTP status %s\n' % r.status_code)
-    json.dump(r.json(), sys.stdout, indent=2, sort_keys=True)
-    sys.stdout.write('\n')
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--tokenfile', help='file containing bare API token', default=None)
-    parser.add_argument('--query', help='cypher query to run', default=None)
-    parser.add_argument('--server', help='URL for EOL web app server', default=default_server)
-    args=parser.parse_args()
-    doit(args.tokenfile, args.server, args.query)
-```
+where [`cypher.py`](cypher.py) is the file containing this script
+(adjacent to this documentation file).
 
 *Warning:* The beta.eol.org site uses TLS1.2 for connection privacy
 (`https:`).  This version of TLS seems to be not fully supported in
 the version of Python that is built in to MacOS 10.12 (Sierra), and
 may be absent from tools of similar vintage.  If the example fails
 with an SSL error, make sure you have an up to date version of openssl
-(1.0.1 works, at least) and a Python that uses it.  I find this 
-puzzling since TLS 1.2 was published in 2008, but I am just relaying
-my experience.
+(1.0.1 works, at least) and a version of Python that uses it.  I find
+this puzzling since TLS 1.2 was published ten years ago, but I am just
+relaying my experience.
 
 ## Example: access from a web form
 
@@ -142,7 +128,96 @@ in to the EOL site.
 
 The taxa and records are modeled as a graph, which is described in the [Trait Schema](https://github.com/EOL/eol_website/blob/master/doc/trait-schema.md). New Cypher users may also find neo4j's [Cypher documentation](https://neo4j.com/docs/developer-manual/current/cypher/) helpful.
 
-## show traits
+### show ancestry (lineage)
+
+Find the lineage of a given taxon (page) using the Cypher transitive
+closure feature (`*`):
+
+```
+MATCH (origin:Page {page_id: 1267598})-[:parent*]->(ancestor:Page)
+OPTIONAL MATCH (ancestor)-[:parent]->(parent_of_ancestor:Page)
+RETURN ancestor.page_id, ancestor.canonical, parent_of_ancestor.page_id
+LIMIT 100
+```
+
+Result:
+
+```
+{
+  "columns": [
+    "ancestor.page_id", 
+    "ancestor.canonical", 
+    "parent_of_ancestor.page_id"
+  ], 
+  "data": [
+    [
+      328598, 
+      "Procyon lotor", 
+      18666
+    ], 
+    [
+      18666, 
+      "Procyon", 
+      7665
+    ], 
+...
+```
+
+The above query shows only the lineage starting at the _parent_ of the
+given taxon.  To include a single additional record for the given
+taxon showing its parent id of the given taxon, use `UNION ALL`: (this
+query also illustrates column renaming)
+
+```
+MATCH (origin:Page {page_id: 1267598})-[:parent]->(parent:Page)
+RETURN origin.page_id AS page_id,
+       origin.canonical AS canonical,
+       parent.page_id AS parent_id
+UNION ALL MATCH (origin:Page {page_id: 1267598})-[:parent*]->(ancestor:Page)
+OPTIONAL MATCH (ancestor)-[:parent]->(parent:Page)
+RETURN ancestor.page_id AS page_id, 
+       ancestor.canonical AS canonical,
+       parent.page_id AS parent_id
+LIMIT 100
+```
+
+Result:
+```
+{
+  "columns": [
+    "page_id", 
+    "canonical", 
+    "parent_id"
+  ], 
+  "data": [
+    [
+      1267598, 
+      "Procyon lotor pallidus", 
+      328598
+    ], 
+    [
+      328598, 
+      "Procyon lotor", 
+      18666
+    ], 
+...
+```
+
+### number of descendant taxa
+
+The following query counts the number of descendant taxa of a given
+taxon, in this case mammals (page id 1642).  (This number is usually
+close to the number of species, but subspecies and intermediate taxa
+are also included in the count.)
+
+```
+MATCH (descendant:Page)-[:parent*]->(ancestor:Page {page_id: 1642})
+RETURN COUNT(descendant)
+LIMIT 1
+```
+
+### show a sample of trait records
+>>>>>>> b4592e5c... api doc tweaks
 
 The following Cypher query shows basic information recorded in an
 arbitrarily chosen set of Trait nodes.
@@ -158,7 +233,7 @@ RETURN r.resource_id, t.eol_pk, t.resource_ok, t.source, p.page_id, t.scientific
        t.object_page_id, obj.uri, obj.name, t.normal_measurement, units.uri, units.name, t.normal_units, t.literal, lit.name
 LIMIT 5
 ```
-## show (numerical) value for this taxon for this predicate
+### show (numerical) value of a predicate, for a given taxon
 
 This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has numerical values. It can be called using identifiers for the taxon (the EOL identifier, corresponding to the number in the taxon page URL, eg: https://eol.org/pages/328651) and trait predicate (the term URI for the predicate)
 
@@ -182,7 +257,7 @@ OPTIONAL MATCH (t)-[:units_term]->(units:Term)
 RETURN p.canonical, pred.name, t.measurement, units.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
-## show (categorical) value for this taxon for this predicate
+### show (categorical) value of a predicate, for a given taxon
 
 This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has categorical values known to EOL by structured terms with URIs. Here is the construction using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)
 
@@ -195,7 +270,7 @@ OPTIONAL MATCH (t)-[:object_term]->(obj:Term)
 RETURN p.canonical, pred.name, obj.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
-## show (taxa) values for this taxon for this predicate
+### show (taxa) values of a predicate, for a given taxon
 
 This query shows the EOL taxa for five ecological partners associated by a specific predicate to a taxon, with limited metadata. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name, and returning strings for the ecological partner taxon name (with attendant risk of homonym confusion)
 
@@ -210,7 +285,7 @@ RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, p.page_id, t.eol_pk
 LIMIT 5
 ```
 
-## Provenance
+### provenance of trait record
 
 Provenance metadata can be found as properties on the trait node or as linked MetaData nodes. 
 
