@@ -59,6 +59,18 @@ class ApiPagesController < LegacyApiController
       end
   end
 
+  def get_pages
+    @pages = {}
+    Page.where(id: params[:id].split(/\D+/)).
+         includes(native_node: :scientific_names, scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
+         find_each do |page|
+           @pages[page.id] = build_page(page)
+         end
+    if @pages.size == 1 && !params[:batch]
+      @pages = { taxonConcept: @pages.values.first }
+    end
+  end
+
   def get_license_ids(name)
     licenses = License.where('1=1')
     licenses =  if name.match(/^cc-/)
@@ -73,18 +85,6 @@ class ApiPagesController < LegacyApiController
                   nil
                 end
     licenses ? licenses.pluck(:id) : []
-  end
-
-  def get_pages
-    @pages = {}
-    Page.where(id: params[:id].split(/\D+/)).
-         includes(native_node: :scientific_names, scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
-         find_each do |page|
-           @pages[page.id] = build_page(page)
-         end
-    if @pages.size == 1 && !params[:batch]
-      @pages = { taxonConcept: @pages.first }
-    end
   end
 
   def build_page(page)
