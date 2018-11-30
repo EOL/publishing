@@ -407,6 +407,7 @@ Rails.application.routes.draw do
     get '28', to: redirect('https://www.ted.com/talks/e_o_wilson_on_saving_life_on_earth')
   end
 
+  get "/traitbank", to: redirect('https://eol.org/docs/what-is-eol/traitbank')
 
   root 'home_page#index'
 

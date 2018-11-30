@@ -9,16 +9,18 @@ class TraitBank::TraitsDumper
     new(clade_page_id, dest, csvdir, limit).doit
   end
   def initialize(clade_page_id, dest, csvdir, limit)
-    @clade = Integer(clade_page_id)
+    # If clade_page_id is nil, that means do not filter by clade
+    @clade = nil
+    @clade = Integer(clade_page_id) if clade_page_id
     @dest = dest
     @csvdir = csvdir
     @limit = Integer(limit)
   end
   def doit
-    write_zip [spew_pages,
-               spew_traits,
-               spew_metadatas,
-               spew_terms]
+    write_zip [emit_pages,
+               emit_traits,
+               emit_metadatas,
+               emit_terms]
   end
 
   # There is probably a way to do this without creating the temporary
@@ -38,12 +40,21 @@ class TraitBank::TraitsDumper
     end
   end
 
+  # Return query fragment for lineage restriction, if there is one
+  def transitive_closure_part
+    if @clade
+      ", (page)-[:parent*]->(clade:Page {page_id: #{@clade}})"
+    else
+      ""
+    end
+  end
+
   #---- Query #3: Pages
 
-  def spew_pages
+  def emit_pages
 
     pages_query =
-     "MATCH (page:Page)-[:parent*]->(clade:Page {page_id: #{@clade}})
+     "MATCH (page:Page) #{transitive_closure_part}
       WHERE page.canonical IS NOT NULL
       OPTIONAL MATCH (page)-[:parent]->(parent:Page)
       RETURN page.page_id, parent.page_id, page.canonical 
@@ -53,17 +64,17 @@ class TraitBank::TraitsDumper
 
     pages_result = TraitBank.query(pages_query)
 
-    spew_csv(pages_result, pages_keys, "pages.csv")
+    emit_csv(pages_result, pages_keys, "pages.csv")
 
   end
 
   #---- Query #2: Traits
 
-  def spew_traits
+  def emit_traits
 
     traits_query =
-     "MATCH (t:Trait)<-[:trait]-(page:Page),
-            (page)-[:parent*]->(clade:Page {page_id: #{@clade}})
+     "MATCH (t:Trait)<-[:trait]-(page:Page)
+            #{transitive_closure_part}
       WHERE page.canonical IS NOT NULL
       OPTIONAL MATCH (t)-[:supplier]->(r:Resource)
       OPTIONAL MATCH (t)-[:predicate]->(predicate:Term)
@@ -90,18 +101,18 @@ class TraitBank::TraitsDumper
 
     traits_result = TraitBank.query(traits_query)
 
-    spew_csv(traits_result, traits_keys, "traits.csv")
+    emit_csv(traits_result, traits_keys, "traits.csv")
 
   end
 
   #---- Query #1: Metadatas
 
-  def spew_metadatas
+  def emit_metadatas
 
     metadata_query = 
      "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
-            (t)<-[:trait]-(page:Page),
-            (page)-[:parent*]->(clade:Page {page_id: #{@clade}})
+            (t)<-[:trait]-(page:Page)
+            #{transitive_closure_part}
       WHERE page.canonical IS NOT NULL
       OPTIONAL MATCH (m)-[:predicate]->(predicate:Term)
       OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
@@ -113,13 +124,13 @@ class TraitBank::TraitsDumper
                      "measurement", "units_uri", "literal"]
     metadata_result = TraitBank.query(metadata_query)
 
-    spew_csv(metadata_result, metadata_keys, "metadata.csv")
+    emit_csv(metadata_result, metadata_keys, "metadata.csv")
 
   end
 
   #---- Query #0: Terms
 
-  def spew_terms
+  def emit_terms
 
     # Many Term nodes have 'uri' properties that are not URIs.  Would it 
     # be useful to filter those out?  It's about 2% of the nodes.
@@ -135,12 +146,12 @@ class TraitBank::TraitsDumper
     terms_keys = ["uri", "name", "type"]
     terms_result = TraitBank.query(terms_query)
 
-    spew_csv(terms_result, terms_keys, "terms.csv")
+    emit_csv(terms_result, terms_keys, "terms.csv")
 
   end
 
   # Utility
-  def spew_csv(start, keys, fname)
+  def emit_csv(start, keys, fname)
     FileUtils.mkdir_p @csvdir
     path = File.join(@csvdir, fname)
     csv = CSV.open(path, "wb")
