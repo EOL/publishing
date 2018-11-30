@@ -39,6 +39,39 @@ class TraitBank
         end
       end
 
+      def glossary_for_letter(letter, options = {})
+        raise "invalid letter argument" if !letters_for_glossary.include?(letter)
+
+        key = "trait_bank/glossary_for_letter/#{letter}"
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          where = if letter == "0-9"
+                    "term.name =~ '[0-9].*'"
+                  else
+                    "substring(toLower(term.name), 0, 1) = '#{letter}'"
+                  end
+
+          q = "MATCH (term:Term{ is_hidden_from_glossary: false }) "\
+              "WHERE #{where} "\
+              "RETURN term "\
+              "ORDER BY toLower(term.name), toLower(term.uri)"
+          res = query(q)
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
+        end
+      end
+
+      def letters_for_glossary
+        Rails.cache.fetch("trait_bank/letters_for_glossary", expires_in: CACHE_EXPIRATION_TIME) do
+          q = "MATCH (term:Term{ is_hidden_from_glossary: false })\n"\
+              "WITH CASE\n"\
+              "WHEN term.name =~ '[0-9].*' THEN '0-9'\n"\
+              "ELSE substring(toLower(term.name), 0, 1) END AS letter\n"\
+              "RETURN DISTINCT letter\n"\
+              "ORDER BY letter"
+          res = query(q)
+          res["data"] ? res["data"].map { |item| item.first } : false
+        end
+      end
+
       def sub_glossary(type, page = 1, per = nil, options = {})
         count = options[:count]
         qterm = options[:qterm]

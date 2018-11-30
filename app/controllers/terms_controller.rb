@@ -8,7 +8,7 @@ class TermsController < ApplicationController
   before_action :build_query, only: [:search_results, :search_form]
 
   def index
-    glossary("full_glossary", count_method: :count)
+    glossary_for_letter(params[:letter])
   end
 
   def search
@@ -217,6 +217,12 @@ private
     result = TraitBank::Terms.send(which, @page, @per_page, qterm: query, for_select: !paginate)
     Rails.logger.warn "GLOSSARY RESULTS: (for select: #{!paginate}) #{result.map { |r| r[:name] }.join(', ')}"
     paginate ? Kaminari.paginate_array(result, total_count: count).page(@page).per(@per_page) : result[0..@per_page+1]
+  end
+
+  def glossary_for_letter(letter)
+    @letters = TraitBank::Terms.letters_for_glossary
+    @letter = letter ? letter : @letters.first
+    @glossary = TraitBank::Terms.glossary_for_letter(@letter)
   end
 
   def expire_trait_fragments
