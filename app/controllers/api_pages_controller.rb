@@ -3,8 +3,17 @@ class ApiPagesController < LegacyApiController
     respond_to do |format|
       set_default_params
       get_pages
+      if @pages.empty?
+        return raise ActionController::RoutingError.new('Not Found')
+      end
       format.json { render json: @pages }
-      format.xml { render xml: @pages.to_xml }
+      format.xml do
+        if @pages.keys.first.is_a?(Integer)
+          # XML cannot use integers as tags!
+          @pages = @pages.values
+        end
+        render xml: @pages.to_xml
+      end
     end
   end
 
@@ -37,14 +46,41 @@ class ApiPagesController < LegacyApiController
     params.dup.each do |name, value|
       params[name] = false if value == 'false'
     end
+    # Valid Options: 'cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd, na, all'
+    @licenses =
+      if params[:licenses] && params[:licenses] !~ /\ball\b/
+        ids = []
+        params[:licenses].split('|').each do |name|
+          ids += get_license_ids(name)
+        end
+        ids.sort.uniq
+      else
+        nil
+      end
+  end
+
+  def get_license_ids(name)
+    licenses = License.where('1=1')
+    licenses =  if name.match(/^cc-/)
+                  licenses = licenses.where('name LIKE "cc%" OR name LIKE "%creativecommons%"')
+                  # NOTE: that funny looking pattern is the MySQL version of a word boundary, /\b/ to Rubyists.
+                  licenses.where("name REGEXP '[[:<:]]#{name.sub(/^cc-/, '')}(-[[:digit:]]|[^-]|$)'")
+                elsif name == 'pd'
+                  licenses.where('name LIKE "%publicdomain%" OR name LIKE "%public domain%"')
+                elsif name == 'na'
+                  licenses.where('name LIKE "%no known%" OR name LIKE "%not applicable%"')
+                else
+                  nil
+                end
+    licenses ? licenses.pluck(:id) : []
   end
 
   def get_pages
-    @pages = []
+    @pages = {}
     Page.where(id: params[:id].split(/\D+/)).
-         includes(scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
+         includes(native_node: :scientific_names, scientific_names: [:resource, :taxonomic_status], nodes: {references: :referent}).
          find_each do |page|
-           @pages << build_page(page)
+           @pages[page.id] = build_page(page)
          end
     if @pages.size == 1 && !params[:batch]
       @pages = { taxonConcept: @pages.first }
@@ -96,15 +132,16 @@ class ApiPagesController < LegacyApiController
   end
 
   def add_text(page)
+    return nil if params[:vetted] == '3' || params[:vetted] == '4'
     page.articles.limit(params[:texts_per_page]).each do |article|
        article_hash = {
         identifier: article.guid,
         dataObjectVersionID: article.id,
         dataType: 'http://purl.org/dc/dcmitype/Text',
         dataSubtype: '',
-        vettedStatus: '', # TODO
-        dataRatings: '', # TODO
-        dataRating: '2.5', # TODO
+        vettedStatus: 'Trusted',
+        dataRatings: [],
+        dataRating: '2.5', # this is faked for now per Yan Wang's request.
         subject: article.sections&.map(&:name)
       }
       add_details_to_data_object(article_hash, article)
@@ -113,17 +150,20 @@ class ApiPagesController < LegacyApiController
   end
 
   def add_images(page)
-    page.media.image.
-      includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent).
-      limit(params[:images_per_page]).each do |image|
+    return nil if params[:vetted] == '3' || params[:vetted] == '4'
+    images = page.media.image.
+      includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
+    images = images.where(license_id: @licenses) if @licenses
+    @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" }
+    images.limit(params[:images_per_page]).each do |image|
       image_hash = {
         identifier: image.guid,
         dataObjectVersionID: image.id,
         dataType: 'http://purl.org/dc/dcmitype/StillImage',
         dataSubtype: image.format,
-        vettedStatus: '', # TODO
-        dataRatings: '', # TODO
-        dataRating: '2.5', # TODO; this is faked for now per Yan Wang's request.
+        vettedStatus: 'Trusted',
+        dataRatings: [],
+        dataRating: '2.5', # this is faked for now per Yan Wang's request.
         mimeType: 'image/jpeg'
       }
       if (info = image.image_info)
@@ -151,5 +191,4 @@ class ApiPagesController < LegacyApiController
     params[name] = params[name].to_i
     params[name] = 100 if params[name] > 100
   end
-
 end

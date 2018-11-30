@@ -40,6 +40,7 @@ class Comments
 
     def delete_empty_comment_topics
       client = discourse
+      count = 0
       empty_comment_topics.each do |topic|
         next unless Time.parse(topic['created_at']) < 1.hour.ago.utc
         msg = "** Removing topic #{topic_url(topic)}"
@@ -50,7 +51,9 @@ class Comments
         # Just want to lock it down? (The problem with this is that it still shows up.) Archive it:
         # client.change_topic_status(topic['slug'], topic['id'],
         #   { status: 'archived', enabled: true, api_username: Rails.application.secrets.discourse_user })
+        count += 1
       end
+      count
     end
   end
 end

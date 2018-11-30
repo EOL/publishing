@@ -22,6 +22,19 @@ class Node < ActiveRecord::Base
   counter_culture :resource
   counter_culture :page
 
+  class << self
+    def dump_provider_ids
+      CSV.open(Rails.public_path.join('data', 'provider_ids.csv'), 'wb') do |csv|
+        csv << %w[node_id resource_pk resource_id preferred_canonical_for_page]
+        Node.includes(page: { native_node: :scientific_names }).find_each do |node|
+          name = node.page.native_node.canonical_form&.gsub(/<\/?i>/, '')
+          csv << [node.id, node.resource_pk, node.resource_id, name]
+        end
+      end
+      # TODO: we should split that file up and GZIP it.
+    end
+  end
+
   # TODO: this is duplicated with page; fix.
   def name(language = nil)
     language ||= Language.current

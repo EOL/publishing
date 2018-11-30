@@ -100,7 +100,7 @@ services:
   eol-backend-tramea:
     build: ..
     image: eol_website
-    container_name: eol-backend-tramea
+    container_name: pub_app
     restart: always
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
