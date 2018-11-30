@@ -309,7 +309,7 @@ private
   end
 
   def get_media
-    if false && @page.media_count > 1000
+    if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
       @license_groups = LicenseGroup.all
       @subclasses = Medium.subclasses.keys.sort
@@ -332,11 +332,11 @@ private
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
     if params[:license_group_id]
+      @license_group = LicenseGroup.find(params[:license_group_id])
       media = media
         .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
         .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
-        .where("license_groups.id": params[:license_group_id]) 
-      @license_group = LicenseGroup.find(params[:license_group_id])
+        .where("license_groups.id": @license_group.id) 
     end
     if params[:subclass]
       @subclass = params[:subclass]
