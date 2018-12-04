@@ -133,7 +133,7 @@ class ApiPagesController < LegacyApiController
 
   def add_text(page)
     return nil if params[:vetted] == '3' || params[:vetted] == '4'
-    offset = (params[:texts_page] || 0) * params[:texts_per_page]
+    offset = ((params[:texts_page] || 1 ) - 1) * params[:texts_per_page]
     page.articles.limit(params[:texts_per_page]).offset(offset).each do |article|
        article_hash = {
         identifier: article.guid,
@@ -156,7 +156,7 @@ class ApiPagesController < LegacyApiController
       includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
     images = images.where(license_id: @licenses) if @licenses
     @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" }
-    offset = (params[:images_page] || 0) * params[:images_per_page]
+    offset = ((params[:images_page] || 1 ) - 1) * params[:images_per_page]
     images.limit(params[:images_per_page]).offset(offset).each do |image|
       image_hash = {
         identifier: image.guid,
