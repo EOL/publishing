@@ -72,6 +72,14 @@ class TraitBank
         end
       end
 
+      def letter_for_term(term)
+        if term[:name] =~ /[0-9].*/
+          return "0-9"
+        else
+          return term[:name].downcase[0]
+        end
+      end
+
       def sub_glossary(type, page = 1, per = nil, options = {})
         count = options[:count]
         qterm = options[:qterm]

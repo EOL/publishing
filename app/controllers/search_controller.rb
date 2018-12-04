@@ -53,7 +53,7 @@ private
         when :page
           suggestion.page
         when :object_term
-          term_path(uri: suggestion.object_term, object: true)
+          term_records_path(uri: suggestion.object_term, object: true)
         when :path
           suggestion.path
         when :wkt_string
@@ -91,7 +91,7 @@ private
           (first, second) = groups[:object_term] # Arbitrary which is first...
           Rails.logger.warn("First term: #{first.object_term}")
           Rails.logger.warn("Second term: #{second.object_term}") if second
-          return redirect_to(term_path(uri: first.object_term, object: true,
+          return redirect_to(term_records_path(uri: first.object_term, object: true,
             and_object: second.try(:object_term), clade: clade))
         end
       end

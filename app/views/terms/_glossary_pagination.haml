@@ -1,0 +1,7 @@
+%ul.uk-pagination
+  - @letters.each do |letter|
+    %li{class: (letter == @letter ? "uk-active" : "")} 
+      - if letter == @letter
+        %span= letter
+      - else
+        = link_to("#{letter}", terms_path(letter: letter))

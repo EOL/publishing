@@ -23,7 +23,7 @@
             - unless this_head == last_head
               - last_head = this_head
               %h3{ id: this_head }= this_head
-            %dt= link_to(term[:name], term_path(uri: term[:uri], object: true))
+            %dt= link_to(term[:name], term_records_path(uri: term[:uri], object: true))
             %dd
               .uk-text-muted.uk-text-small= term[:uri]
               = term[:definition]
