@@ -66,12 +66,17 @@ class AddUserFields < ActiveRecord::Migration
         User.import(users, on_duplicate_key_update: keys)
       end
       data = CSV.read(Rails.public_path.join('data', 'user_dump.csv'))
-      data.shift # We don't use the headers here...
+      keys = data.shift # We don't use the headers here...
+      roles = User.roles.invert
       users = []
       data.each do |row|
-        row['email'] ||= row['uid'] # Can't have blank email, so copy the OAuth ID... :\
-        users << User.new(row)
-        if users.size >= 10_000
+        row[1] ||= row[9] # Can't have blank email, so copy the OAuth ID... :\
+        row[10] = row[10] ? roles[row[10].to_i].to_sym : 0
+        u_hash = User.new(Hash[keys.zip(row)])
+        u_hash.password = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
+        u_hash.password_confirmation = u_hash.password
+        users << u_hash
+        if users.size >= 100
           import_users(users)
           users = []
         end
