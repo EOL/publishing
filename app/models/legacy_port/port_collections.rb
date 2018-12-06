@@ -36,6 +36,10 @@ module LegacyPort
     def build_collection(line)
       c_hash = JSON.parse(line)
       @items = c_hash.delete('coll_items')
+      if c_hash['name'] =~ /s Watch List$/
+        puts "SKIPPING WATCH LIST: #{c_hash['name']}"
+        return(nil)
+      end
       c_hash['created_at'] = c_hash.delete('created')
       c_hash['updated_at'] = c_hash.delete('modified')
       c_hash['description'] = c_hash.delete('desc')
