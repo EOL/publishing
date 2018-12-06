@@ -21,6 +21,7 @@ class Collection < ActiveRecord::Base
   private
 
   def remove_owners
-    CollectionsUser.where(collection_id: self[:id]).delete_all
+    users = []
+    save
   end
 end

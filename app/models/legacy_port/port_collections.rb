@@ -121,7 +121,7 @@ module LegacyPort
       end
     end
 
-    def self.build_annotation(hash)
+    def build_annotation(hash)
       # NOTE: ignoring hash['references'] for now because those are rare and only semi-delimited lists of integers... I
       # assume pointing to references in V2.
       [hash['sort_field'], hash['name'], hash['annotation']].compact.join(' ').gsub(/\s+/, ' ')
