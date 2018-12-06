@@ -11,13 +11,15 @@ module LegacyPort
       @associations = {}
       @collection = nil
       @owners = []
+      @added_ids = []
     end
 
     def port
-      data.each do |line|
+      @data.each do |line|
         port_line(line)
       end
       build_collection_associations
+      puts "Added collections: #{@added_ids.join(', ')}"
     end
 
     def port_line(line)
@@ -39,12 +41,14 @@ module LegacyPort
       c_hash['description'] = c_hash.delete('desc')
       old_id = c_hash['id'].to_i
       c_hash['v2_id'] = old_id
-      @owners = c_hash.delete('coll_editors')
+      c_hash.delete('logo_url') # Sorry, we can't handle these right now.
+      @owners = c_hash.delete('coll_editors').split(';')
       if Collection.exists?(id: old_id)
         c_hash.delete('id')
       end
       begin
         @collection = Collection.create(c_hash)
+        @added_ids << @collection.id
         puts "Collection #{old_id} id exists; changing ID to #{@collection.id}" unless @collection.id == old_id
         @collection_id_map[old_id] = @collection.id
       rescue => e
