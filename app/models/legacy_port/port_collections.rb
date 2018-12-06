@@ -24,9 +24,10 @@ module LegacyPort
 
     def port_line(line)
       begin
-        build_collection(line)
-        add_owners
-        add_items
+        if build_collection(line)
+          add_owners
+          add_items
+        end
       rescue => e
         puts "Failed to build collection: #{line}"
         puts "ERROR: #{e.message}"
@@ -58,6 +59,7 @@ module LegacyPort
       rescue => e
         raise e
       end
+      @collection.id
     end
 
     def add_owners
