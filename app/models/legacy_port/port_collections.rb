@@ -124,8 +124,10 @@ module LegacyPort
     def build_annotation(hash)
       # NOTE: ignoring hash['references'] for now because those are rare and only semi-delimited lists of integers... I
       # assume pointing to references in V2.
-      [hash['sort_field'], hash['name'], hash['annotation']].
-        compact.delete_if { |e| e == "NULL"}.join('. ').gsub(/\s+/, ' ')
+      elements = [hash['sort_field'], hash['name'], hash['annotation']].compact
+      elements.delete_if { |e| e == "NULL"}
+      elements.delete_if { |e| e == "left a comment on \w+ \d+"}
+      elements.join('. ').gsub(/\s+/, ' ')
     end
   end
 end
