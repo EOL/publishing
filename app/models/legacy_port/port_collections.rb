@@ -126,7 +126,7 @@ module LegacyPort
       # assume pointing to references in V2.
       elements = [hash['sort_field'], hash['name'], hash['annotation']].compact
       elements.delete_if { |e| e == "NULL"}
-      elements.delete_if { |e| e == "left a comment on \w+ \d+"}
+      elements.delete_if { |e| e =~ /left a comment on/}
       elements.join('. ').gsub(/\s+/, ' ')
     end
   end
