@@ -74,9 +74,9 @@ module LegacyPort
 
     def add_item(item_hash, position)
       if item_hash['type'] == 'Collection'
-        add_collected_collection(@collection, item_hash, position)
+        add_collected_collection(item_hash, position)
       elsif item_hash['type'] == 'TaxonConcept'
-        add_collected_page(@collection, item_hash, position)
+        add_collected_page(item_hash, position)
       else
         puts "!! Unhandled type #{item_hash['type']} for collection #{@collection.id}."
       end
