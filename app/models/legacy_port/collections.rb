@@ -82,6 +82,7 @@ module LegacyPort
       if @items.size > @limit
         @logger.warn(".. Collection #{old_id} (#{c_hash['name']}) is too large (#{@items.size}/#{@limit}), skipping.")
         @logger.warn(".. Description: #{c_hash['desc']}")
+        @logger.warn(".. Users: #{get_usernames(c_hash['coll_editors']).join(', ')}")
         return(nil)
       end
       c_hash['created_at'] = c_hash.delete('created')
@@ -102,6 +103,10 @@ module LegacyPort
         raise e
       end
       @collection.id
+    end
+
+    def get_usernames(list)
+      V2User.where(id: list).includes(:user).compact.map { |v2u| u v2u.user = "#{u.username} (#{u.email})" }
     end
 
     def add_owners
