@@ -96,7 +96,8 @@ module LegacyPort
       begin
         @collection = Collection.create(c_hash)
         @added_ids << @collection.id
-        @logger.warn(".. Collection #{old_id} id exists; changing ID to #{@collection.id}" unless @collection.id == old_id)
+        @logger.warn(".. Collection #{old_id} id exists; changing ID to #{@collection.id}") unless
+          @collection.id == old_id
       rescue => e
         raise e
       end
