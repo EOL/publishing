@@ -1,25 +1,51 @@
 module LegacyPort
   class Collections
-    def self.port(fname)
-      porter = new(fname)
+    def self.port(fname, options = {})
+      porter = new(fname, options)
       porter.port
     end
 
-    def initialize(fname)
+    def self.add_collected_collections(fname, options = {})
+      porter = new(fname, options)
+      porter.add_collected_collections
+    end
+
+    def initialize(fname, options = {})
       @data = File.readlines(Rails.root.join(fname))
-      @collection_id_map = {}
-      @associations = {}
+      @limit = options[:limit].to_i || 2000
       @collection = nil
       @owners = []
       @added_ids = []
+      @logger ||= Logger.new("#{Rails.root}/log/collections_port.log")
     end
 
     def port
       @data.each do |line|
         port_line(line)
       end
-      build_collection_associations
-      puts "Added collections: #{@added_ids.join(', ')}"
+      @logger.warn("Added collections: #{@added_ids.join(', ')}")
+    end
+
+    def add_collected_collections
+      @data = File.readlines(Rails.root.join(fname))
+      @data.each do |line|
+        c_hash = JSON.parse(line)
+        id = c_hash['id']
+        @collection = find_collection(id)
+        if @collection
+          @items = c_hash.delete('coll_items')
+          @items.each_with_index do |item_hash, position|
+            add_collected_collection(item_hash, position) if item_hash['type'] == 'Collection'
+          end
+        else
+          @logger.warn(".. Collection #{id} was not found, skipping...")
+        end
+      end
+    end
+
+    def find_collection(id)
+      return nil unless Collection.exists?(v2_id: id)
+      Collection.find_by_v2_id(id)
     end
 
     def port_line(line)
@@ -29,22 +55,31 @@ module LegacyPort
           add_items
         end
       rescue => e
-        puts "Failed to build collection: #{line}"
-        puts "ERROR: #{e.message}"
+        @logger.warn("!! Failed to build collection: #{line}")
+        @logger.warn("** ERROR: #{e.message}")
       end
     end
 
     def build_collection(line)
       c_hash = JSON.parse(line)
-      @items = c_hash.delete('coll_items')
+      old_id = c_hash['id'].to_i
+      if find_collection(old_id)
+        @logger.warn(".. Collection #{old_id} (#{c_hash['name']}) already exists, skipping.")
+        return nil
+      end
       if c_hash['name'] =~ /s Watch List$/
-        puts "SKIPPING WATCH LIST: #{c_hash['name']}"
+        @logger.warn(".. Collection #{old_id} (#{c_hash['name']}) is a watch list, skipping.")
+        return(nil)
+      end
+      @items = c_hash.delete('coll_items')
+      if @items.size > @limit
+        @logger.warn(".. Collection #{old_id} (#{c_hash['name']}) is too large (#{@items.size}/#{@limit}), skipping.")
+        @logger.warn(".. Description: #{c_hash['desc']}")
         return(nil)
       end
       c_hash['created_at'] = c_hash.delete('created')
       c_hash['updated_at'] = c_hash.delete('modified')
       c_hash['description'] = c_hash.delete('desc')
-      old_id = c_hash['id'].to_i
       c_hash['v2_id'] = old_id
       c_hash.delete('logo_url') # Sorry, we can't handle these right now.
       @owners = c_hash.delete('coll_editors').split(';')
@@ -54,8 +89,7 @@ module LegacyPort
       begin
         @collection = Collection.create(c_hash)
         @added_ids << @collection.id
-        puts "Collection #{old_id} id exists; changing ID to #{@collection.id}" unless @collection.id == old_id
-        @collection_id_map[old_id] = @collection.id
+        @logger.warn(".. Collection #{old_id} id exists; changing ID to #{@collection.id}" unless @collection.id == old_id)
       rescue => e
         raise e
       end
@@ -68,7 +102,7 @@ module LegacyPort
         @owners.delete(v2_user.id.to_s)
       end
       @owners.each do |id|
-        puts "Collection #{@collection.id} missing owner #{id}, skipping..."
+        @logger.warn(".. Collection #{@collection.id} missing owner #{id}, skipping...")
       end
     end
 
@@ -79,19 +113,11 @@ module LegacyPort
     end
 
     def add_item(item_hash, position)
-      if item_hash['type'] == 'Collection'
-        add_collected_collection(item_hash, position)
-      elsif item_hash['type'] == 'TaxonConcept'
+      if item_hash['type'] == 'TaxonConcept'
         add_collected_page(item_hash, position)
       else
-        puts "!! Unhandled type #{item_hash['type']} for collection #{@collection.id}."
+        @logger.warn("!! Unhandled type #{item_hash['type']} for collection #{@collection.id}.")
       end
-    end
-
-    def add_collected_collection(item_hash, position)
-      @associations[@collection.id] ||= []
-      item_hash['position'] = position
-      @associations[@collection.id] << item_hash
     end
 
     def add_collected_page(item_hash, position)
@@ -101,29 +127,26 @@ module LegacyPort
           CollectedPage.create(collection_id: @collection.id, page_id: item_hash['object_id'], position: position,
             annotation: annotation)
         rescue => e
-          puts "Error collecting page #{item_hash['object_id']} for collection #{@collection.id}, skipped."
+          @logger.warn("!! Error collecting page #{item_hash['object_id']} for collection #{@collection.id}, skipped.")
         end
       else
-        puts "Missing page #{item_hash['object_id']} for collection #{@collection.id}, skipped."
+        @logger.warn(".. Missing page #{item_hash['object_id']} for collection #{@collection.id}, skipped.")
       end
     end
 
-    def build_collection_associations
-      @associations.each do |collection_id, assocs|
-        assocs.each do |assoc|
-          associated_id = @collection_id_map[assoc['object_id']]
-          if associated_id.nil?
-            puts "Couldn't find associated collection #{assoc['object_id']}, skipping..."
-          else
-            annotation = build_annotation(assoc)
-            begin
-              CollectionAssociation.create(collection_id: collection_id, associated_id: associated_id,
-                position: assoc['position'], annotation: annotation)
-            rescue => e
-              puts "Failed to create collection association #{collection_id}->#{associated_id}: #{e.message}"
-            end
-          end
+    def add_collected_collection(item_hash, position)
+      associated_collection = find_collection(item_hash['object_id'])
+      if associated_collection
+        associated_id = associated_collection.id
+        annotation = build_annotation(item_hash)
+        begin
+          CollectionAssociation.create(collection_id: @collection.id, associated_id: associated_id,
+            position: position, annotation: annotation)
+        rescue => e
+          @logger.warn("!! Failed to create collection association #{@collection.id}->#{associated_id}: #{e.message}")
         end
+      else
+        @logger.warn(".. Missing target collection association (#{item_hash['object_id']}) for #{@collection.id}, skipping...")
       end
     end
 
