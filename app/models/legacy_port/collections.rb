@@ -1,5 +1,5 @@
 module LegacyPort
-  class PortCollections
+  class Collections
     def self.port(fname)
       porter = new(fname)
       porter.port
