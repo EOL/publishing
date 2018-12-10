@@ -13,15 +13,22 @@ module LegacyPort
     def initialize(fname, options = {})
       @data = File.readlines(Rails.root.join(fname))
       @limit = options[:limit].to_i || 2000
-      @collection = nil
-      @owners = []
-      @added_ids = []
       @logger ||= Logger.new("#{Rails.root}/log/collections_port.log")
+      @added_ids = []
+      clear_collection
+    end
+
+    def clear_collection
+      @collection = nil
+      @items = []
+      @owners = []
     end
 
     def port
-      @data.each do |line|
+      @data.each_with_index do |line, index|
         port_line(line)
+        clear_collection
+        GC.start if (index % 100).zero?
       end
       @logger.warn("Added collections: #{@added_ids.join(', ')}")
     end
