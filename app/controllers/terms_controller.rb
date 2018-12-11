@@ -8,11 +8,12 @@ class TermsController < ApplicationController
     glossary_for_letter(params[:letter])
   end
 
+  def show
+    redirect_to_glossary_entry(params[:uri])    
+  end
+
   def schema_redirect
-    term = TraitBank.term_as_hash(SCHEMA_URI_FORMAT % params[:uri_part])
-    raise ActionController.RoutingError.new("Not Found") if !term
-    first_letter = TraitBank::Terms.letter_for_term(term)
-    redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302 
+    redirect_to_glossary_entry(SCHEMA_URI_FORMAT % params[:uri_part])
   end
 
   def edit
@@ -130,5 +131,12 @@ private
     (0..100).each do |index|
       expire_fragment("term/glossary/#{index}")
     end
+  end
+
+  def redirect_to_glossary_entry(uri)
+    term = TraitBank.term_as_hash(uri)
+    raise ActionController.RoutingError.new("Not Found") if !term
+    first_letter = TraitBank::Terms.letter_for_term(term)
+    redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302 
   end
 end
