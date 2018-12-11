@@ -128,6 +128,8 @@ module LegacyPort
     def add_item(item_hash, position)
       if item_hash['type'] == 'TaxonConcept'
         add_collected_page(item_hash, position)
+      elsif item_hash['type'] == 'Collection'
+        # Do nothing, but don't warn!
       else
         @logger.warn("!! Unhandled type #{item_hash['type']} for collection #{@collection.id}.")
       end
