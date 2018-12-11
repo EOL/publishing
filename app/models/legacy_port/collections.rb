@@ -3,16 +3,18 @@ module LegacyPort
     def self.port(fname, options = {})
       porter = new(fname, options)
       porter.port
+      true
     end
 
     def self.add_collected_collections(fname, options = {})
       porter = new(fname, options)
       porter.add_collected_collections
+      true
     end
 
     def initialize(fname, options = {})
       @data = File.readlines(Rails.root.join(fname))
-      @limit = options[:limit].to_i || 2000
+      @limit = (options[:limit] || 2000).to_i
       @logger ||= Logger.new("#{Rails.root}/log/collections_port.log")
       @added_ids = []
       clear_collection
@@ -34,7 +36,6 @@ module LegacyPort
     end
 
     def add_collected_collections
-      @data = File.readlines(Rails.root.join(fname))
       @data.each do |line|
         c_hash = JSON.parse(line)
         id = c_hash['id']
@@ -106,7 +107,7 @@ module LegacyPort
     end
 
     def get_usernames(list)
-      V2User.where(id: list).includes(:user).compact.map { |v2u| u v2u.user = "#{u.username} (#{u.email})" }
+      V2User.where(id: list).includes(:user).compact.map { |v2u| u = v2u.user ; "#{u.username} (#{u.email})" }
     end
 
     def add_owners
@@ -128,6 +129,8 @@ module LegacyPort
     def add_item(item_hash, position)
       if item_hash['type'] == 'TaxonConcept'
         add_collected_page(item_hash, position)
+      elsif item_hash['type'] == 'Collection'
+        # Do nothing, but don't warn!
       else
         @logger.warn("!! Unhandled type #{item_hash['type']} for collection #{@collection.id}.")
       end
@@ -153,10 +156,13 @@ module LegacyPort
         associated_id = associated_collection.id
         annotation = build_annotation(item_hash)
         begin
-          CollectionAssociation.create(collection_id: @collection.id, associated_id: associated_id,
-            position: position, annotation: annotation)
+          ca = CollectionAssociation.create(collection_id: @collection.id, associated_id: associated_id,
+            annotation: annotation)
+          ca.update_attribute(:position, position) # Specifying this inline with the #create throws an error. Odd. 
         rescue => e
           @logger.warn("!! Failed to create collection association #{@collection.id}->#{associated_id}: #{e.message}")
+          @logger.warn("CollectionAssociation.create(collection_id: #{@collection.id}, associated_id: #{associated_id},
+            position: #{position}, annotation: %{#{annotation}})")
         end
       else
         @logger.warn(".. Missing target collection association (#{item_hash['object_id']}) for #{@collection.id}, skipping...")

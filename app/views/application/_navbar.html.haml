@@ -8,6 +8,7 @@
         %li= link_to(t("nav.about"), '/docs/what-is-eol')
         %li= link_to(t("nav.education"), 'http://education.eol.org')
         %li= link_to(t("nav.discuss"), 'http://discuss.eol.org')
+        %li= link_to(t("nav.trait_bank"), 'https://eol.org/docs/what-is-eol/traitbank')
         - if current_user
           %li= link_to(current_user.username, main_app.user_path(current_user))
           %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
@@ -18,6 +19,6 @@
   - search_val = nil
   - if current_page?(search)
     - search_val = @q
-  = form_tag search, :method => :get, :class => 'nav-right ui search' do
-    = text_field_tag 'q', search_val, class: 'nav-search prompt', autocomplete: :off
+  = form_tag search, :method => :get, :class => 'nav-right nav-search-form' do
+    = text_field_tag 'q', search_val, class: 'nav-search js-nav-search', data: { 'no-results-text': t("nav.search.no_results_html") }, autocomplete: :off
     %i.fa.fa-search.fa-lg.nav-item.nav-search-icon

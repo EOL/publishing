@@ -447,6 +447,15 @@ body {
   border-radius: 2px !important;
 }
 
+.nav-search-form .tt-dataset {
+  color: $black;
+
+  & a {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
 .nav-search-icon {
   position: absolute;
   right: 5px;

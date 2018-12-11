@@ -29,7 +29,7 @@ class PageDecorator::BriefSummary
     end
 
     landmark_children
-    trophic_level
+    trophic_level if !is_family? && !is_genus?
 
     Result.new(@sentences.join(' '), @terms)
   end
