@@ -34,7 +34,6 @@ module LegacyPort
     end
 
     def add_collected_collections
-      @data = File.readlines(Rails.root.join(fname))
       @data.each do |line|
         c_hash = JSON.parse(line)
         id = c_hash['id']
