@@ -3,11 +3,13 @@ module LegacyPort
     def self.port(fname, options = {})
       porter = new(fname, options)
       porter.port
+      true
     end
 
     def self.add_collected_collections(fname, options = {})
       porter = new(fname, options)
       porter.add_collected_collections
+      true
     end
 
     def initialize(fname, options = {})
@@ -158,6 +160,8 @@ module LegacyPort
             position: position, annotation: annotation)
         rescue => e
           @logger.warn("!! Failed to create collection association #{@collection.id}->#{associated_id}: #{e.message}")
+          @logger.warn("CollectionAssociation.create(collection_id: #{@collection.id}, associated_id: #{associated_id},
+            position: #{position}, annotation: %{#{annotation}})")
         end
       else
         @logger.warn(".. Missing target collection association (#{item_hash['object_id']}) for #{@collection.id}, skipping...")
