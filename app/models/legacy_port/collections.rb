@@ -156,8 +156,9 @@ module LegacyPort
         associated_id = associated_collection.id
         annotation = build_annotation(item_hash)
         begin
-          CollectionAssociation.create(collection_id: @collection.id, associated_id: associated_id,
-            position: position, annotation: annotation)
+          ca = CollectionAssociation.create(collection_id: @collection.id, associated_id: associated_id,
+            annotation: annotation)
+          ca.update_attribute(:position, position) # Specifying this inline with the #create throws an error. Odd. 
         rescue => e
           @logger.warn("!! Failed to create collection association #{@collection.id}->#{associated_id}: #{e.message}")
           @logger.warn("CollectionAssociation.create(collection_id: #{@collection.id}, associated_id: #{associated_id},
