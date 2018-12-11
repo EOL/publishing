@@ -106,7 +106,7 @@ module LegacyPort
     end
 
     def get_usernames(list)
-      V2User.where(id: list).includes(:user).compact.map { |v2u| u v2u.user = "#{u.username} (#{u.email})" }
+      V2User.where(id: list).includes(:user).compact.map { |v2u| u = v2u.user ; "#{u.username} (#{u.email})" }
     end
 
     def add_owners
