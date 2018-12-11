@@ -525,6 +525,7 @@ en:
     education: "Education"
     search:
       placeholder: "Search EOL..."
+    trait_bank: "TraitBank"
   name_preferred_label: "preferred"
   new_password: 'New password'
   no_pages_found: 'No pages found'

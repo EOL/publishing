@@ -8,6 +8,7 @@
         %li= link_to(t("nav.about"), '/docs/what-is-eol')
         %li= link_to(t("nav.education"), 'http://education.eol.org')
         %li= link_to(t("nav.discuss"), 'http://discuss.eol.org')
+        %li= link_to(t("nav.trait_bank"), 'https://eol.org/docs/what-is-eol/traitbank')
         - if current_user
           %li= link_to(current_user.username, main_app.user_path(current_user))
           %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
