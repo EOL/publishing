@@ -70,8 +70,15 @@ class AddUserFields < ActiveRecord::Migration
       roles = User.roles.invert
       users = []
       data.each do |row|
-        row[1] ||= row[9] # Can't have blank email, so copy the OAuth ID... :\
+        row[1] = row[9] if row[1].blank? # Can't have blank email, so copy the OAuth ID... :\
         row[10] = row[10] ? roles[row[10].to_i].to_sym : 0
+        if row[3].blank? # Can't have blank username
+          row[3] =  if row[9].blank?
+                      row[1].gsub(/@.*$/, '')
+                    else
+                      row[9].gsub(/\s/, '')
+                    end
+        end
         u_hash = User.new(Hash[keys.zip(row)])
         u_hash.password = (0...20).map { ('a'..'z').to_a[rand(26)] }.join
         u_hash.password_confirmation = u_hash.password

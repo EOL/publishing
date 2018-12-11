@@ -324,7 +324,7 @@ private
   def get_media
     if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
-      @licenses = License.all.pluck(:name).uniq.sort
+      @license_groups = LicenseGroup.all
       @subclasses = Medium.subclasses.keys.sort
       # List of resources, as of Jul 2018 (query takes about 32 seconds), that HAVE images, i.e.:
       # a = Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id).sort
@@ -333,7 +333,10 @@ private
         481,486,493,494,495,496,507,508]
       @resources = Resource.where(id: resource_ids).select('id, name').sort_by { |r| r.name.downcase }
     else
-      @licenses = License.where(id: @page.media.pluck(:license_id).uniq).pluck(:name).uniq.sort
+      @license_groups = LicenseGroup
+        .joins(:licenses)
+        .where('licenses.id': @page.media.pluck(:license_id).uniq)
+        .distinct
       @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
       @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
     end
@@ -341,9 +344,12 @@ private
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
                  .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
 
-    if params[:license]
-      media = media.joins(:license).where(["licenses.name = ? OR licenses.name LIKE ?", params[:license], "#{params[:license]} %"])
-      @license = params[:license]
+    if params[:license_group_id]
+      @license_group = LicenseGroup.find(params[:license_group_id])
+      media = media
+        .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
+        .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
+        .where("license_groups.id": @license_group.id) 
     end
     if params[:subclass]
       @subclass = params[:subclass]

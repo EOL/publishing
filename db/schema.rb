@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181129174446) do
+ActiveRecord::Schema.define(version: 20181205181358) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "guid",                      limit: 255,      null: false
+    t.string   "guid",                      limit: 255,        null: false
     t.string   "resource_pk",               limit: 255
-    t.integer  "license_id",                limit: 4,        null: false
+    t.integer  "license_id",                limit: 4,          null: false
     t.integer  "language_id",               limit: 4
     t.integer  "location_id",               limit: 4
     t.integer  "stylesheet_id",             limit: 4
@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(version: 20181129174446) do
     t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
-    t.text     "body",                      limit: 16777215
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.text     "body",                      limit: 4294967295
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
     t.integer  "harv_db_id",                limit: 4
   end
 
-  add_index "articles", ["guid"], name: "index_articles_on_guid", length: {"guid"=>191}, using: :btree
+  add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
   add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
   add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20181129174446) do
     t.integer  "collection_associations_count", limit: 4,     default: 0
     t.integer  "collection_type",               limit: 4,     default: 0
     t.integer  "default_sort",                  limit: 4,     default: 0
+    t.integer  "v2_id",                         limit: 4
   end
 
   create_table "collections_users", id: false, force: :cascade do |t|
@@ -332,6 +333,19 @@ ActiveRecord::Schema.define(version: 20181129174446) do
 
   add_index "languages", ["code"], name: "index_languages_on_code", using: :btree
   add_index "languages", ["group"], name: "index_languages_on_group", using: :btree
+
+  create_table "license_groups", force: :cascade do |t|
+    t.string "key", limit: 255
+  end
+
+  create_table "license_groups_licenses", force: :cascade do |t|
+    t.integer "license_id",       limit: 4
+    t.integer "license_group_id", limit: 4
+  end
+
+  add_index "license_groups_licenses", ["license_group_id"], name: "index_license_groups_licenses_on_license_group_id", using: :btree
+  add_index "license_groups_licenses", ["license_id", "license_group_id"], name: "index_license_groups_licenses_on_license_id_and_license_group_id", unique: true, using: :btree
+  add_index "license_groups_licenses", ["license_id"], name: "index_license_groups_licenses_on_license_id", using: :btree
 
   create_table "licenses", force: :cascade do |t|
     t.string   "name",                      limit: 255,                 null: false
@@ -927,15 +941,20 @@ ActiveRecord::Schema.define(version: 20181129174446) do
     t.string   "unlock_token",                limit: 255
     t.datetime "locked_at"
     t.integer  "role",                        limit: 4,     default: 10, null: false
-    t.integer  "v2_id",                       limit: 4
     t.integer  "language_id",                 limit: 4
     t.boolean  "disable_email_notifications"
+    t.text     "v2_ids",                      limit: 65535
+    t.integer  "curator_level",               limit: 4
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
+
+  create_table "v2_users", force: :cascade do |t|
+    t.integer "user_id", limit: 4, null: false
+  end
 
   create_table "vernaculars", force: :cascade do |t|
     t.string   "string",                   limit: 255,                   null: false
@@ -966,5 +985,4 @@ ActiveRecord::Schema.define(version: 20181129174446) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end
