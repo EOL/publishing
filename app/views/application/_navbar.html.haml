@@ -19,6 +19,6 @@
   - search_val = nil
   - if current_page?(search)
     - search_val = @q
-  = form_tag search, :method => :get, :class => 'nav-right ui search' do
-    = text_field_tag 'q', search_val, class: 'nav-search prompt', autocomplete: :off
+  = form_tag search, :method => :get, :class => 'nav-right nav-search-form' do
+    = text_field_tag 'q', search_val, class: 'nav-search js-nav-search', data: { 'no-results-text': t("nav.search.no_results_html") }, autocomplete: :off
     %i.fa.fa-search.fa-lg.nav-item.nav-search-icon

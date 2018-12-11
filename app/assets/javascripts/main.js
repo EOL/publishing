@@ -302,6 +302,19 @@ if (!window.EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
+    EOL.pagesAutocomplete = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: '/pages/autocomplete?query=%QUERY&simple=hash',
+        wildcard: '%QUERY',
+        transform: function(response) {
+          return response.results;
+        }
+      }
+    });
+    EOL.pagesAutocomplete.initialize();
+
     // Show/hide overlay
     EOL.showOverlay = function(id) {
       EOL.hideOverlay();
@@ -385,18 +398,33 @@ if (!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
+    var $navSearch = $('.js-nav-search');
+    $navSearch.typeahead({
+      minLength: 3,
+      highlight: true
+    }, {
+      source: EOL.pagesAutocomplete,
+      display: 'name',
+      templates: {
+        suggestion: function(item) {
+          return `<a href="${item.url}">${item.name}</a>`
+        },
+        notFound: $navSearch.data('noResultsText')
+      }
+    })
+    .bind('typeahead:select', function(e, item) {
+      window.location = item.url;
+    })
+    .keypress(function(e) {
+      if (e.which === 13) { // enter
+        $(this).closest('form').submit();
+      }
+    });
+
     EOL.enableDropdowns();
 
     $.each(eolReadyCbs, function(i, cb) {
       cb();
-    });
-
-    $.fn.api.settings.api = {
-      'search': '/pages/autocomplete?simple=hash&query={query}'
-    };
-
-    $('.ui.search').search({
-      minCharacters: 3
     });
   };
 }

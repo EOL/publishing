@@ -524,6 +524,7 @@ en:
     discuss: "Discuss"
     education: "Education"
     search:
+      no_results_html: "<strong>No confirmed results</strong><br />Hit Enter to see uncurated results"
       placeholder: "Search EOL..."
     trait_bank: "TraitBank"
   name_preferred_label: "preferred"
