@@ -12,7 +12,7 @@ module LegacyPort
 
     def initialize(fname, options = {})
       @data = File.readlines(Rails.root.join(fname))
-      @limit = options[:limit].to_i || 2000
+      @limit = (options[:limit] || 2000).to_i
       @logger ||= Logger.new("#{Rails.root}/log/collections_port.log")
       @added_ids = []
       clear_collection
