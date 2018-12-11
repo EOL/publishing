@@ -76,9 +76,11 @@
             = others
 
       - else # (no query string)
-        - summary = page&.cached_summary&.sentence&.html_safe
-        - unless summary.blank?
-          .uk-margin-small-top= summary
+        - summary = page&.cached_summary
+        - unless summary.sentence.blank?
+          .uk-margin-small-top= summary.sentence.html_safe
+          - summary.terms.each do |term|
+            = render "terms/desc_meta", term: term.obj, pred_uri: term.pred_uri, toggle: term.toggle_selector, search_link: true
       - unless media.empty?
         .uk-card.uk-card-default.eol-section-aged.uk-padding-small.uk-margin-small-left.uk-margin-small-top
           %h5.uk-text-center= t("search_results.collected_media.title")
