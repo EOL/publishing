@@ -39,6 +39,7 @@ class TraitBank
         end
       end
 
+      # XXX: "0-9" is considered a letter, and gets all terms that start with a digit. Everything else is an actual letter.
       def glossary_for_letter(letter, options = {})
         raise "invalid letter argument" if !letters_for_glossary.include?(letter)
 
