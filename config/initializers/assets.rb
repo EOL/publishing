@@ -24,6 +24,6 @@ end
 end
 
 # controller-specific assets
-%w( search pages terms home_page_feeds home_page_feed_items home_page media ).each do |controller|
+%w( search pages terms home_page_feeds home_page_feed_items home_page media user/sessions ).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end

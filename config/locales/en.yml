@@ -985,6 +985,9 @@ en:
     you_must_select: "You must select at least one attribute"
   user_not_active: "The user is not active"
   users:
+    account_migration_header: "If you registered with EOL before Nov. 15, 2018:"
+    account_migration_notice: "Your account information, including username, associated email, profile description, and collections owned, have been imported to the new EOL. Your username is still your display name on the site, but you must now log in with your email address. We could not migrate your password for security reasons; sorry for the bother. You'll be able to reset it using the Forgot Password process. If you logged in only using a third party provider- Google, Twitter or FaceBook- please bear with us; we're working out some issues with the shared login processes."
+
     sign_in: "Sign In"
     validations:
       empty_username_error: "Username cannot be empty"
