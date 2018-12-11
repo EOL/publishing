@@ -25,7 +25,7 @@
             - unless this_head == last_head
               - last_head = this_head
               %h3{ id: this_head }= this_head
-            %dt= term[:name]
+            %dt.term-name= term[:name]
             %dd
               .uk-text-muted.uk-text-small= term[:uri]
               = term[:definition]
