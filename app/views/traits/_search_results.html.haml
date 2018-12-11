@@ -15,8 +15,8 @@
         %li.uk-card.uk-card-hover.eol-bright.uk-box-shadow-small
           .uk-card-body
             .names
-              .uk-text-large= link_to(emphasize_match(term["name"], @q), term_path(uri: term["uri"], object: object))
-              .uk-text-muted= link_to(term["uri"], term_path(uri: term["uri"], object: object))
+              .uk-text-large= link_to(emphasize_match(term["name"], @q), term_records_path(uri: term["uri"], object: object))
+              .uk-text-muted= link_to(term["uri"], term_records_path(uri: term["uri"], object: object))
             - if term["definition"]
               .uk-margin-small-top= term["definition"]
     = paginate terms, remote: true, params: { only: id }

@@ -139,10 +139,8 @@ Rails.application.routes.draw do
   get "/terms/:uri" => "terms#show", :as => "term", :constraints => { uri: /http.*/ }
   post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }
   get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
-  get "/terms" => "terms#index", :as => "terms"
-  get "/terms/search" => "terms#search", :as => "term_search"
-  get "/terms/search_results" => "terms#search_results", :as => "term_search_results"
-  get "/terms/search_form" => "terms#search_form", :as => "term_search_form"
+  get "/terms/glossary(/:letter)(/:uri)" => "terms#index", :as => "terms", :constraints => { uri: /http.*/ }
+  get "/schema/terms/:uri_part" => "terms#schema_redirect"
   get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
   get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
   get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
@@ -152,6 +150,11 @@ Rails.application.routes.draw do
   get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
 
   post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
+
+  get "/records/:uri" => "traits#show", :as => "term_records", :constraints => { :uri => /http.*/ }
+  get "/records/search" => "traits#search", :as => "term_search"
+  get "/records/search_results" => "traits#search_results", :as => "term_search_results"
+  get "/records/search_form" => "traits#search_form", :as => "term_search_form"
 
   # Non-resource routes last:
   get "/search" => "search#index",  :as => "search_form"
