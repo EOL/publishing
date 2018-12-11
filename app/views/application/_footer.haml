@@ -37,6 +37,7 @@
     %li= link_to(t("footer.discover.archaea"), "/docs/discover/archaea")
     %li= link_to(t("footer.discover.viruses"), "/docs/discover/viruses")
   .footer-section.footer-section-nmnh
-    .nmnh-header= t("footer.eol_is_hosted_by")
-    = image_tag "nmnh_logo_bw.png", class: "nmnh-logo"
+    = link_to "https://naturalhistory.si.edu/research/eol" do 
+      .nmnh-header= t("footer.eol_is_hosted_by")
+      = image_tag "nmnh_logo_bw.png", class: "nmnh-logo"
 
