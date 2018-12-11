@@ -16,7 +16,7 @@
       = link_to(suggestion.synonym_of.match, edit_search_suggestion_path(suggestion.synonym_of))
     - if suggestion.object_term && ! suggestion.object_term.blank?
       \&rarr;
-      = link_to(suggestion.object_term, term_path(uri: suggestion.object_term, object: true))
+      = link_to(suggestion.object_term, term_records_path(uri: suggestion.object_term, object: true))
     - if suggestion.path && ! suggestion.path.blank?
       \&rarr;
       = link_to(suggestion.path)

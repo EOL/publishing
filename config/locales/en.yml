@@ -948,6 +948,8 @@ en:
     show_all_records: "show all records"
     source: "source"
     uri_field_html: "<strong>URI:</strong> %{uri}"
+    index:
+      select_page_above: "Select a page above to begin."
   data_source: "source"
   data_definition: "definition of \"%{data}\""
   data_table:
