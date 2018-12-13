@@ -34,6 +34,30 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'UA-3298646-10');
+      /
+        START OF SmartSource Data Collector TAG v10.4.23
+        Copyright (c) 2018 Webtrends Inc.  All rights reserved.
+      :javascript
+        window.webtrendsAsyncInit=function(){
+            var dcs=new Webtrends.dcs().init({
+                dcsid:"dcsg0chobadzpxfga2extd7pb_7c2s",
+                domain:"logs1.smithsonian.museum",
+                timezone:-5,
+                i18n:true,
+                fpcdom:".eol.org",
+                plugins:{
+                }
+                }).track();
+        };
+        (function(){
+            var s=document.createElement("script"); s.async=true; s.src="/assets/javascripts/webtrends.min.js";
+            var s2=document.getElementsByTagName("script")[0]; s2.parentNode.insertBefore(s,s2);
+        }());
+      %noscript
+        %img{ alt: "dcsimg", id: "dcsimg", width: "1", height: "1", src: "//logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=10.4.23&amp;dcssip=www.eol.org" }
+      /
+        END OF SmartSource Data Collector TAG v10.4.23
+
     = csrf_meta_tags
     - if content_for?(:head)
       = yield :head
