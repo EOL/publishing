@@ -1,23 +1,21 @@
 -# TODO: this is an exact duplicate of object_term_glossary, except the H1 and the glossary path. ...Generalize!
-- cache("term/full_glossary/#{@page}", expires_in: 1.day) do
-  - Rails.logger.warn("FULL TERM GLOSSARY REBUILT.")
-  #terms_glossary
-    %h1.uk-align-center= t("term.glossary.full_title")
-    - if is_admin?
-      %button.ui.small.basic.button.uk-margin-small-top
-        = link_to(t("term.actions.reindex"), terms_path(reindex: true))
+#terms_glossary
+  %h1.uk-align-center= t("term.glossary.full_title")
+  - if is_admin?
+    %button.ui.small.basic.button.uk-margin-small-top
+      = link_to(t("term.actions.reindex"), terms_path(reindex: true))
+  = render "glossary_pagination"
+  - if @letter
+    .uk-margin-top.uk-align-center
+      %dl.uk-description-list
+        %h3= @letter
+        - @glossary.each do |term|
+          - data = (@uri && @uri == term[:uri]) ? { 'scroll-to': true } : {}
+          %dt.term-name{ data: data }= term[:name]
+          %dd
+            .uk-text-muted.uk-text-small= term[:uri]
+            = term[:definition]
+            .uk-text-muted= term[:attribution]
     = render "glossary_pagination"
-    - if @letter
-      .uk-margin-top.uk-align-center
-        %dl.uk-description-list
-          %h3= @letter
-          - @glossary.each do |term|
-            - data = (@uri && @uri == term[:uri]) ? { 'scroll-to': true } : {}
-            %dt.term-name{ data: data }= term[:name]
-            %dd
-              .uk-text-muted.uk-text-small= term[:uri]
-              = term[:definition]
-              .uk-text-muted= term[:attribution]
-      = render "glossary_pagination"
-    - else
-      %p= t(".select_page_above")
+  - else
+    %p= t(".select_page_above")
