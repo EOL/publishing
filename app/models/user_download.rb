@@ -1,10 +1,13 @@
 class UserDownload < ActiveRecord::Base
   belongs_to :user, inverse_of: :user_downloads
   belongs_to :term_query
+  has_one :download_error, class_name: "UserDownload::Error" # Weird exceptions in delayed_job when this was set to just "error". 
   validates_presence_of :user_id
   validates_presence_of :count
   validates_presence_of :term_query
   validates_presence_of :search_url
+
+  enum status: { created: 0, completed: 1, failed: 2 }
 
   # NOTE: should be created by populating clade, object_terms, predicates, and
   # count. Also NOTE that using after_commit avoids racing conditions where
@@ -22,14 +25,24 @@ private
   def background_build
     begin
       downloader = TraitBank::DataDownload.new(term_query, count, search_url)
-      self[:filename] = downloader.background_build
+      self.filename = downloader.background_build
+      self.status = :completed
     rescue => e
       Rails.logger.error("!! ERROR in background_build for User Download #{id}")
       Rails.logger.error("!! #{e.message}")
       Rails.logger.error("!! #{e.backtrace.join('->')}")
+
+      self.transaction do
+        self.status = :failed
+        build_download_error({
+          message: e.message,
+          backtrace: e.backtrace.join("\n")
+        })
+      end
+
       raise e
     ensure
-      self[:completed_at] = Time.now
+      self.completed_at = Time.now
       save! # NOTE: this could fail and we lose everything.
     end
   end

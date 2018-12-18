@@ -39,7 +39,9 @@ Rails.application.routes.draw do
       post "delete_user", defaults: { format: "json" }
       get "search"
     end
-    resources :user_downloads, only: [:show]
+    resources :user_downloads, only: [:show], as: :downloads do
+      get "error" => "user_download/errors#show", as: :error
+    end
   end
 
   # All of the "normal" resources:

@@ -25,14 +25,21 @@
           -# name = term_search_name(download.options)
           - name = "Search ##{downloads.length - index}"
           %li
-            - if download.completed_at.nil?
+            - if download.created?
               = name
               %br
               = "enqueued - #{time_ago_in_words(download.created_at)}"
-            - else
-              = link_to(name, [@user, download])
+            - elsif download.completed? || download.status.nil?
+              = link_to(name, user_download_path(user_id: @user.id, id: download.id))
               %br
               = "completed - #{time_ago_in_words(download.completed_at)}"
+            - elsif download.failed?
+              - if is_admin? && download.download_error
+                = link_to(name, user_download_error_path(user_id: @user.id, download_id: download.id))
+              - else 
+                = name
+              %br
+              = "failed - #{time_ago_in_words(download.completed_at)}"
             - if !download.search_url.blank?
               %br
               %span query:&nbsp;
