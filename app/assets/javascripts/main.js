@@ -1,6 +1,7 @@
 if (!window.EOL) {
   EOL = {};
 
+
   var eolReadyCbs = [];
   EOL.onReady = function(cb) {
     eolReadyCbs.push(cb);
@@ -398,16 +399,20 @@ if (!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
-    var $navSearch = $('.js-nav-search');
+    var $navSearch = $('.js-nav-search')
+      , navSearchResultsLimit = 7
+      ;
+
     $navSearch.typeahead({
       minLength: 3,
       highlight: true
     }, {
       source: EOL.pagesAutocomplete,
       display: 'name',
+      limit: navSearchResultsLimit,
       templates: {
         suggestion: function(item) {
-          return `<a href="${item.url}">${item.name}</a>`
+          return `<div><a href="${item.url}">${item.name}</a></div>`
         },
         notFound: $navSearch.data('noResultsText')
       }
