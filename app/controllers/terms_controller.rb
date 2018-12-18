@@ -8,9 +8,9 @@ class TermsController < ApplicationController
     glossary_for_letter(params[:letter])
   end
 
-  def show
-    redirect_to_glossary_entry(params[:uri])    
-  end
+#  def show
+#    redirect_to_glossary_entry(params[:uri])    
+#  end
 
   def schema_redirect
     redirect_to_glossary_entry(SCHEMA_URI_FORMAT % params[:uri_part])
