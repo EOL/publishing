@@ -71,7 +71,7 @@ module PagesHelper
     ancestors = Array(ancestors)
     return nil if ancestors.blank?
     node = ancestors.shift
-    page = this_node.nil? ? @page : this_node.page
+    page = node.page
     haml_tag("div.item") do
       classification_content(page, this_node, node, ancestors)
     end
