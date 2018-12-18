@@ -641,7 +641,7 @@ class Page < ActiveRecord::Base
   def clear_caches
     [
       "/pages/#{id}/glossary",
-      "trait_bank/by_page/#{page_id}"
+      "trait_bank/by_page/#{id}"
     ].each do |cache|
       Rails.cache.delete(cache)
     end

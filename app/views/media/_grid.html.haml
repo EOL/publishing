@@ -1,5 +1,5 @@
 - if !local_assigns.has_key? :page
-  - page = @page # Which could be nil!
+  - page = @page # Which could be nil! Collection views have no page (to mark images as exemplars on)!
 
 %ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
   - media_ids = media.map { |image| "image_modal_#{image&.id}" }
@@ -30,13 +30,14 @@
                     -# If you want the list to be sortable...
                     -# %li
                     -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-                    - if index > 0 || params[:page] && params[:page].to_i > 0
+                    - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
+                      - if index > 0 || params[:page] && params[:page].to_i > 0
+                        %li
+                          = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image&.id), alt: "make exemplar", method: :post)
+                      -# %li
+                      -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
                       %li
-                        = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: image&.id), alt: "make exemplar", method: :post)
-                    -# %li
-                    -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
-                    %li
-                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [image&.id]), alt: "add to collection")
+                        = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [image&.id]), alt: "add to collection")
 
                 .uk-modal-body
                   .uk-inline.uk-visible-toggle

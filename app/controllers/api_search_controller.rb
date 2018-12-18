@@ -14,9 +14,9 @@ class ApiSearchController < LegacyApiController
     @per_page = 50
     if params[:filter_by_string]
       results = Page.autocomplete(params[:filter_by_string])
-      @clade = results.results.first['id'] if results && results.results&.any?
+      @clade = results.results.first['id'].to_i if results && results.results&.any?
     elsif id = params[:filter_by_taxon_concept_id]
-      @clade = params[:filter_by_taxon_concept_id]
+      @clade = params[:filter_by_taxon_concept_id].to_i
     elsif params[:filter_by_hierarchy_entry_id]
       return { 'response' => { 'message' => 'filter_by_hierarchy_entry_id is no longer supported. Please obtain the corresponding page id and use filter_by_taxon_concept_id.' } }
     end
@@ -27,7 +27,7 @@ class ApiSearchController < LegacyApiController
     pages = Page.search(params[:q],
       page: params[:page], per_page: 50,
       boost_by: [:page_richness, :specificity, :depth], match: :phrase, fields: fields,
-      where: @clade ? { ancestry_ids: @clade.id } : nil,
+      where: @clade ? { ancestry_ids: @clade } : nil,
       includes: [:scientific_names, :nodes, :preferred_vernaculars, :native_node])
 
     results = []

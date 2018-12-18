@@ -408,6 +408,7 @@ Rails.application.routes.draw do
     get 'eol_tutorials', to: redirect('https://www.slideshare.net/eoleducation/presentations')
     get '599', to: redirect('https://www.slideshare.net/eoleducation/presentations')
     get '28', to: redirect('https://www.ted.com/talks/e_o_wilson_on_saving_life_on_earth')
+    get 'naturesbest2018', to: redirect('https://eol.org/collections/141174')
   end
 
   get "/traitbank", to: redirect('https://eol.org/docs/what-is-eol/traitbank')
