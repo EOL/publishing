@@ -1,6 +1,15 @@
 # Generate CSV files expressing trait information for a single taxon
 # recursively.
 
+=begin
+MATCH (term:Term)
+ WHERE term.type = "measurement"
+ OPTIONAL MATCH (term)-[:parent_term]->(parent:Term) 
+ WHERE parent.uri IS NULL
+ RETURN term.uri, term.name
+ LIMIT 1000
+=end
+
 require 'csv'
 require 'fileutils'
 
@@ -52,20 +61,13 @@ class TraitBank::TraitsDumper
   #---- Query #3: Pages
 
   def emit_pages
-
     pages_query =
      "MATCH (page:Page) #{transitive_closure_part}
       WHERE page.canonical IS NOT NULL
       OPTIONAL MATCH (page)-[:parent]->(parent:Page)
-      RETURN page.page_id, parent.page_id, page.canonical 
-      LIMIT #{@limit}"
-
+      RETURN page.page_id, parent.page_id, page.canonical"
     pages_keys = ["page_id", "parent_id", "canonical"] #fragile
-
-    pages_result = TraitBank.query(pages_query)
-
-    emit_csv(pages_result, pages_keys, "pages.csv")
-
+    supervise_query(pages_query, pages_keys, "pages.csv")
   end
 
   #---- Query #2: Traits
@@ -86,8 +88,7 @@ class TraitBank::TraitsDumper
              t.object_page_id, obj.uri,
              t.normal_measurement, normal_units.uri, t.normal_units, 
              t.measurement, units.uri, t.units, 
-             t.literal
-      LIMIT #{@limit}"
+             t.literal"
 
     # Matching the keys used in the tarball if possible (even when inconsistent)
     # E.g. should "predicate" be "predicate_uri" ?
@@ -99,10 +100,7 @@ class TraitBank::TraitsDumper
                    "measurement", "units_uri", "units",
                    "literal"]
 
-    traits_result = TraitBank.query(traits_query)
-
-    emit_csv(traits_result, traits_keys, "traits.csv")
-
+    supervise_query(traits_query, traits_keys, "traits.csv")
   end
 
   #---- Query #1: Metadatas
@@ -117,15 +115,11 @@ class TraitBank::TraitsDumper
       OPTIONAL MATCH (m)-[:predicate]->(predicate:Term)
       OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
       OPTIONAL MATCH (m)-[:units_term]->(units:Term)
-      RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal
-      LIMIT #{@limit}"
+      RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
 
     metadata_keys = ["eol_pk", "trait_eol_pk", "predicate", "value_uri",
                      "measurement", "units_uri", "literal"]
-    metadata_result = TraitBank.query(metadata_query)
-
-    emit_csv(metadata_result, metadata_keys, "metadata.csv")
-
+    supervise_query(metadata_query, metadata_keys, "metadata.csv")
   end
 
   #---- Query #0: Terms
@@ -139,28 +133,63 @@ class TraitBank::TraitsDumper
 
     terms_query =
      "MATCH (r:Term)
-      RETURN r.uri, r.name, r.type
-      ORDER BY r.uri
-      LIMIT #{@limit}"
+      OPTIONAL MATCH (r)-[:parent_term]->(parent:Term)
+      RETURN r.uri, r.name, r.type, parent.uri
+      ORDER BY r.uri"
+    terms_keys = ["uri", "name", "type", "parent_uri"]
+    supervise_query(terms_query, terms_keys, "terms.csv")
+  end
 
-    terms_keys = ["uri", "name", "type"]
-    terms_result = TraitBank.query(terms_query)
+  # -----
 
-    emit_csv(terms_result, terms_keys, "terms.csv")
+  # filename is relative to @csvdir
 
+  def supervise_query(query, columns, filename)
+    path = File.join(@csvdir, filename)
+    if File.exist?(path)
+      STDERR.puts "reusing previously created #{path}"
+    else
+      # Create a directory filename.parts to hold the parts
+      parts_dir = path + ".parts"
+
+      skip = 0
+      while true
+        # Fetch it in parts
+        part = File.join(parts_dir, "#{skip}.csv")
+        if File.exist?(part)
+          STDERR.puts "reusing previously created #{part}"
+        else
+          result = TraitBank.query(query + " SKIP #{skip} LIMIT #{@limit}")
+          STDERR.puts "data length: #{result["data"].length}"
+          if result["data"].length > 0
+            emit_csv(result, columns, part)
+          end
+          break if result["data"].length < @limit
+        end
+        skip += @limit
+      end
+
+      # Concatenate all the parts together
+      temp = path + ".new"
+      STDERR.puts "creating #{temp}"
+      system "cat #{parts_dir}/*.csv >#{temp}"
+      FileUtils.mv temp, path
+    end
+    path
   end
 
   # Utility
-  def emit_csv(start, keys, fname)
-    FileUtils.mkdir_p @csvdir
-    path = File.join(@csvdir, fname)
-    csv = CSV.open(path, "wb")
-    STDERR.puts "writing #{start["data"].length} csv records to #{path}"
+  def emit_csv(start, keys, path)
+    FileUtils.mkdir_p File.dirname(path)
+    temp = path + ".new"
+    csv = CSV.open(temp, "wb")
+    STDERR.puts "writing #{start["data"].length} csv records to #{temp}"
     csv << keys
     start["data"].each do |row|
       csv << row
     end
     csv.close
+    FileUtils.mv temp, path
     path
   end
 
