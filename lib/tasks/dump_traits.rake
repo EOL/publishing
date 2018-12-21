@@ -23,7 +23,7 @@ namespace :dump_traits do
   task smoke: :environment do
     clade = ENV['ID'] || '7662'     # Carnivora
     limit = ENV['LIMIT'] || '100'
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}_#{clade}_#{limit}"
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{limit}"
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
     TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, limit)
