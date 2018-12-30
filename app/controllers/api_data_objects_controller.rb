@@ -72,7 +72,7 @@ class ApiDataObjectsController < LegacyApiController
         dataObjects: [@object]
       }
     }
-    add_taxonomy_to_page(@object, page)
+    add_taxonomy_to_page(@object, page) unless params[:taxonomy] && params[:taxonomy].downcase == 'false'
     @object
   end
 end
