@@ -32,6 +32,10 @@ module Eol
          'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution'
         ]
       end
+
+      def growth_habit
+        'http://eol.org/schema/terms/growthHabit'
+      end
     end
 
     def marine
