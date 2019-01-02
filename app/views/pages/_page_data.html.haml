@@ -1,5 +1,5 @@
-.js-content 
-  .ui.menu.uk-text-small{ class: "js-menus" }
+.js-content
+  .ui.menu.uk-text-small.js-menus.page-filters
     .ui.scrolling.dropdown.item
       - if @predicate
         %b= @predicate[:name]
@@ -13,7 +13,7 @@
           = link_to(predicate[:name], page_data_path(page_id: @page.id, predicate: uri), data: { type: 'html' }, class: "item#{ @predicate && uri == @predicate[:uri] ? " active" : ""}")
           -#
             remote: true, data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
-  %ul.traits
+  %ul.traits.l-below-filters
     - @predicates.each do |uri|
       - predicate = @page.glossary[uri]
       - if predicate.nil?
@@ -25,7 +25,6 @@
       - if !@predicate
         - pred_data_slice = pred_data[0, records_per_pred]
       - pred_data_slice.each do |trait|
-        -# TODO: this partial shouldn't be in terms, it should be in traits.
         = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
         -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde
       - if pred_data_slice.length < pred_data.length

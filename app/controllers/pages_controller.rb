@@ -195,6 +195,13 @@ class PagesController < ApplicationController
     end
   end
 
+  def data_record
+    record = TraitBank.by_trait(params[:id])
+    raise ActiveRecord::RecordNotFound if !record || record.empty?
+    record = record[0]
+    redirect_to "#{page_data_path(predicate: record[:predicate][:uri])}#trait_id=#{record[:id]}"
+  end
+
   def maps
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     # NOTE: sorry, no, you cannot choose the page size for maps.
@@ -364,3 +371,4 @@ private
     @media = media.by_page(params[:page]).per(@media_page_size).without_count
   end
 end
+

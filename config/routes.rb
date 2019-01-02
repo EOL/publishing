@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'names'
     get 'reindex'
     get 'data'
+    get 'data/:id', to: "pages#data_record", constraints: { id: /[\w\-]+/ }, as: "data_record"
 
     get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
   end

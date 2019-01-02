@@ -11,7 +11,7 @@ $border: $border-width solid $light-gray;
 
 $tabs-height: 25px;
 $tabs-m-height: 30px;
-$head-height: 133px;
+$head-height: 122px;
 $actions-height: 45px;
 $head-icon-height: 70px;
 
@@ -123,6 +123,11 @@ $font-sz-m: 14px;
   }
 }
 
+.page-filters {
+  position: fixed;
+  width: 100%;
+}
+
 .tabs {
   border-top: $border;
   border-bottom: $border;
@@ -192,6 +197,10 @@ $font-sz-m: 14px;
   min-height: 400px;
 }
 
+.l-below-filters {
+  padding-top: 40px;
+}
+
 .page-children {
   border-top: $border;
   margin-top: 10px;
@@ -205,7 +214,7 @@ $font-sz-m: 14px;
 
 @media(min-width: $width-m) {
   .l-content {
-    margin-top: $head-height + $tabs-height;
+    margin-top: $head-height + $tabs-m-height;
   }
 
   .tabs {

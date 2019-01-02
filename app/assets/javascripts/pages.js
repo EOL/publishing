@@ -33,11 +33,12 @@ function scrollToRecord() {
     var $row = $('.js-data-row[data-id="' + hashParams.trait_id + '"]')
       , $nav = $('.l-nav')
       , $tabs = $('.l-tabs')
+      , $filters = $('.js-menus')
       ;
 
     if ($row.length) {
       setTimeout(function() {
-        $(document).scrollTop($row.offset().top - $nav.height() - $tabs.height());
+        $(document).scrollTop($row.offset().top - $nav.height() - $tabs.height() - $filters.height());
         $row.find('.js-load-arw').click();
       }, 1000);
     }
