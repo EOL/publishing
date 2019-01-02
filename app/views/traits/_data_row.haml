@@ -52,7 +52,7 @@
         - if page
           %li.meta-item
             .meta-pred= t("terms.record_url")
-            - url = page_data_record_url(page_id: page.id, id: trait[:id])
+            - url = datum_url(id: trait[:id])
             .meta-val= link_to url, url
       %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
     - else
