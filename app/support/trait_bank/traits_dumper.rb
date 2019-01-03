@@ -14,16 +14,16 @@ require 'csv'
 require 'fileutils'
 
 class TraitBank::TraitsDumper
-  def self.dump_clade(clade_page_id, dest, csvdir, limit)
-    new(clade_page_id, dest, csvdir, limit).doit
+  def self.dump_clade(clade_page_id, dest, csvdir, chunksize)
+    new(clade_page_id, dest, csvdir, chunksize).doit
   end
-  def initialize(clade_page_id, dest, csvdir, limit)
+  def initialize(clade_page_id, dest, csvdir, chunksize)
     # If clade_page_id is nil, that means do not filter by clade
     @clade = nil
     @clade = Integer(clade_page_id) if clade_page_id
     @dest = dest
     @csvdir = csvdir
-    @limit = Integer(limit)
+    @chunksize = Integer(chunksize) if chunksize
   end
   def doit
     write_zip [emit_pages,
@@ -40,9 +40,11 @@ class TraitBank::TraitsDumper
       directory = "trait_bank"
       zipfile.mkdir(directory)
       paths.each do |path|
-        name = File.basename(path)
-        STDERR.puts "storing #{name} into zip file"
-        zipfile.add(File.join(directory, name), path)
+        if path
+          name = File.basename(path)
+          STDERR.puts "storing #{name} into zip file"
+          zipfile.add(File.join(directory, name), path)
+        end
       end
       # Put it on its own line for easier cut/paste
       STDERR.puts @dest
@@ -152,6 +154,13 @@ class TraitBank::TraitsDumper
       # Create a directory filename.parts to hold the parts
       parts_dir = path + ".parts"
 
+      if @chunksize
+        limit_phrase = "LIMIT #{@chunksize}"
+      else
+        limit_phrase = ""
+      end
+
+      parts = []
       skip = 0
       while true
         # Fetch it in parts
@@ -159,23 +168,35 @@ class TraitBank::TraitsDumper
         if File.exist?(part)
           STDERR.puts "reusing previously created #{part}"
         else
-          result = TraitBank.query(query + " SKIP #{skip} LIMIT #{@limit}")
-          STDERR.puts "data length: #{result["data"].length}"
+          result = TraitBank.query(query + " SKIP #{skip} #{limit_phrase}")
           if result["data"].length > 0
             emit_csv(result, columns, part)
+            parts.push(part)
           end
-          break if result["data"].length < @limit
+          break if @chunksize and result["data"].length < @chunksize
         end
-        skip += @limit
+        break unless @chunksize
+        skip += @chunksize
       end
 
       # Concatenate all the parts together
-      temp = path + ".new"
-      STDERR.puts "creating #{temp}"
-      system "cat #{parts_dir}/*.csv >#{temp}"
-      FileUtils.mv temp, path
+      if parts.size == 0
+        nil
+      elsif parts.size == 1
+        FileUtils.mv parts[0], path
+        path
+      else
+        temp = path + ".new"
+        STDERR.puts "creating #{temp}"
+        # was: system "cat #{parts_dir}/*.csv >#{temp}"
+        more = parts.drop(1).join(' ')
+        command = "(cat #{parts[0]}; tail +2 -q #{more}) >#{temp}"
+        STDERR.puts(command)
+        system command
+        FileUtils.mv temp, path
+        path
+      end
     end
-    path
   end
 
   # Utility
