@@ -168,8 +168,11 @@ class TraitBank::TraitsDumper
         if File.exist?(part)
           STDERR.puts "reusing previously created #{part}"
         else
-          result = TraitBank.query(query + " SKIP #{skip} #{limit_phrase}")
-          if result["data"].length > 0
+          result = query(query + " SKIP #{skip} #{limit_phrase}")
+          # A null result means that there was some kind of error, which
+          # has already been reported.  (because I don't want to learn
+          # ruby exception handling!)
+          if result and result["data"].length > 0
             emit_csv(result, columns, part)
             parts.push(part)
           end
@@ -199,8 +202,20 @@ class TraitBank::TraitsDumper
     end
   end
 
+  def query(cql)
+    # See app/models/trait_bank.rb
+    TraitBank.query(cql)
+  end
+
   # Utility
   def emit_csv(start, keys, path)
+
+    # Sanity check the result
+    if start["columns"] == nil or start["data"] == nil or start["data"].length == 0
+      STDERR.puts "failed to write #{path}; result = #{start}"
+      return nil
+    end
+
     FileUtils.mkdir_p File.dirname(path)
     temp = path + ".new"
     csv = CSV.open(temp, "wb")
