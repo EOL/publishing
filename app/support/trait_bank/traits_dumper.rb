@@ -174,19 +174,21 @@ class TraitBank::TraitsDumper
         part = File.join(parts_dir, "#{skip}.csv")
         if File.exist?(part)
           STDERR.puts "reusing previously created #{part}"
+          skip += @chunksize if @chunksize
         else
           result = query(query + " SKIP #{skip} #{limit_phrase}")
           # A null result means that there was some kind of error, which
           # has already been reported.  (because I don't want to learn
           # ruby exception handling!)
-          if result and result["data"].length > 0
+          got = result["data"].length
+          if result and got > 0
             emit_csv(result, columns, part)
             parts.push(part)
           end
-          break if @chunksize and result["data"].length < @chunksize
+          skip += got
+          break if @chunksize and got < @chunksize
         end
         break unless @chunksize
-        skip += @chunksize
       end
 
       # Concatenate all the parts together
@@ -197,19 +199,19 @@ class TraitBank::TraitsDumper
         path
       else
         temp = path + ".new"
-        STDERR.puts "creating #{temp}"
-        # The 'tail' man page is wrong; it says the +2 should follow -q, but the
-        # command barfs if you do it that way.
-        # Also, the 'tail' command fails when there are lots of files.
-        # 'gtail' doesn't have this bug.  (could 'map' to work around.)
         if false
+          # The 'tail' man page is wrong; it says the +2 should follow -q, but the
+          # command barfs if you do it that way.
+          # Also, the 'tail' command fails when there are lots of files.
+          # 'gtail' doesn't have this bug.  (could 'map' to work around.)
           more_files = parts.drop(1).join(' ')
           more = "tail +2 -q #{more_files}"
-        elsif true
+        elsif false
+          # Use gnu 'tail' (might or might not be available under the name 'gtail')
           more_files = parts.drop(1).join(' ')
           more = "gtail -n +2 -q #{more_files}"
         else
-          # This version is a bit slower, but not too bad, and it's
+          # This version is a bit slower, but not too much, and it's
           # not sensitive to vagaries of various 'tail' commands.
           tails = parts.drop(1).map { |path| "tail +2 #{path}" }
           more = tails.join(';')
@@ -218,6 +220,7 @@ class TraitBank::TraitsDumper
         STDERR.puts(command)
         system command
         FileUtils.mv temp, path
+        STDERR.puts("#{File.basename(path)}: #{skip} records")
         path
       end
     end
