@@ -5,10 +5,11 @@ namespace :dump_traits do
   desc 'Dump traits information from neo4j graphdb into a set of .csv files.'
   task dump: :environment do
     clade = ENV['ID']       # nil if not provided
-    limit = ENV['LIMIT'] || '100000000'
+    limit = ENV['LIMIT']
+    chunksize = ENV['CHUNKSIZE'] || limit
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
     prefix = "#{prefix}_#{clade}" if clade
-    prefix = "#{prefix}_limit_#{limit}" if ENV['LIMIT']
+    prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     # This is not very rubyesque
     if ENV['ZIP']
@@ -16,17 +17,19 @@ namespace :dump_traits do
     else
       dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
     end
-    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, limit)
+    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
+                                       ENV['SERVER'],
+                                       ENV['TOKEN'])
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
   task smoke: :environment do
     clade = ENV['ID'] || '7662'     # Carnivora
-    limit = ENV['LIMIT'] || '100'
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{limit}"
+    chunksize = ENV['CHUNKSIZE'] || ENV['LIMIT'] || '100'
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{chunksize}"
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
-    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, limit)
+    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize, nil, nil)
   end
 
 end

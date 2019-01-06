@@ -13,17 +13,24 @@ MATCH (term:Term)
 require 'csv'
 require 'fileutils'
 
+# These are required if we want to be an HTTP client:
+require 'net/http'
+require 'json'
+require 'cgi'
+
 class TraitBank::TraitsDumper
-  def self.dump_clade(clade_page_id, dest, csvdir, chunksize)
-    new(clade_page_id, dest, csvdir, chunksize).doit
+  def self.dump_clade(clade_page_id, dest, csvdir, chunksize, server, token)
+    new(clade_page_id, dest, csvdir, chunksize, server, token).doit
   end
-  def initialize(clade_page_id, dest, csvdir, chunksize)
+  def initialize(clade_page_id, dest, csvdir, chunksize, server, token)
     # If clade_page_id is nil, that means do not filter by clade
     @clade = nil
     @clade = Integer(clade_page_id) if clade_page_id
     @dest = dest
     @csvdir = csvdir
     @chunksize = Integer(chunksize) if chunksize
+    @server = server
+    @token = token
   end
   def doit
     write_zip [emit_pages,
@@ -191,9 +198,23 @@ class TraitBank::TraitsDumper
       else
         temp = path + ".new"
         STDERR.puts "creating #{temp}"
-        # was: system "cat #{parts_dir}/*.csv >#{temp}"
-        more = parts.drop(1).join(' ')
-        command = "(cat #{parts[0]}; tail +2 -q #{more}) >#{temp}"
+        # The 'tail' man page is wrong; it says the +2 should follow -q, but the
+        # command barfs if you do it that way.
+        # Also, the 'tail' command fails when there are lots of files.
+        # 'gtail' doesn't have this bug.  (could 'map' to work around.)
+        if false
+          more_files = parts.drop(1).join(' ')
+          more = "tail +2 -q #{more_files}"
+        elsif true
+          more_files = parts.drop(1).join(' ')
+          more = "gtail -n +2 -q #{more_files}"
+        else
+          # This version is a bit slower, but not too bad, and it's
+          # not sensitive to vagaries of various 'tail' commands.
+          tails = parts.drop(1).map { |path| "tail +2 #{path}" }
+          more = tails.join(';')
+        end
+        command = "(cat #{parts[0]}; #{more}) >#{temp}"
         STDERR.puts(command)
         system command
         FileUtils.mv temp, path
@@ -203,8 +224,27 @@ class TraitBank::TraitsDumper
   end
 
   def query(cql)
-    # See app/models/trait_bank.rb
-    TraitBank.query(cql)
+    if @server
+      # Need to be a web client.
+      # "The Ruby Toolbox lists no less than 25 HTTP clients."
+      escaped = CGI::escape(cql)
+      uri = URI("#{@server}service/cypher?query=#{escaped}")
+      request = Net::HTTP::Get.new(uri)
+      request['Authorization'] = "JWT #{@token}"
+      use_ssl = uri.scheme.start_with?("https")
+      response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => use_ssl) {|http|
+        http.request(request)
+      }
+      if response.is_a?(Net::HTTPSuccess)
+        JSON.parse(response.body)    # can return nil
+      else
+        STDERR.puts(response.body)
+        nil
+      end
+    else
+      # See app/models/trait_bank.rb
+      TraitBank.query(cql)
+    end
   end
 
   # Utility
