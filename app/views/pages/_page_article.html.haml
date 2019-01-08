@@ -1,4 +1,4 @@
-- name = article.name.html_safe
+- name = article.name&.html_safe
 - name = article.sections.try(:first).try(:name) if name.blank? || name.empty?
 - name ||= t("article.name.missing")
 .article.uk-margin-top
