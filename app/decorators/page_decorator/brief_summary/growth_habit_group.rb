@@ -101,9 +101,9 @@ class PageDecorator
           end
 
           @matches =  if matches_by_uri.has_key?(Eol::Uris.tree)
-                        [matches_by_uri[Eol::Uris.tree]] 
+                        [matches_by_uri[Eol::Uris.tree].first] 
                       elsif matches_by_uri.has_key?(Eol::Uris.shrub)
-                        [matches_by_uri[Eol::Uris.shrub]]
+                        [matches_by_uri[Eol::Uris.shrub].first]
                       elsif matches_by_type.has_key?(:x_species) &&
                         (matches_by_type.has_key?(:and_a_x) || matches_by_type.has_key?(:x_growth_habit))
 
