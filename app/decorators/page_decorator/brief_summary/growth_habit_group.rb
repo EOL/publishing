@@ -115,8 +115,10 @@ class PageDecorator
                         end
 
                         x_species_matches
-                      else
+                      elsif matches.any?
                         [matches.first]
+                      else
+                        []
                       end  
         end
 
