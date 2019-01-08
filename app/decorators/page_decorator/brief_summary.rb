@@ -51,20 +51,16 @@ class PageDecorator
         species_parts = []
 
         if growth_habit_match && growth_habit_match.type == :x_species
-          species_parts << term_sentence(
+          species_parts << trait_sentence_part(
             "#{name_clause} is "\
-            "#{a_or_an(growth_habit_match.obj_term[:name])} %s "\
+            "#{a_or_an(growth_habit_match.trait[:object_term][:name])} %s "\
             "species of #{what}",
-            growth_habit_match.obj_term[:name],
-            Eol::Uris.growth_habit,
-            growth_habit_match.obj_term[:uri]
+            growth_habit_match.trait
           )
         elsif growth_habit_match && growth_habit_match.type == :species_of_x
-          species_parts << term_sentence(
+          species_parts << trait_sentence_part(
             "#{name_clause} is a species of %s",
-            growth_habit_match.obj_term[:name],
-            Eol::Uris.growth_habit,
-            growth_habit_match.obj_term[:uri]
+            growth_habit_match.trait
           )
         else
           species_parts << "#{name_clause} is a species of #{what}"
@@ -75,18 +71,14 @@ class PageDecorator
         end
 
         if growth_habit_match && growth_habit_match.type == :and_a_x
-          species_parts << term_sentence(
-            ", and #{a_or_an(growth_habit_match.obj_term[:name])} %s",
-            growth_habit_match.obj_term[:name],
-            Eol::Uris.growth_habit,
-            growth_habit_match.obj_term[:uri]
+          species_parts << trait_sentence_part(
+            ", and #{a_or_an(growth_habit_match.trait[:object_term][:name])} %s",
+            growth_habit_match.trait
           )
         elsif growth_habit_match && growth_habit_match.type == :x_growth_habit 
-          species_parts << term_sentence(
-            ", with #{a_or_an(growth_habit_match.obj_term[:name])} %s growth habit",
-            growth_habit_match.obj_term[:name],
-            Eol::Uris.growth_habit,
-            growth_habit_match.obj_term[:uri]
+          species_parts << trait_sentence_part(
+            ", with #{a_or_an(growth_habit_match.trait[:object_term][:name])} %s growth habit",
+            growth_habit_match.trait
           )
         end
 
@@ -110,17 +102,26 @@ class PageDecorator
         # Distribution sentence: It is found in [G1].
         @sentences << "It is found in #{g1}." if g1
       end
-      
+
+      # Iterate over all growth habit objects and get the first for which 
+      # GrowthHabitGroup.match returns a result, or nil if none do. The result
+      # of this operation is cached.
       def growth_habit_match
-        return @match if @match
+        return @growth_habit_match if @growth_habit_matched
 
-        trait = first_trait_for_pred_uri(Eol::Uris.growth_habit)
+        match = nil
+        terms = gather_terms(Eol::Uris.growth_habit)
+        terms.each do |term|
+          next if @page.grouped_data[term].nil?
 
-        if trait && trait[:object_term]
-          @match = GrowthHabitGroup.match(trait[:object_term])
-        else
-          @match = nil
+          @page.grouped_data[term].each do |trait|
+            match = GrowthHabitGroup.match(trait)
+            break if match 
+          end
         end
+
+        @growth_habit_matched = true
+        @growth_habit_match = match
       end
 
       # [name clause] is a genus in the [A1] family [A2].
@@ -377,9 +378,27 @@ class PageDecorator
       end
 
       def term_sentence(format_str, label, pred_uri, obj_uri)
-        @sentences << sprintf(
+        @sentences << term_sentence_part(
+          format_str, 
+          label, 
+          pred_uri, 
+          obj_uri
+        )
+      end
+
+      def term_sentence_part(format_str, label, pred_uri, obj_uri)
+        sprintf(
           format_str,
           term_tag(label, pred_uri, obj_uri)
+        )
+      end
+
+      def trait_sentence_part(format_str, trait)
+        term_sentence_part(
+          format_str, 
+          trait[:object_term][:name], 
+          trait[:predicate][:uri], 
+          trait[:object_term][:uri]
         )
       end
   end

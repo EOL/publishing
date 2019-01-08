@@ -1,5 +1,8 @@
 require "set"
 
+# Different groups of 'growth habit' trait values are treated differently in BriefSummary. 
+# This class provides functionality for classifying a growth habit trait by matching its object term
+# against the uris in these groups.
 class PageDecorator
   class BriefSummary
     class GrowthHabitGroup
@@ -8,6 +11,10 @@ class PageDecorator
       def initialize(type, uris)
         @type = type
         @uris = Set.new(uris)
+      end
+
+      def include?(uri)
+        @uris.include? uri
       end
 
       class << self 
@@ -42,7 +49,10 @@ class PageDecorator
           ])
         ]
 
-        def match(obj_term)
+        def match(trait)
+          return nil if !trait[:object_term]
+          uri = trait[:object_term][:uri]
+
           found_group = nil
           Groups.each do |group|
             if group.include? uri
@@ -52,7 +62,7 @@ class PageDecorator
           end
 
           if found_group
-            MatchResult.new(found_group, obj_term)
+            MatchResult.new(found_group, trait)
           else
             nil
           end
@@ -61,11 +71,11 @@ class PageDecorator
 
       class MatchResult
         attr_accessor :type
-        attr_accessor :obj_term
+        attr_accessor :trait
 
-        def initialize(group, obj_term)
+        def initialize(group, trait)
           @type = group.type
-          @obj_term = obj_term
+          @trait = trait
         end
       end
     end
