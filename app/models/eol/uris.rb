@@ -36,6 +36,14 @@ module Eol
       def growth_habit
         'http://eol.org/schema/terms/growthHabit'
       end
+
+      def tree
+        "http://purl.obolibrary.org/obo/FLOPO_0900033"
+      end
+
+      def shrub
+        "http://purl.obolibrary.org/obo/FLOPO_0900034"
+      end
     end
 
     def marine

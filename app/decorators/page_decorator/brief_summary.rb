@@ -50,17 +50,17 @@ class PageDecorator
         family = a2
         species_parts = []
 
-        if growth_habit_match && growth_habit_match.type == :x_species
+        if match = growth_habit_matches.by_type(:x_species)
           species_parts << trait_sentence_part(
             "#{name_clause} is "\
-            "#{a_or_an(growth_habit_match.trait[:object_term][:name])} %s "\
+            "#{a_or_an(match.trait[:object_term][:name])} %s "\
             "species of #{what}",
-            growth_habit_match.trait
+            match.trait
           )
-        elsif growth_habit_match && growth_habit_match.type == :species_of_x
+        elsif match = growth_habit_matches.by_type(:species_of_x)
           species_parts << trait_sentence_part(
             "#{name_clause} is a species of %s",
-            growth_habit_match.trait
+            match.trait
           )
         else
           species_parts << "#{name_clause} is a species of #{what}"
@@ -70,15 +70,15 @@ class PageDecorator
           species_parts << " in the family #{a2}"
         end
 
-        if growth_habit_match && growth_habit_match.type == :and_a_x
+        if match = growth_habit_matches.by_type(:and_a_x)
           species_parts << trait_sentence_part(
-            ", and #{a_or_an(growth_habit_match.trait[:object_term][:name])} %s",
-            growth_habit_match.trait
+            ", and #{a_or_an(match.trait[:object_term][:name])} %s",
+            match.trait
           )
-        elsif growth_habit_match && growth_habit_match.type == :x_growth_habit 
+        elsif match = growth_habit_matches.by_type(:x_growth_habit)
           species_parts << trait_sentence_part(
-            ", with #{a_or_an(growth_habit_match.trait[:object_term][:name])} %s growth habit",
-            growth_habit_match.trait
+            ", with #{a_or_an(match.trait[:object_term][:name])} %s growth habit",
+            match.trait
           )
         end
 
@@ -106,22 +106,16 @@ class PageDecorator
       # Iterate over all growth habit objects and get the first for which 
       # GrowthHabitGroup.match returns a result, or nil if none do. The result
       # of this operation is cached.
-      def growth_habit_match
-        return @growth_habit_match if @growth_habit_matched
+      def growth_habit_matches
+        return @growth_habit_matches if @growth_habit_matched
 
-        match = nil
         terms = gather_terms(Eol::Uris.growth_habit)
-        terms.each do |term|
-          next if @page.grouped_data[term].nil?
-
-          @page.grouped_data[term].each do |trait|
-            match = GrowthHabitGroup.match(trait)
-            break if match 
-          end
-        end
+        traits = terms.map do |term|
+          @page.grouped_data[term] || []
+        end.flatten
 
         @growth_habit_matched = true
-        @growth_habit_match = match
+        @growth_habit_matches = GrowthHabitGroup.match_all(traits)
       end
 
       # [name clause] is a genus in the [A1] family [A2].

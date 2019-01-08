@@ -44,8 +44,8 @@ class PageDecorator
             "http://purl.obolibrary.org/obo/PATO_0002389",
           ]),
           GrowthHabitGroup.new(:species_of_x, [
-            "http://purl.obolibrary.org/obo/FLOPO_0900034",
-            "http://purl.obolibrary.org/obo/FLOPO_0900033",
+            Eol::Uris.tree,
+            Eol::Uris.shrub
           ])
         ]
 
@@ -62,20 +62,70 @@ class PageDecorator
           end
 
           if found_group
-            MatchResult.new(found_group, trait)
+            Match.new(found_group, trait)
           else
             nil
           end
         end 
+
+        def match_all(traits)
+          matches = []
+
+          traits.each do |trait|
+            match = self.match(trait)
+            matches << match if match
+          end
+
+          Matches.new(matches)
+        end
       end
 
-      class MatchResult
+      class Match
         attr_accessor :type
         attr_accessor :trait
 
         def initialize(group, trait)
           @type = group.type
           @trait = trait
+        end
+      end
+
+      class Matches
+        def initialize(matches)
+          matches_by_uri = matches.group_by do |match|
+            match.trait[:object_term][:uri]
+          end
+
+          matches_by_type = matches.group_by do |match|
+            match.type
+          end
+
+          @matches =  if matches_by_uri.has_key?(Eol::Uris.tree)
+                        [matches_by_uri[Eol::Uris.tree]] 
+                      elsif matches_by_uri.has_key?(Eol::Uris.shrub)
+                        [matches_by_uri[Eol::Uris.shrub]]
+                      elsif matches_by_type.has_key?(:x_species) &&
+                        (matches_by_type.has_key?(:and_a_x) || matches_by_type.has_key?(:x_growth_habit))
+
+                        x_species_matches = [matches_by_type[:x_species].first]
+                        if matches_by_type.has_key? :and_a_x
+                          x_species_matches << matches_by_type[:and_a_x].first
+                        else
+                          x_species_matches << matches_by_type[:x_growth_habit].first
+                        end
+
+                        x_species_matches
+                      else
+                        [matches.first]
+                      end  
+        end
+
+        def has_type?(type)
+          @matches.any? { |match| match.type == type }
+        end
+
+        def by_type(type)
+          @matches.find { |match| match.type == type }
         end
       end
     end
