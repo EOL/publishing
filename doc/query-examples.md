@@ -202,7 +202,7 @@ This query shows all categorical values represented in records for a given predi
 ```
 MATCH (t0:Trait)-[:predicate]->(p0:Term)-[:parent_term|:synonym_of*0..]->(tp0:Term)
 WHERE tp0.uri = "http://eol.org/schema/terms/growthHabit"
-OPTIONAL MATCH (t0)-[:object_term]->(object_term:Term)
-RETURN DISTINCT object_term.name, object_term.uri
+OPTIONAL MATCH (t0)-[:object_term]->(obj:Term)
+RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
 ```
