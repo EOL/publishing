@@ -6,6 +6,7 @@ Rails.application.configure do
   config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
   config.eager_load = true
   config.consider_all_requests_local = false
+  config.action_dispatch.default_headers = { 'X-Frame-Options' => 'ALLOWALL' }
   config.action_controller.perform_caching = true
   config.action_mailer.default_url_options = Rails.application.secrets.host.symbolize_keys
   config.action_mailer.raise_delivery_errors = false

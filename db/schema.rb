@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181218194807) do
+ActiveRecord::Schema.define(version: 20190109212729) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "guid",                      limit: 255,        null: false
+    t.string   "guid",                      limit: 255,      null: false
     t.string   "resource_pk",               limit: 255
-    t.integer  "license_id",                limit: 4,          null: false
+    t.integer  "license_id",                limit: 4,        null: false
     t.integer  "language_id",               limit: 4
     t.integer  "location_id",               limit: 4
     t.integer  "stylesheet_id",             limit: 4
@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(version: 20181218194807) do
     t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
-    t.text     "body",                      limit: 4294967295
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.text     "body",                      limit: 16777215
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
     t.integer  "harv_db_id",                limit: 4
   end
 
-  add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
+  add_index "articles", ["guid"], name: "index_articles_on_guid", length: {"guid"=>191}, using: :btree
   add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
   add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
@@ -735,6 +735,7 @@ ActiveRecord::Schema.define(version: 20181218194807) do
     t.datetime "updated_at",                                             null: false
     t.string   "abbr",                     limit: 255
     t.integer  "repository_id",            limit: 4
+    t.boolean  "classification",                         default: false
   end
 
   add_index "resources", ["partner_id"], name: "index_resources_on_partner_id", using: :btree
@@ -996,4 +997,5 @@ ActiveRecord::Schema.define(version: 20181218194807) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end
