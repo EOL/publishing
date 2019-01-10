@@ -45,4 +45,9 @@ class Article < ActiveRecord::Base
     return nil if val.nil?
     val.gsub(/""+/, '"').gsub(/^\s+/, '').gsub(/\s+$/, '').gsub(/^\"\s*(.*)\s*\"$/, '\\1')
   end
+
+  def sortable_name
+    'ZZZZ' if name.blank?
+    name
+  end
 end
