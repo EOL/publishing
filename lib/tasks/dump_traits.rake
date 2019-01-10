@@ -6,8 +6,8 @@ namespace :dump_traits do
   task dump: :environment do
     clade = ENV['ID']       # nil if not provided
     limit = ENV['LIMIT']
-    chunksize = ENV['CHUNKSIZE'] || limit
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
+    chunksize = ENV['CHUNK'] || limit
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
     prefix = "#{prefix}_#{clade}" if clade
     prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
@@ -25,7 +25,7 @@ namespace :dump_traits do
   desc 'Smoke test of traits dumper; finishes quickly.'
   task smoke: :environment do
     clade = ENV['ID'] || '7662'     # Carnivora
-    chunksize = ENV['CHUNKSIZE'] || ENV['LIMIT'] || '100'
+    chunksize = ENV['CHUNK'] || ENV['LIMIT'] || '100'
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{chunksize}"
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     dest = ENV['ZIP'] || "#{prefix}_smoke.zip"

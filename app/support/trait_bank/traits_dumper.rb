@@ -174,6 +174,9 @@ class TraitBank::TraitsDumper
         part = File.join(parts_dir, "#{skip}.csv")
         if File.exist?(part)
           STDERR.puts "reusing previously created #{part}"
+          parts.push(part)
+          # TBD: we should increase skip by the actual number of
+          # records in the file.
           skip += @chunksize if @chunksize
         else
           result = query(query + " SKIP #{skip} #{limit_phrase}")
