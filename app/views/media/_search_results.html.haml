@@ -34,7 +34,7 @@
                   - else
                     = emphasize_match(medium.resource_pk, @q)
               %br/
-              - if @q.blank? || medium.owner !~ /^[&(©]/
+              - if @q.blank? || (medium.owner && medium.owner !~ /^[&(©]/)
                 %b
                   = t("content_attributions_labels.owner")
                   \:

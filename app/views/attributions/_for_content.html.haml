@@ -16,8 +16,9 @@
       - else
         - license_content = content.license.name.html_safe
       %dd= license_content
-      %dt= t("content_attributions_labels.owner")
-      %dd= content.owner.html_safe
+      - unless content.owner.blank?
+        %dt= t("content_attributions_labels.owner")
+        %dd= content.owner.html_safe
       - unless content.rights_statement.blank?
         %dt= t("content_attributions_labels.rights_statement")
         %dd= content.rights_statement.html_safe

@@ -3,7 +3,7 @@ class MediumSearchDecorator < NoHierSearchResultDecorator
     if object.respond_to?(:medium_icon_url)
       object.medium_icon_url
     else
-      nil 
+      nil
     end
   end
 
@@ -23,7 +23,6 @@ class MediumSearchDecorator < NoHierSearchResultDecorator
   end
 
   def content
-    object.try(:search_highlights).try(:[], :owner) || object.owner
+    object.try(:search_highlights).try(:[], :owner) || object.owner || ''
   end
 end
-

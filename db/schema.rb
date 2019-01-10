@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190109212729) do
+ActiveRecord::Schema.define(version: 20190110144211) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,      null: false
@@ -393,7 +393,7 @@ ActiveRecord::Schema.define(version: 20190109212729) do
     t.integer  "stylesheet_id",             limit: 4
     t.integer  "javascript_id",             limit: 4
     t.integer  "bibliographic_citation_id", limit: 4
-    t.text     "owner",                     limit: 65535,             null: false
+    t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
     t.text     "description",               limit: 65535
