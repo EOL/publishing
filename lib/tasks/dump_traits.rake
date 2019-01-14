@@ -2,36 +2,37 @@
 
 # Not tested since TraitsDumper refactoring
 
+# Might be better if the shell variables were EOL_XX instead of just XX
+
 namespace :dump_traits do
 
   desc 'Dump traits information from neo4j graphdb into a set of .csv files.'
   task dump: :environment do
     clade = ENV['ID']       # nil if not provided
-    limit = ENV['LIMIT']
-    chunksize = ENV['CHUNK'] || limit
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
-    prefix = "#{prefix}_#{clade}" if clade
-    prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
-    csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
-    # This is not very rubyesque
-    if ENV['ZIP']
-      dest = ENV['ZIP']
-    else
+    chunksize = ENV['CHUNK']
+    csvdir = ENV['CSVDIR']
+    dest = ENV['ZIP']
+    unless dest
+      prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
+      prefix = "#{prefix}_#{clade}" if clade
       dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
     end
     TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                            TraitBank::query(cql))
+                            TraitBank::query)
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
   task smoke: :environment do
-    clade = ENV['ID'] || '7662'     # Carnivora
-    chunksize = ENV['CHUNK'] || ENV['LIMIT'] || '100'
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{chunksize}"
-    csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
-    dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
+    clade = ENV['ID'] || '7674'     # Felidae
+    chunksize = ENV['CHUNK'] || '100'
+    csvdir = ENV['CSVDIR']
+    dest = ENV['ZIP']
+    unless dest
+      prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}_#{clade}_#{chunksize}"
+      dest = "#{prefix}_smoke.zip"
+    end
     TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                            TraitBank::query(cql))
+                            TraitBank::query)
   end
 
 end

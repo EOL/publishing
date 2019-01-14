@@ -25,17 +25,15 @@ class TraitsDumper
   def self.main
     clade = ENV['ID']           # possibly nil
     chunksize = ENV['CHUNK']    # possibly nil
-    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
-    prefix = "#{prefix}_#{clade}" if clade
-    prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
     new(clade,                 # clade
         ENV['ZIP'] || "traits_dump.zip",      # where to put the final .zip file
-        "/tmp/#{prefix}_csv_temp", # where to put intermediate csv files
+        nil, # where to put intermediate csv files
         chunksize,                 # chunk size (for LIMIT and SKIP clauses)
         Proc.new {|cql| query_via_http(ENV['SERVER'], ENV['TOKEN'], cql)}).doit
   end
 
-  # This method is suitable for use from a rake command
+  # This method is suitable for use from a rake command.
+  # The query_fn might use, say, neography, instead of an HTTP client.
   def self.dump_clade(clade_page_id, dest, csvdir, chunksize, query_fn)
     new(clade_page_id, dest, csvdir, chunksize, query_fn).doit
   end
@@ -45,8 +43,14 @@ class TraitsDumper
     @clade = nil
     @clade = Integer(clade_page_id) if clade_page_id
     @dest = dest
-    @csvdir = csvdir
     @chunksize = Integer(chunksize) if chunksize
+    @csvdir = csvdir
+    unless @csvdir
+      prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
+      prefix = "#{prefix}_#{clade}" if @clade
+      prefix = "#{prefix}_chunked_#{chunksize}" if @chunksize
+      @csvdir = "/tmp/#{prefix}_csv_temp"
+    end
     @query_fn = query_fn
   end
   def doit
