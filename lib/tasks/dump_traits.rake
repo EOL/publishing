@@ -18,8 +18,8 @@ namespace :dump_traits do
       dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
     end
     TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                                       ENV['SERVER'],
-                                       ENV['TOKEN'])
+                                       TraitBank::query(cql),
+                                       nil)
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
@@ -29,7 +29,9 @@ namespace :dump_traits do
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{chunksize}"
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
-    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize, nil, nil)
+    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
+                                       TraitBank::query(cql),
+                                       nil)
   end
 
 end

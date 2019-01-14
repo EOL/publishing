@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 # Generate CSV files expressing trait information for a single taxon
 # recursively.
 
@@ -18,19 +20,35 @@ require 'net/http'
 require 'json'
 require 'cgi'
 
-class TraitBank::TraitsDumper
-  def self.dump_clade(clade_page_id, dest, csvdir, chunksize, server, token)
-    new(clade_page_id, dest, csvdir, chunksize, server, token).doit
+class TraitsDumper  # TraitBank::TraitsDumper
+  # This method is suitable for invocation from the shell via
+  #  ruby -r "./app/support/trait_bank/traits_dumper.rb" -e "TraitsDumper.main"
+  def self.main
+    clade = ENV['ID']
+    chunksize = ENV['CHUNK']
+    prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
+    prefix = "#{prefix}_#{clade}" if clade
+    prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
+    new(clade,                 # clade
+        ENV['ZIP'] || "traits_dump.zip",      # where to put the final .zip file
+        "/tmp/#{prefix}_csv_temp", # where to put intermediate csv files
+        chunksize,                 # chunk size (for LIMIT and SKIP clauses)
+        Proc.new {|cql| query_via_http(ENV['SERVER'], ENV['TOKEN'], cql)}).doit
   end
-  def initialize(clade_page_id, dest, csvdir, chunksize, server, token)
+
+  # This method is suitable for use from a rake command
+  def self.dump_clade(clade_page_id, dest, csvdir, chunksize, query_fn)
+    new(clade_page_id, dest, csvdir, chunksize, query_fn).doit
+  end
+
+  def initialize(clade_page_id, dest, csvdir, chunksize, query_fn)
     # If clade_page_id is nil, that means do not filter by clade
     @clade = nil
     @clade = Integer(clade_page_id) if clade_page_id
     @dest = dest
     @csvdir = csvdir
     @chunksize = Integer(chunksize) if chunksize
-    @server = server
-    @token = token
+    @query_fn = query_fn
   end
   def doit
     write_zip [emit_pages,
@@ -230,26 +248,25 @@ class TraitBank::TraitsDumper
   end
 
   def query(cql)
-    if @server
-      # Need to be a web client.
-      # "The Ruby Toolbox lists no less than 25 HTTP clients."
-      escaped = CGI::escape(cql)
-      uri = URI("#{@server}service/cypher?query=#{escaped}")
-      request = Net::HTTP::Get.new(uri)
-      request['Authorization'] = "JWT #{@token}"
-      use_ssl = uri.scheme.start_with?("https")
-      response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => use_ssl) {|http|
-        http.request(request)
-      }
-      if response.is_a?(Net::HTTPSuccess)
-        JSON.parse(response.body)    # can return nil
-      else
-        STDERR.puts(response.body)
-        nil
-      end
+    @query_fn.call(cql)
+  end
+
+  def self.query_via_http(server, token, cql)
+    # Need to be a web client.
+    # "The Ruby Toolbox lists no less than 25 HTTP clients."
+    escaped = CGI::escape(cql)
+    uri = URI("#{server}service/cypher?query=#{escaped}")
+    request = Net::HTTP::Get.new(uri)
+    request['Authorization'] = "JWT #{token}"
+    use_ssl = uri.scheme.start_with?("https")
+    response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => use_ssl) {|http|
+      http.request(request)
+    }
+    if response.is_a?(Net::HTTPSuccess)
+      JSON.parse(response.body)    # can return nil
     else
-      # See app/models/trait_bank.rb
-      TraitBank.query(cql)
+      STDERR.puts(response.body)
+      nil
     end
   end
 
