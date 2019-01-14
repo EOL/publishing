@@ -38,7 +38,8 @@ class PageContent < ActiveRecord::Base
   # them separately, which I think has advantages)
   acts_as_list scope: :page
 
-  def self.set_v2_exemplars
+  # content_id: 9368757, page_id: 7000026
+  def self.set_v2_exemplars(start = nil)
     puts "[#{Time.now}] starting"
     STDOUT.flush
     require 'csv'
@@ -48,6 +49,7 @@ class PageContent < ActiveRecord::Base
     all_data[1..-1].each_with_index do |row, i|
       medium_id = row[0]
       page_id = row[1]
+      next if start && page_id < start
       order = row[2].to_i # 0-index
       last = (row[3] =~ /last/i) # 'first' or 'last'
       contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
