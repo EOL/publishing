@@ -43,7 +43,8 @@ class PageContent < ActiveRecord::Base
     puts "[#{Time.now}] starting"
     STDOUT.flush
     require 'csv'
-    file = Rails.root.join('image_order.tsv')
+    # Jamming this in the /log dir just so we can keep it between restarts!
+    file = Rails.root.join('log', 'image_order.tsv')
     all_data = CSV.read(file, col_sep: "\t")
     per_cent = all_data.size / 100
     all_data[1..-1].each_with_index do |row, i|
