@@ -1,8 +1,7 @@
-#!/usr/bin/env ruby
-
 # Generate CSV files expressing trait information for a single taxon
 # recursively.
 
+# For the future, in case we decide to query by predicate:
 =begin
 MATCH (term:Term)
  WHERE term.type = "measurement"
@@ -20,12 +19,12 @@ require 'net/http'
 require 'json'
 require 'cgi'
 
-class TraitsDumper  # TraitBank::TraitsDumper
+class TraitsDumper
   # This method is suitable for invocation from the shell via
-  #  ruby -r "./app/support/trait_bank/traits_dumper.rb" -e "TraitsDumper.main"
+  #  ruby -r "./lib/traits_dumper.rb" -e "TraitsDumper.main"
   def self.main
-    clade = ENV['ID']
-    chunksize = ENV['CHUNK']
+    clade = ENV['ID']           # possibly nil
+    chunksize = ENV['CHUNK']    # possibly nil
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
     prefix = "#{prefix}_#{clade}" if clade
     prefix = "#{prefix}_chunked_#{chunksize}" if chunksize
@@ -296,10 +295,10 @@ end
 
 # TESTING
 # sample_clade = 7662  # carnivora
-# TraitBank::TraitsDumper.dump_clade(sample_clade,
-#                                  "sample-dumps/#{sample_clade}-short-csv",
-#                                  10)
+# TraitsDumper.dump_clade(sample_clade,
+#                         "sample-dumps/#{sample_clade}-short-csv",
+#                         10)
 
 # REAL THING
-# TraitBank::TraitsDumper.dump_clade(sample_clade,
+# TraitsDumper.dump_clade(sample_clade,
 #   "sample-dumps/#{sample_clade}-csv", 200000)

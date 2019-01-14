@@ -1,5 +1,7 @@
 # See ../../doc/dump_traits.md
 
+# Not tested since TraitsDumper refactoring
+
 namespace :dump_traits do
 
   desc 'Dump traits information from neo4j graphdb into a set of .csv files.'
@@ -17,9 +19,8 @@ namespace :dump_traits do
     else
       dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
     end
-    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                                       TraitBank::query(cql),
-                                       nil)
+    TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
+                            TraitBank::query(cql))
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
@@ -29,9 +30,8 @@ namespace :dump_traits do
     prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}_#{clade}_#{chunksize}"
     csvdir = ENV['CSVDIR'] || "/tmp/#{prefix}_csv_temp"
     dest = ENV['ZIP'] || "#{prefix}_smoke.zip"
-    TraitBank::TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                                       TraitBank::query(cql),
-                                       nil)
+    TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
+                            TraitBank::query(cql))
   end
 
 end
