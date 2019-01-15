@@ -360,23 +360,49 @@ private
 
   def get_articles
     @page = PageDecorator.decorate(Page.find(params[:page_id]))
+    resource_id = params[:resource_id]
+    @resource = resource_id.nil? ? nil : Resource.find(resource_id)
+    @lang_group = params[:lang_group]
     @articles = @page.articles
                   .includes(:license, :resource, :language)
                   .where(['page_contents.source_page_id = ?', @page.id])
                   .references(:page_contents)
-    @lang_groups = Language.where(id: @articles.pluck(:language_id).uniq).pluck(:group).sort.uniq
-    @resources = Resource.where(id: @articles.pluck(:resource_id).uniq).order(:name)
-
-    @lang_group = params[:lang_group]
-    if @lang_group.nil? && @lang_groups.include?(DEFAULT_LANG_GROUP)
-      @lang_group = DEFAULT_LANG_GROUP
+    articles_with_resource = resource_id.nil? ? 
+      @articles :
+      @articles.where({ resource_id: resource_id })
+    @lang_groups = Language
+      .where(id: articles_with_resource.pluck(:language_id).uniq)
+      .distinct
+      .order(:group)
+      .pluck(:group)
+      
+    if @lang_group.nil? 
+      # Only default the language for the initial page view, where no filters are set.
+      # Expect XHR requests to have the language set explicitly. 
+      if @resource.nil? && @lang_groups.include?(DEFAULT_LANG_GROUP)
+        @lang_group = DEFAULT_LANG_GROUP
+      else
+        @lang_group = ALL_LANG_GROUP
+      end
     end
 
-    resource_id = params[:resource_id]
-    @resource = resource_id.nil? ? nil : Resource.find(resource_id)
+    lang_group_where = 
+      if @lang_group == ALL_LANG_GROUP
+        nil
+      elsif @lang_group == DEFAULT_LANG_GROUP
+        "articles.language_id IS NULL OR languages.group = ?"
+      else
+        "languages.group = ?"
+      end
+    articles_with_lang_group = lang_group_where ? 
+      @articles.where(lang_group_where, @lang_group) :
+      @articles
+    @resources = Resource
+      .where(id: articles_with_lang_group.pluck(:resource_id).uniq)
+      .order(:name)
 
+    @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
-    @articles = @articles.where({ languages: { group: @lang_group } }) if @lang_group != ALL_LANG_GROUP
     @all_lang_group = ALL_LANG_GROUP
   end
 end
