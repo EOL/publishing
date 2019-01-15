@@ -268,6 +268,20 @@ if (!window.EOL) {
       }
     });
     EOL.searchNames.initialize();
+
+    EOL.searchNamesNoMultipleText = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: '/pages/autocomplete?query=%QUERY&simple=hash&no_multiple_text=true',
+        wildcard: '%QUERY',
+        transform: function(response) {
+          return response.results;
+        }
+      }
+    });
+    EOL.searchNamesNoMultipleText.initialize();
+
     // And this...
     EOL.searchUsers = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),

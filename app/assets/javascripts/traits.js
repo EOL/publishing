@@ -77,7 +77,7 @@
       name: 'clade-filter-names',
       display: 'name',
       limit: Infinity,
-      source: EOL.searchNames
+      source: EOL.searchNamesNoMultipleText
     }, 'id', null);
 
     buildTypeahead('.js-pred-typeahead', {

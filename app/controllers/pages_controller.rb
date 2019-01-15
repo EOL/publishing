@@ -30,7 +30,7 @@ class PagesController < ApplicationController
             name = first_hit || name.first
           end
           result_hash[name] = if result_hash.key?(name)
-            new_string = "#{name} (multiple hits)"
+            new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
             { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
           else
             { name: name, title: name, id: r.id, url: page_path(r.id) }
