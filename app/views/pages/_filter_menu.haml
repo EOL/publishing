@@ -1,0 +1,10 @@
+.ui.scrolling.dropdown.item
+  - if selection
+    %b= to_name.call(selection)
+  -else
+    = no_selection_label
+  %i.dropdown.icon
+  .menu
+    = link_to(t(".show_all"), to_path.call(show_all_item), data: { type: 'html' }, class: "item#{ selection.nil? ? " active" : ""}")
+    - items.each do |item|
+      = link_to(to_name.call(item), to_path.call(item), data: { type: 'html' }, class: "item#{ item == selection ? " active" : ""}")

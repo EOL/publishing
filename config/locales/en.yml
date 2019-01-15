@@ -563,6 +563,7 @@ en:
         other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>, including:"
     page_articles:
       filter_by_language: "filter by language"
+      filter_by_provider: "filter by provider"
       show_all: "show all"
     page_data:
       filter_by_attribute: "filter by attribute"

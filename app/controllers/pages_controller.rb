@@ -7,6 +7,9 @@ class PagesController < ApplicationController
 
   helper :data
 
+  DEFAULT_LANG_GROUP = "en"
+  ALL_LANG_GROUP = "show_all"
+
   # See your environment config; this action should be ignored by logs.
   def ping
     if ActiveRecord::Base.connection.active?
@@ -224,16 +227,7 @@ class PagesController < ApplicationController
   end
 
   def articles
-    @lang_group = params[:lang_group] || "en"
-    @lang_group = nil if @lang_group == "show_all"
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
-    return render(status: :not_found) unless @page # 404
-    @articles = @page.articles
-                 .includes(:license, :resource, :language)
-                 .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
-    @lang_groups = @articles.map do |a|
-      a.lang_or_default.group
-    end.compact.sort.uniq
+    get_articles
     respond_to do |format|
       format.html do
         if request.xhr?
@@ -363,5 +357,27 @@ private
     @media_count = media.limit(1000).count
     @media = media.by_page(params[:page]).per(@media_page_size).without_count
   end
+
+  def get_articles
+    @page = PageDecorator.decorate(Page.find(params[:page_id]))
+    @articles = @page.articles
+                  .includes(:license, :resource, :language)
+                  .where(['page_contents.source_page_id = ?', @page.id])
+                  .references(:page_contents)
+    @lang_groups = Language.where(id: @articles.pluck(:language_id).uniq).pluck(:group).sort.uniq
+    @resources = Resource.where(id: @articles.pluck(:resource_id).uniq).order(:name)
+
+    @lang_group = params[:lang_group]
+    if @lang_group.nil? && @lang_groups.include?(DEFAULT_LANG_GROUP)
+      @lang_group = DEFAULT_LANG_GROUP
+    end
+
+    resource_id = params[:resource_id]
+    @resource = resource_id.nil? ? nil : Resource.find(resource_id)
+
+    @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
+    @articles = @articles.where({ language: { group: @lang_group } }) if @lang_group != ALL_LANG_GROUP
+  end
 end
+
 
