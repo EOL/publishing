@@ -25,11 +25,13 @@ class TraitsDumper
   def self.main
     clade = ENV['ID']           # possibly nil
     chunksize = ENV['CHUNK']    # possibly nil
+    server = ENV['SERVER'] || "https://eol.org/"
+    token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
     new(clade,                 # clade
         ENV['ZIP'] || "traits_dump.zip",      # where to put the final .zip file
         nil, # where to put intermediate csv files
         chunksize,                 # chunk size (for LIMIT and SKIP clauses)
-        Proc.new {|cql| query_via_http(ENV['SERVER'], ENV['TOKEN'], cql)}).doit
+        Proc.new {|cql| query_via_http(server, token, cql)}).doit
   end
 
   # This method is suitable for use from a rake command.
