@@ -564,6 +564,7 @@ en:
     page_articles:
       filter_by_language: "filter by language"
       filter_by_provider: "filter by provider"
+    filter_menu: 
       show_all: "show all"
     page_data:
       filter_by_attribute: "filter by attribute"
