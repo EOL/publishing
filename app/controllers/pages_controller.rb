@@ -394,8 +394,9 @@ private
       else
         "languages.group = ?"
       end
+    # references is needed to force a LEFT OUTER JOIN here because of the string where condition (not a hash)
     articles_with_lang_group = lang_group_where ? 
-      @articles.where(lang_group_where, @lang_group) :
+      @articles.references(:language).where(lang_group_where, @lang_group) :
       @articles
     @resources = Resource
       .where(id: articles_with_lang_group.pluck(:resource_id).uniq)
