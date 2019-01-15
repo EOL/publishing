@@ -4,13 +4,13 @@
       - if @lang_groups.length > 1
         = render "filter_menu", selection: @lang_group, items: @lang_groups, 
           to_name: lambda { |group| t("languages.#{group}") }, 
-          to_path: lambda { |group| page_articles_path(@page, lang_group: group, resource_id: @resource&.id) }
+          to_path: lambda { |group| page_articles_path(@page, lang_group: group, resource_id: @resource&.id) },
           no_selection_label: t(".filter_by_language"), 
           show_all_item: @all_lang_group
       - if @resources.length > 1
         = render "filter_menu", selection: @resource, items: @resources, 
           to_name: lambda { |res| res.name}, 
-          to_path: lambda { |res| page_articles_path(@page, lang_group: @lang_group, resource_id: res&.id) }
+          to_path: lambda { |res| page_articles_path(@page, lang_group: @lang_group, resource_id: res&.id) },
           no_selection_label: t(".filter_by_provider"), 
           show_all_item: nil
   - grouped_articles = @articles.group_by(&:first_section)
