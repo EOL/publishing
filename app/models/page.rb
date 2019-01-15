@@ -700,6 +700,11 @@ class Page < ActiveRecord::Base
     update_attribute(:page_richness, RichnessScore.calculate(self))
   end
 
+  # Nodes methods
+  def classification_nodes
+    nodes.includes(:resource).where({ resources: { classification: true } })
+  end
+
   private
 
   def first_image_content

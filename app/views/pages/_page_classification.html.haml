@@ -3,7 +3,7 @@
   - page_node = @page.safe_native_node
   .ui.segments
     -# Push the native node to the top of the list:
-    - nodes = @page.nodes.to_a.sort_by { |n| n.resource.name.downcase }
+    - nodes = @page.classification_nodes.to_a.sort_by { |n| n.resource.name.downcase }
     - native_node = nodes.index { |n| n.resource_id == 1 }
     - nodes.insert(0, nodes.delete_at(native_node)) if native_node
     - nodes.each do |node|
