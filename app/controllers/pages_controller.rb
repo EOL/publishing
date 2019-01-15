@@ -377,6 +377,7 @@ private
 
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
     @articles = @articles.where({ language: { group: @lang_group } }) if @lang_group != ALL_LANG_GROUP
+    @all_lang_group = ALL_LANG_GROUP
   end
 end
 

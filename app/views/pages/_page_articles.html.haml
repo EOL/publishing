@@ -6,7 +6,7 @@
           to_name: lambda { |group| t("languages.#{group}") }, 
           to_path: lambda { |group| page_articles_path(@page, lang_group: group, resource_id: @resource.id) }, 
           no_selection_label: t(".filter_by_language"), 
-          show_all_item: ALL_LANG_GROUP
+          show_all_item: @all_lang_group
       - if @resources.length > 1
         = render "filter_menu", selection: @resource, items: @resources, 
           to_name: lambda { |res| res.name}, 
