@@ -16,7 +16,7 @@ invoked from the shell without any use of rails or the webapp, or as a
             Larger values lead to a bit of extra latency and larger result 
             sets; 100000 is probably fine.
             Larger values also lead to latency induced by CQL `SKIP`
-            which increases 
+            which increases as the number of records to skip grows
 
 Intermediate files are put under `/tmp`, so there needs to be adequate
 space on that file system (or else you need to make a symbolic
