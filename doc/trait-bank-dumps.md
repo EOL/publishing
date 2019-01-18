@@ -36,13 +36,6 @@ E.g.
     export CHUNK=50000
     ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
 
-## Via `rake` using neography
-
-The `dump_traits` family of `rake` commands is intended to create
-Traitbank dumps, which anyone can download, from the main web site or
-from the opendata site (depending on how we eventually decide to
-deploy them).
-
 At present (October 2018) the scripts are driven entirely from the
 neo4j graphdb.  This is based on the hypothesis that when people say
 they want "all the traits", then all the information they need will be
@@ -50,6 +43,18 @@ present in the graphdb, not the MySQL database.  If they need other
 tables (e.g. synonyms or vernaculars from the MySQL database), they
 will be able to get them in some other way.  I don't know if this is
 true; there may be more work to do here.
+
+## Via `rake` using neography
+
+The `dump_traits` family of `rake` commands is intended to create
+Traitbank dumps, which anyone can download, from the main web site or
+from the opendata site (depending on how we eventually decide to
+deploy them).
+
+The script may terminate complaining of a 502 or 504 status code from
+the server, or for some other reason.  In this case just rerun the
+command.  Results from the previous attempt (left over in `/tmp`) will
+be reused to reduce traffic to the server.
 
 ### `dump_traits:dump`
 
