@@ -58,17 +58,19 @@ class ServicesController < ApplicationController
   def claims
     auth_header = request.headers['Authorization']
     if auth_header
-      token = auth_header.split.last
-      if token
+      parts = auth_header.split
+      if parts.size != 2
+        puts "? ill-formed auth header: #{auth_header}"
+      elsif parts[0] != 'JWT'
+        puts "? incorrect noise in auth header, expected JWT: #{auth_header}"
+      else
+        token = parts[1]
         begin
           ::TokenAuthentication.decode(token)
         rescue JWT::DecodeError => e
-          puts "? jwt decode error"
+          puts "? jwt decode error: #{e}: #{auth_header}"
           nil
         end
-      else
-        puts "? no auth header last"
-        nil
       end
     else
       puts "? no auth header"
