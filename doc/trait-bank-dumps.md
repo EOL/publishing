@@ -1,5 +1,43 @@
 # Dumping Traitbank
 
+The traits dump script is used in either of two ways: as a ruby script
+invoked from the shell without any use of rails or the webapp, or as a
+`rake` command.  Both take their arguments via environment variables:
+
+ - `ZIP`: pathname of the .zip file to be written (should include
+         the terminal '.zip').  The default value comes from the `path` method
+         of the `DataDownload` class, which I think
+         corresponds to the URL with path `/data/downloads/`, and the filename 
+         has a form similar to `traitbank_YYYYMMDD.zip`.
+ - `ID`: the page id of the taxon that is the root of the subtree to
+        be dumped.  Default is all life (2913056).
+ - `CHUNK`: number of records in each 'chunk' to be fetched.
+            Values up to 20000 are pretty safe.
+            Larger values lead to a bit of extra latency and larger result 
+            sets; 100000 is probably fine.
+            Larger values also lead to latency induced by CQL `SKIP`
+            which increases as the number of records to skip grows
+
+Intermediate files are put under `/tmp`, so there needs to be adequate
+space on that file system (or else you need to make a symbolic
+link... TBD: allow user to specify temp directory)
+
+## From the shell using HTTP and the API
+
+For this mode, there are two additional environment variables:
+
+ - `SERVER`: must end with `/`.  The EOL server to contact for the requests.
+ - `TOKEN`: a 'power user' API token.
+
+E.g.
+
+    export SERVER=https://eol.org/
+    export TOKEN=  ... your 'power user' API token ...
+    export CHUNK=50000
+    ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
+
+## Via `rake` using neography
+
 The `dump_traits` family of `rake` commands is intended to create
 Traitbank dumps, which anyone can download, from the main web site or
 from the opendata site (depending on how we eventually decide to
@@ -24,25 +62,6 @@ The ZIP file will contain four `.csv` files, one for each major kind
 of node: pages, traits, metadata, and terms.
 
 The command can also be used for partial dumps of particular clades.
-
-Command parameters are passed via environment variables:
-
- - `ZIP`: pathname of the .zip file to be written (should include
-         the terminal '.zip').  The default value comes from the `path` method
-         of the `DataDownload` class, which I think
-         corresponds to the URL with path `/data/downloads/`, and the filename 
-         has a form similar to `traitbank_YYYYMMDD.zip`.
- - `ID`: the page id of the taxon that is the root of the subtree to
-        be dumped.  Default is all life (2913056).
- - `LIMIT`: size limit for the query result sets.  You can make this a small
-            number, if you're just debugging the infrastructure or queries.
-            Default is big (100 million as of this writing).
- - `CSVDIR`:  pathname of the directory to which the intermediate CSV 
-            files will be written.  Default is a directory created
-        under `/tmp` with a name starting with `traitbank_`.
-        The files are not deleted at the end; the operating system will take
-        care of this eventually, and in the meantime they are there
-        for examination.
 
 ### `dump_traits:smoke`
 
