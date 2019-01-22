@@ -53,6 +53,7 @@ class Article < ActiveRecord::Base
   end
 
   def sortable_name
+    'ZZZZ' if name.nil?
     'ZZZZ' if name.blank?
     name
   end
