@@ -36,7 +36,7 @@
             - elsif download.failed?
               - if is_admin? && download.download_error
                 = link_to(name, user_download_error_path(user_id: @user.id, download_id: download.id))
-              - else 
+              - else
                 = name
               %br
               = "failed - #{time_ago_in_words(download.completed_at)}"
