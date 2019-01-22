@@ -2,20 +2,20 @@
   - if @lang_groups.length > 1 || @resources.length > 1
     .ui.menu.uk-text-small{ class: "js-menus" }
       - if @lang_groups.length > 1
-        = render "filter_menu", selection: @lang_group == @all_lang_group ? nil : @lang_group, items: @lang_groups, 
-          to_name: lambda { |group| t("languages.#{group}") }, 
+        = render "filter_menu", selection: @lang_group == @all_lang_group ? nil : @lang_group, items: @lang_groups,
+          to_name: lambda { |group| t("languages.#{group}") },
           to_path: lambda { |group| page_articles_path(@page, lang_group: group, resource_id: @resource&.id) },
-          no_selection_label: t(".filter_by_language"), 
+          no_selection_label: t(".filter_by_language"),
           show_all_item: @all_lang_group
       - if @resources.length > 1
-        = render "filter_menu", selection: @resource, items: @resources, 
-          to_name: lambda { |res| res.name}, 
+        = render "filter_menu", selection: @resource, items: @resources,
+          to_name: lambda { |res| res.name},
           to_path: lambda { |res| page_articles_path(@page, lang_group: @lang_group, resource_id: res&.id) },
-          no_selection_label: t(".filter_by_provider"), 
+          no_selection_label: t(".filter_by_provider"),
           show_all_item: nil
   - grouped_articles = @articles.group_by(&:first_section)
-  - grouped_articles.keys.sort_by(&:position).each do |section| 
-    %h2.ui.top.attached.header= section&.name || "Other Articles" 
+  - grouped_articles.keys.sort_by(&:position).each do |section|
+    %h2.ui.top.attached.header= section.name
     %ul.ui.attached.segment.articles
       - grouped_articles[section].sort_by(&:sortable_name).each_with_index do |article, index|
         = render :partial => "page_article", :locals => { article: article }

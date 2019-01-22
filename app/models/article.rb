@@ -14,7 +14,13 @@ class Article < ActiveRecord::Base
   end
 
   def first_section
-    @first_section ||= sections.sort_by { |s| s.position }.first
+    return @first_section if @first_section
+    section = if sections.empty?
+                EmptySection.new
+              else
+                sections.sort_by { |s| s.position }.first
+              end
+    @first_section = section
   end
 
   def first_section_sort_order
