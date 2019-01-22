@@ -343,7 +343,7 @@ private
       media = media
         .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
         .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
-        .where("license_groups.id": @license_group.id) 
+        .where("license_groups.id": @license_group.id)
     end
     if params[:subclass]
       @subclass = params[:subclass]
@@ -364,10 +364,10 @@ private
     @resource = resource_id.nil? ? nil : Resource.find(resource_id)
     @lang_group = params[:lang_group]
     @articles = @page.articles
-                  .includes(:license, :resource, :language)
+                  .includes(:license, :resource, :language, :sections)
                   .where(['page_contents.source_page_id = ?', @page.id])
                   .references(:page_contents)
-    articles_with_resource = resource_id.nil? ? 
+    articles_with_resource = resource_id.nil? ?
       @articles :
       @articles.where({ resource_id: resource_id })
     @lang_groups = Language
@@ -375,10 +375,10 @@ private
       .distinct
       .order(:group)
       .pluck(:group)
-      
-    if @lang_group.nil? 
+
+    if @lang_group.nil?
       # Only default the language for the initial page view, where no filters are set.
-      # Expect XHR requests to have the language set explicitly. 
+      # Expect XHR requests to have the language set explicitly.
       if @resource.nil? && @lang_groups.include?(DEFAULT_LANG_GROUP)
         @lang_group = DEFAULT_LANG_GROUP
       else
@@ -386,7 +386,7 @@ private
       end
     end
 
-    lang_group_where = 
+    lang_group_where =
       if @lang_group == ALL_LANG_GROUP
         nil
       elsif @lang_group == DEFAULT_LANG_GROUP
@@ -395,7 +395,7 @@ private
         "languages.group = ?"
       end
     # references is needed to force a LEFT OUTER JOIN here because of the string where condition (not a hash)
-    articles_with_lang_group = lang_group_where ? 
+    articles_with_lang_group = lang_group_where ?
       @articles.references(:language).where(lang_group_where, @lang_group) :
       @articles
     @resources = Resource
@@ -407,5 +407,3 @@ private
     @all_lang_group = ALL_LANG_GROUP
   end
 end
-
-
