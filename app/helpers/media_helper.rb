@@ -19,4 +19,28 @@ module MediaHelper
 
     name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
   end
+
+  def medium_appears_on(medium)
+    appears_on = []
+    source_pages = @medium.source_pages
+    pages = @medium.page_contents.map(&:page).compact.map do |page|
+      [page.id, page]
+    end.to_h
+    
+    source_pages.each do |source|
+      node = source.safe_native_node
+      ancestors = if node
+                    node.node_ancestors.collect(&:ancestor).compact
+                  else
+                    []
+                  end
+      ancestors.each do |ancestor|
+        page = pages.delete(ancestor.page&.id)
+        appears_on << page if page
+      end
+    end
+
+    appears_on.concat(pages.values.sort_by(&:scientific_name))
+    appears_on
+  end
 end
