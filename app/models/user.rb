@@ -24,9 +24,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
-#  validates :email, presence: true
-#  validates :password, presence: true, if: "encrypted_password.blank?"
-#  validates :password_confirmation, presence: true, if: "encrypted_password.blank?"
+
   # LATER: causes errors for now. :S
   # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
 
