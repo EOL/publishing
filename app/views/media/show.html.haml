@@ -32,7 +32,6 @@
           %ul
             - medium_appears_on(@medium).each do |page|
               %li= link_to_page_canonical(page)
-            -#@medium.page_contents.map(&:page).compact.sort_by(&:scientific_name).each do |page|
           - collections = @medium.collections.compact.sort_by(&:name)
           - if collections.empty?
             %p= medium_not_in_collection_text(@medium)
