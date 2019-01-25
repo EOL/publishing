@@ -154,6 +154,8 @@ class TraitsController < ApplicationController
   def redirect_no_format
     loc = params
     loc.delete(:format)
+    # NOTE: this kind of redirect_to is deprecated and should probably changed to (but I don't want to test now)
+    # redirect_to params.merge(controller: :traits, action: :search_results)
     redirect_to term_search_results_path(params)
   end
 end
