@@ -3,7 +3,7 @@
 
 # For the future, in case we decide to query by predicate:
 =begin
-MATCH (term:Term)
+ MATCH (term:Term)
  WHERE term.type = "measurement"
  OPTIONAL MATCH (term)-[:parent_term]->(parent:Term) 
  WHERE parent.uri IS NULL
@@ -49,12 +49,13 @@ class TraitsDumper
     @csvdir = csvdir
     unless @csvdir
       prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
-      prefix = "#{prefix}_#{clade}" if @clade
+      prefix = "#{prefix}_#{@clade}" if @clade
       prefix = "#{prefix}_chunked_#{chunksize}" if @chunksize
       @csvdir = "/tmp/#{prefix}_csv_temp"
     end
     @query_fn = query_fn
   end
+
   def doit
     write_zip [emit_pages,
                emit_traits,

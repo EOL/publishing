@@ -18,7 +18,7 @@ namespace :dump_traits do
       dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
     end
     TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                            TraitBank::query)
+                            Proc.new {|cql| TraitBank::query(cql)})
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
