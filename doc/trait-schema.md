@@ -219,3 +219,6 @@ site RDB.
 * `is_hidden_from_glossary` property
 * `position` property:  an integer assigned only to this term, related to the
   ordering of this `Trait` information in the summary on the web page
+
+* `parent_term` link: the Terms form a hierarchy, this gives the term's parent term
+* `synonym_of` link: a Term (also the parent term??) that this one is equivalent to
