@@ -2,20 +2,26 @@ class MediaController < ApplicationController
   layout "application"
 
   def show
-    @medium = Medium.where(id: params[:id]).includes(
+    @medium = Medium.includes(
       :license,
       :bibliographic_citation,
       :location,
       page_contents: {
         page: [
           {
-            native_node: :scientific_names
+            native_node: [
+              :scientific_names,
+              {
+                node_ancestors: {
+                  ancestor: :page
+                }
+              }
+            ]
           },
           :preferred_vernaculars
         ]
       },
       attributions: :role
-    ).first
-    return render(status: :not_found) unless @medium 
+    ).find(params[:id])
   end
 end
