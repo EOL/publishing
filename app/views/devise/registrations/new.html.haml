@@ -1,15 +1,11 @@
 %div
   %h2
     = I18n.t(:sign_up)
-  = simple_form_for(resource, url: registration_path(resource_name), :validate => true,
-    html: { class: "eol-userform recaptchad uk-form-stacked" },
-    defaults: { input_html: { class: 'uk-input' },
-    wrapper_html: { class: 'field' },
-    label_html: { class: 'uk-form-label' } }) do |f|
-    = f.input :username
-    = f.input :email
-    = f.input :password, html: { autocomplete: 'off' }
-    = f.input :password_confirmation
+  = user_form(resource: resource, url: registration_path(resource_name), recaptchad: true) do |f| 
+    = f.input :username, required: true, validate: { presence: true }
+    = f.input :email, required: true, validate: { presence: true }
+    = f.input :password, required: true, validate: { presence: true }
+    = f.input :password_confirmation, required: true, validate: { presence: true }
 
     .field
       = f.label I18n.t(:recaptcha)

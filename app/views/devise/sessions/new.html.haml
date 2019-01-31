@@ -5,8 +5,8 @@
     defaults: { input_html: { class: 'uk-input' },
     wrapper_html: { class: 'field' },
     label_html: { class: 'uk-form-label' } }) do |f|
-    = f.input :email
-    = f.input :password, required: true
+    = f.input :email, required: true, validate: { presence: true }
+    = f.input :password, required: true, validate: { presence: true }
     = f.input :remember_me, as: :boolean, checked_value: true,
       unchecked_value: false, input_html: { class: "uk-checkbox" },
       wrapper_html: { class: 'field uk-form-controls' }
