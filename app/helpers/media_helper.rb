@@ -22,8 +22,8 @@ module MediaHelper
 
   def medium_appears_on(medium)
     appears_on = []
-    source_pages = @medium.source_pages
-    pages = @medium.page_contents.map(&:page).compact.map do |page|
+    source_pages = medium.source_pages
+    pages = medium.page_contents.map(&:page).compact.map do |page|
       [page.id, page]
     end.to_h
     
@@ -40,7 +40,6 @@ module MediaHelper
       end
     end
 
-    appears_on.concat(pages.values.sort_by(&:scientific_name))
     appears_on
   end
 end
