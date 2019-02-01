@@ -77,6 +77,10 @@ module TermsHelper
     "#{tq.record? ? "Records" : "Taxa"} with #{clade_part}#{filter_part}"
   end
 
+  def term_node_path(term_node)
+    term_node.uri
+  end
+
   private
     def is_any_display_string(filter)
       pred_name(filter.pred_uri)

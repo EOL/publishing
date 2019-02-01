@@ -7,3 +7,5 @@
   = render :partial => "partial_search_results", :locals => { :results => @collections }
 - elsif type == :users && @users
   = render :partial => "partial_search_results", :locals => { :results => @users }
+- elsif type == :terms && @terms
+  = render :partial => "partial_search_results", :locals => { :results => @terms }

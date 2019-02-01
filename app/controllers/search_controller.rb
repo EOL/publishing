@@ -114,7 +114,8 @@ private
 
     default = params.has_key?(:only)? false : true
     @types = {}
-    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
+    #[ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].
       each do |sym|
         @types[sym] = default
       end
@@ -174,6 +175,12 @@ private
       nil
     end
 
+    @terms = if @types[:terms]
+      basic_search(TermNode, fields: ["name"])
+    else
+      nil
+    end
+
     # @links = if @types[:links]
     #   basic_search(Searchkick,
     #     fields: ["name^5", "resource_pk^10", "owner", "description^2"],
@@ -189,7 +196,7 @@ private
       nil
     end
 
-    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users].compact)
+    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].compact)
 
     @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
     @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
@@ -198,6 +205,7 @@ private
     @sounds = SoundSearchDecorator.decorate_collection(@sounds) if @sounds
     @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
     @users = UserSearchDecorator.decorate_collection(@users) if @users
+    @terms = TermSearchDecorator.decorate_collection(@terms) if @terms
 
     # if @types[:predicates]
     #   @predicates_count = TraitBank.count_predicate_terms(@q)

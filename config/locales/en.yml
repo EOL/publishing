@@ -707,6 +707,9 @@ en:
     n_videos:
       one: "%{count} video"
       other: "%{count} videos"
+    n_terms:
+      one: "%{count} term"
+      other: "%{count} terms"
     suggested: "Suggested (%{count})"
   search_results:
     collection_page_count:

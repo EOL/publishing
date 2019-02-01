@@ -2,12 +2,12 @@
   .filter-bar-filters>
     -# .js-search-filter-bar
       -# %span= t("search.filter_n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
-    %span= t("search.n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users]))
+    %span= t("search.n_results", :count => result_total([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms]))
   .filter-bar-advanced>
     = link_to t("advanced"), term_search_path
 
 %ul.search-results.js-search-results{ :data => { :query => @q, :'page-path' => search_page_path } }
-  = render :partial => "search_page", :locals => { :type => first_type_with_results(@pages, @articles, @images, @videos, @sounds, @collections, @users)}
+  = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms])}
 = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
   %ul.search-filter-types.js-search-filter-types
     - if @pages && @pages.total_count > 0
@@ -30,4 +30,7 @@
     - if @users && @users.total_count > 0
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_users", :results => @users}
+    - if @terms && @terms.total_count > 0
+      = render :partial => "filter_type",
+        :locals => { :i18n_key => "search.n_terms", :results => @terms}
   .overlay-btn.js-apply-filter-btn apply filters
