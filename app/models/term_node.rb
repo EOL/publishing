@@ -1,4 +1,4 @@
-class TermNode
+class TermNode # Just 'Term' conflicts with a class in some gem. *sigh*
   include Neo4j::ActiveNode
   property :name
   property :definition
@@ -14,6 +14,17 @@ class TermNode
 
   @text_search_fields = %w[name]
   searchkick word_start: @text_search_fields, text_start: @text_search_fields
+
+  def self.search_import
+    self.all(:t).where(
+      "t.is_hidden_from_overview = false "\
+      " AND ("\
+      "(t)<-[:object_term]-(:Trait)"\
+      " OR "\
+      "(t)<-[:predicate]-(:Trait)"\
+      ")"
+    )
+  end
 
   def search_data
     {
