@@ -50,7 +50,7 @@ class PageContent < ActiveRecord::Base
     all_data[1..-1].each_with_index do |row, i|
       medium_id = row[0]
       page_id = row[1]
-      next if starting_page_id && page_id < starting_page_id
+      next if starting_page_id && page_id.to_i < starting_page_id.to_i
       order = row[2].to_i # 0-index
       last = (row[3] =~ /last/i) # 'first' or 'last'
       contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
