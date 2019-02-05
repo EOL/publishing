@@ -484,7 +484,7 @@ en:
   license_group:
     labels:
       cc_by_nc_sa: "CC-BY-NC-SA"
-      no_known: "no known copyright"
+      no_known: "No copyright"
       cc_by_nc: "CC-BY-NC"
       cc_by_sa: "CC-BY-SA"
       cc_by: "CC-BY"
