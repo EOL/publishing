@@ -12,12 +12,7 @@ import requests, argparse, json, sys
 default_server = "https://beta.eol.org"
 sample_data = {"a": "has space", "b": "has %", "c": "has &"}
 
-def doit(tokenfile, server, query, queryfile, format):
-    if queryfile != None:
-        with open(queryfile, 'r') as infile:
-            query = infile.read().strip()
-    with open(tokenfile, 'r') as infile:
-        api_token = infile.read().strip()
+def doit(server, api_token, query, format):
     url = "%s/service/cypher" % server.rstrip('/')
     if format == None: format = "cypher"
     data = {"query": query, "format": format}
@@ -55,10 +50,19 @@ def doit(tokenfile, server, query, queryfile, format):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--token', help='API token', default=None)
     parser.add_argument('--tokenfile', help='file containing bare API token', default=None)
     parser.add_argument('--query', help='cypher query to run', default=None)
     parser.add_argument('--queryfile', help='file containing cypher query to run', default=None)
     parser.add_argument('--server', help='URL for EOL web app server', default=default_server)
     parser.add_argument('--format', help='result format (json or csv)', default=None)
     args=parser.parse_args()
-    doit(args.tokenfile, args.server, args.query, args.queryfile, args.format)
+    query = args.query
+    if args.queryfile != None:
+        with open(args.queryfile, 'r') as infile:
+            query = infile.read().strip()
+    token = args.token
+    if args.tokenfile != None:
+        with open(args.tokenfile, 'r') as infile:
+            token = infile.read().strip()
+    doit(args.server, token, query, args.format)
