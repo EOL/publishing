@@ -53,12 +53,10 @@ class TraitsDumper
 
   # dest is name of zip file to be written
   def dump_traits(dest)
-    predicates = list_predicates
-    STDERR.puts "#{predicates.length} predicate URIs"
     write_zip [emit_terms,
                emit_pages,
-               emit_traits(predicates),
-               emit_metadatas(predicates)], 
+               emit_traits,
+               emit_metadatas], 
               dest
   end
 
@@ -89,16 +87,6 @@ class TraitsDumper
       ""
     end
   end
-
-  #---- Query: Predicates (subset of Terms)
-
-  def list_predicates
-    predicates_query =
-     'MATCH (term:Term {type: "measurement"})
-      RETURN term.uri
-      LIMIT 10000'
-    run_query(predicates_query)["data"].map{|row| row[0]}
-end
 
   #---- Query: Terms
 
@@ -142,13 +130,23 @@ end
 
   #---- Query: Traits (trait records)
 
-  def emit_traits(predicates)
+  def emit_traits
     filename = "traits.csv"
     path = File.join(@csvdir, filename)
     if File.exist?(path)
       STDERR.puts "reusing previously created #{path}"
       return
     end
+    # Matching the keys used in the tarball if possible (even when inconsistent)
+    # E.g. should "predicate" be "predicate_uri" ?
+    traits_keys = ["eol_pk", "page_id", "resource_pk", "resource_id",
+                   "source", "scientific_name", "predicate",
+                   "object_page_id", "value_uri",
+                   "normal_measurement", "normal_units_uri", "normal_units",
+                   "measurement", "units_uri", "units",
+                   "literal"]
+    predicates = list_trait_predicates
+    STDERR.puts "#{predicates.length} trait predicate URIs"
     files = []
     for i in 0..predicates.length do
       predicate = predicates[i]
@@ -169,42 +167,71 @@ end
                t.normal_measurement, normal_units.uri, t.normal_units, 
                t.measurement, units.uri, t.units, 
                t.literal"
-      # Matching the keys used in the tarball if possible (even when inconsistent)
-      # E.g. should "predicate" be "predicate_uri" ?
-      traits_keys = ["eol_pk", "page_id", "resource_pk", "resource_id",
-                     "source", "scientific_name", "predicate",
-                     "object_page_id", "value_uri",
-                     "normal_measurement", "normal_units_uri", "normal_units",
-                     "measurement", "units_uri", "units",
-                     "literal"]
-      path = supervise_query(traits_query, traits_keys, "traits_#{i}.csv")
-      files.push(path) if path
+      ppath = supervise_query(traits_query, traits_keys, "traits_#{i}.csv")
+      files.push(ppath) if ppath
     end
     assemble_chunks(files, path)
   end
 
+  # Filtering by term type seems to be only an optimization, and
+  # it's looking wrong to me.
+  # What about the other types - association and value ?
+
+  def list_trait_predicates
+    predicates_query =
+     'MATCH (term:Term {type: "measurement"})
+      RETURN term.uri
+      LIMIT 10000'
+    run_query(predicates_query)["data"].map{|row| row[0]}
+  end
+
   #---- Query: Metadatas
+  # Structurally similar to traits.  I'm duplicating code because Ruby
+  # style does not encourage procedural abstraction.
 
-  def emit_metadatas(predicates)
-
-    metadata_query = 
-     "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
-            (t)<-[:trait]-(page:Page)
-            #{transitive_closure_part}
-      WHERE page.canonical IS NOT NULL
-      OPTIONAL MATCH (m)-[:predicate]->(predicate:Term)
-      OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
-      OPTIONAL MATCH (m)-[:units_term]->(units:Term)
-      RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
-
+  def emit_metadatas
+    filename = "metadata.csv"
+    path = File.join(@csvdir, filename)
+    if File.exist?(path)
+      STDERR.puts "reusing previously created #{path}"
+      return
+    end
     metadata_keys = ["eol_pk", "trait_eol_pk", "predicate", "value_uri",
                      "measurement", "units_uri", "literal"]
-    supervise_query(metadata_query, metadata_keys, "metadata.csv")
+    predicates = list_metadata_predicates
+    STDERR.puts "#{predicates.length} metadata predicate URIs"
+    files = []
+    for i in 0..predicates.length do
+      predicate = predicates[i]
+      next if is_attack?(predicate)
+      STDERR.puts "#{i} #{predicate}" if i % 25 == 0
+      metadata_query = 
+       "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
+              (t)<-[:trait]-(page:Page)
+              #{transitive_closure_part}
+        WHERE page.canonical IS NOT NULL
+        MATCH (m)-[:predicate]->(predicate:Term {uri: '#{predicate}'})
+        OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
+        OPTIONAL MATCH (m)-[:units_term]->(units:Term)
+        RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
+      ppath = supervise_query(metadata_query, metadata_keys, "metadata_#{i}.csv")
+      files.push(ppath) if ppath
+    end
+    assemble_chunks(files, path)
+  end
+
+  def list_metadata_predicates
+    predicates_query =
+     'MATCH (term:Term {type: "metadata"})
+      RETURN term.uri
+      LIMIT 10000'
+    run_query(predicates_query)["data"].map{|row| row[0]}
   end
 
   # -----
 
-  # supervise_query
+  # supervise_query: generate parts, then put them together.
+
   # The purpose is to create a .csv file for a particular table (traits, 
   # pages, etc.).
 
@@ -226,7 +253,9 @@ end
     else
       parts, count = get_query_chunks(query, columns, path)
       assemble_chunks(parts, path)
-      STDERR.puts("#{File.basename(path)}: #{parts.length} parts, #{count} records")
+      if count > 0
+        STDERR.puts("#{File.basename(path)}: #{parts.length} parts, #{count} records")
+      end
     end
     path
   end
