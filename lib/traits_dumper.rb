@@ -198,19 +198,20 @@ class TraitsDumper
     end
     metadata_keys = ["eol_pk", "trait_eol_pk", "predicate", "value_uri",
                      "measurement", "units_uri", "literal"]
-    predicates = list_metadata_predicates
-    STDERR.puts "#{predicates.length} metadata predicate URIs"
+    trait_predicates = list_trait_predicates
+    STDERR.puts "#{trait_predicates.length} trait predicate URIs"
     files = []
-    for i in 0..predicates.length do
-      predicate = predicates[i]
-      next if is_attack?(predicate)
-      STDERR.puts "#{i} #{predicate}" if i % 25 == 0
+    for i in 0..trait_predicates.length do
+      trait_predicate = trait_predicates[i]
+      next if is_attack?(trait_predicate)
+      STDERR.puts "#{i} #{trait_predicate}" if i % 25 == 0
       metadata_query = 
        "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
               (t)<-[:trait]-(page:Page)
               #{transitive_closure_part}
         WHERE page.canonical IS NOT NULL
-        MATCH (m)-[:predicate]->(predicate:Term {uri: '#{predicate}'})
+        MATCH (m)-[:predicate]->(predicate:Term),
+              (t)-[:predicate]->(trait_predicate:Term {uri: '#{trait_predicate}'})
         OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
         OPTIONAL MATCH (m)-[:units_term]->(units:Term)
         RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
