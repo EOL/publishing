@@ -56,7 +56,7 @@
           .menu.uk-height-medium.uk-overflow-auto
             = link_to(t(:filter_by_resource_any_item),
               page_media_path(page_id: @page.id, subclass: @subclass, license: @license, resource_id: nil),
-                data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
+                data: { type: 'html' }, class: "item#{ @resource.nil? ? " active" : ""}")
             - @resources.each do |resource|
               = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass: @subclass, resource_id: resource.id),
                 data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
