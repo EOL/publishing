@@ -378,19 +378,6 @@ class TraitBank
       @parent_terms ||= ":parent_term|:synonym_of*0.."
     end
 
-    def op_from_filter(num_filter)
-      case num_filter.op.to_sym
-      when :eq
-        "="
-      when :gt
-        ">"
-      when :lt
-        "<"
-      else
-        raise "unexpected filter op value: #{num_filter.op}"
-      end
-    end
-
     def term_filter_wheres(term_query)
       term_query.filters.map do |filter|
         term_filter_where(filter, "trait", "tgt_pred", "tgt_obj")
@@ -404,34 +391,30 @@ class TraitBank
         # "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.predicate?
         "#{pred_var}.uri = \"#{filter.pred_uri}\""
-      elsif filter.numeric? || filter.range?
-        conv_num_val1, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
-        if filter.numeric?
-          "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
-          "("\
-          "(#{trait_var}.measurement IS NOT NULL "\
-          "AND toFloat(#{trait_var}.measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
-          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
-          "OR "\
-          "(#{trait_var}.normal_measurement IS NOT NULL "\
-          "AND toFloat(#{trait_var}.normal_measurement) #{op_from_filter(filter)} #{conv_num_val1} "\
-          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
-          ")"\
-        elsif filter.range?
-          conv_num_val2, _ = UnitConversions.convert(filter.num_val2, filter.units_uri)
-          "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
-          "("\
-          "(#{trait_var}.measurement IS NOT NULL "\
-          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
-          "AND toFloat(#{trait_var}.measurement) >= #{conv_num_val1} "\
-          "AND toFloat(#{trait_var}.measurement) <= #{conv_num_val2}) "\
-          "OR "\
-          "(#{trait_var}.normal_measurement IS NOT NULL "\
-          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }) "\
-          "AND toFloat(#{trait_var}.normal_measurement) >= #{conv_num_val1} "\
-          "AND toFloat(#{trait_var}.normal_measurement) <= #{conv_num_val2}) "\
-          ") "\
+      elsif filter.numeric?
+        conditions = []
+        if filter.gt? 
+          conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.gt_val, filter.units_uri)
+          conditions << { op: ">=", val: conv_gt_val }
         end
+
+        if filter.lt?
+          conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.lt, filter.units_uri)
+          conditions << { op: "<=", val: conv_lt_val }
+        end
+
+        conv_units_uri = conv_units_uri1 || conv_units_uri2
+
+        "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
+        "("\
+        "(#{trait_var}.measurement IS NOT NULL "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join("\n")}"\
+        "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+        "OR "\
+        "(#{trait_var}.normal_measurement IS NOT NULL "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join("\n")}"\
+        "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+        ")"
       else
         raise "unable to determine filter type"
       end
@@ -453,14 +436,18 @@ class TraitBank
         tgt_pred_var = "tp#{i}"
         obj_var = "o#{i}"
         tgt_obj_var = "to#{i}"
-        obj_mapping = "null"
+
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)"
 
         if filter.object_term?
-          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term), "\
-            "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(#{obj_var}:Term)"\
-            "-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-          obj_mapping = obj_var
-        else
+          matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
+
+          if !filter.predicate?
+            matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
+          end
+        end
+
+        if filter.predicate? 
           matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
             "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
@@ -551,12 +538,17 @@ class TraitBank
         obj_var = "o#{i}"
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
-        if filter.object_term?
-          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
-        else
-          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)"
+
+        if filter.predicate?
+          matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
           indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
+
+        if filter.object_term?
+          matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
+        end
+
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
         indexes << "USING INDEX #{obj_var}:Term(uri)" if filter.object_term?
       end

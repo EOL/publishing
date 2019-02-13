@@ -1,13 +1,9 @@
 class TermQueryFilter < ActiveRecord::Base
   belongs_to :term_query, :inverse_of => :filters
   validates_presence_of :term_query
-  validates_presence_of :pred_uri
-  validates_presence_of :op
-  validates_presence_of :obj_uri, :if => :object_term?
-  validates_presence_of :units_uri, :if => :numeric?
-  validates :num_val1, :presence => true, :numericality => true, :if => :numeric_or_range?
-  validates :num_val2, :presence => true, :numericality => true, :if => :range?
+  validates :validation
 
+  # TODO: remove op field from db
   enum :op => {
     :is_any => 0,
     :is_obj => 1,
@@ -18,31 +14,23 @@ class TermQueryFilter < ActiveRecord::Base
   }
 
   def predicate?
-    is_any?
+    !pred_uri.blank?
   end
 
   def object_term?
-    is_obj?
+    !obj_uri.blank?
   end
 
   def numeric?
-    eq? || gt? || lt?
+    !num_val1.nil? || !num_val2.nil?
   end
 
-  def valid_ops
-    ops = [:is_any]
+  def gt?
+    !num_val1.nil? && num_val2.nil?
+  end
 
-    if pred_uri
-      ops << :is_obj if TraitBank::Terms.any_obj_terms_for_pred?(pred_uri)
-      ops += [
-        :eq,
-        :lt,
-        :gt,
-        :range
-      ] if TraitBank::Terms.units_for_pred(pred_uri)
-    end
-
-    ops
+  def lt?
+    num_val1.nil? && !num_val2.nil?
   end
 
   def to_s
@@ -67,8 +55,21 @@ class TermQueryFilter < ActiveRecord::Base
     pieces.join('/')
   end
 
+  def gt_val
+    num_val1
+  end
+
+  def lt_val
+    num_val2
+  end
+
   private
-  def numeric_or_range?
-    numeric? || range?
+  def is_it_valid?
+    if (pred_uri.blank? && obj_uri.blank?) || (numeric? && pred_uri.blank?)
+      false
+    else
+      true
+    end
   end
 end
+
