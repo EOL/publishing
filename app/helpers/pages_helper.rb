@@ -168,6 +168,13 @@ module PagesHelper
     tl == 0 ? l : tl
   end
 
+  def show_page_media_filters?(filterable)
+    filterable && (
+      (@license_groups && @license_groups.length > 1) ||
+      (@resources && @resources.length > 1)
+    )
+  end
+
 private
 
   def hierarchy_helper(page, link, mode)

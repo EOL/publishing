@@ -39,42 +39,52 @@ class ServicesController < ApplicationController
          unless current_user.is_power_user?    # Unauthorized
       @current_user = current_user
     else
-      the_claims = claims
-      return render_unauthenticated title: "Missing or invalid token." \
-        unless the_claims    # Unauthenticated
-      user = User.find_by_email(the_claims[0]['user'])
-      return render_unauthenticated title: "Invalid token." \
-        unless user          # ill-formed token
-      if user &&
-         the_claims[0]['encrypted_password'] == user.encrypted_password
-        return render_unauthorized title: "Invalid token." \
-          unless user.is_power_user?    # Unauthorized
-        @current_user = user
+      diagnostic = check_claims
+      if diagnostic
+        return render_unauthenticated title: diagnostic
+      else
+        the_claims = claims
+        user = User.find_by_email(the_claims[0]['user'])
+        return render_unauthenticated title: "Invalid token." \
+          unless user          # ill-formed token
+        if user &&
+           the_claims[0]['encrypted_password'] == user.encrypted_password
+          return render_unauthorized title: "Invalid token." \
+            unless user.is_power_user?    # Unauthorized
+          @current_user = user
+        end
       end
     end
   end
 
-  # Aux.  Sorry so pedantic, had to do some debugging
+  # Return the 'claims' or nil if not authorized
   def claims
+    parts = request.headers['Authorization'].split
+    ::TokenAuthentication.decode(parts[1])
+  end
+
+  # TBD: tests for all these cases... I've done them manually
+
+  # Explain why authentication ('claims' above) would fail (if it would).
+  def check_claims
     auth_header = request.headers['Authorization']
     if auth_header
       parts = auth_header.split
       if parts.size != 2
-        puts "? ill-formed auth header: #{auth_header}"
+        "Expected Authorization header to have two parts, saw #{parts.size}: #{auth_header}"
       elsif parts[0] != 'JWT'
-        puts "? incorrect noise in auth header, expected JWT: #{auth_header}"
+        "Expected Authorization header to start 'JWT', saw #{parts[0]}: #{auth_header}"
       else
-        token = parts[1]
         begin
-          ::TokenAuthentication.decode(token)
-        rescue JWT::DecodeError => e
-          puts "? jwt decode error: #{e}: #{auth_header}"
+          # Throw exception on failure; return nil on success
+          ::TokenAuthentication.decode(parts[1])
           nil
+        rescue JWT::DecodeError => e
+          "JWT decode error in Authorization header: #{e}: #{parts[1]}"
         end
       end
     else
-      puts "? no auth header"
-      nil
+      "No Authorization header"
     end
   # Rohit had `rescue nil` here
   end

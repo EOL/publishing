@@ -38,19 +38,19 @@ class PageContent < ActiveRecord::Base
   # them separately, which I think has advantages)
   acts_as_list scope: :page
 
-  # content_id: 9368757, page_id: 7000026
-  def self.set_v2_exemplars(start = nil)
+  # content_id: 9368757, page_id: 8663597
+  def self.set_v2_exemplars(starting_page_id = nil)
     puts "[#{Time.now}] starting"
     STDOUT.flush
     require 'csv'
-    # Jamming this in the /log dir just so we can keep it between restarts!
-    file = Rails.root.join('log', 'image_order.tsv')
+    # Jamming this in the /public/data dir just so we can keep it between restarts!
+    file = Rails.root.join('public', 'data', 'image_order.tsv')
     all_data = CSV.read(file, col_sep: "\t")
     per_cent = all_data.size / 100
     all_data[1..-1].each_with_index do |row, i|
       medium_id = row[0]
       page_id = row[1]
-      next if start && page_id < start
+      next if starting_page_id && page_id.to_i < starting_page_id.to_i
       order = row[2].to_i # 0-index
       last = (row[3] =~ /last/i) # 'first' or 'last'
       contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)

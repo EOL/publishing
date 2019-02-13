@@ -105,6 +105,8 @@ gem 'simple_form'
 gem 'typhoeus'
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'neo4j', '~> 9.4'
+# Sitemap
+gem 'sitemap_generator'
 
 group :development, :test do
   # Security analysis:

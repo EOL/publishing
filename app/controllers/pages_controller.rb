@@ -343,7 +343,7 @@ private
       media = media
         .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
         .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
-        .where("license_groups.id": @license_group.id)
+        .where("license_groups.id": @license_group.included.pluck(:id))
     end
     if params[:subclass]
       @subclass = params[:subclass]
