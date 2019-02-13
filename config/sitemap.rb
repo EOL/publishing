@@ -14,23 +14,20 @@ SitemapGenerator::Sitemap.create do
   add_custom term_search_path
   
   # CMS Pages
-  I18n.locale = I18n.default_locale
-  ::Refinery::Page.live.in_menu.each do |cms_page|
-    cms_url = if cms_page.url.is_a?(Hash)
-                begin 
-                  cms_url = url_for(cms_page.url.merge(only_path: true))
-                rescue
-                  puts "Failed to generate url for Refinery page. Params: #{cms_page.url}"
-                ensure
-                  nil
+  ::I18n.available_locales.each do |locale|
+    ::I18n.locale = locale
+    ::Refinery::Page.live.in_menu.each do |cms_page|
+      cms_url = if cms_page.url.is_a?(Hash)
+                  cms_url = ::Refinery::Core::Engine.routes.url_for(cms_page.url.merge(only_path: true))
+                else
+                  cms_url = cms_page.url
                 end
-              else
-                cms_url = cms_page.url
-              end
 
-    add_custom cms_url if cms_url
+      add_custom cms_url
+    end
   end
 
+  ::I18n.locale = ::I18n.default_locale
 
   # Pages
   Page.find_each do |page|
@@ -42,6 +39,10 @@ SitemapGenerator::Sitemap.create do
     add_custom page_names_path(page)
   end
   
+  ####################################
+  # Instructions from generated file #
+  ####################################
+  #
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
