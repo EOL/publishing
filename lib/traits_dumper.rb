@@ -1,10 +1,24 @@
-# ID=7662 CHUNK=20000 time bundle exec rake dump_traits:dump
+# Generate a ZIP file containing trait and trait metadata records.
+# The ZIP contains four CSV files:
+#
+#   traits.csv   - one row per Trait node
+#   metadata.csv - one row per Metadata node
+#   pages.csv    - one row per Page node
+#   terms.csv    - one row per Term node
+#
+# If a page id is provided, the trait and metadata records are
+# restricted to those for taxa descending from the specified taxon.
+#
+# This script can run independently of the rails / rake context,
+# e.g. direct from the shell.
 
+# E.g. get traits for Felidae (7674)
+
+# Run it directly from the shell
 # ID=7674 CHUNK=20000 TOKEN=`cat ../api.token` ZIP=felidae.zip ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
-# (7674 is Felidae)
 
-# Generate CSV files expressing trait information for a single taxon
-# recursively.
+# Run it as a 'rake' task
+# ID=7662 CHUNK=20000 time bundle exec rake dump_traits:dump
 
 require 'csv'
 require 'fileutils'
@@ -31,7 +45,10 @@ class TraitsDumper
   end
 
   # This method is suitable for use from a rake command.
-  # The query_fn might use, say, neography, instead of an HTTP client.
+  # The query_fn returns the query results in the idiosyncratic form
+  # delivered by neo4j, or nil.  might use, say, neography, instead of
+  # an HTTP client.
+
   def self.dump_clade(clade_page_id, dest, csvdir, chunksize, query_fn)
     new(clade_page_id, csvdir, chunksize, query_fn).dump_traits(dest)
   end
@@ -123,19 +140,20 @@ class TraitsDumper
     if /\A[\p{Alnum}:#_\/\.-]*\Z/.match(uri)
       false
     else
-      STDERR.puts "scary URI: '#{uri}'"
+      STDERR.puts "** scary URI: '#{uri}'"
       true
     end
   end
 
   #---- Query: Traits (trait records)
+  # Returns path
 
   def emit_traits
     filename = "traits.csv"
     path = File.join(@csvdir, filename)
     if File.exist?(path)
       STDERR.puts "reusing previously created #{path}"
-      return
+      return path
     end
     # Matching the keys used in the tarball if possible (even when inconsistent)
     # E.g. should "predicate" be "predicate_uri" ?
@@ -177,10 +195,12 @@ class TraitsDumper
   # it's looking wrong to me.
   # What about the other types - association and value ?
 
+  # term.type can be: measurement, association, value, metadata
+
   def list_trait_predicates
     predicates_query =
-     'MATCH (term:Term {type: "measurement"})
-      RETURN term.uri
+     'MATCH (term:Term)<-[:predicate]-(trait:Trait)
+      RETURN DISTINCT term.uri
       LIMIT 10000'
     run_query(predicates_query)["data"].map{|row| row[0]}
   end
@@ -194,7 +214,7 @@ class TraitsDumper
     path = File.join(@csvdir, filename)
     if File.exist?(path)
       STDERR.puts "reusing previously created #{path}"
-      return
+      return path
     end
     metadata_keys = ["eol_pk", "trait_eol_pk", "predicate", "value_uri",
                      "measurement", "units_uri", "literal"]
@@ -221,10 +241,12 @@ class TraitsDumper
     assemble_chunks(files, path)
   end
 
+  # Returns list (array) of URIs
+
   def list_metadata_predicates
     predicates_query =
-     'MATCH (term:Term {type: "metadata"})
-      RETURN term.uri
+     'MATCH (term:Term)<-[:predicate]-(m:MetaData)
+      RETURN DISTINCT term.uri
       LIMIT 10000'
     run_query(predicates_query)["data"].map{|row| row[0]}
   end
@@ -330,7 +352,12 @@ class TraitsDumper
   # Run a single CQL query using method provided
 
   def run_query(cql)
-    @query_fn.call(cql)
+    json = @query_fn.call(cql)
+    if json and json["data"].length > 100
+      # Throttle load on server
+      sleep(1)
+    end
+    json
   end
 
   # Method for doing queries using EOL v3 API via HTTP
@@ -359,7 +386,7 @@ class TraitsDumper
 
     # Sanity check the result
     if start["columns"] == nil or start["data"] == nil or start["data"].length == 0
-      STDERR.puts "failed to write #{path}; result = #{start}"
+      STDERR.puts "** failed to write #{path}; result = #{start}"
       return nil
     end
 
