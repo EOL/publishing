@@ -37,9 +37,9 @@ class TraitsDumper
     chunksize = ENV['CHUNK']    # possibly nil
     server = ENV['SERVER'] || "https://eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
-    dest = ENV['ZIP'] || "traits_dump.zip"   # where to put the final .zip file
+    dest = ENV['ZIP']
     new(clade,                 # clade
-        nil, # where to put intermediate csv files
+        nil, # temp dir = where to put intermediate csv files - form via default rule
         chunksize,                 # chunk size (for LIMIT and SKIP clauses)
         Proc.new {|cql| query_via_http(server, token, cql)}).dump_traits(dest)
   end
@@ -49,32 +49,34 @@ class TraitsDumper
   # delivered by neo4j, or nil.  might use, say, neography, instead of
   # an HTTP client.
 
-  def self.dump_clade(clade_page_id, dest, csvdir, chunksize, query_fn)
-    new(clade_page_id, csvdir, chunksize, query_fn).dump_traits(dest)
+  def self.dump_clade(clade_page_id, dest, tempdir, chunksize, query_fn)
+    new(clade_page_id, tempdir, chunksize, query_fn).dump_traits(dest)
   end
 
-  def initialize(clade_page_id, csvdir, chunksize, query_fn)
+  def initialize(clade_page_id, tempdir, chunksize, query_fn)
+    @chunksize = Integer(chunksize) if chunksize
     # If clade_page_id is nil, that means do not filter by clade
     @clade = nil
     @clade = Integer(clade_page_id) if clade_page_id
-    @csvdir = csvdir
-    @chunksize = Integer(chunksize) if chunksize
-    unless @csvdir
-      prefix = "traitbank_#{DateTime.now.strftime("%Y%m")}"
-      prefix = "#{prefix}_#{@clade}" if @clade
-      prefix = "#{prefix}_chunked_#{chunksize}" if @chunksize
-      @csvdir = "/tmp/#{prefix}_csv_temp"
-    end
+    @tempdir = tempdir || File.join("/tmp", default_basename(@clade))
     @query_fn = query_fn
   end
 
   # dest is name of zip file to be written
   def dump_traits(dest)
-    write_zip [emit_terms,
-               emit_pages,
-               emit_traits,
-               emit_metadatas], 
-              dest
+    paths = [emit_terms,
+             emit_pages,
+             emit_traits,
+             emit_metadatas]
+    dest ||= (default_basename(@clade) + ".zip")
+    write_zip(paths, dest)
+  end
+
+  # Mostly-unique tag based on date and id
+  def default_basename(id)
+    month = DateTime.now.strftime("%Y%m")
+    tag = id || "all"
+    "traits_#{tag}_#{month}"
   end
 
   # There is probably a way to do this without creating the temporary
@@ -137,7 +139,7 @@ class TraitsDumper
 
   # Prevent injection attacks
   def is_attack?(uri)
-    if /\A[\p{Alnum}:#_\/\.-]*\Z/.match(uri)
+    if /\A[\p{Alnum}:#_=?#& \/\.-]*\Z/.match(uri)
       false
     else
       STDERR.puts "** scary URI: '#{uri}'"
@@ -150,7 +152,7 @@ class TraitsDumper
 
   def emit_traits
     filename = "traits.csv"
-    path = File.join(@csvdir, filename)
+    path = File.join(@tempdir, filename)
     if File.exist?(path)
       STDERR.puts "reusing previously created #{path}"
       return path
@@ -166,10 +168,12 @@ class TraitsDumper
     predicates = list_trait_predicates
     STDERR.puts "#{predicates.length} trait predicate URIs"
     files = []
+    dir = "traits.csv.predicates"
+
     for i in 0..predicates.length do
       predicate = predicates[i]
+      STDERR.puts "Predicate #{i} = #{predicate}" if i % 25 == 0
       next if is_attack?(predicate)
-      STDERR.puts "#{i} #{predicate}" if i % 25 == 0
       traits_query =
        "MATCH (t:Trait)<-[:trait]-(page:Page)
               #{transitive_closure_part}
@@ -185,7 +189,8 @@ class TraitsDumper
                t.normal_measurement, normal_units.uri, t.normal_units, 
                t.measurement, units.uri, t.units, 
                t.literal"
-      ppath = supervise_query(traits_query, traits_keys, "traits_#{i}.csv")
+      # TEMPDIR/{traits,metadata}.csv.predicates/
+      ppath = supervise_query(traits_query, traits_keys, "traits.csv.predicates/#{i}.csv")
       files.push(ppath) if ppath
     end
     assemble_chunks(files, path)
@@ -211,7 +216,7 @@ class TraitsDumper
 
   def emit_metadatas
     filename = "metadata.csv"
-    path = File.join(@csvdir, filename)
+    path = File.join(@tempdir, filename)
     if File.exist?(path)
       STDERR.puts "reusing previously created #{path}"
       return path
@@ -235,7 +240,7 @@ class TraitsDumper
         OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
         OPTIONAL MATCH (m)-[:units_term]->(units:Term)
         RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
-      ppath = supervise_query(metadata_query, metadata_keys, "metadata_#{i}.csv")
+      ppath = supervise_query(metadata_query, metadata_keys, "metadata.csv.predicates/#{i}.csv")
       files.push(ppath) if ppath
     end
     assemble_chunks(files, path)
@@ -266,16 +271,22 @@ class TraitsDumper
   # the query is not repeated - the results from the previous run are
   # used directly without verification.
 
-  # filename (where to put the .csv file) is interpreted relative to @csvdir
-  # return value is full pathname to csv file, or nil if no results
+  # filename (where to put the .csv file) is interpreted relative to @tempdir.
+  # Return value is full pathname to csv file (which is created even if empty).
 
   def supervise_query(query, columns, filename)
-    path = File.join(@csvdir, filename)
+    path = File.join(@tempdir, filename)
     if File.exist?(path)
       #STDERR.puts "reusing previously created #{path}"
     else
-      parts, count = get_query_chunks(query, columns, path)
+      # Create a directory path.parts to hold the parts
+      parts_dir = path + ".parts"
+      parts, count = get_query_chunks(query, columns, parts_dir)
+      # This always writes a .csv file to path, even if it's empty.
       assemble_chunks(parts, path)
+      if Dir.exist?(parts_dir) && Dir.entries(parts_dir).length <= 2 # . and ..
+        FileUtils.rmdir parts_dir
+      end
       if count > 0
         STDERR.puts("#{File.basename(path)}: #{parts.length} parts, #{count} records")
       end
@@ -287,27 +298,21 @@ class TraitsDumper
   # obtain them as needed.
   # Returns a list of paths (file names for the parts) and a count of
   # the total number of records.
+  # Every part will have at least one record.
 
-  def get_query_chunks(query, columns, path)
-
-    # Create a directory path.parts to hold the parts
-    parts_dir = path + ".parts"
-
-    if @chunksize
-      limit = "#{@chunksize}"
-    else
-      limit = "10000000"
-    end
-
+  def get_query_chunks(query, columns, parts_dir)
+    limit = (@chunksize ? "#{@chunksize}" : "10000000")
     parts = []
     skip = 0
+
+    # Keep doing queries until no more results are returned
     while true
       # Fetch it in parts
-      part = File.join(parts_dir, "#{skip}.csv")
-      if File.exist?(part)
-        #STDERR.puts "reusing previously created #{part}"
-        parts.push(part)
-        # TBD: we should increase skip by the actual number of
+      basename = (@chunksize ? "#{skip}_#{@chunksize}" : "#{skip}")
+      part_path = File.join(parts_dir, "#{basename}.csv")
+      if File.exist?(part_path)
+        parts.push(part_path)
+        # Ideally, we should increase skip by the actual number of
         # records in the file.
         skip += @chunksize if @chunksize
       else
@@ -316,12 +321,12 @@ class TraitsDumper
         # has already been reported.  (because I don't want to learn
         # ruby exception handling!)
         got = result["data"].length
-        if result and got > 0
-          emit_csv(result, columns, part)
-          parts.push(part)
+        if result && got > 0
+          emit_csv(result, columns, part_path)
+          parts.push(part_path)
         end
         skip += got
-        break if @chunksize and got < @chunksize
+        break if @chunksize && got < @chunksize
       end
       break unless @chunksize
     end
@@ -329,10 +334,12 @@ class TraitsDumper
   end
 
   # Combine the parts files (for a single table) into a single master .csv file
-  # Returns path.  N.b. the CSV file might be empty.
+  # which is stored at path.
+  # Always returns path.
 
   def assemble_chunks(parts, path)
     # Concatenate all the parts together
+    FileUtils.mkdir_p File.dirname(path)
     if parts.size == 0
       # THIS CAN BE DONE IN RUBY - just don't want to look up how right now
       system "touch #{path}"
@@ -345,6 +352,8 @@ class TraitsDumper
       command = "(cat #{parts[0]}; #{more}) >#{temp}"
       system command
       FileUtils.mv temp, path
+      # We could delete the directory and all the files in it, but
+      # instead let's leave it around for debugging (or something)
     end
     path
   end
@@ -353,7 +362,7 @@ class TraitsDumper
 
   def run_query(cql)
     json = @query_fn.call(cql)
-    if json and json["data"].length > 100
+    if json && json["data"].length > 100
       # Throttle load on server
       sleep(1)
     end
@@ -383,15 +392,13 @@ class TraitsDumper
 
   # Utility - convert native cypher output form to CSV
   def emit_csv(start, keys, path)
-
     # Sanity check the result
     if start["columns"] == nil or start["data"] == nil or start["data"].length == 0
       STDERR.puts "** failed to write #{path}; result = #{start}"
       return nil
     end
-
-    FileUtils.mkdir_p File.dirname(path)
     temp = path + ".new"
+    FileUtils.mkdir_p File.dirname(temp)
     csv = CSV.open(temp, "wb")
     STDERR.puts "writing #{start["data"].length} csv records to #{temp}"
     csv << keys
