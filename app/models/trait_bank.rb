@@ -32,7 +32,7 @@ class TraitBank
         results = connection.execute_query(q)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
-        Rails.logger.warn(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
+        Rails.logger.info(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
     end
@@ -332,7 +332,7 @@ class TraitBank
         key = "trait_bank/term_search/counts/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
-          Rails.logger.warn("&& TS USING cached count: #{key} = #{count}")
+          Rails.logger.info("&& TS USING cached count: #{key} = #{count}")
           return count
         end
       else
@@ -361,12 +361,12 @@ class TraitBank
       "#{limit_and_skip}"
       res = query(q)
 
-      Rails.logger.warn("&& TS SAVING Cache: #{key}")
+      Rails.logger.info("&& TS SAVING Cache: #{key}")
       if options[:count]
         raise "&& TS Lost key" if key.blank?
         count = res["data"] ? res["data"].first.first : 0
         Rails.cache.write(key, count, expires_in: 1.day)
-        Rails.logger.warn("&& TS SAVING Cached count: #{key} = #{count}")
+        Rails.logger.info("&& TS SAVING Cached count: #{key} = #{count}")
         count
       else
         Rails.logger.debug("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
