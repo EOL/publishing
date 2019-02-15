@@ -69,8 +69,10 @@ class TraitsDumper
              emit_pages,
              emit_traits,
              emit_metadatas]
-    dest ||= (default_basename(@clade) + ".zip")
-    write_zip(paths, dest)
+    if not paths.include?(nil)
+      dest ||= (default_basename(@clade) + ".zip")
+      write_zip(paths, dest) 
+    end
   end
 
   # Mostly-unique tag based on date and id
@@ -279,20 +281,27 @@ class TraitsDumper
     path = File.join(@tempdir, filename)
     if File.exist?(path)
       #STDERR.puts "reusing previously created #{path}"
+      path
     else
       # Create a directory path.parts to hold the parts
       parts_dir = path + ".parts"
-      parts, count = get_query_chunks(query, columns, parts_dir)
-      # This always writes a .csv file to path, even if it's empty.
-      assemble_chunks(parts, path)
-      if Dir.exist?(parts_dir) && Dir.entries(parts_dir).length <= 2 # . and ..
-        FileUtils.rmdir parts_dir
-      end
-      if count > 0
-        STDERR.puts("#{File.basename(path)}: #{parts.length} parts, #{count} records")
+      begin
+        parts, count = get_query_chunks(query, columns, parts_dir)
+        # This always writes a .csv file to path, even if it's empty.
+        assemble_chunks(parts, path)
+        if Dir.exist?(parts_dir) && Dir.entries(parts_dir).length <= 2 # . and ..
+          FileUtils.rmdir parts_dir
+        end
+        if count > 0
+          STDERR.puts("#{File.basename(path)}: #{parts.length} parts, #{count} records")
+        end
+        path
+      rescue => e
+        STDERR.puts "** Error after #{parts.length} parts"
+        STDERR.puts e.full_message
+        nil
       end
     end
-    path
   end
 
   # Ensure that all the parts files for a table exist, using Neo4j to
