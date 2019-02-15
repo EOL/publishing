@@ -38,8 +38,9 @@ class TraitsDumper
     server = ENV['SERVER'] || "https://eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
     dest = ENV['ZIP']
-    new(clade,                 # clade
-        nil, # temp dir = where to put intermediate csv files - form via default rule
+    tempdir = ENV['TEMP']
+    new(clade,      # clade or nil
+        tempdir,    # temp dir = where to put intermediate csv files
         chunksize,                 # chunk size (for LIMIT and SKIP clauses)
         Proc.new {|cql| query_via_http(server, token, cql)}).dump_traits(dest)
   end
