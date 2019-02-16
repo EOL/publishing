@@ -205,10 +205,13 @@ class TraitsDumper
 
   # term.type can be: measurement, association, value, metadata
 
+  # MATCH (pred:Term) WHERE (:Trait)-[:predicate]->(pred) RETURN pred.uri LIMIT 20
+
   def list_trait_predicates
     predicates_query =
-     'MATCH (term:Term)<-[:predicate]-(trait:Trait)
-      RETURN DISTINCT term.uri
+     'MATCH (pred:Term)
+      WHERE (pred)<-[:predicate]-(:Trait)
+      RETURN DISTINCT pred.uri
       LIMIT 10000'
     run_query(predicates_query)["data"].map{|row| row[0]}
   end
@@ -226,20 +229,20 @@ class TraitsDumper
     end
     metadata_keys = ["eol_pk", "trait_eol_pk", "predicate", "value_uri",
                      "measurement", "units_uri", "literal"]
-    trait_predicates = list_trait_predicates
-    STDERR.puts "#{trait_predicates.length} trait predicate URIs"
+    predicates = list_metadata_predicates
+    STDERR.puts "#{predicates.length} metadata predicate URIs"
     files = []
-    for i in 0..trait_predicates.length do
-      trait_predicate = trait_predicates[i]
-      next if is_attack?(trait_predicate)
-      STDERR.puts "#{i} #{trait_predicate}" if i % 25 == 0
+    for i in 0..predicates.length do
+      predicate = predicates[i]
+      next if is_attack?(predicate)
+      STDERR.puts "#{i} #{predicate}" if i % 25 == 0
       metadata_query = 
        "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
               (t)<-[:trait]-(page:Page)
               #{transitive_closure_part}
         WHERE page.canonical IS NOT NULL
         MATCH (m)-[:predicate]->(predicate:Term),
-              (t)-[:predicate]->(trait_predicate:Term {uri: '#{trait_predicate}'})
+              (t)-[:predicate]->(metadata_predicate:Term {uri: '#{predicate}'})
         OPTIONAL MATCH (m)-[:object_term]->(obj:Term)
         OPTIONAL MATCH (m)-[:units_term]->(units:Term)
         RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
@@ -253,8 +256,9 @@ class TraitsDumper
 
   def list_metadata_predicates
     predicates_query =
-     'MATCH (term:Term)<-[:predicate]-(m:MetaData)
-      RETURN DISTINCT term.uri
+     'MATCH (pred:Term)
+      WHERE (pred)<-[:predicate]-(:MetaData)
+      RETURN DISTINCT pred.uri
       LIMIT 10000'
     run_query(predicates_query)["data"].map{|row| row[0]}
   end
@@ -297,8 +301,8 @@ class TraitsDumper
         end
         path
       rescue => e
-        STDERR.puts "** Error after #{parts.length} parts"
-        STDERR.puts e.full_message
+        STDERR.puts "** Failed to generate #{path}"
+        STDERR.puts "** Exception: #{e}"
         nil
       end
     end
@@ -321,7 +325,9 @@ class TraitsDumper
       basename = (@chunksize ? "#{skip}_#{@chunksize}" : "#{skip}")
       part_path = File.join(parts_dir, "#{basename}.csv")
       if File.exist?(part_path)
-        parts.push(part_path)
+        if File.size(part_path) > 0
+          parts.push(part_path)
+        end
         # Ideally, we should increase skip by the actual number of
         # records in the file.
         skip += @chunksize if @chunksize
@@ -331,9 +337,14 @@ class TraitsDumper
         # has already been reported.  (because I don't want to learn
         # ruby exception handling!)
         got = result["data"].length
-        if result && got > 0
-          emit_csv(result, columns, part_path)
-          parts.push(part_path)
+        if result
+          if got > 0
+            emit_csv(result, columns, part_path)
+            parts.push(part_path)
+          else
+            FileUtils.mkdir_p File.dirname(part_path)
+            FileUtils.touch(part_path)
+          end
         end
         skip += got
         break if @chunksize && got < @chunksize
