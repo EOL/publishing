@@ -11,6 +11,8 @@
 #
 # This script can run independently of the rails / rake context,
 # e.g. direct from the shell.
+#
+# Thanks to Bill Tozier for advice.
 
 # E.g. get traits for Felidae (7674)
 
@@ -126,6 +128,7 @@ class TraitsDumper
       ORDER BY r.uri"
     terms_keys = ["uri", "name", "type", "parent_uri"]
     supervise_query(terms_query, terms_keys, "terms.csv")
+    # returns nil on failure (e.g. timeout)
   end
 
   #---- Query: Pages (taxa)
@@ -138,6 +141,7 @@ class TraitsDumper
       RETURN page.page_id, parent.page_id, page.canonical"
     pages_keys = ["page_id", "parent_id", "canonical"] #fragile
     supervise_query(pages_query, pages_keys, "pages.csv")
+    # returns nil on failure (e.g. timeout)
   end
 
   # Prevent injection attacks
@@ -171,6 +175,7 @@ class TraitsDumper
     predicates = list_trait_predicates
     STDERR.puts "#{predicates.length} trait predicate URIs"
     files = []
+    fails = []
     dir = "traits.csv.predicates"
 
     for i in 0..predicates.length do
@@ -194,9 +199,14 @@ class TraitsDumper
                t.literal"
       # TEMPDIR/{traits,metadata}.csv.predicates/
       ppath = supervise_query(traits_query, traits_keys, "traits.csv.predicates/#{i}.csv")
-      files.push(ppath) if ppath
+      # ppath is nil on failure (e.g. timeout)
+      ppath ? files.push(ppath) : fails.push(ppath)
     end
-    assemble_chunks(files, path)
+    if fails.empty?
+      assemble_chunks(files, path)
+    else
+      nil
+    end
   end
 
   # Filtering by term type seems to be only an optimization, and
@@ -209,7 +219,7 @@ class TraitsDumper
 
   def list_trait_predicates
     predicates_query =
-     'MATCH (pred:Term)
+      'MATCH (pred:Term)
       WHERE (pred)<-[:predicate]-(:Trait)
       RETURN DISTINCT pred.uri
       LIMIT 10000'
@@ -232,12 +242,13 @@ class TraitsDumper
     predicates = list_metadata_predicates
     STDERR.puts "#{predicates.length} metadata predicate URIs"
     files = []
+    fails = []
     for i in 0..predicates.length do
       predicate = predicates[i]
       next if is_attack?(predicate)
       STDERR.puts "#{i} #{predicate}" if i % 25 == 0
       metadata_query = 
-       "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
+        "MATCH (m:MetaData)<-[:metadata]-(t:Trait),
               (t)<-[:trait]-(page:Page)
               #{transitive_closure_part}
         WHERE page.canonical IS NOT NULL
@@ -247,9 +258,14 @@ class TraitsDumper
         OPTIONAL MATCH (m)-[:units_term]->(units:Term)
         RETURN m.eol_pk, t.eol_pk, predicate.uri, obj.uri, m.measurement, units.uri, m.literal"
       ppath = supervise_query(metadata_query, metadata_keys, "metadata.csv.predicates/#{i}.csv")
-      files.push(ppath) if ppath
+      # ppath is nil on failure (e.g. timeout)
+      ppath ? files.push(ppath) : fails.push(ppath)
     end
-    assemble_chunks(files, path)
+    if fails.empty?
+      assemble_chunks(files, path)
+    else
+      nil
+    end
   end
 
   # Returns list (array) of URIs
@@ -362,8 +378,7 @@ class TraitsDumper
     # Concatenate all the parts together
     FileUtils.mkdir_p File.dirname(path)
     if parts.size == 0
-      # THIS CAN BE DONE IN RUBY - just don't want to look up how right now
-      system "touch #{path}"
+      FileUtils.touch(path)
     elsif parts.size == 1
       FileUtils.mv parts[0], path
     else
