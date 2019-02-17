@@ -205,6 +205,7 @@ class TraitsDumper
     if fails.empty?
       assemble_chunks(files, path)
     else
+      STDERR.puts "** Deferred due to exception(s): traits.csv"
       nil
     end
   end
@@ -264,6 +265,7 @@ class TraitsDumper
     if fails.empty?
       assemble_chunks(files, path)
     else
+      STDERR.puts "** Deferred due to exception(s): metadata.csv"
       nil
     end
   end
