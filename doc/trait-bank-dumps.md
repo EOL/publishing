@@ -1,32 +1,49 @@
 # Dumping Traitbank
 
 The traits dump script is used in either of two ways: as a ruby script
-invoked from the shell without any use of rails or the webapp, or as a
-`rake` command.  Both take their arguments via environment variables:
+invoked from the shell (does not rails or the webapp), or as a `rake`
+command.  Both forms take their arguments via environment variables:
 
  - `ZIP`: pathname of the .zip file to be written (should include
-         the terminal '.zip').  The default value comes from the `path` method
-         of the `DataDownload` class, which I think
-         corresponds to the URL with path `/data/downloads/`, and the filename 
-         has a form similar to `traitbank_YYYYMMDD.zip`.
+         the terminal '.zip').
  - `ID`: the page id of the taxon that is the root of the subtree to
-        be dumped.  Default is all life (2913056).
+        be dumped.  Default is the entire traitbank.
  - `CHUNK`: number of records in each 'chunk' to be fetched.
             Values up to 20000 are pretty safe.
             Larger values lead to a bit of extra latency and larger result 
-            sets; 100000 is probably fine.
-            Larger values also lead to latency induced by CQL `SKIP`
-            which increases as the number of records to skip grows
+            sets, and possibly more timeouts.
+ - `TEMP`: where to put intermediate files (defaults to a directory under `/tmp`)
 
-Intermediate files are put under `/tmp`, so there needs to be adequate
-space on that file system (or else you need to make a symbolic
-link... TBD: allow user to specify temp directory)
+The script may fail due to neo4j and/or web server timeouts (about a
+minute as of this writing).  In considering the risk of a timeout,
+note that the run time of each chunked query depends on both the
+number of results (`CHUNK`) and the time required by `SKIP` (which is
+related to the number of trait nodes per predicate, and can be quite
+large, e.g. for the `Present` predicate).  The time required for a
+`SKIP` could be several minutes.
+
+At present (February 2019) the script is driven entirely from the
+neo4j graphdb.  This is based on the hypothesis that when people say
+they want "all the traits", then all the information they need will be
+present in the graphdb, not the MySQL database.  If they need other
+tables (e.g. synonyms or vernaculars from the MySQL database), they
+will need to get them in some other way.  There may be more work to do
+here.
+
+See the associated support module
+[traits_dumper.rb](../lib/traits_dumper.rb) for
+further documentation and to see how it's implemented.
 
 ## From the shell using HTTP and the API
+
+The default zip file destination (`ZIP`) has a form similar to
+`traitbank_TAG_YYYYMM.zip` where `TAG` in the pathname is
+the page id (`ID`) or `all`.
 
 For this mode, there are two additional environment variables:
 
  - `SERVER`: must end with `/`.  The EOL server to contact for the requests.
+   Default `https://eol.org/`.
  - `TOKEN`: a 'power user' API token.
 
 E.g.
@@ -36,43 +53,22 @@ E.g.
     export CHUNK=50000
     ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
 
-At present (October 2018) the scripts are driven entirely from the
-neo4j graphdb.  This is based on the hypothesis that when people say
-they want "all the traits", then all the information they need will be
-present in the graphdb, not the MySQL database.  If they need other
-tables (e.g. synonyms or vernaculars from the MySQL database), they
-will be able to get them in some other way.  I don't know if this is
-true; there may be more work to do here.
-
 ## Via `rake` using neography
 
-The `dump_traits` family of `rake` commands is intended to create
-Traitbank dumps, which anyone can download, from the main web site or
-from the opendata site (depending on how we eventually decide to
-deploy them).
-
-The script may terminate complaining of a 502 or 504 status code from
-the server, or for some other reason.  In this case just rerun the
-command.  Results from the previous attempt (left over in `/tmp`) will
-be reused to reduce traffic to the server.
+The default zip path (`ZIP`) is formed from the directory returned by
+the `path` method of the `DataDownload` class, which I believe
+corresponds to the web site URL with path `/data/downloads/`, and the
+filename as described above, giving the clade (when specified) and
+current month.
 
 ### `dump_traits:dump`
 
-Purpose of this command: At the command line, generate a ZIP file dump
-of the entire trait graphdb.  See the associated support module
-[traits_dumper.rb](../app/support/trait_bank/traits_dumper.rb) to see
-how it's implemented.
-
-The ZIP file will contain four `.csv` files, one for each major kind
-of node: pages, traits, metadata, and terms.
-
-The command can also be used for partial dumps of particular clades.
+Generates a ZIP file dump of the entire traitbank graphdb.
 
 ### `dump_traits:smoke`
 
-This is for testing only.  Same as `dump` but defaults `ID` to 7662
-(Carnivora), defaults `LIMIT` to 100, and defaults `ZIP` to a file in
-the current directory.
+This is for testing only.  Same as `dump` but defaults `ID` to 7674
+(Felidae) and `CHUNK` to 1000.
 
 ## Testing this module
 

@@ -63,19 +63,20 @@ class TraitsDumper
   # This method is suitable for invocation from the shell via
   #  ruby -r "./lib/traits_dumper.rb" -e "TraitsDumper.main"
   def self.main
-    clade = ENV['ID']           # possibly nil
-    chunksize = ENV['CHUNK']    # possibly nil
-    tempdir = ENV['TEMP']      # temp dir = where to put intermediate csv files
-    dest = ENV['ZIP']
     server = ENV['SERVER'] || "https://eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
     query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
+
+    clade = ENV['ID']           # possibly nil
+    tempdir = ENV['TEMP']      # temp dir = where to put intermediate csv files
+    chunksize = ENV['CHUNK']    # possibly nil
+    dest = ENV['ZIP']
     new(clade, tempdir, chunksize, query_fn).dump_traits(dest)
   end
 
   # This method is suitable for use from a rake command.
 
-  def self.dump_clade(clade_page_id, dest, tempdir, chunksize, query_fn)
+  def self.dump_clade(clade_page_id, tempdir, chunksize, query_fn, dest)
     new(clade_page_id, tempdir, chunksize, query_fn).dump_traits(dest)
   end
 
@@ -88,14 +89,14 @@ class TraitsDumper
   # executing CQL queries.
 
   def initialize(clade_page_id, tempdir, chunksize, query_fn)
-    @chunksize = Integer(chunksize) if chunksize
-    # If clade_page_id is nil, that means do not filter by clade
     @clade = (clade_page_id ? Integer(clade_page_id) : nil)
     @tempdir = tempdir || File.join("/tmp", default_basename(@clade))
+    @chunksize = Integer(chunksize) if chunksize
+    # If clade_page_id is nil, that means do not filter by clade
     @query_fn = query_fn
   end
 
-  # dest is name of zip file to be written
+  # dest is name of zip file to be written, or nil for default
   def dump_traits(dest)
     paths = [emit_terms,
              emit_pages,
