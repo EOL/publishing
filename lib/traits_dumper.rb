@@ -1,4 +1,4 @@
-# Generate a ZIP file containing trait and trait metadata records.
+# Generate a ZIP file containing a dump of the traits graphdb.
 # The ZIP contains four CSV files:
 #
 #   traits.csv   - one row per Trait node
@@ -6,21 +6,44 @@
 #   pages.csv    - one row per Page node
 #   terms.csv    - one row per Term node
 #
-# If a page id is provided, the trait and metadata records are
-# restricted to those for taxa descending from the specified taxon.
+# This script can run in at least two different modes:
+#  1. as a rake command (see lib/tasks/dump_traits.rake).  The 
+#     graphdb is accessed directly, using neography.
+#  2. directly from the shell, outside the rails / rake context.
+#     The graphdb is accessed using the web API (over HTTP).
+# The second mode is convenient because you can run it on machines
+# where rails isn't installed.
 #
-# This script can run independently of the rails / rake context,
-# e.g. direct from the shell.
+# Parameters:
+#   page id (ID) - if provided, the trait and metadata records are
+#      restricted to those for taxa descending from the specified 
+#      taxon.
+#   chunk size (CHUNK) - number of rows to fetch per query.  20000
+#      seems to be an OK value for this.
+#   tempdir (TEMP) - where to put intermediate files for construction 
+#      of the zip file.
+#   destination (ZIP) - where to put the zip file.  Default is
+#      a name that includes the ID and the month it was created.
 #
-# Thanks to Bill Tozier for advice.
+# Parameters for API mode only:
+#   server (SERVER) - base URL for the server to contact.  Should
+#      end with a /.  Default https://eol.org/.
+#   token (TOKEN) - authentication token for web API
+#
+# If the script is interrupted, it can be run again and it will use
+# files created on a previous run, if the previous run was in the same
+# calendar month.  This is a time saving measure.
 
-# E.g. get traits for Felidae (7674)
-
+# E.g. get traits for Felidae (7674):
+#
 # Run it directly from the shell
-# ID=7674 CHUNK=20000 TOKEN=`cat ../api.token` ZIP=felidae.zip ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
-
+# ID=7674 CHUNK=20000 TOKEN=`cat api.token` ZIP=felidae.zip ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
+#
 # Run it as a 'rake' task
-# ID=7662 CHUNK=20000 time bundle exec rake dump_traits:dump
+# ID=7674 CHUNK=20000 time bundle exec rake dump_traits:dump
+
+# Thanks to Bill Tozier for code review; but he is not to be held
+# responsible for anything you see here.
 
 require 'csv'
 require 'fileutils'
@@ -31,36 +54,43 @@ require 'net/http'
 require 'json'
 require 'cgi'
 
+# An instance of the TraitsDumper class is sort of like a 'session'
+# for producing a ZIP file.  Its state of all the parameters needed to
+# harvest and write the required information.  The actual state for
+# the session, however, resides in files in the file system.
+
 class TraitsDumper
   # This method is suitable for invocation from the shell via
   #  ruby -r "./lib/traits_dumper.rb" -e "TraitsDumper.main"
   def self.main
     clade = ENV['ID']           # possibly nil
     chunksize = ENV['CHUNK']    # possibly nil
+    tempdir = ENV['TEMP']      # temp dir = where to put intermediate csv files
+    dest = ENV['ZIP']
     server = ENV['SERVER'] || "https://eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
-    dest = ENV['ZIP']
-    tempdir = ENV['TEMP']
-    new(clade,      # clade or nil
-        tempdir,    # temp dir = where to put intermediate csv files
-        chunksize,                 # chunk size (for LIMIT and SKIP clauses)
-        Proc.new {|cql| query_via_http(server, token, cql)}).dump_traits(dest)
+    query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
+    new(clade, tempdir, chunksize, query_fn).dump_traits(dest)
   end
 
   # This method is suitable for use from a rake command.
-  # The query_fn returns the query results in the idiosyncratic form
-  # delivered by neo4j, or nil.  might use, say, neography, instead of
-  # an HTTP client.
 
   def self.dump_clade(clade_page_id, dest, tempdir, chunksize, query_fn)
     new(clade_page_id, tempdir, chunksize, query_fn).dump_traits(dest)
   end
 
+  # Store parameters in instance so they don't have to be passed
+  # around everywhere.
+  # The query_fn takes a CQL query as input, executes it, and returns
+  # a result set.  The result set is returned in the idiosyncratic
+  # form delivered by neo4j.  The implementation of the query_fn might
+  # use neography, or the EOL web API, or any other method for
+  # executing CQL queries.
+
   def initialize(clade_page_id, tempdir, chunksize, query_fn)
     @chunksize = Integer(chunksize) if chunksize
     # If clade_page_id is nil, that means do not filter by clade
-    @clade = nil
-    @clade = Integer(clade_page_id) if clade_page_id
+    @clade = (clade_page_id ? Integer(clade_page_id) : nil)
     @tempdir = tempdir || File.join("/tmp", default_basename(@clade))
     @query_fn = query_fn
   end
@@ -77,15 +107,14 @@ class TraitsDumper
     end
   end
 
-  # Mostly-unique tag based on date and id
+  # Mostly-unique tag based on current month and clade id
   def default_basename(id)
     month = DateTime.now.strftime("%Y%m")
     tag = id || "all"
     "traits_#{tag}_#{month}"
   end
 
-  # There is probably a way to do this without creating the temporary
-  # files at all.
+  # Write a zip file containing a specified set of files.
   def write_zip(paths, dest)
     File.delete(dest) if File.exists?(dest)
     Zip::File.open(dest, Zip::File::CREATE) do |zipfile|
@@ -103,7 +132,8 @@ class TraitsDumper
     end
   end
 
-  # Return query fragment for lineage restriction, if there is one
+  # Return query fragment for lineage (clade, page, ID) restriction,
+  # if there is one.
   def transitive_closure_part
     if @clade
       ", (page)-[:parent*]->(clade:Page {page_id: #{@clade}})"
@@ -111,6 +141,9 @@ class TraitsDumper
       ""
     end
   end
+
+  # All of the following emit_ methods return the path to the
+  # generated file, or nil if any query failed (e.g. timed out)
 
   #---- Query: Terms
 
@@ -132,6 +165,8 @@ class TraitsDumper
   end
 
   #---- Query: Pages (taxa)
+  # Ray Ma has pointed out that the traits dump contains page ids
+  # that are not in this set, e.g. for interaction traits.
 
   def emit_pages
     pages_query =
@@ -144,7 +179,7 @@ class TraitsDumper
     # returns nil on failure (e.g. timeout)
   end
 
-  # Prevent injection attacks
+  # Prevent injection attacks (quote marks in URIs and so on)
   def is_attack?(uri)
     if /\A[\p{Alnum}:#_=?#& \/\.-]*\Z/.match(uri)
       false
@@ -155,7 +190,6 @@ class TraitsDumper
   end
 
   #---- Query: Traits (trait records)
-  # Returns path
 
   def emit_traits
     filename = "traits.csv"
@@ -229,7 +263,8 @@ class TraitsDumper
 
   #---- Query: Metadatas
   # Structurally similar to traits.  I'm duplicating code because Ruby
-  # style does not encourage procedural abstraction.
+  # style does not encourage procedural abstraction (or at least, I
+  # don't know how one properly share code here, in idiomatic Ruby).
 
   def emit_metadatas
     filename = "metadata.csv"
@@ -283,21 +318,25 @@ class TraitsDumper
 
   # -----
 
-  # supervise_query: generate parts, then put them together.
+  # supervise_query: generate a set of 'chunks', then put them
+  # together into a single .csv file.
 
-  # The purpose is to create a .csv file for a particular table (traits, 
-  # pages, etc.).
+  # A chunk (or 'part,' I use these words interchangeably here) is
+  # the result set of a single cypher query.  The queries are in a
+  # single supervise_query call are all the same, except for the value
+  # of the SKIP parameter.
 
-  # The result sets are too big to capture with a single query, due to
-  # timeouts or other problems, so the query is applied many times
-  # to get "chunks" of results.
+  # The reason for this is that the result sets for some queries are
+  # too big to capture with a single query, due to timeouts or other
+  # problems.
 
-  # Each chunk is placed in a file.  If a chunk file already exists
-  # the query is not repeated - the results from the previous run are
-  # used directly without verification.
+  # Each chunk is placed in its own file.  If a chunk file already
+  # exists the query is not repeated - the results from the previous
+  # run are used directly without verification.
 
-  # filename (where to put the .csv file) is interpreted relative to @tempdir.
-  # Return value is full pathname to csv file (which is created even if empty).
+  # filename (where to put the .csv file) is interpreted relative to
+  # @tempdir.  The return value is full pathname to csv file (which is
+  # created even if empty), or nil if there was any kind of failure.
 
   def supervise_query(query, columns, filename)
     path = File.join(@tempdir, filename)
@@ -329,15 +368,17 @@ class TraitsDumper
   # Ensure that all the parts files for a table exist, using Neo4j to
   # obtain them as needed.
   # Returns a list of paths (file names for the parts) and a count of
-  # the total number of records.
-  # Every part will have at least one record.
+  # the total number of rows (not always accurate).
+  # A file will be created for every successful query, but the pathname
+  # is only included in the returned list if it contains at least one row.
 
   def get_query_chunks(query, columns, parts_dir)
     limit = (@chunksize ? "#{@chunksize}" : "10000000")
     parts = []
     skip = 0
 
-    # Keep doing queries until no more results are returned
+    # Keep doing queries until no more results are returned, or until
+    # something goes wrong
     while true
       # Fetch it in parts
       basename = (@chunksize ? "#{skip}_#{@chunksize}" : "#{skip}")
@@ -372,9 +413,9 @@ class TraitsDumper
     [parts, skip]
   end
 
-  # Combine the parts files (for a single table) into a single master .csv file
-  # which is stored at path.
-  # Always returns path.
+  # Combine the parts files (for a single table) into a single master
+  # .csv file which is stored at path.
+  # Always returns path, where a file (perhaps empty) will be found.
 
   def assemble_chunks(parts, path)
     # Concatenate all the parts together
@@ -396,7 +437,8 @@ class TraitsDumper
     path
   end
 
-  # Run a single CQL query using method provided
+  # Run a single CQL query using the method provided (could be
+  # neography, HTTP, ...)
 
   def run_query(cql)
     json = @query_fn.call(cql)
@@ -407,7 +449,7 @@ class TraitsDumper
     json
   end
 
-  # Method for doing queries using EOL v3 API via HTTP
+  # A particular query method for doing queries using the EOL v3 API over HTTP
 
   def self.query_via_http(server, token, cql)
     # Need to be a web client.
@@ -449,13 +491,3 @@ class TraitsDumper
   end
 
 end
-
-# TESTING
-# sample_clade = 7662  # carnivora
-# TraitsDumper.dump_clade(sample_clade,
-#                         "sample-dumps/#{sample_clade}-short-csv",
-#                         10)
-
-# REAL THING
-# TraitsDumper.dump_clade(sample_clade,
-#   "sample-dumps/#{sample_clade}-csv", 200000)
