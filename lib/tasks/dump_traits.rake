@@ -12,27 +12,20 @@ namespace :dump_traits do
     chunksize = ENV['CHUNK']
     csvdir = ENV['CSVDIR']
     dest = ENV['ZIP']
-    unless dest
-      prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}"
-      prefix = "#{prefix}_#{clade}" if clade
-      dest = TraitBank::DataDownload.path.join("#{prefix}.zip")
-    end
-    TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                            TraitBank::query)
+    TraitsDumper.dump_clade(clade, csvdir, chunksize,
+                            Proc.new {|cql| TraitBank::query(cql)},
+                            dest)
   end
 
   desc 'Smoke test of traits dumper; finishes quickly.'
   task smoke: :environment do
     clade = ENV['ID'] || '7674'     # Felidae
-    chunksize = ENV['CHUNK'] || '100'
+    chunksize = ENV['CHUNK'] || '1000'
     csvdir = ENV['CSVDIR']
     dest = ENV['ZIP']
-    unless dest
-      prefix = "traitbank_#{DateTime.now.strftime("%Y%m%d")}_#{clade}_#{chunksize}"
-      dest = "#{prefix}_smoke.zip"
-    end
-    TraitsDumper.dump_clade(clade, dest, csvdir, chunksize,
-                            TraitBank::query)
+    TraitsDumper.dump_clade(clade, csvdir, chunksize,
+                            Proc.new {|cql| TraitBank::query(cql)},
+                            dest)
   end
 
 end

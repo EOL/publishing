@@ -35,5 +35,8 @@ module EolWebsite
       end
     end
 
+    # Search for classes in the lib directory
+    config.autoload_paths += %W(#{config.root}/lib)
+
   end
 end
