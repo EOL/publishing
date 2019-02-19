@@ -1,7 +1,7 @@
 class TermQueryFilter < ActiveRecord::Base
   belongs_to :term_query, :inverse_of => :filters
   validates_presence_of :term_query
-  validates :validation
+  validate :validation
 
   # TODO: remove op field from db
   enum :op => {
@@ -15,6 +15,10 @@ class TermQueryFilter < ActiveRecord::Base
 
   def predicate?
     !pred_uri.blank?
+  end
+
+  def units_for_pred?
+    pred_uri && !TraitBank::Terms.units_for_pred(pred_uri).nil?
   end
 
   def object_term?
@@ -31,6 +35,14 @@ class TermQueryFilter < ActiveRecord::Base
 
   def lt?
     num_val1.nil? && !num_val2.nil?
+  end
+
+  def eq?
+    !num_val1.nil? && num_val1 == num_val2
+  end
+
+  def range?
+    !num_val1.nil? && !num_val2.nil? && num_val1 != num_val2
   end
 
   def to_s
@@ -64,11 +76,16 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   private
-  def is_it_valid?
-    if (pred_uri.blank? && obj_uri.blank?) || (numeric? && pred_uri.blank?)
-      false
-    else
-      true
+  def validation
+    if pred_uri.blank? && obj_uri.blank?
+      errors.add(:pred_uri, "must specify an attribute or a value") 
+      errors.add(:obj_uri, "must specify an attribute or a value") 
+    elsif numeric?
+      if pred_uri.blank?
+        errors.add(:pred_uri, "can't be blank with a numeric value")
+      elsif range? && num_val1 > num_val2
+        errors.add(:num_val2, "must be >= to first value")
+      end
     end
   end
 end

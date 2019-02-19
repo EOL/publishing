@@ -56,7 +56,11 @@
     });
 
     $(selector).on('blur', function() {
-      $(this).val($(this).data('lastCleanVal'));
+      var lastCleanVal = $(this).data('lastCleanVal');
+
+      if (typeof lastCleanVal !== 'undefined') {
+        $(this).val($(this).data('lastCleanVal'));
+      }
     });
   }
 
@@ -87,7 +91,7 @@
       source: EOL.searchPredicates
     }, 'uri', fetchForm);
 
-    $('.js-obj-typeahead').each(function() {
+    $('.js-pred-obj-typeahead').each(function() {
       var source = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -104,6 +108,13 @@
         limit: Infinity
       }, 'uri', null)
     });
+
+    buildTypeahead('.js-obj-typeahead', {
+      name: 'obj-names',
+      display: 'name',
+      limit: Infinity,
+      source: EOL.searchObjectTerms
+    }, 'uri', fetchForm);
 
     $('.js-add-filter').click(function(e) {
       e.preventDefault();

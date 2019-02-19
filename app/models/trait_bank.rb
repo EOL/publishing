@@ -385,39 +385,46 @@ class TraitBank
     end
 
     def term_filter_where(filter, trait_var, pred_var, obj_var)
+      parts = []
       if filter.object_term?
-        "#{obj_var}.uri = \"#{filter.obj_uri}\""
+        parts << "#{obj_var}.uri = \"#{filter.obj_uri}\""
         # "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
         # "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.predicate?
-        "#{pred_var}.uri = \"#{filter.pred_uri}\""
-      elsif filter.numeric?
-        conditions = []
-        if filter.gt? 
-          conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.gt_val, filter.units_uri)
-          conditions << { op: ">=", val: conv_gt_val }
+        parts << "#{pred_var}.uri = \"#{filter.pred_uri}\""
+
+        if filter.numeric?
+          conditions = []
+          if filter.eq?
+            conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
+            conditions << { op: "=", val: conv_eq_val }
+          else
+            if filter.gt? || filter.range?
+              conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
+              conditions << { op: ">=", val: conv_gt_val }
+            end
+
+            if filter.lt? || filter.range?
+              conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
+              conditions << { op: "<=", val: conv_lt_val }
+            end
+
+            conv_units_uri = conv_units_uri1 || conv_units_uri2
+          end
+
+          parts << "("\
+          "(#{trait_var}.measurement IS NOT NULL "\
+          "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+          "OR "\
+          "(#{trait_var}.normal_measurement IS NOT NULL "\
+          "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+          ")"
         end
-
-        if filter.lt?
-          conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.lt, filter.units_uri)
-          conditions << { op: "<=", val: conv_lt_val }
-        end
-
-        conv_units_uri = conv_units_uri1 || conv_units_uri2
-
-        "#{pred_var}.uri = \"#{filter.pred_uri}\" AND "\
-        "("\
-        "(#{trait_var}.measurement IS NOT NULL "\
-        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join("\n")}"\
-        "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
-        "OR "\
-        "(#{trait_var}.normal_measurement IS NOT NULL "\
-        "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join("\n")}"\
-        "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
-        ")"
-      else
-        raise "unable to determine filter type"
       end
+
+      parts.join(" AND ")
     end
 
     def term_record_search(term_query, options)
@@ -448,7 +455,7 @@ class TraitBank
         end
 
         if filter.predicate? 
-          matches << "(page)-[:trait]->(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
+          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
             "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
 
