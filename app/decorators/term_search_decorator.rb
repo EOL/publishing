@@ -23,6 +23,6 @@ class TermSearchDecorator < SearchResultDecorator
   end
 
   def fa_icon
-    "book-open"
+    "book"
   end
 end
