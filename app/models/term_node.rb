@@ -1,4 +1,4 @@
-class TermNode # Just 'Term' conflicts with a class in some gem. *sigh*
+class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   include Neo4j::ActiveNode
   property :name
   property :definition
@@ -15,6 +15,8 @@ class TermNode # Just 'Term' conflicts with a class in some gem. *sigh*
   @text_search_fields = %w[name]
   searchkick word_start: @text_search_fields, text_start: @text_search_fields
 
+  OBJ_TERM_TYPE = "value"
+
   def self.search_import
     self.all(:t).where(
       "t.is_hidden_from_overview = false "\
@@ -30,5 +32,17 @@ class TermNode # Just 'Term' conflicts with a class in some gem. *sigh*
     {
       name: name
     }
+  end
+
+  def predicate?
+    !object_term?   
+  end
+
+  def object_term?
+    type == OBJ_TERM_TYPE
+  end
+
+  def known_type?
+    predicate? || object_term?
   end
 end

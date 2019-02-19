@@ -81,7 +81,6 @@ class TraitsController < ApplicationController
       ]
     ])
   end
-
   def build_query
     @query = TermQuery.new(tq_params)
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]

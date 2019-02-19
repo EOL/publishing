@@ -26,23 +26,23 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   def numeric?
-    !num_val1.nil? || !num_val2.nil?
+    !num_val1.blank? || !num_val2.blank?
   end
 
   def gt?
-    !num_val1.nil? && num_val2.nil?
+    !num_val1.blank? && num_val2.blank?
   end
 
   def lt?
-    num_val1.nil? && !num_val2.nil?
+    num_val1.blank? && !num_val2.blank?
   end
 
   def eq?
-    !num_val1.nil? && num_val1 == num_val2
+    !num_val1.blank? && num_val1 == num_val2
   end
 
   def range?
-    !num_val1.nil? && !num_val2.nil? && num_val1 != num_val2
+    !num_val1.blank? && !num_val2.blank? && num_val1 != num_val2
   end
 
   def to_s
@@ -73,6 +73,16 @@ class TermQueryFilter < ActiveRecord::Base
 
   def lt_val
     num_val2
+  end
+
+  def to_params
+    {
+      pred_uri: pred_uri,
+      obj_uri: obj_uri,
+      num_val1: num_val1,
+      num_val2: num_val2,
+      units_uri: units_uri
+    }
   end
 
   private

@@ -86,7 +86,22 @@ module TermsHelper
   end
 
   def term_node_path(term_node)
-    term_node.uri
+    if term_node.known_type?
+      param = if term_node.predicate?
+        :pred_uri 
+      elsif term_node.object_term?
+        :obj_uri
+      end
+
+      term_search_results_path(term_query: TermQuery.new({
+        result_type: :record,
+        filters: [
+          TermQueryFilter.new(param => term_node.uri)
+        ]
+      }).to_params)
+    else
+      term_node.uri
+    end
   end
 
   private
