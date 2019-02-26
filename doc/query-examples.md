@@ -225,3 +225,14 @@ OPTIONAL MATCH (t0)-[:object_term]->(obj:Term)
 RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
 ```
+
+## For how many taxa does EOL have a measure of size?
+
+This query shows the number of taxa in EOL that have trait records with a predicate that is size (http://purl.obolibrary.org/obo/PATO_0000117) or a subclass of size like wingspan, body mass, etc.
+
+```
+MATCH (taxa:Page)-[:trait]->(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN COUNT(DISTINCT taxa)
+LIMIT 1;
+```
