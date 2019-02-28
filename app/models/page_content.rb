@@ -119,11 +119,11 @@ class PageContent < ActiveRecord::Base
     def fix_duplicate_positions(page_id)
       return if PageContent.where(page_id: page_id, position: 0).count <= 1 ||
                 PageContent.where(page_id: page_id, position: 1).count <= 1
-      exemplar = Page.find(page_id).page_icon.medium_id
+      exemplar = Page.find(page_id).page_icon&.medium_id
       final = PageContent.where(page_id: page_id).maximum(:position) + 1
       [0,1].each do |position|
         PageContent.where(page_id: page_id, position: position).find_each do |content|
-          if exemplar != content.content_id # Don't move the exemplar.
+          if exemplar.nil? || exemplar != content.content_id # Don't move the exemplar.
             content.update_attribute(:position, final)
             final += 1
           end
