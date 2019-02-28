@@ -57,7 +57,7 @@ class PageContent < ActiveRecord::Base
       if contents.any?
         content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
         if contents.size > 1
-          contents[1..-1].each { |extra| extra.destroy }
+          contents[1..-1].each { |extra| extra.destroy } # Remove duplicates
         end
         if last
           content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.

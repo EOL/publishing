@@ -124,7 +124,7 @@ class Page < ActiveRecord::Base
     def fix_low_position_exmplars
       PageContent.media.where(position: 1).joins(:page).
         where('`pages`.`medium_id` != `page_contents`.`content_id`').includes(:page).find_each do |pc|
-          pc.move_to_top
+          pc.move_to_bottom
         end
     end
 
