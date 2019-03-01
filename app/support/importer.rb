@@ -1,3 +1,5 @@
+# This imports a "Clade file" which was created with the clade:store rake task, and ONLY those files. Useful for
+# bootstrapping a development environment and little else. NOT SUITABLE FOR PRODUCTION.
 class Importer
   class << self
     def read_clade(file, options = {})
