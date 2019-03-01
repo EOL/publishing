@@ -75,6 +75,8 @@ Rails.application.routes.draw do
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
 
+  resources :term_nodes, only: :show, constraints: { id: /http.*/ }
+
   scope '/api' do
     id_match = /[-\w\.,]+(?=\.(json|xml))/
     # id_match = /[-\w\.]+/
@@ -162,6 +164,7 @@ Rails.application.routes.draw do
   get "/search_results" => "search#search", :as => "search"
   #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/search_page" => "search#search_page", :as => "search_page"
+  get "/autocomplete/:query" => "search#autocomplete"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
   match '/404', to: 'errors#not_found', via: :all, as: 'route_not_found'
   match '/500', :to => 'errors#internal_server_error', :via => :all

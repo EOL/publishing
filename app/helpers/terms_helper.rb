@@ -85,25 +85,6 @@ module TermsHelper
     "#{tq.record? ? "Records" : "Taxa"} with #{clade_part}#{filter_part}"
   end
 
-  def term_node_path(term_node)
-    if term_node.known_type?
-      param = if term_node.predicate?
-        :pred_uri 
-      elsif term_node.object_term?
-        :obj_uri
-      end
-
-      term_search_results_path(term_query: TermQuery.new({
-        result_type: :record,
-        filters: [
-          TermQueryFilter.new(param => term_node.uri)
-        ]
-      }).to_params)
-    else
-      term_node.uri
-    end
-  end
-
   private
     def is_any_display_string(filter)
       pred_name(filter.pred_uri)

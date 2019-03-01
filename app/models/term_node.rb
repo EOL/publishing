@@ -46,3 +46,4 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
     predicate? || object_term?
   end
 end
+
