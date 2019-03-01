@@ -17,11 +17,11 @@
         - if ff.object.units_for_pred?
           .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
             %span.filter-field
-              = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
+              = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small", :placeholder => "-∞"
               - show_error(ff.object, :num_val1)
             %span.filter-txt to
             %span.filter-field
-              = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
+              = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small", :placeholder => "∞"
               - show_error(ff.object, :num_val2)
           .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
             = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
