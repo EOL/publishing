@@ -143,8 +143,8 @@ class PageContent < ActiveRecord::Base
     def fix_duplicate_positions(page_id)
       exemplar = Page.find(page_id).page_icon&.medium_id
       final = PageContent.where(page_id: page_id).maximum(:position) + 1
-      [0..final].each do |position|
-        count_at_this_position = PageContent.where(page_id: page_id, position: position).count <= 1
+      (0..final).each do |position|
+        count_at_this_position = PageContent.where(page_id: page_id, position: position).count
         break if PageContent.where(page_id: page_id, position: position).count <= 1
         puts "[#{Time.now}] Fixing #{count_at_this_position} duplicate positions of #{position} on page #{page_id}"
         STDOUT.flush
