@@ -50,11 +50,22 @@ class PageContent < ActiveRecord::Base
       all_data = CSV.read(file, col_sep: "\t")
       per_cent = all_data.size / 100
       fixed_page = 0
-      count_on_this_page = 0
+      skipping_count = 0
       all_data[1..-1].each_with_index do |row, i|
         medium_id = row[0].to_i
         page_id = row[1].to_i
-        next if starting_page_id && page_id.to_i < starting_page_id.to_i
+        if starting_page_id && page_id < starting_page_id.to_i
+          if skipping_count.zero? || (skipping_count % 1000).zero?
+            puts ".. Skipping #{page_id} (to get to #{starting_page_id}).."
+            STDOUT.flush
+          end
+          next
+        end
+        if skipping_count >= 0
+          puts "Starting with page #{page_id}"
+          STDOUT.flush
+          skipping_count = -1 # Stop notifications.
+        end
         if fixed_page < page_id
           fixed_page = page_id
           fix_duplicate_positions(page_id)
@@ -63,7 +74,11 @@ class PageContent < ActiveRecord::Base
         last = (row[3] =~ /last/i) # 'first' or 'last'
         contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
         if contents.any?
+          count_on_this_page = 0
           content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
+          puts "[#{Time.now}] PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
+          STDOUT.flush
+          last_flush = Time.now
           if contents.size > 1
             contents[1..-1].each { |extra| extra.destroy } # Remove duplicates
           end
@@ -71,18 +86,18 @@ class PageContent < ActiveRecord::Base
             content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.
           else
             if order.zero?
-              puts "[#{Time.now}] PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
-              count_on_this_page = 0
               PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
               content.move_to_top
             else
-              if count_on_this_page >= 250
+              if count_on_this_page >= 100
                 puts "[#{Time.now}] .. moving #{medium_id} on page #{page_id} to position #{order + 1}"
+                STDOUT.flush
                 count_on_this_page = 0
               end
               content.insert_at(order + 1)
             end
           end
+          count_on_this_page += 1
           if (i % per_cent).zero? || last_flush < 5.minutes.ago
             puts "[#{Time.now}] % COMPLETE: #{i / per_cent}"
             STDOUT.flush
@@ -132,6 +147,7 @@ class PageContent < ActiveRecord::Base
         count_at_this_position = PageContent.where(page_id: page_id, position: position).count <= 1
         break if PageContent.where(page_id: page_id, position: position).count <= 1
         puts "[#{Time.now}] Fixing #{count_at_this_position} duplicate positions of #{position} on page #{page_id}"
+        STDOUT.flush
         PageContent.where(page_id: page_id, position: position).find_each do |content|
           if exemplar.nil? || exemplar != content.content_id # Don't move the exemplar.
             content.update_attribute(:position, final)
