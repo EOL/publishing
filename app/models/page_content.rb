@@ -42,6 +42,7 @@ class PageContent < ActiveRecord::Base
     # content_id: 9368757, page_id: 8663597
     def set_v2_exemplars(starting_page_id = nil)
       puts "[#{Time.now}] starting"
+      last_flush = Time.now
       STDOUT.flush
       require 'csv'
       # Jamming this in the /public/data dir just so we can keep it between restarts!
@@ -49,9 +50,10 @@ class PageContent < ActiveRecord::Base
       all_data = CSV.read(file, col_sep: "\t")
       per_cent = all_data.size / 100
       fixed_page = 0
+      count_on_this_page = 0
       all_data[1..-1].each_with_index do |row, i|
-        medium_id = row[0]
-        page_id = row[1]
+        medium_id = row[0].to_i
+        page_id = row[1].to_i
         next if starting_page_id && page_id.to_i < starting_page_id.to_i
         if fixed_page < page_id
           fixed_page = page_id
@@ -69,15 +71,22 @@ class PageContent < ActiveRecord::Base
             content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.
           else
             if order.zero?
+              puts "[#{Time.now}] PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
+              count_on_this_page = 0
               PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
               content.move_to_top
             else
+              if count_on_this_page >= 250
+                puts "[#{Time.now}] .. moving #{medium_id} on page #{page_id} to position #{order + 1}"
+                count_on_this_page = 0
+              end
               content.insert_at(order + 1)
             end
           end
-          if (i % per_cent).zero?
-            puts "[#{Time.now}] ... #{i / per_cent}"
+          if (i % per_cent).zero? || last_flush < 5.minutes.ago
+            puts "[#{Time.now}] % COMPLETE: #{i / per_cent}"
             STDOUT.flush
+            last_flush = Time.now
           end
         else
           puts "[#{Time.now}] missing: content_type: 'Medium', content_id: #{medium_id}, page_id: #{page_id}"
@@ -120,7 +129,9 @@ class PageContent < ActiveRecord::Base
       exemplar = Page.find(page_id).page_icon&.medium_id
       final = PageContent.where(page_id: page_id).maximum(:position) + 1
       [0..final].each do |position|
+        count_at_this_position = PageContent.where(page_id: page_id, position: position).count <= 1
         break if PageContent.where(page_id: page_id, position: position).count <= 1
+        puts "[#{Time.now}] Fixing #{count_at_this_position} duplicate positions of #{position} on page #{page_id}"
         PageContent.where(page_id: page_id, position: position).find_each do |content|
           if exemplar.nil? || exemplar != content.content_id # Don't move the exemplar.
             content.update_attribute(:position, final)
