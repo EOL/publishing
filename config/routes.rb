@@ -33,10 +33,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "user/registrations",
                                     sessions: "user/sessions",
                                     omniauth_callbacks: "user/omniauth_callbacks"}
-  resources :users do
+  resources :users, only: [:show, :destroy] do
     collection do
       get "autocomplete"
-      post "delete_user", defaults: { format: "json" }
       get "search"
     end
     resources :user_downloads, only: [:show], as: :downloads do

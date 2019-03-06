@@ -6,11 +6,13 @@
           %h1= @user.username
           - unless @user.tag_line.blank?
             %p= @user.tag_line
-        - if current_user.try(:can_delete_account?, @user)
-          .actions.col-md-3
-            %button.btn.btn-default{'ng-click': "showConfirm($event,#{@user.id},'#{I18n.t(:are_you_sure_delete_account)}')",
-              class: 'md-primary md-raised', remote: "true", authenticity_token: "true" }
-              = link_to(t(:delete_account_button), user_path(current_user, method: :delete) )
+    - if current_user == @user
+      .actions.col-md-3
+        = form_tag user_registration_path, method: :delete, 'data-confirm': t(:are_you_sure_delete_account) do
+          = submit_tag t(:delete_account_button)
+        -#
+          %button.btn.btn-default{class: 'md-primary md-raised'}
+            = link_to(, user_path(current_user), method: :delete, data-confirm: )
     - unless @user.bio.blank?
       %h2= t("user.headers.bio")
       %p= @user.bio
