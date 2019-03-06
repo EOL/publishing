@@ -80,12 +80,17 @@ class TraitBank
         q = options[:q]
         count = count_type_for_resource(name, q)
         iters = (count / 25_000.0).ceil
-        max_iters = iters - (1.5 * iters).ceil
+        max_iters = (1.5 * iters).ceil
+        iteration = 0
         loop do
-          res = query("MATCH #{q} WITH #{name} LIMIT 25000 DETACH DELETE #{name}")
-          iters -= 1
-          raise "I have been attempting to delete #{name} data for too many iterations. Aborting." if iters <= max_iters
-          break if (iters <= 0 && count_type_for_resource(name, q) <= 0)
+          query("MATCH #{q} WITH #{name} LIMIT 25000 DETACH DELETE #{name}")
+          iteration += 1
+          if iteration >= max_iters
+            new_count = count_type_for_resource(name, q)
+            raise "I have been attempting to delete #{name} data for too many iterations (#{iteration}). "\
+                  "Started with #{count} entries, now there are #{new_count}. Aborting."
+          end
+          break if (iteration >= iters && count_type_for_resource(name, q) <= 0)
         end
       end
 
