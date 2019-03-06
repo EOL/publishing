@@ -69,6 +69,9 @@ class PageContent < ActiveRecord::Base
         if fixed_page < page_id
           fixed_page = page_id
           fix_duplicate_positions(page_id)
+          puts "[#{Time.now}] FIRST CONTENT FOR PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
+          STDOUT.flush
+          last_flush = Time.now
         end
         order = row[2].to_i # 0-index
         last = (row[3] =~ /last/i) # 'first' or 'last'
@@ -76,9 +79,6 @@ class PageContent < ActiveRecord::Base
         if contents.any?
           count_on_this_page = 0
           content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
-          puts "[#{Time.now}] PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
-          STDOUT.flush
-          last_flush = Time.now
           if contents.size > 1
             contents[1..-1].each { |extra| extra.destroy } # Remove duplicates
           end
@@ -110,34 +110,6 @@ class PageContent < ActiveRecord::Base
       end
       puts "[#{Time.now}] done."
       STDOUT.flush
-    end
-
-    # NOTE: a lot of this is duplicated above. It's temporary code, I didn't think it was worth extracting it. :|
-    def fix_all_duplicate_positions
-      puts "[#{Time.now}] starting"
-      STDOUT.flush
-      last_flush = Time.now
-      require 'csv'
-      # Jamming this in the /public/data dir just so we can keep it between restarts!
-      file = Rails.root.join('public', 'data', 'image_order.tsv')
-      all_data = CSV.read(file, col_sep: "\t")
-      per_cent = all_data.size / 100
-      fixed_page = 0
-      all_data[1..-1].each_with_index do |row, i|
-        medium_id = row[0].to_i
-        page_id = row[1].to_i
-        if (i % per_cent).zero? || last_flush < 5.minutes.ago
-          puts "[#{Time.now}] % COMPLETE: #{i / per_cent}"
-          STDOUT.flush
-          last_flush = Time.now
-        end
-        if fixed_page < page_id
-          fixed_page = page_id
-          fix_duplicate_positions(page_id)
-        else
-          next
-        end
-      end
     end
 
     def fix_duplicate_positions(page_id)
