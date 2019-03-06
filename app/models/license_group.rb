@@ -5,4 +5,9 @@ class LicenseGroup < ActiveRecord::Base
   def label
     I18n.t("license_group.labels.#{key}")
   end
+
+  def all_ids_for_filter
+    ids = [id]
+    ids.concat(included.pluck(:id))
+  end
 end
