@@ -158,10 +158,9 @@ Rails.application.routes.draw do
   get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
 
   # Non-resource routes last:
-  get "/search" => "search#index",  :as => "search_form"
-  get "/search_results" => "search#search", :as => "search"
-  #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
+  get "/search" => "search#search",  :as => "search"
   get "/search_page" => "search#search_page", :as => "search_page"
+  #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
   match '/404', to: 'errors#not_found', via: :all, as: 'route_not_found'
   match '/500', :to => 'errors#internal_server_error', :via => :all

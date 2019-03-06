@@ -1,10 +1,5 @@
 class SearchController < ApplicationController
   before_action :no_main_container
-
-  def index
-    @suppress_search_icon = true
-  end
-
   def search
     do_search
   end
