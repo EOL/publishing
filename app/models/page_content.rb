@@ -39,8 +39,7 @@ class PageContent < ActiveRecord::Base
   acts_as_list scope: :page
 
   class << self
-    # content_id: 9368757, page_id: 8663597
-    def set_v2_exemplars(starting_page_id = nil)
+    def set_v2_exemplars(starting_page_id = nil, starting_order = nil)
       puts "[#{Time.now}] starting"
       last_flush = Time.now
       STDOUT.flush
@@ -51,63 +50,87 @@ class PageContent < ActiveRecord::Base
       per_cent = all_data.size / 100
       fixed_page = 0
       skipping_count = 0
+      count_on_this_page = 0 # scope
       all_data[1..-1].each_with_index do |row, i|
         medium_id = row[0].to_i
         page_id = row[1].to_i
-        if starting_page_id && page_id < starting_page_id.to_i
-          if skipping_count.zero? || (skipping_count % 1000).zero?
-            puts ".. Skipping #{page_id} (to get to #{starting_page_id}).."
-            STDOUT.flush
-          end
-          next
-        end
-        if skipping_count >= 0
-          puts "Starting with page #{page_id}"
-          STDOUT.flush
-          skipping_count = -1 # Stop notifications.
-        end
-        if fixed_page < page_id
-          fixed_page = page_id
-          fix_duplicate_positions(page_id)
-          puts "[#{Time.now}] FIRST CONTENT FOR PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
-          STDOUT.flush
-          last_flush = Time.now
-        end
         order = row[2].to_i # 0-index
-        last = (row[3] =~ /last/i) # 'first' or 'last'
-        contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
-        if contents.any?
-          count_on_this_page = 0
-          content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
-          if contents.size > 1
-            contents[1..-1].each { |extra| extra.destroy } # Remove duplicates
-          end
-          if last
-            content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.
-          else
-            if order.zero?
-              PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
-              content.move_to_top
-            else
-              if count_on_this_page >= 100
-                puts "[#{Time.now}] .. moving #{medium_id} on page #{page_id} to position #{order + 1}"
-                STDOUT.flush
-                count_on_this_page = 0
-              end
-              content.insert_at(order + 1)
+        begin
+          if starting_page_id && page_id < starting_page_id
+            if skipping_count.zero? || (skipping_count % 1000).zero?
+              puts ".. Skipping #{page_id} (to get to #{starting_page_id}).."
+              STDOUT.flush
             end
+            next
           end
-          count_on_this_page += 1
-          if (i % per_cent).zero? || last_flush < 5.minutes.ago
-            puts "[#{Time.now}] % COMPLETE: #{i / per_cent}"
+          if page_id == starting_page_id && starting_order && starting_order < order
+            puts ".. Skipping #{page_id} position #{order} (to get to position #{starting_order}).."
+            STDOUT.flush
+            next
+          end
+          if skipping_count >= 0
+            puts "Starting with page #{page_id}"
+            STDOUT.flush
+            skipping_count = -1 # Stop notifications.
+          end
+          if fixed_page < page_id
+            fixed_page = page_id
+            fix_duplicate_positions(page_id)
+            puts "[#{Time.now}] FIRST CONTENT FOR PAGE #{page_id}, % COMPLETE: #{i / per_cent}"
             STDOUT.flush
             last_flush = Time.now
+            count_on_this_page = 0
           end
-        else
-          puts "[#{Time.now}] missing: content_type: 'Medium', content_id: #{medium_id}, page_id: #{page_id}"
+          last = (row[3] =~ /last/i) # 'first' or 'last'
+          contents = PageContent.where(content_type: 'Medium', content_id: medium_id, page_id: page_id)
+          if contents.any?
+            content = contents.first # NOTE: #shift does not work on ActiveRecord_Relation, sadly.
+            if contents.size > 1
+              contents[1..-1].each { |extra| extra.destroy } # Remove duplicates
+            end
+            if last
+              content.move_to_bottom # Let's not worry about the ORDER of the worst ones; I think it will naturally work.
+            else
+              if order.zero?
+                PageIcon.create(page_id: page_id, medium_id: medium_id, user_id: 1)
+                content.move_to_top
+              else
+                if count_on_this_page >= 100
+                  puts "[#{Time.now}] .. moving #{medium_id} on page #{page_id} to position #{order + 1}"
+                  STDOUT.flush
+                  count_on_this_page = 0
+                end
+                retries ||= 0
+                begin
+                  content.insert_at(order + 1)
+                rescue => e
+                  if (retries += 1) < 3
+                    puts "[#{Time.now}] !! ERROR: #{e} ... Sleeping (in case there's a publish happening)..."
+                    sleep(120)
+                    puts "[#{Time.now}] Retrying."
+                    retry
+                  end
+                  puts "!! Too many retries. Moving on to the next page. YOU WILL HAVE TO RETRY PAGE #{page_id}!"
+                  starting_page_id = page_id + 1
+                end
+              end
+            end
+            if (i % per_cent).zero? || last_flush < 5.minutes.ago
+              puts "[#{Time.now}] % COMPLETE: #{i / per_cent}"
+              STDOUT.flush
+              last_flush = Time.now
+            end
+          else
+            puts "[#{Time.now}] missing: content_type: 'Medium', content_id: #{medium_id}, page_id: #{page_id}"
+            STDOUT.flush
+          end # of check for content on this page
+        rescue => e
+          puts "[#{Time.now}] FAILED (#{e.message}) with page #{page_id} and position #{order}, row #{i}"
           STDOUT.flush
+        ensure
+          count_on_this_page += 1
         end
-      end
+      end # of loop over all_data
       puts "[#{Time.now}] done."
       STDOUT.flush
     end
