@@ -10,9 +10,6 @@
       .actions.col-md-3
         = form_tag user_registration_path, method: :delete, 'data-confirm': t(:are_you_sure_delete_account) do
           = submit_tag t(:delete_account_button)
-        -#
-          %button.btn.btn-default{class: 'md-primary md-raised'}
-            = link_to(, user_path(current_user), method: :delete, data-confirm: )
     - unless @user.bio.blank?
       %h2= t("user.headers.bio")
       %p= @user.bio
