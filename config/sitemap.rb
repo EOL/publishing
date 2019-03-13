@@ -8,8 +8,6 @@ SitemapGenerator::Sitemap.create do
     add path, lastmod: nil, priority: nil, changefreq: nil
   end
 
-  # /search
-  add_custom search_form_path
   # /terms/search
   add_custom term_search_path
   
