@@ -22,6 +22,13 @@ class TaxonomicStatus < ActiveRecord::Base
         ts.is_preferred = false
       end
     end
+
+    def unusable
+      TaxonomicStatus.where(name: "unusable").first_or_create do |ts|
+        ts.name = "unusable"
+        ts.is_preferred = false
+      end
+    end
   end
 
   # As of this writing, the following were the known "types":
