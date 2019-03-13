@@ -56,16 +56,6 @@ class User < ActiveRecord::Base
     save
   end
 
-  def soft_delete
-    self.skip_reconfirmation!
-    Devise.send_password_change_notification = false
-    weird_password = SecureRandom.hex(8)
-    self.update_attributes!(deleted_at: Time.current,
-      email: dummy_email_for_delete, active: false,
-      password: weird_password, password_confirmation: weird_password,
-      role: "deleted")
-  end
-
   # def email_required?
     # false
   # end
@@ -115,8 +105,6 @@ class User < ActiveRecord::Base
         elsif collection.users.length == 1
           collection.users = [User.admin_user]
           collection.save
-       else
-          collection.users.delete(self)
         end
       end
     end
