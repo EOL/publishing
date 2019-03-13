@@ -18,6 +18,10 @@ class Collection < ActiveRecord::Base
   enum collection_type: [ :normal, :gallery ]
   enum default_sort: [ :position, :sci_name, :sci_name_rev, :sort_field, :sort_field_rev, :hierarchy ]
 
+  def empty?
+    collected_pages.empty? && collection_associations.empty?
+  end
+
   private
 
   def remove_owners

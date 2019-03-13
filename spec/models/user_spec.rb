@@ -2,6 +2,33 @@ require 'rails_helper'
 require 'devise'
 RSpec.describe User, type: :model do
   it { should have_many(:user_downloads).dependent(:destroy) }
+
+  describe "#destroy" do
+    
+    context "when it has collections" do
+      let!(:admin_user) { create(:user, email: "admin@eol.org") }
+      let!(:normal_user) { create(:user) }
+      let!(:other_user) { create(:user) }
+      let!(:page) { create(:page) }
+      let!(:col1) { create(:collection, pages: [page], users: [normal_user]) }
+      let!(:col2) { create(:collection, pages: [page], users: [normal_user]) }
+      let!(:col3) { create(:collection, pages: [], collections: [], users: [normal_user]) }
+      let!(:col4) { create(:collection, pages: [page], users: [normal_user, other_user]) }
+
+      it "transfers non-empty ones that would be orphaned to the admin user" do
+
+        normal_user.destroy
+        col1.reload
+        col2.reload
+        col4.reload
+        expect(Collection.exists?(col3.id)).to be(false)
+        expect(col1.users).to contain_exactly(admin_user)
+        expect(col2.users).to contain_exactly(admin_user)
+        expect(col4.users).to contain_exactly(other_user)
+      end
+    end
+  end
+
 #  describe 'UserFactoryGirl' do
 #    it 'has a valid factory' do
 #      expect(build(:user)).to be_valid

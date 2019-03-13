@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  AdminEmail = "admin@eol.org"
+
   searchkick word_start: [:username, :name]
 
   # Include default devise modules. Others available are:
@@ -24,6 +26,8 @@ class User < ActiveRecord::Base
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+
+  before_destroy :clean_up_collections
 
   # LATER: causes errors for now. :S
   # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
@@ -91,17 +95,30 @@ class User < ActiveRecord::Base
     user!
   end
 
-  def can_delete_account? (user)
-    self.is_admin? || self == user
-  end
-
   def can_edit_collection?(collection)
     self.collections.include?(collection)
   end
 
+  def self.admin_user
+    self.find_by_email(AdminEmail)
+  end
+
+  private
+    def dummy_email_for_delete
+      "dummy_#{self.id}@eol.org"
+    end
+
+    def clean_up_collections
+      collections.find_each do |collection|
+        if collection.empty?
+          collection.destroy
+        elsif collection.users.length == 1
+          collection.users = [User.admin_user]
+          collection.save
+       else
+          collection.users.delete(self)
+        end
+      end
+    end
 end
 
-private
-  def dummy_email_for_delete
-    "dummy_#{self.id}@eol.org"
-  end
