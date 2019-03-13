@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  AdminEmail = "admin@eol.org"
+
   searchkick word_start: [:username, :name]
 
   # Include default devise modules. Others available are:
@@ -11,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :data_curations, inverse_of: :user
   has_many :added_associations, class_name: "PageContent", foreign_key: "association_added_by_user_id"
   has_many :page_icons, inverse_of: :user
-  has_many :user_downloads, inverse_of: :user
+  has_many :user_downloads, inverse_of: :user, dependent: :destroy
 
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections
@@ -24,6 +26,8 @@ class User < ActiveRecord::Base
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
+
+  before_destroy :clean_up_collections
 
   # LATER: causes errors for now. :S
   # validates_attachment_content_type :icon, content_type: /\Aimage\/.*\z/
@@ -50,16 +54,6 @@ class User < ActiveRecord::Base
     skip_confirmation!
     self.active = true
     save
-  end
-
-  def soft_delete
-    self.skip_reconfirmation!
-    Devise.send_password_change_notification = false
-    weird_password = SecureRandom.hex(8)
-    self.update_attributes!(deleted_at: Time.current,
-      email: dummy_email_for_delete, active: false,
-      password: weird_password, password_confirmation: weird_password,
-      role: "deleted")
   end
 
   # def email_required?
@@ -91,17 +85,28 @@ class User < ActiveRecord::Base
     user!
   end
 
-  def can_delete_account? (user)
-    self.is_admin? || self == user
-  end
-
   def can_edit_collection?(collection)
     self.collections.include?(collection)
   end
 
+  def self.admin_user
+    self.find_by_email(AdminEmail)
+  end
+
+  private
+    def dummy_email_for_delete
+      "dummy_#{self.id}@eol.org"
+    end
+
+    def clean_up_collections
+      collections.find_each do |collection|
+        if collection.empty?
+          collection.destroy
+        elsif collection.users.length == 1
+          collection.users = [User.admin_user]
+          collection.save
+        end
+      end
+    end
 end
 
-private
-  def dummy_email_for_delete
-    "dummy_#{self.id}@eol.org"
-  end
