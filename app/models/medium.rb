@@ -33,6 +33,93 @@ class Medium < ActiveRecord::Base
   #   end
   # end
 
+  # NOTE: this is temp code, for use ONCE. If you're reading this, i've probably already run it and you can
+  # probably already delete it.
+  class << self
+    def fix_wikimedia_attributes
+      dbg('STARTING')
+      resource = Resource.find_by_name('Wikimedia Commons')
+      # :identifier, :term_name, :agent_role, :term_homepage
+      agents_file = Rails.root.join('public', 'data', 'wikimedia', 'agent.tab')
+      # :subtype, :access_uri, :usage_terms, :owner, :agent_id
+      media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
+      @agents = slurp(agents_file, :identifier)
+      @media = slurp(media_file, :accessURI)
+      @roles = {}
+      Role.all.each { |role| @roles[role.name.downcase] = role.id }
+      dbg('Looping through media...')
+      total_media = @media.keys.size
+      @media.keys.each_with_index do |access_uri, i|
+        dbg(".. now on medium #{i}/#{total_media} (#{access_uri})") if (i % 100).zero?
+        row = @media[access_uri]
+        agent_ids = []
+        unless row[:agent_id].blank?
+          row[:agent_id].split(/;\s*/).each do |agent_id|
+            if @agents.has_key?(agent_id)
+              agent_ids << @agents[agent_id]
+            else
+              puts "Missing agent #{agent_id} for row #{access_uri}; Skipping..."
+            end
+          end
+        end
+        medium = Medium.where(resource_id: resource.id, source_url: access_uri)
+        if medium.empty?
+          puts "NOT FOUND: Medium #{access_uri}#{row[:subtype].blank? ? '' : " (MAP)"}! Skipping row..."
+          break
+        end
+        medium = medium.first
+        unless row[:subtype].blank?
+          # The ONLY value we have in there (as of this writing) is "map"
+          medium.subclass = :map
+        end
+        medium.attributions.delete_all
+        agent_ids.each do |agent|
+          # :identifier, :term_name, :agent_role, :term_homepage
+          role_id = if @roles.has_key?(agent[:agent_role])
+                      @roles[agent[:agent_role]]
+                    else
+                      dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
+                      @roles['contributor']
+                    end
+          agent = Agent.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
+            value: agent[:term_name], url: agent[:term_homepage], resource_id: resource.id,
+            content_resource_fk: agent[:identifier])
+          medium.agents << agent
+        end
+        medium.owner = row[:owner]
+        medium.usage_statement = row[:usage_terms]
+        medium.save
+      end
+    end
+
+    def slurp(file, key)
+      dbg("slurping #{file}")...
+      require 'csv'
+      # NOTE: I tried the "headers: true" and "forgiving" mode or whatever it was called, but it didn't work. The
+      # quoting in this file is really non-conformant (there's one line where there are TWO sets of quotes and that
+      # breaks), so I'm just using this "cheat" that I found online where it uses a null for a quote, and I'm building
+      # my own hash (inefficiently, but we don't care):
+      all_data = CSV.read(file, col_sep: "\t", quote_char: "\x00")
+      keys = all_data.shift
+      keys.map! { |key| key.underscore.downcase.to_sym }
+      hash = {}
+      all_data.each do |row|
+        row_hash = Hash[keys.zip(row)]
+        identifier = row_hash.delete(key)
+        raise "DUPLICATE IDENTIFIER! #{identifier}" if hash.has_key?(identifier)
+        hash[identifier] = row_hash
+      end
+      hash
+    end
+
+    # NOTE: temp code for fix_wikimedia_attributes
+    def dbg(msg)
+      puts "[#{Time.now}] #{msg}"
+      @last_flush = Time.now
+      STDOUT.flush
+    end
+  end
+
   def source_pages
     if page_contents.loaded? && page_contents.first&.association(:page)&.loaded?
       page_contents.select { |pc| pc.source_page_id == page_id }.map(&:page)

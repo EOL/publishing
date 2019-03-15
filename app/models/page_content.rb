@@ -63,7 +63,7 @@ class PageContent < ActiveRecord::Base
             end
             next
           end
-          if page_id == starting_page_id && starting_order && starting_order < order
+          if page_id == starting_page_id && starting_order && starting_order > order
             puts ".. Skipping #{page_id} position #{order} (to get to position #{starting_order}).."
             STDOUT.flush
             next
