@@ -51,7 +51,7 @@ class Medium < ActiveRecord::Base
       License.all.each { |lic| @licenses[lic.source_url.downcase] = lic.id }
       dbg('Looping through media...')
       total_media = @media.keys.size
-      last_row = i
+      last_row = 0
       begin
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
