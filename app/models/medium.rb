@@ -47,16 +47,18 @@ class Medium < ActiveRecord::Base
       @media = slurp(media_file, :access_uri)
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
+      @licenses = {}
+      License.all.each { |lic| @licenses[lic.source_url.downcase] = lic.id }
       dbg('Looping through media...')
       total_media = @media.keys.size
       @media.keys.each_with_index do |access_uri, i|
-        dbg(".. now on medium #{i}/#{total_media} (#{access_uri})") if (i % 100).zero?
+        dbg(".. now on medium #{i+1}/#{total_media} (#{access_uri})") if (i % 100).zero?
         row = @media[access_uri]
-        agent_ids = []
+        agents = []
         unless row[:agent_id].blank?
           row[:agent_id].split(/;\s*/).each do |agent_id|
             if @agents.has_key?(agent_id)
-              agent_ids << @agents[agent_id]
+              agents << @agents[agent_id].merge(identifier: agent_id)
             else
               puts "Missing agent #{agent_id} for row #{access_uri}; Skipping..."
             end
@@ -73,7 +75,7 @@ class Medium < ActiveRecord::Base
           medium.subclass = :map
         end
         medium.attributions.delete_all
-        agent_ids.each do |agent|
+        agents.each do |agent|
           # :identifier, :term_name, :agent_role, :term_homepage
           role_id = if @roles.has_key?(agent[:agent_role])
                       @roles[agent[:agent_role]]
@@ -81,13 +83,19 @@ class Medium < ActiveRecord::Base
                       dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
                       @roles['contributor']
                     end
-          agent = Agent.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
+          attribution = Attribution.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
             value: agent[:term_name], url: agent[:term_homepage], resource_id: resource.id,
             content_resource_fk: agent[:identifier])
-          medium.agents << agent
+          medium.attributions << attribution
         end
         medium.owner = row[:owner]
-        medium.usage_statement = row[:usage_terms]
+        if row[:usage_terms]
+          if @licenses.has_key?(row[:usage_terms])
+            medium.license_id = @licenses[row[:usage_terms]]
+          else
+            dbg("Unknown license: #{row[:usage_terms]} skipping...")
+          end
+        end
         medium.save
       end
     end
@@ -114,7 +122,7 @@ class Medium < ActiveRecord::Base
 
     # NOTE: temp code for fix_wikimedia_attributes
     def dbg(msg)
-      puts "[#{Time.now}] #{msg}"
+      puts "[#{Time.now.strftime('%F %T')}] #{msg}"
       @last_flush = Time.now
       STDOUT.flush
     end
