@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   get "/search_page" => "search#search_page", :as => "search_page"
   #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  get "/power_users" => "users#power_user_index", :as => "power_users"
   match '/404', to: 'errors#not_found', via: :all, as: 'route_not_found'
   match '/500', :to => 'errors#internal_server_error', :via => :all
 

@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
+  before_action :require_admin, only: :power_user_index
+
   def show
-    @user = User.find(params[:id])
-    redirect_if_user_is_inactive
+    @user = User.find_by!(id: params[:id], active: true)
+  end
+
+  def power_user_index
+    @users = User.where(role: [User.roles[:power_user], User.roles[:admin]])
+    @sort_col = params[:sort_col] || "username"
+    @default_sort_dir = "asc"
+    @sort_dir = params[:sort_dir] || @default_sort_dir
+    @users = @users.order("#{@sort_col} #{@sort_dir}")
+
+    render layout: (request.xhr? ? false : true)
   end
 
   def autocomplete
     render json: User.autocomplete(params[:query])
-  end
-
-  private
-
-  def redirect_if_user_is_inactive
-    unless @user.active
-      flash[:notice] = I18n.t(:user_not_active)
-      redirect_to new_user_session_path
-    end
   end
 end
