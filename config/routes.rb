@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get 'names'
     get 'reindex'
     get 'data'
+    get 'batch_lookup', on: :collection
 
     get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
   end

@@ -291,6 +291,11 @@ class PagesController < ApplicationController
     end
   end
 
+  def batch_lookup
+    # TODO: implement
+    render layout: false
+  end
+
 private
   def handle_page_redirects
     # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more
