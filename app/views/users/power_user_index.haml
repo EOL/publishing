@@ -1,0 +1,14 @@
+%table.uk-table.js-table
+  %caption= t("user.showing_n_power_users", count: @users.length)
+  %thead
+    %tr
+      = render("power_user_header", col_name: "username")
+      = render("power_user_header", col_name: "email")
+      = render("power_user_header", col_name: "created_at")
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td 
+          = link_to(user.username, user)
+        %td= user.email
+        %td= user.created_at

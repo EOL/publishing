@@ -43,7 +43,7 @@ def doit(server, api_token, query, format):
         print >>sys.stderr, r.text
     else:
         sys.stderr.write('Unrecognized response content-type: %s\n' % ct)
-        print >>sys.stderr, r.text[0:1000]
+        print >>sys.stderr, r.text[0:10000]
         sys.exit(1)
     if r.status_code != 200:
         sys.exit(1)

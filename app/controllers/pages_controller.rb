@@ -201,7 +201,9 @@ class PagesController < ApplicationController
   def maps
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
     # NOTE: sorry, no, you cannot choose the page size for maps.
-    @media = @page.maps.by_page(params[:page]).per(18)
+    @media_page_size = 18
+    @media = @page.maps.by_page(params[:page]).per(@media_page_size)
+    @media_count = @media.length
     @subclass = "map"
     @subclass_id = Medium.subclasses[:map]
     return render(status: :not_found) unless @page # 404
@@ -336,14 +338,15 @@ private
     end
     media = @page.media
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
-                 .where(['page_contents.source_page_id = ?', @page.id]).references(:page_contents)
-
-    if params[:license_group_id]
-      @license_group = LicenseGroup.find(params[:license_group_id])
+                 .where(['page_contents.source_page_id = ?', @page.id])
+                 .where('media.subclass != ?', Medium.subclasses[:map])
+                 .references(:page_contents)
+    if params[:license_group]
+      @license_group = LicenseGroup.find_by_key!(params[:license_group])
       media = media
         .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
         .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
-        .where("license_groups.id": @license_group.included.pluck(:id))
+        .where("license_groups.id": @license_group.all_ids_for_filter)
     end
     if params[:subclass]
       @subclass = params[:subclass]

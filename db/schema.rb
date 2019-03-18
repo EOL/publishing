@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190213201442) do
+ActiveRecord::Schema.define(version: 20190306161300) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -346,6 +346,8 @@ ActiveRecord::Schema.define(version: 20190213201442) do
   create_table "license_groups", force: :cascade do |t|
     t.string "key", limit: 255
   end
+
+  add_index "license_groups", ["key"], name: "index_license_groups_on_key", using: :btree
 
   create_table "license_groups_licenses", force: :cascade do |t|
     t.integer "license_id",       limit: 4

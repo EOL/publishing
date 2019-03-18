@@ -8,13 +8,13 @@ module MediaHelper
     t("content_not_in_any_collection_#{medium.subclass}")
   end
 
-  def medium_name_html(medium, page=nil)
+  def medium_name_html(medium)
     name = medium.name
 
     if name.blank?
-      name = page ?
-        t("medium.untitled.#{medium.subclass}_of", page_name: page.name) :
-        t("medium.untitled.#{medium.subclass}")
+        name = medium.source_pages.any? ? 
+          t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
+          t("medium.untitled.#{medium.subclass}")
     end
 
     name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe

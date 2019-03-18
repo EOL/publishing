@@ -39,5 +39,8 @@ module EolWebsite
     # For neo4j gem, not usual neography access
     config.neo4j.session.type = :http
     config.neo4j.session.url = Rails.application.secrets.traitbank_url
+
+    # Search for classes in the lib directory
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end

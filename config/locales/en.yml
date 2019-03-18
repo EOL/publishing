@@ -991,6 +991,13 @@ en:
       downloads: "Downloads"
       links: "Links"
     trait_bank_cypher_form: "Trait bank cypher form"
+    list_of_power_users: "List of power users"
+    username: "username"
+    email: "email"
+    created_at: "created"
+    showing_n_power_users:
+      one: "Listing one power user"
+      other: "Listing %{count} power users"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
     you_must_select: "You must select at least one attribute"

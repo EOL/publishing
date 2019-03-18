@@ -1,0 +1,6 @@
+- is_this_col = @sort_col == col_name
+%th{class: "col #{is_this_col ? "is-col-active" : nil}"}
+  = link_to(power_users_path(sort_col: col_name, sort_dir: (is_this_col ? (@sort_dir == "asc" ? "desc" : "asc") : @default_sort_dir)), class: "js-sort-by", remote: true, data: { type: "html" }) do
+    %span= t("user.#{col_name}")
+    - if is_this_col
+      %i{class: "fa fa-arrow-#{@sort_dir == "asc" ? "down" : "up"}"} 

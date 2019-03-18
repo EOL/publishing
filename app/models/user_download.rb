@@ -1,11 +1,13 @@
 class UserDownload < ActiveRecord::Base
   belongs_to :user, inverse_of: :user_downloads
-  belongs_to :term_query
-  has_one :download_error, class_name: "UserDownload::Error" # Weird exceptions in delayed_job when this was set to just "error". 
+  belongs_to :term_query, dependent: :delete # delete because destroy creates bidirectional dependent: :destroy, which causes stack overflow, and we only care about running callbacks here
+  has_one :download_error, class_name: "UserDownload::Error", dependent: :destroy # Weird exceptions in delayed_job when this was set to just "error".
   validates_presence_of :user_id
   validates_presence_of :count
   validates_presence_of :term_query
   validates_presence_of :search_url
+
+  after_destroy :delete_file
 
   enum status: { created: 0, completed: 1, failed: 2 }
 
@@ -21,7 +23,6 @@ class UserDownload < ActiveRecord::Base
   end
 
 private
-
   def background_build
     begin
       downloader = TraitBank::DataDownload.new(term_query, count, search_url)
@@ -47,4 +48,15 @@ private
     end
   end
   handle_asynchronously :background_build, :queue => "download"
+
+  def delete_file
+    if self.completed? && !self.filename.blank?
+      path = TraitBank::DataDownload.path.join(self.filename)
+      begin
+        File.delete(path)
+      rescue => e
+        Rails.logger.error("Failed to delete user download file #{path}", e)
+      end
+    end
+  end
 end

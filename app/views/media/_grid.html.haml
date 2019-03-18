@@ -19,7 +19,7 @@
               .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
                 .uk-modal-header
-                  = link_to(medium_name_html(image, page), link_path)
+                  = link_to(medium_name_html(image), link_path)
                   .ui.label= image&.license&.name
                   %br
                   %i.copyright.icon

@@ -171,6 +171,25 @@ RETURN  p.canonical, pred.name, p2.canonical, r.resource_id, p.page_id, t.eol_pk
 LIMIT 5
 ```
 
+## Show values of several record types, wherever all are available for a given taxon
+
+This query shows a value for each of three record types, for any taxon that has all three. Two record types are for the same predicate (body mass) at different lifestages (newborn and adult). The third is for a different predicate (litter size). This construction presumes that body mass records must have units. You could include additional metadata, either as constraints on the match, or as values to return.
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+(t)-[:predicate]->(pred:Term {uri: "http://purl.obolibrary.org/obo/VT_0001259"}),
+(t)-[:units_term]->(units1:Term),
+(t)-[:lifestage_term]->(stage1:Term {uri:"http://purl.bioontology.org/ontology/CSP/0070-1441"}),
+(t1:Trait)<-[:trait]-(p:Page),
+(t1)-[:predicate]->(pred:Term {uri: "http://purl.obolibrary.org/obo/VT_0001259"}),
+(t1)-[:units_term]->(units2:Term),
+(t1)-[:lifestage_term]->(stage2:Term {uri:"http://www.ebi.ac.uk/efo/EFO_0001272"}),
+(t2:Trait)<-[:trait]-(p:Page),
+(t2)-[:predicate]->(pred2:Term {uri: "http://purl.obolibrary.org/obo/VT_0001933"})
+RETURN p.canonical, t.measurement, units1.name, stage1.name, t1.measurement, units2.name, stage2.name, pred2.name, t2.measurement
+LIMIT 40
+```
+
 ## Provenance of trait record
 
 Provenance metadata can be found as properties on the trait node or as linked MetaData nodes. 
@@ -205,4 +224,15 @@ WHERE tp0.uri = "http://eol.org/schema/terms/growthHabit"
 OPTIONAL MATCH (t0)-[:object_term]->(obj:Term)
 RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
+```
+
+## For how many taxa does EOL have a measure of size?
+
+This query shows the number of taxa in EOL that have trait records with a predicate that is size (http://purl.obolibrary.org/obo/PATO_0000117) or a subclass of size like wingspan, body mass, etc.
+
+```
+MATCH (taxa:Page)-[:trait]->(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN COUNT(DISTINCT taxa)
+LIMIT 1;
 ```

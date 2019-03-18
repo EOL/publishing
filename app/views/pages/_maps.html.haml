@@ -4,5 +4,5 @@
 - if @page.occurrence_map?
   = render "json_map"
 - unless @page.maps.blank?
-  %h3= t("maps.other_maps_title")
+  %h3.other-maps-title= t("maps.other_maps_title")
   = render "page_media", filterable: false

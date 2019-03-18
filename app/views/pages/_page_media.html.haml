@@ -29,7 +29,7 @@
             -#
               - License.types.each do |lic|
             - @license_groups.sort { |a, b| a.label.downcase <=> b.label.downcase }.each do |grp|
-              = link_to(grp.label, page_media_path(page_id: @page.id, license_group_id: grp.id, subclass: @subclass, resource_id: @resource_id),
+              = link_to(grp.label, page_media_path(page_id: @page.id, license_group: grp.key, subclass: @subclass, resource_id: @resource_id),
                 data: { type: 'html' }, class: "item#{ grp == @license_group ? " active" : ""}")
       -# .ui.dropdown.item
       -#   - if @subclass
@@ -55,10 +55,10 @@
           %i.dropdown.icon
           .menu.uk-height-medium.uk-overflow-auto
             = link_to(t(:filter_by_resource_any_item),
-              page_media_path(page_id: @page.id, subclass: @subclass, license: @license, resource_id: nil),
+              page_media_path(page_id: @page.id, subclass: @subclass, license_group: @license_group&.key, resource_id: nil),
                 data: { type: 'html' }, class: "item#{ @resource.nil? ? " active" : ""}")
             - @resources.each do |resource|
-              = link_to(resource.name, page_media_path(page_id: @page.id, license: @license, subclass: @subclass, resource_id: resource.id),
+              = link_to(resource.name, page_media_path(page_id: @page.id, license_group: @license_group&.key, subclass: @subclass, resource_id: resource.id),
                 data: { type: 'html' }, class: "item#{ resource.id == @resource_id ? " active" : ""}")
   - total_pages = (@media_count.to_f / @media_page_size).ceil
   %div{ class: "uk-visible@m" }
