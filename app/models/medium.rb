@@ -93,7 +93,7 @@ class Medium < ActiveRecord::Base
     end
 
     def slurp(file, key)
-      dbg("slurping #{file}")...
+      dbg("slurping #{file} ...")
       require 'csv'
       # NOTE: I tried the "headers: true" and "forgiving" mode or whatever it was called, but it didn't work. The
       # quoting in this file is really non-conformant (there's one line where there are TWO sets of quotes and that
