@@ -44,7 +44,7 @@ class Medium < ActiveRecord::Base
       # :subtype, :access_uri, :usage_terms, :owner, :agent_id
       media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
       @agents = slurp(agents_file, :identifier)
-      @media = slurp(media_file, :accessURI)
+      @media = slurp(media_file, :access_uri)
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
       dbg('Looping through media...')
