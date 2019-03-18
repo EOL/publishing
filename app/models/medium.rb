@@ -71,7 +71,7 @@ class Medium < ActiveRecord::Base
           medium = Medium.where(resource_id: resource.id, source_url: access_uri)
           if medium.empty?
             puts "NOT FOUND: Medium #{access_uri}#{row[:subtype].blank? ? '' : " (MAP)"}! Skipping row..."
-            break
+            next
           end
           medium = medium.first
           unless row[:subtype].blank?
