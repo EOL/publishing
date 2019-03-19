@@ -51,7 +51,7 @@ class Medium < ActiveRecord::Base
       License.all.each { |lic| @licenses[lic.source_url.downcase] = lic.id }
       dbg('Looping through media...')
       total_media = @media.keys.size
-      last_row = i
+      last_row = 0
       begin
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
@@ -71,7 +71,7 @@ class Medium < ActiveRecord::Base
           medium = Medium.where(resource_id: resource.id, source_url: access_uri)
           if medium.empty?
             puts "NOT FOUND: Medium #{access_uri}#{row[:subtype].blank? ? '' : " (MAP)"}! Skipping row..."
-            break
+            next
           end
           medium = medium.first
           unless row[:subtype].blank?
