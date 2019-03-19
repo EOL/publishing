@@ -23,7 +23,8 @@ Rails.application.routes.draw do
     get 'names'
     get 'reindex'
     get 'data'
-    get 'batch_lookup', on: :collection
+    get 'batch_lookup' => "pages#batch_lookup", on: :collection, as: :batch_lookup
+    post 'batch_lookup' => "pages#do_batch_lookup", on: :collection
 
     get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
   end

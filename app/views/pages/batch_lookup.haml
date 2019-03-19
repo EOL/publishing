@@ -1,1 +1,8 @@
 %div batch page lookup widget
+= form_tag(batch_lookup_pages_path, method: "post") do
+  = text_area_tag "content"
+  = submit_tag "look up names"
+
+-if @results
+  %div RESULTS
+  

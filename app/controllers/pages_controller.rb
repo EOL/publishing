@@ -296,6 +296,20 @@ class PagesController < ApplicationController
     render layout: false
   end
 
+  def do_batch_lookup
+    lines = params[:content].split("\n")
+    searches = lines.collect do |line|
+      Page.search(line, {
+        fields: ['preferred_scientific_names'],
+        match: :phrase,
+        limit: 1,
+        execute: false
+      })
+    end
+    Searchkick.multi_search(searches)
+    render "batch_lookup", layout: false
+  end
+
 private
   def handle_page_redirects
     # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more
