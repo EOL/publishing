@@ -7,6 +7,7 @@ class MediaController < ApplicationController
   end
 
   def fix_source_pages
+    @medium.fix_source_pages
     flash[:notice] = '"Appears on" pages have been repaired. The list now reflects what is in the database.'
     render action: :show
   end
