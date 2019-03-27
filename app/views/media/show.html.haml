@@ -25,6 +25,10 @@
               - @medium.page_icons.includes(:page).each do |page_icon|
                 %li= link_to_page_canonical(page_icon.page)
           %h3= t(:content_appears_on)
+          - if is_admin?
+            %p
+              = link_to('Repair this list', fix_source_pages_medium_path(@medium))
+              = "-- (Only click this if you're sure it's wrong!)"
           %ul
             - medium_appears_on(@medium).each do |page|
               %li= link_to_page_canonical(page)
