@@ -34,6 +34,6 @@ private
         ]
       },
       attributions: :role
-    ).find(params[:id])
+    ).find(params[:id] || params[:medium_id])
   end
 end
