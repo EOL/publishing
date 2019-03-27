@@ -27,7 +27,7 @@
           %h3= t(:content_appears_on)
           - if is_admin?
             %p
-              = link_to('Repair this list', fix_source_pages_medium_path(@medium))
+              = link_to('Repair this list', medium_fix_source_pages_path(@medium))
               = "-- (Only click this if you're sure it's wrong!)"
           %ul
             - medium_appears_on(@medium).each do |page|
