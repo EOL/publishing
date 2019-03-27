@@ -1,7 +1,19 @@
 class MediaController < ApplicationController
   layout "application"
 
+  before_filter :get_medium
+
   def show
+  end
+
+  def fix_source_pages
+    flash[:notice] = '"Appears on" pages have been repaired. The list now reflects what is in the database.'
+    render :show
+  end
+
+private
+
+  def get_medium
     @medium = Medium.includes(
       :license,
       :bibliographic_citation,
@@ -23,11 +35,5 @@ class MediaController < ApplicationController
       },
       attributions: :role
     ).find(params[:id])
-  end
-
-  def fix_source_pages
-    @medium = Medium.find(params[:id])
-    flash[:notice] = '"Appears on" pages have been repaired. The list now reflects what is in the database.'
-    redirect_to(medium_path(@medium))
   end
 end
