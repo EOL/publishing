@@ -407,7 +407,7 @@ class Page < ActiveRecord::Base
   end
 
   def map_count
-    PageContent.where(source_page_id: id, content_type: 'Map').visible.not_untrusted.count + (occurrence_map? ? 1 : 0)
+    maps.count
   end
 
   def sections
