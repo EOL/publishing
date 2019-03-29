@@ -554,7 +554,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionview (>= 4.2.11.1)
   activerecord-import
   acts_as_list
   better_errors

@@ -557,6 +557,17 @@ en:
         one: "%{count} comment"
         other: "%{count} comments"
       reindex: "reindex"
+    batch_lookup:
+      header: batch page lookup
+      canonical_name: canonical name
+      download_tsv: download TSV
+      match: match
+      new_search: new search
+      page_id: page ID
+      page_url: page URL
+      query: query
+      query_cant_be_blank: query can't be blank
+      search: search
     overview:
       eol_has_data_for_n_attributes_html:
         one: "EOL has data for <a href=\"%{data_path}\">one attribute</a>:"

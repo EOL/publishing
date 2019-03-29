@@ -1,8 +1,29 @@
-%div batch page lookup widget
-= form_tag(batch_lookup_pages_path, method: "post") do
-  = text_area_tag "content"
-  = submit_tag "look up names"
+%h1.uk-text-large.uk-text-center.uk-margin-top= t(".header")
+.uk-container.uk-container-small
+  = form_tag(batch_lookup_results_pages_path, method: "get", class: "uk-form-stacked") do
+    .uk-margin
+      = text_area_tag "query", @lines.join("\n"), class: "uk-textarea uk-height-medium", resize: "none", placeholder: "type/paste scientific names, one name per line"
+    .uk-margin
+      = submit_tag t(".search"), class: "uk-button uk-button-default"
 
--if @results
-  %div RESULTS
-  
+-if @lines.any?
+  .uk-container.uk-container-small.uk-margin-top
+    = link_to(t(".download_tsv"), @tsv_path)
+    %table.uk-table.uk-margin-remove
+      %thead
+        %tr
+          %th= t(".query")
+          %th= t(".match")
+          %th= t(".canonical_name")
+          %th= t(".page_id")
+          %th= t(".page_url")
+      %tbody
+        - @lines.each do |line|
+          - result = @results_by_line[line]&.first
+          %tr
+            %td= line
+            %td= result ? true : false
+            %td= result&.canonical&.html_safe
+            %td= result&.id
+            %td= result ? link_to(page_url(result)) : nil
+      

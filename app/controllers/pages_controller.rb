@@ -1,3 +1,5 @@
+require 'csv'
+
 class PagesController < ApplicationController
   include DataAssociations
   before_filter :handle_page_redirects
@@ -9,6 +11,13 @@ class PagesController < ApplicationController
 
   DEFAULT_LANG_GROUP = "en"
   ALL_LANG_GROUP = "show_all"
+  BATCH_LOOKUP_HEADER_KEYS = [
+    "query",
+    "match",
+    "canonical_name",
+    "page_id",
+    "page_url"
+  ]
 
   # See your environment config; this action should be ignored by logs.
   def ping
@@ -293,21 +302,56 @@ class PagesController < ApplicationController
 
   def batch_lookup
     # TODO: implement
-    render layout: false
+    @lines = []
+    render layout: "application"
   end
 
-  def do_batch_lookup
-    lines = params[:content].split("\n")
-    searches = lines.collect do |line|
-      Page.search(line, {
+  def batch_lookup_results
+    @lines = params[:query].strip.split("\n").collect(&:strip)
+    @tsv_path = batch_lookup_results_pages_path(query: params[:query], format: "csv")
+    @results_by_line = {}
+    searches = @lines.collect do |line|
+      search = Page.search(line, {
         fields: ['preferred_scientific_names'],
         match: :phrase,
         limit: 1,
         execute: false
       })
+      @results_by_line[line] = search
+      search
     end
     Searchkick.multi_search(searches)
-    render "batch_lookup", layout: false
+
+    respond_to do |format|
+      format.csv do
+        tsv_data = CSV.generate(col_sep: "\t") do |tsv|
+          tsv << BATCH_LOOKUP_HEADER_KEYS.collect do |key|
+            I18n.t("pages.batch_lookup.#{key}")
+          end
+          @lines.each do |line|
+            results = @results_by_line[line]
+
+            if results.any?
+              result = results.first
+              tsv << [
+                line,
+                true,
+                result.canonical,
+                result.id,
+                page_url(result)
+              ]
+            else
+              tsv << [line, false]
+            end
+          end
+        end
+        send_data tsv_data, filename: "batch_page_lookup.tsv"
+      end
+
+      format.html do
+        render "batch_lookup", layout: "application"
+      end
+    end
   end
 
 private
