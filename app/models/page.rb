@@ -705,6 +705,11 @@ class Page < ActiveRecord::Base
     nodes.includes(:resource).where({ resources: { classification: true } })
   end
 
+  # not maps
+  def regular_media
+    media.not_maps
+  end
+
   private
 
   def first_image_content

@@ -331,15 +331,14 @@ private
     else
       @license_groups = LicenseGroup
         .joins(:licenses)
-        .where('licenses.id': @page.media.pluck(:license_id).uniq)
+        .where('licenses.id': @page.regular_media.pluck(:license_id).uniq)
         .distinct
-      @subclasses = @page.media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
-      @resources = Resource.where(id: @page.media.pluck(:resource_id).uniq).select('id, name').sort
+      @subclasses = @page.regular_media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+      @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
-    media = @page.media
+    media = @page.regular_media
                  .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
                  .where(['page_contents.source_page_id = ?', @page.id])
-                 .where('media.subclass != ?', Medium.subclasses[:map])
                  .references(:page_contents)
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])

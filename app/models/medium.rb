@@ -17,9 +17,10 @@ class Medium < ActiveRecord::Base
   enum subclass: [ :image, :video, :sound, :map, :js_map ] # NOTE: "map" implies "image map".
   enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav, :mp4 ]
 
-  scope :images, -> { where(subclass: :image) }
-  scope :videos, -> { where(subclass: :video) }
-  scope :sounds, -> { where(subclass: :sound) }
+  scope :images, -> { where(subclass: subclasses[:image]) }
+  scope :videos, -> { where(subclass: subclasses[:video]) }
+  scope :sounds, -> { where(subclass: subclasses[:sound]) }
+  scope :not_maps, -> { where.not(subclass: subclasses[:map]) }
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
 
