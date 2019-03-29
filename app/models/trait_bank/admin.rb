@@ -75,10 +75,12 @@ class TraitBank
         Rails.cache.clear # Sorry, this is easiest. :|
       end
 
+      # options = {name: :meta, q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: 640 })"}
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
         count = count_type_for_resource(name, q)
+        return unless count.positive?
         iters = (count / 25_000.0).ceil
         max_iters = (1.5 * iters).ceil
         iteration = 0
@@ -87,8 +89,12 @@ class TraitBank
           iteration += 1
           if iteration >= max_iters
             new_count = count_type_for_resource(name, q)
-            raise "I have been attempting to delete #{name} data for too many iterations (#{iteration}). "\
-                  "Started with #{count} entries, now there are #{new_count}. Aborting."
+            if new_count.positive?
+              raise "I have been attempting to delete #{name} data for too many iterations (#{iteration}). "\
+                    "Started with #{count} entries, now there are #{new_count}. Aborting."
+            else
+              break
+            end
           end
           break if (iteration >= iters && count_type_for_resource(name, q) <= 0)
         end

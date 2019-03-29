@@ -135,6 +135,23 @@ class Medium < ActiveRecord::Base
     end
   end
 
+  def fix_source_pages
+    source_page = Page.find(page_id)
+    ancestry = source_page.ancestors.map(&:page_id) << page_id
+    new_pages = ancestry - page_contents.map(&:page_id)
+    bad_pages = page_contents.map(&:page_id) - ancestry
+    page_contents.where(page_id: bad_pages).delete_all
+    new_pages.each do |page_id|
+      position = PageContent.where(page_id: page_id).maximum(:position) + 1
+      begin
+        PageContent.create(content: self, page_id: page_id, position: position, resource_id: resource_id,
+          source_page_id: page_id, trust: :trusted)
+      rescue ActiveRecord::RecordNotUnique => e
+        # Ignore.
+      end
+    end
+  end
+
   def source_pages
     if page_contents.loaded? && page_contents.first&.association(:page)&.loaded?
       page_contents.select { |pc| pc.source_page_id == page_id }.map(&:page)
