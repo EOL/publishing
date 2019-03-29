@@ -2,6 +2,7 @@ class MediaController < ApplicationController
   layout "application"
 
   before_filter :get_medium
+  before_filter :require_admin, only: [:fix_source_pages]
 
   def show
   end
