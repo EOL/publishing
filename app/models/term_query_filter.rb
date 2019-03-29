@@ -1,13 +1,9 @@
 class TermQueryFilter < ActiveRecord::Base
   belongs_to :term_query, :inverse_of => :filters
   validates_presence_of :term_query
-  validates_presence_of :pred_uri
-  validates_presence_of :op
-  validates_presence_of :obj_uri, :if => :object_term?
-  validates_presence_of :units_uri, :if => :numeric?
-  validates :num_val1, :presence => true, :numericality => true, :if => :numeric_or_range?
-  validates :num_val2, :presence => true, :numericality => true, :if => :range?
+  validate :validation
 
+  # TODO: remove op field from db
   enum :op => {
     :is_any => 0,
     :is_obj => 1,
@@ -18,31 +14,35 @@ class TermQueryFilter < ActiveRecord::Base
   }
 
   def predicate?
-    is_any?
+    !pred_uri.blank?
+  end
+
+  def units_for_pred?
+    pred_uri && !TraitBank::Terms.units_for_pred(pred_uri).nil?
   end
 
   def object_term?
-    is_obj?
+    !obj_uri.blank?
   end
 
   def numeric?
-    eq? || gt? || lt?
+    !num_val1.blank? || !num_val2.blank?
   end
 
-  def valid_ops
-    ops = [:is_any]
+  def gt?
+    !num_val1.blank? && num_val2.blank?
+  end
 
-    if pred_uri
-      ops << :is_obj if TraitBank::Terms.any_obj_terms_for_pred?(pred_uri)
-      ops += [
-        :eq,
-        :lt,
-        :gt,
-        :range
-      ] if TraitBank::Terms.units_for_pred(pred_uri)
-    end
+  def lt?
+    num_val1.blank? && !num_val2.blank?
+  end
 
-    ops
+  def eq?
+    !num_val1.blank? && num_val1 == num_val2
+  end
+
+  def range?
+    !num_val1.blank? && !num_val2.blank? && num_val1 != num_val2
   end
 
   def to_s
@@ -67,8 +67,36 @@ class TermQueryFilter < ActiveRecord::Base
     pieces.join('/')
   end
 
+  def gt_val
+    num_val1
+  end
+
+  def lt_val
+    num_val2
+  end
+
+  def to_params
+    {
+      pred_uri: pred_uri,
+      obj_uri: obj_uri,
+      num_val1: num_val1,
+      num_val2: num_val2,
+      units_uri: units_uri
+    }
+  end
+
   private
-  def numeric_or_range?
-    numeric? || range?
+  def validation
+    if pred_uri.blank? && obj_uri.blank?
+      errors.add(:pred_uri, "must specify an attribute or a value") 
+      errors.add(:obj_uri, "must specify an attribute or a value") 
+    elsif numeric?
+      if pred_uri.blank?
+        errors.add(:pred_uri, "can't be blank with a numeric value")
+      elsif range? && num_val1 > num_val2
+        errors.add(:num_val2, "must be >= to first value")
+      end
+    end
   end
 end
+

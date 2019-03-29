@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 
@@ -103,6 +103,8 @@ gem 'searchkick'
 gem 'simple_form'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus'
+# OGM (object graph mapper for Neo4J). Added for use with searchkick.
+gem 'neo4j', '~> 9.4'
 # Sitemap
 gem 'sitemap_generator'
 

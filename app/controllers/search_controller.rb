@@ -1,5 +1,12 @@
 class SearchController < ApplicationController
   before_action :no_main_container
+
+  MAX_AUTOCOMPLETE_RESULTS = 10
+
+  def index
+    @suppress_search_icon = true
+  end
+
   def search
     do_search
   end
@@ -10,7 +17,44 @@ class SearchController < ApplicationController
     render :layout => false
   end
 
+  def autocomplete
+    common_options = {
+      match: :text_start,
+      limit: MAX_AUTOCOMPLETE_RESULTS,
+      load: false,
+      misspellings: false,
+      highlight: { tag: "<mark>", encoder: "html" }
+    }
+
+    pages_results = Page.autocomplete(params[:query], common_options)
+    term_results = TermNode.search(params[:query], common_options.merge({ 
+      fields: ['name']
+    }))
+    pages_simple = simple_results(pages_results, "scientific_name", params[:query], "pages")
+    terms_simple = simple_results(term_results, "name", params[:query], "term_nodes")
+    render json: pages_simple.concat(terms_simple)[0, MAX_AUTOCOMPLETE_RESULTS]
+  end
+
 private
+  def simple_results(full_results, default_name_field, query, controller) 
+    result_hash = {}
+    full_results.each do |r|
+      field = r['highlight']&.first&.first&.split('.').first
+      name = r.send(field) || r.send(default_name_field)
+      if name.is_a?(Array)
+        first_hit = name.grep(/#{query}/i)&.first
+        name = first_hit || name.first
+      end
+      result_hash[name] = if result_hash.key?(name)
+        new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
+        { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
+      else
+        { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
+      end
+    end
+    result_hash.values
+  end
+
   # TODO: Mammoth method, break up.
   def do_search
     @search_text = params[:q]
@@ -109,7 +153,8 @@ private
 
     default = params.has_key?(:only)? false : true
     @types = {}
-    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
+    #[ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :predicates, :object_terms ].
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].
       each do |sym|
         @types[sym] = default
       end
@@ -169,6 +214,12 @@ private
       nil
     end
 
+    @terms = if @types[:terms]
+      basic_search(TermNode, fields: ["name"])
+    else
+      nil
+    end
+
     # @links = if @types[:links]
     #   basic_search(Searchkick,
     #     fields: ["name^5", "resource_pk^10", "owner", "description^2"],
@@ -184,7 +235,7 @@ private
       nil
     end
 
-    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users].compact)
+    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].compact)
 
     @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
     @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
@@ -193,6 +244,7 @@ private
     @sounds = SoundSearchDecorator.decorate_collection(@sounds) if @sounds
     @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
     @users = UserSearchDecorator.decorate_collection(@users) if @users
+    @terms = TermSearchDecorator.decorate_collection(@terms) if @terms
 
     # if @types[:predicates]
     #   @predicates_count = TraitBank.count_predicate_terms(@q)

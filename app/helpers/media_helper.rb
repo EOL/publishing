@@ -29,13 +29,16 @@ module MediaHelper
     
     source_pages.each do |source|
       node = source.safe_native_node
-      ancestors = if node
-                    node.node_ancestors.collect(&:ancestor).compact
+      hierarchy_pages = if node
+                    node.node_ancestors.collect do |node_anc|
+                      node_anc&.ancestor&.page
+                    end.compact
                   else
                     []
                   end
-      ancestors.each do |ancestor|
-        page = pages.delete(ancestor.page&.id)
+      hierarchy_pages << source
+      hierarchy_pages.each do |hierarchy_page|
+        page = pages.delete(hierarchy_page&.id)
         appears_on << page if page
       end
     end

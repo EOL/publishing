@@ -7,7 +7,7 @@ class TraitsController < ApplicationController
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
-    @query.filters.build(:op => :is_any)
+    @query.filters.build()
   end
 
   def search_results
@@ -50,13 +50,11 @@ class TraitsController < ApplicationController
   def show
     filter_options = if params[:obj_uri]
       {
-        :op => :is_obj,
         :pred_uri => params[:uri],
         :obj_uri => params[:obj_uri]
       }
     else
       {
-        :op => :is_any,
         :pred_uri => params[:uri]
       }
     end
@@ -83,7 +81,6 @@ class TraitsController < ApplicationController
       ]
     ])
   end
-
   def build_query
     @query = TermQuery.new(tq_params)
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]

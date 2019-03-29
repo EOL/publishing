@@ -49,19 +49,27 @@ module TermsHelper
   end
 
   def filter_display_string(filter)
-    case filter.op.to_sym
-    when :is_any
-      is_any_display_string(filter)
-    when :is_obj
-      is_obj_display_string(filter)
-    when :eq
-      num_display_string(filter)
-    whn :lt
-      num_display_string(filter)
-    when :gt
-      num_display_string(filter)
-    when :range
-      range_display_string(filter)
+    if filter.predicate?
+      parts = []
+      parts << pred_name(filter.pred_uri)
+
+      if filter.object_term?
+        parts << ": #{obj_name(filter.obj_uri)}"
+      elsif filter.numeric?
+        if filter.gt?
+          parts << " >= #{filter.num_val1}"
+        elsif filter.lt?
+          parts << " <= #{filter.num_val2}"
+        elsif filter.eq?
+          parts << " = #{filter.num_val1}"
+        elsif filter.range?
+          parts << " in [#{filter.num_val1}, #{filter.num_val2}]"
+        end
+        parts << " #{units_name(filter.units_uri)}"
+      end
+      parts.join("")
+    elsif filter.object_term?
+      "value: #{obj_name(filter.obj_uri)} "
     end
   end
 

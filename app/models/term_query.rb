@@ -53,4 +53,12 @@ class TermQuery < ActiveRecord::Base
     options.reverse_merge(per: 10, page: 1, result_type: :record) # Smaller number for console testing.
     TraitBank.term_search(self, options)[:data]
   end
+
+  def to_params
+    {
+      result_type: result_type,
+      clade_id: clade&.id,
+      filters_attributes: filters.collect { |f| f.to_params }
+    }
+  end
 end

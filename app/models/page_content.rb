@@ -51,6 +51,7 @@ class PageContent < ActiveRecord::Base
       fixed_page = 0
       skipping_count = 0
       count_on_this_page = 0 # scope
+      just_skipped_high_row = false # scope
       all_data[1..-1].each_with_index do |row, i|
         medium_id = row[0].to_i
         page_id = row[1].to_i
@@ -68,6 +69,12 @@ class PageContent < ActiveRecord::Base
             STDOUT.flush
             next
           end
+          if order > 3000 # We don't *really* care about order past 3000 images
+            puts ".. SKIPPING rows higher than 3000 for page #{page_id}" unless just_skipped_high_row
+            just_skipped_high_row = true
+            next
+          end
+          just_skipped_high_row = false
           if skipping_count >= 0
             puts "Starting with page #{page_id}"
             STDOUT.flush

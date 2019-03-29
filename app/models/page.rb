@@ -407,7 +407,7 @@ class Page < ActiveRecord::Base
   end
 
   def map_count
-    PageContent.where(source_page_id: id, content_type: 'Map').visible.not_untrusted.count + (occurrence_map? ? 1 : 0)
+    maps.count
   end
 
   def sections
@@ -703,6 +703,11 @@ class Page < ActiveRecord::Base
   # Nodes methods
   def classification_nodes
     nodes.includes(:resource).where({ resources: { classification: true } })
+  end
+
+  # not maps
+  def regular_media
+    media.not_maps
   end
 
   private

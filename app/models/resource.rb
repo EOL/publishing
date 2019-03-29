@@ -95,8 +95,6 @@ class Resource < ActiveRecord::Base
     ImportLog.create(resource_id: id, status: "currently running")
   end
 
-  # NOTE: this does NOT remove TraitBank content (because there are cases where you want to reload the relational DB but
-  # leave the expensive traits in place) Run TraitBank::Admin.remove_for_resource(resource) to accomplish that.
   def remove_content
     log = []
     # Node ancestors
@@ -203,7 +201,10 @@ class Resource < ActiveRecord::Base
     delete = options.key?(:delete) ? options[:delete] : false
     page_counts = {}
     type_table = type.table_name
-    contents = PageContent.where(content_type: type.name, resource_id: id)
+    first_content_id = type.where(resource_id: id).first&.id
+    last_content_id = type.where(resource_id: id).last&.id
+    contents = PageContent.where(content_type: type.name, resource_id: id).
+                           where(["content_id >= ? AND content_id <= ?", first_content_id, last_content_id])
     contents = contents.where(options[:clause]) if options[:clause]
     if delete
       contents.joins(

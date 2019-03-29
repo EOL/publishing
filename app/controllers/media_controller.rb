@@ -1,7 +1,22 @@
 class MediaController < ApplicationController
   layout "application"
 
+  before_filter :get_medium
+  before_filter :require_admin, only: [:fix_source_pages]
+
   def show
+  end
+
+  def fix_source_pages
+    @medium.fix_source_pages
+    get_medium # You need to reload it for it to display properly.
+    flash[:notice] = '"Appears on" pages have been repaired. The list now reflects what is in the database.'
+    render action: :show
+  end
+
+private
+
+  def get_medium
     @medium = Medium.includes(
       :license,
       :bibliographic_citation,
@@ -22,6 +37,6 @@ class MediaController < ApplicationController
         ]
       },
       attributions: :role
-    ).find(params[:id])
+    ).find(params[:id] || params[:medium_id])
   end
 end

@@ -35,8 +35,10 @@
   color: #f00;
   font-size: 12px;
   position: absolute;
+  overflow: visible;
   text-align: center;
   top: -15px;
+  white-space: nowrap;
   width: 100%;
 }
 

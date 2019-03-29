@@ -58,7 +58,9 @@ Rails.application.routes.draw do
   end
   resources :collection_associations, only: [:new, :create, :destroy]
   resources :collected_pages
-  resources :media, only: [:show]
+  resources :media, only: [:show] do
+    get 'fix_source_pages'
+  end
   resources :open_authentications, only: [:new, :create]
   resources :page_icons, only: [:create]
   resources :resources, only: [:index, :show] do
@@ -75,6 +77,8 @@ Rails.application.routes.draw do
     post "publish" => "home_page_feeds#publish", :as => "publish"
     resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
   end
+
+  resources :term_nodes, only: :show, constraints: { id: /http.*/ }
 
   scope '/api' do
     id_match = /[-\w\.,]+(?=\.(json|xml))/
@@ -161,6 +165,7 @@ Rails.application.routes.draw do
   # Non-resource routes last:
   get "/search" => "search#search",  :as => "search"
   get "/search_page" => "search#search_page", :as => "search_page"
+  get "/autocomplete/:query" => "search#autocomplete"
   #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
   get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
   get "/power_users" => "users#power_user_index", :as => "power_users"

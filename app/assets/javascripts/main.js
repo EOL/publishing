@@ -330,6 +330,16 @@ if (!window.EOL) {
     });
     EOL.pagesAutocomplete.initialize();
 
+    EOL.combinedAutocomplete = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: '/autocomplete/%QUERY',
+        wildcard: '%QUERY'
+      }
+    });
+    EOL.combinedAutocomplete.initialize();
+
     // Show/hide overlay
     EOL.showOverlay = function(id) {
       EOL.hideOverlay();
@@ -421,7 +431,7 @@ if (!window.EOL) {
       minLength: 3,
       highlight: true
     }, {
-      source: EOL.pagesAutocomplete,
+      source: EOL.combinedAutocomplete,
       display: 'name',
       limit: navSearchResultsLimit,
       templates: {

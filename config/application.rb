@@ -3,6 +3,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'neo4j/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -35,8 +36,11 @@ module EolWebsite
       end
     end
 
+    # For neo4j gem, not usual neography access
+    config.neo4j.session.type = :http
+    config.neo4j.session.url = Rails.application.secrets.traitbank_url
+
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
-
   end
 end

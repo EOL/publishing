@@ -11,29 +11,28 @@
           .l-filter-first.filter-icon
             .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
         %span.js-typeahead-wrap.filter-field.l-filter-full.filter-row{:class => ff.object.errors[:pred_uri].any? ? "is-filter-row-with-errors" : ""}
-          - show_error(ff.object, :pred_uri)
           = text_field_tag "pred_name", pred_name(ff.object.pred_uri), :class => "uk-input js-pred-typeahead", :placeholder => "attribute"
           = ff.hidden_field :pred_uri, :class => "js-typeahead-field"
-        .filter-row
-          = ff.select :op, op_select_options(ff.object), {}, :class => "filter-input uk-select uk-form-width-small js-op-select"
-        - if ff.object.numeric? || ff.object.range?
+          - show_error(ff.object, :pred_uri)
+        - if ff.object.units_for_pred?
           .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
             %span.filter-field
+              = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small", :placeholder => "-∞"
               - show_error(ff.object, :num_val1)
-              = ff.text_field :num_val1, :class => "filter-input uk-input uk-form-width-small"
-            - if ff.object.range?
-              %span.filter-txt to
-              %span.filter-field
-                - show_error(ff.object, :num_val2)
-                = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small"
+            %span.filter-txt to
+            %span.filter-field
+              = ff.text_field :num_val2, :class => "filter-input uk-input uk-form-width-small", :placeholder => "∞"
+              - show_error(ff.object, :num_val2)
           .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
             = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
-        - elsif ff.object.object_term?
+        - else
+          - # If there's a predicate, restrict typeahead to objects for that predicate, o/w allow all 
+          - typeahead_class = ff.object.predicate? ? "pred-obj" : "obj"
           .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
             %span.js-typeahead-wrap.filter-field.l-filter-full
-              - show_error(ff.object, :obj_uri)
-              = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-obj-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
+              = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-#{typeahead_class}-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
               = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
+              - show_error(ff.object, :obj_uri)
 
     .filter-row
       .filter.add-filter.js-add-filter

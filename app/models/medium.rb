@@ -17,9 +17,10 @@ class Medium < ActiveRecord::Base
   enum subclass: [ :image, :video, :sound, :map, :js_map ] # NOTE: "map" implies "image map".
   enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav, :mp4 ]
 
-  scope :images, -> { where(subclass: :image) }
-  scope :videos, -> { where(subclass: :video) }
-  scope :sounds, -> { where(subclass: :sound) }
+  scope :images, -> { where(subclass: subclasses[:image]) }
+  scope :videos, -> { where(subclass: subclasses[:video]) }
+  scope :sounds, -> { where(subclass: subclasses[:sound]) }
+  scope :not_maps, -> { where.not(subclass: subclasses[:map]) }
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
 
@@ -51,7 +52,7 @@ class Medium < ActiveRecord::Base
       License.all.each { |lic| @licenses[lic.source_url.downcase] = lic.id }
       dbg('Looping through media...')
       total_media = @media.keys.size
-      last_row = i
+      last_row = 0
       begin
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
@@ -71,7 +72,7 @@ class Medium < ActiveRecord::Base
           medium = Medium.where(resource_id: resource.id, source_url: access_uri)
           if medium.empty?
             puts "NOT FOUND: Medium #{access_uri}#{row[:subtype].blank? ? '' : " (MAP)"}! Skipping row..."
-            break
+            next
           end
           medium = medium.first
           unless row[:subtype].blank?
@@ -132,6 +133,23 @@ class Medium < ActiveRecord::Base
       puts "[#{Time.now.strftime('%F %T')}] #{msg}"
       @last_flush = Time.now
       STDOUT.flush
+    end
+  end
+
+  def fix_source_pages
+    source_page = Page.find(page_id)
+    ancestry = source_page.ancestors.map(&:page_id) << page_id
+    new_pages = ancestry - page_contents.map(&:page_id)
+    bad_pages = page_contents.map(&:page_id) - ancestry
+    page_contents.where(page_id: bad_pages).delete_all
+    new_pages.each do |page_id|
+      position = PageContent.where(page_id: page_id).maximum(:position) + 1
+      begin
+        PageContent.create(content: self, page_id: page_id, position: position, resource_id: resource_id,
+          source_page_id: page_id, trust: :trusted)
+      rescue ActiveRecord::RecordNotUnique => e
+        # Ignore.
+      end
     end
   end
 
