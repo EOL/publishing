@@ -307,8 +307,9 @@ class PagesController < ApplicationController
   end
 
   def batch_lookup_results
-    @lines = params[:query].strip.split("\n").collect(&:strip)
-    @tsv_path = batch_lookup_results_pages_path(query: params[:query], format: "csv")
+    @lines = params[:query].strip.split("\n")[0, 1000].collect(&:strip)
+
+    @tsv_path = batch_lookup_pages_path(query: params[:query], format: "csv")
     @results_by_line = {}
     searches = @lines.collect do |line|
       search = Page.search(line, {

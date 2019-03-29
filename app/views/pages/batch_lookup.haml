@@ -1,6 +1,6 @@
 %h1.uk-text-large.uk-text-center.uk-margin-top= t(".header")
 .uk-container.uk-container-small
-  = form_tag(batch_lookup_results_pages_path, method: "get", class: "uk-form-stacked") do
+  = form_tag(batch_lookup_pages_path, method: "post", class: "uk-form-stacked") do
     .uk-margin
       = text_area_tag "query", @lines.join("\n"), class: "uk-textarea uk-height-medium", resize: "none", placeholder: "type/paste scientific names, one name per line"
     .uk-margin
@@ -8,7 +8,9 @@
 
 -if @lines.any?
   .uk-container.uk-container-small.uk-margin-top
-    = link_to(t(".download_tsv"), @tsv_path)
+    = form_tag(batch_lookup_pages_path(format: "csv")) do
+      = hidden_field_tag :query, params[:query]
+      = submit_tag(t(".download_tsv"), class: "uk-button uk-button-default")
     %table.uk-table.uk-margin-remove
       %thead
         %tr
