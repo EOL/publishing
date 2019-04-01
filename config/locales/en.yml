@@ -996,6 +996,7 @@ en:
   uri_definition_blank: "No one has defined this data yet."
   username: "Username"
   user:
+    batch_page_lookup: "Batch page lookup"
     headers:
       bio: "Brief Biography"
       collections: "Collections"
