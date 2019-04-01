@@ -45,4 +45,34 @@ module MediaHelper
 
     appears_on
   end
+
+  def media_thumbnail(medium) 
+    if medium.sound? || medium.video?
+      content_tag(:div, class: "grid-thumb grid-thumb-av") do
+        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") + 
+        content_tag(:div, medium_name_html(medium))
+      end
+    else
+      image_tag(medium&.medium_size_url, class: "grid-thumb")
+    end
+  end
+
+  def media_image_or_player(medium, img_size)
+    if medium.video?
+      video_tag(medium&.base_url, type: "video/#{medium.format}", controls: true)
+    else
+      image_tag(medium&.send("#{img_size}_size_url"))
+    end
+  end
+
+  private
+  def av_icon_name(medium)
+    if medium.sound?
+      "volume-up"
+    elsif medium.video?
+      "video-camera"
+    else
+      raise "invalid medium type"
+    end
+  end
 end

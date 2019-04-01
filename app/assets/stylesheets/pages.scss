@@ -303,4 +303,25 @@ $font-sz-m: 14px;
   text-align: center;
 }
 
+// media gallery view
+.grid-thumb {
+  height: 190px;
+  width: 260px;
+}
+
+.grid-thumb-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.grid-thumb-av {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+}
 

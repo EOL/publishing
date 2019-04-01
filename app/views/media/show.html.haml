@@ -10,7 +10,7 @@
     .media-body.uk-margin-large-top
       %div{ uk: { grid: true } }
         .media-image.uk-width-2-3
-          = image_tag(@medium.large_size_url)
+          = media_image_or_player(@medium, "large")
           %br/
           %h3= t(:medium_header_description)
           - if @medium.description.blank?
