@@ -11,13 +11,13 @@ class PagesController < ApplicationController
 
   DEFAULT_LANG_GROUP = "en"
   ALL_LANG_GROUP = "show_all"
-  BATCH_LOOKUP_HEADER_KEYS = [
-    "query",
-    "match",
-    "canonical_name",
-    "page_id",
-    "page_url"
-  ]
+  BATCH_LOOKUP_COLS = {
+    "query" => -> (qs, page, url) { qs },
+    "match" => -> (qs, page, url) { !page.nil? },
+    "canonical_name" => -> (qs, page, url) { page.nil? ? nil : page.canonical },
+    "page_id" => -> (qs, page, url) { page.nil? ? nil : page.id },
+    "page_url" => -> (qs, page, url) { url }
+  }
 
   # See your environment config; this action should be ignored by logs.
   def ping
@@ -326,24 +326,14 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.csv do
         tsv_data = CSV.generate(col_sep: "\t") do |tsv|
-          tsv << BATCH_LOOKUP_HEADER_KEYS.collect do |key|
+          tsv << BATCH_LOOKUP_COLS.keys.collect do |key|
             I18n.t("pages.batch_lookup.#{key}")
           end
           @lines.each do |line|
             results = @results_by_line[line]
-
-            if results.any?
-              result = results.first
-              tsv << [
-                line,
-                true,
-                result.canonical,
-                result.id,
-                page_url(result)
-              ]
-            else
-              tsv << [line, false]
-            end
+            result = results.any? ? results.first : nil
+            url = result ? page_url(result) : nil
+            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] } 
           end
         end
         send_data tsv_data, filename: "batch_page_lookup.tsv"
