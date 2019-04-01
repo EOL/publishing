@@ -7,7 +7,7 @@ class VernacularPolicy
   end
 
   def update?
-    user && user.is_admin?
+    user && user.is_power_user?
   end
 
   def destroy?
