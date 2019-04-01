@@ -235,3 +235,15 @@ WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
 RETURN COUNT(DISTINCT taxa)
 LIMIT 1;
 ```
+
+## How many data providers contribute size records to EOL?
+
+This query shows the number of contributing data providers which include records of body mass, cell volume, wingspan, or other measures of size, in their data published to EOL. Note that a given provider may have aggregated their own data, so the records from a given provider may have different citations or references.
+
+```
+MATCH (t:Trait) -[:supplier]->(r:Resource),
+(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN COUNT (DISTINCT r)
+LIMIT 1;
+```
