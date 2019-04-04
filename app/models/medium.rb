@@ -88,7 +88,7 @@ class Medium < ActiveRecord::Base
                         dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
                         @roles['contributor']
                       end
-            if agent[:term_homepage].length > 512
+            if agent[:term_homepage] && agent[:term_homepage].length > 512
               dbg("SKIPPING too-long agent url: #{agent[:term_homepage]}")
               next
             end
