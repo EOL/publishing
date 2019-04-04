@@ -88,6 +88,10 @@ class Medium < ActiveRecord::Base
                         dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
                         @roles['contributor']
                       end
+            if agent[:term_homepage].length > 512
+              dbg("SKIPPING too-long agent url: #{agent[:term_homepage]}")
+              next
+            end
             attribution = Attribution.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
               value: agent[:term_name], url: agent[:term_homepage], resource_id: resource.id,
               content_resource_fk: agent[:identifier])
@@ -104,7 +108,7 @@ class Medium < ActiveRecord::Base
           medium.save
         end
       rescue => e
-        dbg("** ERROR! Ended on row #{last_row}: #{e.to_s}")
+        dbg("** ERROR! Ended on row #{last_row}: #{e}")
       end
     end
 
@@ -117,7 +121,7 @@ class Medium < ActiveRecord::Base
       # my own hash (inefficiently, but we don't care):
       all_data = CSV.read(file, col_sep: "\t", quote_char: "\x00")
       keys = all_data.shift
-      keys.map! { |key| key.underscore.downcase.to_sym }
+      keys.map! { |k| k.underscore.downcase.to_sym }
       hash = {}
       all_data.each do |row|
         row_hash = Hash[keys.zip(row)]
@@ -147,7 +151,7 @@ class Medium < ActiveRecord::Base
       begin
         PageContent.create(content: self, page_id: page_id, position: position, resource_id: resource_id,
           source_page_id: page_id, trust: :trusted)
-      rescue ActiveRecord::RecordNotUnique => e
+      rescue ActiveRecord::RecordNotUnique
         # Ignore.
       end
     end
@@ -182,7 +186,7 @@ class Medium < ActiveRecord::Base
   end
 
   # Drat. :S
-  def name(language = nil)
+  def name(_language = nil)
     self[:name]
   end
 
