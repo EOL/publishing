@@ -218,9 +218,9 @@ LIMIT 5
 This query shows all categorical values represented in records for a given predicate and its children. For instance, woodiness is a child of growth habit, so categorical values for records with a predicate of woodiness will also be found by this query.
 
 ```
-MATCH (t0:Trait)-[:predicate]->(p0:Term)-[:parent_term|:synonym_of*0..]->(tp0:Term)
+MATCH (t0:Trait)-[:predicate]->(p0:Term)-[:parent_term|:synonym_of*0..]->(tp0:Term),
+(t0)-[:object_term]->(obj:Term)
 WHERE tp0.uri = "http://eol.org/schema/terms/growthHabit"
-OPTIONAL MATCH (t0)-[:object_term]->(obj:Term)
 RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
 ```
