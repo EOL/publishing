@@ -242,6 +242,18 @@ LIMIT 100;
 
 ```
 
+
+## Show all predicate terms for size 
+
+These queries show all terms used as predicates and classified as children of Size (PATO_0000117). Children are considered subclasses of the parent term, and may be preferred or deprecated as synonyms. 
+
+```
+MATCH (t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN DISTINCT p.name, p.uri
+LIMIT 100;
+```
+
 ## For how many taxa does EOL have a measure of size?
 
 This query shows the number of taxa in EOL that have trait records with a predicate that is size (http://purl.obolibrary.org/obo/PATO_0000117) or a subclass of size like wingspan, body mass, etc.
