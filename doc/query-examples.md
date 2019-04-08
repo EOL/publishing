@@ -225,6 +225,23 @@ RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
 ```
 
+## Show all predicate terms 
+
+These queries show all terms labeled for use as predicates in EOL. This is a shorthand, because querying for all terms *used* as predicates in the graph is too slow. Note that predicates for ecological association records have a different label
+
+```
+MATCH (t:Term {type:"measurement"})
+RETURN DISTINCT t.name, t.uri
+LIMIT 900;
+```
+
+```
+MATCH (t:Term {type:"association"})
+RETURN DISTINCT t.name, t.uri
+LIMIT 100;
+
+```
+
 ## For how many taxa does EOL have a measure of size?
 
 This query shows the number of taxa in EOL that have trait records with a predicate that is size (http://purl.obolibrary.org/obo/PATO_0000117) or a subclass of size like wingspan, body mass, etc.
