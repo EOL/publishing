@@ -448,13 +448,8 @@ class TraitBank
 
         if filter.object_term?
           matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-
-          if !filter.predicate?
-            matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
-          end
-        end
-
-        if filter.predicate? 
+          matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
+        else
           matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
             "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
@@ -547,23 +542,19 @@ class TraitBank
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
         matches << "(page)-[:trait]->(#{trait_var}:Trait)"
 
-        if filter.predicate?
+        if filter.object_term?
+          matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
+          indexes << "USING INDEX #{obj_var}:Term(uri)"
+        else
           matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
           indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
-
-        if filter.object_term?
-          matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
-        end
-
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
-        indexes << "USING INDEX #{obj_var}:Term(uri)" if filter.object_term?
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
       return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
       # order_clause = options[:count] ? "" : "ORDER BY page.name"
-      order_clause = ''
 
       "MATCH #{matches.join(', ')} "\
       "#{indexes.join(' ')} "\

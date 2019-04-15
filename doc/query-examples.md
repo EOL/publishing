@@ -218,11 +218,40 @@ LIMIT 5
 This query shows all categorical values represented in records for a given predicate and its children. For instance, woodiness is a child of growth habit, so categorical values for records with a predicate of woodiness will also be found by this query.
 
 ```
-MATCH (t0:Trait)-[:predicate]->(p0:Term)-[:parent_term|:synonym_of*0..]->(tp0:Term)
+MATCH (t0:Trait)-[:predicate]->(p0:Term)-[:parent_term|:synonym_of*0..]->(tp0:Term),
+(t0)-[:object_term]->(obj:Term)
 WHERE tp0.uri = "http://eol.org/schema/terms/growthHabit"
-OPTIONAL MATCH (t0)-[:object_term]->(obj:Term)
 RETURN DISTINCT obj.name, obj.uri
 LIMIT 50;
+```
+
+## Show all predicate terms 
+
+These queries show all terms labeled for use as predicates in EOL. This is a shorthand, because querying for all terms *used* as predicates in the graph is too slow. Note that predicates for ecological association records have a different label
+
+```
+MATCH (t:Term {type:"measurement"})
+RETURN DISTINCT t.name, t.uri
+LIMIT 900;
+```
+
+```
+MATCH (t:Term {type:"association"})
+RETURN DISTINCT t.name, t.uri
+LIMIT 100;
+
+```
+
+
+## Show all predicate terms for size 
+
+These queries show all terms used as predicates and classified as children of Size (PATO_0000117). Children are considered subclasses of the parent term, and may be preferred or deprecated as synonyms. 
+
+```
+MATCH (t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN DISTINCT p.name, p.uri
+LIMIT 100;
 ```
 
 ## For how many taxa does EOL have a measure of size?
@@ -233,5 +262,17 @@ This query shows the number of taxa in EOL that have trait records with a predic
 MATCH (taxa:Page)-[:trait]->(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
 WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
 RETURN COUNT(DISTINCT taxa)
+LIMIT 1;
+```
+
+## How many data providers contribute size records to EOL?
+
+This query shows the number of contributing data providers which include records of body mass, cell volume, wingspan, or other measures of size, in their data published to EOL. Note that a given provider may have aggregated their own data, so the records from a given provider may have different citations or references.
+
+```
+MATCH (t:Trait) -[:supplier]->(r:Resource),
+(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
+RETURN COUNT (DISTINCT r)
 LIMIT 1;
 ```

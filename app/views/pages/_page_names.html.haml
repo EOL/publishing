@@ -41,7 +41,7 @@
                       = string.html_safe
                       - if preferred_name
                         %span.uk-label.uk-label-primary.uk-float-right.uk-margin-left= t(:name_preferred_label)
-                      - elsif is_admin?
+                      - elsif is_power_user?
                         -# TODO: admin OR curator...
                         .uk-float-right
                           = link_to(t("names.prefer"), prefer_vernacular_path(names_by_string.first))

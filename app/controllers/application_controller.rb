@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   helper_method :is_admin?
+  helper_method :is_power_user?
   helper_method :main_container?
 
   # For demo, we're using Basic Auth:
@@ -27,6 +28,10 @@ class ApplicationController < ActionController::Base
 
     def is_admin?
       current_user && current_user.is_admin?
+    end
+
+    def is_power_user?
+      current_user && current_user.is_power_user?
     end
 
     # https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses

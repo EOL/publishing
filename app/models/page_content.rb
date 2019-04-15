@@ -143,19 +143,18 @@ class PageContent < ActiveRecord::Base
     end
 
     def fix_duplicate_positions(page_id)
-      exemplar = Page.find(page_id).page_icon&.medium_id
-      final = PageContent.where(page_id: page_id).maximum(:position) + 1
-      (0..final).each do |position|
-        count_at_this_position = PageContent.where(page_id: page_id, position: position).count
-        break if PageContent.where(page_id: page_id, position: position).count <= 1
-        puts "[#{Time.now}] Fixing #{count_at_this_position} duplicate positions of #{position} on page #{page_id}"
-        STDOUT.flush
-        PageContent.where(page_id: page_id, position: position).find_each do |content|
-          if exemplar.nil? || exemplar != content.content_id # Don't move the exemplar.
-            content.update_attribute(:position, final)
-            final += 1
-          end
-        end
+      PageContent.connection.execute("SET @rownum = 0;")
+      PageContent.connection.execute(
+        "UPDATE page_contents pc JOIN (\n"\
+          "SELECT (@rownum :=@rownum + 1) row_num, id FROM page_contents WHERE page_id = #{page_id} ORDER BY position ASC\n"\
+        ") nums ON pc.id = nums.id\n"\
+        "SET pc.position = nums.row_num;"
+      )
+
+      exemplar = Page.find(page_id).page_icon&.page_content
+
+      if exemplar
+        exemplar.move_to_top
       end
     end
 
