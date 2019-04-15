@@ -15,7 +15,7 @@ class Medium < ActiveRecord::Base
 
   # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
   enum subclass: [ :image, :video, :sound, :map, :js_map ] # NOTE: "map" implies "image map".
-  enum format: [ :jpg, :youtube, :flash, :vimeo, :mp3, :ogg, :wav, :mp4 ]
+  enum format: %i[jpg youtube flash vimeo mp3 ogg wav mp4 ogv mov svg webm]
 
   scope :images, -> { where(subclass: subclasses[:image]) }
   scope :videos, -> { where(subclass: subclasses[:video]) }
@@ -57,7 +57,8 @@ class Medium < ActiveRecord::Base
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
           last_row = i+1
-          dbg(".. now on medium #{i+1}/#{total_media} (#{access_uri})") if i == start_row || (i % 100).zero?
+          pct = (total_media / i+1.0).ceil
+          dbg(".. now on medium #{i+1}/#{total_media} (#{pct}% - #{access_uri})") if i == start_row || (i % 100).zero?
           row = @media[access_uri]
           agents = []
           unless row[:agent_id].blank?
