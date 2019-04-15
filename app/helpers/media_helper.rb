@@ -47,10 +47,15 @@ module MediaHelper
   end
 
   def media_thumbnail(medium) 
-    if medium.sound? || medium.video?
+    if medium.sound?
       content_tag(:div, class: "grid-thumb grid-thumb-av") do
         content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") + 
         content_tag(:div, medium_name_html(medium))
+      end
+    elsif medium.video?
+      content_tag(:div, class: "grid-thumb grid-thumb-video") do
+        video_tag(medium&.url_with_format, type: "video/#{medium.format}", controls: false) +
+        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end
     else
       image_tag(medium&.medium_size_url, class: "grid-thumb")
@@ -59,7 +64,7 @@ module MediaHelper
 
   def media_image_or_player(medium, img_size)
     if medium.video?
-      video_tag(medium&.base_url, type: "video/#{medium.format}", controls: true)
+      video_tag(medium&.url_with_format, type: "video/#{medium.format}", controls: true)
     else
       image_tag(medium&.send("#{img_size}_size_url"))
     end

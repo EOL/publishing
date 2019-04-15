@@ -167,23 +167,38 @@ class Medium < ActiveRecord::Base
   end
 
   # TODO: we will have our own media server with more intelligent names:
+  # Image-only methods
   def original_size_url
+    check_is_image
     orig = Rails.configuration.x.image_path['original']
     ext = Rails.configuration.x.image_path['ext']
     base_url + "#{orig}#{ext}"
   end
 
   def large_size_url
+    check_is_image
     base_url + format_image_size(580, 360)
   end
 
   def medium_icon_url
+    check_is_image
     base_url + format_image_size(130, 130)
   end
   alias_method :icon, :medium_icon_url
 
   def medium_size_url
+    check_is_image
     base_url + format_image_size(260, 190)
+  end
+
+  def small_size_url
+    check_is_image
+    base_url + format_image_size(98, 68)
+  end
+
+  def small_icon_url
+    check_is_image
+    base_url + format_image_size(88, 88)
   end
 
   # Drat. :S
@@ -191,12 +206,8 @@ class Medium < ActiveRecord::Base
     self[:name]
   end
 
-  def small_size_url
-    base_url + format_image_size(98, 68)
-  end
-
-  def small_icon_url
-    base_url + format_image_size(88, 88)
+  def url_with_format
+    "#{base_url}.#{format}"
   end
 
   def sound_url
@@ -225,4 +236,9 @@ class Medium < ActiveRecord::Base
       :subclass => subclass
     }
   end
+
+  private
+    def check_is_image
+      raise "method may only be called when Medium subclass is image" unless image?
+    end
 end
