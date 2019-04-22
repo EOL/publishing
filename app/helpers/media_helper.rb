@@ -47,7 +47,7 @@ module MediaHelper
   end
 
   def media_thumbnail(medium) 
-    if medium.sound?
+    if medium.sound? || medium.embedded_video?
       content_tag(:div, class: "grid-thumb grid-thumb-av") do
         content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") + 
         content_tag(:div, medium_name_html(medium))

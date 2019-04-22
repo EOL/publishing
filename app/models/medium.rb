@@ -237,6 +237,10 @@ class Medium < ActiveRecord::Base
     }
   end
 
+  def embedded_video?
+    video? && (youtube? || vimeo?)
+  end 
+
   private
     def check_is_image
       raise "method may only be called when Medium subclass is image" unless image?

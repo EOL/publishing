@@ -327,9 +327,11 @@ $font-sz-m: 14px;
 
 .grid-thumb-av-video {
   & > i {
-    background: #000;
+    background: rgba(#000, .8);
     color: #fff;
     position: relative;
+    text-align: center;
+    width: 100%;
   }
 
   & > video {
