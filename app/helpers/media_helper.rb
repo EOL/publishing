@@ -65,6 +65,8 @@ module MediaHelper
   def media_image_or_player(medium, img_size)
     if medium.video?
       video_tag(medium&.url_with_format, type: "video/#{medium.format}", controls: true)
+    elsif medium.sound?
+      audio_tag(medium&.url_with_format, controls: true, class: "gallery-audio-player")
     else
       image_tag(medium&.send("#{img_size}_size_url"))
     end
