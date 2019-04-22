@@ -45,8 +45,18 @@ function scrollToRecord() {
   }
 }
 
+function setupModals() {
+  // pause audio and video players on hide. 
+  $('.uk-modal').on('beforehide', function() {
+    $(this).find('audio').trigger('pause');
+    $(this).find('video').trigger('pause');
+  });
+}
+
 $(function() {
   setupMenus();
+  setupModals();
   setupBreadcrumbs();
   scrollToRecord();
 });
+

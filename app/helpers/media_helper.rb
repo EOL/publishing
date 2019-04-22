@@ -53,7 +53,7 @@ module MediaHelper
         content_tag(:div, medium_name_html(medium))
       end
     elsif medium.video?
-      content_tag(:div, class: "grid-thumb grid-thumb-video") do
+      content_tag(:div, class: "grid-thumb grid-thumb-av grid-thumb-av-video") do
         video_tag(medium&.url_with_format, type: "video/#{medium.format}", controls: false) +
         content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end

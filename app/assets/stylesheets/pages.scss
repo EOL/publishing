@@ -317,13 +317,15 @@ $font-sz-m: 14px;
   }
 }
 
-.grid-thumb-video {
+.grid-thumb-av {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: auto;
+}
 
+.grid-thumb-av-video {
   & > i {
     background: #000;
     color: #fff;
@@ -341,8 +343,7 @@ $font-sz-m: 14px;
 }
 
 .gallery-audio-player {
-  height: 40px; 
   margin: 0 100px;
-  width: 330px;
+  width: 340px;
 }
 
