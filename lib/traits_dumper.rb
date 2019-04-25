@@ -393,12 +393,11 @@ class TraitsDumper
         skip += @chunksize if @chunksize
       else
         result = run_query(query + " SKIP #{skip} LIMIT #{limit}")
-        # A null result means that there was some kind of error, which
-        # has already been reported.  (because I don't want to learn
-        # ruby exception handling!)
         got = result["data"].length
         if result
-          if got > 0
+          # The skip == 0 test is a kludge that fixes a bug where the
+          # header row was being omitted in some cases
+          if got > 0 || skip == 0
             emit_csv(result, columns, part_path)
             parts.push(part_path)
           else
@@ -474,17 +473,20 @@ class TraitsDumper
   # Utility - convert native cypher output form to CSV
   def emit_csv(start, keys, path)
     # Sanity check the result
-    if start["columns"] == nil or start["data"] == nil or start["data"].length == 0
+    if start["columns"] == nil or start["data"] == nil
       STDERR.puts "** failed to write #{path}; result = #{start}"
       return nil
     end
     temp = path + ".new"
     FileUtils.mkdir_p File.dirname(temp)
     csv = CSV.open(temp, "wb")
-    STDERR.puts "writing #{start["data"].length} csv records to #{temp}"
     csv << keys
-    start["data"].each do |row|
-      csv << row
+    count = start["data"].length
+    if count > 0
+      STDERR.puts "writing #{count} csv records to #{temp}"
+      start["data"].each do |row|
+        csv << row
+      end
     end
     csv.close
     FileUtils.mv temp, path
