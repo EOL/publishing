@@ -41,7 +41,7 @@
                       %li
                         = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
 
-                .uk-modal-body
+                .uk-modal-body.uk-text-center
                   .uk-inline.uk-visible-toggle
                     = media_image_or_player(medium, "original")
                     %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""

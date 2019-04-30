@@ -241,6 +241,14 @@ class Medium < ActiveRecord::Base
     video? && (youtube? || vimeo?)
   end 
 
+  def embed_url
+    raise "only supported for embedded video types" unless embedded_video?
+
+    if youtube?
+      "https://www.youtube.com/embed/#{unmodified_url}?enablejsapi=1"
+    end
+  end
+
   private
     def check_is_image
       raise "method may only be called when Medium subclass is image" unless image?
