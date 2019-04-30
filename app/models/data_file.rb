@@ -60,7 +60,7 @@ class DataFile
     all_data = CSV.read(@file, @options)
     keys = all_data.shift
     keys.map! { |k| k.underscore.downcase.gsub(/\s/, '_').gsub(/[^_\w]/, '').to_sym }
-    all_data.map { |row| array << Hash[keys.zip(row)] }
+    all_data.map { |row| Hash[keys.zip(row)] }
   end
 
   def dbg(msg)
