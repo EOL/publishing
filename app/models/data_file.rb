@@ -45,7 +45,7 @@ class DataFile
 
   # Given a TSV file, this will read those contents and construct an array with each member as a hash keyed to the first
   # row (as headers), downcased, underscored and symbolized.
-  def to_array_of_hashes(key)
+  def to_array_of_hashes
     dbg("Converting #{@file} to hash...")
     require 'csv'
     # NOTE: I tried the "headers: true" and "forgiving" mode or whatever it was called, but it didn't work. The
