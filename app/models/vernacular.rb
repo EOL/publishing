@@ -60,6 +60,7 @@ class Vernacular < ActiveRecord::Base
 
     def import_user_added
       file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
+      file.dbg("Starting!")
       rows = file.to_array_of_hashes
       # Find pages in batches, including native_node
       # Find users in batches. Argh.
@@ -78,6 +79,7 @@ class Vernacular < ActiveRecord::Base
           file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
         end
       end
+      file.dbg("Done!")
     end
 
     def get_language(iso)
