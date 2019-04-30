@@ -10,6 +10,11 @@ class DataFile
     def assume_path(*parts)
       new(Rails.root.join('public', 'data', *parts))
     end
+    # Yessss. duplicate with instance method, but it's small so I don't care to generalize.
+    def dbg(msg)
+      puts "[#{Time.now.strftime('%F %T')}] #{msg}"
+      STDOUT.flush
+    end
   end
 
   def initialize(file, options = {})
@@ -56,5 +61,10 @@ class DataFile
     keys = all_data.shift
     keys.map! { |k| k.underscore.downcase.gsub(/\s/, '_').gsub(/[^_\w]/, '').to_sym }
     all_data.map { |row| array << Hash[keys.zip(row)] }
+  end
+
+  def dbg(msg)
+    puts "[#{Time.now.strftime('%F %T')}] #{msg}"
+    STDOUT.flush
   end
 end
