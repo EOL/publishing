@@ -376,7 +376,7 @@ private
     if @page.media_count > 1000
       # Too many. Just use ALL of them for filtering:
       @license_groups = LicenseGroup.all
-      @subclasses = Medium.subclasses.keys.sort
+      @subclasses = Medium.regular_subclass_keys
       # List of resources, as of Jul 2018 (query takes about 32 seconds), that HAVE images, i.e.:
       # a = Medium.where(subclass: 0).select('resource_id').uniq('resource_id').pluck(:resource_id).sort
       # a.delete(0) ; puts a.join(',')
@@ -404,7 +404,7 @@ private
     end
     if params[:subclass]
       @subclass = params[:subclass]
-      media = media.where(subclass: params[:subclass])
+      media = media.where(subclass: Medium.subclasses[@subclass])
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i

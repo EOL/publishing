@@ -31,21 +31,22 @@
             - @license_groups.sort { |a, b| a.label.downcase <=> b.label.downcase }.each do |grp|
               = link_to(grp.label, page_media_path(page_id: @page.id, license_group: grp.key, subclass: @subclass, resource_id: @resource_id),
                 data: { type: 'html' }, class: "item#{ grp == @license_group ? " active" : ""}")
-      -# .ui.dropdown.item
-      -#   - if @subclass
-      -#     %b= t("medium.subclasses.#{@subclass}")
-      -#   - else
-      -#     = t(:filter_by_medium_subtype)
-      -#   %i.dropdown.icon
-      -#   .menu
-      -#     = link_to(t(:filter_by_medium_any_item),
-      -#       page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
-      -#       remote: true, data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
-      -#     -#
-      -#       - Medium.subclasses.each do |sc_name, sc_id|
-      -#     - @subclasses.each do |sc|
-      -#       = link_to(t("medium.subclasses.#{sc}"), page_media_path(page_id: @page.id, license: @license, subclass: sc, resource_id: @resource_id),
-      -#         remote: true, data: { type: 'html' }, class: "item#{ sc == @subclass ? " active" : ""}")
+      - if @subclasses && @subclasses.length > 1
+        .ui.dropdown.item
+          - if @subclass
+            %b= t("medium.subclasses.#{@subclass}")
+          - else
+            = t(:filter_by_medium_subtype)
+          %i.dropdown.icon
+          .menu
+            = link_to(t(:filter_by_medium_any_item),
+              page_media_path(page_id: @page.id, subclass: nil, license: @license, resource_id: @resource_id),
+              data: { type: 'html' }, class: "item#{ @subclass.nil? ? " active" : ""}")
+            -#
+              - Medium.subclasses.each do |sc_name, sc_id|
+            - @subclasses.each do |sc|
+              = link_to(t("medium.subclasses.#{sc}"), page_media_path(page_id: @page.id, license: @license, subclass: sc, resource_id: @resource_id),
+                data: { type: 'html' }, class: "item#{ sc == @subclass ? " active" : ""}")
       - if @resources && @resources.length > 1
         .ui.dropdown.item
           - if @resource

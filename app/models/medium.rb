@@ -139,6 +139,12 @@ class Medium < ActiveRecord::Base
       @last_flush = Time.now
       STDOUT.flush
     end
+
+    def regular_subclass_keys
+      self.subclasses.keys.reject do |k|
+        k == "map" || k == "js_map"
+      end.sort
+    end
   end
 
   def fix_source_pages
