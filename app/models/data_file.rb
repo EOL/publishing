@@ -14,7 +14,7 @@ class DataFile
 
   def initialize(file, options = {})
     @file = file
-    @options = options.reverse_merge(col_sep: "\t", quote_char: "\x00")
+    @options = { col_sep: "\t", quote_char: "\x00" }.merge(options)
   end
 
   def read_tsv
