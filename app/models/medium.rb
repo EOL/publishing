@@ -44,8 +44,8 @@ class Medium < ActiveRecord::Base
       agents_file = Rails.root.join('public', 'data', 'wikimedia', 'agent.tab')
       # :subtype, :access_uri, :usage_terms, :owner, :agent_id
       media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
-      @agents = slurp(agents_file, :identifier)
-      @media = slurp(media_file, :access_uri)
+      @agents = DataFile.to_hash(agents_file, :identifier)
+      @media = DataFile.to_hash(media_file, :access_uri)
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
       @licenses = {}
@@ -54,6 +54,7 @@ class Medium < ActiveRecord::Base
       total_media = @media.keys.size
       last_row = 0
       begin
+        buffer = []
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
           last_row = i+1
@@ -111,26 +112,6 @@ class Medium < ActiveRecord::Base
       rescue => e
         dbg("** ERROR! Ended on row #{last_row}: #{e}")
       end
-    end
-
-    def slurp(file, key)
-      dbg("slurping #{file} ...")
-      require 'csv'
-      # NOTE: I tried the "headers: true" and "forgiving" mode or whatever it was called, but it didn't work. The
-      # quoting in this file is really non-conformant (there's one line where there are TWO sets of quotes and that
-      # breaks), so I'm just using this "cheat" that I found online where it uses a null for a quote, and I'm building
-      # my own hash (inefficiently, but we don't care):
-      all_data = CSV.read(file, col_sep: "\t", quote_char: "\x00")
-      keys = all_data.shift
-      keys.map! { |k| k.underscore.downcase.to_sym }
-      hash = {}
-      all_data.each do |row|
-        row_hash = Hash[keys.zip(row)]
-        identifier = row_hash.delete(key)
-        raise "DUPLICATE IDENTIFIER! #{identifier}" if hash.has_key?(identifier)
-        hash[identifier] = row_hash
-      end
-      hash
     end
 
     # NOTE: temp code for fix_wikimedia_attributes

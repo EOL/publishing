@@ -95,8 +95,19 @@ class Resource < ActiveRecord::Base
     ImportLog.create(resource_id: id, status: "currently running")
   end
 
-  def remove_content
+  def remove_content_with_rescue
     log = []
+    begin
+      remove_content(log)
+    rescue => e
+      i_log = import_logs&.last || create_log
+      log.each { |l| i_log.log(l) }
+      i_log.fail(e)
+    end
+  end
+
+  def remove_content(log = nil)
+    log ||= []
     # Node ancestors
     log << nuke(NodeAncestor)
     # Node identifiers
@@ -163,7 +174,7 @@ class Resource < ActiveRecord::Base
     # Get list of affected pages
     log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts..."
     pages = Node.where(resource_id: id).pluck(:page_id)
-    pages.in_groups_of(10_000, false) do |group|
+    pages.in_groups_of(5000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
     log << nuke(Node)
@@ -178,7 +189,7 @@ class Resource < ActiveRecord::Base
   rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
-    retry rescue nil # I really don't care THAT much... sheesh!
+    retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
   end
 
   def fix_native_nodes
