@@ -7,8 +7,8 @@ class DataFile
       data_file.to_hash(key)
     end
 
-    def assume_path(*parts, options)
-      new(Rails.root.join('public', 'data', *parts), options)
+    def assume_path(*parts)
+      new(Rails.root.join('public', 'data', *parts))
     end
   end
 
