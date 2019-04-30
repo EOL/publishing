@@ -66,13 +66,17 @@ class Vernacular < ActiveRecord::Base
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       rows.each do |row|
         # [:namestring, :iso_lang, :user_id, :taxon_id]
-        language = get_language(row[:iso_lang])
-        page = Page.find(row[:taxon_id])
-        node = page.native_node
-        user_id = @users[row[:user_id]]
-        # TODO: you need a migration.
-        create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
-          source: "https://eol.org/users/#{user_id}", resource_id: 1, user_id: user_id)
+        begin
+          language = get_language(row[:iso_lang])
+          page = Page.find(row[:taxon_id])
+          node = page.native_node
+          user_id = @users[row[:user_id]]
+          # TODO: you need a migration.
+          create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
+            source: "https://eol.org/users/#{user_id}", resource_id: 1, user_id: user_id)
+        rescue ActiveRecord::RecordNotFound => e
+          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+        end
       end
     end
 
