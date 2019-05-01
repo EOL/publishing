@@ -39,6 +39,13 @@ class ResourcesController < ApplicationController
     redirect_to @resource
   end
 
+  def fix_no_names
+    @resource = Resource.find(params[:resource_id])
+    Delayed::Job.enqueue(FixNoNamesJob.new(@resource.id))
+    flash[:notice] = "#{@resource.name} will fix NO NAME problems in the background. Expect 1 min per 2000 nodes."
+    redirect_to @resource
+  end
+
   def import_traits
     @resource = Resource.find(params[:resource_id])
     @resource.delay(queue: 'harvest').import_traits(1)

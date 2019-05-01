@@ -254,6 +254,24 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  # The name of this method is based on the SYMPTOM. The underlying cause is that native nodes are *wrong* because of
+  # previous publishes of this resource leaving "zombie" pages with old node ids, and new publishes recognizing that the
+  # page already HAS a native_node_id and thus leaving it alone.
+  def fix_no_names
+    nodes.pluck(:page_id).in_groups_of(5000, false) do |page_ids|
+      # This loop is slow. I don't mind terribly much, this is just a fix. It took about 12 seconds on a resource with
+      # only 700 nodes. You have been warned!
+      Page.where(id: page_ids).
+           joins('LEFT JOIN nodes ON nodes.id = pages.native_node_id').
+           where('nodes.id IS NULL').
+           each do |page|
+             nn_id = Node.where(resource_id: id, page_id: page.id).pluck(:id)&.first
+             next if nn_id.nil?
+             page.update_attribute(:native_node_id, nn_id)
+           end
+    end
+  end
+
   # Goes and asks the Harvesting site for information on how to move the nodes between pages...
   def move_nodes
     Node::Mover.by_resource(self)

@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     get 'import_traits'
     get 'republish'
     get 'reindex'
+    get 'fix_no_names'
     resources :import_logs, only: [:show]
     resources :nodes, only: [:index]
   end
