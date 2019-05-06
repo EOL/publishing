@@ -38,8 +38,8 @@ class ApiCollectionsController < LegacyApiController
   end
 
   def build_pages
-    sort_type = (convert_sort.key?(params[:sort_by]) ? convert_sort[params[:sort_by]] : @collection.default_sort).to_s
-    rev = sort_type.sub!(/_rev$/, "")
+    sort_type = (convert_sort.key?(params[:sort_by]) ? convert_sort[params[:sort_by]] : @collection.default_sort).dup
+    rev = sort_type.sub(/_rev$/, '')
     case sort_type
     when "sci_name"
       @pages = @pages.joins(page: [:medium, { native_node: :rank }]).
