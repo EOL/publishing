@@ -575,7 +575,7 @@ en:
     page_articles:
       filter_by_language: "filter by language"
       filter_by_provider: "filter by provider"
-    filter_menu: 
+    filter_menu:
       show_all: "show all"
     page_data:
       filter_by_attribute: "filter by attribute"
@@ -638,6 +638,7 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       reindex: "reindex"
+      fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
       publish: "publish"
       show_all:

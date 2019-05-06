@@ -38,27 +38,28 @@ class Medium < ActiveRecord::Base
   # probably already delete it.
   class << self
     def fix_wikimedia_attributes(start_row = 1)
-      dbg('STARTING')
+      DataFile.dbg('STARTING')
       resource = Resource.find_by_name('Wikimedia Commons')
       # :identifier, :term_name, :agent_role, :term_homepage
       agents_file = Rails.root.join('public', 'data', 'wikimedia', 'agent.tab')
       # :subtype, :access_uri, :usage_terms, :owner, :agent_id
       media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
-      @agents = slurp(agents_file, :identifier)
-      @media = slurp(media_file, :access_uri)
+      @agents = DataFile.to_hash(agents_file, :identifier)
+      @media = DataFile.to_hash(media_file, :access_uri)
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
       @licenses = {}
       License.all.each { |lic| @licenses[lic.source_url.downcase] = lic.id }
-      dbg('Looping through media...')
+      DataFile.dbg('Looping through media...')
       total_media = @media.keys.size
       last_row = 0
       begin
+        buffer = []
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
           last_row = i+1
           pct = (total_media / i+1.0).ceil
-          dbg(".. now on medium #{i+1}/#{total_media} (#{pct}% - #{access_uri})") if i == start_row || (i % 100).zero?
+          DataFile.dbg(".. now on medium #{i+1}/#{total_media} (#{pct}% - #{access_uri})") if i == start_row || (i % 100).zero?
           row = @media[access_uri]
           agents = []
           unless row[:agent_id].blank?
@@ -86,11 +87,11 @@ class Medium < ActiveRecord::Base
             role_id = if @roles.has_key?(agent[:agent_role])
                         @roles[agent[:agent_role]]
                       else
-                        dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
+                        DataFile.dbg("Unknown agent role: #{agent[:agent_role]}; using 'contributor'.")
                         @roles['contributor']
                       end
             if agent[:term_homepage] && agent[:term_homepage].length > 512
-              dbg("SKIPPING too-long agent url: #{agent[:term_homepage]}")
+              DataFile.dbg("SKIPPING too-long agent url: #{agent[:term_homepage]}")
               next
             end
             attribution = Attribution.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
@@ -103,41 +104,14 @@ class Medium < ActiveRecord::Base
             if @licenses.has_key?(row[:usage_terms])
               medium.license_id = @licenses[row[:usage_terms]]
             else
-              dbg("Unknown license: #{row[:usage_terms]} skipping...")
+              DataFile.dbg("Unknown license: #{row[:usage_terms]} skipping...")
             end
           end
           medium.save
         end
       rescue => e
-        dbg("** ERROR! Ended on row #{last_row}: #{e}")
+        DataFile.dbg("** ERROR! Ended on row #{last_row}: #{e}")
       end
-    end
-
-    def slurp(file, key)
-      dbg("slurping #{file} ...")
-      require 'csv'
-      # NOTE: I tried the "headers: true" and "forgiving" mode or whatever it was called, but it didn't work. The
-      # quoting in this file is really non-conformant (there's one line where there are TWO sets of quotes and that
-      # breaks), so I'm just using this "cheat" that I found online where it uses a null for a quote, and I'm building
-      # my own hash (inefficiently, but we don't care):
-      all_data = CSV.read(file, col_sep: "\t", quote_char: "\x00")
-      keys = all_data.shift
-      keys.map! { |k| k.underscore.downcase.to_sym }
-      hash = {}
-      all_data.each do |row|
-        row_hash = Hash[keys.zip(row)]
-        identifier = row_hash.delete(key)
-        raise "DUPLICATE IDENTIFIER! #{identifier}" if hash.has_key?(identifier)
-        hash[identifier] = row_hash
-      end
-      hash
-    end
-
-    # NOTE: temp code for fix_wikimedia_attributes
-    def dbg(msg)
-      puts "[#{Time.now.strftime('%F %T')}] #{msg}"
-      @last_flush = Time.now
-      STDOUT.flush
     end
 
     def regular_subclass_keys
@@ -245,7 +219,7 @@ class Medium < ActiveRecord::Base
 
   def embedded_video?
     video? && (youtube? || vimeo?)
-  end 
+  end
 
   def embed_url
     raise "only supported for embedded video types" unless embedded_video?
