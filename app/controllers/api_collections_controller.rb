@@ -13,6 +13,7 @@ class ApiCollectionsController < LegacyApiController
     @page = (params[:page] || 1).to_i
     @per_page = (params[:per_page] || 50).to_i
     @collection = Collection.where(id: params[:id]).includes(:collection_associations).first
+    raise "Not found" if @collection.nil?
     @pages = CollectedPage.where(collection_id: @collection.id)
     # These are the old V2 sorts and what we're forced to implement for V3:
     build_pages
@@ -39,7 +40,8 @@ class ApiCollectionsController < LegacyApiController
 
   def build_pages
     sort_type = (convert_sort.key?(params[:sort_by]) ? convert_sort[params[:sort_by]] : @collection.default_sort).dup
-    rev = sort_type.sub(/_rev$/, '')
+    sort_type ||= "position"
+    rev = sort_type.to_s.sub(/_rev$/, '')
     case sort_type
     when "sci_name"
       @pages = @pages.joins(page: [:medium, { native_node: :rank }]).
