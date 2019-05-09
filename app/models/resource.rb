@@ -12,6 +12,8 @@ class Resource < ActiveRecord::Base
 
   before_destroy :remove_content
 
+  scope :browsable, -> { where(is_browsable: true) }
+
   def dwh?
     id == Resource.native.id
   end
