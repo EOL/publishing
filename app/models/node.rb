@@ -23,36 +23,28 @@ class Node < ActiveRecord::Base
   counter_culture :page
 
   class << self
-    # Old version:
-    # SELECT he.id, he.identifier, he.hierarchy_id, he.taxon_concept_id,
-    #   n.string, d.object_cache_url, r.label
-    # FROM hierarchy_entries he
-    # LEFT JOIN names n ON (he.name_id = n.id)
-    # LEFT JOIN top_images i ON (he.id = i.hierarchy_entry_id AND view_order = 1)
-    # LEFT JOIN data_objects d ON (i.data_object_id = d.id)
-    # LEFT JOIN translated_ranks r ON (he.rank_id = r.rank_id AND r.language_id = 152)
-    # WHERE he.published = 1 AND he.visibility_id = 1
-    # INTO OUTFILE 'identifiers_with_images.csv'
-    # FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n';
-    # SELECT he.id, he.identifier, he.hierarchy_id, he.taxon_concept_id,
-    #   n.string
-    # FROM hierarchy_entries he
-    # LEFT JOIN names n ON (he.name_id = n.id)
-    # WHERE he.published = 1 AND he.visibility_id = 1
-    # INTO OUTFILE 'identifiers.csv'
-    # FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n';
     def dump_provider_ids
-      CSV.open(Rails.public_path.join('data', 'provider_ids.csv'), 'wb') do |csv|
+      file = Rails.public_path.join('data', 'provider_ids.csv')
+      CSV.open(file, 'wb') do |csv|
         csv << %w[node_id resource_pk resource_id preferred_canonical_for_page]
         browsable_resource_ids = Resource.classification.pluck(:id)
-        Node.includes(:identifiers, page: { native_node: :scientific_names }).
+        Node.includes(:identifiers, :scientific_names, page: { native_node: :scientific_names }).
              where(resource_id: browsable_resource_ids).
              find_each do |node|
-               name = node.page.native_node.canonical_form&.gsub(/<\/?i>/, '')
+               next if node.page.nil? # Shouldn't happen, but let's be safe.
+               use_node =  node.page.native_node || node
+               name = use_node.canonical_form&.gsub(/<\/?i>/, '')
                csv << [node.id, node.resource_pk, node.resource_id, node.page.id, name]
              end
       end
-      # TODO: we should split that file up and GZIP it.
+      require 'zlib'
+      zipped = "#{file}.gz"
+      Zlib::GzipWriter.open(zipped) do |gz|
+        gz.mtime = File.mtime(file)
+        gz.orig_name = file.to_s
+        gz.write IO.binread(file)
+      end
+      File.unlink(file) rescue nil
     end
   end
 
