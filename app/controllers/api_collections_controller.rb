@@ -79,6 +79,7 @@ class ApiCollectionsController < LegacyApiController
     if page.collected_pages_media.any?
       page.collected_pages_media.includes(:medium).each do |c_medium|
         medium = c_medium.medium
+        next if medium.nil?
         data_object = {
           'name' => medium.name,
           'object_type' => 'DataObject', # Remember, this is V2 terminology
