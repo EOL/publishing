@@ -44,7 +44,7 @@ class Node < ActiveRecord::Base
     def dump_provider_ids
       CSV.open(Rails.public_path.join('data', 'provider_ids.csv'), 'wb') do |csv|
         csv << %w[node_id resource_pk resource_id preferred_canonical_for_page]
-        browsable_resource_ids = Resource.browsable.pluck(:id)
+        browsable_resource_ids = Resource.classification.pluck(:id)
         Node.includes(:identifiers, page: { native_node: :scientific_names }).
              where(resource_id: browsable_resource_ids).
              find_each do |node|
