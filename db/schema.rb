@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190430154147) do
+ActiveRecord::Schema.define(version: 20190510142420) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,      null: false
@@ -785,6 +785,8 @@ ActiveRecord::Schema.define(version: 20190430154147) do
     t.boolean  "virus"
     t.text     "attribution",           limit: 65535
     t.integer  "harv_db_id",            limit: 4
+    t.text     "dataset_name",          limit: 65535
+    t.text     "name_according_to",     limit: 65535
   end
 
   add_index "scientific_names", ["harv_db_id"], name: "index_scientific_names_on_harv_db_id", using: :btree
