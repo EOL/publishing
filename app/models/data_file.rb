@@ -10,7 +10,8 @@ class DataFile
     def assume_path(*parts)
       new(Rails.root.join('public', 'data', *parts))
     end
-    # Yessss. duplicate with instance method, but it's small so I don't care to generalize.
+
+    # Generic error message to STDOUT.
     def dbg(msg)
       puts "[#{Time.now.strftime('%F %T')}] #{msg}"
       STDOUT.flush
@@ -20,6 +21,7 @@ class DataFile
   def initialize(file, options = {})
     @file = file
     @options = { col_sep: "\t", quote_char: "\x00" }.merge(options)
+    @logger = ActiveSupport::TaggedLogging.new(Logger.new("#{File.dirname(file)}/#{File.basename(file)}.log"))
   end
 
   def read_tsv
@@ -64,7 +66,7 @@ class DataFile
   end
 
   def dbg(msg)
-    puts "[#{Time.now.strftime('%F %T')}] #{msg}"
-    STDOUT.flush
+    # I know this is a warn, which is probably not the right level, but I want to ensure it gets out in production:
+    @logger.tagged(Time.now.strftime('%F %T')) { @logger.warn(msg) }
   end
 end

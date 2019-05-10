@@ -46,6 +46,7 @@ class Medium < ActiveRecord::Base
       media_file = Rails.root.join('public', 'data', 'wikimedia', 'media_resource.tab')
       @agents = DataFile.to_hash(agents_file, :identifier)
       @media = DataFile.to_hash(media_file, :access_uri)
+      logger = ActiveSupport::TaggedLogging.new(Logger.new("public/data/wikimedia/missing.log"))
       @roles = {}
       Role.all.each { |role| @roles[role.name.downcase] = role.id }
       @licenses = {}
@@ -54,12 +55,11 @@ class Medium < ActiveRecord::Base
       total_media = @media.keys.size
       last_row = 0
       begin
-        buffer = []
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
           last_row = i+1
-          pct = (total_media / i+1.0).ceil
-          DataFile.dbg(".. now on medium #{i+1}/#{total_media} (#{pct}% - #{access_uri})") if i == start_row || (i % 100).zero?
+          pct = (last_row / total_media.to_f * 1000).ceil / 10.0
+          DataFile.dbg(".. now on medium [#{i+1}](#{access_uri})/#{total_media} (#{pct}%)") if i == start_row || (i % 25).zero?
           row = @media[access_uri]
           agents = []
           unless row[:agent_id].blank?
@@ -67,13 +67,13 @@ class Medium < ActiveRecord::Base
               if @agents.has_key?(agent_id)
                 agents << @agents[agent_id].merge(identifier: agent_id)
               else
-                puts "Missing agent #{agent_id} for row #{access_uri}; Skipping..."
+                DataFile.dbg("Missing agent #{agent_id}, leaving agents blank for #{access_uri}")
               end
             end
           end
           medium = Medium.where(resource_id: resource.id, source_url: access_uri)
           if medium.empty?
-            puts "NOT FOUND: Medium #{access_uri}#{row[:subtype].blank? ? '' : " (MAP)"}! Skipping row..."
+
             next
           end
           medium = medium.first
@@ -91,7 +91,7 @@ class Medium < ActiveRecord::Base
                         @roles['contributor']
                       end
             if agent[:term_homepage] && agent[:term_homepage].length > 512
-              DataFile.dbg("SKIPPING too-long agent url: #{agent[:term_homepage]}")
+              logger.tagged("Agent URL too long: #{agent[:term_homepage]}") { logger.warn(access_uri) }
               next
             end
             attribution = Attribution.create(content_id: medium.id, content_type: 'Medium', role_id: role_id,
