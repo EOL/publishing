@@ -59,7 +59,7 @@ class Medium < ActiveRecord::Base
           next if i < start_row
           last_row = i+1
           pct = (last_row / total_media.to_f * 1000).ceil / 10.0
-          DataFile.dbg(".. now on medium [#{i+1}](#{access_uri})/#{total_media} (#{pct}%)") if i == start_row || (i % 25).zero?
+          DataFile.dbg(".. now on medium [#{i+1}](#{access_uri.gsub(')', '%29')})/#{total_media} (#{pct}%)") if i == start_row || (i % 25).zero?
           row = @media[access_uri]
           agents = []
           unless row[:agent_id].blank?
