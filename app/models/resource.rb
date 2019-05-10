@@ -1,5 +1,6 @@
 class Resource < ActiveRecord::Base
   belongs_to :partner, inverse_of: :resources
+  belongs_to :dataset_license, class_name: 'License'
 
   has_many :nodes, inverse_of: :resource
   has_many :scientific_names, inverse_of: :resource

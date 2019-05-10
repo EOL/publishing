@@ -2,7 +2,15 @@ class ResourcesController < ApplicationController
   before_filter :require_admin, except: [:index, :show]
 
   def index
-    @resources = Resource.order('updated_at DESC').by_page(params[:page] || 1).per(10)
+    @resources = Resource.order('updated_at DESC')
+    respond_to do |fmt|
+      fmt.html do
+        @resources = @resources.by_page(params[:page] || 1).per(10)
+      end
+      fmt.json do
+        @resources.includes(:partner, :dataset_licesnse)
+      end
+    end
   end
 
   def show
