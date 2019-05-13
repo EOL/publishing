@@ -391,7 +391,7 @@ class Page < ActiveRecord::Base
   end
 
   def icon
-    medium && medium.medium_icon_url
+    medium && medium.image? && medium.medium_icon_url
   end
 
   def occurrence_map?
