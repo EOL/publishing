@@ -124,10 +124,10 @@ class ApiPagesController < LegacyApiController
     @return_hash[:dataObjects] = []
     add_text(page) if params[:texts_per_page].positive?
     @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" } if @licenses
-    add_media(page.media.images) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
-    add_media(page.media.videos) if params[:videos_per_page].positive? # http://purl.org/dc/dcmitype/MovingImage
-    add_media(page.media.maps) if params[:maps_per_page].positive? # doesn't include the main GBIF Image, ATM. :\
-    add_media(page.media.sounds) if params[:sounds_per_page].positive? # http://purl.org/dc/dcmitype/Sound
+    add_media(page.media.images, params[:images_page], params[:images_per_page]) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
+    add_media(page.media.videos, params[:videos_page], params[:videos_per_page]) if params[:videos_per_page].positive? # http://purl.org/dc/dcmitype/MovingImage
+    add_media(page.media.maps, params[:maps_page], params[:maps_per_page]) if params[:maps_per_page].positive? # doesn't include the main GBIF Image, ATM. :\
+    add_media(page.media.sounds, params[:sounds_page], params[:sounds_per_page]) if params[:sounds_per_page].positive? # http://purl.org/dc/dcmitype/Sound
     @return_hash.delete(:dataObjects) if @return_hash[:dataObjects].empty?
     @return_hash
   end
@@ -151,12 +151,12 @@ class ApiPagesController < LegacyApiController
     end
   end
 
-  def add_media(starting_filter)
+  def add_media(starting_filter, page, per_page)
     return nil if params[:vetted] == '3' || params[:vetted] == '4'
     images = starting_filter.includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
     images = images.where(license_id: @licenses) if @licenses
-    offset = ((params[:images_page].to_i || 1 ) - 1) * params[:images_per_page]
-    images.limit(params[:images_per_page]).offset(offset).each do |image|
+    offset = ((page.to_i || 1 ) - 1) * per_page
+    images.limit(per_page).offset(offset).each do |image|
       image_hash = {
         identifier: image.guid,
         dataObjectVersionID: image.id,
