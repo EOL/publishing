@@ -152,7 +152,7 @@ class ApiPagesController < LegacyApiController
 
   def add_images(page)
     return nil if params[:vetted] == '3' || params[:vetted] == '4'
-    images = page.media.image.
+    images = page.media.images_and_maps.
       includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
     images = images.where(license_id: @licenses) if @licenses
     @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" }
@@ -165,6 +165,7 @@ class ApiPagesController < LegacyApiController
         dataSubtype: image.format,
         vettedStatus: 'Trusted',
         dataRatings: [],
+        dataSubtype: image.subclass,
         dataRating: '2.5', # this is faked for now per Yan Wang's request.
         mimeType: 'image/jpeg'
       }
