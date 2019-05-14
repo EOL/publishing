@@ -232,6 +232,6 @@ class Medium < ActiveRecord::Base
 
   private
     def check_is_image
-      raise "method may only be called when Medium subclass is image" unless image?
+      raise "method may only be called when Medium subclass is image or map" unless image? || map?
     end
 end
