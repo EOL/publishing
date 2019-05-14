@@ -124,10 +124,11 @@ class ApiPagesController < LegacyApiController
     @return_hash[:dataObjects] = []
     add_text(page) if params[:texts_per_page].positive?
     @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" } if @licenses
-    add_media(page.media.images, params[:images_page], params[:images_per_page]) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
-    add_media(page.media.videos, params[:videos_page], params[:videos_per_page]) if params[:videos_per_page].positive? # http://purl.org/dc/dcmitype/MovingImage
-    add_media(page.media.maps, params[:maps_page], params[:maps_per_page]) if params[:maps_per_page].positive? # doesn't include the main GBIF Image, ATM. :\
-    add_media(page.media.sounds, params[:sounds_page], params[:sounds_per_page]) if params[:sounds_per_page].positive? # http://purl.org/dc/dcmitype/Sound
+    add_media(page.media.images, params[:images_page], params[:images_per_page]) if params[:images_per_page].positive?
+    add_media(page.media.videos, params[:videos_page], params[:videos_per_page]) if params[:videos_per_page].positive?
+    # Maps don't include the main GBIF Image, ATM. :\
+    add_media(page.media.maps, params[:maps_page], params[:maps_per_page]) if params[:maps_per_page].positive?
+    add_media(page.media.sounds, params[:sounds_page], params[:sounds_per_page]) if params[:sounds_per_page].positive?
     @return_hash.delete(:dataObjects) if @return_hash[:dataObjects].empty?
     @return_hash
   end
@@ -157,10 +158,17 @@ class ApiPagesController < LegacyApiController
     images = images.where(license_id: @licenses) if @licenses
     offset = ((page.to_i || 1 ) - 1) * per_page
     images.limit(per_page).offset(offset).each do |image|
+      type = if image.video?
+        'http://purl.org/dc/dcmitype/MovingImage'
+      elsif image.sound?
+        'http://purl.org/dc/dcmitype/Sound'
+      else
+        'http://purl.org/dc/dcmitype/StillImage'
+      end
       image_hash = {
         identifier: image.guid,
         dataObjectVersionID: image.id,
-        dataType: 'http://purl.org/dc/dcmitype/StillImage',
+        dataType: type,
         dataSubtype: image.format,
         vettedStatus: 'Trusted',
         dataRatings: [],
