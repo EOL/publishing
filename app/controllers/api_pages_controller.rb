@@ -115,7 +115,7 @@ class ApiPagesController < LegacyApiController
 
     if params[:references]
       # Sorry, yes, this is black magic. :\ Fortunately, I don't think many people (if any) *use* this:
-      @return_hash[:references] = page.nodes.map { |node| node.references.flat_map(&:referent).map(&:body) }.
+      @return_hash[:references] = page.nodes.map { |n| n.references.flat_map(&:referent).map(&:body) }.
         flatten.compact.uniq!
     end
 
@@ -123,10 +123,11 @@ class ApiPagesController < LegacyApiController
 
     @return_hash[:dataObjects] = []
     add_text(page) if params[:texts_per_page].positive?
-    add_images(page) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
-    # TODO: add_videos(page) if params[:videos_per_page].positive? # http://purl.org/dc/dcmitype/MovingImage
-    # TODO: add_maps(page) if params[:maps_per_page].positive? # Map or GBIF Image
-    # TODO: add_sounds(page) if params[:sounds_per_page].positive? # http://purl.org/dc/dcmitype/Sound
+    @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" } if @licenses
+    add_media(page.media.images) if params[:images_per_page].positive? # http://purl.org/dc/dcmitype/StillImage
+    add_media(page.media.videos) if params[:videos_per_page].positive? # http://purl.org/dc/dcmitype/MovingImage
+    add_media(page.media.maps) if params[:maps_per_page].positive? # doesn't include the main GBIF Image, ATM. :\
+    add_media(page.media.sounds) if params[:sounds_per_page].positive? # http://purl.org/dc/dcmitype/Sound
     @return_hash.delete(:dataObjects) if @return_hash[:dataObjects].empty?
     @return_hash
   end
@@ -150,12 +151,10 @@ class ApiPagesController < LegacyApiController
     end
   end
 
-  def add_images(page)
+  def add_media(starting_filter)
     return nil if params[:vetted] == '3' || params[:vetted] == '4'
-    images = page.media.images_and_maps.
-      includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
+    images = starting_filter.includes(:image_info, :language, :license, :location, :resource, attributions: :role, references: :referent)
     images = images.where(license_id: @licenses) if @licenses
-    @return_hash[:licenses] = License.where(id: @licenses).map { |l| "#{l.name} (#{l.id})" }
     offset = ((params[:images_page].to_i || 1 ) - 1) * params[:images_per_page]
     images.limit(params[:images_per_page]).offset(offset).each do |image|
       image_hash = {

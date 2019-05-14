@@ -18,7 +18,7 @@ class Medium < ActiveRecord::Base
   enum format: %i[jpg youtube flash vimeo mp3 ogg wav mp4 ogv mov svg webm]
 
   scope :images, -> { where(subclass: subclasses[:image]) }
-  scope :images_and_maps, -> { where(subclass: [subclasses[:image], subclasses[:map]]) }
+  scope :maps, -> { where(subclass: subclasses[:map]) }
   scope :videos, -> { where(subclass: subclasses[:video]) }
   scope :sounds, -> { where(subclass: subclasses[:sound]) }
   scope :not_maps, -> { where.not(subclass: subclasses[:map]) }
