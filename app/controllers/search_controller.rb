@@ -324,7 +324,14 @@ private
   # So-called "self-healing" code for pages that have no native node and were probably deleted:
   def remove_zombie_pages
     bad_page_ids = []
-    @pages.each { |page| bad_page_ids << page.id if page.native_node.nil? }
+    @pages.each do |page|
+      id = if page.respond_to?(:page_id) # Search decotrator
+        page.page_id
+      else
+        page.id
+      end
+      bad_page_ids << id if page.native_node.nil?
+    end
     return if bad_page_ids.empty?
     Page.where(id: bad_page_ids).includes(:nodes).each do |page|
       if page.nodes.empty?
