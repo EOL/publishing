@@ -165,7 +165,7 @@ class ApiPagesController < LegacyApiController
         dataSubtype: image.format,
         vettedStatus: 'Trusted',
         dataRatings: [],
-        dataSubtype: image.subclass,
+        mediumType: image.subclass,
         dataRating: '2.5', # this is faked for now per Yan Wang's request.
         mimeType: 'image/jpeg'
       }
