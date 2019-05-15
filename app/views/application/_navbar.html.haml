@@ -21,7 +21,7 @@
     .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
       %i.fa.fa-globe
       &nbsp;
-      = I18n.locale.upcase
+      = t("locale_codes.#{I18n.locale}")
       &nbsp;
       %i.fa.fa-chevron-down
     %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}

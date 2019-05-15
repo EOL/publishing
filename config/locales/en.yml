@@ -8,7 +8,6 @@
 #
 #
 en:
-  language: "Language"
   language_name: "English"
   account_already_linked: "your account is already linked to EOL"
   account_destroyed_successfully: "You have deleted your account. Thanks!"
@@ -271,6 +270,7 @@ en:
     title: "Encyclopedia of Life"
     topics: "Latest Discussion Topics"
 
+  language: "Language"
   languages:
     none: "Unspecified"
     aa: "Afar"
@@ -491,6 +491,9 @@ en:
       cc_by: "CC-BY"
       no_copyright: "No copyright"
   literature_and_references_header: "Literature and References"
+  locale_codes:
+    en: "EN"
+    ar: "AR"
   maps:
     empty: "There are no maps available for this page."
     other_maps_title: "Non-interactive Maps"
