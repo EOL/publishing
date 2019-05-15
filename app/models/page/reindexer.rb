@@ -3,6 +3,7 @@ class Page::Reindexer
   def initialize(start_page_id = nil)
     @start_page_id = start_page_id || 1
     @log = Logger.new(Rails.root.join('public', 'data', 'page_reindex.log'))
+    Searchkick.timeout = 500
   end
 
   def start
@@ -11,7 +12,7 @@ class Page::Reindexer
     current_page_id = @start_page_id
     ticks = 0
     begin
-      Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 150) do |pages|
+      Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 100) do |pages|
         current_page_id = pages.first.id
         Page.search_index.bulk_update(pages, :search_data)
       end
