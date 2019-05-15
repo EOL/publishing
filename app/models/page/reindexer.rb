@@ -14,7 +14,11 @@ class Page::Reindexer
     begin
       Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 100) do |pages|
         current_page_id = pages.first.id
-        Page.search_index.bulk_update(pages, :search_data)
+        begin
+          Page.search_index.bulk_update(pages, :search_data)
+        rescue Searchkick::ImportError
+          Page.search_index.bulk_index(pages, :search_data)
+        end
       end
       ticks += 1
       if ticks > 10
