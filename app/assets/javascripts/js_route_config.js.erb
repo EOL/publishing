@@ -1,0 +1,11 @@
+var defaultLocale = '<%= I18n.default_locale %>';
+
+$(function() {
+  var locale = document.documentElement.lang;
+
+  Routes.configure({
+    default_url_options: {
+      locale: locale === defaultLocale ? null : locale
+    }
+  });
+});

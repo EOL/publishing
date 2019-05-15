@@ -107,6 +107,8 @@ gem 'typhoeus'
 gem 'neo4j', '~> 9.4'
 # Sitemap
 gem 'sitemap_generator'
+# url helpers in JS
+gem 'js-routes'
 
 group :development, :test do
   # Security analysis:

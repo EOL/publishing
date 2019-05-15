@@ -424,7 +424,7 @@ Rails.application.routes.draw do
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
     get "/search_page" => "search#search_page", :as => "search_page"
-    get "/autocomplete/:query" => "search#autocomplete"
+    get "/autocomplete/:query" => "search#autocomplete", :as => "general_autocomplete"
     #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
     get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
     get "/power_users" => "users#power_user_index", :as => "power_users"

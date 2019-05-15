@@ -2,6 +2,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require js-routes
+//= require js_route_config
 //= require main
 //= require youtube
 //= require rails.validations

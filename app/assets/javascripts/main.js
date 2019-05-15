@@ -334,8 +334,8 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: '/autocomplete/%QUERY',
-        wildcard: '%QUERY'
+        url: Routes.general_autocomplete_path({ query: 'QUERY'}),
+        wildcard: 'QUERY'
       }
     });
     EOL.combinedAutocomplete.initialize();
