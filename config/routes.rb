@@ -1,16 +1,7 @@
 Rails.application.routes.draw do
   root 'home_page#index'
+  get  "set_locale"                   => "locales#set_locale"
   
-  # This line mounts Refinery's routes at the root of your application.
-  # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
-  # If you would like to change where this extension is mounted, simply change the
-  # configuration option `mounted_path` to something different in config/initializers/refinery/core.rb
-  #
-  # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
-  #keep this at the end of the routes (Refinery smetimes can override other routes)
-  mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
-
-
   # UGLY REDIRECTS FROM V2 THAT WE NEED TO HONOR. TODO: we should clean these up. :|
   scope 'info' do
     get '275', to: redirect('http://discuss.eol.org/c/help')
@@ -259,6 +250,16 @@ Rails.application.routes.draw do
     get 'errors/not_found'
 
     get 'errors/internal_server_error'
+    
+    # This line mounts Refinery's routes at the root of your application.
+    # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
+    # If you would like to change where this extension is mounted, simply change the
+    # configuration option `mounted_path` to something different in config/initializers/refinery/core.rb
+    #
+    # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
+    #keep this at the end of the routes (Refinery smetimes can override other routes)
+    mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
+
 
     # Putting pages first only because it"s the most common:
     # TODO: move all the silly extra things to their own resources (I think).

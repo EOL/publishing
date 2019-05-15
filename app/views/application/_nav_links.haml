@@ -1,0 +1,10 @@
+%li= link_to(t("nav.about"), refinery.marketable_page_path(path: 'what-is-eol', locale: I18n.locale))
+%li= link_to(t("nav.education"), 'http://education.eol.org')
+%li= link_to(t("nav.discuss"), 'http://discuss.eol.org')
+%li= link_to(t("nav.trait_bank"), refinery.marketable_page_path(path:'/what-is-eol/traitbank', locale: I18n.locale))
+- if current_user
+  %li= link_to(current_user.username, main_app.user_path(current_user))
+  %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
+- else
+  %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
+  %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)

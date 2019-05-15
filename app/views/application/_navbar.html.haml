@@ -1,20 +1,32 @@
+#mobile-menu{:'uk-offcanvas' => "overlay: true"}
+  .uk-offcanvas-bar.uk-width-1-1
+    %ul.uk-nav
+      = render "nav_links"
+      %li.uk-nav-header= t("language")
+      = render "locale_select_items"
+    .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
   .nav-left
-    .nav-item.nav-menu-anchor
+    .nav-item.nav-menu-anchor{ class: "uk-hidden@s", :'uk-toggle' => "#mobile-menu" }
+      %i.fa.fa-bars
+      &nbsp;
+      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
+    .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
       = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
       %span &nbsp;
       %i.fa.fa-chevron-down
-      %ul.nav-menu
-        %li= link_to(t("nav.about"), '/docs/what-is-eol')
-        %li= link_to(t("nav.education"), 'http://education.eol.org')
-        %li= link_to(t("nav.discuss"), 'http://discuss.eol.org')
-        %li= link_to(t("nav.trait_bank"), 'https://eol.org/docs/what-is-eol/traitbank')
-        - if current_user
-          %li= link_to(current_user.username, main_app.user_path(current_user))
-          %li= link_to(t(:layout_sign_out), main_app.destroy_user_session_path)
-        - else
-          %li= link_to(t(:layout_sign_in), main_app.new_user_session_path)
-          %li= link_to(t(:layout_sign_up), main_app.new_user_registration_path)
+    %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
+      %ul.uk-nav.uk-dropdown-nav.uk-nav-primary
+        = render "nav_links"
+    .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
+      %i.fa.fa-globe
+      &nbsp;
+      = I18n.locale.upcase
+      &nbsp;
+      %i.fa.fa-chevron-down
+    %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
+      %ul.uk-nav.uk-dropdown-nav
+        = render "locale_select_items"
   - search = search_path rescue '/search_results'
   - search_val = nil
   - if current_page?(search)

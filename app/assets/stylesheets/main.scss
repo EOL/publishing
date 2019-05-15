@@ -29,6 +29,28 @@ audio {
   height: 40px;
 }
 
+// bit of a hack, override uikit here
+.uk-offcanvas-bar {
+  background: $white;
+  color: $black;
+
+  & a {
+    color: $nav-dark-gray;
+
+    &:hover {
+      color: $nav-hover-gray;
+    }
+  }
+
+  & .uk-offcanvas-close {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}
+
 .earth-image {
   position: relative;
 
@@ -412,15 +434,21 @@ body {
   display: inline-block;
   height: $nav-height;
   line-height: $nav-height;
+  padding: 0 10px;
 
   &:hover {
     color: $eol-logo-blue;
   }
 }
 
+  /*
+  .nav-item-locale {
+    margin-left: 40px;
+  }
+  */
+
 .nav-left {
   float: left;
-  margin-left: 10px;
 }
 
 .nav-right {
@@ -475,7 +503,8 @@ body {
 }
 
 .nav-menu {
-  background: $navbar-light-gray;
+  //background: $navbar-light-gray;
+  background: $white;
   display: none;
   font-size: 16px;
   left: 0;
@@ -514,10 +543,11 @@ body {
 
 .nav-menu-anchor {
   cursor: pointer;
-}
+  position: relative;
 
-.nav-menu-anchor:hover .nav-menu {
-  display: block;
+  &:hover .nav-menu {
+    display: block;
+  }
 }
 
 // overlays
