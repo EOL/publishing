@@ -11,7 +11,7 @@ class Page::Reindexer
     current_page_id = @start_page_id
     ticks = 0
     begin
-      Page.search_import.where(['id > ?', @start_page_id]).find_in_batches do |pages|
+      Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 250) do |pages|
         current_page_id = pages.first.id
         Page.search_index.bulk_update(pages, :search_data)
       end
