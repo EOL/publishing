@@ -12,12 +12,20 @@ class Page::Reindexer
     current_page_id = @start_page_id
     ticks = 0
     begin
-      Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 100) do |pages|
+      Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 250) do |pages|
         current_page_id = pages.first.id
         begin
           Page.search_index.bulk_update(pages, :search_data)
         rescue Searchkick::ImportError
           Page.search_index.bulk_index(pages)
+        rescue Faraday::ConnectionFailed
+          pages.each do |page|
+            begin
+              page.reindex
+            rescue => e
+              log("Indexing page #{page.id} FAILED. Skipping. Error: #{e.message}")
+            end
+          end
         end
       end
       ticks += 1
