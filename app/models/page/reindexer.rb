@@ -1,8 +1,14 @@
 # Reindex the pages in a batchable, resumable, update-mistakes-only way.
 class Page::Reindexer
-  def initialize(start_page_id = nil)
+  def initialize(start_page_id = nil, options = {})
     @start_page_id = start_page_id || 1
     @log = Logger.new(Rails.root.join('public', 'data', 'page_reindex.log'))
+    @throttle = options.has_key?(:throttle) ? options[:throttle] : true
+    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 10
+    Searchkick.client_options = {
+      retry_on_failure: true,
+      transport_options: { request: { timeout: 500 } }
+    }
     Searchkick.timeout = 500
   end
 
@@ -31,6 +37,7 @@ class Page::Reindexer
           end
         end
       end
+      sleep(1) if @throttle
       @ticks += 1
       if @ticks >= 100
         log("Completed up to page #{pages.last.id}")
