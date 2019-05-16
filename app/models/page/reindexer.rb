@@ -23,14 +23,16 @@ class Page::Reindexer
         begin
           Page.search_index.bulk_update(pages, :search_data)
         rescue Searchkick::ImportError
+          log('An update failed, trying index')
           Page.search_index.bulk_index(pages)
         rescue Faraday::ConnectionFailed
           log('Connection failed. You may want to check any other scripts that were running. Retrying...')
-          sleep(3)
+          sleep(3) if @throttle
           pages.each do |page|
             begin
               current_page_id = page.id
               page.reindex
+              sleep(1) if @throttle # Ouch. Sleeping a second per page is ugly!
             rescue => e
               log("Indexing page #{page.id} FAILED. Skipping. Error: #{e.message}")
             end
