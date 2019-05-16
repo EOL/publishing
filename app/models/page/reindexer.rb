@@ -16,7 +16,6 @@ class Page::Reindexer
     log('START')
     log("Skipping to page #{@start_page_id}") unless @start_page_id == 1
     current_page_id = @start_page_id
-    @ticks = 0
     begin
       Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: 10) do |pages|
         current_page_id = pages.first.id
@@ -27,24 +26,20 @@ class Page::Reindexer
           Page.search_index.bulk_index(pages)
         rescue Faraday::ConnectionFailed
           log('Connection failed. You may want to check any other scripts that were running. Retrying...')
-          sleep(3) if @throttle
+          sleep(6) if @throttle
           pages.each do |page|
             begin
               current_page_id = page.id
               page.reindex
-              sleep(1) if @throttle # Ouch. Sleeping a second per page is ugly!
+              sleep(2) if @throttle # Ouch. Sleeping per page is ugly!
             rescue => e
               log("Indexing page #{page.id} FAILED. Skipping. Error: #{e.message}")
             end
           end
         end
       end
-      sleep(1) if @throttle
-      @ticks += 1
-      if @ticks >= 100
-        log("Completed up to page #{pages.last.id}")
-        @ticks = 0
-      end
+      sleep(2) if @throttle
+      log("Completed up to page #{pages.last.id}") if (pages.last.id % 25).zero?
     rescue => e
       log("DIED: restart with ID #{current_page_id}")
       raise(e)
