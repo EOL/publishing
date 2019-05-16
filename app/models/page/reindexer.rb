@@ -17,7 +17,7 @@ class Page::Reindexer
         begin
           Page.search_index.bulk_update(pages, :search_data)
         rescue Searchkick::ImportError
-          Page.search_index.bulk_index(pages, :search_data)
+          Page.search_index.bulk_index(pages)
         end
       end
       ticks += 1
