@@ -39,7 +39,7 @@ class Page::Reindexer
         end
       end
       sleep(2) if @throttle
-      log(pages.last.id)
+      log(pages.last.id) 
     rescue => e
       log("DIED: restart with ID #{current_page_id}")
       raise(e)
