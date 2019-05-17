@@ -25,7 +25,6 @@ class Page::Reindexer
       Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: @batch_size) do |pages|
         batch += 1
         current_page_id = pages.first.id
-        last_msg = Time.now
         begin
           Page.search_index.bulk_update(pages, :search_data)
         rescue Searchkick::ImportError
@@ -45,11 +44,8 @@ class Page::Reindexer
           end
         end
         sleep(@throttle) if @throttle
-        if last_msg < 30.seconds.ago
-          pct = (batch.to_f / batches * 1000).ceil / 10.0
-          log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
-          last_msg = Time.now
-        end
+        pct = (batch.to_f / batches * 1000).ceil / 10.0
+        log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
       end
     rescue => e
       log("DIED: restart with ID #{current_page_id}")
