@@ -46,7 +46,7 @@ class Page::Reindexer
         sleep(@throttle) if @throttle
         naglessly do
           pct = (batch.to_f / batches * 1000).ceil / 10.0
-          log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
+          log("[#{pages.last.id}](https://eol.org/pages/#{pages.last.id}) (batch #{batch}/#{batches}, #{pct}%)")
         end
       end
     rescue => e
@@ -64,6 +64,6 @@ class Page::Reindexer
   end
 
   def log(msg)
-    @log.warn("[#{Time.now.strftime('%F %T')}] #{msg}")
+    @log.warn(msg)
   end
 end
