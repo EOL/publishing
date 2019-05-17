@@ -1,10 +1,11 @@
 # Reindex the pages in a batchable, resumable, update-mistakes-only way.
 class Page::Reindexer
+  # Pass throttle: nil to skip throttling.
   def initialize(start_page_id = nil, options = {})
     @start_page_id = start_page_id || 1
     @log = Logger.new(Rails.root.join('public', 'data', 'page_reindex.log'))
-    @throttle = options.has_key?(:throttle) ? options[:throttle] : true
-    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 10
+    @throttle = options.has_key?(:throttle) ? options[:throttle] : 0.5
+    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 100
     Searchkick.client_options = {
       retry_on_failure: true,
       transport_options: { request: { timeout: 500 } }
@@ -24,6 +25,7 @@ class Page::Reindexer
       Page.search_import.where(['id >= ?', @start_page_id]).find_in_batches(batch_size: @batch_size) do |pages|
         batch += 1
         current_page_id = pages.first.id
+        last_msg = Time.now
         begin
           Page.search_index.bulk_update(pages, :search_data)
         rescue Searchkick::ImportError
@@ -31,21 +33,22 @@ class Page::Reindexer
           Page.search_index.bulk_index(pages)
         rescue Faraday::ConnectionFailed
           log("Connection failed (starting with page #{current_page_id}), you may want to check any other scripts that were running. Retrying...")
-          sleep(6) if @throttle
+          sleep(@throttle * 5) if @throttle
           pages.each do |page|
             begin
               current_page_id = page.id
               page.reindex
-              sleep(1) if @throttle # Ouch. Sleeping per page is ugly!
+              sleep(@throttle) if @throttle # Ouch. Sleeping per page is ugly!
             rescue => e
               log("Indexing page #{page.id} FAILED. Skipping. Error: #{e.message}")
             end
           end
         end
-        sleep(1) if @throttle
-        if (batch % 10) == 1
+        sleep(@throttle) if @throttle
+        if last_msg < 30.seconds.ago
           pct = (batch.to_f / batches * 1000).ceil / 10.0
           log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
+          last_msg = Time.now
         end
       end
     rescue => e
