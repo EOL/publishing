@@ -44,12 +44,22 @@ class Page::Reindexer
           end
         end
         sleep(@throttle) if @throttle
-        pct = (batch.to_f / batches * 1000).ceil / 10.0
-        log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
+        naglessly do
+          pct = (batch.to_f / batches * 1000).ceil / 10.0
+          log("#{pages.last.id} (batch #{batch}/#{batches}, #{pct}%)")
+        end
       end
     rescue => e
       log("DIED: restart with ID #{current_page_id}")
       raise(e)
+    end
+  end
+
+  def naglessly
+    @last_msg ||= 31.seconds.ago
+    if @last_msg < 30.seconds.ago
+      yield
+      @last_msg = Time.now
     end
   end
 
