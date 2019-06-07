@@ -52,7 +52,7 @@
                       .uk-margin-top.uk-overflow-hidden.eol-one-line
                         = medium&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
                     - if annotation
-                      .annotation-media-expand= annotation
+                      .annotation-media-expand= sanitize_allow_links(annotation)
 
           .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
@@ -81,4 +81,4 @@
               .uk-overflow-hidden.eol-one-line
                 = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
             - if annotation
-              .annotation-media-thumb= annotation
+              .annotation-media-thumb= sanitize_allow_links(annotation)
