@@ -17,3 +17,5 @@ Disallow: /nodes
 Disallow: /page_icons
 Disallow: /resources/*/nodes
 Disallow: /user_downloads
+
+Sitemap: https://eol.org/data/sitemap/sitemap.xml.gz
