@@ -555,10 +555,11 @@ class TraitBank
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
       return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
       # order_clause = options[:count] ? "" : "ORDER BY page.name"
+      where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
 
       "MATCH #{matches.join(', ')} "\
       "#{indexes.join(' ')} "\
-      "WHERE #{wheres.join(' AND ')} "\
+      "#{where_clause} "\
       "#{with_count_clause} "\
       "#{return_clause} "# \
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...

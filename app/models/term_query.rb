@@ -7,14 +7,11 @@ class TermQuery < ActiveRecord::Base
   has_one :user_download, :dependent => :destroy
   belongs_to :clade, :class_name => "Page"
   validates_presence_of :result_type
+  validate :validation
 
   enum :result_type => { :record => 0, :taxa => 1 }
 
   accepts_nested_attributes_for :filters
-
-  def search_filters
-    filters.reject { |f| f.invalid? }
-  end
 
   def predicate_filters
     filters.select { |f| f.predicate? }
@@ -60,5 +57,26 @@ class TermQuery < ActiveRecord::Base
       clade_id: clade&.id,
       filters_attributes: filters.collect { |f| f.to_params }
     }
+  end
+
+  def remove_blank_filters
+    self.filters = self.filters.reject { |f| f.blank? }
+  end
+
+  def add_filter_if_none
+    self.filters.build if filters.empty?
+  end
+
+  private
+  def validation
+    if filters.empty?
+      if taxa? && clade.nil?
+        errors.add(:base, "you must provide a clade or a filter with an attribute or value for taxa searches")
+      elsif record?
+        add_filter_if_none
+        filters.first.valid? # To trigger error on field as well. This is scary (side-effects in validation??) but convenient.
+        errors.add(:base, "you must provide a filter with an attribute or value for record searches")
+      end
+    end
   end
 end

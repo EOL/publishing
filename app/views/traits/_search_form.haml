@@ -1,5 +1,10 @@
 #term_form_container
   = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))]} do |f|
+    - if @query.errors[:base].any?
+      %ul.base-errors
+        - @query.errors.full_messages_for(:base).each do |e|
+          %li= e
+
     .filter.filter-row
       %span.js-typeahead-wrap.l-filter-full
         = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (optional)"
