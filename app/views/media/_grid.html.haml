@@ -1,15 +1,16 @@
 - if !local_assigns.has_key? :page
   - page = @page # Which could be nil! Collection views have no page (to mark images as exemplars on)!
 
-%ul.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
+.uk-grid-small{ uk: { grid: true }, class: "uk-child-width-1-2 uk-child-width-1-6@m" }
   - media_ids = media.map { |image| "image_modal_#{image&.id}" }
   - media.each_with_index do |medium, index|
     - img_id = media_ids[index]
     - owner = image_owner(medium)
+    - annotation = local_assigns.has_key?(:annotations) ? annotations[index] : nil
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
     %div
-      %li.uk-card.uk-card-default.uk-card-small.uk-card-hover
+      .uk-card.uk-card-default.uk-card-small.uk-card-hover
         - link_path = medium_path(medium)
         -# Sorry for the style; temporary.
         .uk-card-media-top.uk-inline-clip.uk-transition-toggle{ style: "width: 260px; height: 190px" }
@@ -50,6 +51,8 @@
                     - unless page&.rank&.species_or_below?
                       .uk-margin-top.uk-overflow-hidden.eol-one-line
                         = medium&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
+                    - if annotation
+                      .annotation-media-expand= annotation
 
           .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
@@ -72,7 +75,10 @@
                 = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page.id, medium_ids: [medium&.id]), alt: "add to collection")
         -# Make it drop down on hover:
         -# .uk-section.uk-section-secondary.uk-card-small.uk-padding-small{ uk: { drop: "offset: 0; pos: bottom-justify" } }
-        - unless page&.rank&.species_or_below? || medium.nil?
+        - unless (page&.rank&.species_or_below? || medium.nil?) && annotation.nil?
           .uk-card-footer.eol-padding-tiny.eol-text-tiny.uk-text-muted.uk-section-muted
-            .uk-overflow-hidden.eol-one-line
-              = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
+            - unless page&.rank&.species_or_below? || medium.nil?
+              .uk-overflow-hidden.eol-one-line
+                = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
+            - if annotation
+              .annotation-media-thumb= annotation
