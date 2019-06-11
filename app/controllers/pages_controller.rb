@@ -163,7 +163,10 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     page = Page.where(id: params[:id]).with_hierarchy.first
-    redirect_to(route_not_found_page) if page.nil?
+    if page.nil?
+      Rails.logger.warn("Attempt to load missing page ##{params[:id]}")
+      redirect_to(route_not_found_page)
+    end
     @page = PageDecorator.decorate(page)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
