@@ -407,7 +407,9 @@ private
         label: page.name,
         id: page.id,
         group: group,
-        icon: page.icon
+        icon: page.icon,
+        x: 0, # for convenience of the visualization JS
+        y: 0
       }
     else 
       nil
