@@ -972,5 +972,100 @@ class TraitBank
         nil
       end
     end
+
+    # For data visualization
+#    def pred_prey_for_page(page)
+#      # fetch three categories of pages:
+#      # 1. pages eaten by page (prey)
+#      # 2. pages that eat page (predators)
+#      # 3. pages that eat prey of page (competitors)
+#      q_eats = pred_prey_query(Eol::Uris.eats)
+#      q_is_eaten_by = pred_prey_query(Eol::Uris.is_eaten_by)
+#      q_eats_page_is_target = "MATCH (p2:Page)-[:trait]->(t:Trait)-[:predicate]->(pred:Term), "\
+#        "(p:Page) "\
+#        "WHERE p.id = #{page.id} AND p.id = t.object_page_id "\
+#        "RETURN DISTINCT p.page_id, p2.page_id "\
+#        "LIMIT 10"
+#      r_eats = query(q_eats)
+#      r_is_eaten_by = query(q_is_eaten_by)
+#      r_eats_page_is_target = query(q_eats_page_is_target)
+#
+#      links = Set.new
+#      prey_ids = Set.new
+#      pred_ids = Set.new
+#
+#      process_pred_prey_result(r_eats, prey_ids, links, "eats")
+#      process_pred_prey_result(r_is_eaten_by, pred_ids, links, "iseatenby")
+#      process_pred_prey_result(r_eats_page_is_target, pred_ids, links, "iseatenby")
+#    end
+
+    def pred_prey_for_page(page)
+      eats_string = "[#{uris_to_qs(Eol::Uris.eats)}]"
+      eaten_by_string = "[#{uris_to_qs(Eol::Uris.is_eaten_by)}]"
+
+      qs = "MATCH (source:Page{page_id: #{page.id}}) "\
+        "OPTIONAL MATCH (source)-[:trait]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
+        "(eats_prey:Page{page_id: eats_trait.object_page_id}) "\
+        "WHERE eats_term.uri IN #{eats_string} "\
+        "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, source_type: 'self'}) AS eats_prey_rows, source "\
+        "OPTIONAL MATCH (prey_eaten:Page)-[:trait]-(eaten_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(eaten_term:Term) "\
+        "WHERE eaten_term.uri IN #{eaten_by_string} "\
+        "WITH (collect({ group_id: source.page_id, source: source, target: prey_eaten, source_type: 'self'}) + eats_prey_rows)[0..10] AS prey_rows, source "\
+        "OPTIONAL MATCH (pred:Page)-[:trait]->(pred_eats_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(pred_eats_term:Term) "\
+        "WHERE pred_eats_term.uri IN #{eats_string} "\
+        "WITH collect({ group_id: source.page_id, source: pred, target: source, source_type: 'predator'}) AS pred_eats_rows, prey_rows, source "\
+        "OPTIONAL MATCH (source)-[:trait]->(eaten_by_trait:Trait)-[:predicate]->(eaten_by_term:Term), "\
+        "(eaten_by_pred:Page{page_id: eaten_by_trait.object_page_id}) "\
+        "WHERE eaten_by_term.uri IN #{eaten_by_string} "\
+        "WITH collect({ group_id: source.page_id, source: eaten_by_pred, target: source, source_type: 'predator' }) AS eaten_by_rows, pred_eats_rows, prey_rows, source "\
+        "UNWIND prey_rows AS prey_row "\
+        "WITH prey_row, eaten_by_rows, pred_eats_rows, prey_rows, source "\
+        "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term), "\
+        "(comp_eats_prey:Page{page_id: comp_eats_trait.object_page_id}) "\
+        "WHERE prey_row.target is not null AND comp_eats_term.uri IN #{eats_string} "\
+        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats_prey, target: prey_row.target, source_type: 'competitor'}) AS comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, prey_row, source "\
+        "OPTIONAL MATCH (eaten_by_comp_prey:Page{page_id: prey_row.target.page_id})-[:trait]->(eaten_by_comp_trait:Trait)-[:predicate]->(eaten_by_comp_term:Term), "\
+        "(eaten_by_comp:Page{page_id: eaten_by_comp_trait.object_page_id}) "\
+        "WHERE prey_row.target is not null AND eaten_by_comp_term.uri IN #{eaten_by_string} "\
+        "WITH collect({ group_id: eaten_by_comp_prey.page_id, source: eaten_by_comp, target: eaten_by_comp_prey, source_type: 'competitor' }) AS eaten_by_comp_rows, comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, source "\
+        "WITH prey_rows + pred_eats_rows + eaten_by_rows + comp_eats_rows + eaten_by_comp_rows AS all_rows "\
+        "UNWIND all_rows AS row "\
+        "WITH distinct row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
+        "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.source_type as source_type "\
+        "RETURN group_id, source_type, collect({source: source, target: target})[0..10] "\
+        "LIMIT 100"
+
+      query(qs)
+    end
+
+
+    private
+    def pred_prey_query(uris)
+        "MATCH (p:Page)-[:trait]->(t:Trait)-[:predicate]->(pred:Term), "\
+        "(p2:Page {page_id:t.object_page_id}) "\
+        "WHERE p.page_id = #{page.id} "\
+        "AND pred.uri IN [#{uris_to_qs(uris)}] "\
+        "RETURN DISTINCT p.page_id, p2.page_id "\
+        "LIMIT 10"
+    end
+
+    def process_pred_prey_result(raw_result, page_ids, links, rel_type)
+      raw_result["data"].each do |datum| 
+        page_ids.add(datum["p2.page_id"])
+        links.add({
+          source: rel_type == :eats ? datum["p.page_id"] : datum["p2.page_id"],
+          target: rel_type == :eats ? datum["p2.page_id"] : datum["p.page_id"],
+          type: rel_type
+        })
+      end
+    end
+
+    def uris_to_qs(*args)
+      result = []
+      args.each do |uris|
+        result.concat(uris.collect { |uri| "'#{uri}'" })
+      end
+      result.join(", ")
+    end 
   end
 end

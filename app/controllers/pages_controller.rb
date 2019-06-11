@@ -346,6 +346,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def pred_prey
+    page = Page.find(params[:page_id]) 
+    render json: TraitBank.pred_prey_for_page(page)
+  end
+    
+
 private
   def handle_page_redirects
     # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more

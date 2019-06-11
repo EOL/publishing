@@ -44,6 +44,19 @@ module Eol
       def shrub
         "http://purl.obolibrary.org/obo/FLOPO_0900034"
       end
+
+      def eats
+        [
+          "http://purl.obolibrary.org/obo/RO_0002470", 
+          "http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002439"
+        ]
+      end
+
+      def is_eaten_by
+        [
+          "http://purl.obolibrary.org/obo/RO_0002471"
+        ]
+      end
     end
 
     def marine
