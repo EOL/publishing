@@ -163,7 +163,7 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     page = Page.where(id: params[:id]).with_hierarchy.first
-    redirect_to(controller: 'application', action: 'route_not_found') if page.nil?
+    redirect_to(route_not_found_page) if page.nil?
     @page = PageDecorator.decorate(page)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
@@ -334,7 +334,7 @@ class PagesController < ApplicationController
             results = @results_by_line[line]
             result = results.any? ? results.first : nil
             url = result ? page_url(result) : nil
-            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] } 
+            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] }
           end
         end
         send_data tsv_data, filename: "batch_page_lookup.tsv"

@@ -74,7 +74,7 @@ class Vernacular < ActiveRecord::Base
           user_id = @users[row[:user_id]]
           # TODO: you need a migration.
           create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
-            source: "https://eol.org/users/#{user_id}", resource_id: 1, user_id: user_id)
+            source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
         rescue ActiveRecord::RecordNotFound => e
           file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
         end

@@ -7,13 +7,13 @@ class Publishing::Fast
     publr.by_resource
   end
 
-  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.first, Node, :rank_id)" > dwh_ranks.log 2>&1 &
+  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.find(123), Node, :rank_id)" > dwh_ranks.log 2>&1 &
   def self.update_attribute_by_resource(resource, klass, field)
     publr = new(resource)
     publr.update_attribute(klass, field)
   end
 
-  # e.g.: Publishing::Fast.load_local_file(Resource.first, NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
+  # e.g.: Publishing::Fast.load_local_file(Resource.find(123), NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
   def self.load_local_file(resource, klass, file)
     publr = new(resource)
     publr.load_local_file(klass, file)
