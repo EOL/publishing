@@ -390,7 +390,7 @@ class PagesController < ApplicationController
           pages_to_nodes(competitor_ids, "competitor", pages, nodes, ids_to_remove)
 
           links = links.select do |link|
-            !ids_to_remove.include?(link[:source]) && !ids_to_remove.include(link[:target])
+            !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
           end
 
           {
