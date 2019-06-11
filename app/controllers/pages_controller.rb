@@ -348,11 +348,83 @@ class PagesController < ApplicationController
 
   def pred_prey
     page = Page.find(params[:page_id]) 
-    render json: TraitBank.pred_prey_for_page(page)
+
+    respond_to do |format|
+      format.json do
+        relationships = TraitBank.pred_prey_comp_for_page(page)
+        all_ids = Set.new([page.id])
+        prey_ids = Set.new
+        predator_ids = Set.new
+        competitor_ids = Set.new
+
+        links = relationships.map do |row|
+          if row[:type] == "prey"
+            prey_ids.add(row[:target])
+          elsif row[:type] == "predator"
+            predator_ids.add(row[:source])
+          elsif row[:type] == "competitor"
+            competitor_ids.add(row[:source])
+          else
+            raise "unrecognized relationship type in result: #{row[:type]}"
+          end
+
+          {
+            source: row[:source],
+            target: row[:target]
+          }
+        end
+
+        all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
+
+        pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
+          [page.id, page]
+        end.to_h
+
+        nodes = []
+        ids_to_remove = Set.new
+
+        pages_to_nodes([page.id], "source", pages, nodes, ids_to_remove)
+        pages_to_nodes(prey_ids, "prey", pages, nodes, ids_to_remove)
+        pages_to_nodes(predator_ids, "predator", pages, nodes, ids_to_remove)
+        pages_to_nodes(competitor_ids, "competitor", pages, nodes, ids_to_remove)
+
+        links = links.select do |link|
+          !ids_to_remove.include?(link[:source]) && !ids_to_remove.include(link[:target])
+        end
+
+        render json: {
+          nodes: nodes,
+          links: links
+        }
+      end
+    end
   end
-    
 
 private
+  def pred_prey_node(page, group)
+    if page.rank&.r_species? && page.icon
+      {
+        label: page.name,
+        id: page.id,
+        group: group,
+        icon: page.icon
+      }
+    else 
+      nil
+    end
+  end
+
+  def pages_to_nodes(page_ids, group, pages, nodes, pages_wo_data)
+    page_ids.each do |id|
+      node = pred_prey_node(pages[id], group)
+      if node
+        nodes.push(node)
+      else
+        pages_wo_data.add(id)
+      end
+    end
+  end
+
   def handle_page_redirects
     # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more
     # elegantly than this. I suggest we build a page_redirects table.
