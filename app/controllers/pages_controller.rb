@@ -165,7 +165,7 @@ class PagesController < ApplicationController
     page = Page.where(id: params[:id]).with_hierarchy.first
     if page.nil?
       Rails.logger.warn("Attempt to load missing page ##{params[:id]}")
-      redirect_to(route_not_found_page)
+      redirect_to(route_not_found_path)
     end
     @page = PageDecorator.decorate(page)
     @page_title = @page.name
@@ -350,7 +350,7 @@ class PagesController < ApplicationController
   end
 
   def pred_prey
-    page = Page.find(params[:page_id]) 
+    page = Page.find(params[:page_id])
 
     respond_to do |format|
       format.json do
@@ -416,7 +416,7 @@ private
         x: 0, # for convenience of the visualization JS
         y: 0
       }
-    else 
+    else
       nil
     end
   end
