@@ -352,7 +352,6 @@ class PagesController < ApplicationController
     respond_to do |format|
       format.json do
         relationships = TraitBank.pred_prey_comp_for_page(page)
-        all_ids = Set.new([page.id])
         prey_ids = Set.new
         predator_ids = Set.new
         competitor_ids = Set.new
@@ -370,18 +369,19 @@ class PagesController < ApplicationController
 
           {
             source: row[:source],
-            target: row[:target]
+            target: row[:target],
+            sourceType: row[:type] == "predator" ? "predator" : "selfOrCompetitor" # links are treated differently based on this in the visualization
           }
         end
 
+        all_ids = Set.new([page.id])
         all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
+        nodes = []
+        ids_to_remove = Set.new
 
         pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
           [page.id, page]
         end.to_h
-
-        nodes = []
-        ids_to_remove = Set.new
 
         pages_to_nodes([page.id], "source", pages, nodes, ids_to_remove)
         pages_to_nodes(prey_ids, "prey", pages, nodes, ids_to_remove)
