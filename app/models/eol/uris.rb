@@ -1,6 +1,8 @@
 module Eol
   module Uris
     class << self
+      INVERSES = self.build_inverses
+
       def environment
         'http://eol.org/schema/terms/Habitat'
       end
@@ -43,6 +45,31 @@ module Eol
 
       def shrub
         "http://purl.obolibrary.org/obo/FLOPO_0900034"
+      end
+
+      def eaten_by
+        "http://purl.obolibrary.org/obo/RO_0002471"
+      end
+
+      def eats
+        "http://purl.obolibrary.org/obo/RO_0002470"
+      end
+
+      def ectoparasite_of
+        "http://purl.obolibrary.org/obo/RO_0002632"
+      end
+
+      def has_ectoparasite
+        "http://purl.obolibrary.org/obo/RO_0002633"
+      end
+
+      private
+      def build_inverses
+        one_dir_inverses = {
+          self.eats => self.is_eaten_by,
+          self.ectoparasite_of => self.has_ectoparasite
+        }
+        one_dir_inverses.merge(one_dir_inverses.invert)
       end
     end
 
