@@ -47,12 +47,17 @@ module Eol
         "http://purl.obolibrary.org/obo/FLOPO_0900034"
       end
 
-      def eaten_by
-        "http://purl.obolibrary.org/obo/RO_0002471"
+      def eats
+        [
+          "http://purl.obolibrary.org/obo/RO_0002470", 
+          "http://www.ontobee.org/ontology/RO?iri=http://purl.obolibrary.org/obo/RO_0002439"
+        ]
       end
 
-      def eats
-        "http://purl.obolibrary.org/obo/RO_0002470"
+      def is_eaten_by
+        [
+          "http://purl.obolibrary.org/obo/RO_0002471"
+        ]
       end
 
       def ectoparasite_of
@@ -70,7 +75,7 @@ module Eol
           self.ectoparasite_of => self.has_ectoparasite
         }
         one_dir_inverses.merge(one_dir_inverses.invert)
-      end
+
     end
 
     def marine

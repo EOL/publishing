@@ -259,7 +259,7 @@ class Page < ActiveRecord::Base
   end
 
   def dh_node
-    @dh_node = nodes.find { |n| n.resource_id == 1 }
+    @dh_node = nodes.find { |n| n.resource_id == Resource.native.id }
   end
 
   def dh_scientific_names

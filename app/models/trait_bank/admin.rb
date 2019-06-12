@@ -164,9 +164,8 @@ class TraitBank
 
       def rebuild_names
         query("MATCH (page:Page) REMOVE page.name RETURN COUNT(*)")
-        # HACK HACK HACK HACK: We want to use Resource.native here, NOT ITIS!
-        itis = Resource.where(name: "Integrated Taxonomic Information System (ITIS)").first
-        Node.where(["resource_id = ?", itis.id]).find_each do |node|
+        dynamic_hierarchy = Resource.native
+        Node.where(["resource_id = ?", dynamic_hierarchy.id]).find_each do |node|
           name = node.canonical_form
           page = page_exists?(node.page_id)
           next unless page

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     post 'batch_lookup' => "pages#batch_lookup_results", on: :collection, as: :batch_lookup_results
 
     get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
+    get 'pred_prey' => "pages#pred_prey"
   end
 
   resources :data, only: [:show]
