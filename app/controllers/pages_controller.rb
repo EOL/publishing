@@ -387,10 +387,10 @@ class PagesController < ApplicationController
             [page.id, page]
           end.to_h
 
-          pages_to_nodes([page.id], "source", pages, nodes, ids_to_remove)
-          pages_to_nodes(prey_ids, "prey", pages, nodes, ids_to_remove)
-          pages_to_nodes(predator_ids, "predator", pages, nodes, ids_to_remove)
-          pages_to_nodes(competitor_ids, "competitor", pages, nodes, ids_to_remove)
+          pages_to_nodes([page.id], :source, pages, nodes, ids_to_remove)
+          pages_to_nodes(prey_ids, :prey, pages, nodes, ids_to_remove)
+          pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
+          pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
 
           links = links.select do |link|
             !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
@@ -407,10 +407,10 @@ class PagesController < ApplicationController
 
 private
   NODE_GROUP_PRIORITIES = {
-    "competitor": 1,
-    "prey": 2,
-    "predator": 3,
-    "source": 4    
+    competitor: 1,
+    prey: 2,
+    predator: 3,
+    source: 4    
   }
 
   def pred_prey_node(page, group)
