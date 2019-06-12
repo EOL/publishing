@@ -163,7 +163,10 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     page = Page.where(id: params[:id]).with_hierarchy.first
-    redirect_to(controller: 'application', action: 'route_not_found') if page.nil?
+    if page.nil?
+      Rails.logger.warn("Attempt to load missing page ##{params[:id]}")
+      redirect_to(route_not_found_path)
+    end
     @page = PageDecorator.decorate(page)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
@@ -334,7 +337,7 @@ class PagesController < ApplicationController
             results = @results_by_line[line]
             result = results.any? ? results.first : nil
             url = result ? page_url(result) : nil
-            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] } 
+            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] }
           end
         end
         send_data tsv_data, filename: "batch_page_lookup.tsv"
@@ -347,7 +350,7 @@ class PagesController < ApplicationController
   end
 
   def pred_prey
-    page = Page.find(params[:page_id]) 
+    page = Page.find(params[:page_id])
 
     respond_to do |format|
       format.json do
@@ -420,7 +423,7 @@ private
         x: 0, # for convenience of the visualization JS
         y: 0
       }
-    else 
+    else
       nil
     end
   end

@@ -8,14 +8,14 @@ class CacheWarmer
 
     def warm_full_searches
       # Landmarks:
-      node_ids = Node.where(resource_id: 1, landmark: [1, 2]).pluck(:id)
+      node_ids = Node.where(resource_id: Resource.native.id, landmark: [1, 2]).pluck(:id)
       page_ids = Node.where(id: node_ids).pluck(:page_id)
       strings = Node.where(id: node_ids).pluck(:canonical_form)
       strings += Vernacular.where(is_preferred: true, page_id: page_ids).pluck(:string)
       # Top Species:
       species_ranks = Rank.where(treat_as: Rank.treat_as['r_species'])
       num_top_species = 2000
-      node_ids = Node.where(resource_id: 1, rank: species_ranks).joins(:page).order('pages.page_contents_count DESC').limit(num_top_species).pluck('nodes.id')
+      node_ids = Node.where(resource_id: Resource.native.id, rank: species_ranks).joins(:page).order('pages.page_contents_count DESC').limit(num_top_species).pluck('nodes.id')
       page_ids = Node.where(id: node_ids).pluck(:page_id)
       strings += Node.where(id: node_ids).pluck(:canonical_form)
       strings += Vernacular.where(is_preferred: true, page_id: page_ids).pluck(:string)
