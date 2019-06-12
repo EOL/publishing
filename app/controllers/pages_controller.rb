@@ -377,7 +377,7 @@ class PagesController < ApplicationController
 
           all_ids = Set.new([page.id])
           all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
-          nodes = []
+          nodes = {}
           ids_to_remove = Set.new
 
           pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
@@ -394,7 +394,7 @@ class PagesController < ApplicationController
           end
 
           {
-            nodes: nodes,
+            nodes: nodes.values,
             links: links
           }
         end)
@@ -403,6 +403,13 @@ class PagesController < ApplicationController
   end
 
 private
+  NODE_GROUP_PRIORITIES = {
+    "competitor": 1,
+    "prey": 2,
+    "predator": 3,
+    "source": 4    
+  }
+
   def pred_prey_node(page, group)
     if page.rank&.r_species? && page.icon
       {
@@ -422,7 +429,17 @@ private
     page_ids.each do |id|
       node = pred_prey_node(pages[id], group)
       if node
-        nodes.push(node)
+        already_added = nodes[id]
+
+        if (
+          (
+           already_added && 
+           NODE_GROUP_PRIORITIES[already_added[:group]] < NODE_GROUP_PRIORITIES[node[:group]]
+          ) || 
+          already_added.nil?
+        )
+          nodes[id] = node
+        end
       else
         pages_wo_data.add(id)
       end
