@@ -195,12 +195,11 @@ class TraitBank::Slurp
     end
 
     # TODO: extract the file-writing to a method that takes a block.
-    def rebuild_ancestry
+    def build_ancestry
       require 'csv'
-      puts '(starts) .rebuild_ancestry'
-      # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
-      puts "(infos) delete relationships"
-      TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) DELETE rel")
+      puts '(starts) .build_ancestry'
+      old_version = get_old_ancestry_version
+      new_version = old_version + 1
       # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
       Page
         .includes(native_node: :parent)
@@ -219,23 +218,37 @@ class TraitBank::Slurp
           end
         end
         puts "(infos) add relationships"
-        rebuild_ancestry_group('ancestry.csv')
+        rebuild_ancestry_group('ancestry.csv', new_version)
       end
+      remove_ancestry(old_version) # You can't run this twice on the same resource without downtime.
       puts '(ends) .rebuild_ancestry'
+    end
+
+    def get_old_ancestry_version
+      r = TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) RETURN MAX(rel.ancestry_version)")
+      return 0 unless r&.is_a?(Hash)
+      r['data'].first.first.to_i
+    end
+
+    def remove_ancestry(old_version)
+      # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
+      puts "(infos) delete old relationships"
+      TraitBank.query("MATCH (p:Page)-[rel:parent {ancestry_version: #{old_version}}]->(:Page) DELETE rel")
+      # TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) SET rel.from_resource_id = 1")
     end
 
     def ancestry_file_path
       @ancestry_file_path ||= Rails.public_path.join('ancestry.csv')
     end
 
-    def rebuild_ancestry_group(file)
+    def rebuild_ancestry_group(file, version)
       # Nuke it from orbit:
       execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.page_id) })'])
       execute_clauses([csv_query_head(file), 'MERGE (:Page { page_id: toInt(row.parent_id) })'])
       execute_clauses([csv_query_head(file),
                       'MATCH (page:Page { page_id: toInt(row.page_id) })',
                       'MATCH (parent:Page { page_id: toInt(row.parent_id) })',
-                      'MERGE (page)-[:parent]->(parent)'])
+                      "MERGE (page)-[:parent { ancestry_version: #{version} }]->(parent)"])
     end
 
     def execute_clauses(clauses)
