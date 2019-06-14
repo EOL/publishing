@@ -416,7 +416,8 @@ private
   def pred_prey_node(page, group)
     if page.rank&.r_species? && page.icon
       {
-        label: page.name,
+        label: page.vernacular_or_sci_notags,
+        labelWithItalics: page.name,
         id: page.id,
         group: group,
         icon: page.icon,
