@@ -1003,7 +1003,7 @@ class TraitBank
         "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term), "\
         "(comp_eats_prey:Page{page_id: comp_eats_trait.object_page_id}) "\
         "WHERE prey_row.target is not null AND comp_eats_term.uri IN #{eats_string} "\
-        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats_prey, target: prey_row.target, type: 'competitor', trait: comp_eats_trait}) AS comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, prey_row, source "\
+        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor', trait: comp_eats_trait}) AS comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, prey_row, source "\
         "OPTIONAL MATCH (eaten_by_comp_prey:Page{page_id: prey_row.target.page_id})-[:trait]->(eaten_by_comp_trait:Trait)-[:predicate]->(eaten_by_comp_term:Term), "\
         "(eaten_by_comp:Page{page_id: eaten_by_comp_trait.object_page_id}) "\
         "WHERE prey_row.target is not null AND eaten_by_comp_term.uri IN #{eaten_by_string} "\
