@@ -233,8 +233,10 @@ class TraitBank::Slurp
     def remove_ancestry(old_version)
       # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
       puts "(infos) delete old relationships"
-      TraitBank.query("MATCH (p:Page)-[rel:parent {ancestry_version: #{old_version}}]->(:Page) DELETE rel")
-      # TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) SET rel.from_resource_id = 1")
+      TraitBank::Admin.remove_with_query(
+        name: :rel,
+        q: "MATCH (p:Page)-[rel:parent {ancestry_version: #{old_version}}]->(:Page) DELETE rel"
+      )
     end
 
     def ancestry_file_path
