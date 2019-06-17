@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_filter :set_locale
+  before_filter :set_robots_header
 
   helper_method :is_admin?
   helper_method :is_power_user?
@@ -78,5 +79,11 @@ private
 
   def set_locale
     I18n.locale = params[:lang] || I18n.default_locale
+  end
+
+  def set_robots_header
+    if Rails.application.config.x.block_crawlers
+      response.headers['X-Robots-Tag'] = "noindex"
+    end
   end
 end
