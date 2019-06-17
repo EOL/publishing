@@ -22,14 +22,15 @@ class Resource < ActiveRecord::Base
 
   class << self
     def native
-      Rails.cache.fetch('resources/native') do
+      Rails.cache.fetch('resources/native_v1_1') do
         Resource.where(abbr: 'DWH').first_or_create do |r|
-          r.name = 'EOL Dynamic Hierarchy'
+          r.name = 'EOL Dynamic Hierarchy 1.1'
           r.partner = Partner.native
-          r.description = 'TBD'
-          r.abbr = 'DWH'
+          r.description = ''
+          r.abbr = 'dvdtg'
           r.is_browsable = true
           r.has_duplicate_nodes = false
+          r.nodes_count = 650000
         end
       end
     end
