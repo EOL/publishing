@@ -1,0 +1,6 @@
+User-agent: *
+Request-rate: 1/1
+<% @disallow_patterns.each do |pattern| %>
+<%= "Disallow: #{pattern}" %>
+<% end %>
+Sitemap: https://eol.org/data/sitemap/sitemap.xml.gz

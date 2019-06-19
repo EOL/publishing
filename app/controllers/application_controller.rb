@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :is_power_user?
   helper_method :main_container?
 
+  ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
+
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
     before_filter :authenticate
@@ -18,6 +20,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def robots
+    respond_to do |format|
+      format.text do
+        if Rails.application.config.x.block_crawlers
+          @disallow_patterns = ["/"]
+        else
+          @disallow_patterns = ROBOTS_DISALLOW_PATTERNS
+        end
+      end
+    end
+  end
 
   protected
     def authenticate

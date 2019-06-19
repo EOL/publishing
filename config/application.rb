@@ -45,5 +45,27 @@ module EolWebsite
     
     # set x-robots-tag header to noindex for all requests
     config.x.block_crawlers = Rails.application.secrets.block_crawlers || false
+
+    # disallowed prefixes for robots.txt and X-Robots-Tag header
+    config.x.robots_disallow_patterns = [
+      "/api/ping/",
+      "/api/search/",
+      "/api/pages/",
+      "/api/collections/",
+      "/api/data_objects/",
+      "/api/hierarchy_entries/",
+      "/api/provider_hierarchies/",
+      "/api/hierarchies/",
+      "/api/search_by_provider/",
+      "/search",
+      "/terms",
+      "/users",
+      "/collections",
+      "/nodes",
+      "/page_icons",
+      "/resources/*/nodes",
+      "/user_downloads"
+    ]
+
   end
 end

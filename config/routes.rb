@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get 'errors/internal_server_error'
 
+  get 'robots.:format' => 'application#robots'
+
   # Putting pages first only because it"s the most common:
   # TODO: move all the silly extra things to their own resources (I think).
   resources :pages, only: [:index, :show] do
