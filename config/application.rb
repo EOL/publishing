@@ -49,11 +49,7 @@ module EolWebsite
     # disallowed prefixes for robots.txt and X-Robots-Tag header
     config.x.robots_disallow_patterns = [
       "/api/",
-      "/search",
-      "/users",
-      "/collections",
-      "/nodes",
-      "/page_icons",
+      "/users/",
       "/resources/*/nodes",
     ]
 
