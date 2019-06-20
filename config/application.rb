@@ -50,7 +50,7 @@ module EolWebsite
     config.x.robots_disallow_patterns = [
       "/api/",
       "/users/",
-      "/resources/*/nodes",
+      "/resources/*/nodes/",
     ]
 
   end
