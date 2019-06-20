@@ -1,3 +1,5 @@
+require "robots_util"
+
 class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_robots_header
@@ -7,6 +9,8 @@ class ApplicationController < ActionController::Base
   helper_method :main_container?
 
   ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
+  ROBOTS_DISALLOW_REGEXPS = RobotsUtil.url_patterns_to_regexp(ROBOTS_DISALLOW_PATTERNS)
+
 
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
@@ -20,6 +24,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # robots.txt
   def robots
     respond_to do |format|
       format.text do
@@ -31,6 +36,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
 
   protected
     def authenticate
@@ -95,8 +101,15 @@ private
   end
 
   def set_robots_header
-    if Rails.application.config.x.block_crawlers
+    noindex = Rails.application.config.x.block_crawlers
+
+    if !noindex
+      noindex = ROBOTS_DISALLOW_REGEXPS.any? { |re| request.path =~ re }
+    end
+
+    if noindex
       response.headers['X-Robots-Tag'] = "noindex"
     end
   end
+
 end
