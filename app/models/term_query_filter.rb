@@ -13,6 +13,10 @@ class TermQueryFilter < ActiveRecord::Base
     :range => 5
   }
 
+  def inverse_pred_uri
+    Eol::Uris.inverse(pred_uri)
+  end
+
   def predicate?
     !pred_uri.blank?
   end
