@@ -257,24 +257,30 @@ if (!window.EOL) {
     });
 
     // TODO: move this.
+    /*
     EOL.searchNames = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/pages/autocomplete?simple=1&query=%QUERY',
-        wildcard: '%QUERY'
+        url: Routes.autocomplete_pages_path({ query: 'QUERY', simple: 1 }),
+        wildcard: 'QUERY'
       }
     });
     EOL.searchNames.initialize();
+    */
 
     EOL.searchNamesNoMultipleText = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: '/pages/autocomplete?query=%QUERY&simple=hash&no_multiple_text=true',
-        wildcard: '%QUERY',
+        url: Routes.autocomplete_pages_path({ 
+          query: 'QUERY', 
+          simple: 'hash', 
+          no_multiple_text: true 
+        }),
+        wildcard: 'QUERY',
         transform: function(response) {
           return response.results;
         }
@@ -289,8 +295,8 @@ if (!window.EOL) {
       // TODO: someday we should have a pre-populated list of common search terms
       // and load that here. prefetch: '../data/films/post_1960.json',
       remote: {
-        url: '/users/autocomplete?query=%QUERY',
-        wildcard: '%QUERY'
+        url: Routes.autocomplete_users_path({ query: 'QUERY' }),
+        wildcard: 'QUERY'
       }
     });
     EOL.searchUsers.initialize();
@@ -300,8 +306,11 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.nonword,
       remote: {
-        url: '/terms/predicate_glossary.json?query=%QUERY',
-        wildcard: '%QUERY'
+        url: Routes.predicate_glossary_path({
+          query: 'QUERY',
+          format: 'json'
+        }),
+        wildcard: 'QUERY'
       }
     });
     EOL.searchPredicates.initialize();
@@ -311,24 +320,30 @@ if (!window.EOL) {
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: '/terms/object_term_glossary.json?query=%QUERY',
-        wildcard: '%QUERY'
+        url: Routes.object_term_glossary_path({
+          query: 'QUERY',
+          format: 'json'
+        }),
+        wildcard: 'QUERY'
       }
     });
     EOL.searchObjectTerms.initialize();
 
+    /*
+     * unused - untested
     EOL.pagesAutocomplete = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
-        url: '/pages/autocomplete?query=%QUERY&simple=hash',
-        wildcard: '%QUERY',
+        url: Routes.autocomplete_pages_path({ query: 'QUERY', simple: 'hash'}),
+        wildcard: 'QUERY',
         transform: function(response) {
           return response.results;
         }
       }
     });
     EOL.pagesAutocomplete.initialize();
+    */
 
     EOL.combinedAutocomplete = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -362,6 +377,7 @@ if (!window.EOL) {
       });
 
 
+    /*
     if ($('.clade_filter .typeahead').length >= 1) {
       console.log("Enable clade filter typeahead.");
       $('.clade_filter .typeahead').typeahead(null, {
@@ -374,6 +390,7 @@ if (!window.EOL) {
         $(".clade_filter form").submit();
       });
     };
+    */
 
     if ($('.find_users .typeahead').length >= 1) {
       console.log("Enable username typeahead.");
