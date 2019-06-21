@@ -369,12 +369,14 @@ if (!window.EOL) {
       $('body').removeClass('is-noscroll');
     }
 
+    /*
     $('.ui.names.search')
       .search({
         apiSettings: {
           url: '/pages/autocomplete?query={query}'
         }
       });
+    */
 
 
     /*

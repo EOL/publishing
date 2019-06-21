@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
     # Putting pages first only because it"s the most common:
     # TODO: move all the silly extra things to their own resources (I think).
-    resources :pages, only: [:index, :show] do
+    resources :pages, only: [:show] do
       get 'autocomplete', on: :collection
       get 'topics', on: :collection
       get 'breadcrumbs'

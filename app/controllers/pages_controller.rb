@@ -131,21 +131,6 @@ class PagesController < ApplicationController
     redirect_to Comments.post_url(post["post"])
   end
 
-  def index
-    @title = I18n.t("landing_page.title")
-    @stats = Rails.cache.fetch("pages/index/stats", expires_in: 1.week) do
-      {
-        pages: Page.count,
-        data: TraitBank.count,
-        media: Medium.count,
-        articles: Article.count,
-        users: User.active.count,
-        collections: Collection.count
-      }
-    end
-    render layout: "head_only"
-  end
-
   def clear_index_stats
     respond_to do |fmt|
       fmt.html do
