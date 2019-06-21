@@ -21,7 +21,7 @@
     $.ajax({
       method: 'GET',
       data: $.param(data),
-      url: '/terms/search_form', // TODO: no hard-coded urls
+      url: Routes.term_search_form_path(),
       success: function(res) {
         $('#term_form_container').html(res)
         setupForm();
@@ -96,8 +96,12 @@
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          url: '/terms/object_terms_for_predicate.json?query=%QUERY&pred_uri=' + $(this).data('predUri'),
-          wildcard: '%QUERY'
+          url: Routes.terms_object_terms_for_predicate_path({ 
+            query: 'QUERY',
+            pred_uri: $(this).data('predUri'),
+            format: 'json'
+          }),
+          wildcard: 'QUERY'
         }
       });
       source.initialize();
