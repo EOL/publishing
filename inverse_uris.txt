@@ -1,0 +1,50 @@
+
+eaten by ( http://purl.obolibrary.org/obo/RO_0002471 )
+eats ( http://purl.obolibrary.org/obo/RO_0002470 )
+
+ectoparasite of (http://purl.obolibrary.org/obo/RO_0002632 )
+has ectoparasite (http://purl.obolibrary.org/obo/RO_0002633 )
+
+has endoparasite (http://purl.obolibrary.org/obo/RO_0002635 )
+endoparasite of (http://purl.obolibrary.org/obo/RO_0002634 )
+
+epiphyte of ( http://purl.obolibrary.org/obo/RO_0008501 )
+has epiphyte (http://purl.obolibrary.org/obo/RO_0008502 )
+
+has hyperparasite (http://purl.obolibrary.org/obo/RO_0002554 )
+hyperparasite of (http://purl.obolibrary.org/obo/RO_0002553 )
+
+host of ( http://purl.obolibrary.org/obo/RO_0002453 )
+has host ( http://purl.obolibrary.org/obo/RO_0002454 )
+
+is killed by ( http://purl.obolibrary.org/obo/RO_0002627 )
+kills ( http://purl.obolibrary.org/obo/RO_0002626 )
+
+lays eggs on ( http://purl.obolibrary.org/obo/RO_0008507)
+has eggs laid on by (http://purl.obolibrary.org/obo/RO_0008508 )
+
+parasite of ( http://purl.obolibrary.org/obo/RO_0002444 )
+has parasite ( http://purl.obolibrary.org/obo/RO_0002445)
+
+parasitoid of ( http://purl.obolibrary.org/obo/RO_0002208)
+has parasitoid (http://purl.obolibrary.org/obo/RO_0002209)
+
+pathogen of ( http://purl.obolibrary.org/obo/RO_0002556)
+has pathogen (http://purl.obolibrary.org/obo/RO_0002557 )
+
+pollinated by (http://purl.obolibrary.org/obo/RO_0002456 )
+pollinates ( http://purl.obolibrary.org/obo/RO_0002455 )
+
+preyed upon by (http://purl.obolibrary.org/obo/RO_0002458 )
+preys on ( http://purl.obolibrary.org/obo/RO_0002439 )
+
+has vector ( http://purl.obolibrary.org/obo/RO_0002460 )
+vector of ( http://purl.obolibrary.org/obo/RO_0002459 )
+
+visited by ( http://purl.obolibrary.org/obo/RO_0002619 )
+visits ( http://purl.obolibrary.org/obo/RO_0002618 )
+
+visits flowers of (http://purl.obolibrary.org/obo/RO_0002622 )
+flowers visited by (http://purl.obolibrary.org/obo/RO_0002623 )
+
+

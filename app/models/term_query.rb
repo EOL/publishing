@@ -66,6 +66,18 @@ class TermQuery < ActiveRecord::Base
   def add_filter_if_none
     self.filters.build if filters.empty?
   end
+  
+  def filters_inv_pred_last
+    self.filters.sort do |a, b|
+      if a.inverse_pred_uri && !b.inverse_pred_uri
+        1
+      elsif !a.inverse_pred_uri && b.inverse_pred_uri
+        -1
+      else
+        0
+      end
+    end
+  end
 
   private
   def validation
