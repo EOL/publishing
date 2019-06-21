@@ -45,8 +45,8 @@ class PageContent < ActiveRecord::Base
       STDOUT.flush
       require 'csv'
       # Jamming this in the /public/data dir just so we can keep it between restarts!
-      file = Rails.root.join('public', 'data', 'image_order.tsv')
-      all_data = CSV.read(file, col_sep: "\t")
+      file = DataFile.assume_path('image_order.tsv')
+      all_data = file.read_tsv
       per_cent = all_data.size / 100
       fixed_page = 0
       skipping_count = 0

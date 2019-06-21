@@ -259,7 +259,7 @@ class Page < ActiveRecord::Base
   end
 
   def dh_node
-    @dh_node = nodes.find { |n| n.resource_id == 1 }
+    @dh_node = nodes.find { |n| n.resource_id == Resource.native.id }
   end
 
   def dh_scientific_names
@@ -391,7 +391,7 @@ class Page < ActiveRecord::Base
   end
 
   def icon
-    medium && medium.medium_icon_url
+    medium && medium.image? && medium.medium_icon_url
   end
 
   def occurrence_map?
@@ -419,6 +419,11 @@ class Page < ActiveRecord::Base
   def name(language = nil)
     language ||= Language.current
     vernacular(language)&.string || scientific_name
+  end
+
+  def vernacular_or_sci_notags(language = nil)
+    language ||= Language.current
+    vernacular(language)&.string || ActionController::Base.helpers.strip_tags(scientific_name)
   end
 
   def short_name(language = nil)

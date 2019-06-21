@@ -163,7 +163,10 @@ class PagesController < ApplicationController
   # This is effectively the "overview":
   def show
     page = Page.where(id: params[:id]).with_hierarchy.first
-    redirect_to(controller: 'application', action: 'route_not_found') if page.nil?
+    if page.nil?
+      Rails.logger.warn("Attempt to load missing page ##{params[:id]}")
+      redirect_to(route_not_found_path)
+    end
     @page = PageDecorator.decorate(page)
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
@@ -334,7 +337,7 @@ class PagesController < ApplicationController
             results = @results_by_line[line]
             result = results.any? ? results.first : nil
             url = result ? page_url(result) : nil
-            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] } 
+            tsv << BATCH_LOOKUP_COLS.each.collect { |_, lam| lam[line, result, url] }
           end
         end
         send_data tsv_data, filename: "batch_page_lookup.tsv"
@@ -346,7 +349,107 @@ class PagesController < ApplicationController
     end
   end
 
+  def pred_prey
+    page = Page.find(params[:page_id])
+
+    respond_to do |format|
+      format.json do
+        render json: (Rails.cache.fetch("pages/#{page.id}/pred_prey_json", expires: 1.day) do
+          relationships = TraitBank.pred_prey_comp_for_page(page)
+          prey_ids = Set.new
+          predator_ids = Set.new
+          competitor_ids = Set.new
+
+          links = relationships.map do |row|
+            if row[:type] == "prey"
+              prey_ids.add(row[:target])
+            elsif row[:type] == "predator"
+              predator_ids.add(row[:source])
+            elsif row[:type] == "competitor"
+              competitor_ids.add(row[:source])
+            else
+              raise "unrecognized relationship type in result: #{row[:type]}"
+            end
+
+            {
+              source: row[:source],
+              target: row[:target],
+              sourceType: row[:type] == "predator" ? "predator" : "selfOrCompetitor" # links are treated differently based on this in the visualization
+            }
+          end
+
+          all_ids = Set.new([page.id])
+          all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
+          nodes = {}
+          ids_to_remove = Set.new
+
+          pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
+            [page.id, page]
+          end.to_h
+
+          pages_to_nodes([page.id], :source, pages, nodes, ids_to_remove)
+          pages_to_nodes(prey_ids, :prey, pages, nodes, ids_to_remove)
+          pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
+          pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
+
+          links = links.select do |link|
+            !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
+          end
+
+          {
+            nodes: nodes.values,
+            links: links
+          }
+        end)
+      end
+    end
+  end
+
 private
+  NODE_GROUP_PRIORITIES = {
+    competitor: 1,
+    prey: 2,
+    predator: 3,
+    source: 4    
+  }
+
+  def pred_prey_node(page, group)
+    if page.rank&.r_species? && page.icon
+      {
+        label: page.vernacular_or_sci_notags,
+        labelWithItalics: page.name,
+        id: page.id,
+        group: group,
+        icon: page.icon,
+        x: 0, # for convenience of the visualization JS
+        y: 0
+      }
+    else
+      nil
+    end
+  end
+
+  def pages_to_nodes(page_ids, group, pages, nodes, pages_wo_data)
+    page_ids.each do |id|
+      node = pred_prey_node(pages[id], group)
+      if node
+        already_added = nodes[id]
+
+        if (
+          (
+           already_added && 
+           NODE_GROUP_PRIORITIES[already_added[:group]] < NODE_GROUP_PRIORITIES[node[:group]]
+          ) || 
+          already_added.nil?
+        )
+          nodes[id] = node
+        end
+      else
+        pages_wo_data.add(id)
+      end
+    end
+  end
+
   def handle_page_redirects
     # HACK: HAAAAACKY  HACK, this was a single exception Jen called out. We really want to handle redirected pages more
     # elegantly than this. I suggest we build a page_redirects table.

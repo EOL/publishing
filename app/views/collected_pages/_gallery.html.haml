@@ -1,7 +1,10 @@
 - media = []
+- annotations = []
 - collected_pages.each do |collected_page|
   - if collected_page.media.blank?
     - media << collected_page.page.medium unless collected_page.page.medium.nil?
+    - annotations << collected_page.annotation
   - else
     - media += collected_page.media
-= render("media/grid", media: media)
+    - annotations += Array.new(collected_page.media.length) { |i| collected_page.annotation }
+= render("media/grid", media: media, annotations: annotations)

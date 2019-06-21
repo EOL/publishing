@@ -24,14 +24,27 @@ class Node < ActiveRecord::Base
 
   class << self
     def dump_provider_ids
-      CSV.open(Rails.public_path.join('data', 'provider_ids.csv'), 'wb') do |csv|
-        csv << %w[node_id resource_pk resource_id preferred_canonical_for_page]
-        Node.includes(page: { native_node: :scientific_names }).find_each do |node|
-          name = node.page.native_node.canonical_form&.gsub(/<\/?i>/, '')
-          csv << [node.id, node.resource_pk, node.resource_id, name]
-        end
+      file = Rails.public_path.join('data', 'provider_ids.csv')
+      CSV.open(file, 'wb') do |csv|
+        csv << %w[node_id resource_pk resource_id page_id preferred_canonical_for_page]
+        browsable_resource_ids = Resource.classification.pluck(:id)
+        Node.includes(:identifiers, :scientific_names, page: { native_node: :scientific_names }).
+             where(resource_id: browsable_resource_ids).
+             find_each do |node|
+               next if node.page.nil? # Shouldn't happen, but let's be safe.
+               use_node =  node.page.native_node || node
+               name = use_node.canonical_form&.gsub(/<\/?i>/, '')
+               csv << [node.id, node.resource_pk, node.resource_id, node.page.id, name]
+             end
       end
-      # TODO: we should split that file up and GZIP it.
+      require 'zlib'
+      zipped = "#{file}.gz"
+      Zlib::GzipWriter.open(zipped) do |gz|
+        gz.mtime = File.mtime(file)
+        gz.orig_name = file.to_s
+        gz.write IO.binread(file)
+      end
+      File.unlink(file) rescue nil
     end
   end
 

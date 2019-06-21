@@ -7,16 +7,18 @@ class TraitsController < ApplicationController
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
-    @query.filters.build()
+    @query.filters.build
   end
 
   def search_results
+    @query.remove_blank_filters
     respond_to do |fmt|
       fmt.html do
         if @query.valid?
           Rails.logger.warn @query.to_s
           search_common
         else
+          @query.add_filter_if_none
           render "search"
         end
       end

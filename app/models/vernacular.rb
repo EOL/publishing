@@ -4,6 +4,7 @@ class Vernacular < ActiveRecord::Base
   belongs_to :resource, inverse_of: :vernaculars
   # DENORMALIZED:
   belongs_to :page, inverse_of: :vernaculars
+  belongs_to :user, inverse_of: :vernaculars
 
   scope :preferred, -> { where(is_preferred: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
@@ -55,6 +56,55 @@ class Vernacular < ActiveRecord::Base
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."
+    end
+
+    def import_user_added
+      file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
+      file.dbg("Starting!")
+      rows = file.to_array_of_hashes
+      # Find pages in batches, including native_node
+      # Find users in batches. Argh.
+      @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
+      rows.each do |row|
+        # [:namestring, :iso_lang, :user_id, :taxon_id]
+        begin
+          language = get_language(row[:iso_lang])
+          page = Page.find(row[:taxon_id])
+          node = page.native_node
+          user_id = @users[row[:user_id]]
+          # TODO: you need a migration.
+          create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
+            source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
+        rescue ActiveRecord::RecordNotFound => e
+          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+        end
+      end
+      file.dbg("Done!")
+    end
+
+    def get_language(iso)
+      @languages ||= {}
+      if @languages.key?(iso)
+        @languages[iso]
+      else
+        @languages[iso] =
+          if Language.exists?(code: iso)
+            Language.find_by_code(iso)
+          elsif Language.exists?(group: iso)
+            Language.find_by_group(iso)
+          else
+            Language.create!(code: iso, group: iso, can_browse_site: false)
+          end
+      end
+    end
+
+    def get_users
+      @users = {}
+      # There are just over 90K users from V2, and it's easier to just load them all. :\ This only takes a few seconds:
+      User.select('id, v2_ids').where('v2_ids IS NOT NULL').find_each do |user|
+        user.v2_ids.split(';').each { |id| @users[id] = user.id }
+      end
+      @users
     end
   end
 

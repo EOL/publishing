@@ -44,5 +44,16 @@ module EolWebsite
 
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
+    
+    # set x-robots-tag header to noindex for all requests
+    config.x.block_crawlers = Rails.application.secrets.block_crawlers || false
+
+    # disallowed prefixes for robots.txt and X-Robots-Tag header
+    config.x.robots_disallow_patterns = [
+      "/api/",
+      "/users/",
+      "/resources/*/nodes/",
+    ]
+
   end
 end

@@ -2,7 +2,15 @@ class ResourcesController < ApplicationController
   before_filter :require_admin, except: [:index, :show]
 
   def index
-    @resources = Resource.order('updated_at DESC').by_page(params[:page] || 1).per(10)
+    @resources = Resource.order('updated_at DESC')
+    respond_to do |fmt|
+      fmt.html do
+        @resources = @resources.by_page(params[:page] || 1).per(10)
+      end
+      fmt.json do
+        @resources.includes(:partner, :dataset_licesnse)
+      end
+    end
   end
 
   def show
@@ -36,6 +44,13 @@ class ResourcesController < ApplicationController
     @resource = Resource.find(params[:resource_id])
     Delayed::Job.enqueue(ReindexJob.new(@resource.id))
     flash[:notice] = "#{@resource.name} will be reindexed in the background. Watch this page for updates."
+    redirect_to @resource
+  end
+
+  def fix_no_names
+    @resource = Resource.find(params[:resource_id])
+    Delayed::Job.enqueue(FixNoNamesJob.new(@resource.id))
+    flash[:notice] = "#{@resource.name} will fix NO NAME problems in the background. Expect 1 min per 2000 nodes."
     redirect_to @resource
   end
 

@@ -307,7 +307,7 @@ class TraitBank
           pks_to_filter_by_predicate[predicate] << pk
           pks[pk] ||= true
         end
-        pairs = Node.where(resource_id: 1, resource_pk: pks.keys).pluck('resource_pk, page_id')
+        pairs = Node.where(resource_id: Resource.native.id, resource_pk: pks.keys).pluck('resource_pk, page_id')
         page_id_by_pk = {}
         pairs.each { |pair| page_id_by_pk[pair.first] = pair.last }
         pks_to_filter_by_predicate.each do |predicate, pks|

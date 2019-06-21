@@ -22,6 +22,10 @@ class PageSearchDecorator < SearchResultDecorator
     object.id
   end
 
+  def native_node
+    object&.native_node
+  end
+
   def top_resources
     [
       ["media", object.media_count],

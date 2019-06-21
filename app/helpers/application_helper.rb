@@ -214,4 +214,8 @@ module ApplicationHelper
       page.send(attribute).html_safe
     end
   end
+
+  def sanitize_allow_links(text) 
+    sanitize(text, tags: %w( a ), attributes: %w( href ))
+  end
 end

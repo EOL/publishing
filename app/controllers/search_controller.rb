@@ -27,7 +27,7 @@ class SearchController < ApplicationController
     }
 
     pages_results = Page.autocomplete(params[:query], common_options)
-    term_results = TermNode.search(params[:query], common_options.merge({ 
+    term_results = TermNode.search(params[:query], common_options.merge({
       fields: ['name']
     }))
     pages_simple = simple_results(pages_results, "scientific_name", params[:query], "pages")
@@ -36,7 +36,7 @@ class SearchController < ApplicationController
   end
 
 private
-  def simple_results(full_results, default_name_field, query, controller) 
+  def simple_results(full_results, default_name_field, query, controller)
     result_hash = {}
     full_results.each do |r|
       field = r['highlight']&.first&.first&.split('.').first
@@ -45,12 +45,13 @@ private
         first_hit = name.grep(/#{query}/i)&.first
         name = first_hit || name.first
       end
-      result_hash[name] = if result_hash.key?(name)
-        new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
-        { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
-      else
-        { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
-      end
+      result_hash[name] =
+        if result_hash.key?(name)
+          new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
+          { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
+        else
+          { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
+        end
     end
     result_hash.values
   end
@@ -66,7 +67,9 @@ private
 
     # TODO: we'll want some whitelist filtering here later:
     # params[:q] = "#{@q}*" unless params[:q] =~ /\*$/ or params[:q] =~ /^[-+]/ or params[:q] =~ /\s/
-    params[:q] = I18n.transliterate(params[:q]).downcase
+    # TODO: transliterate is SLOW! We only do it when we detect we (might) need to...
+    params[:q] = I18n.transliterate(params[:q]) unless params[:q].ascii_only?
+    params[:q].downcase!
 
     # TODO: This search suggestions block is large; extract.
 
@@ -88,7 +91,8 @@ private
       # TODO: move this to a helper? It can't go on the model...
       suggestion = suggestions.first
       suggestion = suggestion.synonym_of if suggestion.synonym_of
-      where = case suggestion.type
+      where =
+        case suggestion.type
         when :page
           suggestion.page
         when :object_term
@@ -136,20 +140,22 @@ private
       end
     end
 
-    @clade = if params[:clade]
-      puts "*" * 100
-      puts "** Filtering by clade #{params[:clade]}"
-      # It doesn't make sense to filter some things by clade:
-      params[:only] = if params[:only]
-        Array(params[:only]) - [:collections, :users, :predicates, :object_terms]
+    @clade =
+      if params[:clade]
+        puts "*" * 100
+        puts "** Filtering by clade #{params[:clade]}"
+        # It doesn't make sense to filter some things by clade:
+        params[:only] =
+          if params[:only]
+            Array(params[:only]) - [:collections, :users, :predicates, :object_terms]
+          else
+            [:pages, :media]
+          end
+        puts "Only param should now be: #{params[:only]}"
+        Page.find(params[:clade])
       else
-        [:pages, :media]
+        nil
       end
-      puts "Only param should now be: #{params[:only]}"
-      Page.find(params[:clade])
-    else
-      nil
-    end
 
     default = params.has_key?(:only)? false : true
     @types = {}
@@ -170,55 +176,62 @@ private
     # NOTE: no search is performed unless the @types hash indicates a search for
     # that class is required:
 
-    @pages = if @types[:pages]
-      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks]
-      match = words.size == 1 ? :text_start : :phrase
-      basic_search(Page, boost_by: [:page_richness, :specificity, :depth], match: match, fields: fields,
-                         where: @clade ? { ancestry_ids: @clade.id } : nil,
-                         includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }])
-    else
-      nil
-    end
+    @pages =
+      if @types[:pages]
+        fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks]
+        match = words.size == 1 ? :text_start : :phrase
+        basic_search(Page, boost_by: [:page_richness, :specificity, :depth], match: match, fields: fields,
+                           where: @clade ? { ancestry_ids: @clade.id } : nil,
+                           includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }])
+      else
+        nil
+      end
 
 
-    @collections = if @types[:collections]
-      basic_search(Collection, fields: ["name^5", "description"])
-    else
-      nil
-    end
+    @collections =
+      if @types[:collections]
+        basic_search(Collection, fields: ["name^5", "description"])
+      else
+        nil
+      end
 
-    @articles = if @types[:articles]
-      basic_search(Searchkick,
-        fields: ["name^5", "resource_pk^10", "owner", "description^2"],
-        where: @clade ? { ancestry_ids: @clade.id } : nil,
-        index_name: [Article])
-    else
-      nil
-    end
+    @articles =
+      if @types[:articles]
+        basic_search(Searchkick,
+          fields: ["name^5", "resource_pk^10", "owner", "description^2"],
+          where: @clade ? { ancestry_ids: @clade.id } : nil,
+          index_name: [Article])
+      else
+        nil
+      end
 
-    @images = if @types[:images]
-      media_search("image")
-    else
-      nil
-    end
+    @images =
+      if @types[:images]
+        media_search("image")
+      else
+        nil
+      end
 
-    @videos = if @types[:videos]
-      media_search("video")
-    else
-      nil
-    end
+    @videos =
+      if @types[:videos]
+        media_search("video")
+      else
+        nil
+      end
 
-    @sounds = if @types[:sounds]
-      media_search("sound")
-    else
-      nil
-    end
+    @sounds =
+      if @types[:sounds]
+        media_search("sound")
+      else
+        nil
+      end
 
-    @terms = if @types[:terms]
-      basic_search(TermNode, fields: ["name"])
-    else
-      nil
-    end
+    @terms =
+      if @types[:terms]
+        basic_search(TermNode, fields: ["name"])
+      else
+        nil
+      end
 
     # @links = if @types[:links]
     #   basic_search(Searchkick,
@@ -229,15 +242,17 @@ private
     #   nil
     # end
 
-    @users = if @types[:users]
-      basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
-    else
-      nil
-    end
+    @users =
+      if @types[:users]
+        basic_search(User, fields: ["username^6", "name^4", "tag_line", "bio^2"])
+      else
+        nil
+      end
 
     Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].compact)
 
     @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
+    remove_zombie_pages if @pages
     @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
     @images = ImageSearchDecorator.decorate_collection(@images) if @images
     @videos = VideoSearchDecorator.decorate_collection(@videos) if @videos
@@ -304,5 +319,30 @@ private
       fields: ["name^5", "resource_pk^10", "owner", "description^2"],
       where: where,
       index_name: [Medium])
+  end
+
+  # So-called "self-healing" code for pages that have no native node and were probably deleted:
+  def remove_zombie_pages
+    bad_page_ids = []
+    @pages.each do |page|
+      id = if page.respond_to?(:page_id) # Search decotrator
+        page.page_id
+      else
+        page.id
+      end
+      bad_page_ids << id if page.native_node.nil?
+    end
+    return if bad_page_ids.empty?
+    Page.where(id: bad_page_ids).includes(:nodes).each do |page|
+      if page.nodes.empty?
+        Page.search_index.remove(page)
+        page.delete
+      end
+    end
+    begin # This is really reaching into the innards of the class, but I can't find an alternative:
+      @pages.response["hits"]["hits"].delete_if { |hit| bad_page_ids.include?(hit["_id"]) }
+    rescue
+      # Nothing we can do, it will render a "NO NAME!" result, which is better than the alternative.
+    end
   end
 end

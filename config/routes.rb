@@ -1,7 +1,183 @@
 Rails.application.routes.draw do
   root 'home_page#index'
   get  "set_locale"                   => "locales#set_locale"
-  
+  get 'errors/not_found'
+  get 'errors/internal_server_error'
+  get 'robots.:format' => 'application#robots'
+
+  # Putting pages first only because it"s the most common:
+  # TODO: move all the silly extra things to their own resources (I think).
+  resources :pages, only: [:index, :show] do
+    get 'autocomplete', on: :collection
+    get 'topics', on: :collection
+    get 'breadcrumbs'
+    get 'comments'
+    get 'create_topic'
+    get 'classifications'
+    # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
+    # collection:
+    get 'clear_index_stats', on: :collection
+    get 'details'
+    get 'literature_and_references'
+    get 'maps'
+    get 'media'
+    get 'articles'
+    get 'names'
+    get 'reindex'
+    get 'data'
+    get 'batch_lookup' => "pages#batch_lookup", on: :collection, as: :batch_lookup
+    post 'batch_lookup' => "pages#batch_lookup_results", on: :collection, as: :batch_lookup_results
+
+    get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
+    get 'pred_prey' => "pages#pred_prey"
+  end
+
+  resources :data, only: [:show]
+
+  # Putting users second only because they tend to drive a lot of site behavior:
+  devise_for :users, controllers: { registrations: "user/registrations",
+                                    sessions: "user/sessions",
+                                    omniauth_callbacks: "user/omniauth_callbacks"}
+  resources :users, only: [:show, :destroy] do
+    collection do
+      get "autocomplete"
+      get "search"
+    end
+    resources :user_downloads, only: [:show], as: :downloads do
+      get "error" => "user_download/errors#show", as: :error
+    end
+  end
+
+  # All of the "normal" resources:
+  resources :articles, only: [:show]
+  resources :collections do
+    get "logs"
+    resources :collected_pages, only: [:index]
+    # TODO: this is not very restful; should be a nested resource, but the terms
+    # become somewhat tricky, so cheating for now. These aren't really
+    # "public-facing URLs" anyway, so less concerned about it.
+    post 'add_user'
+    post 'remove_user'
+  end
+  resources :collection_associations, only: [:new, :create, :destroy]
+  resources :collected_pages
+  resources :media, only: [:show] do
+    get 'fix_source_pages'
+  end
+  resources :open_authentications, only: [:new, :create]
+  resources :page_icons, only: [:create]
+  resources :resources, only: [:index, :show] do
+    get 'clear_publishing', on: :collection
+    get 'sync', on: :collection
+    get 'import_traits'
+    get 'republish'
+    get 'reindex'
+    get 'fix_no_names'
+    resources :import_logs, only: [:show]
+    resources :nodes, only: [:index]
+  end
+  resources :search_suggestions
+  resources :home_page_feeds, :only => [:index, :new, :create] do
+    post "publish" => "home_page_feeds#publish", :as => "publish"
+    resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
+  end
+
+  resources :term_nodes, only: :show, constraints: { id: /http.*/ }
+
+  scope '/api' do
+    id_match = /[-\w\.,]+(?=\.(json|xml))/
+    # id_match = /[-\w\.]+/
+    # ping is a bit of an exception - it didn't really get versioned and takes no ID
+    scope '/ping' do
+      get '/1.0' => 'api_ping#index', id: id_match, format: /json|xml/
+      get '/' => 'api_ping#index', id: id_match, format: /json|xml/
+    end
+    scope '/pages' do
+      get '/1.0/:id' => 'api_pages#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
+      get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
+    end
+    scope '/search' do
+      get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/
+      get '/:q' => 'api_search#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_search#index', version: /1\.0/, id: id_match, format: /json|xml/
+    end
+    scope '/collections' do
+      get '/1.0/:id' => 'api_collections#index', id: id_match, format: /json|xml/
+      get '/:id' => 'api_collections#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_collections#index', version: /1\.0/, id: id_match, format: /json|xml/
+    end
+    scope '/data_objects' do
+      get '/1.0/:id' => 'api_data_objects#index', id: id_match, format: /json|xml/
+      get '/:id' => 'api_data_objects#index', id: id_match, format: /json|xml/
+      get '/:version' => 'api_data_objects#index', version: /1\.0/, id: id_match, format: /json|xml/
+    end
+    scope '/data_objects_articles' do
+      get '/1.0/:id' => 'api_data_objects#index_articles', id: id_match, format: /json|xml/
+      get '/:id' => 'api_data_objects#index_articles', id: id_match, format: /json|xml/
+      get '/:version' => 'api_data_objects#index_articles', version: /1\.0/, id: id_match, format: /json|xml/
+    end
+    scope '/hierarchy_entries' do
+      get '/1.0/:id' => 'api_hierarchy_entries#index'
+      get '/:id' => 'api_hierarchy_entries#index'
+      get '/:version' => 'api_hierarchy_entries#index', version: /1\.0/
+    end
+    # TODO: we decided we could go live without these. Which is good, they are lame:
+    # scope '/hierarchies' do
+    #   get '/1.0/:id' => 'api_hierarchies#index'
+    #   get '/:id' => 'api_hierarchies#index'
+    #   get '/:version' => 'api_hierarchies#index', version: /1\.0/
+    # end
+    # scope '/provider_hierarchies' do
+    #   get '/1.0/:id' => 'api_provider_hierarchies#index'
+    #   get '/:id' => 'api_provider_hierarchies#index'
+    #   get '/:version' => 'api_provider_hierarchies#index', version: /1\.0/
+    # end
+    # scope '/search_by_provider' do
+    #   get '/1.0/:id' => 'api_search_by_provider#index'
+    #   get '/:id' => 'api_search_by_provider#index'
+    #   get '/:version' => 'api_search_by_provider#index', version: /1\.0/
+    # end
+  end
+
+
+  # This isn't really a model, so we'll go oldschool:
+  get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
+  get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
+  get "/terms/object_terms_for_predicate" => "terms#object_terms_for_pred"
+  get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
+  get "/terms/new" => "terms#new", :as => "new_term"
+  post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }
+  get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
+  get "/terms/glossary(/:letter)(/:uri)" => "terms#index", :as => "terms", :constraints => { uri: /http.*/ }
+  get "/schema/terms/:uri_part" => "terms#schema_redirect"
+  get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
+  get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
+  get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
+
+  get "/services/authenticate" => "services#authenticate_service"
+  get "/service/cypher" => "service/cypher#query", as: "cypher_query"
+  get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
+
+  post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
+
+  get "/terms/:uri" => "traits#show", :as => "term_records", :constraints => { :uri => /http.*/ }
+  get "/terms/search" => "traits#search", :as => "term_search"
+  get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
+  get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
+
+  # Non-resource routes last:
+  get "/search" => "search#search",  :as => "search"
+  get "/search_page" => "search#search_page", :as => "search_page"
+  get "/autocomplete/:query" => "search#autocomplete"
+  #get "/search_suggestions" => "search#suggestions", :as => "search_suggestions"
+  get "/vernaculars/prefer/:id" => "vernaculars#prefer", :as => "prefer_vernacular"
+  get "/power_users" => "users#power_user_index", :as => "power_users"
+  match '/404', to: 'errors#not_found', via: :all, as: 'route_not_found'
+  match '/500', :to => 'errors#internal_server_error', :via => :all
+
+  match '/ping', to: 'pages#ping', via: :all
+
   # UGLY REDIRECTS FROM V2 THAT WE NEED TO HONOR. TODO: we should clean these up. :|
   scope 'info' do
     get '275', to: redirect('http://discuss.eol.org/c/help')

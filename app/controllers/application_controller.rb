@@ -1,9 +1,16 @@
+require "robots_util"
+
 class ApplicationController < ActionController::Base
   before_filter :set_locale
+  before_filter :set_robots_header
 
   helper_method :is_admin?
   helper_method :is_power_user?
   helper_method :main_container?
+
+  ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
+  ROBOTS_DISALLOW_REGEXPS = RobotsUtil.url_patterns_to_regexp(ROBOTS_DISALLOW_PATTERNS)
+
 
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
@@ -20,6 +27,19 @@ class ApplicationController < ActionController::Base
   def default_url_options(options = {})
     locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
     { locale: locale }.merge options
+  end
+  
+  # robots.txt
+  def robots
+    respond_to do |format|
+      format.text do
+        if Rails.application.config.x.block_crawlers
+          @disallow_patterns = ["/"]
+        else
+          @disallow_patterns = ROBOTS_DISALLOW_PATTERNS
+        end
+      end
+    end
   end
 
   protected
@@ -82,4 +102,17 @@ private
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
   end
+
+  def set_robots_header
+    noindex = Rails.application.config.x.block_crawlers
+
+    if !noindex
+      noindex = ROBOTS_DISALLOW_REGEXPS.any? { |re| request.path =~ re }
+    end
+
+    if noindex
+      response.headers['X-Robots-Tag'] = "noindex"
+    end
+  end
+
 end

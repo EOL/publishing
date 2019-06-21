@@ -1,5 +1,6 @@
 class Resource < ActiveRecord::Base
   belongs_to :partner, inverse_of: :resources
+  belongs_to :dataset_license, class_name: 'License'
 
   has_many :nodes, inverse_of: :resource
   has_many :scientific_names, inverse_of: :resource
@@ -12,20 +13,24 @@ class Resource < ActiveRecord::Base
 
   before_destroy :remove_content
 
+  scope :browsable, -> { where(is_browsable: true) }
+  scope :classification, -> { where(classification: true) }
+
   def dwh?
     id == Resource.native.id
   end
 
   class << self
     def native
-      Rails.cache.fetch('resources/native') do
+      Rails.cache.fetch('resources/native_v1_1') do
         Resource.where(abbr: 'DWH').first_or_create do |r|
-          r.name = 'EOL Dynamic Hierarchy'
+          r.name = 'EOL Dynamic Hierarchy 1.1'
           r.partner = Partner.native
-          r.description = 'TBD'
-          r.abbr = 'DWH'
+          r.description = ''
+          r.abbr = 'dvdtg'
           r.is_browsable = true
           r.has_duplicate_nodes = false
+          r.nodes_count = 650000
         end
       end
     end
@@ -95,8 +100,19 @@ class Resource < ActiveRecord::Base
     ImportLog.create(resource_id: id, status: "currently running")
   end
 
-  def remove_content
+  def remove_content_with_rescue
     log = []
+    begin
+      remove_content(log)
+    rescue => e
+      i_log = import_logs&.last || create_log
+      log.each { |l| i_log.log(l) }
+      i_log.fail(e)
+    end
+  end
+
+  def remove_content(log = nil)
+    log ||= []
     # Node ancestors
     log << nuke(NodeAncestor)
     # Node identifiers
@@ -163,7 +179,7 @@ class Resource < ActiveRecord::Base
     # Get list of affected pages
     log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts..."
     pages = Node.where(resource_id: id).pluck(:page_id)
-    pages.in_groups_of(10_000, false) do |group|
+    pages.in_groups_of(5000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
     log << nuke(Node)
@@ -178,7 +194,7 @@ class Resource < ActiveRecord::Base
   rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
-    retry rescue nil # I really don't care THAT much... sheesh!
+    retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
   end
 
   def fix_native_nodes
@@ -240,6 +256,24 @@ class Resource < ActiveRecord::Base
       all.find_in_batches do |batch|
         Medium.where(id: batch.map(&:id)).update_all("#{field} = CONCAT('https://repo.eol.org/', #{field})")
       end
+    end
+  end
+
+  # The name of this method is based on the SYMPTOM. The underlying cause is that native nodes are *wrong* because of
+  # previous publishes of this resource leaving "zombie" pages with old node ids, and new publishes recognizing that the
+  # page already HAS a native_node_id and thus leaving it alone.
+  def fix_no_names
+    nodes.pluck(:page_id).in_groups_of(5000, false) do |page_ids|
+      # This loop is slow. I don't mind terribly much, this is just a fix. It took about 12 seconds on a resource with
+      # only 700 nodes. You have been warned!
+      Page.where(id: page_ids).
+           joins('LEFT JOIN nodes ON nodes.id = pages.native_node_id').
+           where('nodes.id IS NULL').
+           each do |page|
+             nn_id = Node.where(resource_id: id, page_id: page.id).pluck(:id)&.first
+             next if nn_id.nil?
+             page.update_attribute(:native_node_id, nn_id)
+           end
     end
   end
 

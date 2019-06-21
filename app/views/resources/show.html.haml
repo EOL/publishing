@@ -7,6 +7,8 @@
       = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
     .ui.basic.button
       = link_to(t("resources.actions.reindex"), resource_reindex_path(@resource))
+    .ui.basic.button
+      = link_to(t("resources.actions.fix_no_names"), resource_fix_no_names_path(@resource))
     .ui.red.inverted.button
       = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
         data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })

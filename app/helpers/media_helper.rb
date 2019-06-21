@@ -12,7 +12,7 @@ module MediaHelper
     name = medium.name
 
     if name.blank?
-        name = medium.source_pages.any? ? 
+        name = medium.source_pages.any? ?
           t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
           t("medium.untitled.#{medium.subclass}")
     end
@@ -26,7 +26,7 @@ module MediaHelper
     pages = medium.page_contents.map(&:page).compact.map do |page|
       [page.id, page]
     end.to_h
-    
+
     source_pages.each do |source|
       node = source.safe_native_node
       hierarchy_pages = if node
@@ -46,10 +46,10 @@ module MediaHelper
     appears_on
   end
 
-  def media_thumbnail(medium) 
+  def media_thumbnail(medium)
     if medium.sound? || medium.embedded_video?
       content_tag(:div, class: "grid-thumb grid-thumb-av") do
-        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") + 
+        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") +
         content_tag(:div, medium_name_html(medium))
       end
     elsif medium.video?
@@ -58,7 +58,7 @@ module MediaHelper
         content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end
     else
-      image_tag(medium&.medium_size_url, class: "grid-thumb")
+      image_tag(medium&.medium_size_url)
     end
   end
 

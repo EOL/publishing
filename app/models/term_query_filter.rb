@@ -13,6 +13,10 @@ class TermQueryFilter < ActiveRecord::Base
     :range => 5
   }
 
+  def inverse_pred_uri
+    Eol::Uris.inverse(pred_uri)
+  end
+
   def predicate?
     !pred_uri.blank?
   end
@@ -85,9 +89,13 @@ class TermQueryFilter < ActiveRecord::Base
     }
   end
 
+  def blank?
+    pred_uri.blank? && obj_uri.blank?
+  end
+
   private
   def validation
-    if pred_uri.blank? && obj_uri.blank?
+    if blank?
       errors.add(:pred_uri, "must specify an attribute or a value") 
       errors.add(:obj_uri, "must specify an attribute or a value") 
     elsif numeric?
