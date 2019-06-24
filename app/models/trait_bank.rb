@@ -496,59 +496,46 @@ class TraitBank
 
     def term_record_search(term_query, options)
       matches = []
-      optional_matches = []
+      wheres = []
       collects = []
       rows_vars = []
-      trait_inv_rows = []
 
-      matches << {
-        match: [clade_page_match(term_query.clade)],
-        where: nil
-      }
+      page_match = "(page:Page)"
+      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      matches << page_match
 
-      term_query.filters_inv_pred_last.each_with_index do |filter, i|
-        term_search_filter_match(
-          filter, 
-          i, 
-          matches, 
-          optional_matches, 
-          collects: collects, 
-          trait_inv_rows: trait_inv_rows
-        )
+      term_query.filters.each_with_index do |filter, i|
+        trait_var = "t#{i}"
+        pred_var = "p#{i}"
+        tgt_pred_var = "tp#{i}"
+        obj_var = "o#{i}"
+        tgt_obj_var = "to#{i}"
+
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)"
+
+        if filter.object_term?
+          matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
+          matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
+        else
+          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
+            "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
+        end
+
+        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
+
+        rows_var = "rows#{i}"
+        rows_vars << rows_var
+        collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
       end
 
-      match_part = term_search_match_str(matches, :match)
-      optional_match_part = term_search_match_str(optional_matches, :optional)
-
-      collect_str = collects.collect do |collect|
-        rows_vars << collect[:rows_var]
-        "collect("\
-        "CASE WHEN #{collect[:trait]} is null THEN null ELSE "\
-        "{ invPage: #{collect[:inv_page]}, trait: #{collect[:trait]}, predicate: #{collect[:predicate]} } "\
-        "END) AS #{collect[:rows_var]}"
-      end.join(", ")
-
-      inv_filter_where = if trait_inv_rows.any?
-                           conditions = trait_inv_rows.collect do |row_vars|
-                             or_cond = row_vars.collect do |row_var|
-                               "size(#{row_var}) > 0"
-                             end.join(" OR ")
-                             "(#{or_cond})"
-                           end.join(" AND ")
-                           "WHERE #{conditions}\n"
-                         else
-                           ""
-                         end
-
       collect_unwind_part =
-        "WITH page, #{collect_str}\n"\
-        "#{inv_filter_where}"\
-        "WITH page, #{rows_vars.join(" + ")} as all_rows\n"\
+        "WITH #{collects.join(", ")}\n"\
+        "WITH #{rows_vars.join(" + ")} as all_rows\n"\
         "UNWIND all_rows as row\n"\
-        "WITH DISTINCT page, row\n"\
-        "WITH coalesce(row.invPage, page) as page, row.trait as trait, row.predicate as predicate\n"\
+        "WITH DISTINCT row\n"\
+        "WITH row.page as page, row.trait as trait, row.predicate as predicate "
 
-      optional_trait_matches = [
+      optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
@@ -557,7 +544,7 @@ class TraitBank
         "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
         "(trait)-[:supplier]->(resource:Resource)"
       ]
-      optional_trait_matches += [
+      optional_matches += [
         "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
         "(meta)-[:units_term]->(meta_units_term:Term)",
         "(meta)-[:object_term]->(meta_object_term:Term)",
@@ -566,11 +553,11 @@ class TraitBank
         "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
       ] if options[:meta]
 
-      optional_trait_match_part =
+      optional_match_part =
         if options[:count]
           ''
         else
-          optional_trait_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+          optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
         end
 
       returns =
@@ -591,10 +578,10 @@ class TraitBank
 
       return_clause = "RETURN #{returns.join(", ")}"
 
-      q = "#{match_part}\n"\
-      "#{optional_match_part}\n"\
+      q = "MATCH #{matches.join(', ')}\n"\
+      "WHERE #{wheres.join(' AND ')}\n"\
       "#{collect_unwind_part}\n"\
-      "#{optional_trait_match_part}\n"\
+      "#{optional_match_part}\n"\
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
 
@@ -604,55 +591,210 @@ class TraitBank
 
     def term_page_search(term_query, options)
       matches = []
-      traits_invs = []
-      optional_matches = []
+      wheres = []
+      indexes = []
 
-      matches << {
-        match: [clade_page_match(term_query.clade)],
-        where: nil
-      }
-
-      term_query.filters_inv_pred_last.each_with_index do |filter, i|
-        term_search_filter_match(
-          filter, 
-          i, 
-          matches, 
-          optional_matches, 
-          traits_invs: traits_invs
-        )
+      page_match = "(page:Page)"
+      if term_query.clade
+        page_match += "-[:parent*0..]->(anc:Page { page_id: #{term_query.clade.id} })"
+        indexes << 'USING INDEX anc:Page(page_id)'
       end
+      matches << page_match
 
-      trait_count_vars = []
-      count_where = traits_invs.collect do |trait_inv|
-        inner = trait_inv.collect do |trait_var|
-          count_var = "#{trait_var}_count"
-          trait_count_vars << {
-            trait_var: trait_var,
-            count_var: count_var
-          }
-          "#{count_var} > 0"
-        end.join(" OR ")
-        "(#{inner})"
-      end.join(" AND ")
+      term_query.filters.each_with_index do |filter, i|
+        trait_var = "t#{i}"
+        pred_var = "p#{i}"
+        obj_var = "o#{i}"
+        # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
+        # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
+        matches << "(page)-[:trait]->(#{trait_var}:Trait)"
 
-      match_part = term_search_match_str(matches, :match)
-      optional_match_part = term_search_match_str(optional_matches, :optional)
-
-      query = "#{match_part}\n"\
-      "#{optional_match_part}\n"\
-      "WITH page, #{trait_count_vars.collect { |t| "count(#{t[:trait_var]}) AS #{t[:count_var]}" }.join(", ")}\n"\
-      "WHERE #{count_where}"\
+        if filter.object_term?
+          matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
+          indexes << "USING INDEX #{obj_var}:Term(uri)"
+        else
+          matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+          indexes << "USING INDEX #{pred_var}:Term(uri)"
+        end
+        wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
+      end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
       return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
       # order_clause = options[:count] ? "" : "ORDER BY page.name"
+      where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
 
-      "#{query}\n"\
-      "#{with_count_clause}\n"\
-      "#{return_clause}"# \
+      "MATCH #{matches.join(', ')} "\
+      "#{indexes.join(' ')} "\
+      "#{where_clause} "\
+      "#{with_count_clause} "\
+      "#{return_clause} "# \
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...
       # "#{order_clause}"
     end
+
+#    NOTE: This is the version that handles inverse predicates. It isn't performing ATM, but we might want it in the future, 
+#    so here it is.
+#    def term_record_search(term_query, options)
+#      matches = []
+#      optional_matches = []
+#      collects = []
+#      rows_vars = []
+#      trait_inv_rows = []
+#
+#      matches << {
+#        match: [clade_page_match(term_query.clade)],
+#        where: nil
+#      }
+#
+#      term_query.filters_inv_pred_last.each_with_index do |filter, i|
+#        term_search_filter_match(
+#          filter, 
+#          i, 
+#          matches, 
+#          optional_matches, 
+#          collects: collects, 
+#          trait_inv_rows: trait_inv_rows
+#        )
+#      end
+#
+#      match_part = term_search_match_str(matches, :match)
+#      optional_match_part = term_search_match_str(optional_matches, :optional)
+#
+#      collect_str = collects.collect do |collect|
+#        rows_vars << collect[:rows_var]
+#        "collect("\
+#        "CASE WHEN #{collect[:trait]} is null THEN null ELSE "\
+#        "{ invPage: #{collect[:inv_page]}, trait: #{collect[:trait]}, predicate: #{collect[:predicate]} } "\
+#        "END) AS #{collect[:rows_var]}"
+#      end.join(", ")
+#
+#      inv_filter_where = if trait_inv_rows.any?
+#                           conditions = trait_inv_rows.collect do |row_vars|
+#                             or_cond = row_vars.collect do |row_var|
+#                               "size(#{row_var}) > 0"
+#                             end.join(" OR ")
+#                             "(#{or_cond})"
+#                           end.join(" AND ")
+#                           "WHERE #{conditions}\n"
+#                         else
+#                           ""
+#                         end
+#
+#      collect_unwind_part =
+#        "WITH page, #{collect_str}\n"\
+#        "#{inv_filter_where}"\
+#        "WITH page, #{rows_vars.join(" + ")} as all_rows\n"\
+#        "UNWIND all_rows as row\n"\
+#        "WITH DISTINCT page, row\n"\
+#        "WITH coalesce(row.invPage, page) as page, row.trait as trait, row.predicate as predicate\n"\
+#
+#      optional_trait_matches = [
+#        "(trait)-[:object_term]->(object_term:Term)",
+#        "(trait)-[:units_term]->(units:Term)",
+#        "(trait)-[:normal_units_term]->(normal_units:Term)",
+#        "(trait)-[:sex_term]->(sex_term:Term)",
+#        "(trait)-[:lifestage_term]->(lifestage_term:Term)",
+#        "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
+#        "(trait)-[:supplier]->(resource:Resource)"
+#      ]
+#      optional_trait_matches += [
+#        "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
+#        "(meta)-[:units_term]->(meta_units_term:Term)",
+#        "(meta)-[:object_term]->(meta_object_term:Term)",
+#        "(meta)-[:sex_term]->(meta_sex_term:Term)",
+#        "(meta)-[:lifestage_term]->(meta_lifestage_term:Term)",
+#        "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
+#      ] if options[:meta]
+#
+#      optional_trait_match_part =
+#        if options[:count]
+#          ''
+#        else
+#          optional_trait_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
+#        end
+#
+#      returns =
+#        if options[:count]
+#          ["count"]
+#        else
+#          %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
+#        end
+#
+#      if options[:meta] && !options[:count]
+#        returns += %w[meta meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term
+#          meta_statistical_method_term]
+#      end
+#
+#      with_count_clause = options[:count] ?
+#                          "WITH count(*) AS count " :
+#                          ""
+#
+#      return_clause = "RETURN #{returns.join(", ")}"
+#
+#      q = "#{match_part}\n"\
+#      "#{optional_match_part}\n"\
+#      "#{collect_unwind_part}\n"\
+#      "#{optional_trait_match_part}\n"\
+#      "#{with_count_clause}\n"\
+#      "#{return_clause} "# \
+#
+#      # q += "ORDER BY page.page_id " if !options[:count]
+#      q
+#    end
+
+#    SEE NOTE FOR COMMENTED-OUT term_recor_search
+#    def term_page_search(term_query, options)
+#      matches = []
+#      traits_invs = []
+#      optional_matches = []
+#
+#      matches << {
+#        match: [clade_page_match(term_query.clade)],
+#        where: nil
+#      }
+#
+#      term_query.filters_inv_pred_last.each_with_index do |filter, i|
+#        term_search_filter_match(
+#          filter, 
+#          i, 
+#          matches, 
+#          optional_matches, 
+#          traits_invs: traits_invs
+#        )
+#      end
+#
+#      trait_count_vars = []
+#      count_where = traits_invs.collect do |trait_inv|
+#        inner = trait_inv.collect do |trait_var|
+#          count_var = "#{trait_var}_count"
+#          trait_count_vars << {
+#            trait_var: trait_var,
+#            count_var: count_var
+#          }
+#          "#{count_var} > 0"
+#        end.join(" OR ")
+#        "(#{inner})"
+#      end.join(" AND ")
+#
+#      match_part = term_search_match_str(matches, :match)
+#      optional_match_part = term_search_match_str(optional_matches, :optional)
+#
+#      query = "#{match_part}\n"\
+#      "#{optional_match_part}\n"\
+#      "WITH page, #{trait_count_vars.collect { |t| "count(#{t[:trait_var]}) AS #{t[:count_var]}" }.join(", ")}\n"\
+#      "WHERE #{count_where}"\
+#
+#      with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
+#      return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
+#      # order_clause = options[:count] ? "" : "ORDER BY page.name"
+#
+#      "#{query}\n"\
+#      "#{with_count_clause}\n"\
+#      "#{return_clause}"# \
+#      # TEMP: trying this out without the order clause, since it's SOOOO much faster...
+#      # "#{order_clause}"
+#    end
 
     def clade_page_match(clade)
       page_match = "(page:Page)"
