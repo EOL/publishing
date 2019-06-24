@@ -22,5 +22,9 @@ class Language < ActiveRecord::Base
         l || Language.english
       end
     end
+
+    def cur_group
+      self.current.group
+    end
   end
 end

@@ -10,7 +10,6 @@ class PagesController < ApplicationController
 
   helper :data
 
-  DEFAULT_LANG_GROUP = "en"
   ALL_LANG_GROUP = "show_all"
   BATCH_LOOKUP_COLS = {
     "query" => -> (qs, page, url) { qs },
@@ -529,8 +528,8 @@ private
     if @lang_group.nil?
       # Only default the language for the initial page view, where no filters are set.
       # Expect XHR requests to have the language set explicitly.
-      if @resource.nil? && @lang_groups.include?(DEFAULT_LANG_GROUP)
-        @lang_group = DEFAULT_LANG_GROUP
+      if @resource.nil? && @lang_groups.include?(Language.cur_group)
+        @lang_group = Language.cur_group
       else
         @lang_group = ALL_LANG_GROUP
       end
@@ -539,7 +538,7 @@ private
     lang_group_where =
       if @lang_group == ALL_LANG_GROUP
         nil
-      elsif @lang_group == DEFAULT_LANG_GROUP
+      elsif @lang_group == Language.cur_group
         "articles.language_id IS NULL OR languages.group = ?"
       else
         "languages.group = ?"
