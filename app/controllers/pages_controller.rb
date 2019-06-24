@@ -261,9 +261,14 @@ class PagesController < ApplicationController
   end
 
   def names
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).includes(:preferred_vernaculars,
-      :native_node, { vernaculars: :language }).first)
-    return render(status: :not_found) unless @page # 404
+    @page = PageDecorator.decorate(
+      Page.includes(
+        :preferred_vernaculars,
+        :native_node, 
+        { vernaculars: :language }
+      ).find(params[:page_id])
+    )
+
     respond_to do |format|
       format.html {}
       format.js {}

@@ -175,6 +175,30 @@ module PagesHelper
     )
   end
 
+  def sorted_grouped_vernaculars(page)
+    grouped_vernaculars = page.vernaculars.group_by { |n| n.language.group }
+    cur_lang_group = Language.current.group
+    sorted_keys = grouped_vernaculars.keys.sort do |a, b|
+      if a == cur_lang_group && b != cur_lang_group
+        -1 
+      elsif a != cur_lang_group && b == cur_lang_group
+        1
+      else
+        # TODO: this is inefficient! Find a better way. Instantiates view context per call.
+        language_header(a) <=> language_header(b)
+      end
+    end
+
+    sorted_keys.collect do |key|
+      {
+        lang: key,
+        vernaculars: grouped_vernaculars[key]
+      }
+    end
+  end
+
+
+
 private
 
   def hierarchy_helper(page, link, mode)

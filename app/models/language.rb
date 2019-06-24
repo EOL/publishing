@@ -15,15 +15,12 @@ class Language < ActiveRecord::Base
       end
     end
 
-    # This gets called VERY VERY VERY often, so I'm storing it locally, even
-    # though that breaks the rule of "use Rails cache, not class variables".
     def current
       locale = I18n.locale
-      @current ||=
-        Rails.cache.fetch("languages/current/#{locale}") do
-          l = Language.find_by_group(locale)
-          l ||= Language.english
-        end
+      Rails.cache.fetch("languages/current/#{locale}") do
+        l = Language.find_by_group(locale)
+        l || Language.english
+      end
     end
   end
 end
