@@ -356,7 +356,7 @@ class PagesController < ApplicationController
       format.json do
         render json: (Rails.cache.fetch("pages/#{page.id}/pred_prey_json", expires: 1.day) do
           if !page.rank&.r_species? # all nodes must be species, so bail
-            return { nodes: [], links: [] }
+            { nodes: [], links: [] }
           else
             relationships = TraitBank.pred_prey_comp_for_page(page)
             prey_ids = Set.new
