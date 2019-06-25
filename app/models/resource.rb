@@ -22,8 +22,8 @@ class Resource < ActiveRecord::Base
 
   class << self
     def native
-      Rails.cache.fetch('resources/native_v1_1') do
-        Resource.where(abbr: 'DWH').first_or_create do |r|
+      Rails.cache.fetch('resources/dynamic_hierarchy_1_1') do
+        Resource.where(abbr: 'dvdtg').first_or_create do |r|
           r.name = 'EOL Dynamic Hierarchy 1.1'
           r.partner = Partner.native
           r.description = ''
