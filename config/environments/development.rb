@@ -45,7 +45,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # locales for testing
-  config.i18n.available_locales = [:en, :ar]
+  config.i18n.available_locales = [:en]
 end
 
 # Keep failed jobs around so we can look at stacktraces

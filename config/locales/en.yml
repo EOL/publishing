@@ -10,7 +10,6 @@
 en:
   language_name: "English"
   account_already_linked: "your account is already linked to EOL"
-  account_destroyed_successfully: "You have deleted your account. Thanks!"
   account_not_linked: "your account is not linked to EOL"
   advanced: "advanced"
   are_you_sure_delete_account: "Are you sure you want to delete your EOL account?"
@@ -36,17 +35,12 @@ en:
   cancel: "cancel"
   change_my_password: 'Change my password'
   change_your_password: 'Change your password'
-  clade: "Clade"
-  clade_placeholder: "clade …"
   classifications:
     children:
       header_html:
         one: "%{name} includes <a href=\"%{names_path}\">%{count} child</a>:"
         other: "%{name} includes <a href=\"%{names_path}\">%{count} children</a>:"
       see_more: "see more"
-      too_many_children:
-        one: "Too many children (%{count}) to show."
-        other: "Too many children (%{count}) to show."
     hierarchies:
       header: "Recognized as part of the following resource hierarchies:"
       this_page: "(this page)"
@@ -141,13 +135,10 @@ en:
       sort_field: "annotation, A-Z"
       sort_field_rev: "annotation, Z-A"
     updated: "Collection updated."
-  collection_search_title: "search results for \"%{q}\""
   collection_unauthorized_edit: "Owner user only can edit this collection."
   complete_registration: "Please continue your registration"
-  confirm_new_password: "Confirm new password"
   content_appears_on: "Included On The Following Pages:"
   content_collected_in: "Featured In The Following Collections:"
-  content_associations: "Taxon Links"
   content_attributions_header: "Source Information"
   content_attributions_labels:
     altitude: "altitude"
@@ -188,8 +179,6 @@ en:
   data_missing: "(data missing, keys: %{keys})"
   dear_username_with_comma: "Dear %{username},"
   delete_account_button: "Delete your account"
-  email: "Email"
-  filter: "Filter"
   filter_by_license: "license"
   filter_by_license_any_item: "any license"
   filter_by_medium_subtype: "type"
@@ -235,41 +224,9 @@ en:
       worms: "Worms"
     eol_is_hosted_by: "EOL is hosted by:"
   forgot_your_password: "Forgot your password?"
-  georeference_records_colon: "Georeference records:"
-  georef_occurrence_disclaimer: "This map is based on occurrence records available through %{link} and may not represent the entire distribution."
-  helpers:
-    label:
-      collection:
-        name: "name"
-        description: "description"
-        collection_type: "display"
-        default_sort: "default sort"
-    submit:
-      collected_page:
-        update: "save changes"
-      collection:
-        update: "save changes"
-      user:
-        create: "Create account"
-      search_suggestion:
-        create: "create suggestion"
-        update: "update suggestion"
   landing_page:
-    beta: "To participate in the EOL v3 beta program, please read <a href='http://discuss.eol.org/t/eolv3-beta-test/122'>this post in the EOL discussion forum</a>"
-    cms: "Edit CMS"
     header: "Global access to knowledge about life on Earth"
-    heads:
-      about_eol: "About EOL / Get Involved"
-      education: "Education"
-      featured_links: "Featured Links"
-    reindex: "reindex"
-    search_placeholder: "Search..."
-    search_suggestions: "Search Suggestions"
-    resources: "Resources"
     stats_cleared: "The stats have been recalculated."
-    title: "Encyclopedia of Life"
-    topics: "Latest Discussion Topics"
-
   language: "Language"
   languages:
     none: "Unspecified"
@@ -479,7 +436,6 @@ en:
     zh: "Chinese"
     zh: "Chinese"
     zu: "Zulu"
-  layout_search_placeholder: "Search…"
   layout_sign_in: "Sign In"
   layout_sign_up: "Sign Up"
   layout_sign_out: "Sign Out"
@@ -519,15 +475,11 @@ en:
   medium_description_blank: "There is no description provided for this object."
   medium_header_title: "Title:"
   medium_header_description: "Description:"
-  medium_untitled: "Untitled"
-  min_length: "(%{length} characters minimum)"
   names:
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
   nav:
     about: "About"
-    cms:
-      menu_name: "More..."
     discuss: "Discuss"
     education: "Education"
     search:
@@ -535,24 +487,13 @@ en:
       placeholder: "Search EOL..."
     trait_bank: "TraitBank"
   name_preferred_label: "preferred"
-  new_password: 'New password'
-  no_pages_found: 'No pages found'
-  page_article_header: "Overview"
   page_icon_counts:
     header:
       one: 'Best Image for Page'
       other: 'Best Image for Pages'
-  page_icon_create_button: "best media"
   page_icon_created: "Moved image \"%{name}\" to the top."
-  page_key_data_header: "Key Data"
   page_title: "Encyclopedia of Life"
   page_title_search: "Search: %{query}"
-  page_data_toc_all_items: "all items"
-  page_data_toc_type_glossary: "record type glossary"
-  page_data_toc_value_glossary: "value glossary"
-  page_data_toc_other: "other"
-  page_data:
-    source_column_header: "source &amp; metadata"
   page_vernaculars_empty: "There are no common names associated with this taxon."
   pages:
     actions:
@@ -613,31 +554,16 @@ en:
       dd: "data deficient (DD)"
       ne: "not evaluated (NE)"
       unknown: "unknown (no record)"
-    rank:
-      label: "rank:"
-    richness:
-      label: "richness:"
     unresolved_name: "Unresolved name"
     unresolved_name_prefix: "Unresolved name:"
-  password: "Password"
-  password_confirmation: "Password confirmation"
-  please_wait: "please wait..."
-  please_wait_button: "..wait.."
-  nags:
-    beta: "This is a beta version of EOL v.3. It is optimized for the Chrome browser. This site uses cookies."
   name_recognized_by: "Recognized by %{by}"
-  node_children_header: "Children"
-  node_children_empty: ""
   ranks:
     NOTE: "ranks are not translated. They should be treated verbatim. Don't try to do it. :)"
-    not_given: "none given"
   recaptcha: "Recaptcha"
   recaptcha_error: "Please tell us you are not a robot."
   reference_compiled_from: "Referenced by %{links}"
   reference_compiled_from_article: "%{source} article titled \"%{name}\""
   register_new_account: "Register for new account"
-  remember_me: "remember me"
-  resend_confirmations: "Resend confirmation instructions"
   resources:
     actions:
       import_traits: "import traits (from repository)"
@@ -645,7 +571,6 @@ en:
       reindex: "reindex"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
-      publish: "publish"
       show_all:
         other: "show all (%{count})"
       show_warns:
@@ -660,8 +585,6 @@ en:
       fetch_units_confirm: "This removes existing predicate/unit relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
       clear_publishing: "clear lock"
       clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
-    confirm:
-      publish: "This should only be done if you are sure there are *completed* harvests ready to publish. Are you sure?"
     headers:
       index: "Resources"
       import_log: "Import Log for %{resource}"
@@ -689,16 +612,10 @@ en:
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
   search:
-    empty: "No results found for \"%{q}\"."
-    everything_header: "Listing ALL Site Contents..."
     flash:
       cannot_combine_paths: "Unable to combine results with %{path}"
       more_than_one_species: "Unable to combine results for %{species}"
       more_than_two_terms: "Unable to combine results for more than two terms: %{terms}"
-    header: "Search Results for \"%{q}\""
-    filter_n_results:
-      one: "filter 1 result"
-      other: "filter %{count} results"
     n_articles:
       one: "%{count} article"
       other: "%{count} articles"
@@ -727,7 +644,6 @@ en:
     n_terms:
       one: "%{count} term"
       other: "%{count} terms"
-    suggested: "Suggested (%{count})"
   search_results:
     collection_page_count:
       one: "%{count} page"
@@ -737,7 +653,6 @@ en:
       other: "%{count} pages; maintained by %{users_sentence}"
     collected_media:
       title: "collected media from this page:"
-    header: "results"
     medium_article: "Article"
     medium_image: "Image"
     medium_map: "Map"
@@ -748,13 +663,10 @@ en:
     medium_title_map_html: "Map: <span class='sub'>%{title}</span>"
     medium_title_sound_html: "Audio: <span class='sub'>%{title}</span>"
     medium_title_video_html: "Video: <span class='sub'>%{title}</span>"
-    no_title: (no title)
     empty: "No results."
     field_matches:
-      body: "matches the body text:"
       description: "matches the description:"
       resource_pk: "matches the external ID:"
-      owner: "matches the copyright holder:"
       bio: "matches the biography:"
       tag_line: "matches the tag line:"
       resources:
@@ -851,18 +763,11 @@ en:
     type_information: "Type Information"
     wikipedia: "Wikipedia"
   send_me_reset_password_instructions: "Send me reset password instructions"
-  show_more: "show more"
   show_date: "Show published date"
   sign_in: "Sign In"
   sign_up: "Sign up"
-  signature_basic: "The Encyclopedia of Life Team"
   signature_with_contact_us_link: "If you experience any problems, please contact us at %{url}.\n\nThe Encyclopedia of Life Team"
   did_not_receive_confirmation_instructions: "Didn't receive confirmation instructions"
-  sign_in_up_with_facebook: "%{action} with Facebook"
-  sign_in_up_with_google_oauth2: "%{action} with Google"
-  sign_in_up_with_twitter: "%{action} with Twitter"
-  sign_in_up_with_yahoo: "%{action} with Yahoo"
-  sign_in_remember_me_disabled_for_admins: "For security reasons, administrators cannot use the remember me feature."
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -888,10 +793,11 @@ en:
 
     labels:
       defaults:
-        email:
-        password:
-        password_confirmation:
-        username:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        remember_me: "Remember me"
+        username: "Username"
       search_suggestion:
         match: "search string to match"
         page_id: "ID of the EOL page to redirect to (or filter by)"
@@ -911,15 +817,8 @@ en:
     references: "references"
   term:
     actions:
-      download: "download"
-      download_csv: "Download CSV"
-      glossary: "full glossary"
-      edit: "edit term"
       reindex: "reindex"
-      search: "Search"
       sort: "sort by"
-      show_records: "show records"
-      species_list: "species list"
     edit:
       header: "Editing %{uri}"
       submit: "Save"
@@ -936,33 +835,9 @@ en:
       predicate_title: "Glossary of Type Terms for Data on EOL"
       object_term_title: "Glossary of Value Terms for Data on EOL"
       units_title: "Glossary of Unit Terms for Data on EOL"
-    header:
-      data_search: "Data Search"
-      object_term: "a data record value"
-      predicate: "a data record type"
-      count:
-        one: "%{count} record."
-        other: "%{count} records."
-    label:
-      attribute: "Attribute"
-      records_matching_any: "Records matching ANY attribute/value pair"
-      taxa_matching_all: "Taxa matching ALL attribute/value pairs"
-      value: "Value"
     pagination:
       next: "next page"
       previous: "previous page"
-    show:
-      clade_filter:
-        label: "Filter by clade:"
-        clear: "clear clade filter"
-      object_filter:
-        label: "Filter by data value:"
-        clear: "clear data value filter"
-        placeholder: "choose a data value"
-      predicate_filter:
-        label: "Filter by data type:"
-        clear: "clear data type filter"
-        placeholder: "choose a data type"
   terms:
     attribution_field_html: "<strong>Attribution:</strong> %{attribution}"
     comment_field_html: "<strong>Comment:</strong> %{comment}"
@@ -974,33 +849,11 @@ en:
     uri_field_html: "<strong>URI:</strong> %{uri}"
     index:
       select_page_above: "Select a page above to begin."
-  data_source: "source"
   data_definition: "definition of \"%{data}\""
-  data_table:
-    headers:
-      page: "Page"
-      predicate: "Type"
-      value: "Value"
-      source: "Source"
-  data_toggle_details: "details…"
-  data_unit_definition: "definition:"
-  data_unit_definition_blank: ""
-  data_header_type_glossary: "Glossary of Record Types"
-  data_header_value_glossary: "Glossary of Record Values"
-  data_show_more:
-    one: "Toggle more"
-    other: "Toggle %{count} more"
-  data_sort_dropdown:
-    alphabetical: "record type, A-Z"
-    alphabetical_rev: "record type, Z-A"
-    value: "value, 1-100"
-    value_rev: "value, 100-1"
   trust:
     unreviewed: "unreviewed"
     trusted: "trusted"
     untrusted: "not trusted"
-  uri_definition_blank: "No one has defined this data yet."
-  username: "Username"
   user:
     batch_page_lookup: "Batch page lookup"
     headers:
@@ -1011,38 +864,16 @@ en:
     trait_bank_cypher_form: "Trait bank cypher form"
     list_of_power_users: "List of power users"
     username: "username"
-    email: "email"
     created_at: "created"
     showing_n_power_users:
       one: "Listing one power user"
       other: "Listing %{count} power users"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
-    you_must_select: "You must select at least one attribute"
-  user_not_active: "The user is not active"
   users:
     account_migration_header: "If you registered with EOL before Nov. 15, 2018:"
     account_migration_notice: "Your account information, including username, associated email, profile description, and collections owned, have been imported to the new EOL. Your username is still your display name on the site, but you must now log in with your email address. We could not migrate your password for security reasons; sorry for the bother. You'll be able to reset it using the Forgot Password process. If you logged in only using a third party provider- Google, Twitter or FaceBook- please bear with us; we're working out some issues with the shared login processes."
 
     sign_in: "Sign In"
-    validations:
-      empty_username_error: "Username cannot be empty"
-      short_username_error: "Username is too short. It should be at least 4 characters"
-      long_username_error: "Username is too long. It should be at most 32 characters"
-      invalid_email: "Email is invalid"
-      email_existance_checking: "Checking…."
-      email_already_exists: "Email already in use"
-      empty_email_error: "Email cannot be empty"
-      empty_password_error: "Password cannot be empty"
-      empty_password_confirmation_error: "Password confirmation cannot be empty"
-      empty_username_error: "Username cannot be empty"
-      long_username_error: "Username is too long. It should be at most 32 characters"
-      long_password_error: "Password is too long. It should be at most 32 characters"
-      password_confirmation_mismatch: "Passwords do not match"
-      password_must_have_letter_error: "Password must have at least one letter"
-      password_must_have_number_error: "Password must have at least one number"
-      short_password_error: "Password is too short. Please make sure to type at least 8 characters password"
-      short_username_error: "Username is too short. It should be at least 4 characters"
-  username: "Username"
   vernacular_names_header: "Common Names"
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"

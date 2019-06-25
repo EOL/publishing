@@ -2,8 +2,9 @@
   .uk-offcanvas-bar.uk-width-1-1
     %ul.uk-nav
       = render "nav_links"
-      %li.uk-nav-header= t("language")
-      = render "locale_select_items"
+      - if I18n.available_locales.length > 1
+        %li.uk-nav-header= t("language")
+        = render "locale_select_items"
     .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
   .nav-left
@@ -18,15 +19,16 @@
     %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
       %ul.uk-nav.uk-dropdown-nav.uk-nav-primary
         = render "nav_links"
-    .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
-      %i.fa.fa-globe
-      &nbsp;
-      = t("locale_codes.#{I18n.locale}")
-      &nbsp;
-      %i.fa.fa-chevron-down
-    %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
-      %ul.uk-nav.uk-dropdown-nav
-        = render "locale_select_items"
+    - if I18n.available_locales.length > 1
+      .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
+        %i.fa.fa-globe
+        &nbsp;
+        = t("locale_codes.#{I18n.locale}")
+        &nbsp;
+        %i.fa.fa-chevron-down
+      %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
+        %ul.uk-nav.uk-dropdown-nav
+          = render "locale_select_items"
   - search = search_path rescue '/search_results'
   - search_val = nil
   - if current_page?(search)

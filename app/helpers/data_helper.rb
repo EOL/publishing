@@ -105,7 +105,7 @@ module DataHelper
       haml_tag(:a, uri[:uri], href: uri[:uri], class: "uri_defn")
       haml_tag(:br)
       if uri[:definition].empty?
-        haml_concat(I18n.t(:data_unit_definition_blank))
+        haml_concat("")
       else
         haml_concat(uri[:definition].html_safe)
       end

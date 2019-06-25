@@ -19,12 +19,22 @@ en:
       unconfirmed: "You have to confirm your email address before continuing."
     mailer:
       confirmation_instructions:
+        action: "Confirm my account"
+        greeting: "Welcome %{recipient}!"
+        instruction: "You can confirm your account email through the link below:"
         subject: "Confirmation instructions"
       reset_password_instructions:
+        action: "Change my password"
+        greeting: "Hello #{recipient}!"
+        instruction: "Someone has requested a link to change your password, and you can do this through the link below."
+        instruction_2: "If you didn't request this, please ignore this email."
+        instruction_3: "Your password won't change until you access the link above and create a new one."
         subject: "Reset password instructions"
       unlock_instructions:
         subject: "Unlock instructions"
       password_change:
+        greeting: "Hello #{recipient}!"
+        message: "We're contacting you to notify you that your password has been changed."
         subject: "Password Changed"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because %{reason}."

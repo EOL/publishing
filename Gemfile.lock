@@ -183,6 +183,7 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
     hashie (3.5.6)
+    highline (2.0.2)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -193,6 +194,16 @@ GEM
     httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    i18n-tasks (0.9.29)
+      activesupport (>= 4.0.2)
+      ast (>= 2.1.0)
+      erubi
+      highline (>= 2.0.0)
+      i18n
+      parser (>= 2.2.3.0)
+      rails-i18n
+      rainbow (>= 2.2.2, < 4.0)
+      terminal-table (>= 1.5.1)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -517,6 +528,8 @@ GEM
     temple (0.8.0)
     term-ansicolor (1.6.0)
       tins (~> 1.0)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
@@ -583,6 +596,7 @@ DEPENDENCIES
   font-awesome-sass
   font-kit-rails
   haml-rails
+  i18n-tasks (~> 0.9.26)
   jbuilder
   jquery-rails
   js-routes
