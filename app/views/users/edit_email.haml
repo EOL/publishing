@@ -1,0 +1,4 @@
+%h2= I18n.t(:update_email)
+
+= user_form(resource: @user, url: user_edit_email_path(@user), method: :post) do |f|
+  = f.input :unconfirmed_email, required: true

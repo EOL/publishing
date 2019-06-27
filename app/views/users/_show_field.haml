@@ -1,0 +1,5 @@
+%dt= t("simple_form.labels.defaults.#{field_name}")
+%dd
+  = @user.send(field_name)
+  - if edit
+    %i.fa.fa-edit

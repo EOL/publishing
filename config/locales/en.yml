@@ -798,6 +798,7 @@ en:
         password_confirmation: "Password confirmation"
         remember_me: "Remember me"
         username: "Username"
+        bio: "Bio"
       search_suggestion:
         match: "search string to match"
         page_id: "ID of the EOL page to redirect to (or filter by)"
@@ -856,6 +857,7 @@ en:
     untrusted: "not trusted"
   user:
     batch_page_lookup: "Batch page lookup"
+    change_email: "Change email"
     headers:
       bio: "Brief Biography"
       collections: "Collections"

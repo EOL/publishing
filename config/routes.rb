@@ -52,6 +52,8 @@ Rails.application.routes.draw do
                                       sessions: "user/sessions",
                                       omniauth_callbacks: "user/omniauth_callbacks"}, skip: "omniauth_callbacks"
     resources :users, only: [:show, :destroy] do
+      get "email/edit" => "users#edit_email", as: :edit_email
+
       collection do
         get "autocomplete"
         get "search"

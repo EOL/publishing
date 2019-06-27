@@ -1,3 +1,4 @@
+- edit = current_user == @user
 #page.container
   #page_control{ ng: { controller: "ConfirmDeleteCtrl" } }
     .jumbotron
@@ -6,8 +7,14 @@
           %h1= @user.username
           - unless @user.tag_line.blank?
             %p= @user.tag_line
-    - if current_user == @user
       .actions.col-md-3
+        %dl.uk-description-list
+          = render("show_field", field_name: :username, edit: edit)
+          - if edit
+            = render("show_field", field_name: :email, edit: edit)
+          = render("show_field", field_name: :bio, edit: edit)
+
+      - if edit
         = form_tag user_registration_path, method: :delete, 'data-confirm': t(:are_you_sure_delete_account) do
           = submit_tag t(:delete_account_button)
     - unless @user.bio.blank?
