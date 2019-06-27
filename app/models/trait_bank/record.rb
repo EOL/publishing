@@ -5,10 +5,12 @@
 # simple enough.
 class TraitBank
   class Record
-    def self.iucn_status_key(record)
-      unknown = "unknown"
-      return unknown unless record && record[:object_term]
-      Eol::Uris::Iucn.uri_to_code(record[:object_term][:uri]) || unknown
+    def self.obj_term_uri(record)
+      record.dig(:object_term, :uri)
+    end
+
+    def self.obj_term_name(record)
+      record.dig(:object_term, :name)
     end
   end
 end

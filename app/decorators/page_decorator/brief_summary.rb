@@ -1,7 +1,6 @@
 # At the time of writing, this was an implementation of
 # https://github.com/EOL/eol_website/issues/5#issuecomment-397708511 and
 # https://github.com/EOL/eol_website/issues/5#issuecomment-402848623
-
 require "set"
 
 class PageDecorator
@@ -40,7 +39,13 @@ class PageDecorator
       Result = Struct.new(:sentence, :terms)
       ResultTerm = Struct.new(:pred_uri, :obj, :toggle_selector)
 
-      IucnKeys = Set[:en, :cr, :ew, :nt, :vu]
+      IUCN_URIS = Set[
+        Eol::Uris::Iucn.en, 
+        Eol::Uris::Iucn.cr, 
+        Eol::Uris::Iucn.ew, 
+        Eol::Uris::Iucn.nt, 
+        Eol::Uris::Iucn.vu
+      ]
 
       # [name clause] is a[n] [A1] in the family [A2].
       def species
@@ -87,8 +92,8 @@ class PageDecorator
 
         if is_it_extinct?
           term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
-        elsif @page.iucn_status_key && IucnKeys.include?(@page.iucn_status_key.to_sym)
-          handle_iucn @page.iucn_status_key.to_sym
+        else
+          conservation_sentence
         end
 
         # If the species [is extinct], insert an extinction status sentence between the taxonomy sentence
@@ -345,15 +350,44 @@ class PageDecorator
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
       end
 
-      def handle_iucn(code)
-        uri = Eol::Uris::Iucn.code_to_uri(code)
-        code_term = TraitBank.term_as_hash(uri)
+      def conservation_sentence
+        status_recs = @page.conservation_statuses
+        result = []
 
-        term_sentence(
-          "It is listed as %s by IUCN.",
-          code_term[:name],
-          Eol::Uris::Iucn.status,
-          uri
+        result << handle_iucn(status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn])
+        result << handle_usfg(status_recs[:usfg]) if status_recs.include?(:usfg)
+        result << handle_cites(status_recs[:cites]) if status_recs.include?(:cites )
+        if result.any?
+          sentence = "It is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
+          @sentences << sentence
+        end
+          
+      end
+
+      def handle_iucn(rec)
+        term_sentence_part(
+          "as %s by IUCN",
+          rec[:name],
+          Eol::Uris::Conservation.status,
+          rec[:uri]
+        )
+      end
+
+      def handle_cites(rec)
+        term_sentence_part(
+          "in %s",
+          rec[:name],
+          Eol::Uris::Conservation.status,
+          rec[:uri]
+        )
+      end
+
+      def handle_usfg(rec)
+        term_sentence_part(
+          "as %s by the US Fish and Wildlife Service",
+          rec[:name],
+          Eol::Uris::Conservation.status,
+          rec[:uri]
         )
       end
 

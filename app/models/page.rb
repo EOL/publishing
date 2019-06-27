@@ -522,26 +522,45 @@ class Page < ActiveRecord::Base
     @data = data
   end
 
-  def iucn_status_key
-    # NOTE this is NOT self-healing. If you store the wrong value or change it,
-    # it is up to you to fix the value on the Page instance. This is something
-    # to be aware of!
-    if iucn_status.nil? && @data_loaded
-      status = if grouped_data.has_key?(Eol::Uris::Iucn.status)
-        recs = grouped_data[Eol::Uris::Iucn.status]
-        record = recs.find { |t| t[:resource_id] == Resource.iucn.id }
-        record ||= recs.first
-        TraitBank::Record.iucn_status_key(record)
-      else
-        "unknown"
-      end
-      if iucn_status != status
-        update_attribute(:iucn_status, status)
-      end
-      status
-    else
-      iucn_status
+  def conservation_statuses
+    if @conservation_statuses
+      return @conservation_statuses
     end
+
+    by_provider = {}
+
+    if grouped_data.has_key?(Eol::Uris::Conservation.status)
+      recs = grouped_data[Eol::Uris::Conservation.status]
+      multiples_warned = Set.new
+      recs.each do |rec|
+        uri = TraitBank::Record.obj_term_uri(rec)
+        name = TraitBank::Record.obj_term_name(rec)
+        provider = if Eol::Uris::Conservation.iucn?(uri)
+                     :iucn
+                   elsif Eol::Uris::Conservation.cites?(uri)
+                     :cites
+                   elsif Eol::Uris::Conservation.usfg?(uri)
+                     :usfg
+                   else
+                     logger.warn("Unable to classify conservation status uri by provider: #{uri}")
+                     nil
+                   end
+
+        if provider
+          if by_provider.include?(provider) && !multiples_warned.include?(provider)
+            logger.warn("Found multiple conservation status traits for page #{id}/provider #{provider}")
+            multiples_warned.add(provider)
+          else
+            by_provider[provider] = {
+              uri: uri,
+              name: name
+            }
+          end
+        end
+      end
+    end
+
+    @conservation_statuses = by_provider
   end
 
   def redlist_status
@@ -615,7 +634,6 @@ class Page < ActiveRecord::Base
     clear_caches
     recount
     iucn_status = nil
-    iucn_status_key
     geographic_context = nil
     habitats
     has_checked_marine = nil

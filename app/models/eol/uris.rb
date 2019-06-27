@@ -212,37 +212,69 @@ module Eol
     end
 
     module Iucn
+      CODES_TO_URIS = {
+        ex: "http://eol.org/schema/terms/extinct",
+        ew: "http://eol.org/schema/terms/exinctInTheWild",
+        cr: "http://eol.org/schema/terms/criticallyEndangered",
+        en: "http://eol.org/schema/terms/endangered",
+        vu: "http://eol.org/schema/terms/vulnerable",
+        nt: "http://eol.org/schema/terms/nearThreatened",
+        lc: "http://eol.org/schema/terms/leastConcern",
+        dd: "http://eol.org/schema/terms/dataDeficient",
+        ne: "http://eol.org/schema/terms/notEvaluated"
+      }
+
+      class << self
+        CODES_TO_URIS.each do |code, uri|
+          define_method(code) do
+            uri
+          end
+        end
+      end
+    end
+
+    module Conservation
       class << self
         def status
           "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
         end
 
-        @@codes = {
-          ex: "http://eol.org/schema/terms/extinct",
-          ew: "http://eol.org/schema/terms/exinctInTheWild",
-          cr: "http://eol.org/schema/terms/criticallyEndangered",
-          en: "http://eol.org/schema/terms/endangered",
-          vu: "http://eol.org/schema/terms/vulnerable",
-          nt: "http://eol.org/schema/terms/nearThreatened",
-          lc: "http://eol.org/schema/terms/leastConcern",
-          dd: "http://eol.org/schema/terms/dataDeficient",
-          ne: "http://eol.org/schema/terms/notEvaluated"
-        }
-
-        def uri_to_code(uri)
-          @@codes.each { |code, c_uri| return code if c_uri == uri }
-          nil
+        def iucn?(uri)
+          IUCN_URIS.include? uri
         end
 
-        def code_to_uri(code)
-          @@codes[code]
+        def cites?(uri)
+          CITES_URIS.include? uri
         end
 
-        @@codes.each do |code, uri|
-          define_method(code) do
-            uri
-          end
+        def usfw?(uri)
+          USFW_URIS.include? uri
         end
+
+        IUCN_URIS = Set[
+          Iucn.ex,
+          Iucn.ew,
+          Iucn.cr,
+          Iucn.en,
+          Iucn.vu,
+          Iucn.nt,
+          Iucn.nt,
+          Iucn.lc,
+          Iucn.dd,
+          Iucn.ne
+        ]
+
+        CITES_URIS = Set[
+          "http://eol.org/schema/terms/CITES_I",
+          "http://eol.org/schema/terms/CITES_II",
+          "http://eol.org/schema/terms/CITES_III"
+        ]
+
+        # US Fish and Wildlife
+        USFW_URIS = Set[
+          "http://eol.org/schema/terms/federalEndangered",
+          "http://eol.org/schema/terms/federalThreatened"
+        ]
       end
     end
   end
