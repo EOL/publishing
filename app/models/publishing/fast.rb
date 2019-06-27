@@ -139,7 +139,7 @@ class Publishing::Fast
       begin
         publish_traits
       rescue => e
-        log_warn("Trait Publishing failed: #{e.message}")
+        log_warn("Trait Publishing failed: #{e.message} FROM #{e.backtrace[0..5].join(' FROM ')}")
       end
       log_start('#fix_native_nodes')
       @resource.fix_native_nodes

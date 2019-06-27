@@ -25,9 +25,7 @@
     %p
       %ul.uk-subnav
         %li= link_to(t("resources.actions.index"), resources_path)
-        -# TODO: Shoot, we need a public-facing version of Rails.application.secrets.repository['url'], because that one's
-        -# meant for internal use! = link_to("See harvests.", "/resources/#{@resource.repository_id}")
-        %li= link_to('see harvests', "https://content.eol.org/resources/#{@resource.repository_id}")
+        %li= link_to('see harvests', "#{Rails.application.secrets.repository['url']}/resources/#{@resource.repository_id}")
         %li= link_to("browse #{number_with_delimiter(@resource.nodes.count)} nodes", resource_nodes_path(@resource))
 
     .uk-section.uk-section-small
