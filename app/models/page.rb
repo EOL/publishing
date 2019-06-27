@@ -539,8 +539,8 @@ class Page < ActiveRecord::Base
                      :iucn
                    elsif Eol::Uris::Conservation.cites?(uri)
                      :cites
-                   elsif Eol::Uris::Conservation.usfg?(uri)
-                     :usfg
+                   elsif Eol::Uris::Conservation.usfw?(uri)
+                     :usfw
                    else
                      logger.warn("Unable to classify conservation status uri by provider: #{uri}")
                      nil

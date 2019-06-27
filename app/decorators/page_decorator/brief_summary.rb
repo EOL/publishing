@@ -355,7 +355,7 @@ class PageDecorator
         result = []
 
         result << handle_iucn(status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
-        result << handle_usfg(status_recs[:usfg]) if status_recs.include?(:usfg)
+        result << handle_usfw(status_recs[:usfw]) if status_recs.include?(:usfw)
         result << handle_cites(status_recs[:cites]) if status_recs.include?(:cites )
         if result.any?
           sentence = "It is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
@@ -382,7 +382,7 @@ class PageDecorator
         )
       end
 
-      def handle_usfg(rec)
+      def handle_usfw(rec)
         term_sentence_part(
           "as %s by the US Fish and Wildlife Service",
           rec[:name],
