@@ -1,4 +1,4 @@
-- edit = current_user == @user
+- is_user = current_user == @user
 #page.container
   #page_control{ ng: { controller: "ConfirmDeleteCtrl" } }
     .jumbotron
@@ -9,17 +9,15 @@
             %p= @user.tag_line
       .actions.col-md-3
         %dl.uk-description-list
-          = render("show_field", field_name: :username, edit: edit)
-          - if edit
-            = render("show_field", field_name: :email, edit: edit)
-          = render("show_field", field_name: :bio, edit: edit)
-
-      - if edit
-        = form_tag user_registration_path, method: :delete, 'data-confirm': t(:are_you_sure_delete_account) do
-          = submit_tag t(:delete_account_button)
-    - unless @user.bio.blank?
-      %h2= t("user.headers.bio")
-      %p= @user.bio
+          = render("show_field", field_name: :username)
+          - if is_user
+            = render("show_field", field_name: :email)
+          - if !@user.bio.blank?
+            = render("show_field", field_name: :bio)
+      - if is_user
+        = link_to t("user.edit_account_details"), edit_user_registration_path
+        %br
+        %br
     - unless @user.user_downloads.empty?
       -# - pending = Delayed::Job.where(queue: 'download').count
       %h2= t("user.headers.downloads")

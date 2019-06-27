@@ -1,6 +1,7 @@
 class User::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   prepend_before_action :configure_sign_up_params, only: [:create]
+  prepend_before_action :configure_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -17,10 +18,10 @@ class User::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
+  #PUT /resource
+  #def update
+  #  super
+  #end
 
   # DELETE /resource
   # def destroy
@@ -38,12 +39,24 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def configure_update_params
+    devise_parameter_sanitizer.permit(:account_update) do |u|
+      u.permit(
+        :email,
+        :username,
+        :bio,
+        :password,
+        :password_confirmation,
+        :current_password
+      )
+    end
+  end
+
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up)do |u|
       u.permit( :username,:email, :password, :password_confirmation)
     end
   end
-
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
   #   devise_parameter_sanitizer.for(:account_update) << :attribute
@@ -58,6 +71,10 @@ class User::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  def after_update_path_for(resource)
+    user_path(resource)
+  end
 
   private
 

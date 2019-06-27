@@ -1,8 +1,18 @@
 %h2= t('.title', :resource => resource_class.model_name.human , :default => "Edit #{resource_name.to_s.humanize}")
 = user_form(resource: resource, url: registration_path(resource_name), method: :put) do |f|
   = f.input :email
-  = f.input :username
-  = f.text_area :bio
+  = f.input :username, required: false
+  = f.input :bio
+  = f.input :password
+  = f.input :password_confirmation
+  %br
+  %br
+  = f.input :current_password
+  = f.submit
+
+= form_tag user_registration_path, method: :delete, class: "uk-margin-top uk-margin-large", 'data-confirm': t(:are_you_sure_delete_account) do
+  = submit_tag t(:delete_account_button)
+
   
   -#
     %div

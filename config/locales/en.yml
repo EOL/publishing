@@ -782,7 +782,7 @@ en:
     # Examples
     # hints:
     #   defaults:
-    #     username: 'User name to sign in.'
+    #     u, t("user.updatesername: 'User name to sign in.'
     #     password: 'No special characters, please.'
     # include_blanks:
     #   defaults:
@@ -857,7 +857,8 @@ en:
     untrusted: "not trusted"
   user:
     batch_page_lookup: "Batch page lookup"
-    change_email: "Change email"
+    edit_account_details: "Edit account details"
+    email: "Email"
     headers:
       bio: "Brief Biography"
       collections: "Collections"
@@ -870,6 +871,8 @@ en:
     showing_n_power_users:
       one: "Listing one power user"
       other: "Listing %{count} power users"
+    update: "Update"
+    update_email: "Update email"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
   users:

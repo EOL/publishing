@@ -18,8 +18,4 @@ class UsersController < ApplicationController
   def autocomplete
     render json: User.autocomplete(params[:query])
   end
-
-  def edit_email
-    @user = User.find(params[:user_id])
-  end
 end
