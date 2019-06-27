@@ -354,7 +354,7 @@ class PageDecorator
         status_recs = @page.conservation_statuses
         result = []
 
-        result << handle_iucn(status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn])
+        result << handle_iucn(status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
         result << handle_usfg(status_recs[:usfg]) if status_recs.include?(:usfg)
         result << handle_cites(status_recs[:cites]) if status_recs.include?(:cites )
         if result.any?
