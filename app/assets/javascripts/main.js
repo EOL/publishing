@@ -445,6 +445,10 @@ if (!window.EOL) {
 
     $('.js-overlay-x').click(EOL.hideOverlay);
 
+    $('.js-bread-type-toggle').change(function() { 
+      $(this).submit();
+    });
+
     var $navSearch = $('.js-nav-search')
       , navSearchResultsLimit = 7
       ;

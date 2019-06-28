@@ -202,7 +202,8 @@ module PagesHelper
 private
 
   def hierarchy_helper(page, link, mode)
-    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}", expires_in: 1.day) do
+    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}/#{breadcrumb_type}", expires_in: 1.day) do
+      name_method = breadcrumb_type == "vernacular" ? :vernacular_or_canonical : :canonical
       parts = []
       node = page.safe_native_node
       ancestors = if node
@@ -227,9 +228,9 @@ private
           anc_page = anc_node.page
           if anc_node.use_breadcrumb? || mode == :full
             if link
-              parts << link_to(anc_page.vernacular_or_canonical.html_safe, page_overview_path(anc_page)).html_safe
+              parts << link_to(anc_page.send(name_method).html_safe, page_overview_path(anc_page)).html_safe
             else
-              parts << anc_page.vernacular_or_canonical.html_safe
+              parts << anc_page.send(name_method).html_safe
             end
             shown_ellipsis = false
           elsif !shown_ellipsis

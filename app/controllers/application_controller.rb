@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
   ROBOTS_DISALLOW_REGEXPS = RobotsUtil.url_patterns_to_regexp(ROBOTS_DISALLOW_PATTERNS)
+  DEFAULT_BREADCRUMB_TYPE = "vernacular"
 
 
   # For demo, we're using Basic Auth:
@@ -40,6 +41,17 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  def set_breadcrumb_type
+    type = params[:type]
+
+    if type != "vernacular" && type != "canonical"
+      raise "invalid type param: #{type}"
+    end
+
+    session[:breadcrumb_type] = type
+    redirect_to (request.referrer || home_path)
   end
 
   protected
@@ -76,6 +88,11 @@ class ApplicationController < ActionController::Base
     def main_container?
       !@nocontainer
     end
+
+    def breadcrumb_type
+      session[:breadcrumb_type] || DEFAULT_BREADCRUMB_TYPE
+    end
+    helper_method :breadcrumb_type
 
   public
 
