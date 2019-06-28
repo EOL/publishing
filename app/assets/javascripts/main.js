@@ -220,6 +220,8 @@ if (!window.EOL) {
       });
     }
 
+    /*
+     * NOTE: this enables the page 'comment' button. Disabled since there's an outstanding issue with discourse.
     if ($(".page_topics").length >= 1) {
       console.log("Fetching page comments...");
       $.ajax({
@@ -227,6 +229,7 @@ if (!window.EOL) {
         cache: false
       });
     }
+    */
 
     $(".disable-on-click").on("click", function() {
       $(this).closest(".button").addClass("disabled loading");
