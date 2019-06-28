@@ -1,6 +1,3 @@
-- edit = current_user == @user
 %dt= t("simple_form.labels.defaults.#{field_name}")
-%dd 
+%dd
   = @user.send(field_name)
-  - if edit
-    %i.fa.fa-edit
