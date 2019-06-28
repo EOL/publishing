@@ -106,7 +106,7 @@ class PagesController < ApplicationController
       "#{@page.scientific_name}" :
       "#{@page.scientific_name} (#{@page.name})"
     # TODO: we should configure the name of this category:
-    cat = client.categories.find { |c| c["name"] == "EOL Pages" }
+    category = client.categories.find { |c| c["name"] == "EOL Pages" }
 
     # It seems their API is broken insomuch as you cannot use their
     # #create_topic method AND add tags to it. Thus, I'm just calling the raw
@@ -114,7 +114,7 @@ class PagesController < ApplicationController
     # TODO: rescue this and look for the existing post (again) and redirect there.
     post = client.post("posts",
       "title" => "Comments on #{@page.rank&.name} #{name} page (#{@page.id})".gsub('  ', ' '),
-      "category" => cat["id"],
+      "category" => category["id"],
       "tags[]" => "id:#{@page.id}", # sigh.
       "unlist_topic" => false,
       "is_warning" => false,
@@ -124,7 +124,6 @@ class PagesController < ApplicationController
       "raw" => "Please leave your comments regarding <a href='#{page_overview_url(@page)}'>#{name}</a> in this thread
         by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For
         additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
-
     )
     client.show_tag("id:#{@page.id}")
     redirect_to Comments.post_url(post["post"])
@@ -414,7 +413,7 @@ private
     competitor: 1,
     prey: 2,
     predator: 3,
-    source: 4    
+    source: 4
   }
 
   def pred_prey_node(page, group)
@@ -441,9 +440,9 @@ private
 
         if (
           (
-           already_added && 
+           already_added &&
            NODE_GROUP_PRIORITIES[already_added[:group]] < NODE_GROUP_PRIORITIES[node[:group]]
-          ) || 
+          ) ||
           already_added.nil?
         )
           nodes[id] = node
