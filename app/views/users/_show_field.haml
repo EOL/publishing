@@ -1,3 +1,6 @@
 %dt= t("simple_form.labels.defaults.#{field_name}")
 %dd
-  = @user.send(field_name)
+  - if field_name == :bio
+    = sanitize(@user.send(field_name), tags: %w( p ))
+  - else
+    = @user.send(field_name)

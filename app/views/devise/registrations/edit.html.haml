@@ -3,11 +3,11 @@
   = f.input :email
   = f.input :username, required: false
   = f.input :bio
-  = f.input :password
-  = f.input :password_confirmation
+  = f.input :password, label: t("user.new_password")
+  = f.input :password_confirmation, label: t("user.confirm_new_password")
   %br
   %br
-  = f.input :current_password
+  = f.input :current_password, label: t("user.to_commit_enter_current")
   = f.submit
 
 = form_tag user_registration_path, method: :delete, class: "uk-margin-top uk-margin-large", 'data-confirm': t(:are_you_sure_delete_account) do

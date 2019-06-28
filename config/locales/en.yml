@@ -857,20 +857,23 @@ en:
     untrusted: "not trusted"
   user:
     batch_page_lookup: "Batch page lookup"
+    created_at: "created"
     edit_account_details: "Edit account details"
     email: "Email"
+    to_commit_enter_current: "To commit your changes, please enter your current password"
     headers:
       bio: "Brief Biography"
       collections: "Collections"
       downloads: "Downloads"
       links: "Links"
-    trait_bank_cypher_form: "Trait bank cypher form"
     list_of_power_users: "List of power users"
-    username: "username"
-    created_at: "created"
+    new_password: "New password"
+    confirm_new_password: "Confirm new password"
     showing_n_power_users:
       one: "Listing one power user"
       other: "Listing %{count} power users"
+    trait_bank_cypher_form: "Trait bank cypher form"
+    username: "username"
     update: "Update"
     update_email: "Update email"
   user_download:
