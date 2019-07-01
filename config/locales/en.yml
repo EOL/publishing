@@ -30,6 +30,14 @@ en:
     see_all:
       one: "see other results"
       other: "see all %{count} results"
+  breadcrumbs:
+    notices:
+      canonical: "Scientific names will now be shown in page breadcrumbs"
+      vernacular: "Vernacular names will now be shown in page breadcrumbs where available"
+    setting_header: "page names in breadcrumbs"
+    types:
+      scientific: "scientific"
+      vernacular: "vernacular"
   button_create: "create"
   button_add: "add"
   cancel: "cancel"
@@ -763,6 +771,7 @@ en:
     type_information: "Type Information"
     wikipedia: "Wikipedia"
   send_me_reset_password_instructions: "Send me reset password instructions"
+  settings: "settings"
   show_date: "Show published date"
   sign_in: "Sign In"
   sign_up: "Sign up"

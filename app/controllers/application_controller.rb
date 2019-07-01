@@ -1,4 +1,5 @@
 require "robots_util"
+require "breadcrumbs"
 
 class ApplicationController < ActionController::Base
   before_filter :set_locale
@@ -42,6 +43,27 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_breadcrumb_type
+    type = params[:type]
+
+    if type != "vernacular" && type != "canonical"
+      raise "invalid type param: #{type}"
+    end
+
+    session[:breadcrumb_type] = type
+    flash[:notice] = I18n.t("breadcrumbs.notices.#{type}")
+
+    if current_user
+      if current_user.update(breadcrumb_type: type)
+        logger.debug("Updated user #{current_user.id} breadcrumb type: #{type}")
+      else
+        logger.error("Failed to update user #{current_user.id} breadcrumb type")
+      end
+    end
+
+    redirect_to (request.referrer || home_path)
+  end
+
   protected
     def authenticate
       authenticate_or_request_with_http_basic do |username, password|
@@ -76,6 +98,15 @@ class ApplicationController < ActionController::Base
     def main_container?
       !@nocontainer
     end
+
+    def breadcrumb_type
+      if current_user && !current_user.breadcrumb_type.blank?
+        current_user.breadcrumb_type
+      else
+        session[:breadcrumb_type] || Breadcrumbs.default_type
+      end
+    end
+    helper_method :breadcrumb_type
 
   public
 

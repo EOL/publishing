@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       get 'pred_prey' => "pages#pred_prey"
     end
 
+    post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type
+
     resources :data, only: [:show]
 
     # See https://github.com/plataformatec/devise/wiki/How-To:-OmniAuth-inside-localized-scope if you want to enable omniauth. Disabled currently since the code isn't tested/live. - mvitale
