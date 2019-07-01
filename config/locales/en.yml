@@ -30,6 +30,10 @@ en:
     see_all:
       one: "see other results"
       other: "see all %{count} results"
+  breadcrumbs:
+    notices:
+      canonical: "Scientific names will now be shown in page breadcrumbs"
+      vernacular: "Vernacular names will now be shown in page breadcrumbs where available"
   button_create: "create"
   button_add: "add"
   cancel: "cancel"

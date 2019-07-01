@@ -1,4 +1,5 @@
 require "robots_util"
+require "breadcrumbs"
 
 class ApplicationController < ActionController::Base
   before_filter :set_locale
@@ -10,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   ROBOTS_DISALLOW_PATTERNS = Rails.application.config.x.robots_disallow_patterns
   ROBOTS_DISALLOW_REGEXPS = RobotsUtil.url_patterns_to_regexp(ROBOTS_DISALLOW_PATTERNS)
-  DEFAULT_BREADCRUMB_TYPE = "vernacular"
 
 
   # For demo, we're using Basic Auth:
@@ -51,6 +51,16 @@ class ApplicationController < ActionController::Base
     end
 
     session[:breadcrumb_type] = type
+    flash[:notice] = I18n.t("breadcrumbs.notices.#{type}")
+
+    if current_user
+      if current_user.update(breadcrumb_type: type)
+        logger.debug("Updated user #{current_user.id} breadcrumb type: #{type}")
+      else
+        logger.error("Failed to update user #{current_user.id} breadcrumb type")
+      end
+    end
+
     redirect_to (request.referrer || home_path)
   end
 
@@ -90,7 +100,11 @@ class ApplicationController < ActionController::Base
     end
 
     def breadcrumb_type
-      session[:breadcrumb_type] || DEFAULT_BREADCRUMB_TYPE
+      if current_user && !current_user.breadcrumb_type.blank?
+        current_user.breadcrumb_type
+      else
+        session[:breadcrumb_type] || Breadcrumbs.default_type
+      end
     end
     helper_method :breadcrumb_type
 
