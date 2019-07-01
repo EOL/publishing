@@ -34,7 +34,7 @@ audio {
   background: $white;
   color: $black;
 
-  & a {
+  & a, & select {
     color: $nav-dark-gray;
 
     &:hover {

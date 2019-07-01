@@ -5,6 +5,10 @@
       - if I18n.available_locales.length > 1
         %li.uk-nav-header= t("language")
         = render "locale_select_items"
+      %li.uk-nav-header= t("breadcrumbs.setting_header")
+      %li
+        = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
+          = select_tag "type", options_for_select([[t("breadcrumbs.types.vernacular"), "vernacular"], [t("breadcrumbs.types.scientific"), "canonical"]], breadcrumb_type)
     .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
   .nav-left
@@ -34,15 +38,15 @@
       %i.fa.fa-chevron-down
     %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
       .uk-nav.uk-dropdown-nav.uk-nav-primary
-        .uk-nav-header Page names in breadcrumbs
+        .uk-nav-header= t("breadcrumbs.setting_header")
         = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
           .uk-grid-small.uk-child-width-auto.uk-grid
             %label
               = radio_button_tag "type", "vernacular", breadcrumb_type == "vernacular", class: "uk-radio"
-              vernacular
+              = t("breadcrumbs.types.vernacular")
             %label 
               = radio_button_tag "type", "canonical", breadcrumb_type == "canonical", class: "uk-radio"
-              scientific
+              = t("breadcrumbs.types.scientific")
   - search = search_path rescue '/search_results'
   - search_val = nil
   - if current_page?(search)
