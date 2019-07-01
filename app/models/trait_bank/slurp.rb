@@ -52,7 +52,8 @@ class TraitBank::Slurp
       require 'csv'
       data = CSV.read(Rails.public_path.join("traits_#{id}.csv"))
       headers = data.shift
-      position = headers.find_index('resource_id')
+      position = headers.find_index(field)
+      raise "Could not find #{field} field in traits_#{id}.csv." if position.nil?
       values = {}
       data.each do |row|
         values[row[position]] = true
