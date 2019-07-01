@@ -448,14 +448,16 @@ body {
   */
 
 .nav-left {
-  float: left;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .nav-right {
-  float: right;
   height: 100%;
-  margin-right: 10px;
-  position: relative;
+  right: 10px;
+  top: 0;
+  position: absolute;
 }
 
 .nav-logo {
@@ -471,12 +473,23 @@ body {
   $border-sz: 1px;
   border: $border-sz solid $light-gray !important;
   font-size: 13px !important;
-  height: $nav-height - 2 * $margin-tb - 2 * $border-sz !important;
+  height: $nav-height - 2 * $margin-tb !important;
   margin: $margin-tb 0 !important;
   padding: 0 24px 0 4px !important;
   vertical-align: middle !important;
-  width: 235px !important;
+  width: 100% !important;
   border-radius: 2px !important;
+  box-sizing: border-box;
+}
+
+.nav-search-form {
+  margin: 0 auto;
+  position: relative;
+  width: 250px;
+
+  & > .twitter-typeahead {
+    width: 100%;
+  }
 }
 
 .nav-search-form .tt-dataset {
@@ -494,7 +507,7 @@ body {
 
 .nav-search-icon {
   position: absolute;
-  right: 5px;
+  right: 0;
   top: 12px;
 }
 
@@ -549,6 +562,10 @@ body {
     display: block;
   }
 }
+
+  .nav-menu-anchor-bars {
+    position: absolute;
+  }
 
 // overlays
 .l-overlay {
@@ -619,6 +636,13 @@ body {
     height: 100px;
   }
 
+@media(min-width: $width-uk-s + 1px) {
+  .nav-search-form {
+    float: right;
+    margin-right: 10px;
+    width: 265px;
+  }
+}
 
 @media(max-width: 616px) {
   // TODO: these should all have a single class that is targeted

@@ -1,5 +1,5 @@
-#mobile-menu{:'uk-offcanvas' => "overlay: true"}
-  .uk-offcanvas-bar.uk-width-1-1
+#mobile-menu{:'uk-offcanvas' => "overlay: true; flip: true"}
+  .uk-offcanvas-bar
     %ul.uk-nav
       = render "nav_links"
       - if I18n.available_locales.length > 1
@@ -12,10 +12,6 @@
     .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
   .nav-left
-    .nav-item.nav-menu-anchor{ class: "uk-hidden@s", :'uk-toggle' => "#mobile-menu" }
-      %i.fa.fa-bars
-      &nbsp;
-      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
     .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
       = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
       %span &nbsp;
@@ -33,6 +29,8 @@
       %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
         %ul.uk-nav.uk-dropdown-nav
           = render "locale_select_items"
+    .nav-item.nav-menu-anchor{ class: "uk-hidden@s" }
+      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
     .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
       %i.fa.fa-cog
       %i.fa.fa-chevron-down
@@ -51,6 +49,8 @@
   - search_val = nil
   - if current_page?(search)
     - search_val = @q
-  = form_tag search, :method => :get, :class => 'nav-right nav-search-form' do
+  = form_tag search, :method => :get, :class => 'nav-search-form' do
     = text_field_tag 'q', search_val, class: 'nav-search js-nav-search', data: { 'no-results-text': t("nav.search.no_results_html") }, autocomplete: :off
     %i.fa.fa-search.fa-lg.nav-item.nav-search-icon
+  .nav-right.nav-item.nav-menu-anchor.nav-menu-anchor-bars{ class: "uk-hidden@s", :'uk-toggle' => "#mobile-menu" }
+    %i.fa.fa-bars
