@@ -34,7 +34,7 @@ en:
     notices:
       canonical: "Scientific names will now be shown in page breadcrumbs"
       vernacular: "Vernacular names will now be shown in page breadcrumbs where available"
-    setting_header: "page names in breadcrumbs"
+    setting_header: "names in breadcrumbs"
     types:
       scientific: "scientific"
       vernacular: "vernacular"

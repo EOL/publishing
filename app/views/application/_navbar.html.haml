@@ -8,7 +8,7 @@
       %li.uk-nav-header= t("breadcrumbs.setting_header")
       %li
         = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
-          = select_tag "type", options_for_select([[t("breadcrumbs.types.vernacular"), "vernacular"], [t("breadcrumbs.types.scientific"), "canonical"]], breadcrumb_type)
+          = select_tag "type", options_for_select([[t("breadcrumbs.types.vernacular"), BreadcrumbType.vernacular], [t("breadcrumbs.types.scientific"), BreadcrumbType.canonical]], breadcrumb_type)
     .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
   .nav-left
@@ -42,10 +42,10 @@
         = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
           .uk-grid-small.uk-child-width-auto.uk-grid
             %label
-              = radio_button_tag "type", "vernacular", breadcrumb_type == "vernacular", class: "uk-radio"
+              = radio_button_tag "type", BreadcrumbType.vernacular, breadcrumb_type == BreadcrumbType.vernacular, class: "uk-radio"
               = t("breadcrumbs.types.vernacular")
             %label 
-              = radio_button_tag "type", "canonical", breadcrumb_type == "canonical", class: "uk-radio"
+              = radio_button_tag "type", BreadcrumbType.canonical, breadcrumb_type == BreadcrumbType.canonical, class: "uk-radio"
               = t("breadcrumbs.types.scientific")
   - search = search_path rescue '/search_results'
   - search_val = nil

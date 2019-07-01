@@ -1,4 +1,4 @@
-require "breadcrumbs"
+require "breadcrumb_type"
 
 class User < ActiveRecord::Base
   AdminEmail = "admin@eol.org"
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   scope :active, -> { where(["confirmed_at IS NOT NULL AND active = ?", true]) }
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
-  validates :breadcrumb_type, inclusion: { in: Breadcrumbs.valid_types }
+  validates :breadcrumb_type, inclusion: { in: BreadcrumbType.values }, allow_nil: true
 
   before_destroy :clean_up_collections
 

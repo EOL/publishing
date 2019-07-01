@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190701153640) do
+ActiveRecord::Schema.define(version: 20190701180626) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -970,7 +970,7 @@ ActiveRecord::Schema.define(version: 20190701153640) do
     t.boolean  "disable_email_notifications"
     t.text     "v2_ids",                      limit: 65535
     t.integer  "curator_level",               limit: 4
-    t.string   "breadcrumb_type",             limit: 255
+    t.integer  "breadcrumb_type",             limit: 4
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
