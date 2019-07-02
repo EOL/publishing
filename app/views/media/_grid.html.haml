@@ -14,79 +14,10 @@
         - link_path = medium_path(medium)
         -# Sorry for the style; temporary.
         .uk-card-media-top.uk-inline-clip.uk-transition-toggle{ style: "width: 260px; height: 190px" }
-          %a.uk-overview-container.grid-thumb-link{ href: "##{img_id}", uk: { toggle: true } }
+          %a.uk-overview-container.grid-thumb-link{ href: "##{img_id}", uk: { toggle: "#slide-modal" } }
             = media_thumbnail(medium)
             -#
               %img{ src: medium&.medium_size_url, width: '260', height: '190' }
-            %div.js-slide-modal.uk-transition-toggle.uk-padding-remove.uk-overflow-hidden{ id: img_id, uk: { modal: true } }
-              -# top overlay
-              .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-transition-slide-top.uk-transition-opaque
-                %div
-                  = link_to(medium_name_html(medium), link_path)
-                  .ui.label= medium&.license&.name
-                %div
-                  %i.copyright.icon
-                  = owner
-                  &nbsp;
-                  = link_to(medium&.resource&.name, medium&.resource)
-                -#
-                  %ul.uk-iconnav.uk-text-center
-                    -# If you want the list to be sortable...
-                    -# %li
-                    -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-                    - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
-                      - if index > 0 || params[:page] && params[:page].to_i > 0
-                        %li.uk-inline
-                          = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
-                      -# %li
-                      -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
-                      %li.uk-inline
-                        = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
-                %a.uk-modal-close-default{ href: '', uk: { close: true } }
-              -# bottom overlay
-              - if medium.description
-                .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-transition-slide-bottom.uk-transition-opaque
-                  = truncate(medium.description, length: 300, separator: " ")
-
-              %a.lightbox-arrow.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
-              - next_id = media_ids[index+1] || media_ids[0]
-              %a.lightbox-arrow.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
-              .uk-flex.lightbox-img-contain
-                = media_image_or_player(medium, "original")
-              -#
-                .uk-modal-header
-                  = link_to(medium_name_html(medium), link_path)
-                  .ui.label= medium&.license&.name
-                  %br
-                  %i.copyright.icon
-                  = owner
-                  %br
-                  = link_to(medium&.resource&.name, medium&.resource)
-                  %ul.uk-iconnav.uk-float-right
-                    -# If you want the list to be sortable...
-                    -# %li
-                    -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-                    - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
-                      - if index > 0 || params[:page] && params[:page].to_i > 0
-                        %li
-                          = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
-                      -# %li
-                      -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
-                      %li
-                        = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
-
-                .uk-modal-body.uk-next-center
-                  .uk-inline.uk-visible-toggle
-                    = media_image_or_player(medium, "original")
-                    %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
-                    - next_id = media_ids[index+1] || media_ids[0]
-                    %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
-                    - unless page&.rank&.species_or_below?
-                      .uk-margin-top.uk-overflow-hidden.eol-one-line
-                        = medium&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
-                    - if annotation
-                      .annotation-media-expand= sanitize_allow_links(annotation)
-
           .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
               - if medium&.license
@@ -115,3 +46,81 @@
                 = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
             - if annotation
               .annotation-media-thumb= sanitize_allow_links(annotation)
+#slide-modal.js-slide-modal.uk-visible-toggle.uk-padding-remove.uk-overflow-hidden{ uk: { modal: true } }
+  %div.slideshow{ uk: { slideshow: true } }
+    %ul.uk-slideshow-items{ uk: { height: { viewport: true } } }
+      - media.each_with_index do |medium, index|
+        - img_id = media_ids[index]
+        - owner = image_owner(medium)
+        - annotation = local_assigns.has_key?(:annotations) ? annotations[index] : nil
+        - link_path = medium_path(medium)
+        -# TODO: we will eventually know the actual size of the image; add that:
+        -# TODO: some helpers would clean this up:
+        %li
+          .uk-flex.lightbox-img-contain
+            = media_image_or_player(medium, "original")
+          -# top overlay
+          .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-hidden-hover
+            %div
+              = link_to(medium_name_html(medium), link_path)
+              .ui.label= medium&.license&.name
+            %div
+              %i.copyright.icon
+              = owner
+              &nbsp;
+              = link_to(medium&.resource&.name, medium&.resource)
+            -#
+              %ul.uk-iconnav.uk-text-center
+                -# If you want the list to be sortable...
+                -# %li
+                -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+                - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
+                  - if index > 0 || params[:page] && params[:page].to_i > 0
+                    %li.uk-inline
+                      = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
+                  -# %li
+                  -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+                  %li.uk-inline
+                    = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
+          -# bottom overlay
+          - if medium.description
+            .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-hidden-hover
+              = truncate(medium.description, length: 300, separator: " ")
+
+            -#
+              .uk-modal-header
+                = link_to(medium_name_html(medium), link_path)
+                .ui.label= medium&.license&.name
+                %br
+                %i.copyright.icon
+                = owner
+                %br
+                = link_to(medium&.resource&.name, medium&.resource)
+                %ul.uk-iconnav.uk-float-right
+                  -# If you want the list to be sortable...
+                  -# %li
+                  -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+                  - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
+                    - if index > 0 || params[:page] && params[:page].to_i > 0
+                      %li
+                        = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
+                    -# %li
+                    -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+                    %li
+                      = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
+
+              .uk-modal-body.uk-next-center
+                .uk-inline.uk-visible-toggle
+                  = media_image_or_player(medium, "original")
+                  %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
+                  - next_id = media_ids[index+1] || media_ids[0]
+                  %a.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
+                  - unless page&.rank&.species_or_below?
+                    .uk-margin-top.uk-overflow-hidden.eol-one-line
+                      = medium&.source_pages&.map { |p| link_to_page_canonical(p) }&.join("; ")&.html_safe
+                  - if annotation
+                    .annotation-media-expand= sanitize_allow_links(annotation)
+
+    %a.uk-modal-close-default{ href: '', uk: { close: true } }
+    %a.lightbox-arrow.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { previous: true } , slideshow: { item: "previous" } } }
+    %a.lightbox-arrow.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { next: true }, slideshow: { item: "next" } } }
