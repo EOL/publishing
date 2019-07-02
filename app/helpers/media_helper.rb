@@ -62,6 +62,16 @@ module MediaHelper
     end
   end
 
+  def media_url(medium, img_size)
+    if medium.embedded_video?
+      medium.embed_url
+    elsif medium.video? || medium.sound?
+      medium.url_with_format
+    else
+      medium&.send("#{img_size}_size_url")
+    end
+  end
+
   def media_image_or_player(medium, img_size)
     if medium.embedded_video?
       content_tag(:iframe, nil, src: medium.embed_url, width: 426, height: 240, class: "js-#{medium.format}-player")

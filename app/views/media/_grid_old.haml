@@ -18,42 +18,9 @@
             = media_thumbnail(medium)
             -#
               %img{ src: medium&.medium_size_url, width: '260', height: '190' }
-            %div.js-slide-modal.uk-transition-toggle.uk-padding-remove.uk-overflow-hidden{ id: img_id, uk: { modal: true } }
-              -# top overlay
-              .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-transition-slide-top.uk-transition-opaque
-                %div
-                  = link_to(medium_name_html(medium), link_path)
-                  .ui.label= medium&.license&.name
-                %div
-                  %i.copyright.icon
-                  = owner
-                  &nbsp;
-                  = link_to(medium&.resource&.name, medium&.resource)
-                -#
-                  %ul.uk-iconnav.uk-text-center
-                    -# If you want the list to be sortable...
-                    -# %li
-                    -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-                    - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
-                      - if index > 0 || params[:page] && params[:page].to_i > 0
-                        %li.uk-inline
-                          = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
-                      -# %li
-                      -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
-                      %li.uk-inline
-                        = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
+            %div{ id: img_id, uk: { modal: true } }
+              .uk-modal-dialog
                 %a.uk-modal-close-default{ href: '', uk: { close: true } }
-              -# bottom overlay
-              - if medium.description
-                .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-transition-slide-bottom.uk-transition-opaque
-                  = truncate(medium.description, length: 300, separator: " ")
-
-              %a.lightbox-arrow.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""
-              - next_id = media_ids[index+1] || media_ids[0]
-              %a.lightbox-arrow.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { next: true } }, data: { this_id: img_id, tgt_id: next_id } }= ""
-              .uk-flex.lightbox-img-contain
-                = media_image_or_player(medium, "original")
-              -#
                 .uk-modal-header
                   = link_to(medium_name_html(medium), link_path)
                   .ui.label= medium&.license&.name
@@ -75,7 +42,7 @@
                       %li
                         = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
 
-                .uk-modal-body.uk-next-center
+                .uk-modal-body.uk-text-center
                   .uk-inline.uk-visible-toggle
                     = media_image_or_player(medium, "original")
                     %a.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ uk: { slidenav: { previous: true } }, data: { this_id: img_id, tgt_id: media_ids[index-1] } }= ""

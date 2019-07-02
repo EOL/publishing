@@ -133,7 +133,7 @@ if (!window.EOL) {
   EOL.enable_media_navigation = function() {
     console.log("enable_media_navigation");
     $("#page_nav_content .dropdown").dropdown();
-    $(".uk-modal-body a.uk-slidenav-large").on("click", function(e) {
+    $(".js-slide-modal a.uk-slidenav-large").on("click", function(e) {
       var link = $(this);
       thisId = link.data("this-id");
       tgtId = link.data("tgt-id");
