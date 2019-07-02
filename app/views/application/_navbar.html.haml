@@ -7,7 +7,7 @@
         = render "locale_select_items"
       %li.uk-nav-header= t("breadcrumbs.setting_header")
       %li
-        = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
+        = form_tag main_app.breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
           = select_tag "type", options_for_select([[t("breadcrumbs.types.vernacular"), BreadcrumbType.vernacular], [t("breadcrumbs.types.scientific"), BreadcrumbType.canonical]], breadcrumb_type)
     .uk-offcanvas-close{ :'uk-close' => true }
 .l-nav.js-navbar
@@ -37,7 +37,7 @@
     %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
       .uk-nav.uk-dropdown-nav.uk-nav-primary
         .uk-nav-header= t("breadcrumbs.setting_header")
-        = form_tag breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
+        = form_tag main_app.breadcrumb_type_path, method: :post, class: "js-bread-type-toggle" do
           .uk-grid-small.uk-child-width-auto.uk-grid
             %label
               = radio_button_tag "type", BreadcrumbType.vernacular, breadcrumb_type == BreadcrumbType.vernacular, class: "uk-radio"
