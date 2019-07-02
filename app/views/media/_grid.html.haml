@@ -9,15 +9,14 @@
     - annotation = local_assigns.has_key?(:annotations) ? annotations[index] : nil
     -# TODO: we will eventually know the actual size of the image; add that:
     -# TODO: some helpers would clean this up:
-    %div
+    .js-grid-modal-toggle{ data: { slide: { id: medium.id } } }
       .uk-card.uk-card-default.uk-card-small.uk-card-hover
         - link_path = medium_path(medium)
         -# Sorry for the style; temporary.
         .uk-card-media-top.uk-inline-clip.uk-transition-toggle{ style: "width: 260px; height: 190px" }
-          %a.uk-overview-container.grid-thumb-link{ href: "##{img_id}", uk: { toggle: "#slide-modal" } }
-            = media_thumbnail(medium)
-            -#
-              %img{ src: medium&.medium_size_url, width: '260', height: '190' }
+          = media_thumbnail(medium)
+          -#
+            %img{ src: medium&.medium_size_url, width: '260', height: '190' }
           .uk-transition-slide-bottom.uk-position-bottom.uk-overlay.uk-padding-none
             .uk-margin-remove.uk-text-center
               - if medium&.license
@@ -46,8 +45,8 @@
                 = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
             - if annotation
               .annotation-media-thumb= sanitize_allow_links(annotation)
-#slide-modal.js-slide-modal.uk-visible-toggle.uk-padding-remove.uk-overflow-hidden{ uk: { modal: true } }
-  %div.slideshow{ uk: { slideshow: true } }
+#slide-modal.js-grid-modal.uk-visible-toggle.uk-padding-remove.uk-overflow-hidden{ uk: { modal: true } }
+  %div.js-grid-slideshow{ uk: { slideshow: true } }
     %ul.uk-slideshow-items{ uk: { height: { viewport: true } } }
       - media.each_with_index do |medium, index|
         - img_id = media_ids[index]
@@ -56,7 +55,7 @@
         - link_path = medium_path(medium)
         -# TODO: we will eventually know the actual size of the image; add that:
         -# TODO: some helpers would clean this up:
-        %li
+        %li{ id: "slide-#{medium.id}", data: { index: index } }
           .uk-flex.lightbox-img-contain
             = media_image_or_player(medium, "original")
           -# top overlay

@@ -133,6 +133,7 @@ if (!window.EOL) {
   EOL.enable_media_navigation = function() {
     console.log("enable_media_navigation");
     $("#page_nav_content .dropdown").dropdown();
+    /*
     $(".js-slide-modal a.uk-slidenav-large").on("click", function(e) {
       var link = $(this);
       thisId = link.data("this-id");
@@ -144,6 +145,7 @@ if (!window.EOL) {
       UIkit.modal("#" + thisId).hide();
       UIkit.modal("#" + tgtId).show();
     });
+    */
     EOL.enable_tab_nav();
   };
 
@@ -475,6 +477,19 @@ if (!window.EOL) {
         $(this).closest('form').submit();
       }
     });
+
+    $('.js-grid-modal-toggle').click(function(e) {
+      e.preventDefault();
+
+      var slideId = '#slide-' + $(this).data('slideId')
+        , slideElmt = $(slideId)
+        , slideIndex = slideElmt.data('index')
+        ;
+
+      UIkit.slideshow('.js-grid-slideshow').show(slideIndex);
+      UIkit.modal('.js-grid-modal').show(); 
+    });
+
 
     EOL.enableDropdowns();
 
