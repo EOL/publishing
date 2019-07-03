@@ -1,4 +1,6 @@
 $opaque-bg: rgba(#333, .9);
+$icon-hover-color: #fff;
+$icon-passive-color: #aaa;
 
 .annotation-media-thumb {
   overflow: hidden;
@@ -22,7 +24,9 @@ $opaque-bg: rgba(#333, .9);
   }
 
   .lightbox-overlay-bottom {
-    //overflow: auto;
+    min-height: 20px;
+    padding-left: 70px;
+    padding-right: 70px;
   }
 
 .lightbox-img-contain {
@@ -37,9 +41,24 @@ $opaque-bg: rgba(#333, .9);
 
 .lightbox-arrow {
   background: $opaque-bg;
-  color: #aaa;
+  color: $icon-passive-color;
 
   &:hover {
-    color: #fff;
+    color: $icon-hover-color;
+  }
+}
+
+.lightbox-icons {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  & a {
+    color: $icon-passive-color;
+
+    &:hover {
+      color: $icon-hover-color;
+      text-decoration: none;
+    }
   }
 }

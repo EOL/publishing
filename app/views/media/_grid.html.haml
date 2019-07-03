@@ -69,22 +69,22 @@
               &nbsp;
               = link_to(medium&.resource&.name, medium&.resource)
             -#
-              %ul.uk-iconnav.uk-text-center
-                -# If you want the list to be sortable...
-                -# %li
-                -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
-                - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
-                  - if index > 0 || params[:page] && params[:page].to_i > 0
-                    %li.uk-inline
-                      = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
-                  -# %li
-                  -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
-                  %li.uk-inline
-                    = link_to("<i class='grey plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
           -# bottom overlay
-          - if medium.description
-            .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-hidden-hover
+          .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-hidden-hover
+            - if medium.description
               = truncate(medium.description, length: 300, separator: " ")
+            %ul.uk-iconnav.uk-text-center.uk-inline.lightbox-icons
+              -# If you want the list to be sortable...
+              -# %li
+              -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+              - if page # No use showing these icons if there isn't a page (i.e.: in a collection gallery view)...
+                - if index > 0 || params[:page] && params[:page].to_i > 0
+                  %li.uk-inline
+                    = link_to("<i class='trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)
+                -# %li
+                -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
+                %li.uk-inline
+                  = link_to("<i class='plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
 
             -#
               .uk-modal-header
