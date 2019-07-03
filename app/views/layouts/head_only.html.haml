@@ -17,6 +17,7 @@
     = stylesheet_link_tag "application"
     -if asset_exists? "#{params[:controller]}.css"
       = stylesheet_link_tag params[:controller]
+    = stylesheet_link_tag "jqcloud"
     = javascript_include_tag "application"
     -if asset_exists? "#{params[:controller]}.js"
       = javascript_include_tag params[:controller]

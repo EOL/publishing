@@ -408,6 +408,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def wordcloud_test
+    render layout: "application"
+  end
+
 private
   NODE_GROUP_PRIORITIES = {
     competitor: 1,
