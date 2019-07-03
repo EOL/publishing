@@ -33,9 +33,13 @@ $icon-passive-color: #aaa;
   height: 100vh;
   width: 100vw;
 
-  & > img {
+  & > img, & > video {
     object-fit: contain;
     margin: 0 auto; // not sure why this is necessary but seems to work
+  }
+
+  & > video {
+    max-height: 90%; // leave some room for controls
   }
 }
 

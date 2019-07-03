@@ -478,18 +478,6 @@ if (!window.EOL) {
       }
     });
 
-    $('.js-grid-modal-toggle').click(function(e) {
-      e.preventDefault();
-
-      var slideId = '#slide-' + $(this).data('slideId')
-        , slideElmt = $(slideId)
-        , slideIndex = slideElmt.data('index')
-        ;
-
-      UIkit.slideshow('.js-grid-slideshow').show(slideIndex);
-      UIkit.modal('.js-grid-modal').show(); 
-    });
-
 
     EOL.enableDropdowns();
 

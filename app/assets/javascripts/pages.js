@@ -1,4 +1,5 @@
 //= require shared/data_row
+//= require shared/slideshow
 
 function setupMenus() {
   EOL.enableDropdowns();
@@ -45,27 +46,8 @@ function scrollToRecord() {
   }
 }
 
-function setupModals() {
-  // pause audio and video players on hide. 
-  $('.uk-modal').on('beforehide', function() {
-    $(this).find('audio').trigger('pause');
-    $(this).find('video').trigger('pause');
-
-    if ($(this).data('youtubePlayer')) {
-      $(this).data('youtubePlayer').stopVideo();
-    }
-  });
-
-  EOLYoutube.register(function() {
-    $('.js-youtube-player').each(function(i, player) {
-      $(player).closest('.uk-modal').data('youtubePlayer', new YT.Player(player));
-    });
-  });
-}
-
 $(function() {
   setupMenus();
-  setupModals();
   setupBreadcrumbs();
   scrollToRecord();
 });

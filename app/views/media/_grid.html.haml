@@ -56,10 +56,12 @@
         -# TODO: we will eventually know the actual size of the image; add that:
         -# TODO: some helpers would clean this up:
         %li{ id: "slide-#{medium.id}", data: { index: index } }
-          .uk-flex.lightbox-img-contain
+          - extra_classes = (medium.embedded_video? || medium.sound?) ? "uk-flex-center uk-flex-middle" : ""
+          .lightbox-img-contain.uk-flex{ class: extra_classes }
             = media_image_or_player(medium, "original")
           -# top overlay
           .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-hidden-hover
+            %a.uk-modal-close-default{ href: '', uk: { close: true } }
             %div
               = link_to(medium_name_html(medium), link_path)
               .ui.label= medium&.license&.name
@@ -120,6 +122,5 @@
                   - if annotation
                     .annotation-media-expand= sanitize_allow_links(annotation)
 
-    %a.uk-modal-close-default{ href: '', uk: { close: true } }
     %a.lightbox-arrow.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { previous: true } , slideshow: { item: "previous" } } }
     %a.lightbox-arrow.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { next: true }, slideshow: { item: "next" } } }
