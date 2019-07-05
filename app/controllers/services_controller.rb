@@ -28,12 +28,32 @@ class ServicesController < ApplicationController
 
   protected
 
+  # Authorize user for subsequent action if power user
+
+  def authorize_user_from_token!
+    user = authenticate_user_from_token!
+    if user
+      return render_unauthorized title: "Power user status is required for this operation." \
+        unless user.is_power_user?    # Unauthorized
+      @current_user = user
+    end
+  end
+
+  def authorize_admin_from_token!
+    user = authenticate_user_from_token!
+    if user
+      return render_unauthorized title: "Admin status is required for this operation." \
+        unless user.is_admin?      # Unauthorized
+      @current_user = user
+    end
+  end
+
   # No args - act as a guard on any web service action that wants authentication
   # We check the encrypted_password in order to implement token retraction:
   # if the user changes their password, they will have to get a new token.
   # Returns user on success, nil (after render) on failure.
 
-  def authorize_user_from_token!
+  def authenticate_user_from_token!
     if current_user
       return render_unauthorized title: "You are not authorized to use the web services." \
          unless current_user.is_power_user?    # Unauthorized
@@ -49,9 +69,7 @@ class ServicesController < ApplicationController
           unless user          # ill-formed token
         if user &&
            the_claims[0]['encrypted_password'] == user.encrypted_password
-          return render_unauthorized title: "Invalid token." \
-            unless user.is_power_user?    # Unauthorized
-          @current_user = user
+          user
         end
       end
     end
