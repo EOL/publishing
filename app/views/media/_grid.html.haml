@@ -45,7 +45,7 @@
                 = medium.source_pages.map { |p| link_to_page_canonical(p) }.join("; ").html_safe
             - if annotation
               .annotation-media-thumb= sanitize_allow_links(annotation)
-#slide-modal.js-grid-modal.uk-visible-toggle.uk-padding-remove.uk-overflow-hidden{ uk: { modal: true }, tabindex: 0 }
+#slide-modal.js-grid-modal.grid-modal.uk-visible-toggle.uk-padding-remove.uk-overflow-hidden{ uk: { modal: true }, tabindex: 0 }
   %div.js-grid-slideshow{ uk: { slideshow: true } }
     %ul.uk-slideshow-items{ uk: { height: { viewport: true } } }
       - media.each_with_index do |medium, index|
@@ -61,7 +61,7 @@
             = media_image_or_player(medium, "original")
           -# top overlay
           .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-hidden-hover
-            %a.uk-modal-close-default{ href: '', uk: { close: true } }
+            %a.uk-modal-close-default.uk-close-large.close-btn{ href: '', uk: { close: true } }
             %div
               = link_to(medium_name_html(medium), link_path)
               .ui.label= medium&.license&.name
@@ -122,5 +122,5 @@
                   - if annotation
                     .annotation-media-expand= sanitize_allow_links(annotation)
 
-    %a.lightbox-arrow.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { previous: true } , slideshow: { item: "previous" } } }
-    %a.lightbox-arrow.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { next: true }, slideshow: { item: "next" } } }
+    %a.lightbox-arrow.lightbox-arrow-left.uk-position-center-left.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { previous: true } , slideshow: { item: "previous" } } }
+    %a.lightbox-arrow.lightbox-arrow-right.uk-position-center-right.uk-position-small.uk-hidden-hover.uk-slidenav-large{ href: "#", uk: { slidenav: { next: true }, slideshow: { item: "next" } } }

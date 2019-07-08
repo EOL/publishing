@@ -1,6 +1,12 @@
-$opaque-bg: rgba(#333, .9);
+@import 'colors';
+
+$opaque-bg: rgba(#222, .9);
 $icon-hover-color: #fff;
 $icon-passive-color: #aaa;
+
+.grid-modal {
+  background-color: $opaque-bg;
+}
 
 .annotation-media-thumb {
   overflow: hidden;
@@ -14,10 +20,22 @@ $icon-passive-color: #aaa;
 }
 
 .lightbox-overlay {
-  background: $opaque-bg;
-  color: #fff;
+  background-color: $black;
+  color: $white;
   padding: 10px;
   text-align: center;
+
+  & > .close-btn {
+    color: $icon-passive-color;
+
+    &:hover {
+      color: $icon-hover-color;
+    }
+  }
+
+  & a {
+    color: $eol-blue;
+  }
 }
 
   .lightbox-overlay-top {
@@ -43,14 +61,23 @@ $icon-passive-color: #aaa;
   }
 }
 
-.lightbox-arrow {
-  background: $opaque-bg;
+$arr-rad: 35px;
+.lightbox-arrow, .lightbox-arrow:focus {
+  background: $black;
   color: $icon-passive-color;
 
   &:hover {
     color: $icon-hover-color;
   }
 }
+
+  .lightbox-arrow-right {
+    border-radius: 0 $arr-rad $arr-rad 0;
+  }
+
+  .lightbox-arrow-left {
+    border-radius: $arr-rad 0 0 $arr-rad;
+  }
 
 .lightbox-icons {
   position: absolute;
