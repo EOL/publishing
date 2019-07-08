@@ -849,9 +849,10 @@ en:
       next: "next page"
       previous: "previous page"
   terms:
-    attribution_field_html: "<strong>Attribution:</strong> %{attribution}"
+    attribution_field_html: "<strong>Attribution:</strong> <a href='%{attribution}'>%{attribution}</a>"
     comment_field_html: "<strong>Comment:</strong> %{comment}"
     definition_field_html: "<strong>Definition:</strong> %{definition}"
+    source_field_html: "<strong>Source:</strong> <a href='%{source}'>%{source}</a>"
     record_url: "record URL"
     scientific_name: "scientific name"
     show_all_records: "show all records"

@@ -37,7 +37,7 @@ class PageDecorator
     private
       LandmarkChildLimit = 3
       Result = Struct.new(:sentence, :terms)
-      ResultTerm = Struct.new(:pred_uri, :obj, :toggle_selector)
+      ResultTerm = Struct.new(:pred_uri, :obj, :source, :toggle_selector)
 
       IUCN_URIS = Set[
         Eol::Uris::Iucn.en, 
@@ -369,7 +369,8 @@ class PageDecorator
           "as %s by IUCN",
           rec[:name],
           Eol::Uris::Conservation.status,
-          rec[:uri]
+          rec[:uri],
+          rec[:source]
         )
       end
 
@@ -378,7 +379,8 @@ class PageDecorator
           "in %s",
           rec[:name],
           Eol::Uris::Conservation.status,
-          rec[:uri]
+          rec[:uri],
+          rec[:source]
         )
       end
 
@@ -387,7 +389,8 @@ class PageDecorator
           "as %s by the US Fish and Wildlife Service",
           rec[:name],
           Eol::Uris::Conservation.status,
-          rec[:uri]
+          rec[:uri],
+          rec[:source]
         )
       end
 
@@ -395,11 +398,12 @@ class PageDecorator
         "brief-summary-#{term_name.gsub(/\s/, "-")}"
       end
 
-      def term_tag(label, pred_uri, obj_uri)
+      def term_tag(label, pred_uri, obj_uri, trait_source = nil)
         toggle_id = term_toggle_id(label)
         @terms << ResultTerm.new(
           pred_uri,
           TraitBank.term_as_hash(obj_uri),
+          trait_source,
           "##{toggle_id}"
         )
         view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
@@ -414,10 +418,10 @@ class PageDecorator
         )
       end
 
-      def term_sentence_part(format_str, label, pred_uri, obj_uri)
+      def term_sentence_part(format_str, label, pred_uri, obj_uri, source = nil)
         sprintf(
           format_str,
-          term_tag(label, pred_uri, obj_uri)
+          term_tag(label, pred_uri, obj_uri, source)
         )
       end
 

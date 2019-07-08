@@ -7,7 +7,9 @@
       %li= t("terms.definition_field_html", :definition => term[:definition]).html_safe
     - if !term[:comment].blank?
       %li= t("terms.comment_field_html", :comment => term[:comment]).html_safe
-    - if !term[:attribution].blank?
+    - if local_assigns.include?(:source) && !source.blank?
+      %li= t("terms.source_field_html", :source => source).html_safe
+    - elsif !term[:attribution].blank?
       %li= t("terms.attribution_field_html", :attribution => term[:attribution]).html_safe
   - if search_link
     - if local_assigns.has_key? :pred_uri

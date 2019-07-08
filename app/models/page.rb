@@ -535,6 +535,7 @@ class Page < ActiveRecord::Base
       recs.each do |rec|
         uri = TraitBank::Record.obj_term_uri(rec)
         name = TraitBank::Record.obj_term_name(rec)
+        source = TraitBank::Record.source(rec)
         provider = if Eol::Uris::Conservation.iucn?(uri)
                      :iucn
                    elsif Eol::Uris::Conservation.cites?(uri)
@@ -553,7 +554,8 @@ class Page < ActiveRecord::Base
           else
             by_provider[provider] = {
               uri: uri,
-              name: name
+              name: name,
+              source: source
             }
           end
         end

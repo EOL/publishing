@@ -12,5 +12,9 @@ class TraitBank
     def self.obj_term_name(record)
       record.dig(:object_term, :name)
     end
+
+    def self.source(record)
+      record[:source]
+    end
   end
 end
