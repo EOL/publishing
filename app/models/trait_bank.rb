@@ -1259,6 +1259,17 @@ class TraitBank
       results_to_hashes(query(qs))      
     end
 
+    # for word cloud visualization
+    def descendant_environments(page)
+      max_page_depth = 2
+      pred_uri = Eol::Uris.environment
+      qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
+        "(page)-[:trait]->(trait:Trait)-[:predicate]->(predicate:Term{uri: '#{pred_uri}'}),\n"\
+        "(trait)-[:object_term]->(object_term:Term)\n"\
+        "RETURN trait, predicate, object_term"
+
+      build_trait_array(query(qs))
+    end
 
     private
     def uris_to_qs(*args)

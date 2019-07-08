@@ -127,6 +127,7 @@ $font-sz-m: 14px;
 .page-filters {
   position: fixed;
   width: 100%;
+  z-index: 2;
 }
 
 .tabs {
@@ -304,3 +305,8 @@ $font-sz-m: 14px;
   text-align: center;
 }
 
+// trait wordcloud
+.trait-wordcloud {
+  height: 200px;
+  width: 100%;
+}
