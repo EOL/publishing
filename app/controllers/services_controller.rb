@@ -82,24 +82,25 @@ class ServicesController < ApplicationController
     auth_header = request.headers['Authorization']
     if not auth_header
       render_unauthenticated title: "No Authorization header"
-      nil
+      return nil
     end
     # See if header value splits into two parts
     parts = auth_header.split
     if parts.size != 2
       render_unauthenticated title: "Expected Authorization header to have two parts, saw #{parts.size}: #{auth_header}"
-      nil
+      return nil
     end
     # Part 0 has to be 'JWT'
     if parts[0] != 'JWT'
       render_unauthenticated title: "Expected Authorization header to start 'JWT', saw #{parts[0]}: #{auth_header}"
-      nil
+      return nil
     end
     # Decode the token
     begin
       claims = ::TokenAuthentication.decode(parts[1])
     rescue JWT::DecodeError => e
       render_unauthenticated title: "JWT decode error in Authorization header: #{e}: #{parts[1]}"
+      return nil
     end
     claims
   end
