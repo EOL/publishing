@@ -11,21 +11,27 @@ class Service::CypherController < ServicesController
 
   def query
     cypher = params[:query]
-    format = params[:format]
-    format = "cypher" unless format != nil
-
     return render_bad_request(title: "Missing a 'query' parameter.") \
       unless cypher != nil
 
+    format = params[:format]
+    format = "cypher" unless format != nil
+
+    # Authenticate the user and authorize the requested operation, using
+    # the API token and the user's information in the table.
     # Non-admin users are not supposed to modify the database.  The following
-    # is an ad hoc filter to try to prevent this, at least when it is 
+    # regex is an ad hoc filter to try to prevent this, at least when it is 
     # accidental; one shouldn't expect it to be secure against a concerted attack.
-    if cypher =~ /\b(delete|create|set|remove|merge|call|drop|load)\b/i ||
-       cypher =~ /\b(limit)\b/i
-      return unless authorize_admin_from_token!
-    else
-      return unless authorize_user_from_token!
+    # The purpose of the 'limit' is to help prevent unintended DoS 
+    # attacks.
+    if cypher =~ /\b(delete|create|set|remove|merge|call|drop|load)\b/i
+      user = authorize_admin_from_token!
+    elsif cypher =~ /\b(limit)\b/i
+      user = authorize_user_from_token!    # power user that is
+    elsif
+      user = authorize_admin_from_token!
     end
+    return nil unless user
 
     # Do the query or command
     case format
