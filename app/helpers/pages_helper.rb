@@ -67,9 +67,14 @@ module PagesHelper
     end
   end
 
-  def classification(this_node, ancestors, options = {})
-    ancestors = Array(ancestors)
-    return nil if ancestors.blank?
+  def classification(node)
+    ancestors = Array(node.ancestors.compact)
+    ancestors.push(node)
+    classification_helper(node, ancestors)
+  end
+
+  def classification_helper(this_node, ancestors)
+    raise TypeError.new("ancestors can't be empty") if ancestors.empty?
     node = ancestors.shift
     page = node.page
     haml_tag("div.item") do
@@ -78,25 +83,22 @@ module PagesHelper
   end
 
   def classification_content(page, this_node, node, ancestors)
-    summarize(page, current_page: !this_node, node: node, no_icon: true)
-    if ancestors.blank? && this_node
-      haml_tag("div.ui.middle.aligned.list.descends") do
-        classification(nil, [this_node])
-        if this_node.children.any?
-          haml_tag("div.item") do
-            haml_tag("div.ui.middle.aligned.list.descends") do
-              this_node.children.each do |child|
-                haml_tag("div.item") do
-                  summarize(child.page, node: child, no_icon: true)
-                end
-              end
+    summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
+    if ancestors.empty? && this_node.children.any?
+      haml_tag("div.item") do
+        haml_tag("div.ui.middle.aligned.list.descends") do
+          # sanitize so <i> tags aren't counted for sorting purposes
+          this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
+            haml_tag("div.item") do
+              summarize(child.page, name: child.name, node: child, no_icon: true)
             end
           end
         end
       end
     else
+      # indent, recurse
       haml_tag("div.ui.middle.aligned.list.descends") do
-        classification(this_node, ancestors)
+        classification_helper(this_node, ancestors)
       end
     end
   end
@@ -110,7 +112,7 @@ module PagesHelper
                 nil
               end
     return('[unknown page]') if page_id.nil?
-    name = options[:node] ? options[:node].name : name_for_page(page)
+    name = options[:name]
     if options[:current_page]
       haml_tag("b") do
         haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
@@ -265,4 +267,16 @@ private
       result
     end
   end
+
+  def sort_by_name_for_page(pages)
+    pages.sort do |a, b|
+      # sanitize so <i> tags aren't counted for sorting purposes
+      a_name = sanitize(name_for_page(a), tags: [])
+      b_name = sanitize(name_for_page(b), tags: [])
+
+      a_name <=> b_name
+    end
+  end
+
 end
+

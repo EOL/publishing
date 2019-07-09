@@ -5,7 +5,7 @@
     %h4= t("classifications.children.header_html", name: @page.short_name.html_safe, count: node.children.size, names_path: page_names_path(@page)).html_safe
     %ul.page-child-list
       - child_pages = Page.where(id: node.children[0..limit-1].map(&:page_id)).with_hierarchy
-      - child_pages.each do |child|
+      - sort_by_name_for_page(child_pages).each do |child|
         %li
-          - summarize(child, current_page: false, no_icon: true)
+          - summarize(child, name: name_for_page(child), current_page: false, no_icon: true)
       = link_to(t("classifications.children.see_more"), page_names_path(@page))

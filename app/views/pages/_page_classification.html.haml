@@ -11,16 +11,7 @@
         %h4.ui.header= node.resource.name
         .ui.middle.aligned.list
           -# NOTE: using #none to force load; no sense in doing a count. We need the rows.
-          - if node.ancestors && !node.ancestors.none?
-            - classification(node, node.ancestors.compact, children: true)
-          - else
-            - summarize(@page, current_page: true, node: node, no_icon: true)
-            - if node.children.any?
-              .item
-                .ui.middle.aligned.list
-                  - node.children.each do |child|
-                    .item
-                      - summarize(child.page, current_page: false, node: child, no_icon: true)
+          - classification(node)
   -# NOTE: we should remove this conditional when most pages have had their richness calculated.
   - if @page.page_richness
     %h2= t("classifications.richness.header")
