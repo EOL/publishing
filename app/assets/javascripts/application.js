@@ -2,6 +2,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jqcloud
 //= require js-routes
 //= require js_route_config
 //= require main

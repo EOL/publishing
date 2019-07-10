@@ -82,7 +82,7 @@ module DataHelper
   def show_data_value(data)
     value = data_value(data)
 
-    haml_tag_if(data[:object_term], ".a") do
+    haml_tag_if(data[:object_term], "div.a.js-data-val") do
       haml_concat value.html_safe # Traits allow HTML.
     end
   end

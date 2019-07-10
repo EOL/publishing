@@ -46,9 +46,23 @@ function scrollToRecord() {
   }
 }
 
+function setupWordcloud() {
+  var $container = $('.js-trait-wordcloud')
+    , words = []
+    ;
+
+  if ($container.length) {
+    words = $container.data('words'); 
+    $container.jQCloud(words, {
+      autoResize: true 
+    });
+  }
+}
+
 $(function() {
   setupMenus();
   setupBreadcrumbs();
+  setupWordcloud();
   scrollToRecord();
 });
 

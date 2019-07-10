@@ -18,6 +18,7 @@ class PagesController < ApplicationController
     "page_id" => -> (qs, page, url) { page.nil? ? nil : page.id },
     "page_url" => -> (qs, page, url) { url }
   }
+  MIN_CLOUD_WORDS = 6
 
   # See your environment config; this action should be ignored by logs.
   def ping
@@ -175,11 +176,12 @@ class PagesController < ApplicationController
   end
 
   def data
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).with_hierarchy.first)
+    @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
     @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
     @predicates = @predicate ? [@predicate[:uri]] : @page.predicates
     @resources = TraitBank.resources(@page.data)
     build_associations(@page.data)
+    setup_wordcloud
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html do
@@ -408,6 +410,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def wordcloud_test
+    render layout: "application"
+  end
+
 private
   NODE_GROUP_PRIORITIES = {
     competitor: 1,
@@ -568,5 +574,34 @@ private
     @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
     @all_lang_group = ALL_LANG_GROUP
+  end
+
+  def setup_wordcloud
+    @show_wordcloud = false
+    is_higher_order = @page.native_node.rank && Rank.treat_as[@page.native_node.rank.treat_as] < Rank.treat_as[:r_species]
+    is_pred_filter= !is_higher_order && @predicate && @predicate[:uri] == Eol::Uris.environment
+
+    if is_pred_filter || is_higher_order
+      word_counts = {}
+      recs = is_pred_filter ? @page.grouped_data[@predicate[:uri]] : TraitBank.descendant_environments(@page) 
+
+      recs.select do |rec|
+        rec[:object_term] && rec[:object_term][:name]
+      end.each do |rec|
+        name = ActionController::Base.helpers.sanitize(rec[:object_term][:name])
+        cur_count = word_counts[name] || 0
+        word_counts[name] = cur_count + 1
+      end
+
+      if word_counts.length >= MIN_CLOUD_WORDS
+        @wordcloud_words = word_counts.entries.collect do |entry|
+          {
+            text: entry[0],
+            weight: entry[1]
+          }
+        end.to_json
+        @show_wordcloud = true
+      end
+    end
   end
 end
