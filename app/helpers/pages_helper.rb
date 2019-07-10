@@ -84,13 +84,15 @@ module PagesHelper
 
   def classification_content(page, this_node, node, ancestors)
     summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
-    if ancestors.empty? && this_node.children.any?
-      haml_tag("div.item") do
-        haml_tag("div.ui.middle.aligned.list.descends") do
-          # sanitize so <i> tags aren't counted for sorting purposes
-          this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
-            haml_tag("div.item") do
-              summarize(child.page, name: child.name, node: child, no_icon: true)
+    if ancestors.empty? 
+      if this_node.children.any?
+        haml_tag("div.item") do
+          haml_tag("div.ui.middle.aligned.list.descends") do
+            # sanitize so <i> tags aren't counted for sorting purposes
+            this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
+              haml_tag("div.item") do
+                summarize(child.page, name: child.name, node: child, no_icon: true)
+              end
             end
           end
         end
