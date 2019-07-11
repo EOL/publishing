@@ -735,6 +735,12 @@ class Page < ActiveRecord::Base
     media.not_maps
   end
 
+  def fix_non_image_hero
+    return nil if medium.nil?
+    return nil if medium.image?
+    update_attribute(:medium_id, media.images.first) # Even if it's nil, that's correct.
+  end
+
   private
 
   def first_image_content
