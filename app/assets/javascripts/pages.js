@@ -1,5 +1,6 @@
 //= require shared/data_row
 //= require shared/slideshow
+//= require trophic_web
 
 function setupMenus() {
   EOL.enableDropdowns();

@@ -17,6 +17,8 @@
     - if @show_wordcloud
       .trait-wordcloud.js-trait-wordcloud{ data: { words: @wordcloud_words } }
       .uk-text-meta.uk-text-right.uk-margin-small-right= t(".wordcloud_credit_html", url: "https://mistic100.github.io/jQCloud/")
+    - if @show_trophic_web
+      = render "trophic_web", page: @page
     %ul.traits
       - @predicates.each do |uri|
         - predicate = @page.glossary[uri]

@@ -181,7 +181,8 @@ class PagesController < ApplicationController
     @predicates = @predicate ? [@predicate[:uri]] : @page.predicates
     @resources = TraitBank.resources(@page.data)
     build_associations(@page.data)
-    setup_wordcloud
+    setup_viz
+     
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html do
@@ -576,32 +577,45 @@ private
     @all_lang_group = ALL_LANG_GROUP
   end
 
-  def setup_wordcloud
+  def setup_viz
     @show_wordcloud = false
+    @show_trophic_web = false
+    pred_uri = @predicate&.[](:uri)
     is_higher_order = @page.native_node.rank && Rank.treat_as[@page.native_node.rank.treat_as] < Rank.treat_as[:r_species]
-    is_pred_filter= !is_higher_order && @predicate && @predicate[:uri] == Eol::Uris.environment
+    is_pred_filter= !is_higher_order && pred_uri == Eol::Uris.environment
 
     if is_pred_filter || is_higher_order
-      word_counts = {}
-      recs = is_pred_filter ? @page.grouped_data[@predicate[:uri]] : TraitBank.descendant_environments(@page) 
+      setup_wordcloud(is_pred_filter)
+    elsif (
+      pred_uri == Eol::Uris.eats || 
+      pred_uri == Eol::Uris.is_eaten_by || 
+      pred_uri == Eol::Uris.preys_on || 
+      pred_uri == Eol::Uris.preyed_upon_by
+    )
+      @show_trophic_web = true
+    end
+  end
 
-      recs.select do |rec|
-        rec[:object_term] && rec[:object_term][:name]
-      end.each do |rec|
-        name = ActionController::Base.helpers.sanitize(rec[:object_term][:name])
-        cur_count = word_counts[name] || 0
-        word_counts[name] = cur_count + 1
-      end
+  def setup_wordcloud(is_pred_filter)
+    word_counts = {}
+    recs = is_pred_filter ? @page.grouped_data[@predicate[:uri]] : TraitBank.descendant_environments(@page) 
 
-      if word_counts.length >= MIN_CLOUD_WORDS
-        @wordcloud_words = word_counts.entries.collect do |entry|
-          {
-            text: entry[0],
-            weight: entry[1]
-          }
-        end.to_json
-        @show_wordcloud = true
-      end
+    recs.select do |rec|
+      rec[:object_term] && rec[:object_term][:name]
+    end.each do |rec|
+      name = ActionController::Base.helpers.sanitize(rec[:object_term][:name])
+      cur_count = word_counts[name] || 0
+      word_counts[name] = cur_count + 1
+    end
+
+    if word_counts.length >= MIN_CLOUD_WORDS
+      @wordcloud_words = word_counts.entries.collect do |entry|
+        {
+          text: entry[0],
+          weight: entry[1]
+        }
+      end.to_json
+      @show_wordcloud = true
     end
   end
 end

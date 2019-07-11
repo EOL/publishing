@@ -18,6 +18,9 @@
     -if asset_exists? "#{params[:controller]}.css"
       = stylesheet_link_tag params[:controller]
     = stylesheet_link_tag "jqcloud"
+    = javascript_include_tag "https://d3js.org/d3.v4.min.js"
+    = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
     = javascript_include_tag "application"
     -if asset_exists? "#{params[:controller]}.js"
       = javascript_include_tag params[:controller]
