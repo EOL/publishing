@@ -23,12 +23,9 @@ class Page < ActiveRecord::Base
   has_one :page_icon, -> { most_recent }
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
-  has_many :articles, through: :page_contents,
-    source: :content, source_type: "Article"
-  has_many :media, through: :page_contents,
-    source: :content, source_type: "Medium"
-  has_many :links, through: :page_contents,
-    source: :content, source_type: "Link"
+  has_many :articles, through: :page_contents, source: :content, source_type: "Article"
+  has_many :media, through: :page_contents, source: :content, source_type: "Medium"
+  has_many :links, through: :page_contents, source: :content, source_type: "Link"
 
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
 
@@ -738,7 +735,7 @@ class Page < ActiveRecord::Base
   def fix_non_image_hero
     return nil if medium.nil?
     return nil if medium.image?
-    update_attribute(:medium_id, media.images.first) # Even if it's nil, that's correct.
+    update_attribute(:medium_id, media.images.first&.id) # Even if it's nil, that's correct.
   end
 
   private
