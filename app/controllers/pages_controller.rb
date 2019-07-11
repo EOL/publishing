@@ -152,6 +152,7 @@ class PagesController < ApplicationController
       redirect_to(route_not_found_path)
     end
     @page = PageDecorator.decorate(page)
+    @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
@@ -265,7 +266,7 @@ class PagesController < ApplicationController
     @page = PageDecorator.decorate(
       Page.includes(
         :preferred_vernaculars,
-        :native_node, 
+        :native_node,
         { vernaculars: :language }
       ).find(params[:page_id])
     )
@@ -386,7 +387,7 @@ class PagesController < ApplicationController
             pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
             pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
 
-            nodes_to_keep = Set.new([page.id]) # always keep the source node 
+            nodes_to_keep = Set.new([page.id]) # always keep the source node
 
             links = links.select do |link|
               keep = !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
