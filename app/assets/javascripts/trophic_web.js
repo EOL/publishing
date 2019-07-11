@@ -1,42 +1,52 @@
 $(function() {
   //new data
-  var dataStored = [];
-  var nodeIDList = [];
-  var linkIDList = [];
+  var dataStored = []
+    , nodeIDList = []
+    , linkIDList = []
+    ;
+
   //graph
-  var graph,
-    node,
-    link,
-    new_node,
-    existing_node,
-    existing_link,
-    new_link;
+  var graph
+    , node
+    , link
+    , new_node
+    , existing_node
+    , existing_link
+    , new_link
+    ;
 
   //for animation purpose
-  var source_nodes=[],
-    existing_nodes=[],
-    new_nodes=[],
-    hiding_nodes=[],
-    existing_links = [],
-    new_links = [],
-    transition = false;
+  var source_nodes = []
+    , existing_nodes=[]
+    , new_nodes=[]
+    , hiding_nodes=[]
+    , existing_links = []
+    , new_links = []
+    , transition = false
+    ;
     
   //node positions
-  var curSource,
-    predPos = [],
-    preyPos = [],
-    compPos = [],
-    sourcePos= [];
+  var curSource
+    , predPos = []
+    , preyPos = []
+    , compPos = []
+    , sourcePos= []
+    ;
     
   var compList = [];
+
   //Node number limit
   var nLimit = 7;
 
   //network graph window #networkSvg
-  var width= 800,
-    height=500,
-    radius = 6,
-    source_radius = 30;
+  var $container = $('.js-trophic-web .js-network-contain')
+    , width
+    , height
+    , sourceX
+    , sourceY
+    , radius = 6
+    , source_radius = 30
+    ;
     
   //node colors
   var color = d3.scaleOrdinal(d3.schemeSet3);
@@ -46,30 +56,21 @@ $(function() {
     color(4);
     color(5);
 
-  //svg selection and sizing	
-
+  //svg selection and sizing  
   var s = select(".js-network-svg")
-      .attr("width", width)
-      .attr("height", height);
-  var svg = s.append("g")
-      .attr("width", width)
-        .attr("height", height);	
-  var tooltip = select("#tooltipDiv");
-  var tooltipSvg = select(".js-tooltip-svg");
+    , svg = s.append("g")
+    , tooltip = select(".js-tooltip")
+    , tooltipSvg = select(".js-tooltip-svg")
+    ;
       
   var zoom = d3.zoom().scaleExtent([1, 3])
-      .on("zoom", function() {
-      svg.attr("transform", d3.event.transform);});
-      
+    .on("zoom", function() {
+      svg.attr("transform", d3.event.transform);
+    });
   s.call(zoom)
-    .on("wheel.zoom", null);
+   .on("wheel.zoom", null);
     
-  select(".js-reset").on("click", function() {
-      s.transition().duration(100).call(zoom.transform, d3.zoomIdentity);
-    
-    toggleVisibilityOfNodesAndLinks(graph, graph.nodes[0]);
-    updateGraph();
-  });
+  select(".js-reset").on("click", reset);
 
   select(".js-zoom-in").on("click", function() {
     zoom.scaleBy(s.transition().duration(100), 1.1);
@@ -90,7 +91,7 @@ $(function() {
     .attr("class", "cell")
     .attr("transform", "translate(0,0)");
     
-  predLegend	
+  predLegend  
     .append("rect").attr("class", "watch")
     .attr("height", 15).attr("width", 30)
     .attr("style", "fill: rgb(141, 211, 199);");
@@ -105,7 +106,7 @@ $(function() {
     .attr("class", "cell")
     .attr("transform", "translate(0,20)");
     
-  preyLegend	
+  preyLegend  
     .append("rect")
     .attr("class", "watch")
     .attr("height", 15)
@@ -121,7 +122,7 @@ $(function() {
   var compLegend = sequentialScale.append("g")
     .attr("class", "cell").attr("transform", "translate(0,40)");
     
-  compLegend	
+  compLegend  
     .append("rect")
     .attr("class", "watch")
     .attr("height", 15).attr("width", 30)
@@ -165,32 +166,26 @@ $(function() {
   link = svg.selectAll('.line');
   marker = svg.selectAll('marker');
 
-  //	force simulation initialization
+  // force simulation initialization
   var simulation = d3.forceSimulation()
     .force("link", d3.forceLink()
       .id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody()
       .strength(function(d) { return -500;}))
-    .force("center", d3.forceCenter(width / 2, height / 2));
-
 
   //initialize first graph
   initializeGraph($('.js-trophic-web').data('pageId'));
-
-
     
   function initializeGraph(eol_id){
     //calculate prey and predator positions (according to the source node coordinates)
-    calculatePositions((width-100)/2,(height-100)/2);
+    calculatePositions();
     
     //query prey_predator json
     d3.json("/pages/" + eol_id + "/pred_prey.json", function(err, g) {
       if (err) throw err;
       
       graph = g;
-      
       dataStored.push(eol_id);
-      
       graph.nodes[0].x = (width-100)/2;
       graph.nodes[0].y = (height-100)/2;
     
@@ -198,11 +193,12 @@ $(function() {
       source_nodes.push(graph.nodes[0]);
       
       //display tooltip
-      tooltip.style("display", "inline-block")
-      .style("opacity", .9)
+      tooltip
+        .style("display", "inline-block")
+        .style("opacity", .9);
       tooltip.html("<p style=\"font-size: 15px; color:"+ color(0)+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+graph.nodes[0].id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+graph.nodes[0].label+ "</a><br /><p><strong>source</strong> of "+graph.nodes[0].label+"</p><img src=\""+ graph.nodes[0].icon+ "\" width=\"190\"><p>");
     
-      graph.nodes.forEach(n=>{
+      graph.nodes.forEach(n => {
         n.px = n.x;
         n.py = n.y;
         existing_nodes.push(n);
@@ -210,19 +206,16 @@ $(function() {
           nodeIDList.push(n.id.toString());}
       });
       
-      graph.links.forEach(l=>{
+      graph.links.forEach(l => {
         existing_links.push(l);
         if(!(linkIDList.includes([l.source.toString()+l.target.toString()]))) {
           linkIDList.push([l.source.toString()+l.target.toString()]);
         }
       });
       
-      simulation
-      .nodes(graph.nodes)
+      simulation.nodes(graph.nodes);
+      simulation.force("link").links(graph.links);
 
-        simulation.force("link")
-        .links(graph.links);
-      
       toggleVisibilityOfNodesAndLinks(graph, graph.nodes[0]);
       updateCoordinates();
       updateGraph();
@@ -231,46 +224,56 @@ $(function() {
       });
   }
 
-  function calculatePositions (sourceX, sourceY) {
-      
-    sourcePos.length = 0;
-    preyPos.length = 0;
-    predPos.length = 0;
-    compPos.length = 0;
+  function calculatePositions() {
+    width = $container.width();
+    height = $container.height();
+    sourceX = (width - 100) / 2;
+    sourceY = (height - 100) / 2;
+
+    s.attr("width", width)
+     .attr("height", height);
+
+    svg.attr("width", width)
+       .attr("height", height);  
+
+    sourcePos = [];
+    preyPos = [];
+    predPos = [];
+    compPos = [];
     
     var add, preyAngle, predAngle;
     //set another dimension for padding
-    var r_width = width-100;
-    var r_height = height- 100;
+    var r_width = width - 100;
+    var r_height = height - 100;
     //alternative heights (display purpose)
-    var radius= [height/4, height/4+20];
+    var radius= [height / 4, height / 4 + 20];
     
-    sourcePos.push(sourceX);
-    sourcePos.push(sourceY);
+    sourcePos = [sourceX, sourceY];
+    console.log(sourcePos);
     
     for (var i= 0; i< nLimit ; i++) {
       if(nLimit == 1){
-        add = 1/8;
-        predAngle = (7/6 + add) * Math.PI;
+        add = 1 / 8;
+        predAngle = (7 / 6 + add) * Math.PI;
       } else {
         //add = 1/((nLimit-1)*2);
-        add = 2/(3*(nLimit-1));
+        add = 2 / (3 * (nLimit - 1));
         //predAngle = (7/6) * Math.PI;
-        predAngle = (7/6 + (i)*add) * Math.PI;
+        predAngle = (7 / 6 + (i) * add) * Math.PI;
       }
     
       preyAngle = (1/6 + ((i)*add)) * Math.PI;
       preyPos.push([((radius[i%2] * Math.cos(preyAngle)) + sourceX),
-      ((radius[i%2] * Math.sin(preyAngle)) + sourceY)]);	
+      ((radius[i%2] * Math.sin(preyAngle)) + sourceY)]);  
       
       predPos.push ([((radius[i%2] * Math.cos(predAngle)) + sourceX),
       ((radius[i%2] * Math.sin(predAngle)) + sourceY)]);
     }
 
-   
+    simulation.force("center", d3.forceCenter(width / 2, height / 2));
   }
+
   function updateGraph() {
-    
     transition = true;
     var gColor = ["source", "predator", "prey", "", "", "competitor"];   
     
@@ -309,14 +312,9 @@ $(function() {
       if(existing_nodes.includes(l.source) && existing_nodes.includes(l.target)){
         existing_links.push(l);
       } else {
-        new_links.push(l);		
+        new_links.push(l);    
       }
     });
-    
-    console.log("existing_nodes", existing_nodes);
-    console.log("new_nodes", new_nodes);
-    console.log("existing_links", existing_links);
-    console.log("(new_links)", new_links);
     
     
       //EXIT-Remove previous nodes/links
@@ -359,7 +357,6 @@ $(function() {
     .attr("y2", function(d) {return d.target.ny;});
     
 
-    console.log("new_nodes", new_nodes);
     new_node = svg.selectAll('.new_node')
     //UPDATE
     .data(new_nodes)
@@ -393,7 +390,7 @@ $(function() {
       } else {
         return radius;
       }
-    })	
+    })  
     .attr("fill", function(d) {
       if (source_nodes.includes (d)) {
         return 'url(#'+d.id.toString()+')';
@@ -403,7 +400,7 @@ $(function() {
       }
       else if (d.group%2==0) { return color(1);}
       else {return color(2);}
-    })	;
+    })  ;
     
     new_node.on("click", d => {
         appendJSON(d);
@@ -422,12 +419,12 @@ $(function() {
           return 32;
           
         } else {
-          return 0;	
+          return 0; 
         }
       })
       .attr('y', function(d) {
         if(source_nodes.includes(d)){
-          return 0;	
+          return 0; 
         }else {
           return 15;
         }
@@ -554,7 +551,7 @@ $(function() {
 
       simulation.alpha(1).alphaTarget(0).restart();
     //new coordinate (n.x, n.y) -> past coordinate (p.x, p.y)
-    updateCoordinates();	
+    updateCoordinates();  
   }
   function updateCoordinates() {
     graph.nodes.forEach(n=> {
@@ -591,7 +588,7 @@ $(function() {
       g.links.forEach(l=> {
         if(!(linkIDList.includes(l.source.toString()+l.target.toString()))) {
           graph.links.push(l);
-          l.show=false;				
+          l.show=false;       
           linkIDList.push(l.source.toString()+l.target.toString());
         }
       });
@@ -606,7 +603,7 @@ $(function() {
       toggleVisibilityOfNodesAndLinks(graph, d);
       updateGraph();
       dataStored.push(eol_id);
-    });	
+    }); 
 
     } else {
       //already stored data
@@ -616,12 +613,10 @@ $(function() {
     
   }
   function toggleVisibilityOfNodesAndLinks (graph,d) {
-
     var preyList = [];
     var predList = [];
     compList = [];
 
-    
     curSource = addSourceNode(d);
       
     graph.nodes.forEach(node=> {
@@ -695,8 +690,6 @@ $(function() {
   }
 
   function updatePositions(sourceX, sourceY) {
-    console.log("update positions")
-
     //make a copy of an array
     var tmpPreyPos, tmpPredPos, tmpCompPos;
     
@@ -708,7 +701,6 @@ $(function() {
     graph.nodes.filter(n => n.show).forEach(node => {
     
       if (node.type == "source") {
-        console.log("source position", sourcePos[0],sourcePos[1])
         node.nx = sourcePos[0];
         node.ny = sourcePos[1];
       }
@@ -750,7 +742,7 @@ $(function() {
     tmpCompPos = compPos.slice();
     
     for (var i =0; i < extra; i++ ) {
-      tmpCompPos.splice(Math.floor(tmpCompPos.length/2), 1);	
+      tmpCompPos.splice(Math.floor(tmpCompPos.length/2), 1);  
     }
     
     var varHeight = -1
@@ -771,7 +763,6 @@ $(function() {
   }
 
   function addSourceNode (d) {
-    
     //most recent source
     var index = source_nodes.length-1;
     //the first source node
@@ -784,13 +775,11 @@ $(function() {
     } 
     //already the source node
     else if (source_nodes.includes(d)) {
-      
       d.type = "source";
-    }
+    } 
     else {
       source_nodes.push(d);
       d.type = "source";
-    
     }
     
     return d;
@@ -835,4 +824,13 @@ $(function() {
   function select(selector) {
     return d3.select('.js-trophic-web ' + selector);
   }
+
+  function reset() {
+    calculatePositions();
+    s.transition().duration(100).call(zoom.transform, d3.zoomIdentity);
+    toggleVisibilityOfNodesAndLinks(graph, graph.nodes[0]);
+    updateGraph();
+  }
+
+  $(window).resize(reset);
 });

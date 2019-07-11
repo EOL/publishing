@@ -313,6 +313,7 @@ $font-sz-m: 14px;
 
 // namespace for Sung's data visualization
 .trophic-web {
+  display: none;
   height: 560px;
   width: 100%;
   padding: 0 15px;
@@ -425,3 +426,10 @@ $font-sz-m: 14px;
     width: 100%;
   }
 }
+
+@media(min-width: 740px) {
+  .trophic-web {
+    display: block;
+  }
+}
+
