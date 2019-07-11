@@ -70,6 +70,22 @@ class Page < ActiveRecord::Base
       end
     end
 
+    def update_dwh_from(resource_id)
+      old_dwh = Resource.find(resource_id)
+      count = 0
+      Node.where(resource_id: old_dwh.id).select('id').find_in_batches(batch_size: 10_000) do |batch|
+        puts "Found a batch of #{batch.size}..."
+        # NOTE: native_node_id is NOT indexed, so this is not speedy:
+        Page.where(native_node_id: batch.map(&:id)).includes(:nodes).find_each do |page|
+          count += 1
+          puts "Updated #{count}." if (count % 1000).zero?
+          dwh_nodes = page.nodes.select { |n| n.resource_id == Resource.native.id }
+          next if dwh_nodes.empty?
+          page.update_attribute :native_node_id, dwh_nodes.first.id
+        end
+      end
+    end
+
     def fix_missing_native_nodes(scope)
       pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
       pages.includes(:nodes).find_each do |page|
