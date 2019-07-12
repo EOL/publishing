@@ -437,9 +437,12 @@ class Page < ActiveRecord::Base
   end
 
   def short_name_notags(language = nil)
-    return @short_name_notags if @short_name_notags
     language ||= Language.current
-    @short_name_notags = vernacular(language)&.string || ActionController::Base.helpers.strip_tags(canonical)
+    vernacular(language)&.string || canonical_notags
+  end
+
+  def canonical_notags
+    @canonical_notags ||= ActionController::Base.helpers.strip_tags(canonical)
   end
 
   def short_name(language = nil)
