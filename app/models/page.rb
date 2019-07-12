@@ -78,13 +78,14 @@ class Page < ActiveRecord::Base
         # NOTE: native_node_id is NOT indexed, so this is not speedy:
         Page.where(native_node_id: batch.map(&:id)).includes(:nodes).find_each do |page|
           count += 1
-          puts "Updated #{count}." if (count % 1000).zero?
+          puts "Updated #{count}. Last: #{page.id}" if (count % 1000).zero?
           STDOUT.flush # Argh. I want the update.
           dwh_nodes = page.nodes.select { |n| n.resource_id == Resource.native.id }
           next if dwh_nodes.empty?
           page.update_attribute :native_node_id, dwh_nodes.first.id
         end
       end
+      puts "Done."
     end
 
     def fix_missing_native_nodes(scope)
