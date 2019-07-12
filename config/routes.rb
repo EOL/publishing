@@ -43,7 +43,6 @@ Rails.application.routes.draw do
       post 'batch_lookup' => "pages#batch_lookup_results", on: :collection, as: :batch_lookup_results
 
       get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
-      get 'pred_prey' => "pages#pred_prey"
     end
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type
@@ -113,6 +112,7 @@ Rails.application.routes.draw do
         get '/1.0/:id' => 'api_pages#index', id: id_match, format: /json|xml/
         get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
         get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
+        get '/:id/pred_prey' => 'api_pages#pred_prey'
       end
       scope '/search' do
         get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/

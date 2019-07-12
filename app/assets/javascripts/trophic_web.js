@@ -181,7 +181,7 @@ $(function() {
     calculatePositions();
     
     //query prey_predator json
-    d3.json("/pages/" + eol_id + "/pred_prey.json", function(err, g) {
+    d3.json("/api/pages/" + eol_id + "/pred_prey.json", function(err, g) {
       if (err) throw err;
       
       graph = g;
