@@ -10,6 +10,6 @@
       .controls
         %button.js-zoom-in +
         %button.js-zoom-out -
-        %button.js-reset reset
+        %button.js-reset= t(".reset")
       .uk-text-meta.uk-position-top-right= t(".globi_credit_html", url: "https://www.globalbioticinteractions.org?#{ { interactionType: 'interactsWith', sourceTaxon: @page.canonical_notags }.to_query }")
 
