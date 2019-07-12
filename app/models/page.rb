@@ -436,9 +436,9 @@ class Page < ActiveRecord::Base
     vernacular(language)&.string || scientific_name
   end
 
-  def vernacular_or_sci_notags(language = nil)
+  def short_name_notags(language = nil)
     language ||= Language.current
-    vernacular(language)&.string || ActionController::Base.helpers.strip_tags(scientific_name)
+    vernacular(language)&.string || ActionController::Base.helpers.strip_tags(canonical)
   end
 
   def short_name(language = nil)

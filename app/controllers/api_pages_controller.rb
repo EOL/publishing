@@ -283,7 +283,7 @@ class ApiPagesController < LegacyApiController
   def pred_prey_node(page, group)
     if page.rank&.r_species? && page.icon
       {
-        label: page.vernacular_or_sci_notags,
+        label: page.short_name_notags,
         labelWithItalics: page.name,
         id: page.id,
         group: group,
