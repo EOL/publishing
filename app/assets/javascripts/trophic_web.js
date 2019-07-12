@@ -1,6 +1,6 @@
 $(function() {
   function createViz($container) {
-    var sitePrefix = "https://beta.eol.org";
+    var sitePrefix = '' //"https://beta.eol.org";
 
     //new data
     var dataStored = []
@@ -202,7 +202,7 @@ $(function() {
         tooltip
           .style("display", "inline-block")
           .style("opacity", .9);
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(0)+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+graph.nodes[0].id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+graph.nodes[0].label+ "</a><br /><p><strong>source</strong> of "+graph.nodes[0].label+"</p><img src=\""+ graph.nodes[0].icon+ "\" width=\"190\"><p>");
+        tooltip.html("<p style=\"font-size: 15px; color:"+ color(0)+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+graph.nodes[0].id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+graph.nodes[0].label+ "</a><br /><p>" + graph.nodes[0].groupDesc + "</p><img src=\""+ graph.nodes[0].icon+ "\" width=\"190\"><p>");
       
         graph.nodes.forEach(n => {
           n.px = n.x;
@@ -414,7 +414,7 @@ $(function() {
         .on('mouseover.tooltip', function(d) {
         tooltip.style("display", "inline-block")
         .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p><strong>"+d.type+"</strong> of "+curSource.label+"</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + cur_source.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
           });
       
       new_node.append('text')
@@ -492,7 +492,7 @@ $(function() {
             
         tooltip.style("display", "inline-block")
         .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p><strong>"+d.type+"</strong> of "+curSource.label+"</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + cur_source.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
           });
       
       

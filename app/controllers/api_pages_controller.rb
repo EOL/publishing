@@ -18,15 +18,15 @@ class ApiPagesController < LegacyApiController
   end
 
   def pred_prey
-    page = Page.find(params[:id])
+    @page = Page.find(params[:id])
 
     respond_to do |format|
       format.json do
-        render json: (Rails.cache.fetch("pages/#{page.id}/pred_prey_json", expires: 1.day) do
-          if !page.rank&.r_species? # all nodes must be species, so bail
+        render json: (Rails.cache.fetch("pages/#{@page.id}/pred_prey_json/2", expires: 1.day) do
+          if !@page.rank&.r_species? # all nodes must be species, so bail
             { nodes: [], links: [] }
           else
-            relationships = TraitBank.pred_prey_comp_for_page(page)
+            relationships = TraitBank.pred_prey_comp_for_page(@page)
             prey_ids = Set.new
             predator_ids = Set.new
             competitor_ids = Set.new
@@ -49,7 +49,7 @@ class ApiPagesController < LegacyApiController
               }
             end
 
-            all_ids = Set.new([page.id])
+            all_ids = Set.new([@page.id])
             all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
             nodes = {}
             ids_to_remove = Set.new
@@ -58,12 +58,12 @@ class ApiPagesController < LegacyApiController
               [page.id, page]
             end.to_h
 
-            pages_to_nodes([page.id], :source, pages, nodes, ids_to_remove)
+            pages_to_nodes([@page.id], :source, pages, nodes, ids_to_remove)
             pages_to_nodes(prey_ids, :prey, pages, nodes, ids_to_remove)
             pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
             pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
 
-            nodes_to_keep = Set.new([page.id]) # always keep the source node
+            nodes_to_keep = Set.new([@page.id]) # always keep the source node
 
             links = links.select do |link|
               keep = !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
@@ -285,6 +285,7 @@ class ApiPagesController < LegacyApiController
       {
         label: page.short_name_notags,
         labelWithItalics: page.name,
+        groupDesc: group_desc(group),
         id: page.id,
         group: group,
         icon: page.icon,
@@ -294,6 +295,10 @@ class ApiPagesController < LegacyApiController
     else
       nil
     end
+  end
+
+  def group_desc(group)
+    I18n.t("trophic_web.group_descriptions.#{group}", source_name: @page.short_name_notags)
   end
 
   def pages_to_nodes(page_ids, group, pages, nodes, pages_wo_data)

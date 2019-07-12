@@ -862,6 +862,12 @@ en:
     index:
       select_page_above: "Select a page above to begin."
   data_definition: "definition of \"%{data}\""
+  trophic_web:
+    group_descriptions:
+      competitor: "competitor of %{source_name}"
+      predator: "feeds on %{source_name}"
+      prey: "eaten by %{source_name}"
+      source: "focal species"
   trust:
     unreviewed: "unreviewed"
     trusted: "trusted"
