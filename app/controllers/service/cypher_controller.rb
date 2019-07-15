@@ -46,7 +46,7 @@ class Service::CypherController < ServicesController
     render_results(TraitBank.query(cypher), format)
   end
 
-  def render_results(results, format)
+  def render_results(results, format = "cypher")
     case format
     when "cypher" then
       render json: results
@@ -68,19 +68,26 @@ class Service::CypherController < ServicesController
   def remove_relationships
     format = params[:format] || "cypher"
 
-    relation = Integer(params[:relation])
+    return render_bad_request(title: "Relation parameter is missing") unless
+      params.include?(:relation)
+    relation = params[:relation]
     # Fixed set of allowed relationships
+    # (Currently only one...)
     return render_bad_request(title: "Unrecognized relation #{relation}") unless
       ["inferred_trait"].include?(relation)
 
-    resource_id = Integer(params[:resource_id])
-    authorize_admin_from_token!
+    return render_bad_request(title: "Resource parameter is missing") unless
+      params.include?(:resource)
+    resource_id = Integer(params[:resource])
+
+    return nil unless
+      authorize_admin_from_token!
     render_results(TraitBank.query(
-                    'MATCH ()-[rel:#{relation}]-
+                    "MATCH ()-[rel:#{relation}]-
                            (t:Trait)-[:supplier]->
                            (:Resource {resource_id: #{resource_id}})
                      DELETE rel
-                     RETURN t.resource_pk'))
+                     RETURN t.resource_pk"))
   end
 
 end            # end class
