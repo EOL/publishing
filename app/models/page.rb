@@ -712,14 +712,16 @@ class Page < ActiveRecord::Base
     @data_toc_needs_other
   end
 
-  def grouped_data
+  def grouped_data(provider = nil)
     @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
   end
 
   def predicates
     @predicates ||= grouped_data.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]
-    end
+    end.collect do |uri|
+      glossary[uri]
+    end.compact
   end
 
   def object_terms

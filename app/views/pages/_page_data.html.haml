@@ -1,18 +1,18 @@
 .js-content
   .ui.menu.uk-text-small.js-menus.page-filters
-    .ui.scrolling.dropdown.item
-      - if @predicate
-        %b= @predicate[:name]
-      -else
-        = t(".filter_by_attribute")
-      %i.dropdown.icon
-      .menu
-        = link_to(t(".show_all"), page_data_path(@page), data: { type: 'html' }, class: "item#{ @predicate.nil? ? " active" : ""}")
-        - @page.predicates.each do |uri|
-          - predicate = @page.glossary[uri]
-          = link_to(predicate[:name], page_data_path(page_id: @page.id, predicate: uri), data: { type: 'html' }, class: "item#{ @predicate && uri == @predicate[:uri] ? " active" : ""}")
-          -#
-            remote: true, data: { type: 'html' }, class: "item#{ lic == @license ? " active" : ""}")
+    - if @predicate || @filter_predicates.length > 1
+      = render "filter_menu", selection: @predicate, items: @filter_predicates,
+        to_name: lambda { |predicate| predicate[:name] },
+        to_path: lambda { |predicate| page_data_path(page_id: @page.id, predicate: predicate.nil? ? nil : predicate[:uri]) },
+        no_selection_label: t("filters.filter_by_attribute"),
+        show_all_item: nil
+    - if @resource || @filter_resources.length > 1
+      = render "filter_menu", selection: @resource, items: @filter_resources,
+        to_name: lambda { |resource| resource.name },
+        to_path: lambda { |resource| page_data_path(page_id: @page.id, resource_id: resource.nil? ? nil : resource.id) },
+        no_selection_label: t("filters.filter_by_provider"),
+        show_all_item: nil
+
   .l-below-filters
     - if @show_wordcloud
       .trait-wordcloud.js-trait-wordcloud{ data: { words: @wordcloud_words } }
@@ -20,19 +20,14 @@
     - if @show_trophic_web
       = render "trophic_web", page: @page
     %ul.traits
-      - @predicates.each do |uri|
-        - predicate = @page.glossary[uri]
-        - if predicate.nil?
-          - Rails.logger.error("** ERROR: missing predicate #{uri}")
-          - next
+      - @shown_predicates.each do |predicate|
         - previous_predicate = nil
-        - pred_data = @page.grouped_data[uri]
-        - pred_data_slice = pred_data
-        - if !@predicate
-          - pred_data_slice = pred_data[0, records_per_pred]
+        - pred_data = @grouped_data[predicate[:uri]]
+        - pred_data_slice = predicate.nil? ? pred_data[0, records_per_pred] : pred_data
         - pred_data_slice.each do |trait|
           = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
           -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde
         - if pred_data_slice.length < pred_data.length
           %li.more-traits
-            = link_to(t(".n_hidden_show_all", count: pred_data.length - pred_data_slice.length, pred_name: predicate[:name]), page_data_path(page_id: @page.id, predicate: uri))
+            = link_to(t(".n_hidden_show_all", count: pred_data.length - pred_data_slice.length, pred_name: predicate[:name]), page_data_path(page_id: @page.id, predicate: predicate[:uri]))
+
