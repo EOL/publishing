@@ -236,6 +236,25 @@ class ApiPagesController < LegacyApiController
       else
         'http://purl.org/dc/dcmitype/StillImage'
       end
+      mime = if image.mp3?
+        'audio/mpeg'
+      elsif image.ogg?
+        'audio/ogg'
+      elsif image.wav?
+        'audio/wav'
+      elsif image.mp4?
+        'video/mp4'
+      elsif image.ogv?
+        'video/ogg'
+      elsif image.mov?
+        'video/quicktime'
+      elsif image.svg?
+        'image/svg+xml'
+      elsif image.webm?
+        'video/webm'
+      else
+        'image/jpeg'
+      end
       image_hash = {
         identifier: image.guid,
         dataObjectVersionID: image.id,
@@ -245,7 +264,7 @@ class ApiPagesController < LegacyApiController
         dataRatings: [],
         mediumType: image.subclass,
         dataRating: '2.5', # this is faked for now per Yan Wang's request.
-        mimeType: 'image/jpeg'
+        mimeType: mime
       }
       if (info = image.image_info)
         (h, w) = info.original_size.split('x')
