@@ -12,7 +12,7 @@ class Service::CypherController < ServicesController
   def query
     format = params.delete(:format) || "cypher"
 
-    cypher = params.delete(:query])
+    cypher = params.delete(:query)
     return render_bad_request(title: "Missing a 'query' parameter.") unless
       cypher != nil
 
