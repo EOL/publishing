@@ -193,7 +193,7 @@ class PagesController < ApplicationController
       predicate_match && resource_match
     end
 
-    @filter_resources = TraitBank.resources(resources_data)
+    @filter_resources = Resource.where(id: resources_data.map { |t| t[:resource_id] }.compact.uniq).order(:name)
     @filter_predicates = @filter_predicates.sort { |a, b| a[:name] <=> b[:name] }.uniq
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
     @shown_predicates = @predicate ? [@predicate] : @page.predicates
