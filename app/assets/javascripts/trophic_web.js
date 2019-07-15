@@ -1,10 +1,9 @@
 $(function() {
   function createViz($container) {
-    var sitePrefix = '' //"https://beta.eol.org";
+    var sitePrefix = "https://beta.eol.org";
 
     //new data
-    var dataStored = []
-      , nodeIDList = []
+    var nodeIDList = []
       , linkIDList = []
       ;
 
@@ -191,12 +190,11 @@ $(function() {
         if (err) throw err;
         
         graph = g;
-        dataStored.push(eol_id);
         graph.nodes[0].x = sourceX;
         graph.nodes[0].y = sourceY;
       
         //initialize the first source node
-        source_nodes.push(graph.nodes[0]);
+        source_nodes.push(graph.nodes[0].id);
         
         //display tooltip
         tooltip
@@ -332,7 +330,7 @@ $(function() {
       .enter().append('line')
       .attr('class', 'link')
       .attr("marker-end", function(d) { 
-        if(source_nodes.includes(d.target)){
+        if(source_nodes.includes(d.target.id)){
           return "url(#longer)";
         } else {
           return "url(#arrow)";
@@ -349,7 +347,7 @@ $(function() {
       .attr('class', 'new_link')
       .attr('opacity', 0)
       .attr("marker-end", function(d) { 
-        if(source_nodes.includes(d.target)){
+        if(source_nodes.includes(d.target.id)){
           return "url(#longer)";
         } else {
           return "url(#arrow)";
@@ -389,14 +387,14 @@ $(function() {
       //APPEND CIRCLE
       new_node.append('circle')
       .attr("r", function(d) {
-        if(source_nodes.includes (d)){
+        if(source_nodes.includes (d.id)){
           return source_radius;
         } else {
           return radius;
         }
       })  
       .attr("fill", function(d) {
-        if (source_nodes.includes (d)) {
+        if (source_nodes.includes (d.id)) {
           return 'url(#'+d.id.toString()+')';
         }
         else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
@@ -414,12 +412,12 @@ $(function() {
         .on('mouseover.tooltip', function(d) {
         tooltip.style("display", "inline-block")
         .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + cur_source.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
           });
       
       new_node.append('text')
         .attr('x', function(d) {
-          if (source_nodes.includes(d)){
+          if (source_nodes.includes(d.id)){
             return 32;
             
           } else {
@@ -427,7 +425,7 @@ $(function() {
           }
         })
         .attr('y', function(d) {
-          if(source_nodes.includes(d)){
+          if(source_nodes.includes(d.id)){
             return 0; 
           }else {
             return 15;
@@ -438,7 +436,7 @@ $(function() {
         .attr("font-family", "verdana")
       .attr("font-size", "10px")
       .attr("text-anchor",function(d) {
-        if(source_nodes.includes(d)) {
+        if(source_nodes.includes(d.id)) {
           return "left";
         } else {
           return "middle";
@@ -452,7 +450,33 @@ $(function() {
       .data(existing_nodes)
       .enter().append('g')
       .attr('class', 'existing_node')
-      .attr("transform",  d => `translate(${d.px},${d.py})`);
+      .attr("transform",  d => `translate(${d.px},${d.py})`)
+      .call(
+        d3.drag()
+        
+        /*
+        .subject(function() { 
+          var t = d3.select(this);
+          var tr = getTranslation(t.attr("transform"));
+              
+          return {
+            x: t.attr("x") + tr[0],
+            y: t.attr("y") + tr[1]
+          };
+        })
+        .on("drag", function(d,i) {
+          d3.select(this).attr("transform", function(d,i) {
+            d.x = d3.event.x;
+            d.y = d3.event.y;
+            return "translate(" + [ d3.event.x, d3.event.y ] + ")";
+          }
+        );
+     
+          svg.selectAll('.link').data(existing_links).filter(l => (l.source === d))
+            .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
+        })
+        */
+      );
       
       //APPEND IMAGE
       existing_node.append("svg:pattern")
@@ -470,14 +494,14 @@ $(function() {
       
       existing_node.append('circle')
       .attr("r", function(d) {
-        if(source_nodes.includes (d)){
+        if(source_nodes.includes (d.id)){
           return source_radius;
         } else {
           return radius;
         }
       })
       .attr("fill", function(d) {
-        if (source_nodes.includes (d)) {
+        if (source_nodes.includes (d.id)) {
           return 'url(#'+d.id.toString()+')';
         }
         else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
@@ -492,13 +516,13 @@ $(function() {
             
         tooltip.style("display", "inline-block")
         .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + cur_source.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
           });
       
       
       existing_node.append('text')
         .attr('x', function(d) {
-          if (source_nodes.includes(d)){
+          if (source_nodes.includes(d.id)){
             return 32;
             
           } else {
@@ -507,7 +531,7 @@ $(function() {
           }
         })
         .attr('y', function(d) {
-          if(source_nodes.includes(d)){
+          if(source_nodes.includes(d.id)){
             return 0;
             
           }else {
@@ -519,7 +543,7 @@ $(function() {
         .attr("font-family", "verdana")
       .attr("font-size", "10px")
       .attr("text-anchor",function(d) {
-        if(source_nodes.includes(d)) {
+        if(source_nodes.includes(d.id)) {
           return "left";
         } else {
           return "middle";
@@ -570,52 +594,42 @@ $(function() {
       var eol_id = d.id.toString();
       
       //http request to JSON data
-      if(!(dataStored.includes(eol_id))) {
-
       d3.json(dataUrl(eol_id), function(err, g) {
-        if (err) {alert("No data found!"); throw err;}
+        if (err) { alert("No data found!"); throw err; }
         
         g.nodes.forEach(n => {
-          if(!(nodeIDList.includes(n.id.toString()))) {
-            //adding new nodes
+          var curNode = graph.nodes.find((m) => {
+            return m.id == n.id;
+          });
+
+          if (curNode) {
+            curNode.groupDesc = n.groupDesc;
+          } else {
             graph.nodes.push(n);
-          
             n.x = 0;
             n.y = 0;
             n.px = 0;
             n.py = 0;
             n.nx = 0;
             n.ny = 0;
-            n.show=false;
-            nodeIDList.push(n.id.toString());
+            n.show = false;
             hiding_nodes.push(n);
           }
         });
-        g.links.forEach(l=> {
+
+        g.links.forEach(l => {
           if(!(linkIDList.includes(l.source.toString()+l.target.toString()))) {
             graph.links.push(l);
             l.show=false;       
             linkIDList.push(l.source.toString()+l.target.toString());
           }
         });
-
         
-        simulation
-        .nodes(graph.nodes)
-
-          simulation.force("link")
-          .links(graph.links);
-        
+        simulation.nodes(graph.nodes);
+        simulation.force("link").links(graph.links);
         setVisibilityOfNodesAndLinks(graph, d);
         updateGraph();
-        dataStored.push(eol_id);
       }); 
-
-      } else {
-        //already stored data
-        setVisibilityOfNodesAndLinks(graph, d);
-        updateGraph();
-      }
     }
 
     function setVisibilityOfNodesAndLinks(graph, d) {
@@ -761,17 +775,17 @@ $(function() {
       //the first source node
       if (d.id == source_nodes[0].id) {
         //remove everything
-        source_nodes.splice(d);
+        source_nodes.splice(d.id);
         //put the first source node (reset effect)
-        source_nodes.push(d);
+        source_nodes.push(d.id);
         d.type = "source";
       } 
       //already the source node
-      else if (source_nodes.includes(d)) {
+      else if (source_nodes.includes(d.id)) {
         d.type = "source";
       } 
       else {
-        source_nodes.push(d);
+        source_nodes.push(d.id);
         d.type = "source";
       }
       
