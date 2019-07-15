@@ -1,6 +1,10 @@
 $(function() {
-  function createViz($container) {
+  function createViz($trophicWeb) {
     var sitePrefix = "https://beta.eol.org";
+
+    var $container = $trophicWeb.find('.js-network-contain')
+      , $dimmer = $trophicWeb.find('.dimmer')
+      ;
 
     //new data
     var nodeIDList = []
@@ -175,7 +179,7 @@ $(function() {
         .strength(function(d) { return -500;}))
 
     //initialize first graph
-    initializeGraph($('.js-trophic-web').data('pageId'));
+    initializeGraph($trophicWeb.data('pageId'));
 
     function dataUrl(pageId) {
       return sitePrefix + "/api/pages/" + pageId + "/pred_prey.json"
@@ -580,6 +584,7 @@ $(function() {
         simulation.alpha(1).alphaTarget(0).restart();
       //new coordinate (n.x, n.y) -> past coordinate (p.x, p.y)
       updateCoordinates();  
+      $dimmer.removeClass('active');
     }
 
     function updateCoordinates() {
@@ -591,6 +596,7 @@ $(function() {
 
     //new data
     function appendJSON(d) {
+      $dimmer.addClass('active');
       var eol_id = d.id.toString();
       
       //http request to JSON data
@@ -842,9 +848,9 @@ $(function() {
     $(window).resize(reset);
   }
 
-  var $container = $('.js-trophic-web .js-network-contain');
+  var $trophicWeb = $('.js-trophic-web');
 
-  if ($container.length) {
-    createViz($container);
+  if ($trophicWeb.length) {
+    createViz($trophicWeb);
   }
 });
