@@ -21,6 +21,7 @@ class Resource < ActiveRecord::Base
   end
 
   class << self
+    # NOTE: if you change this, you MUST call .update_dwh_from (see below) once it's in place!
     def native
       Rails.cache.fetch('resources/dynamic_hierarchy_1_1') do
         Resource.where(abbr: 'dvdtg').first_or_create do |r|
@@ -33,6 +34,27 @@ class Resource < ActiveRecord::Base
           r.nodes_count = 650000
         end
       end
+    end
+
+    def update_dwh_from(resource_id, start_id = 0)
+      old_dwh = Resource.find(resource_id)
+      count = 0
+      Searchkick.disable_callbacks
+      Node.where(resource_id: old_dwh.id).where(['id > ?', start_id]).select('id').
+        find_in_batches(batch_size: 10_000) do |batch|
+          puts "Found a batch of #{batch.size} starting with node #{batch.first.id}..."
+          # NOTE: native_node_id is NOT indexed, so this is not speedy:
+          Page.where(native_node_id: batch.map(&:id)).includes(:nodes).find_each do |page|
+            count += 1
+            puts "Updated #{count}. Last: #{page.id}" if (count % 1000).zero?
+            STDOUT.flush # Argh. I want the update.
+            dwh_nodes = page.nodes.select { |n| n.resource_id == Resource.native.id }
+            next if dwh_nodes.empty?
+            page.update_attribute :native_node_id, dwh_nodes.first.id
+          end
+      end
+      puts "Done."
+      Searchkick.enable_callbacks
     end
 
     # Required to read the IUCN status
