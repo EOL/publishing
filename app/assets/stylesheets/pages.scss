@@ -73,6 +73,7 @@ $font-sz-m: 14px;
 
 .names-wrapper {
   display: inline-block;
+  min-height: 35px; // to accommodate collect button
   min-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
