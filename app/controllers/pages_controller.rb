@@ -185,7 +185,7 @@ class PagesController < ApplicationController
 
     filtered_data = @page.data.select do |t| 
       predicate_match = @predicate.nil? || t[:predicate][:uri] == @predicate[:uri]
-      resource_match = @resource.nil? || t[:resource_id] = @resource.id
+      resource_match = @resource.nil? || t[:resource_id] == @resource.id
   
       @filter_predicates << @page.glossary[t[:predicate][:uri]] if resource_match
       resources_data << t if predicate_match
