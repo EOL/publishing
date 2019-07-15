@@ -10,25 +10,28 @@
       - if !@page.summary_hierarchy.blank?
         .hier.js-hier-summary= @page.summary_hierarchy.html_safe
         .hier.is-hidden.js-hier-full= @page.full_hierarchy.html_safe
-      .names
-        - if @page.name == @page.scientific_name
-          - name = @page.scientific_name
-          - sci_name = nil
-        - else
-          - name = @page.name.titlecase
-          - sci_name = @page.scientific_name
-        %h1= name.html_safe
-        - if sci_name
-          %h2= sci_name.html_safe
-    %ul.page-actions
-      -# - if is_admin?
-      -#   .item
-      -#     - basic_button("undo", t("pages.actions.reindex"), page_reindex_path(@page))
-      %li.item.page_topics{ data: { id: @page.id } }>
-      %li.item>
-        - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
-        -# TODO: once upon a time, this worked as a remote link, but it wasn't working when I checked. Fix.
-        - basic_button("plus", t("pages.actions.collect"), dest, no_margin: true)
+      .names-wrapper
+        .names
+          - if @page.name == @page.scientific_name
+            - name = @page.scientific_name
+            - sci_name = nil
+          - else
+            - name = @page.name.titlecase
+            - sci_name = @page.scientific_name
+          %h1= name.html_safe
+          - if sci_name
+            %h2= sci_name.html_safe
+          - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
+        .uk-position-top-right
+          - basic_button("plus", t("pages.actions.collect"), dest, no_margin: true)
+    -#
+      %ul.page-actions
+        -# - if is_admin?
+        -#   .item
+        -#     - basic_button("undo", t("pages.actions.reindex"), page_reindex_path(@page))
+        -# %li.item.page_topics{ data: { id: @page.id } }>
+        %li.item>
+          -# TODO: once upon a time, this worked as a remote link, but it wasn't working when I checked. Fix.
   %ul.tabs
     - tab("overview", page_path(@page))
     - if @page.has_data?
