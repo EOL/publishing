@@ -3,13 +3,13 @@
     - if @predicate || @filter_predicates.length > 1
       = render "filter_menu", selection: @predicate, items: @filter_predicates,
         to_name: lambda { |predicate| predicate[:name] },
-        to_path: lambda { |predicate| page_data_path(page_id: @page.id, predicate: predicate.nil? ? nil : predicate[:uri]) },
+        to_path: lambda { |predicate| page_data_path(page_id: @page.id, predicate: predicate&.[](:uri), resource_id: @resource&.id) },
         no_selection_label: t("filters.filter_by_attribute"),
         show_all_item: nil
     - if @resource || @filter_resources.length > 1
       = render "filter_menu", selection: @resource, items: @filter_resources,
         to_name: lambda { |resource| resource.name },
-        to_path: lambda { |resource| page_data_path(page_id: @page.id, resource_id: resource.nil? ? nil : resource.id) },
+        to_path: lambda { |resource| page_data_path(page_id: @page.id, resource_id: resource&.id, predicate: @predicate&.[](:uri)) },
         no_selection_label: t("filters.filter_by_provider"),
         show_all_item: nil
 
