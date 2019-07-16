@@ -20,9 +20,9 @@
     - if @show_trophic_web
       = render "trophic_web", page: @page
     %ul.traits
-      - @shown_predicates.each do |predicate|
+      - @predicates.each do |predicate|
         - pred_data = @grouped_data[predicate[:uri]]
-        - pred_data_slice = @shown_predicates.length == 1 ? pred_data : pred_data[0, records_per_pred]
+        - pred_data_slice = @predicates.length == 1 ? pred_data : pred_data[0, records_per_pred]
         - pred_data_slice.each do |trait|
           = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
           -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde

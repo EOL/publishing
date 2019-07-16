@@ -1,6 +1,6 @@
 $(function() {
   function createViz($trophicWeb) {
-    var sitePrefix = "https://beta.eol.org";
+    var sitePrefix = ''; //"https://beta.eol.org";
 
     var $container = $trophicWeb.find('.js-network-contain')
       , $dimmer = $trophicWeb.find('.dimmer')

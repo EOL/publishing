@@ -706,6 +706,16 @@ class Page < ActiveRecord::Base
     end.compact
   end
 
+  def sorted_predicates_for_records(records)
+    records.collect do |record|
+      record[:predicate][:uri]
+    end.sort do |a, b|
+      glossary_names[a] <=> glossary_names[b]
+    end.uniq.collect do |uri|
+      glossary[uri]
+    end
+  end
+
   def object_terms
     @object_terms ||= glossary.keys - predicates
   end
@@ -744,12 +754,6 @@ class Page < ActiveRecord::Base
     update_attribute(:medium_id, media.images.first&.id) # Even if it's nil, that's correct.
   end
 
-  private
-
-  def first_image_content
-    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
-  end
-
   # TODO: spec
   # NOTE: this is just used for sorting.
   def glossary_names
@@ -762,5 +766,11 @@ class Page < ActiveRecord::Base
       end
       gn
     end
+  end
+
+  private
+
+  def first_image_content
+    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
 end

@@ -194,9 +194,9 @@ class PagesController < ApplicationController
     end
 
     @filter_resources = Resource.where(id: resources_data.map { |t| t[:resource_id] }.compact.uniq).order(:name)
-    @filter_predicates = @filter_predicates.sort { |a, b| a[:name] <=> b[:name] }.uniq
+    @filter_predicates = @filter_predicates.sort { |a, b| @page.glossary_names[a[:uri]] <=> @page.glossary_names[b[:uri]] }.uniq
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
-    @shown_predicates = @predicate ? [@predicate] : @page.predicates
+    @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
     @resources = TraitBank.resources(filtered_data)
 
     build_associations(@page.data)
