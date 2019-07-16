@@ -174,6 +174,7 @@ Rails.application.routes.draw do
     get "/services/authenticate" => "services#authenticate_service"
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
     get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
+    get "/service/remove_relationships" => "service/cypher#remove_relationships", as: "remove_relationships"
 
     post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
 
