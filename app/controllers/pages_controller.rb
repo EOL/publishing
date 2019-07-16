@@ -179,7 +179,7 @@ class PagesController < ApplicationController
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
     @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
-    @resource = params[:resource_id] ? Resource.find(params[:resource_id]) :nil
+    @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @filter_predicates = []
     resources_data = []
 
@@ -197,6 +197,7 @@ class PagesController < ApplicationController
     @filter_predicates = @filter_predicates.sort { |a, b| a[:name] <=> b[:name] }.uniq
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
     @shown_predicates = @predicate ? [@predicate] : @page.predicates
+    @resources = TraitBank.resources(filtered_data)
 
     build_associations(@page.data)
     setup_viz

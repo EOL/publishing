@@ -13,7 +13,7 @@
         - show_data_page_icon page
     - predicate = trait[:predicate]
 
-    .trait-source= show_source_segment(trait)
+    .trait-source= show_source_segment(trait, @resources)
     .trait-data
       - if show_taxon && page
         = link_to(page.scientific_name.html_safe, page)

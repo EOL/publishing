@@ -121,11 +121,14 @@ module DataHelper
     haml_tag(:div, value, class: "ui tertiary segment")
   end
 
-  def show_source_segment(data)
-    if @resources && resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
+  def show_source_segment(data, resources)
+    if !resources
+      raise TypeError.new("resources parameter is required")
+    elsif resource = @resources[data[:resource_id]] # rubocop:disable Lint/AssignmentInCondition
       link_txt = resource.name.blank? ? resource_path(resource) : resource.name
       link_to(link_txt, resource)
     else
+      logger.warn("resource #{data[:resource_id]} missing for trait")
       I18n.t(:resource_missing)
     end
   end
