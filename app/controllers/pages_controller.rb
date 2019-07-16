@@ -488,9 +488,7 @@ private
     @show_trophic_web = false
     pred_uri = @predicate&.[](:uri)
 
-    is_pred_filter= pred_uri == Eol::Uris.environment
-
-    if is_pred_filter
+    if pred_uri && Eol::Uris.habitats.include?(pred_uri)
       setup_wordcloud(
         @page.native_node.rank && 
         Rank.treat_as[@page.native_node.rank.treat_as] < Rank.treat_as[:r_species]
@@ -507,7 +505,11 @@ private
 
   def setup_wordcloud(is_higher_order)
     word_counts = {}
-    recs = is_higher_order ? TraitBank.descendant_environments(@page) : @page.grouped_data[@predicate[:uri]]
+    recs = is_higher_order ? 
+      TraitBank.descendant_environments(@page) : 
+      Eol::Uris.habitats_for_wordcloud.collect do |uri|
+        @page.grouped_data[uri]
+      end.flatten
 
     recs.select do |rec|
       rec[:object_term] && rec[:object_term][:name]

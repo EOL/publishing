@@ -102,7 +102,7 @@ class PageDecorator
         # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
-        term_sentence("It is found in %s.", "marine habitat", Eol::Uris.environment, Eol::Uris.marine) if is_it_marine?
+        term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) if is_it_marine?
 
         # Distribution sentence: It is found in [G1].
         @sentences << "It is found in #{g1}." if g1
@@ -225,7 +225,7 @@ class PageDecorator
         if @page.has_checked_marine?
           @page.is_marine?
         else
-          env_terms = gather_terms([Eol::Uris.environment])
+          env_terms = gather_terms([Eol::Uris.habitat_includes])
           marine =
             has_data_for_pred_terms(
               env_terms,

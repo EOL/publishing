@@ -1213,8 +1213,8 @@ class TraitBank
 
     # For data visualization
     def pred_prey_comp_for_page(page)
-      eats_string = "[#{uris_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])}]"
-      eaten_by_string = "[#{uris_to_qs([Eol::Uris.is_eaten_by])}]"
+      eats_string = uris_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
+      eaten_by_string = uris_to_qs([Eol::Uris.is_eaten_by])
       limit_per_group = 10
 
       # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
@@ -1262,22 +1262,23 @@ class TraitBank
     # for word cloud visualization
     def descendant_environments(page)
       max_page_depth = 2
-      pred_uri = Eol::Uris.environment
       qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
-        "(page)-[:trait]->(trait:Trait)-[:predicate]->(predicate:Term{uri: '#{pred_uri}'}),\n"\
+        "(page)-[:trait]->(trait:Trait)-[:predicate]->(predicate:Term),\n"\
         "(trait)-[:object_term]->(object_term:Term)\n"\
+        "WHERE predicate.uri IN #{uris_to_qs([Eol::Uris.habitats_for_wordcloud])}\n"\
         "RETURN trait, predicate, object_term"
 
       build_trait_array(query(qs))
     end
 
     private
-    def uris_to_qs(*args)
+    # each argument is expected to be an Array of strings 
+    def uris_to_qs(*args) 
       result = []
       args.each do |uris|
         result.concat(uris.collect { |uri| "'#{uri}'" })
       end
-      result.join(", ")
+      "[#{result.join(", ")}]"
     end 
   end
 end

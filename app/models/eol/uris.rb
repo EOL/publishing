@@ -1,8 +1,32 @@
 module Eol
   module Uris
     class << self
-      def environment
+      def habitat_includes
         'http://eol.org/schema/terms/Habitat'
+      end
+
+      def habitat_is
+        "http://rs.tdwg.org/dwc/terms/habitat"
+      end
+
+      def habitat_breadth
+        "http://eol.org/schema/terms/HabitatBreadth"
+      end
+
+      def habitats
+        [
+          habitat_includes,
+          habitat_breadth,
+          habitat_is
+        ]
+      end
+
+      # uris for wordcloud records -- not necessarily the uris that allow the wordcloud to be shown
+      def habitats_for_wordcloud
+        [
+          habitat_includes,
+          habitat_is
+        ]
       end
 
       def marine
@@ -51,10 +75,6 @@ module Eol
 
       def is_eaten_by
         "http://purl.obolibrary.org/obo/RO_0002471"
-      end
-
-      def preys_on
-        "http://purl.obolibrary.org/obo/RO_0002439"
       end
 
       def ectoparasite_of
