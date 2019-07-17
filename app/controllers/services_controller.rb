@@ -62,15 +62,21 @@ class ServicesController < ApplicationController
 
   def authenticate_user_from_token!
     the_claims = parse_claims
-    return nil unless the_claims
-    user = User.find_by_email(the_claims[0]['user'])
-    # Valid email?
-    # Password from time of token creation still current?
-    if user && the_claims[0]['encrypted_password'] == user.encrypted_password
-      user
+    if the_claims
+      user = User.find_by_email(the_claims[0]['user'])
+      # Valid email?
+      # Password from time of token creation still current?
+      if user && the_claims[0]['encrypted_password'] == user.encrypted_password
+        user
+      else
+        render_unauthenticated title: "No such user, or token has been retracted."
+        nil
+      end
+    elsif current_user
+      current_user
     else
-      render_unauthenticated title: "No such user, or token has been retracted."
-      nil
+      render_unauthenticated title: "You must log in, or provide a token, to use the API."
+      return nil
     end
   end
 
@@ -81,7 +87,6 @@ class ServicesController < ApplicationController
     # Check for presence of HTTP header
     auth_header = request.headers['Authorization']
     if not auth_header
-      render_unauthenticated title: "No Authorization header"
       return nil
     end
     # See if header value splits into two parts
