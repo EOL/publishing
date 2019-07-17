@@ -75,8 +75,8 @@ class ServicesController < ApplicationController
     elsif current_user
       current_user
     else
-      render_unauthenticated title: "You must log in, or provide a token, to use the API."
-      return nil
+      render_unauthenticated title: "You must log in or provide a token to use the API."
+      nil
     end
   end
 
