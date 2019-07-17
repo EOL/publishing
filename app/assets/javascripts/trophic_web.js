@@ -1,6 +1,6 @@
 $(function() {
   function createViz($trophicWeb) {
-    var sitePrefix = ''; //"https://beta.eol.org";
+    var sitePrefix = "https://beta.eol.org";
 
     var $container = $trophicWeb.find('.js-network-contain')
       , $dimmer = $trophicWeb.find('.dimmer')
@@ -165,9 +165,9 @@ $(function() {
 
     node = svg.selectAll('.node');
     new_node = svg.selectAll('.new_node');
-    existing_node =svg.selectAll('.existing_node');
+    existing_node = svg.selectAll('.existing_node');
     new_link = svg.selectAll('.new_link');
-    existing_link =svg.selectAll('.existing_link');
+    existing_link = svg.selectAll('.existing_link');
     link = svg.selectAll('.line');
     marker = svg.selectAll('marker');
 
@@ -210,8 +210,9 @@ $(function() {
           n.px = n.x;
           n.py = n.y;
           existing_nodes.push(n);
-          if(!(nodeIDList.includes(n.id.toString()))){
-            nodeIDList.push(n.id.toString());}
+          if(!(nodeIDList.includes(n.id.toString()))) {
+            nodeIDList.push(n.id.toString());
+          }
         });
         
         graph.links.forEach(l => {
@@ -228,8 +229,111 @@ $(function() {
         updateCoordinates();
         updateGraph();
         transition=false;
-        
+      });
+    }
+
+    function createNodes(type, data) {
+      var gColor = ["source", "predator", "prey", "", "", "competitor"]
+        , className = type + "_node"
+        , nodes
+        ;
+
+      //UPDATE
+      nodes = svg.selectAll(`.${className}`)
+      .data(data)
+      .enter().append('g')
+      .attr('class', className)
+
+      if (type === 'new') {
+        nodes
+        .attr('transform', d => `translate(${d.nx},${d.ny})`)
+        .attr('opacity', 0)
+        .attr('id', function(d) {return d.label.replace(/\s/g,'');})
+        .attr('x', function(d) {return d.fx;})
+        .attr('y', function(d) {return d.fy;});
+      } else if (type === 'existing') {
+        nodes
+        .attr("transform", d => `translate(${d.px},${d.py})`);
+      }
+      
+      //APPEND IMAGE
+      nodes.append("svg:pattern")
+      .attr("id", function(d) {return d.id.toString();})
+      .attr("width", "100%")
+      .attr("height", "100%")
+      .attr("patternContentUnits", "objectBoundingBox")
+      .attr("preserveAspectRatio", "xMidYMid slice")
+      .attr("viewBox", "0 0 1 1")
+      .append("svg:image")
+      .attr("xlink:href", function(d) {return d.icon;})
+      .attr("width", "1")
+      .attr("height", "1")
+      .attr("preserveAspectRatio", "xMidYMid slice");
+      
+      //APPEND CIRCLE
+      nodes.append('circle')
+      .attr("r", function(d) {
+        if(source_nodes.includes (d.id)){
+          return source_radius;
+        } else {
+          return radius;
+        }
+      })  
+      .attr("fill", function(d) {
+        if (source_nodes.includes (d.id)) {
+          return 'url(#'+d.id.toString()+')';
+        }
+        else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
+          return color(gColor.indexOf(d.type));
+        }
+        else if (d.group%2==0) { return color(1);}
+        else {return color(2);}
+      })  ;
+      
+      nodes
+        .on("click", d => {
+          appendJSON(d);
+        })
+        .on('mouseover.fade', fade(0.1))
+        .on('mouseout.fade', fade(1))
+        .on('mouseover.tooltip', function(d) {
+          tooltip
+            .style("display", "inline-block")
+            .style("opacity", .9);
+          tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
         });
+      
+      nodes.append('text')
+        .attr('x', function(d) {
+          if (source_nodes.includes(d.id)){
+            return 32;
+            
+          } else {
+            return 0; 
+          }
+        })
+        .attr('y', function(d) {
+          if(source_nodes.includes(d.id)){
+            return 0; 
+          }else {
+            return 15;
+          }
+        })
+        .attr('dy', '.35em')
+        .attr("fill", 'black')
+        .attr("font-family", "verdana")
+        .attr("font-size", "10px")
+        .attr("text-anchor",function(d) {
+          if(source_nodes.includes(d.id)) {
+            return "left";
+          } else {
+            return "middle";
+            
+          }
+        })
+        .text(function(d) {return d.label;});
+
+      return nodes;
     }
 
     function calculatePositions() {
@@ -281,7 +385,6 @@ $(function() {
 
     function updateGraph() {
       transition = true;
-      var gColor = ["source", "predator", "prey", "", "", "competitor"];   
       
       //copy nodes
       var tmp_eNodes = existing_nodes.slice();
@@ -306,7 +409,7 @@ $(function() {
         }
       });
       
-      tmp_hNodes.forEach(node=> {
+      tmp_hNodes.forEach(node => {
         if(node.show) {
           new_nodes.push(node);
         } else {
@@ -322,15 +425,14 @@ $(function() {
         }
       });
       
-      
-        //EXIT-Remove previous nodes/links
-      svg.selectAll('line').data(graph.links.filter(n=>{n.show})).exit().remove();
+      //EXIT-Remove previous nodes/links
+      svg.selectAll('line').data(graph.links.filter(n => { n.show })).exit().remove();
       svg.selectAll('.node').data(new_node).exit().remove();
       svg.selectAll('.new_node').data(new_node).exit().remove();
       svg.selectAll('.existing_node').data(existing_node).exit().remove();
-      
+
       existing_link = svg.selectAll('.line')
-      .data(existing_links, function(d) { return d.id;})
+      .data(existing_links, function(d) { return d.id; })
       .enter().append('line')
       .attr('class', 'link')
       .attr("marker-end", function(d) { 
@@ -362,204 +464,8 @@ $(function() {
       .attr("x2", function(d) {return d.target.nx;})
       .attr("y2", function(d) {return d.target.ny;});
       
-
-      new_node = svg.selectAll('.new_node')
-      //UPDATE
-      .data(new_nodes)
-      .enter().append('g')
-      .attr('class', 'new_node')
-      .attr("id", function(d) {return d.label.replace(/\s/g,'');})
-      .attr("x", function(d) {return d.fx;})
-      .attr("y", function(d) {return d.fy;})
-      .attr("transform", d => `translate(${d.nx},${d.ny})`)
-      .attr('opacity', 0);
-      
-      //APPEND IMAGE
-      new_node.append("svg:pattern")
-      .attr("id", function(d) {return d.id.toString();})
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("patternContentUnits", "objectBoundingBox")
-      .attr("preserveAspectRatio", "xMidYMid slice")
-      .attr("viewBox", "0 0 1 1")
-        .append("svg:image")
-        .attr("xlink:href", function(d) {return d.icon;})
-        .attr("width", "1")
-        .attr("height", "1")
-      .attr("preserveAspectRatio", "xMidYMid slice");
-      
-      //APPEND CIRCLE
-      new_node.append('circle')
-      .attr("r", function(d) {
-        if(source_nodes.includes (d.id)){
-          return source_radius;
-        } else {
-          return radius;
-        }
-      })  
-      .attr("fill", function(d) {
-        if (source_nodes.includes (d.id)) {
-          return 'url(#'+d.id.toString()+')';
-        }
-        else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
-          return color(gColor.indexOf(d.type));
-        }
-        else if (d.group%2==0) { return color(1);}
-        else {return color(2);}
-      })  ;
-      
-      new_node.on("click", d => {
-          appendJSON(d);
-      })
-      .on('mouseover.fade', fade(0.1))
-      .on('mouseout.fade', fade(1))
-        .on('mouseover.tooltip', function(d) {
-        tooltip.style("display", "inline-block")
-        .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
-          });
-      
-      new_node.append('text')
-        .attr('x', function(d) {
-          if (source_nodes.includes(d.id)){
-            return 32;
-            
-          } else {
-            return 0; 
-          }
-        })
-        .attr('y', function(d) {
-          if(source_nodes.includes(d.id)){
-            return 0; 
-          }else {
-            return 15;
-          }
-        })
-        .attr('dy', '.35em')
-      .attr("fill", 'black')
-        .attr("font-family", "verdana")
-      .attr("font-size", "10px")
-      .attr("text-anchor",function(d) {
-        if(source_nodes.includes(d.id)) {
-          return "left";
-        } else {
-          return "middle";
-          
-        }
-      })
-      .text(function(d) {return d.label;});
-      
-      existing_node = svg.selectAll('.existing_node')
-      //UPDATE
-      .data(existing_nodes)
-      .enter().append('g')
-      .attr('class', 'existing_node')
-      .attr("transform",  d => `translate(${d.px},${d.py})`)
-      .call(
-        d3.drag()
-        
-        /*
-        .subject(function() { 
-          var t = d3.select(this);
-          var tr = getTranslation(t.attr("transform"));
-              
-          return {
-            x: t.attr("x") + tr[0],
-            y: t.attr("y") + tr[1]
-          };
-        })
-        .on("drag", function(d,i) {
-          d3.select(this).attr("transform", function(d,i) {
-            d.x = d3.event.x;
-            d.y = d3.event.y;
-            return "translate(" + [ d3.event.x, d3.event.y ] + ")";
-          }
-        );
-     
-          svg.selectAll('.link').data(existing_links).filter(l => (l.source === d))
-            .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
-        })
-        */
-      );
-      
-      //APPEND IMAGE
-      existing_node.append("svg:pattern")
-      .attr("id", function(d) {return d.id.toString();})
-        .attr("width", "100%")
-        .attr("height", "100%")
-        .attr("patternContentUnits", "objectBoundingBox")
-      .attr("preserveAspectRatio", "xMidYMid slice")
-      .attr("viewBox", "0 0 1 1")
-        .append("svg:image")
-        .attr("xlink:href", function(d) {return d.icon;})
-        .attr("width", "1")
-        .attr("height", "1")
-      .attr("preserveAspectRatio", "xMidYMid slice");
-      
-      existing_node.append('circle')
-      .attr("r", function(d) {
-        if(source_nodes.includes (d.id)){
-          return source_radius;
-        } else {
-          return radius;
-        }
-      })
-      .attr("fill", function(d) {
-        if (source_nodes.includes (d.id)) {
-          return 'url(#'+d.id.toString()+')';
-        }
-        else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
-          return color(gColor.indexOf(d.type));
-        }
-        else if (d.group%2==0) { return color(1);}
-        else {return color(2);}
-      })
-      .on('mouseover.fade', fade(0.1))
-      .on('mouseout.fade', fade(1))
-        .on('mouseover.tooltip', function(d) {
-            
-        tooltip.style("display", "inline-block")
-        .style("opacity", .9)
-        tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
-          });
-      
-      
-      existing_node.append('text')
-        .attr('x', function(d) {
-          if (source_nodes.includes(d.id)){
-            return 32;
-            
-          } else {
-            return 0;
-            
-          }
-        })
-        .attr('y', function(d) {
-          if(source_nodes.includes(d.id)){
-            return 0;
-            
-          }else {
-            return 15;
-          }
-        })
-        .attr('dy', '.35em')
-      .attr("fill", 'black')
-        .attr("font-family", "verdana")
-      .attr("font-size", "10px")
-      .attr("text-anchor",function(d) {
-        if(source_nodes.includes(d.id)) {
-          return "left";
-        } else {
-          return "middle";
-          
-        }
-      })
-        .text(function(d) {return d.label;});
-      
-      
-      existing_node.on("click", d => {appendJSON(d);})
-      new_node.on("click", d => {appendJSON(d);})
-      
+      new_node = createNodes('new', new_nodes);
+      existing_node = createNodes('existing', existing_nodes);
       
       //ANIMATION 
       //existing nodes stay same & link follows the nodes
@@ -574,14 +480,13 @@ $(function() {
       .transition().duration(5000).delay(1000).attr("opacity", 1);
       svg.selectAll('.new_link').transition().duration(3000).delay(3000).attr("opacity", 1).on('end', function () {transition = false});
 
-
       simulation
-        .nodes(graph.nodes)
+        .nodes(graph.nodes);
 
-        simulation.force("link")
-          .links(graph.links);
+      simulation.force("link")
+        .links(graph.links);
 
-        simulation.alpha(1).alphaTarget(0).restart();
+      simulation.alpha(1).alphaTarget(0).restart();
       //new coordinate (n.x, n.y) -> past coordinate (p.x, p.y)
       updateCoordinates();  
       $dimmer.removeClass('active');
@@ -612,6 +517,7 @@ $(function() {
             curNode.groupDesc = n.groupDesc;
           } else {
             graph.nodes.push(n);
+            hiding_nodes.push(n);
             n.x = 0;
             n.y = 0;
             n.px = 0;
@@ -619,7 +525,6 @@ $(function() {
             n.nx = 0;
             n.ny = 0;
             n.show = false;
-            hiding_nodes.push(n);
           }
         });
 
