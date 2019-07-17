@@ -137,6 +137,7 @@ class TraitBank
           i += 1
           dumb_log("Percent complete: #{((i / count.to_f) * 100).ceil}% (#{i}/#{count})") if (i % per_cent).zero?
           page_id = node.page_id
+          next if node.parent.nil?
           parent_id = node.parent.page_id
           next if page_id == parent_id
           next if related[page_id] == parent_id
