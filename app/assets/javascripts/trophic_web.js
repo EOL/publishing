@@ -6,6 +6,8 @@ $(function() {
       , $dimmer = $trophicWeb.find('.dimmer')
       ;
 
+    var nodesById = {};
+
     //new data
     var nodeIDList = []
       , linkIDList = []
@@ -39,7 +41,6 @@ $(function() {
       , sourcePos= []
       ;
       
-    var compList = [];
 
     //Node number limit
     var nLimit = 7;
@@ -172,17 +173,43 @@ $(function() {
     marker = svg.selectAll('marker');
 
     // force simulation initialization
+    /*
     var simulation = d3.forceSimulation()
       .force("link", d3.forceLink()
         .id(function(d) { return d.id; }))
       .force("charge", d3.forceManyBody()
         .strength(function(d) { return -500;}))
+    */
 
     //initialize first graph
     initializeGraph($trophicWeb.data('pageId'));
 
     function dataUrl(pageId) {
       return sitePrefix + "/api/pages/" + pageId + "/pred_prey.json"
+    }
+
+    function pruneGraph(graph) {
+      var keepIds = {}
+        , counts = {}
+        ;
+
+      graph.nodes = graph.nodes.filter(n => {
+        if (
+          n.group === 'source' ||
+          n.group === 'competitor' && counts['competitor'] < 10 ||
+          (!counts[n.group] || counts[n.group] < nLimit)
+        ) {
+          counts[n.group] = (counts[n.group] || 0) + 1;
+          keepIds[n.id] = true;
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      graph.links = graph.links.filter(l => {
+        return keepIds[l.source] && keepIds[l.target];
+      });
     }
       
     function initializeGraph(eol_id){
@@ -194,18 +221,33 @@ $(function() {
         if (err) throw err;
         
         graph = g;
-        graph.nodes[0].x = sourceX;
-        graph.nodes[0].y = sourceY;
+        pruneGraph(graph);
+
+        var nodesById = graph.nodes.reduce((obj, node) => {
+          obj[node.id] = node;
+          return obj;
+        }, {})
+
+        graph.links.forEach(l => {
+          l.source = nodesById[l.source];
+          l.target = nodesById[l.target];
+        });
+
+        //graph.nodes[0].x = sourceX;
+        //graph.nodes[0].y = sourceY;
       
         //initialize the first source node
-        source_nodes.push(graph.nodes[0].id);
+        //source_nodes.push(graph.nodes[0].id);
         
         //display tooltip
+        /*
         tooltip
           .style("display", "inline-block")
           .style("opacity", .9);
         tooltip.html("<p style=\"font-size: 15px; color:"+ color(0)+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+graph.nodes[0].id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+graph.nodes[0].label+ "</a><br /><p>" + graph.nodes[0].groupDesc + "</p><img src=\""+ graph.nodes[0].icon+ "\" width=\"190\"><p>");
-      
+        */
+
+        /*
         graph.nodes.forEach(n => {
           n.px = n.x;
           n.py = n.y;
@@ -221,76 +263,117 @@ $(function() {
             linkIDList.push([l.source.toString()+l.target.toString()]);
           }
         });
-        
-        simulation.nodes(graph.nodes);
-        simulation.force("link").links(graph.links);
+        */
 
-        setVisibilityOfNodesAndLinks(graph, graph.nodes[0]);
-        updateCoordinates();
+        //simulation.nodes(graph.nodes);
+        //simulation.force("link").links(graph.links);
+
+        //setVisibilityOfNodesAndLinks(graph, graph.nodes[0]);
+        updatePositions();
+        console.log(graph);
+        //updateCoordinates();
         updateGraph();
-        transition=false;
+        //transition=false;
+        //updateCoordinates();  
+        $dimmer.removeClass('active');
       });
     }
 
-    function createNodes(type, data) {
+    function createNodes() {
       var gColor = ["source", "predator", "prey", "", "", "competitor"]
-        , className = type + "_node"
-        , nodes
+        , className = 'node'
+        , nodes = svg.selectAll(`.${className}`).data(graph.nodes, d => d.id)
+        , nodesGroup
         ;
 
-      //UPDATE
-      nodes = svg.selectAll(`.${className}`)
-      .data(data)
-      .enter().append('g')
-      .attr('class', className)
 
+      // EXIT
+      nodes.exit().remove();
+
+      // UPDATE
+      nodes.select('g')
+        .attr('fill-opacity', 1)
+        .attr('stroke-opacity', 1);
+
+      //ENTER
+      nodesGroup = nodes.enter()
+        .append('g')
+        .attr('class', className)
+        .attr('id', function(d) { return 'node-' + d.id.toString() })
+        .attr('transform', d => `translate(${d.x},${d.y})`)
+
+      /*
       if (type === 'new') {
-        nodes
+        nodesGroup
         .attr('transform', d => `translate(${d.nx},${d.ny})`)
         .attr('opacity', 0)
-        .attr('id', function(d) {return d.label.replace(/\s/g,'');})
         .attr('x', function(d) {return d.fx;})
         .attr('y', function(d) {return d.fy;});
       } else if (type === 'existing') {
-        nodes
+        nodesGroup
         .attr("transform", d => `translate(${d.px},${d.py})`);
       }
+      */
+
+      nodesGroup.call(
+        d3.drag().subject(function() { 
+          var t = d3.select(this);
+          var tr = getTranslation(t.attr("transform"));
+   
+          return {
+            x: t.attr("x") + tr[0],
+            y: t.attr("y") + tr[1]
+          };
+        })
+        .on('drag', function(d,i) {
+          d3.select(this).attr("transform", function(d,i) {
+            d.x = d3.event.x;
+            d.y = d3.event.y;
+            return "translate(" + [ d3.event.x, d3.event.y ] + ")";
+          });
+       
+          svg.selectAll('.link').filter(l => (l.source === d))
+            .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
+          svg.selectAll('.link').filter(l => (l.target === d))
+            .transition().duration(1).attr("x2", d3.event.x).attr("y2", d3.event.y);
+        })
+      );
       
       //APPEND IMAGE
-      nodes.append("svg:pattern")
-      .attr("id", function(d) {return d.id.toString();})
+      nodesGroup.append("svg:pattern")
+      .attr("id", function(d) { return patternId(d); })
       .attr("width", "100%")
       .attr("height", "100%")
       .attr("patternContentUnits", "objectBoundingBox")
       .attr("preserveAspectRatio", "xMidYMid slice")
       .attr("viewBox", "0 0 1 1")
       .append("svg:image")
-      .attr("xlink:href", function(d) {return d.icon;})
+      .attr("xlink:href", function(d) { return d.icon; })
       .attr("width", "1")
       .attr("height", "1")
       .attr("preserveAspectRatio", "xMidYMid slice");
       
       //APPEND CIRCLE
-      nodes.append('circle')
+      nodesGroup.append('circle')
       .attr("r", function(d) {
-        if(source_nodes.includes (d.id)){
+        if (d.group === 'source') {
           return source_radius;
         } else {
           return radius;
         }
       })  
       .attr("fill", function(d) {
-        if (source_nodes.includes (d.id)) {
-          return 'url(#'+d.id.toString()+')';
+        if (d.group === 'source') {
+          return 'url(#' + patternId(d) + ')';
         }
-        else if (d.type == "predator" | d.type =="prey" | d.type =="competitor") {
-          return color(gColor.indexOf(d.type));
+        else if (d.group == "predator" | d.group =="prey" | d.group =="competitor") {
+          return color(gColor.indexOf(d.group));
         }
         else if (d.group%2==0) { return color(1);}
         else {return color(2);}
       })  ;
       
-      nodes
+      nodesGroup
         .on("click", d => {
           appendJSON(d);
         })
@@ -300,12 +383,12 @@ $(function() {
           tooltip
             .style("display", "inline-block")
             .style("opacity", .9);
-          tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.type))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+          tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.group))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
         });
       
-      nodes.append('text')
+      nodesGroup.append('text')
         .attr('x', function(d) {
-          if (source_nodes.includes(d.id)){
+          if (d.group === 'source'){
             return 32;
             
           } else {
@@ -313,7 +396,7 @@ $(function() {
           }
         })
         .attr('y', function(d) {
-          if(source_nodes.includes(d.id)){
+          if(d.group === 'source'){
             return 0; 
           }else {
             return 15;
@@ -324,7 +407,7 @@ $(function() {
         .attr("font-family", "verdana")
         .attr("font-size", "10px")
         .attr("text-anchor",function(d) {
-          if(source_nodes.includes(d.id)) {
+          if(d.group === 'source') {
             return "left";
           } else {
             return "middle";
@@ -334,6 +417,28 @@ $(function() {
         .text(function(d) {return d.label;});
 
       return nodes;
+    }
+
+    function patternId(d) {
+      return 'pattern-' + d.id.toString();
+    }
+
+    function getTranslation(transform) {
+      // Create a dummy g for calculation purposes only. This will never
+      // be appended to the DOM and will be discarded once this function
+      // returns.
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+      // Set the transform attribute to the provided string value.
+      g.setAttributeNS(null, "transform", transform);
+
+      // consolidate the SVGTransformList containing all transformations
+      // to a single SVGTransform of type SVG_TRANSFORM_MATRIX and get
+      // its SVGMatrix.
+      var matrix = g.transform.baseVal.consolidate().matrix;
+
+      // As per definition values e and f are the ones for the translation.
+      return [matrix.e, matrix.f];
     }
 
     function calculatePositions() {
@@ -380,9 +485,38 @@ $(function() {
         ((radius * Math.sin(predAngle)) + sourceY)]);
       }
 
-      simulation.force("center", d3.forceCenter(width / 2, height / 2));
+      //simulation.force("center", d3.forceCenter(width / 2, height / 2));
     }
 
+    function linkId(d) {
+      return d.source.id + '-' + d.target.id; 
+    }
+
+    function updateGraph() {
+      //transition = true; // XXX: What is the purpose of this??
+      var links = svg.selectAll('.link').data(graph.links, d => linkId(d));
+      links.exit().remove();
+
+      links.enter()
+        .append('line')
+        .attr('class', 'link')
+        //.attr('opacity', 0)
+        .attr('marker-end', (d) => {
+          if (d.target.group === 'source') {
+            return "url(#longer)";
+          } else {
+            return "url(#arrow)";
+          }
+        })
+        .attr("x1", function(d) {return d.source.x;})
+        .attr("y1", function(d) {return d.source.y;})
+        .attr("x2", function(d) {return d.target.x;})
+        .attr("y2", function(d) {return d.target.y;});
+
+      createNodes();
+    }
+
+    /*
     function updateGraph() {
       transition = true;
       
@@ -427,9 +561,6 @@ $(function() {
       
       //EXIT-Remove previous nodes/links
       svg.selectAll('line').data(graph.links.filter(n => { n.show })).exit().remove();
-      svg.selectAll('.node').data(new_node).exit().remove();
-      svg.selectAll('.new_node').data(new_node).exit().remove();
-      svg.selectAll('.existing_node').data(existing_node).exit().remove();
 
       existing_link = svg.selectAll('.line')
       .data(existing_links, function(d) { return d.id; })
@@ -488,9 +619,9 @@ $(function() {
 
       simulation.alpha(1).alphaTarget(0).restart();
       //new coordinate (n.x, n.y) -> past coordinate (p.x, p.y)
-      updateCoordinates();  
       $dimmer.removeClass('active');
     }
+    */
 
     function updateCoordinates() {
       graph.nodes.forEach(n=> {
@@ -501,7 +632,7 @@ $(function() {
 
     //new data
     function appendJSON(d) {
-      $dimmer.addClass('active');
+      //$dimmer.addClass('active');
       var eol_id = d.id.toString();
       
       //http request to JSON data
@@ -536,9 +667,9 @@ $(function() {
           }
         });
         
-        simulation.nodes(graph.nodes);
-        simulation.force("link").links(graph.links);
-        setVisibilityOfNodesAndLinks(graph, d);
+        //simulation.nodes(graph.nodes);
+        //simulation.force("link").links(graph.links);
+        //setVisibilityOfNodesAndLinks(graph, d);
         updateGraph();
       }); 
     }
@@ -604,37 +735,47 @@ $(function() {
         }
       });
 
-      updatePositions();
     }
 
     function updatePositions() {
       //make a copy of an array
       var tmpPreyPos, tmpPredPos, tmpCompPos;
+      var competitors = []
+        , others = []
+        ;
+
+      graph.nodes.forEach(node => {
+        if (node.group === 'competitor') {
+          competitors.push(node);
+        } else {
+          others.push(node);
+        }
+      });
       
       tmpPreyPos = preyPos.slice();
       tmpPredPos = predPos.slice();
       
-      graph.nodes.filter(n => n.show).forEach(node => {
-        if (node.type == "source") {
-          node.nx = sourcePos[0];
-          node.ny = sourcePos[1];
-        } else if (node.type == "predator") {
+      others.forEach(node => {
+        if (node.group == "source") {
+          node.x = sourcePos[0];
+          node.y = sourcePos[1];
+        } else if (node.group == "predator") {
           var middle = tmpPredPos[Math.floor(tmpPredPos.length / 2)];
           var index = tmpPredPos.indexOf(middle);
           
-          node.nx = middle[0];
-          node.ny = middle[1];
+          node.x = middle[0];
+          node.y = middle[1];
         
           if (index > -1) {
             tmpPredPos.splice(index, 1);
           }
-        } else if (node.type == "prey") {
+        } else if (node.group == "prey") {
           if (tmpPreyPos.length != 0) {
             var middle = tmpPreyPos[Math.floor(tmpPreyPos.length / 2)];
             var index = tmpPreyPos.indexOf(middle);
 
-            node.nx = middle[0];
-            node.ny = middle[1];
+            node.x = middle[0];
+            node.y = middle[1];
             
             if (index > -1) {
               tmpPreyPos.splice(index, 1);
@@ -643,12 +784,12 @@ $(function() {
         }
       });
       
-      if (compList.length) {
+      if (competitors.length) {
         var extra = 5;
-        var gap = (width - 100) / (compList.length + extra);
+        var gap = (width - 100) / (competitors.length + extra);
         compPos = [];
         
-        for(var i = 0; i < compList.length + extra; i++) {
+        for(var i = 0; i < competitors.length + extra; i++) {
           var value = 100 + (i * gap);
           compPos.push(value);
         }
@@ -662,22 +803,29 @@ $(function() {
           , varHeightCoefs = [0, -1, 0, 1]
           ;
 
-        $(compList).each((i, c) => {
-          if(c[1].nx < width / 2) {
-            c[0].nx = tmpCompPos[0];
+        $(competitors).each((i, c) => {
+          var prey = firstPreyForCompetitor(c);
+
+          if(prey.x < width / 2) {
+            c.x = tmpCompPos[0];
             tmpCompPos.splice(0, 1);
           } else {
             var endIndex = tmpCompPos.length - 1;
-            c[0].nx = tmpCompPos[endIndex];
+            c.x = tmpCompPos[endIndex];
             tmpCompPos.splice(endIndex, 1); 
           }
 
-          c[0].ny = sourceY + (varHeight * varHeightCoefs[i % varHeightCoefs.length]);
-        });
-
-        compList.forEach(c => {
+          c.y = sourceY + (varHeight * varHeightCoefs[i % varHeightCoefs.length]);
         });
       }
+    }
+
+    function firstPreyForCompetitor(c) {
+      var link = graph.links.find((l) => {
+        return l.source === c;
+      });
+      
+      return link.target;
     }
 
     function addSourceNode (d) {
