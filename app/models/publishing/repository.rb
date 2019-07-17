@@ -90,7 +90,7 @@ class Publishing::Repository
     log_parsed_result(response)
     retry if tries.positive?
     @log.log("!! FAILURE: exceeded retry count.", cat: :errors)
-    nil
+    raise e # JRice changed this from "nil" on Jul 2019 because it was causing a log overflow.
   end
 
   def log_parsed_result(response)
