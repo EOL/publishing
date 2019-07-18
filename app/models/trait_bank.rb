@@ -1253,7 +1253,7 @@ class TraitBank
         "WITH group_id, type, collect({source: source, target: target, trait: trait})[0..#{limit_per_group}] as links "\
         "UNWIND links AS link "\
         "WITH group_id, type, link.source AS source, link.target AS target, link.trait as trait "\
-        "RETURN type, source, target, trait "\
+        "RETURN DISTINCT type, source, target, trait "\
         "LIMIT 1000"
 
       results_to_hashes(query(qs))      

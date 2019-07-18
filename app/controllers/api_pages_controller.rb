@@ -22,7 +22,7 @@ class ApiPagesController < LegacyApiController
 
     respond_to do |format|
       format.json do
-        render json: (Rails.cache.fetch("pages/#{@page.id}/pred_prey_json/2", expires: 1.day) do
+        render json: (Rails.cache.fetch("pages/#{@page.id}/pred_prey_json/3", expires: 1.day) do
           if !@page.rank&.r_species? # all nodes must be species, so bail
             { nodes: [], links: [] }
           else
@@ -44,8 +44,7 @@ class ApiPagesController < LegacyApiController
 
               {
                 source: row[:source],
-                target: row[:target],
-                sourceType: row[:type] == "predator" ? "predator" : "selfOrCompetitor" # links are treated differently based on this in the visualization
+                target: row[:target]
               }
             end
 
@@ -80,7 +79,7 @@ class ApiPagesController < LegacyApiController
 
             {
               nodes: node_result,
-              links: links
+              links: links.uniq # TODO: figure out why/if this is necessary, remove
             }
           end
         end)
