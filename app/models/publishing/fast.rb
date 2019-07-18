@@ -60,7 +60,13 @@ class Publishing::Fast
         all_data.in_groups_of(2000, false) do |lines|
           pks = lines.map { |l| l[pk_pos] }
           instances = @klass.where(resource_id: @resource.id, resource_pk: pks)
+          log_warn("#{instances.size} instances by resource_pk")
+          if instances.blank?
+            instances = @klass.where(resource_id: @resource.id, node_resource_pk: pks)
+            log_warn("#{instances.size} instances by node_resource_pk")
+          end
           keyed_instances = instances.group_by(&:resource_pk)
+          log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
           changes = []
           lines.each do |line|
             pk = line[pk_pos]
@@ -71,6 +77,7 @@ class Publishing::Fast
               changes << instance
             end
           end
+          log_warn("#{changes.size} changes...")
           @klass.import(changes, on_duplicate_key_update: [field])
         end
         @files << @data_file
