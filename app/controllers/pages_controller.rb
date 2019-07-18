@@ -172,6 +172,13 @@ class PagesController < ApplicationController
     expire_fragment(page_details_path(@page))
     expire_fragment(page_classifications_path(@page))
     Rails.cache.delete("pages/#{@page.id}/brief_summary")
+    [true, false].each do |link|
+      %i[full partial none].each do |mode|
+        BreadcrumbType::TYPES.keys.each do |breadcrumb_type|
+          Rails.cache.delete("pages/hierarchy_helper/#{@page.id}/link_#{link}/#{mode}/#{breadcrumb_type}")
+        end
+      end
+    end
     flash[:notice] = t("pages.flash.reindexed")
     redirect_to page_overview_path(@page)
   end
@@ -183,10 +190,10 @@ class PagesController < ApplicationController
     @filter_predicates = []
     resources_data = []
 
-    filtered_data = @page.data.select do |t| 
+    filtered_data = @page.data.select do |t|
       predicate_match = @predicate.nil? || t[:predicate][:uri] == @predicate[:uri]
       resource_match = @resource.nil? || t[:resource_id] == @resource.id
-  
+
       @filter_predicates << @page.glossary[t[:predicate][:uri]] if resource_match
       resources_data << t if predicate_match
 
@@ -201,7 +208,7 @@ class PagesController < ApplicationController
 
     build_associations(@page.data)
     setup_viz
-     
+
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html do
@@ -487,19 +494,19 @@ private
     @show_wordcloud = false
     @show_trophic_web = false
     pred_uri = @predicate&.[](:uri)
-    
+
 
     if (
-      pred_uri && 
+      pred_uri &&
       Eol::Uris.habitats.include?(pred_uri) &&
-      @page.native_node.rank && 
+      @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )
       setup_wordcloud
     elsif (
-      pred_uri == Eol::Uris.eats || 
-      pred_uri == Eol::Uris.is_eaten_by || 
-      pred_uri == Eol::Uris.preys_on || 
+      pred_uri == Eol::Uris.eats ||
+      pred_uri == Eol::Uris.is_eaten_by ||
+      pred_uri == Eol::Uris.preys_on ||
       pred_uri == Eol::Uris.preyed_upon_by
     )
       @show_trophic_web = true
@@ -508,13 +515,13 @@ private
 
   def setup_wordcloud
     word_counts = {}
-    
-    # recs = is_higher_order ? 
-    #   TraitBank.descendant_environments(@page) : 
+
+    # recs = is_higher_order ?
+    #   TraitBank.descendant_environments(@page) :
     #   Eol::Uris.habitats_for_wordcloud.collect do |uri|
     #     @page.grouped_data[uri]
     #   end.flatten
-    
+
     recs = Eol::Uris.habitats_for_wordcloud.collect do |uri|
       @page.grouped_data[uri]
     end.flatten
