@@ -1,6 +1,6 @@
 $(function() {
   function createViz($trophicWeb) {
-    var sitePrefix = "https://beta.eol.org";
+    var sitePrefix = '';//"https://beta.eol.org";
 
     var $container = $trophicWeb.find('.js-network-contain')
       , $dimmer = $trophicWeb.find('.dimmer')
@@ -201,8 +201,6 @@ $(function() {
         l.source = nodesById[l.source];
         l.target = nodesById[l.target];
       });
-
-      console.log('after prune', graph);
     }
 
     function buildNodesById(nodes) {
