@@ -55,7 +55,8 @@ class Publishing::Fast
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
       if grab_file("#{plural}.tsv")
         all_data = CSV.read(@data_file, col_sep: "\t")
-        pk_pos = @klass.column_names.index('resource_pk') - 1
+        pk_pos = @klass.column_names.index('resource_pk') || @klass.column_names.index('node_resource_pk')
+        pk_pos -= 1 # For 0-index
         all_data.in_groups_of(2000, false) do |lines|
           pks = lines.map { |l| l[pk_pos] }
           instances = @klass.where(resource_id: @resource.id, resource_pk: pks)
