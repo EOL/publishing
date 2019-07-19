@@ -103,7 +103,6 @@ LIMIT 1
 ```
 
 ## Show a sample of trait records
->>>>>>> b4592e5c... api doc tweaks
 
 The following Cypher query shows basic information recorded in an
 arbitrarily chosen set of Trait nodes.
