@@ -50,7 +50,7 @@ $(function() {
       , tooltipSvg = select(".js-tooltip-svg")
       ;
         
-    var zoom = d3.zoom().scaleExtent([1, 3])
+    var zoom = d3.zoom().scaleExtent([.5, 3])
       .on("zoom", function() {
         svg.attr("transform", d3.event.transform);
       });
