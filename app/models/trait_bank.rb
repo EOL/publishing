@@ -1224,10 +1224,10 @@ class TraitBank
       qs = "MATCH (source:Page{page_id: #{page.id}}) "\
         "OPTIONAL MATCH (source)-[:trait]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
         "(eats_prey:Page{page_id: eats_trait.object_page_id}) "\
-        "WHERE eats_term.uri IN #{eats_string} "\
+        "WHERE eats_term.uri IN #{eats_string} AND eats_prey.page_id <> source.page_id "\
         "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey', trait: eats_trait}) AS eats_prey_rows, source "\
         "OPTIONAL MATCH (prey_eaten:Page)-[:trait]-(eaten_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(eaten_term:Term) "\
-        "WHERE eaten_term.uri IN #{eaten_by_string} "\
+        "WHERE eaten_term.uri IN #{eaten_by_string} AND prey_eaten.page_id <> source.page_id "\
         "WITH (collect({ group_id: source.page_id, source: source, target: prey_eaten, type: 'prey', trait: eaten_trait}) + eats_prey_rows)[0..#{limit_per_group}] AS prey_rows, source "\
         "OPTIONAL MATCH (pred:Page)-[:trait]->(pred_eats_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(pred_eats_term:Term) "\
         "WHERE pred_eats_term.uri IN #{eats_string} "\
