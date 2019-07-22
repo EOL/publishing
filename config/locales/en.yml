@@ -619,7 +619,7 @@ en:
   scientific_name:
     status_title:
       accepted: "Accepted Names"
-      preferred: "Accepted Names"
+      preferred: "Preferred Names"
       unusable: "Unusable Names"
       synonym: "Synonyms"
   scientific_names_header: "Scientific Names"
