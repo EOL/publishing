@@ -694,7 +694,7 @@ class Page < ActiveRecord::Base
     @data_toc_needs_other
   end
 
-  def grouped_data(provider = nil)
+  def grouped_data
     @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
   end
 

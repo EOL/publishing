@@ -523,7 +523,7 @@ private
     #   end.flatten
 
     recs = Eol::Uris.habitats_for_wordcloud.collect do |uri|
-      @page.grouped_data[uri]
+      @page.grouped_data[uri] || []
     end.flatten
 
     recs.select do |rec|
