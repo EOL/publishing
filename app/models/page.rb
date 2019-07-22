@@ -832,6 +832,14 @@ class Page < ActiveRecord::Base
     end
   end
 
+  def sci_names_by_status
+    scientific_names.includes(:taxonomic_status, :resource, { node: [:rank] }).references(:taxonomic_status)
+      .where("taxonomic_statuses.id != ?", TaxonomicStatus.unusable.id)
+      .group_by do |n|
+        n.taxonomic_status.name
+      end
+  end
+
   private
 
   def first_image_content

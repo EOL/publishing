@@ -1,5 +1,6 @@
-- scientific_names.sort.group_by { |n| n.italicized }.each do |string, names|
-  - next if status == accepted && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
+- scientific_names.group_by { |n| n.italicized }.each do |string, names|
+  - next if status == "preferred" && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
+  - first = scientific_names.first
   .item
     .header= string.html_safe
     .description.uk-text-meta
@@ -10,4 +11,8 @@
         - note += link_to(name.resource.name, name.resource) if name.resource
         - note += "\n#{name.attribution.html_safe}" if name.resource.dwh? && !name.attribution.blank? # XXX: the \n would mess things up for multiple notes but we assume dwh entries are separated from others
         - formatted_names << note
-      = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+      - if include_rank && first.node.rank
+        = t(:name_recognized_by_rank, rank: first.node.rank.name.capitalize, by: formatted_names.to_sentence).html_safe
+      - else
+        = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+

@@ -570,6 +570,7 @@ en:
     unresolved_name: "Unresolved name"
     unresolved_name_prefix: "Unresolved name:"
   name_recognized_by: "Recognized by %{by}"
+  name_recognized_by_rank: "%{rank} recognized by %{by}"
   ranks:
     NOTE: "ranks are not translated. They should be treated verbatim. Don't try to do it. :)"
   recaptcha: "Recaptcha"

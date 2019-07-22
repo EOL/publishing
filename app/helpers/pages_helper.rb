@@ -201,7 +201,40 @@ module PagesHelper
     end
   end
 
-
+  def group_sort_names_for_card(names, include_rank)
+    names.group_by do |n|
+      rank = n.node.rank
+      dwh_str = n.resource.dwh? ? "dwh" : "other"
+      
+      if include_rank && rank
+        "#{dwh_str}.#{rank.treat_as}.#{n.italicized}"
+      else
+        "#{dwh_str}.#{n.italicized}"
+      end
+    end.values.sort do |a, b|
+      if a.first.resource.dwh? && !b.first.resource.dwh?
+        -1
+      elsif !a.first.resource.dwh? && b.first.resource.dwh?
+        1
+      else
+        result = a.first <=> b.first
+        
+        if include_rank && result == 0
+          if a.first.node.rank.present? && b.first.node.rank.blank?
+            -1
+          elsif a.first.node.rank.blank? && b.first.node.rank.present?
+            1
+          elsif a.first.node.rank.present? && b.first.node.rank.present?
+            a.first.node.rank.name <=> b.first.node.rank.name
+          else
+            0
+          end
+        else
+          result
+        end
+      end 
+    end
+  end
 
 private
 
