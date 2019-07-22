@@ -212,26 +212,26 @@ $(function() {
 
       
     function initializeGraph() {
-      var eolId = $trophicWeb.data('pageId');
-      //calculate prey and predator positions (according to the source node coordinates)
-      loadData(eolId, false);
+      handleData($trophicWeb.data('init'), false);
     }
 
     function loadData(eolId, animate) {
       $dimmer.addClass('active');
       //query prey_predator json
-      d3.json(dataUrl(eolId), function(err, g) {
+      d3.json(dataUrl(eolId), (err, g) => {
         if (err) throw err;
-
-        var prevGraph = graph;
-        graph = g;
-        pruneGraph(graph, prevGraph);
-
-        updatePositions();
-        updateGraph(animate);
-        $dimmer.removeClass('active');
+        handleData(g, animate);
       });
+    }
 
+    function handleData(g, animate) {
+      var prevGraph = graph;
+      graph = g;
+      pruneGraph(graph, prevGraph);
+
+      updatePositions();
+      updateGraph(animate);
+      $dimmer.removeClass('active');
     }
 
     function createNodes(animate) {

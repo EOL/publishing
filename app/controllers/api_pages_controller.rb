@@ -22,67 +22,7 @@ class ApiPagesController < LegacyApiController
 
     respond_to do |format|
       format.json do
-        render json: (Rails.cache.fetch("pages/#{@page.id}/pred_prey_json/3", expires: 1.day) do
-          if !@page.rank&.r_species? # all nodes must be species, so bail
-            { nodes: [], links: [] }
-          else
-            relationships = TraitBank.pred_prey_comp_for_page(@page)
-            prey_ids = Set.new
-            predator_ids = Set.new
-            competitor_ids = Set.new
-
-            links = relationships.map do |row|
-              if row[:type] == "prey"
-                prey_ids.add(row[:target])
-              elsif row[:type] == "predator"
-                predator_ids.add(row[:source])
-              elsif row[:type] == "competitor"
-                competitor_ids.add(row[:source])
-              else
-                raise "unrecognized relationship type in result: #{row[:type]}"
-              end
-
-              {
-                source: row[:source],
-                target: row[:target]
-              }
-            end
-
-            all_ids = Set.new([@page.id])
-            all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
-            nodes = {}
-            ids_to_remove = Set.new
-
-            pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
-              [page.id, page]
-            end.to_h
-
-            pages_to_nodes([@page.id], :source, pages, nodes, ids_to_remove)
-            pages_to_nodes(prey_ids, :prey, pages, nodes, ids_to_remove)
-            pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
-            pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
-
-            nodes_to_keep = Set.new([@page.id]) # always keep the source node
-
-            links = links.select do |link|
-              keep = !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
-              if keep
-                nodes_to_keep.add(link[:source])
-                nodes_to_keep.add(link[:target])
-              end
-              keep
-            end
-
-            node_result = nodes.values.select do |node|
-              nodes_to_keep.include? node[:id]
-            end
-
-            {
-              nodes: node_result,
-              links: links.uniq # TODO: figure out why/if this is necessary, remove
-            }
-          end
-        end)
+        render json: @page.pred_prey_comp_data
       end
     end
   end

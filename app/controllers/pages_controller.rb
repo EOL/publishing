@@ -509,7 +509,8 @@ private
       pred_uri == Eol::Uris.preys_on ||
       pred_uri == Eol::Uris.preyed_upon_by
     )
-      @show_trophic_web = true
+      @trophic_web_data = @page.pred_prey_comp_data
+      @show_trophic_web = @trophic_web_data[:nodes].length > 1
     end
   end
 
