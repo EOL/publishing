@@ -230,7 +230,7 @@ module PagesHelper
             0
           end
         else
-          result
+          result 
         end
       end 
     end

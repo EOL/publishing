@@ -100,6 +100,12 @@ $font-sz-m: 14px;
   }
 }
 
+.name-card-arrows {
+  & > i {
+    cursor: pointer;
+  }
+}
+
 .hier {
   font-size: 11px;
   margin: 2px 0;

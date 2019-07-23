@@ -488,8 +488,14 @@ en:
   medium_header_title: "Title:"
   medium_header_description: "Description:"
   names:
+    hide_langs:
+      one: "hide one language"
+      other: "hide %{count} languages"
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
+    show_more_langs: 
+      one: "show one more language"
+      other: "show %{count} more languages"
   nav:
     about: "About"
     discuss: "Discuss"

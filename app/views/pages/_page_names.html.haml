@@ -1,41 +1,53 @@
 -# NOTE: preventing defaults in this view makes is rather complicated, but is
 -# not all that computationally expensive and is worth the effort. TODO: it
 -# would be better to clean this up with helpers, and make it clear again.
-
+- card_expand_limit = 10
+- vernacular_card_limit = 1
 .desc
   %h2= t(:scientific_names_header)
   %div.uk-grid-small{ uk: { grid: true }, class: 'uk-child-width-expand@s uk-child-width-1-3@m' }
     - @page.sci_names_by_display_status.each do |status, scientific_names|
+      - include_rank = status == "preferred"
+      - names = group_sort_names_for_card(scientific_names, include_rank)
       %div
         .uk-card.uk-card-default
           .uk-card-header
             %h3.uk-card-title= t("scientific_name.status_title.#{status}")
-          .uk-card-body
+          .uk-card-body.js-name-card-body
             .ui-list
-              - include_rank = status == "preferred"
-              - group_sort_names_for_card(scientific_names, include_rank).each do |names|
-                = render "resource_names", scientific_names: names, status: status, include_rank: include_rank
+              - names.each_with_index do |names, i|
+                - next if status == "preferred" && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
+                = render "resource_names", names: names, status: status, include_rank: include_rank, hidden: i >= card_expand_limit
+            - if names.length > card_expand_limit
+              .uk-text-center.uk-margin-top.name-card-arrows
+                %i.fa.fa-angle-down.fa-2x.js-name-card-open
+                %i.fa.fa-angle-up.fa-2x.js-name-card-close.uk-hidden
+
   %h2= t(:vernacular_names_header)
-  .uk-grid-small{ uk: { grid: true }, class: 'uk-child-width-1-3@m' }
+  .uk-grid-small.js-name-vern-grid{ uk: { grid: true }, class: 'uk-child-width-1-3@m' }
     - if @page.vernaculars.empty?
       %div
         .uk-card.uk-card-default
           .uk-card-body= t(:page_vernaculars_empty)
     - else
-      - sorted_grouped_vernaculars(@page).each do |val|
+      - vernaculars = sorted_grouped_vernaculars(@page)
+      - vernaculars.each_with_index do |val, i|
         - lang = val[:lang]
         - names_by_lang = val[:vernaculars]
-        %div
+        - hidden = i >= vernacular_card_limit
+        .js-name-card-vern{ 'data-hide': hidden, class: hidden ? "uk-hidden" : "" }
           .uk-card.uk-card-default
             .uk-card-header
               %h3.uk-card-title= language_header(lang)
-            .uk-card-body
+            .uk-card-body.js-name-card-body
               .ui-list
-                - names_by_lang.group_by { |n| n.string }.each do |string, names_by_string|
-                  .item
+                - lang_names = names_by_lang.group_by { |n| n.string }.values
+                - lang_names.each_with_index do |names_by_string, i|
+                  - name_hidden = i >= card_expand_limit 
+                  .item.js-name-card-item{ class: name_hidden ? "uk-hidden" : "", 'data-hide-on-close': name_hidden}
                     - preferred_name = names_by_string.any? { |n| n.is_preferred? }
                     .header
-                      = string.html_safe
+                      = names_by_string.first.string.html_safe
                       - if preferred_name
                         %span.uk-label.uk-label-primary.uk-float-right.uk-margin-left= t(:name_preferred_label)
                       - else
@@ -52,4 +64,13 @@
                       - names_by_string.select { |n| n.user }.group_by { |n| n.user }.each do |user, names_from_user|
                         - formatted_names << link_to(user.username, user)
                       = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+              - if lang_names.length > card_expand_limit
+                .uk-text-center.uk-margin-top.name-card-arrows
+                  %i.fa.fa-angle-down.fa-2x.js-name-card-open
+                  %i.fa.fa-angle-up.fa-2x.js-name-card-close.uk-hidden
+
+  - if vernaculars.length > vernacular_card_limit
+    .uk-margin.uk-text-center
+      .a.js-name-more-vern= t("names.show_more_langs", count: vernaculars.length - vernacular_card_limit)
+      .a.js-name-less-vern.uk-hidden= t("names.hide_langs", count: vernaculars.length - vernacular_card_limit)
   = render('pages/page_classification')
