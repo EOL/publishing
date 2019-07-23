@@ -832,11 +832,11 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def sci_names_by_status
+  def sci_names_by_display_status
     scientific_names.includes(:taxonomic_status, :resource, { node: [:rank] }).references(:taxonomic_status)
       .where("taxonomic_statuses.id != ?", TaxonomicStatus.unusable.id)
       .group_by do |n|
-        n.taxonomic_status.name
+        n.display_status
       end
   end
 
