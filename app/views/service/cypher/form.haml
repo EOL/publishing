@@ -1,5 +1,14 @@
 %h2 Cypher Query
 = form_tag(cypher_query_path, method: "GET") do
   %textarea#query{name: "query", cols: 100, rows: 20}
+  .uk-margin.uk-grid-small.uk-child-width-auto.uk-grid
+    %label
+      %input.uk-radio{ type: "radio", name: "format", value: "cypher", checked: true }
+      JSON
+    %label
+      %input.uk-radio{ type: "radio", name: "format", value: "csv"}
+      CSV
   .div
     %input{type: "submit"}
+
+
