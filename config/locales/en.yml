@@ -50,7 +50,7 @@ en:
         other: "%{name} includes <a href=\"%{names_path}\">%{count} children</a>:"
       see_more: "see more"
     hierarchies:
-      header: "Recognized as part of the following resource hierarchies:"
+      header: "Curated hierarchies for %{sci_name}"
       this_page: "(this page)"
     richness:
       header: "Page Richness"
