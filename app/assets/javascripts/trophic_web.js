@@ -276,9 +276,9 @@ $(function() {
             });
          
             svg.selectAll('.link').filter(l => (l.source === d))
-              .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
-            svg.selectAll('.link').filter(l => (l.target === d))
               .transition().duration(1).attr("x2", d3.event.x).attr("y2", d3.event.y);
+            svg.selectAll('.link').filter(l => (l.target === d))
+              .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
           }
         })
       );
@@ -453,14 +453,14 @@ $(function() {
       linksEnter = links.enter()
         .append('line')
         .attr('class', 'link')
-        .attr("x1", function(d) {return d.source.x;})
-        .attr("y1", function(d) {return d.source.y;})
-        .attr("x2", function(d) {return d.target.x;})
-        .attr("y2", function(d) {return d.target.y;});
+        .attr("x1", function(d) {return d.target.x;})
+        .attr("y1", function(d) {return d.target.y;})
+        .attr("x2", function(d) {return d.source.x;})
+        .attr("y2", function(d) {return d.source.y;});
 
       linksEnter.merge(links)
         .attr('marker-end', (d) => {
-          if (isExpandNode(d.target)) {
+          if (isExpandNode(d.source)) {
             return "url(#longer)";
           } else {
             return "url(#arrow)";
@@ -493,7 +493,7 @@ $(function() {
               .on('end', () => { transition = false });
           });
 
-        links.transition().duration(5000).attr("x1", function(d) { return d.source.x; }).attr("y1", function(d) { return d.source.y; }).attr("x2", function(d) { return d.target.x; }).attr("y2", function(d) { return d.target.y; })
+        links.transition().duration(5000).attr("x1", function(d) { return d.target.x; }).attr("y1", function(d) { return d.target.y; }).attr("x2", function(d) { return d.source.x; }).attr("y2", function(d) { return d.source.y; })
 
       }
     }
