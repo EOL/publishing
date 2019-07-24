@@ -1,6 +1,6 @@
 $(function() {
   function createViz($trophicWeb) {
-    var sitePrefix = '';//"https://beta.eol.org";
+    var sitePrefix = ''; //"https://beta.eol.org";
 
     var $container = $trophicWeb.find('.js-network-contain')
       , $dimmer = $trophicWeb.find('.dimmer')
@@ -14,7 +14,9 @@ $(function() {
     var graph;
 
     //for animation purpose
-    var transition = false;
+    var transition = false
+      , resizedInTransition = false
+      ;
       
     //node positions
     var predPos = []
@@ -472,29 +474,35 @@ $(function() {
 
       nodeResult = createNodes(animate);
 
-      if (animate) {
-        transition = true;
+      transition = transition || animate;
 
-        nodeResult.nodes.transition()
-          .duration(5000)
-          .attr("transform",  d => `translate(${d.x},${d.y})`)
-          .on('end', () => {
+      nodeResult.nodes.transition()
+        .duration(animate ? 5000 : 1)
+        .attr("transform",  d => `translate(${d.x},${d.y})`)
+        .on('end', () => {
+          if (animate) {
             //new nodes and links appear after transition
             nodeResult.nodesEnter
               .transition()
-              .duration(1000)
+              .duration(animate ? 1000 : 1)
               .attr("opacity", 1);
 
             linksEnter
               .transition()
-              .duration(1000)
+              .duration(animate ? 1000 : 1)
               .attr("opacity", 1)
-              .on('end', () => { transition = false });
-          });
+              .on('end', () => { 
+                transition = false 
 
-        links.transition().duration(5000).attr("x1", function(d) { return d.target.x; }).attr("y1", function(d) { return d.target.y; }).attr("x2", function(d) { return d.source.x; }).attr("y2", function(d) { return d.source.y; })
+                if (resizedInTransition) {
+                  handleResize();
+                  resizedInTransition = false;
+                }
+              });
+          }
+        });
 
-      }
+      links.transition().duration(animate ? 5000 : 1).attr("x1", function(d) { return d.target.x; }).attr("y1", function(d) { return d.target.y; }).attr("x2", function(d) { return d.source.x; }).attr("y2", function(d) { return d.source.y; })
     }
 
     // new data
@@ -636,11 +644,17 @@ $(function() {
       initializeGraph();
     }
 
-    $(window).resize(() => {
-      calculatePositions();
-      updatePositions();
-      updateGraph(true);
-    });
+    function handleResize() {
+      if (transition) {
+        resizedInTransition = true;
+      } else {
+        calculatePositions();
+        updatePositions();
+        updateGraph(false);
+      }
+    }
+
+    $(window).resize(handleResize);
   }
 
   var $trophicWeb = $('.js-trophic-web');
