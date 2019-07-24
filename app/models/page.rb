@@ -768,6 +768,57 @@ class Page < ActiveRecord::Base
     end
   end
 
+  # TROPHIC_WEB_DATA
+  # (not sure if this is the right place for this, but here it lives for now)
+  NODE_GROUP_PRIORITIES = {
+    competitor: 1,
+    prey: 2,
+    predator: 3,
+    source: 4
+  }
+
+  def pred_prey_node(page, group)
+    if page.rank&.r_species? && page.icon
+      {
+        label: page.short_name_notags,
+        labelWithItalics: page.name,
+        groupDesc: group_desc(group),
+        id: page.id,
+        group: group,
+        icon: page.icon,
+        x: 0, # for convenience of the visualization JS
+        y: 0
+      }
+    else
+      nil
+    end
+  end
+
+  def group_desc(group)
+    I18n.t("trophic_web.group_descriptions.#{group}", source_name: short_name_notags)
+  end
+
+  def pages_to_nodes(page_ids, group, pages, nodes, pages_wo_data)
+    page_ids.each do |id|
+      node = pred_prey_node(pages[id], group)
+      if node
+        already_added = nodes[id]
+
+        if (
+          (
+           already_added &&
+           NODE_GROUP_PRIORITIES[already_added[:group]] < NODE_GROUP_PRIORITIES[node[:group]]
+          ) ||
+          already_added.nil?
+        )
+          nodes[id] = node
+        end
+      else
+        pages_wo_data.add(id)
+      end
+    end
+  end
+
   def pred_prey_comp_data
     Rails.cache.fetch("pages/#{id}/pred_prey_json/3", expires: 1.day) do
       if !rank&.r_species? # all nodes must be species, so bail
@@ -831,6 +882,7 @@ class Page < ActiveRecord::Base
       end
     end
   end
+  # END TROPHIC WEB DATA
 
   def sci_names_by_display_status
     scientific_names.includes(:taxonomic_status, :resource, { node: [:rank] }).references(:taxonomic_status)
