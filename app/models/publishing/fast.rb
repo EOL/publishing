@@ -7,7 +7,7 @@ class Publishing::Fast
     publr.by_resource
   end
 
-  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.find(123), Node, :rank_id)" > dwh_ranks.log 2>&1 &
+  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.find(589), ScientificName, :dataset_name)" > dwh_datasets.log 2>&1 &
   def self.update_attribute_by_resource(resource, klass, field)
     publr = new(resource)
     publr.update_attribute(klass, field)
@@ -58,14 +58,17 @@ class Publishing::Fast
         pk_pos = @klass.column_names.index('resource_pk') || @klass.column_names.index('node_resource_pk')
         pk_pos -= 1 # For 0-index
         all_data.in_groups_of(2000, false) do |lines|
+          pk = :resource_pk
           pks = lines.map { |l| l[pk_pos] }
-          instances = @klass.where(resource_id: @resource.id, resource_pk: pks)
+          instances =
+            begin
+              @klass.where(resource_id: @resource.id, resource_pk: pks).load
+            rescue ActiveRecord::StatementInvalid
+              pk = :node_resource_pk
+              @klass.where(resource_id: @resource.id, node_resource_pk: pks)
+            end
           log_warn("#{instances.size} instances by resource_pk")
-          if instances.blank?
-            instances = @klass.where(resource_id: @resource.id, node_resource_pk: pks)
-            log_warn("#{instances.size} instances by node_resource_pk")
-          end
-          keyed_instances = instances.group_by(&:resource_pk)
+          keyed_instances = instances.group_by(&pk)
           log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
           changes = []
           lines.each do |line|
@@ -81,6 +84,8 @@ class Publishing::Fast
           @klass.import(changes, on_duplicate_key_update: [field])
         end
         @files << @data_file
+      else
+        log_warn("COULDN'T FIND #{plural}.tsv !")
       end
     rescue => e
       @log.fail(e)
