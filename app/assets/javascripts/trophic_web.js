@@ -212,7 +212,7 @@ $(function() {
 
       
     function initializeGraph() {
-      handleData($trophicWeb.data('init'), false);
+      handleData(JSON.parse(JSON.stringify($trophicWeb.data('init'))), false);
     }
 
     function loadData(eolId, animate) {
@@ -228,7 +228,6 @@ $(function() {
       var prevGraph = graph;
       graph = g;
       pruneGraph(graph, prevGraph);
-
       updatePositions();
       updateGraph(animate);
       $dimmer.removeClass('active');
