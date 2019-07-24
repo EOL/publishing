@@ -1225,38 +1225,28 @@ class TraitBank
         "OPTIONAL MATCH (source)-[:trait]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
         "(eats_prey:Page{page_id: eats_trait.object_page_id}) "\
         "WHERE eats_term.uri IN #{eats_string} AND eats_prey.page_id <> source.page_id "\
-        "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey', trait: eats_trait}) AS eats_prey_rows, source "\
-        "OPTIONAL MATCH (prey_eaten:Page)-[:trait]-(eaten_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(eaten_term:Term) "\
-        "WHERE eaten_term.uri IN #{eaten_by_string} AND prey_eaten.page_id <> source.page_id "\
-        "WITH (collect({ group_id: source.page_id, source: source, target: prey_eaten, type: 'prey', trait: eaten_trait}) + eats_prey_rows)[0..#{limit_per_group}] AS prey_rows, source "\
-        "OPTIONAL MATCH (pred:Page)-[:trait]->(pred_eats_trait:Trait{object_page_id: #{page.id}})-[:predicate]->(pred_eats_term:Term) "\
+        "WITH DISTINCT source, eats_prey "\
+        "LIMIT #{limit_per_group} "\
+        "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey'}) AS prey_rows, source "\
+        "OPTIONAL MATCH (pred:Page)-[:trait]->(pred_eats_trait:Trait{object_page_id: source.page_id})-[:predicate]->(pred_eats_term:Term) "\
         "WHERE pred_eats_term.uri IN #{eats_string} "\
-        "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator', trait: pred_eats_trait}) AS pred_eats_rows, prey_rows, source "\
-        "OPTIONAL MATCH (source)-[:trait]->(eaten_by_trait:Trait)-[:predicate]->(eaten_by_term:Term), "\
-        "(eaten_by_pred:Page{page_id: eaten_by_trait.object_page_id}) "\
-        "WHERE eaten_by_term.uri IN #{eaten_by_string} "\
-        "WITH collect({ group_id: source.page_id, source: eaten_by_pred, target: source, type: 'predator', trait: eaten_by_trait }) AS eaten_by_rows, pred_eats_rows, prey_rows, source "\
+        "WITH DISTINCT source, pred, prey_rows "\
+        "LIMIT #{limit_per_group} "\
+        "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator' }) AS pred_rows, prey_rows, source "\
         "UNWIND prey_rows AS prey_row "\
-        "WITH prey_row, eaten_by_rows, pred_eats_rows, prey_rows, source "\
-        "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term), "\
-        "(comp_eats_prey:Page{page_id: comp_eats_trait.object_page_id}) "\
+        "WITH prey_row, pred_rows, prey_rows, source "\
+        "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term) "\
         "WHERE prey_row.target is not null AND comp_eats_term.uri IN #{eats_string} "\
-        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor', trait: comp_eats_trait}) AS comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, prey_row, source "\
-        "OPTIONAL MATCH (eaten_by_comp_prey:Page{page_id: prey_row.target.page_id})-[:trait]->(eaten_by_comp_trait:Trait)-[:predicate]->(eaten_by_comp_term:Term), "\
-        "(eaten_by_comp:Page{page_id: eaten_by_comp_trait.object_page_id}) "\
-        "WHERE prey_row.target is not null AND eaten_by_comp_term.uri IN #{eaten_by_string} "\
-        "WITH collect({ group_id: eaten_by_comp_prey.page_id, source: eaten_by_comp, target: eaten_by_comp_prey, type: 'competitor', trait: eaten_by_comp_trait }) AS eaten_by_comp_rows, comp_eats_rows, eaten_by_rows, pred_eats_rows, prey_rows, source "\
-        "WITH prey_rows + pred_eats_rows + eaten_by_rows + comp_eats_rows + eaten_by_comp_rows AS all_rows "\
+        "WITH DISTINCT prey_row, comp_eats, pred_rows, prey_rows, source "\
+        "LIMIT #{limit_per_group} "\
+        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' }) AS comp_rows, pred_rows, prey_rows "\
+        "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
         "UNWIND all_rows AS row "\
-        "WITH distinct row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
-        "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, row.trait as trait "\
-        "WITH group_id, type, collect({source: source, target: target, trait: trait})[0..#{limit_per_group}] as links "\
-        "UNWIND links AS link "\
-        "WITH group_id, type, link.source AS source, link.target AS target, link.trait as trait "\
-        "RETURN DISTINCT type, source, target, trait "\
-        "LIMIT 1000"
+        "WITH row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
+        "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
+        "RETURN type, source, target, id "\
 
-      results_to_hashes(query(qs))      
+      results_to_hashes(query(qs), "id")      
     end
 
     # for word cloud visualization
