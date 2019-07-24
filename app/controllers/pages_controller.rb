@@ -172,7 +172,7 @@ class PagesController < ApplicationController
     expire_fragment(page_details_path(@page))
     expire_fragment(page_classifications_path(@page))
     Rails.cache.delete("pages/#{@page.id}/brief_summary")
-    [true, false].each do |link|
+    [0, 1].each do |link|
       %i[full partial none].each do |mode|
         BreadcrumbType::TYPES.keys.each do |breadcrumb_type|
           Rails.cache.delete("pages/hierarchy_helper/#{@page.id}/link_#{link}/#{mode}/#{breadcrumb_type}")
