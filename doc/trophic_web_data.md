@@ -3,7 +3,7 @@
 This document describes the JSON data that is used by the trophic web visualizations found on the data tab. 
 
 ## Url
-Data for a source page with id `page_id` is found at `/api/pages/<page_id>/pred_prey.json`. 
+Data for a source page with id `page_id` is found at `/api/pages/<page_id>/pred_prey.json`. eg: https://eol.org/api/pages/620727/pred_prey.json
 
 ## JSON
 ```json
