@@ -203,7 +203,12 @@ class Publishing::Fast
     q << %{INFILE '#{@data_file}' INTO TABLE `#{@klass.table_name}` FIELDS OPTIONALLY ENCLOSED BY '"'}
     q << "(#{cols.join(',')})"
     begin
+      before_db_count = @klass.where(resource_id: @resource.id).count
+      file_count = `wc #{@data_file}`.split.first.to_i
       @klass.connection.execute(q.join(' '))
+      after_db_count = @klass.where(resource_id: @resource.id).count - before_db_count
+      raise "INCORRECT NUMBER OF ROWS DURING IMPORT OF #{@klass.name.pluralize.downcase}: got #{after_db_count}, "\
+        "expected #{file_count} (from #{@data_file})"
     rescue => e
       puts 'FAILED TO LOAD DATA. NOTE that it\'s possible you need to A) In Mysql,'
       puts 'GRANT FILE ON *.* TO your_user@localhost IDENTIFIED BY "your_password";'
