@@ -164,6 +164,7 @@ class Publishing::Fast
         Page.fix_missing_icons
       end
     rescue => e
+      clean_up
       @log.fail(e)
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")

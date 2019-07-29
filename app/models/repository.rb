@@ -16,7 +16,7 @@ class Repository
 
   def exists?(name)
     url = URI.parse(file_url(name))
-    req = Net::HTTP.new(@repo_site.host, @repo_site.port)
+    req = Net::HTTP.new(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https')
     res = req.request_head(url.path)
     res.code.to_i < 400
   end
@@ -28,7 +28,7 @@ class Repository
   def file(name)
     url = file_url(name)
     resp = nil
-    result = Net::HTTP.start(@repo_site.host, @repo_site.port) do |http|
+    result = Net::HTTP.start(@repo_site.host, @repo_site.port, use_ssl: @repo_site.scheme == 'https') do |http|
       resp = http.get(url)
     end
     unless result.code.to_i < 400
