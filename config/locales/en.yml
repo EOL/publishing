@@ -626,6 +626,7 @@ en:
   scientific_name:
     status_title:
       accepted: "Accepted Names"
+      alternative: "Alternative Names"
       preferred: "Preferred Names"
       unusable: "Unusable Names"
       synonym: "Synonyms"
