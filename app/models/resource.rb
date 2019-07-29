@@ -36,23 +36,27 @@ class Resource < ActiveRecord::Base
       end
     end
 
-    def update_dwh_from(resource_id, start_id = 0)
-      old_dwh = Resource.find(resource_id)
+    def update_native_nodes(start_id = 0)
       count = 0
       Searchkick.disable_callbacks
-      Node.where(resource_id: old_dwh.id).where(['id > ?', start_id]).select('id').
+      Node.where(resource_id: Resource.native.id).where(['id > ?', start_id]).select('id, page_id').
         find_in_batches(batch_size: 10_000) do |batch|
-          puts "Found a batch of #{batch.size} starting with node #{batch.first.id}..."
+          node_map = {}
+          batch.each { |node| node_map[node.page_id] = node.id }
+          page_group = []
+          puts "#{batch.size} nodes id > #{batch.first.id}"
+          STDOUT.flush
           # NOTE: native_node_id is NOT indexed, so this is not speedy:
-          Page.where(native_node_id: batch.map(&:id)).includes(:nodes).find_each do |page|
+          Page.where(id: batch.map(&:page_id)).include(:native_node).find_each do |page|
+            next if page.native_node.resource_id == Resource.native.id
             count += 1
+            page_group << page.id
+            page.update_attribute :native_node_id, node_map[page.id]
             puts "Updated #{count}. Last: #{page.id}" if (count % 1000).zero?
-            STDOUT.flush # Argh. I want the update.
-            dwh_nodes = page.nodes.select { |n| n.resource_id == Resource.native.id }
-            next if dwh_nodes.empty?
-            page.update_attribute :native_node_id, dwh_nodes.first.id
+            STDOUT.flush
           end
-      end
+          Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: page_group)
+        end
       puts "Done."
       Searchkick.enable_callbacks
     end
