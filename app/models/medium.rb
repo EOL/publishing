@@ -75,7 +75,6 @@ class Medium < ActiveRecord::Base
           end
           medium = Medium.where(resource_id: resource.id, source_url: access_uri)
           if medium.empty?
-
             next
           end
           medium = medium.first
