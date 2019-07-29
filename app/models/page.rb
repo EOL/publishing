@@ -770,14 +770,137 @@ class Page < ActiveRecord::Base
 
   # TROPHIC_WEB_DATA
   # (not sure if this is the right place for this, but here it lives for now)
-  NODE_GROUP_PRIORITIES = {
-    competitor: 1,
-    prey: 2,
-    predator: 3,
-    source: 4
-  }
+  NODE_GROUP_LIMIT = 10 # nodes per group
+  def pred_prey_comp_data
+    Rails.cache.fetch("pages/#{id}/pred_prey_json/3", expires: 1.day) do
+      if !rank&.r_species? # all nodes must be species, so bail
+        { nodes: [], links: [] }
+      else
+        relationships = TraitBank.pred_prey_comp_for_page(self)
+        prey_ids = Set.new
+        pred_ids = Set.new
+        comp_ids = Set.new
 
-  def pred_prey_node(page, group)
+        links = relationships.map do |row|
+          if row[:type] == "prey"
+            prey_ids.add(row[:target])
+          elsif row[:type] == "predator"
+            pred_ids.add(row[:source])
+          elsif row[:type] == "competitor"
+            comp_ids.add(row[:source])
+          else
+            raise "unrecognized relationship type in result: #{row[:type]}"
+          end
+
+          {
+            source: row[:source],
+            target: row[:target]
+          }
+        end
+
+        all_ids = Set.new([id])
+        all_ids.merge(prey_ids).merge(pred_ids).merge(comp_ids)
+        node_ids = Set.new
+
+        pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
+          [page.id, page]
+        end.to_h
+
+        source_nodes = pages_to_nodes([id], :source, pages, node_ids)
+
+        if source_nodes.empty?
+          {
+            nodes: [],
+            links: []
+          }
+        else
+          build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
+        end
+      end
+    end
+  end
+  # END TROPHIC WEB DATA
+
+  def sci_names_by_display_status
+    scientific_names.includes(:taxonomic_status, :resource, { node: [:rank] }).references(:taxonomic_status)
+      .where("taxonomic_statuses.id != ?", TaxonomicStatus.unusable.id)
+      .group_by do |n|
+        n.display_status
+      end
+  end
+
+  private
+
+  def first_image_content
+    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
+  end
+
+  def build_prey_to_comps(prey_nodes, comp_nodes, links)
+    prey_to_comps = {}
+    prey_by_id = prey_nodes.map { |p| [p[:id], p] }.to_h
+    comp_by_id = comp_nodes.map { |c| [c[:id], c] }.to_h
+
+    links.each do |link|
+      source = link[:source]
+      target = link[:target]
+
+      if prey_by_id.has_key?(source) && comp_by_id.has_key?(target)
+        prey = prey_by_id[source]
+        comp = comp_by_id[target]
+      elsif prey_by_id.has_key?(target) && comp_by_id.has_key?(source)
+        prey = prey_by_id[target]
+        comp = comp_by_id[source]
+      else
+        prey = nil
+        comp = nil
+      end
+
+      if prey
+        comps = prey_to_comps[prey[:id]] || []
+        comps << comp
+        prey_to_comps[prey[:id]] = comps
+      end
+    end
+
+    prey_to_comps
+  end
+
+  def build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
+    pred_nodes = pages_to_nodes(pred_ids, :predator, pages, node_ids)
+    prey_nodes = pages_to_nodes(prey_ids, :prey, pages, node_ids)
+    comp_nodes = pages_to_nodes(comp_ids, :competitor, pages, node_ids)
+
+    prey_to_comps = build_prey_to_comps(prey_nodes, comp_nodes, links)
+
+    keep_prey_nodes = prey_nodes.sort do |a, b|
+      a_count = prey_to_competitors[a[:id]]&.length || 0
+      b_count = prey_to_competitors[b[:id]]&.length || 0
+      a_count - b_count
+    end[0..NODE_GROUP_LIMIT]
+
+    keep_comp_ids = Set.new
+    keep_prey_nodes.each do |prey|
+      keep_comp_ids = keep_comp_ids & prey_to_comps[prey[:id]]
+    end
+    keep_comp_nodes = comp_nodes.select do |comp|
+      keep_comp_ids.include?(comp[:id])
+    end[0..NODE_GROUP_LIMIT]
+    keep_pred_nodes = pred_nodes[0..NODE_GROUP_LIMIT]
+
+    nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
+    node_ids = Set.new(nodes.collect { |n| n[:id] })
+
+    links = links.select do |link|
+      node_ids.include?(link[:source]) && node_ids.include?(link[:target])
+    end
+
+    {
+      nodes: nodes,
+      links: links
+    }
+  end
+
+  def pred_prey_comp_node(page, group)
     if page.rank&.r_species? && page.icon
       {
         label: page.short_name_notags,
@@ -798,103 +921,20 @@ class Page < ActiveRecord::Base
     I18n.t("trophic_web.group_descriptions.#{group}", source_name: short_name_notags)
   end
 
-  def pages_to_nodes(page_ids, group, pages, nodes, pages_wo_data)
+  def pages_to_nodes(page_ids, group, pages, node_ids)
+    result = []
+
     page_ids.each do |id|
-      node = pred_prey_node(pages[id], group)
-      if node
-        already_added = nodes[id]
+      if !node_ids.include?(id)
+        node = pred_prey_comp_node(pages[id], group)
 
-        if (
-          (
-           already_added &&
-           NODE_GROUP_PRIORITIES[already_added[:group]] < NODE_GROUP_PRIORITIES[node[:group]]
-          ) ||
-          already_added.nil?
-        )
-          nodes[id] = node
-        end
-      else
-        pages_wo_data.add(id)
+        if node
+          node_ids.add(node[:id])
+          result << node
+        end 
       end
     end
-  end
 
-  def pred_prey_comp_data
-    Rails.cache.fetch("pages/#{id}/pred_prey_json/3", expires: 1.day) do
-      if !rank&.r_species? # all nodes must be species, so bail
-        { nodes: [], links: [] }
-      else
-        relationships = TraitBank.pred_prey_comp_for_page(self)
-        prey_ids = Set.new
-        predator_ids = Set.new
-        competitor_ids = Set.new
-
-        links = relationships.map do |row|
-          if row[:type] == "prey"
-            prey_ids.add(row[:target])
-          elsif row[:type] == "predator"
-            predator_ids.add(row[:source])
-          elsif row[:type] == "competitor"
-            competitor_ids.add(row[:source])
-          else
-            raise "unrecognized relationship type in result: #{row[:type]}"
-          end
-
-          {
-            source: row[:source],
-            target: row[:target]
-          }
-        end
-
-        all_ids = Set.new([id])
-        all_ids.merge(prey_ids).merge(predator_ids).merge(competitor_ids)
-        nodes = {}
-        ids_to_remove = Set.new
-
-        pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
-          [page.id, page]
-        end.to_h
-
-        pages_to_nodes([id], :source, pages, nodes, ids_to_remove)
-        pages_to_nodes(prey_ids, :prey, pages, nodes, ids_to_remove)
-        pages_to_nodes(predator_ids, :predator, pages, nodes, ids_to_remove)
-        pages_to_nodes(competitor_ids, :competitor, pages, nodes, ids_to_remove)
-
-        nodes_to_keep = Set.new([id]) # always keep the source node
-
-        links = links.select do |link|
-          keep = !ids_to_remove.include?(link[:source]) && !ids_to_remove.include?(link[:target])
-          if keep
-            nodes_to_keep.add(link[:source])
-            nodes_to_keep.add(link[:target])
-          end
-          keep
-        end
-
-        node_result = nodes.values.select do |node|
-          nodes_to_keep.include? node[:id]
-        end
-
-        {
-          nodes: node_result,
-          links: links.uniq # TODO: figure out why/if this is necessary, remove
-        }
-      end
-    end
-  end
-  # END TROPHIC WEB DATA
-
-  def sci_names_by_display_status
-    scientific_names.includes(:taxonomic_status, :resource, { node: [:rank] }).references(:taxonomic_status)
-      .where("taxonomic_statuses.id != ?", TaxonomicStatus.unusable.id)
-      .group_by do |n|
-        n.display_status
-      end
-  end
-
-  private
-
-  def first_image_content
-    page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
+    result
   end
 end

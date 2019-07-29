@@ -1214,8 +1214,7 @@ class TraitBank
     # For data visualization
     def pred_prey_comp_for_page(page)
       eats_string = uris_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
-      eaten_by_string = uris_to_qs([Eol::Uris.is_eaten_by])
-      limit_per_group = 10
+      limit_per_group = 30
 
       # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
       # 10 prey
