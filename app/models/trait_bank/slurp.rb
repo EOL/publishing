@@ -50,11 +50,11 @@ class TraitBank::Slurp
 
     def read_field_from_traits_file(id, field)
       file = Rails.public_path.join("traits_#{id}.csv")
-      return nil unless File.exist?(file)
       # read the traits file and pluck out the page IDs...
       require 'csv'
       data = CSV.read(file)
       headers = data.shift
+      return nil unless headers # The file would be empty if there were no traits.
       position = headers.find_index(field)
       raise "Could not find #{field} field in traits_#{id}.csv." if position.nil?
       values = {}

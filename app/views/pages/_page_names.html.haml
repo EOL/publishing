@@ -43,7 +43,7 @@
               .ui-list
                 - lang_names = names_by_lang.group_by { |n| n.string }.values
                 - lang_names.each_with_index do |names_by_string, i|
-                  - name_hidden = i >= card_expand_limit 
+                  - name_hidden = i >= card_expand_limit
                   .item.js-name-card-item{ class: name_hidden ? "uk-hidden" : "", 'data-hide-on-close': name_hidden}
                     - preferred_name = names_by_string.any? { |n| n.is_preferred? }
                     .header
@@ -69,7 +69,7 @@
                   %i.fa.fa-angle-down.fa-2x.js-name-card-open
                   %i.fa.fa-angle-up.fa-2x.js-name-card-close.uk-hidden
 
-  - if vernaculars.length > vernacular_card_limit
+  - if vernaculars && vernaculars.length > vernacular_card_limit
     .uk-margin.uk-text-center
       .a.js-name-more-vern= t("names.show_more_langs", count: vernaculars.length - vernacular_card_limit)
       .a.js-name-less-vern.uk-hidden= t("names.hide_langs", count: vernaculars.length - vernacular_card_limit)

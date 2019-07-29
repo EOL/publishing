@@ -164,6 +164,7 @@ class Publishing::Fast
         Page.fix_missing_icons
       end
     rescue => e
+      clean_up
       @log.fail(e)
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
@@ -208,7 +209,7 @@ class Publishing::Fast
       @klass.connection.execute(q.join(' '))
       after_db_count = @klass.where(resource_id: @resource.id).count - before_db_count
       raise "INCORRECT NUMBER OF ROWS DURING IMPORT OF #{@klass.name.pluralize.downcase}: got #{after_db_count}, "\
-        "expected #{file_count} (from #{@data_file})"
+        "expected #{file_count} (from #{@data_file})" if file_count != after_db_count
     rescue => e
       puts 'FAILED TO LOAD DATA. NOTE that it\'s possible you need to A) In Mysql,'
       puts 'GRANT FILE ON *.* TO your_user@localhost IDENTIFIED BY "your_password";'
