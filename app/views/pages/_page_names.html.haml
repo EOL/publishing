@@ -16,7 +16,7 @@
           .uk-card-body.js-name-card-body
             .ui-list
               - names.each_with_index do |names, i|
-                - next if status == "preferred" && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
+                - next if status == :preferred && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
                 = render "resource_names", names: names, status: status, include_rank: include_rank, hidden: i >= card_expand_limit
             - if names.length > card_expand_limit
               .uk-text-center.uk-margin-top.name-card-arrows

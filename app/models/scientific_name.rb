@@ -10,9 +10,7 @@ class ScientificName < ActiveRecord::Base
 
   counter_culture :page
 
-  TAXONOMIC_TO_DISPLAY_STATUS = {
-    "accepted" => "preferred"
-  }
+  DISPLAY_STATUS_PREFERRED_VALUES = Set.new(["accepted", "preferred"])
 
   # scientific_names.id >= 17100001
   def self.re_de_normalize_page_ids(scope = nil)
@@ -35,6 +33,12 @@ class ScientificName < ActiveRecord::Base
   end
 
   def display_status
-    TAXONOMIC_TO_DISPLAY_STATUS[taxonomic_status.name] || taxonomic_status.name
+    if taxonomic_status == TaxonomicStatus.unusable
+      :unusable
+    elsif DISPLAY_STATUS_PREFERRED_VALUES.include?(taxonomic_status.name)
+      :preferred
+    else
+      :alternative
+    end
   end
 end
