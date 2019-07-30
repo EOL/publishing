@@ -161,7 +161,7 @@ class Page < ActiveRecord::Base
         load: false,
         misspellings: false,
         highlight: { tag: "<mark>", encoder: "html" },
-        boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
+        #boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
         where: { dh_scientific_names: { not: nil }}
       }))
     end
