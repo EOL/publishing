@@ -340,6 +340,13 @@ $font-sz-m: 14px;
   padding: 0 15px;
   position: relative;
 
+  .trophic-web-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+    text-align: center;
+  }
+
   .trophic-web-inner {
     height: 100%;
     position: relative;
@@ -432,7 +439,7 @@ $font-sz-m: 14px;
     background: #DDDDDD;
     text-align: center;
     width: 200px;
-    height: 300px;
+    height: 270px;
     padding: 5px;
     font: 15px verdana;
     border-radius: 10px;
