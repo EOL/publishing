@@ -1,8 +1,10 @@
-  class CollectionsController < ApplicationController
+require "csv"
+
+class CollectionsController < ApplicationController
   layout "collections"
 
   before_filter :sanitize_collection_params
-  before_filter :find_collection_with_pages, only: [:edit, :show]
+  before_filter :find_collection_with_pages, only: [:show, :edit]
   before_filter :find_collection, only: [:update, :destroy, :add_user, :remove_user, :logs]
   before_filter :user_able_to_edit_collection, only: [:edit]
 
@@ -48,8 +50,32 @@
 
   def show
     respond_to do |format|
-      format.html {}
-      format.js {}
+      format.html { find_collection_with_pages }
+      format.js { find_collection_with_pages }
+    end
+  end
+
+  def pages
+    respond_to do |format|
+      format.csv do 
+        find_collection_with_pages_helper(false)
+
+        data = CSV.generate(headers: true) do |csv|
+          csv << %w(name canonical annotation created_at modified_at)
+
+          @pages.each do |page|
+            csv << [
+              page.page.name, 
+              page.page.canonical, 
+              page.annotation, 
+              page.created_at, 
+              page.updated_at
+            ]
+          end
+        end
+
+        send_data data, filename: "collection_#{@collection.id}_pages.csv"
+      end
     end
   end
 
@@ -99,7 +125,11 @@
   private
 
   def find_collection_with_pages
-    @collection = Collection.where(id: params[:id]).includes(:collection_associations).first
+    find_collection_with_pages_helper(true)
+  end
+
+  def find_collection_with_pages_helper(paginate)
+    @collection = Collection.where(id: params[:id] || params[:collection_id]).includes(:collection_associations).first
     @pages = CollectedPage.where(collection_id: @collection.id)
     params[:sort] ||= Collection.default_sorts[@collection.default_sort]
     sort = Collection.default_sorts.keys[params[:sort].to_i].dup
@@ -121,7 +151,7 @@
         includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
         order("position")
     end
-    @pages = @pages.by_page(params[:page]).per(@collection.gallery? ? 18 : 20)
+    @pages = @pages.by_page(params[:page]).per(@collection.gallery? ? 18 : 20) if paginate
   end
 
   def find_collection

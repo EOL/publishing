@@ -6,8 +6,9 @@
         .uk-text-muted= @collection.description.html_safe
       - if is_admin?
         .uk-text= link_to("show logs", collection_logs_path(@collection))
-    - if policy(@collection).update?
-      .actions.uk-width-1-5
+    .actions.uk-width-1-5
+      = link_to(t("collection.actions.download_taxa_csv"), collection_pages_path(@collection, format: :csv), class: "ui button uk-margin-small")
+      - if policy(@collection).update?
         = link_to(t("collection.actions.edit"), edit_collection_path(@collection), class: "ui button uk-margin-small")
         = link_to(t("collection.actions.delete"), collection_path(@collection), method: "delete", data: { confirm: t("collection.delete_confirm") }, class: "ui basic button uk-margin-small")
         = link_to(t("collection.actions.associate"), new_collection_association_path(associated_id: @collection.id), class: "ui basic button uk-margin-small")

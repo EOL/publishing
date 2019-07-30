@@ -104,6 +104,7 @@ en:
       placeholder: "full name or username"
     actions:
       associate: "associate"
+      download_taxa_csv: "download CSV of taxa"
       delete: "delete"
       edit: "edit"
     collection_type:

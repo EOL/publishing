@@ -68,6 +68,7 @@ Rails.application.routes.draw do
     resources :articles, only: [:show]
     resources :collections do
       get "logs"
+      get "pages"
       resources :collected_pages, only: [:index]
       # TODO: this is not very restful; should be a nested resource, but the terms
       # become somewhat tricky, so cheating for now. These aren't really
