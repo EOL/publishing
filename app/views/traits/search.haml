@@ -20,6 +20,10 @@
         %li.js-download-tsv{:'data-url' => term_search_results_path(:format => :csv)}
           %i{:'uk-icon' => "icon: download"}
           %span download tsv
+        %li
+          = link_to term_search_path do
+            %i{:'uk-icon' => "icon: search"}
+            %span new search
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages }
     - else

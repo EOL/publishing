@@ -120,6 +120,11 @@
     cursor: pointer;
     display: inline-block;
     margin: 0 8px;
+
+    & > a {
+      color: $eol-blue;
+      text-decoration: none;
+    }
   }
 }
 
