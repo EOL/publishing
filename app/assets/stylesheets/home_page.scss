@@ -62,15 +62,15 @@ body {
 
 .partner-feed {
   background: $eol-logo-blue;
-  height: 100px;
-  padding: 8px 12px;
+  padding: 0 12px 8px 12px;
+  white-space: normal;
 }
   .partner-feed-item {
     background: $white;
     border-radius: 2px;
     display: inline-block;
-    height: 100%;
-    margin-right: 5px;
+    height: 84px;
+    margin: 8px 3px 0 3px;
     max-width: 200px;
     overflow: hidden;
     padding: 3px 8px;
@@ -89,10 +89,6 @@ body {
       text-decoration: none;
     }
   }
-
-    .partner-feed-item-last {
-      margin-right: 0;
-    }
 
   .partner-feed-img {
     align-items: center;
