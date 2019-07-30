@@ -39,6 +39,7 @@ class Resource < ActiveRecord::Base
     def update_native_nodes(start_id = 0)
       count = 0
       Searchkick.disable_callbacks
+      batch_size = 128
       Node.where(resource_id: Resource.native.id).where(['id > ?', start_id]).select('id, page_id').
         find_in_batches(batch_size: 10_000) do |batch|
           node_map = {}
@@ -47,15 +48,23 @@ class Resource < ActiveRecord::Base
           puts "#{batch.size} nodes id > #{batch.first.id}"
           STDOUT.flush
           # NOTE: native_node_id is NOT indexed, so this is not speedy:
-          Page.where(id: batch.map(&:page_id)).include(:native_node).find_each do |page|
-            next if page.native_node.resource_id == Resource.native.id
+          Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
+            next if page.native_node&.resource_id == Resource.native.id
             count += 1
             page_group << page.id
             page.update_attribute :native_node_id, node_map[page.id]
             puts "Updated #{count}. Last: #{page.id}" if (count % 1000).zero?
             STDOUT.flush
           end
-          Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: page_group)
+          begin
+            page_group.in_groups_of(batch_size, false) do |group|
+              Searchkick::BulkReindexJob.perform_now(class_name: 'Page', record_ids: group)
+            end
+          rescue Faraday::TimeoutError => e
+            batch_size /= 2
+            raise e if batch_size <= 2
+            retry
+          end
         end
       puts "Done."
       Searchkick.enable_callbacks
