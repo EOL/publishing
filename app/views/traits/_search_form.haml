@@ -38,6 +38,11 @@
               = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-#{typeahead_class}-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
               = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
               - show_error(ff.object, :obj_uri)
+        .filter-row{:class => ff.object.errors[:sex_uri].any? ? "is-filter-row-with-errors" : ""}
+          %span.js-typeahead-wrap.filter-field.l-filter-full
+            = text_field_tag "sex_name", term_name(ff.object.sex_uri), :class => "js-meta-obj-typeahead uk-input", :data => { :'pred' => 'sex' }, :placeholder => "sex term"
+            = ff.hidden_field :sex_uri, :class => "js-typeahead-field"
+            - show_error(ff.object, :sex_uri)
 
     .filter-row
       .filter.add-filter.js-add-filter

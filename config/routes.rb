@@ -162,6 +162,7 @@ Rails.application.routes.draw do
     get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
     get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
     get "/terms/object_terms_for_predicate" => "terms#object_terms_for_pred"
+    get "/terms/meta_object_terms" => "terms#meta_object_terms"
     get "/terms/units_glossary" => "terms#units_glossary", :as => "units_glossary"
     get "/terms/new" => "terms#new", :as => "new_term"
     post "/terms/:uri" => "terms#update", :as => "update_term", :constraints => { uri: /http.*/ }

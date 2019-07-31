@@ -26,7 +26,23 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   def object_term?
-    !obj_uri.blank?
+    obj_uri.present?
+  end
+
+  def sex_term?
+    sex_uri.present?
+  end
+
+  def life_stage_term?
+    life_stage_uri.present?
+  end
+
+  def statistical_method_term?
+    statistical_method_uri.present?
+  end
+
+  def meta?
+    sex_term? || life_stage_term? || statistical_method_term?
   end
 
   def numeric?
@@ -68,6 +84,9 @@ class TermQueryFilter < ActiveRecord::Base
     pieces << "units_uri_#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1_#{num_val1}" unless num_val1.blank?
     pieces << "num_val1_#{num_val2}" unless num_val2.blank?
+    pieces << "sex_uri_#{sex_uri}" unless sex_uri.blank?
+    pieces << "life_stage_uri_#{life_stage_uri}" unless life_stage_uri.blank?
+    pieces << "statistical_method_uri_#{statistical_method_uri}" unless statistical_method_uri.blank?
     pieces.join('/')
   end
 

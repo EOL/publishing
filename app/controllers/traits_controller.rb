@@ -79,7 +79,10 @@ class TraitsController < ApplicationController
         :op,
         :num_val1,
         :num_val2,
-        :units_uri
+        :units_uri,
+        :sex_uri,
+        :life_stage_uri,
+        :statistical_method_uri
       ]
     ])
   end
@@ -108,17 +111,6 @@ class TraitsController < ApplicationController
 
       @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
     end
-  end
-
-  def permitted_filter_params(filter_params)
-    filter_params.permit(
-      :pred_uri,
-      :uri,
-      :value,
-      :from_value,
-      :to_value,
-      :units_uri
-    )
   end
 
   def search_common

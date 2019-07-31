@@ -197,6 +197,18 @@ module Eol
         "http://purl.obolibrary.org/obo/RO_0002623"
       end
 
+      def sex
+        "http://rs.tdwg.org/dwc/terms/sex"
+      end
+
+      def life_stage
+        "http://rs.tdwg.org/dwc/terms/lifeStage"
+      end
+
+      def statistical_method
+        "http://eol.org/schema/terms/statisticalMethod"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end
