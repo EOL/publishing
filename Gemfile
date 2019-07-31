@@ -98,7 +98,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
 gem 'rubyzip'
 # ElasticSearch via SearchKick:
-gem 'searchkick'
+gem 'searchkick', '~> 3'
 # Simplify Forms:
 gem 'simple_form'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
