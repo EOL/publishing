@@ -39,7 +39,8 @@ class Resource < ActiveRecord::Base
     def update_native_nodes(start_id = 0)
       count = 0
       Searchkick.disable_callbacks
-      batch_size = 128
+      Searchkick.timeout = 500
+      batch_size = 64 # This may actually be too large? 128 was failing frequently. :|
       Node.where(resource_id: Resource.native.id).where(['id > ?', start_id]).select('id, page_id').
         find_in_batches(batch_size: 10_000) do |batch|
           node_map = {}

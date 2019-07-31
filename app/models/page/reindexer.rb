@@ -5,12 +5,12 @@ class Page::Reindexer
     @start_page_id = start_page_id || 1
     @log = Logger.new(Rails.root.join('public', 'data', 'page_reindex.log'))
     @throttle = options.has_key?(:throttle) ? options[:throttle] : 0.5
-    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 100
+    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 5
     Searchkick.client_options = {
       retry_on_failure: true,
-      transport_options: { request: { timeout: 500 } }
+      transport_options: { request: { timeout: 5000 } }
     }
-    Searchkick.timeout = 500
+    Searchkick.timeout = 5000
   end
 
   def start
@@ -65,5 +65,6 @@ class Page::Reindexer
 
   def log(msg)
     @log.warn(msg)
+    @log.flush
   end
 end
