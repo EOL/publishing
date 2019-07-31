@@ -890,7 +890,7 @@ class Page < ActiveRecord::Base
     keep_prey_nodes = prey_nodes.sort do |a, b|
       a_count = prey_to_comps[a[:id]]&.length || 0
       b_count = prey_to_comps[b[:id]]&.length || 0
-      a_count - b_count
+      b_count - a_count
     end[0..NODE_GROUP_LIMIT]
     logger.debug("TROPHIC_DATA: keep_prey_nodes #{keep_prey_nodes}")
 
