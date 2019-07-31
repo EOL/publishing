@@ -97,4 +97,8 @@ class Rank < ActiveRecord::Base
   def species_or_below?
     Rank.species_or_below.include?(self.id)
   end
+
+  def self.family_ids
+    @family_ids ||= self.where(treat_as: treat_as[:r_family]).pluck(:id)
+  end
 end
