@@ -770,55 +770,17 @@ class Page < ActiveRecord::Base
 
   # TROPHIC_WEB_DATA
   # (not sure if this is the right place for this, but here it lives for now)
-  NODE_GROUP_LIMIT = 10 # nodes per group
   def pred_prey_comp_data
     Rails.cache.fetch("pages/#{id}/pred_prey_json/3", expires: 1.day) do
       if !rank&.r_species? # all nodes must be species, so bail
         { nodes: [], links: [] }
       else
         relationships = TraitBank.pred_prey_comp_for_page(self)
-        prey_ids = Set.new
-        pred_ids = Set.new
-        comp_ids = Set.new
-
-        links = relationships.map do |row|
-          if row[:type] == "prey"
-            prey_ids.add(row[:target])
-          elsif row[:type] == "predator"
-            pred_ids.add(row[:source])
-          elsif row[:type] == "competitor"
-            comp_ids.add(row[:source])
-          else
-            raise "unrecognized relationship type in result: #{row[:type]}"
-          end
-
-          {
-            source: row[:source],
-            target: row[:target]
-          }
-        end
-
-        all_ids = Set.new([id])
-        all_ids.merge(prey_ids).merge(pred_ids).merge(comp_ids)
-        node_ids = Set.new
-
-        pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
-          [page.id, page]
-        end.to_h
-
-        source_nodes = pages_to_nodes([id], :source, pages, node_ids)
-
-        if source_nodes.empty?
-          {
-            nodes: [],
-            links: []
-          }
-        else
-          build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
-        end
+        handle_pred_prey_comp_relationships(relationships)
       end
     end
   end
+
   # END TROPHIC WEB DATA
 
   def sci_names_by_display_status
@@ -833,6 +795,49 @@ class Page < ActiveRecord::Base
 
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
+  end
+
+  NODE_GROUP_LIMIT = 10 # nodes per group
+  def handle_pred_prey_comp_relationships(relationships)
+    prey_ids = Set.new
+    pred_ids = Set.new
+    comp_ids = Set.new
+
+    links = relationships.map do |row|
+      if row[:type] == "prey"
+        prey_ids.add(row[:target])
+      elsif row[:type] == "predator"
+        pred_ids.add(row[:source])
+      elsif row[:type] == "competitor"
+        comp_ids.add(row[:source])
+      else
+        raise "unrecognized relationship type in result: #{row[:type]}"
+      end
+
+      {
+        source: row[:source],
+        target: row[:target]
+      }
+    end
+
+    all_ids = Set.new([id])
+    all_ids.merge(prey_ids).merge(pred_ids).merge(comp_ids)
+
+    pages = Page.where(id: all_ids.to_a).includes(:native_node).map do |page|
+      [page.id, page]
+    end.to_h
+    node_ids = Set.new
+
+    source_nodes = pages_to_nodes([id], :source, pages, node_ids)
+
+    if source_nodes.empty?
+      {
+        nodes: [],
+        links: []
+      }
+    else
+      build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
+    end
   end
 
   def build_prey_to_comps(prey_nodes, comp_nodes, links)
@@ -873,14 +878,14 @@ class Page < ActiveRecord::Base
     prey_to_comps = build_prey_to_comps(prey_nodes, comp_nodes, links)
 
     keep_prey_nodes = prey_nodes.sort do |a, b|
-      a_count = prey_to_competitors[a[:id]]&.length || 0
-      b_count = prey_to_competitors[b[:id]]&.length || 0
+      a_count = prey_to_comps[a[:id]]&.length || 0
+      b_count = prey_to_comps[b[:id]]&.length || 0
       a_count - b_count
     end[0..NODE_GROUP_LIMIT]
 
     keep_comp_ids = Set.new
     keep_prey_nodes.each do |prey|
-      keep_comp_ids = keep_comp_ids & prey_to_comps[prey[:id]]
+      keep_comp_ids.merge(prey_to_comps[prey[:id]])
     end
     keep_comp_nodes = comp_nodes.select do |comp|
       keep_comp_ids.include?(comp[:id])
