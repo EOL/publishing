@@ -79,7 +79,8 @@ class Node < ActiveRecord::Base
     if scientific_names.loaded?
       preferred_scientific_name&.canonical_form
     else
-      scientific_names&.preferred&.first&.canonical_form
+      # I don't trust the association:
+      ScientificName.where(node_id: id).preferred&.first&.canonical_form
     end
   end
 
@@ -87,7 +88,8 @@ class Node < ActiveRecord::Base
     if scientific_names.loaded?
       preferred_scientific_name&.italicized
     else
-      scientific_names&.preferred&.first&.italicized
+      # I don't trust the association:
+      ScientificName.where(node_id: id).preferred&.first&.italicized
     end
   end
 
@@ -103,7 +105,8 @@ class Node < ActiveRecord::Base
         vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
       else
         language ||= Language.english
-        preferred_vernaculars.find { |v| v.language_id == language.id }
+        # I don't trust the associations. :|
+        Vernacular.where(node_id: id, language_id: language.id).preferred.first
       end
     end
   end
