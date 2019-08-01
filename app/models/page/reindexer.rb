@@ -56,8 +56,8 @@ class Page::Reindexer
   end
 
   def naglessly
-    @last_msg ||= 31.seconds.ago
-    if @last_msg < 30.seconds.ago
+    @last_msg ||= 61.seconds.ago
+    if @last_msg < 60.seconds.ago
       yield
       @last_msg = Time.now
     end
