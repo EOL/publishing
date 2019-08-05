@@ -114,6 +114,7 @@ class Medium < ActiveRecord::Base
         sleep(10)
         start_row = last_row
         DataFile.dbg("** Resuming with start_row #{start_row}: #{e}")
+        retry
       end
     end
 
