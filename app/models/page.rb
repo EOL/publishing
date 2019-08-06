@@ -869,7 +869,7 @@ class Page < ActiveRecord::Base
       if prey_id
         comp_ids = prey_to_comp_ids[prey_id] || []
         comp_ids << comp_id
-        prey_to_comp_ids[prey_id] = comps
+        prey_to_comp_ids[prey_id] = comp_ids
       end
     end
 
