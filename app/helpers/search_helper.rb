@@ -17,7 +17,6 @@ module SearchHelper
   # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
   def first_type_with_results(results)
     results.find { |result| any_results(result) }
-  end
 
 #    pages, articles, images, videos, sounds, collections, users, terms)
 #
