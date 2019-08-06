@@ -201,7 +201,7 @@ module Eol
         "http://rs.tdwg.org/dwc/terms/sex"
       end
 
-      def life_stage
+      def lifestage
         "http://rs.tdwg.org/dwc/terms/lifeStage"
       end
 

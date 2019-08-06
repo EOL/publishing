@@ -512,12 +512,12 @@ class TraitBank
       ) if filter.sex_term?
 
       add_term_filter_meta_match(
-        Eol::Uris.life_stage, 
-        filter.life_stage_uri,
+        Eol::Uris.lifestage, 
+        filter.lifestage_uri,
         trait_var,
         "#{base_meta_var}_ls",
         matches
-      ) if filter.life_stage_term?
+      ) if filter.lifestage_term?
 
       add_term_filter_meta_match(
         Eol::Uris.statistical_method,

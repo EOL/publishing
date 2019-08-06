@@ -81,7 +81,7 @@ class TraitsController < ApplicationController
         :num_val2,
         :units_uri,
         :sex_uri,
-        :life_stage_uri,
+        :lifestage_uri,
         :statistical_method_uri
       ]
     ])
