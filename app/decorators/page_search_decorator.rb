@@ -6,6 +6,8 @@ class PageSearchDecorator < SearchResultDecorator
     :pages
   end
 
+  # TODO: do these methods ... work?
+
   def fa_icon
     "picture-o"
   end
@@ -36,6 +38,10 @@ class PageSearchDecorator < SearchResultDecorator
 
   def hierarchy
     h.summary_hierarchy(object, false)
+  end
+
+  def total_results
+    object.response["hits"]["total"]
   end
 
 private

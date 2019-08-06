@@ -10,27 +10,27 @@
   = render :partial => "search_page", :locals => { :type => first_type_with_results([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms])}
 = render :layout => "layouts/overlay", :locals => { :id => "search-filter", :close => true } do
   %ul.search-filter-types.js-search-filter-types
-    - if @pages && @pages.total_count > 0
+    - if any_results(@pages)
       = render :partial => "filter_type", :locals => { :type => :pages, :i18n_key => "search.n_taxon_pages", :results => @pages}
-    - if @images && @images.total_count > 0
+    - if any_results(@images)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_images", :results => @images}
-    - if @videos && @videos.total_count > 0
+    - if any_results(@videos)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_videos", :results => @videos}
-    - if @sounds && @sounds.total_count > 0
+    - if any_results(@sounds)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_sounds", :results => @sounds}
-    - if @articles && @articles.total_count > 0
+    - if any_results(@articles)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_articles", :results => @articles}
-    - if @collections && @collections.total_count > 0
+    - if any_results(@collections)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_collections", :results => @collections}
-    - if @users && @users.total_count > 0
+    - if any_results(@users)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_users", :results => @users}
-    - if @terms && @terms.total_count > 0
+    - if any_results(@terms)
       = render :partial => "filter_type",
         :locals => { :i18n_key => "search.n_terms", :results => @terms}
   .overlay-btn.js-apply-filter-btn apply filters
