@@ -55,7 +55,6 @@ class Medium < ActiveRecord::Base
       DataFile.dbg('Looping through media...')
       total_media = @media.keys.size
       last_row = 0
-      can_retry = true
       begin
         @media.keys.each_with_index do |access_uri, i|
           next if i < start_row
@@ -109,15 +108,13 @@ class Medium < ActiveRecord::Base
             end
           end
           medium.save
-          can_retry = true
         end
       rescue => e
         DataFile.dbg("** ERROR! Ended on row #{last_row}: #{e}")
-        if can_retry
-          start_row = last_row
-          can_retry = false
-          retry
-        end
+        sleep(10)
+        start_row = last_row
+        DataFile.dbg("** Resuming with start_row #{start_row}: #{e}")
+        retry
       end
     end
 

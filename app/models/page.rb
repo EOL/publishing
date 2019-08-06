@@ -450,13 +450,14 @@ class Page < ActiveRecord::Base
         vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
       else
         language ||= Language.english
-        preferred_vernaculars.find { |v| v.language_id == language.id }
+        # I don't trust the associations. :|
+        Vernacular.where(page_id: id, language_id: language.id).preferred.first
       end
     end
   end
 
   def scientific_name
-    native_node.try(:italicized) || native_node.try(:scientific_name) || "NO NAME!"
+    native_node&.italicized || native_node&.scientific_name || "NO NAME!"
   end
 
   def canonical
@@ -950,7 +951,7 @@ class Page < ActiveRecord::Base
         if node
           node_ids.add(node[:id])
           result << node
-        end 
+        end
       end
     end
 
