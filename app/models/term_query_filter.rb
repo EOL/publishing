@@ -3,6 +3,8 @@ class TermQueryFilter < ActiveRecord::Base
   validates_presence_of :term_query
   validate :validation
 
+  attr_reader :show_meta
+
   # TODO: remove op field from db
   enum :op => {
     :is_any => 0,
@@ -44,6 +46,18 @@ class TermQueryFilter < ActiveRecord::Base
   def meta?
     sex_term? || lifestage_term? || statistical_method_term?
   end
+
+  def show_meta?
+    show_meta || meta?
+  end
+
+  def clear_meta
+    self.sex_uri = nil
+    self.lifestage_uri = nil
+    self.statistical_method_uri = nil
+    self.show_meta = false
+  end
+
 
   def numeric?
     !num_val1.blank? || !num_val2.blank?
@@ -104,12 +118,26 @@ class TermQueryFilter < ActiveRecord::Base
       obj_uri: obj_uri,
       num_val1: num_val1,
       num_val2: num_val2,
-      units_uri: units_uri
+      units_uri: units_uri,
+      sex_uri: sex_uri,
+      lifestage_uri: lifestage_uri,
+      statistical_method_uri: statistical_method_uri
     }
   end
 
   def blank?
     pred_uri.blank? && obj_uri.blank?
+  end
+
+  def really_blank?
+    blank? &&
+    sex_uri.blank? &&
+    lifestage_uri.blank? &&
+    statistical_method_uri.blank?
+  end
+
+  def show_meta=(val)
+    @show_meta = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
   end
 
   private

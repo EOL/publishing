@@ -11,7 +11,7 @@ class TraitsController < ApplicationController
   end
 
   def search_results
-    @query.remove_blank_filters
+    @query.remove_really_blank_filters
     respond_to do |fmt|
       fmt.html do
         if @query.valid?
@@ -82,12 +82,16 @@ class TraitsController < ApplicationController
         :units_uri,
         :sex_uri,
         :lifestage_uri,
-        :statistical_method_uri
+        :statistical_method_uri,
+        :show_meta
       ]
     ])
   end
+
   def build_query
     @query = TermQuery.new(tq_params)
+    @query.filters[params[:show_meta].to_i].show_meta = true if params[:show_meta] 
+    @query.filters[params[:hide_meta].to_i].clear_meta if params[:hide_meta]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
     blank_predicate_filters_must_search_any

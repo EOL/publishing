@@ -64,6 +64,22 @@
     });
   }
 
+  function setupMetaFilters() {
+    $('.js-show-meta-filters').click(function() {
+      fetchForm({
+        name: 'show_meta',
+        value: $(this).data('index')
+      });
+    })
+
+    $('.js-hide-meta-filters').click(function() {
+      fetchForm({
+        name: 'hide_meta',
+        value: $(this).data('index')
+      });
+    })
+  }
+
   function setupForm() {
     $('.js-op-select').change(function() {
       fetchForm();
@@ -157,6 +173,8 @@
     });
 
     $('#new_term_query').submit(showNotification);
+    
+    setupMetaFilters();
   }
 
   EOL.onReady(setupForm);
