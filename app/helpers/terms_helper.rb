@@ -40,6 +40,10 @@ module TermsHelper
     TraitBank::Terms.name_for_uri(uri)
   end
 
+  def term_name(uri)
+    TraitBank::Terms.name_for_uri(uri)
+  end
+
   def show_error(obj, field)
     if obj.errors[field].any?
       haml_tag(:div, :class => "filter-error") do

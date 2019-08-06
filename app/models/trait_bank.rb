@@ -494,6 +494,40 @@ class TraitBank
       end.join("\n")
     end
 
+    def add_term_filter_meta_match(pred_uri, obj_uri, trait_var, meta_var, matches)
+      match = 
+        "(#{trait_var})-[:metadata]->(#{meta_var}:MetaData), "\
+        "(#{meta_var})-[:predicate]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{pred_uri}' }), "\
+        "(#{meta_var})-[:object_term]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{obj_uri}' })"
+      matches << match
+    end
+
+    def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
+      add_term_filter_meta_match(
+        Eol::Uris.sex, 
+        filter.sex_uri, 
+        trait_var,
+        "#{base_meta_var}_sex", 
+        matches
+      ) if filter.sex_term?
+
+      add_term_filter_meta_match(
+        Eol::Uris.lifestage, 
+        filter.lifestage_uri,
+        trait_var,
+        "#{base_meta_var}_ls",
+        matches
+      ) if filter.lifestage_term?
+
+      add_term_filter_meta_match(
+        Eol::Uris.statistical_method,
+        filter.statistical_method_uri,
+        trait_var,
+        "#{base_meta_var}_stat",
+        matches
+      ) if filter.statistical_method_term?
+    end
+
     def term_record_search(term_query, options)
       matches = []
       wheres = []
@@ -510,6 +544,7 @@ class TraitBank
         tgt_pred_var = "tp#{i}"
         obj_var = "o#{i}"
         tgt_obj_var = "to#{i}"
+        base_meta_var = "m#{i}"
 
         matches << "(page)-[:trait]->(#{trait_var}:Trait)"
 
@@ -517,12 +552,14 @@ class TraitBank
           matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
           matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
         else
-          matches << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
+          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
             "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
 
-        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
 
+        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
+        
         rows_var = "rows#{i}"
         rows_vars << rows_var
         collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
@@ -605,6 +642,7 @@ class TraitBank
         trait_var = "t#{i}"
         pred_var = "p#{i}"
         obj_var = "o#{i}"
+        base_meta_var = "m#{i}"
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
         matches << "(page)-[:trait]->(#{trait_var}:Trait)"
@@ -617,6 +655,7 @@ class TraitBank
           indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""

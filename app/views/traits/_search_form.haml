@@ -38,6 +38,28 @@
               = text_field_tag "obj_name", obj_name(ff.object.obj_uri), :class => "js-#{typeahead_class}-typeahead uk-input", :data => { :'pred-uri' => ff.object.pred_uri }, :placeholder => "value"
               = ff.hidden_field :obj_uri, :class => "js-typeahead-field"
               - show_error(ff.object, :obj_uri)
+        - if ff.object.show_meta?
+          .filter-row{:class => ff.object.errors[:sex_uri].any? ? "is-filter-row-with-errors" : ""}
+            %span.js-typeahead-wrap.filter-field.l-filter-full
+              = text_field_tag "sex_name", term_name(ff.object.sex_uri), :class => "js-meta-obj-typeahead uk-input", :data => { :'pred' => 'sex' }, :placeholder => "sex term"
+              = ff.hidden_field :sex_uri, :class => "js-typeahead-field"
+              - show_error(ff.object, :sex_uri)
+          .filter-row{:class => ff.object.errors[:lifestage_uri].any? ? "is-filter-row-with-errors" : ""}
+            %span.js-typeahead-wrap.filter-field.l-filter-full
+              = text_field_tag "lifestage_name", term_name(ff.object.lifestage_uri), :class => "js-meta-obj-typeahead uk-input", :data => { :'pred' => 'lifestage' }, :placeholder => "lifestage"
+              = ff.hidden_field :lifestage_uri, :class => "js-typeahead-field"
+              - show_error(ff.object, :lifestage_uri)
+          .filter-row{:class => ff.object.errors[:statistical_method_uri].any? ? "is-filter-row-with-errors" : ""}
+            %span.js-typeahead-wrap.filter-field.l-filter-full
+              = text_field_tag "statistical_method_name", term_name(ff.object.statistical_method_uri), :class => "js-meta-obj-typeahead uk-input", :data => { :'pred' => 'stat_meth' }, :placeholder => "statistical method"
+              = ff.hidden_field :statistical_method_uri, :class => "js-typeahead-field"
+              - show_error(ff.object, :statistical_method_uri)
+          .filter-row
+            .a.js-hide-meta-filters{ data: { index: ff.index } } hide metadata fields
+        - else
+          .filter-row
+            .a.js-show-meta-filters{ data: { index: ff.index } } show metadata fields
+        = ff.hidden_field :show_meta
 
     .filter-row
       .filter.add-filter.js-add-filter

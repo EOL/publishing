@@ -59,8 +59,8 @@ class TermQuery < ActiveRecord::Base
     }
   end
 
-  def remove_blank_filters
-    self.filters = self.filters.reject { |f| f.blank? }
+  def remove_really_blank_filters
+    self.filters = self.filters.reject { |f| f.really_blank? }
   end
 
   def add_filter_if_none

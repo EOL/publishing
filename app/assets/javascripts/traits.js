@@ -64,6 +64,22 @@
     });
   }
 
+  function setupMetaFilters() {
+    $('.js-show-meta-filters').click(function() {
+      fetchForm({
+        name: 'show_meta',
+        value: $(this).data('index')
+      });
+    })
+
+    $('.js-hide-meta-filters').click(function() {
+      fetchForm({
+        name: 'hide_meta',
+        value: $(this).data('index')
+      });
+    })
+  }
+
   function setupForm() {
     $('.js-op-select').change(function() {
       fetchForm();
@@ -113,12 +129,33 @@
       }, 'uri', null)
     });
 
+
     buildTypeahead('.js-obj-typeahead', {
       name: 'obj-names',
       display: 'name',
       limit: Infinity,
       source: EOL.searchObjectTerms
     }, 'uri', fetchForm);
+
+    $('.js-meta-obj-typeahead').each(function() {
+      buildTypeahead(this, {
+        name: 'meta-obj-names',
+        display: 'name',
+        limit: Infinity,
+        source: new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          remote: {
+            url: Routes.terms_meta_object_terms_path({ 
+              query: 'QUERY',
+              pred: $(this).data('pred'),
+              format: 'json'
+            }),
+            wildcard: 'QUERY'
+          }
+        })
+      }, 'uri', null)
+    });
 
     $('.js-add-filter').click(function(e) {
       e.preventDefault();
@@ -136,6 +173,8 @@
     });
 
     $('#new_term_query').submit(showNotification);
+    
+    setupMetaFilters();
   }
 
   EOL.onReady(setupForm);

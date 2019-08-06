@@ -11,7 +11,7 @@ class TraitsController < ApplicationController
   end
 
   def search_results
-    @query.remove_blank_filters
+    @query.remove_really_blank_filters
     respond_to do |fmt|
       fmt.html do
         if @query.valid?
@@ -79,12 +79,19 @@ class TraitsController < ApplicationController
         :op,
         :num_val1,
         :num_val2,
-        :units_uri
+        :units_uri,
+        :sex_uri,
+        :lifestage_uri,
+        :statistical_method_uri,
+        :show_meta
       ]
     ])
   end
+
   def build_query
     @query = TermQuery.new(tq_params)
+    @query.filters[params[:show_meta].to_i].show_meta = true if params[:show_meta] 
+    @query.filters[params[:hide_meta].to_i].clear_meta if params[:hide_meta]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
     blank_predicate_filters_must_search_any
@@ -108,17 +115,6 @@ class TraitsController < ApplicationController
 
       @result_pages = PageSearchDecorator.decorate_collection(@result_pages)
     end
-  end
-
-  def permitted_filter_params(filter_params)
-    filter_params.permit(
-      :pred_uri,
-      :uri,
-      :value,
-      :from_value,
-      :to_value,
-      :units_uri
-    )
   end
 
   def search_common

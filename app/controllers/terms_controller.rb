@@ -2,6 +2,25 @@ class TermsController < ApplicationController
   before_filter :require_admin, only: [:fetch_units, :update]
 
   SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
+  META_OBJECT_URIS = {
+    sex: [
+      "http://purl.obolibrary.org/obo/PATO_0000383",
+      "http://purl.obolibrary.org/obo/PATO_0000384",
+      "http://purl.obolibrary.org/obo/PATO_0001340"
+    ],
+    lifestage: [
+      "http://www.ebi.ac.uk/efo/EFO_0001272",
+      "http://purl.obolibrary.org/obo/PATO_0001501",
+      "http://purl.obolibrary.org/obo/PO_0007134",
+      "http://purl.obolibrary.org/obo/PO_0025340"
+    ],
+    stat_meth: [
+      "http://eol.org/schema/terms/average",
+      "http://semanticscience.org/resource/SIO_001113",
+      "http://semanticscience.org/resource/SIO_001114",
+      "http://www.ebi.ac.uk/efo/EFO_0001444"
+    ] 
+  }
 
   def index
     @uri = params[:uri]
@@ -75,6 +94,18 @@ class TermsController < ApplicationController
     q = params[:query]
     res = TraitBank::Terms.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
     render :json => res
+  end
+
+  def meta_object_terms
+    pred = params[:pred]
+    uris = META_OBJECT_URIS[pred.to_sym] || []
+    res = uris.map do |uri|
+      {
+        name: TraitBank::Terms.name_for_uri(uri),
+        uri: uri
+      }
+    end
+    render json: res
   end
 
   def object_term_glossary
