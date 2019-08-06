@@ -1253,7 +1253,8 @@ class TraitBank
     # For data visualization
     def pred_prey_comp_for_page(page)
       eats_string = uris_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
-      limit_per_group = 30
+      limit_per_group = 100
+      comp_limit = 10
 
       # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
       # 10 prey
@@ -1275,9 +1276,9 @@ class TraitBank
         "WITH prey_row, pred_rows, prey_rows, source "\
         "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term) "\
         "WHERE prey_row.target is not null AND comp_eats_term.uri IN #{eats_string} "\
-        "WITH DISTINCT prey_row, comp_eats, pred_rows, prey_rows, source "\
-        "LIMIT #{limit_per_group} "\
-        "WITH collect({ group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' }) AS comp_rows, pred_rows, prey_rows "\
+        "WITH prey_row, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
+        "UNWIND comp_rows AS comp_row "\
+        "WITH DISTINCT pred_rows, prey_rows, collect(comp_row) AS comp_rows "\
         "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
         "UNWIND all_rows AS row "\
         "WITH row WHERE row.group_id IS NOT NULL AND row.source IS NOT NULL AND row.target IS NOT NULL "\
