@@ -3,5 +3,9 @@ class VideoSearchDecorator < MediumSearchDecorator
 
   def type
     :videos
-  end 
+  end
+
+  def total_results
+    object.response["hits"]["total"]
+  end
 end

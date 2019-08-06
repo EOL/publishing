@@ -9,11 +9,15 @@ module SearchHelper
     total
   end
 
+  def any_results(results)
+    count = results&.total_count rescue 0
+    results && count > 0
+  end
+
   # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
   def first_type_with_results(results)
-    results.find do |result|
-      result && result.total_count > 0 
-    end&.type
+    results.find { |result| any_results(result) }
+  end
 
 #    pages, articles, images, videos, sounds, collections, users, terms)
 #

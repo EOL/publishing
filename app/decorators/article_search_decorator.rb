@@ -3,5 +3,9 @@ class ArticleSearchDecorator < MediumSearchDecorator
 
   def type
     :articles
-  end 
+  end
+
+  def total_results
+    object.response["hits"]["total"]
+  end
 end

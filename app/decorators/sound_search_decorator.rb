@@ -3,5 +3,9 @@ class SoundSearchDecorator < MediumSearchDecorator
 
   def type
     :sounds
-  end 
+  end
+
+  def total_results
+    object.response["hits"]["total"]
+  end
 end

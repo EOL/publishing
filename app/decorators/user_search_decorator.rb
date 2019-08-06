@@ -21,5 +21,8 @@ class UserSearchDecorator < NoHierSearchResultDecorator
   def content
     object.try(:search_highlights).try(:[], :bio) || object.bio || ""
   end
-end
 
+  def total_results
+    object.response["hits"]["total"]
+  end
+end

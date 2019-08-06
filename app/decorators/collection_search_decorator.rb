@@ -29,5 +29,8 @@ class CollectionSearchDecorator < NoHierSearchResultDecorator
   def type
     :collections
   end
-end
 
+  def total_results
+    object.response["hits"]["total"]
+  end
+end
