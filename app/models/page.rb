@@ -843,38 +843,38 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def build_prey_to_comps(prey_nodes, comp_nodes, links)
-    prey_to_comps = {}
-    prey_by_id = prey_nodes.map { |p| [p[:id], p] }.to_h
-    comp_by_id = comp_nodes.map { |c| [c[:id], c] }.to_h
+  def build_prey_to_comp_ids(prey_nodes, comp_nodes, links)
+    prey_to_comp_ids = {}
+    prey_ids = Set.new(prey_nodes.map { |p| p[:id] })
+    comp_ids = Set.new(comp_nodes.map { |c| c[:id] })
 
-    logger.info("TROPHIC_DATA: prey_by_id #{prey_by_id}")
-    logger.info("TROPHIC_DATA: comp_by_id #{comp_by_id}")
+    logger.info("TROPHIC_DATA: prey_ids #{prey_ids}")
+    logger.info("TROPHIC_DATA: comp_ids #{comp_ids}")
 
     links.each do |link|
       source = link[:source]
       target = link[:target]
 
-      if prey_by_id.has_key?(source) && comp_by_id.has_key?(target)
-        prey = prey_by_id[source]
-        comp = comp_by_id[target]
-      elsif prey_by_id.has_key?(target) && comp_by_id.has_key?(source)
-        prey = prey_by_id[target]
-        comp = comp_by_id[source]
+      if prey_ids.include?(source) && comp_ids.include?(target)
+        prey_id = source
+        comp_id = target
+      elsif prey_ids.include?(target) && comp_ids.include?(source)
+        prey_id = target
+        comp_id = source
       else
-        prey = nil
-        comp = nil
+        prey_id = nil
+        comp_id = nil
       end
 
-      if prey
-        comps = prey_to_comps[prey[:id]] || []
-        comps << comp
-        prey_to_comps[prey[:id]] = comps
+      if prey_id
+        comp_ids = prey_to_comp_ids[prey_id] || []
+        comp_ids << comp_id
+        prey_to_comp_ids[prey_id] = comps
       end
     end
 
-    logger.info("TROPHIC_DATA: prey_to_comps #{prey_to_comps}")
-    prey_to_comps
+    logger.info("TROPHIC_DATA: prey_to_comp_ids #{prey_to_comp_ids}")
+    prey_to_comp_ids
   end
 
   def build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
@@ -886,18 +886,18 @@ class Page < ActiveRecord::Base
     logger.info("TROPHIC_DATA: prey_nodes.legnth #{prey_nodes.length}")
     logger.info("TROPHIC_DATA: comp_nodes.length #{comp_nodes.length}")
 
-    prey_to_comps = build_prey_to_comps(prey_nodes, comp_nodes, links)
+    prey_to_comp_ids = build_prey_to_comp_ids(prey_nodes, comp_nodes, links)
 
     keep_prey_nodes = prey_nodes.sort do |a, b|
-      a_count = prey_to_comps[a[:id]]&.length || 0
-      b_count = prey_to_comps[b[:id]]&.length || 0
+      a_count = prey_to_comp_ids[a[:id]]&.length || 0
+      b_count = prey_to_comp_ids[b[:id]]&.length || 0
       b_count - a_count
     end[0..NODE_GROUP_LIMIT]
     logger.info("TROPHIC_DATA: keep_prey_nodes #{keep_prey_nodes}")
 
     keep_comp_ids = Set.new
     keep_prey_nodes.each do |prey|
-      keep_comp_ids.merge(prey_to_comps[prey[:id]] || [])
+      keep_comp_ids.merge(prey_to_comp_ids[prey[:id]] || [])
     end
     keep_comp_nodes = comp_nodes.select do |comp|
       keep_comp_ids.include?(comp[:id])
