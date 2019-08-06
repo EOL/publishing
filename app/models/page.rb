@@ -831,13 +831,13 @@ class Page < ActiveRecord::Base
     source_nodes = pages_to_nodes([id], :source, pages, node_ids)
 
     if source_nodes.empty?
-      logger.debug("TROPHIC_DATA: source_nodes empty")
+      logger.info("TROPHIC_DATA: source_nodes empty")
       {
         nodes: [],
         links: []
       }
     else
-      logger.debug("TROPHIC_DATA: building nodes and links")
+      logger.info("TROPHIC_DATA: building nodes and links")
       build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
     end
   end
@@ -847,8 +847,8 @@ class Page < ActiveRecord::Base
     prey_by_id = prey_nodes.map { |p| [p[:id], p] }.to_h
     comp_by_id = comp_nodes.map { |c| [c[:id], c] }.to_h
 
-    logger.debug("TROPHIC_DATA: prey_by_id #{prey_by_id}")
-    logger.debug("TROPHIC_DATA: comp_by_id #{comp_by_id}")
+    logger.info("TROPHIC_DATA: prey_by_id #{prey_by_id}")
+    logger.info("TROPHIC_DATA: comp_by_id #{comp_by_id}")
 
     links.each do |link|
       source = link[:source]
@@ -872,7 +872,7 @@ class Page < ActiveRecord::Base
       end
     end
 
-    logger.debug("TROPHIC_DATA: prey_to_comps #{prey_to_comps}")
+    logger.info("TROPHIC_DATA: prey_to_comps #{prey_to_comps}")
     prey_to_comps
   end
 
@@ -881,9 +881,9 @@ class Page < ActiveRecord::Base
     prey_nodes = pages_to_nodes(prey_ids, :prey, pages, node_ids)
     comp_nodes = pages_to_nodes(comp_ids, :competitor, pages, node_ids)
 
-    logger.debug("TROPHIC_DATA: pred_nodes.length #{pred_nodes.length}")
-    logger.debug("TROPHIC_DATA: prey_nodes.legnth #{prey_nodes.length}")
-    logger.debug("TROPHIC_DATA: comp_nodes.length #{comp_nodes.length}")
+    logger.info("TROPHIC_DATA: pred_nodes.length #{pred_nodes.length}")
+    logger.info("TROPHIC_DATA: prey_nodes.legnth #{prey_nodes.length}")
+    logger.info("TROPHIC_DATA: comp_nodes.length #{comp_nodes.length}")
 
     prey_to_comps = build_prey_to_comps(prey_nodes, comp_nodes, links)
 
@@ -892,7 +892,7 @@ class Page < ActiveRecord::Base
       b_count = prey_to_comps[b[:id]]&.length || 0
       b_count - a_count
     end[0..NODE_GROUP_LIMIT]
-    logger.debug("TROPHIC_DATA: keep_prey_nodes #{keep_prey_nodes}")
+    logger.info("TROPHIC_DATA: keep_prey_nodes #{keep_prey_nodes}")
 
     keep_comp_ids = Set.new
     keep_prey_nodes.each do |prey|
@@ -901,10 +901,10 @@ class Page < ActiveRecord::Base
     keep_comp_nodes = comp_nodes.select do |comp|
       keep_comp_ids.include?(comp[:id])
     end[0..NODE_GROUP_LIMIT]
-    logger.debug("TROPHIC_DATA: keep_comp_nodes #{keep_comp_nodes}")
+    logger.info("TROPHIC_DATA: keep_comp_nodes #{keep_comp_nodes}")
 
     keep_pred_nodes = pred_nodes[0..NODE_GROUP_LIMIT]
-    logger.debug("TROPHIC_DATA: keep_pred_nodes #{keep_pred_nodes}")
+    logger.info("TROPHIC_DATA: keep_pred_nodes #{keep_pred_nodes}")
 
     nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
     node_ids = Set.new(nodes.collect { |n| n[:id] })
