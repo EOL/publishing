@@ -61,10 +61,9 @@ private
 
     params[:q] = searcher.query # get a clean version of the search string for re-use in the form
 
-    if path = searcher.suggested_path?
-      flash[:notice] = searcher.notice
-      return redirect_to(path)
-    end
+    path = searcher.suggested_path?
+    flash[:notice] = searcher.notice
+    return redirect_to(path) if path
 
     searcher.search
     @pages = searcher.pages
