@@ -18,14 +18,16 @@ module SearchHelper
     first_type = results.find { |result| any_results(result) }
     return nil if first_type.nil?
     first_instance = first_type.first
-    if first_instance.class.name =~ /SearchDecorator/
-      first_instance.class.name.sub('SearchDecorator', '').downcase.pluralize
-    else
-      if first_instance.class == Medium
-        first_instance.subclass.pluralize
+    type =
+      if first_instance.class.name =~ /SearchDecorator/
+        first_instance.class.name.sub('SearchDecorator', '').downcase
       else
-        first_instance.class.name.downcase.pluralize
+        if first_instance.class == Medium
+          first_instance.subclass
+        else
+          first_instance.class.name.downcase
+        end
       end
-    end
+    type.pluralize.symbolize
   end
 end
