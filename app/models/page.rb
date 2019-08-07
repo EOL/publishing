@@ -848,8 +848,8 @@ class Page < ActiveRecord::Base
     prey_ids = Set.new(prey_nodes.map { |p| p[:id] })
     comp_ids = Set.new(comp_nodes.map { |c| c[:id] })
 
-    logger.info("TROPHIC_DATA: prey_ids #{prey_ids}")
-    logger.info("TROPHIC_DATA: comp_ids #{comp_ids}")
+    logger.info("TROPHIC_DATA: prey_ids #{prey_ids.inspect}")
+    logger.info("TROPHIC_DATA: comp_ids #{comp_ids.inspect}")
 
     links.each do |link|
       source = link[:source]
@@ -867,9 +867,9 @@ class Page < ActiveRecord::Base
       end
 
       if prey_id
-        comp_ids = prey_to_comp_ids[prey_id] || []
-        comp_ids << comp_id
-        prey_to_comp_ids[prey_id] = comp_ids
+        comp_ids_for_prey = prey_to_comp_ids[prey_id] || []
+        comp_ids_for_prey << comp_id
+        prey_to_comp_ids[prey_id] = comp_ids_for_prey
       end
     end
 
