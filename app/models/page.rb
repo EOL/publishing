@@ -1,5 +1,4 @@
-class Page < ActiveRecord::Base
-  @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers]
+class Page < ActiveRecord::Base @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
 
@@ -798,7 +797,8 @@ class Page < ActiveRecord::Base
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
 
-  NODE_GROUP_LIMIT = 10 # nodes per group
+  PRED_PREY_LIMIT = 7 
+  COMP_LIMIT = 10
   def handle_pred_prey_comp_relationships(relationships)
     prey_ids = Set.new
     pred_ids = Set.new
@@ -832,13 +832,11 @@ class Page < ActiveRecord::Base
     source_nodes = pages_to_nodes([id], :source, pages, node_ids)
 
     if source_nodes.empty?
-      logger.info("TROPHIC_DATA: source_nodes empty")
       {
         nodes: [],
         links: []
       }
     else
-      logger.info("TROPHIC_DATA: building nodes and links")
       build_nodes_links(node_ids, links, pages, source_nodes, pred_ids, prey_ids, comp_ids)
     end
   end
@@ -847,9 +845,6 @@ class Page < ActiveRecord::Base
     prey_to_comp_ids = {}
     prey_ids = Set.new(prey_nodes.map { |p| p[:id] })
     comp_ids = Set.new(comp_nodes.map { |c| c[:id] })
-
-    logger.info("TROPHIC_DATA: prey_ids #{prey_ids.inspect}")
-    logger.info("TROPHIC_DATA: comp_ids #{comp_ids.inspect}")
 
     links.each do |link|
       source = link[:source]
@@ -873,7 +868,6 @@ class Page < ActiveRecord::Base
       end
     end
 
-    logger.info("TROPHIC_DATA: prey_to_comp_ids #{prey_to_comp_ids}")
     prey_to_comp_ids
   end
 
@@ -882,18 +876,13 @@ class Page < ActiveRecord::Base
     prey_nodes = pages_to_nodes(prey_ids, :prey, pages, node_ids)
     comp_nodes = pages_to_nodes(comp_ids, :competitor, pages, node_ids)
 
-    logger.info("TROPHIC_DATA: pred_nodes.length #{pred_nodes.length}")
-    logger.info("TROPHIC_DATA: prey_nodes.legnth #{prey_nodes.length}")
-    logger.info("TROPHIC_DATA: comp_nodes.length #{comp_nodes.length}")
-
     prey_to_comp_ids = build_prey_to_comp_ids(prey_nodes, comp_nodes, links)
 
     keep_prey_nodes = prey_nodes.sort do |a, b|
       a_count = prey_to_comp_ids[a[:id]]&.length || 0
       b_count = prey_to_comp_ids[b[:id]]&.length || 0
       b_count - a_count
-    end[0..NODE_GROUP_LIMIT]
-    logger.info("TROPHIC_DATA: keep_prey_nodes #{keep_prey_nodes}")
+    end[0..PRED_PREY_LIMIT]
 
     keep_comp_ids = Set.new
     keep_prey_nodes.each do |prey|
@@ -901,11 +890,9 @@ class Page < ActiveRecord::Base
     end
     keep_comp_nodes = comp_nodes.select do |comp|
       keep_comp_ids.include?(comp[:id])
-    end[0..NODE_GROUP_LIMIT]
-    logger.info("TROPHIC_DATA: keep_comp_nodes #{keep_comp_nodes}")
+    end[0..COMP_LIMIT]
 
-    keep_pred_nodes = pred_nodes[0..NODE_GROUP_LIMIT]
-    logger.info("TROPHIC_DATA: keep_pred_nodes #{keep_pred_nodes}")
+    keep_pred_nodes = pred_nodes[0..PRED_PREY_LIMIT]
 
     nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
     node_ids = Set.new(nodes.collect { |n| n[:id] })

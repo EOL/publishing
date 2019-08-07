@@ -13,7 +13,7 @@ Data for a source page with id `page_id` is found at `/api/pages/<page_id>/pred_
 }
 ```
 
-`nodes` are classified into four groups: `"source"`, `"predator"`, `"prey"`, `"competitor"`. `"source"` is the source taxon in the predator and prey records. It is the focal species, the point of reference for the rest of the trophic web. A `"competitor"` is a predator of a `"prey"` node. There is a limit of 10 nodes per group (and there will only be one `"source"` node). In order for a node to be included, it must have a rank of species or lower (subspecies, etc.), as well as have an icon.
+`nodes` are classified into four groups: `"source"`, `"predator"`, `"prey"`, `"competitor"`. `"source"` is the source taxon in the predator and prey records. It is the focal species, the point of reference for the rest of the trophic web. A `"competitor"` is a predator of a `"prey"` node. There is a limit of 7 predators, 7 prey, and 10 competitors. In order for a node to be included, it must be a species and have an icon.
 
 `node` attributes:
   * `id`: the `page_id` for the taxon 

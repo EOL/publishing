@@ -155,49 +155,9 @@ $(function() {
       return sitePrefix + "/api/pages/" + pageId + "/pred_prey.json"
     }
 
-    function shouldKeepNode(n, counts, keepIds) {
-      var keep = (
-        !keepIds[n.id] && (
-          n.group === 'source' ||
-          n.group === 'competitor' && counts['competitor'] < 10 ||
-          (!counts[n.group] || counts[n.group] < nLimit)
-        )
-      )
-
-      if (keep) {
-        counts[n.group] = (counts[n.group] || 0) + 1;
-        keepIds[n.id] = true;
-      }
-
-      return keep;
-    }
-
-    function pruneGraph(graph, prevGraph) {
-      var keepIds = {}
-        , counts = {}
-        , nodesById = buildNodesById(graph.nodes)
-        , newNodes
+    function populateLinks(graph, prevGraph) {
+      var nodesById = buildNodesById(graph.nodes)
         ;
-
-      newNodes = prevGraph ? 
-        prevGraph.nodes
-          .map(n => {
-            var newNode = nodesById[n.id];
-
-            if (newNode && isExpandNode(n)) {
-              expandNodeIds[n.id] = true;
-            }
-
-            return newNode;
-          })
-          .filter(n => (n && shouldKeepNode(n, counts, keepIds))) :
-        [];
-
-      graph.nodes = newNodes.concat(graph.nodes.filter(n => shouldKeepNode(n, counts, keepIds)))
-
-      graph.links = graph.links.filter(l => {
-        return keepIds[l.source] && keepIds[l.target];
-      });
 
       graph.links.forEach(l => {
         l.source = nodesById[l.source];
@@ -211,7 +171,6 @@ $(function() {
         return obj;
       }, {})
     }
-
       
     function initializeGraph() {
       handleData(JSON.parse(JSON.stringify($trophicWeb.data('init'))), false);
@@ -227,9 +186,8 @@ $(function() {
     }
 
     function handleData(g, animate) {
-      var prevGraph = graph;
       graph = g;
-      pruneGraph(graph, prevGraph);
+      populateLinks(graph);
       updatePositions();
       updateGraph(animate);
       $dimmer.removeClass('active');
