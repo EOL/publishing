@@ -28,6 +28,6 @@ module SearchHelper
           first_instance.class.name.downcase
         end
       end
-    type.pluralize.symbolize
+    type.pluralize.to_sym
   end
 end
