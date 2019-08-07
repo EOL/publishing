@@ -3,7 +3,7 @@ class Page::Reindexer
   # Pass throttle: nil to skip throttling.
   def initialize(start_page_id = nil, options = {})
     @start_page_id = start_page_id || 1
-    @log = Logger.new(Rails.root.join('public', 'data', 'page_reindex.log'))
+    @log = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('public', 'data', 'page_reindex.log')))
     @throttle = options.has_key?(:throttle) ? options[:throttle] : 0.5
     @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 5
     Searchkick.client_options = {
@@ -66,7 +66,7 @@ class Page::Reindexer
   end
 
   def log(msg)
-    @log.warn(msg)
+    @log.tagged('I') { @log.warn("[#{Time.now.strftime('%F %T')}] #{msg}") }
     @log.flush
   end
 end
