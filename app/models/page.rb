@@ -883,7 +883,7 @@ class Page < ActiveRecord::Base
       a_count = prey_to_comp_ids[a[:id]]&.length || 0
       b_count = prey_to_comp_ids[b[:id]]&.length || 0
       b_count - a_count
-    end[0..PRED_PREY_LIMIT]
+    end[0, PRED_PREY_LIMIT]
 
     keep_comp_ids = Set.new
     keep_prey_nodes.each do |prey|
@@ -891,9 +891,9 @@ class Page < ActiveRecord::Base
     end
     keep_comp_nodes = comp_nodes.select do |comp|
       keep_comp_ids.include?(comp[:id])
-    end[0..COMP_LIMIT]
+    end[0, COMP_LIMIT]
 
-    keep_pred_nodes = pred_nodes[0..PRED_PREY_LIMIT]
+    keep_pred_nodes = pred_nodes[0, PRED_PREY_LIMIT]
 
     nodes = source_nodes.concat(keep_pred_nodes).concat(keep_prey_nodes).concat(keep_comp_nodes)
     node_ids = Set.new(nodes.collect { |n| n[:id] })
