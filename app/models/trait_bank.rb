@@ -1268,14 +1268,14 @@ class TraitBank
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey'}) AS prey_rows, source "\
         "OPTIONAL MATCH (pred:Page)-[:trait]->(pred_eats_trait:Trait{object_page_id: source.page_id})-[:predicate]->(pred_eats_term:Term) "\
-        "WHERE pred_eats_term.uri IN #{eats_string} "\
+        "WHERE pred_eats_term.uri IN #{eats_string} AND pred.page_id <> source.page_id "\
         "WITH DISTINCT source, pred, prey_rows "\
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator' }) AS pred_rows, prey_rows, source "\
         "UNWIND prey_rows AS prey_row "\
         "WITH prey_row, pred_rows, prey_rows, source "\
         "OPTIONAL MATCH (comp_eats:Page)-[:trait]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term) "\
-        "WHERE prey_row.target is not null AND comp_eats_term.uri IN #{eats_string} "\
+        "WHERE comp_eats_term.uri IN #{eats_string} AND prey_row.target.page_id <> comp_eats.page_id AND comp_eats.page_id <> source.page_id "\
         "WITH prey_row, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
         "UNWIND comp_rows AS comp_row "\
         "WITH DISTINCT pred_rows, prey_rows, collect(comp_row) AS comp_rows "\
