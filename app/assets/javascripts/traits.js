@@ -67,14 +67,14 @@
   function setupMetaFilters() {
     $('.js-show-meta-filters').click(function() {
       fetchForm({
-        name: 'show_meta',
+        name: 'show_extra_fields',
         value: $(this).data('index')
       });
     })
 
     $('.js-hide-meta-filters').click(function() {
       fetchForm({
-        name: 'hide_meta',
+        name: 'hide_extra_fields',
         value: $(this).data('index')
       });
     });

@@ -528,6 +528,10 @@ class TraitBank
       ) if filter.statistical_method_term?
     end
 
+    def add_term_filter_resource_match(filter, trait_var, matches)
+      matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: #{filter.resource.id} })" if filter.resource
+    end
+
     def term_record_search(term_query, options)
       matches = []
       wheres = []
@@ -557,6 +561,7 @@ class TraitBank
         end
 
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
+        add_term_filter_resource_match(filter, trait_var, matches)
 
         wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
         
@@ -643,6 +648,7 @@ class TraitBank
         pred_var = "p#{i}"
         obj_var = "o#{i}"
         base_meta_var = "m#{i}"
+
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
         matches << "(page)-[:trait]->(#{trait_var}:Trait)"
@@ -656,6 +662,7 @@ class TraitBank
         end
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
+        add_term_filter_resource_match(filter, trait_var, matches)
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""

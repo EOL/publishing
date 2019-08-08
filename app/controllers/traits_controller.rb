@@ -84,15 +84,15 @@ class TraitsController < ApplicationController
         :lifestage_uri,
         :statistical_method_uri,
         :resource_id,
-        :show_meta
+        :show_extra_fields
       ]
     ])
   end
 
   def build_query
     @query = TermQuery.new(tq_params)
-    @query.filters[params[:show_meta].to_i].show_meta = true if params[:show_meta] 
-    @query.filters[params[:hide_meta].to_i].clear_meta if params[:hide_meta]
+    @query.filters[params[:show_extra_fields].to_i].show_extra_fields = true if params[:show_extra_fields] 
+    @query.filters[params[:hide_extra_fields].to_i].clear_extra_fields if params[:hide_extra_fields]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
     blank_predicate_filters_must_search_any

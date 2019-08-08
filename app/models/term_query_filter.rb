@@ -4,7 +4,7 @@ class TermQueryFilter < ActiveRecord::Base
   validates_presence_of :term_query
   validate :validation
 
-  attr_reader :show_meta
+  attr_reader :show_extra_fields
 
   # TODO: remove op field from db
   enum :op => {
@@ -44,25 +44,24 @@ class TermQueryFilter < ActiveRecord::Base
     statistical_method_uri.present?
   end
 
-  def meta?
+  def extra_fields?
     sex_term? || 
     lifestage_term? || 
     statistical_method_term? ||
     resource
   end
 
-  def show_meta?
-    show_meta || meta?
+  def show_extra_fields?
+    show_extra_fields || extra_fields?
   end
 
-  def clear_meta
+  def clear_extra_fields
     self.sex_uri = nil
     self.lifestage_uri = nil
     self.statistical_method_uri = nil
     self.resource = nil
-    self.show_meta = false
+    self.show_extra_fields = false
   end
-
 
   def numeric?
     !num_val1.blank? || !num_val2.blank?
@@ -92,6 +91,10 @@ class TermQueryFilter < ActiveRecord::Base
     pieces << "units_uri:'#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1:#{num_val1}" unless num_val1.blank?
     pieces << "num_val1:#{num_val2}" unless num_val2.blank?
+    pieces << "sex_uri:#{sex_uri}" unless sex_uri.blank?
+    pieces << "lifestage_uri:#{lifestage_uri}" unless lifestage_uri.blank?
+    pieces << "statistical_method_uri:#{statistical_method_uri}" unless statistical_method_uri.blank?
+    pieces << "resource_id:#{resource.id}" unless resource.blank?
     "{#{pieces.join(',')}}"
   end
 
@@ -106,6 +109,7 @@ class TermQueryFilter < ActiveRecord::Base
     pieces << "sex_uri_#{sex_uri}" unless sex_uri.blank?
     pieces << "lifestage_uri_#{lifestage_uri}" unless lifestage_uri.blank?
     pieces << "statistical_method_uri_#{statistical_method_uri}" unless statistical_method_uri.blank?
+    pieces << "resource_id_#{resource.id}" unless resource.blank?
     pieces.join('/')
   end
 
@@ -126,7 +130,8 @@ class TermQueryFilter < ActiveRecord::Base
       units_uri: units_uri,
       sex_uri: sex_uri,
       lifestage_uri: lifestage_uri,
-      statistical_method_uri: statistical_method_uri
+      statistical_method_uri: statistical_method_uri,
+      resource_id: resource&.id
     }
   end
 
@@ -138,11 +143,12 @@ class TermQueryFilter < ActiveRecord::Base
     blank? &&
     sex_uri.blank? &&
     lifestage_uri.blank? &&
-    statistical_method_uri.blank?
+    statistical_method_uri.blank? &&
+    resource.blank?
   end
 
-  def show_meta=(val)
-    @show_meta = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+  def show_extra_fields=(val)
+    @show_extra_fields = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
   end
 
   private
