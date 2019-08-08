@@ -1,5 +1,6 @@
 class TermQueryFilter < ActiveRecord::Base
   belongs_to :term_query, :inverse_of => :filters
+  belongs_to :resource
   validates_presence_of :term_query
   validate :validation
 
