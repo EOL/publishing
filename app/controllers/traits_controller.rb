@@ -83,6 +83,7 @@ class TraitsController < ApplicationController
         :sex_uri,
         :lifestage_uri,
         :statistical_method_uri,
+        :resource_id,
         :show_meta
       ]
     ])

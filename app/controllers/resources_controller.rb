@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-  before_filter :require_admin, except: [:index, :show]
+  before_filter :require_admin, except: [:index, :show, :autocomplete]
 
   def index
     @resources = Resource.order('updated_at DESC')
@@ -59,5 +59,10 @@ class ResourcesController < ApplicationController
     @resource.delay(queue: 'harvest').import_traits(1)
     flash[:notice] = "Background job for import of traits started."
     redirect_to @resource
+  end
+
+  def autocomplete
+    resources = Resource.autocomplete(params[:query])
+    render json: resources.collect { |r| { name: r[:name], id: r[:id] } }
   end
 end

@@ -1,4 +1,6 @@
 class Resource < ActiveRecord::Base
+  searchkick text_start: ["name"], batch_size: 250
+
   belongs_to :partner, inverse_of: :resources
   belongs_to :dataset_license, class_name: 'License'
 
@@ -363,5 +365,16 @@ class Resource < ActiveRecord::Base
       log.fail(e)
     end
     Rails.cache.clear
+  end
+
+  def self.autocomplete(query, options = {})
+    search(query, options.reverse_merge({
+      fields: ['name'],
+      match: :text_start,
+      limit: 10,
+      load: false,
+      misspellings: false,
+      highlight: { tag: "<mark>", encoder: "html" }
+    }))
   end
 end

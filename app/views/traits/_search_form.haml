@@ -54,6 +54,11 @@
               = text_field_tag "statistical_method_name", term_name(ff.object.statistical_method_uri), :class => "js-meta-obj-typeahead uk-input", :data => { :'pred' => 'stat_meth' }, :placeholder => "statistical method"
               = ff.hidden_field :statistical_method_uri, :class => "js-typeahead-field"
               - show_error(ff.object, :statistical_method_uri)
+          .filter-row{:class => ff.object.errors[:resource].any? ? "is-filter-row-with-errors" : ""}
+            %span.js-typeahead-wrap.filter-field.l-filter-full
+              = text_field_tag "resource_name", ff.object.resource&.name, :class => "js-resource-typeahead uk-input", :placeholder => "resource"
+              = ff.hidden_field :resource_id, :class => "js-typeahead-field"
+              - show_error(ff.object, :resource)
           .filter-row
             .a.js-hide-meta-filters{ data: { index: ff.index } } hide metadata fields
         - else
