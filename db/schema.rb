@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806142402) do
+ActiveRecord::Schema.define(version: 20190808133406) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -873,6 +873,7 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.string  "sex_uri",                limit: 255
     t.string  "lifestage_uri",          limit: 255
     t.string  "statistical_method_uri", limit: 255
+    t.integer "resource_id",            limit: 4
   end
 
   add_index "term_query_filters", ["term_query_id"], name: "index_term_query_filters_on_term_query_id", using: :btree

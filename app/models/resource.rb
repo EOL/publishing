@@ -10,6 +10,7 @@ class Resource < ActiveRecord::Base
   has_many :links, inverse_of: :resource
   has_many :vernaculars, inverse_of: :resource
   has_many :referents, inverse_of: :resource
+  has_many :term_query_filters
 
   before_destroy :remove_content
 
