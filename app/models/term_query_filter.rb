@@ -45,7 +45,10 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   def meta?
-    sex_term? || lifestage_term? || statistical_method_term?
+    sex_term? || 
+    lifestage_term? || 
+    statistical_method_term? ||
+    resource
   end
 
   def show_meta?
@@ -56,6 +59,7 @@ class TermQueryFilter < ActiveRecord::Base
     self.sex_uri = nil
     self.lifestage_uri = nil
     self.statistical_method_uri = nil
+    self.resource = nil
     self.show_meta = false
   end
 
