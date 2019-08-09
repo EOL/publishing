@@ -4,14 +4,9 @@ class Page::Reindexer
   def initialize(start_page_id = nil, options = {})
     @start_page_id = start_page_id || 1
     @log = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('public', 'data', 'page_reindex.log')))
-    @throttle = options.has_key?(:throttle) ? options[:throttle] : 0.5
-    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 5
-    Searchkick.client_options = {
-      retry_on_failure: true,
-      transport_options: { request: { timeout: 5000 } },
-      index: { refresh_interval: '30s' }
-    }
-    Page.search_index.promote(Page.search_index.all_indices.first, update_refresh_interval: true)
+    @throttle = options.has_key?(:throttle) ? options[:throttle] : 0
+    @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 256
+    Page.search_index.update_settings(index: { refresh_interval: '30s' })
     Searchkick.timeout = 5000
   end
 
@@ -28,12 +23,9 @@ class Page::Reindexer
         batch += 1
         current_page_id = pages.first.id
         begin
-          Page.search_index.bulk_update(pages, :search_data)
-        rescue Searchkick::ImportError
-          log("An update failed (starting with page #{current_page_id}), trying index")
           Page.search_index.bulk_index(pages)
         rescue Faraday::ClientError
-          log("Connection failed (starting with page #{current_page_id}), you may want to check any other scripts that were running. Retrying...")
+          log("Connection failed (starting with page #{current_page_id}), you may want to check any other scripts that were running. Retrying by page...")
           sleep(@throttle * 5) if @throttle
           pages.each do |page|
             begin
@@ -45,7 +37,7 @@ class Page::Reindexer
             end
           end
         end
-        sleep(@throttle) if @throttle
+        sleep(@throttle ? @throttle * 5 : 1)
         naglessly do
           pct = (batch.to_f / batches * 1000).ceil / 10.0
           log("[#{pages.last.id}](https://eol.org/pages/#{pages.last.id}) (batch #{batch}/#{batches}, #{pct}%)")
