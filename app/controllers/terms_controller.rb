@@ -122,7 +122,27 @@ class TermsController < ApplicationController
     render :json => res
   end
 
+  def browse_predicates
+    terms = TraitBank::Terms.top_level(:predicate)
+    @terms = terms_to_array(terms)
+  end
+
+  def children
+    uri = params[:uri]
+    terms = TraitBank::Terms.children(uri)
+    @terms = terms_to_array(terms)
+
+    render layout: false
+  end
+
 private
+
+  def terms_to_array(terms)
+    terms.collect do |term|
+      [term[:name], term[:uri]]
+    end
+  end
+
   def glossary(which, options = nil)
     @count = TraitBank::Terms.send(options[:count_method] || :count)
 

@@ -173,6 +173,8 @@ Rails.application.routes.draw do
     get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
     get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
     get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
+    get "/terms/predicates/browse" => "terms#browse_predicates"
+    get "/terms/:uri/children" => "terms#children", :as => "child_terms", :constraints => { :uri => /http.*/ }
 
     get "/services/authenticate" => "services#authenticate_service"
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
