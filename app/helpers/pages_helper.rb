@@ -84,7 +84,7 @@ module PagesHelper
 
   def classification_content(page, this_node, node, ancestors)
     summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
-    if ancestors.empty? 
+    if ancestors.empty?
       if this_node.children.any?
         haml_tag("div.item") do
           haml_tag("div.ui.middle.aligned.list.descends") do
@@ -184,7 +184,7 @@ module PagesHelper
     cur_lang_group = Language.current.group
     sorted_keys = grouped_vernaculars.keys.sort do |a, b|
       if a == cur_lang_group && b != cur_lang_group
-        -1 
+        -1
       elsif a != cur_lang_group && b == cur_lang_group
         1
       else
@@ -204,8 +204,8 @@ module PagesHelper
   def group_sort_names_for_card(names, include_rank)
     names.group_by do |n|
       rank = n.node.rank
-      dwh_str = n.resource.dwh? ? "dwh" : "other"
-      
+      dwh_str = n.resource&.dwh? ? "dwh" : "other"
+
       if include_rank && rank
         "#{dwh_str}.#{rank.treat_as}.#{n.italicized}"
       else
@@ -218,7 +218,7 @@ module PagesHelper
         1
       else
         result = a.first <=> b.first
-        
+
         if include_rank && result == 0
           if a.first.node.rank.present? && b.first.node.rank.blank?
             -1
@@ -230,9 +230,9 @@ module PagesHelper
             0
           end
         else
-          result 
+          result
         end
-      end 
+      end
     end
   end
 
@@ -314,4 +314,3 @@ private
   end
 
 end
-

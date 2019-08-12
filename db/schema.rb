@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806142402) do
+ActiveRecord::Schema.define(version: 20190812182304) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "guid",                      limit: 255,        null: false
+    t.string   "guid",                      limit: 255,      null: false
     t.string   "resource_pk",               limit: 255
-    t.integer  "license_id",                limit: 4,          null: false
+    t.integer  "license_id",                limit: 4,        null: false
     t.integer  "language_id",               limit: 4
     t.integer  "location_id",               limit: 4
     t.integer  "stylesheet_id",             limit: 4
@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
-    t.text     "body",                      limit: 4294967295
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.text     "body",                      limit: 16777215
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
     t.integer  "harv_db_id",                limit: 4
   end
 
-  add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
+  add_index "articles", ["guid"], name: "index_articles_on_guid", length: {"guid"=>191}, using: :btree
   add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
   add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
@@ -985,6 +985,22 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.integer "user_id", limit: 4, null: false
   end
 
+  create_table "vernacular_preferences", force: :cascade do |t|
+    t.integer  "user_id",          limit: 4,   null: false
+    t.integer  "vernacular_id",    limit: 4,   null: false
+    t.integer  "resource_id",      limit: 4,   null: false
+    t.integer  "language_id",      limit: 4
+    t.integer  "page_id",          limit: 4
+    t.integer  "overridden_by_id", limit: 4
+    t.string   "string",           limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "vernacular_preferences", ["page_id", "language_id"], name: "override_lookup", using: :btree
+  add_index "vernacular_preferences", ["resource_id"], name: "index_vernacular_preferences_on_resource_id", using: :btree
+  add_index "vernacular_preferences", ["vernacular_id"], name: "index_vernacular_preferences_on_vernacular_id", using: :btree
+
   create_table "vernaculars", force: :cascade do |t|
     t.string   "string",                   limit: 255,                   null: false
     t.integer  "language_id",              limit: 4,                     null: false
@@ -1015,4 +1031,5 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end

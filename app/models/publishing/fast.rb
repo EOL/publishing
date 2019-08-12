@@ -138,6 +138,7 @@ class Publishing::Fast
           @files << @data_file
         end
       end
+      VernacularPreference.restore_for_resource(@resource.id, @log)
       # You have to create pages BEFORE you slurp traits, because now it needs the scientific names from the page
       # objects.
       log_start('PageCreator')
