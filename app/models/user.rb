@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_many :page_icons, inverse_of: :user
   has_many :user_downloads, inverse_of: :user, dependent: :destroy
   has_many :vernaculars, inverse_of: :user, dependent: :destroy
+  has_many :vernacular_preferences, inverse_of: :user
 
   has_and_belongs_to_many :partners
   has_and_belongs_to_many :collections

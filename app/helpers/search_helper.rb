@@ -14,20 +14,20 @@ module SearchHelper
     results && count > 0
   end
 
-  # BE SURE TO UPDATE THIS METHOD IF YOU ADD ANY NEW SEARCH RESULT TYPES
   def first_type_with_results(results)
-    results.find { |result| any_results(result) }
-
-#    pages, articles, images, videos, sounds, collections, users, terms)
-#
-#    (pages && pages.total_count > 0 && :pages) ||
-#    (images && images.total_count > 0 && :images) ||
-#    (videos && videos.total_count > 0 && :videos) ||
-#    (sounds && sounds.total_count > 0 && :sounds) ||
-#    (articles && articles.total_count > 0 && :articles) ||
-#    (collections && collections.total_count > 0 && :collections) ||
-#    (users && users.total_count > 0 && :users) ||
-#    (terms && terms.total_count > 0 && :terms) ||
-#    nil
+    first_type = results.find { |result| any_results(result) }
+    return nil if first_type.nil?
+    first_instance = first_type.first
+    type =
+      if first_instance.class.name =~ /SearchDecorator/
+        first_instance.class.name.sub('SearchDecorator', '').downcase
+      else
+        if first_instance.class == Medium
+          first_instance.subclass
+        else
+          first_instance.class.name.downcase
+        end
+      end
+    type.pluralize.to_sym
   end
 end
