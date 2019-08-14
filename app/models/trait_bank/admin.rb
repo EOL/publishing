@@ -124,7 +124,6 @@ class TraitBank
         if remove_old
           remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
         end
-        @pages = {}
         related = {}
         eol = Resource.native
         raise "I tried to use EOL as the native node for the relationships, but it wasn't there." unless eol
@@ -167,6 +166,7 @@ class TraitBank
       end
 
       def get_cached_pages(page_id)
+        @pages ||= {}
         return @pages[page_id] if @pages.has_key?(page_id)
         page = page_exists?(page_id)
         page = page.first if page && page.is_a?(Array)
