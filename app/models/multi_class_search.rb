@@ -1,7 +1,7 @@
 class MultiClassSearch
   attr_accessor :query, :notice, :pages, :collections, :articles, :images, :videos, :sounds, :terms, :users
 
-  def initialize(query, options)
+  def initialize(query, options = {})
     @search_text = query.dup
     @only = options.key?(:only) ? Array(options[:only]) : []
     @page = options[:page] # Allows searches within a specific page.

@@ -1,4 +1,4 @@
-class Page < ActiveRecord::Base 
+class Page < ActiveRecord::Base
   @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
@@ -16,6 +16,7 @@ class Page < ActiveRecord::Base
   has_many :preferred_scientific_names, -> { preferred },
     class_name: "ScientificName"
   has_many :resources, through: :nodes
+  has_many :vernacular_preferences, inverse_of: :page
 
   # NOTE: this is too complicated, I think: it's not working as expected when preloading. (Perhaps due to the scope.)
   has_many :page_icons, inverse_of: :page
@@ -798,7 +799,7 @@ class Page < ActiveRecord::Base
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
 
-  PRED_PREY_LIMIT = 7 
+  PRED_PREY_LIMIT = 7
   COMP_LIMIT = 10
   def handle_pred_prey_comp_relationships(relationships)
     prey_ids = Set.new

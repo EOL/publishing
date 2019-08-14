@@ -170,7 +170,7 @@ class PagesController < ApplicationController
     @page.clear
     expire_fragment(page_data_path(@page))
     expire_fragment(page_details_path(@page))
-    expire_fragment(page_classifications_path(@page))
+    expire_fragment(page_classifications_path(@page)) # Doesn't appear to work.
     Rails.cache.delete("pages/#{@page.id}/brief_summary")
     [0, 1].each do |link|
       %i[full partial none].each do |mode|

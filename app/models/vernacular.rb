@@ -6,6 +6,8 @@ class Vernacular < ActiveRecord::Base
   belongs_to :page, inverse_of: :vernaculars
   belongs_to :user, inverse_of: :vernaculars
 
+  has_many :vernacular_preferences, inverse_of: :vernacular # NOTE: do NOT destroy! We keep the record.
+
   scope :preferred, -> { where(is_preferred: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
   scope :current_language, -> { where(language_id: Language.current.id) }
@@ -15,7 +17,7 @@ class Vernacular < ActiveRecord::Base
   counter_culture :page
 
   class << self
-    # YOU WERE HERE ... They need to re-harvest this resource.
+    # NOTE: This is getting long in the tooth, and we will design a better system.
     def pefer_best_english_names
       prefer_our_english_vernaculars
       prefer_names_per_page_id(language_id: Language.english.id)
@@ -112,4 +114,9 @@ class Vernacular < ActiveRecord::Base
     string <=> other.string
   end
 
+  # DON'T USE THIS METHOD (unless you know you MUST). Use VernacularPreference.user_preferred when possible.
+  def prefer
+    page.vernaculars.where(language_id: language_id).where(['vernaculars.id != ?', id]).update_all(is_preferred: false)
+    update_attribute(:is_preferred, true)
+  end
 end
