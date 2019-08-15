@@ -95,10 +95,6 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
-        types = {
-          'predicate' => PREDICATE_TYPES,
-          'object_term' => 'value'
-        }
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.

@@ -1,1 +1,1 @@
-= select_tag name, options_for_select(@terms), class: "js-term-select"
+= select_tag name, options_for_select([['--', nil]].concat(@terms)), class: "js-term-select term-browse-select"
