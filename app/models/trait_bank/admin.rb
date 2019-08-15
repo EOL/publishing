@@ -142,8 +142,8 @@ class TraitBank
           next if related.key?(page_id) # Pages may only have ONE parent.
           page = get_cached_pages(page_id)
           parent = get_cached_pages(parent_id)
-          create_page(page_id) if page.nil?
-          create_page(parent_id) if parent.nil?
+          create_page(page_id) unless page
+          create_page(parent_id) unless parent
           tries = 0
           begin
             res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
