@@ -19,7 +19,7 @@ class Vernacular < ActiveRecord::Base
   class << self
     def prefer_names_per_page_id
       batch = 1000
-      low_bound = 0
+      low_bound = 1
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
@@ -43,12 +43,12 @@ class Vernacular < ActiveRecord::Base
       groups = verns.group_by(&:page_id)
       preferred_ids = []
       groups.keys.each do |page_id|
-        next if completed_pages.key?(vern.page_id) # No thanks, I've already GOT one...
-        sorted = groups[page_id].compact.sort { |a,b| scores[a.resource_id] <=> scores[b.resource_id] }
+        next if completed_pages.key?(page_id) # No thanks, I've already GOT one...
+        sorted = groups[page_id].compact.sort { |a,b| @scores[a.resource_id] <=> @scores[b.resource_id] }
         preferred_ids << sorted.first.id
         completed_pages[page_id] = true
       end
-      Vernacular.where(id: preferred_ids).update_attribute(:is_preferred, true)
+      Vernacular.where(id: preferred_ids).update_all(is_preferred: true)
     end
 
     def import_user_added
