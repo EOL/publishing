@@ -5,10 +5,10 @@ class CreateResourcePreferences < ActiveRecord::Migration
       t.string :class_name, null: false, index: true
       t.integer :position, null: false
     end
-    if resource = Resource.where(abbr: 'English_Vernacul')
+    if resource = Resource.where(abbr: 'English_Vernacul').first
       ResourcePreference.create(resource_id: resource.id, string: 'Vernacular', position: 1)
     end
-    if resource = Resource.where(abbr: 'wikidata')
+    if resource = Resource.where(abbr: 'wikidata').first
       ResourcePreference.create(resource_id: resource.id, string: 'Vernacular', position: 2)
     end
   end
