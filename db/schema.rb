@@ -147,6 +147,10 @@ ActiveRecord::Schema.define(version: 20190806142402) do
   create_table "collections", force: :cascade do |t|
     t.string   "name",                          limit: 255,               null: false
     t.text     "description",                   limit: 65535
+    t.string   "icon_file_name",                limit: 255
+    t.string   "icon_content_type",             limit: 255
+    t.integer  "icon_file_size",                limit: 4
+    t.datetime "icon_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "collected_pages_count",         limit: 4,     default: 0
@@ -564,16 +568,20 @@ ActiveRecord::Schema.define(version: 20190806142402) do
   add_index "pages_referents", ["page_id"], name: "index_pages_referents_on_page_id", using: :btree
 
   create_table "partners", force: :cascade do |t|
-    t.string   "name",          limit: 255,   null: false
-    t.string   "abbr",          limit: 16
-    t.string   "short_name",    limit: 255,   null: false
-    t.string   "homepage_url",  limit: 255
-    t.text     "description",   limit: 65535
-    t.text     "notes",         limit: 65535
-    t.text     "links_json",    limit: 65535
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "repository_id", limit: 4
+    t.string   "name",              limit: 255,   null: false
+    t.string   "abbr",              limit: 16
+    t.string   "short_name",        limit: 255,   null: false
+    t.string   "homepage_url",      limit: 255
+    t.text     "description",       limit: 65535
+    t.text     "notes",             limit: 65535
+    t.text     "links_json",        limit: 65535
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "icon_file_name",    limit: 255
+    t.string   "icon_content_type", limit: 255
+    t.integer  "icon_file_size",    limit: 4
+    t.datetime "icon_updated_at"
+    t.integer  "repository_id",     limit: 4
   end
 
   create_table "partners_users", id: false, force: :cascade do |t|
@@ -744,6 +752,10 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.string   "dataset_rights_statement", limit: 255
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
+    t.string   "icon_file_name",           limit: 255
+    t.string   "icon_content_type",        limit: 255
+    t.integer  "icon_file_size",           limit: 4
+    t.datetime "icon_updated_at"
     t.string   "abbr",                     limit: 255
     t.integer  "repository_id",            limit: 4
     t.boolean  "classification",                         default: false
@@ -1015,4 +1027,5 @@ ActiveRecord::Schema.define(version: 20190806142402) do
     t.string  "message",     limit: 255
   end
 
+  add_foreign_key "user_downloads", "term_queries"
 end
