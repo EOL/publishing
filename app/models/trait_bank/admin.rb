@@ -142,20 +142,20 @@ class TraitBank
           next if related.key?(page_id) # Pages may only have ONE parent.
           page = get_cached_pages(page_id)
           parent = get_cached_pages(parent_id)
-          if page && parent
-            tries = 0
-            begin
-              res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
-                "MATCH(to_page:Page { page_id: #{parent_id}}) "\
-                "MERGE(from_page)-[:parent]->(to_page)")
-            rescue
-              tries += 1
-              raise "Too many retries to relate page #{page_id} to its parent #{parent_id}!" if tries >= 10
-              sleep(tries)
-              retry
-            end
-            related[page_id] = parent_id
+          create_page(page_id) if page.nil?
+          create_page(parent_id) if parent.nil?
+          tries = 0
+          begin
+            res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
+              "MATCH(to_page:Page { page_id: #{parent_id}}) "\
+              "MERGE(from_page)-[:parent]->(to_page)")
+          rescue
+            tries += 1
+            raise "Too many retries to relate page #{page_id} to its parent #{parent_id}!" if tries >= 10
+            sleep(tries)
+            retry
           end
+          related[page_id] = parent_id
         end
         dumb_log('Done.')
       end
