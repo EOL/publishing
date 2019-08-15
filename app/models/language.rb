@@ -3,6 +3,7 @@ class Language < ActiveRecord::Base
   has_many :links, inverse_of: :license
   has_many :media, inverse_of: :license
   has_many :vernaculars, inverse_of: :license
+  has_many :vernacular_preferences, inverse_of: :license
 
   class << self
     def english

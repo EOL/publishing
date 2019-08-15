@@ -138,6 +138,7 @@ class Publishing::Fast
           @files << @data_file
         end
       end
+      VernacularPreference.restore_for_resource(@resource.id, @log)
       # You have to create pages BEFORE you slurp traits, because now it needs the scientific names from the page
       # objects.
       log_start('PageCreator')
@@ -149,16 +150,17 @@ class Publishing::Fast
       log_start('Remove traits')
       TraitBank::Admin.remove_for_resource(@resource)
       log_start('#publish_traits')
+      can_clean_up = true
       begin
         publish_traits
       rescue => e
         log_warn("Trait Publishing failed: #{e.message} FROM #{e.backtrace[0..5].join(' FROM ')}")
+        can_clean_up = false
       end
       log_start('#fix_native_nodes')
       @resource.fix_native_nodes
-      log_start('#propagate_reference_ids')
       propagate_reference_ids
-      clean_up
+      clean_up if can_clean_up
       if page_contents_required?
         log_start('#fix_missing_icons (just to be safe)')
         Page.fix_missing_icons
@@ -233,6 +235,7 @@ class Publishing::Fast
 
   def propagate_reference_ids
     return nil if Reference.where(resource_id: @resource.id).count.zero?
+    log_start('#propagate_reference_ids')
     [Node, ScientificName, Medium, Article].each do |klass|
       next if Reference.where(resource_id: @resource.id, parent_type: klass.to_s).count.zero?
       min = Reference.where(resource_id: @resource.id, parent_type: klass.to_s).minimum(:id)

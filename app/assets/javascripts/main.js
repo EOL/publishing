@@ -350,6 +350,16 @@ if (!window.EOL) {
     EOL.pagesAutocomplete.initialize();
     */
 
+    EOL.searchResources = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: Routes.autocomplete_resources_path({ query: 'QUERY'}),
+        wildcard: 'QUERY'
+      }
+    });
+    EOL.searchResources.initialize();
+
     EOL.combinedAutocomplete = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,

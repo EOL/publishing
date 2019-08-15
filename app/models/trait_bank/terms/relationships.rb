@@ -29,7 +29,7 @@ class TraitBank
 
         def fetch_parent_child_relationships(log = nil)
           # TODO: Don't hard-code this.
-          link = "f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child.csv"
+          link = "f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child-july8.csv"
           reload(download_csv(link), :child_has_parent, log: log, type: :parent_term)
         end
 

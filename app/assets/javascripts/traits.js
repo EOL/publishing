@@ -67,17 +67,38 @@
   function setupMetaFilters() {
     $('.js-show-meta-filters').click(function() {
       fetchForm({
-        name: 'show_meta',
+        name: 'show_extra_fields',
         value: $(this).data('index')
       });
     })
 
     $('.js-hide-meta-filters').click(function() {
       fetchForm({
-        name: 'hide_meta',
+        name: 'hide_extra_fields',
         value: $(this).data('index')
       });
-    })
+    });
+
+    $('.js-meta-obj-typeahead').each(function() {
+      buildTypeahead(this, {
+        name: 'meta-obj-names',
+        display: 'name',
+        limit: Infinity,
+        source: new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          remote: {
+            url: Routes.terms_meta_object_terms_path({ 
+              query: 'QUERY',
+              pred: $(this).data('pred'),
+              format: 'json'
+            }),
+            wildcard: 'QUERY'
+          }
+        })
+      }, 'uri', null)
+    });
+
   }
 
   function setupForm() {
@@ -137,25 +158,12 @@
       source: EOL.searchObjectTerms
     }, 'uri', fetchForm);
 
-    $('.js-meta-obj-typeahead').each(function() {
-      buildTypeahead(this, {
-        name: 'meta-obj-names',
-        display: 'name',
-        limit: Infinity,
-        source: new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-          queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote: {
-            url: Routes.terms_meta_object_terms_path({ 
-              query: 'QUERY',
-              pred: $(this).data('pred'),
-              format: 'json'
-            }),
-            wildcard: 'QUERY'
-          }
-        })
-      }, 'uri', null)
-    });
+    buildTypeahead('.js-resource-typeahead', {
+      name: 'resource',
+      display: 'name',
+      limit: Infinity,
+      source: EOL.searchResources
+    }, 'id', null);
 
     $('.js-add-filter').click(function(e) {
       e.preventDefault();

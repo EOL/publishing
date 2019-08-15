@@ -23,7 +23,6 @@ class PageContent < ActiveRecord::Base
 
   scope :media, -> { where(content_type: "Medium") }
 
-  # TODO: make sure these both work.
   counter_culture :page
   counter_culture :page,
     column_name: proc { |model| "#{model.content_type.pluralize.downcase}_count" },
@@ -33,9 +32,6 @@ class PageContent < ActiveRecord::Base
       ["page_contents.content_type = ?", "Link"] => "links_count"
     }
 
-  # TODO: think about this. We might want to make the scope [:page,
-  # :content_type]... then we can interlace other media types (or always show
-  # them separately, which I think has advantages)
   acts_as_list scope: :page
 
   class << self

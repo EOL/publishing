@@ -6,6 +6,8 @@ class Vernacular < ActiveRecord::Base
   belongs_to :page, inverse_of: :vernaculars
   belongs_to :user, inverse_of: :vernaculars
 
+  has_many :vernacular_preferences, inverse_of: :vernacular # NOTE: do NOT destroy! We keep the record.
+
   scope :preferred, -> { where(is_preferred: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
   scope :current_language, -> { where(language_id: Language.current.id) }
@@ -15,47 +17,38 @@ class Vernacular < ActiveRecord::Base
   counter_culture :page
 
   class << self
-    # YOU WERE HERE ... They need to re-harvest this resource.
-    def pefer_best_english_names
-      prefer_our_english_vernaculars
-      prefer_names_per_page_id(language_id: Language.english.id)
-    end
-
-    def prefer_our_english_vernaculars
-      vern_resource = Resource.find_by_abbr('English_Vernacul')
-      english = Language.english.id
-      vern_resource_verns = Vernacular.where(resource_id: vern_resource.id, language_id: english)
-      have_pages = vern_resource_verns.pluck(:page_id)
-      Vernacular.where(page_id: have_pages, is_preferred: true)
-                .where(['resource_id != ?', vern_resource.id])
-                .update_all(is_preferred: false)
-      prefer_names_per_page_id(resource_id: vern_resource.id, language_id: english)
-    end
-
-    def prefer_names_per_page_id(clause = nil)
-      batch = 10_000
+    def prefer_names_per_page_id
+      batch = 1000
       low_bound = 0
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
+      completed_pages = {}
       loop do
         limit = low_bound + batch
-        pages = {}
-        verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit]) ; 1
-        verns = verns.where(clause) if clause
-        verns.where(is_preferred: true).pluck(:page_id).each { |id| pages[id] = true }
-        verns.find_each do |vern|
-          next if pages.key?(vern.page_id)
-          vern.update_attribute(:is_preferred, true)
-          pages[vern.page_id] = true
-        end
+        verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
+        verns.where(is_preferred: true).pluck(:page_id).each { |id| completed_pages[id] = true }
+        prefer_best_vernaculars(verns, completed_pages)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max}"
+        puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)"
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."
+    end
+
+    def prefer_best_vernaculars(verns, completed_pages)
+      @scores ||= ResourcePreference.hash_for_class('Vernacular')
+      groups = verns.group_by(&:page_id)
+      preferred_ids = []
+      groups.keys.each do |page_id|
+        next if completed_pages.key?(vern.page_id) # No thanks, I've already GOT one...
+        sorted = groups[page_id].compact.sort { |a,b| scores[a.resource_id] <=> scores[b.resource_id] }
+        preferred_ids << sorted.first.id
+        completed_pages[page_id] = true
+      end
+      Vernacular.where(id: preferred_ids).update_attribute(:is_preferred, true)
     end
 
     def import_user_added
@@ -112,4 +105,9 @@ class Vernacular < ActiveRecord::Base
     string <=> other.string
   end
 
+  # DON'T USE THIS METHOD (unless you know you MUST). Use VernacularPreference.user_preferred when possible.
+  def prefer
+    page.vernaculars.where(language_id: language_id).where(['vernaculars.id != ?', id]).update_all(is_preferred: false)
+    update_attribute(:is_preferred, true)
+  end
 end
