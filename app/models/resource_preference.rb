@@ -3,7 +3,7 @@
 class ResourcePreference < ActiveRecord::Base
   belongs_to :resource
 
-  acts_as_list scope: :class_name
+  acts_as_list scope: [:class_name]
 
   # Return a hash where keys are resource_ids and values are their preference (lower is "better"). e.g.: { 123 => 1, 234
   # => 2, 345 => 3, 456 => 4 }. Note that the default value is the "worst" score, e.g.: `hash[999] # => 5`
