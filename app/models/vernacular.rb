@@ -60,9 +60,10 @@ class Vernacular < ActiveRecord::Base
         # [:namestring, :iso_lang, :user_id, :taxon_id]
         begin
           language = get_language(row[:iso_lang])
-          page = Page.find(row[:taxon_id])
+          page = pick_page(row)
+          next if page.nil?
           node = page.native_node
-          user_id = @users[row[:user_id]]
+          user_id = pick_user(row[:user_eol_id], row[:user_name])
           create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
             source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
         rescue ActiveRecord::RecordNotFound => e
