@@ -64,10 +64,16 @@ class Vernacular < ActiveRecord::Base
           next if page.nil?
           node = page.native_node
           user_id = pick_user(row[:user_eol_id], row[:user_name])
-          create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
-            source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
-        rescue ActiveRecord::RecordNotFound => e
-          @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
+                         trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
+                         user_id: user_id)
+            create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
+              source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
+          end
+        rescue => e
+          # @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          puts("ERROR ON #{row[:namestring]}: #{e.message} ")
+          raise e
         end
       end
       @file.dbg("Done!")
