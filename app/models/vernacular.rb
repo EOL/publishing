@@ -52,9 +52,9 @@ class Vernacular < ActiveRecord::Base
     end
 
     def import_user_added
-      file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
-      file.dbg("Starting!")
-      rows = file.to_array_of_hashes
+      @file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
+      @file.dbg("Starting!")
+      rows = @file.to_array_of_hashes
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       rows.each do |row|
         # [:namestring, :iso_lang, :user_id, :taxon_id]
@@ -66,16 +66,16 @@ class Vernacular < ActiveRecord::Base
           create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
             source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
         rescue ActiveRecord::RecordNotFound => e
-          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
         end
       end
-      file.dbg("Done!")
+      @file.dbg("Done!")
     end
 
     def import_user_preferred
-      file = DataFile.assume_path('user_preferred_comnames.txt')
-      file.dbg("Starting!")
-      rows = file.to_array_of_hashes
+      @file = DataFile.assume_path('user_preferred_comnames.txt')
+      @file.dbg("Starting!")
+      rows = @file.to_array_of_hashes
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       @names = get_names_from_file(rows)
       rows.each_with_index do |row,row_num|
@@ -86,15 +86,15 @@ class Vernacular < ActiveRecord::Base
           next if page.nil?
           user_id = pick_user(row[:user_eol_id], row[:user_name])
           unless @names.key?(row[:namestring])
-            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
             next
           end
           unless @names[row[:namestring]].key?(language.id)
-            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a language of #{row[:iso_lang]}.")
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a language of #{row[:iso_lang]}.")
             next
           end
           unless @names[row[:namestring]][language.id].key?(page.id)
-            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a page ID of #{page.id}.")
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a page ID of #{page.id}.")
             next
           end
           if row[:preferred] == "0" || row[:preferred].downcase == "false" || row[:preferred].downcase == "no"
@@ -105,10 +105,10 @@ class Vernacular < ActiveRecord::Base
             VernacularPreference.user_preferred(user_id, @names[row[:namestring]][language.id][page.id])
           end
         rescue ActiveRecord::RecordNotFound => e
-          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
         end
       end
-      file.dbg("Done!")
+      @file.dbg("Done!")
     end
 
     def get_language(iso)
@@ -143,7 +143,7 @@ class Vernacular < ActiveRecord::Base
       if @users.key?(v2_id)
         @users[v2_id]
       elsif !@missing_users.key?(v2_id)
-        file.dbg("MISSING USER #{name} (#{v2_id}), going to fake it as Admin...")
+        @file.dbg("MISSING USER #{name} (#{v2_id}), going to fake it as Admin...")
         @missing_users[v2_id] = true
         1
       else
@@ -158,7 +158,7 @@ class Vernacular < ActiveRecord::Base
         ScientificName.exists?(canonical_form: "<i>#{row[:taxon_name]}</i>")
       return ScientificName.find_by_canonical_form(row[:taxon_name]) if
         ScientificName.exists?(canonical_form: row[:taxon_name])
-      file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find a page matching #{row[:taxon_name]} (#{row[:taxon_id]})")
+      @file.dbg("SKIPPING `#{row[:namestring]}` because I can't find a page matching #{row[:taxon_name]} (#{row[:taxon_id]})")
       nil
     end
 
