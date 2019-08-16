@@ -55,8 +55,6 @@ class Vernacular < ActiveRecord::Base
       file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
       file.dbg("Starting!")
       rows = file.to_array_of_hashes
-      # Find pages in batches, including native_node
-      # Find users in batches. Argh.
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       rows.each do |row|
         # [:namestring, :iso_lang, :user_id, :taxon_id]
@@ -65,9 +63,58 @@ class Vernacular < ActiveRecord::Base
           page = Page.find(row[:taxon_id])
           node = page.native_node
           user_id = @users[row[:user_id]]
-          # TODO: you need a migration.
           create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
             source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
+        rescue ActiveRecord::RecordNotFound => e
+          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+        end
+      end
+      file.dbg("Done!")
+    end
+
+    def import_user_preferred
+      file = DataFile.assume_path('user_preferred_comnames.txt')
+      file.dbg("Starting!")
+      rows = file.to_array_of_hashes
+      @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
+      @names = get_names_from_file(rows)
+      missing_users = {}
+      rows.each_with_index do |row,row_num|
+        # [:namestring, :iso_lang, :user_id, :taxon_id]
+        begin
+          language = get_language(row[:iso_lang])
+          unless Page.exists?(id: row[:taxon_id])
+            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find a page ID of #{row[:taxon_id]}.")
+            next
+          end
+          page = Page.find(row[:taxon_id])
+          user_id =
+            if @users.key?(row[:user_eol_id])
+              @users[row[:user_eol_id]]
+            elsif !missing_users.key?(row[:user_eol_id])
+              file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
+              missing_users[row[:user_eol_id]] = true
+              1
+            end
+          unless @names.key?(row[:namestring])
+            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
+            next
+          end
+          unless @names[row[:namestring]].key?(language.id)
+            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a language of #{row[:iso_lang]}.")
+            next
+          end
+          unless @names[row[:namestring]][language.id].key?(page.id)
+            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a page ID of #{page.id}.")
+            next
+          end
+          if row[:preferred] == "0" || row[:preferred].downcase == "false" || row[:preferred].downcase == "no"
+            # We don't have a way of recording that a user DOESN'T prefer a name, like we did in V2. ...Just ... make it
+            # happen:
+            @names[row[:namestring]][language.id][page.id].update_attribute(:is_preferred, false)
+          else
+            VernacularPreference.user_preferred(user_id, @names[row[:namestring]][language.id][page.id])
+          end
         rescue ActiveRecord::RecordNotFound => e
           file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
         end
@@ -91,6 +138,8 @@ class Vernacular < ActiveRecord::Base
       end
     end
 
+    # NOTE: you might be tempted to pass in rows here and pluck the v2 ids from it and search on that, but: that field
+    # in the tables is not readily searchable (it's a ;-delimited array) and you will end up slowing things down.
     def get_users
       @users = {}
       # There are just over 90K users from V2, and it's easier to just load them all. :\ This only takes a few seconds:
@@ -98,6 +147,21 @@ class Vernacular < ActiveRecord::Base
         user.v2_ids.split(';').each { |id| @users[id] = user.id }
       end
       @users
+    end
+
+    def get_names_from_file(rows)
+      @names = {}
+      name_strings = rows.map { |r| r[:namestring] }.sort.uniq # This will have 11K names
+      Vernacular.where(string: name_strings).find_each do |name|
+        next if name.nil? # Missing name
+        unless @names[name.string] && @names[name.string][name.language_id] &&
+               @names[name.string][name.language_id][name.page_id]
+          @names[name.string] ||= {}
+          @names[name.string][name.language_id] ||= {}
+          @names[name.string][name.language_id][name.page_id] = name
+        end
+      end
+      @names
     end
   end
 
