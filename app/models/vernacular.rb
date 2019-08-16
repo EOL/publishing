@@ -104,14 +104,16 @@ class Vernacular < ActiveRecord::Base
           else
             VernacularPreference.user_preferred(user_id, @names[row[:namestring]][language.id][page.id])
           end
-        rescue ActiveRecord::RecordNotFound => e
-          @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+        rescue => e
+          @file.dbg("ERROR while processing #{row[:namestring]} (line #{row_num + 2}): #{e.message} ")
+          raise e
         end
       end
       @file.dbg("Done!")
     end
 
     def get_language(iso)
+      iso = 'en' if iso.blank?
       @languages ||= {}
       if @languages.key?(iso)
         @languages[iso]
