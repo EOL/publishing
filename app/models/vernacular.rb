@@ -142,7 +142,7 @@ class Vernacular < ActiveRecord::Base
       @missing_users ||= {}
       if @users.key?(v2_id)
         @users[row[:user_eol_id]]
-      elsif !missing_users.key?(row[:user_eol_id])
+      elsif !@missing_users.key?(row[:user_eol_id])
         file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
         @missing_users[row[:user_eol_id]] = true
         1
