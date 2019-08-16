@@ -78,7 +78,6 @@ class Vernacular < ActiveRecord::Base
       rows = file.to_array_of_hashes
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       @names = get_names_from_file(rows)
-      missing_users = {}
       rows.each_with_index do |row,row_num|
         # [:namestring, :iso_lang, :user_id, :taxon_id]
         begin
@@ -140,11 +139,12 @@ class Vernacular < ActiveRecord::Base
     end
 
     def pick_user(v2_id)
+      @missing_users ||= {}
       if @users.key?(v2_id)
         @users[row[:user_eol_id]]
       elsif !missing_users.key?(row[:user_eol_id])
         file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
-        missing_users[row[:user_eol_id]] = true
+        @missing_users[row[:user_eol_id]] = true
         1
       else
         1
