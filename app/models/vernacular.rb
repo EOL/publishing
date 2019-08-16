@@ -62,11 +62,12 @@ class Vernacular < ActiveRecord::Base
           language = get_language(row[:iso_lang])
           page = pick_page(row)
           next if page.nil?
-          node = page.native_node
+          node = page.native_node || page.nodes.first # Rarely happens, but... occassionaly, at least on beta.
           user_id = pick_user(row[:user_eol_id], row[:user_name])
           unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
                          trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
                          user_id: user_id)
+            puts "#{row[:namestring]} (page #{page.id}, user #{user_id}, language #{language.id})"
             create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
               source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
           end
