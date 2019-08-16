@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190812182304) do
+ActiveRecord::Schema.define(version: 20190816182020) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "guid",                      limit: 255,        null: false
+    t.string   "guid",                      limit: 255,      null: false
     t.string   "resource_pk",               limit: 255
-    t.integer  "license_id",                limit: 4,          null: false
+    t.integer  "license_id",                limit: 4,        null: false
     t.integer  "language_id",               limit: 4
     t.integer  "location_id",               limit: 4
     t.integer  "stylesheet_id",             limit: 4
@@ -25,16 +25,16 @@ ActiveRecord::Schema.define(version: 20190812182304) do
     t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
-    t.text     "body",                      limit: 4294967295
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.text     "body",                      limit: 16777215
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
     t.integer  "harv_db_id",                limit: 4
   end
 
-  add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
+  add_index "articles", ["guid"], name: "index_articles_on_guid", length: {"guid"=>191}, using: :btree
   add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
   add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
@@ -735,6 +735,14 @@ ActiveRecord::Schema.define(version: 20190812182304) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "resource_preferences", force: :cascade do |t|
+    t.integer "resource_id", limit: 4,   null: false
+    t.string  "class_name",  limit: 255, null: false
+    t.integer "position",    limit: 4,   null: false
+  end
+
+  add_index "resource_preferences", ["class_name"], name: "index_resource_preferences_on_class_name", using: :btree
+
   create_table "resources", force: :cascade do |t|
     t.integer  "partner_id",               limit: 4,                     null: false
     t.string   "name",                     limit: 255,                   null: false
@@ -801,6 +809,7 @@ ActiveRecord::Schema.define(version: 20190812182304) do
     t.text     "name_according_to",     limit: 65535
   end
 
+  add_index "scientific_names", ["canonical_form"], name: "index_scientific_names_on_canonical_form", using: :btree
   add_index "scientific_names", ["harv_db_id"], name: "index_scientific_names_on_harv_db_id", using: :btree
   add_index "scientific_names", ["node_id"], name: "index_scientific_names_on_node_id", using: :btree
   add_index "scientific_names", ["page_id"], name: "index_scientific_names_on_page_id", using: :btree
