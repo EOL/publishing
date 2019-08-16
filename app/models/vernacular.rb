@@ -83,19 +83,9 @@ class Vernacular < ActiveRecord::Base
         # [:namestring, :iso_lang, :user_id, :taxon_id]
         begin
           language = get_language(row[:iso_lang])
-          unless Page.exists?(id: row[:taxon_id])
-            file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find a page ID of #{row[:taxon_id]}.")
-            next
-          end
-          page = Page.find(row[:taxon_id])
-          user_id =
-            if @users.key?(row[:user_eol_id])
-              @users[row[:user_eol_id]]
-            elsif !missing_users.key?(row[:user_eol_id])
-              file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
-              missing_users[row[:user_eol_id]] = true
-              1
-            end
+          page = pick_page(row)
+          next if page.nil?
+          user_id = pick_user(row[:user_eol_id])
           unless @names.key?(row[:namestring])
             file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
             next
@@ -147,6 +137,29 @@ class Vernacular < ActiveRecord::Base
         user.v2_ids.split(';').each { |id| @users[id] = user.id }
       end
       @users
+    end
+
+    def pick_user(v2_id)
+      if @users.key?(v2_id)
+        @users[row[:user_eol_id]]
+      elsif !missing_users.key?(row[:user_eol_id])
+        file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
+        missing_users[row[:user_eol_id]] = true
+        1
+      else
+        1
+      end
+    end
+
+    def pick_page(row)
+      return Page.find(row[:taxon_id]) if Page.exists?(id: row[:taxon_id])
+      # DON'T just do the find, it is MUCH slower than exists + find.
+      return ScientificName.find_by_canonical_form("<i>#{row[:taxon_name]}</i>") if
+        ScientificName.exists?(canonical_form: "<i>#{row[:taxon_name]}</i>")
+      return ScientificName.find_by_canonical_form(row[:taxon_name]) if
+        ScientificName.exists?(canonical_form: row[:taxon_name])
+      file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find a page matching #{row[:taxon_name]} (#{row[:taxon_id]})")
+      nil
     end
 
     def get_names_from_file(rows)
