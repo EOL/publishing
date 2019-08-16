@@ -84,7 +84,7 @@ class Vernacular < ActiveRecord::Base
           language = get_language(row[:iso_lang])
           page = pick_page(row)
           next if page.nil?
-          user_id = pick_user(row[:user_eol_id])
+          user_id = pick_user(row[:user_eol_id], row[:user_name])
           unless @names.key?(row[:namestring])
             file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
             next
@@ -138,13 +138,13 @@ class Vernacular < ActiveRecord::Base
       @users
     end
 
-    def pick_user(v2_id)
+    def pick_user(v2_id, name)
       @missing_users ||= {}
       if @users.key?(v2_id)
-        @users[row[:user_eol_id]]
-      elsif !@missing_users.key?(row[:user_eol_id])
-        file.dbg("MISSING USER #{row[:user_name]} (#{row[:user_eol_id]}), going to fake it as Admin...")
-        @missing_users[row[:user_eol_id]] = true
+        @users[v2_id]
+      elsif !@missing_users.key?(v2_id)
+        file.dbg("MISSING USER #{name} (#{v2_id}), going to fake it as Admin...")
+        @missing_users[v2_id] = true
         1
       else
         1
