@@ -137,6 +137,7 @@ class TraitBank
         q = "MATCH (term:Term) "\
             "WHERE NOT (term)-[:parent_term]->(:Term) "\
             "AND NOT (term)-[:synonym_of]->(:Term) "\
+            "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{array_to_qs(types)} "\
             "RETURN term "\
             "ORDER BY lower(term.name), term.uri"
