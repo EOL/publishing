@@ -84,7 +84,17 @@ class TraitsController < ApplicationController
         :lifestage_uri,
         :statistical_method_uri,
         :resource_id,
-        :show_extra_fields
+        :show_extra_fields,
+        :pred_term_selects_attributes => [
+          :type,
+          :parent_uri,
+          :selected_uri
+        ],
+        :obj_term_selects_attributes => [
+          :type,
+          :parent_uri,
+          :selected_uri
+        ]
       ]
     ])
   end

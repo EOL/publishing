@@ -6,6 +6,22 @@ class TermQueryFilter < ActiveRecord::Base
 
   attr_reader :show_extra_fields
 
+  TermSelect = Struct.new(:type, :parent_uri, :selected_uri) do
+    def persisted?
+      false
+    end
+
+    def top_level?
+      parent_uri.blank?
+    end
+
+    def terms
+      @terms ||= top_level? ?
+        TraitBank::Terms.top_level(type) :
+        TraitBank::Terms.children(parent_uri)
+    end
+  end
+
   # TODO: remove op field from db
   enum :op => {
     :is_any => 0,
@@ -149,6 +165,58 @@ class TermQueryFilter < ActiveRecord::Base
 
   def show_extra_fields=(val)
     @show_extra_fields = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+  end
+
+  def pred_term_selects
+    @pred_term_selects ||= [TermSelect.new(:predicate, nil, nil)]
+  end
+
+  def obj_term_selects
+    @obj_term_selects ||= [TermSelect.new(:object_term, nil, nil)]
+  end
+
+  def pred_term_selects_attributes=(attrs)
+    selects = []
+    
+    sorted_keys = attrs.keys.sort
+    attr_arr = sorted_keys.collect { |k| attrs[k] }
+    with_uri = attr_arr.select { |attr| attr[:selected_uri].present? }
+    last_with_uri = with_uri.any? ? with_uri.last : nil
+
+    if last_with_uri && last_with_uri[:selected_uri] != pred_uri
+      @pred_term_selects = [TermSelect.new(:predicate, nil, nil)]
+      return
+    end
+
+    i = 0
+    continue = true
+
+    while i < attr_arr.length && continue
+      field = attr_arr[i]
+      if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
+        selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
+        added = true
+      else 
+        added = false
+      end
+
+      continue = added && field[:selected_uri].present?
+      i += 1
+    end
+        
+    if selects.last.selected_uri.present?
+      child_select = TermSelect.new(
+        selects.last.type, 
+        selects.last.selected_uri,
+        nil
+      )
+      selects << child_select if child_select.terms.any?
+    end
+
+    @pred_term_selects = selects
+  end
+  
+  def obj_term_selects_attributes=(attrs)
   end
 
   private

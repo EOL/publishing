@@ -105,6 +105,34 @@ module TermsHelper
     "#{tq.record? ? "Records" : "Taxa"} with #{clade_part}#{filter_part}"
   end
 
+  def term_options_for_select(term_select)
+    term_array = term_select.terms.collect do |term|
+      [term[:name], term[:uri]]
+    end
+
+    if term_select.top_level?
+      display_type = case term_select.type
+                     when :predicate
+                       "an attribute"
+                     when :object_term
+                       "a value"
+                     else
+                       raise TypeError.new("invalid TermSelect type: #{term_select.type}")
+                     end
+      placeholder = "or select #{display_type}"
+    else
+      placeholder = "select a child term (optional)"
+    end
+
+    options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_uri)
+  end
+
+  def nested_term_selects(form, type)
+    type_str = "#{type}_term_selects"
+    selects = form.object.send(type_str)
+    nested_term_selects_helper(form, selects, type_str)
+  end
+
   private
     def is_any_display_string(filter)
       pred_name(filter.pred_uri)
@@ -120,5 +148,19 @@ module TermsHelper
 
     def range_display_string(filter)
       "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}] #{units_name(filter.units_uri)}"
+    end
+
+    def nested_term_selects_helper(form, selects, type_str)
+      result = nil
+
+      if selects.any?
+        first = selects.shift
+        form.fields_for type_str, first do |select_form|
+          inner = nested_term_selects_helper(form, selects, type_str)
+          result = render(partial: "traits/term_select", locals: { form: select_form, inner: inner})
+        end
+      end
+
+      result
     end
 end

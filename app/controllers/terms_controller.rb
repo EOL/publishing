@@ -122,19 +122,6 @@ class TermsController < ApplicationController
     render :json => res
   end
 
-  def browse_predicates
-    terms = TraitBank::Terms.top_level(:predicate)
-    @terms = terms_to_array(terms)
-  end
-
-  def children
-    uri = params[:uri]
-    terms = TraitBank::Terms.children(uri)
-    @terms = terms_to_array(terms)
-
-    render layout: false
-  end
-
 private
 
   def terms_to_array(terms)
