@@ -17,7 +17,7 @@ class Vernacular < ActiveRecord::Base
   counter_culture :page
 
   class << self
-    def prefer_names_per_page_id
+    def prefer_best_vernaculars
       batch = 1000
       low_bound = 1
       max = Page.maximum(:id)
@@ -29,7 +29,7 @@ class Vernacular < ActiveRecord::Base
         limit = low_bound + batch
         verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
         verns.where(is_preferred: true).pluck(:page_id).each { |id| completed_pages[id] = true }
-        prefer_best_vernaculars(verns, completed_pages)
+        prefer_names_per_page_id(verns, completed_pages)
         low_bound = limit
         iterations += 1
         puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)"
@@ -38,7 +38,7 @@ class Vernacular < ActiveRecord::Base
       puts "DONE."
     end
 
-    def prefer_best_vernaculars(verns, completed_pages)
+    def prefer_names_per_page_id(verns, completed_pages)
       @scores ||= ResourcePreference.hash_for_class('Vernacular')
       groups = verns.group_by(&:page_id)
       preferred_ids = []
@@ -67,7 +67,6 @@ class Vernacular < ActiveRecord::Base
           unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
                          trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
                          user_id: user_id)
-            puts "#{row[:namestring]} (page #{page.id}, user #{user_id}, language #{language.id})"
             create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
               source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
           end
