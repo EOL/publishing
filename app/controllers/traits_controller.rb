@@ -4,6 +4,7 @@ class TraitsController < ApplicationController
 
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
   before_action :build_query, only: [:search_results, :search_form]
+  before_action :set_title, only: [:search, :search_results]
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
@@ -165,4 +166,9 @@ class TraitsController < ApplicationController
     # redirect_to params.merge(controller: :traits, action: :search_results)
     redirect_to term_search_results_path(params)
   end
+
+  def set_title
+    @page_title = t("page_titles.traits.search")
+  end
 end
+
