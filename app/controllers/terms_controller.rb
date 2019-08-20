@@ -123,6 +123,13 @@ class TermsController < ApplicationController
   end
 
 private
+
+  def terms_to_array(terms)
+    terms.collect do |term|
+      [term[:name], term[:uri]]
+    end
+  end
+
   def glossary(which, options = nil)
     @count = TraitBank::Terms.send(options[:count_method] || :count)
 

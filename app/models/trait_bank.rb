@@ -1259,7 +1259,7 @@ class TraitBank
 
     # For data visualization
     def pred_prey_comp_for_page(page)
-      eats_string = uris_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
+      eats_string = array_to_qs([Eol::Uris.eats, Eol::Uris.preys_on])
       limit_per_group = 100
       comp_limit = 10
 
@@ -1301,15 +1301,14 @@ class TraitBank
       qs = "MATCH (page:Page)-[:parent*0..#{max_page_depth}]->(:Page{page_id: #{page.id}}),\n"\
         "(page)-[:trait]->(trait:Trait)-[:predicate]->(predicate:Term),\n"\
         "(trait)-[:object_term]->(object_term:Term)\n"\
-        "WHERE predicate.uri IN #{uris_to_qs([Eol::Uris.habitats_for_wordcloud])}\n"\
+        "WHERE predicate.uri IN #{array_to_qs([Eol::Uris.habitats_for_wordcloud])}\n"\
         "RETURN trait, predicate, object_term"
 
       build_trait_array(query(qs))
     end
 
-    private
     # each argument is expected to be an Array of strings 
-    def uris_to_qs(*args) 
+    def array_to_qs(*args) 
       result = []
       args.each do |uris|
         result.concat(uris.collect { |uri| "'#{uri}'" })

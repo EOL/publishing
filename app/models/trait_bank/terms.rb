@@ -6,8 +6,13 @@ class TraitBank
       delegate :query, to: TraitBank
       delegate :child_has_parent, to: TraitBank
       delegate :is_synonym_of, to: TraitBank
+      delegate :array_to_qs, to: TraitBank
 
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
+      TERM_TYPES = {
+        predicate: ['measurement', 'association'],
+        object_term: ['value']
+      }
 
       def count(options = {})
         hidden = options[:include_hidden]
@@ -90,20 +95,16 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         Rails.logger.info("KK TraitBank key: #{key}")
-        types = {
-          'predicate' => ['measurement', 'association'],
-          'object_term' => 'value'
-        }
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
           q += ' { is_hidden_from_glossary: false }' unless qterm
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
-          q += " WHERE " if qterm || types.key?(type)
+          q += " WHERE " if qterm || TERM_TYPES.key?(type)
           q += "LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
-          q += " AND " if qterm && types.key?(type)
-          q += %{term.type IN ["#{Array(types[type]).join('","')}"]} if types.key?(type)
+          q += " AND " if qterm && TERM_TYPES.key?(type)
+          q += %{term.type IN ["#{TERM_TYPES[type].join('","')}"]} if TERM_TYPES.key?(type)
           if for_select
             q += qterm ? " AND" : " WHERE"
             q += " term.is_hidden_from_select = false "
@@ -129,8 +130,35 @@ class TraitBank
         end
       end
 
+      def top_level(type)
+        types = TERM_TYPES[type]
+        raise TypeError.new("invalid type argument") if types.nil?
+
+        q = "MATCH (term:Term) "\
+            "WHERE NOT (term)-[:parent_term]->(:Term) "\
+            "AND term.type IN #{array_to_qs(types)} "\
+            "RETURN term "\
+            "ORDER BY lower(term.name), term.uri"
+
+        term_query(q)
+      end
+
+      def children(uri)
+        q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
+          "RETURN term "\
+          "ORDER BY lower(term.name), term.uri"
+        term_query(q)
+      end
+
+      def term_query(q)
+        res = query(q)
+        all = res["data"].map { |t| t.first["data"].symbolize_keys }
+        all.map! { |h| { name: h[:name], uri: h[:uri] } }
+        all
+      end
+
       def predicate_glossary(page = nil, per = nil, options = {})
-        sub_glossary("predicate", page, per, options)
+        sub_glossary(:predicate, page, per, options)
       end
 
       def name_for_pred_uri(uri)
@@ -174,23 +202,23 @@ class TraitBank
       end
 
       def object_term_glossary(page = nil, per = nil, options = {})
-        sub_glossary('object_term', page, per, options)
+        sub_glossary(:object_term, page, per, options)
       end
 
       def units_glossary(page = nil, per = nil, options = {})
-        sub_glossary('units_term', page, per, options)
+        sub_glossary(:units_term, page, per, options)
       end
 
       def predicate_glossary_count
-        sub_glossary('predicate', nil, nil, count: true)
+        sub_glossary(:predicate, nil, nil, count: true)
       end
 
       def object_term_glossary_count
-        sub_glossary('object_term', nil, nil, count: true)
+        sub_glossary(:object_term, nil, nil, count: true)
       end
 
       def units_glossary_count
-        sub_glossary("units_term", nil, nil, count: true)
+        sub_glossary(:units_term, nil, nil, count: true)
       end
 
       # NOTE: I removed the units from this query after ea27411f8110b74 (q.v.)

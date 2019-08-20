@@ -1,0 +1,7 @@
+.uk-grid.uk-width-1-1
+  .js-term-select-contain
+    = render "term_select", name: "top_level"
+
+  = form_tag do
+    = text_field_tag :term_name, nil, class: "js-term-name uk-width-medium"
+    = hidden_field_tag :term_uri, nil, class: "js-term-uri"

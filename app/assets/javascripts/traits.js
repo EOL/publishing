@@ -183,9 +183,38 @@
     $('#new_term_query').submit(showNotification);
     
     setupMetaFilters();
+    setupTermSelects();
   }
 
   EOL.onReady(setupForm);
+
+  function setupTermSelects() {
+    setupTermSelect($('.js-term-select'));
+  }
+
+  function setupTermSelect($select) {
+    $select.change(function(e) {
+      var $that = $(this);
+
+      if ($that.val()) {
+        setValFromTermSelect($that);
+      } else {
+        var $prev = $that.prev('.js-term-select');
+
+        if ($prev.val()) {
+          setValFromTermSelect($prev);
+        }
+      } 
+
+      fetchForm();
+    });
+  }
+
+  function setValFromTermSelect($select) {
+    var $parent = $select.closest('.js-filter-row-group');
+    $parent.find('.js-term-name').val($select.find('option:selected').text());
+    $parent.find('.js-term-uri').val($select.val());
+  }
 
   $(function() {
     $('.js-edit-filters').click(function() {

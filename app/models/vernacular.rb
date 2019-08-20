@@ -32,7 +32,8 @@ class Vernacular < ActiveRecord::Base
         prefer_names_per_page_id(verns, completed_pages)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)"
+        puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)" if
+          (iterations % 300).zero?
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."

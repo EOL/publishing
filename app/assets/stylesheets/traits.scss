@@ -26,10 +26,29 @@
   margin-top: 20px;
 }
 
+.filter-row {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: center;
+  width: 100%;
+}
+
+.filter-row-flex {
+  flex-wrap: wrap;  
+}
 
 .is-filter-row-with-errors {
   margin-top: 25px;
 }
+
+.is-filter-row-with-browser {
+  margin-bottom: 0;
+}
+
+.filter-row-group {
+  width: 100%;
+}
+
 
 .filter-error {
   color: #f00;
@@ -44,11 +63,16 @@
 
 .filter-field {
   position: relative;
+
+  & > span {
+    width: 100%;
+  }
 }
 
 .filter-field-radio {
   margin: 0 15px;
   white-space: nowrap;
+  width: auto;
 }
 
 .filter-radios {
@@ -99,16 +123,6 @@
   }
 }
 
-.filter-row {
-  display: flex;
-  margin-bottom: 10px;
-  justify-content: center;
-  width: 100%;
-}
-
-.filter-row-flex {
-  flex-wrap: wrap;  
-}
 
 .edit-filters-row {
   color: $eol-blue;
@@ -170,4 +184,17 @@
 
 .base-errors {
   color: #f00;
+}
+
+.browse-terms {
+  padding: 0 8px;
+  vertical-align: middle;
+}
+
+.term-browse-select {
+  margin-top: 3px;
+}
+
+.term-select-children {
+  padding-left: 5%;
 }

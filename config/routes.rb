@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     get 'errors/not_found'
     get 'errors/internal_server_error'
 
-    get 'wordcloud_test' => "pages#wordcloud_test"
-    
     # This line mounts Refinery's routes at the root of your application.
     # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
     # If you would like to change where this extension is mounted, simply change the
@@ -173,7 +171,6 @@ Rails.application.routes.draw do
     get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
     get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
     get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
-
     get "/services/authenticate" => "services#authenticate_service"
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
     get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
@@ -185,6 +182,7 @@ Rails.application.routes.draw do
     get "/terms/search" => "traits#search", :as => "term_search"
     get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
     get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
+
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
