@@ -17,74 +17,111 @@ class Vernacular < ActiveRecord::Base
   counter_culture :page
 
   class << self
-    # NOTE: This is getting long in the tooth, and we will design a better system.
-    def pefer_best_english_names
-      prefer_our_english_vernaculars
-      prefer_names_per_page_id(language_id: Language.english.id)
-    end
-
-    def prefer_our_english_vernaculars
-      vern_resource = Resource.find_by_abbr('English_Vernacul')
-      english = Language.english.id
-      vern_resource_verns = Vernacular.where(resource_id: vern_resource.id, language_id: english)
-      have_pages = vern_resource_verns.pluck(:page_id)
-      Vernacular.where(page_id: have_pages, is_preferred: true)
-                .where(['resource_id != ?', vern_resource.id])
-                .update_all(is_preferred: false)
-      prefer_names_per_page_id(resource_id: vern_resource.id, language_id: english)
-    end
-
-    def prefer_names_per_page_id(clause = nil)
-      batch = 10_000
-      low_bound = 0
+    def prefer_best_vernaculars
+      batch = 1000
+      low_bound = 1
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
+      completed_pages = {}
       loop do
         limit = low_bound + batch
-        pages = {}
-        verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit]) ; 1
-        verns = verns.where(clause) if clause
-        verns.where(is_preferred: true).pluck(:page_id).each { |id| pages[id] = true }
-        verns.find_each do |vern|
-          next if pages.key?(vern.page_id)
-          vern.update_attribute(:is_preferred, true)
-          pages[vern.page_id] = true
-        end
+        verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
+        verns.where(is_preferred: true).pluck(:page_id).each { |id| completed_pages[id] = true }
+        prefer_names_per_page_id(verns, completed_pages)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max}"
+        puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)" if
+          (iterations % 300).zero?
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."
     end
 
+    def prefer_names_per_page_id(verns, completed_pages)
+      @scores ||= ResourcePreference.hash_for_class('Vernacular')
+      groups = verns.group_by(&:page_id)
+      preferred_ids = []
+      groups.keys.each do |page_id|
+        next if completed_pages.key?(page_id) # No thanks, I've already GOT one...
+        sorted = groups[page_id].compact.sort { |a,b| @scores[a.resource_id] <=> @scores[b.resource_id] }
+        preferred_ids << sorted.first.id
+        completed_pages[page_id] = true
+      end
+      Vernacular.where(id: preferred_ids).update_all(is_preferred: true)
+    end
+
     def import_user_added
-      file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
-      file.dbg("Starting!")
-      rows = file.to_array_of_hashes
-      # Find pages in batches, including native_node
-      # Find users in batches. Argh.
+      @file = DataFile.assume_path('user_added_names', 'user_added_names.tab')
+      @file.dbg("Starting!")
+      rows = @file.to_array_of_hashes
       @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
       rows.each do |row|
         # [:namestring, :iso_lang, :user_id, :taxon_id]
         begin
           language = get_language(row[:iso_lang])
-          page = Page.find(row[:taxon_id])
-          node = page.native_node
-          user_id = @users[row[:user_id]]
-          # TODO: you need a migration.
-          create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
-            source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
-        rescue ActiveRecord::RecordNotFound => e
-          file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          page = pick_page(row)
+          next if page.nil?
+          node = page.native_node || page.nodes.first # Rarely happens, but... occassionaly, at least on beta.
+          user_id = pick_user(row[:user_eol_id], row[:user_name])
+          unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
+                         trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
+                         user_id: user_id)
+            create(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id, trust: :trusted,
+              source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id, user_id: user_id)
+          end
+        rescue => e
+          # @file.dbg("Missing a record; skipping #{row[:namestring]}: #{e.message} ")
+          puts("ERROR ON #{row[:namestring]}: #{e.message} ")
+          raise e
         end
       end
-      file.dbg("Done!")
+      @file.dbg("Done!")
+    end
+
+    def import_user_preferred
+      @file = DataFile.assume_path('user_preferred_comnames.txt')
+      @file.dbg("Starting!")
+      rows = @file.to_array_of_hashes
+      @users = get_users # NOTE: this is keyed to STRINGS, not integers. That's fine when reading TSV.
+      @names = get_names_from_file(rows)
+      rows.each_with_index do |row,row_num|
+        # [:namestring, :iso_lang, :user_id, :taxon_id]
+        begin
+          language = get_language(row[:iso_lang])
+          page = pick_page(row)
+          next if page.nil?
+          user_id = pick_user(row[:user_eol_id], row[:user_name])
+          unless @names.key?(row[:namestring])
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
+            next
+          end
+          unless @names[row[:namestring]].key?(language.id)
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a language of #{row[:iso_lang]}.")
+            next
+          end
+          unless @names[row[:namestring]][language.id].key?(page.id)
+            @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB with a page ID of #{page.id}.")
+            next
+          end
+          if row[:preferred] == "0" || row[:preferred].downcase == "false" || row[:preferred].downcase == "no"
+            # We don't have a way of recording that a user DOESN'T prefer a name, like we did in V2. ...Just ... make it
+            # happen:
+            @names[row[:namestring]][language.id][page.id].update_attribute(:is_preferred, false)
+          else
+            VernacularPreference.user_preferred(user_id, @names[row[:namestring]][language.id][page.id])
+          end
+        rescue => e
+          @file.dbg("ERROR while processing #{row[:namestring]} (line #{row_num + 2}): #{e.message} ")
+          raise e
+        end
+      end
+      @file.dbg("Done!")
     end
 
     def get_language(iso)
+      iso = 'en' if iso.blank?
       @languages ||= {}
       if @languages.key?(iso)
         @languages[iso]
@@ -100,6 +137,8 @@ class Vernacular < ActiveRecord::Base
       end
     end
 
+    # NOTE: you might be tempted to pass in rows here and pluck the v2 ids from it and search on that, but: that field
+    # in the tables is not readily searchable (it's a ;-delimited array) and you will end up slowing things down.
     def get_users
       @users = {}
       # There are just over 90K users from V2, and it's easier to just load them all. :\ This only takes a few seconds:
@@ -107,6 +146,45 @@ class Vernacular < ActiveRecord::Base
         user.v2_ids.split(';').each { |id| @users[id] = user.id }
       end
       @users
+    end
+
+    def pick_user(v2_id, name)
+      @missing_users ||= {}
+      if @users.key?(v2_id)
+        @users[v2_id]
+      elsif !@missing_users.key?(v2_id)
+        @file.dbg("MISSING USER #{name} (#{v2_id}), going to fake it as Admin...")
+        @missing_users[v2_id] = true
+        1
+      else
+        1
+      end
+    end
+
+    def pick_page(row)
+      return Page.find(row[:taxon_id]) if Page.exists?(id: row[:taxon_id])
+      # DON'T just do the find, it is MUCH slower than exists + find.
+      return ScientificName.find_by_canonical_form("<i>#{row[:taxon_name]}</i>") if
+        ScientificName.exists?(canonical_form: "<i>#{row[:taxon_name]}</i>")
+      return ScientificName.find_by_canonical_form(row[:taxon_name]) if
+        ScientificName.exists?(canonical_form: row[:taxon_name])
+      @file.dbg("SKIPPING `#{row[:namestring]}` because I can't find a page matching #{row[:taxon_name]} (#{row[:taxon_id]})")
+      nil
+    end
+
+    def get_names_from_file(rows)
+      @names = {}
+      name_strings = rows.map { |r| r[:namestring] }.sort.uniq # This will have 11K names
+      Vernacular.where(string: name_strings).find_each do |name|
+        next if name.nil? # Missing name
+        unless @names[name.string] && @names[name.string][name.language_id] &&
+               @names[name.string][name.language_id][name.page_id]
+          @names[name.string] ||= {}
+          @names[name.string][name.language_id] ||= {}
+          @names[name.string][name.language_id][name.page_id] = name
+        end
+      end
+      @names
     end
   end
 

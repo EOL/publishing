@@ -5,6 +5,7 @@ class TraitBank
       delegate :query, to: TraitBank
       delegate :page_exists?, to: TraitBank
       delegate :relate, to: TraitBank
+      delegate :create_page, to: TraitBank
 
       def setup
         create_indexes
@@ -124,7 +125,6 @@ class TraitBank
         if remove_old
           remove_with_query(name: :parent, q: "(:Page)-[parent:parent]->(:Page)")
         end
-        @pages = {}
         related = {}
         eol = Resource.native
         raise "I tried to use EOL as the native node for the relationships, but it wasn't there." unless eol
@@ -143,20 +143,20 @@ class TraitBank
           next if related.key?(page_id) # Pages may only have ONE parent.
           page = get_cached_pages(page_id)
           parent = get_cached_pages(parent_id)
-          if page && parent
-            tries = 0
-            begin
-              res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
-                "MATCH(to_page:Page { page_id: #{parent_id}}) "\
-                "MERGE(from_page)-[:parent]->(to_page)")
-            rescue
-              tries += 1
-              raise "Too many retries to relate page #{page_id} to its parent #{parent_id}!" if tries >= 10
-              sleep(tries)
-              retry
-            end
-            related[page_id] = parent_id
+          create_page(page_id) unless page
+          create_page(parent_id) unless parent
+          tries = 0
+          begin
+            res = query("MATCH(from_page:Page { page_id: #{page_id}}) "\
+              "MATCH(to_page:Page { page_id: #{parent_id}}) "\
+              "MERGE(from_page)-[:parent]->(to_page)")
+          rescue
+            tries += 1
+            raise "Too many retries to relate page #{page_id} to its parent #{parent_id}!" if tries >= 10
+            sleep(tries)
+            retry
           end
+          related[page_id] = parent_id
         end
         dumb_log('Done.')
       end
@@ -167,6 +167,7 @@ class TraitBank
       end
 
       def get_cached_pages(page_id)
+        @pages ||= {}
         return @pages[page_id] if @pages.has_key?(page_id)
         page = page_exists?(page_id)
         page = page.first if page && page.is_a?(Array)

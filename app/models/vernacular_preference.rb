@@ -20,10 +20,11 @@ class VernacularPreference < ActiveRecord::Base
     # NOTE: we keep copies of some information from the original vernacular, so if that is removed, we'll still at least
     # know who prefered which name for which language from which resource... allowing us to recreate it if the resource is
     # reharvested.
-    def user_preferred(user, name)
+    def user_preferred(user_id, name)
+      user_id = user_id.id if user_id.is_a?(User)
       transaction do
         overridden_ids = where(language_id: name.language_id, page_id: name.page_id).pluck(:id)
-        pref = create(user_id: user.id, vernacular_id: name.id, resource_id: name.resource_id,
+        pref = create(user_id: user_id, vernacular_id: name.id, resource_id: name.resource_id,
           page_id: name.page_id, language_id: name.language_id, string: name.string)
         name.prefer
         where(id: overridden_ids).update_all(overridden_by_id: pref.id)
