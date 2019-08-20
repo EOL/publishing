@@ -75,6 +75,7 @@ class TraitsController < ApplicationController
       :result_type,
       :filters_attributes => [
         :pred_uri,
+        :top_pred_uri,
         :obj_uri,
         :op,
         :num_val1,

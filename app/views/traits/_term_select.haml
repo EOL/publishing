@@ -1,7 +1,7 @@
-= form.select :selected_uri, term_options_for_select(form.object), {}, { class: "filter-input uk-select term-browse-select js-term-select" }
-= form.hidden_field :type
-= form.hidden_field :parent_uri
+.term-select-children
+  = form.select :selected_uri, term_options_for_select(form.object), {}, { class: "filter-input uk-select term-browse-select js-term-select" }
+  = form.hidden_field :type
+  = form.hidden_field :parent_uri
 
-- if !inner.nil?
-  .term-select-children
+  - if !inner.nil?
     = inner.html_safe

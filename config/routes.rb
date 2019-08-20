@@ -159,6 +159,7 @@ Rails.application.routes.draw do
 
     # This isn't really a model, so we'll go oldschool:
     get "/terms/predicate_glossary" => "terms#predicate_glossary", :as => "predicate_glossary"
+    get "/terms/trait_search_predicates" => "terms#trait_search_predicates", :as => "trait_search_predicate_typeahead"
     get "/terms/object_term_glossary" => "terms#object_term_glossary", :as => "object_term_glossary"
     get "/terms/object_terms_for_predicate" => "terms#object_terms_for_pred"
     get "/terms/meta_object_terms" => "terms#meta_object_terms"
