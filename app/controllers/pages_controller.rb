@@ -188,6 +188,7 @@ class PagesController < ApplicationController
     @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @filter_predicates = []
+    @page_title = t("page_titles.pages.data", page_name: @page.name)
     resources_data = []
 
     filtered_data = @page.data.select do |t|
@@ -225,6 +226,7 @@ class PagesController < ApplicationController
 
   def maps
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @page_title = t("page_titles.pages.maps", page_name: @page.name)
     # NOTE: sorry, no, you cannot choose the page size for maps.
     @media_page_size = 18
     @media = @page.maps.by_page(params[:page]).per(@media_page_size)
@@ -240,6 +242,7 @@ class PagesController < ApplicationController
 
   def media
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @page_title = t("page_titles.pages.media", page_name: @page.name)
     return render(status: :not_found) unless @page # 404
     get_media
     respond_to do |format|
@@ -255,6 +258,7 @@ class PagesController < ApplicationController
 
   def articles
     get_articles
+    @page_title = t("page_titles.pages.articles", page_name: @page.name)
     respond_to do |format|
       format.html do
         if request.xhr?
@@ -295,6 +299,7 @@ class PagesController < ApplicationController
         { vernaculars: :language }
       ).find(params[:page_id])
     )
+    @page_title = t("page_titles.pages.names", page_name: @page.name)
 
     respond_to do |format|
       format.html {}
@@ -546,3 +551,4 @@ private
     end
   end
 end
+
