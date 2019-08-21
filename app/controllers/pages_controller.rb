@@ -285,17 +285,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def details
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).includes(articles: [:license, :sections,
-      :bibliographic_citation, :location, :resource, attributions: :role]).first)
-    return render(status: :not_found) unless @page # 404
-    respond_to do |format|
-      format.html {}
-      format.js {}
-      format.json { render json: @page.articles } # TODO: add sections later.
-    end
-  end
-
   def names
     @page = PageDecorator.decorate(
       Page.includes(

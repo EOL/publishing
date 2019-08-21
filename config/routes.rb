@@ -29,7 +29,6 @@ Rails.application.routes.draw do
       # NOTE this is a Rails collecton (as opposed to member), *not* an EOL
       # collection:
       get 'clear_index_stats', on: :collection
-      get 'details'
       get 'literature_and_references'
       get 'maps'
       get 'media'
@@ -41,6 +40,7 @@ Rails.application.routes.draw do
       post 'batch_lookup' => "pages#batch_lookup_results", on: :collection, as: :batch_lookup_results
 
       get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
+      get 'details', :to => redirect("/pages/%{page_id}", :status => 301)
     end
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type
