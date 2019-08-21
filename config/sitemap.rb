@@ -30,12 +30,14 @@ SitemapGenerator::Sitemap.create do
 
   # Pages
   Page.find_each do |page|
-    add_custom page_path(page)
-    add_custom page_data_path(page) if page.has_data?
-    add_custom page_maps_path(page) if page.map?
-    add_custom page_media_path(page) if page.media_count > 0
-    add_custom page_articles_path(page) if page.articles_count > 0
-    add_custom page_names_path(page)
+    if page.has_data?
+      add_custom page_path(page)
+      add_custom page_data_path(page)
+      add_custom page_maps_path(page) if page.map?
+      add_custom page_media_path(page) if page.media_count > 0
+      add_custom page_articles_path(page) if page.articles_count > 0
+      add_custom page_names_path(page)
+    end
   end
   
   ####################################

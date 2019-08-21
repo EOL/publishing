@@ -152,6 +152,7 @@ class PagesController < ApplicationController
       return redirect_to(route_not_found_path)
     end
     @page = PageDecorator.decorate(page)
+    set_noindex_if_needed(@page)
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
@@ -185,6 +186,7 @@ class PagesController < ApplicationController
 
   def data
     @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:page_id]))
+    set_noindex_if_needed(@page)
     @predicate = params[:predicate] ? @page.glossary[params[:predicate]] : nil
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @filter_predicates = []
@@ -226,6 +228,7 @@ class PagesController < ApplicationController
 
   def maps
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    set_noindex_if_needed(@page)
     @page_title = t("page_titles.pages.maps", page_name: @page.name)
     # NOTE: sorry, no, you cannot choose the page size for maps.
     @media_page_size = 18
@@ -242,6 +245,7 @@ class PagesController < ApplicationController
 
   def media
     @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    set_noindex_if_needed(@page)
     @page_title = t("page_titles.pages.media", page_name: @page.name)
     return render(status: :not_found) unless @page # 404
     get_media
@@ -259,6 +263,7 @@ class PagesController < ApplicationController
   def articles
     get_articles
     @page_title = t("page_titles.pages.articles", page_name: @page.name)
+    set_noindex_if_needed(@page)
     respond_to do |format|
       format.html do
         if request.xhr?
@@ -300,6 +305,7 @@ class PagesController < ApplicationController
       ).find(params[:page_id])
     )
     @page_title = t("page_titles.pages.names", page_name: @page.name)
+    set_noindex_if_needed(@page)
 
     respond_to do |format|
       format.html {}
@@ -550,5 +556,12 @@ private
       @show_wordcloud = true
     end
   end
+
+  def set_noindex_if_needed(page)
+    if !page.has_data?
+      response.headers['X-Robots-Tag'] = "noindex"
+    end
+  end
+
 end
 
