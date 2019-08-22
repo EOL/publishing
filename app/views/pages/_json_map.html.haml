@@ -16,4 +16,6 @@
     = javascript_include_tag "5169"
     = javascript_include_tag "maps_leaflet"
 
-#map.map{ class: (local_assigns.has_key?(:extra_class) ? extra_class : ""), data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png"), :'map-data-path' => map_json_path(@page) } }
+.map-contain{ class: local_assigns.fetch(:extra_class, "") }
+  #map.map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png"), :'map-data-path' => map_json_path(@page) } }
+  .uk-text-meta= t("maps.occurrence_caption", page_name: @page.name)
