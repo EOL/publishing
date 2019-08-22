@@ -57,6 +57,8 @@ class Page < ActiveRecord::Base
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
+  KEY_DATA_LIMIT = 12
+
   class << self
     # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
     # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
@@ -486,7 +488,7 @@ class Page < ActiveRecord::Base
         # TODO: we probably want to show multiple values, here, or at least
         # "pick wisely" somehow.
         @key_data[predicate] = traits.first
-      break if seen.size >= 5
+      break if seen.size >= KEY_DATA_LIMIT
     end
     @key_data
   end
