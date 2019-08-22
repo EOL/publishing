@@ -516,37 +516,40 @@ $(function() {
       });
       
       if (competitors.length) {
-        var extra = 5;
-        var gap = (width - 100) / (competitors.length + extra);
+        var extra = 5
+          , gap = (width - 100) / (competitors.length + extra)
+          , varHeight = 30
+          , varHeightCoefs = [0, -1, 0, 1]
+          ;
+
         compPos = [];
         
         for(var i = 0; i < competitors.length + extra; i++) {
-          var value = 100 + (i * gap);
-          compPos.push(value);
+          var x = 100 + (i * gap)
+            , y = sourceY + (varHeight * varHeightCoefs[i % varHeightCoefs.length])
+            ;
+
+          compPos.push({ x: x, y: y});
         }
         tmpCompPos = compPos.slice();
         
         for (var i = 0; i < extra; i++) {
           tmpCompPos.splice(Math.floor(tmpCompPos.length / 2), 1);  
         }
-        
-        var varHeight = 30
-          , varHeightCoefs = [0, -1, 0, 1]
-          ;
 
         $(competitors).each((i, c) => {
           var prey = firstPreyForCompetitor(c);
 
           if(!prey || prey.x < width / 2) { // XXX: there should always be prey for competitors, but occasionally there's an error
-            c.x = tmpCompPos[0];
+            c.x = tmpCompPos[0].x;
+            c.y = tmpCompPos[0].y;
             tmpCompPos.splice(0, 1);
           } else {
             var endIndex = tmpCompPos.length - 1;
-            c.x = tmpCompPos[endIndex];
+            c.x = tmpCompPos[endIndex].x;
+            c.y = tmpCompPos[endIndex].y;
             tmpCompPos.splice(endIndex, 1); 
           }
-
-          c.y = sourceY + (varHeight * varHeightCoefs[i % varHeightCoefs.length]);
         });
       }
     }
