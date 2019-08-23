@@ -7,6 +7,8 @@ class PageDecorator
   class BriefSummary
     attr_accessor :view
 
+    FLOWER_VISITOR_LIMIT = 4
+
     def initialize(page, view)
       @page = page
       @view = view
@@ -29,7 +31,13 @@ class PageDecorator
       end
 
       landmark_children
-      trophic_level if !is_family? && !is_genus?
+      plant_description_sentence
+      flower_visitor_sentence
+
+      if !is_family? && !is_genus?
+        behavioral_sentence
+        lifespan_sentence
+      end
 
       Result.new(@sentences.join(' '), @terms)
     end
@@ -153,15 +161,74 @@ class PageDecorator
         end
       end
 
-      def trophic_level
-        trait = first_trait_for_pred_uri(Eol::Uris.trophic_level)
+      def behavioral_sentence
+        circadian = first_trait_for_obj_uris(
+          Eol::Uris.nocturnal,
+          Eol::Uris.diurnal,
+          Eol::Uris.crepuscular
+        )
+        solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
+        trophic = first_trait_for_obj_uris(Eol::Uris.trophic_level)
+        circadian_part = trait_sentence_part("%", circadian) if circadian
+        solitary_part = trait_sentence_part("%", solitary) if solitary
+        trophic_part = trait_sentence_part("%", trophic) if trophic
+        begin_parts = [solitary_part, circadian_part].compact
+        sentence = nil
 
-        if trait && trait[:object_term]
-          obj = trait[:object_term]
-          obj_label = obj[:name]
-          obj_uri = obj[:uri]
-          pred_uri = trait[:predicate][:uri]
-          term_sentence("It is #{a_or_an(obj_label)} %s.", obj_label, pred_uri, obj_uri)
+        if trophic_part
+          begin_part = begin_parts.join(", ")
+          sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}"
+        elsif begin_parts.any?
+          sentence = "It is #{begin_parts.join(" and ")}"
+        end
+
+        @sentences << sentence if sentence
+      end
+
+      def lifespan_sentence
+        trait = first_trait_for_pred_uri(Eol::Uris.lifespan)
+
+        if trait 
+          value = trait[:measurement]
+          units_name = trait.dig(:units, :name)
+
+          if value && units_name
+            @sentences << "Individuals are known to live for #{value} #{units_name}"
+          end
+        end
+      end
+
+      def plant_description_sentence
+        leaf_traits = Eol::Uris.flopos.collect { |uri| first_trait_for_pred_uri(uri) }.compact
+        flower_trait = first_trait_for_pred_uri(Eol::Uris.flower_color)
+        fruit_trait = first_trait_for_pred_uri(Eol::Uris.fruit_type)
+        leaf_part = nil
+        flower_part = nil
+        fruit_part = nil
+
+        if leaf_traits.any?
+          leaf_parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+          leaf_part = "#{leaf_parts.join(", ")} leaves"
+        end
+
+        if flower_trait
+          flower_part = trait_sentence_part("%s flowers", flower_trait)
+        end
+          
+        if fruit_trait
+          fruit_part = trait_sentence_part("%s", fruit_trait)
+        end
+
+        parts = [leaf_part, flower_part, fruit_part].compact
+        @sentences << "It has #{parts.to_sentence}" if parts.any? 
+      end
+
+      def flower_visitor_sentence
+        traits = traits_for_pred_uri(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
+
+        if traits && traits.any?
+          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+          @sentences << "Flowers are visited by #{parts.join(", ")}."
         end
       end
 
@@ -262,6 +329,18 @@ class PageDecorator
         return false
       end
 
+      def traits_for_pred_uri(pred_uri)
+        traits = []
+        terms = gather_terms(pred_uri)
+        
+        terms.each do |term|
+          traits_for_term = @page.grouped_data[term]
+          traits.concat(traits_for_term) if traits_for_term
+        end
+
+        traits
+      end
+                        
       def first_trait_for_pred_uri(pred_uri)
         terms = gather_terms(pred_uri)
         
@@ -274,6 +353,15 @@ class PageDecorator
         end
 
         nil
+      end
+
+      def first_trait_for_obj_uris(*obj_uris)
+        obj_uris.each do |uri|
+          recs = @page.grouped_data_by_obj_uri[uri]
+          return recs.first if recs
+        end
+
+        return nil
       end
 
       def gather_terms(uris)

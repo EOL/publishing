@@ -52,6 +52,7 @@ module EolWebsite
       "/api/",
       "/users/",
       "/resources/*/nodes/",
+      "/search/"
     ]
 
   end

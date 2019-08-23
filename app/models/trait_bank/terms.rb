@@ -136,6 +136,8 @@ class TraitBank
 
         q = "MATCH (term:Term) "\
             "WHERE NOT (term)-[:parent_term]->(:Term) "\
+            "AND NOT (term)-[:synonym_of]->(:Term) "\
+            "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{array_to_qs(types)} "\
             "RETURN term "\
             "ORDER BY lower(term.name), term.uri"
@@ -145,8 +147,9 @@ class TraitBank
 
       def children(uri)
         q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
-          "RETURN term "\
-          "ORDER BY lower(term.name), term.uri"
+            "WHERE NOT (term)-[:synonym_of]->(:Term) "\
+            "RETURN term "\
+            "ORDER BY lower(term.name), term.uri"
         term_query(q)
       end
 

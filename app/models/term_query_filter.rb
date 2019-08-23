@@ -5,6 +5,7 @@ class TermQueryFilter < ActiveRecord::Base
   validate :validation
 
   attr_reader :show_extra_fields
+  attr_accessor :top_pred_uri
 
   TermSelect = Struct.new(:type, :parent_uri, :selected_uri) do
     def persisted?
@@ -168,7 +169,11 @@ class TermQueryFilter < ActiveRecord::Base
   end
 
   def pred_term_selects
-    @pred_term_selects ||= [TermSelect.new(:predicate, nil, nil)]
+    if @pred_term_selects.nil?
+      self.pred_term_selects_attributes = {}
+    end
+
+    @pred_term_selects
   end
 
   def obj_term_selects
@@ -177,40 +182,44 @@ class TermQueryFilter < ActiveRecord::Base
 
   def pred_term_selects_attributes=(attrs)
     selects = []
-    
-    sorted_keys = attrs.keys.sort
-    attr_arr = sorted_keys.collect { |k| attrs[k] }
-    with_uri = attr_arr.select { |attr| attr[:selected_uri].present? }
-    last_with_uri = with_uri.any? ? with_uri.last : nil
 
-    if last_with_uri && last_with_uri[:selected_uri] != pred_uri
-      @pred_term_selects = [TermSelect.new(:predicate, nil, nil)]
-      return
-    end
+    if top_pred_uri.present?
+      sorted_keys = attrs.keys.sort
+      attr_arr = sorted_keys.collect { |k| attrs[k] }
 
-    i = 0
-    continue = true
+      if attr_arr.any? && top_pred_uri == attr_arr.first[:parent_uri]
+        i = 0
+        continue = true
 
-    while i < attr_arr.length && continue
-      field = attr_arr[i]
-      if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
-        selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
-        added = true
-      else 
-        added = false
+        while i < attr_arr.length && continue
+          field = attr_arr[i]
+          if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
+            selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
+            added = true
+          else 
+            added = false
+          end
+
+          continue = added && field[:selected_uri].present?
+          i += 1
+        end
       end
 
-      continue = added && field[:selected_uri].present?
-      i += 1
-    end
-        
-    if selects.last.selected_uri.present?
-      child_select = TermSelect.new(
-        selects.last.type, 
-        selects.last.selected_uri,
-        nil
-      )
-      selects << child_select if child_select.terms.any?
+      if selects.empty? || selects.last.selected_uri.present?
+        if selects.empty?
+          parent_uri = pred_uri
+        else
+          parent_uri = selects.last.selected_uri
+        end
+
+        child_select = TermSelect.new(
+          :predicate,
+          parent_uri,
+          nil
+        )
+
+        selects << child_select if child_select.terms.any?
+      end
     end
 
     @pred_term_selects = selects

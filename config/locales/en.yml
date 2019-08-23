@@ -465,6 +465,7 @@ en:
     ar: "AR"
   maps:
     empty: "There are no maps available for this page."
+    occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
     other_maps_title: "Non-interactive Maps"
   medium:
     untitled:
@@ -576,6 +577,15 @@ en:
       unknown: "unknown (no record)"
     unresolved_name: "Unresolved name"
     unresolved_name_prefix: "Unresolved name:"
+  page_titles:
+    pages:
+      data: "%{page_name} data"
+      media: "%{page_name} media"
+      maps: "%{page_name} maps"
+      names: "%{page_name} names"
+      articles: "%{page_name} articles"
+    traits:
+      search: "Trait search"
   name_recognized_by: "Recognized by %{by}"
   name_recognized_by_rank: "%{rank} recognized by %{by}"
   ranks:

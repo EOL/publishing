@@ -67,6 +67,13 @@
   & > span {
     width: 100%;
   }
+
+  & .tt-menu {
+    border: 1px solid $light-gray;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+  }
 }
 
 .filter-field-radio {
@@ -196,5 +203,5 @@
 }
 
 .term-select-children {
-  padding-left: 5%;
+  padding-left: 40px;
 }

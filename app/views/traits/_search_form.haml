@@ -7,7 +7,7 @@
 
     .filter.filter-row
       %span.js-typeahead-wrap.l-filter-full
-        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (optional)"
+        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "clade (e.g.: bears) (optional)"
         = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
     = f.fields_for :filters do |ff|
@@ -15,7 +15,7 @@
         - if f.object.filters.length > 1
           .l-filter-first.filter-icon
             .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
-        = render "filter_field", field_name: "pred", typeahead_class: "pred", placeholder: "start typing attribute name", ff: ff, has_browser: true
+        = render "filter_field", field_name: "pred", typeahead_class: "pred", placeholder: "attribute", ff: ff, val_name: term_name(ff.object.top_pred_uri)
         - if ff.object.units_for_pred?
           .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
             %span.filter-field

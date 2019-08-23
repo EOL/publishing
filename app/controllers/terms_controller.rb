@@ -122,6 +122,17 @@ class TermsController < ApplicationController
     render :json => res
   end
 
+  def trait_search_predicates
+    @query = params[:query]
+
+    if @query.blank?
+      render json: TraitBank::Terms.top_level(:predicate)
+    else
+      glossary(:predicate_glossary, count_method: :predicate_glossary_count)
+    end
+  end
+
+
 private
 
   def terms_to_array(terms)

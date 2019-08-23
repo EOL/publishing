@@ -30,8 +30,8 @@
     });
   }
 
-  function buildTypeahead(selector, options, datumField, selectFn) {
-    $(selector).typeahead({}, options).bind('typeahead:selected', function(evt, datum, name) {
+  function buildTypeahead(selector, typeaheadOptions, dataOptions, datumField, selectFn) {
+    $(selector).typeahead(typeaheadOptions, dataOptions).bind('typeahead:selected', function(evt, datum, name) {
       var $target = $(evt.target);
 
       $target.data('lastCleanVal', $target.val());
@@ -80,7 +80,7 @@
     });
 
     $('.js-meta-obj-typeahead').each(function() {
-      buildTypeahead(this, {
+      buildTypeahead(this, {}, {
         name: 'meta-obj-names',
         display: 'name',
         limit: Infinity,
@@ -114,18 +114,31 @@
       }
     });
 
-    buildTypeahead('.js-clade-typeahead', {
+    buildTypeahead('.js-clade-typeahead', {}, {
       name: 'clade-filter-names',
       display: 'name',
       limit: Infinity,
       source: EOL.searchNamesNoMultipleText
     }, 'id', null);
 
-    buildTypeahead('.js-pred-typeahead', {
+    var predSource = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: Routes.trait_search_predicate_typeahead_path({ 
+          query: 'QUERY',
+          format: 'json'
+        }),
+        wildcard: 'QUERY'
+      }
+    });
+
+    buildTypeahead('.js-pred-typeahead', { minLength: 0 }, {
       name: 'pred-names',
       display: 'name',
+      minLength: 0,
       limit: Infinity,
-      source: EOL.searchPredicates
+      source: predSource
     }, 'uri', fetchForm);
 
     $('.js-pred-obj-typeahead').each(function() {
@@ -143,7 +156,7 @@
       });
       source.initialize();
 
-      buildTypeahead(this, {
+      buildTypeahead(this, {}, {
         display: 'name',
         source: source,
         limit: Infinity
@@ -151,14 +164,14 @@
     });
 
 
-    buildTypeahead('.js-obj-typeahead', {
+    buildTypeahead('.js-obj-typeahead', {}, {
       name: 'obj-names',
       display: 'name',
       limit: Infinity,
       source: EOL.searchObjectTerms
     }, 'uri', fetchForm);
 
-    buildTypeahead('.js-resource-typeahead', {
+    buildTypeahead('.js-resource-typeahead', {}, {
       name: 'resource',
       display: 'name',
       limit: Infinity,

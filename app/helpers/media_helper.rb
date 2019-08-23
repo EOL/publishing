@@ -9,15 +9,14 @@ module MediaHelper
   end
 
   def medium_name_html(medium)
-    name = medium.name
-
-    if name.blank?
-        name = medium.source_pages.any? ?
-          t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
-          t("medium.untitled.#{medium.subclass}")
-    end
-
+    name = medium.name || generic_medium_name(medium)
     name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
+  end
+
+  def generic_medium_name(medium)
+    medium.source_pages.any? ?
+      t("medium.untitled.#{medium.subclass}_of", page_name: medium.source_pages.first.name) :
+      t("medium.untitled.#{medium.subclass}")
   end
 
   def medium_appears_on(medium)
@@ -58,7 +57,7 @@ module MediaHelper
         content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end
     else
-      image_tag(medium&.medium_size_url)
+      image_tag(medium&.medium_size_url, alt: generic_medium_name(medium))
     end
   end
 
@@ -80,7 +79,7 @@ module MediaHelper
     elsif medium.sound?
       audio_tag(medium&.url_with_format, controls: true, class: "gallery-audio-player")
     else
-      image_tag(medium&.send("#{img_size}_size_url"))
+      image_tag(medium&.send("#{img_size}_size_url"), alt: generic_medium_name(medium))
     end
   end
 
