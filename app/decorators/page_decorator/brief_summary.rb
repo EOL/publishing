@@ -179,7 +179,7 @@ class PageDecorator
           begin_part = begin_parts.join(", ")
           sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}"
         elsif begin_parts.any?
-          sentence = "It is #{begin_parts.join(" and ")}"
+          sentence = "It is #{begin_parts.join(" and ")}."
         end
 
         @sentences << sentence if sentence
@@ -193,7 +193,7 @@ class PageDecorator
           units_name = trait.dig(:units, :name)
 
           if value && units_name
-            @sentences << "Individuals are known to live for #{value} #{units_name}"
+            @sentences << "Individuals are known to live for #{value} #{units_name}."
           end
         end
       end
@@ -220,7 +220,7 @@ class PageDecorator
         end
 
         parts = [leaf_part, flower_part, fruit_part].compact
-        @sentences << "It has #{parts.to_sentence}" if parts.any? 
+        @sentences << "It has #{parts.to_sentence}." if parts.any? 
       end
 
       def flower_visitor_sentence
