@@ -702,6 +702,14 @@ class Page < ActiveRecord::Base
     @grouped_data ||= data.group_by { |t| t[:predicate][:uri] }
   end
 
+  def grouped_data_by_obj_uri
+    @grouped_data_by_obj ||= data.select do |t| 
+      t.dig(:object_term, :uri).present?
+    end.group_by do |t|
+      t[:object_term][:uri]
+    end
+  end
+
   def predicates
     @predicates ||= grouped_data.keys.sort do |a,b|
       glossary_names[a] <=> glossary_names[b]

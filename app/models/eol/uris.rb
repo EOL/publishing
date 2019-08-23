@@ -209,6 +209,38 @@ module Eol
         "http://eol.org/schema/terms/statisticalMethod"
       end
 
+      def nocturnal
+        "http://www.wikidata.org/entity/Q309179"
+      end
+
+      def diurnal
+        "http://www.wikidata.org/entity/Q906470"
+      end
+
+      def crepuscular
+        "http://purl.obolibrary.org/obo/ECOCORE_00000078"
+      end
+
+      def solitary
+        "http://eol.org/schema/terms/solitary"
+      end
+
+      def lifespan
+        "http://purl.obolibrary.org/obo/VT_0001661"
+      end
+
+      def flopos
+        ["http://purl.obolibrary.org/obo/FLOPO_0007484", "http://purl.obolibrary.org/obo/FLOPO_0019932"]
+      end
+
+      def flower_color
+        "http://purl.obolibrary.org/obo/TO_0000537"
+      end
+
+      def fruit_type
+        "http://purl.obolibrary.org/obo/TO_0000850"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end
