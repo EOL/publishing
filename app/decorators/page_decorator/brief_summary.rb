@@ -169,9 +169,9 @@ class PageDecorator
         )
         solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
         trophic = first_trait_for_obj_uris(Eol::Uris.trophic_level)
-        circadian_part = trait_sentence_part("%", circadian) if circadian
-        solitary_part = trait_sentence_part("%", solitary) if solitary
-        trophic_part = trait_sentence_part("%", trophic) if trophic
+        circadian_part = trait_sentence_part("%s", circadian) if circadian
+        solitary_part = trait_sentence_part("%s", solitary) if solitary
+        trophic_part = trait_sentence_part("%s", trophic) if trophic
         begin_parts = [solitary_part, circadian_part].compact
         sentence = nil
 
