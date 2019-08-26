@@ -38,7 +38,7 @@ given here.  The name of the file containins the token is given as a
 command line argument, and the query is given as a second command line
 argument, for example (typed at the shell):
 
-    python cypher.py --tokenfile=api.token --query="MATCH (n:Trait) RETURN n LIMIT 1;"
+    python3 cypher.py --tokenfile=api.token --query="MATCH (n:Trait) RETURN n LIMIT 1;"
 
 For `cypher.py` see [here](cypher.py).  This module may be adapted for
 use in particular python programs.
