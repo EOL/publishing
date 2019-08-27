@@ -85,6 +85,12 @@ module PagesHelper
   def classification_content(page, this_node, node, ancestors)
     summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
     if ancestors.empty?
+      this_node.siblings.each do |sibling|
+        haml_tag("div.item") do
+          summarize(sibling.page, name: sibling.name, current_page: false, node: sibling, no_icon: true)
+        end
+      end 
+
       if this_node.children.any?
         haml_tag("div.item") do
           haml_tag("div.ui.middle.aligned.list.descends") do
