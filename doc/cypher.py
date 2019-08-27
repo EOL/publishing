@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # This is an example API client program.  It invokes the `cypher`
 # service with parameters supplied on the command line.  Actual use of
@@ -6,6 +6,10 @@
 # done with wget or curl, or as complex as a translation to your
 # favorite programming language, as a module to be used in a larger
 # program.
+
+# To get this to work you may have to do the following, or equivalent:
+#   sudo apt-get install python3-pip
+#   sudo pip3 install requests
 
 import requests, argparse, json, sys
 
@@ -38,7 +42,7 @@ def doit(server, api_token, query, format):
         # https://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py#16696317
         for chunk in r.iter_content(chunk_size=1024): 
             if chunk: # filter out keep-alive new chunks
-                sys.stdout.write(chunk)
+                sys.stdout.write(chunk.decode('utf-8'))
     elif ct == "text/plain":
         print >>sys.stderr, r.text
     else:
