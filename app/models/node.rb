@@ -123,6 +123,6 @@ class Node < ActiveRecord::Base
   end
 
   def siblings
-    parent.children
+    parent&.children || []
   end
 end
