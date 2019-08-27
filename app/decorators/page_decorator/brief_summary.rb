@@ -207,7 +207,7 @@ class PageDecorator
         fruit_part = nil
 
         if leaf_traits.any?
-          leaf_parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+          leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
           leaf_part = "#{leaf_parts.join(", ")} leaves"
         end
 
