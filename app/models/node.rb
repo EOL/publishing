@@ -121,4 +121,8 @@ class Node < ActiveRecord::Base
     .order(:landmark)
     .limit(limit)
   end
+
+  def siblings
+    parent.children
+  end
 end
