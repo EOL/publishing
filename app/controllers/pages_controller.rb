@@ -227,7 +227,7 @@ class PagesController < ApplicationController
   end
 
   def maps
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @page = PageDecorator.decorate(Page.find(params[:page_id]))
     set_noindex_if_needed(@page)
     @page_title = t("page_titles.pages.maps", page_name: @page.name)
     # NOTE: sorry, no, you cannot choose the page size for maps.
