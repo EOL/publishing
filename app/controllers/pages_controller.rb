@@ -146,12 +146,7 @@ class PagesController < ApplicationController
 
   # This is effectively the "overview":
   def show
-    page = Page.where(id: params[:id]).with_hierarchy.first
-    if page.nil?
-      Rails.logger.warn("Attempt to load missing page ##{params[:id]}")
-      return redirect_to(route_not_found_path)
-    end
-    @page = PageDecorator.decorate(page)
+    @page = PageDecorator.decorate(Page.with_hierarchy.find(params[:id]))
     set_noindex_if_needed(@page)
     @page.fix_non_image_hero # TEMP: remove me when this is no longer an issue.
     @page_title = @page.name
