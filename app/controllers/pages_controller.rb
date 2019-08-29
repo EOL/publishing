@@ -244,7 +244,7 @@ class PagesController < ApplicationController
   end
 
   def media
-    @page = PageDecorator.decorate(Page.where(id: params[:page_id]).first)
+    @page = PageDecorator.decorate(Page.find(params[:page_id]))
     set_noindex_if_needed(@page)
     @page_title = t("page_titles.pages.media", page_name: @page.name)
     return render(status: :not_found) unless @page # 404
