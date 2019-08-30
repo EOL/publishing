@@ -318,6 +318,17 @@ a.uk-inline {
   height: 4em;
 }
 
+.print-logo {
+  display: none;
+}
+
+@media only print {
+  .print-logo {
+    display: block;
+    margin: 10px;
+  }
+}
+
 // FORMS (SITE-WIDE)
 
 form .field {
@@ -666,6 +677,14 @@ body {
 
 @media only print {
   .l-nav {
+    display: none;
+  }
+
+  .l-basic-main {
+    padding-top: 0;
+  }
+
+  .footer {
     display: none;
   }
 }

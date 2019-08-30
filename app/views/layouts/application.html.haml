@@ -1,6 +1,7 @@
 - content_for :body  do
   %body
     = render("application/navbar")
+    = image_tag "print_logo", class: "print-logo"
     - if main_container?
       .uk-container
         #main
