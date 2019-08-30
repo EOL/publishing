@@ -276,6 +276,11 @@ $font-sz-m: 14px;
 
 }
 
+@media only print and (min-width: $width-m) {
+  .hero {
+    margin-left: $padding-left-m;
+  }
+}
 
 @media(min-width: 1100px) {
   .l-flex {
@@ -463,6 +468,33 @@ $font-sz-m: 14px;
 @media(min-width: 740px) {
   .trophic-web {
     display: block;
+  }
+}
+
+@media only print {
+  .l-tabs {
+    position: relative;
+  }
+
+  .tabs {
+    display: none;
+  }
+
+  .head-icon {
+    display: none;
+  }
+
+  .l-content {
+    margin-top: 0;
+  }
+
+  .names-buttons {
+    display: none;
+  }
+
+  .hero {
+    max-width: 300px;
+    margin-left: $padding-left-s;
   }
 }
 

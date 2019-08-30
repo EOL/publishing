@@ -167,7 +167,7 @@ section#side_body {
 }
 
 .list.descends {
-  padding: 3px !important;
+  padding: 6px !important;
   .list {
     padding-bottom: 0 !important;
   }
@@ -316,6 +316,17 @@ a.uk-inline {
 
 #collected_pages_search {
   height: 4em;
+}
+
+.print-logo {
+  display: none;
+}
+
+@media only print {
+  .print-logo {
+    display: block;
+    margin: 10px;
+  }
 }
 
 // FORMS (SITE-WIDE)
@@ -483,7 +494,7 @@ body {
 .nav-search-form {
   margin: 0 auto;
   position: relative;
-  width: 250px;
+  width: 60%;
 
   & > .twitter-typeahead {
     width: 100%;
@@ -501,6 +512,20 @@ body {
 
 .nav-search-form .tt-cursor {
   background-color: #ddd;
+}
+
+@media(min-width: $width-uk-s + 1px) {
+  .nav-search-form {
+    float: right;
+    margin-right: 10px;
+    width: 265px;
+  }
+}
+
+@media(min-width: $search-collapse-width + 1) {
+  .nav-search-form {
+    width: 250px;
+  }
 }
 
 .nav-search-icon {
@@ -634,25 +659,32 @@ body {
     height: 100px;
   }
 
-@media(min-width: $width-uk-s + 1px) {
-  .nav-search-form {
-    float: right;
-    margin-right: 10px;
-    width: 265px;
+// JS map
+#map {
+  #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+    display: none;
   }
 }
 
-@media(max-width: $search-collapse-width) {
-  .nav-search-form {
-    width: 60%; 
-  }
-}
-
-@media(max-width: 616px) {
-  // TODO: these should all have a single class that is targeted
+@media only screen and (min-width: 617px) {
   #map {
     #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
-      display: none;
+      display: block;
     }
+  }
+  // TODO: these should all have a single class that is targeted
+}
+
+@media only print {
+  .l-nav {
+    display: none;
+  }
+
+  .l-basic-main {
+    padding-top: 0;
+  }
+
+  .footer {
+    display: none;
   }
 }

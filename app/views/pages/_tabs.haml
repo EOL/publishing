@@ -22,7 +22,7 @@
           - if sci_name
             %h2= sci_name.html_safe
           - dest = current_user ? new_collected_page_path(page_id: @page.id) : new_user_session_path
-        .uk-position-top-right
+        .uk-position-top-right.names-buttons
           - basic_button("plus", t("pages.actions.collect"), dest, no_margin: true)
     -#
       %ul.page-actions
