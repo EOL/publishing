@@ -77,37 +77,38 @@ module PagesHelper
     raise TypeError.new("ancestors can't be empty") if ancestors.empty?
     node = ancestors.shift
     page = node.page
-    haml_tag("div.item") do
-      classification_content(page, this_node, node, ancestors)
-    end
+    classification_content(page, this_node, node, ancestors)
   end
 
   def classification_content(page, this_node, node, ancestors)
-    summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
-    if ancestors.empty?
-      if this_node.children.any?
-        haml_tag("div.item") do
-          haml_tag("div.ui.middle.aligned.list.descends") do
-            # sanitize so <i> tags aren't counted for sorting purposes
-            this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
-              haml_tag("div.item") do
-                summarize(child.page, name: child.name, node: child, no_icon: true)
+    haml_tag("div.item") do
+      summarize(page, name: node.name, current_page: node == this_node, node: node, no_icon: true)
+      if ancestors.empty?
+        if this_node.children.any?
+          haml_tag("div.item") do
+            haml_tag("div.ui.middle.aligned.list.descends") do
+              # sanitize so <i> tags aren't counted for sorting purposes
+              this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
+                haml_tag("div.item") do
+                  summarize(child.page, name: child.name, node: child, no_icon: true)
+                end
               end
             end
           end
         end
+      else
+        haml_tag("div.ui.middle.aligned.list.descends") do
+          classification_helper(this_node, ancestors)
+        end
       end
+    end
 
+    if ancestors.empty?
       this_node.siblings.each do |sibling|
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.name, current_page: false, node: sibling, no_icon: true)
         end
       end 
-    else
-      # indent, recurse
-      haml_tag("div.ui.middle.aligned.list.descends") do
-        classification_helper(this_node, ancestors)
-      end
     end
   end
 
