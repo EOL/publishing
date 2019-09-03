@@ -168,7 +168,7 @@ class PageDecorator
           Eol::Uris.crepuscular
         )
         solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
-        trophic = first_trait_for_obj_uris(Eol::Uris.trophic_level)
+        trophic = first_trait_for_pred_uri(Eol::Uris.trophic_level)
         circadian_part = trait_sentence_part("%s", circadian) if circadian
         solitary_part = trait_sentence_part("%s", solitary) if solitary
         trophic_part = trait_sentence_part("%s", trophic) if trophic
