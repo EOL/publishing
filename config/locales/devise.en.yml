@@ -10,7 +10,7 @@ en:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
       invalid: "Invalid %{authentication_keys} or password."
-      locked: "Your account is locked, Please try agian after one hour"
+      locked: "Your account is locked, Please try again after one hour"
       last_attempt: "You have one more attempt before your account is locked."
       not_found_in_database: "Invalid %{authentication_keys} or password."
       recaptcha_error: "There was an error with the recaptcha code below. Please re-enter the code and click submit."
