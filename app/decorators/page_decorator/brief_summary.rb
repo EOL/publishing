@@ -177,7 +177,7 @@ class PageDecorator
 
         if trophic_part
           begin_part = begin_parts.join(", ")
-          sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}"
+          sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}."
         elsif begin_parts.any?
           sentence = "It is #{begin_parts.join(" and ")}."
         end
