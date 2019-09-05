@@ -175,11 +175,15 @@ class PageDecorator
         begin_parts = [solitary_part, circadian_part].compact
         sentence = nil
 
-        if trophic_part
-          begin_part = begin_parts.join(", ")
-          sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}."
-        elsif begin_parts.any?
-          sentence = "It is #{begin_parts.join(" and ")}."
+        if begin_parts.any?
+          if trophic_part
+            begin_part = begin_parts.join(", ")
+            sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}."
+          else
+            sentence = "It is #{begin_parts.join(" and ")}."
+          end
+        elsif trophic_part
+          sentence = "It is #{a_or_an(trophic_part)} #{trophic_part}."
         end
 
         @sentences << sentence if sentence
