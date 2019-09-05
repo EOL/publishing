@@ -81,6 +81,9 @@ module PagesHelper
   end
 
   def classification_content(page, this_node, node, ancestors)
+    # have to capture this state here, because it will always be empty where we need the check
+    show_siblings = ancestors.empty? 
+
     haml_tag("div.item") do
       summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
       if ancestors.empty?
@@ -103,7 +106,7 @@ module PagesHelper
       end
     end
 
-    if ancestors.empty?
+    if show_siblings
       this_node.siblings.each do |sibling|
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
