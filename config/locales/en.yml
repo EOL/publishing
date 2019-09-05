@@ -541,7 +541,6 @@ en:
       eol_has_data_for_n_attributes_html:
         one: "EOL has data for <a href=\"%{data_path}\">one attribute</a>."
         other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>."
-    page_articles:
     filter_menu:
       show_all: "show all"
     page_data:
