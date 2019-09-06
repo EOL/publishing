@@ -463,6 +463,7 @@ en:
   locale_codes:
     en: "EN"
     ar: "AR"
+    mk: "MK"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
