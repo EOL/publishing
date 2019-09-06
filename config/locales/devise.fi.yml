@@ -1,0 +1,33 @@
+# Messages for Finnish (suomi)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Pyscowicz
+---
+fi:
+  devise:
+    failure:
+      already_authenticated: Olet jo kirjautuneena sisään.
+      inactive: Käyttäjätunnustasi ei ole vielä aktivoitu.
+      invalid: Virheellinen %{authentication_keys} tai salasana.
+      unauthenticated: Sinun täytyy kirjautua sisään tai rekisteröityä ennen jatkamista.
+    mailer:
+      confirmation_instructions:
+        action: Vahvista käyttäjätunnus
+        greeting: Tervetuloa %{recipient}!
+      reset_password_instructions:
+        action: Vaihda salasanani
+        greeting: 'Hei #{recipient}!'
+      password_change:
+        greeting: 'Hei #{recipient}!'
+        subject: Salasana vaihdettu
+    registrations:
+      updated: Käyttäjätunnuksesi on päivitetty onnistuneesti.
+    sessions:
+      signed_in: Kirjauduttu sisään onnistuneesti.
+      signed_out: Kirjauduttu ulos onnistuneesti.
+      already_signed_out: Kirjauduttu ulos onnistuneesti.
+  errors:
+    messages:
+      not_found: ei löydy
+      not_locked: ei ollut lukittu
+...

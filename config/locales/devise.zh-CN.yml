@@ -1,0 +1,30 @@
+# Messages for Simplified Chinese (中文（简体）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: A Chinese Wikipedian
+---
+zh-CN:
+  devise:
+    confirmations:
+      confirmed: 此电子邮件地址已成功验证。
+      send_instructions: 您将收到一封电子邮件，说明如何在几分钟内确认您的电子邮件地址。
+      send_paranoid_instructions: 如果您的电子邮件地址存在于我们的数据库中，您将收到一封电子邮件，说明如何在几分钟内确认您的电子邮件地址。
+    failure:
+      already_authenticated: 您已经登录了。
+      inactive: 您的帐户尚未激活。
+      locked: 您的帐户被锁定，请在一小时后尝试登录
+    mailer:
+      confirmation_instructions:
+        action: 确认账户
+        instruction: 您可以通过以下链接确认您的帐户电子邮件：
+        subject: 确认信息
+      reset_password_instructions:
+        action: 更新我的密码
+    sessions:
+      signed_in: 成功登录。
+      signed_out: 成功注销。
+      already_signed_out: 成功注销。
+  errors:
+    messages:
+      not_found: 未找到
+...
