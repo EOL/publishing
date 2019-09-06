@@ -1,0 +1,533 @@
+# Messages for Finnish (suomi)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nike
+# Author: Pyscowicz
+---
+fi:
+  language_name: Englanti
+  account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
+  account_not_linked: tunnustasi ei ole linkitetty EOL:ään
+  are_you_sure_delete_account: Haluatko varmasti poistaa EOL-käyttäjätunnuksesi?
+  article:
+    actions:
+      collect: kerää
+    header:
+      body: Leipäteksti
+      language: 'kieli: %{language}'
+      title: Otsikko
+      untitled: Nimetön
+    name:
+      missing: Nimetön
+  article_from_partner: tarjonnut %{partner}
+  autocomplete:
+    see_all:
+      one: näytä muut tulokset
+      other: näytä kaikki %{count} tulosta
+  breadcrumbs:
+    types:
+      scientific: tieteellinen
+      vernacular: kansankielinen
+  button_create: luo
+  button_add: lisää
+  cancel: peruuta
+  change_my_password: Vaihda salasanani
+  change_your_password: Vaihda salasanasi
+  classifications:
+    children:
+      header_html:
+        one: '%{name} sisältää <a href="%{names_path}">%{count} lapsen</a>:'
+        other: '%{name} sisältää <a href="%{names_path}">%{count} lasta</a>:'
+      see_more: lisätietoja
+    hierarchies:
+      this_page: (tämä sivu)
+    richness:
+      header: Sivun rikkaus
+      media_count: media
+      articles_count: artikkelit
+      links_count: linkit
+      maps_count: kartat
+      data_count: tiedot
+      scientific_names_count: tieteellinen nimet
+      referents_count: viitteet
+      species_count: lajit
+      updated_at: viimeksi päivitetty
+  cms_page_date: 'Viimeksi muokattu:'
+  collect_already_in_collection: (se on jo täällä)
+  collect_already_in_collection_will_add_icon: (lisää mediaa sivulle "%{page}")
+  collect_icon_title: Lisää "%{item}" sivulta "%{page}" sivulle…
+  collect_new_collection: Uuden kokoelman nimi
+  collect_new_collection_title: '...uuteen kokoelmaan'
+  collect_no_existing_collections: Sinulla ei ole vielä yhtään! Luo yksi käyttämällä
+    vasemmalla olevaa lomaketta.
+  collect_select_collection: '...yhteen kokoelmistasi'
+  collect_title: Lisää "%{item}"...
+  collected_page_added_to_collection: Lisätty %{page} kokoelmaan <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Tämä oli jo kokoelmassasi.
+  collected_pages_title: Sivut
+  collected_pages_medium:
+    destroyed_flash: Kuva poistettu kerätyltä sivulta.
+  collection_associations:
+    destroyed_flash: '%{name} ei enää liity tähän kokoelmaan.'
+  collected_pages:
+    delete_button: poista
+    edit_button: muokkaa
+    delete_confirm: oletko varma?
+    destroyed_flash: '%{name} poistettu kokoelmasta.'
+  collection_created: Luotu uusi kokoelma "%{name}".
+  collection_user_is_admin: Tämä käyttäjä on ylläpitäjä.
+  collection:
+    admins:
+      placeholder: koko nimi tai käyttäjänimi
+    actions:
+      delete: poista
+      edit: muokkaa
+    collection_type:
+      normal: normaali
+      gallery: galleria
+    destroyed: '"%{name}" on poistettu pysyvästi.'
+    pages_count:
+      one: 1 sivu
+      other: '%{count} sivua'
+    log:
+      page:
+        add: '%{user} lisäsi sivun %{page}'
+        remove: '%{user} poisti sivun %{page}'
+    sort:
+      hierarchy: hierarkia
+      position: lisäyspäivämäärä
+      sci_name: tieteellinen nimi, A-Z
+      sci_name_rev: tieteellinen nimi, Z-A
+    updated: Kokoelma päivitetty.
+  complete_registration: Jatka rekisteröitymistäsi
+  content_attributions_labels:
+    altitude: korkeus
+    author: tekijä
+    creator: luoja
+    editor: muokkaaja
+    latitude: leveyspiiri
+    license: lisenssi
+    location: sijainti
+    longitude: pituuspiiri
+    owner: tekijänoikeus
+    photographer: valokuvaaja
+    publisher: julkaisija
+    project: projekti
+    provider: tarjoaja
+    references_header:
+      one: Viite
+      other: Viitteet
+    resource_label: kumppanisivusto
+    resource_pk: '(tunniste: %{key})'
+    source: lähde
+    view_source_label: alkuperäinen
+    view_source_link: näytä alkuperäinen kuva
+  content_not_in_any_collection_image: Tämä kuva ei ole esillä missään kokoelmassa.
+  dear_username_with_comma: Hyvä %{username},
+  delete_account_button: Poista käyttäjätunnuksesi
+  filter_by_license: lisenssi
+  filter_by_license_any_item: kaikki lisenssit
+  filter_by_medium_subtype: tyyppi
+  filter_by_resource: tarjoaja
+  filter_by_resource_any_item: kaikki tarjoajat
+  footer:
+    eol_info:
+      contact_us: Ota yhteyttä
+      data_services: Tietopalvelut
+      donate: Lahjoita
+      education: Opetus
+      glossary: Sanasto
+      help: Ohje
+      terms_of_use: Käyttöehdot
+      the_eol_forum: EOL-foorumi
+      what_is_eol: Mikä on EOL?
+      whats_new: Mitä uutta?
+    discover:
+      algae: Levät
+      amphibians: Sammakkoeläimet
+      animals: Eläimet
+      archaea: Arkeonit
+      bacteria: Bakteerit
+      birds: Linnut
+      crustaceans: Äyriäiset
+      fishes: Kalat
+      flowering_plants: Kukkivat kasvit
+      fungi: Sienet
+      insects: Hyönteiset
+      invertebrates: Selkärangattomat
+      mammals: Nisäkkäät
+      mushrooms: Sienet
+      mollusks: Nilviäiset
+      plants: Kasvit
+      protists: Alkueliöt
+      reptiles: Matelijat
+      spiders: Hämähäkit
+      trees: Puut
+      viruses: Virukset
+      worms: Madot
+    eol_is_hosted_by: 'EOL-sivustoa ylläpitää:'
+  forgot_your_password: Unohditko salasanasi?
+  landing_page:
+    header: Maailmanlaajuinen pääsy tietoihin maan elämästä
+  language: Kieli
+  languages:
+    none: Määrittelemätön
+    aa: Afar
+    ab: Abhaasi
+    ae: Avesta
+    af: Afrikaans
+    ak: Akan
+    am: Amhara
+    an: Aragonia
+    ar: Arabia
+    as: Assami
+    av: Avaari
+    ay: Aimara
+    az: Azeri
+    ba: Baškiiri
+    be: Valko-Venäjä
+    bg: Bulgaria
+    bh: Bihar
+    bi: Bislama
+    bm: Bambara
+    bn: Bengali
+    bo: Tiibet
+    br: Bretoni
+    bs: Bosnia
+    ca: Valencia
+    cs: Tšekki
+    cu: Kirkkoslaavi
+    cv: Tšuvassi
+    cy: Kymri
+    da: Tanska
+    de: Saksa
+    dv: Divehi
+    el: Nykykreikka (1453-)
+    en: Englanti
+    eo: Esperanto
+    es: Kastilia
+    et: Viro
+    eu: Baski
+    fa: Persia
+    fi: suomi
+    fo: Fääri
+    fr: Ranska
+    fy: Länsifriisi
+    ga: Iiri
+    gd: Gaeli
+    gl: Galicia
+    gn: Guarani
+    gu: Gudžarati
+    he: Heprea
+    hi: Hindi
+    hr: Kroatia
+    ht: Haiti; Haitinkreoli
+    hu: Unkari
+    hy: Armenia
+    ia: Interlingua
+    id: Indonesia
+    ie: Interlingue
+    is: Islanti
+    it: Italia
+    iu: Inuktitut
+    ja: Japani
+    jv: Jaava
+    jp: Japani
+    ka: Georgia
+    kg: Kongo
+    kl: Grönlanti
+    km: Khmer
+    kn: Kannada
+    ko: Korea
+    la: Latina
+    lb: Luxemburg
+    li: Limburg
+    lt: Liettua
+    lv: Latvia
+    mk: Makedonia
+    mn: Mongolia
+    na: Nauru
+    nb: Kirjanorja
+    nd: Pohjois-ndebele
+    ne: Nepali
+    nl: Flaami
+    nn: Uusnorja
+    "": Norja
+    nr: Etelä-ndebele
+    nv: Navajo
+    ny: Njandža
+    oc: Oksitaani
+    pl: Puola
+    pt: Portugali
+    rm: Retoromaani
+    ro: Moldova
+    ru: Venäjä
+    se: Pohjoissaame
+    sk: Slovakia
+    sl: Slovenia
+    so: Somali
+    sq: Albania
+    sr: Serbia
+    st: Eteläsotho
+    su: Sunda
+    sv: Ruotsi
+    sw: Swahili
+    th: Thai
+    to: Tonga
+    tr: Turkki
+    ty: Tahiti
+    ug: Uiguuri
+    uk: Ukraina
+    uz: Uzbekki
+    vi: Vietnam
+    vo: Volapük
+    wa: Valloni
+    wo: Wolof
+    xh: Xhosa
+    yi: Jiddiš
+    yo: Joruba
+    za: Zhuang
+    zh: Kiina
+    zu: Zulu
+  layout_sign_in: Kirjaudu sisään
+  layout_sign_up: Rekisteröidy
+  layout_sign_out: Kirjaudu ulos
+  literature_and_references_header: Kirjallisuus ja viitteet
+  maps:
+    empty: Karttoja ei ole saatavana tälle sivulle.
+  medium:
+    untitled:
+      image: Nimetön kuva
+      video: Nimetön video
+      sound: Nimetön ääni
+      map: Nimetön kartta
+      js_map: Nimetön interaktiivinen kartta
+    subclasses:
+      image: kuva
+      video: video
+      sound: ääni
+      map: kartta
+      js_map: interaktiivinen kartta
+  medium_collect_button: kerää media
+  medium_header_title: 'Otsikko:'
+  medium_header_description: 'Kuvaus:'
+  nav:
+    about: Tietoja
+    discuss: Keskustelu
+    education: Opetus
+    search:
+      no_results_html: <strong>Ei vahvistettuja tuloksia</strong><br />Paina Enter
+        nähdäksesi kuratoimattomat tulokset
+      placeholder: Hae EOL:stä...
+    trait_bank: TraitBank
+  name_preferred_label: ensisijainen
+  page_title: Encyclopedia of Life
+  page_title_search: 'Hae: %{query}'
+  page_vernaculars_empty: Tällä taksonilla ei ole siihen liittyviä yleisnimiä.
+  pages:
+    actions:
+      collect: kerää
+    batch_lookup:
+      download_tsv: lataa TSV
+      new_search: uusi haku
+      page_id: sivun tunniste
+      page_url: sivun URL
+      query: kysely
+      query_cant_be_blank: kysely ei voi olla tyhjä
+      search: haku
+    overview:
+      eol_has_data_for_n_attributes_html:
+        one: 'EOL:llä on dataa <a href="%{data_path}">yhdelle määritteelle</a>:'
+        other: 'EOL:llä on dataa <a href="%{data_path}">%{count} määritteelle</a>,
+          mukaan lukien:'
+    filter_menu:
+      show_all: näytä kaikki
+    page_data:
+      show_all: näytä kaikki
+    tabs:
+      article: Yleiskatsaus
+      classifications: Luokittelu
+      overview: Koti
+      details: Tiedot
+      literature_and_references: Viitteet
+      maps: Kartat
+      media: Media
+      names: Nimet
+      data: Tiedot
+  register_new_account: Rekisteröi uusi käyttäjätunnus
+  resources:
+    actions:
+      republish: uudelleenjulkaise
+      show_all:
+        other: näytä kaikki (%{count})
+  scientific_name:
+    status_title:
+      accepted: Hyväksytyt nimet
+      alternative: Vaihtoehtoiset nimet
+      preferred: Ensisijaiset nimet
+      synonym: Synonyymit
+  scientific_names_header: Tieteelliset nimet
+  search:
+    n_articles:
+      one: '%{count} artikkeli'
+      other: '%{count} artikkelia'
+    n_collections:
+      one: '%{count} kokoelma'
+      other: '%{count} kokoelmaa'
+    n_images:
+      one: '%{count} kuva'
+      other: '%{count} kuvaa'
+    n_results:
+      zero: Ei tuloksia
+      one: '%{count} tulos'
+      other: '%{count} tulosta'
+    n_sounds:
+      one: '%{count} ääni'
+      other: '%{count} ääntä'
+    n_taxon_pages:
+      one: '%{count} taksonisivu'
+      other: '%{count} taksonisivua'
+    n_users:
+      one: '%{count} käyttäjä'
+      other: '%{count} käyttäjää'
+    n_videos:
+      one: '%{count} video'
+      other: '%{count} videota'
+    n_terms:
+      one: '%{count} termi'
+      other: '%{count} termiä'
+  search_results:
+    collection_page_count:
+      one: '%{count} sivu'
+      other: '%{count} sivua'
+    collected_media:
+      title: 'kerätty media tältä sivulta:'
+    medium_article: Artikkeli
+    medium_image: Kuva
+    medium_map: Kartta
+    medium_sound: Ääni
+    medium_video: Video
+    medium_title_article_html: 'Artikkeli: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Kuva: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Kartta: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Ääni: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Ei tuloksia.
+    section_titles:
+      collections:
+        one: '%{count} kokoelma'
+        other: '%{count} kokoelmaa'
+      users:
+        one: '%{count} käyttäjä'
+        other: '%{count} käyttäjää'
+    collection_title_html: 'Kokoelma: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIKKELI
+        other: '%{count} ARTIKKELIA'
+  sections:
+    behavior: Käyttäytyminen
+    benefits: Edut
+    brief_summary: Lyhyt tiivistelmä
+    comprehensive_description: Kattava kuvaus
+    conservation: Suojelu
+    conservation_status: Suojelutaso
+    cyclicity: Syklisyys
+    diagnostic_description: Diagnostiikan kuvaus
+    diseases_and_parasites: Taudit ja tuholaiset
+    dispersal: Hajottaminen
+    distribution: Jakelu
+    ecology: Ekologia
+    evolution_and_systematics: Evoluutio ja systematiikka
+    general_ecology: Yleinen ekologia
+    genetics: Genetiikka
+    growth: Kasvu
+    habitat: Elinympäristö
+    identification_resources: Tunnistusresurssit
+    life_expectancy: Elinajanodote
+    life_history_and_behavior: Elämänhistoria ja käyttäytyminen
+    management: Hallinta
+    migration: Maahanmuutto
+    molecular_biology: Molekyylibiologia
+    molecular_biology_and_genetics: Molekyylibiologia ja perinnöllisyystiede
+    morphology: Morfologia
+    names_and_taxonomy: Nimet ja taksonomia
+    notes: Merkinnät
+    overview: Yleiskatsaus
+    physiology_and_cell_biology: Fysiologia ja solubiologia
+    physical_description: Fyysinen kuvaus
+    relevance_to_humans_and_ecosystems: Relevanssi ihmisille ja ekosysteemeille
+    reproduction: Lisääntyminen
+    risks: Riskit
+    size: Koko
+    taxonomy: Taksonomia
+    threats: Uhat
+    trends: Trendit
+    trophic_strategy: Trofiastrategia
+    wikipedia: Wikipedia
+  settings: asetukset
+  sign_in: Kirjaudu sisään
+  sign_up: Rekisteröidy
+  did_not_receive_confirmation_instructions: En saanut vahvistusohjeita
+  simple_form:
+    "yes": Kyllä
+    "no": Ei
+    required:
+      text: pakollinen
+    labels:
+      defaults:
+        email: Sähköposti
+        password: Salasana
+        password_confirmation: Salasanan vahvistus
+        remember_me: Muista minut
+        username: Käyttäjänimi
+        bio: Elämäkerta
+  stats:
+    articles: artikkelit
+    collections: kokoelmat
+    media: media
+    pages: sivut
+    scientific_names: nimet
+    users: käyttäjät
+    references: viitteet
+  term:
+    actions:
+      sort: lajittele
+    edit:
+      submit: Tallenna
+    fields:
+      name: 'nimi:'
+      definition: 'määritelmä:'
+      attribution: 'nimeäminen:'
+      comment: 'kommentti:'
+    pagination:
+      next: seuraava sivu
+      previous: edellinen sivu
+  terms:
+    comment_field_html: <strong>Kommentti:</strong> %{comment}
+    definition_field_html: <strong>Määritelmä:</strong> %{definition}
+    source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
+    scientific_name: tieteellinen nimi
+    source: lähde
+  trust:
+    trusted: luotettu
+  user:
+    created_at: luotu
+    edit_account_details: Muokkaa käyttäjätunnuksen tietoja
+    email: Sähköposti
+    to_commit_enter_current: Vahvistaaksesi muutoksesi, kirjoita nykyinen salasanasi
+    headers:
+      collections: Kokoelmat
+      downloads: Lataukset
+      links: Linkit
+    new_password: Uusi salasana
+    confirm_new_password: Vahvista uusi salasana
+    username: käyttäjänimi
+    update: Päivitä
+    update_email: Päivitä sähköposti
+  users:
+    account_migration_header: 'Jos rekisteröidyit EOL:llään ennen 15. marraskuuta
+      2018:'
+    sign_in: Kirjaudu sisään
+  vernacular_names_header: Yleisnimet
+...

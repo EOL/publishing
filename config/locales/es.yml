@@ -1,0 +1,425 @@
+# Messages for Spanish (español)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fitoschido
+---
+es:
+  language_name: Inglés
+  advanced: avanzado
+  article:
+    header:
+      body: Cuerpo
+      language: 'idioma: %{language}'
+      title: Título
+      untitled: Sin título
+    name:
+      missing: Sin título
+  article_duplicate: este artículo también se muestra en «%{section}»
+  breadcrumbs:
+    notices:
+      canonical: Ahora los nombres científicos figurarán en las rutas de navegación
+        de las páginas
+    setting_header: nombres en rutas de navegación
+  button_create: crear
+  button_add: añadir
+  cancel: cancelar
+  change_my_password: Cambiar mi contraseña
+  classifications:
+    children:
+      see_more: ver más
+    hierarchies:
+      this_page: (esta página)
+    richness:
+      page_contents_count: contenido asociado
+      articles_count: artículos
+      links_count: enlaces
+      maps_count: mapas
+      data_count: datos
+      nodes_count: nodos
+      scientific_names_count: nombres científicos
+      updated_at: última actualización
+  cms_page_date: 'Última modificación:'
+  collect_new_collection: Nombre de la colección nueva
+  collect_title: Añadir «%{item}» a…
+  collected_pages_title: Páginas
+  collected_pages:
+    delete_button: eliminar
+    edit_button: editar
+  collection_association_added_to_collection: Se añadió «%{associated}» a la colección
+    <a href='%{link}'>«%{name}»</a>.
+  collection_associations_title: Colecciones asociadas
+  collection_created: Se creó la colección «%{name}».
+  collection:
+    actions:
+      delete: eliminar
+    collection_type:
+      gallery: galería
+    destroyed: «%{name}» se eliminó permanentemente.
+    pages_count:
+      one: 1 página
+      other: '%{count} páginas'
+    search:
+      placeholder: Buscar en la colección…
+      submit: buscar
+    sort:
+      hierarchy: jerarquía
+      position: fecha de adición
+      sci_name: nombre científico, A-Z
+      sci_name_rev: nombre científico, Z-A
+      sort_field: anotación, A-Z
+      sort_field_rev: anotación, Z-A
+    updated: Se actualizó la colección.
+  content_appears_on: 'Se incluye en las páginas siguientes:'
+  content_attributions_header: Información de origen
+  content_attributions_labels:
+    altitude: altitud
+    author: autor/a
+    bibliographic_citation: cita bibliográfica
+    creator: creador/a
+    latitude: latitud
+    location: ubicación
+    longitude: longitud
+    owner: derechos de autor
+    project: proyecto
+    provider: proveedor
+    resource_pk: '(id.: %{key})'
+    rights_statement: declaración de derechos
+    view_source_link: ver imagen original
+  content_not_in_any_collection_image: Esta imagen no figura en ninguna colección.
+  content_not_in_any_collection_sound: Este sonido no figura en ninguna colección.
+  content_not_in_any_collection_video: Este vídeo no figura en ninguna colección.
+  data_missing: '(faltan datos; claves: %{keys})'
+  filter_by_license: licencia
+  filter_by_license_any_item: cualquier licencia
+  filter_by_medium_subtype: tipo
+  filter_by_medium_any_item: cualquier tipo
+  filter_by_resource: proveedor
+  filter_by_resource_any_item: cualquier proveedor
+  filters:
+    filter_by_language: filtrar por idioma
+    filter_by_provider: filtrar por proveedor
+  footer:
+    eol_info:
+      citing_eol: Citar a EOL
+      data_services: Servicios de datos
+      donate: Donar
+      education: Educación
+      glossary: Glosario
+      help: Ayuda
+      terms_of_use: Condiciones de uso
+      what_is_eol: ¿Qué es EOL?
+      whats_new: Novedades
+    discover:
+      algae: Algas
+      amphibians: Anfibios
+      animals: Animales
+      bacteria: Bacterias
+      fishes: Peces
+      insects: Insectos
+      invertebrates: Invertebrados
+      mushrooms: Hongos
+      mollusks: Moluscos
+      plants: Plantas
+      protists: Protistas
+      reptiles: Reptiles
+      spiders: Arañas
+      viruses: Virus
+  landing_page:
+    stats_cleared: Se recalcularon las estadísticas.
+  language: Idioma
+  languages:
+    ab: Abjasio
+    af: Afrikáans
+    am: Amhárico
+    an: Aragonés
+    ar: Árabe
+    ay: Aimara
+    be: Bielorruso
+    bo: Tibetano
+    bs: Bosnio
+    ca: Catalán; valenciano
+    ce: Checheno
+    cs: Checo
+    de: Alemán
+    en: Inglés
+    eo: Esperanto
+    et: Estonio
+    eu: Vasco
+    fa: Persa
+    fj: Fiyiano
+    gl: Gallego
+    gn: Guaraní
+    gu: Guyaratí
+    he: Hebreo
+    hr: Croata
+    hu: Húngaro
+    hy: Armenio
+    id: Indonesio
+    is: Islandés
+    ja: Japonés
+    jv: Javanés
+    ka: Georgiano
+    kk: Kazajo
+    ko: Coreano
+    kw: Córnico
+    la: Latín
+    lb: Luxemburgués
+    lt: Lituano
+    mg: Malgache
+    mn: Mongol
+    mt: Maltés
+    ne: Nepalí
+    "": Noruego
+    nv: Navajo
+    pl: Polaco
+    pt: Portugués
+    qu: Quechua
+    rm: Romanche
+    ru: Ruso
+    rw: Kiñaruanda
+    sa: Sánscrito
+    sc: Sardo
+    sk: Eslovaco
+    sl: Esloveno
+    sq: Albanés
+    sr: Serbio
+    sv: Sueco
+    tg: Tayiko
+    th: Tai
+    ti: Tigriña
+    tl: Tagalo
+    tr: Turco
+    uk: Ucraniano
+    uz: Uzbeko
+    vi: Vietnamita
+    wo: Wólof
+    yi: Yidis
+    zu: Zulú
+  maps:
+    empty: No hay ningún mapa disponible para esta página.
+    other_maps_title: Mapas no interactivos
+  medium:
+    untitled:
+      image: Imagen sin título
+      image_of: Imagen de %{page_name}
+      video: Vídeo sin título
+      sound: Sonido sin título
+      sound_of: Sonido de %{page_name}
+      map: Mapa sin título
+      js_map: Mapa interactivo sin título
+      js_map_of: Mapa interactivo de %{page_name}
+    subclasses:
+      image: imagen
+      video: vídeo
+      sound: sonido
+      map: mapa
+      js_map: mapa interactivo
+  medium_header_title: 'Título:'
+  medium_header_description: 'Descripción:'
+  names:
+    hide_langs:
+      one: ocultar 1 idioma
+      other: ocultar %{count} idiomas
+  nav:
+    about: Acerca de
+    discuss: Debatir
+    education: Educación
+    search:
+      placeholder: Buscar en EOL…
+  page_icon_created: Se movió la imagen «%{name}» a la parte superior.
+  page_title_search: 'Búsqueda: %{query}'
+  pages:
+    actions:
+      reindex: volver a indizar
+    batch_lookup:
+      canonical_name: nombre canónico
+      download_tsv: descargar TSV
+      new_search: búsqueda nueva
+      page_id: identificador de página
+      page_url: URL de la página
+      query: consulta
+      query_cant_be_blank: la consulta no puede quedar vacía
+      search: buscar
+    filter_menu:
+      show_all: mostrar todo
+    page_data:
+      show_all: mostrar todo
+    trophic_web:
+      reset: restablecer
+    flash:
+      reindexed: Se vaciaron las antememorias correspondientes a esta página. Para
+        ver los valores nuevos, hay que volver a cargarla. Cabe destacar que, por
+        el momento, esta acción *no* reindiza las imágenes de la página. Esa funcionalidad
+        se implementará más adelante.
+    tabs:
+      article: Visión general
+      classifications: Clasificaciones
+      overview: Inicio
+      details: Detalles
+      literature_and_references: Referencias
+      maps: Mapas
+      names: Nombres
+      data: Datos
+    iucn_status:
+      label: 'Estado según la IUCN:'
+      unknown: desconocido (sin registros)
+  page_titles:
+    pages:
+      articles: Artículos sobre %{page_name}
+  recaptcha: Recaptcha
+  reference_compiled_from_article: Artículo de %{source} titulado «%{name}»
+  resources:
+    actions:
+      republish: volver a publicar
+      reindex: volver a indizar
+      show_all:
+        other: mostrar todo (%{count})
+      sync: sincronizar con repositorio
+      fetch_units: recuperar unidades
+    headers:
+      index: Recursos
+      import_log: Registro de importaciones de %{resource}
+  resource_missing: no se encontró el recurso
+  scientific_name:
+    status_title:
+      accepted: Nombres aceptados
+      alternative: Nombres alternativos
+      preferred: Nombres preferidos
+      synonym: Sinónimos
+  scientific_names_header: Nombres científicos
+  send_me_reset_password_instructions: Enviarme instrucciones para restablecer la
+    contraseña
+  search_results:
+    medium_article: Artículo
+    medium_image: Imagen
+    medium_map: Mapa
+    medium_sound: Sonido
+    medium_video: Vídeo
+    medium_title_image_html: 'Imagen: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Vídeo: <span class=''sub''>%{title}</span>'
+    empty: No hay ningún resultado.
+    section_titles:
+      collections:
+        one: '%{count} colección'
+        other: '%{count} colecciones'
+      users:
+        one: '%{count} usuario'
+        other: '%{count} usuarios'
+    collection_title_html: 'Colección: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTÍCULO
+        other: '%{count} ARTÍCULOS'
+  search_suggestion:
+    actions:
+      create: crear una sugerencia de búsqueda nueva
+    new:
+      header: Crear una sugerencia de búsqueda
+    update:
+      header: Actualizar sugerencia de búsqueda
+    index:
+      header: Sugerencias de búsqueda
+  sections:
+    associations: Asociaciones
+    behavior: Comportamiento
+    benefits: Beneficios
+    comprehensive_description: Descripción exhaustiva
+    conservation: Conservación
+    conservation_status: Estado de conservación
+    diagnostic_description: Descripción diagnóstica
+    diseases_and_parasites: Enfermedades y parásitos
+    distribution: Distribución
+    ecology: Ecología
+    general_ecology: Ecología general
+    genetics: Genética
+    growth: Crecimiento
+    habitat: Hábitat
+    identification_resources: Recursos de identificación
+    life_expectancy: Esperanza de vida
+    migration: Migración
+    molecular_biology: Biología molecular
+    molecular_biology_and_genetics: Biología molecular y genética
+    morphology: Morfología
+    names_and_taxonomy: Nombres y taxonomía
+    notes: Notas
+    overview: Visión general
+    physiology_and_cell_biology: Fisiología y biología celular
+    physical_description: Descripción física
+    reproduction: Reproducción
+    risks: Riesgos
+    size: Tamaño
+    taxonomy: Taxonomía
+    threats: Amenazas
+    trends: Tendencias
+    type_information: Información de tipo
+    wikipedia: Wikipedia
+  settings: configuración
+  show_date: Mostrar fecha de publicación
+  sign_in: Acceder
+  did_not_receive_confirmation_instructions: No recibí las instrucciones de confirmación
+  simple_form:
+    "yes": Sí
+    "no": "No"
+    required:
+      mark: '*'
+    labels:
+      defaults:
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
+        remember_me: Recordarme
+        username: Nombre de usuario
+        bio: Biografía
+      search_suggestion:
+        path: ruta (completa o relativa) a la cual redirigir
+  stats:
+    articles: artículos
+    collections: colecciones
+    data: registros de datos
+    pages: páginas
+    nodes: nodos
+    scientific_names: nombres
+    users: usuarios
+    references: referencias
+  term:
+    actions:
+      reindex: volver a indizar
+      sort: ordenar por
+    edit:
+      submit: Guardar
+    fields:
+      name: 'nombre:'
+      definition: 'definición:'
+      attribution: 'atribución:'
+      comment: 'comentario:'
+      sections: 'secciones:'
+      is_hidden_from_glossary: 'ocultar del glosario:'
+      is_hidden_from_overview: 'ocultar de la pestaña Visión general:'
+    pagination:
+      next: página siguiente
+      previous: página anterior
+  terms:
+    definition_field_html: <strong>Definición:</strong> %{definition}
+    record_url: URL del registro
+    scientific_name: nombre científico
+    show_all_records: mostrar todos los registros
+    uri_field_html: <strong>URI:</strong> %{uri}
+  data_definition: definición de «%{data}»
+  user:
+    created_at: creación
+    email: Dirección de correo electrónico
+    to_commit_enter_current: Es necesaria la contraseña actual para confirmar los
+      cambios
+    headers:
+      bio: Semblanza breve
+      collections: Colecciones
+      downloads: Descargas
+      links: Enlaces
+    new_password: Contraseña nueva
+    confirm_new_password: Confirmar la contraseña nueva
+    username: nombre de usuario
+    update: Actualizar
+    update_email: Actualizar dirección de correo electrónico
+  users:
+    sign_in: Acceder
+  vernacular_names_header: Nombres vernáculos
+...

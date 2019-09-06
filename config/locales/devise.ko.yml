@@ -1,0 +1,51 @@
+# Messages for Korean (한국어)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ykhwong
+---
+ko:
+  devise:
+    confirmations:
+      confirmed: 이메일 주소가 성공적으로 인증되었습니다.
+    failure:
+      already_authenticated: 이미 로그인했습니다.
+      inactive: 계정이 아직 활성화되어 있지 않습니다.
+      invalid: '%{authentication_keys} 또는 비밀번호가 유효하지 않습니다.'
+      locked: 계정이 잠겨 있습니다. 1시간 후 다시 시도해 주십시오
+      not_found_in_database: '%{authentication_keys} 또는 비밀번호가 유효하지 않습니다.'
+      timeout: 세션이 만료되었습니다. 계속하려면 다시 로그인해 주십시오.
+      unauthenticated: 계속하기 전에 로그인하거나 가입해야 합니다.
+    mailer:
+      confirmation_instructions:
+        action: 내 계정 확인
+        greeting: '%{recipient}님, 환영합니다!'
+        instruction: '아래의 링크를 통해 계정 이메일을 인증할 수 있습니다:'
+      reset_password_instructions:
+        action: 내 비밀번호 바꾸기
+        greeting: '#{recipient}님, 안녕하세요!'
+        instruction_2: 이것을 요청하지 않으셨다면 이 이메일을 무시해 주십시오.
+      password_change:
+        greeting: '#{recipient}님, 안녕하세요!'
+        subject: 비밀번호가 변경되었습니다
+    passwords:
+      updated: 비밀번호가 성공적으로 바뀌었습니다. 지금 로그인 상태입니다.
+      updated_not_active: 비밀번호를 성공적으로 바꾸었습니다
+    registrations:
+      destroyed: 안녕히 가십시오! 계정이 성공적으로 취소되었습니다. 우리는 당신을 곧 다시 보길 희망합니다.
+      signed_up: 환영합니다! 성공적으로 가입했습니다.
+      signed_up_but_inactive: 성공적으로 가입하셨습니다. 그러나 계정이 아직 활성화되지 않은 상태이므로 로그인할 수 없습니다.
+      signed_up_but_locked: 성공적으로 가입하셨습니다. 그러나 계정이 아직 잠겨있는 상태이므로 로그인할 수 없습니다.
+      updated: 계정이 성공적으로 업데이트되었습니다.
+    sessions:
+      signed_in: 성공적으로 로그인했습니다.
+      signed_out: 성공적으로 로그아웃했습니다.
+      already_signed_out: 성공적으로 로그아웃했습니다.
+      sign_in_remember_me_disabled_for_admins: 보안상의 이유로, 관리자는 로그인 유지 기능을 사용할 수 없습니다.
+    unlocks:
+      unlocked: 계정이 성공적으로 잠금 해제되었습니다. 계속하려면 로그인해 주십시오.
+  errors:
+    messages:
+      already_confirmed: 이미 확인되었습니다. 로그인을 시도해 주십시오
+      expired: 만기되었습니다. 새로 요청해 주십시오
+      not_found: 찾을 수 없음
+...
