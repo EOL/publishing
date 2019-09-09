@@ -16,12 +16,14 @@ qqq:
   medium_header_description: '{{Identical|Description}}'
   sections:
     size: '{{Identical|Size}}'
+  settings: '{{Identical|Settings}}'
   sign_in: '{{Identical|Sign in}}'
   simple_form:
     "yes": '{{Identical|Yes}}'
     "no": '{{Identical|No}}'
     labels:
       defaults:
+        email: '{{Identical|Email}}'
         password: '{{Identical|Password}}'
   stats:
     articles: '{{Identical|Article}}'

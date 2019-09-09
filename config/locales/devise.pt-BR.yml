@@ -1,0 +1,98 @@
+# Messages for Brazilian Portuguese (português do Brasil)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Eduardo Addad de Oliveira
+---
+pt-BR:
+  devise:
+    confirmations:
+      confirmed: O seu endereço de email foi confirmado com sucesso.
+      send_instructions: Você receberá um e-mail com instruções sobre como confirmar
+        seu endereço de e-mail em alguns minutos.
+      send_paranoid_instructions: Se o seu endereço de e-mail existir em nosso banco
+        de dados, você receberá um e-mail com instruções sobre como confirmar seu
+        endereço de e-mail em alguns minutos.
+    failure:
+      already_authenticated: Você já está cadastrado.
+      inactive: Sua conta ainda não esta ativada.
+      invalid: '%{authentication_keys} ou senha inválidos.'
+      locked: Sua conta está bloqueada. Tente novamente após uma hora
+      last_attempt: Você tem mais uma tentativa antes de sua conta ser bloqueada.
+      not_found_in_database: '%{authentication_keys} ou senha inválidos.'
+      recaptcha_error: Ocorreu um erro no código recaptcha abaixo. Digite novamente
+        o código e clique em enviar.
+      timeout: Sua sessão expirou. Entre novamente para continuar.
+      unauthenticated: É necessário entrar ou registrar-se antes de continuar.
+      unconfirmed: Você precisa confirmar seu endereço de e-mail antes de continuar.
+    mailer:
+      confirmation_instructions:
+        action: Confirmar minha conta
+        greeting: Bem vindo %{recipient}!
+        instruction: 'Você pode confirmar o e-mail da sua conta através do link abaixo:'
+        subject: Instruções de confirmação
+      reset_password_instructions:
+        action: Alterar minha senha
+        greeting: 'Olá #{recipient}!'
+        instruction: Alguém solicitou um link para alterar sua senha, e você pode
+          fazer isso através do link abaixo.
+        instruction_2: Se você não solicitou isso, ignore este e-mail.
+        instruction_3: Sua senha não será alterada até você acessar o link acima e
+          criar um novo.
+        subject: Instruções para redefinir a senha
+      unlock_instructions:
+        subject: Instruções de desbloqueio
+      password_change:
+        greeting: 'Olá #{recipient}!'
+        message: Estamos entrando em contato para notificá-lo de que sua senha foi
+          alterada.
+        subject: Senha alterada
+    omniauth_callbacks:
+      failure: Não foi possível autenticar você de %{kind} porque %{reason}.
+      success: Autenticado com sucesso na conta %{kind}.
+    passwords:
+      no_token: Você não pode acessar esta página sem receber um e-mail de redefinição
+        de senha. Se você vem de um e-mail de redefinição de senha, verifique se usou
+        o URL completo fornecido.
+      send_instructions: Você receberá um e-mail com instruções sobre como redefinir
+        sua senha em alguns minutos.
+      send_paranoid_instructions: Se o seu endereço de e-mail existir em nosso banco
+        de dados, você receberá um link de recuperação de senha no seu endereço de
+        e-mail em alguns minutos.
+      updated: Sua senha foi alterada com sucesso. Agora você está conectado.
+      updated_not_active: Sua senha foi alterada com sucesso.
+    registrations:
+      destroyed: Tchau! Sua conta foi cancelada com sucesso. Nós esperamos te ver
+        novamente em breve.
+      signed_up: Bem vinda! Você se cadastrou com sucesso.
+      signed_up_but_inactive: Você se cadastrou com sucesso. No entanto, não foi possível
+        fazer o login porque sua conta ainda não está ativada.
+      signed_up_but_locked: Você se cadastrou com sucesso. No entanto, não foi possível
+        fazer o login porque sua conta está bloqueada.
+      signed_up_but_unconfirmed: Uma mensagem com um link de confirmação foi enviada
+        para o seu endereço de e-mail. Por favor, siga o link para ativar sua conta.
+      update_needs_confirmation: Você atualizou sua conta com sucesso, mas precisamos
+        verificar seu novo endereço de e-mail. Verifique seu email e siga o link de
+        confirmação para confirmar seu novo endereço de email.
+      updated: Sua conta foi atualizada com sucesso.
+    sessions:
+      signed_in: Conectado com sucesso.
+      signed_out: Saída bem sucedida.
+      already_signed_out: Saída bem sucedida.
+      recaptcha: Erros de validação de recaptcha
+      sign_in_remember_me_disabled_for_admins: Por motivos de segurança, os administradores
+        não podem usar o recurso lembre-se de mim.
+    unlocks:
+      send_instructions: Você receberá um e-mail com instruções sobre como desbloquear
+        sua conta em alguns minutos.
+      send_paranoid_instructions: Se sua conta existir, você receberá um e-mail com
+        instruções sobre como desbloqueá-la em alguns minutos.
+      unlocked: Sua conta foi desbloqueada com sucesso. Faça login para continuar.
+  errors:
+    messages:
+      already_confirmed: já foi confirmado, tente entrar
+      confirmation_period_expired: precisa ser confirmado dentro de %{period}, solicite
+        um novo
+      expired: expirou, solicite um novo
+      not_found: Não encontrado
+      not_locked: não estava trancado
+...

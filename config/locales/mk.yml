@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bjankuloski06
+# Author: Vlad5250
 ---
 mk:
   language_name: англиски
@@ -511,10 +512,13 @@ mk:
       query_cant_be_blank: барањето не може да биде празно
       search: пребарај
     overview:
-      eol_has_data_for_n_attributes_html:
+      eol_has_data_for_n_attributes_including_html:
         one: 'EOL има податоци за <a href="%{data_path}">еден атрибут</a>:'
         other: 'EOL има податоци за <a href="%{data_path}">%{count} атрибути</a>,
           и тоа:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL има податоци за <a href="%{data_path}">еден атрибут</a>.
+        other: EOL има податоци за <a href="%{data_path}">%{count} атрибути</a>.
     filter_menu:
       show_all: прикажи сè
     page_data:

@@ -8,6 +8,7 @@ fi:
   language_name: Englanti
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tunnustasi ei ole linkitetty EOL:ään
+  advanced: edistynyt
   are_you_sure_delete_account: Haluatko varmasti poistaa EOL-käyttäjätunnuksesi?
   article:
     actions:
@@ -93,6 +94,8 @@ fi:
       page:
         add: '%{user} lisäsi sivun %{page}'
         remove: '%{user} poisti sivun %{page}'
+    search:
+      submit: haku
     sort:
       hierarchy: hierarkia
       position: lisäyspäivämäärä
@@ -130,6 +133,9 @@ fi:
   filter_by_medium_subtype: tyyppi
   filter_by_resource: tarjoaja
   filter_by_resource_any_item: kaikki tarjoajat
+  filters:
+    filter_by_language: suodata kielen mukaan
+    filter_by_provider: suodata tekijän mukaan
   footer:
     eol_info:
       contact_us: Ota yhteyttä
@@ -202,6 +208,8 @@ fi:
     da: Tanska
     de: Saksa
     dv: Divehi
+    dz: Dzongkha
+    dzo: Dzongkha
     el: Nykykreikka (1453-)
     en: Englanti
     eo: Esperanto
@@ -227,6 +235,7 @@ fi:
     ia: Interlingua
     id: Indonesia
     ie: Interlingue
+    ii: Sichuanin-yi
     is: Islanti
     it: Italia
     iu: Inuktitut
@@ -235,10 +244,13 @@ fi:
     jp: Japani
     ka: Georgia
     kg: Kongo
+    ki: Kikuju
+    kj: Kwanyama
     kl: Grönlanti
     km: Khmer
     kn: Kannada
     ko: Korea
+    ky: Kirgiisi
     la: Latina
     lb: Luxemburg
     li: Limburg
@@ -257,14 +269,18 @@ fi:
     nv: Navajo
     ny: Njandža
     oc: Oksitaani
+    pa: Pandžabi
     pl: Puola
+    ps: Paštu
     pt: Portugali
     rm: Retoromaani
     ro: Moldova
     ru: Venäjä
     se: Pohjoissaame
+    si: Sinhali
     sk: Slovakia
     sl: Slovenia
+    sm: Samoa
     so: Somali
     sq: Albania
     sr: Serbia
@@ -328,6 +344,7 @@ fi:
     actions:
       collect: kerää
     batch_lookup:
+      canonical_name: kaanoninen nimi
       download_tsv: lataa TSV
       new_search: uusi haku
       page_id: sivun tunniste
@@ -337,13 +354,14 @@ fi:
       search: haku
     overview:
       eol_has_data_for_n_attributes_html:
-        one: 'EOL:llä on dataa <a href="%{data_path}">yhdelle määritteelle</a>:'
-        other: 'EOL:llä on dataa <a href="%{data_path}">%{count} määritteelle</a>,
-          mukaan lukien:'
+        one: EOL:llä on dataa <a href="%{data_path}">yhdelle määritteelle</a>.
+        other: EOL:llä on dataa <a href="%{data_path}">%{count} määritteelle</a>.
     filter_menu:
       show_all: näytä kaikki
     page_data:
       show_all: näytä kaikki
+    trophic_web:
+      reset: tyhjennä
     tabs:
       article: Yleiskatsaus
       classifications: Luokittelu
@@ -354,19 +372,42 @@ fi:
       media: Media
       names: Nimet
       data: Tiedot
+    iucn_status:
+      label: 'IUCN-tila:'
+      ex: hävinnyt
+      ew: hävinnyt luonnossa
+      cr: äärimmäisen uhanalainen
+      en: uhanalainen
+      vu: haavoittuva
+      ne: ei arvioitu
+    unresolved_name: Ratkaisematon nimi
+    unresolved_name_prefix: 'Ratkaisematon nimi:'
+  page_titles:
+    pages:
+      data: '%{page_name} data'
+      media: '%{page_name} media'
+      maps: '%{page_name} kartat'
+      names: '%{page_name} nimet'
+      articles: '%{page_name} artikkelit'
+  recaptcha: Recaptcha
+  recaptcha_error: Kerro meille, että et ole robotti.
   register_new_account: Rekisteröi uusi käyttäjätunnus
   resources:
     actions:
       republish: uudelleenjulkaise
       show_all:
         other: näytä kaikki (%{count})
+      sync: synkronoi koodivarannon kanssa
+    no_events: Ei mitään!
   scientific_name:
     status_title:
       accepted: Hyväksytyt nimet
       alternative: Vaihtoehtoiset nimet
       preferred: Ensisijaiset nimet
+      unusable: Kelvottomat nimet
       synonym: Synonyymit
   scientific_names_header: Tieteelliset nimet
+  send_me_reset_password_instructions: Lähetä minulle salasanan palautusohjeet
   search:
     n_articles:
       one: '%{count} artikkeli'
@@ -425,7 +466,15 @@ fi:
       n_articles:
         one: 1 ARTIKKELI
         other: '%{count} ARTIKKELIA'
+  search_suggestion:
+    new:
+      header: Luo hakuehdotus
+    update:
+      header: Päivitä hakuehdotus
+    index:
+      header: Hakuehdotukset
   sections:
+    associations: Yhdistykset
     behavior: Käyttäytyminen
     benefits: Edut
     brief_summary: Lyhyt tiivistelmä
@@ -494,12 +543,14 @@ fi:
     actions:
       sort: lajittele
     edit:
+      header: Muokataan %{uri}
       submit: Tallenna
     fields:
       name: 'nimi:'
       definition: 'määritelmä:'
       attribution: 'nimeäminen:'
       comment: 'kommentti:'
+      sections: 'osuudet:'
     pagination:
       next: seuraava sivu
       previous: edellinen sivu
@@ -510,7 +561,9 @@ fi:
     scientific_name: tieteellinen nimi
     source: lähde
   trust:
+    unreviewed: tarkastamaton
     trusted: luotettu
+    untrusted: ei luotettu
   user:
     created_at: luotu
     edit_account_details: Muokkaa käyttäjätunnuksen tietoja

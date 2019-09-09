@@ -117,11 +117,13 @@ ko:
     ar: 아랍어
     az: 아제르바이잔어
     bg: 불가리아어
+    bs: 보스니아어
     cs: 체코어
     da: 덴마크어
     de: 독일어
     en: 영어
     eo: 에스페란토어
+    et: 에스토니아어
     fa: 페르시아어
     fi: 핀란드어
     fr: 프랑스어
@@ -158,10 +160,12 @@ ko:
   layout_sign_out: 로그아웃
   medium:
     untitled:
+      image: 제목 없는 이미지
       image_of: '%{page_name}의 이미지'
       video: 제목 없는 동영상
       video_of: '%{page_name}의 이미지'
       sound: 제목 없는 소리
+      sound_of: '%{page_name}의 소리'
       map: 제목 없는 지도
       map_of: '%{page_name}의 지도'
       js_map: 제목 없는 상호작용 지도
@@ -226,6 +230,7 @@ ko:
   resource_missing: 자료가 없습니다
   scientific_name:
     status_title:
+      alternative: 다른 이름
       synonym: 동의어
   scientific_names_header: 학명
   search:
@@ -234,6 +239,9 @@ ko:
     n_articles:
       one: '%{count}개 문서'
       other: '%{count}개 문서'
+    n_users:
+      one: 사용자 %{count}명
+      other: 사용자 %{count}명
   search_results:
     collection_page_count:
       one: 문서 %{count}개
@@ -245,6 +253,7 @@ ko:
     medium_video: 동영상
     medium_title_article_html: '문서: <span class=''sub''>%{title}</span>'
     medium_title_image_html: '이미지: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: '지도: <span class=''sub''>%{title}</span>'
     medium_title_sound_html: '소리: <span class=''sub''>%{title}</span>'
     medium_title_video_html: '동영상: <span class=''sub''>%{title}</span>'
     empty: 결과가 없습니다.
@@ -258,6 +267,8 @@ ko:
         other: 미디어 %{count}개
     user_title_html: '사용자: <span class=''sub''>%{name}</span>'
   search_suggestion:
+    new:
+      header: 검색 제안 만들기
     update:
       header: 검색 제안 업데이트
     index:
@@ -311,6 +322,7 @@ ko:
     actions:
       sort: 정렬 기준
     edit:
+      header: '%{uri} 편집 중'
       submit: 저장
     fields:
       name: '이름:'
@@ -331,10 +343,12 @@ ko:
       select_page_above: 시작하려면 위의 문서를 선택하십시오.
   user:
     email: 이메일
+    to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
     headers:
       downloads: 다운로드
       links: 링크
     new_password: 새 비밀번호
+    confirm_new_password: 새 비밀번호 확인
     username: 사용자 이름
     update: 업데이트
     update_email: 이메일 업데이트
@@ -342,4 +356,5 @@ ko:
     created: 파일이 백그라운드에서 처리됩니다. 완료되었는지 확인하려면 <a href="%{url}"사용자 문서</a>를 확인하십시오.
   users:
     sign_in: 로그인
+  vernacular_preferred_by_resource: '%{resource} (이 이름을 선호)'
 ...
