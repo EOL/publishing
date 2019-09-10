@@ -37,7 +37,7 @@ class Repository
       log_warn("MISSING #{@repo_site}#{url} [#{result.code}] (#{resp.size} bytes); skipping")
       return false
     end
-    resp.body
+    resp.body.gsub(/\\\n/, "\n").gsub(/\\N/, '')
   end
 
   def log_warn(what)

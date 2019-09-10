@@ -1,0 +1,916 @@
+# Messages for Macedonian (македонски)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bjankuloski06
+# Author: Vlad5250
+---
+mk:
+  language_name: англиски
+  account_already_linked: вашата сметка е веќе поврзана со EOL
+  account_not_linked: вашата сметка не е поврзана со EOL
+  advanced: напредно
+  are_you_sure_delete_account: Дали сте сигурни дека сакате да си ја избришете сметката?
+  article:
+    actions:
+      collect: додај во збирка
+    header:
+      blank: (Статијава нема содржина.)
+      body: Содржина
+      language: 'јазик: %{language}'
+      title: Наслов
+      untitled: Без наслов
+    name:
+      missing: Без наслов
+  article_from_partner: добавил %{partner}
+  article_duplicate: статијава се прикажува и во „%{section}“
+  autocomplete:
+    see_all:
+      one: погл. други исходни ставки
+      other: погл. сите %{count} исходни ставки
+  breadcrumbs:
+    notices:
+      canonical: Научните имиња сега ќе се прикажуваат во трошките на страницата
+      vernacular: Народните имиња сега ќе се прикажуват во трошките на страницата,
+        кога ги има
+    setting_header: имиња во трошки
+    types:
+      scientific: научно
+      vernacular: народно
+  button_create: создај
+  button_add: додај
+  cancel: откажи
+  change_my_password: Смени ми ја лозинката
+  change_your_password: Промена на лозинката
+  classifications:
+    children:
+      header_html:
+        one: '%{name} има <a href="%{names_path}">%{count} потставка</a>:'
+        other: '%{name} има <a href="%{names_path}">%{count} потставки</a>:'
+      see_more: уште
+    hierarchies:
+      header: Згрижени чиноследи за %{sci_name}
+      this_page: (страницава)
+    richness:
+      header: Содржајност на страницата
+      score: оценка на содржајноста
+      page_contents_count: поврзана содржина
+      missing: Содржајноста на оваа страница сè уште не е пресметана.
+      media_count: слики и снимки
+      articles_count: статии
+      links_count: врски
+      maps_count: карти
+      data_count: податоци
+      nodes_count: јазли
+      vernaculars_count: народни имиња
+      scientific_names_count: научни имиња
+      referents_count: наведувања
+      species_count: видови
+      updated_at: последна поднова
+  cms_page_date: 'Последна поднова:'
+  collect_already_in_collection: (веќе е тука)
+  collect_already_in_collection_will_add_icon: (додај слика/снимка во „%{page}“)
+  collect_icon_title: Додај го „%{item}“ од страницата „%{page}“ во…
+  collect_new_collection: Назив на новата збирка
+  collect_new_collection_title: …нова збирка
+  collect_no_existing_collections: Сè уште немате ниедна. Направете ја со образецот
+    лево.
+  collect_select_collection: …една од збирките
+  collect_title: Додај го „%{item}“ во…
+  collected_page_added_to_collection: Додадена %{page} во збирката <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Веќе е во збирката.
+  collected_pages_title: Страници
+  collected_pages_medium:
+    destroyed_flash: Сликата е отстранета од собраната страница.
+  collection_associations:
+    destroyed_flash: '%{name} повеќе не е поврзано со збиркава.'
+  collected_pages:
+    delete_button: избриши
+    edit_button: уреди
+    delete_confirm: дали сте сигурни?
+    destroyed_flash: '%{name} е отстрането од збирката.'
+  collection_association_added_to_collection: Додадено „%{associated}“ во збирката
+    <a href='%{link}'>„%{name}“</a>.
+  collection_associations_empty: Ниедна друга збирка не е поврзана со оваа. Можете
+    да стиснете на копчето „поврзи“ во другите збирки за да се појават овде.
+  collection_associations_title: Поврзани збирки
+  collection_collected_pages_media_remove: 'Острани слики од збирката (промените веднаш
+    стапуваат на сила):'
+  collection_created: Создадена нова збирка „%{name}“.
+  collection_created_for_association: Додадено „%{associated}“ во нова збирка <a href='%{link}'>„%{name}“</a>.
+  collection_user_is_admin: Овој корисник е администратор.
+  collection_pages_empty: Збирката не содржи страници. Стиснете на копчето „додај“
+    во страниците на видовите за да додадете некои ставки!
+  collection:
+    admins:
+      header: Корисници што можат да ја уредуваат збиркава (промените веднаш се спроведуваат)
+      label: 'Додај корисник што може да ја уредува збиркава:'
+      placeholder: полно име или корисничко име
+    actions:
+      associate: поврзи
+      download_taxa_csv: преземи CSV на таксоните
+      delete: избриши
+      edit: уреди
+    collection_type:
+      normal: нормален
+      gallery: галерија
+    delete_confirm: Со ова ќе се отстрани сета збирка. Дејството е НЕПОВРАТНО. Дали
+      сте сигурни?
+    destroyed: „%{name}“ е трајно избришано.
+    pages_count:
+      one: 1 страница
+      other: '%{count} страници'
+    log:
+      associated_collection:
+        add: '%{user} додаде поврзаност во збирката %{associated}'
+        remove: '%{user} ја отстрани поврзаноста со збирката %{associated}'
+      collection:
+        add: '%{user} ја создаде збирката'
+        change: '%{user} го смени %{field} од „%{from}“ во „%{to}“'
+      content:
+        add: '%{user} ја додаде сликата/снимката %{medium} за страницата %{page}'
+        change: '%{user} го смени %{field} на сликата/снимката %{medium} за страницата
+          %{page} од „%{from}“ во „%{to}“'
+        remove: '%{user} ја отстрани сликата/снимката %{medium} за страницата %{page}'
+      page:
+        add: '%{user} ја додаде страницата %{page}'
+        change: '%{user} го смени %{field} нас траницата %{page} од „%{from}“ вп „%{to}“'
+        remove: '%{user} ја отстрани страницата %{page}'
+      user:
+        add: '%{user} го додаде раководителот %{manager}'
+        remove: '%{user} го отстрани раководителот %{manager}'
+    search:
+      placeholder: Пребарај во збирката…
+      submit: пребарај
+    sort:
+      hierarchy: чинослед
+      position: додадено на
+      sci_name: научно име, A-Z
+      sci_name_rev: научно име, Z-A
+      sort_field: прибелешка, A-Z
+      sort_field_rev: прибелешка, Z-A
+    updated: Збирката е подновена.
+  collection_unauthorized_edit: Збиркава може да ја уредува само нејзиниот сопственик.
+  complete_registration: Продолжете со регистрацијата
+  content_appears_on: 'Се јавува на следниве страници:'
+  content_collected_in: 'Избрано во следниве збирки:'
+  content_attributions_header: Информации за изворот
+  content_attributions_labels:
+    altitude: надм. висина
+    author: автор
+    bibliographic_citation: библиографски навод
+    compiler: составувач
+    creator: создавач
+    editor: уредник
+    latitude: гео. ширина
+    license: лиценца
+    location: место
+    location_verbatim: дословно
+    longitude: гео. должина
+    owner: авторски права
+    photographer: фотограф
+    publisher: објавил
+    project: проект
+    provider: добавувач
+    references_header:
+      one: Навод
+      other: Наводи
+    resource_label: соработничко мреж. место
+    resource_pk: '(назнака: %{key})'
+    rights_statement: изјава за правата
+    source: извор
+    spatial_location: просторно
+    view_source_label: изворно
+    view_source_link: погл. изворна слика
+    view_source_page_link: посети извор
+  content_not_in_any_collection_image: Сликата ја нема во ниедна збирка.
+  content_not_in_any_collection_sound: Звукот го нема во ниедна збирка.
+  content_not_in_any_collection_video: Видеото го нема во ниедна збирка.
+  data:
+    modifier:
+      sex_term: Пол на измерениот организам
+      lifestage_term: Животна фаза на измерениот организам
+      statistical_method_term: Статистички метод на мерењето
+  data_missing: '(недостасува податок, клучеви: %{keys})'
+  dear_username_with_comma: Почитуван(а) %{username},
+  delete_account_button: Избришете ја сметката
+  filter_by_license: лиценца
+  filter_by_license_any_item: било која
+  filter_by_medium_subtype: вид
+  filter_by_medium_any_item: било кој
+  filter_by_resource: добавувач
+  filter_by_resource_any_item: било кој
+  filters:
+    filter_by_attribute: филтрирај по атрибут
+    filter_by_language: филтрирај по јазик
+    filter_by_provider: филтрирај по добавувач
+  footer:
+    eol_info:
+      citing_eol: Наведување на EOL
+      contact_us: Контакт
+      data_services: Податочни услуги
+      donate: Дарувајте
+      education: Образование
+      glossary: Поимник
+      help: Помош
+      terms_of_use: Услови на употреба
+      the_eol_forum: Форумот на EOL
+      what_is_eol: Што е тоа EOL?
+      whats_new: Што има ново?
+    discover:
+      algae: Алги
+      amphibians: Водоземци
+      animals: Животни
+      archaea: Археи
+      bacteria: Бактерии
+      birds: Птици
+      crustaceans: Ракови
+      fishes: Риби
+      flowering_plants: Цветни растенија
+      fungi: Габи
+      insects: Инсекти
+      invertebrates: Без’рбетници
+      mammals: Цицачи
+      molds: Мувли
+      mushrooms: Печурки
+      mollusks: Мекотели
+      plants: Растенија
+      protists: Протисти
+      reptiles: Влекачи
+      spiders: Пајаци
+      trees: Дрва
+      viruses: Вируси
+      worms: Црви
+    eol_is_hosted_by: 'EOL е вдомен од:'
+  forgot_your_password: Ја заборавивте лозинката?
+  landing_page:
+    header: Глобален пристап до сето знаење за живиот свет на Земјата
+    stats_cleared: Статистиката е одновно пресметана.
+  language: Јазик
+  languages:
+    none: неукажан
+    aa: афарски
+    ab: апхаски
+    ae: авестански
+    af: африканс
+    ak: акански
+    am: амхарски
+    an: арагонски
+    ar: арапски
+    as: асамски
+    av: аварски
+    ay: ајмарски
+    az: азерски
+    ba: башкирски
+    be: белоруски
+    bg: бугарски
+    bh: бихарски
+    bi: бислама
+    bm: бамбарски
+    bn: бенгалски
+    bo: тибетски
+    br: бретонски
+    bs: босански
+    ca: каталонски; валенсиски
+    ce: чеченски
+    ch: чаморски
+    co: корзикански
+    cr: криски
+    cs: чешки
+    cu: старословенски; црковнословенски
+    cv: чувашки
+    cy: велшки
+    da: дански
+    de: германски
+    dv: малдивски
+    dz: ѕонгка
+    dzo: ѕонгка
+    ee: еве
+    el: грчки, современ (1453-)
+    en: англиски
+    eo: есперанто
+    es: шпански; кастиљски
+    et: естонски
+    eu: баскиски
+    fa: персиски
+    ff: фулански
+    fi: фински
+    fj: фиџиски
+    fo: фарски
+    fr: француски
+    fy: западнофризиски
+    ga: ирски
+    gd: гелски; шкотски гелски
+    gl: галициски
+    gn: гварански
+    gu: гуџаратски
+    gv: мански
+    ha: хауса
+    he: хебрејски
+    hi: хинди
+    ho: хири моту
+    hr: хрватски
+    ht: хаитски; хаитски креолски
+    hu: унгарски
+    hy: ерменски
+    hz: херерски
+    ia: интерлингва
+    id: индонезиски
+    ie: интерлингве; окцидентал
+    ig: игбоански
+    ii: носу
+    ik: инупијатски
+    io: идо
+    is: исландски
+    it: италијански
+    iu: инуктитут
+    ja: јапонски
+    jv: јавански
+    jp: јапонски
+    ka: грузиски
+    kg: конгоански
+    ki: кикујски
+    kj: квањама
+    kk: казашки
+    kl: гренландски
+    km: целтралнокмерски
+    kn: канадски
+    ko: корејски
+    kr: канурски
+    ks: кашмирски
+    ku: курдски
+    kv: коми
+    kw: корнски
+    ky: киргиски
+    la: латински
+    lb: луксембуршки
+    lg: ганда
+    li: лимбуршки
+    ln: лингала
+    lo: лаошки
+    lt: литвански
+    lu: лупски
+    lv: латвиски
+    mg: малгашки
+    mh: маршалски
+    mi: маорски
+    mk: македонски
+    ml: малајалски
+    mn: монголски
+    mr: маратски
+    ms: малајски
+    mt: малтешки
+    my: бурмански
+    na: наурски
+    nb: книжевен норвешки
+    nd: ндебеле, северен, северен ндебеле
+    ne: непалски
+    ng: ндонга
+    nl: холандски; фламански
+    nn: новонорвешки
+    "": норвешки
+    nr: ндебеле, јужен; јужен ндебеле
+    nv: навахо
+    ny: чичева; чева; њанџа
+    oc: оскитански (по 1500 г.)
+    oj: оџибвејски
+    om: оромски
+    or: одиски
+    os: осетски
+    pa: пенџапски
+    pi: пали
+    pl: полски
+    ps: паштунски
+    pt: португалски
+    qu: кечуански
+    rm: реторомански
+    rn: рундиски
+    ro: романски; молдавски
+    ru: руски
+    rw: руандски
+    sa: санскрит
+    sc: сардински
+    sd: синдски
+    se: севернолапонски
+    sg: санго
+    si: синхалски
+    sk: словачки
+    sl: словенечки
+    sm: самоански
+    sn: шонски
+    so: сомалиски
+    sq: албански
+    sr: српски
+    ss: свази; свати
+    st: сото, јужен
+    su: сундански
+    sv: шведски
+    sw: свахили
+    ta: тамилски
+    te: телушки
+    tg: таџички
+    th: тајландски
+    ti: тигриња
+    tk: туркменски
+    tl: тагалошки
+    tn: цвана
+    to: тонгански
+    tr: турски
+    ts: цонга
+    tt: татарски
+    tw: чви
+    ty: тахитски
+    ug: ујгурски
+    uk: украински
+    ur: урду
+    uz: узбечки
+    ve: вендски
+    vi: виетнамски
+    vo: волапик
+    wa: валонски
+    wo: волофски
+    xh: коса
+    yi: јидиш
+    yo: јорупски
+    za: џуаншки
+    zh: кинески
+    zu: зулу
+  layout_sign_in: Најава
+  layout_sign_up: Регистрација
+  layout_sign_out: Одјава
+  literature_and_references_header: Литература и наводи
+  maps:
+    empty: Нема карти за страницава.
+    occurrence_caption: Познати јавувања, собрани примероци и набљудувања на %{page_name}
+    other_maps_title: Неинтерактивни карти
+  medium:
+    untitled:
+      image: Слика без наслов
+      image_of: Слика од %{page_name}
+      video: Видео без наслов
+      video_of: Слика од %{page_name}
+      sound: Звук без наслов
+      sound_of: Звук од %{page_name}
+      map: Карта без наслов
+      map_of: Карта на %{page_name}
+      js_map: Интерактивна карта без наслов
+      js_map_of: Интерактивна карта на %{page_name}
+    subclasses:
+      image: слика
+      video: видео
+      sound: звук
+      map: карта
+      js_map: интеркативна карта
+  medium_collect_button: додај слика/снимка
+  medium_description_blank: Нема зададено опис на предметот.
+  medium_header_title: 'Наслов:'
+  medium_header_description: 'Опис:'
+  names:
+    hide_langs:
+      one: скриј еден јазик
+      other: скриј %{count} јазици
+    prefer: претпочитај
+    preferred_in_language_for_page: '%{name} сега е претпочитано %{language} име за
+      %{page}'
+    show_more_langs:
+      one: прикажи уште еден јазик
+      other: прикажи уште %{count} јазици
+  nav:
+    about: За нас
+    discuss: Расправа
+    education: Образование
+    search:
+      no_results_html: <strong>Нема потврдено исходни ставки</strong><br />Стиснете
+        на „Enter“ за да ги видите незгрижените ставки
+      placeholder: Пребарај по EOL...
+    trait_bank: TraitBank
+  name_preferred_label: претпочитано
+  page_icon_counts:
+    header:
+      one: Најдобра слика за страницата
+      other: Најдобра слика за страниците
+  page_icon_created: Преместена најгоре сликата „%{name}“.
+  page_title: Енциклопедија на живиот свет
+  page_title_search: 'Пребарај: %{query}'
+  page_vernaculars_empty: Нема народни имиња поврзани со таксонов.
+  pages:
+    actions:
+      collect: додај
+      comment:
+        zero: коментар
+        one: '%{count} коментар'
+        other: '%{count} коментари'
+      reindex: преиндексирај
+    batch_lookup:
+      header: здружено пребарување по страници
+      canonical_name: канонско име
+      download_tsv: преземи TSV
+      match: совпаѓање
+      new_search: ново пребарување
+      page_id: назнака на страницата
+      page_url: URL на страницата
+      query: барање
+      query_cant_be_blank: барањето не може да биде празно
+      search: пребарај
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL има податоци за <a href="%{data_path}">еден атрибут</a>:'
+        other: 'EOL има податоци за <a href="%{data_path}">%{count} атрибути</a>,
+          и тоа:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL има податоци за <a href="%{data_path}">еден атрибут</a>.
+        other: EOL има податоци за <a href="%{data_path}">%{count} атрибути</a>.
+    filter_menu:
+      show_all: прикажи сè
+    page_data:
+      n_hidden_show_all:
+        one: 1 скриен запис „%{pred_name}“ — прикажи сè
+        other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
+      show_all: прикажи сè
+      wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
+    trophic_web:
+      globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
+      reset: одново
+    flash:
+      reindexed: 'Исчистени се меѓускладовите за страницава. Превчитајте ја за да
+        ги видите новите вредности. НАПОМЕНА: во мигов ова *не* ги преиндексира сликите
+        на страницата. Таа можност ќе биде воведена подоцна.'
+    native_node_missing_warning: нема информации за чиноследот
+    tabs:
+      article: Преглед
+      classifications: Класификации
+      overview: Почетна
+      details: Подробно
+      literature_and_references: Наводи
+      maps: Карти
+      media: Слики/снимки
+      names: Имиња
+      data: Податоци
+    iucn_status:
+      label: 'Статус по МСЗП:'
+      ex: изумрен (EX)
+      ew: изумрен во дивина (EW)
+      cr: критично загрозен (CR)
+      en: загрозен (EN)
+      vu: ранлив (VU)
+      nt: речиси загрозен (NT)
+      lc: најнезагрозен (LC)
+      dd: без доволно податоци (DD)
+      ne: неиспитан (NE)
+      unknown: непознат (без запис)
+    unresolved_name: Неразрешено име
+    unresolved_name_prefix: 'Неразрешено име:'
+  page_titles:
+    pages:
+      data: Податоци за %{page_name}
+      media: Слики/снимки за %{page_name}
+      maps: Карти за %{page_name}
+      names: Имиња за %{page_name}
+      articles: Статии за %{page_name}
+    traits:
+      search: Пребарување на одлики
+  name_recognized_by: Признаено од %{by}
+  name_recognized_by_rank: '%{rank} — признено од %{by}'
+  ranks:
+    NOTE: чиновите не се преведуваат. Треба да се земаат дословно. Не се обидувајте
+      залудно. :)
+  recaptcha: Нагледна проверка
+  recaptcha_error: Кажете ни дека не сте робот.
+  reference_compiled_from: Наведено од %{links}
+  reference_compiled_from_article: '%{source} статија со наслов „%{name}“'
+  register_new_account: Регистрирајте нова сметка
+  resources:
+    actions:
+      import_traits: увези одлики (од складиште)
+      republish: преобјави
+      reindex: преиндексирај
+      fix_no_names: поправи случаи на НЕМА ИМЕ
+      index: назад на сите ресурси
+      show_all:
+        other: прикажи сè (%{count})
+      show_warns:
+        one: прикажи предупредување (%{count})
+        other: прикажи предупредувања (%{count})
+      sync: усогласи со складиштето
+      fetch_relationships: дај односи
+      fetch_relationships_confirm: Ова ги отстранува постоечките односи и повторно
+        ги додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
+        Дали сте сигурни?
+      fetch_synonyms: дај синоними
+      fetch_synonyms_confirm: Ова ги отстранува постоечките синоними и повторно ги
+        додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
+        Дали сте сигурни?
+      fetch_units: дај единици
+      fetch_units_confirm: Ова ги отстранува постоечките односи прирок/единица и повторно
+        ги додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
+        Дали сте сигурни?
+      clear_publishing: поништи заклученост
+      clear_publishing_confirm: Со ова ќе ги „завршите“ сите објавувања и може да
+        предизвика проблеми ако се користи додека трае тековно објавување. Дали сте
+        сигурни?
+    headers:
+      index: Ресурси
+      import_log: Дневник на увози за %{resource}
+    index:
+      locked_jobs:
+        zero: нема тековни задачи
+        one: 1 тековна задача
+        other: '%{count} тековни задачи'
+      jobs:
+        zero: нема задачи во исчекување
+        one: 1 задача во исчекување job
+        other: '%{count} задачи во исчекување'
+      harvest_jobs:
+        zero: нема што да се објави
+        one: 1 објава во исчекување
+        other: '%{count} за објавување'
+    no_events: Нема!
+  resource_missing: ресурсот не е пронајден
+  scientific_name:
+    status_title:
+      accepted: Прифатени имиња
+      alternative: Алтернативни имиња
+      preferred: Претпочитани имиња
+      unusable: Неупотребливи имиња
+      synonym: Синоними
+  scientific_names_header: Научни имиња
+  send_me_reset_password_instructions: Испрати ми напатствија за нова лозинка
+  search:
+    flash:
+      cannot_combine_paths: Не можев да го здружам исходот со %{path}
+      more_than_one_species: Не можев да го здружам исходот за %{species}
+      more_than_two_terms: 'Не можев да го здружам исходот за повеќе од два поима:
+        %{terms}'
+    n_articles:
+      one: '%{count} статија'
+      other: '%{count} статии'
+    n_collections:
+      one: '%{count} збирка'
+      other: '%{count} збирки'
+    n_images:
+      one: '%{count} слика'
+      other: '%{count} слики'
+    n_results:
+      zero: Нема исходни ставки
+      one: '%{count} исходна ставка'
+      other: '%{count} исходни ставки'
+    n_sounds:
+      one: '%{count} звук'
+      other: '%{count} звуци'
+    n_taxon_pages:
+      one: '%{count} таксонска страница'
+      other: '%{count} таксонски страници'
+    n_users:
+      one: '%{count} корисник'
+      other: '%{count} корисници'
+    n_videos:
+      one: '%{count} видео'
+      other: '%{count} видеа'
+    n_terms:
+      one: '%{count} поим'
+      other: '%{count} поими'
+  search_results:
+    collection_page_count:
+      one: '%{count} страница'
+      other: '%{count} страници'
+    collection_page_count_and_users:
+      one: '%{count} страница; одржува: %{users_sentence}'
+      other: '%{count} страници; одржуваат: %{users_sentence}'
+    collected_media:
+      title: 'собрани слики/снимки од страницава:'
+    medium_article: Статија
+    medium_image: Слика
+    medium_map: Карта
+    medium_sound: Звук
+    medium_video: Видео
+    medium_title_article_html: 'Статија: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Слика: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Карта: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Звук: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Видео: <span class=''sub''>%{title}</span>%{title}'
+    empty: Нема исход.
+    field_matches:
+      description: 'одговара на описот:'
+      resource_pk: 'одговара на надворешната назнака:'
+      bio: 'одговара на биографијата:'
+      tag_line: 'одговара на низата ознаки:'
+      resources:
+        one: 'се совпаѓа со ресурсот:'
+        other: 'се совпаѓа со ресурсите:'
+      synonyms:
+        one: 'се совпаѓа со синонимот:'
+        other: 'се совпаѓа со синонимите:'
+      vernaculars:
+        one: 'се совпаѓа со народното име:'
+        other: 'се совпаѓа со народните имиња:'
+    section_titles:
+      collections:
+        one: '%{count} збирка'
+        other: '%{count} збирки'
+      media:
+        one: '%{count} слика/снимка'
+        other: '%{count} слики/снимки'
+      pages:
+        one: '%{count} страница на EOL (вид)'
+        other: '%{count} страници на EOL (видови)'
+      object_terms:
+        one: '%{count} вредност на податочниот запис (TraitBank)'
+        other: '%{count} вредности на податочните записи (TraitBank)'
+      predicates:
+        one: '%{count} вид на податочен запис (TraitBank)'
+        other: '%{count} видови на податочни записи (TraitBank)'
+      users:
+        one: '%{count} корисник'
+        other: '%{count} корисници'
+    collection_title_html: 'Збирка: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 СТАТИЈА
+        other: '%{count} СТАТИИ'
+      n_data:
+        one: 1 ПОДАТОК
+        other: '%{count} ПОДАТОЦИ'
+      n_media:
+        one: 1 СЛИКА/СНИМКА
+        other: '%{count} СЛИКИ/СНИМКИ'
+    user_title_html: 'Корисник: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: создај нов предлог при пребарување
+    created: Создаден предлог при пребарување за „%{match}“
+    destroyed: Уништен предлог при пребарување за „%{match}“
+    new:
+      header: Создај предлог при пребарување
+    update:
+      header: Поднови предлог при пребарување
+    index:
+      header: Предлози при пребарување
+  sections:
+    associations: Поврзаности
+    behavior: Поведение
+    benefits: Благодети
+    brief_summary: Краток преглед
+    comprehensive_description: Опширен опис
+    conservation: Заштита
+    conservation_status: Заштитен статус
+    cyclicity: Цикличност
+    diagnostic_description: Дијагностички опис
+    diseases_and_parasites: Болести и паразити
+    dispersal: Разместување
+    distribution: Распределба
+    ecology: Екологија
+    evolution_and_systematics: Еволуција и систематика
+    general_ecology: Општа екологија
+    genetics: Генетика
+    growth: Раст
+    habitat: Живеалиште
+    identification_resources: Ресурси за препознавање
+    life_expectancy: Животен век
+    life_history_and_behavior: Животна историја и поведение
+    management: Раководство
+    migration: Преселба
+    molecular_biology: Молекуларна биологија
+    molecular_biology_and_genetics: Молекуларна биологија и генетика
+    morphology: Морфологија
+    names_and_taxonomy: Имиња и таксономија
+    notes: Белешки
+    overview: Преглед
+    physiology_and_cell_biology: Физиологија и клеточна биологија
+    physical_description: Физички опис
+    relevance_to_humans_and_ecosystems: Релевантност на луѓето и екосистемите
+    reproduction: Размножување
+    risks: Ризици
+    size: Големина
+    taxonomy: Таксономија
+    threats: Закани
+    trends: Склоности
+    trophic_strategy: Трофична стратегија
+    type_information: Информации за типот
+    wikipedia: Википедија
+  settings: поставки
+  show_date: Прикажи датум на објавување
+  sign_in: Најава
+  sign_up: Регистрација
+  signature_with_contact_us_link: |-
+    Доколку наидете на проблеми, обратете се на %{url}.
+
+    Екипата на Енциклопедијата на живиот свет
+  did_not_receive_confirmation_instructions: Не добив напатствија за потврда
+  simple_form:
+    "yes": Да
+    "no": Не
+    required:
+      text: задолжително
+      mark: '*'
+    error_notification:
+      default_message: 'Погледајте ги долунаведените проблеми:'
+    labels:
+      defaults:
+        email: Е-пошта
+        password: Лозинка
+        password_confirmation: Потврда на лозинката
+        remember_me: Запомни ме
+        username: Корисничко име
+        bio: Био
+      search_suggestion:
+        match: низа за совпаѓање
+        page_id: Назнака на страницата на EOL кон која се пренасочува (или по која
+          се филтрира)
+        synonym_of_id: Назнака (!) на предлогот при пребарување што сега ќе се користи
+        object_term: URI кон кое се пренасочува (или по која се филтрира)
+        path: патека (целосна или односна) кон која се пренасочува
+        wkt_string: WKT-низа за задавање на Effechecka
+  stats:
+    articles: статии
+    collections: збирки
+    data: податочни записи
+    media: слики/снимки
+    pages: страници
+    nodes: јазли
+    scientific_names: имиња
+    users: корисници
+    references: наводи
+  term:
+    actions:
+      reindex: преиндексирај
+      sort: подреди по
+    edit:
+      header: Уредување на %{uri}
+      submit: Зачувај
+    fields:
+      name: 'име:'
+      definition: 'дефиниција:'
+      attribution: 'припис:'
+      comment: 'коментар:'
+      sections: 'оддели:'
+      is_hidden_from_glossary: 'скриј од поимникот:'
+      is_hidden_from_overview: 'скриј од прегледникот:'
+    glossary:
+      full_title: Поимник на СИТЕ поими за податоци на EOL
+      predicate_title: Поимник на типски поими за податоци на EOL
+      object_term_title: Поимник на вредносни поими за податоци на EOL
+      units_title: Поимник на единични поими за податоци на EOL
+    pagination:
+      next: следна страница
+      previous: претходна страница
+  terms:
+    attribution_field_html: <strong>Припис:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Коментар:</strong> %{comment}
+    definition_field_html: <strong>Дефиниција:</strong> %{definition}
+    source_field_html: <strong>Извор:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL на записот
+    scientific_name: научно име
+    show_all_records: сите записи
+    source: извор
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Изберете страница погоре за да почнете.
+  data_definition: дефиниција на „%{data}“
+  trophic_web:
+    group_descriptions:
+      competitor: конкурент на %{source_name}
+      predator: се храни со %{source_name}
+      prey: храна за %{source_name}
+      source: задршка на видот
+  trust:
+    unreviewed: непроверен
+    trusted: доверлив
+    untrusted: недоверлив
+  user:
+    batch_page_lookup: Збирно пребарување на страници
+    created_at: создадено
+    edit_account_details: Измени податоци за сметка
+    email: Е-пошта
+    to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
+      лозинка
+    headers:
+      bio: Кратка биографија
+      collections: Збирки
+      downloads: Преземања
+      links: Врски
+    list_of_power_users: Список на напредни корисници
+    new_password: Нова лозинка
+    confirm_new_password: Потврдете ја новата лозинка
+    showing_n_power_users:
+      one: Приказ на еден напреден корисник
+      other: Приказ на %{count} напредни корисници
+    trait_bank_cypher_form: Шифрарен образец на TraitBank
+    username: корисничко име
+    update: Поднови
+    update_email: Поднови е-пошта
+  user_download:
+    created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}"корисничката
+      страница</a> за да видите дали е готова.
+  users:
+    account_migration_header: 'Ако се имате регистрирано на EOL пред 15 ноември 2018
+      г.:'
+    account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
+      е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото
+      име и понатаму ви е приказното име на мрежното место, но сега ќе мора да се
+      најавите се е-пошта. Лозинките не ги селиме од безбедносни причини. Ќе можете
+      да зададете нова со постапката за заборавена лозинка. Ако се најавувате само
+      од трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
+      работиме на извесни проблеми со ова заедничко најавување.
+    sign_in: Најава
+  vernacular_names_header: Народни имиња
+  vernacular_preferred_by_resource: '%{resource} (го претпочита имево)'
+...

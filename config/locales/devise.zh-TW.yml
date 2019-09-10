@@ -1,0 +1,79 @@
+# Messages for Traditional Chinese (中文（繁體）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kly
+---
+zh-TW:
+  devise:
+    confirmations:
+      confirmed: 您的電子郵件位址已成功確認。
+      send_instructions: 在幾分鐘後您會收到一封帶有說明如何確認您的電子郵件位址的電郵。
+      send_paranoid_instructions: 若您的電子郵件位址存在於我們的資料庫，您會在幾分鐘後收到一封如何確認您的電子郵件位址之說明電郵。
+    failure:
+      already_authenticated: 您已登入。
+      inactive: 您的帳號尚未生效。
+      invalid: 無效的%{authentication_keys}或密碼。
+      locked: 您的帳號已被鎖定，請一小時後再重試
+      last_attempt: 在您的帳號被鎖定之前，您還有一次機會。
+      not_found_in_database: 無效的%{authentication_keys}或密碼。
+      recaptcha_error: 以下驗證碼出現錯誤，請重新輸入驗證碼並點擊提交。
+      timeout: 您瀏覽器上的 session 已逾期，請重新登入來繼續。
+      unauthenticated: 再繼續前您必須先登入或註冊。
+      unconfirmed: 再繼續前您需要確認您的電子郵件位址。
+    mailer:
+      confirmation_instructions:
+        action: 確認我的帳號
+        greeting: 歡迎來到%{recipient}！
+        instruction: 您可以透過以下連結來確認您的帳號電子郵件：
+        subject: 確認說明
+      reset_password_instructions:
+        action: 更改我的密碼
+        greeting: '#{recipient}您好！'
+        instruction: 有人請求一個連結來更改您的密碼，您可以透過以下連結來做出。
+        instruction_2: 若您未做出該請求，請忽略此封電子郵件。
+        instruction_3: 在您存取上方連結並建立新的之前，不會更改您的密碼。
+        subject: 重新設定密碼說明
+      unlock_instructions:
+        subject: 解開說明
+      password_change:
+        greeting: '#{recipient}您好！'
+        message: 我們會在您的密碼已更改時聯絡通知您。
+        subject: 密碼已更改
+    omniauth_callbacks:
+      failure: 無法透過%{kind}對您驗證，出於%{reason}。
+      success: 成功驗證%{kind}帳號。
+    passwords:
+      no_token: 不以重新設定密碼郵件來進入，您會無法存取此頁面。若您是用重新設定密碼郵件進入，請確認您使用的是所提供的網址。
+      send_instructions: 在幾分鐘後您會收到一封帶有說明如何重新設定您的密碼的電郵。
+      send_paranoid_instructions: 若您的電子郵件位址存在於我們的資料庫，您會在幾分鐘後於您的電子郵件位址上收到一封密碼回復連結。
+      updated: 您的密碼已更改成功，您現在可以登入。
+      updated_not_active: 您的密碼已成功更改。
+    registrations:
+      destroyed: 再會！您的帳號已成功取消，我們期望很快能夠再次見到您。
+      signed_up: 歡迎！您已註冊成功。
+      signed_up_but_inactive: 您已註冊成功。然而，因為您的帳號尚未生效我們無法讓您登入。
+      signed_up_but_locked: 您已註冊成功。然而，因為您的帳號被鎖定我們無法讓您登入。
+      signed_up_but_unconfirmed: 帶有確認連結的訊息已發送到您的電子郵件位址，請依照連結來讓您的帳號生效。
+      update_needs_confirmation: 您已成功更新您的帳後；但我們需要核對您新的電子郵件位址。請檢查您的電子郵件，並依照確認連結來確認您新的電子郵件位址。
+      updated: 您的帳號已成功更新。
+    sessions:
+      signed_in: 登入成功。
+      signed_out: 登出成功。
+      already_signed_out: 登出成功。
+      recaptcha: 驗證碼確認錯誤
+      sign_in_remember_me_disabled_for_admins: 基於安全考量，管理者不能使用「記住我」功能。
+    unlocks:
+      send_instructions: 在幾分鐘後您會收到一封帶有說明如何解鎖您的帳號的電郵。
+      send_paranoid_instructions: 若您的帳號存在，您會在幾分鐘後收到一封帶有說明如何解鎖的電郵。
+      unlocked: 您的帳號已解鎖成功，請登入來繼續。
+  errors:
+    messages:
+      already_confirmed: 已準備確認，請嘗試登入
+      confirmation_period_expired: 需要在%{period}內確認，請再重新請求
+      expired: 已逾期，請再重新請求
+      not_found: 沒有找到
+      not_locked: 未鎖定
+      not_saved:
+        one: 1 個錯誤妨礙了儲存此%{resource}：
+        other: '%{count} 個錯誤妨礙了儲存此%{resource}：'
+...

@@ -1,6 +1,477 @@
+# Messages for French (français)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Gomoko
+# Author: Jhammock
+# Author: Thibaut120094
+# Author: Verdy p
+# Author: Wladek92
+---
 fr:
-  sign_in: "se connecter"
-  sign_up: "s'inscrire"
-  layout_sign_in: "Se connecter"
-  layout_sign_up: "S'inscrire"
-  layout_sign_out: "Déconnexion"
+  language_name: Anglais
+  account_already_linked: votre compte est déjà lié à EdV
+  account_not_linked: votre compte n’est pas lié à EdV
+  advanced: avancé
+  are_you_sure_delete_account: Êtes-vous sûr de vouloir supprimer votre compte EdV ?
+  article:
+    actions:
+      collect: collecter
+    header:
+      blank: (Il n’y a pas de corps pour cet article.)
+      body: Corps
+      language: 'langue : %{language}'
+      title: Titre
+      untitled: Sans titre
+    name:
+      missing: Sans titre
+  article_from_partner: fourni par %{partner}
+  article_duplicate: cet article est aussi affiché dans « %{section} »
+  autocomplete:
+    see_all:
+      one: voir un autre résultat
+      other: voir tous les %{count} résultats
+  breadcrumbs:
+    notices:
+      canonical: Les noms scientifiques seront maintenant affichés dans le fil d’Ariane
+        de la page
+      vernacular: Les noms vernaculaires seront désormais affichés dans le fil d’Ariane
+        de la page, quand ils sont disponibles
+    setting_header: noms dans le fil d’Ariane
+    types:
+      scientific: scientifique
+      vernacular: vernaculaire
+  button_create: créer
+  button_add: ajouter
+  cancel: annuler
+  change_my_password: Modifier mon mot de passe
+  change_your_password: Modifier votre mot de passe
+  classifications:
+    children:
+      header_html:
+        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
+      see_more: voir plus
+    hierarchies:
+      header: Hiérarchies supervisées pour %{sci_name}
+      this_page: (cette page)
+    richness:
+      header: Richesse de la page
+      score: score de richesse
+      page_contents_count: contenu associé
+      missing: La richesse n’a pas encore été calculée pour cette page.
+      media_count: média
+      articles_count: articles
+      links_count: liens
+      maps_count: cartes
+      data_count: données
+      nodes_count: nœuds
+      vernaculars_count: vernaculaire
+      scientific_names_count: noms scientifiques
+      species_count: espèce
+      updated_at: dernière mise à jour
+  cms_page_date: 'Dernière modification:'
+  collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
+  collect_new_collection: Nouveau nom de collection
+  collect_new_collection_title: Nouvelle collection
+  collected_pages_title: Pages
+  collected_pages:
+    delete_button: supprimer
+    edit_button: modifier
+    delete_confirm: Êtes-vous sûr ?
+  collection_associations_title: Collections associées
+  collection:
+    actions:
+      delete: supprimer
+      edit: modifier
+    collection_type:
+      normal: normal
+      gallery: galerie
+    log:
+      content:
+        remove: '%{user} a supprimé le média %{medium} de la page %{page}'
+      page:
+        remove: '%{user} a retiré la page %{page}'
+    search:
+      placeholder: Chercher dans la collection…
+      submit: rechercher
+    sort:
+      hierarchy: hiérarchie
+      sci_name: noms scientifiques, A-Z
+      sci_name_rev: noms scientifiques, Z-A
+      sort_field: annotation, A-Z
+      sort_field_rev: annotation, Z-A
+    updated: La collection a été mise à jour.
+  content_appears_on: 'Inclus dans les pages suivantes :'
+  content_attributions_header: Informations de provenance
+  content_attributions_labels:
+    altitude: altitude
+    author: auteur
+    bibliographic_citation: citation bibliographique
+    compiler: compilateur
+    creator: créateur
+    editor: éditeur
+    latitude: latitude
+    license: licence
+    location: emplacement
+    longitude: longitude
+    photographer: photographe
+    project: projet
+    provider: fournisseur
+    resource_label: site partenaire
+    source: source
+    spatial_location: spatial
+    view_source_link: afficher l’image d’origine
+  dear_username_with_comma: '{{GENDER:%{username}}}|Cher|Chère}} %{username},'
+  delete_account_button: Supprimer votre compte
+  filter_by_license: licence
+  filter_by_medium_subtype: type
+  filter_by_resource: fournisseur
+  filter_by_resource_any_item: n'importe quel fournisseur
+  filters:
+    filter_by_attribute: filtrer par attribut
+    filter_by_language: filtrer par langue
+    filter_by_provider: filtrer par fournisseur
+  footer:
+    eol_info:
+      contact_us: Nous contacter
+      data_services: Services de données
+      donate: Faire un don
+      education: Éducation
+      glossary: Glossaire
+      help: Aide
+      what_is_eol: Qu’est-ce que l’EdlV ?
+      whats_new: Quoi de neuf
+    discover:
+      algae: Algues
+      amphibians: Amphibiens
+      animals: Animaux
+      archaea: Archaea
+      bacteria: Bactéries
+      birds: Oiseaux
+      crustaceans: Crustacés
+      fishes: Poissons
+      fungi: Fungi
+      insects: Insectes
+      invertebrates: Invertébrés
+      mammals: Mammifères
+      mushrooms: Champignons
+      mollusks: Mollusques
+      plants: Plantes
+      reptiles: Reptiles
+      spiders: Araignées
+      trees: Arbres
+      viruses: Virus
+      worms: Vers
+  forgot_your_password: Mot de passe oublié ?
+  landing_page:
+    stats_cleared: Les statistiques ont été recalculées.
+  language: Langue
+  languages:
+    none: Non spécifié
+    ab: Abkhaze
+    af: Afrikaans
+    an: Aragonais
+    ar: Arabe
+    av: Avar
+    be: Biélorusse
+    bm: Bambara
+    bn: Bengali
+    bo: Tibétain
+    bs: Bosnien
+    cs: Tchèque
+    da: Danois
+    de: Allemand
+    en: Anglais
+    eo: Espéranto
+    et: Estonien
+    eu: Basque
+    fa: Persan
+    fi: Finnois
+    fr: Français
+    ga: Irlandais
+    he: Hébreu
+    hi: Hindi
+    hr: Croate
+    ht: Haïtien ; créole haïtien
+    hu: Hongrois
+    id: Indonésien
+    ik: Inupiaq
+    iu: Inuktitut
+    ja: Japonais
+    jv: Javanais
+    jp: Japonais
+    ka: Géorgien
+    kg: Kikongo
+    ko: Coréen
+    kr: Kanouri
+    ks: Cachemiri
+    ku: Kurde
+    lb: Luxembourgeois ; Letzeburgesch
+    ln: Lingala
+    lt: Lituanien
+    mg: Malgache
+    mk: Macédonien
+    mn: Mongol
+    mt: Maltais
+    my: Birman
+    ne: Népalais
+    or: Oriya
+    pl: Polonais
+    pt: Portugais
+    rm: Romanche
+    ru: Russe
+    rw: Kinyarwanda
+    sa: Sanscrit
+    sc: Sarde
+    sk: Slovaque
+    sl: Slovène
+    so: Somali
+    sq: Albanie
+    sr: Serbe
+    ss: Swati
+    su: Soundanais
+    sv: Suédois
+    sw: Swahili
+    ta: Tamoul
+    th: Thaï
+    ti: Tigrigna
+    tn: Tswana
+    tr: Turc
+    ts: Tsonga
+    tt: Tatar
+    ty: Tahitien
+    uk: Ukrainien
+    ur: Ourdou
+    uz: Ouzbek
+    vi: Vietnamien
+    wo: Wolof
+    xh: Xhosa
+    yi: Yiddish
+  layout_sign_in: Se connecter
+  layout_sign_up: S’inscrire
+  layout_sign_out: Déconnexion
+  literature_and_references_header: Références bibliographiques
+  maps:
+    empty: Il n’y a pas de cartes disponibles pour cette page.
+  medium:
+    untitled:
+      image: Image sans titre
+      video: Vidéo sans titre
+      video_of: Image de %{page_name}
+      sound: Son sans titre
+      sound_of: Audio de %{page_name}
+      map: Carte sans titre
+      js_map: Carte interactive sans titre
+    subclasses:
+      image: image
+      video: vidéo
+      sound: son
+      map: carte
+      js_map: carte interactive
+  medium_header_title: 'Titre :'
+  medium_header_description: 'Description :'
+  names:
+    show_more_langs:
+      one: afficher une langue supplémentaire
+      other: afficher %{count} langues supplémentaires
+  nav:
+    discuss: Discussions
+    education: Éducation
+    search:
+      placeholder: Recherche dans l’EdlV…
+  name_preferred_label: préféré
+  page_title: Encyclopédie de la Vie
+  pages:
+    actions:
+      collect: recueillir
+      reindex: réindexer
+    batch_lookup:
+      header: recherche de pages par lot
+      canonical_name: nom canonique
+      download_tsv: Télécharger le format TSV
+      new_search: nouvelle recherche
+      page_url: URL de la page
+      query: requête
+      query_cant_be_blank: la requête ne peut être vide
+      search: chercher
+    filter_menu:
+      show_all: tout afficher
+    page_data:
+      show_all: tout afficher
+    trophic_web:
+      reset: réinitialiser
+    flash:
+      reindexed: Les caches correspondants à cette page ont été effacés. Recharger
+        la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
+        ne réindexe *pas* les images sur la page. Cette fonctionnalité sera mise en
+        œuvre à l’avenir.
+    tabs:
+      article: Résumé
+      classifications: Classifications
+      overview: Accueil
+      details: Détails
+      literature_and_references: Références
+      maps: Cartes
+      media: Média
+      names: Noms
+      data: Données
+    iucn_status:
+      label: 'Catégorie de l’IUCN :'
+      ex: éteint (EX)
+      ew: éteint à l’état sauvage (EW)
+      cr: en danger critique (CR)
+      en: en danger (EN)
+      vu: vulnérable (VU)
+      nt: quasi menacé (NT)
+      lc: moins concernés (LC)
+      dd: données insuffisantes (DD)
+      ne: non évalué (NE)
+    unresolved_name: Nom non-résolu
+    unresolved_name_prefix: 'Noms non résolus :'
+  recaptcha: Tapez les deux mots ou nombres que vous voyez ci-dessous
+  recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
+  register_new_account: Enregistrer un nouveau compte
+  resources:
+    actions:
+      republish: publier
+      reindex: réindexer
+      fix_no_names: fixe à NO NAMEs
+      fetch_synonyms: trouver des synonymes
+    headers:
+      index: Ressources
+    no_events: Aucun !
+  resource_missing: ressource non trouvée
+  scientific_name:
+    status_title:
+      accepted: Noms acceptés
+      alternative: Noms alternatifs
+      preferred: Noms préférés
+      synonym: Synonymes
+  scientific_names_header: Noms scientifiques
+  send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
+    du mot de passe
+  search_results:
+    medium_article: Article
+    medium_image: Image
+    medium_map: Carte
+    medium_sound: Son
+    medium_video: Vidéo
+    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
+    empty: Aucun résultat.
+  sections:
+    associations: Associations
+    behavior: Comportement
+    brief_summary: Bref résumé
+    comprehensive_description: Description détaillée
+    conservation: Conservation
+    cyclicity: Cyclicité
+    diagnostic_description: Description diagnostique
+    diseases_and_parasites: Maladies et parasites
+    distribution: Répartition
+    ecology: Écologie
+    evolution_and_systematics: Évolution et Systématique
+    general_ecology: Écologie générale
+    genetics: Génétique
+    growth: Croissance
+    habitat: Habitat
+    identification_resources: Ressources d’identification
+    life_expectancy: Espérance de vie
+    life_history_and_behavior: Cycle vital et comportement
+    management: Gestion
+    migration: Migration
+    molecular_biology: Biologie moléculaire
+    molecular_biology_and_genetics: Biologie moléculaire et génétique
+    morphology: Morphologie
+    names_and_taxonomy: Noms et taxonomie
+    notes: Notes
+    overview: Résumé
+    physiology_and_cell_biology: Physiologie et biologie cellulaire
+    physical_description: Description physique
+    relevance_to_humans_and_ecosystems: Pertinence pour les humains et les écosystèmes
+    reproduction: Reproduction
+    risks: Risques
+    size: Taille
+    taxonomy: Taxonomie
+    threats: Menaces
+    trends: Tendances
+    trophic_strategy: Stratégie trophique
+    type_information: Informations de type
+    wikipedia: Wikipédia
+  settings: options
+  sign_in: Se connecter
+  sign_up: S’inscrire
+  simple_form:
+    "yes": Oui
+    "no": Non
+    required:
+      text: obligatoire
+      mark: '*'
+    labels:
+      defaults:
+        email: Adresse électronique
+        password: Mot de passe
+        password_confirmation: Confirmation du mot de passe
+        remember_me: Se souvenir de moi
+        username: Nom d’utilisateur
+      search_suggestion:
+        match: chercher la chaîne correspondante
+        path: chemin (complet ou relatif) de la redirection
+  stats:
+    articles: articles
+    collections: collections
+    media: média
+    pages: pages
+    nodes: nœuds
+    scientific_names: noms
+    users: utilisateurs
+    references: références
+  term:
+    actions:
+      reindex: réindexer
+      sort: trier par
+    edit:
+      submit: Enregistrer
+    fields:
+      name: 'nom :'
+      definition: 'définition :'
+      attribution: 'paternité :'
+      comment: 'commentaire :'
+      sections: 'sections :'
+      is_hidden_from_glossary: 'masquer dans le glossaire :'
+    pagination:
+      next: page suivante
+      previous: page précédente
+  terms:
+    definition_field_html: <strong>Définition :</strong> %{definition}
+    scientific_name: nom scientifique
+    show_all_records: afficher tous les enregistrements
+    source: source
+    uri_field_html: <strong>URI :</strong> %{uri}
+    index:
+      select_page_above: Choisir une page ci-dessus pour commencer.
+  trophic_web:
+    group_descriptions:
+      prey: mangé par %{source_name}
+  trust:
+    unreviewed: non vérifié
+    trusted: fiable
+    untrusted: non fiable
+  user:
+    batch_page_lookup: Recherche de pages par lot
+    created_at: créé
+    edit_account_details: Modifier les détails du compte
+    email: Courriel
+    headers:
+      bio: Brève biographie
+      collections: Collections
+      downloads: Téléchargements
+      links: Liens
+    new_password: Nouveau mot de passe
+    confirm_new_password: Confirmer le nouveau mot de passe
+    username: nom d’utilisateur
+    update: Actualiser
+    update_email: Mettre à jour l'adresse électronique
+  users:
+    sign_in: Se connecter
+  vernacular_names_header: Noms communs
+  vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
+...

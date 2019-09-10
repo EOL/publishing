@@ -123,6 +123,6 @@ class Node < ActiveRecord::Base
   end
 
   def siblings
-    parent&.children || []
+    parent&.children&.reject { |n| n == self } || []
   end
 end

@@ -463,6 +463,7 @@ en:
   locale_codes:
     en: "EN"
     ar: "AR"
+    mk: "MK"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
@@ -541,7 +542,6 @@ en:
       eol_has_data_for_n_attributes_html:
         one: "EOL has data for <a href=\"%{data_path}\">one attribute</a>."
         other: "EOL has data for <a href=\"%{data_path}\">%{count} attributes</a>."
-    page_articles:
     filter_menu:
       show_all: "show all"
     page_data:

@@ -1,0 +1,35 @@
+# Messages for Message documentation (Message documentation)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: EugeneZelenko
+# Author: Robby
+# Author: Shirayuki
+---
+qqq:
+  cancel: '{{Identical|Cancel}}'
+  classifications:
+    richness:
+      links_count: '{{Identical|Link}}'
+  collected_pages:
+    delete_button: '{{Identical|Delete}}'
+  language: '{{Identical|Language}}'
+  medium_header_description: '{{Identical|Description}}'
+  sections:
+    size: '{{Identical|Size}}'
+  settings: '{{Identical|Settings}}'
+  sign_in: '{{Identical|Sign in}}'
+  simple_form:
+    "yes": '{{Identical|Yes}}'
+    "no": '{{Identical|No}}'
+    labels:
+      defaults:
+        email: '{{Identical|Email}}'
+        password: '{{Identical|Password}}'
+  stats:
+    articles: '{{Identical|Article}}'
+    pages: '{{Identical|Page}}'
+    scientific_names: '{{Identical|Name}}'
+  term:
+    edit:
+      submit: '{{Identical|Save}}'
+...

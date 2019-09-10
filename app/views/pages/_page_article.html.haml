@@ -19,5 +19,5 @@
       = t(:article_duplicate, section: t("sections.#{article.first_section.name}"))
   .body.uk-margin-small-top
     = article.body.html_safe
-  .footer
+  .uk-margin
     = render("attributions/for_content", content: article)
