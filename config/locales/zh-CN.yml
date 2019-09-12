@@ -44,6 +44,8 @@ zh-CN:
     collection_type:
       normal: 标准
       gallery: 库
+    search:
+      submit: 搜索
     sort:
       hierarchy: 等级制度
       position: 已添加注释
@@ -108,7 +110,7 @@ zh-CN:
   forgot_your_password: 忘记您的密码？
   landing_page:
     header: 为全球提供地球上生命的知识
-  language: 语言：
+  language: 语言
   languages:
     none: 未指定
     aa: 阿法尔文
@@ -143,12 +145,14 @@ zh-CN:
     mn: 蒙古
     ne: 尼泊尔
     pi: 马里
+    pt: 葡萄牙语
     ru: 俄语
     sv: 瑞典语
     te: 泰卢固字母
     th: 泰语
     tr: 土耳其语
     uz: 乌兹别克语
+    vi: 越南文
     zh: 汉文
   layout_sign_in: 登录
   layout_sign_up: 注册
@@ -163,6 +167,7 @@ zh-CN:
       sound: 声音
       map: 地图
   medium_header_title: 标题：
+  medium_header_description: 说明：
   nav:
     about: 中止
     discuss: 讨论
@@ -174,6 +179,7 @@ zh-CN:
       collect: 收集
     batch_lookup:
       match: 比赛
+      new_search: 新搜索
       page_id: 页面编号
       query: 查询
     filter_menu:
@@ -196,31 +202,43 @@ zh-CN:
       fetch_synonyms_confirm: 这将删除现有的同义词并重新添加它们，但可能会失败并删除它们。大约需要一分钟。是否确定
     headers:
       index: 资源
+    no_events: 无！
   scientific_name:
     status_title:
       synonym: 同义词
   search_results:
     medium_article: 新闻稿
     medium_map: 地图
+    medium_sound: 声音
     medium_video: 视频
     empty: 没有查询结果.
   sections:
+    behavior: 行为
     comprehensive_description: 综合描述
     conservation: 保护
+    distribution: 分布
     ecology: 生态学
+    evolution_and_systematics: 进化与系统学
     genetics: 遗传学
     growth: 生长
+    habitat: 栖息地
     management: 管理
     migration: 振动
     morphology: 形态
     notes: 注意
+    relevance_to_humans_and_ecosystems: 与人类和生态系统的关系
+    reproduction: 净产品
+    risks: 风险
     size: 尺寸
+    taxonomy: 分类学
     threats: 威胁
     wikipedia: 维基百科
   settings: 设置
   sign_in: 登录
+  sign_up: 注册
   simple_form:
     "yes": 是
+    "no": 不
     required:
       text: 需求
     labels:
@@ -232,7 +250,10 @@ zh-CN:
   stats:
     articles: 新闻稿
     collections: 我的收藏
+    media: 媒体
+    pages: 页
     nodes: 节点
+    scientific_names: 名
     users: 用户
     references: 参考
   term:
@@ -241,8 +262,11 @@ zh-CN:
     edit:
       submit: 储存游戏
     fields:
+      name: '名称:'
       attribution: 署名：
       comment: 注解：
+    pagination:
+      next: 下一页
   terms:
     scientific_name: 学名
     source: 源
@@ -250,6 +274,7 @@ zh-CN:
     unreviewed: 未审查
     trusted: 受信
   user:
+    created_at: 已发起
     email: 邮箱
     headers:
       collections: 我的收藏
@@ -261,4 +286,5 @@ zh-CN:
   users:
     account_migration_notice: 您的帐户信息，包括用户名、相关电子邮件、配置文件描述和拥有的收藏，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但是您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您可以使用忘记密码过程重置它。如果您只使用第三方提供商——谷歌、推特或脸书——登录，请耐心等待；我们正在解决共享登录过程中的一些问题。
     sign_in: 登录
+  vernacular_names_header: 俗名
 ...

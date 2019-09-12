@@ -23,6 +23,11 @@ pt-BR:
     name:
       missing: Sem título
   article_from_partner: fornecido por %{partner}
+  article_duplicate: este artigo também é mostrado em "%{section}"
+  autocomplete:
+    see_all:
+      one: ver outros resultados
+      other: ver todos %{count} resultados
   breadcrumbs:
     notices:
       canonical: Os nomes científicos agora serão mostrados na trilha de navegação
@@ -42,6 +47,7 @@ pt-BR:
     children:
       see_more: ver mais
     hierarchies:
+      header: Hierarquias selecionadas para %{sci_name}
       this_page: (essa página)
     richness:
       header: Riqueza da página
@@ -53,6 +59,7 @@ pt-BR:
       links_count: links
       maps_count: mapas
       data_count: dados
+      nodes_count: nós
       vernaculars_count: vernáculos
       scientific_names_count: Nomes científicos
       referents_count: referentes
@@ -64,6 +71,7 @@ pt-BR:
   collect_new_collection: Nome da nova coleção
   collect_no_existing_collections: Você ainda não tem nenhum! Crie um usando o formulário
     à esquerda.
+  collect_select_collection: …Uma de suas coleções
   collect_title: Adicionar "%{item}" para…
   collected_page_already_in_collection: Isso já estava em sua coleção.
   collected_pages_title: Páginas
@@ -76,6 +84,8 @@ pt-BR:
     edit_button: editar
     delete_confirm: você tem certeza?
     destroyed_flash: '%{name} foi removido da coleção.'
+  collection_association_added_to_collection: Adicionado "%{associated}" para a coleção
+    <a href='%{link}'>"%{name}"</a>.
   collection_associations_empty: Nenhuma outra coleção está associada a esta. Você
     pode clicar no botão "Associar" em outras coleções para que elas apareçam aqui.
   collection_associations_title: Coleções associadas
@@ -102,6 +112,7 @@ pt-BR:
       tem certeza?
     destroyed: '"%{name}" foi excluído permanentemente.'
     search:
+      placeholder: Pesquisar na coleção…
       submit: pesquisar
     sort:
       hierarchy: hierarquia
@@ -119,6 +130,7 @@ pt-BR:
   content_attributions_labels:
     altitude: altitude
     author: autor
+    bibliographic_citation: citação bibliográfica
     creator: criador
     editor: editor
     latitude: latitude
@@ -135,6 +147,7 @@ pt-BR:
     spatial_location: espacial
     view_source_label: original
     view_source_link: ver imagem original
+    view_source_page_link: visite a fonte
   content_not_in_any_collection_image: Esta imagem não aparece em nenhuma coleção.
   content_not_in_any_collection_sound: Este som não é destaque em nenhuma coleção.
   content_not_in_any_collection_video: Este vídeo não aparece em nenhuma coleção.
@@ -147,6 +160,7 @@ pt-BR:
   dear_username_with_comma: Olá %{username},
   delete_account_button: Remover sua conta
   filter_by_license: licença
+  filter_by_license_any_item: qualquer licença
   filter_by_medium_subtype: tipo
   filter_by_medium_any_item: qualquer tipo
   filter_by_resource: fornecedor
@@ -165,6 +179,7 @@ pt-BR:
       glossary: Glossário
       help: Ajuda
       terms_of_use: Termo de uso
+      the_eol_forum: Fórum da EOL
       what_is_eol: O que é EOL?
       whats_new: Novidades
     discover:
@@ -262,6 +277,7 @@ pt-BR:
     vi: Vietnamita
     vo: Volapuque
     yo: Ioruba
+    zh: Chinês
   layout_sign_in: Entrar
   layout_sign_up: Criar conta
   layout_sign_out: Sair
@@ -294,8 +310,14 @@ pt-BR:
   medium_header_title: 'Título:'
   medium_header_description: 'Descrição:'
   names:
+    hide_langs:
+      one: ocultar um idioma
+      other: ocultar %{count} idiomas
     preferred_in_language_for_page: '%{name} agora é o vernáculo %{language} preferido
       para %{page}'
+    show_more_langs:
+      one: mostre mais um idioma
+      other: show %{count} mais idiomas
   nav:
     about: Sobre
     discuss: Discutir
@@ -305,6 +327,10 @@ pt-BR:
         Enter para ver resultados não curados
       placeholder: Pesquisar em EOL…
   name_preferred_label: preferido
+  page_icon_counts:
+    header:
+      one: Melhor imagem para página
+      other: Melhor imagem para páginas
   page_icon_created: Imagem movida "%{name}" para o topo.
   page_title: Enciclopédia da Vida
   page_title_search: 'Procurar: %{query}'
@@ -345,6 +371,7 @@ pt-BR:
       label: 'Status da IUCN:'
       ex: extinto (EX)
       ew: extinto em estado selvagem (EW)
+      cr: criticamente ameaçada (CR)
       en: em perigo (EN)
       vu: vulnerável (VU)
       nt: quase ameaçado (NT)
@@ -356,6 +383,9 @@ pt-BR:
     unresolved_name_prefix: 'Nome não resolvido:'
   page_titles:
     pages:
+      data: dados de %{page_name}
+      media: mídia de %{page_name}
+      maps: mapas de %{page_name}
       articles: Artigos sobre %{page_name}
   name_recognized_by: Reconhecido por %{by}
   name_recognized_by_rank: '%{rank} foi reconhecido por %{by}'
@@ -365,6 +395,7 @@ pt-BR:
   recaptcha: Recaptcha
   recaptcha_error: Por favor, diga-nos que você não é um robô.
   reference_compiled_from: Referenciado por %{links}
+  reference_compiled_from_article: Artigo de %{source} com o titulo de «%{name}»
   register_new_account: Registre-se para uma nova conta
   resources:
     actions:
@@ -381,6 +412,7 @@ pt-BR:
       fetch_synonyms_confirm: Isso remove os sinônimos existentes e os adiciona novamente,
         mas pode falhar e remover todos eles. Demora cerca de um minuto. Você tem
         certeza?
+      fetch_units: recuperar unidades
       fetch_units_confirm: Isso remove as relações existentes de predicado/unidade
         e as adiciona novamente, mas pode falhar e remover todas elas. Demora cerca
         de um minuto. Você tem certeza?
@@ -410,6 +442,10 @@ pt-BR:
     n_articles:
       one: '%{count} artigo'
       other: '%{count} artigos'
+    n_results:
+      zero: Sem resultados
+      one: '%{count} resultado'
+      other: '%{count} resultados'
     n_sounds:
       one: '%{count} som'
       other: '%{count} sons'
@@ -441,6 +477,9 @@ pt-BR:
       resources:
         one: 'corresponde ao recurso:'
         other: 'corresponde aos recursos:'
+      synonyms:
+        one: 'corresponde ao sinônimo:'
+        other: 'corresponde aos sinônimos:'
     section_titles:
       collections:
         one: '%{count} Coleção'
@@ -449,11 +488,16 @@ pt-BR:
         one: '%{count} usuário'
         other: '%{count} usuários'
     collection_title_html: 'Coleção: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: '1 ARTIGO '
+        other: '%{count} ARTIGOS'
     user_title_html: 'Usuário: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
       create: criar uma nova sugestão de pesquisa
     created: Sugestão de pesquisa criada para "%{match}"
+    destroyed: Sugestão de pesquisa destruída para "%{match}"
     new:
       header: Criar uma sugestão de pesquisa
     update:
@@ -540,6 +584,7 @@ pt-BR:
     data: registro de dados
     media: mídia
     pages: páginas
+    nodes: nós
     scientific_names: nomes
     users: usuários
     references: referências
@@ -582,6 +627,7 @@ pt-BR:
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}
+      predator: feeds em %{source_name}
       prey: comido por %{source_name}
       source: espécies focais
   trust:

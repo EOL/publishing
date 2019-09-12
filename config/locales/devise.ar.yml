@@ -1,0 +1,46 @@
+# Messages for Arabic (العربية)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amira.88
+# Author: Passant
+---
+ar:
+  devise:
+    confirmations:
+      send_instructions: .ستتلقى بريد إلكتروني يحتوي على إرشادات حول كيفية تأكيد البريد
+        الالكترونى في خلال بضع دقائق
+    failure:
+      locked: تم غلق حسابك، برجاء المحاولة بعد ساعة
+    mailer:
+      confirmation_instructions:
+        action: تأكيد الحساب
+      reset_password_instructions:
+        action: تغيير كلمة المرور
+      password_change:
+        subject: تم تغيير كلمة المرور
+    passwords:
+      send_instructions: .ستتلقى بريد إلكتروني يحتوي على إرشادات حول اعادة ضبط كلمة
+        المرور في خلال بضع دقائق
+    registrations:
+      signed_up_but_unconfirmed: تم إرسال رسالة مع رابط التأكيد إلى عنوان بريدك الإلكتروني.
+        يرجى اتباع الرابط لتفعيل حسابك.
+      update_needs_confirmation: لقد قمت بتحديث حسابك بنجاح ، لكننا بحاجة إلى التحقق
+        من عنوان بريدك الإلكتروني الجديد. يرجى التحقق من بريدك الإلكتروني واتبع رابط
+        التأكيد لتأكيد عنوان بريدك الإلكتروني الجديد.
+      updated: تم تحديث حسابك بنجاح.
+    sessions:
+      signed_in: تم تسجيل الدخول بنجاح
+      signed_out: تم الخروج بنجاح
+      already_signed_out: تم الخروج بنجاح
+    unlocks:
+      send_instructions: ستتلقى رسالة بريد إلكتروني تحتوي على إرشادات حول كيفية فتح
+        حسابك في بضع دقائق.
+      send_paranoid_instructions: إذا كان حسابك موجودًا ، فستتلقى رسالة بريد إلكتروني
+        تحتوي على إرشادات حول كيفية فتحه في غضون بضع دقائق.
+      unlocked: تم فتح حسابك بنجاح. من فضلك سجل دخولك للمتابعة.
+  errors:
+    messages:
+      already_confirmed: تم التأكيد بالفعل ، يرجى محاولة تسجيل الدخول
+      not_found: لم يتم العثور عليه
+      not_locked: لم يكن مغلقا
+...

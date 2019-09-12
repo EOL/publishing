@@ -1,0 +1,28 @@
+# Messages for Message documentation (Message documentation)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Verdy p
+---
+qqq:
+  errors:
+    messages:
+      already_confirmed: '''''''FIXME:'''''' Patchwork message, not suitable for all
+        languages. Please use complete sentence with a placeholder to position correctly
+        the missing part (not always at start of message).'
+      confirmation_period_expired: '''''''FIXME:'''''' Patchwork message, not suitable
+        for all languages. Please use complete sentence with a placeholder to position
+        correctly the missing part (not always at start of message). The correct grammatical
+        gender of "a new one" cannot be determined to translate it with the correct
+        pronoun (e.g. in French: "un nouveau" for the masculine, "une nouvelle" for
+        the feminine) and the same applies to "confirmed" (e.g. in French: "confirmé"
+        for the masculine, "confirmée" for the feminine), as both are depending on
+        what is meant in the missing leading part.'
+      expired: '''''''FIXME:'''''' Patchwork message, not suitable for all languages.
+        Please use complete sentence with a placeholder to position correctly the
+        missing part (not always at start of message). The correct grammatical gender
+        of "a new one" cannot be determined to translate it with the correct pronoun
+        (e.g. in French: "un nouveau" for the masculine, "une nouvelle" for the feminine).
+        The same may apply to the translation of "has expired" (it may use a passive
+        form requiring agreement in some languages with the gender of the missing
+        part implied but omitted at start of the English message).'
+...

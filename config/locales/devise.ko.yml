@@ -15,6 +15,7 @@ ko:
       not_found_in_database: '%{authentication_keys} 또는 비밀번호가 유효하지 않습니다.'
       timeout: 세션이 만료되었습니다. 계속하려면 다시 로그인해 주십시오.
       unauthenticated: 계속하기 전에 로그인하거나 가입해야 합니다.
+      unconfirmed: 계속하기 전에 이메일 주소를 인증해야 합니다.
     mailer:
       confirmation_instructions:
         action: 내 계정 확인
@@ -24,6 +25,8 @@ ko:
         action: 내 비밀번호 바꾸기
         greeting: '#{recipient}님, 안녕하세요!'
         instruction_2: 이것을 요청하지 않으셨다면 이 이메일을 무시해 주십시오.
+      unlock_instructions:
+        subject: 잠금 해제 안내
       password_change:
         greeting: '#{recipient}님, 안녕하세요!'
         subject: 비밀번호가 변경되었습니다
