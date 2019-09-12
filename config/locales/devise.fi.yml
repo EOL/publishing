@@ -9,20 +9,33 @@ fi:
       already_authenticated: Olet jo kirjautuneena sisään.
       inactive: Käyttäjätunnustasi ei ole vielä aktivoitu.
       invalid: Virheellinen %{authentication_keys} tai salasana.
+      locked: Käyttäjätunnuksesi on lukittu, yritä tunnin kuluttua uudelleen
+      last_attempt: Sinulla on vielä yksi yritys ennen käyttäjätunnuksesi lukitsemista.
+      not_found_in_database: Virheellinen %{authentication_keys} tai salasana.
+      timeout: Istuntosi vanheni. Kirjaudu sisään uudelleen jatkaaksesi.
       unauthenticated: Sinun täytyy kirjautua sisään tai rekisteröityä ennen jatkamista.
+      unconfirmed: Sinun on vahvistettava sähköpostiosoitteesi ennen jatkamista.
     mailer:
       confirmation_instructions:
         action: Vahvista käyttäjätunnus
         greeting: Tervetuloa %{recipient}!
+        instruction: 'Voit vahvistaa käyttäjätunnuksesi sähköpostiosoitteen alla olevan
+          linkin kautta:'
         subject: Vahvistusohjeet
       reset_password_instructions:
         action: Vaihda salasanani
         greeting: 'Hei #{recipient}!'
+        instruction: Joku on pyytänyt linkkiä salasanasi vaihtamiseksi, ja voit tehdä
+          sen alla olevan linkin kautta.
+        instruction_2: Jos et pyytänyt tätä, älä huomioi tätä sähköpostia.
+        instruction_3: Salasanasi ei vaihdu, ennen kuin avaat yllä olevan linkin ja
+          luot uuden.
         subject: Salasanan palautusohjeet
       unlock_instructions:
         subject: Lukituksen avausohjeet
       password_change:
         greeting: 'Hei #{recipient}!'
+        message: Otimme sinuun yhteyttä ilmoittaaksemme salasanasi vaihtumisesta.
         subject: Salasana vaihdettu
     passwords:
       updated: Salasanasi on vaihdettu onnistuneesti. Sinut on nyt kirjattu sisään.
@@ -41,8 +54,13 @@ fi:
       signed_out: Kirjauduttu ulos onnistuneesti.
       already_signed_out: Kirjauduttu ulos onnistuneesti.
       recaptcha: Recaptcha-validointivirheet
+      sign_in_remember_me_disabled_for_admins: Turvallisuussyistä, ylläpitäjät eivät
+        voi käyttää muista minut toimintoa.
+    unlocks:
+      unlocked: Käyttäjätunnuksesi on avattu onnistuneesti. Kirjaudu sisään jatkaaksesi.
   errors:
     messages:
+      already_confirmed: on jo vahvistettu, yritä kirjautua sisään
       expired: on vanhentunut, pyydä uutta
       not_found: ei löydy
       not_locked: ei ollut lukittu

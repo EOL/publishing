@@ -48,7 +48,7 @@ fr:
   classifications:
     children:
       header_html:
-        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
+        one: '</a> :'
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
@@ -66,41 +66,101 @@ fr:
       nodes_count: nœuds
       vernaculars_count: vernaculaire
       scientific_names_count: noms scientifiques
+      referents_count: référents
       species_count: espèce
       updated_at: dernière mise à jour
   cms_page_date: 'Dernière modification:'
+  collect_already_in_collection: (c’est déjà là)
   collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
+  collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers…
   collect_new_collection: Nouveau nom de collection
   collect_new_collection_title: Nouvelle collection
+  collect_no_existing_collections: Vous n’en avez encore aucun ! En créer un en utilisant
+    le formulaire sur la gauche.
+  collect_select_collection: … une de vos collections
+  collect_title: Ajouter « %{item} » à…
+  collected_page_added_to_collection: '%{page} ajouté à la collection <a href=''%{link}''>%{name}</a>.'
+  collected_page_already_in_collection: C’était déjà dans votre collection.
   collected_pages_title: Pages
+  collected_pages_medium:
+    destroyed_flash: Image supprimée de la page collectée.
+  collection_associations:
+    destroyed_flash: '%{name} n’est plus associé à cette collection.'
   collected_pages:
     delete_button: supprimer
     edit_button: modifier
     delete_confirm: Êtes-vous sûr ?
+    destroyed_flash: '%{name} a été supprimé de cette collection.'
+  collection_association_added_to_collection: « %{associated} » ajouté à la collection
+    <a href='%{link}'>« %{name} »</a>.
+  collection_associations_empty: Aucune autre collection n’est associée avec celle-ci.
+    Vous pouvez cliquer sur le bouton « associer » sur d’autres collections pour les
+    faire apparaître ici.
   collection_associations_title: Collections associées
+  collection_collected_pages_media_remove: 'Supprimer les images de la collection
+    (les modifications prennent effet immédiatement) :'
+  collection_created: Nouvelle collection « %{name} » créée.
+  collection_created_for_association: « %{associated} » ajouté à la nouvelle collection
+    <a href='%{link}'>« %{name} »</a>.
+  collection_user_is_admin: Cet utilisateur est un administrateur.
+  collection_pages_empty: Cette collection ne contient pas de page. Essayez de cliquer
+    sur le bouton « collecter » sur les pages d’espèce pour ajouter certains éléments !
   collection:
+    admins:
+      header: Utilisateurs qui peuvent modifier cette collection (les changements
+        prennent effet immédiatement)
+      label: 'Ajouter un utilisateur qui peut modifier cette collection :'
+      placeholder: nom complet ou nom d’utilisateur
     actions:
+      associate: associer
+      download_taxa_csv: télécharger le CSV des taxons
       delete: supprimer
       edit: modifier
     collection_type:
       normal: normal
       gallery: galerie
+    delete_confirm: Cela supprimera toute la collection et ne pourra PAS être annulé.
+      Êtes-vous sûr ?
+    destroyed: « %{name} » a été supprimé de façon permanente.
+    pages_count:
+      one: 1 page
+      other: '%{count} pages'
     log:
+      associated_collection:
+        add: '%{user} a ajouté une association à la collection %{associated}'
+        remove: '%{user} a supprimé l’association de la collection %{associated}'
+      collection:
+        add: '%{user} a modifié la collection'
+        change: '%{user} a modifié %{field} de « %{from} » en « %{to} »'
       content:
+        add: '%{user} a ajouté le média %{medium} à la page %{page}'
+        change: '%{user} a modifié %{field} sur le média %{medium} pour la page %{page}
+          de « %{from} » en « %{to} »'
         remove: '%{user} a supprimé le média %{medium} de la page %{page}'
       page:
+        add: '%{user} a ajouté la page %{page}'
+        change: '%{user} a modifié %{field} sur la page %{page} de « %{from} » en
+          « %{to} »'
         remove: '%{user} a retiré la page %{page}'
+      user:
+        add: '%{user} a ajouté le gestionnaire %{manager}'
+        remove: '%{user} a supprimé le gestionnaire %{manager}'
     search:
       placeholder: Chercher dans la collection…
       submit: rechercher
     sort:
       hierarchy: hiérarchie
+      position: date ajoutée
       sci_name: noms scientifiques, A-Z
       sci_name_rev: noms scientifiques, Z-A
       sort_field: annotation, A-Z
       sort_field_rev: annotation, Z-A
     updated: La collection a été mise à jour.
+  collection_unauthorized_edit: Seul l’utilisateur propriétaire peut modifier cette
+    collection.
+  complete_registration: Veuillez poursuivre votre inscription
   content_appears_on: 'Inclus dans les pages suivantes :'
+  content_collected_in: 'Mis en vedette dans les collections suivantes :'
   content_attributions_header: Informations de provenance
   content_attributions_labels:
     altitude: altitude
@@ -112,18 +172,39 @@ fr:
     latitude: latitude
     license: licence
     location: emplacement
+    location_verbatim: verbatim
     longitude: longitude
+    owner: droit d’auteur
     photographer: photographe
+    publisher: éditeur
     project: projet
     provider: fournisseur
+    references_header:
+      one: Référence
+      other: Références
     resource_label: site partenaire
+    resource_pk: '(id: %{key})'
+    rights_statement: déclaration des droits
     source: source
     spatial_location: spatial
+    view_source_label: d’origine
     view_source_link: afficher l’image d’origine
+    view_source_page_link: visiter la source
+  content_not_in_any_collection_image: Cette image ne figure dans aucune collection.
+  content_not_in_any_collection_sound: Ce son ne figure dans aucune collection.
+  content_not_in_any_collection_video: Cette vidéo ne figure dans aucune collection.
+  data:
+    modifier:
+      sex_term: Sexe de l’organisme mesuré
+      lifestage_term: Étape de vie mesuré de l’organisme
+      statistical_method_term: Méthode statistique utilisée pour les mesures
+  data_missing: '(données manquantes, clés : %{keys})'
   dear_username_with_comma: '{{GENDER:%{username}}}|Cher|Chère}} %{username},'
   delete_account_button: Supprimer votre compte
   filter_by_license: licence
+  filter_by_license_any_item: n'importe quelle licence
   filter_by_medium_subtype: type
+  filter_by_medium_any_item: n'importe quel type
   filter_by_resource: fournisseur
   filter_by_resource_any_item: n'importe quel fournisseur
   filters:
@@ -132,13 +213,16 @@ fr:
     filter_by_provider: filtrer par fournisseur
   footer:
     eol_info:
+      citing_eol: Comment citer EOL
       contact_us: Nous contacter
       data_services: Services de données
       donate: Faire un don
       education: Éducation
       glossary: Glossaire
       help: Aide
-      what_is_eol: Qu’est-ce que l’EdlV ?
+      terms_of_use: Conditions d’utilisation
+      the_eol_forum: Le forum EdV
+      what_is_eol: Qu’est-ce que l’EdV ?
       whats_new: Quoi de neuf
     discover:
       algae: Algues
@@ -149,71 +233,139 @@ fr:
       birds: Oiseaux
       crustaceans: Crustacés
       fishes: Poissons
+      flowering_plants: Plantes à fleurs
       fungi: Fungi
       insects: Insectes
       invertebrates: Invertébrés
       mammals: Mammifères
+      molds: Moisissures
       mushrooms: Champignons
       mollusks: Mollusques
       plants: Plantes
+      protists: Protozoaires
       reptiles: Reptiles
       spiders: Araignées
       trees: Arbres
       viruses: Virus
       worms: Vers
+    eol_is_hosted_by: 'EdV est hébergé par :'
   forgot_your_password: Mot de passe oublié ?
   landing_page:
+    header: Accès global à la connaissance sur la vie sur Terre.
     stats_cleared: Les statistiques ont été recalculées.
   language: Langue
   languages:
     none: Non spécifié
+    aa: Afar
     ab: Abkhaze
+    ae: Avestique
     af: Afrikaans
+    ak: Akan
+    am: Amharique
     an: Aragonais
     ar: Arabe
+    as: Assamais
     av: Avar
+    ay: Aymara
+    az: Azéri
+    ba: Bachkir
     be: Biélorusse
+    bg: Bulgare
+    bh: Langues bihari
+    bi: Bichelamar
     bm: Bambara
     bn: Bengali
     bo: Tibétain
+    br: Breton
     bs: Bosnien
+    ca: Catalan ; Valencien
+    ce: Tchétchène
+    ch: Chamorro
+    co: Corse
+    cr: Cris
     cs: Tchèque
+    cu: Slave d’église ; vieux slavon ; slavon d’église ; vieux bulgare ; vieux slavon
+      d’église
+    cv: Tchouvache
+    cy: Gallois
     da: Danois
     de: Allemand
+    dv: Divehi ; Maldivien
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Éwé
+    el: Grec moderne (1453-)
     en: Anglais
     eo: Espéranto
+    es: Espagnol ; Castillan
     et: Estonien
     eu: Basque
     fa: Persan
+    ff: Peul
     fi: Finnois
+    fj: Fidjien
+    fo: Féroïen
     fr: Français
+    fy: Frison occidental
     ga: Irlandais
+    gd: Gaélique ; Gaélique écossais
+    gl: Galicien
+    gn: Guarani
+    gu: Gujarati
+    gv: Mannois
+    ha: Haoussa
     he: Hébreu
     hi: Hindi
+    ho: Hiri motu
     hr: Croate
     ht: Haïtien ; créole haïtien
     hu: Hongrois
+    hy: Arménien
+    hz: Héréro
+    ia: Interlingua (Association internationale de langue auxiliaire)
     id: Indonésien
+    ie: Interlingua ; Occidental
+    ig: Igbo
+    ii: Yi du Sichuan ; langue Nuosu
     ik: Inupiaq
+    io: Ido
+    is: Islandais
+    it: Italien
     iu: Inuktitut
     ja: Japonais
     jv: Javanais
     jp: Japonais
     ka: Géorgien
     kg: Kikongo
+    ki: Kikuyu
+    kj: Kuanyama
+    kk: Kazakh
+    kl: Kalaallisut ; Groenlandais
+    km: Khmer central
+    kn: Kannada
     ko: Coréen
     kr: Kanouri
     ks: Cachemiri
     ku: Kurde
+    kv: Komi
+    kw: Cornique
+    ky: Kirghize
+    la: Latin
     lb: Luxembourgeois ; Letzeburgesch
+    lg: Luganda
     ln: Lingala
+    lo: Lao
     lt: Lituanien
+    lu: Luba-katanga
+    lv: Letton
     mg: Malgache
+    mh: Marshallais
     mk: Macédonien
     mn: Mongol
     mt: Maltais
     my: Birman
     ne: Népalais
+    "": Norvégien
     or: Oriya
     pl: Polonais
     pt: Portugais
@@ -232,8 +384,10 @@ fr:
     sv: Suédois
     sw: Swahili
     ta: Tamoul
+    tg: Tadjik
     th: Thaï
     ti: Tigrigna
+    tk: Turkmène
     tn: Tswana
     tr: Turc
     ts: Tsonga
@@ -246,30 +400,41 @@ fr:
     wo: Wolof
     xh: Xhosa
     yi: Yiddish
+    zh: Chinois
+    zu: Zoulou
   layout_sign_in: Se connecter
   layout_sign_up: S’inscrire
   layout_sign_out: Déconnexion
   literature_and_references_header: Références bibliographiques
   maps:
     empty: Il n’y a pas de cartes disponibles pour cette page.
+    other_maps_title: Cartes non interactives
   medium:
     untitled:
       image: Image sans titre
+      image_of: Image de %{page_name}
       video: Vidéo sans titre
       video_of: Image de %{page_name}
       sound: Son sans titre
       sound_of: Audio de %{page_name}
       map: Carte sans titre
+      map_of: Carte de %{page_name}
       js_map: Carte interactive sans titre
+      js_map_of: Carte interactive de %{page_name}
     subclasses:
       image: image
       video: vidéo
       sound: son
       map: carte
       js_map: carte interactive
+  medium_collect_button: collecter les médias
+  medium_description_blank: Il n’y a pas de description fournie pour cet objet.
   medium_header_title: 'Titre :'
   medium_header_description: 'Description :'
   names:
+    hide_langs:
+      one: masquer une langue
+      other: masquer %{count} langues
     show_more_langs:
       one: afficher une langue supplémentaire
       other: afficher %{count} langues supplémentaires
@@ -277,7 +442,7 @@ fr:
     discuss: Discussions
     education: Éducation
     search:
-      placeholder: Recherche dans l’EdlV…
+      placeholder: Recherche dans l’EdV…
   name_preferred_label: préféré
   page_title: Encyclopédie de la Vie
   pages:
@@ -433,7 +598,7 @@ fr:
     fields:
       name: 'nom :'
       definition: 'définition :'
-      attribution: 'paternité :'
+      attribution: attribution
       comment: 'commentaire :'
       sections: 'sections :'
       is_hidden_from_glossary: 'masquer dans le glossaire :'

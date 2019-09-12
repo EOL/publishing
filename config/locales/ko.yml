@@ -36,33 +36,47 @@ ko:
       scientific_names_count: 학명
   collect_already_in_collection: (이미 있습니다)
   collect_already_in_collection_will_add_icon: (미디어를 "%{page}"에 추가)
+  collect_new_collection: 새 모음집 이름
   collected_pages_title: 페이지
   collected_pages:
     delete_button: 삭제
     edit_button: 편집
     delete_confirm: 확실합니까?
+  collection_created: 새 모음집 "%{name}"을(를) 만들었습니다.
   collection_user_is_admin: 이 사용자는 관리자입니다.
   collection:
     admins:
+      header: 이 모음집을 편집할 수 있는 사용자 (변경 내용은 즉시 반영됩니다)
+      label: '이 모음집을 편집할 수 있는 사용자 추가:'
       placeholder: 성명 또는 사용자 이름
     actions:
       delete: 삭제
       edit: 편집
     collection_type:
       gallery: 갤러리
+    delete_confirm: 이 작업은 모든 모음집을 제거하며 취소할 수 없습니다. 그렇게 하시겠습니까?
     destroyed: '"%{name}"님이 영구적으로 삭제되었습니다.'
+    pages_count:
+      one: 문서 1개
+      other: 문서 %{count}개
     log:
       content:
         add: '%{user}님이 문서 %{page}에 대해 %{medium} 미디어를 추가했습니다'
       page:
         add: '%{user}님이 %{page} 문서를 추가했습니다'
         remove: '%{user}님이 %{page} 문서를 이동했습니다'
+      user:
+        add: '%{user}님이 %{manager} 관리자를 추가했습니다'
     search:
+      placeholder: 모음집에서 검색...
       submit: 검색
     sort:
       sci_name: 학명, A-Z
       sci_name_rev: 학명, Z-A
+    updated: 모음집이 업데이트되었습니다.
+  collection_unauthorized_edit: 소유자만이 이 모음집을 편집할 수 있습니다.
   complete_registration: 등록을 계속해 주십시오
+  content_appears_on: '다음의 문서에 포함됨:'
   content_attributions_labels:
     altitude: 고도
     author: 만든이
@@ -101,15 +115,19 @@ ko:
       what_is_eol: EOL은 무엇입니까?
       whats_new: 새로운 소식
     discover:
+      amphibians: 양서류
       animals: 동물
       bacteria: 박테리아
+      birds: 새
       insects: 곤충
       invertebrates: 무척추동물
       mammals: 포유류
       mushrooms: 버섯
       plants: 식물
+      spiders: 거미
       trees: 나무
       viruses: 바이러스
+    eol_is_hosted_by: 'EOL 호스팅:'
   forgot_your_password: 비밀번호를 잊으셨나요?
   language: 언어
   languages:
@@ -136,9 +154,12 @@ ko:
     it: 이탈리아어
     ja: 일본어
     jp: 일본어
+    kg: 콩고어
     ko: 한국어
     la: 라틴어
+    lo: 라오어
     lt: 리투아니아어
+    mi: 마오리어
     mk: 마케도니아어
     mn: 몽골어
     ms: 말레이어
@@ -151,6 +172,7 @@ ko:
     sq: 알바니아어
     sv: 스웨덴어
     th: 태국어
+    tl: 타갈로그어
     tr: 터키어
     uk: 우크라이나어
     vi: 베트남어
@@ -158,6 +180,8 @@ ko:
   layout_sign_in: 로그인
   layout_sign_up: 가입하기
   layout_sign_out: 로그아웃
+  maps:
+    empty: 이 문서에서는 사용 가능한 지도가 없습니다.
   medium:
     untitled:
       image: 제목 없는 이미지
@@ -224,6 +248,7 @@ ko:
       republish: 다시 게시
       show_all:
         other: 모두 보기 (%{count})
+      sync: 저장소와 동기화
     headers:
       index: 자료
     no_events: 없음!
@@ -233,6 +258,7 @@ ko:
       alternative: 다른 이름
       synonym: 동의어
   scientific_names_header: 학명
+  send_me_reset_password_instructions: 비밀번호 재설정 안내 받기
   search:
     flash:
       cannot_combine_paths: 결과를 %{path}와 병합할 수 없습니다
@@ -242,6 +268,9 @@ ko:
     n_users:
       one: 사용자 %{count}명
       other: 사용자 %{count}명
+    n_videos:
+      one: 동영상 %{count}개
+      other: 동영상 %{count}개
   search_results:
     collection_page_count:
       one: 문서 %{count}개
@@ -258,6 +287,9 @@ ko:
     medium_title_video_html: '동영상: <span class=''sub''>%{title}</span>'
     empty: 결과가 없습니다.
     section_titles:
+      media:
+        one: 미디어 %{count}개
+        other: 미디어 %{count}개
       users:
         one: 사용자 %{count}명
         other: 사용자 %{count}명
@@ -267,6 +299,8 @@ ko:
         other: 미디어 %{count}개
     user_title_html: '사용자: <span class=''sub''>%{name}</span>'
   search_suggestion:
+    actions:
+      create: 새 검색 제안 만들기
     new:
       header: 검색 제안 만들기
     update:
@@ -279,12 +313,14 @@ ko:
     conservation: 보존
     conservation_status: 보존 상태
     cyclicity: 순환계
+    diagnostic_description: 진단 설명
     diseases_and_parasites: 질병과 기생충
     ecology: 생태학
     genetics: 유전학
     life_expectancy: 기대 수명
     life_history_and_behavior: 생명 역사 및 행동
     management: 관리
+    migration: 마이그레이션
     molecular_biology: 분자생물학
     molecular_biology_and_genetics: 분자 생물학과 유전학
     morphology: 형태학
@@ -293,10 +329,16 @@ ko:
     physiology_and_cell_biology: 생리학과 세포 생물학
     size: 크기
     taxonomy: 분류학
+    threats: 위협
     wikipedia: 위키백과
   settings: 설정
   sign_in: 로그인
   sign_up: 가입하기
+  signature_with_contact_us_link: |-
+    문제가 발생하면 %{url} (으)로 문의하시기 바랍니다.
+
+    생명의 백과사전 팀
+  did_not_receive_confirmation_instructions: 확인 안내를 받지 못했습니다
   simple_form:
     "yes": 예
     "no": 아니오
@@ -312,6 +354,7 @@ ko:
         username: 사용자 이름
   stats:
     articles: 문서
+    collections: 모음집
     data: 데이터 레코드
     media: 미디어
     pages: 문서
@@ -341,10 +384,14 @@ ko:
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: 시작하려면 위의 문서를 선택하십시오.
+  data_definition: '"%{data}"의 정의'
+  trust:
+    unreviewed: 검토되지 않음
   user:
     email: 이메일
     to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
     headers:
+      collections: 모음집
       downloads: 다운로드
       links: 링크
     new_password: 새 비밀번호

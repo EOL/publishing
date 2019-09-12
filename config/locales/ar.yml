@@ -1,2 +1,356 @@
+# Messages for Arabic (العربية)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amira.88
+# Author: HitomiAkane
+# Author: Meno25
+# Author: Passant
+# Author: Yousif ihsan
+# Author: ديفيد
+# Author: محمد أحمد عبد الفتاح
+---
 ar:
-  language_name: عربى
+  language_name: الإنجليزية
+  account_already_linked: حسابك مرتبط بالفعل بEOL
+  account_not_linked: حسابك غير ممرتبط بEOL
+  advanced: المتقدمة
+  are_you_sure_delete_account: هل انت متأكد من أن تريد حذف حسابك في EOL ؟
+  article:
+    actions:
+      collect: تجميع
+    header:
+      blank: ( لا يوجد اي شخص في المقالة ).
+      body: جسم
+      language: 'لغة: %{language}'
+      title: عنوان
+      untitled: غير معنونة
+    name:
+      missing: غير معنونة
+  article_from_partner: المقدمة من %{partner}
+  article_duplicate: هذا المقال معروض ايضا في "%{section}"
+  breadcrumbs:
+    notices:
+      canonical: سيتم الآن عرض الأسماء العلمية في فتات الصفحات
+      vernacular: سيتم الآن عرض الأسماء العلمية في فتات الصفحات عندما تتوفر
+    setting_header: الاسماء في فتات الصفحة
+    types:
+      scientific: علمي
+      vernacular: عامية
+  button_create: إنشاء
+  button_add: إضافة
+  cancel: إلغاء
+  change_my_password: تغير كلمة السر الخاصة بك
+  change_your_password: تغير كلمة السر الخاصة بك
+  classifications:
+    children:
+      see_more: شاهد المزيد
+    hierarchies:
+      header: التسلسل الهرمي المنسق %{sci_name}
+      this_page: (هذه الصفحة)
+    richness:
+      header: ثراء الصفحة
+      score: درجة الثراء
+      page_contents_count: المحتوى المرتبط
+      missing: لم يتم احتساب الثراء لهذه الصفحة.
+      media_count: وسائل الإعلام
+      articles_count: مقالات
+      links_count: وصلات
+      maps_count: خرائط
+      data_count: البيانات
+      nodes_count: العقد
+      vernaculars_count: عامية
+      scientific_names_count: أسماء العلمية
+      referents_count: المصادر
+      species_count: نوع
+      updated_at: آخر تحديث
+  cms_page_date: 'اخر تحديث في:'
+  collect_already_in_collection: (انها بالفعل هنا)
+  collect_already_in_collection_will_add_icon: اضف وسائل الأعلام الى %{page}
+  collect_icon_title: اضف "%{item} من %{page}" الى...
+  collect_new_collection: اسم مجموعة جديد
+  collect_new_collection_title: '...مجموعة جديدة'
+  collect_no_existing_collections: ليس لديك أي بعد!  إنشاء واحد باستخدام النموذج على
+    اليسار.
+  collect_select_collection: '...واحدة من مجموعاتك'
+  collect_title: اضف "%{item}" الى...
+  collected_page_already_in_collection: كان ذلك بالفعل في مجموعتك.
+  collected_pages_title: صفحات
+  collected_pages_medium:
+    destroyed_flash: تمت إزالة الصورة من الصفحة التي تم جمعها.
+  collected_pages:
+    delete_button: حذف
+    edit_button: تعديل
+    delete_confirm: هل أنت متأكد؟
+    destroyed_flash: '%{name} حذف من المجموعة.'
+  collection:
+    admins:
+      label: 'أضف مستخدمًا يمكنه تعديل هذه المجموعة:'
+      placeholder: الاسم الكامل أو اسم المستخدم
+    actions:
+      download_taxa_csv: تحميل ملف CSV للتصنيف
+      delete: حذف
+      edit: تعديل
+    search:
+      placeholder: البحث في المجموعة ...
+      submit: بحث
+    sort:
+      hierarchy: تسلسل
+      position: تاريخ الإضافة
+      sci_name: أسماء العلمية A-Z
+      sci_name_rev: أسماء العلمية Z-A
+    updated: تم تحديث المجموعة.
+  complete_registration: يرجى متابعة التسجيل الخاص بك
+  content_attributions_header: معلومات المصدر
+  content_attributions_labels:
+    author: مؤلف
+    bibliographic_citation: الاقتباس الببليوغرافي
+    creator: المنشئ
+    editor: محرر
+    license: ترخيص
+    location: الموقع
+    owner: حقوق النشر
+    photographer: مصور
+    publisher: ناشر
+    project: المشروع
+    provider: مقدم المحتوى
+    source: المصدر
+    view_source_label: أصلية
+    view_source_link: عرض الصورة الأصلية
+    view_source_page_link: زيارة مصدر
+  content_not_in_any_collection_image: هذه الصورة ليست واردة في أي مجموعات.
+  content_not_in_any_collection_sound: هذا الصوت غير وارد في أي مجموعات.
+  content_not_in_any_collection_video: لا يظهر هذا الفيديو في أي مجموعات.
+  delete_account_button: حذف حسابك
+  filter_by_license: الترخيص
+  filter_by_license_any_item: أي ترخيص
+  filter_by_medium_subtype: النوع
+  filter_by_medium_any_item: أي نوع
+  filter_by_resource: مقدم المحتوى
+  filter_by_resource_any_item: أي مقدم المحتوى
+  filters:
+    filter_by_language: تصفية حسب اللغة
+  footer:
+    eol_info:
+      citing_eol: الاستشهاد بموسوعة الحياة
+      contact_us: اتصل بنا
+      data_services: خدمات البيانات
+      donate: تبرّع
+      education: التعليم
+      help: مساعدة
+      terms_of_use: شروط الاستخدام
+      what_is_eol: ما هي موسوعة الحياة؟
+      whats_new: ما الجديد
+    discover:
+      animals: حيوانات
+      bacteria: البكتيريا
+      birds: الطيور
+      fishes: الأسماك
+      flowering_plants: النباتات المزهرة
+      mammals: الثدييات
+      mushrooms: عَيْشُ الغراب
+      plants: النباتات
+      reptiles: الزواحف
+      spiders: العناكب
+      trees: الأشجار
+      viruses: الفيروسات
+      worms: الديدان
+    eol_is_hosted_by: '  موسوعة الحياة يتم استضافتها من قبل:'
+  forgot_your_password: هل نسيت كلمة السر؟
+  language: 'اللغة:'
+  languages:
+    none: غير محدد
+    ar: العربية
+    cs: التشيكية
+    de: الألمانية
+    en: الإنجليزية
+    fr: الفرنسية
+    it: الإيطالية
+    ja: اليابانية
+    jp: اليابانية
+    ka: جورجيا
+    kg: كونغو
+    ko: الكورية
+    la: لاتينية
+    "": النرويجية
+    sq: الألبانية
+    sv: السويدية
+  layout_sign_in: تسجيل الدخول
+  layout_sign_up: أنشئ حسابًا
+  layout_sign_out: تسجيل الخروج
+  maps:
+    empty: لا توجد خرائط متاحة لهذه الصفحة.
+    other_maps_title: خرائط غير تفاعلية
+  medium:
+    untitled:
+      image: صورة بدون عنوان
+      video: فيديو بدون عنوان
+      sound: صوت بلا عنوان
+      map: خريطة بلا عنوان
+      js_map: خريطة تفاعلية بدون عنوان
+    subclasses:
+      image: صورة
+      video: فيديو
+      sound: صوت
+      map: خريطة
+      js_map: الخريطة التفاعلية
+  medium_collect_button: جمع وسائل الإعلام
+  medium_header_title: 'العنوان:'
+  medium_header_description: 'الوصف:'
+  names:
+    prefer: تفضل
+  nav:
+    about: عن
+    discuss: ناقش
+    education: تعليم
+    search:
+      placeholder: '...البحث في موسوعة الحياة'
+  name_preferred_label: المفضل
+  page_title: موسوعة الحياة
+  pages:
+    actions:
+      collect: تجميع
+    batch_lookup:
+      match: مطابقة
+      new_search: بحث جديد
+      page_id: معرف الصفحة (ID)
+      query: استعلام
+      query_cant_be_blank: لا يمكن أن يكون الاستعلام فارغًا
+      search: بحث
+    filter_menu:
+      show_all: اعرض الكل
+    page_data:
+      show_all: اعرض الكل
+    trophic_web:
+      reset: إعادة ضبط
+    tabs:
+      article: نظرة عامة
+      classifications: تصنيفات
+      overview: الصفحة الرئيسية
+      literature_and_references: المراجع
+      maps: الخرائط
+      names: الاسم
+      data: بيانات
+    iucn_status:
+      ne: غير مقيم
+  recaptcha: اكتب الكلمتين التاليتين أو الرقمين التاليين الذين تراهما فى الصورة أدناه
+  recaptcha_error: رجاءً أخبرنا أنك لست روبوتًا.
+  register_new_account: سجل للحصول على حساب جديد
+  resources:
+    headers:
+      index: المراجع
+    no_events: لا يوجد
+  resource_missing: الموارد غير موجود
+  scientific_name:
+    status_title:
+      accepted: اسم مقبول
+      alternative: أسماء أخرى
+      preferred: الأسماء المفضلة
+      unusable: أسماء غير صالحة للاستعمال
+      synonym: مرادفات
+  scientific_names_header: الأسماء العلمية
+  send_me_reset_password_instructions: أرسل لي تعليمات إعادة تعيين كلمة المرور
+  search_results:
+    medium_article: مقالة
+    medium_image: صورة
+    medium_map: خريطة
+    medium_sound: صوت
+    medium_video: فيديو
+    empty: لا نتائج.
+    field_matches:
+      description: يطابق الوصف
+      resource_pk: مطابق للتعريف الخارجى
+      bio: 'يطابق السيرة الذاتية:'
+  search_suggestion:
+    actions:
+      create: أضف اقتراح بحث جديد
+    new:
+      header: إنشاء اقتراح بحث
+    update:
+      header: اقتراح بحث جديد
+    index:
+      header: اقتراحات البحث
+  sections:
+    behavior: السلوك
+    benefits: فوائد
+    comprehensive_description: وصف شامل
+    conservation: محمية طبيعية
+    diseases_and_parasites: الأمراض والطفيليات
+    distribution: التوزيع
+    growth: النمو
+    habitat: موطن
+    molecular_biology: علم الأحياء الجزيئية
+    notes: ملاحظات
+    overview: نظرة عامة
+    reproduction: التكاثر
+    risks: مخاطر
+    size: الحجم
+    threats: تهديدات
+    type_information: معلومات عن النوع
+    wikipedia: ويكيبيديا
+  settings: إعدادات
+  show_date: عرض تاريخ النشر
+  sign_in: دخول
+  sign_up: أنشئ حسابًا
+  did_not_receive_confirmation_instructions: لم تتلق تعليمات التأكيد
+  simple_form:
+    "yes": نعم
+    "no": لا
+    required:
+      text: مطلوب
+    error_notification:
+      default_message: 'يرجى مراجعة المشاكل أدناه:'
+    labels:
+      defaults:
+        email: البريد الإلكتروني
+        password: كلمة المرور
+        password_confirmation: تأكيد كلمة السر
+        bio: 'السيرة الذاتية:'
+  stats:
+    articles: مقالات
+    collections: مجموعات
+    data: سجلات البيانات
+    media: وسائط
+    pages: صفحات
+    scientific_names: أسماء
+    users: المستخدمون
+    references: المراجع
+  term:
+    actions:
+      sort: رتب حسب
+    edit:
+      submit: حفظ
+    fields:
+      name: 'الاسم:'
+      definition: تعريف
+      comment: 'تعليق:'
+      sections: أقسام
+    pagination:
+      next: الصفحة التالية
+      previous: الصفحة السابقة
+  terms:
+    record_url: سجل URL
+    scientific_name: الأسماء العلمية
+    show_all_records: عرض كل السجلات
+    source: المصدر
+  trust:
+    unreviewed: غير مُراجع
+    trusted: موثوق
+    untrusted: غير موثوق
+  user:
+    created_at: انشاء
+    edit_account_details: تعديل تفاصيل الحساب
+    email: البريد الإلكتروني
+    headers:
+      bio: سيرة ذاتية مختصرة
+      collections: المجموعات
+      downloads: التنزيلات
+      links: وصلات
+    new_password: كلمة السر الجديدة
+    confirm_new_password: تأكيد كلمة السر الجديدة
+    username: اسم المستخدم
+    update: تحديث
+    update_email: تحديث البريد الالكترونى
+  users:
+    sign_in: تسجيل الدخول
+  vernacular_names_header: أسماء شائعة
+...

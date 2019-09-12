@@ -26,6 +26,7 @@ fi:
       one: näytä muut tulokset
       other: näytä kaikki %{count} tulosta
   breadcrumbs:
+    setting_header: nimet leivänmuruissa
     types:
       scientific: tieteellinen
       vernacular: kansankielinen
@@ -75,17 +76,24 @@ fi:
     edit_button: muokkaa
     delete_confirm: oletko varma?
     destroyed_flash: '%{name} poistettu kokoelmasta.'
+  collection_association_added_to_collection: Lisätty "%{associated}" kokoelmaan <a
+    href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: Mikään muu kokoelma ei liity tähän. Voit napsauttaa
+    "liitä" painiketta muissa kokoelmissa saadaksesi ne näkymään täällä.
   collection_created: Luotu uusi kokoelma "%{name}".
   collection_user_is_admin: Tämä käyttäjä on ylläpitäjä.
   collection:
     admins:
       placeholder: koko nimi tai käyttäjänimi
     actions:
+      associate: liitä
+      download_taxa_csv: lataa CSV taksoneista
       delete: poista
       edit: muokkaa
     collection_type:
       normal: normaali
       gallery: galleria
+    delete_confirm: Tämä poistaa koko kokoelman, eikä sitä voida kumota. Oletko varma?
     destroyed: '"%{name}" on poistettu pysyvästi.'
     pages_count:
       one: 1 sivu
@@ -94,7 +102,11 @@ fi:
       page:
         add: '%{user} lisäsi sivun %{page}'
         remove: '%{user} poisti sivun %{page}'
+      user:
+        add: '%{user} lisäsi managerin %{manager}'
+        remove: '%{user} poisti managerin %{manager}'
     search:
+      placeholder: Hae kokoelmassa...
       submit: haku
     sort:
       hierarchy: hierarkia
@@ -102,6 +114,7 @@ fi:
       sci_name: tieteellinen nimi, A-Z
       sci_name_rev: tieteellinen nimi, Z-A
     updated: Kokoelma päivitetty.
+  collection_unauthorized_edit: Vain omistava käyttäjä voi muokata tätä kokoelmaa.
   complete_registration: Jatka rekisteröitymistäsi
   content_attributions_labels:
     altitude: korkeus
@@ -126,6 +139,8 @@ fi:
     view_source_label: alkuperäinen
     view_source_link: näytä alkuperäinen kuva
   content_not_in_any_collection_image: Tämä kuva ei ole esillä missään kokoelmassa.
+  content_not_in_any_collection_sound: Tämä ääni ei ole esillä missään kokoelmassa.
+  content_not_in_any_collection_video: Tämä video ei ole esillä missään kokoelmassa.
   dear_username_with_comma: Hyvä %{username},
   delete_account_button: Poista käyttäjätunnuksesi
   filter_by_license: lisenssi
@@ -162,6 +177,7 @@ fi:
       insects: Hyönteiset
       invertebrates: Selkärangattomat
       mammals: Nisäkkäät
+      molds: Muotit
       mushrooms: Sienet
       mollusks: Nilviäiset
       plants: Kasvit
@@ -175,6 +191,7 @@ fi:
   forgot_your_password: Unohditko salasanasi?
   landing_page:
     header: Maailmanlaajuinen pääsy tietoihin maan elämästä
+    stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
     none: Määrittelemätön
@@ -201,6 +218,10 @@ fi:
     br: Bretoni
     bs: Bosnia
     ca: Valencia
+    ce: Tšetšeeni
+    ch: Tšamorro
+    co: Korsika
+    cr: Cree
     cs: Tšekki
     cu: Kirkkoslaavi
     cv: Tšuvassi
@@ -210,6 +231,7 @@ fi:
     dv: Divehi
     dz: Dzongkha
     dzo: Dzongkha
+    ee: Ewe
     el: Nykykreikka (1453-)
     en: Englanti
     eo: Esperanto
@@ -217,7 +239,9 @@ fi:
     et: Viro
     eu: Baski
     fa: Persia
+    ff: Fulah
     fi: suomi
+    fj: Fidži
     fo: Fääri
     fr: Ranska
     fy: Länsifriisi
@@ -226,16 +250,23 @@ fi:
     gl: Galicia
     gn: Guarani
     gu: Gudžarati
+    gv: Manksi
+    ha: Hausa
     he: Heprea
     hi: Hindi
+    ho: Hiri-motu
     hr: Kroatia
-    ht: Haiti; Haitinkreoli
+    ht: Haiti
     hu: Unkari
     hy: Armenia
+    hz: Herero
     ia: Interlingua
     id: Indonesia
     ie: Interlingue
+    ig: Igbo
     ii: Sichuanin-yi
+    ik: Inupiatun
+    io: Ido
     is: Islanti
     it: Italia
     iu: Inuktitut
@@ -246,22 +277,41 @@ fi:
     kg: Kongo
     ki: Kikuju
     kj: Kwanyama
+    kk: Kazakki
     kl: Grönlanti
     km: Khmer
     kn: Kannada
     ko: Korea
+    kr: Kanuri
+    ks: Kašmiri
+    ku: Kurdi
+    kv: Komi
+    kw: Korni
     ky: Kirgiisi
     la: Latina
     lb: Luxemburg
+    lg: Ganda
     li: Limburg
+    ln: Lingala
+    lo: Lao
     lt: Liettua
+    lu: Katanganluba
     lv: Latvia
+    mg: Malagassi
+    mh: Marshall
+    mi: Maori
     mk: Makedonia
+    ml: Malajalam
     mn: Mongolia
+    mr: Marathi
+    ms: Malaiji
+    mt: Malta
+    my: Burma
     na: Nauru
     nb: Kirjanorja
     nd: Pohjois-ndebele
     ne: Nepali
+    ng: Ndonga
     nl: Flaami
     nn: Uusnorja
     "": Norja
@@ -269,32 +319,58 @@ fi:
     nv: Navajo
     ny: Njandža
     oc: Oksitaani
+    oj: Odžibwa
+    om: Oromo
+    or: Oriya
+    os: Osseetti
     pa: Pandžabi
+    pi: Paali
     pl: Puola
     ps: Paštu
     pt: Portugali
+    qu: Ketšua
     rm: Retoromaani
+    rn: Kirundi
     ro: Moldova
     ru: Venäjä
+    rw: Ruanda
+    sa: Sanskrit
+    sc: Sardi
+    sd: Sindhi
     se: Pohjoissaame
+    sg: Sango
     si: Sinhali
     sk: Slovakia
     sl: Slovenia
     sm: Samoa
+    sn: Šona
     so: Somali
     sq: Albania
     sr: Serbia
+    ss: Swazi
     st: Eteläsotho
     su: Sunda
     sv: Ruotsi
     sw: Swahili
+    ta: Tamili
+    te: Telugu
+    tg: Tadžikki
     th: Thai
+    ti: Tigrinja
+    tk: Turkmeeni
+    tl: Tagalog
+    tn: Tswana
     to: Tonga
     tr: Turkki
+    ts: Tsonga
+    tt: Tataari
+    tw: Twi
     ty: Tahiti
     ug: Uiguuri
     uk: Ukraina
+    ur: Urdu
     uz: Uzbekki
+    ve: Venda
     vi: Vietnam
     vo: Volapük
     wa: Valloni
@@ -311,13 +387,19 @@ fi:
   literature_and_references_header: Kirjallisuus ja viitteet
   maps:
     empty: Karttoja ei ole saatavana tälle sivulle.
+    other_maps_title: Epäinteraktiiviset kartat
   medium:
     untitled:
       image: Nimetön kuva
+      image_of: Sivun %{page_name} kuva
       video: Nimetön video
+      video_of: Sivun %{page_name} video
       sound: Nimetön ääni
+      sound_of: Sivun %{page_name} ääni
       map: Nimetön kartta
+      map_of: Sivun %{page_name} kartta
       js_map: Nimetön interaktiivinen kartta
+      js_map_of: Interaktiivinen kartta sivusta %{page_name}
     subclasses:
       image: kuva
       video: video
@@ -327,6 +409,13 @@ fi:
   medium_collect_button: kerää media
   medium_header_title: 'Otsikko:'
   medium_header_description: 'Kuvaus:'
+  names:
+    hide_langs:
+      one: piilota yksi kieli
+      other: piilota %{count} kieltä
+    show_more_langs:
+      one: näytä yksi muu kieli
+      other: näytä %{count} muuta kieltä
   nav:
     about: Tietoja
     discuss: Keskustelu
@@ -343,6 +432,11 @@ fi:
   pages:
     actions:
       collect: kerää
+      comment:
+        zero: kommentti
+        one: '%{count} kommentti'
+        other: '%{count} kommenttia'
+      reindex: uudelleenindeksoi
     batch_lookup:
       canonical_name: kaanoninen nimi
       download_tsv: lataa TSV
@@ -395,10 +489,25 @@ fi:
   resources:
     actions:
       republish: uudelleenjulkaise
+      reindex: uudelleenindeksoi
+      index: takaisin kaikkiin resursseihin
       show_all:
         other: näytä kaikki (%{count})
+      show_warns:
+        one: näytä (%{count}) varoitus
+        other: näytä (%{count}) varoitusta
       sync: synkronoi koodivarannon kanssa
+      fetch_relationships: nouda suhteet
+      fetch_synonyms: nouda synonyymit
+    headers:
+      index: Resurssit
+    index:
+      harvest_jobs:
+        zero: ei julkaistavaa
+        one: 1 odottava julkaisu
+        other: '%{count} julkaistavana'
     no_events: Ei mitään!
+  resource_missing: resurssia ei löytynyt
   scientific_name:
     status_title:
       accepted: Hyväksytyt nimet
@@ -454,10 +563,33 @@ fi:
     medium_title_sound_html: 'Ääni: <span class=''sub''>%{title}</span>'
     medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
     empty: Ei tuloksia.
+    field_matches:
+      description: 'vastaa kuvausta:'
+      resources:
+        one: 'vastaa resurssia:'
+        other: 'vastaa resursseja:'
+      synonyms:
+        one: 'vastaa synonyymiä:'
+        other: 'vastaa synonyymejä:'
+      vernaculars:
+        one: 'vastaa yleisnimeä:'
+        other: 'vastaa yleisnimiä:'
     section_titles:
       collections:
         one: '%{count} kokoelma'
         other: '%{count} kokoelmaa'
+      media:
+        one: '%{count} media'
+        other: '%{count} mediaa'
+      pages:
+        one: '%{count} eol-sivu (laji)'
+        other: '%{count} eol-sivua (lajit)'
+      object_terms:
+        one: '%{count} tietorekisterin arvo (TraitBank)'
+        other: '%{count} tietorekisterin arvoa (TraitBank)'
+      predicates:
+        one: '%{count} tietorekisterin tyyppi (TraitBank)'
+        other: '%{count} tietorekisterin tyyppiä (TraitBank)'
       users:
         one: '%{count} käyttäjä'
         other: '%{count} käyttäjää'
@@ -466,7 +598,12 @@ fi:
       n_articles:
         one: 1 ARTIKKELI
         other: '%{count} ARTIKKELIA'
+    user_title_html: 'Käyttäjä: <span class=''sub''>%{name}</span>'
   search_suggestion:
+    actions:
+      create: luo uusi hakuehdotus
+    created: Luotu hakuehdotus vastaukselle "%{match}"
+    destroyed: Tuhottu hakuehdotus vastaukselle "%{match}"
     new:
       header: Luo hakuehdotus
     update:
@@ -515,14 +652,22 @@ fi:
     trophic_strategy: Trofiastrategia
     wikipedia: Wikipedia
   settings: asetukset
+  show_date: Näytä julkaisupäivä
   sign_in: Kirjaudu sisään
   sign_up: Rekisteröidy
+  signature_with_contact_us_link: |-
+    Jos kohtaat ongelmia, ota yhteyttä %{url}.
+
+    Encyclopedia of Life -tiimi
   did_not_receive_confirmation_instructions: En saanut vahvistusohjeita
   simple_form:
     "yes": Kyllä
     "no": Ei
     required:
       text: pakollinen
+      mark: '*'
+    error_notification:
+      default_message: 'Tarkista alla olevat ongelmat:'
     labels:
       defaults:
         email: Sähköposti
@@ -541,6 +686,7 @@ fi:
     references: viitteet
   term:
     actions:
+      reindex: uudelleenindeksoi
       sort: lajittele
     edit:
       header: Muokataan %{uri}
@@ -551,6 +697,8 @@ fi:
       attribution: 'nimeäminen:'
       comment: 'kommentti:'
       sections: 'osuudet:'
+      is_hidden_from_glossary: 'piilota sanastosta:'
+      is_hidden_from_overview: 'piilota yleiskatsaus-välilehdeltä:'
     pagination:
       next: seuraava sivu
       previous: edellinen sivu
@@ -560,6 +708,8 @@ fi:
     source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
     scientific_name: tieteellinen nimi
     source: lähde
+    index:
+      select_page_above: Aloita valitsemalla yllä oleva sivu.
   trust:
     unreviewed: tarkastamaton
     trusted: luotettu
