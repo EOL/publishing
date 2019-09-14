@@ -473,7 +473,7 @@ en:
       image: "Untitled image"
       image_of: "Image of %{page_name}"
       video: "Untitled video"
-      video_of: "Image of %{page_name}"
+      video_of: "Video of %{page_name}"
       sound: "Untitled sound"
       sound_of: "Sound of %{page_name}"
       map: "Untitled map"
