@@ -461,9 +461,12 @@ en:
       no_copyright: "No copyright"
   literature_and_references_header: "Literature and References"
   locale_codes:
-    en: "EN"
-    ar: "AR"
-    mk: "MK"
+    en: "en"
+    ar: "ar"
+    mk: "mk"
+    fr: "fr"
+    fi: "fi"
+    pt-BR: "pt-BR"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"

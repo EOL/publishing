@@ -5,7 +5,7 @@
 # Author: Pyscowicz
 ---
 fi:
-  language_name: Englanti
+  language_name: suomi
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tunnustasi ei ole linkitetty EOL:ään
   advanced: edistynyt

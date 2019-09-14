@@ -6,6 +6,7 @@
 # Author: Shirayuki
 ---
 qqq:
+  language_name: 'The name of the translation language. For example, it should be français in the fr.yml file'
   cancel: '{{Identical|Cancel}}'
   classifications:
     richness:
