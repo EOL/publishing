@@ -145,7 +145,7 @@ module PagesHelper
 
   def tab(name_key, path)
     haml_tag(:li, :class => "tab #{(current_page?(path) ? "is-tab-selected" : "")}") do
-      haml_concat link_to(name_key, path)
+      haml_concat link_to(t("pages.tabs.#{name_key}"), path)
     end
   end
 
