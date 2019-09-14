@@ -249,7 +249,7 @@ module PagesHelper
 private
 
   def hierarchy_helper(page, link, mode)
-    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}/#{breadcrumb_type}", expires_in: 1.day) do
+    Rails.cache.fetch("pages/hierarchy_helper/#{page.id}/link_#{link}/#{mode || :none}/#{I18n.locale}/#{breadcrumb_type}", expires_in: 1.day) do
       name_method = breadcrumb_type == BreadcrumbType.vernacular ? :vernacular_or_canonical : :canonical
       parts = []
       node = page.safe_native_node
