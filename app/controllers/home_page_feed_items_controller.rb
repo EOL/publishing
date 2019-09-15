@@ -62,6 +62,6 @@ class HomePageFeedItemsController < ApplicationController
     end
 
     def home_page_feed_item_params
-      params.require(:home_page_feed_item).permit(:img_url, :link_url, :label, :desc)
+      params.require(:home_page_feed_item).permit(:img_url, :link_url, :label, :desc, :page_id)
     end
 end

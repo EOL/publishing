@@ -1,6 +1,14 @@
 %ul.feed.main-feed
   - @main_feed.published_items.each do |item|
     %li.feed-item.main-feed-item>
-      %a{:href => item.link_url}
+      - if item.page
+        - url = page_path(item.page)
+      - else
+        - url = item.link_url
+      %a{:href => url}
         %img.main-feed-img{:src => item.img_url}
-        %div.main-feed-txt= item.label
+        - if item.page
+          - item_label = item.page.name
+        - else
+          - item_label = item.label
+        %div.main-feed-txt= item_label

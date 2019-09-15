@@ -33,6 +33,8 @@ class Page < ActiveRecord::Base
   has_one :occurrence_map, inverse_of: :page
 
   has_and_belongs_to_many :referents
+  
+  has_many :home_page_feed_items
 
   # NOTE: you cannot preload the node ancestors; it needs to call the method
   # from the module. NOTE: not loading media, because for large pages, that's a
