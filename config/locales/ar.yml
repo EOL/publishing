@@ -28,6 +28,10 @@ ar:
       missing: غير معنونة
   article_from_partner: المقدمة من %{partner}
   article_duplicate: هذا المقال معروض ايضا في "%{section}"
+  autocomplete:
+    see_all:
+      one: مشاهدة نتائج أخرى
+      other: الاطلاع على جميع الـ%{count} نتائج
   breadcrumbs:
     notices:
       canonical: سيتم الآن عرض الأسماء العلمية في فتات الصفحات
@@ -43,6 +47,9 @@ ar:
   change_your_password: تغير كلمة السر الخاصة بك
   classifications:
     children:
+      header_html:
+        one: '%{name} يشمل <a href="%{names_path}">%{count} طفل</a>:'
+        other: '%{name} يشمل <a href="%{names_path}">%{count} أطفال</a>:'
       see_more: شاهد المزيد
     hierarchies:
       header: التسلسل الهرمي المنسق %{sci_name}
@@ -73,23 +80,69 @@ ar:
     اليسار.
   collect_select_collection: '...واحدة من مجموعاتك'
   collect_title: اضف "%{item}" الى...
+  collected_page_added_to_collection: تمت إضافة %{page} إلى المجموعة <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: كان ذلك بالفعل في مجموعتك.
   collected_pages_title: صفحات
   collected_pages_medium:
     destroyed_flash: تمت إزالة الصورة من الصفحة التي تم جمعها.
+  collection_associations:
+    destroyed_flash: '%{name} لم يعد مرتبطا بهذه المجموعة.'
   collected_pages:
     delete_button: حذف
     edit_button: تعديل
     delete_confirm: هل أنت متأكد؟
     destroyed_flash: '%{name} حذف من المجموعة.'
+  collection_association_added_to_collection: تمت إضافة "%{associated}" إلى المجموعة
+    <a href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: لا توجد مجموعات أخرى مرتبطة بهذه، يمكنك النقر فوق
+    الزر "اقتران" في المجموعات الأخرى لجعلها تظهر هنا.
+  collection_associations_title: المجموعات المرتبطة
+  collection_collected_pages_media_remove: 'إزالة الصور من المجموعة (التغييرات نافذة
+    المفعول الفوري):'
+  collection_created: تم إنشاء المجموعة الجديدة "%{name}".
+  collection_created_for_association: تمت إضافة "%{associated}" إلى المجموعة الجديدة
+    <a href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: هذا المستخدم إداري.
+  collection_pages_empty: هذه المجموعة لا تحتوي على صفحات، حاول النقر فوق الزر "تجميع"
+    على صفحات الأنواع لإضافة بعض العناصر!
   collection:
     admins:
+      header: المستخدمون الذين يمكنهم تعديل هذه المجموعة (تسري التغييرات فورًا)
       label: 'أضف مستخدمًا يمكنه تعديل هذه المجموعة:'
       placeholder: الاسم الكامل أو اسم المستخدم
     actions:
+      associate: مرتبط
       download_taxa_csv: تحميل ملف CSV للتصنيف
       delete: حذف
       edit: تعديل
+    collection_type:
+      normal: عادي
+      gallery: معرض
+    delete_confirm: سيؤدي هذا إلى إزالة المجموعة بالكامل ولا يمكن التراجع عنها، هل
+      أنت واثق؟
+    destroyed: '"%{name}" تم حذفه نهائيا.'
+    pages_count:
+      one: 1 صفحة
+      other: '%{count} صفحات'
+    log:
+      associated_collection:
+        add: '%{user} أضاف ارتباطا للمجموعة %{associated}'
+        remove: '%{user} أزال الارتباط إلى المجموعة %{associated}'
+      collection:
+        add: '%{user} غير إنشاء المجموعة'
+        change: '%{user} غير %{field} من "%{from}" إلى "%{to}"'
+      content:
+        add: '%{user} أضاف الوسيط %{medium} للصفحة %{page}'
+        change: '%{user} غير %{field} في الوسيط %{medium} للصفحة %{page} من "%{from}"
+          إلى "%{to}"'
+        remove: '%{user} أزال الوسيط %{medium} للصفحة %{page}'
+      page:
+        add: أضاف %{user} الصفحة %{page}
+        change: '%{user} غير %{field} في الصفحة %{page} من "%{from}" إلى "%{to}"'
+        remove: أزال %{user} الصفحة %{page}
+      user:
+        add: أضاف %{user} المدير %{manager}
+        remove: أزال %{user} المدير %{manager}
     search:
       placeholder: البحث في المجموعة ...
       submit: بحث
@@ -98,28 +151,52 @@ ar:
       position: تاريخ الإضافة
       sci_name: أسماء العلمية A-Z
       sci_name_rev: أسماء العلمية Z-A
+      sort_field: شرح توضيحي، أ-ي
+      sort_field_rev: شرح توضيحي، ي-أ
     updated: تم تحديث المجموعة.
+  collection_unauthorized_edit: يمكن للمستخدم المالك فقط تعديل هذه المجموعة.
   complete_registration: يرجى متابعة التسجيل الخاص بك
+  content_appears_on: 'مشمول على الصفحات التالية:'
+  content_collected_in: 'متميز في المجموعات التالية:'
   content_attributions_header: معلومات المصدر
   content_attributions_labels:
+    altitude: الارتفاع
     author: مؤلف
     bibliographic_citation: الاقتباس الببليوغرافي
+    compiler: المحول البرمجي
     creator: المنشئ
     editor: محرر
+    latitude: دائرة العرض
     license: ترخيص
     location: الموقع
+    location_verbatim: النص الحرفي
+    longitude: خط الطول
     owner: حقوق النشر
     photographer: مصور
     publisher: ناشر
     project: المشروع
     provider: مقدم المحتوى
+    references_header:
+      one: مرجع
+      other: مراجع
+    resource_label: موقع الشريك
+    resource_pk: '(المعرف: %{key})'
+    rights_statement: بيان الحقوق
     source: المصدر
+    spatial_location: مكاني
     view_source_label: أصلية
     view_source_link: عرض الصورة الأصلية
     view_source_page_link: زيارة مصدر
   content_not_in_any_collection_image: هذه الصورة ليست واردة في أي مجموعات.
   content_not_in_any_collection_sound: هذا الصوت غير وارد في أي مجموعات.
   content_not_in_any_collection_video: لا يظهر هذا الفيديو في أي مجموعات.
+  data:
+    modifier:
+      sex_term: جنس الكائن الحي المقاس
+      lifestage_term: مرحلة حياة الكائن الحي المقاس
+      statistical_method_term: الطريقة الإحصائية المستخدمة للقياس
+  data_missing: '(البيانات مفقودة ، المفاتيح: %{keys})'
+  dear_username_with_comma: عزيزي %{username}،
   delete_account_button: حذف حسابك
   filter_by_license: الترخيص
   filter_by_license_any_item: أي ترخيص
@@ -128,7 +205,9 @@ ar:
   filter_by_resource: مقدم المحتوى
   filter_by_resource_any_item: أي مقدم المحتوى
   filters:
+    filter_by_attribute: تصفية حسب السمة
     filter_by_language: تصفية حسب اللغة
+    filter_by_provider: تصفية حسب المزود
   footer:
     eol_info:
       citing_eol: الاستشهاد بموسوعة الحياة
@@ -136,19 +215,31 @@ ar:
       data_services: خدمات البيانات
       donate: تبرّع
       education: التعليم
+      glossary: المعجم
       help: مساعدة
       terms_of_use: شروط الاستخدام
+      the_eol_forum: منتدى موسوعة الحياة
       what_is_eol: ما هي موسوعة الحياة؟
       whats_new: ما الجديد
     discover:
+      algae: الطحالب
+      amphibians: البرمائيات
       animals: حيوانات
+      archaea: البكتيريا القديمة
       bacteria: البكتيريا
       birds: الطيور
+      crustaceans: القشريات
       fishes: الأسماك
       flowering_plants: النباتات المزهرة
+      fungi: الفطريات
+      insects: الحشرات
+      invertebrates: اللافقاريات
       mammals: الثدييات
+      molds: العفن
       mushrooms: عَيْشُ الغراب
+      mollusks: الرخويات
       plants: النباتات
+      protists: الطلائعيات
       reptiles: الزواحف
       spiders: العناكب
       trees: الأشجار
@@ -156,37 +247,219 @@ ar:
       worms: الديدان
     eol_is_hosted_by: '  موسوعة الحياة يتم استضافتها من قبل:'
   forgot_your_password: هل نسيت كلمة السر؟
+  landing_page:
+    header: الوصول العالمي إلى المعرفة حول الحياة على الأرض
+    stats_cleared: تمت إعادة حساب الإحصائيات.
   language: 'اللغة:'
   languages:
     none: غير محدد
+    aa: العفارية
+    ab: الأبخازية
+    ae: الأفستية
+    af: الأفريكانية
+    ak: الأكانية
+    am: الأمهرية
+    an: الأراغونية
     ar: العربية
+    as: الأسامية
+    av: الأفاريكية
+    ay: الأيمرية
+    az: الأذربيجانية
+    ba: الباشكيرية
+    be: البيلاروسية
+    bg: البلغارية
+    bh: لغات بيهاري
+    bi: البيسلامية
+    bm: البمبرية
+    bn: البنغالية
+    bo: التبتية
+    br: البريتانية
+    bs: البوسنية
+    ca: الكتالونية
+    ce: الشيشانية
+    ch: التشاموروية
+    co: الكورسيكية
+    cr: لغة كري
     cs: التشيكية
+    cu: الكنيسة السلافية، السلافية القديمة، الكنيسة السلافية البلغارية القديمة، الكنيسة
+      القديمة السلافية
+    cv: تشوفاش
+    cy: الويلزية
+    da: الدانماركية
     de: الألمانية
+    dv: الديفيهية
+    dz: الزونخاية
+    dzo: الزونخاية
+    ee: إوي
+    el: اليونانية الحديثة (1453-)
     en: الإنجليزية
+    eo: إسبرانتو
+    es: الإسبانية، القشتالية
+    et: الإستونية
+    eu: الباسكية
+    fa: الفارسية
+    ff: الفولانية
+    fi: الفنلندية
+    fj: الفيجية
+    fo: الفاروية
     fr: الفرنسية
+    fy: الفريزية الغربية
+    ga: الأيرلندية
+    gd: الغيلية، الغيلية الاسكتلندية
+    gl: الجاليكية
+    gn: الغوارانية
+    gu: الغوجاراتية
+    gv: المنكية
+    ha: الهوسا
+    he: العبرية
+    hi: الهندية
+    ho: هيري موتو
+    hr: الكرواتية
+    ht: الهايتية، الكريولية الهايتية
+    hu: الهنغارية
+    hy: الأرمنية
+    hz: هيريرو
+    ia: اللغة الوسيطة (الرابطة الدولية للغات المساعدة)
+    id: الإندونيسية
+    ie: إنترلنج، الأوكسيتانية
+    ig: الإيجبو
+    ii: نوسو
+    ik: إنوبيات
+    io: إيدو
+    is: الآيسلندية
     it: الإيطالية
+    iu: الإنكتيتوتية
     ja: اليابانية
+    jv: الجاوية
     jp: اليابانية
     ka: جورجيا
     kg: كونغو
+    ki: الكيكويو
+    kj: الكوانياما
+    kk: الكازاخية
+    kl: الغرينلاندية
+    km: الخميرية الوسطى
+    kn: الكانادا
     ko: الكورية
+    kr: الكانورية
+    ks: الكشميرية
+    ku: الكردية
+    kv: الكومية
+    kw: الكورنية
+    ky: القيرغستانية
     la: لاتينية
+    lb: اللوكسمبورغية
+    lg: غاندا
+    li: الليمبرجيشية
+    ln: لينغالا
+    lo: اللاوية
+    lt: اللتوانية
+    lu: تشيلوبا
+    lv: اللاتفية
+    mg: الملغاشية
+    mh: المارشالية
+    mi: الماورية
+    mk: المقدونية
+    ml: المالايالامية
+    mn: المنغولية
+    mr: المهاراتية
+    ms: الملايو
+    mt: المالطية
+    my: البورمية
+    na: الناورونية
+    nb: بوكمول
+    nd: نديبيل الشمالية
+    ne: النيبالية
+    ng: إندونجا
+    nl: البلجيكية الهولندية
+    nn: ني نوشك
     "": النرويجية
+    nr: نديبلي الجنوبية
+    nv: نافاهو
+    ny: الشيشيوا
+    oc: الأوكيتانية (بعد 1500)
+    oj: لغة أوجيبوي
+    om: الأوروموية
+    or: الأوريا
+    os: الأوسيتية
+    pa: البنجابية
+    pi: لغة بالي
+    pl: البولندية
+    ps: البشتوية
+    pt: البرتغالية
+    qu: كتشوا
+    rm: الرومانشية
+    rn: الكيروندية
+    ro: الرومانية، المولدوفية
+    ru: الروسية
+    rw: الكينيارواندية
+    sa: السنسكريتية
+    sc: السردينية
+    sd: السندية
+    se: سامي الشمالية
+    sg: السانغوية
+    si: السنهالية
+    sk: السلوفاكية
+    sl: السلوفينية
+    sm: الساموية
+    sn: الشونا
+    so: الصومالية
     sq: الألبانية
+    sr: الصربية
+    ss: السوازية
+    st: السوتية، الجنوبية
+    su: السوندية
     sv: السويدية
+    sw: السواحلية
+    ta: التاميلية
+    te: التيلوجية
+    tg: الطاجيكية
+    th: التايلندية
+    ti: التيغرينية
+    tk: التركمانية
+    tl: التاغالوغية
+    tn: التسوانية
+    to: لغة تونغا
+    tr: التركية
+    ts: تسونجا
+    tt: التترية
+    tw: توي
+    ty: التاهيتية
+    ug: الأويغورية
+    uk: الأوكرانية
+    ur: الأردية
+    uz: الأوزبكية
+    ve: الفيندية
+    vi: الفيتنامية
+    vo: فولابوك
+    wa: والون
+    wo: الولوفية
+    xh: الكوسية
+    yi: اليديشية
+    yo: يوربا
+    za: تشوانغ
+    zh: الصينية
+    zu: الزولوية
   layout_sign_in: تسجيل الدخول
   layout_sign_up: أنشئ حسابًا
   layout_sign_out: تسجيل الخروج
+  literature_and_references_header: الأدب والمراجع
   maps:
     empty: لا توجد خرائط متاحة لهذه الصفحة.
+    occurrence_caption: الحوادث المعروفة، والعينات المجموعة، وملاحظات %{page_name}
     other_maps_title: خرائط غير تفاعلية
   medium:
     untitled:
       image: صورة بدون عنوان
+      image_of: صورة %{page_name}
       video: فيديو بدون عنوان
+      video_of: فيديو %{page_name}
       sound: صوت بلا عنوان
+      sound_of: صوت %{page_name}
       map: خريطة بلا عنوان
+      map_of: خريطة %{page_name}
       js_map: خريطة تفاعلية بدون عنوان
+      js_map_of: خريطة تفاعلية لـ%{page_name}
     subclasses:
       image: صورة
       video: فيديو
@@ -194,50 +467,161 @@ ar:
       map: خريطة
       js_map: الخريطة التفاعلية
   medium_collect_button: جمع وسائل الإعلام
+  medium_description_blank: لا يوجد وصف مقدم لهذا الكائن.
   medium_header_title: 'العنوان:'
   medium_header_description: 'الوصف:'
   names:
+    hide_langs:
+      one: إخفاء لغة واحدة
+      other: إخفاء %{count} لغات
     prefer: تفضل
+    preferred_in_language_for_page: '%{name} هي الآن %{language} العامية المفضل لـ%{page}'
+    show_more_langs:
+      one: إظهار لغة واحدة أخرى
+      other: إظهار %{count} لغات
   nav:
     about: عن
     discuss: ناقش
     education: تعليم
     search:
+      no_results_html: <strong>لا توجد نتائج مؤكدة</strong><br /> اضغط على Enter للاطلاع
+        على نتائج غير دقيقة
       placeholder: '...البحث في موسوعة الحياة'
+    trait_bank: بنك الصفات
   name_preferred_label: المفضل
+  page_icon_counts:
+    header:
+      one: أفضل صورة للصفحة
+      other: أفضل صورة للصفحات
+  page_icon_created: تم نقل الصورة "%{name}" إلى الأعلى.
   page_title: موسوعة الحياة
+  page_title_search: 'بحث: %{query}'
+  page_vernaculars_empty: لا توجد أسماء شائعة مرتبطة بهذه الأصنوفة.
   pages:
     actions:
       collect: تجميع
+      comment:
+        zero: لا تعليق
+        one: '%{count} تعليق'
+        other: '%{count} تعليقات'
+      reindex: إعادة الفهرسة
     batch_lookup:
+      header: دفعة البحث عن الصفحة
+      canonical_name: الاسم المقبول
+      download_tsv: تنزيل بصيغة TSV
       match: مطابقة
       new_search: بحث جديد
       page_id: معرف الصفحة (ID)
+      page_url: مسار الصفحة
       query: استعلام
       query_cant_be_blank: لا يمكن أن يكون الاستعلام فارغًا
       search: بحث
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'تحتوي موسوعة الحياة على بيانات عن <a href="%{data_path}"> سمة واحدة</a>:'
+        other: 'تحتوي موسوعة الحياة على بيانات عن <a href="%{data_path}">%{count}
+          سمات</a>، بما فيها:'
+      eol_has_data_for_n_attributes_html:
+        one: 'تحتوي موسوعة الحياة على بيانات عن <a href="%{data_path}"> سمة واحدة</a>:'
+        other: تحتوي موسوعة الحياة على بيانات عن <a href="%{data_path}">%{count} سمات</a>
     filter_menu:
       show_all: اعرض الكل
     page_data:
+      n_hidden_show_all:
+        one: سجل “%{pred_name}” واحد مخفي - عرض الكل
+        other: سجلات %{count} “%{pred_name}” مخفية - إظهار الكل
       show_all: اعرض الكل
+      wordcloud_credit_html: وُلِّد بـ<a href='%{url}'>jQCloud</a>
     trophic_web:
+      globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
       reset: إعادة ضبط
+    flash:
+      reindexed: تم مسح ذاكرات التخزين المؤقت لهذه الصفحة، قم بالتحديث لمعرفة القيم
+        الجديدة، لاحظ أنه، في الوقت الحالي، هذا *لا* يعيد فهرسة الصور الموجودة على
+        الصفحة، سيتم تنفيذ هذه الميزة في تاريخ لاحق.
+    native_node_missing_warning: لا توجد معلومات تسلسل هرمي متاحة
     tabs:
-      article: نظرة عامة
+      articles: مقالات
       classifications: تصنيفات
-      overview: الصفحة الرئيسية
-      literature_and_references: المراجع
-      maps: الخرائط
-      names: الاسم
       data: بيانات
+      literature_and_references: الأدب والمراجع
+      overview: نظرة عامة
+      maps: خرائط
+      media: وسائط
+      names: أسماء
     iucn_status:
+      label: 'حالة الاتحاد الدولي لحفظ الطبيعة:'
+      ex: منقرض (EX)
+      ew: نوع منقرض في البرية (EW)
+      cr: مهدد بخطر انقراض أقصى (CR)
+      en: مهدد (EN)
+      vu: غير محصن (VU)
+      nt: قريب من الخطر (NT)
+      lc: غير مهدد (LC)
+      dd: ناقص البيانات (DD)
       ne: غير مقيم
-  recaptcha: اكتب الكلمتين التاليتين أو الرقمين التاليين الذين تراهما فى الصورة أدناه
+      unknown: غير معروف (لا يوجد سجل)
+    unresolved_name: اسم غير محلول
+    unresolved_name_prefix: 'الاسم غير المحلول:'
+  page_titles:
+    pages:
+      data: بيانات %{page_name}
+      media: وسائط %{page_name}
+      maps: خرائط %{page_name}
+      names: أسماء %{page_name}
+      articles: مقالات %{page_name}
+    traits:
+      search: البحث عن السمات
+  name_recognized_by: معترف بها من قبل %{by}
+  name_recognized_by_rank: تم الاعتراف ب%{rank} بواسطة %{by}
+  ranks:
+    NOTE: لا تتم ترجمة الرتب، يجب أن تُعاَمل حرفيا، لا تحاول أن تفعل ذلك. :)
+  recaptcha: ري كابتشا
   recaptcha_error: رجاءً أخبرنا أنك لست روبوتًا.
+  reference_compiled_from: مشار إليه من قبل %{links}
+  reference_compiled_from_article: مقالة %{source}  بعنوان "%{name}"
   register_new_account: سجل للحصول على حساب جديد
   resources:
+    actions:
+      import_traits: استيراد السمات (من المستودع)
+      republish: إعادة النشر
+      reindex: إعادة الفهرسة
+      fix_no_names: عدم إصلاح أية أسماء
+      index: العودة إلى جميع الموارد
+      show_all:
+        other: عرض الكل (%{count})
+      show_warns:
+        one: إظهار التحذير (%{count})
+        other: إظهار التحذيرات (%{count})
+      sync: تزامن مع مستودع
+      fetch_relationships: جلب العلاقات
+      fetch_relationships_confirm: هذا يزيل العلاقات الحالية ويعيد إضافتها، ولكنه
+        قد يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
+      fetch_synonyms: جلب المرادفات
+      fetch_synonyms_confirm: هذا يزيل المرادفات الموجودة ويعيد إضافتها، ولكنه قد
+        يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
+      fetch_units: جلب الوحدات
+      fetch_units_confirm: هذا يزيل علاقات المسند/الوحدة ويعيد إضافتها، ولكنه قد يفشل
+        ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
+      clear_publishing: مسح القفل
+      clear_publishing_confirm: هذا سوف "ينهي" كل النشر، ويمكن أن يسبب مشاكل إذا تم
+        استخدامه أثناء النشر النشط، هل أنت واثق؟
     headers:
       index: المراجع
+      import_log: سجل الاستيراد ل%{resource}
+    index:
+      locked_jobs:
+        zero: لا توجد وظائف قيد التشغيل
+        one: وظيفة واحدة قيد التشغيل
+        other: '%{count} وظائف قيد التشغيل'
+      jobs:
+        zero: لا توجد وظائف معلقة
+        one: وظيفة واحدة معلقة
+        other: '%{count} وظائف معلقة'
+      harvest_jobs:
+        zero: لا شيء لنشره
+        one: 1 في انتظار النشر
+        other: '%{count} للنشر'
     no_events: لا يوجد
   resource_missing: الموارد غير موجود
   scientific_name:
@@ -249,20 +633,109 @@ ar:
       synonym: مرادفات
   scientific_names_header: الأسماء العلمية
   send_me_reset_password_instructions: أرسل لي تعليمات إعادة تعيين كلمة المرور
+  search:
+    flash:
+      cannot_combine_paths: غير قادر على الجمع بين النتائج باستخدام %{path}
+      more_than_one_species: غير قادر على الجمع بين النتائج لـ%{species}
+      more_than_two_terms: 'غير قادر على دمج النتائج لأكثر من فترتين: %{terms}'
+    n_articles:
+      one: '%{count} مقالة'
+      other: '%{count} مقالات'
+    n_collections:
+      one: '%{count} مجموعة'
+      other: '%{count} مجموعات'
+    n_images:
+      one: '%{count} صورة'
+      other: '%{count} صور'
+    n_results:
+      zero: لا توجد نتائج
+      one: '%{count} نتيجة'
+      other: '%{count} نتائج'
+    n_sounds:
+      one: '%{count} صوت'
+      other: '%{count} أصوات'
+    n_taxon_pages:
+      one: '%{count} صفحة أصنوفة'
+      other: '%{count} صفحات أصناف'
+    n_users:
+      one: '%{count} مستخدم'
+      other: '%{count} مستخدمين'
+    n_videos:
+      one: '%{count} فيديو'
+      other: '%{count} فيديوهات'
+    n_terms:
+      one: '%{count} مصطلح'
+      other: '%{count} مصطلحات'
   search_results:
+    collection_page_count:
+      one: '%{count} صفحة'
+      other: '%{count} صفحات'
+    collection_page_count_and_users:
+      one: '%{count} صفحة، تمت صيانته بواسطة %{users_sentence}'
+      other: '%{count} صفحات، تمت صيانته بواسطة %{users_sentence}'
+    collected_media:
+      title: 'الوسائط المجمععة من هذه الصفحة:'
     medium_article: مقالة
     medium_image: صورة
     medium_map: خريطة
     medium_sound: صوت
     medium_video: فيديو
+    medium_title_article_html: 'المقالة: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'الصورة: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'الخريطة: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'الصوت: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'الفيديو: <span class=''sub''>%{title}</span>'
     empty: لا نتائج.
     field_matches:
       description: يطابق الوصف
       resource_pk: مطابق للتعريف الخارجى
       bio: 'يطابق السيرة الذاتية:'
+      tag_line: 'يطابق سطر الوسم:'
+      resources:
+        one: 'يطابق المورد:'
+        other: 'يطابق الموارد:'
+      synonyms:
+        one: 'يطابق المرادف:'
+        other: 'يطابق المرادفات:'
+      vernaculars:
+        one: 'يطابق الاسم الشائع:'
+        other: 'يطابق الأسماء الشائعة:'
+    section_titles:
+      collections:
+        one: '%{count} مجموعة'
+        other: '%{count} مجموعات'
+      media:
+        one: '%{count} وسيط'
+        other: '%{count} وسائط'
+      pages:
+        one: '%{count} صفحة موسوعة الحياة (species)'
+        other: '%{count} صفحات موسوعة الحياة (species)'
+      object_terms:
+        one: '%{count} قيمة سجل البيانات (بنك الصفات)'
+        other: '%{count} قيم سجل البيانات (بنك الصفات)'
+      predicates:
+        one: '%{count} نوع سجل البيانات (بنك الصفات)'
+        other: '%{count} نوع سجل البيانات (بنك الصفات)'
+      users:
+        one: '%{count} مستخدم'
+        other: '%{count} مستخدمين'
+    collection_title_html: 'المجموعة: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: مقالة واحدة
+        other: '%{count} مقالات'
+      n_data:
+        one: 1 مسند
+        other: '%{count} بيانات'
+      n_media:
+        one: 1 وسيط
+        other: '%{count} وسائط'
+    user_title_html: 'المستخدم: <span class=''sub''>%{name}</span>'
   search_suggestion:
     actions:
       create: أضف اقتراح بحث جديد
+    created: تم إنشاء اقتراح بحث لـ"%{match}"
+    destroyed: تم تدمير اقتراح بحث لـ"%{match}"
     new:
       header: إنشاء اقتراح بحث
     update:
@@ -270,33 +743,62 @@ ar:
     index:
       header: اقتراحات البحث
   sections:
+    associations: ترابطات
     behavior: السلوك
     benefits: فوائد
+    brief_summary: ملخص موجز
     comprehensive_description: وصف شامل
     conservation: محمية طبيعية
+    conservation_status: حالة الحفظ
+    cyclicity: دوروية
+    diagnostic_description: وصف تشخيصي
     diseases_and_parasites: الأمراض والطفيليات
+    dispersal: تشتيت
     distribution: التوزيع
+    ecology: علم البيئة
+    evolution_and_systematics: التطور والنظاميات
+    general_ecology: علم البيئة العام
+    genetics: علم الجينات
     growth: النمو
     habitat: موطن
+    identification_resources: مصادر التعريف
+    life_expectancy: متوسط العمر المتوقع
+    life_history_and_behavior: تاريخ الحياة والسلوك
+    management: إدارة
+    migration: الهجرة
     molecular_biology: علم الأحياء الجزيئية
+    molecular_biology_and_genetics: علم الوراثة والأحياء الجزيئية
+    morphology: علم التصريف
+    names_and_taxonomy: الأسماء والتصنيف
     notes: ملاحظات
     overview: نظرة عامة
+    physiology_and_cell_biology: علم وظائف الأعضاء وعلم الأحياء الخلوي
+    physical_description: وصف مادي
+    relevance_to_humans_and_ecosystems: العلاقة بين البشر والأنظمة البيئية
     reproduction: التكاثر
     risks: مخاطر
     size: الحجم
+    taxonomy: التصنيف
     threats: تهديدات
+    trends: الاتجاهات
+    trophic_strategy: الاستراتيجية الغذائية
     type_information: معلومات عن النوع
     wikipedia: ويكيبيديا
   settings: إعدادات
   show_date: عرض تاريخ النشر
   sign_in: دخول
   sign_up: أنشئ حسابًا
+  signature_with_contact_us_link: |-
+    إن واجهتك أية مشاكل، الرجاء الاتصال بنا على %{url}.
+
+    فريق عمل موسوعة الحياة
   did_not_receive_confirmation_instructions: لم تتلق تعليمات التأكيد
   simple_form:
     "yes": نعم
     "no": لا
     required:
       text: مطلوب
+      mark: '*'
     error_notification:
       default_message: 'يرجى مراجعة المشاكل أدناه:'
     labels:
@@ -304,53 +806,107 @@ ar:
         email: البريد الإلكتروني
         password: كلمة المرور
         password_confirmation: تأكيد كلمة السر
+        remember_me: تذكرني
+        username: اسم المستخدم
         bio: 'السيرة الذاتية:'
+      search_suggestion:
+        match: سلسلة البحث لمطابقتها
+        page_id: معرف صفحة موسوعة الحياة لإعادة التوجيه إليها (أو التصفية حسبها)
+        synonym_of_id: معرف (!) اقتراح البحث لاستخدامه بدلا من ذلك
+        object_term: مسار لإعادة التوجيه إليه (أو التصفية حسبه)
+        path: المسار (إما كامل أو نسبي) لإعادة التوجيه إليه
+        wkt_string: سلسلة WKT لتمريرها إلى Effechecka
   stats:
     articles: مقالات
     collections: مجموعات
     data: سجلات البيانات
     media: وسائط
     pages: صفحات
+    nodes: العقد
     scientific_names: أسماء
     users: المستخدمون
     references: المراجع
   term:
     actions:
+      reindex: إعادة الفهرسة
       sort: رتب حسب
     edit:
+      header: تحرير %{uri}
       submit: حفظ
     fields:
       name: 'الاسم:'
       definition: تعريف
+      attribution: 'النسبة:'
       comment: 'تعليق:'
       sections: أقسام
+      is_hidden_from_glossary: 'إخفاء من المسرد:'
+      is_hidden_from_overview: 'إخفاء من علامة تبويب النظرة العامة:'
+    glossary:
+      full_title: مسرد جميع مصطلحات البيانات على موسوعة الحياة
+      predicate_title: مسرد جميع مصطلحات الأنواع على موسوعة الحياة
+      object_term_title: مسرد مصطلحات القيم للبيانات على موسوعة الحياة
+      units_title: مسرد مصطلحات الوحدات على موسوعة الحياة
     pagination:
       next: الصفحة التالية
       previous: الصفحة السابقة
   terms:
+    attribution_field_html: <strong>النسبة:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>التعليق:</strong> %{comment}
+    definition_field_html: <strong>التعريف:</strong> %{definition}
+    source_field_html: <strong>المصدر:</strong> <a href='%{source}'>%{source}</a>
     record_url: سجل URL
     scientific_name: الأسماء العلمية
     show_all_records: عرض كل السجلات
     source: المصدر
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: اختر صفحة أعلاه للبدء.
+  data_definition: تعريف "%{data}"
+  trophic_web:
+    group_descriptions:
+      competitor: منافس %{source_name}
+      predator: يتغذى على %{source_name}
+      prey: يُؤكَل من قبل %{source_name}
+      source: الأنواع المحورية
   trust:
     unreviewed: غير مُراجع
     trusted: موثوق
     untrusted: غير موثوق
   user:
+    batch_page_lookup: دفعة البحث عن الصفحة
     created_at: انشاء
     edit_account_details: تعديل تفاصيل الحساب
     email: البريد الإلكتروني
+    to_commit_enter_current: لتنفيذ التغييرات؛ يُرجَى إدخال كلمة المرور الحالية
     headers:
       bio: سيرة ذاتية مختصرة
       collections: المجموعات
       downloads: التنزيلات
       links: وصلات
+    list_of_power_users: قائمة مستخدمي السلطة
     new_password: كلمة السر الجديدة
     confirm_new_password: تأكيد كلمة السر الجديدة
+    showing_n_power_users:
+      one: إدراج مستخدم سلطة واحد
+      other: إدراج %{count} مستخدمي سلطة
+    trait_bank_cypher_form: شفرة بنك السمات السرية من
     username: اسم المستخدم
     update: تحديث
     update_email: تحديث البريد الالكترونى
+  user_download:
+    created: ستتم معالجة ملفك في الخلفية، تحقق من <a href="%{url}"صفحة المستخدم الخاصة
+      بك</a> لمعرفة ما إذا كانت قد اكتملت أم لا.
   users:
+    account_migration_header: 'إذا قمت بالتسجيل في موسوعة الحياة قبل 15 نوفمبر 2018:'
+    account_migration_notice: تم استيراد معلومات حسابك، بما في ذلك اسم المستخدم والبريد
+      الإلكتروني المقترن ووصف الملف الشخصي والمجموعات المملوكة، إلى موسوعة الحياة
+      الجديدة، لا يزال اسم المستخدم الخاص بك هو اسم العرض الخاص بك على الموقع، ولكن
+      يجب عليك الآن تسجيل الدخول باستخدام عنوان بريدك الإلكتروني، لم نتمكن من ترحيل
+      كلمة مرورك لأسباب أمنية، نأسف للإزعاج، ستتمكن من إعادة تعيينها باستخدام عملية
+      نسيت كلمة المرور، إذا قمت بتسجيل الدخول فقط باستخدام مزود طرف ثالث - جوجل أو
+      تويتر أو فيسبوك - يُرجَى التحمل معنا، نحن نعمل على حل بعض المشكلات المتعلقة
+      بعمليات تسجيل الدخول المشتركة.
     sign_in: تسجيل الدخول
   vernacular_names_header: أسماء شائعة
+  vernacular_preferred_by_resource: '%{resource} (يفضل هذا الاسم)'
 ...

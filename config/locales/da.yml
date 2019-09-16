@@ -1,0 +1,252 @@
+# Messages for Danish (dansk)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: JonNPoulsen
+# Author: Peter Alberti
+# Author: Saederup92
+---
+da:
+  language_name: Engelsk
+  account_already_linked: din konto er allerede forbundet til EOL
+  account_not_linked: din konto er ikke forbundet til EOL
+  advanced: avanceret
+  are_you_sure_delete_account: Er du sikker på, at du vil slette din EOL-konto?
+  article:
+    header:
+      title: Titel
+      untitled: Unavngivet
+    name:
+      missing: Unavngivet
+  breadcrumbs:
+    notices:
+      canonical: Videnskabelige navne vil nu blive vist i sidens brødkrummesti.
+      vernacular: Trivialnavne vil nu blive vist i sidens brødkrummesti.
+    setting_header: navne i brødkrummesti
+    types:
+      scientific: videnskabeligt
+  button_create: opret
+  button_add: tilføj
+  cancel: afbryd
+  change_my_password: Ændre min adgangskode
+  change_your_password: Ændre din adgangskode
+  classifications:
+    children:
+      see_more: se mere
+    richness:
+      articles_count: artikler
+      maps_count: kort
+      scientific_names_count: videnskabelige navne
+      species_count: arter
+      updated_at: sidst opdateret
+  collected_pages_title: Sider
+  collected_pages:
+    delete_button: slet
+    edit_button: rediger
+    delete_confirm: er du sikker?
+  collection_associations_empty: Ingen andre samlinger er forbundet med denne. Du
+    kan klikke på "forbind"-knappen på andre samlinger for at få dem vist her.
+  collection:
+    admins:
+      label: 'Tilføj en bruger, som kan redigere denne samling:'
+      placeholder: fulde navn eller brugernavn
+    actions:
+      delete: slet
+      edit: rediger
+    collection_type:
+      gallery: galleri
+  content_attributions_labels:
+    altitude: højde
+    latitude: breddegrad
+    longitude: længdegrad
+    owner: ophavsret
+    photographer: fotograf
+    project: projekt
+    source: kilde
+    view_source_page_link: gå til kilde
+  dear_username_with_comma: Kære %{username}.
+  delete_account_button: Slet din konto
+  filter_by_license: licens
+  filter_by_license_any_item: enhver licens
+  filter_by_medium_subtype: type
+  filter_by_medium_any_item: enhver type
+  filters:
+    filter_by_language: filtrer efter sprog
+  footer:
+    eol_info:
+      contact_us: Kontakt os
+      donate: Donér
+      help: Hjælp
+      what_is_eol: Hvad er EOL?
+    discover:
+      algae: Alger
+      amphibians: Padder
+      animals: Dyr
+      archaea: Arkæer
+      bacteria: Bakterier
+      birds: Fugle
+      crustaceans: Krebsdyr
+      fishes: Fisk
+      flowering_plants: Dækfrøede Planter
+      fungi: Svampe
+      insects: Insekter
+      invertebrates: Hvirvelløse Dyr
+      mammals: Pattedyr
+      molds: Skimmelsvampe
+      mushrooms: Svampe
+      mollusks: Bløddyr
+      plants: Planter
+      protists: Protister
+      reptiles: Krybdyr
+      spiders: Edderkopper
+      trees: Træer
+      viruses: Virusser
+      worms: Orme
+  forgot_your_password: Glemt din adgangskode?
+  language: Sprog
+  languages:
+    none: Ikke angivet
+    ar: Arabisk
+    bg: Bulgarsk
+    bs: Bosnisk
+    da: Dansk
+    de: Tysk
+    en: Engelsk
+    fi: Finsk
+    fr: Fransk
+    hi: Hindi
+    hr: Kroatisk
+    hu: Ungarsk
+    id: Indonesisk
+    ja: Japansk
+    ko: Koreansk
+    ku: Kurdisk
+    la: Latin
+    "": Norsk
+    pl: Polsk
+    ru: Russisk
+    sa: Sanskrit
+    sk: Slovakisk
+    sl: Slovensk
+    sq: Albansk
+    sv: Svensk
+    sw: Swahili
+    uk: Ukrainsk
+    vi: Vietnamesisk
+    zh: Kinesisk
+  maps:
+    empty: Der er ingen kort at vise for denne side.
+  medium:
+    subclasses:
+      image: billede
+      video: video
+      sound: lyd
+      map: kort
+  medium_header_title: 'Titel:'
+  medium_header_description: 'Beskrivelse:'
+  nav:
+    about: Om
+    discuss: Diskuter
+  pages:
+    batch_lookup:
+      new_search: ny søgning
+    filter_menu:
+      show_all: vis alle
+    page_data:
+      show_all: vis alle
+    tabs:
+      literature_and_references: Referencer
+      overview: Hjem
+      maps: Kort
+      names: Navne
+    iucn_status:
+      ex: udryddet (EX)
+      ew: udryddet i naturen (EW)
+      cr: kritisk truet (CR)
+      en: truet (EN)
+      vu: sårbar (VU)
+      nt: næsten truet (NT)
+      lc: ikke truet (LC)
+      dd: data mangler (DD)
+      ne: ikke evalueret (NE)
+  recaptcha_error: Fortæl os, at du ikke er en robot.
+  resources:
+    headers:
+      index: Ressourcer
+  scientific_name:
+    status_title:
+      synonym: Synonymer
+  send_me_reset_password_instructions: Send mig info om nulstilling af adgangskode
+  search_results:
+    medium_article: Artikel
+    medium_image: Billede
+    medium_map: Kort
+    medium_sound: Lyd
+    medium_video: Video
+    empty: Ingen resultater.
+  sections:
+    behavior: Adfærd
+    diseases_and_parasites: Sygdomme og Parasitter
+    dispersal: Spredning
+    distribution: Udbredelse
+    ecology: Økologi
+    evolution_and_systematics: Evolution og Systematik
+    general_ecology: Generel Økologi
+    genetics: Genetik
+    growth: Vækst
+    habitat: Habitat
+    life_expectancy: Forventet Levetid
+    life_history_and_behavior: Livshistorie og Adfærd
+    molecular_biology: Molekylærbiologi
+    molecular_biology_and_genetics: Molekylærbiologi og Genetik
+    morphology: Morfologi
+    names_and_taxonomy: Navne og Taksonomi
+    notes: Bemærkninger
+    overview: Oversigt
+    physiology_and_cell_biology: Fysiologi og Cellebiologi
+    physical_description: Udseende
+    reproduction: Formering
+    risks: Risici
+    size: Størrelse
+    taxonomy: Taksonomi
+    threats: Trusler
+    wikipedia: Wikipedia
+  settings: indstillinger
+  sign_in: Log på
+  sign_up: Tilmeld dig
+  simple_form:
+    "yes": Ja
+    "no": Nej
+    required:
+      text: påkrævet
+    labels:
+      defaults:
+        password: Adgangskode
+        remember_me: Husk mig
+        username: Brugernavn
+  stats:
+    articles: artikler
+    collections: samlinger
+    pages: sider
+    scientific_names: navne
+    users: brugere
+    references: referencer
+  term:
+    actions:
+      sort: sorter efter
+    edit:
+      submit: Gem
+    fields:
+      name: 'navn:'
+    pagination:
+      next: næste side
+      previous: forrige side
+  terms:
+    scientific_name: videnskabeligt navn
+    source: kilde
+  user:
+    headers:
+      collections: Samlinger
+    username: brugernavn
+    update: Opdater
+  vernacular_names_header: Almindelige navne
+...

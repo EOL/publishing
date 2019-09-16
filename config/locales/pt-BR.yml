@@ -358,15 +358,13 @@ pt-BR:
       reset: redefinir
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
-      article: Visão geral
       classifications: Classificações
-      overview: Início
-      details: Detalhes
+      data: Dados
       literature_and_references: Referências
+      overview: Início
       maps: Mapas
       media: Mídia
       names: Nome
-      data: Dados
     iucn_status:
       label: 'Status da IUCN:'
       ex: extinto (EX)

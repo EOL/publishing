@@ -457,15 +457,13 @@ fi:
     trophic_web:
       reset: tyhjennä
     tabs:
-      article: Yleiskatsaus
       classifications: Luokittelu
-      overview: Koti
-      details: Tiedot
+      data: Tiedot
       literature_and_references: Viitteet
+      overview: Koti
       maps: Kartat
       media: Media
       names: Nimet
-      data: Tiedot
     iucn_status:
       label: 'IUCN-tila:'
       ex: hävinnyt
