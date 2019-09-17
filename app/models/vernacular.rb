@@ -24,15 +24,16 @@ class Vernacular < ActiveRecord::Base
       iter_max = (max / batch) + 1
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
-      completed_pages = {}
+      completed_pages_by_language = {}
       total_count = 0
       loop do
         limit = low_bound + batch
         verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
-        verns.where(is_preferred: true, language_id: Language.english.id).pluck(:page_id).each do |id|
-          completed_pages[id] = true
+        verns.where(is_preferred: true, language_id: Language.english.id).each do |vern|
+          completed_pages_by_language[vern.language_id] ||= {}
+          completed_pages_by_language[vern.language_id][vern.id] = true
         end
-        total_count += prefer_names_per_page_id(verns, completed_pages)
+        total_count += prefer_names_per_page_id(verns, completed_pages_by_language)
         low_bound = limit
         iterations += 1
         puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)" if
@@ -42,15 +43,20 @@ class Vernacular < ActiveRecord::Base
       puts "DONE."
     end
 
-    def prefer_names_per_page_id(verns, completed_pages)
+    def prefer_names_per_page_id(verns, completed_pages_by_language)
       @scores ||= ResourcePreference.hash_for_class('Vernacular')
       groups = verns.group_by(&:page_id)
       preferred_ids = []
       groups.keys.each do |page_id|
-        next if completed_pages.key?(page_id) # No thanks, I've already GOT one...
-        sorted = groups[page_id].compact.sort { |a,b| @scores[a.resource_id] <=> @scores[b.resource_id] }
-        preferred_ids << sorted.first.id
-        completed_pages[page_id] = true
+        groups[page_id].group_by(&:language_id).each do |language_id, verns_by_language|
+          # No thanks, I've already GOT one...
+          next if completed_pages_by_language.key?(language_id) &&
+                  completed_pages_by_language[language_id].key?(page_id)
+          sorted = verns_by_language.compact.sort { |a,b| @scores[a.resource_id] <=> @scores[b.resource_id] }
+          preferred_ids << sorted.first.id
+          completed_pages_by_language[language_id] ||= {}
+          completed_pages_by_language[language_id][page_id] = true
+        end
       end
       Vernacular.where(id: preferred_ids).update_all(is_preferred: true)
       preferred_ids.count
