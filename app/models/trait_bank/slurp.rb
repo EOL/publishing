@@ -1,10 +1,6 @@
 class TraitBank::Slurp
   class << self
     delegate :query, to: TraitBank
-    # def query(q)
-    #   puts ">> TB: #{q}"
-    #   TraitBank.query(q)
-    # end
 
     def load_resource_from_repo(resource)
       repo = Repository.new(resource)

@@ -25,14 +25,17 @@ class Vernacular < ActiveRecord::Base
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
       completed_pages = {}
+      total_count = 0
       loop do
         limit = low_bound + batch
         verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
-        verns.where(is_preferred: true).pluck(:page_id).each { |id| completed_pages[id] = true }
-        prefer_names_per_page_id(verns, completed_pages)
+        verns.where(is_preferred: true, language_id: Language.english.id).pluck(:page_id).each do |id|
+          completed_pages[id] = true
+        end
+        total_count += prefer_names_per_page_id(verns, completed_pages)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max} (#{completed_pages.count} added.)" if
+        puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)" if
           (iterations % 300).zero?
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
@@ -50,6 +53,7 @@ class Vernacular < ActiveRecord::Base
         completed_pages[page_id] = true
       end
       Vernacular.where(id: preferred_ids).update_all(is_preferred: true)
+      preferred_ids.count
     end
 
     def import_user_added
