@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amira.88
+# Author: Maqu630
 # Author: Passant
 # Author: ديفيد
 # Author: محمد أحمد عبد الفتاح
@@ -65,12 +66,12 @@ ar:
       updated: تم تغيير كلمة مرورك بنجاح، انت الآن مسجل دخولك.
       updated_not_active: تم تغيير كلمة مرورك بنجاح.
     registrations:
-      destroyed: وداعا! تم إلغاء حسابك بنجاح، نحن نأمل ان نراك قريبا مرة أخرى.
+      destroyed: وداعًا! تم إلغاء حسابك بنجاح، نأمل أن نراك قريبًا مرة أخرى.
       signed_up: أهلا بك! لقد اشتركت بنجاح
       signed_up_but_inactive: لقد اشتركت بنجاح، ومع ذلك، لم نتمكن من تسجيل الدخول
         لأن حسابك لم يتم تنشيطه بعد.
-      signed_up_but_locked: لقد اشتركت بنجاح، ومع ذلك، لم نتمكن من تسجيل الدخول لأن
-        حسابك مغلق.
+      signed_up_but_locked: لقد اشتركت بنجاح، ولكن، لم نتمكن من تسجيل الدخول لأن حسابك
+        مغلق.
       signed_up_but_unconfirmed: تم إرسال رسالة مع رابط التأكيد إلى عنوان بريدك الإلكتروني.
         يرجى اتباع الرابط لتفعيل حسابك.
       update_needs_confirmation: لقد قمت بتحديث حسابك بنجاح ، لكننا بحاجة إلى التحقق

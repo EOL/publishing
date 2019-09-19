@@ -5,7 +5,7 @@
 # Author: Eduardo Addad de Oliveira
 ---
 pt-BR:
-  language_name: português brasileiro
+  language_name: Inglês
   account_already_linked: sua conta já está vinculada ao EOL
   account_not_linked: sua conta não está vinculada ao EOL
   advanced: avançado
@@ -292,7 +292,7 @@ pt-BR:
       image: Imagem sem título
       image_of: Imagem de %{page_name}
       video: Vídeo sem título
-      video_of: Imagem de %{page_name}
+      video_of: Vídeo de %{page_name}
       sound: Som sem título
       sound_of: Som de %{page_name}
       map: Mapa sem título
@@ -358,13 +358,14 @@ pt-BR:
       reset: redefinir
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
-      classifications: Classificações
-      data: Dados
-      literature_and_references: Referências
-      overview: Início
-      maps: Mapas
-      media: Mídia
-      names: Nome
+      articles: artigos
+      classifications: classificações
+      data: dados
+      literature_and_references: literatura e referências
+      overview: início
+      maps: mapas
+      media: mídia
+      names: nomes
     iucn_status:
       label: 'Status da IUCN:'
       ex: extinto (EX)

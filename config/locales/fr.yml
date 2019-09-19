@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Crochet.david
+# Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
 # Author: Thibaut120094
@@ -9,7 +10,7 @@
 # Author: Wladek92
 ---
 fr:
-  language_name: français
+  language_name: Anglais
   account_already_linked: votre compte est déjà lié à EdV
   account_not_linked: votre compte n’est pas lié à EdV
   advanced: avancé
@@ -625,8 +626,16 @@ fr:
     medium_video: Vidéo
     medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
+    field_matches:
+      description: 'correspond à la description :'
+      tag_line: 'correspond à la ligne balisée :'
     resource_counts:
       n_articles: '{{PLURIEL|one=1 ARTICLE|%{count} ARTICLES}}'
+      n_media:
+        one: 1 MEDIUM
+        other: '%{count} MEDIA'
+  search_suggestion:
+    destroyed: Suggestion de recherche annulée pour « %{match} »
   sections:
     associations: Associations
     behavior: Comportement
@@ -688,6 +697,7 @@ fr:
   stats:
     articles: articles
     collections: collections
+    data: enregistrements de données
     media: média
     pages: pages
     nodes: nœuds
@@ -707,6 +717,9 @@ fr:
       comment: 'commentaire :'
       sections: 'sections :'
       is_hidden_from_glossary: 'masquer dans le glossaire :'
+    glossary:
+      predicate_title: Glossaire des termes des types de données sur EOL
+      object_term_title: Glossaire des termes des valeurs de données sur EOL
     pagination:
       next: page suivante
       previous: page précédente
