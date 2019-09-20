@@ -1,5 +1,5 @@
 class Publishing::PubTraits
-/read_data_  def self.import(resource, log, repo)
+  def self.import(resource, log, repo)
     log ||= Publishing::PubLog.new(resource)
     a_long_long_time_ago = 1202911078 # 10 years ago when this was written; no sense coding it.
     repo ||= Publishing::Repository.new(resource: resource, log: log, since: a_long_long_time_ago)
