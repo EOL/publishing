@@ -5,11 +5,11 @@
 # Author: Pyscowicz
 ---
 fi:
-  language_name: Englanti
-  account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
-  account_not_linked: tunnustasi ei ole linkitetty EOL:ään
+  language_name: suomi
+  account_already_linked: käyttäjäunnuksesi on jo linkitetty EOL:ään
+  account_not_linked: tiliäsi ei ole linkitetty EOL:ään
   advanced: edistynyt
-  are_you_sure_delete_account: Haluatko varmasti poistaa EOL-käyttäjätunnuksesi?
+  are_you_sure_delete_account: Haluatko varmasti poistaa EOL-tunnuksesi?
   article:
     actions:
       collect: kerää
@@ -26,6 +26,8 @@ fi:
       one: näytä muut tulokset
       other: näytä kaikki %{count} tulosta
   breadcrumbs:
+    notices:
+      canonical: Tieteelliset nimet näytetään nyt sivun leivänmuruissa
     setting_header: nimet leivänmuruissa
     types:
       scientific: tieteellinen
@@ -81,6 +83,8 @@ fi:
   collection_associations_empty: Mikään muu kokoelma ei liity tähän. Voit napsauttaa
     "liitä" painiketta muissa kokoelmissa saadaksesi ne näkymään täällä.
   collection_created: Luotu uusi kokoelma "%{name}".
+  collection_created_for_association: Lisätty "%{associated}" uuteen kokoelmaan <a
+    href='%{link}'>"%{name}"</a>.
   collection_user_is_admin: Tämä käyttäjä on ylläpitäjä.
   collection:
     admins:
@@ -99,6 +103,8 @@ fi:
       one: 1 sivu
       other: '%{count} sivua'
     log:
+      collection:
+        add: '%{user} loi kokoelman'
       page:
         add: '%{user} lisäsi sivun %{page}'
         remove: '%{user} poisti sivun %{page}'
@@ -457,15 +463,14 @@ fi:
     trophic_web:
       reset: tyhjennä
     tabs:
-      article: Yleiskatsaus
-      classifications: Luokittelu
-      overview: Koti
-      details: Tiedot
-      literature_and_references: Viitteet
-      maps: Kartat
-      media: Media
-      names: Nimet
-      data: Tiedot
+      articles: artikkelit
+      classifications: luokittelu
+      data: data
+      literature_and_references: kirjallisuus ja viitteet
+      overview: yleiskatsaus
+      maps: kartat
+      media: media
+      names: nimet
     iucn_status:
       label: 'IUCN-tila:'
       ex: hävinnyt
@@ -708,6 +713,7 @@ fi:
     source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
     scientific_name: tieteellinen nimi
     source: lähde
+    uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: Aloita valitsemalla yllä oleva sivu.
   trust:
@@ -720,6 +726,7 @@ fi:
     email: Sähköposti
     to_commit_enter_current: Vahvistaaksesi muutoksesi, kirjoita nykyinen salasanasi
     headers:
+      bio: Lyhyt elämäkerta
       collections: Kokoelmat
       downloads: Lataukset
       links: Linkit
@@ -728,6 +735,9 @@ fi:
     username: käyttäjänimi
     update: Päivitä
     update_email: Päivitä sähköposti
+  user_download:
+    created: Tiedostoasi käsitellään taustalla. Tarkista <a href="%{url}"käyttäjäsivusi</a>
+      nähdäksesi onko se valmistunut.
   users:
     account_migration_header: 'Jos rekisteröidyit EOL:llään ennen 15. marraskuuta
       2018:'

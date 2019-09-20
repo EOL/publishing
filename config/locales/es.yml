@@ -252,14 +252,12 @@ es:
         el momento, esta acción *no* reindiza las imágenes de la página. Esa funcionalidad
         se implementará más adelante.
     tabs:
-      article: Visión general
       classifications: Clasificaciones
-      overview: Inicio
-      details: Detalles
+      data: Datos
       literature_and_references: Referencias
+      overview: Inicio
       maps: Mapas
       names: Nombres
-      data: Datos
     iucn_status:
       label: 'Estado según la IUCN:'
       unknown: desconocido (sin registros)

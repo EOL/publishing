@@ -189,11 +189,11 @@ zh-CN:
     trophic_web:
       reset: 重置
     tabs:
+      data: 数据
       overview: 家
       maps: 地图
       media: 媒体文件
       names: 名
-      data: 数据
   recaptcha: 输入下面您看到的两个单词或数字
   recaptcha_error: 请告诉我们你不是机器人。
   resources:

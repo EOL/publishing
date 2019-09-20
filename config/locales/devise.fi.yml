@@ -5,6 +5,13 @@
 ---
 fi:
   devise:
+    confirmations:
+      confirmed: Sähköpostiosoitteesi on vahvistettu onnistuneesti.
+      send_instructions: Saat sähköpostin, jossa on ohjeet sähköpostiosoitteesi vahvistukseen
+        muutamassa minuutissa.
+      send_paranoid_instructions: Jos sähköpostiosoitteesi on tietokannassamme, saat
+        sähköpostin, jossa on ohjeet sähköpostiosoitteesi vahvistukseen muutamassa
+        minuutissa.
     failure:
       already_authenticated: Olet jo kirjautuneena sisään.
       inactive: Käyttäjätunnustasi ei ole vielä aktivoitu.
@@ -12,6 +19,8 @@ fi:
       locked: Käyttäjätunnuksesi on lukittu, yritä tunnin kuluttua uudelleen
       last_attempt: Sinulla on vielä yksi yritys ennen käyttäjätunnuksesi lukitsemista.
       not_found_in_database: Virheellinen %{authentication_keys} tai salasana.
+      recaptcha_error: Alla olevassa recaptcha-koodissa tapahtui virhe. Anna koodi
+        uudelleen ja klikkaa lähetä.
       timeout: Istuntosi vanheni. Kirjaudu sisään uudelleen jatkaaksesi.
       unauthenticated: Sinun täytyy kirjautua sisään tai rekisteröityä ennen jatkamista.
       unconfirmed: Sinun on vahvistettava sähköpostiosoitteesi ennen jatkamista.
@@ -37,7 +46,13 @@ fi:
         greeting: 'Hei #{recipient}!'
         message: Otimme sinuun yhteyttä ilmoittaaksemme salasanasi vaihtumisesta.
         subject: Salasana vaihdettu
+    omniauth_callbacks:
+      success: Todennettu onnistuneesti %{kind} tunnuksesta.
     passwords:
+      send_instructions: Saat sähköpostin, jossa on ohjeet salasanasi nollaamiseen
+        muutamassa minuutissa.
+      send_paranoid_instructions: Jos sähköpostiosoitteesi on tietokannassamme, saat
+        sähköpostin, jossa on ohjeet salasanan palautukseen muutamassa minuutissa.
       updated: Salasanasi on vaihdettu onnistuneesti. Sinut on nyt kirjattu sisään.
       updated_not_active: Salasanasi on vaihdettu onnistuneesti.
     registrations:
@@ -48,6 +63,11 @@ fi:
         kirjata sinua sisään koska käyttäjätunnustasi ei ole vielä aktivoitu.
       signed_up_but_locked: Olet rekisteröitynyt onnistuneesti. Emme voineet kuitenkaan
         kirjata sinua sisään koska käyttäjätunnuksesi on lukittu.
+      signed_up_but_unconfirmed: Sähköpostiosoitteeseesi on lähetetty vahvistuslinkin
+        sisältävä viesti. Seuraa linkkiä aktivoidaksesi tunnuksesi.
+      update_needs_confirmation: Päivitit tilisi onnistuneesti, mutta meidän täytyy
+        varmistaa sähköpostiosoitteesi. Tarkista sähköpostisi ja seuraa vahvistuslinkkiä
+        vahvistaaksesi uuden sähköpostiosoitteesi.
       updated: Käyttäjätunnuksesi on päivitetty onnistuneesti.
     sessions:
       signed_in: Kirjauduttu sisään onnistuneesti.
@@ -57,6 +77,10 @@ fi:
       sign_in_remember_me_disabled_for_admins: Turvallisuussyistä, ylläpitäjät eivät
         voi käyttää muista minut toimintoa.
     unlocks:
+      send_instructions: Saat sähköpostin, jossa on ohjeet tilisi lukituksen avaamiseen
+        muutamassa minuutissa.
+      send_paranoid_instructions: Jos tilisi on olemassa, saat sähköpostin, jossa
+        on ohjeet sen lukituksen avaamiseen muutamassa minuutissa.
       unlocked: Käyttäjätunnuksesi on avattu onnistuneesti. Kirjaudu sisään jatkaaksesi.
   errors:
     messages:

@@ -93,7 +93,7 @@ Rails.application.routes.draw do
       resources :nodes, only: [:index]
     end
     resources :search_suggestions
-    resources :home_page_feeds, :only => [:index, :new, :create] do
+    resources :home_page_feeds, :only => [:index, :new, :create, :edit, :update] do
       post "publish" => "home_page_feeds#publish", :as => "publish"
       resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
     end

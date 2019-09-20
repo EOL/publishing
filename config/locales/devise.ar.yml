@@ -2,26 +2,76 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amira.88
+# Author: Maqu630
 # Author: Passant
+# Author: ديفيد
+# Author: محمد أحمد عبد الفتاح
 ---
 ar:
   devise:
     confirmations:
+      confirmed: تم تأكيد عنوان بريدك الإلكتروني بنجاح.
       send_instructions: .ستتلقى بريد إلكتروني يحتوي على إرشادات حول كيفية تأكيد البريد
         الالكترونى في خلال بضع دقائق
+      send_paranoid_instructions: إذا كان عنوان بريدك الإلكتروني موجودا في قاعدة بياناتنا،
+        فستتلقى رسالة بريد إلكتروني تحتوي على إرشادات حول كيفية تأكيد عنوان بريدك
+        الإلكتروني في غضون دقائق قليلة.
     failure:
+      already_authenticated: أنت مسجل الدخول بالفعل.
+      inactive: حسابك غير مفعل بعد.
+      invalid: '%{authentication_keys} أو كلمة مرور غير صالحة'
       locked: تم غلق حسابك، برجاء المحاولة بعد ساعة
+      last_attempt: لديك محاولة أخرى قبل قفل حسابك.
+      not_found_in_database: '%{authentication_keys} أو كلمة مرور غير صالحة'
+      recaptcha_error: حدث خطأ في كود ري كابتشا أدناه؛ الرجاء إعادة إدخال الرمز والنقر
+        فوق إرسال.
+      timeout: انتهت صلاحية جلستك. رجاءً أعد الولوج للمواصلة.
+      unauthenticated: تحتاج إلى تسجيل الدخول أو التسجيل قبل المتابعة.
+      unconfirmed: عليك تأكيد عنوان بريدك الإلكتروني قبل المواصلة.
     mailer:
       confirmation_instructions:
         action: تأكيد الحساب
+        greeting: مرحبا %{recipient}!
+        instruction: 'يمكنك تأكيد بريدك الإلكتروني من خلال الرابط أدناه:'
+        subject: تعليمات التأكيد
       reset_password_instructions:
         action: تغيير كلمة المرور
+        greeting: 'مرحبا #{recipient}!'
+        instruction: طلب شخص ما رابطا لتغيير كلمة مرورك، ويمكنك القيام بذلك من خلال
+          الرابط أدناه.
+        instruction_2: إذا لم تطلب ذلك، فيُرجَى تجاهل هذا البريد الإلكتروني.
+        instruction_3: لن تتغير كلمة المرور الخاصة بك حتى تصل إلى الرابط أعلاه وتنشئ
+          كلمة مرور جديدة.
+        subject: تعليمات إعادة تعيين كلمة المرور
+      unlock_instructions:
+        subject: |-
+          تعليمات إلغاء القفل
+           
       password_change:
+        greeting: 'مرحبا #{recipient}!'
+        message: نحن نتصل بك لإعلامك بأنه قد تم تغيير كلمة مرورك.
         subject: تم تغيير كلمة المرور
+    omniauth_callbacks:
+      failure: تعذرت مصادقتك من %{kind} لأن %{reason}.
+      success: تمت المصادقة بنجاح من حساب %{kind}
     passwords:
+      no_token: لا يمكنك الوصول إلى هذه الصفحة دون القدوم من البريد الإلكتروني لإعادة
+        تعيين كلمة المرور، إذا كنت تأتي من بريد إلكتروني لإعادة تعيين كلمة المرور،
+        فالرجاء التأكد من استخدام المسار الكامل المقدم.
       send_instructions: .ستتلقى بريد إلكتروني يحتوي على إرشادات حول اعادة ضبط كلمة
         المرور في خلال بضع دقائق
+      send_paranoid_instructions: إذا كان عنوان بريدك الإلكتروني موجودا في قاعدة البيانات
+        الخاصة بنا، فستتلقى رابط استرداد كلمة المرور على عنوان بريدك الإلكتروني في
+        بضع دقائق.
+      updated: تم تغيير كلمة مرورك بنجاح، انت الآن مسجل دخولك.
+      updated_not_active: تم تغيير كلمة مرورك بنجاح.
     registrations:
+      destroyed: وداعًا! تم إلغاء حسابك بنجاح، نأمل أن نراك قريبًا مرة أخرى.
+      signed_up: أهلا بك! لقد اشتركت بنجاح
+      signed_up_but_inactive: لقد اشتركت بنجاح، ومع ذلك، لم نتمكن من تسجيل الدخول
+        لأن حسابك لم يتم تنشيطه بعد.
+      signed_up_but_locked: لقد اشتركت بنجاح، ولكن، لم نتمكن من تسجيل الدخول لأن حسابك
+        مغلق.
       signed_up_but_unconfirmed: تم إرسال رسالة مع رابط التأكيد إلى عنوان بريدك الإلكتروني.
         يرجى اتباع الرابط لتفعيل حسابك.
       update_needs_confirmation: لقد قمت بتحديث حسابك بنجاح ، لكننا بحاجة إلى التحقق
@@ -32,6 +82,9 @@ ar:
       signed_in: تم تسجيل الدخول بنجاح
       signed_out: تم الخروج بنجاح
       already_signed_out: تم الخروج بنجاح
+      recaptcha: أخطاء التحقق من صحة ري كابتشا
+      sign_in_remember_me_disabled_for_admins: لأسباب أمنية؛ لا يمكن للإداريين استخدام
+        ميزة تذكرني.
     unlocks:
       send_instructions: ستتلقى رسالة بريد إلكتروني تحتوي على إرشادات حول كيفية فتح
         حسابك في بضع دقائق.
@@ -41,6 +94,11 @@ ar:
   errors:
     messages:
       already_confirmed: تم التأكيد بالفعل ، يرجى محاولة تسجيل الدخول
+      confirmation_period_expired: يجب تأكيدها خلال %{period}، يُرجَى طلب واحدة جديدة
+      expired: انتهت صلاحيتها؛ يُرجَى طلب واحدة جديدة
       not_found: لم يتم العثور عليه
       not_locked: لم يكن مغلقا
+      not_saved:
+        one: 'خطأ واحد منع حفظ %{resource}:'
+        other: '%{count} أخطاء منعت حفظ %{resource}:'
 ...

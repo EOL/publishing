@@ -1,0 +1,525 @@
+# Messages for Swedish (svenska)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: WikiPhoenix
+---
+sv:
+  language_name: Svenska
+  account_already_linked: ditt konto är redan länkat till EOL
+  account_not_linked: ditt konto är inte länkat till EOL
+  advanced: avancerat
+  are_you_sure_delete_account: Är du säker på att du vill radera ditt EOL-konto?
+  article:
+    actions:
+      collect: samla in
+    header:
+      blank: (Det finns inget innehåll i denna artikel.)
+      body: Innehåll
+      language: 'språk: %{language}'
+      title: Titel
+      untitled: Namnlös
+    name:
+      missing: Namnlös
+  article_from_partner: tillhandahålls av %{partner}
+  article_duplicate: denna artikel visas även "%{section}"
+  autocomplete:
+    see_all:
+      one: visa andra resultat
+      other: visa alla %{count} resultat
+  breadcrumbs:
+    notices:
+      canonical: Vetenskapliga namn kommer nu visas i sidans brödsmulenavigering
+    setting_header: namn i brödsmulenavigering
+    types:
+      scientific: vetenskaplig
+  button_create: skapa
+  button_add: lägg till
+  cancel: avbryt
+  change_my_password: Ändra mitt lösenord
+  change_your_password: Ändra ditt lösenord
+  classifications:
+    children:
+      see_more: se mer
+    hierarchies:
+      this_page: (denna sida)
+    richness:
+      header: Sidan innehållsrikedom
+      score: rikhetspoäng
+      page_contents_count: associerat innehåll
+      missing: Innehållsrikheten har ännu inte räknats ut för denna sida.
+      media_count: media
+      articles_count: artiklar
+      links_count: länkar
+      maps_count: kartor
+      data_count: data
+      nodes_count: noder
+      scientific_names_count: vetenskapliga namn
+      species_count: arter
+      updated_at: senast uppdaterad
+  collect_already_in_collection: (den är redan här)
+  collect_already_in_collection_will_add_icon: (lägg till media i "%{page}")
+  collect_icon_title: Lägg till "%{item}" från sidan "%{page}" i…
+  collect_new_collection: Nytt samlingsnamn
+  collect_new_collection_title: …en ny samling
+  collect_no_existing_collections: Du har inte några ännu! Skapa en med formuläret
+    till vänster.
+  collect_select_collection: …en av dina samlingar
+  collect_title: Lägg till "%{item}" io…
+  collected_page_added_to_collection: Lade till %{page} i samlingen <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Detta fanns redan i din samling.
+  collected_pages_title: Sidor
+  collected_pages_medium:
+    destroyed_flash: Bilden togs bort från samlingssidan.
+  collection_associations:
+    destroyed_flash: '%{name} är inte länge associerad med denna samling.'
+  collected_pages:
+    delete_button: radera
+    edit_button: redigera
+    delete_confirm: är du säker?
+    destroyed_flash: '%{name} togs bort från samling.'
+  collection_association_added_to_collection: Lade till "%{associated}" i samlingen
+    <a href='%{link}'>"%{name}"</a>.
+  collection_associations_title: Associerade samlingar
+  collection_user_is_admin: Denna användare är en administratör.
+  collection_pages_empty: Denna samling innehåller inga sidor. Försök klicka på knappen
+    "samla in" på art artsidor för att lägga till några objekt!
+  collection:
+    admins:
+      header: Användare som kan redigera denna samling (ändringar genomförs omedelbart)
+      label: 'Lägg till en användare som kan redigera denna samling:'
+      placeholder: fullständigt namn eller användarnamn
+    actions:
+      associate: associera
+      download_taxa_csv: ladda ned CSV för taxa
+      delete: radera
+      edit: redigera
+    collection_type:
+      normal: normal
+      gallery: galleri
+    delete_confirm: Detta kommer ta bort hela samlingen och KAN INTE ångras. Är du
+      säker?
+    destroyed: '"%{name}" har raderats permanent.'
+    pages_count:
+      one: 1 sida
+      other: '%{count} sidor'
+    log:
+      associated_collection:
+        add: '%{user} lade till en association med samlingen %{associated}'
+        remove: '%{user} tog bort associationen med samlingen %{associated}'
+      collection:
+        add: '%{user} skapade samlingen'
+        change: '%{user} ändrade %{field} från "%{from}" till "%{to}"'
+      content:
+        add: '%{user} lade till mediet %{medium} för sidan %{page}'
+        change: '%{user} ändrade %{field} på mediet %{medium} för sidan %{page} från
+          "%{from}" till "%{to}"'
+        remove: '%{user} tog bort mediet %{medium} för sidan %{page}'
+      page:
+        add: '%{user} lade till sidan %{page}'
+        change: '%{user} ändrade %{field} på sidan %{page} från "%{from}" till "%{to}"'
+        remove: '%{user} tog bort sidan %{page}'
+      user:
+        add: '%{user} lade till hanteraren %{manager}'
+        remove: '%{user} tog bort hanteraren %{manager}'
+    search:
+      placeholder: Sök i samling…
+      submit: sök
+    sort:
+      hierarchy: hierarki
+      sci_name: vetenskapligt namn, A-Ö
+      sci_name_rev: vetenskapligt namn, Ö-A
+    updated: Samlingen har uppdaterats.
+  content_attributions_labels:
+    altitude: altitud
+    author: författare
+    creator: skapare
+    editor: redigerare
+    latitude: latitud
+    license: licens
+    location: plats
+    longitude: longitud
+    owner: upphovsrätt
+    photographer: fotograf
+    publisher: utgivare
+    project: projekt
+    provider: leverantör
+    references_header:
+      one: Referens
+      other: Referenser
+    resource_label: partnerwebbplats
+    resource_pk: '(id: %{key})'
+    rights_statement: rättighetsuttalande
+    source: källa
+    view_source_label: original
+    view_source_link: visa originalbild
+    view_source_page_link: besök källa
+  content_not_in_any_collection_image: Denna bild finns inte i några samlingar.
+  content_not_in_any_collection_sound: Detta ljud finns inte i några samlingar.
+  content_not_in_any_collection_video: Denna video finns inte i några samlingar.
+  dear_username_with_comma: Kära %{username},
+  delete_account_button: Radera ditt konto
+  filter_by_license: licens
+  filter_by_license_any_item: alla licenser
+  filter_by_medium_subtype: typ
+  filter_by_medium_any_item: alla typer
+  filter_by_resource: leverantör
+  filter_by_resource_any_item: alla leverantörer
+  filters:
+    filter_by_attribute: filtrera efter attribut
+    filter_by_language: filtrera efter språk
+    filter_by_provider: filtrera efter leverantör
+  footer:
+    eol_info:
+      citing_eol: Citera EOL
+      contact_us: Kontakta oss
+      data_services: Datatjänster
+      donate: Donera
+      education: Utbildning
+      glossary: Ordlista
+      help: Hjälp
+      terms_of_use: Användarvillkor
+      the_eol_forum: EOL-forumet
+      what_is_eol: Vad är EOL?
+      whats_new: Vad är nytt?
+    discover:
+      algae: Alger
+      amphibians: Groddjur
+      animals: Djur
+      archaea: Arkéer
+      bacteria: Bakterier
+      birds: Fåglar
+      crustaceans: Skaldjur
+      fishes: Fiskar
+      flowering_plants: Fröväxter
+      fungi: Hussvampar
+      insects: Insekter
+      invertebrates: Ryggradslösa djur
+      mammals: Däggdjur
+      molds: Mögel
+      mushrooms: Svampar
+      mollusks: Blötdjur
+      plants: Plantor
+      protists: Protister
+      reptiles: Reptiler
+      spiders: Spindlar
+      trees: Träd
+      viruses: Virus
+      worms: Maskar
+  forgot_your_password: Glömt ditt lösenord?
+  language: 'Språk:'
+  languages:
+    none: Ospecificerad
+  layout_sign_in: Logga in
+  layout_sign_up: Registrera
+  layout_sign_out: Logga ut
+  literature_and_references_header: Litteratur och referenser
+  medium:
+    untitled:
+      image: Namnlös bild
+      video: Namnlös video
+      sound: Namnlöst ljud
+      map: Namnlös arta
+    subclasses:
+      image: bild
+      video: video
+      sound: ljud
+      map: karta
+  medium_header_title: 'Titel:'
+  medium_header_description: 'Beskrivning:'
+  names:
+    hide_langs:
+      one: dölj ett språk
+      other: dölj %{count} språk
+    prefer: föredra
+    show_more_langs:
+      one: visa ett till språk
+      other: visa %{count} fler språk
+  nav:
+    about: Om
+    discuss: Diskutera
+    education: Utbildning
+    search:
+      placeholder: Sök i EOL...
+  name_preferred_label: föredragen
+  page_title: Encyclopedia of Life
+  page_title_search: 'Sök: %{query}'
+  pages:
+    actions:
+      collect: samla in
+      reindex: omindexera
+    batch_lookup:
+      download_tsv: ladda ned TSV
+      match: matcha
+      new_search: ny sökning
+      page_id: sidans ID
+      page_url: sidans webbadress
+      query: förfrågan
+      query_cant_be_blank: förfrågan kan inte vara tom
+      search: sök
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL har data för <a href="%{data_path}">en attribut</a>:'
+        other: 'EOL har data för <a href="%{data_path}">%{count} attribut</a>, inklusive:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL har data för <a href="%{data_path}">en attribut</a>.
+        other: EOL har data för <a href="%{data_path}">%{count} attribut</a>.
+    filter_menu:
+      show_all: visa alla
+    page_data:
+      show_all: visa alla
+    trophic_web:
+      globi_credit_html: data från <a href='%{url}'>GloBI</a>
+      reset: återställ
+    tabs:
+      classifications: Klassificeringar
+      data: Data
+      literature_and_references: Referenser
+      overview: Hem
+      maps: Kartor
+      media: Media
+      names: Namner
+    iucn_status:
+      label: 'IUCN-status:'
+      ex: utdöd (EX)
+      ew: "utdöd i vilt tillstånd \t(EW)"
+      cr: akut hotad (CR)
+      en: hotad (EN)
+      vu: sårbar (VU)
+      nt: nära hotad (NT)
+      lc: livskraftig (LC)
+      dd: kunskapsbrist (DD)
+      ne: ej bedömd (NE)
+    unresolved_name: Olöst namn
+    unresolved_name_prefix: 'Olöst namn:'
+  recaptcha: Skriv in de två orden eller siffrorna du ser nedan
+  resources:
+    actions:
+      republish: återpublicera
+      reindex: omindexera
+      show_all:
+        other: visa alla (%{count})
+      fetch_synonyms: hämta synonymer
+    headers:
+      index: Resurser
+    no_events: Ingenting!
+  resource_missing: resurs hittades inte
+  scientific_name:
+    status_title:
+      accepted: Accepterade namn
+      alternative: Alternativa namn
+      preferred: Föredragna namn
+      unusable: Oanvändbara namn
+      synonym: Synonymer
+  scientific_names_header: Vetenskapliga namn
+  send_me_reset_password_instructions: Skicka instruktioner om hur man återställer
+    lösenordet igen
+  search:
+    flash:
+      cannot_combine_paths: Kunde inte kombinera resultat med %{path}
+      more_than_one_species: Kunde inte kombinera resultat för %{species}
+      more_than_two_terms: 'Kunde inte kombinera resultat för fler än två termer:
+        %{terms}'
+    n_articles:
+      one: '%{count} artikel'
+      other: '%{count} artikler'
+    n_collections:
+      one: '%{count} samling'
+      other: '%{count} samlingar'
+    n_images:
+      one: '%{count} bild'
+      other: '%{count} bilder'
+    n_results:
+      zero: Inga resultat
+      one: '%{count} resultat'
+      other: '%{count} resultat'
+    n_sounds:
+      one: '%{count} ljud'
+      other: '%{count} ljud'
+    n_taxon_pages:
+      one: '%{count} taxonsida'
+      other: '%{count} taxonsidor'
+    n_users:
+      one: '%{count} användare'
+      other: '%{count} användare'
+    n_videos:
+      one: '%{count} video'
+      other: '%{count} videor'
+    n_terms:
+      one: '%{count} term'
+      other: '%{count} termer'
+  search_results:
+    collection_page_count:
+      one: '%{count} sida'
+      other: '%{count} sidor'
+    medium_article: Artikel
+    medium_image: Bild
+    medium_map: Karta
+    medium_sound: Ljud
+    medium_video: Video
+    medium_title_article_html: 'Artikel: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Bild: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Karta: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Ljud: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Inga resultat.
+    field_matches:
+      description: 'matchar beskrivningen:'
+      resource_pk: 'matchar externt ID:'
+      bio: 'matchar biografin:'
+      resources:
+        one: 'matchar resursen:'
+        other: 'matchar resurserna:'
+      synonyms:
+        one: 'matchar synonymen:'
+        other: 'matchar synonymerna:'
+      vernaculars:
+        one: 'matchar det vanliga namnet:'
+        other: 'matchar de vanliga namnen:'
+    section_titles:
+      collections:
+        one: '%{count} samling'
+        other: '%{count} samlingar'
+      media:
+        one: '%{count} medium'
+        other: '%{count} media'
+      users:
+        one: '%{count} användare'
+        other: '%{count} användare'
+    collection_title_html: 'Samling: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIKEL
+        other: '%{count} ARTIKLAR'
+      n_data:
+        one: 1 DATA
+        other: '%{count} DATA'
+      n_media:
+        one: 1 MEDIUM
+        other: '%{count} MEDIA'
+    user_title_html: 'Användare: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: skapa ett nytt sökförslag
+    created: Skapade sökförslag för "%{match}"
+    destroyed: Förstörde sökförslag för "%{match}"
+    new:
+      header: Skapa ett sökförslag
+    update:
+      header: Uppdatera sökförslag
+    index:
+      header: Sökförslag
+  sections:
+    associations: Associationer
+    behavior: Beteende
+    benefits: Fördelar
+    brief_summary: Kort sammanfattning
+    comprehensive_description: Omfattande beskrivning
+    diagnostic_description: Diagnostisk beskrivning
+    diseases_and_parasites: Sjukdomar och parasiter
+    dispersal: Spridning
+    distribution: Fördelning
+    ecology: Ekologi
+    evolution_and_systematics: Evolution och systematik
+    general_ecology: Allmän ekologi
+    genetics: Genetik
+    growth: Tillväxt
+    habitat: Habitat
+    identification_resources: Identifikationsresurser
+    life_expectancy: Förväntad livslängd
+    life_history_and_behavior: Livshistoria och beteende
+    management: Hantering
+    migration: Migration
+    molecular_biology: Molekylärbiologi
+    molecular_biology_and_genetics: Molekylärbiologi och genetik
+    morphology: Morfologi
+    names_and_taxonomy: Namn och taxonomi
+    notes: Anteckningar
+    overview: Översikt
+    risks: Risker
+    size: Storlek
+    taxonomy: Taxonomi
+    threats: Hot
+    trends: Trender
+    trophic_strategy: Tropisk strategi
+    type_information: Typinformation
+    wikipedia: Wikipedia
+  settings: inställningar
+  show_date: Visa publicerat datum
+  sign_in: Logga in
+  sign_up: Registrera
+  signature_with_contact_us_link: |-
+    Om du stöter på några problem, var god kontakta oss på %{url}.
+
+    Encyclopedia of Life-teamet
+  did_not_receive_confirmation_instructions: Fick inte bekräftelseinstruktioner
+  simple_form:
+    "yes": Ja
+    "no": Nej
+    required:
+      text: obligatoriskt
+      mark: '*'
+    error_notification:
+      default_message: 'Granska problemen nedan:'
+    labels:
+      defaults:
+        email: E-post
+        password: Lösenord
+        password_confirmation: Bekräfta lösenord
+        remember_me: Kom ihåg mig
+        username: Användarnamn
+        bio: Bio
+      search_suggestion:
+        match: söksträng att matcha
+  stats:
+    articles: artiklar
+    collections: samlingar
+    media: media
+    pages: sidor
+    nodes: noder
+    scientific_names: namn
+    users: användare
+    references: referenser
+  term:
+    actions:
+      reindex: omindexera
+      sort: sortera efter
+    edit:
+      header: Redigerar %{uri}
+      submit: Spara
+    fields:
+      name: 'namn:'
+      definition: 'definition:'
+      comment: 'kommentar:'
+      sections: 'avsnitt:'
+      is_hidden_from_glossary: 'dölj i ordlistan:'
+      is_hidden_from_overview: 'dölj i översiktsfliken:'
+    pagination:
+      next: nästa sida
+      previous: föregående sida
+  terms:
+    scientific_name: vetenskapligt namn
+    source: källa
+    uri_field_html: <strong>URI:</strong> %{uri}
+  data_definition: definition av "%{data}"
+  trust:
+    trusted: pålitlig
+  user:
+    created_at: skapades
+    edit_account_details: Redigera kontodetaljer
+    email: E-post
+    headers:
+      bio: Kort biografi
+      collections: Samlingar
+      downloads: Nedladdningar
+      links: Länkar
+    new_password: Nytt lösenord
+    confirm_new_password: Bekräfta nytt lösenord
+    username: användarnamn
+    update: Uppdatering
+    update_email: Uppdatera e-post
+  users:
+    account_migration_header: 'Om du registrerade dig på EOL innan 15 november 2018:'
+    sign_in: Logga in
+  vernacular_names_header: Vanliga namn
+  vernacular_preferred_by_resource: '%{resource} (föredrar detta namn)'
+...

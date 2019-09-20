@@ -1,0 +1,438 @@
+# Messages for Portuguese (português)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Mansil alfalb
+---
+pt-PT:
+  language_name: Português (Portugal)
+  account_already_linked: a sua conta já está associada com EOL
+  account_not_linked: a sua conta não está associada com EOL
+  advanced: avançado
+  are_you_sure_delete_account: Tem a certeza que deseja eliminar a sua conta EOL?
+  article:
+    actions:
+      collect: obter
+    header:
+      blank: (Não existe corpo para este artigo.)
+      body: Corpo
+      language: 'idioma: %{language}'
+      title: Título
+      untitled: Sem título
+    name:
+      missing: Sem título
+  article_from_partner: fornecido por %{partner}
+  article_duplicate: este artigo também é mostrado em «%{section}»
+  autocomplete:
+    see_all:
+      one: ver outros resultados
+      other: ver todos os %{count} resultados
+  breadcrumbs:
+    types:
+      scientific: cientifico
+  button_create: criar
+  button_add: adicionar
+  cancel: cancelar
+  change_my_password: Alterar a minha palavra-passe
+  change_your_password: Altere a sua palavra-passe
+  classifications:
+    children:
+      see_more: ver mais
+    hierarchies:
+      header: Hierarquias selecionadas para %{sci_name}
+      this_page: (esta página)
+    richness:
+      page_contents_count: conteúdo associado
+      media_count: multimédia
+      articles_count: artigos
+      links_count: hiperligações
+      maps_count: mapas
+      data_count: dados
+      nodes_count: nodos
+      vernaculars_count: vernáculos
+      scientific_names_count: nomes científicos
+      referents_count: referentes
+      species_count: espécies
+      updated_at: última atualização
+  cms_page_date: 'Última modificação às:'
+  collect_already_in_collection: (já está aqui)
+  collect_already_in_collection_will_add_icon: (adicionar multimédia a "%{page}")
+  collect_new_collection: Nome da Nova Coleção
+  collect_new_collection_title: '... uma Nova Coleção'
+  collect_select_collection: '... Uma das Suas Coleções'
+  collect_title: Adicionar "%{item}" a…
+  collected_page_already_in_collection: Isso já estava na sua coleção.
+  collected_pages_title: Páginas
+  collection_associations:
+    destroyed_flash: '%{name} já não está associado a esta coleção.'
+  collected_pages:
+    delete_button: eliminar
+    edit_button: editar
+    delete_confirm: tem a certeza?
+  collection_association_added_to_collection: '"%{associated}" adicionado à coleção
+    <a href=''%{link}''>"%{name}"</a>.'
+  collection_associations_title: Coleções Associadas
+  collection_user_is_admin: Este utilizador é um administrador.
+  collection_pages_empty: Esta coleção não contém páginas. Tente clicar no botão "obter"
+    nas páginas das espécies para adicionar alguns itens!
+  collection:
+    admins:
+      placeholder: nome completo ou nome de utilizador
+    actions:
+      associate: associar
+      download_taxa_csv: transferir CSV de taxa
+      delete: eliminar
+      edit: editar
+    collection_type:
+      normal: normal
+      gallery: galeria
+    pages_count:
+      one: 1 página
+      other: '%{count} páginas'
+    log:
+      page:
+        remove: '%{user} removeu a página %{page}'
+      user:
+        remove: '%{user} removeu o gestor %{manager}'
+    search:
+      placeholder: Pesquisar na coleção…
+      submit: pesquisar
+    sort:
+      hierarchy: hierarquia
+      position: data adicionada
+      sci_name: nome científico, A-Z
+      sci_name_rev: nome científico, Z-A
+      sort_field: anotação, A-Z
+      sort_field_rev: anotação, Z-A
+    updated: Coleção atualizada.
+  complete_registration: Por favor, continue o seu registo
+  content_attributions_header: Informação fonte
+  content_attributions_labels:
+    altitude: altitude
+    author: autor
+    bibliographic_citation: citação bibliográfica
+    compiler: compilador
+    creator: criador
+    editor: editor
+    latitude: latitude
+    license: licença
+    location: localização
+    location_verbatim: textualmente
+    longitude: longitude
+    owner: Direitos de Autor
+    photographer: fotógrafo
+    publisher: editor
+    project: projeto
+    provider: provedor
+    references_header:
+      one: Referência
+      other: Referências
+    resource_label: site de parceiro
+    resource_pk: '(id.: %{key})'
+    rights_statement: declaração de direitos
+    source: fonte
+    spatial_location: espacial
+    view_source_label: original
+    view_source_link: ver imagem original
+    view_source_page_link: visitar fonte
+  content_not_in_any_collection_image: Esta imagem não está em quaisquer coleções.
+  content_not_in_any_collection_sound: Este som não está em quaisquer coleções.
+  content_not_in_any_collection_video: Este vídeo não está em quaisquer coleções.
+  data:
+    modifier:
+      sex_term: Sexo do organismo calculado
+      lifestage_term: Período de vida do organismo calculado
+      statistical_method_term: Método estatístico utilizado para cálculo
+  data_missing: '(dados em falta; chaves: %{keys})'
+  dear_username_with_comma: '%{username},'
+  delete_account_button: Eliminar a sua conta
+  filter_by_license: licença
+  filter_by_license_any_item: qualquer licença
+  filter_by_medium_subtype: tipo
+  filter_by_medium_any_item: qualquer tipo
+  filter_by_resource: provedor
+  filter_by_resource_any_item: qualquer provedor
+  filters:
+    filter_by_attribute: filtrar por atributo
+    filter_by_language: filtrar por idioma
+    filter_by_provider: filtrar por provedor
+  footer:
+    eol_info:
+      citing_eol: Citar EOL
+      contact_us: Contacte-nos
+      data_services: Serviços de Dados
+      donate: Doar
+      education: Educação
+      glossary: Glossário
+      terms_of_use: Termos de Utilização
+      the_eol_forum: O Fórum da EOL
+      what_is_eol: O que é EOL?
+      whats_new: Novidades?
+    discover:
+      algae: Algas
+      amphibians: Anfíbios
+      animals: Animais
+      bacteria: Bactéria
+      birds: Aves
+      crustaceans: Crustáceos
+      fishes: Peixes
+      invertebrates: Invertebrados
+      mammals: Mamíferos
+      mollusks: Moluscos
+      spiders: Aranhas
+      trees: Árvores
+      viruses: Vírus
+    eol_is_hosted_by: 'EOL é alojado por:'
+  forgot_your_password: Esqueceu-se da sua palavra-passe?
+  landing_page:
+    header: Acesso global ao conhecimento sobre a vida na Terra
+  language: Idioma
+  languages:
+    none: Não especificado
+    an: Aragonês
+    bs: Bósnio
+    da: Dinamarquês
+    de: Alemão
+    el: Grego, Moderno (1453-)
+    en: Português (Portugal)
+    eo: Esperanto
+    es: Espanhol; Castelhano
+    et: Estoniano
+    eu: Basco
+    fa: Persa
+    fi: Finlandês
+    fr: Francês
+    gl: Galego
+    he: Hebreu
+    hi: Hindi
+    hr: Croata
+    hy: Arménio
+    id: Indonésio
+    ie: Multilingue; Ocidental
+    is: Islandês
+    it: Italiano
+    ja: Japonês
+    jp: Japonês
+    ka: Georgiano
+    kk: Cazaquistanês
+    ko: Coreano
+    la: Latim
+    pt: Português (Portugal)
+    ru: Russo
+    sk: Eslovaco
+    sq: Albanês
+    su: Sudanês
+    sv: Sueco
+    tr: Turco
+    ty: Taitiano
+    uk: Ucraniano
+    vi: Vietnamita
+    zh: Chinês
+  layout_sign_in: Iniciar Sessão
+  layout_sign_up: Registar
+  layout_sign_out: Terminar Sessão
+  literature_and_references_header: Literatura e Referências
+  maps:
+    empty: Não existem mapas disponíveis para esta página.
+    occurrence_caption: Ocorrências conhecidas, espécimes obtidos e observações de
+      %{page_name}
+    other_maps_title: Mapas não interativos
+  medium:
+    untitled:
+      image: Imagem sem título
+      image_of: Imagem de %{page_name}
+      video: Vídeo sem título
+      video_of: Vídeo de %{page_name}
+      sound: Som sem título
+      sound_of: Som de %{page_name}
+      map: Mapa sem título
+      map_of: Mapa de %{page_name}
+      js_map: Mapa interativo sem título
+      js_map_of: Mapa interativo de %{page_name}
+    subclasses:
+      image: imagem
+      video: vídeo
+      sound: som
+      js_map: mapa interativo
+  medium_collect_button: obter multimédia
+  medium_header_title: 'Título:'
+  medium_header_description: 'Descrição:'
+  names:
+    hide_langs:
+      one: ocultar um idioma
+      other: ocultar %{count} idiomas
+    prefer: preferir
+  nav:
+    discuss: Discutir
+    education: Educação
+    search:
+      placeholder: Pesquisar EOL...
+  name_preferred_label: preferido
+  page_title: Enciclopédia da Vida
+  page_title_search: 'Pesquisar: %{query}'
+  pages:
+    actions:
+      collect: obter
+    batch_lookup:
+      canonical_name: nome canónico
+      download_tsv: transferir CSV
+      new_search: nova pesquisa
+      page_id: Id. da página
+      query: consulta
+      search: pesquisar
+    page_data:
+      show_all: mostrar tudo
+    trophic_web:
+      globi_credit_html: dados de <a href='%{url}'>GloBI</a>
+      reset: redefinir
+    tabs:
+      articles: artigos
+      classifications: classificações
+      data: dados
+      overview: sinopse
+      maps: mapas
+      media: multimédia
+      names: nomes
+    iucn_status:
+      vu: vulnerável (VU)
+  page_titles:
+    pages:
+      data: dados de %{page_name}
+      articles: Artigos sobre %{page_name}
+  name_recognized_by_rank: '%{rank} reconhecido por %{by}'
+  reference_compiled_from_article: '%{source} artigo nomeado "%{name}"'
+  register_new_account: Registar para nova conta
+  resources:
+    actions:
+      republish: republicar
+      index: voltar para todos os recursos
+    no_events: Nenhum!
+  resource_missing: recurso não encontrado
+  scientific_name:
+    status_title:
+      accepted: Nomes Aceitados
+      preferred: Nomes Preferidos
+      unusable: Nomes Inutilizáveis
+      synonym: Sinónimos
+  scientific_names_header: Nomes Científicos
+  send_me_reset_password_instructions: Enviem-me instruções para redefinir a palavra-passe
+  search:
+    n_articles:
+      one: '%{count} artigo'
+      other: '%{count} artigos'
+    n_collections:
+      one: '%{count} coleção'
+      other: '%{count} coleções'
+    n_users:
+      one: '%{count} utilizador'
+      other: '%{count} utilizadores'
+    n_videos:
+      one: '%{count} vídeo'
+      other: '%{count} vídeos'
+    n_terms:
+      one: '%{count} termo'
+      other: '%{count} termos'
+  search_results:
+    medium_article: Artigo
+    medium_video: Vídeo
+    medium_title_image_html: 'Imagem: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Mapa: <span class=''sub''>%{title}</span>'
+    empty: Sem resultados.
+    field_matches:
+      description: corresponde à descrição
+    section_titles:
+      collections:
+        one: '%{count} coleção'
+        other: '%{count} coleções'
+      object_terms:
+        one: '%{count} valor de registo de dados (TraitBank)'
+        other: '%{count} valores de registo de dados (TraitBank)'
+      predicates:
+        one: '%{count} tipo de registo de dados (TraitBank)'
+        other: '%{count} tipos de registo de dados (TraitBank)'
+      users:
+        one: '%{count} utilizador'
+        other: '%{count} utilizadores'
+    collection_title_html: 'Coleção: %{<span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTIGO
+        other: '%{count} ARTIGOS'
+      n_media:
+        one: 1 DISCO
+        other: '%{count} DISCOS'
+  search_suggestion:
+    actions:
+      create: criar uma nova sugestão de pesquisa
+  sections:
+    associations: Associações
+    conservation: Conservação
+    diagnostic_description: Descrição do Diagnóstico
+    dispersal: Dispersão
+    distribution: Distribuição
+    ecology: Ecologia
+    evolution_and_systematics: Evolução e Sistemática
+    life_expectancy: Esperança de Vida
+    molecular_biology_and_genetics: Biologia Molecular e Genética
+    morphology: Morfologia
+    overview: Sinopse
+    taxonomy: Taxonomia
+    type_information: Informação do tipo
+  sign_in: Iniciar Sessão
+  signature_with_contact_us_link: |-
+    Se encontrar quaisquer problemas, por favor, contacte-nos em %{url}.
+
+    A Equipa da Enciclopédia da Vida
+  simple_form:
+    "yes": Sim
+    "no": Não
+    error_notification:
+      default_message: 'Por favor, reveja os problemas abaixo:'
+    labels:
+      defaults:
+        password_confirmation: Confirmação da palavra-passe
+        remember_me: Memorizar-me
+        username: Nome de utilizador
+  stats:
+    collections: coleções
+    data: registos de dados
+    media: multimédia
+    nodes: nodos
+    users: utilizadores
+    references: referências
+  term:
+    actions:
+      sort: ordenar por
+    edit:
+      header: Edição %{uri}
+    fields:
+      name: 'nome:'
+      attribution: 'atribuição:'
+      comment: 'comentário:'
+      is_hidden_from_glossary: 'ocultar do glossário:'
+    glossary:
+      full_title: Glossário de 'TODOS os Termos' para os 'Dados' na EOL
+      object_term_title: Glossário dos 'Termos de Valores' para os 'Dados' na EOL
+    pagination:
+      next: página seguinte
+  terms:
+    comment_field_html: <strong>Comentário:</strong> %{comment}
+    definition_field_html: <strong>Definição:</strong> %{definition}
+    show_all_records: mostrar todos os registos
+    source: fonte
+  data_definition: definição de "%{data}"
+  trust:
+    unreviewed: não revisto
+  user:
+    created_at: criada
+    headers:
+      bio: Breve Biografia
+      collections: Coleções
+      downloads: Transferências
+      links: Hiperligações
+    new_password: Nova palavra-passe
+    confirm_new_password: Confirmar nova palavra-passe
+    username: nome de utilizador
+    update_email: Atualizar e-mail
+  users:
+    sign_in: Iniciar Sessão
+...

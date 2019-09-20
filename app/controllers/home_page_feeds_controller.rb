@@ -16,6 +16,20 @@ class HomePageFeedsController < ApplicationController
     @home_page_feed = HomePageFeed.new
   end
 
+  def edit
+    @home_page_feed = HomePageFeed.find(params[:id])
+  end
+
+  def update
+    @home_page_feed = HomePageFeed.find(params[:id])
+    if @home_page_feed.update(home_page_feed_params)
+      flash[:notice] = "Feed updated"
+      redirect_to home_page_feeds_path
+    else
+      render "edit"
+    end
+  end
+
   # POST /home_page_feeds
   # POST /home_page_feeds.json
   def create

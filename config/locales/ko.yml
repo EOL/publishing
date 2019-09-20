@@ -77,6 +77,7 @@ ko:
   collection_unauthorized_edit: 소유자만이 이 모음집을 편집할 수 있습니다.
   complete_registration: 등록을 계속해 주십시오
   content_appears_on: '다음의 문서에 포함됨:'
+  content_attributions_header: 출처 정보
   content_attributions_labels:
     altitude: 고도
     author: 만든이
@@ -119,6 +120,7 @@ ko:
       animals: 동물
       bacteria: 박테리아
       birds: 새
+      fishes: 어류
       insects: 곤충
       invertebrates: 무척추동물
       mammals: 포유류
@@ -187,7 +189,7 @@ ko:
       image: 제목 없는 이미지
       image_of: '%{page_name}의 이미지'
       video: 제목 없는 동영상
-      video_of: '%{page_name}의 이미지'
+      video_of: '%{page_name}의 동영상'
       sound: 제목 없는 소리
       sound_of: '%{page_name}의 소리'
       map: 제목 없는 지도
@@ -224,17 +226,17 @@ ko:
     trophic_web:
       globi_credit_html: <a href='%{url}'>GloBI</a>의 데이터
     tabs:
-      article: 둘러보기
+      articles: 문서
       classifications: 분류
-      overview: 홈
-      details: 자세한 사항
+      data: 데이터
       literature_and_references: 참고문헌
+      overview: 개요
       maps: 지도
       media: 미디어
       names: 이름
-      data: 데이터
     iucn_status:
       label: 'IUCN 상태:'
+      ex: 멸종 (EX)
       unknown: 알 수 없음 (레코드 없음)
   page_titles:
     pages:

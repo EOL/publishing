@@ -1,6 +1,8 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Crochet.david
+# Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
 # Author: Thibaut120094
@@ -353,6 +355,7 @@ fr:
     la: Latin
     lb: Luxembourgeois ; Letzeburgesch
     lg: Luganda
+    li: Limbourgeois
     ln: Lingala
     lo: Lao
     lt: Lituanien
@@ -360,46 +363,86 @@ fr:
     lv: Letton
     mg: Malgache
     mh: Marshallais
+    mi: Maori de Nouvelle-Zélande
     mk: Macédonien
+    ml: Malayalam
     mn: Mongol
+    mr: Marathi
+    ms: Malais
     mt: Maltais
     my: Birman
+    na: Nauru
+    nb: Bokmål, Norvégien
+    nd: Ndébélé du Zimbabwe
     ne: Népalais
+    ng: Ndonga
+    nl: Néerlandais ; Flamand
+    nn: Nynorsk, Norvégien
     "": Norvégien
+    nr: Ndébélé du Transvaal
+    nv: Navajos
+    ny: Chewa ; Nyanja
+    oc: Occitan (après 1500)
+    oj: Ojibwés
+    om: Oromo
     or: Oriya
+    os: Ossète
+    pa: Pendjabi
+    pi: Pali
     pl: Polonais
+    ps: Pachto
     pt: Portugais
+    qu: Quechua
     rm: Romanche
+    rn: Kirundi
+    ro: Roumain ; Moldave
     ru: Russe
     rw: Kinyarwanda
     sa: Sanscrit
     sc: Sarde
+    sd: Sindhi
+    se: Same du nord
+    sg: Sango
+    si: Cingalais
     sk: Slovaque
     sl: Slovène
+    sm: Samoan
+    sn: Shona
     so: Somali
     sq: Albanie
     sr: Serbe
     ss: Swati
+    st: Sotho du sud
     su: Soundanais
     sv: Suédois
     sw: Swahili
     ta: Tamoul
+    te: Télougou
     tg: Tadjik
     th: Thaï
     ti: Tigrigna
     tk: Turkmène
+    tl: Tagalog
     tn: Tswana
+    to: Tonga (îles Tonga)
     tr: Turc
     ts: Tsonga
     tt: Tatar
+    tw: Twi
     ty: Tahitien
+    ug: Ouïghour
     uk: Ukrainien
     ur: Ourdou
     uz: Ouzbek
+    ve: Venda
     vi: Vietnamien
+    vo: Volapük
+    wa: Wallon
     wo: Wolof
     xh: Xhosa
     yi: Yiddish
+    yo: Yoruba
+    za: Zhuang
     zh: Chinois
     zu: Zoulou
   layout_sign_in: Se connecter
@@ -408,13 +451,15 @@ fr:
   literature_and_references_header: Références bibliographiques
   maps:
     empty: Il n’y a pas de cartes disponibles pour cette page.
+    occurrence_caption: Occurrences connues, spécimens collectés et observations de
+      %{page_name}
     other_maps_title: Cartes non interactives
   medium:
     untitled:
       image: Image sans titre
       image_of: Image de %{page_name}
       video: Vidéo sans titre
-      video_of: Image de %{page_name}
+      video_of: Vidéo de %{page_name}
       sound: Son sans titre
       sound_of: Audio de %{page_name}
       map: Carte sans titre
@@ -435,50 +480,83 @@ fr:
     hide_langs:
       one: masquer une langue
       other: masquer %{count} langues
+    prefer: préférer
+    preferred_in_language_for_page: '%{name} est maintenant le %{language} vernaculaire
+      pour %{page}'
     show_more_langs:
       one: afficher une langue supplémentaire
       other: afficher %{count} langues supplémentaires
   nav:
+    about: À propos
     discuss: Discussions
     education: Éducation
     search:
+      no_results_html: <strong>Aucun résultat confirmé</strong><br />Taper Entrée
+        pour voir les résultats non supervisés
       placeholder: Recherche dans l’EdV…
+    trait_bank: TraitBank
   name_preferred_label: préféré
+  page_icon_counts:
+    header:
+      one: Meilleure image pour la page
+      other: Meilleure image pour les pages
+  page_icon_created: Image « %{name} » déplacée en haut.
   page_title: Encyclopédie de la Vie
+  page_title_search: 'Recherche : %{query}'
+  page_vernaculars_empty: Il n’y a pas de nom commun associé avec ce taxon.
   pages:
     actions:
       collect: recueillir
+      comment:
+        zero: Aucun commentaire
+        one: '%{count} commentaire'
+        other: '%{count} commentaires'
       reindex: réindexer
     batch_lookup:
       header: recherche de pages par lot
       canonical_name: nom canonique
       download_tsv: Télécharger le format TSV
+      match: correspond
       new_search: nouvelle recherche
+      page_id: ID de page
       page_url: URL de la page
       query: requête
       query_cant_be_blank: la requête ne peut être vide
       search: chercher
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EdV a des données pour <a href="%{data_path}">un attribut</a> :'
+        other: 'EdV a des données pour <a href="%{data_path}">%{count} attributs</a>,
+          comprenant :'
+      eol_has_data_for_n_attributes_html:
+        one: EdV a une donnée pour <a href="%{data_path}">un attribut</a>.
+        other: Edv a des données pour <a href="%{data_path}">%{count} attributs</a>.
     filter_menu:
       show_all: tout afficher
     page_data:
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” enregistrement caché — montrer tout
+        other: '%{count} “%{pred_name}” enregistrements cachés — montrer tout'
       show_all: tout afficher
+      wordcloud_credit_html: généré avec <a href='%{url}'>jQCloud</a>
     trophic_web:
+      globi_credit_html: données de <a href='%{url}'>GloBI</a>
       reset: réinitialiser
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
         ne réindexe *pas* les images sur la page. Cette fonctionnalité sera mise en
         œuvre à l’avenir.
+    native_node_missing_warning: aucune information de hiérarchie disponible
     tabs:
-      article: Résumé
-      classifications: Classifications
-      overview: Accueil
-      details: Détails
-      literature_and_references: Références
-      maps: Cartes
-      media: Média
-      names: Noms
-      data: Données
+      articles: articles
+      classifications: classifications
+      data: données
+      literature_and_references: littérature & références
+      overview: vue d’ensemble
+      maps: cartes
+      media: média
+      names: noms
     iucn_status:
       label: 'Catégorie de l’IUCN :'
       ex: éteint (EX)
@@ -490,16 +568,35 @@ fr:
       lc: moins concernés (LC)
       dd: données insuffisantes (DD)
       ne: non évalué (NE)
+      unknown: inconnu (pas d’enregistrement)
     unresolved_name: Nom non-résolu
     unresolved_name_prefix: 'Noms non résolus :'
-  recaptcha: Tapez les deux mots ou nombres que vous voyez ci-dessous
+  page_titles:
+    pages:
+      data: données de %{page_name}
+      media: média de %{page_name}
+      maps: cartes de %{page_name}
+      names: noms de %{page_name}
+      articles: articles de %{page_name}
+    traits:
+      search: Recherche de trait
+  name_recognized_by: Reconnu par %{by}
+  name_recognized_by_rank: '%{rank} reconnu par %{by}'
+  ranks:
+    NOTE: les rangs ne sont pas traduits. Ils doivent être traités en verbatim. N’essayez
+      pas de faire cela. :)
+  recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
+  reference_compiled_from: Référencé par %{links}
+  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
   register_new_account: Enregistrer un nouveau compte
   resources:
     actions:
+      import_traits: importer des traits (du dépôt)
       republish: publier
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
+      index: retour à toutes les ressources
       fetch_synonyms: trouver des synonymes
     headers:
       index: Ressources
@@ -514,7 +611,14 @@ fr:
   scientific_names_header: Noms scientifiques
   send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
     du mot de passe
+  search:
+    n_articles:
+      one: '%{count} article'
+      other: '%{count} articles'
   search_results:
+    collection_page_count:
+      one: '%{count} page'
+      other: '%{count} pages'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
@@ -522,6 +626,16 @@ fr:
     medium_video: Vidéo
     medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
+    field_matches:
+      description: 'correspond à la description :'
+      tag_line: 'correspond à la ligne balisée :'
+    resource_counts:
+      n_articles: '{{PLURIEL|one=1 ARTICLE|%{count} ARTICLES}}'
+      n_media:
+        one: 1 MEDIUM
+        other: '%{count} MEDIA'
+  search_suggestion:
+    destroyed: Suggestion de recherche annulée pour « %{match} »
   sections:
     associations: Associations
     behavior: Comportement
@@ -583,6 +697,7 @@ fr:
   stats:
     articles: articles
     collections: collections
+    data: enregistrements de données
     media: média
     pages: pages
     nodes: nœuds
@@ -602,6 +717,9 @@ fr:
       comment: 'commentaire :'
       sections: 'sections :'
       is_hidden_from_glossary: 'masquer dans le glossaire :'
+    glossary:
+      predicate_title: Glossaire des termes des types de données sur EOL
+      object_term_title: Glossaire des termes des valeurs de données sur EOL
     pagination:
       next: page suivante
       previous: page précédente

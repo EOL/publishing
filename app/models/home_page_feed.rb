@@ -11,7 +11,8 @@ class HomePageFeed < ActiveRecord::Base
     :img_url => 0, 
     :link_url => 1, 
     :label => 2, 
-    :desc => 3
+    :desc => 3,
+    :page_id => 4
   }
 
   def fields=(fields)

@@ -447,7 +447,7 @@ mk:
       image: Слика без наслов
       image_of: Слика од %{page_name}
       video: Видео без наслов
-      video_of: Слика од %{page_name}
+      video_of: Видео од %{page_name}
       sound: Звук без наслов
       sound_of: Звук од %{page_name}
       map: Карта без наслов
@@ -536,15 +536,14 @@ mk:
         на страницата. Таа можност ќе биде воведена подоцна.'
     native_node_missing_warning: нема информации за чиноследот
     tabs:
-      article: Преглед
-      classifications: Класификации
-      overview: Почетна
-      details: Подробно
-      literature_and_references: Наводи
-      maps: Карти
-      media: Слики/снимки
-      names: Имиња
-      data: Податоци
+      articles: статии
+      classifications: класификации
+      data: податоци
+      literature_and_references: литература и наводи
+      overview: преглед
+      maps: карти
+      media: слики/снимки
+      names: имиња
     iucn_status:
       label: 'Статус по МСЗП:'
       ex: изумрен (EX)
