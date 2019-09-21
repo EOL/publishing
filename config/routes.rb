@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'robots.:format' => 'application#robots'
 
   scope "(:locale)", locale: /#{I18n.available_locales.reject { |l| l == I18n.default_locale}.join('|')}/ do
-    get '' => 'home_page#index'
+    get '' => 'home_page#index', as: :home_page
     get 'errors/not_found'
     get 'errors/internal_server_error'
 
