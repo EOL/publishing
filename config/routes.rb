@@ -257,7 +257,7 @@ Rails.application.routes.draw do
       get '98', to: redirect('/docs/what-is-eol/content-subject-categories')
       get 'language_support', to: redirect('/docs/what-is-eol/language-support')
       get '516', to: redirect('/docs/what-is-eol/traitbank')
-      get 'traitbank', to: redirect('/docs/what-is-eol/traitbank')
+      get 'traitbank', to: redirect('/traitbank')
       get '520', to: redirect('/docs/what-is-eol/traitbank')
       get 'curation_standards', to: redirect('/docs/what-is-eol/whats-new/status-report-for-eol-members')
       get 'discover_get_involved', to: redirect('/docs/what-is-eol/whats-new/status-report-for-eol-members')
@@ -440,7 +440,7 @@ Rails.application.routes.draw do
       get 'naturesbest2018', to: redirect('https://eol.org/collections/141174')
     end
 
-    get "/traitbank", to: redirect('https://eol.org/docs/what-is-eol/traitbank')
+    get "/traitbank", to: "about#trait_bank"
 
     scope 'content' do
       scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
