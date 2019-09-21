@@ -5,7 +5,7 @@
 # Author: Vlad5250
 ---
 mk:
-  language_name: англиски
+  language_name: македонски
   account_already_linked: вашата сметка е веќе поврзана со EOL
   account_not_linked: вашата сметка не е поврзана со EOL
   advanced: напредно
