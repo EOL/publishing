@@ -120,7 +120,7 @@ en:
         add: "%{user} added an association to collection %{associated}"
         remove: "%{user} removed the association to collection %{associated}"
       collection:
-        add: "%{user} changed created the collection"
+        add: "%{user} created the collection"
         change: "%{user} changed the %{field} from \"%{from}\" to \"%{to}\""
       content:
         add: "%{user} added the medium %{medium} for page %{page}"
