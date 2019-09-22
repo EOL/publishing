@@ -482,6 +482,7 @@ private
 
     @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
+    @articles = @articles.order("resources.name asc, articles.name asc")
     @all_lang_group = ALL_LANG_GROUP
   end
 
