@@ -15,8 +15,7 @@
 
   .l-below-filters
     - if @show_wordcloud
-      .trait-wordcloud.js-trait-wordcloud{ data: { words: @wordcloud_words } }
-      .uk-text-meta.uk-text-right.uk-margin-small-right= t(".wordcloud_credit_html", url: "https://mistic100.github.io/jQCloud/")
+      = render "shared/wordcloud", words: @wordcloud_words, class_name: "trait-wordcloud"
     - if @show_trophic_web
       = render "trophic_web", data: @trophic_web_data
     %ul.traits

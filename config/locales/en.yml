@@ -557,7 +557,6 @@ en:
         one: "1 “%{pred_name}” record hidden — show all"
         other: "%{count} “%{pred_name}” records hidden — show all"
       show_all: "show all"
-      wordcloud_credit_html: "generated with <a href='%{url}'>jQCloud</a>"
     trophic_web:
       globi_credit_html: "data from <a href='%{url}'>GloBI</a>"
       reset: "reset"
@@ -935,3 +934,4 @@ en:
     sign_in: "Sign In"
   vernacular_names_header: "Common Names"
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"
+  wordcloud_credit_html: "generated with <a href='%{url}'>jQCloud</a>"

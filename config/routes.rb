@@ -440,7 +440,7 @@ Rails.application.routes.draw do
       get 'naturesbest2018', to: redirect('https://eol.org/collections/141174')
     end
 
-    get "/traitbank", to: "about#trait_bank"
+    get "/traitbank", to: "about#trait_bank", as: :about_trait_bank
 
     scope 'content' do
       scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
