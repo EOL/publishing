@@ -166,6 +166,7 @@ en:
     location: "location"
     location_verbatim: "verbatim"
     longitude: "longitude"
+    original_media_file: "original media file"
     owner: "copyright"
     photographer: "photographer"
     publisher: "publisher"
