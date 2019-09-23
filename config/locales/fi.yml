@@ -6,7 +6,7 @@
 ---
 fi:
   language_name: suomi
-  account_already_linked: käyttäjäunnuksesi on jo linkitetty EOL:ään
+  account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
   advanced: edistynyt
   are_you_sure_delete_account: Haluatko varmasti poistaa EOL-tunnuksesi?
@@ -14,6 +14,7 @@ fi:
     actions:
       collect: kerää
     header:
+      blank: (Tällä artikkelilla ei ole runkoa.)
       body: Leipäteksti
       language: 'kieli: %{language}'
       title: Otsikko
@@ -21,6 +22,7 @@ fi:
     name:
       missing: Nimetön
   article_from_partner: tarjonnut %{partner}
+  article_duplicate: tämä artikkeli näkyy myös "%{section}"
   autocomplete:
     see_all:
       one: näytä muut tulokset
@@ -28,6 +30,7 @@ fi:
   breadcrumbs:
     notices:
       canonical: Tieteelliset nimet näytetään nyt sivun leivänmuruissa
+      vernacular: Kansalliset nimet näytetään sivun leivänmuruissa jos niitä on saatavana
     setting_header: nimet leivänmuruissa
     types:
       scientific: tieteellinen
@@ -44,14 +47,19 @@ fi:
         other: '%{name} sisältää <a href="%{names_path}">%{count} lasta</a>:'
       see_more: lisätietoja
     hierarchies:
+      header: Kuratoidut hierarkiat kohteelle %{sci_name}
       this_page: (tämä sivu)
     richness:
       header: Sivun rikkaus
+      score: rikkauspisteet
+      page_contents_count: liittyvä sisältö
+      missing: Rikkautta ei ole vielä laskettu tälle sivulle.
       media_count: media
       articles_count: artikkelit
       links_count: linkit
       maps_count: kartat
       data_count: tiedot
+      vernaculars_count: paikallinen kieli
       scientific_names_count: tieteellinen nimet
       referents_count: viitteet
       species_count: lajit
@@ -82,12 +90,20 @@ fi:
     href='%{link}'>"%{name}"</a>.
   collection_associations_empty: Mikään muu kokoelma ei liity tähän. Voit napsauttaa
     "liitä" painiketta muissa kokoelmissa saadaksesi ne näkymään täällä.
+  collection_associations_title: Liittyvät kokoelmat
+  collection_collected_pages_media_remove: 'Poista kuvat kokoelmasta (muutokset tulevat
+    voimaan välittömästi):'
   collection_created: Luotu uusi kokoelma "%{name}".
   collection_created_for_association: Lisätty "%{associated}" uuteen kokoelmaan <a
     href='%{link}'>"%{name}"</a>.
   collection_user_is_admin: Tämä käyttäjä on ylläpitäjä.
+  collection_pages_empty: Tässä kokoelmassa ei ole sivuja. Klikkaa "kerää" painiketta
+    lajisivulla lisätäksesi kohteita!
   collection:
     admins:
+      header: Käyttäjät, jotka voivat muokata tätä kokoelmaa (muutokset tulevat voimaan
+        välittömästi)
+      label: 'Lisää käyttäjä, joka voi muokata tätä kokoelmaa:'
       placeholder: koko nimi tai käyttäjänimi
     actions:
       associate: liitä
@@ -103,8 +119,14 @@ fi:
       one: 1 sivu
       other: '%{count} sivua'
     log:
+      associated_collection:
+        add: '%{user} lisäsi yhteyden kokoelmaan %{associated}'
+        remove: '%{user} poisti yhteyden kokoelmasta %{associated}'
       collection:
         add: '%{user} loi kokoelman'
+      content:
+        add: '%{user} lisäsi välittäjän %{medium} sivulle %{page}'
+        remove: '%{user} poisti välittäjän %{medium} sivulle %{page}'
       page:
         add: '%{user} lisäsi sivun %{page}'
         remove: '%{user} poisti sivun %{page}'
@@ -119,17 +141,25 @@ fi:
       position: lisäyspäivämäärä
       sci_name: tieteellinen nimi, A-Z
       sci_name_rev: tieteellinen nimi, Z-A
+      sort_field: selitys, A-Z
+      sort_field_rev: selitys, Z-A
     updated: Kokoelma päivitetty.
   collection_unauthorized_edit: Vain omistava käyttäjä voi muokata tätä kokoelmaa.
   complete_registration: Jatka rekisteröitymistäsi
+  content_appears_on: 'Mukana seuraavilla sivuilla:'
+  content_collected_in: 'Esillä seuraavissa kokoelmissa:'
+  content_attributions_header: Lähdetiedot
   content_attributions_labels:
     altitude: korkeus
     author: tekijä
+    bibliographic_citation: bibliografinen lainaus
+    compiler: kääntäjä
     creator: luoja
     editor: muokkaaja
     latitude: leveyspiiri
     license: lisenssi
     location: sijainti
+    location_verbatim: sanatarkka
     longitude: pituuspiiri
     owner: tekijänoikeus
     photographer: valokuvaaja
@@ -141,24 +171,35 @@ fi:
       other: Viitteet
     resource_label: kumppanisivusto
     resource_pk: '(tunniste: %{key})'
+    rights_statement: oikeuslausunto
     source: lähde
+    spatial_location: tila
     view_source_label: alkuperäinen
     view_source_link: näytä alkuperäinen kuva
+    view_source_page_link: käy lähteessä
   content_not_in_any_collection_image: Tämä kuva ei ole esillä missään kokoelmassa.
   content_not_in_any_collection_sound: Tämä ääni ei ole esillä missään kokoelmassa.
   content_not_in_any_collection_video: Tämä video ei ole esillä missään kokoelmassa.
+  data:
+    modifier:
+      sex_term: Eliön sukupuoli mitattu
+      lifestage_term: Eliön elinikä mitattu
+  data_missing: '(tietoja puuttuu, avaimet: %{keys})'
   dear_username_with_comma: Hyvä %{username},
   delete_account_button: Poista käyttäjätunnuksesi
   filter_by_license: lisenssi
   filter_by_license_any_item: kaikki lisenssit
   filter_by_medium_subtype: tyyppi
+  filter_by_medium_any_item: mikä tahansa tyyppi
   filter_by_resource: tarjoaja
   filter_by_resource_any_item: kaikki tarjoajat
   filters:
+    filter_by_attribute: suodata määritteen mukaan
     filter_by_language: suodata kielen mukaan
     filter_by_provider: suodata tekijän mukaan
   footer:
     eol_info:
+      citing_eol: Vetoa EOL:ään
       contact_us: Ota yhteyttä
       data_services: Tietopalvelut
       donate: Lahjoita
@@ -393,6 +434,8 @@ fi:
   literature_and_references_header: Kirjallisuus ja viitteet
   maps:
     empty: Karttoja ei ole saatavana tälle sivulle.
+    occurrence_caption: Tiedetyt tapahtumat, kerätyt näytteet ja havainnot sivusta
+      %{page_name}
     other_maps_title: Epäinteraktiiviset kartat
   medium:
     untitled:
@@ -432,6 +475,10 @@ fi:
       placeholder: Hae EOL:stä...
     trait_bank: TraitBank
   name_preferred_label: ensisijainen
+  page_icon_counts:
+    header:
+      one: Paras kuva sivulle
+      other: Paras kuva sivuille
   page_title: Encyclopedia of Life
   page_title_search: 'Hae: %{query}'
   page_vernaculars_empty: Tällä taksonilla ei ole siihen liittyviä yleisnimiä.
@@ -453,6 +500,10 @@ fi:
       query_cant_be_blank: kysely ei voi olla tyhjä
       search: haku
     overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL:llä on tietoa <a href="%{data_path}">yhdelle määritteelle</a>:'
+        other: 'EOL:llä on tietoa <a href="%{data_path}">%{count} määritteelle</a>,
+          mukaan lukien:'
       eol_has_data_for_n_attributes_html:
         one: EOL:llä on dataa <a href="%{data_path}">yhdelle määritteelle</a>.
         other: EOL:llä on dataa <a href="%{data_path}">%{count} määritteelle</a>.
@@ -461,11 +512,17 @@ fi:
     page_data:
       show_all: näytä kaikki
     trophic_web:
+      globi_credit_html: tiedot <a href='%{url}'>GloBIsta</a>
       reset: tyhjennä
+    flash:
+      reindexed: Välimuistit tälle sivulle on tyhjennetty. Lataa uudelleen nähdäksesi
+        uudet arvot. Huomioi että tällä hetkellä tämä *ei* uudelleenindeksoi sivun
+        kuvia. Ominaisuus otetaan käyttöön tulevaisuudessa.
+    native_node_missing_warning: Hierarkiatietoja ei ole käytettävissä
     tabs:
       articles: artikkelit
       classifications: luokittelu
-      data: data
+      data: tiedot
       literature_and_references: kirjallisuus ja viitteet
       overview: yleiskatsaus
       maps: kartat
@@ -478,16 +535,24 @@ fi:
       cr: äärimmäisen uhanalainen
       en: uhanalainen
       vu: haavoittuva
+      nt: lähes uhattu (NT)
+      dd: tiedot puutteelliset (DD)
       ne: ei arvioitu
+      unknown: tuntematon
     unresolved_name: Ratkaisematon nimi
     unresolved_name_prefix: 'Ratkaisematon nimi:'
   page_titles:
     pages:
-      data: '%{page_name} data'
+      data: '%{page_name} tiedot'
       media: '%{page_name} media'
       maps: '%{page_name} kartat'
       names: '%{page_name} nimet'
       articles: '%{page_name} artikkelit'
+    traits:
+      search: Ominaisuuksien haku
+  ranks:
+    NOTE: arvoja ei käännetä. Niitä on kohdeltava sanatarkasti. Älä yritä tehdä sitä.
+      :)
   recaptcha: Recaptcha
   recaptcha_error: Kerro meille, että et ole robotti.
   register_new_account: Rekisteröi uusi käyttäjätunnus
@@ -570,6 +635,9 @@ fi:
     empty: Ei tuloksia.
     field_matches:
       description: 'vastaa kuvausta:'
+      resource_pk: 'vastaa ulkoista tunnistetta:'
+      bio: 'vastaa elämäkertaa:'
+      tag_line: 'vastaa tagiriviä:'
       resources:
         one: 'vastaa resurssia:'
         other: 'vastaa resursseja:'
@@ -684,6 +752,7 @@ fi:
   stats:
     articles: artikkelit
     collections: kokoelmat
+    data: tietorekisterit
     media: media
     pages: sivut
     scientific_names: nimet
@@ -708,6 +777,7 @@ fi:
       next: seuraava sivu
       previous: edellinen sivu
   terms:
+    attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentti:</strong> %{comment}
     definition_field_html: <strong>Määritelmä:</strong> %{definition}
     source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
@@ -716,11 +786,15 @@ fi:
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: Aloita valitsemalla yllä oleva sivu.
+  trophic_web:
+    group_descriptions:
+      source: keskeiset lajit
   trust:
     unreviewed: tarkastamaton
     trusted: luotettu
     untrusted: ei luotettu
   user:
+    batch_page_lookup: Eräsivun haku
     created_at: luotu
     edit_account_details: Muokkaa käyttäjätunnuksen tietoja
     email: Sähköposti
@@ -730,8 +804,12 @@ fi:
       collections: Kokoelmat
       downloads: Lataukset
       links: Linkit
+    list_of_power_users: Luettelo virrankäyttäjistä
     new_password: Uusi salasana
     confirm_new_password: Vahvista uusi salasana
+    showing_n_power_users:
+      one: Yhden virrankäyttäjän listaus
+      other: '%{count} virrankäyttäjän listaus'
     username: käyttäjänimi
     update: Päivitä
     update_email: Päivitä sähköposti
@@ -741,6 +819,15 @@ fi:
   users:
     account_migration_header: 'Jos rekisteröidyit EOL:llään ennen 15. marraskuuta
       2018:'
+    account_migration_notice: Tilitietosi, mukaan lukien käyttäjänimi, liittyvä sähköposti,
+      profiilikuvaus ja omistamasi kokoelmat on tuotu uuteen EOL:ään. Käyttäjänimesi
+      on silti näyttönimesi sivustolla mutta sinun täytyy kirjautua sisään sähköpostiosoitteellasi.
+      Emme voineet siirtää salasanaasi turvallisuussyistä; anteeksi vaivasta. Voit
+      nollata sen käyttämällä Unohtuiko salasana -prosessia. Jos kirjauduit sisään
+      vain käyttämällä kolmannen osapuolen palveluntarjoajaa- Google, Twitter tai
+      Facebook- ole kiltti kassamme; selvitämme joitain jaettujen kirjautumisprosessien
+      ongelmia.
     sign_in: Kirjaudu sisään
   vernacular_names_header: Yleisnimet
+  wordcloud_credit_html: luotu <a href='%{url}'>jQCloudilla</a>
 ...

@@ -538,7 +538,6 @@ fr:
         one: 1 “%{pred_name}” enregistrement caché — montrer tout
         other: '%{count} “%{pred_name}” enregistrements cachés — montrer tout'
       show_all: tout afficher
-      wordcloud_credit_html: généré avec <a href='%{url}'>jQCloud</a>
     trophic_web:
       globi_credit_html: données de <a href='%{url}'>GloBI</a>
       reset: réinitialiser
@@ -597,7 +596,21 @@ fr:
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
+      show_all:
+        other: montrer tout (%{count})
+      show_warns:
+        one: afficher l’avertissement (%{count})
+        other: afficher les avertissements (%{count})
+      sync: synchroniser avec le dépôt
+      fetch_relationships: récupérer les relations
+      fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
+        mais peut échouer et les supprimer toutes. Cela prend environ une minute.
+        Êtes-vous sûr ?
       fetch_synonyms: trouver des synonymes
+      fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
+        mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
+        sûr ?
+      fetch_units: récupérer les unités
     headers:
       index: Ressources
     no_events: Aucun !
@@ -757,4 +770,5 @@ fr:
     sign_in: Se connecter
   vernacular_names_header: Noms communs
   vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
+  wordcloud_credit_html: généré avec <a href='%{url}'>jQCloud</a>
 ...

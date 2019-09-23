@@ -526,7 +526,6 @@ mk:
         one: 1 скриен запис „%{pred_name}“ — прикажи сè
         other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
       show_all: прикажи сè
-      wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
     trophic_web:
       globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
       reset: одново
@@ -912,4 +911,5 @@ mk:
     sign_in: Најава
   vernacular_names_header: Народни имиња
   vernacular_preferred_by_resource: '%{resource} (го претпочита имево)'
+  wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
 ...

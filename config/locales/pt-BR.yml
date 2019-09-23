@@ -69,6 +69,7 @@ pt-BR:
   collect_already_in_collection: (já está aqui)
   collect_already_in_collection_will_add_icon: (adicionar mídia a "%{page}")
   collect_new_collection: Nome da nova coleção
+  collect_new_collection_title: '... uma Nova Coleção'
   collect_no_existing_collections: Você ainda não tem nenhum! Crie um usando o formulário
     à esquerda.
   collect_select_collection: …Uma de suas coleções
@@ -102,6 +103,7 @@ pt-BR:
       label: 'Adicione um usuário que possa editar esta coleção:'
       placeholder: nome completo ou nome de usuário
     actions:
+      associate: associar
       download_taxa_csv: baixar CSV de taxa
       delete: apagar
       edit: editar
@@ -138,6 +140,8 @@ pt-BR:
     location: localização
     longitude: longitude
     owner: Direitos autorais
+    photographer: fotógrafo
+    publisher: editor
     project: projeto
     provider: fornecedor
     resource_label: site do parceiro
@@ -352,7 +356,6 @@ pt-BR:
       show_all: Mostrar todos
     page_data:
       show_all: Mostrar todos
-      wordcloud_credit_html: gerado com <a href='%{url}'>jQCloud</a>
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -385,6 +388,7 @@ pt-BR:
       data: dados de %{page_name}
       media: mídia de %{page_name}
       maps: mapas de %{page_name}
+      names: nomes de %{page_name}
       articles: Artigos sobre %{page_name}
   name_recognized_by: Reconhecido por %{by}
   name_recognized_by_rank: '%{rank} foi reconhecido por %{by}'
@@ -666,4 +670,5 @@ pt-BR:
     sign_in: Entrar
   vernacular_names_header: Nomes comuns
   vernacular_preferred_by_resource: '%{resource} (prefere esse nome)'
+  wordcloud_credit_html: gerado com <a href='%{url}'>jQCloud</a>
 ...

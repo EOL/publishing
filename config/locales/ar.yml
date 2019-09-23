@@ -11,15 +11,18 @@
 ---
 ar:
   language_name: الإنجليزية
+  about:
+    trait_bank:
+      title: بنك الصفات
   account_already_linked: حسابك مرتبط بالفعل بEOL
-  account_not_linked: حسابك غير ممرتبط بEOL
+  account_not_linked: حسابك غير مرتبط بEOL
   advanced: المتقدمة
   are_you_sure_delete_account: هل انت متأكد من أن تريد حذف حسابك في EOL ؟
   article:
     actions:
       collect: تجميع
     header:
-      blank: ( لا يوجد اي شخص في المقالة ).
+      blank: ( لا يوجد جسم لهذه المقالة ).
       body: جسم
       language: 'لغة: %{language}'
       title: عنوان
@@ -43,7 +46,7 @@ ar:
   button_create: إنشاء
   button_add: إضافة
   cancel: إلغاء
-  change_my_password: تغير كلمة السر الخاصة بك
+  change_my_password: تغير كلمة السر الخاصة بى
   change_your_password: تغير كلمة السر الخاصة بك
   classifications:
     children:
@@ -66,7 +69,7 @@ ar:
       data_count: البيانات
       nodes_count: العقد
       vernaculars_count: عامية
-      scientific_names_count: أسماء العلمية
+      scientific_names_count: الأسماء العلمية
       referents_count: المصادر
       species_count: نوع
       updated_at: آخر تحديث
@@ -129,7 +132,7 @@ ar:
         add: '%{user} أضاف ارتباطا للمجموعة %{associated}'
         remove: '%{user} أزال الارتباط إلى المجموعة %{associated}'
       collection:
-        add: '%{user} غير إنشاء المجموعة'
+        add: '%{user} أنشأ المجموعة'
         change: '%{user} غير %{field} من "%{from}" إلى "%{to}"'
       content:
         add: '%{user} أضاف الوسيط %{medium} للصفحة %{page}'
@@ -149,15 +152,15 @@ ar:
     sort:
       hierarchy: تسلسل
       position: تاريخ الإضافة
-      sci_name: أسماء العلمية A-Z
-      sci_name_rev: أسماء العلمية Z-A
+      sci_name: الاسم العلمى A-Z
+      sci_name_rev: الاسم العلمى Z-A
       sort_field: شرح توضيحي، أ-ي
       sort_field_rev: شرح توضيحي، ي-أ
     updated: تم تحديث المجموعة.
   collection_unauthorized_edit: يمكن للمستخدم المالك فقط تعديل هذه المجموعة.
   complete_registration: يرجى متابعة التسجيل الخاص بك
   content_appears_on: 'مشمول على الصفحات التالية:'
-  content_collected_in: 'متميز في المجموعات التالية:'
+  content_collected_in: 'مذكور في المجموعات التالية:'
   content_attributions_header: معلومات المصدر
   content_attributions_labels:
     altitude: الارتفاع
@@ -171,6 +174,7 @@ ar:
     location: الموقع
     location_verbatim: النص الحرفي
     longitude: خط الطول
+    original_media_file: ملف الوسائط الأصلي
     owner: حقوق النشر
     photographer: مصور
     publisher: ناشر
@@ -186,7 +190,7 @@ ar:
     spatial_location: مكاني
     view_source_label: أصلية
     view_source_link: عرض الصورة الأصلية
-    view_source_page_link: زيارة مصدر
+    view_source_page_link: زيارة المصدر
   content_not_in_any_collection_image: هذه الصورة ليست واردة في أي مجموعات.
   content_not_in_any_collection_sound: هذا الصوت غير وارد في أي مجموعات.
   content_not_in_any_collection_video: لا يظهر هذا الفيديو في أي مجموعات.
@@ -531,7 +535,6 @@ ar:
         one: سجل “%{pred_name}” واحد مخفي - عرض الكل
         other: سجلات %{count} “%{pred_name}” مخفية - إظهار الكل
       show_all: اعرض الكل
-      wordcloud_credit_html: وُلِّد بـ<a href='%{url}'>jQCloud</a>
     trophic_web:
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
       reset: إعادة ضبط
@@ -909,4 +912,5 @@ ar:
     sign_in: تسجيل الدخول
   vernacular_names_header: أسماء شائعة
   vernacular_preferred_by_resource: '%{resource} (يفضل هذا الاسم)'
+  wordcloud_credit_html: وُلِّد بـ<a href='%{url}'>jQCloud</a>
 ...

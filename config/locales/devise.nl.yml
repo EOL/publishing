@@ -1,0 +1,60 @@
+# Messages for Dutch (Nederlands)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Elroy
+---
+nl:
+  devise:
+    failure:
+      not_found_in_database: Ongeldige %{authentication_keys} of wachtwoord.
+      recaptcha_error: Er is een fout opgetreden met onderstaande recaptchacode. Voer
+        de code opnieuw in en klik op Indienen.
+      unauthenticated: U moet zich aanmelden of inschrijven om door te gaan.
+    mailer:
+      confirmation_instructions:
+        action: Profiel bevestigen
+        greeting: Welkom %{recipient}!
+        instruction: 'U kunt het e-mailadres van uw profiel met onderstaande koppeling
+          bevestigen:'
+      reset_password_instructions:
+        action: Wachtwoord wijzigen
+        instruction: Iemand heeft een koppeling aangevraagd waarmee uw wachtwoord
+          kan worden gewijzigd. U kunt uw wachtwoord wijzigen door onderstaande koppeling
+          te gebruiken.
+      unlock_instructions:
+        subject: Ontgrendelhandleiding
+      password_change:
+        greeting: 'Hallo #{recipient}!'
+        subject: Wachtwoord gewijzigd
+    omniauth_callbacks:
+      failure: Kan u vanaf %{kind} niet controleren vanwege %{reason}.
+    passwords:
+      no_token: Zonder een wachtwoordherstelbericht heeft u geen toegang tot deze
+        pagina. Mocht u hier met een wachtwoordherstelbericht terecht zijn gekomen,
+        zorg er dan voor dat u de volledige toegezonden URL gebruikt.
+      send_instructions: U ontvangt binnen enkele ogenblikken een e-mail met een handleiding
+        waarmee u het wachtwoord opnieuw kunt instellen.
+      send_paranoid_instructions: Als uw e-mailadres in onze gegevensbank staat, dan
+        ontvangt u binnen enkele ogenblikken een wachtwoordherstelkoppeling in uw
+        e-mail.
+    registrations:
+      signed_up_but_inactive: U bent ingeschreven. U kunt zich niet aanmelden omdat
+        uw profiel nog niet in werking is gesteld.
+      signed_up_but_unconfirmed: Er is een bericht met een bevestigingskoppeling naar
+        uw e-mailadres verzonden. Volg de koppeling om uw profiel in werking te stellen.
+      update_needs_confirmation: Uw profiel is bijgewerkt. Uw nieuw e-mailadres moet
+        worden gecontroleerd. Controleer uw e-mail en volg de bevestigingskoppeling
+        om uw nieuw e-mailadres te bevestigen.
+      updated: Uw profiel is bijgewerkt.
+    sessions:
+      signed_in: Aangemeld.
+      already_signed_out: Afgemeld.
+      recaptcha: Recaptchabevestigingsfouten
+      sign_in_remember_me_disabled_for_admins: Uit beveiligingsoverwegingen mogen
+        beheerders niet aangemeld blijven.
+  errors:
+    messages:
+      already_confirmed: reeds bevestigd, probeer u aan te melden
+      not_found: niet gevonden
+      not_locked: niet vergrendeld
+...
