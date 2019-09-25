@@ -34,7 +34,7 @@ def doit(server, api_token, query, format):
             j = r.json()
         except ValueError:
             sys.stderr.write('JSON syntax error\n')
-            print >>sys.stderr, r.text[0:1000]
+            print(r.text[0:1000], file=sys.stderr)
             sys.exit(1)
         json.dump(j, sys.stdout, indent=2, sort_keys=True)
         sys.stdout.write('\n')
@@ -44,10 +44,10 @@ def doit(server, api_token, query, format):
             if chunk: # filter out keep-alive new chunks
                 sys.stdout.write(chunk.decode('utf-8'))
     elif ct == "text/plain":
-        print >>sys.stderr, r.text
+        print(r.text, file=sys.stderr)
     else:
         sys.stderr.write('Unrecognized response content-type: %s\n' % ct)
-        print >>sys.stderr, r.text[0:10000]
+        print(r.text[0:10000], file=sys.stderr)
         sys.exit(1)
     if r.status_code != 200:
         sys.exit(1)
