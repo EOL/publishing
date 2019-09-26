@@ -6,6 +6,9 @@
 ---
 pt-BR:
   language_name: Inglês
+  about:
+    trait_bank:
+      title: TraitBank
   account_already_linked: sua conta já está vinculada ao EOL
   account_not_linked: sua conta não está vinculada ao EOL
   advanced: avançado
@@ -113,6 +116,9 @@ pt-BR:
     delete_confirm: Isso removerá a coleção inteira e NÃO PODE ser desfeita. Você
       tem certeza?
     destroyed: '"%{name}" foi excluído permanentemente.'
+    log:
+      collection:
+        add: '%{user} criou a coleção'
     search:
       placeholder: Pesquisar na coleção…
       submit: pesquisar
@@ -139,6 +145,7 @@ pt-BR:
     license: licença
     location: localização
     longitude: longitude
+    original_media_file: arquivo de mídia original
     owner: Direitos autorais
     photographer: fotógrafo
     publisher: editor

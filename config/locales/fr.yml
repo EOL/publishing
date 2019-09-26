@@ -10,7 +10,15 @@
 # Author: Wladek92
 ---
 fr:
-  language_name: Anglais
+  language_name: français
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: |-
+        <p>L’équipe technique et de gestion des données de l’EdlV se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques, et notre classification native, la Hiérarchie de travail dynamique – collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
+        <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
+        <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, ou les télécharger,ou vous pouvez en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utiliser dans votre propre travail.</p>
+        <p>Ces données sont modélisées comme un <a href="%{property_graph_url}">graphe de propriété</a> dans <a href="%{neo4j_url}">neo4j</a>. Des <a href="%{data_services_path}">services de données</a> sont également disponibles.</p>
   account_already_linked: votre compte est déjà lié à EdV
   account_not_linked: votre compte n’est pas lié à EdV
   advanced: avancé
@@ -50,7 +58,7 @@ fr:
   classifications:
     children:
       header_html:
-        one: '</a> :'
+        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
@@ -66,22 +74,22 @@ fr:
       maps_count: cartes
       data_count: données
       nodes_count: nœuds
-      vernaculars_count: vernaculaire
+      vernaculars_count: vernaculaires
       scientific_names_count: noms scientifiques
       referents_count: référents
       species_count: espèce
       updated_at: dernière mise à jour
-  cms_page_date: 'Dernière modification:'
-  collect_already_in_collection: (c’est déjà là)
+  cms_page_date: 'Dernière modification :'
+  collect_already_in_collection: (déjà présent ici)
   collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
-  collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers…
+  collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers...
   collect_new_collection: Nouveau nom de collection
-  collect_new_collection_title: Nouvelle collection
+  collect_new_collection_title: '... une nouvelle collection'
   collect_no_existing_collections: Vous n’en avez encore aucun ! En créer un en utilisant
     le formulaire sur la gauche.
-  collect_select_collection: … une de vos collections
-  collect_title: Ajouter « %{item} » à…
-  collected_page_added_to_collection: '%{page} ajouté à la collection <a href=''%{link}''>%{name}</a>.'
+  collect_select_collection: '... une de vos collections'
+  collect_title: Ajouter « %{item} » à...
+  collected_page_added_to_collection: '%{page} ajouté à la collection <a href="%{link}">%{name}</a>.'
   collected_page_already_in_collection: C’était déjà dans votre collection.
   collected_pages_title: Pages
   collected_pages_medium:
@@ -94,7 +102,7 @@ fr:
     delete_confirm: Êtes-vous sûr ?
     destroyed_flash: '%{name} a été supprimé de cette collection.'
   collection_association_added_to_collection: « %{associated} » ajouté à la collection
-    <a href='%{link}'>« %{name} »</a>.
+    <a href="%{link}">« %{name} »</a>.
   collection_associations_empty: Aucune autre collection n’est associée avec celle-ci.
     Vous pouvez cliquer sur le bouton « associer » sur d’autres collections pour les
     faire apparaître ici.
@@ -132,7 +140,7 @@ fr:
         add: '%{user} a ajouté une association à la collection %{associated}'
         remove: '%{user} a supprimé l’association de la collection %{associated}'
       collection:
-        add: '%{user} a modifié la collection'
+        add: '%{user} a créé la collection'
         change: '%{user} a modifié %{field} de « %{from} » en « %{to} »'
       content:
         add: '%{user} a ajouté le média %{medium} à la page %{page}'
@@ -176,6 +184,7 @@ fr:
     location: emplacement
     location_verbatim: verbatim
     longitude: longitude
+    original_media_file: fichier de média d’origine
     owner: droit d’auteur
     photographer: photographe
     publisher: éditeur
@@ -611,8 +620,29 @@ fr:
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
         sûr ?
       fetch_units: récupérer les unités
+      fetch_units_confirm: Cela supprime les relations de prédicat/unité existantes
+        et les rajoute, mais cela peut échouer et les supprimer toutes. Cela prend
+        environ une minute. Êtes-vous sûr ?
+      clear_publishing: effacer le verrou
+      clear_publishing_confirm: Cela 'terminera' toutes les publications, et peut
+        poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
+        sûr ?
     headers:
       index: Ressources
+      import_log: Importer le journal pour %{resource}
+    index:
+      locked_jobs:
+        zero: aucun travail en cours
+        one: 1 travail en cours
+        other: '%{count} travaux en cours'
+      jobs:
+        zero: aucun travail en attente
+        one: 1 travail en attente
+        other: '%{count} travaux en attente'
+      harvest_jobs:
+        zero: rien à publier
+        one: 1 publication en attente
+        other: '%{count} à publier'
     no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
@@ -620,44 +650,124 @@ fr:
       accepted: Noms acceptés
       alternative: Noms alternatifs
       preferred: Noms préférés
+      unusable: Noms inutilisables
       synonym: Synonymes
   scientific_names_header: Noms scientifiques
   send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
     du mot de passe
   search:
+    flash:
+      cannot_combine_paths: Impossible de combiner les résultats avec %{path}
+      more_than_one_species: Impossible de combiner les résultats pour %{species}
+      more_than_two_terms: 'Impossible de combiner les résultats pour plus de deux
+        termes : %{terms}'
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
+    n_collections:
+      one: '%{count} collection'
+      other: '%{count} collections'
+    n_images:
+      one: '%{count} image'
+      other: '%{count} images'
+    n_results:
+      zero: Aucun résultat
+      one: '%{count} résultat'
+      other: '%{count} résultats'
+    n_sounds:
+      one: '%{count} son'
+      other: '%{count} sons'
+    n_taxon_pages:
+      one: '%{count} page de taxon'
+      other: '%{count} pages de taxon'
+    n_users:
+      one: '%{count} utilisateur'
+      other: '%{count} utilisateurs'
+    n_videos:
+      one: '%{count} vidéo'
+      other: '%{count} vidéos'
+    n_terms:
+      one: '%{count} période'
+      other: '%{count} périodes'
   search_results:
     collection_page_count:
       one: '%{count} page'
       other: '%{count} pages'
+    collection_page_count_and_users:
+      one: '%{count} page ; maintenu par %{users_sentence}'
+      other: '%{count} pages ; maintenues par %{users_sentence}'
+    collected_media:
+      title: 'médias collectés depuis cette page :'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
     medium_sound: Son
     medium_video: Vidéo
+    medium_title_article_html: 'Article : <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Image : <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Carte : <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Audio : <span class=''sub''>%{title}</span>'
     medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
     field_matches:
       description: 'correspond à la description :'
+      resource_pk: 'correspond à l’ID externe :'
+      bio: 'correspond à la biographie :'
       tag_line: 'correspond à la ligne balisée :'
+      resources:
+        one: 'correspond à la ressource :'
+        other: 'correspond aux ressources :'
+      synonyms:
+        one: 'correspond au synonyme :'
+        other: 'correspond aux synonymes :'
+      vernaculars:
+        one: 'correspond au nom usuel :'
+        other: 'correspond aux noms usuels :'
+    section_titles:
+      collections:
+        other: '%{count} collectionone='
+      media:
+        other: '%{count} médiaone='
+      pages:
+        other: '%{count} pageone= (espèces)'
+      object_terms:
+        other: '%{count} valeurone= d’enregistrement de données (TraitBank)'
+      predicates:
+        other: '%{count} typeone= d’enregistrement de données (TraitBank)'
+      users:
+        other: '%{count} utilisateurone='
+    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
       n_articles: '{{PLURIEL|one=1 ARTICLE|%{count} ARTICLES}}'
+      n_data:
+        other: '%{count} DONNÉEone='
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIA'
+    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
   search_suggestion:
+    actions:
+      create: créer une nouvelle suggestion de recherche
+    created: Suggestion de recherche créée pour « %{match} »
     destroyed: Suggestion de recherche annulée pour « %{match} »
+    new:
+      header: Créer une suggestion de recherche
+    update:
+      header: Mettre à jour la suggestion de recherche
+    index:
+      header: Suggestions de recherche
   sections:
     associations: Associations
     behavior: Comportement
+    benefits: Avantages
     brief_summary: Bref résumé
     comprehensive_description: Description détaillée
     conservation: Conservation
+    conservation_status: Statut de conservation
     cyclicity: Cyclicité
     diagnostic_description: Description diagnostique
     diseases_and_parasites: Maladies et parasites
+    dispersal: Dispersion
     distribution: Répartition
     ecology: Écologie
     evolution_and_systematics: Évolution et Systématique
@@ -689,14 +799,23 @@ fr:
     type_information: Informations de type
     wikipedia: Wikipédia
   settings: options
+  show_date: Montrer la date de publication
   sign_in: Se connecter
   sign_up: S’inscrire
+  signature_with_contact_us_link: |-
+    Si vous rencontrez des problèmes, veuillez nous contacter à %{url}.
+
+    L’équipe de l’Encyclopédie de la vie.
+  did_not_receive_confirmation_instructions: Je n’ai pas reçu les instructions de
+    confirmation
   simple_form:
     "yes": Oui
     "no": Non
     required:
       text: obligatoire
       mark: '*'
+    error_notification:
+      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:
       defaults:
         email: Adresse électronique
@@ -704,9 +823,14 @@ fr:
         password_confirmation: Confirmation du mot de passe
         remember_me: Se souvenir de moi
         username: Nom d’utilisateur
+        bio: Biographie
       search_suggestion:
         match: chercher la chaîne correspondante
+        page_id: ID de la page sur EdlV vers laquelle rediriger (ou par laquelle filtrer)
+        synonym_of_id: ID (!) de la suggestion de recherche à plutôt utiliser
+        object_term: URI vers laquelle rediriger (ou par laquelle filtrer)
         path: chemin (complet ou relatif) de la redirection
+        wkt_string: Chaîne WKT à passer à Effechecka
   stats:
     articles: articles
     collections: collections
@@ -722,6 +846,7 @@ fr:
       reindex: réindexer
       sort: trier par
     edit:
+      header: Modification de %{uri}
       submit: Enregistrer
     fields:
       name: 'nom :'
@@ -730,23 +855,34 @@ fr:
       comment: 'commentaire :'
       sections: 'sections :'
       is_hidden_from_glossary: 'masquer dans le glossaire :'
+      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
     glossary:
+      full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
       predicate_title: Glossaire des termes des types de données sur EOL
       object_term_title: Glossaire des termes des valeurs de données sur EOL
+      units_title: Glossaire de termes d’unités pour les données de l’EdlV
     pagination:
       next: page suivante
       previous: page précédente
   terms:
+    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
+    comment_field_html: <strong>Commentaire :</strong> %{comment}
     definition_field_html: <strong>Définition :</strong> %{definition}
+    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
+    record_url: URL d’enregistrement
     scientific_name: nom scientifique
     show_all_records: afficher tous les enregistrements
     source: source
     uri_field_html: <strong>URI :</strong> %{uri}
     index:
       select_page_above: Choisir une page ci-dessus pour commencer.
+  data_definition: définition de « %{data} »
   trophic_web:
     group_descriptions:
+      competitor: concurrent de %{source_name}
+      predator: flux sur %{source_name}
       prey: mangé par %{source_name}
+      source: espèces visées
   trust:
     unreviewed: non vérifié
     trusted: fiable
@@ -756,17 +892,40 @@ fr:
     created_at: créé
     edit_account_details: Modifier les détails du compte
     email: Courriel
+    to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre
+      mot de passe actuel
     headers:
       bio: Brève biographie
       collections: Collections
       downloads: Téléchargements
       links: Liens
+    list_of_power_users: Liste des utilisateurs privilégiés
     new_password: Nouveau mot de passe
     confirm_new_password: Confirmer le nouveau mot de passe
+    showing_n_power_users:
+      one: ' Affichage ddu seul utilisateur privilégié'
+      other: ' Affichage ddes %{count} utilisateurs privilégiés'
+    trait_bank_cypher_form: formulaire de chiffrement de la banque de traits
     username: nom d’utilisateur
     update: Actualiser
     update_email: Mettre à jour l'adresse électronique
+  user_download:
+    created: Votre fichier sera traité en arrière-plan. Vérifiez votre <a href="%{url}">page
+      utilisateur</a> pour voir quand cela sera achevé.
   users:
+    account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
+      2018 :'
+    account_migration_notice: Les informations de votre compte, qui comprennent le
+      nom d’utilisateur, l’adresse de courriel associée, la description du profil
+      et les collections détenues, ont été importées sur la nouvelle EdlV. Votre nom
+      d’utilisateur est encore votre nom affiché sur le site, mais vous devez maintenant
+      vous connecter avec votre adresse de courriel. Nous n’avons pas pu migrer votre
+      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
+      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
+      Si vous vous êtes connecté en utilisant seulement un fournisseur d’identité
+      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
+      nous travaillons pour régler encore quelques problèmes avec les procédures de
+      connexion partagée.
     sign_in: Se connecter
   vernacular_names_header: Noms communs
   vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
