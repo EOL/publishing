@@ -241,6 +241,10 @@ module Eol
         "http://purl.obolibrary.org/obo/TO_0000850"
       end
 
+      def fossil_first
+        "http://eol.org/schema/terms/FossilFirst"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

@@ -280,6 +280,11 @@ class Page < ActiveRecord::Base
     native_node.ancestors
   end
 
+  def node_ancestors
+    return Node.none if native_node.nil?
+    native_node.node_ancestors
+  end
+
   def ancestry_ids
     # NOTE: compact is in there to catch rare cases where a node doesn't have a page_id (this can be caused by missing
     # data)

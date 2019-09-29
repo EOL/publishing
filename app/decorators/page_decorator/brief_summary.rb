@@ -9,6 +9,19 @@ class PageDecorator
 
     FLOWER_VISITOR_LIMIT = 4
 
+    ANC_PAGE = Struct.new(:id, :name)
+
+    # XXX: This needs to be fixed ASAP. We shouldn't be relying on page ids to identify these, as those could change.
+    ABOVE_FAMILY_ANC_PAGES = [
+      ANC_PAGE.new(1, "Animals"),
+      ANC_PAGE.new(288, "Bacteria"),
+      ANC_PAGE.new(42430800, "Plants"),
+      ANC_PAGE.new(5559, "Fungi"),
+      ANC_PAGE.new(7920, "Archaea"),
+      ANC_PAGE.new(5006, "Viruses"),
+      ANC_PAGE.new(2915041, "Amoebas")
+    ]
+
     def initialize(page, view)
       @page = page
       @view = view
@@ -20,13 +33,17 @@ class PageDecorator
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
       # There's really nothing to do if there's no minimal ancestor:
-      if !a1.nil?
-        if is_family?
-          family
-        elsif is_genus?
-          genus
-        elsif is_species?
-          species
+      if is_above_family?
+        above_family
+      else
+        if !a1.nil?
+          if is_family?
+            family
+          elsif is_genus?
+            genus
+          elsif is_species?
+            species
+          end
         end
       end
 
@@ -54,6 +71,28 @@ class PageDecorator
         Eol::Uris::Iucn.nt, 
         Eol::Uris::Iucn.vu
       ]
+
+      def is_above_family?
+        @page.rank.present? && Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
+      end
+
+      def above_family
+        anc_page_ids = Set.new(@page.node_ancestors.includes(:ancestor).pluck("page_id"))
+
+        anc = ABOVE_FAMILY_ANC_PAGES.find do |a|
+          anc_page_ids.include?(a.id)
+        end
+
+        if anc
+          @sentences << "#{@page.name} is a group of #{view.link_to(anc.name, view.page_path(anc.id))}."
+        end
+
+        first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
+
+        if first_appearance_trait
+          term_sentence("This group has been around since the %s", first_appearance_trait)
+        end
+      end
 
       # [name clause] is a[n] [A1] in the family [A2].
       def species
@@ -524,6 +563,10 @@ class PageDecorator
           trait[:predicate][:uri], 
           trait[:object_term][:uri]
         )
+      end
+
+      def trait_sentence(format_str, trait)
+        @sentences << trait_sentence_part(format_str, trait)
       end
   end
 end
