@@ -60,7 +60,10 @@ class PageDecorator
       ]
 
       def is_above_family?
-        @page.rank.present? && Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
+        @page.native_node.present? &&
+        @page.native_node.any_landmark? &&
+        @page.rank.present? && 
+        Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
       end
 
       def above_family

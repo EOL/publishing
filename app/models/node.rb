@@ -122,6 +122,10 @@ class Node < ActiveRecord::Base
     .limit(limit)
   end
 
+  def any_landmark?
+    landmark.present? && !no_landmark?
+  end
+
   def siblings
     parent&.children&.reject { |n| n == self } || []
   end
