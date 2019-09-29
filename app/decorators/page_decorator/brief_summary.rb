@@ -9,19 +9,6 @@ class PageDecorator
 
     FLOWER_VISITOR_LIMIT = 4
 
-    ANC_PAGE = Struct.new(:id, :name)
-
-    # XXX: This needs to be fixed ASAP. We shouldn't be relying on page ids to identify these, as those could change.
-    ABOVE_FAMILY_ANC_PAGES = [
-      ANC_PAGE.new(1, "Animals"),
-      ANC_PAGE.new(288, "Bacteria"),
-      ANC_PAGE.new(42430800, "Plants"),
-      ANC_PAGE.new(5559, "Fungi"),
-      ANC_PAGE.new(7920, "Archaea"),
-      ANC_PAGE.new(5006, "Viruses"),
-      ANC_PAGE.new(2915041, "Amoebas")
-    ]
-
     def initialize(page, view)
       @page = page
       @view = view
@@ -77,20 +64,14 @@ class PageDecorator
       end
 
       def above_family
-        anc_page_ids = Set.new(@page.node_ancestors.includes(:ancestor).pluck("page_id"))
-
-        anc = ABOVE_FAMILY_ANC_PAGES.find do |a|
-          anc_page_ids.include?(a.id)
-        end
-
-        if anc
-          @sentences << "#{@page.name} is a group of #{view.link_to(anc.name, view.page_path(anc.id))}."
+        if a1.present?
+          @sentences << "#{@page.name} is a group of #{a1}."
         end
 
         first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          term_sentence("This group has been around since the %s", first_appearance_trait)
+          trait_sentence("This group has been around since the %s", first_appearance_trait)
         end
       end
 
