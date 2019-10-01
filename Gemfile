@@ -101,6 +101,7 @@ gem 'rubyzip', '~> 2.0'
 gem 'searchkick', '~> 3'
 # Simplify Forms:
 gem 'simple_form'
+
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus'
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
