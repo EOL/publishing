@@ -275,3 +275,29 @@ WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
 RETURN COUNT (DISTINCT r)
 LIMIT 1;
 ```
+
+## Taxa marked both extant and extinct
+
+```
+WITH 'http://eol.org/schema/terms/ExtinctionStatus' AS uri
+MATCH (p:Page)-[:trait]->(t:Trait)-[:predicate]->
+      (:Term {uri: uri}),
+      (t)-[:object_term]->(o:Term)
+WITH p, COLLECT(DISTINCT o.uri) AS values
+WHERE SIZE(values) > 1
+RETURN p.page_id, p.canonical
+LIMIT 100
+```
+
+## Extinct taxa with extant descendants
+
+```
+WITH 'http://eol.org/schema/terms/ExtinctionStatus' AS status
+MATCH (d:Page)-[:parent*0..]->(a:Page),
+      (a)-[:trait]->(at:Trait)-[:predicate]->(:Term {uri: status}),
+      (at)-[:object_term]->(:Term {uri: 'http://eol.org/schema/terms/extinct'}),
+      (d)-[:trait]->(dt:Trait)-[:predicate]->(:Term {uri: status}),
+      (dt)-[:object_term]->(:Term {uri: 'http://eol.org/schema/terms/extant'})
+RETURN a.page_id, a.canonical, d.page_id, d.canonical
+LIMIT 100
+```
