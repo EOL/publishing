@@ -96,7 +96,7 @@ gem 'rack-cors', require: 'rack/cors'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
-gem 'rubyzip'
+gem 'rubyzip', '~> 2.0'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 3'
 # Simplify Forms:
