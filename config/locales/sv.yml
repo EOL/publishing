@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Pyscowicz
 # Author: WikiPhoenix
 ---
 sv:
@@ -206,9 +207,31 @@ sv:
       viruses: Virus
       worms: Maskar
   forgot_your_password: Glömt ditt lösenord?
-  language: 'Språk:'
+  language: Språk
   languages:
     none: Ospecificerad
+    bg: Bulgariska
+    da: Danska
+    de: Tyska
+    en: Engelska
+    et: Estniska
+    fi: Finska
+    fr: Franska
+    ga: Iriska
+    hr: Kroatien
+    hy: Armenien
+    it: Italienska
+    ja: Japanska
+    jp: Japanska
+    ka: Georgien
+    ko: Koreanska
+    lt: Litauen
+    lv: Lettiska
+    mk: Makedonska
+    mn: Mongoliet
+    se: Nordsamiska
+    sv: Svenska
+    vi: Vietnamesisk
   layout_sign_in: Logga in
   layout_sign_up: Registrera
   layout_sign_out: Logga ut
