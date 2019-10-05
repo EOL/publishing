@@ -108,10 +108,10 @@ fr:
     faire apparaître ici.
   collection_associations_title: Collections associées
   collection_collected_pages_media_remove: 'Supprimer les images de la collection
-    (les modifications prennent effet immédiatement) :'
+    (les modifications prennent effet immédiatement) :'
   collection_created: Nouvelle collection « %{name} » créée.
   collection_created_for_association: « %{associated} » ajouté à la nouvelle collection
-    <a href='%{link}'>« %{name} »</a>.
+    <a href="%{link}">« %{name} »</a>.
   collection_user_is_admin: Cet utilisateur est un administrateur.
   collection_pages_empty: Cette collection ne contient pas de page. Essayez de cliquer
     sur le bouton « collecter » sur les pages d’espèce pour ajouter certains éléments !
@@ -119,7 +119,7 @@ fr:
     admins:
       header: Utilisateurs qui peuvent modifier cette collection (les changements
         prennent effet immédiatement)
-      label: 'Ajouter un utilisateur qui peut modifier cette collection :'
+      label: 'Ajouter un utilisateur qui peut modifier cette collection :'
       placeholder: nom complet ou nom d’utilisateur
     actions:
       associate: associer
@@ -161,16 +161,16 @@ fr:
     sort:
       hierarchy: hiérarchie
       position: date ajoutée
-      sci_name: noms scientifiques, A-Z
-      sci_name_rev: noms scientifiques, Z-A
-      sort_field: annotation, A-Z
-      sort_field_rev: annotation, Z-A
+      sci_name: noms scientifiques, A–Z
+      sci_name_rev: noms scientifiques, Z–A
+      sort_field: annotation, A–Z
+      sort_field_rev: annotation, Z–A
     updated: La collection a été mise à jour.
   collection_unauthorized_edit: Seul l’utilisateur propriétaire peut modifier cette
     collection.
   complete_registration: Veuillez poursuivre votre inscription
-  content_appears_on: 'Inclus dans les pages suivantes :'
-  content_collected_in: 'Mis en vedette dans les collections suivantes :'
+  content_appears_on: 'Inclus dans les pages suivantes :'
+  content_collected_in: 'Mis en vedette dans les collections suivantes :'
   content_attributions_header: Informations de provenance
   content_attributions_labels:
     altitude: altitude
@@ -194,11 +194,11 @@ fr:
       one: Référence
       other: Références
     resource_label: site partenaire
-    resource_pk: '(id: %{key})'
+    resource_pk: '(id : %{key})'
     rights_statement: déclaration des droits
     source: source
     spatial_location: spatial
-    view_source_label: d’origine
+    view_source_label: original
     view_source_link: afficher l’image d’origine
     view_source_page_link: visiter la source
   content_not_in_any_collection_image: Cette image ne figure dans aucune collection.
@@ -209,22 +209,22 @@ fr:
       sex_term: Sexe de l’organisme mesuré
       lifestage_term: Étape de vie mesuré de l’organisme
       statistical_method_term: Méthode statistique utilisée pour les mesures
-  data_missing: '(données manquantes, clés : %{keys})'
-  dear_username_with_comma: '{{GENDER:%{username}}}|Cher|Chère}} %{username},'
+  data_missing: '(données manquantes, clés : %{keys})'
+  dear_username_with_comma: Cher/chère %{username},
   delete_account_button: Supprimer votre compte
   filter_by_license: licence
-  filter_by_license_any_item: n'importe quelle licence
+  filter_by_license_any_item: n’importe quelle licence
   filter_by_medium_subtype: type
-  filter_by_medium_any_item: n'importe quel type
+  filter_by_medium_any_item: n’importe quel type
   filter_by_resource: fournisseur
-  filter_by_resource_any_item: n'importe quel fournisseur
+  filter_by_resource_any_item: n’importe quel fournisseur
   filters:
     filter_by_attribute: filtrer par attribut
     filter_by_language: filtrer par langue
     filter_by_provider: filtrer par fournisseur
   footer:
     eol_info:
-      citing_eol: Comment citer EOL
+      citing_eol: Comment citer l’EdlV
       contact_us: Nous contacter
       data_services: Services de données
       donate: Faire un don
@@ -232,14 +232,14 @@ fr:
       glossary: Glossaire
       help: Aide
       terms_of_use: Conditions d’utilisation
-      the_eol_forum: Le forum EdV
-      what_is_eol: Qu’est-ce que l’EdV ?
-      whats_new: Quoi de neuf
+      the_eol_forum: Le forum EdlV
+      what_is_eol: Qu’est-ce que l’EdlV ?
+      whats_new: Quoi de neuf ?
     discover:
       algae: Algues
       amphibians: Amphibiens
       animals: Animaux
-      archaea: Archaea
+      archaea: Archées
       bacteria: Bactéries
       birds: Oiseaux
       crustaceans: Crustacés
@@ -253,211 +253,211 @@ fr:
       mushrooms: Champignons
       mollusks: Mollusques
       plants: Plantes
-      protists: Protozoaires
+      protists: Protistes
       reptiles: Reptiles
       spiders: Araignées
       trees: Arbres
       viruses: Virus
       worms: Vers
-    eol_is_hosted_by: 'EdV est hébergé par :'
+    eol_is_hosted_by: 'L’EdlV est hébergée par :'
   forgot_your_password: Mot de passe oublié ?
   landing_page:
-    header: Accès global à la connaissance sur la vie sur Terre.
+    header: Accès global à la connaissance sur la vie sur Terre
     stats_cleared: Les statistiques ont été recalculées.
   language: Langue
   languages:
     none: Non spécifié
-    aa: Afar
-    ab: Abkhaze
-    ae: Avestique
-    af: Afrikaans
-    ak: Akan
-    am: Amharique
+    aa: afar
+    ab: abkhaze
+    ae: avestique
+    af: afrikaans
+    ak: akan
+    am: amharique
     an: Aragonais
     ar: Arabe
-    as: Assamais
-    av: Avar
-    ay: Aymara
-    az: Azéri
-    ba: Bachkir
-    be: Biélorusse
-    bg: Bulgare
-    bh: Langues bihari
-    bi: Bichelamar
-    bm: Bambara
-    bn: Bengali
-    bo: Tibétain
-    br: Breton
-    bs: Bosnien
-    ca: Catalan ; Valencien
-    ce: Tchétchène
-    ch: Chamorro
-    co: Corse
-    cr: Cris
+    as: assamais
+    av: avar
+    ay: aymara
+    az: azéri
+    ba: bachkir
+    be: biélorusse
+    bg: bulgare
+    bh: langues bihari
+    bi: bichelamar
+    bm: bambara
+    bn: bengali
+    bo: tibétain
+    br: breton
+    bs: bosnien
+    ca: catalan ; valencien
+    ce: tchétchène
+    ch: chamorro
+    co: corse
+    cr: cri
     cs: Tchèque
-    cu: Slave d’église ; vieux slavon ; slavon d’église ; vieux bulgare ; vieux slavon
-      d’église
-    cv: Tchouvache
-    cy: Gallois
-    da: Danois
+    cu: slave d’église ; vieux slavon ; slavon d’église ; vieux bulgare ; vieux slavon
+      liturgique
+    cv: tchouvache
+    cy: gallois
+    da: danois
     de: Allemand
-    dv: Divehi ; Maldivien
-    dz: Dzongkha
-    dzo: Dzongkha
-    ee: Éwé
-    el: Grec moderne (1453-)
-    en: Anglais
+    dv: divehi ; maldivien
+    dz: dzongkha
+    dzo: dzongkha
+    ee: éwé
+    el: grec moderne (1453–)
+    en: anglais
     eo: Espéranto
-    es: Espagnol ; Castillan
-    et: Estonien
-    eu: Basque
-    fa: Persan
-    ff: Peul
-    fi: Finnois
-    fj: Fidjien
-    fo: Féroïen
-    fr: Français
-    fy: Frison occidental
-    ga: Irlandais
-    gd: Gaélique ; Gaélique écossais
-    gl: Galicien
-    gn: Guarani
-    gu: Gujarati
-    gv: Mannois
-    ha: Haoussa
+    es: espagnol ; castillan
+    et: estonien
+    eu: basque
+    fa: persan
+    ff: peul
+    fi: finnois
+    fj: fidjien
+    fo: féroïen
+    fr: français
+    fy: frison occidental
+    ga: irlandais
+    gd: gaélique ; gaélique écossais
+    gl: galicien
+    gn: guarani
+    gu: gouderati
+    gv: mannois
+    ha: haoussa
     he: Hébreu
-    hi: Hindi
-    ho: Hiri motu
+    hi: hindi
+    ho: hiri motu
     hr: Croate
-    ht: Haïtien ; créole haïtien
-    hu: Hongrois
-    hy: Arménien
-    hz: Héréro
-    ia: Interlingua (Association internationale de langue auxiliaire)
-    id: Indonésien
-    ie: Interlingua ; Occidental
-    ig: Igbo
-    ii: Yi du Sichuan ; langue Nuosu
-    ik: Inupiaq
-    io: Ido
-    is: Islandais
-    it: Italien
-    iu: Inuktitut
-    ja: Japonais
-    jv: Javanais
-    jp: Japonais
+    ht: haïtien ; créole haïtien
+    hu: hongrois
+    hy: arménien
+    hz: héréro
+    ia: interlingua (Association internationale de langue auxiliaire)
+    id: indonésien
+    ie: interlingua ; occidental
+    ig: igbo
+    ii: yi du Sichuan ; nuosu
+    ik: inupiaq
+    io: ido
+    is: islandais
+    it: italien
+    iu: inuktitut
+    ja: japonais
+    jv: javanais
+    jp: japonais
     ka: Géorgien
-    kg: Kikongo
-    ki: Kikuyu
-    kj: Kuanyama
-    kk: Kazakh
-    kl: Kalaallisut ; Groenlandais
-    km: Khmer central
-    kn: Kannada
-    ko: Coréen
-    kr: Kanouri
-    ks: Cachemiri
-    ku: Kurde
-    kv: Komi
-    kw: Cornique
-    ky: Kirghize
-    la: Latin
-    lb: Luxembourgeois ; Letzeburgesch
-    lg: Luganda
-    li: Limbourgeois
-    ln: Lingala
-    lo: Lao
-    lt: Lituanien
-    lu: Luba-katanga
-    lv: Letton
-    mg: Malgache
-    mh: Marshallais
-    mi: Maori de Nouvelle-Zélande
+    kg: kikongo
+    ki: kikuyu ; gikuyu
+    kj: kuanyama ; kwanyama
+    kk: kazakh
+    kl: kalaallisut ; groenlandais
+    km: khmer central
+    kn: kannara
+    ko: coréen
+    kr: kanouri
+    ks: cachemiri
+    ku: kurde
+    kv: komi
+    kw: cornique
+    ky: kirghize
+    la: latin
+    lb: luxembourgeois
+    lg: ganda ; luganda
+    li: limbourgeois
+    ln: lingala
+    lo: lao
+    lt: lituanien
+    lu: luba-katanga
+    lv: letton
+    mg: malgache
+    mh: marshallais
+    mi: maori
     mk: Macédonien
-    ml: Malayalam
-    mn: Mongol
-    mr: Marathi
-    ms: Malais
-    mt: Maltais
-    my: Birman
-    na: Nauru
-    nb: Bokmål, Norvégien
-    nd: Ndébélé du Zimbabwe
-    ne: Népalais
-    ng: Ndonga
-    nl: Néerlandais ; Flamand
-    nn: Nynorsk, Norvégien
-    "": Norvégien
-    nr: Ndébélé du Transvaal
-    nv: Navajos
-    ny: Chewa ; Nyanja
-    oc: Occitan (après 1500)
-    oj: Ojibwés
-    om: Oromo
-    or: Oriya
-    os: Ossète
-    pa: Pendjabi
-    pi: Pali
-    pl: Polonais
-    ps: Pachto
-    pt: Portugais
-    qu: Quechua
-    rm: Romanche
-    rn: Kirundi
-    ro: Roumain ; Moldave
-    ru: Russe
-    rw: Kinyarwanda
-    sa: Sanscrit
+    ml: malayalam
+    mn: mongol
+    mr: marathi
+    ms: malais
+    mt: maltais
+    my: birman
+    na: nauru
+    nb: bokmål, norvégien ; norvégien bokmål
+    nd: ndébélé du Nord
+    ne: népalais
+    ng: ndonga
+    nl: néerlandais ; flamand
+    nn: norvégien nynorsk ; nynorsk, norvégien
+    "": norvégien
+    nr: ndébélé du Sud
+    nv: navajo ; navaho
+    ny: chewa ; chichewa ; nyanja
+    oc: occitan (après 1500)
+    oj: ojibwé
+    om: oromo
+    or: odiya
+    os: ossète
+    pa: pendjabi
+    pi: pali
+    pl: polonais
+    ps: pachto ; pachtoune
+    pt: portugais
+    qu: quechua
+    rm: romanche
+    rn: roundi
+    ro: roumain ; moldave
+    ru: russe
+    rw: kinyarwanda
+    sa: sanskrit
     sc: Sarde
-    sd: Sindhi
-    se: Same du nord
-    sg: Sango
-    si: Cingalais
-    sk: Slovaque
-    sl: Slovène
-    sm: Samoan
-    sn: Shona
-    so: Somali
+    sd: sindhi
+    se: same du Nord
+    sg: sango
+    si: cinghalais
+    sk: slovaque
+    sl: slovène
+    sm: samoan
+    sn: shona
+    so: somali
     sq: Albanie
-    sr: Serbe
-    ss: Swati
-    st: Sotho du sud
-    su: Soundanais
-    sv: Suédois
-    sw: Swahili
-    ta: Tamoul
-    te: Télougou
-    tg: Tadjik
-    th: Thaï
-    ti: Tigrigna
-    tk: Turkmène
-    tl: Tagalog
-    tn: Tswana
-    to: Tonga (îles Tonga)
-    tr: Turc
-    ts: Tsonga
+    sr: serbe
+    ss: swati
+    st: sotho du Sud
+    su: soundanais
+    sv: suédois
+    sw: swahili
+    ta: tamoul
+    te: télougou
+    tg: tadjik
+    th: thaï
+    ti: tigrigna
+    tk: turkmène
+    tl: tagalog
+    tn: tswana
+    to: tongan (îles Tonga)
+    tr: turc
+    ts: tsonga
     tt: Tatar
-    tw: Twi
-    ty: Tahitien
-    ug: Ouïghour
-    uk: Ukrainien
-    ur: Ourdou
-    uz: Ouzbek
-    ve: Venda
+    tw: twi
+    ty: tahitien
+    ug: ouïghour
+    uk: ukrainien
+    ur: ourdou
+    uz: ouzbek
+    ve: venda
     vi: Vietnamien
-    vo: Volapük
-    wa: Wallon
-    wo: Wolof
-    xh: Xhosa
-    yi: Yiddish
-    yo: Yoruba
-    za: Zhuang
-    zh: Chinois
-    zu: Zoulou
+    vo: volapük
+    wa: wallon
+    wo: wolof
+    xh: xhosa
+    yi: yiddish
+    yo: yoruba
+    za: zhuang
+    zh: chinois
+    zu: zoulou
   layout_sign_in: Se connecter
   layout_sign_up: S’inscrire
   layout_sign_out: Déconnexion
-  literature_and_references_header: Références bibliographiques
+  literature_and_references_header: Bibliographie et références
   maps:
     empty: Il n’y a pas de cartes disponibles pour cette page.
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
@@ -482,7 +482,7 @@ fr:
       map: carte
       js_map: carte interactive
   medium_collect_button: collecter les médias
-  medium_description_blank: Il n’y a pas de description fournie pour cet objet.
+  medium_description_blank: Il n’y a aucune description fournie pour cet objet.
   medium_header_title: 'Titre :'
   medium_header_description: 'Description :'
   names:
@@ -490,19 +490,19 @@ fr:
       one: masquer une langue
       other: masquer %{count} langues
     prefer: préférer
-    preferred_in_language_for_page: '%{name} est maintenant le %{language} vernaculaire
-      pour %{page}'
+    preferred_in_language_for_page: '%{name} est maintenant le nom vernaculaire préféré
+      en %{language} pour %{page}'
     show_more_langs:
       one: afficher une langue supplémentaire
       other: afficher %{count} langues supplémentaires
   nav:
     about: À propos
-    discuss: Discussions
+    discuss: Discuter
     education: Éducation
     search:
       no_results_html: <strong>Aucun résultat confirmé</strong><br />Taper Entrée
         pour voir les résultats non supervisés
-      placeholder: Recherche dans l’EdV…
+      placeholder: Recherche dans l’EdlV...
     trait_bank: TraitBank
   name_preferred_label: préféré
   page_icon_counts:
@@ -511,8 +511,8 @@ fr:
       other: Meilleure image pour les pages
   page_icon_created: Image « %{name} » déplacée en haut.
   page_title: Encyclopédie de la Vie
-  page_title_search: 'Recherche : %{query}'
-  page_vernaculars_empty: Il n’y a pas de nom commun associé avec ce taxon.
+  page_title_search: 'Recherche : %{query}'
+  page_vernaculars_empty: Il n’y a aucun nom commun associé avec ce taxon.
   pages:
     actions:
       collect: recueillir
@@ -524,8 +524,8 @@ fr:
     batch_lookup:
       header: recherche de pages par lot
       canonical_name: nom canonique
-      download_tsv: Télécharger le format TSV
-      match: correspond
+      download_tsv: Télécharger au format TSV
+      match: correspondance
       new_search: nouvelle recherche
       page_id: ID de page
       page_url: URL de la page
@@ -534,21 +534,21 @@ fr:
       search: chercher
     overview:
       eol_has_data_for_n_attributes_including_html:
-        one: 'EdV a des données pour <a href="%{data_path}">un attribut</a> :'
-        other: 'EdV a des données pour <a href="%{data_path}">%{count} attributs</a>,
-          comprenant :'
+        one: 'L’EdlV a des données pour <a href="%{data_path}">un attribut</a> :'
+        other: 'L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>,
+          dont :'
       eol_has_data_for_n_attributes_html:
-        one: EdV a une donnée pour <a href="%{data_path}">un attribut</a>.
-        other: Edv a des données pour <a href="%{data_path}">%{count} attributs</a>.
+        one: L’EdlV a une donnée pour <a href="%{data_path}">un attribut</a>.
+        other: L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>.
     filter_menu:
       show_all: tout afficher
     page_data:
       n_hidden_show_all:
-        one: 1 “%{pred_name}” enregistrement caché — montrer tout
-        other: '%{count} “%{pred_name}” enregistrements cachés — montrer tout'
+        one: 1 enregistrement « %{pred_name} » caché – montrer tout
+        other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
       show_all: tout afficher
     trophic_web:
-      globi_credit_html: données de <a href='%{url}'>GloBI</a>
+      globi_credit_html: données de <a href="%{url}">GloBI</a>
       reset: réinitialiser
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
@@ -560,7 +560,7 @@ fr:
       articles: articles
       classifications: classifications
       data: données
-      literature_and_references: littérature & références
+      literature_and_references: littérature et références
       overview: vue d’ensemble
       maps: cartes
       media: média
@@ -591,8 +591,8 @@ fr:
   name_recognized_by: Reconnu par %{by}
   name_recognized_by_rank: '%{rank} reconnu par %{by}'
   ranks:
-    NOTE: les rangs ne sont pas traduits. Ils doivent être traités en verbatim. N’essayez
-      pas de faire cela. :)
+    NOTE: Les rangs ne sont pas traduits. Ils devraient être traités en verbatim.
+      N’essayez pas de faire cela. :)
   recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
   reference_compiled_from: Référencé par %{links}
@@ -605,11 +605,9 @@ fr:
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
-      show_all:
-        other: montrer tout (%{count})
-      show_warns:
-        one: afficher l’avertissement (%{count})
-        other: afficher les avertissements (%{count})
+      show_all: montrer tout{{PLURAL:%{count}|}} (%{count})
+      show_warns: afficher {{PLURAL:%{count}|one=l’avertissement|les avertissements}}
+        (%{count})
       sync: synchroniser avec le dépôt
       fetch_relationships: récupérer les relations
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
@@ -624,25 +622,19 @@ fr:
         et les rajoute, mais cela peut échouer et les supprimer toutes. Cela prend
         environ une minute. Êtes-vous sûr ?
       clear_publishing: effacer le verrou
-      clear_publishing_confirm: Cela 'terminera' toutes les publications, et peut
+      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
         sûr ?
     headers:
       index: Ressources
       import_log: Importer le journal pour %{resource}
     index:
-      locked_jobs:
-        zero: aucun travail en cours
-        one: 1 travail en cours
-        other: '%{count} travaux en cours'
-      jobs:
-        zero: aucun travail en attente
-        one: 1 travail en attente
-        other: '%{count} travaux en attente'
-      harvest_jobs:
-        zero: rien à publier
-        one: 1 publication en attente
-        other: '%{count} à publier'
+      locked_jobs: '{{PLURAL:%{count}|zero=aucun travail|one=1 travail|%{count} travaux}}
+        en cours'
+      jobs: '{{PLURAL:%{count}|zero=aucun travail en attente|one=1 travail en attente|%{count}
+        travaux en attente}}'
+      harvest_jobs: '{{PLURAL:%{count}|zero=rien à publier|one=une publication en
+        attente|%{count} à publier}}'
     no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
@@ -660,66 +652,52 @@ fr:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}
       more_than_two_terms: 'Impossible de combiner les résultats pour plus de deux
-        termes : %{terms}'
+        termes : %{terms}'
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
-    n_collections:
-      one: '%{count} collection'
-      other: '%{count} collections'
-    n_images:
-      one: '%{count} image'
-      other: '%{count} images'
-    n_results:
-      zero: Aucun résultat
-      one: '%{count} résultat'
-      other: '%{count} résultats'
+    n_collections: '{{PLURAL:%{count}|zero=Aucune|one=Une|%{count}}} image{{PLURAL:%{count}|zero=|one=|s}}'
+    n_images: '{{PLURAL:%{count}|zero=Aucune|one=Une|%{count}}} image{{PLURAL:%{count}|zero=|one=|s}}'
+    n_results: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} résultat{{PLURAL:%{count}|zero=|one=|s}}'
     n_sounds:
-      one: '%{count} son'
-      other: '%{count} sons'
+      other: '%{count} sonone='
     n_taxon_pages:
-      one: '%{count} page de taxon'
-      other: '%{count} pages de taxon'
+      other: '%{count} pageone= de taxon'
     n_users:
-      one: '%{count} utilisateur'
-      other: '%{count} utilisateurs'
+      other: '%{count} utilisateurone='
     n_videos:
-      one: '%{count} vidéo'
-      other: '%{count} vidéos'
+      other: '%{count} vidéoone='
     n_terms:
-      one: '%{count} période'
-      other: '%{count} périodes'
+      other: '%{count} périodeone='
   search_results:
     collection_page_count:
       one: '%{count} page'
       other: '%{count} pages'
     collection_page_count_and_users:
-      one: '%{count} page ; maintenu par %{users_sentence}'
-      other: '%{count} pages ; maintenues par %{users_sentence}'
+      other: '%{count} pageone= ; maintenueone= par %{users_sentence}'
     collected_media:
-      title: 'médias collectés depuis cette page :'
+      title: 'médias collectés depuis cette page :'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
     medium_sound: Son
     medium_video: Vidéo
-    medium_title_article_html: 'Article : <span class=''sub''>%{title}</span>'
-    medium_title_image_html: 'Image : <span class=''sub''>%{title}</span>'
-    medium_title_map_html: 'Carte : <span class=''sub''>%{title}</span>'
-    medium_title_sound_html: 'Audio : <span class=''sub''>%{title}</span>'
+    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
+    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
+    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
+    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
     medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
     field_matches:
-      description: 'correspond à la description :'
-      resource_pk: 'correspond à l’ID externe :'
-      bio: 'correspond à la biographie :'
-      tag_line: 'correspond à la ligne balisée :'
+      description: 'correspond à la description :'
+      resource_pk: 'correspond à l’ID externe :'
+      bio: 'correspond à la biographie :'
+      tag_line: 'correspond à la ligne balisée :'
       resources:
-        one: 'correspond à la ressource :'
-        other: 'correspond aux ressources :'
+        one: 'correspond à la ressources :'
+        other: "correspond aux ressource\x7FUNIQ6f3ece433c60c4a8-212 :"
       synonyms:
-        one: 'correspond au synonyme :'
-        other: 'correspond aux synonymes :'
+        other: 'correspond au synonymeone= synonymeone= :'
       vernaculars:
         one: 'correspond au nom usuel :'
         other: 'correspond aux noms usuels :'
@@ -738,7 +716,7 @@ fr:
         other: '%{count} utilisateurone='
     collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
-      n_articles: '{{PLURIEL|one=1 ARTICLE|%{count} ARTICLES}}'
+      n_articles: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} article{{PLURAL:%{count}|zero=|one=|s}}'
       n_data:
         other: '%{count} DONNÉEone='
       n_media:
@@ -749,7 +727,7 @@ fr:
     actions:
       create: créer une nouvelle suggestion de recherche
     created: Suggestion de recherche créée pour « %{match} »
-    destroyed: Suggestion de recherche annulée pour « %{match} »
+    destroyed: Suggestion de recherche annulée pour « %{match} »
     new:
       header: Créer une suggestion de recherche
     update:
@@ -851,15 +829,15 @@ fr:
     fields:
       name: 'nom :'
       definition: 'définition :'
-      attribution: attribution
+      attribution: 'attribution :'
       comment: 'commentaire :'
       sections: 'sections :'
       is_hidden_from_glossary: 'masquer dans le glossaire :'
       is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
     glossary:
       full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
-      predicate_title: Glossaire des termes des types de données sur EOL
-      object_term_title: Glossaire des termes des valeurs de données sur EOL
+      predicate_title: Glossaire des termes des types de données sur l’EdlV
+      object_term_title: Glossaire des termes des valeurs de données sur l’EdlV
       units_title: Glossaire de termes d’unités pour les données de l’EdlV
     pagination:
       next: page suivante
@@ -908,7 +886,7 @@ fr:
     trait_bank_cypher_form: formulaire de chiffrement de la banque de traits
     username: nom d’utilisateur
     update: Actualiser
-    update_email: Mettre à jour l'adresse électronique
+    update_email: Mettre à jour l’adresse courriel
   user_download:
     created: Votre fichier sera traité en arrière-plan. Vérifiez votre <a href="%{url}">page
       utilisateur</a> pour voir quand cela sera achevé.
@@ -929,5 +907,5 @@ fr:
     sign_in: Se connecter
   vernacular_names_header: Noms communs
   vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
-  wordcloud_credit_html: généré avec <a href='%{url}'>jQCloud</a>
+  wordcloud_credit_html: généré avec <a href="%{url}">jQCloud</a>
 ...

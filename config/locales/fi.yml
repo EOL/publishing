@@ -6,6 +6,9 @@
 ---
 fi:
   language_name: suomi
+  about:
+    trait_bank:
+      title: TraitBank
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
   advanced: edistynyt
