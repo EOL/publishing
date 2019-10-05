@@ -133,7 +133,11 @@ class PageDecorator
         # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
-        term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) if is_it_marine?
+        if is_it_marine?
+          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) 
+        elsif freshwater_trait.present?
+          term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term][:uri])
+        end
 
         # Distribution sentence: It is found in [G1].
         @sentences << "It is found in #{g1}." if g1
@@ -335,6 +339,12 @@ class PageDecorator
           @page.update_attribute(:is_marine, marine ? true : false)
           marine
         end
+      end
+
+      # TODO: unify is_it_marine? with this -- if there's a 'is_marine' attribute on models, should there be 'is_freshwater'? 
+      # Or, can we get rid of "is_marine"?
+      def freshwater_trait
+        @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
       end
 
       def has_data(options)

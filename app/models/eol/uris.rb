@@ -33,6 +33,10 @@ module Eol
         "http://purl.obolibrary.org/obo/ENVO_00000447"
       end
 
+      def freshwater
+        "http://purl.obolibrary.org/obo/ENVO_00000873"
+      end
+
       def terrestrial
         "http://purl.obolibrary.org/obo/ENVO_00000446"
       end
