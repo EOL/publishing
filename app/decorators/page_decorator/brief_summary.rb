@@ -38,7 +38,7 @@ class PageDecorator
       plant_description_sentence
       flower_visitor_sentence
 
-      if !is_family? && !is_genus?
+      if is_species?
         behavioral_sentence
         lifespan_sentence
       end
