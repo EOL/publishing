@@ -58,7 +58,8 @@ fr:
   classifications:
     children:
       header_html:
-        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
+        one: "%{name} inclut <a href='%{names_path}'>%{count} enfant:</a>"
+        other: "%{name} inclut <a href='%{names_path}'>%{count} enfants</a>:"
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
