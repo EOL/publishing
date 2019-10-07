@@ -240,6 +240,7 @@ sv:
     untitled:
       image: Namnlös bild
       video: Namnlös video
+      video_of: Video av %{page_name}
       sound: Namnlöst ljud
       map: Namnlös arta
     subclasses:
@@ -294,13 +295,14 @@ sv:
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
       reset: återställ
     tabs:
-      classifications: Klassificeringar
-      data: Data
-      literature_and_references: Referenser
-      overview: Hem
-      maps: Kartor
-      media: Media
-      names: Namner
+      articles: artiklar
+      classifications: klassificeringar
+      data: data
+      literature_and_references: litteratur och referenser
+      overview: översikt
+      maps: kartor
+      media: media
+      names: namn
     iucn_status:
       label: 'IUCN-status:'
       ex: utdöd (EX)
