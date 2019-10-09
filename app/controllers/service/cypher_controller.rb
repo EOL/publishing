@@ -24,23 +24,22 @@ class Service::CypherController < ServicesController
     # at least when accidental.  We don't expect these permission
     # checks to provide security against a concerted attack.
 
-    return render_bad_request(title: "Please provide a LIMIT clause") unless
+    return render_bad_request(title: "Please provide a LIMIT clause.") unless
       cypher =~ /\b(limit)\b/i
-    return render_bad_request(title: "Cypher operation not permitted via service") if
-      cypher =~ /\b(delete|remove|call)\b/i
       
     # Authenticate the user and authorize the requested operation, 
     # using the API token and the information in the user table.
     # Non-admin users are not supposed to add to the database.
     
-    if cypher =~ /\b(create|set|merge|load)\b/i
-      # Allow admin to add to graph
+    if cypher =~ /\b(create|set|merge|load|delete|remove|call)\b/i
+      # Allow admin to add to graph and perform dangerous operations
       user = authorize_admin_from_token!
+      return nil unless user
     elsif
       # Power users can only read
       user = authorize_user_from_token!
+      return nil unless user
     end
-    return nil unless user
 
     # Do the query or command
     render_results(TraitBank.query(cypher), format)
