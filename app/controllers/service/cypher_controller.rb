@@ -35,7 +35,7 @@ class Service::CypherController < ServicesController
       # Allow admin to add to graph and perform dangerous operations
       user = authorize_admin_from_token!
       return nil unless user
-    elsif
+    else
       # Power users can only read
       user = authorize_user_from_token!
       return nil unless user
@@ -93,3 +93,35 @@ end            # end class
 
 
 
+=begin
+
+I didn't know where to put tests, and these take a bit of setup, so
+rather than lose what might have been useful work (they did help me
+find bugs), I'm just dumping the tests here in this comment. -JAR
+
+Create three users with different authorization levels:
+
+bin/rails r 'user = User.create!({email: "qwy103@mumble.net", username: "eol3", password: "x", role: :user}); user.activate'
+bin/rails r 'user = User.create!({email: "qwy104@mumble.net", username: "eol4", password: "x", role: :power_user}); user.activate'
+bin/rails r 'user = User.create!({email: "qwy105@mumble.net", username: "eol5", password: "x", role: :admin}); user.activate'
+
+Get the tokens for the three users:
+
+bin/rails r 'puts(ServicesController.jwt_token(User.where(email: "qwy103@mumble.net").last))'
+bin/rails r 'puts(ServicesController.jwt_token(User.where(email: "qwy104@mumble.net").last))'
+bin/rails r 'puts(ServicesController.jwt_token(User.where(email: "qwy105@mumble.net").last))'
+
+Test all nine combinations of auth level + request class:
+
+for auth in varela-user varela varela-admin; do
+  for query in "MATCH (p:Page) RETURN p.page_id" \
+               "MATCH (p:Page) RETURN p.page_id LIMIT 2" \
+               "MATCH (p:Page {page_id:0}) DELETE (p) RETURN p.page_id LIMIT 2"; do
+    echo "### Test $auth"
+    python3 doc/cypher.py --format csv \
+            --server http://127.0.0.1:3000/ --tokenfile ~/Sync/eol/$auth.token \
+            --query "$query"
+  done
+done
+
+=end
