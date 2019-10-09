@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Fitoschido
+# Author: Madamebiblio
 ---
 es:
   language_name: Inglés
@@ -79,6 +80,7 @@ es:
     latitude: latitud
     location: ubicación
     longitude: longitud
+    original_media_file: archivo multimedia original
     owner: derechos de autor
     project: proyecto
     provider: proveedor
@@ -252,12 +254,13 @@ es:
         el momento, esta acción *no* reindiza las imágenes de la página. Esa funcionalidad
         se implementará más adelante.
     tabs:
+      articles: artículos
       classifications: Clasificaciones
-      data: Datos
-      literature_and_references: Referencias
+      data: datos
+      literature_and_references: bibiografía y referencias
       overview: Inicio
-      maps: Mapas
-      names: Nombres
+      maps: mapas
+      names: nombres
     iucn_status:
       label: 'Estado según la IUCN:'
       unknown: desconocido (sin registros)

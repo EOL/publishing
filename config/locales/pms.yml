@@ -1,0 +1,397 @@
+# Messages for Piedmontese (Piemontèis)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Borichèt
+---
+pms:
+  language_name: Anglèis
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: <p>L'echip técnica e ëd gestion dij dàit ëd l'EdV a fà arferiment
+        a j'arsorse ëd dàit ëstruturà ant l'EdV- dàit ëd caraterìstiche e f'àutri
+        atribù, antërassion ecològiche e nòstra classificassion nativa, la Gerarchìa
+        ëd travaj dinàmich- ëd fasson coletiva sota 'l nòm ëd TraitBank. Ës contnù
+        a l'é gestì an manera un pò diferenta da nòstr contnù «clàssich»- plance,
+        filmà, argistrassion sonore e test descritiv- e a ven a taj për vàire còse.</p><p>TraitBank
+        a l'é pi recent che ëd rest ëd l'EdV; a l'é stàit concepì a l'adoss da la
+        diretris dl'Echip ëd Pàgine dë Spece Cynthia Parr, e a l'é stàit butà an fonsion
+        ant la version 2 ëd l'EdV an gené 2014. Da antlora ij dàit ëstruturà a son
+        ëstàit nòstra pi àuta priorità për ël dësvlup dël contnù.</p><p>Adess chiel
+        a peul <a href='%{example_search_path}'>sërché</a> o navighé ant l'EdV për
+        dàit ëstruturà, o dëscarieje, o a peul connòssje an nòstra neuva scheda ëd
+        vista general sota la forma ëd <a href='%{autogen_page_path}'>test àuto-generà</a>.
+        Parèj dël rest dël contnù ëd l'EdV, sòn a l'é disponìbil për la riutilisassion
+        e a l'ha ij dàit detajà d'atribussion an manera che chiel a peula arconòssje
+        se a-j deuvra an sò travaj.</p><p>Si dàit a son modlà tanme un <a href='%{property_graph_url}'>graf
+        ëd propietà</a> an <a href='%{neo4j_url}'>neo4j</a>. Dij <a href='%{data_services_path}'>Servissi
+        ëd dàit</a> a son ëdcò disponìbij.</p>
+  account_already_linked: sò cont a l'é già colegà a EdV
+  account_not_linked: sò cont a l'é non gropà a EdV
+  advanced: avansà
+  are_you_sure_delete_account: É-lo sigur ëd vorèj eliminé sò cont EdV?
+  article:
+    actions:
+      collect: cheuje
+    header:
+      blank: (A-i é gnun còrp për s'artìcol.)
+      body: Còrp
+      language: 'lenga: %{language}'
+      title: Tìtol
+      untitled: Sensa tìtol
+    name:
+      missing: Sensa tìtol
+  article_from_partner: fornì da %{partner}
+  article_duplicate: cost artìcol a l'é ëdcò mostra an «%{section}»
+  autocomplete:
+    see_all:
+      one: vëdde n'àutr arzultà
+      other: vëdde tuti ij %{count} arzultà
+  breadcrumbs:
+    notices:
+      canonical: Ij nòm sientìfich a saran adess ësmonù ant ël fil ëd la pàgina
+      vernacular: Ij nòm vernacolar a saran adess ësmonù ant ël fil ëd la pàgina,
+        cand a son disponìbij
+    setting_header: nòm ant ël fil
+    types:
+      scientific: sientìfich
+      vernacular: vernacolar
+  button_create: creé
+  button_add: gionté
+  cancel: anulé
+  change_my_password: Cangé mia ciav
+  change_your_password: Cangé soa ciav
+  classifications:
+    children:
+      header_html:
+        one: '%{name} a anclud <a href="%{names_path}">%{count} fieul</a>:'
+        other: '%{name} a anclud <a href="%{names_path}">%{count} fieuj</a>:'
+      see_more: vëdde ëd pi
+    hierarchies:
+      header: Gerarchìe soagnà për %{sci_name}
+      this_page: (costa pàgina-sì)
+    richness:
+      header: Richisia dla pàgina
+      score: pontegg ëd richisia
+      page_contents_count: contnù associà
+      missing: La richisia a l'é ancor nen ëstàita calcolà për costa pàgina.
+      media_count: mojen
+      articles_count: artìcoj
+      links_count: liure
+      maps_count: carte
+      data_count: dàit
+      nodes_count: neu
+      vernaculars_count: vernacolar
+      scientific_names_count: nòm sientìfich
+      referents_count: referent
+      species_count: spece
+      updated_at: agiornà l'ùltima vira
+  cms_page_date: 'Ùltima modìfica:'
+  collect_already_in_collection: (a-i é già)
+  collect_already_in_collection_will_add_icon: (gionté ël mojen a «%{page}»)
+  collect_icon_title: Gionté «%{item}» da la pàgina « %{page} » a…
+  collect_new_collection: Neuv nòm ëd colession
+  collect_new_collection_title: …na neuva colession
+  collect_no_existing_collections: A n'ha ancor gnun! Creene un an dovrand ël formolari
+    an sla snistra.
+  collect_select_collection: …un-a ëd soe colession
+  collect_title: Gionté «%{item}» a…
+  collected_page_added_to_collection: '%{page} giontà a la colession <a href=''%{link}''>%{name}</a>.'
+  collected_page_already_in_collection: A-i era già an soa colession.
+  collected_pages_title: Pàgine
+  collected_pages_medium:
+    destroyed_flash: plancia gavà da la pàgina cujìa.
+  collection_associations:
+    destroyed_flash: '%{name} a l''é pi nen associà a costa colession.'
+  collected_pages:
+    delete_button: dëscancelé
+    edit_button: modifiché
+    delete_confirm: é-lo sigur?
+    destroyed_flash: '%{name} a l''é stàit gavà da la colession.'
+  collection_association_added_to_collection: «%{associated}» giontà a la colession
+    <a href='%{link}'>«%{name}»</a>.
+  collection_associations_empty: Gnun-e àutre colession a son associà a costa-sì.
+    A peul ësgnaché an sël boton «assocé» su d'àutre colession për feje comparì ambelessì.
+  collection_associations_title: Colession associà
+  collection_collected_pages_media_remove: 'Gavé le plance da la colession (le modìfiche
+    a l''han efet imedià):'
+  collection_created: Neuva colession «%{name}» creà.
+  collection_created_for_association: «%{associated}» giontà a la neuva colession
+    <a href='%{link}'>«%{name}»</a>.
+  collection_user_is_admin: S'utent-sì a l'é n'aministrator.
+  collection_pages_empty: Sa colession-sì a conten gnun-e pàgine. Ch'a preuva a sgnaché
+    an sël boton «cheuje» an sle pàgine dë spece për gionté chèich element!
+  collection:
+    admins:
+      header: Utent ch'a peulo modifiché costa colession (le modìfiche a l'han efet
+        imedià)
+      label: 'Gionté n''utent ch''a peul modifiché costa colession:'
+      placeholder: nòm complet o stranòm
+    actions:
+      associate: assocé
+      download_taxa_csv: dëscarié ël CSV dle tassonomìe
+      delete: dëscancelé
+      edit: modifiché
+    collection_type:
+      normal: normal
+      gallery: galarìa
+    delete_confirm: Sòn a eliminërà la colession antrega e as PEUL NEN anulesse. É-lo
+      sigur?
+    destroyed: «%{name}» a l'é stàit eliminà ëd fasson përmanenta.
+    pages_count:
+      one: 1 pàgina
+      other: '%{count} pàgine'
+    log:
+      associated_collection:
+        add: '%{user} a l''ha giontà n''associassion a la colession %{associated}'
+        remove: '%{user} a l''ha gavà l''associassion a la colession %{associated}'
+      collection:
+        add: '%{user} a l''ha creà la colession'
+        change: '%{user} a l''ha modificà %{field} da «%{from}» a «%{to}»'
+      content:
+        add: '%{user} a l''ha giontà ël mojen %{medium} për la pàgina %{page}'
+        change: '%{user} a l''ha modificà %{field} an sël mojen %{medium} për la pàgina
+          %{page} da «%{from}» a «%{to}»'
+        remove: '%{user} a l''ha gavà ël mojen %{medium} për la pàgina %{page}'
+      page:
+        add: '%{user} a l''ha giontà la pàgina %{page}'
+        change: '%{user} a l''ha modificà %{field} an sla pàgina %{page} da «%{from}»
+          a «%{to}»'
+        remove: '%{user} a l''ha gavà la pàgina %{page}'
+      user:
+        add: '%{user} a l''ha giontà ël mansé %{manager}'
+        remove: '%{user} a l''ha gavà ël mansé %{manager}'
+    search:
+      placeholder: Sërché ant la colession…
+      submit: sërché
+    sort:
+      hierarchy: gerarchìa
+      position: dàita giontà
+      sci_name: nòm sientìfich, A-Z
+      sci_name_rev: nòm sientìfich, Z-A
+      sort_field: nòta, A-Z
+      sort_field_rev: nòta, Z-A
+    updated: Colession agiornà.
+  collection_unauthorized_edit: Mach l'utent propietari a peul modifiché costa colession.
+  complete_registration: Për piasì, ch'a vada anans con soa anscrission
+  content_appears_on: 'Ancludù an coste pàgine-sì:'
+  content_collected_in: 'An evidensa ant coste colession-sì:'
+  content_attributions_header: Anformassion an sla sorgiss
+  content_attributions_labels:
+    altitude: autëssa
+    author: autor
+    bibliographic_citation: sitassion bibliogràfica
+    compiler: compilador
+    creator: creator
+    editor: editor
+    latitude: latitùdin
+    license: licensa
+    location: locassion
+    location_verbatim: paròla për paròla
+    longitude: longitùdin
+    original_media_file: archivi ëd mojen original
+    owner: drit d'autor
+    photographer: fotògraf
+    publisher: editor
+    project: proget
+    provider: fornidor
+    references_header:
+      one: Arferiment
+      other: Arferiment
+    resource_label: sit compagn
+    resource_pk: '(id: %{key})'
+    rights_statement: diciairassion dij drit
+    source: sorgiss
+    spatial_location: spassial
+    view_source_label: original
+    view_source_link: vëdde la plancia original
+    view_source_page_link: visité la sorgiss
+  content_not_in_any_collection_image: Costa plancia a compariss an gnun-e colession.
+  content_not_in_any_collection_sound: Cost son a compariss an gnun-e colession.
+  content_not_in_any_collection_video: Cost filmà a compariss an gnun-e colession.
+  data:
+    modifier:
+      sex_term: Sess ëd l'organism ëmzurà
+      lifestage_term: Tapa ëd vita dl'organism ëmzurà
+      statistical_method_term: Métod ëstatìstich dovrà për la mzura
+  data_missing: '(dàit mancant, ciav: %{keys})'
+  dear_username_with_comma: Car %{username},
+  delete_account_button: Eliminé sò cont
+  filter_by_license: licensa
+  filter_by_license_any_item: licensa qualsëssìa
+  filter_by_medium_subtype: sòrt
+  filter_by_medium_any_item: sòrt qualsëssìa
+  filter_by_resource: fornidor
+  filter_by_resource_any_item: fornidor qualsëssìa
+  filters:
+    filter_by_attribute: filtré për atribù
+    filter_by_language: filtré për lenga
+    filter_by_provider: filtré për fornidor
+  footer:
+    eol_info:
+      citing_eol: Coma sité l'EdV
+      contact_us: Contatene
+      data_services: Servissi ëd dàit
+      donate: Doné
+      education: Educassion
+      glossary: Glossari
+      help: Agiut
+      terms_of_use: Condission d'utilisassion
+      the_eol_forum: La piassa EdV
+      what_is_eol: Lòn ch'a l'é l'EdV?
+      whats_new: Lòn ch'a-i é 'd neuv?
+    discover:
+      algae: Alghe
+      amphibians: Anfibi
+      animals: Animaj
+      archaea: Arché
+      bacteria: Bater
+      birds: Osej
+      crustaceans: Crustass
+      fishes: Pess
+      flowering_plants: Piante da fior
+      fungi: Fonz
+      insects: Bòje
+      invertebrates: Invertebrà
+      mammals: Mamìfer
+      molds: Mufe
+      mushrooms: Bolè
+      mollusks: Molusch
+      plants: Piante
+      protists: Protista
+      reptiles: Rétij
+      spiders: Aragn
+      trees: Erbo
+      viruses: Vìrus
+      worms: Verm
+    eol_is_hosted_by: 'EdV a l''é ospità da:'
+  forgot_your_password: Ciav dësmentià?
+  landing_page:
+    header: Acess global a la conossensa ëd la vita an sla Tèra
+    stats_cleared: Le statìstiché a son ëstàite torna calcolà.
+  language: Lenga
+  languages:
+    none: Nen ëspessìficà
+    aa: Afar
+    ab: Abcasian
+    ae: Avestan
+    af: Afrikaans
+    ak: Akan
+    am: Amàrich
+    an: Aragonèis
+    ar: Àrabo
+    as: Assamèis
+    av: Avàrich
+    ay: Aymara
+    az: Aser
+    ba: Bashkir
+    be: Bieloruss
+    bg: Bùlgar
+    bh: Lenghe bihari
+    bi: Bislamèis
+    bm: Bambara
+    bn: Bengalèis
+    bo: Tibetan
+    br: Breton
+    bs: Bosnìach
+    ca: Catalan; Valensian
+    ce: Cecen
+    ch: Chamorro
+    co: Còrs
+    cr: Cree
+    cs: Cech
+    cu: Slav dla cesa; vej slavònic; slavònich ëd la cesa; vej bùlgar; vej slavònich
+      ëd la cesa
+    cv: Chuvash
+    cy: Galèis
+    da: Danèis
+    de: Alman
+    dv: Divehi; Dhivehi; Maldivian
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Ewe
+    el: Grech modern (1453-)
+    en: Anglèis
+    eo: Esperant
+    es: Spagneul; Castilian
+    et: Éston
+    eu: Basch
+    fa: Persian
+    ff: Fulah
+    fi: Finlandèis
+    fj: Figian
+    fo: Faroèis
+    fr: Fransèis
+    fy: Frisian ossidental
+    ga: Irlandèis
+    gd: Gaélich; Gaélich ëscossèis
+    gl: Galissian
+    gn: Guarani
+    gu: Gujarati
+    gv: Manèis
+    ha: Hausa
+    he: Ebreo
+    hi: Hindi
+    ho: Hiri motu
+    hr: Croat
+    ht: Haitian; Créol haitian
+    hu: Ungherèis
+    hy: Armen
+    hz: Herero
+    ia: Antërlenga (Associassion antërnassional ëd lenga ausiliaria)
+    id: Indonesian
+    ie: Antërlenga; Ossidental
+    ig: Igbo
+    ii: Yi dël Sichuan; Nuosu
+    ik: Inupiaq
+    io: Ido
+    is: Islandèis
+    it: Italian
+    iu: Inuktitut
+    ja: Giaponèis
+    jv: Giavanèis
+    jp: Giaponèis
+    ka: Georgian
+    kg: Kongo
+    ki: Kikuyu; Gikuyu
+    kj: Kuanyama; Kwanyama
+    kk: Kasach
+    kl: Kalaallisut; Groenlandèis
+    km: Khmer sentral
+    kn: Kannada
+    ko: Corean
+    kr: Kanuri
+    ks: Kashmir
+    ku: Curd
+    kv: Komi
+    kw: Córnich
+    ky: Kirghiz; Kyrgyz
+    la: Latin
+    lb: Lussemborghèis; Letzeburgesch
+    lg: Ganda
+    li: limborghèis
+    ln: lingala
+    lo: lao
+    lt: lituan
+    lu: luba-katanga
+    lv: léton
+    mg: malgass
+    mh: marshalèis
+    mi: maòri
+    mk: macédon
+    ml: malayalam
+    mn: mòngol
+    mr: marathi
+    ms: malèis
+    mt: maltèis
+    my: birman
+    na: nauru
+    nb: bokmål, norvegèis; norvegèis bokmål
+    nd: ndebele dël nòrd
+    ne: nepalèis
+    ng: ndonga
+    nl: olandèis; flamand
+    nn: norvegèis nynorsk; nynorsk, norvegèis
+  recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
+  sign_in: Rintré ant ël sistema
+...

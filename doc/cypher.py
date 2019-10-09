@@ -34,20 +34,23 @@ def doit(server, api_token, query, format):
             j = r.json()
         except ValueError:
             sys.stderr.write('JSON syntax error\n')
-            print >>sys.stderr, r.text[0:1000]
+            print(r.text[0:1000], file=sys.stderr)
             sys.exit(1)
         json.dump(j, sys.stdout, indent=2, sort_keys=True)
-        sys.stdout.write('\n')
+        print('\n')
     elif ct == "text/csv":
         # https://stackoverflow.com/questions/16694907/how-to-download-large-file-in-python-with-requests-py#16696317
-        for chunk in r.iter_content(chunk_size=1024): 
-            if chunk: # filter out keep-alive new chunks
-                sys.stdout.write(chunk.decode('utf-8'))
+        for line in r.iter_lines(): 
+            if line: # filter out keep-alive new lines
+                try:
+                    print(line.decode('utf-8'))
+                except UnicodeDecodeError as err:
+                    sys.stderr.write('Decoding trouble: %s\n%s\n' % (err, chunk))
     elif ct == "text/plain":
-        print >>sys.stderr, r.text
+        print(r.text, file=sys.stderr)
     else:
         sys.stderr.write('Unrecognized response content-type: %s\n' % ct)
-        print >>sys.stderr, r.text[0:10000]
+        print(r.text[0:10000], file=sys.stderr)
         sys.exit(1)
     if r.status_code != 200:
         sys.exit(1)

@@ -49,6 +49,9 @@ fi:
     omniauth_callbacks:
       success: Todennettu onnistuneesti %{kind} tunnuksesta.
     passwords:
+      no_token: Et pääse tälle sivulle ilman että tulet sille salasanan palautussähköpostista.
+        Jos tulet salasanan palautussähköpostista, varmista, että käytit täydellistä
+        annettua URL-osoitetta.
       send_instructions: Saat sähköpostin, jossa on ohjeet salasanasi nollaamiseen
         muutamassa minuutissa.
       send_paranoid_instructions: Jos sähköpostiosoitteesi on tietokannassamme, saat

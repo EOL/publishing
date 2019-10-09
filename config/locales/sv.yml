@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Pyscowicz
 # Author: WikiPhoenix
 ---
 sv:
@@ -206,9 +207,31 @@ sv:
       viruses: Virus
       worms: Maskar
   forgot_your_password: Glömt ditt lösenord?
-  language: 'Språk:'
+  language: Språk
   languages:
     none: Ospecificerad
+    bg: Bulgariska
+    da: Danska
+    de: Tyska
+    en: Engelska
+    et: Estniska
+    fi: Finska
+    fr: Franska
+    ga: Iriska
+    hr: Kroatien
+    hy: Armenien
+    it: Italienska
+    ja: Japanska
+    jp: Japanska
+    ka: Georgien
+    ko: Koreanska
+    lt: Litauen
+    lv: Lettiska
+    mk: Makedonska
+    mn: Mongoliet
+    se: Nordsamiska
+    sv: Svenska
+    vi: Vietnamesisk
   layout_sign_in: Logga in
   layout_sign_up: Registrera
   layout_sign_out: Logga ut
@@ -217,6 +240,7 @@ sv:
     untitled:
       image: Namnlös bild
       video: Namnlös video
+      video_of: Video av %{page_name}
       sound: Namnlöst ljud
       map: Namnlös arta
     subclasses:
@@ -271,13 +295,14 @@ sv:
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
       reset: återställ
     tabs:
-      classifications: Klassificeringar
-      data: Data
-      literature_and_references: Referenser
-      overview: Hem
-      maps: Kartor
-      media: Media
-      names: Namner
+      articles: artiklar
+      classifications: klassificeringar
+      data: data
+      literature_and_references: litteratur och referenser
+      overview: översikt
+      maps: kartor
+      media: media
+      names: namn
     iucn_status:
       label: 'IUCN-status:'
       ex: utdöd (EX)

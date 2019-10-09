@@ -13,7 +13,7 @@
 .l-nav.js-navbar
   .nav-left
     .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
-      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
+      = link_to(image_tag('blue_logo.png', alt: 'EOL'), main_app.home_page_path, class: 'nav-logo')
       %span &nbsp;
       %i.fa.fa-chevron-down
     %div{:'uk-dropdown' => "pos: bottom-left; offset: 0"}
@@ -30,7 +30,7 @@
         %ul.uk-nav.uk-dropdown-nav
           = render "locale_select_items"
     .nav-item.nav-menu-anchor{ class: "uk-hidden@s" }
-      = link_to(image_tag('blue_logo.png', alt: 'EOL'), '/', class: 'nav-logo')
+      = link_to(image_tag('blue_logo.png', alt: 'EOL'), main_app.home_page_path, class: 'nav-logo')
     .nav-item.nav-menu-anchor{ class: "uk-visible@s" }
       %i.fa.fa-cog
       %i.fa.fa-chevron-down

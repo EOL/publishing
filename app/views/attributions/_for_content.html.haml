@@ -59,7 +59,7 @@
       - source = source_page_url || source_url
       - if source
         %dt= t("content_attributions_labels.view_source_label")
-        %dd= link_to(t("content_attributions_labels.view_source_link"), source_url) if source_url
+        %dd= link_to(t("content_attributions_labels.original_media_file"), source_url) if source_url
         %dd= link_to(t("content_attributions_labels.view_source_page_link"), source_page_url) if source_page_url
       %dt= t("content_attributions_labels.resource_label")
       %dd

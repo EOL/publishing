@@ -20,13 +20,17 @@ class PageDecorator
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
       # There's really nothing to do if there's no minimal ancestor:
-      if !a1.nil?
-        if is_family?
-          family
-        elsif is_genus?
-          genus
-        elsif is_species?
-          species
+      if is_above_family?
+        above_family
+      else
+        if !a1.nil?
+          if is_family?
+            family
+          elsif is_genus?
+            genus
+          elsif is_species?
+            species
+          end
         end
       end
 
@@ -34,7 +38,7 @@ class PageDecorator
       plant_description_sentence
       flower_visitor_sentence
 
-      if !is_family? && !is_genus?
+      if is_species?
         behavioral_sentence
         lifespan_sentence
       end
@@ -54,6 +58,25 @@ class PageDecorator
         Eol::Uris::Iucn.nt, 
         Eol::Uris::Iucn.vu
       ]
+
+      def is_above_family?
+        @page.native_node.present? &&
+        @page.native_node.any_landmark? &&
+        @page.rank.present? && 
+        Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
+      end
+
+      def above_family
+        if a1.present?
+          @sentences << "#{@page.name} is a group of #{a1}."
+        end
+
+        first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
+
+        if first_appearance_trait
+          trait_sentence("This group has been around since the %s", first_appearance_trait)
+        end
+      end
 
       # [name clause] is a[n] [A1] in the family [A2].
       def species
@@ -110,7 +133,11 @@ class PageDecorator
         # If the species [is marine], insert an environment sentence between the taxonomy sentence and the distribution
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
-        term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) if is_it_marine?
+        if is_it_marine?
+          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) 
+        elsif freshwater_trait.present?
+          term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term][:uri])
+        end
 
         # Distribution sentence: It is found in [G1].
         @sentences << "It is found in #{g1}." if g1
@@ -312,6 +339,12 @@ class PageDecorator
           @page.update_attribute(:is_marine, marine ? true : false)
           marine
         end
+      end
+
+      # TODO: unify is_it_marine? with this -- if there's a 'is_marine' attribute on models, should there be 'is_freshwater'? 
+      # Or, can we get rid of "is_marine"?
+      def freshwater_trait
+        @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
       end
 
       def has_data(options)
@@ -524,6 +557,10 @@ class PageDecorator
           trait[:predicate][:uri], 
           trait[:object_term][:uri]
         )
+      end
+
+      def trait_sentence(format_str, trait)
+        @sentences << trait_sentence_part(format_str, trait)
       end
   end
 end

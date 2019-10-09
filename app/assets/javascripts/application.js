@@ -7,5 +7,6 @@
 //= require js_route_config
 //= require main
 //= require youtube
+//= require wordcloud
 //= require rails.validations
 //= require rails.validations.simple_form

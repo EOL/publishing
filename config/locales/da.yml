@@ -136,6 +136,8 @@ da:
   maps:
     empty: Der er ingen kort at vise for denne side.
   medium:
+    untitled:
+      video_of: Video af %{page_name}
     subclasses:
       image: billede
       video: video
@@ -154,10 +156,11 @@ da:
     page_data:
       show_all: vis alle
     tabs:
+      articles: artikler
       literature_and_references: Referencer
       overview: Hjem
-      maps: Kort
-      names: Navne
+      maps: kort
+      names: navne
     iucn_status:
       ex: udryddet (EX)
       ew: udryddet i naturen (EW)

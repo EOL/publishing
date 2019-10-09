@@ -48,19 +48,6 @@
     }
   }
 
-  function setupWordcloud() {
-    var $container = $('.js-trait-wordcloud')
-      , words = []
-      ;
-
-    if ($container.length) {
-      words = $container.data('words'); 
-      $container.jQCloud(words, {
-        autoResize: true 
-      });
-    }
-  }
-
   function setupNames() {
     $('.js-name-card-open').click(function() {
       $(this)
@@ -107,7 +94,6 @@
   $(function() {
     setupMenus();
     setupBreadcrumbs();
-    setupWordcloud();
     setupNames();
     scrollToRecord();
   });

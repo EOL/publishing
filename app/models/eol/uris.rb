@@ -33,6 +33,10 @@ module Eol
         "http://purl.obolibrary.org/obo/ENVO_00000447"
       end
 
+      def freshwater
+        "http://purl.obolibrary.org/obo/ENVO_00000873"
+      end
+
       def terrestrial
         "http://purl.obolibrary.org/obo/ENVO_00000446"
       end
@@ -239,6 +243,10 @@ module Eol
 
       def fruit_type
         "http://purl.obolibrary.org/obo/TO_0000850"
+      end
+
+      def fossil_first
+        "http://eol.org/schema/terms/FossilFirst"
       end
 
       def inverse(uri)

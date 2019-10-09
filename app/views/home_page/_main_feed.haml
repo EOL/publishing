@@ -8,7 +8,7 @@
       %a{:href => url}
         %img.main-feed-img{:src => item.img_url}
         - if item.page
-          - item_label = item.page.name
+          - item_label = item.page.name.html_safe
         - else
           - item_label = item.label
         %div.main-feed-txt= item_label
