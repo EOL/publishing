@@ -22,6 +22,16 @@ class TraitBank::Slurp
       resource.remove_traits_files
     end
 
+    def heal_traits(resource)
+      repo = Repository.new(resource)
+      repo.copy_file(resource.traits_file, 'traits.tsv')
+      repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
+      heal_traits_by_type("traits_#{resource.id}.csv", :Trait, resource.id)
+      heal_traits_by_type("meta_traits_#{resource.id}.csv", :MetaTrait, resource.id)
+      post_load_cleanup(resource.id)
+      resource.remove_traits_files
+    end
+
     # Same as load_csvs, the traits file there includes a resource_id column (the last column). This is intended for
     # multi-resource serialized clades.
     def load_full_csvs(id)
@@ -173,6 +183,35 @@ class TraitBank::Slurp
       wheres.each do |clause, where_config|
         load_csv_where(clause, filename: filename, config: where_config, nodes: nodes)
       end
+    end
+
+    def heal_traits_by_type(filename, label, resource_id)
+      file = filename =~ /\// ? filename : "#{Rails.public_path}/#{filename}"
+      position = nil
+      correct_pks = Set.new
+      CSV.foreach(file) do |row|
+        if position.nil?
+          position = row.index { |c| c.downcase.gsub(/^\s+/, '').gsub(/\s+$/, '') == 'eol_pk' }
+          raise("CANNOT FIND eol_pk COLUMN IN #{file}!") unless position
+        else
+          correct_pks << row[position]
+        end
+      end
+      data = TraitBank.query("MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(n:#{label}) "\
+        "RETURN n.eol_pk")
+      traitbank_pks = Set.new
+      data['data'].each { |row| traitbank_pks << row.first }
+      extra_pks = traitbank_pks - correct_pks
+      raise "Ooops! This resource has been copmpletely reharvested; you need to re-publish it entirely." if
+        extra_pks.size == traitbank_pks.size
+      return 0 if extra_pks.size.zero?
+      extra_pks.to_a.in_groups_of(1000) do |pks|
+        TraitBank::Admin.remove_with_query(
+          name: node,
+          q: "(node:#{label}) WHERE node.eol_pk IN ['#{pks.join("','")}']"
+        )
+      end
+      extra_pks.size
     end
 
     def load_csv_where(clause, options = {})
