@@ -1,6 +1,4 @@
 class AboutController < ApplicationController
-  TB_WORDCLOUD_FILE_PATH = Rails.root.join("data", "top_pred_counts.json")
-
   def trait_bank
     example_query = TermQuery.new(
       filters: [
@@ -14,17 +12,18 @@ class AboutController < ApplicationController
   end
 
   def self.tb_wordcloud_data
-    # links are different per locale
-    if !@tb_wordcloud_data
-      if File.exist?(TB_WORDCLOUD_FILE_PATH)
-        @tb_wordcloud_data = JSON.parse(File.read(TB_WORDCLOUD_FILE_PATH))
-      else
-        logger.error("TraitBank wordcloud file doesn't exist: #{TB_WORDCLOUD_FILE_PATH}. Run `rails r scripts/top_pred_counts.rb` to generate.")
-        return [] 
-      end
+    data = nil
+
+    begin
+      data = TbWordcloudData.data  
+    rescue TypeError => e
+      logger.error("Failed to get wordcloud data: #{e.message}")
     end
 
-    @tb_wordcloud_data.collect do |datum|
+    return [] if data.nil?
+
+    # links are different per locale. We could cache this with the locale in the key if necessary.
+    data.collect do |datum|
       term_query = TermQuery.new(
         filters: [
           TermQueryFilter.new(pred_uri: datum["uri"])
@@ -40,3 +39,4 @@ class AboutController < ApplicationController
     end
   end
 end
+
