@@ -6,6 +6,7 @@
 # Author: Gomoko
 # Author: Jhammock
 # Author: Thibaut120094
+# Author: Urhixidur
 # Author: Verdy p
 # Author: Wladek92
 ---
@@ -58,8 +59,7 @@ fr:
   classifications:
     children:
       header_html:
-        one: "%{name} inclut <a href='%{names_path}'>%{count} enfant:</a>"
-        other: "%{name} inclut <a href='%{names_path}'>%{count} enfants</a>:"
+        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
@@ -696,7 +696,7 @@ fr:
       tag_line: 'correspond à la ligne balisée :'
       resources:
         one: 'correspond à la ressources :'
-        other: "correspond aux ressource\x7FUNIQ6f3ece433c60c4a8-212 :"
+        other: "correspond aux ressource\x7FUNIQ953fa9f55a80b45-212 :"
       synonyms:
         other: 'correspond au synonymeone= synonymeone= :'
       vernaculars:
@@ -762,7 +762,7 @@ fr:
     molecular_biology: Biologie moléculaire
     molecular_biology_and_genetics: Biologie moléculaire et génétique
     morphology: Morphologie
-    names_and_taxonomy: Noms et taxonomie
+    names_and_taxonomy: Noms et taxinomie
     notes: Notes
     overview: Résumé
     physiology_and_cell_biology: Physiologie et biologie cellulaire
@@ -771,7 +771,7 @@ fr:
     reproduction: Reproduction
     risks: Risques
     size: Taille
-    taxonomy: Taxonomie
+    taxonomy: Taxinomie
     threats: Menaces
     trends: Tendances
     trophic_strategy: Stratégie trophique

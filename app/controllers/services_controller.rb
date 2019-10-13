@@ -28,6 +28,16 @@ class ServicesController < ApplicationController
     end
   end
 
+  # Get authentication token for a given user.
+  # The purpose of the password is just to cause tokens
+  # to stop working when the user's password changes.
+  # This method can be used from scripts, e.g.
+  # bin/rails r 'puts(ServicesController.jwt_token(User.where(email: "qwy103@mumble.net").last))'
+  def self.jwt_token(user)
+    TokenAuthentication.encode({'user' => user.email,
+                                'encrypted_password' => user.encrypted_password})
+  end
+
   protected
 
   # Authorize user for subsequent action if power user.
@@ -36,7 +46,7 @@ class ServicesController < ApplicationController
   def authorize_user_from_token!
     user = authenticate_user_from_token!
     return nil unless user
-    if user.is_power_user?
+    if user.is_power_user?   # power user or admin
       user
     else
       render_unauthorized title: "Power user status is required for this operation."
@@ -108,14 +118,6 @@ class ServicesController < ApplicationController
       return nil
     end
     claims
-  end
-
-  # Aux
-  # The purpose of the password is just to cause tokens
-  # to stop working whenever the user's password changes.
-  def jwt_token(user)
-    TokenAuthentication.encode({'user' => user.email,
-                                'encrypted_password' => user.encrypted_password})
   end
 
   # The form of the payload is up for redesign; probably someone has
