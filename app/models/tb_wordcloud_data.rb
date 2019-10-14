@@ -7,8 +7,10 @@ class TbWordcloudData
   class << self
     def generate_file
       q = "MATCH (trait:Trait)-[:predicate]->(pred:Term)\n"\
+          "WHERE pred.name is not null\n"\
+          "AND pred.is_hidden_from_overview = false\n"\
+          "AND NOT (pred)-[:synonym_of]->(:Term)\n"\
           "WITH pred.uri AS uri, pred.name AS name, count(trait) as trait_count\n"\
-          "WHERE name is not null\n"\
           "RETURN name, uri, trait_count\n"\
           "ORDER BY trait_count DESC\n"\
           "LIMIT #{PRED_LIMIT}"\
