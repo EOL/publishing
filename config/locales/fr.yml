@@ -59,7 +59,8 @@ fr:
   classifications:
     children:
       header_html:
-        other: '%{name} inclut <a href="%{names_path}">%{count} enfantone=</a> :'
+        one: '%{name} inclut <a href="%{names_path}">%{count} enfant</a> :'
+        other: '%{name} inclut <a href="%{names_path}">%{count} enfants</a> :'
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
@@ -661,21 +662,27 @@ fr:
     n_images: '{{PLURAL:%{count}|zero=Aucune|one=Une|%{count}}} image{{PLURAL:%{count}|zero=|one=|s}}'
     n_results: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} résultat{{PLURAL:%{count}|zero=|one=|s}}'
     n_sounds:
-      other: '%{count} sonone='
+      one: '%{count} son'
+      other: '%{count} sons'
     n_taxon_pages:
-      other: '%{count} pageone= de taxon'
+      one: '%{count} page de taxon'
+      other: '%{count} pages de taxon'
     n_users:
-      other: '%{count} utilisateurone='
+      one: '%{count} utilisateur'
+      other: '%{count} utilisateurs'
     n_videos:
-      other: '%{count} vidéoone='
+      one: '%{count} vidéo'
+      other: '%{count} vidéos'
     n_terms:
-      other: '%{count} périodeone='
+      one: '%{count} période'
+      other: '%{count} périodes'
   search_results:
     collection_page_count:
       one: '%{count} page'
       other: '%{count} pages'
     collection_page_count_and_users:
-      other: '%{count} pageone= ; maintenueone= par %{users_sentence}'
+      one: '%{count} page ; maintenue par %{users_sentence}'
+      other: '%{count} pages ; maintenues par %{users_sentence}'
     collected_media:
       title: 'médias collectés depuis cette page :'
     medium_article: Article
@@ -696,30 +703,38 @@ fr:
       tag_line: 'correspond à la ligne balisée :'
       resources:
         one: 'correspond à la ressources :'
-        other: "correspond aux ressource\x7FUNIQ953fa9f55a80b45-212 :"
+        other: 'correspond aux ressource :'
       synonyms:
-        other: 'correspond au synonymeone= synonymeone= :'
+        one: 'correspond au synonyme synonyme :'
+        other: 'correspond au synonymex synonymes :'
       vernaculars:
         one: 'correspond au nom usuel :'
         other: 'correspond aux noms usuels :'
     section_titles:
       collections:
-        other: '%{count} collectionone='
+        one: '%{count} collection'
+        other: '%{count} collections'
       media:
-        other: '%{count} médiaone='
+        one: '%{count} média'
+        other: '%{count} médias'
       pages:
-        other: '%{count} pageone= (espèces)'
+        one: '%{count} page (espèces)'
+        other: '%{count} pages (espèces)'
       object_terms:
-        other: '%{count} valeurone= d’enregistrement de données (TraitBank)'
+        one: '%{count} valeur d’enregistrement de données (TraitBank)'
+        other: '%{count} valeurs d’enregistrement de données (TraitBank)'
       predicates:
-        other: '%{count} typeone= d’enregistrement de données (TraitBank)'
+        one: '%{count} type d’enregistrement de données (TraitBank)'
+        other: '%{count} types d’enregistrement de données (TraitBank)'
       users:
-        other: '%{count} utilisateurone='
+        one: '%{count} utilisateur'
+        other: '%{count} utilisateurs'
     collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
       n_articles: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} article{{PLURAL:%{count}|zero=|one=|s}}'
       n_data:
-        other: '%{count} DONNÉEone='
+        one: '%{count} DONNÉE'
+        other: '%{count} DONNÉES'
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIA'
