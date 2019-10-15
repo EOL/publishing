@@ -31,7 +31,7 @@ class Service::CypherController < ServicesController
     # using the API token and the information in the user table.
     # Non-admin users are not supposed to add to the database.
     
-    if cypher =~ /\b(create|set|merge|load|delete|remove|call)\b/i
+    if cypher =~ /\b(create|set|merge|delete|remove|call)\b/i
       # Allow admin to add to graph and perform dangerous operations
       user = authorize_admin_from_token!
       return nil unless user
