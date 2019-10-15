@@ -255,7 +255,7 @@ class PageDecorator
       end
 
       def flower_visitor_sentence
-        traits = traits_for_pred_uri(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
+        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
 
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
@@ -366,10 +366,10 @@ class PageDecorator
         return false
       end
 
-      def traits_for_pred_uri(pred_uri)
+      def traits_for_pred_uris(*pred_uris)
         traits = []
-        terms = gather_terms(pred_uri)
-        
+        terms = gather_terms(pred_uris.flatten)
+
         terms.each do |term|
           traits_for_term = @page.grouped_data[term]
           traits.concat(traits_for_term) if traits_for_term
