@@ -506,6 +506,14 @@ pms:
     search:
       no_results_html: <strong>Gnun arzultà confermà</strong><br />Sgnaché su A cap
         për vëdde j'arzultà nen controlà
+      placeholder: Arserca ant l'EdV...
+    trait_bank: TraitBank
+  name_preferred_label: preferì
+  page_icon_counts:
+    header:
+      one: Mej plancia për la pàgina
+      other: Mej plance për le pàgine
+  page_icon_created: Plancia «%{name}» spostà an àut.
   recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
   sign_in: Rintré ant ël sistema
 ...
