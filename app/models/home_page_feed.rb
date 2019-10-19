@@ -1,6 +1,10 @@
+require "csv"
+require "set"
+
 class HomePageFeed < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validate :validate_field_mask
+  validate :validate_csv_errors
 
   has_many :items, :dependent => :destroy, :class_name => "HomePageFeedItem", :inverse_of => :home_page_feed
   accepts_nested_attributes_for :items
@@ -51,10 +55,42 @@ class HomePageFeed < ActiveRecord::Base
     save!
   end
 
+  def items_from_csv=(csv_str)
+    @csv_errors = []
+    @items_from_csv = csv_str 
+
+    begin
+      csv = CSV.parse(csv_str, headers: true)
+      headers_sym = csv.headers.collect { |h| h.to_sym }
+      field_set = Set.new(fields)
+
+      headers_sym.each do |h|
+        if !field_set.include? h
+          raise "invalid column header: #{h}"
+        end
+      end
+
+      self.items_attributes = csv.collect(&:to_h)
+    rescue => e
+      @csv_errors << e.message
+    end 
+  end
+
+  def items_from_csv
+    @items_from_csv
+  end
+
   private
   def validate_field_mask
     if !field_mask || field_mask == 0
       errors.add(:fields, "must pick at least one")
+    end
+  end
+
+  def validate_csv_errors
+    @csv_errors ||= []
+    @csv_errors.each do |e|
+      errors.add(:items_from_csv, e)
     end
   end
 end
