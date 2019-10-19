@@ -36,7 +36,7 @@ class PageDecorator
 
       landmark_children
       plant_description_sentence
-      flower_visitor_sentence
+      #flower_visitor_sentence # disabled until we figure out how to handle associations efficiently
 
       if is_species?
         behavioral_sentence
@@ -254,14 +254,15 @@ class PageDecorator
         @sentences << "It has #{parts.to_sentence}." if parts.any? 
       end
 
-      def flower_visitor_sentence
-        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
-
-        if traits && traits.any?
-          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
-          @sentences << "Flowers are visited by #{parts.join(", ")}."
-        end
-      end
+      # XXX: This is broken because trait_sentence_part doesn't handle associations.  
+#      def flower_visitor_sentence
+#        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
+#
+#        if traits && traits.any?
+#          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+#          @sentences << "Flowers are visited by #{parts.join(", ")}."
+#        end
+#      end
 
       # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
       # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
