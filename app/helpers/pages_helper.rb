@@ -127,14 +127,14 @@ module PagesHelper
     name = options[:name]
     if options[:current_page]
       haml_tag("b") do
-        haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
       end
       haml_concat t("classifications.hierarchies.this_page")
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     else
-      haml_concat link_to(name.html_safe, page_id ? page_overview_path(page_id) : "#")
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
     end
     if page.nil?
       haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
@@ -275,7 +275,7 @@ private
           anc_page = anc_node.page
           if anc_node.use_breadcrumb? || mode == :full
             if link
-              parts << link_to(anc_page.send(name_method).html_safe, page_overview_path(anc_page)).html_safe
+              parts << link_to(anc_page.send(name_method).html_safe, page_path(anc_page)).html_safe
             else
               parts << anc_page.send(name_method).html_safe
             end
