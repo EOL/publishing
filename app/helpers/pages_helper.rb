@@ -323,4 +323,15 @@ private
     end
   end
 
+  def sorted_section_articles_for_page(section, grouped_articles)
+    grouped_articles[section].sort_by do |a, b|
+      result = a.resource.name <=> b.resource.name
+
+      if result == 0
+        result = a.sortable_name <=> b.sortable_name
+      end
+
+      result
+    end
+  end
 end
