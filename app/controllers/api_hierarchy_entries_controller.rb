@@ -36,7 +36,7 @@ class ApiHierarchyEntriesController < LegacyApiController
     @entry[:taxonConceptID] = entry.page_id
     @entry[:scientificName] = entry.scientific_name
     @entry[:taxonRank] = entry.rank&.name
-    @entry[:source] = page_overview_url(entry.page)
+    @entry[:source] = page_url(entry.page)
 
     @entry[:nameAccordingTo] = [entry.resource.name] # Yes, in an array.
 
@@ -73,7 +73,7 @@ class ApiHierarchyEntriesController < LegacyApiController
       ancestor_hash['taxonConceptID'] = ancestor.page_id
       ancestor_hash['scientificName'] = ancestor.scientific_name
       ancestor_hash['taxonRank'] = ancestor.rank&.name
-      ancestor_hash['source'] = page_overview_url(ancestor.page_id)
+      ancestor_hash['source'] = page_url(ancestor.page_id)
       @entry[:ancestors] << ancestor_hash
     end
 
@@ -86,7 +86,7 @@ class ApiHierarchyEntriesController < LegacyApiController
       child_hash['taxonConceptID'] = child.page_id
       child_hash['scientificName'] = child.scientific_name
       child_hash['taxonRank'] = child.rank&.name
-      child_hash['source'] = page_overview_url(child.page_id)
+      child_hash['source'] = page_url(child.page_id)
       @entry[:children] << child_hash
     end
     return @entry

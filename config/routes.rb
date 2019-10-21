@@ -39,8 +39,8 @@ Rails.application.routes.draw do
       get 'batch_lookup' => "pages#batch_lookup", on: :collection, as: :batch_lookup
       post 'batch_lookup' => "pages#batch_lookup_results", on: :collection, as: :batch_lookup_results
 
-      get 'overview', :to => redirect("/pages/%{page_id}", :status => 301)
-      get 'details', :to => redirect("/pages/%{page_id}", :status => 301)
+      get 'overview', :to => redirect(:status => 301, &RoutesUtil.path_with_locale("/pages/%s", [:page_id]))
+      get 'details', :to => redirect(:status => 301, &RoutesUtil.path_with_locale("/pages/%s", [:page_id]))
     end
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type

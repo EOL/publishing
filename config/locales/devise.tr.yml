@@ -1,0 +1,68 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Grkn gll
+---
+tr:
+  devise:
+    confirmations:
+      confirmed: E-posta adresiniz başarıyla onaylandı.
+      send_instructions: Birkaç dakika içinde e-posta adresinizi nasıl onaylayacağınıza
+        ilişkin talimatları içeren bir e-posta alacaksınız.
+      send_paranoid_instructions: Eğer e-posta adresiniz veritabanımızda varsa, birkaç
+        dakika içinde e-posta adresinizi nasıl doğrulayacağınıza ilişkin talimatları
+        içeren bir e-posta alacaksınız.
+    failure:
+      already_authenticated: Zaten giriş yaptınız.
+      inactive: Hesabınız henüz aktifleştirilmedi.
+      invalid: Geçersiz %{authentication_keys} ya da şifre.
+      locked: Hesabınız kilitlendi, Lütfen bir saat sonra tekrar deneyin
+      last_attempt: Hesabınız kilitlenmeden önce bir kez daha denemeniz gerekir.
+      not_found_in_database: Geçersiz %{authentication_keys} ya da şifre.
+      recaptcha_error: Aşağıdaki recaptcha kodunda bir hata oluştu. Lütfen kodu tekrar
+        girin ve gönder düğmesine tıklayın.
+      timeout: Oturumunuzun süresi doldu. Lütfen devam etmek için tekrar oturum açın.
+      unauthenticated: Devam etmeden önce oturum açmanız ya da kaydolmanız gerekir.
+      unconfirmed: Devam etmeden önce e-posta adresinizi onaylamanız gerekir.
+    mailer:
+      confirmation_instructions:
+        action: Hesabımı onayla
+        greeting: Hoşgeldiniz %{recipient}!
+        instruction: 'Hesap e-postanızı aşağıdaki bağlantıdan onaylayabilirsiniz:'
+        subject: Onay talimatları
+      reset_password_instructions:
+        action: Parolamı değiştir
+        greeting: 'Merhaba #{recipient}!'
+        instruction: Birisi şifrenizi değiştirmek için bir bağlantı istedi ve bunu
+          aşağıdaki bağlantıdan yapabilirsiniz.
+        instruction_2: Bunu istemediyseniz, lütfen bu e-postayı dikkate almayın.
+        subject: Parola sıfırlama talimatları
+      password_change:
+        greeting: 'Merhaba #{recipient}!'
+        message: Şifrenizin değiştirildiğini bildirmek için sizinle iletişime geçiyoruz.
+        subject: Şifre Değişti
+    passwords:
+      send_instructions: Birkaç dakika içinde şifrenizi nasıl sıfırlayacağınıza dair
+        talimatları içeren bir e-posta alacaksınız.
+      send_paranoid_instructions: Eğer e-posta adresiniz veritabanımızda varsa, birkaç
+        dakika içinde şifrenizi nasıl sıfırlayacağınıza ilişkin talimatları içeren
+        bir e-posta alacaksınız.
+      updated: Şifreniz başarıyla değiştirildi. Şimdi giriş yapabilirsiniz.
+      updated_not_active: Şifreniz başarıyla değiştirildi.
+    registrations:
+      destroyed: Hoşçakal! Hesabınız başarıyla iptal edildi. Yeniden görüşmek dileğiyle.
+      signed_up: Hoşgeldiniz! Başarıyla kaydoldunuz.
+      signed_up_but_inactive: Başarıyla kaydoldunuz. Ancak, hesabınız henüz etkin
+        olmadığı için oturumunuzu açamıyoruz.
+      signed_up_but_locked: Başarıyla kaydoldunuz. Ancak, hesabınız kilitlendiği için
+        oturumunuzu açamıyoruz.
+    sessions:
+      signed_in: Başarıyla giriş yaptınız.
+      signed_out: Başarıyla çıkış yaptınız.
+      already_signed_out: Başarıyla çıkış yaptınız.
+      recaptcha: Recaptcha doğrulama hataları
+  errors:
+    messages:
+      not_found: bulunamadı
+      not_locked: kilitli değildi
+...

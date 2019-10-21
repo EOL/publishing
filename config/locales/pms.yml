@@ -392,6 +392,150 @@ pms:
     ng: ndonga
     nl: olandèis; flamand
     nn: norvegèis nynorsk; nynorsk, norvegèis
+    "": norvegèis
+    nr: ndebele dël sud
+    nv: navajo; navaho
+    ny: chewa; chichewa; nyanja
+    oc: ossitan (apress 1500)
+    oj: ojibwa
+    om: oromo
+    or: oriya
+    os: osset
+    pa: panjabi; punjabi
+    pi: pali
+    pl: polonèis
+    ps: pushto; pashton
+    pt: portughèis
+    qu: quechua
+    rm: romancc
+    rn: rundi
+    ro: romen; moldav
+    ru: russ; russi
+    rw: kinyarwanda
+    sa: sànscrit
+    sc: sard
+    sd: sindhi
+    se: sami dël Nòrd
+    sg: sango
+    si: singalèis
+    sk: slovach
+    sl: sloven
+    sm: samoan
+    sn: shona
+    so: sòmal
+    sq: albanèis
+    sr: serb
+    ss: swati
+    st: sotho dël sud
+    su: sondanèis
+    sv: svedèis
+    sw: swahili
+    ta: tamil
+    te: telugu
+    tg: tagich
+    th: thai
+    ti: tigrinya
+    tk: turcmen
+    tl: tagalog
+    tn: tswana
+    to: tongan (ìsole Tonga)
+    tr: turch
+    ts: tsonga
+    tt: Tatar
+    tw: twi
+    ty: taitian
+    ug: uighur; uyghur
+    uk: ucrain
+    ur: urdu
+    uz: usbech
+    ve: venda
+    vi: vietnamèis
+    vo: volapük
+    wa: valon
+    wo: wolof
+    xh: xhosa
+    yi: yiddish
+    yo: yoruba
+    za: zhuang; chuang
+    zh: cinèis
+    zu: zulù
+  layout_sign_in: Rintré ant ël sistema
+  layout_sign_up: Anscriv-se
+  layout_sign_out: Seurte dal sistema
+  literature_and_references_header: Bibliografìa e arferiment
+  maps:
+    empty: A-i é gnun-e carte disponìbij për costa pàgina.
+    occurrence_caption: Ocorense conossùe, esemplar cujì e osservassion ëd %{page_name}
+    other_maps_title: Carte nen antërative
+  medium:
+    untitled:
+      image: Plancia sensa tìtol
+      image_of: Plancia ëd %{page_name}
+      video: Filmà sensa tìtol
+      video_of: Filmà ëd %{page_name}
+      sound: Son sensa tìtol
+      sound_of: Sonor ëd %{page_name}
+      map: Carta sensa tìtol
+      map_of: Carta ëd %{page_name}
+      js_map: Carta antërativa sensa tìtol
+      js_map_of: Carta antërativa ëd %{page_name}
+    subclasses:
+      image: plancia
+      video: filmà
+      sound: son
+      map: carta
+      js_map: carta antërativa
+  medium_collect_button: cheuje ij mojen
+  medium_description_blank: A-i é gnun-a descrission fornìa për cost oget-sì.
+  medium_header_title: 'Tìtol:'
+  medium_header_description: 'Descrission:'
+  names:
+    hide_langs:
+      one: stërmé na lenga
+      other: stërmé %{count} lenghe
+    prefer: preferì
+    preferred_in_language_for_page: '%{name} a l''é adess ël nòm vernacolar preferì
+      an %{language} për %{page}'
+    show_more_langs:
+      one: smon-e na lenga ëd pi
+      other: smon-e %{count} lenghe ëd pi
+  nav:
+    about: A propòsit
+    discuss: Dëscute
+    education: Educassion
+    search:
+      no_results_html: <strong>Gnun arzultà confermà</strong><br />Sgnaché su A cap
+        për vëdde j'arzultà nen controlà
+      placeholder: Arserca ant l'EdV...
+    trait_bank: TraitBank
+  name_preferred_label: preferì
+  page_icon_counts:
+    header:
+      one: Mej plancia për la pàgina
+      other: Mej plance për le pàgine
+  page_icon_created: Plancia «%{name}» spostà an àut.
+  page_title: Enciclopedìa dla Vita
+  page_title_search: 'Arserca: %{query}'
+  page_vernaculars_empty: A-i é gnun nòm comun associà a costa tassonomìa.
+  pages:
+    actions:
+      collect: cheuje
+      comment:
+        zero: coment
+        one: '%{count} coment'
+        other: '%{count} coment'
+      reindex: riandicisé
+    batch_lookup:
+      header: arserca ëd pàgine a baron
+      canonical_name: nòm canònich
+      download_tsv: dëscarià an TSV
+      match: corëspondensa
+      new_search: neuva arserca
+      page_id: ID ëd pàgina
+      page_url: URL ëd la pàgina
+      query: arcesta
+      query_cant_be_blank: l'arcesta a peul pa esse veuida
+      search: sërché
   recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
   sign_in: Rintré ant ël sistema
 ...

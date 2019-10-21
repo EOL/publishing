@@ -19,7 +19,7 @@ class ServicesController < ApplicationController
     # web site.
     if current_user     # inherited from application_controller
       if current_user.is_power_user?
-        render json: {token: jwt_token(current_user)}
+        render json: {token: ServicesController::jwt_token(current_user)}
       else
         render_unauthorized title: "You are not authorized to use the web services."
       end
