@@ -129,7 +129,7 @@ class CollectionsController < ApplicationController
   end
 
   def find_collection_with_pages_helper(paginate)
-    @collection = Collection.where(id: params[:id] || params[:collection_id]).includes(:collection_associations).first
+    @collection = Collection.includes(:collection_associations).find(id: params[:id] || params[:collection_id])
     @pages = CollectedPage.where(collection_id: @collection.id)
     params[:sort] ||= Collection.default_sorts[@collection.default_sort]
     sort = Collection.default_sorts.keys[params[:sort].to_i].dup
@@ -155,8 +155,7 @@ class CollectionsController < ApplicationController
   end
 
   def find_collection
-    @collection = Collection.where(id: params[:id] || params[:collection_id]).includes(:collection_associations,
-      :collected_pages).first
+    @collection = Collection.includes(:collection_associations, :collected_pages).find(params[:id] || params[:collection_id])
   end
 
   def collection_params

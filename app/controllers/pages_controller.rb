@@ -546,6 +546,5 @@ private
       response.headers['X-Robots-Tag'] = "noindex"
     end
   end
-
 end
 
