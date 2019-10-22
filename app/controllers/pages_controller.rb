@@ -122,7 +122,7 @@ class PagesController < ApplicationController
       "archetype" => "regular",
       "nested_post" => true,
       # NOTE: we do NOT want to translate this. The comments site is English.
-      "raw" => "Please leave your comments regarding <a href='#{page_overview_url(@page)}'>#{name}</a> in this thread
+      "raw" => "Please leave your comments regarding <a href='#{page_url(@page)}'>#{name}</a> in this thread
         by clicking on REPLY below. If you have contents related to specific content please provide a specific URL. For
         additional information on how to use this discussion forum, <a href='http://discuss.eol.org/'>click here</a>."
     )
@@ -176,7 +176,7 @@ class PagesController < ApplicationController
       end
     end
     flash[:notice] = t("pages.flash.reindexed")
-    redirect_to page_overview_path(@page)
+    redirect_to page_path(@page)
   end
 
   def data
@@ -482,7 +482,6 @@ private
 
     @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
-    @articles = @articles.order("resources.name asc, articles.name asc")
     @all_lang_group = ALL_LANG_GROUP
   end
 
@@ -547,6 +546,5 @@ private
       response.headers['X-Robots-Tag'] = "noindex"
     end
   end
-
 end
 

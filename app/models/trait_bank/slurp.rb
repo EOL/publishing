@@ -60,7 +60,8 @@ class TraitBank::Slurp
       require 'csv'
       data = CSV.read(file)
       headers = data.shift
-      return nil unless headers # The file would be empty if there were no traits.
+      return nil unless headers # Nothing in the file.
+      return nil if headers.first == 'false' # The only thing in the file, when it's empty.
       position = headers.find_index(field)
       raise "Could not find #{field} field in traits_#{id}.csv." if position.nil?
       values = {}
@@ -176,6 +177,7 @@ class TraitBank::Slurp
       nodes = config # what's left.
       if params[:read_resources]
         res_ids = read_field_from_traits_file(params[:read_resources], 'resource_id')
+        return nil if res_ids.nil?
         res_ids.each do |resource_id|
           TraitBank.create_resource(resource_id)
         end

@@ -62,7 +62,7 @@ module DataHelper
           return "[MISSING PAGE #{data[:object_page_id]}]"
         end
       end
-      parts << link_to(name_for_page(page), page_overview_path(page))
+      parts << link_to(name_for_page(page), page_path(page))
     elsif data[:object_term] && data[:object_term][:name]
       value = data[:object_term][:name]
       parts << value

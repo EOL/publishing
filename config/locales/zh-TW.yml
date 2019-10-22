@@ -1,0 +1,515 @@
+# Messages for Traditional Chinese (中文（繁體）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kly
+# Author: Taieol
+# Author: Winston Sung
+---
+zh-TW:
+  language_name: 英語
+  about:
+    trait_bank:
+      title: 特質資料庫
+  account_already_linked: 您的帳號已連結到網路生命大百科
+  account_not_linked: 您的帳號尚未連結到網路生命大百科
+  advanced: 進階
+  are_you_sure_delete_account: 您確定要刪除您自己的網路生命大百科帳號嗎？
+  article:
+    header:
+      language: 語言：%{language}
+      title: 標題
+      untitled: 無標題
+    name:
+      missing: 無標題
+  button_create: 建立
+  button_add: 添加
+  cancel: 取消
+  change_my_password: 更改我的密碼
+  change_your_password: 更改您的密碼
+  classifications:
+    children:
+      see_more: 查看更多
+    hierarchies:
+      this_page: （此頁面）
+    richness:
+      header: 頁面豐富度
+      score: 豐富度分數
+      page_contents_count: 關聯內容
+      links_count: 連結
+      maps_count: 地圖
+      data_count: 資料
+      updated_at: 上一次更新
+  cms_page_date: 上一次變動：
+  collect_title: 添加「%{item}」到…
+  collected_pages_title: 頁面
+  collected_pages:
+    delete_button: 刪除
+    edit_button: 編輯
+    delete_confirm: 您確定嗎？
+  collection_user_is_admin: 此使用者是管理員。
+  collection:
+    admins:
+      placeholder: 完整名稱或使用者名稱
+    actions:
+      delete: 刪除
+      edit: 編輯
+    collection_type:
+      gallery: 圖庫
+    pages_count:
+      one: 1 個頁面
+      other: '%{count} 個頁面'
+    search:
+      submit: 搜尋
+    sort:
+      position: 日期已添加
+  complete_registration: 請繼續您的註冊
+  content_attributions_header: 來源資訊
+  content_attributions_labels:
+    altitude: 海拔
+    author: 作者
+    creator: 建立者
+    editor: 編輯者
+    latitude: 緯度
+    location: 位置
+    longitude: 經度
+    original_media_file: 原始媒體檔案
+    photographer: 攝影者
+    source: 來源
+    view_source_label: 原始
+    view_source_link: 檢視原始圖片
+    view_source_page_link: 參訪來源
+  delete_account_button: 刪除您的帳號
+  filter_by_medium_subtype: 類型
+  filter_by_medium_any_item: 任何類型
+  footer:
+    eol_info:
+      contact_us: 聯絡我們
+      data_services: 資料服務
+      education: 教育
+      terms_of_use: 使用條款
+      the_eol_forum: 網路生命大百科論壇
+      what_is_eol: 什麼是網路生命大百科（Encyclopedia of Life、EOL）？
+      whats_new: 最新消息
+    discover:
+      algae: 藻類
+      amphibians: 兩棲類
+      animals: 動物
+      archaea: 古生菌
+      bacteria: 細菌
+      birds: 鳥類
+      crustaceans: 甲殼類
+      fishes: 魚類
+      flowering_plants: 開花植物
+      fungi: 真菌
+      insects: 昆蟲
+      invertebrates: 無脊椎動物
+      mammals: 哺乳類
+      molds: 黴菌
+      mushrooms: 蕈類
+      mollusks: 軟體動物
+      plants: 植物
+      protists: 原生生物
+      reptiles: 爬蟲類
+      spiders: 蜘蛛
+      trees: 樹木
+      viruses: 病毒
+      worms: 蠕蟲
+  forgot_your_password: 忘記您的密碼？
+  language: 語言
+  languages:
+    none: 未指定
+    aa: 阿法爾語
+    ab: 阿布哈茲語
+    ae: 阿維斯陀語
+    af: 南非語
+    ak: 阿寒語
+    am: 阿姆哈拉語
+    an: 亞拉岡語
+    ar: 阿拉伯語
+    as: 阿薩姆語
+    av: 阿瓦爾語
+    ay: 艾馬拉語
+    az: 亞塞拜然語
+    ba: 巴什基爾語
+    be: 白俄羅斯語
+    bg: 保加利亞語
+    bh: 比哈爾語
+    bi: 比斯拉馬語
+    bm: 班巴拉語
+    bn: 孟加拉語
+    bo: 藏語
+    br: 布列塔尼語
+    bs: 波士尼亞語
+    ca: 加泰隆語
+    ce: 車臣語
+    ch: 查莫羅語
+    co: 科西嘉語
+    cr: 克里語
+    cs: 捷克語
+    cu: 教會斯拉夫、古教會斯拉夫、古保加利亞、舊教會斯拉夫語
+    cv: 楚瓦什語
+    cy: 威爾斯語
+    da: 丹麥語
+    de: 德語
+    dv: 迪維西、馬爾地夫語
+    dz: 宗喀語
+    dzo: 宗喀語
+    ee: 埃維語
+    el: 現代希臘語（1453 年以後）
+    en: 英語
+    eo: 世界語
+    es: 西班牙、卡斯蒂利亞西班牙語
+    et: 愛沙尼亞語
+    eu: 巴斯克語
+    fa: 波斯文
+    ff: 富拉語
+    fi: 芬蘭語
+    fj: 斐濟語
+    fo: 法羅語
+    fr: 法語
+    fy: 西菲士蘭語
+    ga: 愛爾蘭語
+    gd: 蘇格蘭蓋爾語
+    gl: 加利西亞語
+    gn: 瓜拉尼語
+    gu: 古吉拉特語
+    gv: 曼島語
+    ha: 豪薩語
+    he: 希伯來語
+    hi: 印地語
+    ho: 希里木托語
+    hr: 克羅埃西亞語
+    ht: 海地、海地克里奧爾語
+    hu: 匈牙利語
+    hy: 亞美尼亞語
+    hz: 赫雷羅語
+    ia: 因特語（國際輔助語協會）
+    id: 印尼語
+    ie: 西方國際語
+    ig: 伊博語
+    ii: 彝語北部方言
+    ik: 因紐皮雅特語
+    io: 伊多語
+    is: 冰島語
+    it: 義大利語
+    iu: 伊努克提圖特語
+    ja: 日語
+    jv: 爪哇語
+    jp: 日語
+    ka: 喬治亞語
+    kg: 剛果語
+    ki: 基庫尤語
+    kj: 誇摩馬語
+    kk: 哈薩克語
+    kl: 格陵蘭語
+    km: 高棉語
+    kn: 康納達語
+    ko: 韓語
+    kr: 卡努里語
+    ks: 喀什米爾語
+    ku: 庫德語
+    kv: 科米語
+    kw: 康瓦爾語
+    ky: 吉爾吉斯語
+    la: 拉丁語
+    lb: 盧森堡語
+    lg: 盧干達語
+    li: 林堡語
+    ln: 林格拉語
+    lo: 寮語
+    lt: 立陶宛語
+    lu: 盧巴卡丹加語
+    lv: 拉脫維亞語
+    mg: 馬拉加斯語
+    mh: 馬紹爾語
+    mi: 毛利語
+    mk: 馬其頓語
+    ml: 馬拉雅拉姆語
+    mn: 蒙古語
+    mr: 馬拉提語
+    ms: 馬來語
+    mt: 馬爾他語
+    my: 緬甸語
+    na: 諾魯語
+    nb: 書面挪威、挪威博克莫爾語
+    nd: 北恩德貝勒語
+    ne: 尼泊爾語
+    ng: 恩敦加語
+    nl: 荷蘭、佛萊明語
+    nn: 新挪威語
+    "": 挪威語
+    nr: 南恩德貝勒語
+    nv: 納瓦荷語
+    ny: 齊切瓦、尼揚賈語
+    oc: 奧克語（1500 年之後）
+    oj: 奧傑布瓦語
+    om: 奧羅莫語
+    or: 歐利亞語
+    os: 奧塞提亞語
+    pa: 旁遮普語
+    pi: 馬利語
+    pl: 波蘭語
+    ps: 普什圖語
+    pt: 葡萄牙語
+    qu: 奇楚瓦語
+    rm: 羅曼什語
+    rn: 克倫地語
+    ro: 摩爾多瓦語
+    ru: 俄語
+    rw: 盧安達語
+    sa: 梵語
+    sc: 薩丁尼亞語
+    sd: 信德語
+    se: 北方薩米語
+    sg: 桑戈語
+    si: 僧伽羅語
+    sk: 斯洛伐克語
+    sl: 斯洛維尼亞語
+    sm: 薩摩亞語
+    sn: 修納語
+    so: 索馬利亞語
+    sq: 阿爾巴尼亞語
+    sr: 塞爾維亞語
+    ss: 史瓦帝語
+    st: 塞索托語
+    su: 巽他語
+    sv: 瑞典語
+    sw: 斯瓦希里語
+    ta: 坦米爾語
+    te: 泰盧固語
+    tg: 塔吉克語
+    th: 泰語
+    ti: 提格利尼亞語
+    tk: 土庫曼語
+    tl: 他加祿語
+    tn: 札那語
+    to: 東加語
+    tr: 土耳其語
+    ts: 宋加語
+    tt: 韃靼語
+    tw: 契維語
+    ty: 大溪地語
+    ug: 維吾爾語
+    uk: 烏克蘭語
+    ur: 烏爾都語
+    uz: 烏茲別克語
+    ve: 溫達語
+    vi: 越南語
+    vo: 沃拉普克語
+    wa: 瓦隆語
+    wo: 沃洛夫語
+    xh: 科薩語
+    yi: 意第緒語
+    yo: 約魯巴語
+    za: 壯語
+    zh: 中文
+    zu: 祖魯語
+  layout_sign_in: 登入
+  layout_sign_up: 註冊
+  layout_sign_out: 登出
+  medium:
+    untitled:
+      image: 無標題圖片
+      image_of: '%{page_name}的圖片'
+      video: 無標題影片
+      video_of: '%{page_name}的影片'
+      sound: 無標題聲音
+      sound_of: '%{page_name}的聲音'
+      map: 無標題地圖
+      map_of: '%{page_name}的地圖'
+      js_map: 無標題互動地圖
+      js_map_of: '%{page_name}的互動地圖'
+    subclasses:
+      image: 圖片
+      video: 影片
+      sound: 聲音
+      map: 地圖
+      js_map: 互動地圖
+  medium_header_title: 標題：
+  medium_header_description: 描述：
+  nav:
+    about: 關於
+    discuss: 討論
+    education: 教育
+    search:
+      placeholder: 搜尋網路生命大百科…
+    trait_bank: 特質資料庫
+  page_title: 生命大百科
+  page_title_search: 搜尋：%{query}
+  pages:
+    actions:
+      reindex: 重建索引
+    batch_lookup:
+      header: 批量頁面查看
+      download_tsv: 下載 TSV
+      new_search: 新搜尋
+      page_id: 頁面 ID
+      query: 查詢
+      query_cant_be_blank: 查詢不可為空
+      search: 搜尋
+    filter_menu:
+      show_all: 顯示全部
+    page_data:
+      show_all: 顯示全部
+    trophic_web:
+      globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
+      reset: 重新設定
+    tabs:
+      articles: 條目
+      data: 資料
+      maps: 地圖
+      media: 媒體
+    iucn_status:
+      unknown: 未知（沒有紀錄）
+  page_titles:
+    pages:
+      data: '%{page_name}資料'
+      media: '%{page_name}媒體'
+      maps: '%{page_name}地圖'
+      names: '%{page_name}名稱'
+    traits:
+      search: 特質搜尋
+  recaptcha: Recaptcha
+  recaptcha_error: 請告訴我們你不是機器人。
+  resources:
+    actions:
+      reindex: 重建索引
+      index: 返回到所有資源
+      show_warns:
+        one: 顯示警告（%{count} 個）
+        other: 顯示警告（%{count} 個）
+      clear_publishing: 清除鎖定
+    headers:
+      index: 資源
+    no_events: 無！
+  resource_missing: 找不到資源
+  scientific_name:
+    status_title:
+      synonym: 同物異名
+  search:
+    n_images:
+      one: '%{count} 張圖片'
+      other: '%{count} 張圖片'
+    n_results:
+      zero: 沒有結果
+      one: '%{count} 個結果'
+      other: '%{count} 個結果'
+    n_sounds:
+      one: '%{count} 個聲音'
+      other: '%{count} 個聲音'
+    n_users:
+      one: '%{count} 位使用者'
+      other: '%{count} 位使用者'
+    n_videos:
+      one: '%{count} 個影片'
+      other: '%{count} 個影片'
+  search_results:
+    collection_page_count:
+      one: '%{count} 個頁面'
+      other: '{count} 個頁面'
+    medium_image: 圖片
+    medium_map: 地圖
+    medium_sound: 聲音
+    medium_video: 影片
+    medium_title_image_html: 圖片：<span class='sub'>%{title}</span>
+    medium_title_map_html: 地圖：<span class='sub'>%{title}</span>
+    medium_title_sound_html: 音訊：<span class='sub'>%{title}</span>
+    medium_title_video_html: 影片：<span class='sub'>%{title}</span>
+    empty: 沒有結果。
+    user_title_html: 使用者：<span class='sub'>%{name}</span>
+  search_suggestion:
+    actions:
+      create: 建立新的搜尋建議
+    created: 已建立對於「%{match}」的搜尋建議
+    destroyed: 已去除對於「%{match}」的搜尋建議
+    new:
+      header: 建立搜尋建議
+    update:
+      header: 更新搜尋建議
+    index:
+      header: 搜尋建議
+  sections:
+    associations: 關聯
+    behavior: 行為
+    brief_summary: 簡要總結
+    comprehensive_description: 綜合描述
+    conservation: 保護
+    conservation_status: 保護狀態
+    dispersal: 擴散
+    ecology: 生態學
+    evolution_and_systematics: 演化與系統分類學
+    general_ecology: 一般生態學
+    genetics: 遺傳學
+    habitat: 棲息地
+    life_expectancy: 平均壽命
+    management: 管理
+    migration: 遷徙
+    molecular_biology: 分子生物學
+    molecular_biology_and_genetics: 分子生物學與遺傳學
+    overview: 概要
+    physiology_and_cell_biology: 生理學與細胞生物學
+    physical_description: 物質描述
+    relevance_to_humans_and_ecosystems: 與人類及生態系的關聯
+    reproduction: 生殖
+    risks: 風險
+    size: 大小
+    taxonomy: 分類學
+    threats: 威脅
+    trends: 趨勢
+    type_information: 類型資訊
+    wikipedia: 維基百科
+  settings: 設定
+  sign_in: 登入
+  sign_up: 註冊
+  simple_form:
+    "yes": 是
+    "no": 否
+    required:
+      mark: '*'
+    labels:
+      defaults:
+        email: 電子郵件
+        password: 密碼
+        password_confirmation: 密碼確認
+        username: 使用者名稱
+      search_suggestion:
+        path: 重新導向的路徑（完整或是相對路徑）
+  stats:
+    data: 資料紀錄
+    media: 媒體
+    pages: 頁面
+    users: 使用者
+  term:
+    actions:
+      reindex: 重建索引
+      sort: 排序依照
+    fields:
+      name: 名稱：
+      definition: 定義：
+    pagination:
+      next: 下一頁
+      previous: 上一頁
+  terms:
+    record_url: 紀錄 URL
+    show_all_records: 顯示所有紀錄
+    source: 來源
+    uri_field_html: <strong>URI：</strong>%{uri}
+    index:
+      select_page_above: 選擇上方的一個頁面來開始。
+  user:
+    created_at: 已建立
+    edit_account_details: 編輯帳號詳細內容
+    email: 電子郵件
+    headers:
+      downloads: 下載
+      links: 連結
+    new_password: 新密碼
+    confirm_new_password: 確認新密碼
+    username: 使用者名稱
+    update: 更新
+    update_email: 更新電子郵件
+  users:
+    sign_in: 登入
+  vernacular_names_header: 俗名
+  wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
+...

@@ -226,7 +226,7 @@ class TraitBank
 
       # NOTE: I removed the units from this query after ea27411f8110b74 (q.v.)
       def page_glossary(page_id)
-        q = "MATCH (page:Page { page_id: #{page_id} })-[:trait]->(trait:Trait) "\
+        q = "MATCH (page:Page { page_id: #{page_id} })-->(trait:Trait) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
           "RETURN predicate, object_term"

@@ -506,6 +506,36 @@ pms:
     search:
       no_results_html: <strong>Gnun arzultà confermà</strong><br />Sgnaché su A cap
         për vëdde j'arzultà nen controlà
+      placeholder: Arserca ant l'EdV...
+    trait_bank: TraitBank
+  name_preferred_label: preferì
+  page_icon_counts:
+    header:
+      one: Mej plancia për la pàgina
+      other: Mej plance për le pàgine
+  page_icon_created: Plancia «%{name}» spostà an àut.
+  page_title: Enciclopedìa dla Vita
+  page_title_search: 'Arserca: %{query}'
+  page_vernaculars_empty: A-i é gnun nòm comun associà a costa tassonomìa.
+  pages:
+    actions:
+      collect: cheuje
+      comment:
+        zero: coment
+        one: '%{count} coment'
+        other: '%{count} coment'
+      reindex: riandicisé
+    batch_lookup:
+      header: arserca ëd pàgine a baron
+      canonical_name: nòm canònich
+      download_tsv: dëscarià an TSV
+      match: corëspondensa
+      new_search: neuva arserca
+      page_id: ID ëd pàgina
+      page_url: URL ëd la pàgina
+      query: arcesta
+      query_cant_be_blank: l'arcesta a peul pa esse veuida
+      search: sërché
   recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
   sign_in: Rintré ant ël sistema
 ...

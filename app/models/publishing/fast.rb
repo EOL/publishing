@@ -97,7 +97,7 @@ class Publishing::Fast
     end
   end
 
-  def by_resource
+  def set_relationships
     @relationships = {
       Referent => {},
       Node => { parent_id: Node },
@@ -114,6 +114,10 @@ class Publishing::Fast
       Reference => { referent_id: Referent }, # The polymorphic relationship is handled specially.
       ContentSection => { content_id: [Article] } # NOTE: at the moment, only articles have sections...
     }
+  end
+
+  def by_resource
+    set_relationships
     abort_if_already_running
     new_log
     unless @resource.nodes.count.zero? # slow, skip if not needed.
@@ -126,18 +130,7 @@ class Publishing::Fast
       unless @repo.exists?('nodes.tsv')
         raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
-      @relationships.each_key do |klass|
-        @klass = klass
-        log_start(@klass)
-        @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
-        if grab_file("#{@klass.table_name}.tsv")
-          log_start("#import #{@klass}")
-          import
-          log_start("#propagate_ids #{@klass}")
-          propagate_ids
-          @files << @data_file
-        end
-      end
+      @relationships.each_key { |klass| import_and_prop_ids(klass) }
       VernacularPreference.restore_for_resource(@resource.id, @log)
       # You have to create pages BEFORE you slurp traits, because now it needs the scientific names from the page
       # objects.
@@ -185,6 +178,16 @@ class Publishing::Fast
     @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
   end
 
+  def import_and_prop_ids(klass)
+    log_start(@klass = klass)
+    @data_file = Rails.root.join('tmp', "#{@resource.path}_#{@klass.table_name}.tsv")
+    if grab_file("#{@klass.table_name}.tsv")
+      import
+      propagate_ids
+      @files << @data_file
+    end
+  end
+
   def clean_up
     @files.each do |file|
       log("Removing #{file}")
@@ -197,6 +200,7 @@ class Publishing::Fast
   end
 
   def import
+    log_start("#import #{@klass}")
     cols = @klass.column_names
     cols.delete('id') # We never load the PK, since it's auto_inc.
     q = ['LOAD DATA']
@@ -223,6 +227,7 @@ class Publishing::Fast
   end
 
   def propagate_ids
+    log_start("#propagate_ids #{@klass}")
     @relationships[@klass].each do |field, sources|
       next unless sources
       Array(sources).each do |source| # Array implies polymorphic relationship
