@@ -97,6 +97,7 @@ Rails.application.routes.draw do
       post "publish" => "home_page_feeds#publish", :as => "publish"
       get "batch_edit_items" => "home_page_feeds#batch_edit_items"
       post "batch_edit_items" => "home_page_feeds#batch_update_items"
+      get "reset_draft"
       resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
     end
 

@@ -10,6 +10,8 @@ class HomePageFeed < ActiveRecord::Base
   accepts_nested_attributes_for :items
   validates_associated :items
 
+  before_update :delete_old_draft_if_necessary
+
   # Don't change these mappings. Add as necessary.
   FIELDS = {
     :img_url => 0, 
@@ -45,13 +47,18 @@ class HomePageFeed < ActiveRecord::Base
     items.where(:feed_version => draft_version)
   end
 
-  def publish!
-    self.published_version = draft_version
+  def reset_draft
+    draft_items.reload.destroy_all
     items << published_items.reload.map do |item|
       new_item = item.dup
       new_item.feed_version = draft_version
       new_item
     end
+  end
+
+  def publish!
+    self.published_version = draft_version
+    reset_draft
     save!
   end
 
@@ -60,9 +67,11 @@ class HomePageFeed < ActiveRecord::Base
     @items_from_csv = csv_str 
 
     begin
-      csv = CSV.parse(csv_str, headers: true)
+      csv = CSV.parse(csv_str, headers: true, col_sep: "\t")
       headers_sym = csv.headers.collect { |h| h.to_sym }
       field_set = Set.new(fields)
+
+      raise "can't be blank" if !csv.any?
 
       headers_sym.each do |h|
         if !field_set.include? h
@@ -71,6 +80,7 @@ class HomePageFeed < ActiveRecord::Base
       end
 
       self.items_attributes = csv.collect(&:to_h)
+      @delete_old_draft_on_update = true
     rescue => e
       @csv_errors << e.message
     end 
@@ -87,10 +97,21 @@ class HomePageFeed < ActiveRecord::Base
     end
   end
 
+  def delete_old_draft_on_update?
+    @delete_old_draft_on_update ||= false
+  end
+
   def validate_csv_errors
     @csv_errors ||= []
     @csv_errors.each do |e|
       errors.add(:items_from_csv, e)
     end
   end
+
+  def delete_old_draft_if_necessary
+    draft_items.destroy_all if @delete_old_draft_on_update
+    @delete_old_draft_on_update = false
+    return true
+  end
 end
+

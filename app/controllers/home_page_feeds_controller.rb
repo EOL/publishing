@@ -1,6 +1,6 @@
 class HomePageFeedsController < ApplicationController
   before_action :require_admin
-  before_action :set_home_page_feed, only: [:show, :edit, :edit_items, :edit_items_form, :update, :batch_update_items, :destroy, :publish, :batch_edit_items]
+  before_action :set_home_page_feed, only: [:show, :edit, :edit_items, :edit_items_form, :update, :batch_update_items, :destroy, :publish, :batch_edit_items, :reset_draft]
 
   # GET /home_page_feeds
   # GET /home_page_feeds.json
@@ -51,6 +51,13 @@ class HomePageFeedsController < ApplicationController
 
   def batch_update_items
     update_helper(home_page_feed_items_path(home_page_feed_id: @home_page_feed.id), "batch_edit_items")
+  end
+
+  def reset_draft
+    @home_page_feed.reset_draft
+    @home_page_feed.save!
+    flash[:notice] = "Draft reset"
+    redirect_to home_page_feed_items_path(home_page_feed: @home_page_feed)
   end
 
   private
