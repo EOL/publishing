@@ -166,8 +166,9 @@ class TraitBank
 
     def by_trait(input, page = 1, per = 200)
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
+      # NOTE: MV may have removed [:trait] from the page->trait relationship, but I had to add it back Oct 23 2019
       q = "MATCH (page:Page)"\
-          "-->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
+          "-[:trait]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
@@ -432,7 +433,7 @@ class TraitBank
       trait_inv_rows = options[:trait_inv_rows]
       traits_invs = options[:traits_invs]
 
-      filter_matches = filter.inverse_pred_uri ? optional_matches : matches 
+      filter_matches = filter.inverse_pred_uri ? optional_matches : matches
 
       trait_var = "t#{i}"
       pred_var = "p#{i}"
@@ -495,7 +496,7 @@ class TraitBank
     end
 
     def add_term_filter_meta_match(pred_uri, obj_uri, trait_var, meta_var, matches)
-      match = 
+      match =
         "(#{trait_var})-[:metadata]->(#{meta_var}:MetaData), "\
         "(#{meta_var})-[:predicate]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{pred_uri}' }), "\
         "(#{meta_var})-[:object_term]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{obj_uri}' })"
@@ -504,15 +505,15 @@ class TraitBank
 
     def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
       add_term_filter_meta_match(
-        Eol::Uris.sex, 
-        filter.sex_uri, 
+        Eol::Uris.sex,
+        filter.sex_uri,
         trait_var,
-        "#{base_meta_var}_sex", 
+        "#{base_meta_var}_sex",
         matches
       ) if filter.sex_term?
 
       add_term_filter_meta_match(
-        Eol::Uris.lifestage, 
+        Eol::Uris.lifestage,
         filter.lifestage_uri,
         trait_var,
         "#{base_meta_var}_ls",
@@ -564,7 +565,7 @@ class TraitBank
         add_term_filter_resource_match(filter, trait_var, matches)
 
         wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
-        
+
         rows_var = "rows#{i}"
         rows_vars << rows_var
         collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
@@ -679,7 +680,7 @@ class TraitBank
       # "#{order_clause}"
     end
 
-#    NOTE: This is the version that handles inverse predicates. It isn't performing ATM, but we might want it in the future, 
+#    NOTE: This is the version that handles inverse predicates. It isn't performing ATM, but we might want it in the future,
 #    so here it is.
 #    def term_record_search(term_query, options)
 #      matches = []
@@ -695,11 +696,11 @@ class TraitBank
 #
 #      term_query.filters_inv_pred_last.each_with_index do |filter, i|
 #        term_search_filter_match(
-#          filter, 
-#          i, 
-#          matches, 
-#          optional_matches, 
-#          collects: collects, 
+#          filter,
+#          i,
+#          matches,
+#          optional_matches,
+#          collects: collects,
 #          trait_inv_rows: trait_inv_rows
 #        )
 #      end
@@ -802,10 +803,10 @@ class TraitBank
 #
 #      term_query.filters_inv_pred_last.each_with_index do |filter, i|
 #        term_search_filter_match(
-#          filter, 
-#          i, 
-#          matches, 
-#          optional_matches, 
+#          filter,
+#          i,
+#          matches,
+#          optional_matches,
 #          traits_invs: traits_invs
 #        )
 #      end
@@ -1292,7 +1293,7 @@ class TraitBank
         "WITH row.group_id as group_id, row.source.page_id as source, row.target.page_id as target, row.type as type, { metadata: { id: row.source.page_id + '-' + row.target.page_id } } AS id "\
         "RETURN type, source, target, id "\
 
-      results_to_hashes(query(qs), "id")      
+      results_to_hashes(query(qs), "id")
     end
 
     # for word cloud visualization
@@ -1307,13 +1308,13 @@ class TraitBank
       build_trait_array(query(qs))
     end
 
-    # each argument is expected to be an Array of strings 
-    def array_to_qs(*args) 
+    # each argument is expected to be an Array of strings
+    def array_to_qs(*args)
       result = []
       args.each do |uris|
         result.concat(uris.collect { |uri| "'#{uri}'" })
       end
       "[#{result.join(", ")}]"
-    end 
+    end
   end
 end
