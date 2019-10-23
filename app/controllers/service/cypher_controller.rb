@@ -4,6 +4,7 @@ require 'csv'
 
 class Service::CypherController < ServicesController
   before_action :require_power_user, only: :form
+  skip_before_action :verify_authenticity_token, only: :command
 
   def form
     # Cf. the view
@@ -36,7 +37,7 @@ class Service::CypherController < ServicesController
 
     return render_bad_request(title: "Please provide a LIMIT clause.") unless
       cypher =~ /\b(limit)\b/i
-      
+
     # Authenticate the user and authorize the requested operation, 
     # using the API token and the information in the user table.
     # Non-admin users are not supposed to add to the database.
@@ -54,7 +55,12 @@ class Service::CypherController < ServicesController
     end
 
     # Do the query or command
-    render_results(TraitBank.query(cypher), format)
+    begin
+      results = TraitBank.query(cypher)
+      render_results(results, format)
+    rescue Neography::SyntaxException => e
+      return render_bad_request(title: "Cypher syntax error: #{e.message}")
+    end
   end
 
   def render_results(results, format = "cypher")
