@@ -9,7 +9,17 @@ class Service::CypherController < ServicesController
     # Cf. the view
   end
   
+  # Entry via POST for uncacheable / unsafe operations
+  def command
+    cypher_command(params, true)
+  end
+
+  # Entry via GET for cacheable / safe operations
   def query
+    cypher_command(params, false)
+  end
+
+  def cypher_command(params, allow_effectful)
     format = params.delete(:format) || "cypher"
 
     cypher = params.delete(:query)
@@ -32,7 +42,9 @@ class Service::CypherController < ServicesController
     # Non-admin users are not supposed to add to the database.
     
     if cypher =~ /\b(create|set|merge|delete|remove|call)\b/i
-      # Allow admin to add to graph and perform dangerous operations
+      return render_bad_request(title: "Unsafe Cypher operation.") unless
+        allow_effectful
+      # Allow admin to perform dangerous operations via POST
       user = authorize_admin_from_token!
       return nil unless user
     else
