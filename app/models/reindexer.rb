@@ -15,7 +15,7 @@ module Reindexer
         p.native_node_id = node.id
       end
 
-      nodes.each do |node|
+      nodes.compact.each do |node|
         cmn = Vernacular.where(string: common, node_id: node.id,
           page_id: page.id, language_id: Language.english.id).first_or_create do |n|
             n.string = common
