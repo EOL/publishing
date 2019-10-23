@@ -205,7 +205,7 @@ class Painter
     CSV.foreach(assert_path, {encoding:'UTF-8'}) do |page, trait, name, value, ovalue|
       next if page == "page"    # gross
       if inferences.include?([page, trait])
-        duplicates[[page, trait]] = true
+        duplicates << [page, trait]
       else
         inferences[[page, trait]] = [name, value, ovalue]
       end
