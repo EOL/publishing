@@ -174,6 +174,7 @@ Rails.application.routes.draw do
     get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
     get "/services/authenticate" => "services#authenticate_service"
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
+    post "/service/cypher" => "service/cypher#command", as: "cypher_command"
     get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
     get "/service/remove_relationships" => "service/cypher#remove_relationships", as: "remove_relationships"
 
