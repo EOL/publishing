@@ -526,9 +526,14 @@ class PageDecorator
 
       def term_tag(label, pred_uri, obj_uri, trait_source = nil)
         toggle_id = term_toggle_id(label)
+        hash = begin
+          TraitBank.term_as_hash(obj_uri)
+        rescue ActiveRecord::RecordNotFound
+          return "(missing obj_uri)"
+        end
         @terms << ResultTerm.new(
           pred_uri,
-          TraitBank.term_as_hash(obj_uri),
+          hash,
           trait_source,
           "##{toggle_id}"
         )
