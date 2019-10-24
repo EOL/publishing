@@ -131,6 +131,7 @@ class Publishing::Fast
         raise("#{@repo.file_url('nodes.tsv')} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
       @relationships.each_key { |klass| import_and_prop_ids(klass) }
+      log_start('restoring vernacular preferences...')
       VernacularPreference.restore_for_resource(@resource.id, @log)
       # You have to create pages BEFORE you slurp traits, because now it needs the scientific names from the page
       # objects.

@@ -26,13 +26,14 @@ class VernacularPreference < ActiveRecord::Base
         overridden_ids = where(language_id: name.language_id, page_id: name.page_id).pluck(:id)
         pref = create(user_id: user_id, vernacular_id: name.id, resource_id: name.resource_id,
           page_id: name.page_id, language_id: name.language_id, string: name.string)
-        name.prefer
+        name.prefer # Yes, we "must" use this method, here, obviously.
         where(id: overridden_ids).update_all(overridden_by_id: pref.id)
       end
     end
 
     def restore_for_resource(resource_id, log = nil)
-      where(resource_id: resource_id, overridden_by_id: nil).find_each do |pref|
+      where(resource_id: resource_id, overridden_by_id: nil).includes(:page).find_each do |pref|
+        next if pref.page.nil? # The page no longer exsits, this is irrelevant.
         names = Vernacular.where(resource_id: resource_id, string: pref.string, language_id: pref.language_id)
         count = names.count
         if count.zero?
@@ -43,7 +44,7 @@ class VernacularPreference < ActiveRecord::Base
             "using first.", log)
         end
         name = names.first
-        name.prefer
+        name.prefer # Yes, we "must" use this method, here, since we don't have a user.
       end
     end
 
