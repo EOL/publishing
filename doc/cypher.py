@@ -16,15 +16,22 @@ import requests, argparse, json, sys
 default_server = "https://beta.eol.org"
 sample_data = {"a": "has space", "b": "has %", "c": "has &"}
 
-def doit(server, api_token, query, format):
+def doit(server, api_token, query, format, unsafe):
     url = "%s/service/cypher" % server.rstrip('/')
     if format == None: format = "cypher"
     data = {"query": query, "format": format}
-    r = requests.get(url,
-                     stream=(format=="csv"),
-                     headers={"accept": "application/json",
-                              "authorization": "JWT " + api_token},
-                     params=data)
+    headers = {"accept": "application/json",
+               "authorization": "JWT " + api_token}
+    if unsafe:
+      r = requests.post(url,
+                        stream=(format=="csv"),
+                        headers=headers,
+                        params=data)
+    else:
+      r = requests.get(url,
+                       stream=(format=="csv"),
+                       headers=headers,
+                       params=data)
     if r.status_code != 200:
         sys.stderr.write('HTTP status %s\n' % r.status_code)
     ct = r.headers.get("Content-Type").split(';')[0]
@@ -63,6 +70,7 @@ if __name__ == '__main__':
     parser.add_argument('--queryfile', help='file containing cypher query to run', default=None)
     parser.add_argument('--server', help='URL for EOL web app server', default=default_server)
     parser.add_argument('--format', help='result format (json or csv)', default=None)
+    parser.add_argument('--unsafe', help='set to true if an unsafe operation (DELETE etc)', default=False)
     args=parser.parse_args()
     query = args.query
     if args.queryfile != None:
@@ -72,4 +80,4 @@ if __name__ == '__main__':
     if args.tokenfile != None:
         with open(args.tokenfile, 'r') as infile:
             token = infile.read().strip()
-    doit(args.server, token, query, args.format)
+    doit(args.server, token, query, args.format, args.unsafe)
