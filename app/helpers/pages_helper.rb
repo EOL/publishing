@@ -91,7 +91,7 @@ module PagesHelper
           haml_tag("div.item") do
             haml_tag("div.ui.middle.aligned.list.descends") do
               # sanitize so <i> tags aren't counted for sorting purposes
-              this_node.children.sort { |a, b| sanitize(a.name, tags: []) <=> sanitize(b.name, tags: []) }.each do |child|
+              sort_nodes_by_name(this_node.children).each do |child|
                 haml_tag("div.item") do
                   summarize(child.page, name: child.scientific_name, node: child, no_icon: true)
                 end
@@ -107,7 +107,7 @@ module PagesHelper
     end
 
     if show_siblings
-      this_node.siblings.each do |sibling|
+      sort_nodes_by_name(this_node.siblings).each do |sibling|
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
         end
@@ -322,4 +322,14 @@ private
       a_name <=> b_name
     end
   end
+
+  private
+    def sort_nodes_by_name(nodes)
+      nodes.sort do |a, b|
+        a_name = sanitize(a.name, tags: [])
+        b_name = sanitize(b.name, tags: [])
+
+        a_name <=> b_name
+      end
+    end
 end
