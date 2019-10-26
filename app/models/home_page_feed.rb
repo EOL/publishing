@@ -69,12 +69,12 @@ class HomePageFeed < ActiveRecord::Base
     begin
       raise "must specify a file" if !tsv_file
 
-      csv_str = tsv_file.read
-      csv = CSV.parse(csv_str, headers: true, col_sep: "\t")
-      headers_sym = csv.headers.collect { |h| h.to_sym }
+      tsv_str = tsv_file.read
+      tsv = CSV.parse(tsv_str, headers: true, col_sep: "\t")
+      headers_sym = tsv.headers.collect { |h| h.to_sym }
       field_set = Set.new(fields)
 
-      raise "can't be blank" if !csv.any?
+      raise "can't be blank" if !tsv.any?
 
       headers_sym.each do |h|
         if !field_set.include? h
@@ -82,14 +82,14 @@ class HomePageFeed < ActiveRecord::Base
         end
       end
 
-      self.items_attributes = csv.collect(&:to_h)
+      self.items_attributes = tsv.collect(&:to_h)
       @delete_old_draft_on_update = true
     rescue => e
       @tsv_errors << e.message
     end 
   end
 
-  def cur_draft_items_csv
+  def cur_draft_items_tsv
     CSV.generate(col_sep: "\t") do |csv|
       csv << fields
 

@@ -62,7 +62,7 @@ class HomePageFeedsController < ApplicationController
   end
 
   def current_draft_tsv
-    send_data @home_page_feed.cur_draft_items_csv, filename: "#{@home_page_feed.name}_feed_items.tsv"
+    send_data @home_page_feed.cur_draft_items_tsv, filename: "#{@home_page_feed.name}_feed_items.tsv"
   end
 
   def reset_draft
