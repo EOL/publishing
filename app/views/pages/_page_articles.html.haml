@@ -17,5 +17,5 @@
   - grouped_articles.keys.sort_by(&:position).each do |section|
     %h2.ui.top.attached.header= section.name
     %ul.ui.attached.segment.articles
-      - sorted_section_articles_for_page(section, grouped_articles.each_with_index do |article, index|
+      - sorted_section_articles_for_page(section, grouped_articles.each_with_index) do |article, index|
         = render :partial => "page_article", :locals => { article: article }
