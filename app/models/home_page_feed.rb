@@ -4,7 +4,7 @@ require "set"
 class HomePageFeed < ActiveRecord::Base
   validates :name, :presence => true, :uniqueness => true
   validate :validate_field_mask
-  validate :validate_csv_errors
+  validate :validate_tsv_errors
 
   has_many :items, :dependent => :destroy, :class_name => "HomePageFeedItem", :inverse_of => :home_page_feed
   accepts_nested_attributes_for :items
@@ -22,11 +22,12 @@ class HomePageFeed < ActiveRecord::Base
   }
 
   def fields=(fields)
+    @fields = nil
     self.field_mask = fields.reject{ |f| f.blank? }.map { |f| 2**FIELDS[f.to_sym] }.inject(0, :+)
   end
 
   def fields
-    FIELDS.keys.reject do |f|
+    @fields ||= FIELDS.keys.reject do |f|
       !has_field?(f)
     end
   end
@@ -62,11 +63,13 @@ class HomePageFeed < ActiveRecord::Base
     save!
   end
 
-  def items_from_csv=(csv_str)
-    @csv_errors = []
-    @items_from_csv = csv_str 
+  def items_from_tsv=(tsv_file)
+    @tsv_errors = []
 
     begin
+      raise "must specify a file" if !tsv_file
+
+      csv_str = tsv_file.read
       csv = CSV.parse(csv_str, headers: true, col_sep: "\t")
       headers_sym = csv.headers.collect { |h| h.to_sym }
       field_set = Set.new(fields)
@@ -82,12 +85,20 @@ class HomePageFeed < ActiveRecord::Base
       self.items_attributes = csv.collect(&:to_h)
       @delete_old_draft_on_update = true
     rescue => e
-      @csv_errors << e.message
+      @tsv_errors << e.message
     end 
   end
 
-  def items_from_csv
-    @items_from_csv
+  def cur_draft_items_csv
+    CSV.generate(col_sep: "\t") do |csv|
+      csv << fields
+
+      draft_items.each do |item|
+        csv << fields.collect do |field|
+          item.attributes[field.to_s] 
+        end
+      end
+    end
   end
 
   private
@@ -101,10 +112,10 @@ class HomePageFeed < ActiveRecord::Base
     @delete_old_draft_on_update ||= false
   end
 
-  def validate_csv_errors
-    @csv_errors ||= []
-    @csv_errors.each do |e|
-      errors.add(:items_from_csv, e)
+  def validate_tsv_errors
+    @tsv_errors ||= []
+    @tsv_errors.each do |e|
+      errors.add(:items_from_tsv, e)
     end
   end
 
