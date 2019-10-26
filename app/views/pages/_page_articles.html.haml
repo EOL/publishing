@@ -13,9 +13,5 @@
           to_path: lambda { |res| page_articles_path(@page, lang_group: @lang_group, resource_id: res&.id) },
           no_selection_label: t("filters.filter_by_provider"),
           show_all_item: nil
-  - grouped_articles = @articles.group_by(&:first_section)
-  - grouped_articles.keys.sort_by(&:position).each do |section|
-    %h2.ui.top.attached.header= section.name
-    %ul.ui.attached.segment.articles
-      - sorted_section_articles_for_page(section, grouped_articles.each_with_index) do |article, index|
-        = render :partial => "page_article", :locals => { article: article }
+  - @articles.each do |article|
+    = render :partial => "page_article", :locals => { article: article }
