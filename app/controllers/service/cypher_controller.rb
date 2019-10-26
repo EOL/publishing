@@ -4,12 +4,23 @@ require 'csv'
 
 class Service::CypherController < ServicesController
   before_action :require_power_user, only: :form
+  skip_before_action :verify_authenticity_token, only: :command
 
   def form
     # Cf. the view
   end
   
+  # Entry via POST for uncacheable / unsafe operations
+  def command
+    cypher_command(params, true)
+  end
+
+  # Entry via GET for cacheable / safe operations
   def query
+    cypher_command(params, false)
+  end
+
+  def cypher_command(params, allow_effectful)
     format = params.delete(:format) || "cypher"
 
     cypher = params.delete(:query)
@@ -26,13 +37,15 @@ class Service::CypherController < ServicesController
 
     return render_bad_request(title: "Please provide a LIMIT clause.") unless
       cypher =~ /\b(limit)\b/i
-      
+
     # Authenticate the user and authorize the requested operation, 
     # using the API token and the information in the user table.
     # Non-admin users are not supposed to add to the database.
     
     if cypher =~ /\b(create|set|merge|delete|remove|call)\b/i
-      # Allow admin to add to graph and perform dangerous operations
+      return render_bad_request(title: "Unsafe Cypher operation.") unless
+        allow_effectful
+      # Allow admin to perform dangerous operations via POST
       user = authorize_admin_from_token!
       return nil unless user
     else
@@ -42,7 +55,12 @@ class Service::CypherController < ServicesController
     end
 
     # Do the query or command
-    render_results(TraitBank.query(cypher), format)
+    begin
+      results = TraitBank.query(cypher)
+      render_results(results, format)
+    rescue Neography::SyntaxException => e
+      return render_bad_request(title: "Cypher syntax error: #{e.message}")
+    end
   end
 
   def render_results(results, format = "cypher")

@@ -52,17 +52,17 @@ class PageDecorator
       ResultTerm = Struct.new(:pred_uri, :obj, :source, :toggle_selector)
 
       IUCN_URIS = Set[
-        Eol::Uris::Iucn.en, 
-        Eol::Uris::Iucn.cr, 
-        Eol::Uris::Iucn.ew, 
-        Eol::Uris::Iucn.nt, 
+        Eol::Uris::Iucn.en,
+        Eol::Uris::Iucn.cr,
+        Eol::Uris::Iucn.ew,
+        Eol::Uris::Iucn.nt,
         Eol::Uris::Iucn.vu
       ]
 
       def is_above_family?
         @page.native_node.present? &&
         @page.native_node.any_landmark? &&
-        @page.rank.present? && 
+        @page.rank.present? &&
         Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
       end
 
@@ -134,7 +134,7 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine) 
+          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine)
         elsif freshwater_trait.present?
           term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term][:uri])
         end
@@ -143,7 +143,7 @@ class PageDecorator
         @sentences << "It is found in #{g1}." if g1
       end
 
-      # Iterate over all growth habit objects and get the first for which 
+      # Iterate over all growth habit objects and get the first for which
       # GrowthHabitGroup.match returns a result, or nil if none do. The result
       # of this operation is cached.
       def growth_habit_matches
@@ -219,7 +219,7 @@ class PageDecorator
       def lifespan_sentence
         trait = first_trait_for_pred_uri(Eol::Uris.lifespan)
 
-        if trait 
+        if trait
           value = trait[:measurement]
           units_name = trait.dig(:units, :name)
 
@@ -245,16 +245,16 @@ class PageDecorator
         if flower_trait
           flower_part = trait_sentence_part("%s flowers", flower_trait)
         end
-          
+
         if fruit_trait
           fruit_part = trait_sentence_part("%s", fruit_trait)
         end
 
         parts = [leaf_part, flower_part, fruit_part].compact
-        @sentences << "It has #{parts.to_sentence}." if parts.any? 
+        @sentences << "It has #{parts.to_sentence}." if parts.any?
       end
 
-      # XXX: This is broken because trait_sentence_part doesn't handle associations.  
+      # XXX: This is broken because trait_sentence_part doesn't handle associations.
 #      def flower_visitor_sentence
 #        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
 #
@@ -342,7 +342,7 @@ class PageDecorator
         end
       end
 
-      # TODO: unify is_it_marine? with this -- if there's a 'is_marine' attribute on models, should there be 'is_freshwater'? 
+      # TODO: unify is_it_marine? with this -- if there's a 'is_marine' attribute on models, should there be 'is_freshwater'?
       # Or, can we get rid of "is_marine"?
       def freshwater_trait
         @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
@@ -378,10 +378,10 @@ class PageDecorator
 
         traits
       end
-                        
+
       def first_trait_for_pred_uri(pred_uri)
         terms = gather_terms(pred_uri)
-        
+
         terms.each do |term|
           recs = @page.grouped_data[term]
 
@@ -487,7 +487,7 @@ class PageDecorator
           sentence = "It is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
           @sentences << sentence
         end
-          
+
       end
 
       def handle_iucn(rec)
@@ -526,9 +526,14 @@ class PageDecorator
 
       def term_tag(label, pred_uri, obj_uri, trait_source = nil)
         toggle_id = term_toggle_id(label)
+        hash = begin
+          TraitBank.term_as_hash(obj_uri)
+        rescue ActiveRecord::RecordNotFound
+          return "(missing obj_uri)"
+        end
         @terms << ResultTerm.new(
           pred_uri,
-          TraitBank.term_as_hash(obj_uri),
+          hash,
           trait_source,
           "##{toggle_id}"
         )
@@ -537,9 +542,9 @@ class PageDecorator
 
       def term_sentence(format_str, label, pred_uri, obj_uri)
         @sentences << term_sentence_part(
-          format_str, 
-          label, 
-          pred_uri, 
+          format_str,
+          label,
+          pred_uri,
           obj_uri
         )
       end
@@ -552,11 +557,15 @@ class PageDecorator
       end
 
       def trait_sentence_part(format_str, trait)
+        return '' if trait.nil?
+        name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
+        uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
+        obj_uri = trait[:object_term].nil? ? '(no object term uri)' : trait[:object_term][:uri]
         term_sentence_part(
-          format_str, 
-          trait[:object_term][:name], 
-          trait[:predicate][:uri], 
-          trait[:object_term][:uri]
+          format_str,
+          name,
+          uri,
+          obj_uri
         )
       end
 

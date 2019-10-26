@@ -16,11 +16,17 @@ zh-TW:
   are_you_sure_delete_account: 您確定要刪除您自己的網路生命大百科帳號嗎？
   article:
     header:
+      body: 正文
       language: 語言：%{language}
       title: 標題
       untitled: 無標題
     name:
       missing: 無標題
+  article_from_partner: 由%{partner}提供
+  autocomplete:
+    see_all:
+      one: 查看其它結果
+      other: 查看全部 %{count} 個結果
   button_create: 建立
   button_add: 添加
   cancel: 取消
@@ -35,11 +41,16 @@ zh-TW:
       header: 頁面豐富度
       score: 豐富度分數
       page_contents_count: 關聯內容
+      media_count: 媒體
       links_count: 連結
       maps_count: 地圖
       data_count: 資料
+      nodes_count: 節點
+      vernaculars_count: 本地話
       updated_at: 上一次更新
   cms_page_date: 上一次變動：
+  collect_already_in_collection: （已在此）
+  collect_already_in_collection_will_add_icon: （添加媒體到「%{page}」）
   collect_title: 添加「%{item}」到…
   collected_pages_title: 頁面
   collected_pages:
@@ -51,6 +62,7 @@ zh-TW:
     admins:
       placeholder: 完整名稱或使用者名稱
     actions:
+      download_taxa_csv: 下載分類 CSV
       delete: 刪除
       edit: 編輯
     collection_type:
@@ -58,6 +70,10 @@ zh-TW:
     pages_count:
       one: 1 個頁面
       other: '%{count} 個頁面'
+    log:
+      page:
+        add: '%{user}已添加%{page}頁面'
+        remove: '%{user}已移除%{page}頁面'
     search:
       submit: 搜尋
     sort:
@@ -344,6 +360,7 @@ zh-TW:
       download_tsv: 下載 TSV
       new_search: 新搜尋
       page_id: 頁面 ID
+      page_url: 頁面 URL
       query: 查詢
       query_cant_be_blank: 查詢不可為空
       search: 搜尋
@@ -360,6 +377,15 @@ zh-TW:
       maps: 地圖
       media: 媒體
     iucn_status:
+      ex: 滅絕（EX）
+      ew: 野外滅絕（EW）
+      cr: 極危（CR）
+      en: 瀕危（EN）
+      vu: 易危（VU）
+      nt: 近危（NT）
+      lc: 無危（LC）
+      dd: 資料缺乏（DD）
+      ne: 未予評估（NE）
       unknown: 未知（沒有紀錄）
   page_titles:
     pages:
@@ -435,6 +461,8 @@ zh-TW:
     comprehensive_description: 綜合描述
     conservation: 保護
     conservation_status: 保護狀態
+    diagnostic_description: 診斷描述
+    diseases_and_parasites: 疾病與寄生蟲
     dispersal: 擴散
     ecology: 生態學
     evolution_and_systematics: 演化與系統分類學
@@ -446,6 +474,8 @@ zh-TW:
     migration: 遷徙
     molecular_biology: 分子生物學
     molecular_biology_and_genetics: 分子生物學與遺傳學
+    morphology: 形態學
+    notes: 備註
     overview: 概要
     physiology_and_cell_biology: 生理學與細胞生物學
     physical_description: 物質描述
@@ -466,11 +496,14 @@ zh-TW:
     "no": 否
     required:
       mark: '*'
+    error_notification:
+      default_message: 請檢閱以下問題：
     labels:
       defaults:
         email: 電子郵件
         password: 密碼
         password_confirmation: 密碼確認
+        remember_me: 記住我
         username: 使用者名稱
       search_suggestion:
         path: 重新導向的路徑（完整或是相對路徑）
@@ -478,6 +511,7 @@ zh-TW:
     data: 資料紀錄
     media: 媒體
     pages: 頁面
+    nodes: 節點
     users: 使用者
   term:
     actions:

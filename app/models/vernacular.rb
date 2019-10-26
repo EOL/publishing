@@ -204,6 +204,7 @@ class Vernacular < ActiveRecord::Base
 
   # DON'T USE THIS METHOD (unless you know you MUST). Use VernacularPreference.user_preferred when possible.
   def prefer
+    return nil unless page&.respond_to?(:vernaculars)
     page.vernaculars.where(language_id: language_id).where(['vernaculars.id != ?', id]).update_all(is_preferred: false)
     update_attribute(:is_preferred, true)
   end

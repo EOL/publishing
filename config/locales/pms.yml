@@ -536,6 +536,11 @@ pms:
       query: arcesta
       query_cant_be_blank: l'arcesta a peul pa esse veuida
       search: sërché
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'L''EdV a l''ha dij dàit për <a href="%{data_path}">un atribù</a>:'
+        other: 'L''EdV a l''ha dij dàit për <a href="%{data_path}">%{count} atribù</a>,
+          dont:'
   recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
   sign_in: Rintré ant ël sistema
 ...
