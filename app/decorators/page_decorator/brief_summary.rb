@@ -255,14 +255,14 @@ class PageDecorator
       end
 
       # XXX: This is broken because trait_sentence_part doesn't handle associations.
-#      def flower_visitor_sentence
-#        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
-#
-#        if traits && traits.any?
-#          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
-#          @sentences << "Flowers are visited by #{parts.join(", ")}."
-#        end
-#      end
+      def flower_visitor_sentence
+        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
+
+        if traits && traits.any?
+          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+          @sentences << "Flowers are visited by #{parts.join(", ")}."
+        end
+      end
 
       # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
       # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
@@ -558,15 +558,32 @@ class PageDecorator
 
       def trait_sentence_part(format_str, trait)
         return '' if trait.nil?
-        name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
-        uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
-        obj_uri = trait[:object_term].nil? ? '(no object term uri)' : trait[:object_term][:uri]
-        term_sentence_part(
-          format_str,
-          name,
-          uri,
-          obj_uri
-        )
+
+        if trait[:object_page_id]
+          association_sentence_part(format_str, data[:object_page_id])
+        else
+          name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
+          uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
+          obj_uri = trait[:object_term].nil? ? '(no object term uri)' : trait[:object_term][:uri]
+          term_sentence_part(
+            format_str,
+            name,
+            uri,
+            obj_uri
+          )
+        end
+      end
+
+      def association_sentence_part(format_str, object_page_id)
+        target_page = @page.associated_page(object_page_id)
+        target_page_part = if target_page.nil?
+                             Rails.logger.warn("Missing associated page for auto-generated text: #{object_page_id}!")
+                             "(page not found)"
+                             
+                           else
+                             view.link_to(target_page.name, target_page)
+                           end
+        sprintf(format_str, target_page_part)
       end
 
       def trait_sentence(format_str, trait)
