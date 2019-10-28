@@ -14,6 +14,12 @@
 
 = link_to new_home_page_feed_item_path, :class => "uk-margin" do
   %button.uk-button.uk-button-primary New item
+= link_to home_page_feed_reset_draft_path, :class => "uk-margin", :data => { :confirm => "Are you sure?" } do
+  %button.uk-button.uk-button-primary Reset draft
+= link_to home_page_feed_batch_edit_items_path, :class => "uk-margin" do
+  %button.uk-button.uk-button-primary Create draft from TSV
+= link_to home_page_feed_current_draft_tsv_path, :class => "uk-margin" do
+  %button.uk-button.uk-button-primary Download TSV of draft
 
 %br
 

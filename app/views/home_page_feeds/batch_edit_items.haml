@@ -1,0 +1,7 @@
+= simple_form_for(@home_page_feed, url: home_page_feed_batch_edit_items_path, method: :post) do |f|
+  = f.error_notification
+  .form-inputs.uk-margin
+    = f.input :items_from_tsv, label: "TSV file", as: :file, input_html: { class: "uk-textarea" }, label_html: { class: "uk-form-label" }
+  .form-actions
+    = f.button :submit, "Create draft", class: "uk-button uk-button-primary"
+= link_to 'Back', home_page_feed_items_path

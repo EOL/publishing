@@ -536,6 +536,99 @@ pms:
       query: arcesta
       query_cant_be_blank: l'arcesta a peul pa esse veuida
       search: sërché
-  recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'L''EdV a l''ha dij dàit për <a href="%{data_path}">un atribù</a>:'
+        other: 'L''EdV a l''ha dij dàit për <a href="%{data_path}">%{count} atribù</a>,
+          dont:'
+      eol_has_data_for_n_attributes_html:
+        one: L'EdV a l'ha dij dàit për <a href="%{data_path}">un atribù</a>.
+        other: L'EdV a l'ha dij dàit për <a href="%{data_path}">%{count} atribù</a>.
+    filter_menu:
+      show_all: smon-e tut
+    page_data:
+      n_hidden_show_all:
+        one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
+        other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
+      show_all: smon-e tut
+    trophic_web:
+      globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
+      reset: inissialisé torna
+    flash:
+      reindexed: J'argistrassion ëd costa pàgina ant la memòria local a son ëstàite
+        dëscancelà. Carié torna la pàgina për vëdde ij neuv valor. NOTÉ che, al moment,
+        sòn a riandecisa *pa* le plance an sla pàgina. Costa fonsionalità a sarà butà
+        an euvra ant l'avnì.
+    native_node_missing_warning: gnun-a anformassion ëd gerarchìa disponìbil
+    tabs:
+      articles: artìcoj
+      classifications: classificassion
+      data: dàit
+      literature_and_references: literatura e arferiment
+      overview: vista d'ansem
+      maps: carte
+      media: mojen
+      names: nòm
+    iucn_status:
+      label: 'Statù ëd l''IUCN:'
+      ex: dëstiss (EX)
+      ew: dëstiss a lë stat sërvaj (EW)
+      cr: an privo crìtich (CR)
+      en: an privo (EN)
+      vu: vulneràbil (VU)
+      nt: scasi mnassà (NT)
+      lc: sagrin minor (LC)
+      dd: dàit insuficent (DD)
+      ne: nen valutà (NE)
+      unknown: sconossù (gnun-a argistrassion)
+    unresolved_name: Nòm nen arzolvù
+    unresolved_name_prefix: 'Nòm nen arzolvù:'
+  page_titles:
+    pages:
+      data: dàit ëd %{page_name}
+      media: mojen ëd %{page_name}
+      maps: carte ëd %{page_name}
+      names: nòm ëd %{page_name}
+      articles: artìcoj ëd %{page_name}
+    traits:
+      search: Arserca ëd caraterìstica
+  name_recognized_by: Arconossù da %{by}
+  name_recognized_by_rank: '%{rank} arconossù da %{by}'
+  ranks:
+    NOTE: ij rang a son nen voltà. A dovrìo esse tratà 'me ch'a son. Ch'a sërca nen
+      ëd felo. :)
+  recaptcha: Ch'a scriva torna le doe paròle o nùmer ch'a s-ciàira sì-sota
+  recaptcha_error: Ch'as disa ch'a l'é nen un robò.
+  reference_compiled_from: Arferiment da %{links}
+  reference_compiled_from_article: '%{source} artìcol antitolà «%{name}»'
+  register_new_account: Argistré un cont neuv
+  resources:
+    actions:
+      import_traits: amporté dij trat (dal depòsit)
+      republish: publiché torna
+      reindex: riandicisé
+      fix_no_names: fiss a NO NAMEs
+      index: andré a tute j'arsorse
+      show_all:
+        other: smon-e tut (%{count})
+      show_warns:
+        one: smon-e l'avertiment (%{count})
+        other: smon-e j'avertiment (%{count})
+      sync: sincronisé con ël depòsit
+      fetch_relationships: arcuperé le relassion
+      fetch_relationships_confirm: Sòn a gava le relassion esistente e a-j gionta
+        torna, ma a peul falì e gaveje tute. A-i va anviron na minuta. É-lo sigur?
+      fetch_synonyms: trové dij sinònim
+      fetch_synonyms_confirm: Sòn a gava ij sinònim esistent e a-j gionta torna, ma
+        a peul falì e gaveje tuti. A-i va anviron na minuta. É-lo sigur?
+      fetch_units: arcuperé j'unità
+      fetch_units_confirm: Sòn a gava le relassion ëd predicà/unità esistente e a-j
+        gionta torna, ma a peul falì e gaveje tute. A-i va anviron na minuta. É-lo
+        sigur?
+      clear_publishing: gavé ël luchet
+      clear_publishing_confirm: Sòn a «livrërà» tute le publicassion, e a peul creé
+        dij problema s'a l'é dovrà durant na publicassion. É-lo sigur ?
+    headers:
+      index: Arsorse
   sign_in: Rintré ant ël sistema
 ...

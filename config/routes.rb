@@ -95,6 +95,10 @@ Rails.application.routes.draw do
     resources :search_suggestions
     resources :home_page_feeds, :only => [:index, :new, :create, :edit, :update] do
       post "publish" => "home_page_feeds#publish", :as => "publish"
+      get "batch_edit_items" => "home_page_feeds#batch_edit_items"
+      post "batch_edit_items" => "home_page_feeds#batch_update_items"
+      get "current_draft_tsv"
+      get "reset_draft"
       resources :home_page_feed_items, :as => "items", :only => [:index, :new, :edit, :create, :update, :destroy]
     end
 
