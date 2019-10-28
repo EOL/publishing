@@ -15,7 +15,10 @@ zh-TW:
   advanced: 進階
   are_you_sure_delete_account: 您確定要刪除您自己的網路生命大百科帳號嗎？
   article:
+    actions:
+      collect: 收集
     header:
+      blank: （此條目裡沒有正文。）
       body: 正文
       language: 語言：%{language}
       title: 標題
@@ -23,10 +26,17 @@ zh-TW:
     name:
       missing: 無標題
   article_from_partner: 由%{partner}提供
+  article_duplicate: 此條目另外顯示在「%{section}」
   autocomplete:
     see_all:
       one: 查看其它結果
       other: 查看全部 %{count} 個結果
+  breadcrumbs:
+    notices:
+      canonical: 學名會秀出在頁面的麵包屑導航
+    setting_header: 在麵包屑導航的名稱
+    types:
+      vernacular: 本地話
   button_create: 建立
   button_add: 添加
   cancel: 取消
@@ -42,24 +52,38 @@ zh-TW:
       score: 豐富度分數
       page_contents_count: 關聯內容
       media_count: 媒體
+      articles_count: 條目
       links_count: 連結
       maps_count: 地圖
       data_count: 資料
       nodes_count: 節點
       vernaculars_count: 本地話
+      scientific_names_count: 學名
       updated_at: 上一次更新
   cms_page_date: 上一次變動：
   collect_already_in_collection: （已在此）
   collect_already_in_collection_will_add_icon: （添加媒體到「%{page}」）
+  collect_new_collection: 新收藏名稱
+  collect_new_collection_title: …一個新收藏
+  collect_select_collection: …您的收藏之一
   collect_title: 添加「%{item}」到…
+  collected_page_added_to_collection: 已添加%{page}到收藏<a href='%{link}'>%{name}</a>裡。
+  collected_page_already_in_collection: 已經在您的收藏裡。
   collected_pages_title: 頁面
+  collected_pages_medium:
+    destroyed_flash: 圖片已從收藏頁面移除。
+  collection_associations:
+    destroyed_flash: '%{name}不再與收藏有關聯。'
   collected_pages:
     delete_button: 刪除
     edit_button: 編輯
     delete_confirm: 您確定嗎？
+    destroyed_flash: '%{name}已從收藏移除。'
+  collection_collected_pages_media_remove: 從收藏移除圖片（更改會立即生效）：
   collection_user_is_admin: 此使用者是管理員。
   collection:
     admins:
+      label: 添加可編輯此收藏的使用者：
       placeholder: 完整名稱或使用者名稱
     actions:
       download_taxa_csv: 下載分類 CSV
@@ -71,14 +95,24 @@ zh-TW:
       one: 1 個頁面
       other: '%{count} 個頁面'
     log:
+      collection:
+        add: '%{user}已建立收藏'
       page:
         add: '%{user}已添加%{page}頁面'
         remove: '%{user}已移除%{page}頁面'
     search:
+      placeholder: 在收藏裡搜尋…
       submit: 搜尋
     sort:
       position: 日期已添加
+      sci_name: 學名，A 到 Z
+      sci_name_rev: 學名，Z 到 A
+      sort_field: 註釋，A 到 Z
+      sort_field_rev: 註釋，Z 到 A
+    updated: 收藏已更新。
+  collection_unauthorized_edit: 僅所屬的使用者能編輯此收藏。
   complete_registration: 請繼續您的註冊
+  content_appears_on: 包含在以下頁面：
   content_attributions_header: 來源資訊
   content_attributions_labels:
     altitude: 海拔
@@ -90,6 +124,14 @@ zh-TW:
     longitude: 經度
     original_media_file: 原始媒體檔案
     photographer: 攝影者
+    publisher: 發佈者
+    provider: 提供者
+    references_header:
+      one: 參考資料
+      other: 參考資料
+    resource_label: 合作夥伴網站
+    resource_pk: （ID：%{key}）
+    rights_statement: 版權聲明
     source: 來源
     view_source_label: 原始
     view_source_link: 檢視原始圖片
@@ -97,10 +139,18 @@ zh-TW:
   delete_account_button: 刪除您的帳號
   filter_by_medium_subtype: 類型
   filter_by_medium_any_item: 任何類型
+  filter_by_resource: 提供者
+  filter_by_resource_any_item: 任何提供者
+  filters:
+    filter_by_attribute: 按屬性篩選
+    filter_by_language: 按語言篩選
+    filter_by_provider: 按提供者篩選
   footer:
     eol_info:
+      citing_eol: 引用網路生命大百科
       contact_us: 聯絡我們
       data_services: 資料服務
+      donate: 捐款
       education: 教育
       terms_of_use: 使用條款
       the_eol_forum: 網路生命大百科論壇
@@ -130,6 +180,7 @@ zh-TW:
       trees: 樹木
       viruses: 病毒
       worms: 蠕蟲
+    eol_is_hosted_by: 網路生命大百科是由以下託管：
   forgot_your_password: 忘記您的密碼？
   language: 語言
   languages:
@@ -323,6 +374,10 @@ zh-TW:
   layout_sign_in: 登入
   layout_sign_up: 註冊
   layout_sign_out: 登出
+  literature_and_references_header: 文獻與參考資料
+  maps:
+    empty: 沒有可用於此頁面的地圖。
+    other_maps_title: 非互動式地圖
   medium:
     untitled:
       image: 無標題圖片
@@ -341,22 +396,30 @@ zh-TW:
       sound: 聲音
       map: 地圖
       js_map: 互動地圖
+  medium_collect_button: 收藏媒體
   medium_header_title: 標題：
   medium_header_description: 描述：
+  names:
+    hide_langs:
+      one: 隱藏 1 個語言
+      other: 隱藏 %{count} 個語言
   nav:
     about: 關於
     discuss: 討論
     education: 教育
     search:
+      no_results_html: <strong>沒有確定的結果</strong><br />按下 Enter 鍵來查看未定結果
       placeholder: 搜尋網路生命大百科…
     trait_bank: 特質資料庫
   page_title: 生命大百科
   page_title_search: 搜尋：%{query}
   pages:
     actions:
+      collect: 收藏
       reindex: 重建索引
     batch_lookup:
       header: 批量頁面查看
+      canonical_name: 真實名稱
       download_tsv: 下載 TSV
       new_search: 新搜尋
       page_id: 頁面 ID
@@ -374,9 +437,11 @@ zh-TW:
     tabs:
       articles: 條目
       data: 資料
+      literature_and_references: 文獻與參考資料
       maps: 地圖
       media: 媒體
     iucn_status:
+      label: IUCN 狀態：
       ex: 滅絕（EX）
       ew: 野外滅絕（EW）
       cr: 極危（CR）
@@ -393,12 +458,16 @@ zh-TW:
       media: '%{page_name}媒體'
       maps: '%{page_name}地圖'
       names: '%{page_name}名稱'
+      articles: '%{page_name}條目'
     traits:
       search: 特質搜尋
   recaptcha: Recaptcha
   recaptcha_error: 請告訴我們你不是機器人。
+  reference_compiled_from: 出自%{links}的參考資料
+  reference_compiled_from_article: '%{source}條目標題為「%{name}」'
   resources:
     actions:
+      republish: 重新發佈
       reindex: 重建索引
       index: 返回到所有資源
       show_warns:
@@ -407,12 +476,25 @@ zh-TW:
       clear_publishing: 清除鎖定
     headers:
       index: 資源
+      import_log: '%{resource}的匯入日誌'
     no_events: 無！
   resource_missing: 找不到資源
   scientific_name:
     status_title:
+      accepted: 接受名稱
+      alternative: 替代名稱
+      preferred: 首選名稱
+      unusable: 不可用名稱
       synonym: 同物異名
+  scientific_names_header: 學名
+  send_me_reset_password_instructions: 寄送給我關於重新設定密碼的說明
   search:
+    n_articles:
+      one: '%{count} 個條目'
+      other: '%{count} 個條目'
+    n_collections:
+      one: '%{count} 個收藏'
+      other: '%{count} 個收藏'
     n_images:
       one: '%{count} 張圖片'
       other: '%{count} 張圖片'
@@ -433,15 +515,44 @@ zh-TW:
     collection_page_count:
       one: '%{count} 個頁面'
       other: '{count} 個頁面'
+    medium_article: 條目
     medium_image: 圖片
     medium_map: 地圖
     medium_sound: 聲音
     medium_video: 影片
+    medium_title_article_html: 條目：<span class='sub'>%{title}</span>
     medium_title_image_html: 圖片：<span class='sub'>%{title}</span>
     medium_title_map_html: 地圖：<span class='sub'>%{title}</span>
     medium_title_sound_html: 音訊：<span class='sub'>%{title}</span>
     medium_title_video_html: 影片：<span class='sub'>%{title}</span>
     empty: 沒有結果。
+    field_matches:
+      description: 符合描述：
+      resource_pk: 符合外部 ID：
+      resources:
+        one: 符合資源：
+        other: 符合資源：
+      vernaculars:
+        one: 符合俗名：
+        other: 符合俗名：
+    section_titles:
+      collections:
+        one: '%{count} 個收藏'
+        other: '%{count} 個收藏'
+      object_terms:
+        one: '%{count} 個資料記錄值（特質資料庫）'
+        other: '%{count} 個資料記錄值（特質資料庫）'
+      predicates:
+        one: '%{count} 個資料記錄類型（特質資料庫）'
+        other: '%{count} 個資料記錄類型（特質資料庫）'
+      users:
+        one: '%{count} 位使用者'
+        other: '%{count} 位使用者'
+    collection_title_html: 收藏：<span class='sub'>%{name}</span>
+    resource_counts:
+      n_articles:
+        one: 1 個條目
+        other: '%{count} 個條目'
     user_title_html: 使用者：<span class='sub'>%{name}</span>
   search_suggestion:
     actions:
@@ -489,8 +600,13 @@ zh-TW:
     type_information: 類型資訊
     wikipedia: 維基百科
   settings: 設定
+  show_date: 顯示發佈日期
   sign_in: 登入
   sign_up: 註冊
+  signature_with_contact_us_link: |-
+    如果您遭遇到任何問題，請在 %{url} 聯絡我們。
+
+    生命大百科團隊
   simple_form:
     "yes": 是
     "no": 否
@@ -506,17 +622,24 @@ zh-TW:
         remember_me: 記住我
         username: 使用者名稱
       search_suggestion:
+        match: 搜尋符合的字串
         path: 重新導向的路徑（完整或是相對路徑）
   stats:
+    articles: 條目
+    collections: 收藏
     data: 資料紀錄
     media: 媒體
     pages: 頁面
     nodes: 節點
     users: 使用者
+    references: 參考資料
   term:
     actions:
       reindex: 重建索引
       sort: 排序依照
+    edit:
+      header: 編輯%{uri}
+      submit: 儲存
     fields:
       name: 名稱：
       definition: 定義：
@@ -524,17 +647,22 @@ zh-TW:
       next: 下一頁
       previous: 上一頁
   terms:
+    source_field_html: <strong>來源：</strong><a href='%{source}'>%{source}</a>
     record_url: 紀錄 URL
+    scientific_name: 學名
     show_all_records: 顯示所有紀錄
     source: 來源
     uri_field_html: <strong>URI：</strong>%{uri}
     index:
       select_page_above: 選擇上方的一個頁面來開始。
   user:
+    batch_page_lookup: 批量頁面查看
     created_at: 已建立
     edit_account_details: 編輯帳號詳細內容
     email: 電子郵件
+    to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼
     headers:
+      collections: 收藏
       downloads: 下載
       links: 連結
     new_password: 新密碼
@@ -543,6 +671,7 @@ zh-TW:
     update: 更新
     update_email: 更新電子郵件
   users:
+    account_migration_header: 若您是在 2018 年 11 月 15 日之前註冊網路生命大百科：
     sign_in: 登入
   vernacular_names_header: 俗名
   wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
