@@ -174,7 +174,7 @@ information.
 * `sex_term` link
 * `lifestage_term` link
 
-## Metadata
+## MetaData
 
 A `MetaData` node expresses something we know or believe, either
 about the `Trait` node's statement, the way the statement was
