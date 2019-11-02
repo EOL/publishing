@@ -260,7 +260,6 @@ class PageDecorator
         @sentences << "It has #{parts.to_sentence}." if parts.any?
       end
 
-      # XXX: This is broken because trait_sentence_part doesn't handle associations.
       def flower_visitor_sentence
         traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
 
