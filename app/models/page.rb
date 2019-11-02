@@ -810,6 +810,10 @@ class Page < ActiveRecord::Base
       end
   end
 
+  def desc_counts
+    Page::Descendants.counts(id)
+  end
+
   private
 
   def first_image_content
