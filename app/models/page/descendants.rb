@@ -53,7 +53,7 @@ class Page::Descendants
       CSV.open(file_path, "wb") do |csv|
         csv << ["anc_page_id", "species_count", "genus_count", "family_count"]
         loop do 
-          query = self.count_batch_query(batch, limit)
+          query = count_batch_query(batch, limit)
           puts "querying batch ##{batch}"
           result = ActiveRecord::Base.connection.select_all(query)
           batch += 1
