@@ -80,7 +80,7 @@ class PageDecorator
         first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          trait_sentence("This group has been around since the %s", first_appearance_trait)
+          trait_sentence("This group has been around since the %s.", first_appearance_trait)
         end
       end
 
