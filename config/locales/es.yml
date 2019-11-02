@@ -1,14 +1,41 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Canaan9801
 # Author: Fitoschido
 # Author: Madamebiblio
 ---
 es:
   language_name: Inglés
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: '<p> El equipo técnico y de administración de información en EOL
+        conoce los recursos de datos estructurados en EOL- datos de rasgos y otros
+        atributos, interacciones ecológicas, y nuestra clasificación nativa, el Dynamic
+        Working Hierarchy- colectivamente como TraitBank. Este contenido es administrado
+        de manera algo diferente que nuestro contenido "clásico"- imagenes, videos,
+        grabaciones, y texto de descripción- y es útil para cosas distintas.</p><p>TraitBank
+        es más nuevo que el resto de EOL; originalmente fue ideado por la directora
+        del Species Pages Group Cynthia Parr, y comenzó a funcionar en EO: v2 en enero
+        de 2014. Desde entonces, datos estructurados han sido nuestra máxima prioridad
+        para el desarrollo de contenidos.</p><p>Ahora, puedes <a href=''%{example_search_path}''>buscar</a>
+        o explorar EOL por datos estructurados, o descargarlos, o puedes encontrarlos
+        en nuestra nueva ficha de resumen en la forma de  <a href=''%{autogen_page_path}''>texto
+        autogenerado</a>. Como el resto del contenido de EOL, está disponsible para
+        reuso, junto con datos minuciosos de atribución para que puedes atribuirlos
+        si los usas en tu propio trabajo. </p><p>Estos datos son modelados como un
+        <a href=''%{property_graph_url}''>gráfico de propiedad</a> in <a href=''%{neo4j_url}''>neo4j</a>.
+        <a href=''%{data_services_path}''>Servicios de información</a> están disponsibles.</p>'
+  account_already_linked: tú cuenta ya está enlazada a EOL
+  account_not_linked: tú cuenta no es enlazada a EOL
   advanced: avanzado
+  are_you_sure_delete_account: ¿Estás seguro que quieres eliminar tu cuenta de EOL?
   article:
+    actions:
+      collect: recoger
     header:
+      blank: (No hay cuerpo en este artículo.)
       body: Cuerpo
       language: 'idioma: %{language}'
       title: Título
