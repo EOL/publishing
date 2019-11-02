@@ -71,10 +71,16 @@ class PageDecorator
           @sentences << "#{@page.name} is a group of #{a1}."
         end
 
+        desc_counts = @page.desc_counts
+
+        if !desc_counts.empty?
+          @sentences << "There #{is_or_are(desc_counts.species)} #{desc_counts.species} species of #{@page.name}, in #{view.pluralize(desc_counts.genus, "genus", "genera")} and #{view.pluralize(desc_counts.family, "family")}."
+        end
+
         first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          trait_sentence("This group has been around since the %s", first_appearance_trait)
+          trait_sentence("This group has been around since the %s.", first_appearance_trait)
         end
       end
 
@@ -474,6 +480,10 @@ class PageDecorator
       # Note: this does not always work (e.g.: "an unicorn")
       def a_or_an(word)
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
+      end
+
+      def is_or_are(count)
+        count == 1 ? "is" : "are"
       end
 
       def conservation_sentence

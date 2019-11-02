@@ -1,11 +1,11 @@
 - content_for :content do
   - content_for :head do
-    = stylesheet_link_tag "leaflet"
-    = stylesheet_link_tag "MarkerCluster"
-    = stylesheet_link_tag "MarkerCluster.Default"
-    = stylesheet_link_tag "Control.FullScreen"
-    = stylesheet_link_tag "Leaflet.NavBar"
-    = stylesheet_link_tag "Control.Loading"
+    = stylesheet_link_tag "leaflet", media: "all"
+    = stylesheet_link_tag "MarkerCluster", media: "all"
+    = stylesheet_link_tag "MarkerCluster.Default", media: "all"
+    = stylesheet_link_tag "Control.FullScreen", media: "all"
+    = stylesheet_link_tag "Leaflet.NavBar", media: "all"
+    = stylesheet_link_tag "Control.Loading", media: "all"
 
     = javascript_include_tag "leaflet"
     = javascript_include_tag "leaflet.markercluster"

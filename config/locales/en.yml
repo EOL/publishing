@@ -473,6 +473,7 @@ en:
     fr: "fr"
     fi: "fi"
     pt-BR: "pt-BR"
+    zh-TW: "zh-TW"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"

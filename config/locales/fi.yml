@@ -164,6 +164,7 @@ fi:
     location: sijainti
     location_verbatim: sanatarkka
     longitude: pituuspiiri
+    original_media_file: alkuperäinen mediatiedosto
     owner: tekijänoikeus
     photographer: valokuvaaja
     publisher: julkaisija
@@ -437,7 +438,7 @@ fi:
   literature_and_references_header: Kirjallisuus ja viitteet
   maps:
     empty: Karttoja ei ole saatavana tälle sivulle.
-    occurrence_caption: Tiedetyt tapahtumat, kerätyt näytteet ja havainnot sivusta
+    occurrence_caption: Tiedetyt tapahtumat, kerätyt näytteet ja havainnot kohteesta
       %{page_name}
     other_maps_title: Epäinteraktiiviset kartat
   medium:
