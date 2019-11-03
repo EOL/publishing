@@ -1000,7 +1000,7 @@ class TraitBank
       hashes.each do |hash|
         has_trait = hash.keys.include?(:trait)
         hash.merge!(hash[:trait]) if has_trait
-        hash[:page_id] = hash[:page][:page_id] if hash[:page]
+        #hash[:page_id] = hash[:page][:page_id] if hash[:page]
         hash[:resource_id] =
           if hash[:resource]
             if hash[:resource].is_a?(Array)
@@ -1044,10 +1044,30 @@ class TraitBank
         if has_trait
           hash[:id] = hash[:trait][:eol_pk]
         end
-        data << hash
+        hashes = replicate_trait_hash_for_pages(hash)
+        data = data + hashes
       end
       Rails.logger.debug("RESULT COUNT #{key}: #{data.length} after build_trait_array") if key
       data
+    end
+
+    def replicate_trait_hash_for_pages(hash)
+      return [hash] if !hash[:page]
+      
+      if !hash[:page]
+        hashes = [hash]
+      elsif hash[:page].is_a?(Array)
+        hashes = hash[:page].collect do |page|
+          copy = hash.dup 
+          copy[:page_id] = page[:page_id]
+          copy
+        end
+      else
+        hash[:page_id] = hash[:page][:page_id]
+        hashes = [hash]
+      end
+
+      hashes
     end
 
     def resources(traits)
