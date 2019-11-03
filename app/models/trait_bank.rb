@@ -164,11 +164,16 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
-    def by_trait(input, page = 1, per = 200)
+    def by_trait(input)
+      by_trait_and_page(input, nil)
+    end
+
+    def by_trait_and_page(input, page_id, page = 1, per = 200)
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
-      # NOTE: MV may have removed [:trait] from the page->trait relationship, but I had to add it back Oct 23 2019
-      q = "MATCH (page:Page)"\
-          "-[:trait]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
+      page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
+      trait_rel = page_id.nil? ? "[:trait]" : ""
+      q = "MATCH (page:Page#{page_id_part})"\
+          "-#{trait_rel}->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
           "-[:supplier]->(resource:Resource) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
@@ -264,11 +269,13 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
           "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
-          # "ORDER BY predicate.position, LOWER(object_term.name), "\
-          #   "LOWER(trait.literal), trait.normal_measurement "\
           "LIMIT 100"
           # NOTE "Huge" limit, in case there are TONS of values for the same
           # predicate.
+
+          # "ORDER BY predicate.position, LOWER(object_term.name), "\
+          #   "LOWER(trait.literal), trait.normal_measurement "\
+        
         res = query(q)
         build_trait_array(res).group_by { |r| r[:predicate] }
       end
