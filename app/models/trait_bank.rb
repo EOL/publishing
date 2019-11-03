@@ -1007,7 +1007,6 @@ class TraitBank
       hashes.each do |hash|
         has_trait = hash.keys.include?(:trait)
         hash.merge!(hash[:trait]) if has_trait
-        #hash[:page_id] = hash[:page][:page_id] if hash[:page]
         hash[:resource_id] =
           if hash[:resource]
             if hash[:resource].is_a?(Array)
