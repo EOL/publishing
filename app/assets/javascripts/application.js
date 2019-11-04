@@ -5,6 +5,7 @@
 //= require jqcloud
 //= require js-routes
 //= require js_route_config
+//= require typeahead.bundle
 //= require main
 //= require youtube
 //= require wordcloud
