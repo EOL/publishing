@@ -59,6 +59,7 @@ zh-TW:
       nodes_count: 節點
       vernaculars_count: 本地話
       scientific_names_count: 學名
+      species_count: 物種
       updated_at: 上一次更新
   cms_page_date: 上一次變動：
   collect_already_in_collection: （已在此）
@@ -81,6 +82,7 @@ zh-TW:
     destroyed_flash: '%{name}已從收藏移除。'
   collection_collected_pages_media_remove: 從收藏移除圖片（更改會立即生效）：
   collection_user_is_admin: 此使用者是管理員。
+  collection_pages_empty: 此收藏裡沒有頁面。嘗試在物種頁面上點擊「收藏」來添加一些項目！
   collection:
     admins:
       label: 添加可編輯此收藏的使用者：
@@ -120,6 +122,7 @@ zh-TW:
     creator: 建立者
     editor: 編輯者
     latitude: 緯度
+    license: 許可
     location: 位置
     longitude: 經度
     original_media_file: 原始媒體檔案
@@ -137,6 +140,8 @@ zh-TW:
     view_source_link: 檢視原始圖片
     view_source_page_link: 參訪來源
   delete_account_button: 刪除您的帳號
+  filter_by_license: 許可
+  filter_by_license_any_item: 任何許可
   filter_by_medium_subtype: 類型
   filter_by_medium_any_item: 任何類型
   filter_by_resource: 提供者
@@ -489,6 +494,8 @@ zh-TW:
   scientific_names_header: 學名
   send_me_reset_password_instructions: 寄送給我關於重新設定密碼的說明
   search:
+    flash:
+      more_than_one_species: 無法合併%{species}的結果
     n_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
@@ -539,6 +546,9 @@ zh-TW:
       collections:
         one: '%{count} 個收藏'
         other: '%{count} 個收藏'
+      pages:
+        one: '%{count} 個網路生命大百科頁面（物種）'
+        other: '%{count} 個網路生命大百科頁面（物種）'
       object_terms:
         one: '%{count} 個資料記錄值（特質資料庫）'
         other: '%{count} 個資料記錄值（特質資料庫）'
@@ -581,11 +591,13 @@ zh-TW:
     genetics: 遺傳學
     habitat: 棲息地
     life_expectancy: 平均壽命
+    life_history_and_behavior: 生活史與行為
     management: 管理
     migration: 遷徙
     molecular_biology: 分子生物學
     molecular_biology_and_genetics: 分子生物學與遺傳學
     morphology: 形態學
+    names_and_taxonomy: 名稱與分類
     notes: 備註
     overview: 概要
     physiology_and_cell_biology: 生理學與細胞生物學
@@ -655,6 +667,9 @@ zh-TW:
     uri_field_html: <strong>URI：</strong>%{uri}
     index:
       select_page_above: 選擇上方的一個頁面來開始。
+  trophic_web:
+    group_descriptions:
+      source: 焦點物種
   user:
     batch_page_lookup: 批量頁面查看
     created_at: 已建立

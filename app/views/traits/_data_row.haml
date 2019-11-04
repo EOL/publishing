@@ -1,5 +1,5 @@
 - open_row = defined?(open_row) ? open_row : false
-- key = "trait_bank/data_row#{'/open' if open_row}#{'/show_taxon' if show_taxon}/#{trait[:id]}"
+- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/#{trait[:id]}"
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
   %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }

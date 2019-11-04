@@ -40,20 +40,11 @@ module DataHelper
     end
   end
 
-  def build_associations(page)
-    @associations =
-      begin
-        ids = page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
-          includes(:medium, :preferred_vernaculars, native_node: [:rank])
-      end
-  end
-
   def data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
     if @associations && (target_id = data[:object_page_id])
-      page = @associations.find { |a| a.id == target_id }
+      page = @associations[target_id]
       unless page
         Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
         if Page.exists?(data[:object_page_id])
