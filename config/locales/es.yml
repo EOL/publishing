@@ -27,10 +27,10 @@ es:
         si los usas en tu propio trabajo. </p><p>Estos datos son modelados como un
         <a href=''%{property_graph_url}''>gráfico de propiedad</a> in <a href=''%{neo4j_url}''>neo4j</a>.
         <a href=''%{data_services_path}''>Servicios de información</a> están disponsibles.</p>'
-  account_already_linked: tú cuenta ya está enlazada a EOL
-  account_not_linked: tú cuenta no es enlazada a EOL
+  account_already_linked: tu cuenta ya está enlazada con EOL
+  account_not_linked: tu cuenta no está enlazada con EOL
   advanced: avanzado
-  are_you_sure_delete_account: ¿Estás seguro que quieres eliminar tu cuenta de EOL?
+  are_you_sure_delete_account: ¿Confirmas que quieres eliminar tu cuenta de EOL?
   article:
     actions:
       collect: recoger
