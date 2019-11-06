@@ -61,8 +61,8 @@ The shell variables / parameters are:
 
 For example:
 
-    export SERVER="http://127.0.0.1:3000/"
-    export TOKEN=`cat ~/Sync/eol/admin.token`
+    export SERVER="https://beta.eol.org/"
+    export TOKEN=`cat ~/Sync/eol/beta.token`
 
     RESOURCE=640 COMMAND=qc ruby -r ./lib/painter.rb -e Painter.main
 
