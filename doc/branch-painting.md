@@ -27,9 +27,9 @@ Often the stop directive for one trait will be a start node for
 another trait.  That is, the second trait "overrides" the first.
 
 Start directive MetaData nodes have a predicate of
-`https://eol.org/schema/terms/starts_at`.  Stop directives have a
+https://eol.org/schema/terms/starts_at.  Stop directives have a
 predicate of 
-`https://eol.org/schema/terms/starts_at`
+https://eol.org/schema/terms/stops_at.
 
 ## Using the branch painting script
 
@@ -67,6 +67,6 @@ For example:
     RESOURCE=640 COMMAND=qc ruby -r ./lib/painter.rb -e Painter.main
 
 Branch painting generates a lot of logging output.  If you have a
-local instance you might want to add `config.log_level = :warn` to
+local web application instance you might want to add `config.log_level = :warn` to
 `config/environments/development.rb` to reduce noise emitted to
 console.
