@@ -92,9 +92,9 @@ Relationships:
   about the taxon.  Many `Trait`s (or no
   `Trait`s) can be `trait`-linked from a given `Page`.
 * `inferred_trait` link: same as `trait`, but the applicability of the
-  `Trait` to the `Page` is inferred and the `Trait` belongs to a different 
-  `Page` (i.e. this `Trait` node has a different `Page` that is 
-  `trait`-related to it).
+  `Trait` to the `Page` is inferred.  The `Page` is a descendant of
+  the `Page` that the `Trait` belongs to.  Many `Page`s can be related
+  by `inferred_trait` to a single `Trait`.
 
 ## Trait
 
