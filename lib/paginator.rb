@@ -1,13 +1,17 @@
-# Utility for paginating Cypher queries.
-# Writes pages to .csv files, then concatenates them all.
-# Does rudimentary error recovery.
-# Could be more parallel than it is.
+# Utility for overcoming Cypher query time limits when executing
+# long-running Cypher queries.  We replace the original query with a
+# number of smaller queries and LIMIT.  The smaller queries yield a
+# set of "chunks" that are assembled into a single CSV file of
+# results.
 
-# Writes to stdout if @path is nil
+# This assumes that each succeeding chunk takes up where the previous
+# one ends.  That assumption might be violated if the graph database
+# is changing while the query is running, so some caution or
+# skepticism should be exercised.
 
 # If the script is interrupted, it can be run again and it will use
-# files created on a previous run, if the previous run was in the same
-# calendar month.  This is a time saving measure.
+# chunk files created on a previous run, if the previous run was in
+# the same calendar month.  This is a time saving measure.
 
 # Thanks to Bill Tozier (https://github.com/vaguery) for code review;
 # but he is not to be held responsible for anything you see here.
@@ -15,7 +19,7 @@
 require 'csv'
 require 'fileutils'
 
-# These are required if we want to be an HTTP client:
+# The following are required if you want to be an HTTP client:
 require 'net/http'
 require 'json'
 require 'cgi'
@@ -34,10 +38,10 @@ class Paginator
 
   # -----
 
-  # supervise_query: generate a set of 'pages', then put them
+  # supervise_query: generate a set of 'chunks', then put them
   # together into a single .csv file.
 
-  # A page is the result set of a single cypher query.  The queries
+  # A chunk is the result set of a single cypher query.  The queries
   # are in a single supervise_query call are all the same, except for
   # the value of the SKIP parameter.
 
@@ -45,29 +49,29 @@ class Paginator
   # too big to capture with a single query, due to timeouts or other
   # problems.
 
-  # Each page is placed in its own file.  If a page file already
+  # Each chunk is placed in its own file.  If a chunk file already
   # exists the query is not repeated - the results from the previous
   # run are used directly without verification.
 
-  def supervise_query(query, headings, pagesize, path, skipping=true)
+  def supervise_query(query, headings, chunksize, path, skipping=true)
     if File.exist?(path)
       STDERR.puts "Using cached file #{path}"
       path
     else
-      # Create a directory path.parts to hold the pages
-      pages_dir = path + ".parts"
-      if Dir.exist?(pages_dir) && Dir.entries(pages_dir).length > 2
-        STDERR.puts "There are cached results in #{pages_dir}"
+      # Create a directory path.parts to hold the chunks
+      chunks_dir = path + ".parts"
+      if Dir.exist?(chunks_dir) && Dir.entries(chunks_dir).length > 2
+        STDERR.puts "There are cached results in #{chunks_dir}"
       end
       begin
-        pages, count = get_query_pages(query, headings, pagesize, pages_dir, skipping)
+        chunks, count = get_query_chunks(query, headings, chunksize, chunks_dir, skipping)
         if count > 0
-          STDERR.puts("#{File.basename(path)}: #{pages.length} pages, #{count} records")
+          STDERR.puts("#{File.basename(path)}: #{chunks.length} chunks, #{count} records")
         end
         # This always writes a .csv file to path, even if it's empty.
-        assemble_pages(pages, path)
-        if Dir.exist?(pages_dir) && Dir.entries(pages_dir).length <= 2 # . and ..
-          FileUtils.rmdir pages_dir
+        assemble_chunks(chunks, path)
+        if Dir.exist?(chunks_dir) && Dir.entries(chunks_dir).length <= 2 # . and ..
+          FileUtils.rmdir chunks_dir
         end
         path
       rescue => e
@@ -79,31 +83,31 @@ class Paginator
     end
   end
 
-  # Ensure that all the pages files for a table exist, using Neo4j to
+  # Ensure that all the chunks files for a table exist, using Neo4j to
   # obtain them as needed.
-  # Returns a list of paths (file names for the pages) and a count of
+  # Returns a list of paths (file names for the chunks) and a count of
   # the total number of rows (not always accurate).
   # A file will be created for every successful query, but the pathname
   # is only included in the returned list if it contains at least one row.
 
-  def get_query_pages(query, headings, pagesize, pages_dir, skipping)
-    limit = (pagesize ? "#{pagesize}" : "10000000")
-    pages = []
+  def get_query_chunks(query, headings, chunksize, chunks_dir, skipping)
+    limit = (chunksize ? "#{chunksize}" : "10000000")
+    chunks = []
     skip = 0
 
     # Keep doing queries until no more results are returned, or until
     # something goes wrong
     while true
-      # Fetch it one page at a time
-      basename = (pagesize ? "#{skip}_#{pagesize}" : "#{skip}")
-      part_path = File.join(pages_dir, "#{basename}.csv")
+      # Fetch it one chunk at a time
+      basename = (chunksize ? "#{skip}_#{chunksize}" : "#{skip}")
+      part_path = File.join(chunks_dir, "#{basename}.csv")
       if File.exist?(part_path)
         if File.size(part_path) > 0
-          pages.push(part_path)
+          chunks.push(part_path)
         end
         # Ideally, we should increase skip by the actual number of
         # records in the file.
-        skip += pagesize if pagesize
+        skip += chunksize if chunksize
       else
         whole_query = query
         if skipping
@@ -118,39 +122,39 @@ class Paginator
           STDERR.puts(result) if got == 0
           if got > 0 || skip == 0
             emit_csv(result, headings, part_path)
-            pages.push(part_path)
+            chunks.push(part_path)
           else
             FileUtils.mkdir_p File.dirname(part_path)
             FileUtils.touch(part_path)
           end
           skip += got
-          break if pagesize && got < pagesize
+          break if chunksize && got < chunksize
         else
           STDERR.puts("No results for #{part_path}")
           STDERR.puts(whole_query)
         end
       end
-      break unless pagesize
+      break unless chunksize
     end
-    [pages, skip]
+    [chunks, skip]
   end
 
-  # Combine the pages files (for a single table) into a single master
+  # Combine the chunks files (for a single table) into a single master
   # .csv file which is stored at path.
   # Always returns path, where a file (perhaps empty) will be found.
 
-  def assemble_pages(pages, path)
-    # Concatenate all the pages together
+  def assemble_chunks(chunks, path)
+    # Concatenate all the chunks together
     FileUtils.mkdir_p File.dirname(path)
-    if pages.size == 0
+    if chunks.size == 0
       FileUtils.touch(path)
-    elsif pages.size == 1
-      FileUtils.mv pages[0], path
+    elsif chunks.size == 1
+      FileUtils.mv chunks[0], path
     else
       temp = path + ".new"
-      tails = pages.drop(1).map { |path| "tail +2 #{path}" }
+      tails = chunks.drop(1).map { |path| "tail +2 #{path}" }
       more = tails.join(';')
-      command = "(cat #{pages[0]}; #{more}) >#{temp}"
+      command = "(cat #{chunks[0]}; #{more}) >#{temp}"
       system command
       FileUtils.mv temp, path
       # We could delete the directory and all the files in it, but

@@ -1,10 +1,41 @@
+# 'Branch painting' utility.
+
+# This script implements a suite of commands related to branch
+# painting.
+#
+# . directives - lists all of a resource's branch painting directives
+#      ('start' and 'stop' metadata nodes)
+# . qc - run a series of quality control queries to identify problems
+#      with the resource's directives
+# . infer - determine a resource's inferred trait assertions (based on
+#      directives), and write them to a file
+# . merge - read inferred trait assertions from file (see `infer`) and
+#      add them to the graphdb
+# . count - count a resource's inferred trait assertions
+# . clean - remove all of a resource's inferred trait assertions
+#
+# The choice of command, and any parameters, are communicated via
+# shell variables.  Shell variables can be set using `export` or
+# using the bash syntax "variable=value command".
+#
+# Shell variables:
+# . COMMAND - a command, see list above
+# . SERVER - the http server for an EOL web app instance, used for its
+#      cypher service.  E.g. "https://eol.org/"
+# . TOKEN - API token to be used with SERVER
+# . RESOURCE - the resource id of the resource to be painted
+
+# For example:
+#
 # export SERVER="http://127.0.0.1:3000/"
 # export TOKEN=`cat ~/Sync/eol/admin.token`
-# COMMAND=flush ruby -r ./lib/painter.rb -e Painter.main
+#
+# RESOURCE=640 COMMAND=qc ruby -r ./lib/painter.rb -e Painter.main
 
-# You might want to put 'config.log_level = :warn'
-# in config/environments/development.rb
-# to reduce noise emitted to console.
+# Branch painting generates a lot of logging output.  If you have a
+# local instance you might want to put 'config.log_level = :warn' in
+# config/environments/development.rb to reduce noise emitted to
+# console.
 
 require 'csv'
 require 'open3'
@@ -415,6 +446,8 @@ class Painter
 
   # ------------------------------------------------------------------
   # Everything from here down is for debugging.
+  # Haven't used these things in a while; it might be better to delete
+  # them.
 
   def debug(command, resource)
     case command
