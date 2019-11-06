@@ -169,14 +169,13 @@ class Painter
                          (t:Trait)-[:metadata]->
                          (m2:MetaData)-[:predicate]->
                          (:Term {uri: '#{STOP_TERM}'})
+                   WITH t, toInteger(m2.measurement) AS stop_id
+                   MATCH (stop:Page {page_id: stop_id})
                    OPTIONAL MATCH 
                          (t)-[:metadata]->
                          (m1:MetaData)-[:predicate]->
                          (:Term {uri: '#{START_TERM}'})
-                   WITH toInteger(m2.measurement) AS stop_id,
-                        toInteger(m1.measurement) AS start_id,
-                        t
-                   MATCH (stop:Page {page_id: stop_id})
+                   WITH t, stop_id, toInteger(m1.measurement) AS start_id
                    MATCH (start:Page {page_id: start_id})
                    OPTIONAL MATCH (stop)-[z:parent*1..]->(start)
                    WITH stop_id, stop, t
@@ -425,13 +424,16 @@ class Painter
     uri = URI("#{server}service/cypher?query=#{escaped}")
     use_ssl = (uri.scheme == "https")
     Net::HTTP.start(uri.host, uri.port, :use_ssl => use_ssl) do |http|
-      request = Net::HTTP::Get.new(uri)
+      request = Net::HTTP::Post.new(uri)
       request['Authorization'] = "JWT #{token}"
       response = http.request(request)
       if response.is_a?(Net::HTTPSuccess)
         JSON.parse(response.body)    # can return nil
       else
         STDERR.puts("** HTTP response: #{response.code} #{response.message}")
+        if response.code >= '300' && response.code < '400'
+          STDERR.puts("** Location: #{response["Location"]}")
+        end
         # Ideally we'd print only those lines that have useful 
         # information (error message and backtrace).
         # /home/jar/g/eol_website/lib/painter.rb:297:in `block in merge': 
