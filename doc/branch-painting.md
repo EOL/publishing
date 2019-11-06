@@ -1,10 +1,10 @@
 # Branch painting
 
 'Branch painting' is the process of adding of trait assertions to the
-graph database that are inferred by propagating traits through the
+graph database that are inferred by propagating selected traits through the
 taxonomic hierarchy.  An inferred trait assertion is represented as
 an `:inferred_trait` relationship between a Page node and a Trait
-node, very similar to a `:trait` relationship.
+node, very similar in form to a `:trait` relationship.
 
 ## Preparing a resource file
 
@@ -26,9 +26,14 @@ there could even be multiple start nodes.
 Often the stop directive for one trait will be a start node for
 another trait.  That is, the second trait "overrides" the first.
 
+Start directive MetaData nodes have a predicate of
+`https://eol.org/schema/terms/starts_at`.  Stop directives have a
+predicate of 
+`https://eol.org/schema/terms/starts_at`
+
 ## Using the branch painting script
 
-The branch painting script (in [lib/painter.rb ../lib/painter.rb])
+The branch painting script (in [lib/painter.rb](../lib/painter.rb))
 implements a suite of operations related to branch painting.
 
 * `directives` - lists all of a resource's branch painting directives
