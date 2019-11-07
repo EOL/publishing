@@ -36,6 +36,8 @@ tr:
         instruction: Birisi şifrenizi değiştirmek için bir bağlantı istedi ve bunu
           aşağıdaki bağlantıdan yapabilirsiniz.
         instruction_2: Bunu istemediyseniz, lütfen bu e-postayı dikkate almayın.
+        instruction_3: Parolanız yukarıdaki bağlantıya erişene ve yeni bir tane oluşturuncaya
+          kadar değişmez.
         subject: Parola sıfırlama talimatları
       password_change:
         greeting: 'Merhaba #{recipient}!'
