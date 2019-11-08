@@ -94,7 +94,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    crass (1.0.4)
+    crass (1.0.5)
     crono (1.1.2)
       activerecord (>= 4.0)
       activesupport (>= 4.0)
@@ -239,7 +239,7 @@ GEM
       activesupport (>= 4)
       railties (>= 4)
       request_store (~> 1.0)
-    loofah (2.3.0)
+    loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -296,7 +296,7 @@ GEM
     net_tcp_client (2.0.1)
     netrc (0.11.0)
     newrelic_rpm (4.6.0.338)
-    nokogiri (1.10.4)
+    nokogiri (1.10.5)
       mini_portile2 (~> 2.4.0)
     oauth (0.5.3)
     oauth2 (1.4.0)
