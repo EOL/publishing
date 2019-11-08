@@ -8,6 +8,7 @@ before_script:
   - mysql -uroot -e 'create database eol_test;'
   - cp config/secrets.sample.yml config/secrets.yml
 script:
+  - touch data/higher_order_desc_counts.csv
   - bin/rake db:migrate RAILS_ENV=test --trace
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
