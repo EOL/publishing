@@ -8,6 +8,7 @@
       - next if name.resource.nil? && name.attribution.blank?
       - note = ''
       - note += link_to(name.resource.name, name.resource) if name.resource
+      - note += " (#{name.remarks})" if include_remarks && name.remarks.present?
       - note += "\n#{name.attribution.html_safe}" if name.resource.dwh? && !name.attribution.blank? # XXX: the \n would mess things up for multiple notes but we assume dwh entries are separated from others
       - formatted_names << note
     - if include_rank && first.node.rank
