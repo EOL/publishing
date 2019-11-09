@@ -7,7 +7,7 @@
   %h2= t(:scientific_names_header)
   %div.uk-grid-small{ uk: { grid: true }, class: 'uk-child-width-expand@s uk-child-width-1-3@m' }
     - @page.sci_names_by_display_status.each do |status, scientific_names|
-      - include_rank = status == "preferred"
+      - include_rank = status == :preferred
       - names = group_sort_names_for_card(scientific_names, include_rank)
       %div
         .uk-card.uk-card-default
