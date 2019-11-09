@@ -8,6 +8,7 @@
   %div.uk-grid-small{ uk: { grid: true }, class: 'uk-child-width-expand@s uk-child-width-1-3@m' }
     - @page.sci_names_by_display_status.each do |status, scientific_names|
       - include_rank = status == :preferred
+      - include_status = !include_rank
       - names = group_sort_names_for_card(scientific_names, include_rank)
       %div
         .uk-card.uk-card-default
@@ -17,7 +18,7 @@
             .ui-list
               - names.each_with_index do |names, i|
                 - next if status == :preferred && names.all? { |n| !n.is_preferred? } # These are almost always bogus.
-                = render "resource_names", names: names, status: status, include_rank: include_rank, hidden: i >= card_expand_limit
+                = render "resource_names", names: names, status: status, include_rank: include_rank, include_status: include_status, hidden: i >= card_expand_limit
             - if names.length > card_expand_limit
               .uk-text-center.uk-margin-top.name-card-arrows
                 %i.fa.fa-angle-down.fa-2x.js-name-card-open

@@ -12,6 +12,8 @@
       - formatted_names << note
     - if include_rank && first.node.rank
       = t(:name_recognized_by_rank, rank: first.node.rank.name.capitalize, by: formatted_names.to_sentence).html_safe
+    - elsif include_status
+      = t(:name_recognized_by_status, status: first.taxonomic_status.name.capitalize, by: formatted_names.to_sentence).html_safe
     - else
       = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
 
