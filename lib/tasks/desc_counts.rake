@@ -1,6 +1,6 @@
 namespace :desc_counts do
-  desc 'Generates data file for descendant count auto-gen text'
+  desc 'Calculates page descendant counts for auto-gen text and writes them to the db.'
   task :generate => :environment do
-    Page::Descendants.generate_counts_file
+    Page::DescInfo.refresh
   end
 end

@@ -71,10 +71,9 @@ class PageDecorator
           @sentences << "#{@page.name} is a group of #{a1}."
         end
 
-        desc_counts = @page.desc_counts
-
-        if !desc_counts.empty?
-          @sentences << "There #{is_or_are(desc_counts.species)} #{desc_counts.species} species of #{@page.name}, in #{view.pluralize(desc_counts.genus, "genus", "genera")} and #{view.pluralize(desc_counts.family, "family")}."
+        desc_info = @page.desc_info
+        if desc_info.present?
+          @sentences << "There #{is_or_are(desc_info.species_count)} #{desc_info.species_count} species of #{@page.name}, in #{view.pluralize(desc_info.genus_count, "genus", "genera")} and #{view.pluralize(desc_info.family_count, "family")}."
         end
 
         first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
