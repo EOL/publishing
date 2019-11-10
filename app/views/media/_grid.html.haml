@@ -60,7 +60,7 @@
           .lightbox-img-contain.uk-flex{ class: extra_classes }
             = media_image_or_player(medium, "original")
           -# top overlay
-          .lightbox-overlay.lightbox-overlay-top.uk-position-top
+          .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-hidden-hover
             %ul.uk-iconnav.uk-text-center.uk-inline.lightbox-icons
               -# If you want the list to be sortable...
               -# %li
@@ -86,7 +86,7 @@
             -#
           -# bottom overlay
           - if medium.description
-            .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom
+            .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-hidden-hover
               = sanitize(medium.description, tags: %w(a i), attributes: %w(href))
               -#
                 = truncate(medium.description, length: 300, separator: " ")
