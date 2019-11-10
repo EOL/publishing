@@ -41,10 +41,16 @@ $icon-passive-color: #aaa;
   .lightbox-overlay-top {
   }
 
+    .lightbox-overlay-content-top {
+      padding: 0 60px;
+    }
+
   .lightbox-overlay-bottom {
     min-height: 20px;
-    padding-left: 70px;
-    padding-right: 70px;
+    max-height: 20%;
+    overflow: auto;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
 .lightbox-img-contain {
@@ -81,8 +87,8 @@ $arr-rad: 35px;
 
 .lightbox-icons {
   position: absolute;
-  right: 10px;
-  bottom: 10px;
+  left: 10px;
+  top: 10px;
 
   & a {
     color: $icon-passive-color;

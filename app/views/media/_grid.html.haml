@@ -60,21 +60,7 @@
           .lightbox-img-contain.uk-flex{ class: extra_classes }
             = media_image_or_player(medium, "original")
           -# top overlay
-          .lightbox-overlay.lightbox-overlay-top.uk-position-top.uk-hidden-hover
-            %a.uk-modal-close-default.uk-close-large.close-btn{ href: '', uk: { close: true } }
-            %div
-              = link_to(medium_name_html(medium), link_path)
-              .ui.label= medium&.license&.name
-            %div
-              %i.copyright.icon
-              = owner
-              &nbsp;
-              = link_to(medium&.resource&.name, medium&.resource)
-            -#
-          -# bottom overlay
-          .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom.uk-hidden-hover
-            - if medium.description
-              = truncate(medium.description, length: 300, separator: " ")
+          .lightbox-overlay.lightbox-overlay-top.uk-position-top
             %ul.uk-iconnav.uk-text-center.uk-inline.lightbox-icons
               -# If you want the list to be sortable...
               -# %li
@@ -87,6 +73,23 @@
                 -#   = link_to("<i class='violet ban icon'></i>".html_safe, "/hide", alt: "hide", method: :post)
                 %li.uk-inline
                   = link_to("<i class='plus icon'></i>".html_safe, new_collected_page_path(page_id: page&.id, medium_ids: [medium&.id]), alt: "add to collection")
+            %a.uk-modal-close-default.uk-close-large.close-btn{ href: '', uk: { close: true } }
+            .lightbox-overlay-content-top
+              %div
+                = link_to(medium_name_html(medium), link_path)
+                .ui.label= medium&.license&.name
+              %div
+                %i.copyright.icon
+                = owner
+                &nbsp;
+                = link_to(medium&.resource&.name, medium&.resource)
+            -#
+          -# bottom overlay
+          - if medium.description
+            .lightbox-overlay.lightbox-overlay-bottom.uk-position-bottom
+              = sanitize(medium.description, tags: %w(a i), attributes: %w(href))
+              -#
+                = truncate(medium.description, length: 300, separator: " ")
 
             -#
               .uk-modal-header
