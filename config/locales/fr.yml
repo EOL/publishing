@@ -592,6 +592,7 @@ fr:
       search: Recherche de trait
   name_recognized_by: Reconnu par %{by}
   name_recognized_by_rank: '%{rank} reconnu par %{by}'
+  name_recognized_by_status: '%{status} selon %{by}'
   ranks:
     NOTE: Les rangs ne sont pas traduits. Ils devraient être traités en verbatim.
       N’essayez pas de faire cela. :)

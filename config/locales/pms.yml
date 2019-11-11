@@ -594,6 +594,7 @@ pms:
       search: Arserca ëd caraterìstica
   name_recognized_by: Arconossù da %{by}
   name_recognized_by_rank: '%{rank} arconossù da %{by}'
+  name_recognized_by_status: '%{status} conforma a %{by}'
   ranks:
     NOTE: ij rang a son nen voltà. A dovrìo esse tratà 'me ch'a son. Ch'a sërca nen
       ëd felo. :)
@@ -693,5 +694,51 @@ pms:
     collection_page_count:
       one: '%{count} pàgina'
       other: '%{count} pàgine'
+    collection_page_count_and_users:
+      one: '%{count} pàgina; mantnùa da %{users_sentence}'
+      other: '%{count} pàgine; mantnùe da %{users_sentence}'
+    collected_media:
+      title: 'mojen cujì da costa pàgina:'
+    medium_article: Artìcol
+    medium_image: Plancia
+    medium_map: Carta
+    medium_sound: Son
+    medium_video: Filmà
+    medium_title_article_html: 'Artìcol: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Plancia: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Carta: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Sonor: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Filmà: <span class=''sub''>%{title}</span>'
+    empty: Pa d'arzultà.
+    field_matches:
+      description: 'a corëspond a la descrission:'
+      resource_pk: 'a corëspond a l''ID estern:'
+      bio: 'a corëspond a la biografìa:'
+      tag_line: 'a corëspond a la linia tichëttà:'
+      resources:
+        one: 'a corëspond a l''arsorse:'
+        other: 'a corëspond a j''arsorse:'
+      synonyms:
+        one: 'a corëspond al sinònim:'
+        other: 'a corëspond ai sinònim:'
+      vernaculars:
+        one: 'a corëspond al nòm comun:'
+        other: 'a corëspond ai nòm comun:'
+    section_titles:
+      collections:
+        one: '%{count} colession'
+        other: '%{count} colession'
+      media:
+        one: '%{count} mojen'
+        other: '%{count} mojen'
+      pages:
+        one: '%{count} pàgina dl''edv (spece)'
+        other: '%{count} pàgine dl''edv (spece)'
+      object_terms:
+        one: '%{count} valor d''argistrassion ëd dàit (TraitBank)'
+        other: '%{count} valor d''argistrassion ëd dàit (TraitBank)'
+      predicates:
+        one: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
+        other: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
   sign_in: Rintré ant ël sistema
 ...

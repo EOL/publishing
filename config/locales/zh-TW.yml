@@ -96,10 +96,12 @@ zh-TW:
       label: 添加可編輯此收藏的使用者：
       placeholder: 完整名稱或使用者名稱
     actions:
+      associate: 關聯
       download_taxa_csv: 下載分類 CSV
       delete: 刪除
       edit: 編輯
     collection_type:
+      normal: 一般
       gallery: 圖庫
     delete_confirm: 這會移除整個收藏並且無法還原此操作，您確定嗎？
     destroyed: 「%{name}」已被永久刪除。
@@ -107,6 +109,9 @@ zh-TW:
       one: 1 個頁面
       other: '%{count} 個頁面'
     log:
+      associated_collection:
+        add: '%{user}對收藏添加了關聯%{associated}'
+        remove: '%{user}對移除了收藏的關聯%{associated}'
       collection:
         add: '%{user}已建立收藏'
       page:
@@ -132,6 +137,7 @@ zh-TW:
     altitude: 海拔
     author: 作者
     bibliographic_citation: 書目引用
+    compiler: 編纂者
     creator: 建立者
     editor: 編輯者
     latitude: 緯度
@@ -180,6 +186,8 @@ zh-TW:
       data_services: 資料服務
       donate: 捐款
       education: 教育
+      glossary: 術語
+      help: 說明
       terms_of_use: 使用條款
       the_eol_forum: 網路生命大百科論壇
       what_is_eol: 什麼是網路生命大百科（Encyclopedia of Life、EOL）？
@@ -212,6 +220,7 @@ zh-TW:
   forgot_your_password: 忘記您的密碼？
   landing_page:
     header: 為全球提供有關地球上生命的知識
+    stats_cleared: 已重新計算統計。
   language: 語言
   languages:
     none: 未指定
@@ -433,6 +442,7 @@ zh-TW:
     hide_langs:
       one: 隱藏 1 個語言
       other: 隱藏 %{count} 個語言
+    prefer: 優先
     show_more_langs:
       one: 顯示另種語言
       other: 顯示另 %{count} 種語言
@@ -444,6 +454,7 @@ zh-TW:
       no_results_html: <strong>沒有確定的結果</strong><br />按下 Enter 鍵來查看未定結果
       placeholder: 搜尋網路生命大百科…
     trait_bank: 特質資料庫
+  name_preferred_label: 優先
   page_icon_counts:
     header:
       one: 用於頁面的最佳圖片
@@ -451,9 +462,14 @@ zh-TW:
   page_icon_created: 已移動圖片「%{name}」到頂端。
   page_title: 生命大百科
   page_title_search: 搜尋：%{query}
+  page_vernaculars_empty: 沒有與此分類關聯的俗名。
   pages:
     actions:
       collect: 收藏
+      comment:
+        zero: 註釋
+        one: '%{count} 個註釋'
+        other: '%{count} 個註釋'
       reindex: 重建索引
     batch_lookup:
       header: 批量頁面查看
@@ -481,6 +497,7 @@ zh-TW:
       overview: 概要
       maps: 地圖
       media: 媒體
+      names: 名稱
     iucn_status:
       label: IUCN 狀態：
       ex: 滅絕（EX）
@@ -493,6 +510,8 @@ zh-TW:
       dd: 資料缺乏（DD）
       ne: 未予評估（NE）
       unknown: 未知（沒有紀錄）
+    unresolved_name: 未解決名稱
+    unresolved_name_prefix: 未解決名稱：
   page_titles:
     pages:
       data: '%{page_name}資料'
@@ -519,10 +538,22 @@ zh-TW:
       show_warns:
         one: 顯示警告（%{count} 個）
         other: 顯示警告（%{count} 個）
+      fetch_relationships: 取得關係
+      fetch_synonyms: 取得同物異名
+      fetch_units: 取得單位
       clear_publishing: 清除鎖定
     headers:
       index: 資源
       import_log: '%{resource}的匯入日誌'
+    index:
+      locked_jobs:
+        zero: 沒有進行中事項
+        one: 1 個進行中事項
+        other: '%{count} 個進行中事項'
+      jobs:
+        zero: 沒有待辦事項
+        one: 1 個待辦事項
+        other: '%{count} 個進待辦事項'
     no_events: 無！
   resource_missing: 找不到資源
   scientific_name:
@@ -553,16 +584,25 @@ zh-TW:
     n_sounds:
       one: '%{count} 個聲音'
       other: '%{count} 個聲音'
+    n_taxon_pages:
+      one: '%{count} 個分類頁面'
+      other: '%{count} 個分類頁面'
     n_users:
       one: '%{count} 位使用者'
       other: '%{count} 位使用者'
     n_videos:
       one: '%{count} 個影片'
       other: '%{count} 個影片'
+    n_terms:
+      one: '%{count} 個項'
+      other: '%{count} 個項'
   search_results:
     collection_page_count:
       one: '%{count} 個頁面'
       other: '{count} 個頁面'
+    collection_page_count_and_users:
+      one: '%{count} 個頁面由%{users_sentence}維護}'
+      other: '%{count} 個頁面由%{users_sentence}維護}'
     collected_media:
       title: 來自此頁面的收藏媒體：
     medium_article: 條目
@@ -582,6 +622,9 @@ zh-TW:
       resources:
         one: 符合資源：
         other: 符合資源：
+      synonyms:
+        one: 符合同物異名：
+        other: 符合同物異名：
       vernaculars:
         one: 符合俗名：
         other: 符合俗名：
@@ -666,10 +709,12 @@ zh-TW:
     如果您遭遇到任何問題，請在 %{url} 聯絡我們。
 
     生命大百科團隊
+  did_not_receive_confirmation_instructions: 沒有收到確認指示
   simple_form:
     "yes": 是
     "no": 否
     required:
+      text: 必填
       mark: '*'
     error_notification:
       default_message: 請檢閱以下問題：
@@ -683,6 +728,7 @@ zh-TW:
       search_suggestion:
         match: 搜尋符合的字串
         path: 重新導向的路徑（完整或是相對路徑）
+        wkt_string: 傳遞到 Effechecka 的 WKT 字串
   stats:
     articles: 條目
     collections: 收藏
@@ -690,6 +736,7 @@ zh-TW:
     media: 媒體
     pages: 頁面
     nodes: 節點
+    scientific_names: 名稱
     users: 使用者
     references: 參考資料
   term:
@@ -702,6 +749,14 @@ zh-TW:
     fields:
       name: 名稱：
       definition: 定義：
+      sections: 段落：
+      is_hidden_from_glossary: 從詞彙表裡隱藏：
+      is_hidden_from_overview: 從概要分頁隱藏：
+    glossary:
+      full_title: 在網路生命大百科上用於資料的所有項目詞彙表
+      predicate_title: 在網路生命大百科上用於資料的類型項目詞彙表
+      object_term_title: 在網路生命大百科上用於資料的值項目詞彙表
+      units_title: 在網路生命大百科上用於資料的單位項目詞彙表
     pagination:
       next: 下一頁
       previous: 上一頁
@@ -719,6 +774,9 @@ zh-TW:
   trophic_web:
     group_descriptions:
       source: 焦點物種
+  trust:
+    trusted: 可信
+    untrusted: 不可信
   user:
     batch_page_lookup: 批量頁面查看
     created_at: 已建立
@@ -729,8 +787,12 @@ zh-TW:
       collections: 收藏
       downloads: 下載
       links: 連結
+    list_of_power_users: 高級使用者清單
     new_password: 新密碼
     confirm_new_password: 確認新密碼
+    showing_n_power_users:
+      one: 列出 1 個高級使用者
+      other: 列出 %{count} 個高級使用者
     username: 使用者名稱
     update: 更新
     update_email: 更新電子郵件

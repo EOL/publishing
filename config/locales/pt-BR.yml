@@ -399,6 +399,7 @@ pt-BR:
       articles: Artigos sobre %{page_name}
   name_recognized_by: Reconhecido por %{by}
   name_recognized_by_rank: '%{rank} foi reconhecido por %{by}'
+  name_recognized_by_status: '%{status} de acordo com %{by}'
   ranks:
     NOTE: classificações não são traduzidas. Eles devem ser tratados literalmente.
       Não tente fazer isso. :)

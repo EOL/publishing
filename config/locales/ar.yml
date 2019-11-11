@@ -592,6 +592,7 @@ ar:
       search: البحث عن السمات
   name_recognized_by: معترف بها من قبل %{by}
   name_recognized_by_rank: تم الاعتراف ب%{rank} بواسطة %{by}
+  name_recognized_by_status: '%{status} بالنسبة ل%{by}'
   ranks:
     NOTE: لا تتم ترجمة الرتب، يجب أن تُعاَمل حرفيا، لا تحاول أن تفعل ذلك. :)
   recaptcha: ري كابتشا
