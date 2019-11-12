@@ -207,8 +207,8 @@ class ApiPagesController < LegacyApiController
       }
       if (info = image.image_info)
         (h, w) = info.original_size.split('x')
-        image_hash[:height] = h if h
-        image_hash[:width] = w if w
+        image_hash[:height].to_i = h if h
+        image_hash[:width].to_i = w if w
         image_hash[:crop_x] = info.crop_x * image_hash[:width] / 100.0 unless info.crop_x.blank? ||
           image_hash[:width].blank?
         image_hash[:crop_y] = info.crop_y * image_hash[:height] / 100.0  unless info.crop_y.blank? ||
