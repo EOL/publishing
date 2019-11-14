@@ -740,5 +740,23 @@ pms:
       predicates:
         one: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
         other: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
+      users:
+        one: '%{count} utent'
+        other: '%{count} utent'
+    collection_title_html: 'Colession: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTÌCOL
+        other: '%{count} ARTÌCOJ'
+      n_data:
+        one: 1 DÀIT
+        other: '%{count} DÀIT'
+      n_media:
+        one: 1 MOJEN
+        other: '%{count} MOJEN'
+    user_title_html: 'Utent: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: creé un neuv sugeriment d'arserca
   sign_in: Rintré ant ël sistema
 ...
