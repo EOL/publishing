@@ -76,7 +76,7 @@ class PageDecorator
           @sentences << "There #{is_or_are(desc_info.species_count)} #{desc_info.species_count} species of #{@page.name}, in #{view.pluralize(desc_info.genus_count, "genus", "genera")} and #{view.pluralize(desc_info.family_count, "family")}."
         end
 
-        first_appearance_trait = first_trait_for_pred_uri(Eol::Uris.fossil_first)
+        first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
 
         if first_appearance_trait
           trait_sentence("This group has been around since the %s.", first_appearance_trait)
@@ -395,6 +395,26 @@ class PageDecorator
         end
 
         nil
+      end
+
+      def first_trait_for_pred_uri_w_obj(pred_uri)
+        traits = traits_for_pred_uri(pred_uri)
+        traits.find { |t| t[:object_term].present? } 
+      end
+
+      def traits_for_pred_uri(pred_uri)
+        terms = gather_terms(pred_uri)
+        traits = []
+
+        terms.each do |term|
+          recs = @page.grouped_data[term]
+
+          if recs
+            traits += recs
+          end
+        end
+
+        traits
       end
 
       def first_trait_for_obj_uris(*obj_uris)
