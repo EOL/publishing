@@ -5,6 +5,7 @@
 #   metadata.csv - one row per Metadata node
 #   pages.csv    - one row per Page node
 #   terms.csv    - one row per Term node
+#   inferred.csv - one row per inferred_trait relationship
 #
 # This script can run in at least two different modes:
 #  1. as a rake command (see lib/tasks/dump_traits.rake).  The 
@@ -98,7 +99,8 @@ class TraitsDumper
 
   # dest is name of zip file to be written, or nil for default
   def dump_traits(dest)
-    paths = [emit_terms,
+    paths = [emit_inferred,
+             emit_terms,
              emit_pages,
              emit_traits,
              emit_metadatas]
@@ -180,16 +182,6 @@ class TraitsDumper
     # returns nil on failure (e.g. timeout)
   end
 
-  # Prevent injection attacks (quote marks in URIs and so on)
-  def is_attack?(uri)
-    if /\A[\p{Alnum}:#_=?#& \/\.-]*\Z/.match(uri)
-      false
-    else
-      STDERR.puts "** scary URI: '#{uri}'"
-      true
-    end
-  end
-
   #---- Query: Traits (trait records)
 
   def emit_traits
@@ -262,6 +254,16 @@ class TraitsDumper
     run_query(predicates_query)["data"].map{|row| row[0]}
   end
 
+  # Prevent injection attacks (quote marks in URIs and so on)
+  def is_attack?(uri)
+    if /\A[\p{Alnum}:#_=?#& \/\.-]*\Z/.match(uri)
+      false
+    else
+      STDERR.puts "** scary URI: '#{uri}'"
+      true
+    end
+  end
+
   #---- Query: Metadatas
   # Structurally similar to traits.  I'm duplicating code because Ruby
   # style does not encourage procedural abstraction (or at least, I
@@ -315,6 +317,20 @@ class TraitsDumper
       RETURN DISTINCT pred.uri
       LIMIT 10000'
     run_query(predicates_query)["data"].map{|row| row[0]}
+  end
+
+  def emit_inferred
+    filename = "inferred.csv"
+    path = File.join(@tempdir, filename)
+    if File.exist?(path)
+      STDERR.puts "reusing previously created #{path}"
+      return path
+    end
+    inferred_keys = ["page_id", "inferred_trait"]
+    inferred_query = 
+       "MATCH (page:Page)-[:inferred_trait]->(trait:Trait)
+        RETURN page.page_id AS page_id, trait.eol_pk AS trait"
+    supervise_query(inferred_query, inferred_keys, filename)
   end
 
   # -----

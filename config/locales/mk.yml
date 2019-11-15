@@ -589,6 +589,7 @@ mk:
       search: Пребарување на одлики
   name_recognized_by: Признаено од %{by}
   name_recognized_by_rank: '%{rank} — признено од %{by}'
+  name_recognized_by_status: '%{status} според %{by}'
   ranks:
     NOTE: чиновите не се преведуваат. Треба да се земаат дословно. Не се обидувајте
       залудно. :)
