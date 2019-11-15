@@ -594,6 +594,7 @@ pms:
       search: Arserca ëd caraterìstica
   name_recognized_by: Arconossù da %{by}
   name_recognized_by_rank: '%{rank} arconossù da %{by}'
+  name_recognized_by_status: '%{status} conforma a %{by}'
   ranks:
     NOTE: ij rang a son nen voltà. A dovrìo esse tratà 'me ch'a son. Ch'a sërca nen
       ëd felo. :)
@@ -630,5 +631,132 @@ pms:
         dij problema s'a l'é dovrà durant na publicassion. É-lo sigur ?
     headers:
       index: Arsorse
+      import_log: amporté l'argistr për %{resource}
+    index:
+      locked_jobs:
+        zero: gnun travaj an cors
+        one: 1 travaj an cors
+        other: '%{count} travaj an cors'
+      jobs:
+        zero: gnun travaj an atèisa
+        one: 1 travaj an atèisa
+        other: '%{count} travaj an atèisa'
+      harvest_jobs:
+        zero: gnente da publiché
+        one: 1 publicassion an atèisa
+        other: '%{count} da publiché'
+    no_events: Gnun!
+  resource_missing: arsorsa nen trovà
+  scientific_name:
+    status_title:
+      accepted: Nòm acetà
+      alternative: Nòm alternativ
+      preferred: Nòm preferì
+      unusable: Nòm nen dovràbij
+      synonym: Sinònim
+  scientific_names_header: Nòm sientìfich
+  send_me_reset_password_instructions: Mandeme j'anstrussion ëd riinissialisassion
+    ëd la ciav
+  search:
+    flash:
+      cannot_combine_paths: Impossìbil combiné j'arzultà con %{path}
+      more_than_one_species: Impossìbil combiné j'arzultà për %{species}
+      more_than_two_terms: 'Impossìbil combiné j''arzultà për pi che doi tèrmin: %{terms}'
+    n_articles:
+      one: '%{count} artìcol'
+      other: '%{count} artìcoj'
+    n_collections:
+      one: '%{count} colession'
+      other: '%{count} colession'
+    n_images:
+      one: '%{count} plancia'
+      other: '%{count} plance'
+    n_results:
+      zero: Gnun arzultà
+      one: '%{count} arzultà'
+      other: '%{count} arzultà'
+    n_sounds:
+      one: '%{count} son'
+      other: '%{count} son'
+    n_taxon_pages:
+      one: '%{count} pàgina ëd tassonomìa'
+      other: '%{count} pàgine ëd tassonomìa'
+    n_users:
+      one: '%{count} utent'
+      other: '%{count} utent'
+    n_videos:
+      one: '%{count} filmà'
+      other: '%{count} filmà'
+    n_terms:
+      one: '%{count} tèrmin'
+      other: '%{count} tèrmin'
+  search_results:
+    collection_page_count:
+      one: '%{count} pàgina'
+      other: '%{count} pàgine'
+    collection_page_count_and_users:
+      one: '%{count} pàgina; mantnùa da %{users_sentence}'
+      other: '%{count} pàgine; mantnùe da %{users_sentence}'
+    collected_media:
+      title: 'mojen cujì da costa pàgina:'
+    medium_article: Artìcol
+    medium_image: Plancia
+    medium_map: Carta
+    medium_sound: Son
+    medium_video: Filmà
+    medium_title_article_html: 'Artìcol: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Plancia: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Carta: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Sonor: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Filmà: <span class=''sub''>%{title}</span>'
+    empty: Pa d'arzultà.
+    field_matches:
+      description: 'a corëspond a la descrission:'
+      resource_pk: 'a corëspond a l''ID estern:'
+      bio: 'a corëspond a la biografìa:'
+      tag_line: 'a corëspond a la linia tichëttà:'
+      resources:
+        one: 'a corëspond a l''arsorse:'
+        other: 'a corëspond a j''arsorse:'
+      synonyms:
+        one: 'a corëspond al sinònim:'
+        other: 'a corëspond ai sinònim:'
+      vernaculars:
+        one: 'a corëspond al nòm comun:'
+        other: 'a corëspond ai nòm comun:'
+    section_titles:
+      collections:
+        one: '%{count} colession'
+        other: '%{count} colession'
+      media:
+        one: '%{count} mojen'
+        other: '%{count} mojen'
+      pages:
+        one: '%{count} pàgina dl''edv (spece)'
+        other: '%{count} pàgine dl''edv (spece)'
+      object_terms:
+        one: '%{count} valor d''argistrassion ëd dàit (TraitBank)'
+        other: '%{count} valor d''argistrassion ëd dàit (TraitBank)'
+      predicates:
+        one: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
+        other: '%{count} sòrt d''argistrassion ëd dàit (TraitBank)'
+      users:
+        one: '%{count} utent'
+        other: '%{count} utent'
+    collection_title_html: 'Colession: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 ARTÌCOL
+        other: '%{count} ARTÌCOJ'
+      n_data:
+        one: 1 DÀIT
+        other: '%{count} DÀIT'
+      n_media:
+        one: 1 MOJEN
+        other: '%{count} MOJEN'
+    user_title_html: 'Utent: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: creé un neuv sugeriment d'arserca
   sign_in: Rintré ant ël sistema
 ...
