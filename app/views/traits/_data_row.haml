@@ -2,12 +2,12 @@
 - key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/#{trait[:id]}"
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
-  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :show_taxon => show_taxon), :id => trait[:id] } }
-    - pages = [] unless local_assigns.has_key?(:pages)
-    - page_id = trait[:page_id]
+  - pages = {} unless local_assigns.has_key?(:pages)
+  - page_id = trait[:page_id]
+  - if !local_assigns.has_key?(:page)
+    - page = page_id ? pages[page_id] : nil
 
-    - if !local_assigns.has_key?(:page)
-      - page = page_id ? pages[page_id] : nil
+  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :page_id => page.nil? ? nil : page.id, :show_taxon => show_taxon), :id => trait[:id] } }
     - if show_taxon && page
       .trait-thumb
         - show_data_page_icon page
