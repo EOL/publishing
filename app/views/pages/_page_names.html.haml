@@ -10,7 +10,7 @@
       - include_rank = status == :preferred
       - include_status = !include_rank
       - include_remarks = include_status
-      - names = group_sort_names_for_card(scientific_names, include_rank)
+      - names = group_sort_names_for_card(scientific_names, include_rank, include_status)
       %div
         .uk-card.uk-card-default
           .uk-card-header

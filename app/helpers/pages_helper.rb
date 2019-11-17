@@ -211,38 +211,22 @@ module PagesHelper
     end
   end
 
-  def group_sort_names_for_card(names, include_rank)
-    names.group_by do |n|
+  def group_sort_names_for_card(names, include_rank, include_status)
+    result = names.group_by do |n|
       rank = n.node.rank
-      dwh_str = n.resource&.dwh? ? "dwh" : "other"
-
-      if include_rank && rank
-        "#{dwh_str}.#{rank.treat_as}.#{n.italicized}"
-      else
-        "#{dwh_str}.#{n.italicized}"
-      end
-    end.values.sort do |a, b|
-      if a.first.resource.dwh? && !b.first.resource.dwh?
-        -1
-      elsif !a.first.resource.dwh? && b.first.resource.dwh?
-        1
-      else
-        result = a.first <=> b.first
-
-        if include_rank && result == 0
-          if a.first.node.rank.present? && b.first.node.rank.blank?
-            -1
-          elsif a.first.node.rank.blank? && b.first.node.rank.present?
-            1
-          elsif a.first.node.rank.present? && b.first.node.rank.present?
-            a.first.node.rank.name <=> b.first.node.rank.name
-          else
-            0
-          end
-        else
-          result
-        end
-      end
+      status = n.taxonomic_status&.name
+      dwh_str = n.resource&.dwh? ? "a" : "b"
+      key = "#{dwh_str}.#{n.italicized}"
+      key += ".#{rank.treat_as}" if include_rank && rank
+      key += ".#{status}" if include_status && status
+      key
+    end.values.sort_by do |v|
+      first = v.first
+      dwh_part = first.resource&.dwh? ? "a" : "b"
+      rank_part = include_rank && first.node&.rank ? I18n.t("pages.resource_names.rank.#{first.node&.rank.treat_as}") : "zzz"
+      # TODO: Update once taxonomic statuses are i18n-able
+      status_part = include_status && v.taxonomic_status&.name ? first.taxonomic_status&.name : "zzz"
+      [dwh_part, first.italicized, rank_part, status_part]
     end
   end
 
@@ -320,6 +304,42 @@ private
       b_name = sanitize(name_for_page(b), tags: [])
 
       a_name <=> b_name
+    end
+  end
+
+  def page_resource_names_link(name, include_remarks)
+    if name.resource.dwh? && name.attribution.present?
+      if include_remarks && name.remarks.present?
+        I18n.t(
+          "resource_names.resource_link_w_remarks_attribution_html", 
+          resource_path: resource_path(name.resource), 
+          resource_name: name.resource.name, 
+          remarks: name.remarks,
+          attribution: name.attribution.html_safe
+        )
+      else
+        I18n.t(
+          "resource_names.resource_link_w_attribution_html", 
+          resource_path: resource_path(name.resource),
+          resource_name: name.resource.name,
+          attribution: name.attribution.html_safe
+        )
+      end
+    else
+      if include_remarks && name.remarks.present?
+        I18n.t(
+          "resource_names.resource_link_w_remarks_html", 
+          resource_path: resource_path(name.resource), 
+          resource_name: name.resource.name, 
+          remarks: name.remarks
+        )
+      else
+        I18n.t(
+          "resource_names.resource_link_html", 
+          resource_path: resource_path(name.resource), 
+          resource_name: name.resource.name
+        )
+      end
     end
   end
 

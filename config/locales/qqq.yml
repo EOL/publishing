@@ -16,6 +16,43 @@ qqq:
     delete_button: '{{Identical|Delete}}'
   language: '{{Identical|Language}}'
   medium_header_description: '{{Identical|Description}}'
+  resource_names:
+    rank:
+      r_domain: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subdomain: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infradomain: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+
+      r_superkingdom: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+
+      r_kingdom: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subkingdom: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infrakingdom: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_superphylum: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_phylum: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subphylum: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infraphylum: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_superclass: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_class: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subclass: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infraclass: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_superorder: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_order: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_suborder: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infraorder: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_superfamily: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_family: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subfamily: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infrafamily: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_tribe: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_supergenus: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_genus: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subgenus: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infragenus: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_superspecies: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_species: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_subspecies: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_infraspecies: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
+      r_form: "possible value for rank variable in resource_names.name_recognized_by_w_rank"
   sections:
     overview: '{{Identical|Overview}}'
     size: '{{Identical|Size}}'
@@ -32,6 +69,11 @@ qqq:
     articles: '{{Identical|Article}}'
     pages: '{{Identical|Page}}'
     scientific_names: '{{Identical|Name}}'
+  support:
+    array:
+      words_connector: "used for Array#to_sentece, see https://guides.rubyonrails.org/v4.2/i18n.html"
+      two_words_connector: "used for Array#to_sentece, see https://guides.rubyonrails.org/v4.2/i18n.html"
+      last_word_connector: "used for Array#to_sentece, see https://guides.rubyonrails.org/v4.2/i18n.html"
   term:
     edit:
       submit: '{{Identical|Save}}'
