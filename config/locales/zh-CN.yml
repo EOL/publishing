@@ -4,7 +4,9 @@
 # Author: A Chinese Wikipedian
 # Author: Hydra
 # Author: Liuxinyu970226
+# Author: Shirayuki
 # Author: Shizhao
+# Author: Xiaomingyan
 # Author: 沈澄心
 ---
 zh-CN:
@@ -288,6 +290,11 @@ zh-CN:
     scientific_names: 名
     users: 用户
     references: 参考
+  support:
+    array:
+      words_connector: ，
+      two_words_connector: 和
+      last_word_connector: ，和
   term:
     actions:
       sort: 排序项

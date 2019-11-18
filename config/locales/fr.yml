@@ -549,6 +549,29 @@ fr:
         one: 1 enregistrement « %{pred_name} » caché – montrer tout
         other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
       show_all: tout afficher
+    resource_names:
+      name_recognized_by: Reconnu par %{by}
+      name_recognized_by_w_rank: '%{rank} reconnu par %{by}'
+      name_recognized_by_w_status: '%{status} selon %{by}'
+      rank:
+        r_kingdom: Royaume
+        r_class: Classe
+        r_subclass: Sous-classe
+        r_superorder: Super-ordre
+        r_order: Ordre
+        r_suborder: Sous-ordre
+        r_superfamily: Superfamille
+        r_family: Famille
+        r_species: Espèces
+        r_form: Forme
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: |-
+        <a href='%{resource_path}'>%{resource_name}</a>
+        %{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: données de <a href="%{url}">GloBI</a>
       reset: réinitialiser
@@ -590,17 +613,29 @@ fr:
       articles: articles de %{page_name}
     traits:
       search: Recherche de trait
-  name_recognized_by: Reconnu par %{by}
-  name_recognized_by_rank: '%{rank} reconnu par %{by}'
-  name_recognized_by_status: '%{status} selon %{by}'
-  ranks:
-    NOTE: Les rangs ne sont pas traduits. Ils devraient être traités en verbatim.
-      N’essayez pas de faire cela. :)
   recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
   reference_compiled_from: Référencé par %{links}
   reference_compiled_from_article: '%{source} article intitulé « %{name} »'
   register_new_account: Enregistrer un nouveau compte
+  resource_names:
+    name_recognized_by: Reconnu par %{by}
+    name_recognized_by_w_rank: '%{rank} reconnu par %{by}'
+    rank:
+      r_domain: Domaine
+      r_subdomain: Sous-domaine
+      r_subclass: Sous-classe
+      r_suborder: Sous-ordre
+      r_family: Famille
+      r_tribe: Tribu
+      r_form: Forme
+    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+    resource_link_w_attribution_html: |-
+      <a href='%{resource_path}'>%{resource_name}</a>
+      %{attribution}
+    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
+    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+      (%{remarks})
   resources:
     actions:
       import_traits: importer des traits (du dépôt)
@@ -836,6 +871,11 @@ fr:
     scientific_names: noms
     users: utilisateurs
     references: références
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: et
+      last_word_connector: ', et'
   term:
     actions:
       reindex: réindexer

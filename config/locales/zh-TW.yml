@@ -526,6 +526,52 @@ zh-TW:
         one: 隱藏 1 個「%{pred_name}」紀錄 — 顯示全部
         other: 隱藏 %{count} 個「%{pred_name}」紀錄 — 顯示全部
       show_all: 顯示全部
+    resource_names:
+      name_recognized_by: 由%{by}識別出
+      name_recognized_by_w_rank: '%{rank}由%{by}識別出'
+      name_recognized_by_w_status: 依據%{by}的%{status}
+      rank:
+        r_domain: 域
+        r_subdomain: 亞域
+        r_infradomain: 下域
+        r_superkingdom: 總界
+        r_kingdom: 界
+        r_subkingdom: 亞界
+        r_infrakingdom: 下界
+        r_superphylum: 總門
+        r_phylum: 門
+        r_subphylum: 亞門
+        r_infraphylum: 下門
+        r_superclass: 總綱
+        r_class: 綱
+        r_subclass: 亞綱
+        r_infraclass: 下綱
+        r_superorder: 總目
+        r_order: 目
+        r_suborder: 亞目
+        r_infraorder: 下目
+        r_superfamily: 總科
+        r_family: 科
+        r_subfamily: 亞科
+        r_infrafamily: 下科
+        r_tribe: 族
+        r_supergenus: 總屬
+        r_genus: 屬
+        r_subgenus: 亞屬
+        r_infragenus: 下屬
+        r_superspecies: 超種
+        r_species: 種
+        r_subspecies: 亞種
+        r_infraspecies: 種下
+        r_form: 型
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: |-
+        <a href='%{resource_path}'>%{resource_name}</a>
+        %{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
       reset: 重新設定
@@ -564,16 +610,56 @@ zh-TW:
       articles: '%{page_name}條目'
     traits:
       search: 特質搜尋
-  name_recognized_by: 由%{by}識別出
-  name_recognized_by_rank: '%{rank}由%{by}識別出'
-  name_recognized_by_status: 依據%{by}的%{status}
-  ranks:
-    NOTE: 級別未翻譯到，這應該要逐字處理，請別這樣做。:)
   recaptcha: Recaptcha
   recaptcha_error: 請告訴我們你不是機器人。
   reference_compiled_from: 出自%{links}的參考資料
   reference_compiled_from_article: '%{source}條目標題為「%{name}」'
   register_new_account: 新帳號註冊
+  resource_names:
+    name_recognized_by: 由%{by}識別出
+    name_recognized_by_w_rank: '%{rank}由%{by}識別出'
+    name_recognized_by_w_status: '%{status}根據%{by}'
+    rank:
+      r_domain: 域
+      r_subdomain: 亞域
+      r_infradomain: 下域
+      r_superkingdom: 總界
+      r_kingdom: 界
+      r_subkingdom: 亞界
+      r_infrakingdom: 下界
+      r_superphylum: 總門
+      r_phylum: 門
+      r_subphylum: 亞門
+      r_infraphylum: 下門
+      r_superclass: 總綱
+      r_class: 綱
+      r_subclass: 亞綱
+      r_infraclass: 下綱
+      r_superorder: 總目
+      r_order: 目
+      r_suborder: 亞目
+      r_infraorder: 下目
+      r_superfamily: 總科
+      r_family: 科
+      r_subfamily: 亞科
+      r_infrafamily: 下科
+      r_tribe: 族
+      r_supergenus: 總屬
+      r_genus: 屬
+      r_subgenus: 亞屬
+      r_infragenus: 下屬
+      r_superspecies: 超種
+      r_species: 種
+      r_subspecies: 亞種
+      r_infraspecies: 種下
+      r_form: 型
+    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+    resource_link_w_attribution_html: |-
+      <a href='%{resource_path}'>%{resource_name}</a>
+      %{attribution}
+    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
+    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+      (%{remarks})
   resources:
     actions:
       import_traits: 匯入特質（從典藏庫）
@@ -815,6 +901,11 @@ zh-TW:
     scientific_names: 名稱
     users: 使用者
     references: 參考資料
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: 和
+      last_word_connector: ',和'
   term:
     actions:
       reindex: 重建索引

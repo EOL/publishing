@@ -551,6 +551,13 @@ pms:
         one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
         other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
       show_all: smon-e tut
+    resource_names:
+      name_recognized_by: Arconossù da %{by}
+      name_recognized_by_w_rank: '%{rank} arconossù da %{by}'
+      name_recognized_by_w_status: '%{status} conforma a %{by}'
+      rank:
+        r_domain: Domini
+        r_subdomain: Sot-domini
     trophic_web:
       globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
       reset: inissialisé torna
@@ -592,12 +599,6 @@ pms:
       articles: artìcoj ëd %{page_name}
     traits:
       search: Arserca ëd caraterìstica
-  name_recognized_by: Arconossù da %{by}
-  name_recognized_by_rank: '%{rank} arconossù da %{by}'
-  name_recognized_by_status: '%{status} conforma a %{by}'
-  ranks:
-    NOTE: ij rang a son nen voltà. A dovrìo esse tratà 'me ch'a son. Ch'a sërca nen
-      ëd felo. :)
   recaptcha: Ch'a scriva torna le doe paròle o nùmer ch'a s-ciàira sì-sota
   recaptcha_error: Ch'as disa ch'a l'é nen un robò.
   reference_compiled_from: Arferiment da %{links}
@@ -758,5 +759,80 @@ pms:
   search_suggestion:
     actions:
       create: creé un neuv sugeriment d'arserca
+    created: Sugeriment d'arserca creà për «%{match}»
+    destroyed: Sugeriment d'arserca anulà për «%{match}»
+    new:
+      header: Creé un sugeriment d'arserca
+    update:
+      header: Agiorné ël sugeriment d'arserca
+    index:
+      header: Sugeriment d'arserca
+  sections:
+    associations: Associassion
+    behavior: Comportament
+    benefits: Vantagg
+    brief_summary: Curt resumé
+    comprehensive_description: Descrission detajà
+    conservation: Conservassion
+    conservation_status: Statù ëd conservassion
+    cyclicity: Siclissità
+    diagnostic_description: Descrission diagnòstica
+    diseases_and_parasites: Maladìe e parassita
+    dispersal: Dispersion
+    distribution: Distribussion
+    ecology: Ecologìa
+    evolution_and_systematics: Evolussion e Sistemàtica
+    general_ecology: Ecologìa general
+    genetics: Genética
+    growth: Chërsùa
+    habitat: Ambient
+    identification_resources: Arsorse d'identificassion
+    life_expectancy: Speransa ëd vita
+    life_history_and_behavior: Stòria dla vita e comportament
+    management: Gestion
+    migration: Migrassion
+    molecular_biology: Biologìa molecolar
+    molecular_biology_and_genetics: Biologìa molecolar e genética
+    morphology: Morfologìa
+    names_and_taxonomy: Nòm e tassonomìa
+    notes: Nòte
+    overview: Resumé
+    physiology_and_cell_biology: Fisologìa e biologìa celular
+    physical_description: Descrission fìsica
+    relevance_to_humans_and_ecosystems: Amportansa për j'òm e j'ecosistema
+    reproduction: Arprodussion
+    risks: Arzigh
+    size: Taja
+    taxonomy: Tassonomìa
+    threats: Mnasse
+    trends: Tendense
+    trophic_strategy: Strategìa tròfica
+    type_information: Anformassion ëd sòrt
+    wikipedia: Wikipedia
+  settings: opsion
+  show_date: Smon-e la dàita ëd publicassion
   sign_in: Rintré ant ël sistema
+  sign_up: Anscriv-se
+  signature_with_contact_us_link: |-
+    S'a rancontra dij problema, për piasì ch'an contata a %{url}.
+
+    L'echip ëd l'Enciclopedìa dla Vita
+  did_not_receive_confirmation_instructions: I l'hai nen arseivù j'anstrussion ëd
+    confirmassion
+  simple_form:
+    "yes": É
+    "no": Nò
+    required:
+      text: obligatòri
+      mark: '*'
+    error_notification:
+      default_message: 'Për piasì, ch''a contròla ij problema sì-sota:'
+    labels:
+      defaults:
+        email: 'Adrëssa eletrònica:'
+        password: Ciav
+        password_confirmation: Confirmassion ëd la ciav
+        remember_me: Visesse ëd mi
+        username: Stranòm
+        bio: Biografìa
 ...

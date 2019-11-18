@@ -550,6 +550,23 @@ ar:
         one: سجل “%{pred_name}” واحد مخفي - عرض الكل
         other: سجلات %{count} “%{pred_name}” مخفية - إظهار الكل
       show_all: اعرض الكل
+    resource_names:
+      name_recognized_by: معترف بها من قبل %{by}
+      name_recognized_by_w_rank: تم الاعتراف ب%{rank} بواسطة %{by}
+      name_recognized_by_w_status: '%{status} بالنسبة ل%{by}'
+      rank:
+        r_kingdom: مملكة
+        r_genus: جنس
+        r_subgenus: جنيس
+        r_species: نوع
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: |-
+        <a href='%{resource_path}'>%{resource_name}</a>
+        %{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
       reset: إعادة ضبط
@@ -590,16 +607,27 @@ ar:
       articles: مقالات %{page_name}
     traits:
       search: البحث عن السمات
-  name_recognized_by: معترف بها من قبل %{by}
-  name_recognized_by_rank: تم الاعتراف ب%{rank} بواسطة %{by}
-  name_recognized_by_status: '%{status} بالنسبة ل%{by}'
-  ranks:
-    NOTE: لا تتم ترجمة الرتب، يجب أن تُعاَمل حرفيا، لا تحاول أن تفعل ذلك. :)
   recaptcha: ري كابتشا
   recaptcha_error: رجاءً أخبرنا أنك لست روبوتًا.
   reference_compiled_from: مشار إليه من قبل %{links}
   reference_compiled_from_article: مقالة %{source}  بعنوان "%{name}"
   register_new_account: سجل للحصول على حساب جديد
+  resource_names:
+    name_recognized_by: معترف بها من قبل %{by}
+    name_recognized_by_w_rank: '%{rank} معترف بها من قبل %{by}'
+    name_recognized_by_w_status: '%{status} بالنسبة إلى %{by}'
+    rank:
+      r_kingdom: مملكة
+      r_genus: جنس
+      r_subgenus: جنيس
+      r_infraspecies: تحت نوع
+    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+    resource_link_w_attribution_html: |-
+      <a href='%{resource_path}'>%{resource_name}</a>
+      %{attribution}
+    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
+    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+      (%{remarks})
   resources:
     actions:
       import_traits: استيراد السمات (من المستودع)
@@ -845,6 +873,11 @@ ar:
     scientific_names: أسماء
     users: المستخدمون
     references: المراجع
+  support:
+    array:
+      words_connector: ،
+      two_words_connector: و
+      last_word_connector: و
   term:
     actions:
       reindex: إعادة الفهرسة
