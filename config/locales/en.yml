@@ -56,7 +56,11 @@ en:
       see_more: "see more"
     hierarchies:
       header: "Curated hierarchies for %{sci_name}"
+      see_resource_file: "See the resource file for a full list."
       this_page: "(this page)"
+      truncated_siblings:
+        one: "One additional sibling truncated for brevity."
+        other: "%{count} additional siblings truncated for brevity."
     richness:
       header: "Page Richness"
       score: "richness score"
@@ -506,7 +510,7 @@ en:
       other: "hide %{count} languages"
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
-    show_more_langs: 
+    show_more_langs:
       one: "show one more language"
       other: "show %{count} more languages"
   nav:
