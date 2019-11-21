@@ -56,7 +56,7 @@ en:
       see_more: "see more"
     hierarchies:
       header: "Curated hierarchies for %{sci_name}"
-      see_resource_file: "See the resource file for a full list."
+      see_resource_file: "See the <a href='%{href}'>resource file</a> for a full list."
       this_page: "(this page)"
       truncated_siblings:
         one: "One additional sibling truncated for brevity."
