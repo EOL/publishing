@@ -554,9 +554,6 @@ fi:
       articles: '%{page_name} artikkelit'
     traits:
       search: Ominaisuuksien haku
-  ranks:
-    NOTE: arvoja ei käännetä. Niitä on kohdeltava sanatarkasti. Älä yritä tehdä sitä.
-      :)
   recaptcha: Recaptcha
   recaptcha_error: Kerro meille, että et ole robotti.
   register_new_account: Rekisteröi uusi käyttäjätunnus

@@ -36,6 +36,8 @@ class Page < ActiveRecord::Base
   
   has_many :home_page_feed_items
 
+  has_one :desc_info
+
   # NOTE: you cannot preload the node ancestors; it needs to call the method
   # from the module. NOTE: not loading media, because for large pages, that's a
   # long query, and we only want one page. Besides, it's loaded in a separate
@@ -808,10 +810,6 @@ class Page < ActiveRecord::Base
       .group_by do |n|
         n.display_status
       end
-  end
-
-  def desc_counts
-    Page::Descendants.counts(id)
   end
 
   private

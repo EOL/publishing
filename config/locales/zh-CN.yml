@@ -4,7 +4,10 @@
 # Author: A Chinese Wikipedian
 # Author: Hydra
 # Author: Liuxinyu970226
+# Author: Shirayuki
 # Author: Shizhao
+# Author: Xiaomingyan
+# Author: 沈澄心
 ---
 zh-CN:
   language_name: 英语
@@ -17,6 +20,8 @@ zh-CN:
       body: 身体
       title: 职位
       untitled: 无标题
+    name:
+      missing: 无标题
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -41,6 +46,9 @@ zh-CN:
     edit_button: 编辑
     delete_confirm: 您确定？
   collection:
+    actions:
+      delete: 删除
+      edit: 编辑
     collection_type:
       normal: 标准
       gallery: 库
@@ -67,6 +75,7 @@ zh-CN:
     project: 项目
     provider: 提供者
     resource_label: 合作伙伴页面
+    source: 来源
     view_source_label: 原始消息
   dear_username_with_comma: 亲爱的%{username}：
   delete_account_button: 删除这个账户
@@ -119,6 +128,8 @@ zh-CN:
     af: 南非语
     ak: 阿肯文
     ar: 阿拉伯语
+    ba: 巴什基尔语
+    bg: 保加利亚语
     bh: 查看其他语言的版本
     bn: 孟加拉语
     bo: 藏文
@@ -126,15 +137,29 @@ zh-CN:
     cs: 捷克语
     da: 丹麦语
     de: 德语
+    dz: 宗卡语
+    dzo: 宗卡语
     en: 英语
+    eo: 世界语
+    et: 爱沙尼亚语
+    eu: 巴斯克语
     fa: 波斯语字母
     fi: 芬兰语
     fr: 法语
+    ga: 爱尔兰语
+    gv: 马恩语
+    he: 希伯来语
+    hi: 印地语
     hr: 科阿特兰
     hu: 保加利亚语
+    hy: 亚美尼亚语
     id: 印尼语
+    ii: 彝语北部方言
+    io: 伊多语
     is: 冰岛语
+    it: 意大利语
     ja: 日语
+    jv: 爪哇语
     jp: 日语
     ka: 格鲁吉亚文
     kg: 刚果
@@ -151,9 +176,13 @@ zh-CN:
     te: 泰卢固字母
     th: 泰语
     tr: 土耳其语
+    ug: 维吾尔语
     uz: 乌兹别克语
     vi: 越南文
+    yo: 约鲁巴语
+    za: 壮语
     zh: 汉文
+    zu: 祖鲁语
   layout_sign_in: 登录
   layout_sign_up: 注册
   layout_sign_out: 注销
@@ -161,6 +190,11 @@ zh-CN:
   maps:
     empty: 没有可用于此页面的地图。
   medium:
+    untitled:
+      image: 无标题图像
+      video: 无标题视频
+      sound: 无标题音频
+      map: 无标题地图
     subclasses:
       image: 映像
       video: 视频
@@ -256,6 +290,11 @@ zh-CN:
     scientific_names: 名
     users: 用户
     references: 参考
+  support:
+    array:
+      words_connector: ，
+      two_words_connector: 和
+      last_word_connector: ，和
   term:
     actions:
       sort: 排序项

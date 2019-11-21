@@ -281,6 +281,8 @@ pt-PT:
       search: pesquisar
     page_data:
       show_all: mostrar tudo
+    resource_names:
+      name_recognized_by_w_rank: '%{rank} reconhecido por %{by}'
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -298,7 +300,6 @@ pt-PT:
     pages:
       data: dados de %{page_name}
       articles: Artigos sobre %{page_name}
-  name_recognized_by_rank: '%{rank} reconhecido por %{by}'
   reference_compiled_from_article: '%{source} artigo nomeado "%{name}"'
   register_new_account: Registar para nova conta
   resources:

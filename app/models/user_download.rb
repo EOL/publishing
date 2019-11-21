@@ -22,6 +22,15 @@ class UserDownload < ActiveRecord::Base
       update_all(expired_at: Time.now)
   end
 
+  # NOTE: for timing reasons, this does NOT #save the current model, you should do that yourself.
+  def fail(message, backtrace)
+    self.transaction do
+      self.status = :failed
+      self.completed_at = Time.now # Yes, this is duplicated from #background_build, but it's safer to do so.
+      build_download_error({message: message, backtrace: backtrace})
+    end
+  end
+
 private
   def background_build
     begin
@@ -32,15 +41,7 @@ private
       Rails.logger.error("!! ERROR in background_build for User Download #{id}")
       Rails.logger.error("!! #{e.message}")
       Rails.logger.error("!! #{e.backtrace.join('->')}")
-
-      self.transaction do
-        self.status = :failed
-        build_download_error({
-          message: e.message,
-          backtrace: e.backtrace.join("\n")
-        })
-      end
-
+      fail(e.message, e.backtrace.join("\n"))
       raise e
     ensure
       self.completed_at = Time.now

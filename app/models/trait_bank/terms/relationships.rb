@@ -81,13 +81,14 @@ class TraitBank
           count = 0
           pairs.each do |pair|
             begin
-              # NOTE: parent first, child second...
-              TraitBank::Terms.send(fn, pair.last, pair.first)
-              is_hidden_from_select(pair.last) if fn != :set_units_for_pred
+              parent = clean_url(pair.first)
+              child = clean_url(pair.last)
+              TraitBank::Terms.send(fn, child, parent)
+              is_hidden_from_select(child) if fn != :set_units_for_pred
               count += 1
             rescue => e
               # NOTE: the order here again is what the USER expects, not what the code called. :)
-              message = "** WARNING: failed (#{pair.first},#{pair.last}) because #{e.message}"
+              message = "** WARNING: failed (#{parent},#{child}) because #{e.message}"
               if log
                 log << message
               else
@@ -96,6 +97,10 @@ class TraitBank
             end
           end
           count
+        end
+
+        def clean_url(url)
+          url = url.sub(/\s+$/, '').sub(/^\s+/, '')
         end
       end
     end

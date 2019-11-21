@@ -57,7 +57,7 @@ class CollectionsController < ApplicationController
 
   def pages
     respond_to do |format|
-      format.csv do 
+      format.csv do
         find_collection_with_pages_helper(false)
 
         data = CSV.generate(headers: true) do |csv|
@@ -65,10 +65,10 @@ class CollectionsController < ApplicationController
 
           @pages.each do |page|
             csv << [
-              page.page.name, 
-              page.page.canonical, 
-              page.annotation, 
-              page.created_at, 
+              page.page.name,
+              page.page.canonical,
+              page.annotation,
+              page.created_at,
               page.updated_at
             ]
           end
@@ -129,7 +129,7 @@ class CollectionsController < ApplicationController
   end
 
   def find_collection_with_pages_helper(paginate)
-    @collection = Collection.includes(:collection_associations).find(id: params[:id] || params[:collection_id])
+    @collection = Collection.includes(:collection_associations).find(params[:id] || params[:collection_id])
     @pages = CollectedPage.where(collection_id: @collection.id)
     params[:sort] ||= Collection.default_sorts[@collection.default_sort]
     sort = Collection.default_sorts.keys[params[:sort].to_i].dup
