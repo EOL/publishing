@@ -291,6 +291,12 @@ sv:
       show_all: visa alla
     page_data:
       show_all: visa alla
+    resource_names:
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
       reset: återställ
@@ -317,6 +323,17 @@ sv:
     unresolved_name: Olöst namn
     unresolved_name_prefix: 'Olöst namn:'
   recaptcha: Skriv in de två orden eller siffrorna du ser nedan
+  resource_names:
+    name_recognized_by_w_status: '%{status} enligt %{by}'
+    rank:
+      r_subdomain: Underdomän
+    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+    resource_link_w_attribution_html: |-
+      <a href='%{resource_path}'>%{resource_name}</a>
+      %{attribution}
+    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
+    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+      (%{remarks})
   resources:
     actions:
       republish: återpublicera
@@ -504,6 +521,11 @@ sv:
     scientific_names: namn
     users: användare
     references: referenser
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: och
+      last_word_connector: ', och'
   term:
     actions:
       reindex: omindexera

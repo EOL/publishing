@@ -58,7 +58,11 @@ zh-TW:
       see_more: 查看更多
     hierarchies:
       header: 策展%{sci_name}的階系
+      see_resource_file: 查看完成清單的資源檔案。
       this_page: （此頁面）
+      truncated_siblings:
+        one: 為了簡明起見，去除額外 1 個同品種。
+        other: 為了簡明起見，去除額外 %{count} 個同品種。
     richness:
       header: 頁面豐富度
       score: 豐富度分數

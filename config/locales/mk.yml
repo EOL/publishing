@@ -69,7 +69,11 @@ mk:
       see_more: уште
     hierarchies:
       header: Згрижени чиноследи за %{sci_name}
+      see_resource_file: Полн список ќе најдете во изворната податотека.
       this_page: (страницава)
+      truncated_siblings:
+        one: Скратена е уште една варијанта заради уредност
+        other: Скратени се уште %{count} варијанти заради уредност
     richness:
       header: Содржајност на страницата
       score: оценка на содржајноста

@@ -51,6 +51,7 @@ pt-BR:
       see_more: ver mais
     hierarchies:
       header: Hierarquias selecionadas para %{sci_name}
+      see_resource_file: Veja o arquivo de recursos para obter uma lista completa.
       this_page: (essa página)
     richness:
       header: Riqueza da página
