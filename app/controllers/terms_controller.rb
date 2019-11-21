@@ -59,7 +59,7 @@ class TermsController < ApplicationController
     redirect_to(:index)
   end
 
-  def terms_fetch_log
+  def fetch_log
     @log = `tail -n 100 #{TraitBank::Terms::FetchLog.log_path}`
   end
 

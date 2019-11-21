@@ -1,0 +1,6 @@
+%h1 Term Fetching Logs
+%p Only the last 100 lines of the log are shown. For more, ask a sysadmin for "an email copy of the log/terms_fetch.log file".
+.ui.section
+  .ui.list
+    - @log.each do |log|
+      .item= log
