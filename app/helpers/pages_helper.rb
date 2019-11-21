@@ -111,13 +111,13 @@ module PagesHelper
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
         end
-        if this_node.siblings.size > 100
-          haml_tag("div.item") do
-            haml_concat t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
-          end
-          haml_tag("div.item") do
-            haml_concat t('classifications.hierarchies.see_resource_file')
-          end
+      end
+      if this_node.siblings.size > 100
+        haml_tag("div.item") do
+          haml_concat t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
+        end
+        haml_tag("div.item") do
+          haml_concat t('classifications.hierarchies.see_resource_file')
         end
       end
     end
