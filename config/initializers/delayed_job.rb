@@ -57,7 +57,7 @@ FixNoNamesJob = Struct.new(:resource_id) do
   end
 end
 
-FetchRelationshipsJob = Struct.new() do
+class FetchRelationshipsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
     count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(log)
@@ -73,7 +73,7 @@ FetchRelationshipsJob = Struct.new() do
   end
 end
 
-FetchSynonymsJob = Struct.new() do
+class FetchSynonymsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
     count = TraitBank::Terms::Relationships.fetch_synonyms(log)
@@ -89,7 +89,7 @@ FetchSynonymsJob = Struct.new() do
   end
 end
 
-FetchUnitsJob = Struct.new() do
+class FetchUnitsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
     count = TraitBank::Terms::Relationships.fetch_units(log)
