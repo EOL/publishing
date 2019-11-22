@@ -36,7 +36,7 @@ class PageDecorator
 
       landmark_children
       plant_description_sentence
-      #flower_visitor_sentence # disabled until we figure out how to handle associations efficiently
+      flower_visitor_sentence
 
       if is_species?
         behavioral_sentence
