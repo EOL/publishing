@@ -1,5 +1,5 @@
 class TermsController < ApplicationController
-  before_filter :require_admin, only: [:fetch_units, :update]
+  before_filter :require_admin, only: [:fetch_units, :fetch_relationships, :fetch_synonyms, :terms_fetch_log, :update]
 
   SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
   META_OBJECT_URIS = {
@@ -19,7 +19,7 @@ class TermsController < ApplicationController
       "http://semanticscience.org/resource/SIO_001113",
       "http://semanticscience.org/resource/SIO_001114",
       "http://www.ebi.ac.uk/efo/EFO_0001444"
-    ] 
+    ]
   }
 
   def index
@@ -28,7 +28,7 @@ class TermsController < ApplicationController
   end
 
 #  def show
-#    redirect_to_glossary_entry(params[:uri])    
+#    redirect_to_glossary_entry(params[:uri])
 #  end
 
   def schema_redirect
@@ -41,24 +41,26 @@ class TermsController < ApplicationController
 
   def fetch_relationships
     raise "unauthorized" unless is_admin? # TODO: generalize
-    @log = []
-    count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(@log)
-    @log << "Loaded #{count} parent/child relationships."
+    Delayed::Job.enqueue(FetchRelationshipsJob.new())
+    flash[:notice] = "Started background job for term relationships retrieval."
+    redirect_to(:index)
   end
 
   def fetch_synonyms
     raise "unauthorized" unless is_admin? # TODO: generalize
-    @log = []
-    count = TraitBank::Terms::Relationships.fetch_synonyms(@log)
-    @log << "Loaded #{count} synonym relationships."
-    render :fetch_relationships # same log-only layout.
+    Delayed::Job.enqueue(FetchSynonymsJob.new())
+    flash[:notice] = "Started background job for term synonym retrieval."
+    redirect_to(:index)
   end
 
   def fetch_units
-    @log = []
-    count = TraitBank::Terms::Relationships.fetch_units(@log)
-    @log << "Loaded #{count} predicate/unit relationships."
-    render :fetch_relationships # same log-only layout.
+    Delayed::Job.enqueue(FetchUnitsJob.new())
+    flash[:notice] = "Started background job for unit terms retrieval."
+    redirect_to(:index)
+  end
+
+  def fetch_log
+    @log = `tail -n 100 #{TraitBank::Terms::FetchLog.log_path}`
   end
 
   def update
@@ -171,7 +173,7 @@ private
   def glossary_for_letter(letter)
     @letter = letter
     @letters = TraitBank::Terms.letters_for_glossary
-    @glossary = @letter ? 
+    @glossary = @letter ?
       TraitBank::Terms.glossary_for_letter(@letter) :
       []
   end
@@ -186,6 +188,6 @@ private
     term = TraitBank.term_as_hash(uri)
     raise ActionController.RoutingError.new("Not Found") if !term
     first_letter = TraitBank::Terms.letter_for_term(term)
-    redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302 
+    redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302
   end
 end
