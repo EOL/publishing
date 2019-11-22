@@ -320,7 +320,7 @@ private
     if name.resource.dwh? && name.attribution.present?
       if include_remarks && name.remarks.present?
         I18n.t(
-          "resource_names.resource_link_w_remarks_attribution_html",
+          "pages.resource_names.resource_link_w_remarks_attribution_html",
           resource_path: resource_path(name.resource),
           resource_name: name.resource.name,
           remarks: name.remarks,
@@ -328,7 +328,7 @@ private
         )
       else
         I18n.t(
-          "resource_names.resource_link_w_attribution_html",
+          "pages.resource_names.resource_link_w_attribution_html",
           resource_path: resource_path(name.resource),
           resource_name: name.resource.name,
           attribution: name.attribution.html_safe
@@ -337,14 +337,14 @@ private
     else
       if include_remarks && name.remarks.present?
         I18n.t(
-          "resource_names.resource_link_w_remarks_html",
+          "pages.resource_names.resource_link_w_remarks_html",
           resource_path: resource_path(name.resource),
           resource_name: name.resource.name,
           remarks: name.remarks
         )
       else
         I18n.t(
-          "resource_names.resource_link_html",
+          "pages.resource_names.resource_link_html",
           resource_path: resource_path(name.resource),
           resource_name: name.resource.name
         )
