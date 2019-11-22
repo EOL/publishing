@@ -695,6 +695,7 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       reindex: "reindex"
+      fetch_log: "terms-fetch log"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
       show_all:
