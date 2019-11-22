@@ -60,7 +60,7 @@ class TermsController < ApplicationController
   end
 
   def fetch_log
-    @log = `tail -n 100 #{TraitBank::Terms::FetchLog.log_path}`
+    @log = `tail -n 100 #{TraitBank::Terms::FetchLog.log_path}`.split(/\n/)
   end
 
   def update
