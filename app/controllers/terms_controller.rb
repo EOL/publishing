@@ -43,20 +43,20 @@ class TermsController < ApplicationController
     raise "unauthorized" unless is_admin? # TODO: generalize
     Delayed::Job.enqueue(FetchRelationshipsJob.new())
     flash[:notice] = "Started background job for term relationships retrieval."
-    redirect_to(:index)
+    redirect_to(resources_path)
   end
 
   def fetch_synonyms
     raise "unauthorized" unless is_admin? # TODO: generalize
     Delayed::Job.enqueue(FetchSynonymsJob.new())
     flash[:notice] = "Started background job for term synonym retrieval."
-    redirect_to(:index)
+    redirect_to(resources_path)
   end
 
   def fetch_units
     Delayed::Job.enqueue(FetchUnitsJob.new())
     flash[:notice] = "Started background job for unit terms retrieval."
-    redirect_to(:index)
+    redirect_to(resources_path)
   end
 
   def fetch_log
