@@ -74,6 +74,7 @@ FetchRelationshipsJob = Struct.new() do
 end
 
 FetchSynonymsJob = Struct.new() do
+  def perform
     log = TraitBank::Terms::FetchLog.new
     count = TraitBank::Terms::Relationships.fetch_synonyms(log)
     log << "Loaded #{count} predicate/unit relationships."
