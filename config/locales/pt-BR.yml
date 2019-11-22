@@ -51,6 +51,7 @@ pt-BR:
       see_more: ver mais
     hierarchies:
       header: Hierarquias selecionadas para %{sci_name}
+      see_resource_file: Veja o arquivo de recursos para obter uma lista completa.
       this_page: (essa página)
     richness:
       header: Riqueza da página
@@ -363,6 +364,43 @@ pt-BR:
       show_all: Mostrar todos
     page_data:
       show_all: Mostrar todos
+    resource_names:
+      name_recognized_by: Reconhecido por %{by}
+      name_recognized_by_w_rank: '%{rank} foi reconhecido por %{by}'
+      name_recognized_by_w_status: '%{status} de acordo com %{by}'
+      rank:
+        r_domain: Domínio
+        r_subdomain: Subdomínio
+        r_kingdom: Reino
+        r_subkingdom: Subreino
+        r_phylum: Filo
+        r_subphylum: Subfilo
+        r_superclass: Superclasse
+        r_class: Classe
+        r_subclass: Subclasse
+        r_infraclass: Infraclasse
+        r_superorder: Superordem
+        r_order: Ordem
+        r_suborder: Subordem
+        r_infraorder: Infraordem
+        r_superfamily: Superfamília
+        r_family: Família
+        r_subfamily: Subfamília
+        r_tribe: Tribo
+        r_genus: Gênero
+        r_subgenus: Subgênero
+        r_species: Espécies
+        r_subspecies: Subespécies
+        r_infraspecies: Infraespécies
+        r_form: Forma
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: |-
+        <a href='%{resource_path}'>%{resource_name}</a>
+        %{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -397,17 +435,46 @@ pt-BR:
       maps: mapas de %{page_name}
       names: nomes de %{page_name}
       articles: Artigos sobre %{page_name}
-  name_recognized_by: Reconhecido por %{by}
-  name_recognized_by_rank: '%{rank} foi reconhecido por %{by}'
-  name_recognized_by_status: '%{status} de acordo com %{by}'
-  ranks:
-    NOTE: classificações não são traduzidas. Eles devem ser tratados literalmente.
-      Não tente fazer isso. :)
   recaptcha: Recaptcha
   recaptcha_error: Por favor, diga-nos que você não é um robô.
   reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artigo de %{source} com o titulo de «%{name}»
   register_new_account: Registre-se para uma nova conta
+  resource_names:
+    name_recognized_by: Reconhecido por %{by}
+    name_recognized_by_w_rank: '%{rank} foi reconhecido por %{by}'
+    name_recognized_by_w_status: '%{status} de acordo com %{by}'
+    rank:
+      r_domain: Domínio
+      r_subdomain: Subdomínio
+      r_kingdom: Reino
+      r_subkingdom: Subreino
+      r_phylum: Filo
+      r_subphylum: Subfilo
+      r_superclass: Superclasse
+      r_class: Classe
+      r_subclass: Subclasse
+      r_infraclass: Infraclasse
+      r_superorder: Superordem
+      r_order: Ordem
+      r_suborder: Subordem
+      r_infraorder: Infraordem
+      r_superfamily: Superfamília
+      r_family: Família
+      r_subfamily: Subfamília
+      r_tribe: Tribo
+      r_genus: Gênero
+      r_species: Espécies
+      r_subspecies: Subespécies
+      r_infraspecies: Infraespécies
+      r_form: Forma
+    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+    resource_link_w_attribution_html: |-
+      <a href='%{resource_path}'>%{resource_name}</a>
+      %{attribution}
+    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
+    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+      (%{remarks})
   resources:
     actions:
       import_traits: traços de importação (do repositório)
@@ -599,6 +666,11 @@ pt-BR:
     scientific_names: nomes
     users: usuários
     references: referências
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: e
+      last_word_connector: ',e'
   term:
     actions:
       reindex: reindexar

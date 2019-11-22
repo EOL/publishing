@@ -56,3 +56,51 @@ FixNoNamesJob = Struct.new(:resource_id) do
     1
   end
 end
+
+class FetchRelationshipsJob
+  def perform
+    log = TraitBank::Terms::FetchLog.new
+    count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(log)
+    log << "Loaded #{count} parent/child relationships."
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
+class FetchSynonymsJob
+  def perform
+    log = TraitBank::Terms::FetchLog.new
+    count = TraitBank::Terms::Relationships.fetch_synonyms(log)
+    log << "Loaded #{count} predicate/unit relationships."
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end
+
+class FetchUnitsJob
+  def perform
+    log = TraitBank::Terms::FetchLog.new
+    count = TraitBank::Terms::Relationships.fetch_units(log)
+    log << "Loaded #{count} predicate/unit relationships."
+  end
+
+  def queue_name
+    'harvest'
+  end
+
+  def max_attempts
+    1
+  end
+end

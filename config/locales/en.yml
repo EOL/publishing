@@ -56,7 +56,11 @@ en:
       see_more: "see more"
     hierarchies:
       header: "Curated hierarchies for %{sci_name}"
+      see_resource_file: "See the <a href='%{href}'>resource file</a> for a full list."
       this_page: "(this page)"
+      truncated_siblings:
+        one: "One additional sibling truncated for brevity."
+        other: "%{count} additional siblings truncated for brevity."
     richness:
       header: "Page Richness"
       score: "richness score"
@@ -506,7 +510,7 @@ en:
       other: "hide %{count} languages"
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
-    show_more_langs: 
+    show_more_langs:
       one: "show one more language"
       other: "show %{count} more languages"
   nav:
@@ -691,6 +695,7 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       reindex: "reindex"
+      fetch_log: "terms-fetch log"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
       show_all:
@@ -700,7 +705,7 @@ en:
         other: "show warnings (%{count})"
       sync: "sync with repo"
       fetch_relationships: "fetch relationships"
-      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
+      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about five minutes. Are you sure?"
       fetch_synonyms: "fetch synonyms"
       fetch_synonyms_confirm: "This removes existing synonyms and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
       fetch_units: "fetch units"
