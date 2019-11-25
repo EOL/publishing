@@ -162,7 +162,7 @@ class Page < ActiveRecord::Base
 
     def autocomplete(query, options = {})
       search(query, options.reverse_merge({
-        fields: ['dh_scientific_names^30', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+        fields: ['dh_scientific_names^5', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
         match: :text_start,
         limit: 10,
         load: false,

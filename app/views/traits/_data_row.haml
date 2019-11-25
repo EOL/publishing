@@ -1,5 +1,5 @@
 - open_row = defined?(open_row) ? open_row : false
-- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/#{trait[:id]}"
+- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/trait_#{trait[:id]}/page_#{trait[:page_id]}"
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
   - pages = {} unless local_assigns.has_key?(:pages)

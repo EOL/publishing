@@ -406,40 +406,6 @@ es:
       articles: Artículos sobre %{page_name}
   recaptcha: Recaptcha
   reference_compiled_from_article: Artículo de %{source} titulado «%{name}»
-  resource_names:
-    rank:
-      r_domain: Dominio
-      r_subdomain: Subdominio
-      r_infradomain: Infradominio
-      r_superkingdom: Superreino
-      r_kingdom: Reino
-      r_subkingdom: Subreino
-      r_infrakingdom: Infrarreino
-      r_superphylum: Superfilo
-      r_phylum: Filo
-      r_subphylum: Subfilo
-      r_infraphylum: Infrafilo
-      r_superclass: Superclase
-      r_class: Clase
-      r_subclass: Subclase
-      r_infraclass: Infraclase
-      r_superorder: Superorden
-      r_order: Orden
-      r_suborder: Suborden
-      r_infraorder: Infraorden
-      r_superfamily: Superfamilia
-      r_family: Familia
-      r_subfamily: Subfamilia
-      r_infrafamily: Infrafamilia
-      r_tribe: Tribu
-      r_supergenus: Supergénero
-      r_genus: Género
-      r_subgenus: Subgénero
-      r_infragenus: Infragénero
-      r_superspecies: Superespecie
-      r_species: Especie
-      r_subspecies: Subespecie
-      r_infraspecies: Infraespecie
   resources:
     actions:
       republish: volver a publicar

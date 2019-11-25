@@ -58,7 +58,7 @@ zh-TW:
       see_more: 查看更多
     hierarchies:
       header: 策展%{sci_name}的階系
-      see_resource_file: 查看完成清單的資源檔案。
+      see_resource_file: 查看完成清單的<a href='%{href}'>資源檔案</a>。
       this_page: （此頁面）
       truncated_siblings:
         one: 為了簡明起見，去除額外 1 個同品種。
@@ -619,56 +619,12 @@ zh-TW:
   reference_compiled_from: 出自%{links}的參考資料
   reference_compiled_from_article: '%{source}條目標題為「%{name}」'
   register_new_account: 新帳號註冊
-  resource_names:
-    name_recognized_by: 由%{by}識別出
-    name_recognized_by_w_rank: '%{rank}由%{by}識別出'
-    name_recognized_by_w_status: '%{status}根據%{by}'
-    rank:
-      r_domain: 域
-      r_subdomain: 亞域
-      r_infradomain: 下域
-      r_superkingdom: 總界
-      r_kingdom: 界
-      r_subkingdom: 亞界
-      r_infrakingdom: 下界
-      r_superphylum: 總門
-      r_phylum: 門
-      r_subphylum: 亞門
-      r_infraphylum: 下門
-      r_superclass: 總綱
-      r_class: 綱
-      r_subclass: 亞綱
-      r_infraclass: 下綱
-      r_superorder: 總目
-      r_order: 目
-      r_suborder: 亞目
-      r_infraorder: 下目
-      r_superfamily: 總科
-      r_family: 科
-      r_subfamily: 亞科
-      r_infrafamily: 下科
-      r_tribe: 族
-      r_supergenus: 總屬
-      r_genus: 屬
-      r_subgenus: 亞屬
-      r_infragenus: 下屬
-      r_superspecies: 超種
-      r_species: 種
-      r_subspecies: 亞種
-      r_infraspecies: 種下
-      r_form: 型
-    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-    resource_link_w_attribution_html: |-
-      <a href='%{resource_path}'>%{resource_name}</a>
-      %{attribution}
-    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
-    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-      (%{remarks})
   resources:
     actions:
       import_traits: 匯入特質（從典藏庫）
       republish: 重新發佈
       reindex: 重建索引
+      fetch_log: 項目索取日誌
       fix_no_names: 修正沒有名稱
       index: 返回到所有資源
       show_all:

@@ -69,7 +69,7 @@ mk:
       see_more: уште
     hierarchies:
       header: Згрижени чиноследи за %{sci_name}
-      see_resource_file: Полн список ќе најдете во изворната податотека.
+      see_resource_file: Полн список ќе најдете во <a href='%{href}'>ресурсната податотека</a>.
       this_page: (страницава)
       truncated_siblings:
         one: Скратена е уште една варијанта заради уредност
@@ -642,56 +642,12 @@ mk:
   reference_compiled_from: Наведено од %{links}
   reference_compiled_from_article: '%{source} статија со наслов „%{name}“'
   register_new_account: Регистрирајте нова сметка
-  resource_names:
-    name_recognized_by: Признаено од %{by}
-    name_recognized_by_w_rank: '%{rank} — признено од %{by}'
-    name_recognized_by_w_status: '%{status} според %{by}'
-    rank:
-      r_domain: Домен
-      r_subdomain: Поддомен
-      r_infradomain: Инфрадомен
-      r_superkingdom: Натцарство
-      r_kingdom: Царство
-      r_subkingdom: Потцарство
-      r_infrakingdom: Инфрацарство
-      r_superphylum: Натколено
-      r_phylum: Колено
-      r_subphylum: Потколено
-      r_infraphylum: Инфраколено
-      r_superclass: Наткласа
-      r_class: Класа
-      r_subclass: Поткласа
-      r_infraclass: Инфракласа
-      r_superorder: Надред
-      r_order: Ред
-      r_suborder: Подред
-      r_infraorder: Инфраред
-      r_superfamily: Натсемејство
-      r_family: Семејство
-      r_subfamily: Потсемејство
-      r_infrafamily: Инфрасемејство
-      r_tribe: Племе
-      r_supergenus: Надрод
-      r_genus: Род
-      r_subgenus: Подрод
-      r_infragenus: Инфрарод
-      r_superspecies: Надвид
-      r_species: Вид
-      r_subspecies: Подвид
-      r_infraspecies: Инфравид
-      r_form: Облик
-    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-    resource_link_w_attribution_html: |-
-      <a href='%{resource_path}'>%{resource_name}</a>
-      %{attribution}
-    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
-    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-      (%{remarks})
   resources:
     actions:
       import_traits: увези одлики (од складиште)
       republish: преобјави
       reindex: преиндексирај
+      fetch_log: дневник за давање на поими
       fix_no_names: поправи случаи на НЕМА ИМЕ
       index: назад на сите ресурси
       show_all:
