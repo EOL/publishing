@@ -51,7 +51,8 @@ pt-BR:
       see_more: ver mais
     hierarchies:
       header: Hierarquias selecionadas para %{sci_name}
-      see_resource_file: Veja o arquivo de recursos para obter uma lista completa.
+      see_resource_file: Veja o <a href='%{href}'>arquivo de recurso</a> para uma
+        lista completa.
       this_page: (essa página)
     richness:
       header: Riqueza da página
@@ -440,41 +441,6 @@ pt-BR:
   reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artigo de %{source} com o titulo de «%{name}»
   register_new_account: Registre-se para uma nova conta
-  resource_names:
-    name_recognized_by: Reconhecido por %{by}
-    name_recognized_by_w_rank: '%{rank} foi reconhecido por %{by}'
-    name_recognized_by_w_status: '%{status} de acordo com %{by}'
-    rank:
-      r_domain: Domínio
-      r_subdomain: Subdomínio
-      r_kingdom: Reino
-      r_subkingdom: Subreino
-      r_phylum: Filo
-      r_subphylum: Subfilo
-      r_superclass: Superclasse
-      r_class: Classe
-      r_subclass: Subclasse
-      r_infraclass: Infraclasse
-      r_superorder: Superordem
-      r_order: Ordem
-      r_suborder: Subordem
-      r_infraorder: Infraordem
-      r_superfamily: Superfamília
-      r_family: Família
-      r_subfamily: Subfamília
-      r_tribe: Tribo
-      r_genus: Gênero
-      r_species: Espécies
-      r_subspecies: Subespécies
-      r_infraspecies: Infraespécies
-      r_form: Forma
-    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-    resource_link_w_attribution_html: |-
-      <a href='%{resource_path}'>%{resource_name}</a>
-      %{attribution}
-    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
-    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-      (%{remarks})
   resources:
     actions:
       import_traits: traços de importação (do repositório)
@@ -485,7 +451,7 @@ pt-BR:
       fetch_relationships: buscar relacionamentos
       fetch_relationships_confirm: Isso remove os relacionamentos existentes e os
         adiciona novamente, mas pode falhar e remover todos eles. Demora cerca de
-        um minuto. Você tem certeza?
+        cinco minutos. Você tem certeza?
       fetch_synonyms: buscar sinônimos
       fetch_synonyms_confirm: Isso remove os sinônimos existentes e os adiciona novamente,
         mas pode falhar e remover todos eles. Demora cerca de um minuto. Você tem

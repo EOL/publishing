@@ -69,7 +69,12 @@ pms:
       see_more: vëdde ëd pi
     hierarchies:
       header: Gerarchìe soagnà për %{sci_name}
+      see_resource_file: Vëdde l'<a href='%{href}'>archivi dj'arsorse</a> për na lista
+        completa.
       this_page: (costa pàgina-sì)
+      truncated_siblings:
+        one: Un frel adissional abrevià për fé curt.
+        other: '%{count} frej adissionaj abrevià për fé curt.'
     richness:
       header: Richisia dla pàgina
       score: pontegg ëd richisia
@@ -558,6 +563,11 @@ pms:
       rank:
         r_domain: Domini
         r_subdomain: Sot-domini
+        r_infradomain: Infra-domini
+        r_superkingdom: Sùper-regn
+        r_kingdom: Regn
+        r_subkingdom: Sot-regn
+        r_infrakingdom: Infra-regn
     trophic_web:
       globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
       reset: inissialisé torna
