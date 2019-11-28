@@ -568,6 +568,19 @@ pms:
         r_kingdom: Regn
         r_subkingdom: Sot-regn
         r_infrakingdom: Infra-regn
+        r_superphylum: Sùper-ramificassion
+        r_phylum: Ramificassion
+        r_subphylum: Sot-ramificassion
+        r_infraphylum: Infra-ramificassion
+        r_superclass: Sùper-classa
+        r_class: Classa
+        r_subclass: Sot-classa
+        r_infraclass: Infra-classa
+        r_superorder: Sùper-órdin
+        r_order: Órdin
+        r_suborder: Sot-órdin
+        r_infraorder: Infra-órdin
+        r_superfamily: Sùper-famija
     trophic_web:
       globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
       reset: inissialisé torna

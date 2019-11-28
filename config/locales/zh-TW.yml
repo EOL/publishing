@@ -4,6 +4,7 @@
 # Author: Kly
 # Author: Taieol
 # Author: Winston Sung
+# Author: Xiplus
 ---
 zh-TW:
   language_name: 英語
@@ -569,13 +570,11 @@ zh-TW:
         r_infraspecies: 種下
         r_form: 型
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
       reset: 重新設定
@@ -634,7 +633,7 @@ zh-TW:
         other: 顯示警告（%{count} 個）
       sync: 與典藏庫同步
       fetch_relationships: 取得關係
-      fetch_relationships_confirm: 這會移除現有的關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
+      fetch_relationships_confirm: 這會移除現有的關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上5分鐘時間，您確定嗎？
       fetch_synonyms: 取得同物異名
       fetch_synonyms_confirm: 這會移除現有的同物異名並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
       fetch_units: 取得單位

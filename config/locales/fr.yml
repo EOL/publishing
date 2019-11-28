@@ -64,7 +64,7 @@ fr:
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
-      see_resource_file: Voir le <a href='%{href}'>fichier de ressource</a> pour une
+      see_resource_file: Voir le <a href="%{href}">fichier de ressource</a> pour une
         liste complète.
       this_page: (cette page)
       truncated_siblings:
@@ -660,8 +660,8 @@ fr:
       sync: synchroniser avec le dépôt
       fetch_relationships: récupérer les relations
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
-        mais peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
-        Êtes-vous sûr ?
+        mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
+        Êtes-vous sûr{{GENDER:||e}} ?
       fetch_synonyms: trouver des synonymes
       fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
