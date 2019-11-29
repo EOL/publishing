@@ -64,7 +64,8 @@ fr:
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
-      see_resource_file: Voir le fichier ressource pour une liste complète.
+      see_resource_file: Voir le <a href="%{href}">fichier de ressource</a> pour une
+        liste complète.
       this_page: (cette page)
       truncated_siblings:
         one: Un frère supplémentaire supprimé pour réduire la taille.
@@ -645,56 +646,12 @@ fr:
   reference_compiled_from: Référencé par %{links}
   reference_compiled_from_article: '%{source} article intitulé « %{name} »'
   register_new_account: Enregistrer un nouveau compte
-  resource_names:
-    name_recognized_by: Reconnu par %{by}
-    name_recognized_by_w_rank: '%{rank} reconnu par %{by}'
-    name_recognized_by_w_status: '%{status} selon %{by}'
-    rank:
-      r_domain: Domaine
-      r_subdomain: Sous-domaine
-      r_infradomain: Infra-domaine
-      r_superkingdom: Super-royaume
-      r_kingdom: Royaume
-      r_subkingdom: Sous-royaume
-      r_infrakingdom: Infra-royaume
-      r_superphylum: Super-embranchement
-      r_phylum: Embranchement
-      r_subphylum: Sous-embranchement
-      r_infraphylum: Infra-embranchement
-      r_superclass: Super-classe
-      r_class: Classe
-      r_subclass: Sous-classe
-      r_infraclass: Infra-classe
-      r_superorder: Super-ordre
-      r_order: Ordre
-      r_suborder: Sous-ordre
-      r_infraorder: Infra-ordre
-      r_superfamily: Super-famille
-      r_family: Famille
-      r_subfamily: Sous-famille
-      r_infrafamily: Infra-famille
-      r_tribe: Tribu
-      r_supergenus: Super-genre
-      r_genus: Genre
-      r_subgenus: Sous-genre
-      r_infragenus: Infra-genre
-      r_superspecies: Super-espèce
-      r_species: Espèce
-      r_subspecies: Sous-espèce
-      r_infraspecies: Infra-espèce
-      r_form: Forme
-    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-    resource_link_w_attribution_html: |-
-      <a href='%{resource_path}'>%{resource_name}</a>
-      %{attribution}
-    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
-    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-      (%{remarks})
   resources:
     actions:
       import_traits: importer des traits (du dépôt)
       republish: publier
       reindex: réindexer
+      fetch_log: Journal terms-fetch
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
       show_all: montrer tout{{PLURAL:%{count}|}} (%{count})
@@ -703,8 +660,8 @@ fr:
       sync: synchroniser avec le dépôt
       fetch_relationships: récupérer les relations
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
-        mais peut échouer et les supprimer toutes. Cela prend environ une minute.
-        Êtes-vous sûr ?
+        mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
+        Êtes-vous sûr{{GENDER:||e}} ?
       fetch_synonyms: trouver des synonymes
       fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous

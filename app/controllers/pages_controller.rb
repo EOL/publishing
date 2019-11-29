@@ -426,7 +426,7 @@ private
     end
     if params[:subclass]
       @subclass = params[:subclass]
-      media = media.where(subclass: Medium.subclasses[@subclass])
+      media = media.where(['page_contents.content_subclass = ?', Medium.subclasses[@subclass]])
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i
@@ -549,4 +549,3 @@ private
     end
   end
 end
-

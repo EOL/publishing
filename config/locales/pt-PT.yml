@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Hamilton Abreu
 # Author: Mansil alfalb
 ---
 pt-PT:
@@ -283,6 +284,22 @@ pt-PT:
       show_all: mostrar tudo
     resource_names:
       name_recognized_by_w_rank: '%{rank} reconhecido por %{by}'
+      rank:
+        r_domain: Domínio
+        r_kingdom: Reino
+        r_class: Classe
+        r_subclass: Subclasse
+        r_family: Família
+        r_tribe: Tribo
+        r_species: Espécie
+        r_subspecies: Subespécie
+      resource_link_w_attribution_html: |-
+        <a href='%{resource_path}'>%{resource_name}</a>
+        %{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -400,6 +417,11 @@ pt-PT:
     nodes: nodos
     users: utilizadores
     references: referências
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: ' e'
+      last_word_connector: ' e'
   term:
     actions:
       sort: ordenar por

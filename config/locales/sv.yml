@@ -42,6 +42,7 @@ sv:
     children:
       see_more: se mer
     hierarchies:
+      see_resource_file: Se resursfilen för en fullständig lista.
       this_page: (denna sida)
     richness:
       header: Sidan innehållsrikedom
@@ -323,17 +324,6 @@ sv:
     unresolved_name: Olöst namn
     unresolved_name_prefix: 'Olöst namn:'
   recaptcha: Skriv in de två orden eller siffrorna du ser nedan
-  resource_names:
-    name_recognized_by_w_status: '%{status} enligt %{by}'
-    rank:
-      r_subdomain: Underdomän
-    resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-    resource_link_w_attribution_html: |-
-      <a href='%{resource_path}'>%{resource_name}</a>
-      %{attribution}
-    resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a> (%{remarks})
-    resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-      (%{remarks})
   resources:
     actions:
       republish: återpublicera
