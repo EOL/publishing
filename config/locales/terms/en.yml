@@ -3,4 +3,5 @@ en:
   term:
     name:
       by_uri:
-        http://www.geonames.org/1861060: Japan
+        http://www(dot)geonames(dot)org/1861060: Japan
+        

@@ -1,3 +1,5 @@
+require "util/term_i18n"
+
 # NOTE that you use the show_* methods with a - not a = because it's writing
 # to the stream directly, NOT building an output for you to show...
 module DataHelper
@@ -55,7 +57,7 @@ module DataHelper
       end
       parts << link_to(name_for_page(page), page_path(page))
     elsif data[:object_term] && data[:object_term][:name]
-      value = data[:object_term][:name]
+      value = i18n_term_name(data[:object_term])
       parts << value
     elsif val = data[:measurement] || data[:value_measurement]
       parts << val.to_s
@@ -68,6 +70,15 @@ module DataHelper
     end
 
     parts.join(" ")
+  end
+
+  def i18n_term_name(term)
+    key = TermI18n.uri_to_key(term[:uri], "term.name.by_uri")
+    if I18n.exists?(key)
+      t(key)
+    else
+      term[:name]
+    end
   end
 
   def show_data_value(data)
