@@ -35,7 +35,7 @@ class TermNames
             puts "Writing results for locale #{locale} to #{file_path}"
             File.open(file_path, "w") do |file|
               file.write({
-                "en": { 
+                locale.to_s => { 
                   "term": { 
                     "name": { 
                       "by_uri": writable_entries

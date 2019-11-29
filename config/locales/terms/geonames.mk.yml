@@ -1,11 +1,10 @@
 ---
-:en:
+mk:
   :term:
     :name:
       :by_uri:
         http://www(dot)geonames(dot)org/3489940: Јамајка
         http://www(dot)geonames(dot)org/5551752: Аризона
-        http://www(dot)geonames(dot)org/4862182: Ајова
         http://www(dot)geonames(dot)org/5001836: Мичиген
         http://www(dot)geonames(dot)org/3190538: Словенија
         http://www(dot)geonames(dot)org/5037779: Минесота
@@ -370,3 +369,7 @@
         http://www(dot)geonames(dot)org/3578476: Свети Вартоломеј
         http://www(dot)geonames(dot)org/2121530: Сахалин
         http://www(dot)geonames(dot)org/3168068: Сан Марино
+        http://www(dot)geonames(dot)org/1733038: Саравак
+        http://www(dot)geonames(dot)org/1256312: Сиким
+        http://www(dot)geonames(dot)org/3577816: Свети Винцент
+        http://www(dot)geonames(dot)org/1255053: Тамил Наду
