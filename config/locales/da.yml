@@ -172,10 +172,6 @@ da:
       dd: data mangler (DD)
       ne: ikke evalueret (NE)
   recaptcha_error: Fortæl os, at du ikke er en robot.
-  resource_names:
-    rank:
-      r_domain: Domæne
-      r_subdomain: Underdomæne
   resources:
     headers:
       index: Ressourcer
@@ -237,6 +233,9 @@ da:
     scientific_names: navne
     users: brugere
     references: referencer
+  support:
+    array:
+      two_words_connector: og
   term:
     actions:
       sort: sorter efter
