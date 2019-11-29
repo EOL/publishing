@@ -1,0 +1,389 @@
+---
+:en:
+  :term:
+    :name:
+      :by_uri:
+        http://www(dot)geonames(dot)org/3489940: Jamaika
+        http://www(dot)geonames(dot)org/5551752: Arizona
+        http://www(dot)geonames(dot)org/4862182: Iowa
+        http://www(dot)geonames(dot)org/3190538: Slovenia
+        http://www(dot)geonames(dot)org/4482348: Pohjois-Carolina
+        http://www(dot)geonames(dot)org/587116: Azerbaidzan
+        http://www(dot)geonames(dot)org/2960313: Luxemburg
+        http://www(dot)geonames(dot)org/3608932: Honduras
+        http://www(dot)geonames(dot)org/3570311: Martinique
+        http://www(dot)geonames(dot)org/3703430: Panama
+        http://www(dot)geonames(dot)org/614540: Georgia
+        http://www(dot)geonames(dot)org/5909050: Brittiläinen Kolumbia
+        http://www(dot)geonames(dot)org/3042058: Liechtenstein
+        http://www(dot)geonames(dot)org/4829764: Alabama
+        http://www(dot)geonames(dot)org/1857892: Kyushu
+        http://www(dot)geonames(dot)org/1852487: Shikoku
+        http://www(dot)geonames(dot)org/2921044: Saksa
+        http://www(dot)geonames(dot)org/2802361: Belgia
+        http://www(dot)geonames(dot)org/3374084: Barbados
+        http://www(dot)geonames(dot)org/3582678: Belize
+        http://www(dot)geonames(dot)org/5090174: New Hampshire
+        http://www(dot)geonames(dot)org/3077311: Tšekin tasavalta
+        http://www(dot)geonames(dot)org/5769223: Etelä-Dakota
+        http://www(dot)geonames(dot)org/4597040: Etelä-Carolina
+        http://www(dot)geonames(dot)org/5242283: Vermont
+        http://www(dot)geonames(dot)org/2623032: Tanska
+        http://www(dot)geonames(dot)org/4826850: Länsi-Virginia
+        http://www(dot)geonames(dot)org/3585968: El Salvador
+        http://www(dot)geonames(dot)org/6113358: Prinssi Edwardin saari
+        http://www(dot)geonames(dot)org/3057568: Slovakia
+        http://www(dot)geonames(dot)org/2782113: Itävalta
+        http://www(dot)geonames(dot)org/2658434: Sveitsi
+        http://www(dot)geonames(dot)org/5690763: Pohjois-Dakota
+        http://www(dot)geonames(dot)org/5128638: New York
+        http://www(dot)geonames(dot)org/798544: Puola
+        http://www(dot)geonames(dot)org/4361885: Maryland
+        http://www(dot)geonames(dot)org/3017382: Ranska
+        http://www(dot)geonames(dot)org/3617476: Nicaragua
+        http://www(dot)geonames(dot)org/4099753: Arkansas
+        http://www(dot)geonames(dot)org/5744337: Oregon
+        http://www(dot)geonames(dot)org/2017370: Venäjä
+        http://www(dot)geonames(dot)org/2750405: Alankomaat
+        http://www(dot)geonames(dot)org/630336: Valko-Venäjä
+        http://www(dot)geonames(dot)org/4142224: Delaware
+        http://www(dot)geonames(dot)org/5332921: Kalifornia
+        http://www(dot)geonames(dot)org/3579143: Guadeloupe
+        http://www(dot)geonames(dot)org/3595528: Guatemala
+        http://www(dot)geonames(dot)org/4831725: Connecticut
+        http://www(dot)geonames(dot)org/3624060: Costa Rica
+        http://www(dot)geonames(dot)org/3572887: Bahama
+        http://www(dot)geonames(dot)org/1861060: Japani
+        http://www(dot)geonames(dot)org/719819: Unkari
+        http://www(dot)geonames(dot)org/6252001: Yhdysvallat
+        http://www(dot)geonames(dot)org/3578421: Saint-Martin
+        http://www(dot)geonames(dot)org/6251999: Kanada
+        http://www(dot)geonames(dot)org/3686110: Kolumbia
+        http://www(dot)geonames(dot)org/3175395: Italia
+        http://www(dot)geonames(dot)org/2963597: Irlanti
+        http://www(dot)geonames(dot)org/2661886: Ruotsi
+        http://www(dot)geonames(dot)org/2589581: Algeria
+        http://www(dot)geonames(dot)org/2635167: Britannia
+        http://www(dot)geonames(dot)org/1814991: Kiina
+        http://www(dot)geonames(dot)org/1062947: Madagaskar
+        http://www(dot)geonames(dot)org/298795: Turkki
+        http://www(dot)geonames(dot)org/953987: Etelä-Afrikka
+        http://www(dot)geonames(dot)org/2420477: Guinea
+        http://www(dot)geonames(dot)org/2287781: Côte d’Ivoire
+        http://www(dot)geonames(dot)org/3351879: Angola
+        http://www(dot)geonames(dot)org/203312: Kinshasan Kongo
+        http://www(dot)geonames(dot)org/2233387: Kamerun
+        http://www(dot)geonames(dot)org/2395170: Benin
+        http://www(dot)geonames(dot)org/2300660: Ghana
+        http://www(dot)geonames(dot)org/2400553: Gabon
+        http://www(dot)geonames(dot)org/2275384: Liberia
+        http://www(dot)geonames(dot)org/192950: Kenia
+        http://www(dot)geonames(dot)org/2403846: Sierra Leone
+        http://www(dot)geonames(dot)org/2260494: Brazzavillen Kongo
+        http://www(dot)geonames(dot)org/2328926: Nigeria
+        http://www(dot)geonames(dot)org/878675: Zimbabwe
+        http://www(dot)geonames(dot)org/226074: Uganda
+        http://www(dot)geonames(dot)org/933860: Botswana
+        http://www(dot)geonames(dot)org/2542007: Marokko
+        http://www(dot)geonames(dot)org/163843: Syyria
+        http://www(dot)geonames(dot)org/223816: Djibouti
+        http://www(dot)geonames(dot)org/2434508: Tsad
+        http://www(dot)geonames(dot)org/3202326: Kroatia
+        http://www(dot)geonames(dot)org/2361809: Burkina Faso
+        http://www(dot)geonames(dot)org/337996: Etiopia
+        http://www(dot)geonames(dot)org/1036973: Mosambik
+        http://www(dot)geonames(dot)org/2215636: Libya
+        http://www(dot)geonames(dot)org/927384: Malawi
+        http://www(dot)geonames(dot)org/294640: Israel
+        http://www(dot)geonames(dot)org/6290252: Serbia
+        http://www(dot)geonames(dot)org/798549: Romania
+        http://www(dot)geonames(dot)org/102358: Saudi-Arabia
+        http://www(dot)geonames(dot)org/2440476: Niger
+        http://www(dot)geonames(dot)org/895949: Sambia
+        http://www(dot)geonames(dot)org/366755: Sudan
+        http://www(dot)geonames(dot)org/7909807: Etelä-Sudan
+        http://www(dot)geonames(dot)org/51537: Somalia
+        http://www(dot)geonames(dot)org/357994: Egypti
+        http://www(dot)geonames(dot)org/1269750: Intia
+        http://www(dot)geonames(dot)org/1149361: Afganistan
+        http://www(dot)geonames(dot)org/3865483: Argentiina
+        http://www(dot)geonames(dot)org/3469034: Brasilia
+        http://www(dot)geonames(dot)org/338010: Eritrea
+        http://www(dot)geonames(dot)org/248816: Jordania
+        http://www(dot)geonames(dot)org/99237: Irak
+        http://www(dot)geonames(dot)org/6254930: Palestiina
+        http://www(dot)geonames(dot)org/69543: Jemen
+        http://www(dot)geonames(dot)org/130758: Iran
+        http://www(dot)geonames(dot)org/934841: Swazimaa
+        http://www(dot)geonames(dot)org/1522867: Kazakstan
+        http://www(dot)geonames(dot)org/1210997: Bangladesh
+        http://www(dot)geonames(dot)org/1282988: Nepal
+        http://www(dot)geonames(dot)org/1227603: Sri Lanka
+        http://www(dot)geonames(dot)org/934292: Mauritius
+        http://www(dot)geonames(dot)org/3577718: Brittiläiset Neitsytsaaret
+        http://www(dot)geonames(dot)org/3575174: Saint Kitts ja Nevis
+        http://www(dot)geonames(dot)org/3508796: Dominikaaninen tasavalta
+        http://www(dot)geonames(dot)org/3562981: Kuuba
+        http://www(dot)geonames(dot)org/3573591: Trinidad ja Tobago
+        http://www(dot)geonames(dot)org/1733045: Malesia
+        http://www(dot)geonames(dot)org/3577815: Saint Vincent ja Grenadiinit
+        http://www(dot)geonames(dot)org/921929: Komorit
+        http://www(dot)geonames(dot)org/1562822: Vietnam
+        http://www(dot)geonames(dot)org/1880251: Singapore
+        http://www(dot)geonames(dot)org/3378535: Guyana
+        http://www(dot)geonames(dot)org/3723988: Haiti
+        http://www(dot)geonames(dot)org/3381670: Ranskan Guayana
+        http://www(dot)geonames(dot)org/1168579: Pakistan
+        http://www(dot)geonames(dot)org/3580239: Grenada
+        http://www(dot)geonames(dot)org/5855797: Havaiji
+        http://www(dot)geonames(dot)org/3573345: Bermuda
+        http://www(dot)geonames(dot)org/1831722: Kambodza
+        http://www(dot)geonames(dot)org/3576396: Antigua ja Barbuda
+        http://www(dot)geonames(dot)org/1643084: Indonesia
+        http://www(dot)geonames(dot)org/2205218: Fidži
+        http://www(dot)geonames(dot)org/1655842: Laos
+        http://www(dot)geonames(dot)org/3382998: Surinam
+        http://www(dot)geonames(dot)org/4566966: Puerto Rico
+        http://www(dot)geonames(dot)org/4796775: Yhdysvaltain Neitsytsaaret
+        http://www(dot)geonames(dot)org/1819730: Hongkong
+        http://www(dot)geonames(dot)org/1327865: Burma
+        http://www(dot)geonames(dot)org/272103: Libanon
+        http://www(dot)geonames(dot)org/2245662: Senegal
+        http://www(dot)geonames(dot)org/2264397: Portugali
+        http://www(dot)geonames(dot)org/1668284: Kiinan tasavalta
+        http://www(dot)geonames(dot)org/3355338: Namibia
+        http://www(dot)geonames(dot)org/932692: Lesotho
+        http://www(dot)geonames(dot)org/2410758: Sao Tomé ja Principe
+        http://www(dot)geonames(dot)org/935317: Réunion
+        http://www(dot)geonames(dot)org/3580718: Caymansaaret
+        http://www(dot)geonames(dot)org/2638360: Skotlanti
+        http://www(dot)geonames(dot)org/4030699: Pitcairn
+        http://www(dot)geonames(dot)org/2078138: Joulusaari
+        http://www(dot)geonames(dot)org/1282588: Brittiläinen Intian valtameren alue
+        http://www(dot)geonames(dot)org/2155115: Norfolkinsaari
+        http://www(dot)geonames(dot)org/2058645: Länsi-Australia
+        http://www(dot)geonames(dot)org/4032283: Tonga
+        http://www(dot)geonames(dot)org/4030945: Kiribati
+        http://www(dot)geonames(dot)org/2081918: Mikronesia
+        http://www(dot)geonames(dot)org/4030656: Ranskan Polynesia
+        http://www(dot)geonames(dot)org/3573512: Anguilla
+        http://www(dot)geonames(dot)org/2159558: Lord Howe
+        http://www(dot)geonames(dot)org/2520308: Kanariansaaret
+        http://www(dot)geonames(dot)org/2155400: Uusi Etelä-Wales
+        http://www(dot)geonames(dot)org/2139685: Uusi-Kaledonia
+        http://www(dot)geonames(dot)org/2147291: Tasmania
+        http://www(dot)geonames(dot)org/3624182: Kookossaari
+        http://www(dot)geonames(dot)org/2152274: Queensland
+        http://www(dot)geonames(dot)org/3424932: Saint-Pierre ja Miquelon
+        http://www(dot)geonames(dot)org/2510769: Espanja
+        http://www(dot)geonames(dot)org/1899402: Cookinsaaret
+        http://www(dot)geonames(dot)org/241170: Seychellit
+        http://www(dot)geonames(dot)org/2061327: Etelä-Australia
+        http://www(dot)geonames(dot)org/3474414: Falklandinsaaret
+        http://www(dot)geonames(dot)org/4031074: Tokelau
+        http://www(dot)geonames(dot)org/2145234: Victoria
+        http://www(dot)geonames(dot)org/1546748: Ranskan ulkopuoliset eteläiset alueet
+        http://www(dot)geonames(dot)org/4041468: Pohjois-Mariaanit
+        http://www(dot)geonames(dot)org/2088628: Papua-Uusi-Guinea
+        http://www(dot)geonames(dot)org/3578097: Montserrat
+        http://www(dot)geonames(dot)org/2186224: Uusi-Seelanti
+        http://www(dot)geonames(dot)org/4034894: Samoa
+        http://www(dot)geonames(dot)org/5880801: Amerikan Samoa
+        http://www(dot)geonames(dot)org/2103350: Salomonsaaret
+        http://www(dot)geonames(dot)org/3932488: Peru
+        http://www(dot)geonames(dot)org/4043988: Guam
+        http://www(dot)geonames(dot)org/3576916: Turks- ja Caicossaaret
+        http://www(dot)geonames(dot)org/1559582: Palau
+        http://www(dot)geonames(dot)org/3144096: Norja
+        http://www(dot)geonames(dot)org/3895114: Chile
+        http://www(dot)geonames(dot)org/3923057: Bolivia
+        http://www(dot)geonames(dot)org/3658394: Ecuador
+        http://www(dot)geonames(dot)org/1835841: Etelä-Korea
+        http://www(dot)geonames(dot)org/1512440: Uzbekistan
+        http://www(dot)geonames(dot)org/3041565: Andorra
+        http://www(dot)geonames(dot)org/732800: Bulgaria
+        http://www(dot)geonames(dot)org/390903: Kreikka
+        http://www(dot)geonames(dot)org/660013: Suomen Tasavalta
+        http://www(dot)geonames(dot)org/2378080: Mauritania
+        http://www(dot)geonames(dot)org/3042225: Isle of Man
+        http://www(dot)geonames(dot)org/3625428: Venezuela
+        http://www(dot)geonames(dot)org/3439705: Uruguay
+        http://www(dot)geonames(dot)org/49518: Ruanda
+        http://www(dot)geonames(dot)org/3437598: Paraguay
+        http://www(dot)geonames(dot)org/783754: Albania
+        http://www(dot)geonames(dot)org/453733: Viro
+        http://www(dot)geonames(dot)org/458258: Latvia
+        http://www(dot)geonames(dot)org/690791: Ukraina
+        http://www(dot)geonames(dot)org/1252634: Bhutan
+        http://www(dot)geonames(dot)org/2029969: Mongolia
+        http://www(dot)geonames(dot)org/239880: Keski-Afrikan tasavalta
+        http://www(dot)geonames(dot)org/2363686: Togo
+        http://www(dot)geonames(dot)org/2372248: Guinea-Bissau
+        http://www(dot)geonames(dot)org/149590: Tansania
+        http://www(dot)geonames(dot)org/2309096: Päiväntasaajan Guinea
+        http://www(dot)geonames(dot)org/2413451: Gambia
+        http://www(dot)geonames(dot)org/286963: Oman
+        http://www(dot)geonames(dot)org/2453866: Mali
+        http://www(dot)geonames(dot)org/1694008: Filippiinit
+        http://www(dot)geonames(dot)org/2629691: Islanti
+        http://www(dot)geonames(dot)org/3425505: Grönlanti
+        http://www(dot)geonames(dot)org/2064513: Pohjoisterritorio
+        http://www(dot)geonames(dot)org/6255149: Pohjois-Amerikka
+        http://www(dot)geonames(dot)org/174982: Armenia
+        http://www(dot)geonames(dot)org/718075: Entinen Jugoslavian tasavalta Makedonia
+        http://www(dot)geonames(dot)org/597427: Liettua
+        http://www(dot)geonames(dot)org/290557: Arabiemiirikunnat
+        http://www(dot)geonames(dot)org/1873107: Korean demokraattinen kansantasavalta
+        http://www(dot)geonames(dot)org/8505031: Tšekkoslovakia
+        http://www(dot)geonames(dot)org/1821275: Macao
+        http://www(dot)geonames(dot)org/1811017: Fujian
+        http://www(dot)geonames(dot)org/1806949: Hubei
+        http://www(dot)geonames(dot)org/617790: Moldova
+        http://www(dot)geonames(dot)org/3277605: Bosnia-Hertsegovina
+        http://www(dot)geonames(dot)org/2080185: Marshallinsaaret
+        http://www(dot)geonames(dot)org/2110425: Nauru
+        http://www(dot)geonames(dot)org/4036232: Niue
+        http://www(dot)geonames(dot)org/1527747: Kirgiisia
+        http://www(dot)geonames(dot)org/2523227: Sardinia
+        http://www(dot)geonames(dot)org/3194884: Montenegro
+        http://www(dot)geonames(dot)org/3042362: Guernsey
+        http://www(dot)geonames(dot)org/3042143: Jersey
+        http://www(dot)geonames(dot)org/1220409: Tadzikistan
+        http://www(dot)geonames(dot)org/2562770: Malta
+        http://www(dot)geonames(dot)org/3474415: Etelä-Georgia ja Eteläiset Sandwichsaaret
+        http://www(dot)geonames(dot)org/1282028: Malediivit
+        http://www(dot)geonames(dot)org/2622320: Färsaaret
+        http://www(dot)geonames(dot)org/3370751: Saint Helena
+        http://www(dot)geonames(dot)org/2523119: Sisilia
+        http://www(dot)geonames(dot)org/6255146: Afrikka
+        http://www(dot)geonames(dot)org/4019231: Aguascalientes
+        http://www(dot)geonames(dot)org/443185: Aksarayn maakunta
+        http://www(dot)geonames(dot)org/1278646: Andamaanit
+        http://www(dot)geonames(dot)org/3573511: Anguilla
+        http://www(dot)geonames(dot)org/323777: Antalya
+        http://www(dot)geonames(dot)org/6255152: Antarktis
+        http://www(dot)geonames(dot)org/6697173: Antarktis
+        http://www(dot)geonames(dot)org/581049: Arkangeli
+        http://www(dot)geonames(dot)org/3577279: Aruba
+        http://www(dot)geonames(dot)org/6255147: Aasia
+        http://www(dot)geonames(dot)org/2077456: Australia
+        http://www(dot)geonames(dot)org/2177478: Australian pääkaupunkiterritorio
+        http://www(dot)geonames(dot)org/290291: Bahrain
+        http://www(dot)geonames(dot)org/4017698: Baja California Sur
+        http://www(dot)geonames(dot)org/2633321: Itämeri
+        http://www(dot)geonames(dot)org/1650312: Bangka
+        http://www(dot)geonames(dot)org/5880054: Barrow
+        http://www(dot)geonames(dot)org/2099398: Bismarckinsaaret
+        http://www(dot)geonames(dot)org/1648473: Bogor
+        http://www(dot)geonames(dot)org/7626844: Karibian Alankomaat
+        http://www(dot)geonames(dot)org/3371122: Bouvet'nsaari
+        http://www(dot)geonames(dot)org/3371123: Bouvet’nsaari
+        http://www(dot)geonames(dot)org/1820814: Brunei
+        http://www(dot)geonames(dot)org/433561: Burundi
+        http://www(dot)geonames(dot)org/433561/burundi(dot)html: Burundi
+        http://www(dot)geonames(dot)org/3531730: Campeche
+        http://www(dot)geonames(dot)org/3374766: Kap Verde
+        http://www(dot)geonames(dot)org/682674: Karpaatit
+        http://www(dot)geonames(dot)org/3042400: Kanaalisaaret
+        http://www(dot)geonames(dot)org/569665: Tšetšenia
+        http://www(dot)geonames(dot)org/3531011: Chiapas
+        http://www(dot)geonames(dot)org/4014336: Chihuahua
+        http://www(dot)geonames(dot)org/4013674: Coahuila
+        http://www(dot)geonames(dot)org/1273874: Kochi
+        http://www(dot)geonames(dot)org/1547376: Kookossaaret
+        http://www(dot)geonames(dot)org/4013513: Colima
+        http://www(dot)geonames(dot)org/5928081: Cornwallinsaari
+        http://www(dot)geonames(dot)org/5928076: Cornwallisinsaari
+        http://www(dot)geonames(dot)org/6697802: Kreeta
+        http://www(dot)geonames(dot)org/146669: Kyproksen tasavalta
+        http://www(dot)geonames(dot)org/1273726: Dadra ja Nagar Haveli
+        http://www(dot)geonames(dot)org/567293: Dagestan
+        http://www(dot)geonames(dot)org/3575830: Dominica
+        http://www(dot)geonames(dot)org/2964574: Dublin
+        http://www(dot)geonames(dot)org/4011741: Durango
+        http://www(dot)geonames(dot)org/1966436: Itä-Timor
+        http://www(dot)geonames(dot)org/4030726: Pääsiäissaari
+        http://www(dot)geonames(dot)org/1085593: Itä-Kap
+        http://www(dot)geonames(dot)org/2080552: Enewetak
+        http://www(dot)geonames(dot)org/6269131: Englanti
+        http://www(dot)geonames(dot)org/233508: Entebbe
+        http://www(dot)geonames(dot)org/3982846: Sonora
+        http://www(dot)geonames(dot)org/6255148: Eurooppa
+        http://www(dot)geonames(dot)org/2411586: Gibraltar
+        http://www(dot)geonames(dot)org/1271157: Goa
+        http://www(dot)geonames(dot)org/4005267: Guanajuato
+        http://www(dot)geonames(dot)org/3527213: Guerrero
+        http://www(dot)geonames(dot)org/3172393: Napolinlahti
+        http://www(dot)geonames(dot)org/3527115: Hidalgo
+        http://www(dot)geonames(dot)org/3374199: Santiago
+        http://www(dot)geonames(dot)org/2023468: Irkutskin alue
+        http://www(dot)geonames(dot)org/260893: Karpathos
+        http://www(dot)geonames(dot)org/4004156: Jalisco
+        http://www(dot)geonames(dot)org/5985550: Jamesinlahti
+        http://www(dot)geonames(dot)org/3042142: Jersey
+        http://www(dot)geonames(dot)org/232422: Kampala
+        http://www(dot)geonames(dot)org/2125072: Kamtšatkan aluepiiri
+        http://www(dot)geonames(dot)org/553190: Kannanlahti
+        http://www(dot)geonames(dot)org/4032961: Kermadecsaaret
+        http://www(dot)geonames(dot)org/4160813: Key West
+        http://www(dot)geonames(dot)org/2022888: Habarovskin aluepiiri
+        http://www(dot)geonames(dot)org/652793: Kilpisjärvi
+        http://www(dot)geonames(dot)org/5866573: Kodiakinsaari
+        http://www(dot)geonames(dot)org/545854: Komin tasavalta
+        http://www(dot)geonames(dot)org/306569: Konyan maakunta
+        http://www(dot)geonames(dot)org/542415: Krasnodarin aluepiiri
+        http://www(dot)geonames(dot)org/1502020: Krasnojarskin aluepiiri
+        http://www(dot)geonames(dot)org/258763: Kreeta
+        http://www(dot)geonames(dot)org/2081155: Kosrae
+        http://www(dot)geonames(dot)org/285570: Kuwait
+        http://www(dot)geonames(dot)org/2660647: Genevenjärvi
+        http://www(dot)geonames(dot)org/3052649: Neusiedlerjärvi
+        http://www(dot)geonames(dot)org/148996: Victorianjärvi
+        http://www(dot)geonames(dot)org/3003796: Le Havre
+        http://www(dot)geonames(dot)org/1624114: Pienet Sundasaaret
+        http://www(dot)geonames(dot)org/1085597: Limpopon provinssi
+        http://www(dot)geonames(dot)org/1704846: Luzon
+        http://www(dot)geonames(dot)org/2123627: Magadanin alue
+        http://www(dot)geonames(dot)org/1636544: Manado
+        http://www(dot)geonames(dot)org/1311874: Mandalay
+        http://www(dot)geonames(dot)org/1701668: Manila
+        http://www(dot)geonames(dot)org/9281111: Prinssi Edwardin saaret
+        http://www(dot)geonames(dot)org/1024031: Mayotte
+        http://www(dot)geonames(dot)org/363196: Välimeri
+        http://www(dot)geonames(dot)org/2513947: Melilla
+        http://www(dot)geonames(dot)org/3996063: Meksiko
+        http://www(dot)geonames(dot)org/2993457: Monaco
+        http://www(dot)geonames(dot)org/525404: Montšegorsk
+        http://www(dot)geonames(dot)org/4034185: Moorea
+        http://www(dot)geonames(dot)org/3522961: Morelos
+        http://www(dot)geonames(dot)org/304183: Muğlan maakunta
+        http://www(dot)geonames(dot)org/524304: Murmanskin alue
+        http://www(dot)geonames(dot)org/524305: Muurmanski
+        http://www(dot)geonames(dot)org/1856210: Naganon prefektuuri
+        http://www(dot)geonames(dot)org/3995012: Nayarit
+        http://www(dot)geonames(dot)org/1214404: Nias
+        http://www(dot)geonames(dot)org/2960848: Pohjanmeri
+        http://www(dot)geonames(dot)org/3522509: Oaxaca
+        http://www(dot)geonames(dot)org/6255151: Oseania
+        http://www(dot)geonames(dot)org/698740: Odessa
+        http://www(dot)geonames(dot)org/1854345: Okinawan prefektuuri
+        http://www(dot)geonames(dot)org/3090048: Opole
+        http://www(dot)geonames(dot)org/2612845: Juutinrauma
+        http://www(dot)geonames(dot)org/2310306: Annobón
+        http://www(dot)geonames(dot)org/2081551: Pohnpei
+        http://www(dot)geonames(dot)org/2017623: Primorjen aluepiiri
+        http://www(dot)geonames(dot)org/3521082: Puebla
+        http://www(dot)geonames(dot)org/289688: Qatar
+        http://www(dot)geonames(dot)org/3520887: Quintana Roo
+        http://www(dot)geonames(dot)org/2639577: Reading
+        http://www(dot)geonames(dot)org/552548: Karjala
+        http://www(dot)geonames(dot)org/1506272: Altain tasavalta
+        http://www(dot)geonames(dot)org/2050915: Burjatia
+        http://www(dot)geonames(dot)org/2013162: Sahan tasavalta
+        http://www(dot)geonames(dot)org/1488873: Tuva
+        http://www(dot)geonames(dot)org/3578475: Saint Barthélemy
+        http://www(dot)geonames(dot)org/3576468: Saint Lucia
+        http://www(dot)geonames(dot)org/3578476: Saint-Barthélemy
+        http://www(dot)geonames(dot)org/4041550: Saipan
+        http://www(dot)geonames(dot)org/2121530: Sahalin
+        http://www(dot)geonames(dot)org/3168068: San Marino
