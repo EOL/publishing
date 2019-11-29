@@ -51,6 +51,8 @@ class TermNames::GeonamesAdapter
         first_node = locale_nodes.is_a?(Array) ? locale_nodes.first : locale_nodes
         set_value_for_locale(locale, uri, first_node.text)
       end
+
+      sleep 1 # throttle api calls
     end
   end
 
