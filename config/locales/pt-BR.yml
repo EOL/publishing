@@ -401,7 +401,7 @@ pt-BR:
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir

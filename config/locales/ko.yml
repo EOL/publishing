@@ -223,6 +223,31 @@ ko:
       show_all: 모두 보기
     page_data:
       show_all: 모두 보기
+    resource_names:
+      rank:
+        r_domain: 도메인
+        r_subdomain: 서브도메인
+        r_kingdom: 계
+        r_subkingdom: 아계
+        r_infrakingdom: 하계
+        r_superphylum: 상문
+        r_phylum: 문
+        r_subphylum: 아문
+        r_infraphylum: 하문
+        r_class: 강
+        r_subclass: 아강
+        r_superorder: 상목
+        r_order: 목
+        r_suborder: 아목
+        r_superfamily: 상과
+        r_subfamily: 아과
+        r_genus: 속
+        r_subgenus: 아속
+        r_superspecies: 상종
+        r_subspecies: 아종
+        r_infraspecies: 하종
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
     trophic_web:
       globi_credit_html: <a href='%{url}'>GloBI</a>의 데이터
     tabs:
@@ -363,6 +388,9 @@ ko:
     scientific_names: 이름
     users: 사용자
     references: 참고문헌
+  support:
+    array:
+      words_connector: ','
   term:
     actions:
       sort: 정렬 기준

@@ -593,13 +593,11 @@ ar:
         r_infraspecies: نوع فرعي
         r_form: شكل
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
       reset: إعادة ضبط
@@ -661,7 +659,7 @@ ar:
       sync: تزامن مع مستودع
       fetch_relationships: جلب العلاقات
       fetch_relationships_confirm: هذا يزيل العلاقات الحالية ويعيد إضافتها، ولكنه
-        قد يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
+        قد يفشل ويزيلها جميعا، يستغرق حوالي خمس دقائق، هل أنت واثق؟
       fetch_synonyms: جلب المرادفات
       fetch_synonyms_confirm: هذا يزيل المرادفات الموجودة ويعيد إضافتها، ولكنه قد
         يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
