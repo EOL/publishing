@@ -662,7 +662,7 @@ en:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
       sync: "sync with repo"
-      sync: "sync all terms"
+      sync_all_terms: "sync all terms"
       fetch_relationships: "fetch relationships"
       sync_all_terms_confirm: "This will grab ALL terms from the harvesting layer that are not in the publishing layer. It requires about 15 minutes. Are you sure?"
       fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about five minutes. Are you sure?"
