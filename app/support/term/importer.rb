@@ -7,7 +7,8 @@ class Term::Importer
   def self.delete_unused_terms
     # Takes about 11.4 seconds to run the count as of Dec 2019, then it took about 24 seconds to remove 4157 terms.
     TraitBank::Admin.remove_with_query(
-      q: %{(term:Term) WHERE NOT (:Trait)-->(term) AND NOT (:MetaData)-->(term)},
+      q: "(term:Term) WHERE NOT (:Trait)-->(term) AND NOT (:MetaData)-->(term) AND NOT (term)-->(:Term) "\
+         "AND NOT (:Term)-->(term)",
       name: :term
     )
   end
