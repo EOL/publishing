@@ -291,15 +291,13 @@ pt-PT:
         r_subclass: Subclasse
         r_family: Família
         r_tribe: Tribo
-        r_species: Espécies
+        r_species: Espécie
         r_subspecies: Subespécie
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -420,7 +418,7 @@ pt-PT:
   support:
     array:
       words_connector: ','
-      two_words_connector: e
+      two_words_connector: ' e'
       last_word_connector: ' e'
   term:
     actions:

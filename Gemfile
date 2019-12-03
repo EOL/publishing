@@ -110,6 +110,8 @@ gem 'neo4j', '~> 9.4'
 gem 'sitemap_generator'
 # url helpers in JS
 gem 'js-routes'
+#http client
+gem "http"
 
 group :development, :test do
   # Security analysis:

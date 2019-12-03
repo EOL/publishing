@@ -10,10 +10,10 @@ class Page::DescInfo < ActiveRecord::Base
       self.transaction do
         puts "begin database transaction"
         begin
-          loop do 
-            puts "removing old records"
-            self.destroy_all
+          puts "removing old records"
+          self.destroy_all
 
+          loop do 
             query = count_batch_query(batch, limit)
             puts "querying batch ##{batch}"
             result = ActiveRecord::Base.connection.select_all(query)

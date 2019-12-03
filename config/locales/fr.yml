@@ -16,14 +16,15 @@ fr:
     trait_bank:
       title: TraitBank
       body_html: |-
-        <p>L’équipe technique et de gestion des données de l’EdlV se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques, et notre classification native, la Hiérarchie de travail dynamique – collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
+        <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
         <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
         <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, ou les télécharger,ou vous pouvez en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utiliser dans votre propre travail.</p>
         <p>Ces données sont modélisées comme un <a href="%{property_graph_url}">graphe de propriété</a> dans <a href="%{neo4j_url}">neo4j</a>. Des <a href="%{data_services_path}">services de données</a> sont également disponibles.</p>
-  account_already_linked: votre compte est déjà lié à EdV
-  account_not_linked: votre compte n’est pas lié à EdV
+  account_already_linked: votre compte est déjà lié à l’EdlV
+  account_not_linked: votre compte n’est pas lié à l’EdlV
   advanced: avancé
-  are_you_sure_delete_account: Êtes-vous sûr de vouloir supprimer votre compte EdV ?
+  are_you_sure_delete_account: Êtes-vous sûr de vouloir supprimer votre compte sur
+    l’EdlV ?
   article:
     actions:
       collect: collecter
@@ -64,12 +65,12 @@ fr:
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
-      see_resource_file: Voir le <a href='%{href}'>fichier de ressource</a> pour une
+      see_resource_file: Voir le <a href="%{href}">fichier de ressource</a> pour une
         liste complète.
       this_page: (cette page)
       truncated_siblings:
-        one: Un frère supplémentaire supprimé pour réduire la taille.
-        other: '%{count} frères supplémentaires supprimés pour réduire la taille.'
+        one: Un frère supplémentaire tronqué pour brièveté.
+        other: '%{count} frères supplémentaires tronqués pour brièveté.'
     richness:
       header: Richesse de la page
       score: score de richesse
@@ -280,8 +281,8 @@ fr:
     af: afrikaans
     ak: akan
     am: amharique
-    an: Aragonais
-    ar: Arabe
+    an: aragonais
+    ar: arabe
     as: assamais
     av: avar
     ay: aymara
@@ -301,20 +302,20 @@ fr:
     ch: chamorro
     co: corse
     cr: cri
-    cs: Tchèque
+    cs: tchèque
     cu: slave d’église ; vieux slavon ; slavon d’église ; vieux bulgare ; vieux slavon
       liturgique
     cv: tchouvache
     cy: gallois
     da: danois
-    de: Allemand
+    de: allemand
     dv: divehi ; maldivien
     dz: dzongkha
     dzo: dzongkha
     ee: éwé
     el: grec moderne (1453–)
     en: anglais
-    eo: Espéranto
+    eo: espéranto
     es: espagnol ; castillan
     et: estonien
     eu: basque
@@ -380,7 +381,7 @@ fr:
     mg: malgache
     mh: marshallais
     mi: maori
-    mk: Macédonien
+    mk: macédonien
     ml: malayalam
     mn: mongol
     mr: marathi
@@ -415,7 +416,7 @@ fr:
     ru: russe
     rw: kinyarwanda
     sa: sanskrit
-    sc: Sarde
+    sc: sarde
     sd: sindhi
     se: same du Nord
     sg: sango
@@ -425,7 +426,7 @@ fr:
     sm: samoan
     sn: shona
     so: somali
-    sq: Albanie
+    sq: albanais
     sr: serbe
     ss: swati
     st: sotho du Sud
@@ -443,7 +444,7 @@ fr:
     to: tongan (îles Tonga)
     tr: turc
     ts: tsonga
-    tt: Tatar
+    tt: tatar
     tw: twi
     ty: tahitien
     ug: ouïghour
@@ -451,7 +452,7 @@ fr:
     ur: ourdou
     uz: ouzbek
     ve: venda
-    vi: Vietnamien
+    vi: vietnamien
     vo: volapük
     wa: wallon
     wo: wolof
@@ -466,7 +467,7 @@ fr:
   layout_sign_out: Déconnexion
   literature_and_references_header: Bibliographie et références
   maps:
-    empty: Il n’y a pas de cartes disponibles pour cette page.
+    empty: Il n’y a aucune carte disponible pour cette page.
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
       %{page_name}
     other_maps_title: Cartes non interactives
@@ -592,14 +593,14 @@ fr:
         r_subspecies: Sous-espèce
         r_infraspecies: Infra-espèce
         r_form: Forme
-      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_html: <a href="%{resource_path}">%{resource_name}</a>
       resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
+        <a href="%{resource_path}">%{resource_name}</a><br />
         %{attribution}
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href="%{resource_path}">{resource_name}</a>
         (%{remarks})
-      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href="%{resource_path}">{resource_name}</a>
+        (%{remarks})<br /> %{attribution}
     trophic_web:
       globi_credit_html: données de <a href="%{url}">GloBI</a>
       reset: réinitialiser
@@ -660,8 +661,8 @@ fr:
       sync: synchroniser avec le dépôt
       fetch_relationships: récupérer les relations
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
-        mais peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
-        Êtes-vous sûr ?
+        mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
+        Êtes-vous sûr{{GENDER:||e}} ?
       fetch_synonyms: trouver des synonymes
       fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
@@ -884,9 +885,9 @@ fr:
     references: références
   support:
     array:
-      words_connector: ','
-      two_words_connector: et
-      last_word_connector: ', et'
+      words_connector: ',&#32;'
+      two_words_connector: '&#32;et&#32;'
+      last_word_connector: '&#32;et&#32;'
   term:
     actions:
       reindex: réindexer
