@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
       get 'sync', on: :collection
+      get 'sync_all_terms', on: :collection
       get 'import_traits'
       get 'republish'
       get 'reindex'

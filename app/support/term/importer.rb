@@ -1,6 +1,18 @@
 class Term::Importer
   attr_reader :knew, :skipped
 
+  # CAUTION: this removes all "unused" terms, and that may not be what you want. ...It pays zero attention to which
+  # terms are in the DB on the harvesting side, and if it removes terms that are unused here, you could screw up a
+  # publish later! Use caution with this command.
+  def self.delete_unused_terms
+    # Takes about 11.4 seconds to run the count as of Dec 2019, then it took about 24 seconds to remove 4157 terms.
+    TraitBank::Admin.remove_with_query(
+      q: "(term:Term) WHERE NOT (:Trait)-->(term) AND NOT (:MetaData)-->(term) AND NOT (term)-->(:Term) "\
+         "AND NOT (:Term)-->(term)",
+      name: :term
+    )
+  end
+
   def initialize(options)
     @skip_known_terms = options[:skip_known_terms]
     @knew = 0
@@ -42,4 +54,5 @@ class Term::Importer
       terms.map { |t| t[:uri] }.each { |uri| @terms[uri] = true }
     end
   end
+
 end
