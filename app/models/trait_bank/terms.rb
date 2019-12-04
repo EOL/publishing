@@ -326,6 +326,7 @@ class TraitBank
       end
 
       def read_clade_filter_warmers
+        return nil unless Resource.exists?(id: 1)
         require 'csv'
         pks_to_filter_by_predicate = {}
         pages_to_filter_by_predicate = {}
@@ -338,7 +339,8 @@ class TraitBank
           pks_to_filter_by_predicate[predicate] << pk
           pks[pk] ||= true
         end
-        pairs = Node.where(resource_id: Resource.native.id, resource_pk: pks.keys).pluck('resource_pk, page_id')
+        # NOTE: This is actually a pretty OLD list, but updating it is time-consuming, so we're sticking with it:
+        pairs = Node.where(resource_id: 1, resource_pk: pks.keys).pluck('resource_pk, page_id')
         page_id_by_pk = {}
         pairs.each { |pair| page_id_by_pk[pair.first] = pair.last }
         pks_to_filter_by_predicate.each do |predicate, pks|
