@@ -413,6 +413,7 @@ es:
       show_all:
         other: mostrar todo (%{count})
       sync: sincronizar con repositorio
+      sync_all_terms: sincronizar todos los términos
       fetch_units: recuperar unidades
     headers:
       index: Recursos
