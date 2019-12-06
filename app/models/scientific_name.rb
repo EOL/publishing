@@ -10,7 +10,7 @@ class ScientificName < ActiveRecord::Base
 
   counter_culture :page
 
-  DISPLAY_STATUS_PREFERRED_VALUES = Set.new(["accepted", "preferred"])
+  DISPLAY_STATUS_PREFERRED_VALUES = Set.new(["accepted", "preferred", "valid"])
 
   # We discovered that about 40 resources were affected by a bug where the #scientific_name attribute of a Node could be
   # assigned to a non-preferred ScientificName. This code detects those problems and heals them.
