@@ -4,6 +4,8 @@
   .ui.basic.button
     = link_to(t("resources.actions.sync"), sync_resources_path)
   .ui.basic.button
+    = link_to(t("resources.actions.sync_all_terms"), sync_all_terms_resources_path, data: { confirm: t("resources.actions.sync_all_terms_confirm") })
+  .ui.basic.button
     = link_to(t("resources.actions.fetch_relationships"), fetch_term_relationships_path, data: { confirm: t("resources.actions.fetch_relationships_confirm") })
   .ui.basic.button
     = link_to(t("resources.actions.fetch_synonyms"), fetch_synonyms_path, data: { confirm: t("resources.actions.fetch_synonyms_confirm") })

@@ -581,6 +581,25 @@ pms:
         r_suborder: Sot-órdin
         r_infraorder: Infra-órdin
         r_superfamily: Sùper-famija
+        r_family: Famija
+        r_subfamily: Sot-famija
+        r_infrafamily: Infra-famija
+        r_tribe: Tribù
+        r_supergenus: Sùper-géner
+        r_genus: Géner
+        r_subgenus: Sot-géner
+        r_infragenus: Infra-géner
+        r_superspecies: Sùper-ëspece
+        r_species: Spece
+        r_subspecies: Sota-spece
+        r_infraspecies: Infra-spece
+        r_form: Forma
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
       reset: inissialisé torna
@@ -632,6 +651,7 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       reindex: riandicisé
+      fetch_log: argistr ëd l'arserca dij tèrmin
       fix_no_names: fiss a NO NAMEs
       index: andré a tute j'arsorse
       show_all:
@@ -640,9 +660,13 @@ pms:
         one: smon-e l'avertiment (%{count})
         other: smon-e j'avertiment (%{count})
       sync: sincronisé con ël depòsit
+      sync_all_terms: sincronisé tuti ij tèrmin
       fetch_relationships: arcuperé le relassion
+      sync_all_terms_confirm: Sòn a radunërà TUTI ij tèrmin dël seuli ëd cujìa che
+        a son nen ant ël seuli ëd publicassion. Për sòn a-i va anviron 15 minute.
+        É-lo sigur?
       fetch_relationships_confirm: Sòn a gava le relassion esistente e a-j gionta
-        torna, ma a peul falì e gaveje tute. A-i va anviron na minuta. É-lo sigur?
+        torna, ma a peul falì e gaveje tute. A-i va anviron sinch minute. É-lo sigur?
       fetch_synonyms: trové dij sinònim
       fetch_synonyms_confirm: Sòn a gava ij sinònim esistent e a-j gionta torna, ma
         a peul falì e gaveje tuti. A-i va anviron na minuta. É-lo sigur?
@@ -858,4 +882,78 @@ pms:
         remember_me: Visesse ëd mi
         username: Stranòm
         bio: Biografìa
+      search_suggestion:
+        match: sërché la stringa corëspondenta
+        page_id: ID ëd la pàgine vers la qual fé na ridiression (o con la qual filtré)
+        synonym_of_id: ID (!) dël sugeriment d'arserca da dovré al pòst
+        object_term: URI al qual fé la ridiression (o on ël qual filtré)
+        path: sënté (complet o relativ) ëd la ridiression
+        wkt_string: Stringa WKT da passé a Effechecka
+  stats:
+    articles: artìcoj
+    collections: colession
+    data: argistrassion ëd dàit
+    media: mojen
+    pages: pàgine
+    nodes: neu
+    scientific_names: nòm
+    users: utent
+    references: arferiment
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: ' e'
+      last_word_connector: ', e'
+  term:
+    actions:
+      reindex: riandicisé
+      sort: ordiné për
+    edit:
+      header: Modìfica ëd%{uri}
+      submit: Argistré
+    fields:
+      name: 'nòm:'
+      definition: 'definission:'
+      attribution: 'atribussion:'
+      comment: 'coment:'
+      sections: 'session:'
+      is_hidden_from_glossary: 'stërmé dal glossari:'
+      is_hidden_from_overview: 'stërmé da la scheda ëd vista general:'
+    glossary:
+      full_title: Glossari ëd TUTI ij tèrmin relativ ai dàit an sl'EdV
+      predicate_title: Glossari dij tèrmin ëd le sòrt relativ ai dàit an sl'EdV
+      object_term_title: Glossari dij tèrmin dij valor relativ ai dàit an sl'EdV
+      units_title: Glossari dij tèrmin d'unità për ij dàit an sl'EdV
+    pagination:
+      next: pàgina apress
+      previous: pàgina precedenta
+  terms:
+    attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Coment:</strong> %{comment}
+    definition_field_html: <strong>Definission:</strong> %{definition}
+    source_field_html: <strong>Sorgiss:</strong> <a href='%{source}'>%{source}</a>
+    record_url: adrëssa d'argistrassion
+    scientific_name: nòm sientìfich
+    show_all_records: smon-e tute j'argistrassion
+    source: sorgiss
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Serne na pàgina sì-dzora për ancaminé.
+  data_definition: definission ëd «%{data}»
+  trophic_web:
+    group_descriptions:
+      competitor: concorent ëd %{source_name}
+      predator: fluss su %{source_name}
+      prey: mangià da %{source_name}
+      source: spece bërsaj
+  trust:
+    unreviewed: nen verificà
+    trusted: fidà
+    untrusted: nen fidà
+  user:
+    batch_page_lookup: Arserca ëd pàgine a baron
+    created_at: creà
+    edit_account_details: Modifiché ij detaj dël cont
+    email: Pòsta eletrònica
+    to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
 ...

@@ -401,7 +401,7 @@ pt-BR:
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -448,7 +448,11 @@ pt-BR:
       reindex: reindexar
       index: voltar para todos os recursos
       sync: sincronizar com o repositório
+      sync_all_terms: sincronizar todos os termos
       fetch_relationships: buscar relacionamentos
+      sync_all_terms_confirm: Isso capturará TODOS os termos da camada de colheita
+        que não estão na camada de publicação. Requer cerca de 15 minutos. Você tem
+        certeza?
       fetch_relationships_confirm: Isso remove os relacionamentos existentes e os
         adiciona novamente, mas pode falhar e remover todos eles. Demora cerca de
         cinco minutos. Você tem certeza?

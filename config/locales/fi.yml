@@ -515,6 +515,12 @@ fi:
       show_all: näytä kaikki
     page_data:
       show_all: näytä kaikki
+    resource_names:
+      rank:
+        r_kingdom: Kunta
+        r_subkingdom: Alakunta
+        r_species: Laji
+        r_subspecies: Alalaji
     trophic_web:
       globi_credit_html: tiedot <a href='%{url}'>GloBIsta</a>
       reset: tyhjennä
@@ -759,6 +765,11 @@ fi:
     scientific_names: nimet
     users: käyttäjät
     references: viitteet
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: ja
+      last_word_connector: ', ja'
   term:
     actions:
       reindex: uudelleenindeksoi

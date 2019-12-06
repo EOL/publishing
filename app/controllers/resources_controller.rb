@@ -27,6 +27,16 @@ class ResourcesController < ApplicationController
     redirect_to resources_path
   end
 
+  def sync_all_terms
+    if (info = ImportLog.already_running?)
+      flash[:alert] = info
+    else
+      Publishing.delay(queue: 'harvest').sync(20.years.ago)
+      flash[:notice] = "All terms from the harvesting layer will be published here."
+    end
+    redirect_to resources_path
+  end
+
   def clear_publishing
     ImportLog.all_clear!
     flash[:notice] = "All clear. You can sync, now."

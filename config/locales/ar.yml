@@ -593,13 +593,11 @@ ar:
         r_infraspecies: نوع فرعي
         r_form: شكل
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
       reset: إعادة ضبط
@@ -659,9 +657,12 @@ ar:
         one: إظهار التحذير (%{count})
         other: إظهار التحذيرات (%{count})
       sync: تزامن مع مستودع
+      sync_all_terms: مزامنة جميع المصطلحات
       fetch_relationships: جلب العلاقات
+      sync_all_terms_confirm: سيؤدي هذا إلى انتزاع جميع المصطلحات من طبقة الحصاد غير
+        الموجودة في طبقة النشر، يتطلب حوالي 15 دقيقة، هل أنت واثق؟
       fetch_relationships_confirm: هذا يزيل العلاقات الحالية ويعيد إضافتها، ولكنه
-        قد يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟
+        قد يفشل ويزيلها جميعا، يستغرق حوالي خمس دقائق، هل أنت واثق؟
       fetch_synonyms: جلب المرادفات
       fetch_synonyms_confirm: هذا يزيل المرادفات الموجودة ويعيد إضافتها، ولكنه قد
         يفشل ويزيلها جميعا، يستغرق حوالي دقيقة، هل أنت واثق؟

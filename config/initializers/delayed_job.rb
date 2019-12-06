@@ -13,6 +13,7 @@ Delayed::Worker.queue_attributes = {
 RepublishJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
+    Delayed::Worker.logger.warn("Publishing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     Publishing::Fast.by_resource(resource)
   end
 
@@ -28,6 +29,7 @@ end
 ReindexJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
+    Delayed::Worker.logger.warn("Reindexing resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_missing_page_contents
   end
@@ -44,6 +46,7 @@ end
 FixNoNamesJob = Struct.new(:resource_id) do
   def perform
     resource = Resource.find(resource_id)
+    Delayed::Worker.logger.warn("Fixing names for resource [#{resource.name}](https://eol.org/resources/#{resource.id})")
     # TODO: there are likely other things to do, here, but this is what we need now.
     resource.fix_no_names
   end
@@ -60,7 +63,9 @@ end
 class FetchRelationshipsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
+    Delayed::Worker.logger.warn("Fetching Parent/child relationships")
     count = TraitBank::Terms::Relationships.fetch_parent_child_relationships(log)
+    Delayed::Worker.logger.warn("Completed fetch of #{count} Parent/child relationships")
     log << "Loaded #{count} parent/child relationships."
   end
 
@@ -76,7 +81,9 @@ end
 class FetchSynonymsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
+    Delayed::Worker.logger.warn("Fetching Synonyms")
     count = TraitBank::Terms::Relationships.fetch_synonyms(log)
+    Delayed::Worker.logger.warn("Completed fetch of #{count} Synonyms")
     log << "Loaded #{count} predicate/unit relationships."
   end
 
@@ -92,7 +99,9 @@ end
 class FetchUnitsJob
   def perform
     log = TraitBank::Terms::FetchLog.new
+    Delayed::Worker.logger.warn("Fetching Unit Terms")
     count = TraitBank::Terms::Relationships.fetch_units(log)
+    Delayed::Worker.logger.warn("Completed fetch of #{count} Unit Terms")
     log << "Loaded #{count} predicate/unit relationships."
   end
 
