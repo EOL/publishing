@@ -76,7 +76,7 @@
             = others
 
       - else # (no query string)
-        - summary = page&.cached_summary.html_safe
+        - summary = page&.cached_summary
         - unless summary.sentence.blank?
           .uk-margin-small-top= summary.sentence.html_safe
           - summary.terms.each do |term|
