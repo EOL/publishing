@@ -43,7 +43,7 @@ class PageDecorator
         lifespan_sentence
       end
 
-      Result.new(@sentences.join(' ').html_safe, @terms)
+      Result.new(@sentences.join(' '), @terms)
     end
 
     private
@@ -68,12 +68,12 @@ class PageDecorator
 
       def above_family
         if a1.present?
-          @sentences << "#{@page.name} is a group of #{a1}."
+          @sentences << "#{@page.name} is a group of #{a1}.".html_safe
         end
 
         desc_info = @page.desc_info
         if desc_info.present?
-          @sentences << "There #{is_or_are(desc_info.species_count)} #{desc_info.species_count} species of #{@page.name}, in #{view.pluralize(desc_info.genus_count, "genus", "genera")} and #{view.pluralize(desc_info.family_count, "family")}."
+          @sentences << "There #{is_or_are(desc_info.species_count)} #{desc_info.species_count} species of #{@page.name}, in #{view.pluralize(desc_info.genus_count, "genus", "genera")} and #{view.pluralize(desc_info.family_count, "family")}.".html_safe
         end
 
         first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
@@ -124,7 +124,7 @@ class PageDecorator
         end
 
         species_parts << "."
-        @sentences << species_parts.join("")
+        @sentences << species_parts.join('').html_safe
 
         if is_it_extinct?
           term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
@@ -145,7 +145,7 @@ class PageDecorator
         end
 
         # Distribution sentence: It is found in [G1].
-        @sentences << "It is found in #{g1}." if g1
+        @sentences << "It is found in #{g1}.".html_safe if g1
       end
 
       # Iterate over all growth habit objects and get the first for which
@@ -168,9 +168,9 @@ class PageDecorator
       def genus
         family = a2
         if family
-          @sentences << "#{name_clause} is a genus of #{a1} in the family #{family}."
+          @sentences << "#{name_clause} is a genus of #{a1} in the family #{family}.".html_safe
         else
-          @sentences << "#{name_clause} is a family of #{a1}."
+          @sentences << "#{name_clause} is a family of #{a1}.".html_safe
         end
         # We may have a few genera that don't have a family in their ancestry. In those cases, shorten the taxonomy sentence:
         # [name clause] is a genus in the [A1]
@@ -181,7 +181,7 @@ class PageDecorator
       # This will look a little funny for those families with "family" vernaculars, but I think it's still acceptable, e.g.,
       # Rosaceae (rose family) is a family of plants.
       def family
-        @sentences << "#{name_clause} is a family of #{a1}."
+        @sentences << "#{name_clause} is a family of #{a1}.".html_safe
       end
 
       def landmark_children
@@ -189,7 +189,7 @@ class PageDecorator
 
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
-          @sentences << "#{name_clause} includes groups like #{taxa_links.to_sentence}."
+          @sentences << "#{name_clause} includes groups like #{taxa_links.to_sentence}.".html_safe
         end
       end
 
@@ -218,7 +218,7 @@ class PageDecorator
           sentence = "It is #{a_or_an(trophic_part)} #{trophic_part}."
         end
 
-        @sentences << sentence if sentence
+        @sentences << sentence.html_safe if sentence
       end
 
       def lifespan_sentence
@@ -229,7 +229,7 @@ class PageDecorator
           units_name = trait.dig(:units, :name)
 
           if value && units_name
-            @sentences << "Individuals are known to live for #{value} #{units_name}."
+            @sentences << "Individuals are known to live for #{value} #{units_name}.".html_safe
           end
         end
       end
@@ -256,7 +256,7 @@ class PageDecorator
         end
 
         parts = [leaf_part, flower_part, fruit_part].compact
-        @sentences << "It has #{parts.to_sentence}." if parts.any?
+        @sentences << "It has #{parts.to_sentence}.".html_safe if parts.any?
       end
 
       def flower_visitor_sentence
@@ -264,7 +264,7 @@ class PageDecorator
 
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
-          @sentences << "Flowers are visited by #{parts.join(", ")}."
+          @sentences << "Flowers are visited by #{parts.join(", ")}.".html_safe
         end
       end
 
@@ -513,7 +513,7 @@ class PageDecorator
         result << handle_cites(status_recs[:cites]) if status_recs.include?(:cites )
         if result.any?
           sentence = "It is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
-          @sentences << sentence
+          @sentences << sentence.html_safe
         end
 
       end
@@ -574,7 +574,7 @@ class PageDecorator
           label,
           pred_uri,
           obj_uri
-        )
+        ).html_safe
       end
 
       def term_sentence_part(format_str, label, pred_uri, obj_uri, source = nil)
@@ -615,7 +615,7 @@ class PageDecorator
       end
 
       def trait_sentence(format_str, trait)
-        @sentences << trait_sentence_part(format_str, trait)
+        @sentences << trait_sentence_part(format_str, trait).html_safe
       end
   end
 end
