@@ -1,4 +1,4 @@
-- summary = @page.cached_summary
+- summary = @page.cached_summary.html_safe
 
 - if @page.medium
   = render :partial => "hero", :locals => { :class_name => "hero-before" }
@@ -15,13 +15,13 @@
             - attributes_key = "eol_has_data_for_n_attributes_including_html"
           - else
             - attributes_key = "eol_has_data_for_n_attributes_html"
-            
+
           %p= t(".#{attributes_key}", :count => @page.predicate_count, data_path: page_data_path(@page))
     -if @page.key_data.any?
       %ul.sample-traits
         - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
           %li
-            %div 
+            %div
               .sample-trait-key.a= predicate[:name]
               = render partial: "terms/desc_meta", locals: { term: predicate, search_link: true }
             %div
