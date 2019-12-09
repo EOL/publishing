@@ -43,7 +43,7 @@ class PageDecorator
         lifespan_sentence
       end
 
-      Result.new(@sentences.join(' '), @terms).html_safe
+      Result.new(@sentences.join(' '), @terms)
     end
 
     private
