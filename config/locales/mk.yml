@@ -590,13 +590,11 @@ mk:
         r_infraspecies: Инфравид
         r_form: Облик
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
       reset: одново
@@ -656,9 +654,12 @@ mk:
         one: прикажи предупредување (%{count})
         other: прикажи предупредувања (%{count})
       sync: усогласи со складиштето
+      sync_all_terms: усогласи ги сите поими
       fetch_relationships: дај односи
+      sync_all_terms_confirm: Ова ќе ги земе СИТЕ поими од слојот на преземање кои
+        не се во слојот за објавување. Трае околу 15 минути. Дали сте сигурни?
       fetch_relationships_confirm: Ова ги отстранува постоечките односи и повторно
-        ги додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
+        ги додава, но може да не успее и да ги отстрани сите. Трае околу пет минути.
         Дали сте сигурни?
       fetch_synonyms: дај синоними
       fetch_synonyms_confirm: Ова ги отстранува постоечките синоними и повторно ги

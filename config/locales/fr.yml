@@ -659,7 +659,11 @@ fr:
       show_warns: afficher {{PLURAL:%{count}|one=l’avertissement|les avertissements}}
         (%{count})
       sync: synchroniser avec le dépôt
+      sync_all_terms: synchroniser tous les termes
       fetch_relationships: récupérer les relations
+      sync_all_terms_confirm: Ceci rassemblera TOUS les termes de la couche de récolte
+        qui ne sont pas dans la couche de publication. Cela demande environ 15 minutes.
+        Êtes-vous sûr ?
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
         mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
         Êtes-vous sûr{{GENDER:||e}} ?

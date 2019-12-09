@@ -588,7 +588,7 @@ class PageDecorator
         return '' if trait.nil?
 
         if trait[:object_page_id]
-          association_sentence_part(format_str, data[:object_page_id])
+          association_sentence_part(format_str, trait[:object_page_id])
         else
           name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
           uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]

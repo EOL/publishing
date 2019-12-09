@@ -14,7 +14,7 @@ class Resource < ActiveRecord::Base
   has_many :referents, inverse_of: :resource
   has_many :term_query_filters
 
-  before_destroy :remove_content
+  before_destroy :remove_content_with_rescue
 
   scope :browsable, -> { where(is_browsable: true) }
   scope :classification, -> { where(classification: true) }
@@ -153,6 +153,14 @@ class Resource < ActiveRecord::Base
 
   def remove_content(log = nil)
     log ||= []
+    # Traits:
+    count = TraitBank.count_by_resource_no_cache(id)
+    if count.zero?
+      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping."
+    else
+      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits"
+      TraitBank::Admin.remove_for_resource(self)
+    end
     # Node ancestors
     log << nuke(NodeAncestor)
     # Node identifiers
@@ -207,14 +215,6 @@ class Resource < ActiveRecord::Base
     log << nuke(Vernacular)
     # Attributions
     log << nuke(Attribution)
-    # Traits:
-    count = TraitBank.count_by_resource_no_cache(id)
-    if count.zero?
-      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping."
-    else
-      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits"
-      TraitBank::Admin.remove_for_resource(self)
-    end
     # Update page node counts
     # Get list of affected pages
     log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts..."

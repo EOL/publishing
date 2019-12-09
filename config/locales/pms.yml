@@ -660,7 +660,11 @@ pms:
         one: smon-e l'avertiment (%{count})
         other: smon-e j'avertiment (%{count})
       sync: sincronisé con ël depòsit
+      sync_all_terms: sincronisé tuti ij tèrmin
       fetch_relationships: arcuperé le relassion
+      sync_all_terms_confirm: Sòn a radunërà TUTI ij tèrmin dël seuli ëd cujìa che
+        a son nen ant ël seuli ëd publicassion. Për sòn a-i va anviron 15 minute.
+        É-lo sigur?
       fetch_relationships_confirm: Sòn a gava le relassion esistente e a-j gionta
         torna, ma a peul falì e gaveje tute. A-i va anviron sinch minute. É-lo sigur?
       fetch_synonyms: trové dij sinònim
@@ -880,4 +884,110 @@ pms:
         bio: Biografìa
       search_suggestion:
         match: sërché la stringa corëspondenta
+        page_id: ID ëd la pàgine vers la qual fé na ridiression (o con la qual filtré)
+        synonym_of_id: ID (!) dël sugeriment d'arserca da dovré al pòst
+        object_term: URI al qual fé la ridiression (o on ël qual filtré)
+        path: sënté (complet o relativ) ëd la ridiression
+        wkt_string: Stringa WKT da passé a Effechecka
+  stats:
+    articles: artìcoj
+    collections: colession
+    data: argistrassion ëd dàit
+    media: mojen
+    pages: pàgine
+    nodes: neu
+    scientific_names: nòm
+    users: utent
+    references: arferiment
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: ' e'
+      last_word_connector: ', e'
+  term:
+    actions:
+      reindex: riandicisé
+      sort: ordiné për
+    edit:
+      header: Modìfica ëd%{uri}
+      submit: Argistré
+    fields:
+      name: 'nòm:'
+      definition: 'definission:'
+      attribution: 'atribussion:'
+      comment: 'coment:'
+      sections: 'session:'
+      is_hidden_from_glossary: 'stërmé dal glossari:'
+      is_hidden_from_overview: 'stërmé da la scheda ëd vista general:'
+    glossary:
+      full_title: Glossari ëd TUTI ij tèrmin relativ ai dàit an sl'EdV
+      predicate_title: Glossari dij tèrmin ëd le sòrt relativ ai dàit an sl'EdV
+      object_term_title: Glossari dij tèrmin dij valor relativ ai dàit an sl'EdV
+      units_title: Glossari dij tèrmin d'unità për ij dàit an sl'EdV
+    pagination:
+      next: pàgina apress
+      previous: pàgina precedenta
+  terms:
+    attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Coment:</strong> %{comment}
+    definition_field_html: <strong>Definission:</strong> %{definition}
+    source_field_html: <strong>Sorgiss:</strong> <a href='%{source}'>%{source}</a>
+    record_url: adrëssa d'argistrassion
+    scientific_name: nòm sientìfich
+    show_all_records: smon-e tute j'argistrassion
+    source: sorgiss
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Serne na pàgina sì-dzora për ancaminé.
+  data_definition: definission ëd «%{data}»
+  trophic_web:
+    group_descriptions:
+      competitor: concorent ëd %{source_name}
+      predator: fluss su %{source_name}
+      prey: mangià da %{source_name}
+      source: spece bërsaj
+  trust:
+    unreviewed: nen verificà
+    trusted: fidà
+    untrusted: nen fidà
+  user:
+    batch_page_lookup: Arserca ëd pàgine a baron
+    created_at: creà
+    edit_account_details: Modifiché ij detaj dël cont
+    email: Pòsta eletrònica
+    to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
+    headers:
+      bio: Biografìa curta
+      collections: Colession
+      downloads: Dëscariament
+      links: Liure
+    list_of_power_users: Lista dj'utent privilegià
+    new_password: Neuva ciav
+    confirm_new_password: Confirmé la ciav
+    showing_n_power_users:
+      one: Lista dl'ùnich utent privilegià
+      other: Lista dij %{count} utent privilegià
+    trait_bank_cypher_form: formolari ëd gifragi ëd la banca dij trat
+    username: stranòm
+    update: Agiorné
+    update_email: Agiorné l'adrëssa eletrònica
+  user_download:
+    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}"pàgina
+      d'utent</a> për vëdde cand a sarà completà.
+  users:
+    account_migration_header: 'S''a l''é anscrivusse an sl''EdV prima dij 15 nov.
+      2018:'
+    account_migration_notice: J'anformassion ëd sò cont, comprèis lë stranòm, l'adrëssa
+      eletrònica associà, la descrission ëd profil e le colession possedùe, a son
+      ëstàite amportà an sla neuva EdV. Sò stranòm a l'é ancor sò nòm ësmonù an sël
+      sit, ma adess chiel a dev rintré ant ël sistema con soa adrëssa eletrònica.
+      I l'oma nen podù amporté soa ciav për dle rason ëd sigurëssa; an dëspias për
+      l'inconvenient. A podrà riinissialisela an dovrand la procedura ëd Ciav dësmentià.
+      S'a l'é rintrà ant ël sistema an dovrand n'àutr fornidor d'identità - Google,
+      Twitter o FaceBook - për piasì ch'a l'abia passiensa; i travajoma për arzòlve
+      ancor chèich problema con le procedure ëd conession partagià.
+    sign_in: Rintré ant ël sistema
+  vernacular_names_header: Nòm comun
+  vernacular_preferred_by_resource: '%{resource} (a preferiss ës nòm-sì)'
+  wordcloud_credit_html: generà con <a href='%{url}'>jQCloud</a>
 ...
