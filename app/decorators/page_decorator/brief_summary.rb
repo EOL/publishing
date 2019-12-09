@@ -43,7 +43,7 @@ class PageDecorator
         lifespan_sentence
       end
 
-      Result.new(@sentences.join(' '), @terms)
+      Result.new(@sentences.join(' '), @terms).html_safe
     end
 
     private
@@ -399,7 +399,7 @@ class PageDecorator
 
       def first_trait_for_pred_uri_w_obj(pred_uri)
         traits = traits_for_pred_uri(pred_uri)
-        traits.find { |t| t[:object_term].present? } 
+        traits.find { |t| t[:object_term].present? }
       end
 
       def traits_for_pred_uri(pred_uri)
@@ -607,7 +607,7 @@ class PageDecorator
         target_page_part = if target_page.nil?
                              Rails.logger.warn("Missing associated page for auto-generated text: #{object_page_id}!")
                              "(page not found)"
-                             
+
                            else
                              view.link_to(target_page.name, target_page)
                            end
