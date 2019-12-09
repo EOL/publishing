@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Canaan9801
 # Author: Fitoschido
+# Author: Gastonsaenz
 # Author: Madamebiblio
 ---
 es:
@@ -27,10 +28,10 @@ es:
         si los usas en tu propio trabajo. </p><p>Estos datos son modelados como un
         <a href=''%{property_graph_url}''>gráfico de propiedad</a> in <a href=''%{neo4j_url}''>neo4j</a>.
         <a href=''%{data_services_path}''>Servicios de información</a> están disponsibles.</p>'
-  account_already_linked: tú cuenta ya está enlazada a EOL
-  account_not_linked: tú cuenta no es enlazada a EOL
+  account_already_linked: tu cuenta ya está enlazada con EOL
+  account_not_linked: tu cuenta no está enlazada con EOL
   advanced: avanzado
-  are_you_sure_delete_account: ¿Estás seguro que quieres eliminar tu cuenta de EOL?
+  are_you_sure_delete_account: ¿Confirmas que quieres eliminar tu cuenta de EOL?
   article:
     actions:
       collect: recoger
@@ -42,45 +43,70 @@ es:
       untitled: Sin título
     name:
       missing: Sin título
+  article_from_partner: Proporcionado por %{partner}
   article_duplicate: este artículo también se muestra en «%{section}»
   breadcrumbs:
     notices:
       canonical: Ahora los nombres científicos figurarán en las rutas de navegación
         de las páginas
     setting_header: nombres en rutas de navegación
+    types:
+      scientific: Científico
   button_create: crear
   button_add: añadir
   cancel: cancelar
   change_my_password: Cambiar mi contraseña
+  change_your_password: Cambie su contraseña
   classifications:
     children:
       see_more: ver más
     hierarchies:
       this_page: (esta página)
     richness:
+      header: Riqueza de la página
+      score: puntuación de riqueza
       page_contents_count: contenido asociado
+      missing: La riqueza aun no ha sido calculada para esta página
+      media_count: Medios
       articles_count: artículos
       links_count: enlaces
       maps_count: mapas
       data_count: datos
       nodes_count: nodos
       scientific_names_count: nombres científicos
+      referents_count: referentes
+      species_count: especies
       updated_at: última actualización
   cms_page_date: 'Última modificación:'
+  collect_already_in_collection: (ya se encuentra aqui)
   collect_new_collection: Nombre de la colección nueva
+  collect_new_collection_title: '...una Nueva Colección'
+  collect_select_collection: '...Una de Sus Colecciones'
   collect_title: Añadir «%{item}» a…
+  collected_page_already_in_collection: Eso ya se encontraba en su colección
   collected_pages_title: Páginas
+  collected_pages_medium:
+    destroyed_flash: Imagen removida de la págia colectada.
+  collection_associations:
+    destroyed_flash: '%{name} ya no se encuentra asociado a esta colección.'
   collected_pages:
     delete_button: eliminar
     edit_button: editar
+    delete_confirm: ¿Está seguro?
+    destroyed_flash: '%{name}removido de la colección.'
   collection_association_added_to_collection: Se añadió «%{associated}» a la colección
     <a href='%{link}'>«%{name}»</a>.
   collection_associations_title: Colecciones asociadas
   collection_created: Se creó la colección «%{name}».
+  collection_user_is_admin: Este usuario es un administrador.
   collection:
+    admins:
+      label: 'Añadir un usuario que puede editar esta colección:'
+      placeholder: Nombre completo o nombre de usuario
     actions:
       delete: eliminar
     collection_type:
+      normal: normal
       gallery: galería
     destroyed: «%{name}» se eliminó permanentemente.
     pages_count:
@@ -103,21 +129,36 @@ es:
     altitude: altitud
     author: autor/a
     bibliographic_citation: cita bibliográfica
+    compiler: Compilador
     creator: creador/a
+    editor: editor
     latitude: latitud
+    license: licencia
     location: ubicación
+    location_verbatim: literalmente
     longitude: longitud
     original_media_file: archivo multimedia original
     owner: derechos de autor
+    photographer: fotógrafo
+    publisher: Editorial
     project: proyecto
     provider: proveedor
     resource_pk: '(id.: %{key})'
     rights_statement: declaración de derechos
+    source: fuente
+    view_source_label: original
     view_source_link: ver imagen original
+    view_source_page_link: visitar fuente
   content_not_in_any_collection_image: Esta imagen no figura en ninguna colección.
   content_not_in_any_collection_sound: Este sonido no figura en ninguna colección.
   content_not_in_any_collection_video: Este vídeo no figura en ninguna colección.
+  data:
+    modifier:
+      sex_term: Sexo del organismo medido
+      statistical_method_term: Método estadístico utilizado para la medición
   data_missing: '(faltan datos; claves: %{keys})'
+  dear_username_with_comma: Estimado %{username}
+  delete_account_button: Eliminar tu cuenta
   filter_by_license: licencia
   filter_by_license_any_item: cualquier licencia
   filter_by_medium_subtype: tipo
@@ -125,17 +166,20 @@ es:
   filter_by_resource: proveedor
   filter_by_resource_any_item: cualquier proveedor
   filters:
+    filter_by_attribute: filtrar por atributo
     filter_by_language: filtrar por idioma
     filter_by_provider: filtrar por proveedor
   footer:
     eol_info:
       citing_eol: Citar a EOL
+      contact_us: Contáctenos
       data_services: Servicios de datos
       donate: Donar
       education: Educación
       glossary: Glosario
       help: Ayuda
       terms_of_use: Condiciones de uso
+      the_eol_forum: El Foro EOL
       what_is_eol: ¿Qué es EOL?
       whats_new: Novedades
     discover:
@@ -143,20 +187,29 @@ es:
       amphibians: Anfibios
       animals: Animales
       bacteria: Bacterias
+      birds: Aves
+      crustaceans: Crustáceos
       fishes: Peces
+      fungi: Hongos
       insects: Insectos
       invertebrates: Invertebrados
+      mammals: Mamíferos
       mushrooms: Hongos
       mollusks: Moluscos
       plants: Plantas
       protists: Protistas
       reptiles: Reptiles
       spiders: Arañas
+      trees: Árboles
       viruses: Virus
+      worms: Gusanos
+  forgot_your_password: ¿Has olvidado tu contraseña?
   landing_page:
+    header: Acceso global al conocimiento sobre la vida en la Tierra
     stats_cleared: Se recalcularon las estadísticas.
   language: Idioma
   languages:
+    none: No especificado
     ab: Abjasio
     af: Afrikáans
     am: Amhárico
@@ -164,18 +217,26 @@ es:
     ar: Árabe
     ay: Aimara
     be: Bielorruso
+    bg: Búlgaro
     bo: Tibetano
     bs: Bosnio
     ca: Catalán; valenciano
     ce: Checheno
     cs: Checo
+    cy: Galés
+    da: Danés
     de: Alemán
+    el: Griego, Moderno (1453-)
     en: Inglés
     eo: Esperanto
+    es: Español; Castellano
     et: Estonio
     eu: Vasco
     fa: Persa
+    fi: Finlandés
     fj: Fiyiano
+    fr: Francés
+    ga: Irlandés
     gl: Gallego
     gn: Guaraní
     gu: Guyaratí
@@ -185,11 +246,14 @@ es:
     hy: Armenio
     id: Indonesio
     is: Islandés
+    it: Italiano
     ja: Japonés
     jv: Javanés
+    jp: Japonés
     ka: Georgiano
     kk: Kazajo
     ko: Coreano
+    ku: Kurdo
     kw: Córnico
     la: Latín
     lb: Luxemburgués
@@ -198,6 +262,7 @@ es:
     mn: Mongol
     mt: Maltés
     ne: Nepalí
+    nl: Holandés; flamenco
     "": Noruego
     nv: Navajo
     pl: Polaco
@@ -210,6 +275,7 @@ es:
     sc: Sardo
     sk: Eslovaco
     sl: Esloveno
+    sm: Samoano
     sq: Albanés
     sr: Serbio
     sv: Sueco
@@ -223,7 +289,12 @@ es:
     vi: Vietnamita
     wo: Wólof
     yi: Yidis
+    zh: Chino
     zu: Zulú
+  layout_sign_in: Iniciar sesión
+  layout_sign_up: Registrarse
+  layout_sign_out: Cerrar sesión
+  literature_and_references_header: Bibliografía y referencias
   maps:
     empty: No hay ningún mapa disponible para esta página.
     other_maps_title: Mapas no interactivos
@@ -232,9 +303,11 @@ es:
       image: Imagen sin título
       image_of: Imagen de %{page_name}
       video: Vídeo sin título
+      video_of: Vídeo de %{page_name}
       sound: Sonido sin título
       sound_of: Sonido de %{page_name}
       map: Mapa sin título
+      map_of: Mapa de %{page_name}
       js_map: Mapa interactivo sin título
       js_map_of: Mapa interactivo de %{page_name}
     subclasses:
@@ -243,6 +316,7 @@ es:
       sound: sonido
       map: mapa
       js_map: mapa interactivo
+  medium_description_blank: No se ha proporcionado una descripción para este objeto.
   medium_header_title: 'Título:'
   medium_header_description: 'Descripción:'
   names:
@@ -255,7 +329,9 @@ es:
     education: Educación
     search:
       placeholder: Buscar en EOL…
+  name_preferred_label: preferido
   page_icon_created: Se movió la imagen «%{name}» a la parte superior.
+  page_title: Enciclopedia de la Vida
   page_title_search: 'Búsqueda: %{query}'
   pages:
     actions:
@@ -273,6 +349,40 @@ es:
       show_all: mostrar todo
     page_data:
       show_all: mostrar todo
+    resource_names:
+      rank:
+        r_domain: Dominio
+        r_subdomain: Subdominio
+        r_infradomain: Infradominio
+        r_superkingdom: Superreino
+        r_kingdom: Reino
+        r_subkingdom: Subreino
+        r_infrakingdom: Infrarreino
+        r_superphylum: Superfilo
+        r_phylum: Filo
+        r_subphylum: Subfilo
+        r_infraphylum: Infrafilo
+        r_superclass: Superclase
+        r_class: Clase
+        r_subclass: Subclase
+        r_infraclass: Infraclase
+        r_superorder: Superorden
+        r_order: Orden
+        r_suborder: Suborden
+        r_infraorder: Infraorden
+        r_superfamily: Superfamilia
+        r_family: Familia
+        r_subfamily: Subfamilia
+        r_infrafamily: Infrafamilia
+        r_tribe: Tribu
+        r_supergenus: Supergénero
+        r_genus: Género
+        r_subgenus: Subgénero
+        r_infragenus: Infragénero
+        r_superspecies: Superespecie
+        r_species: Especie
+        r_subspecies: Subespecie
+        r_infraspecies: Infraespecie
     trophic_web:
       reset: restablecer
     flash:
@@ -303,6 +413,7 @@ es:
       show_all:
         other: mostrar todo (%{count})
       sync: sincronizar con repositorio
+      sync_all_terms: sincronizar todos los términos
       fetch_units: recuperar unidades
     headers:
       index: Recursos
@@ -408,6 +519,10 @@ es:
     scientific_names: nombres
     users: usuarios
     references: referencias
+  support:
+    array:
+      two_words_connector: "y"
+      last_word_connector: "y"
   term:
     actions:
       reindex: volver a indizar

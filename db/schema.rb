@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190914235422) do
+ActiveRecord::Schema.define(version: 20191125215809) do
+
+  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
+    t.string   "value",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,      null: false
@@ -502,6 +508,7 @@ ActiveRecord::Schema.define(version: 20190914235422) do
     t.boolean  "is_low_quality",                           default: false, null: false
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
+    t.integer  "content_subclass",             limit: 4,   default: 0
   end
 
   add_index "page_contents", ["content_id"], name: "index_page_contents_on_content_id", using: :btree
@@ -512,6 +519,15 @@ ActiveRecord::Schema.define(version: 20190914235422) do
   add_index "page_contents", ["page_id", "position"], name: "page_id_by_position", using: :btree
   add_index "page_contents", ["page_id"], name: "index_page_contents_on_page_id", using: :btree
   add_index "page_contents", ["source_page_id"], name: "index_page_contents_on_source_page_id", using: :btree
+
+  create_table "page_desc_infos", force: :cascade do |t|
+    t.integer  "page_id",       limit: 4
+    t.integer  "species_count", limit: 4
+    t.integer  "genus_count",   limit: 4
+    t.integer  "family_count",  limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "page_icons", force: :cascade do |t|
     t.integer  "page_id",    limit: 4

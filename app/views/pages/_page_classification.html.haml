@@ -10,7 +10,6 @@
       .ui.segment
         %h4.ui.header= node.resource.name
         .ui.middle.aligned.list
-          -# NOTE: using #none to force load; no sense in doing a count. We need the rows.
           - classification(node)
   -# NOTE: we should remove this conditional when most pages have had their richness calculated.
   - if @page.page_richness

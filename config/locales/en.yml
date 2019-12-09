@@ -56,7 +56,11 @@ en:
       see_more: "see more"
     hierarchies:
       header: "Curated hierarchies for %{sci_name}"
+      see_resource_file: "See the <a href='%{href}'>resource file</a> for a full list."
       this_page: "(this page)"
+      truncated_siblings:
+        one: "One additional sibling truncated for brevity."
+        other: "%{count} additional siblings truncated for brevity."
     richness:
       header: "Page Richness"
       score: "richness score"
@@ -473,6 +477,7 @@ en:
     fr: "fr"
     fi: "fi"
     pt-BR: "pt-BR"
+    zh-TW: "zh-TW"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
@@ -505,7 +510,7 @@ en:
       other: "hide %{count} languages"
     prefer: "prefer"
     preferred_in_language_for_page: "%{name} is now the preferred %{language} vernacular for %{page}"
-    show_more_langs: 
+    show_more_langs:
       one: "show one more language"
       other: "show %{count} more languages"
   nav:
@@ -558,6 +563,48 @@ en:
         one: "1 “%{pred_name}” record hidden — show all"
         other: "%{count} “%{pred_name}” records hidden — show all"
       show_all: "show all"
+    resource_names:
+      name_recognized_by: "Recognized by %{by}"
+      name_recognized_by_w_rank: "%{rank} recognized by %{by}"
+      name_recognized_by_w_status: "%{status} according to %{by}"
+      rank:
+        r_domain: "Domain"
+        r_subdomain: "Subdomain"
+        r_infradomain: "Infradomain"
+        r_superkingdom: "Superkingdom"
+        r_kingdom: "Kingdom"
+        r_subkingdom: "Subkingdom"
+        r_infrakingdom: "Infrakingdom"
+        r_superphylum: "Superphylum"
+        r_phylum: "Phylum"
+        r_subphylum: "Subphylum"
+        r_infraphylum: "Infraphylum"
+        r_superclass: "Superclass"
+        r_class: "Class"
+        r_subclass: "Subclass"
+        r_infraclass: "Infraclass"
+        r_superorder: "Superorder"
+        r_order: "Order"
+        r_suborder: "Suborder"
+        r_infraorder: "Infraorder"
+        r_superfamily: "Superfamily"
+        r_family: "Family"
+        r_subfamily: "Subfamily"
+        r_infrafamily: "Infrafamily"
+        r_tribe: "Tribe"
+        r_supergenus: "Supergenus"
+        r_genus: "Genus"
+        r_subgenus: "Subgenus"
+        r_infragenus: "Infragenus"
+        r_superspecies: "Superspecies"
+        r_species: "Species"
+        r_subspecies: "Subspecies"
+        r_infraspecies: "Infraspecies"
+        r_form: "Form"
+      resource_link_html: "<a href='%{resource_path}'>%{resource_name}</a>"
+      resource_link_w_attribution_html: "<a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}"
+      resource_link_w_remarks_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})"
+      resource_link_w_remarks_attribution_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})<br>%{attribution}"
     trophic_web:
       globi_credit_html: "data from <a href='%{url}'>GloBI</a>"
       reset: "reset"
@@ -596,10 +643,6 @@ en:
       articles: "%{page_name} articles"
     traits:
       search: "Trait search"
-  name_recognized_by: "Recognized by %{by}"
-  name_recognized_by_rank: "%{rank} recognized by %{by}"
-  ranks:
-    NOTE: "ranks are not translated. They should be treated verbatim. Don't try to do it. :)"
   recaptcha: "Recaptcha"
   recaptcha_error: "Please tell us you are not a robot."
   reference_compiled_from: "Referenced by %{links}"
@@ -610,6 +653,7 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       reindex: "reindex"
+      fetch_log: "terms-fetch log"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
       show_all:
@@ -618,8 +662,10 @@ en:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
       sync: "sync with repo"
+      sync_all_terms: "sync all terms"
       fetch_relationships: "fetch relationships"
-      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
+      sync_all_terms_confirm: "This will grab ALL terms from the harvesting layer that are not in the publishing layer. It requires about 15 minutes. Are you sure?"
+      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about five minutes. Are you sure?"
       fetch_synonyms: "fetch synonyms"
       fetch_synonyms_confirm: "This removes existing synonyms and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
       fetch_units: "fetch units"
@@ -859,6 +905,11 @@ en:
     scientific_names: "names"
     users: "users"
     references: "references"
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " and "
+      last_word_connector: ", and "
   term:
     actions:
       reindex: "reindex"

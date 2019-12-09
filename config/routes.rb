@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
       get 'sync', on: :collection
+      get 'sync_all_terms', on: :collection
       get 'import_traits'
       get 'republish'
       get 'reindex'
@@ -173,6 +174,7 @@ Rails.application.routes.draw do
     get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
     get "/terms/glossary(/:letter)(/:uri)" => "terms#index", :as => "terms", :constraints => { uri: /http.*/ }
     get "/schema/terms/:uri_part" => "terms#schema_redirect"
+    get "/terms/fetch_log" => "terms#fetch_log", :as => "terms_fetch_log"
     get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
     get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
     get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"

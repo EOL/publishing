@@ -5,13 +5,13 @@
   .description.uk-text-meta
     - formatted_names = []
     - names.each do |name|
-      - next if name.resource.nil? && name.attribution.blank?
-      - note = ''
-      - note += link_to(name.resource.name, name.resource) if name.resource
-      - note += "\n#{name.attribution.html_safe}" if name.resource.dwh? && !name.attribution.blank? # XXX: the \n would mess things up for multiple notes but we assume dwh entries are separated from others
-      - formatted_names << note
+      - next if name.resource.nil?
+      - formatted_names << page_resource_names_link(name, include_remarks)
     - if include_rank && first.node.rank
-      = t(:name_recognized_by_rank, rank: first.node.rank.name.capitalize, by: formatted_names.to_sentence).html_safe
+      = t(".name_recognized_by_w_rank", rank: t(".rank.#{first.node.rank.treat_as}"), by: formatted_names.to_sentence).html_safe
+    - elsif include_status
+      -# TODO: Update once taxonomic statuses are i18n-able
+      = t(".name_recognized_by_w_status", status: first.taxonomic_status.name.capitalize, by: formatted_names.to_sentence).html_safe
     - else
-      = t(:name_recognized_by, by: formatted_names.to_sentence).html_safe
+      = t(".name_recognized_by", by: formatted_names.to_sentence).html_safe
 

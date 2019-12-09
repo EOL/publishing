@@ -28,18 +28,21 @@ class TraitBank
         end
 
         def fetch_parent_child_relationships(log = nil)
+          log << "Starting parent/child term relationships fetch." if log
           # TODO: Don't hard-code this.
           link = "f8036c30-f4ab-4796-8705-f3ccd20eb7e9/download/parent-child-july8.csv"
           reload(download_csv(link), :child_has_parent, log: log, type: :parent_term)
         end
 
         def fetch_synonyms(log = nil)
+          log << "Starting term synonyms fetch." if log
           # TODO: Don't hard-code this.
           link = "41f7fed1-3dc1-44d7-bbe5-6104156d1c1e/download/preferredsynonym.csv"
           reload(download_csv(link), :is_synonym_of, log: log, type: :synonym_of)
         end
 
         def fetch_units(log = nil)
+          log << "Starting term units fetch." if log
           # TODO: Don't hard-code this.
           link = "d90b165f-92ad-44fe-aef2-ecd25721caac/download/defaultunits.csv"
           reload(download_csv(link), :set_units_for_pred, log: log, type: :units_term)

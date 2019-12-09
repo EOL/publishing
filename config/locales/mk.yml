@@ -69,7 +69,11 @@ mk:
       see_more: уште
     hierarchies:
       header: Згрижени чиноследи за %{sci_name}
+      see_resource_file: Полн список ќе најдете во <a href='%{href}'>ресурсната податотека</a>.
       this_page: (страницава)
+      truncated_siblings:
+        one: Скратена е уште една варијанта заради уредност
+        other: Скратени се уште %{count} варијанти заради уредност
     richness:
       header: Содржајност на страницата
       score: оценка на содржајноста
@@ -547,6 +551,50 @@ mk:
         one: 1 скриен запис „%{pred_name}“ — прикажи сè
         other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
       show_all: прикажи сè
+    resource_names:
+      name_recognized_by: Признаено од %{by}
+      name_recognized_by_w_rank: '%{rank} — признено од %{by}'
+      name_recognized_by_w_status: '%{status} според %{by}'
+      rank:
+        r_domain: Домен
+        r_subdomain: Поддомен
+        r_infradomain: Инфрадомен
+        r_superkingdom: Натцарство
+        r_kingdom: Царство
+        r_subkingdom: Потцарство
+        r_infrakingdom: Инфрацарство
+        r_superphylum: Натколено
+        r_phylum: Колено
+        r_subphylum: Потколено
+        r_infraphylum: Инфраколено
+        r_superclass: Наткласа
+        r_class: Класа
+        r_subclass: Поткласа
+        r_infraclass: Инфракласа
+        r_superorder: Надред
+        r_order: Ред
+        r_suborder: Подред
+        r_infraorder: Инфраред
+        r_superfamily: Натсемејство
+        r_family: Семејство
+        r_subfamily: Потсемејство
+        r_infrafamily: Инфрасемејство
+        r_tribe: Племе
+        r_supergenus: Надрод
+        r_genus: Род
+        r_subgenus: Подрод
+        r_infragenus: Инфрарод
+        r_superspecies: Надвид
+        r_species: Вид
+        r_subspecies: Подвид
+        r_infraspecies: Инфравид
+        r_form: Облик
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
       reset: одново
@@ -587,11 +635,6 @@ mk:
       articles: Статии за %{page_name}
     traits:
       search: Пребарување на одлики
-  name_recognized_by: Признаено од %{by}
-  name_recognized_by_rank: '%{rank} — признено од %{by}'
-  ranks:
-    NOTE: чиновите не се преведуваат. Треба да се земаат дословно. Не се обидувајте
-      залудно. :)
   recaptcha: Нагледна проверка
   recaptcha_error: Кажете ни дека не сте робот.
   reference_compiled_from: Наведено од %{links}
@@ -602,6 +645,7 @@ mk:
       import_traits: увези одлики (од складиште)
       republish: преобјави
       reindex: преиндексирај
+      fetch_log: дневник за давање на поими
       fix_no_names: поправи случаи на НЕМА ИМЕ
       index: назад на сите ресурси
       show_all:
@@ -610,9 +654,12 @@ mk:
         one: прикажи предупредување (%{count})
         other: прикажи предупредувања (%{count})
       sync: усогласи со складиштето
+      sync_all_terms: усогласи ги сите поими
       fetch_relationships: дај односи
+      sync_all_terms_confirm: Ова ќе ги земе СИТЕ поими од слојот на преземање кои
+        не се во слојот за објавување. Трае околу 15 минути. Дали сте сигурни?
       fetch_relationships_confirm: Ова ги отстранува постоечките односи и повторно
-        ги додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
+        ги додава, но може да не успее и да ги отстрани сите. Трае околу пет минути.
         Дали сте сигурни?
       fetch_synonyms: дај синоними
       fetch_synonyms_confirm: Ова ги отстранува постоечките синоними и повторно ги
@@ -848,6 +895,11 @@ mk:
     scientific_names: имиња
     users: корисници
     references: наводи
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: и
+      last_word_connector: ' и'
   term:
     actions:
       reindex: преиндексирај

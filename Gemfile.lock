@@ -162,6 +162,9 @@ GEM
       faraday_middleware
       multi_json
     ffi (1.11.1)
+    ffi-compiler (1.0.1)
+      ffi (>= 1.0.0)
+      rake
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
     font-kit-rails (1.2.0)
@@ -189,8 +192,16 @@ GEM
       haml (>= 4.0, < 6)
       nokogiri (>= 1.6.0)
       ruby_parser (~> 3.5)
+    http (4.2.0)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 2.0)
+      http-parser (~> 1.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
+    http-form_data (2.1.1)
+    http-parser (1.2.1)
+      ffi-compiler (>= 1.0, < 2.0)
     httpclient (2.8.3)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
@@ -596,6 +607,7 @@ DEPENDENCIES
   font-awesome-sass
   font-kit-rails
   haml-rails
+  http
   i18n-tasks (~> 0.9.26)
   jbuilder
   jquery-rails

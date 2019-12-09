@@ -5,8 +5,9 @@ module DataAssociations
     @associations = 
       begin
         ids = data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
+        pages = Page.where(id: ids).
           includes(:medium, :preferred_vernaculars, native_node: [:rank])
+        pages.collect { |p| [p.id, p] }.to_h
       end
   end
 end

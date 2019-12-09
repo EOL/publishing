@@ -82,7 +82,7 @@ module PagesHelper
 
   def classification_content(page, this_node, node, ancestors)
     # have to capture this state here, because it will always be empty where we need the check
-    show_siblings = ancestors.empty? 
+    show_siblings = ancestors.empty?
 
     haml_tag("div.item") do
       summarize(page, name: node.scientific_name, current_page: node == this_node, node: node, no_icon: true)
@@ -106,12 +106,21 @@ module PagesHelper
       end
     end
 
-    if show_siblings
-      sort_nodes_by_name(this_node.siblings).each do |sibling|
+    if show_siblings && this_node.siblings && this_node.siblings.size > 0
+      sort_nodes_by_name(this_node.siblings[0..99]).each do |sibling|
         haml_tag("div.item") do
           summarize(sibling.page, name: sibling.scientific_name, current_page: false, node: sibling, no_icon: true)
         end
-      end 
+      end
+      if this_node.siblings.size > 100
+        haml_tag("div.item") do
+          haml_concat t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
+        end
+        haml_tag("div.item") do
+          link = "#{Rails.application.secrets.repository['url']}/resources/#{this_node.resource.repository_id}"
+          haml_concat t('classifications.hierarchies.see_resource_file', href: link).html_safe
+        end
+      end
     end
   end
 
@@ -126,19 +135,19 @@ module PagesHelper
     return('[unknown page]') if page_id.nil?
     name = options[:name]
     if options[:current_page]
-      haml_tag("b") do
-        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+      haml_tag('b') do
+        haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
       end
-      haml_concat t("classifications.hierarchies.this_page")
+      haml_concat t('classifications.hierarchies.this_page')
     elsif (page && !options[:no_icon] && image = page.medium)
       haml_concat(image_tag(image.small_icon_url, class: 'ui mini image')) if page.should_show_icon?
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
     else
-      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : "#")
+      haml_concat link_to(name.html_safe, page_id ? page_path(page_id) : '#')
     end
     if page.nil?
-      haml_tag("div.uk-padding-remove-horizontal.uk-text-muted") do
-        haml_concat "PAGE MISSING (bad import)" # TODO: something more elegant.
+      haml_tag('div.uk-padding-remove-horizontal.uk-text-muted') do
+        haml_concat 'PAGE MISSING (bad import)' # TODO: something more elegant.
       end
     end
   end
@@ -211,38 +220,22 @@ module PagesHelper
     end
   end
 
-  def group_sort_names_for_card(names, include_rank)
-    names.group_by do |n|
+  def group_sort_names_for_card(names, include_rank, include_status)
+    result = names.group_by do |n|
       rank = n.node.rank
-      dwh_str = n.resource&.dwh? ? "dwh" : "other"
-
-      if include_rank && rank
-        "#{dwh_str}.#{rank.treat_as}.#{n.italicized}"
-      else
-        "#{dwh_str}.#{n.italicized}"
-      end
-    end.values.sort do |a, b|
-      if a.first.resource.dwh? && !b.first.resource.dwh?
-        -1
-      elsif !a.first.resource.dwh? && b.first.resource.dwh?
-        1
-      else
-        result = a.first <=> b.first
-
-        if include_rank && result == 0
-          if a.first.node.rank.present? && b.first.node.rank.blank?
-            -1
-          elsif a.first.node.rank.blank? && b.first.node.rank.present?
-            1
-          elsif a.first.node.rank.present? && b.first.node.rank.present?
-            a.first.node.rank.name <=> b.first.node.rank.name
-          else
-            0
-          end
-        else
-          result
-        end
-      end
+      status = n.taxonomic_status&.name
+      dwh_str = n.resource&.dwh? ? "a" : "b"
+      key = "#{dwh_str}.#{n.italicized}"
+      key += ".#{rank.treat_as}" if include_rank && rank
+      key += ".#{status}" if include_status && status
+      key
+    end.values.sort_by do |v|
+      first = v.first
+      dwh_part = first.resource&.dwh? ? "a" : "b"
+      rank_part = include_rank && first.node&.rank ? I18n.t("pages.resource_names.rank.#{first.node&.rank.treat_as}") : "zzz"
+      # TODO: Update once taxonomic statuses are i18n-able
+      status_part = include_status && first.taxonomic_status&.name ? first.taxonomic_status&.name : "zzz"
+      [dwh_part, first.italicized, rank_part, status_part]
     end
   end
 
@@ -320,6 +313,42 @@ private
       b_name = sanitize(name_for_page(b), tags: [])
 
       a_name <=> b_name
+    end
+  end
+
+  def page_resource_names_link(name, include_remarks)
+    if name.resource.dwh? && name.attribution.present?
+      if include_remarks && name.remarks.present?
+        I18n.t(
+          "pages.resource_names.resource_link_w_remarks_attribution_html",
+          resource_path: resource_path(name.resource),
+          resource_name: name.resource.name,
+          remarks: name.remarks,
+          attribution: name.attribution.html_safe
+        )
+      else
+        I18n.t(
+          "pages.resource_names.resource_link_w_attribution_html",
+          resource_path: resource_path(name.resource),
+          resource_name: name.resource.name,
+          attribution: name.attribution.html_safe
+        )
+      end
+    else
+      if include_remarks && name.remarks.present?
+        I18n.t(
+          "pages.resource_names.resource_link_w_remarks_html",
+          resource_path: resource_path(name.resource),
+          resource_name: name.resource.name,
+          remarks: name.remarks
+        )
+      else
+        I18n.t(
+          "pages.resource_names.resource_link_html",
+          resource_path: resource_path(name.resource),
+          resource_name: name.resource.name
+        )
+      end
     end
   end
 

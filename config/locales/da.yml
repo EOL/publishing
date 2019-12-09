@@ -233,6 +233,9 @@ da:
     scientific_names: navne
     users: brugere
     references: referencer
+  support:
+    array:
+      two_words_connector: og
   term:
     actions:
       sort: sorter efter

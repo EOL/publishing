@@ -1,3 +1,5 @@
+require "util/term_i18n"
+
 # NOTE that you use the show_* methods with a - not a = because it's writing
 # to the stream directly, NOT building an output for you to show...
 module DataHelper
@@ -40,20 +42,11 @@ module DataHelper
     end
   end
 
-  def build_associations(page)
-    @associations =
-      begin
-        ids = page.data.map { |t| t[:object_page_id] }.compact.sort.uniq
-        Page.where(id: ids).
-          includes(:medium, :preferred_vernaculars, native_node: [:rank])
-      end
-  end
-
   def data_value(data)
     parts = []
     value = t(:data_missing, keys: data.keys.join(", "))
     if @associations && (target_id = data[:object_page_id])
-      page = @associations.find { |a| a.id == target_id }
+      page = @associations[target_id]
       unless page
         Rails.logger.warn("**** INEFFICIENT! Loading association for trait #{data[:eol_pk]}")
         if Page.exists?(data[:object_page_id])
@@ -64,7 +57,7 @@ module DataHelper
       end
       parts << link_to(name_for_page(page), page_path(page))
     elsif data[:object_term] && data[:object_term][:name]
-      value = data[:object_term][:name]
+      value = i18n_term_name(data[:object_term])
       parts << value
     elsif val = data[:measurement] || data[:value_measurement]
       parts << val.to_s
@@ -77,6 +70,15 @@ module DataHelper
     end
 
     parts.join(" ")
+  end
+
+  def i18n_term_name(term)
+    key = TermI18n.uri_to_key(term[:uri], "term.name.by_uri")
+    if I18n.exists?(key)
+      t(key)
+    else
+      term[:name]
+    end
   end
 
   def show_data_value(data)

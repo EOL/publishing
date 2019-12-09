@@ -4,19 +4,26 @@
 # Author: Kly
 # Author: Taieol
 # Author: Winston Sung
+# Author: Xiplus
 ---
 zh-TW:
   language_name: 英語
   about:
     trait_bank:
       title: 特質資料庫
+      body_html: <p>網路生命大百科技術與資料管理團隊參照在網路生命大百科裡的結構化資料來源 — 特質與其它姓名標示資料、種間關係、與我們的本地分類、動態運作階系來作為特質資料庫（TraitBank）。此內容的管理方式與我們的「典型」內容
+        — 圖片、影片、聲音、與描述文字相比之下有所差別，這在對於不同的事物裡很有用。</p><p>特質資料庫是比網路生命大百科其它部份還新穎的東西，這最初是由
+        Species Pages Group 總監 Cynthia Parr 所構思，並於 2014 年 1 月在網路生命大百科第二版裡上線。從那時開始，結構化資料就一直是我們開發時的首要項目。</p><p>現在，您可以透過結構化資料來<a
+        href='%{example_search_path}'>搜尋</a>瀏覽網路生命大百科或是下載資料，而您也可以在我們新的<a href='%{autogen_page_path}'>自動生成文字</a>形式概要分頁裡發現這些。如同網路生命大百科其它內容一樣，這些適用於重複使用，並附帶詳細的姓名標示資料，因此若您使用在您的成品上，您可以加註表彰原創作者。</p><p>此資料建造為<a
+        href='%{property_graph_url}'>屬性圖形</a>在 <a href='%{neo4j_url}'>neo4j</a> 上。<a
+        href='%{data_services_path}'>資料服務</a>為可用。</p>
   account_already_linked: 您的帳號已連結到網路生命大百科
   account_not_linked: 您的帳號尚未連結到網路生命大百科
   advanced: 進階
   are_you_sure_delete_account: 您確定要刪除您自己的網路生命大百科帳號嗎？
   article:
     actions:
-      collect: 收集
+      collect: 收藏
     header:
       blank: （此條目裡沒有正文。）
       body: 正文
@@ -34,8 +41,10 @@ zh-TW:
   breadcrumbs:
     notices:
       canonical: 學名會秀出在頁面的麵包屑導航
+      vernacular: 若可用的話本地名稱會顯示在頁面的麵包屑導航
     setting_header: 在麵包屑導航的名稱
     types:
+      scientific: 學術
       vernacular: 本地話
   button_create: 建立
   button_add: 添加
@@ -44,13 +53,22 @@ zh-TW:
   change_your_password: 更改您的密碼
   classifications:
     children:
+      header_html:
+        one: '%{name}包含 <a href="%{names_path}">%{count} 個子項</a>：'
+        other: '%{name} <a href="%{names_path}">%{count} 個子項</a>：'
       see_more: 查看更多
     hierarchies:
+      header: 策展%{sci_name}的階系
+      see_resource_file: 查看完成清單的<a href='%{href}'>資源檔案</a>。
       this_page: （此頁面）
+      truncated_siblings:
+        one: 為了簡明起見，去除額外 1 個同品種。
+        other: 為了簡明起見，去除額外 %{count} 個同品種。
     richness:
       header: 頁面豐富度
       score: 豐富度分數
       page_contents_count: 關聯內容
+      missing: 尚未計算此頁面的豐富度。
       media_count: 媒體
       articles_count: 條目
       links_count: 連結
@@ -59,12 +77,16 @@ zh-TW:
       nodes_count: 節點
       vernaculars_count: 本地話
       scientific_names_count: 學名
+      referents_count: 引用
+      species_count: 物種
       updated_at: 上一次更新
   cms_page_date: 上一次變動：
   collect_already_in_collection: （已在此）
   collect_already_in_collection_will_add_icon: （添加媒體到「%{page}」）
+  collect_icon_title: 從「%{page}」頁面添加「%{item}」到…
   collect_new_collection: 新收藏名稱
   collect_new_collection_title: …一個新收藏
+  collect_no_existing_collections: 您還沒擁有任何收藏！請使用左側表單來建立。
   collect_select_collection: …您的收藏之一
   collect_title: 添加「%{item}」到…
   collected_page_added_to_collection: 已添加%{page}到收藏<a href='%{link}'>%{name}</a>裡。
@@ -79,31 +101,55 @@ zh-TW:
     edit_button: 編輯
     delete_confirm: 您確定嗎？
     destroyed_flash: '%{name}已從收藏移除。'
+  collection_association_added_to_collection: 已添加「%{associated}」到收藏<a href='%{link}'>%{name}</a>裡。
+  collection_associations_empty: 沒有其它收藏有和此關聯。您可以在其它收藏點擊「關聯」按鈕來讓它們呈現於此。
+  collection_associations_title: 關聯收藏
   collection_collected_pages_media_remove: 從收藏移除圖片（更改會立即生效）：
+  collection_created: 建立新收藏「%{name}」。
+  collection_created_for_association: 已添加%{associated}到新收藏<a href='%{link}'>%{name}</a>裡。
   collection_user_is_admin: 此使用者是管理員。
+  collection_pages_empty: 此收藏裡沒有頁面。嘗試在物種頁面上點擊「收藏」來添加一些項目！
   collection:
     admins:
+      header: 能編輯此收藏的使用者（更改會立即生效）
       label: 添加可編輯此收藏的使用者：
       placeholder: 完整名稱或使用者名稱
     actions:
+      associate: 關聯
       download_taxa_csv: 下載分類 CSV
       delete: 刪除
       edit: 編輯
     collection_type:
+      normal: 一般
       gallery: 圖庫
+    delete_confirm: 這會移除整個收藏並且無法還原此操作，您確定嗎？
+    destroyed: 「%{name}」已被永久刪除。
     pages_count:
       one: 1 個頁面
       other: '%{count} 個頁面'
     log:
+      associated_collection:
+        add: '%{user}對收藏添加了關聯%{associated}'
+        remove: '%{user}對移除了收藏的關聯%{associated}'
       collection:
         add: '%{user}已建立收藏'
+        change: '%{user}將%{field}從「%{from}」更改成為「%{to}」'
+      content:
+        add: '%{user}添加了用於頁面%{page}的媒體%{medium}'
+        change: '%{user}更改頁面%{page}裡媒體%{medium}的%{field}從「%{from}」成為「%{to}」'
+        remove: '%{user}已移除用於頁面%{page}的媒體%{medium}'
       page:
         add: '%{user}已添加%{page}頁面'
+        change: '%{user}更改頁面%{page}上的%{field}從「%{from}」成為「%{to}」'
         remove: '%{user}已移除%{page}頁面'
+      user:
+        add: '%{user}添加了管理人%{manager}'
+        remove: '%{user}移除了管理人%{manager}'
     search:
       placeholder: 在收藏裡搜尋…
       submit: 搜尋
     sort:
+      hierarchy: 階系
       position: 日期已添加
       sci_name: 學名，A 到 Z
       sci_name_rev: 學名，Z 到 A
@@ -113,18 +159,25 @@ zh-TW:
   collection_unauthorized_edit: 僅所屬的使用者能編輯此收藏。
   complete_registration: 請繼續您的註冊
   content_appears_on: 包含在以下頁面：
+  content_collected_in: 精選在以下收藏裡：
   content_attributions_header: 來源資訊
   content_attributions_labels:
     altitude: 海拔
     author: 作者
+    bibliographic_citation: 書目引用
+    compiler: 編纂者
     creator: 建立者
     editor: 編輯者
     latitude: 緯度
+    license: 許可
     location: 位置
+    location_verbatim: 逐字
     longitude: 經度
     original_media_file: 原始媒體檔案
+    owner: 版權
     photographer: 攝影者
-    publisher: 發佈者
+    publisher: 發布者
+    project: 專題
     provider: 提供者
     references_header:
       one: 參考資料
@@ -133,10 +186,23 @@ zh-TW:
     resource_pk: （ID：%{key}）
     rights_statement: 版權聲明
     source: 來源
+    spatial_location: 空間
     view_source_label: 原始
     view_source_link: 檢視原始圖片
     view_source_page_link: 參訪來源
+  content_not_in_any_collection_image: 此圖片未被精選在任何收藏裡。
+  content_not_in_any_collection_sound: 此聲音未被精選在任何收藏裡。
+  content_not_in_any_collection_video: 此影片未被精選在任何收藏裡。
+  data:
+    modifier:
+      sex_term: 測量的生物性別
+      lifestage_term: 測量的生命階段
+      statistical_method_term: 使用來測量的統計方法
+  data_missing: （資料遺失，關鍵內容：%{keys}）
+  dear_username_with_comma: 親愛的%{username}：
   delete_account_button: 刪除您的帳號
+  filter_by_license: 許可
+  filter_by_license_any_item: 任何許可
   filter_by_medium_subtype: 類型
   filter_by_medium_any_item: 任何類型
   filter_by_resource: 提供者
@@ -152,6 +218,8 @@ zh-TW:
       data_services: 資料服務
       donate: 捐款
       education: 教育
+      glossary: 術語
+      help: 說明
       terms_of_use: 使用條款
       the_eol_forum: 網路生命大百科論壇
       what_is_eol: 什麼是網路生命大百科（Encyclopedia of Life、EOL）？
@@ -182,6 +250,9 @@ zh-TW:
       worms: 蠕蟲
     eol_is_hosted_by: 網路生命大百科是由以下託管：
   forgot_your_password: 忘記您的密碼？
+  landing_page:
+    header: 為全球提供有關地球上生命的知識
+    stats_cleared: 已重新計算統計。
   language: 語言
   languages:
     none: 未指定
@@ -377,6 +448,7 @@ zh-TW:
   literature_and_references_header: 文獻與參考資料
   maps:
     empty: 沒有可用於此頁面的地圖。
+    occurrence_caption: '%{page_name}的已知事件、標本收集與觀察'
     other_maps_title: 非互動式地圖
   medium:
     untitled:
@@ -397,12 +469,18 @@ zh-TW:
       map: 地圖
       js_map: 互動地圖
   medium_collect_button: 收藏媒體
+  medium_description_blank: 沒有提供此對象的描述。
   medium_header_title: 標題：
   medium_header_description: 描述：
   names:
     hide_langs:
       one: 隱藏 1 個語言
       other: 隱藏 %{count} 個語言
+    prefer: 優先
+    preferred_in_language_for_page: '%{name}現為%{page}的首選%{language}本地話'
+    show_more_langs:
+      one: 顯示另種語言
+      other: 顯示另 %{count} 種語言
   nav:
     about: 關於
     discuss: 討論
@@ -411,35 +489,107 @@ zh-TW:
       no_results_html: <strong>沒有確定的結果</strong><br />按下 Enter 鍵來查看未定結果
       placeholder: 搜尋網路生命大百科…
     trait_bank: 特質資料庫
+  name_preferred_label: 優先
+  page_icon_counts:
+    header:
+      one: 用於頁面的最佳圖片
+      other: 用於頁面的最佳圖片
+  page_icon_created: 已移動圖片「%{name}」到頂端。
   page_title: 生命大百科
   page_title_search: 搜尋：%{query}
+  page_vernaculars_empty: 沒有與此分類關聯的俗名。
   pages:
     actions:
       collect: 收藏
+      comment:
+        zero: 註釋
+        one: '%{count} 個註釋'
+        other: '%{count} 個註釋'
       reindex: 重建索引
     batch_lookup:
       header: 批量頁面查看
       canonical_name: 真實名稱
       download_tsv: 下載 TSV
+      match: 相配
       new_search: 新搜尋
       page_id: 頁面 ID
       page_url: 頁面 URL
       query: 查詢
       query_cant_be_blank: 查詢不可為空
       search: 搜尋
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 網路生命大百科有 <a href="%{data_path}">1 個屬性</a>的資料：
+        other: 網路生命大百科有 <a href="%{data_path}">%{count} 個屬性</a>的資料，包含：
+      eol_has_data_for_n_attributes_html:
+        one: 網路生命大百科有 <a href="%{data_path}">1 個屬性</a>的資料。
+        other: 網路生命大百科有 <a href="%{data_path}">%{count} 個屬性</a>的資料。
     filter_menu:
       show_all: 顯示全部
     page_data:
+      n_hidden_show_all:
+        one: 隱藏 1 個「%{pred_name}」紀錄 — 顯示全部
+        other: 隱藏 %{count} 個「%{pred_name}」紀錄 — 顯示全部
       show_all: 顯示全部
+    resource_names:
+      name_recognized_by: 由%{by}識別出
+      name_recognized_by_w_rank: '%{rank}由%{by}識別出'
+      name_recognized_by_w_status: 依據%{by}的%{status}
+      rank:
+        r_domain: 域
+        r_subdomain: 亞域
+        r_infradomain: 下域
+        r_superkingdom: 總界
+        r_kingdom: 界
+        r_subkingdom: 亞界
+        r_infrakingdom: 下界
+        r_superphylum: 總門
+        r_phylum: 門
+        r_subphylum: 亞門
+        r_infraphylum: 下門
+        r_superclass: 總綱
+        r_class: 綱
+        r_subclass: 亞綱
+        r_infraclass: 下綱
+        r_superorder: 總目
+        r_order: 目
+        r_suborder: 亞目
+        r_infraorder: 下目
+        r_superfamily: 總科
+        r_family: 科
+        r_subfamily: 亞科
+        r_infrafamily: 下科
+        r_tribe: 族
+        r_supergenus: 總屬
+        r_genus: 屬
+        r_subgenus: 亞屬
+        r_infragenus: 下屬
+        r_superspecies: 超種
+        r_species: 種
+        r_subspecies: 亞種
+        r_infraspecies: 種下
+        r_form: 型
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
       reset: 重新設定
+    flash:
+      reindexed: 此頁面上的快取已清除，請重新載入來查看新的值。另請注意目前並*不會*重新索引在頁面上的圖片，不過會在往後實現該功能。
+    native_node_missing_warning: 沒有可用的階系資訊
     tabs:
       articles: 條目
+      classifications: 分類法
       data: 資料
       literature_and_references: 文獻與參考資料
+      overview: 概要
       maps: 地圖
       media: 媒體
+      names: 名稱
     iucn_status:
       label: IUCN 狀態：
       ex: 滅絕（EX）
@@ -452,6 +602,8 @@ zh-TW:
       dd: 資料缺乏（DD）
       ne: 未予評估（NE）
       unknown: 未知（沒有紀錄）
+    unresolved_name: 未解決名稱
+    unresolved_name_prefix: 未解決名稱：
   page_titles:
     pages:
       data: '%{page_name}資料'
@@ -465,18 +617,47 @@ zh-TW:
   recaptcha_error: 請告訴我們你不是機器人。
   reference_compiled_from: 出自%{links}的參考資料
   reference_compiled_from_article: '%{source}條目標題為「%{name}」'
+  register_new_account: 新帳號註冊
   resources:
     actions:
+      import_traits: 匯入特質（從典藏庫）
       republish: 重新發佈
       reindex: 重建索引
+      fetch_log: 項目索取日誌
+      fix_no_names: 修正沒有名稱
       index: 返回到所有資源
+      show_all:
+        other: 顯示全部（%{count} 個）
       show_warns:
         one: 顯示警告（%{count} 個）
         other: 顯示警告（%{count} 個）
+      sync: 與典藏庫同步
+      sync_all_terms: 同步所有項
+      fetch_relationships: 取得關係
+      sync_all_terms_confirm: 這將會抓取所有來自獲取層級且不在發布層級的項，大約會花上 15 分鐘的時間，您確定要嗎？
+      fetch_relationships_confirm: 這會移除現有的關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上5分鐘時間，您確定嗎？
+      fetch_synonyms: 取得同物異名
+      fetch_synonyms_confirm: 這會移除現有的同物異名並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
+      fetch_units: 取得單位
+      fetch_units_confirm: 這會移除現有的述語/單位關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
       clear_publishing: 清除鎖定
+      clear_publishing_confirm: 這將會'結束'所有發布，若在主動發佈時使用會引起問題。您確定嗎？
     headers:
       index: 資源
       import_log: '%{resource}的匯入日誌'
+    index:
+      locked_jobs:
+        zero: 沒有進行中事項
+        one: 1 個進行中事項
+        other: '%{count} 個進行中事項'
+      jobs:
+        zero: 沒有待辦事項
+        one: 1 個待辦事項
+        other: '%{count} 個進待辦事項'
+      harvest_jobs:
+        zero: 沒有要發布的內容
+        one: 1 個待發布
+        other: '%{count} 個要發布'
     no_events: 無！
   resource_missing: 找不到資源
   scientific_name:
@@ -489,6 +670,10 @@ zh-TW:
   scientific_names_header: 學名
   send_me_reset_password_instructions: 寄送給我關於重新設定密碼的說明
   search:
+    flash:
+      cannot_combine_paths: 無法與%{path}合併結果
+      more_than_one_species: 無法合併%{species}的結果
+      more_than_two_terms: 無法合併兩個以上項的結果：%{terms}
     n_articles:
       one: '%{count} 個條目'
       other: '%{count} 個條目'
@@ -505,16 +690,27 @@ zh-TW:
     n_sounds:
       one: '%{count} 個聲音'
       other: '%{count} 個聲音'
+    n_taxon_pages:
+      one: '%{count} 個分類頁面'
+      other: '%{count} 個分類頁面'
     n_users:
       one: '%{count} 位使用者'
       other: '%{count} 位使用者'
     n_videos:
       one: '%{count} 個影片'
       other: '%{count} 個影片'
+    n_terms:
+      one: '%{count} 個項'
+      other: '%{count} 個項'
   search_results:
     collection_page_count:
       one: '%{count} 個頁面'
       other: '{count} 個頁面'
+    collection_page_count_and_users:
+      one: '%{count} 個頁面由%{users_sentence}維護}'
+      other: '%{count} 個頁面由%{users_sentence}維護}'
+    collected_media:
+      title: 來自此頁面的收藏媒體：
     medium_article: 條目
     medium_image: 圖片
     medium_map: 地圖
@@ -529,9 +725,14 @@ zh-TW:
     field_matches:
       description: 符合描述：
       resource_pk: 符合外部 ID：
+      bio: 符合介紹：
+      tag_line: 符合標籤行：
       resources:
         one: 符合資源：
         other: 符合資源：
+      synonyms:
+        one: 符合同物異名：
+        other: 符合同物異名：
       vernaculars:
         one: 符合俗名：
         other: 符合俗名：
@@ -539,6 +740,12 @@ zh-TW:
       collections:
         one: '%{count} 個收藏'
         other: '%{count} 個收藏'
+      media:
+        one: '%{count} 個媒體'
+        other: '%{count} 個媒體'
+      pages:
+        one: '%{count} 個網路生命大百科頁面（物種）'
+        other: '%{count} 個網路生命大百科頁面（物種）'
       object_terms:
         one: '%{count} 個資料記錄值（特質資料庫）'
         other: '%{count} 個資料記錄值（特質資料庫）'
@@ -553,6 +760,12 @@ zh-TW:
       n_articles:
         one: 1 個條目
         other: '%{count} 個條目'
+      n_data:
+        one: 1 份資料
+        other: '%{count} 份資料'
+      n_media:
+        one: 1 個媒體
+        other: '%{count} 個媒體'
     user_title_html: 使用者：<span class='sub'>%{name}</span>
   search_suggestion:
     actions:
@@ -568,24 +781,31 @@ zh-TW:
   sections:
     associations: 關聯
     behavior: 行為
+    benefits: 益處
     brief_summary: 簡要總結
     comprehensive_description: 綜合描述
     conservation: 保護
     conservation_status: 保護狀態
+    cyclicity: 週期
     diagnostic_description: 診斷描述
     diseases_and_parasites: 疾病與寄生蟲
     dispersal: 擴散
+    distribution: 分布
     ecology: 生態學
     evolution_and_systematics: 演化與系統分類學
     general_ecology: 一般生態學
     genetics: 遺傳學
+    growth: 生長
     habitat: 棲息地
+    identification_resources: 鑑定資源
     life_expectancy: 平均壽命
+    life_history_and_behavior: 生活史與行為
     management: 管理
     migration: 遷徙
     molecular_biology: 分子生物學
     molecular_biology_and_genetics: 分子生物學與遺傳學
     morphology: 形態學
+    names_and_taxonomy: 名稱與分類
     notes: 備註
     overview: 概要
     physiology_and_cell_biology: 生理學與細胞生物學
@@ -597,20 +817,23 @@ zh-TW:
     taxonomy: 分類學
     threats: 威脅
     trends: 趨勢
+    trophic_strategy: 攝食策略
     type_information: 類型資訊
     wikipedia: 維基百科
   settings: 設定
-  show_date: 顯示發佈日期
+  show_date: 顯示發布日期
   sign_in: 登入
   sign_up: 註冊
   signature_with_contact_us_link: |-
     如果您遭遇到任何問題，請在 %{url} 聯絡我們。
 
     生命大百科團隊
+  did_not_receive_confirmation_instructions: 沒有收到確認指示
   simple_form:
     "yes": 是
     "no": 否
     required:
+      text: 必填
       mark: '*'
     error_notification:
       default_message: 請檢閱以下問題：
@@ -621,9 +844,14 @@ zh-TW:
         password_confirmation: 密碼確認
         remember_me: 記住我
         username: 使用者名稱
+        bio: 簡介
       search_suggestion:
         match: 搜尋符合的字串
+        page_id: 重新導向（或是按照篩選）的網路生命大百科頁面 ID
+        synonym_of_id: 替代使用的搜尋建議 ID（！）
+        object_term: 重新導向（或是按照篩選）的 URI
         path: 重新導向的路徑（完整或是相對路徑）
+        wkt_string: 傳遞到 Effechecka 的 WKT 字串
   stats:
     articles: 條目
     collections: 收藏
@@ -631,8 +859,14 @@ zh-TW:
     media: 媒體
     pages: 頁面
     nodes: 節點
+    scientific_names: 名稱
     users: 使用者
     references: 參考資料
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: 和
+      last_word_connector: ',和'
   term:
     actions:
       reindex: 重建索引
@@ -643,10 +877,23 @@ zh-TW:
     fields:
       name: 名稱：
       definition: 定義：
+      attribution: 姓名標示：
+      comment: 註釋：
+      sections: 段落：
+      is_hidden_from_glossary: 從詞彙表裡隱藏：
+      is_hidden_from_overview: 從概要分頁隱藏：
+    glossary:
+      full_title: 在網路生命大百科上用於資料的所有項目詞彙表
+      predicate_title: 在網路生命大百科上用於資料的類型項目詞彙表
+      object_term_title: 在網路生命大百科上用於資料的值項目詞彙表
+      units_title: 在網路生命大百科上用於資料的單位項目詞彙表
     pagination:
       next: 下一頁
       previous: 上一頁
   terms:
+    attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>註釋：</strong>%{comment}
+    definition_field_html: <strong>定義：</strong> %{definition}
     source_field_html: <strong>來源：</strong><a href='%{source}'>%{source}</a>
     record_url: 紀錄 URL
     scientific_name: 學名
@@ -655,6 +902,17 @@ zh-TW:
     uri_field_html: <strong>URI：</strong>%{uri}
     index:
       select_page_above: 選擇上方的一個頁面來開始。
+  data_definition: 「%{data}」的定義
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name}的競爭者'
+      predator: 捕食%{source_name}
+      prey: 被%{source_name}覓食
+      source: 焦點物種
+  trust:
+    unreviewed: 未檢閱
+    trusted: 可信
+    untrusted: 不可信
   user:
     batch_page_lookup: 批量頁面查看
     created_at: 已建立
@@ -662,17 +920,28 @@ zh-TW:
     email: 電子郵件
     to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼
     headers:
+      bio: 簡介
       collections: 收藏
       downloads: 下載
       links: 連結
+    list_of_power_users: 高級使用者清單
     new_password: 新密碼
     confirm_new_password: 確認新密碼
+    showing_n_power_users:
+      one: 列出 1 個高級使用者
+      other: 列出 %{count} 個高級使用者
+    trait_bank_cypher_form: 特質資料庫密碼來自
     username: 使用者名稱
     update: 更新
     update_email: 更新電子郵件
+  user_download:
+    created: 您的檔案會在背景裡處理。請查看您的<a href="%{url}">使用者頁面</a>來確認是否已完成。
   users:
     account_migration_header: 若您是在 2018 年 11 月 15 日之前註冊網路生命大百科：
+    account_migration_notice: 您的帳號資訊裡包含使用者名稱、相關電子郵件、個人檔案描述、以及所擁有的收藏，已導入到新版本的網路生命大百科裡。在網站上所顯示名稱的仍會是您的使用者名稱，但您必須要以您的電子郵件位址來登入。另外出於資安因素，我們無法遷移您的密碼，對此困擾我們感到抱歉。您可以使用忘記密碼的處理程序，來做重新設定。如果您是僅透過第三方提供者來做登入，像是
+      — Google、Twitter 或是 FaceBook，請容許我們花上一段時間處理，我們正在排除在共享登入流程裡所出現的一些問題。
     sign_in: 登入
   vernacular_names_header: 俗名
+  vernacular_preferred_by_resource: '%{resource}（優先此名稱）'
   wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
 ...

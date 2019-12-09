@@ -153,6 +153,7 @@ class PagesController < ApplicationController
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
     build_associations(@page.data)
+    @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     respond_to do |format|
@@ -425,7 +426,7 @@ private
     end
     if params[:subclass]
       @subclass = params[:subclass]
-      media = media.where(subclass: Medium.subclasses[@subclass])
+      media = media.where(['page_contents.content_subclass = ?', Medium.subclasses[@subclass]])
     end
     if params[:resource_id]
       @resource_id = params[:resource_id].to_i
@@ -548,4 +549,3 @@ private
     end
   end
 end
-

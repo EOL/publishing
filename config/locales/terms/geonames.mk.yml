@@ -1,0 +1,375 @@
+---
+mk:
+  :term:
+    :name:
+      :by_uri:
+        http://www(dot)geonames(dot)org/3489940: Јамајка
+        http://www(dot)geonames(dot)org/5551752: Аризона
+        http://www(dot)geonames(dot)org/5001836: Мичиген
+        http://www(dot)geonames(dot)org/3190538: Словенија
+        http://www(dot)geonames(dot)org/5037779: Минесота
+        http://www(dot)geonames(dot)org/4482348: Северна Каролина
+        http://www(dot)geonames(dot)org/587116: Азејберџан
+        http://www(dot)geonames(dot)org/2960313: Луксембург
+        http://www(dot)geonames(dot)org/4544379: Оклахома
+        http://www(dot)geonames(dot)org/3608932: Хондурас
+        http://www(dot)geonames(dot)org/6093943: Онтарио
+        http://www(dot)geonames(dot)org/3570311: Мартиник
+        http://www(dot)geonames(dot)org/3703430: Панама
+        http://www(dot)geonames(dot)org/5596512: Ајдахо
+        http://www(dot)geonames(dot)org/5224323: Род Ајленд
+        http://www(dot)geonames(dot)org/614540: Грузија
+        http://www(dot)geonames(dot)org/5909050: Британска Колумбија
+        http://www(dot)geonames(dot)org/3042058: Лихтенштајн
+        http://www(dot)geonames(dot)org/4829764: Алабама
+        http://www(dot)geonames(dot)org/1857892: Кјушу
+        http://www(dot)geonames(dot)org/4736286: Тексас
+        http://www(dot)geonames(dot)org/1852487: Шикоку
+        http://www(dot)geonames(dot)org/2921044: Германија
+        http://www(dot)geonames(dot)org/2802361: Белгија
+        http://www(dot)geonames(dot)org/4273857: Канзас
+        http://www(dot)geonames(dot)org/5509151: Невада
+        http://www(dot)geonames(dot)org/6254927: Пенсилванија
+        http://www(dot)geonames(dot)org/3374084: Барбадос
+        http://www(dot)geonames(dot)org/3582678: Белизе
+        http://www(dot)geonames(dot)org/5090174: Њу Хемпшир
+        http://www(dot)geonames(dot)org/6065171: Манитоба
+        http://www(dot)geonames(dot)org/3077311: Чешка
+        http://www(dot)geonames(dot)org/5549030: Јута
+        http://www(dot)geonames(dot)org/4662168: Тенеси
+        http://www(dot)geonames(dot)org/5769223: Јужна Дакота
+        http://www(dot)geonames(dot)org/5165418: Охајо
+        http://www(dot)geonames(dot)org/4597040: Јужна Каролина
+        http://www(dot)geonames(dot)org/6254925: Кентаки
+        http://www(dot)geonames(dot)org/6091530: Нова Шкотска
+        http://www(dot)geonames(dot)org/6141242: Саскачеван
+        http://www(dot)geonames(dot)org/4155751: Флорида
+        http://www(dot)geonames(dot)org/4398678: Мисури
+        http://www(dot)geonames(dot)org/5242283: Вермонт
+        http://www(dot)geonames(dot)org/5417618: Колорадо
+        http://www(dot)geonames(dot)org/2623032: Данска
+        http://www(dot)geonames(dot)org/4826850: Западна Вирџинија
+        http://www(dot)geonames(dot)org/3585968: Ел Салвадор
+        http://www(dot)geonames(dot)org/6113358: Остров Принц Едвард
+        http://www(dot)geonames(dot)org/5481136: Ново Мексико
+        http://www(dot)geonames(dot)org/3057568: Словачка
+        http://www(dot)geonames(dot)org/2782113: Австрија
+        http://www(dot)geonames(dot)org/4331987: Луизијана
+        http://www(dot)geonames(dot)org/2658434: Швајцарија
+        http://www(dot)geonames(dot)org/5279468: Висконсин
+        http://www(dot)geonames(dot)org/5690763: Северна Дакота
+        http://www(dot)geonames(dot)org/4436296: Мисисипи
+        http://www(dot)geonames(dot)org/4896861: Илиноис
+        http://www(dot)geonames(dot)org/5128638: Њујорк
+        http://www(dot)geonames(dot)org/798544: Полска
+        http://www(dot)geonames(dot)org/6254926: Масачусетс
+        http://www(dot)geonames(dot)org/5883102: Алберта
+        http://www(dot)geonames(dot)org/5815135: Вашингтон
+        http://www(dot)geonames(dot)org/4361885: Мериленд
+        http://www(dot)geonames(dot)org/3017382: Франција
+        http://www(dot)geonames(dot)org/3617476: Никарагва
+        http://www(dot)geonames(dot)org/4099753: Арканзас
+        http://www(dot)geonames(dot)org/4971068: Мејн
+        http://www(dot)geonames(dot)org/5744337: Орегон
+        http://www(dot)geonames(dot)org/2017370: Русија
+        http://www(dot)geonames(dot)org/5101760: Њу Џерси
+        http://www(dot)geonames(dot)org/2750405: Холандија
+        http://www(dot)geonames(dot)org/630336: Белорусија
+        http://www(dot)geonames(dot)org/4142224: Делавер
+        http://www(dot)geonames(dot)org/5332921: Калифорнија
+        http://www(dot)geonames(dot)org/3579143: Гвадалупе
+        http://www(dot)geonames(dot)org/3595528: Гватемала
+        http://www(dot)geonames(dot)org/4831725: Конектикат
+        http://www(dot)geonames(dot)org/5667009: Монтана
+        http://www(dot)geonames(dot)org/3624060: Костарика
+        http://www(dot)geonames(dot)org/3572887: Бахами
+        http://www(dot)geonames(dot)org/4921868: Индијана
+        http://www(dot)geonames(dot)org/1861060: Јапонија
+        http://www(dot)geonames(dot)org/719819: Унгарија
+        http://www(dot)geonames(dot)org/6252001: Соединети Американски Држави
+        http://www(dot)geonames(dot)org/5843591: Вајоминг
+        http://www(dot)geonames(dot)org/5073708: Небраска
+        http://www(dot)geonames(dot)org/6254928: Вирџинија
+        http://www(dot)geonames(dot)org/6087430: Њу Бранзвик
+        http://www(dot)geonames(dot)org/3578421: Сент Мартин
+        http://www(dot)geonames(dot)org/6251999: Канада
+        http://www(dot)geonames(dot)org/3686110: Колумбија
+        http://www(dot)geonames(dot)org/3175395: Италија
+        http://www(dot)geonames(dot)org/2963597: Ирска
+        http://www(dot)geonames(dot)org/2661886: Шведска
+        http://www(dot)geonames(dot)org/2589581: Алжир
+        http://www(dot)geonames(dot)org/2635167: Велика Британија
+        http://www(dot)geonames(dot)org/1814991: Кина
+        http://www(dot)geonames(dot)org/1062947: Мадагаскар
+        http://www(dot)geonames(dot)org/298795: Турција
+        http://www(dot)geonames(dot)org/953987: Јужна Африка
+        http://www(dot)geonames(dot)org/2420477: Гвинеја
+        http://www(dot)geonames(dot)org/2287781: Брег на Слонова Коска
+        http://www(dot)geonames(dot)org/3351879: Ангола
+        http://www(dot)geonames(dot)org/203312: Демократска Република Конго
+        http://www(dot)geonames(dot)org/2233387: Камерун
+        http://www(dot)geonames(dot)org/2395170: Бенин
+        http://www(dot)geonames(dot)org/2300660: Гана
+        http://www(dot)geonames(dot)org/2400553: Габон
+        http://www(dot)geonames(dot)org/2275384: Либериа
+        http://www(dot)geonames(dot)org/192950: Кенија
+        http://www(dot)geonames(dot)org/2403846: Сиера Леоне
+        http://www(dot)geonames(dot)org/2260494: Конго - Бразавил
+        http://www(dot)geonames(dot)org/2328926: Нигерија
+        http://www(dot)geonames(dot)org/878675: Зимбабве
+        http://www(dot)geonames(dot)org/226074: Уганда
+        http://www(dot)geonames(dot)org/933860: Боцвана
+        http://www(dot)geonames(dot)org/2542007: Мароко
+        http://www(dot)geonames(dot)org/163843: Сирија
+        http://www(dot)geonames(dot)org/223816: Џибути
+        http://www(dot)geonames(dot)org/2434508: Чад
+        http://www(dot)geonames(dot)org/3202326: Хрватска
+        http://www(dot)geonames(dot)org/2361809: Буркина Фасо
+        http://www(dot)geonames(dot)org/337996: Етиопија
+        http://www(dot)geonames(dot)org/1036973: Мозамбе
+        http://www(dot)geonames(dot)org/2215636: Либија
+        http://www(dot)geonames(dot)org/927384: Малави
+        http://www(dot)geonames(dot)org/294640: Израел
+        http://www(dot)geonames(dot)org/6290252: Србија
+        http://www(dot)geonames(dot)org/798549: Романија
+        http://www(dot)geonames(dot)org/102358: Саудиска Арабија
+        http://www(dot)geonames(dot)org/2440476: Нигер
+        http://www(dot)geonames(dot)org/895949: Замбија
+        http://www(dot)geonames(dot)org/366755: Судан
+        http://www(dot)geonames(dot)org/51537: Сомалија
+        http://www(dot)geonames(dot)org/357994: Египет
+        http://www(dot)geonames(dot)org/1269750: Индија
+        http://www(dot)geonames(dot)org/1149361: Авганистан
+        http://www(dot)geonames(dot)org/3865483: Аргентина
+        http://www(dot)geonames(dot)org/3469034: Бразил
+        http://www(dot)geonames(dot)org/338010: Еритреја
+        http://www(dot)geonames(dot)org/248816: Јордан
+        http://www(dot)geonames(dot)org/99237: Ирак
+        http://www(dot)geonames(dot)org/6254930: Палестински територии
+        http://www(dot)geonames(dot)org/69543: Јемен
+        http://www(dot)geonames(dot)org/130758: Иран
+        http://www(dot)geonames(dot)org/934841: Свазиленд
+        http://www(dot)geonames(dot)org/1522867: Казахстан
+        http://www(dot)geonames(dot)org/1210997: Бангладеш
+        http://www(dot)geonames(dot)org/1282988: Непал
+        http://www(dot)geonames(dot)org/1227603: Шри Ланка
+        http://www(dot)geonames(dot)org/934292: Маврициус
+        http://www(dot)geonames(dot)org/3577718: Британски Девствени Острови
+        http://www(dot)geonames(dot)org/3575174: Сент Кристофер и Невис
+        http://www(dot)geonames(dot)org/3508796: Доминиканска Република
+        http://www(dot)geonames(dot)org/3562981: Куба
+        http://www(dot)geonames(dot)org/3573591: Тринидад и Тобаго
+        http://www(dot)geonames(dot)org/1733045: Малезија
+        http://www(dot)geonames(dot)org/3577815: Свети Винцент и Гренадини
+        http://www(dot)geonames(dot)org/921929: Коморос
+        http://www(dot)geonames(dot)org/1562822: Виетнам
+        http://www(dot)geonames(dot)org/1880251: Сингапур
+        http://www(dot)geonames(dot)org/3378535: Гвајана
+        http://www(dot)geonames(dot)org/3723988: Хаити
+        http://www(dot)geonames(dot)org/3381670: Француска Гвајана
+        http://www(dot)geonames(dot)org/1168579: Пакистан
+        http://www(dot)geonames(dot)org/3580239: Гренада
+        http://www(dot)geonames(dot)org/5855797: Хаваи
+        http://www(dot)geonames(dot)org/3573345: Бермуда
+        http://www(dot)geonames(dot)org/1831722: Камбоџа
+        http://www(dot)geonames(dot)org/3576396: Антигва и Барбуда
+        http://www(dot)geonames(dot)org/1643084: Индонезија
+        http://www(dot)geonames(dot)org/2205218: Фиџи
+        http://www(dot)geonames(dot)org/1655842: Лаос
+        http://www(dot)geonames(dot)org/3382998: Суринам
+        http://www(dot)geonames(dot)org/4566966: Порторико
+        http://www(dot)geonames(dot)org/4796775: Девствени Острови на САД
+        http://www(dot)geonames(dot)org/1819730: Хонг Конг
+        http://www(dot)geonames(dot)org/1327865: Мјанмар
+        http://www(dot)geonames(dot)org/272103: Либан
+        http://www(dot)geonames(dot)org/2245662: Сенегал
+        http://www(dot)geonames(dot)org/2264397: Португалија
+        http://www(dot)geonames(dot)org/1668284: Република Кина
+        http://www(dot)geonames(dot)org/3355338: Намибија
+        http://www(dot)geonames(dot)org/932692: Лесото
+        http://www(dot)geonames(dot)org/2410758: Сао Томе и Принсипе
+        http://www(dot)geonames(dot)org/935317: Ријунион
+        http://www(dot)geonames(dot)org/3580718: Кајмански Острови
+        http://www(dot)geonames(dot)org/4030699: Питкарн
+        http://www(dot)geonames(dot)org/2078138: Божиќни Острови
+        http://www(dot)geonames(dot)org/1282588: Британско Индиско Океанска територија
+        http://www(dot)geonames(dot)org/2155115: Нофролк Остров
+        http://www(dot)geonames(dot)org/4032283: Тонга
+        http://www(dot)geonames(dot)org/4030945: Кирибати
+        http://www(dot)geonames(dot)org/2081918: Микронезија
+        http://www(dot)geonames(dot)org/4030656: Француска Полинезија
+        http://www(dot)geonames(dot)org/2139685: Нова Каледонија
+        http://www(dot)geonames(dot)org/3424932: Сент Пјер и Микелан
+        http://www(dot)geonames(dot)org/2510769: Шпанија
+        http://www(dot)geonames(dot)org/1899402: Кукови Острови
+        http://www(dot)geonames(dot)org/241170: Сејшели
+        http://www(dot)geonames(dot)org/3474414: Фолкландски Острови
+        http://www(dot)geonames(dot)org/4031074: Токелау
+        http://www(dot)geonames(dot)org/1546748: Француски Јужни територии
+        http://www(dot)geonames(dot)org/4041468: Северни Маријанини Острови
+        http://www(dot)geonames(dot)org/2088628: Папуа Нова Гвинеја
+        http://www(dot)geonames(dot)org/3578097: Монсерат
+        http://www(dot)geonames(dot)org/2186224: Нов Зеланд
+        http://www(dot)geonames(dot)org/4034894: Самоа
+        http://www(dot)geonames(dot)org/5880801: Американска Самоа
+        http://www(dot)geonames(dot)org/2103350: Соломони
+        http://www(dot)geonames(dot)org/3932488: Перу
+        http://www(dot)geonames(dot)org/4043988: Гвам
+        http://www(dot)geonames(dot)org/3576916: Турк и Каикос Острови
+        http://www(dot)geonames(dot)org/1559582: Палау
+        http://www(dot)geonames(dot)org/3144096: Норвешка
+        http://www(dot)geonames(dot)org/3895114: Чиле
+        http://www(dot)geonames(dot)org/3923057: Боливија
+        http://www(dot)geonames(dot)org/3658394: Еквадор
+        http://www(dot)geonames(dot)org/1835841: Јужна Кореа
+        http://www(dot)geonames(dot)org/1512440: Узбекистан
+        http://www(dot)geonames(dot)org/3041565: Андора
+        http://www(dot)geonames(dot)org/732800: Бугарија
+        http://www(dot)geonames(dot)org/390903: Грција
+        http://www(dot)geonames(dot)org/660013: Финска
+        http://www(dot)geonames(dot)org/2378080: Мавританија
+        http://www(dot)geonames(dot)org/3042225: Островот Ман
+        http://www(dot)geonames(dot)org/3625428: Венецуела
+        http://www(dot)geonames(dot)org/3439705: Уругвај
+        http://www(dot)geonames(dot)org/49518: Руанда
+        http://www(dot)geonames(dot)org/3437598: Парагвај
+        http://www(dot)geonames(dot)org/783754: Албанија
+        http://www(dot)geonames(dot)org/453733: Естонија
+        http://www(dot)geonames(dot)org/458258: Латвија
+        http://www(dot)geonames(dot)org/690791: Украина
+        http://www(dot)geonames(dot)org/1252634: Бутан
+        http://www(dot)geonames(dot)org/2029969: Монголија
+        http://www(dot)geonames(dot)org/239880: Централна Африканска Република
+        http://www(dot)geonames(dot)org/2363686: Того
+        http://www(dot)geonames(dot)org/2372248: Гвинеа-Биса
+        http://www(dot)geonames(dot)org/149590: Танзанија
+        http://www(dot)geonames(dot)org/2309096: Екваторска Гвинеја
+        http://www(dot)geonames(dot)org/2413451: Гамбија
+        http://www(dot)geonames(dot)org/286963: Оман
+        http://www(dot)geonames(dot)org/2453866: Мали
+        http://www(dot)geonames(dot)org/1694008: Филипини
+        http://www(dot)geonames(dot)org/2629691: Исланд
+        http://www(dot)geonames(dot)org/3425505: Гренланд
+        http://www(dot)geonames(dot)org/2064513: Северна Територија
+        http://www(dot)geonames(dot)org/174982: Ерменија
+        http://www(dot)geonames(dot)org/718075: Македонија
+        http://www(dot)geonames(dot)org/597427: Литванија
+        http://www(dot)geonames(dot)org/290557: Обединети Арапски Емирати
+        http://www(dot)geonames(dot)org/1873107: Северна Кореја
+        http://www(dot)geonames(dot)org/8505031: Чехословачка
+        http://www(dot)geonames(dot)org/1821275: Макао
+        http://www(dot)geonames(dot)org/617790: Молдавија
+        http://www(dot)geonames(dot)org/3277605: Босна и Херцеговина
+        http://www(dot)geonames(dot)org/2080185: Маршалови ОСтрови
+        http://www(dot)geonames(dot)org/2110425: Науру
+        http://www(dot)geonames(dot)org/4036232: Ние
+        http://www(dot)geonames(dot)org/1527747: Киргистан
+        http://www(dot)geonames(dot)org/3194884: Црна Гора
+        http://www(dot)geonames(dot)org/3042362: Гвернзи
+        http://www(dot)geonames(dot)org/1220409: Таџикистан
+        http://www(dot)geonames(dot)org/2562770: Малта
+        http://www(dot)geonames(dot)org/3474415: Јужна Грузија и Јужни Сендвич Острови
+        http://www(dot)geonames(dot)org/1282028: Малдиви
+        http://www(dot)geonames(dot)org/2622320: Фарски Острови
+        http://www(dot)geonames(dot)org/3370751: Света Елена
+        http://www(dot)geonames(dot)org/2523119: Сицилија
+        http://www(dot)geonames(dot)org/443185: Аксарај
+        http://www(dot)geonames(dot)org/5879092: Алјаска
+        http://www(dot)geonames(dot)org/3665361: Амазон
+        http://www(dot)geonames(dot)org/1278629: Андра Прадеш
+        http://www(dot)geonames(dot)org/3573511: Ангвила
+        http://www(dot)geonames(dot)org/323777: Анталија
+        http://www(dot)geonames(dot)org/6255152: Антарктик
+        http://www(dot)geonames(dot)org/6697173: Антарктик
+        http://www(dot)geonames(dot)org/3577279: Аруба
+        http://www(dot)geonames(dot)org/1278341: Аруначал Прадеш
+        http://www(dot)geonames(dot)org/1278253: Асам
+        http://www(dot)geonames(dot)org/2782288: Атерско Езеро
+        http://www(dot)geonames(dot)org/2077456: Австралија
+        http://www(dot)geonames(dot)org/2177478: Австралиска престолнинска територија
+        http://www(dot)geonames(dot)org/290291: Бахрaин
+        http://www(dot)geonames(dot)org/1275715: Бихар
+        http://www(dot)geonames(dot)org/2099398: Бизмарков Архипелаг
+        http://www(dot)geonames(dot)org/1648148: Борнео
+        http://www(dot)geonames(dot)org/3371123: Боувитови острови
+        http://www(dot)geonames(dot)org/2945356: Бранденбург
+        http://www(dot)geonames(dot)org/1820814: Брунеи
+        http://www(dot)geonames(dot)org/433561: Бурунди
+        http://www(dot)geonames(dot)org/433561/burundi(dot)html: Бурунди
+        http://www(dot)geonames(dot)org/3374766: Зеленортски Острови
+        http://www(dot)geonames(dot)org/682674: Карпати
+        http://www(dot)geonames(dot)org/1717513: Себу
+        http://www(dot)geonames(dot)org/1274744: Чандигар
+        http://www(dot)geonames(dot)org/3042400: Каналски Острови
+        http://www(dot)geonames(dot)org/1444364: Чатисгар
+        http://www(dot)geonames(dot)org/1547376: Кокосови острови
+        http://www(dot)geonames(dot)org/146669: Кипар
+        http://www(dot)geonames(dot)org/1273726: Дадра и Нагар Хавели
+        http://www(dot)geonames(dot)org/567293: Дагестан
+        http://www(dot)geonames(dot)org/3575830: Доминика
+        http://www(dot)geonames(dot)org/2964574: Даблин
+        http://www(dot)geonames(dot)org/1966436: Источен Тимор
+        http://www(dot)geonames(dot)org/4030726: Велигденски Остров
+        http://www(dot)geonames(dot)org/1085593: Источен Кејп
+        http://www(dot)geonames(dot)org/6269131: Англија
+        http://www(dot)geonames(dot)org/3463930: Еспирито Санто
+        http://www(dot)geonames(dot)org/1085594: Гаутенг
+        http://www(dot)geonames(dot)org/2411586: Гибралтар
+        http://www(dot)geonames(dot)org/1271157: Гоа
+        http://www(dot)geonames(dot)org/3462372: Гојаш
+        http://www(dot)geonames(dot)org/1270770: Гуџарат
+        http://www(dot)geonames(dot)org/1270260: Харајана
+        http://www(dot)geonames(dot)org/2906947: Хелголанд
+        http://www(dot)geonames(dot)org/1270101: Химачал Прадеш
+        http://www(dot)geonames(dot)org/5985550: Џејмс
+        http://www(dot)geonames(dot)org/3042142: Џерси
+        http://www(dot)geonames(dot)org/1444365: Џарканд
+        http://www(dot)geonames(dot)org/232422: Кампала
+        http://www(dot)geonames(dot)org/1267701: Карнатака
+        http://www(dot)geonames(dot)org/1267254: Керала
+        http://www(dot)geonames(dot)org/742986: Кизил
+        http://www(dot)geonames(dot)org/545854: Коми
+        http://www(dot)geonames(dot)org/306569: Конија
+        http://www(dot)geonames(dot)org/285570: Кувајт
+        http://www(dot)geonames(dot)org/3052649: Нежидерско Езеро
+        http://www(dot)geonames(dot)org/148996: Викторија
+        http://www(dot)geonames(dot)org/3003796: Авр
+        http://www(dot)geonames(dot)org/1085597: Лимпопо
+        http://www(dot)geonames(dot)org/1704846: Лузон
+        http://www(dot)geonames(dot)org/1264542: Мадја Прадеш
+        http://www(dot)geonames(dot)org/1264418: Махараштра
+        http://www(dot)geonames(dot)org/6319328: Манаус
+        http://www(dot)geonames(dot)org/1311874: Мандалеј
+        http://www(dot)geonames(dot)org/1701668: Манила
+        http://www(dot)geonames(dot)org/1263706: Манипур
+        http://www(dot)geonames(dot)org/3395443: Марањао
+        http://www(dot)geonames(dot)org/3457419: Мато Грошо
+        http://www(dot)geonames(dot)org/3457415: Јужно Мато Грошо
+        http://www(dot)geonames(dot)org/5850862: Мауи
+        http://www(dot)geonames(dot)org/1024031: Мајот
+        http://www(dot)geonames(dot)org/1263207: Мегалаја
+        http://www(dot)geonames(dot)org/3996063: Мексико
+        http://www(dot)geonames(dot)org/3457153: Минаш Жераис
+        http://www(dot)geonames(dot)org/1262963: Мизорам
+        http://www(dot)geonames(dot)org/2993457: Монако
+        http://www(dot)geonames(dot)org/1085595: Мпумаланга
+        http://www(dot)geonames(dot)org/304183: Мугла
+        http://www(dot)geonames(dot)org/1262271: Нагаланд
+        http://www(dot)geonames(dot)org/1856210: Нагано
+        http://www(dot)geonames(dot)org/6091732: Нунавут
+        http://www(dot)geonames(dot)org/698740: Одеса
+        http://www(dot)geonames(dot)org/1854345: Окинава
+        http://www(dot)geonames(dot)org/3392268: Пернамбуко
+        http://www(dot)geonames(dot)org/3392213: Пјауи
+        http://www(dot)geonames(dot)org/1259424: Пондишери
+        http://www(dot)geonames(dot)org/289688: Катар
+        http://www(dot)geonames(dot)org/1258899: Раџастан
+        http://www(dot)geonames(dot)org/552548: Карелија
+        http://www(dot)geonames(dot)org/3576468: Света Луција
+        http://www(dot)geonames(dot)org/3578476: Свети Вартоломеј
+        http://www(dot)geonames(dot)org/2121530: Сахалин
+        http://www(dot)geonames(dot)org/3168068: Сан Марино
+        http://www(dot)geonames(dot)org/1733038: Саравак
+        http://www(dot)geonames(dot)org/1256312: Сиким
+        http://www(dot)geonames(dot)org/3577816: Свети Винцент
+        http://www(dot)geonames(dot)org/1255053: Тамил Наду

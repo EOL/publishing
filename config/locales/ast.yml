@@ -1,0 +1,324 @@
+# Messages for Asturian (asturianu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fitoschido
+# Author: Xuacu
+---
+ast:
+  language_name: Asturianu
+  about:
+    trait_bank:
+      title: TraitBank
+  account_already_linked: la to cuenta yá ta enllazada con EOL
+  account_not_linked: la to cuenta nun ta enllazada con EOL
+  advanced: avanzao
+  are_you_sure_delete_account: ¿Confirmes que quies desaniciar la to cuenta d'EOL?
+  article:
+    actions:
+      collect: recoyer
+    header:
+      blank: (Esti artículu nun tien cuerpu.)
+      body: Cuerpu
+      language: 'llingua: %{language}'
+      title: Títulu
+      untitled: Ensin títulu
+    name:
+      missing: Ensin títulu
+  article_from_partner: proporcionáu por %{partner}
+  article_duplicate: esti artículu tamién s'amuesa en «%{section}»
+  autocomplete:
+    see_all:
+      one: ver otru resultáu
+      other: ver los %{count} resultaos
+  breadcrumbs:
+    types:
+      scientific: científicu
+      vernacular: vernacular
+  button_create: crear
+  button_add: amestar
+  cancel: encaboxar
+  change_my_password: Camudar la mio contraseña
+  change_your_password: Camuda la contraseña
+  classifications:
+    children:
+      header_html:
+        one: '%{name} incluye <a href="%{names_path}">%{count} fíu</a>:'
+        other: '%{name} incluye <a href="%{names_path}">%{count} fios</a>:'
+      see_more: ver más
+    hierarchies:
+      this_page: (esta páxina)
+    richness:
+      header: Riqueza de la páxina
+      score: puntuación de riqueza
+      page_contents_count: conteníu asociáu
+      missing: Inda nun se calculó la riqueza pa esta páxina.
+      media_count: medios
+      articles_count: artículos
+      links_count: enllaces
+      maps_count: mapes
+      data_count: datos
+      nodes_count: nodios
+      vernaculars_count: vernaculares
+      scientific_names_count: nomes científicos
+      referents_count: referentes
+      species_count: especies
+      updated_at: caberu anovamientu
+  cms_page_date: 'Últimu cambéu:'
+  collect_already_in_collection: (yá s'atopa equí)
+  collect_already_in_collection_will_add_icon: (amestar multimedia a "%{page}")
+  collect_icon_title: Amestar «%{item}» dende la páxina «%{page}» a…
+  collect_new_collection: Nome de la coleición nueva
+  collect_new_collection_title: '...una coleición nueva'
+  collect_select_collection: '...una de les tos coleiciones'
+  collect_title: Añadir «%{item}» a…
+  collected_pages_title: Páxines
+  collected_pages:
+    delete_button: desaniciar
+    edit_button: editar
+    delete_confirm: ¿tas seguru?
+  collection:
+    actions:
+      delete: desaniciar
+      edit: editar
+    collection_type:
+      normal: normal
+      gallery: galería
+    pages_count:
+      one: una páxina
+      other: '%{count} páxines'
+    search:
+      submit: buscar
+    sort:
+      hierarchy: xerarquía
+      position: fecha d'adicción
+      sci_name: nome científicu, A-Z
+      sci_name_rev: nome científicu, Z-A
+      sort_field: anotación, A-Z
+      sort_field_rev: anotación, Z-A
+    updated: Actualizóse la coleición.
+  content_attributions_labels:
+    altitude: altitú
+    author: autor
+    bibliographic_citation: cita bibliográfica
+    compiler: compilador
+    creator: creador
+    editor: editor
+    latitude: llatitú
+    license: llicencia
+    location: allugamientu
+    location_verbatim: lliteralmente
+    longitude: llonxitú
+    original_media_file: ficheru multimedia orixinal
+    owner: derechos d'autor
+    photographer: fotógrafu
+    publisher: editorial
+    project: proyeutu
+    references_header:
+      one: Referencia
+      other: Referencies
+    resource_pk: '(id: %{key})'
+    rights_statement: declaración de derechos
+    source: fonte
+    spatial_location: espacial
+    view_source_label: orixinal
+    view_source_link: ver imaxe orixinal
+    view_source_page_link: visitar la fonte
+  content_not_in_any_collection_image: Esta imaxe nun figura en nenguna coleición.
+  content_not_in_any_collection_sound: Esti soníu nun figura en nenguna coleición.
+  content_not_in_any_collection_video: Esti videu nun figura en nenguna coleición.
+  data:
+    modifier:
+      sex_term: Sexu del organismu midíu
+  dear_username_with_comma: Envaloráu %{username},
+  delete_account_button: Desaniciar la to cuenta
+  filter_by_license: llicencia
+  filter_by_license_any_item: cualquier llicencia
+  filter_by_medium_subtype: tipu
+  filter_by_medium_any_item: cualquier tipu
+  footer:
+    eol_info:
+      citing_eol: Citar a EOL
+      contact_us: Comunica con nós
+      data_services: Servicios de datos
+      donate: Facer donación
+      education: Educación
+      glossary: Glosariu
+      help: Ayuda
+      terms_of_use: Condiciones d'usu
+      the_eol_forum: El Foru d'EOL
+      what_is_eol: ¿Qué ye EOL?
+      whats_new: Novedaes
+    discover:
+      amphibians: Anfibios
+      animals: Animales
+      bacteria: Bacteries
+      birds: Aves
+      crustaceans: Crustaceos
+      fishes: Pexes
+      flowering_plants: Plantes de flor
+      fungi: Fungos
+      insects: Inseutos
+      invertebrates: Invertebraos
+      mammals: Mamíferos
+      mollusks: Moluscos
+      plants: Plantes
+      protists: Protistes
+      reptiles: Reptiles
+      spiders: Arañes
+      trees: Árboles
+      viruses: Virus
+    eol_is_hosted_by: 'EOL ta agospiáu por:'
+  forgot_your_password: ¿Escaecisti la contraseña?
+  landing_page:
+    header: Accesu global a la conocencia sobro la vida na Tierra
+    stats_cleared: Recalculáronse les estadístiques.
+  language: Llingua
+  languages:
+    none: Ensin especificar
+    aa: Afar
+    ae: Avestanu
+    af: Afrikáans
+    ak: Akan
+    am: Amháricu
+    an: Aragonés
+    ar: Árabe
+    as: Asamés
+    ay: Aimara
+    az: Azerbaixanu
+    be: Bielorrusu
+    bg: Búlgaru
+    bo: Tibetanu
+    br: Bretón
+    bs: Bosniu
+    ca: Catalán; valencianu
+    ce: Chechenu
+    co: Corsu
+    cs: Checu
+    cy: Galés
+    da: Danés
+    de: Alemán
+    el: Griegu, modernu (1453-)
+    en: Inglés
+    eo: Esperantu
+    es: Español; castellanu
+    et: Estoniu
+    eu: Vascu
+    fa: Persa
+    fi: Finés
+    fj: Fixanu
+    fo: Feroés
+    fr: Francés
+    fy: Frisón occidental
+    ga: Irlandés
+    gl: Gallegu
+    gn: Guaraní
+    gv: Manés
+    he: Hebréu
+    hr: Croata
+    ht: Haitianu; criollu haitianu
+    hu: Húngaru
+    hy: Armeniu
+    ia: Interllingua (International Auxiliary Language Association)
+    id: Indonesiu
+    is: Islandés
+    it: Italianu
+    ja: Xaponés
+    jp: Xaponés
+    ka: Xeorxanu
+    kk: Kazaquistanín
+    ko: Coreanu
+    kw: Córnicu
+    ky: Kirguistanín
+    la: Llatín
+    lb: Luxemburgués
+    lo: Laosianu
+    lt: Lituanu
+    lv: Letón
+    mg: Malgaxe
+    mk: Macedoniu
+    mn: Mongol
+    ms: Malayu
+    mt: Maltés
+    my: Birmanu
+    ne: Nepalín
+    nl: Holandés; flamencu
+    "": Noruegu
+    oc: Occitanu (post 1500)
+    pl: Polacu
+    pt: Portugués
+    qu: Quechua
+    rm: Romanche
+    ru: Rusu
+    sa: Sánscritu
+    sc: Sardu
+    sk: Eslovacu
+    sl: Eslovenu
+    sm: Samoanu
+    so: Somalín
+    sq: Albanés
+    sr: Serbiu
+    sv: Suecu
+    ta: Tamil
+    te: Telugu
+    tg: Taxiquistanín
+    th: Tailandés
+    tl: Tagalu
+    tr: Turcu
+    ty: Tahitianu
+    uk: Ucraín
+    uz: Uzbequistanín
+    vi: Vietnamín
+    vo: Volapük
+    zh: Chinu
+    zu: Zulú
+  layout_sign_in: Entrar
+  layout_sign_up: Rexistrase
+  layout_sign_out: Zarrar sesión
+  literature_and_references_header: Bibliografía y referencies
+  maps:
+    empty: Nun hai nengún mapa disponible pa esta páxina.
+    other_maps_title: Mapes non interactivos
+  medium:
+    untitled:
+      image: Imaxe ensin títulu
+      image_of: Imaxe de %{page_name}
+      video: Videu ensin títulu
+      video_of: Videu de %{page_name}
+      sound: Soníu ensin títulu
+      sound_of: Soníu de %{page_name}
+      map: Mapa ensin títulu
+      map_of: Mapa de %{page_name}
+      js_map: Mapa interactivu ensin títulu
+      js_map_of: Mapa interactivu de %{page_name}
+    subclasses:
+      image: imaxe
+      video: videu
+      sound: soníu
+      map: mapa
+      js_map: mapa interactivu
+  medium_description_blank: Nun se dio nenguna descripción pa esti oxetu.
+  medium_header_title: 'Títulu:'
+  medium_header_description: 'Descripción:'
+  names:
+    hide_langs:
+      one: anubrir una llingua
+      other: anubrir %{count} llingües
+  nav:
+    about: Tocante a
+    discuss: Alderique
+    education: Educación
+    search:
+      placeholder: Buscar n'EOL…
+    trait_bank: TraitBank
+  name_preferred_label: preferíu
+  page_icon_created: Movióse la imaxe «%{name}» a la parte cimera.
+  page_title: Enciclopedia de la Vida
+  page_title_search: 'Busca: %{query}'
+  pages:
+    actions:
+      collect: recoyer
+      comment:
+        zero: Ensin comentarios
+        one: '%{count} comentariu'
+        other: '%{count} comentarios'
+...

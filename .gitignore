@@ -54,6 +54,7 @@ db/*_structure.sql
 db/structure.sql
 doc/app
 lang/tmp.yml
+public/assets
 public/data
 public/feeds
 public/*csv
@@ -90,3 +91,4 @@ tags
 public/files/solr_import_file.csv
 config/secrets.yml.enc
 config/secrets.yml.key
+config/locales/**/*.bak

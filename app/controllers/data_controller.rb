@@ -4,7 +4,7 @@ class DataController < ApplicationController
   protect_from_forgery
 
   def show
-    data = TraitBank.by_trait(params[:id])
+    data = TraitBank.by_trait_and_page(params[:id], params[:page_id])
     raise ActiveRecord::RecordNotFound if !data || data.empty?
     @data = data.first
     @page = Page.find(@data[:page_id])
