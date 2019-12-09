@@ -263,7 +263,7 @@ class PageDecorator
         traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
 
         if traits && traits.any?
-          parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
+          parts = traits.collect { |trait| trait_sentence_part("%s", trait).html_safe }
           @sentences << "Flowers are visited by #{parts.join(", ")}.".html_safe
         end
       end
@@ -611,7 +611,7 @@ class PageDecorator
                            else
                              view.link_to(target_page.name, target_page)
                            end
-        sprintf(format_str, target_page_part)
+        sprintf(format_str, target_page_part).html_safe
       end
 
       def trait_sentence(format_str, trait)
