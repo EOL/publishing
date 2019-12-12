@@ -155,6 +155,13 @@ da:
       show_all: vis alle
     page_data:
       show_all: vis alle
+    resource_names:
+      rank:
+        r_domain: Domæne
+        r_kingdom: Rige
+        r_order: Orden
+        r_family: Familie
+        r_species: Arter
     tabs:
       articles: artikler
       literature_and_references: Referencer

@@ -246,6 +246,7 @@ ko:
         r_superspecies: 상종
         r_subspecies: 아종
         r_infraspecies: 하종
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
     trophic_web:

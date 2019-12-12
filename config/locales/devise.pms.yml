@@ -66,4 +66,11 @@ pms:
       destroyed: A l'arvista! Sò cont a l'é stàit dëscancelà për da bin. I speroma
         d'arvëdd-lo prest.
       signed_up: Bin-ëvnù! A l'é anscrivusse për da bin.
+      signed_up_but_inactive: A l'é anscrivusse për da bin. Però i l'oma nen podù
+        felo rintré ant ël sistema përchè sò cont a l'é ancor nen ativà.
+      signed_up_but_locked: A l'é anscrivusse për da bin. Però i l'oma nen podù felo
+        rintré ant ël sistema përchè sò cont a l'é blocà.
+      signed_up_but_unconfirmed: Un mëssagi con na liura ëd confirmassion a l'é stàit
+        mandà a soa adrëssa eletrònica. Për piasì, ch'a-j vada dapress a la liura
+        për ativé sò cont.
 ...
