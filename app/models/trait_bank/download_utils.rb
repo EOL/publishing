@@ -8,9 +8,7 @@ module TraitBank::DownloadUtils
   end
 
   def self.ancestry(page)
-    return nil if page.nil?
-    return nil if page.native_node.nil?
-    page.native_node.ancestors.map { |n| n.canonical_form }.join(" | ")
+    page&.native_node&.node_ancestors.map { |n| n.ancestor&.canonical_form }.join(" | ")
   end
 
   def self.resource_path(model_name, id)

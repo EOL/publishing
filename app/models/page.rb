@@ -61,6 +61,10 @@ class Page < ActiveRecord::Base
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
+  scope :with_scientific_name, -> { includes(native_node: [:scientific_names]) }
+  # superset of with_scientific_name
+  scope :with_name, -> { with_scientific_name.includes(:preferred_vernaculars) }
+
   KEY_DATA_LIMIT = 12
 
   class << self

@@ -2,16 +2,14 @@ module TraitBank::PageDownloadWriter
   def self.to_arrays(hashes, url)
     data = []
     TraitBank::DownloadUtils.page_ids(hashes).in_groups_of(10_000) do |page_ids|
-      pages = Page.where(:id => page_ids).includes(:preferred_scientific_names, :preferred_vernaculars)
+      pages = Page.with_name.where(:id => page_ids).collect { |p| [p.id, p] }.to_h
       data << (cols.keys << url)
       hashes.each do |result|
         page_id = TraitBank::DownloadUtils.page_id(result)
-        page = pages.find { |p| p.id == page_id }
+        page = pages[page_id]
         next if !page
-        sci_name = page.preferred_scientific_names.first
-        row = []
         self.cols.each do |_, lamb|
-          row << lamb[page, sci_name]
+          row << lamb[page]
         end
         data << row
       end
@@ -21,11 +19,11 @@ module TraitBank::PageDownloadWriter
 
   def self.cols
     {
-      "Taxon URL" => -> (page, sci_name) { TraitBank::DownloadUtils.resource_path(:page, page.id) },
-      "Ancestry" => -> (page, sci_name) { TraitBank::DownloadUtils.ancestry(page) },
-      "Scientific Name" => -> (page, sci_name) { sci_name&.canonical_form },
-      "Common Name" => -> (page, sci_name) { page.name === page.scientific_name ? nil : page.name },
-      "Author Name" => -> (page, sci_name) { sci_name&.authorship }
+      "Taxon URL" => -> (page) { TraitBank::DownloadUtils.resource_path(:page, page.id) },
+      "Ancestry" => -> (page) { TraitBank::DownloadUtils.ancestry(page) },
+      "Scientific Name" => -> (page) { page.scientific_name },
+      "Common Name" => -> (page) { page.name === page.scientific_name ? nil : page.name },
+      "Author Name" => -> (page) { sci_name&.authorship }
     }
   end
 
