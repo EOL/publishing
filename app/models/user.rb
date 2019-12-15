@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, length: { minimum: 4, maximum: 32 }
   validates :breadcrumb_type, inclusion: { in: BreadcrumbType.values }, allow_nil: true
+  validate :required_confirmations
 
   before_destroy :clean_up_collections
 
@@ -98,6 +99,22 @@ class User < ActiveRecord::Base
     self.find_by_email(AdminEmail)
   end
 
+  def age_confirm
+    @age_confirm || false
+  end
+
+  def age_confirm=(val)
+    @age_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+  end
+
+  def tou_confirm
+    @tou_confirm || false
+  end
+
+  def tou_confirm=(val)
+    @tou_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+  end
+
   private
     def dummy_email_for_delete
       "dummy_#{self.id}@eol.org"
@@ -110,6 +127,18 @@ class User < ActiveRecord::Base
         elsif collection.users.length == 1
           collection.users = [User.admin_user]
           collection.save
+        end
+      end
+    end
+
+    def required_confirmations
+      if new_record?
+        if !age_confirm
+          errors.add(:age_confirm, I18n.t("user.validations.age_confirm"))
+        end
+
+        if !tou_confirm
+          errors.add(:tou_confirm, I18n.t("user.validations.tou_confirm"))
         end
       end
     end

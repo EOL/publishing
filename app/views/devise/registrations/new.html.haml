@@ -5,6 +5,8 @@
     = f.input :email, required: true, validate: { presence: true }
     = f.input :password, required: true, validate: { presence: true }
     = f.input :password_confirmation, required: true, validate: { presence: true }
+    = f.input :age_confirm, label: t("user.form_labels.age_confirm"), required: true, validate: { presence: true }, as: :boolean, input_html: { class: "uk-checkbox" }
+    = f.input :tou_confirm, label: t("user.form_labels.tou_confirm_html", tou_path: "/docs/what-is-eol/terms-of-use", privacy_path: "/docs/what-is-eol/terms-of-use/privacy-policy"), required: true, validate: { presence: true }, as: :boolean, input_html: { class: "uk-checkbox" }
 
     .field
       = f.label I18n.t(:recaptcha)
