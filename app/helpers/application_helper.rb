@@ -1,4 +1,6 @@
 module ApplicationHelper
+  SelectLocale = Struct.new(:label, :code)
+
   def first_cap(string)
     string.slice(0,1).capitalize + string.slice(1..-1)
   end
@@ -217,5 +219,11 @@ module ApplicationHelper
 
   def sanitize_allow_links(text) 
     sanitize(text, tags: %w( a ), attributes: %w( href ))
+  end
+
+  def locales_for_select
+    I18n.available_locales.collect do |locale|
+      SelectLocale.new(I18n.t("language_name", locale: locale), locale)
+    end.sort_by(&:label)
   end
 end
