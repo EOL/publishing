@@ -75,10 +75,8 @@ class MediaContentCreator
     @content_count_by_page[page_id] ||= -1
     @content_count_by_page[page_id] += 1
     source = options[:source] || page_id
-    object = { page_id: page_id, source_page_id: source, position: @content_count_by_page[page_id],
-               content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
-    object.content_subclass = content.sublcass if content.respond_to?(:subclass)
-    @contents << object
+    @contents << { page_id: page_id, source_page_id: source, position: @content_count_by_page[page_id],
+                   content_type: @klass.name, content_id: content.id, resource_id: @resource.id }
     if @naked_pages.key?(page_id)
       @naked_pages[page_id].assign_attributes(@field => content.id) if content.image?
     end

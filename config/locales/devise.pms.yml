@@ -1,0 +1,76 @@
+# Messages for Piedmontese (Piemontèis)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Borichèt
+---
+pms:
+  devise:
+    confirmations:
+      confirmed: Soa adrëssa eletrònica a l'é stàita confirmà për da bin.
+      send_instructions: A arseivrà un mëssagi da-sì chèiche minute con j'anstrussion
+        për confirmé soa adrëssa ëd pòsta eletrònica.
+      send_paranoid_instructions: Si soa adrëssa ëd pòsta eletrònica e esist an nòstra
+        base ëd dàit, a arseivrà da-sì chèiche minute un mëssagi con j'anstrussion
+        për confirmé soa adrëssa.
+    failure:
+      already_authenticated: A l'é già intrà ant ël sistema.
+      inactive: Sò cont a l'é pa ancor ativà.
+      invalid: '%{authentication_keys} o ciav nen bon.'
+      locked: Sò cont a l'é blocà, për piasì ch'a preuva torna da-sì n'ora.
+      last_attempt: A peul fé ancor un tentativ prima che sò cont a sia blocà.
+      not_found_in_database: '%{authentication_keys} o ciav nen bon.'
+      recaptcha_error: A-i é staje n'eror con ël còdes gifrà sì-sota. Për piasì, ch'a
+        scriva torna ël còdes e ch'a sgnaca su mandé.
+      timeout: Soa session a l'é terminà. Ch'a rintra torna ant ël sistema për andé
+        anans.
+      unauthenticated: A dev rintré ant ël sistema o anscriv-se prima d'andé anans.
+      unconfirmed: A dev confirmé soa adrëssa ëd pòsta eletrònica prima d'andé anans.
+    mailer:
+      confirmation_instructions:
+        action: Confirmé mè cont.
+        greeting: Bin-ëvnù %{recipient}!
+        instruction: 'A peul confirmé so cont ëd pòsta eletrònica a travers la liura
+          sì-sota:'
+        subject: Anstrussion ëd confirmassion
+      reset_password_instructions:
+        action: Cangé mia ciav
+        greeting: 'Cerea #{recipient}!'
+        instruction: Cheidun a l'ha ciamà na liura për cangé soa ciav; a peul felo
+          a travers la liura sì-sota.
+        instruction_2: S'a l'ha nen fàit s'arcesta, për piasì ch'a ignòra 's mëssagi.
+        instruction_3: Soa ciav a cangërà pa, tant che chiel a aced nen a la liura
+          sì-dzora e a na crea un-a neuva.
+        subject: Anstrussion për ri-inissialisé la ciav
+      unlock_instructions:
+        subject: Anstrussion ëd dësblocagi
+      password_change:
+        greeting: 'Cerea #{recipient}!'
+        message: I lo contatoma për signaleje che soa ciav a l'é stàita cangià.
+        subject: Ciav cangià
+    omniauth_callbacks:
+      failure: Impossìbil autentifichelo da %{kind} përchè %{reason}.
+      success: Autenticà për da bin dal cont %{kind}.
+    passwords:
+      no_token: A peul nen acede a costa pàgina s'a riva nen da 'n mëssagi eletrònich
+        ëd ri-inissialisassion ëd ciav. S'a riva bin da 'n mëssagi eletrònich ëd ri-inissialisassion
+        ëd ciav, për piasì ch'a contròla d'avèj dovrà l'adrëssa dl'aragnà fornìa completa.
+      send_instructions: A arseivrà da-sì chèiche minute un mëssagi eletrònich con
+        j'anstrussion su coma ri-inissialisé soa ciav.
+      send_paranoid_instructions: Si soa adrëssa eletrònica a esist an nòstra base
+        ëd dàit, a arseivrà da-sì chèiche minute a soa adrëssa eletrònica na liura
+        d'arcuperassion ëd ciav.
+      updated: Soa ciav a l'é stàita modificà për da bin. Adess a l'é rintrà ant ël
+        sistema.
+      updated_not_active: Soa ciav a l'é stàita modificà për da bin.
+    registrations:
+      destroyed: A l'arvista! Sò cont a l'é stàit dëscancelà për da bin. I speroma
+        d'arvëdd-lo prest.
+      signed_up: Bin-ëvnù! A l'é anscrivusse për da bin.
+      signed_up_but_inactive: A l'é anscrivusse për da bin. Però i l'oma nen podù
+        felo rintré ant ël sistema përchè sò cont a l'é ancor nen ativà.
+      signed_up_but_locked: A l'é anscrivusse për da bin. Però i l'oma nen podù felo
+        rintré ant ël sistema përchè sò cont a l'é blocà.
+      signed_up_but_unconfirmed: Un mëssagi con na liura ëd confirmassion a l'é stàit
+        mandà a soa adrëssa eletrònica. Për piasì, ch'a-j vada dapress a la liura
+        për ativé sò cont.
+...

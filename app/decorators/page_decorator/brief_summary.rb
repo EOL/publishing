@@ -399,7 +399,7 @@ class PageDecorator
 
       def first_trait_for_pred_uri_w_obj(pred_uri)
         traits = traits_for_pred_uri(pred_uri)
-        traits.find { |t| t[:object_term].present? } 
+        traits.find { |t| t[:object_term].present? }
       end
 
       def traits_for_pred_uri(pred_uri)
@@ -607,9 +607,9 @@ class PageDecorator
         target_page_part = if target_page.nil?
                              Rails.logger.warn("Missing associated page for auto-generated text: #{object_page_id}!")
                              "(page not found)"
-                             
+
                            else
-                             view.link_to(target_page.name, target_page)
+                             view.link_to(target_page.name.html_safe, target_page)
                            end
         sprintf(format_str, target_page_part)
       end
