@@ -508,6 +508,7 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.boolean  "is_low_quality",                           default: false, null: false
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
+    t.integer  "content_subclass",             limit: 4,   default: 0
   end
 
   add_index "page_contents", ["content_id"], name: "index_page_contents_on_content_id", using: :btree
