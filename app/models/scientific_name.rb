@@ -10,8 +10,6 @@ class ScientificName < ActiveRecord::Base
 
   counter_culture :page
 
-  DISPLAY_STATUS_PREFERRED_VALUES = Set.new(["accepted", "preferred", "valid"])
-
   # We discovered that about 40 resources were affected by a bug where the #scientific_name attribute of a Node could be
   # assigned to a non-preferred ScientificName. This code detects those problems and heals them.
   def self.fix_bad_node_names
@@ -76,7 +74,7 @@ class ScientificName < ActiveRecord::Base
   def display_status
     if taxonomic_status == TaxonomicStatus.unusable
       :unusable
-    elsif DISPLAY_STATUS_PREFERRED_VALUES.include?(taxonomic_status.name)
+    elsif taxonomic_status&.is_preferred?
       :preferred
     else
       :alternative
