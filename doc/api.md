@@ -70,7 +70,7 @@ Two output formats are available:
 A number of examples of queries against the traits database are
 [provided](query-examples.md).
 These example queries illustrate both the use of Cypher (the query
-language) and the use of the traits database schema.
+language) and the use of the traits database [schema](trait-schema.md).
 
 
 ## Restrictions
