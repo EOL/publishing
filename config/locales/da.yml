@@ -159,8 +159,13 @@ da:
       rank:
         r_domain: Domæne
         r_kingdom: Rige
+        r_subkingdom: Underrige
+        r_class: Klasse
+        r_subclass: Underklasse
         r_order: Orden
+        r_suborder: Underorden
         r_family: Familie
+        r_subfamily: Underfamilie
         r_species: Arter
     tabs:
       articles: artikler
@@ -242,6 +247,7 @@ da:
     references: referencer
   support:
     array:
+      words_connector: ','
       two_words_connector: og
   term:
     actions:
@@ -257,8 +263,12 @@ da:
     scientific_name: videnskabeligt navn
     source: kilde
   user:
+    form_labels:
+      age_confirm: Jeg er mindst 13 år gammel
     headers:
       collections: Samlinger
+    validations:
+      age_confirm: du er nødt til at bekræfte, at du er mindst 13 år gammel
     username: brugernavn
     update: Opdater
   vernacular_names_header: Almindelige navne

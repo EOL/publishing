@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 아라
 ---
@@ -392,6 +393,8 @@ ko:
   support:
     array:
       words_connector: ','
+      two_words_connector: 그리고
+      last_word_connector: ', 그리고'
   term:
     actions:
       sort: 정렬 기준

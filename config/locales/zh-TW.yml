@@ -919,11 +919,17 @@ zh-TW:
     edit_account_details: 編輯帳號詳細內容
     email: 電子郵件
     to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼
+    form_labels:
+      age_confirm: 我的年齡至少有 13 歲
+      tou_confirm_html: 我已讀過<a href='%{tou_path}'>使用條款</a>與<a href='%{privacy_path}'>隱私權方針</a>
     headers:
       bio: 簡介
       collections: 收藏
       downloads: 下載
       links: 連結
+    validations:
+      age_confirm: 您必須確認您至少有 13 歲大
+      tou_confirm: 您必須確認您已讀過使用條款與隱私權方針
     list_of_power_users: 高級使用者清單
     new_password: 新密碼
     confirm_new_password: 確認新密碼
