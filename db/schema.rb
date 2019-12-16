@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191216184644) do
+ActiveRecord::Schema.define(version: 20191216203244) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value",      limit: 255
@@ -485,6 +485,8 @@ ActiveRecord::Schema.define(version: 20191216184644) do
     t.integer "page_id",     limit: 4
     t.string  "url",         limit: 256
   end
+
+  add_index "occurrence_maps", ["page_id"], name: "index_occurrence_maps_on_page_id", using: :btree
 
   create_table "open_authentications", force: :cascade do |t|
     t.string   "provider",   limit: 255, null: false
