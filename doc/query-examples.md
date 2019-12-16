@@ -147,7 +147,7 @@ LIMIT 1
 This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has categorical values known to EOL by structured terms with URIs. Here is the construction using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)
 
 ```
-MATCH (t:Trait)<-[:trait]-(p:Page),
+MATCH (t:Trait)<-[:trait|:inferred_trait]-(p:Page),
 (t)-[:supplier]->(r:Resource),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Odocoileus hemionus" AND pred.name = "ecomorphological guild"
@@ -160,7 +160,7 @@ LIMIT 1
 This query shows the EOL taxa for five ecological partners associated by a specific predicate to a taxon, with limited metadata. This construction presumes you know that this predicate is for ecological interactions with other taxa. Here is the construction using strings for the taxon name and predicate name, and returning strings for the ecological partner taxon name (with attendant risk of homonym confusion)
 
 ```
-MATCH (p:Page)-[:trait]->(t:Trait),
+MATCH (p:Page)-[:trait|:inferred_trait]->(t:Trait),
 (t)-[:supplier]->(r:Resource),
 (t)-[:predicate]->(pred:Term)
 WHERE p.canonical = "Enhydra lutris" AND pred.name = "eats"
@@ -174,15 +174,15 @@ LIMIT 5
 This query shows a value for each of three record types, for any taxon that has all three. Two record types are for the same predicate (body mass) at different lifestages (newborn and adult). The third is for a different predicate (litter size). This construction presumes that body mass records must have units. You could include additional metadata, either as constraints on the match, or as values to return.
 
 ```
-MATCH (t:Trait)<-[:trait]-(p:Page),
+MATCH (t:Trait)<-[:trait|:inferred_trait]-(p:Page),
 (t)-[:predicate]->(pred:Term {uri: "http://purl.obolibrary.org/obo/VT_0001259"}),
 (t)-[:units_term]->(units1:Term),
 (t)-[:lifestage_term]->(stage1:Term {uri:"http://purl.bioontology.org/ontology/CSP/0070-1441"}),
-(t1:Trait)<-[:trait]-(p:Page),
+(t1:Trait)<-[:trait|:inferred_trait]-(p:Page),
 (t1)-[:predicate]->(pred:Term {uri: "http://purl.obolibrary.org/obo/VT_0001259"}),
 (t1)-[:units_term]->(units2:Term),
 (t1)-[:lifestage_term]->(stage2:Term {uri:"http://www.ebi.ac.uk/efo/EFO_0001272"}),
-(t2:Trait)<-[:trait]-(p:Page),
+(t2:Trait)<-[:trait|:inferred_trait]-(p:Page),
 (t2)-[:predicate]->(pred2:Term {uri: "http://purl.obolibrary.org/obo/VT_0001933"})
 RETURN p.canonical, t.measurement, units1.name, stage1.name, t1.measurement, units2.name, stage2.name, pred2.name, t2.measurement
 LIMIT 40
@@ -201,7 +201,7 @@ OPTIONAL MATCH (t)-[:metadata]->(cite:MetaData)-[:predicate]->(:Term {name:"cita
 OPTIONAL MATCH (t)-[:metadata]->(ref:MetaData)-[:predicate]->(:Term {name:"Reference"})
 RETURN contr.literal, cite.literal, ref.literal
 ```
-Where references are present, there may be more than one; to ensure you have them all would require an additional query. Multiple contributors are also possible, but rare.
+Where references are present, there may be more than one; to ensure you have them all, you can run an additional query. Multiple contributors are also possible, but rare.
 
 to fetch multiple references for a given trait record:
 
@@ -258,7 +258,7 @@ LIMIT 100;
 This query shows the number of taxa in EOL that have trait records with a predicate that is size (http://purl.obolibrary.org/obo/PATO_0000117) or a subclass of size like wingspan, body mass, etc.
 
 ```
-MATCH (taxa:Page)-[:trait]->(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
+MATCH (taxa:Page)-[:trait|:inferred_trait]->(t:Trait)-[:predicate]->(p:Term)-[:parent_term|:synonym_of*0..]->(pred:Term)
 WHERE pred.uri="http://purl.obolibrary.org/obo/PATO_0000117"
 RETURN COUNT(DISTINCT taxa)
 LIMIT 1;
@@ -280,7 +280,7 @@ LIMIT 1;
 
 ```
 WITH 'http://eol.org/schema/terms/ExtinctionStatus' AS uri
-MATCH (p:Page)-[:trait]->(t:Trait)-[:predicate]->
+MATCH (p:Page)-[:trait|:inferred_trait]->(t:Trait)-[:predicate]->
       (:Term {uri: uri}),
       (t)-[:object_term]->(o:Term)
 WITH p, COLLECT(DISTINCT o.uri) AS values
@@ -294,9 +294,9 @@ LIMIT 100
 ```
 WITH 'http://eol.org/schema/terms/ExtinctionStatus' AS status
 MATCH (d:Page)-[:parent*0..]->(a:Page),
-      (a)-[:trait]->(at:Trait)-[:predicate]->(:Term {uri: status}),
+      (a)-[:trait|:inferred_trait]->(at:Trait)-[:predicate]->(:Term {uri: status}),
       (at)-[:object_term]->(:Term {uri: 'http://eol.org/schema/terms/extinct'}),
-      (d)-[:trait]->(dt:Trait)-[:predicate]->(:Term {uri: status}),
+      (d)-[:trait|:inferred_trait]->(dt:Trait)-[:predicate]->(:Term {uri: status}),
       (dt)-[:object_term]->(:Term {uri: 'http://eol.org/schema/terms/extant'})
 RETURN a.page_id, a.canonical, d.page_id, d.canonical
 LIMIT 100
