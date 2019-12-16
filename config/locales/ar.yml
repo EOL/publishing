@@ -949,11 +949,18 @@ ar:
     edit_account_details: تعديل تفاصيل الحساب
     email: البريد الإلكتروني
     to_commit_enter_current: لتنفيذ التغييرات؛ يُرجَى إدخال كلمة المرور الحالية
+    form_labels:
+      age_confirm: أنا ابلغ 13 عاما على الأقل
+      tou_confirm_html: لقد قرأت <a href='%{tou_path}'>شروط الاستخدام</a> و<a href='%{privacy_path}'>سياسة
+        الخصوصية</a>
     headers:
       bio: سيرة ذاتية مختصرة
       collections: المجموعات
       downloads: التنزيلات
       links: وصلات
+    validations:
+      age_confirm: يجب أن تؤكد أنك تبلغ من العمر 13 عاما على الأقل
+      tou_confirm: يجب عليك تأكيد أنك قد قرأت شروط الاستخدام وسياسة الخصوصية
     list_of_power_users: قائمة مستخدمي السلطة
     new_password: كلمة السر الجديدة
     confirm_new_password: تأكيد كلمة السر الجديدة

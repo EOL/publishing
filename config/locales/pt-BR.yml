@@ -692,11 +692,18 @@ pt-BR:
     edit_account_details: Editar detalhes da conta
     email: E-mail
     to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual
+    form_labels:
+      age_confirm: Tenho pelo menos 13 anos
+      tou_confirm_html: Eu li o <a href='%{tou_path}'>Termos de uso</a> e a <a href='%{privacy_path}'>Política
+        de Privacidade</a>
     headers:
       bio: Breve biografia
       collections: Coleções
       downloads: Downloads
       links: Links
+    validations:
+      age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
+      tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade
     new_password: Nova senha
     confirm_new_password: Confirmar nova senha
     trait_bank_cypher_form: Forma de cifra do banco de características

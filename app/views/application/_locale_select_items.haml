@@ -1,2 +1,2 @@
-- I18n.available_locales.each do |locale|
-  %li= link_to(t("language_name", locale: locale), main_app.set_locale_path(set_locale: locale))
+- locales_for_select.each do |locale|
+  %li= link_to(locale.label, main_app.set_locale_path(set_locale: locale.code))

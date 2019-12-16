@@ -78,6 +78,10 @@ interface, where each taxon known to EOL has its own web page.
   *Should* always be present, but this value is *denormalized* and may therefore
   be "stale" or missing in rare cases. For the most trustworthy value, it is
   advised to check the EOL page (https://eol.org/pages/PAGE_ID/names).
+* `rank` property, a string (e.g. `"family"`).
+  This gives the corresponding taxon's designated rank, if any.  The rank
+  comes from the dynamic hierarchy (see denormalization remark above), which 
+  in turn gets it from various taxonomic sources.
 
 Relationships:
 

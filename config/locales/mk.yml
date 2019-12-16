@@ -953,11 +953,19 @@ mk:
     email: Е-пошта
     to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
       лозинка
+    form_labels:
+      age_confirm: Имам барем 13 години
+      tou_confirm_html: Ги прочитав <a href='%{tou_path}'>Условите на употреба</a>
+        и <a href='%{privacy_path}'>Правилата за лични податоци</a>
     headers:
       bio: Кратка биографија
       collections: Збирки
       downloads: Преземања
       links: Врски
+    validations:
+      age_confirm: мора да потврдите дека имате барем 13 години
+      tou_confirm: мора да потврдите дека сте ги прочитале Условите на употреба и
+        Правилата за лични податоци
     list_of_power_users: Список на напредни корисници
     new_password: Нова лозинка
     confirm_new_password: Потврдете ја новата лозинка
