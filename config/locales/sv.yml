@@ -546,6 +546,8 @@ sv:
     created_at: skapades
     edit_account_details: Redigera kontodetaljer
     email: E-post
+    form_labels:
+      age_confirm: Jag är minst 13 år gammal
     headers:
       bio: Kort biografi
       collections: Samlingar
