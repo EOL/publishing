@@ -548,11 +548,16 @@ sv:
     email: E-post
     form_labels:
       age_confirm: Jag är minst 13 år gammal
+      tou_confirm_html: Jag har läst <a href='%{tou_path}'>användarvillkor</a> och
+        <a href='%{privacy_path}'>integritetspolicy</a>
     headers:
       bio: Kort biografi
       collections: Samlingar
       downloads: Nedladdningar
       links: Länkar
+    validations:
+      age_confirm: du måste bekräfta att du är minst 13 år gammal
+      tou_confirm: du måste bekräfta att du har läst användarvillkoren och integritetspolicyn
     new_password: Nytt lösenord
     confirm_new_password: Bekräfta nytt lösenord
     username: användarnamn

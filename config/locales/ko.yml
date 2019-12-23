@@ -424,10 +424,14 @@ ko:
   user:
     email: 이메일
     to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
+    form_labels:
+      age_confirm: 저는 최소 13세입니다
     headers:
       collections: 모음집
       downloads: 다운로드
       links: 링크
+    validations:
+      age_confirm: 당신이 최소 13세임을 확인하여야 합니다
     new_password: 새 비밀번호
     confirm_new_password: 새 비밀번호 확인
     username: 사용자 이름
