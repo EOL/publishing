@@ -235,7 +235,7 @@ module PagesHelper
       rank_part = include_rank && first.node&.rank ? I18n.t("pages.resource_names.rank.#{first.node&.rank.treat_as}") : "zzz"
       # TODO: Update once taxonomic statuses are i18n-able
       status_part = include_status && first.taxonomic_status&.name ? first.taxonomic_status&.name : "zzz"
-      [dwh_part, first.italicized, rank_part, status_part]
+      [dwh_part, (first.italicized || "(missing italicized form)"), rank_part, status_part]
     end
   end
 
