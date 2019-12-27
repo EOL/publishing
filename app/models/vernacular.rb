@@ -75,6 +75,7 @@ class Vernacular < ActiveRecord::Base
           next if page.nil?
           node = page.native_node || page.nodes.first # Rarely happens, but... occassionaly, at least on beta.
           user_id = pick_user(row[:user_eol_id], row[:user_name])
+          user_id = 1 if user_id.zero? # This is duplicated, but I want to be safe.
           unless exists?(string: row[:namestring], language_id: language.id, node_id: node.id, page_id: page.id,
                          trust: 1, source: "https://eol.org/users/#{user_id}", resource_id: Resource.native.id,
                          user_id: user_id)
@@ -103,6 +104,7 @@ class Vernacular < ActiveRecord::Base
           page = pick_page(row)
           next if page.nil?
           user_id = pick_user(row[:user_eol_id], row[:user_name])
+          user_id = 1 if user_id.zero? # Duplicate; playing it safe.
           unless @names.key?(row[:namestring])
             @file.dbg("SKIPPING `#{row[:namestring]}` (line #{row_num+2}) because I can't find that name in the DB.")
             next
@@ -200,6 +202,14 @@ class Vernacular < ActiveRecord::Base
 
   def <=>(other)
     string <=> other.string
+  end
+
+  def should_attribute_resource?
+    node && !should_attribute_user?
+  end
+
+  def should_attribute_user?
+    user_id && user_id.positive? && user
   end
 
   # DON'T USE THIS METHOD (unless you know you MUST). Use VernacularPreference.user_preferred when possible.
