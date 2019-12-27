@@ -64,7 +64,8 @@
                           - str = t(:vernacular_preferred_by_resource, resource: str)
                         - formatted_names << link_to(str, resource)
                       - names_by_string.select { |n| n.user }.group_by { |n| n.user }.each do |user, names_from_user|
-                        - formatted_names << link_to(user.username, user)
+                        - username = user.username.blank? ? t("pages.resource_names.username_missing", user_id: user.id) : user.username
+                        - formatted_names << link_to(username, user)
                       = t("pages.resource_names.name_recognized_by", by: formatted_names.to_sentence).html_safe
               - if lang_names.length > card_expand_limit
                 .uk-text-center.uk-margin-top.name-card-arrows
