@@ -129,4 +129,12 @@ class Node < ActiveRecord::Base
   def siblings
     parent&.children&.reject { |n| n == self } || []
   end
+
+  def rank_treat_as
+    rank&.treat_as
+  end
+
+  def has_rank_treat_as?
+    rank&.treat_as.present?
+  end
 end

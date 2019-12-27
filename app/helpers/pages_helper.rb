@@ -232,7 +232,7 @@ module PagesHelper
     end.values.sort_by do |v|
       first = v.first
       dwh_part = first.resource&.dwh? ? "a" : "b"
-      rank_part = include_rank && first.node&.rank&.treat_as ? I18n.t("pages.resource_names.rank.#{first.node.rank.treat_as}") : "zzz"
+      rank_part = include_rank && first.node&.has_rank_treat_as? ? I18n.t("pages.resource_names.rank.#{first.node.rank_treat_as}") : "zzz"
       # TODO: Update once taxonomic statuses are i18n-able
       status_part = include_status && first.taxonomic_status&.name ? first.taxonomic_status&.name : "zzz"
       [dwh_part, (first.italicized || "(missing italicized form)"), rank_part, status_part]
