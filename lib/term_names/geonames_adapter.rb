@@ -12,8 +12,8 @@ class TermNames::GeonamesAdapter
     @by_locale = {}
   end
 
-  def name
-    "Geonames"
+  def self.name
+    "geonames"
   end
 
   def uri_regexp
