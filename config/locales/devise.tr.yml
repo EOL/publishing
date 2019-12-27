@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BaRaN6161 TURK
 # Author: Grkn gll
 ---
 tr:
@@ -39,11 +40,19 @@ tr:
         instruction_3: Parolanız yukarıdaki bağlantıya erişene ve yeni bir tane oluşturuncaya
           kadar değişmez.
         subject: Parola sıfırlama talimatları
+      unlock_instructions:
+        subject: Talimatların kilidini aç
       password_change:
         greeting: 'Merhaba #{recipient}!'
         message: Şifrenizin değiştirildiğini bildirmek için sizinle iletişime geçiyoruz.
         subject: Şifre Değişti
+    omniauth_callbacks:
+      failure: '%{reason} olduğundan kimlik doğrulamanız %{kind} alınamadı.'
+      success: '%{kind} hesabından kimlik doğrulaması başarıyla yapıldı.'
     passwords:
+      no_token: Şifre sıfırlama e-postasından gelmeden bu sayfaya erişemezsiniz. Bir
+        şifre sıfırlama e-postasından geldiyseniz, lütfen sağlanan URL'nin tamamını
+        kullandığınızdan emin olun.
       send_instructions: Birkaç dakika içinde şifrenizi nasıl sıfırlayacağınıza dair
         talimatları içeren bir e-posta alacaksınız.
       send_paranoid_instructions: Eğer e-posta adresiniz veritabanımızda varsa, birkaç
@@ -58,13 +67,34 @@ tr:
         olmadığı için oturumunuzu açamıyoruz.
       signed_up_but_locked: Başarıyla kaydoldunuz. Ancak, hesabınız kilitlendiği için
         oturumunuzu açamıyoruz.
+      signed_up_but_unconfirmed: E-posta adresinize onay bağlantısı içeren bir mesaj
+        gönderildi. Hesabınızı etkinleştirmek için lütfen bağlantıyı takip edin.
+      update_needs_confirmation: Hesabınızı başarıyla güncellediniz, ancak yeni e-posta
+        adresinizi doğrulamamız gerekiyor. Lütfen e-postanızı kontrol edin ve yeni
+        e-posta adresinizi onaylamak için onayla bağlantısını izleyin.
+      updated: Hesabınız başarıyla güncellendi.
     sessions:
       signed_in: Başarıyla giriş yaptınız.
       signed_out: Başarıyla çıkış yaptınız.
       already_signed_out: Başarıyla çıkış yaptınız.
       recaptcha: Recaptcha doğrulama hataları
+      sign_in_remember_me_disabled_for_admins: Güvenlik nedeniyle, yöneticiler beni
+        hatırla özelliğini kullanamazlar.
+    unlocks:
+      send_instructions: Birkaç dakika içinde hesabınızın kilidini nasıl açacağınıza
+        ilişkin talimatları içeren bir e-posta alacaksınız.
+      send_paranoid_instructions: Hesabınız varsa, birkaç dakika içinde kilidini nasıl
+        açacağınıza ilişkin talimatları içeren bir e-posta alırsınız.
+      unlocked: Hesabınızın kilidi başarıyla açıldı. Devam etmek için giriş yapın.
   errors:
     messages:
+      already_confirmed: zaten onaylandı, lütfen oturum açmayı deneyin
+      confirmation_period_expired: '%{period} içinde onaylanması gerekiyor, lütfen
+        yeni bir tane isteyin'
+      expired: süresi doldu, lütfen yeni bir tane isteyin
       not_found: bulunamadı
       not_locked: kilitli değildi
+      not_saved:
+        one: '1 hata %{resource} kaynağının kaydedilmesini engelledi:'
+        other: '%{count} hata %{resource} kaynağının kaydedilmesini engelledi:'
 ...

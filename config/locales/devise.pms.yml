@@ -73,4 +73,19 @@ pms:
       signed_up_but_unconfirmed: Un mëssagi con na liura ëd confirmassion a l'é stàit
         mandà a soa adrëssa eletrònica. Për piasì, ch'a-j vada dapress a la liura
         për ativé sò cont.
+      update_needs_confirmation: A l'ha giornà sò cont për da bin, ma i l'oma damanca
+        ëd verifiché soa neuva adrëssa ëd pòsta eletrònica. Për piasì, ch'a contròla
+        ij sò mëssagi e ch'a-j vada dapress a la liura ëd confirmassion për confirmé
+        soa neuva adrëssa eletrònica.
+      updated: Sò cont a l'é stàit agiornà për da bin.
+    sessions:
+      signed_in: Conession riussìa.
+      signed_out: Dësconession riussìa.
+      already_signed_out: Dësconession riussìa.
+      recaptcha: Eror ëd validassion dël còdes
+      sign_in_remember_me_disabled_for_admins: Për dle rason ëd sigurëssa, j'aministrator
+        a peulo nen dovré la fonsionalità «Visesse ëd mi».
+    unlocks:
+      send_instructions: A arseivrà da-sì chèicje minute un mëssagi con j'anstrussion
+        për dësbloché sò cont.
 ...
