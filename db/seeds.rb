@@ -34,6 +34,7 @@ Resource.create(name: "EOL Dynamic Hierarchy", abbr: "DWH", description: "The 'c
   end
 end
 
+DhDataSet.rebuild_from_tsv
+
 TraitBank::Admin.remove_all_data_leave_terms
 Page::DescInfo.refresh
-
