@@ -19,7 +19,7 @@ class TermNames::WikidataAdapter
   end
 
   def preload(uris, locales)
-    [uris.first].each do |uri|
+    uris.each do |uri|
       id = (matches = uri.match(ID_CAPTURE_REGEX)) ? matches[:id] : nil
       next if id.nil?
 
