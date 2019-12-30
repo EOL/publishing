@@ -25,30 +25,7 @@
         -# TODO: expired_at and the like!
         -# TODO i18n
         - downloads = @user.user_downloads.order(created_at: :desc)
-        - downloads.each_with_index do |download, index|
-          -# name = term_search_name(download.options)
-          - name = "Search ##{downloads.length - index}"
-          %li
-            - if download.created?
-              = name
-              %br
-              = "enqueued - #{time_ago_in_words(download.created_at)}"
-            - elsif download.completed? || download.status.nil?
-              = link_to(name, user_download_path(user_id: @user.id, id: download.id))
-              %br
-              = "completed - #{time_ago_in_words(download.completed_at)}"
-            - elsif download.failed?
-              - if is_admin? && download.download_error
-                = link_to(name, user_download_error_path(user_id: @user.id, download_id: download.id))
-              - else
-                = name
-              %br
-              = "failed - #{time_ago_in_words(download.completed_at)}"
-            - if !download.search_url.blank?
-              %br
-              %span query:&nbsp;
-              = link_to(term_query_display_string(download.term_query), download.search_url)
-
+        = render "user_downloads/list", downloads: downloads, show_user: false
     - unless @user.collections.empty?
       %p.clearfix
         %h2= t("user.headers.collections")
@@ -62,4 +39,5 @@
         - if current_user.admin?
           %li= link_to t("user.list_of_power_users"), power_users_path
           %li= link_to t("user.batch_page_lookup"), batch_lookup_pages_path
+          %li= link_to t("user.download_queue"), user_downloads_pending_path
 

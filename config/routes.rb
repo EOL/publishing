@@ -62,6 +62,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get "user_downloads/pending"
+
     # All of the "normal" resources:
     resources :articles, only: [:show]
     resources :collections do

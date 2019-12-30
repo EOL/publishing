@@ -960,6 +960,7 @@ en:
   user:
     batch_page_lookup: "Batch page lookup"
     created_at: "created"
+    download_queue: "Data download queue"
     edit_account_details: "Edit account details"
     email: "Email"
     to_commit_enter_current: "To commit your changes, please enter your current password"

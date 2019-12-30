@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191230155408) do
+ActiveRecord::Schema.define(version: 20191230195942) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "guid",                      limit: 255,        null: false
@@ -955,16 +955,17 @@ ActiveRecord::Schema.define(version: 20191230155408) do
   add_index "user_download_errors", ["user_download_id"], name: "index_user_download_errors_on_user_download_id", using: :btree
 
   create_table "user_downloads", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "count",         limit: 4
-    t.string   "filename",      limit: 255
+    t.integer  "user_id",          limit: 4
+    t.integer  "count",            limit: 4
+    t.string   "filename",         limit: 255
     t.datetime "completed_at"
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "term_query_id", limit: 4
-    t.text     "search_url",    limit: 65535
-    t.integer  "status",        limit: 4,     default: 0
+    t.integer  "term_query_id",    limit: 4
+    t.text     "search_url",       limit: 65535
+    t.integer  "status",           limit: 4,     default: 0
+    t.datetime "processing_since"
   end
 
   add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree

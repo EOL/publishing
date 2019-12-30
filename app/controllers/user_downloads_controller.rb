@@ -1,4 +1,10 @@
 class UserDownloadsController < ApplicationController
+  before_action :require_admin, only: :pending
+
+  def pending
+    @downloads = UserDownload.created
+  end
+
   def show
     download = UserDownload.find(params[:id])
     
