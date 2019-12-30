@@ -2,15 +2,24 @@ require "util/term_i18n"
 require "fileutils"
 
 class TermNames
-  ADAPTERS = [TermNames::GeonamesAdapter]
+  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter]
+  ADAPTERS_BY_NAME = ADAPTERS.collect { |a| [a.name, a] }.to_h
   LOCALE_FILE_DIR = Rails.application.root.join("config", "locales", "terms")
   TERM_LIMIT = 1500 # XXX: arbitrary limit based on Jen's estimates. Revisit as necessary.
 
   class << self
-    def refresh
-      ADAPTERS.each do |adapter_class|
+    def refresh(adapter_name)
+      if adapter_name
+        user_adapter_class = ADAPTERS_BY_NAME[adapter_name]
+        raise TypeError.new("Invalid provider name: #{adapter_name}") unless user_adapter_class
+        adapters = [user_adapter_class]
+      else
+        adapters = ADAPTERS
+      end
+
+      adapters.each do |adapter_class|
         adapter = adapter_class.new
-        puts "Querying uris for adapter #{adapter.name}"
+        puts "Querying uris for adapter #{adapter_class.name}"
         uris = self.term_uris_for_adapter(adapter)
         puts "Got #{uris.length} results"
         puts "Preloading..."
@@ -26,8 +35,8 @@ class TermNames
           end.to_h
 
           if writable_entries.any?
-            file_name = "#{adapter.name.downcase}.#{locale}.yml"
-            bak_name = "#{adapter.name.downcase}.#{locale}.yml.bak"
+            file_name = "#{adapter_class.name.downcase}.#{locale}.yml"
+            bak_name = "#{adapter_class.name.downcase}.#{locale}.yml.bak"
             file_path = LOCALE_FILE_DIR.join(file_name)
             bak_path = LOCALE_FILE_DIR.join(bak_name)
 
@@ -49,6 +58,8 @@ class TermNames
           end
         end
       end
+
+      puts "Done! Inspect the results, then commit them if everything looks good."
     end
 
     def term_uris_for_adapter(adapter)
