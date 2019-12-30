@@ -4,8 +4,6 @@ require "nokogiri"
 class TermNames::GeonamesAdapter
   ID_CAPTURE_REGEX = /https?:\/\/www\.geonames\.org\/(?<id>\d+)/
   BASE_URL = "http://api.geonames.org/get"
-
-  #TODO: move to secrets BEFORE MERGE
   APP_ID = Rails.application.config.x.geonames_app_id
 
   def initialize
