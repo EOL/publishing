@@ -4,6 +4,7 @@ class ScientificName < ActiveRecord::Base
   belongs_to :taxonomic_status, inverse_of: :scientific_names
   # DENORMALIZED:
   belongs_to :page, inverse_of: :scientific_names
+  belongs_to :dh_data_set, primary_key: :dataset_id, foreign_key: :dataset_name
 
   scope :preferred, -> { where(is_preferred: true) }
   scope :synonym, -> { where(is_preferred: false) }
