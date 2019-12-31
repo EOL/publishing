@@ -570,11 +570,9 @@ zh-TW:
         r_infraspecies: 種下
         r_form: 型
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
-      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})<br>%{attribution}
+      username_missing: 使用者 %{user_id}
     trophic_web:
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
       reset: 重新設定
