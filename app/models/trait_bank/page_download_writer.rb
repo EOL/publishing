@@ -1,15 +1,15 @@
 module TraitBank::PageDownloadWriter
   def self.to_arrays(hashes, url)
     data = []
-    TraitBank::DownloadUtils.page_ids(hashes).in_groups_of(10_000) do |page_ids|
-      pages = Page.with_name.where(:id => page_ids).collect { |p| [p.id, p] }.to_h
+    TraitBank::DownloadUtils.page_ids(hashes).in_groups_of(10_000, false) do |page_ids|
+      pages = Page.with_hierarchy_no_media.where(:id => page_ids).collect { |p| [p.id, p] }.to_h
       data << (cols.keys << url)
       hashes.each do |result|
         page_id = TraitBank::DownloadUtils.page_id(result)
         page = pages[page_id]
         next if !page
-        self.cols.each do |_, lamb|
-          row << lamb[page]
+        row = self.cols.collect do |_, lamb|
+          lamb[page]
         end
         data << row
       end
@@ -23,7 +23,7 @@ module TraitBank::PageDownloadWriter
       "Ancestry" => -> (page) { TraitBank::DownloadUtils.ancestry(page) },
       "Scientific Name" => -> (page) { page.scientific_name },
       "Common Name" => -> (page) { page.name === page.scientific_name ? nil : page.name },
-      "Author Name" => -> (page) { sci_name&.authorship }
+      "Author Name" => -> (page) { page.native_node&.preferred_scientific_name&.authorship }
     }
   end
 
