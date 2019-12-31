@@ -384,6 +384,7 @@ es:
         r_species: Especie
         r_subspecies: Subespecie
         r_infraspecies: Infraespecie
+      username_missing: usuario %{user_id}
     trophic_web:
       reset: restablecer
     flash:

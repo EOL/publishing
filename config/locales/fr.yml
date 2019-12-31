@@ -594,13 +594,9 @@ fr:
         r_infraspecies: Infra-espèce
         r_form: Forme
       resource_link_html: <a href="%{resource_path}">%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href="%{resource_path}">%{resource_name}</a><br />
-        %{attribution}
       resource_link_w_remarks_html: <a href="%{resource_path}">{resource_name}</a>
         (%{remarks})
-      resource_link_w_remarks_attribution_html: <a href="%{resource_path}">{resource_name}</a>
-        (%{remarks})<br /> %{attribution}
+      username_missing: utilisateur %{user_id}
     trophic_web:
       globi_credit_html: données de <a href="%{url}">GloBI</a>
       reset: réinitialiser
