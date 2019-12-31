@@ -1,0 +1,185 @@
+datasetID	name	link	publisher	supplier	dataset metadata
+trunk	EOL Dynamic Hierarchy Trunk	http://opendata.eol.org/dataset/eol-dynamic-hierarchy-trunk			
+ictv	International Committee on Taxonomy of Viruses (ICTV)	https://talk.ictvonline.org/taxonomy/			
+IOC	IOC World Bird List	http://www.worldbirdnames.org/			
+ASW	Frost, Darrel R. 2018. Amphibian Species of the World: an Online Reference. Version 6.0. Electronic Database accessible at http://research.amnh.org/herpetology/amphibia/index.html. American Museum of Natural History, New York, USA.	http://research.amnh.org/herpetology/amphibia/index.html			
+ODO	World Odonata List	https://www.pugetsound.edu/academics/academic-resources/slater-museum/biodiversity-resources/dragonflies/world-odonata-list2/			
+BOM	Kitching I, Rougerie R, Zwick A, Hamilton C, St Laurent R, Naumann S, Ballesteros Mejia L, Kawahara A (2018) A global checklist of the Bombycoidea (Insecta: Lepidoptera). Biodiversity Data Journal 6: e22236. https://doi.org/10.3897/BDJ.6.e22236	https://doi.org/10.3897/BDJ.6.e22236			
+ERE	EOL Erebidae Patch	https://opendata.eol.org/dataset/eol-dynamic-hierarchy-erebidae-patch			
+COC	EOL Coccinelloidea Patch	https://opendata.eol.org/dataset/eol-dynamic-hierarchy-coccinelloidea-patch-coc			
+VSP	EOL Vespoidea Patch	https://opendata.eol.org/dataset/eol-dynamic-hierarchy-vespoidea-patch-vsp			
+ONY	Oliveira I, Read V, Mayer G (2012) A world checklist of Onychophora (velvet worms), with notes on nomenclature and status of names. ZooKeys 211: 1-70. doi:10.3897/zookeys.211.3463	https://doi.org/10.3897/zookeys.211.3463			
+EET	EOL Earthworms Patch	https://opendata.eol.org/dataset/earthworms			
+NCBI	NCBI Taxonomy	https://www.ncbi.nlm.nih.gov/taxonomy			
+WOR	World Register of Marine Species	http://www.marinespecies.org/			
+COL	Catalogue of Life in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/			
+COL-5	CCW in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/5			
+COL-6	CIPA in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/6			
+COL-8	ReptileDB in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/8			
+COL-9	ETI WBD (Euphausiacea) in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/9			
+COL-10	FishBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/10			
+COL-11	FLOW in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/11			
+COL-12	Glomeromycota in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/12			
+COL-14	ICTV_MSL in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/14			
+COL-15	ILDIS in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/15			
+COL-17	ITIS Regional in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/17			
+COL-18	LepIndex in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/18			
+COL-19	MOST in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/19			
+COL-20	Odonata in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/20			
+COL-21	SF Orthoptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/21			
+COL-22	Parhost in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/22			
+COL-23	Phyllachorales in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/23			
+COL-24	WCSP in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/24			
+COL-25	Rhytismatales in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/25			
+COL-26	ScaleNet in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/26			
+COL-27	Catalogue of Life in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/27			
+COL-27	Scarabs in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/27			
+COL-28	Species Fungorum in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/28			
+COL-29	WSC in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/29			
+COL-30	TicksBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/30			
+COL-31	Tineidae NHM in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/31			
+COL-32	TITAN in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/32			
+COL-33	Trichomycetes in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/33			
+COL-34	UCD in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/34			
+COL-36	Xylariaceae in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/36			
+COL-37	ZOBODAT Vespoidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/37			
+COL-38	Zygomycetes in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/38			
+COL-39	WTaxa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/39			
+COL-40	AnnonBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/40			
+COL-42	ChiloBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/42			
+COL-44	WoRMS Porifera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/44			
+COL-45	Conifer Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/45			
+COL-46	GloBIS (GART) in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/46			
+COL-47	FADA Rotifera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/47			
+COL-48	RJB Geranium in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/48			
+COL-49	Global Gracillariidae in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/49			
+COL-50	SF Phasmida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/50			
+COL-51	SF Cockroach in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/51			
+COL-52	COOL in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/52			
+COL-53	Nomen.eumycetozoa.com in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/53			
+COL-54	Psyllist in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/54			
+COL-55	LDL Neuropterida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/55			
+COL-57	Brachiopoda Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/57			
+COL-58	WoRMS Cumacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/58			
+COL-59	WoRMS Ophiuroidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/59			
+COL-61	SF Aphid in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/61			
+COL-62	SF Mantodea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/62			
+COL-63	OlogamasidBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/63			
+COL-65	SF Plecoptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/65			
+COL-66	Droseraceae Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/66			
+COL-67	ITIS Bees in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/67			
+COL-68	Taxapad Ichneumonoidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/68			
+COL-69	RhodacaridBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/69			
+COL-70	PhytoseiidBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/70			
+COL-73	Brassicaceae in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/73			
+COL-74	ELPT in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/74			
+COL-75	NZIB in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/75			
+COL-76	MBB in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/76			
+COL-78	TenuipalpidBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/78			
+COL-79	LIAS in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/79			
+COL-80	BdelloideaBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/80			
+COL-81	WoRMS Bryozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/81			
+COL-82	SpmWeb in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/82			
+COL-85	WoRMS Nemertea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/85			
+COL-86	WoRMS Bochusacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/86			
+COL-87	WoRMS Brachypoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/87			
+COL-88	WoRMS Mystacocarida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/88			
+COL-89	SF Embioptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/89			
+COL-90	WoRMS Polychaeta in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/90			
+COL-91	WoRMS Remipedia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/91			
+COL-92	WoRMS Tantulocarida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/92			
+COL-93	WoRMS Thermosbaenacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/93			
+COL-94	WoRMS Isopoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/94			
+COL-95	WoRMS Asteroidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/95			
+COL-96	MOWD in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/96			
+COL-97	Saccharomycetes in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/97			
+COL-98	Dothideomycetes in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/98			
+COL-99	WoRMS Oligochaeta in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/99			
+COL-100	WoRMS Xenoturbellida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/100			
+COL-101	Systema Dipterorum in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/101			
+COL-103	Strepsiptera Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/103			
+COL-104	Phoronida Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/104			
+COL-105	WoRMS Leptostraca in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/105			
+COL-106	WoRMS Echinoidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/106			
+COL-107	WoRMS Holothuroidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/107			
+COL-108	WoRMS Brachyura in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/108			
+COL-109	WoRMS Polycystina in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/109			
+COL-110	WoRMS Tanaidacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/110			
+COL-112	WoRMS Hydrozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/112			
+COL-113	CilCat in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/113			
+COL-115	ITIS Global in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/115			
+COL-118	HymIS in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/118			
+COL-119	FADA Nematomorpha in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/119			
+COL-120	FADA Ephemeroptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/120			
+COL-121	CoL China in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/121			
+COL-122	WoRMS Gastrotricha in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/122			
+COL-123	WoRMS Placozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/123			
+COL-124	WoRMS Priapulida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/124			
+COL-125	WoRMS Gnathostomulida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/125			
+COL-126	WoRMS Monogenea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/126			
+COL-127	WoRMS Cestoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/127			
+COL-128	WoRMS Trematoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/128			
+COL-129	WoRMS Myxozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/129			
+COL-130	WoRMS Mollusca in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/130			
+COL-131	WoRMS Octocorallia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/131			
+COL-132	WoRMS Chaetognatha in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/132			
+COL-133	SF Psocodea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/133			
+COL-134	SF Coreoidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/134			
+COL-138	FADA Cladocera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/138			
+COL-139	FADA Halacaridae in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/139			
+COL-140	World Ferns in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/140			
+COL-141	World Plants in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/141			
+COL-142	The White-Files in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/142			
+COL-143	Tessaratomidae Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/143			
+COL-144	Lace Bugs Database in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/144			
+COL-146	CarabCat in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/146			
+COL-148	Microsporidia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/148			
+COL-149	WoRMS Orthonectida in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/149			
+COL-150	WoRMS Rhombozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/150			
+COL-152	WoRMS Merostomata in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/152			
+COL-153	WoRMS Kinorhyncha in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/153			
+COL-154	WoRMS Cephalochordata in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/154			
+COL-157	WoRMS Foraminifera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/157			
+COL-158	SF Dermaptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/158			
+COL-161	Brentids in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/161			
+COL-162	WWW in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/162			
+COL-163	The World List of Cycads in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/163			
+COL-164	The Scorpion Files in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/164			
+COL-166	3i Curculio in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/166			
+COL-167	SF Zoraptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/167			
+COL-168	SF Mantophasmatodea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/168			
+COL-169	SF Chrysididae in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/169			
+COL-170	SF Grylloblattodea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/170			
+COL-171	PBI Plant Bug in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/171			
+COL-172	Nepticuloidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/172			
+COL-173	SF Lygaeoidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/173			
+COL-174	PaleoBioDB in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/174			
+COL-175	WoRMS Ostracoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/175			
+COL-176	WoRMS Hexacoral in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/176			
+COL-177	Gymnodinium in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/177			
+COL-178	WoRMS Appendicularia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/178			
+COL-179	WoRMS Ceriantharia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/179			
+COL-180	WoRMS Ctenophora in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/180			
+COL-181	WoRMS Cubozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/181			
+COL-182	WoRMS Loricifera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/182			
+COL-183	WoRMS PycnoBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/183			
+COL-184	WoRMS Staurozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/184			
+COL-185	WoRMS Thaliacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/185			
+COL-186	WoRMS Ascidiacea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/186			
+COL-188	WoRMS Scyphozoa in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/188			
+COL-189	3i Auchenorrhyncha in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/189			
+COL-190	Jewel Beetles in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/190			
+COL-191	WoRMS Copepoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/191			
+COL-192	ColeorrhynchaSF in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/192			
+COL-193	WoRMS Turbellarians in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/193			
+COL-194	WoRMS Antipatharia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/194			
+COL-195	WoRMS Corallimorpharia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/195			
+COL-196	WoRMS Scleractinia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/196			
+COL-197	WoRMS Zoantharia in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/197			
+COL-198	SF Isoptera in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/198			
+COL-199	Pterophoroidea in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/199			
+COL-200	WoRMS MilliBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/200			
+COL-201	Fossil Ginkgoales in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/201			
+COL-202	WoRMS Amphipoda in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/202			
+COL-203	ThripsWiki in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/203			
+COL-204	StaphBase in Species 2000 & ITIS Catalogue of Life	http://www.catalogueoflife.org/col/details/database/id/204			

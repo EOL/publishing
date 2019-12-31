@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 아라
 ---
@@ -246,6 +247,7 @@ ko:
         r_superspecies: 상종
         r_subspecies: 아종
         r_infraspecies: 하종
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
     trophic_web:
@@ -391,6 +393,8 @@ ko:
   support:
     array:
       words_connector: ','
+      two_words_connector: 그리고
+      last_word_connector: ', 그리고'
   term:
     actions:
       sort: 정렬 기준
@@ -420,10 +424,14 @@ ko:
   user:
     email: 이메일
     to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
+    form_labels:
+      age_confirm: 저는 최소 13세입니다
     headers:
       collections: 모음집
       downloads: 다운로드
       links: 링크
+    validations:
+      age_confirm: 당신이 최소 13세임을 확인하여야 합니다
     new_password: 새 비밀번호
     confirm_new_password: 새 비밀번호 확인
     username: 사용자 이름

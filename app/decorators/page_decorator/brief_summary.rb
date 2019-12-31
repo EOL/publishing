@@ -19,7 +19,6 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      # There's really nothing to do if there's no minimal ancestor:
       if is_above_family?
         above_family
       else
@@ -264,7 +263,7 @@ class PageDecorator
 
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
-          @sentences << "Flowers are visited by #{parts.join(", ")}."
+          @sentences << "Flowers are visited by #{parts.to_sentence}."
         end
       end
 
@@ -399,7 +398,7 @@ class PageDecorator
 
       def first_trait_for_pred_uri_w_obj(pred_uri)
         traits = traits_for_pred_uri(pred_uri)
-        traits.find { |t| t[:object_term].present? } 
+        traits.find { |t| t[:object_term].present? }
       end
 
       def traits_for_pred_uri(pred_uri)
@@ -607,9 +606,9 @@ class PageDecorator
         target_page_part = if target_page.nil?
                              Rails.logger.warn("Missing associated page for auto-generated text: #{object_page_id}!")
                              "(page not found)"
-                             
+
                            else
-                             view.link_to(target_page.name, target_page)
+                             view.link_to(target_page.name.html_safe, target_page)
                            end
         sprintf(format_str, target_page_part)
       end

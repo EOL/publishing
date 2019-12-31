@@ -136,12 +136,18 @@ module DataHelper
   end
 
   def show_data_page_icon(page)
-    if image = page.medium # rubocop:disable Lint/AssignmentInCondition
+    if image = safe_medium(page) # rubocop:disable Lint/AssignmentInCondition
       haml_concat(link_to(image_tag(image.small_icon_url,
         # TODO: restore this or find some placeholder images:
         # alt: page.scientific_name.html_safe, size: "44x44"), page))
         alt: '', size: "44x44"), page))
     end
+  end
+
+  def safe_medium(page)
+    image = page.medium
+    return image if image && (image.image? || image.map?)
+    nil
   end
 
   def show_data_page_name(page)

@@ -67,11 +67,13 @@ class TraitBank
       def remove_for_resource(resource)
         remove_with_query(
           name: :meta,
-          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          q: "(meta:MetaData)<-[:metadata]-(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })",
+          size: 8192
         )
         remove_with_query(
           name: :trait,
-          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })"
+          q: "(trait:Trait)-[:supplier]->(:Resource { resource_id: #{resource.id} })",
+          size: 8192
         )
         Rails.cache.clear # Sorry, this is easiest. :|
       end
@@ -80,24 +82,28 @@ class TraitBank
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
+        delay = options[:delay] || 0.1
+        size = options[:size] || 16_384 # Largest power of 2 that I felt comfortable using.
         count = count_type_for_resource(name, q)
-        return unless count.positive?
-        iters = (count / 25_000.0).ceil
-        max_iters = (1.5 * iters).ceil
+        return if count.nil? || ! count.positive?
+        iters = (count / size.to_f).ceil
+        max_iters = (1.25 * iters).ceil
+        max_iters = iters + 1 if max_iters == iters
         iteration = 0
         loop do
-          query("MATCH #{q} WITH #{name} LIMIT 25000 DETACH DELETE #{name}")
+          query("MATCH #{q} WITH #{name} LIMIT #{size} DETACH DELETE #{name}")
+          # puts "...#{iteration}/#{iters} (#{(iteration/iters.to_f * 100).round(2)}%)..."
           iteration += 1
-          if iteration >= max_iters
+          if iteration >= iters
             new_count = count_type_for_resource(name, q)
-            if new_count.positive?
+            break unless new_count.positive?
+            if iteration >= max_iters
               raise "I have been attempting to delete #{name} data for too many iterations (#{iteration}). "\
                     "Started with #{count} entries, now there are #{new_count}. Aborting."
-            else
-              break
             end
+          else
+            sleep(delay)
           end
-          break if (iteration >= iters && count_type_for_resource(name, q) <= 0)
         end
       end
 

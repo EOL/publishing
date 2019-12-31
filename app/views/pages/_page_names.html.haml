@@ -58,13 +58,14 @@
                           = link_to(t("names.prefer"), prefer_vernacular_path(names_by_string.first))
                     .description.uk-text-meta
                       - formatted_names = []
-                      - names_by_string.select { |n| n.node && n.user_id.nil? }.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
+                      - names_by_string.select { |n| n.should_attribute_resource? }.group_by { |n| n.node.resource }.each do |resource, names_by_resource|
                         - str = resource.name
                         - if names_by_resource.any? { |n| n.is_preferred_by_resource and not preferred_name }
                           - str = t(:vernacular_preferred_by_resource, resource: str)
                         - formatted_names << link_to(str, resource)
-                      - names_by_string.select { |n| n.user }.group_by { |n| n.user }.each do |user, names_from_user|
-                        - formatted_names << link_to(user.username, user)
+                      - names_by_string.select { |n| n.should_attribute_user? }.group_by { |n| n.user }.each do |user, names_from_user|
+                        - username = user.username.blank? ? t("pages.resource_names.username_missing", user_id: user.id) : user.username
+                        - formatted_names << link_to(username, user)
                       = t("pages.resource_names.name_recognized_by", by: formatted_names.to_sentence).html_safe
               - if lang_names.length > card_expand_limit
                 .uk-text-center.uk-margin-top.name-card-arrows

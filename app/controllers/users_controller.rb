@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @sort_dir = params[:sort_dir] || @default_sort_dir
     @users = @users.order("#{@sort_col} #{@sort_dir}")
 
-    render layout: (request.xhr? ? false : true)
+    render layout: !request.xhr?
   end
 
   def autocomplete

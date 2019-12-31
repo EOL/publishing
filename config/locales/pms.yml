@@ -4,7 +4,7 @@
 # Author: Borichèt
 ---
 pms:
-  language_name: Anglèis
+  language_name: Piemontèis
   about:
     trait_bank:
       title: TraitBank
@@ -956,4 +956,46 @@ pms:
     edit_account_details: Modifiché ij detaj dël cont
     email: Pòsta eletrònica
     to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
+    form_labels:
+      age_confirm: I l'hai almanch 13 agn
+      tou_confirm_html: I l'hai lesù le <a href='%{tou_path}'>condission d'utilisassion</a>
+        e le <a href='%{privacy_path}'>régole ëd confidensialità</a>
+    headers:
+      bio: Biografìa curta
+      collections: Colession
+      downloads: Dëscariament
+      links: Liure
+    validations:
+      age_confirm: a dev confirmé ch'a l'ha almanch 13 agn
+      tou_confirm: a dev confirmé ch'a l'ha lesù le condission d'utilisassion e le
+        régole ëd confidensialità
+    list_of_power_users: Lista dj'utent privilegià
+    new_password: Neuva ciav
+    confirm_new_password: Confirmé la ciav
+    showing_n_power_users:
+      one: Lista dl'ùnich utent privilegià
+      other: Lista dij %{count} utent privilegià
+    trait_bank_cypher_form: formolari ëd gifragi ëd la banca dij trat
+    username: stranòm
+    update: Agiorné
+    update_email: Agiorné l'adrëssa eletrònica
+  user_download:
+    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}"pàgina
+      d'utent</a> për vëdde cand a sarà completà.
+  users:
+    account_migration_header: 'S''a l''é anscrivusse an sl''EdV prima dij 15 nov.
+      2018:'
+    account_migration_notice: J'anformassion ëd sò cont, comprèis lë stranòm, l'adrëssa
+      eletrònica associà, la descrission ëd profil e le colession possedùe, a son
+      ëstàite amportà an sla neuva EdV. Sò stranòm a l'é ancor sò nòm ësmonù an sël
+      sit, ma adess chiel a dev rintré ant ël sistema con soa adrëssa eletrònica.
+      I l'oma nen podù amporté soa ciav për dle rason ëd sigurëssa; an dëspias për
+      l'inconvenient. A podrà riinissialisela an dovrand la procedura ëd Ciav dësmentià.
+      S'a l'é rintrà ant ël sistema an dovrand n'àutr fornidor d'identità - Google,
+      Twitter o FaceBook - për piasì ch'a l'abia passiensa; i travajoma për arzòlve
+      ancor chèich problema con le procedure ëd conession partagià.
+    sign_in: Rintré ant ël sistema
+  vernacular_names_header: Nòm comun
+  vernacular_preferred_by_resource: '%{resource} (a preferiss ës nòm-sì)'
+  wordcloud_credit_html: generà con <a href='%{url}'>jQCloud</a>
 ...

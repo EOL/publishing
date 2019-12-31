@@ -11,18 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191125215809) do
-
-  create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
-    t.string   "value",      limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
+ActiveRecord::Schema.define(version: 20191230195942) do
 
   create_table "articles", force: :cascade do |t|
-    t.string   "guid",                      limit: 255,      null: false
+    t.string   "guid",                      limit: 255,        null: false
     t.string   "resource_pk",               limit: 255
-    t.integer  "license_id",                limit: 4,        null: false
+    t.integer  "license_id",                limit: 4,          null: false
     t.integer  "language_id",               limit: 4
     t.integer  "location_id",               limit: 4
     t.integer  "stylesheet_id",             limit: 4
@@ -31,16 +25,16 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.text     "owner",                     limit: 65535
     t.string   "name",                      limit: 255
     t.string   "source_url",                limit: 4096
-    t.text     "body",                      limit: 16777215
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.text     "body",                      limit: 4294967295
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "resource_id",               limit: 4
     t.string   "rights_statement",          limit: 1024
     t.integer  "page_id",                   limit: 4
     t.integer  "harv_db_id",                limit: 4
   end
 
-  add_index "articles", ["guid"], name: "index_articles_on_guid", length: {"guid"=>191}, using: :btree
+  add_index "articles", ["guid"], name: "index_articles_on_guid", using: :btree
   add_index "articles", ["harv_db_id"], name: "index_articles_on_harv_db_id", using: :btree
   add_index "articles", ["resource_id"], name: "index_articles_on_resource_id", using: :btree
 
@@ -248,6 +242,13 @@ ActiveRecord::Schema.define(version: 20191125215809) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "dh_data_sets", force: :cascade do |t|
+    t.string   "dataset_id", limit: 255
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "home_page_feed_items", force: :cascade do |t|
     t.string   "img_url",           limit: 255
@@ -481,6 +482,8 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.integer "page_id",     limit: 4
     t.string  "url",         limit: 256
   end
+
+  add_index "occurrence_maps", ["page_id"], name: "index_occurrence_maps_on_page_id", using: :btree
 
   create_table "open_authentications", force: :cascade do |t|
     t.string   "provider",   limit: 255, null: false
@@ -875,7 +878,7 @@ ActiveRecord::Schema.define(version: 20191125215809) do
 
   create_table "taxonomic_statuses", force: :cascade do |t|
     t.string  "name",                     limit: 255,                 null: false
-    t.boolean "is_preferred",                         default: true,  null: false
+    t.boolean "is_preferred",                         default: false, null: false
     t.boolean "is_problematic",                       default: false, null: false
     t.boolean "is_alternative_preferred",             default: false, null: false
     t.boolean "can_merge",                            default: true,  null: false
@@ -952,16 +955,17 @@ ActiveRecord::Schema.define(version: 20191125215809) do
   add_index "user_download_errors", ["user_download_id"], name: "index_user_download_errors_on_user_download_id", using: :btree
 
   create_table "user_downloads", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "count",         limit: 4
-    t.string   "filename",      limit: 255
+    t.integer  "user_id",          limit: 4
+    t.integer  "count",            limit: 4
+    t.string   "filename",         limit: 255
     t.datetime "completed_at"
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "term_query_id", limit: 4
-    t.text     "search_url",    limit: 65535
-    t.integer  "status",        limit: 4,     default: 0
+    t.integer  "term_query_id",    limit: 4
+    t.text     "search_url",       limit: 65535
+    t.integer  "status",           limit: 4,     default: 0
+    t.datetime "processing_since"
   end
 
   add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree
@@ -1058,5 +1062,4 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.string  "message",     limit: 255
   end
 
-  add_foreign_key "user_downloads", "term_queries"
 end

@@ -4,6 +4,7 @@
 # Author: Canaan9801
 # Author: Fitoschido
 # Author: Gastonsaenz
+# Author: Ihojose
 # Author: Madamebiblio
 ---
 es:
@@ -552,11 +553,15 @@ es:
     email: Dirección de correo electrónico
     to_commit_enter_current: Es necesaria la contraseña actual para confirmar los
       cambios
+    form_labels:
+      age_confirm: Tengo al menos 13 años
     headers:
       bio: Semblanza breve
       collections: Colecciones
       downloads: Descargas
       links: Enlaces
+    validations:
+      age_confirm: debes confirmar que tienes al menos 13 años
     new_password: Contraseña nueva
     confirm_new_password: Confirmar la contraseña nueva
     username: nombre de usuario

@@ -232,10 +232,10 @@ module PagesHelper
     end.values.sort_by do |v|
       first = v.first
       dwh_part = first.resource&.dwh? ? "a" : "b"
-      rank_part = include_rank && first.node&.rank ? I18n.t("pages.resource_names.rank.#{first.node&.rank.treat_as}") : "zzz"
+      rank_part = include_rank && first.node&.has_rank_treat_as? ? I18n.t("pages.resource_names.rank.#{first.node.rank_treat_as}") : "zzz"
       # TODO: Update once taxonomic statuses are i18n-able
       status_part = include_status && first.taxonomic_status&.name ? first.taxonomic_status&.name : "zzz"
-      [dwh_part, first.italicized, rank_part, status_part]
+      [dwh_part, (first.italicized || "(missing italicized form)"), rank_part, status_part]
     end
   end
 
@@ -317,38 +317,19 @@ private
   end
 
   def page_resource_names_link(name, include_remarks)
-    if name.resource.dwh? && name.attribution.present?
-      if include_remarks && name.remarks.present?
-        I18n.t(
-          "pages.resource_names.resource_link_w_remarks_attribution_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          remarks: name.remarks,
-          attribution: name.attribution.html_safe
-        )
-      else
-        I18n.t(
-          "pages.resource_names.resource_link_w_attribution_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          attribution: name.attribution.html_safe
-        )
-      end
+    if include_remarks && name.remarks.present?
+      I18n.t(
+        "pages.resource_names.resource_link_w_remarks_html",
+        resource_path: resource_path(name.resource),
+        resource_name: name.resource.name,
+        remarks: name.remarks
+      )
     else
-      if include_remarks && name.remarks.present?
-        I18n.t(
-          "pages.resource_names.resource_link_w_remarks_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          remarks: name.remarks
-        )
-      else
-        I18n.t(
-          "pages.resource_names.resource_link_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name
-        )
-      end
+      I18n.t(
+        "pages.resource_names.resource_link_html",
+        resource_path: resource_path(name.resource),
+        resource_name: name.resource.name
+      )
     end
   end
 

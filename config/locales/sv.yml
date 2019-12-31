@@ -294,10 +294,11 @@ sv:
       show_all: visa alla
     resource_names:
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_attribution_html: <a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+        (%{remarks})<br>%{attribution}
     trophic_web:
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
       reset: återställ
@@ -330,6 +331,7 @@ sv:
       reindex: omindexera
       show_all:
         other: visa alla (%{count})
+      sync_all_terms: synka alla termer
       fetch_synonyms: hämta synonymer
     headers:
       index: Resurser
@@ -544,11 +546,18 @@ sv:
     created_at: skapades
     edit_account_details: Redigera kontodetaljer
     email: E-post
+    form_labels:
+      age_confirm: Jag är minst 13 år gammal
+      tou_confirm_html: Jag har läst <a href='%{tou_path}'>användarvillkor</a> och
+        <a href='%{privacy_path}'>integritetspolicy</a>
     headers:
       bio: Kort biografi
       collections: Samlingar
       downloads: Nedladdningar
       links: Länkar
+    validations:
+      age_confirm: du måste bekräfta att du är minst 13 år gammal
+      tou_confirm: du måste bekräfta att du har läst användarvillkoren och integritetspolicyn
     new_password: Nytt lösenord
     confirm_new_password: Bekräfta nytt lösenord
     username: användarnamn
