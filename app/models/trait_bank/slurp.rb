@@ -252,7 +252,7 @@ class TraitBank::Slurp
         puts "(infos) Pages #{first_id} - #{last_id}"
         puts "(infos) write CSV"
         CSV.open(ancestry_file_path, 'w') do |csv|
-        csv << ['page_id', 'parent_id']
+          csv << ['page_id', 'parent_id']
           group.each do |page|
             next if page.native_node.parent.page_id.nil?
             csv << [page.id, page.native_node.parent.page_id]

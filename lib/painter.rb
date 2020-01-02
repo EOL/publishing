@@ -435,6 +435,7 @@ class Painter
     # Need to be a web client.
     # "The Ruby Toolbox lists no less than 25 HTTP clients."
     escaped = CGI::escape(cql)
+    # TBD: ought to do GET if query is effectless.
     uri = URI("#{server}service/cypher?query=#{escaped}")
     use_ssl = (uri.scheme == "https")
     Net::HTTP.start(uri.host, uri.port, :use_ssl => use_ssl) do |http|
@@ -618,6 +619,7 @@ class Painter
   # Create sample hierarchy and resource to test with
   # MERGE queries aren't allowed to have LIMIT clauses.
   # Kludge to prevent the cypher service from complaining: // LIMIT
+
   def populate(resource, page_origin)
 
     # Create sample hierarchy
