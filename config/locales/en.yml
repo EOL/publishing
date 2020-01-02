@@ -375,7 +375,7 @@ en:
     ng: "Ndonga"
     nl: "Dutch; Flemish"
     nn: "Norwegian Nynorsk; Nynorsk, Norwegian"
-    no: "Norwegian"
+    'no': "Norwegian"
     nr: "Ndebele, South; South Ndebele"
     nv: "Navajo; Navaho"
     ny: "Chichewa; Chewa; Nyanja"
