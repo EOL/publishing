@@ -2,7 +2,7 @@ class UserDownloadsController < ApplicationController
   before_action :require_admin, only: :pending
 
   def pending
-    @downloads = UserDownload.created
+    @downloads = UserDownload.created.where(expired_at: nil).order(created_at: :desc)
   end
 
   def show
