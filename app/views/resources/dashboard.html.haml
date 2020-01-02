@@ -38,27 +38,14 @@
   .ui.section
     .ui.list
       - @queue.each do |job|
-        - job.handler.scan(/ruby\/object:(\S+)/).each do |array|
-          - klass = array.first
-          - next if klass.match?(/^Active/)
-          - next if klass.match?(/^Delayed/)
-          - require Rails.root.join('app', 'models', "#{klass.underscore}.rb")
-        - bits = []
-        - h = YAML.load(job.handler)
-        - if h.respond_to?(:resource_id)
-          - res = Resource.find(h.resource_id)
-          - bits << "[#{res.name}](https://eol.org/resources/#{res.id})"
-        - if h.respond_to?(:method_name)
-          - bits << ".#{h.method_name}"
-        - if h.respond_to?(:id)
-          - bits << "id=#{h.id}"
-        - if h.respond_to?(:medium_id)
-          - mid = h&.medium_id rescue nil
-          - med = mid ? Medium.find(mid).source_url : 'no medium'
-          - bits << "[Medium.find(#{mid})](#{med})"
-        - bits << h.respond_to?(:display_name) ? h.display_name : job.handler[0..64].gsub(/\s+/, ' ')
-        - bits << "RUNNING on #{job.locked_by}  <---- " || 'pending'
-        .item= "job = Delayed::Job.find(#{job.id}): #{bits.join(' ')}".html_safe
+        .item
+          = "#{job.queue}/#{job.id}: #{job.handler.split(' ', 3)[1].split(':').last}"
+          - if job.locked_at
+            = "(locked #{job.locked_at.time_ago_in_words})"
+          - if job.locked_by
+            = "(locked by #{job.locked_by})"
+          - if job.failed_at
+            = "(failed #{job.failed_at.time_ago_in_words})"
 
 %h2 Other
 = link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')
