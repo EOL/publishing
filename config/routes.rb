@@ -91,6 +91,7 @@ Rails.application.routes.draw do
       get 'republish'
       get 'reindex'
       get 'fix_no_names'
+      get 'dashboard', on: :collection
       get 'autocomplete', on: :collection
       resources :import_logs, only: [:show]
       resources :nodes, only: [:index]

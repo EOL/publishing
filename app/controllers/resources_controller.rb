@@ -75,4 +75,14 @@ class ResourcesController < ApplicationController
     resources = Resource.autocomplete(params[:query])
     render json: resources.collect { |r| { name: r[:name], id: r[:id] } }
   end
+
+  def dashboard
+    @delayed_job_log = `tail -n 20 #{Rails.root.join('log', 'delayed_job.log')}`.split(/\n/)
+    @import_logs = ImportLog.where("completed_at IS NULL AND failed_at IS NULL")
+    @git_log = `git log | grep "^    " | head -n 20`.split(/\n/)
+    @uptime = `uptime`.chomp
+    @top_cpu = `ps aux | sort -nrk 3,3 | head -n 3`.split(/\n/)
+    @queue_count = Delayed::Job.count
+    @queue = Delayed::Job.all.limit(5)
+  end
 end
