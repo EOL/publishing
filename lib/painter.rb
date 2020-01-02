@@ -353,7 +353,8 @@ class Painter
   # Do branch painting
   # Probably a good idea to precede this with `rm -r paint-{resource}`
   # - At present this method doesn't work because paged deletion
-  #   doesn't work.  Consider deleting this method.
+  #   doesn't work.  Delete this method if it can be
+  #   determined likely that paged deletion will never work.
 
   def paint(resource)
     base_dir = "paint-#{resource.to_s}"
@@ -435,7 +436,7 @@ class Painter
     # Need to be a web client.
     # "The Ruby Toolbox lists no less than 25 HTTP clients."
     escaped = CGI::escape(cql)
-    # TBD: ought to do GET if query is effectless.
+    # TBD: Ought to do GET if query is effectless.
     uri = URI("#{server}service/cypher?query=#{escaped}")
     use_ssl = (uri.scheme == "https")
     Net::HTTP.start(uri.host, uri.port, :use_ssl => use_ssl) do |http|

@@ -100,10 +100,10 @@ class Paginator
     while true
       # Fetch it one chunk at a time
       basename = (chunksize ? "#{skip}_#{chunksize}" : "#{skip}")
-      part_path = File.join(chunks_dir, "#{basename}.csv")
-      if File.exist?(part_path)
-        if File.size(part_path) > 0
-          chunks.push(part_path)
+      chunk_path = File.join(chunks_dir, "#{basename}.csv")
+      if File.exist?(chunk_path)
+        if File.size(chunk_path) > 0
+          chunks.push(chunk_path)
         end
         # Ideally, we should increase skip by the actual number of
         # records in the file.
@@ -121,16 +121,16 @@ class Paginator
           # header row was being omitted in some cases
           STDERR.puts(result) if got == 0
           if got > 0 || skip == 0
-            emit_csv(result, headings, part_path)
-            chunks.push(part_path)
+            emit_csv(result, headings, chunk_path)
+            chunks.push(chunk_path)
           else
-            FileUtils.mkdir_p File.dirname(part_path)
-            FileUtils.touch(part_path)
+            FileUtils.mkdir_p File.dirname(chunk_path)
+            FileUtils.touch(chunk_path)
           end
           skip += got
           break if chunksize && got < chunksize
         else
-          STDERR.puts("No results for #{part_path}")
+          STDERR.puts("No results for #{chunk_path}")
           STDERR.puts(whole_query)
         end
       end
