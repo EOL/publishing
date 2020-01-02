@@ -534,7 +534,7 @@ zh-TW:
     resource_names:
       name_recognized_by: 由%{by}識別出
       name_recognized_by_w_rank: '%{rank}由%{by}識別出'
-      name_recognized_by_w_status: 依據%{by}的%{status}
+      name_recognized_by_w_status: '%{status}依據%{by}'
       rank:
         r_domain: 域
         r_subdomain: 亞域
@@ -569,6 +569,7 @@ zh-TW:
         r_subspecies: 亞種
         r_infraspecies: 種下
         r_form: 型
+      reference_taxon_attrib: 來自%{dataset_name}的參考分類單元
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
@@ -914,6 +915,7 @@ zh-TW:
   user:
     batch_page_lookup: 批量頁面查看
     created_at: 已建立
+    download_queue: 資料下載佇列
     edit_account_details: 編輯帳號詳細內容
     email: 電子郵件
     to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼

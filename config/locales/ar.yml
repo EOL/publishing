@@ -592,6 +592,7 @@ ar:
         r_subspecies: نويع
         r_infraspecies: نوع فرعي
         r_form: شكل
+      reference_taxon_attrib: مرجع الأصنوفة من %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
@@ -944,6 +945,7 @@ ar:
   user:
     batch_page_lookup: دفعة البحث عن الصفحة
     created_at: انشاء
+    download_queue: قائمة انتظار تنزيل البيانات
     edit_account_details: تعديل تفاصيل الحساب
     email: البريد الإلكتروني
     to_commit_enter_current: لتنفيذ التغييرات؛ يُرجَى إدخال كلمة المرور الحالية

@@ -423,6 +423,7 @@ ko:
   trust:
     unreviewed: 검토되지 않음
   user:
+    download_queue: 데이터 다운로드 대기열
     email: 이메일
     to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
     form_labels:

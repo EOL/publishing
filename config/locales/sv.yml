@@ -296,6 +296,7 @@ sv:
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
+      username_missing: användare %{user_id}
     trophic_web:
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
       reset: återställ

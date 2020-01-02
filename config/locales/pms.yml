@@ -594,6 +594,7 @@ pms:
         r_subspecies: Sota-spece
         r_infraspecies: Infra-spece
         r_form: Forma
+      reference_taxon_attrib: Fé arferiment a la tassonomìa da %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
@@ -951,6 +952,7 @@ pms:
   user:
     batch_page_lookup: Arserca ëd pàgine a baron
     created_at: creà
+    download_queue: Coa dël dëscariament ëd dàit
     edit_account_details: Modifiché ij detaj dël cont
     email: Pòsta eletrònica
     to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.

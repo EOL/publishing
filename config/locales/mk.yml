@@ -589,9 +589,11 @@ mk:
         r_subspecies: Подвид
         r_infraspecies: Инфравид
         r_form: Облик
+      reference_taxon_attrib: Појдовен таксон од %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
+      username_missing: корисник %{user_id}
     trophic_web:
       globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
       reset: одново
@@ -946,6 +948,7 @@ mk:
   user:
     batch_page_lookup: Збирно пребарување на страници
     created_at: создадено
+    download_queue: Редица за преземање податоци
     edit_account_details: Измени податоци за сметка
     email: Е-пошта
     to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
