@@ -6,7 +6,8 @@
 .ui.section
   .ui.list
     - @delayed_job_log.each do |log|
-      .item= log
+      # : 2020-01-02T20:36:07+0000: [Worker(host:804c40fd8600 pid:66238)]
+      .item= log.sub(/-- : \d\d\d\d-[^\]]+\] /, '').sub(/^[A-Z], /, '')
 
 %h2 Import Logs
 - if @import_logs.size.positive?
