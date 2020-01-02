@@ -58,8 +58,8 @@ class Paginator
       STDERR.puts "Using cached file #{path}"
       path
     else
-      # Create a directory path.parts to hold the chunks
-      chunks_dir = path + ".parts"
+      # Create a directory path.chunks to hold the chunks
+      chunks_dir = path + ".chunks"
       if Dir.exist?(chunks_dir) && Dir.entries(chunks_dir).length > 2
         STDERR.puts "There are cached results in #{chunks_dir}"
       end
