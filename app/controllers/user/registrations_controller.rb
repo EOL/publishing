@@ -54,7 +54,7 @@ class User::RegistrationsController < Devise::RegistrationsController
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up)do |u|
-      u.permit( :username,:email, :password, :password_confirmation)
+      u.permit( :username,:email, :password, :password_confirmation, :age_confirm, :tou_confirm)
     end
   end
   # If you have extra params to permit, append them to the sanitizer.

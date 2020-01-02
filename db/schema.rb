@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191125215809) do
+ActiveRecord::Schema.define(version: 20191216203244) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value",      limit: 255
@@ -482,6 +482,8 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.string  "url",         limit: 256
   end
 
+  add_index "occurrence_maps", ["page_id"], name: "index_occurrence_maps_on_page_id", using: :btree
+
   create_table "open_authentications", force: :cascade do |t|
     t.string   "provider",   limit: 255, null: false
     t.string   "uid",        limit: 255, null: false
@@ -508,6 +510,7 @@ ActiveRecord::Schema.define(version: 20191125215809) do
     t.boolean  "is_low_quality",                           default: false, null: false
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
+    t.integer  "content_subclass",             limit: 4,   default: 0
   end
 
   add_index "page_contents", ["content_id"], name: "index_page_contents_on_content_id", using: :btree
@@ -874,7 +877,7 @@ ActiveRecord::Schema.define(version: 20191125215809) do
 
   create_table "taxonomic_statuses", force: :cascade do |t|
     t.string  "name",                     limit: 255,                 null: false
-    t.boolean "is_preferred",                         default: true,  null: false
+    t.boolean "is_preferred",                         default: false, null: false
     t.boolean "is_problematic",                       default: false, null: false
     t.boolean "is_alternative_preferred",             default: false, null: false
     t.boolean "can_merge",                            default: true,  null: false

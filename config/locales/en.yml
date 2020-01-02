@@ -476,6 +476,7 @@ en:
     mk: "mk"
     fr: "fr"
     fi: "fi"
+    pms: "pms"
     pt-BR: "pt-BR"
     zh-TW: "zh-TW"
   maps:
@@ -605,6 +606,7 @@ en:
       resource_link_w_attribution_html: "<a href='%{resource_path}'>%{resource_name}</a><br>%{attribution}"
       resource_link_w_remarks_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})"
       resource_link_w_remarks_attribution_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})<br>%{attribution}"
+      username_missing: "user %{user_id}"
     trophic_web:
       globi_credit_html: "data from <a href='%{url}'>GloBI</a>"
       reset: "reset"
@@ -962,11 +964,17 @@ en:
     edit_account_details: "Edit account details"
     email: "Email"
     to_commit_enter_current: "To commit your changes, please enter your current password"
+    form_labels: 
+      age_confirm: "I am at least 13 years old"
+      tou_confirm_html: "I have read the <a href='%{tou_path}'>Terms of Use</a> and <a href='%{privacy_path}'>Privacy Policy</a>"
     headers:
       bio: "Brief Biography"
       collections: "Collections"
       downloads: "Downloads"
       links: "Links"
+    validations:
+      age_confirm: "you must confirm that you are at least 13 years old"
+      tou_confirm: "you must confirm that you have read the Terms of use and Privacy Policy"
     list_of_power_users: "List of power users"
     new_password: "New password"
     confirm_new_password: "Confirm new password"

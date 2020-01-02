@@ -4,7 +4,7 @@
 # Author: Borichèt
 ---
 pms:
-  language_name: Anglèis
+  language_name: Piemontèis
   about:
     trait_bank:
       title: TraitBank
@@ -956,11 +956,19 @@ pms:
     edit_account_details: Modifiché ij detaj dël cont
     email: Pòsta eletrònica
     to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
+    form_labels:
+      age_confirm: I l'hai almanch 13 agn
+      tou_confirm_html: I l'hai lesù le <a href='%{tou_path}'>condission d'utilisassion</a>
+        e le <a href='%{privacy_path}'>régole ëd confidensialità</a>
     headers:
       bio: Biografìa curta
       collections: Colession
       downloads: Dëscariament
       links: Liure
+    validations:
+      age_confirm: a dev confirmé ch'a l'ha almanch 13 agn
+      tou_confirm: a dev confirmé ch'a l'ha lesù le condission d'utilisassion e le
+        régole ëd confidensialità
     list_of_power_users: Lista dj'utent privilegià
     new_password: Neuva ciav
     confirm_new_password: Confirmé la ciav

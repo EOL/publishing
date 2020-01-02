@@ -945,11 +945,19 @@ fr:
     email: Courriel
     to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre
       mot de passe actuel
+    form_labels:
+      age_confirm: J’ai au moins 13 ans.
+      tou_confirm_html: J’ai lu les <a href='%{tou_path}'>conditions d’utilisation</a>
+        et la <a href='%{privacy_path}'>politique de confidentialité</a>
     headers:
       bio: Brève biographie
       collections: Collections
       downloads: Téléchargements
       links: Liens
+    validations:
+      age_confirm: vous devez confirmer que vous avez au moins 13 ans
+      tou_confirm: vous devez confirmer avoir lu les conditions d’utilisation et la
+        politique de confidentialité
     list_of_power_users: Liste des utilisateurs privilégiés
     new_password: Nouveau mot de passe
     confirm_new_password: Confirmer le nouveau mot de passe
