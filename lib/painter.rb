@@ -49,14 +49,13 @@ require_relative 'paginator'
 
 class Painter
 
-  @silly_resource = 99999
-  @silly_file = "directives.tsv"
-  @page_origin = 500000000
-
   START_TERM = "https://eol.org/schema/terms/starts_at"
   STOP_TERM  = "https://eol.org/schema/terms/stops_at"
-  SILLY_TERM = "http://example.org/numlegs"
   LIMIT = 1000000
+
+  # This is a kludge!  These property ought to be parameters passed when you do a merge.
+  TEMP_SERVER_BASE_URL = "http://varela.csail.mit.edu/~jar/tmp/"
+  TEMP_SERVER_BASE_SCP_ROOT = "varela:public_html/tmp/"
 
   def self.main
     server = ENV['SERVER'] || "https://eol.org/"
@@ -128,6 +127,12 @@ class Painter
       end
     end
   end
+
+  # Work in progress.  For now, the page ids are stored in the
+  # MetaData node as strings under the .measurement property, but it
+  # would be lovely if they could be stored as integers under the
+  # object_page_id property.  Unfortunately the schema does not allow
+  # object_page_id on MetaData nodes yet.
 
   def cast_page_id(m)
     if true
@@ -316,9 +321,6 @@ class Painter
   #  2. The way to refer to the server directory using http
 
   def merge(resource)
-    server_base_url = "http://varela.csail.mit.edu/~jar/tmp/"
-    server_base_scp = "varela:public_html/tmp/"
-
     base_dir = "infer-#{resource.to_s}"
     net_path = File.join(base_dir, "inferences.csv")
     chunks_path = net_path + ".chunks"
@@ -328,14 +330,14 @@ class Painter
       long_name = "#{base_dir}=#{name}"
       chunk_path = File.join(chunks_path, name)    # local
       # don't bother creating a directory on the server, too lazy to figure out
-      scp_target = "#{server_base_scp}#{long_name}"
-      url = "#{server_base_url}#{long_name}"    #no need to escape
+      scp_target = "#{TEMP_SERVER_BASE_SCP_ROOT}#{long_name}"
+      url = "#{TEMP_SERVER_BASE_URL}#{long_name}"    #no need to escape
       # Need to move this file to some server so EOL can access it.
       STDERR.puts("Copying #{chunk_path} to #{scp_target}")
       stdout_string, status = Open3.capture2("rsync -p #{chunk_path} #{scp_target}")
       query = "LOAD CSV WITH HEADERS FROM '#{url}'
                AS row
-               MATCH (page:Page {page_id: toInteger(row.page_id)})
+               MATCH (page:Page {page_id: #{cast_page_id('row.page_id')}})
                MATCH (trait:Trait {eol_pk: row.trait})
                MERGE (page)-[i:inferred_trait]->(trait)
                RETURN COUNT(i) 
@@ -473,6 +475,11 @@ class Painter
   #   ?        - check that correct inference(s) got made
   #   flush    - remove junk created by this test
 
+  SILLY_TERM = "http://example.org/numlegs"
+  @silly_resource = 99999
+  @silly_file = "directives.tsv"
+  @page_origin = 500000000
+
   def debug(command, resource, page_origin)
     case command
     when "init" then
@@ -539,12 +546,12 @@ class Painter
   def add_directive(page_id, trait_id, pred, tag, resource)
     # Pseudo-trait id unique only within resource
     directive_eol_pk = "R#{resource}-BP#{tag}.#{page_id}.#{trait_id}"
+    # Add when schema permits: object_page_id: #{page_id},
     r = run_query(
       "MATCH (t:Trait {resource_pk: '#{trait_id}'})-[:supplier]->
              (r:Resource {resource_id: #{resource}})
        MERGE (pred:Term {uri: '#{pred}'})
        MERGE (m:MetaData {eol_pk: '#{directive_eol_pk}',
-                          object_page_id: #{page_id},
                           measurement: '#{page_id}'})
        MERGE (m)-[:predicate]->(pred)
        MERGE (t)-[:metadata]->(m)
