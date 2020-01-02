@@ -593,14 +593,11 @@ fr:
         r_subspecies: Sous-espèce
         r_infraspecies: Infra-espèce
         r_form: Forme
+      reference_taxon_attrib: Référencer le taxon depuis %{dataset_name}
       resource_link_html: <a href="%{resource_path}">%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href="%{resource_path}">%{resource_name}</a><br />
-        %{attribution}
       resource_link_w_remarks_html: <a href="%{resource_path}">{resource_name}</a>
         (%{remarks})
-      resource_link_w_remarks_attribution_html: <a href="%{resource_path}">{resource_name}</a>
-        (%{remarks})<br /> %{attribution}
+      username_missing: utilisateur %{user_id}
     trophic_web:
       globi_credit_html: données de <a href="%{url}">GloBI</a>
       reset: réinitialiser
@@ -941,6 +938,7 @@ fr:
   user:
     batch_page_lookup: Recherche de pages par lot
     created_at: créé
+    download_queue: File de téléchargement de données
     edit_account_details: Modifier les détails du compte
     email: Courriel
     to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre

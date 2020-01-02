@@ -18,7 +18,7 @@ class UserDownload < ActiveRecord::Base
 
   # TODO: this should be set up in a regular task.
   def self.expire_old
-    where(expired_at: null).where("created_at < ?", 2.weeks.ago).
+    where(expired_at: nil).where("created_at < ?", 2.weeks.ago).
       update_all(expired_at: Time.now)
   end
 
@@ -31,10 +31,15 @@ class UserDownload < ActiveRecord::Base
     end
   end
 
+  def processing?
+    self.processing_since.present?
+  end
+
 private
   def background_build
     begin
       Delayed::Worker.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
+      self.update(processing_since: Time.current)
       downloader = TraitBank::DataDownload.new(term_query, count, search_url)
       self.filename = downloader.background_build
       self.status = :completed

@@ -317,38 +317,19 @@ private
   end
 
   def page_resource_names_link(name, include_remarks)
-    if name.resource.dwh? && name.attribution.present?
-      if include_remarks && name.remarks.present?
-        I18n.t(
-          "pages.resource_names.resource_link_w_remarks_attribution_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          remarks: name.remarks,
-          attribution: name.attribution.html_safe
-        )
-      else
-        I18n.t(
-          "pages.resource_names.resource_link_w_attribution_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          attribution: name.attribution.html_safe
-        )
-      end
+    if include_remarks && name.remarks.present?
+      I18n.t(
+        "pages.resource_names.resource_link_w_remarks_html",
+        resource_path: resource_path(name.resource),
+        resource_name: name.resource.name,
+        remarks: name.remarks
+      )
     else
-      if include_remarks && name.remarks.present?
-        I18n.t(
-          "pages.resource_names.resource_link_w_remarks_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name,
-          remarks: name.remarks
-        )
-      else
-        I18n.t(
-          "pages.resource_names.resource_link_html",
-          resource_path: resource_path(name.resource),
-          resource_name: name.resource.name
-        )
-      end
+      I18n.t(
+        "pages.resource_names.resource_link_html",
+        resource_path: resource_path(name.resource),
+        resource_name: name.resource.name
+      )
     end
   end
 

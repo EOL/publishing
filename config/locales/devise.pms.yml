@@ -88,4 +88,20 @@ pms:
     unlocks:
       send_instructions: A arseivrà da-sì chèicje minute un mëssagi con j'anstrussion
         për dësbloché sò cont.
+      send_paranoid_instructions: Si sò cont a esist, a arseivrà da sì chèiche minute
+        un mëssagi con j'anstrussion për dësblochelo.
+      unlocked: Sò cont a l'é stàit dësblocà con sucess. Për piasì, ch'a rintra ant
+        ël sistema për continué.
+  errors:
+    messages:
+      already_confirmed: a l'é stàit già confirmà, për piasì ch'a preuva a rintré
+        ant ël sistema
+      confirmation_period_expired: a dev esse confirmà nen pi an là che %{period},
+        për piasì ch'a na ciama un neuv
+      expired: a l'é scadù, për piasì ch'a na ciama un neuv
+      not_found: nen trovà
+      not_locked: a l'era nen blocà
+      not_saved:
+        one: '1 eror a l''ha ampedì l''argistrassion ëd costa %{resource}:'
+        other: '%{count} eror a l''han ampedì l''argistrassion ëd costa %{resource}:'
 ...

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191216203244) do
+ActiveRecord::Schema.define(version: 20200102161828) do
 
   create_table "ar_internal_metadata", primary_key: "key", force: :cascade do |t|
     t.string   "value",      limit: 255
@@ -248,6 +248,13 @@ ActiveRecord::Schema.define(version: 20191216203244) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "dh_data_sets", force: :cascade do |t|
+    t.string   "dataset_id", limit: 255
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "home_page_feed_items", force: :cascade do |t|
     t.string   "img_url",           limit: 255
@@ -954,16 +961,17 @@ ActiveRecord::Schema.define(version: 20191216203244) do
   add_index "user_download_errors", ["user_download_id"], name: "index_user_download_errors_on_user_download_id", using: :btree
 
   create_table "user_downloads", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "count",         limit: 4
-    t.string   "filename",      limit: 255
+    t.integer  "user_id",          limit: 4
+    t.integer  "count",            limit: 4
+    t.string   "filename",         limit: 255
     t.datetime "completed_at"
     t.datetime "expired_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "term_query_id", limit: 4
-    t.text     "search_url",    limit: 65535
-    t.integer  "status",        limit: 4,     default: 0
+    t.integer  "term_query_id",    limit: 4
+    t.text     "search_url",       limit: 65535
+    t.integer  "status",           limit: 4,     default: 0
+    t.datetime "processing_since"
   end
 
   add_index "user_downloads", ["term_query_id"], name: "index_user_downloads_on_term_query_id", using: :btree
