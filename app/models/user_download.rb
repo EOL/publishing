@@ -18,7 +18,7 @@ class UserDownload < ActiveRecord::Base
 
   # TODO: this should be set up in a regular task.
   def self.expire_old
-    where(expired_at: null).where("created_at < ?", 2.weeks.ago).
+    where(expired_at: nil).where("created_at < ?", 2.weeks.ago).
       update_all(expired_at: Time.now)
   end
 
