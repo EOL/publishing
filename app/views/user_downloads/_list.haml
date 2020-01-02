@@ -1,0 +1,30 @@
+- downloads.each_with_index do |download, index|
+  -# name = term_search_name(download.options)
+  - name = "Search ##{downloads.length - index}"
+  %li
+    - if download.created?
+      = name
+      %br
+      - if download.processing?
+        = "processing - #{time_ago_in_words(download.processing_since)}"
+      - else
+        = "enqueued - #{time_ago_in_words(download.created_at)}"
+    - elsif download.completed? || download.status.nil?
+      = link_to(name, user_download_path(user_id: @user.id, id: download.id))
+      %br
+      = "completed - #{time_ago_in_words(download.completed_at)}"
+    - elsif download.failed?
+      - if is_admin? && download.download_error
+        = link_to(name, user_download_error_path(user_id: @user.id, download_id: download.id))
+      - else
+        = name
+      %br
+      = "failed - #{time_ago_in_words(download.completed_at)}"
+    - if !download.search_url.blank?
+      %br
+      %span query:&nbsp;
+      = link_to(term_query_display_string(download.term_query), download.search_url)
+
+    - if show_user
+      %br
+      = "user: #{link_to(download.user.username, download.user)}".html_safe

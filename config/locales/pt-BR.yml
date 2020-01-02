@@ -394,14 +394,11 @@ pt-BR:
         r_subspecies: Subespécies
         r_infraspecies: Infraespécies
         r_form: Forma
+      reference_taxon_attrib: Taxon de referência de %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_attribution_html: |-
-        <a href='%{resource_path}'>%{resource_name}</a>
-        %{attribution}
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
-      resource_link_w_remarks_attribution_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})<br>%{attribution}
+      username_missing: usuário %{user_id}
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -689,6 +686,7 @@ pt-BR:
     untrusted: não confiável
   user:
     created_at: criada
+    download_queue: Fila de download de dados
     edit_account_details: Editar detalhes da conta
     email: E-mail
     to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual

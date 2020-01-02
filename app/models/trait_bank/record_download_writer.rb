@@ -46,9 +46,9 @@ class TraitBank::RecordDownloadWriter
   IGNORE_META_URIS = HEADER_GLOSSARY.keys
 
   def start_cols # rubocop:disable Metrics/CyclomaticComplexity
-    { "EOL Page ID" => -> (trait, page, resource, association) { page && page.id },# NOTE: might be nice to make this clickable?
+    { "EOL Page ID" => -> (trait, page, resource, association) { page&.id },# NOTE: might be nice to make this clickable?
       "Ancestry" => -> (trait, page, resource, association) { TraitBank::DownloadUtils.ancestry(page) },
-      "Scientific Name" => -> (trait, page, resource, association) { page && page.scientific_name },
+      "Scientific Name" => -> (trait, page, resource, association) { page&.scientific_name },
       "Measurement Type" => -> (trait, page, resource, association) { handle_term(trait[:predicate]) },
       "Measurement Value" => -> (trait, page, resource, association) do 
         trait[:measurement] || handle_term(trait[:object_term]) || handle_association(trait, association) # Raw value, not sure if this works for associations
@@ -56,8 +56,8 @@ class TraitBank::RecordDownloadWriter
       "Measurement Unit" => -> (trait, page, resource, association) { handle_term(trait[:units]) },
       "Measurement Accuracy" => -> (trait, page, resource, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
       "Statistical Method" => -> (trait, page, resource, association) { handle_term(trait[:statistical_method_term]) },
-      "Target EOL ID" => -> (trait, page, resource, association) { association && association.id },
-      "Target EOL Name" => -> (trait, page, resource, association) { association && association.scientific_name },
+      "Target EOL ID" => -> (trait, page, resource, association) { association&.id },
+      "Target EOL Name" => -> (trait, page, resource, association) { association&.scientific_name },
       "Target Source Name" => -> (trait, page, resource, association) { trait[:target_scientific_name] },
       "Sex" => -> (trait, page, resource, association) { handle_term(trait[:sex_term])},
       "Life Stage" => -> (trait, page, resource, association) { handle_term(trait[:lifestage_term]) },
@@ -158,39 +158,56 @@ class TraitBank::RecordDownloadWriter
   end
 
   def to_arrays
-    pages = Page.where(id: page_ids)
-      .includes(:native_node, :preferred_vernaculars)
-      .map { |p| [p.id, p] }.to_h
-    resources = Resource.where(id: resource_ids).map { |r| [r.id, r] }.to_h
-    associations = Page.where(id: association_ids)
-      .map { |p| [p.id, p] }.to_h
     @data = []
     @data << start_cols.keys + @predicates.keys + end_cols.keys
     cols_with_vals = Set.new
-    @hashes.each do |trait|
-      page = pages[trait[:page][:page_id]]
-      resource = resources[trait[:resource][:resource_id]]
-      association = associations[trait[:object_page_id]]
-      row = []
-      i = 0
-      start_cols.each do |_, lamb|
-        row << track_value(i, lamb[trait, page, resource, association], cols_with_vals)
-        i += 1
+
+    @hashes.in_groups_of(10_000, false) do |hashes|
+      pages = Page.where(id: page_ids(hashes))
+        .includes(
+          :preferred_vernaculars, 
+          { 
+            native_node: [
+              { node_ancestors: [:ancestor] }, 
+              :scientific_names 
+            ]
+          }
+        )
+        .map { |p| [p.id, p] }.to_h
+      resources = Resource.where(id: resource_ids(hashes)).map { |r| [r.id, r] }.to_h
+      associations = Page.with_scientific_name.where(id: association_ids(hashes))
+        .map { |p| [p.id, p] }.to_h
+
+      hashes.each do |trait|
+        page = pages[trait[:page_id]]
+        resource = resources[trait[:resource][:resource_id]]
+        association = associations[trait[:object_page_id]]
+        row = []
+        i = 0
+
+        start_cols.each do |_, lamb|
+          row << track_value(i, lamb[trait, page, resource, association], cols_with_vals)
+          i += 1
+        end
+
+        @predicates.values.each do |predicate|
+          @glossary[predicate[:uri]] = {
+            :label => predicate[:name],
+            :definition => predicate[:definition]
+          }
+          row << track_value(i, meta_value(trait, predicate[:uri]), cols_with_vals)
+          i += 1
+        end
+
+        end_cols.each do |_, lamb|
+          row << track_value(i, lamb[trait, page, resource], cols_with_vals)
+          i += 1
+        end
+
+        @data << row
       end
-      @predicates.values.each do |predicate|
-        @glossary[predicate[:uri]] = {
-          :label => predicate[:name],
-          :definition => predicate[:definition]
-        }
-        row << track_value(i, meta_value(trait, predicate[:uri]), cols_with_vals)
-        i += 1
-      end
-      end_cols.each do |_, lamb|
-        row << track_value(i, lamb[trait, page, resource], cols_with_vals)
-        i += 1
-      end
-      @data << row
     end
+
     remove_blank_cols(@data, cols_with_vals)
     @data
   end
@@ -253,16 +270,16 @@ class TraitBank::RecordDownloadWriter
     end.uniq.join(" | ")
   end
 
-  def page_ids
-    TraitBank::DownloadUtils.page_ids(@hashes)
+  def page_ids(hashes)
+    TraitBank::DownloadUtils.page_ids(hashes)
   end
 
-  def resource_ids
-    @hashes.map { |hash| hash[:resource] && hash[:resource][:resource_id] }.uniq.compact
+  def resource_ids(hashes)
+    hashes.map { |hash| hash[:resource] && hash[:resource][:resource_id] }.uniq.compact
   end
 
-  def association_ids
-    @hashes.map { |hash| hash[:object_page_id] }.uniq.compact
+  def association_ids(hashes)
+    hashes.map { |hash| hash[:object_page_id] }.uniq.compact
   end
 
   def get_predicates

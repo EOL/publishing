@@ -19,7 +19,6 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      # There's really nothing to do if there's no minimal ancestor:
       if is_above_family?
         above_family
       else
@@ -264,7 +263,7 @@ class PageDecorator
 
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
-          @sentences << "Flowers are visited by #{parts.join(", ")}."
+          @sentences << "Flowers are visited by #{parts.to_sentence}."
         end
       end
 

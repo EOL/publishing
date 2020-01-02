@@ -31,10 +31,15 @@ class UserDownload < ActiveRecord::Base
     end
   end
 
+  def processing?
+    self.processing_since.present?
+  end
+
 private
   def background_build
     begin
       Delayed::Worker.logger.warn("Begin background build of #{count} rows for #{term_query} -> #{search_url}")
+      self.update(processing_since: Time.current)
       downloader = TraitBank::DataDownload.new(term_query, count, search_url)
       self.filename = downloader.background_build
       self.status = :completed

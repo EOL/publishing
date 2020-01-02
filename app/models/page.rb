@@ -50,7 +50,11 @@ class Page < ActiveRecord::Base
   end
 
   scope :with_hierarchy, -> do
-    includes(:medium, :preferred_vernaculars,
+    with_hierarchy_no_media.includes(:medium)
+  end
+
+  scope :with_hierarchy_no_media, -> do 
+    includes(:preferred_vernaculars,
       native_node: [:scientific_names, { node_ancestors: { ancestor: {
         page: [:preferred_vernaculars, { native_node: :scientific_names }]
       } } }])
@@ -60,6 +64,8 @@ class Page < ActiveRecord::Base
                                       native_node: [:scientific_names, :unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
+
+  scope :with_scientific_name, -> { includes(native_node: [:scientific_names]) }
 
   KEY_DATA_LIMIT = 12
 

@@ -250,6 +250,7 @@ ko:
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
+      username_missing: 사용자 %{user_id}
     trophic_web:
       globi_credit_html: <a href='%{url}'>GloBI</a>의 데이터
     tabs:
@@ -422,6 +423,7 @@ ko:
   trust:
     unreviewed: 검토되지 않음
   user:
+    download_queue: 데이터 다운로드 대기열
     email: 이메일
     to_commit_enter_current: 변경사항을 커밋하려면 현재의 비밀번호를 입력해 주십시오
     form_labels:
