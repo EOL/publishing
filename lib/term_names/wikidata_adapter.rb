@@ -26,14 +26,19 @@ class TermNames::WikidataAdapter
       id = (matches = uri.match(ID_CAPTURE_REGEX)) ? matches[:id] : nil
       next if id.nil?
 
-      response = HTTP.follow.get(BASE_URL + id + ".json")
+      url = BASE_URL + id + ".json"
+      response = HTTP.follow.get(url)
       next if !check_response(response)
       labels_by_locale = response.parse.dig("entities", id, "labels")
 
-      locales.each do |locale|
-        value = labels_by_locale.dig(locale.to_s, "value")
-        next if value.nil?
-        @storage.set_value_for_locale(locale, uri, value) 
+      if labels_by_locale
+        locales.each do |locale|
+          value = labels_by_locale.dig(locale.to_s, "value")
+          next if value.nil?
+          @storage.set_value_for_locale(locale, uri, value) 
+        end
+      else
+        puts "WARN: failed to retrieve labels from #{url} -- continuing"
       end
     end
 
