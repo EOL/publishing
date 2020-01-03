@@ -3,7 +3,10 @@ require "http"
 class TermNames::WikidataAdapter
   include TermNames::ResponseCheck
 
-  ID_CAPTURE_REGEX = /https?:\/\/www\.wikidata\.org\/wiki\/(?<id>Q\d+)/
+  # Example uris:
+  # "https://www.wikidata.org/entity/Q764"
+  # "https://www.wikidata.org/wiki/Q7075151" 
+  ID_CAPTURE_REGEX = /https?:\/\/www\.wikidata\.org\/[^\/]+\/(?<id>Q\d+)/
   BASE_URL = "http://www.wikidata.org/wiki/Special:EntityData/"
 
   def self.name
