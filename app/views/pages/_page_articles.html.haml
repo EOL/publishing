@@ -13,5 +13,6 @@
           to_path: lambda { |res| page_articles_path(@page, lang_group: @lang_group, resource_id: res&.id) },
           no_selection_label: t("filters.filter_by_provider"),
           show_all_item: nil
-  - @articles.each do |article|
-    = render :partial => "page_article", :locals => { article: article }
+  .page-articles
+    - @articles.each do |article|
+      = render :partial => "page_article", :locals => { article: article }
