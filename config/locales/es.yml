@@ -6,6 +6,7 @@
 # Author: Gastonsaenz
 # Author: Ihojose
 # Author: Madamebiblio
+# Author: Silverie04
 ---
 es:
   language_name: Inglés
@@ -249,8 +250,8 @@ es:
     is: Islandés
     it: Italiano
     ja: Japonés
-    jv: Javanés
     jp: Japonés
+    jv: Javanés
     ka: Georgiano
     kk: Kazajo
     ko: Coreano
@@ -264,7 +265,7 @@ es:
     mt: Maltés
     ne: Nepalí
     nl: Holandés; flamenco
-    "": Noruego
+    "no": Noruego
     nv: Navajo
     pl: Polaco
     pt: Portugués
@@ -384,6 +385,7 @@ es:
         r_species: Especie
         r_subspecies: Subespecie
         r_infraspecies: Infraespecie
+      reference_taxon_attrib: Referencia taxon de %{dataset_name}
       username_missing: usuario %{user_id}
     trophic_web:
       reset: restablecer
@@ -551,6 +553,7 @@ es:
   data_definition: definición de «%{data}»
   user:
     created_at: creación
+    download_queue: Cola de descarga de datos
     email: Dirección de correo electrónico
     to_commit_enter_current: Es necesaria la contraseña actual para confirmar los
       cambios

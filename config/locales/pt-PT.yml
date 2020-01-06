@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Hamilton Abreu
+# Author: Mansil
 # Author: Mansil alfalb
 ---
 pt-PT:
@@ -295,6 +296,7 @@ pt-PT:
         r_subspecies: Subespécie
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
+      username_missing: utilizador %{user_id}
     trophic_web:
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
       reset: redefinir
@@ -442,11 +444,17 @@ pt-PT:
     unreviewed: não revisto
   user:
     created_at: criada
+    download_queue: Fila de descarregamento de dados
+    form_labels:
+      age_confirm: Eu tenho pelo menos 13 anos
     headers:
       bio: Breve Biografia
       collections: Coleções
       downloads: Transferências
       links: Hiperligações
+    validations:
+      tou_confirm: deve confirmar que leu as Condições de Utilização e as Normas de
+        Privacidade
     new_password: Nova palavra-passe
     confirm_new_password: Confirmar nova palavra-passe
     username: nome de utilizador

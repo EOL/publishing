@@ -305,8 +305,7 @@ pms:
     co: Còrs
     cr: Cree
     cs: Cech
-    cu: Slav dla cesa; vej slavònic; slavònich ëd la cesa; vej bùlgar; vej slavònich
-      ëd la cesa
+    cu: Vej slavònich ëd la cesa
     cv: Chuvash
     cy: Galèis
     da: Danèis
@@ -354,8 +353,8 @@ pms:
     it: Italian
     iu: Inuktitut
     ja: Giaponèis
-    jv: Giavanèis
     jp: Giaponèis
+    jv: Giavanèis
     ka: Georgian
     kg: Kongo
     ki: Kikuyu; Gikuyu
@@ -397,7 +396,7 @@ pms:
     ng: ndonga
     nl: olandèis; flamand
     nn: norvegèis nynorsk; nynorsk, norvegèis
-    "": norvegèis
+    "no": norvegèis
     nr: ndebele dël sud
     nv: navajo; navaho
     ny: chewa; chichewa; nyanja
@@ -411,6 +410,18 @@ pms:
     pl: polonèis
     ps: pushto; pashton
     pt: portughèis
+    Q11005332: Kinga
+    Q11128374: Nyiha
+    Q1160372: Laz
+    Q11732519: Kingindo
+    Q13313: Meru
+    Q13324: Minangkabau
+    Q13330: Mirandèis
+    Q13358: Rumen Megleno
+    Q146803: Lenga franca neuva
+    Q16115145: Nyika
+    Q180937: Albanèis Tosk
+    Q18415595: Dotyali
     qu: quechua
     rm: romancc
     rn: rundi
