@@ -121,7 +121,7 @@ da:
     ko: Koreansk
     ku: Kurdisk
     la: Latin
-    "": Norsk
+    "no": Norsk
     pl: Polsk
     ru: Russisk
     sa: Sanskrit
@@ -167,6 +167,7 @@ da:
         r_family: Familie
         r_subfamily: Underfamilie
         r_species: Arter
+      username_missing: bruger %{user_id}
     tabs:
       articles: artikler
       literature_and_references: Referencer

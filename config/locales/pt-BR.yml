@@ -255,8 +255,8 @@ pt-BR:
     id: Indonésio
     it: Italiano
     ja: Japonês
-    jv: Japonês
     jp: Japonês
+    jv: Japonês
     ka: Georgiano
     kk: Cazaque
     ko: Coreano
@@ -267,11 +267,12 @@ pt-BR:
     nd: Ndebele do norte; Ndebele do Zimbabwe
     ng: Xindongo
     nn: Novo norueguês
-    "": Norueguês
+    "no": Norueguês
     ny: Nianja; Cinianja; Chewa
     oj: Ojíbua
     pl: Polonês
     pt: Português
+    Q750553: Português do Brasil
     rm: Romanche
     ru: Russo
     sc: Sardo
