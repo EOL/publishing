@@ -123,7 +123,7 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov'
   # Rubocop... which technically you want on your *system*, but ...
-  gem 'rubocop'
+  # TEMP: gem 'rubocop'
 end
 
 group :development do
@@ -139,12 +139,12 @@ group :development do
   # For benchmarking queries:
   gem 'meta_request'
 
-  gem 'i18n-tasks', '~> 0.9.26'
+  gem 'i18n-tasks'
 end
 
 group :test do
   gem 'rspec-rails', '~> 3.8'
-  gem 'better_errors'
+  # UPGRADE_2020_1 TEMP gem 'better_errors'
   gem 'capybara'
   gem 'factory_girl'
   gem 'faker'
