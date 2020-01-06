@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers]
+  @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers autocomplete_fields]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
 
@@ -168,16 +168,25 @@ class Page < ActiveRecord::Base
 
     def autocomplete(query, options = {})
       search(query, options.reverse_merge({
-        fields: ['dh_scientific_names^5', 'preferred_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+        fields: ['autocomplete_fields'],
+        #fields: ['dh_scientific_names^5', 'preferred_scientific_strings^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
         match: :text_start,
         limit: 10,
         load: false,
         misspellings: false,
         highlight: { tag: "<mark>", encoder: "html" },
         #boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
-        where: { dh_scientific_names: { not: nil }}
+        #where: { dh_scientific_names: { not: nil }},
+        explain: true
       }))
     end
+  end
+
+  def autocomplete_fields
+    (preferred_vernacular_strings || []) + 
+    (vernacular_strings || []) + 
+    (dh_scientific_names || []) + 
+    (preferred_scientific_strings || [])
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
