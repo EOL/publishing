@@ -146,7 +146,7 @@ end
 
 group :test do
   gem 'rspec-rails', '~> 3.8'
-  gem 'better_errors'
+  # UPGRADE_2020_1 TEMP gem 'better_errors'
   gem 'capybara'
   gem 'factory_girl'
   gem 'faker'
