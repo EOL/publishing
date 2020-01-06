@@ -73,12 +73,7 @@ module DataHelper
   end
 
   def i18n_term_name(term)
-    key = TermI18n.uri_to_key(term[:uri], "term.name.by_uri")
-    if I18n.exists?(key)
-      t(key)
-    else
-      term[:name]
-    end
+    TraitBank::Record.i18n_name(term)
   end
 
   def show_data_value(data)

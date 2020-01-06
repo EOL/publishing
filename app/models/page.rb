@@ -787,8 +787,8 @@ class Page < ActiveRecord::Base
     @glossary_names ||= begin
       gn = {}
       glossary.each do |uri, hash|
-        name = glossary[uri][:name] ? glossary[uri][:name].downcase :
-          glossary[uri][:uri].downcase.gsub(/^.*\//, "").humanize.downcase
+        term_name = TraitBank::Record.i18n_name(glossary[uri])
+        name = term_name ? term_name.downcase : glossary[uri][:uri].downcase.gsub(/^.*\//, "").humanize.downcase
         gn[uri] = name
       end
       gn
