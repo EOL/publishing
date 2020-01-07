@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  @text_search_fields = %w[dh_scientific_names preferred_scientific_names synonyms preferred_vernacular_strings vernacular_strings providers autocomplete_fields]
+  @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers autocomplete_names]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
 
@@ -60,7 +60,7 @@ class Page < ActiveRecord::Base
       } } }])
   end
 
-  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :nodes, :medium,
+  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :medium, nodes: [:scientific_names],
                                       native_node: [:scientific_names, :unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
@@ -168,7 +168,7 @@ class Page < ActiveRecord::Base
 
     def autocomplete(query, options = {})
       search(query, options.reverse_merge({
-        fields: ['autocomplete_fields'],
+        fields: ['autocomplete_names'],
         #fields: ['dh_scientific_names^5', 'preferred_scientific_strings^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
         match: :text_start,
         limit: 10,
@@ -182,13 +182,6 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def autocomplete_fields
-    (preferred_vernacular_strings || []) + 
-    (vernacular_strings || []) + 
-    (dh_scientific_names || []) + 
-    (preferred_scientific_strings || [])
-  end
-
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
   # the other fields.
   def search_data
@@ -197,16 +190,17 @@ class Page < ActiveRecord::Base
     pref_verns = verns if pref_verns.empty?
     anc_ids = ancestry_ids
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
+
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
       page_richness: page_richness || 0,
-      dh_scientific_names: dh_scientific_names, # NOTE: IMPLIES that this page is in the DH, too!
       scientific_name: sci_name,
       specificity: specificity.to_f,
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
+      dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
       providers: providers,
       ancestry_ids: anc_ids,
@@ -216,7 +210,8 @@ class Page < ActiveRecord::Base
       name: name,
       native_node_id: native_node_id,
       resource_ids: resource_ids,
-      rank_ids: nodes&.map(&:rank_id).uniq.compact
+      rank_ids: nodes&.map(&:rank_id).uniq.compact,
+      autocomplete_names: pref_verns + verns + [scientific_name] + preferred_scientific_strings
     }
   end
 
