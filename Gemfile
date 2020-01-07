@@ -123,7 +123,9 @@ group :development, :test do
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov'
   # Rubocop... which technically you want on your *system*, but ...
-  # TEMP: gem 'rubocop'
+  gem 'rubocop'
+
+  gem 'active_record_query_trace'
 end
 
 group :development do
