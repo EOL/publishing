@@ -58,8 +58,7 @@ private
 
   def do_search
     searcher = MultiClassSearch.new(params[:q], params)
-
-    params[:q] = searcher.query # get a clean version of the search string for re-use in the form
+    @q = searcher.query # get a clean version of the search string for re-use in the form
 
     path = searcher.suggested_path?
     flash[:notice] = searcher.notice if searcher.notice
