@@ -231,6 +231,10 @@ $font-sz-m: 14px;
   padding: 0;
 }
 
+.page-articles {
+  padding-left: $pad-l-sm;
+}
+
 @media(min-width: $width-m) {
   .l-content {
     margin-top: $head-height + $tabs-m-height;
@@ -274,6 +278,9 @@ $font-sz-m: 14px;
     }
   }
 
+  .page-articles {
+    padding-left: $pad-l-m; 
+  }
 }
 
 @media only print and (min-width: $width-m) {

@@ -127,13 +127,12 @@ class MultiClassSearch
   end
 
   def set_types
-    default = @only.empty? ? true : false
+    only_set = Set.new(@only.collect { |o| o.to_sym })
+
     @types = {}
-    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].
-      each do |sym|
-        @types[sym] = default
-      end
-    @types[@only.to_sym] = true unless @only.empty?
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].each do |sym|
+      @types[sym] = only_set.empty? || only_set.include?(sym)
+    end
   end
 
   def search
@@ -152,10 +151,9 @@ class MultiClassSearch
   def prepare_pages_query
     if @types[:pages]
       fields = %w[autocomplete_names^20 synonyms]
-      match = @words.size == 1 ? :text_start : :phrase
       basic_search(
         Page,
-        match: match,
+        match: :text_start,
         fields: fields,
         where: @clade ? { ancestry_ids: @clade.id } : nil,
         includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }]
