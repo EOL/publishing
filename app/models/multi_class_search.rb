@@ -151,7 +151,7 @@ class MultiClassSearch
 
   def prepare_pages_query
     if @types[:pages]
-      fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10 synonyms^10 providers resource_pks]
+      fields = %w[autocomplete_names^20 synonyms]
       match = @words.size == 1 ? :text_start : :phrase
       basic_search(
         Page,
