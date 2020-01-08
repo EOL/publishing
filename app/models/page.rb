@@ -197,7 +197,7 @@ class Page < ActiveRecord::Base
       preferred_vernacular_strings: pref_verns,
       dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
-      autocomplete_names: pref_verns + verns + [sci_name] + preferred_scientific_strings
+      autocomplete_names: pref_verns + verns + preferred_scientific_strings
     }
   end
 
