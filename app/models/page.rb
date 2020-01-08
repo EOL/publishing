@@ -22,6 +22,7 @@ class Page < ActiveRecord::Base
   has_many :page_icons, inverse_of: :page
   # Only the last one "sticks":
   has_one :page_icon, -> { most_recent }
+  has_one :dh_node, -> { dh }, class_name: "Node"
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
@@ -60,8 +61,7 @@ class Page < ActiveRecord::Base
       } } }])
   end
 
-  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, :medium, nodes: [:scientific_names],
-                                      native_node: [:scientific_names, :unordered_ancestors, { node_ancestors: :ancestor }], resources: :partner) }
+  scope :search_import, -> { includes(:scientific_names, :preferred_scientific_names, :vernaculars, dh_node: [:scientific_names], native_node: [:scientific_names]) }
 
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
@@ -175,7 +175,6 @@ class Page < ActiveRecord::Base
         load: false,
         misspellings: false,
         highlight: { tag: "<mark>", encoder: "html" },
-        #boost_by: { page_richness: { factor: 2 }, depth: { factor: 10 }, specificity: { factor: 2 }},
         #where: { dh_scientific_names: { not: nil }},
         explain: true
       }))
@@ -187,31 +186,18 @@ class Page < ActiveRecord::Base
   def search_data
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
-    pref_verns = verns if pref_verns.empty?
-    anc_ids = ancestry_ids
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
 
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
-      page_richness: page_richness || 0,
       scientific_name: sci_name,
-      specificity: specificity.to_f,
       preferred_scientific_names: preferred_scientific_strings,
       synonyms: synonyms,
       preferred_vernacular_strings: pref_verns,
       dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
-      providers: providers,
-      ancestry_ids: anc_ids,
-      depth: anc_ids.size,
-      resource_pks: resource_pks,
-      icon: icon,
-      name: name,
-      native_node_id: native_node_id,
-      resource_ids: resource_ids,
-      rank_ids: nodes&.map(&:rank_id).uniq.compact,
-      autocomplete_names: pref_verns + verns + [scientific_name] + preferred_scientific_strings
+      autocomplete_names: pref_verns + verns + [sci_name] + preferred_scientific_strings
     }
   end
 
@@ -270,10 +256,6 @@ class Page < ActiveRecord::Base
     else
       vernaculars.nonpreferred.map { |v| v.string }
     end
-  end
-
-  def dh_node
-    @dh_node = nodes.find { |n| n.resource_id == Resource.native.id }
   end
 
   def dh_scientific_names

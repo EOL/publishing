@@ -155,7 +155,6 @@ class MultiClassSearch
       match = @words.size == 1 ? :text_start : :phrase
       basic_search(
         Page,
-        #boost_by: [:page_richness, :specificity, :depth],
         match: match,
         fields: fields,
         where: @clade ? { ancestry_ids: @clade.id } : nil,
