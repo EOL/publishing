@@ -67,7 +67,7 @@ class PageDecorator
 
       def above_family
         if a1.present?
-          @sentences << "#{@page.name} is a group of #{a1}."
+          @sentences << "#{@page.name.capitalize} is a group of #{a1}."
         end
 
         desc_info = @page.desc_info
