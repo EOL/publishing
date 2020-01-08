@@ -127,13 +127,12 @@ class MultiClassSearch
   end
 
   def set_types
-    default = @only.empty? ? true : false
+    only_set = Set.new(@only.collect { |o| o.to_sym })
+
     @types = {}
-    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].
-      each do |sym|
-        @types[sym] = default
-      end
-    @types[@only.to_sym] = true unless @only.empty?
+    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].each do |sym|
+      @types[sym] = only_set.empty? || only_set.include?(sym)
+    end
   end
 
   def search
