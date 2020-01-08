@@ -22,11 +22,11 @@ class ApiSearchController < LegacyApiController
     end
 
     fields = %w[preferred_vernacular_strings^20 vernacular_strings^20 preferred_scientific_names^10 scientific_name^10
-                synonyms^10 resource_pks]
+                synonyms^10]
     # Basically stolen from SearchController, but highlight wasn't working AT ALL... so I skipped it.
     pages = Page.search(params[:q],
       page: params[:page], per_page: 50,
-      boost_by: [:page_richness, :specificity, :depth], match: :phrase, fields: fields,
+      match: :phrase, fields: fields,
       where: @clade ? { ancestry_ids: @clade } : nil,
       includes: [:scientific_names, :nodes, :preferred_vernaculars, :native_node])
 
