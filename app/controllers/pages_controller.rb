@@ -405,6 +405,7 @@ private
       resource_ids = [2,4,8,9,10,11,12,14,46,53,181,395,410,416,417,418,420,459,461,462,463,464,465,468,469,470,474,475,
         481,486,493,494,495,496,507,508]
       @resources = Resource.where(id: resource_ids).select('id, name').sort_by { |r| r.name.downcase }
+      @media_count = 1000
     else
       @license_groups = LicenseGroup
         .joins(:licenses)
@@ -412,17 +413,18 @@ private
         .distinct
       @subclasses = @page.regular_media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
+      @media_count = media.limit(1000).count
     end
-    media = @page.regular_media
-                 .includes(:license, :resource, page_contents: { page: %i[native_node preferred_vernaculars] })
-                 .where(['page_contents.source_page_id = ?', @page.id])
-                 .references(:page_contents)
+    # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
+    media = @page.regular_media.includes(:license, :resource, page_contents: {
+      page: %i[native_node preferred_vernaculars] }).where(['page_contents.source_page_id = ?',
+      @page.id]).references(:page_contents)
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])
-      media = media
-        .joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = media.license_id")
-        .joins("JOIN license_groups ON license_groups_licenses.license_group_id = license_groups.id")
-        .where("license_groups.id": @license_group.all_ids_for_filter)
+      # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
+      media = media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
+        "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
+        "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
     end
     if params[:subclass]
       @subclass = params[:subclass]
@@ -433,8 +435,8 @@ private
       media = media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
-    @media_count = media.limit(1000).count
-    @media = media.by_page(params[:page]).per(@media_page_size).without_count
+    # Just adding the || 30 in here for safety's sake:
+    @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
   end
 
   def get_articles
