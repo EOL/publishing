@@ -5,6 +5,7 @@
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
+# Author: Pols12
 # Author: Thibaut120094
 # Author: Urhixidur
 # Author: Verdy p
@@ -241,8 +242,8 @@ fr:
       help: Aide
       terms_of_use: Conditions d’utilisation
       the_eol_forum: Le forum EdlV
-      what_is_eol: Qu’est-ce que l’EdlV ?
-      whats_new: Quoi de neuf ?
+      what_is_eol: Qu’est-ce que l’EdlV ?
+      whats_new: Quoi de neuf ?
     discover:
       algae: Algues
       amphibians: Amphibiens
@@ -267,8 +268,8 @@ fr:
       trees: Arbres
       viruses: Virus
       worms: Vers
-    eol_is_hosted_by: 'L’EdlV est hébergée par :'
-  forgot_your_password: Mot de passe oublié ?
+    eol_is_hosted_by: 'L’EdlV est hébergée par :'
+  forgot_your_password: Mot de passe oublié ?
   landing_page:
     header: Accès global à la connaissance sur la vie sur Terre
     stats_cleared: Les statistiques ont été recalculées.
@@ -297,7 +298,7 @@ fr:
     bo: tibétain
     br: breton
     bs: bosnien
-    ca: catalan ; valencien
+    ca: catalan ; valencien
     ce: tchétchène
     ch: chamorro
     co: corse
@@ -308,14 +309,14 @@ fr:
     cy: gallois
     da: danois
     de: allemand
-    dv: divehi ; maldivien
+    dv: divehi ; maldivien
     dz: dzongkha
     dzo: dzongkha
     ee: éwé
     el: grec moderne (1453–)
     en: anglais
     eo: espéranto
-    es: espagnol ; castillan
+    es: espagnol ; castillan
     et: estonien
     eu: basque
     fa: persan
@@ -326,7 +327,7 @@ fr:
     fr: français
     fy: frison occidental
     ga: irlandais
-    gd: gaélique ; gaélique écossais
+    gd: gaélique ; gaélique écossais
     gl: galicien
     gn: guarani
     gu: gouderati
@@ -336,15 +337,15 @@ fr:
     hi: hindi
     ho: hiri motu
     hr: Croate
-    ht: haïtien ; créole haïtien
+    ht: haïtien ; créole haïtien
     hu: hongrois
     hy: arménien
     hz: héréro
     ia: interlingua (Association internationale de langue auxiliaire)
     id: indonésien
-    ie: interlingua ; occidental
+    ie: interlingua ; occidental
     ig: igbo
-    ii: yi du Sichuan ; nuosu
+    ii: yi du Sichuan ; nuosu
     ik: inupiaq
     io: ido
     is: islandais
@@ -355,10 +356,10 @@ fr:
     jv: javanais
     ka: Géorgien
     kg: kikongo
-    ki: kikuyu ; gikuyu
-    kj: kuanyama ; kwanyama
+    ki: kikuyu ; gikuyu
+    kj: kuanyama ; kwanyama
     kk: kazakh
-    kl: kalaallisut ; groenlandais
+    kl: kalaallisut ; groenlandais
     km: khmer central
     kn: kannara
     ko: coréen
@@ -370,7 +371,7 @@ fr:
     ky: kirghize
     la: latin
     lb: luxembourgeois
-    lg: ganda ; luganda
+    lg: ganda ; luganda
     li: limbourgeois
     ln: lingala
     lo: lao
@@ -388,16 +389,16 @@ fr:
     mt: maltais
     my: birman
     na: nauru
-    nb: bokmål, norvégien ; norvégien bokmål
+    nb: bokmål, norvégien ; norvégien bokmål
     nd: ndébélé du Nord
     ne: népalais
     ng: ndonga
-    nl: néerlandais ; flamand
-    nn: norvégien nynorsk ; nynorsk, norvégien
+    nl: néerlandais ; flamand
+    nn: norvégien nynorsk ; nynorsk, norvégien
     "no": norvégien
     nr: ndébélé du Sud
-    nv: navajo ; navaho
-    ny: chewa ; chichewa ; nyanja
+    nv: navajo ; navaho
+    ny: chewa ; chichewa ; nyanja
     oc: occitan (après 1500)
     oj: ojibwé
     om: oromo
@@ -406,17 +407,17 @@ fr:
     pa: pendjabi
     pi: pali
     pl: polonais
-    ps: pachto ; pachtoune
+    ps: pachto ; pachtoune
     pt: portugais
     Q11005332: Kinga
     Q11128374: Nyiha
-    Q1160372: Laz
+    Q1160372: Laze
     Q11732519: Kingindo
     Q13313: Meru
     Q13324: Minangkabau
     Q13330: Mirandais
     Q13358: Mégléno-roumain
-    Q146803: Lingua Franca Nova
+    Q146803: Lingua franca nova
     Q16115145: Nyika
     Q180937: Tosque
     Q18415595: Dotyali
@@ -433,18 +434,18 @@ fr:
     Q3272620: Nyakusa
     Q3272630: Gogo
     Q32858: Vote
-    Q32979: Chactas
+    Q32979: Chacta
     Q33202: Brahoui
     Q33281: Chavacano
     Q33303: Haïda
     Q33357: Tatar de Crimée
-    Q33475: Chinois Gan
+    Q33475: Gan
     Q33509: Ingouche
     Q33541: Karakalpaks
     Q33595: Iraqw
     Q3362072: Digo
     Q33634: Kalmouk
-    Q33698: Liv
+    Q33698: Live
     Q33965: Santali
     Q34016: Sandawe
     Q34138: Tumbuka
@@ -454,11 +455,11 @@ fr:
     Q35037: Ndjuka
     Q3508074: Nai
     Q35156: Car
-    Q35475: Kabyés
+    Q35475: Kabiyè
     Q35756: Haya
     Q35787: Maa
     Q35936: Ilocano
-    Q35939: Anglais créole jamaïcain
+    Q35939: Créole jamaïcain
     Q35978: Hiligaïnon
     Q36109: Maïthili
     Q36403: Asu
@@ -491,7 +492,7 @@ fr:
     qu: quechua
     rm: romanche
     rn: roundi
-    ro: roumain ; moldave
+    ro: roumain ; moldave
     ru: russe
     rw: kinyarwanda
     sa: sanskrit
@@ -570,8 +571,8 @@ fr:
       js_map: carte interactive
   medium_collect_button: collecter les médias
   medium_description_blank: Il n’y a aucune description fournie pour cet objet.
-  medium_header_title: 'Titre :'
-  medium_header_description: 'Description :'
+  medium_header_title: 'Titre :'
+  medium_header_description: 'Description :'
   names:
     hide_langs:
       one: masquer une langue
@@ -596,9 +597,9 @@ fr:
     header:
       one: Meilleure image pour la page
       other: Meilleure image pour les pages
-  page_icon_created: Image « %{name} » déplacée en haut.
+  page_icon_created: Image « %{name} » déplacée en haut.
   page_title: Encyclopédie de la Vie
-  page_title_search: 'Recherche : %{query}'
+  page_title_search: 'Recherche : %{query}'
   page_vernaculars_empty: Il n’y a aucun nom commun associé avec ce taxon.
   pages:
     actions:
@@ -621,9 +622,9 @@ fr:
       search: chercher
     overview:
       eol_has_data_for_n_attributes_including_html:
-        one: 'L’EdlV a des données pour <a href="%{data_path}">un attribut</a> :'
+        one: 'L’EdlV a des données pour <a href="%{data_path}">un attribut</a> :'
         other: 'L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>,
-          dont :'
+          dont :'
       eol_has_data_for_n_attributes_html:
         one: L’EdlV a une donnée pour <a href="%{data_path}">un attribut</a>.
         other: L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>.
@@ -631,8 +632,8 @@ fr:
       show_all: tout afficher
     page_data:
       n_hidden_show_all:
-        one: 1 enregistrement « %{pred_name} » caché – montrer tout
-        other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
+        one: 1 enregistrement « %{pred_name} » caché – montrer tout
+        other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
       show_all: tout afficher
     resource_names:
       name_recognized_by: Reconnu par %{by}
@@ -696,7 +697,7 @@ fr:
       media: média
       names: noms
     iucn_status:
-      label: 'Catégorie de l’IUCN :'
+      label: 'Catégorie de l’IUCN :'
       ex: éteint (EX)
       ew: éteint à l’état sauvage (EW)
       cr: en danger critique (CR)
@@ -708,7 +709,7 @@ fr:
       ne: non évalué (NE)
       unknown: inconnu (pas d’enregistrement)
     unresolved_name: Nom non-résolu
-    unresolved_name_prefix: 'Noms non résolus :'
+    unresolved_name_prefix: 'Noms non résolus :'
   page_titles:
     pages:
       data: données de %{page_name}
@@ -721,7 +722,7 @@ fr:
   recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
   reference_compiled_from: Référencé par %{links}
-  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
+  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
   register_new_account: Enregistrer un nouveau compte
   resources:
     actions:
@@ -739,22 +740,22 @@ fr:
       fetch_relationships: récupérer les relations
       sync_all_terms_confirm: Ceci rassemblera TOUS les termes de la couche de récolte
         qui ne sont pas dans la couche de publication. Cela demande environ 15 minutes.
-        Êtes-vous sûr ?
+        Êtes-vous sûr ?
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
         mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
         Êtes-vous sûr{{GENDER:||e}} ?
       fetch_synonyms: trouver des synonymes
       fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
-        sûr ?
+        sûr ?
       fetch_units: récupérer les unités
       fetch_units_confirm: Cela supprime les relations de prédicat/unité existantes
         et les rajoute, mais cela peut échouer et les supprimer toutes. Cela prend
-        environ une minute. Êtes-vous sûr ?
+        environ une minute. Êtes-vous sûr ?
       clear_publishing: effacer le verrou
-      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
+      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
-        sûr ?
+        sûr ?
     headers:
       index: Ressources
       import_log: Importer le journal pour %{resource}
@@ -765,7 +766,7 @@ fr:
         travaux en attente}}'
       harvest_jobs: '{{PLURAL:%{count}|zero=rien à publier|one=une publication en
         attente|%{count} à publier}}'
-    no_events: Aucun !
+    no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
     status_title:
@@ -782,7 +783,7 @@ fr:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}
       more_than_two_terms: 'Impossible de combiner les résultats pour plus de deux
-        termes : %{terms}'
+        termes : %{terms}'
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
@@ -809,35 +810,35 @@ fr:
       one: '%{count} page'
       other: '%{count} pages'
     collection_page_count_and_users:
-      one: '%{count} page ; maintenue par %{users_sentence}'
-      other: '%{count} pages ; maintenues par %{users_sentence}'
+      one: '%{count} page ; maintenue par %{users_sentence}'
+      other: '%{count} pages ; maintenues par %{users_sentence}'
     collected_media:
-      title: 'médias collectés depuis cette page :'
+      title: 'médias collectés depuis cette page :'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
     medium_sound: Son
     medium_video: Vidéo
-    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
-    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
-    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
-    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
-    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
+    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
+    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
+    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
+    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
+    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
     field_matches:
-      description: 'correspond à la description :'
-      resource_pk: 'correspond à l’ID externe :'
-      bio: 'correspond à la biographie :'
-      tag_line: 'correspond à la ligne balisée :'
+      description: 'correspond à la description :'
+      resource_pk: 'correspond à l’ID externe :'
+      bio: 'correspond à la biographie :'
+      tag_line: 'correspond à la ligne balisée :'
       resources:
-        one: 'correspond à la ressources :'
-        other: 'correspond aux ressource :'
+        one: 'correspond à la ressources :'
+        other: 'correspond aux ressource :'
       synonyms:
-        one: 'correspond au synonyme synonyme :'
-        other: 'correspond au synonymex synonymes :'
+        one: 'correspond au synonyme synonyme :'
+        other: 'correspond au synonymex synonymes :'
       vernaculars:
-        one: 'correspond au nom usuel :'
-        other: 'correspond aux noms usuels :'
+        one: 'correspond au nom usuel :'
+        other: 'correspond aux noms usuels :'
     section_titles:
       collections:
         one: '%{count} collection'
@@ -857,7 +858,7 @@ fr:
       users:
         one: '%{count} utilisateur'
         other: '%{count} utilisateurs'
-    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
+    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
       n_articles: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} article{{PLURAL:%{count}|zero=|one=|s}}'
       n_data:
@@ -866,12 +867,12 @@ fr:
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIA'
-    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
+    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
   search_suggestion:
     actions:
       create: créer une nouvelle suggestion de recherche
-    created: Suggestion de recherche créée pour « %{match} »
-    destroyed: Suggestion de recherche annulée pour « %{match} »
+    created: Suggestion de recherche créée pour « %{match} »
+    destroyed: Suggestion de recherche annulée pour « %{match} »
     new:
       header: Créer une suggestion de recherche
     update:
@@ -937,7 +938,7 @@ fr:
       text: obligatoire
       mark: '*'
     error_notification:
-      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
+      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:
       defaults:
         email: Adresse électronique
@@ -976,13 +977,13 @@ fr:
       header: Modification de %{uri}
       submit: Enregistrer
     fields:
-      name: 'nom :'
-      definition: 'définition :'
-      attribution: 'attribution :'
-      comment: 'commentaire :'
-      sections: 'sections :'
-      is_hidden_from_glossary: 'masquer dans le glossaire :'
-      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
+      name: 'nom :'
+      definition: 'définition :'
+      attribution: 'attribution :'
+      comment: 'commentaire :'
+      sections: 'sections :'
+      is_hidden_from_glossary: 'masquer dans le glossaire :'
+      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
     glossary:
       full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
       predicate_title: Glossaire des termes des types de données sur l’EdlV
@@ -992,15 +993,15 @@ fr:
       next: page suivante
       previous: page précédente
   terms:
-    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
-    comment_field_html: <strong>Commentaire :</strong> %{comment}
-    definition_field_html: <strong>Définition :</strong> %{definition}
-    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
+    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
+    comment_field_html: <strong>Commentaire :</strong> %{comment}
+    definition_field_html: <strong>Définition :</strong> %{definition}
+    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
     record_url: URL d’enregistrement
     scientific_name: nom scientifique
     show_all_records: afficher tous les enregistrements
     source: source
-    uri_field_html: <strong>URI :</strong> %{uri}
+    uri_field_html: <strong>URI :</strong> %{uri}
     index:
       select_page_above: Choisir une page ci-dessus pour commencer.
   data_definition: définition de « %{data} »
@@ -1050,16 +1051,16 @@ fr:
       utilisateur</a> pour voir quand cela sera achevé.
   users:
     account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
-      2018 :'
+      2018 :'
     account_migration_notice: Les informations de votre compte, qui comprennent le
       nom d’utilisateur, l’adresse de courriel associée, la description du profil
       et les collections détenues, ont été importées sur la nouvelle EdlV. Votre nom
       d’utilisateur est encore votre nom affiché sur le site, mais vous devez maintenant
       vous connecter avec votre adresse de courriel. Nous n’avons pas pu migrer votre
-      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
-      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
+      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
+      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
       Si vous vous êtes connecté en utilisant seulement un fournisseur d’identité
-      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
+      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
       nous travaillons pour régler encore quelques problèmes avec les procédures de
       connexion partagée.
     sign_in: Se connecter
