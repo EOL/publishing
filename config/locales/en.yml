@@ -672,8 +672,12 @@ en:
       resource_link_w_remarks_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})"
       username_missing: "user %{user_id}"
     trophic_web:
+      competitor: "Competitor"
       globi_credit_html: "data from <a href='%{url}'>GloBI</a>"
+      predator: "Predator"
+      prey: "Prey"
       reset: "reset"
+      trophic_web_title: "Trophic Web"
     flash:
       reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."
     native_node_missing_warning: "no hierarchy information available"
