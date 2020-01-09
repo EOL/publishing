@@ -277,7 +277,7 @@ class PageDecorator
         return @a1_link if @a1_link
         @a1 ||= @page.ancestors.reverse.find { |a| a && a.minimal? }
         return nil if @a1.nil?
-        a1_name = @a1.page&.vernacular&.string&.singularize || @a1.vernacular&.singularize
+        a1_name = @a1.page&.vernacular&.string || @a1.vernacular
         # Vernacular sometimes lists things (e.g.: "wasps, bees, and ants"), and that doesn't work. Fix:
         a1_name = nil if a1_name&.match(' and ')
         a1_name ||= @a1.canonical
