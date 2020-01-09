@@ -21,7 +21,6 @@ else if t is a species:
 		"This species is extinct."
 	else if t has conservation status records:
 		"It is listed as <status 1> by <provider 1>, ... , and <status n> by <provider n>."
-    (slightly more complex than this)
 	if t has marine environment records and t does not have terrestrial environment records:
 		"It is found in marine habitat."
 	else if t has freshwater environment records
@@ -29,20 +28,20 @@ else if t is a species:
 	if t has biogeographic realm records:
 		"It is found in <unique values of records>."
 
-If t has landmark children:
+if t has landmark children:
 	"t includes groups like <landmark children, limited to 3>."
 
-If t has plant description traits:
+if t has plant description traits:
 	Plant description sentence, e.g. "It has <leaf trait values> leaves, <flower trait value> flowers, and <fruit trait value>."
 
-If t has flower visitor traits:
+if t has flower visitor traits:
 	"Flowers are visited by <flower visitor trait values>."
 
-If t is a species:
-	If t has behavior traits:
+if t is a species:
+	if t has behavior traits:
 		Behavioral sentence, e.g., "It is a solitary, nocturnal carnivore."
 	
-If t has lifespan traits:
+if t has lifespan traits:
 	"Individuals are known to live for <first trait value> <first trait units>."
 ```
 
