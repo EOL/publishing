@@ -1,4 +1,4 @@
-.trophic-web.js-trophic-web{ data: { init: data.to_json } }
+.trophic-web.js-trophic-web{ data: { init: data.to_json, translations: translations.to_json }}
   .ui.dimmer.active
     .ui.loader
   .trophic-web-inner
@@ -6,7 +6,7 @@
       .centered.js-network-contain
         %svg.js-network-svg
     .split-right
-      %h3.trophic-web-title Trophic Web
+      %h3.trophic-web-title= t(".trophic_web_title")
       %svg.js-tooltip-svg.tooltip-svg
       .js-tooltip
     .split-bottom

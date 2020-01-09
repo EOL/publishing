@@ -4,6 +4,7 @@ $(function() {
 
     var $container = $trophicWeb.find('.js-network-contain')
       , $dimmer = $trophicWeb.find('.dimmer')
+      , translations = $trophicWeb.data('translations')
       ;
 
     var gColor = ["source", "predator", "prey", "", "", "competitor"]
@@ -89,7 +90,7 @@ $(function() {
       .append("text")
       .attr("class", "label")
       .attr("transform", "translate(40, 12.5)")
-      .text("Predator");
+      .text(translations["predator"]);
 
     var preyLegend = sequentialScale.append("g")
       .attr("class", "cell")
@@ -106,7 +107,7 @@ $(function() {
       .append("text")
       .attr("class", "label")
       .attr("transform", "translate(40, 12.5)")
-      .text("Prey");
+      .text(translations["prey"]);
       
     var compLegend = sequentialScale.append("g")
       .attr("class", "cell").attr("transform", "translate(0,40)");
@@ -121,7 +122,7 @@ $(function() {
       .append("text")
       .attr("class", "label")
       .attr("transform", "translate(40, 12.5)")
-      .text("Competitor");
+      .text(translations["competitor"]);
 
     var pattern = svg.selectAll('.pattern');
 

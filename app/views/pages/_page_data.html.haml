@@ -17,7 +17,7 @@
     - if @show_wordcloud
       = render "shared/wordcloud", words: @wordcloud_words, class_name: "trait-wordcloud"
     - if @show_trophic_web
-      = render "trophic_web", data: @trophic_web_data
+      = render "trophic_web", data: @trophic_web_data, translations: @trophic_web_translations
     %ul.traits
       - @predicates.each do |predicate|
         - pred_data = @grouped_data[predicate[:uri]]
