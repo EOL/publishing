@@ -2,7 +2,7 @@ require "util/term_i18n"
 require "fileutils"
 
 class TermNames
-  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter]
+  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::OboStaticAdapter]
   ADAPTERS_BY_NAME = ADAPTERS.collect { |a| [a.name, a] }.to_h
   LOCALE_FILE_DIR = Rails.application.root.join("config", "locales", "terms")
   TERM_LIMIT = 1500 # XXX: arbitrary limit based on Jen's estimates. Revisit as necessary.
@@ -19,14 +19,22 @@ class TermNames
 
       adapters.each do |adapter_class|
         adapter = adapter_class.new
-        puts "Querying uris for adapter #{adapter_class.name}"
-        uris = self.term_uris_for_adapter(adapter)
-        puts "Got #{uris.length} results"
+        if adapter.respond_to?(:skip_uri_query?) && adapter.skip_uri_query?
+          puts "Skipping uri query"
+          uris = []
+        else
+          puts "Querying uris for adapter #{adapter_class.name}"
+          uris = self.term_uris_for_adapter(adapter)
+          puts "Got #{uris.length} results"
+        end
+
         puts "Preloading..."
         adapter.preload(uris, I18n.available_locales)
         puts "Done preloading"
+        locales = I18n.available_locales
+        locales.reject! { |l| l == I18n.default_locale } unless adapter.respond_to?(:include_default_locale?) && adapter.include_default_locale?
         
-        I18n.available_locales.reject { |l| l == I18n.default_locale }.each do |locale|
+        locales.each do |locale|
           puts "Getting results for locale #{locale}"
           results = adapter.names_for_locale(locale)
 

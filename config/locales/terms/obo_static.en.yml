@@ -1,0 +1,85 @@
+---
+en:
+  :term:
+    :name:
+      :by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: body length
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Body length, nose to tail
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: teat number
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stem diameter
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: leaf size class
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Leaf Complexity
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: leaf sheddability
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: seed mass
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: leaf morphology
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: thallus diameter
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: plant lifeform
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: plant growth form
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: sex determination
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: nitrogen fixation
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: parental care
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundance
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: cell diameter
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: cell volume
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skeleton structure
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cell mass
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Shell length
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: wood density
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: nucleus length
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: nucleus width
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: sulcus width
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skeleton contains
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: epicone length
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: hypocone length
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: body size
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: life span
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: shape
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: thickness
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: shedability
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexually dimorphic
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: preys on
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: symbiont of
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensal with
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualistic with
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasite of
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitized by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: has host
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinates
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: pollinated by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: preyed upon by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: is vector for
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: eats
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: is eaten by
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogen of
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: has pathogen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasite of
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: plant height
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: drought tolerance
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: leaf color
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: leaf shape
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: rooting depth
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: flower color
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: leaf area
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: fruit type
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: photosynthetic rate
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: respiratory rate
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: life cycle habit
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: salt tolerance
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: mineralized tissue
+          contains
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: body mass
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: behavioral circadian rhythm
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: clutch/brood/litter size
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: gestation period duration
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: onset of fertility
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: tail length
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: femur length
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: forelimb length
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: body width
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: femur width
+        http://purl(dot)org/obo/owlATOL_0001660: Total length
