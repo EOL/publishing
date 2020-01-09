@@ -7,7 +7,8 @@ RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
     apache2-utils nodejs procps supervisor vim nginx logrotate msmtp && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    mkdir /etc/ssmtp
 
 WORKDIR /app
 
