@@ -151,9 +151,10 @@ class MultiClassSearch
   def prepare_pages_query
     if @types[:pages]
       fields = %w[autocomplete_names^20 synonyms]
+      match = @words.size == 1 ? :text_start : :phrase
       basic_search(
         Page,
-        match: :text_start,
+        match: match,
         fields: fields,
         where: @clade ? { ancestry_ids: @clade.id } : nil,
         includes: [:preferred_vernaculars, :medium, { native_node: { node_ancestors: :ancestor } }]

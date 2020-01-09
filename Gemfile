@@ -141,7 +141,7 @@ group :development do
   # For benchmarking queries:
   gem 'meta_request'
 
-  gem 'i18n-tasks', '~> 0.9.26'
+  gem 'i18n-tasks'
 end
 
 group :test do
