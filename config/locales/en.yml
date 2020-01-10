@@ -1027,7 +1027,18 @@ en:
   data_definition: "definition of \"%{data}\""
   traits:
     search_form:
+      attribute: "attribute"
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
+      hide_additional_fields: "hide additional fields"
+      lifestage: "lifestage"
+      records_matching_all: "records matching ALL filters"
+      resource: "resource"
+      search: "Search"
+      sex: "sex"
+      show_additional_fields: "show additional fields"
+      statistical_method: "statistical method"
+      taxa_matching_all: "taxa matching ALL filters"
+      value: "value"
   trophic_web:
     group_descriptions:
       competitor: "competitor of %{source_name}"
