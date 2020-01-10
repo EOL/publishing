@@ -413,7 +413,6 @@ private
         .distinct
       @subclasses = @page.regular_media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
-      @media_count = media.limit(1000).count
     end
     # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
     media = @page.regular_media.includes(:license, :resource, page_contents: {
@@ -435,6 +434,13 @@ private
       media = media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
+    # No, you cannot do this in the block above:
+    @media_count =
+      if @page.media_count > 1000
+        1000
+      else
+        media.limit(1000).count
+      end
     # Just adding the || 30 in here for safety's sake:
     @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
   end
