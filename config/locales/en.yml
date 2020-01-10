@@ -1003,6 +1003,15 @@ en:
     pagination:
       next: "next page"
       previous: "previous page"
+  term_query:
+    validations: 
+      empty_filters_error_record: "you must provide a filter with an attribute or value for record searches"
+      empty_filters_error_taxa: "you must provide a clade or a filter with an attribute or value for taxa searches"
+  term_query_filter:
+    validations:
+      blank_error: "must specify an attribute or value"
+      pred_uri_blank_numeric_error: "can't be blank with a numeric value"
+      range_invalid_error: "must be >= to first value"
   terms:
     attribution_field_html: "<strong>Attribution:</strong> <a href='%{attribution}'>%{attribution}</a>"
     comment_field_html: "<strong>Comment:</strong> %{comment}"
@@ -1016,6 +1025,9 @@ en:
     index:
       select_page_above: "Select a page above to begin."
   data_definition: "definition of \"%{data}\""
+  traits:
+    search_form:
+      clade_filter_placeholder: "group (e.g.: bears) (optional)"
   trophic_web:
     group_descriptions:
       competitor: "competitor of %{source_name}"

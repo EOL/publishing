@@ -231,13 +231,13 @@ class TermQueryFilter < ActiveRecord::Base
   private
   def validation
     if blank?
-      errors.add(:pred_uri, "must specify an attribute or a value") 
-      errors.add(:obj_uri, "must specify an attribute or a value") 
+      errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error")) 
     elsif numeric?
       if pred_uri.blank?
-        errors.add(:pred_uri, "can't be blank with a numeric value")
+        errors.add(:pred_uri, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
       elsif range? && num_val1 > num_val2
-        errors.add(:num_val2, "must be >= to first value")
+        errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
       end
     end
   end

@@ -7,7 +7,7 @@
 
     .filter.filter-row
       %span.js-typeahead-wrap.l-filter-full
-        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "group (e.g.: bears) (optional)"
+        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".clade_filter_placeholder")
         = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
     = f.fields_for :filters do |ff|

@@ -83,11 +83,11 @@ class TermQuery < ActiveRecord::Base
   def validation
     if filters.empty?
       if taxa? && clade.nil?
-        errors.add(:base, "you must provide a clade or a filter with an attribute or value for taxa searches")
+        errors.add(:base, I18n.t("term_query.validations.empty_filters_error_taxa"))
       elsif record?
         add_filter_if_none
         filters.first.valid? # To trigger error on field as well. This is scary (side-effects in validation??) but convenient.
-        errors.add(:base, "you must provide a filter with an attribute or value for record searches")
+        errors.add(:base, I18n.t("term_query.validations.empty_filters_error_record"))
       end
     end
   end
