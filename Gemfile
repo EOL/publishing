@@ -82,11 +82,6 @@ gem 'neography'
 gem 'newrelic_rpm'
 # Speed up JSON, including for ElasticSearch:
 gem 'oj'
-# OpenAuth logins from our preferred sources:
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-yahoo'
 # Debugging:
 gem 'pry-rails'
 # Authorization:
