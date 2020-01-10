@@ -8,7 +8,6 @@
       pos: 'top-center',
       offset: '100px'
     });
-    return false;
   }
 
   function fetchForm(option) {

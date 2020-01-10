@@ -1026,6 +1026,14 @@ en:
       select_page_above: "Select a page above to begin."
   data_definition: "definition of \"%{data}\""
   traits:
+    search:
+      clade: "clade: %{clade}"
+      download_tsv: "download tsv"
+      edit_filters: "edit filters"
+      result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records with"
+      result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
+      new_search: "new search"
+      show_query: "show query"
     search_form:
       attribute: "attribute"
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
