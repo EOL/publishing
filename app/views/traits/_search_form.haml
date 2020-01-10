@@ -1,5 +1,5 @@
 #term_form_container
-  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))], :autocomplete => "off" } do |f|
+  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))], :data => { :submit_notification => t(".this_may_take_a_minute") }, :autocomplete => "off" } do |f|
     - if @query.errors[:base].any?
       %ul.base-errors
         - @query.errors.full_messages_for(:base).each do |e|

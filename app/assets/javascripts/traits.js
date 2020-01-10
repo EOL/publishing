@@ -1,12 +1,14 @@
 //= require shared/data_row
 
 (function() {
+
   function showNotification() {
-    UIkit.notification('This may take a minute', {
+    UIkit.notification($(this).data('submitNotification'), {
       status: 'primary',
       pos: 'top-center',
       offset: '100px'
-    })
+    });
+    return false;
   }
 
   function fetchForm(option) {
