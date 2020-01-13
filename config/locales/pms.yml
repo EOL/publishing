@@ -422,6 +422,74 @@ pms:
     Q16115145: Nyika
     Q180937: Albanèis Tosk
     Q18415595: Dotyali
+    Q19933293: Luri dël nòrd
+    Q23014: Palatin
+    Q2429648: Pogoro
+    Q2501174: Gorontalo
+    Q2591230: Cashinahua
+    Q2638144: Sukuma
+    Q27776: Adigan
+    Q28602: Arameo ofissial
+    Q29507: Asturian
+    Q3129390: Hehe
+    Q3272620: Nyakusa
+    Q3272630: Gogo
+    Q32858: Vòtich
+    Q32979: Choctaw
+    Q33202: Brahui
+    Q33281: Chavacano
+    Q33303: Haïda
+    Q33357: Tatar ëd Crimea
+    Q33475: Cinèis gan
+    Q33509: Ingush
+    Q33541: Kara-Kalpak
+    Q33595: Iraqw
+    Q3362072: Digo
+    Q33634: Calmoch
+    Q33698: Liv
+    Q33965: Santali
+    Q34016: Sandawe
+    Q34138: Tumbuka
+    Q34159: Tok pisin
+    Q34318: Talysh
+    Q3437661: Luguru
+    Q35037: Businenge Tongo
+    Q3508074: Nai
+    Q35156: Car
+    Q35475: Kabiyè
+    Q35756: Haya
+    Q35787: Masai
+    Q35936: Ilocan
+    Q35939: Anglèis créol giamaican
+    Q35978: Hiligaynon
+    Q36109: Maithili
+    Q36403: Pare
+    Q36584: Livvi
+    Q36730: Turch, otman
+    Q36738: Novial
+    Q36748: Pòntich
+    Q3788739: Shambala
+    Q4121131: Nyamwezi
+    Q4126517: Inuktitut canadèis oriental
+    Q4941378: Bondei
+    Q497345: Fransisch prinsipal
+    Q5575236: Konkani goanèis
+    Q56240: Àrabo tunisin
+    Q56426: Àrabo marochin
+    Q56466: Dinka
+    Q56482: Shan
+    Q56590: Atikamekw
+    Q584983: Rangi
+    Q667747: Fipa
+    Q6786446: Matengo
+    Q6944725: Mwera
+    Q7022366: Ngindo
+    Q7193418: Nyaturu
+    Q750553: Portughèis brasilian
+    Q845441: Sard sassarèis
+    Q880301: Fransèis cajun
+    Q8836490: Bende
+    Q9292: Aser
     qu: quechua
     rm: romancc
     rn: rundi
@@ -611,8 +679,12 @@ pms:
         (%{remarks})
       username_missing: utent %{user_id}
     trophic_web:
+      competitor: Concorent
       globi_credit_html: dàit da <a href='%{url}'>GloBI</a>
+      predator: Predator
+      prey: Pijàita
       reset: inissialisé torna
+      trophic_web_title: Rej tròfica
     flash:
       reindexed: J'argistrassion ëd costa pàgina ant la memòria local a son ëstàite
         dëscancelà. Carié torna la pàgina për vëdde ij neuv valor. NOTÉ che, al moment,
@@ -915,28 +987,18 @@ pms:
       two_words_connector: ' e'
       last_word_connector: ', e'
   term:
-    actions:
-      reindex: riandicisé
-      sort: ordiné për
-    edit:
-      header: Modìfica ëd%{uri}
-      submit: Argistré
-    fields:
-      name: 'nòm:'
-      definition: 'definission:'
-      attribution: 'atribussion:'
-      comment: 'coment:'
-      sections: 'session:'
-      is_hidden_from_glossary: 'stërmé dal glossari:'
-      is_hidden_from_overview: 'stërmé da la scheda ëd vista general:'
-    glossary:
-      full_title: Glossari ëd TUTI ij tèrmin relativ ai dàit an sl'EdV
-      predicate_title: Glossari dij tèrmin ëd le sòrt relativ ai dàit an sl'EdV
-      object_term_title: Glossari dij tèrmin dij valor relativ ai dàit an sl'EdV
-      units_title: Glossari dij tèrmin d'unità për ij dàit an sl'EdV
-    pagination:
-      next: pàgina apress
-      previous: pàgina precedenta
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: longheur dël còrp, dal
+          muso a la coa
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologìa dla feuja
   terms:
     attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Coment:</strong> %{comment}

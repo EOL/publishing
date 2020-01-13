@@ -396,20 +396,6 @@ ko:
       words_connector: ','
       two_words_connector: 그리고
       last_word_connector: ', 그리고'
-  term:
-    actions:
-      sort: 정렬 기준
-    edit:
-      header: '%{uri} 편집 중'
-      submit: 저장
-    fields:
-      name: '이름:'
-      definition: '정의:'
-      is_hidden_from_glossary: '용어집에서 숨김:'
-      is_hidden_from_overview: '둘러보기 탭에서 숨김:'
-    pagination:
-      next: 다음 페이지
-      previous: 이전 페이지
   terms:
     definition_field_html: <strong>정의:</strong> %{definition}
     source_field_html: <strong>출처:</strong> <a href='%{source}'>%{source}</a>

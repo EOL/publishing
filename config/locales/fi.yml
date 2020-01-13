@@ -770,24 +770,6 @@ fi:
       words_connector: ','
       two_words_connector: ja
       last_word_connector: ', ja'
-  term:
-    actions:
-      reindex: uudelleenindeksoi
-      sort: lajittele
-    edit:
-      header: Muokataan %{uri}
-      submit: Tallenna
-    fields:
-      name: 'nimi:'
-      definition: 'määritelmä:'
-      attribution: 'nimeäminen:'
-      comment: 'kommentti:'
-      sections: 'osuudet:'
-      is_hidden_from_glossary: 'piilota sanastosta:'
-      is_hidden_from_overview: 'piilota yleiskatsaus-välilehdeltä:'
-    pagination:
-      next: seuraava sivu
-      previous: edellinen sivu
   terms:
     attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentti:</strong> %{comment}

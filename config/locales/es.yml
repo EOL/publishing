@@ -533,23 +533,6 @@ es:
     array:
       two_words_connector: "y"
       last_word_connector: "y"
-  term:
-    actions:
-      reindex: volver a indizar
-      sort: ordenar por
-    edit:
-      submit: Guardar
-    fields:
-      name: 'nombre:'
-      definition: 'definición:'
-      attribution: 'atribución:'
-      comment: 'comentario:'
-      sections: 'secciones:'
-      is_hidden_from_glossary: 'ocultar del glosario:'
-      is_hidden_from_overview: 'ocultar de la pestaña Visión general:'
-    pagination:
-      next: página siguiente
-      previous: página anterior
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro

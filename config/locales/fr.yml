@@ -1,6 +1,7 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aaribaud
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
@@ -679,8 +680,12 @@ fr:
         (%{remarks})
       username_missing: utilisateur %{user_id}
     trophic_web:
+      competitor: Concurrent
       globi_credit_html: données de <a href="%{url}">GloBI</a>
+      predator: Prédateur
+      prey: Proie
       reset: réinitialiser
+      trophic_web_title: Réseau trophique
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
@@ -970,28 +975,92 @@ fr:
       two_words_connector: '&#32;et&#32;'
       last_word_connector: '&#32;et&#32;'
   term:
-    actions:
-      reindex: réindexer
-      sort: trier par
-    edit:
-      header: Modification de %{uri}
-      submit: Enregistrer
-    fields:
-      name: 'nom :'
-      definition: 'définition :'
-      attribution: 'attribution :'
-      comment: 'commentaire :'
-      sections: 'sections :'
-      is_hidden_from_glossary: 'masquer dans le glossaire :'
-      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
-    glossary:
-      full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
-      predicate_title: Glossaire des termes des types de données sur l’EdlV
-      object_term_title: Glossaire des termes des valeurs de données sur l’EdlV
-      units_title: Glossaire de termes d’unités pour les données de l’EdlV
-    pagination:
-      next: page suivante
-      previous: page précédente
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longueur du corps
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Longueur du corps, du
+          museau à la queue
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nombre de mamelles
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diamètre de la tige
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de taille de
+          la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexité de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: persistance des feuilles
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: poids de la graine
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morphologie de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diamètre du thalle
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forme de vie de la plante
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forme de croissance
+          de la plante
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: détermination du sexe
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixation de l’azote
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soin parental
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondance
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diamètre de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: structure du squelette
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: masse de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Taille de la coquille
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densité du bois
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longueur du noyau
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: largeur du noyau
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: largeur du sillon
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: le squelette contient
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longueur de l’épicône
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longueur de l’hypocône
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taille du corps
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durée de vie
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forme
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: épaisseur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: aire
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuilles caduques
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorphisme sexuel
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: s’attaque à
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: symbiote de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensal avec
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualisé avec
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasite de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasité par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: a un hôte
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinise
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: pollinisé par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: est la proie de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: est vecteur de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: mange
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogène de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a un agent pathogène
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: hauteur de la plante
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolérance à la sécheresse
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: couleur de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forme de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur d’enracinement
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: couleur de fleur
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surface de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: type de fruit
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: taux de photosynthèse
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: habitude de cycle de vie
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolérance au sel
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: le tissu minéralisé
+          contient
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: masse corporelle
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: rythme circadien comportemental
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taille de couvée/nichée/portée
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durée de la période de
+          gestation
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: début de fertilité
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longueur de la queue
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: longueur du fémur
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longueur de la patte avant
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
+        http://purl(dot)org/obo/owlATOL_0001660: largeur totale
   terms:
     attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
     comment_field_html: <strong>Commentaire :</strong> %{comment}
@@ -1005,6 +1074,10 @@ fr:
     index:
       select_page_above: Choisir une page ci-dessus pour commencer.
   data_definition: définition de « %{data} »
+  traits:
+    search:
+      new_search: nouvelle recherche
+      show_query: afficher la requête
   trophic_web:
     group_descriptions:
       competitor: concurrent de %{source_name}

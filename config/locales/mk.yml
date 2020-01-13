@@ -59,8 +59,8 @@ mk:
   button_create: создај
   button_add: додај
   cancel: откажи
-  change_my_password: Смени ми ја лозинката
-  change_your_password: Промена на лозинката
+  change_my_password: Смени ми ја јавката
+  change_your_password: Промена на јавката
   classifications:
     children:
       header_html:
@@ -266,7 +266,7 @@ mk:
       viruses: Вируси
       worms: Црви
     eol_is_hosted_by: 'EOL е вдомен од:'
-  forgot_your_password: Ја заборавивте лозинката?
+  forgot_your_password: Ја заборавивте јавката?
   landing_page:
     header: Глобален пристап до сето знаење за живиот свет на Земјата
     stats_cleared: Статистиката е одновно пресметана.
@@ -675,8 +675,12 @@ mk:
         (%{remarks})
       username_missing: корисник %{user_id}
     trophic_web:
+      competitor: Соперник
       globi_credit_html: податоци од <a href='%{url}'>GloBI</a>
+      predator: Грабливец
+      prey: Плен
       reset: одново
+      trophic_web_title: Мрежа на исхрана
     flash:
       reindexed: 'Исчистени се меѓускладовите за страницава. Превчитајте ја за да
         ги видите новите вредности. НАПОМЕНА: во мигов ова *не* ги преиндексира сликите
@@ -778,7 +782,7 @@ mk:
       unusable: Неупотребливи имиња
       synonym: Синоними
   scientific_names_header: Научни имиња
-  send_me_reset_password_instructions: Испрати ми напатствија за нова лозинка
+  send_me_reset_password_instructions: Испрати ми напатствија за нова јавка
   search:
     flash:
       cannot_combine_paths: Не можев да го здружам исходот со %{path}
@@ -951,8 +955,8 @@ mk:
     labels:
       defaults:
         email: Е-пошта
-        password: Лозинка
-        password_confirmation: Потврда на лозинката
+        password: Јавка
+        password_confirmation: Потврда на јавката
         remember_me: Запомни ме
         username: Корисничко име
         bio: Био
@@ -980,28 +984,101 @@ mk:
       two_words_connector: и
       last_word_connector: ' и'
   term:
-    actions:
-      reindex: преиндексирај
-      sort: подреди по
-    edit:
-      header: Уредување на %{uri}
-      submit: Зачувај
-    fields:
-      name: 'име:'
-      definition: 'дефиниција:'
-      attribution: 'припис:'
-      comment: 'коментар:'
-      sections: 'оддели:'
-      is_hidden_from_glossary: 'скриј од поимникот:'
-      is_hidden_from_overview: 'скриј од прегледникот:'
-    glossary:
-      full_title: Поимник на СИТЕ поими за податоци на EOL
-      predicate_title: Поимник на типски поими за податоци на EOL
-      object_term_title: Поимник на вредносни поими за податоци на EOL
-      units_title: Поимник на единични поими за податоци на EOL
-    pagination:
-      next: следна страница
-      previous: претходна страница
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: телесна должина
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Телесна должина, од нос
+          до опашка
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: број на дојки
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: пречник на стебло
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: величинска класа на
+          листот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Сложеност на листот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: опадност на листот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: семена маса
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: лисна морфологија
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: пречник на талусот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: животен облик на растението
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: растов облик на растението
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: размножување
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: полово определување
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотоврзување
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: движење
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: родителска нега
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: изобилност
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: клеточен пречник
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: клеточна зафатнина
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: скелетна структура
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: клеточна маса
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Должина на черупката
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: густина на дрвото
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: должина на јадрото
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: ширина на јадрото
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: ширина на браздата
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: скелетот содржи
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: должина на епиконот
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: должина на хипоконот
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: телесна големина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: животен век
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: облик
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: дебелина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: површина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: зафатнина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: митарност
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: полов диморфизам
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: живеалиште
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: се храни со
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: симбионт на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: коменсален со
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: взаемен со
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: паразит на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: жртва на паразитот
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: домаќин
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: опрашува
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: се опрашува од
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: храна за
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: преносител на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: јаде
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: го јаде
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: патоген на
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: има патоген
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: клептопаразит на
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: висина на растението
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: сушоиздржливост
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: боја на листот
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: облик на листот
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: длабочина на коренување
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: боја на цветовите
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: површина на листот
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: вид плод
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: фотосинтетска стапка
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: дишна стапка
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: хабитус на животниот циклус
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: соленоиздржливост
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: минерализираното ткиво
+          содржи
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: телесна маса
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: поведенски деноноќен ритам
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: бројност на леглото/накотот
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: траење на бременоста
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: почеток на плодоноста
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: должина на опашката
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: должина на иверот
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: должина на предните краци
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: телесна ширина
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: ширина на иверот
+        http://purl(dot)org/obo/owlATOL_0001660: Вкупна должина
+  term_query:
+    validations:
+      empty_filters_error_record: мора да укажете филтер со својство или вредност
+        за пребарување записи
+      empty_filters_error_taxa: мора да укажете клад или филтер со својство или вредност
+        за пребарување на таксони
+  term_query_filter:
+    validations:
+      blank_error: мора да укаже својство или вредност
+      pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
+      range_invalid_error: мора да биде >= до првата вредност
   terms:
     attribution_field_html: <strong>Припис:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Коментар:</strong> %{comment}
@@ -1015,6 +1092,31 @@ mk:
     index:
       select_page_above: Изберете страница погоре за да почнете.
   data_definition: дефиниција на „%{data}“
+  traits:
+    search:
+      clade: 'клад: %{clade}'
+      download_tsv: преземи TSV
+      edit_filters: измени филтри
+      result_header_records: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
+        записи со
+      result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
+        таксони со
+      new_search: ново пребарување
+      show_query: прикажи барање
+    search_form:
+      attribute: својство
+      clade_filter_placeholder: група (на пр. мечки) (незадол.)
+      hide_additional_fields: скриј дополнителни полиња
+      lifestage: животна фаза
+      records_matching_all: записи што одговараат на СИТЕ филтри
+      resource: ресурс
+      search: Пребарај
+      sex: пол
+      show_additional_fields: прикажи дополнителни полиња
+      statistical_method: статистички метод
+      taxa_matching_all: таксони што одговараат на СИТЕ филтри
+      this_may_take_a_minute: Ова може малку да потрае
+      value: вредност
   trophic_web:
     group_descriptions:
       competitor: конкурент на %{source_name}
@@ -1032,7 +1134,7 @@ mk:
     edit_account_details: Измени податоци за сметка
     email: Е-пошта
     to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
-      лозинка
+      јавка
     form_labels:
       age_confirm: Имам барем 13 години
       tou_confirm_html: Ги прочитав <a href='%{tou_path}'>Условите на употреба</a>
@@ -1047,8 +1149,8 @@ mk:
       tou_confirm: мора да потврдите дека сте ги прочитале Условите на употреба и
         Правилата за лични податоци
     list_of_power_users: Список на напредни корисници
-    new_password: Нова лозинка
-    confirm_new_password: Потврдете ја новата лозинка
+    new_password: Нова јавка
+    confirm_new_password: Потврдете ја новата јавка
     showing_n_power_users:
       one: Приказ на еден напреден корисник
       other: Приказ на %{count} напредни корисници
@@ -1065,9 +1167,9 @@ mk:
     account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
       е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото
       име и понатаму ви е приказното име на мрежното место, но сега ќе мора да се
-      најавите се е-пошта. Лозинките не ги селиме од безбедносни причини. Ќе можете
-      да зададете нова со постапката за заборавена лозинка. Ако се најавувате само
-      од трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
+      најавите се е-пошта. Јавките не ги селиме од безбедносни причини. Ќе можете
+      да зададете нова со постапката за заборавена јавка. Ако се најавувате само од
+      трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
       работиме на извесни проблеми со ова заедничко најавување.
     sign_in: Најава
   vernacular_names_header: Народни имиња
