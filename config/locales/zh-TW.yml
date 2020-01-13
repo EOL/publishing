@@ -5,6 +5,7 @@
 # Author: Taieol
 # Author: Winston Sung
 # Author: Xiplus
+# Author: 沈澄心
 ---
 zh-TW:
   language_name: 繁體中文
@@ -655,8 +656,12 @@ zh-TW:
         (%{remarks})
       username_missing: 使用者 %{user_id}
     trophic_web:
+      competitor: 競爭者
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
+      predator: 捕食者
+      prey: 獵物
       reset: 重新設定
+      trophic_web_title: 食物鏈
     flash:
       reindexed: 此頁面上的快取已清除，請重新載入來查看新的值。另請注意目前並*不會*重新索引在頁面上的圖片，不過會在往後實現該功能。
     native_node_missing_warning: 沒有可用的階系資訊
@@ -947,28 +952,41 @@ zh-TW:
       two_words_connector: 和
       last_word_connector: ',和'
   term:
-    actions:
-      reindex: 重建索引
-      sort: 排序依照
-    edit:
-      header: 編輯%{uri}
-      submit: 儲存
-    fields:
-      name: 名稱：
-      definition: 定義：
-      attribution: 姓名標示：
-      comment: 註釋：
-      sections: 段落：
-      is_hidden_from_glossary: 從詞彙表裡隱藏：
-      is_hidden_from_overview: 從概要分頁隱藏：
-    glossary:
-      full_title: 在網路生命大百科上用於資料的所有項目詞彙表
-      predicate_title: 在網路生命大百科上用於資料的類型項目詞彙表
-      object_term_title: 在網路生命大百科上用於資料的值項目詞彙表
-      units_title: 在網路生命大百科上用於資料的單位項目詞彙表
-    pagination:
-      next: 下一頁
-      previous: 上一頁
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 體長
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: 體長，鼻子到尾端
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: 乳頭數量
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: 性別確定
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 親代撫育
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 核長
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 核寬
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: 溝寬
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 上錐長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: 下錐長度
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 厚度
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 區域
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 棲息地
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 授粉由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 帶病原體
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: 耐旱性
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 葉色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 葉形狀
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果實類型
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: 光合作用率
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾巴長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 體寬
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨寬度
+        http://purl(dot)org/obo/owlATOL_0001660: 總長度
+  term_query_filter:
+    validations:
+      blank_error: 必須指定一個屬性或值
   terms:
     attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>註釋：</strong>%{comment}
@@ -982,6 +1000,20 @@ zh-TW:
     index:
       select_page_above: 選擇上方的一個頁面來開始。
   data_definition: 「%{data}」的定義
+  traits:
+    search:
+      clade: 演化支：%{clade}
+      download_tsv: 下載 TSV
+      new_search: 新搜尋
+      show_query: 顯示查詢
+    search_form:
+      attribute: 屬性
+      resource: 資源
+      search: 搜尋
+      sex: 性別
+      show_additional_fields: 顯示額外欄位
+      this_may_take_a_minute: 這可能會花費一分鐘
+      value: 值
   trophic_web:
     group_descriptions:
       competitor: '%{source_name}的競爭者'

@@ -273,6 +273,7 @@ pt-BR:
     oj: Ojíbua
     pl: Polonês
     pt: Português
+    Q1160372: Laz
     Q13358: Megleno-romeno
     Q146803: Língua franca nova
     Q18415595: Doteli
@@ -281,9 +282,11 @@ pt-BR:
     Q33281: Chavacano
     Q33357: Tártaro da Crimeia
     Q33541: Caracalpaque
+    Q3362072: Digo
     Q35939: Crioulo de Jamaica
     Q35978: Panayano
     Q36730: Turco, Otomano
+    Q4121131: Nyamwezi
     Q56240: Árabe tunisino
     Q56426: Árabe marroquino
     Q584983: Langi
@@ -418,7 +421,10 @@ pt-BR:
         (%{remarks})
       username_missing: usuário %{user_id}
     trophic_web:
+      competitor: Competidor
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
+      predator: Predador
+      prey: Presa
       reset: redefinir
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
@@ -657,28 +663,46 @@ pt-BR:
       two_words_connector: e
       last_word_connector: ',e'
   term:
-    actions:
-      reindex: reindexar
-      sort: ordenar por
-    edit:
-      header: Editando %{uri}
-      submit: Salvar
-    fields:
-      name: 'nome:'
-      definition: 'definição:'
-      attribution: 'atribuição:'
-      comment: 'comentário:'
-      sections: 'seções:'
-      is_hidden_from_glossary: 'ocultar do glossário:'
-      is_hidden_from_overview: 'ocultar da guia visão geral:'
-    glossary:
-      full_title: Glossário de TODOS os termos de dados sobre EOL
-      predicate_title: Glossário de termos de tipo para dados sobre EOL
-      object_term_title: Glossário de termos de valor para dados sobre EOL
-      units_title: Glossário de termos de unidade para dados sobre EOL
-    pagination:
-      next: próxima página
-      previous: página anterior
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de tamanho da
+          folha
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexidade das folhas
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologia das folhas
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixação de nitrogênio
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoção
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diâmetro da célula
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: estrutura esquelética
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: massa celular
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densidade da madeira
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: largura do núcleo
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: medida do corpo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: área
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: derramabilidade
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: presas em
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbionte de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualista com
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasitado por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: predada por
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patógeno de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: tem patógeno
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: altura da planta
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolerância à seca
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forma da folha
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: cor da flor
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: tipo de fruta
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: taxa fotossintética
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: hábito de ciclo de vida
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritmo circadiano comportamental
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: duração do período de gestação
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: início da fertilidade
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: comprimento da cauda
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Largura do corpo
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Comentário:</strong> %{comment}
@@ -692,6 +716,11 @@ pt-BR:
     index:
       select_page_above: Selecione uma página acima para começar.
   data_definition: definição de «%{data}»
+  traits:
+    search:
+      new_search: nova pesquisa
+    search_form:
+      attribute: atributo
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}

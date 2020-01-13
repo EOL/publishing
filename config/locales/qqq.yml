@@ -96,7 +96,4 @@ qqq:
               two_words_connector: " and "
               last_word_connector: ", and "
         </pre>
-  term:
-    edit:
-      submit: '{{Identical|Save}}'
 ...

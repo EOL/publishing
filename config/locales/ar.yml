@@ -975,29 +975,6 @@ ar:
       words_connector: ،
       two_words_connector: و
       last_word_connector: و
-  term:
-    actions:
-      reindex: إعادة الفهرسة
-      sort: رتب حسب
-    edit:
-      header: تحرير %{uri}
-      submit: حفظ
-    fields:
-      name: 'الاسم:'
-      definition: تعريف
-      attribution: 'النسبة:'
-      comment: 'تعليق:'
-      sections: أقسام
-      is_hidden_from_glossary: 'إخفاء من المسرد:'
-      is_hidden_from_overview: 'إخفاء من علامة تبويب النظرة العامة:'
-    glossary:
-      full_title: مسرد جميع مصطلحات البيانات على موسوعة الحياة
-      predicate_title: مسرد جميع مصطلحات الأنواع على موسوعة الحياة
-      object_term_title: مسرد مصطلحات القيم للبيانات على موسوعة الحياة
-      units_title: مسرد مصطلحات الوحدات على موسوعة الحياة
-    pagination:
-      next: الصفحة التالية
-      previous: الصفحة السابقة
   terms:
     attribution_field_html: <strong>النسبة:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>التعليق:</strong> %{comment}
@@ -1011,6 +988,13 @@ ar:
     index:
       select_page_above: اختر صفحة أعلاه للبدء.
   data_definition: تعريف "%{data}"
+  traits:
+    search:
+      new_search: بحث جديد
+    search_form:
+      search: بحث
+      sex: الجنس
+      value: القيمة
   trophic_web:
     group_descriptions:
       competitor: منافس %{source_name}

@@ -517,27 +517,58 @@ sv:
       two_words_connector: och
       last_word_connector: ', och'
   term:
-    actions:
-      reindex: omindexera
-      sort: sortera efter
-    edit:
-      header: Redigerar %{uri}
-      submit: Spara
-    fields:
-      name: 'namn:'
-      definition: 'definition:'
-      comment: 'kommentar:'
-      sections: 'avsnitt:'
-      is_hidden_from_glossary: 'dölj i ordlistan:'
-      is_hidden_from_overview: 'dölj i översiktsfliken:'
-    pagination:
-      next: nästa sida
-      previous: föregående sida
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Kroppslängd, nos till
+          svans
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Skallängd
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: trädensitet
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelettinnehåll
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: kroppstorlek
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: tjockhet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volym
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinerar
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: äter
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: äts av
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: har patogen
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lövfärg
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: lövform
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: blomfärg
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: frukttyp
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kroppsmassa
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kroppsbredd
+        http://purl(dot)org/obo/owlATOL_0001660: Total längd
+  term_query_filter:
+    validations:
+      blank_error: måste ange ett attribut eller värde
+      range_invalid_error: måste vara >= än första värdet
   terms:
     scientific_name: vetenskapligt namn
     source: källa
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definition av "%{data}"
+  traits:
+    search:
+      download_tsv: ladda ned tsv
+      edit_filters: redigeringsfilter
+      new_search: ny sökning
+    search_form:
+      attribute: attribut
+      clade_filter_placeholder: 'grupp (t.ex.: björnar) (valfritt)'
+      hide_additional_fields: dölj ytterligare fält
+      resource: resurs
+      search: Sök
+      sex: kön
+      show_additional_fields: visa ytterligare fält
+      this_may_take_a_minute: Detta kan ta en minut
+      value: värde
   trust:
     trusted: pålitlig
   user:

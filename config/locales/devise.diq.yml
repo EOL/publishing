@@ -1,0 +1,38 @@
+# Messages for Zazaki (Zazaki)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Orbot707
+---
+diq:
+  devise:
+    confirmations:
+      confirmed: Adresê eposta heel biyo araşt
+    failure:
+      already_authenticated: Hora şıma kewtê tede
+      inactive: Hesabê şıma hewna aktiv nêbiyo
+      invalid: Xırab  %{authentication_keys} ya zi parola.
+      locked: Hesabê şıma kılit biyo, yew seate dıma reyna bıcerrebnê
+      not_found_in_database: Xırab  %{authentication_keys} ya zi parola .
+    mailer:
+      confirmation_instructions:
+        action: Hesabi araşt kerê
+        greeting: Xeyr amey %{recipient}!
+        instruction: Epostay hesabê ho gırey cêri ra şıma şenê araşt kerê
+        subject: Talimatê araşt kerdışi
+      reset_password_instructions:
+        action: Parolay bıvurne
+        greeting: 'Merheba #{recipient}!'
+        instruction: Yewi seba parolay vurnayışi yew gıre waşt u şıma şenê Ney gırey
+          cêrêni ra bıkerê
+        instruction_2: Eger ke no şıma nêwaşto se ena epostay peygoş bıkerê
+        subject: Talimatê parola reset kerdışi
+      unlock_instructions:
+        subject: Talimatê kıliti
+      password_change:
+        greeting: 'Merheba #{recipient}!'
+        subject: Parola vuriye
+  errors:
+    messages:
+      not_found: Nêvineyi
+      not_locked: Kılitın niya
+...
