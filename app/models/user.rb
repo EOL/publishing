@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :lockable, :recoverable, :rememberable, :validatable, :confirmable, :omniauthable
-  # :omniauthable, omniauth_providers: [:facebook, :twitter, :google_oauth2]
+  devise :database_authenticatable, :registerable, :lockable, :recoverable, :rememberable, :validatable, :confirmable
 
   has_many :open_authentications, dependent: :delete_all
   has_many :curations, inverse_of: :user

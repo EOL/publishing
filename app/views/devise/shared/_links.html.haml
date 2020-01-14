@@ -10,17 +10,12 @@
 - if devise_mapping.confirmable? && controller_name != 'confirmations'
   = link_to t(:did_not_receive_confirmation_instructions), new_confirmation_path(resource_name)
   %br/
-- if devise_mapping.omniauthable?
-  %br/
-  - action = controller_name == 'registrations' ? "sign_up" : "sign_in"
-  - if controller_name == 'registrations'
-    - action = "sign_up"
-    - action_name = "Sign Up"
-  -else
-    - action = "sign_in"
-    - action_name = "Sign In"
-  -#
-    - resource_class.omniauth_providers.each do |provider|
-      = link_to t("sign_in_up_with_#{provider}", action: action_name),
-                    send("user_#{provider}_omniauth_authorize_path", intent: action)
-  %br/
+%br/
+- action = controller_name == 'registrations' ? "sign_up" : "sign_in"
+- if controller_name == 'registrations'
+  - action = "sign_up"
+  - action_name = "Sign Up"
+-else
+  - action = "sign_in"
+  - action_name = "Sign In"
+%br/

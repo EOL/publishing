@@ -47,11 +47,9 @@ Rails.application.routes.draw do
 
     resources :data, only: [:show]
 
-    # See https://github.com/plataformatec/devise/wiki/How-To:-OmniAuth-inside-localized-scope if you want to enable omniauth. Disabled currently since the code isn't tested/live. - mvitale
     # Putting users second only because they tend to drive a lot of site behavior:
-    devise_for :users, controllers: { registrations: "user/registrations",
-                                      sessions: "user/sessions",
-                                      omniauth_callbacks: "user/omniauth_callbacks"}, skip: "omniauth_callbacks"
+    devise_for :users, controllers: { registrations: "user/registrations", sessions: "user/sessions"}
+
     resources :users, only: [:show, :destroy] do
       collection do
         get "autocomplete"
