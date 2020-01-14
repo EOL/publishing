@@ -72,6 +72,8 @@ gem 'draper'
 gem 'font-awesome-sass'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
+# jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
+gem 'jwt'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # QUIET PLEASE MAKE IT STOP:

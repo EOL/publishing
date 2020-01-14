@@ -232,6 +232,7 @@ GEM
     js_regex (1.2.3)
       regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.6)
+    jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.1.1)
@@ -588,6 +589,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   js-routes
+  jwt
   kaminari
   lograge
   mailcatcher
