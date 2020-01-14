@@ -119,6 +119,8 @@ group :development, :test do
   gem 'simplecov'
   # Rubocop... which technically you want on your *system*, but ...
   gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
 
   gem 'active_record_query_trace'
 end

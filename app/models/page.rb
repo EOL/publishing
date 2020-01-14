@@ -34,7 +34,7 @@ class Page < ActiveRecord::Base
   has_one :occurrence_map, inverse_of: :page
 
   has_and_belongs_to_many :referents
-  
+
   has_many :home_page_feed_items
 
   has_one :desc_info
@@ -54,7 +54,7 @@ class Page < ActiveRecord::Base
     with_hierarchy_no_media.includes(:medium)
   end
 
-  scope :with_hierarchy_no_media, -> do 
+  scope :with_hierarchy_no_media, -> do
     includes(:preferred_vernaculars,
       native_node: [:scientific_names, { node_ancestors: { ancestor: {
         page: [:preferred_vernaculars, { native_node: :scientific_names }]
@@ -704,7 +704,7 @@ class Page < ActiveRecord::Base
   end
 
   def grouped_data_by_obj_uri
-    @grouped_data_by_obj ||= data.select do |t| 
+    @grouped_data_by_obj ||= data.select do |t|
       t.dig(:object_term, :uri).present?
     end.group_by do |t|
       t[:object_term][:uri]
