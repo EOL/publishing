@@ -1004,7 +1004,7 @@ en:
       next: "next page"
       previous: "previous page"
   term_query:
-    validations: 
+    validations:
       empty_filters_error_record: "you must provide a filter with an attribute or value for record searches"
       empty_filters_error_taxa: "you must provide a clade or a filter with an attribute or value for taxa searches"
   term_query_filter:
@@ -1073,6 +1073,7 @@ en:
       collections: "Collections"
       downloads: "Downloads"
       links: "Links"
+    is_power_user: "This user is flagged as a power user."
     validations:
       age_confirm: "you must confirm that you are at least 13 years old"
       tou_confirm: "you must confirm that you have read the Terms of use and Privacy Policy"
@@ -1183,4 +1184,3 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: body width
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: femur width
         http://purl(dot)org/obo/owlATOL_0001660: Total length
-
