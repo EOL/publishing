@@ -46,9 +46,6 @@ gem 'activerecord-import'
 gem 'acts_as_list'
 # Faster startup:
 gem 'bootsnap', require: false
-# I didn't add these, not sure what they are for, specifically:
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Cron jobs:
@@ -97,7 +94,12 @@ gem 'rubyzip', '~> 2.0'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 3'
 # Simplify Forms:
-gem 'simple_form'
+gem 'simple_form', '~> 4'
+# KEEPING THESE OUT OF ORDER, since they are tightly bound to simple_form
+# These are ONLY used on the user page, in the user_helper's validate: true clause...
+# TODO: these would work with Rails 5, but there is no combination of working gems for Rails 4.2 and SimpleForm 5. :|
+# gem 'client_side_validations', '~> 4'
+# gem 'client_side_validations-simple_form', '~> 3'
 
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus'

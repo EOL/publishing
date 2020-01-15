@@ -4,12 +4,12 @@ module UsersHelper
     class_names << "recaptchad" if options[:recaptchad]
 
     simple_form_for(
-      options[:resource], 
-      url: options[:url], 
+      options[:resource],
+      url: options[:url],
       method: options[:method] || :post,
-      validate: true,
+      # validate: true,
       html: { class: class_names.join(" ") },
-      defaults: { 
+      defaults: {
         input_html: { class: "uk-input" },
         wrapper_html: { class: "field" },
         label_html: { class: "uk-form-label" }
