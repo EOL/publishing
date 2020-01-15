@@ -69,6 +69,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    client_side_validations (4.2.12)
+      jquery-rails (>= 3.1.2, < 5.0.0)
+      js_regex (~> 1.0, >= 1.0.19)
+      rails (>= 4.0.0, < 4.3.0)
+    client_side_validations-simple_form (3.4.0)
+      client_side_validations (~> 4.2.12)
+      simple_form (~> 3.4)
     coderay (1.1.2)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -222,6 +229,8 @@ GEM
     js-routes (1.4.6)
       railties (>= 4)
       sprockets-rails
+    js_regex (1.2.3)
+      regexp_parser (>= 0.3.6, <= 0.5.0)
     json (1.8.6)
     jwt (2.2.1)
     kaminari (1.1.1)
@@ -406,6 +415,7 @@ GEM
       refinerycms-core (= 3.0.6)
     refinerycms-wymeditor (1.1.0)
       refinerycms-core (>= 3.0.0, < 5.0)
+    regexp_parser (0.5.0)
     request_store (1.3.2)
     responders (2.4.1)
       actionpack (>= 4.2.0, < 6.0)
@@ -473,9 +483,9 @@ GEM
     sexp_processor (4.13.0)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
-    simple_form (4.0.0)
-      actionpack (> 4)
-      activemodel (> 4)
+    simple_form (3.5.1)
+      actionpack (> 4, < 5.2)
+      activemodel (> 4, < 5.2)
     simplecov (0.15.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -555,6 +565,8 @@ DEPENDENCIES
   brakeman
   byebug
   capybara
+  client_side_validations (~> 4)
+  client_side_validations-simple_form (~> 3)
   counter_culture
   coveralls
   crono
@@ -605,7 +617,7 @@ DEPENDENCIES
   sdoc
   searchkick (~> 3)
   shoulda-matchers (~> 3.1)
-  simple_form (~> 4)
+  simple_form (~> 3.2)
   simplecov
   sitemap_generator
   spring

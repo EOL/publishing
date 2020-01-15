@@ -7,7 +7,7 @@ module UsersHelper
       options[:resource],
       url: options[:url],
       method: options[:method] || :post,
-      # validate: true,
+      validate: true,
       html: { class: class_names.join(" ") },
       defaults: {
         input_html: { class: "uk-input" },
