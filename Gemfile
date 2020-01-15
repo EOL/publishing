@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
-gem 'rails', '4.2.11.1'
+gem 'rails', '5.2.4.1'
 # Use mysql2 as the database for Active Record
 gem 'mysql2'
 
@@ -22,9 +22,9 @@ gem 'therubyracer'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # RefineryCMS
-gem 'refinerycms'
-gem 'refinerycms-wymeditor' #, ['~> 2.0', '>= 2.0.0']
-gem 'refinerycms-i18n'
+#TEMP: gem 'refinerycms'
+# gem 'refinerycms-wymeditor'
+# gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
 gem 'unicorn'
@@ -86,20 +86,19 @@ gem 'pry-rails'
 # Authorization:
 gem 'pundit'
 # Enable CORS (see config/application for specifics):
-gem 'rack-cors', '>= 1.0.4', require: 'rack/cors'
+gem 'rack-cors', require: 'rack/cors'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
-gem 'rubyzip', '~> 2.0'
+gem 'rubyzip'
 # ElasticSearch via SearchKick:
-gem 'searchkick', '~> 3'
+gem 'searchkick'
 # Simplify Forms:
-# NOTE: There is a security alert for this gem, but if you read the "Workarounds" section, you will see we are not actually affected. Upgrading to v5 of the gem can't happen until we update Rails. :|
-gem 'simple_form', '~> 3.2'
+gem 'simple_form'
 # KEEPING THESE OUT OF ORDER, since they are tightly bound to simple_form
 # These are ONLY used on the user page, in the user_helper's validate: true clause...
-gem 'client_side_validations', '~> 4'
-gem 'client_side_validations-simple_form', '~> 3'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
 
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus'
