@@ -327,7 +327,8 @@ GEM
     rack (1.6.12)
     rack-contrib (1.8.0)
       rack (~> 1.4)
-    rack-cors (1.0.2)
+    rack-cors (1.0.6)
+      rack (>= 1.6.0)
     rack-protection (1.5.5)
       rack
     rack-test (0.6.3)
@@ -601,7 +602,7 @@ DEPENDENCIES
   oj
   pry-rails
   pundit
-  rack-cors
+  rack-cors (>= 1.0.4)
   rack_session_access
   rails (= 4.2.11.1)
   recaptcha

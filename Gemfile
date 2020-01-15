@@ -86,7 +86,7 @@ gem 'pry-rails'
 # Authorization:
 gem 'pundit'
 # Enable CORS (see config/application for specifics):
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '>= 1.0.4', require: 'rack/cors'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
