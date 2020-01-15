@@ -1,6 +1,6 @@
 class TermQueryFilter < ApplicationRecord
   belongs_to :term_query, :inverse_of => :filters
-  belongs_to :resource
+  belongs_to :resource, optional: true
   validates_presence_of :term_query
   validate :validation
 
@@ -62,8 +62,8 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def extra_fields?
-    sex_term? || 
-    lifestage_term? || 
+    sex_term? ||
+    lifestage_term? ||
     statistical_method_term? ||
     resource
   end
@@ -196,7 +196,7 @@ class TermQueryFilter < ApplicationRecord
           if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
             selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
             added = true
-          else 
+          else
             added = false
           end
 
@@ -224,7 +224,7 @@ class TermQueryFilter < ApplicationRecord
 
     @pred_term_selects = selects
   end
-  
+
   def obj_term_selects_attributes=(attrs)
   end
 
@@ -232,7 +232,7 @@ class TermQueryFilter < ApplicationRecord
   def validation
     if blank?
       errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
-      errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error")) 
+      errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error"))
     elsif numeric?
       if pred_uri.blank?
         errors.add(:pred_uri, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
@@ -242,4 +242,3 @@ class TermQueryFilter < ApplicationRecord
     end
   end
 end
-

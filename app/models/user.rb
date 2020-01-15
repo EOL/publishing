@@ -9,6 +9,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :lockable, :recoverable, :rememberable, :validatable, :confirmable
 
+  belongs_to :language, optional: true
+
   has_many :open_authentications, dependent: :delete_all
   has_many :curations, inverse_of: :user
   has_many :data_curations, inverse_of: :user

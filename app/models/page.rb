@@ -3,9 +3,9 @@ class Page < ApplicationRecord
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
 
-  belongs_to :native_node, class_name: "Node"
-  belongs_to :moved_to_page, class_name: "Page"
-  belongs_to :medium, inverse_of: :pages
+  belongs_to :native_node, class_name: "Node", optional: true
+  belongs_to :moved_to_page, class_name: "Page", optional: true
+  belongs_to :medium, inverse_of: :pages, optional: true
 
   has_many :nodes, inverse_of: :page
   has_many :collected_pages, inverse_of: :page

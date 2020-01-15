@@ -3,5 +3,5 @@
 # photographer, a copyright holder, and so on.
 class Attribution < ApplicationRecord
   belongs_to :role, inverse_of: :attributions
-  belongs_to :content, polymorphic: true
+  belongs_to :content, polymorphic: true, optional: true
 end

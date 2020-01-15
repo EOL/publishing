@@ -1,10 +1,10 @@
 class Vernacular < ApplicationRecord
   belongs_to :language
   belongs_to :node, inverse_of: :vernaculars
-  belongs_to :resource, inverse_of: :vernaculars
+  belongs_to :resource, inverse_of: :vernaculars, optional: true
   # DENORMALIZED:
   belongs_to :page, inverse_of: :vernaculars
-  belongs_to :user, inverse_of: :vernaculars
+  belongs_to :user, inverse_of: :vernaculars, optional: true
 
   has_many :vernacular_preferences, inverse_of: :vernacular # NOTE: do NOT destroy! We keep the record.
 

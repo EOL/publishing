@@ -1,4 +1,4 @@
-class TermsJob < ActiveJob::Base
+class TermsJob < ApplicationJob
   def perform
     Rails.logger.warn("START Terms Sync")
     pub_log = Publishing.sync # Yes, overlap. That's fine.

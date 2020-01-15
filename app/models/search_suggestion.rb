@@ -8,8 +8,8 @@
 class SearchSuggestion < ApplicationRecord
   searchkick
 
-  belongs_to :page
-  belongs_to :synonym_of, class_name: "SearchSuggestion"
+  belongs_to :page, optional: true
+  belongs_to :synonym_of, class_name: "SearchSuggestion", optional: true
 
   validates :match, uniqueness: true
   # TODO: validation to ensure only ONE type is used...

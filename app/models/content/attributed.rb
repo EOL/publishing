@@ -4,11 +4,11 @@ module Content::Attributed
 
   included do
     belongs_to :license
-    belongs_to :location
-    belongs_to :sytlesheet
-    belongs_to :javascript
-    belongs_to :bibliographic_citation
-    belongs_to :provider, polymorphic: true # User or Resource
+    belongs_to :location, optional: true
+    belongs_to :sytlesheet, optional: true
+    belongs_to :javascript, optional: true
+    belongs_to :bibliographic_citation, optional: true
+    belongs_to :provider, polymorphic: true, optional: true # User or Resource
 
     has_many :attributions, as: :content
   end
