@@ -1,7 +1,7 @@
 require "csv"
 require "set"
 
-class HomePageFeed < ActiveRecord::Base
+class HomePageFeed < ApplicationRecord
   validates :name, :presence => true, :uniqueness => true
   validate :validate_field_mask
   validate :validate_tsv_errors

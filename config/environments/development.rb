@@ -35,6 +35,12 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = Rails.application.secrets.smtp
+
+  config.i18n.available_locales = [:en, :mk]
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
@@ -58,4 +64,9 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+  Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+  Rails.configuration.x.image_path = Rails.application.secrets.image_path
+  Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url
 end

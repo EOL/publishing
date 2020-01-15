@@ -1,6 +1,6 @@
 require "breadcrumb_type"
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   AdminEmail = "admin@eol.org"
 
   searchkick word_start: [:username, :name]

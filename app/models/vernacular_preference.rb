@@ -1,5 +1,5 @@
 # Describes the ACT of a user having preferred a vernacular on a particular page.
-class VernacularPreference < ActiveRecord::Base
+class VernacularPreference < ApplicationRecord
   belongs_to :user
   belongs_to :vernacular
   belongs_to :language # Helps us lookup overrides and restores.

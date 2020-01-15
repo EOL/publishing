@@ -13,7 +13,7 @@ gem 'jbuilder'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails'
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0.8'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
@@ -22,9 +22,9 @@ gem 'therubyracer'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # RefineryCMS
-#TEMP: gem 'refinerycms'
-# gem 'refinerycms-wymeditor'
-# gem 'refinerycms-i18n'
+gem 'refinerycms', git: "https://github.com/refinery/refinerycms", ref: "81ed991"
+gem 'refinerycms-wymeditor'
+gem 'refinerycms-i18n'
 
 # Use Unicorn as the app server
 gem 'unicorn'
@@ -66,7 +66,7 @@ gem 'discourse_api'
 # Model decoration
 gem 'draper'
 # Icons
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 4.3'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.

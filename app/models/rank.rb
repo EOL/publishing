@@ -1,4 +1,4 @@
-class Rank < ActiveRecord::Base
+class Rank < ApplicationRecord
   # Obnoxiously, some of these terms are reserved, so ugly r_ to distinguish:
   enum treat_as: [
     :r_domain,

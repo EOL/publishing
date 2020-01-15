@@ -1,4 +1,4 @@
-class TermQuery < ActiveRecord::Base
+class TermQuery < ApplicationRecord
   has_many :filters,
     :class_name => "TermQueryFilter",
     :dependent => :destroy,

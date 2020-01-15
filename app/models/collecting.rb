@@ -1,4 +1,4 @@
-class Collecting < ActiveRecord::Base
+class Collecting < ApplicationRecord
   belongs_to :collection # If null, this must be a delete-collection.
   belongs_to :user
   # NOTE: "content" is OVERLOADED (!) for users who are added to and removed

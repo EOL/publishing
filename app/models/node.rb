@@ -1,4 +1,4 @@
-class Node < ActiveRecord::Base
+class Node < ApplicationRecord
   belongs_to :page, inverse_of: :nodes
   belongs_to :parent, class_name: 'Node', inverse_of: :children
   belongs_to :resource, inverse_of: :nodes

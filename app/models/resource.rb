@@ -1,4 +1,4 @@
-class Resource < ActiveRecord::Base
+class Resource < ApplicationRecord
   searchkick text_start: ["name"], batch_size: 250
 
   belongs_to :partner, inverse_of: :resources

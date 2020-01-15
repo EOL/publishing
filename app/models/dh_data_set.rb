@@ -1,6 +1,6 @@
 require "csv"
 
-class DhDataSet < ActiveRecord::Base
+class DhDataSet < ApplicationRecord
   validates_presence_of :dataset_id
   validates_presence_of :name
 

@@ -1,4 +1,4 @@
-class PageContent < ActiveRecord::Base
+class PageContent < ApplicationRecord
   belongs_to :page
   belongs_to :source_page, class_name: "Page"
   belongs_to :content, polymorphic: true, inverse_of: :page_contents

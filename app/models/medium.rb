@@ -1,5 +1,5 @@
 # TODO: unmodified URL is probably not required; it's currently unused. ...Maybe delete it? Maybe use it. Not sure.
-class Medium < ActiveRecord::Base
+class Medium < ApplicationRecord
   include Content
   include Content::Attributed
 

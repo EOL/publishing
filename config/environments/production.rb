@@ -23,7 +23,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(harmony: true)
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -57,7 +57,10 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.lograge.enabled = true
+  config.lograge.ignore_actions = ['PagesController#ping', 'HomePageController#index']
+  cache_addr = Rails.application.secrets.cache_url
+  config.cache_store = :dalli_store, cache_addr, { namespace: "EOL", compress: true }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
@@ -71,7 +74,7 @@ Rails.application.configure do
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
+  config.i18n.fallbacks = :en
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -91,4 +94,10 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
 end
+
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

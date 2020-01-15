@@ -1,4 +1,4 @@
-class Vernacular < ActiveRecord::Base
+class Vernacular < ApplicationRecord
   belongs_to :language
   belongs_to :node, inverse_of: :vernaculars
   belongs_to :resource, inverse_of: :vernaculars

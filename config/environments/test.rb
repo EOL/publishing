@@ -31,7 +31,9 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory
   config.active_storage.service = :test
 
+  config.action_mailer.default_url_options = {host: "localhost:3000"}
   config.action_mailer.perform_caching = false
+  config.active_support.test_order = :random
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
@@ -44,3 +46,8 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
+
+Rails.configuration.repository_url = Rails.application.secrets.repository['url']
+Rails.configuration.eol_web_url = Rails.application.secrets.host['url']
+Rails.configuration.x.image_path = Rails.application.secrets.image_path
+Rails.configuration.traitbank_url = Rails.application.secrets.traitbank_url

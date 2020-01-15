@@ -1,4 +1,4 @@
-class CollectedPage < ActiveRecord::Base
+class CollectedPage < ApplicationRecord
   belongs_to :page, inverse_of: :collected_pages
   belongs_to :collection, inverse_of: :collected_pages
   
