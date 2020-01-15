@@ -14,14 +14,14 @@ class Medium < ApplicationRecord
   has_one :image_info, inverse_of: :image
 
   # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
-  enum subclass: [ :image, :video, :sound, :map, :js_map ] # NOTE: "map" implies "image map".
+  enum subclass: [ :image, :video, :sound, :map_image, :js_map ] # NOTE: "map" implies "image map".
   enum format: %i[jpg youtube flash vimeo mp3 ogg wav mp4 ogv mov svg webm]
 
   scope :images, -> { where(subclass: subclasses[:image]) }
-  scope :maps, -> { where(subclass: subclasses[:map]) }
+  scope :maps, -> { where(subclass: subclasses[:map_image]) }
   scope :videos, -> { where(subclass: subclasses[:video]) }
   scope :sounds, -> { where(subclass: subclasses[:sound]) }
-  scope :not_maps, -> { where.not(subclass: subclasses[:map]) }
+  scope :not_maps, -> { where.not(subclass: subclasses[:map_image]) }
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
 
@@ -79,7 +79,7 @@ class Medium < ApplicationRecord
           medium = medium.first
           unless row[:subtype].blank?
             # The ONLY value we have in there (as of this writing) is "map"
-            medium.subclass = :map
+            medium.subclass = :map_image
           end
           medium.attributions.delete_all
           agents.each do |agent|

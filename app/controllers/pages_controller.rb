@@ -231,7 +231,7 @@ class PagesController < ApplicationController
     @media = @page.maps.by_page(params[:page]).per(@media_page_size)
     @media_count = @media.length
     @subclass = "map"
-    @subclass_id = Medium.subclasses[:map]
+    @subclass_id = Medium.subclasses[:map_image]
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
