@@ -1,7 +1,7 @@
 class Repository
   def initialize(resource, log = nil)
     @resource = resource
-    repo_url = Rails.application.secrets.repository['url']
+    repo_url = Rails.application.secrets.repository[:url]
     @repo_site = URI(repo_url)
     @log = log # Okay if it's nil.
     @unacceptable_codes = 300

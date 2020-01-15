@@ -1,5 +1,5 @@
 class TermsController < ApplicationController
-  before_filter :require_admin, only: [:fetch_units, :fetch_relationships, :fetch_synonyms, :terms_fetch_log, :update]
+  before_action :require_admin, only: [:fetch_units, :fetch_relationships, :fetch_synonyms, :terms_fetch_log, :update]
 
   SCHEMA_URI_FORMAT = "http://eol.org/schema/terms/%s"
   META_OBJECT_URIS = {

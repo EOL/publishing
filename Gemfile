@@ -112,20 +112,21 @@ gem 'js-routes'
 gem "http"
 
 group :development, :test do
+  gem 'active_record_query_trace'
   # Security analysis:
   gem 'brakeman', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Coveralls tracks our spec coverage:
   gem 'coveralls', require: false
-  # Simplecov, oddly, to add configuration for Coveralls.
-  gem 'simplecov'
+  # Rails told me to add this to my development group. I don't know why, but I'm ... listening.
+  gem 'listen'
   # Rubocop... which technically you want on your *system*, but ...
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-
-  gem 'active_record_query_trace'
+  # Simplecov, oddly, to add configuration for Coveralls.
+  gem 'simplecov'
 end
 
 group :development do

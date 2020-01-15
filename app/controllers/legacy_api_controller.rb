@@ -1,5 +1,5 @@
 class LegacyApiController < ApplicationController
-  before_filter :authenticate_token
+  before_action :authenticate_token
 
 protected
 

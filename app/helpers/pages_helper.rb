@@ -117,7 +117,7 @@ module PagesHelper
           haml_concat t('classifications.hierarchies.truncated_siblings', count: this_node.siblings.size - 100)
         end
         haml_tag("div.item") do
-          link = "#{Rails.application.secrets.repository['url']}/resources/#{this_node.resource.repository_id}"
+          link = "#{Rails.application.secrets.repository[:url]}/resources/#{this_node.resource.repository_id}"
           haml_concat t('classifications.hierarchies.see_resource_file', href: link).html_safe
         end
       end
