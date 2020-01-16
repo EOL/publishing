@@ -180,8 +180,8 @@ class TraitsController < ApplicationController
     if query.taxa? && pages.any? && pages.length <= GBIF_LINK_LIMIT && Resource.gbif
       gbif_params = pages.collect do |p| 
         pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
-        "taxon_key=#{pk}"
-      end
+        pk ? "taxon_key=#{pk}" : nil
+      end.compact
       
       if gbif_params.any?
         @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
