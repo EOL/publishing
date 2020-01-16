@@ -20,6 +20,10 @@
         %li.js-download-tsv{:'data-url' => term_search_results_path(:format => :csv)}
           %i{:'uk-icon' => "icon: download"}
           %span= t(".download_tsv")
+        - if @gbif_url
+          %li{:'uk-tooltip' => t(".gbif_search_hover")}
+            %i{:'uk-icon' => "icon: link"}
+            %a{href: @gbif_url}= t(".gbif_search")
         %li
           = link_to term_search_path do
             %i{:'uk-icon' => "icon: search"}

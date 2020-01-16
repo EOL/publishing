@@ -1,10 +1,14 @@
 class TraitsController < ApplicationController
   include DataAssociations
+
   helper :data
 
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]
   before_action :build_query, only: [:search_results, :search_form]
   before_action :set_title, only: [:search, :search_results]
+
+  GBIF_LINK_LIMIT = 60
+  GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
@@ -156,6 +160,7 @@ class TraitsController < ApplicationController
     @is_terms_search = true
     @resources = TraitBank.resources(data)
     build_associations(data)
+    build_gbif_url(pages, @query)
     render "search"
   end
 
@@ -169,6 +174,19 @@ class TraitsController < ApplicationController
 
   def set_title
     @page_title = t("page_titles.traits.search")
+  end
+
+  def build_gbif_url(pages, query)
+    if query.taxa? && pages.any? && pages.length <= GBIF_LINK_LIMIT && Resource.gbif
+      gbif_params = pages.collect do |p| 
+        pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
+        "taxon_key=#{pk}"
+      end
+      
+      if gbif_params.any?
+        @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
+      end
+    end
   end
 end
 
