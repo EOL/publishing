@@ -957,36 +957,91 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 體長
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: 體長，鼻子到尾端
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: 乳頭數量
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 莖直徑
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 葉尺寸類別
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: 葉複雜度
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: 葉脫落性
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: 種子質量
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: 葉形態
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: 葉狀體直徑
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: 植物生活型
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: 植物生長形式
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
         http://purl(dot)obolibrary(dot)org/obo/GO_0007530: 性別確定
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移行
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 親代撫育
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: 多量
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: 細胞直徑
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: 細胞容積
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: 骨骼結構
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 細胞塊
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: 外殼長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木頭密實度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 核長
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 核寬
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: 溝寬
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: 骨骼包含
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 上錐長度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: 下錐長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: 體型大小
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 壽命
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形狀
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 厚度
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 區域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: 容積
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: 脫落性
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: 性別差異
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 棲息地
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: 獵捕在
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: 共生生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: 片利共生與
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: 互利共生與
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 寄生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: 被寄生由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 有宿主
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉
         http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 授粉由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: 被獵捕由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 屬於媒介為
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 食物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: 被覓食由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 病原體屬於
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 帶病原體
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 偷竊寄生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: 株高
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: 耐旱性
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 葉色
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 葉形狀
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: 根深度
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: 葉面積
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果實類型
         http://purl(dot)obolibrary(dot)org/obo/TO_0001015: 光合作用率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: 呼吸速率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: 生命週期習性
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: 耐鹽性
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: 礦化組織包含
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 身體質量
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行為晝夜節律
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: 窩大小
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: 懷孕期持續時間
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: 生殖開始
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾巴長度
         http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨長度
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢長度
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 體寬
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨寬度
         http://purl(dot)org/obo/owlATOL_0001660: 總長度
+  term_query:
+    validations:
+      empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
+      empty_filters_error_taxa: 您必須提供一個帶有屬性或值、用於分類搜尋的演化支或篩選
   term_query_filter:
     validations:
       blank_error: 必須指定一個屬性或值
+      pred_uri_blank_numeric_error: 不能為空白的數值
+      range_invalid_error: 必須 >= 第一個值
   terms:
     attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>註釋：</strong>%{comment}
@@ -1004,14 +1059,23 @@ zh-TW:
     search:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV
+      edit_filters: 編輯篩選條件
+      result_header_records: 顯示 %{total} 個紀錄裡 %{range_begin} - %{range_end} 個帶有
+      result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
       new_search: 新搜尋
       show_query: 顯示查詢
     search_form:
       attribute: 屬性
+      clade_filter_placeholder: 群組（例如：熊）（選用）
+      hide_additional_fields: 隱藏額外欄位
+      lifestage: 生命階段
+      records_matching_all: 符合所有篩選的紀錄
       resource: 資源
       search: 搜尋
       sex: 性別
       show_additional_fields: 顯示額外欄位
+      statistical_method: 統計方法
+      taxa_matching_all: 符合所有篩選的分類
       this_may_take_a_minute: 這可能會花費一分鐘
       value: 值
   trophic_web:
@@ -1039,6 +1103,7 @@ zh-TW:
       collections: 收藏
       downloads: 下載
       links: 連結
+    is_power_user: 此使用者被標記為高級使用者。
     validations:
       age_confirm: 您必須確認您至少有 13 歲大
       tou_confirm: 您必須確認您已讀過使用條款與隱私權方針

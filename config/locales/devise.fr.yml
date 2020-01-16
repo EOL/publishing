@@ -51,10 +51,6 @@ fr:
         message: Nous vous contactons pour vous signaler que votre mot de passe a
           été changé.
         subject: Mot de passe changé
-    omniauth_callbacks:
-      failure: 'Impossible de vous authentifier depuis %{kind} pour la raison suivante :
-        %{reason}.'
-      success: Vous êtes bien authentifié depuis le compte %{kind}.
     passwords:
       no_token: Vous ne pouvez pas accéder à cette page sans venir d’un courriel de
         réinitialisation de mot de passe. Si vous êtes venu ici depuis un courriel

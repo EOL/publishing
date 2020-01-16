@@ -1,0 +1,870 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: BaRaN6161 TURK
+# Author: Grkn gll
+# Author: SwornToTranslate29
+---
+tr:
+  language_name: Türkçe
+  about:
+    trait_bank:
+      title: TraitBank
+      body_html: <p>EOL'deki teknik ve veri yönetimi ekibi, EOL- özelliği ve diğer
+        nitelik verileri, ekolojik etkileşimler ve yerel sınıflandırmamız olan Dinamik
+        Çalışma Hiyerarşisi olarak TraitBank olarak yapılandırılmış veri kaynaklarını
+        ifade eder. Bu içerik "klasik" içerik resimlerimiz, video, ses ve açıklayıcı
+        metinlerimizden biraz farklı bir şekilde yönetiliyor ve farklı şeyler için
+        faydalı.</p><p>TraitBank EOL'un geri kalanından daha genç; aslında Türler
+        Sayfaları Grup direktörü Cynthia Parr tarafından tasarlandı ve Ocak 2014'te
+        EOL v2'de yayınlandı. O zamandan beri, yapılandırılmış veriler içerik geliştirme
+        için en yüksek önceliğimiz olmuştur.</p><p>Artık <a href='%{example_search_path}'>arama</a>
+        yapabilir veya yapılandırılmış verilere göre EOL'ye göz atabilir veya indirebilirsiniz
+        veya <a href='%{autogen_page_path}'>otomatik olarak oluşturulan metin</a>
+        biçimindeki yeni genel bakış sekmesinde karşılaşabilirsiniz. EOL içeriğinin
+        geri kalanı gibi, tekrar kullanılabilir ve ayrıntılı ilişkilendirme verileriyle
+        birlikte gelir, böylece kendi çalışmanızda kullanırsanız kredi verebilirsiniz.</p>
+        <p>Bu veriler <a href='%{neo4j_url}'>neo4j</a> içindeki <a href='%{property_graph_url}'>özellik
+        grafiği</a>. <a href='%{data_services_path}'>Veri servisleri</a> mevcuttur.</p>
+  account_already_linked: hesabınız zaten EOL ile bağlantılı
+  account_not_linked: hesabınız EOL ile bağlantılı değil
+  advanced: gelişmiş
+  are_you_sure_delete_account: EOL hesabınızı silmek istediğinize emin misiniz?
+  article:
+    actions:
+      collect: topla
+    header:
+      blank: (Bu makalenin gövdesi yoktur.)
+      body: Gövde
+      language: 'dil: %{language}'
+      title: Başlık
+      untitled: Başlıksız
+    name:
+      missing: Başlıksız
+  article_from_partner: '%{partner} tarafından sağlandı'
+  article_duplicate: Bu makale ayrıca "%{section}"'da gösterilmiştir
+  autocomplete:
+    see_all:
+      one: diğer sonuçları gör
+      other: '%{count} sonucun tümünü görüntüle'
+  breadcrumbs:
+    notices:
+      canonical: Bilimsel isimler artık sayfa kırıntılarında gösterilecek
+      vernacular: Yöresel adlar, artık kullanılabilir olduğunda sayfa kırıntılarında
+        gösterilecektir
+    setting_header: kırıntılardaki isimler
+    types:
+      scientific: bilimsel
+      vernacular: yerel
+  button_create: oluştur
+  button_add: ekle
+  cancel: iptal
+  change_my_password: Parolamı değiştir
+  change_your_password: Parolanızı değiştirin
+  classifications:
+    children:
+      header_html:
+        one: '%{name} dahili <a href="%{names_path}">%{count} çocuk</a>:'
+        other: '%{name} dahili <a href="%{names_path}">%{count} çocuk</a>:'
+      see_more: daha fazla görün
+    hierarchies:
+      header: '%{sci_name} için küratörlük hiyerarşileri'
+      see_resource_file: Tam liste için <a href='%{href}'>kaynak dosyasına</a> bakın.
+      this_page: (bu sayfa)
+      truncated_siblings:
+        one: Ek bir kardeş kısalık için kesildi.
+        other: '%{count} ek kardeş kısalık için kesildi.'
+    richness:
+      header: Sayfa Zenginliği
+      score: zenginlik puanı
+      page_contents_count: ilişkili içerik
+      missing: Bu sayfa için zenginlik henüz hesaplanmamıştır.
+      media_count: medya
+      articles_count: makaleler
+      links_count: bağlantılar
+      maps_count: haritalar
+      data_count: veri
+      nodes_count: düğümleri
+      vernaculars_count: bölgelere ait olan diller
+      scientific_names_count: bilimsel isimler
+      referents_count: referensları
+      species_count: türler
+      updated_at: son güncelleme
+  cms_page_date: 'Son Değiştirme Tarihi:'
+  collect_already_in_collection: (zaten burada)
+  collect_already_in_collection_will_add_icon: ("%{page}" içine medya ekleyin)
+  collect_icon_title: '"%{page}" sayfasından "%{item}" öğesini ekleyin…'
+  collect_new_collection: Yeni Koleksiyon Adı
+  collect_new_collection_title: …Yeni Bir Koleksiyon
+  collect_no_existing_collections: Henüz hiç yok! Soldaki formu kullanarak bir tane
+    oluşturun.
+  collect_select_collection: …Koleksiyonlarınızdan Biri
+  collect_title: Şuraya "%{item}" ekle…
+  collected_page_added_to_collection: <a href='%{link}'>%{name}</a> koleksiyonuna
+    %{page} eklendi.
+  collected_page_already_in_collection: Bu zaten koleksiyonundaydı.
+  collected_pages_title: Sayfalar
+  collected_pages_medium:
+    destroyed_flash: Resim toplanan sayfadan kaldırıldı.
+  collection_associations:
+    destroyed_flash: '%{name} artık bu koleksiyonla ilişkili değil.'
+  collected_pages:
+    delete_button: sil
+    edit_button: düzenle
+    delete_confirm: emin misiniz?
+    destroyed_flash: '%{name} koleksiyondan kaldırıldı.'
+  collection_association_added_to_collection: <a href='%{link}'>"%{name}"</a> koleksiyonuna
+    "%{associated}" eklendi.
+  collection_associations_empty: Bu koleksiyonla ilişkili başka koleksiyon yok. Burada
+    görünmelerini sağlamak için diğer koleksiyonlardaki "ilişkilendir" düğmesini tıklayabilirsiniz.
+  collection_associations_title: İlişkili Koleksiyonlar
+  collection_collected_pages_media_remove: 'Görüntüleri koleksiyondan kaldır (değişiklikler
+    anında etkili olur):'
+  collection_created: '"%{name}" adlı yeni koleksiyon oluşturuldu.'
+  collection_created_for_association: <a href='%{link}'>"%{name}"</a> yeni koleksiyonuna
+    "%{associated}" eklendi.
+  collection_user_is_admin: Bu kullanıcı bir yönetici.
+  collection_pages_empty: Bu koleksiyonun içinde sayfa yok. Bazı öğeler eklemek için
+    tür sayfalarındaki "topla" butonuna tıklamayı deneyin!
+  collection:
+    admins:
+      header: Bu koleksiyonu düzenleyebilen kullanıcılar (değişiklikler anında etkili
+        olur)
+      label: 'Bu koleksiyonu düzenleyebilecek bir kullanıcı ekleyin:'
+      placeholder: tam adınız ya da kullanıcı adınız
+    actions:
+      associate: ilişkilendir
+      download_taxa_csv: taxa CSV dosyasını indirin
+      delete: sil
+      edit: düzenle
+    collection_type:
+      normal: normal
+      gallery: galeri
+    delete_confirm: Bu işlem tüm koleksiyonu kaldıracak ve geri alınamaz. Emin misiniz?
+    destroyed: '"%{name}" kalıcı olarak silindi.'
+    pages_count:
+      one: 1 sayfa
+      other: '%{count} sayfa'
+    log:
+      associated_collection:
+        add: '%{user}, %{associated} koleksiyonuna bir ilişkilendirme ekledi'
+        remove: '%{user}, %{associated} koleksiyonuna kaldırdı'
+      collection:
+        add: '%{user} koleksiyonu oluşturdu'
+        change: '%{user}, %{field} alanına "%{from}" olarak "%{to}" değiştirdi'
+      content:
+        add: '%{user}, %{page} sayfası için %{medium} ortamını ekledi'
+        change: '%{user}, %{page} sayfasındaki %{medium} ortamındaki %{field} alanını
+          "%{from}" olarak "%{to}" değiştirdi'
+        remove: '%{user} %{page} sayfası için %{medium} ortamını kaldırdı'
+      page:
+        add: '%{user} %{page} sayfası ekledi'
+        change: '%{user} %{page} sayfasındaki %{field} sayfasını "%{from}" olarak
+          "%{to}" değiştirdi'
+        remove: '%{user} %{page} sayfasını kaldırıldı'
+      user:
+        add: '%{user} %{manager} yöneticisini ekledi'
+        remove: '%{user} %{manager} yöneticisini kaldırdı'
+    search:
+      placeholder: Koleksiyonda ara…
+      submit: ara
+    sort:
+      hierarchy: hiyerarşi
+      position: tarih eklendi
+      sci_name: bilimsel ad, A-Z
+      sci_name_rev: bilimsel ad, Z-A
+      sort_field: ek açıklama, A-Z
+      sort_field_rev: ek açıklama, Z-A
+    updated: Koleksiyon güncellendi.
+  collection_unauthorized_edit: Bu koleksiyonu sadece sahibi olan kullanıcı düzenleyebilir.
+  complete_registration: Lütfen kayıt işlemine devam edin
+  content_appears_on: 'Aşağıdaki Sayfalarda Bulunmaktadır:'
+  content_collected_in: 'Aşağıdaki Koleksiyonlarda Öne Çıkanlar:'
+  content_attributions_header: Kaynak Bilgileri
+  content_attributions_labels:
+    altitude: rakım
+    author: yazar
+    bibliographic_citation: bibliyografik atıf
+    compiler: derleyici
+    creator: oluşturan
+    editor: editör
+    latitude: enlem
+    license: lisans
+    location: konum
+    location_verbatim: kelimesi kelimesine
+    longitude: boylam
+    original_media_file: orijinal medya dosyası
+    owner: telif hakkı
+    photographer: fotoğrafçı
+    publisher: yayıncı
+    project: proje
+    provider: sağlayıcı
+    references_header:
+      one: Referans
+      other: Referans
+    resource_label: ortak site
+    resource_pk: '(kimlik: %{key})'
+    rights_statement: hak beyanı
+    source: kaynak
+    spatial_location: uzaysal
+    view_source_label: orijinal
+    view_source_link: orijinal resmi görüntüle
+    view_source_page_link: kaynağı ziyaret et
+  content_not_in_any_collection_image: Bu resim hiçbir koleksiyonda yer almıyor.
+  content_not_in_any_collection_sound: Bu ses hiçbir koleksiyonda gösterilmiyor.
+  content_not_in_any_collection_video: Bu videoda hiçbir koleksiyon bulunmuyor.
+  data:
+    modifier:
+      sex_term: Ölçülen organizmanın cinsiyeti
+      lifestage_term: Ölçülen organizmanın ömrü
+      statistical_method_term: Ölçüm için kullanılan istatistiksel yöntem
+  data_missing: '(veri eksik, tuşlar: %{keys})'
+  dear_username_with_comma: Sayın %{username},
+  delete_account_button: Hesabını sil
+  filter_by_license: lisans
+  filter_by_license_any_item: herhangi bir lisans
+  filter_by_medium_subtype: tür
+  filter_by_medium_any_item: herhangi tür
+  filter_by_resource: sağlayıcı
+  filter_by_resource_any_item: herhangi bir sağlayıcı
+  filters:
+    filter_by_attribute: özelliğe göre filtrele
+    filter_by_language: dile göre filtrele
+    filter_by_provider: sağlayıcıya göre filtrele
+  footer:
+    eol_info:
+      citing_eol: Atıf EOL
+      contact_us: Bize Ulaşın
+      data_services: Veri Servisleri
+      donate: Bağış yap
+      education: Eğitim
+      glossary: Sözlük
+      help: Yardım
+      terms_of_use: Kullanım Şartları
+      the_eol_forum: EOL Forumu
+      what_is_eol: EOL nedir?
+      whats_new: Neler Yeni?
+    discover:
+      algae: Alg
+      amphibians: Amfibiler
+      animals: Hayvanlar
+      archaea: Arkeler
+      bacteria: Bakteriler
+      birds: Kuşlar
+      crustaceans: Kabuklular
+      fishes: Balıklar
+      flowering_plants: Çiçekli Bitkiler
+      fungi: Mantarlar
+      insects: Haşarat
+      invertebrates: Omurgasızlar
+      mammals: Memeliler
+      molds: Kalıplar
+      mushrooms: Mantarlar
+      mollusks: Yumuşakçalar
+      plants: Bitkiler
+      protists: Protistler
+      reptiles: Sürüngenler
+      spiders: Örümcekler
+      trees: Ağaçlar
+      viruses: Virüsler
+      worms: Solucanlar
+    eol_is_hosted_by: 'EOL ev sahibi yapan:'
+  forgot_your_password: Parolanızı mı unuttunuz?
+  landing_page:
+    header: Dünyadaki yaşam hakkında bilgiye küresel erişim
+    stats_cleared: İstatistikler yeniden hesaplandı.
+  language: Dil
+  languages:
+    none: Belirtilmemiş
+    aa: Afarca
+    ab: Abhazca
+    ae: Avestaca
+    af: Afrikaanca
+    ak: Akan
+    am: Amharca
+    an: Aragonca
+    ar: Arapça
+    as: Assam dili
+    av: Avarca
+    ay: Aymaraca
+    az: Azerice
+    ba: Başkurtça
+    be: Beyaz Rusça
+    bg: Bulgarca
+    bh: Bihari dilleri
+    bi: Bislama
+    bm: Bambara
+    bn: Belgalce
+    bo: Tibetçe
+    br: Bretonca
+    bs: Boşnakça
+    ca: Katalanca; Valensiyaca
+    ce: Çeçence
+    ch: Çamorro dili
+    co: Korsikaca
+    cr: Cree
+    cs: Çekçe
+    cu: Eski Kilise Slavcası
+    cv: Çuvaşça
+    cy: Galce
+    da: Danca
+    de: Almanca
+    dv: Maldivce
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Ewe
+    el: Yunanca, Modern (1453-)
+    en: İngilizce
+    eo: Esperanto
+    es: İspanyolca; Kastilyaca
+    et: Estonyaca
+    eu: Baskça
+    fa: Farsça
+    ff: Fula Dili
+    fi: Fince
+    fj: Fiji dili
+    fo: Faroece
+    fr: Fransızca
+    fy: Batı Frizcesi
+    ga: İrlandaca
+    gd: Galce; İskoçya Galcesi
+    gl: Galiçyaca
+    gn: Guaraní dili
+    gu: Guceratça
+    gv: Man dili
+    ha: Hausaca
+    he: İbranice
+    hi: Hitnçe
+    ho: Hiri Motu
+    hr: Hırvatça
+    ht: Haiti dili; Haiti Creole
+    hu: Macarca
+    hy: Ermenice
+    hz: Herero
+    ia: Interlingua (Uluslararası Yardımcı Dil Derneği)
+    id: Endonezce
+    ie: Interlingue; Batı
+    ig: İgbo Dili
+    ii: Sichuan Yi
+    ik: İnyupikçe
+    io: İdo dili
+    is: İzlandaca
+    it: İtalyanca
+    iu: Doğu Kanada İnuitçesi
+    ja: Japonca
+    jp: Japonca
+    jv: Cava dili
+    ka: Gürcüce
+    kg: Kongo
+    ki: Kikuyu
+    kj: Kuanyama
+    kk: Kazakça
+    kl: Grönlandca
+    km: Kmerce
+    kn: Kannada dili
+    ko: Korece
+    kr: Kanurice
+    ks: Kashmiri
+    ku: Kürtçe
+    kv: Komice
+    kw: Kernevekçe
+    ky: Kırgızça
+    la: Latince
+    lb: Lüksemburgca
+    lg: Ganda
+    li: Limburgca
+    ln: Lingala dili
+    lo: Laoca
+    lt: Litvanca
+    lu: Luba-Katanga
+    lv: Letonca
+    mg: Malgaşça
+    mh: Marshall Adaları dili
+    mi: Maorice
+    mk: Makedonca
+    ml: Malayalamca
+    mn: Moğolca
+    mr: Marathi
+    ms: Malayca
+    mt: Maltaca
+    my: Birmanca
+    na: Nauruca
+    nb: Bokmål, Norveççe; Norwegian Bokmål
+    nd: Ndebele, Kuzey; Kuzey Ndebele
+    ne: Nepalce
+    ng: Ndonga
+    nl: Felemenkçe; Flemish
+    nn: Norveççe Nynorsk; Nynorsk, Norveççe
+    "no": Norveççe
+    nr: Ndebele, Güney; Güney Ndebele
+    nv: Navahoca
+    ny: Çevaca; Chewa; Nyanja
+    oc: Oksitanca (1500 sonrası)
+    oj: Ojibva dili
+    om: Oromca
+    or: Oriya Dili
+    os: Osetçe
+    pa: Panjabi; Punjabi
+    pi: Pali
+    pl: Lehçe
+    ps: Peştuca
+    pt: Portekizce
+    Q11005332: Kinga
+    Q11128374: Nyiha dili
+    Q1160372: Lazca
+    Q11732519: Ngindo dili
+    Q13313: Meru
+    Q13324: Minangkabau dili
+    Q13330: Mirandaca
+    Q13358: Megleno Rumence
+    Q146803: Lingua Franca Nova
+    Q16115145: Nyika dili
+    Q180937: Tosk Arnavutça
+    Q18415595: Doteli
+    Q19933293: Kuzey Luri
+    Q23014: Palatin Almancası
+    Q2429648: Pogoro
+    Q2501174: Gorontalo dili
+    Q2591230: Kashinawa dili
+    Q2638144: Sukuma dili
+    Q27776: Adigece
+    Q28602: Eski Aramice
+    Q29507: Asturyasça
+    Q3129390: Hehe dili
+    Q3272620: Nyakusa dili
+    Q3272630: Gogo dili
+    Q32858: Votça
+    Q32979: Çoktav dili
+    Q33202: Brohice
+    Q33281: Chavacano dili
+    Q33303: Haydaca
+    Q33357: Kırım Tatarcası
+    Q33475: Gan Çinçesi
+    Q33509: İnguşça
+    Q33541: Karakalpakça
+    Q33595: Iraqw dili
+    Q3362072: Digo dili
+    Q33634: Kalmukça
+    Q33698: Livonca
+    Q33965: Santali dili
+    Q34016: Sandave
+    Q34138: Tumbuka
+    Q34159: Tok Pisin
+    Q34318: Talışça
+    Q3437661: Luguru dili
+    Q35037: Ndyuka dili
+    Q3508074: Nai dili
+    Q35156: Car dili
+    Q35475: Kabiye dili
+    Q35756: Haya dili
+    Q35787: Masai
+    Q35936: Iloko
+    Q35939: Jamaika Patois Dili
+    Q35978: Hiligaynon dili
+    Q36109: Maithili
+    Q36403: Asu
+    Q36584: Livvi Karelce
+    Q36730: Türkçe, Osmanlı
+    Q36738: Novial
+    Q36748: Pontus Rumcası
+    Q3788739: Shambala
+    Q4121131: Nyamvezi
+    Q4126517: Doğu Kanada İnuitçesi
+    Q4941378: Bondei dili
+    Q497345: Mainfränkisch
+    Q5575236: Goan Konkani
+    Q56240: Tunus Arapça
+    Q56426: Fas Arapça
+    Q56466: Dinka dili
+    Q56482: Şanca
+    Q56590: Atikamekçe
+    Q584983: Langi
+    Q667747: Fipa dili
+    Q6786446: Matengo dili
+    Q6944725: Mwera dili
+    Q7022366: Ngindo dili
+    Q7193418: Turu dili
+    Q750553: Brezilya Portekizcesi
+    Q845441: Sassari Sarduca
+    Q880301: Louisiana Fransızca
+    Q8836490: Bende dili
+    Q9292: Azerice
+    qu: Keçuva dili
+    rm: Romanşça
+    rn: Rundice
+    ro: Romence; Moldovaca
+    ru: Rusça
+    rw: Ruandaca
+    sa: Sanskrit
+    sc: Sarduca
+    sd: Sindhiler
+    se: Kuzey Lapça
+    sg: Sango
+    si: Seylanca
+    sk: Slovakça
+    sl: Slovence
+    sm: Samoaca
+    sn: Şona Dili
+    so: Somalice
+    sq: Arnavutça
+    sr: Sırpça
+    ss: Swati dili
+    st: Sotho dili
+    su: Sundaca
+    sv: İsveççe
+    sw: Svahili
+    ta: Tamilce
+    te: Teluguca
+    tg: Tacikçe
+    th: Tayca
+    ti: Tigrinya dili
+    tk: Türkmence
+    tl: Tagalogca
+    tn: Tsvana dili
+    to: Tonga (Tonga Adaları)
+    tr: Türkçe
+    ts: Tsongaca
+    tt: Tatarca
+    tw: Tvi
+    ty: Tahitice
+    ug: Uygurca
+    uk: Ukraynaca
+    ur: Urduca
+    uz: Özbekçe
+    ve: Venda dili
+    vi: Vietnamca
+    vo: Volapük
+    wa: Valonca
+    wo: Wolof dili
+    xh: Xhosa dili
+    yi: Yidiş
+    yo: Yoruba Dili
+    za: Zhuangca
+    zh: Çince
+    zu: Zuluca
+  layout_sign_in: Oturum Aç
+  layout_sign_up: Kaydol
+  layout_sign_out: Oturumu Kapat
+  literature_and_references_header: Edebiyat ve Kaynaklar
+  maps:
+    empty: Bu sayfa için kullanılabilir harita yok.
+    occurrence_caption: '%{page_name} alan adının bilinen örnekleri, toplanan örnekleri
+      ve gözlemleri'
+    other_maps_title: Etkileşimli Olmayan Haritalar
+  medium:
+    untitled:
+      image: Adsız resim
+      image_of: '%{page_name} resmi'
+      video: Adsız video
+      video_of: '%{page_name} sayfasının videosu'
+      sound: Adsız ses
+      sound_of: '%{page_name} sesi'
+      map: Adsız harita
+      map_of: '%{page_name} haritası'
+      js_map: Adsız etkileşimli harita
+      js_map_of: '%{page_name} sayfasının etkileşimli haritası'
+    subclasses:
+      image: resim
+      video: video
+      sound: ses
+      map: harita
+      js_map: interaktif harita
+  medium_collect_button: medya topla
+  medium_description_blank: Bu nesne için sağlanan açıklama yok.
+  medium_header_title: 'Başlık:'
+  medium_header_description: 'Açıklama:'
+  names:
+    hide_langs:
+      one: bir dili gizle
+      other: '%{count} dili gizle'
+    prefer: tercih et
+    preferred_in_language_for_page: '%{name} artık %{page} için tercih edilen %{language}
+      dilidir'
+    show_more_langs:
+      one: bir dil daha göster
+      other: '%{count} dil daha göster'
+  nav:
+    about: Hakkında
+    discuss: Tartış
+    education: Eğitim
+    search:
+      no_results_html: <strong>Onaylanmış sonuç yok</strong><br />İyileşmemiş sonuçları
+        görmek için Enter tuşuna basın
+      placeholder: EOL'de ara...
+    trait_bank: TraitBank
+  name_preferred_label: tercih edildi
+  page_icon_counts:
+    header:
+      one: Sayfa için En İyi Resim
+      other: Sayfa için En İyi Resim
+  page_icon_created: '"%{name}" resmi en üste taşındı.'
+  page_title: Yaşam Ansiklopedisi
+  page_title_search: 'Ara: %{query}'
+  page_vernaculars_empty: Bu taksonla ilişkilendirilmiş ortak bir ad yoktur.
+  pages:
+    actions:
+      collect: topla
+      comment:
+        zero: yorum
+        one: '%{count} yorum'
+        other: '%{count} yorum'
+      reindex: yeniden dizin
+    batch_lookup:
+      header: toplu sayfa ara
+      canonical_name: standart isim
+      download_tsv: TSV indir
+      match: eşleştir
+      new_search: yeni arama
+      page_id: sayfa kimliği
+      page_url: sayfa URL'si
+      query: sorgu
+      query_cant_be_blank: sorgu boş bırakılamaz
+      search: ara
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL, <a href="%{data_path}">bir özellik</a> için verilere sahiptir:'
+        other: 'EOL, <a href="%{data_path}">%{count} özellik</a> için verilere sahiptir:'
+      eol_has_data_for_n_attributes_html:
+        one: EOL, <a href="%{data_path}">bir özellik</a> için verilere sahiptir.
+        other: EOL, <a href="%{data_path}">%{count} özellik</a> için verilere sahiptir.
+    filter_menu:
+      show_all: hepsini göster
+    page_data:
+      n_hidden_show_all:
+        one: 1 “%{pred_name}” kayıt gizlendi — tümünü göster
+        other: '%{count} “%{pred_name}” kayıt gizlendi — tümünü göster'
+      show_all: hepsini göster
+    resource_names:
+      name_recognized_by: '%{by} tarafından tanınıyor'
+      name_recognized_by_w_rank: '%{rank} %{by} tarafından tanındı'
+      name_recognized_by_w_status: '%{by} göre %{status}'
+      rank:
+        r_domain: Etki alanı
+        r_subdomain: Alt etki alanı
+        r_infradomain: Alt alan adı
+        r_superkingdom: Süper krallık
+        r_kingdom: Krallık
+        r_subkingdom: Alt krallık
+        r_infrakingdom: Kızılötesi krallık
+        r_superphylum: Süper phylum
+        r_phylum: Phylum
+        r_subphylum: Alt Phylum
+        r_infraphylum: Kızılötesi aphylum
+        r_superclass: Süper sınıf
+        r_class: Sınıf
+        r_subclass: Alt sınıf
+        r_infraclass: Üst sınıf
+        r_superorder: Süper sıra
+        r_order: Sıra
+        r_suborder: Alt sıra
+        r_infraorder: Üst sıra
+        r_superfamily: Süper aile
+        r_family: Aile
+        r_subfamily: Alt aile
+        r_infrafamily: Üst aile
+        r_tribe: Kabile
+        r_supergenus: Süper cins
+        r_genus: Cins
+        r_subgenus: Alt cins
+        r_infragenus: Üst cins
+        r_superspecies: Süper tür
+        r_species: Tür
+        r_subspecies: Alt tür
+        r_infraspecies: Üst tür
+        r_form: Form
+      reference_taxon_attrib: '%{dataset_name} kaynağından referans vergi'
+      resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+        (%{remarks})
+      username_missing: kullanıcı %{user_id}
+    trophic_web:
+      competitor: Yarışmacı
+      globi_credit_html: <a href='%{url}'>GloBI</a>'dan veriler
+      predator: Yırtıcı hayvan
+      prey: Av
+      reset: sıfırla
+      trophic_web_title: Trophic Web
+    flash:
+      reindexed: Bu sayfa için önbellekler temizlendi. Yeni değerleri görmek için
+        yeniden yükleyin. Şu anda bunun sayfadaki resimleri yeniden endekslemediğini
+        unutmayın. Bu özellik ileriki bir tarihte uygulanacaktır.
+    native_node_missing_warning: hiyerarşi bilgisi yok
+    tabs:
+      articles: makaleler
+      classifications: sınıflandırmalar
+      data: veri
+      literature_and_references: edebiyat ve referanslar
+      overview: genel bakış
+      maps: haritalar
+      media: medya
+      names: isimler
+    iucn_status:
+      label: 'IUCN durumu:'
+      ex: soyu tükenmiş (EX)
+      ew: soyu tükenmiş (EW)
+      cr: kritik tehlike altında (CR)
+      en: nesli tükenmekte (EN)
+      vu: savunmasız (VU)
+      nt: neredeyse tehdit altında (NT)
+      lc: en az endişe (LC)
+      dd: veri eksikliği (DD)
+      ne: değerlendirilmedi (NE)
+      unknown: bilinmiyor (kayıt yok)
+    unresolved_name: Çözülmemiş ad
+    unresolved_name_prefix: 'Çözülmemiş ad:'
+  page_titles:
+    pages:
+      data: '%{page_name} verisi'
+      media: '%{page_name} medyası'
+      maps: '%{page_name} haritaları'
+      names: '%{page_name} isimleri'
+      articles: '%{page_name} makaleleri'
+    traits:
+      search: Özellik arama
+  recaptcha: Recaptcha
+  recaptcha_error: Lütfen bize robot olmadığınızı söyleyin.
+  reference_compiled_from: '%{links} tarafından yönlendirildi'
+  reference_compiled_from_article: '"%{name}" başlıklı %{source} makale'
+  register_new_account: Yeni hesap için kaydolun
+  resources:
+    actions:
+      import_traits: içe aktarma özellikleri (depodan)
+      republish: yeniden yayınlan
+      reindex: yeniden dizin
+      fetch_log: şartlar getirme günlüğü
+      fix_no_names: İSİM OLMAYANI düzeltin
+      index: tüm kaynaklara dön
+      show_all:
+        other: tümünü göster (%{count})
+      show_warns:
+        one: uyarı göster (%{count})
+        other: uyarı göster (%{count})
+      sync: depo ile senkronize et
+      sync_all_terms: tüm terimleri senkronize et
+      fetch_relationships: ilişkileri getir
+      sync_all_terms_confirm: Bu, yayınlama katmanında olmayan hasat katmanından TÜM
+        terimleri alır. Yaklaşık 15 dakika sürer. Emin misiniz?
+      fetch_relationships_confirm: Bu, mevcut ilişkileri kaldırır ve yeniden ekler,
+        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık beş dakika sürer.
+        Emin misiniz?
+      fetch_synonyms: eş anlamlıları getir
+      fetch_synonyms_confirm: Bu, mevcut eşanlamlıları kaldırır ve yeniden ekler,
+        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika sürer.
+        Emin misiniz?
+      fetch_units: birimleri getir
+      fetch_units_confirm: Bu, mevcut yüklem/birim ilişkilerini kaldırır ve yeniden
+        ekler, ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika
+        sürer. Emin misiniz?
+      clear_publishing: kilidi kaldır
+      clear_publishing_confirm: Bu, tüm yayınları 'bitirir' ve aktif olarak yayınlanırken
+        kullanılırsa sorunlara neden olabilir. Emin misiniz?
+    headers:
+      index: Kaynaklar
+      import_log: '%{resource} için Günlüğü İçe Aktar'
+    index:
+      locked_jobs:
+        zero: çalışan iş yok
+        one: 1 çalışan iş
+        other: '%{count} çalışan iş'
+      jobs:
+        zero: bekleyen iş yok
+        one: 1 bekleyen iş
+        other: '%{count} bekleyen iş'
+      harvest_jobs:
+        zero: yayınlanacak bir şey yok
+        one: 1 yayınlanma bekliyor
+        other: '%{count} yayınlanma bekliyor'
+    no_events: Hiçbiri!
+  resource_missing: kaynak bulunamadı
+  scientific_name:
+    status_title:
+      accepted: Kabul Edilen İsimler
+      alternative: Alternatif İsimler
+      preferred: Tercih Edilen İsimler
+      unusable: Kullanılamayan İsimler
+      synonym: Eş anlamlılar
+  scientific_names_header: Bilimsel İsimler
+  send_me_reset_password_instructions: Bana şifre sıfırlama talimatlarını gönder
+  search:
+    flash:
+      cannot_combine_paths: Sonuçlar %{path} ile birleştirilemiyor
+      more_than_one_species: '%{species} için sonuçlar birleştirilemiyor'
+      more_than_two_terms: 'Sonuçlar ikiden fazla terim için birleştirilemiyor: %{terms}'
+    n_articles:
+      one: '%{count} makale'
+      other: '%{count} makale'
+    n_collections:
+      one: '%{count} koleksiyon'
+      other: '%{count} koleksiyon'
+    n_images:
+      one: '%{count} resim'
+      other: '%{count} resim'
+    n_results:
+      zero: Sonuç yok
+      one: '%{count} sonuç'
+      other: '%{count} sonuç'
+    n_sounds:
+      one: '%{count} ses'
+      other: '%{count} ses'
+    n_taxon_pages:
+      one: '%{count} takson sayfası'
+      other: '%{count} takson sayfası'
+    n_users:
+      one: '%{count} kullanıcı'
+      other: '%{count} kullanıcı'
+    n_videos:
+      one: '%{count} video'
+      other: '%{count} video'
+    n_terms:
+      one: '%{count} terim'
+      other: '%{count} terim'
+  search_results:
+    collection_page_count:
+      one: '%{count} sayfa'
+      other: '%{count} sayfa'
+    collection_page_count_and_users:
+      one: '%{count} sayfa; sağlayan %{users_sentence}'
+      other: '%{count} sayfa; sağlayan %{users_sentence}'
+    collected_media:
+      title: 'bu sayfadan toplanan medya:'
+    medium_article: Makale
+    medium_image: Resim
+    medium_map: Harita
+    medium_sound: Ses
+    medium_video: Video
+    medium_title_article_html: 'Makale: <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Resim: <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Harita: <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Ses: <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Sonuç yok.
+    field_matches:
+      description: 'açıklamayla eşleşir:'
+      resource_pk: 'harici kimlikle eşleşir:'
+      bio: 'biyografiyle eşleşir:'
+      tag_line: 'etiket satırıyla eşleşir:'
+      resources:
+        one: 'kaynakla eşleşir:'
+        other: 'kaynakla eşleşir:'
+      synonyms:
+        one: 'eş anlamlı ile eşleşir:'
+        other: 'eş anlamlı ile eşleşir:'
+      vernaculars:
+        one: 'ortak adla eşleşir:'
+        other: 'ortak adla eşleşir:'
+  sign_in: Oturum Aç
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: nükleus genişliği
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alan
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: yaşam alanı
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: patojene sahip
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: bitki boyu
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: mevye türü
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: solunum oranı
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: kuyruk uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: vücut genişliği
+  user:
+    is_power_user: Bu kullanıcı ileri düzey bir kullanıcı olarak işaretlendi.
+...

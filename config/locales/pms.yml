@@ -999,6 +999,32 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologìa dla feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diàmeter dël talo
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma ëd vita dla pianta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
+          pianta
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: determinassion dël sess
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondansa
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diàmeter ëd la célula
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volum ëd la célula
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: strutura dlë schéletr
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: massa dla célula
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: longheur ëd la cuchija
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densità dël bòsch
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longheur ëd la nos
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: larghëssa ëd la nos
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: larghëssa dël sorch
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: lë schéletr a conten
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longheur ëd l'epicòno
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longheur ëd l'ipocòno
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taja dël còrp
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durà dla vita
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessor
   terms:
     attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Coment:</strong> %{comment}

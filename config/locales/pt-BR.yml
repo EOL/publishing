@@ -721,6 +721,7 @@ pt-BR:
       new_search: nova pesquisa
     search_form:
       attribute: atributo
+      resource: recurso
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}
@@ -746,6 +747,7 @@ pt-BR:
       collections: Coleções
       downloads: Downloads
       links: Links
+    is_power_user: Este usuário é sinalizado como um usuário avançado.
     validations:
       age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
       tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade

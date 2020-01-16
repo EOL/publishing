@@ -1061,6 +1061,17 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
         http://purl(dot)org/obo/owlATOL_0001660: largeur totale
+  term_query:
+    validations:
+      empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
+        une valeur pour les recherches d’enregistrement
+      empty_filters_error_taxa: vous devez fournir un clade ou un filtre avec un attribut
+        ou une valeur pour les recherches de taxons
+  term_query_filter:
+    validations:
+      blank_error: doit spécifier un attribut ou une valeur
+      pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
+      range_invalid_error: doit être supérieur ou égal à la première valeur
   terms:
     attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
     comment_field_html: <strong>Commentaire :</strong> %{comment}
@@ -1076,8 +1087,29 @@ fr:
   data_definition: définition de « %{data} »
   traits:
     search:
+      clade: 'clade : %{clade}'
+      download_tsv: télécharger le tsv
+      edit_filters: modifier les filtres
+      result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
+        enregistrements avec
+      result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
+        taxons avec
       new_search: nouvelle recherche
       show_query: afficher la requête
+    search_form:
+      attribute: attribut
+      clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
+      hide_additional_fields: masquer les champs supplémentaires
+      lifestage: étape de vie
+      records_matching_all: enregistrements correspondants à TOUS les filtres
+      resource: ressource
+      search: Rechercher
+      sex: sexe
+      show_additional_fields: afficher les champs supplémentaires
+      statistical_method: méthode statistique
+      taxa_matching_all: taxons correspondants à TOUS les filtres
+      this_may_take_a_minute: Cela peut prendre une minute
+      value: valeur
   trophic_web:
     group_descriptions:
       competitor: concurrent de %{source_name}
@@ -1105,6 +1137,7 @@ fr:
       collections: Collections
       downloads: Téléchargements
       links: Liens
+    is_power_user: Cet utilisateur est marqué comme super-utilisateur.
     validations:
       age_confirm: vous devez confirmer que vous avez au moins 13 ans
       tou_confirm: vous devez confirmer avoir lu les conditions d’utilisation et la

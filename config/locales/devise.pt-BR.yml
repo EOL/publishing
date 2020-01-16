@@ -46,9 +46,6 @@ pt-BR:
         message: Estamos entrando em contato para notificá-lo de que sua senha foi
           alterada.
         subject: Senha alterada
-    omniauth_callbacks:
-      failure: Não foi possível autenticar você de %{kind} porque %{reason}.
-      success: Autenticado com sucesso na conta %{kind}.
     passwords:
       no_token: Você não pode acessar esta página sem receber um e-mail de redefinição
         de senha. Se você vem de um e-mail de redefinição de senha, verifique se usou

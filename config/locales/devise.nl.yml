@@ -26,8 +26,6 @@ nl:
       password_change:
         greeting: 'Hallo #{recipient}!'
         subject: Wachtwoord gewijzigd
-    omniauth_callbacks:
-      failure: Kan u vanaf %{kind} niet controleren vanwege %{reason}.
     passwords:
       no_token: Zonder een wachtwoordherstelbericht heeft u geen toegang tot deze
         pagina. Mocht u hier met een wachtwoordherstelbericht terecht zijn gekomen,

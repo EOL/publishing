@@ -335,6 +335,7 @@ zh-CN:
     headers:
       collections: 我的收藏
       links: 链接
+    is_power_user: 本用户被标记为一个能量用户。
     new_password: 新密码
     username: 用户名
     update: 更新的
