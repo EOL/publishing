@@ -23,7 +23,8 @@ class Vernacular < ActiveRecord::Base
       max = Page.maximum(:id)
       iter_max = (max / batch) + 1
       iterations = 0
-      puts "Iterating at most #{iter_max} times..." && STDOUT.flush
+      puts "Iterating at most #{iter_max} times..."
+      STDOUT.flush
       completed_pages_by_language = {}
       total_count = 0
       loop do
@@ -43,8 +44,10 @@ class Vernacular < ActiveRecord::Base
         total_count += prefer_names_per_page_id(verns, completed_pages_by_language)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)" && STDOUT.flush if
-          (iterations % 300).zero?
+        if (iterations % 300).zero?
+          puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)"
+          STDOUT.flush
+        end
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."
