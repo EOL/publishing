@@ -2,7 +2,7 @@
 - name = article.sections.try(:first).try(:name) if name.blank? || name.empty?
 - name ||= t("article.name.missing")
 .article
-  .title.uk-text-bold
+  %h2.title-article
     = name
     - if article.language && article.language.group.to_sym != I18n.locale
       %span.uk-text-small
