@@ -128,7 +128,11 @@ class Service::CypherController < ServicesController
   def clean_results(results)
     results["data"]&.each do |col_data|
       col_data.collect! do |col_datum|
-        col_datum.except(*STRIP_RESPONSE_KEYS)
+        if col_datum.is_a?(Hash)
+          col_datum.except(*STRIP_RESPONSE_KEYS)
+        else
+          col_datum
+        end
       end
     end
 
