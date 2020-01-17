@@ -194,7 +194,6 @@ Rails.application.routes.draw do
     get "/terms/search_results" => "traits#search_results", :as => "term_search_results"
     get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
 
-
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
     get "/search_page" => "search#search_page", :as => "search_page"

@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
 #    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
 #    { locale: locale }.merge options
 #  end
-  
+
   # robots.txt
   def robots
     respond_to do |format|
