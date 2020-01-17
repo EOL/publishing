@@ -24,20 +24,30 @@ class Vernacular < ActiveRecord::Base
       iter_max = (max / batch) + 1
       iterations = 0
       puts "Iterating at most #{iter_max} times..."
+      STDOUT.flush
       completed_pages_by_language = {}
       total_count = 0
       loop do
         limit = low_bound + batch
         verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
-        verns.where(is_preferred: true, language_id: Language.english.id).each do |vern|
-          completed_pages_by_language[vern.language_id] ||= {}
-          completed_pages_by_language[vern.language_id][vern.id] = true
+        last_vern = nil
+        begin
+          verns.where(is_preferred: true, language_id: Language.english.id).each do |vern|
+            last_vern = vern
+            completed_pages_by_language[vern.language_id] ||= {}
+            completed_pages_by_language[vern.language_id][vern.id] = true
+          end
+        rescue => e
+          puts "STOPPED AT low_bound = #{low_bound} ; last_vern = #{last_vern.id}"
+          raise(e)
         end
         total_count += prefer_names_per_page_id(verns, completed_pages_by_language)
         low_bound = limit
         iterations += 1
-        puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)" if
-          (iterations % 300).zero?
+        if (iterations % 300).zero?
+          puts "... that was iteration #{iterations}/#{iter_max} (#{total_count} added.)"
+          STDOUT.flush
+        end
         break if limit >= max || iterations > iter_max # Just making SURE we break...
       end
       puts "DONE."
