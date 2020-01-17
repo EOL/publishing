@@ -27,10 +27,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def default_url_options(options = {})
-    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
-    { locale: locale }.merge options
-  end
+# SEE app/decorators/controllers/application_controller_decorator.rb. This uses refinery's magic to override another bit of refinery's magic. Magical.
+#  def default_url_options(options = {})
+#    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
+#    { locale: locale }.merge options
+#  end
   
   # robots.txt
   def robots
