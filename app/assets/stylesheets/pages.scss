@@ -231,9 +231,18 @@ $font-sz-m: 14px;
   padding: 0;
 }
 
-.page-articles {
-  padding-left: $pad-l-sm;
+
+.article {
+  border-top: 1px solid $light-gray;
+  margin-top: 20px;
+  padding: 20px 0 0 $pad-l-sm;
 }
+
+div:first-of-type.article {
+  border-top: none;
+  padding-top: 0;
+}
+
 
 @media(min-width: $width-m) {
   .l-content {
@@ -278,8 +287,8 @@ $font-sz-m: 14px;
     }
   }
 
-  .page-articles {
-    padding-left: $pad-l-m; 
+  .article {
+    padding-left: $pad-l-m;
   }
 }
 
