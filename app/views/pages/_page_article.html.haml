@@ -20,4 +20,4 @@
   .body.uk-margin-small-top
     = article.body.html_safe
   .uk-margin
-    = render("attributions/for_content", content: article)
+    = render("attributions/for_content", content: article, hide_id: true)
