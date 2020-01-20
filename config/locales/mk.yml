@@ -174,7 +174,7 @@ mk:
       sort_field_rev: прибелешка, Z-A
     updated: Збирката е подновена.
   collection_unauthorized_edit: Збиркава може да ја уредува само нејзиниот сопственик.
-  complete_registration: Продолжете со регистрацијата
+  complete_registration: Продолжете со зачленувањето
   content_appears_on: 'Се јавува на следниве страници:'
   content_collected_in: 'Избрано во следниве збирки:'
   content_attributions_header: Информации за изворот
@@ -540,7 +540,7 @@ mk:
     zh: кинески
     zu: зулу
   layout_sign_in: Најава
-  layout_sign_up: Регистрација
+  layout_sign_up: Зачленување
   layout_sign_out: Одјава
   literature_and_references_header: Литература и наводи
   maps:
@@ -722,7 +722,7 @@ mk:
   recaptcha_error: Кажете ни дека не сте робот.
   reference_compiled_from: Наведено од %{links}
   reference_compiled_from_article: '%{source} статија со наслов „%{name}“'
-  register_new_account: Регистрирајте нова сметка
+  register_new_account: Создајте нова сметка
   resources:
     actions:
       import_traits: увези одлики (од складиште)
@@ -938,7 +938,7 @@ mk:
   settings: поставки
   show_date: Прикажи датум на објавување
   sign_in: Најава
-  sign_up: Регистрација
+  sign_up: Зачленување
   signature_with_contact_us_link: |-
     Доколку наидете на проблеми, обратете се на %{url}.
 
@@ -1097,6 +1097,9 @@ mk:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV
       edit_filters: измени филтри
+      gbif_search: Пребарување на GBIF
+      gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
+        60)'
       result_header_records: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
         записи со
       result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
@@ -1163,7 +1166,7 @@ mk:
     created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}"корисничката
       страница</a> за да видите дали е готова.
   users:
-    account_migration_header: 'Ако се имате регистрирано на EOL пред 15 ноември 2018
+    account_migration_header: 'Ако се имате зачленето на EOL пред 15 ноември 2018
       г.:'
     account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
       е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото

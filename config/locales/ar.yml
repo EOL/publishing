@@ -677,7 +677,9 @@ ar:
         (%{remarks})
       username_missing: المستخدم %{user_id}
     trophic_web:
+      competitor: المنافس
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
+      prey: الفريسة
       reset: إعادة ضبط
     flash:
       reindexed: تم مسح ذاكرات التخزين المؤقت لهذه الصفحة، قم بالتحديث لمعرفة القيم
@@ -975,6 +977,69 @@ ar:
       words_connector: ،
       two_words_connector: و
       last_word_connector: و
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: طول الجسم، من الأنف للذيل
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: قطر الساق
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: رتبة حجم الورقة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: تعقيد الورقة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: كتلة البذرة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: نوع حياة النبات
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: نوع نمو النبات
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: التكاثر
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: تحديد الجنس
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: تثبيت النيتروجين
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: الرعاية الأبوية
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: قطر الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: حجم الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: تركيب الهيكل العظمي
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: كتلة الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: طول القشرة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: كثافة الخشب
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: طول النواة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: عرض النواة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: الهيكل العظمي يحتوي على
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: حجم الجسم
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: عمر
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: شكل
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: الحجم
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: موطن
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يتغذى على
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: طفيل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: لديه العائل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: يتم افتراسه بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: هو ناقل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يأكل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: يتم أكله بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: ارتفاع النبات
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: تحمل الجفاف
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: لون الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: شكل الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: عمق الجذور
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: لون الزهرة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: مساحة الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: نوع الفاكهة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: معدل التنفس
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: عادة دورة الحياة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: تحمل الملح
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: بداية الخصوبة
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: طول الذيل
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
+        http://purl(dot)org/obo/owlATOL_0001660: الطول الإجمالي
+  term_query:
+    validations:
+      empty_filters_error_record: يجب عليك توفير مرشحا بسمة أو قيمة لعمليات البحث
+        الخاصة بالسجلات
+  term_query_filter:
+    validations:
+      blank_error: يجب تحديد قيمة
+      pred_uri_blank_numeric_error: لا يمكن أن يكون فارغا بقيمة رقمية
+      range_invalid_error: يجب أن يكون >= القيمة الأولى
   terms:
     attribution_field_html: <strong>النسبة:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>التعليق:</strong> %{comment}
@@ -990,10 +1055,24 @@ ar:
   data_definition: تعريف "%{data}"
   traits:
     search:
+      download_tsv: تنزيل tsv
+      edit_filters: مرشحات التعديل
+      gbif_search: بحث GBIF
+      result_header_records: عرض %{range_begin} - %{range_end} of %{total} سجلات ب
       new_search: بحث جديد
+      show_query: عرض الاستعلام
     search_form:
+      attribute: سمة
+      clade_filter_placeholder: 'مجموعة (مثال: دببة) (اختياري)'
+      hide_additional_fields: إخفاء الحقول الإضافية
+      lifestage: مرحلة الحياة
+      records_matching_all: السجلات التي تطابق كل المرشحات
+      resource: المرجع
       search: بحث
       sex: الجنس
+      show_additional_fields: عرض الحقول الإضافية
+      statistical_method: طريقة إحصائية
+      this_may_take_a_minute: هذا ربما يستغرق دقيقة
       value: القيمة
   trophic_web:
     group_descriptions:
@@ -1021,6 +1100,7 @@ ar:
       collections: المجموعات
       downloads: التنزيلات
       links: وصلات
+    is_power_user: هذا المستخدم معلم عليه كمستخدم قوة.
     validations:
       age_confirm: يجب أن تؤكد أنك تبلغ من العمر 13 عاما على الأقل
       tou_confirm: يجب عليك تأكيد أنك قد قرأت شروط الاستخدام وسياسة الخصوصية

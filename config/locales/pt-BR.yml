@@ -718,10 +718,12 @@ pt-BR:
   data_definition: definição de «%{data}»
   traits:
     search:
+      edit_filters: editar filtros
       new_search: nova pesquisa
     search_form:
       attribute: atributo
       resource: recurso
+      value: valor
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}

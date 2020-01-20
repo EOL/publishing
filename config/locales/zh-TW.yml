@@ -1060,6 +1060,8 @@ zh-TW:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV
       edit_filters: 編輯篩選條件
+      gbif_search: GBIF 搜尋
+      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 60 筆）
       result_header_records: 顯示 %{total} 個紀錄裡 %{range_begin} - %{range_end} 個帶有
       result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
       new_search: 新搜尋

@@ -852,19 +852,331 @@ tr:
       vernaculars:
         one: 'ortak adla eşleşir:'
         other: 'ortak adla eşleşir:'
+    section_titles:
+      collections:
+        one: '%{count} koleksiyon'
+        other: '%{count} koleksiyon'
+      media:
+        one: '%{count} orta'
+        other: '%{count} medya'
+      pages:
+        one: '%{count} eol sayfası (tür)'
+        other: '%{count} eol sayfası (tür)'
+      object_terms:
+        one: '%{count} veri kayıt değeri (TraitBank)'
+        other: '%{count} veri kayıt değeri (TraitBank)'
+      predicates:
+        one: '%{count} veri kayıt türü (TraitBank)'
+        other: '%{count} veri kayıt türü (TraitBank)'
+      users:
+        one: '%{count} kullanıcı'
+        other: '%{count} kullanıcı'
+    collection_title_html: 'Koleksiyon: <span class=''sub''>%{name}</span>'
+    resource_counts:
+      n_articles:
+        one: 1 MAKALE
+        other: '%{count} MAKALE'
+      n_data:
+        one: 1 SIFIR NOKTASI
+        other: '%{count} VERİ'
+      n_media:
+        one: 1 ORTA
+        other: '%{count} MEDYA'
+    user_title_html: 'Kullanıcı: <span class=''sub''>%{name}</span>'
+  search_suggestion:
+    actions:
+      create: yeni bir arama önerisi oluştur
+    created: '"%{match}" için arama önerisi oluşturuldu'
+    destroyed: '"%{match}" için yok edilen arama önerisi'
+    new:
+      header: Bir Arama Önerisi Oluşturun
+    update:
+      header: Arama Önerisini Güncelle
+    index:
+      header: Önerileri Ara
+  sections:
+    associations: Dernekler
+    behavior: Davranış
+    benefits: Faydalar
+    brief_summary: Kısa Özet
+    comprehensive_description: Kapsamlı Açıklama
+    conservation: Koruma
+    conservation_status: Koruma Durumu
+    cyclicity: Döngüselliğin
+    diagnostic_description: Teşhis Açıklaması
+    diseases_and_parasites: Hastalıklar ve Parazitler
+    dispersal: Dağılma
+    distribution: Dağıtım
+    ecology: Ekoloji
+    evolution_and_systematics: Evrim ve Sistematik
+    general_ecology: Genel Ekoloji
+    genetics: Genetikler
+    growth: Büyüme
+    habitat: Yetişme Ortamı
+    identification_resources: Kimlik Kaynakları
+    life_expectancy: Yaşam Beklentisi
+    life_history_and_behavior: Yaşam Tarihi ve Davranış
+    management: Yönetim
+    migration: Göç
+    molecular_biology: Moleküler Biyoloji
+    molecular_biology_and_genetics: Moleküler Biyoloji ve Genetik
+    morphology: Morfoloji
+    names_and_taxonomy: İsimler ve Taksonomi
+    notes: Notlar
+    overview: Genel Bakış
+    physiology_and_cell_biology: Fizyoloji ve Hücre Biyolojisi
+    physical_description: Fiziksel Tanım
+    relevance_to_humans_and_ecosystems: İnsan ve Ekosistemlerle İlgisi
+    reproduction: Üreme
+    risks: Riskler
+    size: Boyut
+    taxonomy: Taksonomi
+    threats: Tehditler
+    trends: Trendler
+    trophic_strategy: Trofik Strateji
+    type_information: Tip Bilgisi
+    wikipedia: Vikipedi
+  settings: ayarlar
+  show_date: Yayınlanma tarihini göster
   sign_in: Oturum Aç
+  sign_up: Kaydol
+  signature_with_contact_us_link: |-
+    Herhangi bir sorunla karşılaşırsanız, lütfen %{url} adresinden bize ulaşın.
+
+    Yaşam Ansiklopedisi Ekibi
+  did_not_receive_confirmation_instructions: Onay talimatları alınmadı
+  simple_form:
+    "yes": Evet
+    "no": Hayır
+    required:
+      text: gerekli
+      mark: '*'
+    error_notification:
+      default_message: 'Lütfen aşağıdaki sorunları inceleyin:'
+    labels:
+      defaults:
+        email: E-posta
+        password: Parola
+        password_confirmation: Şifre onayı
+        remember_me: Beni hatırla
+        username: Kullanıcı adı
+        bio: Biyo
+      search_suggestion:
+        match: eşleşecek arama dizesi
+        page_id: Yönlendirilecek (veya filtreleme ölçütü) EOL sayfasının kimliği
+        synonym_of_id: Bunun yerine kullanılacak arama önerisinin kimliği (!)
+        object_term: Yönlendirilecek (veya filtreleyen) URI
+        path: yönlendirme yolu (dolu veya göreli)
+        wkt_string: Effechecka'ya iletilecek WKT dizesi
+  stats:
+    articles: makaleler
+    collections: koleksiyonlar
+    data: veri kayıtları
+    media: medya
+    pages: sayfalar
+    nodes: düğümleri
+    scientific_names: isimler
+    users: kullanıcılar
+    references: kaynaklar
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: ' ve'
+      last_word_connector: ', ve'
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: vücut uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Vücut uzunluğu, burun
+          kuyruğu
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: emzik numarası
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: gövde çapı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: yaprak boyutu sınıfı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Yaprak Karmaşıklığı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: yaprak dökülebilirliği
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: tohum kütlesi
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: yaprak morfolojisi
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: penis çapı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: bitki yaşam formu
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: bitki büyüme formu
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: üreme
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: cinsiyet kararlılığı
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: azot fiksasyonu
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: gezme
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: aile bakımı
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: bolluk
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: hücre çapı
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: hücre hacmi
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: iskelet yapısı
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: hücre kütlesi
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: kabul uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: ahşap yoğunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: çekirdek uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: nükleus genişliği
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: sulkus genişliği
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: iskelet içerir
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: epicone uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: hipoksi uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: vücut ölçüsü
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: ömür
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: şekil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: kalınlık
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alan
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: ses
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: shedability
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: cinsel olarak dimorfik
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: yaşam alanı
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: avlar
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: uyumu
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: ile orantılı
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: ile karşılıklı
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: paraziti
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parazitleştiren
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: ev sahibi
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: polenleyen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: tozlaşma
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: avlandı
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: için vektör
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: yediği
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: tarafından yenilir
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patojeni
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: patojene sahip
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparazit
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: bitki boyu
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: kuraklık toleransı
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: yaprak rengi
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: yaprak şekli
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: kök derinliği
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: çiçek rengi
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: yaprak alanı
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: mevye türü
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: fotosentetik oran
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: solunum oranı
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: yaşam döngüsü alışkanlığı
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tuz toleransı
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: mineral eklenmiş doku
+          içerir
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: vücut kütle
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: davranışsal sirkadiyen
+          ritim
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: debriyaj/kuluçka/çöp boyutu
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: gebelik süresi
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: doğurganlığın başlangıcı
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: kuyruk uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: uyluk kemiği uzunluğu
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: ön ayak uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: vücut genişliği
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: uyluk genişliği
+        http://purl(dot)org/obo/owlATOL_0001660: Toplam uzunluk
+  term_query:
+    validations:
+      empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
+        bir filtre sağlamalısınız
+      empty_filters_error_taxa: takson aramaları için bir nitelik veya değere sahip
+        bir clade veya filtre sağlamalısınız
+  term_query_filter:
+    validations:
+      blank_error: bir özellik veya değer belirtmelidir
+      pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
+      range_invalid_error: ilk değere >= olmalıdır
+  terms:
+    attribution_field_html: <strong>Atıf:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Yorum:</strong> %{comment}
+    definition_field_html: <strong>Tanım:</strong> %{definition}
+    source_field_html: <strong>Kaynak:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL kaydet
+    scientific_name: bilimsel ad
+    show_all_records: tüm kayıtları göster
+    source: kaynak
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Başlamak için yukarıdaki bir sayfayı seçin.
+  data_definition: '"%{data}" tanımı'
+  traits:
+    search:
+      clade: 'klad: %{clade}'
+      download_tsv: tsv indir
+      edit_filters: filtreleri düzenle
+      gbif_search: GBIF araması
+      gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
+        kayıtlarını bulun (sınır 60)
+      result_header_records: '%{range_begin} gösteriliyor - %{range_end} - %{total}
+        kayıtları ile'
+      result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
+        ile'
+      new_search: yeni arama
+      show_query: sorguyu göster
+    search_form:
+      attribute: nitelik
+      clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
+      hide_additional_fields: ek alanları gizle
+      lifestage: yaşam evresi
+      records_matching_all: TÜM filtrelerle eşleşen kayıtlar
+      resource: kaynak
+      search: Ara
+      sex: cinsiyet
+      show_additional_fields: ek alanları göster
+      statistical_method: istatistiksel yöntem
+      taxa_matching_all: taksa ile eşleşen TÜM filtreler
+      this_may_take_a_minute: Bu bir dakika sürebilir
+      value: değer
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name} rakibi'
+      predator: '%{source_name} üzerindeki yayınlar'
+      prey: '%{source_name} tarafından yenildi'
+      source: odak türler
+  trust:
+    unreviewed: incelenmemiş
+    trusted: güvenilir
+    untrusted: güvenilir değil
   user:
+    batch_page_lookup: Toplu sayfa arama
+    created_at: oluşturuldu
+    download_queue: Veri indirme kuyruğu
+    edit_account_details: Hesap ayrıntılarını düzenle
+    email: E-posta
+    to_commit_enter_current: Değişikliklerinizi yapmak için lütfen mevcut şifrenizi
+      girin
+    form_labels:
+      age_confirm: Ben en azından 13 yaşındayım
+      tou_confirm_html: <a href='%{tou_path}'>Kullanım Şartları</a> ve <a href='%{privacy_path}'>Gizlilik
+        Politikasını</a> okudum
+    headers:
+      bio: Kısa Biyografi
+      collections: Koleksiyonlar
+      downloads: İndirilenler
+      links: Bağlantılar
     is_power_user: Bu kullanıcı ileri düzey bir kullanıcı olarak işaretlendi.
+    validations:
+      age_confirm: en az 13 yaşında olduğunuzu onaylamalısınız
+      tou_confirm: Kullanım Şartlarını ve Gizlilik Politikasını okuduğunuzu onaylamanız
+        gerekir
+    list_of_power_users: Yetkili kullanıcıların listesi
+    new_password: Yeni parola
+    confirm_new_password: Yeni parolayı onayla
+    showing_n_power_users:
+      one: Bir ileri düzey kullanıcıyı listeleme
+      other: '%{count} ileri düzey kullanıcıyı listeleme'
+    trait_bank_cypher_form: Özel banka şifre formu
+    username: kullanıcı adı
+    update: Güncelle
+    update_email: E-postayı güncelle
+  user_download:
+    created: Dosyanız arka planda işlenecek. Tamamlanıp tamamlanmadığını görmek için<a
+      href="%{url}">kullanıcı sayfanıza</a> kontrol edin.
+  users:
+    account_migration_header: '15 Kasım 2018''den önce EOL''ye kaydolduysanız:'
+    account_migration_notice: Kullanıcı adı, ilişkili e-posta, profil açıklaması ve
+      sahip olunan koleksiyonlar dahil hesap bilgileriniz yeni EOL'ye aktarıldı. Kullanıcı
+      adınız hala sitedeki görünen adınızdır, ancak şimdi e-posta adresinizle giriş
+      yapmalısınız. Güvenlik nedeniyle şifrenizi taşıyamadık; rahatsız ettiğimiz için
+      üzgünüz. Şifremi Unuttum işlemini kullanarak sıfırlayabilirsiniz. Yalnızca üçüncü
+      taraf bir sağlayıcı olan Google, Twitter veya Facebook'u kullanarak giriş yaptıysanız,
+      lütfen bize katılın; paylaşılan giriş işlemleriyle ilgili bazı sorunlar üzerinde
+      çalışıyoruz.
+    sign_in: Oturum Aç
+  vernacular_names_header: Genel Adlar
+  vernacular_preferred_by_resource: '%{resource} (bu adı tercih eder)'
+  wordcloud_credit_html: <a href='%{url}'>jQCloud</a> ile oluşturuldu
 ...

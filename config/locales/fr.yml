@@ -1090,6 +1090,9 @@ fr:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv
       edit_filters: modifier les filtres
+      gbif_search: Recherche de GBIF
+      gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
+        taxons dans vos résultats de recherche (limité à 60)
       result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
         enregistrements avec
       result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}

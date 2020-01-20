@@ -5,6 +5,7 @@
 # Author: Fitoschido
 # Author: Gastonsaenz
 # Author: Ihojose
+# Author: Joanmp17
 # Author: Madamebiblio
 # Author: Silverie04
 ---
@@ -533,6 +534,11 @@ es:
     array:
       two_words_connector: "y"
       last_word_connector: "y"
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro
@@ -540,6 +546,16 @@ es:
     show_all_records: mostrar todos los registros
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definición de «%{data}»
+  traits:
+    search:
+      edit_filters: editar filtros
+      new_search: nueva búsqueda
+    search_form:
+      attribute: atributo
+      search: Buscar
+      sex: sexo
+      this_may_take_a_minute: Esto puede tomar un minuto
+      value: valor
   user:
     created_at: creación
     download_queue: Cola de descarga de datos
