@@ -7,7 +7,8 @@ class TraitsController < ApplicationController
   before_action :build_query, only: [:search_results, :search_form]
   before_action :set_title, only: [:search, :search_results]
 
-  GBIF_LINK_LIMIT = 60
+  PER_PAGE = 50
+  GBIF_LINK_LIMIT = PER_PAGE
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
 
   def search
@@ -136,7 +137,7 @@ class TraitsController < ApplicationController
 
   def search_common
     @page = params[:page] || 1
-    @per_page = 50
+    @per_page = PER_PAGE
     Rails.logger.warn "&&TS Running search:"
     res = TraitBank.term_search(@query, {
       :page => @page,
@@ -160,7 +161,7 @@ class TraitsController < ApplicationController
     @is_terms_search = true
     @resources = TraitBank.resources(data)
     build_associations(data)
-    build_gbif_url(pages, @query)
+    build_gbif_url(@count, pages, @query)
     render "search"
   end
 
@@ -176,8 +177,8 @@ class TraitsController < ApplicationController
     @page_title = t("page_titles.traits.search")
   end
 
-  def build_gbif_url(pages, query)
-    if query.taxa? && pages.any? && pages.length <= GBIF_LINK_LIMIT && Resource.gbif
+  def build_gbif_url(total_count, pages, query)
+    if query.taxa? && total_count > 0 && total_count <= GBIF_LINK_LIMIT && Resource.gbif
       gbif_params = pages.collect do |p| 
         pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
         pk ? "taxon_key=#{pk}" : nil
