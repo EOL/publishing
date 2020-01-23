@@ -1062,6 +1062,10 @@ pms:
           a conten
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: massa corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritm sircadian comportamental
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taja dla covà/nijà/portà
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durà dla gestassion
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: inissi dla fecondità
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longheur ëd la coa
   terms:
     attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Coment:</strong> %{comment}
