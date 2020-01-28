@@ -12,7 +12,8 @@ gem 'mysql2'
 gem 'jbuilder'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails'
-# Use SCSS for stylesheets
+# Use SCSS for stylesheets # TODO: ruby-sass is end-of-life and we will have to
+# upgrade this gem to deal with that, I think.
 gem 'sass-rails', '~> 5.0.8'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
