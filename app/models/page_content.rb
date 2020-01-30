@@ -189,9 +189,10 @@ class PageContent < ActiveRecord::Base
       Page.select('id').find_each do |page|
         where(page_id: page.id).visible.not_untrusted.media.includes(content: :license).find_each do |item|
           collection << [
-              item.content_id, item.page_id, item.content.source_url, item.content.original_size_url,
-              item.content.license.name, item.content.owner
-            ]
+            item.content_id, item.page_id, item.content.source_url, item.content.original_size_url,
+            item.content.license.name, item.content.owner
+          ]
+          if collection.size >= 10_000
             flush_collection(collection, collection_num)
             collection = []
             collection_num += 1
