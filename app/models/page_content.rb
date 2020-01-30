@@ -174,16 +174,24 @@ class PageContent < ActiveRecord::Base
       puts "++ Done."
     end
 
-    def export_for_ordering
+    def export_media_manifest
       require 'csv'
       collection_num = 1
-      collection = []
+      collection = [[
+        'EOL content ID',
+        'EOL page ID',
+        'Medium Source URL',
+        'EOL Full-Size Copy URL',
+        'License Name',
+        'Copyright Owner']]
       puts "start #{Time.now}"
       # NOTE: YES! Really, one at a time was *fastest*. Go. Figure.
       Page.select('id').find_each do |page|
-        where(page_id: page.id).visible.not_untrusted.media.includes(:content).find_each do |item|
-          collection << [item.content_id, item.page_id, item.content.source_url, item.position]
-          if collection.size >= 10_000
+        where(page_id: page.id).visible.not_untrusted.media.includes(content: :license).find_each do |item|
+          collection << [
+              item.content_id, item.page_id, item.content.source_url, item.content.original_size_url,
+              item.content.license.name, item.content.owner
+            ]
             flush_collection(collection, collection_num)
             collection = []
             collection_num += 1
