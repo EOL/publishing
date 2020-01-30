@@ -555,7 +555,7 @@ es:
     search:
       download_tsv: descargar tsv
       edit_filters: editar filtros
-      new_search: nueva búsqueda
+      new_search: búsqueda nueva
       show_query: mostrar consulta
     search_form:
       attribute: atributo
