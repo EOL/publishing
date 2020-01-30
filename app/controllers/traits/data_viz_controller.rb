@@ -1,19 +1,44 @@
 module Traits
   class DataVizController < ApplicationController
+    PieResult = Struct.new(:obj, :query, :count, :is_other) do
+      class << self
+        def other(count)
+          self.new(nil, nil, count, true)
+        end
+      end
+
+      def other?
+        is_other
+      end
+    end
+
     def object_pie_chart
       query = TermQuery.new(term_query_params)
-      @data = TraitBank::Stats.term_query_object_counts(query)
-      @data.collect! do |result|
-        result[:term_query] = TermQuery.new({
-          filters_attributes: [{
-              pred_uri: query.filters.first.pred_uri,
-              obj_uri: result.dig(:obj, :uri)
-          }],
-          clade: query.clade
-        })
+      result = TraitBank::Stats.term_query_object_counts(query)
+      total = TraitBank.term_search(query, count: true)
+      min_threshold = 0.05 * total
+      other_count = 0
+      @data = []
 
-        result
-      end  
+      result.each do |row|
+        if result.length > 20 && row[:count] < min_threshold
+          other_count += row[:count]
+        else
+          @data << PieResult.new(
+            row[:obj],
+            TermQuery.new({
+              result_type: :record,
+              filters_attributes: [{ 
+                obj_uri: row[:obj][:uri]
+              }]
+            }),
+            row[:count],
+            false
+          )
+        end
+      end
+
+      @data << PieResult.other(other_count)
     end
 
     private
