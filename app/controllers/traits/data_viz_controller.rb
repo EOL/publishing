@@ -29,6 +29,7 @@ module Traits
             TermQuery.new({
               result_type: :record,
               filters_attributes: [{ 
+                pred_uri: query.filters.first.pred_uri,
                 obj_uri: row[:obj][:uri]
               }]
             }),

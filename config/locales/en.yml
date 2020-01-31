@@ -1027,9 +1027,9 @@ en:
   data_definition: "definition of \"%{data}\""
   traits:
     data_viz:
-      show_n_records_with: 
-        one: "show one record with %{obj_name}"
-        other: "show %{count} records with %{obj_name}"
+      see_n_obj_records: 
+        one: "see one record with \"%{obj_name}\""
+        other: "see %{count} records with \"%{obj_name}\""
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"

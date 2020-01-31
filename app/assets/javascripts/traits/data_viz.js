@@ -50,7 +50,10 @@
             .style("opacity", 0.7)
             .style('cursor', 'pointer')
             .on('mouseenter', highlightSlice)
-            .on('mouseleave', reset);
+            .on('mouseleave', reset)
+            .on('click', (d) => {
+              window.location = d.data.search_path
+            });
     }
 
     function buildLabels(data) {

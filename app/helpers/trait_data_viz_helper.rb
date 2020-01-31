@@ -5,7 +5,7 @@ module TraitDataVizHelper
 
       {
         obj_name: obj_name,
-        link_text: t("traits.data_viz.show_n_records_with", obj_name: obj_name, count: datum.count),
+        link_text: t("traits.data_viz.see_n_obj_records", obj_name: obj_name, count: datum.count),
         obj_uri: datum.other? ? "other" : datum.obj[:uri],
         search_path: datum.other? ? nil : term_search_results_path(term_query: datum.query.to_params),
         count: datum.count,
