@@ -54,16 +54,17 @@
     }
 
     function buildLabels(data) {
-      var update = gLabel
+      var selection = gLabel
         .selectAll('text')
         .data(data, d => d.index);
 
-      update.enter()
+      selection.enter()
         .append('text')
         .attr('transform', d => `translate(${arcLabel.centroid(d)})`)
-        .text(d => d.data.obj_name) 
+        .text(d => d.data[d.data.label_key]);
 
-      update.exit().remove();
+      selection.text(d => d.data[d.data.label_key]);
+      selection.exit().remove();
     }
 
     function buildStems(data) {
@@ -95,20 +96,20 @@
     }
 
     function highlightSlice(d) {
+      var highlightDatum = JSON.parse(JSON.stringify(d))
+        , highlightData = [highlightDatum]
+        ;
+
+      highlightDatum.data.label_key = 'link_text';
+
       gSlice
         .selectAll('path')
         .filter((slice) => { return slice.index !== d.index })
         .attr('fill', disabledSliceColor);
 
-      filteredData = dataReady.filter(datum => datum.index === d.index)
-      buildLabels(filteredData)
-      buildStems(filteredData);
-      /*
-      gLabel.selectAll('text')
-        .data(filteredData, d => d.index)
-        .exit()
-          .remove();
-          */
+
+      buildLabels(highlightData)
+      buildStems(highlightData);
     }
 
     function reset() {
