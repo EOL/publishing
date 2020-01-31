@@ -13,14 +13,6 @@
       , disabledSliceColor = "#555"
       , labelRadius = radius * 1.4
       , arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius)
-      , stemData = dataReady.map((d) => {
-          var angle = (d.endAngle + d.startAngle) / 2;
-
-          return {
-            startAngle: angle,
-            endAngle: angle
-          }
-        })
       , stemInnerRadius = radius * 1.1
       , stemOuterRadius = radius * 1.3
       , hoverIndex = null
@@ -32,7 +24,7 @@
             .attr('height', height)
           .append('g')
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-      , gSlices = svg.append('g')
+      , gSlice = svg.append('g')
           .attr('class', 'slices')
       , gLabel = svg.append('g')
           .attr("font-family", "sans-serif")
@@ -44,7 +36,7 @@
       ;
 
     function buildSlices(data) {
-      gSlices.selectAll('path')
+      gSlice.selectAll('path')
         .data(data)
         .enter()
           .append('path')
@@ -56,46 +48,76 @@
             .attr("stroke", "black")
             .style("stroke-width", "1px")
             .style("opacity", 0.7)
-            .on('mouseover', highlightSlice)
-            .on('mouseout', resetSliceColors);
+            .style('cursor', 'pointer')
+            .on('mouseenter', highlightSlice)
+            .on('mouseleave', reset);
     }
 
     function buildLabels(data) {
-      gLabel
+      var update = gLabel
         .selectAll('text')
-        .data(data)
-        .enter()
-          .append('text')
-            .attr('transform', d => `translate(${arcLabel.centroid(d)})`)
-            .text( d => d.data.obj_name) 
+        .data(data, d => d.index);
+
+      update.enter()
+        .append('text')
+        .attr('transform', d => `translate(${arcLabel.centroid(d)})`)
+        .text(d => d.data.obj_name) 
+
+      update.exit().remove();
     }
 
     function buildStems(data) {
-      gStem
+      var stemData = data.map((d) => {
+        var angle = (d.endAngle + d.startAngle) / 2;
+
+        return {
+          startAngle: angle,
+          endAngle: angle,
+          index: d.index
+        }
+      });
+
+      var update = gStem
         .selectAll('path')
-        .data(data)
-        .enter()
-          .append('path')
-            .attr('d', d3.arc()
-              .innerRadius(stemInnerRadius)
-              .outerRadius(stemOuterRadius)
-            )
-            .attr("stroke", "black")
-            .style("stroke-width", "1px")
-            .style("opacity", 0.7);
+        .data(stemData, d => d.index);
+
+      update.enter()
+        .append('path')
+          .attr('d', d3.arc()
+            .innerRadius(stemInnerRadius)
+            .outerRadius(stemOuterRadius)
+          )
+          .attr("stroke", "black")
+          .style("stroke-width", "1px")
+          .style("opacity", 0.7);
+
+      update.exit().remove();
     }
 
     function highlightSlice(d) {
-      gSlices
+      gSlice
         .selectAll('path')
         .filter((slice) => { return slice.index !== d.index })
-        .attr('fill', disabledSliceColor)
+        .attr('fill', disabledSliceColor);
+
+      filteredData = dataReady.filter(datum => datum.index === d.index)
+      buildLabels(filteredData)
+      buildStems(filteredData);
+      /*
+      gLabel.selectAll('text')
+        .data(filteredData, d => d.index)
+        .exit()
+          .remove();
+          */
     }
 
-    function resetSliceColors() {
-      gSlices
+    function reset() {
+      gSlice
         .selectAll('path')
         .attr('fill', sliceFill);
+
+      buildLabels(dataReady);
+      buildStems(dataReady);
     }
 
     function sliceFill(d) {
@@ -103,7 +125,7 @@
     }
 
     buildSlices(dataReady);
-    buildStems(stemData);
+    buildStems(dataReady);
     buildLabels(dataReady);
   }
 
