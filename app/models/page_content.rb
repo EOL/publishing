@@ -205,7 +205,7 @@ class PageContent < ActiveRecord::Base
     end
 
     def flush_collection(collection, collection_num)
-      CSV.open(Rails.root.join('public', "images_for_sorting_#{collection_num}.csv"), 'wb') do |csv|
+      CSV.open(Rails.root.join('public', "media_manifest_#{collection_num}.csv"), 'wb') do |csv|
         csv << %w[eol_pk page_id source_url position]
         collection.each { |row| csv << row }
       end
