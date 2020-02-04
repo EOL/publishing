@@ -174,10 +174,11 @@ class PageContent < ActiveRecord::Base
       puts "++ Done."
     end
 
+    # TODO: Shoot. This really should move to Medium. :|
     def export_media_manifest
       require 'csv'
-      collection_num = 1
-      collection = [[
+      @collection_num = 1
+      @collection = [[
         'EOL content ID',
         'EOL page ID',
         'Medium Source URL',
@@ -185,30 +186,32 @@ class PageContent < ActiveRecord::Base
         'License Name',
         'Copyright Owner']]
       puts "start #{Time.now}"
-      # NOTE: YES! Really, one at a time was *fastest*. Go. Figure.
-      Page.select('id').find_each do |page|
-        where(page_id: page.id).visible.not_untrusted.media.includes(content: :license).find_each do |item|
-          collection << [
-            item.content_id, item.page_id, item.content.source_url, item.content.original_size_url,
-            item.content.license.name, item.content.owner
-          ]
-          if collection.size >= 10_000
-            flush_collection(collection, collection_num)
-            collection = []
-            collection_num += 1
-            puts "flushed ##{collection_num - 1} @ #{Time.now}"
-          end
+      STDOUT.flush
+      # NOTE: this no longer restricts itself to visible or trusated media, but I think that's fine for the use-case.
+      Medium.where('page_id IS NOT NULL').includes(:license).find_each do |item|
+        begin
+          @collection << [item.id, item.page_id, item.source_url, item.original_size_url, item.license&.name,
+            item&.owner]
+        rescue => e
+          puts "FAILED on page #{page.id}, item: #{item}"
+          puts "ERROR: #{e.message}"
+          STDOUT.flush
         end
+        flush_collection if @collection.size >= 100_000
       end
       puts "end #{Time.now}"
-      flush_collection(collection, collection_num) unless collection.empty?
+      flush_collection unless @collection.empty?
     end
 
-    def flush_collection(collection, collection_num)
-      CSV.open(Rails.root.join('public', "media_manifest_#{collection_num}.csv"), 'wb') do |csv|
-        csv << %w[eol_pk page_id source_url position]
-        collection.each { |row| csv << row }
+    # TODO: Shoot. This really should move to Medium. :|
+    def flush_collection
+      CSV.open(Rails.root.join('public', 'data', "media_manifest_#{@collection_num}.csv"), 'wb') do |csv|
+        @collection.each { |row| csv << row }
       end
+      @collection = []
+      puts "flushed ##{@collection_num} @ #{Time.now}"
+      STDOUT.flush
+      @collection_num += 1
     end
   end # of class methods
 end
