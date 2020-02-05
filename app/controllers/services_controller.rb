@@ -14,7 +14,7 @@ class ServicesController < ApplicationController
 
   def authenticate_service
     # User needs to be logged in already!
-    # Future: provide an automated service so scripts can fetch a token.
+    # TODO: provide an automated service so scripts can fetch a token.
     # n.b. token only gives access to services, not to the rest of the
     # web site.
     if current_user     # inherited from application_controller

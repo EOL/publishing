@@ -46,9 +46,6 @@ gem 'activerecord-import'
 gem 'acts_as_list'
 # Faster startup:
 gem 'bootsnap', require: false
-# I didn't add these, not sure what they are for, specifically:
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture'
 # Cron jobs:
@@ -72,6 +69,8 @@ gem 'draper'
 gem 'font-awesome-sass'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails'
+# jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
+gem 'jwt'
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails'
 # QUIET PLEASE MAKE IT STOP:
@@ -82,17 +81,12 @@ gem 'neography'
 gem 'newrelic_rpm'
 # Speed up JSON, including for ElasticSearch:
 gem 'oj'
-# OpenAuth logins from our preferred sources:
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-yahoo'
 # Debugging:
 gem 'pry-rails'
 # Authorization:
 gem 'pundit'
 # Enable CORS (see config/application for specifics):
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '>= 1.0.4', require: 'rack/cors'
 # Turing test:
 gem 'recaptcha', require: 'recaptcha/rails'
 # Zip file support
@@ -100,7 +94,12 @@ gem 'rubyzip', '~> 2.0'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 3'
 # Simplify Forms:
-gem 'simple_form'
+# NOTE: There is a security alert for this gem, but if you read the "Workarounds" section, you will see we are not actually affected. Upgrading to v5 of the gem can't happen until we update Rails. :|
+gem 'simple_form', '~> 3.2'
+# KEEPING THESE OUT OF ORDER, since they are tightly bound to simple_form
+# These are ONLY used on the user page, in the user_helper's validate: true clause...
+gem 'client_side_validations', '~> 4'
+gem 'client_side_validations-simple_form', '~> 3'
 
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus'
@@ -124,6 +123,10 @@ group :development, :test do
   gem 'simplecov'
   # Rubocop... which technically you want on your *system*, but ...
   gem 'rubocop'
+  gem 'rubocop-performance'
+  gem 'rubocop-rails'
+
+  gem 'active_record_query_trace'
 end
 
 group :development do
@@ -139,7 +142,7 @@ group :development do
   # For benchmarking queries:
   gem 'meta_request'
 
-  gem 'i18n-tasks', '~> 0.9.26'
+  gem 'i18n-tasks'
 end
 
 group :test do

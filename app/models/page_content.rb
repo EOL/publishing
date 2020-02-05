@@ -193,7 +193,7 @@ class PageContent < ActiveRecord::Base
           @collection << [item.id, item.page_id, item.source_url, item.original_size_url, item.license&.name,
             item&.owner]
         rescue => e
-          puts "FAILED on page #{page.id}, item: #{item}"
+          puts "FAILED on page item #{item.id} (#{item.resource.name})"
           puts "ERROR: #{e.message}"
           STDOUT.flush
         end

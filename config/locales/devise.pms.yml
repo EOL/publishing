@@ -47,9 +47,6 @@ pms:
         greeting: 'Cerea #{recipient}!'
         message: I lo contatoma për signaleje che soa ciav a l'é stàita cangià.
         subject: Ciav cangià
-    omniauth_callbacks:
-      failure: Impossìbil autentifichelo da %{kind} përchè %{reason}.
-      success: Autenticà për da bin dal cont %{kind}.
     passwords:
       no_token: A peul nen acede a costa pàgina s'a riva nen da 'n mëssagi eletrònich
         ëd ri-inissialisassion ëd ciav. S'a riva bin da 'n mëssagi eletrònich ëd ri-inissialisassion

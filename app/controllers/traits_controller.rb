@@ -1,5 +1,6 @@
 class TraitsController < ApplicationController
   include DataAssociations
+
   helper :data
 
   before_action :no_main_container, only: [:search, :search_results, :search_form, :show]

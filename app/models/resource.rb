@@ -116,6 +116,13 @@ class Resource < ActiveRecord::Base
         end
       end
     end
+    
+    # Required for GBIF link on data search page. Does NOT create the resource if it doesn't exist.
+    def gbif
+      Rails.cache.fetch('resources/gbif') do
+        Resource.find_by(abbr: 'gbif_classificat')
+      end
+    end
 
     # NOTE: This order is deterministic and conflated with HarvDB's app/models/publisher.rb ... if you change one, you
     # must change the other.

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Hamilton Abreu
+# Author: Mansil
 # Author: Mansil alfalb
 ---
 pt-PT:
@@ -218,6 +219,14 @@ pt-PT:
     ko: Coreano
     la: Latim
     pt: Português (Portugal)
+    Q1160372: Laz
+    Q13358: Megleno-romeno
+    Q146803: Língua Franca Nova
+    Q3272630: Gogo
+    Q33281: Chavacano
+    Q3362072: Digo
+    Q4121131: Nyamwezi
+    Q6944725: Mwera
     ru: Russo
     sk: Eslovaco
     sq: Albanês
@@ -295,8 +304,12 @@ pt-PT:
         r_subspecies: Subespécie
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
+      username_missing: utilizador %{user_id}
     trophic_web:
+      competitor: Competidor
       globi_credit_html: dados de <a href='%{url}'>GloBI</a>
+      predator: Predador
+      prey: Presa
       reset: redefinir
     tabs:
       articles: artigos
@@ -418,20 +431,17 @@ pt-PT:
       two_words_connector: ' e'
       last_word_connector: ' e'
   term:
-    actions:
-      sort: ordenar por
-    edit:
-      header: Edição %{uri}
-    fields:
-      name: 'nome:'
-      attribution: 'atribuição:'
-      comment: 'comentário:'
-      is_hidden_from_glossary: 'ocultar do glossário:'
-    glossary:
-      full_title: Glossário de 'TODOS os Termos' para os 'Dados' na EOL
-      object_term_title: Glossário dos 'Termos de Valores' para os 'Dados' na EOL
-    pagination:
-      next: página seguinte
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: tamanho do corpo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasita de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: cor da flor
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolerância ao sal
   terms:
     comment_field_html: <strong>Comentário:</strong> %{comment}
     definition_field_html: <strong>Definição:</strong> %{definition}
@@ -442,11 +452,17 @@ pt-PT:
     unreviewed: não revisto
   user:
     created_at: criada
+    download_queue: Fila de descarregamento de dados
+    form_labels:
+      age_confirm: Eu tenho pelo menos 13 anos
     headers:
       bio: Breve Biografia
       collections: Coleções
       downloads: Transferências
       links: Hiperligações
+    validations:
+      tou_confirm: deve confirmar que leu as Condições de Utilização e as Normas de
+        Privacidade
     new_password: Nova palavra-passe
     confirm_new_password: Confirmar nova palavra-passe
     username: nome de utilizador

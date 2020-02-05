@@ -5,6 +5,7 @@
 # Author: Taieol
 # Author: Winston Sung
 # Author: Xiplus
+# Author: 沈澄心
 ---
 zh-TW:
   language_name: 繁體中文
@@ -14,8 +15,8 @@ zh-TW:
       body_html: <p>網路生命大百科技術與資料管理團隊參照在網路生命大百科裡的結構化資料來源 — 特質與其它姓名標示資料、種間關係、與我們的本地分類、動態運作階系來作為特質資料庫（TraitBank）。此內容的管理方式與我們的「典型」內容
         — 圖片、影片、聲音、與描述文字相比之下有所差別，這在對於不同的事物裡很有用。</p><p>特質資料庫是比網路生命大百科其它部份還新穎的東西，這最初是由
         Species Pages Group 總監 Cynthia Parr 所構思，並於 2014 年 1 月在網路生命大百科第二版裡上線。從那時開始，結構化資料就一直是我們開發時的首要項目。</p><p>現在，您可以透過結構化資料來<a
-        href='%{example_search_path}'>搜尋</a>瀏覽網路生命大百科或是下載資料，而您也可以在我們新的<a href='%{autogen_page_path}'>自動生成文字</a>形式概要分頁裡發現這些。如同網路生命大百科其它內容一樣，這些適用於重複使用，並附帶詳細的姓名標示資料，因此若您使用在您的成品上，您可以加註表彰原創作者。</p><p>此資料建造為<a
-        href='%{property_graph_url}'>屬性圖形</a>在 <a href='%{neo4j_url}'>neo4j</a> 上。<a
+        href='%{example_search_path}'>搜尋</a>瀏覽網路生命大百科或是下載資料，而您也可以在我們新的<a href='%{autogen_page_path}'>自動生成文字</a>形式概要分頁裡發現這些。如同網路生命大百科其它內容一樣，這些適用於重複使用，並附帶詳細的姓名標示資料，因此若您使用在您的成品上，您可以加註表彰原創作者。</p><p>此資料在
+        <a href='%{neo4j_url}'>neo4j</a> 上建造為<a href='%{property_graph_url}'>屬性圖形</a>。<a
         href='%{data_services_path}'>資料服務</a>為可用。</p>
   account_already_linked: 您的帳號已連結到網路生命大百科
   account_not_linked: 您的帳號尚未連結到網路生命大百科
@@ -41,11 +42,11 @@ zh-TW:
   breadcrumbs:
     notices:
       canonical: 學名會秀出在頁面的麵包屑導航
-      vernacular: 若可用的話本地名稱會顯示在頁面的麵包屑導航
+      vernacular: 若可用的話，方言名稱會顯示在頁面的麵包屑導航
     setting_header: 在麵包屑導航的名稱
     types:
       scientific: 學術
-      vernacular: 本地話
+      vernacular: 方言
   button_create: 建立
   button_add: 添加
   cancel: 取消
@@ -75,7 +76,7 @@ zh-TW:
       maps_count: 地圖
       data_count: 資料
       nodes_count: 節點
-      vernaculars_count: 本地話
+      vernaculars_count: 方言
       scientific_names_count: 學名
       referents_count: 引用
       species_count: 物種
@@ -284,7 +285,7 @@ zh-TW:
     co: 科西嘉語
     cr: 克里語
     cs: 捷克語
-    cu: 教會斯拉夫、古教會斯拉夫、古保加利亞、舊教會斯拉夫語
+    cu: 舊教會斯拉夫語
     cv: 楚瓦什語
     cy: 威爾斯語
     da: 丹麥語
@@ -332,8 +333,8 @@ zh-TW:
     it: 義大利語
     iu: 伊努克提圖特語
     ja: 日語
-    jv: 爪哇語
     jp: 日語
+    jv: 爪哇語
     ka: 喬治亞語
     kg: 剛果語
     ki: 基庫尤語
@@ -375,7 +376,7 @@ zh-TW:
     ng: 恩敦加語
     nl: 荷蘭、佛萊明語
     nn: 新挪威語
-    "": 挪威語
+    "no": 挪威語
     nr: 南恩德貝勒語
     nv: 納瓦荷語
     ny: 齊切瓦、尼揚賈語
@@ -389,6 +390,86 @@ zh-TW:
     pl: 波蘭語
     ps: 普什圖語
     pt: 葡萄牙語
+    Q11005332: 金加語
+    Q11128374: 恩依哈語
+    Q1160372: 拉茲語
+    Q11732519: Kingindo 語
+    Q13313: 梅魯語
+    Q13324: 米南佳保語
+    Q13330: 米蘭德斯語
+    Q13358: 梅戈來諾羅馬尼亞語
+    Q146803: 新共同語言
+    Q16115145: 尼卡語
+    Q180937: 托斯克阿爾巴尼亞語
+    Q18415595: Dotyali 語
+    Q19933293: 北盧爾語
+    Q23014: 普法爾茨德語
+    Q2429648: Pogoro 語
+    Q2501174: 哥倫打洛語
+    Q2591230: 卡西納瓦語
+    Q2638144: 蘇庫馬語
+    Q27776: 阿迪格語
+    Q28602: 官方亞拉姆語
+    Q29507: 阿斯圖里亞斯語
+    Q3129390: 赫赫語
+    Q3272620: 尼亞庫薩語
+    Q3272630: 戈戈語
+    Q32858: 沃特語
+    Q32979: 喬克托語
+    Q33202: 布拉灰語
+    Q33281: 查瓦卡諾語
+    Q33303: 海達語
+    Q33357: 克里米亞韃靼語
+    Q33475: 贛語
+    Q33509: 印古什語
+    Q33541: 卡拉卡爾帕克語
+    Q33595: 伊拉庫語
+    Q3362072: 迪戈語
+    Q33634: 卡爾梅克語
+    Q33698: 立窩語
+    Q33965: 桑塔利語
+    Q34016: 桑達韋語
+    Q34138: 圖姆布卡語
+    Q34159: 巴布亞皮欽語
+    Q34318: 塔雷什語
+    Q3437661: 盧古魯語
+    Q35037: Businenge Tongo 語
+    Q3508074: Nai 語
+    Q35156: Car 語
+    Q35475: 卡比耶語
+    Q35756: 哈亞語
+    Q35787: 馬賽語
+    Q35936: 伊洛卡諾語
+    Q35939: 牙買加克里奧爾英語
+    Q35978: 希利蓋農語
+    Q36109: 邁蒂利語
+    Q36403: 帕爾語
+    Q36584: 李維語
+    Q36730: 鄂圖曼土耳其語
+    Q36738: 諾維亞語
+    Q36748: 旁狄語
+    Q3788739: 尚巴拉語
+    Q4121131: 尼揚韋齊語
+    Q4126517: 東加拿大伊努克提圖特語
+    Q4941378: 邦迪語
+    Q497345: 美茵法蘭克尼亞語
+    Q5575236: 果阿邦孔卡尼語
+    Q56240: 突尼西亞阿拉伯語
+    Q56426: 摩洛哥阿拉伯語
+    Q56466: 丁卡語
+    Q56482: 撣語
+    Q56590: 阿提卡米克語
+    Q584983: 朗吉語
+    Q667747: 菲帕語
+    Q6786446: 馬滕戈語
+    Q6944725: Mwera 語
+    Q7022366: 恩金多語
+    Q7193418: 尼雅圖魯語
+    Q750553: 巴西葡萄牙語
+    Q845441: 薩沙里語
+    Q880301: 路易斯安那法語
+    Q8836490: 本德語
+    Q9292: 亞塞拜然語
     qu: 奇楚瓦語
     rm: 羅曼什語
     rn: 克倫地語
@@ -477,7 +558,7 @@ zh-TW:
       one: 隱藏 1 個語言
       other: 隱藏 %{count} 個語言
     prefer: 優先
-    preferred_in_language_for_page: '%{name}現為%{page}的首選%{language}本地話'
+    preferred_in_language_for_page: '%{name}現為%{page}的首選%{language}方言'
     show_more_langs:
       one: 顯示另種語言
       other: 顯示另 %{count} 種語言
@@ -575,8 +656,12 @@ zh-TW:
         (%{remarks})
       username_missing: 使用者 %{user_id}
     trophic_web:
+      competitor: 競爭者
       globi_credit_html: 來自<a href='%{url}'>GloBI</a>的資料
+      predator: 捕食者
+      prey: 獵物
       reset: 重新設定
+      trophic_web_title: 食物鏈
     flash:
       reindexed: 此頁面上的快取已清除，請重新載入來查看新的值。另請注意目前並*不會*重新索引在頁面上的圖片，不過會在往後實現該功能。
     native_node_missing_warning: 沒有可用的階系資訊
@@ -867,28 +952,96 @@ zh-TW:
       two_words_connector: 和
       last_word_connector: ',和'
   term:
-    actions:
-      reindex: 重建索引
-      sort: 排序依照
-    edit:
-      header: 編輯%{uri}
-      submit: 儲存
-    fields:
-      name: 名稱：
-      definition: 定義：
-      attribution: 姓名標示：
-      comment: 註釋：
-      sections: 段落：
-      is_hidden_from_glossary: 從詞彙表裡隱藏：
-      is_hidden_from_overview: 從概要分頁隱藏：
-    glossary:
-      full_title: 在網路生命大百科上用於資料的所有項目詞彙表
-      predicate_title: 在網路生命大百科上用於資料的類型項目詞彙表
-      object_term_title: 在網路生命大百科上用於資料的值項目詞彙表
-      units_title: 在網路生命大百科上用於資料的單位項目詞彙表
-    pagination:
-      next: 下一頁
-      previous: 上一頁
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 體長
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: 體長，鼻子到尾端
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: 乳頭數量
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 莖直徑
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 葉尺寸類別
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: 葉複雜度
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: 葉脫落性
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: 種子質量
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: 葉形態
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: 葉狀體直徑
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: 植物生活型
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: 植物生長形式
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: 性別確定
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移行
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 親代撫育
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: 多量
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: 細胞直徑
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: 細胞容積
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: 骨骼結構
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 細胞塊
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: 外殼長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木頭密實度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 核長
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 核寬
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: 溝寬
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: 骨骼包含
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 上錐長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: 下錐長度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: 體型大小
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 壽命
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形狀
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 厚度
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 區域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: 容積
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: 脫落性
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: 性別差異
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 棲息地
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: 獵捕在
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: 共生生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: 片利共生與
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: 互利共生與
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 寄生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: 被寄生由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 有宿主
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 授粉由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: 被獵捕由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 屬於媒介為
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 食物
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: 被覓食由
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 病原體屬於
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 帶病原體
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 偷竊寄生物屬於
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: 株高
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: 耐旱性
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 葉色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 葉形狀
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: 根深度
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: 葉面積
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果實類型
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: 光合作用率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: 呼吸速率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: 生命週期習性
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: 耐鹽性
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: 礦化組織包含
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 身體質量
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行為晝夜節律
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: 窩大小
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: 懷孕期持續時間
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: 生殖開始
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾巴長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢長度
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 體寬
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨寬度
+        http://purl(dot)org/obo/owlATOL_0001660: 總長度
+  term_query:
+    validations:
+      empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
+      empty_filters_error_taxa: 您必須提供一個帶有屬性或值、用於分類搜尋的演化支或篩選
+  term_query_filter:
+    validations:
+      blank_error: 必須指定一個屬性或值
+      pred_uri_blank_numeric_error: 不能為空白的數值
+      range_invalid_error: 必須 >= 第一個值
   terms:
     attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>註釋：</strong>%{comment}
@@ -902,6 +1055,31 @@ zh-TW:
     index:
       select_page_above: 選擇上方的一個頁面來開始。
   data_definition: 「%{data}」的定義
+  traits:
+    search:
+      clade: 演化支：%{clade}
+      download_tsv: 下載 TSV
+      edit_filters: 編輯篩選條件
+      gbif_search: GBIF 搜尋
+      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 60 筆）
+      result_header_records: 顯示 %{total} 個紀錄裡 %{range_begin} - %{range_end} 個帶有
+      result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
+      new_search: 新搜尋
+      show_query: 顯示查詢
+    search_form:
+      attribute: 屬性
+      clade_filter_placeholder: 群組（例如：熊）（選用）
+      hide_additional_fields: 隱藏額外欄位
+      lifestage: 生命階段
+      records_matching_all: 符合所有篩選的紀錄
+      resource: 資源
+      search: 搜尋
+      sex: 性別
+      show_additional_fields: 顯示額外欄位
+      statistical_method: 統計方法
+      taxa_matching_all: 符合所有篩選的分類
+      this_may_take_a_minute: 這可能會花費一分鐘
+      value: 值
   trophic_web:
     group_descriptions:
       competitor: '%{source_name}的競爭者'
@@ -927,6 +1105,7 @@ zh-TW:
       collections: 收藏
       downloads: 下載
       links: 連結
+    is_power_user: 此使用者被標記為高級使用者。
     validations:
       age_confirm: 您必須確認您至少有 13 歲大
       tou_confirm: 您必須確認您已讀過使用條款與隱私權方針

@@ -1,10 +1,12 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aaribaud
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
+# Author: Pols12
 # Author: Thibaut120094
 # Author: Urhixidur
 # Author: Verdy p
@@ -16,28 +18,28 @@ fr:
     trait_bank:
       title: TraitBank
       body_html: |-
-        <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
-        <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
+        <p>L’équipe technique et de gestion des données de l’EdlV (''EOL'' en anglais) se réfère aux ressources de données structurées dans l’EdlV – données de traits et autres attributs, interactions écologiques et notre classification native, la Hiérarchie de travail dynamique – désignées collectivement sous le nom de TraitBank. Ce contenu est géré un peu différemment de nos autres contenus « classiques » – images, vidéos, enregistrements audios et texte descriptif – et cela s’avère utile pour différentes choses</p>
+        <p>TraitBank est plus récent que le reste de l’EdlV ; il a été conçu à l’origine par Cynthia Parr, notre directrice du Groupe de Pages d’Espèces, et a été mis en service dans la version 2 de l’EdlV en janvier 2014. Depuis lors, les données structurées ont été notre plus haute priorité pour le développement du contenu.</p>
         <p>Désormais, vous pouvez <a href="%{example_search_path}">rechercher</a> ou naviguer dans l’EdlV par données structurées, ou les télécharger,ou vous pouvez en prendre connaissance dans notre nouvel onglet de vue générale sous forme de <a href="%{autogen_page_path}">texte autogénéré</a>. Comme le reste du contenu de l’EdlV, tout ceci est disponible pour la réutilisation et vous est fourni avec les données détaillées d’attribution afin que vous puissiez les créditer si vous les utiliser dans votre propre travail.</p>
         <p>Ces données sont modélisées comme un <a href="%{property_graph_url}">graphe de propriété</a> dans <a href="%{neo4j_url}">neo4j</a>. Des <a href="%{data_services_path}">services de données</a> sont également disponibles.</p>
   account_already_linked: votre compte est déjà lié à l’EdlV
   account_not_linked: votre compte n’est pas lié à l’EdlV
   advanced: avancé
   are_you_sure_delete_account: Êtes-vous sûr de vouloir supprimer votre compte sur
-    l’EdlV ?
+    l’EdlV ?
   article:
     actions:
       collect: collecter
     header:
       blank: (Il n’y a pas de corps pour cet article.)
       body: Corps
-      language: 'langue : %{language}'
+      language: 'langue : %{language}'
       title: Titre
       untitled: Sans titre
     name:
       missing: Sans titre
   article_from_partner: fourni par %{partner}
-  article_duplicate: cet article est aussi affiché dans « %{section} »
+  article_duplicate: cet article est aussi affiché dans « %{section} »
   autocomplete:
     see_all:
       one: voir un autre résultat
@@ -60,8 +62,8 @@ fr:
   classifications:
     children:
       header_html:
-        one: '%{name} inclut <a href="%{names_path}">%{count} enfant</a> :'
-        other: '%{name} inclut <a href="%{names_path}">%{count} enfants</a> :'
+        one: '%{name} inclut <a href="%{names_path}">%{count} enfant</a> :'
+        other: '%{name} inclut <a href="%{names_path}">%{count} enfants</a> :'
       see_more: voir plus
     hierarchies:
       header: Hiérarchies supervisées pour %{sci_name}
@@ -87,16 +89,16 @@ fr:
       referents_count: référents
       species_count: espèce
       updated_at: dernière mise à jour
-  cms_page_date: 'Dernière modification :'
+  cms_page_date: 'Dernière modification :'
   collect_already_in_collection: (déjà présent ici)
-  collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
-  collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers...
+  collect_already_in_collection_will_add_icon: (ajouter le média à la page « %{page} »)
+  collect_icon_title: Ajouter « %{item} » depuis la page « %{page} » vers...
   collect_new_collection: Nouveau nom de collection
   collect_new_collection_title: '... une nouvelle collection'
-  collect_no_existing_collections: Vous n’en avez encore aucun ! En créer un en utilisant
+  collect_no_existing_collections: Vous n’en avez encore aucun ! En créer un en utilisant
     le formulaire sur la gauche.
   collect_select_collection: '... une de vos collections'
-  collect_title: Ajouter « %{item} » à...
+  collect_title: Ajouter « %{item} » à...
   collected_page_added_to_collection: '%{page} ajouté à la collection <a href="%{link}">%{name}</a>.'
   collected_page_already_in_collection: C’était déjà dans votre collection.
   collected_pages_title: Pages
@@ -107,27 +109,27 @@ fr:
   collected_pages:
     delete_button: supprimer
     edit_button: modifier
-    delete_confirm: Êtes-vous sûr ?
+    delete_confirm: Êtes-vous sûr ?
     destroyed_flash: '%{name} a été supprimé de cette collection.'
-  collection_association_added_to_collection: « %{associated} » ajouté à la collection
-    <a href="%{link}">« %{name} »</a>.
+  collection_association_added_to_collection: « %{associated} » ajouté à la collection
+    <a href="%{link}">« %{name} »</a>.
   collection_associations_empty: Aucune autre collection n’est associée avec celle-ci.
-    Vous pouvez cliquer sur le bouton « associer » sur d’autres collections pour les
+    Vous pouvez cliquer sur le bouton « associer » sur d’autres collections pour les
     faire apparaître ici.
   collection_associations_title: Collections associées
   collection_collected_pages_media_remove: 'Supprimer les images de la collection
-    (les modifications prennent effet immédiatement) :'
-  collection_created: Nouvelle collection « %{name} » créée.
-  collection_created_for_association: « %{associated} » ajouté à la nouvelle collection
-    <a href="%{link}">« %{name} »</a>.
+    (les modifications prennent effet immédiatement) :'
+  collection_created: Nouvelle collection « %{name} » créée.
+  collection_created_for_association: « %{associated} » ajouté à la nouvelle collection
+    <a href="%{link}">« %{name} »</a>.
   collection_user_is_admin: Cet utilisateur est un administrateur.
   collection_pages_empty: Cette collection ne contient pas de page. Essayez de cliquer
-    sur le bouton « collecter » sur les pages d’espèce pour ajouter certains éléments !
+    sur le bouton « collecter » sur les pages d’espèce pour ajouter certains éléments !
   collection:
     admins:
       header: Utilisateurs qui peuvent modifier cette collection (les changements
         prennent effet immédiatement)
-      label: 'Ajouter un utilisateur qui peut modifier cette collection :'
+      label: 'Ajouter un utilisateur qui peut modifier cette collection :'
       placeholder: nom complet ou nom d’utilisateur
     actions:
       associate: associer
@@ -138,8 +140,8 @@ fr:
       normal: normal
       gallery: galerie
     delete_confirm: Cela supprimera toute la collection et ne pourra PAS être annulé.
-      Êtes-vous sûr ?
-    destroyed: « %{name} » a été supprimé de façon permanente.
+      Êtes-vous sûr ?
+    destroyed: « %{name} » a été supprimé de façon permanente.
     pages_count:
       one: 1 page
       other: '%{count} pages'
@@ -149,16 +151,16 @@ fr:
         remove: '%{user} a supprimé l’association de la collection %{associated}'
       collection:
         add: '%{user} a créé la collection'
-        change: '%{user} a modifié %{field} de « %{from} » en « %{to} »'
+        change: '%{user} a modifié %{field} de « %{from} » en « %{to} »'
       content:
         add: '%{user} a ajouté le média %{medium} à la page %{page}'
         change: '%{user} a modifié %{field} sur le média %{medium} pour la page %{page}
-          de « %{from} » en « %{to} »'
+          de « %{from} » en « %{to} »'
         remove: '%{user} a supprimé le média %{medium} de la page %{page}'
       page:
         add: '%{user} a ajouté la page %{page}'
-        change: '%{user} a modifié %{field} sur la page %{page} de « %{from} » en
-          « %{to} »'
+        change: '%{user} a modifié %{field} sur la page %{page} de « %{from} » en
+          « %{to} »'
         remove: '%{user} a retiré la page %{page}'
       user:
         add: '%{user} a ajouté le gestionnaire %{manager}'
@@ -177,8 +179,8 @@ fr:
   collection_unauthorized_edit: Seul l’utilisateur propriétaire peut modifier cette
     collection.
   complete_registration: Veuillez poursuivre votre inscription
-  content_appears_on: 'Inclus dans les pages suivantes :'
-  content_collected_in: 'Mis en vedette dans les collections suivantes :'
+  content_appears_on: 'Inclus dans les pages suivantes :'
+  content_collected_in: 'Mis en vedette dans les collections suivantes :'
   content_attributions_header: Informations de provenance
   content_attributions_labels:
     altitude: altitude
@@ -202,7 +204,7 @@ fr:
       one: Référence
       other: Références
     resource_label: site partenaire
-    resource_pk: '(id : %{key})'
+    resource_pk: '(id : %{key})'
     rights_statement: déclaration des droits
     source: source
     spatial_location: spatial
@@ -217,7 +219,7 @@ fr:
       sex_term: Sexe de l’organisme mesuré
       lifestage_term: Étape de vie mesuré de l’organisme
       statistical_method_term: Méthode statistique utilisée pour les mesures
-  data_missing: '(données manquantes, clés : %{keys})'
+  data_missing: '(données manquantes, clés : %{keys})'
   dear_username_with_comma: Cher/chère %{username},
   delete_account_button: Supprimer votre compte
   filter_by_license: licence
@@ -241,8 +243,8 @@ fr:
       help: Aide
       terms_of_use: Conditions d’utilisation
       the_eol_forum: Le forum EdlV
-      what_is_eol: Qu’est-ce que l’EdlV ?
-      whats_new: Quoi de neuf ?
+      what_is_eol: Qu’est-ce que l’EdlV ?
+      whats_new: Quoi de neuf ?
     discover:
       algae: Algues
       amphibians: Amphibiens
@@ -267,8 +269,8 @@ fr:
       trees: Arbres
       viruses: Virus
       worms: Vers
-    eol_is_hosted_by: 'L’EdlV est hébergée par :'
-  forgot_your_password: Mot de passe oublié ?
+    eol_is_hosted_by: 'L’EdlV est hébergée par :'
+  forgot_your_password: Mot de passe oublié ?
   landing_page:
     header: Accès global à la connaissance sur la vie sur Terre
     stats_cleared: Les statistiques ont été recalculées.
@@ -297,26 +299,25 @@ fr:
     bo: tibétain
     br: breton
     bs: bosnien
-    ca: catalan ; valencien
+    ca: catalan ; valencien
     ce: tchétchène
     ch: chamorro
     co: corse
     cr: cri
     cs: tchèque
-    cu: slave d’église ; vieux slavon ; slavon d’église ; vieux bulgare ; vieux slavon
-      liturgique
+    cu: Vieux slavon liturgique
     cv: tchouvache
     cy: gallois
     da: danois
     de: allemand
-    dv: divehi ; maldivien
+    dv: divehi ; maldivien
     dz: dzongkha
     dzo: dzongkha
     ee: éwé
     el: grec moderne (1453–)
     en: anglais
     eo: espéranto
-    es: espagnol ; castillan
+    es: espagnol ; castillan
     et: estonien
     eu: basque
     fa: persan
@@ -327,7 +328,7 @@ fr:
     fr: français
     fy: frison occidental
     ga: irlandais
-    gd: gaélique ; gaélique écossais
+    gd: gaélique ; gaélique écossais
     gl: galicien
     gn: guarani
     gu: gouderati
@@ -337,29 +338,29 @@ fr:
     hi: hindi
     ho: hiri motu
     hr: Croate
-    ht: haïtien ; créole haïtien
+    ht: haïtien ; créole haïtien
     hu: hongrois
     hy: arménien
     hz: héréro
     ia: interlingua (Association internationale de langue auxiliaire)
     id: indonésien
-    ie: interlingua ; occidental
+    ie: interlingua ; occidental
     ig: igbo
-    ii: yi du Sichuan ; nuosu
+    ii: yi du Sichuan ; nuosu
     ik: inupiaq
     io: ido
     is: islandais
     it: italien
     iu: inuktitut
     ja: japonais
-    jv: javanais
     jp: japonais
+    jv: javanais
     ka: Géorgien
     kg: kikongo
-    ki: kikuyu ; gikuyu
-    kj: kuanyama ; kwanyama
+    ki: kikuyu ; gikuyu
+    kj: kuanyama ; kwanyama
     kk: kazakh
-    kl: kalaallisut ; groenlandais
+    kl: kalaallisut ; groenlandais
     km: khmer central
     kn: kannara
     ko: coréen
@@ -371,7 +372,7 @@ fr:
     ky: kirghize
     la: latin
     lb: luxembourgeois
-    lg: ganda ; luganda
+    lg: ganda ; luganda
     li: limbourgeois
     ln: lingala
     lo: lao
@@ -389,16 +390,16 @@ fr:
     mt: maltais
     my: birman
     na: nauru
-    nb: bokmål, norvégien ; norvégien bokmål
+    nb: bokmål, norvégien ; norvégien bokmål
     nd: ndébélé du Nord
     ne: népalais
     ng: ndonga
-    nl: néerlandais ; flamand
-    nn: norvégien nynorsk ; nynorsk, norvégien
-    "": norvégien
+    nl: néerlandais ; flamand
+    nn: norvégien nynorsk ; nynorsk, norvégien
+    "no": norvégien
     nr: ndébélé du Sud
-    nv: navajo ; navaho
-    ny: chewa ; chichewa ; nyanja
+    nv: navajo ; navaho
+    ny: chewa ; chichewa ; nyanja
     oc: occitan (après 1500)
     oj: ojibwé
     om: oromo
@@ -407,12 +408,92 @@ fr:
     pa: pendjabi
     pi: pali
     pl: polonais
-    ps: pachto ; pachtoune
+    ps: pachto ; pachtoune
     pt: portugais
+    Q11005332: Kinga
+    Q11128374: Nyiha
+    Q1160372: Laze
+    Q11732519: Kingindo
+    Q13313: Meru
+    Q13324: Minangkabau
+    Q13330: Mirandais
+    Q13358: Mégléno-roumain
+    Q146803: Lingua franca nova
+    Q16115145: Nyika
+    Q180937: Tosque
+    Q18415595: Dotyali
+    Q19933293: Lori du nord
+    Q23014: Palatin
+    Q2429648: Pogoro
+    Q2501174: Gorontalo
+    Q2591230: Cashinahua
+    Q2638144: Soukouma
+    Q27776: Adyguéen
+    Q28602: Araméen officiel
+    Q29507: Asturien
+    Q3129390: Hehe
+    Q3272620: Nyakusa
+    Q3272630: Gogo
+    Q32858: Vote
+    Q32979: Chacta
+    Q33202: Brahoui
+    Q33281: Chavacano
+    Q33303: Haïda
+    Q33357: Tatar de Crimée
+    Q33475: Gan
+    Q33509: Ingouche
+    Q33541: Karakalpaks
+    Q33595: Iraqw
+    Q3362072: Digo
+    Q33634: Kalmouk
+    Q33698: Live
+    Q33965: Santali
+    Q34016: Sandawe
+    Q34138: Tumbuka
+    Q34159: Tok pisin
+    Q34318: Talysh
+    Q3437661: Luguru
+    Q35037: Ndjuka
+    Q3508074: Nai
+    Q35156: Car
+    Q35475: Kabiyè
+    Q35756: Haya
+    Q35787: Maa
+    Q35936: Ilocano
+    Q35939: Créole jamaïcain
+    Q35978: Hiligaïnon
+    Q36109: Maïthili
+    Q36403: Asu
+    Q36584: Olonetsien
+    Q36730: Turc, Ottoman
+    Q36738: Novial
+    Q36748: Pontique
+    Q3788739: Shambala
+    Q4121131: Nyamwezi
+    Q4126517: Inuktitut canadien oriental
+    Q4941378: Bondei
+    Q497345: Francique principal
+    Q5575236: Konkani goanais
+    Q56240: Arabe tunisien
+    Q56426: Arabe marocain
+    Q56466: Dinka
+    Q56482: Shan
+    Q56590: Attikameks
+    Q584983: Rangi
+    Q667747: Fipa
+    Q6786446: Matengo
+    Q6944725: Mwera
+    Q7022366: Ngindo
+    Q7193418: Nyaturu
+    Q750553: Portugais brésilien
+    Q845441: Sarde sassarais
+    Q880301: Français cadien
+    Q8836490: Bende
+    Q9292: Azéri
     qu: quechua
     rm: romanche
     rn: roundi
-    ro: roumain ; moldave
+    ro: roumain ; moldave
     ru: russe
     rw: kinyarwanda
     sa: sanskrit
@@ -491,8 +572,8 @@ fr:
       js_map: carte interactive
   medium_collect_button: collecter les médias
   medium_description_blank: Il n’y a aucune description fournie pour cet objet.
-  medium_header_title: 'Titre :'
-  medium_header_description: 'Description :'
+  medium_header_title: 'Titre :'
+  medium_header_description: 'Description :'
   names:
     hide_langs:
       one: masquer une langue
@@ -517,9 +598,9 @@ fr:
     header:
       one: Meilleure image pour la page
       other: Meilleure image pour les pages
-  page_icon_created: Image « %{name} » déplacée en haut.
+  page_icon_created: Image « %{name} » déplacée en haut.
   page_title: Encyclopédie de la Vie
-  page_title_search: 'Recherche : %{query}'
+  page_title_search: 'Recherche : %{query}'
   page_vernaculars_empty: Il n’y a aucun nom commun associé avec ce taxon.
   pages:
     actions:
@@ -542,9 +623,9 @@ fr:
       search: chercher
     overview:
       eol_has_data_for_n_attributes_including_html:
-        one: 'L’EdlV a des données pour <a href="%{data_path}">un attribut</a> :'
+        one: 'L’EdlV a des données pour <a href="%{data_path}">un attribut</a> :'
         other: 'L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>,
-          dont :'
+          dont :'
       eol_has_data_for_n_attributes_html:
         one: L’EdlV a une donnée pour <a href="%{data_path}">un attribut</a>.
         other: L’EdlV a des données pour <a href="%{data_path}">%{count} attributs</a>.
@@ -552,8 +633,8 @@ fr:
       show_all: tout afficher
     page_data:
       n_hidden_show_all:
-        one: 1 enregistrement « %{pred_name} » caché – montrer tout
-        other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
+        one: 1 enregistrement « %{pred_name} » caché – montrer tout
+        other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
       show_all: tout afficher
     resource_names:
       name_recognized_by: Reconnu par %{by}
@@ -599,8 +680,12 @@ fr:
         (%{remarks})
       username_missing: utilisateur %{user_id}
     trophic_web:
+      competitor: Concurrent
       globi_credit_html: données de <a href="%{url}">GloBI</a>
+      predator: Prédateur
+      prey: Proie
       reset: réinitialiser
+      trophic_web_title: Réseau trophique
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
@@ -617,7 +702,7 @@ fr:
       media: média
       names: noms
     iucn_status:
-      label: 'Catégorie de l’IUCN :'
+      label: 'Catégorie de l’IUCN :'
       ex: éteint (EX)
       ew: éteint à l’état sauvage (EW)
       cr: en danger critique (CR)
@@ -629,7 +714,7 @@ fr:
       ne: non évalué (NE)
       unknown: inconnu (pas d’enregistrement)
     unresolved_name: Nom non-résolu
-    unresolved_name_prefix: 'Noms non résolus :'
+    unresolved_name_prefix: 'Noms non résolus :'
   page_titles:
     pages:
       data: données de %{page_name}
@@ -642,7 +727,7 @@ fr:
   recaptcha: Recaptcha
   recaptcha_error: Veuillez nous dire que vous n’êtes pas un robot.
   reference_compiled_from: Référencé par %{links}
-  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
+  reference_compiled_from_article: '%{source} article intitulé « %{name} »'
   register_new_account: Enregistrer un nouveau compte
   resources:
     actions:
@@ -660,22 +745,22 @@ fr:
       fetch_relationships: récupérer les relations
       sync_all_terms_confirm: Ceci rassemblera TOUS les termes de la couche de récolte
         qui ne sont pas dans la couche de publication. Cela demande environ 15 minutes.
-        Êtes-vous sûr ?
+        Êtes-vous sûr ?
       fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
         mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
-        Êtes-vous sûr{{GENDER:||e}} ?
+        Êtes-vous sûr{{GENDER:||e}} ?
       fetch_synonyms: trouver des synonymes
       fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
         mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
-        sûr ?
+        sûr ?
       fetch_units: récupérer les unités
       fetch_units_confirm: Cela supprime les relations de prédicat/unité existantes
         et les rajoute, mais cela peut échouer et les supprimer toutes. Cela prend
-        environ une minute. Êtes-vous sûr ?
+        environ une minute. Êtes-vous sûr ?
       clear_publishing: effacer le verrou
-      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
+      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
-        sûr ?
+        sûr ?
     headers:
       index: Ressources
       import_log: Importer le journal pour %{resource}
@@ -686,7 +771,7 @@ fr:
         travaux en attente}}'
       harvest_jobs: '{{PLURAL:%{count}|zero=rien à publier|one=une publication en
         attente|%{count} à publier}}'
-    no_events: Aucun !
+    no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
     status_title:
@@ -703,7 +788,7 @@ fr:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}
       more_than_two_terms: 'Impossible de combiner les résultats pour plus de deux
-        termes : %{terms}'
+        termes : %{terms}'
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
@@ -730,35 +815,35 @@ fr:
       one: '%{count} page'
       other: '%{count} pages'
     collection_page_count_and_users:
-      one: '%{count} page ; maintenue par %{users_sentence}'
-      other: '%{count} pages ; maintenues par %{users_sentence}'
+      one: '%{count} page ; maintenue par %{users_sentence}'
+      other: '%{count} pages ; maintenues par %{users_sentence}'
     collected_media:
-      title: 'médias collectés depuis cette page :'
+      title: 'médias collectés depuis cette page :'
     medium_article: Article
     medium_image: Image
     medium_map: Carte
     medium_sound: Son
     medium_video: Vidéo
-    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
-    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
-    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
-    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
-    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
+    medium_title_article_html: 'Article : <span class="sub">%{title}</span>'
+    medium_title_image_html: 'Image : <span class="sub">%{title}</span>'
+    medium_title_map_html: 'Carte : <span class="sub">%{title}</span>'
+    medium_title_sound_html: 'Audio : <span class="sub">%{title}</span>'
+    medium_title_video_html: 'Vidéo : <span class="sub">%{title}</span>'
     empty: Aucun résultat.
     field_matches:
-      description: 'correspond à la description :'
-      resource_pk: 'correspond à l’ID externe :'
-      bio: 'correspond à la biographie :'
-      tag_line: 'correspond à la ligne balisée :'
+      description: 'correspond à la description :'
+      resource_pk: 'correspond à l’ID externe :'
+      bio: 'correspond à la biographie :'
+      tag_line: 'correspond à la ligne balisée :'
       resources:
-        one: 'correspond à la ressources :'
-        other: 'correspond aux ressource :'
+        one: 'correspond à la ressources :'
+        other: 'correspond aux ressource :'
       synonyms:
-        one: 'correspond au synonyme synonyme :'
-        other: 'correspond au synonymex synonymes :'
+        one: 'correspond au synonyme synonyme :'
+        other: 'correspond au synonymex synonymes :'
       vernaculars:
-        one: 'correspond au nom usuel :'
-        other: 'correspond aux noms usuels :'
+        one: 'correspond au nom usuel :'
+        other: 'correspond aux noms usuels :'
     section_titles:
       collections:
         one: '%{count} collection'
@@ -778,7 +863,7 @@ fr:
       users:
         one: '%{count} utilisateur'
         other: '%{count} utilisateurs'
-    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
+    collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
       n_articles: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} article{{PLURAL:%{count}|zero=|one=|s}}'
       n_data:
@@ -787,12 +872,12 @@ fr:
       n_media:
         one: 1 MEDIUM
         other: '%{count} MEDIA'
-    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
+    user_title_html: 'Utilisateur : <span class="sub">%{name}</span>'
   search_suggestion:
     actions:
       create: créer une nouvelle suggestion de recherche
-    created: Suggestion de recherche créée pour « %{match} »
-    destroyed: Suggestion de recherche annulée pour « %{match} »
+    created: Suggestion de recherche créée pour « %{match} »
+    destroyed: Suggestion de recherche annulée pour « %{match} »
     new:
       header: Créer une suggestion de recherche
     update:
@@ -858,7 +943,7 @@ fr:
       text: obligatoire
       mark: '*'
     error_notification:
-      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
+      default_message: 'Veuillez passer en revue les problèmes ci-dessous :'
     labels:
       defaults:
         email: Adresse électronique
@@ -890,41 +975,144 @@ fr:
       two_words_connector: '&#32;et&#32;'
       last_word_connector: '&#32;et&#32;'
   term:
-    actions:
-      reindex: réindexer
-      sort: trier par
-    edit:
-      header: Modification de %{uri}
-      submit: Enregistrer
-    fields:
-      name: 'nom :'
-      definition: 'définition :'
-      attribution: 'attribution :'
-      comment: 'commentaire :'
-      sections: 'sections :'
-      is_hidden_from_glossary: 'masquer dans le glossaire :'
-      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
-    glossary:
-      full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
-      predicate_title: Glossaire des termes des types de données sur l’EdlV
-      object_term_title: Glossaire des termes des valeurs de données sur l’EdlV
-      units_title: Glossaire de termes d’unités pour les données de l’EdlV
-    pagination:
-      next: page suivante
-      previous: page précédente
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longueur du corps
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Longueur du corps, du
+          museau à la queue
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nombre de mamelles
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diamètre de la tige
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de taille de
+          la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexité de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: persistance des feuilles
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: poids de la graine
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morphologie de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diamètre du thalle
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forme de vie de la plante
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forme de croissance
+          de la plante
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
+        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: détermination du sexe
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixation de l’azote
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soin parental
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondance
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diamètre de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: structure du squelette
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: masse de la cellule
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Taille de la coquille
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: densité du bois
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: longueur du noyau
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: largeur du noyau
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: largeur du sillon
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: le squelette contient
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longueur de l’épicône
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longueur de l’hypocône
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taille du corps
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durée de vie
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forme
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: épaisseur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: aire
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuilles caduques
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorphisme sexuel
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: s’attaque à
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: symbiote de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: commensal avec
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: mutualisé avec
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasite de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: parasité par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: a un hôte
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinise
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: pollinisé par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: est la proie de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: est vecteur de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: mange
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogène de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a un agent pathogène
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: hauteur de la plante
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolérance à la sécheresse
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: couleur de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forme de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: profondeur d’enracinement
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: couleur de fleur
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: surface de feuille
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: type de fruit
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: taux de photosynthèse
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: habitude de cycle de vie
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolérance au sel
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: le tissu minéralisé
+          contient
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: masse corporelle
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: rythme circadien comportemental
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taille de couvée/nichée/portée
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: durée de la période de
+          gestation
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: début de fertilité
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: longueur de la queue
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: longueur du fémur
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longueur de la patte avant
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
+        http://purl(dot)org/obo/owlATOL_0001660: largeur totale
+  term_query:
+    validations:
+      empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
+        une valeur pour les recherches d’enregistrement
+      empty_filters_error_taxa: vous devez fournir un clade ou un filtre avec un attribut
+        ou une valeur pour les recherches de taxons
+  term_query_filter:
+    validations:
+      blank_error: doit spécifier un attribut ou une valeur
+      pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
+      range_invalid_error: doit être supérieur ou égal à la première valeur
   terms:
-    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
-    comment_field_html: <strong>Commentaire :</strong> %{comment}
-    definition_field_html: <strong>Définition :</strong> %{definition}
-    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
+    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
+    comment_field_html: <strong>Commentaire :</strong> %{comment}
+    definition_field_html: <strong>Définition :</strong> %{definition}
+    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
     record_url: URL d’enregistrement
     scientific_name: nom scientifique
     show_all_records: afficher tous les enregistrements
     source: source
-    uri_field_html: <strong>URI :</strong> %{uri}
+    uri_field_html: <strong>URI :</strong> %{uri}
     index:
       select_page_above: Choisir une page ci-dessus pour commencer.
-  data_definition: définition de « %{data} »
+  data_definition: définition de « %{data} »
+  traits:
+    search:
+      clade: 'clade : %{clade}'
+      download_tsv: télécharger le tsv
+      edit_filters: modifier les filtres
+      gbif_search: Recherche de GBIF
+      gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
+        taxons dans vos résultats de recherche (limité à 60)
+      result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
+        enregistrements avec
+      result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
+        taxons avec
+      new_search: nouvelle recherche
+      show_query: afficher la requête
+    search_form:
+      attribute: attribut
+      clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
+      hide_additional_fields: masquer les champs supplémentaires
+      lifestage: étape de vie
+      records_matching_all: enregistrements correspondants à TOUS les filtres
+      resource: ressource
+      search: Rechercher
+      sex: sexe
+      show_additional_fields: afficher les champs supplémentaires
+      statistical_method: méthode statistique
+      taxa_matching_all: taxons correspondants à TOUS les filtres
+      this_may_take_a_minute: Cela peut prendre une minute
+      value: valeur
   trophic_web:
     group_descriptions:
       competitor: concurrent de %{source_name}
@@ -952,6 +1140,7 @@ fr:
       collections: Collections
       downloads: Téléchargements
       links: Liens
+    is_power_user: Cet utilisateur est marqué comme super-utilisateur.
     validations:
       age_confirm: vous devez confirmer que vous avez au moins 13 ans
       tou_confirm: vous devez confirmer avoir lu les conditions d’utilisation et la
@@ -971,16 +1160,16 @@ fr:
       utilisateur</a> pour voir quand cela sera achevé.
   users:
     account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
-      2018 :'
+      2018 :'
     account_migration_notice: Les informations de votre compte, qui comprennent le
       nom d’utilisateur, l’adresse de courriel associée, la description du profil
       et les collections détenues, ont été importées sur la nouvelle EdlV. Votre nom
       d’utilisateur est encore votre nom affiché sur le site, mais vous devez maintenant
       vous connecter avec votre adresse de courriel. Nous n’avons pas pu migrer votre
-      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
-      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
+      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
+      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
       Si vous vous êtes connecté en utilisant seulement un fournisseur d’identité
-      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
+      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
       nous travaillons pour régler encore quelques problèmes avec les procédures de
       connexion partagée.
     sign_in: Se connecter

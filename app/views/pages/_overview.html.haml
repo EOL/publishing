@@ -19,10 +19,10 @@
           %p= t(".#{attributes_key}", :count => @page.predicate_count, data_path: page_data_path(@page))
     -if @page.key_data.any?
       %ul.sample-traits
-        - @page.key_data.sort_by { |k, v| k[:name] || 'zzz' }.each do |predicate, trait|
+        - @page.key_data.sort_by { |k, v| i18n_term_name(k) || 'zzz' }.each do |predicate, trait|
           %li
             %div
-              .sample-trait-key.a= predicate[:name]
+              .sample-trait-key.a= i18n_term_name(predicate)
               = render partial: "terms/desc_meta", locals: { term: predicate, search_link: true }
             %div
               - val = data_value(trait).html_safe

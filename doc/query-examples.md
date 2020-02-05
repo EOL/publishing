@@ -142,6 +142,18 @@ OPTIONAL MATCH (t)-[:units_term]->(units:Term)
 RETURN p.canonical, pred.name, t.measurement, units.name, r.resource_id, p.page_id, t.eol_pk, t.source
 LIMIT 1
 ```
+This is a query type which may benefit from a metadata filter, eg: for lifestage, and from a check for child terms representing subclasses of the term of interest
+
+```
+MATCH (t:Trait)<-[:trait]-(p:Page),
+(t)-[:predicate]->(pred:Term)-[:parent_term|:synonym_of*0..]->(parent:Term),
+(t)-[lifestage_term]->(stage:Term)
+WHERE p.canonical = "Odocoileus hemionus" AND parent.name = "body mass" AND stage.name = "adult"
+OPTIONAL MATCH (t)-[:units_term]->(units:Term)
+RETURN p.canonical, pred.name, t.measurement, units.name, t.source
+LIMIT 1
+```
+
 ## Show (categorical) value of a predicate, for a given taxon
 
 This query shows a value and limited metadata for a specific predicate and taxon. This construction presumes you know that this predicate has categorical values known to EOL by structured terms with URIs. Here is the construction using strings for the taxon name and trait predicate name (with attendant risk of homonym confusion)

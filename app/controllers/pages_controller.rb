@@ -450,10 +450,13 @@ private
     resource_id = params[:resource_id]
     @resource = resource_id.nil? ? nil : Resource.find(resource_id)
     @lang_group = params[:lang_group]
+    brief_summary_article_ids = @page.articles
+      .joins("INNER JOIN content_sections ON content_sections.content_id = articles.id AND content_sections.content_type = 'Article'")
+      .where("content_sections.section_id = ?", Section.brief_summary.id).pluck("articles.id")
     @articles = @page.articles
                   .includes(:license, :resource, :language, :sections)
                   .where(['page_contents.source_page_id = ?', @page.id])
-                  .references(:page_contents)
+                  .references(:page_contents, :resources)
     articles_with_resource = resource_id.nil? ?
       @articles :
       @articles.where({ resource_id: resource_id })
@@ -491,7 +494,13 @@ private
 
     @articles = articles_with_lang_group if @lang_group != ALL_LANG_GROUP
     @articles = @articles.where({ resource_id: resource_id }) if !resource_id.nil?
-    @articles = @articles.unscope(:order).order("resources.name, articles.name IS NULL, articles.name")
+    orders = brief_summary_article_ids.any? ? ["articles.id IN (#{brief_summary_article_ids.join(",")})"] : []
+    orders += [
+      "resources.name",
+      "articles.name IS NULL",
+      "articles.name"
+    ]
+    @articles = @articles.unscope(:order).order(orders.join(", "))
     @all_lang_group = ALL_LANG_GROUP
   end
 
@@ -516,6 +525,11 @@ private
     )
       @trophic_web_data = @page.pred_prey_comp_data
       @show_trophic_web = @trophic_web_data[:nodes].length > 1
+      @trophic_web_translations = {
+        predator: I18n.t("pages.trophic_web.predator"),
+        prey: I18n.t("pages.trophic_web.prey"),
+        competitor: I18n.t("pages.trophic_web.competitor"),
+      }
     end
   end
 

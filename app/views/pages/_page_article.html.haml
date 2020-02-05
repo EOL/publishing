@@ -1,8 +1,8 @@
 - name = article.name&.html_safe
 - name = article.sections.try(:first).try(:name) if name.blank? || name.empty?
 - name ||= t("article.name.missing")
-.article.uk-margin-top
-  .title.uk-text-bold
+.article
+  %h2.title-article
     = name
     - if article.language && article.language.group.to_sym != I18n.locale
       %span.uk-text-small
@@ -20,4 +20,4 @@
   .body.uk-margin-small-top
     = article.body.html_safe
   .uk-margin
-    = render("attributions/for_content", content: article)
+    = render("attributions/for_content", content: article, hide_id: true)

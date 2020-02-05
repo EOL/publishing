@@ -1,5 +1,5 @@
 #term_form_container
-  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))], :autocomplete => "off" } do |f|
+  = form_for @query, :url => term_search_results_path, :method => :get, :html => { :id => "new_term_query", :class => ["uk-form", "uk-form-horizontal", "js-filter-form", ("is-multiple-filters" if (@query.filters.length > 1))], :data => { :submit_notification => t(".this_may_take_a_minute") }, :autocomplete => "off" } do |f|
     - if @query.errors[:base].any?
       %ul.base-errors
         - @query.errors.full_messages_for(:base).each do |e|
@@ -7,7 +7,7 @@
 
     .filter.filter-row
       %span.js-typeahead-wrap.l-filter-full
-        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => "group (e.g.: bears) (optional)"
+        = text_field_tag "clade_name", f.object.clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".clade_filter_placeholder")
         = f.hidden_field :clade_id, :class => "js-typeahead-field"
 
     = f.fields_for :filters do |ff|
@@ -15,7 +15,7 @@
         - if f.object.filters.length > 1
           .l-filter-first.filter-icon
             .js-remove-filter{:'uk-icon' => "icon: close; ratio: 1.4", :data => { :index => ff.index }}
-        = render "filter_field", field_name: "pred", typeahead_class: "pred", placeholder: "attribute", ff: ff, val_name: term_name(ff.object.top_pred_uri)
+        = render "filter_field", field_name: "pred", typeahead_class: "pred", placeholder: t(".attribute"), ff: ff, val_name: term_name(ff.object.top_pred_uri)
         - if ff.object.units_for_pred?
           .filter-row{:class => (ff.object.errors[:num_val1].any? || ff.object.errors[:num_val2].any?) ? "is-filter-row-with-errors" : ""}
             %span.filter-field
@@ -30,21 +30,21 @@
         - else
           - # If there's a predicate, restrict typeahead to objects for that predicate, o/w allow all 
           - typeahead_class = ff.object.predicate? ? "pred-obj" : "obj"
-          = render "filter_field", field_name: "obj", typeahead_class: typeahead_class, placeholder: "value", typeahead_data: { :'pred-uri' => ff.object.pred_uri }, ff: ff
+          = render "filter_field", field_name: "obj", typeahead_class: typeahead_class, placeholder: t(".value"), typeahead_data: { :'pred-uri' => ff.object.pred_uri }, ff: ff
         - if ff.object.show_extra_fields?
-          = render "filter_field", field_name: "sex", typeahead_class: "meta-obj", typeahead_data: { pred: "sex" }, placeholder: "sex", ff: ff
-          = render "filter_field", field_name: "lifestage", typeahead_class: "meta-obj", typeahead_data: { pred: "lifestage" }, placeholder: "lifestage", ff: ff
-          = render "filter_field", field_name: "statistical_method", typeahead_class: "meta-obj", typeahead_data: { pred: "stat_meth" }, placeholder: "statistical method", ff: ff
+          = render "filter_field", field_name: "sex", typeahead_class: "meta-obj", typeahead_data: { pred: "sex" }, placeholder: t(".sex"), ff: ff
+          = render "filter_field", field_name: "lifestage", typeahead_class: "meta-obj", typeahead_data: { pred: "lifestage" }, placeholder: t(".lifestage"), ff: ff
+          = render "filter_field", field_name: "statistical_method", typeahead_class: "meta-obj", typeahead_data: { pred: "stat_meth" }, placeholder: t(".statistical_method"), ff: ff
           .filter-row{:class => ff.object.errors[:resource].any? ? "is-filter-row-with-errors" : ""}
             %span.js-typeahead-wrap.filter-field.l-filter-full
-              = text_field_tag "resource_name", ff.object.resource&.name, :class => "js-resource-typeahead uk-input", :placeholder => "resource"
+              = text_field_tag "resource_name", ff.object.resource&.name, :class => "js-resource-typeahead uk-input", :placeholder => t(".resource")
               = ff.hidden_field :resource_id, :class => "js-typeahead-field"
               - show_error(ff.object, :resource)
           .filter-row
-            .a.js-hide-meta-filters{ data: { index: ff.index } } hide additional fields
+            .a.js-hide-meta-filters{ data: { index: ff.index } }= t(".hide_additional_fields")
         - else
           .filter-row
-            .a.js-show-meta-filters{ data: { index: ff.index } } show additional fields
+            .a.js-show-meta-filters{ data: { index: ff.index } }= t(".show_additional_fields")
         = ff.hidden_field :show_extra_fields
 
     .filter-row
@@ -54,9 +54,9 @@
     .filter-row.filter-row-flex
       .filter-radios
         .filter-field.filter-field-radio
-          = label_tag :search_type_page, "taxa matching ALL filters"
+          = label_tag :search_type_page, t(".taxa_matching_all")
           = f.radio_button :result_type, :taxa
         .filter-field.filter-field-radio
-          = label_tag :search_type_record, "records matching ALL filters"
+          = label_tag :search_type_record, t(".records_matching_all")
           = f.radio_button :result_type, :record
-    = submit_tag "Search", :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1 js-term-search-submit"
+    = submit_tag t(".search"), :class => "submit uk-button uk-button-primary uk-button-large uk-width-1-1 js-term-search-submit"

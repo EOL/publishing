@@ -18,7 +18,7 @@
       - if show_taxon && page
         = link_to(page.scientific_name.html_safe, page)
       %div
-        .trait-pred.term-info-a.a= predicate[:name]
+        .trait-pred.term-info-a.a= i18n_term_name(predicate)
         = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
       .trait-val
         - show_data_value(trait)
@@ -34,7 +34,7 @@
           - next if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
           %li.meta-item
             %div
-              .meta-pred.a= datum[:predicate][:name]
+              .meta-pred.a= i18n_term_name(datum[:predicate])
               = render :partial => "terms/desc_meta", :locals => { :term => datum[:predicate], :search_link => false }
             .meta-val
               - show_data_value(datum)

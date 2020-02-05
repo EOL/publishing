@@ -4,7 +4,6 @@ include Warden::Test::Helpers
 Warden.test_mode!
 
 RSpec.describe "Users", type: :request do
-  let(:providers) { User.omniauth_providers }
   let(:first_provider) { providers.first }
 
   def signup_user(user)
@@ -162,113 +161,6 @@ RSpec.describe "Users", type: :request do
           expect(admin.remember_created_at).to be_nil
           # TODO: I changed how flash messages render (it uses JS), so this is impossible:
           # expect(page).to have_content(I18n.t(:sign_in_remember_me_disabled_for_admins))
-        end
-      end
-    end
-  end
-
-  context 'Open Authentication' do
-    context 'Sign Up' do
-      before { visit new_user_registration_path }
-
-      it 'have oauth sign up links' do
-        providers.each do |provider|
-          expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign Up"))
-        end
-      end
-
-      context 'non-existing oauth account' do
-        before do
-          allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
-        end
-
-        it 'creates an account using oauth providers' do
-          providers.each do |provider|
-            visit new_user_registration_path
-            click_link I18n.t("sign_in_up_with_#{provider}", action: "Sign Up")
-            expect(page.current_path).to eq(new_open_authentication_path)
-            fill_in "user[email]", with: "#{provider}_#{Faker::Internet.email}"
-            click_button I18n.t("helpers.submit.user.create")
-            expect(page.current_path).to eq(new_user_session_path)
-            expect(page.body).to include(I18n.t(
-             :signed_up_but_inactive, scope: 'devise.registrations'))
-          end
-        end
-
-        it 'activates the user if the submittied email is same as the oauth email' do
-            email = "#{providers.first}_mail@example.org"
-            OmniAuth.config.add_mock(providers.first, { info: { email: email }})
-            visit new_user_registration_path
-            click_link I18n.t("sign_in_up_with_#{providers.first}", action: "Sign Up")
-             fill_in "user[email]", with: email
-            click_button I18n.t("helpers.submit.user.create")
-            expect(page.current_path).to eq(root_path)
-            # OOPS: TODO - I broke these by changing how we do flash messages. I shall fix...
-            #expect(page.body).to include(I18n.t(
-            #  :signed_in, scope: 'devise.sessions'))
-        end
-      end
-
-      context 'exisiting oauth account' do
-        before do
-          allow(OpenAuthentication).to receive(:oauth_user_exists?) { true }
-          visit new_user_registration_path
-        end
-
-        it 'gives an error msg with existing oauth account' do
-          click_link I18n.t("sign_in_up_with_facebook", action: "Sign Up")
-          expect(page.current_path).to eq(new_user_registration_path)
-          expect(page.body).to include(I18n.t( :failure, kind: "facebook",
-            reason: I18n.t(:account_already_linked), scope: 'devise.omniauth_callbacks'))
-        end
-      end
-    end
-
-    context 'Sign In' do
-      before { visit new_user_session_path }
-
-      it 'have oauth sign up links' do
-        providers.each do |provider|
-          expect(page.body).to include(I18n.t("sign_in_up_with_#{provider}", action: "Sign In"))
-        end
-      end
-
-      context 'non-existing oauth account' do
-        before do
-          allow(OpenAuthentication).to receive(:oauth_user_exists?) { false }
-          visit new_user_session_path
-        end
-
-        it 'gives an error msg with non-existing oauth account' do
-          click_link I18n.t("sign_in_up_with_facebook", action: "Sign In")
-          expect(page.current_path).to eq(new_user_session_path)
-          expect(page.body).to include(I18n.t( :failure, kind: "facebook",
-            reason: I18n.t(:account_not_linked), scope: 'devise.omniauth_callbacks'))
-        end
-      end
-
-      context 'exisiting oauth account' do
-
-        let(:user) { build(:user) }
-        before do
-          allow(OpenAuthentication).to receive(:oauth_user_exists?) { user }
-          visit new_user_session_path
-        end
-
-        it 'signs in the confirmed user successfully' do
-          allow(user).to receive(:confirmed?) { true }
-          click_link I18n.t("sign_in_up_with_twitter", action: "Sign In")
-          expect(page.current_path).to eq(root_path)
-          # OOPS: TODO - I broke these by changing how we do flash messages. I shall fix...
-          # expect(page.body).to include(I18n.t(:signed_in, scope: 'devise.sessions'))
-        end
-
-         it 'does not sign the non-confirmed users' do
-          allow(user).to receive(:confirmed?) { false }
-          click_link I18n.t("sign_in_up_with_#{providers.first}", action: "Sign In")
-          expect(page.current_path).to eq(new_user_session_path)
-          # OOPS: TODO - I broke these by changing how we do flash messages. I shall fix...
-          # expect(page.body).to include(I18n.t(:unconfirmed, scope: 'devise.failure'))
         end
       end
     end

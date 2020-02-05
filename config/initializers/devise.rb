@@ -155,7 +155,7 @@ Devise.setup do |config|
   # one (and only one) @ exists in the given string. This is mainly
   # to give user feedback and not to assert the e-mail validity.
   $mail_regexp = "/^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$/"
-  
+
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
@@ -242,17 +242,6 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :get
 
-  # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-    config.omniauth :facebook, "1603855706598436", "bef73449de6a4c47cfa9180c7d74027c", scope: 'email,public_profile'
-    config.omniauth :twitter, "c5rUGQzjtW73OFUKf8yeOzqgP", "Mcv8HrSy7oFPrexL7DEVfqz6Hp7e4hOYYTh79jsnGPL49LmuQ8",
-                               force_login: 'true'
-    config.omniauth :google_oauth2, "867896515251-fqndt93sjdeqe1ekrs24j6p0vu9b32l6.apps.googleusercontent.com", 
-                       "uO_LJ9cKF7SSNd9FTo5VjpyL", skip_jwt: true
-    # config.omniauth :yahoo, "dj0yJmk9ZlNaSGFIQ0lZUFVRJmQ9WVdrOU1EbDRPRVZFTTJVbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1kZA--" ,
-                    # "b9e7b67ded48fcaa45d2522155d12cd400faeca4"
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

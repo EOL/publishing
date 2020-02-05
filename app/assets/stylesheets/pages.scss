@@ -231,6 +231,22 @@ $font-sz-m: 14px;
   padding: 0;
 }
 
+.article {
+  border-top: 1px solid $light-gray;
+  margin-top: 20px;
+  padding: 20px 0 0 $pad-l-sm;
+}
+
+div:first-of-type.article {
+  border-top: none;
+  padding-top: 0;
+}
+
+.title-article {
+  margin-bottom: 4px;
+}
+
+
 @media(min-width: $width-m) {
   .l-content {
     margin-top: $head-height + $tabs-m-height;
@@ -274,6 +290,9 @@ $font-sz-m: 14px;
     }
   }
 
+  .article {
+    padding-left: $pad-l-m;
+  }
 }
 
 @media only print and (min-width: $width-m) {

@@ -6,6 +6,22 @@ class Service::CypherController < ServicesController
   before_action :require_power_user, only: :form
   skip_before_action :verify_authenticity_token, only: :command
 
+  STRIP_RESPONSE_KEYS = [
+    "paged_traverse", 
+    "outgoing_relationships",
+    "outgoing_typed_relationships",
+    "create_relationship",
+    "labels",
+    "traverse",
+    "all_relationships",
+    "all_typed_relationships",
+    "property",
+    "self",
+    "incoming_relationships",
+    "properties",
+    "incoming_typed_relationships"
+  ]
+
   def form
     # Cf. the view
   end
@@ -19,6 +35,8 @@ class Service::CypherController < ServicesController
   def query
     cypher_command(params, false)
   end
+
+  private
 
   def cypher_command(params, allow_effectful)
     format = params.delete(:format) || "cypher"
@@ -66,7 +84,7 @@ class Service::CypherController < ServicesController
   def render_results(results, format = "cypher")
     case format
     when "cypher" then
-      render json: results
+      render json: clean_results(results)
     when "csv" then
       self.content_type = 'text/csv'
       # Streaming output
@@ -107,6 +125,19 @@ class Service::CypherController < ServicesController
                      RETURN t.resource_pk"))
   end
 
+  def clean_results(results)
+    results["data"]&.each do |col_data|
+      col_data.collect! do |col_datum|
+        if col_datum.is_a?(Hash)
+          col_datum.except(*STRIP_RESPONSE_KEYS)
+        else
+          col_datum
+        end
+      end
+    end
+
+    results
+  end
 end            # end class
 
 

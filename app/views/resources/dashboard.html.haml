@@ -1,0 +1,51 @@
+%h1 Publishing Dashboard
+
+
+%h2 Delayed Job Log
+%p Only the last 20 lines are shown.
+.ui.section
+  .ui.list
+    - @delayed_job_log.each do |log|
+      .item= log.sub(/-- : \d\d\d\d-[^\]]+\] /, '').sub(/^[A-Z], /, '')
+
+%h2 Import Logs
+- if @import_logs.size.positive?
+  .ui.section
+    .ui.list
+      - @import_logs.each do |log|
+        .item= "#{log.resource.name} (Created #{log.created_at})"
+- else
+  %p There are no current import logs: they are all complete or failed.
+
+%h2 Git Logs
+.ui.section
+  .ui.list
+    - @git_log.each do |log|
+      .item= log
+
+%h2= "Uptime: #{@uptime}"
+
+%h2 Most CPU-intensive processes:
+.ui.section
+  .ui.list
+    - @top_cpu.each do |log|
+      - parts = log.split(/\s+/, 11)
+      .item= "#{parts[2]}% -> #{parts[-1]} (#{parts[0]}) "
+
+%h2 Delayed Job queue:
+%p= "Currently #{@queue_count} items in the queue."
+- if @queue.any?
+  .ui.section
+    .ui.list
+      - @queue.each do |job|
+        .item
+          = "#{job.queue}/#{job.id}: #{job.handler.split(' ', 3)[1].split(':').last}"
+          - if job.locked_at
+            = "(locked #{job.locked_at})"
+          - if job.locked_by
+            = "(locked by #{job.locked_by})"
+          - if job.failed_at
+            = "(failed #{job.failed_at})"
+
+%h2 Other
+= link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')

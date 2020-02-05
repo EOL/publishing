@@ -2,7 +2,7 @@
   .ui.menu.uk-text-small.js-menus.page-filters
     - if @predicate || @filter_predicates.length > 1
       = render "filter_menu", selection: @predicate, items: @filter_predicates,
-        to_name: lambda { |predicate| predicate[:name] },
+        to_name: lambda { |predicate| i18n_term_name(predicate) },
         to_path: lambda { |predicate| page_data_path(page_id: @page.id, predicate: predicate&.[](:uri), resource_id: @resource&.id) },
         no_selection_label: t("filters.filter_by_attribute"),
         show_all_item: nil
@@ -17,7 +17,7 @@
     - if @show_wordcloud
       = render "shared/wordcloud", words: @wordcloud_words, class_name: "trait-wordcloud"
     - if @show_trophic_web
-      = render "trophic_web", data: @trophic_web_data
+      = render "trophic_web", data: @trophic_web_data, translations: @trophic_web_translations
     %ul.traits
       - @predicates.each do |predicate|
         - pred_data = @grouped_data[predicate[:uri]]
@@ -27,5 +27,5 @@
           -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde
         - if pred_data_slice.length < pred_data.length
           %li.more-traits
-            = link_to(t(".n_hidden_show_all", count: pred_data.length - pred_data_slice.length, pred_name: predicate[:name]), page_data_path(page_id: @page.id, predicate: predicate[:uri]))
+            = link_to(t(".n_hidden_show_all", count: pred_data.length - pred_data_slice.length, pred_name: i18n_term_name(predicate)), page_data_path(page_id: @page.id, predicate: predicate[:uri]))
 

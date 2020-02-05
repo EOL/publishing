@@ -1,17 +1,18 @@
-FROM ruby:2.4.4
+FROM ruby:2.6.5
 LABEL maintainer="Jeremy Rice <jrice@eol.org>"
 
-LABEL last_full_rebuild="2018-08-21"
+LABEL last_full_rebuild="2020-01-09"
 
 RUN apt-get update -q && \
     apt-get install -qq -y build-essential libpq-dev curl wget openssh-server openssh-client \
-    apache2-utils nodejs procps supervisor vim nginx logrotate ssmtp && \
+    apache2-utils nodejs procps supervisor vim nginx logrotate msmtp && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    mkdir /etc/ssmtp
 
 WORKDIR /app
 
-LABEL last_source_update="2018-08-17-02"
+LABEL last_source_update="2020-01-09"
 
 COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
