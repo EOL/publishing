@@ -1027,9 +1027,13 @@ en:
   data_definition: "definition of \"%{data}\""
   traits:
     data_viz:
+      n_other_records:
+        one: "one other record"
+        other: "%{count} other records"
+      pie_prompt: "mouse over a segment or key to highlight"
       see_n_obj_records: 
-        one: "see one record with \"%{obj_name}\""
-        other: "see %{count} records with \"%{obj_name}\""
+        one: "click to see one record with \"%{obj_name}\""
+        other: "click to see %{count} records with \"%{obj_name}\""
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"
