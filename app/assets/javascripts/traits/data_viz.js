@@ -1,9 +1,9 @@
 (function() {
   function buildPieChart() {
-    var width = 550
-      , height = width
-      , margin = 100 
-      , radius = Math.min(width, height) / 2 - margin
+    var width = 800
+      , height = 300
+      , margin = 20
+      , radius = 120 
       , rawData = $('.js-object-pie-chart').data('results')
       , pie = d3.pie()
           .value(d => d.count)
@@ -15,30 +15,57 @@
       , arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius)
       , stemInnerRadius = radius * 1.1
       , stemOuterRadius = radius * 1.3
-      , hoverIndex = null
       ;
 
     var svg = d3.select('.js-object-pie-chart')
           .append('svg')
             .attr('width', width)
             .attr('height', height)
-          .append('g')
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-      , gSlice = svg.append('g')
+      , gPie = svg.append('g')
+            .attr("transform", "translate(" + width / 1.5 + "," + height / 2 + ")")
+      , gSlice = gPie.append('g')
           .attr('class', 'slices')
-      , gLabel = svg.append('g')
+      , gLabel = gPie.append('g')
           .attr("font-family", "sans-serif")
           .attr("font-size", 12)
           .attr("text-anchor", "middle")
           .attr('class', 'labels')
-      , gStem = svg.append('g')
+      , gStem = gPie.append('g')
           .attr('class', 'stems')
+      , gKey = svg.append('g')
       ;
 
-    function buildSlices(data) {
-      var enterSel = gSlice.selectAll('path')
+    function buildKey(data) {
+      var lineHeight = 25
+        , rectSize = 10
+        , rectMargin = 5
+        ;
+
+      gKey.selectAll('rect')
         .data(data)
         .enter()
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', d => d.index * lineHeight)
+        .attr('width', rectSize)
+        .attr('height', rectSize)
+        .attr('fill', sliceFill);
+
+      
+      gKey.selectAll('text')
+        .data(data)
+        .enter()
+        .append('text')
+        .attr('x', rectSize + rectMargin)
+        .attr('y', d => d.index * lineHeight + rectSize - 1)
+        .text(d => d.data[d.data.label_key]);
+    }
+
+    function buildSlices(data) {
+      var selection = gSlice.selectAll('path')
+        .data(data, d => d.index)
+
+        selection.enter()
           .append('path')
             .attr('d', d3.arc()
               .innerRadius(0)
@@ -47,7 +74,7 @@
             .attr('fill', sliceFill) 
             .attr("stroke", "black")
             .style("stroke-width", "1px")
-            .style("opacity", 0.7)
+            //.style("opacity", 0.7)
             .style('cursor', (d) =>  {
               console.log(d);
               if (d.data.search_path) {
@@ -63,6 +90,9 @@
                 window.location = d.data.search_path
               }
             });
+
+        selection.exit().remove();
+
     }
 
     function buildLabels(data) {
@@ -123,20 +153,39 @@
       gSlice
         .selectAll('path')
         .filter((slice) => { return slice.index !== d.index })
-        .attr('fill', disabledSliceColor);
+        .style('opacity', .2)
+
+      gKey
+        .selectAll('rect')
+        .filter((rect) => rect.index !== d.index)
+        .style('opacity', .2)
+
+      gKey
+        .selectAll('text')
+        .filter((text) => text.index == d.index)
+        .style('text-decoration', 'underline')
+      //buildSlices(highlightData);
 
 
-      buildLabels(highlightData)
-      buildStems(highlightData);
+      //buildLabels(highlightData)
+      //buildStems(highlightData);
     }
 
     function reset() {
       gSlice
         .selectAll('path')
-        .attr('fill', sliceFill);
+        .style('opacity', 1);
 
-      buildLabels(dataReady);
-      buildStems(dataReady);
+      gKey  
+        .selectAll('rect')
+        .style('opacity', 1);
+
+      gKey
+        .selectAll('text')
+        .style('text-decoration', 'none')
+
+      //buildLabels(dataReady);
+      //buildStems(dataReady);
     }
 
     function sliceFill(d) {
@@ -144,8 +193,10 @@
     }
 
     buildSlices(dataReady);
-    buildStems(dataReady);
-    buildLabels(dataReady);
+    buildKey(dataReady);
+
+    //buildStems(dataReady);
+    //buildLabels(dataReady);
   }
 
   // from https://bl.ocks.org/mbostock/7555321
