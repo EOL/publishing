@@ -39,23 +39,25 @@
       var lineHeight = 25
         , rectSize = 10
         , rectMargin = 5
+        , group
         ;
 
-      gKey.selectAll('rect')
-        .data(data)
+      group = gKey.selectAll('g')
+        .data(data, d => d.index)
         .enter()
-        .append('rect')
-        .attr('x', 0)
-        .attr('y', d => d.index * lineHeight)
-        .attr('width', rectSize)
-        .attr('height', rectSize)
-        .attr('fill', sliceFill);
+        .append('g')
+          .style('cursor', 'pointer')
+          .on('mouseenter', highlightSlice)
+          .on('mouseleave', reset);
 
-      
-      gKey.selectAll('text')
-        .data(data)
-        .enter()
-        .append('text')
+      group.append('rect')
+            .attr('x', 0)
+            .attr('y', (d) => { console.log(d); return d.index * lineHeight })
+            .attr('width', rectSize)
+            .attr('height', rectSize)
+            .attr('fill', sliceFill);
+
+      group.append('text')
         .attr('x', rectSize + rectMargin)
         .attr('y', d => d.index * lineHeight + rectSize - 1)
         .text(d => d.data[d.data.label_key]);
@@ -76,7 +78,6 @@
             .style("stroke-width", "1px")
             //.style("opacity", 0.7)
             .style('cursor', (d) =>  {
-              console.log(d);
               if (d.data.search_path) {
                 return 'pointer'
               } else {
@@ -140,10 +141,6 @@
     }
 
     function highlightSlice(d) {
-      if (!d.data.search_path) {
-        return;
-      }
-
       var highlightDatum = JSON.parse(JSON.stringify(d))
         , highlightData = [highlightDatum]
         ;
