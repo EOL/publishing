@@ -36,7 +36,7 @@
       ;
 
     function buildSlices(data) {
-      gSlice.selectAll('path')
+      var enterSel = gSlice.selectAll('path')
         .data(data)
         .enter()
           .append('path')
@@ -48,11 +48,20 @@
             .attr("stroke", "black")
             .style("stroke-width", "1px")
             .style("opacity", 0.7)
-            .style('cursor', 'pointer')
+            .style('cursor', (d) =>  {
+              console.log(d);
+              if (d.data.search_path) {
+                return 'pointer'
+              } else {
+                return 'default'
+              }
+            })
             .on('mouseenter', highlightSlice)
             .on('mouseleave', reset)
             .on('click', (d) => {
-              window.location = d.data.search_path
+              if (d.data.search_path) {
+                window.location = d.data.search_path
+              }
             });
     }
 
@@ -61,12 +70,14 @@
         .selectAll('text')
         .data(data, d => d.index);
 
+
       selection.enter()
         .append('text')
-        .attr('transform', d => `translate(${arcLabel.centroid(d)})`)
-        .text(d => d.data[d.data.label_key]);
+        .attr('transform', (d) => `translate(${arcLabel.centroid(d)})`)
+        .text(d => d.data[d.data.label_key])
+        .call(wrap, 50)
 
-      selection.text(d => d.data[d.data.label_key]);
+      selection.text(d => d.data[d.data.label_key]).call(wrap, 50)
       selection.exit().remove();
     }
 
@@ -99,6 +110,10 @@
     }
 
     function highlightSlice(d) {
+      if (!d.data.search_path) {
+        return;
+      }
+
       var highlightDatum = JSON.parse(JSON.stringify(d))
         , highlightData = [highlightDatum]
         ;
@@ -131,6 +146,31 @@
     buildSlices(dataReady);
     buildStems(dataReady);
     buildLabels(dataReady);
+  }
+
+  // from https://bl.ocks.org/mbostock/7555321
+  function wrap(text, width) {
+    text.each(function() {
+      var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          tspan = text.text(null).append("tspan").attr("x", 0).attr("y", 0);
+
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+
+        if (tspan.node().getComputedTextLength() > width && line.length > 1) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", 0).attr("y", 0).attr("dy", ++lineNumber * lineHeight + "em").text(word);
+        }
+      }
+    });
   }
 
   $(function() {
