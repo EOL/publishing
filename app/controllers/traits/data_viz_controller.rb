@@ -40,8 +40,10 @@ module Traits
       end
 
       @data << PieResult.other(other_count)
-      render_opts = request.xhr? ? { layout: false } : nil
-      render render_opts
+      status = @data.length > 1 ? :ok : :no_content
+      options = { status: status }
+      options[:layout] = false if request.xhr?
+      render options
     end
 
     private
