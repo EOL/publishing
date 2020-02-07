@@ -17,13 +17,7 @@ module TraitDataVizHelper
 
   private
   def result_label(query, datum)
-    if datum.other?
-      t("traits.data_viz.other")
-    elsif query.record?
-      i18n_term_name(datum.obj)
-    else
-      datum.page.name
-    end
+    datum.other? ? t("traits.data_viz.other") : i18n_term_name(datum.obj)
   end
 
   def prompt_text(query, datum, name)
@@ -32,7 +26,7 @@ module TraitDataVizHelper
     elsif query.record?
       t("traits.data_viz.see_n_obj_records", count: datum.count, obj_name: name)
     else
-      t("traits.data_viz.see_n_records_in_clade", count: datum.count, page_name: name)
+      t("traits.data_viz.see_n_taxa_with", count: datum.count, obj_name: name)
     end
   end
 end

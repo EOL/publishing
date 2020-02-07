@@ -6,22 +6,14 @@ class TraitBank
       def term_query_object_counts(query)
         check_tq_for_object_counts(query)
         filter = query.filters.first
+        count = query.taxa? ? "distinct page" : "*"
 
-        qs = "MATCH #{TraitBank.page_match(query, "", "")}-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
+        qs = "MATCH #{TraitBank.page_match(query, "page", "")}-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
           "(trait)-[:object_term]->(obj:Term)\n"\
-          "WITH obj, count(*) AS count\n"\
+          "WITH obj, count(#{count}) AS count\n"\
           "RETURN obj, count"
         results = TraitBank.query(qs)
         TraitBank.results_to_hashes(results, "obj")
-      end
-
-      def term_query_page_counts(query)
-        filter = query.filters.first
-        qs = "MATCH #{TraitBank.page_match(query, "page", "")}-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'})\n"\
-          "WITH page, count(*) AS count\n"\
-          "RETURN page, count"
-        results = TraitBank.query(qs)
-        TraitBank.results_to_hashes(results, "page")
       end
 
       def check_query_valid_for_object_counts(query)
