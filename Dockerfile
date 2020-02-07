@@ -31,7 +31,9 @@ RUN echo "mailhub=smtp-relay.gmail.com:25" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 
-RUN bundle install --jobs 10 --retry 5 --without test development staging
+RUN gem install bundler:2.1.2
+RUN bundle config set without 'test development staging'
+RUN bundle install --jobs 10 --retry 5
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
