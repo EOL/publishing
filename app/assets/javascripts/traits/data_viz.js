@@ -1,9 +1,12 @@
 window.TraitDataViz = (function(exports) {
   function buildPieChart() {
-    var width = 650
-      , height = 300
+    var width = 800 // defaults, these are adjusted later
+      , height = 350 // ""
       , margin = 20
-      , radius = 120 
+      , radius = 130 
+      , promptPadTop = 50
+      , promptPadBot = 10
+      , piePad = 30
       , $chart = $('.js-object-pie-chart')
       , rawData = $chart.data('results')
       , promptText = $chart.data('promptText')
@@ -13,6 +16,7 @@ window.TraitDataViz = (function(exports) {
       , colorScheme = d3.scaleSequential(d3.interpolateWarm)
           .domain([0, dataReady.length - 1])
       , fontSize = 12
+      , prompt
       ;
 
     console.log(rawData);
@@ -26,17 +30,20 @@ window.TraitDataViz = (function(exports) {
             .style('display', 'block')
             .style('margin', '0 auto')
       , gPie = svg.append('g')
-            .attr("transform", "translate(" + width / 2 + "," + (radius + 5) + ")")
       , gSlice = gPie.append('g')
           .attr('class', 'slices')
       , gKey = svg.append('g')
       ;
 
+    setPieTranslate();
+
     function buildKey(data) {
       var lineHeight = 16 
         , rectSize = 10
         , rectMargin = 5
+        // unused, for now. Swap in if you want alphabetical key.
         , sortedData = data.sort((a, b) => {
+            /*
             if (a.data.is_other) {
               return 1;
             } else if (b.data.is_other) {
@@ -44,6 +51,8 @@ window.TraitDataViz = (function(exports) {
             } else {
               return a.data.label.localeCompare(b.data.label);
             }
+            */
+            return b.index - a.index
           })
         , group
         ;
@@ -125,8 +134,7 @@ window.TraitDataViz = (function(exports) {
         .filter((text) => text.index == d.index)
         .style('text-decoration', 'underline')
 
-      gPie.select('.prompt')
-        .text(d.data.prompt_text);
+      prompt.text(d.data.prompt_text);
     }
 
     function reset() {
@@ -142,22 +150,48 @@ window.TraitDataViz = (function(exports) {
         .selectAll('text')
         .style('text-decoration', 'none')
 
-      gPie.select('.prompt')
-        .text(promptText);
+      prompt.text(promptText);
     }
 
     function sliceFill(d) {
       return colorScheme(d.index);
     }
 
+    function adjustLayout() {
+      var pieRect = gPie.node().getBoundingClientRect()
+        , keyRect = gKey.node().getBoundingClientRect()
+        ;
+
+      width = keyRect.width + piePad + pieRect.width
+      height = Math.max(pieRect.height, keyRect.height) + promptPadTop + promptPadBot; 
+
+      svg
+        .attr('width', width)
+        .style('width', width);
+
+      svg
+        .attr('height', height)
+        .style('height', height);
+        
+      setPieTranslate();
+      prompt
+        .attr('x', width / 2)
+        .attr('y', height - promptPadBot)
+    }
+
+    function setPieTranslate() {
+      gPie.attr("transform", "translate(" + (width - radius - 1) + "," + (radius + 1) + ")");
+    }
+
     function buildPrompt(text) {
       var promptMargin = 35;
 
-      gPie
+      prompt = svg
         .append('text')
         .attr('class', 'prompt')
         .attr('id', 'prompt')
-        .attr('y', radius + promptMargin)
+        .attr('x', width / 2)
+        .attr('y', height - 20)
         .attr('text-anchor', 'middle')
         .style('font-size', fontSize)
         .text(text);
@@ -166,6 +200,7 @@ window.TraitDataViz = (function(exports) {
     buildSlices(dataReady);
     buildKey(dataReady);
     buildPrompt(promptText);
+    adjustLayout();
   }
 
   exports.buildPieChart = buildPieChart;
