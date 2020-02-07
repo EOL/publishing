@@ -636,6 +636,12 @@ class TraitBank
       q
     end
 
+    def page_match(term_query, page_var, anc_var)
+      match = "(#{page_var}:Page)"
+      match += "-[:parent*0..]->(#{anc_var}:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      match
+    end
+
     def term_page_search(term_query, options)
       matches = []
       wheres = []

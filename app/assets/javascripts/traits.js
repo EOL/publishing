@@ -1,4 +1,5 @@
 //= require shared/data_row
+//= require traits/data_viz 
 
 (function() {
 
@@ -230,6 +231,37 @@
     $parent.find('.js-term-uri').val($select.val());
   }
 
+  function loadPieChart() {
+    var minWidth = 750
+      , $contain = $('.js-pie-contain')
+      , loaded = false
+      ;
+      
+    if ($contain.length) {
+      pieChartHelper();
+      $(window).resize(pieChartHelper);
+    }
+
+    // Media queries don't work here because the pie chart d3 code needs it to be visible when loaded
+    function pieChartHelper() {
+      var width = $(window).width();
+
+      if (!loaded && width >= minWidth) {
+        loaded = true;
+        $.get($contain.data('loadPath'), function(result) {
+          $contain.append(result);
+          TraitDataViz.buildPieChart();
+        });
+      } else if (loaded) {
+        if (width < minWidth) {
+          $contain.hide();
+        } else {
+          $contain.show() 
+        }
+      }
+    }
+  }
+
   $(function() {
     $('.js-edit-filters').click(function() {
       $('.js-filter-form-contain').removeClass('is-hidden');
@@ -245,5 +277,6 @@
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
     });
+    loadPieChart();
   });
 })();

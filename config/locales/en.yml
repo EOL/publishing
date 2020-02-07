@@ -1026,6 +1026,21 @@ en:
       select_page_above: "Select a page above to begin."
   data_definition: "definition of \"%{data}\""
   traits:
+    data_viz:
+      n_other_records:
+        one: "one other record"
+        other: "%{count} other records"
+      n_other_taxa:
+        one: "one other taxon"
+        other: "%{count} other taxa"
+      other: "other"
+      pie_prompt: "mouse over a segment or key to highlight"
+      see_n_obj_records: 
+        one: "click to see one record with \"%{obj_name}\""
+        other: "click to see %{count} records with \"%{obj_name}\""
+      see_n_taxa_with: 
+        one: "click to see one taxon with \"%{obj_name}\""
+        other: "click to see %{count} taxa with \"%{obj_name}\""
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"
