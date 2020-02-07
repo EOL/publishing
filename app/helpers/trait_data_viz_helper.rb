@@ -10,7 +10,8 @@ module TraitDataVizHelper
         obj_uri: datum.other? ? "other" : datum.obj[:uri],
         search_path: datum.other? ? nil : term_search_results_path(term_query: datum.query.to_params),
         count: datum.count,
-        label_key: 'obj_name'
+        label_key: 'obj_name',
+        is_other: datum.other?
       }
     end
   end

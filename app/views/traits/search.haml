@@ -29,7 +29,7 @@
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
     - if @data_viz_type.present? && @data_viz_type == :pie
-      .js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
+      .pie-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
       - viz_url = traits_data_viz_object_pie_chart_path(term_query: @query.to_params)
       
     - if @query.record?

@@ -1,6 +1,6 @@
 window.TraitDataViz = (function(exports) {
   function buildPieChart() {
-    var width = 560
+    var width = 650
       , height = 300
       , margin = 20
       , radius = 120 
@@ -12,6 +12,7 @@ window.TraitDataViz = (function(exports) {
       , dataReady = pie(rawData)
       , colorScheme = d3.scaleSequential(d3.interpolateWarm)
           .domain([0, dataReady.length - 1])
+      , fontSize = 12
       ;
 
     var svg = d3.select('.js-object-pie-chart')
@@ -23,38 +24,51 @@ window.TraitDataViz = (function(exports) {
             .style('display', 'block')
             .style('margin', '0 auto')
       , gPie = svg.append('g')
-            .attr("transform", "translate(" + 350 + "," + (radius + 10) + ")")
+            .attr("transform", "translate(" + width / 2 + "," + (radius + 5) + ")")
       , gSlice = gPie.append('g')
           .attr('class', 'slices')
       , gKey = svg.append('g')
       ;
 
     function buildKey(data) {
-      var lineHeight = 25
+      var lineHeight = 16 
         , rectSize = 10
         , rectMargin = 5
+        , sortedData = data.sort((a, b) => {
+            if (a.data.is_other) {
+              return 1;
+            } else if (b.data.is_other) {
+              return -1;
+            } else {
+              return a.data.obj_name.localeCompare(b.data.obj_name);
+            }
+          })
         , group
         ;
 
       group = gKey.selectAll('g')
-        .data(data, d => d.index)
-        .enter()
-        .append('g')
-          .style('cursor', 'pointer')
-          .on('mouseenter', highlightSlice)
-          .on('mouseleave', reset);
+        .data(sortedData, d => d.index);
 
-      group.append('rect')
-            .attr('x', 0)
-            .attr('y', d => d.index * lineHeight)
+      groupEnter = group.enter()
+        .append('g')
+        .attr('x', 0)
+        .attr('y', (d, i) => i * lineHeight)
+        .attr('transform', (d, i) => 'translate(0,' + i * lineHeight + ')')
+        .style('cursor', 'pointer')
+        .on('mouseenter', highlightSlice)
+        .on('mouseleave', reset);
+
+      groupEnter.append('rect')
             .attr('width', rectSize)
             .attr('height', rectSize)
             .attr('fill', sliceFill);
 
-      group.append('text')
+      groupEnter.append('text')
         .attr('x', rectSize + rectMargin)
-        .attr('y', d => d.index * lineHeight + rectSize - 1)
+        .attr('y', rectSize - 1)
+        .style('font-size', fontSize)
         .text(d => d.data[d.data.label_key]);
+
     }
 
     function buildSlices(data) {
@@ -137,12 +151,15 @@ window.TraitDataViz = (function(exports) {
     }
 
     function buildPrompt(text) {
+      var promptMargin = 35;
+
       gPie
         .append('text')
         .attr('class', 'prompt')
         .attr('id', 'prompt')
-        .attr('y', radius + 20)
+        .attr('y', radius + promptMargin)
         .attr('text-anchor', 'middle')
+        .style('font-size', fontSize)
         .text(text);
     }
 
