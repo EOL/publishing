@@ -232,13 +232,33 @@
   }
 
   function loadPieChart() {
-    var $contain = $('.js-pie-contain');
+    var minWidth = 750
+      , $contain = $('.js-pie-contain')
+      , loaded = false
+      ;
+      
+    if ($contain.length) {
+      pieChartHelper();
+      $(window).resize(pieChartHelper);
+    }
 
-    if ($contain) {
-      $.get($contain.data('loadPath'), function(result) {
-        $contain.append(result);
-        TraitDataViz.buildPieChart();
-      });
+    // Media queries don't work here because the pie chart d3 code needs it to be visible when loaded
+    function pieChartHelper() {
+      var width = $(window).width();
+
+      if (!loaded && width >= minWidth) {
+        loaded = true;
+        $.get($contain.data('loadPath'), function(result) {
+          $contain.append(result);
+          TraitDataViz.buildPieChart();
+        });
+      } else if (loaded) {
+        if (width < minWidth) {
+          $contain.hide();
+        } else {
+          $contain.show() 
+        }
+      }
     }
   }
 

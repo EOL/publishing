@@ -21,8 +21,12 @@ module TraitDataVizHelper
   end
 
   def prompt_text(query, datum, name)
-    if datum.other?
-      t("traits.data_viz.n_other_records", count: datum.count)
+    if datum.other? 
+      if query.record?
+        t("traits.data_viz.n_other_records", count: datum.count)
+      else
+        t("traits.data_viz.n_other_taxa", count: datum.count)
+      end
     elsif query.record?
       t("traits.data_viz.see_n_obj_records", count: datum.count, obj_name: name)
     else
