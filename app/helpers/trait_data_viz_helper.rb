@@ -1,18 +1,38 @@
 module TraitDataVizHelper
-  def object_pie_chart_data(data)
-    data.collect do |datum|
-      obj_name = datum.other? ? "other" : i18n_term_name(datum.obj)
-      prompt_key = datum.other? ? "n_other_records" : "see_n_obj_records"
+  def object_pie_chart_data(query, data)
+    result = data.collect do |datum|
+      name = result_label(query, datum)
 
       {
-        obj_name: obj_name,
-        prompt_text: t("traits.data_viz.#{prompt_key}", obj_name: obj_name, count: datum.count),
-        obj_uri: datum.other? ? "other" : datum.obj[:uri],
+        label: name,
+        prompt_text: prompt_text(query, datum, name),
         search_path: datum.other? ? nil : term_search_results_path(term_query: datum.query.to_params),
         count: datum.count,
-        label_key: 'obj_name',
         is_other: datum.other?
       }
+    end
+    puts result
+    result
+  end
+
+  private
+  def result_label(query, datum)
+    if datum.other?
+      t("traits.data_viz.other")
+    elsif query.record?
+      i18n_term_name(datum.obj)
+    else
+      datum.page.name
+    end
+  end
+
+  def prompt_text(query, datum, name)
+    if datum.other?
+      t("traits.data_viz.n_other_records", count: datum.count)
+    elsif query.record?
+      t("traits.data_viz.see_n_obj_records", count: datum.count, obj_name: name)
+    else
+      t("traits.data_viz.see_n_records_in_clade", count: datum.count, page_name: name)
     end
   end
 end

@@ -1030,6 +1030,7 @@ en:
       n_other_records:
         one: "one other record"
         other: "%{count} other records"
+      other: "other"
       pie_prompt: "mouse over a segment or key to highlight"
       see_n_obj_records: 
         one: "click to see one record with \"%{obj_name}\""

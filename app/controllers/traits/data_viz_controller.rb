@@ -1,9 +1,9 @@
 module Traits
   class DataVizController < ApplicationController
-    PieResult = Struct.new(:obj, :query, :count, :is_other) do
+    PieResult = Struct.new(:obj, :page, :query, :count, :is_other) do
       class << self
         def other(count)
-          self.new(nil, nil, count, true)
+          self.new(nil, nil, nil, count, true)
         end
       end
 
@@ -13,26 +13,27 @@ module Traits
     end
 
     def object_pie_chart
-      query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.term_query_object_counts(query)
-      total = TraitBank.term_search(query, count: true)
+      @query = TermQuery.new(term_query_params)
+      result = @query.record? ? TraitBank::Stats.term_query_object_counts(@query) : TraitBank::Stats.term_query_page_counts(@query)
+      total = TraitBank.term_search(@query, count: true)
       min_threshold = 0.05 * total
       other_count = 0
       @data = []
+
+      pages_by_id = {}
+      if @query.taxa?
+        pages = Page.with_name.where(id: result.collect { |r| r[:page][:page_id] })
+        pages_by_id = pages.collect { |p| [p.id, p] }.to_h
+      end  
 
       result.each do |row|
         if result.length > 20 && row[:count] < min_threshold
           other_count += row[:count]
         else
           @data << PieResult.new(
-            row[:obj],
-            TermQuery.new({
-              result_type: :record,
-              filters_attributes: [{ 
-                pred_uri: query.filters.first.pred_uri,
-                obj_uri: row[:obj][:uri]
-              }]
-            }),
+            @query.record? ? row[:obj] : nil,
+            @query.taxa? ? pages_by_id[row[:page][:page_id]] : nil,
+            build_tq_for_result(row, @query),
             row[:count],
             false
           )
@@ -47,6 +48,19 @@ module Traits
     end
 
     private
+    def build_tq_for_result(row, query)
+      tq_attributes = { result_type: query.result_type }
+      tq_attributes[:clade_id] = row[:page_id] if query.taxa?
+
+      filter_attributes = {
+        pred_uri: query.filters.first.pred_uri
+      }
+      filter_attributes[:obj_uri] = row[:obj][:uri] if query.record?
+
+      tq_attributes[:filters_attributes] = [filter_attributes]
+      TermQuery.new(tq_attributes)
+    end
+
     def term_query_params
       # TODO: copied from TraitsController -- dry up
       params.require(:term_query).permit([

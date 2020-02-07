@@ -15,6 +15,15 @@ class TraitBank
         TraitBank.results_to_hashes(results, "obj")
       end
 
+      def term_query_page_counts(query)
+        filter = query.filters.first
+        qs = "MATCH #{TraitBank.page_match(query, "page", "")}-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'})\n"\
+          "WITH page, count(*) AS count\n"\
+          "RETURN page, count"
+        results = TraitBank.query(qs)
+        TraitBank.results_to_hashes(results, "page")
+      end
+
       def check_query_valid_for_object_counts(query)
         if query.predicate_filters.length != 1
           return CheckResult.new(false, "query must have a single predicate filter")

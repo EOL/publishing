@@ -15,6 +15,8 @@ window.TraitDataViz = (function(exports) {
       , fontSize = 12
       ;
 
+    console.log(rawData);
+
     var svg = d3.select('.js-object-pie-chart')
           .append('svg')
             .attr('width', width)
@@ -40,7 +42,7 @@ window.TraitDataViz = (function(exports) {
             } else if (b.data.is_other) {
               return -1;
             } else {
-              return a.data.obj_name.localeCompare(b.data.obj_name);
+              return a.data.label.localeCompare(b.data.label);
             }
           })
         , group
@@ -68,7 +70,7 @@ window.TraitDataViz = (function(exports) {
         .attr('x', rectSize + rectMargin)
         .attr('y', rectSize - 1)
         .style('font-size', fontSize)
-        .text(d => d.data[d.data.label_key]);
+        .text(d => d.data.label) 
 
     }
 
@@ -107,8 +109,6 @@ window.TraitDataViz = (function(exports) {
       var highlightDatum = JSON.parse(JSON.stringify(d))
         , highlightData = [highlightDatum]
         ;
-
-      highlightDatum.data.label_key = 'prompt_text';
 
       gSlice
         .selectAll('path')
