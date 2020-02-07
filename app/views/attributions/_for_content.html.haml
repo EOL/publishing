@@ -67,5 +67,6 @@
           = link_to(content.resource.name, content.resource.url || resource_path(content.resource))
         - else
           = t(:resource_missing)
-      %dt= "ID"
-      %dd.uk-text-meta.uk-overflow-hidden.uk-margin-remove-top= content.resource_pk
+      - if !local_assigns.include?(:hide_id) || !hide_id
+        %dt= "ID"
+        %dd.uk-text-meta.uk-overflow-hidden.uk-margin-remove-top= content.resource_pk

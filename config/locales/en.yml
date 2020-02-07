@@ -1030,6 +1030,8 @@ en:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"
       edit_filters: "edit filters"
+      gbif_search: "GBIF search"
+      gbif_search_hover: "find occurrence records in GBIF for the taxa in your search results (limit 60)"
       result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records with"
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
       new_search: "new search"

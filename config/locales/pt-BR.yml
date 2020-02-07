@@ -703,6 +703,9 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: início da fertilidade
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: comprimento da cauda
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Largura do corpo
+  term_query_filter:
+    validations:
+      blank_error: deve especificar um atributo ou valor
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Comentário:</strong> %{comment}
@@ -718,9 +721,15 @@ pt-BR:
   data_definition: definição de «%{data}»
   traits:
     search:
+      edit_filters: editar filtros
+      gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
+        seus resultados de pesquisa (limite 60)
       new_search: nova pesquisa
+      show_query: mostrar consulta
     search_form:
       attribute: atributo
+      resource: recurso
+      value: valor
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}
@@ -746,6 +755,7 @@ pt-BR:
       collections: Coleções
       downloads: Downloads
       links: Links
+    is_power_user: Este usuário é sinalizado como um usuário avançado.
     validations:
       age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
       tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade

@@ -46,9 +46,6 @@ tr:
         greeting: 'Merhaba #{recipient}!'
         message: Şifrenizin değiştirildiğini bildirmek için sizinle iletişime geçiyoruz.
         subject: Şifre Değişti
-    omniauth_callbacks:
-      failure: '%{reason} olduğundan kimlik doğrulamanız %{kind} alınamadı.'
-      success: '%{kind} hesabından kimlik doğrulaması başarıyla yapıldı.'
     passwords:
       no_token: Şifre sıfırlama e-postasından gelmeden bu sayfaya erişemezsiniz. Bir
         şifre sıfırlama e-postasından geldiyseniz, lütfen sağlanan URL'nin tamamını

@@ -5,6 +5,7 @@
 # Author: Fitoschido
 # Author: Gastonsaenz
 # Author: Ihojose
+# Author: Joanmp17
 # Author: Madamebiblio
 # Author: Silverie04
 ---
@@ -269,8 +270,10 @@ es:
     nv: Navajo
     pl: Polaco
     pt: Portugués
+    Q27776: Adigué
     Q29507: Asturiano
     Q33357: Tártaro de Crimea
+    Q34159: Tok pisin
     Q35939: Criollo de Jamaica
     Q56426: Árabe marroquí
     Q750553: Portugués de Brasil
@@ -533,6 +536,14 @@ es:
     array:
       two_words_connector: "y"
       last_word_connector: "y"
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro
@@ -540,6 +551,21 @@ es:
     show_all_records: mostrar todos los registros
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definición de «%{data}»
+  traits:
+    search:
+      download_tsv: descargar tsv
+      edit_filters: editar filtros
+      new_search: búsqueda nueva
+      show_query: mostrar consulta
+    search_form:
+      attribute: atributo
+      resource: recurso
+      search: Buscar
+      sex: sexo
+      show_additional_fields: mostrar campos adicionales
+      statistical_method: método estadístico
+      this_may_take_a_minute: Esto puede tomar un minuto
+      value: valor
   user:
     created_at: creación
     download_queue: Cola de descarga de datos

@@ -406,6 +406,9 @@ ko:
     index:
       select_page_above: 시작하려면 위의 문서를 선택하십시오.
   data_definition: '"%{data}"의 정의'
+  traits:
+    search:
+      gbif_search: GBIF 검색
   trust:
     unreviewed: 검토되지 않음
   user:

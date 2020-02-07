@@ -96,4 +96,8 @@ qqq:
               two_words_connector: " and "
               last_word_connector: ", and "
         </pre>
+  traits:
+    search_form:
+      search: '{{Identical|Search}}'
+      value: '{{Identical|Value}}'
 ...

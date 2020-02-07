@@ -46,8 +46,6 @@ fi:
         greeting: 'Hei #{recipient}!'
         message: Otimme sinuun yhteyttä ilmoittaaksemme salasanasi vaihtumisesta.
         subject: Salasana vaihdettu
-    omniauth_callbacks:
-      success: Todennettu onnistuneesti %{kind} tunnuksesta.
     passwords:
       no_token: Et pääse tälle sivulle ilman että tulet sille salasanan palautussähköpostista.
         Jos tulet salasanan palautussähköpostista, varmista, että käytit täydellistä

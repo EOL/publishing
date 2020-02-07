@@ -1,2 +1,15 @@
 #!/bin/sh
-nohup rails r "worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1 &
+LOCKFILE=../tmp/pids/worker.pid
+mkdir -p ../tmp/pids
+if [ -e ${LOCKFILE} ] && kill -0 `cat ${LOCKFILE}`; then
+    echo "already running"
+    exit
+fi
+
+# make sure the lockfile is removed when we exit and then claim it
+trap "rm -f ${LOCKFILE}; exit" INT TERM EXIT
+echo $$ > ${LOCKFILE}
+
+nohup rails r "ImportLog.all_clear! ; worker = Delayed::Worker.new(queues: ['harvest']).start ; worker.name_prefix = 'harvest ' ; worker.start " > log/harvest.log 2>&1 &
+
+rm -f ${LOCKFILE}
