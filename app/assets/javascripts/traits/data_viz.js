@@ -54,9 +54,10 @@ window.TraitDataViz = (function(exports) {
         .attr('x', 0)
         .attr('y', (d, i) => i * lineHeight)
         .attr('transform', (d, i) => 'translate(0,' + i * lineHeight + ')')
-        .style('cursor', 'pointer')
+        .style('cursor', cursor)
         .on('mouseenter', highlightSlice)
-        .on('mouseleave', reset);
+        .on('mouseleave', reset)
+        .on('click', handleClick)
 
       groupEnter.append('rect')
             .attr('width', rectSize)
@@ -84,23 +85,22 @@ window.TraitDataViz = (function(exports) {
           .attr('fill', sliceFill) 
           .attr("stroke", "black")
           .style("stroke-width", "1px")
-          //.style("opacity", 0.7)
-          .style('cursor', (d) =>  {
-            if (d.data.search_path) {
-              return 'pointer'
-            } else {
-              return 'default'
-            }
-          })
+          .style('cursor', cursor)
           .on('mouseenter', highlightSlice)
           .on('mouseleave', reset)
-          .on('click', (d) => {
-            if (d.data.search_path) {
-              window.location = d.data.search_path
-            }
-          });
+          .on('click', handleClick);
 
       selection.exit().remove();
+    }
+
+    function cursor(d) {
+      return d.data.search_path ? 'pointer' : 'default';
+    }
+
+    function handleClick(d) {
+      if (d.data.search_path) {
+        window.location = d.data.search_path
+      }
     }
 
     function highlightSlice(d) {
