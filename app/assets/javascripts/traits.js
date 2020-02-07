@@ -1,4 +1,5 @@
 //= require shared/data_row
+//= require traits/data_viz 
 
 (function() {
 
@@ -230,6 +231,17 @@
     $parent.find('.js-term-uri').val($select.val());
   }
 
+  function loadPieChart() {
+    var $contain = $('.js-pie-contain');
+
+    if ($contain) {
+      $.get($contain.data('loadPath'), function(result) {
+        $contain.append(result);
+        TraitDataViz.buildPieChart();
+      });
+    }
+  }
+
   $(function() {
     $('.js-edit-filters').click(function() {
       $('.js-filter-form-contain').removeClass('is-hidden');
@@ -245,5 +257,6 @@
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
     });
+    loadPieChart();
   });
 })();

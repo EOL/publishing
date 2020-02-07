@@ -29,8 +29,8 @@
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
     - if @data_viz_type.present? && @data_viz_type == :pie
+      .js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
       - viz_url = traits_data_viz_object_pie_chart_path(term_query: @query.to_params)
-      = link_to viz_url, viz_url
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }

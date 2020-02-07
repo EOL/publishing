@@ -40,6 +40,8 @@ module Traits
       end
 
       @data << PieResult.other(other_count)
+      render_opts = request.xhr? ? { layout: false } : nil
+      render render_opts
     end
 
     private

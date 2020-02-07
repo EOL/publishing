@@ -1,6 +1,6 @@
-(function() {
+window.TraitDataViz = (function(exports) {
   function buildPieChart() {
-    var width = 600
+    var width = 560
       , height = 300
       , margin = 20
       , radius = 120 
@@ -18,6 +18,10 @@
           .append('svg')
             .attr('width', width)
             .attr('height', height)
+            .style('width', width)
+            .style('height', height)
+            .style('display', 'block')
+            .style('margin', '0 auto')
       , gPie = svg.append('g')
             .attr("transform", "translate(" + 350 + "," + (radius + 10) + ")")
       , gSlice = gPie.append('g')
@@ -147,11 +151,14 @@
     buildPrompt(promptText);
   }
 
+  exports.buildPieChart = buildPieChart;
+  return exports;
+})({});
 
-  $(function() {
-    if ($('.js-object-pie-chart').length) {
-      buildPieChart();
-    }
-  })
-})();
+$(function() {
+  if ($('.js-object-pie-chart').length) {
+    TraitDataViz.buildPieChart();
+  }
+})
+
 
