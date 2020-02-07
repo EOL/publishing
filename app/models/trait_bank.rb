@@ -451,7 +451,6 @@ class TraitBank
 
       if filter.object_term?
         match << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-        match << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"
       else
         match << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
           "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
