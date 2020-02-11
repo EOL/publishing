@@ -66,7 +66,7 @@ class Publishing::Fast
           pks = lines.map { |l| l[pk_pos] }
           pks.map! { |k| k.to_i } if pk == 'harv_db_id' # Integer!
           instances = @klass.where(:resource_id => @resource.id, pk => pks).load
-          log_warn("#{instances.size} instances by resource_pk")
+          log_warn("#{instances.size} instances by #{pk}")
           keyed_instances = instances.group_by(&pk)
           log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
           changes = []
