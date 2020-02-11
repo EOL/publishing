@@ -59,18 +59,13 @@ class Publishing::Fast
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
       if grab_file("#{plural}.tsv")
         all_data = CSV.read(@data_file, col_sep: "\t")
-        pk_pos = @klass.column_names.index('harv_db_id') || @klass.column_names.index('resource_pk') || @klass.column_names.index('node_resource_pk')
-        pk_pos -= 1 # For 0-index
+        possible_pks = %w(harv_db_id resource_pk node_resource_pk)
+        pk = possible_pks.find { |pk| @klass.column_names.include?(pk.to_s) }
+        pk_pos = @klass.column_names.index(pk) - 1 # fix the 0-index
         all_data.in_groups_of(2000, false) do |lines|
-          pk = :resource_pk
           pks = lines.map { |l| l[pk_pos] }
-          instances =
-            begin
-              @klass.where(resource_id: @resource.id, resource_pk: pks).load
-            rescue ActiveRecord::StatementInvalid
-              pk = :node_resource_pk
-              @klass.where(resource_id: @resource.id, node_resource_pk: pks)
-            end
+          pks.map! { |k| k.to_i } if pk == 'harv_db_id' # Integer!
+          instances = @klass.where(:resource_id => @resource.id, pk => pks).load
           log_warn("#{instances.size} instances by resource_pk")
           keyed_instances = instances.group_by(&pk)
           log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
