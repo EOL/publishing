@@ -10,7 +10,7 @@ class Publishing::Fast
   # e.g.: nohup rails r "Publishing::Fast.update_attributes_by_resource(Resource.find(724), ScientificName, [:dataset_name])" > dwh_datasets.log 2>&1 &
   def self.update_attributes_by_resource(resource, klass, fields)
     publr = new(resource)
-    publr.update_attribute(klass, fields)
+    publr.update_attributes(klass, fields)
   end
 
   # e.g.: Publishing::Fast.load_local_file(Resource.find(123), NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
