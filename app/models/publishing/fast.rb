@@ -67,14 +67,15 @@ class Publishing::Fast
           pks.map! { |k| k.to_i } if pk == 'harv_db_id' # Integer!
           instances = @klass.where(:resource_id => @resource.id, pk => pks).load
           log_warn("#{instances.size} instances by resource_pk")
-          keyed_instances = instances.group_by(&pk)
+          keyed_instances = instances.group_by(&pk.to_sym)
           log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
           changes = []
           lines.each do |line|
-            pk = line[pk_pos]
+            line_pk = line[pk_pos]
+            line_pk = line_pk.to_i if pk == 'harv_db_id'
             values = {}
             positions.each_with_index { |pos, i| values[fields[i]] = line[pos] }
-            keyed_instances[pk].each do |instance|
+            keyed_instances[line_pk].each do |instance|
               values.each { |field, val| instance[field] = val unless instance[field] == val }
               changes << instance if instance.changed?
             end
