@@ -116,6 +116,7 @@ en:
       download_taxa_csv: "download CSV of taxa"
       delete: "delete"
       edit: "edit"
+      sort: "sort"
     collection_type:
       normal: "normal"
       gallery: "gallery"

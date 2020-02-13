@@ -14,7 +14,7 @@
         = link_to(t("collection.actions.associate"), new_collection_association_path(associated_id: @collection.id), class: "ui basic button uk-margin-small")
         %button#sort_button.ui.labeled.small.icon.basic.button.uk-margin-small-top
           %i.down.arrow.icon
-          = t("term.actions.sort")
+          = t("collection.actions.sort")
         %div{ uk: { dropdown: true } }
           %ul.uk-dropdown-nav.uk-nav
             - params_dup = params_less(:sort, :sort_dir).permit(:id, :collection_id, :sort, :page)
