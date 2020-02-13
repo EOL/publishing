@@ -105,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def age_confirm=(val)
-    @age_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+    @age_confirm = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   def tou_confirm
@@ -113,7 +113,7 @@ class User < ApplicationRecord
   end
 
   def tou_confirm=(val)
-    @tou_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+    @tou_confirm = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   private

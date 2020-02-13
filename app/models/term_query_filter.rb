@@ -165,7 +165,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def show_extra_fields=(val)
-    @show_extra_fields = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+    @show_extra_fields = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   def pred_term_selects
