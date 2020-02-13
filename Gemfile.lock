@@ -191,13 +191,13 @@ GEM
       activemodel-serializers-xml (>= 1.0)
       activesupport (>= 5.0)
       request_store (>= 1.0)
-    elasticsearch (7.4.0)
-      elasticsearch-api (= 7.4.0)
-      elasticsearch-transport (= 7.4.0)
-    elasticsearch-api (7.4.0)
+    elasticsearch (6.8.1)
+      elasticsearch-api (= 6.8.1)
+      elasticsearch-transport (= 6.8.1)
+    elasticsearch-api (6.8.1)
       multi_json
-    elasticsearch-transport (7.4.0)
-      faraday
+    elasticsearch-transport (6.8.1)
+      faraday (>= 0.14, < 1)
       multi_json
     erubi (1.9.0)
     erubis (2.7.0)
@@ -643,6 +643,7 @@ DEPENDENCIES
   devise-i18n-views
   discourse_api
   draper
+  elasticsearch (~> 6)
   factory_girl
   faker
   font-awesome-sass (~> 4.3)

@@ -94,6 +94,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'rubyzip'
 # ElasticSearch via SearchKick:
 gem 'searchkick'
+gem 'elasticsearch', '~> 6'
 # Simplify Forms:
 gem 'simple_form'
 # KEEPING THESE OUT OF ORDER, since they are tightly bound to simple_form
