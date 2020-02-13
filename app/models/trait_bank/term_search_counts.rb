@@ -21,6 +21,10 @@ class TraitBank
         pages
       end
     end
+
+    def to_s
+      "TraitBank::TermSearchCounts( records: #{records}, pages: #{pages} )"
+    end
   end
 end
 
