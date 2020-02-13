@@ -15,7 +15,8 @@ module Traits
     def object_pie_chart
       @query = TermQuery.new(term_query_params)
       result = TraitBank::Stats.term_query_object_counts(@query)
-      total = TraitBank.term_search(@query, count: true)
+      counts = TraitBank.term_search(@query, count: true)
+      total = counts.primary_for_query(@query)
       min_threshold = 0.05 * total
       other_count = 0
       @data = []

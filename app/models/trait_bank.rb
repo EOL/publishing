@@ -335,7 +335,7 @@ class TraitBank
     def term_search(term_query, options={})
       key = term_query.to_cache_key
       if options[:count]
-        key = "trait_bank/term_search/counts/#{key}"
+        key = "trait_bank/term_search/counts/combined/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
           Rails.logger.info("&& TS USING cached count: #{key} = #{count}")
@@ -356,7 +356,7 @@ class TraitBank
     end
 
     def term_search_uncached(term_query, key, options)
-      q = if term_query.record?
+      q = if options[:count] || term_query.record? # term_record_search counts both records and taxa
         term_record_search(term_query, options)
       else
         term_page_search(term_query, options)
@@ -370,10 +370,11 @@ class TraitBank
       Rails.logger.info("&& TS SAVING Cache: #{key}")
       if options[:count]
         raise "&& TS Lost key" if key.blank?
-        count = res["data"] ? res["data"].first.first : 0
-        Rails.cache.write(key, count, expires_in: 1.day)
-        Rails.logger.info("&& TS SAVING Cached count: #{key} = #{count}")
-        count
+
+        counts = TraitBank::TermSearchCounts.new(res)
+        Rails.cache.write(key, counts, expires_in: 1.day)
+        Rails.logger.info("&& TS SAVING Cached counts: #{key} = #{counts}")
+        counts
       else
         Rails.logger.debug("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
         { data: build_trait_array(res, key), raw_query: q, raw_res: res }
@@ -609,7 +610,7 @@ class TraitBank
 
       returns =
         if options[:count]
-          ["count"]
+          %w[record_count page_count]
         else
           %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
         end
@@ -620,7 +621,7 @@ class TraitBank
       end
 
       with_count_clause = options[:count] ?
-                          "WITH count(*) AS count " :
+                          "WITH count(*) AS record_count, count(distinct page) AS page_count " :
                           ""
 
       return_clause = "RETURN #{returns.join(", ")}"
