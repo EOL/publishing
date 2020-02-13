@@ -145,12 +145,7 @@ module ApplicationHelper
   end
 
   def params_less(*keys)
-    params_dup = params.dup
-    # These are NEVER required:
-    params_dup.delete(:controller)
-    params_dup.delete(:action)
-    keys.each { |k| params_dup.delete(k) }
-    params_dup
+    params.except(keys + [:controller, :action])
   end
 
   def basic_button(icon, label, url, options = {})
@@ -217,7 +212,7 @@ module ApplicationHelper
     end
   end
 
-  def sanitize_allow_links(text) 
+  def sanitize_allow_links(text)
     sanitize(text, tags: %w( a ), attributes: %w( href ))
   end
 

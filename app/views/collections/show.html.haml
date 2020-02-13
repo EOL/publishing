@@ -17,9 +17,9 @@
           = t("term.actions.sort")
         %div{ uk: { dropdown: true } }
           %ul.uk-dropdown-nav.uk-nav
-            - params_dup = params_less(:sort, :sort_dir)
+            - params_dup = params_less(:sort, :sort_dir).permit(:id, :collection_id, :sort, :page)
             - Collection.default_sorts.each do |name, num|
-              %li{ class: params[:sort].to_i == num ? "uk-active" : nil }= link_to(t("collection.sort.#{name}"), collection_path(params_dup.merge(sort: num)))
+              %li{ class: params[:sort].to_i == num ? "uk-active" : nil }= link_to(t("collection.sort.#{name}"), collection_path(params_dup.merge!(sort: num)))
 .collected_pages.uk-margin-top
   - if @pages.empty?
     %p= t(:collection_pages_empty)
