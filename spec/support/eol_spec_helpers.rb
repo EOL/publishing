@@ -25,10 +25,10 @@ module EolSpecHelpers
   end
 
   def fake_img_path(base_url, w, h = nil)
-    orig = Rails.configuration.x.image_path['original']
-    ext = Rails.configuration.x.image_path['ext']
-    join = Rails.configuration.x.image_path['join']
-    by = Rails.configuration.x.image_path['by']
+    orig = Rails.configuration.x.image_path[:original]
+    ext = Rails.configuration.x.image_path[:ext]
+    join = Rails.configuration.x.image_path[:join]
+    by = Rails.configuration.x.image_path[:by]
     if w == :orig
       base_url + "#{orig}#{ext}"
     else

@@ -154,8 +154,8 @@ class Medium < ApplicationRecord
   # Image-only methods
   def original_size_url
     check_is_image
-    orig = Rails.configuration.x.image_path['original']
-    ext = Rails.configuration.x.image_path['ext']
+    orig = Rails.configuration.x.image_path[:original]
+    ext = Rails.configuration.x.image_path[:ext]
     base_url + "#{orig}#{ext}"
   end
 
@@ -205,9 +205,9 @@ class Medium < ApplicationRecord
   end
 
   def format_image_size(w, h)
-    join = Rails.configuration.x.image_path['join']
-    by = Rails.configuration.x.image_path['by']
-    ext = Rails.configuration.x.image_path['ext']
+    join = Rails.configuration.x.image_path[:join]
+    by = Rails.configuration.x.image_path[:by]
+    ext = Rails.configuration.x.image_path[:ext]
     "#{join}#{w}#{by}#{h}#{ext}"
   end
 
