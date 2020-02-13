@@ -10,6 +10,8 @@ class TraitsController < ApplicationController
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
+  
+  DataViz = Struct.new(:type, :data)
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
@@ -162,6 +164,7 @@ class TraitsController < ApplicationController
     @resources = TraitBank.resources(data)
     build_associations(data)
     build_gbif_url(@count, pages, @query)
+    data_viz_type(@query)
     render "search"
   end
 
@@ -185,6 +188,12 @@ class TraitsController < ApplicationController
       if gbif_params.any?
         @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
       end
+    end
+  end
+
+  def data_viz_type(query)
+    if TraitBank::Stats.check_query_valid_for_object_counts(query).valid
+      @data_viz_type = :pie
     end
   end
 end

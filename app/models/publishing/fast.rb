@@ -7,10 +7,10 @@ class Publishing::Fast
     publr.by_resource
   end
 
-  # e.g.: nohup rails r "Publishing::Fast.update_attribute_by_resource(Resource.find(589), ScientificName, :dataset_name)" > dwh_datasets.log 2>&1 &
-  def self.update_attribute_by_resource(resource, klass, field)
+  # e.g.: nohup rails r "Publishing::Fast.update_attributes_by_resource(Resource.find(724), ScientificName, [:dataset_name])" > dwh_datasets.log 2>&1 &
+  def self.update_attributes_by_resource(resource, klass, fields)
     publr = new(resource)
-    publr.update_attribute(klass, field)
+    publr.update_attributes(klass, fields)
   end
 
   # e.g.: Publishing::Fast.load_local_file(Resource.find(123), NodeAncestor, '/some/path/to/tmp/DWH_node_ancestors.tsv')
@@ -39,49 +39,49 @@ class Publishing::Fast
   end
 
   # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
-  def update_attribute(klass, field)
+  def update_attributes(klass, fields)
     require 'csv'
     abort_if_already_running
     @klass = klass
-    # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
-    pos = @klass.column_names.index(field.to_s) - 1
+    fields = Array(fields)
+    positions = []
+    fields.each do |field|
+      # NOTE: Minus one for the id, which is NEVER in the file but is ALWAYS the first column in the table:
+      positions << @klass.column_names.index(field.to_s) - 1
+    end
     new_log
     begin
       plural = @klass.table_name
       unless @repo.exists?("#{plural}.tsv")
         raise("#{@repo.file_url("#{plural}.tsv")} does not exist! Are you sure the resource has successfully finished harvesting?")
       end
-      log_start("Updating attribute #{field} (#{pos}) for #{plural}")
+      log_start("Updating attributes: #{fields.join(', ')} (#{positions.join(', ')}) for #{plural}")
       @data_file = Rails.root.join('tmp', "#{@resource.path}_#{plural}.tsv")
       if grab_file("#{plural}.tsv")
         all_data = CSV.read(@data_file, col_sep: "\t")
-        pk_pos = @klass.column_names.index('resource_pk') || @klass.column_names.index('node_resource_pk')
-        pk_pos -= 1 # For 0-index
+        possible_pks = %w(harv_db_id resource_pk node_resource_pk)
+        pk = possible_pks.find { |pk| @klass.column_names.include?(pk.to_s) }
+        pk_pos = @klass.column_names.index(pk) - 1 # fix the 0-index
         all_data.in_groups_of(2000, false) do |lines|
-          pk = :resource_pk
           pks = lines.map { |l| l[pk_pos] }
-          instances =
-            begin
-              @klass.where(resource_id: @resource.id, resource_pk: pks).load
-            rescue ActiveRecord::StatementInvalid
-              pk = :node_resource_pk
-              @klass.where(resource_id: @resource.id, node_resource_pk: pks)
-            end
-          log_warn("#{instances.size} instances by resource_pk")
-          keyed_instances = instances.group_by(&pk)
+          pks.map! { |k| k.to_i } if pk == 'harv_db_id' # Integer!
+          instances = @klass.where(:resource_id => @resource.id, pk => pks).load
+          log_warn("#{instances.size} instances by #{pk}")
+          keyed_instances = instances.group_by(&pk.to_sym)
           log_warn("#{keyed_instances.keys.size} groups of keyed_instances")
           changes = []
           lines.each do |line|
-            pk = line[pk_pos]
-            val = line[pos]
-            keyed_instances[pk].each do |instance|
-              next if instance[field] == val
-              instance[field] = val
-              changes << instance
+            line_pk = line[pk_pos]
+            line_pk = line_pk.to_i if pk == 'harv_db_id'
+            values = {}
+            positions.each_with_index { |pos, i| values[fields[i]] = line[pos] }
+            keyed_instances[line_pk].each do |instance|
+              values.each { |field, val| instance[field] = val unless instance[field] == val }
+              changes << instance if instance.changed?
             end
           end
           log_warn("#{changes.size} changes...")
-          @klass.import(changes, on_duplicate_key_update: [field])
+          @klass.import(changes, on_duplicate_key_update: fields)
         end
         @files << @data_file
       else

@@ -451,7 +451,6 @@ class TraitBank
 
       if filter.object_term?
         match << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-        match << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"
       else
         match << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
           "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
@@ -635,6 +634,12 @@ class TraitBank
 
       # q += "ORDER BY page.page_id " if !options[:count]
       q
+    end
+
+    def page_match(term_query, page_var, anc_var)
+      match = "(#{page_var}:Page)"
+      match += "-[:parent*0..]->(#{anc_var}:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      match
     end
 
     def term_page_search(term_query, options)
