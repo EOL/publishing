@@ -1,4 +1,4 @@
-class Collection < ActiveRecord::Base
+class Collection < ApplicationRecord
   searchkick
 
   before_destroy :remove_owners

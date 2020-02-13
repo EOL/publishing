@@ -1,4 +1,4 @@
-class OpenAuthentication < ActiveRecord::Base
+class OpenAuthentication < ApplicationRecord
   belongs_to :user
 
   def self.oauth_user_exists?(auth)

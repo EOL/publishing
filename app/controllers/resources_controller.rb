@@ -1,5 +1,5 @@
 class ResourcesController < ApplicationController
-  before_filter :require_admin, except: [:index, :show, :autocomplete]
+  before_action :require_admin, except: [:index, :show, :autocomplete]
 
   def index
     @resources = Resource.order('updated_at DESC')

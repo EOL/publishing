@@ -1,4 +1,6 @@
+
 Rails.application.routes.draw do
+  require "#{Rails.root}/lib/routes_util"
   root 'home_page#index'
   get  "set_locale"                   => "locales#set_locale"
   get 'robots.:format' => 'application#robots'
@@ -195,7 +197,6 @@ Rails.application.routes.draw do
     namespace :traits do
       get "/data_viz/object_pie_chart" => "data_viz#object_pie_chart"
     end
-
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"

@@ -1,4 +1,4 @@
-class LicenseGroup < ActiveRecord::Base
+class LicenseGroup < ApplicationRecord
   has_and_belongs_to_many :licenses
   has_and_belongs_to_many :included, class_name: "LicenseGroup", foreign_key: "this_id", association_foreign_key: "includes_id", join_table: "license_group_includes"
 

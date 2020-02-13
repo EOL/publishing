@@ -1,8 +1,8 @@
-class Resource < ActiveRecord::Base
+class Resource < ApplicationRecord
   searchkick text_start: ["name"], batch_size: 250
 
   belongs_to :partner, inverse_of: :resources
-  belongs_to :dataset_license, class_name: 'License'
+  belongs_to :dataset_license, class_name: 'License', optional: true
 
   has_many :nodes, inverse_of: :resource
   has_many :scientific_names, inverse_of: :resource

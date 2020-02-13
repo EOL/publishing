@@ -1,8 +1,8 @@
-class Node < ActiveRecord::Base
-  belongs_to :page, inverse_of: :nodes
-  belongs_to :parent, class_name: 'Node', inverse_of: :children
+class Node < ApplicationRecord
+  belongs_to :page, inverse_of: :nodes, optional: true
+  belongs_to :parent, class_name: 'Node', inverse_of: :children, optional: true
   belongs_to :resource, inverse_of: :nodes
-  belongs_to :rank
+  belongs_to :rank, optional: true
 
   has_many :identifiers, inverse_of: :node
   has_many :scientific_names, inverse_of: :node

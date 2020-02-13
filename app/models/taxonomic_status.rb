@@ -1,4 +1,4 @@
-class TaxonomicStatus < ActiveRecord::Base
+class TaxonomicStatus < ApplicationRecord
   has_many :scientific_names, inverse_of: :taxonomic_status
 
   class << self

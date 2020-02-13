@@ -1,4 +1,4 @@
-class Section < ActiveRecord::Base
+class Section < ApplicationRecord
   has_many :content_sections
   belongs_to :parent, class_name: "Section"
 

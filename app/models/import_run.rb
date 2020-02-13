@@ -1,4 +1,4 @@
-class ImportRun < ActiveRecord::Base
+class ImportRun < ApplicationRecord
   # nothing but timestamps (including completed_at)
   scope :completed, -> { where("completed_at IS NOT NULL") }
 

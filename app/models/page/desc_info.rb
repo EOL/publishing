@@ -1,4 +1,4 @@
-class Page::DescInfo < ActiveRecord::Base
+class Page::DescInfo < ApplicationRecord
   belongs_to :page
   validates_presence_of :page_id, :species_count, :genus_count, :family_count
 

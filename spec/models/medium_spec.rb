@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Medium do
-  let(:types) { [ :image, :video, :sound, :map, :js_map ] }
+  let(:types) { [ :image, :video, :sound, :map_image, :js_map ] }
   subject { Medium.new(base_url: "base") }
 
   it "#name can take a language argument" do

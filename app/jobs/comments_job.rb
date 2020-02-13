@@ -1,4 +1,4 @@
-class CommentsJob < ActiveJob::Base
+class CommentsJob < ApplicationJob
   def perform
     Rails.logger.warn("START Comments.delete_empty_comment_topics")
     max_tries = 100

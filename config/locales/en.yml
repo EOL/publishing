@@ -116,6 +116,7 @@ en:
       download_taxa_csv: "download CSV of taxa"
       delete: "delete"
       edit: "edit"
+      sort: "sort"
     collection_type:
       normal: "normal"
       gallery: "gallery"
@@ -564,7 +565,7 @@ en:
       image: "image"
       video: "video"
       sound: "sound"
-      map: "map"
+      map_image: "map"
       js_map: "interactive map"
   medium_collect_button: "collect media"
   medium_description_blank: "There is no description provided for this object."

@@ -1,4 +1,4 @@
-class ImportLog < ActiveRecord::Base
+class ImportLog < ApplicationRecord
   belongs_to :resource
   has_many :import_events, inverse_of: :import_log
 

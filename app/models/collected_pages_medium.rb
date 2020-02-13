@@ -1,4 +1,4 @@
-class CollectedPagesMedium < ActiveRecord::Base
+class CollectedPagesMedium < ApplicationRecord
   belongs_to :collected_page
   belongs_to :medium, inverse_of: :collected_pages_media
 

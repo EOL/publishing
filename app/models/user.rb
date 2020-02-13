@@ -1,6 +1,6 @@
 require "breadcrumb_type"
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   AdminEmail = "admin@eol.org"
 
   searchkick word_start: [:username, :name]
@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :lockable, :recoverable, :rememberable, :validatable, :confirmable
+
+  belongs_to :language, optional: true
 
   has_many :open_authentications, dependent: :delete_all
   has_many :curations, inverse_of: :user
@@ -103,7 +105,7 @@ class User < ActiveRecord::Base
   end
 
   def age_confirm=(val)
-    @age_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+    @age_confirm = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   def tou_confirm
@@ -111,7 +113,7 @@ class User < ActiveRecord::Base
   end
 
   def tou_confirm=(val)
-    @tou_confirm = ActiveRecord::Type::Boolean.new.type_cast_from_user(val)
+    @tou_confirm = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
   private

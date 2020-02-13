@@ -2,8 +2,8 @@ require "robots_util"
 require "breadcrumb_type"
 
 class ApplicationController < ActionController::Base
-  before_filter :set_locale
-  before_filter :set_robots_header
+  before_action :set_locale
+  before_action :set_robots_header
 
   helper_method :is_admin?
   helper_method :is_power_user?
@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
-    before_filter :authenticate
+    before_action :authenticate
   end
 
   def route_not_found
@@ -27,11 +27,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def default_url_options(options = {})
-    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
-    { locale: locale }.merge options
-  end
-  
+# SEE app/decorators/controllers/application_controller_decorator.rb. This uses refinery's magic to override another bit of refinery's magic. Magical.
+#  def default_url_options(options = {})
+#    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
+#    { locale: locale }.merge options
+#  end
+
   # robots.txt
   def robots
     respond_to do |format|
