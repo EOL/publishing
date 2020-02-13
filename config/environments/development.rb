@@ -39,8 +39,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = Rails.application.secrets.smtp
 
-  config.i18n.available_locales = [:en, :mk]
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
