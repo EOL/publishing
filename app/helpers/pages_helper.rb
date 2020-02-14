@@ -162,11 +162,13 @@ module PagesHelper
   def unlink(text)
     return text.html_safe if text =~ /<a / # They already linked it.
     text.gsub(URI::ABS_URI) { |match|
-      if match.size < 20
-        "<a href=\"#{match}\">#{match}</a>"
+      # match may have leading/trailing whitespace, which causes an error in URI::parse
+      clean_match = match.strip
+      if clean_match.size < 20
+        "<a href=\"#{clean_match}\">#{clean_match}</a>"
       else
-        host = URI::parse(match).host
-        "<a href=\"#{match}\">#{host}</a>"
+        host = URI::parse(clean_match).host
+        "<a href=\"#{clean_match}\">#{host}</a>"
       end
     }.html_safe
   end
