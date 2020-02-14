@@ -737,9 +737,10 @@ fr:
       fetch_log: Journal terms-fetch
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
-      show_all: montrer tout{{PLURAL:%{count}|}} (%{count})
-      show_warns: afficher {{PLURAL:%{count}|one=l’avertissement|les avertissements}}
-        (%{count})
+      show_all: montrer tout (%{count})
+      show_warns: 
+        one: afficher l’avertissement
+        other: les avertissements (%{count})
       sync: synchroniser avec le dépôt
       sync_all_terms: synchroniser tous les termes
       fetch_relationships: récupérer les relations
@@ -765,12 +766,18 @@ fr:
       index: Ressources
       import_log: Importer le journal pour %{resource}
     index:
-      locked_jobs: '{{PLURAL:%{count}|zero=aucun travail|one=1 travail|%{count} travaux}}
-        en cours'
-      jobs: '{{PLURAL:%{count}|zero=aucun travail en attente|one=1 travail en attente|%{count}
-        travaux en attente}}'
-      harvest_jobs: '{{PLURAL:%{count}|zero=rien à publier|one=une publication en
-        attente|%{count} à publier}}'
+      locked_jobs:
+        zero: aucun travail en cours
+        one: un travail en cours
+        other: "%{count} travaux en cours"
+      jobs:
+        zero: aucun travail en attente
+        one: un travail en attente
+        other: "%{count} travaux en attente"
+      harvest_jobs: 
+        zero: rien à publier 
+        one: une publication en attente
+        other: "%{count} à publier"
     no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
@@ -792,9 +799,18 @@ fr:
     n_articles:
       one: '%{count} article'
       other: '%{count} articles'
-    n_collections: '{{PLURAL:%{count}|zero=Aucune|one=Une|%{count}}} image{{PLURAL:%{count}|zero=|one=|s}}'
-    n_images: '{{PLURAL:%{count}|zero=Aucune|one=Une|%{count}}} image{{PLURAL:%{count}|zero=|one=|s}}'
-    n_results: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} résultat{{PLURAL:%{count}|zero=|one=|s}}'
+    n_collections:
+      zero: Aucune collection
+      one: Une collection
+      other: "%{count} collections"
+    n_images:
+      zero: Aucune image
+      one: Une image
+      other: "%{count} images"
+    n_results:
+      zero: Aucun résultat
+      one: Un résultat
+      other: "%{count} résultats"
     n_sounds:
       one: '%{count} son'
       other: '%{count} sons'
@@ -865,7 +881,10 @@ fr:
         other: '%{count} utilisateurs'
     collection_title_html: 'Collection : <span class="sub">%{name}</span>'
     resource_counts:
-      n_articles: '{{PLURAL:%{count}|zero=Aucun|one=Un|%{count}}} article{{PLURAL:%{count}|zero=|one=|s}}'
+      n_articles:
+        zero: Aucun article
+        one: Un article
+        other: "%{count} articles"
       n_data:
         one: '%{count} DONNÉE'
         other: '%{count} DONNÉES'
