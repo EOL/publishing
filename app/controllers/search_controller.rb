@@ -65,6 +65,12 @@ private
     return redirect_to(path) if path
 
     searcher.search
+    if searcher.errors.any?
+      logger.error("Search errors: #{searcher.errors.join("; ")}")
+      render json: { message: "search failed" }, status: :internal_server_error
+      return 
+    end
+
     @pages = searcher.pages
     @articles = searcher.articles
     @images = searcher.images
