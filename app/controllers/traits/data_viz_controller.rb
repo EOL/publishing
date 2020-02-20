@@ -28,6 +28,7 @@ module Traits
           @data << PieResult.new(
             row[:obj],
             TermQuery.new({
+              clade_id: @query.clade_id,
               result_type: @query.result_type,
               filters_attributes: [{
                 pred_uri: @query.filters.first.pred_uri,

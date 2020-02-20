@@ -248,7 +248,7 @@ sv:
       image: bild
       video: video
       sound: ljud
-      map: karta
+      map_image: karta
   medium_header_title: 'Titel:'
   medium_header_description: 'Beskrivning:'
   names:
