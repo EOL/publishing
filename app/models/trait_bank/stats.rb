@@ -17,6 +17,10 @@ class TraitBank
       end
 
       def check_query_valid_for_object_counts(query)
+        if query.taxa?
+          return CheckResult.new(false, "result_type must be record")
+        end
+
         if query.predicate_filters.length != 1
           return CheckResult.new(false, "query must have a single predicate filter")
         end
