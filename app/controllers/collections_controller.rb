@@ -3,10 +3,10 @@ require "csv"
 class CollectionsController < ApplicationController
   layout "collections"
 
-  before_filter :sanitize_collection_params
-  before_filter :find_collection_with_pages, only: [:show, :edit]
-  before_filter :find_collection, only: [:update, :destroy, :add_user, :remove_user, :logs]
-  before_filter :user_able_to_edit_collection, only: [:edit]
+  before_action :sanitize_collection_params
+  before_action :find_collection_with_pages, only: [:show, :edit]
+  before_action :find_collection, only: [:update, :destroy, :add_user, :remove_user, :logs]
+  before_action :user_able_to_edit_collection, only: [:edit]
 
   # TODO: You cannot do this without being logged in.
   def create

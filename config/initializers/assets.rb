@@ -3,12 +3,14 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-# Add additional assets to the asset load path
+# Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
+# Add Yarn node_modules folder to the asset load path.
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile additional assets.
-# application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-
+# application.js, application.css, and all non-JS/CSS in the app/assets
+# folder are already added.
 Rails.application.config.assets.precompile += %w( *.js application.css )
 Rails.application.config.assets.precompile += %w( refinery/ckeditor.css )
 Rails.application.config.assets.precompile += %w( ckeditor/ckeditor.js )
@@ -17,12 +19,11 @@ Rails.application.config.assets.precompile += %w( ckeditor/ckeditor.js )
   Rails.application.config.assets.precompile << "#{css_asset}.css"
 end
 
-%w( leaflet leaflet.markercluster Control.FullScreen Leaflet.NavBar freezable Control.Loading maps_leaflet 5169 jqcloud).each do |js_asset|
+%w( leaflet leaflet.markercluster Control.FullScreen Leaflet.NavBar freezable Control.Loading maps_leaflet 5169 jqcloud).each do          |js_asset|
   Rails.application.config.assets.precompile << "#{js_asset}.js"
 end
 
-# controller-specific assets
-
-%w( search pages terms home_page_feeds home_page_feed_items home_page media traits user/sessions users collections about ).each do |controller|
+# controller-specific assets:
+%w( search pages terms home_page_feeds home_page_feed_items home_page media traits user/sessions users collections about traits/data_viz ).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end

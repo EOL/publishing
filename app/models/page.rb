@@ -1,11 +1,11 @@
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers autocomplete_names]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
 
-  belongs_to :native_node, class_name: "Node"
-  belongs_to :moved_to_page, class_name: "Page"
-  belongs_to :medium, inverse_of: :pages
+  belongs_to :native_node, class_name: "Node", optional: true
+  belongs_to :moved_to_page, class_name: "Page", optional: true
+  belongs_to :medium, inverse_of: :pages, optional: true
 
   has_many :nodes, inverse_of: :page
   has_many :collected_pages, inverse_of: :page
@@ -66,6 +66,7 @@ class Page < ActiveRecord::Base
   scope :missing_native_node, -> { joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL') }
 
   scope :with_scientific_name, -> { includes(native_node: [:scientific_names]) }
+  scope :with_name, -> { with_scientific_name.includes(:preferred_vernaculars) }
 
   KEY_DATA_LIMIT = 12
 
@@ -404,7 +405,7 @@ class Page < ActiveRecord::Base
   end
 
   def maps
-    media.where(subclass: Medium.subclasses[:map])
+    media.where(subclass: Medium.subclasses[:map_image])
   end
 
   def map_count

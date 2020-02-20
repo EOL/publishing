@@ -6,7 +6,7 @@ module Content
     searchkick
 
     belongs_to :resource
-    belongs_to :language
+    belongs_to :language, optional: true
 
     has_many :content_sections, as: :content
     has_many :sections, through: :content_sections

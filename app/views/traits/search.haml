@@ -6,8 +6,11 @@
 
   - if @pages
     .js-filter-list
+      - hdr_opts = { range_begin: @grouped_data.offset_value + 1, range_end: @grouped_data.offset_value + @grouped_data.length, total: @grouped_data.total_count }
+      -if @query.record?
+        - hdr_opts[:page_count] = @counts.pages
       - filter_hdr_val_key = ".result_header_#{@query.record? ? 'records' : 'taxa'}"
-      %h2.filter-hdr= t(filter_hdr_val_key, range_begin: @grouped_data.offset_value + 1, range_end: @grouped_data.offset_value + @grouped_data.length, total: @grouped_data.total_count)
+      %h2.filter-hdr= t(filter_hdr_val_key, hdr_opts)
       %ul.show-filters
         - if @query.clade
           %li.show-filter.show-filter-clade= t(".clade", clade: @query.clade.native_node&.canonical_form)
@@ -28,8 +31,11 @@
           = link_to term_search_path do
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
+    - if @data_viz_type.present? && @data_viz_type == :pie
+      .pie-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
+      
     - if @query.record?
-      = render 'data_table', { data: @grouped_data, pages: @pages }
+      = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }
     - else
       = render 'page_table', { pages: @result_pages }
 - if @raw_query

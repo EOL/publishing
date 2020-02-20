@@ -1,6 +1,6 @@
 # Allows us some way to choose which resources are "best" at providing various types of data, so we can "weigh" those
 # resources more heavily in sorting.
-class ResourcePreference < ActiveRecord::Base
+class ResourcePreference < ApplicationRecord
   belongs_to :resource
 
   acts_as_list scope: [:class_name]

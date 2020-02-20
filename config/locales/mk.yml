@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bjankuloski06
+# Author: Violetova
 # Author: Vlad5250
 ---
 mk:
@@ -59,8 +60,8 @@ mk:
   button_create: создај
   button_add: додај
   cancel: откажи
-  change_my_password: Смени ми ја јавката
-  change_your_password: Промена на јавката
+  change_my_password: Смени ми ја лозинката
+  change_your_password: Промена на лозинката
   classifications:
     children:
       header_html:
@@ -134,6 +135,7 @@ mk:
       download_taxa_csv: преземи CSV на таксоните
       delete: избриши
       edit: уреди
+      sort: подреди
     collection_type:
       normal: нормален
       gallery: галерија
@@ -266,7 +268,7 @@ mk:
       viruses: Вируси
       worms: Црви
     eol_is_hosted_by: 'EOL е вдомен од:'
-  forgot_your_password: Ја заборавивте јавката?
+  forgot_your_password: Ја заборавивте лозинката?
   landing_page:
     header: Глобален пристап до сето знаење за живиот свет на Земјата
     stats_cleared: Статистиката е одновно пресметана.
@@ -563,7 +565,7 @@ mk:
       image: слика
       video: видео
       sound: звук
-      map: карта
+      map_image: карта
       js_map: интеркативна карта
   medium_collect_button: додај слика/снимка
   medium_description_blank: Нема зададено опис на предметот.
@@ -782,7 +784,7 @@ mk:
       unusable: Неупотребливи имиња
       synonym: Синоними
   scientific_names_header: Научни имиња
-  send_me_reset_password_instructions: Испрати ми напатствија за нова јавка
+  send_me_reset_password_instructions: Испрати ми напатствија за нова лозинка
   search:
     flash:
       cannot_combine_paths: Не можев да го здружам исходот со %{path}
@@ -955,8 +957,8 @@ mk:
     labels:
       defaults:
         email: Е-пошта
-        password: Јавка
-        password_confirmation: Потврда на јавката
+        password: Лозинка
+        password_confirmation: Потврда на лозинката
         remember_me: Запомни ме
         username: Корисничко име
         bio: Био
@@ -1093,6 +1095,21 @@ mk:
       select_page_above: Изберете страница погоре за да почнете.
   data_definition: дефиниција на „%{data}“
   traits:
+    data_viz:
+      n_other_records:
+        one: уште еден запис
+        other: '%{count} други записи'
+      n_other_taxa:
+        one: уште еден таксон
+        other: '%{count} други таксони'
+      other: друго
+      pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
+      see_n_obj_records:
+        one: стиснете за да погледате еден запис со „%{obj_name}“
+        other: стиснете за да погледате %{count} записи со „%{obj_name}“
+      see_n_taxa_with:
+        one: стиснете за да погледате еден таксон со „%{obj_name}“
+        other: стиснете за да погледате %{count} таксони со „%{obj_name}“
     search:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV
@@ -1100,8 +1117,8 @@ mk:
       gbif_search: Пребарување на GBIF
       gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
         60)'
-      result_header_records: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
-        записи со
+      result_header_records: Прикажувам %{range_begin} - %{range_end} од %{total}
+        записи за %{page_count} таксони во
       result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
         таксони со
       new_search: ново пребарување
@@ -1137,7 +1154,7 @@ mk:
     edit_account_details: Измени податоци за сметка
     email: Е-пошта
     to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
-      јавка
+      лозинка
     form_labels:
       age_confirm: Имам барем 13 години
       tou_confirm_html: Ги прочитав <a href='%{tou_path}'>Условите на употреба</a>
@@ -1153,8 +1170,8 @@ mk:
       tou_confirm: мора да потврдите дека сте ги прочитале Условите на употреба и
         Правилата за лични податоци
     list_of_power_users: Список на напредни корисници
-    new_password: Нова јавка
-    confirm_new_password: Потврдете ја новата јавка
+    new_password: Нова лозинка
+    confirm_new_password: Потврдете ја новата лозинка
     showing_n_power_users:
       one: Приказ на еден напреден корисник
       other: Приказ на %{count} напредни корисници
@@ -1171,9 +1188,9 @@ mk:
     account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
       е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото
       име и понатаму ви е приказното име на мрежното место, но сега ќе мора да се
-      најавите се е-пошта. Јавките не ги селиме од безбедносни причини. Ќе можете
-      да зададете нова со постапката за заборавена јавка. Ако се најавувате само од
-      трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
+      најавите се е-пошта. Лозинките не ги селиме од безбедносни причини. Ќе можете
+      да зададете нова со постапката за заборавена лозинка. Ако се најавувате само
+      од трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
       работиме на извесни проблеми со ова заедничко најавување.
     sign_in: Најава
   vernacular_names_header: Народни имиња

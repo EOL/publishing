@@ -1,3 +1,3 @@
-class V2User < ActiveRecord::Base
+class V2User < ApplicationRecord
   belongs_to :user
 end

@@ -1,4 +1,4 @@
-class Stylesheet < ActiveRecord::Base
+class Stylesheet < ApplicationRecord
   has_many :articles, inverse_of: :stylesheet
   has_many :media, inverse_of: :stylesheet
 

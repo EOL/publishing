@@ -1,4 +1,4 @@
-class Referent < ActiveRecord::Base
+class Referent < ApplicationRecord
   belongs_to :parent, polymorphic: true
   belongs_to :resource, inverse_of: :referents
 

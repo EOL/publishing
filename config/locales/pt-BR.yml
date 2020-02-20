@@ -337,7 +337,7 @@ pt-BR:
       image: imagem
       video: vídeo
       sound: som
-      map: mapa
+      map_image: mapa
       js_map: mapa interativo
   medium_collect_button: coletar mídia
   medium_description_blank: Não há descrição fornecida para este objeto.
@@ -720,6 +720,8 @@ pt-BR:
       select_page_above: Selecione uma página acima para começar.
   data_definition: definição de «%{data}»
   traits:
+    data_viz:
+      other: outros
     search:
       edit_filters: editar filtros
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos

@@ -1,4 +1,4 @@
-class Curation < ActiveRecord::Base
+class Curation < ApplicationRecord
   belongs_to :user, inverse_of: :curations
   belongs_to :page_content, inverse_of: :curations
 

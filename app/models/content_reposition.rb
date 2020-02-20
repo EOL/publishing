@@ -1,4 +1,4 @@
-class ContentReposition < ActiveRecord::Base
+class ContentReposition < ApplicationRecord
   belongs_to :user
   belongs_to :content, polymorphic: true
 

@@ -14,12 +14,12 @@
         = link_to(t("collection.actions.associate"), new_collection_association_path(associated_id: @collection.id), class: "ui basic button uk-margin-small")
         %button#sort_button.ui.labeled.small.icon.basic.button.uk-margin-small-top
           %i.down.arrow.icon
-          = t("term.actions.sort")
+          = t("collection.actions.sort")
         %div{ uk: { dropdown: true } }
           %ul.uk-dropdown-nav.uk-nav
-            - params_dup = params_less(:sort, :sort_dir)
+            - params_dup = params_less(:sort, :sort_dir).permit(:id, :collection_id, :sort, :page)
             - Collection.default_sorts.each do |name, num|
-              %li{ class: params[:sort].to_i == num ? "uk-active" : nil }= link_to(t("collection.sort.#{name}"), collection_path(params_dup.merge(sort: num)))
+              %li{ class: params[:sort].to_i == num ? "uk-active" : nil }= link_to(t("collection.sort.#{name}"), collection_path(params_dup.merge!(sort: num)))
 .collected_pages.uk-margin-top
   - if @pages.empty?
     %p= t(:collection_pages_empty)

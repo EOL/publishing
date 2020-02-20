@@ -1,10 +1,10 @@
 # Describes the ACT of a user having preferred a vernacular on a particular page.
-class VernacularPreference < ActiveRecord::Base
+class VernacularPreference < ApplicationRecord
   belongs_to :user
   belongs_to :vernacular
-  belongs_to :language # Helps us lookup overrides and restores.
-  belongs_to :page # Helps us lookup overrides.
-  belongs_to :overridden_by, class_name: 'VernacularPreference'
+  belongs_to :language, optional: true # Helps us lookup overrides and restores.
+  belongs_to :page, optional: true # Helps us lookup overrides.
+  belongs_to :overridden_by, class_name: 'VernacularPreference', optional: true
   has_many :overrides, class_name: 'VernacularPreference', foreign_key: :overridden_by_id
 
 # TO TEST:

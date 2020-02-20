@@ -1,6 +1,6 @@
-class UserDownload < ActiveRecord::Base
+class UserDownload < ApplicationRecord
   belongs_to :user, inverse_of: :user_downloads
-  belongs_to :term_query, dependent: :delete # delete because destroy creates bidirectional dependent: :destroy, which causes stack overflow, and we only care about running callbacks here
+  belongs_to :term_query, dependent: :delete, optional: true # delete because destroy creates bidirectional dependent: :destroy, which causes stack overflow, and we only care about running callbacks here
   has_one :download_error, class_name: "UserDownload::Error", dependent: :destroy # Weird exceptions in delayed_job when this was set to just "error".
   validates_presence_of :user_id
   validates_presence_of :count

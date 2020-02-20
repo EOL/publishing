@@ -1,4 +1,4 @@
-class ContentEdit < ActiveRecord::Base
+class ContentEdit < ApplicationRecord
   belongs_to :user
   belongs_to :page_content
 

@@ -1,4 +1,4 @@
-class WarmCacheJob < ActiveJob::Base
+class WarmCacheJob < ApplicationJob
   def perform
     Rails.logger.warn("START CacheWarmer.warm")
     CacheWarmer.warm

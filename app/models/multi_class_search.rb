@@ -236,6 +236,18 @@ class MultiClassSearch
     @terms = TermSearchDecorator.decorate_collection(@terms) if @terms
   end
 
+  def errors
+    errors = []
+
+    [@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].each do |type|
+      if !type.nil? && type.error
+        errors << type.error
+      end
+    end
+
+    errors
+  end 
+
   def basic_search(klass, options = {})
     klass.search(@query, options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       match: :word_start, execute: false, page: @page, per_page: 50))

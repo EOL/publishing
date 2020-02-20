@@ -1,4 +1,4 @@
-class Javascript < ActiveRecord::Base
+class Javascript < ApplicationRecord
   has_many :articles, inverse_of: :javascript
 
   def contents

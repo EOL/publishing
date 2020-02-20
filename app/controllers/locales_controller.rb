@@ -14,7 +14,9 @@ class LocalesController < ApplicationController
           redirect_path = refinery.marketable_page_path(path, locale: locale)
         else
           begin
-            url_options = Rails.application.routes.recognize_path(referrer)
+            parsed_ref = URI::parse(referrer)
+            url_options = Rack::Utils.parse_query(parsed_ref.query)
+            url_options.merge!(Rails.application.routes.recognize_path(referrer))
             url_options[:locale] = locale
             url_options[:only_path] = true
             redirect_path = url_for(url_options)

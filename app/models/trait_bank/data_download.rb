@@ -46,7 +46,7 @@ class TraitBank
 
       @base_filename = Digest::MD5.hexdigest(@query.as_json.to_s)
       @url = url
-      @count = count || TraitBank.term_search(@query, @options.merge(:count => true))
+      @count = count || TraitBank.term_search(@query, @options.merge(:count => true)).primary_for_query(term_query)
     end
 
     def background_build

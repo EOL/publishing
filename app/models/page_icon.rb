@@ -1,4 +1,4 @@
-class PageIcon < ActiveRecord::Base
+class PageIcon < ApplicationRecord
   belongs_to :page, inverse_of: :page_icons
   belongs_to :medium, inverse_of: :page_icons
   belongs_to :user, inverse_of: :page_icons

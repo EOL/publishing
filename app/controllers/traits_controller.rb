@@ -10,6 +10,8 @@ class TraitsController < ApplicationController
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
+  
+  DataViz = Struct.new(:type, :data)
 
   def search
     @query = TermQuery.new(:result_type => :taxa)
@@ -108,7 +110,7 @@ class TraitsController < ApplicationController
 
   def build_query
     @query = TermQuery.new(tq_params)
-    @query.filters[params[:show_extra_fields].to_i].show_extra_fields = true if params[:show_extra_fields] 
+    @query.filters[params[:show_extra_fields].to_i].show_extra_fields = true if params[:show_extra_fields]
     @query.filters[params[:hide_extra_fields].to_i].clear_extra_fields if params[:hide_extra_fields]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
@@ -123,7 +125,9 @@ class TraitsController < ApplicationController
   def paginate_term_search_data(data, query)
     Rails.logger.warn "&&TS Running count:"
     # @count = 1_000_000
-    @count = TraitBank.term_search(query, { count: true })
+    @counts = TraitBank.term_search(query, { count: true })
+
+    @count = @counts.primary_for_query(query)
     @grouped_data = Kaminari.paginate_array(data, total_count: @count).page(@page).per(@per_page)
 
     if query.taxa?
@@ -162,14 +166,13 @@ class TraitsController < ApplicationController
     @resources = TraitBank.resources(data)
     build_associations(data)
     build_gbif_url(@count, pages, @query)
+    data_viz_type(@query)
     render "search"
   end
 
   def redirect_no_format
     loc = params
     loc.delete(:format)
-    # NOTE: this kind of redirect_to is deprecated and should probably changed to (but I don't want to test now)
-    # redirect_to params.merge(controller: :traits, action: :search_results)
     redirect_to term_search_results_path(params)
   end
 
@@ -179,15 +182,20 @@ class TraitsController < ApplicationController
 
   def build_gbif_url(total_count, pages, query)
     if query.taxa? && total_count > 0 && total_count <= GBIF_LINK_LIMIT && Resource.gbif
-      gbif_params = pages.collect do |p| 
+      gbif_params = pages.collect do |p|
         pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
         pk ? "taxon_key=#{pk}" : nil
       end.compact
-      
+
       if gbif_params.any?
         @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
       end
     end
   end
-end
 
+  def data_viz_type(query)
+    if TraitBank::Stats.check_query_valid_for_object_counts(query).valid
+      @data_viz_type = :pie
+    end
+  end
+end

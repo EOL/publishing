@@ -1,6 +1,6 @@
-class HomePageFeedItem < ActiveRecord::Base
+class HomePageFeedItem < ApplicationRecord
   belongs_to :home_page_feed, :inverse_of => :items
-  belongs_to :page
+  belongs_to :page, optional: true
   validates_presence_of :home_page_feed
   validates_presence_of :feed_version
 
