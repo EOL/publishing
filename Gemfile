@@ -21,8 +21,8 @@ gem 'therubyracer', '~> 0.12'
 gem 'uglifier', '~> 4.2'
 # RefineryCMS
 gem 'refinerycms', git: "https://github.com/refinery/refinerycms", ref: "81ed991"
-gem 'refinerycms-wymeditor'
-gem 'refinerycms-i18n'
+gem 'refinerycms-wymeditor', '2.2.0'
+gem 'refinerycms-i18n', '5.0.1'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.

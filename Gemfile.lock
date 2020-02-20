@@ -672,8 +672,8 @@ DEPENDENCIES
   rails (= 5.2.4.1)
   recaptcha
   refinerycms!
-  refinerycms-i18n
-  refinerycms-wymeditor
+  refinerycms-i18n (= 5.0.1)
+  refinerycms-wymeditor (= 2.2.0)
   rspec-rails (~> 3.8)
   rubocop
   rubocop-performance
