@@ -136,7 +136,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.6)
     counter_culture (2.2.4)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
@@ -291,8 +291,8 @@ GEM
       terminal-table (>= 1.5.1)
     ipaddress (0.8.3)
     jaro_winkler (1.5.4)
-    jbuilder (2.9.1)
-      activesupport (>= 4.2.0)
+    jbuilder (2.10.0)
+      activesupport (>= 5.0.0)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -651,8 +651,8 @@ DEPENDENCIES
   haml-rails
   http
   i18n-tasks
-  jbuilder
-  jquery-rails
+  jbuilder (~> 2.10)
+  jquery-rails (~> 4.3)
   js-routes
   jwt
   kaminari
@@ -660,7 +660,7 @@ DEPENDENCIES
   lograge
   mailcatcher
   meta_request
-  mysql2
+  mysql2 (= 0.5.3)
   neo4j (~> 9.4)
   neography
   newrelic_rpm
@@ -679,7 +679,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubyzip
-  sass-rails (~> 5.0.8)
   sdoc
   searchkick
   shoulda-matchers (~> 3.1)

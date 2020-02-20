@@ -4,17 +4,14 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.2.4.1'
 # Use mysql2 as the database for Active Record
-gem 'mysql2'
+gem 'mysql2', '0.5.3'
 
 # Asset-related gems next:
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.10'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
-gem 'jquery-rails'
-# Use SCSS for stylesheets # TODO: ruby-sass is end-of-life and we will have to
-# upgrade this gem to deal with that, I think.
-gem 'sass-rails', '~> 5.0.8'
+gem 'jquery-rails', '~> 4.3'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
