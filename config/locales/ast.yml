@@ -294,7 +294,7 @@ ast:
       image: imaxe
       video: videu
       sound: soníu
-      map: mapa
+      map_image: mapa
       js_map: mapa interactivu
   medium_description_blank: Nun se dio nenguna descripción pa esti oxetu.
   medium_header_title: 'Títulu:'

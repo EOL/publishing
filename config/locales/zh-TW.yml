@@ -120,6 +120,7 @@ zh-TW:
       download_taxa_csv: 下載分類 CSV
       delete: 刪除
       edit: 編輯
+      sort: 排序
     collection_type:
       normal: 一般
       gallery: 圖庫
@@ -547,7 +548,7 @@ zh-TW:
       image: 圖片
       video: 影片
       sound: 聲音
-      map: 地圖
+      map_image: 地圖
       js_map: 互動地圖
   medium_collect_button: 收藏媒體
   medium_description_blank: 沒有提供此對象的描述。
@@ -1056,13 +1057,29 @@ zh-TW:
       select_page_above: 選擇上方的一個頁面來開始。
   data_definition: 「%{data}」的定義
   traits:
+    data_viz:
+      n_other_records:
+        one: 1 個其它紀錄
+        other: '%{count} 個其它紀錄'
+      n_other_taxa:
+        one: 1 個其它分類
+        other: '%{count} 個其它分類'
+      other: 其它
+      pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
+      see_n_obj_records:
+        one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
+        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
+      see_n_taxa_with:
+        one: 點擊來查看帶有「%{obj_name}」的 1 個分類
+        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個分類
     search:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV
       edit_filters: 編輯篩選條件
       gbif_search: GBIF 搜尋
       gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 60 筆）
-      result_header_records: 顯示 %{total} 個紀錄裡 %{range_begin} - %{range_end} 個帶有
+      result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
+        - %{range_end} 個帶有
       result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
       new_search: 新搜尋
       show_query: 顯示查詢

@@ -566,7 +566,7 @@ ar:
       image: صورة
       video: فيديو
       sound: صوت
-      map: خريطة
+      map_image: خريطة
       js_map: الخريطة التفاعلية
   medium_collect_button: جمع وسائل الإعلام
   medium_description_blank: لا يوجد وصف مقدم لهذا الكائن.

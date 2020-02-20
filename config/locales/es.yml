@@ -325,7 +325,7 @@ es:
       image: imagen
       video: vídeo
       sound: sonido
-      map: mapa
+      map_image: mapa
       js_map: mapa interactivo
   medium_description_blank: No se ha proporcionado una descripción para este objeto.
   medium_header_title: 'Título:'

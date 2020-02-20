@@ -136,6 +136,7 @@ fr:
       download_taxa_csv: télécharger le CSV des taxons
       delete: supprimer
       edit: modifier
+      sort: trier
     collection_type:
       normal: normal
       gallery: galerie
@@ -568,7 +569,7 @@ fr:
       image: image
       video: vidéo
       sound: son
-      map: carte
+      map_image: carte
       js_map: carte interactive
   medium_collect_button: collecter les médias
   medium_description_blank: Il n’y a aucune description fournie pour cet objet.
@@ -738,9 +739,9 @@ fr:
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
       show_all: montrer tout (%{count})
-      show_warns: 
-        one: afficher l’avertissement
-        other: les avertissements (%{count})
+      show_warns:
+        one: afficher l’avertissement (%{count})
+        other: afficher les avertissements (%{count})
       sync: synchroniser avec le dépôt
       sync_all_terms: synchroniser tous les termes
       fetch_relationships: récupérer les relations
@@ -769,15 +770,15 @@ fr:
       locked_jobs:
         zero: aucun travail en cours
         one: un travail en cours
-        other: "%{count} travaux en cours"
+        other: '%{count} travaux en cours'
       jobs:
         zero: aucun travail en attente
         one: un travail en attente
-        other: "%{count} travaux en attente"
-      harvest_jobs: 
-        zero: rien à publier 
+        other: '%{count} travaux en attente'
+      harvest_jobs:
+        zero: rien à publier
         one: une publication en attente
-        other: "%{count} à publier"
+        other: '%{count} à publier'
     no_events: Aucun !
   resource_missing: ressource non trouvée
   scientific_name:
@@ -802,15 +803,15 @@ fr:
     n_collections:
       zero: Aucune collection
       one: Une collection
-      other: "%{count} collections"
+      other: '%{count} collections'
     n_images:
       zero: Aucune image
       one: Une image
-      other: "%{count} images"
+      other: '%{count} images'
     n_results:
       zero: Aucun résultat
       one: Un résultat
-      other: "%{count} résultats"
+      other: '%{count} résultats'
     n_sounds:
       one: '%{count} son'
       other: '%{count} sons'
@@ -884,7 +885,7 @@ fr:
       n_articles:
         zero: Aucun article
         one: Un article
-        other: "%{count} articles"
+        other: '%{count} articles'
       n_data:
         one: '%{count} DONNÉE'
         other: '%{count} DONNÉES'
@@ -1105,6 +1106,21 @@ fr:
       select_page_above: Choisir une page ci-dessus pour commencer.
   data_definition: définition de « %{data} »
   traits:
+    data_viz:
+      n_other_records:
+        one: un autre enregistrement
+        other: '%{count} autres enregistrements'
+      n_other_taxa:
+        one: un autre taxon
+        other: '%{count} autres taxons'
+      other: autre
+      pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
+      see_n_obj_records:
+        one: cliquer pour voir un enregistrement avec « %{obj_name} »
+        other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »
+      see_n_taxa_with:
+        one: cliquer pour voir un taxon avec « %{obj_name} »
+        other: cliquer pour voir %{count} taxons avec « %{obj_name} »
     search:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv
@@ -1113,7 +1129,7 @@ fr:
       gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
         taxons dans vos résultats de recherche (limité à 60)
       result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
-        enregistrements avec
+        enregistrements pour %{page_count} taxons avec
       result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
         taxons avec
       new_search: nouvelle recherche

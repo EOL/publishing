@@ -137,6 +137,7 @@ tr:
       download_taxa_csv: taxa CSV dosyasını indirin
       delete: sil
       edit: düzenle
+      sort: sırala
     collection_type:
       normal: normal
       gallery: galeri
@@ -567,7 +568,7 @@ tr:
       image: resim
       video: video
       sound: ses
-      map: harita
+      map_image: harita
       js_map: interaktif harita
   medium_collect_button: medya topla
   medium_description_blank: Bu nesne için sağlanan açıklama yok.
@@ -1093,6 +1094,21 @@ tr:
       select_page_above: Başlamak için yukarıdaki bir sayfayı seçin.
   data_definition: '"%{data}" tanımı'
   traits:
+    data_viz:
+      n_other_records:
+        one: bir kayıt daha
+        other: '%{count} kayıt daha'
+      n_other_taxa:
+        one: bir takson daha
+        other: '%{count} takson daha'
+      other: diğer
+      pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
+      see_n_obj_records:
+        one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
+        other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
+      see_n_taxa_with:
+        one: '"%{obj_name}" içeren bir taksonu görmek için tıklayın'
+        other: '"%{obj_name}" ile %{count} taksonu görmek için tıklayın'
     search:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir
@@ -1100,8 +1116,8 @@ tr:
       gbif_search: GBIF araması
       gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
         kayıtlarını bulun (sınır 60)
-      result_header_records: '%{range_begin} gösteriliyor - %{range_end} - %{total}
-        kayıtları ile'
+      result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
+        %{total} kayıttan %{range_end}'
       result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
         ile'
       new_search: yeni arama

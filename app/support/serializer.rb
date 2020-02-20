@@ -58,7 +58,7 @@ class Serializer
         page_contents: [{
           media_AS_content: [
             # TODO: :sytlesheet, :javascript, { content_sections: :section }
-            :image_infos, :license, :language, :bibliographic_citation, :location, # TODO: :attributions,
+            :image_info, :license, :language, :bibliographic_citation, :location, # TODO: :attributions,
               { references_AS_parent: :referents, resource: [ :partner ] }
           ],
           articles_AS_content: [

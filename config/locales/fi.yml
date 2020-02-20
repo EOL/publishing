@@ -1,6 +1,7 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: FinlandMan
 # Author: Nike
 # Author: Pyscowicz
 ---
@@ -457,7 +458,7 @@ fi:
       image: kuva
       video: video
       sound: ääni
-      map: kartta
+      map_image: kartta
       js_map: interaktiivinen kartta
   medium_collect_button: kerää media
   medium_header_title: 'Otsikko:'
@@ -780,6 +781,9 @@ fi:
     uri_field_html: <strong>URI:</strong> %{uri}
     index:
       select_page_above: Aloita valitsemalla yllä oleva sivu.
+  traits:
+    data_viz:
+      other: muu
   trophic_web:
     group_descriptions:
       source: keskeiset lajit

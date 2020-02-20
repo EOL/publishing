@@ -206,7 +206,7 @@ zh-CN:
       image: 映像
       video: 视频
       sound: 声音
-      map: 地图
+      map_image: 地图
   medium_header_title: 标题：
   medium_header_description: 说明：
   nav:
