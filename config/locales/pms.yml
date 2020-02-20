@@ -137,6 +137,7 @@ pms:
       download_taxa_csv: dëscarié ël CSV dle tassonomìe
       delete: dëscancelé
       edit: modifiché
+      sort: sòrt
     collection_type:
       normal: normal
       gallery: galarìa
@@ -567,7 +568,7 @@ pms:
       image: plancia
       video: filmà
       sound: son
-      map: carta
+      map_image: carta
       js_map: carta antërativa
   medium_collect_button: cheuje ij mojen
   medium_description_blank: A-i é gnun-a descrission fornìa për cost oget-sì.
@@ -1096,6 +1097,21 @@ pms:
       select_page_above: Serne na pàgina sì-dzora për ancaminé.
   data_definition: definission ëd «%{data}»
   traits:
+    data_viz:
+      n_other_records:
+        one: un-a àutra argistrassion
+        other: '%{count} àutre argistrassion'
+      n_other_taxa:
+        one: un-a àutra tassonomìa
+        other: '%{count} àutre tassonomìe'
+      other: àutr
+      pie_prompt: ratin dzora un segment o na ciav për evidensié
+      see_n_obj_records:
+        one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
+        other: sgnaché për vëdde %{count} argistrassion con «%{obj_name}»
+      see_n_taxa_with:
+        one: sgnacché për vëdde na tassonomìa con «%{obj_name}»
+        other: sgnaché për vëdde %{count} tassonomìe con «%{obj_name}»
     search:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv
@@ -1104,7 +1120,7 @@ pms:
       gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
         ant ij sò arzultà d'arserca (limità a 60)
       result_header_records: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
-        argistrassion con
+        argistrassion për %{page_count} tassonomìe con
       result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
         tassonomìe con
       new_search: neuva arserca

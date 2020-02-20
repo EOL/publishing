@@ -53,6 +53,7 @@ ko:
     actions:
       delete: 삭제
       edit: 편집
+      sort: 정렬
     collection_type:
       gallery: 갤러리
     delete_confirm: 이 작업은 모든 모음집을 제거하며 취소할 수 없습니다. 그렇게 하시겠습니까?
@@ -407,6 +408,8 @@ ko:
       select_page_above: 시작하려면 위의 문서를 선택하십시오.
   data_definition: '"%{data}"의 정의'
   traits:
+    data_viz:
+      other: 기타
     search:
       gbif_search: GBIF 검색
   trust:
