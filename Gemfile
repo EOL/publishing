@@ -48,11 +48,11 @@ gem 'bootsnap', '~> 1.4', require: false
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 2.3'
 # Cron jobs:
-gem 'crono'
+gem 'crono', '~> 1.1'
 # Run background jobs:
-gem 'daemons'
+gem 'daemons', '~> 1.3'
 # Memcached (not for development):
-gem 'dalli'
+gem 'dalli', '~> 2.7'
 # Background jobs (to be run by daemons, q.v.):
 gem 'delayed_job'
 gem 'delayed_job_active_record'
@@ -63,7 +63,7 @@ gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
 # Model decoration
-gem 'draper'
+gem 'draper', '~> 4' # NOTE: 3.1 was the version we were using... Forced an update of nokogiri (but just a minor rev)
 # Icons
 gem 'font-awesome-sass', '~> 4.3'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
