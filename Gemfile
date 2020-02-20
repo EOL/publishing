@@ -13,23 +13,24 @@ gem 'jbuilder', '~> 2.10'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
 gem 'jquery-rails', '~> 4.3'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', group: :doc
+gem 'sdoc', '~> 1.0', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'therubyracer'
+gem 'therubyracer', '~> 0.12'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+gem 'uglifier', '~> 4.2'
 # RefineryCMS
 gem 'refinerycms', git: "https://github.com/refinery/refinerycms", ref: "81ed991"
 gem 'refinerycms-wymeditor'
 gem 'refinerycms-i18n'
 
-# Use Unicorn as the app server
-gem 'unicorn'
+# Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
+# anyway.
+gem 'unicorn', '~> 5.5'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem 'kaminari'
+gem 'kaminari', '~> 1.2'
 
 # All other non-environment-specific gems come next.
 #
@@ -39,13 +40,13 @@ gem 'kaminari'
 # maintainable!
 
 # For bulk inserts:
-gem 'activerecord-import'
+gem 'activerecord-import', '~> 1.0'
 # Acts As List simplifies ordered lists of models:
-gem 'acts_as_list'
+gem 'acts_as_list', '~> 1.0'
 # Faster startup:
-gem 'bootsnap', require: false
+gem 'bootsnap', '~> 1.4', require: false
 # Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture'
+gem 'counter_culture', '~> 2.3'
 # Cron jobs:
 gem 'crono'
 # Run background jobs:

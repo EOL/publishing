@@ -137,7 +137,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
-    counter_culture (2.2.4)
+    counter_culture (2.3.0)
       activerecord (>= 4.2)
       activesupport (>= 4.2)
       after_commit_action (~> 1.0)
@@ -308,18 +308,18 @@ GEM
       regexp_property_values (~> 1.0)
     json (2.3.0)
     jwt (2.2.1)
-    kaminari (1.1.1)
+    kaminari (1.2.0)
       activesupport (>= 4.1.0)
-      kaminari-actionview (= 1.1.1)
-      kaminari-activerecord (= 1.1.1)
-      kaminari-core (= 1.1.1)
-    kaminari-actionview (1.1.1)
+      kaminari-actionview (= 1.2.0)
+      kaminari-activerecord (= 1.2.0)
+      kaminari-core (= 1.2.0)
+    kaminari-actionview (1.2.0)
       actionview
-      kaminari-core (= 1.1.1)
-    kaminari-activerecord (1.1.1)
+      kaminari-core (= 1.2.0)
+    kaminari-activerecord (1.2.0)
       activerecord
-      kaminari-core (= 1.1.1)
-    kaminari-core (1.1.1)
+      kaminari-core (= 1.2.0)
+    kaminari-core (1.2.0)
     kgio (2.11.3)
     libv8 (3.16.14.19)
     listen (3.2.1)
@@ -622,16 +622,16 @@ PLATFORMS
 
 DEPENDENCIES
   active_record_query_trace
-  activerecord-import
-  acts_as_list
+  activerecord-import (~> 1.0)
+  acts_as_list (~> 1.0)
   better_errors
-  bootsnap
+  bootsnap (~> 1.4)
   brakeman
   byebug
   capybara
   client_side_validations
   client_side_validations-simple_form
-  counter_culture
+  counter_culture (~> 2.3)
   coveralls
   crono
   daemons
@@ -655,7 +655,7 @@ DEPENDENCIES
   jquery-rails (~> 4.3)
   js-routes
   jwt
-  kaminari
+  kaminari (~> 1.2)
   listen
   lograge
   mailcatcher
@@ -679,17 +679,17 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubyzip
-  sdoc
+  sdoc (~> 1.0)
   searchkick
   shoulda-matchers (~> 3.1)
   simple_form
   simplecov
   sitemap_generator
   spring
-  therubyracer
+  therubyracer (~> 0.12)
   typhoeus
-  uglifier
-  unicorn
+  uglifier (~> 4.2)
+  unicorn (~> 5.5)
   web-console
 
 BUNDLED WITH
