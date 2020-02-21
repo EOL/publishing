@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   get  "set_locale"                   => "locales#set_locale"
   get 'robots.:format' => 'application#robots'
 
-  scope "(:locale)", locale: /#{I18n.available_locales.reject { |l| l == I18n.default_locale}.join('|')}/ do
+  #scope "(:locale)", locale: /#{I18n.available_locales.reject { |l| l == I18n.default_locale}.join('|')}/ do
+  scope "(:locale)", locale: /#{I18n.available_locales.join('|')}/ do
+    get "/#{I18n.default_locale}", :to => redirect("/", :status => 301)
+    get "/#{I18n.default_locale}/*path", :to => redirect(:path => "/%{path}", :status => 301)
+
     get '' => 'home_page#index', as: :home_page
     get 'errors/not_found'
     get 'errors/internal_server_error'
-
+    
     # This line mounts Refinery's routes at the root of your application.
     # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
     # If you would like to change where this extension is mounted, simply change the
