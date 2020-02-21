@@ -1,4 +1,4 @@
-class FixFirstEntityRelationships < ActiveRecord::Migration
+class FixFirstEntityRelationships < ActiveRecord::Migration[4.2]
   def up
     remove_column(:resources, :default_language_id)
     remove_column(:resources, :default_license_id)

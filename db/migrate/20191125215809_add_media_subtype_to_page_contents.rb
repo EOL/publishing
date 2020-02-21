@@ -1,5 +1,5 @@
 # 20191125215809
-class AddMediaSubtypeToPageContents < ActiveRecord::Migration
+class AddMediaSubtypeToPageContents < ActiveRecord::Migration[4.2]
   def up
     default = Medium.subclasses[:image] # Probably 0, but let's be safe.
     add_column :page_contents, :content_subclass, :integer, default: default

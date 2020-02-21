@@ -1,5 +1,5 @@
 # 20170428193945
-class AddMediumIdToPages < ActiveRecord::Migration
+class AddMediumIdToPages < ActiveRecord::Migration[4.2]
   def change
     add_column(:pages, :medium_id, :integer,
       comment: "denormalized id of the top medium for this page: the icon.")

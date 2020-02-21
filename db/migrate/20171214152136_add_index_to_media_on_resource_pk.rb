@@ -1,4 +1,4 @@
-class AddIndexToMediaOnResourcePk < ActiveRecord::Migration
+class AddIndexToMediaOnResourcePk < ActiveRecord::Migration[4.2]
   def change
     add_index :media, :resource_pk
     add_column :media, :usage_statement, :string

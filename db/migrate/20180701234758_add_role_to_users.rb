@@ -1,4 +1,4 @@
-class AddRoleToUsers < ActiveRecord::Migration
+class AddRoleToUsers < ActiveRecord::Migration[4.2]
 
   def up
     add_column :users, :role, :integer, null: false, default: User.roles[:user]

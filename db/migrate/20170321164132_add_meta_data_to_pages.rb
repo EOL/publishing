@@ -1,5 +1,5 @@
 # 20170321164132
-class AddMetaDataToPages < ActiveRecord::Migration
+class AddMetaDataToPages < ActiveRecord::Migration[4.2]
   def self.up
     add_column :pages, :page_contents_count, :integer, :null => false, :default => 0
     add_column :pages, :media_count, :integer, :null => false, :default => 0

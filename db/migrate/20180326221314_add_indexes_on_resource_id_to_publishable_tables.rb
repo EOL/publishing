@@ -1,5 +1,5 @@
 # 20180326221314
-class AddIndexesOnResourceIdToPublishableTables < ActiveRecord::Migration
+class AddIndexesOnResourceIdToPublishableTables < ActiveRecord::Migration[4.2]
   def change
     add_index :articles, :resource_id
     add_index :articles, :harv_db_id

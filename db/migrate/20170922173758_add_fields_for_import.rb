@@ -1,5 +1,5 @@
 # 20170922173758
-class AddFieldsForImport < ActiveRecord::Migration
+class AddFieldsForImport < ActiveRecord::Migration[4.2]
   def change
     add_column :nodes, :parent_resource_pk, :string, index: true
     add_column :scientific_names, :resource_id, :integer

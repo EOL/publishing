@@ -1,4 +1,4 @@
-class AddUserFields < ActiveRecord::Migration
+class AddUserFields < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :v2_id, :integer
     add_column :users, :language_id, :integer

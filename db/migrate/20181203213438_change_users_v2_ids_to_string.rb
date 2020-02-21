@@ -1,4 +1,4 @@
-class ChangeUsersV2IdsToString < ActiveRecord::Migration
+class ChangeUsersV2IdsToString < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :v2_ids, :text, comment: 'a semicolon-delimited array of ids used by this email address in v2'
     add_column :users, :curator_level, :integer

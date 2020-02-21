@@ -1,4 +1,4 @@
-class CreateTermQueryPredicateFilters < ActiveRecord::Migration
+class CreateTermQueryPredicateFilters < ActiveRecord::Migration[4.2]
   def change
     create_table :term_query_predicate_filters do |t|
       t.integer :term_query_id, :index => true

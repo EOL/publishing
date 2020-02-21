@@ -1,4 +1,4 @@
-class ChangeTextLimits < ActiveRecord::Migration
+class ChangeTextLimits < ActiveRecord::Migration[4.2]
   def up
     change_column :articles, :body, :text, null: false, limit: 4.gigabytes - 1,
       comment: "html; run through namelinks; was description_linked"
