@@ -1,4 +1,4 @@
-class TaxonomicStatusChangeDefaultValueOfIsPreferred < ActiveRecord::Migration
+class TaxonomicStatusChangeDefaultValueOfIsPreferred < ActiveRecord::Migration[4.2]
   def change
     change_column_default(:taxonomic_statuses, :is_preferred, false)
     TaxonomicStatus.update_all(is_preferred: false)

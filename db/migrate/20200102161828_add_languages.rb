@@ -1,4 +1,4 @@
-class AddLanguages < ActiveRecord::Migration
+class AddLanguages < ActiveRecord::Migration[4.2]
   def change
     require 'csv'
     CSV.foreach(Rails.root.join('doc', 'new_languages.csv')) do |line|

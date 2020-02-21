@@ -1,4 +1,4 @@
-class AddRightsStatementToContent < ActiveRecord::Migration
+class AddRightsStatementToContent < ActiveRecord::Migration[4.2]
   def change
     add_column :media, :rights_statement, :string, limit: 1024
     add_column :articles, :rights_statement, :string, limit: 1024

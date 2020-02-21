@@ -1,4 +1,4 @@
-class AddHarvPkToHarvestDbTables < ActiveRecord::Migration
+class AddHarvPkToHarvestDbTables < ActiveRecord::Migration[4.2]
   def change
     %w[referent node identifier scientific_name node_ancestor vernacular article medium image_info].each do |type|
       table = type.pluralize

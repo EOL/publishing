@@ -1,4 +1,4 @@
-class CreateTermQueryFilters2 < ActiveRecord::Migration
+class CreateTermQueryFilters2 < ActiveRecord::Migration[4.2]
   def change
     create_table :term_query_filters do |t|
       t.integer :term_query_id, :index => true

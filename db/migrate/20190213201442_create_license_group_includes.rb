@@ -1,4 +1,4 @@
-class CreateLicenseGroupIncludes < ActiveRecord::Migration
+class CreateLicenseGroupIncludes < ActiveRecord::Migration[4.2]
   def change
     create_table :license_group_includes do |t|
       t.integer :this_id

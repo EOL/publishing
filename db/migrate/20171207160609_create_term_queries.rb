@@ -1,4 +1,4 @@
-class CreateTermQueries < ActiveRecord::Migration
+class CreateTermQueries < ActiveRecord::Migration[4.2]
   def change
     create_table :term_queries do |t|
       t.string :pairs

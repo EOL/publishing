@@ -1,4 +1,4 @@
-class AlterSections < ActiveRecord::Migration
+class AlterSections < ActiveRecord::Migration[4.2]
   def up
     # NOTE: at the time this migration is run, there are no sections in the DB, so it's safe to modify without
     # considering reprocussions.

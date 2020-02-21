@@ -1,4 +1,4 @@
-class RemoveCollectedPagesMedia < ActiveRecord::Migration
+class RemoveCollectedPagesMedia < ActiveRecord::Migration[4.2]
   def up
     # In theory, we "should" preserve the collected pages medium by adding it to
     # the collected_pages_media table, but that's silly, because we're still

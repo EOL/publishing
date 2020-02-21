@@ -1,4 +1,4 @@
-class CreatePagesReferences < ActiveRecord::Migration
+class CreatePagesReferences < ActiveRecord::Migration[4.2]
   def change
     rename_table :references, :referents
     rename_table :articles_references, :references

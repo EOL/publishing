@@ -1,4 +1,4 @@
-class CreateDhDataSets < ActiveRecord::Migration
+class CreateDhDataSets < ActiveRecord::Migration[4.2]
   def change
     create_table :dh_data_sets do |t|
       t.string :dataset_id

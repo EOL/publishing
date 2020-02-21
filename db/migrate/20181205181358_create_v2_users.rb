@@ -1,4 +1,4 @@
-class CreateV2Users < ActiveRecord::Migration
+class CreateV2Users < ActiveRecord::Migration[4.2]
   def change
     create_table :v2_users do |t|
       t.integer :user_id, null: false, comment: "The 'id' field is the v2 user id, THIS column is the v3 user id."

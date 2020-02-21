@@ -1,4 +1,4 @@
-class CreateSearchSuggestions < ActiveRecord::Migration
+class CreateSearchSuggestions < ActiveRecord::Migration[4.2]
   def change
     create_table :search_suggestions do |t|
       t.integer :page_id, comment: "a species or clade page ID"
