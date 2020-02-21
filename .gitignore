@@ -92,3 +92,4 @@ public/files/solr_import_file.csv
 config/secrets.yml.enc
 config/secrets.yml.key
 config/locales/**/*.bak
+dragonfly.log
