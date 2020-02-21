@@ -205,9 +205,9 @@ window.TraitDataViz = (function(exports) {
     var width = 750
       , hPad = 15
       , innerWidth = width - (hPad * 2)
-      , barHeight = 30
-      , barSpace = 10
-      , labelY = 20
+      , barHeight = 20
+      , barSpace = 8
+      , labelY = 15 
       , labelX = 10
       , keyHeight = 40
       /*

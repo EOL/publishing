@@ -1,5 +1,7 @@
 module Traits
   class DataVizController < ApplicationController
+    BAR_CHART_LIMIT = 15
+
     VizResult = Struct.new(:obj, :query, :count, :is_other) do
       class << self
         def other(count)
@@ -36,7 +38,7 @@ module Traits
     def taxon_bar_chart
       @query = TermQuery.new(term_query_params)
       result = TraitBank::Stats.term_query_taxon_counts(@query)
-      top_results = result[0..10]
+      top_results = result[0..BAR_CHART_LIMIT]
       @data = top_results.collect { |r| viz_result_from_row(@query, r) }
       render_common
     end
