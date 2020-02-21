@@ -31,8 +31,11 @@
           = link_to term_search_path do
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
-    - if @data_viz_type.present? && @data_viz_type == :pie
-      .pie-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
+    - if @data_viz_type.present? 
+      -if @data_viz_type == :pie
+        .viz-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_object_pie_chart_path(term_query: @query.to_params) }}
+      - elsif @data_viz_type == :bar
+        .viz-contain.viz-contain-bar.js-bar-contain{ data: { :'load-path' => traits_data_viz_taxon_bar_chart_path(term_query: @query.to_params) }}
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }

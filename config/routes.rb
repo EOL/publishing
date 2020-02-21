@@ -196,6 +196,7 @@ Rails.application.routes.draw do
 
     namespace :traits do
       get "/data_viz/object_pie_chart" => "data_viz#object_pie_chart"
+      get "/data_viz/taxon_bar_chart" => "data_viz#taxon_bar_chart"
     end
 
     # Non-resource routes last:
