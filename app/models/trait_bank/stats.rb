@@ -17,8 +17,10 @@ class TraitBank
         filter = query.filters.first
         count = query.taxa? ? "distinct page" : "*"
 
-        qs = "MATCH #{TraitBank.page_match(query, "page", "")}-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
-          "(trait)-[:object_term]->(obj:Term)\n"\
+        qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
+          "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
+          "(trait)-[:object_term]->(obj_child:Term),\n"\
+          "(obj_child)-[#{TraitBank.parent_terms}]->(obj:Term)\n"\
           "WITH obj, count(#{count}) AS count\n"\
           "RETURN obj, count\n"\
           "ORDER BY count DESC"
