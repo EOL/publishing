@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.text "owner"
     t.string "name"
     t.string "source_url", limit: 4096
-    t.text "body", limit: 16777215
+    t.text "body", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resource_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.index ["resource_id"], name: "index_articles_on_resource_id"
   end
 
-  create_table "articles_collected_pages", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "articles_collected_pages", primary_key: ["collected_page_id", "article_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "collected_page_id", null: false
     t.integer "article_id", null: false
     t.integer "position"
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "harv_db_id", comment: "ID from harvest DB. Null allowed; this is only for reference."
+    t.integer "harv_db_id"
     t.index ["harv_db_id"], name: "index_bibliographic_citations_on_harv_db_id"
   end
 
@@ -111,14 +111,14 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.index ["page_id"], name: "index_collected_pages_on_page_id"
   end
 
-  create_table "collected_pages_links", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "collected_pages_links", primary_key: ["collected_page_id", "link_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "collected_page_id", null: false
     t.integer "link_id", null: false
     t.integer "position"
     t.index ["collected_page_id"], name: "index_collected_pages_links_on_collected_page_id"
   end
 
-  create_table "collected_pages_media", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "collected_pages_media", primary_key: ["collected_page_id", "medium_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "collected_page_id", null: false
     t.integer "medium_id", null: false
     t.integer "position"
@@ -163,10 +163,10 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.integer "collection_associations_count", default: 0
     t.integer "collection_type", default: 0
     t.integer "default_sort", default: 0
-    t.integer "v2_id", comment: "The ID of the collection in V2 database, if any."
+    t.integer "v2_id"
   end
 
-  create_table "collections_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "collections_users", primary_key: ["user_id", "collection_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "collection_id", null: false
     t.boolean "is_manager", default: false, null: false
@@ -566,7 +566,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.integer "medium_id"
   end
 
-  create_table "pages_referents", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "pages_referents", primary_key: ["page_id", "referent_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "page_id", null: false
     t.integer "referent_id", null: false
     t.integer "position"
@@ -586,7 +586,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.integer "repository_id"
   end
 
-  create_table "partners_users", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "partners_users", primary_key: ["partner_id", "user_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "partner_id", null: false
     t.integer "user_id", null: false
   end
@@ -604,7 +604,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.integer "treat_as"
   end
 
-  create_table "references", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "references", primary_key: ["parent_type", "parent_id", "referent_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "parent_id", null: false
     t.integer "referent_id", null: false
     t.string "parent_type", default: "Article", null: false
@@ -752,7 +752,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.datetime "updated_at", null: false
     t.string "abbr"
     t.integer "repository_id"
-    t.boolean "classification", default: false, comment: "Whether or not EOL wants to trust the classification for this resource and use it for display"
+    t.boolean "classification", default: false
     t.index ["partner_id"], name: "index_resources_on_partner_id"
   end
 
@@ -790,8 +790,8 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.boolean "virus"
     t.text "attribution"
     t.integer "harv_db_id"
-    t.text "dataset_name", comment: "http://rs.tdwg.org/dwc/terms/datasetName"
-    t.text "name_according_to", comment: "http://rs.tdwg.org/dwc/terms/nameAccordingTo"
+    t.text "dataset_name"
+    t.text "name_according_to"
     t.index ["canonical_form"], name: "index_scientific_names_on_canonical_form"
     t.index ["harv_db_id"], name: "index_scientific_names_on_harv_db_id"
     t.index ["node_id"], name: "index_scientific_names_on_node_id"
@@ -972,7 +972,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.integer "role", default: 10, null: false
     t.integer "language_id"
     t.boolean "disable_email_notifications"
-    t.text "v2_ids", comment: "a semicolon-delimited array of ids used by this email address in v2"
+    t.text "v2_ids"
     t.integer "curator_level"
     t.integer "breadcrumb_type"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -982,17 +982,17 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
   end
 
   create_table "v2_users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "user_id", null: false, comment: "The 'id' field is the v2 user id, THIS column is the v3 user id."
+    t.integer "user_id", null: false
   end
 
   create_table "vernacular_preferences", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "vernacular_id", null: false
-    t.integer "resource_id", null: false, comment: "DENORMALIZED copy, in case we lose the original."
-    t.integer "language_id", comment: "DENORMALIZED copy, in case we lose the original."
-    t.integer "page_id", comment: "DENORMALIZED copy, because we need to look up overrides using it."
-    t.integer "overridden_by_id", comment: "NOTE that the last curation (always) wins."
-    t.string "string", null: false, comment: "DENORMALIZED copy, in case we lose the original."
+    t.integer "resource_id", null: false
+    t.integer "language_id"
+    t.integer "page_id"
+    t.integer "overridden_by_id"
+    t.string "string", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["page_id", "language_id"], name: "override_lookup"
@@ -1016,7 +1016,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.text "source"
     t.integer "resource_id"
     t.integer "harv_db_id"
-    t.integer "user_id", comment: "If non-null, a user contributed this name."
+    t.integer "user_id"
     t.index ["harv_db_id"], name: "index_vernaculars_on_harv_db_id"
     t.index ["node_id"], name: "index_vernaculars_on_node_id"
     t.index ["page_id", "language_id"], name: "preferred_names_index"
@@ -1030,5 +1030,4 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "user_downloads", "term_queries"
 end
