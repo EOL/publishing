@@ -1,4 +1,4 @@
-class CreatePageRedirects < ActiveRecord::Migration
+class CreatePageRedirects < ActiveRecord::Migration[4.2]
   def change
     create_table :page_redirects do |t|
       t.integer :redirect_to_id

@@ -1,4 +1,4 @@
-class AddSexLifeStageStatisticalMethodToTermQueryFilter < ActiveRecord::Migration
+class AddSexLifeStageStatisticalMethodToTermQueryFilter < ActiveRecord::Migration[4.2]
   def change
     add_column :term_query_filters, :sex_uri, :string
     add_column :term_query_filters, :life_stage_uri, :string

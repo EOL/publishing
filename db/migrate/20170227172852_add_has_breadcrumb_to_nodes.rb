@@ -1,4 +1,4 @@
-class AddHasBreadcrumbToNodes < ActiveRecord::Migration
+class AddHasBreadcrumbToNodes < ActiveRecord::Migration[4.2]
   def change
     add_column :nodes, :has_breadcrumb, :boolean, default: true,
       comment: "Mostly used for DWH to 'hide' most nodes and only show the "\

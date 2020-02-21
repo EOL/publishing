@@ -1,4 +1,4 @@
-class CreateProcess < ActiveRecord::Migration
+class CreateProcess < ActiveRecord::Migration[4.2]
   def change
     create_table :processes do |t|
       t.integer :resource_id, null: false

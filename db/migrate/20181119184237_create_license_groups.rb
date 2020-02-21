@@ -1,4 +1,4 @@
-class CreateLicenseGroups < ActiveRecord::Migration
+class CreateLicenseGroups < ActiveRecord::Migration[4.2]
   def change
     create_table :license_groups do |t|
       t.string :label_key

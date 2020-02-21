@@ -1,4 +1,4 @@
-class CreateUserDownloadErrors < ActiveRecord::Migration
+class CreateUserDownloadErrors < ActiveRecord::Migration[4.2]
   def change
     create_table :user_download_errors do |t|
       t.string :message

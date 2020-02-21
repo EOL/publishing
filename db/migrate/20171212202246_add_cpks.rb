@@ -1,4 +1,4 @@
-class AddCpks < ActiveRecord::Migration
+class AddCpks < ActiveRecord::Migration[4.2]
   def change
     {
       collections_users: %i[user_id collection_id],

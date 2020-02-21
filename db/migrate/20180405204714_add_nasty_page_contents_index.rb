@@ -1,4 +1,4 @@
-class AddNastyPageContentsIndex < ActiveRecord::Migration
+class AddNastyPageContentsIndex < ActiveRecord::Migration[4.2]
   def change
       # PageContent Load (2570.0ms)  SELECT  `page_contents`.* FROM `page_contents` WHERE `page_contents`.`page_id` =
       # 694 AND `page_contents`.`is_hidden` = 0 AND (`page_contents`.`trust` != 2) AND `page_contents`.`content_type` =

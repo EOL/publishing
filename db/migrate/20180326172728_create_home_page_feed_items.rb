@@ -1,4 +1,4 @@
-class CreateHomePageFeedItems < ActiveRecord::Migration
+class CreateHomePageFeedItems < ActiveRecord::Migration[4.2]
   def change
     create_table :home_page_feed_items do |t|
       t.string :img_url

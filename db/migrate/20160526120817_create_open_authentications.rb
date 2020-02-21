@@ -1,4 +1,4 @@
-class CreateOpenAuthentications < ActiveRecord::Migration
+class CreateOpenAuthentications < ActiveRecord::Migration[4.2]
   def change
     create_table :open_authentications do |t|
       t.string :provider, null: false

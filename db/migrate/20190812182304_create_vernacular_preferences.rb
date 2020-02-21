@@ -1,4 +1,4 @@
-class CreateVernacularPreferences < ActiveRecord::Migration
+class CreateVernacularPreferences < ActiveRecord::Migration[4.2]
   def change
     create_table :vernacular_preferences do |t|
       t.integer :user_id, null: false

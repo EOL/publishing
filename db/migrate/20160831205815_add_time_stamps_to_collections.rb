@@ -1,4 +1,4 @@
-class AddTimeStampsToCollections < ActiveRecord::Migration
+class AddTimeStampsToCollections < ActiveRecord::Migration[4.2]
   def change
     # ooops.
     add_column(:collections, :created_at, :datetime)

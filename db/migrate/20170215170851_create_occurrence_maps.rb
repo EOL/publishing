@@ -1,4 +1,4 @@
-class CreateOccurrenceMaps < ActiveRecord::Migration
+class CreateOccurrenceMaps < ActiveRecord::Migration[4.2]
   def change
     # NOTE: this is (arguably) denormalized from nodes, because we don't want to
     # *harvest* this content yet. A specific import script will need to be run

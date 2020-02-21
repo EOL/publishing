@@ -1,4 +1,4 @@
-class FirstEntityRelationshipDiagram < ActiveRecord::Migration
+class FirstEntityRelationshipDiagram < ActiveRecord::Migration[4.2]
   def change
     create_table :languages do |t|
       t.string :code, null: false, limit: 12, index: true, unique: true,

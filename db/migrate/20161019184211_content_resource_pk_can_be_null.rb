@@ -1,4 +1,4 @@
-class ContentResourcePkCanBeNull < ActiveRecord::Migration
+class ContentResourcePkCanBeNull < ActiveRecord::Migration[4.2]
   def up
     change_column :media, :resource_pk, :string, null: true, comment: "was: identifier"
     change_column :articles, :resource_pk, :string, null: true, comment: "was: identifier"

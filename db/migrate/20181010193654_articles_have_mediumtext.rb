@@ -1,4 +1,4 @@
-class ArticlesHaveMediumtext < ActiveRecord::Migration
+class ArticlesHaveMediumtext < ActiveRecord::Migration[4.2]
   def change
     Article.connection.execute(%{
       ALTER TABLE articles CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
