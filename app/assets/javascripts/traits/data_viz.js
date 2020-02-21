@@ -202,8 +202,8 @@ window.TraitDataViz = (function(exports) {
   }
 
   function buildBarChart() {
-    var width = 750
-      , hPad = 15
+    var width = 740
+      , hPad = 5
       , innerWidth = width - (hPad * 2)
       , barHeight = 20
       , barSpace = 8
@@ -245,9 +245,9 @@ window.TraitDataViz = (function(exports) {
             .style('margin', '0 auto');
 
     var gKey = svg.append('g')
-    buildTick(gKey, 0);
-    buildTick(gKey, maxCount / 2);
-    buildTick(gKey, maxCount);
+    buildTick(gKey, 'start', 0);
+    buildTick(gKey, 'middle', maxCount / 2);
+    buildTick(gKey, 'end', maxCount);
 
     var gBar = svg.append('g')
       .attr('transform', `translate(${hPad}, ${keyHeight})`);
@@ -299,16 +299,24 @@ window.TraitDataViz = (function(exports) {
       return d.count > maxCount / 2;
     }
 
-    function buildTick(group, number) {
+    function buildTick(group, textAnchor, number) {
       var x = (number / maxCount) * innerWidth + hPad
+        , textX = 0
         , gTick = group.append('g')
             .attr('transform', `translate(${x}, 0)`)
         ;
 
+      if (textAnchor == 'start') {
+        textX = -3;
+      } else if (textAnchor == 'end') {
+        textX = 3;
+      }
+
       gTick.append('text')
         .text(number)
+        .attr('x', textX)
         .attr('y', 12)
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor', textAnchor)
 
       gTick.append('line')
         .attr("stroke", "black")
