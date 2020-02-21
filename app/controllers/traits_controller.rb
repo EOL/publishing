@@ -194,10 +194,6 @@ class TraitsController < ApplicationController
   end
 
   def data_viz_type(query)
-    if TraitBank::Stats.check_query_valid_for_object_counts(query).valid
-      @data_viz_type = :pie
-    elsif TraitBank::Stats.check_query_valid_for_taxon_counts(query).valid
-      @data_viz_type = :bar
-    end
+    @data_viz_type = :bar if TraitBank::Stats.check_query_valid_for_counts(query).valid
   end
 end

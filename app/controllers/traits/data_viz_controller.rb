@@ -14,9 +14,10 @@ module Traits
       end
     end
 
-    def object_pie_chart
+    # unsupported
+    def pie
       @query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.term_query_object_counts(@query)
+      result = TraitBank::Stats.obj_counts(@query)
       counts = TraitBank.term_search(@query, count: true)
       total = counts.primary_for_query(@query)
       min_threshold = 0.05 * total
@@ -35,9 +36,9 @@ module Traits
       render_common
     end
 
-    def taxon_bar_chart
+    def bar
       @query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.term_query_taxon_counts(@query)
+      result = TraitBank::Stats.obj_counts(@query)
       top_results = result[0..BAR_CHART_LIMIT]
       @data = top_results.collect { |r| viz_result_from_row(@query, r) }
       render_common

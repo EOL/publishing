@@ -3,17 +3,8 @@ class TraitBank
     CheckResult = Struct.new(:valid, :reason)
 
     class << self
-      def term_query_object_counts(query)
-        check_tq_for_object_counts(query)
-        count_query_helper(query)
-      end
-
-      def term_query_taxon_counts(query)
-        check_tq_for_taxon_counts(query)
-        count_query_helper(query)
-      end
-
-      def count_query_helper(query)
+      def obj_counts(query)
+        check_tq_for_counts(query)
         filter = query.filters.first
         count = query.taxa? ? "distinct page" : "*"
 
@@ -30,7 +21,7 @@ class TraitBank
         TraitBank.results_to_hashes(results, "obj")
       end
 
-      def check_common(query)
+      def check_query_valid_for_counts(query)
         if query.predicate_filters.length != 1
           return CheckResult.new(false, "query must have a single predicate filter")
         end
@@ -61,33 +52,9 @@ class TraitBank
         CheckResult.new(true, nil)
       end
 
-      def check_query_valid_for_object_counts(query)
-        if !query.record?
-          CheckResult.new(false, "result_type must be record")
-        else
-          check_common(query)
-        end
-      end
-
-      def check_query_valid_for_taxon_counts(query)
-        if !query.taxa?
-          CheckResult.new(false, "result_type must be taxa")
-        else
-          check_common(query)
-        end
-      end
-
       private
-      def check_tq_for_object_counts(query)
-        result = check_query_valid_for_object_counts(query)
-
-        if !result.valid
-          raise TypeError.new(result.reason)
-        end
-      end
-
-      def check_tq_for_taxon_counts(query)
-        result = check_query_valid_for_taxon_counts(query)
+      def check_tq_for_counts(query)
+        result = check_query_valid_for_counts(query)
 
         if !result.valid
           raise TypeError.new(result.reason)

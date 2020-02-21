@@ -199,8 +199,8 @@ Rails.application.routes.draw do
     get "/terms/search_form" => "traits#search_form", :as => "term_search_form"
 
     namespace :traits do
-      get "/data_viz/object_pie_chart" => "data_viz#object_pie_chart"
-      get "/data_viz/taxon_bar_chart" => "data_viz#taxon_bar_chart"
+      get "/data_viz/pie" => "data_viz#pie"
+      get "/data_viz/bar" => "data_viz#bar"
     end
 
     # Non-resource routes last:
