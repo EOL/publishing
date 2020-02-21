@@ -394,9 +394,8 @@ class TraitBank
     def term_filter_where(filter, trait_var, pred_var, obj_var)
       parts = []
       if filter.object_term?
-        parts << "#{obj_var}.uri = \"#{filter.obj_uri}\""
-        # "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
-        # "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
+        parts << "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
+         "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
       elsif filter.predicate?
         parts << "#{pred_var}.uri = \"#{filter.pred_uri}\""
 
@@ -560,11 +559,10 @@ class TraitBank
 
         if filter.object_term?
           matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-          matches << "(#{trait_var})-[:predicate]-(#{pred_var}:Term)"
-        else
-          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
-            "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
         end
+
+        matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
+          "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
 
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
         add_term_filter_resource_match(filter, trait_var, matches)
@@ -668,10 +666,11 @@ class TraitBank
         if filter.object_term?
           matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
           indexes << "USING INDEX #{obj_var}:Term(uri)"
-        else
-          matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-          indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
+
+        matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+        indexes << "USING INDEX #{pred_var}:Term(uri)"
+
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
         add_term_filter_resource_match(filter, trait_var, matches)
