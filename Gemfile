@@ -63,7 +63,7 @@ gem 'devise-encryptable'
 # Discourse handles comments and chat:
 gem 'discourse_api'
 # Model decoration
-gem 'draper', '~> 4' # NOTE: 3.1 was the version we were using... Forced an update of nokogiri (but just a minor rev)
+gem 'draper', '~> 4' # NOTE: 3.1 was the version we were using... Forced a patch update of nokogiri
 # Icons
 gem 'font-awesome-sass', '~> 4.3'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
