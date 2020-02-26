@@ -10,12 +10,12 @@ class TraitBank
 
         # Where clause filters for top-level terms or their direct children only
         # WITH DISTINCT is necessary to filter out multiple paths from obj_child to obj (I think?)
+        # "WHERE NOT (obj)-[:parent_term*2..]->(:Term)\n"\ removed
         qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
           "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),\n"\
           "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
           "(trait)-[:object_term]->(obj_child:Term),\n"\
           "(obj_child)-[#{TraitBank.parent_terms}]->(obj:Term)\n"\
-          "WHERE NOT (obj)-[:parent_term*2..]->(:Term)\n"\
           "WITH DISTINCT page, trait, obj\n"\
           "WITH obj, count(#{count}) AS count\n"\
           "RETURN obj, count\n"\
