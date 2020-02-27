@@ -269,8 +269,10 @@
 
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), function(result) {
-      $contain.append(result);
-      ready();
+      if (result) {
+        $contain.append(result);
+        ready();
+      }
     });
   }
 
