@@ -54,6 +54,7 @@ class TraitBank
         end
 
         if (
+            query.clade.present? &&
             PRED_URIS_FOR_THRESHOLD.include?(uri) &&
             record_count > RECORD_THRESHOLD
         )
