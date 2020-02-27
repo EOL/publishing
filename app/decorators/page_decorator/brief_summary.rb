@@ -433,20 +433,8 @@ class PageDecorator
 
       # has value http://eol.org/schema/terms/extinct for measurement type http://eol.org/schema/terms/ExtinctionStatus
       def is_it_extinct?
-        if @page.has_checked_extinct?
-          @page.is_extinct?
-        else
-          # NOTE: this relies on #displayed_extinction_data ONLY returning an "extinct" record. ...which, as of this writing,
-          # it is designed to do.
-          @page.update_attribute(:has_checked_extinct, true)
-          if @page.displayed_extinction_data # TODO: this method doesn't check descendants yet.
-            @page.update_attribute(:is_extinct, true)
-            return true
-          else
-            @page.update_attribute(:is_extinct, false)
-            return false
-          end
-        end
+        trait = first_trait_for_obj_uris(Eol::Uris.extinct)
+        !trait.nil? 
       end
 
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.
