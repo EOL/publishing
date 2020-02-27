@@ -38,9 +38,9 @@ module Traits
 
     def bar
       @query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.obj_counts(@query)
-      top_results = result[0..BAR_CHART_LIMIT]
-      @data = top_results.collect { |r| viz_result_from_row(@query, r) }
+      counts = TraitBank.term_search(@query, { count: true })
+      result = TraitBank::Stats.obj_counts(@query, counts.records, BAR_CHART_LIMIT)
+      @data = result.collect { |r| viz_result_from_row(@query, r) }
       render_common
     end
 

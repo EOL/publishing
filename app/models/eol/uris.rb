@@ -64,6 +64,10 @@ module Eol
         ]
       end
 
+      def geographic_distribution
+        "http://eol.org/schema/terms/Present"
+      end
+
       def growth_habit
         'http://eol.org/schema/terms/growthHabit'
       end
@@ -253,6 +257,10 @@ module Eol
 
       def fossil_first
         "http://eol.org/schema/terms/FossilFirst"
+      end
+
+      def ecoregion
+        "https://www.wikidata.org/entity/Q295469"
       end
 
       def inverse(uri)
