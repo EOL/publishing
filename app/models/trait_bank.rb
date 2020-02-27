@@ -393,100 +393,105 @@ class TraitBank
 
     def term_filter_where(filter, trait_var, pred_var, obj_var)
       parts = []
+      uri_condition = []
+
+      if filter.predicate?
+        uri_condition << "#{pred_var}.uri = \"#{filter.pred_uri}\""
+      end
+
       if filter.object_term?
-        parts << "(#{obj_var}.uri = \"#{filter.obj_uri}\" "\
-         "AND #{pred_var}.uri = \"#{filter.pred_uri}\")"
-      elsif filter.predicate?
-        parts << "#{pred_var}.uri = \"#{filter.pred_uri}\""
+        uri_condition << "#{obj_var}.uri = \"#{filter.obj_uri}\""
+      end
 
-        if filter.numeric?
-          conditions = []
-          if filter.eq?
-            conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
-            conditions << { op: "=", val: conv_eq_val }
-          else
-            if filter.gt? || filter.range?
-              conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
-              conditions << { op: ">=", val: conv_gt_val }
-            end
+      parts << "(#{uri_condition.join(" AND ")})"
 
-            if filter.lt? || filter.range?
-              conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
-              conditions << { op: "<=", val: conv_lt_val }
-            end
-
-            conv_units_uri = conv_units_uri1 || conv_units_uri2
+      if filter.numeric?
+        conditions = []
+        if filter.eq?
+          conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
+          conditions << { op: "=", val: conv_eq_val }
+        else
+          if filter.gt? || filter.range?
+            conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
+            conditions << { op: ">=", val: conv_gt_val }
           end
 
-          parts << "("\
-          "(#{trait_var}.measurement IS NOT NULL "\
-          "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
-          "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
-          "OR "\
-          "(#{trait_var}.normal_measurement IS NOT NULL "\
-          "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
-          "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
-          ")"
+          if filter.lt? || filter.range?
+            conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
+            conditions << { op: "<=", val: conv_lt_val }
+          end
+
+          conv_units_uri = conv_units_uri1 || conv_units_uri2
         end
+
+        parts << "("\
+        "(#{trait_var}.measurement IS NOT NULL "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+        "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
+        "OR "\
+        "(#{trait_var}.normal_measurement IS NOT NULL "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+        "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
+        ")"
       end
 
       parts.join(" AND ")
     end
 
-    def term_search_filter_match(filter, i, matches, optional_matches, options)
-      collects = options[:collects]
-      trait_inv_rows = options[:trait_inv_rows]
-      traits_invs = options[:traits_invs]
-
-      filter_matches = filter.inverse_pred_uri ? optional_matches : matches
-
-      trait_var = "t#{i}"
-      pred_var = "p#{i}"
-      tgt_pred_var = "tp#{i}"
-      obj_var = "o#{i}"
-      tgt_obj_var = "to#{i}"
-      match = []
-
-      match << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
-
-      if filter.object_term?
-        match << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
-      else
-        match << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
-          "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
-      end
-
-      where = term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
-
-      filter_matches << {
-        match: match,
-        where: where
-      }
-      rows_var = "rows#{i}"
-      collects << { inv_page: "null", trait: trait_var, predicate: pred_var, rows_var: rows_var } if collects
-
-      if filter.inverse_pred_uri
-        inv_trait_var = "t_inv#{i}"
-        inv_pred_var = "p_inv#{i}"
-        inv_tgt_pred_var = "tp_inv#{i}"
-        inv_page_var = "page_inv#{i}"
-        inv_match = [
-          "(#{inv_page_var}:Page)-[#{TRAIT_RELS}]->(#{inv_trait_var}:Trait)",
-          "(#{inv_trait_var})-[:predicate]->(#{inv_pred_var}:Term)-[#{parent_terms}]->(#{inv_tgt_pred_var}:Term)"
-        ]
-        inv_where = "#{inv_tgt_pred_var}.uri = '#{filter.inverse_pred_uri}' AND #{inv_trait_var}.object_page_id = page.page_id"
-
-        filter_matches << {
-          match: inv_match,
-          where: inv_where
-        }
-
-        inv_rows_var = "rows_inv#{i}"
-        collects << { inv_page: inv_page_var, trait: inv_trait_var, predicate: inv_pred_var, rows_var: inv_rows_var} if collects
-        traits_invs << [trait_var, inv_trait_var] if traits_invs
-        trait_inv_rows << [rows_var, inv_rows_var] if trait_inv_rows
-      end
-    end
+#    def term_search_filter_match(filter, i, matches, optional_matches, options)
+#      collects = options[:collects]
+#      trait_inv_rows = options[:trait_inv_rows]
+#      traits_invs = options[:traits_invs]
+#
+#      filter_matches = filter.inverse_pred_uri ? optional_matches : matches
+#
+#      trait_var = "t#{i}"
+#      pred_var = "p#{i}"
+#      tgt_pred_var = "tp#{i}"
+#      obj_var = "o#{i}"
+#      tgt_obj_var = "to#{i}"
+#      match = []
+#
+#      match << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+#
+#      if filter.object_term?
+#        match << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
+#      else
+#        match << "(#{trait_var}:Trait)-[:predicate]->(#{pred_var}:Term)"\
+#          "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
+#      end
+#
+#      where = term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
+#
+#      filter_matches << {
+#        match: match,
+#        where: where
+#      }
+#      rows_var = "rows#{i}"
+#      collects << { inv_page: "null", trait: trait_var, predicate: pred_var, rows_var: rows_var } if collects
+#
+#      if filter.inverse_pred_uri
+#        inv_trait_var = "t_inv#{i}"
+#        inv_pred_var = "p_inv#{i}"
+#        inv_tgt_pred_var = "tp_inv#{i}"
+#        inv_page_var = "page_inv#{i}"
+#        inv_match = [
+#          "(#{inv_page_var}:Page)-[#{TRAIT_RELS}]->(#{inv_trait_var}:Trait)",
+#          "(#{inv_trait_var})-[:predicate]->(#{inv_pred_var}:Term)-[#{parent_terms}]->(#{inv_tgt_pred_var}:Term)"
+#        ]
+#        inv_where = "#{inv_tgt_pred_var}.uri = '#{filter.inverse_pred_uri}' AND #{inv_trait_var}.object_page_id = page.page_id"
+#
+#        filter_matches << {
+#          match: inv_match,
+#          where: inv_where
+#        }
+#
+#        inv_rows_var = "rows_inv#{i}"
+#        collects << { inv_page: inv_page_var, trait: inv_trait_var, predicate: inv_pred_var, rows_var: inv_rows_var} if collects
+#        traits_invs << [trait_var, inv_trait_var] if traits_invs
+#        trait_inv_rows << [rows_var, inv_rows_var] if trait_inv_rows
+#      end
+#    end
 
     def term_search_match_str(matches, type)
       prefix = type == :optional ? "OPTIONAL MATCH" : "MATCH"
@@ -557,12 +562,16 @@ class TraitBank
 
         matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
+        if filter.predicate?
+          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
+            "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
+        else
+          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"
+        end
+
         if filter.object_term?
           matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
         end
-
-        matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
-          "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
 
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
         add_term_filter_resource_match(filter, trait_var, matches)
@@ -668,8 +677,10 @@ class TraitBank
           indexes << "USING INDEX #{obj_var}:Term(uri)"
         end
 
-        matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-        indexes << "USING INDEX #{pred_var}:Term(uri)"
+        if filter.predicate?
+          matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
+          indexes << "USING INDEX #{pred_var}:Term(uri)"
+        end
 
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
