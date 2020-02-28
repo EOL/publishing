@@ -545,6 +545,7 @@ en:
     pms: "pms"
     pt-BR: "pt-BR"
     zh-TW: "zh-TW"
+    tr: "tr"
   maps:
     empty: "There are no maps available for this page."
     occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
