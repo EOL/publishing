@@ -1267,7 +1267,7 @@ class TraitBank
     end
 
     def descendants_of_term(uri)
-      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN term})
+      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
       terms["data"].map { |r| r.first["data"] }
     end
 
