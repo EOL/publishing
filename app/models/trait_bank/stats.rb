@@ -1,6 +1,18 @@
 class TraitBank
   class Stats
-    CheckResult = Struct.new(:valid, :reason)
+    CheckResult = Struct.new(:valid, :reason) do
+      def valid?
+        valid
+      end
+
+      def self.invalid(reason)
+        self.new(false, reason)
+      end
+
+      def self.valid
+        self.new(true, nil)
+      end
+    end
 
     PRED_URIS_FOR_THRESHOLD = Set.new([
       Eol::Uris.habitat_includes,
@@ -37,20 +49,55 @@ class TraitBank
         end
       end
 
-      def check_query_valid_for_counts(query, record_count)
+      def check_measurement_query_common(query)
         if query.predicate_filters.length != 1
-          return CheckResult.new(false, "query must have a single predicate filter")
+          return CheckResult.invalid("query must have a single predicate filter")
         end
 
         uri = query.predicate_filters.first.pred_uri
         predicate = TermNode.find(uri)
 
         if predicate.nil?
-          return CheckResult.new(false, "failed to retrieve a Term with uri #{uri}")
+          return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
         end
 
         if predicate.type != "measurement"
-          return CheckResult.new(false, "predicate type must be 'measurement'")
+          return CheckResult.invalid("predicate type must be 'measurement'")
+        end
+
+        if query.object_term_filters.any?
+          return CheckResult.invalid("query must not have any object term filters")
+        end
+
+        if query.numeric_filters.any?
+          return CheckResult.invalid("query must not have any numeric filters")
+        end
+        
+        if query.range_filters.any?
+          return CheckResult.invalid("query must not have any range filters")
+        end
+
+        CheckResult.valid
+      end
+
+      def check_query_valid_for_histogram(query, record_count)
+        common_result = check_measurement_query_common(query)
+        return common_result if !common_result.valid?
+
+        if !query.filters.first.units_for_pred?
+          return CheckResult.invalid("query predicate does not have numerical values")
+        end
+
+        CheckResult.valid
+      end
+
+
+      def check_query_valid_for_counts(query, record_count)
+        common_result = check_measurement_query_common(query)
+        return common_result if !common_result.valid?
+
+        if query.filters.first.units_for_pred?
+          return CheckResult.invalid("query predicate has numerical values")
         end
 
         if (
@@ -58,23 +105,10 @@ class TraitBank
             PRED_URIS_FOR_THRESHOLD.include?(uri) &&
             record_count > RECORD_THRESHOLD
         )
-          return CheckResult.new(false, "count exceeds threshold for uri")
+          return CheckResult.invalid("count exceeds threshold for uri")
         end
 
-
-        if query.object_term_filters.any?
-          return CheckResult.new(false, "query must not have any object term filters")
-        end
-
-        if query.numeric_filters.any?
-          return CheckResult.new(false, "query must not have any numeric filters")
-        end
-        
-        if query.range_filters.any?
-          return CheckResult.new(false, "query must not have any range filters")
-        end
-
-        CheckResult.new(true, nil)
+        CheckResult.valid
       end
 
       private
