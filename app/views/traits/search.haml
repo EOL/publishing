@@ -36,6 +36,8 @@
         .viz-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_pie_path(term_query: @query.to_params) }}
       - elsif @data_viz_type == :bar
         .viz-contain.viz-contain-bar.js-bar-contain{ data: { :'load-path' => traits_data_viz_bar_path(term_query: @query.to_params) }}
+      - elsif @data_viz_type == :hist
+        .hist= @hist_result
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }

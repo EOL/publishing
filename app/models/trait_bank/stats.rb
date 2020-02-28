@@ -49,6 +49,28 @@ class TraitBank
         end
       end
 
+      def histogram(query, record_count)
+        #check_tq_for_histogram(query, record_count)
+
+        filter = query.filters.first
+        #buckets = Math.sqrt(record_count)
+        buckets = ([Math.sqrt(record_count), 20].min).ceil
+        qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
+          "(tgt_p:Term{ uri: '#{filter.pred_uri}'}),\n"\
+          "(page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)\n"\
+          "WHERE t.measurement IS NOT NULL OR t.value_measurement IS NOT NULL\n"\
+          "WITH toFloat(coalesce(t.measurement, t.value_measurement)) AS m\n"\
+          "WITH collect(m) as ms, max(m) AS max, min(m) AS min\n"\
+          "UNWIND ms as m\n"\
+          "WITH m, ceil((max - min) / #{buckets}) + 1 AS bw\n"\
+          "WITH m, bw, floor(m / bw) * bw as bot\n"\
+          "WITH m, bw, bot, bot + bw as top\n"\
+          "WITH bot, bot + '-' + top as r, count(*) AS c\n"\
+          "RETURN bot, r, c\n"\
+          "ORDER BY bot ASC"
+        TraitBank.query(qs)
+      end
+
       def check_measurement_query_common(query)
         if query.predicate_filters.length != 1
           return CheckResult.invalid("query must have a single predicate filter")
