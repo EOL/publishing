@@ -516,7 +516,7 @@ GEM
     ruby2_keywords (0.0.2)
     ruby_parser (3.14.1)
       sexp_processor (~> 4.9)
-    rubyzip (2.0.0)
+    rubyzip (2.2.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -664,13 +664,13 @@ DEPENDENCIES
   neo4j (~> 9.4)
   neography (~> 1.8)
   newrelic_rpm
-  oj
+  oj (~> 3.10)
   pry-rails
-  pundit
-  rack-cors
+  pundit (~> 2.1)
+  rack-cors (~> 1.1)
   rack_session_access
   rails (= 5.2.4.1)
-  recaptcha
+  recaptcha (~> 5.3)
   refinerycms!
   refinerycms-i18n (= 5.0.1)
   refinerycms-wymeditor (= 2.2.0)
@@ -678,7 +678,7 @@ DEPENDENCIES
   rubocop
   rubocop-performance
   rubocop-rails
-  rubyzip
+  rubyzip (~> 2.0)
   sdoc (~> 1.0)
   searchkick
   shoulda-matchers (~> 3.1)

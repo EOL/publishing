@@ -80,17 +80,17 @@ gem 'neography', '~> 1.8'
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
-gem 'oj'
+gem 'oj', '~> 3.10'
 # Debugging:
-gem 'pry-rails'
+gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
-gem 'pundit'
+gem 'pundit', '~> 2.1'
 # Enable CORS (see config/application for specifics):
-gem 'rack-cors', require: 'rack/cors'
+gem 'rack-cors', '~> 1.1', require: 'rack/cors'
 # Turing test:
-gem 'recaptcha', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
 # Zip file support
-gem 'rubyzip'
+gem 'rubyzip', '~> 2.2'
 # ElasticSearch via SearchKick:
 gem 'searchkick'
 gem 'elasticsearch', '~> 6'
