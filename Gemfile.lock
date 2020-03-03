@@ -102,16 +102,16 @@ GEM
       activerecord (>= 4.0.0, < 7.0)
     babosa (1.0.3)
     bcrypt (3.1.13)
-    better_errors (2.5.1)
+    better_errors (2.6.0)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
-    brakeman (4.7.2)
+    brakeman (4.8.0)
     builder (3.2.4)
-    byebug (11.0.1)
+    byebug (11.1.1)
     capybara (3.30.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -203,7 +203,6 @@ GEM
     erubis (2.7.0)
     ethon (0.12.0)
       ffi (>= 1.3.0)
-    eventmachine (1.2.7)
     excon (0.71.1)
     execjs (2.7.0)
     factory_girl (4.9.0)
@@ -259,7 +258,6 @@ GEM
       html2haml (>= 1.0.1)
       railties (>= 5.1)
     hashie (4.0.0)
-    highline (2.0.3)
     html2haml (2.2.0)
       erubis (~> 2.7.0)
       haml (>= 4.0, < 6)
@@ -279,16 +277,6 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    i18n-tasks (0.9.30)
-      activesupport (>= 4.0.2)
-      ast (>= 2.1.0)
-      erubi
-      highline (>= 2.0.0)
-      i18n
-      parser (>= 2.2.3.0)
-      rails-i18n
-      rainbow (>= 2.2.2, < 4.0)
-      terminal-table (>= 1.5.1)
     ipaddress (0.8.3)
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
@@ -335,16 +323,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailcatcher (0.2.4)
-      eventmachine
-      haml
-      i18n
-      json
-      mail
-      sinatra
-      skinny (>= 0.1.2)
-      sqlite3-ruby
-      thin
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     meta_request (0.7.2)
@@ -364,8 +342,6 @@ GEM
     msgpack (1.3.1)
     multi_json (1.14.1)
     multipart-post (2.1.1)
-    mustermann (1.1.1)
-      ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
     neo4j (9.6.1)
       activemodel (>= 4.0)
@@ -394,13 +370,13 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (6.9.0.363)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     oj (3.10.1)
     orm_adapter (0.5.0)
     os (1.0.1)
     parallel (1.19.1)
-    parser (2.7.0.2)
+    parser (2.7.0.4)
       ast (~> 2.4.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -415,8 +391,6 @@ GEM
       rack (~> 2.0)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.0.8.1)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_session_access (0.2.0)
@@ -480,6 +454,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rexml (3.2.4)
     routing-filter (0.6.3)
       actionpack (>= 4.2)
       activesupport (>= 4.2)
@@ -500,11 +475,12 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.2)
-    rubocop (0.79.0)
+    rubocop (0.80.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      rexml
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     rubocop-performance (1.5.2)
@@ -513,7 +489,6 @@ GEM
       rack (>= 1.1)
       rubocop (>= 0.72.0)
     ruby-progressbar (1.10.1)
-    ruby2_keywords (0.0.2)
     ruby_parser (3.14.1)
       sexp_processor (~> 4.9)
     rubyzip (2.2.0)
@@ -542,21 +517,12 @@ GEM
     simple_form (5.0.1)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
-    simplecov (0.17.1)
+    simplecov (0.18.5)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
-    sinatra (2.0.8.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.8.1)
-      tilt (~> 2.0)
+      simplecov-html (~> 0.11)
+    simplecov-html (0.12.2)
     sitemap_generator (6.1.0)
       builder (~> 3.0)
-    skinny (0.2.2)
-      eventmachine (~> 1.0)
-      thin
     speakingurl-rails (8.0.2)
       railties (>= 3.1)
     spring (2.1.0)
@@ -567,26 +533,17 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
-    sqlite3-ruby (1.3.3)
-      sqlite3 (>= 1.3.3)
     sync (0.5.0)
     temple (0.8.2)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
-    terminal-table (1.8.0)
-      unicode-display_width (~> 1.1, >= 1.1.1)
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
-    thin (1.7.2)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tins (1.24.0)
+    tins (1.24.1)
       sync
     truncate_html (0.9.3)
     typhoeus (1.3.1)
@@ -598,7 +555,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
-    unicode-display_width (1.6.0)
+    unicode-display_width (1.6.1)
     unicorn (5.5.2)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -621,18 +578,18 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_record_query_trace
+  active_record_query_trace (~> 1.7)
   activerecord-import (~> 1.0)
   acts_as_list (~> 1.0)
-  better_errors
+  better_errors (~> 2.6)
   bootsnap (~> 1.4)
-  brakeman
-  byebug
-  capybara
-  client_side_validations
-  client_side_validations-simple_form
+  brakeman (~> 4.8)
+  byebug (~> 11.1)
+  capybara (= 3.30.0)
+  client_side_validations (~> 16.1)
+  client_side_validations-simple_form (~> 9.2)
   counter_culture (~> 2.3)
-  coveralls
+  coveralls (~> 0.7)
   crono (~> 1.1)
   daemons (~> 1.3)
   dalli (~> 2.7)
@@ -644,22 +601,20 @@ DEPENDENCIES
   discourse_api (~> 0.38)
   draper (~> 4.0)
   elasticsearch (~> 6)
-  factory_girl
-  faker
+  factory_girl (~> 4.9)
+  faker (~> 2.10)
   font-awesome-sass (~> 4.7)
   font-kit-rails (~> 1.2)
   haml-rails (~> 2.0)
-  http
-  i18n-tasks
+  http (~> 4.3)
   jbuilder (~> 2.10)
   jquery-rails (~> 4.3)
-  js-routes
+  js-routes (~> 1.4)
   jwt (~> 2.2)
   kaminari (~> 1.2)
-  listen
+  listen (~> 3.2)
   lograge (~> 0.11)
-  mailcatcher
-  meta_request
+  meta_request (~> 0.7)
   mysql2 (= 0.5.3)
   neo4j (~> 9.4)
   neography (~> 1.8)
@@ -668,29 +623,29 @@ DEPENDENCIES
   pry-rails
   pundit (~> 2.1)
   rack-cors (~> 1.1)
-  rack_session_access
+  rack_session_access (~> 0.2)
   rails (= 5.2.4.1)
   recaptcha (~> 5.3)
   refinerycms!
   refinerycms-i18n (= 5.0.1)
   refinerycms-wymeditor (= 2.2.0)
   rspec-rails (~> 3.8)
-  rubocop
-  rubocop-performance
-  rubocop-rails
-  rubyzip (~> 2.0)
+  rubocop (= 0.80.1)
+  rubocop-performance (= 1.5.2)
+  rubocop-rails (= 2.4.1)
+  rubyzip (~> 2.2)
   sdoc (~> 1.0)
-  searchkick
+  searchkick (~> 4)
   shoulda-matchers (~> 3.1)
-  simple_form
-  simplecov
-  sitemap_generator
-  spring
+  simple_form (~> 5.0)
+  simplecov (~> 0.18)
+  sitemap_generator (~> 6.1)
+  spring (~> 2.1)
   therubyracer (~> 0.12)
-  typhoeus
+  typhoeus (~> 1.3)
   uglifier (~> 4.2)
   unicorn (~> 5.5)
-  web-console
+  web-console (~> 3.7)
 
 BUNDLED WITH
    2.1.2

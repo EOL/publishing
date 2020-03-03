@@ -69,11 +69,15 @@ gem 'draper', '~> 4.0'
 gem 'font-awesome-sass', '~> 4.7'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
+# url helpers in JS
+gem 'js-routes', '~> 1.4'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
 gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails', '~> 2.0'
-# QUIET PLEASE MAKE IT STOP:
+# HTTP client
+gem 'http', '~> 4.3'
+# QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
 # Neography is used for our Triple Store for now:
 gem 'neography', '~> 1.8'
@@ -92,66 +96,60 @@ gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
 # Zip file support
 gem 'rubyzip', '~> 2.2'
 # ElasticSearch via SearchKick:
-gem 'searchkick'
-gem 'elasticsearch', '~> 6'
+gem 'searchkick', '~> 4' # Needs to stay in sync (ish) with the elasticsearch gem.
+gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Simplify Forms:
-gem 'simple_form'
-# KEEPING THESE OUT OF ORDER, since they are tightly bound to simple_form
-# These are ONLY used on the user page, in the user_helper's validate: true clause...
-gem 'client_side_validations'
-gem 'client_side_validations-simple_form'
-
+# KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
+# these are ONLY used on the user page, in the user_helper's validate: true clause...
+gem 'simple_form', '~> 5.0'
+gem 'client_side_validations', '~> 16.1'
+gem 'client_side_validations-simple_form', '~> 9.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
-gem 'typhoeus'
+gem 'typhoeus', '~> 1.3'
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'neo4j', '~> 9.4'
 # Sitemap
-gem 'sitemap_generator'
-# url helpers in JS
-gem 'js-routes'
-#http client
-gem "http"
+gem 'sitemap_generator', '~> 6.1'
 
 group :development, :test do
-  gem 'active_record_query_trace'
+  gem 'active_record_query_trace', '~> 1.7'
   # Security analysis:
-  gem 'brakeman', :require => false
+  gem 'brakeman', '~> 4.8', :require => false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'byebug', '~> 11.1'
   # Coveralls tracks our spec coverage:
-  gem 'coveralls', require: false
+  gem 'coveralls', '~> 0.7', require: false
   # Rails told me to add this to my development group. I don't know why, but I'm ... listening.
-  gem 'listen'
+  gem 'listen', '~> 3.2'
   # Rubocop... which technically you want on your *system*, but ...
-  gem 'rubocop'
-  gem 'rubocop-performance'
-  gem 'rubocop-rails'
+  gem 'rubocop', '0.80.1' # Being very specific because this is a PITA to update even a tiny bit!
+  gem 'rubocop-performance', '1.5.2'
+  gem 'rubocop-rails', '2.4.1'
   # Simplecov, oddly, to add configuration for Coveralls.
-  gem 'simplecov'
+  gem 'simplecov', '~> 0.18'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
+  gem 'web-console', '~> 3.7'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  # Spring speeds up development by keeping your application running in the background.
+  # Read more: https://github.com/rails/spring
+  gem 'spring', '~> 2.1'
 
-  #for simulating confirmation mails
-  gem 'mailcatcher'
+  # I removed "mailcatcher" the docs (https://mailcatcher.me/) actually say as much: DON'T include it. Just install it
+  # if you want to use it and ... uh... use it.
 
   # For benchmarking queries:
-  gem 'meta_request'
-
-  gem 'i18n-tasks'
+  gem 'meta_request', '~> 0.7'
 end
 
 group :test do
   gem 'rspec-rails', '~> 3.8'
-  gem 'better_errors'
-  gem 'capybara'
-  gem 'factory_girl'
-  gem 'faker'
-  gem 'rack_session_access'
+  gem 'better_errors', '~> 2.6'
+  gem 'capybara', '3.30.0'
+  gem 'factory_girl', '~> 4.9'
+  gem 'faker', '~> 2.10'
+  gem 'rack_session_access', '~> 0.2'
   gem 'shoulda-matchers', '~> 3.1'
 end
