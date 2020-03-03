@@ -54,30 +54,31 @@ gem 'daemons', '~> 1.3'
 # Memcached (not for development):
 gem 'dalli', '~> 2.7'
 # Background jobs (to be run by daemons, q.v.):
-gem 'delayed_job'
-gem 'delayed_job_active_record'
+gem 'delayed_job', '~> 4.1.8'
+gem 'delayed_job_active_record', '~> 4.1.4'
 # Devise handles authentication and some authorization:
-gem 'devise'
-gem 'devise-i18n-views'
-gem 'devise-encryptable'
+gem 'devise', '~> 4.7'
+gem 'devise-i18n-views', '~> 0.3'
+gem 'devise-encryptable', '~> 0.2'
 # Discourse handles comments and chat:
-gem 'discourse_api'
+gem 'discourse_api', '~> 0.38'
 # Model decoration
-gem 'draper', '~> 4' # NOTE: 3.1 was the version we were using... Forced a patch update of nokogiri
+gem 'draper', '~> 4.0'
 # Icons
-gem 'font-awesome-sass', '~> 4.3'
+# font-awesome-sass 4.7 is seriously behind; 5.12 is the latest, but our version of refinerycms-wymeditor requires < 5
+gem 'font-awesome-sass', '~> 4.7'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
-gem 'font-kit-rails'
+gem 'font-kit-rails', '~> 1.2'
 # jwt is used for JSON Web Token (JWT) standard API handshakes. ...This WAS included in Omniauth, which we removed.
-gem 'jwt'
+gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
-gem 'haml-rails'
+gem 'haml-rails', '~> 2.0'
 # QUIET PLEASE MAKE IT STOP:
-gem 'lograge'
+gem 'lograge', '~> 0.11'
 # Neography is used for our Triple Store for now:
-gem 'neography'
+gem 'neography', '~> 1.8'
 # Site monitoring for staging and production:
-gem 'newrelic_rpm'
+gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
 gem 'oj'
 # Debugging:
