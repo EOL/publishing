@@ -1,4 +1,4 @@
-class CreateActivityLogs < ActiveRecord::Migration
+class CreateActivityLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :collectings do |t|
       t.references :user, index: true

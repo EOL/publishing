@@ -1,4 +1,4 @@
-class FixAttributions < ActiveRecord::Migration
+class FixAttributions < ActiveRecord::Migration[4.2]
   def up
     remove_column :attributions, :attribution_id
     add_column :attributions, :resource_id, :integer, null: false

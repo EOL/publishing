@@ -324,29 +324,17 @@ class PageDecorator
       # ...has a value with parent http://purl.obolibrary.org/obo/ENVO_00000447 for measurement type
       # http://eol.org/schema/terms/Habitat
       def is_it_marine?
-        if @page.has_checked_marine?
-          @page.is_marine?
-        else
-          env_terms = gather_terms([Eol::Uris.habitat_includes])
-          marine =
-            has_data_for_pred_terms(
-              env_terms,
-              values: [Eol::Uris.marine]
-            ) &&
-            !has_data_for_pred_terms(
-              env_terms,
-              values: [Eol::Uris.terrestrial]
-            )
-
-          @page.update_attribute(:has_checked_marine, true)
-          # NOTE: this DOES NOT WORK without the true / false thing. :|
-          @page.update_attribute(:is_marine, marine ? true : false)
-          marine
-        end
+        env_terms = gather_terms([Eol::Uris.habitat_includes])
+        has_data_for_pred_terms(
+          env_terms,
+          values: [Eol::Uris.marine]
+        ) &&
+        !has_data_for_pred_terms(
+          env_terms,
+          values: [Eol::Uris.terrestrial]
+        )
       end
 
-      # TODO: unify is_it_marine? with this -- if there's a 'is_marine' attribute on models, should there be 'is_freshwater'?
-      # Or, can we get rid of "is_marine"?
       def freshwater_trait
         @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
       end
@@ -433,20 +421,8 @@ class PageDecorator
 
       # has value http://eol.org/schema/terms/extinct for measurement type http://eol.org/schema/terms/ExtinctionStatus
       def is_it_extinct?
-        if @page.has_checked_extinct?
-          @page.is_extinct?
-        else
-          # NOTE: this relies on #displayed_extinction_data ONLY returning an "extinct" record. ...which, as of this writing,
-          # it is designed to do.
-          @page.update_attribute(:has_checked_extinct, true)
-          if @page.displayed_extinction_data # TODO: this method doesn't check descendants yet.
-            @page.update_attribute(:is_extinct, true)
-            return true
-          else
-            @page.update_attribute(:is_extinct, false)
-            return false
-          end
-        end
+        trait = first_trait_for_obj_uris(Eol::Uris.extinct)
+        !trait.nil? 
       end
 
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.

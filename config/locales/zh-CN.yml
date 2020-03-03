@@ -5,6 +5,7 @@
 # Author: Hydra
 # Author: Josephine W.
 # Author: Liuxinyu970226
+# Author: Njzjz
 # Author: Shirayuki
 # Author: Shizhao
 # Author: Tiger
@@ -318,6 +319,8 @@ zh-CN:
     scientific_name: 学名
     source: 源
   traits:
+    data_viz:
+      other: 其他
     search:
       edit_filters: 编辑过滤器
       new_search: 新搜索

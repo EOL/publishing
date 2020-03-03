@@ -1,5 +1,5 @@
 module TraitDataVizHelper
-  def object_pie_chart_data(query, data)
+  def data_viz_data(query, data)
     result = data.collect do |datum|
       name = result_label(query, datum)
 
@@ -11,7 +11,7 @@ module TraitDataVizHelper
         is_other: datum.other?
       }
     end
-    puts result
+
     result
   end
 

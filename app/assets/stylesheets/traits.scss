@@ -206,6 +206,18 @@
   padding-left: 40px;
 }
 
-.pie-contain {
+.viz-contain {
   margin: 20px 0 15px 0;
 }
+
+.viz-contain-bar {
+  display: none;
+}
+
+/* adjust if the bar chart width changes or becomes dynamic */
+@media(min-width: 820px) { 
+  .viz-contain-bar { 
+    display: block;
+  }
+}
+

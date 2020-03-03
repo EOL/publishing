@@ -1,4 +1,4 @@
-class CreateCollectionPages < ActiveRecord::Migration
+class CreateCollectionPages < ActiveRecord::Migration[4.2]
   def change
     # NOTE: we removed medium_id and the name stuff.
     create_table :collected_pages do |t|

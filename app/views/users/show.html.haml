@@ -7,7 +7,7 @@
           %h1= @user.username
           - unless @user.tag_line.blank?
             %p= @user.tag_line
-          - if current_user.is_power_user?
+          - if @user.is_power_user?
             %p= t("user.is_power_user")
       .actions.col-md-3
         %dl.uk-description-list

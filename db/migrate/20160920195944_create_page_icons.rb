@@ -1,4 +1,4 @@
-class CreatePageIcons < ActiveRecord::Migration
+class CreatePageIcons < ActiveRecord::Migration[4.2]
   def change
     create_table :page_icons do |t|
       t.integer :page_id, index: true

@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_02_161828) do
+ActiveRecord::Schema.define(version: 2020_02_21_172857) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "articles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "guid", null: false
@@ -24,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
     t.text "owner"
     t.string "name"
     t.string "source_url", limit: 4096
-    t.text "body", limit: 16777215
+    t.text "body", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resource_id"
     t.string "rights_statement", limit: 1024
     t.integer "page_id"
     t.integer "harv_db_id"
-    t.index ["guid"], name: "index_articles_on_guid", length: 191
+    t.index ["guid"], name: "index_articles_on_guid"
     t.index ["harv_db_id"], name: "index_articles_on_harv_db_id"
     t.index ["resource_id"], name: "index_articles_on_resource_id"
   end
@@ -623,8 +644,7 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
     t.string "image_uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "image_title"
-    t.string "image_alt"
+    t.integer "parent_id"
   end
 
   create_table "refinery_page_part_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -640,7 +660,6 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
   create_table "refinery_page_parts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "refinery_page_id"
     t.string "slug"
-    t.text "body"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -665,8 +684,6 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
   create_table "refinery_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "parent_id"
     t.string "path"
-    t.string "slug"
-    t.string "custom_slug"
     t.boolean "show_in_menu", default: true
     t.string "link_url", limit: 4096
     t.string "menu_match"
@@ -681,6 +698,7 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "show_date"
+    t.integer "children_count", default: 0, null: false
     t.index ["depth"], name: "index_refinery_pages_on_depth"
     t.index ["id"], name: "index_refinery_pages_on_id"
     t.index ["lft"], name: "index_refinery_pages_on_lft"
@@ -1011,5 +1029,5 @@ ActiveRecord::Schema.define(version: 2020_01_02_161828) do
     t.string "message"
   end
 
-  add_foreign_key "user_downloads", "term_queries"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

@@ -1,4 +1,4 @@
-class CreateResourcePreferences < ActiveRecord::Migration
+class CreateResourcePreferences < ActiveRecord::Migration[4.2]
   def change
     create_table :resource_preferences do |t|
       t.integer :resource_id, null: false

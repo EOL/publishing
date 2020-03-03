@@ -112,6 +112,7 @@ pt-BR:
       download_taxa_csv: baixar CSV de taxa
       delete: apagar
       edit: editar
+      sort: ordenar
     collection_type:
       normal: normal
       gallery: galeria
@@ -722,6 +723,7 @@ pt-BR:
   traits:
     data_viz:
       other: outros
+      pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
     search:
       edit_filters: editar filtros
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos

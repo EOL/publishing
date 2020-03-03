@@ -1,4 +1,4 @@
-class MoveUrisToTraitBank < ActiveRecord::Migration
+class MoveUrisToTraitBank < ActiveRecord::Migration[4.2]
 def up
     if TraitBank.ping
       TraitBank::Admin.create_constraints

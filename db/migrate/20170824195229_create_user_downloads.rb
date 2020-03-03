@@ -1,4 +1,4 @@
-class CreateUserDownloads < ActiveRecord::Migration
+class CreateUserDownloads < ActiveRecord::Migration[4.2]
   def change
     create_table :user_downloads do |t|
       t.references :user
