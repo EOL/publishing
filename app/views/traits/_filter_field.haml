@@ -1,13 +1,14 @@
 - uri_name = "#{field_name}_uri".to_sym
 - label_name = "#{field_name}_name".to_sym
+- label_uri = local_assigns.include?(:label_uri) ? label_uri : ff.object.send(uri_name)
 - classes = [ff.object.errors[uri_name].any? ? "is-filter-row-with-errors" : nil, local_assigns.has_key?(:extra_class) ? extra_class : nil].compact
 .filter-row{:class => classes}
   .filter-row-group.js-filter-row-group
     %span.js-typeahead-wrap.filter-field
-      = text_field_tag label_name, local_assigns.has_key?(:val_name) ? val_name : term_name(ff.object.send(uri_name)), :class => "uk-input js-#{typeahead_class}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.has_key?(:typeahead_data) ? typeahead_data : nil
+      = text_field_tag label_name, local_assigns.has_key?(:val_name) ? val_name : i18n_term_name_for_uri(label_uri), :class => "uk-input js-#{typeahead_class}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.has_key?(:typeahead_data) ? typeahead_data : nil
       = ff.hidden_field uri_name, :class => "js-typeahead-field js-term-uri"
       - show_error(ff.object, uri_name)
-      - if field_name == "pred"
+      - if local_assigns.include?(:nested_selects) && nested_selects
         = ff.hidden_field "top_#{uri_name}", :class => "js-typeahead-field"
         .js-term-select-contain.term-select-contain
-          = nested_term_selects(ff, :pred)
+          = nested_term_selects(ff, field_name)

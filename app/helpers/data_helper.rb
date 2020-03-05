@@ -76,6 +76,22 @@ module DataHelper
     TraitBank::Record.i18n_name(term)
   end
 
+  def i18n_term_name_for_uri(uri)
+    record = if uri.present?
+               TraitBank.term_record(uri)
+             else
+               nil
+             end
+
+    if record
+      i18n_term_name(record)
+    else
+      ""
+    end
+  end
+      
+
+
   def show_data_value(data)
     value = data_value(data)
 

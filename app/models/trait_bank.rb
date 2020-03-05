@@ -1251,6 +1251,11 @@ class TraitBank
       @terms[uri] = res["data"].first.first
     end
 
+    def term_record(uri)
+      result = term(uri)
+      result["data"].symbolize_keys
+    end
+
     def update_term(opts)
       sets = []
       sets += %i(name definition attribution comment sections).map do |field|
