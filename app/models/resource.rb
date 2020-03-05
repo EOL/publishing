@@ -250,12 +250,12 @@ class Resource < ApplicationRecord
       begin
         puts "[#{Time.now.strftime('%H:%M:%S.%3N')}] Batch #{times}..."
         STDOUT.flush
-        klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{resource.id} LIMIT #{batch_size}")
+        klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
         sleep(0.5) # Being (moderately) nice.
-      end while klass.where(resource.id).count > 0 && times < max_times
+      end while klass.where(resource_id: id).count > 0 && times < max_times
       raise "Failed to delete all of the #{klass} instances! Tried #{times}x#{batch_size} times." if
-        klass.where(resource.id).count.positive?
+        klass.where(resource_id: id).count.positive?
       total_count
     end
     str = "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
