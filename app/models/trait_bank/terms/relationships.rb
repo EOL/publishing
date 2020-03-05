@@ -87,7 +87,7 @@ class TraitBank
               parent = clean_url(pair.first)
               child = clean_url(pair.last)
               TraitBank::Terms.send(fn, child, parent)
-              is_hidden_from_select(child) if fn != :set_units_for_pred
+              is_hidden_from_select(child) if fn == :is_synonym_of
               count += 1
             rescue => e
               # NOTE: the order here again is what the USER expects, not what the code called. :)
