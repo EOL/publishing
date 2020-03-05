@@ -80,7 +80,7 @@ tr:
       page_contents_count: ilişkili içerik
       missing: Bu sayfa için zenginlik henüz hesaplanmamıştır.
       media_count: medya
-      articles_count: makaleler
+      articles_count: maddeler
       links_count: bağlantılar
       maps_count: haritalar
       data_count: veri
@@ -691,7 +691,7 @@ tr:
         unutmayın. Bu özellik ileriki bir tarihte uygulanacaktır.
     native_node_missing_warning: hiyerarşi bilgisi yok
     tabs:
-      articles: makaleler
+      articles: maddeler
       classifications: sınıflandırmalar
       data: veri
       literature_and_references: edebiyat ve referanslar
@@ -828,7 +828,7 @@ tr:
       other: '%{count} sayfa; sağlayan %{users_sentence}'
     collected_media:
       title: 'bu sayfadan toplanan medya:'
-    medium_article: Makale
+    medium_article: Madde
     medium_image: Resim
     medium_map: Harita
     medium_sound: Ses
@@ -970,7 +970,7 @@ tr:
         path: yönlendirme yolu (dolu veya göreli)
         wkt_string: Effechecka'ya iletilecek WKT dizesi
   stats:
-    articles: makaleler
+    articles: maddeler
     collections: koleksiyonlar
     data: veri kayıtları
     media: medya
