@@ -237,7 +237,7 @@ class Resource < ApplicationRecord
 
   def nuke(klass)
     puts "++ NUKE: #{klass}"
-    total_count = klass.where(resource.id).count
+    total_count = klass.where(resource_id: id).count
     count = if total_count < 250_000
       puts "++ Calling delete_all on #{total_count} instances..."
       STDOUT.flush
@@ -262,7 +262,9 @@ class Resource < ApplicationRecord
     puts str
     STDOUT.flush
     str
-  rescue # reports as Mysql2::Error but that doesn't catch it. :S
+  rescue => e # reports as Mysql2::Error but that doesn't catch it. :S
+    puts "There was an error, retrying: #{e.message}"
+    STDOUT.flush
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
