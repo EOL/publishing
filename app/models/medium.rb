@@ -25,16 +25,6 @@ class Medium < ApplicationRecord
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
 
-  # searchable do
-  #   text :name, :boost => 6.0
-  #   text :description, :boost => 2.0
-  #   text :resource_pk
-  #   text :owner
-  #   integer :ancestor_ids, multiple: true do
-  #
-  #   end
-  # end
-
   # NOTE: this is temp code, for use ONCE. If you're reading this, i've probably already run it and you can
   # probably already delete it.
   class << self
