@@ -512,7 +512,7 @@ private
 
     if (
       pred_uri &&
-      Eol::Uris.habitats.include?(pred_uri) &&
+      Eol::Uris.habitats_for_wordcloud.include?(pred_uri) &&
       @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )
