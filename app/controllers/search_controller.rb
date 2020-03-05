@@ -72,9 +72,6 @@ private
 
     @pages = searcher.pages
     @articles = searcher.articles
-    @images = searcher.images
-    @videos = searcher.videos
-    @sounds = searcher.sounds
     @collections = searcher.collections
     @users = searcher.users
     @terms = searcher.terms

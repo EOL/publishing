@@ -1,5 +1,5 @@
 class MultiClassSearch
-  attr_accessor :query, :notice, :pages, :collections, :articles, :images, :videos, :sounds, :terms, :users
+  attr_accessor :query, :notice, :pages, :collections, :articles, :terms, :users
 
   def initialize(query, options = {})
     @search_text = query.dup
@@ -31,7 +31,7 @@ class MultiClassSearch
           if @only
             @only - [:collections, :users, :predicates, :object_terms]
           else
-            [:pages, :media]
+            [:pages]
           end
         Page.find(clade)
       else
@@ -130,7 +130,7 @@ class MultiClassSearch
     only_set = Set.new(@only.collect { |o| o.to_sym })
 
     @types = {}
-    [ :pages, :collections, :articles, :images, :videos, :videos, :sounds, :links, :users, :terms ].each do |sym|
+    [ :pages, :collections, :articles, :links, :users, :terms ].each do |sym|
       @types[sym] = only_set.empty? || only_set.include?(sym)
     end
   end
@@ -139,12 +139,9 @@ class MultiClassSearch
     @pages = prepare_pages_query
     @collections = prepare_collections_query
     @articles = prepare_articles_query
-    @images = prepare_images_query
-    @videos = prepare_videos_query
-    @sounds = prepare_sounds_query
     @terms = prepare_terms_query
     @users = prepare_users_query
-    Searchkick.multi_search([@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].compact)
+    Searchkick.multi_search([@pages, @articles, @collections, @users, @terms].compact)
     decorate_results
   end
 
@@ -184,30 +181,6 @@ class MultiClassSearch
     end
   end
 
-  def prepare_images_query
-    if @types[:images]
-      media_search("image")
-    else
-      nil
-    end
-  end
-
-  def prepare_videos_query
-    if @types[:videos]
-      media_search("video")
-    else
-      nil
-    end
-  end
-
-  def prepare_sounds_query
-    if @types[:sounds]
-      media_search("sound")
-    else
-      nil
-    end
-  end
-
   def prepare_terms_query
     if @types[:terms]
       basic_search(TermNode, fields: ["name"])
@@ -228,9 +201,6 @@ class MultiClassSearch
     @pages = PageSearchDecorator.decorate_collection(@pages) if @pages
     remove_zombie_pages if @pages
     @articles = ArticleSearchDecorator.decorate_collection(@articles) if @articles
-    @images = ImageSearchDecorator.decorate_collection(@images) if @images
-    @videos = VideoSearchDecorator.decorate_collection(@videos) if @videos
-    @sounds = SoundSearchDecorator.decorate_collection(@sounds) if @sounds
     @collections = CollectionSearchDecorator.decorate_collection(@collections) if @collections
     @users = UserSearchDecorator.decorate_collection(@users) if @users
     @terms = TermSearchDecorator.decorate_collection(@terms) if @terms
@@ -239,7 +209,7 @@ class MultiClassSearch
   def errors
     errors = []
 
-    [@pages, @articles, @images, @videos, @sounds, @collections, @users, @terms].each do |type|
+    [@pages, @articles, @collections, @users, @terms].each do |type|
       if !type.nil? && type.error
         errors << type.error
       end
@@ -251,16 +221,6 @@ class MultiClassSearch
   def basic_search(klass, options = {})
     klass.search(@query, options.reverse_merge(highlight: { tag: "<mark>", encoder: "html" },
       match: :word_start, execute: false, page: @page, per_page: 50))
-  end
-
-  def media_search(subtype_str)
-    where = { :subclass => subtype_str}
-    where.merge!({ :ancestry_ids => @clade.id }) if @clade
-
-    basic_search(Searchkick,
-      fields: ["name^5", "resource_pk^10", "owner", "description^2"],
-      where: where,
-      index_name: [Medium])
   end
 
   # So-called "self-healing" code for pages that have no native node and were probably deleted:
