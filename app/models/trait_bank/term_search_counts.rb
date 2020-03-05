@@ -6,11 +6,16 @@ class TraitBank
       record_count_index = res["columns"].index("record_count")
       page_count_index = res["columns"].index("page_count")
 
-      if record_count_index.nil? || page_count_index.nil?
-        raise TypeError.new("column missing from result")
+      if page_count_index.nil?
+        raise TypeError.new("page_count missing from result")
       end
 
-      @records = res["data"].first[record_count_index]
+      if record_count_index.nil? # certain searches aren't valid for records, so we don't count them
+        @records = 0
+      else
+        @records = res["data"].first[record_count_index]
+      end
+
       @pages = res["data"].first[page_count_index]
     end
 
