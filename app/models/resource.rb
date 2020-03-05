@@ -236,14 +236,20 @@ class Resource < ApplicationRecord
   end
 
   def nuke(klass)
+    puts "++ NUKE: #{klass}"
     total_count = klass.where(resource.id).count
     count = if total_count < 250_000
+      puts "++ Calling delete_all on #{total_count} instances..."
+      STDOUT.flush
       klass.where(resource_id: id).delete_all
     else
+      puts "++ Batch removal of #{total_count} instances..."
       batch_size = 1000
       times = 0
       max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
       begin
+        puts "[#{Time.now.strftime('%H:%M:%S.%3N')}] Batch #{times}..."
+        STDOUT.flush
         klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{resource.id} LIMIT #{batch_size}")
         times += 1
         sleep(0.5) # Being (moderately) nice.
@@ -252,7 +258,10 @@ class Resource < ApplicationRecord
         klass.where(resource.id).count.positive?
       total_count
     end
-    "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
+    str = "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
+    puts str
+    STDOUT.flush
+    str
   rescue # reports as Mysql2::Error but that doesn't catch it. :S
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
