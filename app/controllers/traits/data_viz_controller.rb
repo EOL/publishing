@@ -1,6 +1,8 @@
 module Traits
   class DataVizController < ApplicationController
-    PieResult = Struct.new(:obj, :query, :count, :is_other) do
+    BAR_CHART_LIMIT = 15
+
+    VizResult = Struct.new(:obj, :query, :count, :is_other) do
       class << self
         def other(count)
           self.new(nil, nil, count, true)
@@ -12,9 +14,10 @@ module Traits
       end
     end
 
-    def object_pie_chart
+    # unsupported
+    def pie
       @query = TermQuery.new(term_query_params)
-      result = TraitBank::Stats.term_query_object_counts(@query)
+      result = TraitBank::Stats.obj_counts(@query)
       counts = TraitBank.term_search(@query, count: true)
       total = counts.primary_for_query(@query)
       min_threshold = 0.05 * total
@@ -25,30 +28,46 @@ module Traits
         if result.length > 20 && row[:count] < min_threshold
           other_count += row[:count]
         else
-          @data << PieResult.new(
-            row[:obj],
-            TermQuery.new({
-              clade_id: @query.clade_id,
-              result_type: @query.result_type,
-              filters_attributes: [{
-                pred_uri: @query.filters.first.pred_uri,
-                obj_uri: row[:obj][:uri] 
-              }]
-            }),
-            row[:count],
-            false
-          )
+          @data << viz_result_from_row(@query, row)
         end
       end
 
-      @data << PieResult.other(other_count)
+      @data << VizResult.other(other_count)
+      render_common
+    end
+
+    def bar
+      @query = TermQuery.new(term_query_params)
+      counts = TraitBank.term_search(@query, { count: true })
+      result = TraitBank::Stats.obj_counts(@query, counts.records, BAR_CHART_LIMIT)
+      @data = result.collect { |r| viz_result_from_row(@query, r) }
+      render_common
+    end
+
+    private
+    def render_common
       status = @data.length > 1 ? :ok : :no_content
       options = { status: status }
       options[:layout] = false if request.xhr?
       render options
     end
+      
+    def viz_result_from_row(query, row)
+      VizResult.new(
+        row[:obj],
+        TermQuery.new({
+          clade_id: query.clade_id,
+          result_type: query.result_type,
+          filters_attributes: [{
+            pred_uri: query.filters.first.pred_uri,
+            obj_uri: row[:obj][:uri] 
+          }]
+        }),
+        row[:count],
+        false
+      )
+    end
 
-    private
     def term_query_params
       # TODO: copied from TraitsController -- dry up
       params.require(:term_query).permit([

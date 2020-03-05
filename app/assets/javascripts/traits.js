@@ -242,16 +242,13 @@
       $(window).resize(pieChartHelper);
     }
 
-    // Media queries don't work here because the pie chart d3 code needs it to be visible when loaded
+    // CSS media queries don't work here because the pie chart d3 code needs it to be visible when loaded
     function pieChartHelper() {
       var width = $(window).width();
 
       if (!loaded && width >= minWidth) {
         loaded = true;
-        $.get($contain.data('loadPath'), function(result) {
-          $contain.append(result);
-          TraitDataViz.buildPieChart();
-        });
+        loadViz($contain, TraitDataViz.buildPieChart);
       } else if (loaded) {
         if (width < minWidth) {
           $contain.hide();
@@ -260,6 +257,23 @@
         }
       }
     }
+  }
+
+  function loadBarChart() {
+    var $contain = $('.js-bar-contain');
+
+    if ($contain.length) {
+      loadViz($contain, TraitDataViz.buildBarChart);
+    }
+  }
+
+  function loadViz($contain, ready) {
+    $.get($contain.data('loadPath'), function(result) {
+      if (result) {
+        $contain.append(result);
+        ready();
+      }
+    });
   }
 
   $(function() {
@@ -278,5 +292,6 @@
       $(this).remove();
     });
     loadPieChart();
+    loadBarChart();
   });
 })();

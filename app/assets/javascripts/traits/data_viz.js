@@ -19,8 +19,6 @@ window.TraitDataViz = (function(exports) {
       , prompt
       ;
 
-    console.log(rawData);
-
     var svg = d3.select('.js-object-pie-chart')
           .append('svg')
             .attr('width', width)
@@ -203,13 +201,145 @@ window.TraitDataViz = (function(exports) {
     adjustLayout();
   }
 
+  function buildBarChart() {
+    var width = 740
+      , hPad = 5
+      , innerWidth = width - (hPad * 2)
+      , barHeight = 20
+      , barSpace = 8
+      , labelY = 15 
+      , labelX = 10
+      , keyHeight = 40
+      /*
+      , data = [
+          { label: 'foo', count: 400 },
+          { label: 'bar', count: 250 },
+          { label: 'bax', count: 175 },
+          { label: 'other', count: 472 }
+        ].sort((a, b) => b.count - a.count)
+        */
+      , data = $('.js-taxon-bar-chart').data('results')
+      , maxCount = data.reduce((curMax, d) => {
+          return Math.max(d.count, curMax) 
+        }, 0)
+      , remainder = maxCount % 10
+      , height = data.length * (barHeight + barSpace) - barSpace + keyHeight
+      , barColors = ['#b3d7ff', '#e6f2ff']
+      ;
+
+    if (remainder > 0) {
+      maxCount += (10 - remainder);
+    }
+
+    data.forEach((d) => {
+      d.width = (d.count / maxCount) * innerWidth;
+    });
+
+    var svg = d3.select('.js-taxon-bar-chart')
+          .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .style('width', width)
+            .style('height', height)
+            .style('display', 'block')
+            .style('margin', '0 auto');
+
+    var gKey = svg.append('g')
+    buildTick(gKey, 'start', 0);
+    buildTick(gKey, 'middle', maxCount / 2);
+    buildTick(gKey, 'end', maxCount);
+
+    var gBar = svg.append('g')
+      .attr('transform', `translate(${hPad}, ${keyHeight})`);
+
+
+    var barsEnter = gBar
+      .selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('class', 'bar')
+      .attr('transform', (d, i) => `translate(0, ${i * (barHeight + barSpace)})`)
+      .style('cursor', 'pointer')
+      .on('mouseenter', (d) => {
+        d3.select(d3.event.target).select('text').text(d.prompt_text);
+      })
+      .on('mouseleave', (d) => {
+        d3.select(d3.event.target).select('text').text(d.label);
+      })
+      .on('click', d => window.location = d.search_path);
+
+
+    barsEnter
+      .append('rect')
+      .attr('width', d => d.width)
+      .attr('height', barHeight)
+      .attr('fill', (d, i) => barColors[i % barColors.length])
+    barsEnter
+      .append('text')
+      .text(d => d.label)
+      .style('line-height', barHeight)
+      .attr('x', (d) => { 
+        if (widthGtHalf(d)) {
+          return d.width - labelX;
+        } else {
+          return d.width + labelX;
+        }
+      })
+      .attr('text-anchor', (d) => {
+        if (widthGtHalf(d)) {
+          return 'end';
+        } else {
+          return 'start';
+        }
+      })
+      .attr('y', labelY)
+
+    function widthGtHalf(d) {
+      return d.count > maxCount / 2;
+    }
+
+    function buildTick(group, textAnchor, number) {
+      var x = (number / maxCount) * innerWidth + hPad
+        , textX = 0
+        , gTick = group.append('g')
+            .attr('transform', `translate(${x}, 0)`)
+        ;
+
+      if (textAnchor == 'start') {
+        textX = -3;
+      } else if (textAnchor == 'end') {
+        textX = 3;
+      }
+
+      gTick.append('text')
+        .text(number)
+        .attr('x', textX)
+        .attr('y', 12)
+        .attr('text-anchor', textAnchor)
+
+      gTick.append('line')
+        .attr("stroke", "black")
+        .style("stroke-width", "1px")
+        .attr('x1', 0)
+        .attr('x2', 0)
+        .attr('y1', 15)
+        .attr('y2', 30);
+    }
+  }
+
   exports.buildPieChart = buildPieChart;
+  exports.buildBarChart = buildBarChart;
   return exports;
 })({});
 
 $(function() {
   if ($('.js-object-pie-chart').length) {
     TraitDataViz.buildPieChart();
+  }
+
+  if ($('.js-taxon-bar-chart').length) {
+    TraitDataViz.buildBarChart();
   }
 })
 

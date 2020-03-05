@@ -67,8 +67,7 @@ private
     searcher.search
     if searcher.errors.any?
       logger.error("Search errors: #{searcher.errors.join("; ")}")
-      render json: { message: "search failed" }, status: :internal_server_error
-      return 
+      raise "search failed"
     end
 
     @pages = searcher.pages
@@ -88,22 +87,23 @@ private
       fmt.js { }
 
       # TODO: JSON results for other types! TODO: move; this is view logic...
-      fmt.json do
-        render json: JSON.pretty_generate(@pages.results.as_json(
-          except: :native_node_id,
-          methods: :scientific_name,
-          include: {
-            preferred_vernaculars: { only: [:string],
-              include: { language: { only: :code } } },
-            # NOTE I'm excluding a lot more for search than you would want for
-            # the basic page json:
-            top_media: { only: [ :id, :guid, :owner, :name ],
-              methods: [:small_icon_url, :medium_icon_url],
-              include: { provider: { only: [:id, :name] },
-                license: { only: [:id, :name, :icon_url] } } }
-          }
-        ))
-      end
+      # This is broken as of 2/27/20 (probably much earlier). Commenting out in case we want it later - mvitale
+     # fmt.json do
+     #   render json: JSON.pretty_generate(@pages.results.as_json(
+     #     except: :native_node_id,
+     #     methods: :scientific_name,
+     #     include: {
+     #       preferred_vernaculars: { only: [:string],
+     #         include: { language: { only: :code } } },
+     #       # NOTE I'm excluding a lot more for search than you would want for
+     #       # the basic page json:
+     #       top_media: { only: [ :id, :guid, :owner, :name ],
+     #         methods: [:small_icon_url, :medium_icon_url],
+     #         include: { provider: { only: [:id, :name] },
+     #           license: { only: [:id, :name, :icon_url] } } }
+     #     }
+     #   ))
+     # end
     end
   end
 end

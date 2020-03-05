@@ -28,7 +28,8 @@ module EolWebsite
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:en, :mk, :fi, :'pt-BR', :fr, :'zh-TW', :pms]
+    # you also have to modify config/initalizers/refinery/i18n.rb if you want to enable a new locale :(
+    config.i18n.available_locales = %i(en mk fi pt-BR fr :zh-TW pms tr)
 
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250

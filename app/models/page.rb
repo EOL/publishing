@@ -607,32 +607,6 @@ class Page < ApplicationRecord
     @should_show_icon ||= (native_node.scientific_name =~ /<i/)
   end
 
-  def displayed_extinction_data
-    recs = grouped_data[Eol::Uris.extinction]
-    return nil if recs.nil? || recs.empty?
-    # TODO: perhaps a better algorithm to pick which data to use if there's
-    # more than one from a resource (probably the most recent):
-    paleo = recs.find { |r| r[:resource_id] == Resource.paleo_db.id }
-    ex_stat = recs.find { |r| r[:resource_id] == Resource.extinction_status.id }
-    if paleo && ex_stat
-      if ex_stat[:object_term] && ex_stat[:object_term][:uri] == Eol::Uris.extinct
-        if paleo[:object_term] && paleo[:object_term][:uri] == Eol::Uris.extinct
-          paleo
-        else
-          ex_stat
-        end
-      else
-        nil
-      end
-    elsif paleo || ex_stat
-      rec = [paleo, ex_stat].compact.first
-      rec[:object_term] && rec[:object_term][:uri] == Eol::Uris.extinct ? rec :
-        nil
-    else
-      recs.find { |rec| rec[:object_term] && rec[:object_term][:uri] == Eol::Uris.extinct }
-    end
-  end
-
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
       TraitBank::Terms.page_glossary(id)
