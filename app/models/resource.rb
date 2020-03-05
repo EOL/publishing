@@ -116,7 +116,7 @@ class Resource < ApplicationRecord
         end
       end
     end
-    
+
     # Required for GBIF link on data search page. Does NOT create the resource if it doesn't exist.
     def gbif
       Rails.cache.fetch('resources/gbif') do
@@ -236,9 +236,35 @@ class Resource < ApplicationRecord
   end
 
   def nuke(klass)
-    count = klass.where(resource_id: id).delete_all
-    "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
-  rescue # reports as Mysql2::Error but that doesn't catch it. :S
+    puts "++ NUKE: #{klass}"
+    total_count = klass.where(resource_id: id).count
+    count = if total_count < 250_000
+      puts "++ Calling delete_all on #{total_count} instances..."
+      STDOUT.flush
+      klass.where(resource_id: id).delete_all
+    else
+      puts "++ Batch removal of #{total_count} instances..."
+      batch_size = 10_000
+      times = 0
+      max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
+      begin
+        puts "[#{Time.now.strftime('%H:%M:%S.%3N')}] Batch #{times}..."
+        STDOUT.flush
+        klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{id} LIMIT #{batch_size}")
+        times += 1
+        sleep(0.5) # Being (moderately) nice.
+      end while klass.where(resource_id: id).count > 0 && times < max_times
+      raise "Failed to delete all of the #{klass} instances! Tried #{times}x#{batch_size} times." if
+        klass.where(resource_id: id).count.positive?
+      total_count
+    end
+    str = "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
+    puts str
+    STDOUT.flush
+    str
+  rescue => e # reports as Mysql2::Error but that doesn't catch it. :S
+    puts "There was an error, retrying: #{e.message}"
+    STDOUT.flush
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
