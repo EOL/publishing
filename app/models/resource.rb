@@ -244,7 +244,7 @@ class Resource < ApplicationRecord
       klass.where(resource_id: id).delete_all
     else
       puts "++ Batch removal of #{total_count} instances..."
-      batch_size = 1000
+      batch_size = 10_000
       times = 0
       max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
       begin
