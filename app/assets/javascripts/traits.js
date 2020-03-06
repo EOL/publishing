@@ -267,6 +267,14 @@
     }
   }
 
+  function loadHistogram() {
+    var $contain = $('.js-hist-contain');
+
+    if ($contain.length) {
+      loadViz($contain, () => { console.log($contain.find('.js-value-hist').data('json')) });
+    }
+  }
+
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), function(result) {
       if (result) {
@@ -293,5 +301,6 @@
     });
     loadPieChart();
     loadBarChart();
+    loadHistogram();
   });
 })();

@@ -2,7 +2,7 @@ module Traits
   class DataVizController < ApplicationController
     BAR_CHART_LIMIT = 15
 
-    VizResult = Struct.new(:obj, :query, :count, :is_other) do
+    ObjVizResult = Struct.new(:obj, :query, :count, :is_other) do
       class << self
         def other(count)
           self.new(nil, nil, count, true)
@@ -11,6 +11,63 @@ module Traits
 
       def other?
         is_other
+      end
+    end
+
+    class HistData
+      class HistResult
+        attr_reader :index, :count
+
+        def initialize(raw_index, raw_count)
+          @index = raw_index.to_i
+          @count = raw_count.to_i
+        end
+
+        def to_h
+          {
+            index: index,
+            count: count
+          }
+        end
+      end
+
+      def initialize(tb_result)
+        cols = tb_result["columns"]
+        data = tb_result["data"]
+        i_bi = cols.index("bi")
+        i_bw = cols.index("bw")
+        i_count = cols.index("c")
+
+        @max_bi = data.last[i_bi].to_i
+        @bw = data.first[i_bw].to_i
+
+        result_stack = data.collect do |d|
+          HistResult.new(d[i_bi], d[i_count])
+        end.reverse
+        
+        cur_bucket = result_stack.pop
+
+        @buckets = (0..@max_bi).collect do |i|
+          if cur_bucket.index == i
+            prev_bucket = cur_bucket
+            cur_bucket = result_stack.pop
+            prev_bucket
+          else
+            HistResult.new(i, 0)
+          end
+        end
+      end
+
+      def to_json
+        {
+          maxBi: @max_bi,
+          bw: @bw,
+          buckets: @buckets.collect { |b| b.to_h }
+        }.to_json
+      end
+
+      def length
+        @buckets.length
       end
     end
 
@@ -32,7 +89,7 @@ module Traits
         end
       end
 
-      @data << VizResult.other(other_count)
+      @data << ObjVizResult.other(other_count)
       render_common
     end
 
@@ -41,6 +98,14 @@ module Traits
       counts = TraitBank.term_search(@query, { count: true })
       result = TraitBank::Stats.obj_counts(@query, counts.records, BAR_CHART_LIMIT)
       @data = result.collect { |r| viz_result_from_row(@query, r) }
+      render_common
+    end
+
+    def hist
+      query = TermQuery.new(term_query_params)
+      counts = TraitBank.term_search(query, { count: true })
+      result = TraitBank::Stats.histogram(query, counts.records)
+      @data = HistData.new(result)
       render_common
     end
 
@@ -53,7 +118,7 @@ module Traits
     end
       
     def viz_result_from_row(query, row)
-      VizResult.new(
+      ObjVizResult.new(
         row[:obj],
         TermQuery.new({
           clade_id: query.clade_id,

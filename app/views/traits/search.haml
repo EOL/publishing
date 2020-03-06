@@ -37,7 +37,7 @@
       - elsif @data_viz_type == :bar
         .viz-contain.viz-contain-bar.js-bar-contain{ data: { :'load-path' => traits_data_viz_bar_path(term_query: @query.to_params) }}
       - elsif @data_viz_type == :hist
-        .hist= @hist_result
+        .viz-contain.viz-contain-hist.js-hist-contain{ data: { :'load-path' => traits_data_viz_hist_path(term_query: @query.to_params) }}
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }

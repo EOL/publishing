@@ -201,6 +201,7 @@ Rails.application.routes.draw do
     namespace :traits do
       get "/data_viz/pie" => "data_viz#pie"
       get "/data_viz/bar" => "data_viz#bar"
+      get "/data_viz/hist" => "data_viz#hist"
     end
 
     # Non-resource routes last:
