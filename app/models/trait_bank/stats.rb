@@ -15,7 +15,7 @@ class TraitBank
         check_tq_for_counts(query, record_count)
         filter = query.filters.first
         count = query.taxa? ? "distinct page" : "*"
-        key = "trait_bank/stats/obj_counts/#{query.to_cache_key}"
+        key = "trait_bank/stats/obj_counts/v1/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
 
         Rails.cache.fetch(key) do
           Rails.logger.info("TraitBank::Stats.object_counts -- running query for key #{key}")
@@ -25,8 +25,7 @@ class TraitBank
           qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
             "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),\n"\
             "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
-            "(trait)-[:object_term]->(obj_child:Term),\n"\
-            "(obj_child)-[#{TraitBank.parent_terms}]->(obj:Term)\n"\
+            "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term{ is_hidden_from_select: false })\n"\
             "WITH DISTINCT page, trait, obj\n"\
             "WITH obj, count(#{count}) AS count\n"\
             "RETURN obj, count\n"\
