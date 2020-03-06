@@ -54,22 +54,28 @@ class TraitBank
 
         filter = query.filters.first
         #buckets = Math.sqrt(record_count)
-        buckets = ([Math.sqrt(record_count), 20].min).ceil
+        
+        # Returns:
+        # bi: bucket index
+        # bw: bucket width
+        # c: count of records in bucket
+        buckets = [Math.sqrt(record_count), 20].min.ceil
         qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
           "(tgt_p:Term{ uri: '#{filter.pred_uri}'}),\n"\
           "(page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)\n"\
           "WHERE t.measurement IS NOT NULL OR t.value_measurement IS NOT NULL\n"\
           "WITH toFloat(coalesce(t.measurement, t.value_measurement)) AS m\n"\
-          "WITH collect(m) as ms, max(m) AS max, min(m) AS min\n"\
+          "WITH collect(m) as ms, ceil(max(m)) AS max, floor(min(m)) AS min\n"\
+          "WITH ms, max, min, ceil(CASE WHEN max = min THEN 1 ELSE (max - min) / #{buckets} END) AS bw\n"\
           "UNWIND ms as m\n"\
-          "WITH m, ceil((max - min) / #{buckets}) + 1 AS bw\n"\
-          "WITH m, bw, floor(m / bw) * bw as bot\n"\
-          "WITH m, bw, bot, bot + bw as top\n"\
-          "WITH bot, bot + '-' + top as r, count(*) AS c\n"\
-          "RETURN bot, r, c\n"\
-          "ORDER BY bot ASC"
+          "WITH m, bw, floor(m / bw) AS bi \n"\
+          "WITH  bi, bw, count(*) AS c\n"\
+          "RETURN bi, bw, c\n"\
+          "ORDER BY bi ASC"
         TraitBank.query(qs)
       end
+      #  "WITH ms, init_max, min, bw, (init_max - min) % bw as rem\n"\
+      #  "WITH ms, min, bw, CASE WHEN rem = 0 THEN init_max ELSE init_max + bw - rem END AS max\n"\
 
       def check_measurement_query_common(query)
         if query.predicate_filters.length != 1
