@@ -411,7 +411,7 @@ private
         .joins(:licenses)
         .where('licenses.id': @page.regular_media.pluck(:license_id).uniq)
         .distinct
-      @subclasses = @page.regular_media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+      @subclasses = @page.regular_media.pluck(:subclass).uniq
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
     # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
