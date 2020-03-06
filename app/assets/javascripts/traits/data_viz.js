@@ -93,7 +93,7 @@ window.TraitDataViz = (function(exports) {
           )
           .attr('fill', sliceFill) 
           .attr("stroke", "black")
-          .style("stroke-width", "1px")
+          .attr("stroke-width", "1px")
           .style('cursor', cursor)
           .on('mouseenter', highlightSlice)
           .on('mouseleave', reset)
@@ -319,8 +319,8 @@ window.TraitDataViz = (function(exports) {
         .attr('text-anchor', textAnchor)
 
       gTick.append('line')
-        .attr("stroke", "black")
-        .style("stroke-width", "1px")
+        .attr('stroke', 'black')
+        .style('stroke-width', '1px')
         .attr('x1', 0)
         .attr('x2', 0)
         .attr('y1', 15)
@@ -328,8 +328,68 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
+  function buildHistogram() {
+    var $elmt = $('.js-value-hist')
+      , data = $elmt.data('json')
+      , width = 740
+      , height = 500
+      , bucketWidth = width / 20
+      , xLineY = height - 40
+      , xLineWidth = data.buckets.length * bucketWidth
+      , xLineX1 = (width - xLineWidth) / 2
+      ;
+
+    var svg = d3.select('.js-value-hist')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', 400)
+          .style('width', width)
+          .style('height', height)
+          .style('margin', '0 auto')
+          .style('display', 'block')
+
+    var gX = svg.append('g')
+      .attr('transform', `translate(${xLineX1}, ${xLineY})`);
+
+    gX.append('line')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('x1', 0)
+      .attr('x2', xLineWidth)
+      .attr('y1', 0)
+      .attr('y2', 0);
+
+    // todo: i18n
+    gX.append('text')
+      .attr('x', xLineWidth / 2)
+      .attr('y', 30)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 15)
+      .text('value')
+      
+    var gY = svg.append('g')
+      .attr('transform', `rotate(90, ${xLineX1}, 0)`)
+
+    gY.append('line')
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1)
+      .attr('x1', 0)
+      .attr('x2', height)
+      .attr('y1', 0)
+      .attr('y2', 0);
+
+    gY.append('text')
+      .attr('x', xLineWidth / 2)
+      .attr('y', 30)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', 15)
+      .text('# of records')
+  }
+
   exports.buildPieChart = buildPieChart;
   exports.buildBarChart = buildBarChart;
+  exports.buildHistogram = buildHistogram;
+
   return exports;
 })({});
 

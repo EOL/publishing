@@ -271,7 +271,7 @@
     var $contain = $('.js-hist-contain');
 
     if ($contain.length) {
-      loadViz($contain, () => { console.log($contain.find('.js-value-hist').data('json')) });
+      loadViz($contain, TraitDataViz.buildHistogram);
     }
   }
 
