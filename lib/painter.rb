@@ -53,13 +53,11 @@ class Painter
   STOP_TERM  = "https://eol.org/schema/terms/stops_at"
   LIMIT = 1000000
 
-  # This is a kludge!  These property ought to be parameters passed when you do a merge.
-  TEMP_SERVER_BASE_URL = "http://varela.csail.mit.edu/~jar/tmp/"
-  TEMP_SERVER_BASE_SCP_ROOT = "varela:public_html/tmp/"
-
   def self.main
-    server = ENV['SERVER'] || "https://eol.org/"
+    server = ENV['SERVER'] || "https://beta.eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
+    stage_scp = ENV['STAGE_SCP_LOCAtiON'] || "varela:public_html/tmp/"
+    stage_web = ENV['STAGE_WEB_LOCATION'] || "http://varela.csail.mit.edu/~jar/tmp/"
     query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
     painter = new(query_fn)
 
@@ -79,7 +77,7 @@ class Painter
     when "infer" then    # list the inferences to file
       painter.infer(resource)
     when "merge" then    # assert the inferences from file
-      painter.merge(resource)
+      painter.merge(resource, stage_scp, stage_web)
     when "paint" then    # assert the inferences directly
       painter.paint(resource)
     when "count" then    # remove the inferences
@@ -322,18 +320,18 @@ class Painter
   #  1. The way to refer to the server directory using scp
   #  2. The way to refer to the server directory using http
 
-  def merge(resource)
+  def merge(resource, stage_scp, stage_web)
     base_dir = "infer-#{resource.to_s}"
     net_path = File.join(base_dir, "inferences.csv")
     chunks_path = net_path + ".chunks"
-    d = Dir.new(chunks_path)
+    d = Dir.new(chunks_path)  # dir would have been created already, by infer
     d.each do |name|
       next unless name.end_with? ".csv"
       long_name = "#{base_dir}=#{name}"
       chunk_path = File.join(chunks_path, name)    # local
       # don't bother creating a directory on the server, too lazy to figure out
-      scp_target = "#{TEMP_SERVER_BASE_SCP_ROOT}#{long_name}"
-      url = "#{TEMP_SERVER_BASE_URL}#{long_name}"    #no need to escape
+      scp_target = "#{stage_scp}#{long_name}"
+      url = "#{stage_web}#{long_name}"    #no need to escape
       # Need to move this file to some server so EOL can access it.
       STDERR.puts("Copying #{chunk_path} to #{scp_target}")
       stdout_string, status = Open3.capture2("rsync -p #{chunk_path} #{scp_target}")
