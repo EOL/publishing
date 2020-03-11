@@ -36,16 +36,16 @@ https://eol.org/schema/terms/stops_at.
 The branch painting script (in [lib/painter.rb](../lib/painter.rb))
 implements a suite of operations related to branch painting.
 
-* `directives` - lists all of a resource's branch painting directives
-  (a directive is a 'start' or 'stop' metadata node)
+* `count` - count a resource's inferred trait assertions
 * `qc` - run a series of quality control queries to identify problems
   with the resource's directives
 * `infer` - determine a resource's inferred trait assertions (based on
   directives), and write them to a file
 * `merge` - read inferred trait assertions from file (see `infer`) and
-  add them to the graphdb (requires an admin user's token)
-* `count` - count a resource's inferred trait assertions
+  add them to the graphdb
 * `clean` - remove all of a resource's inferred trait assertions
+* `directives` - lists all of a resource's branch painting directives
+  (a directive is a 'start' or 'stop' metadata node)
 
 The choice of command, and any parameters, are communicated via
 shell variables.  Shell variables can be set using `export` or
@@ -58,6 +58,12 @@ The shell variables / parameters are:
   cypher service.  E.g. `"https://eol.org/"`
 * `TOKEN` - API token to be used with `SERVER`
 * `RESOURCE` - the resource id of the resource to be painted
+* `STAGE_SCP_LOCATION` - remote staging directory, written in a form to be
+    used with an `scp`
+    command, where temporary files are to be stored; looks like
+    `hostname:directory/` 
+* `STAGE_WEB_LOCATION`  - the same directory, written in a form for
+    access via HTTP; looks like `http://hostname/directory/`
 
 For example:
 
@@ -65,6 +71,34 @@ For example:
     export TOKEN=`cat ~/Sync/eol/beta.token`
 
     RESOURCE=640 COMMAND=qc ruby -r ./lib/painter.rb -e Painter.main
+
+The ordinary sequence of operations would be:
+
+ 1. Obtain a production admin token using https://eol.org/services/authenticate
+    (see API documentation)
+ 2. Publish a new version of the resource
+ 3. Clear the cache from any previous painting run,
+    since otherwise the `infer` command will be lazy and assume that
+    cached results (from the previous version of the resource) are still
+    correct.  Do `rm -rf infer-NNN` where NNN is the resource id.
+ 4. `COMMAND=count` - if the count is 0, that probably means
+    that the resource has been recently republished and it is time to
+    proceed with branch painting.  It could also mean that the
+    resource id is incorrect.  If the count is nonzero, then the resource has
+    been previously painted, but has not been updated since, so go
+    back and make sure you've published the new version.
+ 5. `COMMAND=qc` - run quality control checks on the directives, looking for ill-formed
+    ones (those referring to missing pages and so on).
+ 6. `COMMAND=infer` - write the inferred relationships to an `infer-NNN`
+    directory, where NNN is the resource id.
+ 7. `COMMAND=merge` - store the inferred relationships into the graphdb.
+
+If you have both admin and non-admin tokens, you might run all but the
+last command using the non-admin token, out of an abundance of caution.
+
+For STAGE_SCP_LOCATION and STAGE_WEB_LOCATION I have been using `varela:public_html/tmp/`
+and `http://varela.csail.mit.edu/~jar/tmp/`; clearly you will have to
+use some remote directory that you have access to.
 
 Branch painting generates a lot of logging output.  If you have a
 local web application instance you might want to add `config.log_level = :warn` to
