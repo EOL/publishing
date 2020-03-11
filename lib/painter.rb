@@ -54,10 +54,10 @@ class Painter
   LIMIT = 1000000
 
   def self.main
-    server = ENV['SERVER'] || "https://eol.org/"
+    server = ENV['SERVER'] || "https://beta.eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
-    stage_scp = ENV['STAGE_SCP_LOCAtiON'] || "varela:public_html/tmp2/"
-    stage_web = ENV['STAGE_WEB_LOCATION'] || "http://varela.csail.mit.edu/~jar/tmp2/"
+    stage_scp = ENV['STAGE_SCP_LOCAtiON'] || "varela:public_html/tmp/"
+    stage_web = ENV['STAGE_WEB_LOCATION'] || "http://varela.csail.mit.edu/~jar/tmp/"
     query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
     painter = new(query_fn)
 
@@ -322,8 +322,10 @@ class Painter
 
   def merge(resource, stage_scp, stage_web)
     base_dir = "infer-#{resource.to_s}"
+    Dir.mkdir(base_dir) if not Dir.exist?(base_dir)
     net_path = File.join(base_dir, "inferences.csv")
     chunks_path = net_path + ".chunks"
+    Dir.mkdir(chunks_path) if not Dir.exist?(chunks_path)
     d = Dir.new(chunks_path)
     d.each do |name|
       next unless name.end_with? ".csv"
@@ -331,7 +333,7 @@ class Painter
       chunk_path = File.join(chunks_path, name)    # local
       # don't bother creating a directory on the server, too lazy to figure out
       scp_target = "#{stage_scp}#{long_name}"
-      url = "#{stage_url}#{long_name}"    #no need to escape
+      url = "#{stage_web}#{long_name}"    #no need to escape
       # Need to move this file to some server so EOL can access it.
       STDERR.puts("Copying #{chunk_path} to #{scp_target}")
       stdout_string, status = Open3.capture2("rsync -p #{chunk_path} #{scp_target}")

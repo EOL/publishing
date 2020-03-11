@@ -55,7 +55,7 @@ The shell variables / parameters are:
 
 * `COMMAND` - a command, see list above
 * `SERVER` - the http server for an EOL web app instance, used for its
-  cypher service.  E.g. `"https://eol.org/"`
+  cypher service.  E.g. `https://eol.org/`.  Default is `https://beta.eol.org/`.
 * `TOKEN` - API token to be used with `SERVER`
 * `RESOURCE` - the resource id of the resource to be painted
 * `STAGE_SCP_LOCATION` - remote staging directory, written in a form to be
@@ -69,6 +69,8 @@ For example:
 
     export SERVER="https://beta.eol.org/"
     export TOKEN=`cat ~/Sync/eol/beta.token`
+    export STAGE_SCP_LOCATION="varela:public_html/tmp/"
+    export STAGE_WEB_LOCATION="http://varela.csail.mit.edu/~jar/tmp/"
 
     RESOURCE=640 COMMAND=qc ruby -r ./lib/painter.rb -e Painter.main
 
@@ -95,10 +97,6 @@ The ordinary sequence of operations would be:
 
 If you have both admin and non-admin tokens, you might run all but the
 last command using the non-admin token, out of an abundance of caution.
-
-For STAGE_SCP_LOCATION and STAGE_WEB_LOCATION I have been using `varela:public_html/tmp/`
-and `http://varela.csail.mit.edu/~jar/tmp/`; clearly you will have to
-use some remote directory that you have access to.
 
 Branch painting generates a lot of logging output.  If you have a
 local web application instance you might want to add `config.log_level = :warn` to
