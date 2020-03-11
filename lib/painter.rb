@@ -322,11 +322,9 @@ class Painter
 
   def merge(resource, stage_scp, stage_web)
     base_dir = "infer-#{resource.to_s}"
-    Dir.mkdir(base_dir) if not Dir.exist?(base_dir)
     net_path = File.join(base_dir, "inferences.csv")
     chunks_path = net_path + ".chunks"
-    Dir.mkdir(chunks_path) if not Dir.exist?(chunks_path)
-    d = Dir.new(chunks_path)
+    d = Dir.new(chunks_path)  # dir would have been created already, by infer
     d.each do |name|
       next unless name.end_with? ".csv"
       long_name = "#{base_dir}=#{name}"
