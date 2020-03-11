@@ -43,7 +43,7 @@ implements a suite of operations related to branch painting.
 * `infer` - determine a resource's inferred trait assertions (based on
   directives), and write them to a file
 * `merge` - read inferred trait assertions from file (see `infer`) and
-  add them to the graphdb
+  add them to the graphdb (requires an admin user's token)
 * `count` - count a resource's inferred trait assertions
 * `clean` - remove all of a resource's inferred trait assertions
 
