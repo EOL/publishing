@@ -37,11 +37,15 @@ module Traits
         i_bi = cols.index("bi")
         i_bw = cols.index("bw")
         i_count = cols.index("c")
+        i_min = cols.index("min")
 
         @max_bi = data.last[i_bi].to_i
         @bw = data.first[i_bw].to_i
+        @min = data.first[i_min].to_i
+        @max_count = 0
 
         result_stack = data.collect do |d|
+          @max_count = d[i_count] if d[i_count] > @max_count
           HistResult.new(d[i_bi], d[i_count])
         end.reverse
         
@@ -62,6 +66,8 @@ module Traits
         {
           maxBi: @max_bi,
           bw: @bw,
+          min: @min,
+          maxCount: @max_count,
           buckets: @buckets.collect { |b| b.to_h }
         }.to_json
       end

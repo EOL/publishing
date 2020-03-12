@@ -334,9 +334,24 @@ window.TraitDataViz = (function(exports) {
       , width = 740
       , height = 500
       , bucketWidth = width / 20
-      , xLineY = height - 40
-      , xLineWidth = data.buckets.length * bucketWidth
+      , xLineY = height - 60 
+      , xLineWidth = (data.buckets.length) * bucketWidth
       , xLineX1 = (width - xLineWidth) / 2
+      , xTicks = new Array(data.buckets.length + 1)
+          .fill(null)
+          .map((_, i) => i * data.bw + data.min)
+      , yLineHeight = 400
+      , tickLength = 8
+      , tickTextOffset = 25 
+      , axisLabelOffset = 50 
+      , yAxisOffsetVert = 20
+      , yAxisOffsetHoriz = 10
+      , numYTicks = 10
+      , yTickIncr = Math.ceil(data.maxCount / numYTicks)
+      , yTicks = new Array(numYTicks)
+          .fill(null)
+          .map((_, i) => i * yTickIncr)
+      , yTickDist = yLineHeight / (numYTicks - 1)
       ;
 
     var svg = d3.select('.js-value-hist')
@@ -362,28 +377,111 @@ window.TraitDataViz = (function(exports) {
     // todo: i18n
     gX.append('text')
       .attr('x', xLineWidth / 2)
-      .attr('y', 30)
+      .attr('y', axisLabelOffset)
       .attr('text-anchor', 'middle')
       .attr('font-size', 15)
       .text('value')
+
+    var gTickX = gX.selectAll('.tick')
+      .data(xTicks)
+      .enter()
+      .append('g')
+        .attr('class', 'tick')
+        .attr('transform', (d, i) => `translate(${bucketWidth * i}, 0)`);
+
+    gTickX
+      .append('line')
+        .attr('x1', 0)
+        .attr('x2', 0)
+        .attr('y1', 0)
+        .attr('y2', tickLength)
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1);
+
+    gTickX
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('y', tickTextOffset)
+      .text(d => d)
       
+    // y axis
+    // TODO: DRY
     var gY = svg.append('g')
-      .attr('transform', `rotate(90, ${xLineX1}, 0)`)
+      .attr('transform', `translate(${xLineX1 - yAxisOffsetHoriz}, ${xLineY - yAxisOffsetVert}) rotate(270, 0, 0)`)
 
     gY.append('line')
       .attr('stroke', 'black')
       .attr('stroke-width', 1)
       .attr('x1', 0)
-      .attr('x2', height)
+      .attr('x2', yLineHeight)
       .attr('y1', 0)
       .attr('y2', 0);
 
+    // TODO: adjust so y label shows up
     gY.append('text')
-      .attr('x', xLineWidth / 2)
-      .attr('y', 30)
+      .attr('x', yLineHeight / 2)
+      .attr('y', -1 * axisLabelOffset)
       .attr('text-anchor', 'middle')
       .attr('font-size', 15)
       .text('# of records')
+
+    var gTickY = gY.selectAll('.tick')
+      .data(yTicks)
+      .enter()
+      .append('g')
+        .attr('class', 'tick')
+        .attr('transform', (d, i) => `translate(${yTickDist * i}, 0)`);
+
+    gTickY.append('line')
+      .attr('x1', 0)
+      .attr('x2', 0)
+      .attr('y1', 0)
+      .attr('y2', -1 * tickLength)
+      .attr('stroke', 'black')
+      .attr('stroke-width', 1);
+
+    gTickY
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('y', -1 * tickTextOffset)
+      .text(d => d);
+
+    var gBars = svg.append('g')
+      .attr('transform', `translate(${xLineX1}, ${xLineY - yAxisOffsetVert})`);
+
+    var bar = gBars.selectAll('bar')
+      .data(data.buckets)
+      .enter() 
+      .append('g')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
+        .attr('transform', (d) => `translate(${d.index * bucketWidth}, 0)`)
+
+    bar.append('line')
+      .attr('x1', 0)
+      .attr('x2', 0)
+      .attr('y1', 0)
+      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
+
+    bar.append('line')
+      .attr('x1', bucketWidth)
+      .attr('x2', bucketWidth)
+      .attr('y1', 0)
+      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
+  
+    bar.append('line')
+      .attr('x1', 0)
+      .attr('x2', bucketWidth)
+      .attr('y1', d => (-1 * yLineHeight * d.count) / data.maxCount)
+  
+      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
+
+    bar.append('line')
+      .attr('x1', 0)
+      .attr('x2', bucketWidth)
+      .attr('y1', 0)
+      .attr('y2', 0)
+
   }
 
   exports.buildPieChart = buildPieChart;

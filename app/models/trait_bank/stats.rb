@@ -68,9 +68,9 @@ class TraitBank
           "WITH collect(m) as ms, ceil(max(m)) AS max, floor(min(m)) AS min\n"\
           "WITH ms, max, min, ceil(CASE WHEN max = min THEN 1 ELSE (max - min) / #{buckets} END) AS bw\n"\
           "UNWIND ms as m\n"\
-          "WITH m, bw, floor(m / bw) AS bi \n"\
-          "WITH  bi, bw, count(*) AS c\n"\
-          "RETURN bi, bw, c\n"\
+          "WITH min, m, bw, floor(m / bw) AS bi \n"\
+          "WITH min, bi, bw, count(*) AS c\n"\
+          "RETURN min, bi, bw, c\n"\
           "ORDER BY bi ASC"
         TraitBank.query(qs)
       end
