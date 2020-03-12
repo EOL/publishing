@@ -1,7 +1,7 @@
 # Dumping Traitbank
 
 The traits dump script is used in either of two ways: as a ruby script
-invoked from the shell (does not rails or the webapp), or as a `rake`
+invoked from the shell (does not use rails or the webapp), or as a `rake`
 command.  Both forms take their arguments via environment variables:
 
  - `ZIP`: pathname of the .zip file to be written (should include
@@ -52,6 +52,16 @@ E.g.
     export TOKEN=  ... your 'power user' API token ...
     export CHUNK=50000
     ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
+
+For the record, the following command comleted successfully on
+varela.csail.mit.edu on 29 May 2019:
+
+    TEMP=/wd/tmp/all_201905 CHUNK=10000 TOKEN=`cat ~/a/eol/api.token` time \
+      ruby -r ./lib/traits_dumper.rb -e TraitsDumper.main
+
+`TEMP` is redirected because the default `/tmp/...` is on a file
+system lacking adequate space for this task.  `CHUNK` is set to 10000
+because an earlier run with `CHUNK=20000` failed with a timeout.
 
 ## Via `rake` using neography
 

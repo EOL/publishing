@@ -79,8 +79,10 @@ class Publishing::Repository
     url = "#{Rails.configuration.repository_url}/#{path_without_page}page=#{page}"
     url += "&since=#{@since}" if @since
     tries ||= 3
-    html_response = Net::HTTP.get(URI.parse(url))
-    response = JSON.parse(html_response)
+    html_response = Net::HTTP.get_response(URI.parse(url))
+    # Raise error if not success (poorly named method)
+    html_response.value
+    response = JSON.parse(html_response.body)
     return response if response.key?(key)
     @log.log("Empty #{key}: #{url}", cat: :infos)
     nil

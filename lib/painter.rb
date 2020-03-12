@@ -49,18 +49,15 @@ require_relative 'paginator'
 
 class Painter
 
-  @silly_resource = 99999
-  @silly_file = "directives.tsv"
-  @page_origin = 500000000
-
   START_TERM = "https://eol.org/schema/terms/starts_at"
   STOP_TERM  = "https://eol.org/schema/terms/stops_at"
-  SILLY_TERM = "http://example.org/numlegs"
   LIMIT = 1000000
 
   def self.main
-    server = ENV['SERVER'] || "https://eol.org/"
+    server = ENV['SERVER'] || "https://beta.eol.org/"
     token = ENV['TOKEN'] || STDERR.puts("** No TOKEN provided")
+    stage_scp = ENV['STAGE_SCP_LOCAtiON'] || "varela:public_html/tmp/"
+    stage_web = ENV['STAGE_WEB_LOCATION'] || "http://varela.csail.mit.edu/~jar/tmp/"
     query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
     painter = new(query_fn)
 
@@ -68,7 +65,7 @@ class Painter
     if ENV.key?("RESOURCE")
       resource = Integer(ENV["RESOURCE"])
     else
-      resource = @silly_resource
+      resource = @testing_resource
     end
 
     # Command dispatch
@@ -80,7 +77,7 @@ class Painter
     when "infer" then    # list the inferences to file
       painter.infer(resource)
     when "merge" then    # assert the inferences from file
-      painter.merge(resource)
+      painter.merge(resource, stage_scp, stage_web)
     when "paint" then    # assert the inferences directly
       painter.paint(resource)
     when "count" then    # remove the inferences
@@ -88,7 +85,7 @@ class Painter
     when "clean" then    # remove the inferences
       painter.clean(resource)
     else
-      painter.debug(command, resource, @page_origin)
+      painter.debug(command, resource)
     end
   end
 
@@ -102,6 +99,7 @@ class Painter
   # Use sort -k 1 -t , to mix them up
 
   def show_directives(resource)
+    STDERR.puts("Directives:")
     puts("trait,which,page_id,canonical")
     show_stxx_directives(resource, START_TERM, "Start")
     show_stxx_directives(resource, STOP_TERM, "Stop")
@@ -115,17 +113,32 @@ class Painter
                (m:MetaData)-[:predicate]->
                (:Term {uri: '#{uri}'}),
                (p:Page)-[:trait]->(t)
-         WITH p, t, toInteger(m.measurement) as point_id, tag
+         WITH p, t, #{cast_page_id('m')} as point_id, tag
          MATCH (point:Page {page_id: point_id})
          OPTIONAL MATCH (point)-[:parent]->(parent:Page)
          RETURN t.resource_pk, tag, point_id, point.canonical, parent.page_id
          ORDER BY t.resource_pk, point_id
          LIMIT 10000")
     if r
-      STDERR.puts("#{r["data"].size} #{tag} directives")
       r["data"].each do |trait, tag, id, canonical, parent_id|
         puts("#{trait},#{tag},#{id},#{canonical},#{parent_id}")
       end
+    end
+  end
+
+  # If m names a MetaData record (for a directive), extract the page
+  # id it holds to an integer.
+  # Work in progress.  For now, the page ids are stored in the
+  # MetaData node as strings under the .measurement property, but it
+  # would be lovely if they could be stored as integers under the
+  # object_page_id property.  Unfortunately the schema does not allow
+  # object_page_id on MetaData nodes yet.
+
+  def cast_page_id(m)
+    if true
+      "toInteger(#{m}.measurement)"
+    else
+      "#{m}.object_page_id"
     end
   end
 
@@ -169,13 +182,13 @@ class Painter
                          (t:Trait)-[:metadata]->
                          (m2:MetaData)-[:predicate]->
                          (:Term {uri: '#{STOP_TERM}'})
-                   WITH t, toInteger(m2.measurement) AS stop_id
+                   WITH t, #{cast_page_id('m2')} AS stop_id
                    MATCH (stop:Page {page_id: stop_id})
                    OPTIONAL MATCH 
                          (t)-[:metadata]->
                          (m1:MetaData)-[:predicate]->
                          (:Term {uri: '#{START_TERM}'})
-                   WITH t, stop_id, toInteger(m1.measurement) AS start_id
+                   WITH t, stop_id, #{cast_page_id('m1')} AS start_id
                    MATCH (start:Page {page_id: start_id})
                    OPTIONAL MATCH (stop)-[z:parent*1..]->(start)
                    WITH stop_id, stop, t
@@ -195,7 +208,7 @@ class Painter
                          (:Trait)-[:metadata]->
                          (m:MetaData)-[:predicate]->
                          (:Term {uri: '#{term}'})
-                   WITH DISTINCT toInteger(m.measurement) AS point_id
+                   WITH DISTINCT #{cast_page_id('m')} AS point_id
                    OPTIONAL MATCH (point:Page {page_id: point_id})
                    OPTIONAL MATCH (point)-[:parent]->(parent:Page)
                    WITH point_id, point, parent
@@ -232,12 +245,12 @@ class Painter
 
     inferences = {}
     duplicates = []
-    CSV.foreach(assert_path, {encoding:'UTF-8'}) do |page, trait, name, value, ovalue|
-      next if page == "page"    # gross
-      if inferences.include?([page, trait])
-        duplicates << [page, trait]
+    CSV.foreach(assert_path, {encoding:'UTF-8'}) do |page_id, trait, name, value, ovalue|
+      next if page_id == "page_id"    # gross
+      if inferences.include?([page_id, trait])
+        duplicates << [page_id, trait]
       else
-        inferences[[page, trait]] = [name, value, ovalue]
+        inferences[[page_id, trait]] = [name, value, ovalue]
       end
     end
     STDERR.puts("Found #{inferences.size} proper start-point descendants")
@@ -252,9 +265,9 @@ class Painter
     # Now retract the retractions (stopped inferences)
     if retract_path
       removed = 0
-      CSV.foreach(retract_path, {encoding:'UTF-8'}) do |page, trait|
-        next if page == "page"    # gross
-        inferences.delete([page, trait])
+      CSV.foreach(retract_path, {encoding:'UTF-8'}) do |page_id, trait|
+        next if page_id == "page_id"    # gross
+        inferences.delete([page_id, trait])
         removed += 1
       end
       STDERR.puts("Removed #{removed} stop-point descendants")
@@ -263,33 +276,37 @@ class Painter
     end
 
     net_path = File.join(base_dir, "inferences.csv")
-    explode(inferences, net_path)
 
-    # Write net inferences as CSV
+    # Write net inferences as single CSV (optional)
     STDERR.puts("Net: #{inferences.size} inferences")
     CSV.open(net_path, "wb:UTF-8") do |csv|
       STDERR.puts("Writing #{net_path}")
-      csv << ["page", "name", "trait", "measurement", "object_name"]
+      csv << ["page_id", "name", "trait", "measurement", "object_name"]
       inferences.each do |key, info|
-        (page, trait) = key
+        (page_id, trait) = key
         (name, value, ovalue) = info
-        csv << [page, name, trait, value, ovalue]
+        csv << [page_id, name, trait, value, ovalue]
       end
     end
 
+    # Write net inferences as a set of chunked CSV files (see merge)
+    explode(inferences, net_path)
+
   end
+
+  # Write a unitary inferences list as a sequence of chunked files
 
   def explode(inferences, net_path)
     a = inferences.to_a
-    number_of_pages = a.size / @pagesize + 1
-    dir_path = net_path + ".parts"
+    number_of_chunks = a.size / @pagesize + 1
+    dir_path = net_path + ".chunks"
     FileUtils.mkdir_p dir_path
-    (0...number_of_pages).each do |page|
-      n = page * @pagesize
-      page_path = File.join(dir_path, "#{n}_#{@pagesize}.csv")
-      CSV.open(page_path, "wb:UTF-8") do |csv|
-        STDERR.puts("Writing #{page_path}")
-        csv << ["page", "name", "trait", "measurement", "object_name"]
+    (0...number_of_chunks).each do |chunk|
+      n = chunk * @pagesize
+      chunk_path = File.join(dir_path, "#{n}_#{@pagesize}.csv")
+      CSV.open(chunk_path, "wb:UTF-8") do |csv|
+        STDERR.puts("Writing #{chunk_path}")
+        csv << ["page_id", "name", "trait", "measurement", "object_name"]
         a[n...n+@pagesize].each do |key, info|
           (page, trait) = key
           (name, value, ovalue) = info
@@ -303,27 +320,26 @@ class Painter
   #  1. The way to refer to the server directory using scp
   #  2. The way to refer to the server directory using http
 
-  def merge(resource)
-    server_base_url = "http://varela.csail.mit.edu/~jar/tmp/"
-    server_base_scp = "varela:public_html/tmp/"
-
+  def merge(resource, stage_scp, stage_web)
     base_dir = "infer-#{resource.to_s}"
     net_path = File.join(base_dir, "inferences.csv")
-    parts_path = net_path + ".parts"
-    d = Dir.new(parts_path)
+    chunks_path = net_path + ".chunks"
+    d = Dir.new(chunks_path)  # dir would have been created already, by infer
     d.each do |name|
       next unless name.end_with? ".csv"
       long_name = "#{base_dir}=#{name}"
-      page_path = File.join(parts_path, name)    # local
+      chunk_path = File.join(chunks_path, name)    # local
       # don't bother creating a directory on the server, too lazy to figure out
-      scp_target = "#{server_base_scp}#{long_name}"
-      url = "#{server_base_url}#{long_name}"    #no need to escape
+      scp_target = "#{stage_scp}#{long_name}"
+      url = "#{stage_web}#{long_name}"    #no need to escape
       # Need to move this file to some server so EOL can access it.
-      STDERR.puts("Copying #{page_path} to #{scp_target}")
-      stdout_string, status = Open3.capture2("rsync -p #{page_path} #{scp_target}")
+      STDERR.puts("Copying #{chunk_path} to #{scp_target}")
+      stdout_string, status = Open3.capture2("rsync -p #{chunk_path} #{scp_target}")
+      # row will have strings, but page ids are integers.
       query = "LOAD CSV WITH HEADERS FROM '#{url}'
                AS row
-               MATCH (page:Page {page_id: toInteger(row.page)})
+               WITH row, toInteger(row.page_id) AS page_id
+               MATCH (page:Page {page_id: page_id})
                MATCH (trait:Trait {eol_pk: row.trait})
                MERGE (page)-[i:inferred_trait]->(trait)
                RETURN COUNT(i) 
@@ -340,17 +356,20 @@ class Painter
 
   # Do branch painting
   # Probably a good idea to precede this with `rm -r paint-{resource}`
+  # - At present this method doesn't work because paged deletion
+  #   doesn't work.  Delete this method if it can be
+  #   determined likely that paged deletion will never work.
 
   def paint(resource)
     base_dir = "paint-#{resource.to_s}"
     paint_or_infer(resource,
                    "MERGE (d)-[:inferred_trait]->(t)
-                    RETURN d.page_id AS page, t.eol_pk AS trait",
+                    RETURN d.page_id AS page_id, t.eol_pk AS trait",
                    "MATCH (d)-[i:inferred_trait]->(t)
                     DELETE i 
-                    RETURN d.page_id AS page, t.eol_pk AS trait",
+                    RETURN d.page_id AS page_id, t.eol_pk AS trait",
                    base_dir,
-                   # Don't page the deletion!!!
+                   # Don't chunk the deletion!!!
                    false)
     # Now, at this point, we *could* read the counts out of the files,
     # but if we had wanted that information we could have said "infer"
@@ -370,12 +389,12 @@ class Painter
                 (m:MetaData)-[:predicate]->
                 (:Term {uri: '#{START_TERM}'})
           OPTIONAL MATCH (t)-[:object_term]->(o:Term)
-          WITH t, toInteger(m.measurement) as start_id, o
+          WITH t, #{cast_page_id('m')} as start_id, o
           MATCH (:Page {page_id: start_id})<-[:parent*1..]-(d:Page)
     #{merge}"
     STDERR.puts(query)
     assert_path = 
-      run_paged_query(query, @pagesize, File.join(base_dir, "assert.csv"))
+      run_chunked_query(query, @pagesize, File.join(base_dir, "assert.csv"))
     return unless assert_path
 
     # Erase inferred traits from stop point to descendants.
@@ -384,21 +403,21 @@ class Painter
                 (t:Trait)-[:metadata]->
                 (m:MetaData)-[:predicate]->
                 (:Term {uri: '#{STOP_TERM}'})
-          WITH t, toInteger(m.measurement) as stop_id
+          WITH t, #{cast_page_id('m')} as stop_id
           MATCH (stop:Page {page_id: stop_id})
           WITH stop, t
           MATCH (stop)<-[:parent*0..]-(d:Page)
     #{delete}"
     STDERR.puts(query)
     retract_path =
-      run_paged_query(query, @pagesize, File.join(base_dir, "retract.csv"), skipping)
+      run_chunked_query(query, @pagesize, File.join(base_dir, "retract.csv"), skipping)
     [assert_path, retract_path]
   end
 
   # For long-running queries (writes to path).  Return value if path
   # on success, nil on failure.
 
-  def run_paged_query(cql, pagesize, path, skipping=true)
+  def run_chunked_query(cql, pagesize, path, skipping=true)
     Paginator.new(@query_fn).supervise_query(cql, nil, pagesize, path, skipping)
   end
 
@@ -421,6 +440,7 @@ class Painter
     # Need to be a web client.
     # "The Ruby Toolbox lists no less than 25 HTTP clients."
     escaped = CGI::escape(cql)
+    # TBD: Ought to do GET if query is effectless.
     uri = URI("#{server}service/cypher?query=#{escaped}")
     use_ssl = (uri.scheme == "https")
     Net::HTTP.start(uri.host, uri.port, :use_ssl => use_ssl) do |http|
@@ -448,15 +468,27 @@ class Painter
 
   # ------------------------------------------------------------------
   # Everything from here down is for debugging.
-  # Haven't used these things in a while; it might be better to delete
-  # them.
 
-  def debug(command, resource, page_origin)
+  # A complete smoke test for branch painting would look like this:
+  #   init     - create silly hierarchy and traits
+  #   test     - add painting directives
+  #   infer    - do inference and write to files
+  #   merge    - apply inference (in files) to pages
+  #   ?        - check that correct inference(s) got made
+  #   flush    - remove junk created by this test
+
+  TESTING_TERM = "http://example.org/numlegs"
+  @testing_resource = 99999
+  @testing_file = "directives.tsv"
+  TESTING_PAGE_ORIGIN = 500000000
+
+  def debug(command, resource)
+    page_origin = TESTING_PAGE_ORIGIN
     case command
     when "init" then
       populate(resource, page_origin)
     when "test" then            # Add some directives
-      test(resource, page_origin)
+      smoke_test(resource, page_origin)
     when "load" then
       filename = get_directives_filename
       load_directives(filename, resource)
@@ -473,7 +505,7 @@ class Painter
     if ENV.key?("DIRECTIVES")
       ENV["DIRECTIVES"]
     else
-      @silly_file
+      @testing_file
     end
   end
 
@@ -511,15 +543,19 @@ class Painter
   # painting of the trait indicated by trait_id should stop or
   # start at that page.
   # Pred (a URI) indicates whether it's a stop or start.
+  # Setting both object_page_id and measurement during representation 
+  # transition.
+
   def add_directive(page_id, trait_id, pred, tag, resource)
     # Pseudo-trait id unique only within resource
     directive_eol_pk = "R#{resource}-BP#{tag}.#{page_id}.#{trait_id}"
+    # Add when schema permits: object_page_id: #{page_id},
     r = run_query(
       "MATCH (t:Trait {resource_pk: '#{trait_id}'})-[:supplier]->
              (r:Resource {resource_id: #{resource}})
        MERGE (pred:Term {uri: '#{pred}'})
        MERGE (m:MetaData {eol_pk: '#{directive_eol_pk}',
-                          measurement: #{page_id}})
+                          measurement: '#{page_id}'})
        MERGE (m)-[:predicate]->(pred)
        MERGE (t)-[:metadata]->(m)
        RETURN m.eol_pk
@@ -535,7 +571,7 @@ class Painter
   # Assumes existence of a Trait node in the resource with 
   # resource_pk = 'tt_2'
 
-  def test(resource, page_origin)
+  def smoke_test(resource, page_origin)
     process_stream([{:page => page_origin+2, :start => 'tt_2'},
                     {:page => page_origin+4, :stop => 'tt_2'}],
                    resource)
@@ -544,6 +580,7 @@ class Painter
 
   # *** Debugging utility ***
   def show(resource)
+    show_directives(resource)
     puts "State:"
     # List our private taxa
     r = run_query(
@@ -551,14 +588,14 @@ class Painter
       OPTIONAL MATCH (p)-[:parent]->(q:Page)
       RETURN p.page_id, q.page_id
       LIMIT 100")
-    r["data"].map{|row| puts "Page: #{row}\n"}
+    r["data"].map{|row| puts "  Page: #{row}\n"}
 
     # Show the resource
     r = run_query(
       "MATCH (r:Resource {resource_id: #{resource}})
        RETURN r.resource_id
        LIMIT 100")
-    r["data"].map{|row| puts "Resource: #{row}\n"}
+    r["data"].map{|row| puts "  Resource: #{row}\n"}
 
     # Show all traits for test resource, with their pages
     r = run_query(
@@ -568,7 +605,7 @@ class Painter
        OPTIONAL MATCH (p:Page)-[:trait]->(t)
        RETURN t.eol_pk, t.resource_pk, pred.name, p.page_id
        LIMIT 100")
-    r["data"].map{|row| puts "Trait: #{row}\n"}
+    r["data"].map{|row| puts "  Trait: #{row}\n"}
 
     # Show all MetaData nodes
     r = run_query(
@@ -576,9 +613,9 @@ class Painter
                (t:Trait)-[:supplier]->
                (r:Resource {resource_id: #{resource}}),
                (m)-[:predicate]->(pred:Term)
-         RETURN t.resource_pk, pred.uri, m.measurement
+         RETURN t.resource_pk, pred.uri, #{cast_page_id('m')}
          LIMIT 100")
-    r["data"].map{|row| puts "Metadatum: #{row}\n"}
+    r["data"].map{|row| puts "  Metadatum: #{row}\n"}
 
     # Show all inferred trait assertions
     r = run_query(
@@ -588,13 +625,16 @@ class Painter
             (q:Page)-[:trait]->(t)
       RETURN p.page_id, q.page_id, t.resource_pk, t.predicate
       LIMIT 100")
-    r["data"].map{|row| puts "Inferred: #{row}\n"}
+    r["data"].map{|row| puts "  Inferred: #{row}\n"}
                                  end
 
   # Create sample hierarchy and resource to test with
   # MERGE queries aren't allowed to have LIMIT clauses.
   # Kludge to prevent the cypher service from complaining: // LIMIT
+
   def populate(resource, page_origin)
+
+    puts "Origin - #{page_origin}"
 
     # Create sample hierarchy
     run_query(
@@ -614,21 +654,21 @@ class Painter
       // LIMIT")
     # Create silly predicate
     run_query(
-      "MERGE (pred:Term {uri: '#{SILLY_TERM}', name: 'silly_predicate'})
+      "MERGE (pred:Term {uri: '#{TESTING_TERM}', name: 'testing_predicate'})
       // LIMIT")
 
     # Create trait to be painted
     r = run_query(
       "MATCH (p2:Page {page_id: #{page_origin+2}}),
              (r:Resource {resource_id: #{resource}}),
-             (pred:Term {uri: '#{SILLY_TERM}'})
+             (pred:Term {uri: '#{TESTING_TERM}'})
        RETURN p2.page_id, r.resource_id, pred.name
        LIMIT 10")
     STDERR.puts("Found: #{r["data"]}")
     run_query(
       "MATCH (p2:Page {page_id: #{page_origin+2}}),
              (r:Resource {resource_id: #{resource}}),
-             (pred:Term {uri: '#{SILLY_TERM}'})
+             (pred:Term {uri: '#{TESTING_TERM}'})
        MERGE (t2:Trait {eol_pk: 'tt_2_in_resource_#{resource}',
                         resource_pk: 'tt_2', 
                         measurement: 'value of trait'})
@@ -667,7 +707,7 @@ class Painter
 
     # Get rid of the silly term
     z = run_query(
-      "MATCH (t:Term {uri: '#{SILLY_TERM}'})
+      "MATCH (t:Term {uri: '#{TESTING_TERM}'})
        WITH t, t.name AS n
        DETACH DELETE t
        RETURN n

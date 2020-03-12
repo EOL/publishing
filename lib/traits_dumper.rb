@@ -69,7 +69,7 @@ class TraitsDumper
     query_fn = Proc.new {|cql| query_via_http(server, token, cql)}
 
     clade = ENV['ID']           # possibly nil
-    tempdir = ENV['TEMP']      # temp dir = where to put intermediate csv files
+    tempdir = ENV['TEMP']       # temp dir = where to put intermediate csv files
     chunksize = ENV['CHUNK']    # possibly nil
     dest = ENV['ZIP']
     new(clade, tempdir, chunksize, query_fn).dump_traits(dest)
