@@ -10,7 +10,6 @@ module I18nHelper
     }
 
     i18n_strs = I18n.translate(:'custom_support.separated_list', :default => {})
-    puts i18n_strs
     default_strs.merge!(i18n_strs)
 
     "#{default_strs[:open]}#{items.join(default_strs[:join])}#{default_strs[:close]}"

@@ -17,14 +17,6 @@ module Eol
         "http://purl.obolibrary.org/obo/RO_0002303"
       end
 
-      def habitats
-        [
-          habitat_includes,
-          habitat_breadth,
-          habitat_is
-        ]
-      end
-
       # uris for wordcloud records -- not necessarily the uris that allow the wordcloud to be shown
       def habitats_for_wordcloud
         [

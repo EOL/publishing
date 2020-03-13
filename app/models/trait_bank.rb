@@ -356,10 +356,10 @@ class TraitBank
     end
 
     def term_search_uncached(term_query, key, options)
-      q = if options[:count] || term_query.record? # term_record_search counts both records and taxa
+      q = if (options[:count] && term_query.filters.any?) || term_query.record? # term_record_search counts both records and taxa
         term_record_search(term_query, options)
       else
-        term_page_search(term_query, options)
+        term_page_search(term_query, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
       end
 
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
@@ -687,8 +687,8 @@ class TraitBank
         add_term_filter_resource_match(filter, trait_var, matches)
       end
 
-      with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
-      return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
+      with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
+      return_clause = options[:count] ? "RETURN page_count" : "RETURN DISTINCT(page)"
       # order_clause = options[:count] ? "" : "ORDER BY page.name"
       where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
 
@@ -1249,6 +1249,11 @@ class TraitBank
       res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
       return nil unless res && res["data"] && res["data"].first
       @terms[uri] = res["data"].first.first
+    end
+
+    def term_record(uri)
+      result = term(uri)
+      result["data"].symbolize_keys
     end
 
     def update_term(opts)

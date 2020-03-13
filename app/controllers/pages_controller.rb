@@ -411,7 +411,7 @@ private
         .joins(:licenses)
         .where('licenses.id': @page.regular_media.pluck(:license_id).uniq)
         .distinct
-      @subclasses = @page.regular_media.pluck(:subclass).uniq.map { |i| Medium.subclasses.key(i) }
+      @subclasses = @page.regular_media.pluck(:subclass).uniq
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
     # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
@@ -512,7 +512,7 @@ private
 
     if (
       pred_uri &&
-      Eol::Uris.habitats.include?(pred_uri) &&
+      Eol::Uris.habitats_for_wordcloud.include?(pred_uri) &&
       @page.native_node.rank &&
       Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
     )
