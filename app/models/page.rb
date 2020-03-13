@@ -157,10 +157,20 @@ class Page < ApplicationRecord
 
     def warm_autocomplete
       ('a'..'z').each do |first_letter|
-        def autocomplete(query, options = {})
+        autocomplete(first_letter)
+        ('a'..'z').each do |second_letter|
+          autocomplete("#{first_letter}#{second_letter}")
+          ('a'..'z').each do |third_letter|
+            autocomplete("#{first_letter}#{second_letter}#{third_letter}")
+          end
+        end
+      end
+    end
+
+    def autocomplete(query, options = {})
       search(query, options.reverse_merge({
         #fields: ['autocomplete_names'],
-        fields: ['dh_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+        fields: ['scientific_name^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
         match: :text_start,
         limit: 10,
         load: false,
