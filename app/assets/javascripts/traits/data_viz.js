@@ -402,7 +402,24 @@ window.TraitDataViz = (function(exports) {
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('y', tickTextOffset)
-      .text(d => d)
+      .text((d, i) => {
+        if (
+          xTicks[xTicks.length - 1] < 10 * 1000 ||
+          (
+            i === 0 ||
+            i === xTicks.length - 1 ||
+            (
+              i !== 1 && 
+              i !== xTicks.length - 2 &&
+              i % 2 === 0
+            )
+          )
+        ) {
+          return d;
+        } else {
+          return null;
+        }
+      })
       
     // y axis
     // TODO: DRY
