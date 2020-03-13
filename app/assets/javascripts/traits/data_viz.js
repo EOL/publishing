@@ -336,7 +336,7 @@ window.TraitDataViz = (function(exports) {
       , bucketWidth = width / 20
       , xLineY = height - 60 
       , xLineWidth = (data.buckets.length) * bucketWidth
-      , xLineX1 = (width - xLineWidth) / 2
+      , xLineX1 = (width - xLineWidth) / 2 + 30 // Y axis needs some room
       , xTicks = new Array(data.buckets.length + 1)
           .fill(null)
           .map((_, i) => i * data.bw + data.min)
