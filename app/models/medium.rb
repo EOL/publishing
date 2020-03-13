@@ -14,7 +14,7 @@ class Medium < ApplicationRecord
   has_one :image_info, inverse_of: :image
 
   # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
-  enum subclass: [ :image, :video, :sound, :map_image, :js_map ] # NOTE: "map" implies "image map".
+  enum subclass: %i[image video sound map_image js_map]
   enum format: %i[jpg youtube flash vimeo mp3 ogg wav mp4 ogv mov svg webm]
 
   scope :images, -> { where(subclass: subclasses[:image]) }

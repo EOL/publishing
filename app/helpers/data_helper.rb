@@ -157,7 +157,7 @@ module DataHelper
 
   def safe_medium(page)
     image = page.medium
-    return image if image && (image.image? || image.map?)
+    return image if image && (image.image? || image.map_image?)
     nil
   end
 
