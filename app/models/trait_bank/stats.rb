@@ -62,15 +62,16 @@ class TraitBank
         buckets = [Math.sqrt(record_count), 20].min.ceil
         qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
           "(tgt_p:Term{ uri: '#{filter.pred_uri}'}),\n"\
-          "(page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)\n"\
-          "WHERE t.measurement IS NOT NULL OR t.value_measurement IS NOT NULL\n"\
-          "WITH toFloat(coalesce(t.measurement, t.value_measurement)) AS m\n"\
-          "WITH collect(m) as ms, ceil(max(m)) AS max, floor(min(m)) AS min\n"\
-          "WITH ms, max, min, ceil(CASE WHEN max = min THEN 1 ELSE (max - min) / #{buckets} END) AS bw\n"\
+          "(page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p),\n"\
+          "(t)-[:normal_units_term]->(u:Term)\n"\
+          "WHERE t.normal_measurement IS NOT NULL\n"\
+          "WITH u, toFloat(t.normal_measurement) AS m\n"\
+          "WITH u, collect(m) as ms, ceil(max(m)) AS max, floor(min(m)) AS min\n"\
+          "WITH u, ms, max, min, ceil(CASE WHEN max = min THEN 1 ELSE (max - min) / #{buckets} END) AS bw\n"\
           "UNWIND ms as m\n"\
-          "WITH min, m, bw, floor(m / bw) AS bi \n"\
-          "WITH min, bi, bw, count(*) AS c\n"\
-          "RETURN min, bi, bw, c\n"\
+          "WITH u, min, m, bw, floor(m / bw) AS bi \n"\
+          "WITH u, min, bi, bw, count(*) AS c\n"\
+          "RETURN u, min, bi, bw, c\n"\
           "ORDER BY bi ASC"
         TraitBank.query(qs)
       end
