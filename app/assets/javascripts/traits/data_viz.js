@@ -1,4 +1,6 @@
 window.TraitDataViz = (function(exports) {
+  var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
+
   function buildPieChart() {
     var width = 800 // defaults, these are adjusted later
       , height = 350 // ""
@@ -224,7 +226,7 @@ window.TraitDataViz = (function(exports) {
         }, 0)
       , remainder = maxCount % 10
       , height = data.length * (barHeight + barSpace) - barSpace + keyHeight
-      , barColors = ['#b3d7ff', '#e6f2ff']
+      , barColors = BAR_COLORS
       ;
 
     if (remainder > 0) {
@@ -474,30 +476,13 @@ window.TraitDataViz = (function(exports) {
         .attr('stroke-width', 1)
         .attr('transform', (d) => `translate(${d.index * bucketWidth}, 0)`)
 
-    bar.append('line')
-      .attr('x1', 0)
-      .attr('x2', 0)
-      .attr('y1', 0)
-      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
-
-    bar.append('line')
-      .attr('x1', bucketWidth)
-      .attr('x2', bucketWidth)
-      .attr('y1', 0)
-      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
-  
-    bar.append('line')
-      .attr('x1', 0)
-      .attr('x2', bucketWidth)
-      .attr('y1', d => (-1 * yLineHeight * d.count) / data.maxCount)
-  
-      .attr('y2', d => (-1 * yLineHeight * d.count) / data.maxCount)
-
-    bar.append('line')
-      .attr('x1', 0)
-      .attr('x2', bucketWidth)
-      .attr('y1', 0)
-      .attr('y2', 0)
+    bar.append('rect')
+      .attr('x', 0)
+      .attr('y', (d) => -1 * (yLineHeight * d.count) / data.maxCount)
+      .attr('width', bucketWidth)
+      .attr('height', (d) => (yLineHeight * d.count) / data.maxCount)
+      .attr('stroke', '#4287f5')
+      .attr('fill', (_, i) => BAR_COLORS[i % BAR_COLORS.length])
 
   }
 
