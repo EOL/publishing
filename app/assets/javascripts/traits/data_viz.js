@@ -380,7 +380,7 @@ window.TraitDataViz = (function(exports) {
       .attr('y', axisLabelOffset)
       .attr('text-anchor', 'middle')
       .attr('font-size', 15)
-      .text('value')
+      .text(data.valueLabel)
 
     var gTickX = gX.selectAll('.tick')
       .data(xTicks)

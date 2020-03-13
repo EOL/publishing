@@ -15,6 +15,19 @@ module TraitDataVizHelper
     result
   end
 
+  def histogram_data(query, data)
+    buckets = data.bucket_hash_array
+
+    result = {
+      maxBi: data.max_bi,
+      bw: data.bw,
+      min: data.min,
+      maxCount: data.max_count, 
+      valueLabel: t("traits.data_viz.hist_value_label", units: i18n_term_name(data.units_term)),
+      buckets: buckets
+    }
+  end
+
   private
   def result_label(query, datum)
     datum.other? ? t("traits.data_viz.other") : i18n_term_name(datum.obj)

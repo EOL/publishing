@@ -15,6 +15,8 @@ module Traits
     end
 
     class HistData
+      attr_reader :buckets, :max_bi, :bw, :min, :max_count, :units_term
+
       class HistResult
         attr_reader :index, :count
 
@@ -38,10 +40,12 @@ module Traits
         i_bw = cols.index("bw")
         i_count = cols.index("c")
         i_min = cols.index("min")
+        i_units = cols.index("u")
 
         @max_bi = data.last[i_bi].to_i
         @bw = data.first[i_bw].to_i
         @min = data.first[i_min].to_i
+        @units_term = data.first[i_units]&.[]("data")&.symbolize_keys
         @max_count = 0
 
         result_stack = data.collect do |d|
@@ -62,14 +66,8 @@ module Traits
         end
       end
 
-      def to_json
-        {
-          maxBi: @max_bi,
-          bw: @bw,
-          min: @min,
-          maxCount: @max_count,
-          buckets: @buckets.collect { |b| b.to_h }
-        }.to_json
+      def bucket_hash_array
+        @buckets.collect { |b| b.to_h }
       end
 
       def length

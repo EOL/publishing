@@ -1029,6 +1029,7 @@ en:
   data_definition: "definition of \"%{data}\""
   traits:
     data_viz:
+      hist_value_label: "value (%{units})"
       n_other_records:
         one: "one other record"
         other: "%{count} other records"
