@@ -476,12 +476,15 @@ window.TraitDataViz = (function(exports) {
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
         .attr('transform', (_, i) => `translate(${i * barWidth}, 0)`)
+        .style('cursor', 'pointer')
+        .on('click', (d) => window.location = d.queryPath)
 
+        
     bar.append('rect')
       .attr('x', 0)
-      .attr('y', (d) => -1 * (yLineHeight * d.count) / data.maxCount)
+      .attr('y', (d) => -1 * d.count * yTickDist / yTickIncr )
       .attr('width', barWidth)
-      .attr('height', (d) => (yLineHeight * d.count) / data.maxCount)
+      .attr('height', (d) => d.count * yTickDist / yTickIncr)
       .attr('stroke', '#4287f5')
       .attr('fill', (_, i) => BAR_COLORS[i % BAR_COLORS.length])
 

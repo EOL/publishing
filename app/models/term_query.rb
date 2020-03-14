@@ -79,6 +79,12 @@ class TermQuery < ApplicationRecord
     end
   end
 
+  def deep_dup
+    copy = dup
+    copy.filters = self.filters.collect { |f| f.dup }
+    copy
+  end
+
   private
   def validation
     if filters.empty?

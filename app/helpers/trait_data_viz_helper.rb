@@ -16,9 +16,16 @@ module TraitDataVizHelper
   end
 
   def histogram_data(query, data)
-    buckets = data.bucket_hash_array
+    buckets = data.buckets.collect do |b|
+      {
+        min: b.min,
+        limit: b.limit,
+        count: b.count,
+        queryPath: term_search_results_path(term_query: b.query.to_params)
+      }
+    end
 
-    result = {
+    {
       maxBi: data.max_bi,
       bw: data.bw,
       min: data.min,

@@ -17,14 +17,19 @@ module Traits
     class HistData
       attr_reader :buckets, :max_bi, :bw, :min, :max_count, :units_term
 
-      class HistResult
-        attr_reader :index, :min, :limit, :count
+      class Bucket
+        attr_reader :index, :min, :limit, :count, :query, :buckets
 
-        def initialize(raw_index, raw_count, bw, min)
+        def initialize(raw_index, raw_count, bw, min, query)
           @index = raw_index.to_i
           @min = min + bw * @index
           @limit = @min + bw # limit rather than max, since no value in the bucket ever reaches this limit -- it's an asymptote
           @count = raw_count.to_i
+
+          @query = query.deep_dup
+          qf = @query.filters.first
+          qf.num_val1 = @min
+          qf.num_val2 = @limit
         end
 
         def to_h
@@ -36,7 +41,7 @@ module Traits
         end
       end
 
-      def initialize(tb_result)
+      def initialize(tb_result, query)
         cols = tb_result["columns"]
         data = tb_result["data"]
         i_bi = cols.index("bi")
@@ -53,7 +58,7 @@ module Traits
 
         result_stack = data.collect do |d|
           @max_count = d[i_count] if d[i_count] > @max_count
-          HistResult.new(d[i_bi], d[i_count], @bw, @min)
+          Bucket.new(d[i_bi], d[i_count], @bw, @min, query)
         end.reverse
         
         cur_bucket = result_stack.pop
@@ -64,13 +69,9 @@ module Traits
             cur_bucket = result_stack.pop
             prev_bucket
           else
-            HistResult.new(i, 0)
+            Bucket.new(i, 0, @bw, @min, query)
           end
         end
-      end
-
-      def bucket_hash_array
-        @buckets.collect { |b| b.to_h }
       end
 
       def length
@@ -112,7 +113,7 @@ module Traits
       query = TermQuery.new(term_query_params)
       counts = TraitBank.term_search(query, { count: true })
       result = TraitBank::Stats.histogram(query, counts.records)
-      @data = HistData.new(result)
+      @data = HistData.new(result, query)
       render_common
     end
 
