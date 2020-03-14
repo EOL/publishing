@@ -25,8 +25,9 @@ class TraitBank
           qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
             "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),\n"\
             "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
-            "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term{ is_hidden_from_select: false })\n"\
+            "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)\n"\
             "WITH DISTINCT page, trait, obj\n"\
+            "WHERE obj.is_hidden_from_select = false\n"\
             "WITH obj, count(#{count}) AS count\n"\
             "RETURN obj, count\n"\
             "ORDER BY count DESC\n"\
