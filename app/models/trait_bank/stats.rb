@@ -59,6 +59,7 @@ class TraitBank
         # bi: bucket index
         # bw: bucket width
         # c: count of records in bucket
+        # u: units term
         buckets = [Math.sqrt(record_count), 20].min.ceil
         qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
           "(tgt_p:Term{ uri: '#{filter.pred_uri}'}),\n"\

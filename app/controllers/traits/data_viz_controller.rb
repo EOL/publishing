@@ -18,16 +18,19 @@ module Traits
       attr_reader :buckets, :max_bi, :bw, :min, :max_count, :units_term
 
       class HistResult
-        attr_reader :index, :count
+        attr_reader :index, :min, :limit, :count
 
-        def initialize(raw_index, raw_count)
+        def initialize(raw_index, raw_count, bw, min)
           @index = raw_index.to_i
+          @min = min + bw * @index
+          @limit = @min + bw # limit rather than max, since no value in the bucket ever reaches this limit -- it's an asymptote
           @count = raw_count.to_i
         end
 
         def to_h
           {
-            index: index,
+            min: min,
+            limit: limit,
             count: count
           }
         end
@@ -50,7 +53,7 @@ module Traits
 
         result_stack = data.collect do |d|
           @max_count = d[i_count] if d[i_count] > @max_count
-          HistResult.new(d[i_bi], d[i_count])
+          HistResult.new(d[i_bi], d[i_count], @bw, @min)
         end.reverse
         
         cur_bucket = result_stack.pop

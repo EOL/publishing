@@ -335,13 +335,11 @@ window.TraitDataViz = (function(exports) {
       , data = $elmt.data('json')
       , width = 740
       , height = 500
-      , bucketWidth = width / 20
+      , barWidth = width / 20
       , xLineY = height - 60 
-      , xLineWidth = (data.buckets.length) * bucketWidth
+      , xLineWidth = (data.buckets.length) * barWidth
       , xLineX1 = (width - xLineWidth) / 2 + 30 // Y axis needs some room
-      , xTicks = new Array(data.buckets.length + 1)
-          .fill(null)
-          .map((_, i) => i * data.bw + data.min)
+      , xTicks // populated below
       , yLineHeight = 400
       , tickLength = 8
       , tickTextOffset = 25 
@@ -356,6 +354,9 @@ window.TraitDataViz = (function(exports) {
       , yTickDist = yLineHeight / (numYTicks - 1)
       ;
 
+    xTicks = data.buckets.map(b => b.min)
+    xTicks.push(data.buckets[data.buckets.length - 1].limit)
+
     var svg = d3.select('.js-value-hist')
           .append('svg')
           .attr('width', width)
@@ -363,7 +364,7 @@ window.TraitDataViz = (function(exports) {
           .style('width', width)
           .style('height', height)
           .style('margin', '0 auto')
-          .style('display', 'block')
+          .style('display', 'block');
 
     var gX = svg.append('g')
       .attr('transform', `translate(${xLineX1}, ${xLineY})`);
@@ -389,7 +390,7 @@ window.TraitDataViz = (function(exports) {
       .enter()
       .append('g')
         .attr('class', 'tick')
-        .attr('transform', (d, i) => `translate(${bucketWidth * i}, 0)`);
+        .attr('transform', (d, i) => `translate(${barWidth * i}, 0)`);
 
     gTickX
       .append('line')
@@ -474,12 +475,12 @@ window.TraitDataViz = (function(exports) {
       .append('g')
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
-        .attr('transform', (d) => `translate(${d.index * bucketWidth}, 0)`)
+        .attr('transform', (_, i) => `translate(${i * barWidth}, 0)`)
 
     bar.append('rect')
       .attr('x', 0)
       .attr('y', (d) => -1 * (yLineHeight * d.count) / data.maxCount)
-      .attr('width', bucketWidth)
+      .attr('width', barWidth)
       .attr('height', (d) => (yLineHeight * d.count) / data.maxCount)
       .attr('stroke', '#4287f5')
       .attr('fill', (_, i) => BAR_COLORS[i % BAR_COLORS.length])
