@@ -10,6 +10,14 @@ RUN apt-get update -q && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     mkdir /etc/ssmtp
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -q && \
+    apt-get install -qq -y yarn && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 WORKDIR /app
 
 LABEL last_source_update="2020-01-09"
@@ -34,6 +42,8 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN gem install bundler:2.1.2
 RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 5
+# Skipping this for now. The secrets file does not appear to work at this stage. :\
+# RUN cd app && rake assets:precompile
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock

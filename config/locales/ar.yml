@@ -4,6 +4,7 @@
 # Author: Amira.88
 # Author: HitomiAkane
 # Author: Meno25
+# Author: NEHAOUA
 # Author: Passant
 # Author: Yousif ihsan
 # Author: ديفيد
@@ -137,6 +138,7 @@ ar:
       download_taxa_csv: تحميل ملف CSV للتصنيف
       delete: حذف
       edit: تعديل
+      sort: الترتيب
     collection_type:
       normal: عادي
       gallery: معرض
@@ -679,6 +681,7 @@ ar:
     trophic_web:
       competitor: المنافس
       globi_credit_html: البيانات من <a href='%{url}'>التفاعلات الحيوية العالمية</a>
+      predator: المنشئ
       prey: الفريسة
       reset: إعادة ضبط
     flash:
