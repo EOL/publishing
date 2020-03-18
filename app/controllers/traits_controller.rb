@@ -171,9 +171,7 @@ class TraitsController < ApplicationController
   end
 
   def redirect_no_format
-    loc = params
-    loc.delete(:format)
-    redirect_to term_search_results_path(params)
+    redirect_to term_search_results_path(term_query: tq_params)
   end
 
   def set_title
