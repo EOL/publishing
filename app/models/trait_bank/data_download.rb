@@ -53,10 +53,14 @@ class TraitBank
       # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
+      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
+
       hashes = []
       TraitBank.batch_term_search(@query, @options, @count) do |batch|
         hashes += batch
       end
+
+      Delayed::Worker.logger.info("finished query, writing records")
 
       if @query.record?
         TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
@@ -65,6 +69,8 @@ class TraitBank
       else
         raise "unsupported result type"
       end
+
+      Delayed::Worker.logger.info("finished data download")
     end
   end
 end
