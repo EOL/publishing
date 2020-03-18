@@ -1045,11 +1045,11 @@ en:
         one: "click to see one taxon with \"%{obj_name}\""
         other: "click to see %{count} taxa with \"%{obj_name}\""
       show_n_records_between: 
-        one: "click to see %{count} record with measurement values in (%{min}, %{limit}) %{units}"
-        other: "click to see %{count} records with measurement values in (%{min}, %{limit}) %{units}"
+        one: "click to see %{count} record with measurement values in [%{min}, %{limit}] %{units}"
+        other: "click to see %{count} records with measurement values in [%{min}, %{limit}] %{units}"
       show_n_taxa_between: 
-        one: "click to see %{count} taxon with measurement values in (%{min}, %{limit}) %{units}"
-        other: "click to see %{count} taxa with measurement values in (%{min}, %{limit}) %{units}"
+        one: "click to see %{count} taxon with measurement values in [%{min}, %{limit}] %{units}"
+        other: "click to see %{count} taxa with measurement values in [%{min}, %{limit}] %{units}"
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"

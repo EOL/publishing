@@ -467,19 +467,17 @@ window.TraitDataViz = (function(exports) {
       .attr('y', -1 * tickTextOffset)
       .text(d => d);
 
-    var gBars = svg.append('g')
-      .attr('transform', `translate(${xLineX1}, ${xLineY - yAxisOffsetVert})`);
-
-    var bar = gBars.selectAll('bar')
-      .data(data.buckets)
-      .enter() 
-      .append('g')
-        .attr('stroke', 'black')
-        .attr('stroke-width', 1)
-        .attr('transform', (_, i) => `translate(${i * barWidth}, 0)`)
-        .style('cursor', 'pointer')
-        .on('click', (d) => window.location = d.queryPath)
-
+    var bar = svg.append('g')
+      .attr('transform', `translate(${xLineX1}, ${xLineY - yAxisOffsetVert})`)
+      .selectAll('bar')
+        .data(data.buckets)
+        .enter() 
+        .append('g')
+          .attr('stroke', 'black')
+          .attr('stroke-width', 1)
+          .attr('transform', (_, i) => `translate(${i * barWidth}, 0)`)
+          .style('cursor', 'pointer')
+          .on('click', (d) => window.location = d.queryPath)
         
     bar.append('rect')
       .attr('x', 0)
@@ -492,7 +490,7 @@ window.TraitDataViz = (function(exports) {
     var prompt = svg.append('text')
       .attr('y', promptY)
       .attr('x', width / 2)
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'middle');
 
     bar.on('mouseenter', d => prompt.text(d.promptText));
     bar.on('mouseleave', d => prompt.text(''));
