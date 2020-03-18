@@ -42,7 +42,8 @@ RUN echo "UseSTARTTLS=YES" >> /etc/ssmtp/ssmtp.conf
 RUN gem install bundler:2.1.2
 RUN bundle config set without 'test development staging'
 RUN bundle install --jobs 10 --retry 5
-RUN cd app && rake assets:precompile
+# Skipping this for now. The secrets file does not appear to work at this stage. :\
+# RUN cd app && rake assets:precompile
 
 RUN touch /tmp/supervisor.sock
 RUN chmod 777 /tmp/supervisor.sock
