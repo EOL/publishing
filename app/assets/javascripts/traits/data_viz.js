@@ -346,7 +346,7 @@ window.TraitDataViz = (function(exports) {
       , axisLabelOffset = 50 
       , yAxisOffsetVert = 20
       , yAxisOffsetHoriz = 20
-      , numYTicks = 10
+      , numYTicks = data.maxCount < 10 ? data.maxCount + 1 : 10
       , yTickIncr = Math.ceil(data.maxCount / numYTicks)
       , yTicks = new Array(numYTicks)
           .fill(null)
@@ -496,7 +496,6 @@ window.TraitDataViz = (function(exports) {
 
     bar.on('mouseenter', d => prompt.text(d.promptText));
     bar.on('mouseleave', d => prompt.text(''));
-
   }
 
   exports.buildPieChart = buildPieChart;

@@ -21,6 +21,7 @@ class TraitBank
       Eol::Uris.ecoregion
     ])
     RECORD_THRESHOLD = 20_000
+    MIN_RECORDS_FOR_HIST = 4
 
     class << self
       def obj_counts(query, record_count, limit)
@@ -55,7 +56,7 @@ class TraitBank
       # c: count of records in bucket
       # u: units term
       def histogram(query, record_count)
-        #check_tq_for_histogram(query, record_count) TODO: implement
+        check_tq_for_histogram(query, record_count)
         filter = query.filters.first
 
         wheres = ["t.normal_measurement IS NOT NULL"]
@@ -101,18 +102,14 @@ class TraitBank
           return CheckResult.invalid("query must not have any object term filters")
         end
 
-        if query.numeric_filters.any?
-          return CheckResult.invalid("query must not have any numeric filters")
-        end
-        
-        if query.range_filters.any?
-          return CheckResult.invalid("query must not have any range filters")
-        end
-
         CheckResult.valid
       end
 
       def check_query_valid_for_histogram(query, record_count)
+        if record_count < MIN_RECORDS_FOR_HIST
+          return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
+        end
+
         common_result = check_measurement_query_common(query)
         return common_result if !common_result.valid?
 
@@ -132,6 +129,14 @@ class TraitBank
           return CheckResult.invalid("query predicate has numerical values")
         end
 
+        if query.numeric_filters.any?
+          return CheckResult.invalid("query must not have any numeric filters")
+        end
+        
+        if query.range_filters.any?
+          return CheckResult.invalid("query must not have any range filters")
+        end
+
         if (
             query.clade.present? &&
             PRED_URIS_FOR_THRESHOLD.include?(uri) &&
@@ -146,6 +151,14 @@ class TraitBank
       private
       def check_tq_for_counts(query, record_count)
         result = check_query_valid_for_counts(query, record_count)
+
+        if !result.valid
+          raise TypeError.new(result.reason)
+        end
+      end
+
+      def check_tq_for_histogram(query, record_count)
+        result = check_query_valid_for_histogram(query, record_count)
 
         if !result.valid
           raise TypeError.new(result.reason)
