@@ -334,7 +334,7 @@ window.TraitDataViz = (function(exports) {
     var $elmt = $('.js-value-hist')
       , data = $elmt.data('json')
       , width = 740
-      , height = 500
+      , height = 530
       , barWidth = width / 20
       , xLineY = height - 60 
       , xLineWidth = (data.buckets.length) * barWidth
@@ -352,6 +352,7 @@ window.TraitDataViz = (function(exports) {
           .fill(null)
           .map((_, i) => i * yTickIncr)
       , yTickDist = yLineHeight / (numYTicks - 1)
+      , promptY = 20
       ;
 
     xTicks = data.buckets.map(b => b.min)
@@ -487,6 +488,14 @@ window.TraitDataViz = (function(exports) {
       .attr('height', (d) => d.count * yTickDist / yTickIncr)
       .attr('stroke', '#4287f5')
       .attr('fill', (_, i) => BAR_COLORS[i % BAR_COLORS.length])
+
+    var prompt = svg.append('text')
+      .attr('y', promptY)
+      .attr('x', width / 2)
+      .attr('text-anchor', 'middle')
+
+    bar.on('mouseenter', d => prompt.text(d.promptText));
+    bar.on('mouseleave', d => prompt.text(''));
 
   }
 

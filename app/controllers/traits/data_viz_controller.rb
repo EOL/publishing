@@ -110,10 +110,10 @@ module Traits
     end
 
     def hist
-      query = TermQuery.new(term_query_params)
-      counts = TraitBank.term_search(query, { count: true })
-      result = TraitBank::Stats.histogram(query, counts.records)
-      @data = HistData.new(result, query)
+      @query = TermQuery.new(term_query_params)
+      counts = TraitBank.term_search(@query, { count: true })
+      result = TraitBank::Stats.histogram(@query, counts.records)
+      @data = HistData.new(result, @query)
       render_common
     end
 

@@ -5,7 +5,7 @@ module TraitDataVizHelper
 
       {
         label: name,
-        prompt_text: prompt_text(query, datum, name),
+        prompt_text: obj_prompt_text(query, datum, name),
         search_path: datum.other? ? nil : term_search_results_path(term_query: datum.query.to_params),
         count: datum.count,
         is_other: datum.other?
@@ -16,12 +16,14 @@ module TraitDataVizHelper
   end
 
   def histogram_data(query, data)
+    units_text = i18n_term_name(data.units_term)
     buckets = data.buckets.collect do |b|
       {
         min: b.min,
         limit: b.limit,
         count: b.count,
-        queryPath: term_search_results_path(term_query: b.query.to_params)
+        queryPath: term_search_results_path(term_query: b.query.to_params),
+        promptText: hist_prompt_text(query, b, units_text)
       }
     end
 
@@ -30,7 +32,7 @@ module TraitDataVizHelper
       bw: data.bw,
       min: data.min,
       maxCount: data.max_count, 
-      valueLabel: t("traits.data_viz.hist_value_label", units: i18n_term_name(data.units_term)),
+      valueLabel: t("traits.data_viz.hist_value_label", units: units_text),
       buckets: buckets
     }
   end
@@ -40,7 +42,7 @@ module TraitDataVizHelper
     datum.other? ? t("traits.data_viz.other") : i18n_term_name(datum.obj)
   end
 
-  def prompt_text(query, datum, name)
+  def obj_prompt_text(query, datum, name)
     if datum.other? 
       if query.record?
         t("traits.data_viz.n_other_records", count: datum.count)
@@ -51,6 +53,18 @@ module TraitDataVizHelper
       t("traits.data_viz.see_n_obj_records", count: datum.count, obj_name: name)
     else
       t("traits.data_viz.see_n_taxa_with", count: datum.count, obj_name: name)
+    end
+  end
+
+  def hist_prompt_text(query, bucket, units_text)
+    if bucket.count.positive?
+      if query.record?
+        t("traits.data_viz.show_n_records_between", count: bucket.count, min: bucket.min, limit: bucket.limit, units: units_text)
+      else
+        t("traits.data_viz.show_n_taxa_between", count: bucket.count, min: bucket.min, limit: bucket.limit, units: units_text)
+      end
+    else
+      ""
     end
   end
 end
