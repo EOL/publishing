@@ -33,6 +33,7 @@ module TraitDataVizHelper
       min: data.min,
       maxCount: data.max_count, 
       valueLabel: t("traits.data_viz.hist_value_label", units: units_text),
+      yAxisLabel: t("traits.data_viz.num_records_label"),
       buckets: buckets
     }
   end

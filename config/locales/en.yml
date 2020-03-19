@@ -1036,6 +1036,7 @@ en:
       n_other_taxa:
         one: "one other taxon"
         other: "%{count} other taxa"
+      num_records_label: "# of records"
       other: "other"
       pie_prompt: "mouse over a segment or key to highlight"
       see_n_obj_records: 

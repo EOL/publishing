@@ -392,7 +392,7 @@ window.TraitDataViz = (function(exports) {
     buildAxis(
       gY,
       yLineHeight,
-      '# of records', // TODO: i18n
+      data.yAxisLabel,
       yAxisLabelOffset,
       yTicks,
       yTickDist,
