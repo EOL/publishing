@@ -63,7 +63,7 @@ class TraitBank
         wheres << "toFloat(t.normal_measurement) >= #{filter.num_val1}" if filter.num_val1.present?
         wheres << "toFloat(t.normal_measurement) < #{filter.num_val2}" if filter.num_val2.present?
 
-        count = query.record? ? "rec.value" : "DISTINCT rec.page"
+        count = query.record? ? "*" : "DISTINCT rec.page"
 
         buckets = [Math.sqrt(record_count), 20].min.ceil
         qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
