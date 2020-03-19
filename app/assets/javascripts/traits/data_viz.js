@@ -333,17 +333,19 @@ window.TraitDataViz = (function(exports) {
   function buildHistogram() {
     var $elmt = $('.js-value-hist')
       , data = $elmt.data('json')
-      , width = 740
+      , width = 860 
       , height = 530
-      , barWidth = width / 20
+      , barWidth = 35
       , xLineY = height - 60 
       , xLineWidth = (data.buckets.length) * barWidth
-      , xLineX1 = (width - xLineWidth) / 2 + 30 // Y axis needs some room
+      , xLineX1 = (width - xLineWidth) / 2 // Y axis needs some room
       , xTicks // populated below
       , yLineHeight = 400
       , tickLength = 8
-      , tickTextOffset = 25 
-      , axisLabelOffset = 50 
+      , tickTextOffsetX = 25 
+      , tickTextOffsetY = -16
+      , axisLabelOffsetX = 50 
+      , axisLabelOffsetY = 40 
       , yAxisOffsetVert = 20
       , yAxisOffsetHoriz = 20
       , numYTicks = data.maxCount < 10 ? data.maxCount + 1 : 10
@@ -353,6 +355,7 @@ window.TraitDataViz = (function(exports) {
           .map((_, i) => i * yTickIncr)
       , yTickDist = yLineHeight / (numYTicks - 1)
       , promptY = 20
+      , limitLabelAllTicks = 10000
       ;
 
     xTicks = data.buckets.map(b => b.min)
@@ -381,7 +384,7 @@ window.TraitDataViz = (function(exports) {
     // todo: i18n
     gX.append('text')
       .attr('x', xLineWidth / 2)
-      .attr('y', axisLabelOffset)
+      .attr('y', axisLabelOffsetX)
       .attr('text-anchor', 'middle')
       .attr('font-size', 15)
       .text(data.valueLabel)
@@ -405,25 +408,8 @@ window.TraitDataViz = (function(exports) {
     gTickX
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('y', tickTextOffset)
-      .text((d, i) => {
-        if (
-          xTicks[xTicks.length - 1] < 10 * 1000 ||
-          (
-            i === 0 ||
-            i === xTicks.length - 1 ||
-            (
-              i !== 1 && 
-              i !== xTicks.length - 2 &&
-              i % 2 === 0
-            )
-          )
-        ) {
-          return d;
-        } else {
-          return null;
-        }
-      })
+      .attr('y', tickTextOffsetX)
+      .text((d, i) => tickLabel(i, d, xTicks));
       
     // y axis
     // TODO: DRY
@@ -441,7 +427,7 @@ window.TraitDataViz = (function(exports) {
     // TODO: adjust so y label shows up
     gY.append('text')
       .attr('x', yLineHeight / 2)
-      .attr('y', -1 * axisLabelOffset)
+      .attr('y', -1 * axisLabelOffsetY)
       .attr('text-anchor', 'middle')
       .attr('font-size', 15)
       .text('# of records')
@@ -464,8 +450,8 @@ window.TraitDataViz = (function(exports) {
     gTickY
       .append('text')
       .attr('text-anchor', 'middle')
-      .attr('y', -1 * tickTextOffset)
-      .text(d => d);
+      .attr('y', tickTextOffsetY)
+      .text((d, i) => tickLabel(i, d, yTicks));
 
     var bar = svg.append('g')
       .attr('transform', `translate(${xLineX1}, ${xLineY - yAxisOffsetVert})`)
@@ -494,6 +480,25 @@ window.TraitDataViz = (function(exports) {
 
     bar.on('mouseenter', d => prompt.text(d.promptText));
     bar.on('mouseleave', d => prompt.text(''));
+
+    function tickLabel(i, label, ticks) {
+      if (
+        ticks[ticks.length - 1] < limitLabelAllTicks ||
+        (
+          i === 0 ||
+          i === ticks.length - 1 ||
+          (
+            i !== 1 && 
+            i !== ticks.length - 2 &&
+            i % 2 === 0
+          )
+        )
+      ) {
+        return label;
+      } else {
+        return null;
+      }
+    }
   }
 
   exports.buildPieChart = buildPieChart;
