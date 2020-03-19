@@ -124,6 +124,10 @@ class TraitBank
           return CheckResult.invalid("query predicate does not have numerical values")
         end
 
+        if !TraitBank::Terms.any_direct_records_for_pred?(query.filters.first.pred_uri)
+          return CheckResult.invalid("predicate does not have any directly associated records")
+        end
+
         CheckResult.valid
       end
 

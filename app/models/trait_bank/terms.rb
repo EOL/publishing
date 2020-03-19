@@ -355,6 +355,17 @@ class TraitBank
         end
         pages_to_filter_by_predicate
       end
+
+      def any_direct_records_for_pred?(uri)
+        key = "trait_bank/any_direct_records_for_pred?/#{uri}"
+        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
+          res = query(%{
+            MATCH (t:Trait)-[:predicate]->(:Term{uri: '#{uri}'})
+            RETURN t LIMIT 1
+          })["data"]
+          res.any?
+        end
+      end
     end
   end
 end
