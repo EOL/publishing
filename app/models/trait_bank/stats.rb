@@ -77,6 +77,11 @@ class TraitBank
           "UNWIND recs as rec\n"\
           "WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi \n"\
           "WITH u, min, bi, bw, count(#{count}) AS c\n"\
+          "WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows\n"\
+          "ORDER BY reduce(total = 0, r in units_rows | total + r.c)\n"\
+          "LIMIT 1\n"\
+          "UNWIND units_rows as r\n"\
+          "WITH u, r.min as min, r.bi as bi, r.bw as bw, r.c as c\n"\
           "RETURN u, min, bi, bw, c\n"\
           "ORDER BY bi ASC"
         TraitBank.query(qs)
