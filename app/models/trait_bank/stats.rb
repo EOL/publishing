@@ -53,7 +53,7 @@ class TraitBank
       # Returns:
       # bi: bucket index
       # bw: bucket width
-      # c: count of records in bucket
+      # c: count of records/pages in bucket
       # u: units term
       def histogram(query, record_count)
         check_tq_for_histogram(query, record_count)

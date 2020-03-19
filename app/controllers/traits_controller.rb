@@ -166,7 +166,7 @@ class TraitsController < ApplicationController
     @resources = TraitBank.resources(data)
     build_associations(data)
     build_gbif_url(@count, pages, @query)
-    data_viz_type(@query, @counts.records)
+    data_viz_type(@query, @counts)
     render "search"
   end
 
@@ -191,10 +191,10 @@ class TraitsController < ApplicationController
     end
   end
 
-  def data_viz_type(query, record_count)
-    if TraitBank::Stats.check_query_valid_for_counts(query, record_count).valid
+  def data_viz_type(query, counts)
+    if TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid
       @data_viz_type = :bar 
-    elsif TraitBank::Stats.check_query_valid_for_histogram(query, record_count)
+    elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
       @data_viz_type = :hist 
     end
   end
