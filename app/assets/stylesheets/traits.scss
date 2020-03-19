@@ -214,10 +214,21 @@
   display: none;
 }
 
-/* adjust if the bar chart width changes or becomes dynamic */
+.viz-contain-hist {
+  display: none;
+}
+
+/* adjust if visualization width changes or becomes dynamic */
 @media(min-width: 820px) { 
   .viz-contain-bar { 
     display: block;
   }
 }
+
+@media(min-width: 850px) { 
+  .viz-contain-hist { 
+    display: block;
+  }
+}
+
 

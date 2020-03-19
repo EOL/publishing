@@ -333,19 +333,19 @@ window.TraitDataViz = (function(exports) {
   function buildHistogram() {
     var $elmt = $('.js-value-hist')
       , data = $elmt.data('json')
-      , width = 860 
+      , width = 850 
       , height = 530
       , barWidth = 35
-      , xLineY = height - 60 
-      , xLineWidth = (data.buckets.length) * barWidth
-      , xLineX1 = (width - xLineWidth) / 2 // Y axis needs some room
+      , xAxisY = height - 60 
+      , xAxisWidth = (data.buckets.length) * barWidth
+      , xAxisX1 = (width - xAxisWidth) / 2 // Y axis needs some room
       , xTicks // populated below
       , yLineHeight = 400
       , tickLength = 8
       , tickTextOffsetX = 25 
       , tickTextOffsetY = -16
-      , axisLabelOffsetX = 50 
-      , axisLabelOffsetY = 40 
+      , xAxisLabelOffset = 50 
+      , yAxisLabelOffset = -40 
       , yAxisOffsetVert = 20
       , yAxisOffsetHoriz = 20
       , numYTicks = data.maxCount < 10 ? data.maxCount + 1 : 10
@@ -370,91 +370,39 @@ window.TraitDataViz = (function(exports) {
           .style('margin', '0 auto')
           .style('display', 'block');
 
+    // x axis
     var gX = svg.append('g')
-      .attr('transform', `translate(${xLineX1}, ${xLineY})`);
+      .attr('transform', `translate(${xAxisX1}, ${xAxisY})`);
 
-    gX.append('line')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 1)
-      .attr('x1', 0)
-      .attr('x2', xLineWidth)
-      .attr('y1', 0)
-      .attr('y2', 0);
+    buildAxis(
+      gX, 
+      xAxisWidth, 
+      data.valueLabel,
+      xAxisLabelOffset,
+      xTicks,
+      barWidth,
+      tickLength,
+      tickTextOffsetX
+    );
 
-    // todo: i18n
-    gX.append('text')
-      .attr('x', xLineWidth / 2)
-      .attr('y', axisLabelOffsetX)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', 15)
-      .text(data.valueLabel)
-
-    var gTickX = gX.selectAll('.tick')
-      .data(xTicks)
-      .enter()
-      .append('g')
-        .attr('class', 'tick')
-        .attr('transform', (d, i) => `translate(${barWidth * i}, 0)`);
-
-    gTickX
-      .append('line')
-        .attr('x1', 0)
-        .attr('x2', 0)
-        .attr('y1', 0)
-        .attr('y2', tickLength)
-        .attr('stroke', 'black')
-        .attr('stroke-width', 1);
-
-    gTickX
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr('y', tickTextOffsetX)
-      .text((d, i) => tickLabel(i, d, xTicks));
-      
     // y axis
-    // TODO: DRY
     var gY = svg.append('g')
-      .attr('transform', `translate(${xLineX1 - yAxisOffsetHoriz}, ${xLineY - yAxisOffsetVert}) rotate(270, 0, 0)`)
+      .attr('transform', `translate(${xAxisX1 - yAxisOffsetHoriz}, ${xAxisY - yAxisOffsetVert}) rotate(270, 0, 0)`)
 
-    gY.append('line')
-      .attr('stroke', 'black')
-      .attr('stroke-width', 1)
-      .attr('x1', 0)
-      .attr('x2', yLineHeight)
-      .attr('y1', 0)
-      .attr('y2', 0);
+    buildAxis(
+      gY,
+      yLineHeight,
+      '# of records', // TODO: i18n
+      yAxisLabelOffset,
+      yTicks,
+      yTickDist,
+      -1 * tickLength,
+      tickTextOffsetY
+    );
 
-    // TODO: adjust so y label shows up
-    gY.append('text')
-      .attr('x', yLineHeight / 2)
-      .attr('y', -1 * axisLabelOffsetY)
-      .attr('text-anchor', 'middle')
-      .attr('font-size', 15)
-      .text('# of records')
-
-    var gTickY = gY.selectAll('.tick')
-      .data(yTicks)
-      .enter()
-      .append('g')
-        .attr('class', 'tick')
-        .attr('transform', (d, i) => `translate(${yTickDist * i}, 0)`);
-
-    gTickY.append('line')
-      .attr('x1', 0)
-      .attr('x2', 0)
-      .attr('y1', 0)
-      .attr('y2', -1 * tickLength)
-      .attr('stroke', 'black')
-      .attr('stroke-width', 1);
-
-    gTickY
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr('y', tickTextOffsetY)
-      .text((d, i) => tickLabel(i, d, yTicks));
-
+    // bars
     var bar = svg.append('g')
-      .attr('transform', `translate(${xLineX1}, ${xLineY - yAxisOffsetVert})`)
+      .attr('transform', `translate(${xAxisX1}, ${xAxisY - yAxisOffsetVert})`)
       .selectAll('bar')
         .data(data.buckets)
         .enter() 
@@ -480,6 +428,46 @@ window.TraitDataViz = (function(exports) {
 
     bar.on('mouseenter', d => prompt.text(d.promptText));
     bar.on('mouseleave', d => prompt.text(''));
+
+    function buildAxis(g, width, axisLabelText, axisLabelY, ticks, tickDist, tickLength, tickLabelY) { 
+      g.append('line')
+        .attr('stroke', 'black')
+        .attr('stroke-width', 1)
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', 0)
+        .attr('y2', 0);
+
+      // todo: i18n
+      g.append('text')
+        .attr('x', width / 2)
+        .attr('y', axisLabelY)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', 15)
+        .text(axisLabelText)
+
+      var gTick = g.selectAll('.tick')
+        .data(ticks)
+        .enter()
+        .append('g')
+          .attr('class', 'tick')
+          .attr('transform', (d, i) => `translate(${tickDist * i}, 0)`);
+
+      gTick
+        .append('line')
+          .attr('x1', 0)
+          .attr('x2', 0)
+          .attr('y1', 0)
+          .attr('y2', tickLength)
+          .attr('stroke', 'black')
+          .attr('stroke-width', 1);
+
+      gTick
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr('y', tickLabelY)
+        .text((d, i) => tickLabel(i, d, ticks));
+    }
 
     function tickLabel(i, label, ticks) {
       if (
