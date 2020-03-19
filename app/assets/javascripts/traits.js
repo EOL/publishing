@@ -278,6 +278,7 @@
   function loadViz($contain, ready) {
     $.get($contain.data('loadPath'), function(result) {
       if (result) {
+        $contain.empty(); // get rid of spinner
         $contain.append(result);
         ready();
       }

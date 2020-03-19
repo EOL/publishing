@@ -33,11 +33,17 @@
             %span= t(".new_search")
     - if @data_viz_type.present? 
       -if @data_viz_type == :pie
-        .viz-contain.js-pie-contain{ data: { :'load-path' => traits_data_viz_pie_path(term_query: @query.to_params) }}
+        - classes = "js-pie-contain"
+        - load_path = traits_data_viz_pie_path(term_query: @query.to_params)
       - elsif @data_viz_type == :bar
-        .viz-contain.viz-contain-bar.js-bar-contain{ data: { :'load-path' => traits_data_viz_bar_path(term_query: @query.to_params) }}
+        - classes = "viz-contain-bar js-bar-contain"
+        - load_path = traits_data_viz_bar_path(term_query: @query.to_params)
       - elsif @data_viz_type == :hist
-        .viz-contain.viz-contain-hist.js-hist-contain{ data: { :'load-path' => traits_data_viz_hist_path(term_query: @query.to_params) }}
+        -classes = "viz-contain-hist js-hist-contain"
+        - load_path = traits_data_viz_hist_path(term_query: @query.to_params)
+      .viz-contain{ class: classes, data: { :'load-path' => load_path }}
+        .uk-flex.uk-flex-center
+          .spinner{ uk: { spinner: true, position: 'center' }}
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }
