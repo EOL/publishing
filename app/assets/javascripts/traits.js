@@ -276,12 +276,16 @@
   }
 
   function loadViz($contain, ready) {
-    $.get($contain.data('loadPath'), function(result) {
+    $.get($contain.data('loadPath'), (result) => {
+      $contain.empty(); // get rid of spinner
+
       if (result) {
-        $contain.empty(); // get rid of spinner
         $contain.append(result);
         ready();
       }
+    })
+    .fail(() => {
+      $contain.empty();
     });
   }
 
