@@ -349,7 +349,7 @@ window.TraitDataViz = (function(exports) {
       , yAxisOffsetVert = 20
       , yAxisOffsetHoriz = 20
       , numYTicks = data.maxCount < 10 ? data.maxCount + 1 : 10
-      , yTickIncr = Math.ceil(data.maxCount / numYTicks)
+      , yTickIncr = Math.ceil(data.maxCount / (numYTicks - 1))
       , yTicks = new Array(numYTicks)
           .fill(null)
           .map((_, i) => i * yTickIncr)
