@@ -51,8 +51,8 @@ module Traits
         i_units = cols.index("u")
 
         @max_bi = data.last[i_bi].to_i
-        @bw = data.first[i_bw].to_i
-        @min = data.first[i_min].to_i
+        @bw = self.class.to_f_or_i(data.first[i_bw])
+        @min = self.class.to_f_or_i(data.first[i_min])
         @units_term = data.first[i_units]&.[]("data")&.symbolize_keys
         @max_count = 0
 
@@ -76,6 +76,13 @@ module Traits
 
       def length
         @buckets.length
+      end
+
+      class << self
+        def to_f_or_i(str_val)
+          f = str_val.to_f
+          (f % 1).zero? ? f.to_i : f
+        end
       end
     end
 
