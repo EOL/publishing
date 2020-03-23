@@ -74,11 +74,11 @@ class TraitBank
           "WHERE #{wheres.join(" AND ")}\n"\
           "WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min\n"\
           "WITH u, recs, max, min, max - min AS range\n"\
-          "WITH u, recs, CASE WHEN range < 2 THEN ceil(max * 10) / 10 ELSE ceil(max) END AS max, "\
-          "CASE WHEN range < 2 THEN floor(min * 10) / 10 ELSE floor(min) END AS min\n"\
+          "WITH u, recs, #{self.num_fn_for_range("max", "ceil")} AS max, "\
+          "#{self.num_fn_for_range("min", "floor")} AS min\n"\
           "WITH u, recs, max, min, max - min AS range\n"\
-          "WITH u, recs, max, min, CASE WHEN range = 0 THEN 1 ELSE (\n"\
-          "CASE WHEN range < 2 THEN ceil(range * 10 / #{buckets}) / 10 ELSE ceil(range / #{buckets}) END\n"\
+          "WITH u, recs, max, min, CASE WHEN range < .001 THEN 1 ELSE (\n"\
+          "#{self.num_fn_for_range("range", "ceil", "/ #{buckets}")}\n"\
           ") END AS bw\n"\
           "UNWIND recs as rec\n"\
           "WITH rec, u, min, bw, CASE WHEN rec.val = max THEN #{buckets} - 1 ELSE floor((rec.val - min) / bw) END AS bi \n"\
@@ -92,6 +92,33 @@ class TraitBank
           "ORDER BY bi ASC"
         TraitBank.query(qs)
       end
+
+      def num_fn_for_range(var, fn, add_op = nil)
+        base_case  = add_op.nil? ?
+          "#{fn}(#{var})" :
+          "#{fn}(#{var} #{add_op})"
+
+        %Q(
+          CASE WHEN #{num_fn_for_range_case(0.002, 10000, fn, var, add_op)} ELSE (
+            CASE WHEN #{num_fn_for_range_case(0.02, 1000, fn, var, add_op)} ELSE (
+              CASE WHEN #{num_fn_for_range_case(0.2, 100, fn, var, add_op)} ELSE (
+                CASE WHEN #{num_fn_for_range_case(2, 10, fn, var, add_op)} ELSE (
+                  #{base_case}
+                ) END
+              ) END
+            ) END
+          ) END
+        )
+      end
+
+      def num_fn_for_range_case(cutoff, coef, fn, var, add_op)
+        fn_part = add_op.nil? ?
+          "#{fn}(#{var} * #{coef}) / #{coef}" :
+          "#{fn}((#{var} * #{coef}) #{add_op}) / #{coef}"
+
+        "range < #{cutoff} THEN #{fn_part}"
+      end
+
       #  "WITH ms, init_max, min, bw, (init_max - min) % bw as rem\n"\
       #  "WITH ms, min, bw, CASE WHEN rem = 0 THEN init_max ELSE init_max + bw - rem END AS max\n"\
 
