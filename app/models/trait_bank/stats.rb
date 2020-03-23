@@ -61,7 +61,7 @@ class TraitBank
 
         wheres = ["t.normal_measurement IS NOT NULL"]
         wheres << "toFloat(t.normal_measurement) >= #{filter.num_val1}" if filter.num_val1.present?
-        wheres << "toFloat(t.normal_measurement) < #{filter.num_val2}" if filter.num_val2.present?
+        wheres << "toFloat(t.normal_measurement) <= #{filter.num_val2}" if filter.num_val2.present?
 
         count = query.record? ? "*" : "DISTINCT rec.page"
 
@@ -81,7 +81,8 @@ class TraitBank
           "#{self.num_fn_for_range("range", "ceil", "/ #{buckets}")}\n"\
           ") END AS bw\n"\
           "UNWIND recs as rec\n"\
-          "WITH rec, u, min, bw, CASE WHEN rec.val = max THEN #{buckets} - 1 ELSE floor((rec.val - min) / bw) END AS bi \n"\
+          "WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi\n"\
+          "WITH rec, u, min, bw, CASE WHEN bi = #{buckets} THEN bi - 1 ELSE bi END as bi\n"\
           "WITH u, min, bi, bw, count(#{count}) AS c\n"\
           "WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows\n"\
           "ORDER BY reduce(total = 0, r in units_rows | total + r.c) DESC\n"\
