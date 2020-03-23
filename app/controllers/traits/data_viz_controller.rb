@@ -1,5 +1,3 @@
-require "bigdecimal"
-
 module Traits
   class DataVizController < ApplicationController
     BAR_CHART_LIMIT = 15
@@ -53,8 +51,8 @@ module Traits
         i_units = cols.index("u")
 
         @max_bi = data.last[i_bi].to_i
-        @bw = self.class.to_f_or_i(data.first[i_bw])
-        @min = self.class.to_f_or_i(data.first[i_min])
+        @bw = self.class.to_d_or_i(data.first[i_bw])
+        @min = self.class.to_d_or_i(data.first[i_min])
         @units_term = data.first[i_units]&.[]("data")&.symbolize_keys
         @max_count = 0
 
@@ -81,9 +79,9 @@ module Traits
       end
 
       class << self
-        def to_f_or_i(str_val)
-          f = BigDecimal(str_val)
-          (f % 1).zero? ? f.to_i : f
+        def to_d_or_i(str_val)
+          d = str_val.to_d
+          (d % 1).zero? ? d.to_i : f
         end
       end
     end

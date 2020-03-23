@@ -355,7 +355,7 @@ window.TraitDataViz = (function(exports) {
           .map((_, i) => i * yTickIncr)
       , yTickDist = yLineHeight / (numYTicks - 1)
       , promptY = 20
-      , limitLabelAllTicks = 10000
+      , labelAllTicksCharLimit = 5
       ;
 
     xTicks = data.buckets.map(b => b.min)
@@ -471,7 +471,7 @@ window.TraitDataViz = (function(exports) {
 
     function tickLabel(i, label, ticks) {
       if (
-        ticks[ticks.length - 1] < limitLabelAllTicks ||
+        label.toString().length < labelAllTicksCharLimit ||
         (
           i === 0 ||
           i === ticks.length - 1 ||
