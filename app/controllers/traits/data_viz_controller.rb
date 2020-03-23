@@ -1,3 +1,5 @@
+require "bigdecimal"
+
 module Traits
   class DataVizController < ApplicationController
     BAR_CHART_LIMIT = 15
@@ -80,7 +82,7 @@ module Traits
 
       class << self
         def to_f_or_i(str_val)
-          f = str_val.to_f
+          f = BigDecimal(str_val)
           (f % 1).zero? ? f.to_i : f
         end
       end
