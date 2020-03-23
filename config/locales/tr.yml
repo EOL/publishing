@@ -1095,12 +1095,14 @@ tr:
   data_definition: '"%{data}" tanımı'
   traits:
     data_viz:
+      hist_value_label: değer (%{units})
       n_other_records:
         one: bir kayıt daha
         other: '%{count} kayıt daha'
       n_other_taxa:
         one: bir takson daha
         other: '%{count} takson daha'
+      num_records_label: '# kayıt sayısı'
       other: diğer
       pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
       see_n_obj_records:
@@ -1109,6 +1111,12 @@ tr:
       see_n_taxa_with:
         one: '"%{obj_name}" içeren bir taksonu görmek için tıklayın'
         other: '"%{obj_name}" ile %{count} taksonu görmek için tıklayın'
+      show_n_records_between:
+        one: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
+          için tıklayın'
+      show_n_taxa_between:
+        one: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
+          görmek için tıklayın'
     search:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir

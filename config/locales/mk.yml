@@ -1096,12 +1096,14 @@ mk:
   data_definition: дефиниција на „%{data}“
   traits:
     data_viz:
+      hist_value_label: вредност (%{units})
       n_other_records:
         one: уште еден запис
         other: '%{count} други записи'
       n_other_taxa:
         one: уште еден таксон
         other: '%{count} други таксони'
+      num_records_label: бр. на записи
       other: друго
       pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
       see_n_obj_records:
@@ -1110,6 +1112,16 @@ mk:
       see_n_taxa_with:
         one: стиснете за да погледате еден таксон со „%{obj_name}“
         other: стиснете за да погледате %{count} таксони со „%{obj_name}“
+      show_n_records_between:
+        one: стиснете за да погледате %{count} запис со мерни вредности во [%{min},
+          %{limit}] %{units}
+        other: стиснете за да погледате %{count} записи со мерни вредности во [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: стиснете за да погледате %{count} таксон со мерни вредности во [%{min},
+          %{limit}] %{units}
+        other: стиснете за да погледате %{count} таксони со мерни вредности во [%{min},
+          %{limit}] %{units}
     search:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV

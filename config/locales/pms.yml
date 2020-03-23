@@ -1098,12 +1098,14 @@ pms:
   data_definition: definission ëd «%{data}»
   traits:
     data_viz:
+      hist_value_label: valor (%{units})
       n_other_records:
         one: un-a àutra argistrassion
         other: '%{count} àutre argistrassion'
       n_other_taxa:
         one: un-a àutra tassonomìa
         other: '%{count} àutre tassonomìe'
+      num_records_label: nùmer d'argistrassion
       other: àutr
       pie_prompt: ratin dzora un segment o na ciav për evidensié
       see_n_obj_records:
@@ -1112,6 +1114,16 @@ pms:
       see_n_taxa_with:
         one: sgnacché për vëdde na tassonomìa con «%{obj_name}»
         other: sgnaché për vëdde %{count} tassonomìe con «%{obj_name}»
+      show_n_records_between:
+        one: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
+          %{limit}] %{units}
+        other: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: sgnaché për vëdde %{count} tassonomìa con dij valor dë mzura an [%{min},
+          %{limit}] %{units}
+        other: sgnaché për vëdde %{count} tassonomìe con dij valor dë mzura an [%{min},
+          %{limit}] %{units}
     search:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv

@@ -1058,12 +1058,14 @@ zh-TW:
   data_definition: 「%{data}」的定義
   traits:
     data_viz:
+      hist_value_label: 值（%{units}）
       n_other_records:
         one: 1 個其它紀錄
         other: '%{count} 個其它紀錄'
       n_other_taxa:
         one: 1 個其它分類
         other: '%{count} 個其它分類'
+      num_records_label: '# 紀錄'
       other: 其它
       pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
       see_n_obj_records:
@@ -1072,6 +1074,12 @@ zh-TW:
       see_n_taxa_with:
         one: 點擊來查看帶有「%{obj_name}」的 1 個分類
         other: 點擊來查看帶有「%{obj_name}」的 %{count} 個分類
+      show_n_records_between:
+        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
+        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
+      show_n_taxa_between:
+        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
+        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
     search:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV

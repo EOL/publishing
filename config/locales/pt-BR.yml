@@ -722,6 +722,8 @@ pt-BR:
   data_definition: definição de «%{data}»
   traits:
     data_viz:
+      hist_value_label: valor (%{units})
+      num_records_label: '# de registros'
       other: outros
       pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
     search:

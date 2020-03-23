@@ -1107,12 +1107,14 @@ fr:
   data_definition: définition de « %{data} »
   traits:
     data_viz:
+      hist_value_label: valeur (%{units})
       n_other_records:
         one: un autre enregistrement
         other: '%{count} autres enregistrements'
       n_other_taxa:
         one: un autre taxon
         other: '%{count} autres taxons'
+      num_records_label: nombre d’enregistrements
       other: autre
       pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
       see_n_obj_records:
@@ -1121,6 +1123,16 @@ fr:
       see_n_taxa_with:
         one: cliquer pour voir un taxon avec « %{obj_name} »
         other: cliquer pour voir %{count} taxons avec « %{obj_name} »
+      show_n_records_between:
+        one: cliquer pour voir %{count} enregistrement avec des valeurs de mesure
+          dans [%{min}, %{limit}] %{units}}}
+        other: cliquer pour voir %{count} enregistrements avec des valeurs de mesure
+          dans [%{min}, %{limit}] %{units}}}
+      show_n_taxa_between:
+        one: cliquer pour voir %{count} taxon avec des valeurs de mesure dans [%{min},
+          %{limit}] %{units}}}
+        other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
+          %{limit}] %{units}}}
     search:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv

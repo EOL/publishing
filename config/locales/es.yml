@@ -552,6 +552,9 @@ es:
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definición de «%{data}»
   traits:
+    data_viz:
+      hist_value_label: valor (%{units})
+      num_records_label: N.º de registros
     search:
       download_tsv: descargar tsv
       edit_filters: editar filtros
