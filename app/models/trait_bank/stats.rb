@@ -74,13 +74,14 @@ class TraitBank
           "WHERE #{wheres.join(" AND ")}\n"\
           "WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min\n"\
           "WITH u, recs, max, min, max - min AS range\n"\
-          "WITH u, recs, range, CASE WHEN range < 2 THEN ceil(max * 10) / 10 ELSE ceil(max) END AS max,"\
+          "WITH u, recs, CASE WHEN range < 2 THEN ceil(max * 10) / 10 ELSE ceil(max) END AS max, "\
           "CASE WHEN range < 2 THEN floor(min * 10) / 10 ELSE floor(min) END AS min\n"\
+          "WITH u, recs, max, min, max - min AS range\n"\
           "WITH u, recs, max, min, CASE WHEN range = 0 THEN 1 ELSE (\n"\
           "CASE WHEN range < 2 THEN ceil(range * 10 / #{buckets}) / 10 ELSE ceil(range / #{buckets}) END\n"\
           ") END AS bw\n"\
           "UNWIND recs as rec\n"\
-          "WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi \n"\
+          "WITH rec, u, min, bw, CASE WHEN rec.val = max THEN #{buckets} - 1 ELSE floor((rec.val - min) / bw) END AS bi \n"\
           "WITH u, min, bi, bw, count(#{count}) AS c\n"\
           "WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows\n"\
           "ORDER BY reduce(total = 0, r in units_rows | total + r.c) DESC\n"\
