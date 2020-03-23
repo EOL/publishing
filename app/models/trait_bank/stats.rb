@@ -57,41 +57,46 @@ class TraitBank
       # u: units term
       def histogram(query, record_count)
         check_tq_for_histogram(query, record_count)
-        filter = query.filters.first
 
-        wheres = ["t.normal_measurement IS NOT NULL"]
-        wheres << "toFloat(t.normal_measurement) >= #{filter.num_val1}" if filter.num_val1.present?
-        wheres << "toFloat(t.normal_measurement) <= #{filter.num_val2}" if filter.num_val2.present?
+        key = "trait_bank/stats/histogram/v1/#{query.to_cache_key}" # increment version number when changing query
+        Rails.cache.fetch(key) do
+          filter = query.filters.first
 
-        count = query.record? ? "*" : "DISTINCT rec.page"
+          wheres = ["t.normal_measurement IS NOT NULL"]
+          wheres << "toFloat(t.normal_measurement) >= #{filter.num_val1}" if filter.num_val1.present?
+          wheres << "toFloat(t.normal_measurement) <= #{filter.num_val2}" if filter.num_val2.present?
 
-        buckets = [Math.sqrt(record_count), 20].min.ceil
-        qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
-          "(tgt_p:Term{ uri: '#{filter.pred_uri}'}),\n"\
-          "(page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p),\n"\
-          "(t)-[:normal_units_term]->(u:Term)\n"\
-          "WITH page, u, toFloat(t.normal_measurement) AS m\n"\
-          "WHERE #{wheres.join(" AND ")}\n"\
-          "WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min\n"\
-          "WITH u, recs, max, min, max - min AS range\n"\
-          "WITH u, recs, #{self.num_fn_for_range("max", "ceil")} AS max, "\
-          "#{self.num_fn_for_range("min", "floor")} AS min\n"\
-          "WITH u, recs, max, min, max - min AS range\n"\
-          "WITH u, recs, max, min, CASE WHEN range < .001 THEN 1 ELSE (\n"\
-          "#{self.num_fn_for_range("range", "ceil", "/ #{buckets}")}\n"\
-          ") END AS bw\n"\
-          "UNWIND recs as rec\n"\
-          "WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi\n"\
-          "WITH rec, u, min, bw, CASE WHEN bi = #{buckets} THEN bi - 1 ELSE bi END as bi\n"\
-          "WITH u, min, bi, bw, count(#{count}) AS c\n"\
-          "WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows\n"\
-          "ORDER BY reduce(total = 0, r in units_rows | total + r.c) DESC\n"\
-          "LIMIT 1\n"\
-          "UNWIND units_rows as r\n"\
-          "WITH u, r.min as min, r.bi as bi, r.bw as bw, r.c as c\n"\
-          "RETURN u, min, bi, bw, c\n"\
-          "ORDER BY bi ASC"
-        TraitBank.query(qs)
+          count = query.record? ? "*" : "DISTINCT rec.page"
+
+          buckets = [Math.sqrt(record_count), 20].min.ceil
+          TraitBank.query(%Q[
+            MATCH #{TraitBank.page_match(query, "page", "")},
+            (tgt_p:Term{ uri: '#{filter.pred_uri}'}),
+            (page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p),
+            (t)-[:normal_units_term]->(u:Term)
+            WITH page, u, toFloat(t.normal_measurement) AS m
+            WHERE #{wheres.join(" AND ")}
+            WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
+            WITH u, recs, max, min, max - min AS range
+            WITH u, recs, #{self.num_fn_for_range("max", "ceil")} AS max,
+            #{self.num_fn_for_range("min", "floor")} AS min
+            WITH u, recs, max, min, max - min AS range
+            WITH u, recs, max, min, CASE WHEN range < .001 THEN 1 ELSE (
+            #{self.num_fn_for_range("range", "ceil", "/ #{buckets}")}
+            ) END AS bw
+            UNWIND recs as rec
+            WITH rec, u, min, bw, floor((rec.val - min) / bw) AS bi
+            WITH rec, u, min, bw, CASE WHEN bi = #{buckets} THEN bi - 1 ELSE bi END as bi
+            WITH u, min, bi, bw, count(#{count}) AS c
+            WITH u, collect({ min: min, bi: bi, bw: bw, c: c}) as units_rows
+            ORDER BY reduce(total = 0, r in units_rows | total + r.c) DESC
+            LIMIT 1
+            UNWIND units_rows as r
+            WITH u, r.min as min, r.bi as bi, r.bw as bw, r.c as c
+            RETURN u, min, bi, bw, c
+            ORDER BY bi ASC
+          ])
+        end
       end
 
       def num_fn_for_range(var, fn, add_op = nil)
