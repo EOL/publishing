@@ -81,7 +81,7 @@ module Traits
       class << self
         def to_d_or_i(str_val)
           d = str_val.to_d
-          (d % 1).zero? ? d.to_i : f
+          (d % 1).zero? ? d.to_i : d
         end
       end
     end
