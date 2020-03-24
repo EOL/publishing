@@ -1,4 +1,4 @@
-class Repository
+class RepositoryHandle
   def initialize(resource, log = nil)
     @resource = resource
     repo_url = Rails.application.secrets.repository[:url]
