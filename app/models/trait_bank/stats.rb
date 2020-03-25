@@ -175,18 +175,17 @@ class TraitBank
         common_result = check_measurement_query_common(query)
         return common_result if !common_result.valid?
 
-        if query.filters.first.units_for_pred?
+        filter = query.filters.first
+        uri = filter.pred_uri
+
+        if filter.units_for_pred?
           return CheckResult.invalid("query predicate has numerical values")
         end
 
-        if query.numeric_filters.any?
-          return CheckResult.invalid("query must not have any numeric filters")
+        if filter.numeric?
+          return CheckResult.invalid("query must not be numeric")
         end
         
-        if query.range_filters.any?
-          return CheckResult.invalid("query must not have any range filters")
-        end
-
         if (
             query.clade.present? &&
             PRED_URIS_FOR_THRESHOLD.include?(uri) &&
