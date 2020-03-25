@@ -22,6 +22,7 @@ class TraitBank
     ])
     RECORD_THRESHOLD = 20_000
     MIN_RECORDS_FOR_HIST = 4
+    OBJ_COUNT_LIMIT_PAD = 5
 
     class << self
       def obj_counts(query, record_count, limit)
@@ -44,10 +45,43 @@ class TraitBank
             "WITH obj, count(#{count}) AS count\n"\
             "RETURN obj, count\n"\
             "ORDER BY count DESC\n"\
-            "LIMIT #{limit}"
+            "LIMIT #{limit + OBJ_COUNT_LIMIT_PAD}"
           results = TraitBank.query(qs)
-          TraitBank.results_to_hashes(results, "obj")
+          filter_identical_count_descendants(TraitBank.results_to_hashes(results, "obj"), limit)
         end
+      end
+
+      # XXX: this isn't very performant, but the assumption is that that the filtering case is rare
+      def filter_identical_count_descendants(results, limit)
+        prev_count = nil
+        objs_to_check = {}
+        objs_for_count = []
+
+        results.each do |row|
+          if row[:count] != prev_count
+            if objs_for_count.length > 1
+              objs_to_check[prev_count] = objs_for_count
+            end
+
+            prev_count = row[:count]
+            objs_for_count = [row[:obj][:uri]]
+          else 
+            objs_for_count << row[:obj][:uri]
+          end
+        end
+
+        objs_to_filter = []
+        objs_to_check.each do |_, objs|
+          objs.each do |obj|
+            objs.each do |other_obj|
+              next if obj == other_obj
+              objs_to_filter << obj if TraitBank::Terms.term_descendant_of_other?(obj, other_obj)
+            end
+          end 
+        end
+
+        filtered = results.reject { |r| objs_to_filter.include?(r[:obj][:uri]) }
+        filtered[0..limit]
       end
 
       # Returns:

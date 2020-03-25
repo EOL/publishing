@@ -366,6 +366,16 @@ class TraitBank
           res.any?
         end
       end
+
+      def term_descendant_of_other?(term_uri, other_uri)
+        result = query(%Q(
+          MATCH p=(:Term{ uri: "#{term_uri}" })-[:parent_term*1..]->(:Term{ uri: "#{other_uri}" })
+          RETURN p
+          LIMIT 1
+        ))
+
+        result["data"].any?
+      end
     end
   end
 end
