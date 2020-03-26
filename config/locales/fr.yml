@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aaribaud
+# Author: Abijeet Patro
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
@@ -1125,9 +1126,9 @@ fr:
         other: cliquer pour voir %{count} taxons avec « %{obj_name} »
       show_n_records_between:
         one: cliquer pour voir %{count} enregistrement avec des valeurs de mesure
-          dans [%{min}, %{limit}] %{units}}}
+          dans [%{min}, %{limit}] %{units}
         other: cliquer pour voir %{count} enregistrements avec des valeurs de mesure
-          dans [%{min}, %{limit}] %{units}}}
+          dans [%{min}, %{limit}] %{units}
       show_n_taxa_between:
         one: cliquer pour voir %{count} taxon avec des valeurs de mesure dans [%{min},
           %{limit}] %{units}}}
