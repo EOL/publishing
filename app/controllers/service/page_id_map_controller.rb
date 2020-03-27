@@ -20,7 +20,7 @@ class Service::PageIdMapController < ServicesController
       self.response_body =
         Enumerator.new do |y|
           y << CSV.generate_line(["id", "page_id"])
-          Node.where(resource_id: resource_id) do |node|
+          Node.where(resource_id: resource_id).select(:id, :page_id).each do |node|
             y << CSV.generate_line([node.id, node.page_id])
           end
         end    # end Enumerator
