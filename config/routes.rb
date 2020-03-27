@@ -189,6 +189,7 @@ Rails.application.routes.draw do
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
     post "/service/cypher" => "service/cypher#command", as: "cypher_command"
     get "/service/cypher_form" => "service/cypher#form", as: "cypher_form"
+    get "/service/page_id_map" => "service/page_id_map#get", as: "page_id_map"
     get "/service/remove_relationships" => "service/cypher#remove_relationships", as: "remove_relationships"
 
     post "/collected_pages_media" => "collected_pages_media#destroy", :as => "destroy_collected_pages_medium"
