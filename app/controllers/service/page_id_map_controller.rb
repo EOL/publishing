@@ -19,9 +19,11 @@ class Service::PageIdMapController < ServicesController
     else
       self.response_body =
         Enumerator.new do |y|
-          y << CSV.generate_line(["id", "page_id"])
-          Node.where(resource_id: resource_id).select(:id, :page_id).each do |node|
-            y << CSV.generate_line([node.id, node.page_id])
+          y << CSV.generate_line(["resource_pk", "page_id"])
+          limit = (params.has_key?("limit") ? params["limit"].to_i : 100000)
+          skip  = (params.has_key?("skip")  ? params["skip"].to_i  : 0)
+          Node.where(resource_id: resource_id).select(:resource_pk, :page_id).offset(skip).limit(limit).each do |node|
+            y << CSV.generate_line([node.resource_pk, node.page_id])
           end
         end    # end Enumerator
     end
