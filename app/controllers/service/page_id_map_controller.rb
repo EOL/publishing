@@ -1,3 +1,22 @@
+# This PR defines a new web service for obtaining the mapping between
+# resource-specific node ids (resource_pk field, usually from taxonID
+# column in the opendata resource) and page ids, for a specific
+# resource. (This mapping is created in the first place by name
+# matching.) This gives a toehold for comparing graphdb contents with
+# opendata resources, and extending the graphdb with information in
+# opendata resources. The immediate need for this service was to get
+# vernaculars into the graphdb, but I expect it to have other uses,
+# e.g. I may rewrite the ranks 'script' to use this service instead of
+# the provider_ids.csv file.
+
+# Parameters are resource (id), limit, skip. The default limit is 100000.
+
+# Testing has been minimal, just manual tests using wget e.g.
+# wget -O - "http://localhost:3000/service/page_id_map?resource=40&limit=5"
+
+# Does the http client have to be authenticated (using a token)? I don't
+# see this as important, but it's easy enough to un-comment the
+# lines that handle this.
 
 require 'csv'
 
