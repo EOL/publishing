@@ -33,7 +33,7 @@ class Publishing::Fast
   def initialize(resource, log = nil)
     @start_at = Time.now
     @resource = resource
-    @repo = RepositoryHandle.new(resource, log)
+    @repo = ContentServerConnection.new(resource, log)
     @log = log # Okay if it's nil.
     @files = []
   end
