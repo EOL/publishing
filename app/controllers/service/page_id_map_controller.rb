@@ -1,9 +1,9 @@
-# This PR defines a new web service for obtaining the mapping between
+# This is a web service for obtaining the mapping between
 # resource-specific node ids (resource_pk field, usually from taxonID
 # column in the opendata resource) and page ids, for a specific
-# resource. (This mapping is created in the first place by name
-# matching.) This gives a toehold for comparing graphdb contents with
-# opendata resources, and extending the graphdb with information in
+# resource. (This mapping is created in the first place by the name
+# matcher.) This gives a toehold for comparing graphdb contents with
+# opendata resources, and for extending the graphdb with information in
 # opendata resources. The immediate need for this service was to get
 # vernaculars into the graphdb, but I expect it to have other uses,
 # e.g. I may rewrite the ranks 'script' to use this service instead of
