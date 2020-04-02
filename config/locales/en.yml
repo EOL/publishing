@@ -1078,7 +1078,7 @@ en:
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
       hide_additional_fields: "hide additional fields"
       lifestage: "lifestage"
-      records_matching_all: "records matching ALL filters"
+      records_matching_all: "records for taxa matching ALL filters"
       resource: "resource"
       search: "Search"
       sex: "sex"
