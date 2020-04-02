@@ -54,43 +54,40 @@ module TermsHelper
 
   def filter_display_string(filter)
     parts = []
+    prefix = "traits.search.filter_display."
 
     if filter.predicate?
-      parts << pred_name(filter.pred_uri)
+      pred_name = i18n_term_name_for_uri(filter.pred_uri)
 
       if filter.object_term?
-        parts << ": #{obj_name(filter.obj_uri)}"
+        parts << t("#{prefix}pred_obj", pred: pred_name, obj: i18n_term_name_for_uri(filter.obj_uri))
       elsif filter.numeric?
+        units = i18n_term_name_for_uri(filter.units_uri)
+
         if filter.gt?
-          parts << " >= #{filter.num_val1}"
+          parts << t("#{prefix}gte", pred: pred_name, num_val: filter.num_val1, units: units)
         elsif filter.lt?
-          parts << " <= #{filter.num_val2}"
+          parts << t("#{prefix}lte", pred: pred_name, num_val: filter.num_val2, units: units)
         elsif filter.eq?
-          parts << " = #{filter.num_val1}"
+          parts << t("#{prefix}eq", pred: pred_name, num_val: filter.num_val1, units: units)
         elsif filter.range?
-          parts << " in [#{filter.num_val1}, #{filter.num_val2}]"
+          parts << t("#{prefix}range", pred: pred_name, num_val1: filter.num_val1, num_val2: filter.num_val2, units: units)
         end
-        parts << " #{units_name(filter.units_uri)}"
+      else
+        parts << t("#{prefix}pred_only", pred: pred_name)
       end
     elsif filter.object_term?
-      parts << "value: #{obj_name(filter.obj_uri)} "
+      parts << t("#{prefix}obj_only", obj: i18n_term_name_for_uri(filter.obj_uri))
     end
 
     if filter.extra_fields?
-      parts << " ("
-      extra_parts = []
-
-      
-      extra_parts << "sex: #{term_name(filter.sex_uri)}" if filter.sex_term?
-      extra_parts << "lifestage: #{term_name(filter.lifestage_uri)}" if filter.lifestage_term?
-      extra_parts << "statistical method: #{term_name(filter.statistical_method_uri)}" if filter.statistical_method_term?
-      extra_parts << "resource: #{filter.resource.name}" if filter.resource
-
-      parts << extra_parts.join(", ")
-      parts << ")"
+      parts << t("#{prefix}sex", value: i18n_term_name_for_uri(filter.sex_uri)) if filter.sex_term?
+      parts << t("#{prefix}lifestage", value: i18n_term_name_for_uri(filter.lifestage_uri)) if filter.lifestage_term?
+      parts << t("#{prefix}statistical_method", value: i18n_term_name_for_uri(filter.statistical_method_uri)) if filter.statistical_method_term?
+      parts << t("#{prefix}resource", value: filter.resource.name) if filter.resource
     end
 
-    parts.join("")
+    parts.join("<br>")
   end
 
   def term_query_display_string(tq)

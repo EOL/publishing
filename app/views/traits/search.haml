@@ -15,7 +15,7 @@
         - if @query.clade
           %li.show-filter.show-filter-clade= t(".clade", clade: @query.clade.native_node&.canonical_form)
         - @query.filters.each do |f|
-          %li.show-filter= filter_display_string(f)
+          %li.show-filter= filter_display_string(f).html_safe
       %ul.edit-filters-row
         %li.js-edit-filters
           %i{:'uk-icon' => "icon: pencil"}
