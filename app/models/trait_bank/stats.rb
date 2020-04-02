@@ -26,26 +26,38 @@ class TraitBank
 
     class << self
       def obj_counts(query, record_count, limit)
-        check_tq_for_counts(query, record_count)
+        raise_if_query_invalid_for_counts(query, record_count)
         filter = query.filters.first
         count = query.taxa? ? "distinct page" : "*"
         key = "trait_bank/stats/obj_counts/v1/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
 
         Rails.cache.fetch(key) do
           Rails.logger.info("TraitBank::Stats.object_counts -- running query for key #{key}")
+
           # Where clause filters for top-level terms or their direct children only
           # WITH DISTINCT is necessary to filter out multiple paths from obj_child to obj (I think?)
           # "WHERE NOT (obj)-[:parent_term*2..]->(:Term)\n"\ removed
-          tgt_obj_part = filter.object_term? ? "-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.obj_uri}'})" : ""
-          tgt_obj_where = filter.object_term? ? "AND obj.uri <> '#{filter.obj_uri}'" : ""
+
+          matches = [
+            TraitBank.page_match(query,"page", ""),
+            "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)"
+          ]
+
+          if filter.predicate?
+            matches << "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),"
+          end
+
+          obj_part = "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)"
+          obj_part += "-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.obj_uri}'})" if filter.object_term?
+          matches << obj_part
+
+          wheres = ["obj.is_hidden_from_select = false"]
+          wheres << "obj.uri <> '#{filter.obj_uri}'" if filter.object_term?
+
           results = TraitBank.query(%Q[
-            MATCH #{TraitBank.page_match(query, "page", "")},
-            (page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),
-            (trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),
-            (trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)#{tgt_obj_part}
+            MATCH #{matches.join(",\n")}
             WITH DISTINCT page, trait, obj
-            WHERE obj.is_hidden_from_select = false
-            #{tgt_obj_where}
+            WHERE #{wheres.join(" AND ")}
             WITH obj, count(#{count}) AS count
             RETURN obj, count
             ORDER BY count DESC
@@ -95,7 +107,7 @@ class TraitBank
       # c: count of records/pages in bucket
       # u: units term
       def histogram(query, record_count)
-        check_tq_for_histogram(query, record_count)
+        raise_if_query_invalid_for_histogram(query, record_count)
 
         key = "trait_bank/stats/histogram/v1/#{query.to_cache_key}" # increment version number when changing query
         Rails.cache.fetch(key) do
@@ -167,7 +179,11 @@ class TraitBank
       #  "WITH ms, init_max, min, bw, (init_max - min) % bw as rem\n"\
       #  "WITH ms, min, bw, CASE WHEN rem = 0 THEN init_max ELSE init_max + bw - rem END AS max\n"\
 
-      def check_measurement_query_common(query)
+      def check_query_valid_for_histogram(query, record_count)
+        if record_count < MIN_RECORDS_FOR_HIST
+          return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
+        end
+
         if query.predicate_filters.length != 1
           return CheckResult.invalid("query must have a single predicate filter")
         end
@@ -182,17 +198,6 @@ class TraitBank
         if predicate.type != "measurement"
           return CheckResult.invalid("predicate type must be 'measurement'")
         end
-
-        CheckResult.valid
-      end
-
-      def check_query_valid_for_histogram(query, record_count)
-        if record_count < MIN_RECORDS_FOR_HIST
-          return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
-        end
-
-        common_result = check_measurement_query_common(query)
-        return common_result if !common_result.valid?
 
         if query.object_term_filters.any?
           return CheckResult.invalid("query must not have any object term filters")
@@ -211,33 +216,36 @@ class TraitBank
 
 
       def check_query_valid_for_counts(query, record_count)
-        common_result = check_measurement_query_common(query)
-        return common_result if !common_result.valid?
+        if query.filters.length != 1
+          return CheckResult.invalid("query must have a single filter")
+        end
 
         filter = query.filters.first
-        uri = filter.pred_uri
+        pred_uri = filter.pred_uri
 
-        if filter.units_for_pred?
-          return CheckResult.invalid("query predicate has numerical values")
+        if pred_uri.present? 
+          if filter.units_for_pred?
+            return CheckResult.invalid("query predicate has numerical values")
+          end
+
+          if (
+              query.clade.present? &&
+              PRED_URIS_FOR_THRESHOLD.include?(uri) &&
+              record_count > RECORD_THRESHOLD
+          )
+            return CheckResult.invalid("count exceeds threshold for uri with clade")
+          end
         end
 
         if filter.numeric?
           return CheckResult.invalid("query must not be numeric")
         end
         
-        if (
-            query.clade.present? &&
-            PRED_URIS_FOR_THRESHOLD.include?(uri) &&
-            record_count > RECORD_THRESHOLD
-        )
-          return CheckResult.invalid("count exceeds threshold for uri")
-        end
-
         CheckResult.valid
       end
 
       private
-      def check_tq_for_counts(query, record_count)
+      def raise_if_query_invalid_for_counts(query, record_count)
         result = check_query_valid_for_counts(query, record_count)
 
         if !result.valid
@@ -245,7 +253,7 @@ class TraitBank
         end
       end
 
-      def check_tq_for_histogram(query, record_count)
+      def raise_if_query_invalid_for_histogram(query, record_count)
         result = check_query_valid_for_histogram(query, record_count)
 
         if !result.valid
