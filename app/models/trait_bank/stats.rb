@@ -36,17 +36,22 @@ class TraitBank
           # Where clause filters for top-level terms or their direct children only
           # WITH DISTINCT is necessary to filter out multiple paths from obj_child to obj (I think?)
           # "WHERE NOT (obj)-[:parent_term*2..]->(:Term)\n"\ removed
-          qs = "MATCH #{TraitBank.page_match(query, "page", "")},\n"\
-            "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),\n"\
-            "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),\n"\
-            "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)\n"\
-            "WITH DISTINCT page, trait, obj\n"\
-            "WHERE obj.is_hidden_from_select = false\n"\
-            "WITH obj, count(#{count}) AS count\n"\
-            "RETURN obj, count\n"\
-            "ORDER BY count DESC\n"\
-            "LIMIT #{limit + OBJ_COUNT_LIMIT_PAD}"
-          results = TraitBank.query(qs)
+          tgt_obj_part = filter.object_term? ? "-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.obj_uri}'})" : ""
+          tgt_obj_where = filter.object_term? ? "AND obj.uri <> '#{filter.obj_uri}'" : ""
+          results = TraitBank.query(%Q[
+            MATCH #{TraitBank.page_match(query, "page", "")},
+            (page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait),
+            (trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),
+            (trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)#{tgt_obj_part}
+            WITH DISTINCT page, trait, obj
+            WHERE obj.is_hidden_from_select = false
+            #{tgt_obj_where}
+            WITH obj, count(#{count}) AS count
+            RETURN obj, count
+            ORDER BY count DESC
+            LIMIT #{limit + OBJ_COUNT_LIMIT_PAD}
+          ])
+
           filter_identical_count_descendants(TraitBank.results_to_hashes(results, "obj"), limit)
         end
       end
@@ -178,10 +183,6 @@ class TraitBank
           return CheckResult.invalid("predicate type must be 'measurement'")
         end
 
-        if query.object_term_filters.any?
-          return CheckResult.invalid("query must not have any object term filters")
-        end
-
         CheckResult.valid
       end
 
@@ -192,6 +193,10 @@ class TraitBank
 
         common_result = check_measurement_query_common(query)
         return common_result if !common_result.valid?
+
+        if query.object_term_filters.any?
+          return CheckResult.invalid("query must not have any object term filters")
+        end
 
         if !query.filters.first.units_for_pred?
           return CheckResult.invalid("query predicate does not have numerical values")
