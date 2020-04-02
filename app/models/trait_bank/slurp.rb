@@ -3,7 +3,7 @@ class TraitBank::Slurp
     delegate :query, to: TraitBank
 
     def load_resource_from_repo(resource)
-      repo = Repository.new(resource)
+      repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       TraitBank.create_resource(resource.id)
@@ -12,7 +12,7 @@ class TraitBank::Slurp
     end
 
     def load_resource_metadata_from_repo(resource)
-      repo = Repository.new(resource)
+      repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       config = load_csv_config(resource.id, single_resource: true)
       basename = File.basename(resource.meta_traits_file)
@@ -23,7 +23,7 @@ class TraitBank::Slurp
     end
 
     def heal_traits(resource)
-      repo = Repository.new(resource)
+      repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       heal_traits_by_type("traits_#{resource.id}.csv", :Trait, resource.id)
