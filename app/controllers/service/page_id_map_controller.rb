@@ -27,9 +27,7 @@ class Service::PageIdMapController < ServicesController
   def get
     self.content_type = 'text/csv'
     resource_id = params["resource"].to_i
-    $stderr.puts "Resource id: #{resource_id}"
     r = Resource.find(resource_id)
-    $stderr.puts "Resource: #{r}"
     if not r
       render json: payload.merge(:title => "Resource not found",
                                  :status => "404 Page Not Found"),
@@ -39,8 +37,8 @@ class Service::PageIdMapController < ServicesController
       self.response_body =
         Enumerator.new do |y|
           y << CSV.generate_line(["resource_pk", "page_id"])
-          limit = (params.has_key?("limit") ? params["limit"].to_i : 100000)
-          skip  = (params.has_key?("skip")  ? params["skip"].to_i  : 0)
+          limit = (params.key?("limit") ? params["limit"].to_i : 100000)
+          skip  = (params.key?("skip")  ? params["skip"].to_i  : 0)
           Node.where(resource_id: resource_id).select(:resource_pk, :page_id).offset(skip).limit(limit).each do |node|
             y << CSV.generate_line([node.resource_pk, node.page_id])
           end
