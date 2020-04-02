@@ -62,15 +62,16 @@ class TraitBank
 
       Delayed::Worker.logger.info("finished query, writing records")
 
-      if @query.record?
-        TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
-      elsif @query.taxa?
-        TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
-      else
-        raise "unsupported result type"
-      end
+      filename = if @query.record?
+                   TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
+                 elsif @query.taxa?
+                   TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
+                 else
+                   raise "unsupported result type"
+                 end
 
       Delayed::Worker.logger.info("finished data download")
+      filename
     end
   end
 end
