@@ -1,5 +1,7 @@
 module Traits
   class DataVizController < ApplicationController
+    layout "traits/data_viz"
+
     BAR_CHART_LIMIT = 15
 
     ObjVizResult = Struct.new(:obj, :query, :count, :is_other) do
@@ -128,7 +130,7 @@ module Traits
     def render_common
       status = @data.length > 1 ? :ok : :no_content
       options = { status: status }
-      options[:layout] = false if request.xhr?
+      #options[:layout] = false if request.xhr?
       render options
     end
       
