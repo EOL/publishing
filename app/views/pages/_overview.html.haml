@@ -36,10 +36,21 @@
                 .sample-trait-val= val
 
     - if @page.occurrence_map?
-      = render partial: "json_map", locals: { extra_class: "map-contain-overview" }
+      .map-contain-overview-section
+        = render partial: "json_map", locals: { extra_class: "map-contain-overview" }
+
+    - if @show_habitat_chart
+      .uk-margin-top.page-habitat-chart.page-habitat-chart-left
+        = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, explanation: t("traits.data_viz.page_habitat_explanation", name: @page.name)
 
     = render('pages/children')
 
-  - if @page.medium
+  - if @page.medium || @show_habitat_chart
     .l-right-col
-      = render :partial => "hero", :locals => { :class_name => "hero-after" }
+      - if @page.medium
+        = render :partial => "hero", :locals => { :class_name => "hero-after" }
+      - if @show_habitat_chart
+        .page-habitat-chart.page-habitat-chart-right.uk-margin-top
+          = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, explanation: t("traits.data_viz.page_habitat_explanation", name: @page.name)
+      
+

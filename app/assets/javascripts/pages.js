@@ -1,6 +1,7 @@
 //= require shared/data_row
 //= require shared/slideshow
 //= require trophic_web
+//= require traits/data_viz
 
 (function() {
   function setupMenus() {

@@ -259,36 +259,6 @@
     }
   }
 
-  function loadBarChart() {
-    var $contain = $('.js-bar-contain');
-
-    if ($contain.length) {
-      loadViz($contain, TraitDataViz.buildBarChart);
-    }
-  }
-
-  function loadHistogram() {
-    var $contain = $('.js-hist-contain');
-
-    if ($contain.length) {
-      loadViz($contain, TraitDataViz.buildHistogram);
-    }
-  }
-
-  function loadViz($contain, ready) {
-    $.get($contain.data('loadPath'), (result) => {
-      $contain.empty(); // get rid of spinner
-
-      if (result) {
-        $contain.append(result);
-        ready();
-      }
-    })
-    .fail(() => {
-      $contain.empty();
-    });
-  }
-
   $(function() {
     $('.js-edit-filters').click(function() {
       $('.js-filter-form-contain').removeClass('is-hidden');
@@ -304,8 +274,5 @@
       $('.js-raw-query').removeClass('is-hidden');
       $(this).remove();
     });
-    loadPieChart();
-    loadBarChart();
-    loadHistogram();
   });
 })();

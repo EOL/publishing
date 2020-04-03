@@ -1,0 +1,15 @@
+-if type == :pie
+  - classes = "js-pie-contain"
+  - load_path = traits_data_viz_pie_path(term_query: query.to_params)
+- elsif type == :bar
+  - classes = "viz-contain-bar js-bar-contain"
+  - load_path = traits_data_viz_bar_path(term_query: query.to_params)
+- elsif type == :hist
+  - classes = "viz-contain-hist js-hist-contain"
+  - load_path = traits_data_viz_hist_path(term_query: query.to_params)
+.viz-contain{ class: classes, data: { :'load-path' => load_path }}
+  - if local_assigns.include?(:explanation)
+    %p.js-viz-explanation.viz-explanation.uk-hidden= explanation
+  .uk-flex.uk-flex-center.js-viz-spinner
+    .spinner{ uk: { spinner: true, position: 'center' }}
+

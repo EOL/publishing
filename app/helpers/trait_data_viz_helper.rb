@@ -40,7 +40,7 @@ module TraitDataVizHelper
 
   private
   def result_label(query, datum)
-    datum.other? ? t("traits.data_viz.other") : i18n_term_name(datum.obj)
+    datum.other? ? t("traits.data_viz.other") : truncate(i18n_term_name(datum.obj), length: 25)
   end
 
   def obj_prompt_text(query, datum, name)

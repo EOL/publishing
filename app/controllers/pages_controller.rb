@@ -20,6 +20,11 @@ class PagesController < ApplicationController
   }
   MIN_CLOUD_WORDS = 6
 
+  HABITAT_BAR_CHART_PREDICATES = [
+    Eol::Uris.has_habitat,
+    Eol::Uris.habitat_includes
+  ]
+
   # See your environment config; this action should be ignored by logs.
   def ping
     if ActiveRecord::Base.connection.active?
@@ -156,6 +161,7 @@ class PagesController < ApplicationController
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
+    set_page_show_data_viz
     respond_to do |format|
       format.html {}
     end
@@ -568,6 +574,33 @@ private
   def set_noindex_if_needed(page)
     if !page.has_data?
       response.headers['X-Robots-Tag'] = "noindex"
+    end
+  end
+
+  def set_page_show_data_viz
+    return if !@page.native_node.any_landmark?
+    target_uri = nil
+
+    HABITAT_BAR_CHART_PREDICATES.each do |uri|
+      if @page.grouped_data.include?(uri)
+        target_uri = uri
+        break
+      end
+    end
+
+    if target_uri
+      query = TermQuery.new({
+        clade: @page,
+        result_type: :taxa,
+        filters_attributes: [{
+          pred_uri: target_uri  
+        }]
+      })
+
+      counts = TraitBank.term_search(query, count: true)
+
+      @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid?
+      @habitat_chart_query = query
     end
   end
 end

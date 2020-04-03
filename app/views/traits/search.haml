@@ -32,18 +32,7 @@
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
     - if @data_viz_type.present? 
-      -if @data_viz_type == :pie
-        - classes = "js-pie-contain"
-        - load_path = traits_data_viz_pie_path(term_query: @query.to_params)
-      - elsif @data_viz_type == :bar
-        - classes = "viz-contain-bar js-bar-contain"
-        - load_path = traits_data_viz_bar_path(term_query: @query.to_params)
-      - elsif @data_viz_type == :hist
-        -classes = "viz-contain-hist js-hist-contain"
-        - load_path = traits_data_viz_hist_path(term_query: @query.to_params)
-      .viz-contain{ class: classes, data: { :'load-path' => load_path }}
-        .uk-flex.uk-flex-center
-          .spinner{ uk: { spinner: true, position: 'center' }}
+      = render "shared/data_viz_contain", type: @data_viz_type, query: @query
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }

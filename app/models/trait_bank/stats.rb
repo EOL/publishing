@@ -14,12 +14,6 @@ class TraitBank
       end
     end
 
-    PRED_URIS_FOR_THRESHOLD = Set.new([
-      Eol::Uris.habitat_includes,
-      Eol::Uris.geographic_distribution,
-      Eol::Uris.trophic_level,
-      Eol::Uris.ecoregion
-    ])
     RECORD_THRESHOLD = 20_000
     MIN_RECORDS_FOR_HIST = 4
     OBJ_COUNT_LIMIT_PAD = 5
@@ -230,10 +224,9 @@ class TraitBank
 
           if (
               query.clade.present? &&
-              PRED_URIS_FOR_THRESHOLD.include?(pred_uri) &&
               record_count > RECORD_THRESHOLD
           )
-            return CheckResult.invalid("count exceeds threshold for predicate uri with clade")
+            return CheckResult.invalid("count exceeds threshold for search with clade")
           end
         end
 

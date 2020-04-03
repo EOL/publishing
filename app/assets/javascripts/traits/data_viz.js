@@ -203,8 +203,8 @@ window.TraitDataViz = (function(exports) {
     adjustLayout();
   }
 
-  function buildBarChart() {
-    var width = 740
+  function buildBarChart(elmt) {
+    var width = 570
       , hPad = 5
       , innerWidth = width - (hPad * 2)
       , barHeight = 20
@@ -237,7 +237,7 @@ window.TraitDataViz = (function(exports) {
       d.width = (d.count / maxCount) * innerWidth;
     });
 
-    var svg = d3.select('.js-taxon-bar-chart')
+    var svg = d3.select(elmt)
           .append('svg')
             .attr('width', width)
             .attr('height', height)
@@ -489,21 +489,50 @@ window.TraitDataViz = (function(exports) {
     }
   }
 
-  exports.buildPieChart = buildPieChart;
-  exports.buildBarChart = buildBarChart;
-  exports.buildHistogram = buildHistogram;
+  function loadBarChart() {
+    var $contain = $('.js-bar-contain');
+
+    if ($contain.length) {
+      loadViz($contain, () => {
+        $contain.find('.js-taxon-bar-chart').each(function() {
+          buildBarChart(this);
+        });
+      });
+    }
+  }
+
+  function loadHistogram() {
+    var $contain = $('.js-hist-contain');
+
+    if ($contain.length) {
+      loadViz($contain, buildHistogram);
+    }
+  }
+
+  function loadViz($contain, ready) {
+    $.get($contain.data('loadPath'), (result) => {
+      $contain.find('.js-viz-spinner').remove();
+
+      if (result) {
+        $contain.append(result);
+        $contain.find('.js-viz-explanation').removeClass('uk-hidden');
+        ready();
+      }
+    })
+    .fail(() => {
+      $contain.empty();
+    });
+  }
+
+  exports.loadBarChart = loadBarChart;
+  exports.loadHistogram = loadHistogram;
 
   return exports;
 })({});
 
 $(function() {
-  if ($('.js-object-pie-chart').length) {
-    TraitDataViz.buildPieChart();
-  }
-
-  if ($('.js-taxon-bar-chart').length) {
-    TraitDataViz.buildBarChart();
-  }
+  TraitDataViz.loadBarChart();
+  TraitDataViz.loadHistogram();
 })
 
 
