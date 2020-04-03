@@ -230,10 +230,10 @@ class TraitBank
 
           if (
               query.clade.present? &&
-              PRED_URIS_FOR_THRESHOLD.include?(uri) &&
+              PRED_URIS_FOR_THRESHOLD.include?(pred_uri) &&
               record_count > RECORD_THRESHOLD
           )
-            return CheckResult.invalid("count exceeds threshold for uri with clade")
+            return CheckResult.invalid("count exceeds threshold for predicate uri with clade")
           end
         end
 
