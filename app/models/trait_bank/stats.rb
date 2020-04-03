@@ -44,7 +44,7 @@ class TraitBank
           ]
 
           if filter.predicate?
-            matches << "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'}),"
+            matches << "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'})"
           end
 
           obj_part = "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)"
