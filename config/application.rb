@@ -34,12 +34,12 @@ module EolWebsite
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250
 
-#    config.middleware.insert_before 0, "Rack::Cors" do
-#      allow do
-#        origins '*'
-#        resource '/api/*', headers: :any, methods: [:get, :post, :options]
-#      end
-#    end
+   config.middleware.insert_before 0, "Rack::Cors" do
+     allow do
+       origins '*'
+       resource '/api/*', headers: :any, methods: [:get, :post, :options]
+     end
+   end
 
     # For neo4j gem, not usual neography access
     config.neo4j.session.type = :http
