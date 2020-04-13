@@ -26,7 +26,8 @@ COPY . /app
 COPY config/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY config/nginx.conf /etc/nginx/nginx.conf
 # NOTE: supervisord *service* doesn't work with custom config files, so just use default:
-COPY config/supervisord.conf /etc/supervisord.conf
+# UPDATE: I have removed the config file from Dockerfile and moved it to a mounted file in docker-compose.
+# COPY config/supervisord.conf /etc/supervisord.conf
 COPY Gemfile ./
 
 # Set up mail (for user notifications, which are rare but critical)
