@@ -722,12 +722,17 @@ pt-BR:
   data_definition: definição de «%{data}»
   traits:
     data_viz:
+      about_this_chart: sobre este gráfico
       hist_value_label: valor (%{units})
       num_records_label: '# de registros'
       other: outros
       pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
     search:
       edit_filters: editar filtros
+      filter_display:
+        pred_only: '%{pred}'
+        resource: 'recurso: %{value}'
+        statistical_method: 'método estatístico: %{value}'
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
         seus resultados de pesquisa (limite 60)
       new_search: nova pesquisa

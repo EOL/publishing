@@ -1108,6 +1108,10 @@ fr:
   data_definition: définition de « %{data} »
   traits:
     data_viz:
+      about_this_chart: à propos de ce graphique
+      about_this_chart_tooltip: C’est un résumé basé sur les données disponibles dans
+        EdV. Il peut être incomplet ! Vous pouvez sélectionner une barre du graphique
+        pour restreindre vos résultats de recherche.
       hist_value_label: valeur (%{units})
       n_other_records:
         one: un autre enregistrement
@@ -1117,6 +1121,9 @@ fr:
         other: '%{count} autres taxons'
       num_records_label: nombre d’enregistrements
       other: autre
+      page_habitat_explanation: Les environnements dans lesquels beaucoup d’espèces
+        de %{name} sont connues pour y vivre. Sélectionner un environnement pour voir
+        sa liste de contrôle d’espèces de %{name}.
       pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
       see_n_obj_records:
         one: cliquer pour voir un enregistrement avec « %{obj_name} »
@@ -1138,6 +1145,18 @@ fr:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv
       edit_filters: modifier les filtres
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'étape de vie : %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'valeur : %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'ressource : %{value}'
+        sex: 'sexe : %{value}'
+        statistical_method: 'méthode statistique : %{value}'
       gbif_search: Recherche de GBIF
       gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
         taxons dans vos résultats de recherche (limité à 60)
@@ -1152,7 +1171,8 @@ fr:
       clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
       hide_additional_fields: masquer les champs supplémentaires
       lifestage: étape de vie
-      records_matching_all: enregistrements correspondants à TOUS les filtres
+      records_matching_all: enregistrements pour les taxons correspondants à TOUS
+        les filtres
       resource: ressource
       search: Rechercher
       sex: sexe

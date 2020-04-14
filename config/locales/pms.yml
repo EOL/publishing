@@ -1098,6 +1098,10 @@ pms:
   data_definition: definission ëd «%{data}»
   traits:
     data_viz:
+      about_this_chart: a propòsit ëd cost gràfich
+      about_this_chart_tooltip: Cost-sì a l'é un resumé basà an sij dàit disponìbij
+        an EdV. A podrìa esse incomplet! A peul selessioné na bara dël gràfich për
+        ëstrenze ij sò arzultà d'arserca.
       hist_value_label: valor (%{units})
       n_other_records:
         one: un-a àutra argistrassion
@@ -1107,6 +1111,8 @@ pms:
         other: '%{count} àutre tassonomìe'
       num_records_label: nùmer d'argistrassion
       other: àutr
+      page_habitat_explanation: J'ambient andoa as sa ch'a vivo tante spece ëd %{name}.
+        Selessioné n'ambient për vëdde soa lista ëd contròl dë spece ëd %{name}.
       pie_prompt: ratin dzora un segment o na ciav për evidensié
       see_n_obj_records:
         one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
@@ -1128,6 +1134,18 @@ pms:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv
       edit_filters: modifiché ij filtr
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'tapa ëd vita: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'valor: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} an [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'arsorsa: %{value}'
+        sex: 'sess: %{value}'
+        statistical_method: 'métod ëstatìstich: %{value}'
       gbif_search: Arserca ëd GBIF
       gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
         ant ij sò arzultà d'arserca (limità a 60)
@@ -1142,7 +1160,8 @@ pms:
       clade_filter_placeholder: 'partìa (për esempi: ors) (facoltativ)'
       hide_additional_fields: stërmé ij camp adissionaj
       lifestage: tapa ëd vita
-      records_matching_all: argistrassion rëspondente a TUTI ij filtr
+      records_matching_all: argistrassion për le tassonomìe rëspondente a TUTI ij
+        filtr
       resource: arsorsa
       search: Arsërché
       sex: sess

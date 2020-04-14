@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
 # Author: Hydra
+# Author: Jhammock
+# Author: Jinghong
 # Author: Josephine W.
 # Author: Liuxinyu970226
 # Author: Njzjz
@@ -14,6 +16,11 @@
 ---
 zh-CN:
   language_name: 英语
+  about:
+    trait_bank:
+      title: TraitBank
+  account_already_linked: 您的帐号已与EOL链接
+  account_not_linked: 您的帐号没有与EOL链接
   advanced: 高级
   are_you_sure_delete_account: 确定要删除此帐号吗？
   article:
@@ -21,10 +28,16 @@ zh-CN:
       collect: 收集
     header:
       body: 身体
+      language: '语言: %{language}}'
       title: 职位
       untitled: 无标题
     name:
       missing: 无标题
+  article_from_partner: 提供者%{partner}
+  article_duplicate: 此文章同时显示在%{section}
+  breadcrumbs:
+    types:
+      scientific: 科学的
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -33,7 +46,10 @@ zh-CN:
   classifications:
     children:
       see_more: 查看更多
+    hierarchies:
+      this_page: （本页）
     richness:
+      page_contents_count: 相关内容
       media_count: 媒体文件
       articles_count: 摘录
       links_count: 链接
