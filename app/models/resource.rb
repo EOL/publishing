@@ -272,8 +272,7 @@ class Resource < ApplicationRecord
 
   def fix_native_nodes
     node_ids = Node.where(resource_id: id).pluck(:id)
-    # NOTE: 1000 was too slow, April 2020
-    node_ids.in_groups_of(500, false) do |group|
+    node_ids.in_groups_of(1000, false) do |group|
       Page.fix_missing_native_nodes(Page.where(native_node_id: group))
     end
   end
@@ -337,7 +336,7 @@ class Resource < ApplicationRecord
   # previous publishes of this resource leaving "zombie" pages with old node ids, and new publishes recognizing that the
   # page already HAS a native_node_id and thus leaving it alone.
   def fix_no_names
-    nodes.pluck(:page_id).in_groups_of(5000, false) do |page_ids|
+    nodes.pluck(:page_id).in_groups_of(1280, false) do |page_ids|
       # This loop is slow. I don't mind terribly much, this is just a fix. It took about 12 seconds on a resource with
       # only 700 nodes. You have been warned!
       Page.where(id: page_ids).

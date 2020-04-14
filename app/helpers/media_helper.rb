@@ -57,11 +57,7 @@ module MediaHelper
         content_tag(:i, '', class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end
     else
-      begin
-        image_tag(medium&.medium_size_url, alt: generic_medium_name(medium))
-      rescue ActionView::Template::Error
-        content_tag(:i, '', src: medium&.medium_size_url, alt: generic_medium_name(medium))
-      end
+      image_tag(medium&.medium_size_url, alt: generic_medium_name(medium))
     end
   end
 
