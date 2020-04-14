@@ -1058,6 +1058,8 @@ zh-TW:
   data_definition: 「%{data}」的定義
   traits:
     data_viz:
+      about_this_chart: 關於此圖表
+      about_this_chart_tooltip: 此摘要基於在網路生命大百科上可用資料，可能有不完整地方！您可以從圖表選擇條形圖來縮小您的搜尋結果。
       hist_value_label: 值（%{units}）
       n_other_records:
         one: 1 個其它紀錄
@@ -1067,6 +1069,7 @@ zh-TW:
         other: '%{count} 個其它分類'
       num_records_label: '# 紀錄'
       other: 其它
+      page_habitat_explanation: 已知有許多%{name}物種存活的環境。請選擇環境來查看%{name}物種清單。
       pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
       see_n_obj_records:
         one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
@@ -1084,6 +1087,18 @@ zh-TW:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV
       edit_filters: 編輯篩選條件
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 生命階段：%{value}
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 值：%{obj}
+        pred_obj: '%{pred}：%{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred}在[%{num_val1}, %{num_val2}] %{units}'
+        resource: 資源：%{value}
+        sex: 性別：%{value}
+        statistical_method: 統計方法：%{value}
       gbif_search: GBIF 搜尋
       gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 60 筆）
       result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
@@ -1096,7 +1111,7 @@ zh-TW:
       clade_filter_placeholder: 群組（例如：熊）（選用）
       hide_additional_fields: 隱藏額外欄位
       lifestage: 生命階段
-      records_matching_all: 符合所有篩選的紀錄
+      records_matching_all: 符合所有篩選的分類紀錄
       resource: 資源
       search: 搜尋
       sex: 性別

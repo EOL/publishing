@@ -108,6 +108,7 @@ es:
       placeholder: Nombre completo o nombre de usuario
     actions:
       delete: eliminar
+      edit: editar
     collection_type:
       normal: normal
       gallery: galería
@@ -553,6 +554,7 @@ es:
   data_definition: definición de «%{data}»
   traits:
     data_viz:
+      about_this_chart: acerca de este gráfico
       hist_value_label: valor (%{units})
       num_records_label: N.º de registros
     search:

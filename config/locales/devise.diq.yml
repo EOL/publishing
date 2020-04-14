@@ -31,6 +31,13 @@ diq:
       password_change:
         greeting: 'Merheba #{recipient}!'
         subject: Parola vuriye
+    registrations:
+      updated: Hesab weş niyo rocane
+    sessions:
+      signed_in: Weş kewtê miyan
+      signed_out: Weş cı ra veciyaye
+      already_signed_out: Weş cı ra veciyaye
+      recaptcha: Xetay araştiya Recaptcha
   errors:
     messages:
       not_found: Nêvineyi
