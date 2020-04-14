@@ -82,7 +82,7 @@ class TraitBank
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
-        delay = options[:delay] || 0.1
+        delay = options[:delay] || 16 # I think it's running the remove in the background, so we need to slow WAY down and let it think.
         size = options[:size] || 16_384 # Largest power of 2 that I felt comfortable using.
         count = count_type_for_resource(name, q)
         return if count.nil? || ! count.positive?
