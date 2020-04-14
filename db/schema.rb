@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_21_172857) do
+ActiveRecord::Schema.define(version: 2020_04_14_143914) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.text "owner"
     t.string "name"
     t.string "source_url", limit: 4096
-    t.text "body", limit: 4294967295
+    t.text "body", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resource_id"
     t.string "rights_statement", limit: 1024
     t.integer "page_id"
     t.integer "harv_db_id"
-    t.index ["guid"], name: "index_articles_on_guid"
+    t.index ["guid"], name: "index_articles_on_guid", length: 191
     t.index ["harv_db_id"], name: "index_articles_on_harv_db_id"
     t.index ["resource_id"], name: "index_articles_on_resource_id"
   end
@@ -564,6 +564,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
     t.string "habitat"
     t.integer "page_richness"
     t.integer "medium_id"
+    t.index ["native_node_id"], name: "index_pages_on_native_node_id"
   end
 
   create_table "pages_referents", primary_key: ["page_id", "referent_id"], options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -1030,4 +1031,5 @@ ActiveRecord::Schema.define(version: 2020_02_21_172857) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "user_downloads", "term_queries"
 end
