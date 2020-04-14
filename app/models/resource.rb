@@ -356,20 +356,6 @@ class Resource < ApplicationRecord
     Node::Mover.by_resource(self)
   end
 
-  def import_traits(since)
-    log = Publishing::PubLog.new(self)
-    repo = Publishing::Repository.new(resource: self, log: log, since: since)
-    log.log('Importing Traits ONLY...')
-    begin
-      Publishing::PubTraits.import(self, log, repo)
-      log.log('NOTE: traits have been loaded, but richness has not been recalculated.', cat: :infos)
-      log.complete
-    rescue => e
-      log.fail(e)
-    end
-    Rails.cache.clear
-  end
-
   def slurp_traits
     TraitBank::Slurp.load_csvs(self)
   end

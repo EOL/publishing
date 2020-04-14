@@ -64,13 +64,6 @@ class ResourcesController < ApplicationController
     redirect_to @resource
   end
 
-  def import_traits
-    @resource = Resource.find(params[:resource_id])
-    @resource.delay(queue: 'harvest').import_traits(1)
-    flash[:notice] = "Background job for import of traits started."
-    redirect_to @resource
-  end
-
   def autocomplete
     resources = Resource.autocomplete(params[:query])
     render json: resources.collect { |r| { name: r[:name], id: r[:id] } }
