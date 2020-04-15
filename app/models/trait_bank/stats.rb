@@ -23,7 +23,7 @@ class TraitBank
         raise_if_query_invalid_for_counts(query, record_count)
         filter = query.filters.first
         count = query.taxa? ? "distinct page" : "*"
-        key = "trait_bank/stats/obj_counts/v1/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
+        key = "trait_bank/stats/obj_counts/v2/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
 
         Rails.cache.fetch(key) do
           Rails.logger.info("TraitBank::Stats.object_counts -- running query for key #{key}")
@@ -57,12 +57,12 @@ class TraitBank
             LIMIT #{limit + OBJ_COUNT_LIMIT_PAD}
           ])
 
-          filter_identical_count_descendants(TraitBank.results_to_hashes(results, "obj"), limit)
+          filter_identical_count_ancestors(TraitBank.results_to_hashes(results, "obj"), limit)
         end
       end
 
       # XXX: this isn't very performant, but the assumption is that that the filtering case is rare
-      def filter_identical_count_descendants(results, limit)
+      def filter_identical_count_ancestors(results, limit)
         prev_count = nil
         objs_to_check = {}
         objs_for_count = []
@@ -85,7 +85,7 @@ class TraitBank
           objs.each do |obj|
             objs.each do |other_obj|
               next if obj == other_obj
-              objs_to_filter << obj if TraitBank::Terms.term_descendant_of_other?(obj, other_obj)
+              objs_to_filter << obj if TraitBank::Terms.term_descendant_of_other?(other_obj, obj)
             end
           end 
         end
