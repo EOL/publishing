@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_04_14_143914) do
     t.text "owner"
     t.string "name"
     t.string "source_url", limit: 4096
-    t.text "body", limit: 16777215
+    t.text "body", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resource_id"
     t.string "rights_statement", limit: 1024
     t.integer "page_id"
     t.integer "harv_db_id"
-    t.index ["guid"], name: "index_articles_on_guid", length: 191
+    t.index ["guid"], name: "index_articles_on_guid"
     t.index ["harv_db_id"], name: "index_articles_on_harv_db_id"
     t.index ["resource_id"], name: "index_articles_on_resource_id"
   end
@@ -1031,5 +1031,4 @@ ActiveRecord::Schema.define(version: 2020_04_14_143914) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "user_downloads", "term_queries"
 end

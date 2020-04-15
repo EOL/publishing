@@ -1040,6 +1040,7 @@ en:
         other: "%{count} other taxa"
       num_records_label: "# of records"
       other: "other"
+      page_habitat_header: "%{name} Habitats"
       page_habitat_explanation: "The environments in which many %{name} species are known to live. Select an environment to see its %{name} species checklist."
       pie_prompt: "mouse over a segment or key to highlight"
       see_n_obj_records: 
