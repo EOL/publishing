@@ -6,9 +6,8 @@ module TraitDataVizHelper
       {
         label: name,
         prompt_text: obj_prompt_text(query, datum, name),
-        search_path: datum.other? ? nil : term_search_results_path(term_query: datum.query.to_params),
-        count: datum.count,
-        is_other: datum.other?
+        search_path: datum.noclick? ? nil : term_search_results_path(term_query: datum.query.to_params),
+        count: datum.count
       }
     end
 
@@ -40,20 +39,16 @@ module TraitDataVizHelper
 
   private
   def result_label(query, datum)
-    datum.other? ? t("traits.data_viz.other") : truncate(i18n_term_name(datum.obj), length: 25)
+    truncate(i18n_term_name(datum.obj), length: 25)
   end
 
   def obj_prompt_text(query, datum, name)
-    if datum.other? 
-      if query.record?
-        t("traits.data_viz.n_other_records", count: datum.count)
-      else
-        t("traits.data_viz.n_other_taxa", count: datum.count)
-      end
-    elsif query.record?
-      t("traits.data_viz.see_n_obj_records", count: datum.count, obj_name: name)
+    prefix = datum.noclick? ? "" : "see_"
+
+    if query.record?
+      t("traits.data_viz.#{prefix}n_obj_records", count: datum.count, obj_name: name)
     else
-      t("traits.data_viz.see_n_taxa_with", count: datum.count, obj_name: name)
+      t("traits.data_viz.#{prefix}n_taxa_with", count: datum.count, obj_name: name)
     end
   end
 

@@ -262,14 +262,18 @@ window.TraitDataViz = (function(exports) {
       .append('g')
       .attr('class', 'bar')
       .attr('transform', (d, i) => `translate(0, ${i * (barHeight + barSpace)})`)
-      .style('cursor', 'pointer')
+      .style('cursor', (d) => d.search_path ? 'pointer' : 'default')
       .on('mouseenter', (d) => {
         d3.select(d3.event.target).select('text').text(d.prompt_text);
       })
       .on('mouseleave', (d) => {
         d3.select(d3.event.target).select('text').text(d.label);
       })
-      .on('click', d => window.location = d.search_path);
+      .on('click', (d) => { 
+        if (d.search_path) {
+          window.location = d.search_path;
+        }
+      });
 
 
     barsEnter

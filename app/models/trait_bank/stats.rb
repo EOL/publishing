@@ -46,7 +46,6 @@ class TraitBank
           matches << obj_part
 
           wheres = ["obj.is_hidden_from_select = false"]
-          wheres << "obj.uri <> '#{filter.obj_uri}'" if filter.object_term?
 
           results = TraitBank.query(%Q[
             MATCH #{matches.join(",\n")}
