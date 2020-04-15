@@ -97,7 +97,7 @@ services:
        - /u/data/eol-backend-mysql:/var/lib/mysql
     networks:
       - eolnet
-  eol-backend-tramea:
+  eol-publishing:
     build: ..
     image: eol_website
     container_name: pub_app
@@ -107,6 +107,7 @@ services:
       - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
+      - ./config/supervisord_publishing.conf:/etc/supervisord.conf
       - /data/eol-backend-tramea:/app/public/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
@@ -121,6 +122,31 @@ services:
       - eol-backend-neo4j:neo4j
     ports:
        - 3000:3000
+    networks:
+      - eolnet
+  eol-publishing-jobs:
+    build: ..
+    image: eol_website
+    container_name: pub_jobs
+    restart: always
+    environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
+      - RAILS_ENV
+      - ELASTICSEARCH_URL=elasticsearch:9200
+    volumes:
+      - ./resources/secrets.yml:/app/config/secrets.yml
+      - ./config/supervisord_jobs.conf:/etc/supervisord.conf
+      - /data/eol-backend-tramea:/app/public/data
+      - /eol/tmp/eol_website_jobs:/tmp
+    depends_on:
+      - eol-backend-mysql
+      - eol-backend-neo4j
+      - eol-backend-memcached
+      - eol-backend-elasticsearch
+    links:
+      - eol-backend-elasticsearch:elasticsearch
+      - eol-backend-memcached:memcached
+      - eol-backend-mysql:mysql
+      - eol-backend-neo4j:neo4j
     networks:
       - eolnet
 networks:

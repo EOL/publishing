@@ -558,6 +558,16 @@ sv:
     search:
       download_tsv: ladda ned tsv
       edit_filters: redigeringsfilter
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'värde: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} i [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'resurs: %{value}'
+        sex: 'kön: %{value}'
       new_search: ny sökning
     search_form:
       attribute: attribut

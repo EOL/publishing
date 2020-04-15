@@ -1096,6 +1096,10 @@ mk:
   data_definition: дефиниција на „%{data}“
   traits:
     data_viz:
+      about_this_chart: за графиконов
+      about_this_chart_tooltip: Ова е краток преглед според податоците достапни на
+        EOL. Може да е нецелосен! Можете да изберете столб од графиконот за да го
+        уточните пребарувањето.
       hist_value_label: вредност (%{units})
       n_other_records:
         one: уште еден запис
@@ -1105,6 +1109,8 @@ mk:
         other: '%{count} други таксони'
       num_records_label: бр. на записи
       other: друго
+      page_habitat_explanation: Средините во кои живеат многу видови на %{name}. Изберете
+        една средина за да го видите нејзиниот контролен список на видови %{name}.
       pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
       see_n_obj_records:
         one: стиснете за да погледате еден запис со „%{obj_name}“
@@ -1126,6 +1132,18 @@ mk:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV
       edit_filters: измени филтри
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'животна фаза: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'вредност: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} за [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'ресурс: %{value}'
+        sex: 'пол: %{value}'
+        statistical_method: 'статистички метод: %{value}'
       gbif_search: Пребарување на GBIF
       gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
         60)'
@@ -1140,7 +1158,7 @@ mk:
       clade_filter_placeholder: група (на пр. мечки) (незадол.)
       hide_additional_fields: скриј дополнителни полиња
       lifestage: животна фаза
-      records_matching_all: записи што одговараат на СИТЕ филтри
+      records_matching_all: записи за таксони што одговараат на СИТЕ филтри
       resource: ресурс
       search: Пребарај
       sex: пол

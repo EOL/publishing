@@ -1095,6 +1095,9 @@ tr:
   data_definition: '"%{data}" tanımı'
   traits:
     data_viz:
+      about_this_chart: bu grafik hakkında
+      about_this_chart_tooltip: Bu, EOL'de bulunan verilere dayanan bir özettir. Eksik
+        olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
       hist_value_label: değer (%{units})
       n_other_records:
         one: bir kayıt daha
@@ -1104,6 +1107,8 @@ tr:
         other: '%{count} takson daha'
       num_records_label: '# kayıt sayısı'
       other: diğer
+      page_habitat_explanation: '%{name} türün çoğunun yaşadığı bilinen ortamlar.
+        %{name} tür kontrol listesini görmek için bir ortam seçin.'
       pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
       see_n_obj_records:
         one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
@@ -1121,6 +1126,18 @@ tr:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir
       edit_filters: filtreleri düzenle
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'yaşam evresi: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'değer: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} içinde [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'kaynak: %{value}'
+        sex: 'cinsel: %{value}'
+        statistical_method: 'istatistiksel yöntem: %{value}'
       gbif_search: GBIF araması
       gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
         kayıtlarını bulun (sınır 60)
@@ -1135,7 +1152,7 @@ tr:
       clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
       hide_additional_fields: ek alanları gizle
       lifestage: yaşam evresi
-      records_matching_all: TÜM filtrelerle eşleşen kayıtlar
+      records_matching_all: taksonlarla eşleşen TÜM filtreler için kayıtlar
       resource: kaynak
       search: Ara
       sex: cinsiyet

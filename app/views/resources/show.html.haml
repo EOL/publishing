@@ -3,8 +3,10 @@
     = @resource.name
     .uk-text-small= "(#{@resource.abbr})"
   - if is_admin?
-    .ui.basic.button
-      = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
+    -# TODO: if we choose to lop off import of traits again in the future, resurrect this. Keeping it here so we
+    -# remember we have the I18n translation for it!
+    -# .ui.basic.button
+    -#   = link_to(t("resources.actions.import_traits"), resource_import_traits_path(@resource))
     .ui.basic.button
       = link_to(t("resources.actions.reindex"), resource_reindex_path(@resource))
     .ui.basic.button

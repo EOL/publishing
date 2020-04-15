@@ -82,8 +82,9 @@ class TraitBank
       def remove_with_query(options = {})
         name = options[:name]
         q = options[:q]
-        delay = options[:delay] || 0.1
-        size = options[:size] || 16_384 # Largest power of 2 that I felt comfortable using.
+        delay = options[:delay] || 1 # Increasing this did not really help site
+                                     # performance. :|
+        size = options[:size] || 4096 # 8192 # 16_384 # Largest power of 2 that I felt comfortable using.
         count = count_type_for_resource(name, q)
         return if count.nil? || ! count.positive?
         iters = (count / size.to_f).ceil

@@ -48,13 +48,13 @@ module MediaHelper
   def media_thumbnail(medium)
     if medium.sound? || medium.embedded_video?
       content_tag(:div, class: "grid-thumb grid-thumb-av") do
-        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}") +
+        content_tag(:i, '', class: "fa fa-5x fa-#{av_icon_name(medium)}") +
         content_tag(:div, medium_name_html(medium))
       end
     elsif medium.video?
       content_tag(:div, class: "grid-thumb grid-thumb-av grid-thumb-av-video") do
         video_tag(medium&.url_with_format, type: "video/#{medium.format}", controls: false) +
-        content_tag(:i, "", class: "fa fa-5x fa-#{av_icon_name(medium)}")
+        content_tag(:i, '', class: "fa fa-5x fa-#{av_icon_name(medium)}")
       end
     else
       image_tag(medium&.medium_size_url, alt: generic_medium_name(medium))

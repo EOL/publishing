@@ -17,7 +17,7 @@ class TraitBank::Denormalizer
   end
 
   def initialize(options = {})
-    @limit = options[:limit] || 5_000
+    @limit = options[:limit] || 2500
     @skip = options[:skip] || 0
     @fixed = 0
     @pages_count = count_pages # 4,332,394 as of this writing...

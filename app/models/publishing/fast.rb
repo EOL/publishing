@@ -143,7 +143,7 @@ class Publishing::Fast
       end
       log_start('Remove traits')
       TraitBank::Admin.remove_for_resource(@resource)
-      log_start('#publish_traits')
+      log_start('#publish_traits = TraitBank::Slurp.load_resource_from_repo')
       can_clean_up = true
       begin
         publish_traits
@@ -151,7 +151,7 @@ class Publishing::Fast
         log_warn("Trait Publishing failed: #{e.message} FROM #{e.backtrace[0..5].join(' FROM ')}")
         can_clean_up = false
       end
-      log_start('#fix_native_nodes')
+      log_start('Resource#fix_native_nodes')
       @resource.fix_native_nodes
       propagate_reference_ids
       clean_up if can_clean_up

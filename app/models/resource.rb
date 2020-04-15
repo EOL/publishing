@@ -336,7 +336,7 @@ class Resource < ApplicationRecord
   # previous publishes of this resource leaving "zombie" pages with old node ids, and new publishes recognizing that the
   # page already HAS a native_node_id and thus leaving it alone.
   def fix_no_names
-    nodes.pluck(:page_id).in_groups_of(5000, false) do |page_ids|
+    nodes.pluck(:page_id).in_groups_of(1280, false) do |page_ids|
       # This loop is slow. I don't mind terribly much, this is just a fix. It took about 12 seconds on a resource with
       # only 700 nodes. You have been warned!
       Page.where(id: page_ids).
@@ -353,20 +353,6 @@ class Resource < ApplicationRecord
   # Goes and asks the Harvesting site for information on how to move the nodes between pages...
   def move_nodes
     Node::Mover.by_resource(self)
-  end
-
-  def import_traits(since)
-    log = Publishing::PubLog.new(self)
-    repo = Publishing::Repository.new(resource: self, log: log, since: since)
-    log.log('Importing Traits ONLY...')
-    begin
-      Publishing::PubTraits.import(self, log, repo)
-      log.log('NOTE: traits have been loaded, but richness has not been recalculated.', cat: :infos)
-      log.complete
-    rescue => e
-      log.fail(e)
-    end
-    Rails.cache.clear
   end
 
   def slurp_traits

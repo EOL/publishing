@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get '' => 'home_page#index', as: :home_page
     get 'errors/not_found'
     get 'errors/internal_server_error'
-    
+
     # This line mounts Refinery's routes at the root of your application.
     # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
     # If you would like to change where this extension is mounted, simply change the
@@ -91,7 +91,6 @@ Rails.application.routes.draw do
       get 'clear_publishing', on: :collection
       get 'sync', on: :collection
       get 'sync_all_terms', on: :collection
-      get 'import_traits'
       get 'republish'
       get 'reindex'
       get 'fix_no_names'
