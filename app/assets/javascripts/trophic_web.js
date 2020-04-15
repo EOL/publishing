@@ -92,9 +92,25 @@ $(function() {
       .attr("transform", "translate(40, 12.5)")
       .text(translations["predator"]);
 
+    var compLegend = sequentialScale.append("g")
+      .attr("class", "cell").attr("transform", "translate(0,20)");
+      
+    compLegend  
+      .append("rect")
+      .attr("class", "watch")
+      .attr("height", 15).attr("width", 30)
+      .attr("style", "fill: rgb(128, 177, 211);");
+
+    compLegend
+      .append("text")
+      .attr("class", "label")
+      .attr("transform", "translate(40, 12.5)")
+      .text(translations["competitor"]);
+
+
     var preyLegend = sequentialScale.append("g")
       .attr("class", "cell")
-      .attr("transform", "translate(0,20)");
+      .attr("transform", "translate(0,40)");
       
     preyLegend  
       .append("rect")
@@ -109,21 +125,6 @@ $(function() {
       .attr("transform", "translate(40, 12.5)")
       .text(translations["prey"]);
       
-    var compLegend = sequentialScale.append("g")
-      .attr("class", "cell").attr("transform", "translate(0,40)");
-      
-    compLegend  
-      .append("rect")
-      .attr("class", "watch")
-      .attr("height", 15).attr("width", 30)
-      .attr("style", "fill: rgb(128, 177, 211);");
-
-    compLegend
-      .append("text")
-      .attr("class", "label")
-      .attr("transform", "translate(40, 12.5)")
-      .text(translations["competitor"]);
-
     var pattern = svg.selectAll('.pattern');
 
     var marker = svg.selectAll('.marker')
