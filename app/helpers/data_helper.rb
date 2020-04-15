@@ -86,7 +86,7 @@ module DataHelper
     if record
       i18n_term_name(record)
     else
-      ""
+      uri
     end
   end
       
