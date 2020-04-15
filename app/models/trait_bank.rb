@@ -1253,7 +1253,7 @@ class TraitBank
 
     def term_record(uri)
       result = term(uri)
-      result["data"].symbolize_keys
+      result&.[]("data")&.symbolize_keys
     end
 
     def update_term(opts)
