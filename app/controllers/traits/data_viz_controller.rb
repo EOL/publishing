@@ -4,15 +4,9 @@ module Traits
 
     BAR_CHART_LIMIT = 15
 
-    ObjVizResult = Struct.new(:obj, :query, :count, :is_other) do
-      class << self
-        def other(count)
-          self.new(nil, nil, count, true)
-        end
-      end
-
-      def other?
-        is_other
+    ObjVizResult = Struct.new(:obj, :query, :count, :noclick) do
+      def noclick?
+        noclick
       end
     end
 
@@ -146,7 +140,7 @@ module Traits
           }]
         }),
         row[:count],
-        false
+        query.filters.first.obj_uri == row[:obj][:uri]
       )
     end
 
