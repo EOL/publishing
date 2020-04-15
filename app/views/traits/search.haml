@@ -31,13 +31,24 @@
           = link_to term_search_path do
             %i{:'uk-icon' => "icon: search"}
             %span= t(".new_search")
+        - if @query.taxa?
+          %li
+            - if @view_type == "gallery"
+              %i{:'uk-icon' => "icon: list"}
+              = link_to t(".switch_to_list"), term_search_results_path(term_query: @query.to_params, view: "list")
+            - else
+              %i{:'uk-icon' => "icon: grid"}
+              = link_to t(".switch_to_gallery"), term_search_results_path(term_query: @query.to_params, view: "gallery")
     - if @data_viz_type.present? 
       = render "shared/data_viz_contain", type: @data_viz_type, query: @query
       
     - if @query.record?
       = render 'data_table', { data: @grouped_data, pages: @pages, data_viz: @data_viz }
-    - else
-      = render 'page_table', { pages: @result_pages }
+    - elsif @result_pages.any?
+      - if @view_type == "gallery"
+        = render 'page_gallery', { pages: @result_pages }
+      - else
+        = render 'page_table', { pages: @result_pages }
 - if @raw_query
   .raw-query
     .show-raw-query.js-show-raw-query= t(".show_query")

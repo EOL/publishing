@@ -10,6 +10,7 @@ class TraitsController < ApplicationController
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
+  VIEW_TYPES = Set.new(%w(list gallery))
   
   DataViz = Struct.new(:type, :data)
 
@@ -19,7 +20,9 @@ class TraitsController < ApplicationController
   end
 
   def search_results
+    set_view_type
     @query.remove_really_blank_filters
+
     respond_to do |fmt|
       fmt.html do
         if @query.valid?
@@ -196,6 +199,15 @@ class TraitsController < ApplicationController
       @data_viz_type = :bar 
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
       @data_viz_type = :hist 
+    end
+  end
+
+  def set_view_type
+    if params[:view].present? && VIEW_TYPES.include?(params[:view])
+      @view_type = params[:view]
+      session["ts_view_type"] = @view_type
+    else
+      @view_type = session["ts_view_type"] || "list"
     end
   end
 end

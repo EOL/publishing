@@ -219,6 +219,33 @@
   display: none;
 }
 
+// Gallery view
+.ts-gallery {
+
+}
+
+.ts-gallery-img {
+  & > img {
+    height: 100%;
+    width: 100%;
+  }
+
+  & > i { 
+    margin: 10px 0 0 10px;
+  }
+}
+
+.ts-gallery-card {
+  height: 220px;
+  width: 220px;
+}
+
+.ts-gallery-card-link {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 /* adjust if visualization width changes or becomes dynamic */
 @media(min-width: 820px) { 
   .viz-contain-bar { 
