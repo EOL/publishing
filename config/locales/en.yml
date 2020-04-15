@@ -1071,7 +1071,7 @@ en:
         sex: "sex: %{value}"
         statistical_method: "statistical method: %{value}"
       gbif_search: "GBIF search"
-      gbif_search_hover: "find occurrence records in GBIF for the taxa in your search results (limit 60)"
+      gbif_search_hover: "find occurrence records in GBIF for the taxa in your search results (limit 50)"
       result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count} taxa with"
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
       new_search: "new search"
