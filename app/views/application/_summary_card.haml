@@ -1,17 +1,16 @@
 -# - cache("pages/summary_card/#{object.object.class.name}/#{object.object.id}", expires_in: 1.day) do
-- if true
-  .search-icon>
-    - if object.icon
-      = image_tag object.icon
-    - else
-      %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
-  .search-content>
-    - if !object.hierarchy.blank?
-      .search-hier.is-search-hier-content= object.hierarchy.html_safe
-    - else
-      .search-hier
-    .search-title= CGI.unescapeHTML(object.title).html_safe
-    .search-info= CGI.unescapeHTML(object.content).html_safe
-    %ul.resource-bubbles
-      - object.top_resources.each do |resource|
-        %li>= t("search_results.resource_counts.n_#{resource[0]}", :count => resource[1])
+.search-icon>
+  - if object.icon
+    = image_tag object.icon
+  - else
+    %i.fa.fa-4x{ :class => "fa-#{object.fa_icon}" }
+.search-content>
+  - if !object.hierarchy.blank?
+    .search-hier.is-search-hier-content= object.hierarchy.html_safe
+  - else
+    .search-hier
+  .search-title= CGI.unescapeHTML(object.title).html_safe
+  .search-info= CGI.unescapeHTML(object.content).html_safe
+  %ul.resource-bubbles
+    - object.top_resources.each do |resource|
+      %li>= t("search_results.resource_counts.n_#{resource[0]}", :count => resource[1])

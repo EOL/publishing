@@ -1,0 +1,15 @@
+= paginate @grouped_data
+
+.ts-gallery.uk-grid-small{ uk: { grid: true } }
+  - pages.each do |page|
+    %div
+      .uk-card.uk-card-default.ts-gallery-card
+        = link_to page, class: "uk-link-reset ts-gallery-card-link" do
+          .ts-gallery-img>
+            - if page.icon
+              = image_tag page.icon
+            - else
+              %i.fa.fa-4x{ :class => "fa-#{page.fa_icon}" }
+          .uk-overlay.uk-overlay-primary.uk-position-bottom.uk-padding-small= CGI.unescapeHTML(page.title).html_safe
+
+= paginate @grouped_data

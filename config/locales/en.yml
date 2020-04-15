@@ -1083,6 +1083,8 @@ en:
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
       new_search: "new search"
       show_query: "show query"
+      switch_to_list: "switch to list view"
+      switch_to_gallery: "switch to gallery view"
     search_form:
       attribute: "attribute"
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
