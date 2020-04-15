@@ -63,28 +63,16 @@ class TraitBank
 
       # XXX: this isn't very performant, but the assumption is that that the filtering case is rare
       def filter_identical_count_ancestors(results, limit)
-        prev_count = nil
-        objs_to_check = {}
-        objs_for_count = []
-
-        results.each do |row|
-          if row[:count] != prev_count
-            if objs_for_count.length > 1
-              objs_to_check[prev_count] = objs_for_count
-            end
-
-            prev_count = row[:count]
-            objs_for_count = [row[:obj][:uri]]
-          else 
-            objs_for_count << row[:obj][:uri]
-          end
-        end
+        grouped_results = results.group_by { |result| result[:count] }
 
         objs_to_filter = []
-        objs_to_check.each do |_, objs|
-          objs.each do |obj|
-            objs.each do |other_obj|
-              next if obj == other_obj
+        grouped_results.each do |_, results_for_count|
+          next if results_for_count.length == 1
+          results_for_count.each do |result|
+            results_for_count.each do |other_result|
+              next if result == other_result
+              obj = result[:obj][:uri]
+              other_obj = other_result[:obj][:uri]
               objs_to_filter << obj if TraitBank::Terms.term_descendant_of_other?(other_obj, obj)
             end
           end 
