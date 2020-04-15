@@ -8,8 +8,12 @@
   - classes = "viz-contain-hist js-hist-contain"
   - load_path = traits_data_viz_hist_path(term_query: query.to_params)
 .viz-contain{ class: classes, data: { :'load-path' => load_path }}
-  - if local_assigns.include?(:explanation)
-    %p.js-viz-explanation.viz-explanation.uk-hidden= explanation
+  - if local_assigns.include?(:header) || local_assigns.include?(:description)
+    .viz-text
+      - if local_assigns.include?(:header)
+        %h3.js-viz-text.viz-text-hdr.uk-hidden= header
+      - if local_assigns.include?(:description)
+        %p.js-viz-text.viz-text-desc.uk-hidden= description
   .uk-flex.uk-flex-center.js-viz-spinner
     .spinner{ uk: { spinner: true, position: 'center' }}
 

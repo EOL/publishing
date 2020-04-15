@@ -515,7 +515,7 @@ window.TraitDataViz = (function(exports) {
 
       if (result) {
         $contain.append(result);
-        $contain.find('.js-viz-explanation').removeClass('uk-hidden');
+        $contain.find('.js-viz-text').removeClass('uk-hidden');
         ready();
       }
     })
