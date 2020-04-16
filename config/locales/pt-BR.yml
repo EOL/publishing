@@ -730,6 +730,7 @@ pt-BR:
     search:
       edit_filters: editar filtros
       filter_display:
+        obj_only: 'valor: %{obj}'
         pred_only: '%{pred}'
         resource: 'recurso: %{value}'
         statistical_method: 'método estatístico: %{value}'

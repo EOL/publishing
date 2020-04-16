@@ -1107,9 +1107,16 @@ tr:
         other: '%{count} takson daha'
       num_records_label: '# kayıt sayısı'
       other: diğer
+      page_habitat_header: '%{name} Habitat'
       page_habitat_explanation: '%{name} türün çoğunun yaşadığı bilinen ortamlar.
         %{name} tür kontrol listesini görmek için bir ortam seçin.'
       pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
+      n_obj_records:
+        one: '"%{obj_name}" sahip bir kayıt'
+        other: '"%{obj_name}" ile %{count} kayıt'
+      n_taxa_with:
+        one: '"%{obj_name}" sahip bir takson'
+        other: '"%{obj_name}" ile %{count} takson'
       see_n_obj_records:
         one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
         other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
@@ -1140,13 +1147,15 @@ tr:
         statistical_method: 'istatistiksel yöntem: %{value}'
       gbif_search: GBIF araması
       gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
-        kayıtlarını bulun (sınır 60)
+        kayıtlarını bulun (sınır 50)
       result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
         %{total} kayıttan %{range_end}'
       result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
         ile'
       new_search: yeni arama
       show_query: sorguyu göster
+      switch_to_list: liste görünümüne geç
+      switch_to_gallery: galeri görünümüne geç
     search_form:
       attribute: nitelik
       clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
