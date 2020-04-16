@@ -1069,8 +1069,15 @@ zh-TW:
         other: '%{count} 個其它分類'
       num_records_label: '# 紀錄'
       other: 其它
+      page_habitat_header: '%{name}棲息地'
       page_habitat_explanation: 已知有許多%{name}物種存活的環境。請選擇環境來查看%{name}物種清單。
       pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
+      n_obj_records:
+        one: 帶有「%{obj_name}」的 1 個紀錄
+        other: 帶有「%{obj_name}」的 %{count} 個紀錄
+      n_taxa_with:
+        one: 帶有「%{obj_name}」的 1 個分類
+        other: 帶有「%{obj_name}」的 %{count} 個分類
       see_n_obj_records:
         one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
         other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
@@ -1100,12 +1107,14 @@ zh-TW:
         sex: 性別：%{value}
         statistical_method: 統計方法：%{value}
       gbif_search: GBIF 搜尋
-      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 60 筆）
+      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 50 筆）
       result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
         - %{range_end} 個帶有
       result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
       new_search: 新搜尋
       show_query: 顯示查詢
+      switch_to_list: 切換成列表檢視
+      switch_to_gallery: 切換成圖庫檢視
     search_form:
       attribute: 屬性
       clade_filter_placeholder: 群組（例如：熊）（選用）
