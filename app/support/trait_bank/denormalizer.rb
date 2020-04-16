@@ -20,10 +20,10 @@ class TraitBank::Denormalizer
     @limit = options[:limit] || 2500
     @skip = options[:skip] || 0
     @fixed = 0
-    @pages_count = count_pages # 4,332,394 as of this writing...
   end
 
   def set_canonicals
+    @pages_count = count_pages # 4,332,394 as of this writing...
     log "Looks like there are #{@pages_count} pages to check (#{(@pages_count / @limit).ceil} batches)..."
     loop do
       results = get_pages
