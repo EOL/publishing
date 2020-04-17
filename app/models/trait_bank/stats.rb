@@ -169,16 +169,9 @@ class TraitBank
           return CheckResult.invalid("query must have a single predicate filter")
         end
 
-        uri = query.predicate_filters.first.pred_uri
-        predicate = TermNode.find(uri)
-
-        if predicate.nil?
-          return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
-        end
-
-        if predicate.type != "measurement"
-          return CheckResult.invalid("predicate type must be 'measurement'")
-        end
+        pred_uri = query.predicate_filters.first.pred_uri
+        pred_result = check_predicate(pred_uri)
+        return pred_result if !pred_result.valid?
 
         if query.object_term_filters.any?
           return CheckResult.invalid("query must not have any object term filters")
@@ -188,7 +181,7 @@ class TraitBank
           return CheckResult.invalid("query predicate does not have numerical values")
         end
 
-        if !TraitBank::Terms.any_direct_records_for_pred?(query.filters.first.pred_uri)
+        if !TraitBank::Terms.any_direct_records_for_pred?(pred_uri)
           return CheckResult.invalid("predicate does not have any directly associated records")
         end
 
@@ -205,6 +198,9 @@ class TraitBank
         pred_uri = filter.pred_uri
 
         if pred_uri.present? 
+          pred_result = check_predicate(pred_uri)
+          return pred_result if !pred_result.valid?
+
           if filter.units_for_pred?
             return CheckResult.invalid("query predicate has numerical values")
           end
@@ -224,6 +220,8 @@ class TraitBank
         CheckResult.valid
       end
 
+
+
       private
       def raise_if_query_invalid_for_counts(query, record_count)
         result = check_query_valid_for_counts(query, record_count)
@@ -239,6 +237,20 @@ class TraitBank
         if !result.valid
           raise TypeError.new(result.reason)
         end
+      end
+
+      def check_predicate(uri)
+        predicate = uri && TermNode.find(uri)
+
+        if predicate.nil?
+          return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
+        end
+
+        if predicate.type != "measurement"
+          return CheckResult.invalid("predicate type must be 'measurement'")
+        end
+
+        CheckResult.valid
       end
     end
   end
