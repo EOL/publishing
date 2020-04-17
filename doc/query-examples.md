@@ -291,8 +291,7 @@ LIMIT 1;
 ## How many records do the most common trait predicates have?
 
 ```
-MATCH (:Trait)-[:predicate]->(t:Term{ is_hidden_from_overview: false })
-WHERE NOT(t)-[:synonym_of]->(:Term)
+MATCH (:Trait)-[:predicate]->(t:Term)
 WITH t, count(*) AS count
 RETURN t.name, t.uri, count
 ORDER BY count desc
@@ -304,9 +303,8 @@ LIMIT 10
 (This query happens to be informative for habitat because nearly all of our habitat terms are provided by the ENVO ontology.)
 
 ```
-MATCH (:Trait)-[:object_term]->(t:Term{ is_hidden_from_overview: false })
+MATCH (:Trait)-[:object_term]->(t:Term)
 WHERE t.uri =~ ".*\\/ENVO.*"
-AND NOT(t)-[:synonym_of]->(:Term)
 WITH t, count(*) AS count
 RETURN t.name, t.uri, count
 ORDER BY count desc
