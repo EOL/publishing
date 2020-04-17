@@ -46,41 +46,31 @@ class TraitBank::RecordDownloadWriter
   IGNORE_META_URIS = HEADER_GLOSSARY.keys
 
   def start_cols # rubocop:disable Metrics/CyclomaticComplexity
-    { "EOL Page ID" => -> (trait, page, resource, association) { page&.id },# NOTE: might be nice to make this clickable?
-      "Ancestry" => -> (trait, page, resource, association) { TraitBank::DownloadUtils.ancestry(page) },
-      "Scientific Name" => -> (trait, page, resource, association) { page&.scientific_name },
-      "Measurement Type" => -> (trait, page, resource, association) { handle_term(trait[:predicate]) },
-      "Measurement Value" => -> (trait, page, resource, association) do 
+    { "EOL Page ID" => -> (trait, page, association) { page&.id },# NOTE: might be nice to make this clickable?
+      "Ancestry" => -> (trait, page, association) { TraitBank::DownloadUtils.ancestry(page) },
+      "Scientific Name" => -> (trait, page, association) { page&.scientific_name },
+      "Measurement Type" => -> (trait, page, association) { handle_term(trait[:predicate]) },
+      "Measurement Value" => -> (trait, page, association) do 
         trait[:measurement] || handle_term(trait[:object_term]) || handle_association(trait, association) # Raw value, not sure if this works for associations
       end,
-      "Measurement Unit" => -> (trait, page, resource, association) { handle_term(trait[:units]) },
-      "Measurement Accuracy" => -> (trait, page, resource, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
-      "Statistical Method" => -> (trait, page, resource, association) { handle_term(trait[:statistical_method_term]) },
-      "Target EOL ID" => -> (trait, page, resource, association) { association&.id },
-      "Target EOL Name" => -> (trait, page, resource, association) { association&.scientific_name },
-      "Target Source Name" => -> (trait, page, resource, association) { trait[:target_scientific_name] },
-      "Sex" => -> (trait, page, resource, association) { handle_term(trait[:sex_term])},
-      "Life Stage" => -> (trait, page, resource, association) { handle_term(trait[:lifestage_term]) },
-      #"Value" => -> (trait, page, resource, association) { value }, # NOTE this is actually more complicated...Watch out for associations
-      #"Measurement URI" => -> (trait, page, resource) {trait[:predicate][:uri]},
-      #"Value URI" => -> (trait, page, resource) {trait[:object_term] && trait[:object_term][:uri]},
-      # TODO: these normalized units won't work; we're not storing it right now. Add it.
-      # "Units (normalized)" => -> (trait, page, resource) {trait[:predicate][:normal_units]},
-      # "Units URI (normalized)" => -> (trait, page, resource) {trait[:predicate][:normal_units]},
-      #"Raw Units URI (direct from source)" => -> (trait, page, resource) {trait[:units] && trait[:units][:uri]},
-      #"Statistical Method" => -> (trait, page, resource) {trait[:statistical_method]},
-      #"Supplier" => -> (trait, page, resource) { resource ? resource.name : "unknown" },
-      #"Content Partner Resource URL" => -> (trait, page, resource) { resource ? resource.url : nil },
+      "Measurement Unit" => -> (trait, page, association) { handle_term(trait[:units]) },
+      "Measurement Accuracy" => -> (trait, page, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
+      "Statistical Method" => -> (trait, page, association) { handle_term(trait[:statistical_method_term]) },
+      "Target EOL ID" => -> (trait, page, association) { association&.id },
+      "Target EOL Name" => -> (trait, page, association) { association&.scientific_name },
+      "Target Source Name" => -> (trait, page, association) { trait[:target_scientific_name] },
+      "Sex" => -> (trait, page, association) { handle_term(trait[:sex_term])},
+      "Life Stage" => -> (trait, page, association) { handle_term(trait[:lifestage_term]) }
     }
   end
 
   def end_cols
     {
-      "Source" => -> (trait, page, resource) { trait[:source] },
-      "Bibliographic Citation" => -> (trait, page, resource) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
-      "Contributor" => -> (trait, page, resource) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
-      "Reference ID" => -> (trait, page, resource) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
-      "Resource URL" => -> (trait, page, resource) do 
+      "Source" => -> (trait, page) { trait[:source] },
+      "Bibliographic Citation" => -> (trait, page) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
+      "Contributor" => -> (trait, page) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
+      "Reference ID" => -> (trait, page) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
+      "Resource URL" => -> (trait, page) do 
         (
           trait[:resource] ? 
           TraitBank::DownloadUtils.resource_path(:resource, trait[:resource][:resource_id]) :
@@ -174,19 +164,17 @@ class TraitBank::RecordDownloadWriter
           }
         )
         .map { |p| [p.id, p] }.to_h
-      resources = Resource.where(id: resource_ids(hashes)).map { |r| [r.id, r] }.to_h
       associations = Page.with_scientific_name.where(id: association_ids(hashes))
         .map { |p| [p.id, p] }.to_h
 
       hashes.each do |trait|
         page = pages[trait[:page_id]]
-        resource = resources[trait[:resource][:resource_id]]
         association = associations[trait[:object_page_id]]
         row = []
         i = 0
 
         start_cols.each do |_, lamb|
-          row << track_value(i, lamb[trait, page, resource, association], cols_with_vals)
+          row << track_value(i, lamb[trait, page, association], cols_with_vals)
           i += 1
         end
 
@@ -200,7 +188,7 @@ class TraitBank::RecordDownloadWriter
         end
 
         end_cols.each do |_, lamb|
-          row << track_value(i, lamb[trait, page, resource], cols_with_vals)
+          row << track_value(i, lamb[trait, page], cols_with_vals)
           i += 1
         end
 
@@ -272,10 +260,6 @@ class TraitBank::RecordDownloadWriter
 
   def page_ids(hashes)
     TraitBank::DownloadUtils.page_ids(hashes)
-  end
-
-  def resource_ids(hashes)
-    hashes.map { |hash| hash[:resource] && hash[:resource][:resource_id] }.uniq.compact
   end
 
   def association_ids(hashes)
