@@ -679,7 +679,8 @@ en:
       predator: "Predator"
       prey: "Prey"
       reset: "reset"
-      trophic_web_title: "Trophic Web"
+      trophic_web_about: "EOL food web diagrams focus on the feeding relationships of one species; they show the focal species along with species it feeds on (prey), species that feed on it (predators) and other species that feed on the same prey (potential competitors). Click to learn more."
+      trophic_web_title_html: "Trophic Web <a href='%{about_path}'><sup><span class='a' uk-tooltip='%{tooltip}'>?</span></sup></a>"
     flash:
       reindexed: "Caches for this page have been cleared. Reload to see the new values. NOTE that, at the moment, this does *not* reindex the images on the page. That feature will be implemented at a future date."
     native_node_missing_warning: "no hierarchy information available"

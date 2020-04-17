@@ -515,7 +515,6 @@ private
     @show_trophic_web = false
     pred_uri = @predicate&.[](:uri)
 
-
     if (
       pred_uri &&
       Eol::Uris.habitats_for_wordcloud.include?(pred_uri) &&
