@@ -1,0 +1,9 @@
+MATCH (:Trait)-[:predicate]->(t:Term{ is_hidden_from_overview: false })
+WHERE NOT t.uri =~ ".*\\/obo\\/.*"
+AND NOT t.uri =~ ".*\\/ENVO.*"
+AND NOT(t)-[:synonym_of]->(:Term)
+WITH t, count(*) AS count
+RETURN t.uri, t.name
+ORDER BY count desc
+LIMIT 10
+

@@ -2,7 +2,7 @@ require "util/term_i18n"
 require "fileutils"
 
 class TermNames
-  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::OboStaticAdapter]
+  ADAPTERS = [TermNames::GeonamesAdapter, TermNames::WikidataAdapter, TermNames::StaticDataAdapter]
   ADAPTERS_BY_NAME = ADAPTERS.collect { |a| [a.name, a] }.to_h
   LOCALE_FILE_DIR = Rails.application.root.join("config", "locales", "terms")
   TERM_LIMIT = 1500 # XXX: arbitrary limit based on Jen's estimates. Revisit as necessary.

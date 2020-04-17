@@ -1,0 +1,8 @@
+MATCH (:Trait)-[:object_term]->(t:Term{ is_hidden_from_overview: false })
+WHERE t.uri =~ ".*\\/obo\\/ENVO.*"
+AND NOT(t)-[:synonym_of]->(:Term)
+WITH t, count(*) AS count
+RETURN t.uri, t.name
+ORDER BY count desc
+LIMIT 10
+
