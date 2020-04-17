@@ -288,6 +288,29 @@ RETURN COUNT (DISTINCT r)
 LIMIT 1;
 ```
 
+## How many records do the most common trait predicates have?
+
+```
+MATCH (:Trait)-[:predicate]->(t:Term)
+WITH t, count(*) AS count
+RETURN t.name, t.uri, count
+ORDER BY count desc
+LIMIT 10
+```
+
+## How many records do the most common habitat values have?
+
+(This query happens to be informative for habitat because nearly all of our habitat terms are provided by the ENVO ontology.)
+
+```
+MATCH (:Trait)-[:object_term]->(t:Term)
+WHERE t.uri =~ ".*\\/ENVO.*"
+WITH t, count(*) AS count
+RETURN t.name, t.uri, count
+ORDER BY count desc
+LIMIT 15
+```
+
 ## Taxa marked both extant and extinct
 
 ```
