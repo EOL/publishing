@@ -1157,23 +1157,85 @@ en:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brooding
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: barium sulfate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxygen
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: hexadecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purines
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: uric acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eicosanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: octadecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: tetracosanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: tetradecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: docosanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: dodecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: decanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: hexacosanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: heptadecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: calcium sulfate dihydrate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: calcium sulfate hemihydrate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: calcium carbonate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: nonadecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: pentadecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: isotetradecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: tridecanoic acid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hydroxylapatite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: biogenic silica
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: calcium phosphate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: isohexadecanoic acid
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: body length
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Body length, nose to tail
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: teat number
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: photoautotroph
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: photoheterotroph
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: acidic soil
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stem diameter
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: leaf size class
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: rhizomatous plant
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Leaf Complexity
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: leaf sheddability
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: seed mass
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: leaf morphology
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: herbaceous
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: thallus diameter
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: plant lifeform
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: plant growth form
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: tree
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: shrub
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: climber
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminoid
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: forb
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: aquatic plant
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annual
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennial
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: perennial
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadromous
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadromous
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: sex determination
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: nitrogen fixation
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: parental care
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: storage organ
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: running
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: arboreal locomotion
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aerial
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: flight
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: gliding
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: saltation
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: forms
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundance
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: cell diameter
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: cell volume
@@ -1188,13 +1250,66 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: epicone length
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: hypocone length
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: body size
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: life span
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: shape
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: black
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blue
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: green
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: red
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: white
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: yellow
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: large
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: small
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: inverted
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: slow
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: fast
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: thickness
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: heart shaped
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purple
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brown
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: elongated
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: high life span
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: low life span
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: shedability
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: deciduous
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: evergreen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semi-deciduous
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: coiling
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: yellow green
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digitate
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoid
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mixed
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: increased quality
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: decreased quality
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: decumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: broad
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: high tolerance
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: low tolerance
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposed
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentation
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: sexually dimorphic
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: leaf-like
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: lathlike
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: massive growth habit
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmate
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: shoot apex
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: bark
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rhizome
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: secondary xylem
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: fruit
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: roots
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: seed
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: simple
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compound
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: spine leaf
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: preys on
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: symbiont of
@@ -1211,6 +1326,7 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: is eaten by
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogen of
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: has pathogen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produces
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparasite of
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: plant height
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: drought tolerance
@@ -1224,8 +1340,10 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: respiratory rate
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: life cycle habit
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: salt tolerance
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoskeleton
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: mineralized tissue
           contains
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: ratio
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: body mass
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: behavioral circadian rhythm
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: clutch/brood/litter size
@@ -1236,4 +1354,24 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: forelimb length
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: body width
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: femur width
-        http://purl(dot)org/obo/owlATOL_0001660: Total length
+        http://eol(dot)org/schema/terms/Present: geographic distribution includes
+        http://eol(dot)org/schema/terms/FossilFirst: first appearance
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregion
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: ecomorphological guild
+        http://eol(dot)org/schema/terms/TrophicGuild: trophic guild
+        http://www(dot)wikidata(dot)org/entity/Q33596: motility
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: water depth
+        http://eol(dot)org/schema/terms/NativeRange: native range includes
+        http://eol(dot)org/schema/terms/fossilOccPBDB: number of fossil occurrences in the Paleobiology Database
+        http://www(dot)wikidata(dot)org/entity/Q1053008: trophic level
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marine benthic biome
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestrial
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: forest
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marine
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: coastal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: freshwater
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: scrubland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: grassland
+
