@@ -9,7 +9,7 @@
             - if page.icon
               = image_tag page.icon
             - else
-              %i.fa.fa-4x{ :class => "fa-#{page.fa_icon}" }
+              %span{ uk: { icon: "image" }}
           .uk-overlay.uk-overlay-primary.uk-position-bottom.uk-padding-small= CGI.unescapeHTML(page.title).html_safe
 
 = paginate @grouped_data
