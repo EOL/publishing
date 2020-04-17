@@ -148,7 +148,8 @@ class Publishing::Fast
       begin
         publish_traits
       rescue => e
-        log_warn("Trait Publishing failed: #{e.message} FROM #{e.backtrace[0..5].join(' FROM ')}")
+        backtrace = [e.backtrace[0]] + e.backtrace.grep(/\bapp\b/)[1..5]
+        log_warn("Trait Publishing failed: #{e.message} FROM #{backtrace.join(' << ')}")
         can_clean_up = false
       end
       log_start('Resource#fix_native_nodes')

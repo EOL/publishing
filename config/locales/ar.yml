@@ -6,6 +6,7 @@
 # Author: Meno25
 # Author: NEHAOUA
 # Author: Passant
+# Author: Tala Ali
 # Author: Yousif ihsan
 # Author: ديفيد
 # Author: محمد أحمد عبد الفتاح
@@ -1057,6 +1058,8 @@ ar:
       select_page_above: اختر صفحة أعلاه للبدء.
   data_definition: تعريف "%{data}"
   traits:
+    data_viz:
+      about_this_chart: حول هذا المخطط
     search:
       download_tsv: تنزيل tsv
       edit_filters: مرشحات التعديل
@@ -1069,7 +1072,7 @@ ar:
       clade_filter_placeholder: 'مجموعة (مثال: دببة) (اختياري)'
       hide_additional_fields: إخفاء الحقول الإضافية
       lifestage: مرحلة الحياة
-      records_matching_all: السجلات التي تطابق كل المرشحات
+      records_matching_all: سجلات تصنيف تطابق جميع الملفات
       resource: المرجع
       search: بحث
       sex: الجنس

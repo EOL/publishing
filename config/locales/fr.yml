@@ -1121,10 +1121,17 @@ fr:
         other: '%{count} autres taxons'
       num_records_label: nombre d’enregistrements
       other: autre
+      page_habitat_header: Habitats de %{name}
       page_habitat_explanation: Les environnements dans lesquels beaucoup d’espèces
         de %{name} sont connues pour y vivre. Sélectionner un environnement pour voir
         sa liste de contrôle d’espèces de %{name}.
       pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
+      n_obj_records:
+        one: un enregistrement avec « %{obj_name} »
+        other: '%{count} enregistrements avec « %{obj_name} »'
+      n_taxa_with:
+        one: un taxon avec « %{obj_name} »
+        other: '%{count} taxons avec « %{obj_name} »'
       see_n_obj_records:
         one: cliquer pour voir un enregistrement avec « %{obj_name} »
         other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »
@@ -1159,13 +1166,15 @@ fr:
         statistical_method: 'méthode statistique : %{value}'
       gbif_search: Recherche de GBIF
       gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
-        taxons dans vos résultats de recherche (limité à 60)
+        taxons dans vos résultats de recherche (limité à 50)
       result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
         enregistrements pour %{page_count} taxons avec
       result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
         taxons avec
       new_search: nouvelle recherche
       show_query: afficher la requête
+      switch_to_list: basculer dans la vue liste
+      switch_to_gallery: basculer dans la vue galerie
     search_form:
       attribute: attribut
       clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'

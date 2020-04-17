@@ -49,7 +49,7 @@ class TraitBank::Slurp
     end
 
     def post_load_cleanup(id)
-      page_ids = read_field_from_traits_file(id, 'page_id').uniq.compact
+      page_ids = read_field_from_traits_file(id, 'page_id').sort.uniq.compact
       return nil if page_ids.empty?
       fix_page_names_for_new_pages(page_ids)
     end
