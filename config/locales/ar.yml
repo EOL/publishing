@@ -9,6 +9,7 @@
 # Author: Tala Ali
 # Author: Yousif ihsan
 # Author: ديفيد
+# Author: علاء
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
@@ -985,7 +986,6 @@ ar:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: طول الجسم، من الأنف للذيل
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: قطر الساق
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: رتبة حجم الورقة
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: تعقيد الورقة
@@ -993,7 +993,6 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: نوع حياة النبات
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: نوع نمو النبات
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: التكاثر
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: تحديد الجنس
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: تثبيت النيتروجين
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: الرعاية الأبوية
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
@@ -1034,7 +1033,6 @@ ar:
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: بداية الخصوبة
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: طول الذيل
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
-        http://purl(dot)org/obo/owlATOL_0001660: الطول الإجمالي
   term_query:
     validations:
       empty_filters_error_record: يجب عليك توفير مرشحا بسمة أو قيمة لعمليات البحث
@@ -1067,6 +1065,7 @@ ar:
       result_header_records: عرض %{range_begin} - %{range_end} of %{total} سجلات ب
       new_search: بحث جديد
       show_query: عرض الاستعلام
+      switch_to_list: بدل إلى عرض القائمة
     search_form:
       attribute: سمة
       clade_filter_placeholder: 'مجموعة (مثال: دببة) (اختياري)'

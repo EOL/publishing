@@ -682,7 +682,6 @@ mk:
       predator: Грабливец
       prey: Плен
       reset: одново
-      trophic_web_title: Мрежа на исхрана
     flash:
       reindexed: 'Исчистени се меѓускладовите за страницава. Превчитајте ја за да
         ги видите новите вредности. НАПОМЕНА: во мигов ова *не* ги преиндексира сликите
@@ -989,8 +988,6 @@ mk:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: телесна должина
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Телесна должина, од нос
-          до опашка
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: број на дојки
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: пречник на стебло
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: величинска класа на
@@ -1003,7 +1000,6 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: животен облик на растението
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: растов облик на растението
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: размножување
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: полово определување
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотоврзување
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: движење
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: родителска нега
@@ -1069,7 +1065,6 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: должина на предните краци
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: телесна ширина
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: ширина на иверот
-        http://purl(dot)org/obo/owlATOL_0001660: Вкупна должина
   term_query:
     validations:
       empty_filters_error_record: мора да укажете филтер со својство или вредност
@@ -1109,9 +1104,16 @@ mk:
         other: '%{count} други таксони'
       num_records_label: бр. на записи
       other: друго
+      page_habitat_header: Живеалишта на %{name}
       page_habitat_explanation: Средините во кои живеат многу видови на %{name}. Изберете
         една средина за да го видите нејзиниот контролен список на видови %{name}.
       pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
+      n_obj_records:
+        one: еден запис со „%{obj_name}“
+        other: '%{count} записи со „%{obj_name}“'
+      n_taxa_with:
+        one: еден таксон со „%{obj_name}“
+        other: '%{count} таксони со „%{obj_name}“'
       see_n_obj_records:
         one: стиснете за да погледате еден запис со „%{obj_name}“
         other: стиснете за да погледате %{count} записи со „%{obj_name}“
@@ -1146,13 +1148,15 @@ mk:
         statistical_method: 'статистички метод: %{value}'
       gbif_search: Пребарување на GBIF
       gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
-        60)'
+        50)'
       result_header_records: Прикажувам %{range_begin} - %{range_end} од %{total}
         записи за %{page_count} таксони во
       result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
         таксони со
       new_search: ново пребарување
       show_query: прикажи барање
+      switch_to_list: списочен поглед
+      switch_to_gallery: сликореден поглед
     search_form:
       attribute: својство
       clade_filter_placeholder: група (на пр. мечки) (незадол.)

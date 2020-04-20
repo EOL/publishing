@@ -520,8 +520,6 @@ sv:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Kroppslängd, nos till
-          svans
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
@@ -544,7 +542,6 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kroppsmassa
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kroppsbredd
-        http://purl(dot)org/obo/owlATOL_0001660: Total längd
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde
