@@ -1,7 +1,7 @@
 class TraitBank
   class Logger
     def logger
-      @logger ||= ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')
+      @logger ||= ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('log', 'traitbank.log')))
     end
 
     def log(message, tag = nil)
