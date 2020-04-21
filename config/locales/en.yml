@@ -1045,22 +1045,22 @@ en:
       page_habitat_header: "%{name} Habitats"
       page_habitat_explanation: "The environments in which many %{name} species are known to live. Select an environment to see its %{name} species checklist."
       pie_prompt: "mouse over a segment or key to highlight"
-      n_obj_records: 
+      n_obj_records:
         one: "one record with \"%{obj_name}\""
         other: "%{count} records with \"%{obj_name}\""
-      n_taxa_with: 
+      n_taxa_with:
         one: "one taxon with \"%{obj_name}\""
         other: "%{count} taxa with \"%{obj_name}\""
-      see_n_obj_records: 
+      see_n_obj_records:
         one: "click to see one record with \"%{obj_name}\""
         other: "click to see %{count} records with \"%{obj_name}\""
-      see_n_taxa_with: 
+      see_n_taxa_with:
         one: "click to see one taxon with \"%{obj_name}\""
         other: "click to see %{count} taxa with \"%{obj_name}\""
-      show_n_records_between: 
+      show_n_records_between:
         one: "click to see %{count} record with measurement values in [%{min}, %{limit}] %{units}"
         other: "click to see %{count} records with measurement values in [%{min}, %{limit}] %{units}"
-      show_n_taxa_between: 
+      show_n_taxa_between:
         one: "click to see %{count} taxon with measurement values in [%{min}, %{limit}] %{units}"
         other: "click to see %{count} taxa with measurement values in [%{min}, %{limit}] %{units}"
     search:
@@ -1141,7 +1141,7 @@ en:
     update: "Update"
     update_email: "Update email"
   user_download:
-    created: "Your file will be processed in the background. Check your <a href=\"%{url}\"user page</a> to see if it has completed."
+    created: "Your file will be processed in the background. Check your <a href=\"%{url}\">user page</a> to see if it has completed."
   users:
     account_migration_header: "If you registered with EOL before Nov. 15, 2018:"
     account_migration_notice: "Your account information, including username, associated email, profile description, and collections owned, have been imported to the new EOL. Your username is still your display name on the site, but you must now log in with your email address. We could not migrate your password for security reasons; sorry for the bother. You'll be able to reset it using the Forgot Password process. If you logged in only using a third party provider- Google, Twitter or FaceBook- please bear with us; we're working out some issues with the shared login processes."
@@ -1374,4 +1374,3 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: grassland
-
