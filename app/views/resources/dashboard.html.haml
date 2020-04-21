@@ -41,7 +41,7 @@
         - begin
           - payload = job.payload_object.object
           .item
-            = "#{job.queue}/#{job.id}: #{job.payload.class.name}"
+            = "#{job.queue}/#{job.id}: #{payload.class.name}"
             - if payload.is_a? UserDownload
               = link_to('query', payload.search_url)
               = "(#{payload.count} rows) for"

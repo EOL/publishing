@@ -76,6 +76,6 @@ class ResourcesController < ApplicationController
     @uptime = `uptime`.chomp
     @top_cpu = `ps aux | sort -nrk 3,3 | head -n 3`.split(/\n/)
     @queue_count = Delayed::Job.count
-    @queue = Delayed::Job.all.limit(5)
+    @queue = Delayed::Job.all.limit(16)
   end
 end
