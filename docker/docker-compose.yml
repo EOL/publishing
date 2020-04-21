@@ -107,7 +107,7 @@ services:
       - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
-      - ./config/supervisord_publishing.conf:/etc/supervisord.conf
+      - ../config/supervisord_publishing.conf:/etc/supervisord.conf
       - /data/eol-backend-tramea:/app/public/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
@@ -134,7 +134,7 @@ services:
       - ELASTICSEARCH_URL=elasticsearch:9200
     volumes:
       - ./resources/secrets.yml:/app/config/secrets.yml
-      - ./config/supervisord_jobs.conf:/etc/supervisord.conf
+      - ../config/supervisord_jobs.conf:/etc/supervisord.conf
       - /data/eol-backend-tramea:/app/public/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
