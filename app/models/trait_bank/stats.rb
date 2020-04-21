@@ -19,6 +19,8 @@ class TraitBank
     OBJ_COUNT_LIMIT_PAD = 5
 
     class << self
+      delegate :log, to: TraitBank::Logger
+
       def obj_counts(query, record_count, limit)
         raise_if_query_invalid_for_counts(query, record_count)
         filter = query.filters.first
@@ -26,7 +28,7 @@ class TraitBank
         key = "trait_bank/stats/obj_counts/v2/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
 
         Rails.cache.fetch(key) do
-          Rails.logger.info("TraitBank::Stats.object_counts -- running query for key #{key}")
+          log("TraitBank::Stats.object_counts -- running query for key #{key}")
 
           # Where clause filters for top-level terms or their direct children only
           # WITH DISTINCT is necessary to filter out multiple paths from obj_child to obj (I think?)
@@ -75,7 +77,7 @@ class TraitBank
               other_obj = other_result[:obj][:uri]
               objs_to_filter << obj if TraitBank::Terms.term_descendant_of_other?(other_obj, obj)
             end
-          end 
+          end
         end
 
         filtered = results.reject { |r| objs_to_filter.include?(r[:obj][:uri]) }
@@ -197,7 +199,7 @@ class TraitBank
         filter = query.filters.first
         pred_uri = filter.pred_uri
 
-        if pred_uri.present? 
+        if pred_uri.present?
           pred_result = check_predicate(pred_uri)
           return pred_result if !pred_result.valid?
 
@@ -216,7 +218,7 @@ class TraitBank
         if filter.numeric?
           return CheckResult.invalid("query must not be numeric")
         end
-        
+
         CheckResult.valid
       end
 
@@ -255,4 +257,3 @@ class TraitBank
     end
   end
 end
-
