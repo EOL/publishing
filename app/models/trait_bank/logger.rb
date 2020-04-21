@@ -9,7 +9,7 @@ class TraitBank
         tag ||= 'INFO'
         time = Time.now
         delta = @last_time.nil? ? '' : "<#{(time - @last_time).round(3)}s>"
-        logger.tagged(tag) { logger.warn("[#{time.strftime('%F %T')}]#{delta} #{message}") }
+        logger.tagged(tag) { @logger.warn("[#{time.strftime('%F %T')}]#{delta} #{message}") }
         @last_time = time
       end
 
