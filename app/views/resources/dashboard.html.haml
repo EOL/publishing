@@ -45,7 +45,8 @@
             - if payload.is_a? UserDownload
               = link_to('query', payload.search_url)
               = "(#{payload.count} rows) for"
-              = link_to(payload.user.username, user_page(user))
+              - if payload&.user
+                = link_to(payload.user.username, user_page(payload.user))
             - if job.locked_at
               = "(locked #{job.locked_at})"
             - if job.locked_by
