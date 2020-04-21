@@ -3,6 +3,8 @@
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
 
+  delegate :log, :warn, :log_error, to: TraitBank::Logger
+
   class << self
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
@@ -25,16 +27,16 @@ class TraitBank
         results = connection.execute_query(q)
         stop = Time.now
       rescue Excon::Error::Socket => e
-        Rails.logger.error("Connection refused on query: #{q}")
+        log_error("Connection refused on query: #{q}")
         sleep(0.1)
         results = connection.execute_query(q)
       rescue Excon::Error::Timeout => e
-        Rails.logger.error("Timed out on query: #{q}")
+        log_error("Timed out on query: #{q}")
         sleep(1)
         results = connection.execute_query(q)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
-        Rails.logger.info(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
+        log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
     end
@@ -273,7 +275,7 @@ class TraitBank
 
           # "ORDER BY predicate.position, LOWER(object_term.name), "\
           #   "LOWER(trait.literal), trait.normal_measurement "\
-        
+
         res = query(q)
         build_trait_array(res).group_by { |r| r[:predicate] }
       end
@@ -338,7 +340,7 @@ class TraitBank
         key = "trait_bank/term_search/counts/combined/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
-          Rails.logger.info("&& TS USING cached count: #{key} = #{count}")
+          log("&& TS USING cached count: #{key} = #{count}")
           return count
         end
       else
@@ -367,16 +369,16 @@ class TraitBank
       "#{limit_and_skip}"
       res = query(q)
 
-      Rails.logger.info("&& TS SAVING Cache: #{key}")
+      log("&& TS SAVING Cache: #{key}")
       if options[:count]
         raise "&& TS Lost key" if key.blank?
 
         counts = TraitBank::TermSearchCounts.new(res)
         Rails.cache.write(key, counts, expires_in: 1.day)
-        Rails.logger.info("&& TS SAVING Cached counts: #{key} = #{counts}")
+        log("&& TS SAVING Cached counts: #{key} = #{counts}")
         counts
       else
-        Rails.logger.debug("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
+        log("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
         { data: build_trait_array(res, key), raw_query: q, raw_res: res }
       end
     end
@@ -1016,7 +1018,7 @@ class TraitBank
     # ...which isn't very generalized, but it will do for our purposes...
     def build_trait_array(results, key=nil)
       hashes = results_to_hashes(results)
-      Rails.logger.debug("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
+      log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []
       hashes.each do |hash|
         has_trait = hash.keys.include?(:trait)
@@ -1032,7 +1034,7 @@ class TraitBank
             "MISSING"
           end
         if hash[:predicate].is_a?(Array)
-          Rails.logger.error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
+          log_error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
@@ -1067,18 +1069,18 @@ class TraitBank
         hashes = replicate_trait_hash_for_pages(hash)
         data = data + hashes
       end
-      Rails.logger.debug("RESULT COUNT #{key}: #{data.length} after build_trait_array") if key
+      log("RESULT COUNT #{key}: #{data.length} after build_trait_array") if key
       data
     end
 
     def replicate_trait_hash_for_pages(hash)
       return [hash] if !hash[:page]
-      
+
       if !hash[:page]
         hashes = [hash]
       elsif hash[:page].is_a?(Array)
         hashes = hash[:page].collect do |page|
-          copy = hash.dup 
+          copy = hash.dup
           copy[:page_id] = page[:page_id]
           copy
         end
@@ -1132,18 +1134,18 @@ class TraitBank
           sleep(0.1)
           connection.create_relationship(how, from, to)
         rescue Neography::BadInputException => e
-          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
-          Rails.logger.error("** from: #{from}")
-          Rails.logger.error("** to: #{to}")
+          log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          log_error("** from: #{from}")
+          log_error("** to: #{to}")
         rescue Neography::NeographyError => e
-          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
-          Rails.logger.error("** from: #{from}")
-          Rails.logger.error("** to: #{to}")
+          log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          log_error("** from: #{from}")
+          log_error("** to: #{to}")
         rescue Excon::Error::Socket => e
           puts "** TIMEOUT adding relationship"
-          Rails.logger.error("** ERROR adding a #{how} relationship:\n#{e.message}")
-          Rails.logger.error("** from: #{from}")
-          Rails.logger.error("** to: #{to}")
+          log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
+          log_error("** from: #{from}")
+          log_error("** to: #{to}")
         end
       end
     end

@@ -1,11 +1,8 @@
 class TraitBank
   class Admin
     class << self
-      delegate :connection, to: TraitBank
-      delegate :query, to: TraitBank
-      delegate :page_exists?, to: TraitBank
-      delegate :relate, to: TraitBank
-      delegate :create_page, to: TraitBank
+      delegate :create_page, :relate, :page_exists?, :query, :connection, to: TraitBank
+      delegate :warn, :log_error, :log, to: TraitBank::Logger
 
       def setup
         create_indexes
@@ -196,7 +193,7 @@ class TraitBank
 
       # NOTE: if you add any new caches IN THE TB CLASS, add them here.
       def clear_caches
-        Rails.logger.warn("TRAITBANK CACHES CLEARED.")
+        warn("TRAITBANK CACHES CLEARED.")
         [
           "trait_bank/predicate_count",
           "trait_bank/terms_count",
