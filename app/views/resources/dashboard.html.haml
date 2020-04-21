@@ -46,7 +46,7 @@
               = link_to('query', payload.search_url)
               = "(#{payload.count} rows) for"
               - if payload&.user
-                = link_to(payload.user.username, user_page(payload.user))
+                = link_to(payload.user.username, user_path(payload.user))
             - if job.locked_at
               = "(locked #{job.locked_at})"
             - if job.locked_by
