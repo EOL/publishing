@@ -3,9 +3,9 @@
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
 
-  delegate :log, :warn, :log_error, to: TraitBank::Logger
-
   class << self
+    delegate :log, :warn, :log_error, to: TraitBank::Logger
+
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
