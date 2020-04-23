@@ -25,6 +25,7 @@ class Language
         @known_codes[code] = true
       end
       @new_languages = []
+      @errors = []
     end
 
     def finish
@@ -32,19 +33,27 @@ class Language
         puts "You will have to add the following lines manually to the en.yml file under the 'languages:' heading:"
         puts @new_languages.join("\n")
       end
+      unless @errors.blank?
+        puts "\nEncountered the following problems:"
+        puts @errors.join("\n")
+      end
     end
 
     def read(line)
       (code, group, name) = line
       return if name.blank?
       # NOTE: it's true, the name of the langauge is NOT stored in the database. It's in the en.yml file.
-      if @known_codes.key?(code)
-        lang = Language.find_by_code(code)
-        lang.group = line[1]
-        lang.save!
-      else
-        Language.create(code: code, group: group, can_browse_site: false)
-        @new_languages << %Q{    #{group}: "#{name}"}
+      begin
+        if @known_codes.key?(code)
+          lang = Language.find_by_code(code)
+          lang.group = line[1]
+          lang.save!
+        else
+          Language.create(code: code, group: group, can_browse_site: false)
+          @new_languages << %Q{    #{group}: "#{name}"}
+        end
+      rescue => e
+        @errors << "FAILED to save #{line} because of error #{e.message}"
       end
     end
   end
