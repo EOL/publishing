@@ -31,7 +31,7 @@ class Language
     def finish
       unless @new_languages.blank?
         puts "You will have to add the following lines manually to the en.yml file under the 'languages:' heading:"
-        puts @new_languages.join("\n")
+        puts @new_languages.sort.join("\n")
       end
       unless @errors.blank?
         puts "\nEncountered the following problems:"
