@@ -38,14 +38,23 @@
   .ui.section
     .ui.list
       - @queue.each do |job|
-        .item
-          = "#{job.queue}/#{job.id}: #{job.handler.split(' ', 3)[1].split(':').last}"
-          - if job.locked_at
-            = "(locked #{job.locked_at})"
-          - if job.locked_by
-            = "(locked by #{job.locked_by})"
-          - if job.failed_at
-            = "(failed #{job.failed_at})"
+        - begin
+          - payload = job.payload_object.object
+          .item
+            = "#{job.queue}/#{job.id}: #{payload.class.name}"
+            - if payload.is_a? UserDownload
+              = link_to('query', payload.search_url)
+              = "(#{payload.count} rows) for"
+              - if payload&.user
+                = link_to(payload.user.username, user_path(payload.user))
+            - if job.locked_at
+              = "(locked #{job.locked_at})"
+            - if job.locked_by
+              = "(locked by #{job.locked_by})"
+            - if job.failed_at
+              = "(failed #{job.failed_at})"
+        - rescue => e
+          = "Error parsing job: #{e.message}"
 
 %h2 Other
 = link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')

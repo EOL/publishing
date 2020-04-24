@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: Alcali
 # Author: Eduardo Addad de Oliveira
+# Author: Leonardo9387
+# Author: Leosls
 ---
 pt-BR:
   language_name: Português do Brasil
@@ -73,12 +75,14 @@ pt-BR:
   cms_page_date: 'Última modificação em:'
   collect_already_in_collection: (já está aqui)
   collect_already_in_collection_will_add_icon: (adicionar mídia a "%{page}")
+  collect_icon_title: Adicionar "%{item}" da página "%{page}" para a…
   collect_new_collection: Nome da nova coleção
   collect_new_collection_title: '... uma Nova Coleção'
   collect_no_existing_collections: Você ainda não tem nenhum! Crie um usando o formulário
     à esquerda.
   collect_select_collection: …Uma de suas coleções
   collect_title: Adicionar "%{item}" para…
+  collected_page_added_to_collection: Adicionado %{page} para coleção <a href='%{link}'>%{name}</a>.
   collected_page_already_in_collection: Isso já estava em sua coleção.
   collected_pages_title: Páginas
   collected_pages_medium:
@@ -98,6 +102,8 @@ pt-BR:
   collection_collected_pages_media_remove: 'Remova imagens da coleção (as alterações
     entram em vigor imediatamente):'
   collection_created: Criado nova coleção "%{name}".
+  collection_created_for_association: Adicionado "%{associated}" para nova coleção
+    <a href='%{link}'>"%{name}"</a>.
   collection_user_is_admin: Este usuário é um administrador.
   collection_pages_empty: Esta coleção não possui páginas. Tente clicar no botão "coletar"
     nas páginas de espécies para adicionar alguns itens!
@@ -119,9 +125,28 @@ pt-BR:
     delete_confirm: Isso removerá a coleção inteira e NÃO PODE ser desfeita. Você
       tem certeza?
     destroyed: '"%{name}" foi excluído permanentemente.'
+    pages_count:
+      one: 1 página
+      other: '%{count} páginas'
     log:
+      associated_collection:
+        add: '%{user} adicionou uma associação à coleção %{associated}'
+        remove: '%{user} removeu a associação à coleção %{associated}'
       collection:
         add: '%{user} criou a coleção'
+        change: '%{user} mudou o %{field} da "%{from}" para a "%{to}"'
+      content:
+        add: '%{user} adicionou o meio %{medium} para a página %{page}'
+        change: '%{user} mudou o %{field} no meio %{medium} para a página %{page}
+          da "%{from}" para a "%{to}"'
+        remove: '%{user} removeu o meio %{medium} para a página %{page}'
+      page:
+        add: '%{user} adicionou a página %{page}'
+        change: '%{user} mudou o %{field} na página %{page} da "%{from}" para a "%{to}"'
+        remove: '%{user} removeu a página %{page}'
+      user:
+        add: '%{user} adicionou o gerente %{manager}'
+        remove: '%{user} removeu o gerente %{manager}'
     search:
       placeholder: Pesquisar na coleção…
       submit: pesquisar
@@ -142,11 +167,13 @@ pt-BR:
     altitude: altitude
     author: autor
     bibliographic_citation: citação bibliográfica
+    compiler: compilador
     creator: criador
     editor: editor
     latitude: latitude
     license: licença
     location: localização
+    location_verbatim: literalmente
     longitude: longitude
     original_media_file: arquivo de mídia original
     owner: Direitos autorais
@@ -154,6 +181,9 @@ pt-BR:
     publisher: editor
     project: projeto
     provider: fornecedor
+    references_header:
+      one: Referência
+      other: Referências
     resource_label: site do parceiro
     resource_pk: '(id: %{key})'
     rights_statement: declaração de direitos
@@ -200,11 +230,13 @@ pt-BR:
       algae: Algas
       amphibians: Anfíbios
       animals: Animais
+      archaea: Archaea
       bacteria: Bactérias
       birds: Aves
       crustaceans: Crustáceos
       fishes: Peixes
       flowering_plants: Plantas com flor
+      fungi: Fungi
       insects: Insetos
       invertebrates: Invertebrados
       mammals: Mamíferos
@@ -226,40 +258,87 @@ pt-BR:
   language: Idioma
   languages:
     none: Não especificado
+    aa: Afar
+    ab: Abcázia
     ae: Avéstico
     af: Africâner
+    ak: Acã
     am: Amárica
+    an: Aragonesa
     ar: Árabe
+    as: Assamesa
     av: Avar
+    ay: Aimará
     az: Azerbaijano
+    ba: Basquir
+    be: Bielorrussa
     bg: Búlgaro
+    bh: Línguas biaris
+    bi: Bislamá
+    bm: Bambara
     bn: Bengalês
+    bo: Tibetano
+    br: Bretã
+    bs: Bósnia
     ca: Catalão; Valenciano
+    ce: Chechena
+    ch: Chamorro
+    co: Corsa
+    cr: Cree
     cs: Checo
     cu: Antigo eslavo eclesiástico
+    cv: Tchuvache
+    cy: Galês
     da: Dinamarquês
     de: Alemão
+    dv: Divehi; Dhivehi; Maldivense
+    dz: Butanês
     dzo: Butanês
+    ee: Ewe
+    el: Grego, Moderno (1453-)
     en: Inglês
     eo: Esperanto
+    es: Espanhol; Castelhano
     et: Estônio
+    eu: Basco
     fa: Persa
+    ff: Fula
     fi: Finlandês
     fj: Fidjiano
+    fo: Feroês
     fr: Francês
+    fy: Frísio Ocidental
+    ga: Irlandês
+    gd: Gaélico; Gaélico Escocês
     gl: Galego
+    gn: Guarani
     gu: Guzerate
+    gv: Manês
+    ha: Hauçá
     he: Hebraico
     hi: Hindi
+    ho: Hiri Motu
     hr: Croato
+    ht: Haitiano; Crioulo Haitiano
     hu: Húngaro
+    hy: Armênio
+    hz: Herero
     ia: Interlingua (Associação Internacional de Idiomas Auxiliares)
     id: Indonésio
+    ie: Interlingue; Occidental
+    ig: Igbo
+    ii: Sichuan Yi; Nuosu
+    ik: Inupiaq
+    io: Ido
+    is: Islandês
     it: Italiano
+    iu: Inuktitut
     ja: Japonês
     jp: Japonês
     jv: Japonês
     ka: Georgiano
+    kg: Congo
+    ki: Quicuio; Gikuyu
     kk: Cazaque
     ko: Coreano
     la: Latin
@@ -726,7 +805,12 @@ pt-BR:
       hist_value_label: valor (%{units})
       num_records_label: '# de registros'
       other: outros
+      page_habitat_header: '%{name}Habitats'
       pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
+      n_obj_records:
+        other: um=um registro com "%{obj_name}"
+      n_taxa_with:
+        other: uma=uma taxonomia com "%{obj_name}"
     search:
       edit_filters: editar filtros
       filter_display:
@@ -735,9 +819,11 @@ pt-BR:
         resource: 'recurso: %{value}'
         statistical_method: 'método estatístico: %{value}'
       gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
-        seus resultados de pesquisa (limite 60)
+        seus resultados de pesquisa (limite 50)
       new_search: nova pesquisa
       show_query: mostrar consulta
+      switch_to_list: Mude para a lista de visualização
+      switch_to_gallery: Mude para a galeria de visualizações
     search_form:
       attribute: atributo
       resource: recurso

@@ -684,7 +684,6 @@ tr:
       predator: Yırtıcı hayvan
       prey: Av
       reset: sıfırla
-      trophic_web_title: Trophic Web
     flash:
       reindexed: Bu sayfa için önbellekler temizlendi. Yeni değerleri görmek için
         yeniden yükleyin. Şu anda bunun sayfadaki resimleri yeniden endekslemediğini
@@ -988,8 +987,6 @@ tr:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: vücut uzunluğu
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Vücut uzunluğu, burun
-          kuyruğu
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: emzik numarası
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: gövde çapı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: yaprak boyutu sınıfı
@@ -1001,7 +998,6 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: bitki yaşam formu
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: bitki büyüme formu
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: üreme
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: cinsiyet kararlılığı
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: azot fiksasyonu
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: gezme
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: aile bakımı
@@ -1068,7 +1064,6 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: ön ayak uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: vücut genişliği
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: uyluk genişliği
-        http://purl(dot)org/obo/owlATOL_0001660: Toplam uzunluk
   term_query:
     validations:
       empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren

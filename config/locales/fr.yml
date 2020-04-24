@@ -687,7 +687,6 @@ fr:
       predator: Prédateur
       prey: Proie
       reset: réinitialiser
-      trophic_web_title: Réseau trophique
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
@@ -999,8 +998,6 @@ fr:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longueur du corps
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: Longueur du corps, du
-          museau à la queue
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nombre de mamelles
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diamètre de la tige
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de taille de
@@ -1014,7 +1011,6 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forme de croissance
           de la plante
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: détermination du sexe
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixation de l’azote
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soin parental
@@ -1081,7 +1077,6 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longueur de la patte avant
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
-        http://purl(dot)org/obo/owlATOL_0001660: largeur totale
   term_query:
     validations:
       empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
@@ -1127,11 +1122,11 @@ fr:
         sa liste de contrôle d’espèces de %{name}.
       pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
       n_obj_records:
-        one: un enregistrement avec « %{obj_name} »
-        other: '%{count} enregistrements avec « %{obj_name} »'
+        one: un enregistrement avec « %{obj_name} »
+        other: '%{count} enregistrements avec « %{obj_name} »'
       n_taxa_with:
-        one: un taxon avec « %{obj_name} »
-        other: '%{count} taxons avec « %{obj_name} »'
+        one: un taxon avec « %{obj_name} »
+        other: '%{count} taxons avec « %{obj_name} »'
       see_n_obj_records:
         one: cliquer pour voir un enregistrement avec « %{obj_name} »
         other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »

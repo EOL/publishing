@@ -662,7 +662,6 @@ zh-TW:
       predator: 捕食者
       prey: 獵物
       reset: 重新設定
-      trophic_web_title: 食物鏈
     flash:
       reindexed: 此頁面上的快取已清除，請重新載入來查看新的值。另請注意目前並*不會*重新索引在頁面上的圖片，不過會在往後實現該功能。
     native_node_missing_warning: 沒有可用的階系資訊
@@ -956,7 +955,6 @@ zh-TW:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 體長
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: 體長，鼻子到尾端
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: 乳頭數量
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 莖直徑
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 葉尺寸類別
@@ -968,7 +966,6 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: 植物生活型
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: 植物生長形式
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: 性別確定
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移行
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 親代撫育
@@ -1033,7 +1030,6 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢長度
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 體寬
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨寬度
-        http://purl(dot)org/obo/owlATOL_0001660: 總長度
   term_query:
     validations:
       empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選

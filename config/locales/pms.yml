@@ -685,7 +685,6 @@ pms:
       predator: Predator
       prey: Pijàita
       reset: inissialisé torna
-      trophic_web_title: Rej tròfica
     flash:
       reindexed: J'argistrassion ëd costa pàgina ant la memòria local a son ëstàite
         dëscancelà. Carié torna la pàgina për vëdde ij neuv valor. NOTÉ che, al moment,
@@ -991,8 +990,6 @@ pms:
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000078: longheur dël còrp, dal
-          muso a la coa
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
@@ -1005,7 +1002,6 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
           pianta
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
-        http://purl(dot)obolibrary(dot)org/obo/GO_0007530: determinassion dël sess
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
@@ -1071,7 +1067,6 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longheur ëd la piòta anans
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: larghëssa dël còrp
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: larghëssa dël fémur
-        http://purl(dot)org/obo/owlATOL_0001660: Longheur total
   term_query:
     validations:
       empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
@@ -1111,9 +1106,16 @@ pms:
         other: '%{count} àutre tassonomìe'
       num_records_label: nùmer d'argistrassion
       other: àutr
+      page_habitat_header: Ambient ëd %{name}
       page_habitat_explanation: J'ambient andoa as sa ch'a vivo tante spece ëd %{name}.
         Selessioné n'ambient për vëdde soa lista ëd contròl dë spece ëd %{name}.
       pie_prompt: ratin dzora un segment o na ciav për evidensié
+      n_obj_records:
+        one: un-a argistrassion con «%{obj_name}»
+        other: '%{count} argistrassion con «%{obj_name}»'
+      n_taxa_with:
+        one: un-a tassonomìa con «%{obj_name}»
+        other: '%{count} tassonomìe con «%{obj_name}»'
       see_n_obj_records:
         one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
         other: sgnaché për vëdde %{count} argistrassion con «%{obj_name}»
@@ -1148,13 +1150,15 @@ pms:
         statistical_method: 'métod ëstatìstich: %{value}'
       gbif_search: Arserca ëd GBIF
       gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
-        ant ij sò arzultà d'arserca (limità a 60)
+        ant ij sò arzultà d'arserca (limità a 50)
       result_header_records: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
         argistrassion për %{page_count} tassonomìe con
       result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
         tassonomìe con
       new_search: neuva arserca
       show_query: smon-e l'arcesta
+      switch_to_list: passé a la visualisassion a lista
+      switch_to_gallery: passé a la visualisassion a galarìa
     search_form:
       attribute: atribù
       clade_filter_placeholder: 'partìa (për esempi: ors) (facoltativ)'

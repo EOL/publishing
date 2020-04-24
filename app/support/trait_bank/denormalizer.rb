@@ -60,7 +60,8 @@ class TraitBank::Denormalizer
   end
 
   def map_page_ids_to_canonical(ids)
-    Hash[*Page.joins([:native_node]).where(id: ids).pluck('pages.id, nodes.canonical_form').flatten]
+    safe_ids = ids.sort.compact
+    Hash[*Page.joins([:native_node]).where(id: safe_ids).pluck('pages.id, nodes.canonical_form').flatten]
   end
 
   def get_pages

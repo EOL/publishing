@@ -1,12 +1,10 @@
 class TraitBank
   class Terms
     class << self
-      delegate :connection, to: TraitBank
-      delegate :limit_and_skip_clause, to: TraitBank
-      delegate :query, to: TraitBank
-      delegate :child_has_parent, to: TraitBank
-      delegate :is_synonym_of, to: TraitBank
-      delegate :array_to_qs, to: TraitBank
+      delegate :query, :connection, :limit_and_skip_clause, :child_has_parent, :is_synonym_of, :array_to_qs,
+               to: TraitBank
+      delegate :log, to: TraitBank::Logger
+
 
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
       TERM_TYPES = {
@@ -94,7 +92,7 @@ class TraitBank
         per ||= Rails.configuration.data_glossary_page_size
         key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
-        Rails.logger.info("KK TraitBank key: #{key}")
+        log("KK TraitBank key: #{key}")
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.

@@ -12,8 +12,11 @@
     .ui.basic.button
       = link_to(t("resources.actions.fix_no_names"), resource_fix_no_names_path(@resource))
     .ui.red.inverted.button
-      = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
-        data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
+      - if ImportLog.exists?(resource_id: @resource.id, completed_at: nil, failed_at: nil)
+        [publishing now]
+      - else
+        = link_to(t("resources.actions.republish"), resource_republish_path(@resource),
+          data: { confirm: "This will delete ALL content for the resource before proceeding. Are you SURE?!" })
   %p
     - if @resource.description.blank?
       There is no description for this resource.
