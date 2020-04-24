@@ -1225,6 +1225,7 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: nitrogen fixation
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexual reproduction
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: parental care
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
@@ -1362,9 +1363,9 @@ en:
         http://www(dot)wikidata(dot)org/entity/Q33596: motility
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: water depth
         http://eol(dot)org/schema/terms/NativeRange: native range includes
-        http://eol(dot)org/schema/terms/fossilOccPBDB: number of fossil occurrences in the Paleobiology Database
+        http://eol(dot)org/schema/terms/fossilOccPBDB: number of fossil occurrences
         http://www(dot)wikidata(dot)org/entity/Q1053008: trophic level
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marine benthic biome
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marine benthic
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestrial
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: forest
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marine
@@ -1374,4 +1375,3 @@ en:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: river
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: grassland
-

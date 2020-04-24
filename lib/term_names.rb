@@ -50,16 +50,9 @@ class TermNames
 
             self.backup_file(file_path, bak_path)
             puts "Writing results for locale #{locale} to #{file_path}"
-            File.open(file_path, "w") do |file|
-              file.write({
-                locale.to_s => { 
-                  "term": { 
-                    "name": { 
-                      "by_uri": writable_entries
-                    }
-                  }
-                }
-              }.to_yaml)
+            self.write_entries(locale, file_path, writable_entries)
+            if locale == I18n.default_locale
+              write_qqq(adapter_class, results)
             end
           else
             puts "No results found for locale #{locale}. Not writing locale file."
@@ -87,6 +80,36 @@ class TermNames
       if File.exist?(file_path)
         puts "Copying existing file #{file_path} to #{bak_path}"
         FileUtils.cp(file_path, bak_path)
+      end
+    end
+
+    def write_qqq(adapter_class, results)
+      path = LOCALE_FILE_DIR.join("#{adapter_class.name.downcase}.qqq.yml")
+      entries = results.collect do |result|
+        if result.options[:definition].present?
+          [TermI18n.uri_to_key(result.uri), result.options[:definition]]
+        else
+          nil
+        end
+      end.compact.to_h
+
+      if entries.any?
+        puts "writing definitions to qqq file"
+        write_entries("qqq", path, entries)
+      end
+    end
+
+    def write_entries(locale, path, entries)
+      File.open(path, "w") do |file|
+        file.write({
+          locale.to_s => { 
+            "term": { 
+              "name": { 
+                "by_uri": entries
+              }
+            }
+          }
+        }.to_yaml)
       end
     end
   end
