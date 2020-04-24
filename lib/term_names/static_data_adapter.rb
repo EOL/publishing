@@ -23,7 +23,7 @@ class TermNames::StaticDataAdapter
       File.open(path) do |file|
         term_json = JSON.parse(file.read)
         @terms += term_json["data"].collect do |record|
-          TermNames::Result.new(record[0], record[1])
+          TermNames::Result.new(record[0], record[1], { definition: record[2].tr("\n", " ") })
         end
       end
     end

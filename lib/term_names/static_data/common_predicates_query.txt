@@ -3,7 +3,7 @@ WHERE NOT t.uri =~ ".*\\/obo\\/.*"
 AND NOT t.uri =~ ".*\\/ENVO.*"
 AND NOT(t)-[:synonym_of]->(:Term)
 WITH t, count(*) AS count
-RETURN t.uri, t.name
+RETURN t.uri, t.name, t.definition
 ORDER BY count desc
 LIMIT 10
 

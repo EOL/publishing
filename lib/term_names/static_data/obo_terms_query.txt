@@ -2,5 +2,5 @@ MATCH (:Trait)-[:predicate|object_term]->(t:Term{ is_hidden_from_overview: false
 WHERE t.uri =~ ".*\\/obo\\/.*" 
 AND NOT t.uri =~ ".*\\/ENVO.*"
 AND NOT(t)-[:synonym_of]->(:Term) 
-RETURN DISTINCT t.uri, t.name
+RETURN DISTINCT t.uri, t.name, t.definition
 LIMIT 1000
