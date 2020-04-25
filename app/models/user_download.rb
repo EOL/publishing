@@ -9,16 +9,21 @@ class UserDownload < ApplicationRecord
 
   after_destroy :delete_file
 
+  accepts_nested_attributes_for :term_query
+
   enum status: { created: 0, completed: 1, failed: 2 }
+  enum duplication: { original: 0, duplicate: 1 }
+
+  EXPIRATION_TIME = 30.days
 
   # NOTE: should be created by populating clade, object_terms, predicates, and
   # count. Also NOTE that using after_commit avoids racing conditions where
   # after_create may be called prematurely.
-  after_commit :background_build, on: :create
+  #after_commit :background_build, on: :create
 
   # TODO: this should be set up in a regular task.
   def self.expire_old
-    where(expired_at: nil).where("created_at < ?", 2.weeks.ago).
+    where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
       update_all(expired_at: Time.now)
   end
 
@@ -33,6 +38,44 @@ class UserDownload < ApplicationRecord
 
   def processing?
     self.processing_since.present?
+  end
+
+  class << self
+    def create_and_run_if_needed!(ud_attributes, new_query)
+      download = UserDownload.new(ud_attributes)
+      new_query.refresh_digest
+      existing_query = TermQuery.find_by_digest(new_query.digest)
+
+      existing_download = existing_query.nil? ? nil : existing_query.user_downloads
+        .where(status: :completed, expired_at: nil, duplication: :original)
+        .where("created_at >= ?", EXPIRATION_TIME.ago)
+        .order("created_at DESC")&.first
+
+      if existing_download
+        download.term_query = existing_query
+        download.filename = existing_download.filename
+        download.status = :completed
+        download.duplication = :duplicate
+        download.completed_at = Time.now
+      else
+        if existing_query.nil?
+          new_query.save!
+          download.term_query = new_query
+        else
+          download.term_query = existing_query
+        end
+
+        download.duplication = :original
+      end
+
+      download.save!
+
+      if !download.completed?
+        download.background_build_with_delay
+      end
+
+      download
+    end
   end
 
 private
@@ -61,7 +104,7 @@ private
   handle_asynchronously :background_build, :queue => "download"
 
   def delete_file
-    if self.completed? && !self.filename.blank?
+    if self.completed? && !self.filename.blank? && self.original?
       path = TraitBank::DataDownload.path.join(self.filename)
       begin
         File.delete(path)

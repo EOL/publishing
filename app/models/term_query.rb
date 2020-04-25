@@ -4,7 +4,7 @@ class TermQuery < ApplicationRecord
     :dependent => :destroy,
     :inverse_of => :term_query
   validates_associated :filters
-  has_one :user_download, :dependent => :destroy
+  has_many :user_downloads, :dependent => :destroy
   belongs_to :clade, :class_name => "Page", optional: true
   validates_presence_of :result_type
   validate :validation
@@ -83,6 +83,11 @@ class TermQuery < ApplicationRecord
     copy = dup
     copy.filters = self.filters.collect { |f| f.dup }
     copy
+  end
+
+  # You MUST call this method if you want a digest saved along with the record. At the time of writing, this was only used by UserDownloads, and adding callbacks/validations messed with trait search.
+  def refresh_digest
+    self.digest = Digest::MD5.hexdigest(self.to_cache_key)
   end
 
   private
