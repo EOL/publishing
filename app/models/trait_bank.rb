@@ -358,15 +358,14 @@ class TraitBank
     end
 
     def term_search_uncached(term_query, key, options)
+      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
+
       q = if (options[:count] && term_query.filters.any?) || term_query.record? # term_record_search counts both records and taxa
-        term_record_search(term_query, options)
+        term_record_search(term_query, limit_and_skip, options)
       else
-        term_page_search(term_query, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
+        term_page_search(term_query, limit_and_skip, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
       end
 
-      limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
-      q = "#{q} "\
-      "#{limit_and_skip}"
       res = query(q)
 
       log("&& TS SAVING Cache: #{key}")
@@ -544,7 +543,7 @@ class TraitBank
       matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: #{filter.resource.id} })" if filter.resource
     end
 
-    def term_record_search(term_query, options)
+    def term_record_search(term_query, limit_and_skip, options)
       matches = []
       wheres = []
       collects = []
@@ -590,6 +589,7 @@ class TraitBank
         "WITH #{rows_vars.join(" + ")} as all_rows\n"\
         "UNWIND all_rows as row\n"\
         "WITH DISTINCT row\n"\
+        "#{limit_and_skip}\n"\
         "WITH row.page as page, row.trait as trait, row.predicate as predicate "
 
       optional_matches = [
@@ -652,7 +652,7 @@ class TraitBank
       match
     end
 
-    def term_page_search(term_query, options)
+    def term_page_search(term_query, limit_and_skip, options)
       matches = []
       wheres = []
       indexes = []
@@ -698,7 +698,8 @@ class TraitBank
       "#{indexes.join(' ')} "\
       "#{where_clause} "\
       "#{with_count_clause} "\
-      "#{return_clause} "# \
+      "#{return_clause} "\
+      "#{limit_and_skip} "
       # TEMP: trying this out without the order clause, since it's SOOOO much faster...
       # "#{order_clause}"
     end
