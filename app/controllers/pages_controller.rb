@@ -552,9 +552,9 @@ private
     end.flatten
 
     recs.select do |rec|
-      rec[:object_term] && rec[:object_term][:name]
+      rec[:object_term]
     end.each do |rec|
-      name = ActionController::Base.helpers.sanitize(rec[:object_term][:name])
+      name = TraitBank::Record.i18n_name(rec[:object_term])
       cur_count = word_counts[name] || 0
       word_counts[name] = cur_count + 1
     end
