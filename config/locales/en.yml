@@ -628,6 +628,7 @@ en:
     filter_menu:
       show_all: "show all"
     page_data:
+      habitat_wordcloud_tooltip: "Our habitat records are largely textmined, so many terms are found multiple times; more commonly found habitat terms — displayed larger in the word cloud — are more likely to be important. All records are listed below."
       n_hidden_show_all:
         one: "1 “%{pred_name}” record hidden — show all"
         other: "%{count} “%{pred_name}” records hidden — show all"
