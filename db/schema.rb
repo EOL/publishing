@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_143914) do
+ActiveRecord::Schema.define(version: 2020_04_25_171844) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -864,6 +864,8 @@ ActiveRecord::Schema.define(version: 2020_04_14_143914) do
     t.datetime "updated_at", null: false
     t.integer "clade_id"
     t.integer "result_type"
+    t.string "digest"
+    t.index ["digest"], name: "index_term_queries_on_digest"
   end
 
   create_table "term_query_filters", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
@@ -938,6 +940,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_143914) do
     t.text "search_url"
     t.integer "status", default: 0
     t.datetime "processing_since"
+    t.integer "duplication"
     t.index ["term_query_id"], name: "index_user_downloads_on_term_query_id"
   end
 

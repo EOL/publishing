@@ -21,13 +21,11 @@ class TraitBank
 #        else
 #          downloader.build
 #        end
-         term_query.save!
-         UserDownload.create(
+         UserDownload.create_and_run_if_needed!({
            :user_id => user_id,
-           :term_query => term_query,
            :count => downloader.count,
            :search_url => url
-         )
+         }, term_query)
       end
 
       def path
