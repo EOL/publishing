@@ -15,7 +15,7 @@
 
   .l-below-filters
     - if @show_wordcloud
-      = render "shared/wordcloud", words: @wordcloud_words, class_name: "trait-wordcloud"
+      = render "shared/wordcloud", words: @wordcloud_words, class_name: "trait-wordcloud", tooltip: t(".habitat_wordcloud_tooltip")
     - if @show_trophic_web
       = render "trophic_web", data: @trophic_web_data, translations: @trophic_web_translations
     %ul.traits

@@ -1,3 +1,3 @@
 -# remember to use a class_name with styles that set a height -- the height must be set when the JS creates the wordcloud, or it will be empty.
-.js-wordcloud{ class: class_name, data: { words: words } }
+.js-wordcloud{ class: class_name, data: { words: words }, uk: { tooltip: local_assigns.include?(:tooltip) ? tooltip: nil }}
 .uk-text-meta.uk-text-right.uk-margin-small-right= t("wordcloud_credit_html", url: "https://mistic100.github.io/jQCloud/")
