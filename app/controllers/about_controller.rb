@@ -32,7 +32,7 @@ class AboutController < ApplicationController
       )
 
       {
-        text: datum["name"],
+        text: TraitBank::Record.i18n_name(datum.symbolize_keys),
         weight: Math.log(datum["count"], 2),
         link: Rails.application.routes.url_helpers.term_search_results_path(term_query: term_query.to_params)
       }
