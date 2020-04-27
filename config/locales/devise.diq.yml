@@ -1,18 +1,30 @@
 # Messages for Zazaki (Zazaki)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 1917 Ekim Devrimi
 # Author: Orbot707
 ---
 diq:
   devise:
     confirmations:
       confirmed: Adresê eposta heel biyo araşt
+      send_instructions: Çend deqan miyan de adresê epostaya ho serva talimatê seni
+        araşt kerdış rê eleqeyın yew posta do şıma rê bêro
+      send_paranoid_instructions: Eger ke epostay şıma database de ma de esta se,
+        talimatê serva epostay araşt kerdışiya eleqeyın yew eposta do şıma rê bêro.
     failure:
       already_authenticated: Hora şıma kewtê tede
       inactive: Hesabê şıma hewna aktiv nêbiyo
       invalid: Xırab  %{authentication_keys} ya zi parola.
       locked: Hesabê şıma kılit biyo, yew seate dıma reyna bıcerrebnê
+      last_attempt: Verê hesabi kılit kerdışi lazımo ke reyna bıcerrebnayış bıkerê
       not_found_in_database: Xırab  %{authentication_keys} ya zi parola .
+      recaptcha_error: Cêr de kodê recaptcha dê yew xeta veciyê. Kodi reyna defeynê
+        u butona reyna bırışi bıploğnê
+      timeout: Wahde ronıştışa şıma biyo pır. Serva dewam kerdışi rê reyna ronıştış
+        akerê
+      unauthenticated: Verê dewam kerdışi ronıştış akerê ya na qeyd bıbê
+      unconfirmed: Verê dewam kerdışi epostay ho tesdiq kerê
     mailer:
       confirmation_instructions:
         action: Hesabi araşt kerê
@@ -25,13 +37,24 @@ diq:
         instruction: Yewi seba parolay vurnayışi yew gıre waşt u şıma şenê Ney gırey
           cêrêni ra bıkerê
         instruction_2: Eger ke no şıma nêwaşto se ena epostay peygoş bıkerê
+        instruction_3: Parolay şıma hetana gırey cori restışi u hetana reyna neweyên
+          vıraştışi nêvurino
         subject: Talimatê parola reset kerdışi
       unlock_instructions:
         subject: Talimatê kıliti
       password_change:
         greeting: 'Merheba #{recipient}!'
+        message: Serva parolay vurnayışi mayê şımaya qewtê irtibat
         subject: Parola vuriye
+    passwords:
+      send_instructions: Çend deqan miyan de adresê epostaya ho serva talimatê seni
+        araşt kerdış rê eleqeyın yew posta do şıma rê bêro
+      send_paranoid_instructions: Eger ke epostay şıma database de ma de esta se,
+        talimatê serva epostay reset kerdışiya eleqeyın yew eposta do şıma rê bêro.
+      updated: Parolay şıma hewl vuriyaya. Enewke şenê cıkuye
+      updated_not_active: Parolay şıma hewl usula vuriyaya
     registrations:
+      destroyed: Xatırê şıma! Hesabê şıma texelneyayo, hetana reyna  pê vinayışi
       updated: Hesab weş niyo rocane
     sessions:
       signed_in: Weş kewtê miyan

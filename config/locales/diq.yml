@@ -1,0 +1,612 @@
+# Messages for Zazaki (Zazaki)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: 1917 Ekim Devrimi
+# Author: Mirzali
+# Author: Orbot707
+---
+diq:
+  language_name: Zazaki
+  about:
+    trait_bank:
+      title: TraitBank
+  advanced: raverşiyaye
+  are_you_sure_delete_account: Şıma qayılê ke hesabê xoyê EOLyi pak kerê?
+  article:
+    actions:
+      collect: arê ke
+    header:
+      blank: (Bezna enê meqaleyi çıniya.)
+      body: Bezne
+      language: 'zıwan: %{language}'
+      title: Sername
+      untitled: Bêsername
+    name:
+      missing: Bêsername
+  article_from_partner: '%{partner} ra biyo'
+  breadcrumbs:
+    types:
+      scientific: ilmên
+      vernacular: zıwanê argoyi
+  button_create: vıraze
+  button_add: Dekerê
+  cancel: bıtexelne
+  change_my_password: Parolaya mı bıvurne
+  change_your_password: Parolaya xo bıvurne
+  classifications:
+    children:
+      header_html:
+        one: '%{name} includes <a href="%{names_path}">%{count} doman</a>:'
+        other: '%{name} includes <a href="%{names_path}">%{count} doman </a>:'
+      see_more: tayêna bıvêne
+    hierarchies:
+      header: Seba %{sci_name} hiyerarşiyê kuratori
+      this_page: (na pele)
+    richness:
+      header: Zengineya Pela
+      score: puanê zenginey
+      page_contents_count: eleqeyın zerrek
+      missing: Serva napela zenginey hesab nêbiya
+      media_count: medya
+      articles_count: meqaleyi
+      links_count: gıreyi
+      maps_count: xeriteyi
+      data_count: melumat
+      nodes_count: gırey
+      vernaculars_count: zıwanê mıntıqayi
+      scientific_names_count: namey zanışiye
+      referents_count: tercihi
+      species_count: babeti
+      updated_at: rocaneyo peyên
+  cms_page_date: 'Demê vurnayişê peyêni:'
+  collect_already_in_collection: (xora tiya de)
+  collect_already_in_collection_will_add_icon: (tedey "%{page}" re medya cı kerê )
+  collect_icon_title: Pela "%{page}" ra obcey "%{item}" defiyê miyan…
+  collect_new_collection: Namey Koleksiyonê Neweyêni
+  collect_new_collection_title: …Yew Koleksiyono Neweyên
+  collected_pages_title: Peli
+  collected_pages:
+    delete_button: bestere
+    edit_button: bıvurne
+  collection:
+    actions:
+      delete: bestere
+      edit: bıvurne
+      sort: kılm
+    collection_type:
+      normal: normal
+      gallery: galeriye
+    search:
+      submit: cı geyre
+    sort:
+      hierarchy: hiyerarşi
+      position: terix debiyayo
+      sci_name: namey zanışiye A-Z
+      sci_name_rev: namey zanışiye Z-A
+      sort_field: Mabên akerde A-Z
+      sort_field_rev: Mabên akerde Z-A
+    updated: Koleksiyon rocaneya
+  content_attributions_header: Melumatê çımey
+  content_attributions_labels:
+    altitude: berziye
+    author: nuştekar
+    bibliographic_citation: notgırewtışo bibliyografik
+    compiler: têarêker
+    creator: vıraştoğ
+    editor: vurnayoğ
+    latitude: verıniye
+    license: lisans
+    location: herune
+    location_verbatim: Çeku be çeku
+    longitude: derganiye
+    original_media_file: orijinal dosyay medya
+    owner: heqa telifi
+    photographer: fotrafkar
+    publisher: weşanayoğ
+    project: proce
+    provider: ardoğ
+    references_header:
+      one: Referans
+      other: Referansi
+    resource_label: Siteya partner
+    resource_pk: '(id: %{key})'
+    rights_statement: Beyanê heqan
+    source: çıme
+    spatial_location: Asmênwari
+    view_source_label: oricinal
+    view_source_link: resımo oricinal bıvêne
+    view_source_page_link: Çımey ziyaret kerê
+  filter_by_license: lisans
+  filter_by_medium_subtype: babet
+  filter_by_resource: ardoğ
+  footer:
+    eol_info:
+      education: Terbiyet
+      glossary: Qısebendek
+      help: Peşti
+    discover:
+      algae: Alg
+      amphibians: Amfibiy
+      animals: Heywani
+      archaea: Archaea
+      bacteria: Bakteri
+      birds: Theyri
+      crustaceans: Qabığıni
+      fishes: Maseyi
+      flowering_plants: Vaşo Vılıkın
+      fungi: Govlegi
+      insects: Lolıki
+      invertebrates: Bêestey
+      mammals: Çıceyıni
+      molds: Qalıbıni
+      mushrooms: Govlegi
+      mollusks: Nermekıni
+      plants: Nebati
+      protists: Protisti
+      reptiles: Reptilyani
+      spiders: Bındırıki
+      trees: Dari
+      viruses: Virusi
+      worms: Lolıki
+    eol_is_hosted_by: 'EOL wayırê keyey :'
+  forgot_your_password: Parola kerda ho vira?
+  language: Zıwan
+  languages:
+    aa: Afarki
+    ab: Abhazki
+    ae: Avestki
+    af: Afrikaanki
+    ak: Akanki
+    am: Amharki
+    an: Aragonki
+    ar: Erebki
+    as: Assameski
+    av: Avarki
+    ay: Aymaraki
+    az: Azerki
+    ba: Başkurtki
+    be: Belaruski
+    bg: Bulğarki
+    bh: Zıwanê Bihari
+    bi: Bislamaki
+    bm: Bambaraki
+    bn: Bengalki
+    bo: Tibetki
+    br: Bretonki
+    bs: Bosnaki
+    ca: Katalanki; Valensiyaki
+    ce: Çeçenki
+    ch: Çamorroki
+    co: Korsikaki
+    cr: Kreeki
+    cs: Çekki
+    cu: Slawkiya kıliseyi
+    cv: Çuwaşki
+    cy: Galki
+    da: Danki
+    de: Almanki
+    dv: Maldivki
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Eweki
+    el: Yunani, Modern (1453-)
+    en: İngılızki
+    eo: Esperanto
+    es: İspanyolki; Kastilyaki
+    et: Estonki
+    eu: Baski
+    fa: Farıski
+    ff: Fulahki
+    fi: Finki
+    fj: Ficiki
+    fo: Faroeki
+    fr: Fransızki
+    fy: Frizkiya Rocawani
+    ga: İrlandki
+    gd: Galki; Galkiya İskoçya
+    gl: Galiçyaki
+    gn: Guaranki
+    gu: Gujaratki
+    gv: Manki
+    ha: Hausaki
+    he: İbraniki
+    hi: Hindki
+    ho: Hiri Motu
+    hr: Xırwatki
+    ht: Haitiki; Kreolekiya Haiti
+    hu: Macarki
+    hy: Ermenki
+    hz: Herero
+    ia: Interlingua (İnternasyonel Gomey Zıwanê Pheştigeri)
+    id: İndonezki
+    ie: Interlingue; Rocawani
+    ig: İgboki
+    ii: Sichuan Yi; Nuosu
+    ik: İnupiaqki
+    io: İdoki
+    is: İslandki
+    it: İtalyanki
+    iu: Inuktitut
+    ja: Japonki
+    jp: Japonki
+    jv: Javaki
+    ka: Gurciki
+    kg: Kongoki
+    ki: Kikuyu; Gikuyu
+    kj: Kuanyama; Kwanyama
+    kk: Qazax
+    kl: Kalaallisut; Greenlandki
+    km: Kmerki
+    kn: Kannada
+    ko: Koreki
+    kr: Kanuriki
+    ks: Keşmirki
+    ku: Kurdki
+    kv: Komiki
+    kw: Kornişki
+    ky: Qırxızki
+    la: Latinki
+    lb: Luksemburgki
+    lg: Ganda
+    li: Limburgki
+    ln: Lingala
+    lo: Laoki
+    lt: Litwanki
+    lu: Luba-Katanga
+    lv: Letonki
+    mg: Malgaşki
+    mh: Marşalki
+    mi: Maoriki
+    mk: Makedonki
+    ml: Malayalamki
+    mn: Moğolki
+    mr: Marathiki
+    ms: Malayki
+    mt: Maltaki
+    my: Burmaki
+    na: Nauruki
+    nb: 'Norvecki: Bokmål'
+    nd: Ndebele, Ndebele Zımey
+    ne: Nepalki
+    ng: Ndonga
+    nl: Hollandki, Flamanki
+    nn: Norwecki, Nynorsk
+    "no": Norwecki
+    nr: Ndebele, Ndebele Veroci
+    nv: Navajo
+    ny: Çiçewaki, Nyanja
+    oc: Oksitanki (1500 nata)
+    oj: Ojibwa
+    om: Oromo
+    or: Oriyaki
+    os: Osetki
+    pa: Pencabki
+    pi: Paliki
+    pl: Polonki
+    ps: Peştunki
+    pt: Portekizki
+    Q11005332: Kinga
+    Q11128374: Nyiha
+    Q1160372: Lazki
+    Q11732519: Kingindo
+    Q13313: Meruki
+    Q13324: Minangkabauki
+    Q13330: Mirandaki
+    Q13358: Rumenki
+    Q146803: Lingua Franca Nova
+    Q16115145: Nyika
+    Q180937: Arnawudkiya Toski
+    Q18415595: Dotyalki
+    Q19933293: Lurkiya Zımey
+    Q23014: Almankiya Palatini
+    Q2429648: Pogoro
+    Q2501174: Gorontalo
+    Q2591230: Kashinawaki
+    Q2638144: Sukuma
+    Q27776: Adıgeki
+    Q28602: Aramkiya kehan
+    Q29507: Asturyaski
+    Q3129390: Heheki
+    Q3272620: Nyakusa
+    Q3272630: Gogoki
+    Q32858: Votiki
+    Q32979: Çoktawki
+    Q33202: Brahuki
+    Q33281: Çavakanoki
+    Q33303: Haida
+    Q33357: Tatarkiya Kırımı
+    Q33475: Çinkiya Gani
+    Q33509: İnguşki
+    Q33541: Kara-Kalpak
+    Q33595: Iraqwiki
+    Q3362072: Digoki
+    Q33634: Kalmuki
+    Q33698: Livonki
+    Q33965: Santaliki
+    Q34016: Sandaveki
+    Q34138: Tumbuka
+    Q34159: Tok Pisin
+    Q34318: Talışki
+    Q3437661: Luguru
+    Q35037: Tongoki
+    Q3508074: Naiki
+    Q35156: Carki
+    Q35475: Kabiyè
+    Q35756: Hayaki
+    Q35787: Masaiki
+    Q35936: İlokano
+    Q35939: Kreolekiya Jamaika
+    Q35978: Hiligaynon
+    Q36109: Maithili
+    Q36403: Pareki
+    Q36584: Livviki
+    Q36730: Usmanıcki
+    Q36738: Novial
+    Q36748: Pontuski
+    Q3788739: Şambalaki
+    Q4121131: Nyamwezi
+    Q4126517: Inuktitutiya Kanada
+    Q4941378: Bondei
+    Q497345: Frankiya werti
+    Q5575236: Goan Konkani
+    Q56240: Erebkiya Tunısi
+    Q56426: Erebkiya Maroki
+    Q56466: Dinka
+    Q56482: Shanki
+    Q56590: Atikamekw
+    Q584983: Rangiki
+    Q667747: Fipaki
+    Q6786446: Matengo
+    Q6944725: Mweraki
+    Q7022366: Ngindo
+    Q7193418: Nyaturu
+    Q750553: Portekizkiya Brezilya
+    Q845441: Sardinkiya Sasarri
+    Q880301: Cajun French
+    Q8836490: Bendeki
+    Q9292: Azerki
+    qu: Quçewaki
+    rm: Romanşki
+    rn: Rundiki
+    ro: Moldowki
+    ru: Ruski
+    rw: Kinyarwanda
+    sa: Sanskritki
+    sc: Sardinki
+    sd: Sindhi
+    se: Samikiya Zımey
+    sg: Sangoki
+    si: Seylanki
+    sk: Slowakki
+    sl: Slowenki
+    sm: Samoaki
+    sn: Shonaki
+    so: Somalki
+    sq: Arnawudki
+    sr: Sırbki
+    ss: Swatiki
+    st: Sothoki
+    su: Sundaki
+    sv: İswecki
+    sw: Svahiliki
+    ta: Tamilki
+    te: Teluguki
+    tg: Tacıgki
+    th: Tayki
+    ti: Tigrinki
+    tk: Turkmenki
+    tl: Tagalogki
+    tn: Tswana
+    to: Tonga (Adey Tonga)
+    tr: Tırki
+    ts: Tsonga
+    tt: Tatarki
+    tw: Twiki
+    ty: Tahitiki
+    ug: Uyğurki
+    uk: Ukraynki
+    ur: Urduki
+    uz: Uzbegki
+    ve: Verdaki
+    vi: Vietnamki
+    vo: Volapük
+    wa: Walonki
+    wo: Wolofki
+    xh: Xhosaki
+    yi: Yidışki
+    yo: Yoruba
+    za: Zhuangki
+    zh: Çinki
+    zu: Zuluki
+  layout_sign_in: Cı kewe
+  layout_sign_up: Qeyd be
+  layout_sign_out: Bıveciye
+  medium:
+    untitled:
+      video_of: Videoyê %{page_name}
+    subclasses:
+      image: resım
+      video: video
+      sound: venge
+      map_image: xerita
+      js_map: interaktiv xerita
+  medium_collect_button: Medya arêdayış
+  medium_header_title: 'Serek:'
+  medium_header_description: 'İzahat:'
+  names:
+    prefer: tercih
+  nav:
+    about: Heqa
+    discuss: Werêne
+    education: Musayış
+    trait_bank: TraitBank
+  name_preferred_label: tercih biyo
+  pages:
+    actions:
+      collect: arê ke
+      reindex: Reyna rêze
+    resource_names:
+      rank:
+        r_domain: Domain
+        r_subdomain: Subdomain
+        r_infradomain: Infradomain
+        r_superkingdom: Superqıraliye
+        r_kingdom: Qıraliye
+        r_subkingdom: Bınalem
+        r_infrakingdom: Infraqıraliye
+        r_superphylum: Superphylum
+        r_phylum: Şube
+        r_subphylum: Bınşube
+        r_infraphylum: Infraphylum
+        r_superclass: Supersınıfe
+        r_class: Sınıfe
+        r_subclass: Bınşube
+        r_infraclass: Infrasınıfe
+        r_superorder: Superorder
+        r_order: Taxım
+        r_suborder: Bıntaxım
+        r_infraorder: Infraorder
+        r_superfamily: Superfamilya
+        r_family: Familya
+        r_subfamily: Subfamilya
+        r_infrafamily: Infrafamilya
+        r_tribe: Qebila
+        r_supergenus: Supercıns
+        r_genus: Cıns
+        r_subgenus: Bıncıns
+        r_infragenus: Infracıns
+        r_superspecies: Supertewr
+        r_species: Babeti
+        r_subspecies: Bıntewr
+        r_infraspecies: Infratewr
+        r_form: Form
+    trophic_web:
+      predator: Dırıtoğ
+      prey: Seyd
+      reset: reset
+    tabs:
+      articles: meqaleyi
+      classifications: tesnifkerdış
+      data: melumat
+      literature_and_references: edebiyat & referansi
+      overview: serqayt
+      maps: xeriteyi
+      media: medya
+      names: nameyi
+    iucn_status:
+      label: 'Weziyetê IUCN:'
+      ex: biyo vıni(EX)
+      ew: nesl biyo vıni (EW)
+      cr: kritik tahlike dero (CR)
+      en: neslo keno vıni bo (EN)
+      vu: bêmıdafa(VU)
+      nt: Tay tehdıtıno (NT)
+      lc: rat qaxu (LC)
+      dd: kemiya datay (DD)
+      ne: nêercneyayo (NE)
+      unknown: nêzanıyen (qeyd çıniyo)
+    unresolved_name: Name nêagozneyayo
+    unresolved_name_prefix: 'Nameyo nêagozneyae:'
+  page_titles:
+    pages:
+      data: '%{page_name} data'
+      media: '%{page_name} medya'
+      maps: '%{page_name} xerita'
+      names: '%{page_name} namey'
+      articles: '%{page_name} meqaleyi'
+    traits:
+      search: Xısusiyet cıgeyrayış
+  recaptcha: Recaptcha
+  resources:
+    headers:
+      index: Çımeyi
+  search_results:
+    medium_article: Meqale
+    medium_image: Resım
+    medium_map: Xerita
+    medium_sound: Venge
+    medium_video: Video
+    medium_title_article_html: 'Meqale : <span class=''sub''>%{title}</span>'
+    medium_title_image_html: 'Resım : <span class=''sub''>%{title}</span>'
+    medium_title_map_html: 'Xerita : <span class=''sub''>%{title}</span>'
+    medium_title_sound_html: 'Venge : <span class=''sub''>%{title}</span>'
+    medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
+    empty: Neticeyi çıniyê.
+  sections:
+    management: İdare
+    names_and_taxonomy: Namey u Taksonomiye
+    taxonomy: Taksonomi
+    wikipedia: Wikipediya
+  sign_in: Cı kewe
+  simple_form:
+    labels:
+      defaults:
+        username: Nameyê karberi
+  stats:
+    collections: koleksiyoni
+    users: karberi
+    references: tercihi
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: û
+      last_word_connector: ', û'
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksicen
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsiyum (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sulfat dihidrat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sulfat hemihidrate
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: kalsiyum karbonatı
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: florit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: Kalsiyum fosfat
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: suriyeya şıfaqi
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: Hera asidik
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: vaşın
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Vaşo aquatik
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: silindir
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: gureyneno
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: siya
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: mawi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: kıho
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: sıpe
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: gırse
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: tadeyaye
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hêdêna
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: pêt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: Şekılê zerri
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: Kahwe
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: turuncuu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: pel nêrıznen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: gıştın
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezoid
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: nımız biyayen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: lathlike
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rhizome
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rêçey
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Awa şirın
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çere
+  trust:
+    trusted: itımadıno
+  user:
+    headers:
+      links: Gıreyi
+    username: nameyê karberi
+    update: Rocane ke
+...

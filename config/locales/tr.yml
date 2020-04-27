@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
+# Author: Sucsuzz
 # Author: SwornToTranslate29
 ---
 tr:
@@ -42,7 +43,7 @@ tr:
     name:
       missing: Başlıksız
   article_from_partner: '%{partner} tarafından sağlandı'
-  article_duplicate: Bu makale ayrıca "%{section}"'da gösterilmiştir
+  article_duplicate: bu madde ayrıca "%{section}" içinde gösterilmiştir
   autocomplete:
     see_all:
       one: diğer sonuçları gör
@@ -239,6 +240,7 @@ tr:
       data_services: Veri Servisleri
       donate: Bağış yap
       education: Eğitim
+      food_webs: Yiyecek Ağları
       glossary: Sözlük
       help: Yardım
       terms_of_use: Kullanım Şartları
@@ -631,6 +633,10 @@ tr:
     filter_menu:
       show_all: hepsini göster
     page_data:
+      habitat_wordcloud_tooltip: Habitat kayıtlarımız büyük ölçüde metinle işaretlenmiştir,
+        bu nedenle birçok terim birden çok kez bulunur; daha yaygın olarak bulunan
+        habitat terimlerinin; bulutta daha büyük görüntülenen; önemli olma olasılığı
+        daha yüksektir. Tüm kayıtlar aşağıda listelenmiştir.
       n_hidden_show_all:
         one: 1 “%{pred_name}” kayıt gizlendi — tümünü göster
         other: '%{count} “%{pred_name}” kayıt gizlendi — tümünü göster'
@@ -684,6 +690,12 @@ tr:
       predator: Yırtıcı hayvan
       prey: Av
       reset: sıfırla
+      trophic_web_about: EOL gıda ağ diyagramları bir türün beslenme ilişkilerine
+        odaklanır; odak türlerini beslediği türler (av), beslenen türler (avcılar)
+        ve aynı avla beslenen diğer türler (potansiyel rakipler) ile birlikte gösterirler.
+        Daha fazla bilgi için tıklayın.
+      trophic_web_title_html: Besin Ağı <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: Bu sayfa için önbellekler temizlendi. Yeni değerleri görmek için
         yeniden yükleyin. Şu anda bunun sayfadaki resimleri yeniden endekslemediğini
@@ -724,7 +736,7 @@ tr:
   recaptcha: Recaptcha
   recaptcha_error: Lütfen bize robot olmadığınızı söyleyin.
   reference_compiled_from: '%{links} tarafından yönlendirildi'
-  reference_compiled_from_article: '"%{name}" başlıklı %{source} makale'
+  reference_compiled_from_article: '"%{name}" başlıklı %{source} madde'
   register_new_account: Yeni hesap için kaydolun
   resources:
     actions:
@@ -791,8 +803,8 @@ tr:
       more_than_one_species: '%{species} için sonuçlar birleştirilemiyor'
       more_than_two_terms: 'Sonuçlar ikiden fazla terim için birleştirilemiyor: %{terms}'
     n_articles:
-      one: '%{count} makale'
-      other: '%{count} makale'
+      one: '%{count} madde'
+      other: '%{count} madde'
     n_collections:
       one: '%{count} koleksiyon'
       other: '%{count} koleksiyon'
@@ -832,7 +844,7 @@ tr:
     medium_map: Harita
     medium_sound: Ses
     medium_video: Video
-    medium_title_article_html: 'Makale: <span class=''sub''>%{title}</span>'
+    medium_title_article_html: 'Madde: <span class=''sub''>%{title}</span>'
     medium_title_image_html: 'Resim: <span class=''sub''>%{title}</span>'
     medium_title_map_html: 'Harita: <span class=''sub''>%{title}</span>'
     medium_title_sound_html: 'Ses: <span class=''sub''>%{title}</span>'
@@ -874,8 +886,8 @@ tr:
     collection_title_html: 'Koleksiyon: <span class=''sub''>%{name}</span>'
     resource_counts:
       n_articles:
-        one: 1 MAKALE
-        other: '%{count} MAKALE'
+        one: 1 MADDE
+        other: '%{count} MADDE'
       n_data:
         one: 1 SIFIR NOKTASI
         other: '%{count} VERİ'
@@ -986,21 +998,86 @@ tr:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: düşünceli
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: baryum sülfat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oksijen
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: heksadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsiyum (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnezyum (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: pürinler
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ürik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: eikosanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: oktadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: tetrakozanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: tetradekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: dokosanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: dodekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: dekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: heksakosanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: heptadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: undekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: kalsiyum sülfat dihidrat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: kalsiyum sülfat hemihidrat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: kalsiyum karbonat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: nonadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: pentadekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: izotetradekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: tridekanoik asit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: florit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: kalsit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hidroksilapatitin
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: biyojenik silika
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: kalsiyum fosfat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: izoheksadekanoik asit
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: vücut uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: emzik numarası
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: alaca karanlık
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoototrof
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fotoheterotrof
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: asidik toprak
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: gövde çapı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: yaprak boyutu sınıfı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: köksap bitki
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Yaprak Karmaşıklığı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: yaprak dökülebilirliği
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: tohum kütlesi
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: yaprak morfolojisi
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: otsu
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: penis çapı
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: bitki yaşam formu
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geofit
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: su bitkisi
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: bitki büyüme formu
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: ağaç
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: çalı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: tırmanıcı
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminoid
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: forb
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: suda yaşayan bitki
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: tek yıllık
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: iki yıllık
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: çok yıllık
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadrom
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: katadrom
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidromous
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: üreme
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: azot fiksasyonu
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: eşeysiz üreme
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: gezme
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: aile bakımı
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: silindir
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: depolama organı
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: koşma
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: ağaçsıl hareket
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: hava
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: uçuş
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: kayma
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: hoplama
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formlar
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: bolluk
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: hücre çapı
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: hücre hacmi
@@ -1015,13 +1092,66 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: epicone uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: hipoksi uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: vücut ölçüsü
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: makroalgin
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: ömür
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: şekil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: siyah
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: mavi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: yeşil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: kırmızı
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: beyaz
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: sarı
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: orta (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: büyük
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: küçük
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: ters çevrilmiş
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: yavaş
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: hızlı
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: kalınlık
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: kalp şeklinde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: mor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: kahverengi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: turuncu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: uzatılmış
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineer
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: uzun yaşam süresi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: kısa yaşam süresi
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: alan
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: ses
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: shedability
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: yaprak döken
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: yaprak dökmeyen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: geçici yaprak döken
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: kıvrılma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: sarı yeşil
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: parmaksı
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: yamuk
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: karıştırılmış
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: artan kalite
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: düşük kalite
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: eğilmiş
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: kalın
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procumbent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: yüksek tolerans
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: düşük tolerans
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: maruz kalmış
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: süsleme
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: cinsel olarak dimorfik
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: yapraksı
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: lathlike
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: büyük büyüme alışkanlığı
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: perde ayaklı
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: tepe vurma
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: havlama
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rizom
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: ikincil ksilem
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: meyve
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: kökler
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: tohum
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: basit
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: bileşik
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: diken yaprak
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: yaşam alanı
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: avlar
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: uyumu
@@ -1038,6 +1168,7 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: tarafından yenilir
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patojeni
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: patojene sahip
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: üretir
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: kleptoparazit
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: bitki boyu
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: kuraklık toleransı
@@ -1051,8 +1182,10 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: solunum oranı
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: yaşam döngüsü alışkanlığı
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tuz toleransı
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: iç iskelet
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: mineral eklenmiş doku
           içerir
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: oran
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: vücut kütle
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: davranışsal sirkadiyen
           ritim
@@ -1064,6 +1197,26 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: ön ayak uzunluğu
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: vücut genişliği
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: uyluk genişliği
+        http://eol(dot)org/schema/terms/Present: coğrafi dağıtım içerir
+        http://eol(dot)org/schema/terms/FossilFirst: ilk görünüş
+        https://www(dot)wikidata(dot)org/entity/Q295469: ekolojik bölge
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: ekomorfolojik birlik
+        http://eol(dot)org/schema/terms/TrophicGuild: trofik lonca
+        http://www(dot)wikidata(dot)org/entity/Q33596: motilite
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: su derinliği
+        http://eol(dot)org/schema/terms/NativeRange: yerel aralık şunları içerir
+        http://eol(dot)org/schema/terms/fossilOccPBDB: fosil oluşumlarının sayısı
+        http://www(dot)wikidata(dot)org/entity/Q1053008: trofik düzey
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: deniz bentiği
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: karasal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: orman
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: denizel
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: tatlı su
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: scrubland
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropikal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: nehir
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çayır
   term_query:
     validations:
       empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
