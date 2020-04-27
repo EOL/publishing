@@ -237,6 +237,7 @@ mk:
       data_services: Податочни услуги
       donate: Дарувајте
       education: Образование
+      food_webs: Мрежи на исхрана
       glossary: Поимник
       help: Помош
       terms_of_use: Услови на употреба
@@ -682,6 +683,13 @@ mk:
       predator: Грабливец
       prey: Плен
       reset: одново
+      trophic_web_about: Дијаграмите за мрежи на исхрана на EOL се задржуваат на прехранбените
+        односи на еден вид; го прикажуваат дадениот вид заедно со видовите со кои
+        се храни (пленот), видовите кои се хранат со него (грабливците) и другите
+        видови кои се хранат со истиот плен (можни соперници). Стиснете за да дознаете
+        повеќе.
+      trophic_web_title_html: Трофна мрежа <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: 'Исчистени се меѓускладовите за страницава. Превчитајте ја за да
         ги видите новите вредности. НАПОМЕНА: во мигов ова *не* ги преиндексира сликите
@@ -987,22 +995,86 @@ mk:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: квачење
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: бариум сулфат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: кислород
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: палмитинска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: калциум (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: магнезиум (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: пурини
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: мочна киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: арахидинска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: стеаринска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: лигноцеринска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: миристинска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: бехенска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: лауринска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: деканска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: керотинска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: маргаринска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ундецилна киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: калциум сулфат дихидрат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: калциум сулфат хемихидрат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: калциум карбонат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: нондеканска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: пентадеканска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: изотетрадеканска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: тридеканска киселина
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: флуорит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: калцит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: арагонит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: ватерит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: апатит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: хидроксилапатит
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: биогенски силициум
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: калциум фосфат
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: изохексадеканска киселина
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: телесна должина
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: број на дојки
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: самрачно
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: фотоавтотроф
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: фотохетеротроф
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: кисела почва
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: пречник на стебло
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: величинска класа на
           листот
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: ризомно растение
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Сложеност на листот
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: опадност на листот
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: семена маса
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: лисна морфологија
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: зелјесто
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: пречник на талусот
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: животен облик на растението
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: земјољуб
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: сонцељуб
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: водољуб
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: растов облик на растението
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: дрво
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: грмушка
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: ползач
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: тревнато
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: нетревнато
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: водно растение
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: едногодишно
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: двогодишно
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: повеќегодишно
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: рекопреселно
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: морепреселно
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: реко-морепреселно
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: размножување
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотоврзување
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: движење
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: родителска нега
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: валец
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: складишен орган
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: протегнато
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: надрвно движење
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: воздушно
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: лет
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: едрење
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: салтација
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: облици
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: изобилност
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: клеточен пречник
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: клеточна зафатнина
@@ -1017,13 +1089,67 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: должина на епиконот
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: должина на хипоконот
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: телесна големина
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: макроалга
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: животен век
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: облик
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: црна
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: сина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: зелена
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: црвена
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: бела
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: жолта
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: средно (нормално)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: големо
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: мало
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: превртено
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: бавно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: брзо
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: дебелина
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: срцевидно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: виолетова
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: кафеава
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: портокалова
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: издолжено
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: линеарно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: голем животен век
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: мал животен век
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: површина
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: зафатнина
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: митарност
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: листопадно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: зимзелено
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: полулистопадно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: навојувачко
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: жолтозелено
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: прстесто
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: трапезиидно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: мешано
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: рамно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: покачен квалитет
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: намален квалитет
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: приземно-нагорно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: широко
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: приземно-ненагорно
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: високоиздржливо
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: нискоиздржливо
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: изложено
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: украсеност
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: полов диморфизам
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: лисесто
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: летвесто
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: живеалиште на масовен
+          раст
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: дланчесто
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: врв на фиданка
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: кора
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: ризом
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: вторичен ксилем
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: плод
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: корени
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: семе
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: просто
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: сложено
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: бодликав лист
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: живеалиште
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: се храни со
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: симбионт на
@@ -1040,6 +1166,7 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: го јаде
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: патоген на
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: има патоген
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: дава
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: клептопаразит на
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: висина на растението
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: сушоиздржливост
@@ -1053,8 +1180,10 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: дишна стапка
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: хабитус на животниот циклус
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: соленоиздржливост
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: ендоскелет
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: минерализираното ткиво
           содржи
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: сооднос
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: телесна маса
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: поведенски деноноќен ритам
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: бројност на леглото/накотот
@@ -1065,6 +1194,27 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: должина на предните краци
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: телесна ширина
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: ширина на иверот
+        http://eol(dot)org/schema/terms/Present: географската распространетост опфаќа
+        http://eol(dot)org/schema/terms/FossilFirst: прво јавување
+        https://www(dot)wikidata(dot)org/entity/Q295469: екорегион
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: екоморфолошки еснаф
+        http://eol(dot)org/schema/terms/TrophicGuild: трофски еснаф
+        http://www(dot)wikidata(dot)org/entity/Q33596: мотилност
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: длабочина на водата
+        http://eol(dot)org/schema/terms/NativeRange: матичното живеалиште опфаќа
+        http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци во
+          Палеобиолошката база
+        http://www(dot)wikidata(dot)org/entity/Q1053008: трофен степен
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: биом на морското дно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: копнено
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: шумско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: крајбрежно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: слатководно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: грмушно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: тропско
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: речно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: тревно
   term_query:
     validations:
       empty_filters_error_record: мора да укажете филтер со својство или вредност

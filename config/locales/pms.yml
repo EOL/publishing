@@ -240,6 +240,7 @@ pms:
       data_services: Servissi ëd dàit
       donate: Doné
       education: Educassion
+      food_webs: Rej dël mangé
       glossary: Glossari
       help: Agiut
       terms_of_use: Condission d'utilisassion
@@ -632,6 +633,10 @@ pms:
     filter_menu:
       show_all: smon-e tut
     page_data:
+      habitat_wordcloud_tooltip: Nòstre argistrassion d'ambient a son essensialman
+        sot forma ëd test, donca vàire tèrmin as artreuvo soens; ij tèrmin d'ambient
+        ch'as artreuvo ëd pi - smonù pi gròss ant la nìvola ëd paròle - a l'é probabìl
+        ch'a sio pi amportant. Tute j'argistrassion a son listà sì-sota.
       n_hidden_show_all:
         one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
         other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
@@ -685,6 +690,13 @@ pms:
       predator: Predator
       prey: Pijàita
       reset: inissialisé torna
+      trophic_web_about: Ij diagrama dle rej dël mangé ëd l'EdV as focaliso an sle
+        relassion alimentar ëd minca na spece; a smon-o la specie an chestion con
+        le spece an sle quaj as nuriss (pijàite), le spece ch'as nurisso ëd chila
+        (predator) e d'àutre spece ch'as nurisso con j'istesse pijàite (competidor
+        potensiaj). Sgnaché për savèjne ëd pi.
+      trophic_web_title_html: Rej tròpica <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: J'argistrassion ëd costa pàgina ant la memòria local a son ëstàite
         dëscancelà. Carié torna la pàgina për vëdde ij neuv valor. NOTÉ che, al moment,
