@@ -1,6 +1,9 @@
 class TraitBank::Slurp
+  @max_csv_size = 1_000_000
+
   class << self
     delegate :query, to: TraitBank
+
 
     def load_resource_from_repo(resource)
       repo = ContentServerConnection.new(resource)
@@ -183,8 +186,57 @@ class TraitBank::Slurp
         end
       end
       wheres.each do |clause, where_config|
-        load_csv_where(clause, filename: filename, config: where_config, nodes: nodes)
+        break_up_large_file_if_needed(filename) do |sub_filename|
+          load_csv_where(clause, filename: sub_filename, config: where_config, nodes: nodes)
+        end
       end
+    end
+
+    def break_up_large_files(filename)
+      line_count = size_of_file(filename)
+      if line_count < @max_csv_size
+        yield sub_filename
+      else
+        # YOU WERE HERE
+      end
+    end
+
+    def break_up_large_file(filename, line_count)
+      basename = File.basename(filename, '.*') # It's .csv, but I want to be safe...
+      lines_without_header = line_count - 1
+      chunks = lines_without_header / @max_csv_size # NOTE: without #ceil and #to_f, this yields a floor!
+      tail = lines_without_header % @max_csv_size
+      # NOTE: Each one of these head/tail commands can take a few seconds.
+      (1..chunks).each do |chunk|
+        sub_file = sub_file_name(basename, chunk)
+        copy_head(filename, sub_file)
+        puts %Q{head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} >> #{sub_file}}
+        # `head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} > #{sub_file}`
+        # yield sub_file
+        # File.unlink(sub_file)
+      end
+      unless tail.zero?
+        sub_file = sub_file_name(basename, chunks + 1)
+        copy_head(filename, sub_file)
+        puts %Q{tail -n #{tail} #{filename} >> #{sub_file}}
+        # `tail -n #{tail} >> #{sub_file}`
+        # yield sub_file
+        # File.unlink(sub_file)
+      end
+    end
+
+    def size_of_file(filename)
+      # NOTE: Just this word-count can take a few seconds on a large file!
+      `wc -l "#{filename}"`.strip.split(' ').first.to_i
+    end
+
+    def copy_head(filename, sub_file)
+      puts %Q{head -n 1 #{filename} > #{sub_file}}
+      # `head -n 1 #{filename} > #{sub_file}`
+    end
+
+    def sub_file_name(basename, chunk)
+      Rails.root.join('tmp', "#{basename}_chunk_#{chunk}.csv")
     end
 
     def heal_traits_by_type(filename, label, resource_id)
