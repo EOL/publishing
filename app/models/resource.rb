@@ -360,11 +360,11 @@ class Resource < ApplicationRecord
   end
 
   def traits_file
-    Rails.public_path.join("traits_#{id}.csv")
+    Rails.public_path.join('data', "traits_#{id}.csv")
   end
 
   def meta_traits_file
-    Rails.public_path.join("meta_traits_#{id}.csv")
+    Rails.public_path.join('data', "meta_traits_#{id}.csv")
   end
 
   def remove_traits_files
