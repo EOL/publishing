@@ -136,6 +136,7 @@ services:
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
       - /data/eol-backend-tramea:/app/public/data
+      - /data/eol-backend-tramea-private-data:/app/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
       - eol-backend-mysql
