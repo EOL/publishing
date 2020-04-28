@@ -210,18 +210,16 @@ class TraitBank::Slurp
       (1..chunks).each do |chunk|
         sub_file = sub_file_name(basename, chunk)
         copy_head(filename, sub_file)
-        puts %Q{head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} >> #{sub_file}}
-        # `head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} > #{sub_file}`
-        # yield sub_file
-        # File.unlink(sub_file)
+        `head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} >> #{sub_file}`
+        yield sub_file
+        File.unlink(sub_file)
       end
       unless tail.zero?
         sub_file = sub_file_name(basename, chunks + 1)
         copy_head(filename, sub_file)
-        puts %Q{tail -n #{tail} #{filename} >> #{sub_file}}
-        # `tail -n #{tail} >> #{sub_file}`
-        # yield sub_file
-        # File.unlink(sub_file)
+        `tail -n #{tail} #{filename} >> #{sub_file}`
+        yield sub_file
+        File.unlink(sub_file)
       end
     end
 
@@ -231,8 +229,7 @@ class TraitBank::Slurp
     end
 
     def copy_head(filename, sub_file)
-      puts %Q{head -n 1 #{filename} > #{sub_file}}
-      # `head -n 1 #{filename} > #{sub_file}`
+      `head -n 1 #{filename} > #{sub_file}`
     end
 
     def sub_file_name(basename, chunk)
@@ -290,7 +287,6 @@ class TraitBank::Slurp
     # TODO: extract the file-writing to a method that takes a block.
     def build_ancestry
       require 'csv'
-      puts '(starts) .build_ancestry'
       old_version = get_old_ancestry_version
       new_version = old_version + 1
       # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
@@ -301,8 +297,6 @@ class TraitBank::Slurp
         .find_in_batches(batch_size: 5_000) do |group|
         first_id = group.first.id
         last_id = group.last.id
-        puts "(infos) Pages #{first_id} - #{last_id}"
-        puts "(infos) write CSV"
         CSV.open(ancestry_file_path, 'w') do |csv|
           csv << ['page_id', 'parent_id']
           group.each do |page|
@@ -310,11 +304,9 @@ class TraitBank::Slurp
             csv << [page.id, page.native_node.parent.page_id]
           end
         end
-        puts "(infos) add relationships"
         rebuild_ancestry_group('ancestry.csv', new_version)
       end
       remove_ancestry(old_version) # You can't run this twice on the same resource without downtime.
-      puts '(ends) .rebuild_ancestry'
     end
 
     def get_old_ancestry_version
@@ -325,7 +317,6 @@ class TraitBank::Slurp
 
     def remove_ancestry(old_version)
       # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
-      puts "(infos) delete old relationships"
       TraitBank::Admin.remove_with_query(
         name: :rel,
         q: "MATCH (p:Page)-[rel:parent {ancestry_version: #{old_version}}]->(:Page) DELETE rel"
