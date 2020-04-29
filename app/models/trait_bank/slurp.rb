@@ -4,7 +4,6 @@ class TraitBank::Slurp
   class << self
     delegate :query, to: TraitBank
 
-
     def load_resource_from_repo(resource)
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.traits_file, 'traits.tsv')
@@ -18,7 +17,7 @@ class TraitBank::Slurp
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       config = load_csv_config(resource.id, single_resource: true)
-      basename = File.basename(resource.meta_traits_file)
+      basename = File.basename()
       load_csv(basename, config[basename])
       # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
@@ -58,7 +57,7 @@ class TraitBank::Slurp
     end
 
     def read_field_from_traits_file(id, field)
-      file = Rails.public_path.join("traits_#{id}.csv")
+      file = Rails.public_path.join('data', "traits_#{id}.csv")
       # read the traits file and pluck out the page IDs...
       require 'csv'
       data = CSV.read(file)
@@ -210,14 +209,14 @@ class TraitBank::Slurp
       (1..chunks).each do |chunk|
         sub_file = sub_file_name(basename, chunk)
         copy_head(filename, sub_file)
-        `head -n #{@max_csv_size * chunk + 1} #{filename} | tail -n #{@max_csv_size} >> #{sub_file}`
+        `head -n #{@max_csv_size * chunk + 1} #{trait_file_path}/#{filename} | tail -n #{@max_csv_size} >> #{trait_file_path}/#{sub_file}`
         yield sub_file
         File.unlink(sub_file)
       end
       unless tail.zero?
         sub_file = sub_file_name(basename, chunks + 1)
         copy_head(filename, sub_file)
-        `tail -n #{tail} #{filename} >> #{sub_file}`
+        `tail -n #{tail} #{trait_file_path}/#{filename} >> #{trait_file_path}/#{sub_file}`
         yield sub_file
         File.unlink(sub_file)
       end
@@ -225,15 +224,22 @@ class TraitBank::Slurp
 
     def size_of_file(filename)
       # NOTE: Just this word-count can take a few seconds on a large file!
-      `wc -l "#{filename}"`.strip.split(' ').first.to_i
+      `wc -l #{trait_file_path}/#{filename}`.strip.split(' ').first.to_i
     end
 
     def copy_head(filename, sub_file)
-      `head -n 1 #{filename} > #{sub_file}`
+      `head -n 1 #{trait_file_path}/#{filename} > #{trait_file_path}/#{sub_file}`
     end
 
     def sub_file_name(basename, chunk)
-      Rails.root.join('tmp', "#{basename}_chunk_#{chunk}.csv")
+      "#{basename}_chunk_#{chunk}.csv"
+    end
+
+    # TODO: this is really all wrong. We should be passing around the path, but when I looked into doing that, it became
+    # obvious that this shouldn't be done with class methods, but an instance that can store at least the resource, if
+    # not also the path being used. So, for now, I am just hacking it. Sigh.
+    def trait_file_path
+      Rails.public_path.join('data')
     end
 
     def heal_traits_by_type(filename, label, resource_id)
