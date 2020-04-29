@@ -196,7 +196,9 @@ class TraitBank::Slurp
       if line_count < @max_csv_size
         yield filename
       else
-        break_up_large_file(filename, line_count)
+        break_up_large_file(filename, line_count) do |sub_filename|
+          yield sub_filename
+        end
       end
     end
 
