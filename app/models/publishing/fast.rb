@@ -119,10 +119,11 @@ class Publishing::Fast
   def by_resource
     set_relationships
     abort_if_already_running
-    new_log
-    unless @resource.nodes.count.zero? # slow, skip if not needed.
+    if @resource.nodes.count.zero?
+      new_log
+    else
       log = @resource.remove_content_with_rescue
-      @log = Publishing::PubLog.new(@resource)
+      new_log
       log.each { |msg| log_warn(msg) }
       log_warn('All existing content has been destroyed for the resource.')
     end
