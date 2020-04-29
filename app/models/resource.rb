@@ -144,7 +144,9 @@ class Resource < ApplicationRecord
   end
 
   def create_log
-    import_logs << ImportLog.create(resource_id: id, status: "currently running")
+    new_log = ImportLog.create(resource_id: id, status: "currently running")
+    import_logs << new_log
+    new_log
   end
 
   def remove_content(log = nil)
