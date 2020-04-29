@@ -4,6 +4,8 @@ class Publishing::Fast
 
   def self.by_resource(resource)
     publr = new(resource)
+    # Because I do this manually and the class name is needed for that:
+    # publr = Publishing::Fast.new(res)
     publr.by_resource
   end
 
@@ -122,7 +124,14 @@ class Publishing::Fast
     if @resource.nodes.count.zero?
       new_log
     else
-      log = @resource.remove_content_with_rescue
+      @remove_log = []
+      begin
+        @resource.remove_content(@remove_log)
+      rescue => e
+        new_log
+        @remove_log.each { |msg| log_warn(msg) }
+        raise e
+      end
       new_log
       log.each { |msg| log_warn(msg) }
       log_warn('All existing content has been destroyed for the resource.')

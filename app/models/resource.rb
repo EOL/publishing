@@ -14,7 +14,7 @@ class Resource < ApplicationRecord
   has_many :referents, inverse_of: :resource
   has_many :term_query_filters
 
-  before_destroy :remove_content_with_rescue
+  before_destroy :ue
 
   scope :browsable, -> { where(is_browsable: true) }
   scope :classification, -> { where(classification: true) }
@@ -147,17 +147,6 @@ class Resource < ApplicationRecord
     import_logs << ImportLog.create(resource_id: id, status: "currently running")
   end
 
-  def remove_content_with_rescue
-    log = []
-    begin
-      remove_content(log)
-    rescue => e
-      i_log = import_logs&.last || create_log
-      log.each { |l| i_log.log(l) }
-      i_log.fail(e)
-    end
-  end
-
   def remove_content(log = nil)
     log ||= []
     # Traits:
@@ -272,10 +261,22 @@ class Resource < ApplicationRecord
   end
 
   def clear_import_logs
+    mini_log = []
     import_logs.each do |log|
-      log.import_events.where(['created_at < ?', log.import_events.last.created_at - 60]).destroy_all
+      log_name = log.created_at.strftime('%Y-%m-%d %H:%M')
+      last_event = log.import_events.last
+      if last_event
+        old_events = log.import_events.where(['created_at < ?', last_event.created_at - 60])
+        unless old_events.count.zero?
+          old_events.destroy_all
+          mini_log << "Removed events older than the last minute for log on #{log_name}."
+        end
+      else
+        log.destroy
+        mini_log << "Removed empty log from #{log_name}"
+      end
     end
-    "Removed import log events older than the last minute."
+    mini_log.join("; ")
   end
 
   def fix_native_nodes
