@@ -144,7 +144,7 @@ class Resource < ApplicationRecord
   end
 
   def create_log
-    ImportLog.create(resource_id: id, status: "currently running")
+    import_logs << ImportLog.create(resource_id: id, status: "currently running")
   end
 
   def remove_content_with_rescue
@@ -209,9 +209,7 @@ class Resource < ApplicationRecord
     # Media, image_info
     log << nuke(ImageInfo)
     # log << nuke(ImportLog)
-    last_log = import_logs.last
-    last_log.import_events.where(['created_at < ?', last_log.import_events.last.created_at - 1]).destroy_all
-    log << "Removed import log events older than the last second."
+    log << clear_import_logs
     log << nuke(Medium)
     # Articles
     log << nuke(Article)
@@ -271,6 +269,13 @@ class Resource < ApplicationRecord
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
+  end
+
+  def clear_import_logs
+    import_logs.each do |log|
+      log.import_events.where(['created_at < ?', log.import_events.last.created_at - 60]).destroy_all
+    end
+    "Removed import log events older than the last minute."
   end
 
   def fix_native_nodes
