@@ -208,7 +208,10 @@ class Resource < ApplicationRecord
 
     # Media, image_info
     log << nuke(ImageInfo)
-    log << nuke(ImportLog)
+    # log << nuke(ImportLog)
+    last_log = import_logs.last
+    last_log.import_events.where(['created_at < ?', last_log.import_events.last.created_at - 1]).destroy_all
+    log << "Removed import log events older than the last second."
     log << nuke(Medium)
     # Articles
     log << nuke(Article)
