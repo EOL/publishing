@@ -195,7 +195,7 @@ class TraitBank::Slurp
     def break_up_large_files(filename)
       line_count = size_of_file(filename)
       if line_count < @max_csv_size
-        yield sub_filename
+        yield filename
       else
         break_up_large_file(filename, line_count)
       end
