@@ -186,7 +186,7 @@ class TraitBank::Slurp
         end
       end
       wheres.each do |clause, where_config|
-        break_up_large_file_if_needed(filename) do |sub_filename|
+        break_up_large_files(filename) do |sub_filename|
           load_csv_where(clause, filename: sub_filename, config: where_config, nodes: nodes)
         end
       end
@@ -197,7 +197,7 @@ class TraitBank::Slurp
       if line_count < @max_csv_size
         yield sub_filename
       else
-        # YOU WERE HERE
+        break_up_large_file(filename, line_count)
       end
     end
 
@@ -280,7 +280,7 @@ class TraitBank::Slurp
 
     def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
-      file = filename =~ /\// ? filename : "#{Rails.configuration.eol_web_url}/#{filename}"
+      file = filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
       "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
@@ -324,7 +324,7 @@ class TraitBank::Slurp
     end
 
     def ancestry_file_path
-      @ancestry_file_path ||= Rails.public_path.join('ancestry.csv')
+      @ancestry_file_path ||= Rails.public_path.join('data', 'ancestry.csv')
     end
 
     def rebuild_ancestry_group(file, version)
