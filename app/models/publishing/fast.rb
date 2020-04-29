@@ -133,7 +133,7 @@ class Publishing::Fast
         raise e
       end
       new_log
-      log.each { |msg| log_warn(msg) }
+      @remove_log.each { |msg| log_warn(msg) }
       log_warn('All existing content has been destroyed for the resource.')
     end
     begin
