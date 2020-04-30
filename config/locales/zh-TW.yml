@@ -610,6 +610,8 @@ zh-TW:
     filter_menu:
       show_all: 顯示全部
     page_data:
+      habitat_wordcloud_tooltip: 我們的棲息地紀錄是經由大量的文字探勘所產生，因此許多術語會被多次查找出，以及有較常見的棲息地術語
+        — 這些內容在文字雲上會顯示出更多 — 並且有可能會是比較重要的。以下列出的所有紀錄。
       n_hidden_show_all:
         one: 隱藏 1 個「%{pred_name}」紀錄 — 顯示全部
         other: 隱藏 %{count} 個「%{pred_name}」紀錄 — 顯示全部

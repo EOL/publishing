@@ -7,6 +7,7 @@
 # Author: Jinghong
 # Author: Josephine W.
 # Author: Liuxinyu970226
+# Author: Nadine Siak
 # Author: Njzjz
 # Author: Shirayuki
 # Author: Shizhao
@@ -342,12 +343,37 @@ zh-CN:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 钙
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 镁
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: 二十六烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: 方解石
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: 沿海的
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: 球霰石
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰石
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: 羟磷灰石
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: 根茎植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: 沼生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 水生植物
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: 突变
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木头密度
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形状
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 绿色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: 慢
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 褐色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 区域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 常绿的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: 平伏的
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: 掌状
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 树皮
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 根
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 栖息地
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 叶子形状
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果实类型
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
   terms:
     scientific_name: 学名
     source: 源

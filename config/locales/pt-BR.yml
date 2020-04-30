@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alcali
 # Author: Eduardo Addad de Oliveira
+# Author: Jhonnatanricardo
 # Author: Leonardo9387
 # Author: Leosls
 ---
@@ -465,6 +466,10 @@ pt-BR:
     filter_menu:
       show_all: Mostrar todos
     page_data:
+      habitat_wordcloud_tooltip: Nossos registros de habitat são em grande parte minados
+        pelo texto, muitos termos são encontrados várias vezes; termos de habitat
+        mais comumente encontrados - exibidos maiores na nuvem de palavras - têm maior
+        probabilidade de serem importantes. Todos os registros estão listados abaixo.
       show_all: Mostrar todos
     resource_names:
       name_recognized_by: Reconhecido por %{by}
@@ -745,13 +750,33 @@ pt-BR:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: ninhada
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigênio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Cálcio (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésio (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ácido undecanóico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfato de cálcio hemi-hidratado
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato de cálcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de tamanho da
           folha
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: planta rizomatosa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexidade das folhas
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologia das folhas
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helófito
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hidrófito
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: planta aquática
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixação de nitrogênio
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reprodução assexuada
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoção
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: órgão de armazenamento
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: Executando
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: salto
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formulários
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diâmetro da célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: estrutura esquelética
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: massa celular
@@ -759,10 +784,32 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: largura do núcleo
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: medida do corpo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: preto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: médio (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grande
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: pequeno
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: em forma de coração
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrom
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: alongado
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: área
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: derramabilidade
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: decídua
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempre-verde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezóide
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: misturado
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualidade reduzida
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: decumbente
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: amplo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: Rastejante
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentação
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: ripado
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmado
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: latido
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: raízes
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: presas em
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbionte de
@@ -779,11 +826,23 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: tipo de fruta
         http://purl(dot)obolibrary(dot)org/obo/TO_0001015: taxa fotossintética
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: hábito de ciclo de vida
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritmo circadiano comportamental
         http://purl(dot)obolibrary(dot)org/obo/VT_0002292: duração do período de gestação
         http://purl(dot)obolibrary(dot)org/obo/VT_0002683: início da fertilidade
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: comprimento da cauda
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Largura do corpo
+        http://eol(dot)org/schema/terms/Present: distribuição geográfica inclui
+        http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
+        http://www(dot)wikidata(dot)org/entity/Q33596: matagal
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profundidade da água
+        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocorrências fósseis
+        http://www(dot)wikidata(dot)org/entity/Q1053008: nível trófico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costeiro
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rio
   term_query_filter:
     validations:
       blank_error: deve especificar um atributo ou valor
@@ -865,8 +924,8 @@ pt-BR:
     update: Atualizar
     update_email: Atualizar e-mail
   user_download:
-    created: Seu arquivo será processado em segundo plano. Verifique sua <a href="%{url}"página
-      de usário</a> para ver se foi concluído.
+    created: Seu arquivo será processado em segundo plano. Verifique sua <a href="%{url}">página
+      de usuário</a> para ver se foi concluído.
   users:
     account_migration_header: 'Se você se registrou na EOL antes de 15 de novembro
       de 2018:'

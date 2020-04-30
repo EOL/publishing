@@ -1001,10 +1001,49 @@ pms:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfà ëd bario
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: àcid esadecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: càuss (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: àcid eicosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: àcid tetracosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: àcid tetradecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: àcid docosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: àcid esacosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: àcid etadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: solfà ëd càuss deidratà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: solfà ëd càuss emidratà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonà ëd càuss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: àcid isotetradecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: àcid tridecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: caussit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: idrossipatita
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: opal
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfat ëd càuss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fòto-autòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fòto-eteròtrof
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: seul àcid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: risòma
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens

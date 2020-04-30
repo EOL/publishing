@@ -630,6 +630,10 @@ mk:
     filter_menu:
       show_all: прикажи сè
     page_data:
+      habitat_wordcloud_tooltip: Нашите записи за живеалиштата се претжено преземени
+        сирово од текстови, што значи дека многу поими се среќаваат на повеќе наврати;
+        најзастапените поими за живеалишта — прикажани со поголеми букви во зборовникот
+        облак — веројатно се позначајни. Сите записи се наведени подолу.
       n_hidden_show_all:
         one: 1 скриен запис „%{pred_name}“ — прикажи сè
         other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
@@ -1064,6 +1068,7 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: реко-морепреселно
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: размножување
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: азотоврзување
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: бесполово размножување
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: движење
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: родителска нега
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: валец
@@ -1202,10 +1207,9 @@ mk:
         http://www(dot)wikidata(dot)org/entity/Q33596: мотилност
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: длабочина на водата
         http://eol(dot)org/schema/terms/NativeRange: матичното живеалиште опфаќа
-        http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци во
-          Палеобиолошката база
+        http://eol(dot)org/schema/terms/fossilOccPBDB: број на фосилни примероци
         http://www(dot)wikidata(dot)org/entity/Q1053008: трофен степен
-        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: биом на морското дно
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: морско дно
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: копнено
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: шумско
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: морско
@@ -1364,7 +1368,7 @@ mk:
     update: Поднови
     update_email: Поднови е-пошта
   user_download:
-    created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}"корисничката
+    created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}">корисничката
       страница</a> за да видите дали е готова.
   users:
     account_migration_header: 'Ако се имате зачленето на EOL пред 15 ноември 2018

@@ -433,11 +433,13 @@ pt-PT:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigénio
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: tamanho do corpo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentação
         http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasita de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: cor da flor
