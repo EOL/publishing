@@ -213,14 +213,14 @@ class TraitBank::Slurp
         copy_head(filename, sub_file)
         `head -n #{@max_csv_size * chunk + 1} #{trait_file_path}/#{filename} | tail -n #{@max_csv_size} >> #{trait_file_path}/#{sub_file}`
         yield sub_file
-        File.unlink(sub_file)
+        File.unlink("#{trait_file_path}/#{sub_file}")
       end
       unless tail.zero?
         sub_file = sub_file_name(basename, chunks + 1)
         copy_head(filename, sub_file)
         `tail -n #{tail} #{trait_file_path}/#{filename} >> #{trait_file_path}/#{sub_file}`
         yield sub_file
-        File.unlink(sub_file)
+        File.unlink("#{trait_file_path}/#{sub_file}")
       end
     end
 
