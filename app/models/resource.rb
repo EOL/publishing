@@ -14,7 +14,7 @@ class Resource < ApplicationRecord
   has_many :referents, inverse_of: :resource
   has_many :term_query_filters
 
-  before_destroy :ue
+  before_destroy :remove_content_with_rescue
 
   scope :browsable, -> { where(is_browsable: true) }
   scope :classification, -> { where(classification: true) }
@@ -199,7 +199,6 @@ class Resource < ApplicationRecord
 
     # Media, image_info
     log << nuke(ImageInfo)
-    # log << nuke(ImportLog)
     log << clear_import_logs
     log << nuke(Medium)
     # Articles
