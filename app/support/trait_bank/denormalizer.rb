@@ -17,7 +17,7 @@ class TraitBank::Denormalizer
   end
 
   def initialize(options = {})
-    @limit = options[:limit] || 2500
+    @limit = options[:limit] || 1000 # NOTE: 2500 was too high, 2020-05-01
     @skip = options[:skip] || 0
     @fixed = 0
   end
