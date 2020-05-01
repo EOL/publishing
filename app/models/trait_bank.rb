@@ -2,6 +2,9 @@
 # BE FOUND IN db/neo4j_schema.md ...please read that file before attempting to understand this one. :D
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
+  GROUP_META_VALUE_URIS = Set.new([
+    Eol::Uris.stops_at
+  ])
 
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
@@ -189,7 +192,7 @@ class TraitBank
           # "ORDER BY LOWER(meta_predicate.name)"
       q += limit_and_skip_clause(page, per)
       res = query(q)
-      build_trait_array(res)
+      build_trait_array(res, group_meta_by_predicate: true)
     end
 
     def data_dump_trait(pk)
@@ -378,7 +381,7 @@ class TraitBank
         counts
       else
         log("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
-        { data: build_trait_array(res, key), raw_query: q, raw_res: res }
+        { data: build_trait_array(res, key: key), raw_query: q, raw_res: res }
       end
     end
 
@@ -1017,8 +1020,9 @@ class TraitBank
 
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
-    def build_trait_array(results, key=nil)
+    def build_trait_array(results, options={})
       hashes = results_to_hashes(results)
+      key = options[:key]
       log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []
       hashes.each do |hash|
@@ -1049,20 +1053,8 @@ class TraitBank
             next unless hash.has_key?(col)
             raise ":#{col} data was not the same size as :meta" unless hash[col].size == length
           end
-          hash[:meta].compact!
-          hash[:metadata] = []
-          unless hash[:meta].empty?
-            hash[:meta].each_with_index do |meta, i|
-              m_hash = meta
-              m_hash[:predicate] = hash[:meta_predicate] && hash[:meta_predicate][i]
-              m_hash[:object_term] = hash[:meta_object_term] && hash[:meta_object_term][i]
-              m_hash[:sex_term] = hash[:meta_sex_term] && hash[:meta_sex_term][i]
-              m_hash[:lifestage_term] = hash[:meta_lifestage_term] && hash[:meta_lifestage_term][i]
-              m_hash[:statistical_method_term] = hash[:meta_statistical_method_term] && hash[:meta_statistical_method_term][i]
-              m_hash[:units] = hash[:meta_units_term] && hash[:meta_units_term][i]
-              hash[:metadata] << m_hash
-            end
-          end
+
+          process_hash_metadata(hash)
         end
         if has_trait
           hash[:id] = hash[:trait][:eol_pk]
@@ -1072,6 +1064,45 @@ class TraitBank
       end
       log("RESULT COUNT #{key}: #{data.length} after build_trait_array") if key
       data
+    end
+
+    def process_hash_metadata(hash)
+      grouped_value_metas = {}
+
+      hash[:meta].compact!
+      hash[:metadata] = []
+
+      unless hash[:meta].empty?
+        hash[:meta].each_with_index do |meta, i|
+          m_hash = meta
+          m_hash[:predicate] = hash[:meta_predicate] && hash[:meta_predicate][i]
+          m_hash[:object_term] = hash[:meta_object_term] && hash[:meta_object_term][i]
+          m_hash[:sex_term] = hash[:meta_sex_term] && hash[:meta_sex_term][i]
+          m_hash[:lifestage_term] = hash[:meta_lifestage_term] && hash[:meta_lifestage_term][i]
+          m_hash[:statistical_method_term] = hash[:meta_statistical_method_term] && hash[:meta_statistical_method_term][i]
+          m_hash[:units] = hash[:meta_units_term] && hash[:meta_units_term][i]
+
+          uri = m_hash[:predicate]&.[](:uri)
+          if GROUP_META_VALUE_URIS.include?(uri)
+            if grouped_value_metas[uri].nil?
+              m_hash[:combined_measurements] = []
+              grouped_value_metas[uri] = m_hash
+            end
+
+            measurement = m_hash[:measurement]
+
+            if measurement
+              grouped_value_metas[uri][:combined_measurements] << measurement
+            end
+          else
+            hash[:metadata] << m_hash
+          end
+
+          grouped_value_metas.each do |_, meta|
+            hash[:metadata] << meta
+          end
+        end
+      end
     end
 
     def replicate_trait_hash_for_pages(hash)
@@ -1366,3 +1397,4 @@ class TraitBank
     end
   end
 end
+
