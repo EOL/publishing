@@ -52,13 +52,13 @@
   %ul.uk-list
     - @resource.import_logs.order('created_at DESC').each do |log|
       %li
-        %b= link_to(l(log.created_at.localtime, format: :long), [@resource, log])
+        %b= link_to(l(log.created_at.in_time_zone(Rails.configuration.time_zone), format: :long), [@resource, log])
         - if log.completed_at
           %b= "Completed:"
-          = l(log.completed_at.localtime, format: '%H:%M:%S.%3N')
+          = l(log.completed_at.in_time_zone(Rails.configuration.time_zone), format: '%H:%M:%S.%3N')
         - elsif log.failed_at
           %b= "Failed:"
-          = l(log.failed_at.localtime, format: '%H:%M:%S.%3N')
+          = l(log.failed_at.in_time_zone(Rails.configuration.time_zone), format: '%H:%M:%S.%3N')
         %b= "Status:"
         - if log.status
           = log.status
