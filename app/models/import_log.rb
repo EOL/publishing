@@ -8,6 +8,7 @@ class ImportLog < ApplicationRecord
     def all_clear!
       now = Time.now
       where(completed_at: nil, failed_at: nil).update_all(completed_at: now, failed_at: now)
+      where(status: 'currently running').update_all(status: 'stopped')
       ImportRun.where(completed_at: nil).update_all(completed_at: now)
     end
 

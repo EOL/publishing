@@ -240,6 +240,7 @@ pms:
       data_services: Servissi ëd dàit
       donate: Doné
       education: Educassion
+      food_webs: Rej dël mangé
       glossary: Glossari
       help: Agiut
       terms_of_use: Condission d'utilisassion
@@ -632,6 +633,10 @@ pms:
     filter_menu:
       show_all: smon-e tut
     page_data:
+      habitat_wordcloud_tooltip: Nòstre argistrassion d'ambient a son essensialman
+        sot forma ëd test, donca vàire tèrmin as artreuvo soens; ij tèrmin d'ambient
+        ch'as artreuvo ëd pi - smonù pi gròss ant la nìvola ëd paròle - a l'é probabìl
+        ch'a sio pi amportant. Tute j'argistrassion a son listà sì-sota.
       n_hidden_show_all:
         one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
         other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
@@ -685,6 +690,13 @@ pms:
       predator: Predator
       prey: Pijàita
       reset: inissialisé torna
+      trophic_web_about: Ij diagrama dle rej dël mangé ëd l'EdV as focaliso an sle
+        relassion alimentar ëd minca na spece; a smon-o la specie an chestion con
+        le spece an sle quaj as nuriss (pijàite), le spece ch'as nurisso ëd chila
+        (predator) e d'àutre spece ch'as nurisso con j'istesse pijàite (competidor
+        potensiaj). Sgnaché për savèjne ëd pi.
+      trophic_web_title_html: Rej tròpica <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: J'argistrassion ëd costa pàgina ant la memòria local a son ëstàite
         dëscancelà. Carié torna la pàgina për vëdde ij neuv valor. NOTÉ che, al moment,
@@ -989,10 +1001,49 @@ pms:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: solfà ëd bario
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: ossìgen
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: àcid esadecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: càuss (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesi (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purin-e
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: àcid urèich
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: àcid eicosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: àcid otadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: àcid tetracosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: àcid tetradecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: àcid docosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: àcid dodecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: àcid decanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: àcid esacosanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: àcid etadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: àcid ondecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: solfà ëd càuss deidratà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: solfà ëd càuss emidratà
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonà ëd càuss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: àcid nonadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: àcid pentadecanoid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: àcid isotetradecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: àcid tridecanòid
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: caussit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: idrossipatita
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: opal
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: fosfat ëd càuss
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: àcid isoesadecanòid
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longheur dël còrp
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nùmer ëd mamele
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crepuscular
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fòto-autòtrof
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: fòto-eteròtrof
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: seul àcid
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diàmeter ëd la gamba
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classa ëd taja dla feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: risòma
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complessità ëd la feuja
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens

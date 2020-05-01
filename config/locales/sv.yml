@@ -519,8 +519,10 @@ sv:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: syre
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Skallängd
@@ -528,9 +530,20 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelettinnehåll
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: kroppstorlek
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: svart
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grön
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: stor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: liten
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: långsam
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: tjockhet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hjärtformad
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volym
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: blandad
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rötter
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinerar
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: äter
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: äts av

@@ -540,11 +540,13 @@ es:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reproducción asexual
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
+        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro

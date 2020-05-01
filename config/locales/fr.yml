@@ -3,12 +3,14 @@
 # Export driver: phpyaml
 # Author: Aaribaud
 # Author: Abijeet Patro
+# Author: Alno
 # Author: Crochet.david
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
 # Author: Pols12
 # Author: Thibaut120094
+# Author: Ugofan
 # Author: Urhixidur
 # Author: Verdy p
 # Author: Wladek92
@@ -241,6 +243,7 @@ fr:
       data_services: Services de données
       donate: Faire un don
       education: Éducation
+      food_webs: Réseaux de nourriture
       glossary: Glossaire
       help: Aide
       terms_of_use: Conditions d’utilisation
@@ -634,6 +637,11 @@ fr:
     filter_menu:
       show_all: tout afficher
     page_data:
+      habitat_wordcloud_tooltip: Nos enregistrements d’habitat sont essentiellement
+        sous forme textuelle, donc de nombreux termes se retrouvent souvent ;; les
+        termes d’habitat les plus couramment trouvés — affichés largement dans le
+        cloud mondial — sont les plus susceptibles d’être importants. Tous les enregistrements
+        sont listés ci-dessous.
       n_hidden_show_all:
         one: 1 enregistrement « %{pred_name} » caché – montrer tout
         other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
@@ -687,6 +695,13 @@ fr:
       predator: Prédateur
       prey: Proie
       reset: réinitialiser
+      trophic_web_about: Les diagrammes de réseau de nourriture de EdlV se focalisent
+        sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
+        entourée des espèces dont elle se nourrie (proie), les espèces qui se nourrissent
+        d’elle (prédateurs) et les autres espèces qui se nourrissent des mêmes proies
+        (compétiteurs potentiels). Cliquer pour en savoir plus.
+      trophic_web_title_html: Web trophique <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
@@ -997,23 +1012,88 @@ fr:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: couvaison
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: sulfate de barium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxygène
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: acide palmitique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: calcium (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purines
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: acide urique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: acide arachidique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: acide stéarique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: acide lignocérique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: acide tétradécanoïque
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: acide béhénique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: acide laurique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: acide décanoïque
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: acide cérotique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: acide margarique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: acide undécylique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: sulfate de calcium dihydraté
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfate de calcium hémihydraté
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonate de calcium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: acide nonadécylique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: acide pentadécylique
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: acide isotétradécanoïque
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: acide tridécanoïque
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: fluorine
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: vaterite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: hydroxyapatite
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: opale
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: phosphate de calcium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_84890: acide isohexadécanoïque
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: longueur du corps
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: nombre de mamelles
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: crépusculaire
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: autophototrophie
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: hétérophototrophe
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: sol acide
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: diamètre de la tige
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de taille de
           la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: rhizome
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: Complexité de la feuille
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: persistance des feuilles
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: poids de la graine
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morphologie de la feuille
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: herbacée
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diamètre du thalle
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forme de vie de la plante
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: géophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: hélophyte
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hydrophyte
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forme de croissance
           de la plante
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: arbre
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: arbuste
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: plante grimpante
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminée
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: phorbe
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: plante aquatique
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuel
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennal
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: vivace
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anadrome
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catadrome
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: amphidrome
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reproduction
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixation de l’azote
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reproduction asexuée
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomotion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soin parental
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylindre
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: organe de stockage
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: course
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomotion arboricole
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aérien
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vol
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: vol plané
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: saltation
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formes
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondance
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diamètre de la cellule
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volume de la cellule
@@ -1028,13 +1108,67 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longueur de l’épicône
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longueur de l’hypocône
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taille du corps
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalgue
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durée de vie
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forme
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: noir
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: bleu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: vert
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rouge
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: blanc
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: jaune
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: moyen (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: petit
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: à l’envers
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lent
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: rapide
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: épaisseur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: en forme de coeur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: violet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marron
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: allongé
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linéaire
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: grande durée de vie
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: courte durée de vie
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: aire
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuilles caduques
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: caduque
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: conifère
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semi-persistant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: enroulement
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: vert jaune
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digitalis
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapèze
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mélangé
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminaire
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualité améliorée
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualité dégradée
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: rampant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: large
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: procombant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: haute tolérance
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: faible tolérance
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposé
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: décoration
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorphisme sexuel
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: semblable à une feuille
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: semblable à un bâton
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: habitude de croissance
+          massive
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmé
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: apex caulinaire
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: écorce
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: rhizome
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xylème secondaire
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: fruit
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: racines
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: graine
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: simple
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: composé
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: feuilles épineuses
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: s’attaque à
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: symbiote de
@@ -1051,6 +1185,7 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: est mangé par
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: pathogène de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a un agent pathogène
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produit
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: klepto-parasite de
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: hauteur de la plante
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolérance à la sécheresse
@@ -1064,8 +1199,10 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: rythme respiratoire
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: habitude de cycle de vie
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolérance au sel
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endosquelette
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: le tissu minéralisé
           contient
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: ratio
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: masse corporelle
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: rythme circadien comportemental
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taille de couvée/nichée/portée
@@ -1077,6 +1214,26 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longueur de la patte avant
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: largeur du corps
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: largeur du fémur
+        http://eol(dot)org/schema/terms/Present: la distribution géographique inclut
+        http://eol(dot)org/schema/terms/FossilFirst: première apparition
+        https://www(dot)wikidata(dot)org/entity/Q295469: écorégion
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporation écomorphologique
+        http://eol(dot)org/schema/terms/TrophicGuild: guilde trophique
+        http://www(dot)wikidata(dot)org/entity/Q33596: motilité
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur de l'eau
+        http://eol(dot)org/schema/terms/NativeRange: la portée native inclut
+        http://eol(dot)org/schema/terms/fossilOccPBDB: nombre d’occurrences de fossiles
+        http://www(dot)wikidata(dot)org/entity/Q1053008: niveau trophique
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: benthique marin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: forêt
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marin
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: côtier
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eau courante
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: broussse
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rivière
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairie
   term_query:
     validations:
       empty_filters_error_record: vous devez fournir un filtre avec un attribut ou

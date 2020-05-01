@@ -1,4 +1,6 @@
 class TraitBank::Slurp
+  @max_csv_size = 1_000_000
+
   class << self
     delegate :query, to: TraitBank
 
@@ -15,7 +17,7 @@ class TraitBank::Slurp
       repo = ContentServerConnection.new(resource)
       repo.copy_file(resource.meta_traits_file, 'metadata.tsv')
       config = load_csv_config(resource.id, single_resource: true)
-      basename = File.basename(resource.meta_traits_file)
+      basename = File.basename()
       load_csv(basename, config[basename])
       # "Touch" the resource so that it looks like it's been changed (it has):
       resource.touch
@@ -55,7 +57,7 @@ class TraitBank::Slurp
     end
 
     def read_field_from_traits_file(id, field)
-      file = Rails.public_path.join("traits_#{id}.csv")
+      file = Rails.public_path.join('data', "traits_#{id}.csv")
       # read the traits file and pluck out the page IDs...
       require 'csv'
       data = CSV.read(file)
@@ -183,8 +185,63 @@ class TraitBank::Slurp
         end
       end
       wheres.each do |clause, where_config|
-        load_csv_where(clause, filename: filename, config: where_config, nodes: nodes)
+        break_up_large_files(filename) do |sub_filename|
+          load_csv_where(clause, filename: sub_filename, config: where_config, nodes: nodes)
+        end
       end
+    end
+
+    def break_up_large_files(filename)
+      line_count = size_of_file(filename)
+      if line_count < @max_csv_size
+        yield filename
+      else
+        break_up_large_file(filename, line_count) do |sub_filename|
+          yield sub_filename
+        end
+      end
+    end
+
+    def break_up_large_file(filename, line_count)
+      basename = File.basename(filename, '.*') # It's .csv, but I want to be safe...
+      lines_without_header = line_count - 1
+      chunks = lines_without_header / @max_csv_size # NOTE: without #ceil and #to_f, this yields a floor!
+      tail = lines_without_header % @max_csv_size
+      # NOTE: Each one of these head/tail commands can take a few seconds.
+      (1..chunks).each do |chunk|
+        sub_file = sub_file_name(basename, chunk)
+        copy_head(filename, sub_file)
+        `head -n #{@max_csv_size * chunk + 1} #{trait_file_path}/#{filename} | tail -n #{@max_csv_size} >> #{trait_file_path}/#{sub_file}`
+        yield sub_file
+        File.unlink("#{trait_file_path}/#{sub_file}")
+      end
+      unless tail.zero?
+        sub_file = sub_file_name(basename, chunks + 1)
+        copy_head(filename, sub_file)
+        `tail -n #{tail} #{trait_file_path}/#{filename} >> #{trait_file_path}/#{sub_file}`
+        yield sub_file
+        File.unlink("#{trait_file_path}/#{sub_file}")
+      end
+    end
+
+    def size_of_file(filename)
+      # NOTE: Just this word-count can take a few seconds on a large file!
+      `wc -l #{trait_file_path}/#{filename}`.strip.split(' ').first.to_i
+    end
+
+    def copy_head(filename, sub_file)
+      `head -n 1 #{trait_file_path}/#{filename} > #{trait_file_path}/#{sub_file}`
+    end
+
+    def sub_file_name(basename, chunk)
+      "#{basename}_chunk_#{chunk}.csv"
+    end
+
+    # TODO: this is really all wrong. We should be passing around the path, but when I looked into doing that, it became
+    # obvious that this shouldn't be done with class methods, but an instance that can store at least the resource, if
+    # not also the path being used. So, for now, I am just hacking it. Sigh.
+    def trait_file_path
+      Rails.public_path.join('data')
     end
 
     def heal_traits_by_type(filename, label, resource_id)
@@ -231,14 +288,13 @@ class TraitBank::Slurp
 
     def csv_query_head(filename, where_clause = nil)
       where_clause ||= '1=1'
-      file = filename =~ /\// ? filename : "#{Rails.configuration.eol_web_url}/#{filename}"
+      file = filename =~ /^http/ ? filename : "#{Rails.configuration.eol_web_url}/data/#{File.basename(filename)}"
       "USING PERIODIC COMMIT LOAD CSV WITH HEADERS FROM '#{file}' AS row WITH row WHERE #{where_clause} "
     end
 
     # TODO: extract the file-writing to a method that takes a block.
     def build_ancestry
       require 'csv'
-      puts '(starts) .build_ancestry'
       old_version = get_old_ancestry_version
       new_version = old_version + 1
       # NOTE: batch size of 10_000 was a bit too slow, and imagine it'll get worse with more pages.
@@ -249,8 +305,6 @@ class TraitBank::Slurp
         .find_in_batches(batch_size: 5_000) do |group|
         first_id = group.first.id
         last_id = group.last.id
-        puts "(infos) Pages #{first_id} - #{last_id}"
-        puts "(infos) write CSV"
         CSV.open(ancestry_file_path, 'w') do |csv|
           csv << ['page_id', 'parent_id']
           group.each do |page|
@@ -258,11 +312,9 @@ class TraitBank::Slurp
             csv << [page.id, page.native_node.parent.page_id]
           end
         end
-        puts "(infos) add relationships"
         rebuild_ancestry_group('ancestry.csv', new_version)
       end
       remove_ancestry(old_version) # You can't run this twice on the same resource without downtime.
-      puts '(ends) .rebuild_ancestry'
     end
 
     def get_old_ancestry_version
@@ -273,7 +325,6 @@ class TraitBank::Slurp
 
     def remove_ancestry(old_version)
       # I am worried this will timeout when we have enough of them. Already takes 24s with a 10th of what we'll have...
-      puts "(infos) delete old relationships"
       TraitBank::Admin.remove_with_query(
         name: :rel,
         q: "MATCH (p:Page)-[rel:parent {ancestry_version: #{old_version}}]->(:Page) DELETE rel"
@@ -281,7 +332,7 @@ class TraitBank::Slurp
     end
 
     def ancestry_file_path
-      @ancestry_file_path ||= Rails.public_path.join('ancestry.csv')
+      @ancestry_file_path ||= Rails.public_path.join('data', 'ancestry.csv')
     end
 
     def rebuild_ancestry_group(file, version)

@@ -144,18 +144,9 @@ class Resource < ApplicationRecord
   end
 
   def create_log
-    ImportLog.create(resource_id: id, status: "currently running")
-  end
-
-  def remove_content_with_rescue
-    log = []
-    begin
-      remove_content(log)
-    rescue => e
-      i_log = import_logs&.last || create_log
-      log.each { |l| i_log.log(l) }
-      i_log.fail(e)
-    end
+    new_log = ImportLog.create(resource_id: id, status: "currently running")
+    import_logs << new_log
+    new_log
   end
 
   def remove_content(log = nil)
@@ -208,7 +199,7 @@ class Resource < ApplicationRecord
 
     # Media, image_info
     log << nuke(ImageInfo)
-    log << nuke(ImportLog)
+    log << clear_import_logs
     log << nuke(Medium)
     # Articles
     log << nuke(Article)
@@ -268,6 +259,25 @@ class Resource < ApplicationRecord
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
     retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
+  end
+
+  def clear_import_logs
+    mini_log = []
+    import_logs.each do |log|
+      log_name = log.created_at.strftime('%Y-%m-%d %H:%M')
+      last_event = log.import_events.last
+      if last_event
+        old_events = log.import_events.where(['created_at < ?', last_event.created_at - 60])
+        unless old_events.count.zero?
+          old_events.destroy_all
+          mini_log << "Removed events older than the last minute for log on #{log_name}."
+        end
+      else
+        log.destroy
+        mini_log << "Removed empty log from #{log_name}"
+      end
+    end
+    mini_log.join("; ")
   end
 
   def fix_native_nodes
@@ -360,11 +370,11 @@ class Resource < ApplicationRecord
   end
 
   def traits_file
-    Rails.public_path.join("traits_#{id}.csv")
+    Rails.public_path.join('data', "traits_#{id}.csv")
   end
 
   def meta_traits_file
-    Rails.public_path.join("meta_traits_#{id}.csv")
+    Rails.public_path.join('data', "meta_traits_#{id}.csv")
   end
 
   def remove_traits_files
