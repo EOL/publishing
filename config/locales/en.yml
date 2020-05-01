@@ -1143,6 +1143,7 @@ en:
     update_email: "Update email"
   user_download:
     created: "Your file will be processed in the background. Check your <a href=\"%{url}\">user page</a> to see if it has completed."
+    have_pending: "You already have a pending download for this query. Check your <a href=\"%{url}\">user page</a> to see if it has completed."
   users:
     account_migration_header: "If you registered with EOL before Nov. 15, 2018:"
     account_migration_notice: "Your account information, including username, associated email, profile description, and collections owned, have been imported to the new EOL. Your username is still your display name on the site, but you must now log in with your email address. We could not migrate your password for security reasons; sorry for the bother. You'll be able to reset it using the Forgot Password process. If you logged in only using a third party provider- Google, Twitter or FaceBook- please bear with us; we're working out some issues with the shared login processes."

@@ -40,13 +40,18 @@ class TraitsController < ApplicationController
         else
           if @query.valid?
             url = term_search_results_url(:term_query => tq_params)
-            data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
-
-            if data.is_a?(UserDownload)
-              flash[:notice] = t("user_download.created", url: user_path(current_user))
+            if UserDownload.user_has_pending_for_query?(current_user, @query)
+              flash[:notice] = t("user_download.have_pending", url: user_path(current_user))
               redirect_no_format
             else
-              send_data data
+              data = TraitBank::DataDownload.term_search(@query, current_user.id, url)
+
+              if data.is_a?(UserDownload)
+                flash[:notice] = t("user_download.created", url: user_path(current_user))
+                redirect_no_format
+              else
+                send_data data
+              end
             end
           else
             redirect_no_format

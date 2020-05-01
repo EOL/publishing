@@ -8,6 +8,7 @@ class TermQuery < ApplicationRecord
   belongs_to :clade, :class_name => "Page", optional: true
   validates_presence_of :result_type
   validate :validation
+  validates_uniqueness_of :digest, unless: Proc.new { |q| q.digest.nil? }
 
   enum :result_type => { :record => 0, :taxa => 1 }
 
@@ -86,8 +87,31 @@ class TermQuery < ApplicationRecord
   end
 
   # You MUST call this method if you want a digest saved along with the record. At the time of writing, this was only used by UserDownloads, and adding callbacks/validations messed with trait search.
+  def build_digest
+    Digest::MD5.hexdigest(self.to_cache_key)
+  end
+
   def refresh_digest
-    self.digest = Digest::MD5.hexdigest(self.to_cache_key)
+    self.digest = build_digest
+  end
+
+  class << self
+    def find_saved(new_query)
+      digest = new_query.build_digest
+      TermQuery.find_by_digest(digest)
+    end
+
+    def find_or_save!(new_query)
+      new_query.refresh_digest
+      query = TermQuery.find_by_digest(new_query.digest)
+
+      if query.nil?
+        new_query.save!
+        query = new_query
+      end
+
+      query
+    end
   end
 
   private

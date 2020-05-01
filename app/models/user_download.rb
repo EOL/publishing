@@ -43,28 +43,20 @@ class UserDownload < ApplicationRecord
   class << self
     def create_and_run_if_needed!(ud_attributes, new_query)
       download = UserDownload.new(ud_attributes)
-      new_query.refresh_digest
-      existing_query = TermQuery.find_by_digest(new_query.digest)
+      query = TermQuery.find_or_save!(new_query)
+      download.term_query = query
 
-      existing_download = existing_query.nil? ? nil : existing_query.user_downloads
+      existing_download = query.user_downloads
         .where(status: :completed, expired_at: nil, duplication: :original)
         .where("created_at >= ?", EXPIRATION_TIME.ago)
         .order("created_at DESC")&.first
 
       if existing_download
-        download.term_query = existing_query
         download.filename = existing_download.filename
         download.status = :completed
         download.duplication = :duplicate
         download.completed_at = Time.now
       else
-        if existing_query.nil?
-          new_query.save!
-          download.term_query = new_query
-        else
-          download.term_query = existing_query
-        end
-
         download.duplication = :original
       end
 
@@ -75,6 +67,11 @@ class UserDownload < ApplicationRecord
       end
 
       download
+    end
+
+    def user_has_pending_for_query?(user, term_query)
+      existing_query = TermQuery.find_saved(term_query)
+      existing_query&.user_downloads&.where(user: user, status: :created)&.any? || false
     end
   end
 
