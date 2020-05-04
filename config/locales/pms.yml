@@ -1048,10 +1048,17 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: përsistensa dle feuje
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: massa dla smens
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologìa dla feuja
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: erbosa
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: diàmeter dël talo
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: forma ëd vita dla pianta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: geòfita
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: elòfita
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: idròfita
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: forma ëd chërsùa dla
           pianta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: erbo
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: erborin
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: pianta rampianta
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion

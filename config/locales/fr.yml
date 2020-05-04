@@ -1387,6 +1387,8 @@ fr:
   user_download:
     created: Votre fichier sera traité en arrière-plan. Vérifiez votre <a href="%{url}">page
       utilisateur</a> pour voir quand cela sera achevé.
+    have_pending: Vous avez déjà un téléchargement en cours pour cette requête. Vérifiez
+      votre <a href="%{url}">page utilisateur</a> pour voir si elle est terminée.
   users:
     account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
       2018 :'
