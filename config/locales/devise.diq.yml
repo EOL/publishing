@@ -47,6 +47,8 @@ diq:
         message: Serva parolay vurnayışi mayê şımaya qewtê irtibat
         subject: Parola vuriye
     passwords:
+      no_token: Epostay parola reset kerdışi ra ver nêşenê ena pela resê. Şıma yew
+        epostay reset kerdışiya ra ameyê se, URL'y pêro gırotışi  kontrol kerê.
       send_instructions: Çend deqan miyan de adresê epostaya ho serva talimatê seni
         araşt kerdış rê eleqeyın yew posta do şıma rê bêro
       send_paranoid_instructions: Eger ke epostay şıma database de ma de esta se,
@@ -55,14 +57,25 @@ diq:
       updated_not_active: Parolay şıma hewl usula vuriyaya
     registrations:
       destroyed: Xatırê şıma! Hesabê şıma texelneyayo, hetana reyna  pê vinayışi
+      signed_up: Xeyr amey! Şıma qeyd biyê.
+      signed_up_but_inactive: Şıma qeyd biyê. Lakin hesab aktiv nêbiyo coki ra ronıştış
+        enewke nêabiyeno
+      signed_up_but_locked: Şıma qeyd biyê. Lakin hesab biyo kılit coki ra ronıştış
+        enewke nêabiyeno
       updated: Hesab weş niyo rocane
     sessions:
       signed_in: Weş kewtê miyan
       signed_out: Weş cı ra veciyaye
       already_signed_out: Weş cı ra veciyaye
       recaptcha: Xetay araştiya Recaptcha
+    unlocks:
+      unlocked: Kılitê hesabê şıma abiyayo. Dewam kerdışi rê ronıştış akerê
   errors:
     messages:
+      already_confirmed: Xora tesdiq biyo. Ronıştış akerdışi bıcerrebnê
+      confirmation_period_expired: '%{period} miyan de lazımo ke tesdiq bıe, kerem
+        kerê reyna bıwazê'
+      expired: Wahdey cı vêrdo, yûna bıwazê
       not_found: Nêvineyi
       not_locked: Kılitın niya
 ...

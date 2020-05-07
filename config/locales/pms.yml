@@ -1059,6 +1059,11 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: erbo
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: erborin
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: pianta rampianta
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: graminassa
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: fòrb
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bienal
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion

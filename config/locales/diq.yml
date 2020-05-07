@@ -25,6 +25,7 @@ diq:
       missing: Bêsername
   article_from_partner: '%{partner} ra biyo'
   breadcrumbs:
+    setting_header: Namey urıkan
     types:
       scientific: ilmên
       vernacular: zıwanê argoyi
@@ -68,8 +69,12 @@ diq:
   collected_pages:
     delete_button: bestere
     edit_button: bıvurne
+    delete_confirm: şıma bêgumanê?
   collection:
+    admins:
+      placeholder: Name pêro yana namey karberi
     actions:
+      associate: elaqedar ke
       delete: bestere
       edit: bıvurne
       sort: kılm
@@ -118,12 +123,20 @@ diq:
     view_source_page_link: Çımey ziyaret kerê
   filter_by_license: lisans
   filter_by_medium_subtype: babet
+  filter_by_medium_any_item: goreyê tewri
   filter_by_resource: ardoğ
   footer:
     eol_info:
+      data_services: Servisê data
+      donate: Bêc
       education: Terbiyet
+      food_webs: Torrê Werdişi
       glossary: Qısebendek
       help: Peşti
+      terms_of_use: Şertê gurenayışi
+      the_eol_forum: EOL Forum
+      what_is_eol: EOL çıçiyo ?
+      whats_new: Çı neweyê?
     discover:
       algae: Alg
       amphibians: Amfibiy
@@ -439,12 +452,34 @@ diq:
     about: Heqa
     discuss: Werêne
     education: Musayış
+    search:
+      placeholder: EOL de bıvin ...
     trait_bank: TraitBank
   name_preferred_label: tercih biyo
+  page_title: Ensiklopediyay Cıwiyayışi
+  page_title_search: 'Cıgeyre: %{query}'
   pages:
     actions:
       collect: arê ke
+      comment:
+        zero: vatış
+        one: '%{count} vatış'
+        other: '%{count} vatışi'
       reindex: Reyna rêze
+    batch_lookup:
+      canonical_name: Nameyo kanonik
+      download_tsv: TSV ronê
+      match: zewnc ke
+      new_search: cıgeyrayışo newe
+      page_id: Kamiya pele
+      page_url: Url'y pele
+      query: persayış
+      query_cant_be_blank: Persayış veng nêbeno
+      search: Cıgeyrê
+    filter_menu:
+      show_all: Pêron bımocne
+    page_data:
+      show_all: Pêron bımocne
     resource_names:
       rank:
         r_domain: Domain
@@ -480,7 +515,10 @@ diq:
         r_subspecies: Bıntewr
         r_infraspecies: Infratewr
         r_form: Form
+      username_missing: karber %{user_id}
     trophic_web:
+      competitor: Mısabeqewan
+      globi_credit_html: data <a href='%{url}'>GloBI</a> ra
       predator: Dırıtoğ
       prey: Seyd
       reset: reset
@@ -518,8 +556,29 @@ diq:
       search: Xısusiyet cıgeyrayış
   recaptcha: Recaptcha
   resources:
+    actions:
+      republish: bıweşane
+      reindex: Reyna rêze
+      fix_no_names: O KE NAME NİYO bıvurnê
+      show_all:
+        other: '(%{count}) pêron bımocne '
+      show_warns:
+        one: (%{count}) iqazi bımocne
+        other: (%{count}) iqaza bımocnê
+      sync: Depoya senkronize bıkerê
+      sync_all_terms: Terıma pêro senkronize bıkerê
     headers:
       index: Çımeyi
+    no_events: Qet yew!
+  resource_missing: Çıme nêvineya
+  scientific_name:
+    status_title:
+      accepted: Nameyê qebul biyê
+      alternative: Namey Alternatifi
+      preferred: Tercih Biyaye Namey
+      unusable: Nêkariyayey Naneyu
+      synonym: Hemmeney
+  scientific_names_header: Namey Zanışiye
   search_results:
     medium_article: Meqale
     medium_image: Resım
@@ -532,18 +591,71 @@ diq:
     medium_title_sound_html: 'Venge : <span class=''sub''>%{title}</span>'
     medium_title_video_html: 'Video: <span class=''sub''>%{title}</span>'
     empty: Neticeyi çıniyê.
+  search_suggestion:
+    new:
+      header: Wesıbnaye Cıgeyrayışi Vırazê
   sections:
+    associations: Dernegi
+    behavior: Muamele
+    benefits: Faydey
+    brief_summary: Xulasayo Kılm
+    comprehensive_description: İzahato İhtıwayın
+    conservation: Şeveknayış
+    cyclicity: Nizamiye
+    diagnostic_description: İzahatê Teşhisi
+    diseases_and_parasites: Nêweşiye u Paraziti
+    dispersal: Vılabiyayış
+    distribution: Vılaynayış
+    ecology: Ekoloci
+    evolution_and_systematics: Evulasyon u Sistematik
+    general_ecology: Ekolociya Umumi
+    genetics: Genetiki
+    growth: Gırdiye
+    habitat: Habitat
+    identification_resources: Çımey Kamiye
+    life_expectancy: Pawıyiya Cıwiyayışi
+    life_history_and_behavior: Muameley u Tarıxê Cıwiyayışi
     management: İdare
+    migration: Barkerdış
+    molecular_biology: Biyolociya Molekuler
+    molecular_biology_and_genetics: Biyolociya Molekuler u Genetik
+    morphology: Morfolociye
     names_and_taxonomy: Namey u Taksonomiye
+    notes: Noti
+    overview: Serqayt
+    physiology_and_cell_biology: Fizyolociye u Biyolociya Hucrey
+    physical_description: Şınastiya Fiziki
+    reproduction: Zediyayış
+    risks: Riski
+    size: Ebati
     taxonomy: Taksonomi
+    threats: Tehdidi
+    trends: Meyıli
+    trophic_strategy: Tropik Strateci
     wikipedia: Wikipediya
-  sign_in: Cı kewe
+  settings: Eyari
+  sign_in: Ronıştış akerê
+  sign_up: Qeyd be
   simple_form:
+    "yes": Eya
+    "no": Nê
+    required:
+      text: lazım
+      mark: '*'
     labels:
       defaults:
+        email: Eposta
+        password: Parola
+        password_confirmation: Tesdiqê parola
+        remember_me: Biya ho viri
         username: Nameyê karberi
+        bio: Bio
   stats:
+    articles: meqaleyi
     collections: koleksiyoni
+    media: medya
+    pages: peli
+    scientific_names: nameyi
     users: karberi
     references: tercihi
   support:
