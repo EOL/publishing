@@ -9,6 +9,11 @@ class Language
         reader.finish
       end
 
+      # string = "hsb,Q13248,Upper Sorbian\npms,Q15085,Piedmontese\n" # (e.g.)
+      # or
+      # string = %{zu,zu,Zulu
+      # scn,Q33973,Sicilian} # ...etc...
+      # Language::Loader.parse(string)
       def parse(string)
         reader = Language::Loader.new
         CSV.parse(string) do |line|
@@ -50,7 +55,7 @@ class Language
           lang.save!
         else
           Language.create(code: code, group: group, can_browse_site: false)
-          @new_languages << %Q{    #{group}: "#{name}"}
+          @new_languages << %Q{    #{group}: "#{name}"} unless I18n.exists?("languages.#{group}", :en)
         end
       rescue => e
         @errors << "FAILED to save #{line} because of error #{e.message}"
