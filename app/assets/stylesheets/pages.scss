@@ -261,6 +261,37 @@ div:first-of-type.article {
   border-bottom: $border;
 }
 
+.l-overview-full {
+  width: 100%;
+}
+
+// leaflet map
+.map-contain {
+  height: 500px;
+  margin: 20px auto;
+  max-width: 90%;
+}
+
+.map-contain-overview-section {
+  border-bottom: $border;
+}
+
+.map-contain-overview {
+  width: 70%;
+}
+
+.map {
+  border: 1px solid #aaa;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.other-maps-title {
+  text-align: center;
+}
+
+
 @media(min-width: $habitat-chart-min-width) {
   .page-habitat-chart-left {
     display: block;
@@ -349,43 +380,16 @@ div:first-of-type.article {
     display: none;
   }
 
-  .map-overview {
+  .map-contain-overview {
+    padding: 0 20px;
+    height: 350px;
+    max-width: 100%;
     width: 100%;
   }
 
   .page-habitat-chart-left {
     padding-left: $pad-l-m;
   }
-}
-
-
-.l-overview-full {
-  width: 100%;
-}
-
-// leaflet map
-.map-contain {
-  margin: 20px auto;
-  max-width: 90%;
-}
-
-.map-contain-overview-section {
-  border-bottom: $border;
-}
-
-.map-contain-overview {
-  width: 70%;
-}
-
-.map {
-  border: 1px solid #aaa;
-  height: 500px;
-  width: 100%;
-  z-index: 1;
-}
-
-.other-maps-title {
-  text-align: center;
 }
 
 // trait wordcloud
