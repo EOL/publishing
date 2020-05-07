@@ -269,7 +269,7 @@ $(function() {
           tooltip
             .style("display", "inline-block")
             .style("opacity", .9);
-          tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.group))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d.label+ "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
+          tooltip.html("<p style=\"font-size: 15px; color:"+ color(gColor.indexOf(d.group))+"; font-style: italic;\"><a href=\"https://eol.org/pages/"+d.id+"\" style=\"color: black; font-weight: bold; font-size: 15px\" target=\"_blank\">"+d[graph.labelKey] + "</a><br /><p>" + d.groupDesc + "</p><img src=\""+ d.icon+ "\" width=\"190\"><p>");
         });
       
       
@@ -322,7 +322,7 @@ $(function() {
             
           }
         })
-        .text(function(d) {return d.label;});
+        .text(function(d) {return d[graph.labelKey];});
 
       return {
         nodes: nodes,

@@ -529,6 +529,7 @@ private
       pred_uri == Eol::Uris.preyed_upon_by
     )
       @trophic_web_data = @page.pred_prey_comp_data
+      @trophic_web_data[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
       @show_trophic_web = @trophic_web_data[:nodes].length > 1
       @trophic_web_translations = {
         predator: I18n.t("pages.trophic_web.predator"),
