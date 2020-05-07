@@ -47,6 +47,7 @@ Rails.application.routes.draw do
 
       get 'overview', :to => redirect(:status => 301, &RoutesUtil.path_with_locale("/pages/%s", [:page_id]))
       get 'details', :to => redirect(:status => 301, &RoutesUtil.path_with_locale("/pages/%s", [:page_id]))
+      get 'trophic_web', as: "trophic_web"
     end
 
     post 'breadcrumb_type' => "application#set_breadcrumb_type", as: :breadcrumb_type

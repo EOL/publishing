@@ -620,9 +620,40 @@ $(function() {
     $(window).resize(handleResize);
   }
 
-  var $trophicWeb = $('.js-trophic-web');
+  function loadRemote($contain) {
+    var loadPath = $contain.data('loadPath');
+
+    if (loadPath) {
+      $.get(loadPath, (result) => {
+        var $elmt;
+
+        if (result) {
+          $contain.find('.js-spinner').remove();
+          $contain.append(result);
+          $elmt = $contain.find('.js-trophic-web')
+
+          if ($elmt.length) {
+            createViz($elmt);
+          }
+        } else {
+          $contain.remove();
+        }
+      })
+      .fail(() => {
+        $contain.remove()
+      });
+    }
+  }
+
+  var $trophicWeb = $('.js-trophic-web')
+    , $remoteContain = $('.js-trophic-web-remote-contain')
+    ;
 
   if ($trophicWeb.length) {
     createViz($trophicWeb);
+  }
+
+  if ($remoteContain.length) {
+    loadRemote($remoteContain);
   }
 });

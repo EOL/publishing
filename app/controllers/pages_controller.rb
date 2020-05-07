@@ -162,10 +162,17 @@ class PagesController < ApplicationController
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
     setup_habitat_bar_chart
-    setup_trophic_web
+    @show_trophic_web = @page.rank&.r_species?
     respond_to do |format|
       format.html {}
     end
+  end
+
+  def trophic_web
+    @page = Page.find(params[:page_id])
+    setup_trophic_web
+    status = @show_trophic_web ? :ok : :no_content
+    render({ status: status, layout: false })
   end
 
   def reindex
@@ -535,7 +542,7 @@ private
 
   def setup_trophic_web
     @trophic_web_data = @page.pred_prey_comp_data(breadcrumb_type)
-    @show_trophic_web = @trophic_web_data[:nodes].length > 1 || true
+    @show_trophic_web = @trophic_web_data[:nodes].length > 1
     @trophic_web_translations = {
       predator: I18n.t("pages.trophic_web.predator"),
       prey: I18n.t("pages.trophic_web.prey"),

@@ -43,9 +43,6 @@
       .uk-margin-top.page-habitat-chart.page-habitat-chart-left
         = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, header: t("traits.data_viz.page_habitat_header", name: @page.name), description: t("traits.data_viz.page_habitat_explanation", name: @page.name)
 
-    - if !@show_trophic_web
-      = render('pages/children')
-
   - if @page.medium || @show_habitat_chart
     .l-right-col
       - if @page.medium
@@ -54,9 +51,9 @@
         .page-habitat-chart.page-habitat-chart-right.uk-margin-top
           = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, header: t("traits.data_viz.page_habitat_header", name: @page.name), description: t("traits.data_viz.page_habitat_explanation", name: @page.name)
       
-- if @show_trophic_web
-  .l-overview-full
-    .trophic-web-contain-overview
-      = render "trophic_web", data: @trophic_web_data, translations: @trophic_web_translations, extra_class: "trophic-web-overview"
-    = render('pages/children')
+.l-overview-full
+  - if @show_trophic_web
+    .trophic-web-contain-overview.js-trophic-web-remote-contain{ :'data-load-path' => page_trophic_web_path(@page)}
+      = render "shared/centered_spinner"
+  = render('pages/children')
 
