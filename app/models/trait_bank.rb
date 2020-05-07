@@ -1097,10 +1097,10 @@ class TraitBank
           else
             hash[:metadata] << m_hash
           end
+        end
 
-          grouped_value_metas.each do |_, meta|
-            hash[:metadata] << meta
-          end
+        grouped_value_metas.each do |_, meta|
+          hash[:metadata] << meta
         end
       end
     end
