@@ -6,6 +6,7 @@
 # Author: Jhonnatanricardo
 # Author: Leonardo9387
 # Author: Leosls
+# Author: TheEduGobi
 ---
 pt-BR:
   language_name: Português do Brasil
@@ -221,6 +222,7 @@ pt-BR:
       data_services: Serviços de dados
       donate: Doar
       education: Educação
+      food_webs: Redes tróficas
       glossary: Glossário
       help: Ajuda
       terms_of_use: Termo de uso
@@ -511,6 +513,8 @@ pt-BR:
       predator: Predador
       prey: Presa
       reset: redefinir
+      trophic_web_title_html: Rede trófica <a href='%{about_path}'><sup><span class='a'
+        uk-tooltip='%{tooltip}'>?</span></sup></a>
     native_node_missing_warning: nenhuma informação de hierarquia disponível
     tabs:
       articles: artigos
@@ -752,13 +756,27 @@ pt-BR:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: ninhada
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigênio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: ácido hexadecanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Cálcio (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnésio (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: purinas
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: ácido úrico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: ácido octadecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: ácido tetradecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: ácido docosanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: ácido dodecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: ácido decanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: ácido hexacosanoico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: ácido undecanóico
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: sulfato de cálcio hemi-hidratado
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: carbonato de cálcio
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: ácido pentadecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_43722: ácido isotetradecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: ácido tridecanoico
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: calcita
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: aragonite
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: apatita
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: fotoautótrofo
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: solo ácido
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: classe de tamanho da
           folha
@@ -767,7 +785,10 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: morfologia das folhas
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: helófito
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: hidrófito
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: árvore
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: arbusto
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: planta aquática
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fixação de nitrogênio
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reprodução assexuada
@@ -775,6 +796,8 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
         http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: órgão de armazenamento
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: Executando
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomoção arbórea
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: salto
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: formulários
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diâmetro da célula
@@ -785,31 +808,45 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: medida do corpo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: preto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: azul
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: vermelho
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: branco
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: amarelo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: médio (normal)
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grande
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: pequeno
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lento
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: em forma de coração
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: roxo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrom
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: laranja
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: alongado
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: área
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: derramabilidade
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: decídua
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempre-verde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: verde amarelado
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezóide
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: misturado
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualidade reduzida
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: decumbente
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: amplo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: Rastejante
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: alta tolerância
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: baixa tolerância
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: exposto
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentação
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: foliáceo
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: ripado
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmado
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: latido
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xilema secundário
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: raízes
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: semente
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: simples
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: presas em
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbionte de
@@ -819,6 +856,7 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patógeno de
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: tem patógeno
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produz
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: altura da planta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: tolerância à seca
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: forma da folha
@@ -834,11 +872,14 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: Largura do corpo
         http://eol(dot)org/schema/terms/Present: distribuição geográfica inclui
         http://eol(dot)org/schema/terms/FossilFirst: primeiro aparecimento
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecorregião
         http://www(dot)wikidata(dot)org/entity/Q33596: matagal
         http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profundidade da água
         http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocorrências fósseis
         http://www(dot)wikidata(dot)org/entity/Q1053008: nível trófico
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: marinho bentônico
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terrestre
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: floresta
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costeiro
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
@@ -875,6 +916,7 @@ pt-BR:
       edit_filters: editar filtros
       filter_display:
         obj_only: 'valor: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
         pred_only: '%{pred}'
         resource: 'recurso: %{value}'
         statistical_method: 'método estatístico: %{value}'

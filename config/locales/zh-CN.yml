@@ -343,28 +343,49 @@ zh-CN:
   term:
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: 硫酸钡
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 钙
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 镁
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: 嘌呤
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: 二十六烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: 碳酸钙
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: 萤石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: 方解石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: 球霰石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: 羟磷灰石
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: 磷酸钙
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: 黄昏行性的
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: 光异养生物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: 根茎植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: 沼生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: 非禾本草本植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 水生植物
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: 下海繁殖的
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: 突变
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木头密度
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形状
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: 蓝色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 绿色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: 白色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: 小号
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: 慢
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: 快
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: 紫色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 褐色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 线性
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 区域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 落叶的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 常绿的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: 黄绿
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 掌状的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: 梯形
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: 薄片状的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: 平伏的
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: 掌状
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 树皮
@@ -372,8 +393,14 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 栖息地
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 叶子形状
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果实类型
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: 内骨骼
+        http://www(dot)wikidata(dot)org/entity/Q33596: 能动性
+        http://www(dot)wikidata(dot)org/entity/Q1053008: 营养级
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: lu di
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
   terms:
     scientific_name: 学名
     source: 源

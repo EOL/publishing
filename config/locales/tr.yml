@@ -1363,6 +1363,8 @@ tr:
   user_download:
     created: Dosyanız arka planda işlenecek. Tamamlanıp tamamlanmadığını görmek için<a
       href="%{url}">kullanıcı sayfanıza</a> kontrol edin.
+    have_pending: Bu sorgu için zaten bekleyen bir indirme işleminiz var. Tamamlanıp
+      tamamlanmadığını görmek için <a href="%{url}">kullanıcı sayfanıza</a> bakın.
   users:
     account_migration_header: '15 Kasım 2018''den önce EOL''ye kaydolduysanız:'
     account_migration_notice: Kullanıcı adı, ilişkili e-posta, profil açıklaması ve

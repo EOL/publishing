@@ -522,6 +522,7 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: syre
         http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexuell reproduktion
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
         http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
