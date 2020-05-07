@@ -286,6 +286,14 @@ div:first-of-type.article {
   text-align: center;
 }
 
+.trophic-web-contain-overview {
+  display: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: $border;
+  border-bottom: $border;
+}
+
 @media(min-width: $habitat-chart-min-width) {
   .page-habitat-chart-left {
     display: block;
@@ -523,16 +531,12 @@ div:first-of-type.article {
   }
 }
 
-  .trophic-web-overview {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-top: $border;
-    border-bottom: $border;
-  }
-
-
 @media(min-width: 740px) {
   .trophic-web {
+    display: block;
+  }
+
+  .trophic-web-contain-overview {
     display: block;
   }
 }

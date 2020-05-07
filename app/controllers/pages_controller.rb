@@ -536,7 +536,7 @@ private
   def setup_trophic_web
     @trophic_web_data = @page.pred_prey_comp_data
     @trophic_web_data[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
-    @show_trophic_web = @trophic_web_data[:nodes].length > 1
+    @show_trophic_web = @trophic_web_data[:nodes].length > 1 || true
     @trophic_web_translations = {
       predator: I18n.t("pages.trophic_web.predator"),
       prey: I18n.t("pages.trophic_web.prey"),
