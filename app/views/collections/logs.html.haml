@@ -8,7 +8,7 @@
       %li
         .uk-float-right.uk-text-small.uk-text-muted= collecting.id
         %span.uk-text-muted
-          = l(collecting.created_at.in_time_zone(Rails.configuration.time_zone), format: :long)
+          = l(collecting.created_at.localtime, format: :long)
         - page_name = collecting.page.try(:name) || "[missing page]"
         - if collecting.associated_collection
           = t("collection.log.associated_collection.#{collecting.action}",

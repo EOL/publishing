@@ -45,7 +45,7 @@
           %td
             = link_to(resource.name, resource)
           %td
-            = l(resource.updated_at.in_time_zone(Rails.configuration.time_zone), format: '%b %d %H:%M')
+            = l(resource.updated_at.localtime, format: '%b %d %H:%M')
             - if resource.updated_at > 1.day.ago
               .ui.label= "new"
           %td= link_to(number_with_delimiter(resource.nodes.count), resource_nodes_path(resource))
