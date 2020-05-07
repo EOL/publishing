@@ -758,8 +758,8 @@ class Page < ApplicationRecord
 
   # TROPHIC_WEB_DATA
   # (not sure if this is the right place for this, but here it lives for now)
-  def pred_prey_comp_data
-    Rails.cache.fetch("pages/#{id}/pred_prey_json/#{I18n.locale}/5", expires: 1.day) do
+  def pred_prey_comp_data(breadcrumb_type)
+    result = Rails.cache.fetch("pages/#{id}/pred_prey_json/#{I18n.locale}/5", expires: 1.day) do
       if !rank&.r_species? # all nodes must be species, so bail
         { nodes: [], links: [] }
       else
@@ -767,6 +767,8 @@ class Page < ApplicationRecord
         handle_pred_prey_comp_relationships(relationships)
       end
     end
+    result[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
+    result
   end
 
   # END TROPHIC WEB DATA

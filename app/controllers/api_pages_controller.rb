@@ -22,7 +22,7 @@ class ApiPagesController < LegacyApiController
 
     respond_to do |format|
       format.json do
-        render json: @page.pred_prey_comp_data
+        render json: @page.pred_prey_comp_data(breadcrumb_type)
       end
     end
   end
