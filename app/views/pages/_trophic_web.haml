@@ -1,4 +1,4 @@
-.trophic-web.js-trophic-web{ data: { init: data.to_json, translations: translations.to_json }}
+.trophic-web.js-trophic-web{ class: local_assigns.include?(:extra_class) ? extra_class : "", data: { init: data.to_json, translations: translations.to_json }}
   .ui.dimmer.active
     .ui.loader
   .trophic-web-inner

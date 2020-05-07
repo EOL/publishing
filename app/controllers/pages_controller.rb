@@ -161,7 +161,8 @@ class PagesController < ApplicationController
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
-    set_page_show_data_viz
+    setup_habitat_bar_chart
+    setup_trophic_web
     respond_to do |format|
       format.html {}
     end
@@ -528,15 +529,24 @@ private
       pred_uri == Eol::Uris.preys_on ||
       pred_uri == Eol::Uris.preyed_upon_by
     )
-      @trophic_web_data = @page.pred_prey_comp_data
-      @trophic_web_data[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
-      @show_trophic_web = @trophic_web_data[:nodes].length > 1
-      @trophic_web_translations = {
-        predator: I18n.t("pages.trophic_web.predator"),
-        prey: I18n.t("pages.trophic_web.prey"),
-        competitor: I18n.t("pages.trophic_web.competitor"),
-      }
+      setup_trophic_web
     end
+  end
+
+  def setup_trophic_web
+    @trophic_web_data = @page.pred_prey_comp_data
+    @trophic_web_data[:labelKey] = breadcrumb_type == BreadcrumbType.vernacular ? "shortName" : "canonicalName"
+    @show_trophic_web = @trophic_web_data[:nodes].length > 1
+    @trophic_web_translations = {
+      predator: I18n.t("pages.trophic_web.predator"),
+      prey: I18n.t("pages.trophic_web.prey"),
+      competitor: I18n.t("pages.trophic_web.competitor"),
+    }
+  end
+
+  def species_page?
+    @page.native_node.rank &&
+    Rank.treat_as[@page.native_node.rank.treat_as] >= Rank.treat_as[:r_species]
   end
 
   def setup_wordcloud
@@ -577,7 +587,7 @@ private
     end
   end
 
-  def set_page_show_data_viz
+  def setup_habitat_bar_chart
     return if !@page.native_node.any_landmark?
     target_uri = nil
 
