@@ -1,0 +1,29 @@
+%h1 Listing editor_page_translations
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Content
+      %th Locale
+      %th Draft
+      %th Published
+      %th
+      %th
+      %th
+
+  %tbody
+    - @editor_page_translations.each do |editor_page_translation|
+      %tr
+        %td= editor_page_translation.title
+        %td= editor_page_translation.content
+        %td= editor_page_translation.locale
+        %td= editor_page_translation.draft_id
+        %td= editor_page_translation.published_id
+        %td= link_to 'Show', editor_page_translation
+        %td= link_to 'Edit', edit_editor_page_translation_path(editor_page_translation)
+        %td= link_to 'Destroy', editor_page_translation, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Editor page translation', new_editor_page_translation_path

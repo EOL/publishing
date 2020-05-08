@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @editor_page_translation.title
+%p
+  %b Content:
+  = @editor_page_translation.content
+%p
+  %b Locale:
+  = @editor_page_translation.locale
+%p
+  %b Draft:
+  = @editor_page_translation.draft_id
+%p
+  %b Published:
+  = @editor_page_translation.published_id
+
+= link_to 'Edit', edit_editor_page_translation_path(@editor_page_translation)
+\|
+= link_to 'Back', editor_page_translations_path
