@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+  resources :editor_pages
   require "#{Rails.root}/lib/routes_util"
   root 'home_page#index'
   get  "set_locale"                   => "locales#set_locale"

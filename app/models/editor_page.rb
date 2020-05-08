@@ -1,0 +1,2 @@
+class EditorPage < ApplicationRecord
+end
