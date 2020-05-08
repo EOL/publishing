@@ -125,6 +125,7 @@ group :development, :test do
   gem 'rubocop-rails', '2.4.1'
   # Simplecov, oddly, to add configuration for Coveralls.
   gem 'simplecov', '~> 0.18'
+  gem 'solargraph'
 end
 
 group :development do
