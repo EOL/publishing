@@ -4,6 +4,5 @@ class EditorPageTranslation < ApplicationRecord
   validates_uniqueness_of :editor_page_id, scope: :locale
 
   belongs_to :editor_page
-  belongs_to :draft, class_name: "EditorPageContent"
-  belongs_to :published, class_name: "EditorPageContent"
+  has_many :editor_page_contents
 end

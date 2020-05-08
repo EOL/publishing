@@ -53,5 +53,12 @@ module EolWebsite
     ]
 
     config.x.geonames_app_id = Rails.application.secrets.geonames_app_id
+
+    # scaffold config
+    config.generators do |g|
+      g.test_framework nil
+      g.scaffold_stylesheet false
+      g.javascript_engine :js
+    end
   end
 end
