@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_165440) do
+ActiveRecord::Schema.define(version: 2020_05_08_174454) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -256,12 +256,23 @@ ActiveRecord::Schema.define(version: 2020_05_08_165440) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "editor_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+  create_table "editor_page_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
-    t.string "slug"
     t.text "content"
+    t.string "locale"
+    t.integer "draft_id"
+    t.integer "published_id"
+    t.integer "editor_page_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["editor_page_id"], name: "index_editor_page_translations_on_editor_page_id"
+  end
+
+  create_table "editor_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["slug"], name: "index_editor_pages_on_slug", unique: true
   end
 
