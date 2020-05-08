@@ -3,9 +3,8 @@
 %table
   %thead
     %tr
-      %th Title
+      %th Name
       %th Slug
-      %th Content
       %th
       %th
       %th
@@ -15,7 +14,6 @@
       %tr
         %td= editor_page.title
         %td= editor_page.slug
-        %td= editor_page.content
         %td= link_to 'Show', editor_page
         %td= link_to 'Edit', edit_editor_page_path(editor_page)
         %td= link_to 'Destroy', editor_page, method: :delete, data: { confirm: 'Are you sure?' }
