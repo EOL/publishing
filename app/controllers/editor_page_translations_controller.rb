@@ -1,4 +1,5 @@
 class EditorPageTranslationsController < ApplicationController
+  before_action :set_editor_page
   before_action :set_editor_page_translation, only: [:show, :edit, :update, :destroy]
 
   # GET /editor_page_translations
@@ -14,11 +15,20 @@ class EditorPageTranslationsController < ApplicationController
 
   # GET /editor_page_translations/new
   def new
-    @editor_page_translation = EditorPageTranslation.new
+    @editor_page_translation = EditorPageTranslation.create!(locale: params.require(:translation_locale), editor_page: @editor_page)
+
+    redirect_to new_editor_page_editor_page_translation_editor_page_content_path(@editor_page, @editor_page_translation)
   end
 
   # GET /editor_page_translations/1/edit
   def edit
+    editor_page_content = @editor_page_translation.draft
+
+    if editor_page_content
+      redirect_to edit_editor_page_editor_page_translation_editor_page_content_path(@editor_page, @editor_page_translation, editor_page_content)
+    else
+      redirect_to new_editor_page_editor_page_translation_editor_page_content_path(@editor_page, @editor_page_translation)
+    end
   end
 
   # POST /editor_page_translations
@@ -70,5 +80,9 @@ class EditorPageTranslationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def editor_page_translation_params
       params.require(:editor_page_translation).permit(:title, :content, :locale, :draft_id, :published_id)
+    end
+
+    def set_editor_page
+      @editor_page = EditorPage.friendly.find(params[:editor_page_id])
     end
 end

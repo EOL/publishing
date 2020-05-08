@@ -13,8 +13,8 @@
           %li
             - translation = editor_page.translation_for_locale(locale)
             - if translation
-              = link_to locale, edit_editor_page_translation_path(translation), class: "uk-button uk-button-primary"
+              = link_to locale, edit_editor_page_editor_page_translation_path(editor_page, translation), class: "uk-button uk-button-primary"
             - else 
-              = link_to locale, new_editor_page_translation_path(editor_page_id: editor_page.id, locale: locale), class: "uk-button uk-button-default"
+              = link_to locale, new_editor_page_editor_page_translation_path(editor_page, translation_locale: locale), class: "uk-button uk-button-default"
 
 = link_to 'New Editor page', new_editor_page_path

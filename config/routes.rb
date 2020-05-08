@@ -1,8 +1,14 @@
 
 Rails.application.routes.draw do
-  resources :editor_page_contents
-  resources :editor_page_translations
-  resources :editor_pages
+  resources :editor_pages do
+
+    resources :editor_page_translations do
+      resources :editor_page_contents do
+        get "preview" => "editor_page_contents#preview", as: :preview
+      end
+    end
+  end
+
   require "#{Rails.root}/lib/routes_util"
   root 'home_page#index'
   get  "set_locale"                   => "locales#set_locale"

@@ -1,3 +1,4 @@
+/* modified from original! */
 @charset "UTF-8";
 /*
 Trix 1.2.3
@@ -8,7 +9,7 @@ trix-editor {
   border-radius: 3px;
   margin: 0;
   padding: 0.4em 0.6em;
-  min-height: 5em;
+  height: 400px;
   outline: none; }
 trix-toolbar * {
   box-sizing: border-box; }
