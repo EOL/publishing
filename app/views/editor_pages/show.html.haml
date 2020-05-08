@@ -1,15 +1,3 @@
-%p#notice= notice
+%h1= @editor_page.title
+.content= @editor_page.content.html_safe
 
-%p
-  %b Title:
-  = @editor_page.title
-%p
-  %b Slug:
-  = @editor_page.slug
-%p
-  %b Content:
-  = @editor_page.content
-
-= link_to 'Edit', edit_editor_page_path(@editor_page)
-\|
-= link_to 'Back', editor_pages_path
