@@ -1,0 +1,25 @@
+%h1 Listing editor_pages
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Slug
+      %th Content
+      %th
+      %th
+      %th
+
+  %tbody
+    - @editor_pages.each do |editor_page|
+      %tr
+        %td= editor_page.title
+        %td= editor_page.slug
+        %td= editor_page.content
+        %td= link_to 'Show', editor_page
+        %td= link_to 'Edit', edit_editor_page_path(editor_page)
+        %td= link_to 'Destroy', editor_page, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Editor page', new_editor_page_path

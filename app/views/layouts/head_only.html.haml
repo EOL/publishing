@@ -18,6 +18,7 @@
     = stylesheet_link_tag "application", media: :all
     -if asset_exists? "#{params[:controller]}.css"
       = stylesheet_link_tag params[:controller], media: :all
+    = stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.css", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
     = javascript_include_tag "https://d3js.org/d3.v4.min.js"
     = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"
@@ -27,8 +28,10 @@
       = javascript_include_tag params[:controller]
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit.min.js"
     = javascript_include_tag "#{cdn}/uikit/3.1.6/js/uikit-icons.min.js"
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.1/trix.js"
     - %w[api search sticky dimmer dropdown transition].each do |name|
       = javascript_include_tag "#{cdn}/semantic-ui/2.3.1/components/#{name}.min.js"
+      -# TODO: only for editor form
     - if Rails.env.staging? || Rails.env.production?
       = javascript_include_tag "https://edge.quantserve.com/quant.js"
       = javascript_include_tag "https://www.google-analytics.com/ga.js"
