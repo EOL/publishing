@@ -28,11 +28,9 @@ class EditorPagesController < ApplicationController
 
     respond_to do |format|
       if @editor_page.save
-        format.html { redirect_to @editor_page, notice: 'Editor page was successfully created.' }
-        format.json { render :show, status: :created, location: @editor_page }
+        format.html { redirect_to editor_pages_path, notice: 'Editor page was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @editor_page.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +40,9 @@ class EditorPagesController < ApplicationController
   def update
     respond_to do |format|
       if @editor_page.update(editor_page_params)
-        format.html { redirect_to @editor_page, notice: 'Editor page was successfully updated.' }
-        format.json { render :show, status: :ok, location: @editor_page }
+        format.html { redirect_to editor_pages_path, notice: 'Editor page was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @editor_page.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +65,6 @@ class EditorPagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def editor_page_params
-      params.require(:editor_page).permit(:title, :slug, :content)
+      params.require(:editor_page).permit(:name)
     end
 end
