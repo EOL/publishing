@@ -64,7 +64,7 @@ class EditorPagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_editor_page
-      @editor_page = EditorPage.find(params[:id])
+      @editor_page = EditorPage.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
