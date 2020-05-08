@@ -1,12 +1,2 @@
-%p#notice= notice
-
-%p
-  %b Title:
-  = @editor_page_content.title
-%p
-  %b Content:
-  = @editor_page_content.content
-
-= link_to 'Edit', edit_editor_page_content_path(@editor_page_content)
-\|
-= link_to 'Back', editor_page_contents_path
+%h1= @editor_page_content.title.html_safe
+.editor-page-content= @editor_page_content.content.html_safe

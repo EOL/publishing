@@ -1,0 +1,12 @@
+= simple_form_for([@editor_page, @editor_page_translation, @editor_page_content]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :title, label: "Main heading", input_html: { class: "uk-input uk-margin-bottom" }
+    = f.hidden_field :content, id: "content"
+    %trix-editor{ input: "content" }
+    -#
+      <trix-editor input="editor_page_content"></trix-editor>
+
+  .form-actions.uk-margin-top
+    = f.button :submit, "Save & preview", class: "uk-button uk-button-default"

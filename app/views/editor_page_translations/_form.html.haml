@@ -1,12 +1,10 @@
-= simple_form_for(@editor_page_translation) do |f|
+= simple_form_for(@editor_page, @editor_page_translation) do |f|
   = f.error_notification
 
   .form-inputs
     = f.input :title
     = f.input :content
     = f.input :locale
-    = f.input :draft_id
-    = f.input :published_id
 
   .form-actions
     = f.button :submit

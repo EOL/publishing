@@ -1,7 +1,5 @@
-%h1 Editing editor_page_content
+%h1= "Editing draft of '#{@editor_page.name}' -- #{@editor_page_translation.locale}"
 
 = render 'form'
 
-= link_to 'Show', @editor_page_content
-\|
-= link_to 'Back', editor_page_contents_path
+= link_to 'Back', editor_pages_path

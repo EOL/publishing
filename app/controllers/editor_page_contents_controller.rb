@@ -1,5 +1,7 @@
 class EditorPageContentsController < ApplicationController
-  before_action :set_editor_page_content, only: [:show, :edit, :update, :destroy]
+  before_action :set_editor_page
+  before_action :set_editor_page_translation
+  before_action :set_editor_page_content, only: [:show, :edit, :update, :destroy, :preview]
 
   # GET /editor_page_contents
   # GET /editor_page_contents.json
@@ -25,14 +27,14 @@ class EditorPageContentsController < ApplicationController
   # POST /editor_page_contents.json
   def create
     @editor_page_content = EditorPageContent.new(editor_page_content_params)
+    @editor_page_content.editor_page_translation = @editor_page_translation
+    @editor_page_content.status = :draft
 
     respond_to do |format|
       if @editor_page_content.save
-        format.html { redirect_to @editor_page_content, notice: 'Editor page content was successfully created.' }
-        format.json { render :show, status: :created, location: @editor_page_content }
+        format.html { redirect_to_preview }
       else
         format.html { render :new }
-        format.json { render json: @editor_page_content.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +44,9 @@ class EditorPageContentsController < ApplicationController
   def update
     respond_to do |format|
       if @editor_page_content.update(editor_page_content_params)
-        format.html { redirect_to @editor_page_content, notice: 'Editor page content was successfully updated.' }
-        format.json { render :show, status: :ok, location: @editor_page_content }
+        format.html { redirect_to_preview }
       else
         format.html { render :edit }
-        format.json { render json: @editor_page_content.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -61,7 +61,19 @@ class EditorPageContentsController < ApplicationController
     end
   end
 
+  def preview
+    render "show"
+  end
+
   private
+    def set_editor_page
+      @editor_page = EditorPage.friendly.find(params[:editor_page_id])
+    end
+
+    def set_editor_page_translation
+      @editor_page_translation = EditorPageTranslation.find(params[:editor_page_translation_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_editor_page_content
       @editor_page_content = EditorPageContent.find(params[:id])
@@ -70,5 +82,9 @@ class EditorPageContentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def editor_page_content_params
       params.require(:editor_page_content).permit(:title, :content)
+    end
+
+    def redirect_to_preview
+      redirect_to [@editor_page, @editor_page_translation, @editor_page_content]
     end
 end

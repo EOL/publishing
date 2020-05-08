@@ -1,2 +1,5 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+//= require "trix"
+$(document).on('trix-before-initialize', () => {
+  console.log('boop');
+  Trix.config.blockAttributes.heading1.tagName = 'h2';
+});
