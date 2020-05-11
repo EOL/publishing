@@ -244,7 +244,7 @@ class Resource < ApplicationRecord
       begin
         log("Batch #{times}...")
         STDOUT.flush
-        klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{id} LIMIT #{batch_size}")
+        klass.connection.execute("DELETE FROM `#{klass.table_name}` WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
         sleep(0.5) # Being (moderately) nice.
       end while klass.where(resource_id: id).count.positive? && times < max_times
