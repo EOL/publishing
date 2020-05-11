@@ -149,21 +149,20 @@ class Resource < ApplicationRecord
     new_log
   end
 
-  def remove_content(log = nil)
-    @log ||= Publishing::PubLog.new(@resource)
-    log ||= []
+  def remove_content
+    clear_import_logs
     # Traits:
     count = TraitBank.count_by_resource_no_cache(id)
     if count.zero?
-      log("[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping.")
+      log("No traits, skipping.")
     else
-      log("[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits")
+      log("Removing #{count} traits")
       TraitBank::Admin.remove_for_resource(self)
     end
     # Node ancestors
-    log(nuke(NodeAncestor))
+    nuke(NodeAncestor)
     # Node identifiers
-    log(nuke(Identifier))
+    nuke(Identifier)
     # content_sections
     [Medium, Article, Link].each do |klass|
       all_pages = klass.where(resource_id: id).pluck(:page_id)
@@ -181,14 +180,14 @@ class Resource < ApplicationRecord
       end
     end
     # javascripts
-    log(nuke(Javascript))
+    nuke(Javascript)
     # locations
-    log(nuke(Location))
+    nuke(Location)
     # Bibliographic Citations
-    log(nuke(BibliographicCitation))
+    nuke(BibliographicCitation)
     # references, referents
-    log(nuke(Reference))
-    log(nuke(Referent))
+    nuke(Reference)
+    nuke(Referent)
     fix_missing_page_contents(delete: true)
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
@@ -199,32 +198,30 @@ class Resource < ApplicationRecord
       # t.integer  "species_count",          limit: 4,   default: 0,     null: false
 
     # Media, image_info
-    log(nuke(ImageInfo))
-    log(clear_import_logs)
-    log(nuke(Medium))
+    nuke(ImageInfo)
+    nuke(Medium)
     # Articles
-    log(nuke(Article))
+    nuke(Article)
     # Links
-    log(nuke(Link))
+    nuke(Link)
     # occurrence_maps
-    log(nuke(OccurrenceMap))
+    nuke(OccurrenceMap)
     # Scientific Names
-    log(nuke(ScientificName))
+    nuke(ScientificName)
     # Vernaculars
-    log(nuke(Vernacular))
+    nuke(Vernacular)
     # Attributions
-    log(nuke(Attribution))
+    nuke(Attribution)
     # Update page node counts
     # Get list of affected pages
-    log("[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts...")
+    log("Updating page node counts...")
     pages = Node.where(resource_id: id).pluck(:page_id)
     pages.in_groups_of(5000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
-    log(nuke(Node))
-    # You should run something like #fix_native_nodes (q.v.), but it's slow, so it's the responsibility of the caller to
-    # do it if desired.
-    log
+    nuke(Node)
+    # You should run something like #fix_native_nodes (q.v.), but it's slow, and not terribly important if you are just
+    # about to re-load the resource, so it's the responsibility of the caller to do it if desired.
   end
 
   def log(message)
@@ -257,13 +254,12 @@ class Resource < ApplicationRecord
     end
     log("Removed #{count} #{klass.name.humanize.pluralize}")
     STDOUT.flush
-    str
   rescue => e # reports as Mysql2::Error but that doesn't catch it. :S
     log("There was an error, retrying: #{e.message}")
     STDOUT.flush
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
-    retry rescue "[#{Time.now.strftime('%H:%M:%S.%3N')}] UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
+    retry rescue "UNABLE TO REMOVE #{klass.name.humanize.pluralize}: timed out"
   end
 
   def clear_import_logs
