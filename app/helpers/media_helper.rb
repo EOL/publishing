@@ -9,7 +9,7 @@ module MediaHelper
   end
 
   def medium_name_html(medium)
-    name = medium.name || generic_medium_name(medium)
+    name = medium.name.present? ? medium.name : generic_medium_name(medium)
     name.sub(/^File:/, "").sub(/\.\w{3,4}$/, "").html_safe
   end
 
