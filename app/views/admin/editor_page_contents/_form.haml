@@ -1,4 +1,4 @@
-= simple_form_for([@editor_page, @editor_page_translation, @editor_page_content]) do |f|
+= simple_form_for(@editor_page_content, url: admin_editor_page_draft_path(editor_page_id: @editor_page.slug, editor_page_locale: @editor_page_locale)) do |f|
   = f.error_notification
 
   .form-inputs

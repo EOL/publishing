@@ -1,22 +1,29 @@
-class EditorPageContentsController < ApplicationController
+class Admin::EditorPageContentsController < AdminController
   before_action :set_editor_page
-  before_action :set_editor_page_translation
-  before_action :set_editor_page_content, only: [:show, :edit, :update, :destroy, :preview]
+  before_action :set_editor_page_locale
 
-  # GET /editor_page_contents
-  # GET /editor_page_contents.json
-  def index
-    @editor_page_contents = EditorPageContent.all
+  def draft
+    @editor_page_content = @editor_page.draft_for_locale(@editor_page_locale) || EditorPageContent.new
   end
 
-  # GET /editor_page_contents/1
-  # GET /editor_page_contents/1.json
-  def show
-  end
+  def save_draft
+    existing = @editor_page.draft_for_locale(@editor_page_locale)
+    success = if existing
+                @editor_page_content = existing
+                @editor_page_content.update(editor_page_content_params)
+              else
+                @editor_page_content = EditorPageContent.new(editor_page_content_params)
+                @editor_page_content.editor_page = @editor_page
+                @editor_page_content.locale = @editor_page_locale
+                @editor_page_content.status = :draft
+                @editor_page_content.save
+             end
 
-  # GET /editor_page_contents/new
-  def new
-    @editor_page_content = EditorPageContent.new
+    if success
+      redirect_to_preview
+    else
+      render :draft
+    end
   end
 
   # GET /editor_page_contents/1/edit
@@ -62,7 +69,7 @@ class EditorPageContentsController < ApplicationController
   end
 
   def preview
-    render "show"
+    @editor_page_content = @editor_page.draft_for_locale(@editor_page_locale)
   end
 
   private
@@ -70,13 +77,8 @@ class EditorPageContentsController < ApplicationController
       @editor_page = EditorPage.friendly.find(params[:editor_page_id])
     end
 
-    def set_editor_page_translation
-      @editor_page_translation = EditorPageTranslation.find(params[:editor_page_translation_id])
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_editor_page_content
-      @editor_page_content = EditorPageContent.find(params[:id])
+    def set_editor_page_locale
+      @editor_page_locale = params.require(:editor_page_locale)
     end
 
     # Only allow a list of trusted parameters through.
@@ -85,6 +87,6 @@ class EditorPageContentsController < ApplicationController
     end
 
     def redirect_to_preview
-      redirect_to [@editor_page, @editor_page_translation, @editor_page_content]
+      redirect_to admin_editor_page_preview_path(@editor_page, @editor_page_locale)
     end
 end
