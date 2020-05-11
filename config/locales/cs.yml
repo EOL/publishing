@@ -222,7 +222,14 @@ cs:
       viruses: Viry
   language: Jazyk
   languages:
-    none: Neurčeno
+    Q29507: Asturianština
+    Q33357: Krymská tatarština
+    Q33634: Kalmyčtina
+    Q35939: Kreolská jamajština
+    Q36730: Turečtina, Ottomanština
+    Q56426: Marocká arabština
+    Q750553: Brazilská portugalština
+    Q9292: Ázerbájdžánština
     ab: Abcházština
     af: Afrikánština
     an: Aragonština
@@ -292,6 +299,7 @@ cs:
     ne: Nepálština
     nl: Vlámština
     nn: Nynorsk Norština
+    none: Neurčeno
     nv: Navajština
     ny: Čičevština
     os: Ossetijština
@@ -299,14 +307,6 @@ cs:
     pl: Polština
     ps: Paštúnština
     pt: Portugalština
-    Q29507: Asturianština
-    Q33357: Krymská tatarština
-    Q33634: Kalmyčtina
-    Q35939: Kreolská jamajština
-    Q36730: Turečtina, Ottomanština
-    Q56426: Marocká arabština
-    Q750553: Brazilská portugalština
-    Q9292: Ázerbájdžánština
     qu: Kečuánština
     ro: Rumunština; Moldavština; Moldovan
     ru: Ruština

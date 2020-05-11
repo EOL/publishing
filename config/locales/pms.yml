@@ -278,140 +278,8 @@ pms:
     stats_cleared: Le statìstiché a son ëstàite torna calcolà.
   language: Lenga
   languages:
-    none: Nen ëspessìficà
-    aa: Afar
-    ab: Abcasian
-    ae: Avestan
-    af: Afrikaans
-    ak: Akan
-    am: Amàrich
-    an: Aragonèis
-    ar: Àrabo
-    as: Assamèis
-    av: Avàrich
-    ay: Aymara
-    az: Aser
-    ba: Bashkir
-    be: Bieloruss
-    bg: Bùlgar
-    bh: Lenghe bihari
-    bi: Bislamèis
-    bm: Bambara
-    bn: Bengalèis
-    bo: Tibetan
-    br: Breton
-    bs: Bosnìach
-    ca: Catalan; Valensian
-    ce: Cecen
-    ch: Chamorro
-    co: Còrs
-    cr: Cree
-    cs: Cech
-    cu: Vej slavònich ëd la cesa
-    cv: Chuvash
-    cy: Galèis
-    da: Danèis
-    de: Alman
-    dv: Divehi; Dhivehi; Maldivian
-    dz: Dzongkha
-    dzo: Dzongkha
-    ee: Ewe
-    el: Grech modern (1453-)
-    en: Anglèis
-    eo: Esperant
-    es: Spagneul; Castilian
-    et: Éston
-    eu: Basch
-    fa: Persian
-    ff: Fulah
-    fi: Finlandèis
-    fj: Figian
-    fo: Faroèis
-    fr: Fransèis
-    fy: Frisian ossidental
-    ga: Irlandèis
-    gd: Gaélich; Gaélich ëscossèis
-    gl: Galissian
-    gn: Guarani
-    gu: Gujarati
-    gv: Manèis
-    ha: Hausa
-    he: Ebreo
-    hi: Hindi
-    ho: Hiri motu
-    hr: Croat
-    ht: Haitian; Créol haitian
-    hu: Ungherèis
-    hy: Armen
-    hz: Herero
-    ia: Antërlenga (Associassion antërnassional ëd lenga ausiliaria)
-    id: Indonesian
-    ie: Antërlenga; Ossidental
-    ig: Igbo
-    ii: Yi dël Sichuan; Nuosu
-    ik: Inupiaq
-    io: Ido
-    is: Islandèis
-    it: Italian
-    iu: Inuktitut
-    ja: Giaponèis
-    jp: Giaponèis
-    jv: Giavanèis
-    ka: Georgian
-    kg: Kongo
-    ki: Kikuyu; Gikuyu
-    kj: Kuanyama; Kwanyama
-    kk: Kasach
-    kl: Kalaallisut; Groenlandèis
-    km: Khmer sentral
-    kn: Kannada
-    ko: Corean
-    kr: Kanuri
-    ks: Kashmir
-    ku: Curd
-    kv: Komi
-    kw: Córnich
-    ky: Kirghiz; Kyrgyz
-    la: Latin
-    lb: Lussemborghèis; Letzeburgesch
-    lg: Ganda
-    li: limborghèis
-    ln: lingala
-    lo: lao
-    lt: lituan
-    lu: luba-katanga
-    lv: léton
-    mg: malgass
-    mh: marshalèis
-    mi: maòri
-    mk: macédon
-    ml: malayalam
-    mn: mòngol
-    mr: marathi
-    ms: malèis
-    mt: maltèis
-    my: birman
-    na: nauru
-    nb: bokmål, norvegèis; norvegèis bokmål
-    nd: ndebele dël nòrd
-    ne: nepalèis
-    ng: ndonga
-    nl: olandèis; flamand
-    nn: norvegèis nynorsk; nynorsk, norvegèis
     "no": norvegèis
-    nr: ndebele dël sud
-    nv: navajo; navaho
-    ny: chewa; chichewa; nyanja
-    oc: ossitan (apress 1500)
-    oj: ojibwa
-    om: oromo
-    or: oriya
-    os: osset
-    pa: panjabi; punjabi
-    pi: pali
-    pl: polonèis
-    ps: pushto; pashton
-    pt: portughèis
+    Q100103: Flamand ossidental
     Q11005332: Kinga
     Q11128374: Nyiha
     Q1160372: Laz
@@ -492,6 +360,140 @@ pms:
     Q880301: Fransèis cajun
     Q8836490: Bende
     Q9292: Aser
+    aa: Afar
+    ab: Abcasian
+    ae: Avestan
+    af: Afrikaans
+    ak: Akan
+    am: Amàrich
+    an: Aragonèis
+    ar: Àrabo
+    as: Assamèis
+    av: Avàrich
+    ay: Aymara
+    az: Aser
+    ba: Bashkir
+    be: Bieloruss
+    bg: Bùlgar
+    bh: Lenghe bihari
+    bi: Bislamèis
+    bm: Bambara
+    bn: Bengalèis
+    bo: Tibetan
+    br: Breton
+    bs: Bosnìach
+    ca: Catalan; Valensian
+    ce: Cecen
+    ch: Chamorro
+    co: Còrs
+    cr: Cree
+    cs: Cech
+    cu: Vej slavònich ëd la cesa
+    cv: Chuvash
+    cy: Galèis
+    da: Danèis
+    de: Alman
+    dv: Divehi; Dhivehi; Maldivian
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Ewe
+    el: Grech modern (1453-)
+    en: Anglèis
+    eo: Esperant
+    es: Spagneul; Castilian
+    et: Éston
+    eu: Basch
+    fa: Persian
+    ff: Fulah
+    fi: Finlandèis
+    fj: Figian
+    fo: Faroèis
+    fr: Fransèis
+    fy: Frisian ossidental
+    ga: Irlandèis
+    gd: Gaélich ëscossèis
+    gl: Galissian
+    gn: Guarani
+    gu: Gujarati
+    gv: Manèis
+    ha: Hausa
+    he: Ebreo
+    hi: Hindi
+    ho: Hiri motu
+    hr: Croat
+    ht: Haitian; Créol haitian
+    hu: Ungherèis
+    hy: Armen
+    hz: Herero
+    ia: Antërlenga
+    id: Indonesian
+    ie: Antërlenga; Ossidental
+    ig: Igbo
+    ii: Yi dël Sichuan; Nuosu
+    ik: Inupiaq
+    io: Ido
+    is: Islandèis
+    it: Italian
+    iu: Inuktitut
+    ja: Giaponèis
+    jp: Giaponèis
+    jv: Giavanèis
+    ka: Georgian
+    kg: Kongo
+    ki: Kikuyu; Gikuyu
+    kj: Kuanyama; Kwanyama
+    kk: Kasach
+    kl: Kalaallisut; Groenlandèis
+    km: Khmer sentral
+    kn: Kannada
+    ko: Corean
+    kr: Kanuri
+    ks: Kashmir
+    ku: Curd
+    kv: Komi
+    kw: Córnich
+    ky: Kirghiz; Kyrgyz
+    la: Latin
+    lb: Lussemborghèis; Letzeburgesch
+    lg: Ganda
+    li: Limborghèis
+    ln: lingala
+    lo: lao
+    lt: lituan
+    lu: luba-katanga
+    lv: léton
+    mg: malgass
+    mh: marshalèis
+    mi: maòri
+    mk: macédon
+    ml: malayalam
+    mn: mòngol
+    mr: marathi
+    ms: malèis
+    mt: maltèis
+    my: birman
+    na: nauru
+    nb: bokmål, norvegèis; norvegèis bokmål
+    nd: ndebele dël nòrd
+    ne: nepalèis
+    ng: ndonga
+    nl: olandèis; flamand
+    nn: norvegèis nynorsk; nynorsk, norvegèis
+    "": Norvegèis
+    none: Nen ëspessìficà
+    nr: ndebele dël sud
+    nv: navajo; navaho
+    ny: chewa; chichewa; nyanja
+    oc: Ossitan
+    oj: ojibwa
+    om: oromo
+    or: oriya
+    os: osset
+    pa: Punjabi
+    pi: pali
+    pl: polonèis
+    ps: pushto; pashton
+    pt: portughèis
     qu: quechua
     rm: romancc
     rn: rundi
@@ -503,7 +505,7 @@ pms:
     sd: sindhi
     se: sami dël Nòrd
     sg: sango
-    si: singalèis
+    si: Singalèis
     sk: slovach
     sl: sloven
     sm: samoan
@@ -524,7 +526,7 @@ pms:
     tk: turcmen
     tl: tagalog
     tn: tswana
-    to: tongan (ìsole Tonga)
+    to: Tongan
     tr: turch
     ts: tsonga
     tt: Tatar
@@ -1064,10 +1066,24 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta aquàtica
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: anual
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: bienal
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: arzistent
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: anàdrom
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: catàdrom
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: anfìdrom
         http://purl(dot)obolibrary(dot)org/obo/GO_0000003: arprodussion
         http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissassion ëd l'asòt
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: arprodussion assessuà
         http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomossion
         http://purl(dot)obolibrary(dot)org/obo/GO_0060746: soen parentaj
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilìnder
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: òrgo ëd conservassion
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: corsa
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: locomossion an sj'erbo
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: aéreo
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: vòl
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: vòl planà
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: sàut
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: forme
         http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abondansa
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: diàmeter ëd la célula
         http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: volum ëd la célula
@@ -1082,9 +1098,30 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: longheur ëd l'epicòno
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: longheur ëd l'ipocòno
         http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: taja dël còrp
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: macroalga
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: durà dla vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nèir
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: bleu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verd
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: ross
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianch
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giàun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medi (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: grand
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: cit
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: a l'anvers
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: meusi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: lest
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: a forma ëd cheur
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: porpra
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: maròn
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: groson
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: slongà
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: gran durà ëd vita
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: curta durà ëd vita
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: àrea
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuje ch'a casco

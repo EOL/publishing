@@ -135,7 +135,7 @@ ko:
   forgot_your_password: 비밀번호를 잊으셨나요?
   language: 언어
   languages:
-    none: 지정되지 않음
+    "no": 노르웨이어
     ar: 아랍어
     az: 아제르바이잔어
     bg: 불가리아어
@@ -168,7 +168,7 @@ ko:
     mn: 몽골어
     ms: 말레이어
     ne: 네팔어
-    "no": 노르웨이어
+    none: 지정되지 않음
     pl: 폴란드어
     pt: 포르투갈어
     ru: 러시아어

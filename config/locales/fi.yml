@@ -246,7 +246,7 @@ fi:
     stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
-    none: Määrittelemätön
+    "no": Norja
     aa: Afar
     ab: Abhaasi
     ae: Avesta
@@ -366,7 +366,7 @@ fi:
     ng: Ndonga
     nl: Flaami
     nn: Uusnorja
-    "no": Norja
+    none: Määrittelemätön
     nr: Etelä-ndebele
     nv: Navajo
     ny: Njandža

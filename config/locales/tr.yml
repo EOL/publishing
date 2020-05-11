@@ -278,140 +278,8 @@ tr:
     stats_cleared: İstatistikler yeniden hesaplandı.
   language: Dil
   languages:
-    none: Belirtilmemiş
-    aa: Afarca
-    ab: Abhazca
-    ae: Avestaca
-    af: Afrikaanca
-    ak: Akan
-    am: Amharca
-    an: Aragonca
-    ar: Arapça
-    as: Assam dili
-    av: Avarca
-    ay: Aymaraca
-    az: Azerice
-    ba: Başkurtça
-    be: Beyaz Rusça
-    bg: Bulgarca
-    bh: Bihari dilleri
-    bi: Bislama
-    bm: Bambara
-    bn: Belgalce
-    bo: Tibetçe
-    br: Bretonca
-    bs: Boşnakça
-    ca: Katalanca; Valensiyaca
-    ce: Çeçence
-    ch: Çamorro dili
-    co: Korsikaca
-    cr: Cree
-    cs: Çekçe
-    cu: Eski Kilise Slavcası
-    cv: Çuvaşça
-    cy: Galce
-    da: Danca
-    de: Almanca
-    dv: Maldivce
-    dz: Dzongkha
-    dzo: Dzongkha
-    ee: Ewe
-    el: Yunanca, Modern (1453-)
-    en: İngilizce
-    eo: Esperanto
-    es: İspanyolca; Kastilyaca
-    et: Estonyaca
-    eu: Baskça
-    fa: Farsça
-    ff: Fula Dili
-    fi: Fince
-    fj: Fiji dili
-    fo: Faroece
-    fr: Fransızca
-    fy: Batı Frizcesi
-    ga: İrlandaca
-    gd: Galce; İskoçya Galcesi
-    gl: Galiçyaca
-    gn: Guaraní dili
-    gu: Guceratça
-    gv: Man dili
-    ha: Hausaca
-    he: İbranice
-    hi: Hitnçe
-    ho: Hiri Motu
-    hr: Hırvatça
-    ht: Haiti dili; Haiti Creole
-    hu: Macarca
-    hy: Ermenice
-    hz: Herero
-    ia: Interlingua (Uluslararası Yardımcı Dil Derneği)
-    id: Endonezce
-    ie: Interlingue; Batı
-    ig: İgbo Dili
-    ii: Sichuan Yi
-    ik: İnyupikçe
-    io: İdo dili
-    is: İzlandaca
-    it: İtalyanca
-    iu: Doğu Kanada İnuitçesi
-    ja: Japonca
-    jp: Japonca
-    jv: Cava dili
-    ka: Gürcüce
-    kg: Kongo
-    ki: Kikuyu
-    kj: Kuanyama
-    kk: Kazakça
-    kl: Grönlandca
-    km: Kmerce
-    kn: Kannada dili
-    ko: Korece
-    kr: Kanurice
-    ks: Kashmiri
-    ku: Kürtçe
-    kv: Komice
-    kw: Kernevekçe
-    ky: Kırgızça
-    la: Latince
-    lb: Lüksemburgca
-    lg: Ganda
-    li: Limburgca
-    ln: Lingala dili
-    lo: Laoca
-    lt: Litvanca
-    lu: Luba-Katanga
-    lv: Letonca
-    mg: Malgaşça
-    mh: Marshall Adaları dili
-    mi: Maorice
-    mk: Makedonca
-    ml: Malayalamca
-    mn: Moğolca
-    mr: Marathi
-    ms: Malayca
-    mt: Maltaca
-    my: Birmanca
-    na: Nauruca
-    nb: Bokmål, Norveççe; Norwegian Bokmål
-    nd: Ndebele, Kuzey; Kuzey Ndebele
-    ne: Nepalce
-    ng: Ndonga
-    nl: Felemenkçe; Flemish
-    nn: Norveççe Nynorsk; Nynorsk, Norveççe
     "no": Norveççe
-    nr: Ndebele, Güney; Güney Ndebele
-    nv: Navahoca
-    ny: Çevaca; Chewa; Nyanja
-    oc: Oksitanca (1500 sonrası)
-    oj: Ojibva dili
-    om: Oromca
-    or: Oriya Dili
-    os: Osetçe
-    pa: Panjabi; Punjabi
-    pi: Pali
-    pl: Lehçe
-    ps: Peştuca
-    pt: Portekizce
+    Q100103: Batı Flamanca
     Q11005332: Kinga
     Q11128374: Nyiha dili
     Q1160372: Lazca
@@ -492,6 +360,140 @@ tr:
     Q880301: Louisiana Fransızca
     Q8836490: Bende dili
     Q9292: Azerice
+    aa: Afarca
+    ab: Abhazca
+    ae: Avestaca
+    af: Afrikaanca
+    ak: Akan
+    am: Amharca
+    an: Aragonca
+    ar: Arapça
+    as: Assam dili
+    av: Avarca
+    ay: Aymaraca
+    az: Azerice
+    ba: Başkurtça
+    be: Beyaz Rusça
+    bg: Bulgarca
+    bh: Bihari dilleri
+    bi: Bislama
+    bm: Bambara
+    bn: Belgalce
+    bo: Tibetçe
+    br: Bretonca
+    bs: Boşnakça
+    ca: Katalanca; Valensiyaca
+    ce: Çeçence
+    ch: Çamorro dili
+    co: Korsikaca
+    cr: Cree
+    cs: Çekçe
+    cu: Eski Kilise Slavcası
+    cv: Çuvaşça
+    cy: Galce
+    da: Danca
+    de: Almanca
+    dv: Maldivce
+    dz: Dzongkha
+    dzo: Dzongkha
+    ee: Ewe
+    el: Yunanca, Modern (1453-)
+    en: İngilizce
+    eo: Esperanto
+    es: İspanyolca; Kastilyaca
+    et: Estonyaca
+    eu: Baskça
+    fa: Farsça
+    ff: Fula Dili
+    fi: Fince
+    fj: Fiji dili
+    fo: Faroece
+    fr: Fransızca
+    fy: Batı Frizcesi
+    ga: İrlandaca
+    gd: İskoçça Galcesi
+    gl: Galiçyaca
+    gn: Guaraní dili
+    gu: Guceratça
+    gv: Man dili
+    ha: Hausaca
+    he: İbranice
+    hi: Hitnçe
+    ho: Hiri Motu
+    hr: Hırvatça
+    ht: Haiti dili; Haiti Creole
+    hu: Macarca
+    hy: Ermenice
+    hz: Herero
+    ia: İnterlingua
+    id: Endonezce
+    ie: Interlingue; Batı
+    ig: İgbo Dili
+    ii: Sichuan Yi
+    ik: İnyupikçe
+    io: İdo dili
+    is: İzlandaca
+    it: İtalyanca
+    iu: Doğu Kanada İnuitçesi
+    ja: Japonca
+    jp: Japonca
+    jv: Cava dili
+    ka: Gürcüce
+    kg: Kongo
+    ki: Kikuyu
+    kj: Kuanyama
+    kk: Kazakça
+    kl: Grönlandca
+    km: Kmerce
+    kn: Kannada dili
+    ko: Korece
+    kr: Kanurice
+    ks: Kashmiri
+    ku: Kürtçe
+    kv: Komice
+    kw: Kernevekçe
+    ky: Kırgızça
+    la: Latince
+    lb: Lüksemburgca
+    lg: Ganda
+    li: Limburgca
+    ln: Lingala dili
+    lo: Laoca
+    lt: Litvanca
+    lu: Luba-Katanga
+    lv: Letonca
+    mg: Malgaşça
+    mh: Marshall Adaları dili
+    mi: Maorice
+    mk: Makedonca
+    ml: Malayalamca
+    mn: Moğolca
+    mr: Marathi
+    ms: Malayca
+    mt: Maltaca
+    my: Birmanca
+    na: Nauruca
+    nb: Bokmål, Norveççe; Norwegian Bokmål
+    nd: Ndebele, Kuzey; Kuzey Ndebele
+    ne: Nepalce
+    ng: Ndonga
+    nl: Felemenkçe; Flemish
+    nn: Norveççe Nynorsk; Nynorsk, Norveççe
+    "": Norveççe
+    none: Belirtilmemiş
+    nr: Ndebele, Güney; Güney Ndebele
+    nv: Navahoca
+    ny: Çevaca; Chewa; Nyanja
+    oc: Oksitanca
+    oj: Ojibva dili
+    om: Oromca
+    or: Oriya Dili
+    os: Osetçe
+    pa: Pencapça
+    pi: Pali
+    pl: Lehçe
+    ps: Peştuca
+    pt: Portekizce
     qu: Keçuva dili
     rm: Romanşça
     rn: Rundice
@@ -524,7 +526,7 @@ tr:
     tk: Türkmence
     tl: Tagalogca
     tn: Tsvana dili
-    to: Tonga (Tonga Adaları)
+    to: Tongaca
     tr: Türkçe
     ts: Tsongaca
     tt: Tatarca

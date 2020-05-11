@@ -281,140 +281,8 @@ fr:
     stats_cleared: Les statistiques ont été recalculées.
   language: Langue
   languages:
-    none: Non spécifié
-    aa: afar
-    ab: abkhaze
-    ae: avestique
-    af: afrikaans
-    ak: akan
-    am: amharique
-    an: aragonais
-    ar: arabe
-    as: assamais
-    av: avar
-    ay: aymara
-    az: azéri
-    ba: bachkir
-    be: biélorusse
-    bg: bulgare
-    bh: langues bihari
-    bi: bichelamar
-    bm: bambara
-    bn: bengali
-    bo: tibétain
-    br: breton
-    bs: bosnien
-    ca: catalan ; valencien
-    ce: tchétchène
-    ch: chamorro
-    co: corse
-    cr: cri
-    cs: tchèque
-    cu: Vieux slavon liturgique
-    cv: tchouvache
-    cy: gallois
-    da: danois
-    de: allemand
-    dv: divehi ; maldivien
-    dz: dzongkha
-    dzo: dzongkha
-    ee: éwé
-    el: grec moderne (1453–)
-    en: anglais
-    eo: espéranto
-    es: espagnol ; castillan
-    et: estonien
-    eu: basque
-    fa: persan
-    ff: peul
-    fi: finnois
-    fj: fidjien
-    fo: féroïen
-    fr: français
-    fy: frison occidental
-    ga: irlandais
-    gd: gaélique ; gaélique écossais
-    gl: galicien
-    gn: guarani
-    gu: gouderati
-    gv: mannois
-    ha: haoussa
-    he: Hébreu
-    hi: hindi
-    ho: hiri motu
-    hr: Croate
-    ht: haïtien ; créole haïtien
-    hu: hongrois
-    hy: arménien
-    hz: héréro
-    ia: interlingua (Association internationale de langue auxiliaire)
-    id: indonésien
-    ie: interlingua ; occidental
-    ig: igbo
-    ii: yi du Sichuan ; nuosu
-    ik: inupiaq
-    io: ido
-    is: islandais
-    it: italien
-    iu: inuktitut
-    ja: japonais
-    jp: japonais
-    jv: javanais
-    ka: Géorgien
-    kg: kikongo
-    ki: kikuyu ; gikuyu
-    kj: kuanyama ; kwanyama
-    kk: kazakh
-    kl: kalaallisut ; groenlandais
-    km: khmer central
-    kn: kannara
-    ko: coréen
-    kr: kanouri
-    ks: cachemiri
-    ku: kurde
-    kv: komi
-    kw: cornique
-    ky: kirghize
-    la: latin
-    lb: luxembourgeois
-    lg: ganda ; luganda
-    li: limbourgeois
-    ln: lingala
-    lo: lao
-    lt: lituanien
-    lu: luba-katanga
-    lv: letton
-    mg: malgache
-    mh: marshallais
-    mi: maori
-    mk: macédonien
-    ml: malayalam
-    mn: mongol
-    mr: marathi
-    ms: malais
-    mt: maltais
-    my: birman
-    na: nauru
-    nb: bokmål, norvégien ; norvégien bokmål
-    nd: ndébélé du Nord
-    ne: népalais
-    ng: ndonga
-    nl: néerlandais ; flamand
-    nn: norvégien nynorsk ; nynorsk, norvégien
     "no": norvégien
-    nr: ndébélé du Sud
-    nv: navajo ; navaho
-    ny: chewa ; chichewa ; nyanja
-    oc: occitan (après 1500)
-    oj: ojibwé
-    om: oromo
-    or: odiya
-    os: ossète
-    pa: pendjabi
-    pi: pali
-    pl: polonais
-    ps: pachto ; pachtoune
-    pt: portugais
+    Q100103: Flamand de l'ouest
     Q11005332: Kinga
     Q11128374: Nyiha
     Q1160372: Laze
@@ -495,6 +363,140 @@ fr:
     Q880301: Français cadien
     Q8836490: Bende
     Q9292: Azéri
+    aa: afar
+    ab: abkhaze
+    ae: avestique
+    af: afrikaans
+    ak: akan
+    am: amharique
+    an: aragonais
+    ar: arabe
+    as: assamais
+    av: avar
+    ay: aymara
+    az: azéri
+    ba: bachkir
+    be: biélorusse
+    bg: bulgare
+    bh: langues bihari
+    bi: bichelamar
+    bm: bambara
+    bn: bengali
+    bo: tibétain
+    br: breton
+    bs: bosnien
+    ca: catalan ; valencien
+    ce: tchétchène
+    ch: chamorro
+    co: corse
+    cr: cri
+    cs: tchèque
+    cu: Vieux slavon liturgique
+    cv: tchouvache
+    cy: gallois
+    da: danois
+    de: allemand
+    dv: divehi ; maldivien
+    dz: dzongkha
+    dzo: dzongkha
+    ee: éwé
+    el: grec moderne (1453–)
+    en: anglais
+    eo: espéranto
+    es: espagnol ; castillan
+    et: estonien
+    eu: basque
+    fa: persan
+    ff: peul
+    fi: finnois
+    fj: fidjien
+    fo: féroïen
+    fr: français
+    fy: frison occidental
+    ga: irlandais
+    gd: Gaélique écossais
+    gl: galicien
+    gn: guarani
+    gu: gouderati
+    gv: mannois
+    ha: haoussa
+    he: Hébreu
+    hi: hindi
+    ho: hiri motu
+    hr: Croate
+    ht: haïtien ; créole haïtien
+    hu: hongrois
+    hy: arménien
+    hz: héréro
+    ia: Interlingua
+    id: indonésien
+    ie: interlingua ; occidental
+    ig: igbo
+    ii: yi du Sichuan ; nuosu
+    ik: inupiaq
+    io: ido
+    is: islandais
+    it: italien
+    iu: inuktitut
+    ja: japonais
+    jp: japonais
+    jv: javanais
+    ka: Géorgien
+    kg: kikongo
+    ki: kikuyu ; gikuyu
+    kj: kuanyama ; kwanyama
+    kk: kazakh
+    kl: kalaallisut ; groenlandais
+    km: khmer central
+    kn: kannara
+    ko: coréen
+    kr: kanouri
+    ks: cachemiri
+    ku: kurde
+    kv: komi
+    kw: cornique
+    ky: kirghize
+    la: latin
+    lb: luxembourgeois
+    lg: ganda ; luganda
+    li: Limbourgeois
+    ln: lingala
+    lo: lao
+    lt: lituanien
+    lu: luba-katanga
+    lv: letton
+    mg: malgache
+    mh: marshallais
+    mi: maori
+    mk: macédonien
+    ml: malayalam
+    mn: mongol
+    mr: marathi
+    ms: malais
+    mt: maltais
+    my: birman
+    na: nauru
+    nb: bokmål, norvégien ; norvégien bokmål
+    nd: ndébélé du Nord
+    ne: népalais
+    ng: ndonga
+    nl: néerlandais ; flamand
+    nn: norvégien nynorsk ; nynorsk, norvégien
+    "": Norvégien
+    none: Non spécifié
+    nr: ndébélé du Sud
+    nv: navajo ; navaho
+    ny: chewa ; chichewa ; nyanja
+    oc: Occitan
+    oj: ojibwé
+    om: oromo
+    or: odiya
+    os: ossète
+    pa: Pendjabi
+    pi: pali
+    pl: polonais
+    ps: pachto ; pachtoune
+    pt: portugais
     qu: quechua
     rm: romanche
     rn: roundi
@@ -506,7 +508,7 @@ fr:
     sd: sindhi
     se: same du Nord
     sg: sango
-    si: cinghalais
+    si: Cinghalais
     sk: slovaque
     sl: slovène
     sm: samoan
@@ -527,7 +529,7 @@ fr:
     tk: turkmène
     tl: tagalog
     tn: tswana
-    to: tongan (îles Tonga)
+    to: Tongan
     tr: turc
     ts: tsonga
     tt: tatar

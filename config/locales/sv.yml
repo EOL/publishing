@@ -210,7 +210,6 @@ sv:
   forgot_your_password: Glömt ditt lösenord?
   language: Språk
   languages:
-    none: Ospecificerad
     bg: Bulgariska
     da: Danska
     de: Tyska
@@ -230,6 +229,7 @@ sv:
     lv: Lettiska
     mk: Makedonska
     mn: Mongoliet
+    none: Ospecificerad
     se: Nordsamiska
     sv: Svenska
     vi: Vietnamesisk

@@ -260,7 +260,27 @@ pt-BR:
     stats_cleared: As estatísticas foram recalculadas.
   language: Idioma
   languages:
-    none: Não especificado
+    "no": Norueguês
+    Q1160372: Laz
+    Q13358: Megleno-romeno
+    Q146803: Língua franca nova
+    Q18415595: Doteli
+    Q27776: Adigue
+    Q3272630: Gogo
+    Q33281: Chavacano
+    Q33357: Tártaro da Crimeia
+    Q33541: Caracalpaque
+    Q3362072: Digo
+    Q35939: Crioulo de Jamaica
+    Q35978: Panayano
+    Q36730: Turco, Otomano
+    Q4121131: Nyamwezi
+    Q56240: Árabe tunisino
+    Q56426: Árabe marroquino
+    Q584983: Langi
+    Q6944725: Mwera
+    Q750553: Português do Brasil
+    Q9292: Azerbaijano
     aa: Afar
     ab: Abcázia
     ae: Avéstico
@@ -351,31 +371,11 @@ pt-BR:
     nd: Ndebele do norte; Ndebele do Zimbabwe
     ng: Xindongo
     nn: Novo norueguês
-    "no": Norueguês
+    none: Não especificado
     ny: Nianja; Cinianja; Chewa
     oj: Ojíbua
     pl: Polonês
     pt: Português
-    Q1160372: Laz
-    Q13358: Megleno-romeno
-    Q146803: Língua franca nova
-    Q18415595: Doteli
-    Q27776: Adigue
-    Q3272630: Gogo
-    Q33281: Chavacano
-    Q33357: Tártaro da Crimeia
-    Q33541: Caracalpaque
-    Q3362072: Digo
-    Q35939: Crioulo de Jamaica
-    Q35978: Panayano
-    Q36730: Turco, Otomano
-    Q4121131: Nyamwezi
-    Q56240: Árabe tunisino
-    Q56426: Árabe marroquino
-    Q584983: Langi
-    Q6944725: Mwera
-    Q750553: Português do Brasil
-    Q9292: Azerbaijano
     rm: Romanche
     ru: Russo
     sc: Sardo

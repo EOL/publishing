@@ -165,6 +165,87 @@ diq:
   forgot_your_password: Parola kerda ho vira?
   language: Zıwan
   languages:
+    "no": Norwecki
+    Q11005332: Kinga
+    Q11128374: Nyiha
+    Q1160372: Lazki
+    Q11732519: Kingindo
+    Q13313: Meruki
+    Q13324: Minangkabauki
+    Q13330: Mirandaki
+    Q13358: Rumenki
+    Q146803: Lingua Franca Nova
+    Q16115145: Nyika
+    Q180937: Arnawudkiya Toski
+    Q18415595: Dotyalki
+    Q19933293: Lurkiya Zımey
+    Q23014: Almankiya Palatini
+    Q2429648: Pogoro
+    Q2501174: Gorontalo
+    Q2591230: Kashinawaki
+    Q2638144: Sukuma
+    Q27776: Adıgeki
+    Q28602: Aramkiya kehan
+    Q29507: Asturyaski
+    Q3129390: Heheki
+    Q3272620: Nyakusa
+    Q3272630: Gogoki
+    Q32858: Votiki
+    Q32979: Çoktawki
+    Q33202: Brahuki
+    Q33281: Çavakanoki
+    Q33303: Haida
+    Q33357: Tatarkiya Kırımı
+    Q33475: Çinkiya Gani
+    Q33509: İnguşki
+    Q33541: Kara-Kalpak
+    Q33595: Iraqwiki
+    Q3362072: Digoki
+    Q33634: Kalmuki
+    Q33698: Livonki
+    Q33965: Santaliki
+    Q34016: Sandaveki
+    Q34138: Tumbuka
+    Q34159: Tok Pisin
+    Q34318: Talışki
+    Q3437661: Luguru
+    Q35037: Tongoki
+    Q3508074: Naiki
+    Q35156: Carki
+    Q35475: Kabiyè
+    Q35756: Hayaki
+    Q35787: Masaiki
+    Q35936: İlokano
+    Q35939: Kreolekiya Jamaika
+    Q35978: Hiligaynon
+    Q36109: Maithili
+    Q36403: Pareki
+    Q36584: Livviki
+    Q36730: Usmanıcki
+    Q36738: Novial
+    Q36748: Pontuski
+    Q3788739: Şambalaki
+    Q4121131: Nyamwezi
+    Q4126517: Inuktitutiya Kanada
+    Q4941378: Bondei
+    Q497345: Frankiya werti
+    Q5575236: Goan Konkani
+    Q56240: Erebkiya Tunısi
+    Q56426: Erebkiya Maroki
+    Q56466: Dinka
+    Q56482: Shanki
+    Q56590: Atikamekw
+    Q584983: Rangiki
+    Q667747: Fipaki
+    Q6786446: Matengo
+    Q6944725: Mweraki
+    Q7022366: Ngindo
+    Q7193418: Nyaturu
+    Q750553: Portekizkiya Brezilya
+    Q845441: Sardinkiya Sasarri
+    Q880301: Cajun French
+    Q8836490: Bendeki
+    Q9292: Azerki
     aa: Afarki
     ab: Abhazki
     ae: Avestki
@@ -284,7 +365,6 @@ diq:
     ng: Ndonga
     nl: Hollandki, Flamanki
     nn: Norwecki, Nynorsk
-    "no": Norwecki
     nr: Ndebele, Ndebele Veroci
     nv: Navajo
     ny: Çiçewaki, Nyanja
@@ -298,86 +378,6 @@ diq:
     pl: Polonki
     ps: Peştunki
     pt: Portekizki
-    Q11005332: Kinga
-    Q11128374: Nyiha
-    Q1160372: Lazki
-    Q11732519: Kingindo
-    Q13313: Meruki
-    Q13324: Minangkabauki
-    Q13330: Mirandaki
-    Q13358: Rumenki
-    Q146803: Lingua Franca Nova
-    Q16115145: Nyika
-    Q180937: Arnawudkiya Toski
-    Q18415595: Dotyalki
-    Q19933293: Lurkiya Zımey
-    Q23014: Almankiya Palatini
-    Q2429648: Pogoro
-    Q2501174: Gorontalo
-    Q2591230: Kashinawaki
-    Q2638144: Sukuma
-    Q27776: Adıgeki
-    Q28602: Aramkiya kehan
-    Q29507: Asturyaski
-    Q3129390: Heheki
-    Q3272620: Nyakusa
-    Q3272630: Gogoki
-    Q32858: Votiki
-    Q32979: Çoktawki
-    Q33202: Brahuki
-    Q33281: Çavakanoki
-    Q33303: Haida
-    Q33357: Tatarkiya Kırımı
-    Q33475: Çinkiya Gani
-    Q33509: İnguşki
-    Q33541: Kara-Kalpak
-    Q33595: Iraqwiki
-    Q3362072: Digoki
-    Q33634: Kalmuki
-    Q33698: Livonki
-    Q33965: Santaliki
-    Q34016: Sandaveki
-    Q34138: Tumbuka
-    Q34159: Tok Pisin
-    Q34318: Talışki
-    Q3437661: Luguru
-    Q35037: Tongoki
-    Q3508074: Naiki
-    Q35156: Carki
-    Q35475: Kabiyè
-    Q35756: Hayaki
-    Q35787: Masaiki
-    Q35936: İlokano
-    Q35939: Kreolekiya Jamaika
-    Q35978: Hiligaynon
-    Q36109: Maithili
-    Q36403: Pareki
-    Q36584: Livviki
-    Q36730: Usmanıcki
-    Q36738: Novial
-    Q36748: Pontuski
-    Q3788739: Şambalaki
-    Q4121131: Nyamwezi
-    Q4126517: Inuktitutiya Kanada
-    Q4941378: Bondei
-    Q497345: Frankiya werti
-    Q5575236: Goan Konkani
-    Q56240: Erebkiya Tunısi
-    Q56426: Erebkiya Maroki
-    Q56466: Dinka
-    Q56482: Shanki
-    Q56590: Atikamekw
-    Q584983: Rangiki
-    Q667747: Fipaki
-    Q6786446: Matengo
-    Q6944725: Mweraki
-    Q7022366: Ngindo
-    Q7193418: Nyaturu
-    Q750553: Portekizkiya Brezilya
-    Q845441: Sardinkiya Sasarri
-    Q880301: Cajun French
-    Q8836490: Bendeki
-    Q9292: Azerki
     qu: Quçewaki
     rm: Romanşki
     rn: Rundiki

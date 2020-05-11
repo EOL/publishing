@@ -189,7 +189,14 @@ pt-PT:
     header: Acesso global ao conhecimento sobre a vida na Terra
   language: Idioma
   languages:
-    none: Não especificado
+    Q1160372: Laz
+    Q13358: Megleno-romeno
+    Q146803: Língua Franca Nova
+    Q3272630: Gogo
+    Q33281: Chavacano
+    Q3362072: Digo
+    Q4121131: Nyamwezi
+    Q6944725: Mwera
     an: Aragonês
     bs: Bósnio
     da: Dinamarquês
@@ -218,15 +225,8 @@ pt-PT:
     kk: Cazaquistanês
     ko: Coreano
     la: Latim
+    none: Não especificado
     pt: Português (Portugal)
-    Q1160372: Laz
-    Q13358: Megleno-romeno
-    Q146803: Língua Franca Nova
-    Q3272630: Gogo
-    Q33281: Chavacano
-    Q3362072: Digo
-    Q4121131: Nyamwezi
-    Q6944725: Mwera
     ru: Russo
     sk: Eslovaco
     sq: Albanês

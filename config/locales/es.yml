@@ -7,6 +7,7 @@
 # Author: Ihojose
 # Author: Joanmp17
 # Author: Madamebiblio
+# Author: Ncr
 # Author: Silverie04
 ---
 es:
@@ -213,7 +214,16 @@ es:
     stats_cleared: Se recalcularon las estadísticas.
   language: Idioma
   languages:
-    none: No especificado
+    "no": Noruego
+    Q100103: Flamenco occidental
+    Q27776: Adigué
+    Q29507: Asturiano
+    Q33357: Tártaro de Crimea
+    Q34159: Tok pisin
+    Q35939: Criollo de Jamaica
+    Q56426: Árabe marroquí
+    Q750553: Portugués de Brasil
+    Q9292: Azerí
     ab: Abjasio
     af: Afrikáans
     am: Amhárico
@@ -241,6 +251,7 @@ es:
     fj: Fiyiano
     fr: Francés
     ga: Irlandés
+    gd: Gaélico escocés
     gl: Gallego
     gn: Guaraní
     gu: Guyaratí
@@ -248,6 +259,7 @@ es:
     hr: Croata
     hu: Húngaro
     hy: Armenio
+    ia: Interlingua
     id: Indonesio
     is: Islandés
     it: Italiano
@@ -261,30 +273,27 @@ es:
     kw: Córnico
     la: Latín
     lb: Luxemburgués
+    li: Limburgués
     lt: Lituano
     mg: Malgache
     mn: Mongol
     mt: Maltés
     ne: Nepalí
     nl: Holandés; flamenco
-    "no": Noruego
+    "": Noruego
+    none: No especificado
     nv: Navajo
+    oc: Occitano
+    pa: Panyabí
     pl: Polaco
     pt: Portugués
-    Q27776: Adigué
-    Q29507: Asturiano
-    Q33357: Tártaro de Crimea
-    Q34159: Tok pisin
-    Q35939: Criollo de Jamaica
-    Q56426: Árabe marroquí
-    Q750553: Portugués de Brasil
-    Q9292: Azerí
     qu: Quechua
     rm: Romanche
     ru: Ruso
     rw: Kiñaruanda
     sa: Sánscrito
     sc: Sardo
+    si: Cingalés
     sk: Eslovaco
     sl: Esloveno
     sm: Samoano
@@ -295,6 +304,7 @@ es:
     th: Tai
     ti: Tigriña
     tl: Tagalo
+    to: Tongano
     tr: Turco
     uk: Ucraniano
     uz: Uzbeko
@@ -546,6 +556,7 @@ es:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
         http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
         http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
@@ -559,6 +570,7 @@ es:
       about_this_chart: acerca de este gráfico
       hist_value_label: valor (%{units})
       num_records_label: N.º de registros
+      page_habitat_header: Hábitats de %{name}
     search:
       download_tsv: descargar tsv
       edit_filters: editar filtros
