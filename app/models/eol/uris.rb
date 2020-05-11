@@ -255,10 +255,6 @@ module Eol
         "https://www.wikidata.org/entity/Q295469"
       end
 
-      def stops_at
-        "https://eol.org/schema/terms/stops_at"
-      end
-
       def inverse(uri)
         INVERSES[uri]
       end

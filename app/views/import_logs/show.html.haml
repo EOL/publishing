@@ -2,17 +2,17 @@
 %ul.uk-list
   %li
     %b= "Started:"
-    = l(@log.created_at.in_time_zone(Rails.configuration.time_zone), format: :long)
+    = l(@log.created_at.localtime, format: :long)
   %li
     %b= "Completed:"
     - if @log.completed_at
-      = l(@log.completed_at.in_time_zone(Rails.configuration.time_zone), format: '%H:%M:%S.%3N')
+      = l(@log.completed_at.localtime, format: '%H:%M:%S.%3N')
     - else
       No.
   %li
     %b= "Failed:"
     - if @log.failed_at
-      = l(@log.failed_at.in_time_zone(Rails.configuration.time_zone), format: '%H:%M:%S.%3N')
+      = l(@log.failed_at.localtime, format: '%H:%M:%S.%3N')
     - else
       No.
   %li
@@ -32,7 +32,7 @@
   - else
     - @events.each do |event|
       %li
-        %b= l(event.created_at.in_time_zone(Rails.configuration.time_zone), format: '%H:%M:%S.%3N')
+        %b= l(event.created_at.localtime, format: '%H:%M:%S.%3N')
         %span.uk-text-muted= "(#{event.cat})"
         = event.body
 = paginate @events

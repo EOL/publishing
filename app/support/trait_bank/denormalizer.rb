@@ -35,9 +35,6 @@ class TraitBank::Denormalizer
   end
 
   def set_canonicals_by_page_id(ids)
-    # I am trying this because I get a lot of connection deaths, and I think it's because this is the fist query after a
-    # long set of neo4j queries, after which the connection goes away...
-    ActiveRecord::Base.connection.reconnect!
     ids.in_groups_of(@limit, false) do |group_of_ids|
       pages = map_page_ids_to_canonical(group_of_ids)
       pages.each do |id, name|

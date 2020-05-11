@@ -150,19 +150,20 @@ class Resource < ApplicationRecord
   end
 
   def remove_content(log = nil)
+    @log ||= Publishing::PubLog.new(@resource)
     log ||= []
     # Traits:
     count = TraitBank.count_by_resource_no_cache(id)
     if count.zero?
-      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping."
+      log("[#{Time.now.strftime('%H:%M:%S.%3N')}] No traits, skipping.")
     else
-      log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits"
+      log("[#{Time.now.strftime('%H:%M:%S.%3N')}] Removing #{count} traits")
       TraitBank::Admin.remove_for_resource(self)
     end
     # Node ancestors
-    log << nuke(NodeAncestor)
+    log(nuke(NodeAncestor))
     # Node identifiers
-    log << nuke(Identifier)
+    log(nuke(Identifier))
     # content_sections
     [Medium, Article, Link].each do |klass|
       all_pages = klass.where(resource_id: id).pluck(:page_id)
@@ -180,14 +181,14 @@ class Resource < ApplicationRecord
       end
     end
     # javascripts
-    log << nuke(Javascript)
+    log(nuke(Javascript))
     # locations
-    log << nuke(Location)
+    log(nuke(Location))
     # Bibliographic Citations
-    log << nuke(BibliographicCitation)
+    log(nuke(BibliographicCitation))
     # references, referents
-    log << nuke(Reference)
-    log << nuke(Referent)
+    log(nuke(Reference))
+    log(nuke(Referent))
     fix_missing_page_contents(delete: true)
     # TODO: Update these counts on affected pages:
       # t.integer  "maps_count",             limit: 4,   default: 0,     null: false
@@ -198,32 +199,37 @@ class Resource < ApplicationRecord
       # t.integer  "species_count",          limit: 4,   default: 0,     null: false
 
     # Media, image_info
-    log << nuke(ImageInfo)
-    log << clear_import_logs
-    log << nuke(Medium)
+    log(nuke(ImageInfo))
+    log(clear_import_logs)
+    log(nuke(Medium))
     # Articles
-    log << nuke(Article)
+    log(nuke(Article))
     # Links
-    log << nuke(Link)
+    log(nuke(Link))
     # occurrence_maps
-    log << nuke(OccurrenceMap)
+    log(nuke(OccurrenceMap))
     # Scientific Names
-    log << nuke(ScientificName)
+    log(nuke(ScientificName))
     # Vernaculars
-    log << nuke(Vernacular)
+    log(nuke(Vernacular))
     # Attributions
-    log << nuke(Attribution)
+    log(nuke(Attribution))
     # Update page node counts
     # Get list of affected pages
-    log << "[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts..."
+    log("[#{Time.now.strftime('%H:%M:%S.%3N')}] Updating page node counts...")
     pages = Node.where(resource_id: id).pluck(:page_id)
     pages.in_groups_of(5000, false) do |group|
       Page.where(id: group).update_all("nodes_count = nodes_count - 1")
     end
-    log << nuke(Node)
+    log(nuke(Node))
     # You should run something like #fix_native_nodes (q.v.), but it's slow, so it's the responsibility of the caller to
     # do it if desired.
     log
+  end
+
+  def log(message)
+    @log ||= Publishing::PubLog.new(@resource)
+    @log.log(message, cat: :infos)
   end
 
   def nuke(klass)
@@ -262,7 +268,6 @@ class Resource < ApplicationRecord
   end
 
   def clear_import_logs
-    mini_log = []
     import_logs.each do |log|
       log_name = log.created_at.strftime('%Y-%m-%d %H:%M')
       last_event = log.import_events.last
@@ -270,14 +275,13 @@ class Resource < ApplicationRecord
         old_events = log.import_events.where(['created_at < ?', last_event.created_at - 60])
         unless old_events.count.zero?
           old_events.destroy_all
-          mini_log << "Removed events older than the last minute for log on #{log_name}."
+          log("Removed events older than the last minute for log on #{log_name}.")
         end
       else
         log.destroy
-        mini_log << "Removed empty log from #{log_name}"
+        log("Removed empty log from #{log_name}")
       end
     end
-    mini_log.join("; ")
   end
 
   def fix_native_nodes
