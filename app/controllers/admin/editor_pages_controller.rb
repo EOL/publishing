@@ -4,7 +4,8 @@ class Admin::EditorPagesController < AdminController
   # GET /editor_pages
   # GET /editor_pages.json
   def index
-    @editor_pages = EditorPage.all
+    @top_level = EditorPage.top_level
+    @directories = EditorPageDirectory.all
   end
 
   # GET /editor_pages/1
@@ -25,10 +26,9 @@ class Admin::EditorPagesController < AdminController
   # POST /editor_pages.json
   def create
     @editor_page = EditorPage.new(editor_page_params)
-
     respond_to do |format|
       if @editor_page.save
-        format.html { redirect_to editor_pages_path, notice: 'Editor page was successfully created.' }
+        format.html { redirect_to admin_editor_pages_path, notice: 'Editor page was successfully created.' }
       else
         format.html { render :new }
       end
@@ -52,7 +52,7 @@ class Admin::EditorPagesController < AdminController
   def destroy
     @editor_page.destroy
     respond_to do |format|
-      format.html { redirect_to editor_pages_url, notice: 'Editor page was successfully destroyed.' }
+      format.html { redirect_to admin_editor_pages_url, notice: 'Editor page was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,8 @@
+= simple_form_for([:admin, @editor_page_directory]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :name, input_html: { class: "uk-input" }
+
+  .form-actions
+    = f.button :submit, class: "uk-button uk-button-default"
