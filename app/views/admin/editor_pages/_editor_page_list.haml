@@ -1,0 +1,19 @@
+%ul.editor-pages
+  - editor_pages.each do |editor_page|
+    %li
+      %span= editor_page.name
+      = link_to edit_admin_editor_page_path(editor_page) do 
+        %span{:'uk-icon' => "icon: pencil"}
+      = link_to admin_editor_page_path(editor_page), method: :delete, data: { confirm: 'Are you sure? ' } do
+        %span{:'uk-icon' => "icon: trash"}
+      %ul.editor-page-locales
+        - I18n.available_locales.each do |locale|
+          %li
+            - draft = editor_page.draft_for_locale(locale)
+            - if draft
+              - button_class = "primary"
+            - else
+              -button_class = "default"
+            = link_to locale, admin_editor_page_draft_path(editor_page, locale), class: "uk-button uk-button-small uk-button-#{button_class}"
+  %li.uk-margin-top
+    = link_to "New page", new_admin_editor_page_path(editor_page_directory_id: local_assigns.fetch(:directory, nil)&.id), class: "uk-button uk-button-default"

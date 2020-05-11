@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_162933) do
+ActiveRecord::Schema.define(version: 2020_05_11_194724) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -267,11 +267,18 @@ ActiveRecord::Schema.define(version: 2020_05_11_162933) do
     t.index ["editor_page_id"], name: "index_editor_page_contents_on_editor_page_id"
   end
 
+  create_table "editor_page_directories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "editor_pages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.integer "editor_page_directory_id"
     t.index ["slug"], name: "index_editor_pages_on_slug", unique: true
   end
 

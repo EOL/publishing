@@ -206,6 +206,8 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
+      resources :editor_page_directories
+
       resources :editor_pages do
         nested do
           scope "(:editor_page_locale)" do
