@@ -1,5 +1,4 @@
-%h1= @editor_page_content.title
-.content= @editor_page_content.content.html_safe
+= render "editor_pages/show"
 
 .uk-margin-top.uk-margin-large
   = link_to admin_editor_page_publish_path(@editor_page, @editor_page_locale), data: { confirm: 'Are you sure you want to publish this draft?' } do
