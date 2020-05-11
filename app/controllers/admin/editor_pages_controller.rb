@@ -1,5 +1,5 @@
-class EditorPagesController < ApplicationController
-  before_action :set_editor_page, only: [:show, :edit, :update, :destroy]
+class Admin::EditorPagesController < AdminController
+  before_action :set_editor_page, only: %i(show edit update destroy)
 
   # GET /editor_pages
   # GET /editor_pages.json

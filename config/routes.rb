@@ -1,14 +1,5 @@
 
 Rails.application.routes.draw do
-  resources :editor_pages do
-
-    resources :editor_page_translations do
-      resources :editor_page_contents do
-        get "preview" => "editor_page_contents#preview", as: :preview
-      end
-    end
-  end
-
   require "#{Rails.root}/lib/routes_util"
   root 'home_page#index'
   get  "set_locale"                   => "locales#set_locale"
@@ -213,6 +204,21 @@ Rails.application.routes.draw do
       get "/data_viz/bar" => "data_viz#bar"
       get "/data_viz/hist" => "data_viz#hist"
     end
+
+    namespace :admin do
+      resources :editor_pages do
+        nested do
+          scope "(:editor_page_locale)" do
+            get "draft" => "editor_page_contents#draft"
+            post "draft" => "editor_page_contents#save_draft"
+            patch "draft" => "editor_page_contents#save_draft"
+            get "publish" => "editor_page_contents#publish"
+            get "preview" => "editor_page_contents#preview", as: :preview
+          end
+        end
+      end
+    end
+
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"

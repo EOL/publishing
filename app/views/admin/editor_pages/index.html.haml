@@ -1,0 +1,21 @@
+%h1 Editor Pages Administration
+
+%ul.editor-pages
+  - @editor_pages.each do |editor_page|
+    %li
+      %div.editor-page
+        %div.editor-page-name= editor_page.name
+        .editor-page-actions
+          = link_to 'Edit', edit_admin_editor_page_path(editor_page), class: "uk-button uk-button-primary"
+          = link_to 'Destroy', admin_editor_page_path(editor_page), method: :delete, data: { confirm: 'Are you sure? ' }, class: "uk-button uk-button-danger"
+      %ul.editor-page-locales
+        - I18n.available_locales.each do |locale|
+          %li
+            - draft = editor_page.draft_for_locale(locale)
+            - if draft
+              - button_class = "primary"
+            - else
+              -button_class = "default"
+            = link_to locale, admin_editor_page_draft_path(editor_page, locale), class: "uk-button uk-button-#{button_class}"
+
+= link_to 'New Editor page', new_admin_editor_page_path
