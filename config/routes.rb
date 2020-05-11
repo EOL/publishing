@@ -219,6 +219,9 @@ Rails.application.routes.draw do
       end
     end
 
+    scope "newdocs" do
+      get ":editor_page_id" => "editor_pages#show"
+    end
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
