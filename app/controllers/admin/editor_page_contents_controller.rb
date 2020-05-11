@@ -72,6 +72,24 @@ class Admin::EditorPageContentsController < AdminController
     @editor_page_content = @editor_page.draft_for_locale(@editor_page_locale)
   end
 
+  def publish
+    draft = @editor_page.find_draft_for_locale(@editor_page_locale)
+    old_published = @editor_page.published_for_locale(@editor_page_locale)
+
+    EditorPageContent.transaction do
+      if old_published
+        old_published.destroy!
+      end
+
+      new_published = draft.dup
+      new_published.status = :published
+      new_published.save! 
+    end
+
+    flash[:notice] = "Draft published"
+    redirect_to admin_editor_pages_path
+  end
+
   private
     def set_editor_page
       @editor_page = EditorPage.friendly.find(params[:editor_page_id])
