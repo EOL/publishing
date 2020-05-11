@@ -50,7 +50,7 @@ class Resource < ApplicationRecord
           node_map = {}
           batch.each { |node| node_map[node.page_id] = node.id }
           page_group = []
-          puts "#{batch.size} nodes id > #{batch.first.id}"
+          log("#{batch.size} nodes id > #{batch.first.id}")
           STDOUT.flush
           # NOTE: native_node_id is NOT indexed, so this is not speedy:
           Page.where(id: batch.map(&:page_id)).includes(:native_node).find_each do |page|
@@ -58,7 +58,7 @@ class Resource < ApplicationRecord
             count += 1
             page_group << page.id
             page.update_attribute :native_node_id, node_map[page.id]
-            puts "Updated #{count}. Last: #{node_map[page.id]}" if (count % 1000).zero?
+            log("Updated #{count}. Last: #{node_map[page.id]}") if (count % 1000).zero?
             STDOUT.flush
           end
           begin
@@ -71,7 +71,7 @@ class Resource < ApplicationRecord
             retry
           end
         end
-      puts "Done."
+      log('#update_native_nodes Done.')
       Searchkick.enable_callbacks
     end
 
@@ -233,34 +233,33 @@ class Resource < ApplicationRecord
   end
 
   def nuke(klass)
-    puts "++ NUKE: #{klass}"
+    log("++ NUKE: #{klass}")
     total_count = klass.where(resource_id: id).count
     count = if total_count < 250_000
-      puts "++ Calling delete_all on #{total_count} instances..."
+      log("++ Calling delete_all on #{total_count} instances...")
       STDOUT.flush
       klass.where(resource_id: id).delete_all
     else
-      puts "++ Batch removal of #{total_count} instances..."
+      log("++ Batch removal of #{total_count} instances...")
       batch_size = 10_000
       times = 0
       max_times = (total_count / batch_size) * 2 # No floating point math here, sloppiness okay.
       begin
-        puts "[#{Time.now.strftime('%H:%M:%S.%3N')}] Batch #{times}..."
+        log("Batch #{times}...")
         STDOUT.flush
         klass.connection.execute("DELETE FROM #{klass.table_name} WHERE resource_id = #{id} LIMIT #{batch_size}")
         times += 1
         sleep(0.5) # Being (moderately) nice.
-      end while klass.where(resource_id: id).count > 0 && times < max_times
+      end while klass.where(resource_id: id).count.positive? && times < max_times
       raise "Failed to delete all of the #{klass} instances! Tried #{times}x#{batch_size} times." if
         klass.where(resource_id: id).count.positive?
       total_count
     end
-    str = "[#{Time.now.strftime('%H:%M:%S.%3N')}] Removed #{count} #{klass.name.humanize.pluralize}"
-    puts str
+    log("Removed #{count} #{klass.name.humanize.pluralize}")
     STDOUT.flush
     str
   rescue => e # reports as Mysql2::Error but that doesn't catch it. :S
-    puts "There was an error, retrying: #{e.message}"
+    log("There was an error, retrying: #{e.message}")
     STDOUT.flush
     sleep(2)
     ActiveRecord::Base.connection.reconnect!
