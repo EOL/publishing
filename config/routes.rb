@@ -210,7 +210,7 @@ Rails.application.routes.draw do
 
       resources :editor_pages do
         nested do
-          scope "(:editor_page_locale)" do
+          scope ":editor_page_locale" do
             get "draft" => "editor_page_contents#draft"
             post "draft" => "editor_page_contents#save_draft"
             patch "draft" => "editor_page_contents#save_draft"
@@ -223,7 +223,7 @@ Rails.application.routes.draw do
     end
 
     scope "newdocs" do
-      get ":editor_page_id" => "editor_pages#show"
+      get "(/:editor_page_directory_id)/:editor_page_id" => "editor_pages#show", as: :editor_page_live
     end
 
     # Non-resource routes last:
