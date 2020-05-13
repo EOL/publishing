@@ -215,6 +215,7 @@ Rails.application.routes.draw do
             post "draft" => "editor_page_contents#save_draft"
             patch "draft" => "editor_page_contents#save_draft"
             get "publish" => "editor_page_contents#publish"
+            get "unpublish" => "editor_page_contents#unpublish"
             get "preview" => "editor_page_contents#preview", as: :preview
           end
         end

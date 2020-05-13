@@ -20,7 +20,11 @@ class Admin::EditorPageContentsController < AdminController
              end
 
     if success
-      redirect_to_preview
+      if params[:publish] && params[:publish] == "true"
+        publish_current_draft
+      else
+        redirect_to_preview
+      end
     else
       render :draft
     end
@@ -73,21 +77,12 @@ class Admin::EditorPageContentsController < AdminController
   end
 
   def publish
-    draft = @editor_page.find_draft_for_locale(@editor_page_locale)
-    old_published = @editor_page.published_for_locale(@editor_page_locale)
+    publish_current_draft
+  end
 
-    EditorPageContent.transaction do
-      if old_published
-        old_published.destroy!
-      end
-
-      new_published = draft.dup
-      new_published.status = :published
-      new_published.save! 
-    end
-
-    flash[:notice] = "Draft published"
-    redirect_to admin_editor_pages_path
+  def unpublish
+    @editor_page.find_published_for_locale(@editor_page_locale).destroy!
+    redirect_to admin_editor_pages_path, notice: "#{@editor_page.name} -- #{@editor_page_locale} successfully unpublished"
   end
 
   private
@@ -106,5 +101,23 @@ class Admin::EditorPageContentsController < AdminController
 
     def redirect_to_preview
       redirect_to admin_editor_page_preview_path(@editor_page, @editor_page_locale)
+    end
+
+    def publish_current_draft
+      draft = @editor_page.find_draft_for_locale(@editor_page_locale)
+      old_published = @editor_page.published_for_locale(@editor_page_locale)
+
+      EditorPageContent.transaction do
+        if old_published
+          old_published.destroy!
+        end
+
+        new_published = draft.dup
+        new_published.status = :published
+        new_published.save! 
+      end
+
+      flash[:notice] = "Draft published"
+      redirect_to admin_editor_pages_path
     end
 end
