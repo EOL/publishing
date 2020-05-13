@@ -29,10 +29,9 @@ class CsvDownloadWarmer
     end
 
     def warm_query(type, uri)
-      tq_params = { result_type: type, filters_attributes: { pred_uri: uri } }
-      url = term_search_results_url(:term_query => tq_params)
-      data = TraitBank::DataDownload.term_search(TermQuery.new(tq_params), 1, url)
-      data.background_build
+      tq_params = { result_type: type, filters_attributes: [{ pred_uri: uri }] }
+      url = Rails.application.routes.url_helpers.term_search_results_url(:term_query => tq_params)
+      TraitBank::DataDownload.term_search(TermQuery.new(tq_params), 1, url, force_new: true)
     end
   end
 end

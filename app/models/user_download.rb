@@ -41,12 +41,12 @@ class UserDownload < ApplicationRecord
   end
 
   class << self
-    def create_and_run_if_needed!(ud_attributes, new_query)
+    def create_and_run_if_needed!(ud_attributes, new_query, options)
       download = UserDownload.new(ud_attributes)
       query = TermQuery.find_or_save!(new_query)
       download.term_query = query
 
-      existing_download = query.user_downloads
+      existing_download = !options[:force_new] && query.user_downloads
         .where(status: :completed, expired_at: nil, duplication: :original)
         .where("created_at >= ?", EXPIRATION_TIME.ago)
         .order("created_at DESC")&.first

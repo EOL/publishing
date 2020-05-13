@@ -9,23 +9,19 @@ class TraitBank
     attr_reader :count
 
     class << self
-      def term_search(term_query, user_id, url)
-        downloader = self.new(term_query, nil, url)
-#        if downloader.count > BATCH_SIZE
-#          term_query.save!
-#          UserDownload.create(
-#            :user_id => user_id,
-#            :term_query => term_query,
-#            :count => downloader.count
-#          )
-#        else
-#          downloader.build
-#        end
-         UserDownload.create_and_run_if_needed!({
-           :user_id => user_id,
-           :count => downloader.count,
-           :search_url => url
-         }, term_query)
+      # options: 
+      #   - force_new: true -- always create and background_build a UserDownload
+      def term_search(term_query, user_id, url, options={})
+        count = TraitBank.term_search(
+          term_query, 
+          { count: true },
+        ).primary_for_query(term_query)
+
+        UserDownload.create_and_run_if_needed!({
+          :user_id => user_id,
+          :count => count,
+          :search_url => url
+        }, term_query, options)
       end
 
       def path
@@ -37,6 +33,7 @@ class TraitBank
     end
 
     def initialize(term_query, count, url)
+      raise TypeError.new("count cannot be nil") if count.nil?
       @query = term_query
       @options = { :per => BATCH_SIZE, :meta => true }
       # TODO: would be great if we could detect whether a version already exists
@@ -44,7 +41,7 @@ class TraitBank
 
       @base_filename = Digest::MD5.hexdigest(@query.as_json.to_s)
       @url = url
-      @count = count || TraitBank.term_search(@query, @options.merge(:count => true)).primary_for_query(term_query)
+      @count = count
     end
 
     def background_build
