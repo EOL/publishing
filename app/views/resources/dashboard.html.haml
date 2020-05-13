@@ -62,10 +62,10 @@
   %ul
     - results.each do |result|
       - (times, ip) = result.split
-      %li = "<strong>#{ip.sub(',', '')}</strong> (#{times} times)".html_safe
+      %li= "<strong>#{ip.sub(',', '')}</strong> (#{times} times)".html_safe
 - rescue => e
   %p Unable to get list of IPs hitting the site:
-  %p = e.message
+  %p= e.message
 
 - begin
   %h2 What pages are most popular now?
@@ -74,10 +74,10 @@
     - results.each do |result|
       - (times, page) = result.split
       - next if page =~ /:in/
-      %li = "<strong>#{page}</strong> (#{times} times)".html_safe
+      %li= "<strong>#{page}</strong> (#{times} times)".html_safe
 - rescue => e
   %p Unable to get list of popular pages:
-  %p = e.message
+  %p= e.message
 
 
 %h2 Other
