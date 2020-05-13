@@ -29,7 +29,7 @@ class CsvDownloadWarmer
     end
 
     def warm_query(type, uri)
-      tq_params = params.merge(result_type: type, filters_attributes: { pred_uri: uri })
+      tq_params = { result_type: type, filters_attributes: { pred_uri: uri } }
       url = term_search_results_url(:term_query => tq_params)
       data = TraitBank::DataDownload.term_search(TermQuery.new(tq_params), 1, url)
       data.background_build
