@@ -32,3 +32,23 @@
 .directory-pages {
   list-style: none;
 }
+
+.button-published {
+  background-color: green;
+  color: #fff;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: #0f0;
+  }
+}
+
+.button-draft {
+  background-color: #fcc203;
+  color: black;
+  border: 1px solid transparent;
+
+  &:hover {
+    background-color: yellow;
+  }
+}

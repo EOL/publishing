@@ -9,11 +9,14 @@
       %ul.editor-page-locales
         - I18n.available_locales.each do |locale|
           %li
+            - published = editor_page.published_for_locale(locale)
             - draft = editor_page.draft_for_locale(locale)
-            - if draft
-              - button_class = "primary"
+            - if published
+              - button_class = "button-published"
+            - elsif draft
+              - button_class = "button-draft"
             - else
-              -button_class = "default"
-            = link_to locale, admin_editor_page_draft_path(editor_page, locale), class: "uk-button uk-button-small uk-button-#{button_class}"
+              -button_class = "uk-button-default"
+            = link_to locale, admin_editor_page_draft_path(editor_page, locale), class: "uk-button uk-button-small #{button_class}"
   %li.uk-margin-top
     = link_to "New page", new_admin_editor_page_path(editor_page_directory_id: local_assigns.fetch(:directory, nil)&.id), class: "uk-button uk-button-default"
