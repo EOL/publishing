@@ -2,7 +2,9 @@
 %ul.editor-pages
   - editor_pages.each do |editor_page|
     %li
-      %span= editor_page.slug
+      %span
+        %strong= editor_page.name
+        = "(/#{editor_page.slug})"
       = link_to edit_admin_editor_page_path(id: editor_page.slug) do 
         %span{:'uk-icon' => "icon: pencil"}
       = link_to admin_editor_page_path(id: editor_page.slug), method: :delete, data: { confirm: 'Are you sure? ' } do

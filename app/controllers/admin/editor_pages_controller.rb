@@ -42,7 +42,7 @@ class Admin::EditorPagesController < AdminController
   def update
     respond_to do |format|
       if @editor_page.update(editor_page_params)
-        format.html { redirect_to editor_pages_path, notice: 'Editor page was successfully updated.' }
+        format.html { redirect_to admin_editor_pages_path, notice: 'Editor page was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -77,6 +77,6 @@ class Admin::EditorPagesController < AdminController
 
     # Only allow a list of trusted parameters through.
     def editor_page_params
-      params.require(:editor_page).permit(:name, :editor_page_directory_id)
+      params.require(:editor_page).permit(:name, :slug, :editor_page_directory_id)
     end
 end
