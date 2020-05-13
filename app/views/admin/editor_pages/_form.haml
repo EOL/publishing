@@ -3,6 +3,8 @@
 
   .form-inputs
     = f.input :name, input_html: { class: "uk-input" }
+    - if local_assigns.fetch(:show_slug_field, false)
+      = f.input :slug, label: "URL parameter", input_html: { class: "uk-input" }
     = f.hidden_field :editor_page_directory_id
 
   .form-actions
