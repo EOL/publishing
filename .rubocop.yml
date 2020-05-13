@@ -76,7 +76,7 @@ Layout/EndAlignment:
   Description: 'Align ends correctly.'
   Enabled: true
 
-Lint/EndInMethod:
+Style/EndBlock:
   Description: 'END blocks should not be placed inside method definitions.'
   Enabled: true
 
@@ -1053,7 +1053,7 @@ Style/SymbolProc:
   Description: 'Use symbols as procs instead of blocks when possible.'
   Enabled: false
 
-Layout/Tab:
+Layout/IndentationStyle:
   Description: 'No hard tabs.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#spaces-indentation'
   Enabled: false
