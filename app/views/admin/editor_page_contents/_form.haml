@@ -1,10 +1,13 @@
 = simple_form_for(@editor_page_content, url: admin_editor_page_draft_path(editor_page_id: @editor_page.slug, editor_page_locale: @editor_page_locale)) do |f|
-  = f.error_notification
+  .error= f.error_notification
 
   .form-inputs
-    = f.input :title, label: "Main heading", input_html: { class: "uk-input uk-margin-bottom" }
+    = f.input :title, label: "Main heading", input_html: { class: "uk-input" }
     = f.hidden_field :content, id: "content"
-    %trix-editor{ input: "content" }
+    .uk-margin-top
+      %trix-editor{ input: "content" }
+      - if @editor_page_content.errors.include?(:content)
+        .error= @editor_page_content.errors[:content].first
     -#
       <trix-editor input="editor_page_content"></trix-editor>
 
