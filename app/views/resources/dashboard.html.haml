@@ -69,7 +69,7 @@
 
 - begin
   %h2 What pages are most popular now?
-  - results = `cat log/unicorn.stderr.log | sed 's/^.*GET//' | grep -v "POST " | awk '{print $1;}' | grep -v "^Error" | grep -v "usr/local/bundle" | grep -v "I," | sort | uniq -c | sort -n | tail -n 15`.split("\n").reverse
+  - results = `cat log/unicorn.stderr.log | sed 's/^.*GET//' | grep -v "POST " | awk '{print $1;}' | grep -v "^Error" | grep -v "usr/local/bundle" | grep -v "I," | sort | uniq -c | sort -n | tail -n 30`.split("\n").reverse
   %ul
     - results.each do |result|
       - (times, page) = result.split
