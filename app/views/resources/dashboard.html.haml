@@ -56,5 +56,29 @@
         - rescue => e
           = "Error parsing job: #{e.message}"
 
+- begin
+  %h2 Who's hitting the site?
+  - results = `cat log/unicorn.stderr.log | awk '{print $1;}' | sort | uniq -c | sort -n | tail -n 3`.split("\n").reverse
+  %ul
+    - results.each do |result|
+      - (times, ip) = result.split
+      %li = "<strong>#{ip.sub(',', '')}</strong> (#{times} times)".html_safe
+- rescue => e
+  %p Unable to get list of IPs hitting the site:
+  %p = e.message
+
+- begin
+  %h2 What pages are most popular now?
+  - results = `cat log/unicorn.stderr.log | sed 's/^.*GET//' | awk '{print $1;}' | sort | uniq -c | sort -n | tail -n 10`.split("\n").reverse
+  %ul
+    - results.each do |result|
+      - (times, page) = result.split
+      - next if page =~ /:in/
+      %li = "<strong>#{page}</strong> (#{times} times)".html_safe
+- rescue => e
+  %p Unable to get list of popular pages:
+  %p = e.message
+
+
 %h2 Other
 = link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')
