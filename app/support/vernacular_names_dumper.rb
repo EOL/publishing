@@ -34,5 +34,6 @@ class VernacularNamesDumper
         ]
       end
     end
+    `gzip #{@output_path}`
   end
 end
