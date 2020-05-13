@@ -24,4 +24,8 @@ class EditorPage < ApplicationRecord
   def find_published_for_locale(locale)
     editor_page_contents.find_by(locale: locale, status: :published)
   end
+
+  def to_param
+    id
+  end
 end

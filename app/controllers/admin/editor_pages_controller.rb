@@ -1,4 +1,5 @@
 class Admin::EditorPagesController < AdminController
+  before_action :set_directory
   before_action :set_editor_page, only: %i(show edit update destroy)
 
   # GET /editor_pages
@@ -15,7 +16,7 @@ class Admin::EditorPagesController < AdminController
 
   # GET /editor_pages/new
   def new
-    @editor_page = EditorPage.new
+    @editor_page = EditorPage.new(editor_page_directory: @directory)
   end
 
   # GET /editor_pages/1/edit
@@ -26,6 +27,7 @@ class Admin::EditorPagesController < AdminController
   # POST /editor_pages.json
   def create
     @editor_page = EditorPage.new(editor_page_params)
+
     respond_to do |format|
       if @editor_page.save
         format.html { redirect_to admin_editor_pages_path, notice: 'Editor page was successfully created.' }
@@ -60,11 +62,21 @@ class Admin::EditorPagesController < AdminController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_editor_page
-      @editor_page = EditorPage.friendly.find(params[:id])
+      @editor_page = if @directory
+                       @directory.editor_pages.friendly.find(params[:id])
+                     else
+                       EditorPage.friendly.find(params[:id])
+                     end
+    end
+
+    def set_directory
+      @directory = params[:editor_page_directory_id].present? ? 
+        EditorPageDirectory.friendly.find(params[:editor_page_directory_id]) :
+        nil
     end
 
     # Only allow a list of trusted parameters through.
     def editor_page_params
-      params.require(:editor_page).permit(:name)
+      params.require(:editor_page).permit(:name, :editor_page_directory_id)
     end
 end
