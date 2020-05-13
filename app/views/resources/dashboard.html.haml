@@ -62,7 +62,8 @@
   %ul
     - results.each do |result|
       - (times, ip) = result.split
-      %li= "<strong>#{ip.sub(',', '')}</strong> (#{times} times)".html_safe
+      - ip.sub!(/,\s*$/, '')
+      %li= "<strong><a href='https://whatismyipaddress.com/ip/#{ip}'>#{ip}</a></strong> (#{times} times)".html_safe
 - rescue => e
   %p Unable to get list of IPs hitting the site:
   %p= e.message
