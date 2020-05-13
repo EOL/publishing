@@ -62,6 +62,7 @@ class PageDecorator
         @page.native_node.present? &&
         @page.native_node.any_landmark? &&
         @page.rank.present? &&
+        @page.rank.treat_as &&
         Rank.treat_as[@page.rank.treat_as] < Rank.treat_as[:r_family]
       end
 
@@ -422,7 +423,7 @@ class PageDecorator
       # has value http://eol.org/schema/terms/extinct for measurement type http://eol.org/schema/terms/ExtinctionStatus
       def is_it_extinct?
         trait = first_trait_for_obj_uris(Eol::Uris.extinct)
-        !trait.nil? 
+        !trait.nil?
       end
 
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.
