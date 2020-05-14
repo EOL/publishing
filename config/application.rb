@@ -60,5 +60,7 @@ module EolWebsite
       g.scaffold_stylesheet false
       g.javascript_engine :js
     end
+
+    config.active_storage.service = :local
   end
 end

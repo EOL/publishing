@@ -217,6 +217,7 @@ Rails.application.routes.draw do
             get "publish" => "editor_page_contents#publish"
             get "unpublish" => "editor_page_contents#unpublish"
             get "preview" => "editor_page_contents#preview", as: :preview
+            post "upload_image" => "editor_page_contents#upload_image"
           end
         end
       end
@@ -492,6 +493,6 @@ Rails.application.routes.draw do
     # to support old-style searches, e.g. https://eol.org/Litocranius%20walleri%20sclateri
     get "/:query", to: redirect("/search?q=%{query}", status: 302), constraints: { query: /(?!wymiframe)/ }
 
-    get '*unmatched_route', to: 'application#route_not_found'
+    #get '*unmatched_route', to: 'application#route_not_found'
   end
 end
