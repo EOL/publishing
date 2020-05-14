@@ -85,6 +85,12 @@ class Admin::EditorPageContentsController < AdminController
     redirect_to admin_editor_pages_path, notice: "#{@editor_page.name} -- #{@editor_page_locale} successfully unpublished"
   end
 
+  def upload_image
+    @editor_page_content = @editor_page.find_draft_for_locale(@editor_page_locale)
+    @editor_page_content.images.attach(params[:image])
+    render json: { url: url_for(@editor_page_content.images.last) }
+  end
+
   private
     def set_editor_page
       @editor_page = EditorPage.friendly.find(params[:editor_page_id])
