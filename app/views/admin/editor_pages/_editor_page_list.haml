@@ -1,29 +1,33 @@
 - directory = local_assigns.fetch(:directory, nil)
-%ul.editor-pages
-  - editor_pages.each do |editor_page|
-    %li
-      %span
-        %strong= editor_page.name
-        = "(/#{editor_page.slug})"
-      = link_to edit_admin_editor_page_path(id: editor_page.slug) do 
-        %span{:'uk-icon' => "icon: pencil"}
-      = link_to admin_editor_page_path(id: editor_page.slug), method: :delete, data: { confirm: 'Are you sure? ' } do
-        %span{:'uk-icon' => "icon: trash"}
-      - published = editor_page.published_for_locale(I18n.default_locale)
-      - if published
-        = link_to editor_page_live_path(editor_page_id: editor_page.slug, editor_page_directory_id: directory&.name) do
-          %span{:'uk-icon' => "icon: link"}
-      %ul.editor-page-locales
-        - I18n.available_locales.each do |locale|
-          %li
-            - published = editor_page.published_for_locale(locale)
-            - draft = editor_page.draft_for_locale(locale)
+.directory-pages
+  %table.editor-pages
+    %tbody
+      - editor_pages.each do |editor_page|
+        %tr
+          %td
+            %strong= editor_page.name
+            = "(/#{editor_page.slug})"
+          %td
+            = link_to edit_admin_editor_page_path(id: editor_page.slug) do 
+              %span{:'uk-icon' => "icon: pencil"}
+            = link_to admin_editor_page_path(id: editor_page.slug), method: :delete, data: { confirm: 'Are you sure? ' } do
+              %span{:'uk-icon' => "icon: trash"}
+            - published = editor_page.published_for_locale(I18n.default_locale)
             - if published
-              - button_class = "button-published"
-            - elsif draft
-              - button_class = "button-draft"
-            - else
-              -button_class = "uk-button-default"
-            = link_to locale, admin_editor_page_draft_path(editor_page_id: editor_page, editor_page_locale: locale), class: "uk-button uk-button-small #{button_class}"
-  %li.uk-margin-top
+              = link_to editor_page_live_path(editor_page_id: editor_page.slug, editor_page_directory_id: directory&.name) do
+                %span{:'uk-icon' => "icon: link"}
+          %td
+            %ul.editor-page-locales
+              - I18n.available_locales.each do |locale|
+                %li
+                  - published = editor_page.published_for_locale(locale)
+                  - draft = editor_page.draft_for_locale(locale)
+                  - if published
+                    - button_class = "button-published"
+                  - elsif draft
+                    - button_class = "button-draft"
+                  - else
+                    -button_class = "uk-button-default"
+                  = link_to locale, admin_editor_page_draft_path(editor_page_id: editor_page, editor_page_locale: locale), class: "uk-button uk-button-small #{button_class}"
+  %div
     = link_to "New page", new_admin_editor_page_path(editor_page_directory_id: directory&.id), class: "uk-button uk-button-default"

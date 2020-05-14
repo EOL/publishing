@@ -10,5 +10,5 @@
     = link_to admin_editor_page_directory_path(dir), method: :delete, data: { confirm: 'Are you sure you want to delete this directory and all of its pages?' } do
       %span{:'uk-icon' => "icon: trash"}
   = render "editor_page_list", editor_pages: dir.editor_pages, directory: dir
-= link_to "New directory", new_admin_editor_page_directory_path, class: "uk-button uk-button-default"
+= link_to "New directory", new_admin_editor_page_directory_path, class: "uk-button uk-button-default uk-margin-top uk-margin-large"
       

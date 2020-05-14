@@ -2,9 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 // = require trix
+.directory-pages {
+  padding-left: 20px;
+}
 
 .editor-pages {
-  list-style: none;
+  & td {
+    vertical-align: middle;
+  }
 }
 
 .editor-page-name {
@@ -19,9 +24,8 @@
 }
 
 .editor-page-locales {
-  display: inline-block;
+  margin: 0;
   list-style: none;
-  margin: 20px 0 0 20px;
   padding: 0;
 
   & > li {
