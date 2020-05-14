@@ -14,9 +14,10 @@
   .form-actions.uk-margin-top
     = f.button :submit, "Save", class: "uk-button uk-button-primary js-save", disabled: true
 .uk-margin
-  = link_to admin_editor_page_preview_path(@editor_page, @editor_page_locale) do
-    %button.uk-button.uk-button-primary.js-post-save-button Preview
-  = render "publish_button"
-  - if @editor_page.published_for_locale(@editor_page_locale)
-    = link_to admin_editor_page_unpublish_path(@editor_page, @editor_page_locale), data: { confirm: "Are you sure you want to unpublish this page?" } do
-      %button.uk-button.uk-button-danger Unpublish
+  - unless @editor_page_content.stub?
+    = link_to admin_editor_page_preview_path(@editor_page, @editor_page_locale) do
+      %button.uk-button.uk-button-primary.js-post-save-button Preview
+    = render "publish_button"
+    - if @editor_page.published_for_locale(@editor_page_locale)
+      = link_to admin_editor_page_unpublish_path(@editor_page, @editor_page_locale), data: { confirm: "Are you sure you want to unpublish this page?" } do
+        %button.uk-button.uk-button-danger Unpublish

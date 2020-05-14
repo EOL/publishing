@@ -12,6 +12,18 @@ class EditorPage < ApplicationRecord
     editor_page_contents.where(locale: locale, status: :draft)&.first
   end
 
+  def draft_or_stub_for_locale(locale)
+    draft_for_locale(locale) || editor_page_contents.where(locale: locale, status: :stub)&.first
+  end
+
+  def find_draft_or_stub_for_locale(locale)
+    draft_for_locale(locale) || find_stub_for_locale(locale)
+  end
+
+  def find_stub_for_locale(locale)
+    editor_page_contents.find_by!(locale: locale, status: :stub)
+  end
+
   def published_for_locale(locale)
     editor_page_contents.where(locale: locale, status: :published)&.first
   end

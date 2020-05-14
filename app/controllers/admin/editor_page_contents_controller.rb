@@ -3,38 +3,34 @@ class Admin::EditorPageContentsController < AdminController
   before_action :set_editor_page_locale
 
   def draft
-    existing = @editor_page.draft_for_locale(@editor_page_locale)
+    existing = @editor_page.draft_or_stub_for_locale(@editor_page_locale)
 
     if existing
       @editor_page_content = existing
     else
-      @editor_page_content = EditorPageContent.new
-      @editor_page_content.title = @editor_page.name
+      attrs = { 
+        title: @editor_page.name,
+        status: :stub,
+        locale: @editor_page_locale,
+        editor_page: @editor_page
+      }
 
       if @editor_page_locale != I18n.default_locale
         default_locale_draft = @editor_page.draft_for_locale(I18n.default_locale)
 
         if default_locale_draft
-          @editor_page_content.content = default_locale_draft.content
-          @editor_page_content.title = default_locale_draft.title if default_locale_draft.title.present?
+          attrs[:content] = default_locale_draft.content
+          attrs[:title] = default_locale_draft.title if default_locale_draft.title.present?
         end
       end
+
+      @editor_page_content = EditorPageContent.create!(attrs)
     end
   end
 
   def save_draft
-    existing = @editor_page.draft_for_locale(@editor_page_locale)
-    if existing
-      @editor_page_content = existing
-      @editor_page_content.update!(editor_page_content_params)
-    else
-      @editor_page_content = EditorPageContent.new(editor_page_content_params)
-      @editor_page_content.editor_page = @editor_page
-      @editor_page_content.locale = @editor_page_locale
-      @editor_page_content.status = :draft
-      @editor_page_content.save!
-    end
-
+    @editor_page_content = @editor_page.find_draft_or_stub_for_locale(@editor_page_locale)
+    @editor_page_content.update(editor_page_content_params.merge(status: :draft))
     render :draft
   end
 
@@ -77,7 +73,7 @@ class Admin::EditorPageContentsController < AdminController
   end
 
   def preview
-    @editor_page_content = @editor_page.draft_for_locale(@editor_page_locale)
+    @editor_page_content = @editor_page.find_draft_for_locale(@editor_page_locale)
   end
 
   def publish
@@ -90,7 +86,7 @@ class Admin::EditorPageContentsController < AdminController
   end
 
   def upload_image
-    @editor_page_content = @editor_page.find_draft_for_locale(@editor_page_locale)
+    @editor_page_content = @editor_page.draft_or_stub_for_locale(@editor_page_locale)
     @editor_page_content.images.attach(params[:image])
     render json: { url: url_for(@editor_page_content.images.last) }
   end
