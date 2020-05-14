@@ -2,15 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 // = require trix
+@import "../editor_pages";
 
-.editor-pages {
-  list-style: none;
-}
-
-.editor-page-name {
-  display: inline-block;
-  font-size: 16px;
-  font-weight: bold;
+trix-editor {
+  height: 600px;
+  overflow-y: auto !important;
 }
 
 .editor-page-actions {
@@ -18,12 +14,3 @@
   margin-left: 20px;
 }
 
-.editor-page-locales {
-  list-style: none;
-  margin-top: 20px;
-  padding: 0;
-
-  & > li {
-    display: inline-block;
-  }
-}
