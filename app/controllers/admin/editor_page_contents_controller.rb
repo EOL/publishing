@@ -3,7 +3,23 @@ class Admin::EditorPageContentsController < AdminController
   before_action :set_editor_page_locale
 
   def draft
-    @editor_page_content = @editor_page.draft_for_locale(@editor_page_locale) || EditorPageContent.new
+    existing = @editor_page.draft_for_locale(@editor_page_locale)
+
+    if existing
+      @editor_page_content = existing
+    else
+      @editor_page_content = EditorPageContent.new
+      @editor_page_content.title = @editor_page.name
+
+      if @editor_page_locale != I18n.default_locale
+        default_locale_draft = @editor_page.draft_for_locale(I18n.default_locale)
+
+        if default_locale_draft
+          @editor_page_content.content = default_locale_draft.content
+          @editor_page_content.title = default_locale_draft.title if default_locale_draft.title.present?
+        end
+      end
+    end
   end
 
   def save_draft
