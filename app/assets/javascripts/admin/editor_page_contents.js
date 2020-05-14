@@ -5,6 +5,22 @@
     Trix.config.attachments.preview.caption = { name: false, size: false }
   });
 
+  function listenForEditorChange() {
+    var $editorContents = $('.js-contents')
+      , originalContents = $editorContents.val()
+      ;
+
+    document.addEventListener('trix-change', (e) => {
+      if ($editorContents.val() != originalContents) {
+        $('.js-save').attr('disabled', false);
+        $('.js-post-save-button').attr('disabled', true);
+      } else {
+        $('.js-save').attr('disabled', true);
+        $('.js-post-save-button').attr('disabled', false);
+      }
+    });
+  }
+
   function listenForAttachments() {
     document.addEventListener('trix-attachment-add', (e) => {
       var attachment = e.attachment;
@@ -50,5 +66,6 @@
 
   $(function() {
     listenForAttachments();
+    listenForEditorChange();
   });
 })();

@@ -1,9 +1,7 @@
 = render "editor_pages/show"
 
 .uk-margin-top.uk-margin-large
-  = link_to admin_editor_page_publish_path(@editor_page, @editor_page_locale), data: { confirm: 'Are you sure you want to publish this draft?' } do
-    %button.uk-button.uk-button-danger Publish
-
+  = render "publish_button"
   %br
   %br
   = link_to "Back to draft", admin_editor_page_draft_path(@editor_page, @editor_page_locale)

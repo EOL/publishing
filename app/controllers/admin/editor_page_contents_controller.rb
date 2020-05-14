@@ -24,26 +24,18 @@ class Admin::EditorPageContentsController < AdminController
 
   def save_draft
     existing = @editor_page.draft_for_locale(@editor_page_locale)
-    success = if existing
-                @editor_page_content = existing
-                @editor_page_content.update(editor_page_content_params)
-              else
-                @editor_page_content = EditorPageContent.new(editor_page_content_params)
-                @editor_page_content.editor_page = @editor_page
-                @editor_page_content.locale = @editor_page_locale
-                @editor_page_content.status = :draft
-                @editor_page_content.save
-             end
-
-    if success
-      if params[:publish] && params[:publish] == "true"
-        publish_current_draft
-      else
-        redirect_to_preview
-      end
+    if existing
+      @editor_page_content = existing
+      @editor_page_content.update!(editor_page_content_params)
     else
-      render :draft
+      @editor_page_content = EditorPageContent.new(editor_page_content_params)
+      @editor_page_content.editor_page = @editor_page
+      @editor_page_content.locale = @editor_page_locale
+      @editor_page_content.status = :draft
+      @editor_page_content.save!
     end
+
+    render :draft
   end
 
   # POST /editor_page_contents

@@ -3,7 +3,7 @@
 
   .form-inputs
     = f.input :title, label: "Main heading", input_html: { class: "uk-input" }
-    = f.hidden_field :content, id: "content"
+    = f.hidden_field :content, id: "content", class: 'js-contents'
     .uk-margin-top
       %trix-editor{ input: "content" }
       - if @editor_page_content.errors.include?(:content)
@@ -12,8 +12,10 @@
       <trix-editor input="editor_page_content"></trix-editor>
 
   .form-actions.uk-margin-top
-    = f.button :submit, "Save & preview", class: "uk-button uk-button-primary"
-    = f.button :submit, "Save & publish", class: "uk-button uk-button-danger", formaction: admin_editor_page_draft_path(@editor_page, @editor_page_locale, publish: true), data: { confirm: "Are you sure you want to save and publish this draft?" }
+    = f.button :submit, "Save", class: "uk-button uk-button-primary js-save", disabled: true
+    = link_to admin_editor_page_preview_path(@editor_page, @editor_page_locale) do
+      %button.uk-button.uk-button-primary.js-post-save-button Preview
+    = render "publish_button"
 - if @editor_page.published_for_locale(@editor_page_locale)
   .uk-margin
     = link_to admin_editor_page_unpublish_path(@editor_page, @editor_page_locale), data: { confirm: "Are you sure you want to unpublish this page?" } do
