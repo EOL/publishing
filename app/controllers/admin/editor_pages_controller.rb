@@ -2,24 +2,18 @@ class Admin::EditorPagesController < AdminController
   before_action :set_directory
   before_action :set_editor_page, only: %i(show edit update destroy)
 
-  # GET /editor_pages
-  # GET /editor_pages.json
   def index
     @top_level = EditorPage.top_level
     @directories = EditorPageDirectory.all
   end
 
-  # GET /editor_pages/new
   def new
     @editor_page = EditorPage.new(editor_page_directory: @directory)
   end
 
-  # GET /editor_pages/1/edit
   def edit
   end
 
-  # POST /editor_pages
-  # POST /editor_pages.json
   def create
     @editor_page = EditorPage.new(editor_page_params)
 
@@ -32,8 +26,6 @@ class Admin::EditorPagesController < AdminController
     end
   end
 
-  # PATCH/PUT /editor_pages/1
-  # PATCH/PUT /editor_pages/1.json
   def update
     respond_to do |format|
       if @editor_page.update(editor_page_params)
@@ -44,8 +36,6 @@ class Admin::EditorPagesController < AdminController
     end
   end
 
-  # DELETE /editor_pages/1
-  # DELETE /editor_pages/1.json
   def destroy
     @editor_page.destroy
     respond_to do |format|
@@ -55,7 +45,6 @@ class Admin::EditorPagesController < AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_editor_page
       @editor_page = if @directory
                        @directory.editor_pages.friendly.find(params[:id])
@@ -70,7 +59,6 @@ class Admin::EditorPagesController < AdminController
         nil
     end
 
-    # Only allow a list of trusted parameters through.
     def editor_page_params
       params.require(:editor_page).permit(:name, :slug, :editor_page_directory_id)
     end

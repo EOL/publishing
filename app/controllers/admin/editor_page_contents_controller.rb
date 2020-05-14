@@ -46,10 +46,6 @@ class Admin::EditorPageContentsController < AdminController
     end
   end
 
-  # GET /editor_page_contents/1/edit
-  def edit
-  end
-
   # POST /editor_page_contents
   # POST /editor_page_contents.json
   def create
