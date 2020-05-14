@@ -206,9 +206,9 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      resources :editor_page_directories
+      resources :editor_page_directories, only: %i(new create edit update destroy)
 
-      resources :editor_pages do
+      resources :editor_pages, only: %i(index new edit create update destroy) do
         nested do
           scope ":editor_page_locale" do
             get "draft" => "editor_page_contents#draft"

@@ -9,11 +9,6 @@ class Admin::EditorPagesController < AdminController
     @directories = EditorPageDirectory.all
   end
 
-  # GET /editor_pages/1
-  # GET /editor_pages/1.json
-  def show
-  end
-
   # GET /editor_pages/new
   def new
     @editor_page = EditorPage.new(editor_page_directory: @directory)
