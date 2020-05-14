@@ -62,5 +62,6 @@ module EolWebsite
     end
 
     config.active_storage.service = :local
+    Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host[:name]
   end
 end
