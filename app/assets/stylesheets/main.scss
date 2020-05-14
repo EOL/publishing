@@ -28,6 +28,10 @@ audio {
   height: 40px;
 }
 
+em {
+  color: inherit;
+}
+
 // bit of a hack, override uikit here
 .uk-offcanvas-bar {
   background: $white;
