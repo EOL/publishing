@@ -4,7 +4,7 @@ class EditorPagesController < ApplicationController
     @editor_page_content = @editor_page.published_for_locale(I18n.locale)
 
     if !@editor_page_content
-      @editor_page_content = @editor_page.find_published_for_locale(I18n.locale) 
+      @editor_page_content = @editor_page.find_published_for_locale(I18n.default_locale) 
     end
   end
 end
