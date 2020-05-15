@@ -8,17 +8,24 @@
   function listenForEditorChange() {
     var $editorContents = $('.js-contents')
       , originalContents = $editorContents.val()
+      , $title = $('.js-title-input')
+      , originalTitle = $title.val()
       ;
 
-    document.addEventListener('trix-change', (e) => {
-      if ($editorContents.val() != originalContents) {
+    document.addEventListener('trix-change', changeHandler($editorContents, originalContents));
+    $title.on('input', changeHandler($title, originalTitle));
+  }
+
+  function changeHandler($elmt, original) {
+    return function() {
+      if ($elmt.val() != original) {
         $('.js-save').attr('disabled', false);
         $('.js-post-save-button').attr('disabled', true);
       } else {
         $('.js-save').attr('disabled', true);
         $('.js-post-save-button').attr('disabled', false);
       }
-    });
+    }
   }
 
   function listenForAttachments() {
