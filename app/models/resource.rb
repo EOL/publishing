@@ -14,7 +14,7 @@ class Resource < ApplicationRecord
   has_many :referents, inverse_of: :resource
   has_many :term_query_filters
 
-  before_destroy :remove_content_with_rescue
+  before_destroy :remove_content
 
   scope :browsable, -> { where(is_browsable: true) }
   scope :classification, -> { where(classification: true) }
@@ -225,13 +225,13 @@ class Resource < ApplicationRecord
   end
 
   def log(message)
-    @log ||= Publishing::PubLog.new(@resource)
+    @log ||= Publishing::PubLog.new(self, use_existing_log: true)
     @log.log(message, cat: :infos)
   end
 
   def nuke(klass)
-    log("++ NUKE: #{klass}")
     total_count = klass.where(resource_id: id).count
+    log("++ NUKE: #{klass} (#{total_count})")
     count = if total_count < 250_000
       log("++ Calling delete_all on #{total_count} instances...")
       STDOUT.flush

@@ -35,9 +35,14 @@ class Publishing::Fast
   def initialize(resource, log = nil)
     @start_at = Time.now
     @resource = resource
-    @repo = ContentServerConnection.new(resource, log)
+    # NOTE: this is likely to get overridden once we create a new log, but nice to have in case we need it:
     @log = log # Okay if it's nil.
+    @repo = create_server_connection
     @files = []
+  end
+
+  def create_server_connection
+    ContentServerConnection.new(@resource, @log)
   end
 
   # NOTE: this does NOT work for traits. Don't try. You'll need to make a different method for that.
@@ -182,6 +187,8 @@ class Publishing::Fast
 
   def new_log
     @log ||= Publishing::PubLog.new(@resource) # you MIGHT want @resource.import_logs.last
+    @repo = create_server_connection
+    @log
   end
 
   def import_and_prop_ids(klass)

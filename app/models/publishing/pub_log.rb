@@ -2,10 +2,17 @@
 class Publishing::PubLog
   attr_accessor :logger, :resource
 
-  # TODO: I would actually like to store publishing logs somewhere other than just in STDOUT.
-  def initialize(resource = nil)
+  def initialize(resource = nil, options = {})
     @resource = resource
-    @logger = @resource&.create_log # This is an ImportLog.
+    @logger = if @resource
+      if options[:use_existing_log] || @resource.import_logs.count.zero?
+        @resource.create_log # This is an ImportLog.
+      else
+        @resource.import_logs.last
+      end
+    else
+      nil
+    end
   end
 
   def log(what, type = nil)
