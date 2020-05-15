@@ -2,7 +2,7 @@
   .error= f.error_notification
 
   .form-inputs
-    = f.input :title, label: "Main heading", input_html: { class: "uk-input" }
+    = f.input :title, label: "Main heading", input_html: { class: "uk-input js-title-input" }
     = f.hidden_field :content, id: "content", class: 'js-contents'
     .uk-margin-top
       %trix-editor.editor-page{ input: "content" }

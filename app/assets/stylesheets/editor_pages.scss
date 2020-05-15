@@ -2,5 +2,10 @@
   & .attachment {
     float: right;
     width: 450px;
+    max-width: 100%;
+  }
+
+  & figcaption {
+    text-align: center;
   }
 }
