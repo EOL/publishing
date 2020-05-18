@@ -4,7 +4,8 @@ class TermQuery < ApplicationRecord
     :dependent => :destroy,
     :inverse_of => :term_query
   validates_associated :filters
-  has_many :user_downloads, :dependent => :destroy
+  has_many :user_downloads, dependent: :destroy
+  has_many :gbif_downloads, dependent: :destroy
   belongs_to :clade, :class_name => "Page", optional: true
   validates_presence_of :result_type
   validate :validation
@@ -111,6 +112,37 @@ class TermQuery < ApplicationRecord
       end
 
       query
+    end
+
+    def expected_params
+      [
+        :clade_id,
+        :result_type,
+        :filters_attributes => [
+          :pred_uri,
+          :top_pred_uri,
+          :obj_uri,
+          :op,
+          :num_val1,
+          :num_val2,
+          :units_uri,
+          :sex_uri,
+          :lifestage_uri,
+          :statistical_method_uri,
+          :resource_id,
+          :show_extra_fields,
+          :pred_term_selects_attributes => [
+            :type,
+            :parent_uri,
+            :selected_uri
+          ],
+          :obj_term_selects_attributes => [
+            :type,
+            :parent_uri,
+            :selected_uri
+          ]
+        ]
+      ]
     end
   end
 

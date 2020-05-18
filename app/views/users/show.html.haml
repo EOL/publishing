@@ -28,6 +28,19 @@
         -# TODO i18n
         - downloads = @user.user_downloads.order(created_at: :desc)
         = render "user_downloads/list", downloads: downloads, show_user: false
+    - unless @user.gbif_downloads.empty?
+      %h2 GBIF Downloads
+      %ul
+        - @user.gbif_downloads.each do |download|
+          - gbif_display = link_to(term_query_display_string(download.term_query), term_search_results_url(term_query: download.term_query.to_params))
+          %li
+            %span= "#{gbif_display} --".html_safe
+            - if download.succeeded?
+              = link_to download.result_url, download.result_url
+            - else
+              %span= download.status
+
+
     - unless @user.collections.empty?
       %p.clearfix
         %h2= t("user.headers.collections")

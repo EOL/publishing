@@ -87,14 +87,18 @@ class ApplicationController < ActionController::Base
       current_user && current_user.is_power_user?
     end
 
+    def require_user
+      raise "Unauthorized" unless current_user
+    end
+
     # https://stackoverflow.com/questions/3297048/403-forbidden-vs-401-unauthorized-http-responses
     def require_admin
-      raise "Unauthorized" unless current_user
+      require_user
       raise "Forbidden" unless current_user.is_admin?
     end
 
     def require_power_user
-      raise "Unauthorized" unless current_user
+      require_user
       raise "Forbidden" unless current_user.is_power_user?
     end
 
