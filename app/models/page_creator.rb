@@ -37,9 +37,11 @@ class PageCreator
     # TODO: This *shouldn't* be needed. The pages we created have native nodes assigned above, and existing pages should
     # have been fine. But we keep seeing this happen, so there's a bug in the harvester's publishing code... ?
     log.log('Fixing native nodes...')
-    bad_natives = Page.where(native_node_id: nil, id: missing).pluck(:id)
-    bad_natives.in_groups_of(10_000, false) do |group|
-      Page.fix_missing_native_nodes(Page.where(native_node_id: nil, id: group))
+    missing.in_groups_of(10_000, false) do |missing_group|
+      bad_natives = Page.where(native_node_id: nil, id: missing_group).pluck(:id)
+      bad_natives.in_groups_of(10_000, false) do |bad_id_group|
+        Page.fix_missing_native_nodes(Page.where(native_node_id: nil, id: bad_id_group))
+      end
     end
     # TODO: Fix counter-culture counts on affected pages. :\
   end
