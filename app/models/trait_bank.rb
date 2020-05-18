@@ -378,7 +378,8 @@ class TraitBank
         counts
       else
         log("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
-        { data: build_trait_array(res, key), raw_query: q, raw_res: res }
+        data = options[:id_only] ? res["data"]&.flatten : build_trait_array(res, key)
+        { data: data, raw_query: q, raw_res: res }
       end
     end
 
@@ -690,8 +691,14 @@ class TraitBank
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
-      return_clause = options[:count] ? "RETURN page_count" : "RETURN DISTINCT(page)"
-      # order_clause = options[:count] ? "" : "ORDER BY page.name"
+      return_clause = if options[:count] 
+                        "RETURN page_count"
+                      elsif options[:id_only]
+                        "RETURN DISTINCT(page.page_id)"
+                      else
+                        "RETURN DISTINCT(page)"
+                      end
+
       where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
 
       "MATCH #{matches.join(', ')} "\

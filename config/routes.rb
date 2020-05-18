@@ -112,6 +112,8 @@ Rails.application.routes.draw do
 
     resources :term_nodes, only: :show, constraints: { id: /http.*/ }
 
+    get "/gbif_downloads/create" => "gbif_downloads#create"
+
     scope '/api' do
       id_match = /[-\w\.,]+(?=\.(json|xml))/
       # id_match = /[-\w\.]+/

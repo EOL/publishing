@@ -9,6 +9,7 @@ class TraitsController < ApplicationController
 
   PER_PAGE = 50
   GBIF_LINK_LIMIT = PER_PAGE
+  GBIF_DOWNLOAD_LIMIT = 100_000
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
   VIEW_TYPES = Set.new(%w(list gallery))
   
@@ -86,34 +87,7 @@ class TraitsController < ApplicationController
 
   private
   def tq_params
-    params.require(:term_query).permit([
-      :clade_id,
-      :result_type,
-      :filters_attributes => [
-        :pred_uri,
-        :top_pred_uri,
-        :obj_uri,
-        :op,
-        :num_val1,
-        :num_val2,
-        :units_uri,
-        :sex_uri,
-        :lifestage_uri,
-        :statistical_method_uri,
-        :resource_id,
-        :show_extra_fields,
-        :pred_term_selects_attributes => [
-          :type,
-          :parent_uri,
-          :selected_uri
-        ],
-        :obj_term_selects_attributes => [
-          :type,
-          :parent_uri,
-          :selected_uri
-        ]
-      ]
-    ])
+    params.require(:term_query).permit(TermQuery.expected_params)
   end
 
   def build_query
@@ -187,14 +161,18 @@ class TraitsController < ApplicationController
   end
 
   def build_gbif_url(total_count, pages, query)
-    if query.taxa? && total_count > 0 && total_count <= GBIF_LINK_LIMIT && Resource.gbif
-      gbif_params = pages.collect do |p|
-        pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
-        pk ? "taxon_key=#{pk}" : nil
-      end.compact
+    if query.taxa? && total_count > 0 && (true || Resource.gbif)
+      if total_count <= GBIF_LINK_LIMIT && false
+        gbif_params = pages.collect do |p|
+          pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
+          pk ? "taxon_key=#{pk}" : nil
+        end.compact
 
-      if gbif_params.any?
-        @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
+        if gbif_params.any?
+          @gbif_url = "#{GBIF_BASE_URL}?#{gbif_params.join("&")}"
+        end
+      elsif total_count <= GBIF_DOWNLOAD_LIMIT && GbifDownload.enabled_for_user?(current_user)
+        @create_gbif_download_url = gbif_downloads_create_path(term_query: query.to_params)
       end
     end
   end

@@ -27,6 +27,10 @@
           %li{:'uk-tooltip' => t(".gbif_search_hover")}
             %i{:'uk-icon' => "icon: link"}
             %a{href: @gbif_url}= t(".gbif_search")
+        - elsif @create_gbif_download_url
+          %li
+            %i{:'uk-icon' => "icon: link"}
+            %a{href: @create_gbif_download_url} Create GBIF download
         %li
           = link_to term_search_path do
             %i{:'uk-icon' => "icon: search"}
