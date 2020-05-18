@@ -78,10 +78,9 @@ class GbifDownload < ApplicationRecord
     })[:data]
     gbif_pks = []
     
-    # page_ids.in_groups_of(10_000, false) do |page_ids|
-    #   gbif_pks += Node.where(resource: Resource.gbif.id, page_id: page_ids).pluck(:resource_pk)
-    # end
-    gbif_pks = ["5254693"]
+    page_ids.in_groups_of(10_000, false) do |page_ids|
+      gbif_pks += Node.where(resource: Resource.gbif.id, page_id: page_ids).pluck(:resource_pk)
+    end
 
     req = Net::HTTP::Post.new(GBIF_CREATE_URI, "Content-Type" => "application/json")
     req.body = self.class.gbif_request_data(gbif_pks).to_json
