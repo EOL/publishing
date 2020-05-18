@@ -4,6 +4,7 @@
 # Author: Canaan9801
 # Author: Fitoschido
 # Author: Gastonsaenz
+# Author: Geryescalier
 # Author: Ihojose
 # Author: Joanmp17
 # Author: Madamebiblio
@@ -605,6 +606,9 @@ es:
     username: nombre de usuario
     update: Actualizar
     update_email: Actualizar dirección de correo electrónico
+  user_download:
+    have_pending: Ya tiene una descarga pendiente para esta consulta. Compruebe su
+      <a href="%{url}"> página de usuario </a> para ver si se ha completado.
   users:
     sign_in: Acceder
   vernacular_names_header: Nombres vernáculos

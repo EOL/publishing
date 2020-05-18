@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: SeoJeongHo
 # Author: Ykhwong
+# Author: 그냥기여자
 # Author: 아라
 ---
 ko:
@@ -136,6 +137,7 @@ ko:
   language: 언어
   languages:
     "no": 노르웨이어
+    Q100103: 서플라망어
     ar: 아랍어
     az: 아제르바이잔어
     bg: 불가리아어
@@ -168,15 +170,19 @@ ko:
     mn: 몽골어
     ms: 말레이어
     ne: 네팔어
+    "": 노르웨이어
     none: 지정되지 않음
+    pa: 펀잡어
     pl: 폴란드어
     pt: 포르투갈어
     ru: 러시아어
+    si: 신할라어
     sm: 사모아어
     sq: 알바니아어
     sv: 스웨덴어
     th: 태국어
     tl: 타갈로그어
+    to: 통가어
     tr: 터키어
     uk: 우크라이나어
     vi: 베트남어
@@ -397,6 +403,17 @@ ko:
       words_connector: ','
       two_words_connector: 그리고
       last_word_connector: ', 그리고'
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
   terms:
     definition_field_html: <strong>정의:</strong> %{definition}
     source_field_html: <strong>출처:</strong> <a href='%{source}'>%{source}</a>

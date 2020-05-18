@@ -1125,7 +1125,39 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: àrea
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volum
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: feuje ch'a casco
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: precaria
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempevërda
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: semipërsistenta
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: anrolament
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: verd giàun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: digital
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapessòid
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: mës-cià
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminar
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: qualità ameliorà
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: qualità degradà
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: strusiant
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: largh
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: sensa rèis
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: àuta toleransa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa toleransa
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esponù
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: decorassion
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: dimorfism sessual
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: smijant a na feuja
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: smijant a 'n baston
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: abitùdin ëd chërsùa massissa
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: palmà
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: vèrtes dël but
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: scòrsa
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: risòma
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: xilema scondari
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frut
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rèis
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: smens
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: sempi
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: compòst
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: feuja spinosa
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: ambient
         http://purl(dot)obolibrary(dot)org/obo/RO_0002439: as taca a
         http://purl(dot)obolibrary(dot)org/obo/RO_0002440: simbiòta ëd
@@ -1142,6 +1174,7 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/RO_0002471: a l'é mangià da
         http://purl(dot)obolibrary(dot)org/obo/RO_0002556: patògen ëd
         http://purl(dot)obolibrary(dot)org/obo/RO_0002557: a l'ha n'agent patògen
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: a produv
         http://purl(dot)obolibrary(dot)org/obo/RO_0008503: clepto-parassita ëd
         http://purl(dot)obolibrary(dot)org/obo/TO_0000207: autëssa dla pianta
         http://purl(dot)obolibrary(dot)org/obo/TO_0000276: toleransa a la suitin-a
@@ -1155,8 +1188,10 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/TO_0001026: ritm respiratòri
         http://purl(dot)obolibrary(dot)org/obo/TO_0002725: abitùdin ëd sicl ëd vita
         http://purl(dot)obolibrary(dot)org/obo/TO_0006001: toleransa a la sal
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoschéletr
         http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: ël tëssù mineralisà
           a conten
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: rapòrt
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: massa corporal
         http://purl(dot)obolibrary(dot)org/obo/VT_0001502: ritm sircadian comportamental
         http://purl(dot)obolibrary(dot)org/obo/VT_0001933: taja dla covà/nijà/portà
@@ -1167,6 +1202,26 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/VT_0010023: longheur ëd la piòta anans
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: larghëssa dël còrp
         http://purl(dot)obolibrary(dot)org/obo/VT_1000666: larghëssa dël fémur
+        http://eol(dot)org/schema/terms/Present: la distribussion geogràfica a anclud
+        http://eol(dot)org/schema/terms/FossilFirst: prima aparission
+        https://www(dot)wikidata(dot)org/entity/Q295469: ecoregion
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: corporassion ecomorfològica
+        http://eol(dot)org/schema/terms/TrophicGuild: corporassion tròfica
+        http://www(dot)wikidata(dot)org/entity/Q33596: mobilità
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: profondeur ëd l'eva
+        http://eol(dot)org/schema/terms/NativeRange: la portà nativa a anclud
+        http://eol(dot)org/schema/terms/fossilOccPBDB: nùmer d'ocorense ëd fòssij
+        http://www(dot)wikidata(dot)org/entity/Q1053008: livel tròfich
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: fond dël mar
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: terestr
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: foresta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: marengh
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: costié
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: eva corenta
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: busson
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
   term_query:
     validations:
       empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për

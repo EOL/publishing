@@ -640,7 +640,7 @@ fr:
       show_all: tout afficher
     page_data:
       habitat_wordcloud_tooltip: Nos enregistrements d’habitat sont essentiellement
-        sous forme textuelle, donc de nombreux termes se retrouvent souvent ;; les
+        sous forme textuelle, donc de nombreux termes se retrouvent souvent ;; les
         termes d’habitat les plus couramment trouvés — affichés largement dans le
         cloud mondial — sont les plus susceptibles d’être importants. Tous les enregistrements
         sont listés ci-dessous.
@@ -698,11 +698,11 @@ fr:
       prey: Proie
       reset: réinitialiser
       trophic_web_about: Les diagrammes de réseau de nourriture de EdlV se focalisent
-        sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
+        sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
         entourée des espèces dont elle se nourrie (proie), les espèces qui se nourrissent
         d’elle (prédateurs) et les autres espèces qui se nourrissent des mêmes proies
         (compétiteurs potentiels). Cliquer pour en savoir plus.
-      trophic_web_title_html: Web trophique <a href='%{about_path}'><sup><span class='a'
+      trophic_web_title_html: Web trophique <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
