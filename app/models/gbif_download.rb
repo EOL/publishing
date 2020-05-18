@@ -79,8 +79,9 @@ class GbifDownload < ApplicationRecord
     gbif_pks = []
     
     page_ids.in_groups_of(10_000, false) do |page_ids|
-      gbif_pks += Node.where(resource: Resource.gbif.id, page_id: page_ids).pluck(:resource_pk)
+      gbif_pks += Node.where(resource: Resource.gbif.id, page_id: page_ids).pluck(:resource_pk).collect { |pk| integer_or_nil pk }
     end
+    gbif_pks.compact!
 
     req = Net::HTTP::Post.new(GBIF_CREATE_URI, "Content-Type" => "application/json")
     req.body = self.class.gbif_request_data(gbif_pks).to_json
@@ -116,5 +117,9 @@ class GbifDownload < ApplicationRecord
   def check_gbif_creds
     raise "GBIF username not set in secrets.yml" if GBIF_USERNAME.blank?
     raise "GBIF password not set in secrets.yml" if GBIF_PASSWORD.blank?
+  end
+
+  def integer_or_nil(str)
+    Integer(str) rescue nil
   end
 end
