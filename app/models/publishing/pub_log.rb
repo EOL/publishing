@@ -33,7 +33,8 @@ class Publishing::PubLog
 
   def complete
     add_text_logs("(ends) completed resource #{@resource.name} (#{@resource.id})")
-    @logger&.complete
+    # Making sure we call complete on the last working import log, regardless of what we're holding on to:
+    @resource.import_logs.last&.complete
   end
 
   def add_text_logs(str)

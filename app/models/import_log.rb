@@ -48,8 +48,8 @@ class ImportLog < ApplicationRecord
   end
 
   def complete
-    update_attribute(:completed_at, Time.now)
-    update_attribute(:status, "completed")
+    update_attribute(:completed_at, Time.now) unless destroyed?
+    update_attribute(:status, 'completed') unless destroyed?
     resource.touch # Ensure that we see the resource as having changed
     log('Complete', cat: :ends)
   end
