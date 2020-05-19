@@ -308,12 +308,12 @@ class TraitBank
           gloss.each do |term|
             q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }])
             # NOTE: it's probably important that the per-page is the same as in the search_controller:
-            TraitBank.term_search(q, count: true)
+            TraitBank.term_search(q, count: true, cache: false)
             ('a'..'z').each { |letter| obj_terms_for_pred(term[:uri], letter) }
             if pages_to_filter_by_predicate.key?(term[:uri])
               pages_to_filter_by_predicate[term[:uri]].each do |clade_id|
                 q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }], clade_id: clade_id)
-                TraitBank.term_search(q, count: true)
+                TraitBank.term_search(q, count: true, cache: false)
               end
             end
             sleep(0.25) # Give it a *little* rest. Heh.
