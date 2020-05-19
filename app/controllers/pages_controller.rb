@@ -24,6 +24,11 @@ class PagesController < ApplicationController
     Eol::Uris.has_habitat,
     Eol::Uris.habitat_includes
   ]
+  HABITAT_CHART_BLACKLIST_IDS = Set.new([
+    1,
+    2913056,
+    2908256
+  ])
 
   # See your environment config; this action should be ignored by logs.
   def ping
@@ -594,7 +599,7 @@ private
   end
 
   def setup_habitat_bar_chart
-    return if !@page.native_node.any_landmark?
+    return if !@page.native_node.any_landmark? || HABITAT_CHART_BLACKLIST_IDS.include?(@page.id)
     target_uri = nil
 
     HABITAT_BAR_CHART_PREDICATES.each do |uri|
