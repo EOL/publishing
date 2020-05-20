@@ -14,6 +14,15 @@ class UserDownload < ApplicationRecord
   enum status: { created: 0, completed: 1, failed: 2 }
   enum duplication: { original: 0, duplicate: 1 }
 
+  scope :pending, -> do
+    where("created_at >= ?", EXPIRATION_TIME.ago)
+      .where(status: :created)
+  end
+
+  scope :for_user_display, -> do 
+    where("(created_at >= ? AND status != ?) OR status = ?", EXPIRATION_TIME.ago, UserDownload.statuses[:completed], UserDownload.statuses[:completed])
+  end
+
   EXPIRATION_TIME = 30.days
 
   # NOTE: should be created by populating clade, object_terms, predicates, and

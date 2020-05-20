@@ -26,7 +26,7 @@
       %ul.downloads
         -# TODO: expired_at and the like!
         -# TODO i18n
-        - downloads = @user.user_downloads.order(created_at: :desc)
+        - downloads = @user.user_downloads.for_user_display.order(created_at: :desc)
         = render "user_downloads/list", downloads: downloads, show_user: false
     - unless @user.gbif_downloads.empty?
       %h2 GBIF Downloads
