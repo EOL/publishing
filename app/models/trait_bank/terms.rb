@@ -312,8 +312,12 @@ class TraitBank
             ('a'..'z').each { |letter| obj_terms_for_pred(term[:uri], letter) }
             if pages_to_filter_by_predicate.key?(term[:uri])
               pages_to_filter_by_predicate[term[:uri]].each do |clade_id|
-                q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }], clade_id: clade_id)
-                TraitBank.term_search(q, count: true, cache: false)
+                begin
+                  q = TermQuery.new(filters_attributes: [{pred_uri: term[:uri], op: 'is_any' }], clade_id: clade_id)
+                  TraitBank.term_search(q, count: true, cache: false)
+                rescue Neography::NeographyError
+                  Rails.logger.error("TIMED OUT! Continuing without #{term[:uri]} for clade #{clade_id}...")
+                end
               end
             end
             sleep(0.25) # Give it a *little* rest. Heh.
@@ -329,7 +333,7 @@ class TraitBank
         pks_to_filter_by_predicate = {}
         pages_to_filter_by_predicate = {}
         pks = {}
-        clade_filter_warmer_csv = Rails.root.join('doc', "clade_filter_warmers.csv")
+        clade_filter_warmer_csv = Rails.root.join('doc', 'clade_filter_warmers.csv')
         CSV.read(clade_filter_warmer_csv).each do |line|
           predicate = line[1]
           pk = line[0]
@@ -344,7 +348,7 @@ class TraitBank
         pks_to_filter_by_predicate.each do |predicate, pks|
           pks.each do |pk|
             unless page_id_by_pk.key?(pk)
-              puts "** WARNING: Missing PK #{pk} in Dynamic Hierarchy. Skipping."
+              Rails.logger.error("** CacheWarmer WARNING: Missing PK #{pk} in Dynamic Hierarchy. Skipping.")
               next
             end
             pages_to_filter_by_predicate[predicate] ||= []
