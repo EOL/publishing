@@ -39,7 +39,7 @@ class TraitBank
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
 
-      @base_filename = Digest::MD5.hexdigest(@query.as_json.to_s)
+      @base_filename = "#{Digest::MD5.hexdigest(@query.as_json.to_s)}_#{Time.now.to_i}"
       @url = url
       @count = count
     end
