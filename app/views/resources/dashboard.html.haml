@@ -1,5 +1,7 @@
 %h1 Publishing Dashboard
-
+%p= "#{TraitBank.query(%{MATCH (n) RETURN count(n) as count})["data"][0][0]} nodes in the graph."
+%p= "#{TraitBank.query(%{MATCH (n:MetaData) RETURN count(n) as count})["data"][0][0]} MetaData nodes."
+%p= "#{TraitBank.query(%{MATCH ()-[r]->() RETURN count(r) as count})["data"][0][0]} edges."
 
 %h2 Delayed Job Log
 %p Only the last 20 lines are shown.
