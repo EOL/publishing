@@ -94,8 +94,8 @@ class PageDecorator
         if match = growth_habit_matches.by_type(:x_species)
           species_parts << trait_sentence_part(
             "#{name_clause} is "\
-            "#{a_or_an(match.trait[:object_term][:name])} %s "\
-            "species of #{what}",
+            "#{a_or_an(match.trait[:object_term][:name])} "\
+            "species of %s #{what}",
             match.trait
           )
         elsif match = growth_habit_matches.by_type(:species_of_x)
