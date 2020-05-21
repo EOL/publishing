@@ -22,8 +22,8 @@ class CacheWarmer
       strings.uniq!
       # NOTE: at the time of this writing, I ended up with 21K names, here, so this is a LOT of work!
       strings.each do |string|
-        # Yes, I am wimping out by calling curl. TODO: We should extract the search code into a class and call it.
-        `curl localhost:3000/search_results?q=#{CGI.escape(string)}`
+        # Using Curl so we hit the full stack. I am wimping out here and hard-coding the URL. Sorry. TODO: extract.
+        `curl https://eol.org/search?q=#{CGI.escape(string)}`
         sleep(0.1) # Just to take a LITTLE stress off the system without taking too long...
       end
     end
