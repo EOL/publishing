@@ -31,5 +31,9 @@ class DataJobs
       sleep(4)
       `kill -9 #{process_id}` if process_id == pid
     end
+
+    def delete_admin_pending
+      UserDownload.where(user_id: 1, status: :created).where.not(processing_since: nil).delete_all
+    end
   end
 end
