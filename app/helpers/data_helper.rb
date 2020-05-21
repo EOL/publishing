@@ -59,6 +59,8 @@ module DataHelper
     elsif data[:object_term] && data[:object_term][:name]
       value = i18n_term_name(data[:object_term])
       parts << value
+    elsif data[:combined_measurements]
+      parts << data[:combined_measurements].join(", ")
     elsif val = data[:measurement] || data[:value_measurement]
       parts << val.to_s
       parts << data[:units][:name] if data[:units] && data[:units][:name]
