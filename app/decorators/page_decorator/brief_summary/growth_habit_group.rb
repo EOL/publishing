@@ -24,9 +24,7 @@ class PageDecorator
             "http://eol.org/schema/terms/woodyPlant",
             "https://www.wikidata.org/entity/Q757163",
             "http://eol.org/schema/terms/semi-woody",
-            "https://www.wikidata.org/entity/Q190903",
-            "http://purl.obolibrary.org/obo/FLOPO_0900036",
-            "http://purl.obolibrary.org/obo/FLOPO_0022142",
+            "https://www.wikidata.org/entity/Q190903"
           ]),
           GrowthHabitGroup.new(:and_a_x, [
             "http://eol.org/schema/terms/obligateClimber",
@@ -46,6 +44,10 @@ class PageDecorator
           GrowthHabitGroup.new(:species_of_x, [
             Eol::Uris.tree,
             Eol::Uris.shrub
+          ]),
+          GrowthHabitGroup.new(:species_of_lifecycle_x, [
+            "http://purl.obolibrary.org/obo/FLOPO_0900036",
+            "http://purl.obolibrary.org/obo/FLOPO_0022142"
           ])
         ]
 

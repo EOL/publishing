@@ -259,6 +259,10 @@ module Eol
         "https://eol.org/schema/terms/stops_at"
       end
 
+      def lifecycle_habit
+        "http://purl.obolibrary.org/obo/TO_0002725"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

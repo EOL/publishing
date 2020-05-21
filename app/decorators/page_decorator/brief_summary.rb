@@ -103,6 +103,20 @@ class PageDecorator
             "#{name_clause} is a species of %s",
             match.trait
           )
+        elsif match = growth_habit_matches.by_type(:species_of_lifecycle_x)
+          lifecycle_trait = first_trait_for_pred_uri(Eol::Uris.lifecycle_habit)
+          if lifecycle_trait
+            lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
+            species_parts << trait_sentence_part(
+              "is a species of #{lifecycle_part} %s",
+              match.trait
+            )
+          else
+            species_parts << trait_sentence_part(
+              "#{name_clause} is a species of %s",
+              match.trait
+            )
+          end
         else
           species_parts << "#{name_clause} is a species of #{what}"
         end
