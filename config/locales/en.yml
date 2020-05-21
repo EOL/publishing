@@ -249,6 +249,8 @@ en:
       worms: "Worms"
     eol_is_hosted_by: "EOL is hosted by:"
   forgot_your_password: "Forgot your password?"
+  gbif_download:
+    created: "GBIF download job created. Check your <a href=\"%{url}\">user profile page</a> to view its status"
   landing_page:
     header: "Global access to knowledge about life on Earth"
     stats_cleared: "The stats have been recalculated."
