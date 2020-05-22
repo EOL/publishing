@@ -83,6 +83,8 @@
   %p Unable to get list of popular pages:
   %p= e.message
 
+%h2 Recent (very) Slow neo4j Queries (if any)
+%blockquote= `tail -n 400 log/traitbank.log | grep -A6 "<[0-9][0-9][0-9]\."`
 
 %h2 Other
 = link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')
