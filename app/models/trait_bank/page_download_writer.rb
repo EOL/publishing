@@ -2,7 +2,9 @@ module TraitBank::PageDownloadWriter
   def self.to_arrays(hashes, url)
     data = []
     TraitBank::DownloadUtils.page_ids(hashes).in_groups_of(10_000, false) do |page_ids|
-      pages = Page.with_hierarchy_no_media.where(:id => page_ids).collect { |p| [p.id, p] }.to_h
+      pages = EolDatabase.reconnect_if_idle do
+        Page.with_hierarchy_no_media.where(:id => page_ids).collect { |p| [p.id, p] }.to_h
+      end 
       data << (cols.keys << url)
       hashes.each do |result|
         page_id = TraitBank::DownloadUtils.page_id(result)
