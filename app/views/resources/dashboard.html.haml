@@ -91,7 +91,7 @@
 
 %a{ name: 'slow' }
 %h2 Recent (very) Slow neo4j Queries (if any)
-%pre= `tail -n 400 log/traitbank.log | grep -A6 "<[0-9][0-9][0-9]\."`
+%pre= `tail -n 250 log/traitbank.log | grep -A6 "<[0-9][0-9]\."`
 
 %a{ name: 'links' }
 %h2 Other
