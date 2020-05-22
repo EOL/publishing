@@ -162,7 +162,7 @@ class TraitsController < ApplicationController
 
   def build_gbif_url(total_count, pages, query)
     if query.taxa? && total_count > 0 && Resource.gbif
-      if total_count <= GBIF_LINK_LIMIT && false
+      if total_count <= GBIF_LINK_LIMIT
         gbif_params = pages.collect do |p|
           pk = p.nodes.find_by(resource_id: Resource.gbif.id)&.resource_pk
           pk ? "taxon_key=#{pk}" : nil
