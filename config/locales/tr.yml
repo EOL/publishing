@@ -273,6 +273,9 @@ tr:
       worms: Solucanlar
     eol_is_hosted_by: 'EOL ev sahibi yapan:'
   forgot_your_password: Parolanızı mı unuttunuz?
+  gbif_download:
+    created: GBIF indirme işi oluşturuldu. Durumunu görüntülemek için <a href="%{url}">kullanıcı
+      profili sayfanıza</a> kontrol edin
   landing_page:
     header: Dünyadaki yaşam hakkında bilgiye küresel erişim
     stats_cleared: İstatistikler yeniden hesaplandı.
