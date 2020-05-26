@@ -16,7 +16,7 @@ module Traits
       class Bucket
         attr_reader :index, :min, :limit, :count, :query, :buckets
 
-        def initialize(raw_index, raw_count, bw, min, query)
+        def initialize(raw_index, raw_count, bw, min, query, units_uri)
           @index = raw_index.to_i
           @min = min + bw * @index
           @limit = @min + bw # limit rather than max, since no value in the bucket ever reaches this limit -- it's an asymptote
@@ -26,6 +26,7 @@ module Traits
           qf = @query.filters.first
           qf.num_val1 = @min
           qf.num_val2 = @limit
+          qf.units_uri = units_uri
         end
 
         def to_h
@@ -54,7 +55,7 @@ module Traits
 
         result_stack = data.collect do |d|
           @max_count = d[i_count] if d[i_count] > @max_count
-          Bucket.new(d[i_bi], d[i_count], @bw, @min, query)
+          Bucket.new(d[i_bi], d[i_count], @bw, @min, query, @units_term[:uri])
         end.reverse
         
         cur_bucket = result_stack.pop
