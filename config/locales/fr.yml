@@ -276,6 +276,9 @@ fr:
       worms: Vers
     eol_is_hosted_by: 'L’EdlV est hébergée par :'
   forgot_your_password: Mot de passe oublié ?
+  gbif_download:
+    created: tâche de téléchargement GBIF créée. Vérifier votre <a href="%{url}">page
+      de profil utilisateur</a> pour voir son état
   landing_page:
     header: Accès global à la connaissance sur la vie sur Terre
     stats_cleared: Les statistiques ont été recalculées.
