@@ -263,6 +263,10 @@ module Eol
         "http://purl.obolibrary.org/obo/TO_0002725"
       end
 
+      def native_range
+        "http://eol.org/schema/terms/NativeRange"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

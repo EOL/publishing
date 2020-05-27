@@ -158,8 +158,14 @@ class PageDecorator
           term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term][:uri])
         end
 
-        # Distribution sentence: It is found in [G1].
-        @sentences << "It is found in #{g1}." if g1
+        if native_range_traits.any?
+          native_range_part = native_range_traits.collect do |t|
+            trait_sentence_part("%s", t)
+          end.join(", ")
+          @sentences << "It is native to #{native_range_part}."
+        elsif g1
+          @sentences << "It is found in #{g1}." if g1
+        end
       end
 
       # Iterate over all growth habit objects and get the first for which
@@ -352,6 +358,10 @@ class PageDecorator
 
       def freshwater_trait
         @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
+      end
+
+      def native_range_traits
+        @native_range_traits ||= traits_for_pred_uris(Eol::Uris.native_range)
       end
 
       def has_data(options)
