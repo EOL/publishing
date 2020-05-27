@@ -267,6 +267,14 @@ module Eol
         "http://eol.org/schema/terms/NativeRange"
       end
 
+      def fixes
+        "https://eol.org/schema/terms/fixes"
+      end
+
+      def nitrogen
+        "http://purl.obolibrary.org/obo/CHEBI_25555"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

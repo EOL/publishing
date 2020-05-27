@@ -36,6 +36,7 @@ class PageDecorator
       landmark_children
       plant_description_sentence
       flower_visitor_sentence
+      fixes_nitrogen_sentence
 
       if is_species?
         behavioral_sentence
@@ -288,6 +289,21 @@ class PageDecorator
         end
       end
 
+      def fixes_nitrogen_sentence
+        trait = first_trait_for_pred_and_obj(Eol::Uris.fixes, Eol::Uris.nitrogen)
+
+        if trait
+          label = is_species? ? "fixes nitrogen" : "fix nitrogen"
+
+          @sentences << term_sentence_part(
+            "#{name_clause} %s", 
+            label,
+            trait[:predicate][:uri], 
+            trait[:object_term][:uri]
+          )
+        end
+      end
+
       # NOTE: Landmarks on staging = {"no_landmark"=>0, "minimal"=>1, "abbreviated"=>2, "extended"=>3, "full"=>4} For P.
       # lotor, there's no "full", the "extended" is Tetropoda, "abbreviated" is Carnivora, "minimal" is Mammalia. JR
       # believes this is usually a Class, but for different types of life, different ranks may make more sense.
@@ -407,6 +423,11 @@ class PageDecorator
         end
 
         nil
+      end
+
+      def first_trait_for_pred_and_obj(pred_uri, obj_uri)
+        traits = traits_for_pred_uris(pred_uri)
+        traits.find { |t| t[:object_term].present? && t[:object_term][:uri] == obj_uri }
       end
 
       def first_trait_for_pred_uri_w_obj(pred_uri)
