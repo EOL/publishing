@@ -6,8 +6,11 @@ class Page::Reindexer
     @log = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('public', 'data', 'page_reindex.log')))
     @throttle = options.has_key?(:throttle) ? options[:throttle] : 0
     @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 256
-    Page.search_index.update_settings(index: { refresh_interval: '30s' })
-    Searchkick.timeout = 5000
+    Page.search_index.update_settings(index: { refresh_interval: '60s' })
+    Searchkick.timeout = 5000 # I think we do need both of these.
+    Searchkick.client_options = {
+      retry_on_failure: true, transport_options: { request: { timeout: 5000 } }
+    }
   end
 
   def start
