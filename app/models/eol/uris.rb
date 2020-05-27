@@ -275,6 +275,10 @@ module Eol
         "http://purl.obolibrary.org/obo/CHEBI_25555"
       end
 
+      def ecosystem_engineering
+        "http://polytraits.lifewatchgreece.eu/terms/RW"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

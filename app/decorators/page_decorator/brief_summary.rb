@@ -37,6 +37,7 @@ class PageDecorator
       plant_description_sentence
       flower_visitor_sentence
       fixes_nitrogen_sentence
+      ecosystem_engineering_sentence
 
       if is_species?
         behavioral_sentence
@@ -296,11 +297,19 @@ class PageDecorator
           label = is_species? ? "fixes nitrogen" : "fix nitrogen"
 
           @sentences << term_sentence_part(
-            "#{name_clause} %s", 
+            "#{name_clause} %s.", 
             label,
             trait[:predicate][:uri], 
             trait[:object_term][:uri]
           )
+        end
+      end
+
+      def ecosystem_engineering_sentence
+        trait = first_trait_for_pred_uri(Eol::Uris.ecosystem_engineering)
+
+        if trait
+          @sentences << trait_sentence_part("It is a %s.", trait)
         end
       end
 
