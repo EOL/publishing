@@ -279,6 +279,22 @@ module Eol
         "http://polytraits.lifewatchgreece.eu/terms/RW"
       end
 
+      def body_length
+        "http://purl.obolibrary.org/obo/CMO_0000013"
+      end
+
+      def body_mass
+        "http://purl.obolibrary.org/obo/VT_0001259"
+      end
+
+      def reproduction
+        "http://purl.obolibrary.org/obo/GO_0000003"
+      end
+
+      def parental_care
+        "http://polytraits.lifewatchgreece.eu/terms/BP_YES"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

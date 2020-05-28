@@ -41,8 +41,10 @@ class PageDecorator
 
       if is_species?
         behavioral_sentence
-        lifespan_sentence
+        lifespan_size_sentence
       end
+
+      reproduction_sentences
 
       Result.new(@sentences.join(' '), @terms)
     end
@@ -93,19 +95,19 @@ class PageDecorator
         family = a2
         species_parts = []
 
-        if match = growth_habit_matches.by_type(:x_species)
+        if match = growth_habit_matches.first_by_type(:x_species)
           species_parts << trait_sentence_part(
             "#{name_clause} is "\
             "#{a_or_an(match.trait[:object_term][:name])} "\
             "species of %s #{what}",
             match.trait
           )
-        elsif match = growth_habit_matches.by_type(:species_of_x)
+        elsif match = growth_habit_matches.first_by_type(:species_of_x)
           species_parts << trait_sentence_part(
             "#{name_clause} is a species of %s",
             match.trait
           )
-        elsif match = growth_habit_matches.by_type(:species_of_lifecycle_x)
+        elsif match = growth_habit_matches.first_by_type(:species_of_lifecycle_x)
           lifecycle_trait = first_trait_for_pred_uri(Eol::Uris.lifecycle_habit)
           if lifecycle_trait
             lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
@@ -163,7 +165,7 @@ class PageDecorator
         if native_range_traits.any?
           native_range_part = native_range_traits.collect do |t|
             trait_sentence_part("%s", t)
-          end.join(", ")
+          end.to_sentence
           @sentences << "It is native to #{native_range_part}."
         elsif g1
           @sentences << "It is found in #{g1}." if g1
@@ -174,15 +176,11 @@ class PageDecorator
       # GrowthHabitGroup.match returns a result, or nil if none do. The result
       # of this operation is cached.
       def growth_habit_matches
-        return @growth_habit_matches if @growth_habit_matched
+        @growth_habit_matches ||= GrowthHabitGroup.match_all(traits_for_pred_uris(Eol::Uris.growth_habit))
+      end
 
-        terms = gather_terms(Eol::Uris.growth_habit)
-        traits = terms.map do |term|
-          @page.grouped_data[term] || []
-        end.flatten
-
-        @growth_habit_matched = true
-        @growth_habit_matches = GrowthHabitGroup.match_all(traits)
+      def reproduction_matches
+        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(Eol::Uris.reproduction)) 
       end
 
       # [name clause] is a genus in the [A1] family [A2].
@@ -243,16 +241,113 @@ class PageDecorator
         @sentences << sentence if sentence
       end
 
-      def lifespan_sentence
-        trait = first_trait_for_pred_uri(Eol::Uris.lifespan)
+      def lifespan_size_sentence
+        lifespan_part = nil
+        size_part = nil
 
-        if trait
-          value = trait[:measurement]
-          units_name = trait.dig(:units, :name)
+        lifespan_trait = first_trait_for_pred_uri(Eol::Uris.lifespan)
+        if lifespan_trait
+          value = lifespan_trait[:measurement]
+          units_name = lifespan_trait.dig(:units, :name)
 
           if value && units_name
-            @sentences << "Individuals are known to live for #{value} #{units_name}."
+            lifespan_part = "are known to live for #{value} #{units_name}"
           end
+        end
+
+       # TODO: pending answer from Jen
+       # size_traits = traits_for_pred_uris(Eol::Uris.body_length, Eol::Uris.body_size)
+       # if size_traits.any?
+       #   largest_value_trait = nil
+
+       #   size_traits.each do |trait|
+       #     if trait[:normal_measurement] && 
+       #        trait[:measurement] && 
+       #        trait[:units] && (
+       #        !largest_value_trait ||
+       #        largest_value_trait[:normal_measurement] < trait[:normal_measurement]
+       #     )
+       #       largest_value_trait = trait
+       #     end
+       #   end
+
+       #   if largest_value_trait
+       #     size_part = "can grow to #{largest_value_trait[:measurement]} #{largest_value_trait[:units]}"
+       #   end
+       # end
+
+        if lifespan_part || size_part
+          @sentences << "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
+        end
+      end
+
+      def reproduction_sentences
+        matches = reproduction_matches
+
+        if is_species?
+          posessive = "has"
+          be = "is"
+          pronoun = "it"
+        else
+          posessive = "have"
+          be = "are"
+          pronoun = "they"
+        end
+
+        vpart = if matches.has_type?(:v)
+                  v_vals = matches.by_type(:v).collect do |match|
+                    trait_sentence_part("%s", match.trait)
+                  end.to_sentence
+
+                  "#{name_clause} #{posessive} #{v_vals}" 
+                else
+                  nil
+                end
+
+        wpart = if matches.has_type?(:w)
+                  w_vals = matches.by_type(:w).collect do |match|
+                    trait_sentence_part(
+                      "#{a_or_an(match.trait[:object_term][:name])} %s",
+                      match.trait
+                    )
+                  end.to_sentence
+
+                  "#{be} #{w_vals}" 
+                else
+                  nil
+                end
+
+        if vpart && wpart
+          wpart = "#{pronoun} #{wpart}"
+          @sentences << "#{vpart}; #{wpart}."
+        elsif vpart
+          @sentences << "#{vpart}."
+        elsif wpart
+          @sentences << "#{name_clause} #{wpart}."
+        end
+
+        if matches.has_type?(:y)
+          y_parts = matches.by_type(:y).collect do |match|
+            trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
+          end.to_sentence
+
+          @sentences << "#{pronoun.capitalize} #{posessive} #{y_parts}."
+        end
+
+        if matches.has_type?(:x)
+          x_parts = matches.by_type(:x).collect do |match|
+            trait_sentence_part("%s", match.trait)
+          end.to_sentence
+
+          @sentences << "Reproduction is #{x_parts}."
+        end
+
+        if matches.has_type?(:z)
+          z_parts = matches.by_type(:z).collect do |match|
+            trait_sentence_part("%s", match.trait)
+          end.to_sentence
+          
+          @sentences << "#{name_clause} #{posessive} parental care #{z_parts}."
         end
       end
 
