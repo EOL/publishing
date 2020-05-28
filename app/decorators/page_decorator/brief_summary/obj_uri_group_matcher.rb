@@ -70,7 +70,7 @@ class PageDecorator
           @by_type[type]
         end
 
-        def first_by_type(type)
+        def first_of_type(type)
           by_type(type)&.first
         end
 

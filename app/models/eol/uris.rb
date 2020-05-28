@@ -299,6 +299,14 @@ module Eol
         "http://purl.obolibrary.org/obo/NCIT_C25513"
       end
 
+      def motility
+        "http://www.wikidata.org/entity/Q33596"
+      end
+
+      def locomotion
+        "http://purl.obolibrary.org/obo/GO_0040011"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

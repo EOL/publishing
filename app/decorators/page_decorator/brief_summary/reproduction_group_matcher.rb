@@ -1,7 +1,7 @@
 class PageDecorator
   class BriefSummary
     class ReproductionGroupMatcher
-      MATCHER = ObjUriGroupMatcher.new({
+      MATCHER = PageDecorator::BriefSummary::ObjUriGroupMatcher.new({
         type: :v,
         uris: [
           "http://purl.obolibrary.org/obo/GO_0019953",

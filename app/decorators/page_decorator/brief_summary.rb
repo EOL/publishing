@@ -46,6 +46,7 @@ class PageDecorator
       end
 
       reproduction_sentences
+      motility_sentence
 
       Result.new(@sentences.join(' '), @terms)
     end
@@ -93,22 +94,14 @@ class PageDecorator
         # taxonomy sentence:
         # TODO: this assumes perfect coverage of A1 and A2 for all species, which is a bad idea. Have contingencies.
         what = a1
-        family = a2
         species_parts = []
 
-        if match = growth_habit_matches.first_by_type(:x_species)
-          species_parts << trait_sentence_part(
-            "#{name_clause} is "\
-            "#{a_or_an(match.trait[:object_term][:name])} "\
-            "species of %s #{what}",
-            match.trait
-          )
-        elsif match = growth_habit_matches.first_by_type(:species_of_x)
+        if match = growth_habit_matches.first_of_type(:species_of_x)
           species_parts << trait_sentence_part(
             "#{name_clause} is a species of %s",
             match.trait
           )
-        elsif match = growth_habit_matches.first_by_type(:species_of_lifecycle_x)
+        elsif match = growth_habit_matches.first_of_type(:species_of_lifecycle_x)
           lifecycle_trait = first_trait_for_pred_uri(Eol::Uris.lifecycle_habit)
           if lifecycle_trait
             lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
@@ -116,34 +109,38 @@ class PageDecorator
               "is a species of #{lifecycle_part} %s",
               match.trait
             )
-          else
+          else # TODO: DRY
             species_parts << trait_sentence_part(
               "#{name_clause} is a species of %s",
               match.trait
             )
           end
+        elsif match = growth_habit_matches.first_of_type(:species_of_x_a1)
+          species_parts << trait_sentence_part(
+            "#{name_clause} is a species of %s #{what}",
+            match.trait
+          )
         else
           species_parts << "#{name_clause} is a species of #{what}"
         end
 
-        if family
-          species_parts << " in the family #{a2}"
-        end
-
-        if match = growth_habit_matches.by_type(:and_a_x)
-          species_parts << trait_sentence_part(
-            ", and #{a_or_an(match.trait[:object_term][:name])} %s",
-            match.trait
-          )
-        elsif match = growth_habit_matches.by_type(:x_growth_habit)
-          species_parts << trait_sentence_part(
-            ", with #{a_or_an(match.trait[:object_term][:name])} %s growth habit",
-            match.trait
-          )
-        end
-
+        species_parts << " in the family #{a2}" if a2
         species_parts << "."
         @sentences << species_parts.join("")
+
+        if match = growth_habit_matches.first_of_type(:is_an_x)
+          @sentences << trait_sentence_part(
+            "It is #{a_or_an(match.trait[:object_term][:name])} %s.",
+            match.trait
+          )
+        end
+
+        if match = growth_habit_matches.first_of_type(:x_growth_habit)
+          @sentences << trait_sentence_part(
+            "It has #{a_or_an(match.trait[:object_term][:name])} %s growth form.",
+            match.trait
+          )
+        end
 
         if is_it_extinct?
           term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
@@ -350,6 +347,46 @@ class PageDecorator
           end.to_sentence
           
           @sentences << "#{name_clause} #{posessive} parental care #{z_parts}."
+        end
+      end
+
+      def motility_sentence
+        matches = MotilityGroupMatcher.match_all(traits_for_pred_uris(
+          Eol::Uris.motility,
+          Eol::Uris.locomotion  
+        ))
+
+        if matches.has_type?(:c)
+          match = matches.first_of_type(:c)
+          @sentences << trait_sentence_part(
+            "#{name_clause} relies on %s to move around.", 
+            match.trait
+          )
+        elsif matches.has_type?(:a) && matches.has_type?(:b)
+          a_match = matches.first_of_type(:a)
+          b_match = matches.first_of_type(:b)
+
+          a_part = trait_sentence_part(
+            "#{name_clause} is #{a_or_an(a_match.trait[:object_term][:name])} %s",
+            a_match.trait
+          )
+          @sentences << trait_sentence_part(
+            "#{a_part} %s.",
+            b_match.trait
+          )
+        elsif matches.has_type?(:a)
+          match = matches.first_of_type(:a)
+          organism_animal = @page.animal? ? "animal" : "organism"
+          @sentences << trait_sentence_part(
+            "#{name_clause} is #{a_or_an(a_match.trait[:object_term][:name])} %s #{organism_animal}.",
+            match.trait
+          )
+        elsif matches.has_type?(:b)
+          match = matches.first_of_type(:b)
+          @sentences << trait_sentence_part(
+            "#{name_clause} is #{a_or_an(match.trait[:object_term][:name])} %s.",
+            match.trait
+          )
         end
       end
 
