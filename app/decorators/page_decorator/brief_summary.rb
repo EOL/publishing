@@ -135,7 +135,7 @@ class PageDecorator
           )
         end
 
-        if match = growth_habit_matches.first_of_type(:x_growth_habit)
+        if match = growth_habit_matches.first_of_type(:has_an_x_growth_form)
           @sentences << trait_sentence_part(
             "It has #{a_or_an(match.trait[:object_term][:name])} %s growth form.",
             match.trait
@@ -218,22 +218,23 @@ class PageDecorator
           Eol::Uris.crepuscular
         )
         solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
+        begin_traits = [solitary, circadian].compact
         trophic = first_trait_for_pred_uri(Eol::Uris.trophic_level)
-        circadian_part = trait_sentence_part("%s", circadian) if circadian
-        solitary_part = trait_sentence_part("%s", solitary) if solitary
         trophic_part = trait_sentence_part("%s", trophic) if trophic
-        begin_parts = [solitary_part, circadian_part].compact
         sentence = nil
 
-        if begin_parts.any?
+        if begin_traits.any?
+          begin_parts = begin_traits.collect do |t|
+            trait_sentence_part("%s", t)
+          end
+
           if trophic_part
-            begin_part = begin_parts.join(", ")
-            sentence = "It is #{a_or_an(begin_part)} #{begin_part} #{trophic_part}."
+            sentence = "It is #{a_or_an(begin_traits.first[:object_term][:uri])} #{begin_parts.join(", ")} #{trophic_part}."
           else
             sentence = "It is #{begin_parts.join(" and ")}."
           end
         elsif trophic_part
-          sentence = "It is #{a_or_an(trophic_part)} #{trophic_part}."
+          sentence = "It is #{a_or_an(trophic.first[:object_term][:uri])} #{trophic_part}."
         end
 
         @sentences << sentence if sentence
