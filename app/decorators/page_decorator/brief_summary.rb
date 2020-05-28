@@ -106,7 +106,7 @@ class PageDecorator
           if lifecycle_trait
             lifecycle_part = trait_sentence_part("%s", lifecycle_trait)
             species_parts << trait_sentence_part(
-              "is a species of #{lifecycle_part} %s",
+              "#{name_clause} is a species of #{lifecycle_part} %s",
               match.trait
             )
           else # TODO: DRY
