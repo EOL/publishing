@@ -255,26 +255,27 @@ class PageDecorator
           end
         end
 
-       # TODO: pending answer from Jen
-       # size_traits = traits_for_pred_uris(Eol::Uris.body_length, Eol::Uris.body_size)
-       # if size_traits.any?
-       #   largest_value_trait = nil
+        size_traits = traits_for_pred_uris(Eol::Uris.body_length)
+        size_traits = traits_for_pred_uris(Eol::Uris.body_mass) if size_traits.empty?
 
-       #   size_traits.each do |trait|
-       #     if trait[:normal_measurement] && 
-       #        trait[:measurement] && 
-       #        trait[:units] && (
-       #        !largest_value_trait ||
-       #        largest_value_trait[:normal_measurement] < trait[:normal_measurement]
-       #     )
-       #       largest_value_trait = trait
-       #     end
-       #   end
+        if size_traits.any?
+          largest_value_trait = nil
 
-       #   if largest_value_trait
-       #     size_part = "can grow to #{largest_value_trait[:measurement]} #{largest_value_trait[:units]}"
-       #   end
-       # end
+          size_traits.each do |trait|
+            if trait[:normal_measurement] && 
+               trait[:measurement] && 
+               trait[:units] && (
+               !largest_value_trait ||
+               largest_value_trait[:normal_measurement].to_f < trait[:normal_measurement].to_f
+            )
+              largest_value_trait = trait
+            end
+          end
+
+          if largest_value_trait
+            size_part = "can grow to #{largest_value_trait[:measurement]} #{largest_value_trait[:units][:name]}"
+          end
+        end
 
         if lifespan_part || size_part
           @sentences << "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
