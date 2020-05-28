@@ -295,6 +295,10 @@ module Eol
         "http://polytraits.lifewatchgreece.eu/terms/BP_YES"
       end
 
+      def forms
+        "http://purl.obolibrary.org/obo/NCIT_C25513"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

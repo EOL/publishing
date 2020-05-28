@@ -37,6 +37,7 @@ class PageDecorator
       plant_description_sentence
       flower_visitor_sentence
       fixes_nitrogen_sentence
+      forms_sentence
       ecosystem_engineering_sentence
 
       if is_species?
@@ -255,8 +256,8 @@ class PageDecorator
           end
         end
 
-        size_traits = traits_for_pred_uris(Eol::Uris.body_length)
-        size_traits = traits_for_pred_uris(Eol::Uris.body_mass) if size_traits.empty?
+        size_traits = traits_for_pred_uris(Eol::Uris.body_mass)
+        size_traits = traits_for_pred_uris(Eol::Uris.body_length) if size_traits.empty?
 
         if size_traits.any?
           largest_value_trait = nil
@@ -397,6 +398,19 @@ class PageDecorator
             label,
             trait[:predicate][:uri], 
             trait[:object_term][:uri]
+          )
+        end
+      end
+
+      def forms_sentence
+        trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
+          t.[](:lifestage_term)&.[](:name)&.present?
+        end
+
+        if trait
+          @sentences << trait_sentence_part(
+            "#{trait[:lifestage_term][:name]} #{name_clause} form %ss.", #extra s for plural, not a typo
+            trait
           )
         end
       end
