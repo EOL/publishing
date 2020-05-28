@@ -1,18 +1,57 @@
 # Reindex the pages in a batchable, resumable, update-mistakes-only way.
 class Page::Reindexer
+  # NOTE: all of these class methods are indended for informational use by a developer or sysops. Please keep, even
+  # though the code may not reference them.
+  class << self
+    def index_names
+      Page.searchkick_index.all_indices
+    end
+
+    def index_name
+      Page.searchkick_index.settings.keys.first
+    end
+
+    def refresh_interval=(time)
+      Page.search_index.update_settings(index: { refresh_interval: time })
+    end
+
+    # This is not kosher; they don't want us to access the client directly, so they can control the index name (at
+    # least).
+    def client
+      @client ||= Page.searchkick_index.send :client
+    end
+
+    def index_sizes
+      results = {}
+      index_names.each do |name|
+        response =
+          client.search(
+            index: name,
+            body: { query: { match_all: {} }, size: 0 }
+          )
+        results[name] = Searchkick::Results.new(nil, response).total_count
+      end
+      results
+    end
+  end
+
   # Pass throttle: nil to skip throttling.
   def initialize(start_page_id = nil, options = {})
     @start_page_id = start_page_id || 1
     @log = ActiveSupport::TaggedLogging.new(Logger.new(Rails.root.join('public', 'data', 'page_reindex.log')))
     @throttle = options.has_key?(:throttle) ? options[:throttle] : 0
     @batch_size = options.has_key?(:batch_size) ? options[:batch_size] : 256
-    Page.search_index.update_settings(index: { refresh_interval: '30s' })
-    Searchkick.timeout = 5000
+    Page::Reindexer.refresh_interval= '120s'
+    Searchkick.timeout = 5000 # I think we do need both of these.
+    Searchkick.client_options = {
+      retry_on_failure: true, transport_options: { request: { timeout: 5000 } }
+    }
   end
 
   def start
     log('START')
     log("Skipping to page #{@start_page_id}") unless @start_page_id == 1
+    # index_name=>"pages_staging_20200527203132579"
     current_page_id = @start_page_id
     begin
       count = Page.search_import.where(['id >= ?', @start_page_id]).count
