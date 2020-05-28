@@ -55,7 +55,7 @@ class PageDecorator
           filtered_matches = if matches.has_uri?(Eol::Uris.tree)
             [matches.by_uri(Eol::Uris.tree).first] 
           elsif matches.has_uri?(Eol::Uris.shrub)
-            [matches_by_uri[Eol::Uris.shrub].first]
+            [matches_by_uri(Eol::Uris.shrub).first]
           elsif matches.has_type?(:x_species) &&
             (matches.has_type?(:and_a_x) || matches.has_type?(:x_growth_habit))
 
