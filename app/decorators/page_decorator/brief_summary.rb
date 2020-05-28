@@ -346,7 +346,7 @@ class PageDecorator
             trait_sentence_part("%s", match.trait)
           end.to_sentence
           
-          @sentences << "#{name_clause} #{posessive} parental care #{z_parts}."
+          @sentences << "#{name_clause} #{posessive} parental care (#{z_parts})."
         end
       end
 
