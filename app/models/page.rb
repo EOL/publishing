@@ -782,8 +782,11 @@ class Page < ApplicationRecord
       end
   end
 
-  private
+  def animal?
+    ancestors.find { |anc| anc.page_id == METAZOA_ID }.present?
+  end
 
+  private
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end
@@ -934,9 +937,5 @@ class Page < ApplicationRecord
     end
 
     result
-  end
-
-  def animal?
-    ancestors.find { |anc| anc.page_id == METAZOA_ID }.present?
   end
 end
