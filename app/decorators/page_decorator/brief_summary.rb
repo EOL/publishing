@@ -416,7 +416,9 @@ class PageDecorator
       end
 
       def flower_visitor_sentence
-        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).slice(0, FLOWER_VISITOR_LIMIT)
+        traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).uniq do |t|
+          t.dig(:object_term, :uri) 
+        end.slice(0, FLOWER_VISITOR_LIMIT)
 
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }

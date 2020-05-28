@@ -47,7 +47,7 @@ class PageDecorator
 
       class Matches
         def initialize(matches)
-          @matches = matches
+          @matches = matches.uniq { |m| m.trait&.dig(:object_term, :uri) }
 
           @by_uri = matches.group_by do |match|
             match.trait[:object_term][:uri]
