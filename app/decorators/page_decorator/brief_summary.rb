@@ -458,7 +458,7 @@ class PageDecorator
         trait = first_trait_for_pred_uri(Eol::Uris.ecosystem_engineering)
 
         if trait
-          @sentences << trait_sentence_part("It is a %s.", trait)
+          @sentences << trait_sentence_part("It is #{a_or_an(trait[:object_term][:uri])} %s.", trait)
         end
       end
 
