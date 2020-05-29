@@ -25,6 +25,16 @@ class Page::Reindexer
       Page.searchkick_index.all_indices
     end
 
+    def setup_background
+      @redis ||= Redis.new(host: "redis")
+      Searchkick.redis = @redis
+      ActiveJob::TrafficControl.client = @redis
+
+      class ::Searchkick::BulkReindexJob
+        concurrency 3
+      end
+    end
+
     # NOTE: the rest of these class methods are indended for informational use by a developer or sysops. Please keep,
     # even though the code may not reference them.
     def index_name

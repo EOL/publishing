@@ -19,8 +19,8 @@ class CsvDownloadWarmer
   class << self
     def warm
       @record_and_taxa_search_predicates.each do |uri|
-        warm_query(:taxa, uri)
         warm_query(:record, uri)
+        warm_query(:taxa, uri)
       end
       @taxa_search_predicates.each do |uri|
         warm_query(:taxa, uri)
