@@ -4,10 +4,12 @@ class Page::Reindexer
   # you want to see them again, checkout 69b3076fa15c880daff673a45e073eb22d026371
   class << self
     def reindex
+      setup_background
       Page.reindex(async: {wait: true})
     end
 
     def resume_reindex
+      setup_background
       Page.reindex(async: {wait: true}, resume: true)
     end
 
@@ -28,11 +30,6 @@ class Page::Reindexer
     def setup_background
       @redis ||= Redis.new(host: "redis")
       Searchkick.redis = @redis
-      ActiveJob::TrafficControl.client = @redis
-
-      class ::Searchkick::BulkReindexJob
-        concurrency 3
-      end
     end
 
     # NOTE: the rest of these class methods are indended for informational use by a developer or sysops. Please keep,
