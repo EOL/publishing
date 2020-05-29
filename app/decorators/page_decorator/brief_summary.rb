@@ -130,14 +130,14 @@ class PageDecorator
 
         if match = growth_habit_matches.first_of_type(:is_an_x)
           @sentences << trait_sentence_part(
-            "It is #{a_or_an(match.trait[:object_term][:name])} %s.",
+            "It is #{a_or_an(match.trait)} %s.",
             match.trait
           )
         end
 
         if match = growth_habit_matches.first_of_type(:has_an_x_growth_form)
           @sentences << trait_sentence_part(
-            "It has #{a_or_an(match.trait[:object_term][:name])} %s growth form.",
+            "It has #{a_or_an(match.trait)} %s growth form.",
             match.trait
           )
         end
@@ -229,12 +229,12 @@ class PageDecorator
           end
 
           if trophic_part
-            sentence = "It is #{a_or_an(begin_traits.first[:object_term][:uri])} #{begin_parts.join(", ")} #{trophic_part}."
+            sentence = "It is #{a_or_an(begin_traits.first)} #{begin_parts.join(", ")} #{trophic_part}."
           else
             sentence = "It is #{begin_parts.join(" and ")}."
           end
         elsif trophic_part
-          sentence = "It is #{a_or_an(trophic[:object_term][:uri])} #{trophic_part}."
+          sentence = "It is #{a_or_an(trophic)} #{trophic_part}."
         end
 
         @sentences << sentence if sentence
@@ -307,7 +307,7 @@ class PageDecorator
         wpart = if matches.has_type?(:w)
                   w_vals = matches.by_type(:w).collect do |match|
                     trait_sentence_part(
-                      "#{a_or_an(match.trait[:object_term][:name])} %s",
+                      "#{a_or_an(match.trait)} %s",
                       match.trait
                     )
                   end.to_sentence
@@ -368,7 +368,7 @@ class PageDecorator
           b_match = matches.first_of_type(:b)
 
           a_part = trait_sentence_part(
-            "#{name_clause} is #{a_or_an(a_match.trait[:object_term][:name])} %s",
+            "#{name_clause} is #{a_or_an(a_match.trait)} %s",
             a_match.trait
           )
           @sentences << trait_sentence_part(
@@ -379,13 +379,13 @@ class PageDecorator
           match = matches.first_of_type(:a)
           organism_animal = @page.animal? ? "animal" : "organism"
           @sentences << trait_sentence_part(
-            "#{name_clause} is #{a_or_an(match.trait[:object_term][:name])} %s #{organism_animal}.",
+            "#{name_clause} is #{a_or_an(match.trait)} %s #{organism_animal}.",
             match.trait
           )
         elsif matches.has_type?(:b)
           match = matches.first_of_type(:b)
           @sentences << trait_sentence_part(
-            "#{name_clause} is #{a_or_an(match.trait[:object_term][:name])} %s.",
+            "#{name_clause} is #{a_or_an(match.trait)} %s.",
             match.trait
           )
         end
@@ -459,7 +459,7 @@ class PageDecorator
         trait = first_trait_for_pred_uri(Eol::Uris.ecosystem_engineering)
 
         if trait
-          @sentences << trait_sentence_part("It is #{a_or_an(trait[:object_term][:name])} %s.", trait)
+          @sentences << trait_sentence_part("It is #{a_or_an(trait)} %s.", trait)
         end
       end
 
@@ -675,8 +675,9 @@ class PageDecorator
         node.rank.try(:name) || "clade"
       end
 
-      # Note: this does not always work (e.g.: "an unicorn")
-      def a_or_an(word)
+      # XXX: this does not always work (e.g.: "an unicorn")
+      def a_or_an(trait)
+        word = trait[:object_term][:name]
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
       end
 
