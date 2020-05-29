@@ -66,7 +66,7 @@ module Traits
             cur_bucket = result_stack.pop
             prev_bucket
           else
-            Bucket.new(i, 0, @bw, @min, query)
+            Bucket.new(i, 0, @bw, @min, query, @units_term[:uri])
           end
         end
       end
