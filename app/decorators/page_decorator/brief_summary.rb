@@ -379,7 +379,7 @@ class PageDecorator
           match = matches.first_of_type(:a)
           organism_animal = @page.animal? ? "animal" : "organism"
           @sentences << trait_sentence_part(
-            "#{name_clause} is #{a_or_an(a_match.trait[:object_term][:name])} %s #{organism_animal}.",
+            "#{name_clause} is #{a_or_an(match.trait[:object_term][:name])} %s #{organism_animal}.",
             match.trait
           )
         elsif matches.has_type?(:b)
