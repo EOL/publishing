@@ -5,10 +5,12 @@ class PageDecorator
     class ObjUriGroupMatcher
       class Match
         attr_accessor :type
+        attr_accessor :uri
         attr_accessor :trait
 
-        def initialize(group, trait)
+        def initialize(group, uri, trait)
           @type = group.type
+          @uri = uri
           @trait = trait
         end
       end
@@ -24,36 +26,17 @@ class PageDecorator
         def include?(uri)
           @uris.include? uri
         end
-
-        def match(trait)
-          return nil if !trait[:object_term]
-          uri = trait[:object_term][:uri]
-
-          found_group = nil
-          Groups.each do |group|
-            if group.include? uri
-              found_group = group
-              break
-            end
-          end
-
-          if found_group
-            Match.new(found_group, trait)
-          else
-            nil
-          end
-        end 
       end
 
       class Matches
         def initialize(matches)
-          @matches = matches.uniq { |m| m.trait&.dig(:object_term, :uri) }
+          @matches = matches.uniq { |m| m.uri }
 
-          @by_uri = matches.group_by do |match|
-            match.trait[:object_term][:uri]
+          @by_uri = @matches.group_by do |match|
+            match.uri
           end
 
-          @by_type = matches.group_by do |match|
+          @by_type = @matches.group_by do |match|
             match.type
           end
         end
@@ -118,7 +101,7 @@ class PageDecorator
         end
 
         if found_group
-          Match.new(found_group, trait)
+          Match.new(found_group, uri, trait)
         else
           nil
         end
