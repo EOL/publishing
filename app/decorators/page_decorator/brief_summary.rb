@@ -234,7 +234,7 @@ class PageDecorator
             sentence = "It is #{begin_parts.join(" and ")}."
           end
         elsif trophic_part
-          sentence = "It is #{a_or_an(trophic.first[:object_term][:uri])} #{trophic_part}."
+          sentence = "It is #{a_or_an(trophic[:object_term][:uri])} #{trophic_part}."
         end
 
         @sentences << sentence if sentence
