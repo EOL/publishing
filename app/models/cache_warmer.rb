@@ -2,7 +2,6 @@ class CacheWarmer
   class << self
     def warm
       Page.warm_autocomplete
-      TraitBank::Terms.warm_caches
       warm_full_searches
     end
 

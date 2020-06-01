@@ -273,6 +273,9 @@ pms:
       worms: Verm
     eol_is_hosted_by: 'EdV a l''é ospità da:'
   forgot_your_password: Ciav dësmentià?
+  gbif_download:
+    created: travaj ëd dëscariament GBIF creà. Ch'a contròla soa <a href="%{url}">pàgina
+      ëd profil utent</a> për vëdde sò stat
   landing_page:
     header: Acess global a la conossensa ëd la vita an sla Tèra
     stats_cleared: Le statìstiché a son ëstàite torna calcolà.
@@ -1371,8 +1374,10 @@ pms:
     update: Agiorné
     update_email: Agiorné l'adrëssa eletrònica
   user_download:
-    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}"pàgina
+    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}">pàgina
       d'utent</a> për vëdde cand a sarà completà.
+    have_pending: A l'ha già un dëscariament an cors për costa arcesta. Ch'a contròla
+      soa <a href="%{url}">pàgina utent</a> për vëdde s'a l'é completà.
   users:
     account_migration_header: 'S''a l''é anscrivusse an sl''EdV prima dij 15 nov.
       2018:'

@@ -1,0 +1,31 @@
+# Messages for Swedish (svenska)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: WikiPhoenix
+---
+sv:
+  devise:
+    confirmations:
+      confirmed: Din e-postadress har bekräftats.
+      send_instructions: Du kommer att få ett e-postmeddelande med instruktioner om
+        hur du bekräftar din e-postadress om några minuter.
+      send_paranoid_instructions: Om din e-postadress finns i vår databas kommer du
+        få ett e-postmeddelande med instruktioner om hur du bekräftar din e-postadress
+        om några minuter.
+    failure:
+      already_authenticated: Du är redan inloggad.
+      inactive: Din konto har ännu inte aktiverats.
+      invalid: Ogiltigt %{authentication_keys} eller lösenord
+      locked: Ditt konto är låst. Var god försök igen efter en timme.
+      last_attempt: Du har ett till försök innan ditt konto blir låst.
+      not_found_in_database: Ogiltigt %{authentication_keys} eller lösenord
+      recaptcha_error: Ett fel uppstod med recaptcha-koden nedan. Var god skriv in
+        koden igen och klicka på skicka.
+      timeout: Din session gick ut. Var god logga in igen för att fortsätta.
+      unauthenticated: Du måste logga in eller registrera dig innan du fortsätter.
+      unconfirmed: Du måste bekräfta din e-postadress innan du fortsätter.
+    mailer:
+      confirmation_instructions:
+        action: Bekräfta mitt konto
+        greeting: Välkommen, %{recipient}!
+...

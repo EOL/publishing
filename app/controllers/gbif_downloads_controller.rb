@@ -10,11 +10,11 @@ class GbifDownloadsController < ApplicationController
 
     message = if download 
                 download.background_build_with_delay
-                "GBIF download job created -- check your user profile page to view its status"
+                t("gbif_download.created", url: user_path(current_user)) 
               else
                 logger.error("Failed to create GBIF download")
                 logger.error(download.errors.full_messages)
-                "An unexpected error occurred"
+                t("gbif_download.unexpected_error")
               end
 
     redirect_to request.referer, notice: message

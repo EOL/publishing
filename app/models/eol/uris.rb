@@ -255,6 +255,58 @@ module Eol
         "https://www.wikidata.org/entity/Q295469"
       end
 
+      def stops_at
+        "https://eol.org/schema/terms/stops_at"
+      end
+
+      def lifecycle_habit
+        "http://purl.obolibrary.org/obo/TO_0002725"
+      end
+
+      def native_range
+        "http://eol.org/schema/terms/NativeRange"
+      end
+
+      def fixes
+        "https://eol.org/schema/terms/fixes"
+      end
+
+      def nitrogen
+        "http://purl.obolibrary.org/obo/CHEBI_25555"
+      end
+
+      def ecosystem_engineering
+        "http://polytraits.lifewatchgreece.eu/terms/RW"
+      end
+
+      def body_length
+        "http://purl.obolibrary.org/obo/CMO_0000013"
+      end
+
+      def body_mass
+        "http://purl.obolibrary.org/obo/VT_0001259"
+      end
+
+      def reproduction
+        "http://purl.obolibrary.org/obo/GO_0000003"
+      end
+
+      def parental_care
+        "http://polytraits.lifewatchgreece.eu/terms/BP_YES"
+      end
+
+      def forms
+        "http://purl.obolibrary.org/obo/NCIT_C25513"
+      end
+
+      def motility
+        "http://www.wikidata.org/entity/Q33596"
+      end
+
+      def locomotion
+        "http://purl.obolibrary.org/obo/GO_0040011"
+      end
+
       def inverse(uri)
         INVERSES[uri]
       end

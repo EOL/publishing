@@ -33,7 +33,7 @@ class Admin::EditorPageDirectoriesController < AdminController
 
   private
   def set_editor_page_directory
-    @editor_page_directory = EditorPageDirectory.find(params[:id])
+    @editor_page_directory = EditorPageDirectory.friendly.find(params[:id])
   end
 
   def editor_page_directory_params

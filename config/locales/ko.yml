@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Codenstory
 # Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 그냥기여자
@@ -134,6 +135,8 @@ ko:
       viruses: 바이러스
     eol_is_hosted_by: 'EOL 호스팅:'
   forgot_your_password: 비밀번호를 잊으셨나요?
+  gbif_download:
+    created: GBIF 다운로드 작업이 생성되었습니다. <a href="%{url}">사용자 프로필 페이지</a>에서 상태를 확인하세요
   language: 언어
   languages:
     "no": 노르웨이어
@@ -163,6 +166,7 @@ ko:
     kg: 콩고어
     ko: 한국어
     la: 라틴어
+    li: Limburgish
     lo: 라오어
     lt: 리투아니아어
     mi: 마오리어

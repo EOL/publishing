@@ -69,6 +69,7 @@ class Page < ApplicationRecord
   scope :with_name, -> { with_scientific_name.includes(:preferred_vernaculars) }
 
   KEY_DATA_LIMIT = 12
+  METAZOA_ID = 1
 
   class << self
     # Occasionally you'll see "NO NAME" for some page IDs (in searches, associations, collections, and so on), and this
@@ -781,8 +782,11 @@ class Page < ApplicationRecord
       end
   end
 
-  private
+  def animal?
+    ancestors.find { |anc| anc.page_id == METAZOA_ID }.present?
+  end
 
+  private
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
   end

@@ -10,23 +10,27 @@
     - @delayed_job_log.each do |log|
       .item= log.sub(/-- : \d\d\d\d-[^\]]+\] /, '').sub(/^[A-Z], /, '')
 
-%h2 Import Logs
+%a{ name: 'publishing' }
+%h2 Publishing Logs
 - if @import_logs.size.positive?
   .ui.section
     .ui.list
       - @import_logs.each do |log|
         .item= "#{log.resource.name} (Created #{log.created_at})"
 - else
-  %p There are no current import logs: they are all complete or failed.
+  %p There are no current publishing logs: they are all complete or failed.
 
+%a{ name: 'git' }
 %h2 Git Logs
 .ui.section
   .ui.list
     - @git_log.each do |log|
       .item= log
 
+%a{ name: 'uptime' }
 %h2= "Uptime: #{@uptime}"
 
+%a{ name: 'cpu' }
 %h2 Most CPU-intensive processes:
 .ui.section
   .ui.list
@@ -34,6 +38,7 @@
       - parts = log.split(/\s+/, 11)
       .item= "#{parts[2]}% -> #{parts[-1]} (#{parts[0]}) "
 
+%a{ name: 'jobs' }
 %h2 Delayed Job queue:
 %p= "Currently #{@queue_count} items in the queue."
 - if @queue.any?
@@ -58,6 +63,7 @@
         - rescue => e
           = "Error parsing job: #{e.message}"
 
+%a{ name: 'site' }
 - begin
   %h2 Who's hitting the site?
   - results = `cat log/unicorn.stderr.log | awk '{print $1;}' | sort | uniq -c | sort -n | tail -n 3`.split("\n").reverse
@@ -83,6 +89,10 @@
   %p Unable to get list of popular pages:
   %p= e.message
 
+%a{ name: 'slow' }
+%h2 Recent (very) Slow neo4j Queries (if any)
+%pre= `tail -n 250 log/traitbank.log | grep -A6 "<[0-9][0-9]\."`
 
+%a{ name: 'links' }
 %h2 Other
 = link_to('check neo4j performance', 'https://rpm.newrelic.com/accounts/5035/applications/57380764/externals')

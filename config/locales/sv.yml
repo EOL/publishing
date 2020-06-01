@@ -42,7 +42,7 @@ sv:
     children:
       see_more: se mer
     hierarchies:
-      see_resource_file: Se resursfilen för en fullständig lista.
+      see_resource_file: Se <a href='%{href}'>resursfilen</a> för en fullständig lista.
       this_page: (denna sida)
     richness:
       header: Sidan innehållsrikedom
@@ -56,8 +56,10 @@ sv:
       data_count: data
       nodes_count: noder
       scientific_names_count: vetenskapliga namn
+      referents_count: referenser
       species_count: arter
       updated_at: senast uppdaterad
+  cms_page_date: 'Senast ändrad:'
   collect_already_in_collection: (den är redan här)
   collect_already_in_collection_will_add_icon: (lägg till media i "%{page}")
   collect_icon_title: Lägg till "%{item}" från sidan "%{page}" i…
@@ -81,7 +83,15 @@ sv:
     destroyed_flash: '%{name} togs bort från samling.'
   collection_association_added_to_collection: Lade till "%{associated}" i samlingen
     <a href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: Ingen andra samlingar är associerat med denna. Du
+    kan klicka på knappen "associera" på andra samlingar för att få dem att visas
+    här.
   collection_associations_title: Associerade samlingar
+  collection_collected_pages_media_remove: 'Ta bort bilder från samlingen (ändringar
+    träder i kraft direkt):'
+  collection_created: Skapade den nya samlingen "%{name}".
+  collection_created_for_association: Lade till "%{associated}" i den nya samlingen
+    <a href='%{link}'>"%{name}"</a>.
   collection_user_is_admin: Denna användare är en administratör.
   collection_pages_empty: Denna samling innehåller inga sidor. Försök klicka på knappen
     "samla in" på art artsidor för att lägga till några objekt!
@@ -95,6 +105,7 @@ sv:
       download_taxa_csv: ladda ned CSV för taxa
       delete: radera
       edit: redigera
+      sort: sortera
     collection_type:
       normal: normal
       gallery: galleri
@@ -128,9 +139,14 @@ sv:
       submit: sök
     sort:
       hierarchy: hierarki
+      position: datum tillagt
       sci_name: vetenskapligt namn, A-Ö
       sci_name_rev: vetenskapligt namn, Ö-A
     updated: Samlingen har uppdaterats.
+  collection_unauthorized_edit: Ägaranvändare kan endast redigera denna samling.
+  complete_registration: Fortsätt din registrering
+  content_appears_on: 'Inkluderas på följande sidor:'
+  content_attributions_header: Källinformation
   content_attributions_labels:
     altitude: altitud
     author: författare
@@ -140,6 +156,7 @@ sv:
     license: licens
     location: plats
     longitude: longitud
+    original_media_file: ursprunglig mediasil
     owner: upphovsrätt
     photographer: fotograf
     publisher: utgivare
@@ -158,6 +175,7 @@ sv:
   content_not_in_any_collection_image: Denna bild finns inte i några samlingar.
   content_not_in_any_collection_sound: Detta ljud finns inte i några samlingar.
   content_not_in_any_collection_video: Denna video finns inte i några samlingar.
+  data_missing: '(data saknas, nycklar: %{keys})'
   dear_username_with_comma: Kära %{username},
   delete_account_button: Radera ditt konto
   filter_by_license: licens
@@ -207,9 +225,21 @@ sv:
       trees: Träd
       viruses: Virus
       worms: Maskar
+    eol_is_hosted_by: 'EOL drivs av:'
   forgot_your_password: Glömt ditt lösenord?
+  landing_page:
+    header: Global åtkomst till kunskap om livet på jorden
+    stats_cleared: Statistiken har beräknats om.
   language: Språk
   languages:
+    "no": Norska
+    Q100103: Västflamländska
+    Q11005332: Kinga
+    Q11128374: Nyiha
+    Q1160372: Laziska
+    Q13324: Minangkabau
+    Q13330: Mirandesiska
+    Q146803: Lingua Franca Nova
     bg: Bulgariska
     da: Danska
     de: Tyska

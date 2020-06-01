@@ -253,6 +253,8 @@ zh-TW:
       worms: 蠕蟲
     eol_is_hosted_by: 網路生命大百科是由以下託管：
   forgot_your_password: 忘記您的密碼？
+  gbif_download:
+    created: GBIF 下載任務已建立。請檢查您的<a href="%{url}">使用者個人檔案頁面</a>來檢視該狀態
   landing_page:
     header: 為全球提供有關地球上生命的知識
     stats_cleared: 已重新計算統計。
