@@ -443,15 +443,29 @@ class PageDecorator
       end
 
       def forms_sentence
-        trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
-          t.[](:lifestage_term)&.[](:name)&.present?
-        end
+        forms_traits = traits_for_pred_uris(Eol::Uris.forms)
+        
+        if forms_traits.any?
+          lifestage_trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
+            t.[](:lifestage_term)&.[](:name)&.present?
+          end
 
-        if trait
-          @sentences << trait_sentence_part(
-            "#{trait[:lifestage_term][:name]} #{name_clause} form %ss.", #extra s for plural, not a typo
-            trait
-          )
+          if lifestage_trait
+            trait = lifestage_trait
+            lifestage = trait.dig(:lifestage_term, :name)&.capitalize
+          else
+            trait = forms_traits.first
+            lifestage = nil
+          end
+
+          begin_part = [lifestage, name_clause].compact.join(" ")
+
+          if trait
+            @sentences << trait_sentence_part(
+              "#{begin_part} form %ss.", #extra s for plural, not a typo
+              trait
+            )
+          end
         end
       end
 
