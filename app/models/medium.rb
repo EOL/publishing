@@ -225,6 +225,6 @@ class Medium < ApplicationRecord
 
   private
     def check_is_image
-      raise "method may only be called when Medium subclass is image or map" unless image? || map?
+      raise "method may only be called when Medium subclass is image or map" unless image? || map_image?
     end
 end
