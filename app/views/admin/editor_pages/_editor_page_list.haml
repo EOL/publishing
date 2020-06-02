@@ -14,7 +14,7 @@
               %span{:'uk-icon' => "icon: trash"}
             - published = editor_page.published_for_locale(I18n.default_locale)
             - if published
-              = link_to editor_page_live_path(editor_page_id: editor_page.slug, editor_page_directory_id: directory&.name) do
+              = link_to editor_page_path(id: editor_page.slug, directory_id: directory&.name) do
                 %span{:'uk-icon' => "icon: link"}
           %td
             %ul.editor-page-locales

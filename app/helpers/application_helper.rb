@@ -15,21 +15,6 @@ module ApplicationHelper
     }
   end
 
-  def cms_menu
-    menu_items = Refinery::Menu.new(Refinery::Page.in_menu)
-
-    Refinery::Pages::MenuPresenter.new(menu_items, self).tap do |presenter|
-      presenter.dom_id = "cms_menu"
-      presenter.css = "ui simple dropdown item uk-visible@m"
-      presenter.menu_tag = :div
-      presenter.list_tag = :div
-      presenter.list_tag_css = "uk-list uk-padding-small uk-dropdown uk-dropdown-bottom-left"
-      presenter.list_item_tag = :li
-      presenter.selected_css = "active"
-      # presenter.link_tag_css = "item"
-    end
-  end
-
   def term_search_name(options = nil) # rubocop:disable Metrics/CyclomaticComplexity
     if options
       set_term_search_instance_variables_from_options(options)
