@@ -54,7 +54,7 @@ class PageDecorator
     private
       LandmarkChildLimit = 3
       Result = Struct.new(:sentence, :terms)
-      ResultTerm = Struct.new(:pred_uri, :obj, :source, :toggle_selector)
+      ResultTerm = Struct.new(:pred_uri, :term, :source, :toggle_selector)
 
       IUCN_URIS = Set[
         Eol::Uris::Iucn.en,
@@ -142,9 +142,7 @@ class PageDecorator
           )
         end
 
-        if is_it_extinct?
-          term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, Eol::Uris.extinct)
-        else
+        if !add_extinction_sentence
           conservation_sentence
         end
 
@@ -155,9 +153,10 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, Eol::Uris.marine)
+          marine_term = TraitBank.term_as_hash(Eol::Uris.marine)
+          term_sentence("It is found in %s.", "marine habitat", Eol::Uris.habitat_includes, marine_term)
         elsif freshwater_trait.present?
-          term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term][:uri])
+          term_sentence("It is associated with %s.", "freshwater habitat", freshwater_trait[:predicate][:uri], freshwater_trait[:object_term])
         end
 
         if native_range_traits.any?
@@ -431,13 +430,15 @@ class PageDecorator
         trait = first_trait_for_pred_and_obj(Eol::Uris.fixes, Eol::Uris.nitrogen)
 
         if trait
-          label = is_species? ? "fixes nitrogen" : "fix nitrogen"
+          fixes_label = is_species? ? "fixes" : "fix"
+          fixes_part = term_sentence_part("%s", fixes_label, nil, trait[:predicate])
+
 
           @sentences << term_sentence_part(
-            "#{name_clause} %s.", 
-            label,
+            "#{name_clause} #{fixes_part} %s.", 
+            "nitrogen",
             trait[:predicate][:uri], 
-            trait[:object_term][:uri]
+            trait[:object_term]
           )
         end
       end
@@ -459,10 +460,11 @@ class PageDecorator
           end
 
           begin_part = [lifestage, name_clause].compact.join(" ")
+          form_part = term_sentence_part("%s", "form", nil, trait[:predicate])
 
           if trait
             @sentences << trait_sentence_part(
-              "#{begin_part} form %ss.", #extra s for plural, not a typo
+              "#{begin_part} #{form_part} %ss.", #extra s for plural, not a typo
               trait
             )
           end
@@ -557,6 +559,8 @@ class PageDecorator
         has_data_for_pred_terms(gather_terms(options[:predicates]), options)
       end
 
+      # This checks for descendants of options[:values] as well, and is 
+      # preserved as a distinct method for that reason. 
       def has_data_for_pred_terms(pred_terms, options)
         recs = []
         pred_terms.each do |term|
@@ -638,10 +642,14 @@ class PageDecorator
         terms.compact
       end
 
-      # has value http://eol.org/schema/terms/extinct for measurement type http://eol.org/schema/terms/ExtinctionStatus
-      def is_it_extinct?
+      def add_extinction_sentence
         trait = first_trait_for_obj_uris(Eol::Uris.extinct)
-        !trait.nil?
+        if trait
+          term_sentence("This species is %s.", "extinct", Eol::Uris.extinction, trait[:object_term])
+          true
+        else
+          false
+        end
       end
 
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.
@@ -700,12 +708,12 @@ class PageDecorator
       end
 
       def conservation_sentence
-        status_recs = @page.conservation_statuses
+        status_recs = ConservationStatus.new(@page).by_provider
         result = []
 
-        result << handle_iucn(status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
-        result << handle_usfw(status_recs[:usfw]) if status_recs.include?(:usfw)
-        result << handle_cites(status_recs[:cites]) if status_recs.include?(:cites )
+        result << conservation_sentence_part("as %s by IUCN", status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
+        result << conservation_sentence_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
+        result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
           sentence = "It is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
           @sentences << sentence
@@ -713,32 +721,12 @@ class PageDecorator
 
       end
 
-      def handle_iucn(rec)
+      def conservation_sentence_part(fstr, rec)
         term_sentence_part(
-          "as %s by IUCN",
+          fstr,
           rec[:name],
           Eol::Uris::Conservation.status,
-          rec[:uri],
-          rec[:source]
-        )
-      end
-
-      def handle_cites(rec)
-        term_sentence_part(
-          "in %s",
-          rec[:name],
-          Eol::Uris::Conservation.status,
-          rec[:uri],
-          rec[:source]
-        )
-      end
-
-      def handle_usfw(rec)
-        term_sentence_part(
-          "as %s by the US Fish and Wildlife Service",
-          rec[:name],
-          Eol::Uris::Conservation.status,
-          rec[:uri],
+          rec[:object_term],
           rec[:source]
         )
       end
@@ -747,35 +735,33 @@ class PageDecorator
         "brief-summary-#{term_name.gsub(/\s/, "-")}"
       end
 
-      def term_tag(label, pred_uri, obj_uri, trait_source = nil)
+      def term_tag(label, pred_uri, term, trait_source = nil)
         toggle_id = term_toggle_id(label)
-        hash = begin
-          TraitBank.term_as_hash(obj_uri)
-        rescue ActiveRecord::RecordNotFound
-          return "(missing obj_uri)"
-        end
+
         @terms << ResultTerm.new(
           pred_uri,
-          hash,
+          term,
           trait_source,
           "##{toggle_id}"
         )
         view.content_tag(:span, label, class: ["a", "term-info-a"], id: toggle_id)
       end
 
-      def term_sentence(format_str, label, pred_uri, obj_uri)
+      def term_sentence(format_str, label, pred_uri, term)
         @sentences << term_sentence_part(
           format_str,
           label,
           pred_uri,
-          obj_uri
+          term
         )
       end
 
-      def term_sentence_part(format_str, label, pred_uri, obj_uri, source = nil)
+      # Term can be a predicate or an object term. If pred_uri is nil, term is treated in the view
+      # as a predicate; otherwise, it's treated as an object term.
+      def term_sentence_part(format_str, label, pred_uri, term, source = nil)
         sprintf(
           format_str,
-          term_tag(label, pred_uri, obj_uri, source)
+          term_tag(label, pred_uri, term, source)
         )
       end
 
@@ -786,13 +772,13 @@ class PageDecorator
           association_sentence_part(format_str, trait[:object_page_id])
         else
           name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
-          uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
-          obj_uri = trait[:object_term].nil? ? '(no object term uri)' : trait[:object_term][:uri]
+          pred_uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
+          obj = trait[:object_term]
           term_sentence_part(
             format_str,
             name,
-            uri,
-            obj_uri
+            pred_uri,
+            obj
           )
         end
       end
