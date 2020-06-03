@@ -269,10 +269,12 @@ private
         ancestors.compact.each do |anc_node|
           anc_page = anc_node.page
           if anc_node.use_breadcrumb? || mode == :full
+            name = anc_page.send(name_method)
+
             if link
-              parts << link_to(anc_page.send(name_method).html_safe, page_path(anc_page)).html_safe
+              parts << link_to(name.html_safe, page_path(anc_page)).html_safe
             else
-              parts << anc_page.send(name_method).html_safe
+              parts << name.html_safe
             end
             shown_ellipsis = false
           elsif !shown_ellipsis
