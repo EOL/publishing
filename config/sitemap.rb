@@ -1,5 +1,3 @@
-require "refinery"
-
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "https://eol.org"
 SitemapGenerator::Sitemap.sitemaps_path = "data/sitemap"

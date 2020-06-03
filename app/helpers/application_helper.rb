@@ -5,16 +5,6 @@ module ApplicationHelper
     string.slice(0,1).capitalize + string.slice(1..-1)
   end
 
-  def languages_hash
-    {
-      en: "English",
-      fr: "Francais",
-      de: "Deutsch",
-      ru: "Pусский",
-      es: "Español"
-    }
-  end
-
   def term_search_name(options = nil) # rubocop:disable Metrics/CyclomaticComplexity
     if options
       set_term_search_instance_variables_from_options(options)
@@ -153,19 +143,6 @@ module ApplicationHelper
 
   def icon(which)
     haml_tag("span", uk: { icon: "icon: #{which}" })
-  end
-
-  def get_last_modified_date
-    last_modified_part = []
-    page_parts = Refinery::PagePart.where(refinery_page_id: @page.id).pluck(:id)
-    page_parts.each do |id|
-      last_modified_part << Refinery::PagePart::Translation.where(refinery_page_part_id: id , locale: Refinery::I18n.default_frontend_locale).pluck(:updated_at)
-    end
-    last_modified_part.max.join(' ')
-  end
-
-  def set_page_date(date)
-    Refinery::Page.where(show_date: true)
   end
 
   def hide_params_in_form(except = [])

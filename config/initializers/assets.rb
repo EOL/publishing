@@ -12,8 +12,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 Rails.application.config.assets.precompile += %w( *.js application.css )
-Rails.application.config.assets.precompile += %w( refinery/ckeditor.css )
-Rails.application.config.assets.precompile += %w( ckeditor/ckeditor.js )
 
 %w( leaflet MarkerCluster MarkerCluster.Default Control.FullScreen Leaflet.NavBar Control.Loading jqcloud).each do |css_asset|
   Rails.application.config.assets.precompile << "#{css_asset}.css"
@@ -27,3 +25,4 @@ end
 %w( search pages terms home_page_feeds home_page_feed_items home_page media traits user/sessions users collections about traits/data_viz editor_pages admin/editor_pages admin/editor_page_contents ).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js", "#{controller}.css"]
 end
+
