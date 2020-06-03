@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_181606) do
+ActiveRecord::Schema.define(version: 2020_06_03_161454) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -675,108 +675,6 @@ ActiveRecord::Schema.define(version: 2020_05_18_181606) do
     t.integer "harv_db_id"
     t.index ["harv_db_id"], name: "index_referents_on_harv_db_id"
     t.index ["resource_id"], name: "index_referents_on_resource_id"
-  end
-
-  create_table "refinery_image_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "refinery_image_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "image_alt"
-    t.string "image_title"
-    t.index ["locale"], name: "index_refinery_image_translations_on_locale"
-    t.index ["refinery_image_id"], name: "index_refinery_image_translations_on_refinery_image_id"
-  end
-
-  create_table "refinery_images", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "image_mime_type"
-    t.string "image_name"
-    t.integer "image_size"
-    t.integer "image_width"
-    t.integer "image_height"
-    t.string "image_uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "parent_id"
-  end
-
-  create_table "refinery_page_part_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "refinery_page_part_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "body"
-    t.index ["locale"], name: "index_refinery_page_part_translations_on_locale"
-    t.index ["refinery_page_part_id"], name: "index_refinery_page_part_translations_on_refinery_page_part_id"
-  end
-
-  create_table "refinery_page_parts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "refinery_page_id"
-    t.string "slug"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.index ["id"], name: "index_refinery_page_parts_on_id"
-    t.index ["refinery_page_id"], name: "index_refinery_page_parts_on_refinery_page_id"
-  end
-
-  create_table "refinery_page_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "refinery_page_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "title"
-    t.string "custom_slug"
-    t.string "menu_title"
-    t.string "slug"
-    t.index ["locale"], name: "index_refinery_page_translations_on_locale"
-    t.index ["refinery_page_id"], name: "index_refinery_page_translations_on_refinery_page_id"
-  end
-
-  create_table "refinery_pages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "parent_id"
-    t.string "path"
-    t.boolean "show_in_menu", default: true
-    t.string "link_url", limit: 4096
-    t.string "menu_match"
-    t.boolean "deletable", default: true
-    t.boolean "draft", default: false
-    t.boolean "skip_to_first_child", default: false
-    t.integer "lft"
-    t.integer "rgt"
-    t.integer "depth"
-    t.string "view_template"
-    t.string "layout_template"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "show_date"
-    t.integer "children_count", default: 0, null: false
-    t.index ["depth"], name: "index_refinery_pages_on_depth"
-    t.index ["id"], name: "index_refinery_pages_on_id"
-    t.index ["lft"], name: "index_refinery_pages_on_lft"
-    t.index ["parent_id"], name: "index_refinery_pages_on_parent_id"
-    t.index ["rgt"], name: "index_refinery_pages_on_rgt"
-  end
-
-  create_table "refinery_resource_translations", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.integer "refinery_resource_id", null: false
-    t.string "locale", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "resource_title"
-    t.index ["locale"], name: "index_refinery_resource_translations_on_locale"
-    t.index ["refinery_resource_id"], name: "index_refinery_resource_translations_on_refinery_resource_id"
-  end
-
-  create_table "refinery_resources", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.string "file_mime_type"
-    t.string "file_name"
-    t.integer "file_size"
-    t.string "file_uid"
-    t.string "file_ext"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "resource_preferences", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
