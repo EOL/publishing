@@ -14,4 +14,5 @@ persist in git histories, of course).
 Thanks.
 
 == THE NOTES:
+
 6/3/2020 (mvitale): db:migrate && bundle required for deploy of changes from branch bye\_refinery (in master)
