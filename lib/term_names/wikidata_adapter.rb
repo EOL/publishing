@@ -13,7 +13,7 @@ class TermNames::WikidataAdapter
     "wikidata"
   end
 
-  def initialize
+  def initialize(options)
     @storage = TermNames::NameStorage.new
   end
 

@@ -1,0 +1,5 @@
+MATCH (r:Trait)-[:units_term]->(unit:Term)
+WHERE unit.name IS NOT NULL AND unit.name =~ '.*[a-zA-Z]{3,}.*'
+WITH DISTINCT unit
+RETURN unit.uri, unit.name, unit.definition
+LIMIT 100

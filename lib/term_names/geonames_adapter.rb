@@ -8,7 +8,7 @@ class TermNames::GeonamesAdapter
   BASE_URL = "http://api.geonames.org/get"
   APP_ID = Rails.application.config.x.geonames_app_id
 
-  def initialize
+  def initialize(options)
     @storage = TermNames::NameStorage.new
   end
 

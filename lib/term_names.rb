@@ -8,7 +8,7 @@ class TermNames
   TERM_LIMIT = 1500 # XXX: arbitrary limit based on Jen's estimates. Revisit as necessary.
 
   class << self
-    def refresh(adapter_name)
+    def refresh(adapter_name, options={})
       if adapter_name
         user_adapter_class = ADAPTERS_BY_NAME[adapter_name]
         raise TypeError.new("Invalid provider name: #{adapter_name}") unless user_adapter_class
@@ -18,7 +18,7 @@ class TermNames
       end
 
       adapters.each do |adapter_class|
-        adapter = adapter_class.new
+        adapter = adapter_class.new(options)
         if adapter.respond_to?(:skip_uri_query?) && adapter.skip_uri_query?
           puts "Skipping uri query"
           uris = []

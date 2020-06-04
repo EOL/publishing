@@ -7,8 +7,10 @@ namespace :term_names do
       confirm = STDIN.gets.chomp
       raise "Rerun this task with PROVIDER=<provider_name> to specify a provider. Run `rake term_names:list_providers` to view a list of all available providers" unless confirm == "y"
     end
+    
+    data_file = ENV['DATA_FILE'] ? ENV['DATA_FILE'] : nil
 
-    TermNames.refresh(adapter_name)
+    TermNames.refresh(adapter_name, data_file: data_file)
   end
 
   task list_providers: :environment do

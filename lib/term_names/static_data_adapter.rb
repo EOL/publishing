@@ -1,11 +1,24 @@
 class TermNames::StaticDataAdapter
-  FILE_NAMES = %w(obo_terms common_predicates common_envo)
+  FILE_NAMES = %w(obo_terms common_predicates common_envo units)
+  FILE_DIR = Rails.application.root.join("lib", "term_names", "static_data")
   FILE_PATHS = FILE_NAMES.collect do |name|
-    Rails.application.root.join("lib", "term_names", "static_data", "#{name}.json")
+    FILE_DIR.join("#{name}.json")
   end
 
   def self.name
     "static_data"
+  end
+
+  def initialize(options)
+    if options[:data_file]
+      puts "using data file #{options[:data_file]}"
+      @file_paths = [FILE_DIR.join(options[:data_file])]
+    else
+      puts "using all data files"
+      @file_paths = FILE_PATHS
+    end
+
+    puts "WARNING: Using StaticDataAdapter. Remember to copy the resulting files to config/locales/en.yml and config/locales/qqq.yml, then delete them before committing"
   end
 
   def skip_uri_query?
@@ -19,7 +32,7 @@ class TermNames::StaticDataAdapter
   def preload(uris, locales)
     @terms = []
 
-    FILE_PATHS.each do |path|
+    @file_paths.each do |path|
       File.open(path) do |file|
         term_json = JSON.parse(file.read)
         @terms += term_json["data"].collect do |record|
