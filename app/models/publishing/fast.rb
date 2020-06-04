@@ -130,6 +130,8 @@ class Publishing::Fast
     unless @resource.nodes.count.zero?
       begin
         @resource.remove_content
+        # Re-grabbing the log shouldn't really be needed, but apparently it's a thing ...after removing traits?!
+        @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       rescue => e
         raise e
       end
