@@ -557,11 +557,8 @@ class TraitBank
 
       %Q(
         MATCH (page:Page), (page)-[:trait|:inferred_trait]->(trait:Trait), (trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(:Term{ uri: '#{filter.pred_uri}' })
-        WITH collect({ page: page, trait: trait, predicate: predicate}) AS all_rows
-        UNWIND all_rows AS row
-        WITH DISTINCT row
+        WITH page, trait, predicate
         #{limit_and_skip}
-        WITH row.page AS page, row.trait AS trait, row.predicate AS predicate
         OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
         OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
         OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
