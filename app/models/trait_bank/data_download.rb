@@ -55,41 +55,6 @@ class TraitBank
         hashes += batch
       end
 
-
----
-LIMIT goes after "WITH DISTINCT row"
----
-WITH "MATCH (page:Page), (page)-[:trait|:inferred_trait]->(trait:Trait), (trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(:Term{ uri: 'http://eol.org/schema/terms/Present' })
-OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
-OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
-OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
-OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
-OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
-OPTIONAL MATCH (trait)-[:supplier]->(resource:Resource)
-OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
-OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
-OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-OPTIONAL MATCH (meta)-[:sex_term]->(meta_sex_term:Term)
-OPTIONAL MATCH (meta)-[:lifestage_term]->(meta_lifestage_term:Term)
-OPTIONAL MATCH (meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)
-RETURN page.page_id, trait.eol_pk, trait.measurement, trait.object_page_id, trait.sample_size, trait.citation,
-  trait.source, trait.remarks, trait.method, units.uri, units.name, units.definition, statistical_method_term.uri,
-  statistical_method_term.name, statistical_method_term.definition, sex_term.uri, sex_term.name, sex_term.definition,
-  lifestage_term.uri, lifestage_term.name, lifestage_term.definition, resource.resource_id, meta_predicate.uri,
-  meta_predicate.name, meta_predicate.definition, meta_units_term.uri, meta_units_term.name, meta_units_term.definition,
-  meta_object_term.uri, meta_object_term.name, meta_object_term.definition, meta_sex_term.uri, meta_sex_term.name,
-  meta_sex_term.definition, meta_lifestage_term.uri, meta_lifestage_term.name, meta_lifestage_term.definition,
-  meta_statistical_method_term.uri, meta_statistical_method_term.name, meta_statistical_method_term.definition
-LIMIT 5000000" AS query
-CALL apoc.export.csv.query(query, 'present.csv', {})
-YIELD file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data
-RETURN file, source, format, nodes, relationships, properties, time, rows, batchSize, batches, done, data
----
-CALL apoc.cypher.runTimeboxed("", {}, 2000000);
-
-
-
       Delayed::Worker.logger.info("finished query, writing records")
 
       filename = if @query.record?
