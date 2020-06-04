@@ -89,7 +89,7 @@ class PageDecorator
       end
 
       def report_name_used
-        @subj_count = 1 
+        @subj_count = 1
       end
 
       def pronoun_for_rank
@@ -227,7 +227,7 @@ class PageDecorator
       end
 
       def reproduction_matches
-        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(Eol::Uris.reproduction)) 
+        @reproduction_matches ||= ReproductionGroupMatcher.match_all(traits_for_pred_uris(Eol::Uris.reproduction))
       end
 
       # [name clause] is a genus in the [A1] family [A2].
@@ -320,8 +320,8 @@ class PageDecorator
           largest_value_trait = nil
 
           size_traits.each do |trait|
-            if trait[:normal_measurement] && 
-               trait[:measurement] && 
+            if trait[:normal_measurement] &&
+               trait[:measurement] &&
                trait[:units] && (
                !largest_value_trait ||
                largest_value_trait[:normal_measurement].to_f < trait[:normal_measurement].to_f
@@ -351,7 +351,7 @@ class PageDecorator
                       trait_sentence_part("%s", match.trait)
                     end.to_sentence
 
-                    "#{subj} #{has} #{v_vals}" 
+                    "#{subj} #{has} #{v_vals}"
                   else
                     nil
                   end
@@ -364,7 +364,7 @@ class PageDecorator
                       )
                     end.to_sentence
 
-                    "#{is} #{w_vals}" 
+                    "#{is} #{w_vals}"
                   else
                     nil
                   end
@@ -404,7 +404,7 @@ class PageDecorator
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
             end.to_sentence
-            
+
             "#{subj} #{has} parental care (#{z_parts})."
           end
         end
@@ -413,14 +413,14 @@ class PageDecorator
       def motility_sentence
         matches = MotilityGroupMatcher.match_all(traits_for_pred_uris(
           Eol::Uris.motility,
-          Eol::Uris.locomotion  
+          Eol::Uris.locomotion
         ))
 
         if matches.has_type?(:c)
           add_sentence do |subj, _, __|
             match = matches.first_of_type(:c)
             trait_sentence_part(
-              "#{subj} relies on %s to move around.", 
+              "#{subj} relies on %s to move around.",
               match.trait
             )
           end
@@ -481,7 +481,7 @@ class PageDecorator
         end
 
         parts = [leaf_part, flower_part, fruit_part].compact
-        
+
         if parts.any?
           add_sentence do |subj, is, has|
             "#{subj} #{has} #{parts.to_sentence}."
@@ -491,7 +491,7 @@ class PageDecorator
 
       def flower_visitor_sentence
         traits = traits_for_pred_uris(Eol::Uris.flowers_visited_by).uniq do |t|
-          t.dig(:object_term, :uri) 
+          t.dig(:object_term, :uri)
         end.slice(0, FLOWER_VISITOR_LIMIT)
 
         if traits && traits.any?
@@ -511,9 +511,9 @@ class PageDecorator
 
           add_sentence do |subj, _, __|
             term_sentence_part(
-              "#{subj} #{fixes_part} %s.", 
+              "#{subj} #{fixes_part} %s.",
               "nitrogen",
-              trait[:predicate][:uri], 
+              trait[:predicate][:uri],
               trait[:object_term]
             )
           end
@@ -522,7 +522,7 @@ class PageDecorator
 
       def forms_sentence
         forms_traits = traits_for_pred_uris(Eol::Uris.forms)
-        
+
         if forms_traits.any?
           lifestage_trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
             t.[](:lifestage_term)&.[](:name)&.present?
@@ -547,7 +547,7 @@ class PageDecorator
               )
             end
             report_name_used
-          end 
+          end
         end
       end
 
@@ -640,8 +640,8 @@ class PageDecorator
         has_data_for_pred_terms(gather_terms(options[:predicates]), options)
       end
 
-      # This checks for descendants of options[:values] as well, and is 
-      # preserved as a distinct method for that reason. 
+      # This checks for descendants of options[:values] as well, and is
+      # preserved as a distinct method for that reason.
       def has_data_for_pred_terms(pred_terms, options)
         recs = []
         pred_terms.each do |term|
@@ -783,6 +783,7 @@ class PageDecorator
 
       # XXX: this does not always work (e.g.: "an unicorn")
       def a_or_an(trait)
+        return unless trait[:object_term] && trait[:object_term][:name] 
         word = trait[:object_term][:name]
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
       end
