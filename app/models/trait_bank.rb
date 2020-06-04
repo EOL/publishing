@@ -561,7 +561,7 @@ class TraitBank
         UNWIND all_rows AS row
         WITH DISTINCT row
         #{limit_and_skip}
-        WITH row.page AS page, row.trait AS trait, row.predicate AS precicate
+        WITH row.page AS page, row.trait AS trait, row.predicate AS predicate
         OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
         OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
         OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
