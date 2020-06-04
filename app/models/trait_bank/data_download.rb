@@ -52,7 +52,8 @@ class TraitBank
 
       hashes = []
       TraitBank.batch_term_search(@query, @options, @count) do |batch|
-        hashes += batch
+        #hashes += batch
+        batch
       end
 
       Delayed::Worker.logger.info("finished query, writing records")

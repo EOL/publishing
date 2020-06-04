@@ -364,7 +364,11 @@ class TraitBank
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
 
       q = if (options[:count] && term_query.filters.any?) || term_query.record? # term_record_search counts both records and taxa
-        term_record_search(term_query, limit_and_skip, options)
+        if options[:count]
+          term_record_search(term_query, limit_and_skip, options)
+        else
+          term_record_search_experimental(term_query, limit_and_skip, options)
+        end
       else
         term_page_search(term_query, limit_and_skip, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
       end
@@ -381,7 +385,8 @@ class TraitBank
         counts
       else
         log("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
-        data = options[:id_only] ? res["data"]&.flatten : build_trait_array(res, key: key)
+        #data = options[:id_only] ? res["data"]&.flatten : build_trait_array(res, key: key)
+        data = res["data"]
         { data: data, raw_query: q, raw_res: res }
       end
     end
@@ -545,6 +550,40 @@ class TraitBank
 
     def add_term_filter_resource_match(filter, trait_var, matches)
       matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: #{filter.resource.id} })" if filter.resource
+    end
+
+    def term_record_search_experimental(term_query, limit_and_skip, options)
+      filter = term_query.filters.first
+
+      %Q(
+        MATCH (page:Page), (page)-[:trait|:inferred_trait]->(trait:Trait), (trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(:Term{ uri: '#{filter.pred_uri}' })
+        WITH collect({ page: page, trait: trait, predicate: predicate}) AS all_rows
+        UNWIND all_rows AS row
+        WITH DISTINCT row
+        #{limit_and_skip}
+        WITH row.page AS page, row.trait AS trait, row.predicate AS precicate
+        OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+        OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+        OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
+        OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+        OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+        OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+        OPTIONAL MATCH (trait)-[:supplier]->(resource:Resource)
+        OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+        OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
+        OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
+        OPTIONAL MATCH (meta)-[:sex_term]->(meta_sex_term:Term)
+        OPTIONAL MATCH (meta)-[:lifestage_term]->(meta_lifestage_term:Term)
+        OPTIONAL MATCH (meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)
+        RETURN page.page_id, trait.eol_pk, trait.measurement, trait.object_page_id, trait.sample_size, trait.citation,
+          trait.source, trait.remarks, trait.method, object_term.uri, object_term.name, object_term.definition, predicate.uri, predicate.name, predicate.definition, units.uri, units.name, units.definition, statistical_method_term.uri,
+          statistical_method_term.name, statistical_method_term.definition, sex_term.uri, sex_term.name, sex_term.definition,
+          lifestage_term.uri, lifestage_term.name, lifestage_term.definition, resource.resource_id, meta_predicate.uri,
+          meta_predicate.name, meta_predicate.definition, meta_units_term.uri, meta_units_term.name, meta_units_term.definition,
+          meta_object_term.uri, meta_object_term.name, meta_object_term.definition, meta_sex_term.uri, meta_sex_term.name,
+          meta_sex_term.definition, meta_lifestage_term.uri, meta_lifestage_term.name, meta_lifestage_term.definition,
+          meta_statistical_method_term.uri, meta_statistical_method_term.name, meta_statistical_method_term.definition
+      )
     end
 
     def term_record_search(term_query, limit_and_skip, options)
