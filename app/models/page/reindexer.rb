@@ -8,6 +8,7 @@ class Page::Reindexer
       Page.reindex(async: {wait: true})
     end
 
+    # Simply Page::Reindexer.resume_reindex
     def resume_reindex
       setup_background
       Page.reindex(async: {wait: true}, resume: true)
