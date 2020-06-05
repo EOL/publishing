@@ -362,13 +362,10 @@ class TraitBank
 
     def term_search_uncached(term_query, key, options)
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
+      use_record_search = (options[:count] && term_query.filters.any?) || term_query.record?
 
-      q = if (options[:count] && term_query.filters.any?) || term_query.record? # term_record_search counts both records and taxa
-        if options[:count]
-          term_record_search(term_query, limit_and_skip, options)
-        else
-          term_record_search_experimental(term_query, limit_and_skip, options)
-        end
+      q = if use_record_search # term_record_search counts both records and taxa
+        term_record_search(term_query, limit_and_skip, options)
       else
         term_page_search(term_query, limit_and_skip, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
       end
@@ -385,8 +382,18 @@ class TraitBank
         counts
       else
         log("RESULT COUNT #{key}: #{res["data"] ? res["data"].length : "unknown"} raw")
-        #data = options[:id_only] ? res["data"]&.flatten : build_trait_array(res, key: key)
-        data = res["data"]
+        data = if options[:id_only]
+                 res["data"]&.flatten
+               else 
+                 trait_array_options = { key: key }
+
+                 if use_record_search
+                   trait_array_options[:flat_results] = true
+                 end
+
+                 build_trait_array(res, trait_array_options)
+               end
+
         { data: data, raw_query: q, raw_res: res }
       end
     end
@@ -552,35 +559,62 @@ class TraitBank
       matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: #{filter.resource.id} })" if filter.resource
     end
 
-    def term_record_search_experimental(term_query, limit_and_skip, options)
-      filter = term_query.filters.first
+    def record_search_returns(include_meta)
+      returns = %w[
+        page.page_id 
+        trait.eol_pk 
+        trait.measurement 
+        trait.object_page_id 
+        trait.sample_size 
+        trait.citation
+        trait.source 
+        trait.remarks 
+        trait.method 
+        object_term.uri 
+        object_term.name 
+        object_term.definition 
+        predicate.uri 
+        predicate.name 
+        predicate.definition
+        units.uri 
+        units.name 
+        units.definition 
+        statistical_method_term.uri
+        statistical_method_term.name 
+        statistical_method_term.definition 
+        sex_term.uri 
+        sex_term.name 
+        sex_term.definition
+        lifestage_term.uri 
+        lifestage_term.name 
+        lifestage_term.definition 
+        resource.resource_id
+      ]
 
-      %Q(
-        MATCH (page:Page), (page)-[:trait|:inferred_trait]->(trait:Trait), (trait)-[:predicate]->(predicate:Term)-[:parent_term|:synonym_of*0..]->(:Term{ uri: '#{filter.pred_uri}' })
-        WITH page, trait, predicate
-        #{limit_and_skip}
-        OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
-        OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-        OPTIONAL MATCH (trait)-[:normal_units_term]->(normal_units:Term)
-        OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
-        OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
-        OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
-        OPTIONAL MATCH (trait)-[:supplier]->(resource:Resource)
-        OPTIONAL MATCH (trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
-        OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
-        OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-        OPTIONAL MATCH (meta)-[:sex_term]->(meta_sex_term:Term)
-        OPTIONAL MATCH (meta)-[:lifestage_term]->(meta_lifestage_term:Term)
-        OPTIONAL MATCH (meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)
-        RETURN page.page_id, trait.eol_pk, trait.measurement, trait.object_page_id, trait.sample_size, trait.citation,
-          trait.source, trait.remarks, trait.method, object_term.uri, object_term.name, object_term.definition, predicate.uri, predicate.name, predicate.definition, units.uri, units.name, units.definition, statistical_method_term.uri,
-          statistical_method_term.name, statistical_method_term.definition, sex_term.uri, sex_term.name, sex_term.definition,
-          lifestage_term.uri, lifestage_term.name, lifestage_term.definition, resource.resource_id, meta_predicate.uri,
-          meta_predicate.name, meta_predicate.definition, meta_units_term.uri, meta_units_term.name, meta_units_term.definition,
-          meta_object_term.uri, meta_object_term.name, meta_object_term.definition, meta_sex_term.uri, meta_sex_term.name,
-          meta_sex_term.definition, meta_lifestage_term.uri, meta_lifestage_term.name, meta_lifestage_term.definition,
-          meta_statistical_method_term.uri, meta_statistical_method_term.name, meta_statistical_method_term.definition
-      )
+      if include_meta
+        returns += %w[ 
+          meta_predicate.uri
+          meta_predicate.name
+          meta_predicate.definition 
+          meta_units_term.uri 
+          meta_units_term.name 
+          meta_units_term.definition
+          meta_object_term.uri 
+          meta_object_term.name i
+          meta_object_term.definition 
+          meta_sex_term.uri 
+          meta_sex_term.name
+          meta_sex_term.definition 
+          meta_lifestage_term.uri 
+          meta_lifestage_term.name 
+          meta_lifestage_term.definition
+          meta_statistical_method_term.uri 
+          meta_statistical_method_term.name 
+          meta_statistical_method_term.definition
+        ]
+      end
+
+      returns
     end
 
     def term_record_search(term_query, limit_and_skip, options)
@@ -593,13 +627,23 @@ class TraitBank
       page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
+
       term_query.filters.each_with_index do |filter, i|
-        trait_var = "t#{i}"
-        pred_var = "p#{i}"
-        tgt_pred_var = "tp#{i}"
-        obj_var = "o#{i}"
-        tgt_obj_var = "to#{i}"
-        base_meta_var = "m#{i}"
+        if term_query.filters.length == 1
+          trait_var = "trait"
+          pred_var = "predicate"
+          tgt_pred_var = "tp"
+          obj_var = "object_term"
+          tgt_obj_var = "to"      
+          base_meta_var = "m"
+        else
+          trait_var = "t#{i}"
+          pred_var = "p#{i}"
+          tgt_pred_var = "tp#{i}"
+          obj_var = "o#{i}"
+          tgt_obj_var = "to#{i}"
+          base_meta_var = "m#{i}"
+        end
 
         matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
@@ -619,18 +663,26 @@ class TraitBank
 
         wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
 
-        rows_var = "rows#{i}"
-        rows_vars << rows_var
-        collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
+        if term_query.filters.length > 1
+          rows_var = "rows#{i}"
+          rows_vars << rows_var
+          collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
+        end
       end
 
-      collect_unwind_part =
-        "WITH #{collects.join(", ")}\n"\
-        "WITH #{rows_vars.join(" + ")} as all_rows\n"\
-        "UNWIND all_rows as row\n"\
-        "WITH DISTINCT row\n"\
-        "#{limit_and_skip}\n"\
-        "WITH row.page as page, row.trait as trait, row.predicate as predicate "
+      if collects.any?
+        collect_unwind_part =
+          "WITH #{collects.join(", ")}\n"\
+          "WITH #{rows_vars.join(" + ")} as all_rows\n"\
+          "UNWIND all_rows as row\n"\
+          "WITH DISTINCT row\n"\
+          "#{limit_and_skip}\n"\
+          "WITH row.page as page, row.trait as trait, row.predicate as predicate "
+      else
+        collect_unwind_part =
+          "WITH page, trait, predicate\n"\
+          "#{limit_and_skip}"
+      end
 
       optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
@@ -661,13 +713,8 @@ class TraitBank
         if options[:count]
           %w[record_count page_count]
         else
-          %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
+          record_search_returns(options[:meta])
         end
-
-      if options[:meta] && !options[:count]
-        returns += %w[meta meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term
-          meta_statistical_method_term]
-      end
 
       with_count_clause = options[:count] ?
                           "WITH count(*) AS record_count, count(distinct page) AS page_count " :
@@ -682,7 +729,6 @@ class TraitBank
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
 
-      # q += "ORDER BY page.page_id " if !options[:count]
       q
     end
 
@@ -979,6 +1025,61 @@ class TraitBank
       node.outgoing(:parent).map { |n| n[:page_id] }.include?(page_id)
     end
 
+    # For results where each column is labeled <node_label>.<property>, e.g., "predicate.uri",
+    # and the values are all strings or numbers
+    def flat_results_to_hashes(results)
+      id_col_label = "trait.eol_pk" # NOTE: this could be made an option to generalize the method
+      id_col = results["columns"].index(id_col_label)
+      raise "missing id column #{id_col_label}" if id_col.nil?
+      hashes = []
+      previous_id = nil
+      hash = {}
+
+      results["data"].each do |row|
+        row_id = row[id_col]
+        raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
+
+        if row_id != previous_id
+          previous_id = row_id
+          hashes << hash unless hash.empty?
+          hash = {}
+        end
+
+        nodes = {} 
+        results["columns"].each_with_index do |col, i|
+          node_label, node_prop = col.split(".")
+          raise "unexpected column name -- expect <label>.<prop> format" unless node_label && node_prop
+
+          node_label = node_label.to_sym
+          node_prop = node_prop.to_sym
+          value = row[i]
+
+          if value.present?
+            nodes[node_label] ||= {}
+            nodes[node_label][node_prop] = row[i]
+          end
+        end
+
+        nodes.each do |label, node|
+          if hash.has_key?(label)
+            if hash[label].is_a?(Array)
+              hash[col] << node
+            elsif hash[label] != node
+              # ...turn it into an array and add the new value.
+              hash[label] = [hash[label], node]
+            # Note the lack of "else" ... if the value is the same as the last
+            # row, we ignore it (assuming it's a duplicate value and another
+            # column is changing)
+            end
+          else
+            hash[label] = node
+          end
+        end
+      end
+      hashes << hash unless hash.empty?
+      hashes
+    end
+
     # Given a results array and the name of one of the returned columns to treat
     # as the "identifier" (meaning the field who's ID will uniquely identify a
     # row of related data ... e.g.: the "trait" for trait data)
@@ -989,8 +1090,12 @@ class TraitBank
       previous_id = nil
       hash = nil
       results["data"].each do |row|
-        row_id = row[id_col] && row[id_col]["metadata"] &&
-          row[id_col]["metadata"]["id"]
+        id_col_val = row[id_col]
+        row_id = if id_col_val.is_a? String
+                   id_col_val
+                 else
+                   id_col_val.dig("metadata", "id")
+                 end
         raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         if row_id != previous_id
           previous_id = row_id
@@ -1064,7 +1169,7 @@ class TraitBank
     # NOTE: this method REQUIRES that some fields have a particular name.
     # ...which isn't very generalized, but it will do for our purposes...
     def build_trait_array(results, options={})
-      hashes = results_to_hashes(results)
+      hashes = options[:flat_results] ? flat_results_to_hashes(results) : results_to_hashes(results)
       key = options[:key]
       log("RESULT COUNT #{key}: #{hashes.length} after results_to_hashes") if key
       data = []
