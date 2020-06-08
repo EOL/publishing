@@ -23,6 +23,10 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
+      # XXX: needed to prevent alternate-locale behavior from methods like `Array#to_sentence`. DON'T REMOVE THE BIT AT THE END THAT REVERTS I18n.locale!
+      prev_locale = I18n.locale 
+      I18n.locale = :en
+
       if is_above_family?
         above_family
       else
@@ -52,7 +56,11 @@ class PageDecorator
       reproduction_sentences
       motility_sentence
 
-      Result.new(@sentences.join(' '), @terms)
+      result = Result.new(@sentences.join(' '), @terms)
+
+      I18n.locale = prev_locale
+
+      result
     end
 
     private
