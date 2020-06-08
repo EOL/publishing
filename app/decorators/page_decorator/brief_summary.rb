@@ -616,7 +616,7 @@ class PageDecorator
 
       def name_clause
         if !@full_name_used && @page.vernacular
-          "#{@page.canonical} (#{@page.vernacular.string})"
+          "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
         else
           @name_clause ||= @page.vernacular_or_canonical
         end
