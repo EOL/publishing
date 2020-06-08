@@ -55,19 +55,22 @@ class TraitBank::RecordDownloadWriter
       end,
       "Measurement Unit" => -> (trait, page, association) { handle_term(trait[:units]) },
       "Measurement Accuracy" => -> (trait, page, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
+      "Measurement Remarks" => -> (trait, page, association) { trait[:remarks] },
+      "Measurement Method" => -> (trait, page, association) { trait[:method] },
       "Statistical Method" => -> (trait, page, association) { handle_term(trait[:statistical_method_term]) },
       "Target EOL ID" => -> (trait, page, association) { association&.id },
       "Target EOL Name" => -> (trait, page, association) { association&.scientific_name },
       "Target Source Name" => -> (trait, page, association) { trait[:target_scientific_name] },
       "Sex" => -> (trait, page, association) { handle_term(trait[:sex_term])},
-      "Life Stage" => -> (trait, page, association) { handle_term(trait[:lifestage_term]) }
+      "Life Stage" => -> (trait, page, association) { handle_term(trait[:lifestage_term]) },
+      "Sample size" => -> (trait, page, association) { trait[:sample_size] },
     }
   end
 
   def end_cols
     {
       "Source" => -> (trait, page) { trait[:source] },
-      "Bibliographic Citation" => -> (trait, page) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
+      "Bibliographic Citation" => -> (trait, page) { handle_citation(trait[:citation]) },
       "Contributor" => -> (trait, page) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
       "Reference ID" => -> (trait, page) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
       "Resource URL" => -> (trait, page) do 

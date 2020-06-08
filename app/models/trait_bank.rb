@@ -593,7 +593,7 @@ class TraitBank
       ]
 
       if include_meta # NOTE: it's necessary to return meta.eol_pk for downstream result processing
-        returns += %w[ 
+        returns.concat(%w[ 
           meta.eol_pk 
           meta_predicate.uri
           meta_predicate.name
@@ -613,7 +613,7 @@ class TraitBank
           meta_statistical_method_term.uri 
           meta_statistical_method_term.name 
           meta_statistical_method_term.definition
-        ]
+        ])
       end
 
       returns
