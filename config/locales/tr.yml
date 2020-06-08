@@ -1222,6 +1222,47 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropikal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: nehir
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çayır
+        http://eol(dot)org/schema/terms/paleo_megaannum: milyon yıl önce
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: santigrat derece
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: kilometre kare
+          başına düşen kişi sayısı
+        http://eol(dot)org/schema/terms/millimeterspermonth: ayda milimetre
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: gün
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: ay
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: yıl
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Vatlar
+        http://semanticscience(dot)org/resource/SIO_001114: maks.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: yüzde
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: derece
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /gün
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /yıl
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: Fahrenhayt derece
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: inç
+        http://eol(dot)org/schema/terms/perAcre: dönüm başına
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://purl(dot)org/obo/owl/UO#UO_0000034: hafta
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /hücre /gün
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/hücre
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/gün
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/yıl
+        Unit: Birim
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/ay'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/yıl
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/ay
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: aa/3ay
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: aa/4ay
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: aa/6ay
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: aa/7ay
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: aa/8ay
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: aa/gün
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: aa/sn
+        http://eol(dot)org/schema/terms/millimetersPerYear: aa/yıl
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/saat
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: ton
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: ayak
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inç
   term_query:
     validations:
       empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren

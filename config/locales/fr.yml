@@ -1239,6 +1239,47 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rivière
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairie
+        http://eol(dot)org/schema/terms/paleo_megaannum: il y a un million d’années
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: degrés Celsius
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: individus par
+          kilomètre carré
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimètres par mois
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: jours
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mois
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: années
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: pourcentage
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: degrés
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /jour
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /année
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: degrés Fahrenheit
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: pouce
+        http://eol(dot)org/schema/terms/perAcre: par acre
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://purl(dot)org/obo/owl/UO#UO_0000034: semaines
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /cellule /jour
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cellule
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/jour
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/année
+        Unit: Unité
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mois'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/an
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/mois
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3mois
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mois
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mois
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7mois
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8mois
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/jour
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/année
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/hr
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnes
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pieds
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pouces
   term_query:
     validations:
       empty_filters_error_record: vous devez fournir un filtre avec un attribut ou

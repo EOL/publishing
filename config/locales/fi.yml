@@ -247,6 +247,8 @@ fi:
   language: Kieli
   languages:
     "no": Norja
+    Q497345: Mainfränkisch
+    Q750553: Brasilianportugali
     aa: Afar
     ab: Abhaasi
     ae: Avesta
@@ -366,6 +368,7 @@ fi:
     ng: Ndonga
     nl: Flaami
     nn: Uusnorja
+    "": norja
     none: Määrittelemätön
     nr: Etelä-ndebele
     nv: Navajo
@@ -771,6 +774,30 @@ fi:
       words_connector: ','
       two_words_connector: ja
       last_word_connector: ', ja'
+  term:
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: sininen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: vihreä
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: punainen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: valkoinen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: keltainen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: suuri
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: pieni
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: hidas
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: nopea
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purppura
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: ruskea
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranssi
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnia
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: jalkaa
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tuumaa
   terms:
     attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Kommentti:</strong> %{comment}

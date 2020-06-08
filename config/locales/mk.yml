@@ -1224,6 +1224,47 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: тропско
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: речно
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: тревно
+        http://eol(dot)org/schema/terms/paleo_megaannum: пред милион години
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: Целзиусови степени
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: единки на квадратен
+          километар
+        http://eol(dot)org/schema/terms/millimeterspermonth: милиметри месечно
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: келвини
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: дена
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: месеци
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: години
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: вати
+        http://semanticscience(dot)org/resource/SIO_001114: најв.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: постоток
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: степени
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /ден
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /година
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: Фаренхајтови степени
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: инч
+        http://eol(dot)org/schema/terms/perAcre: по акр
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: ПЕС
+        http://purl(dot)org/obo/owl/UO#UO_0000034: недели
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /клетка /ден
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/клетка
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/л
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: г/см^2/ден
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: кг/м^2/година
+        Unit: Единица
+        http://eol(dot)org/schema/terms/percentPerMonth: '% месечно'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: г/см^2/година
+        http://eol(dot)org/schema/terms/gramsPerMonth: г/месец
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: мм/3 месеци
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4 месеци
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: мм/6 месеци
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: мм/7 месеци
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: мм/8 месеци
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: мм/ден
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: мм/сек
+        http://eol(dot)org/schema/terms/millimetersPerYear: мм/година
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/см2/ч
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: тони
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: стапки
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: инчи
   term_query:
     validations:
       empty_filters_error_record: мора да укажете филтер со својство или вредност

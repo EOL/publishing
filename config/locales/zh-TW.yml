@@ -1181,6 +1181,46 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: 熱帶
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
+        http://eol(dot)org/schema/terms/paleo_megaannum: 百萬年前
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 攝氏溫度
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: 每平方公里個體數
+        http://eol(dot)org/schema/terms/millimeterspermonth: 每月毫米數
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: 克耳文
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 年
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: 瓦特
+        http://semanticscience(dot)org/resource/SIO_001114: 最大
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: 百分比
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 度
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /日
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /年
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: 華氏溫度
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: 英寸
+        http://eol(dot)org/schema/terms/perAcre: 每英畝
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: 實用鹽度單位
+        http://purl(dot)org/obo/owl/UO#UO_0000034: 週
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol/cell/日
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/cell
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/日
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/年
+        Unit: 單位
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/年
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/月
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/三個月
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/四個月
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/六個月
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/七個月
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/八個月
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/日
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/秒
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/年
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/時
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 噸
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英呎
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
   term_query:
     validations:
       empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
