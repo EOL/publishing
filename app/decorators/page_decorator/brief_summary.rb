@@ -408,7 +408,7 @@ class PageDecorator
         end
 
         if matches.has_type?(:z)
-          add_sentence do |_, __, ___|
+          add_sentence do |subj, is, has|
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
             end.to_sentence
