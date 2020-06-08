@@ -12,7 +12,7 @@
     - elsif !term[:attribution].blank?
       %li= t("terms.attribution_field_html", :attribution => term[:attribution]).html_safe
   - if search_link
-    - if local_assigns.has_key? :pred_uri
+    - if local_assigns.has_key?(:pred_uri) && pred_uri
       -# then term is an object term
       - path_opts = { :uri => pred_uri, :obj_uri => term[:uri] }
     - else

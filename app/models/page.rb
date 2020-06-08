@@ -475,7 +475,7 @@ class Page < ApplicationRecord
   end
 
   def vernacular_or_canonical
-    vernacular(Language.current)&.string&.capitalize || canonical
+    vernacular(Language.current)&.string || canonical
   end
 
   # TRAITS METHODS
@@ -528,49 +528,6 @@ class Page < ApplicationRecord
     @data_toc = Section.where(id: @data_toc) unless @data_toc.empty?
     @data_loaded = true
     @data = data
-  end
-
-  def conservation_statuses
-    if @conservation_statuses
-      return @conservation_statuses
-    end
-
-    by_provider = {}
-
-    if grouped_data.has_key?(Eol::Uris::Conservation.status)
-      recs = grouped_data[Eol::Uris::Conservation.status]
-      multiples_warned = Set.new
-      recs.each do |rec|
-        uri = TraitBank::Record.obj_term_uri(rec)
-        name = TraitBank::Record.obj_term_name(rec)
-        source = TraitBank::Record.source(rec)
-        provider = if Eol::Uris::Conservation.iucn?(uri)
-                     :iucn
-                   elsif Eol::Uris::Conservation.cites?(uri)
-                     :cites
-                   elsif Eol::Uris::Conservation.usfw?(uri)
-                     :usfw
-                   else
-                     logger.warn("Unable to classify conservation status uri by provider: #{uri}")
-                     nil
-                   end
-
-        if provider
-          if by_provider.include?(provider) && !multiples_warned.include?(provider)
-            logger.warn("Found multiple conservation status traits for page #{id}/provider #{provider}")
-            multiples_warned.add(provider)
-          else
-            by_provider[provider] = {
-              uri: uri,
-              name: name,
-              source: source
-            }
-          end
-        end
-      end
-    end
-
-    @conservation_statuses = by_provider
   end
 
   def redlist_status

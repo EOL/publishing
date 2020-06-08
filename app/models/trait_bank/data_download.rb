@@ -9,11 +9,11 @@ class TraitBank
     attr_reader :count
 
     class << self
-      # options: 
+      # options:
       #   - force_new: true -- always create and background_build a UserDownload
       def term_search(term_query, user_id, url, options={})
         count = TraitBank.term_search(
-          term_query, 
+          term_query,
           { count: true },
         ).primary_for_query(term_query)
 

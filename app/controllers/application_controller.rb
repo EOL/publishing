@@ -14,10 +14,14 @@ class ApplicationController < ActionController::Base
 
   class BadRequestError < TypeError; end
 
-
   # For demo, we're using Basic Auth:
   if Rails.application.secrets.user_id
     before_action :authenticate
+  end
+
+  def default_url_options(options = {})
+    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
+    { locale: locale }.merge options
   end
 
   def route_not_found
@@ -26,12 +30,6 @@ class ApplicationController < ActionController::Base
       format.all { redirect_to :controller => 'application', :action => 'route_not_found' }
     end
   end
-
-# SEE app/decorators/controllers/application_controller_decorator.rb. This uses refinery's magic to override another bit of refinery's magic. Magical.
-#  def default_url_options(options = {})
-#    locale = (I18n.locale == I18n.default_locale) ? nil : I18n.locale
-#    { locale: locale }.merge options
-#  end
 
   # robots.txt
   def robots

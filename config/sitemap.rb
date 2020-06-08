@@ -1,42 +1,48 @@
-require "refinery"
-
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "https://eol.org"
 SitemapGenerator::Sitemap.sitemaps_path = "data/sitemap"
 
 SitemapGenerator::Sitemap.create do
-  def add_custom(path)
-    add path, lastmod: nil, priority: nil, changefreq: nil
+  def add_custom(path, alternates = [])
+    add path, lastmod: nil, priority: nil, changefreq: nil, alternates: alternates
   end
+
+  ::I18n.locale = ::I18n.default_locale
 
   # /terms/search
   add_custom term_search_path
   
   # CMS Pages
-  ::I18n.available_locales.each do |locale|
-    ::I18n.locale = locale
-    ::Refinery::Page.live.in_menu.each do |cms_page|
-      cms_url = if cms_page.url.is_a?(Hash)
-                  cms_url = ::Refinery::Core::Engine.routes.url_for(cms_page.url.merge(only_path: true))
-                else
-                  cms_url = cms_page.url
-                end
 
-      add_custom cms_url
+  EditorPage.find_each do |page|
+    if page.published_for_locale(::I18n.default_locale).present?
+      # TODO: figure out how to get absolute urls in alternates -- possible bug with SitemapGenerator
+      #alternates = ::I18n.available_locales.collect do |locale|
+      #  next if locale == I18n.default_locale
+      #  if page.published_for_locale(locale).present?
+      #    { 
+      #      href: editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: locale),
+      #      lang: locale
+      #    }
+      #  else
+      #    nil
+      #  end
+      #end.compact
+
+      add_custom(editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: nil))
     end
   end
 
-  ::I18n.locale = ::I18n.default_locale
 
   # Pages
   Page.find_each do |page|
     if page.has_data?
-      add_custom page_path(page)
-      add_custom page_data_path(page)
-      add_custom page_maps_path(page) if page.map?
-      add_custom page_media_path(page) if page.media_count > 0
-      add_custom page_articles_path(page) if page.articles_count > 0
-      add_custom page_names_path(page)
+      add_custom page_path(page, locale: nil)
+      add_custom page_data_path(page, locale: nil)
+      add_custom page_maps_path(page, locale: nil) if page.map?
+      add_custom page_media_path(page, locale: nil) if page.media_count > 0
+      add_custom page_articles_path(page, locale: nil) if page.articles_count > 0
+      add_custom page_names_path(page, locale: nil)
     end
   end
   

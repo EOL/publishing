@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Codenstory
+# Author: Nuevo Paso
 # Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 그냥기여자
@@ -141,6 +142,7 @@ ko:
   languages:
     "no": 노르웨이어
     Q100103: 서플라망어
+    Q750553: 브라질 포르투갈어
     ar: 아랍어
     az: 아제르바이잔어
     bg: 불가리아어

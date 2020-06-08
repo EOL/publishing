@@ -9,7 +9,8 @@
         - if !summary.sentence.blank?
           %p= summary.sentence.html_safe
           - summary.terms.each do |term|
-            = render "terms/desc_meta", term: term.obj, pred_uri: term.pred_uri, toggle: term.toggle_selector, source: term.source, search_link: true
+            - if term.term
+              = render "terms/desc_meta", term: term.term, pred_uri: term.pred_uri, toggle: term.toggle_selector, source: term.source, search_link: true
         - if @page.has_data?
           - if @page.key_data.any?
             - attributes_key = "eol_has_data_for_n_attributes_including_html"

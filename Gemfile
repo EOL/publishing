@@ -8,6 +8,8 @@ gem 'mysql2', '0.5.3'
 
 # Asset-related gems next:
 
+# SASS
+gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.10'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
@@ -19,10 +21,6 @@ gem 'sdoc', '~> 1.0', group: :doc
 gem 'therubyracer', '~> 0.12'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
-# RefineryCMS
-gem 'refinerycms', git: "https://github.com/refinery/refinerycms", ref: "81ed991"
-gem 'refinerycms-wymeditor', '2.2.0'
-gem 'refinerycms-i18n', '5.0.1'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
@@ -69,6 +67,7 @@ gem 'discourse_api', '~> 0.38'
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
+# TODO: update font-awesome (or remove if unused) since refinery is gone
 # font-awesome-sass 4.7 is seriously behind; 5.12 is the latest, but our version of refinerycms-wymeditor requires < 5
 gem 'font-awesome-sass', '~> 4.7'
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!

@@ -13,16 +13,7 @@ Rails.application.routes.draw do
     get '' => 'home_page#index', as: :home_page
     get 'errors/not_found'
     get 'errors/internal_server_error'
-
-    # This line mounts Refinery's routes at the root of your application.
-    # This means, any requests to the root URL of your application will go to Refinery::PagesController#home.
-    # If you would like to change where this extension is mounted, simply change the
-    # configuration option `mounted_path` to something different in config/initializers/refinery/core.rb
-    #
-    # We ask that you don't use the :as option here, as Refinery relies on it being the default of "refinery"
-    #keep this at the end of the routes (Refinery smetimes can override other routes)
-    mount Refinery::Core::Engine, at: Refinery::Core.mounted_path
-
+    
     # Putting pages first only because it"s the most common:
     # TODO: move all the silly extra things to their own resources (I think).
     resources :pages, only: [:show] do
@@ -225,9 +216,11 @@ Rails.application.routes.draw do
       end
     end
 
-    scope "newdocs" do
-      get "(/:editor_page_directory_id)/:editor_page_id" => "editor_pages#show", as: :editor_page_live
+    get "/docs/what-is-eol/terms-of-use/citing-eol-and-eol-content", to: redirect("/docs/what-is-eol/citing-eol-and-eol-content")
+    scope "docs" do
+      get "(/:directory_id)/:id" => "editor_pages#show", as: :editor_page
     end
+    
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"

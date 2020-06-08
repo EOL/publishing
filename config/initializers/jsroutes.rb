@@ -1,3 +1,3 @@
 JsRoutes.setup do |config|
-  config.exclude = /(refinery|admin)/
+  config.exclude = /admin/
 end

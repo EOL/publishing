@@ -13,6 +13,7 @@
 # Author: Shizhao
 # Author: Tiger
 # Author: Xiaomingyan
+# Author: 列维劳德
 # Author: 沈澄心
 ---
 zh-CN:
@@ -424,6 +425,17 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 年
+        http://semanticscience(dot)org/resource/SIO_001114: 最大
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 度
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /日
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /年
+        http://purl(dot)org/obo/owl/UO#UO_0000034: 周
+        Unit: 单位
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
   terms:
     scientific_name: 学名
     source: 源

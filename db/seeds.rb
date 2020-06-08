@@ -1,6 +1,3 @@
-# Added by Refinery CMS Pages extension
-Refinery::Pages::Engine.load_seed
-
 Reindexer.fix_common_names("Plantae", "plants")
 Reindexer.fix_common_names("Animalia", "animals")
 Reindexer.fix_all_counter_culture_counts

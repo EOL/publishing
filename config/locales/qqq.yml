@@ -517,6 +517,70 @@ qqq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: A grassland biome is
           a terrestrial biome which  includes, across its entire spatial extent, an
           unbroken layer of grasses (Gramineae), sedges (Cyperaceae) or  rushes (Juncaceae).
+        http://eol(dot)org/schema/terms/paleo_megaannum: 1 megaannum in the past.
+          Megaannum, Ma. is a unit of time equal to one million (10<sup>6</sup>) years.
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: A unit of population
+          density.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: '{definition missing}'
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: '{{identical|Day}}'
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: A time unit which is approximately
+          equal to the length of time of one of cycle of the moon's phases which in
+          science is taken to be equal to 30 days.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: A time unit which is equal
+          to 12 months which in science is taken to be equal to 365.25 days.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: A power unit which is equal
+          to the power used when work is done at the rate of 1 joule per second.
+        http://semanticscience(dot)org/resource/SIO_001114: a maximal value is largest
+          value of an attribute for the entities in the defined set.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: A dimensionless ratio unit
+          which denotes numbers as fractions of 100.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: A plane angle unit which
+          is equal to 1/360 of a full rotation or 1.7453310^[-2] rad.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: In this scale, the freezing
+          point of water is 32 degrees Fahrenheit and the boiling point is 212 degrees,
+          placing the boiling and freezing points of water 180 degrees apart. -40
+          degrees Fahrenheit is equal to -40 degrees Celsius. A temperature unit which
+          is equal to 5/9ths of a kelvin. Negative 40 degrees Fahrenheit is equal
+          to negative 40 degrees Celsius.
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: 'An inch
+          (plural: inches; abbreviation or symbol: in or ″ – a double prime) is a
+          unit of length in the imperial and United States customary systems of measurement.
+          Historically an inch was also used in a number of other systems of units.
+          Traditional standards for the exact length of an inch have varied in the
+          past, but now the imperial or US customary inch is defined to be exactly
+          25.4 mm. There are 12 inches in a foot and therefore 36 inches in a yard.'
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: Practical Salinity
+          Units. The conductivity ratio of a sea water sample to a standard KCl solution.
+          Used to represent salinity.
+        http://purl(dot)org/obo/owl/UO#UO_0000034: '{{identical|week}}'
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol of a particular substance
+          entering or leaving each cell per day, where 1 µmol is ~6.022 x 10<sup>17</sup>
+          molecules
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol of a particular substance
+          present in each cell of an organism, where 1 µmol is ~6.022 x 10<sup>17</sup>
+          molecules
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: A unit of molarity which
+          is equal to one millionth of a molar or 10^[-6] mol/L
+        Unit: automatically added during harvest
+        http://eol(dot)org/schema/terms/percentPerMonth: a measure of specific growth
+          rate
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: micromoles of a substance
+          per square centimeter of area per hour
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: An imperial mass unit which
+          is equivalent to 1,016.046,9088 kilograms, or 2,240 pounds
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 'A foot
+          (plural: feet; abbreviation or symbol: ft or ′ (the prime symbol) is a unit
+          of length. Since 1960 the term has usually referred to the international
+          foot, defined as being one third of a yard, making it 0.3048 meters exactly.
+          It is an integral part of both the imperial and United States customary
+          systems of units. It is subdivided into 12 inches.'
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 'An inch (plural: inches;
+          abbreviation or symbol: in or ″ – a double prime) is a unit of length in
+          the imperial and United States customary systems of measurement. Historically
+          an inch was also used in a number of other systems of units. Traditional
+          standards for the exact length of an inch have varied in the past, but now
+          the imperial or US customary inch is defined to be exactly 25.4 mm. There
+          are 12 inches in a foot and therefore 36 inches in a yard.'
   traits:
     search_form:
       search: '{{Identical|Search}}'
