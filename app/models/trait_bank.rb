@@ -41,6 +41,7 @@ class TraitBank
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
+
       results
     end
 
@@ -591,8 +592,9 @@ class TraitBank
         resource.resource_id
       ]
 
-      if include_meta
+      if include_meta # NOTE: it's necessary to return meta.eol_pk for downstream result processing
         returns += %w[ 
+          meta.eol_pk 
           meta_predicate.uri
           meta_predicate.name
           meta_predicate.definition 
@@ -600,7 +602,7 @@ class TraitBank
           meta_units_term.name 
           meta_units_term.definition
           meta_object_term.uri 
-          meta_object_term.name i
+          meta_object_term.name
           meta_object_term.definition 
           meta_sex_term.uri 
           meta_sex_term.name
@@ -1054,8 +1056,8 @@ class TraitBank
           node_prop = node_prop.to_sym
           value = row[i]
 
+          nodes[node_label] ||= {}
           if value.present?
-            nodes[node_label] ||= {}
             nodes[node_label][node_prop] = row[i]
           end
         end
@@ -1063,7 +1065,7 @@ class TraitBank
         nodes.each do |label, node|
           if hash.has_key?(label)
             if hash[label].is_a?(Array)
-              hash[col] << node
+              hash[label] << node
             elsif hash[label] != node
               # ...turn it into an array and add the new value.
               hash[label] = [hash[label], node]
@@ -1072,7 +1074,12 @@ class TraitBank
             # column is changing)
             end
           else
-            hash[label] = node
+            # See note in results_to_hashes
+            if label.to_s =~ /\Ameta/
+              hash[label] = [node]
+            else
+              hash[label] = node unless node.empty?
+            end
           end
         end
       end

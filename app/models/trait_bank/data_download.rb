@@ -4,7 +4,7 @@ require "set"
 
 class TraitBank
   class DataDownload
-    BATCH_SIZE = 1000
+    BATCH_SIZE = 1_000_000
 
     attr_reader :count
 
@@ -52,8 +52,7 @@ class TraitBank
 
       hashes = []
       TraitBank.batch_term_search(@query, @options, @count) do |batch|
-        #hashes += batch
-        batch
+        hashes.concat(batch)
       end
 
       Delayed::Worker.logger.info("finished query, writing records")
