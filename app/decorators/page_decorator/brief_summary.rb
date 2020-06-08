@@ -752,7 +752,7 @@ class PageDecorator
           @page.grouped_data[term].each do |trait|
             if trait.key?(:object_term)
               obj_term = trait[:object_term]
-              values << term_tag(obj_term[:name], term, obj_term[:uri])
+              values << term_tag(obj_term[:name], term[:uri], obj_term)
             else
               values << trait[:literal]
             end
