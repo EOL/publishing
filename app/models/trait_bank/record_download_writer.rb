@@ -13,6 +13,14 @@ class TraitBank::RecordDownloadWriter
       :label => "Measurement Unit",
       :definition => "The units associated with the measurementValue. Recommended best practice is to use the International System of Units (SI)."
     },
+    "http://rs.tdwg.org/dwc/terms/measurementRemarks" => {
+      :label => "Measurement Remarks",
+      :definition => "Comments or notes accompanying the MeasurementOrFact."
+    },
+    "http://rs.tdwg.org/dwc/terms/measurementMethod" => {
+      :label => "Measurement Method",
+      :definition => "A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion."
+    },
     "http://eol.org/schema/terms/statisticalMethod" => {
       :label => "Statistical Method",
       :definition => "The method which was used to process an aggregate of values."
@@ -24,6 +32,10 @@ class TraitBank::RecordDownloadWriter
     "http://rs.tdwg.org/dwc/terms/lifeStage" => {
       :label => "Life Stage",
       :definition => "The age class or life stage of the biological individual(s) at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary."
+    },
+    "http://eol.org/schema/terms/SampleSize" => {
+      :label => "Sample Size",
+      :definition => "The size of the sample upon which a measurement is based."
     },
     "http://purl.org/dc/terms/source" => {
       :label => "Source",
