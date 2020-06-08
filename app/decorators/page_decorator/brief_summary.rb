@@ -23,6 +23,10 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
+      # XXX: needed to prevent alternate-locale behavior from methods like `Array#to_sentence`. DON'T REMOVE THE BIT AT THE END THAT REVERTS I18n.locale!
+      prev_locale = I18n.locale 
+      I18n.locale = :en
+
       if is_above_family?
         above_family
       else
@@ -52,7 +56,11 @@ class PageDecorator
       reproduction_sentences
       motility_sentence
 
-      Result.new(@sentences.join(' '), @terms)
+      result = Result.new(@sentences.join(' '), @terms)
+
+      I18n.locale = prev_locale
+
+      result
     end
 
     private
@@ -400,7 +408,7 @@ class PageDecorator
         end
 
         if matches.has_type?(:z)
-          add_sentence do |_, __, ___|
+          add_sentence do |subj, is, has|
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
             end.to_sentence
@@ -608,7 +616,7 @@ class PageDecorator
 
       def name_clause
         if !@full_name_used && @page.vernacular
-          "#{@page.canonical} (#{@page.vernacular.string})"
+          "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
         else
           @name_clause ||= @page.vernacular_or_canonical
         end
@@ -739,12 +747,12 @@ class PageDecorator
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.
       def values_to_sentence(uris)
         values = []
-        uris.flat_map { |uri| gather_terms(uri) }.each do |term|
-          next if @page.grouped_data[term].nil?
-          @page.grouped_data[term].each do |trait|
+        uris.flat_map { |uri| gather_terms(uri) }.each do |pred_uri|
+          next if @page.grouped_data[pred_uri].nil?
+          @page.grouped_data[pred_uri].each do |trait|
             if trait.key?(:object_term)
               obj_term = trait[:object_term]
-              values << term_tag(obj_term[:name], term, obj_term[:uri])
+              values << term_tag(obj_term[:name], pred_uri, obj_term)
             else
               values << trait[:literal]
             end

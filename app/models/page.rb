@@ -475,7 +475,7 @@ class Page < ApplicationRecord
   end
 
   def vernacular_or_canonical
-    vernacular(Language.current)&.string || canonical
+    vernacular(Language.current)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
