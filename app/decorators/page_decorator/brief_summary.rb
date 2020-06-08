@@ -747,12 +747,12 @@ class PageDecorator
       # Print all values, separated by commas, with “and” instead of comma before the last item in the list.
       def values_to_sentence(uris)
         values = []
-        uris.flat_map { |uri| gather_terms(uri) }.each do |term|
-          next if @page.grouped_data[term].nil?
-          @page.grouped_data[term].each do |trait|
+        uris.flat_map { |uri| gather_terms(uri) }.each do |pred_uri|
+          next if @page.grouped_data[pred_uri].nil?
+          @page.grouped_data[pred_uri].each do |trait|
             if trait.key?(:object_term)
               obj_term = trait[:object_term]
-              values << term_tag(obj_term[:name], term[:uri], obj_term)
+              values << term_tag(obj_term[:name], pred_uri, obj_term)
             else
               values << trait[:literal]
             end
