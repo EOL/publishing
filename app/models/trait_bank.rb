@@ -1467,7 +1467,7 @@ class TraitBank
       hash = term(uri)
       raise ActiveRecord::RecordNotFound if hash.nil?
       # NOTE: this step is slightly annoying:
-      hash["data"].symbolize_keys
+      hash.symbolize_keys
     end
 
     def get_name(trait, which = :predicate)
