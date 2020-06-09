@@ -37,7 +37,7 @@ class UserDownload < ApplicationRecord
   end
 
   # NOTE: for timing reasons, this does NOT #save the current model, you should do that yourself.
-  def fail(message, backtrace)
+  def mark_as_failed(message, backtrace)
     self.transaction do
       self.status = :failed
       self.completed_at = Time.now # Yes, this is duplicated from #background_build, but it's safer to do so.
@@ -99,7 +99,7 @@ private
       Delayed::Worker.logger.error("!! #{e.message}")
       Rails.logger.error("!! #{e.backtrace.join('->')}")
       Delayed::Worker.logger.error("!! #{e.backtrace.join('->')}")
-      fail(e.message, e.backtrace.join("\n"))
+      mark_as_failed(e.message, e.backtrace.join("\n"))
       raise e
     ensure
       self.completed_at = Time.now

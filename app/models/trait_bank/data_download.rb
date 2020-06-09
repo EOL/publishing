@@ -4,7 +4,7 @@ require "set"
 
 class TraitBank
   class DataDownload
-    BATCH_SIZE = 500_000
+    BATCH_SIZE = 10_000
 
     attr_reader :count
 
