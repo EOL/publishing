@@ -35,7 +35,7 @@ class TraitBank
     def initialize(term_query, count, url)
       raise TypeError.new("count cannot be nil") if count.nil?
       @query = term_query
-      @options = { :per => BATCH_SIZE, :meta => true }
+      @options = { per: BATCH_SIZE, meta: true, cache: false }
       # TODO: would be great if we could detect whether a version already exists
       # for download and use that.
 
