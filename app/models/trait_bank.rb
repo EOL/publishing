@@ -1,5 +1,7 @@
 # Abstraction between our traits and the implementation of their storage. ATM, we use neo4j. THE SCHEMA FOR TRAITS CAN
 # BE FOUND IN db/neo4j_schema.md ...please read that file before attempting to understand this one. :D
+require 'neo4j/core/cypher_session/adaptors/bolt'
+
 class TraitBank
   TRAIT_RELS = ":trait|:inferred_trait"
   GROUP_META_VALUE_URIS = Set.new([
@@ -10,7 +12,12 @@ class TraitBank
     delegate :log, :warn, :log_error, to: TraitBank::Logger
 
     def connection
-      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
+      if !@connection
+        adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.traitbank_url, { ssl: false, wrap_level: :none })
+        @connection = Neo4j::Core::CypherSession.new(adaptor)
+      end
+      
+      @connection
     end
 
     def ping
@@ -27,22 +34,33 @@ class TraitBank
       results = nil
       q.sub(/\A\s+/, "")
       begin
-        results = connection.execute_query(q)
+        results = connection.query(q)
         stop = Time.now
       rescue Excon::Error::Socket => e
         log_error("Connection refused on query: #{q}")
         sleep(0.1)
-        results = connection.execute_query(q)
+        results = connection.query(q)
       rescue Excon::Error::Timeout => e
         log_error("Timed out on query: #{q}")
         sleep(1)
-        results = connection.execute_query(q)
+        results = connection.query(q)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
       end
 
-      results
+      hash_results = {}
+      hash_results["data"] = results.rows.collect do |row| 
+        row.collect do |val|
+          if val.is_a? Hash
+            val.stringify_keys
+          else
+            val
+          end
+        end
+      end
+      hash_results["columns"] = results.columns.collect { |c| c.to_s }
+      hash_results
     end
 
     def quote(string)
@@ -110,13 +128,6 @@ class TraitBank
           "RETURN count")
         res["data"] ? res["data"].first.first : false
       end
-    end
-
-    def terms(page = 1, per = 50)
-      q = "MATCH (term:Term) RETURN term ORDER BY LOWER(term.name), LOWER(term.uri)"
-      q += limit_and_skip_clause(page, per)
-      res = query(q)
-      res["data"] ? res["data"].map { |t| t.first["data"] } : false
     end
 
     def limit_and_skip_clause(page = 1, per = 50)
@@ -969,17 +980,6 @@ class TraitBank
       page_match
     end
 
-    # NOTE: this is not indexed. It could get slow later, so you should check
-    # and optimize if needed. Do not prematurely optimize!
-    def search_predicate_terms(q, page = 1, per = 50)
-      q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) " # ORDER BY LOWER(term.name)"
-      q += limit_and_skip_clause(page, per)
-      res = query(q)
-      return [] if res["data"].empty?
-      res["data"].map { |r| r[0]["data"] }
-    end
-
     def count_predicate_terms(q)
       q = "MATCH (trait:Trait)-[:predicate]->(term:Term) "\
         "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN COUNT(DISTINCT(term))"
@@ -993,17 +993,6 @@ class TraitBank
       res = query(q)
       return [] if res["data"].empty?
       res["data"] ? res["data"].first.first : 0
-    end
-
-    # NOTE: this is not indexed. It could get slow later, so you should check
-    # and optimize if needed. Do not prematurely optimize!
-    def search_object_terms(q, page = 1, per = 50)
-      q = "MATCH (trait:Trait)-[:object_term]->(term:Term) "\
-        "WHERE term.name =~ \'(?i)^.*#{q}.*$\' RETURN DISTINCT(term) " # ORDER BY LOWER(term.name)"
-      q += limit_and_skip_clause(page, per)
-      res = query(q)
-      return [] if res["data"].empty?
-      res["data"].map { |r| r[0]["data"] }
     end
 
     # NOTE: this is not indexed. It could get slow later, so you should check
@@ -1101,9 +1090,12 @@ class TraitBank
         row_id = if id_col_val.is_a? String
                    id_col_val
                  else
-                   id_col_val.dig("metadata", "id")
+                   # TODO: fixxxx
+                   id_col_val["eol_pk"] || id_col_val["uri"]
+                   #id_col_val.dig("metadata", "id")
                  end
-        raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
+        #raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
+        next if row_id.nil?
         if row_id != previous_id
           previous_id = row_id
           hashes << hash unless hash.nil?
@@ -1442,7 +1434,7 @@ class TraitBank
 
     def term_record(uri)
       result = term(uri)
-      result&.[]("data")&.symbolize_keys
+      result&.symbolize_keys
     end
 
     def update_term(opts)
@@ -1462,12 +1454,12 @@ class TraitBank
 
     def descendants_of_term(uri)
       terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
-      terms["data"].map { |r| r.first["data"] }
+      terms["data"].map { |r| r.first }
     end
 
     def term_member_of(uri)
       terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
-      terms["data"].map { |r| r.first["data"] }
+      terms["data"].map { |r| r.first }
     end
 
     def term_as_hash(uri)
