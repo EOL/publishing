@@ -1081,6 +1081,13 @@ en:
       show_n_taxa_between:
         one: "click to see %{count} taxon with measurement values in [%{min}, %{limit}] %{units}"
         other: "click to see %{count} taxa with measurement values in [%{min}, %{limit}] %{units}"
+    properties:
+      citation: "Bibliographic citation"
+      method: "Measurement method"
+      remarks: "Remarks"
+      sample_size: "Sample size"
+      scientific_name: "Scientific name"
+      source: "Source"
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"

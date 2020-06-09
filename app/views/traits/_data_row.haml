@@ -27,11 +27,10 @@
       - modifier_content = modifier_txt(trait)
       - if modifier_content
         .trait-mod= modifier_txt(trait)
-    - if (trait[:metadata] && trait[:metadata].any?) || (open_row && (trait[:source] || trait[:scientific_name] || page))
+    - extra_metadata = trait_property_metadata(trait)
+    - if open_row && (page || trait[:metadata]&.any? || extra_metadata.any? || trait[:scientific_name])
       %ul.meta-items.js-meta-items
         - Array(trait[:metadata]).each do |datum|
-          -# Skip duplicated source:
-          - next if datum[:predicate][:uri] == 'http://purl.org/dc/terms/source'
           %li.meta-item
             %div
               .meta-pred.a= i18n_term_name(datum[:predicate])
@@ -40,15 +39,11 @@
               - show_data_value(datum)
               - if datum[:object_term]
                 = render :partial => "terms/desc_meta", :locals => { :term => datum[:object_term], :search_link => false }
-        - if trait[:source]
+        - extra_metadata.each do |m|
           %li.meta-item
-            .meta-pred= t("terms.source")
-            - is_uri = URI.parse(trait[:source]).kind_of?(URI::HTTP) rescue nil
-            .meta-val= is_uri ? link_to(trait[:source], trait[:source]) : trait[:source]
-        - if trait[:scientific_name]
-          %li.meta-item
-            .meta-pred= t("terms.scientific_name")
-            .meta-val= trait[:scientific_name].html_safe
+            .meta-pred= m[:label]
+            - is_uri = URI.parse(m[:value]).kind_of?(URI::HTTP) rescue nil
+            .meta-val= is_uri ? link_to(m[:value], m[:value]) : m[:value].html_safe
         - if page
           %li.meta-item
             .meta-pred= t("terms.record_url")
