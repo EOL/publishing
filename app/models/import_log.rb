@@ -54,7 +54,7 @@ class ImportLog < ApplicationRecord
     log('Complete', cat: :ends)
   end
 
-  def fail(e)
+  def fail_on_error(e)
     e.backtrace.reverse.each_with_index do |trace, i|
       break if trace =~ /\/bundler/
       break if i > 9 # Too much info, man!

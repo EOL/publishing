@@ -391,7 +391,7 @@ class Resource < ApplicationRecord
         'media counts may be off.', cat: :infos)
       log.complete
     rescue => e
-      log.fail(e)
+      log.fail_on_error(e)
     end
     Rails.cache.clear
   end
