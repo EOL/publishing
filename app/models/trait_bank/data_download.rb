@@ -5,6 +5,7 @@ require "set"
 class TraitBank
   class DataDownload
     BATCH_SIZE = 10_000
+    TMPDIR = Rails.application.root.join("data", "tmp")
 
     attr_reader :count
 
@@ -48,14 +49,34 @@ class TraitBank
       # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
-      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
       hashes = []
-      TraitBank.batch_term_search(@query, @options, @count) do |batch|
-        hashes.concat(batch)
+      tmpfile_name = "#{@base_filename}_query_results.json"
+      tmpfile_path = TMPDIR.join(tmpfile_name)
+
+      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}, writing results to #{tmpfile_path}")
+
+      File.open(tmpfile_path, "w+") do |tmpfile|
+        TraitBank.batch_term_search(@query, @options, @count) do |batch|
+          tmpfile.write(batch.to_json)
+          tmpfile.write("\n")
+          #hashes.concat(batch)
+        end
+
+        
+        Delayed::Worker.logger.info("finished querying, reading tmpfile #{tmpfile_path}")
+        tmpfile.rewind
+
+        tmpfile.each do |line|
+          hashes.concat(JSON.parse(line, symbolize_names: true))
+        end
       end
 
-      Delayed::Worker.logger.info("finished query, writing records")
+      Delayed::Worker.logger.info("finished reading tmpfile #{tmpfile_path}, removing")
+
+      File.delete(tmpfile_path)
+
+      Delayed::Worker.logger.info("writing csv")
 
       filename = if @query.record?
                    TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
