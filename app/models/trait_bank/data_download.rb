@@ -50,31 +50,42 @@ class TraitBank
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
 
-      hashes = []
-      tmpfile_name = "#{@base_filename}_query_results.json"
-      tmpfile_path = TMPDIR.join(tmpfile_name)
 
-      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}, writing results to #{tmpfile_path}")
+      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
-      File.open(tmpfile_path, "w+") do |tmpfile|
-        TraitBank.batch_term_search(@query, @options, @count) do |batch|
-          tmpfile.write(batch.to_json)
-          tmpfile.write("\n")
-          #hashes.concat(batch)
+      batch_num = 0
+      tmpfile_paths = []
+      TraitBank.batch_term_search(@query, @options, @count) do |batch|
+        tmpfile_path = TMPDIR.join(tmpfile_name(batch_num))
+        tmpfile_paths << tmpfile_path
+
+        Delayed::Worker.logger.info("writing batch #{batch_num} to file #{tmpfile_path}")
+        File.open(tmpfile_path, "wb") do |tmpfile|
+          tmpfile.write(Marshal.dump(batch))
         end
-
-        
-        Delayed::Worker.logger.info("finished querying, reading tmpfile #{tmpfile_path}")
-        tmpfile.rewind
-
-        tmpfile.each do |line|
-          hashes.concat(JSON.parse(line, symbolize_names: true))
-        end
+        Delayed::Worker.logger.info("finished writing batch #{batch_num} to file #{tmpfile_path}")
+        batch_num += 1
       end
 
-      Delayed::Worker.logger.info("finished reading tmpfile #{tmpfile_path}, removing")
+      Delayed::Worker.logger.info("finished querying, reading tmpfiles")
 
-      File.delete(tmpfile_path)
+      hashes = []
+      tmpfile_paths.each do |path|
+        Delayed::Worker.logger.info("reading results from file #{path}")
+
+        File.open(path, "rb") do |file|
+          hashes.concat(Marshal.load(file.read))
+        end
+
+        Delayed::Worker.logger.info("finished reading results from file #{path}")
+      end
+
+
+      Delayed::Worker.logger.info("finished reading temp files, removing")
+
+      tmpfile_paths.each do |path|
+        File.delete(path)
+      end
 
       Delayed::Worker.logger.info("writing csv")
 
@@ -89,5 +100,11 @@ class TraitBank
       Delayed::Worker.logger.info("finished data download")
       filename
     end
+
+    private 
+    def tmpfile_name(batch_num)
+      "#{@base_filename}_query_results_batch_#{batch_num}"
+    end
+
   end
 end
