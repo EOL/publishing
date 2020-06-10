@@ -3,7 +3,7 @@ class PageDecorator
     class ConservationStatus
       attr_reader :page
       def initialize(page)
-        @page = page 
+        @page = page
       end
 
       def by_provider
