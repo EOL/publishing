@@ -26,13 +26,13 @@ class PageDecorator
                        elsif Eol::Uris::Conservation.usfw?(uri)
                          :usfw
                        else
-                         logger.warn("Unable to classify conservation status uri by provider: #{uri}")
+                         Rails.logger.warn("Unable to classify conservation status uri by provider: #{uri}")
                          nil
                        end
 
             if provider
               if @by_provider.include?(provider) && !multiples_warned.include?(provider)
-                logger.warn("Found multiple conservation status traits for page #{id}/provider #{provider}")
+                Rails.logger.warn("Found multiple conservation status traits for page #{page.id}/provider #{provider}")
                 multiples_warned.add(provider)
               else
                 @by_provider[provider] = {
