@@ -24,7 +24,7 @@ class PageDecorator
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
       # XXX: needed to prevent alternate-locale behavior from methods like `Array#to_sentence`. DON'T REMOVE THE BIT AT THE END THAT REVERTS I18n.locale!
-      prev_locale = I18n.locale 
+      prev_locale = I18n.locale
       I18n.locale = :en
 
       if is_above_family?
@@ -129,7 +129,7 @@ class PageDecorator
         first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          trait_sentence("This group has been around since the %s.", first_appearance_trait)
+          trait_sentence_part("This group has been around since the %s.", first_appearance_trait)
         end
       end
 
@@ -791,7 +791,7 @@ class PageDecorator
 
       # XXX: this does not always work (e.g.: "an unicorn")
       def a_or_an(trait)
-        return unless trait[:object_term] && trait[:object_term][:name] 
+        return unless trait[:object_term] && trait[:object_term][:name]
         word = trait[:object_term][:name]
         %w(a e i o u).include?(word[0].downcase) ? "an" : "a"
       end
