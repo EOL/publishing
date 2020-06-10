@@ -4,7 +4,7 @@ require "set"
 
 class TraitBank
   class DataDownload
-    BATCH_SIZE = 10_000
+    BATCH_SIZE = 100_000
     TMPDIR = Rails.application.root.join("data", "tmp")
 
     attr_reader :count
