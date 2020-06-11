@@ -79,7 +79,8 @@
                 = link_to(medium_name_html(medium), link_path)
                 .ui.label= medium&.license&.name
               %div
-                %i.copyright.icon
+                - unless medium&.license&.no_copyright?
+                  %i.copyright.icon
                 = owner
                 &nbsp;
                 = link_to(medium&.resource&.name, medium&.resource)

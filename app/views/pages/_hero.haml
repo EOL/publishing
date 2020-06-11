@@ -2,7 +2,8 @@
   .hero{ :class => class_name }
     = image_tag @page.medium.original_size_url
     .img-info
-      %i.copyright.icon
+      - unless @page.medium.license&.no_copyright?
+        %i.copyright.icon
       = image_owner(@page.medium)
       &nbsp;
       = @page.medium.license.try(:name)

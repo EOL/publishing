@@ -23,4 +23,8 @@ class License < ApplicationRecord
       end
     end
   end
+
+  def no_copyright?
+    license_groups.include? LicenseGroup.no_copyright
+  end
 end
