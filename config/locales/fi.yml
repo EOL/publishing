@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: FinlandMan
+# Author: Muovipullo
 # Author: Nike
 # Author: Pyscowicz
 ---
@@ -811,6 +812,8 @@ fi:
   traits:
     data_viz:
       other: muu
+    properties:
+      source: Lähde
   trophic_web:
     group_descriptions:
       source: keskeiset lajit

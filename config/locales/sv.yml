@@ -587,6 +587,24 @@ sv:
         http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kroppsmassa
         http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
         http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kroppsbredd
+        http://eol(dot)org/schema/terms/paleo_megaannum: miljoner år sedan
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: individer per
+          kvadratkilometer
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimeter per månad
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: månader
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: år
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: grader
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /år
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tum
+        http://purl(dot)org/obo/owl/UO#UO_0000034: veckor
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/år
+        Unit: Enhet
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/månad
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/år
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: fot
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tum
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde
