@@ -183,6 +183,7 @@ class Publishing::Fast
 
   def abort_if_already_running
     if (info = ImportLog.already_running?)
+      @resource.log("ABORTED: #{info}")
       raise(info)
     end
   end
