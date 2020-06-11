@@ -1277,6 +1277,13 @@ zh-TW:
       show_n_taxa_between:
         one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
         other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
+    properties:
+      citation: 書目引用
+      method: 測量方法
+      remarks: 附註
+      sample_size: 樣本大小
+      scientific_name: 學名
+      source: 來源
     search:
       clade: 演化支：%{clade}
       download_tsv: 下載 TSV

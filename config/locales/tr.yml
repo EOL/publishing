@@ -1323,6 +1323,13 @@ tr:
       show_n_taxa_between:
         one: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
           görmek için tıklayın'
+    properties:
+      citation: Bibliyografik atıf
+      method: Ölçüm yöntemi
+      remarks: Uyarılar
+      sample_size: Örnek boyut
+      scientific_name: Bilimsel ad
+      source: Kaynak
     search:
       clade: 'klad: %{clade}'
       download_tsv: tsv indir

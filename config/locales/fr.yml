@@ -1346,6 +1346,13 @@ fr:
           %{limit}] %{units}}}
         other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
           %{limit}] %{units}}}
+    properties:
+      citation: Citation bibliographique
+      method: Méthode de mesure
+      remarks: Remarques
+      sample_size: Taille de l’exemple
+      scientific_name: Nom scientifique
+      source: Source
     search:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv

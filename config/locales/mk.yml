@@ -1330,6 +1330,13 @@ mk:
           %{limit}] %{units}
         other: стиснете за да погледате %{count} таксони со мерни вредности во [%{min},
           %{limit}] %{units}
+    properties:
+      citation: Библиографски навод
+      method: Начин на мерење
+      remarks: Прибелешки
+      sample_size: Големина на примерокот
+      scientific_name: Научно име
+      source: Извор
     search:
       clade: 'клад: %{clade}'
       download_tsv: преземи TSV
