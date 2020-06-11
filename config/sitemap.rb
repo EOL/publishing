@@ -3,11 +3,27 @@ SitemapGenerator::Sitemap.default_host = "https://eol.org"
 SitemapGenerator::Sitemap.sitemaps_path = "data/sitemap"
 
 SitemapGenerator::Sitemap.create do
+  ::I18n.locale = ::I18n.default_locale
+  ALT_LOCALES = ::I18n.available_locales.reject { |l| l == ::I18n.default_locale }
+
   def add_custom(path, alternates = [])
-    add path, lastmod: nil, priority: nil, changefreq: nil, alternates: alternates
+    add(path, lastmod: nil, priority: nil, changefreq: nil, alternates: alternates)
   end
 
-  ::I18n.locale = ::I18n.default_locale
+  def add_page_paths(page, path_helper_name)
+    path_helper = method(path_helper_name)
+    main_path = path_helper.call(page, locale: nil)
+
+    alternates = ALT_LOCALES.collect do |locale|
+      {
+        href: "#{SitemapGenerator::Sitemap.default_host}/#{path_helper.call(page, locale: locale)}", # Yes, really. See https://github.com/kjvarga/sitemap_generator/issues/343
+        lang: locale.to_s
+      }
+    end
+
+    add_custom(main_path, alternates)
+  end
+
 
   # /terms/search
   add_custom term_search_path
@@ -16,20 +32,18 @@ SitemapGenerator::Sitemap.create do
 
   EditorPage.find_each do |page|
     if page.published_for_locale(::I18n.default_locale).present?
-      # TODO: figure out how to get absolute urls in alternates -- possible bug with SitemapGenerator
-      #alternates = ::I18n.available_locales.collect do |locale|
-      #  next if locale == I18n.default_locale
-      #  if page.published_for_locale(locale).present?
-      #    { 
-      #      href: editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: locale),
-      #      lang: locale
-      #    }
-      #  else
-      #    nil
-      #  end
-      #end.compact
+      alternates = ALT_LOCALES.collect do |locale|
+        if page.published_for_locale(locale).present?
+          { 
+            href: "#{SitemapGenerator::Sitemap.default_host}/#{editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: locale)}",
+            lang: locale
+          }
+        else
+          nil
+        end
+      end.compact
 
-      add_custom(editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: nil))
+      add_custom(editor_page_path(id: page.name, directory_id: page&.editor_page_directory&.name, locale: nil), alternates)
     end
   end
 
@@ -37,12 +51,12 @@ SitemapGenerator::Sitemap.create do
   # Pages
   Page.find_each do |page|
     if page.has_data?
-      add_custom page_path(page, locale: nil)
-      add_custom page_data_path(page, locale: nil)
-      add_custom page_maps_path(page, locale: nil) if page.map?
-      add_custom page_media_path(page, locale: nil) if page.media_count > 0
-      add_custom page_articles_path(page, locale: nil) if page.articles_count > 0
-      add_custom page_names_path(page, locale: nil)
+      add_page_paths page, :page_path
+      add_page_paths page, :page_data_path
+      add_page_paths page, :page_maps_path if page.map?
+      add_page_paths page, :page_media_path if page.media_count > 0
+      add_page_paths page, :page_articles_path if page.articles_count > 0
+      add_page_paths page, :page_names_path
     end
   end
   
