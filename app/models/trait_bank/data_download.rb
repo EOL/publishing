@@ -46,64 +46,52 @@ class TraitBank
     end
 
     def background_build
+      return background_build_taxa if @query.taxa?
+        
       # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
       # TODO - I am not *entirely* confident that this is memory-efficient
       # with over 1M hits... but I *think* it will work.
-
-
+      writer = TraitBank::RecordDownloadWriter.new(@base_filename, @url)
       Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
-      batch_num = 0
-      tmpfile_paths = []
       TraitBank.batch_term_search(@query, @options, @count) do |batch|
-        tmpfile_path = TMPDIR.join(tmpfile_name(batch_num))
-        tmpfile_paths << tmpfile_path
-
-        Delayed::Worker.logger.info("writing batch #{batch_num} to file #{tmpfile_path}")
-        File.open(tmpfile_path, "wb") do |tmpfile|
-          tmpfile.write(Marshal.dump(batch))
-        end
-        Delayed::Worker.logger.info("finished writing batch #{batch_num} to file #{tmpfile_path}")
-        batch_num += 1
+        writer.write_batch(batch)
       end
 
-      Delayed::Worker.logger.info("finished querying, reading tmpfiles")
+      #filename = if @query.record?
+      #             TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
+      #           elsif @query.taxa?
+      #             TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
+      #           else
+      #             raise "unsupported result type"
+      #           end
 
-      hashes = []
-      tmpfile_paths.each do |path|
-        Delayed::Worker.logger.info("reading results from file #{path}")
-
-        File.open(path, "rb") do |file|
-          hashes.concat(Marshal.load(file.read))
-        end
-
-        Delayed::Worker.logger.info("finished reading results from file #{path}")
-      end
-
-
-      Delayed::Worker.logger.info("finished reading temp files, removing")
-
-      tmpfile_paths.each do |path|
-        File.delete(path)
-      end
-
-      Delayed::Worker.logger.info("writing csv")
-
-      filename = if @query.record?
-                   TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
-                 elsif @query.taxa?
-                   TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
-                 else
-                   raise "unsupported result type"
-                 end
-
+      Delayed::Worker.logger.info("finished queries, finalizing")
+      filename = writer.finalize
       Delayed::Worker.logger.info("finished data download")
+
       filename
     end
 
     private 
     def tmpfile_name(batch_num)
       "#{@base_filename}_query_results_batch_#{batch_num}"
+    end
+
+    # TODO: remove/integrate w/background build
+    def background_build_taxa
+      # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
+      # TODO - I am not *entirely* confident that this is memory-efficient
+      # with over 1M hits... but I *think* it will work.
+      writer = TraitBank::RecordDownloadWriter.new(@base_filename, @url)
+      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
+
+      hashes = []
+      TraitBank.batch_term_search(@query, @options, @count) do |batch|
+        hashes.concat(batch)
+      end
+
+      TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
     end
 
   end
