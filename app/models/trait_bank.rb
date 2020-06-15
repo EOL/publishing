@@ -1440,9 +1440,11 @@ class TraitBank
       @terms[uri] = res["data"].first.first
     end
 
+    # Raises ActiveRecord::RecordNotFound if uri is invalid
     def term_record(uri)
       result = term(uri)
-      result&.[]("data")&.symbolize_keys
+      raise ActiveRecord::RecordNotFound.new("Term doesn't exist for uri '#{uri}'") unless result
+      result["data"].symbolize_keys
     end
 
     def update_term(opts)
