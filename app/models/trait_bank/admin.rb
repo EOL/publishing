@@ -16,7 +16,7 @@ class TraitBank
         indexes.each do |index|
           begin
             query("CREATE INDEX ON :#{index};")
-          rescue Neography::NeographyError => e
+          rescue => e
             if e.to_s =~ /already created/
               puts "Already have an index on #{index}, skipping."
             else
@@ -41,7 +41,7 @@ class TraitBank
               query(
                 "#{drop && drop == :drop ? 'DROP' : 'CREATE'} CONSTRAINT ON (#{name}:#{label}) ASSERT #{name}.#{field} IS UNIQUE;"
               )
-            rescue Neography::NeographyError => e
+            rescue => e
               raise e unless e.message =~ /already exists/ || e.message =~ /No such constraint/
             end
           end

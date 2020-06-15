@@ -846,12 +846,6 @@ class TraitBank
       res["data"] && res["data"].first ? res["data"].first.first : false
     end
 
-    def page_has_parent?(page, page_id)
-      node = Neography::Node.load(page["metadata"]["id"], connection)
-      return false unless node.rel?(:parent)
-      node.outgoing(:parent).map { |n| n[:page_id] }.include?(page_id)
-    end
-
     # For results where each column is labeled <node_label>.<property>, e.g., "predicate.uri",
     # and the values are all strings or numbers
     def flat_results_to_hashes(results)
@@ -1149,42 +1143,11 @@ class TraitBank
         begin
           sleep(0.1)
           connection.create_relationship(how, from, to)
-        rescue Neography::BadInputException => e
-          log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
-          log_error("** from: #{from}")
-          log_error("** to: #{to}")
-        rescue Neography::NeographyError => e
-          log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
-          log_error("** from: #{from}")
-          log_error("** to: #{to}")
-        rescue Excon::Error::Socket => e
-          puts "** TIMEOUT adding relationship"
+        rescue => e
           log_error("** ERROR adding a #{how} relationship:\n#{e.message}")
           log_error("** from: #{from}")
           log_error("** to: #{to}")
         end
-      end
-    end
-
-    def add_parent_to_page(parent, page)
-      if parent.nil?
-        if page.nil?
-          return { added: false, message: 'Cannot add parent from nil to nil!' }
-        else
-          return { added: false, message: "Cannot add parent to nil parent for page #{page["data"]["page_id"]}" }
-        end
-      elsif page.nil?
-        return { added: false, message: "Cannot add parent for nil page to parent #{parent["data"]["page_id"]}" }
-      end
-      if page["data"]["page_id"] == parent["data"]["page_id"]
-        return { added: false, message: "Skipped adding :parent relationship to itself: #{parent["data"]["page_id"]}" }
-      end
-      begin
-        relate("parent", page, parent)
-        return { added: true }
-      rescue Neography::PropertyValueException
-        return { added: false, message: "Cannot add parent for page #{page["data"]["page_id"]} to "\
-          "#{parent["data"]["page_id"]}" }
       end
     end
 
