@@ -43,10 +43,12 @@ class TraitBank
 
     def background_build
       writer = if @query.taxa?
-        TraitBank::PageDownloadWriter.new(@base_filename, @url)
-      else
-        TraitBank::RecordDownloadWriter.new(@base_filename, @url)
-      end
+                 TraitBank::PageDownloadWriter.new(@base_filename, @url)
+               elsif @query.record?
+                 TraitBank::RecordDownloadWriter.new(@base_filename, @url)
+               else
+                 raise TypeError.new("unsupported result type: #{@query.result_type}")
+               end
 
       Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
