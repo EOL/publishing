@@ -147,58 +147,55 @@ class TraitBank::RecordDownloadWriter
   end
 
   def write_batch(hashes)
-    Delayed::Worker.logger.info("RecordDownloadWriter#write_batch -- BEGIN")
-    hashes.in_groups_of(10_000, false) do |batch|
-      Delayed::Worker.logger.info("Processing batch of 10k records")
-      rows = []
+    CSV.open(@tmp_trait_path, "ab", col_sep: "\t") do |csv|
+      hashes.in_groups_of(10_000, false) do |batch|
+        Delayed::Worker.logger.info("writing batch of 10k records")
 
-      pages = Page.where(id: page_ids(batch))
-        .includes(
-          :preferred_vernaculars, 
-          { 
-            native_node: [
-              { node_ancestors: [:ancestor] }, 
-              :scientific_names 
-            ]
-          }
-        )
-        .map { |p| [p.id, p] }.to_h
-      associations = Page.with_scientific_name.where(id: association_ids(batch))
-        .map { |p| [p.id, p] }.to_h
+        pages = Page.where(id: page_ids(batch))
+          .includes(
+            :preferred_vernaculars, 
+            { 
+              native_node: [
+                { node_ancestors: [:ancestor] }, 
+                :scientific_names 
+              ]
+            }
+          )
+          .map { |p| [p.id, p] }.to_h
+        associations = Page.with_scientific_name.where(id: association_ids(batch))
+          .map { |p| [p.id, p] }.to_h
 
-      batch.each do |trait|
-        page = pages[trait[:page_id]]
-        association = associations[trait[:object_page_id]]
-        row = []
+        batch.each do |trait|
+          page = pages[trait[:page_id]]
+          association = associations[trait[:object_page_id]]
+          row = []
 
-        start_cols.each do |_, lamb|
-          row << lamb[trait, page, association]
+          start_cols.each do |_, lamb|
+            row << lamb[trait, page, association]
+          end
+
+          @predicate_uris.each do |uri|
+            row << meta_value(trait, uri)
+          end
+
+          trait[:metadata].each do |meta|
+            predicate = meta[:predicate]
+            uri = predicate[:uri]
+            next if IGNORE_META_URIS.include?(meta[:predicate][:uri]) || @predicate_uris.include?(meta[:predicate][:uri])
+            @predicate_uris << uri
+            @glossary[uri] = {
+              label: predicate[:name],
+              definition: predicate[:definition]
+            }
+            row << meta_value(trait, uri)
+          end
+
+          csv << row
         end
 
-        @predicate_uris.each do |uri|
-          row << meta_value(trait, uri)
-        end
-
-        trait[:metadata].each do |meta|
-          predicate = meta[:predicate]
-          uri = predicate[:uri]
-          next if IGNORE_META_URIS.include?(meta[:predicate][:uri]) || @predicate_uris.include?(meta[:predicate][:uri])
-          @predicate_uris << uri
-          @glossary[uri] = {
-            label: predicate[:name],
-            definition: predicate[:definition]
-          }
-          row << meta_value(trait, uri)
-        end
-
-        rows << row
+        Delayed::Worker.logger.info("finished writing batch")
       end
-
-      Delayed::Worker.logger.info("writing rows")
-      write_rows(rows)
-      Delayed::Worker.logger.info("finished writing rows")
     end
-    Delayed::Worker.logger.info("RecordDownloadWriter#write_batch -- END")
   end
 
   def finalize
@@ -287,15 +284,6 @@ class TraitBank::RecordDownloadWriter
       zipfile.mkdir(@directory_name)
       zipfile.add("#{@directory_name}/#{@trait_filename}", @trait_path)
       zipfile.add("#{@directory_name}/#{@glossary_filename}", TraitBank::DataDownload.path.join(@glossary_filename))
-    end
-  end
-
-  private
-  def write_rows(rows)
-    CSV.open(@tmp_trait_path, "ab", col_sep: "\t") do |csv|
-      rows.each do |row|
-        csv << row
-      end
     end
   end
 end
