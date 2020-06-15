@@ -13,7 +13,7 @@ class TraitBank
 
     def query_connection
       if !@query_connection
-        adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.traitbank_url, { ssl: false, wrap_level: :none })
+        adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.neo4j.session.url, { ssl: false, wrap_level: :none })
         @query_connection = Neo4j::Core::CypherSession.new(adaptor)
       end
 
