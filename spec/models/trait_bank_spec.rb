@@ -316,39 +316,6 @@ RSpec.describe TraitBank do
     end
   end
 
-#  describe 'convenience aliases to .by_predicate' do
-#    it 'counts predicates' do
-#      expect(TraitBank).to receive(:term_search).with({predicate: :abc, count: true })
-#      TraitBank.by_predicate_count(:abc)
-#    end
-#
-#    it 'by object term uri' do
-#      expect(TraitBank).to receive(:term_search).with({ object_term: :bcd })
-#      TraitBank.by_object_term_uri(:bcd)
-#    end
-#
-#    it 'count by object term uri' do
-#      expect(TraitBank).to receive(:term_search).with({ object_term: :def, count: true })
-#      TraitBank.by_object_term_count(:def)
-#    end
-#  end
-
-  describe '.search_predicate_terms' do
-    it 'uses the important parts of query' do
-      expect(TraitBank).to receive(:query).
-        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*order by lower\(\w+\.name\)/i) { { 'data' => [[{ 'data' => :this }]] } }
-      expect(TraitBank.search_predicate_terms(:trmy)).to eq([:this])
-    end
-  end
-
-  describe '.count_predicate_terms' do
-    it 'uses the important parts of query' do
-      expect(TraitBank).to receive(:query).
-        with(/:predicate\]->\(\w+:term\).*name =\~ .*trmy.*count\(distinct\(/i) { { 'data' => [[543]] } }
-      expect(TraitBank.count_predicate_terms(:trmy)).to eq(543)
-    end
-  end
-
   describe '.search_object_terms' do
     it 'uses the important parts of query' do
       expect(TraitBank).to receive(:query).
