@@ -38,7 +38,7 @@ gem 'kaminari', '~> 1.2'
 # maintainable!
 
 # To aid in reindexing ElasticSearch. See also connection_pool; also requires redis.
-gem 'activejob-traffic_control', '>= 0.1.3'
+# gem 'activejob-traffic_control', '>= 0.1.3'
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.0'
 # Acts As List simplifies ordered lists of models:
@@ -46,7 +46,7 @@ gem 'acts_as_list', '~> 1.0'
 # Faster startup:
 gem 'bootsnap', '~> 1.4', require: false
 # To aid in reindexing ElasticSearch. See also activejob-traffic_control; also requires redis.
-gem 'connection_pool', '~> 2.2'
+# gem 'connection_pool', '~> 2.2'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 2.3'
 # Cron jobs:
