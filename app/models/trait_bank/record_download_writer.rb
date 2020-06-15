@@ -91,11 +91,6 @@ class TraitBank::RecordDownloadWriter
     }
   end
 
-  def end_cols
-    {
-    }
-  end
-  
   def initialize(base_filename, search_url)
     @directory_name = base_filename
     @zip_filename = "#{base_filename}.zip"
@@ -112,15 +107,6 @@ class TraitBank::RecordDownloadWriter
     @cols_with_vals = Set.new
     @predicate_uris = []
   end
-
-  #def write
-  #  get_predicates
-  #  to_arrays
-  #  write_csv
-  #  write_glossary
-  #  write_zip
-  #  @zip_filename
-  #end
 
   def handle_term(term)
     if term
@@ -159,11 +145,6 @@ class TraitBank::RecordDownloadWriter
       nil
     end
   end
-
-  #def track_value(i, val)
-  #  @cols_with_vals.add(i) if val
-  #  val
-  #end
 
   def write_batch(hashes)
     Delayed::Worker.logger.info("RecordDownloadWriter#write_batch -- BEGIN")
@@ -238,73 +219,6 @@ class TraitBank::RecordDownloadWriter
 
     Delayed::Worker.logger.info("RecordDownloadWriter#finalize -- END")
     @zip_filename
-  end
-
-  #def to_arrays
-  #  @data = []
-  #  @data << start_cols.keys + @predicates.keys
-  #  cols_with_vals = Set.new
-
-  #  @hashes.in_groups_of(10_000, false) do |hashes|
-  #    pages = Page.where(id: page_ids(hashes))
-  #      .includes(
-  #        :preferred_vernaculars, 
-  #        { 
-  #          native_node: [
-  #            { node_ancestors: [:ancestor] }, 
-  #            :scientific_names 
-  #          ]
-  #        }
-  #      )
-  #      .map { |p| [p.id, p] }.to_h
-  #    associations = Page.with_scientific_name.where(id: association_ids(hashes))
-  #      .map { |p| [p.id, p] }.to_h
-
-  #    hashes.each do |trait|
-  #      page = pages[trait[:page_id]]
-  #      association = associations[trait[:object_page_id]]
-  #      row = []
-  #      i = 0
-
-  #      start_cols.each do |_, lamb|
-  #        row << track_value(i, lamb[trait, page, association], cols_with_vals)
-  #        i += 1
-  #      end
-
-  #      @predicates.values.each do |predicate|
-  #        @glossary[predicate[:uri]] = {
-  #          :label => predicate[:name],
-  #          :definition => predicate[:definition]
-  #        }
-  #        row << track_value(i, meta_value(trait, predicate[:uri]), cols_with_vals)
-  #        i += 1
-  #      end
-  #      @data << row
-  #    end
-  #  end
-
-  #  remove_blank_cols(@data, cols_with_vals)
-  #  @data
-  #end
-
-  def remove_blank_cols(data, cols_with_vals)
-    data.each do |row| 
-      row.delete_if.with_index { |_, i| !cols_with_vals.include? i }
-    end
-
-    data
-  end
-
-  def generate_csv
-    CSV.generate(col_sep: "\t") do |csv|
-      @data.each { |row| csv << row }
-    end
-  end
-
-  def write_csv
-    CSV.open(TraitBank::DataDownload.path.join(@trait_filename), "wb", :col_sep => "\t") do |csv|
-      @data.each { |row| csv << row }
-    end
   end
 
   def write_glossary
