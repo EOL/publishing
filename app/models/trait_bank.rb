@@ -397,7 +397,10 @@ class TraitBank
         data = if options[:id_only]
                  res["data"]&.flatten
                else 
-                 trait_array_options = { key: key }
+                 trait_array_options = { 
+                   key: key,
+                   flat_results: true
+                 }
 
                  if use_record_search
                    trait_array_options[:flat_results] = true
@@ -791,10 +794,8 @@ class TraitBank
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
       return_clause = if options[:count] 
                         "RETURN page_count"
-                      elsif options[:id_only]
-                        "RETURN DISTINCT(page.page_id)"
-                      else
-                        "RETURN DISTINCT(page)"
+                      else options[:id_only]
+                        "RETURN DISTINCT page.page_id"
                       end
 
       where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
@@ -805,172 +806,7 @@ class TraitBank
       "#{with_count_clause} "\
       "#{return_clause} "\
       "#{limit_and_skip} "
-      # TEMP: trying this out without the order clause, since it's SOOOO much faster...
-      # "#{order_clause}"
     end
-
-#    NOTE: This is the version that handles inverse predicates. It isn't performing ATM, but we might want it in the future,
-#    so here it is.
-#    def term_record_search(term_query, options)
-#      matches = []
-#      optional_matches = []
-#      collects = []
-#      rows_vars = []
-#      trait_inv_rows = []
-#
-#      matches << {
-#        match: [clade_page_match(term_query.clade)],
-#        where: nil
-#      }
-#
-#      term_query.filters_inv_pred_last.each_with_index do |filter, i|
-#        term_search_filter_match(
-#          filter,
-#          i,
-#          matches,
-#          optional_matches,
-#          collects: collects,
-#          trait_inv_rows: trait_inv_rows
-#        )
-#      end
-#
-#      match_part = term_search_match_str(matches, :match)
-#      optional_match_part = term_search_match_str(optional_matches, :optional)
-#
-#      collect_str = collects.collect do |collect|
-#        rows_vars << collect[:rows_var]
-#        "collect("\
-#        "CASE WHEN #{collect[:trait]} is null THEN null ELSE "\
-#        "{ invPage: #{collect[:inv_page]}, trait: #{collect[:trait]}, predicate: #{collect[:predicate]} } "\
-#        "END) AS #{collect[:rows_var]}"
-#      end.join(", ")
-#
-#      inv_filter_where = if trait_inv_rows.any?
-#                           conditions = trait_inv_rows.collect do |row_vars|
-#                             or_cond = row_vars.collect do |row_var|
-#                               "size(#{row_var}) > 0"
-#                             end.join(" OR ")
-#                             "(#{or_cond})"
-#                           end.join(" AND ")
-#                           "WHERE #{conditions}\n"
-#                         else
-#                           ""
-#                         end
-#
-#      collect_unwind_part =
-#        "WITH page, #{collect_str}\n"\
-#        "#{inv_filter_where}"\
-#        "WITH page, #{rows_vars.join(" + ")} as all_rows\n"\
-#        "UNWIND all_rows as row\n"\
-#        "WITH DISTINCT page, row\n"\
-#        "WITH coalesce(row.invPage, page) as page, row.trait as trait, row.predicate as predicate\n"\
-#
-#      optional_trait_matches = [
-#        "(trait)-[:object_term]->(object_term:Term)",
-#        "(trait)-[:units_term]->(units:Term)",
-#        "(trait)-[:normal_units_term]->(normal_units:Term)",
-#        "(trait)-[:sex_term]->(sex_term:Term)",
-#        "(trait)-[:lifestage_term]->(lifestage_term:Term)",
-#        "(trait)-[:statistical_method_term]->(statistical_method_term:Term)",
-#        "(trait)-[:supplier]->(resource:Resource)"
-#      ]
-#      optional_trait_matches += [
-#        "(trait)-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)",
-#        "(meta)-[:units_term]->(meta_units_term:Term)",
-#        "(meta)-[:object_term]->(meta_object_term:Term)",
-#        "(meta)-[:sex_term]->(meta_sex_term:Term)",
-#        "(meta)-[:lifestage_term]->(meta_lifestage_term:Term)",
-#        "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
-#      ] if options[:meta]
-#
-#      optional_trait_match_part =
-#        if options[:count]
-#          ''
-#        else
-#          optional_trait_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
-#        end
-#
-#      returns =
-#        if options[:count]
-#          ["count"]
-#        else
-#          %w[page trait predicate units normal_units object_term sex_term lifestage_term statistical_method_term resource]
-#        end
-#
-#      if options[:meta] && !options[:count]
-#        returns += %w[meta meta_predicate meta_units_term meta_object_term meta_sex_term meta_lifestage_term
-#          meta_statistical_method_term]
-#      end
-#
-#      with_count_clause = options[:count] ?
-#                          "WITH count(*) AS count " :
-#                          ""
-#
-#      return_clause = "RETURN #{returns.join(", ")}"
-#
-#      q = "#{match_part}\n"\
-#      "#{optional_match_part}\n"\
-#      "#{collect_unwind_part}\n"\
-#      "#{optional_trait_match_part}\n"\
-#      "#{with_count_clause}\n"\
-#      "#{return_clause} "# \
-#
-#      # q += "ORDER BY page.page_id " if !options[:count]
-#      q
-#    end
-
-#    SEE NOTE FOR COMMENTED-OUT term_recor_search
-#    def term_page_search(term_query, options)
-#      matches = []
-#      traits_invs = []
-#      optional_matches = []
-#
-#      matches << {
-#        match: [clade_page_match(term_query.clade)],
-#        where: nil
-#      }
-#
-#      term_query.filters_inv_pred_last.each_with_index do |filter, i|
-#        term_search_filter_match(
-#          filter,
-#          i,
-#          matches,
-#          optional_matches,
-#          traits_invs: traits_invs
-#        )
-#      end
-#
-#      trait_count_vars = []
-#      count_where = traits_invs.collect do |trait_inv|
-#        inner = trait_inv.collect do |trait_var|
-#          count_var = "#{trait_var}_count"
-#          trait_count_vars << {
-#            trait_var: trait_var,
-#            count_var: count_var
-#          }
-#          "#{count_var} > 0"
-#        end.join(" OR ")
-#        "(#{inner})"
-#      end.join(" AND ")
-#
-#      match_part = term_search_match_str(matches, :match)
-#      optional_match_part = term_search_match_str(optional_matches, :optional)
-#
-#      query = "#{match_part}\n"\
-#      "#{optional_match_part}\n"\
-#      "WITH page, #{trait_count_vars.collect { |t| "count(#{t[:trait_var]}) AS #{t[:count_var]}" }.join(", ")}\n"\
-#      "WHERE #{count_where}"\
-#
-#      with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS count " : ""
-#      return_clause = options[:count] ? "RETURN count" : "RETURN DISTINCT(page)"
-#      # order_clause = options[:count] ? "" : "ORDER BY page.name"
-#
-#      "#{query}\n"\
-#      "#{with_count_clause}\n"\
-#      "#{return_clause}"# \
-#      # TEMP: trying this out without the order clause, since it's SOOOO much faster...
-#      # "#{order_clause}"
-#    end
 
     def clade_page_match(clade)
       page_match = "(page:Page)"
@@ -1021,6 +857,7 @@ class TraitBank
     def flat_results_to_hashes(results)
       id_col_label = "trait.eol_pk" # NOTE: this could be made an option to generalize the method
       id_col = results["columns"].index(id_col_label)
+      id_col ||= 0 # If there is no trait column and nothing was specified...
       raise "missing id column #{id_col_label}" if id_col.nil?
       hashes = []
       previous_id = nil
