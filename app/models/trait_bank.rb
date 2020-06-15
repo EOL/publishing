@@ -931,9 +931,7 @@ class TraitBank
         row_id = if id_col_val.is_a? String
                    id_col_val
                  else
-                   # TODO: fixxxx
                    id_col_val["eol_pk"] || id_col_val["uri"]
-                   #id_col_val.dig("metadata", "id")
                  end
         #raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         next if row_id.nil?
