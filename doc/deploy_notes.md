@@ -16,4 +16,4 @@ Thanks.
 == THE NOTES:
 
 6/3/2020 (mvitale): db:migrate && bundle required for deploy of changes from branch bye\_refinery (in master)
-6/15/2020 (mvitale): Bundle. Update secrets.yml traitbank_url for bolt. Data download code also expects metadata migration to have been performed.
+6/15/2020 (mvitale): Add neo4jrb_url (bolt://...:7687) to secrets.yml. Data download code also metadata migration to have been performed, but will still run if not.
