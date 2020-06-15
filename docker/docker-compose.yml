@@ -139,6 +139,8 @@ services:
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS="redis://redis:6379"
+      - REDIS_PROVIDER=EOL_REDIS
     volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
