@@ -11,13 +11,17 @@ class TraitBank
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
 
-    def connection
-      if !@connection
+    def query_connection
+      if !@query_connection
         adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.traitbank_url, { ssl: false, wrap_level: :none })
-        @connection = Neo4j::Core::CypherSession.new(adaptor)
+        @query_connection = Neo4j::Core::CypherSession.new(adaptor)
       end
-      
-      @connection
+
+      @query_connection
+    end
+
+    def connection
+      @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
 
     def ping
@@ -34,16 +38,16 @@ class TraitBank
       results = nil
       q.sub(/\A\s+/, "")
       begin
-        results = connection.query(q)
+        results = query_connection.query(q)
         stop = Time.now
       rescue Excon::Error::Socket => e
         log_error("Connection refused on query: #{q}")
         sleep(0.1)
-        results = connection.query(q)
+        results = query_connection.query(q)
       rescue Excon::Error::Timeout => e
         log_error("Timed out on query: #{q}")
         sleep(1)
-        results = connection.query(q)
+        results = query_connection.query(q)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
