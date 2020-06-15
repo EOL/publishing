@@ -98,6 +98,8 @@ gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
 gem 'rubyzip', '~> 2.2'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 4' # Needs to stay in sync (ish) with the elasticsearch gem.
+# Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
+gem 'sidekiq'
 gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
