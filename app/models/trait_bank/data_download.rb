@@ -37,34 +37,23 @@ class TraitBank
       raise TypeError.new("count cannot be nil") if count.nil?
       @query = term_query
       @options = { per: BATCH_SIZE, meta: true, cache: false }
-      # TODO: would be great if we could detect whether a version already exists
-      # for download and use that.
-
       @base_filename = "#{Digest::MD5.hexdigest(@query.as_json.to_s)}_#{Time.now.to_i}"
       @url = url
       @count = count
     end
 
     def background_build
-      return background_build_taxa if @query.taxa?
-        
-      # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
-      # TODO - I am not *entirely* confident that this is memory-efficient
-      # with over 1M hits... but I *think* it will work.
-      writer = TraitBank::RecordDownloadWriter.new(@base_filename, @url)
+      writer = if @query.taxa?
+        TraitBank::PageDownloadWriter.new(@base_filename, @url)
+      else
+        TraitBank::RecordDownloadWriter.new(@base_filename, @url)
+      end
+
       Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
 
       TraitBank.batch_term_search(@query, @options, @count) do |batch|
         writer.write_batch(batch)
       end
-
-      #filename = if @query.record?
-      #             TraitBank::RecordDownloadWriter.new(hashes, @base_filename, @url).write
-      #           elsif @query.taxa?
-      #             TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
-      #           else
-      #             raise "unsupported result type"
-      #           end
 
       Delayed::Worker.logger.info("finished queries, finalizing")
       filename = writer.finalize
@@ -72,27 +61,5 @@ class TraitBank
 
       filename
     end
-
-    private 
-    def tmpfile_name(batch_num)
-      "#{@base_filename}_query_results_batch_#{batch_num}"
-    end
-
-    # TODO: remove/integrate w/background build
-    def background_build_taxa
-      # OOOOPS! We don't actually want to do this here, we want to call a DataDownload. ...which means this logic is in the wrong place. TODO - move.
-      # TODO - I am not *entirely* confident that this is memory-efficient
-      # with over 1M hits... but I *think* it will work.
-      writer = TraitBank::RecordDownloadWriter.new(@base_filename, @url)
-      Delayed::Worker.logger.info("beginning data download query for #{@query.to_s}")
-
-      hashes = []
-      TraitBank.batch_term_search(@query, @options, @count) do |batch|
-        hashes.concat(batch)
-      end
-
-      TraitBank::PageDownloadWriter.write(hashes, @base_filename, @url)
-    end
-
   end
 end
