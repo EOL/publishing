@@ -82,6 +82,8 @@ gem 'haml-rails', '~> 2.0'
 gem 'http', '~> 4.3'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
+# Neography is used for our Triple Store for now:
+gem 'neography', git: "https://github.com/EOL/neography"
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
@@ -105,7 +107,7 @@ gem 'client_side_validations', '~> 16.1'
 gem 'client_side_validations-simple_form', '~> 9.2'
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
 gem 'typhoeus', '~> 1.3'
-# neo4j driver/OGM
+# OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'neo4j', '~> 9.4'
 # Sitemap
 gem 'sitemap_generator', '~> 6.1'
