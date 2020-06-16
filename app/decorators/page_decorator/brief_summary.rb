@@ -832,12 +832,14 @@ class PageDecorator
         )
       end
 
-      def term_toggle_id(term_name)
-        "brief-summary-#{term_name.gsub(/\s/, "-")}"
+      def term_toggle_id
+        @term_toggle_count ||= -1
+        @term_toggle_count += 1
+        "brief-summary-toggle-#{@term_toggle_count}"
       end
 
       def term_tag(label, pred_uri, term, trait_source = nil)
-        toggle_id = term_toggle_id(label)
+        toggle_id = term_toggle_id
 
         @terms << ResultTerm.new(
           pred_uri,
