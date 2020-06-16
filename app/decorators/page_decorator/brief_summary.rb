@@ -542,7 +542,7 @@ class PageDecorator
       end
 
       def forms_sentence
-        forms_traits = @page.grouped_data[Eol::Uris.forms]
+        forms_traits = @page.grouped_data[Eol::Uris.forms] || [] #intentionally skip descendants of this term
 
         if forms_traits.any?
           lifestage_trait = forms_traits.find do |t|
