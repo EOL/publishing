@@ -7,6 +7,8 @@ class PageDecorator
   class BriefSummary
     attr_accessor :view
 
+    class BadTraitError < TypeError; end
+
     FLOWER_VISITOR_LIMIT = 4
     SUBJ_RESET = 3
 
@@ -81,8 +83,13 @@ class PageDecorator
         subj = use_name ? name_clause : pronoun_for_rank.capitalize
         is = is_species? ? "is" : "are"
         has = is_species? ? "has" : "have"
+        sentence = nil
 
-        sentence = yield(subj, is, has)
+        begin
+          sentence = yield(subj, is, has)
+        rescue BadTraitError => e
+          Rails.logger.warn(e.message)
+        end
 
         if sentence.present?
           if sentence.start_with?("#{subj} ")
@@ -129,7 +136,9 @@ class PageDecorator
         first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          trait_sentence_part("This group has been around since the %s.", first_appearance_trait)
+          add_sentence do |_, __, ___|
+            trait_sentence_part("This group has been around since the %s.", first_appearance_trait)
+          end
         end
       end
 
@@ -214,10 +223,11 @@ class PageDecorator
         end
 
         if native_range_traits.any?
-          native_range_part = native_range_traits.collect do |t|
-            trait_sentence_part("%s", t)
-          end.to_sentence
           add_sentence do |subj, is, _|
+            native_range_part = native_range_traits.collect do |t|
+              trait_sentence_part("%s", t)
+            end.to_sentence
+
             "#{subj} #{is} native to #{native_range_part}."
           end
         elsif g1
@@ -285,10 +295,11 @@ class PageDecorator
         solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
         begin_traits = [solitary, circadian].compact
         trophic = first_trait_for_pred_uri(Eol::Uris.trophic_level)
-        trophic_part = trait_sentence_part("%s", trophic) if trophic
-        sentence = nil
 
         add_sentence do |subj, is, _|
+          sentence = nil
+          trophic_part = trait_sentence_part("%s", trophic) if trophic
+
           if begin_traits.any?
             begin_parts = begin_traits.collect do |t|
               trait_sentence_part("%s", t)
@@ -475,24 +486,26 @@ class PageDecorator
         flower_part = nil
         fruit_part = nil
 
-        if leaf_traits.any?
-          leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
-          leaf_part = "#{leaf_parts.join(", ")} leaves"
-        end
+        add_sentence do |subj, is, has|
+          if leaf_traits.any?
+            leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
+            leaf_part = "#{leaf_parts.join(", ")} leaves"
+          end
 
-        if flower_trait
-          flower_part = trait_sentence_part("%s flowers", flower_trait)
-        end
+          if flower_trait
+            flower_part = trait_sentence_part("%s flowers", flower_trait)
+          end
 
-        if fruit_trait
-          fruit_part = trait_sentence_part("%s", fruit_trait)
-        end
+          if fruit_trait
+            fruit_part = trait_sentence_part("%s", fruit_trait)
+          end
 
-        parts = [leaf_part, flower_part, fruit_part].compact
+          parts = [leaf_part, flower_part, fruit_part].compact
 
-        if parts.any?
-          add_sentence do |subj, is, has|
+          if parts.any?
             "#{subj} #{has} #{parts.to_sentence}."
+          else
+            nil
           end
         end
       end
@@ -855,9 +868,9 @@ class PageDecorator
 
         if trait[:object_page_id]
           association_sentence_part(format_str, trait[:object_page_id])
-        else
-          name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
-          pred_uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
+        elsif trait[:predicate] && trait[:object_term]
+          name = trait[:object_term][:name]
+          pred_uri = trait[:predicate][:uri]
           obj = trait[:object_term]
           term_sentence_part(
             format_str,
@@ -865,6 +878,10 @@ class PageDecorator
             pred_uri,
             obj
           )
+        elsif trait[:literal]
+          sprintf(format_str, trait[:literal])
+        else
+          raise BadTraitError.new("Undisplayable trait: #{trait[:id]}")
         end
       end
 
