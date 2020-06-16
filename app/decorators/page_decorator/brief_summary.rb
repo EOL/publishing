@@ -529,10 +529,10 @@ class PageDecorator
       end
 
       def forms_sentence
-        forms_traits = traits_for_pred_uris(Eol::Uris.forms)
+        forms_traits = @page.grouped_data[Eol::Uris.forms]
 
         if forms_traits.any?
-          lifestage_trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
+          lifestage_trait = forms_traits.find do |t|
             t.[](:lifestage_term)&.[](:name)&.present?
           end
 
