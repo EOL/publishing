@@ -152,6 +152,7 @@ services:
       - eol-backend-neo4j
       - eol-backend-memcached
       - eol-backend-elasticsearch
+      - eol-redis
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
