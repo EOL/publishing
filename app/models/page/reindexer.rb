@@ -19,9 +19,15 @@ class Page::Reindexer
       `nohup rails r 'Page.reindex(async: {wait: true}, resume: true)' > #{path} 2>&1 &`
     end
 
-    # WARNING: you *probably* want to sanity check #index_sizes before you call this! Make sure it's really done.
-    def promote_background_index
+    def promote_background_index(force = false)
+      status = Searchkick.reindex_status(index_names.sort.last)
+      if !force && !status[:completed]
+        puts "Reindex incomplete! There are #{status[:batches_left]} batches left.\n"\
+             "You can override this with \`promote_background_index(true)\`."
+        return
+      end
       Product.search_index.promote(index_names.sort.last)
+      # => {:completed=>false, :batches_left=>2143}
     end
 
     def index_names
