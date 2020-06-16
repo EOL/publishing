@@ -222,12 +222,10 @@ class PageDecorator
           end
         end
 
-        if native_range_traits.any?
-          add_sentence do |subj, is, _|
-            native_range_part = native_range_traits.collect do |t|
-              trait_sentence_part("%s", t)
-            end.to_sentence
 
+        native_range_part = values_to_sentence([Eol::Uris.native_range])
+        if native_range_part.present?
+          add_sentence do |subj, is, _|
             "#{subj} #{is} native to #{native_range_part}."
           end
         elsif g1
@@ -651,10 +649,6 @@ class PageDecorator
 
       def freshwater_trait
         @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
-      end
-
-      def native_range_traits
-        @native_range_traits ||= traits_for_pred_uris(Eol::Uris.native_range)
       end
 
       def has_data(options)
