@@ -76,7 +76,7 @@ class TraitBank
       end
 
       hash_results = {}
-      hash_results["data"] = results.rows.collect do |row| 
+      hash_results["data"] = results.rows.collect do |row|
         row.collect do |val|
           if val.is_a? Hash
             val.stringify_keys
@@ -1015,8 +1015,7 @@ class TraitBank
     end
 
     def find_resource(id)
-      res = query("MATCH (resource:Resource { resource_id: #{id} }) "\
-        "RETURN resource LIMIT 1")
+      res = query("MATCH (resource:Resource { resource_id: #{id} }) RETURN resource LIMIT 1")
       res["data"] ? res["data"].first : false
     end
 
