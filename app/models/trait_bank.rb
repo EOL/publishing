@@ -33,6 +33,28 @@ class TraitBank
       true
     end
 
+    def neography_query(q)
+      start = Time.now
+      results = nil
+      q.sub(/\A\s+/, "")
+      begin
+        results = connection.execute_query(q)
+        stop = Time.now
+      rescue Excon::Error::Socket => e
+        log_error("Connection refused on query: #{q}")
+        sleep(0.1)
+        results = connection.execute_query(q)
+      rescue Excon::Error::Timeout => e
+        log_error("Timed out on query: #{q}")
+        sleep(1)
+        results = connection.execute_query(q)
+      ensure
+        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
+        log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
+      end
+      results
+    end
+
     def query(q)
       start = Time.now
       results = nil

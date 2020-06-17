@@ -2,7 +2,7 @@ class TraitBank::Slurp
   @max_csv_size = 1_000_000
 
   class << self
-    delegate :query, to: TraitBank
+    delegate :neography_query, to: TraitBank
 
     def load_resource_from_repo(resource)
       repo = ContentServerConnection.new(resource)
@@ -256,7 +256,7 @@ class TraitBank::Slurp
           correct_pks << row[position]
         end
       end
-      data = TraitBank.query("MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(n:#{label}) "\
+      data = neography_query("MATCH (:Resource { resource_id: #{resource_id} })<-[:supplier]-(n:#{label}) "\
         "RETURN n.eol_pk")
       traitbank_pks = Set.new
       data['data'].each { |row| traitbank_pks << row.first }
@@ -318,7 +318,7 @@ class TraitBank::Slurp
     end
 
     def get_old_ancestry_version
-      r = TraitBank.query("MATCH (p:Page)-[rel:parent]->(:Page) RETURN MAX(rel.ancestry_version)")
+      r = neography_query("MATCH (p:Page)-[rel:parent]->(:Page) RETURN MAX(rel.ancestry_version)")
       return 0 unless r&.is_a?(Hash)
       r['data'].first.first.to_i
     end
@@ -346,7 +346,7 @@ class TraitBank::Slurp
     end
 
     def execute_clauses(clauses)
-      query(clauses.join("\n"))
+      neography_query(clauses.join("\n"))
     end
 
     def build_nodes(options)
@@ -362,7 +362,7 @@ class TraitBank::Slurp
         q << set_attribute(name, attribute, value, 'CREATE')
         q << set_attribute(name, attribute, value, 'MATCH')
       end
-      query(q)
+      neography_query(q)
     end
 
     # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
@@ -399,7 +399,7 @@ class TraitBank::Slurp
         q += "\nMATCH (#{name}:#{match})"
       end
       # Then merge the triple:
-      query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
+      neography_query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
     end
 
     def set_attribute(name, attribute, value, on_set)
