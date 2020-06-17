@@ -252,7 +252,8 @@ class TermQueryFilter < ApplicationRecord
       uri = send(uri_method)
 
       if uri.present?
-        TraitBank.term_record(uri) # raises if not found
+        record = TraitBank.term_record(uri) 
+        errors.add(uri_method, I18n.t("term_query_filter.validations.invalid_uri")) if record.nil?
       end
     end
   end

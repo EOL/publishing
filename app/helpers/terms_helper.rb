@@ -87,7 +87,7 @@ module TermsHelper
       parts << t("#{prefix}resource", value: filter.resource.name) if filter.resource
     end
 
-    parts.join("<br>")
+    sanitize(parts.join("<br>"), tags: %w( br ))
   end
 
   def term_query_display_string(tq)

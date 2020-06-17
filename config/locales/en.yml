@@ -1032,6 +1032,7 @@ en:
   term_query_filter:
     validations:
       blank_error: "must specify an attribute or value"
+      invalid_uri: "invalid URI"
       pred_uri_blank_numeric_error: "can't be blank with a numeric value"
       range_invalid_error: "must be >= to first value"
   terms:
