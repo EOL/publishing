@@ -1060,6 +1060,8 @@ ar:
   traits:
     data_viz:
       about_this_chart: حول هذا المخطط
+    properties:
+      scientific_name: الاسم العلمي
     search:
       download_tsv: تنزيل tsv
       edit_filters: مرشحات التعديل

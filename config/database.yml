@@ -5,7 +5,7 @@ common: &common
   adapter: mysql2
   encoding: utf8mb4
   reconnect: true
-  wait_timeout: 300
+  pool: 40
   local_infile: true
   username: <%= Rails.application.secrets.db[:username] %>
   password: <%= Rails.application.secrets.db[:password] %>

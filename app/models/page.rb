@@ -170,8 +170,8 @@ class Page < ApplicationRecord
 
     def autocomplete(query, options = {})
       search(query, options.reverse_merge({
-        #fields: ['autocomplete_names'],
-        fields: ['dh_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
+        fields: ['autocomplete_names'],
+        #fields: ['dh_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
         match: :text_start,
         limit: 10,
         load: false,

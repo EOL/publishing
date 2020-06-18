@@ -1289,6 +1289,7 @@ fr:
   term_query_filter:
     validations:
       blank_error: doit spécifier un attribut ou une valeur
+      invalid_uri: URI non valide
       pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
       range_invalid_error: doit être supérieur ou égal à la première valeur
   terms:
@@ -1346,6 +1347,13 @@ fr:
           %{limit}] %{units}}}
         other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
           %{limit}] %{units}}}
+    properties:
+      citation: Citation bibliographique
+      method: Méthode de mesure
+      remarks: Remarques
+      sample_size: Taille de l’échantillon
+      scientific_name: Nom scientifique
+      source: Source
     search:
       clade: 'clade : %{clade}'
       download_tsv: télécharger le tsv

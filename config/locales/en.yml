@@ -1032,6 +1032,7 @@ en:
   term_query_filter:
     validations:
       blank_error: "must specify an attribute or value"
+      invalid_uri: "invalid URI"
       pred_uri_blank_numeric_error: "can't be blank with a numeric value"
       range_invalid_error: "must be >= to first value"
   terms:
@@ -1081,6 +1082,13 @@ en:
       show_n_taxa_between:
         one: "click to see %{count} taxon with measurement values in [%{min}, %{limit}] %{units}"
         other: "click to see %{count} taxa with measurement values in [%{min}, %{limit}] %{units}"
+    properties:
+      citation: "Bibliographic citation"
+      method: "Measurement method"
+      remarks: "Remarks"
+      sample_size: "Sample size"
+      scientific_name: "Scientific name"
+      source: "Source"
     search:
       clade: "clade: %{clade}"
       download_tsv: "download tsv"

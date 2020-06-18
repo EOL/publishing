@@ -1,14 +1,14 @@
 version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of the config formatting to use. Keep it here.
 services:
   eol-backend-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch
     restart: always
     environment:
       - RAILS_ENV
       - bootstrap.memory_lock=true
       - cluster.name=eol-search-${RAILS_ENV}
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
     ulimits:
       memlock:
         soft: -1
@@ -22,13 +22,13 @@ services:
     networks:
       - eolnet
   eol-backend-elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch2
     environment:
       - RAILS_ENV
       - cluster.name=eol-search-${RAILS_ENV}
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch3]"
     ulimits:
       memlock:
@@ -41,12 +41,12 @@ services:
     networks:
       - eolnet
   eol-backend-elasticsearch3:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch3
     environment:
       - cluster.name=eol-search-${RAILS_ENV}
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
       - "discovery.zen.ping.unicast.hosts=[eol-backend-elasticsearch,eol-backend-elasticsearch2]"
     ulimits:
       memlock:
@@ -139,6 +139,8 @@ services:
     environment: # NOTE: see https://docs.docker.com/compose/environment-variables/ for details.
       - RAILS_ENV
       - ELASTICSEARCH_URL=elasticsearch:9200
+      - EOL_REDIS="redis://redis:6379"
+      - REDIS_PROVIDER=EOL_REDIS
     volumes: # NOTE: YES, it shares the data volumes with production, so you can download the files that were processed here.
       - ./resources/secrets.yml:/app/config/secrets.yml
       - ../config/supervisord_jobs.conf:/etc/supervisord.conf
@@ -150,6 +152,7 @@ services:
       - eol-backend-neo4j
       - eol-backend-memcached
       - eol-backend-elasticsearch
+      - eol-redis
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached

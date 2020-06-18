@@ -95,7 +95,7 @@ class Publishing::Fast
         log_warn("COULDN'T FIND #{plural}.tsv !")
       end
     rescue => e
-      @log.fail(e)
+      @log.fail_on_error(e)
       raise e
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
@@ -175,7 +175,7 @@ class Publishing::Fast
       end
     rescue => e
       clean_up
-      @log.fail(e)
+      @log.fail_on_error(e)
     ensure
       log_end("TOTAL TIME: #{Time.delta_str(@start_at)}")
       log_close

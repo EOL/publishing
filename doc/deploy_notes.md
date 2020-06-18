@@ -16,3 +16,6 @@ Thanks.
 == THE NOTES:
 
 6/3/2020 (mvitale): db:migrate && bundle required for deploy of changes from branch bye\_refinery (in master)
+6/15/2020 (mvitale): Add neo4jrb_url (bolt://...:7687) to secrets.yml. Data download code also metadata migration to have been performed, but will still run if not.
+6/18 (jrice): I am upgrading Elasticsearch to 6.8 (from 6.6). This requires a
+cluster restart.

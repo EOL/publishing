@@ -434,6 +434,8 @@ ko:
     data_viz:
       about_this_chart: 이 차트 정보
       other: 기타
+    properties:
+      scientific_name: 학명
     search:
       gbif_search: GBIF 검색
       switch_to_gallery: 갤러리 뷰로 전환

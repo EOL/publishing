@@ -24,7 +24,7 @@ class Node
           # Then do it to it:
           by_hash(resource, nodes_to_pages, log)
         rescue => e
-          log.fail(e)
+          log.fail_on_error(e)
           raise e
         ensure
           log.complete

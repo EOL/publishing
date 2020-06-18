@@ -3,7 +3,7 @@ require 'rails_helper'
 def verify_search_results(actual, orig, deco_klazz)
   expect(actual).to be_decorated_with(SearchResultsDecorator)
   expect(actual.length).to equal(orig.length)
-    
+
   actual.each_with_index do |item, i|
     expect(item).to be_decorated_with(deco_klazz)
     expect(item).to eql(orig[i])
@@ -27,9 +27,7 @@ RSpec.describe SearchController do
     allow(SearchSuggestion).to receive(:search) { [] }
     allow(Searchkick).to receive(:search) { media } # NOTE: Media uses multi-index search
     allow(TraitBank).to receive(:search_object_terms) { [] }
-    allow(TraitBank).to receive(:search_predicate_terms) { [] }
     allow(TraitBank).to receive(:count_object_terms) { 0 }
-    allow(TraitBank).to receive(:count_predicate_terms) { 0 }
     allow(Searchkick).to receive(:multi_search) { }
   end
 
@@ -37,7 +35,7 @@ RSpec.describe SearchController do
 
     context "when requesting all results" do
       before { get :search, q: "query" }
-      it "assigns @pages" do 
+      it "assigns @pages" do
         verify_search_results(assigns(:pages), pages, PageSearchDecorator)
       end
 

@@ -233,11 +233,27 @@ class TermQueryFilter < ApplicationRecord
     if blank?
       errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
       errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error"))
-    elsif numeric?
-      if pred_uri.blank?
-        errors.add(:pred_uri, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
-      elsif range? && num_val1 > num_val2
-        errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
+    else
+      validate_terms_exist
+
+      if numeric?
+        if pred_uri.blank?
+          errors.add(:pred_uri, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
+        elsif range? && num_val1 > num_val2
+          errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
+        end
+      end
+    end
+  end
+
+  # XXX: update this method with any added term uri attributes
+  def validate_terms_exist
+    %i(pred_uri obj_uri units_uri sex_uri lifestage_uri statistical_method_uri).each do |uri_method|
+      uri = send(uri_method)
+
+      if uri.present?
+        record = TraitBank.term_record(uri) 
+        errors.add(uri_method, I18n.t("term_query_filter.validations.invalid_uri")) if record.nil?
       end
     end
   end

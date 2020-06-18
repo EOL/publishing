@@ -13,6 +13,14 @@ class TraitBank::RecordDownloadWriter
       :label => "Measurement Unit",
       :definition => "The units associated with the measurementValue. Recommended best practice is to use the International System of Units (SI)."
     },
+    "http://rs.tdwg.org/dwc/terms/measurementRemarks" => {
+      :label => "Measurement Remarks",
+      :definition => "Comments or notes accompanying the MeasurementOrFact."
+    },
+    "http://rs.tdwg.org/dwc/terms/measurementMethod" => {
+      :label => "Measurement Method",
+      :definition => "A description of or reference to (publication, URI) the method or protocol used to determine the measurement, fact, characteristic, or assertion."
+    },
     "http://eol.org/schema/terms/statisticalMethod" => {
       :label => "Statistical Method",
       :definition => "The method which was used to process an aggregate of values."
@@ -24,6 +32,10 @@ class TraitBank::RecordDownloadWriter
     "http://rs.tdwg.org/dwc/terms/lifeStage" => {
       :label => "Life Stage",
       :definition => "The age class or life stage of the biological individual(s) at the time the Occurrence was recorded. Recommended best practice is to use a controlled vocabulary."
+    },
+    "http://eol.org/schema/terms/SampleSize" => {
+      :label => "Sample Size",
+      :definition => "The size of the sample upon which a measurement is based."
     },
     "http://purl.org/dc/terms/source" => {
       :label => "Source",
@@ -55,52 +67,45 @@ class TraitBank::RecordDownloadWriter
       end,
       "Measurement Unit" => -> (trait, page, association) { handle_term(trait[:units]) },
       "Measurement Accuracy" => -> (trait, page, association) { meta_value(trait, "http://rs.tdwg.org/dwc/terms/measurementAccuracy") },
+      "Measurement Remarks" => -> (trait, page, association) { trait[:remarks] },
+      "Measurement Method" => -> (trait, page, association) { trait[:method] },
       "Statistical Method" => -> (trait, page, association) { handle_term(trait[:statistical_method_term]) },
       "Target EOL ID" => -> (trait, page, association) { association&.id },
       "Target EOL Name" => -> (trait, page, association) { association&.scientific_name },
       "Target Source Name" => -> (trait, page, association) { trait[:target_scientific_name] },
       "Sex" => -> (trait, page, association) { handle_term(trait[:sex_term])},
-      "Life Stage" => -> (trait, page, association) { handle_term(trait[:lifestage_term]) }
-    }
-  end
-
-  def end_cols
-    {
-      "Source" => -> (trait, page) { trait[:source] },
-      "Bibliographic Citation" => -> (trait, page) { handle_citation(meta_value(trait, "http://purl.org/dc/terms/bibliographicCitation")) },
-      "Contributor" => -> (trait, page) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
-      "Reference ID" => -> (trait, page) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
-      "Resource URL" => -> (trait, page) do 
+      "Life Stage" => -> (trait, page, association) { handle_term(trait[:lifestage_term]) },
+      "Sample size" => -> (trait, page, association) { trait[:sample_size] },
+      "Source" => -> (trait, page, association) { trait[:source] },
+      "Bibliographic Citation" => -> (trait, page, association) { handle_citation(trait[:citation]) },
+      "Contributor" => -> (trait, page, association) { meta_value(trait, "http://purl.org/dc/terms/contributor") },
+      "Reference ID" => -> (trait, page, association) { handle_reference(meta_value(trait, "http://eol.org/schema/reference/referenceID")) },
+      "Resource URL" => -> (trait, page, association) do 
         (
           trait[:resource] ? 
           TraitBank::DownloadUtils.resource_path(:resource, trait[:resource][:resource_id]) :
           nil
         )
       end
-    #TODO: deal with references
+      #TODO: deal with references
     }
   end
-  
-  def initialize(hashes, base_filename, search_url)
-    @hashes = hashes
+
+  def initialize(base_filename, search_url)
     @directory_name = base_filename
     @zip_filename = "#{base_filename}.zip"
     @trait_filename = "data_#{base_filename}.tsv"
+    @trait_path = TraitBank::DataDownload.path.join(@trait_filename)
+    @tmp_trait_filename = "data_#{base_filename}_tmp.tsv"
+    @tmp_trait_path = TraitBank::DataDownload.path.join(@tmp_trait_filename)
     @glossary_filename = "glossary_#{base_filename}.tsv"
     @glossary = HEADER_GLOSSARY.clone
     @citations = Set.new
     @ref_id = 0
     @references = {}
     @url = search_url
-  end
-
-  def write
-    get_predicates
-    to_arrays
-    write_csv
-    write_glossary
-    write_zip
-    @zip_filename
+    @cols_with_vals = Set.new
+    @predicate_uris = []
   end
 
   def handle_term(term)
@@ -118,7 +123,6 @@ class TraitBank::RecordDownloadWriter
   end
 
   def handle_association(term, association)
-  
   end 
 
   def handle_citation(cit)
@@ -142,85 +146,80 @@ class TraitBank::RecordDownloadWriter
     end
   end
 
-  def track_value(i, val, cols_with_vals)
-    cols_with_vals.add(i) if val
-    val
+  def write_batch(hashes)
+    CSV.open(@tmp_trait_path, "ab", col_sep: "\t") do |csv|
+      hashes.in_groups_of(10_000, false) do |batch|
+        Delayed::Worker.logger.info("writing batch of 10k records")
+
+        pages = Page.where(id: page_ids(batch))
+          .includes(
+            :preferred_vernaculars, 
+            { 
+              native_node: [
+                { node_ancestors: [:ancestor] }, 
+                :scientific_names 
+              ]
+            }
+          )
+          .map { |p| [p.id, p] }.to_h
+        associations = Page.with_scientific_name.where(id: association_ids(batch))
+          .map { |p| [p.id, p] }.to_h
+
+        batch.each do |trait|
+          page = pages[trait[:page_id]]
+          association = associations[trait[:object_page_id]]
+          row = []
+
+          start_cols.each do |_, lamb|
+            row << lamb[trait, page, association]
+          end
+
+          @predicate_uris.each do |uri|
+            row << meta_value(trait, uri)
+          end
+
+          trait[:metadata].each do |meta|
+            predicate = meta[:predicate]
+            uri = predicate[:uri]
+            next if IGNORE_META_URIS.include?(meta[:predicate][:uri]) || @predicate_uris.include?(meta[:predicate][:uri])
+            @predicate_uris << uri
+            @glossary[uri] = {
+              label: predicate[:name],
+              definition: predicate[:definition]
+            }
+            row << meta_value(trait, uri)
+          end
+
+          csv << row
+        end
+
+        Delayed::Worker.logger.info("finished writing batch")
+      end
+    end
   end
 
-  def to_arrays
-    @data = []
-    @data << start_cols.keys + @predicates.keys + end_cols.keys
-    cols_with_vals = Set.new
-
-    @hashes.in_groups_of(10_000, false) do |hashes|
-      pages = Page.where(id: page_ids(hashes))
-        .includes(
-          :preferred_vernaculars, 
-          { 
-            native_node: [
-              { node_ancestors: [:ancestor] }, 
-              :scientific_names 
-            ]
-          }
-        )
-        .map { |p| [p.id, p] }.to_h
-      associations = Page.with_scientific_name.where(id: association_ids(hashes))
-        .map { |p| [p.id, p] }.to_h
-
-      hashes.each do |trait|
-        page = pages[trait[:page_id]]
-        association = associations[trait[:object_page_id]]
-        row = []
-        i = 0
-
-        start_cols.each do |_, lamb|
-          row << track_value(i, lamb[trait, page, association], cols_with_vals)
-          i += 1
-        end
-
-        @predicates.values.each do |predicate|
-          @glossary[predicate[:uri]] = {
-            :label => predicate[:name],
-            :definition => predicate[:definition]
-          }
-          row << track_value(i, meta_value(trait, predicate[:uri]), cols_with_vals)
-          i += 1
-        end
-
-        end_cols.each do |_, lamb|
-          row << track_value(i, lamb[trait, page], cols_with_vals)
-          i += 1
-        end
-
-        @data << row
+  def finalize
+    Delayed::Worker.logger.info("RecordDownloadWriter#finalize -- BEGIN")
+    Delayed::Worker.logger.info("copying temp TSV file #{@tmp_trait_path} to #{@trait_path} and adding header row")
+    CSV.open(@trait_path, "wb", col_sep: "\t") do |dest|
+      dest << start_cols.keys + (@predicate_uris.collect { |uri| @glossary[uri][:label] })
+      CSV.foreach(@tmp_trait_path, "rb", col_sep: "\t") do |row|
+        dest << row
       end
     end
 
-    remove_blank_cols(@data, cols_with_vals)
-    @data
-  end
+    Delayed::Worker.logger.info("deleting temp TSV file #{@tmp_trait_path}")
+    File.delete(@tmp_trait_path)
 
-  def remove_blank_cols(data, cols_with_vals)
-    data.each do |row| 
-      row.delete_if.with_index { |_, i| !cols_with_vals.include? i }
-    end
+    write_glossary
+    write_zip
 
-    data
-  end
-
-  def generate_csv
-    CSV.generate(col_sep: "\t") do |csv|
-      @data.each { |row| csv << row }
-    end
-  end
-
-  def write_csv
-    CSV.open(TraitBank::DataDownload.path.join(@trait_filename), "wb", :col_sep => "\t") do |csv|
-      @data.each { |row| csv << row }
-    end
+    Delayed::Worker.logger.info("RecordDownloadWriter#finalize -- END")
+    @zip_filename
   end
 
   def write_glossary
+    Delayed::Worker.logger.info("Writing glossary")
     CSV.open(TraitBank::DataDownload.path.join(@glossary_filename), "wb", :col_sep => "\t") do |csv|
       csv << ["Glossary"]
       csv << ["Label", "URI", "Definition"]
@@ -280,9 +279,10 @@ class TraitBank::RecordDownloadWriter
   end
 
   def write_zip
+    Delayed::Worker.logger.info("Writing zipfile #{@zip_filename}")
     Zip::File.open(TraitBank::DataDownload.path.join(@zip_filename), Zip::File::CREATE) do |zipfile|
       zipfile.mkdir(@directory_name)
-      zipfile.add("#{@directory_name}/#{@trait_filename}", TraitBank::DataDownload.path.join(@trait_filename))
+      zipfile.add("#{@directory_name}/#{@trait_filename}", @trait_path)
       zipfile.add("#{@directory_name}/#{@glossary_filename}", TraitBank::DataDownload.path.join(@glossary_filename))
     end
   end

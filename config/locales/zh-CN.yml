@@ -425,15 +425,22 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 摄氏度
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: 开尔文
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: 年
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: 瓦特
         http://semanticscience(dot)org/resource/SIO_001114: 最大
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: 百分之
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: 度
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /日
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /年
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: 华氏度
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: 英寸
         http://purl(dot)org/obo/owl/UO#UO_0000034: 周
         Unit: 单位
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
   terms:
@@ -442,6 +449,8 @@ zh-CN:
   traits:
     data_viz:
       other: 其他
+    properties:
+      scientific_name: 学名
     search:
       edit_filters: 编辑过滤器
       new_search: 新搜索

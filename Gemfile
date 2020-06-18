@@ -38,7 +38,7 @@ gem 'kaminari', '~> 1.2'
 # maintainable!
 
 # To aid in reindexing ElasticSearch. See also connection_pool; also requires redis.
-gem 'activejob-traffic_control', '>= 0.1.3'
+# gem 'activejob-traffic_control', '>= 0.1.3'
 # For bulk inserts:
 gem 'activerecord-import', '~> 1.0'
 # Acts As List simplifies ordered lists of models:
@@ -46,7 +46,7 @@ gem 'acts_as_list', '~> 1.0'
 # Faster startup:
 gem 'bootsnap', '~> 1.4', require: false
 # To aid in reindexing ElasticSearch. See also activejob-traffic_control; also requires redis.
-gem 'connection_pool', '~> 2.2'
+# gem 'connection_pool', '~> 2.2'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
 gem 'counter_culture', '~> 2.3'
 # Cron jobs:
@@ -83,7 +83,7 @@ gem 'http', '~> 4.3'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
 # Neography is used for our Triple Store for now:
-gem 'neography', '~> 1.8'
+gem 'neography', git: "https://github.com/EOL/neography"
 # Site monitoring for staging and production:
 gem 'newrelic_rpm' # NOT specifying a version for this one; it should NOT Interrupt normal use! Latest is best.
 # Speed up JSON, including for ElasticSearch:
@@ -98,6 +98,8 @@ gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
 gem 'rubyzip', '~> 2.2'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 4' # Needs to stay in sync (ish) with the elasticsearch gem.
+# Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
+gem 'sidekiq'
 gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that we're using
 # Simplify Forms:
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;

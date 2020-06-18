@@ -7,6 +7,8 @@ class PageDecorator
   class BriefSummary
     attr_accessor :view
 
+    class BadTraitError < TypeError; end
+
     FLOWER_VISITOR_LIMIT = 4
     SUBJ_RESET = 3
 
@@ -23,10 +25,6 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      # XXX: needed to prevent alternate-locale behavior from methods like `Array#to_sentence`. DON'T REMOVE THE BIT AT THE END THAT REVERTS I18n.locale!
-      prev_locale = I18n.locale
-      I18n.locale = :en
-
       if is_above_family?
         above_family
       else
@@ -56,11 +54,7 @@ class PageDecorator
       reproduction_sentences
       motility_sentence
 
-      result = Result.new(@sentences.join(' '), @terms)
-
-      I18n.locale = prev_locale
-
-      result
+      Result.new(@sentences.join(' '), @terms)
     end
 
     private
@@ -81,8 +75,13 @@ class PageDecorator
         subj = use_name ? name_clause : pronoun_for_rank.capitalize
         is = is_species? ? "is" : "are"
         has = is_species? ? "has" : "have"
+        sentence = nil
 
-        sentence = yield(subj, is, has)
+        begin
+          sentence = yield(subj, is, has)
+        rescue BadTraitError => e
+          Rails.logger.warn(e.message)
+        end
 
         if sentence.present?
           if sentence.start_with?("#{subj} ")
@@ -129,7 +128,9 @@ class PageDecorator
         first_appearance_trait = first_trait_for_pred_uri_w_obj(Eol::Uris.fossil_first)
 
         if first_appearance_trait
-          trait_sentence_part("This group has been around since the %s.", first_appearance_trait)
+          add_sentence do |_, __, ___|
+            trait_sentence_part("This group has been around since the %s.", first_appearance_trait)
+          end
         end
       end
 
@@ -213,10 +214,9 @@ class PageDecorator
           end
         end
 
-        if native_range_traits.any?
-          native_range_part = native_range_traits.collect do |t|
-            trait_sentence_part("%s", t)
-          end.to_sentence
+
+        native_range_part = values_to_sentence([Eol::Uris.native_range])
+        if native_range_part.present?
           add_sentence do |subj, is, _|
             "#{subj} #{is} native to #{native_range_part}."
           end
@@ -271,7 +271,7 @@ class PageDecorator
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
           add_sentence do |subj, _, __|
-            "#{subj} includes groups like #{taxa_links.to_sentence}."
+            "#{subj} includes groups like #{taxa_links.to_sentence(locale: :en)}."
           end
         end
       end
@@ -285,10 +285,11 @@ class PageDecorator
         solitary = first_trait_for_obj_uris(Eol::Uris.solitary)
         begin_traits = [solitary, circadian].compact
         trophic = first_trait_for_pred_uri(Eol::Uris.trophic_level)
-        trophic_part = trait_sentence_part("%s", trophic) if trophic
-        sentence = nil
 
         add_sentence do |subj, is, _|
+          sentence = nil
+          trophic_part = trait_sentence_part("%s", trophic) if trophic
+
           if begin_traits.any?
             begin_parts = begin_traits.collect do |t|
               trait_sentence_part("%s", t)
@@ -345,7 +346,7 @@ class PageDecorator
 
         if lifespan_part || size_part
           add_sentence do |_, __, ___|
-            "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
+            "Individuals #{[lifespan_part, size_part].compact.to_sentence(locale: :en)}."
           end
         end
       end
@@ -357,7 +358,7 @@ class PageDecorator
           vpart = if matches.has_type?(:v)
                     v_vals = matches.by_type(:v).collect do |match|
                       trait_sentence_part("%s", match.trait)
-                    end.to_sentence
+                    end.to_sentence(locale: :en)
 
                     "#{subj} #{has} #{v_vals}"
                   else
@@ -370,7 +371,7 @@ class PageDecorator
                         "#{a_or_an(match.trait)} %s",
                         match.trait
                       )
-                    end.to_sentence
+                    end.to_sentence(locale: :en)
 
                     "#{is} #{w_vals}"
                   else
@@ -391,7 +392,7 @@ class PageDecorator
           add_sentence do |subj, is, has|
             y_parts = matches.by_type(:y).collect do |match|
               trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
-            end.to_sentence
+            end.to_sentence(locale: :en)
 
             "#{subj} #{has} #{y_parts}."
           end
@@ -401,7 +402,7 @@ class PageDecorator
           add_sentence do |_, __, ___|
             x_parts = matches.by_type(:x).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence
+            end.to_sentence(locale: :en)
 
             "Reproduction is #{x_parts}."
           end
@@ -411,7 +412,7 @@ class PageDecorator
           add_sentence do |subj, is, has|
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence
+            end.to_sentence(locale: :en)
 
             "#{subj} #{has} parental care (#{z_parts})."
           end
@@ -475,24 +476,26 @@ class PageDecorator
         flower_part = nil
         fruit_part = nil
 
-        if leaf_traits.any?
-          leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
-          leaf_part = "#{leaf_parts.join(", ")} leaves"
-        end
+        add_sentence do |subj, is, has|
+          if leaf_traits.any?
+            leaf_parts = leaf_traits.collect { |trait| trait_sentence_part("%s", trait) }
+            leaf_part = "#{leaf_parts.join(", ")} leaves"
+          end
 
-        if flower_trait
-          flower_part = trait_sentence_part("%s flowers", flower_trait)
-        end
+          if flower_trait
+            flower_part = trait_sentence_part("%s flowers", flower_trait)
+          end
 
-        if fruit_trait
-          fruit_part = trait_sentence_part("%s", fruit_trait)
-        end
+          if fruit_trait
+            fruit_part = trait_sentence_part("%s", fruit_trait)
+          end
 
-        parts = [leaf_part, flower_part, fruit_part].compact
+          parts = [leaf_part, flower_part, fruit_part].compact
 
-        if parts.any?
-          add_sentence do |subj, is, has|
-            "#{subj} #{has} #{parts.to_sentence}."
+          if parts.any?
+            "#{subj} #{has} #{parts.to_sentence(locale: :en)}."
+          else
+            nil
           end
         end
       end
@@ -505,7 +508,7 @@ class PageDecorator
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
           add_sentence do |_, __, ___|
-            "Flowers are visited by #{parts.to_sentence}."
+            "Flowers are visited by #{parts.to_sentence(locale: :en)}."
           end
         end
       end
@@ -529,10 +532,10 @@ class PageDecorator
       end
 
       def forms_sentence
-        forms_traits = traits_for_pred_uris(Eol::Uris.forms)
+        forms_traits = @page.grouped_data[Eol::Uris.forms] || [] #intentionally skip descendants of this term
 
         if forms_traits.any?
-          lifestage_trait = traits_for_pred_uris(Eol::Uris.forms).find do |t|
+          lifestage_trait = forms_traits.find do |t|
             t.[](:lifestage_term)&.[](:name)&.present?
           end
 
@@ -638,10 +641,6 @@ class PageDecorator
 
       def freshwater_trait
         @freshwater_trait ||= first_trait_for_obj_uris(Eol::Uris.freshwater)
-      end
-
-      def native_range_traits
-        @native_range_traits ||= traits_for_pred_uris(Eol::Uris.native_range)
       end
 
       def has_data(options)
@@ -758,7 +757,7 @@ class PageDecorator
             end
           end
         end
-        values.any? ? values.uniq.to_sentence : nil
+        values.any? ? values.uniq.to_sentence(locale: :en) : nil
       end
 
       # TODO: it would be nice to make these into a module included by the Page class.
@@ -809,7 +808,7 @@ class PageDecorator
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
           add_sentence do |subj, _, __|
-            "#{subj} is listed #{result.to_sentence(words_connector: ", ", last_word_connector: " and ")}."
+            "#{subj} is listed #{result.to_sentence(locale: :en)}."
           end
         end
 
@@ -825,12 +824,14 @@ class PageDecorator
         )
       end
 
-      def term_toggle_id(term_name)
-        "brief-summary-#{term_name.gsub(/\s/, "-")}"
+      def term_toggle_id
+        @term_toggle_count ||= -1
+        @term_toggle_count += 1
+        "brief-summary-toggle-#{@term_toggle_count}"
       end
 
       def term_tag(label, pred_uri, term, trait_source = nil)
-        toggle_id = term_toggle_id(label)
+        toggle_id = term_toggle_id
 
         @terms << ResultTerm.new(
           pred_uri,
@@ -855,9 +856,9 @@ class PageDecorator
 
         if trait[:object_page_id]
           association_sentence_part(format_str, trait[:object_page_id])
-        else
-          name = trait[:object_term].nil? ? '(no object term)' : trait[:object_term][:name]
-          pred_uri = trait[:predicate].nil? ? '(no predicate uri)' : trait[:predicate][:uri]
+        elsif trait[:predicate] && trait[:object_term]
+          name = trait[:object_term][:name]
+          pred_uri = trait[:predicate][:uri]
           obj = trait[:object_term]
           term_sentence_part(
             format_str,
@@ -865,6 +866,10 @@ class PageDecorator
             pred_uri,
             obj
           )
+        elsif trait[:literal]
+          sprintf(format_str, trait[:literal])
+        else
+          raise BadTraitError.new("Undisplayable trait: #{trait[:id]}")
         end
       end
 
