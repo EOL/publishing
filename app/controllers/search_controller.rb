@@ -54,7 +54,7 @@ private
   def suggest_results(sk_result, controller)
     result_hash = {}
 
-    sk_result.response["suggest"]["page"].first["options"].each do |r|
+    sk_result.response["suggest"]["autocomplete"].first["options"].each do |r|
       text = r["text"]
       id = r["_id"]
 

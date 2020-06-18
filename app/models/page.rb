@@ -1,4 +1,6 @@
 class Page < ApplicationRecord
+  include Autocomplete
+
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, mappings: {
@@ -8,6 +10,7 @@ class Page < ApplicationRecord
       }
     }
   }
+  autocompletes "autocomplete_names"
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true
@@ -172,20 +175,6 @@ class Page < ApplicationRecord
           end
         end
       end
-    end
-
-    def autocomplete(query, options = {})
-      search body: {
-        suggest: {
-          page: {
-            prefix: query,
-            completion: {
-              field: "autocomplete_names",
-              size: options[:limit] || nil
-            }
-          }
-        }
-      }
     end
   end
 

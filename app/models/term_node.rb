@@ -1,5 +1,7 @@
 class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   include Neo4j::ActiveNode
+  include Autocomplete
+
   property :name
   property :definition
   property :comment
@@ -20,6 +22,7 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
       }
     }
   }
+  autocompletes "autocomplete_name"
 
   OBJ_TERM_TYPE = "value"
 
@@ -33,20 +36,6 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
         "(t)<-[:predicate]-(:Trait)"\
         ")"
       )
-    end
-
-    def autocomplete(query, options = {})
-      search body: {
-        suggest: {
-          page: {
-            prefix: query,
-            completion: {
-              field: "autocomplete_name",
-              size: options[:limit] || nil
-            }
-          }
-        }
-      }
     end
   end
 
