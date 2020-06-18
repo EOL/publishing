@@ -24,13 +24,13 @@ class SearchController < ApplicationController
 
     pages_results = Page.autocomplete(params[:query], common_options)
     term_results = TermNode.autocomplete(params[:query], common_options)
-    pages_simple = suggest_results(pages_results, "pages")
-    terms_simple = suggest_results(term_results, "term_nodes")
+    pages_simple = autocomplete_results(pages_results, "pages")
+    terms_simple = autocomplete_results(term_results, "term_nodes")
     render json: pages_simple.concat(terms_simple)[0, MAX_AUTOCOMPLETE_RESULTS]
   end
 
 private
-  # TODO: remove, just here for reference as we move to suggest_results
+  # TODO: remove, just here for reference as we test autocomplete_results
   #def simple_results(full_results, default_name_field, query, controller)
   #  result_hash = {}
   #  full_results.each do |r|
@@ -51,7 +51,7 @@ private
   #  result_hash.values
   #end
 
-  def suggest_results(sk_result, controller)
+  def autocomplete_results(sk_result, controller)
     result_hash = {}
 
     sk_result.response["suggest"]["autocomplete"].first["options"].each do |r|
