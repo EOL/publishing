@@ -815,7 +815,7 @@ class TraitBank
         row_id = if id_col_val.is_a? String
                    id_col_val
                  else
-                   id_col_val["eol_pk"] || id_col_val["uri"]
+                   id_col_val["eol_pk"] || id_col_val["uri"] # XXX: Only designed to handle Trait and Term nodes. Consider returning properties only, and using flat_results_to_hashes
                  end
         #raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         next if row_id.nil?
