@@ -19,40 +19,61 @@ class SearchController < ApplicationController
 
   def autocomplete
     common_options = {
-      match: :text_start,
       limit: MAX_AUTOCOMPLETE_RESULTS,
-      load: false,
-      misspellings: false,
-      highlight: { tag: "<mark>", encoder: "html" }
     }
 
     pages_results = Page.autocomplete(params[:query], common_options)
-    term_results = TermNode.search(params[:query], common_options.merge({
-      fields: ['name']
-    }))
-    pages_simple = simple_results(pages_results, "scientific_name", params[:query], "pages")
-    terms_simple = simple_results(term_results, "name", params[:query], "term_nodes")
+    term_results = TermNode.autocomplete(params[:query], common_options)
+    pages_simple = suggest_results(pages_results, "pages")
+    terms_simple = suggest_results(term_results, "term_nodes")
     render json: pages_simple.concat(terms_simple)[0, MAX_AUTOCOMPLETE_RESULTS]
   end
 
 private
-  def simple_results(full_results, default_name_field, query, controller)
+  # TODO: remove, just here for reference as we move to suggest_results
+  #def simple_results(full_results, default_name_field, query, controller)
+  #  result_hash = {}
+  #  full_results.each do |r|
+  #    field = r['highlight']&.first&.first&.split('.').first
+  #    name = r.send(field) || r.send(default_name_field)
+  #    if name.is_a?(Array)
+  #      first_hit = name.grep(/#{query}/i)&.first
+  #      name = first_hit || name.first
+  #    end
+  #    result_hash[name] =
+  #      if result_hash.key?(name)
+  #        new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
+  #        { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
+  #      else
+  #        { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
+  #      end
+  #  end
+  #  result_hash.values
+  #end
+
+  def suggest_results(sk_result, controller)
     result_hash = {}
-    full_results.each do |r|
-      field = r['highlight']&.first&.first&.split('.').first
-      name = r.send(field) || r.send(default_name_field)
-      if name.is_a?(Array)
-        first_hit = name.grep(/#{query}/i)&.first
-        name = first_hit || name.first
+
+    sk_result.response["suggest"]["page"].first["options"].each do |r|
+      text = r["text"]
+      id = r["_id"]
+
+      if result_hash.key?(text)
+        name = params[:no_multiple_text] ? text : "#{text} (multiple hits)"
+        url = search_path(q: text, utf8: true)
+      else
+        name = text
+        url = url_for(controller: controller, action: "show", id: id)
       end
-      result_hash[name] =
-        if result_hash.key?(name)
-          new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
-          { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
-        else
-          { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
-        end
+
+      result_hash[text] = { 
+        name: name, 
+        title: name, 
+        id: id, 
+        url: url
+      }
     end
+
     result_hash.values
   end
 

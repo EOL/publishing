@@ -13,24 +13,47 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   self.mapped_label_name = 'Term'
 
   @text_search_fields = %w[name]
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, merge_mappings: true, mappings: {
+    properties: {
+      autocomplete_name: {
+        type: "completion"
+      }
+    }
+  }
 
   OBJ_TERM_TYPE = "value"
 
-  def self.search_import
-    self.all(:t).where(
-      "t.is_hidden_from_overview = false "\
-      " AND ("\
-      "(t)<-[:object_term]-(:Trait)"\
-      " OR "\
-      "(t)<-[:predicate]-(:Trait)"\
-      ")"
-    )
+  class << self
+    def search_import
+      self.all(:t).where(
+        "t.is_hidden_from_overview = false "\
+        " AND ("\
+        "(t)<-[:object_term]-(:Trait)"\
+        " OR "\
+        "(t)<-[:predicate]-(:Trait)"\
+        ")"
+      )
+    end
+
+    def autocomplete(query, options = {})
+      search body: {
+        suggest: {
+          page: {
+            prefix: query,
+            completion: {
+              field: "autocomplete_name",
+              size: options[:limit] || nil
+            }
+          }
+        }
+      }
+    end
   end
 
   def search_data
     {
-      name: name
+      name: name,
+      autocomplete_name: name # can't have a duplicate field name for completion field
     }
   end
 
