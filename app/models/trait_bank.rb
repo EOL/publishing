@@ -374,12 +374,7 @@ class TraitBank
         data = if options[:id_only]
                  res["data"]&.flatten
                else
-                 trait_array_options = { key: key }
-
-                 if use_record_search
-                   trait_array_options[:flat_results] = true
-                 end
-
+                 trait_array_options = { key: key, flat_results: true }
                  build_trait_array(res, trait_array_options)
                end
 
