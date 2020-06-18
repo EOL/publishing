@@ -1,7 +1,7 @@
 version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of the config formatting to use. Keep it here.
 services:
   eol-backend-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch
     restart: always
     environment:
@@ -22,7 +22,7 @@ services:
     networks:
       - eolnet
   eol-backend-elasticsearch2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch2
     environment:
       - RAILS_ENV
@@ -41,7 +41,7 @@ services:
     networks:
       - eolnet
   eol-backend-elasticsearch3:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch3
     environment:
       - cluster.name=eol-search-${RAILS_ENV}

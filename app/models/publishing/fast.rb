@@ -133,6 +133,8 @@ class Publishing::Fast
         # Re-grabbing the log shouldn't really be needed, but apparently it's a thing ...after removing traits?!
         @log = Publishing::PubLog.new(@resource, use_existing_log: true)
       rescue => e
+        @log = Publishing::PubLog.new(@resource, use_existing_log: true)
+        @log.fail(e)
         raise e
       end
       log_warn('All existing content has been destroyed for the resource.')
@@ -183,6 +185,7 @@ class Publishing::Fast
 
   def abort_if_already_running
     if (info = ImportLog.already_running?)
+      @resource.log("ABORTED: #{info}")
       raise(info)
     end
   end

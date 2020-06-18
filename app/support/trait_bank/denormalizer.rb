@@ -17,7 +17,7 @@ class TraitBank::Denormalizer
   end
 
   def initialize(options = {})
-    @limit = options[:limit] || 2500
+    @limit = options[:limit] || 1280
     @skip = options[:skip] || 0
     @fixed = 0
   end
@@ -35,6 +35,7 @@ class TraitBank::Denormalizer
   end
 
   def set_canonicals_by_page_id(ids)
+    ActiveRecord::Base.connection.reconnect!
     ids.in_groups_of(@limit, false) do |group_of_ids|
       pages = map_page_ids_to_canonical(group_of_ids)
       pages.each do |id, name|

@@ -1274,6 +1274,7 @@ mk:
   term_query_filter:
     validations:
       blank_error: мора да укаже својство или вредност
+      invalid_uri: неважечка URL
       pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
       range_invalid_error: мора да биде >= до првата вредност
   terms:

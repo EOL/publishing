@@ -1272,6 +1272,7 @@ tr:
   term_query_filter:
     validations:
       blank_error: bir özellik veya değer belirtmelidir
+      invalid_uri: geçersiz URI
       pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
       range_invalid_error: ilk değere >= olmalıdır
   terms:
