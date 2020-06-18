@@ -1228,6 +1228,7 @@ zh-TW:
   term_query_filter:
     validations:
       blank_error: 必須指定一個屬性或值
+      invalid_uri: 無效 URI
       pred_uri_blank_numeric_error: 不能為空白的數值
       range_invalid_error: 必須 >= 第一個值
   terms:
