@@ -16,39 +16,12 @@ class Node < ApplicationRecord
   has_many :referents, through: :references
   scope :dh, -> { where(resource_id: Resource.native.id).limit(1) }
 
-
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
   # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.
   enum landmark: %i[no_landmark minimal abbreviated extended full]
 
   counter_culture :resource
   counter_culture :page
-
-  class << self
-    def dump_provider_ids
-      file = Rails.public_path.join('data', 'provider_ids.csv')
-      CSV.open(file, 'wb') do |csv|
-        csv << %w[node_id resource_pk resource_id page_id preferred_canonical_for_page]
-        browsable_resource_ids = Resource.classification.pluck(:id)
-        Node.includes(:identifiers, :scientific_names, page: { native_node: :scientific_names }).
-             where(resource_id: browsable_resource_ids).
-             find_each do |node|
-               next if node.page.nil? # Shouldn't happen, but let's be safe.
-               use_node =  node.page.native_node || node
-               name = use_node.canonical_form&.gsub(/<\/?i>/, '')
-               csv << [node.id, node.resource_pk, node.resource_id, node.page.id, name]
-             end
-      end
-      require 'zlib'
-      zipped = "#{file}.gz"
-      Zlib::GzipWriter.open(zipped) do |gz|
-        gz.mtime = File.mtime(file)
-        gz.orig_name = file.to_s
-        gz.write IO.binread(file)
-      end
-      File.unlink(file) rescue nil
-    end
-  end
 
   # TODO: this is duplicated with page; fix.
   def name(language = nil)
