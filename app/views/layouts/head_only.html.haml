@@ -1,5 +1,5 @@
 !!!
-%html{ lang: I18n.locale }
+%html{ lang: I18n.locale, dir: Util::I18nUtil.rtl? ? "rtl" : "ltr" }
   %head
     = csrf_meta_tags
     %meta{ content: "text/html; charset=UTF-8", "http-equiv": "Content-Type" }/
@@ -19,9 +19,10 @@
     -#= stylesheet_link_tag "application", media: :all
     -#-if asset_exists? "#{params[:controller]}.css"
     -#  = stylesheet_link_tag params[:controller], media: :all
-    = stylesheet_pack_tag "application", media: :all
-    -if Webpacker.manifest.lookup "#{params[:controller]}.css"
-      = stylesheet_pack_tag params[:controller], media: :all
+    - ss_pre = Util::I18nUtil.rtl? ? "rtl/" : ""
+    = stylesheet_pack_tag "stylesheets/#{ss_pre}application", media: :all
+    -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
+      = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
     = javascript_include_tag "https://d3js.org/d3.v4.min.js"
     = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"
