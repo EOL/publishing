@@ -100,6 +100,13 @@ GEM
       client_side_validations (>= 15.0, < 17.0)
       simple_form (~> 5.0)
     coderay (1.1.2)
+    coffee-rails (5.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 5.2.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     counter_culture (2.3.0)
@@ -315,6 +322,8 @@ GEM
       rack (~> 2.0)
     rack-protection (2.0.8.1)
       rack
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rack_session_access (0.2.0)
@@ -425,6 +434,7 @@ GEM
       activemodel (>= 5)
       elasticsearch (>= 6)
       hashie
+    semantic_range (2.3.0)
     sexp_processor (4.13.0)
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
@@ -496,6 +506,11 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (5.1.1)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
@@ -517,6 +532,7 @@ DEPENDENCIES
   capybara (= 3.30.0)
   client_side_validations (~> 16.1)
   client_side_validations-simple_form (~> 9.2)
+  coffee-rails
   counter_culture (~> 2.3)
   coveralls (~> 0.7)
   crono (~> 1.1)
@@ -575,6 +591,7 @@ DEPENDENCIES
   uglifier (~> 4.2)
   unicorn (~> 5.5)
   web-console (~> 3.7)
+  webpacker (~> 5.x)
 
 BUNDLED WITH
    2.1.4

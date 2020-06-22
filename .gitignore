@@ -93,3 +93,10 @@ config/secrets.yml.enc
 config/secrets.yml.key
 config/locales/**/*.bak
 dragonfly.log
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

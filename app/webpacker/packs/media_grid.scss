@@ -1,0 +1,151 @@
+@import 'colors';
+
+$opaque-bg: rgba(#222, .9);
+$icon-hover-color: #fff;
+$icon-passive-color: #aaa;
+
+.grid-modal {
+  background-color: $opaque-bg;
+}
+
+.annotation-media-thumb {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.annotation-media-expand {
+  max-height: 60px;
+  overflow: auto;
+}
+
+.lightbox-overlay {
+  background-color: $black;
+  color: $white;
+  padding: 10px;
+  text-align: center;
+
+  & > .close-btn {
+    color: $icon-passive-color;
+
+    &:hover {
+      color: $icon-hover-color;
+    }
+  }
+
+  & a {
+    color: $eol-blue;
+  }
+}
+
+  .lightbox-overlay-top {
+  }
+
+    .lightbox-overlay-content-top {
+      padding: 0 60px;
+    }
+
+  .lightbox-overlay-bottom {
+    min-height: 20px;
+    max-height: 20%;
+    overflow: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+.lightbox-img-contain {
+  height: 100vh;
+  width: 100vw;
+
+  & > img, & > video {
+    object-fit: contain;
+    margin: 0 auto; // not sure why this is necessary but seems to work
+  }
+
+  & > video {
+    max-height: 90%; // leave some room for controls
+  }
+}
+
+$arr-rad: 35px;
+.lightbox-arrow, .lightbox-arrow:focus {
+  background: $black;
+  color: $icon-passive-color;
+
+  &:hover {
+    color: $icon-hover-color;
+  }
+}
+
+  .lightbox-arrow-right {
+    border-radius: 0 $arr-rad $arr-rad 0;
+  }
+
+  .lightbox-arrow-left {
+    border-radius: $arr-rad 0 0 $arr-rad;
+  }
+
+.lightbox-icons {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+
+  & a {
+    color: $icon-passive-color;
+
+    &:hover {
+      color: $icon-hover-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.grid-card {
+  cursor: pointer;
+}
+
+.grid-thumb {
+  height: 190px;
+  width: 260px;
+}
+
+.grid-thumb-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.grid-thumb-av {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
+}
+
+.grid-thumb-av-video {
+  & > i {
+    background: rgba(#000, .8);
+    color: #fff;
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  & > video {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+  }
+}
+
+.gallery-audio-player {
+  margin: 0 100px;
+  width: 340px;
+}
+

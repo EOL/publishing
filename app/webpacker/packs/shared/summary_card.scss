@@ -1,0 +1,64 @@
+@import "../colors";
+
+$result-height-s: 108px;
+
+.search-result {
+  border-bottom: 1px solid $light-gray;
+  height: $result-height-s;
+  margin: 0 !important;
+  overflow: hidden;
+  padding: 0 !important;
+  position: relative;
+
+  & > a {
+    display: block;
+    height: 100%;
+  }
+}
+
+.search-icon {
+  align-items: center;
+  background: $white;
+  display: flex;
+  float: left;
+  height: $result-height-s;
+  justify-content: center;
+  margin-right: 6px;
+  position: relative;
+  width: $result-height-s;
+}
+
+.search-content {
+  height: 100%;
+  white-space: nowrap;
+}
+
+.search-title {
+  font-size: 16px;
+  margin-top: 3px;
+}
+
+.search-info {
+  margin-top: 1px;
+  font-size: 14px;
+}
+
+.search-hier {
+  height: 23px;
+}
+
+.resource-bubbles {
+  margin: 5px;
+
+  & > li {
+    $height: 25px;
+    background: #d8e0e6;
+    border-radius: 100px;
+    display: inline-block;
+    height: $height;
+    line-height: $height;
+    margin-right: 8px;
+    padding: 0 8px;
+  }
+}
+

@@ -15,9 +15,13 @@
       = stylesheet_link_tag "#{cdn}/uikit/3.1.6/css/uikit.min.css", media: :all
     - %w[button dimmer header icon image input label loader list menu dropdown search segment statistic sticky transition].each do |name|
       = stylesheet_link_tag "#{cdn}/semantic-ui/2.3.3/components/#{name}.min.css", media: :all
-    = stylesheet_link_tag "application", media: :all
-    -if asset_exists? "#{params[:controller]}.css"
-      = stylesheet_link_tag params[:controller], media: :all
+      = stylesheet_link_tag "#{cdn}/font-awesome/4.7.0/css/font-awesome.min.css", media: :all
+    -#= stylesheet_link_tag "application", media: :all
+    -#-if asset_exists? "#{params[:controller]}.css"
+    -#  = stylesheet_link_tag params[:controller], media: :all
+    = stylesheet_pack_tag "application", media: :all
+    -if Webpacker.manifest.lookup "#{params[:controller]}.css"
+      = stylesheet_pack_tag params[:controller], media: :all
     = stylesheet_link_tag "jqcloud", media: :all
     = javascript_include_tag "https://d3js.org/d3.v4.min.js"
     = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"

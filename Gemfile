@@ -7,6 +7,7 @@ gem 'rails', '5.2.4.2'
 gem 'mysql2', '0.5.3'
 
 # Asset-related gems next:
+gem 'webpacker', '~> 5.x'
 
 # SASS
 gem 'sass-rails'
@@ -21,6 +22,9 @@ gem 'sdoc', '~> 1.0', group: :doc
 gem 'therubyracer', '~> 0.12'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.2'
+
+# NOTE: required to avoid weird error caused by the existence of .coffee files in node_modules
+gem 'coffee-rails'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.

@@ -1,0 +1,696 @@
+// NOTE: OpenSans is added via font-kit-rails. If you stop using that font,
+// REMOVE THAT GEM FROM THE GEMFILE (and this line):
+//@import "font-kit-rails/open-sans";
+@import "./colors";
+@import "./dimensions";
+
+$font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+html {
+  color: $black;
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 85%;
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-family;
+}
+
+body {
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+audio {
+  height: 40px;
+}
+
+em {
+  color: inherit;
+}
+
+// bit of a hack, override uikit here
+.uk-offcanvas-bar {
+  background: $white;
+  color: $black;
+
+  & a, & select {
+    color: $nav-dark-gray;
+
+    &:hover {
+      color: $nav-hover-gray;
+    }
+  }
+
+  & .uk-offcanvas-close {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
+}
+
+.earth-image {
+  position: relative;
+
+  .uk-section {
+    z-index: 1;
+    position: relative;
+  }
+}
+
+.earth-image:before {
+  content: " ";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("https://www.nasa.gov/sites/default/files/bwhi1apicaaamlo.jpg_large.jpg") !important;
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  -ms-background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+
+h1, h2, h3 {
+  color: $black;
+  font-weight: 700;
+}
+
+a, .a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-color;
+    text-decoration: underline;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+.is-noscroll {
+  overflow: hidden;
+}
+
+// Content (CMS) Pages:
+
+// JRice modified the next two elements to make the side hidden (display: none) and the body full-width (instead of 75%)
+
+section#body {
+  // float: right;
+  width: 100%;
+  padding-left: 1em;
+}
+
+section#side_body {
+  box-sizing: border-box;
+  display: none;
+  margin: 0;
+  max-width: 100%;
+  padding-left: 40px;
+  width: 20%;
+}
+
+#landing-search {
+  .input {
+    width: 10em;
+  }
+
+  input {
+    font-size: 0.5em;
+    line-height: 3em;
+  }
+
+  .results {
+    font-size: 12pt;
+    line-height: 1em;
+    margin-left: 47% !important;
+  }
+}
+
+// This helps center the elements on the screen. Surprising it's not a default:
+.ui.statistic {
+  width: 100%;
+}
+
+.ui.label {
+  font-family: Avenir;
+}
+
+.ui.header.segment {
+  background: #adb1b5 linear-gradient(#fcfcfc, #c8c8c8);
+  z-index: 0;
+}
+
+.uk-notification {
+  width: 400px;
+}
+
+.uk-notification-message-primary {
+  background-color: #666 !important;
+  color: lighten($eol-blue, 15%) !important;
+  padding: 24px;
+
+  a {
+    color: $eol-blue !important;
+  }
+}
+
+.uk-text-muted {
+  font-weight: 300;
+}
+
+.list.descends {
+  padding: 3px 12px !important;
+  .list {
+    padding-bottom: 0 !important;
+  }
+}
+
+.eol-text-tiny {
+  font-size: 0.75rem;
+  font-family: Avenir;
+}
+
+.eol-userform {
+  max-width: 37em;
+}
+
+.eol-one-line {
+  height: 1.5em;
+  white-space: nowrap;
+}
+
+.page-ancestors {
+  background-color: #F8FAFA;
+}
+
+.eol-section-aged {
+  background-color: #f8e9ca;
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-bright {
+  background-color: white !important;
+}
+
+.eol-secondary {
+  background-color: $eol-blue !important;
+}
+
+.eol-secondary-alt {
+  background-color: $eol-orange !important;
+
+  .uk-text-meta, .uk-iconnav > * > * {
+    color: $eol-brown;
+  }
+}
+
+.eol-section-secondary {
+  @extend .eol-secondary;
+
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-section-secondary-alt {
+  @extend .eol-secondary-alt;
+
+  font-weight: 300;
+  color: #111;
+}
+
+.eol-width-medium-icon {
+  width: 130px;
+}
+
+.eol-padding-tiny {
+  padding: 4px 12px !important;
+}
+
+.eol-padding-iconnav {
+  padding: 6px !important;
+}
+
+.eol-bordered-image {
+  border-bottom: 2px solid #bbb;
+  border-left: 2px solid #d8d8d8;
+  border-right: 2px solid #ccc;
+  border-top: 2px solid #dadada;
+}
+
+.uk-accordion-title {
+  background: aliceblue;
+  background: linear-gradient(whitesmoke, aliceblue);
+  padding: 10px;
+}
+
+.uk-nav-default li.uk-active > a {
+  font-size: 1.2em;
+  color: #000;
+}
+
+.uk-pagination li.uk-active {
+  color: #000;
+  font-size: 1em;
+  font-weight: 900;
+}
+
+// The padding in their breadcrumb list was REAAAAAALY loose...
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+  margin: 0 8px !important;
+}
+
+.btn:focus {
+  background-color: rgb(147, 147, 147);
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+button {
+  box-shadow: 1px 1px 5px #ccc;
+}
+
+button a {
+  font-weight: 600;
+}
+
+a.uk-inline {
+  color: black;
+}
+
+#page_control {
+  .nav-pills {
+    margin-top: 2em;
+  }
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+  box-shadow: 1px 1px 5px #444;
+  font-weight: 600;
+}
+
+// HEADER
+
+.search-indicator {
+  padding-top: 1.2em;
+}
+
+#main {
+  padding-top: 1em;
+}
+
+.l-basic-main {
+  box-sizing: border-box;
+  padding-top: $nav-height;
+}
+
+#collected_pages_search {
+  height: 4em;
+}
+
+.print-logo {
+  display: none;
+}
+
+@media only print {
+  .print-logo {
+    display: block;
+    margin: 10px;
+  }
+}
+
+// FORMS (SITE-WIDE)
+
+form .field {
+  margin-top: 2em;
+}
+
+form .error {
+  font-weight: 600;
+  color: rgb(147, 40, 53);
+}
+
+.actions input[type="submit"] {
+  box-shadow: 1px 1px 5px #ccc;
+  margin: 1em 0.3em;
+  font-weight: 600;
+
+  // TODO: this color shouldn't be hard-coded here; figure out where the "link
+  // blue" comes from and use that.
+  color: rgb(40, 53, 147);
+}
+
+// PAGE (SPECIES / TAXON / TAXON CONCEPT / CLADE)
+
+#page_nav_content {
+  min-height: 40em;
+}
+
+#data_table th, td {
+  vertical-align: top;
+}
+
+.tt-hint {
+  color: #ccc;
+}
+
+.tt-menu {
+  text-align: left;
+
+  .tt-dataset {
+    box-sizing: border-box;
+    min-width: 200px;
+    padding: 5px 10px 10px 10px;
+    background: #fff;
+    color: #666;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+
+    .tt-suggestion {
+      margin: 5px 0;
+      padding: 5px 0;
+    }
+
+    .tt-suggestion:nth-child(n+2) {
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .tt-suggestion:hover {
+      background: #eee;
+    }
+  }
+}
+
+// TODO: hack - remove
+.uk-form-controls .twitter-typeahead {
+  width: 100%;
+}
+
+.details {
+  .toc {
+    height: 30em;
+  }
+}
+
+// LANDING / HOMEPAGE:
+
+body {
+  margin: 0;
+  padding: 0;
+
+  .landing_page {
+    background-color: $black;
+    color: $eol-blue;
+
+    h1 {
+      color: $eol-blue;
+    }
+  }
+
+  .uk-container {
+    .eol-landing-page-container {
+      margin-top: 6em;
+    }
+  }
+}
+
+.nounderline, .nounderline:hover {
+  text-decoration: none;
+}
+
+// GLOBAL NAV
+.l-nav {
+  background: $navbar-light-gray;
+  height: $nav-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav-item {
+  color: $eol-logo-blue;
+  display: inline-block;
+  height: $nav-height;
+  line-height: $nav-height;
+  padding: 0 10px;
+
+  &:hover {
+    color: $eol-logo-blue;
+  }
+}
+
+  /*
+  .nav-item-locale {
+    margin-left: 40px;
+  }
+  */
+
+.nav-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.nav-right {
+  height: 100%;
+  right: 10px;
+  top: 0;
+  position: absolute;
+}
+
+.nav-logo {
+  & > img {
+    height: 19px;
+  }
+}
+
+// TODO: Errr... resolve this. I've added the !importants because I "needed" to use semantic-ui's "search". PTB forgive
+// me for my sins!
+.nav-search {
+  $margin-tb: 5px;
+  $border-sz: 1px;
+  border: $border-sz solid $light-gray !important;
+  font-size: 13px !important;
+  height: $nav-height - 2 * $margin-tb !important;
+  margin: $margin-tb 0 !important;
+  padding: 0 24px 0 4px !important;
+  vertical-align: middle !important;
+  width: 100% !important;
+  border-radius: 2px !important;
+  box-sizing: border-box;
+}
+
+.nav-search-form {
+  margin: 0 auto;
+  position: relative;
+  width: 60%;
+
+  & > .twitter-typeahead {
+    width: 100%;
+  }
+}
+
+.nav-search-form .tt-dataset {
+  color: $black;
+
+  & a {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.nav-search-form .tt-cursor {
+  background-color: #ddd;
+}
+
+@media(min-width: $width-uk-s + 1px) {
+  .nav-search-form {
+    float: right;
+    margin-right: 10px;
+    width: 265px;
+  }
+}
+
+@media(min-width: $search-collapse-width + 1) {
+  .nav-search-form {
+    width: 250px;
+  }
+}
+
+.nav-search-icon {
+  position: absolute;
+  right: 0;
+}
+
+.search-icon {
+  color: #fafafa;
+}
+
+.nav-menu {
+  //background: $navbar-light-gray;
+  background: $white;
+  display: none;
+  font-size: 16px;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: $nav-height;
+
+  & > li {
+    $height: 35px;
+    border-bottom: 1px solid $black;
+    color: $black;
+    cursor: pointer;
+    height: $height;
+    line-height: $height;
+    padding: 0 18px;
+
+    & > a {
+      display: block;
+      color: inherit;
+      height: 100%;
+      width: 100%;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &:hover {
+      background: $black;
+      color: $white;
+    }
+  }
+}
+
+.nav-menu-anchor {
+  cursor: pointer;
+  position: relative;
+
+  &:hover .nav-menu {
+    display: block;
+  }
+}
+
+  .nav-menu-anchor-bars {
+    position: absolute;
+  }
+
+// overlays
+.l-overlay {
+  background: rgba(#3c3d41, .9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.overlay-x {
+  color: $white;
+  cursor: pointer;
+  left: 20px;
+  position: absolute;
+  top: 20px;
+}
+
+.overlay-btn {
+  $height: 84px;
+  background-color: $eol-logo-blue;
+  bottom: 0;
+  color: $white;
+  cursor: pointer;
+  font-size: 18px;
+  height: $height;
+  left: 0;
+  line-height: $height;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+// FOOTER
+.footer {
+  padding: 0 0 40px 0;
+  margin-top: 40px;
+}
+
+.footer-section {
+  border-top: 1px solid $eol-gray;
+  font-size: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+
+  & > li {
+    display: inline;
+    padding: 0 5px;
+    white-space: nowrap;
+  }
+}
+
+  .footer-section-eol-info {
+    background: $white;
+    font-size: 16px;
+  }
+
+  .nmnh-header {
+    color: $link-color;
+    margin-bottom: 10px;
+  }
+
+  .nmnh-logo {
+    height: 100px;
+  }
+
+// JS map
+#map {
+  #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 617px) {
+  #map {
+    #goBackUI, #goNextUI, #goOrigUI, #goRadioUI, #goPanelUI, #goFullUI {
+      display: block;
+    }
+  }
+  // TODO: these should all have a single class that is targeted
+}
+
+@media only print {
+  .l-nav {
+    display: none;
+  }
+
+  .l-basic-main {
+    padding-top: 0;
+  }
+
+  .footer {
+    display: none;
+  }
+}

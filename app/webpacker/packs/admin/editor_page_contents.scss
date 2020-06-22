@@ -1,0 +1,16 @@
+// Place all the styles related to the EditorPages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+// = require trix
+@import "../editor_pages";
+
+trix-editor {
+  height: 600px;
+  overflow-y: auto !important;
+}
+
+.editor-page-actions {
+  display: inline-block;
+  margin-left: 20px;
+}
+
