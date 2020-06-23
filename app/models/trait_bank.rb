@@ -267,6 +267,80 @@ class TraitBank
       end
     end
 
+    def page_traits_by_pred(page_id, options = {})
+      limit = options[:limit] || 5 # limit is per predicate
+      key = "trait_bank/page_traits_by_pred/#{page_id}/limit_#{limit}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          WITH predicate, collect(DISTINCT trait)[0..#{limit}] as traits, count(DISTINCT trait) AS trait_count, resource
+          UNWIND traits as trait
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, trait_count
+        ))
+
+        build_trait_array(res)
+      end
+    end
+
+    def page_trait_predicate_uris(page_id, options = {})
+      key = "trait_bank/page_trait_predicate_uris/#{page_id}"
+      add_hash_to_key(key, options)
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          RETURN DISTINCT predicate.uri
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def page_trait_resource_ids(page_id, options = {})
+      key = "trait_bank/page_trait_resource_ids/#{page_id}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        predicate_filter_part = options[:pred_uri] ? "-[#{parent_terms}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
+
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_part},
+          (trait)-[:supplier]->(resource:Resource)
+          RETURN DISTINCT resource.id
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def all_page_traits_for_pred(page_id, pred_uri, options = {})
+      key = "trait_bank/all_page_traits_for_pred/#{page_id}/#{pred_uri}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term{ uri: '#{pred_uri}'}),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term
+        ))
+
+        build_trait_array(res)
+      end
+    end
+
     def data_dump_page(page_id)
       query(%{
         MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:supplier]->(resource:Resource),
@@ -336,9 +410,7 @@ class TraitBank
           return count
         end
       else
-        options.each do |k, v|
-          key += "/#{k}_#{v}"
-        end
+        add_hash_to_key(key, options)
       end
       if options.key?(:cache) && !options[:cache]
         term_search_uncached(term_query, key, options)
@@ -1265,5 +1337,21 @@ class TraitBank
       end
       "[#{result.join(", ")}]"
     end
+
+    private
+    def resource_filter_part(resource_id)
+      if resource_id
+        "{ resource_id: #{resource_id} }"
+      else
+        ""
+      end
+    end
+
+    def add_hash_to_key(key, hash)
+      hash.each do |k, v|
+        key += "/#{k}_#{v}"
+      end
+    end
+
   end
 end
