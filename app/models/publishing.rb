@@ -59,11 +59,13 @@ class Publishing
 
   def get_import_run
     unless @last_run_at
-      last_run = ImportRun.completed.last
+      # NOTE: we were having problems where not all terms since the last sync were coming through, so I'm allowing a
+      # significant amount of leeway, here:
+      last_run = ImportRun.completed.order('completed_at DESC').limit(5).last
       # NOTE: We use the CREATED time! We want all new data as of the START of the import. In pracice, this is less than
       # perfect... ideally, we would want a start time for each resource... but this should be adequate for our
       # purposes.
-      @last_run_at = (last_run&.created_at || 10.years.ago).to_i
+      @last_run_at = ((last_run&.created_at || 10.years.ago) - 1.week).to_i
     end
     @run = ImportRun.create
   end
