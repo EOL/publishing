@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
+# Author: Blackteahamburger
 # Author: Hydra
 # Author: Jhammock
 # Author: Jinghong
@@ -29,6 +30,7 @@ zh-CN:
     actions:
       collect: 收集
     header:
+      blank: (本文没有正文。)
       body: 身体
       language: '语言: %{language}}'
       title: 职位
@@ -40,6 +42,7 @@ zh-CN:
   breadcrumbs:
     types:
       scientific: 科学的
+      vernacular: 白话
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -51,6 +54,8 @@ zh-CN:
     hierarchies:
       this_page: （本页）
     richness:
+      header: 页面丰富度
+      score: 丰富度得分
       page_contents_count: 相关内容
       media_count: 媒体文件
       articles_count: 摘录
@@ -443,6 +448,9 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
+  term_query_filter:
+    validations:
+      invalid_uri: 该标识符无效
   terms:
     scientific_name: 学名
     source: 源
@@ -450,7 +458,11 @@ zh-CN:
     data_viz:
       other: 其他
     properties:
+      citation: 书目引用
+      method: 测量方法
+      remarks: 附注
       scientific_name: 学名
+      source: 来源
     search:
       edit_filters: 编辑过滤器
       new_search: 新搜索
