@@ -40,6 +40,7 @@ module EolWebsite
 
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib) # NOTE: make sure this stays the same as autoload_paths!
 
     # set x-robots-tag header to noindex for all requests
     config.x.block_crawlers = Rails.application.secrets.block_crawlers || false
