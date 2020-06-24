@@ -1,7 +1,16 @@
 class Page < ApplicationRecord
-  @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers autocomplete_names]
+  include Autocomplete
+
+  @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, mappings: {
+    properties: {
+      autocomplete_names: {
+        type: "completion"
+      }
+    }
+  }
+  autocompletes "autocomplete_names"
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true
@@ -167,20 +176,6 @@ class Page < ApplicationRecord
         end
       end
     end
-
-    def autocomplete(query, options = {})
-      search(query, options.reverse_merge({
-        fields: ['autocomplete_names'],
-        #fields: ['dh_scientific_names^5', 'preferred_vernacular_strings^5', 'vernacular_strings'],
-        match: :text_start,
-        limit: 10,
-        load: false,
-        misspellings: false,
-        highlight: { tag: "<mark>", encoder: "html" },
-        where: { dh_scientific_names: { not: nil }},
-        explain: true
-      }))
-    end
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
@@ -189,6 +184,9 @@ class Page < ApplicationRecord
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
+    autocomplete_names = dh_scientific_names&.any? ? 
+      (dh_scientific_names + resource_preferred_vernacular_strings).uniq(&:downcase) : 
+      []
 
     {
       id: id,
@@ -199,7 +197,7 @@ class Page < ApplicationRecord
       preferred_vernacular_strings: pref_verns,
       dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
-      autocomplete_names: pref_verns + verns + preferred_scientific_strings
+      autocomplete_names: autocomplete_names
     }
   end
 
@@ -238,6 +236,14 @@ class Page < ApplicationRecord
 
   def resource_pks
     nodes.map(&:resource_pk)
+  end
+
+  def resource_preferred_vernacular_strings
+    if vernaculars.loaded?
+      vernaculars.select { |v| v.is_preferred_by_resource? }.map { |v| v.string }
+    else
+      vernaculars.preferred_by_resource.map { |v| v.string }
+    end
   end
 
   def preferred_vernacular_strings

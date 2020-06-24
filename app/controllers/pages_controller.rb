@@ -206,20 +206,26 @@ class PagesController < ApplicationController
     @resource = params[:resource_id] ? Resource.find(params[:resource_id]) : nil
     @filter_predicates = []
     @page_title = t("page_titles.pages.data", page_name: @page.name)
-    resources_data = []
-
-    filtered_data = @page.data.select do |t|
-      predicate_match = @predicate.nil? || t[:predicate][:uri] == @predicate[:uri]
-      resource_match = @resource.nil? || t[:resource_id] == @resource.id
-
-      @filter_predicates << @page.glossary[t[:predicate][:uri]] if resource_match
-      resources_data << t if predicate_match
-
-      predicate_match && resource_match
+    @traits_per_pred = 5
+    
+    query_options = {}
+    query_options[:resource_id] = @resource.id if @resource
+    if @predicate.nil?
+      filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
+    else
+      filtered_data = TraitBank.all_page_traits_for_pred(@page.id, @predicate[:uri], resource_id: @resource&.id)
     end
 
-    @filter_resources = Resource.where(id: resources_data.map { |t| t[:resource_id] }.compact.uniq).order(:name)
-    @filter_predicates = @filter_predicates.sort { |a, b| @page.glossary_names[a[:uri]] <=> @page.glossary_names[b[:uri]] }.uniq
+    filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
+    filter_predicate_uris = TraitBank.page_trait_predicate_uris(@page.id, resource_id: @resource&.id)
+
+    @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
+    @filter_predicates = filter_predicate_uris.collect do |uri|
+      @page.glossary[uri]
+    end.sort do |a, b|
+      TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
+    end.uniq
+
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
     @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
     @resources = TraitBank.resources(filtered_data)

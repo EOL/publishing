@@ -9,6 +9,7 @@ class Vernacular < ApplicationRecord
   has_many :vernacular_preferences, inverse_of: :vernacular # NOTE: do NOT destroy! We keep the record.
 
   scope :preferred, -> { where(is_preferred: true) }
+  scope :preferred_by_resource, -> { where(is_preferred_by_resource: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
   scope :current_language, -> { where(language_id: Language.current.id) }
 

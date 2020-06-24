@@ -1061,7 +1061,9 @@ ar:
     data_viz:
       about_this_chart: حول هذا المخطط
     properties:
+      method: طريقة القياس
       scientific_name: الاسم العلمي
+      source: المصدر
     search:
       download_tsv: تنزيل tsv
       edit_filters: مرشحات التعديل

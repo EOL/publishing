@@ -1,10 +1,4 @@
 module PagesHelper
-  RecordsPerPred = 5
-
-  def records_per_pred
-    RecordsPerPred
-  end
-
   def is_allowed_summary?(page)
     # TEMP: we're hacking this because we don't have (enough) ranks yet.
     return true
