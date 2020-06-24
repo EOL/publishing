@@ -15,7 +15,7 @@ $alert-padding: 15px;
 $link-hover-color: #17874e;
 $link-visited-color: #574177;
 
-@import "./src/vendor/uikit";
+@import "./vendor/uikit";
 @import "main";
 @import "main_en";
 @import "page";
