@@ -23,3 +23,4 @@ cluster restart.
 === DEPLOY 6/24: I did NOT have to run any migrations, which was not expected, but the rest should be complete.
 
 6/23 (mvitale): autocomplete changes that require Page and TermNode to be reindexed.
+6/24 (mvitale): For webpacker assets: install Node 10.17.0+ & Yarn 1.x+. bundle install && yarn install. Webpack assets should be automatically compiled in the assets:precompile task; ping me if not.
