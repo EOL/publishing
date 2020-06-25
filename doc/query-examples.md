@@ -311,6 +311,19 @@ ORDER BY count desc
 LIMIT 15
 ```
 
+## Which taxa visit flowers of taxa with records of human use?
+
+```
+MATCH (page:Page), (page)-[:trait|:inferred_trait]->(t0:Trait), (t0)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), (page)-[:trait|:inferred_trait]->(t1:Trait), (t1)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p1:Term), (page2:Page)
+USING INDEX p0:Term(uri)
+USING INDEX p1:Term(uri)
+WHERE (p0.uri = "http://eol.org/schema/terms/Uses")
+AND (p1.uri = "http://purl.obolibrary.org/obo/RO_0002623")
+AND (t1.object_page_id = page2.page_id)
+RETURN DISTINCT page.canonical, page2.canonical
+LIMIT 50000
+```
+
 ## Taxa marked both extant and extinct
 
 ```
