@@ -6,7 +6,10 @@ Rails.application.config.assets.version = '1.0'
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
 # Add Yarn node_modules folder to the asset load path.
-Rails.application.config.assets.paths << Rails.root.join('node_modules')
+# NOTE: commented out because it was causing errors about missing coffeescript support and making initial requests
+# extremely slow after server reboot. If you want to include a specific package from node_node modules, do that, but
+# don't add the whole thing.
+# Rails.application.config.assets.paths << Rails.root.join('node_modules') 
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

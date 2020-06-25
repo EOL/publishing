@@ -24,7 +24,7 @@ gem 'therubyracer', '~> 0.12'
 gem 'uglifier', '~> 4.2'
 
 # NOTE: required to avoid weird error caused by the existence of .coffee files in node_modules
-gem 'coffee-rails'
+#gem 'coffee-rails'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.

@@ -100,13 +100,6 @@ GEM
       client_side_validations (>= 15.0, < 17.0)
       simple_form (~> 5.0)
     coderay (1.1.2)
-    coffee-rails (5.0.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 5.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
     counter_culture (2.3.0)
@@ -532,7 +525,6 @@ DEPENDENCIES
   capybara (= 3.30.0)
   client_side_validations (~> 16.1)
   client_side_validations-simple_form (~> 9.2)
-  coffee-rails
   counter_culture (~> 2.3)
   coveralls (~> 0.7)
   crono (~> 1.1)
