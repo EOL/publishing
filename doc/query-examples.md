@@ -311,10 +311,14 @@ ORDER BY count desc
 LIMIT 15
 ```
 
-## Which taxa visit flowers of taxa with records of human use?
+## Which taxa visit flowers of taxa that have records of human use?
 
 ```
-MATCH (page:Page), (page)-[:trait|:inferred_trait]->(t0:Trait), (t0)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), (page)-[:trait|:inferred_trait]->(t1:Trait), (t1)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p1:Term), (page2:Page)
+MATCH (page:Page), (page)-[:trait|:inferred_trait]->(t0:Trait), 
+(t0)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p0:Term), 
+(page)-[:trait|:inferred_trait]->(t1:Trait), 
+(t1)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(p1:Term), 
+(page2:Page)
 USING INDEX p0:Term(uri)
 USING INDEX p1:Term(uri)
 WHERE (p0.uri = "http://eol.org/schema/terms/Uses")
