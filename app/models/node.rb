@@ -14,7 +14,7 @@ class Node < ApplicationRecord
   has_many :children, class_name: 'Node', foreign_key: :parent_id, inverse_of: :parent
   has_many :references, as: :parent
   has_many :referents, through: :references
-  scope :dh, -> { where(resource_id: Resource.native.id).limit(1) }
+  scope :dh, -> { where(resource_id: Resource.native.id) }
 
   # Denotes the context in which the (non-zero) landmark ID should be used. Additional description:
   # https://github.com/EOL/eol_website/issues/5 <-- HEY, YOU SHOULD ACTUALLY READ THAT.

@@ -29,8 +29,6 @@ class Page < ApplicationRecord
 
   # NOTE: this is too complicated, I think: it's not working as expected when preloading. (Perhaps due to the scope.)
   has_many :page_icons, inverse_of: :page
-  # Only the last one "sticks":
-  has_one :page_icon, -> { most_recent }
   has_one :dh_node, -> { dh }, class_name: "Node"
 
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
@@ -747,6 +745,10 @@ class Page < ApplicationRecord
 
   def animal?
     ancestors.find { |anc| anc.page_id == METAZOA_ID }.present?
+  end
+
+  def page_icon
+    page_icons.order(created_at: :desc).first
   end
 
   private
