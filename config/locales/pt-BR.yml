@@ -6,6 +6,7 @@
 # Author: Jhonnatanricardo
 # Author: Leonardo9387
 # Author: Leosls
+# Author: Rafaelff
 # Author: TheEduGobi
 ---
 pt-BR:
@@ -225,6 +226,7 @@ pt-BR:
       food_webs: Redes tróficas
       glossary: Glossário
       help: Ajuda
+      language_support: Suporte de idiomas
       terms_of_use: Termo de uso
       the_eol_forum: Fórum da EOL
       what_is_eol: O que é EOL?
@@ -887,6 +889,7 @@ pt-BR:
   term_query_filter:
     validations:
       blank_error: deve especificar um atributo ou valor
+      invalid_uri: URI inválida
   terms:
     attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
     comment_field_html: <strong>Comentário:</strong> %{comment}
@@ -912,6 +915,13 @@ pt-BR:
         other: um=um registro com "%{obj_name}"
       n_taxa_with:
         other: uma=uma taxonomia com "%{obj_name}"
+    properties:
+      citation: Citação bibliográfica
+      method: Modo da medição
+      remarks: Observações
+      sample_size: Tamanho da amostra
+      scientific_name: Nome científico
+      source: Fonte
     search:
       edit_filters: editar filtros
       filter_display:

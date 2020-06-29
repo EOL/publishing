@@ -13,6 +13,7 @@
 # Author: Shirayuki
 # Author: Shizhao
 # Author: Tiger
+# Author: VulpesVulpes825
 # Author: Xiaomingyan
 # Author: 列维劳德
 # Author: 沈澄心
@@ -121,7 +122,7 @@ zh-CN:
     resource_label: 合作伙伴页面
     source: 来源
     view_source_label: 原始消息
-  dear_username_with_comma: 亲爱的%{username}：
+  dear_username_with_comma: 尊敬的 %{username}：
   delete_account_button: 删除这个账户
   filter_by_license: 许可协议
   filter_by_medium_subtype: 样式
@@ -165,9 +166,11 @@ zh-CN:
     header: 为全球提供地球上生命的知识
   language: 语言
   languages:
+    "no": 挪威语
     Q146803: 新共同语言
     Q33475: 赣语
     Q36730: 奥斯曼土耳其语
+    Q56482: 掸语
     Q9292: 阿塞拜疆语
     aa: 阿法尔文
     ab: 阿布哈西亚文
