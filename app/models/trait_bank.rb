@@ -11,15 +11,6 @@ class TraitBank
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
 
-    def query_connection
-      if !@query_connection
-        adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.neo4j.session.url, { ssl: false, wrap_level: :none })
-        @query_connection = Neo4j::Core::CypherSession.new(adaptor)
-      end
-
-      @query_connection
-    end
-
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
@@ -33,7 +24,7 @@ class TraitBank
       true
     end
 
-    def neography_query(q)
+    def query(q)
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
@@ -53,40 +44,6 @@ class TraitBank
         log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
-    end
-
-    def query(q)
-      start = Time.now
-      results = nil
-      q.sub(/\A\s+/, "")
-      begin
-        results = query_connection.query(q)
-        stop = Time.now
-      rescue Excon::Error::Socket => e
-        log_error("Connection refused on query: #{q}")
-        sleep(0.1)
-        results = query_connection.query(q)
-      rescue Excon::Error::Timeout => e
-        log_error("Timed out on query: #{q}")
-        sleep(1)
-        results = query_connection.query(q)
-      ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
-        log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
-      end
-
-      hash_results = {}
-      hash_results["data"] = results.rows.collect do |row|
-        row.collect do |val|
-          if val.is_a? Hash
-            val.stringify_keys
-          else
-            val
-          end
-        end
-      end
-      hash_results["columns"] = results.columns.collect { |c| c.to_s }
-      hash_results
     end
 
     def quote(string)
@@ -887,10 +844,9 @@ class TraitBank
         row_id = if id_col_val.is_a? String
                    id_col_val
                  else
-                   id_col_val["eol_pk"] || id_col_val["uri"] # XXX: Only designed to handle Trait and Term nodes. Consider returning properties only, and using flat_results_to_hashes
+                   id_col_val.dig("metadata", "id")
                  end
-        #raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
-        next if row_id.nil?
+        raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         if row_id != previous_id
           previous_id = row_id
           hashes << hash unless hash.nil?
@@ -1229,7 +1185,7 @@ class TraitBank
     # Raises ActiveRecord::RecordNotFound if uri is invalid
     def term_record(uri)
       result = term(uri)
-      result&.symbolize_keys
+      result&.[]("data")&.symbolize_keys
     end
 
     def update_term(opts)
@@ -1249,7 +1205,7 @@ class TraitBank
 
     def descendants_of_term(uri)
       terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
-      terms["data"].map { |r| r.first }
+      terms["data"].map { |r| r.first["data"] }
     end
 
     def term_member_of(uri)

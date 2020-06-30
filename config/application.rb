@@ -34,8 +34,8 @@ module EolWebsite
     config.data_glossary_page_size = 250
 
     # For neo4j gem, not neography
-    config.neo4j.session.type = :bolt
-    config.neo4j.session.url = Rails.application.secrets.neo4jrb_url
+    config.neo4j.session.type = :http
+    config.neo4j.session.url = Rails.application.secrets.traitbank_url
     config.neo4j.session.options = { ssl: false }
 
     # Search for classes in the lib directory
