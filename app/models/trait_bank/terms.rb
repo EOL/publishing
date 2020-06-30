@@ -232,7 +232,7 @@ class TraitBank
         uris = {}
         res["data"].each do |row|
           row.each do |col|
-            uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if col.dig("data", "uri")
+            uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if col&.dig("data", "uri")
           end
         end
         uris
