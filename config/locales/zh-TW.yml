@@ -189,7 +189,7 @@ zh-TW:
     rights_statement: 版權聲明
     source: 來源
     spatial_location: 空間
-    view_source_label: 原始
+    view_source_label: 原始內容
     view_source_link: 檢視原始圖片
     view_source_page_link: 參訪來源
   content_not_in_any_collection_image: 此圖片未被精選在任何收藏裡。
@@ -223,6 +223,7 @@ zh-TW:
       food_webs: 食物鏈
       glossary: 術語
       help: 說明
+      language_support: 語言支援
       terms_of_use: 使用條款
       the_eol_forum: 網路生命大百科論壇
       what_is_eol: 什麼是網路生命大百科（Encyclopedia of Life、EOL）？
@@ -567,7 +568,7 @@ zh-TW:
     preferred_in_language_for_page: '%{name}現為%{page}的首選%{language}方言'
     show_more_langs:
       one: 顯示另種語言
-      other: 顯示另 %{count} 種語言
+      other: 顯示另外 %{count} 種語言
   nav:
     about: 關於
     discuss: 討論
@@ -922,7 +923,7 @@ zh-TW:
     如果您遭遇到任何問題，請在 %{url} 聯絡我們。
 
     生命大百科團隊
-  did_not_receive_confirmation_instructions: 沒有收到確認指示
+  did_not_receive_confirmation_instructions: 沒有收到確認內容
   simple_form:
     "yes": 是
     "no": 否
@@ -1327,7 +1328,7 @@ zh-TW:
   trophic_web:
     group_descriptions:
       competitor: '%{source_name}的競爭者'
-      predator: 捕食%{source_name}
+      predator: 掠食%{source_name}
       prey: 被%{source_name}覓食
       source: 焦點物種
   trust:

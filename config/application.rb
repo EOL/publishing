@@ -28,18 +28,19 @@ module EolWebsite
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = %i(en mk fi pt-BR fr zh-TW pms tr)
+    config.i18n.available_locales = %i(en mk fi pt-BR fr zh-TW pms tr ar)
 
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250
 
     # For neo4j gem, not neography
-    config.neo4j.session.type = :bolt
-    config.neo4j.session.url = Rails.application.secrets.neo4jrb_url
+    config.neo4j.session.type = :http
+    config.neo4j.session.url = Rails.application.secrets.traitbank_url
     config.neo4j.session.options = { ssl: false }
 
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib) # NOTE: make sure this stays the same as autoload_paths!
 
     # set x-robots-tag header to noindex for all requests
     config.x.block_crawlers = Rails.application.secrets.block_crawlers || false

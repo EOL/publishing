@@ -1,8 +1,8 @@
 // NOTE: OpenSans is added via font-kit-rails. If you stop using that font,
 // REMOVE THAT GEM FROM THE GEMFILE (and this line):
-@import "font-kit-rails/open-sans";
-@import "colors";
-@import "dimensions";
+//@import "font-kit-rails/open-sans";
+@import "./colors";
+@import "./dimensions";
 
 $font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -538,7 +538,6 @@ body {
 .nav-search-icon {
   position: absolute;
   right: 0;
-  top: 12px;
 }
 
 .search-icon {

@@ -3,6 +3,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by!(id: params[:id], active: true)
+    # We don't want this page cached by nginx:
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
   end
 
   def power_user_index

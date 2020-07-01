@@ -1,6 +1,6 @@
-@import "shared/traits";
-@import "shared/summary_card";
-@import "colors";
+@import "./shared/traits";
+@import "./shared/summary_card";
+@import "./colors";
 
 .l-terms {
   padding: 10px percentage(15 / 375);

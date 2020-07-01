@@ -243,6 +243,7 @@ pms:
       food_webs: Rej dël mangé
       glossary: Glossari
       help: Agiut
+      language_support: Supòrt ëd lenga
       terms_of_use: Condission d'utilisassion
       the_eol_forum: La piassa EdV
       what_is_eol: Lòn ch'a l'é l'EdV?
@@ -1225,6 +1226,47 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: fium
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: prairìa
+        http://eol(dot)org/schema/terms/paleo_megaannum: un milion d'agn fa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gre Celsius
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: esemplar për
+          chilòmeter quàder
+        http://eol(dot)org/schema/terms/millimeterspermonth: milim al mèis
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: di
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mèis
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: agn
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watts
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: përsent
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gre
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /di
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /ann
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: gre Fahrenheit
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: pòles
+        http://eol(dot)org/schema/terms/perAcre: për acr
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU
+        http://purl(dot)org/obo/owl/UO#UO_0000034: sman-e
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol /sélula /di
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/sélula
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/l
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/di
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/ann
+        Unit: Unità
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mèis'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/an
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/mèis
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3mèis
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4mèis
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6mèis
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7mèis
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8mèis
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/di
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sec
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/ann
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/cm2/hr
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonëlà
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
   term_query:
     validations:
       empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
@@ -1234,6 +1276,7 @@ pms:
   term_query_filter:
     validations:
       blank_error: a dev ëspessifiché n'atribù o un valor
+      invalid_uri: URI nen bon
       pred_uri_blank_numeric_error: a peul pa esse veuid con un valor numérich
       range_invalid_error: a dev esse magior o ugual al prim valor
   terms:
@@ -1290,6 +1333,13 @@ pms:
           %{limit}] %{units}
         other: sgnaché për vëdde %{count} tassonomìe con dij valor dë mzura an [%{min},
           %{limit}] %{units}
+    properties:
+      citation: Sitassion bibliogràfica
+      method: Métod dë mzura
+      remarks: Armrche
+      sample_size: Taja dël campion
+      scientific_name: Nòm sientìfich
+      source: Sorgiss
     search:
       clade: 'erbo monofilétich: %{clade}'
       download_tsv: dëscarié ël tsv

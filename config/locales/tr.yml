@@ -46,8 +46,8 @@ tr:
   article_duplicate: bu madde ayrıca "%{section}" içinde gösterilmiştir
   autocomplete:
     see_all:
-      one: diğer sonuçları gör
-      other: '%{count} sonucun tümünü görüntüle'
+      one: diğer sonuçları görüntüle
+      other: '%{count} sonucunu tümünü görüntüle'
   breadcrumbs:
     notices:
       canonical: Bilimsel isimler artık sayfa kırıntılarında gösterilecek
@@ -243,6 +243,7 @@ tr:
       food_webs: Yiyecek Ağları
       glossary: Sözlük
       help: Yardım
+      language_support: Dil Desteği
       terms_of_use: Kullanım Şartları
       the_eol_forum: EOL Forumu
       what_is_eol: EOL nedir?
@@ -1321,8 +1322,12 @@ tr:
       show_n_records_between:
         one: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
           için tıklayın'
+        other: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
+          için tıklayın'
       show_n_taxa_between:
         one: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
+          görmek için tıklayın'
+        other: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
           görmek için tıklayın'
     properties:
       citation: Bibliyografik atıf

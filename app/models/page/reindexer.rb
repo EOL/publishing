@@ -6,6 +6,9 @@ class Page::Reindexer
     def reindex
       setup_background
       Page.reindex(async: {wait: true})
+      Resource.reindex(async: {wait: true})
+      User.reindex(async: {wait: true})
+      TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
     end
 
     # Simply Page::Reindexer.resume_reindex

@@ -38,7 +38,7 @@ class TraitBank
             "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
           q += limit_and_skip_clause(page, per)
           res = query(q)
-          res["data"] ? res["data"].map { |t| t.first.symbolize_keys } : false
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : false
         end
       end
 
@@ -118,7 +118,7 @@ class TraitBank
             if count
               res["data"].first.first
             else
-              all = res["data"].map { |t| t.first.symbolize_keys }
+              all = res["data"].map { |t| t.first["data"].symbolize_keys }
               all.map! { |h| { name: h[:name], uri: h[:uri] } } if qterm
               all
             end
@@ -153,7 +153,7 @@ class TraitBank
 
       def term_query(q)
         res = query(q)
-        all = res["data"].map { |t| t.first.symbolize_keys }
+        all = res["data"].map { |t| t.first["data"].symbolize_keys }
         all.map! { |h| { name: h[:name], uri: h[:uri] } }
         all
       end
@@ -232,7 +232,7 @@ class TraitBank
         uris = {}
         res["data"].each do |row|
           row.each do |col|
-            uris[col["uri"]] ||= col.symbolize_keys if col&.[]("uri")
+            uris[col["data"]["uri"]] ||= col["data"].symbolize_keys if col&.dig("data", "uri")
           end
         end
         uris
@@ -249,7 +249,7 @@ class TraitBank
           q += "WHERE LOWER(object.name) =~ \"#{qterm}.*\" " if qterm
           q +=  'RETURN object ORDER BY object.position LIMIT 6'
           res = query(q)
-          res["data"] ? res["data"].map { |t| t.first.symbolize_keys } : []
+          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
       end
 

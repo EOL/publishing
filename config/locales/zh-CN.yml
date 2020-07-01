@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
+# Author: Blackteahamburger
 # Author: Hydra
 # Author: Jhammock
 # Author: Jinghong
@@ -12,6 +13,7 @@
 # Author: Shirayuki
 # Author: Shizhao
 # Author: Tiger
+# Author: VulpesVulpes825
 # Author: Xiaomingyan
 # Author: 列维劳德
 # Author: 沈澄心
@@ -29,6 +31,7 @@ zh-CN:
     actions:
       collect: 收集
     header:
+      blank: (本文没有正文。)
       body: 身体
       language: '语言: %{language}}'
       title: 职位
@@ -40,6 +43,7 @@ zh-CN:
   breadcrumbs:
     types:
       scientific: 科学的
+      vernacular: 白话
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -51,6 +55,8 @@ zh-CN:
     hierarchies:
       this_page: （本页）
     richness:
+      header: 页面丰富度
+      score: 丰富度得分
       page_contents_count: 相关内容
       media_count: 媒体文件
       articles_count: 摘录
@@ -116,7 +122,7 @@ zh-CN:
     resource_label: 合作伙伴页面
     source: 来源
     view_source_label: 原始消息
-  dear_username_with_comma: 亲爱的%{username}：
+  dear_username_with_comma: 尊敬的 %{username}：
   delete_account_button: 删除这个账户
   filter_by_license: 许可协议
   filter_by_medium_subtype: 样式
@@ -160,9 +166,11 @@ zh-CN:
     header: 为全球提供地球上生命的知识
   language: 语言
   languages:
+    "no": 挪威语
     Q146803: 新共同语言
     Q33475: 赣语
     Q36730: 奥斯曼土耳其语
+    Q56482: 掸语
     Q9292: 阿塞拜疆语
     aa: 阿法尔文
     ab: 阿布哈西亚文
@@ -443,6 +451,9 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
+  term_query_filter:
+    validations:
+      invalid_uri: 该标识符无效
   terms:
     scientific_name: 学名
     source: 源
@@ -450,7 +461,11 @@ zh-CN:
     data_viz:
       other: 其他
     properties:
+      citation: 书目引用
+      method: 测量方法
+      remarks: 附注
       scientific_name: 学名
+      source: 来源
     search:
       edit_filters: 编辑过滤器
       new_search: 新搜索

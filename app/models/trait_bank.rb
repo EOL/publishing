@@ -11,15 +11,6 @@ class TraitBank
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
 
-    def query_connection
-      if !@query_connection
-        adaptor = Neo4j::Core::CypherSession::Adaptors::Bolt.new(Rails.configuration.neo4j.session.url, { ssl: false, wrap_level: :none })
-        @query_connection = Neo4j::Core::CypherSession.new(adaptor)
-      end
-
-      @query_connection
-    end
-
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
     end
@@ -33,7 +24,7 @@ class TraitBank
       true
     end
 
-    def neography_query(q)
+    def query(q)
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
@@ -53,40 +44,6 @@ class TraitBank
         log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
       end
       results
-    end
-
-    def query(q)
-      start = Time.now
-      results = nil
-      q.sub(/\A\s+/, "")
-      begin
-        results = query_connection.query(q)
-        stop = Time.now
-      rescue Excon::Error::Socket => e
-        log_error("Connection refused on query: #{q}")
-        sleep(0.1)
-        results = query_connection.query(q)
-      rescue Excon::Error::Timeout => e
-        log_error("Timed out on query: #{q}")
-        sleep(1)
-        results = query_connection.query(q)
-      ensure
-        q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
-        log(">>TB TraitBank (#{stop ? stop - start : "F"}):\n#{q}")
-      end
-
-      hash_results = {}
-      hash_results["data"] = results.rows.collect do |row|
-        row.collect do |val|
-          if val.is_a? Hash
-            val.stringify_keys
-          else
-            val
-          end
-        end
-      end
-      hash_results["columns"] = results.columns.collect { |c| c.to_s }
-      hash_results
     end
 
     def quote(string)
@@ -267,6 +224,80 @@ class TraitBank
       end
     end
 
+    def page_traits_by_pred(page_id, options = {})
+      limit = options[:limit] || 5 # limit is per predicate
+      key = "trait_bank/page_traits_by_pred/#{page_id}/limit_#{limit}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          WITH predicate, collect(DISTINCT trait)[0..#{limit}] as traits, count(DISTINCT trait) AS trait_count, resource
+          UNWIND traits as trait
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, trait_count
+        ))
+
+        build_trait_array(res)
+      end
+    end
+
+    def page_trait_predicate_uris(page_id, options = {})
+      key = "trait_bank/page_trait_predicate_uris/#{page_id}"
+      add_hash_to_key(key, options)
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          RETURN DISTINCT predicate.uri
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def page_trait_resource_ids(page_id, options = {})
+      key = "trait_bank/page_trait_resource_ids/#{page_id}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        predicate_filter_part = options[:pred_uri] ? "-[#{parent_terms}]->(:Term{ uri: '#{options[:pred_uri]}' })" : ""
+
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_part},
+          (trait)-[:supplier]->(resource:Resource)
+          RETURN DISTINCT resource.id
+        ))
+
+        res["data"].flatten
+      end
+    end
+
+    def all_page_traits_for_pred(page_id, pred_uri, options = {})
+      key = "trait_bank/all_page_traits_for_pred/#{page_id}/#{pred_uri}"
+      add_hash_to_key(key, options)
+
+      Rails.cache.fetch(key) do
+        res = query(%Q(
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term{ uri: '#{pred_uri}'}),
+          (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term
+        ))
+
+        build_trait_array(res)
+      end
+    end
+
     def data_dump_page(page_id)
       query(%{
         MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:supplier]->(resource:Resource),
@@ -336,9 +367,7 @@ class TraitBank
           return count
         end
       else
-        options.each do |k, v|
-          key += "/#{k}_#{v}"
-        end
+        add_hash_to_key(key, options)
       end
       if options.key?(:cache) && !options[:cache]
         term_search_uncached(term_query, key, options)
@@ -554,7 +583,7 @@ class TraitBank
       rows_vars = []
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      page_match += "-[:parent*0..]->(target_page:Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
 
@@ -651,15 +680,17 @@ class TraitBank
                           ""
 
       return_clause = "RETURN #{returns.join(", ")}"
+      index_part = term_query.clade ? 
+        "USING INDEX target_page:Page(page_id)\n" :
+        ""
 
-      q = "MATCH #{matches.join(', ')}\n"\
+      "MATCH #{matches.join(', ')}\n"\
+      "#{index_part}"\
       "WHERE #{wheres.join(' AND ')}\n"\
       "#{collect_unwind_part}\n"\
       "#{optional_match_part}\n"\
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
-
-      q
     end
 
     def page_match(term_query, page_var, anc_var)
@@ -815,10 +846,9 @@ class TraitBank
         row_id = if id_col_val.is_a? String
                    id_col_val
                  else
-                   id_col_val["eol_pk"] || id_col_val["uri"] # XXX: Only designed to handle Trait and Term nodes. Consider returning properties only, and using flat_results_to_hashes
+                   id_col_val.dig("metadata", "id")
                  end
-        #raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
-        next if row_id.nil?
+        raise("Found row with no ID on row: #{row.inspect}") if row_id.nil?
         if row_id != previous_id
           previous_id = row_id
           hashes << hash unless hash.nil?
@@ -1157,7 +1187,7 @@ class TraitBank
     # Raises ActiveRecord::RecordNotFound if uri is invalid
     def term_record(uri)
       result = term(uri)
-      result&.symbolize_keys
+      result&.[]("data")&.symbolize_keys
     end
 
     def update_term(opts)
@@ -1177,7 +1207,7 @@ class TraitBank
 
     def descendants_of_term(uri)
       terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
-      terms["data"].map { |r| r.first }
+      terms["data"].map { |r| r.first["data"] }
     end
 
     def term_member_of(uri)
@@ -1265,5 +1295,21 @@ class TraitBank
       end
       "[#{result.join(", ")}]"
     end
+
+    private
+    def resource_filter_part(resource_id)
+      if resource_id
+        "{ resource_id: #{resource_id} }"
+      else
+        ""
+      end
+    end
+
+    def add_hash_to_key(key, hash)
+      hash.each do |k, v|
+        key += "/#{k}_#{v}"
+      end
+    end
+
   end
 end
