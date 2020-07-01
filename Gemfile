@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # The REALLY basic stuff stays at the top:
 
-gem 'rails', '5.2.4.2'
+gem 'rails', '5.2.4.3'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 
@@ -32,7 +32,7 @@ gem 'unicorn', '~> 5.5'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:
-gem 'kaminari', '~> 1.2'
+gem 'kaminari', '~> 1.2.1'
 
 # All other non-environment-specific gems come next.
 #
