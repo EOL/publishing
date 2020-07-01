@@ -1307,7 +1307,7 @@ class TraitBank
 
     def add_hash_to_key(key, hash)
       hash.each do |k, v|
-        key += "/#{k}_#{v}"
+        key.concat("/#{k}_#{v}")
       end
     end
 

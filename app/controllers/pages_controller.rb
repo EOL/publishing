@@ -208,8 +208,6 @@ class PagesController < ApplicationController
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_pred = 5
     
-    query_options = {}
-    query_options[:resource_id] = @resource.id if @resource
     if @predicate.nil?
       filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
     else
