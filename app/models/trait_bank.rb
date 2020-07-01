@@ -271,7 +271,7 @@ class TraitBank
         res = query(%Q(
           MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)#{predicate_filter_part},
           (trait)-[:supplier]->(resource:Resource)
-          RETURN DISTINCT resource.id
+          RETURN DISTINCT resource.resource_id
         ))
 
         res["data"].flatten
