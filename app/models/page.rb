@@ -183,7 +183,7 @@ class Page < ApplicationRecord
     pref_verns = preferred_vernacular_strings
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
     autocomplete_names = dh_scientific_names&.any? ? 
-      (dh_scientific_names + resource_preferred_vernacular_strings).uniq(&:downcase) : 
+      (dh_scientific_names + pref_verns + resource_preferred_vernacular_strings).uniq(&:downcase) : 
       []
 
     {
