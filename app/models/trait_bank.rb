@@ -583,7 +583,7 @@ class TraitBank
       rows_vars = []
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      page_match += "-[:parent*0..]->(target_page:Page { page_id: #{term_query.clade.id} })" if term_query.clade
       matches << page_match
 
 
@@ -680,15 +680,17 @@ class TraitBank
                           ""
 
       return_clause = "RETURN #{returns.join(", ")}"
+      index_part = term_query.clade ? 
+        "USING INDEX target_page:Page(page_id)\n" :
+        ""
 
-      q = "MATCH #{matches.join(', ')}\n"\
+      "MATCH #{matches.join(', ')}\n"\
+      "#{index_part}"\
       "WHERE #{wheres.join(' AND ')}\n"\
       "#{collect_unwind_part}\n"\
       "#{optional_match_part}\n"\
       "#{with_count_clause}\n"\
       "#{return_clause} "# \
-
-      q
     end
 
     def page_match(term_query, page_var, anc_var)
