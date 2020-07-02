@@ -485,19 +485,7 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    return @key_data if @key_data
-    data = TraitBank.key_data(id)
-    @key_data = {}
-    seen = {}
-    data.each do |predicate, traits|
-      next if seen[predicate[:name]]
-      seen[predicate[:name]] = true
-        # TODO: we probably want to show multiple values, here, or at least
-        # "pick wisely" somehow.
-        @key_data[predicate] = traits.first
-      break if seen.size >= KEY_DATA_LIMIT
-    end
-    @key_data
+    TraitBank.key_data(id, KEY_DATA_LIMIT)
   end
 
   def has_data?

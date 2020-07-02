@@ -315,27 +315,23 @@ class TraitBank
       })
     end
 
-    def key_data(page_id)
-      Rails.cache.fetch("trait_bank/key_data/#{page_id}", expires_in: 1.day) do
+    def key_data(page_id, limit)
+      Rails.cache.fetch("trait_bank/key_data/#{page_id}/v1/limit_#{limit}", expires_in: 1.day) do
         # predicate.is_hidden_from_overview <> true seems wrong but I had weird errors with NOT "" on my machine -- mvitale
         q = "MATCH (page:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait) "\
           "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
           "WHERE predicate.is_hidden_from_overview <> true "\
+          "WITH predicate, head(collect(trait)) as trait "\
           "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
           "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
           "RETURN trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term "\
-          "LIMIT 100"
-          # NOTE "Huge" limit, in case there are TONS of values for the same
-          # predicate.
-
-          # "ORDER BY predicate.position, LOWER(object_term.name), "\
-          #   "LOWER(trait.literal), trait.normal_measurement "\
+          "LIMIT #{limit}"
 
         res = query(q)
-        build_trait_array(res).group_by { |r| r[:predicate] }
+        build_trait_array(res).collect { |r| [r[:predicate], r] }.to_h
       end
     end
 
