@@ -166,7 +166,7 @@ class PagesController < ApplicationController
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
-    #setup_habitat_bar_chart # NOTE: commented out due to performance issue with count query
+    setup_habitat_bar_chart
     @show_trophic_web = @page.rank&.r_species?
     respond_to do |format|
       format.html {}
