@@ -12,12 +12,12 @@ class ApiSearchController < LegacyApiController
   def get_results
     params[:page] ||= 1
     @per_page = 50
-    clade_id = params[:filter_by_taxon_concept_id]&.to_i
-    if params[:filter_by_string] && !params[:filter_by_string].blank?
+    clean_api_params
+    if params[:filter_by_string]
       results = Page.autocomplete(params[:filter_by_string])
       @clade = results.results.first['id'].to_i if results && results.results&.any?
-    elsif clade_id
-      @clade = clade_id
+    elsif id = params[:filter_by_taxon_concept_id]
+      @clade = params[:filter_by_taxon_concept_id].to_i
     elsif params[:filter_by_hierarchy_entry_id]
       return { 'response' => { 'message' => 'filter_by_hierarchy_entry_id is no longer supported. Please obtain the corresponding page id and use filter_by_taxon_concept_id.' } }
     end
@@ -61,5 +61,13 @@ class ApiSearchController < LegacyApiController
     return_hash[:itemsPerPage] = @per_page
     return_hash[:results]      = results
     return_hash
+  end
+
+  def clean_api_params
+    params[:filter_by_string] = nil if params[:filter_by_string].blank?
+    params[:filter_by_taxon_concept_id] = nil if
+      params[:filter_by_taxon_concept_id].blank? || params[:filter_by_taxon_concept_id].to_i.zero?
+    params[:filter_by_hierarchy_entry_id] = nil if
+      params[:filter_by_hierarchy_entry_id].blank? || params[:filter_by_hierarchy_entry_id].to_i.zero?
   end
 end
