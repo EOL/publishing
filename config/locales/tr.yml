@@ -178,7 +178,7 @@ tr:
       sort_field: ek açıklama, A-Z
       sort_field_rev: ek açıklama, Z-A
     updated: Koleksiyon güncellendi.
-  collection_unauthorized_edit: Bu koleksiyonu sadece sahibi olan kullanıcı düzenleyebilir.
+  collection_unauthorized_edit: Bu koleksiyonu yalnızca sahibi olan kullanıcı düzenleyebilir.
   complete_registration: Lütfen kayıt işlemine devam edin
   content_appears_on: 'Aşağıdaki Sayfalarda Bulunmaktadır:'
   content_collected_in: 'Aşağıdaki Koleksiyonlarda Öne Çıkanlar:'
