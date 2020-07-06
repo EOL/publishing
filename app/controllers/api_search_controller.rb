@@ -12,11 +12,12 @@ class ApiSearchController < LegacyApiController
   def get_results
     params[:page] ||= 1
     @per_page = 50
-    if params[:filter_by_string]
+    clade_id = params[:filter_by_taxon_concept_id]&.to_i
+    if params[:filter_by_string] && !params[:filter_by_string].blank?
       results = Page.autocomplete(params[:filter_by_string])
       @clade = results.results.first['id'].to_i if results && results.results&.any?
-    elsif id = params[:filter_by_taxon_concept_id]
-      @clade = params[:filter_by_taxon_concept_id].to_i
+    elsif clade_id
+      @clade = clade_id
     elsif params[:filter_by_hierarchy_entry_id]
       return { 'response' => { 'message' => 'filter_by_hierarchy_entry_id is no longer supported. Please obtain the corresponding page id and use filter_by_taxon_concept_id.' } }
     end
