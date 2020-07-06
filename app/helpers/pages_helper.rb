@@ -217,12 +217,12 @@ module PagesHelper
   end
 
   def group_sort_names_for_card(names, include_rank, include_status)
-    result = names.group_by do |n|
-      rank = n.node.rank
+    names.group_by do |n|
+      node = n.node
       status = n.taxonomic_status&.name
       dwh_str = n.resource&.dwh? ? "a" : "b"
       key = "#{dwh_str}.#{n.italicized}"
-      key += ".#{rank.treat_as}" if include_rank && rank
+      key += ".#{node.rank_treat_as}" if include_rank && node.has_rank_treat_as?
       key += ".#{status}" if include_status && status
       key
     end.values.sort_by do |v|
