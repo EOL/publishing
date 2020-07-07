@@ -1,4 +1,5 @@
 # Reindex the pages in a resumable way.
+# nohup rails r "Page::Reindexer.reindex" > log/reindex.log 2>&1 &
 class Page::Reindexer
   # NOTE: There were instance methods here to *manually* reindex things and "watch" the progress. I've removed them. If
   # you want to see them again, checkout 69b3076fa15c880daff673a45e073eb22d026371
