@@ -30,7 +30,7 @@ class Language < ApplicationRecord
     end
 
     def current
-      Rails.cache.fetch("languages/current_by_group/#{locale}") do
+      Rails.cache.fetch("languages/current_by_group/#{I18n.locale}") do
         l = self.for_locale(I18n.locale)
 
         if l.empty?
