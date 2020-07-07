@@ -66,5 +66,8 @@ module EolWebsite
     Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host[:name]
 
     config.x.gbif_credentials = Rails.application.secrets.gbif_credentials
+ 
+    # point autocomplete to localized fields
+    config.x.autocomplete_i18n_enabled = true
   end
 end

@@ -2,10 +2,15 @@ module Autocomplete
   extend ActiveSupport::Concern
 
   DEFAULT_AUTOCOMPLETE_LIMIT = 10 
+  I18N_ENABLED = Rails.configuration.x.autocomplete_i18n_enabled
 
   class_methods do
     def autocompletes(field_name)
       @ac_field_name = field_name
+    end
+
+    def autocomplete_field_name
+      "#{@ac_field_name}_#{I18n.locale}"
     end
 
     def autocomplete(query, options = {})
