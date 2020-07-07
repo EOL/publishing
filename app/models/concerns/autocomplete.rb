@@ -1,6 +1,8 @@
 module Autocomplete
   extend ActiveSupport::Concern
 
+  DEFAULT_AUTOCOMPLETE_LIMIT = 10 
+
   class_methods do
     def autocompletes(field_name)
       @ac_field_name = field_name
@@ -14,7 +16,7 @@ module Autocomplete
             prefix: query,
             completion: {
               field: @ac_field_name,
-              size: options[:limit] || nil
+              size: options[:limit] || DEFAULT_AUTOCOMPLETE_LIMIT
             }
           }
         }

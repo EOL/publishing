@@ -40,40 +40,7 @@ class PagesController < ApplicationController
   end
 
   def autocomplete
-    full_results = Page.autocomplete(params[:query])
-    if params[:full]
-      render json: full_results
-    elsif params[:simple]
-      result_hash = {}
-      full_results.each do |r|
-          field = r['highlight']&.first&.first&.split('.').first
-          name = r.send(field) || r.scientific_name
-          if name.is_a?(Array)
-            first_hit = name.grep(/#{params[:query]}/i)&.first
-            name = first_hit || name.first
-          end
-          result_hash[name] = if result_hash.key?(name)
-            new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
-            { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
-          else
-            { name: name, title: name, id: r.id, url: page_path(r.id) }
-          end
-        end
-      simplified = result_hash.values
-      simplified = { results: simplified } if params[:simple] == 'hash'
-      render json: simplified
-    else
-      render json: {
-        results: full_results.map do |r|
-          name = r.scientific_name
-          vern = r.preferred_vernacular_strings.first
-          name += " (#{vern})" unless vern.blank?
-          { title: name, url: page_path(r.id), image: r.icon, id: r.id }
-        end,
-        action: { url: "/search?q=#{params[:query]}",
-          text: t("autocomplete.see_all", count: full_results.total_entries) }
-      }
-    end
+    render json: autocomplete_results(Page.autocomplete(params[:query]))
   end
 
   # TODO: I suspect this method and its compatriots can be made redundant.
