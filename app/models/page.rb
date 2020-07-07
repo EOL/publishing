@@ -2,6 +2,7 @@ class Page < ApplicationRecord
   include Autocomplete
   include HasVernaculars
 
+  BASE_AUTOCOMPLETE_WEIGHT = 100
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
 
   autocompletes "autocomplete_names"
@@ -181,7 +182,6 @@ class Page < ApplicationRecord
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
-
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
@@ -258,7 +258,7 @@ class Page < ApplicationRecord
     elsif vernaculars.loaded?
       Language.all_matching_records(langs, vernaculars).find_all { |v| v.is_preferred? }
     else
-      vernaculars.preferred.where(language: langs).map { |v| v.string }
+      vernaculars.preferred.where(language: langs)
     end
 
     result.collect { |v| v.string }
@@ -894,7 +894,12 @@ class Page < ApplicationRecord
       names = if dh_scientific_names&.any? 
         vernaculars = vernaculars_for_autocomplete(locale)
         vernaculars = vernaculars_for_autocomplete(I18n.default_locale) if vernaculars.empty?
-        vernaculars + dh_scientific_names
+        (vernaculars + dh_scientific_names).uniq(&:downcase).map do |n|
+          {
+            input: n,
+            weight: BASE_AUTOCOMPLETE_WEIGHT - [n.length, BASE_AUTOCOMPLETE_WEIGHT - 1].min # shorter results get greater weight to boost exact matches to the top
+          }
+        end
       else
         []
       end
