@@ -16,10 +16,10 @@ class Language < ApplicationRecord
       end
     end
 
+    # NOTE: these methods return a collection of languages
     def english
       self.for_locale("en")
     end
-
 
     def for_locale(locale)
       locale_str = locale.downcase
@@ -40,6 +40,7 @@ class Language < ApplicationRecord
         l
       end
     end
+    ###################
 
     def cur_group
       self.current.first.group
