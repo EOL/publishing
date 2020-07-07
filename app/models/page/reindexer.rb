@@ -23,14 +23,14 @@ class Page::Reindexer
     end
 
     def promote_background_index(force = false)
+      # => {:completed=>false, :batches_left=>2143}
       status = Searchkick.reindex_status(index_names.sort.last)
       if !force && !status[:completed]
         puts "Reindex incomplete! There are #{status[:batches_left]} batches left.\n"\
              "You can override this with \`promote_background_index(true)\`."
         return
       end
-      Product.search_index.promote(index_names.sort.last)
-      # => {:completed=>false, :batches_left=>2143}
+      Page.search_index.promote(index_names.sort.last)
     end
 
     def index_names
