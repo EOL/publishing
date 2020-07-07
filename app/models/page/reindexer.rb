@@ -6,7 +6,7 @@ class Page::Reindexer
   class << self
     def reindex
       setup_background
-      Page.reindex(async: {wait: true})
+      Page.reindex(async: true)
       Resource.reindex(async: {wait: true})
       User.reindex(async: {wait: true})
       TermNode.reindex # This one MUST run in the foreground, because it's not a AR model.
@@ -15,12 +15,12 @@ class Page::Reindexer
     # Simply Page::Reindexer.resume_reindex
     def resume_reindex
       setup_background
-      Page.reindex(async: {wait: true}, resume: true)
+      Page.reindex(async: true, resume: true)
     end
 
     def background_reindex
       path = Rails.root.join('log', 'es_page_reindex.log')
-      `nohup rails r 'Page.reindex(async: {wait: true}, resume: true)' > #{path} 2>&1 &`
+      `nohup rails r 'Page.reindex(async: true, resume: true)' > #{path} 2>&1 &`
     end
 
     def promote_background_index(force = false)
