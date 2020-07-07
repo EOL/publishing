@@ -33,6 +33,7 @@ class Page < ApplicationRecord
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
   has_many :media, through: :page_contents, source: :content, source_type: "Medium"
+  has_many :regular_media, -> { regular }, through: :page_contents, source: :content, source_type: "Medium"
   has_many :links, through: :page_contents, source: :content, source_type: "Link"
 
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
@@ -676,11 +677,6 @@ class Page < ApplicationRecord
   # Nodes methods
   def classification_nodes
     nodes.includes(:resource).where({ resources: { classification: true } })
-  end
-
-  # not maps
-  def regular_media
-    media.not_maps
   end
 
   def fix_non_image_hero

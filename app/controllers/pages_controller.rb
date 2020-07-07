@@ -406,13 +406,19 @@ private
       @subclasses = @page.regular_media.pluck(:subclass).uniq
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
-    # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
-    media = @page.regular_media.includes(:license, :resource, page_contents: {
+
+    if is_admin?
+      page_media = @page.media.not_maps.includes(:hidden_medium)
+    else
+      page_media = @page.regular_media
+    end
+
+    media = page_media.includes(:license, :resource, page_contents: {
       page: %i[native_node preferred_vernaculars] }).where(['page_contents.source_page_id = ?',
       @page.id]).references(:page_contents)
+
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])
-      # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
       media = media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
         "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
         "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
