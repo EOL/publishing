@@ -17,15 +17,14 @@ class Language < ApplicationRecord
     end
 
     def english
-      Rails.cache.fetch("languages/in_english_group") do
-        where(group: "en")
-      end
+      for_locale("en")
     end
 
 
     def for_locale(locale)
-      Rails.cache.fetch("languages/for_locale/#{locale}") do
-        Language.where(group: locale.downcase)
+      locale_str = locale.downcase
+      Rails.cache.fetch("languages/for_locale/#{locale_str}") do
+        Language.where(group: locale_str)
       end
     end
 
