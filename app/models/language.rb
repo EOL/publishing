@@ -17,7 +17,7 @@ class Language < ApplicationRecord
     end
 
     def english
-      for_locale("en")
+      self.for_locale("en")
     end
 
 
