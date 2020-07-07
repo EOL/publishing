@@ -25,16 +25,8 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
 
   class << self
     def search_import
-      self.all(:t).where(
-        "t.is_hidden_from_overview = false "\
-        " AND ("\
-        "(t)<-[:object_term]-(:Trait)"\
-        " OR "\
-        "(t)<-[:predicate]-(:Trait)"\
-        ")"
-      )
+      self.all(:t).where("t.is_hidden_from_overview = false AND NOT (t)-[:synonym_of]->(:Term)")
     end
-
   end
 
   def search_data
