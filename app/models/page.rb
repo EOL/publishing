@@ -1,16 +1,14 @@
 class Page < ApplicationRecord
   include Autocomplete
+  include HasVernaculars
 
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
+
+  autocompletes "autocomplete_names"
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, mappings: {
-    properties: {
-      autocomplete_names: {
-        type: "completion"
-      }
-    }
+    properties: autocomplete_searchkick_properties
   }
-  autocompletes "autocomplete_names"
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true
@@ -174,6 +172,7 @@ class Page < ApplicationRecord
         end
       end
     end
+
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
@@ -182,9 +181,6 @@ class Page < ApplicationRecord
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
-    autocomplete_names = dh_scientific_names&.any? ? 
-      (dh_scientific_names + pref_verns + resource_preferred_vernacular_strings).uniq(&:downcase) : 
-      []
 
     {
       id: id,
@@ -195,9 +191,9 @@ class Page < ApplicationRecord
       preferred_vernacular_strings: pref_verns,
       dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
-      autocomplete_names: autocomplete_names
-    }
+    }.merge(autocomplete_names_per_locale)
   end
+
 
   def safe_native_node
     return native_node if native_node
@@ -236,12 +232,14 @@ class Page < ApplicationRecord
     nodes.map(&:resource_pk)
   end
 
-  def resource_preferred_vernacular_strings
-    if vernaculars.loaded?
-      vernaculars.select { |v| v.is_preferred_by_resource? }.map { |v| v.string }
+  def resource_preferred_vernacular_strings(locale)
+    result = if vernaculars.loaded?
+      Language.all_matching_records(Language.for_locale(locale), vernaculars).select { |v| v.is_preferred_by_resource? }
     else
-      vernaculars.preferred_by_resource.map { |v| v.string }
+      vernaculars.preferred_by_resource.where(language: Language.for_locale(locale))
     end
+
+    result.map { |v| v.string }
   end
 
   def preferred_vernacular_strings
@@ -250,6 +248,20 @@ class Page < ApplicationRecord
     else
       vernaculars.preferred.map { |v| v.string }
     end
+  end
+
+  def preferred_vernacular_strings_for_locale(locale)
+    langs = Language.for_locale(locale)
+
+    result = if preferred_vernaculars.loaded?
+      Language.all_matching_records(langs, preferred_vernaculars)
+    elsif vernaculars.loaded?
+      Language.all_matching_records(langs, vernaculars).find_all { |v| v.is_preferred? }
+    else
+      vernaculars.preferred.where(language: langs).map { |v| v.string }
+    end
+
+    result.collect { |v| v.string }
   end
 
   def preferred_scientific_strings
@@ -423,23 +435,23 @@ class Page < ApplicationRecord
 
   # NAMES METHODS
 
-  def name(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || scientific_name
+  def name(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || scientific_name
   end
 
-  def short_name_notags(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || canonical_notags
+  def short_name_notags(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || canonical_notags
+  end
+
+  def short_name(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || canonical
   end
 
   def canonical_notags
     @canonical_notags ||= ActionController::Base.helpers.strip_tags(canonical)
-  end
-
-  def short_name(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || canonical
   end
 
   def names_count
@@ -450,21 +462,6 @@ class Page < ApplicationRecord
   # TODO: this is duplicated with node; fix. Can't (easily) use clever associations here because of language. TODO:
   # Aaaaaactually, we really need to use GROUPS, not language IDs. (Or, at least, both, to make it efficient.) Switch to
   # that. Yeeesh.
-  def vernacular(language = nil)
-    if preferred_vernaculars.loaded?
-      language ||= Language.english
-      preferred_vernaculars.find { |v| v.language_id == language.id }
-    else
-      if vernaculars.loaded?
-        language ||= Language.english
-        vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
-      else
-        language ||= Language.english
-        # I don't trust the associations. :|
-        Vernacular.where(page_id: id, language_id: language.id).preferred.first
-      end
-    end
-  end
 
   def scientific_name
     native_node&.italicized || native_node&.scientific_name || "NO NAME!"
@@ -890,5 +887,25 @@ class Page < ApplicationRecord
     end
 
     result
+  end
+
+  def autocomplete_names_per_locale
+    I18n.available_locales.collect do |locale|
+      names = if dh_scientific_names&.any? 
+        vernaculars = vernaculars_for_autocomplete(locale)
+        vernaculars = vernaculars_for_autocomplete(I18n.default_locale) if vernaculars.empty?
+        vernaculars + dh_scientific_names
+      else
+        []
+      end
+      [:"autocomplete_names_#{locale}", names]
+    end.to_h
+  end
+
+  def vernaculars_for_autocomplete(locale)
+    (
+      preferred_vernacular_strings_for_locale(locale) + 
+      resource_preferred_vernacular_strings(locale)
+    ).uniq
   end
 end

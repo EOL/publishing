@@ -1,4 +1,6 @@
 class Node < ApplicationRecord
+  include HasVernaculars
+
   belongs_to :page, inverse_of: :nodes, optional: true
   belongs_to :parent, class_name: 'Node', inverse_of: :children, optional: true
   belongs_to :resource, inverse_of: :nodes
@@ -24,9 +26,9 @@ class Node < ApplicationRecord
   counter_culture :page
 
   # TODO: this is duplicated with page; fix.
-  def name(language = nil)
-    language ||= Language.current
-    vernacular(language).try(:string) || scientific_name
+  def name(languages = nil)
+    languages ||= Language.current
+    vernacular(languages).try(:string) || scientific_name
   end
 
   def use_breadcrumb?
@@ -65,24 +67,6 @@ class Node < ApplicationRecord
     else
       # I don't trust the association:
       ScientificName.where(node_id: id).preferred&.first&.italicized
-    end
-  end
-
-  # TODO: this is duplicated with page; fix.
-  # Can't (easily) use clever associations here because of language.
-  def vernacular(language = nil)
-    if preferred_vernaculars.loaded?
-      language ||= Language.english
-      preferred_vernaculars.find { |v| v.language_id == language.id }
-    else
-      if vernaculars.loaded?
-        language ||= Language.english
-        vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
-      else
-        language ||= Language.english
-        # I don't trust the associations. :|
-        Vernacular.where(node_id: id, language_id: language.id).preferred.first
-      end
     end
   end
 

@@ -1,4 +1,4 @@
-class TermI18n
+class Util::TermI18n
   def self.uri_to_key(uri, prefix = nil)
     uri_part = uri.gsub(".", "(dot)")
 

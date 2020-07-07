@@ -6,7 +6,7 @@ class Language < ApplicationRecord
   has_many :vernacular_preferences, inverse_of: :license
 
   class << self
-    def english
+    def english_default
       Rails.cache.fetch("languages/english") do
         where(code: "eng").first_or_create do |l|
           l.code = "eng"
@@ -16,16 +16,42 @@ class Language < ApplicationRecord
       end
     end
 
+    def english
+      Rails.cache.fetch("languages/in_english_group") do
+        where(group: "en")
+      end
+    end
+
+
+    def for_locale(locale)
+      Rails.cache.fetch("languages/for_locale/#{locale}") do
+        Language.where(group: locale.downcase)
+      end
+    end
+
     def current
-      locale = I18n.locale
-      Rails.cache.fetch("languages/current/#{locale}") do
-        l = Language.find_by_group(locale)
-        l || Language.english
+      Rails.cache.fetch("languages/current_by_group/#{locale}") do
+        l = self.for_locale(I18n.locale)
+
+        if l.empty?
+          logger.error("Language.current -- missing group for locale #{locale}. Falling back to Language.english")
+          l = english
+        end
+
+        l
       end
     end
 
     def cur_group
-      self.current.group
+      self.current.first.group
+    end
+
+    def first_matching_record(languages, records)
+      records.find { |r| languages.find { |l| r.language_id = l.id }.present? }
+    end
+
+    def all_matching_records(languages, records)
+      records.select { |r| languages.find { |l| r.language_id = l.id }.present? }
     end
   end
 end

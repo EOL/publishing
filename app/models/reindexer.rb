@@ -17,11 +17,11 @@ module Reindexer
 
       nodes.compact.each do |node|
         cmn = Vernacular.where(string: common, node_id: node.id,
-          page_id: page.id, language_id: Language.english.id).first_or_create do |n|
+          page_id: page.id, language_id: Language.english_default.id).first_or_create do |n|
             n.string = common
             n.node_id = node.id
             n.page_id = page.id
-            n.language_id = Language.english.id
+            n.language_id = Language.english_default.id
             n.is_preferred = true
             n.is_preferred_by_resource = true
           end

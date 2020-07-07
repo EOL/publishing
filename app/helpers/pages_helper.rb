@@ -196,7 +196,7 @@ module PagesHelper
 
   def sorted_grouped_vernaculars(page)
     grouped_vernaculars = page.vernaculars.group_by { |n| n.language.group }
-    cur_lang_group = Language.current.group
+    cur_lang_group = Language.cur_group
     sorted_keys = grouped_vernaculars.keys.sort do |a, b|
       if a == cur_lang_group && b != cur_lang_group
         -1
