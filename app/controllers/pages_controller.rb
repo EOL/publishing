@@ -2,6 +2,8 @@ require 'csv'
 
 class PagesController < ApplicationController
   include DataAssociations
+  include HasAutocomplete
+
   before_action :handle_page_redirects
   before_action :set_media_page_size, only: [:show, :media]
   before_action :no_main_container
@@ -40,7 +42,7 @@ class PagesController < ApplicationController
   end
 
   def autocomplete
-    render json: autocomplete_results(Page.autocomplete(params[:query]))
+    render json: autocomplete_results(Page.autocomplete(params[:query]), "pages")
   end
 
   # TODO: I suspect this method and its compatriots can be made redundant.
