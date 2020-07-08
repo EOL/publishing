@@ -9,5 +9,13 @@ class Util::I18nUtil
     def non_default_locales
       I18n.available_locales.reject { |l| l == I18n.default_locale }
     end
+
+    def term_name_property_for_locale(locale)
+      if locale == I18n.default_locale
+        "name" 
+      else
+        "name_#{locale.to_s.gsub("-", "_")}"
+      end  
+    end
   end
 end

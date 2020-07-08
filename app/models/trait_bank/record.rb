@@ -21,7 +21,7 @@ class TraitBank
       key = Util::TermI18n.uri_to_key(record[:uri], "term.name.by_uri")
 
       if I18n.exists?(key)
-        I18n.t(key, locale)
+        I18n.t(key, locale: locale)
       else
         record[:name]
       end

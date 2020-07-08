@@ -5,7 +5,6 @@ class TraitBank
                to: TraitBank
       delegate :log, to: TraitBank::Logger
 
-
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
       TERM_TYPES = {
         predicate: ['measurement', 'association'],
@@ -90,7 +89,7 @@ class TraitBank
         for_select = options[:for_select]
         page ||= 1
         per ||= Rails.configuration.data_glossary_page_size
-        key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
+        key = "trait_bank/#{type}_glossary/#{I18n.locale}/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         log("KK TraitBank key: #{key}")
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
@@ -100,7 +99,7 @@ class TraitBank
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || TERM_TYPES.key?(type)
-          q += "LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
+          q +=  term_name_prefix_match(qterm) if qterm
           q += " AND " if qterm && TERM_TYPES.key?(type)
           q += %{term.type IN ["#{TERM_TYPES[type].join('","')}"]} if TERM_TYPES.key?(type)
           if for_select
@@ -241,9 +240,9 @@ class TraitBank
       def obj_terms_for_pred(pred_uri, orig_qterm = nil)
         return [] if orig_qterm.blank?
         qterm = orig_qterm.delete('"').downcase
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
           q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
-          q += "WHERE LOWER(object.name) =~ \"#{qterm}.*\" " if qterm
+          q += term_name_prefix_match(qterm) if qterm
           q +=  "RETURN object ORDER BY object.position LIMIT 6"
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
@@ -314,6 +313,11 @@ class TraitBank
         ))
 
         result["data"].any?
+      end
+
+      private
+      def term_name_prefix_match(qterm)
+        "LOWER(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
       end
     end
   end
