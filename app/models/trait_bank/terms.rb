@@ -92,6 +92,7 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/#{I18n.locale}/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         log("KK TraitBank key: #{key}")
+        name_field = Util::I18nUtil.term_name_property_for_locale(I18n.locale)
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
@@ -99,7 +100,7 @@ class TraitBank
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || TERM_TYPES.key?(type)
-          q +=  term_name_prefix_match(qterm) if qterm
+          q +=  term_name_prefix_match("term", qterm) if qterm
           q += " AND " if qterm && TERM_TYPES.key?(type)
           q += %{term.type IN ["#{TERM_TYPES[type].join('","')}"]} if TERM_TYPES.key?(type)
           if for_select
@@ -109,7 +110,7 @@ class TraitBank
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
-            q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
+            q += "RETURN DISTINCT(term) ORDER BY LOWER(term.#{name_field}), LOWER(term.uri)"
             q += limit_and_skip_clause(page, per)
           end
           res = query(q)
@@ -118,7 +119,7 @@ class TraitBank
               res["data"].first.first
             else
               all = res["data"].map { |t| t.first["data"].symbolize_keys }
-              all.map! { |h| { name: h[:name], uri: h[:uri] } } if qterm
+              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri] } } if qterm
               all
             end
           else
@@ -241,11 +242,16 @@ class TraitBank
         return [] if orig_qterm.blank?
         qterm = orig_qterm.delete('"').downcase
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+          name_field = Util::I18nUtil.term_name_property_for_locale(I18n.locale)
           q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
-          q += term_name_prefix_match(qterm) if qterm
-          q +=  "RETURN object ORDER BY object.position LIMIT 6"
+          q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
+          q +=  "\nRETURN object ORDER BY object.position LIMIT 6"
           res = query(q)
-          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
+          res["data"] ? res["data"].map do |t| 
+            hash = t.first["data"].symbolize_keys 
+            hash[:name] = hash[:"#{name_field}"]
+            hash
+          end : []
         end
       end
 
@@ -316,8 +322,8 @@ class TraitBank
       end
 
       private
-      def term_name_prefix_match(qterm)
-        "LOWER(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
+      def term_name_prefix_match(label, qterm)
+        "LOWER(#{label}.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
       end
     end
   end
