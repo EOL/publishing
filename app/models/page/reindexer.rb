@@ -22,7 +22,7 @@ class Page::Reindexer
 
     def background_reindex
       path = Rails.root.join('log', 'es_page_reindex.log')
-      `nohup rails r 'Page.reindex(async: {wait: true}, resume: true)' > #{path} 2>&1 &`
+      `nohup rails r 'Page::Reindexer.setup_background ; Page.reindex(async: {wait: true}, resume: true)' > #{path} 2>&1 &`
     end
 
     def promote_background_index(force = false)
