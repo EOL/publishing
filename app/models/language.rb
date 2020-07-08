@@ -47,11 +47,11 @@ class Language < ApplicationRecord
     end
 
     def first_matching_record(languages, records)
-      records.find { |r| languages.find { |l| r.language_id = l.id }.present? }
+      records.find { |r| languages.find { |l| r.language_id == l.id }.present? }
     end
 
     def all_matching_records(languages, records)
-      records.select { |r| languages.find { |l| r.language_id = l.id }.present? }
+      records.select { |r| languages.find { |l| r.language_id == l.id }.present? }
     end
   end
 end
