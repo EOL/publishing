@@ -5,5 +5,9 @@ class Util::I18nUtil
     def rtl?
       RTL_LOCALES.include? I18n.locale.to_sym
     end
+
+    def non_default_locales
+      I18n.available_locales.reject { |l| l == I18n.default_locale }
+    end
   end
 end

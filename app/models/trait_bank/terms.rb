@@ -238,16 +238,13 @@ class TraitBank
         uris
       end
 
-      # TEMP: We're no longer checking this against the passed-in pred_uri. Sorry. Keeping the interface for it, though,
-      # since we will want it back. :) You'll have to look at an older version (e.g.: aaf4ba91e7 ) to see the changes; I
-      # kept them around as comments for one version, but it was really hairy, so I removed it.
-      def obj_terms_for_pred(_, orig_qterm = nil)
+      def obj_terms_for_pred(pred_uri, orig_qterm = nil)
         return [] if orig_qterm.blank?
         qterm = orig_qterm.delete('"').downcase
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
-          q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+          q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
           q += "WHERE LOWER(object.name) =~ \"#{qterm}.*\" " if qterm
-          q +=  'RETURN object ORDER BY object.position LIMIT 6'
+          q +=  "RETURN object ORDER BY object.position LIMIT 6"
           res = query(q)
           res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
         end
