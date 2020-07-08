@@ -24,6 +24,7 @@ class Page::Reindexer
     end
 
     def promote_background_index(force = false)
+      setup_background
       # => {:completed=>false, :batches_left=>2143}
       status = Searchkick.reindex_status(index_names.sort.last)
       if !force && !status[:completed]
