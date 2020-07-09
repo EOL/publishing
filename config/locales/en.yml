@@ -1132,6 +1132,7 @@ en:
       statistical_method: "statistical method"
       taxa_matching_all: "taxa matching ALL filters"
       this_may_take_a_minute: "This may take a minute"
+      trait_filter: "trait filter"
       value: "value"
   trophic_web:
     group_descriptions:
