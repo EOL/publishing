@@ -17,5 +17,9 @@ class Util::I18nUtil
         "name_#{locale.to_s.gsub("-", "_")}"
       end  
     end
+
+    def term_name_property
+      term_name_property_for_locale(I18n.locale)
+    end
   end
 end

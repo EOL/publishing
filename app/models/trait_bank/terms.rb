@@ -93,7 +93,7 @@ class TraitBank
         key = "trait_bank/#{type}_glossary/#{I18n.locale}/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         log("KK TraitBank key: #{key}")
-        name_field = Util::I18nUtil.term_name_property_for_locale(I18n.locale)
+        name_field = Util::I18nUtil.term_name_property
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
@@ -139,7 +139,7 @@ class TraitBank
             "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{array_to_qs(types)} "\
             "RETURN term "\
-            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
 
         term_query(q)
       end
@@ -148,14 +148,14 @@ class TraitBank
         q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
             "WHERE NOT (term)-[:synonym_of]->(:Term) "\
             "RETURN term "\
-            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
         term_query(q)
       end
 
       def term_query(q)
         res = query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
-        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}"], uri: h[:uri] } }
+        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri] } }
         all
       end
 
@@ -242,7 +242,7 @@ class TraitBank
       def obj_terms_for_pred(pred_uri, orig_qterm = nil)
         qterm = orig_qterm.delete('"').downcase.strip
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
-          name_field = Util::I18nUtil.term_name_property_for_locale(I18n.locale)
+          name_field = Util::I18nUtil.term_name_property
           q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
@@ -323,7 +323,7 @@ class TraitBank
 
       private
       def term_name_prefix_match(label, qterm)
-        "LOWER(#{label}.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
+        "LOWER(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
       end
     end
   end
