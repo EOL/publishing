@@ -1,7 +1,7 @@
 class ObjForPredRelManager
   class << self
     def rebuild
-      limit = 500
+      limit = 100
       rels_created = 1
       total_rels_created = 0
 
