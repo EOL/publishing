@@ -10,6 +10,7 @@ class TraitBank
         predicate: ['measurement', 'association'],
         object_term: ['value']
       }
+      DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
 
       def count(options = {})
         hidden = options[:include_hidden]
@@ -88,7 +89,7 @@ class TraitBank
         qterm = options[:qterm]
         for_select = options[:for_select]
         page ||= 1
-        per ||= Rails.configuration.data_glossary_page_size
+        per ||= DEFAULT_GLOSSARY_PAGE_SIZE
         key = "trait_bank/#{type}_glossary/#{I18n.locale}/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         log("KK TraitBank key: #{key}")
@@ -239,13 +240,12 @@ class TraitBank
       end
 
       def obj_terms_for_pred(pred_uri, orig_qterm = nil)
-        return [] if orig_qterm.blank?
-        qterm = orig_qterm.delete('"').downcase
+        qterm = orig_qterm.delete('"').downcase.strip
         Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
           name_field = Util::I18nUtil.term_name_property_for_locale(I18n.locale)
           q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
-          q +=  "\nRETURN object ORDER BY object.position LIMIT 6"
+          q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
           res["data"] ? res["data"].map do |t| 
             hash = t.first["data"].symbolize_keys 

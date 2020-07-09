@@ -138,7 +138,6 @@
     buildTypeahead('.js-pred-typeahead', { minLength: 0 }, {
       name: 'pred-names',
       display: 'name',
-      minLength: 0,
       limit: Infinity,
       source: predSource
     }, 'uri', fetchForm);
@@ -158,9 +157,10 @@
       });
       source.initialize();
 
-      buildTypeahead(this, {}, {
+      buildTypeahead(this, { minLength: 0 }, {
         display: 'name',
         source: source,
+        minLength: 0,
         limit: Infinity
       }, 'uri', null)
     });
