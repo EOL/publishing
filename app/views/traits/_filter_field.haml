@@ -9,6 +9,6 @@
       = ff.hidden_field uri_name, :class => "js-typeahead-field js-term-uri"
       - show_error(ff.object, uri_name)
       - if local_assigns.include?(:nested_selects) && nested_selects
-        = ff.hidden_field "top_#{uri_name}", :class => "js-typeahead-field"
+        = ff.hidden_field "top_#{uri_name}", :class => "js-typeahead-field js-top-term-uri"
         .js-term-select-contain.term-select-contain
           = nested_term_selects(ff, field_name)

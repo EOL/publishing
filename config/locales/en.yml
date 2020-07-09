@@ -1111,6 +1111,11 @@ en:
       result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count} taxa with"
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
       new_search: "new search"
+      select:
+        child_term: "select a child term (optional)"
+        top_level:
+          object_term: "or select a value"
+          predicate: "or select an attribute"
       show_query: "show query"
       switch_to_list: "switch to list view"
       switch_to_gallery: "switch to gallery view"

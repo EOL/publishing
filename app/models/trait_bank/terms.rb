@@ -138,7 +138,7 @@ class TraitBank
             "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{array_to_qs(types)} "\
             "RETURN term "\
-            "ORDER BY lower(term.name), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}), term.uri"
 
         term_query(q)
       end
@@ -147,14 +147,14 @@ class TraitBank
         q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
             "WHERE NOT (term)-[:synonym_of]->(:Term) "\
             "RETURN term "\
-            "ORDER BY lower(term.name), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}), term.uri"
         term_query(q)
       end
 
       def term_query(q)
         res = query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
-        all.map! { |h| { name: h[:name], uri: h[:uri] } }
+        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property_for_locale(I18n.locale)}"], uri: h[:uri] } }
         all
       end
 
