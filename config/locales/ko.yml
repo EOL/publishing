@@ -116,6 +116,7 @@ ko:
       education: 교육
       glossary: 용어집
       help: 도움말
+      language_support: 언어 지원
       terms_of_use: 이용 약관
       the_eol_forum: EOL 포럼
       what_is_eol: EOL은 무엇입니까?
@@ -420,6 +421,9 @@ ko:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
+  term_query_filter:
+    validations:
+      invalid_uri: 유효하지 않은 URI
   terms:
     definition_field_html: <strong>정의:</strong> %{definition}
     source_field_html: <strong>출처:</strong> <a href='%{source}'>%{source}</a>
