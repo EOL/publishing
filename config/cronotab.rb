@@ -15,4 +15,3 @@ Crono.perform(ReindexSearchkickJob).every 1.month, on: 3, at: { hour: 19 }
 Crono.perform(PreferredCommonNameJob).every 1.month, on: 4, at: { hour: 19 }
 Crono.perform(UserDownloadExpireOldJob).every 1.week, at: { hour: 18 }
 Crono.perform(DescCountsJob).every 1.week, at: { hour: 17 }
-Crono.perform(FixAllMissingNativeNodesJob).every 1.month, on: :friday
