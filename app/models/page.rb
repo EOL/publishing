@@ -83,25 +83,44 @@ class Page < ApplicationRecord
     # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
     # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
     def fix_all_missing_native_nodes
+      log_healing(">> fix_all_missing_native_nodes")
       start = 1 # Don't bother checking minimum, this is always 1.
       upper = maximum(:id)
       batch_size = 10_000
       while start < upper
+        log_healing(">> fix_missing_native_nodes(start = #{start})")
         fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
         start += batch_size
       end
+      log_healing("<< DONE: fix_all_missing_native_nodes")
     end
 
     def fix_missing_native_nodes(scope)
       pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
       pages.includes(:nodes).find_each do |page|
         if page.nodes.empty?
-          # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-          page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+          # NOTE: This DOES destroy pages! ...But only if it's reasonably sure they have no content:
+          if PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+            log_healing("!! RETAINED nodeless page #{page.id} because it had content (or a name). "\
+                        "You should investigate")
+          else
+            log_healing("!! DESTROYED page #{page.id}")
+            page.destroy
+          end
         else
-          page.update_attribute(:native_node_id, page.nodes.first.id)
+          correct_id = page.nodes.first.id
+          log_healing("healed page #{page.id} (node #{page.native_node_id} -> #{correct_id})")
+          page.update_attribute(:native_node_id, correct_id)
         end
       end
+    end
+
+    def page_healing_log
+      @page_healing_log ||= Logger.new("#{Rails.root}/log/page_healing.log")
+    end
+
+    def log_healing(msg)
+      page_healing_log.info("[#{Time.now.localtime.strftime('%F %T')}] #{msg}")
     end
 
     # TODO: abstract this to allow updates of the other count fields.
@@ -902,5 +921,30 @@ class Page < ApplicationRecord
     end
 
     result
+  end
+
+  def autocomplete_names_per_locale
+    I18n.available_locales.collect do |locale|
+      names = if dh_scientific_names&.any?
+        vernaculars = vernaculars_for_autocomplete(locale)
+        vernaculars = vernaculars_for_autocomplete(I18n.default_locale) if vernaculars.empty?
+        (vernaculars + dh_scientific_names).uniq(&:downcase).map do |n|
+          {
+            input: n,
+            weight: BASE_AUTOCOMPLETE_WEIGHT - [n.length, BASE_AUTOCOMPLETE_WEIGHT - 1].min # shorter results get greater weight to boost exact matches to the top
+          }
+        end
+      else
+        []
+      end
+      [:"autocomplete_names_#{locale}", names]
+    end.to_h
+  end
+
+  def vernaculars_for_autocomplete(locale)
+    (
+      preferred_vernacular_strings_for_locale(locale) +
+      resource_preferred_vernacular_strings(locale)
+    ).uniq
   end
 end
