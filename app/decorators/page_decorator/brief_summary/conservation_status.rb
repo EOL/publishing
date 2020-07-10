@@ -19,14 +19,21 @@ class PageDecorator
             uri = TraitBank::Record.obj_term_uri(rec)
             name = TraitBank::Record.obj_term_name(rec)
             source = TraitBank::Record.source(rec)
-            provider = if Eol::Uris::Conservation.iucn?(uri)
+            resource_id = TraitBank::Record.resource_id(rec)
+
+            next if resource_id.blank?
+
+            provider = case resource_id
+                       when Resource.iucn&.id
                          :iucn
-                       elsif Eol::Uris::Conservation.cites?(uri)
+                       when Resource.cosewic&.id
+                         :cosewic
+                       when Resource.cites&.id
                          :cites
-                       elsif Eol::Uris::Conservation.usfw?(uri)
-                         :usfw
+                       #when Resource.usfw&.id
+                       #  :usfw
                        else
-                         Rails.logger.warn("Unable to classify conservation status uri by provider: #{uri}")
+                         Rails.logger.warn("Unable to classify conservation status uri by resource id: #{resource_id}")
                          nil
                        end
 

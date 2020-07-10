@@ -17,6 +17,10 @@ class TraitBank
       record[:source]
     end
 
+    def self.resource_id(record)
+      record.dig(:resource, :resource_id)
+    end
+
     def self.i18n_name_for_locale(record, locale)
       key = Util::TermI18n.uri_to_key(record[:uri], "term.name.by_uri")
 

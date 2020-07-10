@@ -805,6 +805,7 @@ class PageDecorator
         result = []
 
         result << conservation_sentence_part("as %s by IUCN", status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
+        result << conservation_sentence_part("as %s by COSEWIC", status_recs[:cosewic]) if status_recs.include?(:cosewic)
         result << conservation_sentence_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?

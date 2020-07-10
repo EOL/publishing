@@ -89,6 +89,19 @@ class Resource < ApplicationRecord
       end
     end
 
+    # Other conservation status providers
+    def cosewic
+      Rails.cache.fetch('resources/cosewic') do
+        Resource.find_by_abbr("COSEWIC")
+      end
+    end
+
+    def cites
+      Rails.cache.fetch('resources/cites') do
+        Resource.find_by_abbr("cites_taxa_tar_g")
+      end
+    end
+
     # Required to find the "best" Extinction Status: TODO: update the name when
     # we actually have the darn resource.
     def extinction_status

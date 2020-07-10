@@ -373,43 +373,6 @@ module Eol
         def status
           "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
         end
-
-        def iucn?(uri)
-          IUCN_URIS.include? uri
-        end
-
-        def cites?(uri)
-          CITES_URIS.include? uri
-        end
-
-        def usfw?(uri)
-          USFW_URIS.include? uri
-        end
-
-        IUCN_URIS = Set[
-          Iucn.ex,
-          Iucn.ew,
-          Iucn.cr,
-          Iucn.en,
-          Iucn.vu,
-          Iucn.nt,
-          Iucn.nt,
-          Iucn.lc,
-          Iucn.dd,
-          Iucn.ne
-        ]
-
-        CITES_URIS = Set[
-          "http://eol.org/schema/terms/CITES_I",
-          "http://eol.org/schema/terms/CITES_II",
-          "http://eol.org/schema/terms/CITES_III"
-        ]
-
-        # US Fish and Wildlife
-        USFW_URIS = Set[
-          "http://eol.org/schema/terms/federalEndangered",
-          "http://eol.org/schema/terms/federalThreatened"
-        ]
       end
     end
   end
