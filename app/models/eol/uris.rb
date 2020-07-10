@@ -44,6 +44,10 @@ module Eol
         'http://eol.org/schema/terms/extinct'
       end
 
+      def extant
+        "http://eol.org/schema/terms/extant"
+      end
+
       def trophic_level
         'http://eol.org/schema/terms/TrophicGuild'
       end
