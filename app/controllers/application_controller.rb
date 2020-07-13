@@ -4,6 +4,7 @@ require "breadcrumb_type"
 class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_robots_header
+  before_action :set_last_regular_path
 
   helper_method :is_admin?
   helper_method :is_power_user?
@@ -138,6 +139,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Devise hooks
+  def after_sign_in_path_for(_)
+    last_regular_path
+  end
+
+  def after_sign_out_path_for(_)
+    last_regular_path
+  end
+
 private
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -155,4 +165,14 @@ private
     end
   end
 
+  def set_last_regular_path
+    if !request.xhr? && params[:controller] != "user/sessions" && !params[:controller].start_with?("api") 
+      cookies[:last_regular_path] = request.fullpath
+    end
+  end
+
+  def last_regular_path
+    cookies[:last_regular_path] || root_path
+  end
 end
+
