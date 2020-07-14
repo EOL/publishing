@@ -1360,6 +1360,11 @@ tr:
       result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
         ile'
       new_search: yeni arama
+      select:
+        child_term: bir alt terimi seçin (isteğe bağlı)
+        top_level:
+          object_term: veya bir değer seçin
+          predicate: veya bir özellik seçin
       show_query: sorguyu göster
       switch_to_list: liste görünümüne geç
       switch_to_gallery: galeri görünümüne geç
@@ -1376,6 +1381,7 @@ tr:
       statistical_method: istatistiksel yöntem
       taxa_matching_all: taksa ile eşleşen TÜM filtreler
       this_may_take_a_minute: Bu bir dakika sürebilir
+      trait_filter: özellik filtresi
       value: değer
   trophic_web:
     group_descriptions:
