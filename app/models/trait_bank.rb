@@ -723,12 +723,10 @@ class TraitBank
 
         if filter.object_term?
           matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
-          indexes << "USING INDEX #{obj_var}:Term(uri)"
         end
 
         if filter.predicate?
           matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-          indexes << "USING INDEX #{pred_var}:Term(uri)"
         end
 
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
