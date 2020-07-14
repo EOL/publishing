@@ -17,3 +17,4 @@ Crono.perform(UserDownloadExpireOldJob).every 1.week, at: { hour: 18 }
 Crono.perform(DescCountsJob).every 1.week, at: { hour: 17 }
 Crono.perform(FixAllMissingNativeNodesJob).every 1.month, on: :friday
 Crono.perform(TermNameTranslationDumpJob).every 1.week, on: :wednesday, at: { hour: 12 }
+Crono.perform(RefreshPredCountsForWordcloudJob).every 1.week, on: :tuesday, at: { hour: 20 }
