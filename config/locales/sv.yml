@@ -629,6 +629,10 @@ sv:
         resource: 'resurs: %{value}'
         sex: 'kön: %{value}'
       new_search: ny sökning
+      select:
+        top_level:
+          object_term: eller välj ett värde
+          predicate: eller välj ett attribut
     search_form:
       attribute: attribut
       clade_filter_placeholder: 'grupp (t.ex.: björnar) (valfritt)'
