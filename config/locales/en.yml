@@ -650,6 +650,9 @@ en:
       n_hidden_show_all:
         one: "1 “%{pred_name}” record hidden — show all"
         other: "%{count} “%{pred_name}” records hidden — show all"
+      n_hidden_show_all_noname:
+        one: "1 record hidden — show all"
+        other: "%{count} records hidden — show all"
       show_all: "show all"
     resource_names:
       name_recognized_by: "Recognized by %{by}"

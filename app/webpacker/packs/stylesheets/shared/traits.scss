@@ -11,7 +11,7 @@
   .trait {
     border: 1px solid $light-gray;
     margin-top: 3px;
-    padding: 10px;
+    padding: $trait-pad;
     width: 100%;
   }
 
@@ -26,6 +26,10 @@
   .trait-data {
     margin-left: 54px;
     overflow: hidden;
+  }
+
+  .trait-data-no-icon {
+    margin-left: 0;
   }
 
 .meta-items-arw {

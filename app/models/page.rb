@@ -662,12 +662,12 @@ class Page < ApplicationRecord
   end
 
   def sorted_predicates_for_records(records)
-    records.collect do |record|
-      record[:predicate][:uri]
-    end.sort do |a, b|
-      glossary_names[a] <=> glossary_names[b]
-    end.uniq.collect do |uri|
-      glossary[uri]
+    records.collect do |r|
+      r[:predicate]    
+    end.uniq.sort do |a, b|
+      a_name = TraitBank::Record.i18n_name(a)
+      b_name = TraitBank::Record.i18n_name(b)
+      a_name <=> b_name
     end
   end
 

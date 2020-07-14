@@ -178,21 +178,18 @@ class PagesController < ApplicationController
     @traits_per_pred = 5
     
     if @predicate.nil?
+      @filtered_by_predicate = false
       filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
     else
+      @filtered_by_predicate = true
       filtered_data = TraitBank.all_page_traits_for_pred(@page.id, @predicate[:uri], resource_id: @resource&.id)
     end
 
     filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
-    filter_predicate_uris = TraitBank.page_trait_predicate_uris(@page.id, resource_id: @resource&.id)
-
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @filter_predicates = filter_predicate_uris.collect do |uri|
-      @page.glossary[uri]
-    end.sort do |a, b|
+    @filter_predicates= TraitBank.page_trait_predicates(@page.id, resource_id: @resource&.id).sort do |a, b|
       TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
     end.uniq
-
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
     @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
     @resources = TraitBank.resources(filtered_data)

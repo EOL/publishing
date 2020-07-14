@@ -226,13 +226,14 @@ class TraitBank
 
     def page_traits_by_pred(page_id, options = {})
       limit = options[:limit] || 5 # limit is per predicate
-      key = "trait_bank/page_traits_by_pred/#{page_id}/limit_#{limit}"
+      key = "trait_bank/page_traits_by_pred/no_synonyms/#{page_id}/limit_#{limit}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
+          WHERE NOT (predicate)-[:synonym_of]->(:Term)
           WITH predicate, collect(DISTINCT trait)[0..#{limit}] as traits, count(DISTINCT trait) AS trait_count, resource
           UNWIND traits as trait
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
@@ -247,17 +248,20 @@ class TraitBank
       end
     end
 
-    def page_trait_predicate_uris(page_id, options = {})
-      key = "trait_bank/page_trait_predicate_uris/#{page_id}"
+    def page_trait_predicates(page_id, options = {})
+      key = "trait_bank/page_trait_predicates/#{page_id}"
       add_hash_to_key(key, options)
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(:Term)-[:synonym_of*0..]->(predicate:Term),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
-          RETURN DISTINCT predicate.uri
+          WHERE NOT (predicate)-[:synonym_of]->(:Term)
+          WITH DISTINCT predicate
+          RETURN predicate.uri, predicate.name, predicate.definition, predicate.comment, predicate.attribution
         ))
-
-        res["data"].flatten
+        flat_results_to_hashes(res, id_col_label: "predicate.uri").collect do |hash|
+          hash[:predicate]
+        end
       end
     end
 
@@ -279,12 +283,12 @@ class TraitBank
     end
 
     def all_page_traits_for_pred(page_id, pred_uri, options = {})
-      key = "trait_bank/all_page_traits_for_pred/#{page_id}/#{pred_uri}"
+      key = "trait_bank/all_page_traits_for_pred/include_synonyms/#{page_id}/#{pred_uri}"
       add_hash_to_key(key, options)
 
       Rails.cache.fetch(key) do
         res = query(%Q(
-          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term{ uri: '#{pred_uri}'}),
+          MATCH (:Page { page_id: #{page_id} })-[#{TRAIT_RELS}]->(trait:Trait)-[:predicate]->(predicate:Term)-[:synonym_of*0..]->(:Term{ uri: '#{pred_uri}'}),
           (trait)-[:supplier]->(resource:Resource#{resource_filter_part(options[:resource_id])})
           OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
           OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
@@ -769,8 +773,8 @@ class TraitBank
 
     # For results where each column is labeled <node_label>.<property>, e.g., "predicate.uri",
     # and the values are all strings or numbers
-    def flat_results_to_hashes(results)
-      id_col_label = "trait.eol_pk" # NOTE: this could be made an option to generalize the method
+    def flat_results_to_hashes(results, options = {})
+      id_col_label = options[:id_col_label] || "trait.eol_pk"
       id_col = results["columns"].index(id_col_label)
       id_col ||= 0 # If there is no trait column and nothing was specified...
       raise "missing id column #{id_col_label}" if id_col.nil?

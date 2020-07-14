@@ -8,6 +8,7 @@ class DataController < ApplicationController
     raise ActiveRecord::RecordNotFound if !data || data.empty?
     @data = data.first
     @page = Page.find(@data[:page_id])
+    @hide_pred_when_closed = params[:hide_pred_when_closed].present? ? params[:hide_pred_when_closed] : false
 
     if request.xhr?
       build_associations(data)
