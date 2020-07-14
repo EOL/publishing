@@ -1,9 +1,8 @@
 class ObjForPredRelManager
   class << self
     def rebuild
-      limit = 100
-      rels_created = 1
-      total_rels_created = 0
+      limit = 1000
+      skip = 0
 
       delete_query = %q(
         MATCH (o)-[r:object_for_predicate]->(p)
@@ -12,27 +11,44 @@ class ObjForPredRelManager
       )
       puts "Nuking existing object_for_predicate relationships:\n#{delete_query}"
       delete_res = TraitBank.query(delete_query)
-      puts "Response:\n#{delete_res}"
       puts "Deleted #{delete_res["data"].first.first} relationships"
 
+      count_trait_query = %q(
+        MATCH (t:Trait)
+        RETURN count(t)
+      )
+      puts "Counting traits:\n#{count_trait_query}"
+      count_trait_res = TraitBank.query(count_trait_query)
+      total_traits = count_trait_res["data"].first.first
+      puts "Counted #{total_traits} traits"
+
       puts "Building all object_for_predicate relationships"
-      while rels_created > 0
+      while skip <= total_traits
         query = %Q(
-          MATCH (p:Term)<-[#{TraitBank.parent_terms}]-(:Term)<-[:predicate]-(:Trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(o:Term)
-          WHERE NOT (o)-[:object_for_predicate]->(p)
-          WITH DISTINCT o, p
+          MATCH (t:Trait)
+          WITH t
+          SKIP #{skip}
           LIMIT #{limit}
-          CREATE (o)-[r:object_for_predicate]->(p)
+          MATCH (p:Term)<-[#{TraitBank.parent_terms}]-(:Term)<-[:predicate]-(t)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(o:Term)
+          MERGE (o)-[r:object_for_predicate]->(p)
           RETURN count(r)
         )
         puts "Query:\n#{query}"
-        response = TraitBank.query(query)
-        puts "Response:\n#{response}"
-        rels_created = response["data"].first.first
-        total_rels_created += rels_created
+        TraitBank.query(query)
+        skip += limit
       end
 
-      puts "done -- created #{total_rels_created} relationships"
+      puts "done"
+
+      count_query = %Q(
+        MATCH (o:Term)-[:object_for_predicate]->(p:Term)
+        RETURN count(*)
+      )
+      puts "Counting relationships:\n#{count_query}"
+      rels_created_res = TraitBank.query(count_query)
+      puts rels_created_res
+      puts "Created a total of #{rels_created_res["data"].first.first} relationships"
     end
   end
 end
+
