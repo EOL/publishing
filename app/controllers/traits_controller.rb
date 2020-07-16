@@ -130,8 +130,8 @@ class TraitsController < ApplicationController
       :per => @per_page,
     })
     data = res[:data]
-    @raw_query = res[:raw_query]
     @raw_res = res[:raw_res].to_json
+    build_query_for_display(res)
     ids = data.map { |t| t[:page_id] }.uniq
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
     pages = Page.where(:id => ids).with_hierarchy
@@ -192,6 +192,18 @@ class TraitsController < ApplicationController
     else
       @view_type = session["ts_view_type"] || "list"
     end
+  end
+
+  private
+  def build_query_for_display(tb_res)
+    query = tb_res[:raw_query].gsub(/^\ +/, '') # get rid of leading whitespace
+
+    tb_res[:params].each do |k, v|
+      val = v.is_a?(String) ? "\"#{v}\"" : v
+      query = query.gsub("$#{k}", val.to_s)
+    end
+
+    @raw_query = query
   end
 end
 

@@ -24,21 +24,21 @@ class TraitBank
       true
     end
 
-    def query(q)
+    def query(q, params={})
       start = Time.now
       results = nil
       q.sub(/\A\s+/, "")
       begin
-        results = connection.execute_query(q)
+        results = connection.execute_query(q, params)
         stop = Time.now
       rescue Excon::Error::Socket => e
         log_error("Connection refused on query: #{q}")
         sleep(0.1)
-        results = connection.execute_query(q)
+        results = connection.execute_query(q, params)
       rescue Excon::Error::Timeout => e
         log_error("Timed out on query: #{q}")
         sleep(1)
-        results = connection.execute_query(q)
+        results = connection.execute_query(q, params)
       ensure
         q.gsub!(/ +([A-Z ]+)/, "\n\\1") if q.size > 80 && q !~ /\n/
         log(">>TB TraitBank [neography] (#{stop ? stop - start : "F"}):\n#{q}")
@@ -388,7 +388,7 @@ class TraitBank
         term_page_search(term_query, limit_and_skip, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
       end
 
-      res = query(q)
+      res = query(q[:query], q[:params])
 
       log("&& TS SAVING Cache: #{key}")
       if options[:count]
@@ -407,7 +407,7 @@ class TraitBank
                  build_trait_array(res, trait_array_options)
                end
 
-        { data: data, raw_query: q, raw_res: res }
+        { data: data, raw_query: q[:query], params: q[:params], raw_res: res }
       end
     end
 
@@ -415,22 +415,20 @@ class TraitBank
       @parent_terms ||= ":parent_term|:synonym_of*0.."
     end
 
-    def term_filter_wheres(term_query)
-      term_query.filters.map do |filter|
-        term_filter_where(filter, "trait", "tgt_pred", "tgt_obj")
-      end
-    end
-
-    def term_filter_where(filter, trait_var, pred_var, obj_var)
+    def term_filter_where(filter, trait_var, pred_var, obj_var, params)
       parts = []
       uri_condition = []
 
       if filter.predicate?
-        uri_condition << "#{pred_var}.uri = \"#{filter.pred_uri}\""
+        pred_uri_param = "#{pred_var}_uri"
+        uri_condition << "#{pred_var}.uri = $#{pred_uri_param}"
+        params[pred_uri_param] = filter.pred_uri
       end
 
       if filter.object_term?
-        uri_condition << "#{obj_var}.uri = \"#{filter.obj_uri}\""
+        obj_uri_param = "#{obj_var}_uri"
+        uri_condition << "#{obj_var}.uri = $#{obj_uri_param}"
+        params[obj_uri_param] = filter.obj_uri
       end
 
       parts << "(#{uri_condition.join(" AND ")})"
@@ -439,16 +437,19 @@ class TraitBank
         conditions = []
         if filter.eq?
           conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
-          conditions << { op: "=", val: conv_eq_val }
+          eq_param = "#{trait_var}_eq"
+          conditions << { op: "=", val: conv_eq_val, param: eq_param }
         else
           if filter.gt? || filter.range?
             conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
-            conditions << { op: ">=", val: conv_gt_val }
+            gt_param = "#{trait_var}_gt"
+            conditions << { op: ">=", val: conv_gt_val, param: gt_param }
           end
 
           if filter.lt? || filter.range?
             conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
-            conditions << { op: "<=", val: conv_lt_val }
+            lt_param = "#{trait_var}_lt"
+            conditions << { op: "<=", val: conv_lt_val, param: lt_param }
           end
 
           conv_units_uri = conv_units_uri1 || conv_units_uri2
@@ -456,44 +457,39 @@ class TraitBank
 
         parts << "("\
         "(#{trait_var}.measurement IS NOT NULL "\
-        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.measurement) #{c[:op]} $#{c[:param]}" }.join(" ")} "\
         "AND (#{trait_var}:Trait)-[:units_term]->(:Term{ uri: \"#{conv_units_uri}\" })) "\
         "OR "\
         "(#{trait_var}.normal_measurement IS NOT NULL "\
-        "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} #{c[:val]}" }.join(" ")} "\
+        "#{conditions.map { |c| "AND toFloat(#{trait_var}.normal_measurement) #{c[:op]} $#{c[:param]}" }.join(" ")} "\
         "AND (#{trait_var}:Trait)-[:normal_units_term]->(:Term{ uri: \"#{conv_units_uri}\" }))"\
         ")"
+        conditions.each { |c| params[c[:param]] = c[:val] }
       end
 
       parts.join(" AND ")
     end
 
-    def term_search_match_str(matches, type)
-      prefix = type == :optional ? "OPTIONAL MATCH" : "MATCH"
-      matches.collect do |match|
-        str = "#{prefix} #{match[:match].join(', ')}"
-        if match[:where]
-          str += "\nWHERE #{match[:where]}"
-        end
-        str
-      end.join("\n")
-    end
-
-    def add_term_filter_meta_match(pred_uri, obj_uri, trait_var, meta_var, matches)
+    def add_term_filter_meta_match(pred_uri, obj_uri, trait_var, meta_var, matches, params)
+      pred_uri_param = "#{meta_var}_pred_uri"
+      obj_uri_param = "#{meta_var}_obj_uri"
       match =
         "(#{trait_var})-[:metadata]->(#{meta_var}:MetaData), "\
-        "(#{meta_var})-[:predicate]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{pred_uri}' }), "\
-        "(#{meta_var})-[:object_term]->(:Term)-[#{parent_terms}]->(:Term{ uri: '#{obj_uri}' })"
+        "(#{meta_var})-[:predicate]->(:Term)-[#{parent_terms}]->(:Term{ uri: $#{pred_uri_param} }), "\
+        "(#{meta_var})-[:object_term]->(:Term)-[#{parent_terms}]->(:Term{ uri: $#{obj_uri_param} })"
       matches << match
+      params[pred_uri_param] = pred_uri
+      params[obj_uri_param] = obj_uri
     end
 
-    def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
+    def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
       add_term_filter_meta_match(
         Eol::Uris.sex,
         filter.sex_uri,
         trait_var,
         "#{base_meta_var}_sex",
-        matches
+        matches,
+        params
       ) if filter.sex_term?
 
       add_term_filter_meta_match(
@@ -501,7 +497,8 @@ class TraitBank
         filter.lifestage_uri,
         trait_var,
         "#{base_meta_var}_ls",
-        matches
+        matches,
+        params
       ) if filter.lifestage_term?
 
       add_term_filter_meta_match(
@@ -509,12 +506,17 @@ class TraitBank
         filter.statistical_method_uri,
         trait_var,
         "#{base_meta_var}_stat",
-        matches
+        matches,
+        params
       ) if filter.statistical_method_term?
     end
 
-    def add_term_filter_resource_match(filter, trait_var, matches)
-      matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: #{filter.resource.id} })" if filter.resource
+    def add_term_filter_resource_match(filter, trait_var, matches, params)
+      if filter.resource
+        resource_param = "#{trait_var}_resource"
+        matches << "(#{trait_var})-[:supplier]->(:Resource{ resource_id: $#{resource_param} })"
+        params[resource_param] = filter.resource.id
+      end
     end
 
     def record_search_returns(include_meta)
@@ -577,13 +579,17 @@ class TraitBank
     end
 
     def term_record_search(term_query, limit_and_skip, options)
+      params = {}
       matches = []
       wheres = []
       collects = []
       rows_vars = []
 
       page_match = "(page:Page)"
-      page_match += "-[:parent*0..]->(target_page:Page { page_id: #{term_query.clade.id} })" if term_query.clade
+      if term_query.clade
+        page_match += "-[:parent*0..]->(target_page:Page { page_id: $clade_id })"
+        params["clade_id"] =  term_query.clade.id
+      end
       matches << page_match
 
 
@@ -617,10 +623,10 @@ class TraitBank
           matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
         end
 
-        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
-        add_term_filter_resource_match(filter, trait_var, matches)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
+        add_term_filter_resource_match(filter, trait_var, matches, params)
 
-        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var)
+        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var, params)
 
         if term_query.filters.length > 1
           rows_var = "rows#{i}"
@@ -630,17 +636,19 @@ class TraitBank
       end
 
       if collects.any?
-        collect_unwind_part =
-          "WITH #{collects.join(", ")}\n"\
-          "WITH #{rows_vars.join(" + ")} as all_rows\n"\
-          "UNWIND all_rows as row\n"\
-          "WITH DISTINCT row\n"\
-          "#{limit_and_skip}\n"\
-          "WITH row.page as page, row.trait as trait, row.predicate as predicate "
+        collect_unwind_part = %Q(
+          WITH #{collects.join(", ")}
+          WITH #{rows_vars.join(" + ")} as all_rows
+          UNWIND all_rows as row
+          WITH DISTINCT row
+          #{limit_and_skip}
+          WITH row.page as page, row.trait as trait, row.predicate as predicate
+        )
       else
-        collect_unwind_part =
-          "WITH page, trait, predicate\n"\
-          "#{limit_and_skip}"
+        collect_unwind_part = %Q(
+          WITH page, trait, predicate
+          #{limit_and_skip}
+        )
       end
 
       optional_matches = [
@@ -684,13 +692,16 @@ class TraitBank
         "USING INDEX target_page:Page(page_id)\n" :
         ""
 
-      "MATCH #{matches.join(', ')}\n"\
-      "#{index_part}"\
-      "WHERE #{wheres.join(' AND ')}\n"\
-      "#{collect_unwind_part}\n"\
-      "#{optional_match_part}\n"\
-      "#{with_count_clause}\n"\
-      "#{return_clause} "# \
+      query = %Q(
+        MATCH #{matches.join(', ')}
+        #{index_part}
+        WHERE #{wheres.join(' AND ')}
+        #{collect_unwind_part}
+        #{optional_match_part}
+        #{with_count_clause}
+        #{return_clause}
+      )
+      { query: query, params: params }
     end
 
     def page_match(term_query, page_var, anc_var)
@@ -703,11 +714,13 @@ class TraitBank
       matches = []
       wheres = []
       indexes = []
+      params = {}
 
       page_match = "(page:Page)"
       if term_query.clade
-        page_match += "-[:parent*0..]->(anc:Page { page_id: #{term_query.clade.id} })"
+        page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
         indexes << 'USING INDEX anc:Page(page_id)'
+        params["clade_id"] = term_query.clade.id
       end
       matches << page_match
 
@@ -729,9 +742,9 @@ class TraitBank
           matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
         end
 
-        wheres << term_filter_where(filter, trait_var, pred_var, obj_var)
-        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches)
-        add_term_filter_resource_match(filter, trait_var, matches)
+        wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
+        add_term_filter_resource_match(filter, trait_var, matches, params)
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
@@ -743,12 +756,16 @@ class TraitBank
 
       where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
 
-      "MATCH #{matches.join(', ')} "\
-      "#{indexes.join(' ')} "\
-      "#{where_clause} "\
-      "#{with_count_clause} "\
-      "#{return_clause} "\
-      "#{limit_and_skip} "
+      query = %Q(
+        MATCH #{matches.join(', ')}
+        #{indexes.join(' ')}
+        #{where_clause}
+        #{with_count_clause}
+        #{return_clause}
+        #{limit_and_skip}
+      )
+
+      { query: query, params: params }
     end
 
     def count_pages
