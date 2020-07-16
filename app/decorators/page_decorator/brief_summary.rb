@@ -735,7 +735,7 @@ class PageDecorator
         extant_trait = first_trait_for_obj_uris(gather_terms(Eol::Uris.extant))
         if !extant_trait && extinct_trait 
           add_sentence do |_, __, ___|
-            term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, trait[:object_term])
+            term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, extinct_trait[:object_term])
           end
 
           true
