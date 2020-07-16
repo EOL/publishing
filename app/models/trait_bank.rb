@@ -360,7 +360,7 @@ class TraitBank
     def term_search(term_query, options={})
       key = term_query.to_cache_key
       if options[:count]
-        key = "trait_bank/term_search/counts/combined/#{key}"
+        key = "trait_bank/term_search/counts/combined/v2/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
           log("&& TS USING cached count: #{key} = #{count}")
@@ -372,7 +372,7 @@ class TraitBank
       if options.key?(:cache) && !options[:cache]
         term_search_uncached(term_query, key, options)
       else
-        Rails.cache.fetch(key) do
+        Rails.cache.fetch("term_search/v2/#{key}") do
           term_search_uncached(term_query, key, options)
         end
       end
@@ -610,7 +610,7 @@ class TraitBank
           base_meta_var = "m#{i}"
         end
 
-        matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+        matches << "(page)-[#{trait_rels(options[:count])}]->(#{trait_var}:Trait)" # count counts pages too, so include :inferred_trait in that case
 
         if filter.predicate?
           matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
@@ -646,7 +646,7 @@ class TraitBank
         )
       else
         collect_unwind_part = %Q(
-          WITH page, trait, predicate
+          WITH DISTINCT page, trait, predicate
           #{limit_and_skip}
         )
       end
@@ -684,7 +684,7 @@ class TraitBank
         end
 
       with_count_clause = options[:count] ?
-                          "WITH count(*) AS record_count, count(distinct page) AS page_count " :
+                          "WITH count(distinct trait) AS record_count, count(distinct page) AS page_count " :
                           ""
 
       return_clause = "RETURN #{returns.join(", ")}"
@@ -702,6 +702,14 @@ class TraitBank
         #{return_clause}
       )
       { query: query, params: params }
+    end
+
+    def trait_rels(include_inferred)
+      include_inferred ? TRAIT_RELS : ":trait"
+    end
+    
+    def trait_rels_for_query_type(query)
+      trait_rels(query.taxa?)
     end
 
     def page_match(term_query, page_var, anc_var)

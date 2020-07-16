@@ -24,8 +24,8 @@ class TraitBank
       def obj_counts(query, record_count, limit)
         raise_if_query_invalid_for_counts(query, record_count)
         filter = query.filters.first
-        count = query.taxa? ? "distinct page" : "*"
-        key = "trait_bank/stats/obj_counts/v2/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
+        count = query.taxa? ? "distinct page" : "distinct trait"
+        key = "trait_bank/stats/obj_counts/v3/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
 
         Rails.cache.fetch(key) do
           log("TraitBank::Stats.object_counts -- running query for key #{key}")
@@ -36,7 +36,7 @@ class TraitBank
 
           matches = [
             TraitBank.page_match(query,"page", ""),
-            "(page)-[#{TraitBank::TRAIT_RELS}]->(trait:Trait)"
+            "(page)-[#{TraitBank::trait_rels_for_query_type(query)}]->(trait:Trait)"
           ]
 
           if filter.predicate?
@@ -47,12 +47,9 @@ class TraitBank
           obj_part += "-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.obj_uri}'})" if filter.object_term?
           matches << obj_part
 
-          wheres = ["obj.is_hidden_from_select = false"]
-
           results = TraitBank.query(%Q[
             MATCH #{matches.join(",\n")}
-            WITH DISTINCT page, trait, obj
-            WHERE #{wheres.join(" AND ")}
+            WHERE obj.is_hidden_from_select = false
             WITH obj, count(#{count}) AS count
             RETURN obj, count
             ORDER BY count DESC
@@ -92,7 +89,7 @@ class TraitBank
       def histogram(query, record_count)
         raise_if_query_invalid_for_histogram(query, record_count)
 
-        key = "trait_bank/stats/histogram/v1/#{query.to_cache_key}" # increment version number when changing query
+        key = "trait_bank/stats/histogram/v2/#{query.to_cache_key}" # increment version number when changing query
         Rails.cache.fetch(key) do
           filter = query.filters.first
 
@@ -106,8 +103,9 @@ class TraitBank
           TraitBank.query(%Q[
             MATCH #{TraitBank.page_match(query, "page", "")},
             (tgt_p:Term{ uri: '#{filter.pred_uri}'}),
-            (page)-[#{TraitBank::TRAIT_RELS}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p),
-            (t)-[:normal_units_term]->(u:Term)
+            (page)-[#{TraitBank::trait_rels_for_query_type(query)}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)
+            WITH DISTINCT page, t
+            MATCH (t)-[:normal_units_term]->(u:Term)
             WITH page, u, toFloat(t.normal_measurement) AS m
             WHERE #{wheres.join(" AND ")}
             WITH u, collect({ page: page, val: m }) as recs, max(m) AS max, min(m) AS min
