@@ -30,13 +30,21 @@ class UserDownload < ApplicationRecord
   # after_create may be called prematurely.
   #after_commit :background_build, on: :create
 
-  # TODO: this should be set up in a regular task.
-  def self.expire_old
-    where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
-      update_all(expired_at: Time.now)
-  end
 
   class << self
+    # TODO: this should be set up in a regular task.
+    def self.expire_old
+      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
+        update_all(expired_at: Time.now)
+    end
+
+    # ADMIN method (not called in code) to clear out jobs both in the DB and in Delayed::Job
+    def all_clear
+      pending.delete_all
+      Delayed::Job.where(queue: :download).delete_all
+    end
+    alias_method :all_clear!, :all_clear
+
     def create_and_run_if_needed!(ud_attributes, new_query, options)
       download = UserDownload.new(ud_attributes)
       query = TermQuery.find_or_save!(new_query)
