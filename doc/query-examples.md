@@ -328,6 +328,21 @@ RETURN DISTINCT page.canonical, page2.canonical
 LIMIT 50000
 ```
 
+## Taxa that inhabit habitats created by endangered taxa
+
+```
+MATCH (page:Page)-[:trait|:inferred_trait]->(trait_end:Trait), (trait_end)-[:object_term]->(:Term)-[:parent_term|:synonym_of*0..]->(obj_end:Term)
+WHERE obj_end.uri = "http://eol.org/schema/terms/endangered"
+WITH DISTINCT page
+MATCH (page)-[:trait|:inferred_trait]->(trait_forms:Trait), (trait_forms)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(pred_forms:Term), (trait_forms)-[:object_term]->(obj_forms:Term)
+WHERE pred_forms.uri = "http://purl.obolibrary.org/obo/NCIT_C25513"
+WITH distinct page, obj_forms
+MATCH (page2:Page)-[:trait|:inferred_trait]->(trait_hab:Trait), (trait_hab)-[:object_term]->(obj_forms), (trait_hab)-[:predicate]->(pred_hab:Term)
+WHERE pred_hab.uri = "http://purl.obolibrary.org/obo/RO_0002303"
+RETURN DISTINCT page.canonical, page2.canonical
+LIMIT 50
+```
+
 ## Taxa marked both extant and extinct
 
 ```
