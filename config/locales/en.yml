@@ -567,7 +567,8 @@ en:
     tr: "tr"
   maps:
     empty: "There are no maps available for this page."
-    occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
+    occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}. View this species on GBIF"
+    occurrence_caption_w_link_html: "Known occurrences, collected specimens and observations of %{page_name}. <a href='%{url}'>View this species on GBIF <i class='fa fa-external-link'></i></a>"
     other_maps_title: "Non-interactive Maps"
   medium:
     untitled:

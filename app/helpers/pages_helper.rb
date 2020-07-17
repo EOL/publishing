@@ -331,6 +331,20 @@ private
     end
   end
 
+  def gbif_species_page_url(page)
+    page.gbif_node ? 
+      "https://gbif.org/species/#{page.gbif_node.resource_pk}" :
+      nil 
+  end
+
+  def occurrence_map_caption(page)
+    url = gbif_species_page_url(page)
+    name = page.name.html_safe
+    url.present? ?
+      t("maps.occurrence_caption_w_link_html", page_name: name, url: url) :
+      t("maps.occurrence_caption", page_name: name)
+  end
+
   private
     def sort_nodes_by_name(nodes)
       nodes.sort do |a, b|

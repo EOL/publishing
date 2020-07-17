@@ -221,6 +221,7 @@ class PagesController < ApplicationController
     @media_count = @media.length
     @subclass = "map"
     @subclass_id = Medium.subclasses[:map_image]
+    @gbif_node = Resource.gbif ? @page.nodes.where(resource: Resource.gbif)&.first : nil
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}

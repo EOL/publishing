@@ -751,6 +751,12 @@ class Page < ApplicationRecord
     page_icons.order(created_at: :desc).first
   end
 
+  def gbif_node
+    Resource.gbif.present? ?
+      nodes.where(resource: Resource.gbif)&.first :
+      nil
+  end
+
   private
   def first_image_content
     page_contents.find { |pc| pc.content_type == "Medium" && pc.content.is_image? }
