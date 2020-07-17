@@ -19,7 +19,7 @@ class UserDownload < ApplicationRecord
       .where(status: :created)
   end
 
-  scope :for_user_display, -> do 
+  scope :for_user_display, -> do
     where("(created_at >= ? AND status != ?) OR status = ?", EXPIRATION_TIME.ago, UserDownload.statuses[:completed], UserDownload.statuses[:completed])
   end
 
@@ -30,26 +30,21 @@ class UserDownload < ApplicationRecord
   # after_create may be called prematurely.
   #after_commit :background_build, on: :create
 
-  # TODO: this should be set up in a regular task.
-  def self.expire_old
-    where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
-      update_all(expired_at: Time.now)
-  end
-
-  # NOTE: for timing reasons, this does NOT #save the current model, you should do that yourself.
-  def mark_as_failed(message, backtrace)
-    self.transaction do
-      self.status = :failed
-      self.completed_at = Time.now # Yes, this is duplicated from #background_build, but it's safer to do so.
-      build_download_error({message: message, backtrace: backtrace})
-    end
-  end
-
-  def processing?
-    self.processing_since.present?
-  end
 
   class << self
+    # TODO: this should be set up in a regular task.
+    def self.expire_old
+      where(expired_at: nil).where("created_at < ?", EXPIRATION_TIME.ago).
+        update_all(expired_at: Time.now)
+    end
+
+    # ADMIN method (not called in code) to clear out jobs both in the DB and in Delayed::Job
+    def all_clear
+      pending.delete_all
+      Delayed::Job.where(queue: :download).delete_all
+    end
+    alias_method :all_clear!, :all_clear
+
     def create_and_run_if_needed!(ud_attributes, new_query, options)
       download = UserDownload.new(ud_attributes)
       query = TermQuery.find_or_save!(new_query)
@@ -82,6 +77,19 @@ class UserDownload < ApplicationRecord
       existing_query = TermQuery.find_saved(term_query)
       existing_query&.user_downloads&.where(user: user, status: :created)&.any? || false
     end
+  end
+
+  # NOTE: for timing reasons, this does NOT #save the current model, you should do that yourself.
+  def mark_as_failed(message, backtrace)
+    self.transaction do
+      self.status = :failed
+      self.completed_at = Time.now # Yes, this is duplicated from #background_build, but it's safer to do so.
+      build_download_error({message: message, backtrace: backtrace})
+    end
+  end
+
+  def processing?
+    self.processing_since.present?
   end
 
 private
