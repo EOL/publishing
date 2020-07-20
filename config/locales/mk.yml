@@ -643,6 +643,9 @@ mk:
       n_hidden_show_all:
         one: 1 скриен запис „%{pred_name}“ — прикажи сè
         other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
+      n_hidden_show_all_noname:
+        one: Скриен е 1 запис — прикажи ги сите
+        other: Скриени се %{count} записи — прикажи ги сите
       show_all: прикажи сè
     resource_names:
       name_recognized_by: Признаено од %{by}

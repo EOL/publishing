@@ -646,6 +646,9 @@ pms:
       n_hidden_show_all:
         one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
         other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
+      n_hidden_show_all_noname:
+        one: 1 argistrassion ëstërmà — smon-e tut
+        other: '%{count} argistrassion ëstërmà — smon-e tut'
       show_all: smon-e tut
     resource_names:
       name_recognized_by: Arconossù da %{by}

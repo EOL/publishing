@@ -620,6 +620,9 @@ zh-TW:
       n_hidden_show_all:
         one: 隱藏 1 個「%{pred_name}」紀錄 — 顯示全部
         other: 隱藏 %{count} 個「%{pred_name}」紀錄 — 顯示全部
+      n_hidden_show_all_noname:
+        one: 已隱藏 1 個紀錄 — 顯示全部
+        other: 已隱藏 %{count} 個紀錄 — 顯示全部
       show_all: 顯示全部
     resource_names:
       name_recognized_by: 由%{by}識別出
