@@ -27,31 +27,12 @@ class SearchController < ApplicationController
     term_results = TermNode.autocomplete(params[:query], common_options)
     pages_simple = autocomplete_results(pages_results, "pages")
     terms_simple = autocomplete_results(term_results, "term_nodes")
-    render json: pages_simple.concat(terms_simple)[0, MAX_AUTOCOMPLETE_RESULTS]
+    render json: (pages_simple.concat(terms_simple).sort do |a, b|
+      a[:name].length <=> b[:name].length 
+    end)[0, MAX_AUTOCOMPLETE_RESULTS]
   end
 
 private
-  # TODO: remove, just here for reference as we test autocomplete_results
-  #def simple_results(full_results, default_name_field, query, controller)
-  #  result_hash = {}
-  #  full_results.each do |r|
-  #    field = r['highlight']&.first&.first&.split('.').first
-  #    name = r.send(field) || r.send(default_name_field)
-  #    if name.is_a?(Array)
-  #      first_hit = name.grep(/#{query}/i)&.first
-  #      name = first_hit || name.first
-  #    end
-  #    result_hash[name] =
-  #      if result_hash.key?(name)
-  #        new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
-  #        { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
-  #      else
-  #        { name: name, title: name, id: r.id, url: url_for(controller: controller, action: "show", id: r.id) }
-  #      end
-  #  end
-  #  result_hash.values
-  #end
-
   def do_search
     searcher = MultiClassSearch.new(params[:q], params)
     @q = searcher.query # get a clean version of the search string for re-use in the form
