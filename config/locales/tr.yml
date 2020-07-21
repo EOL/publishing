@@ -646,6 +646,9 @@ tr:
       n_hidden_show_all:
         one: 1 “%{pred_name}” kayıt gizlendi — tümünü göster
         other: '%{count} “%{pred_name}” kayıt gizlendi — tümünü göster'
+      n_hidden_show_all_noname:
+        one: 1 kayıt gizli — tümünü göster
+        other: '%{count} kayıt gizli — tümünü göster'
       show_all: hepsini göster
     resource_names:
       name_recognized_by: '%{by} tarafından tanınıyor'

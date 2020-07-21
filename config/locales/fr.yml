@@ -561,7 +561,7 @@ fr:
   maps:
     empty: Il n’y a aucune carte disponible pour cette page.
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
-      %{page_name}
+      %{page_name}. Voir ces espèces sur GBIF
     other_maps_title: Cartes non interactives
   medium:
     untitled:
@@ -651,6 +651,9 @@ fr:
       n_hidden_show_all:
         one: 1 enregistrement « %{pred_name} » caché – montrer tout
         other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
+      n_hidden_show_all_noname:
+        one: 1 enregistrement masqué — afficher tout
+        other: '%{count} enregistrements masqués — afficher tout'
       show_all: tout afficher
     resource_names:
       name_recognized_by: Reconnu par %{by}

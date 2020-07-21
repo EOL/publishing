@@ -24,7 +24,7 @@ class TraitBank
     def self.i18n_name_for_locale(record, locale)
       key = Util::TermI18n.uri_to_key(record[:uri], "term.name.by_uri")
 
-      if I18n.exists?(key)
+      if I18n.exists?(key, locale: locale)
         I18n.t(key, locale: locale)
       else
         record[:name]
