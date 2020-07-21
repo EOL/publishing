@@ -21,7 +21,7 @@ class PageDecorator
             source = TraitBank::Record.source(rec)
             resource_id = TraitBank::Record.resource_id(rec)
 
-            next if resource_id.blank?
+            next if resource_id.blank? || rec[:object_term][:is_hidden_from_overview]
 
             provider = case resource_id
                        when Resource.iucn&.id
