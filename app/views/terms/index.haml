@@ -10,12 +10,12 @@
       %dl.uk-description-list
         %h3= @letter
         - @glossary.each do |term|
-          - data = (@uri && @uri == term[:uri]) ? { 'scroll-to': true } : {}
-          %dt.term-name{ data: data }= term[:name]
+          - data = (@uri && @uri == term[:data]['uri']) ? { 'scroll-to': true } : {}
+          %dt.term-name{ data: data }= term[:data]['name']
           %dd
-            .uk-text-muted.uk-text-small= term[:uri]
+            .uk-text-muted.uk-text-small= term[:data]['uri']
             = term[:definition]
-            .uk-text-muted= term[:attribution]
+            .uk-text-muted= term[:data]['attribution']
     = render "glossary_pagination"
   - else
     %p= t(".select_page_above")
