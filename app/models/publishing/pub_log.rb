@@ -15,6 +15,22 @@ class Publishing::PubLog
     end
   end
 
+  def start(what)
+    log(what.to_s, cat: :starts)
+  end
+
+  def end(what)
+    log(what.to_s, cat: :ends)
+  end
+
+  def warn(what)
+    log(what.to_s, cat: :warns)
+  end
+
+  def info(what)
+    log(what.to_s, cat: :infos)
+  end
+
   def log(what, type = nil)
     cat = type && type.key?(:cat) ? type[:cat] : :starts
     add_text_logs("(#{cat}) #{what}")
@@ -43,6 +59,7 @@ class Publishing::PubLog
     # Making sure we call complete on the last working import log, regardless of what we're holding on to:
     @resource.import_logs.last&.complete
   end
+  alias_method :close, :complete
 
   def add_text_logs(str)
     t = Time.now.strftime('%H:%M:%S')

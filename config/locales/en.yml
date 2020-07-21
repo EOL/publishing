@@ -1007,29 +1007,6 @@ en:
       words_connector: ", "
       two_words_connector: " and "
       last_word_connector: ", and "
-  term:
-    actions:
-      reindex: "reindex"
-      sort: "sort by"
-    edit:
-      header: "Editing %{uri}"
-      submit: "Save"
-    fields:
-      name: "name:"
-      definition: "definition:"
-      attribution: "attribution:"
-      comment: "comment:"
-      sections: "sections:"
-      is_hidden_from_glossary: "hide from glossary:"
-      is_hidden_from_overview: "hide from overview tab:"
-    glossary:
-      full_title: "Glossary of ALL Terms for Data on EOL"
-      predicate_title: "Glossary of Type Terms for Data on EOL"
-      object_term_title: "Glossary of Value Terms for Data on EOL"
-      units_title: "Glossary of Unit Terms for Data on EOL"
-    pagination:
-      next: "next page"
-      previous: "previous page"
   term_query:
     validations:
       empty_filters_error_record: "you must provide a filter with an attribute or value for record searches"
@@ -1193,6 +1170,28 @@ en:
 
   # purl.obolibrary.org
   term:
+    actions:
+      reindex: "reindex"
+      sort: "sort by"
+    edit:
+      header: "Editing %{uri}"
+      submit: "Save"
+    fields:
+      name: "name:"
+      definition: "definition:"
+      attribution: "attribution:"
+      comment: "comment:"
+      sections: "sections:"
+      is_hidden_from_glossary: "hide from glossary:"
+      is_hidden_from_overview: "hide from overview tab:"
+    glossary:
+      full_title: "Glossary of ALL Terms for Data on EOL"
+      predicate_title: "Glossary of Type Terms for Data on EOL"
+      object_term_title: "Glossary of Value Terms for Data on EOL"
+      units_title: "Glossary of Unit Terms for Data on EOL"
+    pagination:
+      next: "next page"
+      previous: "previous page"
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brooding

@@ -131,7 +131,7 @@ class PagesController < ApplicationController
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
-    build_associations(@page.data)
+    @associations = build_associations(@page.data)
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
@@ -176,7 +176,7 @@ class PagesController < ApplicationController
     @filter_predicates = []
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_pred = 5
-    
+
     if @predicate.nil?
       @filtered_by_predicate = false
       filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
@@ -194,7 +194,7 @@ class PagesController < ApplicationController
     @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
     @resources = TraitBank.resources(filtered_data)
 
-    build_associations(@page.data)
+    @associations = build_associations(@page.data)
     setup_viz
 
     return render(status: :not_found) unless @page # 404
@@ -591,7 +591,7 @@ private
         clade: @page,
         result_type: :taxa,
         filters_attributes: [{
-          pred_uri: target_uri  
+          pred_uri: target_uri
         }]
       })
 

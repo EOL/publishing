@@ -12,7 +12,7 @@ class TraitsController < ApplicationController
   GBIF_DOWNLOAD_LIMIT = 100_000
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
   VIEW_TYPES = Set.new(%w(list gallery))
-  
+
   DataViz = Struct.new(:type, :data)
 
   def search
@@ -146,7 +146,7 @@ class TraitsController < ApplicationController
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
-    build_associations(data)
+    @associations = build_associations(data)
     build_gbif_url(@count, pages, @query)
     data_viz_type(@query, @counts)
     render "search"
@@ -179,9 +179,9 @@ class TraitsController < ApplicationController
 
   def data_viz_type(query, counts)
     if TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid
-      @data_viz_type = :bar 
+      @data_viz_type = :bar
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
-      @data_viz_type = :hist 
+      @data_viz_type = :hist
     end
   end
 
@@ -206,4 +206,3 @@ class TraitsController < ApplicationController
     @raw_query = query
   end
 end
-
