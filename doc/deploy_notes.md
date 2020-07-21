@@ -28,3 +28,4 @@ Thanks.
 7/7/2020 (mvitale): Reindex Page and Term. For production: set config.x.autocomplete\_i18n\_enabled = false in application.rb, then set back to true once reindex is done. rake db:migrate.
 7/21/2020 (jrice): Re-check app/models/trait_bank/slurp.rb:86 and make sure it
   includes sample_size citation source remarks method
+7/21/20 (mvitale): Forgot to add this earlier -- run TermNameTranslationManager.rebuild\_node\_properties and ObjForPredRelManager.rebuild after latest code is pulled but before restarting webserver. These will make graph changes expected by the trait search typeaheads.
