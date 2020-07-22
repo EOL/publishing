@@ -153,11 +153,6 @@ class CollectionsController < ApplicationController
         includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
         order("position")
     end
-    @pages.each do |collected_page|
-      # NOTE: #build_associations *usually* sets an instance variable for use in some views. I ... HOPE we don't need
-      # it here. :| (-JRice)
-      collected_page.page.associated_pages = build_associations(collected_page.page.data) # needed for autogen text
-    end
 
     @pages = @pages.by_page(params[:page]).per(@collection.gallery? ? 18 : 20) if paginate
   end
