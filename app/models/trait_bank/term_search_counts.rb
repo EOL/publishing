@@ -1,5 +1,6 @@
 class TraitBank
   class TermSearchCounts
+    # NOTE -- taxon search results do not include records, but record results do include taxa
     attr_reader :records, :pages
 
     def initialize(res)
@@ -10,7 +11,7 @@ class TraitBank
         raise TypeError.new("page_count missing from result")
       end
 
-      if record_count_index.nil? # certain searches aren't valid for records, so we don't count them
+      if record_count_index.nil?
         @records = 0
       else
         @records = res["data"].first[record_count_index]

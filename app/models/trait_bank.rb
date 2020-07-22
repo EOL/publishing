@@ -360,7 +360,7 @@ class TraitBank
     def term_search(term_query, options={})
       key = term_query.to_cache_key
       if options[:count]
-        key = "trait_bank/term_search/counts/combined/v2/#{key}"
+        key = "trait_bank/term_search/counts/#{key}"
         if Rails.cache.exist?(key)
           count = Rails.cache.read(key)
           log("&& TS USING cached count: #{key} = #{count}")
@@ -380,12 +380,11 @@ class TraitBank
 
     def term_search_uncached(term_query, key, options)
       limit_and_skip = options[:page] ? limit_and_skip_clause(options[:page], options[:per]) : ""
-      use_record_search = (options[:count] && term_query.filters.any?) || term_query.record?
 
-      q = if use_record_search # term_record_search counts both records and taxa
+      q = if term_query.record?
         term_record_search(term_query, limit_and_skip, options)
       else
-        term_page_search(term_query, limit_and_skip, options) # in the no-filter, clade-present case, we don't want to count records, so just count pages
+        term_page_search(term_query, limit_and_skip, options)
       end
 
       res = query(q[:query], q[:params])
