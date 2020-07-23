@@ -721,24 +721,25 @@ class TraitBank
       params = {}
       filter_parts = []
 
+      if term_query.filters.empty? && term_query.clade
+        filter_parts << %Q(
+          MATCH #{page_match(term_query, "page", "anc")}
+          USING INDEX anc:Page(page_id)
+        )
+      end
+
       term_query.filters.each_with_index do |filter, i|
         wheres = []
         matches = []
 
         if i == 0
-          page_match = "(page:Page)"
-          if term_query.clade
-            page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
-            params["clade_id"] = term_query.clade.id
-          end
-
-          matches << page_match
+          matches << page_match(term_query, "page", "anc")
         end
 
-        trait_var = "trait"
-        pred_var = "predicate"
-        obj_var = "object_term"
-        base_meta_var = "meta"
+        trait_var = "trait#{i}"
+        pred_var = "predicate#{i}"
+        obj_var = "object_term#{i}"
+        base_meta_var = "meta#{i}"
         index = if filter.object_term?
                   "#{obj_var}:Term(uri)"
                 elsif filter.predicate?
