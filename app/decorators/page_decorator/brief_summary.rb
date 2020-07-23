@@ -451,9 +451,27 @@ class PageDecorator
         elsif matches.has_type?(:a)
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:a)
-            organism_animal = @page.animal? ? "animal" : "organism"
+
+            if is_species? 
+              article = "#{a_or_an(match.trait)} "
+
+              if @page.animal?
+                organism_animal = "animal"
+              else
+                organism_animal = "organism"
+              end
+            else
+              article = ""
+
+              if @page.animal?
+                organism_animal = "animals"
+              else
+                organism_animal = "organisms"
+              end
+            end
+
             trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(match.trait)} %s #{organism_animal}.",
+              "#{subj} #{is} #{article}%s #{organism_animal}.",
               match.trait
             )
           end
