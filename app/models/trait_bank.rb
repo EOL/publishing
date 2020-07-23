@@ -718,39 +718,27 @@ class TraitBank
     end
 
     def term_page_search(term_query, limit_and_skip, options)
+      matches = []
+      wheres = []
+      indexes = []
       params = {}
-      filter_parts = []
 
-      if term_query.filters.empty? && term_query.clade
-        filter_parts << %Q(
-          MATCH #{page_match(term_query, "page", "anc")}
-          USING INDEX anc:Page(page_id)
-        )
+      page_match = "(page:Page)"
+      if term_query.clade
+        page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
+        indexes << 'USING INDEX anc:Page(page_id)'
+        params["clade_id"] = term_query.clade.id
       end
+      matches << page_match
 
       term_query.filters.each_with_index do |filter, i|
-        wheres = []
-        matches = []
+        trait_var = "t#{i}"
+        pred_var = "p#{i}"
+        obj_var = "o#{i}"
+        base_meta_var = "m#{i}"
 
-        if i == 0
-          matches << page_match(term_query, "page", "anc")
-        end
-
-        trait_var = "trait#{i}"
-        pred_var = "predicate#{i}"
-        obj_var = "object_term#{i}"
-        base_meta_var = "meta#{i}"
-        index = if filter.object_term?
-                  "#{obj_var}:Term(uri)"
-                elsif filter.predicate?
-                  "#{pred_var}:Term(uri)"
-                elsif term_query.clade && i == 0
-                  "anc:Page(page_id)"
-                else
-                  nil
-                end
-
-
+        # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
+        # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
         matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
         if filter.object_term?
@@ -764,23 +752,6 @@ class TraitBank
         wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
         add_term_filter_resource_match(filter, trait_var, matches, params)
-      
-        match_part = "MATCH #{matches.join(",\n")}"
-        where_part = "WHERE #{wheres.join(" AND ")}"
-
-        filter_part = if index.nil?
-                        %Q(
-                          #{match_part}
-                          #{where_part}
-                        )
-                      else 
-                        %Q(
-                          #{match_part}
-                          USING INDEX #{index}
-                          #{where_part}
-                        )
-                      end
-        filter_parts << filter_part
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
@@ -790,8 +761,12 @@ class TraitBank
                         "RETURN DISTINCT page.page_id"
                       end
 
+      where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
+
       query = %Q(
-        #{filter_parts.join("\nWITH DISTINCT page\n")}
+        MATCH #{matches.join(', ')}
+        #{indexes.join(' ')}
+        #{where_clause}
         #{with_count_clause}
         #{return_clause}
         #{limit_and_skip}
