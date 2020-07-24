@@ -261,34 +261,15 @@ if (!window.EOL) {
       $.getScript(location.href);
     });
 
-    // TODO: move this.
-    /*
-    EOL.searchNames = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      // TODO: someday we should have a pre-populated list of common search terms
-      // and load that here. prefetch: '../data/films/post_1960.json',
-      remote: {
-        url: Routes.autocomplete_pages_path({ query: 'QUERY', simple: 1 }),
-        wildcard: 'QUERY'
-      }
-    });
-    EOL.searchNames.initialize();
-    */
-
     EOL.searchNamesNoMultipleText = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       remote: {
         url: Routes.autocomplete_pages_path({ 
           query: 'QUERY', 
-          simple: 'hash', 
           no_multiple_text: true 
         }),
-        wildcard: 'QUERY',
-        transform: function(response) {
-          return response.results;
-        }
+        wildcard: 'QUERY'
       }
     });
     EOL.searchNamesNoMultipleText.initialize();
@@ -334,22 +315,6 @@ if (!window.EOL) {
     });
     EOL.searchObjectTerms.initialize();
 
-    /*
-     * unused - untested
-    EOL.pagesAutocomplete = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      remote: {
-        url: Routes.autocomplete_pages_path({ query: 'QUERY', simple: 'hash'}),
-        wildcard: 'QUERY',
-        transform: function(response) {
-          return response.results;
-        }
-      }
-    });
-    EOL.pagesAutocomplete.initialize();
-    */
-
     EOL.searchResources = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -383,15 +348,6 @@ if (!window.EOL) {
       $overlay.addClass('is-hidden');
       $('body').removeClass('is-noscroll');
     }
-
-    /*
-    $('.ui.names.search')
-      .search({
-        apiSettings: {
-          url: '/pages/autocomplete?query={query}'
-        }
-      });
-    */
 
 
     /*

@@ -5,12 +5,12 @@ class TraitBank
                to: TraitBank
       delegate :log, to: TraitBank::Logger
 
-
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
       TERM_TYPES = {
         predicate: ['measurement', 'association'],
         object_term: ['value']
       }
+      DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
 
       def count(options = {})
         hidden = options[:include_hidden]
@@ -89,10 +89,11 @@ class TraitBank
         qterm = options[:qterm]
         for_select = options[:for_select]
         page ||= 1
-        per ||= Rails.configuration.data_glossary_page_size
-        key = "trait_bank/#{type}_glossary/#{count ? :count : "#{page}/#{per}"}/"\
+        per ||= DEFAULT_GLOSSARY_PAGE_SIZE
+        key = "trait_bank/#{type}_glossary/#{I18n.locale}/#{count ? :count : "#{page}/#{per}"}/"\
           "for_select_#{for_select ? 1 : 0}/#{qterm ? qterm : :full}"
         log("KK TraitBank key: #{key}")
+        name_field = Util::I18nUtil.term_name_property
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           q = 'MATCH (term:Term'
           # NOTE: UUUUUUGGGGGGH.  This is suuuuuuuper-ugly. Alas... we don't have a nice query-builder.
@@ -100,7 +101,7 @@ class TraitBank
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || TERM_TYPES.key?(type)
-          q += "LOWER(term.name) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" " if qterm
+          q +=  term_name_prefix_match("term", qterm) if qterm
           q += " AND " if qterm && TERM_TYPES.key?(type)
           q += %{term.type IN ["#{TERM_TYPES[type].join('","')}"]} if TERM_TYPES.key?(type)
           if for_select
@@ -110,7 +111,7 @@ class TraitBank
           if count
             q += "WITH COUNT(DISTINCT(term.uri)) AS count RETURN count"
           else
-            q += "RETURN DISTINCT(term) ORDER BY LOWER(term.name), LOWER(term.uri)"
+            q += "RETURN DISTINCT(term) ORDER BY LOWER(term.#{name_field}), LOWER(term.uri)"
             q += limit_and_skip_clause(page, per)
           end
           res = query(q)
@@ -119,7 +120,7 @@ class TraitBank
               res["data"].first.first
             else
               all = res["data"].map { |t| t.first["data"].symbolize_keys }
-              all.map! { |h| { name: h[:name], uri: h[:uri] } } if qterm
+              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri] } } if qterm
               all
             end
           else
@@ -138,7 +139,7 @@ class TraitBank
             "AND term.is_hidden_from_overview = false "\
             "AND term.type IN #{array_to_qs(types)} "\
             "RETURN term "\
-            "ORDER BY lower(term.name), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
 
         term_query(q)
       end
@@ -147,14 +148,14 @@ class TraitBank
         q = "MATCH (term:Term)-[:parent_term]->(:Term{ uri:'#{uri}' }) "\
             "WHERE NOT (term)-[:synonym_of]->(:Term) "\
             "RETURN term "\
-            "ORDER BY lower(term.name), term.uri"
+            "ORDER BY lower(term.#{Util::I18nUtil.term_name_property}), term.uri"
         term_query(q)
       end
 
       def term_query(q)
         res = query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
-        all.map! { |h| { name: h[:name], uri: h[:uri] } }
+        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri] } }
         all
       end
 
@@ -238,18 +239,19 @@ class TraitBank
         uris
       end
 
-      # TEMP: We're no longer checking this against the passed-in pred_uri. Sorry. Keeping the interface for it, though,
-      # since we will want it back. :) You'll have to look at an older version (e.g.: aaf4ba91e7 ) to see the changes; I
-      # kept them around as comments for one version, but it was really hairy, so I removed it.
-      def obj_terms_for_pred(_, orig_qterm = nil)
-        return [] if orig_qterm.blank?
-        qterm = orig_qterm.delete('"').downcase
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
-          q = 'MATCH (object:Term { type: "value", is_hidden_from_select: false }) '
-          q += "WHERE LOWER(object.name) =~ \"#{qterm}.*\" " if qterm
-          q +=  'RETURN object ORDER BY object.position LIMIT 6'
+      def obj_terms_for_pred(pred_uri, orig_qterm = nil)
+        qterm = orig_qterm.delete('"').downcase.strip
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+          name_field = Util::I18nUtil.term_name_property
+          q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
+          q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
+          q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
-          res["data"] ? res["data"].map { |t| t.first["data"].symbolize_keys } : []
+          res["data"] ? res["data"].map do |t| 
+            hash = t.first["data"].symbolize_keys 
+            hash[:name] = hash[:"#{name_field}"]
+            hash
+          end : []
         end
       end
 
@@ -317,6 +319,11 @@ class TraitBank
         ))
 
         result["data"].any?
+      end
+
+      private
+      def term_name_prefix_match(label, qterm)
+        "LOWER(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
       end
     end
   end

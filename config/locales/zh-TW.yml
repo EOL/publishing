@@ -620,6 +620,9 @@ zh-TW:
       n_hidden_show_all:
         one: 隱藏 1 個「%{pred_name}」紀錄 — 顯示全部
         other: 隱藏 %{count} 個「%{pred_name}」紀錄 — 顯示全部
+      n_hidden_show_all_noname:
+        one: 已隱藏 1 個紀錄 — 顯示全部
+        other: 已隱藏 %{count} 個紀錄 — 顯示全部
       show_all: 顯示全部
     resource_names:
       name_recognized_by: 由%{by}識別出
@@ -1308,6 +1311,11 @@ zh-TW:
         - %{range_end} 個帶有
       result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
       new_search: 新搜尋
+      select:
+        child_term: 選擇一個子項（可選）
+        top_level:
+          object_term: 或選擇一個值
+          predicate: 或選擇一個屬性
       show_query: 顯示查詢
       switch_to_list: 切換成列表檢視
       switch_to_gallery: 切換成圖庫檢視
@@ -1324,6 +1332,7 @@ zh-TW:
       statistical_method: 統計方法
       taxa_matching_all: 符合所有篩選的分類
       this_may_take_a_minute: 這可能會花費一分鐘
+      trait_filter: 特徵篩選
       value: 值
   trophic_web:
     group_descriptions:

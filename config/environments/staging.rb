@@ -19,10 +19,6 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
   
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
-
   config.after_initialize do
     ActiveRecord::Base.logger = Rails.logger.clone
     ActiveRecord::Base.logger.level = Logger::INFO

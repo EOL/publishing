@@ -20,12 +20,16 @@
       = render "trophic_web", data: @trophic_web_data, translations: @trophic_web_translations
     %ul.traits
       - @predicates.each do |predicate|
+        - name = TraitBank::Record.i18n_name(predicate)
         - pred_data = @grouped_data[predicate[:uri]]
-        - pred_data.each do |trait|
-          = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false }
-          -# Removed a bunch of old code, here. Check 5d3a7a30fdf2e2ce790faa1fd78a58e305e7afde
         - trait_count_for_pred = pred_data.first[:trait_count]
-        - if trait_count_for_pred.present? && @traits_per_pred < trait_count_for_pred
-          %li.more-traits
-            = link_to(t(".n_hidden_show_all", count: trait_count_for_pred - @traits_per_pred, pred_name: i18n_term_name(predicate)), page_data_path(page_id: @page.id, predicate: predicate[:uri]))
+        - if !@filtered_by_predicate
+          .data-section-head
+            %div
+            %h3= name
+            .data-section-head-more
+              - if trait_count_for_pred.present? && @traits_per_pred < trait_count_for_pred
+                = link_to(t(".n_hidden_show_all_noname", count: trait_count_for_pred - @traits_per_pred), page_data_path(page_id: @page.id, predicate: predicate[:uri]))
+        - pred_data.each do |trait|
+          = render :partial => "traits/data_row", :locals => { :page => @page, :trait => trait, :show_taxon => false, :hide_pred_when_closed => !@filtered_by_predicate }
 

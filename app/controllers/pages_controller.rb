@@ -2,6 +2,8 @@ require 'csv'
 
 class PagesController < ApplicationController
   include DataAssociations
+  include HasAutocomplete
+
   before_action :handle_page_redirects
   before_action :set_media_page_size, only: [:show, :media]
   before_action :no_main_container
@@ -40,40 +42,7 @@ class PagesController < ApplicationController
   end
 
   def autocomplete
-    full_results = Page.autocomplete(params[:query])
-    if params[:full]
-      render json: full_results
-    elsif params[:simple]
-      result_hash = {}
-      full_results.each do |r|
-          field = r['highlight']&.first&.first&.split('.').first
-          name = r.send(field) || r.scientific_name
-          if name.is_a?(Array)
-            first_hit = name.grep(/#{params[:query]}/i)&.first
-            name = first_hit || name.first
-          end
-          result_hash[name] = if result_hash.key?(name)
-            new_string = params[:no_multiple_text] ? name : "#{name} (multiple hits)"
-            { name: new_string, title: new_string, id: r.id, url: search_path(q: name, utf8: true) }
-          else
-            { name: name, title: name, id: r.id, url: page_path(r.id) }
-          end
-        end
-      simplified = result_hash.values
-      simplified = { results: simplified } if params[:simple] == 'hash'
-      render json: simplified
-    else
-      render json: {
-        results: full_results.map do |r|
-          name = r.scientific_name
-          vern = r.preferred_vernacular_strings.first
-          name += " (#{vern})" unless vern.blank?
-          { title: name, url: page_path(r.id), image: r.icon, id: r.id }
-        end,
-        action: { url: "/search?q=#{params[:query]}",
-          text: t("autocomplete.see_all", count: full_results.total_entries) }
-      }
-    end
+    render json: autocomplete_results(Page.autocomplete(params[:query]), "pages")
   end
 
   # TODO: I suspect this method and its compatriots can be made redundant.
@@ -162,7 +131,7 @@ class PagesController < ApplicationController
     @page_title = @page.name
     # get_media # NOTE: we're not *currently* showing them, but we will.
     # TODO: we should really only load Associations if we need to:
-    build_associations(@page.data)
+    @associations = build_associations(@page.data)
     @page.associated_pages = @associations # needed for autogen text
     # Required mostly for paginating the first tab on the page (kaminari
     # doesn't know how to build the nested view...)
@@ -207,28 +176,25 @@ class PagesController < ApplicationController
     @filter_predicates = []
     @page_title = t("page_titles.pages.data", page_name: @page.name)
     @traits_per_pred = 5
-    
+
     if @predicate.nil?
+      @filtered_by_predicate = false
       filtered_data = TraitBank.page_traits_by_pred(@page.id, limit: @traits_per_pred, resource_id: @resource&.id)
     else
+      @filtered_by_predicate = true
       filtered_data = TraitBank.all_page_traits_for_pred(@page.id, @predicate[:uri], resource_id: @resource&.id)
     end
 
     filter_resource_ids = TraitBank.page_trait_resource_ids(@page.id, pred_uri: @predicate ? @predicate[:uri] : nil)
-    filter_predicate_uris = TraitBank.page_trait_predicate_uris(@page.id, resource_id: @resource&.id)
-
     @filter_resources = filter_resource_ids.any? ? Resource.where(id: filter_resource_ids).order(:name) : []
-    @filter_predicates = filter_predicate_uris.collect do |uri|
-      @page.glossary[uri]
-    end.sort do |a, b|
+    @filter_predicates= TraitBank.page_trait_predicates(@page.id, resource_id: @resource&.id).sort do |a, b|
       TraitBank::Record.i18n_name(a) <=> TraitBank::Record.i18n_name(b)
     end.uniq
-
     @grouped_data = filtered_data.group_by { |t| t[:predicate][:uri] }
     @predicates = @predicate ? [@predicate] : @page.sorted_predicates_for_records(filtered_data)
     @resources = TraitBank.resources(filtered_data)
 
-    build_associations(@page.data)
+    @associations = build_associations(@page.data)
     setup_viz
 
     return render(status: :not_found) unless @page # 404
@@ -255,6 +221,7 @@ class PagesController < ApplicationController
     @media_count = @media.length
     @subclass = "map"
     @subclass_id = Medium.subclasses[:map_image]
+    @gbif_node = Resource.gbif ? @page.nodes.where(resource: Resource.gbif)&.first : nil
     return render(status: :not_found) unless @page # 404
     respond_to do |format|
       format.html {}
@@ -437,13 +404,19 @@ private
       @subclasses = @page.regular_media.pluck(:subclass).uniq
       @resources = Resource.where(id: @page.regular_media.pluck(:resource_id).uniq).select('id, name').sort
     end
-    # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
-    media = @page.regular_media.includes(:license, :resource, page_contents: {
+
+    if is_admin?
+      page_media = @page.media.not_maps.includes(:hidden_medium)
+    else
+      page_media = @page.regular_media
+    end
+
+    media = page_media.includes(:license, :resource, page_contents: {
       page: %i[native_node preferred_vernaculars] }).where(['page_contents.source_page_id = ?',
       @page.id]).references(:page_contents)
+
     if params[:license_group]
       @license_group = LicenseGroup.find_by_key!(params[:license_group])
-      # Re-arranging the syntax here just for fear that it was loading the query because of the line break:
       media = media.joins("JOIN license_groups_licenses ON license_groups_licenses.license_id = "\
         "media.license_id").joins("JOIN license_groups ON license_groups_licenses.license_group_id = "\
         "license_groups.id").where("license_groups.id": @license_group.all_ids_for_filter)
@@ -618,7 +591,7 @@ private
         clade: @page,
         result_type: :taxa,
         filters_attributes: [{
-          pred_uri: target_uri  
+          pred_uri: target_uri
         }]
       })
 

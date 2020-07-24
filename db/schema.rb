@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_03_161454) do
+ActiveRecord::Schema.define(version: 2020_07_07_184539) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -306,6 +306,15 @@ ActiveRecord::Schema.define(version: 2020_06_03_161454) do
     t.text "error_response"
     t.timestamp "processing_since"
     t.integer "response_code"
+  end
+
+  create_table "hidden_media", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
+    t.string "resource_pk"
+    t.integer "resource_id"
+    t.integer "medium_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["medium_id"], name: "index_hidden_media_on_medium_id"
   end
 
   create_table "home_page_feed_items", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|

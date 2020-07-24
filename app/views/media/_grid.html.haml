@@ -29,6 +29,18 @@
               -# If you want the list to be sortable...
               -# %li
               -#   %span.uk-sortable-handle{ uk: { icon: "icon: table" } }
+              - if is_admin?
+                - if medium.hidden?
+                  - hide_icon = "happy"
+                  - hide_confirm_msg = "Are you sure you want to un-hide this image?"
+                  - hide_url = medium_unhide_path(medium.id, page_id: page.id)
+                - else
+                  - hide_icon = "ban"
+                  - hide_confirm_msg = "Are you sure you want to hide this image?"
+                  - hide_url = medium_hide_path(medium.id, page_id: page.id)
+                %li
+                  = link_to hide_url, method: "post", data: { confirm: hide_confirm_msg } do
+                    %span{ uk: { icon: "icon: #{hide_icon}" } }
               - if index > 0 || params[:page] && params[:page].to_i > 0
                 %li
                   = link_to("<i class='grey trophy icon'></i>".html_safe, page_icons_path(page_id: page.id, medium_id: medium&.id), alt: "make exemplar", method: :post)

@@ -138,7 +138,6 @@
     buildTypeahead('.js-pred-typeahead', { minLength: 0 }, {
       name: 'pred-names',
       display: 'name',
-      minLength: 0,
       limit: Infinity,
       source: predSource
     }, 'uri', fetchForm);
@@ -158,9 +157,10 @@
       });
       source.initialize();
 
-      buildTypeahead(this, {}, {
+      buildTypeahead(this, { minLength: 0 }, {
         display: 'name',
         source: source,
+        minLength: 0,
         limit: Infinity
       }, 'uri', null)
     });
@@ -209,15 +209,20 @@
 
   function setupTermSelect($select) {
     $select.change(function(e) {
-      var $that = $(this);
+      var $that = $(this)
+        , $filterGroup = $that.closest('.js-filter-row-group')
+        ; 
 
       if ($that.val()) {
-        setValFromTermSelect($that);
+        setValFromTermSelect($filterGroup, $that);
       } else {
-        var $prev = $that.prev('.js-term-select');
+        // $.prev only matches the immediate previous sibling, which doesn't work here. This technically fetches a collection, but it'll only have length 1
+        var $prev = $that.closest('.js-term-select-children').prevAll('.js-term-select'); 
 
         if ($prev.val()) {
-          setValFromTermSelect($prev);
+          setValFromTermSelect($filterGroup, $prev);
+        } else {
+          setTermVal($filterGroup, $filterGroup.find('.js-top-term-uri').val()); 
         }
       } 
 
@@ -225,10 +230,12 @@
     });
   }
 
-  function setValFromTermSelect($select) {
-    var $parent = $select.closest('.js-filter-row-group');
-    $parent.find('.js-term-name').val($select.find('option:selected').text());
-    $parent.find('.js-term-uri').val($select.val());
+  function setValFromTermSelect($filterGroup, $select) {
+    setTermVal($filterGroup, $select.val());
+  }
+
+  function setTermVal($filterGroup, uri) {
+    $filterGroup.find('.js-term-uri').val(uri);
   }
 
   function loadPieChart() {

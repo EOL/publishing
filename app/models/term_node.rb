@@ -14,36 +14,38 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
 
   self.mapped_label_name = 'Term'
 
+  autocompletes "autocomplete_name"
+
   @text_search_fields = %w[name]
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, merge_mappings: true, mappings: {
-    properties: {
-      autocomplete_name: {
-        type: "completion"
-      }
-    }
+    properties: autocomplete_searchkick_properties
   }
-  autocompletes "autocomplete_name"
 
   OBJ_TERM_TYPE = "value"
 
   class << self
     def search_import
-      self.all(:t).where(
-        "t.is_hidden_from_overview = false "\
-        " AND ("\
-        "(t)<-[:object_term]-(:Trait)"\
-        " OR "\
-        "(t)<-[:predicate]-(:Trait)"\
-        ")"
-      )
+      self.all(:t).where("t.is_hidden_from_overview = false AND NOT (t)-[:synonym_of]->(:Term)")
     end
   end
 
   def search_data
     {
-      name: name,
-      autocomplete_name: name # can't have a duplicate field name for completion field
-    }
+      name: name
+    }.merge(autocomplete_name_fields)
+  end
+
+  def autocomplete_name_fields
+    I18n.available_locales.collect do |locale|
+      [:"autocomplete_name_#{locale}", i18n_name(locale)]
+    end.to_h
+  end
+
+  def i18n_name(locale)
+    TraitBank::Record.i18n_name_for_locale({
+      uri: uri,
+      name: name
+    }, locale)
   end
 
   def predicate?

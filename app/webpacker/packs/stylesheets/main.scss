@@ -88,7 +88,7 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-a, .a {
+a, .a, .uk-text-meta > a {
   color: $link-color;
 
   &:hover {

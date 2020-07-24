@@ -18,4 +18,5 @@
 
 .map-contain{ class: local_assigns.fetch(:extra_class, "") }
   #map.map{ data: { :'icon-path' => image_path("maps/pin24.png"), :'icon-retina-path' => image_path("maps/pin48.png"), :'map-data-path' => map_json_path(@page) } }
-  .uk-text-meta= t("maps.occurrence_caption", page_name: @page.name)
+  .uk-text-meta= occurrence_map_caption(@page)
+

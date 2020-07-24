@@ -82,7 +82,10 @@ class TraitBank::Slurp
       single_resource = options[:single_resource]
       { "traits_#{id}.csv" =>
         { 'Page' => [:page_id],
-          'Trait' => %i[eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement],
+          'Trait' => %i[
+            eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement sample_size
+            citation source remarks method
+          ],
           wheres: {
             # This will be applied to ALL rows:
             "1=1" => {

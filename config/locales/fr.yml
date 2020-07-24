@@ -561,7 +561,7 @@ fr:
   maps:
     empty: Il n’y a aucune carte disponible pour cette page.
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
-      %{page_name}
+      %{page_name}. Voir ces espèces sur GBIF
     other_maps_title: Cartes non interactives
   medium:
     untitled:
@@ -651,6 +651,9 @@ fr:
       n_hidden_show_all:
         one: 1 enregistrement « %{pred_name} » caché – montrer tout
         other: '%{count} enregistrements « %{pred_name} » cachés – montrer tout'
+      n_hidden_show_all_noname:
+        one: 1 enregistrement masqué — afficher tout
+        other: '%{count} enregistrements masqués — afficher tout'
       show_all: tout afficher
     resource_names:
       name_recognized_by: Reconnu par %{by}
@@ -1379,6 +1382,11 @@ fr:
       result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
         taxons avec
       new_search: nouvelle recherche
+      select:
+        child_term: sélectionner une condition fille (facultatif)
+        top_level:
+          object_term: ou sélectionner une valeur
+          predicate: ou sélectionner un attribut
       show_query: afficher la requête
       switch_to_list: basculer dans la vue liste
       switch_to_gallery: basculer dans la vue galerie
@@ -1396,6 +1404,7 @@ fr:
       statistical_method: méthode statistique
       taxa_matching_all: taxons correspondants à TOUS les filtres
       this_may_take_a_minute: Cela peut prendre une minute
+      trait_filter: filtrer le trait
       value: valeur
   trophic_web:
     group_descriptions:

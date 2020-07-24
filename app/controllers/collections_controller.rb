@@ -1,6 +1,8 @@
 require "csv"
 
 class CollectionsController < ApplicationController
+  include DataAssociations
+
   layout "collections"
 
   before_action :sanitize_collection_params
@@ -151,6 +153,7 @@ class CollectionsController < ApplicationController
         includes(:collection, :media, page: [:medium, :preferred_vernaculars, { native_node: :rank }]).
         order("position")
     end
+
     @pages = @pages.by_page(params[:page]).per(@collection.gallery? ? 18 : 20) if paginate
   end
 

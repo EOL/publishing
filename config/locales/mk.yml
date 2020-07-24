@@ -643,6 +643,9 @@ mk:
       n_hidden_show_all:
         one: 1 скриен запис „%{pred_name}“ — прикажи сè
         other: '%{count} скриени записи „%{pred_name}“ — прикажи сè'
+      n_hidden_show_all_noname:
+        one: Скриен е 1 запис — прикажи ги сите
+        other: Скриени се %{count} записи — прикажи ги сите
       show_all: прикажи сè
     resource_names:
       name_recognized_by: Признаено од %{by}
@@ -1363,6 +1366,11 @@ mk:
       result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
         таксони со
       new_search: ново пребарување
+      select:
+        child_term: изберете зависен поим (незадол.)
+        top_level:
+          object_term: или одберете вредност
+          predicate: или одберете атрибут
       show_query: прикажи барање
       switch_to_list: списочен поглед
       switch_to_gallery: сликореден поглед
@@ -1379,6 +1387,7 @@ mk:
       statistical_method: статистички метод
       taxa_matching_all: таксони што одговараат на СИТЕ филтри
       this_may_take_a_minute: Ова може малку да потрае
+      trait_filter: филтер на одлики
       value: вредност
   trophic_web:
     group_descriptions:

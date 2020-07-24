@@ -12,6 +12,7 @@ class Medium < ApplicationRecord
   has_many :collections, through: :collected_pages
 
   has_one :image_info, inverse_of: :image
+  has_one :hidden_medium
 
   # NOTE: these MUST be kept in sync with the harvester codebase! Be careful. Sorry for the conflation.
   enum subclass: %i[image video sound map_image js_map]
@@ -22,6 +23,7 @@ class Medium < ApplicationRecord
   scope :videos, -> { where(subclass: subclasses[:video]) }
   scope :sounds, -> { where(subclass: subclasses[:sound]) }
   scope :not_maps, -> { where.not(subclass: subclasses[:map_image]) }
+  scope :regular, -> { not_maps.joins("LEFT JOIN hidden_media ON hidden_media.medium_id = media.id").where("hidden_media.id IS NULL") }
 
   # NOTE: No, there is NOT a counter_culture here for pages, as this object does NOT reference pages itself.
 
@@ -221,6 +223,10 @@ class Medium < ApplicationRecord
     if youtube?
       "https://www.youtube.com/embed/#{unmodified_url}?enablejsapi=1"
     end
+  end
+
+  def hidden?
+    hidden_medium.present?
   end
 
   private

@@ -451,9 +451,27 @@ class PageDecorator
         elsif matches.has_type?(:a)
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:a)
-            organism_animal = @page.animal? ? "animal" : "organism"
+
+            if is_species? 
+              article = "#{a_or_an(match.trait)} "
+
+              if @page.animal?
+                organism_animal = "animal"
+              else
+                organism_animal = "organism"
+              end
+            else
+              article = ""
+
+              if @page.animal?
+                organism_animal = "animals"
+              else
+                organism_animal = "organisms"
+              end
+            end
+
             trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(match.trait)} %s #{organism_animal}.",
+              "#{subj} #{is} #{article}%s #{organism_animal}.",
               match.trait
             )
           end
@@ -731,10 +749,11 @@ class PageDecorator
       end
 
       def add_extinction_sentence
-        trait = first_trait_for_obj_uris(Eol::Uris.extinct)
-        if trait
+        extinct_trait = first_trait_for_obj_uris(Eol::Uris.extinct)
+        extant_trait = first_trait_for_obj_uris(*gather_terms(Eol::Uris.extant))
+        if !extant_trait && extinct_trait 
           add_sentence do |_, __, ___|
-            term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, trait[:object_term])
+            term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, extinct_trait[:object_term])
           end
 
           true
@@ -804,6 +823,7 @@ class PageDecorator
         result = []
 
         result << conservation_sentence_part("as %s by IUCN", status_recs[:iucn]) if status_recs.include?(:iucn) && IUCN_URIS.include?(status_recs[:iucn][:uri])
+        result << conservation_sentence_part("as %s by COSEWIC", status_recs[:cosewic]) if status_recs.include?(:cosewic)
         result << conservation_sentence_part("as %s by the US Fish and Wildlife Service", status_recs[:usfw]) if status_recs.include?(:usfw)
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?

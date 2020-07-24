@@ -29,6 +29,7 @@ gem 'uglifier', '~> 4.2'
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
 gem 'unicorn', '~> 5.5'
+gem 'unicorn-worker-killer', '~> 0.4'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
 # to be defined first for other classes to recognize them:

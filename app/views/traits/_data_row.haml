@@ -1,5 +1,6 @@
 - open_row = defined?(open_row) ? open_row : false
-- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/trait_#{trait[:id]}/page_#{trait[:page_id]}"
+- hide_pred_when_closed = local_assigns.fetch(:hide_pred_when_closed, false)
+- key = "trait_bank/data_row/#{I18n.locale}#{'/open' if open_row}#{'/show_taxon' if show_taxon}/trait_#{trait[:id]}/page_#{trait[:page_id]}/hide_pred_when_closed/#{hide_pred_when_closed}"
 - cache(key) do
   - Rails.logger.info("&& TB Cached #{key}")
   - pages = {} unless local_assigns.has_key?(:pages)
@@ -7,18 +8,19 @@
   - if !local_assigns.has_key?(:page)
     - page = page_id ? pages[page_id] : nil
 
-  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :page_id => page.nil? ? nil : page.id, :show_taxon => show_taxon), :id => trait[:id] } }
+  %li.trait.js-data-row{ :data => { :'show-path' => datum_path(:id => trait[:id], :page_id => page.nil? ? nil : page.id, :show_taxon => show_taxon, hide_pred_when_closed: hide_pred_when_closed), :id => trait[:id] } }
     - if show_taxon && page
       .trait-thumb
         - show_data_page_icon page
     - predicate = trait[:predicate]
 
     .trait-source= show_source_segment(trait, @resources)
-    .trait-data
+    .trait-data{ class: show_taxon ? "" : "trait-data-no-icon" }
       - if show_taxon && page
         = link_to(page.scientific_name.html_safe, page)
       %div
-        .trait-pred.term-info-a.a= i18n_term_name(predicate)
+        - if open_row || !hide_pred_when_closed
+          .trait-pred.term-info-a.a.js-predicate= i18n_term_name(predicate)
         = render :partial => "terms/desc_meta", :locals => { :term => predicate, :search_link => true }
       .trait-val
         - show_data_value(trait)
@@ -49,6 +51,6 @@
             .meta-pred= t("terms.record_url")
             - url = datum_url(id: trait[:id])
             .meta-val= link_to url, url
-      %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw
+      %i.fa.fa-angle-up.fa-2x.meta-items-arw.js-meta-arw{ :'data-hide-pred-when-closed' => hide_pred_when_closed }
     - else
       %i.fa.fa-angle-down.fa-2x.meta-items-arw.js-load-arw

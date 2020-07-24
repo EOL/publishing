@@ -12,7 +12,7 @@ class TraitsController < ApplicationController
   GBIF_DOWNLOAD_LIMIT = 100_000
   GBIF_BASE_URL = "https://www.gbif.org/occurrence/map"
   VIEW_TYPES = Set.new(%w(list gallery))
-  
+
   DataViz = Struct.new(:type, :data)
 
   def search
@@ -130,8 +130,8 @@ class TraitsController < ApplicationController
       :per => @per_page,
     })
     data = res[:data]
-    @raw_query = res[:raw_query]
     @raw_res = res[:raw_res].to_json
+    build_query_for_display(res)
     ids = data.map { |t| t[:page_id] }.uniq
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
     pages = Page.where(:id => ids).with_hierarchy
@@ -146,7 +146,7 @@ class TraitsController < ApplicationController
     paginate_term_search_data(data, @query)
     @is_terms_search = true
     @resources = TraitBank.resources(data)
-    build_associations(data)
+    @associations = build_associations(data)
     build_gbif_url(@count, pages, @query)
     data_viz_type(@query, @counts)
     render "search"
@@ -179,9 +179,9 @@ class TraitsController < ApplicationController
 
   def data_viz_type(query, counts)
     if TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid
-      @data_viz_type = :bar 
+      @data_viz_type = :bar
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
-      @data_viz_type = :hist 
+      @data_viz_type = :hist
     end
   end
 
@@ -193,5 +193,16 @@ class TraitsController < ApplicationController
       @view_type = session["ts_view_type"] || "list"
     end
   end
-end
 
+  private
+  def build_query_for_display(tb_res)
+    query = tb_res[:raw_query].gsub(/^\ +/, '') # get rid of leading whitespace
+
+    tb_res[:params].each do |k, v|
+      val = v.is_a?(String) ? "\"#{v}\"" : v
+      query = query.gsub("$#{k}", val.to_s)
+    end
+
+    @raw_query = query
+  end
+end

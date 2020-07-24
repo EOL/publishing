@@ -39,7 +39,7 @@
                 - if disable
                   = t(:collect_already_in_collection)
                 - else
-                  = t(:collect_already_in_collection_will_add_icon, page: @page.name(Language.current))
+                  = t(:collect_already_in_collection_will_add_icon, page: @page.name)
 
         .uk-text-center.uk-margin-medium
           = f.submit(t(:button_add), class: "ui button")

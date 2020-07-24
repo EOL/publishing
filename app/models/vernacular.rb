@@ -11,7 +11,7 @@ class Vernacular < ApplicationRecord
   scope :preferred, -> { where(is_preferred: true) }
   scope :preferred_by_resource, -> { where(is_preferred_by_resource: true) }
   scope :nonpreferred, -> { where(is_preferred: false) }
-  scope :current_language, -> { where(language_id: Language.current.id) }
+  scope :current_language, -> { where(language: Language.current) }
 
   enum trust: [ :unreviewed, :trusted, :untrusted ]
 
@@ -33,7 +33,7 @@ class Vernacular < ApplicationRecord
         verns = Vernacular.where(['page_id >= ? AND page_id < ?', low_bound, limit])
         last_vern = nil
         begin
-          verns.where(is_preferred: true, language_id: Language.english.id).each do |vern|
+          verns.where(is_preferred: true, language: Language.english).each do |vern|
             last_vern = vern
             completed_pages_by_language[vern.language_id] ||= {}
             completed_pages_by_language[vern.language_id][vern.id] = true

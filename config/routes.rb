@@ -75,7 +75,9 @@ Rails.application.routes.draw do
     resources :collection_associations, only: [:new, :create, :destroy]
     resources :collected_pages
     resources :media, only: [:show] do
-      get 'fix_source_pages'
+      get "fix_source_pages"
+      post "hide"
+      post "unhide"
     end
     resources :open_authentications, only: [:new, :create]
     resources :page_icons, only: [:create]

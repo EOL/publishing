@@ -265,6 +265,30 @@ div:first-of-type.article {
   width: 100%;
 }
 
+// Data tab
+.data-section-head {
+  display: flex;
+  margin: 12px 0;
+
+  & > * {
+    line-height: 18px;
+    width: 33.33%;
+  }
+
+  & > h3 {
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0 5px;
+    text-align: center;
+  }
+
+  & > .data-section-head-more {
+    padding-right: $trait-pad;
+    text-align: right;
+  }
+}
+
 // leaflet map
 .map-contain {
   margin: 20px auto;

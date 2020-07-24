@@ -52,4 +52,6 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT rake assets:precompile && /usr/bin/supervisord
+
+CMD ["-c", "/etc/supervisord.conf"]

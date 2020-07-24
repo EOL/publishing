@@ -29,6 +29,10 @@ module EolWebsite
     config.i18n.default_locale = :en
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = %i(en mk fi pt-BR fr zh-TW pms tr ar)
+    
+    # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+    # the I18n.default_locale when a translation cannot be found).
+    config.i18n.fallbacks = true
 
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250
@@ -66,5 +70,8 @@ module EolWebsite
     Rails.application.routes.default_url_options[:host] = Rails.application.secrets.host[:name]
 
     config.x.gbif_credentials = Rails.application.secrets.gbif_credentials
+ 
+    # point autocomplete to localized fields
+    config.x.autocomplete_i18n_enabled = true
   end
 end

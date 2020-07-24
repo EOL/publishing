@@ -2,7 +2,7 @@ class MediaController < ApplicationController
   layout "application"
 
   before_action :get_medium
-  before_action :require_admin, only: [:fix_source_pages]
+  before_action :require_admin, except: :show
 
   def show
   end
@@ -14,7 +14,27 @@ class MediaController < ApplicationController
     render action: :show
   end
 
+  def hide
+    raise ActionController::BadRequest.new("medium already hidden") if @medium.hidden?
+    @medium.build_hidden_medium
+    @medium.hidden_medium.resource_pk = @medium.resource_pk
+    @medium.hidden_medium.resource_id = @medium.resource_id
+    @medium.save!
+
+    hide_unhide_redirect("hidden")
+  end
+
+  def unhide
+    raise ActionController::BadRequest.new("medium not hidden") if !@medium.hidden?
+    @medium.hidden_medium.destroy!
+    hide_unhide_redirect("un-hidden")
+  end
+    
+
 private
+  def hide_unhide_redirect(msg)
+    redirect_to (params[:page_id].present? ? page_media_path(params[:page_id]) : @medium), notice: "Medium #{@medium.id} #{msg}"
+  end
 
   def get_medium
     @medium = Medium.includes(

@@ -178,7 +178,7 @@ tr:
       sort_field: ek açıklama, A-Z
       sort_field_rev: ek açıklama, Z-A
     updated: Koleksiyon güncellendi.
-  collection_unauthorized_edit: Bu koleksiyonu sadece sahibi olan kullanıcı düzenleyebilir.
+  collection_unauthorized_edit: Bu koleksiyonu yalnızca sahibi olan kullanıcı düzenleyebilir.
   complete_registration: Lütfen kayıt işlemine devam edin
   content_appears_on: 'Aşağıdaki Sayfalarda Bulunmaktadır:'
   content_collected_in: 'Aşağıdaki Koleksiyonlarda Öne Çıkanlar:'
@@ -646,6 +646,9 @@ tr:
       n_hidden_show_all:
         one: 1 “%{pred_name}” kayıt gizlendi — tümünü göster
         other: '%{count} “%{pred_name}” kayıt gizlendi — tümünü göster'
+      n_hidden_show_all_noname:
+        one: 1 kayıt gizli — tümünü göster
+        other: '%{count} kayıt gizli — tümünü göster'
       show_all: hepsini göster
     resource_names:
       name_recognized_by: '%{by} tarafından tanınıyor'
@@ -1360,6 +1363,11 @@ tr:
       result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
         ile'
       new_search: yeni arama
+      select:
+        child_term: bir alt terimi seçin (isteğe bağlı)
+        top_level:
+          object_term: veya bir değer seçin
+          predicate: veya bir özellik seçin
       show_query: sorguyu göster
       switch_to_list: liste görünümüne geç
       switch_to_gallery: galeri görünümüne geç
@@ -1376,6 +1384,7 @@ tr:
       statistical_method: istatistiksel yöntem
       taxa_matching_all: taksa ile eşleşen TÜM filtreler
       this_may_take_a_minute: Bu bir dakika sürebilir
+      trait_filter: özellik filtresi
       value: değer
   trophic_web:
     group_descriptions:

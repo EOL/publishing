@@ -7,12 +7,6 @@ class Article < ApplicationRecord
   has_many :references, as: :parent
   has_many :referents, through: :references
 
-  DEFAULT_LANG_CODE = "eng"
-
-  def lang_or_default
-    language ? language : Language.find_by(code: DEFAULT_LANG_CODE)
-  end
-
   def first_section
     return @first_section if @first_section
     section = if sections.empty?

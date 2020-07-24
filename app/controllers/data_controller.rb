@@ -8,9 +8,10 @@ class DataController < ApplicationController
     raise ActiveRecord::RecordNotFound if !data || data.empty?
     @data = data.first
     @page = Page.find(@data[:page_id])
+    @hide_pred_when_closed = params[:hide_pred_when_closed].present? ? params[:hide_pred_when_closed] : false
 
     if request.xhr?
-      build_associations(data)
+      @associations = build_associations(data)
       @resources = TraitBank.resources([@data])
       @show_taxon = params[:show_taxon] && params[:show_taxon] == "true"
       render :layout => false
@@ -19,4 +20,3 @@ class DataController < ApplicationController
     end
   end
 end
-

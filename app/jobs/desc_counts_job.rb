@@ -1,4 +1,3 @@
-# Crono job for expiring old downloads that didn't finish.
 class DescCountsJob < ApplicationJob
   def perform
     Rails.logger.warn("START DescCountsJob")

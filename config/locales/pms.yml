@@ -646,6 +646,9 @@ pms:
       n_hidden_show_all:
         one: 1 argistrassion «%{pred_name}» stërmà – smon-e tut
         other: '%{count} argistrassion «%{pred_name}» stërmà – smon-e tut'
+      n_hidden_show_all_noname:
+        one: 1 argistrassion ëstërmà — smon-e tut
+        other: '%{count} argistrassion ëstërmà — smon-e tut'
       show_all: smon-e tut
     resource_names:
       name_recognized_by: Arconossù da %{by}
@@ -1364,6 +1367,11 @@ pms:
       result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
         tassonomìe con
       new_search: neuva arserca
+      select:
+        child_term: selession na condission fieul (opsional)
+        top_level:
+          object_term: o selessioné un valor
+          predicate: o selessioné n'atribù
       show_query: smon-e l'arcesta
       switch_to_list: passé a la visualisassion a lista
       switch_to_gallery: passé a la visualisassion a galarìa
@@ -1381,6 +1389,7 @@ pms:
       statistical_method: métod ëstàtistich
       taxa_matching_all: tassonomìe rëspondente a TUTI ij filtr
       this_may_take_a_minute: Sòn a peul pijé na minuta
+      trait_filter: filtré ël trat
       value: valor
   trophic_web:
     group_descriptions:

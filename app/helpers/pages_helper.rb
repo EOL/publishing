@@ -196,7 +196,7 @@ module PagesHelper
 
   def sorted_grouped_vernaculars(page)
     grouped_vernaculars = page.vernaculars.group_by { |n| n.language.group }
-    cur_lang_group = Language.current.group
+    cur_lang_group = Language.cur_group
     sorted_keys = grouped_vernaculars.keys.sort do |a, b|
       if a == cur_lang_group && b != cur_lang_group
         -1
@@ -217,12 +217,12 @@ module PagesHelper
   end
 
   def group_sort_names_for_card(names, include_rank, include_status)
-    result = names.group_by do |n|
-      rank = n.node.rank
+    names.group_by do |n|
+      node = n.node
       status = n.taxonomic_status&.name
       dwh_str = n.resource&.dwh? ? "a" : "b"
       key = "#{dwh_str}.#{n.italicized}"
-      key += ".#{rank.treat_as}" if include_rank && rank
+      key += ".#{node.rank_treat_as}" if include_rank && node.has_rank_treat_as?
       key += ".#{status}" if include_status && status
       key
     end.values.sort_by do |v|
@@ -329,6 +329,20 @@ private
         resource_name: name.resource.name
       )
     end
+  end
+
+  def gbif_species_page_url(page)
+    page.gbif_node ? 
+      "https://gbif.org/species/#{page.gbif_node.resource_pk}" :
+      nil 
+  end
+
+  def occurrence_map_caption(page)
+    url = gbif_species_page_url(page)
+    name = page.name.html_safe
+    url.present? ?
+      t("maps.occurrence_caption_w_link_html", page_name: name, url: url) :
+      t("maps.occurrence_caption", page_name: name)
   end
 
   private

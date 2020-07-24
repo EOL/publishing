@@ -1,16 +1,15 @@
 class Page < ApplicationRecord
   include Autocomplete
+  include HasVernaculars
 
+  BASE_AUTOCOMPLETE_WEIGHT = 100
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
+
+  autocompletes "autocomplete_names"
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
   searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, mappings: {
-    properties: {
-      autocomplete_names: {
-        type: "completion"
-      }
-    }
+    properties: autocomplete_searchkick_properties
   }
-  autocompletes "autocomplete_names"
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true
@@ -34,6 +33,7 @@ class Page < ApplicationRecord
   has_many :page_contents, -> { visible.not_untrusted.order(:position) }
   has_many :articles, through: :page_contents, source: :content, source_type: "Article"
   has_many :media, through: :page_contents, source: :content, source_type: "Medium"
+  has_many :regular_media, -> { regular }, through: :page_contents, source: :content, source_type: "Medium"
   has_many :links, through: :page_contents, source: :content, source_type: "Link"
 
   has_many :all_page_contents, -> { order(:position) }, class_name: "PageContent"
@@ -83,25 +83,44 @@ class Page < ApplicationRecord
     # can be caused by the native_node_id being set to a node that no longer exists. You should try and track down the
     # source of that problem, but this code can be used to (slowly) fix the problem, where it's possible to do so:
     def fix_all_missing_native_nodes
+      log_healing(">> fix_all_missing_native_nodes")
       start = 1 # Don't bother checking minimum, this is always 1.
       upper = maximum(:id)
       batch_size = 10_000
       while start < upper
+        log_healing(">> fix_missing_native_nodes(start = #{start})")
         fix_missing_native_nodes(where("pages.id >= #{start} AND pages.id < #{start + batch_size}"))
         start += batch_size
       end
+      log_healing("<< DONE: fix_all_missing_native_nodes")
     end
 
     def fix_missing_native_nodes(scope)
       pages = scope.joins('LEFT JOIN nodes ON (pages.native_node_id = nodes.id)').where('nodes.id IS NULL')
       pages.includes(:nodes).find_each do |page|
         if page.nodes.empty?
-          # NOTE: This DOES desroy pages! ...But only if it's reasonably sure they have no content:
-          page.destroy unless PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+          # NOTE: This DOES destroy pages! ...But only if it's reasonably sure they have no content:
+          if PageContent.exists?(page_id: page.id) || ScientificName.exists?(page_id: page.id)
+            log_healing("!! RETAINED nodeless page #{page.id} because it had content (or a name). "\
+                        "You should investigate")
+          else
+            log_healing("!! DESTROYED page #{page.id}")
+            page.destroy
+          end
         else
-          page.update_attribute(:native_node_id, page.nodes.first.id)
+          correct_id = page.nodes.first.id
+          log_healing("healed page #{page.id} (node #{page.native_node_id} -> #{correct_id})")
+          page.update_attribute(:native_node_id, correct_id)
         end
       end
+    end
+
+    def page_healing_log
+      @page_healing_log ||= Logger.new("#{Rails.root}/log/page_healing.log")
+    end
+
+    def log_healing(msg)
+      page_healing_log.info("[#{Time.now.localtime.strftime('%F %T')}] #{msg}")
     end
 
     # TODO: abstract this to allow updates of the other count fields.
@@ -174,6 +193,7 @@ class Page < ApplicationRecord
         end
       end
     end
+
   end
 
   # NOTE: we DON'T store :name becuse it will necessarily already be in one of
@@ -182,10 +202,6 @@ class Page < ApplicationRecord
     verns = vernacular_strings.uniq
     pref_verns = preferred_vernacular_strings
     sci_name = ActionView::Base.full_sanitizer.sanitize(scientific_name)
-    autocomplete_names = dh_scientific_names&.any? ? 
-      (dh_scientific_names + pref_verns + resource_preferred_vernacular_strings).uniq(&:downcase) : 
-      []
-
     {
       id: id,
       # NOTE: this requires that richness has been calculated. Too expensive to do it here:
@@ -195,9 +211,9 @@ class Page < ApplicationRecord
       preferred_vernacular_strings: pref_verns,
       dh_scientific_names: dh_scientific_names,
       vernacular_strings: verns,
-      autocomplete_names: autocomplete_names
-    }
+    }.merge(autocomplete_names_per_locale)
   end
+
 
   def safe_native_node
     return native_node if native_node
@@ -236,12 +252,14 @@ class Page < ApplicationRecord
     nodes.map(&:resource_pk)
   end
 
-  def resource_preferred_vernacular_strings
-    if vernaculars.loaded?
-      vernaculars.select { |v| v.is_preferred_by_resource? }.map { |v| v.string }
+  def resource_preferred_vernacular_strings(locale)
+    result = if vernaculars.loaded?
+      Language.all_matching_records(Language.for_locale(locale), vernaculars).select { |v| v.is_preferred_by_resource? }
     else
-      vernaculars.preferred_by_resource.map { |v| v.string }
+      vernaculars.preferred_by_resource.where(language: Language.for_locale(locale))
     end
+
+    result.map { |v| v.string }
   end
 
   def preferred_vernacular_strings
@@ -250,6 +268,20 @@ class Page < ApplicationRecord
     else
       vernaculars.preferred.map { |v| v.string }
     end
+  end
+
+  def preferred_vernacular_strings_for_locale(locale)
+    langs = Language.for_locale(locale)
+
+    result = if preferred_vernaculars.loaded?
+      Language.all_matching_records(langs, preferred_vernaculars)
+    elsif vernaculars.loaded?
+      Language.all_matching_records(langs, vernaculars).find_all { |v| v.is_preferred? }
+    else
+      vernaculars.preferred.where(language: langs)
+    end
+
+    result.collect { |v| v.string }
   end
 
   def preferred_scientific_strings
@@ -423,23 +455,23 @@ class Page < ApplicationRecord
 
   # NAMES METHODS
 
-  def name(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || scientific_name
+  def name(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || scientific_name
   end
 
-  def short_name_notags(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || canonical_notags
+  def short_name_notags(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || canonical_notags
+  end
+
+  def short_name(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string || canonical
   end
 
   def canonical_notags
     @canonical_notags ||= ActionController::Base.helpers.strip_tags(canonical)
-  end
-
-  def short_name(language = nil)
-    language ||= Language.current
-    vernacular(language)&.string || canonical
   end
 
   def names_count
@@ -450,21 +482,6 @@ class Page < ApplicationRecord
   # TODO: this is duplicated with node; fix. Can't (easily) use clever associations here because of language. TODO:
   # Aaaaaactually, we really need to use GROUPS, not language IDs. (Or, at least, both, to make it efficient.) Switch to
   # that. Yeeesh.
-  def vernacular(language = nil)
-    if preferred_vernaculars.loaded?
-      language ||= Language.english
-      preferred_vernaculars.find { |v| v.language_id == language.id }
-    else
-      if vernaculars.loaded?
-        language ||= Language.english
-        vernaculars.find { |v| v.language_id == language.id and v.is_preferred? }
-      else
-        language ||= Language.english
-        # I don't trust the associations. :|
-        Vernacular.where(page_id: id, language_id: language.id).preferred.first
-      end
-    end
-  end
 
   def scientific_name
     native_node&.italicized || native_node&.scientific_name || "NO NAME!"
@@ -485,19 +502,7 @@ class Page < ApplicationRecord
   # TRAITS METHODS
 
   def key_data
-    return @key_data if @key_data
-    data = TraitBank.key_data(id)
-    @key_data = {}
-    seen = {}
-    data.each do |predicate, traits|
-      next if seen[predicate[:name]]
-      seen[predicate[:name]] = true
-        # TODO: we probably want to show multiple values, here, or at least
-        # "pick wisely" somehow.
-        @key_data[predicate] = traits.first
-      break if seen.size >= KEY_DATA_LIMIT
-    end
-    @key_data
+    TraitBank.key_data(id, KEY_DATA_LIMIT)
   end
 
   def has_data?
@@ -657,12 +662,12 @@ class Page < ApplicationRecord
   end
 
   def sorted_predicates_for_records(records)
-    records.collect do |record|
-      record[:predicate][:uri]
-    end.sort do |a, b|
-      glossary_names[a] <=> glossary_names[b]
-    end.uniq.collect do |uri|
-      glossary[uri]
+    records.collect do |r|
+      r[:predicate]    
+    end.uniq.sort do |a, b|
+      a_name = TraitBank::Record.i18n_name(a)
+      b_name = TraitBank::Record.i18n_name(b)
+      a_name <=> b_name
     end
   end
 
@@ -691,11 +696,6 @@ class Page < ApplicationRecord
   # Nodes methods
   def classification_nodes
     nodes.includes(:resource).where({ resources: { classification: true } })
-  end
-
-  # not maps
-  def regular_media
-    media.not_maps
   end
 
   def fix_non_image_hero
@@ -749,6 +749,12 @@ class Page < ApplicationRecord
 
   def page_icon
     page_icons.order(created_at: :desc).first
+  end
+
+  def gbif_node
+    Resource.gbif.present? ?
+      nodes.where(resource: Resource.gbif)&.first :
+      nil
   end
 
   private
@@ -902,5 +908,30 @@ class Page < ApplicationRecord
     end
 
     result
+  end
+
+  def autocomplete_names_per_locale
+    I18n.available_locales.collect do |locale|
+      names = if dh_scientific_names&.any?
+        vernaculars = vernaculars_for_autocomplete(locale)
+        vernaculars = vernaculars_for_autocomplete(I18n.default_locale) if vernaculars.empty?
+        (vernaculars + dh_scientific_names).uniq(&:downcase).map do |n|
+          {
+            input: n,
+            weight: BASE_AUTOCOMPLETE_WEIGHT - [n.length, BASE_AUTOCOMPLETE_WEIGHT - 1].min # shorter results get greater weight to boost exact matches to the top
+          }
+        end
+      else
+        []
+      end
+      [:"autocomplete_names_#{locale}", names]
+    end.to_h
+  end
+
+  def vernaculars_for_autocomplete(locale)
+    (
+      preferred_vernacular_strings_for_locale(locale) +
+      resource_preferred_vernacular_strings(locale)
+    ).uniq
   end
 end

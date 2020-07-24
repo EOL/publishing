@@ -567,7 +567,8 @@ en:
     tr: "tr"
   maps:
     empty: "There are no maps available for this page."
-    occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}"
+    occurrence_caption: "Known occurrences, collected specimens and observations of %{page_name}. View this species on GBIF"
+    occurrence_caption_w_link_html: "Known occurrences, collected specimens and observations of %{page_name}. <a href='%{url}'>View this species on GBIF <i class='fa fa-external-link'></i></a>"
     other_maps_title: "Non-interactive Maps"
   medium:
     untitled:
@@ -650,6 +651,9 @@ en:
       n_hidden_show_all:
         one: "1 “%{pred_name}” record hidden — show all"
         other: "%{count} “%{pred_name}” records hidden — show all"
+      n_hidden_show_all_noname:
+        one: "1 record hidden — show all"
+        other: "%{count} records hidden — show all"
       show_all: "show all"
     resource_names:
       name_recognized_by: "Recognized by %{by}"
@@ -1003,29 +1007,6 @@ en:
       words_connector: ", "
       two_words_connector: " and "
       last_word_connector: ", and "
-  term:
-    actions:
-      reindex: "reindex"
-      sort: "sort by"
-    edit:
-      header: "Editing %{uri}"
-      submit: "Save"
-    fields:
-      name: "name:"
-      definition: "definition:"
-      attribution: "attribution:"
-      comment: "comment:"
-      sections: "sections:"
-      is_hidden_from_glossary: "hide from glossary:"
-      is_hidden_from_overview: "hide from overview tab:"
-    glossary:
-      full_title: "Glossary of ALL Terms for Data on EOL"
-      predicate_title: "Glossary of Type Terms for Data on EOL"
-      object_term_title: "Glossary of Value Terms for Data on EOL"
-      units_title: "Glossary of Unit Terms for Data on EOL"
-    pagination:
-      next: "next page"
-      previous: "previous page"
   term_query:
     validations:
       empty_filters_error_record: "you must provide a filter with an attribute or value for record searches"
@@ -1111,6 +1092,11 @@ en:
       result_header_records: "Showing %{range_begin} - %{range_end} of %{total} records for %{page_count} taxa with"
       result_header_taxa: "Showing %{range_begin} - %{range_end} of %{total} taxa with"
       new_search: "new search"
+      select:
+        child_term: "select a child term (optional)"
+        top_level:
+          object_term: "or select a value"
+          predicate: "or select an attribute"
       show_query: "show query"
       switch_to_list: "switch to list view"
       switch_to_gallery: "switch to gallery view"
@@ -1127,6 +1113,7 @@ en:
       statistical_method: "statistical method"
       taxa_matching_all: "taxa matching ALL filters"
       this_may_take_a_minute: "This may take a minute"
+      trait_filter: "trait filter"
       value: "value"
   trophic_web:
     group_descriptions:
@@ -1183,6 +1170,28 @@ en:
 
   # purl.obolibrary.org
   term:
+    actions:
+      reindex: "reindex"
+      sort: "sort by"
+    edit:
+      header: "Editing %{uri}"
+      submit: "Save"
+    fields:
+      name: "name:"
+      definition: "definition:"
+      attribution: "attribution:"
+      comment: "comment:"
+      sections: "sections:"
+      is_hidden_from_glossary: "hide from glossary:"
+      is_hidden_from_overview: "hide from overview tab:"
+    glossary:
+      full_title: "Glossary of ALL Terms for Data on EOL"
+      predicate_title: "Glossary of Type Terms for Data on EOL"
+      object_term_title: "Glossary of Value Terms for Data on EOL"
+      units_title: "Glossary of Unit Terms for Data on EOL"
+    pagination:
+      next: "next page"
+      previous: "previous page"
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brooding

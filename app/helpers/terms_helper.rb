@@ -108,18 +108,19 @@ module TermsHelper
     end
 
     if term_select.top_level?
-      display_type = case term_select.type
-                     when :predicate
-                       "an attribute"
-                     when :object_term
-                       "a value"
-                     else
-                       raise TypeError.new("invalid TermSelect type: #{term_select.type}")
-                     end
-      placeholder = "or select #{display_type}"
+      placeholder_key = case term_select.type
+                        when :predicate
+                          "top_level.predicate"
+                        when :object_term
+                          "top_level.object_term"
+                        else
+                          raise TypeError.new("invalid TermSelect type: #{term_select.type}")
+                        end
     else
-      placeholder = "select a child term (optional)"
+      placeholder_key = "child_term"
     end
+
+    placeholder = I18n.t("traits.search.select.#{placeholder_key}")
 
     options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_uri)
   end
