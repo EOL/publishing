@@ -343,6 +343,25 @@ RETURN DISTINCT page.canonical, page2.canonical
 LIMIT 50
 ```
 
+## Taxa that eat taxa that eat cultivated plants
+
+```
+MATCH (harvested_page:Page), (harvested_page)-[:trait|:inferred_trait]->(harvested_trait:Trait), (harvested_trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(harvested_predicate:Term)
+WHERE harvested_predicate.uri = "http://eol.org/schema/terms/Uses"
+WITH DISTINCT harvested_page
+MATCH (harvested_page)-[:trait|:inferred_trait]->(harvested_eaten_by_trait:Trait), 
+(harvested_eaten_by_trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(eaten_by_predicate:Term)
+WHERE eaten_by_predicate.uri = "http://purl.obolibrary.org/obo/RO_0002471"
+WITH DISTINCT harvested_page, harvested_eaten_by_trait.object_page_id AS harvested_eaten_by_id
+MATCH (eats_harvested:Page)-[:trait|:inferred_trait]->(eaten_by_trait:Trait), 
+(eaten_by_trait)-[:predicate]->(:Term)-[:parent_term|:synonym_of*0..]->(eaten_by_predicate:Term),
+(eats:Page)
+WHERE eaten_by_predicate.uri = "http://purl.obolibrary.org/obo/RO_0002471" AND eats_harvested.page_id = harvested_eaten_by_id AND eats.page_id = eaten_by_trait.object_page_id
+RETURN DISTINCT harvested_page.canonical, eats_harvested.canonical, eats.canonical
+LIMIT 20
+```
+
+
 ## Taxa marked both extant and extinct
 
 ```
