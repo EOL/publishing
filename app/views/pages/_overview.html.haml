@@ -50,7 +50,7 @@
         = render :partial => "hero", :locals => { :class_name => "hero-after" }
       - if @show_habitat_chart
         .page-habitat-chart.page-habitat-chart-right.uk-margin-top
-          = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, header: t("traits.data_viz.page_habitat_header", name: @page.name), description: t("traits.data_viz.page_habitat_explanation", name: @page.name)
+          = render "shared/data_viz_contain", query: @habitat_chart_query, type: :bar, header: t("traits.data_viz.page_habitat_header", name: @page.name.singularize.titlecase), description: t("traits.data_viz.page_habitat_explanation", name: @page.name)
       
 .l-overview-full
   - if @show_trophic_web
