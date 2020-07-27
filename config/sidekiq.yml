@@ -1,6 +1,11 @@
 ---
-:concurrency: 1
+:concurrency: 5
 staging:
-  :concurrency: 1
+  :concurrency: 6
 production:
-  :concurrency: 1
+  :concurrency: 4
+:queues:
+  - critical
+  - default
+  - low
+  - searchkick

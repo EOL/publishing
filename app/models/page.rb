@@ -7,7 +7,9 @@ class Page < ApplicationRecord
 
   autocompletes "autocomplete_names"
   # NOTE: default batch_size is 1000... that seemed to timeout a lot.
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, mappings: {
+
+  callbacks = Searchkick.redis ? :queue : nil
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, callbacks: callbacks, mappings: {
     properties: autocomplete_searchkick_properties
   }
 
@@ -663,7 +665,7 @@ class Page < ApplicationRecord
 
   def sorted_predicates_for_records(records)
     records.collect do |r|
-      r[:predicate]    
+      r[:predicate]
     end.uniq.sort do |a, b|
       a_name = TraitBank::Record.i18n_name(a)
       b_name = TraitBank::Record.i18n_name(b)
