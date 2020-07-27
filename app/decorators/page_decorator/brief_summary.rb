@@ -585,7 +585,17 @@ class PageDecorator
 
         if trait
           add_sentence do |subj, is, _|
-            trait_sentence_part("#{subj} #{is} #{a_or_an(trait)} %s.", trait)
+            if is_species?
+              trait_sentence_part("#{subj} #{is} #{a_or_an(trait)} %s.", trait)
+            else
+              obj_name = trait.dig(:object_term, :name)
+
+              if obj_name
+                term_sentence_part("#{subj} #{is} %s.", obj_name.pluralize, trait[:predicate][:uri], trait[:object_term])
+              else
+                nil
+              end
+            end
           end
         end
       end
