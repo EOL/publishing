@@ -14,7 +14,7 @@ tr:
         dakika içinde e-posta adresinizi nasıl doğrulayacağınıza ilişkin talimatları
         içeren bir e-posta alacaksınız.
     failure:
-      already_authenticated: Zaten giriş yaptınız.
+      already_authenticated: Zaten oturum açtınız.
       inactive: Hesabınız henüz aktifleştirilmedi.
       invalid: Geçersiz %{authentication_keys} ya da şifre.
       locked: Hesabınız kilitlendi, Lütfen bir saat sonra tekrar deneyin

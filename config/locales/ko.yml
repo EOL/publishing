@@ -410,17 +410,6 @@ ko:
       words_connector: ','
       two_words_connector: 그리고
       last_word_connector: ', 그리고'
-  term:
-    name:
-      by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (Mg)
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
-        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
   term_query_filter:
     validations:
       invalid_uri: 유효하지 않은 URI
@@ -467,4 +456,28 @@ ko:
   users:
     sign_in: 로그인
   vernacular_preferred_by_resource: '%{resource} (이 이름을 선호)'
+  term:
+    actions:
+      sort: 정렬 기준
+    edit:
+      header: '%{uri} 편집 중'
+      submit: 저장
+    fields:
+      name: '이름:'
+      definition: '정의:'
+      is_hidden_from_glossary: '용어집에서 숨김:'
+      is_hidden_from_overview: '둘러보기 탭에서 숨김:'
+    pagination:
+      next: 다음 페이지
+      previous: 이전 페이지
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 산소
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 마그네슘 (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 수생 식물
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 검정
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 초록
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 하트 모양
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 상록수
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 나무껍질
 ...

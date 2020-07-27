@@ -34,9 +34,9 @@ fi:
       other: näytä kaikki %{count} tulosta
   breadcrumbs:
     notices:
-      canonical: Tieteelliset nimet näytetään nyt sivun leivänmuruissa
-      vernacular: Kansalliset nimet näytetään sivun leivänmuruissa jos niitä on saatavana
-    setting_header: nimet leivänmuruissa
+      canonical: Tieteelliset nimet näytetään nyt sivun breadcrumb-navigoinnissa
+      vernacular: Kansalliset nimet näytetään sivun breadcrumb-navigoinnissa jos saatavissa
+    setting_header: nimet breadcrumb-navigoinnissa
     types:
       scientific: tieteellinen
       vernacular: kansankielinen
@@ -212,6 +212,7 @@ fi:
       education: Opetus
       glossary: Sanasto
       help: Ohje
+      language_support: Kielituki
       terms_of_use: Käyttöehdot
       the_eol_forum: EOL-foorumi
       what_is_eol: Mikä on EOL?
@@ -243,13 +244,16 @@ fi:
     eol_is_hosted_by: 'EOL-sivustoa ylläpitää:'
   forgot_your_password: Unohditko salasanasi?
   landing_page:
-    header: Maailmanlaajuinen pääsy tietoihin maan elämästä
+    header: Maailmanlaajuinen pääsy tietoihin elämästä maan päällä
     stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
     "no": Norja
+    Q36730: Osmaninturkki
     Q497345: Mainfränkisch
     Q750553: Brasilianportugali
+    Q880301: Cajunranska
+    Q9292: Azeri
     aa: Afar
     ab: Abhaasi
     ae: Avesta
@@ -775,7 +779,87 @@ fi:
       words_connector: ','
       two_words_connector: ja
       last_word_connector: ', ja'
+  terms:
+    attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Kommentti:</strong> %{comment}
+    definition_field_html: <strong>Määritelmä:</strong> %{definition}
+    source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
+    scientific_name: tieteellinen nimi
+    source: lähde
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Aloita valitsemalla yllä oleva sivu.
+  traits:
+    data_viz:
+      other: muu
+    properties:
+      source: Lähde
+    search:
+      new_search: uusi haku
+  trophic_web:
+    group_descriptions:
+      source: keskeiset lajit
+  trust:
+    unreviewed: tarkastamaton
+    trusted: luotettu
+    untrusted: ei luotettu
+  user:
+    batch_page_lookup: Eräsivun haku
+    created_at: luotu
+    edit_account_details: Muokkaa käyttäjätunnuksen tietoja
+    email: Sähköposti
+    to_commit_enter_current: Vahvistaaksesi muutoksesi, kirjoita nykyinen salasanasi
+    form_labels:
+      age_confirm: Olen vähintään 13-vuotias
+      tou_confirm_html: Olen lukenut <a href='%{tou_path}'>käyttöehdot</a> ja <a href='%{privacy_path}'>tietosuojakäytännön</a>
+    headers:
+      bio: Lyhyt elämäkerta
+      collections: Kokoelmat
+      downloads: Lataukset
+      links: Linkit
+    list_of_power_users: Luettelo virrankäyttäjistä
+    new_password: Uusi salasana
+    confirm_new_password: Vahvista uusi salasana
+    showing_n_power_users:
+      one: Yhden virrankäyttäjän listaus
+      other: '%{count} virrankäyttäjän listaus'
+    username: käyttäjänimi
+    update: Päivitä
+    update_email: Päivitä sähköposti
+  user_download:
+    created: Tiedostoasi käsitellään taustalla. Tarkista <a href="%{url}">käyttäjäsivusi</a>
+      nähdäksesi onko se valmistunut.
+  users:
+    account_migration_header: 'Jos rekisteröidyit EOL:llään ennen 15. marraskuuta
+      2018:'
+    account_migration_notice: Tilitietosi, mukaan lukien käyttäjänimi, liittyvä sähköposti,
+      profiilikuvaus ja omistamasi kokoelmat on tuotu uuteen EOL:ään. Käyttäjänimesi
+      on silti näyttönimesi sivustolla mutta sinun täytyy kirjautua sisään sähköpostiosoitteellasi.
+      Emme voineet siirtää salasanaasi turvallisuussyistä; pahoittelut vaivasta. Voit
+      nollata sen käyttämällä Unohtuiko salasana -prosessia. Jos kirjauduit sisään
+      vain käyttämällä kolmannen osapuolen palveluntarjoajaa- Google, Twitter tai
+      Facebook- kestä meitä; selvitämme joitain jaettujen kirjautumisprosessien ongelmia.
+    sign_in: Kirjaudu sisään
+  vernacular_names_header: Yleisnimet
+  wordcloud_credit_html: luotu <a href='%{url}'>jQCloudilla</a>
   term:
+    actions:
+      reindex: uudelleenindeksoi
+      sort: lajittele
+    edit:
+      header: Muokataan %{uri}
+      submit: Tallenna
+    fields:
+      name: 'nimi:'
+      definition: 'määritelmä:'
+      attribution: 'nimeäminen:'
+      comment: 'kommentti:'
+      sections: 'osuudet:'
+      is_hidden_from_glossary: 'piilota sanastosta:'
+      is_hidden_from_overview: 'piilota yleiskatsaus-välilehdeltä:'
+    pagination:
+      next: seuraava sivu
+      previous: edellinen sivu
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
@@ -796,66 +880,17 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
+        http://purl(dot)org/obo/owl/UO#UO_0000034: viikkoa
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/kk
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3kk
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4kk
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6kk
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7kk
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8kk
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/päivä
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/s
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/vuosi
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnia
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: jalkaa
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tuumaa
-  terms:
-    attribution_field_html: <strong>Määrite:</strong> <a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>Kommentti:</strong> %{comment}
-    definition_field_html: <strong>Määritelmä:</strong> %{definition}
-    source_field_html: <strong>Lähde:</strong> <a href='%{source}'>%{source}</a>
-    scientific_name: tieteellinen nimi
-    source: lähde
-    uri_field_html: <strong>URI:</strong> %{uri}
-    index:
-      select_page_above: Aloita valitsemalla yllä oleva sivu.
-  traits:
-    data_viz:
-      other: muu
-    properties:
-      source: Lähde
-  trophic_web:
-    group_descriptions:
-      source: keskeiset lajit
-  trust:
-    unreviewed: tarkastamaton
-    trusted: luotettu
-    untrusted: ei luotettu
-  user:
-    batch_page_lookup: Eräsivun haku
-    created_at: luotu
-    edit_account_details: Muokkaa käyttäjätunnuksen tietoja
-    email: Sähköposti
-    to_commit_enter_current: Vahvistaaksesi muutoksesi, kirjoita nykyinen salasanasi
-    headers:
-      bio: Lyhyt elämäkerta
-      collections: Kokoelmat
-      downloads: Lataukset
-      links: Linkit
-    list_of_power_users: Luettelo virrankäyttäjistä
-    new_password: Uusi salasana
-    confirm_new_password: Vahvista uusi salasana
-    showing_n_power_users:
-      one: Yhden virrankäyttäjän listaus
-      other: '%{count} virrankäyttäjän listaus'
-    username: käyttäjänimi
-    update: Päivitä
-    update_email: Päivitä sähköposti
-  user_download:
-    created: Tiedostoasi käsitellään taustalla. Tarkista <a href="%{url}"käyttäjäsivusi</a>
-      nähdäksesi onko se valmistunut.
-  users:
-    account_migration_header: 'Jos rekisteröidyit EOL:llään ennen 15. marraskuuta
-      2018:'
-    account_migration_notice: Tilitietosi, mukaan lukien käyttäjänimi, liittyvä sähköposti,
-      profiilikuvaus ja omistamasi kokoelmat on tuotu uuteen EOL:ään. Käyttäjänimesi
-      on silti näyttönimesi sivustolla mutta sinun täytyy kirjautua sisään sähköpostiosoitteellasi.
-      Emme voineet siirtää salasanaasi turvallisuussyistä; anteeksi vaivasta. Voit
-      nollata sen käyttämällä Unohtuiko salasana -prosessia. Jos kirjauduit sisään
-      vain käyttämällä kolmannen osapuolen palveluntarjoajaa- Google, Twitter tai
-      Facebook- ole kiltti kassamme; selvitämme joitain jaettujen kirjautumisprosessien
-      ongelmia.
-    sign_in: Kirjaudu sisään
-  vernacular_names_header: Yleisnimet
-  wordcloud_credit_html: luotu <a href='%{url}'>jQCloudilla</a>
 ...

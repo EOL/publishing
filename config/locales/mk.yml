@@ -554,7 +554,11 @@ mk:
   literature_and_references_header: Литература и наводи
   maps:
     empty: Нема карти за страницава.
-    occurrence_caption: Познати јавувања, собрани примероци и набљудувања на %{page_name}
+    occurrence_caption: Познати јавувања, собрани примероци и набљудувања на %{page_name}.
+      Погледајте го овој вид на GBIF
+    occurrence_caption_w_link_html: Познати јавувања, собрани примероци и набљудувања
+      на %{page_name}. <a href='%{url}'>Погледајте го овој вид на GBIF <i class='fa
+      fa-external-link'></i></a>
     other_maps_title: Неинтерактивни карти
   medium:
     untitled:
@@ -1005,7 +1009,210 @@ mk:
       words_connector: ','
       two_words_connector: и
       last_word_connector: ' и'
+  term_query:
+    validations:
+      empty_filters_error_record: мора да укажете филтер со својство или вредност
+        за пребарување записи
+      empty_filters_error_taxa: мора да укажете клад или филтер со својство или вредност
+        за пребарување на таксони
+  term_query_filter:
+    validations:
+      blank_error: мора да укаже својство или вредност
+      invalid_uri: неважечка URL
+      pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
+      range_invalid_error: мора да биде >= до првата вредност
+  terms:
+    attribution_field_html: <strong>Припис:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Коментар:</strong> %{comment}
+    definition_field_html: <strong>Дефиниција:</strong> %{definition}
+    source_field_html: <strong>Извор:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL на записот
+    scientific_name: научно име
+    show_all_records: сите записи
+    source: извор
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Изберете страница погоре за да почнете.
+  data_definition: дефиниција на „%{data}“
+  traits:
+    data_viz:
+      about_this_chart: за графиконов
+      about_this_chart_tooltip: Ова е краток преглед според податоците достапни на
+        EOL. Може да е нецелосен! Можете да изберете столб од графиконот за да го
+        уточните пребарувањето.
+      hist_value_label: вредност (%{units})
+      n_other_records:
+        one: уште еден запис
+        other: '%{count} други записи'
+      n_other_taxa:
+        one: уште еден таксон
+        other: '%{count} други таксони'
+      num_records_label: бр. на записи
+      other: друго
+      page_habitat_header: Живеалишта на %{name}
+      page_habitat_explanation: Средините во кои живеат многу видови на %{name}. Изберете
+        една средина за да го видите нејзиниот контролен список на видови %{name}.
+      pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
+      n_obj_records:
+        one: еден запис со „%{obj_name}“
+        other: '%{count} записи со „%{obj_name}“'
+      n_taxa_with:
+        one: еден таксон со „%{obj_name}“
+        other: '%{count} таксони со „%{obj_name}“'
+      see_n_obj_records:
+        one: стиснете за да погледате еден запис со „%{obj_name}“
+        other: стиснете за да погледате %{count} записи со „%{obj_name}“
+      see_n_taxa_with:
+        one: стиснете за да погледате еден таксон со „%{obj_name}“
+        other: стиснете за да погледате %{count} таксони со „%{obj_name}“
+      show_n_records_between:
+        one: стиснете за да погледате %{count} запис со мерни вредности во [%{min},
+          %{limit}] %{units}
+        other: стиснете за да погледате %{count} записи со мерни вредности во [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: стиснете за да погледате %{count} таксон со мерни вредности во [%{min},
+          %{limit}] %{units}
+        other: стиснете за да погледате %{count} таксони со мерни вредности во [%{min},
+          %{limit}] %{units}
+    properties:
+      citation: Библиографски навод
+      method: Начин на мерење
+      remarks: Прибелешки
+      sample_size: Големина на примерокот
+      scientific_name: Научно име
+      source: Извор
+    search:
+      clade: 'клад: %{clade}'
+      download_tsv: преземи TSV
+      edit_filters: измени филтри
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'животна фаза: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'вредност: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} за [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'ресурс: %{value}'
+        sex: 'пол: %{value}'
+        statistical_method: 'статистички метод: %{value}'
+      gbif_search: Пребарување на GBIF
+      gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
+        50)'
+      result_header_records: Прикажувам %{range_begin} - %{range_end} од %{total}
+        записи за %{page_count} таксони во
+      result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
+        таксони со
+      new_search: ново пребарување
+      select:
+        child_term: изберете зависен поим (незадол.)
+        top_level:
+          object_term: или одберете вредност
+          predicate: или одберете атрибут
+      show_query: прикажи барање
+      switch_to_list: списочен поглед
+      switch_to_gallery: сликореден поглед
+    search_form:
+      attribute: својство
+      clade_filter_placeholder: група (на пр. мечки) (незадол.)
+      hide_additional_fields: скриј дополнителни полиња
+      lifestage: животна фаза
+      records_matching_all: записи за таксони што одговараат на СИТЕ филтри
+      resource: ресурс
+      search: Пребарај
+      sex: пол
+      show_additional_fields: прикажи дополнителни полиња
+      statistical_method: статистички метод
+      taxa_matching_all: таксони што одговараат на СИТЕ филтри
+      this_may_take_a_minute: Ова може малку да потрае
+      trait_filter: филтер на одлики
+      value: вредност
+  trophic_web:
+    group_descriptions:
+      competitor: конкурент на %{source_name}
+      predator: се храни со %{source_name}
+      prey: храна за %{source_name}
+      source: задршка на видот
+  trust:
+    unreviewed: непроверен
+    trusted: доверлив
+    untrusted: недоверлив
+  user:
+    batch_page_lookup: Збирно пребарување на страници
+    created_at: создадено
+    download_queue: Редица за преземање податоци
+    edit_account_details: Измени податоци за сметка
+    email: Е-пошта
+    to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
+      лозинка
+    form_labels:
+      age_confirm: Имам барем 13 години
+      tou_confirm_html: Ги прочитав <a href='%{tou_path}'>Условите на употреба</a>
+        и <a href='%{privacy_path}'>Правилата за лични податоци</a>
+    headers:
+      bio: Кратка биографија
+      collections: Збирки
+      downloads: Преземања
+      links: Врски
+    is_power_user: Овој корисник е означен како напреден.
+    validations:
+      age_confirm: мора да потврдите дека имате барем 13 години
+      tou_confirm: мора да потврдите дека сте ги прочитале Условите на употреба и
+        Правилата за лични податоци
+    list_of_power_users: Список на напредни корисници
+    new_password: Нова лозинка
+    confirm_new_password: Потврдете ја новата лозинка
+    showing_n_power_users:
+      one: Приказ на еден напреден корисник
+      other: Приказ на %{count} напредни корисници
+    trait_bank_cypher_form: Шифрарен образец на TraitBank
+    username: корисничко име
+    update: Поднови
+    update_email: Поднови е-пошта
+  user_download:
+    created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}">корисничката
+      страница</a> за да видите дали е готова.
+    have_pending: Веќе имате преземање за ова барање кое седи во исчекување. Проверете
+      си ја <a href="%{url}">корисничката страница</a> за да видите дали е завршено.
+  users:
+    account_migration_header: 'Ако се имате зачленето на EOL пред 15 ноември 2018
+      г.:'
+    account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
+      е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото
+      име и понатаму ви е приказното име на мрежното место, но сега ќе мора да се
+      најавите се е-пошта. Лозинките не ги селиме од безбедносни причини. Ќе можете
+      да зададете нова со постапката за заборавена лозинка. Ако се најавувате само
+      од трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
+      работиме на извесни проблеми со ова заедничко најавување.
+    sign_in: Најава
+  vernacular_names_header: Народни имиња
+  vernacular_preferred_by_resource: '%{resource} (го претпочита имево)'
+  wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
   term:
+    actions:
+      reindex: преиндексирај
+      sort: подреди по
+    edit:
+      header: Уредување на %{uri}
+      submit: Зачувај
+    fields:
+      name: 'име:'
+      definition: 'дефиниција:'
+      attribution: 'припис:'
+      comment: 'коментар:'
+      sections: 'оддели:'
+      is_hidden_from_glossary: 'скриј од поимникот:'
+      is_hidden_from_overview: 'скриј од прегледникот:'
+    glossary:
+      full_title: Поимник на СИТЕ поими за податоци на EOL
+      predicate_title: Поимник на типски поими за податоци на EOL
+      object_term_title: Поимник на вредносни поими за податоци на EOL
+      units_title: Поимник на единични поими за податоци на EOL
+    pagination:
+      next: следна страница
+      previous: претходна страница
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: квачење
@@ -1269,185 +1476,4 @@ mk:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: тони
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: стапки
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: инчи
-  term_query:
-    validations:
-      empty_filters_error_record: мора да укажете филтер со својство или вредност
-        за пребарување записи
-      empty_filters_error_taxa: мора да укажете клад или филтер со својство или вредност
-        за пребарување на таксони
-  term_query_filter:
-    validations:
-      blank_error: мора да укаже својство или вредност
-      invalid_uri: неважечка URL
-      pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
-      range_invalid_error: мора да биде >= до првата вредност
-  terms:
-    attribution_field_html: <strong>Припис:</strong> <a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>Коментар:</strong> %{comment}
-    definition_field_html: <strong>Дефиниција:</strong> %{definition}
-    source_field_html: <strong>Извор:</strong> <a href='%{source}'>%{source}</a>
-    record_url: URL на записот
-    scientific_name: научно име
-    show_all_records: сите записи
-    source: извор
-    uri_field_html: <strong>URI:</strong> %{uri}
-    index:
-      select_page_above: Изберете страница погоре за да почнете.
-  data_definition: дефиниција на „%{data}“
-  traits:
-    data_viz:
-      about_this_chart: за графиконов
-      about_this_chart_tooltip: Ова е краток преглед според податоците достапни на
-        EOL. Може да е нецелосен! Можете да изберете столб од графиконот за да го
-        уточните пребарувањето.
-      hist_value_label: вредност (%{units})
-      n_other_records:
-        one: уште еден запис
-        other: '%{count} други записи'
-      n_other_taxa:
-        one: уште еден таксон
-        other: '%{count} други таксони'
-      num_records_label: бр. на записи
-      other: друго
-      page_habitat_header: Живеалишта на %{name}
-      page_habitat_explanation: Средините во кои живеат многу видови на %{name}. Изберете
-        една средина за да го видите нејзиниот контролен список на видови %{name}.
-      pie_prompt: одете со глушецот врз оддел или клуч за да го истакнете
-      n_obj_records:
-        one: еден запис со „%{obj_name}“
-        other: '%{count} записи со „%{obj_name}“'
-      n_taxa_with:
-        one: еден таксон со „%{obj_name}“
-        other: '%{count} таксони со „%{obj_name}“'
-      see_n_obj_records:
-        one: стиснете за да погледате еден запис со „%{obj_name}“
-        other: стиснете за да погледате %{count} записи со „%{obj_name}“
-      see_n_taxa_with:
-        one: стиснете за да погледате еден таксон со „%{obj_name}“
-        other: стиснете за да погледате %{count} таксони со „%{obj_name}“
-      show_n_records_between:
-        one: стиснете за да погледате %{count} запис со мерни вредности во [%{min},
-          %{limit}] %{units}
-        other: стиснете за да погледате %{count} записи со мерни вредности во [%{min},
-          %{limit}] %{units}
-      show_n_taxa_between:
-        one: стиснете за да погледате %{count} таксон со мерни вредности во [%{min},
-          %{limit}] %{units}
-        other: стиснете за да погледате %{count} таксони со мерни вредности во [%{min},
-          %{limit}] %{units}
-    properties:
-      citation: Библиографски навод
-      method: Начин на мерење
-      remarks: Прибелешки
-      sample_size: Големина на примерокот
-      scientific_name: Научно име
-      source: Извор
-    search:
-      clade: 'клад: %{clade}'
-      download_tsv: преземи TSV
-      edit_filters: измени филтри
-      filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: 'животна фаза: %{value}'
-        lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'вредност: %{obj}'
-        pred_obj: '%{pred}: %{obj}'
-        pred_only: '%{pred}'
-        range: '%{pred} за [%{num_val1}, %{num_val2}] %{units}'
-        resource: 'ресурс: %{value}'
-        sex: 'пол: %{value}'
-        statistical_method: 'статистички метод: %{value}'
-      gbif_search: Пребарување на GBIF
-      gbif_search_hover: 'најдете записи од GBIF за таксонот во вашиот исход (граница:
-        50)'
-      result_header_records: Прикажувам %{range_begin} - %{range_end} од %{total}
-        записи за %{page_count} таксони во
-      result_header_taxa: Прикажувам %{range_begin} - %{range_end} од вкупно %{total}
-        таксони со
-      new_search: ново пребарување
-      select:
-        child_term: изберете зависен поим (незадол.)
-        top_level:
-          object_term: или одберете вредност
-          predicate: или одберете атрибут
-      show_query: прикажи барање
-      switch_to_list: списочен поглед
-      switch_to_gallery: сликореден поглед
-    search_form:
-      attribute: својство
-      clade_filter_placeholder: група (на пр. мечки) (незадол.)
-      hide_additional_fields: скриј дополнителни полиња
-      lifestage: животна фаза
-      records_matching_all: записи за таксони што одговараат на СИТЕ филтри
-      resource: ресурс
-      search: Пребарај
-      sex: пол
-      show_additional_fields: прикажи дополнителни полиња
-      statistical_method: статистички метод
-      taxa_matching_all: таксони што одговараат на СИТЕ филтри
-      this_may_take_a_minute: Ова може малку да потрае
-      trait_filter: филтер на одлики
-      value: вредност
-  trophic_web:
-    group_descriptions:
-      competitor: конкурент на %{source_name}
-      predator: се храни со %{source_name}
-      prey: храна за %{source_name}
-      source: задршка на видот
-  trust:
-    unreviewed: непроверен
-    trusted: доверлив
-    untrusted: недоверлив
-  user:
-    batch_page_lookup: Збирно пребарување на страници
-    created_at: создадено
-    download_queue: Редица за преземање податоци
-    edit_account_details: Измени податоци за сметка
-    email: Е-пошта
-    to_commit_enter_current: За да се спроведат измените, внесете ја вашата тековна
-      лозинка
-    form_labels:
-      age_confirm: Имам барем 13 години
-      tou_confirm_html: Ги прочитав <a href='%{tou_path}'>Условите на употреба</a>
-        и <a href='%{privacy_path}'>Правилата за лични податоци</a>
-    headers:
-      bio: Кратка биографија
-      collections: Збирки
-      downloads: Преземања
-      links: Врски
-    is_power_user: Овој корисник е означен како напреден.
-    validations:
-      age_confirm: мора да потврдите дека имате барем 13 години
-      tou_confirm: мора да потврдите дека сте ги прочитале Условите на употреба и
-        Правилата за лични податоци
-    list_of_power_users: Список на напредни корисници
-    new_password: Нова лозинка
-    confirm_new_password: Потврдете ја новата лозинка
-    showing_n_power_users:
-      one: Приказ на еден напреден корисник
-      other: Приказ на %{count} напредни корисници
-    trait_bank_cypher_form: Шифрарен образец на TraitBank
-    username: корисничко име
-    update: Поднови
-    update_email: Поднови е-пошта
-  user_download:
-    created: Вашата податотека ќе се обработува во позадина. Проверете си ја <a href="%{url}">корисничката
-      страница</a> за да видите дали е готова.
-    have_pending: Веќе имате преземање за ова барање кое седи во исчекување. Проверете
-      си ја <a href="%{url}">корисничката страница</a> за да видите дали е завршено.
-  users:
-    account_migration_header: 'Ако се имате зачленето на EOL пред 15 ноември 2018
-      г.:'
-    account_migration_notice: Податоците на вашта сметка, вкл. корисничко име, поврзана
-      е-пошта, профилен опис и поседуваните збирки, се увезени во новата EOL. Корисничкото
-      име и понатаму ви е приказното име на мрежното место, но сега ќе мора да се
-      најавите се е-пошта. Лозинките не ги селиме од безбедносни причини. Ќе можете
-      да зададете нова со постапката за заборавена лозинка. Ако се најавувате само
-      од трето место како Google, Twitter или Facebook, би ве замолиле за малку трпение;
-      работиме на извесни проблеми со ова заедничко најавување.
-    sign_in: Најава
-  vernacular_names_header: Народни имиња
-  vernacular_preferred_by_resource: '%{resource} (го претпочита имево)'
-  wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
 ...

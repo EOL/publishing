@@ -558,7 +558,10 @@ tr:
   maps:
     empty: Bu sayfa için kullanılabilir harita yok.
     occurrence_caption: '%{page_name} alan adının bilinen örnekleri, toplanan örnekleri
-      ve gözlemleri'
+      ve gözlemleri. Bu türleri GBIF''de görüntüleyin.'
+    occurrence_caption_w_link_html: '%{page_name} alan adının bilinen örnekleri, toplanan
+      örnekleri ve gözlemleri. <a href=''%{url}''>Bu türleri GBIF''de görüntüleyin
+      <i class=''fa fa-external-link''></i></a>'
     other_maps_title: Etkileşimli Olmayan Haritalar
   medium:
     untitled:
@@ -1004,7 +1007,209 @@ tr:
       words_connector: ','
       two_words_connector: ' ve'
       last_word_connector: ', ve'
+  term_query:
+    validations:
+      empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
+        bir filtre sağlamalısınız
+      empty_filters_error_taxa: takson aramaları için bir nitelik veya değere sahip
+        bir clade veya filtre sağlamalısınız
+  term_query_filter:
+    validations:
+      blank_error: bir özellik veya değer belirtmelidir
+      invalid_uri: geçersiz URI
+      pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
+      range_invalid_error: ilk değere >= olmalıdır
+  terms:
+    attribution_field_html: <strong>Atıf:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Yorum:</strong> %{comment}
+    definition_field_html: <strong>Tanım:</strong> %{definition}
+    source_field_html: <strong>Kaynak:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL kaydet
+    scientific_name: bilimsel ad
+    show_all_records: tüm kayıtları göster
+    source: kaynak
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Başlamak için yukarıdaki bir sayfayı seçin.
+  data_definition: '"%{data}" tanımı'
+  traits:
+    data_viz:
+      about_this_chart: bu grafik hakkında
+      about_this_chart_tooltip: Bu, EOL'de bulunan verilere dayanan bir özettir. Eksik
+        olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
+      hist_value_label: değer (%{units})
+      n_other_records:
+        one: bir kayıt daha
+        other: '%{count} kayıt daha'
+      n_other_taxa:
+        one: bir takson daha
+        other: '%{count} takson daha'
+      num_records_label: '# kayıt sayısı'
+      other: diğer
+      page_habitat_header: '%{name} Habitat'
+      page_habitat_explanation: '%{name} türün çoğunun yaşadığı bilinen ortamlar.
+        %{name} tür kontrol listesini görmek için bir ortam seçin.'
+      pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
+      n_obj_records:
+        one: '"%{obj_name}" sahip bir kayıt'
+        other: '"%{obj_name}" ile %{count} kayıt'
+      n_taxa_with:
+        one: '"%{obj_name}" sahip bir takson'
+        other: '"%{obj_name}" ile %{count} takson'
+      see_n_obj_records:
+        one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
+        other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
+      see_n_taxa_with:
+        one: '"%{obj_name}" içeren bir taksonu görmek için tıklayın'
+        other: '"%{obj_name}" ile %{count} taksonu görmek için tıklayın'
+      show_n_records_between:
+        one: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
+          için tıklayın'
+        other: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
+          için tıklayın'
+      show_n_taxa_between:
+        one: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
+          görmek için tıklayın'
+        other: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
+          görmek için tıklayın'
+    properties:
+      citation: Bibliyografik atıf
+      method: Ölçüm yöntemi
+      remarks: Uyarılar
+      sample_size: Örnek boyut
+      scientific_name: Bilimsel ad
+      source: Kaynak
+    search:
+      clade: 'klad: %{clade}'
+      download_tsv: tsv indir
+      edit_filters: filtreleri düzenle
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'yaşam evresi: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'değer: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} içinde [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'kaynak: %{value}'
+        sex: 'cinsel: %{value}'
+        statistical_method: 'istatistiksel yöntem: %{value}'
+      gbif_search: GBIF araması
+      gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
+        kayıtlarını bulun (sınır 50)
+      result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
+        %{total} kayıttan %{range_end}'
+      result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
+        ile'
+      new_search: yeni arama
+      select:
+        child_term: bir alt terimi seçin (isteğe bağlı)
+        top_level:
+          object_term: veya bir değer seçin
+          predicate: veya bir özellik seçin
+      show_query: sorguyu göster
+      switch_to_list: liste görünümüne geç
+      switch_to_gallery: galeri görünümüne geç
+    search_form:
+      attribute: nitelik
+      clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
+      hide_additional_fields: ek alanları gizle
+      lifestage: yaşam evresi
+      records_matching_all: taksonlarla eşleşen TÜM filtreler için kayıtlar
+      resource: kaynak
+      search: Ara
+      sex: cinsiyet
+      show_additional_fields: ek alanları göster
+      statistical_method: istatistiksel yöntem
+      taxa_matching_all: taksa ile eşleşen TÜM filtreler
+      this_may_take_a_minute: Bu bir dakika sürebilir
+      trait_filter: özellik filtresi
+      value: değer
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name} rakibi'
+      predator: '%{source_name} üzerindeki yayınlar'
+      prey: '%{source_name} tarafından yenildi'
+      source: odak türler
+  trust:
+    unreviewed: incelenmemiş
+    trusted: güvenilir
+    untrusted: güvenilir değil
+  user:
+    batch_page_lookup: Toplu sayfa arama
+    created_at: oluşturuldu
+    download_queue: Veri indirme kuyruğu
+    edit_account_details: Hesap ayrıntılarını düzenle
+    email: E-posta
+    to_commit_enter_current: Değişikliklerinizi yapmak için lütfen mevcut şifrenizi
+      girin
+    form_labels:
+      age_confirm: Ben en azından 13 yaşındayım
+      tou_confirm_html: <a href='%{tou_path}'>Kullanım Şartları</a> ve <a href='%{privacy_path}'>Gizlilik
+        Politikasını</a> okudum
+    headers:
+      bio: Kısa Biyografi
+      collections: Koleksiyonlar
+      downloads: İndirilenler
+      links: Bağlantılar
+    is_power_user: Bu kullanıcı ileri düzey bir kullanıcı olarak işaretlendi.
+    validations:
+      age_confirm: en az 13 yaşında olduğunuzu onaylamalısınız
+      tou_confirm: Kullanım Şartlarını ve Gizlilik Politikasını okuduğunuzu onaylamanız
+        gerekir
+    list_of_power_users: Yetkili kullanıcıların listesi
+    new_password: Yeni parola
+    confirm_new_password: Yeni parolayı onayla
+    showing_n_power_users:
+      one: Bir ileri düzey kullanıcıyı listeleme
+      other: '%{count} ileri düzey kullanıcıyı listeleme'
+    trait_bank_cypher_form: Özel banka şifre formu
+    username: kullanıcı adı
+    update: Güncelle
+    update_email: E-postayı güncelle
+  user_download:
+    created: Dosyanız arka planda işlenecek. Tamamlanıp tamamlanmadığını görmek için<a
+      href="%{url}">kullanıcı sayfanıza</a> kontrol edin.
+    have_pending: Bu sorgu için zaten bekleyen bir indirme işleminiz var. Tamamlanıp
+      tamamlanmadığını görmek için <a href="%{url}">kullanıcı sayfanıza</a> bakın.
+  users:
+    account_migration_header: '15 Kasım 2018''den önce EOL''ye kaydolduysanız:'
+    account_migration_notice: Kullanıcı adı, ilişkili e-posta, profil açıklaması ve
+      sahip olunan koleksiyonlar dahil hesap bilgileriniz yeni EOL'ye aktarıldı. Kullanıcı
+      adınız hala sitedeki görünen adınızdır, ancak şimdi e-posta adresinizle giriş
+      yapmalısınız. Güvenlik nedeniyle şifrenizi taşıyamadık; rahatsız ettiğimiz için
+      üzgünüz. Şifremi Unuttum işlemini kullanarak sıfırlayabilirsiniz. Yalnızca üçüncü
+      taraf bir sağlayıcı olan Google, Twitter veya Facebook'u kullanarak giriş yaptıysanız,
+      lütfen bize katılın; paylaşılan giriş işlemleriyle ilgili bazı sorunlar üzerinde
+      çalışıyoruz.
+    sign_in: Oturum Aç
+  vernacular_names_header: Genel Adlar
+  vernacular_preferred_by_resource: '%{resource} (bu adı tercih eder)'
+  wordcloud_credit_html: <a href='%{url}'>jQCloud</a> ile oluşturuldu
   term:
+    actions:
+      reindex: yeniden dizin
+      sort: sıralama ölçütü
+    edit:
+      header: '%{uri} düzenleniyor'
+      submit: Kaydet
+    fields:
+      name: 'ad:'
+      definition: 'tanım:'
+      attribution: 'atıf:'
+      comment: 'yorum:'
+      sections: 'bölümler:'
+      is_hidden_from_glossary: 'sözlükten gizle:'
+      is_hidden_from_overview: 'genel bakış sekmesinden gizle:'
+    glossary:
+      full_title: EOL ile ilgili TÜM Şartlar Sözlüğü
+      predicate_title: EOL Verileri için Tip Terimleri Sözlüğü
+      object_term_title: EOL Verileri için Değer Terimleri Sözlüğü
+      units_title: EOL Verileri için Birim Terimler Sözlüğü
+    pagination:
+      next: sonraki sayfa
+      previous: önceki sayfa
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: düşünceli
@@ -1267,184 +1472,4 @@ tr:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: ton
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: ayak
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: inç
-  term_query:
-    validations:
-      empty_filters_error_record: kayıt aramaları için bir özellik veya değer içeren
-        bir filtre sağlamalısınız
-      empty_filters_error_taxa: takson aramaları için bir nitelik veya değere sahip
-        bir clade veya filtre sağlamalısınız
-  term_query_filter:
-    validations:
-      blank_error: bir özellik veya değer belirtmelidir
-      invalid_uri: geçersiz URI
-      pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
-      range_invalid_error: ilk değere >= olmalıdır
-  terms:
-    attribution_field_html: <strong>Atıf:</strong> <a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>Yorum:</strong> %{comment}
-    definition_field_html: <strong>Tanım:</strong> %{definition}
-    source_field_html: <strong>Kaynak:</strong> <a href='%{source}'>%{source}</a>
-    record_url: URL kaydet
-    scientific_name: bilimsel ad
-    show_all_records: tüm kayıtları göster
-    source: kaynak
-    uri_field_html: <strong>URI:</strong> %{uri}
-    index:
-      select_page_above: Başlamak için yukarıdaki bir sayfayı seçin.
-  data_definition: '"%{data}" tanımı'
-  traits:
-    data_viz:
-      about_this_chart: bu grafik hakkında
-      about_this_chart_tooltip: Bu, EOL'de bulunan verilere dayanan bir özettir. Eksik
-        olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
-      hist_value_label: değer (%{units})
-      n_other_records:
-        one: bir kayıt daha
-        other: '%{count} kayıt daha'
-      n_other_taxa:
-        one: bir takson daha
-        other: '%{count} takson daha'
-      num_records_label: '# kayıt sayısı'
-      other: diğer
-      page_habitat_header: '%{name} Habitat'
-      page_habitat_explanation: '%{name} türün çoğunun yaşadığı bilinen ortamlar.
-        %{name} tür kontrol listesini görmek için bir ortam seçin.'
-      pie_prompt: vurgulamak için fareyi bir segmentin veya tuşun üzerine getirin
-      n_obj_records:
-        one: '"%{obj_name}" sahip bir kayıt'
-        other: '"%{obj_name}" ile %{count} kayıt'
-      n_taxa_with:
-        one: '"%{obj_name}" sahip bir takson'
-        other: '"%{obj_name}" ile %{count} takson'
-      see_n_obj_records:
-        one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
-        other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
-      see_n_taxa_with:
-        one: '"%{obj_name}" içeren bir taksonu görmek için tıklayın'
-        other: '"%{obj_name}" ile %{count} taksonu görmek için tıklayın'
-      show_n_records_between:
-        one: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
-          için tıklayın'
-        other: '[%{min}, %{limit}] %{units} ölçüm değerleriyle %{count} kaydı görmek
-          için tıklayın'
-      show_n_taxa_between:
-        one: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
-          görmek için tıklayın'
-        other: '[%{min}, %{limit}] %{units} ölçüm değerlerine sahip %{count} taksonu
-          görmek için tıklayın'
-    properties:
-      citation: Bibliyografik atıf
-      method: Ölçüm yöntemi
-      remarks: Uyarılar
-      sample_size: Örnek boyut
-      scientific_name: Bilimsel ad
-      source: Kaynak
-    search:
-      clade: 'klad: %{clade}'
-      download_tsv: tsv indir
-      edit_filters: filtreleri düzenle
-      filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: 'yaşam evresi: %{value}'
-        lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'değer: %{obj}'
-        pred_obj: '%{pred}: %{obj}'
-        pred_only: '%{pred}'
-        range: '%{pred} içinde [%{num_val1}, %{num_val2}] %{units}'
-        resource: 'kaynak: %{value}'
-        sex: 'cinsel: %{value}'
-        statistical_method: 'istatistiksel yöntem: %{value}'
-      gbif_search: GBIF araması
-      gbif_search_hover: arama sonuçlarınızdaki taksonlar için GBIF cinsinden oluşum
-        kayıtlarını bulun (sınır 50)
-      result_header_records: '%{range_begin} gösteriliyor - %{page_count} takson için
-        %{total} kayıttan %{range_end}'
-      result_header_taxa: '%{range_begin} gösteriliyor - %{range_end} - %{total} takson
-        ile'
-      new_search: yeni arama
-      select:
-        child_term: bir alt terimi seçin (isteğe bağlı)
-        top_level:
-          object_term: veya bir değer seçin
-          predicate: veya bir özellik seçin
-      show_query: sorguyu göster
-      switch_to_list: liste görünümüne geç
-      switch_to_gallery: galeri görünümüne geç
-    search_form:
-      attribute: nitelik
-      clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
-      hide_additional_fields: ek alanları gizle
-      lifestage: yaşam evresi
-      records_matching_all: taksonlarla eşleşen TÜM filtreler için kayıtlar
-      resource: kaynak
-      search: Ara
-      sex: cinsiyet
-      show_additional_fields: ek alanları göster
-      statistical_method: istatistiksel yöntem
-      taxa_matching_all: taksa ile eşleşen TÜM filtreler
-      this_may_take_a_minute: Bu bir dakika sürebilir
-      trait_filter: özellik filtresi
-      value: değer
-  trophic_web:
-    group_descriptions:
-      competitor: '%{source_name} rakibi'
-      predator: '%{source_name} üzerindeki yayınlar'
-      prey: '%{source_name} tarafından yenildi'
-      source: odak türler
-  trust:
-    unreviewed: incelenmemiş
-    trusted: güvenilir
-    untrusted: güvenilir değil
-  user:
-    batch_page_lookup: Toplu sayfa arama
-    created_at: oluşturuldu
-    download_queue: Veri indirme kuyruğu
-    edit_account_details: Hesap ayrıntılarını düzenle
-    email: E-posta
-    to_commit_enter_current: Değişikliklerinizi yapmak için lütfen mevcut şifrenizi
-      girin
-    form_labels:
-      age_confirm: Ben en azından 13 yaşındayım
-      tou_confirm_html: <a href='%{tou_path}'>Kullanım Şartları</a> ve <a href='%{privacy_path}'>Gizlilik
-        Politikasını</a> okudum
-    headers:
-      bio: Kısa Biyografi
-      collections: Koleksiyonlar
-      downloads: İndirilenler
-      links: Bağlantılar
-    is_power_user: Bu kullanıcı ileri düzey bir kullanıcı olarak işaretlendi.
-    validations:
-      age_confirm: en az 13 yaşında olduğunuzu onaylamalısınız
-      tou_confirm: Kullanım Şartlarını ve Gizlilik Politikasını okuduğunuzu onaylamanız
-        gerekir
-    list_of_power_users: Yetkili kullanıcıların listesi
-    new_password: Yeni parola
-    confirm_new_password: Yeni parolayı onayla
-    showing_n_power_users:
-      one: Bir ileri düzey kullanıcıyı listeleme
-      other: '%{count} ileri düzey kullanıcıyı listeleme'
-    trait_bank_cypher_form: Özel banka şifre formu
-    username: kullanıcı adı
-    update: Güncelle
-    update_email: E-postayı güncelle
-  user_download:
-    created: Dosyanız arka planda işlenecek. Tamamlanıp tamamlanmadığını görmek için<a
-      href="%{url}">kullanıcı sayfanıza</a> kontrol edin.
-    have_pending: Bu sorgu için zaten bekleyen bir indirme işleminiz var. Tamamlanıp
-      tamamlanmadığını görmek için <a href="%{url}">kullanıcı sayfanıza</a> bakın.
-  users:
-    account_migration_header: '15 Kasım 2018''den önce EOL''ye kaydolduysanız:'
-    account_migration_notice: Kullanıcı adı, ilişkili e-posta, profil açıklaması ve
-      sahip olunan koleksiyonlar dahil hesap bilgileriniz yeni EOL'ye aktarıldı. Kullanıcı
-      adınız hala sitedeki görünen adınızdır, ancak şimdi e-posta adresinizle giriş
-      yapmalısınız. Güvenlik nedeniyle şifrenizi taşıyamadık; rahatsız ettiğimiz için
-      üzgünüz. Şifremi Unuttum işlemini kullanarak sıfırlayabilirsiniz. Yalnızca üçüncü
-      taraf bir sağlayıcı olan Google, Twitter veya Facebook'u kullanarak giriş yaptıysanız,
-      lütfen bize katılın; paylaşılan giriş işlemleriyle ilgili bazı sorunlar üzerinde
-      çalışıyoruz.
-    sign_in: Oturum Aç
-  vernacular_names_header: Genel Adlar
-  vernacular_preferred_by_resource: '%{resource} (bu adı tercih eder)'
-  wordcloud_credit_html: <a href='%{url}'>jQCloud</a> ile oluşturuldu
 ...

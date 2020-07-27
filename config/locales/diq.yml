@@ -663,6 +663,13 @@ diq:
       words_connector: ','
       two_words_connector: û
       last_word_connector: ', û'
+  trust:
+    trusted: itımadıno
+  user:
+    headers:
+      links: Gıreyi
+    username: nameyê karberi
+    update: Rocane ke
   term:
     name:
       by_uri:
@@ -714,11 +721,4 @@ diq:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: sahil
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: Awa şirın
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: çere
-  trust:
-    trusted: itımadıno
-  user:
-    headers:
-      links: Gıreyi
-    username: nameyê karberi
-    update: Rocane ke
 ...
