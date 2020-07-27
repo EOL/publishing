@@ -29,3 +29,5 @@ Thanks.
 7/21/2020 (jrice): Re-check app/models/trait_bank/slurp.rb:86 and make sure it
   includes sample_size citation source remarks method
 7/21/20 (mvitale): Forgot to add this earlier -- run TermNameTranslationManager.rebuild\_node\_properties and ObjForPredRelManager.rebuild after latest code is pulled but before restarting webserver. These will make graph changes expected by the trait search typeaheads.
+
+=== Deployed 2020-07-27
