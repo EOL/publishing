@@ -430,20 +430,6 @@ pt-PT:
       words_connector: ','
       two_words_connector: ' e'
       last_word_connector: ' e'
-  term:
-    name:
-      by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigénio
-        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
-        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
-        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: tamanho do corpo
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentação
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasita de
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: cor da flor
-        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolerância ao sal
   terms:
     comment_field_html: <strong>Comentário:</strong> %{comment}
     definition_field_html: <strong>Definição:</strong> %{definition}
@@ -471,4 +457,32 @@ pt-PT:
     update_email: Atualizar e-mail
   users:
     sign_in: Iniciar Sessão
+  term:
+    actions:
+      sort: ordenar por
+    edit:
+      header: Edição %{uri}
+    fields:
+      name: 'nome:'
+      attribution: 'atribuição:'
+      comment: 'comentário:'
+      is_hidden_from_glossary: 'ocultar do glossário:'
+    glossary:
+      full_title: Glossário de 'TODOS os Termos' para os 'Dados' na EOL
+      object_term_title: Glossário dos 'Termos de Valores' para os 'Dados' na EOL
+    pagination:
+      next: página seguinte
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: oxigénio
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: reprodução
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: cuidado parental
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abundância
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: tamanho do corpo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: ornamentação
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: parasita de
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: come
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: cor da flor
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: tolerância ao sal
 ...

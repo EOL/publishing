@@ -547,64 +547,6 @@ sv:
       words_connector: ','
       two_words_connector: och
       last_word_connector: ', och'
-  term:
-    name:
-      by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: syre
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
-        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexuell reproduktion
-        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Skallängd
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: trädensitet
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelettinnehåll
-        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: kroppstorlek
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: svart
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grön
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: stor
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: liten
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: långsam
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: tjockhet
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hjärtformad
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brun
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volym
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: blandad
-        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rötter
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinerar
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: äter
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: äts av
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: har patogen
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lövfärg
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: lövform
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: blomfärg
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: frukttyp
-        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kroppsmassa
-        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
-        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kroppsbredd
-        http://eol(dot)org/schema/terms/paleo_megaannum: miljoner år sedan
-        http://eol(dot)org/schema/terms/individualspersquarekilometer: individer per
-          kvadratkilometer
-        http://eol(dot)org/schema/terms/millimeterspermonth: millimeter per månad
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: månader
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: år
-        http://semanticscience(dot)org/resource/SIO_001114: max
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
-        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: grader
-        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /år
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tum
-        http://purl(dot)org/obo/owl/UO#UO_0000034: veckor
-        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/år
-        Unit: Enhet
-        http://eol(dot)org/schema/terms/gramsPerMonth: g/månad
-        http://eol(dot)org/schema/terms/millimetersPerYear: mm/år
-        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: fot
-        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tum
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde
@@ -671,4 +613,78 @@ sv:
     sign_in: Logga in
   vernacular_names_header: Vanliga namn
   vernacular_preferred_by_resource: '%{resource} (föredrar detta namn)'
+  term:
+    actions:
+      reindex: omindexera
+      sort: sortera efter
+    edit:
+      header: Redigerar %{uri}
+      submit: Spara
+    fields:
+      name: 'namn:'
+      definition: 'definition:'
+      comment: 'kommentar:'
+      sections: 'avsnitt:'
+      is_hidden_from_glossary: 'dölj i ordlistan:'
+      is_hidden_from_overview: 'dölj i översiktsfliken:'
+    pagination:
+      next: nästa sida
+      previous: föregående sida
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: syre
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: kroppslängd
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: stamdiameter
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: asexuell reproduktion
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cylinder
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: skelettstruktur
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: cellmassa
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: Skallängd
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: trädensitet
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: skelettinnehåll
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: kroppstorlek
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: form
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: svart
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grön
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: stor
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: liten
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: långsam
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: tjockhet
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: hjärtformad
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: brun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: område
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volym
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: blandad
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: rötter
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: pollinerar
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: äter
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: äts av
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: har patogen
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lövfärg
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: lövform
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: blomfärg
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: frukttyp
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: kroppsmassa
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: svanslängd
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: kroppsbredd
+        http://eol(dot)org/schema/terms/paleo_megaannum: miljoner år sedan
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: individer per
+          kvadratkilometer
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimeter per månad
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: månader
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: år
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: procent
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: grader
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /år
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tum
+        http://purl(dot)org/obo/owl/UO#UO_0000034: veckor
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/år
+        Unit: Enhet
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/månad
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/år
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: fot
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: tum
 ...

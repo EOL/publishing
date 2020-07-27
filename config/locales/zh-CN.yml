@@ -418,7 +418,63 @@ zh-CN:
       words_connector: ，
       two_words_connector: 和
       last_word_connector: ，和
+  term_query_filter:
+    validations:
+      invalid_uri: 该标识符无效
+  terms:
+    scientific_name: 学名
+    source: 源
+  traits:
+    data_viz:
+      other: 其他
+    properties:
+      citation: 书目引用
+      method: 测量方法
+      remarks: 附注
+      scientific_name: 学名
+      source: 来源
+    search:
+      edit_filters: 编辑过滤器
+      new_search: 新搜索
+      select:
+        top_level:
+          object_term: 或者选择一个值
+    search_form:
+      resource: 资源
+      search: 搜索
+      sex: 性别
+      show_additional_fields: 显示额外字段
+      this_may_take_a_minute: 这个应该会使用一分钟
+      trait_filter: 特征筛选
+  trust:
+    unreviewed: 未审查
+    trusted: 受信
+  user:
+    created_at: 已发起
+    email: 邮箱
+    headers:
+      collections: 我的收藏
+      links: 链接
+    is_power_user: 本用户被标记为一个有权限的用户。
+    new_password: 新密码
+    username: 用户名
+    update: 更新的
+    update_email: 更新邮件信息
+  users:
+    account_migration_notice: 您的帐户信息，包括用户名、相关电子邮件、配置文件描述和拥有的收藏，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但是您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您可以使用忘记密码过程重置它。如果您只使用第三方提供商——谷歌、推特或脸书——登录，请耐心等待；我们正在解决共享登录过程中的一些问题。
+    sign_in: 登录
+  vernacular_names_header: 俗名
   term:
+    actions:
+      sort: 排序项
+    edit:
+      submit: 储存游戏
+    fields:
+      name: '名称:'
+      attribution: 署名：
+      comment: 注解：
+    pagination:
+      next: 下一页
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
@@ -515,50 +571,4 @@ zh-CN:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
-  term_query_filter:
-    validations:
-      invalid_uri: 该标识符无效
-  terms:
-    scientific_name: 学名
-    source: 源
-  traits:
-    data_viz:
-      other: 其他
-    properties:
-      citation: 书目引用
-      method: 测量方法
-      remarks: 附注
-      scientific_name: 学名
-      source: 来源
-    search:
-      edit_filters: 编辑过滤器
-      new_search: 新搜索
-      select:
-        top_level:
-          object_term: 或者选择一个值
-    search_form:
-      resource: 资源
-      search: 搜索
-      sex: 性别
-      show_additional_fields: 显示额外字段
-      this_may_take_a_minute: 这个应该会使用一分钟
-      trait_filter: 特征筛选
-  trust:
-    unreviewed: 未审查
-    trusted: 受信
-  user:
-    created_at: 已发起
-    email: 邮箱
-    headers:
-      collections: 我的收藏
-      links: 链接
-    is_power_user: 本用户被标记为一个有权限的用户。
-    new_password: 新密码
-    username: 用户名
-    update: 更新的
-    update_email: 更新邮件信息
-  users:
-    account_migration_notice: 您的帐户信息，包括用户名、相关电子邮件、配置文件描述和拥有的收藏，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但是您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您可以使用忘记密码过程重置它。如果您只使用第三方提供商——谷歌、推特或脸书——登录，请耐心等待；我们正在解决共享登录过程中的一些问题。
-    sign_in: 登录
-  vernacular_names_header: 俗名
 ...

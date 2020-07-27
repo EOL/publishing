@@ -562,6 +562,9 @@ fr:
     empty: Il n’y a aucune carte disponible pour cette page.
     occurrence_caption: Occurrences connues, spécimens collectés et observations de
       %{page_name}. Voir ces espèces sur GBIF
+    occurrence_caption_w_link_html: Occurrences connues, spécimens collectés et observations
+      de %{page_name}. <a href='%{url}'>Afficher cette espèce sur GBIF <i class='fa
+      fa-external-link'></i></a>
     other_maps_title: Cartes non interactives
   medium:
     untitled:
@@ -1018,7 +1021,216 @@ fr:
       words_connector: ',&#32;'
       two_words_connector: '&#32;et&#32;'
       last_word_connector: '&#32;et&#32;'
+  term_query:
+    validations:
+      empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
+        une valeur pour les recherches d’enregistrement
+      empty_filters_error_taxa: vous devez fournir un clade ou un filtre avec un attribut
+        ou une valeur pour les recherches de taxons
+  term_query_filter:
+    validations:
+      blank_error: doit spécifier un attribut ou une valeur
+      invalid_uri: URI non valide
+      pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
+      range_invalid_error: doit être supérieur ou égal à la première valeur
+  terms:
+    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
+    comment_field_html: <strong>Commentaire :</strong> %{comment}
+    definition_field_html: <strong>Définition :</strong> %{definition}
+    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
+    record_url: URL d’enregistrement
+    scientific_name: nom scientifique
+    show_all_records: afficher tous les enregistrements
+    source: source
+    uri_field_html: <strong>URI :</strong> %{uri}
+    index:
+      select_page_above: Choisir une page ci-dessus pour commencer.
+  data_definition: définition de « %{data} »
+  traits:
+    data_viz:
+      about_this_chart: à propos de ce graphique
+      about_this_chart_tooltip: C’est un résumé basé sur les données disponibles dans
+        EdV. Il peut être incomplet ! Vous pouvez sélectionner une barre du graphique
+        pour restreindre vos résultats de recherche.
+      hist_value_label: valeur (%{units})
+      n_other_records:
+        one: un autre enregistrement
+        other: '%{count} autres enregistrements'
+      n_other_taxa:
+        one: un autre taxon
+        other: '%{count} autres taxons'
+      num_records_label: nombre d’enregistrements
+      other: autre
+      page_habitat_header: Habitats de %{name}
+      page_habitat_explanation: Les environnements dans lesquels beaucoup d’espèces
+        de %{name} sont connues pour y vivre. Sélectionner un environnement pour voir
+        sa liste de contrôle d’espèces de %{name}.
+      pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
+      n_obj_records:
+        one: un enregistrement avec « %{obj_name} »
+        other: '%{count} enregistrements avec « %{obj_name} »'
+      n_taxa_with:
+        one: un taxon avec « %{obj_name} »
+        other: '%{count} taxons avec « %{obj_name} »'
+      see_n_obj_records:
+        one: cliquer pour voir un enregistrement avec « %{obj_name} »
+        other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »
+      see_n_taxa_with:
+        one: cliquer pour voir un taxon avec « %{obj_name} »
+        other: cliquer pour voir %{count} taxons avec « %{obj_name} »
+      show_n_records_between:
+        one: cliquer pour voir %{count} enregistrement avec des valeurs de mesure
+          dans [%{min}, %{limit}] %{units}
+        other: cliquer pour voir %{count} enregistrements avec des valeurs de mesure
+          dans [%{min}, %{limit}] %{units}
+      show_n_taxa_between:
+        one: cliquer pour voir %{count} taxon avec des valeurs de mesure dans [%{min},
+          %{limit}] %{units}}}
+        other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
+          %{limit}] %{units}}}
+    properties:
+      citation: Citation bibliographique
+      method: Méthode de mesure
+      remarks: Remarques
+      sample_size: Taille de l’échantillon
+      scientific_name: Nom scientifique
+      source: Source
+    search:
+      clade: 'clade : %{clade}'
+      download_tsv: télécharger le tsv
+      edit_filters: modifier les filtres
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'étape de vie : %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'valeur : %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'ressource : %{value}'
+        sex: 'sexe : %{value}'
+        statistical_method: 'méthode statistique : %{value}'
+      gbif_search: Recherche de GBIF
+      gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
+        taxons dans vos résultats de recherche (limité à 50)
+      result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
+        enregistrements pour %{page_count} taxons avec
+      result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
+        taxons avec
+      new_search: nouvelle recherche
+      select:
+        child_term: sélectionner une condition fille (facultatif)
+        top_level:
+          object_term: ou sélectionner une valeur
+          predicate: ou sélectionner un attribut
+      show_query: afficher la requête
+      switch_to_list: basculer dans la vue liste
+      switch_to_gallery: basculer dans la vue galerie
+    search_form:
+      attribute: attribut
+      clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
+      hide_additional_fields: masquer les champs supplémentaires
+      lifestage: étape de vie
+      records_matching_all: enregistrements pour les taxons correspondants à TOUS
+        les filtres
+      resource: ressource
+      search: Rechercher
+      sex: sexe
+      show_additional_fields: afficher les champs supplémentaires
+      statistical_method: méthode statistique
+      taxa_matching_all: taxons correspondants à TOUS les filtres
+      this_may_take_a_minute: Cela peut prendre une minute
+      trait_filter: filtrer le trait
+      value: valeur
+  trophic_web:
+    group_descriptions:
+      competitor: concurrent de %{source_name}
+      predator: flux sur %{source_name}
+      prey: mangé par %{source_name}
+      source: espèces visées
+  trust:
+    unreviewed: non vérifié
+    trusted: fiable
+    untrusted: non fiable
+  user:
+    batch_page_lookup: Recherche de pages par lot
+    created_at: créé
+    download_queue: File de téléchargement de données
+    edit_account_details: Modifier les détails du compte
+    email: Courriel
+    to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre
+      mot de passe actuel
+    form_labels:
+      age_confirm: J’ai au moins 13 ans.
+      tou_confirm_html: J’ai lu les <a href='%{tou_path}'>conditions d’utilisation</a>
+        et la <a href='%{privacy_path}'>politique de confidentialité</a>
+    headers:
+      bio: Brève biographie
+      collections: Collections
+      downloads: Téléchargements
+      links: Liens
+    is_power_user: Cet utilisateur est marqué comme super-utilisateur.
+    validations:
+      age_confirm: vous devez confirmer que vous avez au moins 13 ans
+      tou_confirm: vous devez confirmer avoir lu les conditions d’utilisation et la
+        politique de confidentialité
+    list_of_power_users: Liste des utilisateurs privilégiés
+    new_password: Nouveau mot de passe
+    confirm_new_password: Confirmer le nouveau mot de passe
+    showing_n_power_users:
+      one: ' Affichage ddu seul utilisateur privilégié'
+      other: ' Affichage ddes %{count} utilisateurs privilégiés'
+    trait_bank_cypher_form: formulaire de chiffrement de la banque de traits
+    username: nom d’utilisateur
+    update: Actualiser
+    update_email: Mettre à jour l’adresse courriel
+  user_download:
+    created: Votre fichier sera traité en arrière-plan. Vérifiez votre <a href="%{url}">page
+      utilisateur</a> pour voir quand cela sera achevé.
+    have_pending: Vous avez déjà un téléchargement en cours pour cette requête. Vérifiez
+      votre <a href="%{url}">page utilisateur</a> pour voir si elle est terminée.
+  users:
+    account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
+      2018 :'
+    account_migration_notice: Les informations de votre compte, qui comprennent le
+      nom d’utilisateur, l’adresse de courriel associée, la description du profil
+      et les collections détenues, ont été importées sur la nouvelle EdlV. Votre nom
+      d’utilisateur est encore votre nom affiché sur le site, mais vous devez maintenant
+      vous connecter avec votre adresse de courriel. Nous n’avons pas pu migrer votre
+      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
+      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
+      Si vous vous êtes connecté en utilisant seulement un fournisseur d’identité
+      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
+      nous travaillons pour régler encore quelques problèmes avec les procédures de
+      connexion partagée.
+    sign_in: Se connecter
+  vernacular_names_header: Noms communs
+  vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
+  wordcloud_credit_html: généré avec <a href="%{url}">jQCloud</a>
   term:
+    actions:
+      reindex: réindexer
+      sort: trier par
+    edit:
+      header: Modification de %{uri}
+      submit: Enregistrer
+    fields:
+      name: 'nom :'
+      definition: 'définition :'
+      attribution: 'attribution :'
+      comment: 'commentaire :'
+      sections: 'sections :'
+      is_hidden_from_glossary: 'masquer dans le glossaire :'
+      is_hidden_from_overview: 'Masquer dans l’onglet de vue générale :'
+    glossary:
+      full_title: Glossaire de tous les termes relatifs aux données sur l’EdlV
+      predicate_title: Glossaire des termes des types de données sur l’EdlV
+      object_term_title: Glossaire des termes des valeurs de données sur l’EdlV
+      units_title: Glossaire de termes d’unités pour les données de l’EdlV
+    pagination:
+      next: page suivante
+      previous: page précédente
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: couvaison
@@ -1284,191 +1496,4 @@ fr:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonnes
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pieds
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pouces
-  term_query:
-    validations:
-      empty_filters_error_record: vous devez fournir un filtre avec un attribut ou
-        une valeur pour les recherches d’enregistrement
-      empty_filters_error_taxa: vous devez fournir un clade ou un filtre avec un attribut
-        ou une valeur pour les recherches de taxons
-  term_query_filter:
-    validations:
-      blank_error: doit spécifier un attribut ou une valeur
-      invalid_uri: URI non valide
-      pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
-      range_invalid_error: doit être supérieur ou égal à la première valeur
-  terms:
-    attribution_field_html: <strong>Attribution :</strong> <a href="%{attribution}">%{attribution}</a>
-    comment_field_html: <strong>Commentaire :</strong> %{comment}
-    definition_field_html: <strong>Définition :</strong> %{definition}
-    source_field_html: <strong>Source :</strong> <a href="%{source}">%{source}</a>
-    record_url: URL d’enregistrement
-    scientific_name: nom scientifique
-    show_all_records: afficher tous les enregistrements
-    source: source
-    uri_field_html: <strong>URI :</strong> %{uri}
-    index:
-      select_page_above: Choisir une page ci-dessus pour commencer.
-  data_definition: définition de « %{data} »
-  traits:
-    data_viz:
-      about_this_chart: à propos de ce graphique
-      about_this_chart_tooltip: C’est un résumé basé sur les données disponibles dans
-        EdV. Il peut être incomplet ! Vous pouvez sélectionner une barre du graphique
-        pour restreindre vos résultats de recherche.
-      hist_value_label: valeur (%{units})
-      n_other_records:
-        one: un autre enregistrement
-        other: '%{count} autres enregistrements'
-      n_other_taxa:
-        one: un autre taxon
-        other: '%{count} autres taxons'
-      num_records_label: nombre d’enregistrements
-      other: autre
-      page_habitat_header: Habitats de %{name}
-      page_habitat_explanation: Les environnements dans lesquels beaucoup d’espèces
-        de %{name} sont connues pour y vivre. Sélectionner un environnement pour voir
-        sa liste de contrôle d’espèces de %{name}.
-      pie_prompt: passer la souris sur un segment ou une clé pour le mettre en surbrillance
-      n_obj_records:
-        one: un enregistrement avec « %{obj_name} »
-        other: '%{count} enregistrements avec « %{obj_name} »'
-      n_taxa_with:
-        one: un taxon avec « %{obj_name} »
-        other: '%{count} taxons avec « %{obj_name} »'
-      see_n_obj_records:
-        one: cliquer pour voir un enregistrement avec « %{obj_name} »
-        other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »
-      see_n_taxa_with:
-        one: cliquer pour voir un taxon avec « %{obj_name} »
-        other: cliquer pour voir %{count} taxons avec « %{obj_name} »
-      show_n_records_between:
-        one: cliquer pour voir %{count} enregistrement avec des valeurs de mesure
-          dans [%{min}, %{limit}] %{units}
-        other: cliquer pour voir %{count} enregistrements avec des valeurs de mesure
-          dans [%{min}, %{limit}] %{units}
-      show_n_taxa_between:
-        one: cliquer pour voir %{count} taxon avec des valeurs de mesure dans [%{min},
-          %{limit}] %{units}}}
-        other: cliquer pour voir %{count} taxons avec des valeurs de mesure dans [%{min},
-          %{limit}] %{units}}}
-    properties:
-      citation: Citation bibliographique
-      method: Méthode de mesure
-      remarks: Remarques
-      sample_size: Taille de l’échantillon
-      scientific_name: Nom scientifique
-      source: Source
-    search:
-      clade: 'clade : %{clade}'
-      download_tsv: télécharger le tsv
-      edit_filters: modifier les filtres
-      filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: 'étape de vie : %{value}'
-        lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'valeur : %{obj}'
-        pred_obj: '%{pred}: %{obj}'
-        pred_only: '%{pred}'
-        range: '%{pred} dans [%{num_val1}, %{num_val2}] %{units}'
-        resource: 'ressource : %{value}'
-        sex: 'sexe : %{value}'
-        statistical_method: 'méthode statistique : %{value}'
-      gbif_search: Recherche de GBIF
-      gbif_search_hover: trouver les enregistrements d’occurrence en GBIF pour les
-        taxons dans vos résultats de recherche (limité à 50)
-      result_header_records: Affichage de %{range_begin} - %{range_end} sur %{total}
-        enregistrements pour %{page_count} taxons avec
-      result_header_taxa: Affichage de %{range_begin} - %{range_end} sur %{total}
-        taxons avec
-      new_search: nouvelle recherche
-      select:
-        child_term: sélectionner une condition fille (facultatif)
-        top_level:
-          object_term: ou sélectionner une valeur
-          predicate: ou sélectionner un attribut
-      show_query: afficher la requête
-      switch_to_list: basculer dans la vue liste
-      switch_to_gallery: basculer dans la vue galerie
-    search_form:
-      attribute: attribut
-      clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
-      hide_additional_fields: masquer les champs supplémentaires
-      lifestage: étape de vie
-      records_matching_all: enregistrements pour les taxons correspondants à TOUS
-        les filtres
-      resource: ressource
-      search: Rechercher
-      sex: sexe
-      show_additional_fields: afficher les champs supplémentaires
-      statistical_method: méthode statistique
-      taxa_matching_all: taxons correspondants à TOUS les filtres
-      this_may_take_a_minute: Cela peut prendre une minute
-      trait_filter: filtrer le trait
-      value: valeur
-  trophic_web:
-    group_descriptions:
-      competitor: concurrent de %{source_name}
-      predator: flux sur %{source_name}
-      prey: mangé par %{source_name}
-      source: espèces visées
-  trust:
-    unreviewed: non vérifié
-    trusted: fiable
-    untrusted: non fiable
-  user:
-    batch_page_lookup: Recherche de pages par lot
-    created_at: créé
-    download_queue: File de téléchargement de données
-    edit_account_details: Modifier les détails du compte
-    email: Courriel
-    to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre
-      mot de passe actuel
-    form_labels:
-      age_confirm: J’ai au moins 13 ans.
-      tou_confirm_html: J’ai lu les <a href='%{tou_path}'>conditions d’utilisation</a>
-        et la <a href='%{privacy_path}'>politique de confidentialité</a>
-    headers:
-      bio: Brève biographie
-      collections: Collections
-      downloads: Téléchargements
-      links: Liens
-    is_power_user: Cet utilisateur est marqué comme super-utilisateur.
-    validations:
-      age_confirm: vous devez confirmer que vous avez au moins 13 ans
-      tou_confirm: vous devez confirmer avoir lu les conditions d’utilisation et la
-        politique de confidentialité
-    list_of_power_users: Liste des utilisateurs privilégiés
-    new_password: Nouveau mot de passe
-    confirm_new_password: Confirmer le nouveau mot de passe
-    showing_n_power_users:
-      one: ' Affichage ddu seul utilisateur privilégié'
-      other: ' Affichage ddes %{count} utilisateurs privilégiés'
-    trait_bank_cypher_form: formulaire de chiffrement de la banque de traits
-    username: nom d’utilisateur
-    update: Actualiser
-    update_email: Mettre à jour l’adresse courriel
-  user_download:
-    created: Votre fichier sera traité en arrière-plan. Vérifiez votre <a href="%{url}">page
-      utilisateur</a> pour voir quand cela sera achevé.
-    have_pending: Vous avez déjà un téléchargement en cours pour cette requête. Vérifiez
-      votre <a href="%{url}">page utilisateur</a> pour voir si elle est terminée.
-  users:
-    account_migration_header: 'Si vous vous êtes inscrit sur l’EdlV avant le 15 nov.
-      2018 :'
-    account_migration_notice: Les informations de votre compte, qui comprennent le
-      nom d’utilisateur, l’adresse de courriel associée, la description du profil
-      et les collections détenues, ont été importées sur la nouvelle EdlV. Votre nom
-      d’utilisateur est encore votre nom affiché sur le site, mais vous devez maintenant
-      vous connecter avec votre adresse de courriel. Nous n’avons pas pu migrer votre
-      mot de passe pour des raisons de sécurité ; nous somme navré de ce désagrément.
-      Vous pourrez le réinitialiser en suivant la procédure « Mot de passe oublié ».
-      Si vous vous êtes connecté en utilisant seulement un fournisseur d’identité
-      tiers — tel que Google, Twitter ou Facebook — veuillez continuer à nous soutenir ;
-      nous travaillons pour régler encore quelques problèmes avec les procédures de
-      connexion partagée.
-    sign_in: Se connecter
-  vernacular_names_header: Noms communs
-  vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
-  wordcloud_credit_html: généré avec <a href="%{url}">jQCloud</a>
 ...

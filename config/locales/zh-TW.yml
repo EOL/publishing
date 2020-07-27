@@ -536,7 +536,9 @@ zh-TW:
   literature_and_references_header: 文獻與參考資料
   maps:
     empty: 沒有可用於此頁面的地圖。
-    occurrence_caption: '%{page_name}的已知事物、標本收集與觀察'
+    occurrence_caption: '%{page_name}的已知事物、標本收集與觀察。在 GBIF 上查看此物種'
+    occurrence_caption_w_link_html: '%{page_name}的已知事物、標本收集與觀察。<a href=''%{url}''>在
+      GBIF 上查看此物種<i class=''fa fa-external-link''></i></a>'
     other_maps_title: 非互動式地圖
   medium:
     untitled:
@@ -965,7 +967,188 @@ zh-TW:
       words_connector: ','
       two_words_connector: 和
       last_word_connector: ',和'
+  term_query:
+    validations:
+      empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
+      empty_filters_error_taxa: 您必須提供一個帶有屬性或值、用於分類搜尋的演化支或篩選
+  term_query_filter:
+    validations:
+      blank_error: 必須指定一個屬性或值
+      invalid_uri: 無效 URI
+      pred_uri_blank_numeric_error: 不能為空白的數值
+      range_invalid_error: 必須 >= 第一個值
+  terms:
+    attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>註釋：</strong>%{comment}
+    definition_field_html: <strong>定義：</strong> %{definition}
+    source_field_html: <strong>來源：</strong><a href='%{source}'>%{source}</a>
+    record_url: 紀錄 URL
+    scientific_name: 學名
+    show_all_records: 顯示所有紀錄
+    source: 來源
+    uri_field_html: <strong>URI：</strong>%{uri}
+    index:
+      select_page_above: 選擇上方的一個頁面來開始。
+  data_definition: 「%{data}」的定義
+  traits:
+    data_viz:
+      about_this_chart: 關於此圖表
+      about_this_chart_tooltip: 此摘要基於在網路生命大百科上可用資料，可能有不完整地方！您可以從圖表選擇條形圖來縮小您的搜尋結果。
+      hist_value_label: 值（%{units}）
+      n_other_records:
+        one: 1 個其它紀錄
+        other: '%{count} 個其它紀錄'
+      n_other_taxa:
+        one: 1 個其它分類
+        other: '%{count} 個其它分類'
+      num_records_label: '# 紀錄'
+      other: 其它
+      page_habitat_header: '%{name}棲息地'
+      page_habitat_explanation: 已知有許多%{name}物種存活的環境。請選擇環境來查看%{name}物種清單。
+      pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
+      n_obj_records:
+        one: 帶有「%{obj_name}」的 1 個紀錄
+        other: 帶有「%{obj_name}」的 %{count} 個紀錄
+      n_taxa_with:
+        one: 帶有「%{obj_name}」的 1 個分類
+        other: 帶有「%{obj_name}」的 %{count} 個分類
+      see_n_obj_records:
+        one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
+        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
+      see_n_taxa_with:
+        one: 點擊來查看帶有「%{obj_name}」的 1 個分類
+        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個分類
+      show_n_records_between:
+        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
+        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
+      show_n_taxa_between:
+        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
+        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
+    properties:
+      citation: 書目引用
+      method: 測量方法
+      remarks: 附註
+      sample_size: 樣本大小
+      scientific_name: 學名
+      source: 來源
+    search:
+      clade: 演化支：%{clade}
+      download_tsv: 下載 TSV
+      edit_filters: 編輯篩選條件
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 生命階段：%{value}
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 值：%{obj}
+        pred_obj: '%{pred}：%{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred}在[%{num_val1}, %{num_val2}] %{units}'
+        resource: 資源：%{value}
+        sex: 性別：%{value}
+        statistical_method: 統計方法：%{value}
+      gbif_search: GBIF 搜尋
+      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 50 筆）
+      result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
+        - %{range_end} 個帶有
+      result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
+      new_search: 新搜尋
+      select:
+        child_term: 選擇一個子項（可選）
+        top_level:
+          object_term: 或選擇一個值
+          predicate: 或選擇一個屬性
+      show_query: 顯示查詢
+      switch_to_list: 切換成列表檢視
+      switch_to_gallery: 切換成圖庫檢視
+    search_form:
+      attribute: 屬性
+      clade_filter_placeholder: 群組（例如：熊）（選用）
+      hide_additional_fields: 隱藏額外欄位
+      lifestage: 生命階段
+      records_matching_all: 符合所有篩選的分類紀錄
+      resource: 資源
+      search: 搜尋
+      sex: 性別
+      show_additional_fields: 顯示額外欄位
+      statistical_method: 統計方法
+      taxa_matching_all: 符合所有篩選的分類
+      this_may_take_a_minute: 這可能會花費一分鐘
+      trait_filter: 特徵篩選
+      value: 值
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name}的競爭者'
+      predator: 掠食%{source_name}
+      prey: 被%{source_name}覓食
+      source: 焦點物種
+  trust:
+    unreviewed: 未檢閱
+    trusted: 可信
+    untrusted: 不可信
+  user:
+    batch_page_lookup: 批量頁面查看
+    created_at: 已建立
+    download_queue: 資料下載佇列
+    edit_account_details: 編輯帳號詳細內容
+    email: 電子郵件
+    to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼
+    form_labels:
+      age_confirm: 我的年齡至少有 13 歲
+      tou_confirm_html: 我已讀過<a href='%{tou_path}'>使用條款</a>與<a href='%{privacy_path}'>隱私權方針</a>
+    headers:
+      bio: 簡介
+      collections: 收藏
+      downloads: 下載
+      links: 連結
+    is_power_user: 此使用者被標記為高級使用者。
+    validations:
+      age_confirm: 您必須確認您至少有 13 歲大
+      tou_confirm: 您必須確認您已讀過使用條款與隱私權方針
+    list_of_power_users: 高級使用者清單
+    new_password: 新密碼
+    confirm_new_password: 確認新密碼
+    showing_n_power_users:
+      one: 列出 1 個高級使用者
+      other: 列出 %{count} 個高級使用者
+    trait_bank_cypher_form: 特質資料庫密碼來自
+    username: 使用者名稱
+    update: 更新
+    update_email: 更新電子郵件
+  user_download:
+    created: 您的檔案會在背景裡處理。請查看您的<a href="%{url}">使用者頁面</a>來確認是否已完成。
+    have_pending: 您已有此查詢的待處理下載。請檢查您的<a href="%{url}">使用者頁面</a>來查看是否已經完成。
+  users:
+    account_migration_header: 若您是在 2018 年 11 月 15 日之前註冊網路生命大百科：
+    account_migration_notice: 您的帳號資訊裡包含使用者名稱、相關電子郵件、個人檔案描述、以及所擁有的收藏，已導入到新版本的網路生命大百科裡。在網站上所顯示名稱的仍會是您的使用者名稱，但您必須要以您的電子郵件位址來登入。另外出於資安因素，我們無法遷移您的密碼，對此困擾我們感到抱歉。您可以使用忘記密碼的處理程序，來做重新設定。如果您是僅透過第三方提供者來做登入，像是
+      — Google、Twitter 或是 FaceBook，請容許我們花上一段時間處理，我們正在排除在共享登入流程裡所出現的一些問題。
+    sign_in: 登入
+  vernacular_names_header: 俗名
+  vernacular_preferred_by_resource: '%{resource}（優先此名稱）'
+  wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
   term:
+    actions:
+      reindex: 重建索引
+      sort: 排序依照
+    edit:
+      header: 編輯%{uri}
+      submit: 儲存
+    fields:
+      name: 名稱：
+      definition: 定義：
+      attribution: 姓名標示：
+      comment: 註釋：
+      sections: 段落：
+      is_hidden_from_glossary: 從詞彙表裡隱藏：
+      is_hidden_from_overview: 從概要分頁隱藏：
+    glossary:
+      full_title: 在網路生命大百科上用於資料的所有項目詞彙表
+      predicate_title: 在網路生命大百科上用於資料的類型項目詞彙表
+      object_term_title: 在網路生命大百科上用於資料的值項目詞彙表
+      units_title: 在網路生命大百科上用於資料的單位項目詞彙表
+    pagination:
+      next: 下一頁
+      previous: 上一頁
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
@@ -1225,163 +1408,4 @@ zh-TW:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 噸
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英呎
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
-  term_query:
-    validations:
-      empty_filters_error_record: 您必須提供一個帶有屬性或值、用於紀錄搜尋的篩選
-      empty_filters_error_taxa: 您必須提供一個帶有屬性或值、用於分類搜尋的演化支或篩選
-  term_query_filter:
-    validations:
-      blank_error: 必須指定一個屬性或值
-      invalid_uri: 無效 URI
-      pred_uri_blank_numeric_error: 不能為空白的數值
-      range_invalid_error: 必須 >= 第一個值
-  terms:
-    attribution_field_html: <strong>姓名標示：</strong><a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>註釋：</strong>%{comment}
-    definition_field_html: <strong>定義：</strong> %{definition}
-    source_field_html: <strong>來源：</strong><a href='%{source}'>%{source}</a>
-    record_url: 紀錄 URL
-    scientific_name: 學名
-    show_all_records: 顯示所有紀錄
-    source: 來源
-    uri_field_html: <strong>URI：</strong>%{uri}
-    index:
-      select_page_above: 選擇上方的一個頁面來開始。
-  data_definition: 「%{data}」的定義
-  traits:
-    data_viz:
-      about_this_chart: 關於此圖表
-      about_this_chart_tooltip: 此摘要基於在網路生命大百科上可用資料，可能有不完整地方！您可以從圖表選擇條形圖來縮小您的搜尋結果。
-      hist_value_label: 值（%{units}）
-      n_other_records:
-        one: 1 個其它紀錄
-        other: '%{count} 個其它紀錄'
-      n_other_taxa:
-        one: 1 個其它分類
-        other: '%{count} 個其它分類'
-      num_records_label: '# 紀錄'
-      other: 其它
-      page_habitat_header: '%{name}棲息地'
-      page_habitat_explanation: 已知有許多%{name}物種存活的環境。請選擇環境來查看%{name}物種清單。
-      pie_prompt: 滑鼠覆蓋在段落上或關鍵內容來突顯出
-      n_obj_records:
-        one: 帶有「%{obj_name}」的 1 個紀錄
-        other: 帶有「%{obj_name}」的 %{count} 個紀錄
-      n_taxa_with:
-        one: 帶有「%{obj_name}」的 1 個分類
-        other: 帶有「%{obj_name}」的 %{count} 個分類
-      see_n_obj_records:
-        one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
-        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
-      see_n_taxa_with:
-        one: 點擊來查看帶有「%{obj_name}」的 1 個分類
-        other: 點擊來查看帶有「%{obj_name}」的 %{count} 個分類
-      show_n_records_between:
-        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
-        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個紀錄
-      show_n_taxa_between:
-        one: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
-        other: 點擊來查看測量值在[%{min}，%{limit}]%{units}的 %{count} 個分類
-    properties:
-      citation: 書目引用
-      method: 測量方法
-      remarks: 附註
-      sample_size: 樣本大小
-      scientific_name: 學名
-      source: 來源
-    search:
-      clade: 演化支：%{clade}
-      download_tsv: 下載 TSV
-      edit_filters: 編輯篩選條件
-      filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: 生命階段：%{value}
-        lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 值：%{obj}
-        pred_obj: '%{pred}：%{obj}'
-        pred_only: '%{pred}'
-        range: '%{pred}在[%{num_val1}, %{num_val2}] %{units}'
-        resource: 資源：%{value}
-        sex: 性別：%{value}
-        statistical_method: 統計方法：%{value}
-      gbif_search: GBIF 搜尋
-      gbif_search_hover: 在您的搜尋結果中，查找用於分類的 GBIF 裡所出現紀錄（限制 50 筆）
-      result_header_records: 顯示來自 %{page_count} 個分類中 %{total} 個紀錄裡 %{range_begin}
-        - %{range_end} 個帶有
-      result_header_taxa: 顯示 %{total} 個分類裡 %{range_begin} - %{range_end} 個帶有
-      new_search: 新搜尋
-      select:
-        child_term: 選擇一個子項（可選）
-        top_level:
-          object_term: 或選擇一個值
-          predicate: 或選擇一個屬性
-      show_query: 顯示查詢
-      switch_to_list: 切換成列表檢視
-      switch_to_gallery: 切換成圖庫檢視
-    search_form:
-      attribute: 屬性
-      clade_filter_placeholder: 群組（例如：熊）（選用）
-      hide_additional_fields: 隱藏額外欄位
-      lifestage: 生命階段
-      records_matching_all: 符合所有篩選的分類紀錄
-      resource: 資源
-      search: 搜尋
-      sex: 性別
-      show_additional_fields: 顯示額外欄位
-      statistical_method: 統計方法
-      taxa_matching_all: 符合所有篩選的分類
-      this_may_take_a_minute: 這可能會花費一分鐘
-      trait_filter: 特徵篩選
-      value: 值
-  trophic_web:
-    group_descriptions:
-      competitor: '%{source_name}的競爭者'
-      predator: 掠食%{source_name}
-      prey: 被%{source_name}覓食
-      source: 焦點物種
-  trust:
-    unreviewed: 未檢閱
-    trusted: 可信
-    untrusted: 不可信
-  user:
-    batch_page_lookup: 批量頁面查看
-    created_at: 已建立
-    download_queue: 資料下載佇列
-    edit_account_details: 編輯帳號詳細內容
-    email: 電子郵件
-    to_commit_enter_current: 要提交您的更改，請輸入您目前的密碼
-    form_labels:
-      age_confirm: 我的年齡至少有 13 歲
-      tou_confirm_html: 我已讀過<a href='%{tou_path}'>使用條款</a>與<a href='%{privacy_path}'>隱私權方針</a>
-    headers:
-      bio: 簡介
-      collections: 收藏
-      downloads: 下載
-      links: 連結
-    is_power_user: 此使用者被標記為高級使用者。
-    validations:
-      age_confirm: 您必須確認您至少有 13 歲大
-      tou_confirm: 您必須確認您已讀過使用條款與隱私權方針
-    list_of_power_users: 高級使用者清單
-    new_password: 新密碼
-    confirm_new_password: 確認新密碼
-    showing_n_power_users:
-      one: 列出 1 個高級使用者
-      other: 列出 %{count} 個高級使用者
-    trait_bank_cypher_form: 特質資料庫密碼來自
-    username: 使用者名稱
-    update: 更新
-    update_email: 更新電子郵件
-  user_download:
-    created: 您的檔案會在背景裡處理。請查看您的<a href="%{url}">使用者頁面</a>來確認是否已完成。
-    have_pending: 您已有此查詢的待處理下載。請檢查您的<a href="%{url}">使用者頁面</a>來查看是否已經完成。
-  users:
-    account_migration_header: 若您是在 2018 年 11 月 15 日之前註冊網路生命大百科：
-    account_migration_notice: 您的帳號資訊裡包含使用者名稱、相關電子郵件、個人檔案描述、以及所擁有的收藏，已導入到新版本的網路生命大百科裡。在網站上所顯示名稱的仍會是您的使用者名稱，但您必須要以您的電子郵件位址來登入。另外出於資安因素，我們無法遷移您的密碼，對此困擾我們感到抱歉。您可以使用忘記密碼的處理程序，來做重新設定。如果您是僅透過第三方提供者來做登入，像是
-      — Google、Twitter 或是 FaceBook，請容許我們花上一段時間處理，我們正在排除在共享登入流程裡所出現的一些問題。
-    sign_in: 登入
-  vernacular_names_header: 俗名
-  vernacular_preferred_by_resource: '%{resource}（優先此名稱）'
-  wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
 ...

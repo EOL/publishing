@@ -96,7 +96,13 @@ qqq:
               two_words_connector: " and "
               last_word_connector: ", and "
         </pre>
+  traits:
+    search_form:
+      search: '{{Identical|Search}}'
+      value: '{{Identical|Value}}'
   term:
+    edit:
+      submit: '{{Identical|Save}}'
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: Incubation of eggs by
@@ -581,8 +587,4 @@ qqq:
           standards for the exact length of an inch have varied in the past, but now
           the imperial or US customary inch is defined to be exactly 25.4 mm. There
           are 12 inches in a foot and therefore 36 inches in a yard.'
-  traits:
-    search_form:
-      search: '{{Identical|Search}}'
-      value: '{{Identical|Value}}'
 ...

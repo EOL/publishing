@@ -753,7 +753,136 @@ pt-BR:
       words_connector: ','
       two_words_connector: e
       last_word_connector: ',e'
+  term_query_filter:
+    validations:
+      blank_error: deve especificar um atributo ou valor
+      invalid_uri: URI inválida
+  terms:
+    attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Comentário:</strong> %{comment}
+    definition_field_html: <strong>Definição:</strong> %{definition}
+    source_field_html: <strong>Fonte:</strong> <a href='%{source}'>%{source}</a>
+    record_url: URL de registro
+    scientific_name: Nome científico
+    show_all_records: mostrar todos os registros
+    source: fonte
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Selecione uma página acima para começar.
+  data_definition: definição de «%{data}»
+  traits:
+    data_viz:
+      about_this_chart: sobre este gráfico
+      hist_value_label: valor (%{units})
+      num_records_label: '# de registros'
+      other: outros
+      page_habitat_header: '%{name}Habitats'
+      pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
+      n_obj_records:
+        other: um=um registro com "%{obj_name}"
+      n_taxa_with:
+        other: uma=uma taxonomia com "%{obj_name}"
+    properties:
+      citation: Citação bibliográfica
+      method: Modo da medição
+      remarks: Observações
+      sample_size: Tamanho da amostra
+      scientific_name: Nome científico
+      source: Fonte
+    search:
+      edit_filters: editar filtros
+      filter_display:
+        obj_only: 'valor: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        resource: 'recurso: %{value}'
+        statistical_method: 'método estatístico: %{value}'
+      gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
+        seus resultados de pesquisa (limite 50)
+      new_search: nova pesquisa
+      show_query: mostrar consulta
+      switch_to_list: Mude para a lista de visualização
+      switch_to_gallery: Mude para a galeria de visualizações
+    search_form:
+      attribute: atributo
+      resource: recurso
+      value: valor
+  trophic_web:
+    group_descriptions:
+      competitor: concorrente de %{source_name}
+      predator: feeds em %{source_name}
+      prey: comido por %{source_name}
+      source: espécies focais
+  trust:
+    unreviewed: não revisto
+    trusted: confiável
+    untrusted: não confiável
+  user:
+    created_at: criada
+    download_queue: Fila de download de dados
+    edit_account_details: Editar detalhes da conta
+    email: E-mail
+    to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual
+    form_labels:
+      age_confirm: Tenho pelo menos 13 anos
+      tou_confirm_html: Eu li o <a href='%{tou_path}'>Termos de uso</a> e a <a href='%{privacy_path}'>Política
+        de Privacidade</a>
+    headers:
+      bio: Breve biografia
+      collections: Coleções
+      downloads: Downloads
+      links: Links
+    is_power_user: Este usuário é sinalizado como um usuário avançado.
+    validations:
+      age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
+      tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade
+    new_password: Nova senha
+    confirm_new_password: Confirmar nova senha
+    trait_bank_cypher_form: Forma de cifra do banco de características
+    username: Nome de usuário
+    update: Atualizar
+    update_email: Atualizar e-mail
+  user_download:
+    created: Seu arquivo será processado em segundo plano. Verifique sua <a href="%{url}">página
+      de usuário</a> para ver se foi concluído.
+  users:
+    account_migration_header: 'Se você se registrou na EOL antes de 15 de novembro
+      de 2018:'
+    account_migration_notice: As informações da sua conta, incluindo nome de usuário,
+      email associado, descrição do perfil e coleções pertencentes, foram importadas
+      para o novo EOL. Seu nome de usuário ainda é o seu nome de exibição no site,
+      mas agora você deve fazer login com seu endereço de e-mail. Não foi possível
+      migrar sua senha por motivos de segurança; desculpe pelo incômodo. Você poderá
+      redefini-lo usando o processo Esqueceu a senha. Se você fez login apenas usando
+      um fornecedor terceirizado - Google, Twitter ou FaceBook -, entre em contato
+      conosco; estamos resolvendo alguns problemas com os processos de login compartilhados.
+    sign_in: Entrar
+  vernacular_names_header: Nomes comuns
+  vernacular_preferred_by_resource: '%{resource} (prefere esse nome)'
+  wordcloud_credit_html: gerado com <a href='%{url}'>jQCloud</a>
   term:
+    actions:
+      reindex: reindexar
+      sort: ordenar por
+    edit:
+      header: Editando %{uri}
+      submit: Salvar
+    fields:
+      name: 'nome:'
+      definition: 'definição:'
+      attribution: 'atribuição:'
+      comment: 'comentário:'
+      sections: 'seções:'
+      is_hidden_from_glossary: 'ocultar do glossário:'
+      is_hidden_from_overview: 'ocultar da guia visão geral:'
+    glossary:
+      full_title: Glossário de TODOS os termos de dados sobre EOL
+      predicate_title: Glossário de termos de tipo para dados sobre EOL
+      object_term_title: Glossário de termos de valor para dados sobre EOL
+      units_title: Glossário de termos de unidade para dados sobre EOL
+    pagination:
+      next: próxima página
+      previous: página anterior
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: ninhada
@@ -886,111 +1015,4 @@ pt-BR:
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: matagal
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: tropical
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: rio
-  term_query_filter:
-    validations:
-      blank_error: deve especificar um atributo ou valor
-      invalid_uri: URI inválida
-  terms:
-    attribution_field_html: <strong>Atribuição:</strong> <a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>Comentário:</strong> %{comment}
-    definition_field_html: <strong>Definição:</strong> %{definition}
-    source_field_html: <strong>Fonte:</strong> <a href='%{source}'>%{source}</a>
-    record_url: URL de registro
-    scientific_name: Nome científico
-    show_all_records: mostrar todos os registros
-    source: fonte
-    uri_field_html: <strong>URI:</strong> %{uri}
-    index:
-      select_page_above: Selecione uma página acima para começar.
-  data_definition: definição de «%{data}»
-  traits:
-    data_viz:
-      about_this_chart: sobre este gráfico
-      hist_value_label: valor (%{units})
-      num_records_label: '# de registros'
-      other: outros
-      page_habitat_header: '%{name}Habitats'
-      pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
-      n_obj_records:
-        other: um=um registro com "%{obj_name}"
-      n_taxa_with:
-        other: uma=uma taxonomia com "%{obj_name}"
-    properties:
-      citation: Citação bibliográfica
-      method: Modo da medição
-      remarks: Observações
-      sample_size: Tamanho da amostra
-      scientific_name: Nome científico
-      source: Fonte
-    search:
-      edit_filters: editar filtros
-      filter_display:
-        obj_only: 'valor: %{obj}'
-        pred_obj: '%{pred}: %{obj}'
-        pred_only: '%{pred}'
-        resource: 'recurso: %{value}'
-        statistical_method: 'método estatístico: %{value}'
-      gbif_search_hover: encontre registros de ocorrência no GBIF para os táxons nos
-        seus resultados de pesquisa (limite 50)
-      new_search: nova pesquisa
-      show_query: mostrar consulta
-      switch_to_list: Mude para a lista de visualização
-      switch_to_gallery: Mude para a galeria de visualizações
-    search_form:
-      attribute: atributo
-      resource: recurso
-      value: valor
-  trophic_web:
-    group_descriptions:
-      competitor: concorrente de %{source_name}
-      predator: feeds em %{source_name}
-      prey: comido por %{source_name}
-      source: espécies focais
-  trust:
-    unreviewed: não revisto
-    trusted: confiável
-    untrusted: não confiável
-  user:
-    created_at: criada
-    download_queue: Fila de download de dados
-    edit_account_details: Editar detalhes da conta
-    email: E-mail
-    to_commit_enter_current: Para confirmar suas alterações, digite sua senha atual
-    form_labels:
-      age_confirm: Tenho pelo menos 13 anos
-      tou_confirm_html: Eu li o <a href='%{tou_path}'>Termos de uso</a> e a <a href='%{privacy_path}'>Política
-        de Privacidade</a>
-    headers:
-      bio: Breve biografia
-      collections: Coleções
-      downloads: Downloads
-      links: Links
-    is_power_user: Este usuário é sinalizado como um usuário avançado.
-    validations:
-      age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
-      tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade
-    new_password: Nova senha
-    confirm_new_password: Confirmar nova senha
-    trait_bank_cypher_form: Forma de cifra do banco de características
-    username: Nome de usuário
-    update: Atualizar
-    update_email: Atualizar e-mail
-  user_download:
-    created: Seu arquivo será processado em segundo plano. Verifique sua <a href="%{url}">página
-      de usuário</a> para ver se foi concluído.
-  users:
-    account_migration_header: 'Se você se registrou na EOL antes de 15 de novembro
-      de 2018:'
-    account_migration_notice: As informações da sua conta, incluindo nome de usuário,
-      email associado, descrição do perfil e coleções pertencentes, foram importadas
-      para o novo EOL. Seu nome de usuário ainda é o seu nome de exibição no site,
-      mas agora você deve fazer login com seu endereço de e-mail. Não foi possível
-      migrar sua senha por motivos de segurança; desculpe pelo incômodo. Você poderá
-      redefini-lo usando o processo Esqueceu a senha. Se você fez login apenas usando
-      um fornecedor terceirizado - Google, Twitter ou FaceBook -, entre em contato
-      conosco; estamos resolvendo alguns problemas com os processos de login compartilhados.
-    sign_in: Entrar
-  vernacular_names_header: Nomes comuns
-  vernacular_preferred_by_resource: '%{resource} (prefere esse nome)'
-  wordcloud_credit_html: gerado com <a href='%{url}'>jQCloud</a>
 ...

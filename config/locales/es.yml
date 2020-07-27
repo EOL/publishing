@@ -548,17 +548,6 @@ es:
     array:
       two_words_connector: "y"
       last_word_connector: "y"
-  term:
-    name:
-      by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reproducción asexual
-        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
-        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
-        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
   terms:
     definition_field_html: <strong>Definición:</strong> %{definition}
     record_url: URL del registro
@@ -612,4 +601,31 @@ es:
   users:
     sign_in: Acceder
   vernacular_names_header: Nombres vernáculos
+  term:
+    actions:
+      reindex: volver a indizar
+      sort: ordenar por
+    edit:
+      submit: Guardar
+    fields:
+      name: 'nombre:'
+      definition: 'definición:'
+      attribution: 'atribución:'
+      comment: 'comentario:'
+      sections: 'secciones:'
+      is_hidden_from_glossary: 'ocultar del glosario:'
+      is_hidden_from_overview: 'ocultar de la pestaña Visión general:'
+    pagination:
+      next: página siguiente
+      previous: página anterior
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: reproducción asexual
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: locomoción
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: hábitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: poliniza
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: color de hoja
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: endoesqueleto
+        http://eol(dot)org/schema/terms/fossilOccPBDB: número de ocurrencias fosílicas
 ...

@@ -1007,7 +1007,212 @@ pms:
       words_connector: ','
       two_words_connector: ' e'
       last_word_connector: ', e'
+  term_query:
+    validations:
+      empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
+        j'arserche d'argistrassion
+      empty_filters_error_taxa: a dev fornì n'erbo monofilétich o un filtr con n'atribù
+        o un valor për j'arserche ëd tassonomìa
+  term_query_filter:
+    validations:
+      blank_error: a dev ëspessifiché n'atribù o un valor
+      invalid_uri: URI nen bon
+      pred_uri_blank_numeric_error: a peul pa esse veuid con un valor numérich
+      range_invalid_error: a dev esse magior o ugual al prim valor
+  terms:
+    attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>Coment:</strong> %{comment}
+    definition_field_html: <strong>Definission:</strong> %{definition}
+    source_field_html: <strong>Sorgiss:</strong> <a href='%{source}'>%{source}</a>
+    record_url: adrëssa d'argistrassion
+    scientific_name: nòm sientìfich
+    show_all_records: smon-e tute j'argistrassion
+    source: sorgiss
+    uri_field_html: <strong>URI:</strong> %{uri}
+    index:
+      select_page_above: Serne na pàgina sì-dzora për ancaminé.
+  data_definition: definission ëd «%{data}»
+  traits:
+    data_viz:
+      about_this_chart: a propòsit ëd cost gràfich
+      about_this_chart_tooltip: Cost-sì a l'é un resumé basà an sij dàit disponìbij
+        an EdV. A podrìa esse incomplet! A peul selessioné na bara dël gràfich për
+        ëstrenze ij sò arzultà d'arserca.
+      hist_value_label: valor (%{units})
+      n_other_records:
+        one: un-a àutra argistrassion
+        other: '%{count} àutre argistrassion'
+      n_other_taxa:
+        one: un-a àutra tassonomìa
+        other: '%{count} àutre tassonomìe'
+      num_records_label: nùmer d'argistrassion
+      other: àutr
+      page_habitat_header: Ambient ëd %{name}
+      page_habitat_explanation: J'ambient andoa as sa ch'a vivo tante spece ëd %{name}.
+        Selessioné n'ambient për vëdde soa lista ëd contròl dë spece ëd %{name}.
+      pie_prompt: ratin dzora un segment o na ciav për evidensié
+      n_obj_records:
+        one: un-a argistrassion con «%{obj_name}»
+        other: '%{count} argistrassion con «%{obj_name}»'
+      n_taxa_with:
+        one: un-a tassonomìa con «%{obj_name}»
+        other: '%{count} tassonomìe con «%{obj_name}»'
+      see_n_obj_records:
+        one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
+        other: sgnaché për vëdde %{count} argistrassion con «%{obj_name}»
+      see_n_taxa_with:
+        one: sgnacché për vëdde na tassonomìa con «%{obj_name}»
+        other: sgnaché për vëdde %{count} tassonomìe con «%{obj_name}»
+      show_n_records_between:
+        one: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
+          %{limit}] %{units}
+        other: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
+          %{limit}] %{units}
+      show_n_taxa_between:
+        one: sgnaché për vëdde %{count} tassonomìa con dij valor dë mzura an [%{min},
+          %{limit}] %{units}
+        other: sgnaché për vëdde %{count} tassonomìe con dij valor dë mzura an [%{min},
+          %{limit}] %{units}
+    properties:
+      citation: Sitassion bibliogràfica
+      method: Métod dë mzura
+      remarks: Armrche
+      sample_size: Taja dël campion
+      scientific_name: Nòm sientìfich
+      source: Sorgiss
+    search:
+      clade: 'erbo monofilétich: %{clade}'
+      download_tsv: dëscarié ël tsv
+      edit_filters: modifiché ij filtr
+      filter_display:
+        eq: '%{pred} = %{num_val} %{units}'
+        gte: '%{pred} >= %{num_val} %{units}'
+        lifestage: 'tapa ëd vita: %{value}'
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'valor: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        pred_only: '%{pred}'
+        range: '%{pred} an [%{num_val1}, %{num_val2}] %{units}'
+        resource: 'arsorsa: %{value}'
+        sex: 'sess: %{value}'
+        statistical_method: 'métod ëstatìstich: %{value}'
+      gbif_search: Arserca ëd GBIF
+      gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
+        ant ij sò arzultà d'arserca (limità a 50)
+      result_header_records: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
+        argistrassion për %{page_count} tassonomìe con
+      result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
+        tassonomìe con
+      new_search: neuva arserca
+      select:
+        child_term: selession na condission fieul (opsional)
+        top_level:
+          object_term: o selessioné un valor
+          predicate: o selessioné n'atribù
+      show_query: smon-e l'arcesta
+      switch_to_list: passé a la visualisassion a lista
+      switch_to_gallery: passé a la visualisassion a galarìa
+    search_form:
+      attribute: atribù
+      clade_filter_placeholder: 'partìa (për esempi: ors) (facoltativ)'
+      hide_additional_fields: stërmé ij camp adissionaj
+      lifestage: tapa ëd vita
+      records_matching_all: argistrassion për le tassonomìe rëspondente a TUTI ij
+        filtr
+      resource: arsorsa
+      search: Arsërché
+      sex: sess
+      show_additional_fields: smon-e ij camp adissionaj
+      statistical_method: métod ëstàtistich
+      taxa_matching_all: tassonomìe rëspondente a TUTI ij filtr
+      this_may_take_a_minute: Sòn a peul pijé na minuta
+      trait_filter: filtré ël trat
+      value: valor
+  trophic_web:
+    group_descriptions:
+      competitor: concorent ëd %{source_name}
+      predator: fluss su %{source_name}
+      prey: mangià da %{source_name}
+      source: spece bërsaj
+  trust:
+    unreviewed: nen verificà
+    trusted: fidà
+    untrusted: nen fidà
+  user:
+    batch_page_lookup: Arserca ëd pàgine a baron
+    created_at: creà
+    download_queue: Coa dël dëscariament ëd dàit
+    edit_account_details: Modifiché ij detaj dël cont
+    email: Pòsta eletrònica
+    to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
+    form_labels:
+      age_confirm: I l'hai almanch 13 agn
+      tou_confirm_html: I l'hai lesù le <a href='%{tou_path}'>condission d'utilisassion</a>
+        e le <a href='%{privacy_path}'>régole ëd confidensialità</a>
+    headers:
+      bio: Biografìa curta
+      collections: Colession
+      downloads: Dëscariament
+      links: Liure
+    is_power_user: Cost utent-sì a l'é marca tanme sùper-utent.
+    validations:
+      age_confirm: a dev confirmé ch'a l'ha almanch 13 agn
+      tou_confirm: a dev confirmé ch'a l'ha lesù le condission d'utilisassion e le
+        régole ëd confidensialità
+    list_of_power_users: Lista dj'utent privilegià
+    new_password: Neuva ciav
+    confirm_new_password: Confirmé la ciav
+    showing_n_power_users:
+      one: Lista dl'ùnich utent privilegià
+      other: Lista dij %{count} utent privilegià
+    trait_bank_cypher_form: formolari ëd gifragi ëd la banca dij trat
+    username: stranòm
+    update: Agiorné
+    update_email: Agiorné l'adrëssa eletrònica
+  user_download:
+    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}">pàgina
+      d'utent</a> për vëdde cand a sarà completà.
+    have_pending: A l'ha già un dëscariament an cors për costa arcesta. Ch'a contròla
+      soa <a href="%{url}">pàgina utent</a> për vëdde s'a l'é completà.
+  users:
+    account_migration_header: 'S''a l''é anscrivusse an sl''EdV prima dij 15 nov.
+      2018:'
+    account_migration_notice: J'anformassion ëd sò cont, comprèis lë stranòm, l'adrëssa
+      eletrònica associà, la descrission ëd profil e le colession possedùe, a son
+      ëstàite amportà an sla neuva EdV. Sò stranòm a l'é ancor sò nòm ësmonù an sël
+      sit, ma adess chiel a dev rintré ant ël sistema con soa adrëssa eletrònica.
+      I l'oma nen podù amporté soa ciav për dle rason ëd sigurëssa; an dëspias për
+      l'inconvenient. A podrà riinissialisela an dovrand la procedura ëd Ciav dësmentià.
+      S'a l'é rintrà ant ël sistema an dovrand n'àutr fornidor d'identità - Google,
+      Twitter o FaceBook - për piasì ch'a l'abia passiensa; i travajoma për arzòlve
+      ancor chèich problema con le procedure ëd conession partagià.
+    sign_in: Rintré ant ël sistema
+  vernacular_names_header: Nòm comun
+  vernacular_preferred_by_resource: '%{resource} (a preferiss ës nòm-sì)'
+  wordcloud_credit_html: generà con <a href='%{url}'>jQCloud</a>
   term:
+    actions:
+      reindex: riandicisé
+      sort: ordiné për
+    edit:
+      header: Modìfica ëd%{uri}
+      submit: Argistré
+    fields:
+      name: 'nòm:'
+      definition: 'definission:'
+      attribution: 'atribussion:'
+      comment: 'coment:'
+      sections: 'session:'
+      is_hidden_from_glossary: 'stërmé dal glossari:'
+      is_hidden_from_overview: 'stërmé da la scheda ëd vista general:'
+    glossary:
+      full_title: Glossari ëd TUTI ij tèrmin relativ ai dàit an sl'EdV
+      predicate_title: Glossari dij tèrmin ëd le sòrt relativ ai dàit an sl'EdV
+      object_term_title: Glossari dij tèrmin dij valor relativ ai dàit an sl'EdV
+      units_title: Glossari dij tèrmin d'unità për ij dàit an sl'EdV
+    pagination:
+      next: pàgina apress
+      previous: pàgina precedenta
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: covà
@@ -1270,187 +1475,4 @@ pms:
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: tonëlà
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: pe
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pòles
-  term_query:
-    validations:
-      empty_filters_error_record: a dev fornì un filtr con n'atribù o un valor për
-        j'arserche d'argistrassion
-      empty_filters_error_taxa: a dev fornì n'erbo monofilétich o un filtr con n'atribù
-        o un valor për j'arserche ëd tassonomìa
-  term_query_filter:
-    validations:
-      blank_error: a dev ëspessifiché n'atribù o un valor
-      invalid_uri: URI nen bon
-      pred_uri_blank_numeric_error: a peul pa esse veuid con un valor numérich
-      range_invalid_error: a dev esse magior o ugual al prim valor
-  terms:
-    attribution_field_html: <strong>Atribussion:</strong> <a href='%{attribution}'>%{attribution}</a>
-    comment_field_html: <strong>Coment:</strong> %{comment}
-    definition_field_html: <strong>Definission:</strong> %{definition}
-    source_field_html: <strong>Sorgiss:</strong> <a href='%{source}'>%{source}</a>
-    record_url: adrëssa d'argistrassion
-    scientific_name: nòm sientìfich
-    show_all_records: smon-e tute j'argistrassion
-    source: sorgiss
-    uri_field_html: <strong>URI:</strong> %{uri}
-    index:
-      select_page_above: Serne na pàgina sì-dzora për ancaminé.
-  data_definition: definission ëd «%{data}»
-  traits:
-    data_viz:
-      about_this_chart: a propòsit ëd cost gràfich
-      about_this_chart_tooltip: Cost-sì a l'é un resumé basà an sij dàit disponìbij
-        an EdV. A podrìa esse incomplet! A peul selessioné na bara dël gràfich për
-        ëstrenze ij sò arzultà d'arserca.
-      hist_value_label: valor (%{units})
-      n_other_records:
-        one: un-a àutra argistrassion
-        other: '%{count} àutre argistrassion'
-      n_other_taxa:
-        one: un-a àutra tassonomìa
-        other: '%{count} àutre tassonomìe'
-      num_records_label: nùmer d'argistrassion
-      other: àutr
-      page_habitat_header: Ambient ëd %{name}
-      page_habitat_explanation: J'ambient andoa as sa ch'a vivo tante spece ëd %{name}.
-        Selessioné n'ambient për vëdde soa lista ëd contròl dë spece ëd %{name}.
-      pie_prompt: ratin dzora un segment o na ciav për evidensié
-      n_obj_records:
-        one: un-a argistrassion con «%{obj_name}»
-        other: '%{count} argistrassion con «%{obj_name}»'
-      n_taxa_with:
-        one: un-a tassonomìa con «%{obj_name}»
-        other: '%{count} tassonomìe con «%{obj_name}»'
-      see_n_obj_records:
-        one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
-        other: sgnaché për vëdde %{count} argistrassion con «%{obj_name}»
-      see_n_taxa_with:
-        one: sgnacché për vëdde na tassonomìa con «%{obj_name}»
-        other: sgnaché për vëdde %{count} tassonomìe con «%{obj_name}»
-      show_n_records_between:
-        one: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
-          %{limit}] %{units}
-        other: sgnaché për vëdde %{count} argistrassion con valor dë mzura an [%{min},
-          %{limit}] %{units}
-      show_n_taxa_between:
-        one: sgnaché për vëdde %{count} tassonomìa con dij valor dë mzura an [%{min},
-          %{limit}] %{units}
-        other: sgnaché për vëdde %{count} tassonomìe con dij valor dë mzura an [%{min},
-          %{limit}] %{units}
-    properties:
-      citation: Sitassion bibliogràfica
-      method: Métod dë mzura
-      remarks: Armrche
-      sample_size: Taja dël campion
-      scientific_name: Nòm sientìfich
-      source: Sorgiss
-    search:
-      clade: 'erbo monofilétich: %{clade}'
-      download_tsv: dëscarié ël tsv
-      edit_filters: modifiché ij filtr
-      filter_display:
-        eq: '%{pred} = %{num_val} %{units}'
-        gte: '%{pred} >= %{num_val} %{units}'
-        lifestage: 'tapa ëd vita: %{value}'
-        lte: '%{pred} <= %{num_val} %{units}'
-        obj_only: 'valor: %{obj}'
-        pred_obj: '%{pred}: %{obj}'
-        pred_only: '%{pred}'
-        range: '%{pred} an [%{num_val1}, %{num_val2}] %{units}'
-        resource: 'arsorsa: %{value}'
-        sex: 'sess: %{value}'
-        statistical_method: 'métod ëstatìstich: %{value}'
-      gbif_search: Arserca ëd GBIF
-      gbif_search_hover: trové j'argistrassion d'ocorensa an GBIF për le tassonomìe
-        ant ij sò arzultà d'arserca (limità a 50)
-      result_header_records: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
-        argistrassion për %{page_count} tassonomìe con
-      result_header_taxa: Visualisassion ëd %{range_begin} - %{range_end} su %{total}
-        tassonomìe con
-      new_search: neuva arserca
-      select:
-        child_term: selession na condission fieul (opsional)
-        top_level:
-          object_term: o selessioné un valor
-          predicate: o selessioné n'atribù
-      show_query: smon-e l'arcesta
-      switch_to_list: passé a la visualisassion a lista
-      switch_to_gallery: passé a la visualisassion a galarìa
-    search_form:
-      attribute: atribù
-      clade_filter_placeholder: 'partìa (për esempi: ors) (facoltativ)'
-      hide_additional_fields: stërmé ij camp adissionaj
-      lifestage: tapa ëd vita
-      records_matching_all: argistrassion për le tassonomìe rëspondente a TUTI ij
-        filtr
-      resource: arsorsa
-      search: Arsërché
-      sex: sess
-      show_additional_fields: smon-e ij camp adissionaj
-      statistical_method: métod ëstàtistich
-      taxa_matching_all: tassonomìe rëspondente a TUTI ij filtr
-      this_may_take_a_minute: Sòn a peul pijé na minuta
-      trait_filter: filtré ël trat
-      value: valor
-  trophic_web:
-    group_descriptions:
-      competitor: concorent ëd %{source_name}
-      predator: fluss su %{source_name}
-      prey: mangià da %{source_name}
-      source: spece bërsaj
-  trust:
-    unreviewed: nen verificà
-    trusted: fidà
-    untrusted: nen fidà
-  user:
-    batch_page_lookup: Arserca ëd pàgine a baron
-    created_at: creà
-    download_queue: Coa dël dëscariament ëd dàit
-    edit_account_details: Modifiché ij detaj dël cont
-    email: Pòsta eletrònica
-    to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.
-    form_labels:
-      age_confirm: I l'hai almanch 13 agn
-      tou_confirm_html: I l'hai lesù le <a href='%{tou_path}'>condission d'utilisassion</a>
-        e le <a href='%{privacy_path}'>régole ëd confidensialità</a>
-    headers:
-      bio: Biografìa curta
-      collections: Colession
-      downloads: Dëscariament
-      links: Liure
-    is_power_user: Cost utent-sì a l'é marca tanme sùper-utent.
-    validations:
-      age_confirm: a dev confirmé ch'a l'ha almanch 13 agn
-      tou_confirm: a dev confirmé ch'a l'ha lesù le condission d'utilisassion e le
-        régole ëd confidensialità
-    list_of_power_users: Lista dj'utent privilegià
-    new_password: Neuva ciav
-    confirm_new_password: Confirmé la ciav
-    showing_n_power_users:
-      one: Lista dl'ùnich utent privilegià
-      other: Lista dij %{count} utent privilegià
-    trait_bank_cypher_form: formolari ëd gifragi ëd la banca dij trat
-    username: stranòm
-    update: Agiorné
-    update_email: Agiorné l'adrëssa eletrònica
-  user_download:
-    created: Sò archivi a sarà tratà an slë sfond. Ch'a verìfica soa <a href="%{url}">pàgina
-      d'utent</a> për vëdde cand a sarà completà.
-    have_pending: A l'ha già un dëscariament an cors për costa arcesta. Ch'a contròla
-      soa <a href="%{url}">pàgina utent</a> për vëdde s'a l'é completà.
-  users:
-    account_migration_header: 'S''a l''é anscrivusse an sl''EdV prima dij 15 nov.
-      2018:'
-    account_migration_notice: J'anformassion ëd sò cont, comprèis lë stranòm, l'adrëssa
-      eletrònica associà, la descrission ëd profil e le colession possedùe, a son
-      ëstàite amportà an sla neuva EdV. Sò stranòm a l'é ancor sò nòm ësmonù an sël
-      sit, ma adess chiel a dev rintré ant ël sistema con soa adrëssa eletrònica.
-      I l'oma nen podù amporté soa ciav për dle rason ëd sigurëssa; an dëspias për
-      l'inconvenient. A podrà riinissialisela an dovrand la procedura ëd Ciav dësmentià.
-      S'a l'é rintrà ant ël sistema an dovrand n'àutr fornidor d'identità - Google,
-      Twitter o FaceBook - për piasì ch'a l'abia passiensa; i travajoma për arzòlve
-      ancor chèich problema con le procedure ëd conession partagià.
-    sign_in: Rintré ant ël sistema
-  vernacular_names_header: Nòm comun
-  vernacular_preferred_by_resource: '%{resource} (a preferiss ës nòm-sì)'
-  wordcloud_credit_html: generà con <a href='%{url}'>jQCloud</a>
 ...

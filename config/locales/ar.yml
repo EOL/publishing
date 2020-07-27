@@ -983,58 +983,6 @@ ar:
       words_connector: ،
       two_words_connector: و
       last_word_connector: و
-  term:
-    name:
-      by_uri:
-        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: قطر الساق
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: رتبة حجم الورقة
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: تعقيد الورقة
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: كتلة البذرة
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: نوع حياة النبات
-        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: نوع نمو النبات
-        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: التكاثر
-        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: تثبيت النيتروجين
-        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: تكاثر غير جنسي
-        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: الرعاية الأبوية
-        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: قطر الخلية
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: حجم الخلية
-        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: تركيب الهيكل العظمي
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: كتلة الخلية
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: طول القشرة
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: كثافة الخشب
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: طول النواة
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: عرض النواة
-        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: الهيكل العظمي يحتوي على
-        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: حجم الجسم
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: عمر
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: شكل
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: الحجم
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: موطن
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يتغذى على
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: طفيل ل
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: لديه العائل
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: يتم افتراسه بواسطة
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: هو ناقل ل
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يأكل
-        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: يتم أكله بواسطة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: ارتفاع النبات
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: تحمل الجفاف
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: لون الورقة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: شكل الورقة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: عمق الجذور
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: لون الزهرة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: مساحة الورقة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: نوع الفاكهة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: معدل التنفس
-        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: عادة دورة الحياة
-        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: تحمل الملح
-        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
-        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: بداية الخصوبة
-        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: طول الذيل
-        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
   term_query:
     validations:
       empty_filters_error_record: يجب عليك توفير مرشحا بسمة أو قيمة لعمليات البحث
@@ -1142,4 +1090,78 @@ ar:
   vernacular_names_header: أسماء شائعة
   vernacular_preferred_by_resource: '%{resource} (يفضل هذا الاسم)'
   wordcloud_credit_html: وُلِّد بـ<a href='%{url}'>jQCloud</a>
+  term:
+    actions:
+      reindex: إعادة الفهرسة
+      sort: رتب حسب
+    edit:
+      header: تحرير %{uri}
+      submit: حفظ
+    fields:
+      name: 'الاسم:'
+      definition: تعريف
+      attribution: 'النسبة:'
+      comment: 'تعليق:'
+      sections: أقسام
+      is_hidden_from_glossary: 'إخفاء من المسرد:'
+      is_hidden_from_overview: 'إخفاء من علامة تبويب النظرة العامة:'
+    glossary:
+      full_title: مسرد جميع مصطلحات البيانات على موسوعة الحياة
+      predicate_title: مسرد جميع مصطلحات الأنواع على موسوعة الحياة
+      object_term_title: مسرد مصطلحات القيم للبيانات على موسوعة الحياة
+      units_title: مسرد مصطلحات الوحدات على موسوعة الحياة
+    pagination:
+      next: الصفحة التالية
+      previous: الصفحة السابقة
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: طول الجسم
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: قطر الساق
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: رتبة حجم الورقة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: تعقيد الورقة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: كتلة البذرة
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: نوع حياة النبات
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: نوع نمو النبات
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: التكاثر
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: تثبيت النيتروجين
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: تكاثر غير جنسي
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: الرعاية الأبوية
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: الانتشار
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: قطر الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: حجم الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: تركيب الهيكل العظمي
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: كتلة الخلية
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: طول القشرة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: كثافة الخشب
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: طول النواة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: عرض النواة
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: الهيكل العظمي يحتوي على
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: حجم الجسم
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: عمر
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: شكل
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: مساحة
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: الحجم
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: موطن
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: يتغذى على
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: طفيل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: لديه العائل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: يتم افتراسه بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: هو ناقل ل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: يأكل
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: يتم أكله بواسطة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: ارتفاع النبات
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: تحمل الجفاف
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: لون الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000492: شكل الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: عمق الجذور
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: لون الزهرة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: مساحة الورقة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000850: نوع الفاكهة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: معدل التنفس
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: عادة دورة الحياة
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: تحمل الملح
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: كتلة الجسم
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: بداية الخصوبة
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: طول الذيل
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: عرض الجسم
 ...
