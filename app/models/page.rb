@@ -6,10 +6,10 @@ class Page < ApplicationRecord
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
 
   autocompletes "autocomplete_names"
-  # NOTE: default batch_size is 1000... that seemed to timeout a lot.
 
+  # NOTE: default batch_size is 1000
   callbacks = Searchkick.redis ? :queue : nil
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 250, merge_mappings: true, callbacks: callbacks, mappings: {
+  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 2000, merge_mappings: true, callbacks: callbacks, mappings: {
     properties: autocomplete_searchkick_properties
   }
 
