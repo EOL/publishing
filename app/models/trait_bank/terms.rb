@@ -1,16 +1,16 @@
 class TraitBank
   class Terms
+    CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
+    TERM_TYPES = {
+      predicate: ['measurement', 'association'],
+      object_term: ['value']
+    }
+    DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
+
     class << self
       delegate :query, :connection, :limit_and_skip_clause, :child_has_parent, :is_synonym_of, :array_to_qs,
                to: TraitBank
       delegate :log, to: TraitBank::Logger
-
-      CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
-      TERM_TYPES = {
-        predicate: ['measurement', 'association'],
-        object_term: ['value']
-      }
-      DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
 
       def count(options = {})
         hidden = options[:include_hidden]
