@@ -751,7 +751,7 @@ class TraitBank
 
             flattened_gathered_terms = gathered_terms.flatten
             if flattened_gathered_terms.any?
-              match += ", #{gathered_terms.map { |t| t.list_label }.join(", ")}"
+              match += ", #{flattened_gathered_terms.map { |t| t.list_label }.join(", ")}"
             end
 
             matches << match
