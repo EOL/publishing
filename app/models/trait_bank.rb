@@ -414,8 +414,10 @@ class TraitBank
       @parent_terms ||= ":parent_term|:synonym_of*0.."
     end
 
-    def term_filter_where_term_part(term_label, term_uri, term_type, params, gathered_term = nil)
-      if gathered_term && gathered_term.type == term_type
+    def term_filter_where_term_part(term_label, term_uri, term_type, params, gathered_terms)
+      gathered_term = gathered_terms.find { |t| t.type == term_type }
+
+      if gathered_term
         "#{term_label} IN #{gathered_term.list_label}"  
       else
         term_uri_param = "#{term_label}_uri"
@@ -425,16 +427,16 @@ class TraitBank
     end
 
 
-    def term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_term = nil)
+    def term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_terms = [])
       parts = []
       term_condition = []
 
       if filter.predicate?
-        term_condition << term_filter_where_term_part(pred_var, filter.pred_uri, :predicate, params, gathered_term)
+        term_condition << term_filter_where_term_part(pred_var, filter.pred_uri, :predicate, params, gathered_terms)
       end
 
       if filter.object_term?
-        term_condition << term_filter_where_term_part(obj_var, filter.obj_uri, :object_term, params, gathered_term)
+        term_condition << term_filter_where_term_part(obj_var, filter.obj_uri, :object_term, params, gathered_terms)
       end
 
       parts << "(#{term_condition.join(" AND ")})"
@@ -731,30 +733,40 @@ class TraitBank
       gathered_terms = []
 
       filters.each_with_index do |filter, i|
-        term = filter.max_trait_row_count_term
-        label = "gathered_#{term.type}#{i}"
-        list_label = "#{label}s"
-        uri_param = "#{label}_uri"
-        params[uri_param] = term.uri
+        gathered_terms[i] = []
 
-        match = %Q(
-          MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
-          WITH collect(DISTINCT #{label}) AS #{list_label}
-        )
+        if i > 0 || (filter.object_term? && filter.predicate?)
+          terms = i == 0 ? [filter.max_trait_row_count_term] : [filter.predicate_term, filter.object_term].compact
 
-        if gathered_terms.any?
-          match += ", #{gathered_terms.map { |t| t.list_label }.join(" ,")}"
+          terms.each do |term|
+            label = "gathered_#{term.type}#{i}"
+            list_label = "#{label}s"
+            uri_param = "#{label}_uri"
+            params[uri_param] = term.uri
+
+            match = %Q(
+              MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
+              WITH collect(DISTINCT #{label}) AS #{list_label}
+            )
+
+            flattened_gathered_terms = gathered_terms.flatten
+            if flattened_gathered_terms.any?
+              match += ", #{gathered_terms.map { |t| t.list_label }.join(", ")}"
+            end
+
+            matches << match
+            gathered_terms[i] << GatheredTerm.new(term.uri, term.type, list_label)
+          end
         end
-
-        matches << match
-        gathered_terms << GatheredTerm.new(term.uri, term.type, list_label)
       end
 
       [matches, gathered_terms]
     end
 
-    def filter_term_match(trait_var, term_var, term_type, gathered_term)
-      if gathered_term.type == term_type
+    def filter_term_match(trait_var, term_var, term_type, gathered_terms)
+      gathered_term = gathered_terms.find { |t| t.type == term_type }
+
+      if gathered_term
         "(#{trait_var})-[:#{term_type}]->(#{term_var}:Term)"
       else
         "(#{trait_var})-[:#{term_type}]->(:Term)-[#{parent_terms}]->(#{term_var}:Term)"
@@ -762,7 +774,6 @@ class TraitBank
     end
 
     def term_page_search(term_query, limit_and_skip, options)
-      wheres = []
       params = {}
 
       filters = term_query.page_count_sorted_filters
@@ -777,7 +788,7 @@ class TraitBank
         pred_var = "predicate#{i}"
         obj_var = "object#{i}"
         base_meta_var = "meta#{i}"
-        gathered_term = gathered_terms.shift
+        gathered_terms_for_filter = gathered_terms.shift
 
         if i == 0
           page_match = "(page:Page)"
@@ -793,10 +804,10 @@ class TraitBank
         filter_matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
         
-        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_term) if filter.object_term?
-        filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_term) if filter.predicate?
+        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter) if filter.object_term?
+        filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_terms_for_filter) if filter.predicate?
 
-        filter_wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_term)
+        filter_wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_terms_for_filter)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
         add_term_filter_resource_match(filter, trait_var, filter_matches, params)
 
@@ -808,7 +819,7 @@ class TraitBank
         unless i == filters.length - 1
           with_distinct = "WITH DISTINCT page"
           if gathered_terms.any? 
-            with_distinct += ", #{gathered_terms.map { |t| t.list_label }.join(" ,")}"
+            with_distinct += ", #{gathered_terms.flatten.map { |t| t.list_label }.join(" ,")}"
           end
 
           filter_part += with_distinct

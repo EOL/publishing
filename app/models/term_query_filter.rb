@@ -260,6 +260,22 @@ class TermQueryFilter < ApplicationRecord
     ].min
   end
 
+  def object_term
+    if object_term?
+      Term.new(pred_uri, :object_term)
+    else
+      nil
+    end
+  end
+
+  def predicate_term
+    if predicate?
+      Term.new(pred_uri, :predicate)
+    else
+      nil
+    end
+  end
+
   private
   def validation
     if blank?
