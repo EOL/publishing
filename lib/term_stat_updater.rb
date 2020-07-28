@@ -47,7 +47,7 @@ class TermStatUpdater
       distinct_page_q = %Q(
         MATCH (term:Term{ uri: "#{uri}" }),
         (trait:Trait)-[:#{term_type}]->(:Term)-[#{TraitBank.parent_terms}]->(term),
-        (page:Page)-[:trait]->(trait)
+        (page:Page)-[:trait|:inferred_trait]->(trait)
         WITH term, count(distinct page) as distinct_page_count
         SET term.distinct_page_count = distinct_page_count
       )
