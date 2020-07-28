@@ -8,10 +8,10 @@ class Page < ApplicationRecord
   autocompletes "autocomplete_names"
 
   # NOTE: default batch_size is 1000
-  callbacks = Searchkick.redis ? :queue : nil
-  searchkick word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 2000, merge_mappings: true, callbacks: callbacks, mappings: {
-    properties: autocomplete_searchkick_properties
-  }
+  searchkick_args = { word_start: @text_search_fields, text_start: @text_search_fields, batch_size: 2000,
+    merge_mappings: true, mappings: { properties: autocomplete_searchkick_properties } }
+  searchkick_args[:callbacks] = :queue if Searchkick.redis
+  searchkick searchkick_args
 
   belongs_to :native_node, class_name: "Node", optional: true
   belongs_to :moved_to_page, class_name: "Page", optional: true

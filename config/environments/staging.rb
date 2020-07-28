@@ -14,7 +14,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = Rails.application.secrets.smtp.symbolize_keys
   config.active_support.deprecation = :log
   config.active_record.migration_error = :page_load
-  config.active_job.queue_adapter = :sidekiq
+  
   config.log_level = :info
   config.assets.debug = false
   config.assets.digest = true

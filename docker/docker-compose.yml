@@ -130,6 +130,7 @@ services:
       - eol-backend-memcached:memcached
       - eol-backend-mysql:mysql
       - eol-backend-neo4j:neo4j
+      - eol-redis:redis
     ports:
        - 3000:3000
     networks:
