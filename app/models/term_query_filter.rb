@@ -255,8 +255,8 @@ class TermQueryFilter < ApplicationRecord
 
   def min_distinct_page_count
     [
-      pred_term_node&.trait_row_count || 0,
-      obj_term_node&.trait_row_count || 0
+      pred_term_node&.distinct_page_count || 0,
+      obj_term_node&.distinct_page_count || 0
     ].min
   end
 
