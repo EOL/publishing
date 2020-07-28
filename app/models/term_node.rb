@@ -4,11 +4,13 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
 
   property :name
   property :definition
+  property :distinct_page_count
   property :comment
   property :attribution
   property :is_hidden_from_overview
   property :is_hidden_from_glossary
   property :position
+  property :trait_row_count
   property :type
   id_property :uri
 

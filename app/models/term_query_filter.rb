@@ -23,6 +23,8 @@ class TermQueryFilter < ApplicationRecord
     end
   end
 
+  Term = Struct.new(:uri, :type)
+
   # TODO: remove op field from db
   enum :op => {
     :is_any => 0,
@@ -226,6 +228,36 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def obj_term_selects_attributes=(attrs)
+  end
+
+  def pred_term_node
+    return @pred_term_node if @pred_term_node
+    @pred_term_node = predicate? ? TermNode.find(pred_uri) : nil
+  end
+
+  def obj_term_node
+    return @obj_term_node if @obj_term_node
+    @obj_term_node = object_term? ? TermNode.find(obj_uri) : nil
+  end
+
+  def max_trait_row_count_term
+    return @max_trait_row_count_term if @max_trait_row_count_term
+
+    pred_count = pred_term_node&.trait_row_count || 0
+    obj_count = obj_term_node&.trait_row_count || 0
+    
+    @max_trait_row_count_term = if pred_count > obj_count
+                                  Term.new(pred_uri, :predicate)
+                                else
+                                  Term.new(obj_uri, :object_term)
+                                end
+  end
+
+  def min_distinct_page_count
+    [
+      pred_term_node&.trait_row_count || 0,
+      obj_term_node&.trait_row_count || 0
+    ].min
   end
 
   private
