@@ -146,6 +146,10 @@ class TermQuery < ApplicationRecord
     end
   end
 
+  def page_count_sorted_filters
+    filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
+  end
+
   private
   def validation
     if filters.empty?

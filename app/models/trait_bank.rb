@@ -414,23 +414,30 @@ class TraitBank
       @parent_terms ||= ":parent_term|:synonym_of*0.."
     end
 
-    def term_filter_where(filter, trait_var, pred_var, obj_var, params)
+    def term_filter_where_term_part(term_label, term_uri, term_type, params, gathered_term = nil)
+      if gathered_term && gathered_term.type == term_type
+        "#{term_label} IN #{gathered_term.list_label}"  
+      else
+        term_uri_param = "#{term_label}_uri"
+        params[term_uri_param] = term_uri
+        "#{term_label}.uri = $#{term_uri_param}"
+      end
+    end
+
+
+    def term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_term = nil)
       parts = []
-      uri_condition = []
+      term_condition = []
 
       if filter.predicate?
-        pred_uri_param = "#{pred_var}_uri"
-        uri_condition << "#{pred_var}.uri = $#{pred_uri_param}"
-        params[pred_uri_param] = filter.pred_uri
+        term_condition << term_filter_where_term_part(pred_var, filter.pred_uri, :predicate, params, gathered_term)
       end
 
       if filter.object_term?
-        obj_uri_param = "#{obj_var}_uri"
-        uri_condition << "#{obj_var}.uri = $#{obj_uri_param}"
-        params[obj_uri_param] = filter.obj_uri
+        term_condition << term_filter_where_term_part(obj_var, filter.obj_uri, :object_term, params, gathered_term)
       end
 
-      parts << "(#{uri_condition.join(" AND ")})"
+      parts << "(#{term_condition.join(" AND ")})"
 
       if filter.numeric?
         conditions = []
@@ -717,43 +724,97 @@ class TraitBank
       match
     end
 
-    def term_page_search(term_query, limit_and_skip, options)
+
+    GatheredTerm = Struct.new(:uri, :type, :list_label)
+    def gather_terms_matches(filters, params)
       matches = []
+      gathered_terms = []
+
+      filters.each_with_index do |filter, i|
+        term = filter.max_trait_row_count_term
+        label = "gathered_#{term.type}#{i}"
+        list_label = "#{label}s"
+        uri_param = "#{label}_uri"
+        params[uri_param] = term.uri
+
+        match = %Q(
+          MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
+          WITH collect(DISTINCT #{label}) AS #{list_label}
+        )
+
+        if gathered_terms.any?
+          match += ", #{gathered_terms.map { |t| t.list_label }.join(" ,")}"
+        end
+
+        matches << match
+        gathered_terms << GatheredTerm.new(term.uri, term.type, list_label)
+      end
+
+      [matches, gathered_terms]
+    end
+
+    def filter_term_match(trait_var, term_var, term_type, gathered_term)
+      if gathered_term.type == term_type
+        "(#{trait_var})-[:#{term_type}]->(#{term_var}:Term)"
+      else
+        "(#{trait_var})-[:#{term_type}]->(:Term)-[#{parent_terms}]->(#{term_var}:Term)"
+      end
+    end
+
+    def term_page_search(term_query, limit_and_skip, options)
       wheres = []
-      indexes = []
       params = {}
 
-      page_match = "(page:Page)"
-      if term_query.clade
-        page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
-        indexes << 'USING INDEX anc:Page(page_id)'
-        params["clade_id"] = term_query.clade.id
-      end
-      matches << page_match
+      filters = term_query.page_count_sorted_filters
+      gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
 
-      term_query.filters.each_with_index do |filter, i|
-        trait_var = "t#{i}"
-        pred_var = "p#{i}"
-        obj_var = "o#{i}"
-        base_meta_var = "m#{i}"
+      filter_parts = []
+      filters.each_with_index do |filter, i|
+        filter_matches = []
+        filter_wheres = []
+
+        trait_var = "trait#{i}"
+        pred_var = "predicate#{i}"
+        obj_var = "object#{i}"
+        base_meta_var = "meta#{i}"
+        gathered_term = gathered_terms.shift
+
+        if i == 0
+          page_match = "(page:Page)"
+          if term_query.clade
+            page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
+            params["clade_id"] = term_query.clade.id
+          end
+          filter_matches << page_match
+        end
 
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
-        matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+        filter_matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
-        if filter.object_term?
-          matches << "(#{trait_var})-[:object_term]->(:Term)-[#{parent_terms}]->(#{obj_var}:Term)"
-          indexes << "USING INDEX #{obj_var}:Term(uri)"
+        
+        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_term) if filter.object_term?
+        filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_term) if filter.predicate?
+
+        filter_wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_term)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
+        add_term_filter_resource_match(filter, trait_var, filter_matches, params)
+
+        filter_part = %Q(
+          MATCH #{filter_matches.join(", ")}
+          WHERE #{filter_wheres.join(" AND ")}
+        )
+
+        unless i == filters.length - 1
+          with_distinct = "WITH DISTINCT page"
+          if gathered_terms.any? 
+            with_distinct += ", #{gathered_terms.map { |t| t.list_label }.join(" ,")}"
+          end
+
+          filter_part += with_distinct
         end
 
-        if filter.predicate?
-          matches << "(#{trait_var})-[:predicate]->(:Term)-[#{parent_terms}]->(#{pred_var}:Term)"
-          indexes << "USING INDEX #{pred_var}:Term(uri)"
-        end
-
-        wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params)
-        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
-        add_term_filter_resource_match(filter, trait_var, matches, params)
+        filter_parts << filter_part
       end
 
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
@@ -763,12 +824,9 @@ class TraitBank
                         "RETURN DISTINCT page.page_id"
                       end
 
-      where_clause = wheres.any? ? "WHERE #{wheres.join(' AND ')} " : ""
-
       query = %Q(
-        MATCH #{matches.join(', ')}
-        #{indexes.join(' ')}
-        #{where_clause}
+        #{gathered_term_matches.join("\n")}
+        #{filter_parts.join("\n")}
         #{with_count_clause}
         #{return_clause}
         #{limit_and_skip}
