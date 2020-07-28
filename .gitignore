@@ -45,6 +45,7 @@ config/database.BKUP
 config/deploy
 config/deploy.rb
 config/secrets.yml
+docker/resources/secrets.yml
 config/resque.yml
 config/systems/
 config/production.env
