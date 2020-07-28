@@ -235,7 +235,8 @@ They are *not* used in EOL's relational publishing database.
 * `uri` property:    always present - the standard URI (URL) for this property
 * `name` property:   an English word or phrase, chosen by EOL curators, but
   usually the same as the canonical name as provided by the origin ontology.  Always present
-* `type` property:     for type checking.
+* `name_<locale>` (e.g., name\_fr) property: translated name for locale \<locale\>. May be the same as `name`; may not be present.
+* `type` property: for type checking.
   Possible values as of this writing are `"measurement"`, `"association"`, `"value"`,
   and `"metadata"` reflecting how the term is used in EOL.  Always present
 * `definition` property:   from the ontology
@@ -248,6 +249,10 @@ They are *not* used in EOL's relational publishing database.
 * `is_hidden_from_glossary` property
 * `position` property:  an integer assigned only to this term, related to the
   ordering of this `Trait` information in the summary on the web page
+* `trait_row_count` property: a periodically calculated (offline) count of all (:Trait)-[:\<reltype\>]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(term) paths where term is the Term in question. reltype is object\_term for Terms with type = 'value' and predicate for Terms with type in ['measurement', 'association']. This is a statistic used for query optimization. May not be present.
+* `distinct_page_count` property: same as above, except it is a count of the distinct pages in (page:Page)-[:trait]->(:Trait)... matches.
+
 
 * `parent_term` link: the Terms form a hierarchy, this gives the term's parent term
 * `synonym_of` link: a Term (also the parent term??) that this one is equivalent to
+* `object_for_predicate` link: a periodically-refreshed convenience relationship linking obj and pred terms where there exists (pred:Term)<-[:parent\_term|:synonym\_of\*0..]-(:Term)<-[:predicate]-(:Trait)-[:object\_term]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(obj:Term).
