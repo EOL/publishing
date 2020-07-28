@@ -262,7 +262,7 @@ class TermQueryFilter < ApplicationRecord
 
   def object_term
     if object_term?
-      Term.new(pred_uri, :object_term)
+      Term.new(obj_uri, :object_term)
     else
       nil
     end
