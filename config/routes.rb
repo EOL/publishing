@@ -486,10 +486,5 @@ Rails.application.routes.draw do
         get '/*anything', to: proc { [404, {}, ['']] }
       end
     end
-
-    # to support old-style searches, e.g. https://eol.org/Litocranius%20walleri%20sclateri
-    get "/:query", to: redirect("/search?q=%{query}", status: 302), constraints: { query: /(?!wymiframe)/ }
-
-    #get '*unmatched_route', to: 'application#route_not_found'
   end
 end
