@@ -22,10 +22,6 @@ class PagesController < ApplicationController
   }
   MIN_CLOUD_WORDS = 6
 
-  HABITAT_BAR_CHART_PREDICATES = [
-    Eol::Uris.has_habitat,
-    Eol::Uris.habitat_includes
-  ]
   HABITAT_CHART_BLACKLIST_IDS = Set.new([
     1,
     2913056,
@@ -577,28 +573,18 @@ private
 
   def setup_habitat_bar_chart
     return if !@page.native_node.any_landmark? || HABITAT_CHART_BLACKLIST_IDS.include?(@page.id)
-    target_uri = nil
 
-    HABITAT_BAR_CHART_PREDICATES.each do |uri|
-      if @page.grouped_data.include?(uri)
-        target_uri = uri
-        break
-      end
-    end
+    query = TermQuery.new({
+      clade: @page,
+      result_type: :taxa,
+      filters_attributes: [{
+        pred_uri: Eol::Uris.has_habitat
+      }]
+    })
 
-    if target_uri
-      query = TermQuery.new({
-        clade: @page,
-        result_type: :taxa,
-        filters_attributes: [{
-          pred_uri: target_uri
-        }]
-      })
+    counts = TraitBank.term_search(query, count: true)
 
-      counts = TraitBank.term_search(query, count: true)
-
-      @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid?
-      @habitat_chart_query = query
-    end
+    @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid?
+    @habitat_chart_query = query
   end
 end
