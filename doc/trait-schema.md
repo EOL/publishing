@@ -192,6 +192,11 @@ ontology terms that are not stored.  Those terms can be found in
 `MetaData` nodes that repeat the expression of this qualifying
 information.
 
+* `citation` property: bibliographic citation (see http://purl.org/dc/terms/bibliographicCitation)
+* `method` property: measurement method (see http://rs.tdwg.org/dwc/terms/measurementMethod)
+* `remarks` property: measurement remarks (see http://rs.tdwg.org/dwc/terms/measurementRemarks)
+* `sample_size` property: sample size (see http://eol.org/schema/terms/SampleSize)
+* `source` property: data source (see http://purl.org/dc/terms/source)
 * `statistical_method` property [more documentation needed]
 * `statistical_method_term` link
 * `sex_term` link
