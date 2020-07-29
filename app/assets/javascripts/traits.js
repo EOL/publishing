@@ -21,7 +21,7 @@
     }
 
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       data: $.param(data),
       url: Routes.term_search_form_path(),
       success: function(res) {

@@ -15,6 +15,27 @@ class TermQuery < ApplicationRecord
 
   accepts_nested_attributes_for :filters
 
+  def self.from_short_params(short_params)
+    tq = self.new(
+      clade_id: short_params[:c], 
+      result_type: short_params[:r]
+    )
+
+    tq.filters = short_params[:f]&.map do |filter_params|
+      TermQueryFilter.from_short_params(filter_params)
+    end
+
+    tq
+  end
+
+  def to_short_params
+    {
+      c: clade&.id,
+      r: result_type,
+      f: filters.map { |f| f.to_short_params }
+    }
+  end
+
   def predicate_filters
     filters.select { |f| f.predicate? }
   end
@@ -141,6 +162,14 @@ class TermQuery < ApplicationRecord
           ]
         ]
       ]
+    end
+
+    def expected_short_params
+        [
+          :c,
+          :r,
+          :f => TermQueryFilter.expected_short_params
+        ]
     end
   end
 

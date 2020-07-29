@@ -19,10 +19,29 @@ class TermQueryFilter < ApplicationRecord
   class TermSelect
     attr_reader :type, :parent_term, :selected_term
 
+    SHORT_TO_LONG_PARAMS = {
+      t: :type,
+      p: :parent_uri,
+      s: :selected_uri
+    }
+    LONG_TO_SHORT_PARAMS = SHORT_TO_LONG_PARAMS.invert
+
     def initialize(type, parent_term_id, selected_term_id)
       @type = type
       @parent_term = TermNode.find(parent_term_id)
       @selected_term = selected_term_id.present? ? TermNode.find(selected_term_id) : nil
+    end
+
+    def self.expected_short_params
+      [:t, :p, :s]
+    end
+
+    def self.from_short_params(short_params)
+      params = short_params.map do |k, v|
+        [SHORT_TO_LONG_PARAMS[k.to_sym], v]
+      end.to_h
+
+      self.new(params)
     end
 
     def persisted?
@@ -44,6 +63,20 @@ class TermQueryFilter < ApplicationRecord
     def parent_term_id
       parent_term.id
     end
+
+    def to_params
+      {
+        type: type,
+        parent_uri: parent_uri,
+        selected_uri: selected_uri
+      }
+    end
+
+    def to_short_params
+      to_params.map do |k, v|
+        [LONG_TO_SHORT_PARAMS[k], v]
+      end.to_h
+    end
   end
 
   Field = Struct.new(:value, :trait_row_count, :type)
@@ -61,6 +94,22 @@ class TermQueryFilter < ApplicationRecord
   def predicate?
     predicate_id.present?
   end
+
+  SHORT_TO_LONG_PARAMS = {
+    pu: :pred_uri,
+    ou: :obj_uri,
+    uu: :units_uri,
+    n1: :num_val1,
+    n2: :num_val2,
+    su: :sex_uri,
+    lu: :lifestage_uri,
+    smu: :statistical_method_uri,
+    r: :resource_id,
+    se: :show_extra_fields,
+    ps: :pred_term_selects_attributes,
+    os: :obj_term_selects_attributes
+  }
+  LONG_TO_SHORT_PARAMS = SHORT_TO_LONG_PARAMS.invert
 
   def units_for_predicate?
     predicate? && predicate.units_term.present?
@@ -194,6 +243,24 @@ class TermQueryFilter < ApplicationRecord
       statistical_method_term_id: statistical_method_term_id,
       resource_id: resource_id
     }
+  end
+  
+  def to_short_params
+    long_params = to_params
+
+    short_params = long_params.map do |k, v|
+      [LONG_TO_SHORT_PARAMS[k], v]
+    end.to_h
+    
+    short_params[:se] = show_extra_fields
+    short_params[:ps] = pred_term_selects.map do |s|
+      s.to_short_params 
+    end  
+    short_params[:os] = obj_term_selects.map do |s|
+      s.to_short_params 
+    end  
+
+    short_params
   end
 
   def blank?
@@ -354,6 +421,43 @@ class TermQueryFilter < ApplicationRecord
           errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
         end
       end
+    end
+  end
+
+  class << self
+    def expected_short_params
+      [
+        :pu,
+        :ou,
+        :uu,
+        :n1,
+        :n2,
+        :su,
+        :lu,
+        :smu,
+        :r,
+        :se,
+        :ps => TermSelect.expected_short_params,
+        :os => TermSelect.expected_short_params
+      ]
+    end
+
+    def from_short_params(short_params)
+      long_params = short_params.to_h.map do |k, v|
+        [SHORT_TO_LONG_PARAMS[k.to_sym], v]
+      end.to_h
+
+      filter = self.new(long_params)
+
+      filter.pred_term_selects = short_params[:ps]&.map do |ps_params|
+        TermSelect.from_short_params(pt_params)
+      end
+
+      filter.obj_term_selects = short_params[:os]&.map do |os_params|
+        TermSelect.from_short_params(os_params)
+      end
+
+      filter
     end
   end
 end
