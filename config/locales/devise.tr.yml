@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
+# Author: LuCKY
 ---
 tr:
   devise:
@@ -28,7 +29,7 @@ tr:
     mailer:
       confirmation_instructions:
         action: Hesabımı onayla
-        greeting: Hoşgeldiniz %{recipient}!
+        greeting: Hoş geldiniz %{recipient}!
         instruction: 'Hesap e-postanızı aşağıdaki bağlantıdan onaylayabilirsiniz:'
         subject: Onay talimatları
       reset_password_instructions:
@@ -59,7 +60,7 @@ tr:
       updated_not_active: Şifreniz başarıyla değiştirildi.
     registrations:
       destroyed: Hoşçakal! Hesabınız başarıyla iptal edildi. Yeniden görüşmek dileğiyle.
-      signed_up: Hoşgeldiniz! Başarıyla kaydoldunuz.
+      signed_up: Hoş geldiniz! Başarıyla kaydoldunuz.
       signed_up_but_inactive: Başarıyla kaydoldunuz. Ancak, hesabınız henüz etkin
         olmadığı için oturumunuzu açamıyoruz.
       signed_up_but_locked: Başarıyla kaydoldunuz. Ancak, hesabınız kilitlendiği için
