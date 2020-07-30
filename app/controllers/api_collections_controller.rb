@@ -11,6 +11,8 @@ class ApiCollectionsController < LegacyApiController
 
   def get_results
     @page = (params[:page] || 1).to_i
+    @languages = nil
+    @languages = Language.for_locale(params[:language]) unless params[:language].blank?
     @per_page = (params[:per_page] || 50).to_i
     @collection = Collection.where(id: params[:id]).includes(:collection_associations).first
     raise "Not found" if @collection.nil?
@@ -64,7 +66,7 @@ class ApiCollectionsController < LegacyApiController
 
   def add_page(page)
     @return_hash[:collection_items] << {
-      'name' => page.page.name,
+      'name' => page.page.name(@languages),
       'object_type' => 'TaxonConcept', # Remember, this is V2 terminology
       'object_id' => page.page_id,
       'title' => page.page.canonical,
