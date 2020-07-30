@@ -147,7 +147,7 @@ class TermQuery < ApplicationRecord
   end
 
   def page_count_sorted_filters
-    filters.sort { |a, b| a.distinct_page_count <=> b.distinct_page_count }
+    filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
   end
 
   private
