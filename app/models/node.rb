@@ -1,5 +1,6 @@
 class Node < ApplicationRecord
   include HasVernaculars
+  set_vernacular_fk_field(:node_id)
 
   belongs_to :page, inverse_of: :nodes, optional: true
   belongs_to :parent, class_name: 'Node', inverse_of: :children, optional: true

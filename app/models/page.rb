@@ -2,6 +2,8 @@ class Page < ApplicationRecord
   include Autocomplete
   include HasVernaculars
 
+  set_vernacular_fk_field(:page_id)
+
   BASE_AUTOCOMPLETE_WEIGHT = 100
   @text_search_fields = %w[preferred_scientific_names dh_scientific_names scientific_name synonyms preferred_vernacular_strings vernacular_strings providers]
 
