@@ -125,6 +125,7 @@ below into groups.
   that is, each statement obtained from a given resource has a different `resource_pk`
   value.  Always present.  The value originates from a `measurementOrFactID` or
   `associationID` field in the resource DwCA.
+* `citation` property: bibliographic citation (see http://purl.org/dc/terms/bibliographicCitation)
 * `source` property: Value copied from a DwCA. Meant to describe the original source
   of the `Trait` information (since the resource is itself an aggregator).  
   Free text. Often quite long. Semantics unclear.
@@ -192,11 +193,9 @@ ontology terms that are not stored.  Those terms can be found in
 `MetaData` nodes that repeat the expression of this qualifying
 information.
 
-* `citation` property: bibliographic citation (see http://purl.org/dc/terms/bibliographicCitation)
 * `method` property: measurement method (see http://rs.tdwg.org/dwc/terms/measurementMethod)
 * `remarks` property: measurement remarks (see http://rs.tdwg.org/dwc/terms/measurementRemarks)
 * `sample_size` property: sample size (see http://eol.org/schema/terms/SampleSize)
-* `source` property: data source (see http://purl.org/dc/terms/source)
 * `statistical_method` property [more documentation needed]
 * `statistical_method_term` link
 * `sex_term` link
