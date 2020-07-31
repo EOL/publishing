@@ -257,7 +257,6 @@ en:
     stats_cleared: "The stats have been recalculated."
   language: "Language"
   languages:
-    'no': "Norwegian"
     Q100103: "West Flemish"
     Q11005332: "Kinga"
     Q11128374: "Nyiha"
@@ -345,6 +344,7 @@ en:
     ae: "Avestan"
     af: "Afrikaans"
     ak: "Akan"
+    alb: Albanian
     am: "Amharic"
     an: "Aragonese"
     ar: "Arabic"
@@ -366,6 +366,7 @@ en:
     ca: "Catalan; Valencian"
     ce: "Chechen"
     ch: "Chamorro"
+    chi: Chinese
     co: "Corsican"
     cr: "Cree"
     cs: "Czech"
@@ -375,6 +376,8 @@ en:
     cy: "Welsh"
     da: "Danish"
     de: "German"
+    deu: German
+    dut: "Dutch; Flemish"
     dv: "Divehi; Dhivehi; Maldivian"
     dz: "Dzongkha"
     dzo: "Dzongkha"
@@ -385,14 +388,17 @@ en:
     eo: "Esperanto"
     es: "Spanish"
     es: "Spanish; Castilian"
+    est: Estonian
     et: "Estonian"
     eu: "Basque"
     fa: "Persian"
     ff: "Fulah"
     fi: "Finnish"
+    fin: Finnish
     fj: "Fijian"
     fo: "Faroese"
     fr: "French"
+    fra: French
     fy: "West Frisian"
     fy: "Western Frisian"
     ga: "Irish"
@@ -400,20 +406,24 @@ en:
     gd: "Scottish Gaelic"
     gl: "Galician"
     gn: "Guarani"
+    gre: Greek
     gu: "Gujarati"
     gv: "Manx"
     ha: "Hausa"
     he: "Hebrew"
+    heb: Hebrew
     hi: "Hindi"
     ho: "Hiri Motu"
     hr: "Croatian"
     ht: "Haitian"
     ht: "Haitian; Haitian Creole"
+    hrv: Croatian
     hu: "Hungarian"
     hy: "Armenian"
     hz: "Herero"
     ia: "Interlingua (International Auxiliary Language Association)"
     ia: "Interlingua"
+    ice: Icelandic
     id: "Indonesian"
     ie: "Interlingue; Occidental"
     ig: "Igbo"
@@ -422,12 +432,14 @@ en:
     io: "Ido"
     is: "Icelandic"
     it: "Italian"
+    ita: Italian
     iu: "Inuktitut"
     ja: "Japanese"
     jp: "Japanese"
     jv: "Javanese"
     ka: "Georgian"
     kg: "Kongo"
+    khm: "Central Khmer"
     ki: "Kikuyu"
     ki: "Kikuyu; Gikuyu"
     kj: "Kuanyama; Kwanyama"
@@ -436,6 +448,7 @@ en:
     km: "Central Khmer"
     kn: "Kannada"
     ko: "Korean"
+    kor: Korean
     kr: "Kanuri"
     ks: "Kashmiri"
     ku: "Kurdish"
@@ -444,11 +457,12 @@ en:
     ky: "Kirghiz"
     ky: "Kirghiz; Kyrgyz"
     la: "Latin"
+    lao: Lao
     lb: "Luxembourgish"
     lb: "Luxembourgish; Letzeburgesch"
     lg: "Ganda"
     li: "Limburgan; Limburger; Limburgish"
-    li: "Limburgish"
+    lit: Lithuanian
     ln: "Lingala"
     lo: "Lao"
     lt: "Lithuanian"
@@ -459,6 +473,7 @@ en:
     mi: "Maori"
     mk: "Macedonian"
     ml: "Malayalam"
+    mlt: Maltese
     mn: "Mongolian"
     mr: "Marathi"
     ms: "Malay"
@@ -471,8 +486,11 @@ en:
     ng: "Ndonga"
     nl: "Dutch; Flemish"
     nn: "Norwegian Nynorsk; Nynorsk, Norwegian"
-    no: "Norwegian"
+    nno: Norwegian
+    'no': "Norwegian"
+    nob: Norwegian
     none: "Unspecified"
+    nor: Norwegian
     nr: "Ndebele, South; South Ndebele"
     nv: "Navajo; Navaho"
     ny: "Chichewa; Chewa; Nyanja"
@@ -486,6 +504,7 @@ en:
     pa: "Punjabi"
     pi: "Pali"
     pl: "Polish"
+    pol: Polish
     ps: "Pushto; Pashto"
     pt: "Portuguese"
     qu: "Quechua"
@@ -493,6 +512,7 @@ en:
     rn: "Rundi"
     ro: "Romanian; Moldavian; Moldovan"
     ru: "Russian"
+    rus: Russian
     rw: "Kinyarwanda"
     sa: "Sanskrit"
     sc: "Sardinian"
@@ -503,9 +523,12 @@ en:
     si: "Sinhalese"
     sk: "Slovak"
     sl: "Slovenian"
+    slk: Slovak
+    slv: Spanish
     sm: "Samoan"
     sn: "Shona"
     so: "Somali"
+    som: Somali
     sq: "Albanian"
     sr: "Serbian"
     ss: "Swati"
@@ -513,10 +536,12 @@ en:
     su: "Sundanese"
     sv: "Swedish"
     sw: "Swahili"
+    swe: Swedish
     ta: "Tamil"
     te: "Telugu"
     tg: "Tajik"
     th: "Thai"
+    tha: Thai
     ti: "Tigrinya"
     tk: "Turkmen"
     tl: "Tagalog"
@@ -526,16 +551,19 @@ en:
     tr: "Turkish"
     ts: "Tsonga"
     tt: "Tatar"
+    tur: Turkish
     tw: "Twi"
     ty: "Tahitian"
     ug: "Uighur; Uyghur"
     uk: "Ukrainian"
+    ukr: Ukrainian
     ur: "Urdu"
     uz: "Uzbek"
     ve: "Venda"
     vi: "Vietnamese"
     vo: "Volapük"
     wa: "Walloon"
+    wel: Welsh
     wo: "Wolof"
     xh: "Xhosa"
     yi: "Yiddish"
