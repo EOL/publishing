@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get '' => 'home_page#index', as: :home_page
     get 'errors/not_found'
     get 'errors/internal_server_error'
-    
+
     # Putting pages first only because it"s the most common:
     # TODO: move all the silly extra things to their own resources (I think).
     resources :pages, only: [:show] do
@@ -52,6 +52,10 @@ Rails.application.routes.draw do
       collection do
         get "autocomplete"
         get "search"
+      end
+      member do
+        post "grant_power"
+        post "revoke_power"
       end
       resources :user_downloads, only: [:show], as: :downloads do
         get "error" => "user_download/errors#show", as: :error
@@ -222,7 +226,7 @@ Rails.application.routes.draw do
     scope "docs" do
       get "(/:directory_id)/:id" => "editor_pages#show", as: :editor_page
     end
-    
+
 
     # Non-resource routes last:
     get "/search" => "search#search",  :as => "search"
