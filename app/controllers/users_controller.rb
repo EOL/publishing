@@ -9,14 +9,22 @@ class UsersController < ApplicationController
 
   def grant_power
     @user = User.find_by!(id: params[:id], active: true)
-    @user.grant_power_user
-    redirect_to user_path(@user), notice: "Granted power-user privileges for user."
+    if @user.admin?
+      return redirect_to(user_path(@user), notice: "Cannot grant access to admin.")
+    else
+      @user.grant_power_user
+      redirect_to user_path(@user), notice: "Granted power-user privileges for user."
+    end
   end
 
   def revoke_power
     @user = User.find_by!(id: params[:id], active: true)
-    @user.revoke_power_user
-    redirect_to user_path(@user), notice: "Revoked power-user privileges for user."
+    unless @user.power_user?
+      return redirect_to(user_path(@user), notice: "This user does not have power-user privileges; nothing to revoke.")
+    else
+      @user.revoke_power_user
+      redirect_to user_path(@user), notice: "Revoked power-user privileges for user."
+    end
   end
 
   def power_user_index

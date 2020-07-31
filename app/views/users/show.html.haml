@@ -55,5 +55,7 @@
           %li= link_to t("user.list_of_power_users"), power_users_path
           %li= link_to t("user.batch_page_lookup"), batch_lookup_pages_path
           %li= link_to t("user.download_queue"), user_downloads_pending_path
-          %li= link_to(t("user.grant_power"), grant_power_user_path(@user), method: 'post')
-          %li= link_to(t("user.revoke_power"), revoke_power_user_path(@user), method: 'post')
+          - if !@user.admin? && !@user.power_user?
+            %li= link_to(t("user.grant_power"), grant_power_user_path(@user), method: 'post')
+          - if !@user.admin? && @user.power_user?
+            %li= link_to(t("user.revoke_power"), revoke_power_user_path(@user), method: 'post')
