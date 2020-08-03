@@ -282,274 +282,273 @@ pms:
     stats_cleared: Le statìstiché a son ëstàite torna calcolà.
   language: Lenga
   languages:
-    "no": norvegèis
-    Q100103: Flamand ossidental
-    Q11005332: Kinga
-    Q11128374: Nyiha
-    Q1160372: Laz
-    Q11732519: Kingindo
-    Q13313: Meru
-    Q13324: Minangkabau
-    Q13330: Mirandèis
-    Q13358: Rumen Megleno
-    Q146803: Lenga franca neuva
-    Q16115145: Nyika
-    Q180937: Albanèis Tosk
-    Q18415595: Dotyali
-    Q19933293: Luri dël nòrd
-    Q23014: Palatin
-    Q2429648: Pogoro
-    Q2501174: Gorontalo
-    Q2591230: Cashinahua
-    Q2638144: Sukuma
-    Q27776: Adigan
-    Q28602: Arameo ofissial
-    Q29507: Asturian
-    Q3129390: Hehe
-    Q3272620: Nyakusa
-    Q3272630: Gogo
-    Q32858: Vòtich
-    Q32979: Choctaw
-    Q33202: Brahui
-    Q33281: Chavacano
-    Q33303: Haïda
-    Q33357: Tatar ëd Crimea
-    Q33475: Cinèis gan
-    Q33509: Ingush
-    Q33541: Kara-Kalpak
-    Q33595: Iraqw
-    Q3362072: Digo
-    Q33634: Calmoch
-    Q33698: Liv
-    Q33965: Santali
-    Q34016: Sandawe
-    Q34138: Tumbuka
-    Q34159: Tok pisin
-    Q34318: Talysh
-    Q3437661: Luguru
-    Q35037: Businenge Tongo
-    Q3508074: Nai
-    Q35156: Car
-    Q35475: Kabiyè
-    Q35756: Haya
-    Q35787: Masai
-    Q35936: Ilocan
-    Q35939: Anglèis créol giamaican
-    Q35978: Hiligaynon
-    Q36109: Maithili
-    Q36403: Pare
-    Q36584: Livvi
-    Q36730: Turch, otman
-    Q36738: Novial
-    Q36748: Pòntich
-    Q3788739: Shambala
-    Q4121131: Nyamwezi
-    Q4126517: Inuktitut canadèis oriental
-    Q4941378: Bondei
-    Q497345: Fransisch prinsipal
-    Q5575236: Konkani goanèis
-    Q56240: Àrabo tunisin
-    Q56426: Àrabo marochin
-    Q56466: Dinka
-    Q56482: Shan
-    Q56590: Atikamekw
-    Q584983: Rangi
-    Q667747: Fipa
-    Q6786446: Matengo
-    Q6944725: Mwera
-    Q7022366: Ngindo
-    Q7193418: Nyaturu
-    Q750553: Portughèis brasilian
-    Q845441: Sard sassarèis
-    Q880301: Fransèis cajun
-    Q8836490: Bende
-    Q9292: Aser
-    aa: Afar
     ab: Abcasian
-    ae: Avestan
+    Q27776: Adigan
+    aa: Afar
     af: Afrikaans
     ak: Akan
+    sq: albanèis
     am: Amàrich
-    an: Aragonèis
     ar: Àrabo
+    an: Aragonèis
+    hy: Armen
     as: Assamèis
+    Q29507: Asturian
+    Q56590: Atikamekw
     av: Avàrich
+    ae: Avestan
     ay: Aymara
+    Q9292: Aser
     az: Aser
+    bm: Bambara
     ba: Bashkir
+    eu: Basch
     be: Bieloruss
-    bg: Bùlgar
+    Q8836490: Bende
+    bn: Bengalèis
     bh: Lenghe bihari
     bi: Bislamèis
-    bm: Bambara
-    bn: Bengalèis
-    bo: Tibetan
-    br: Breton
+    nb: bokmål, norvegèis; norvegèis bokmål
+    Q4941378: Bondei
     bs: Bosnìach
+    Q33202: Brahui
+    Q750553: Portughèis brasilian
+    br: Breton
+    bg: Bùlgar
+    my: birman
+    Q35037: Businenge Tongo
+    Q880301: Fransèis cajun
+    Q35156: Car
+    Q2591230: Cashinahua
     ca: Catalan; Valensian
-    ce: Cecen
+    km: Khmer sentral
     ch: Chamorro
-    co: Còrs
-    cr: Cree
-    cs: Cech
+    Q33281: Chavacano
+    ce: Cecen
+    ny: chewa; chichewa; nyanja
+    zh: cinèis
+    Q32979: Choctaw
     cu: Vej slavònich ëd la cesa
     cv: Chuvash
-    cy: Galèis
+    kw: Córnich
+    co: Còrs
+    cr: Cree
+    Q33357: Tatar ëd Crimea
+    hr: Croat
+    cs: Cech
     da: Danèis
-    de: Alman
+    Q3362072: Digo
+    Q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
+    Q18415595: Dotyali
+    nl: olandèis; flamand
     dz: Dzongkha
     dzo: Dzongkha
-    ee: Ewe
-    el: Grech modern (1453-)
+    Q4126517: Inuktitut canadèis oriental
     en: Anglèis
     eo: Esperant
-    es: Spagneul; Castilian
     et: Éston
-    eu: Basch
-    fa: Persian
-    ff: Fulah
-    fi: Finlandèis
-    fj: Figian
+    ee: Ewe
     fo: Faroèis
+    fj: Figian
+    fi: Finlandèis
+    Q667747: Fipa
     fr: Fransèis
-    fy: Frisian ossidental
-    ga: Irlandèis
+    ff: Fulah
     gd: Gaélich ëscossèis
     gl: Galissian
+    Q33475: Cinèis gan
+    lg: Ganda
+    ka: Georgian
+    de: Alman
+    Q5575236: Konkani goanèis
+    Q3272630: Gogo
+    Q2501174: Gorontalo
+    el: Grech modern (1453-)
     gn: Guarani
     gu: Gujarati
-    gv: Manèis
+    Q33303: Haïda
+    ht: Haitian; Créol haitian
     ha: Hausa
+    Q35756: Haya
     he: Ebreo
+    Q3129390: Hehe
+    hz: Herero
+    Q35978: Hiligaynon
     hi: Hindi
     ho: Hiri motu
-    hr: Croat
-    ht: Haitian; Créol haitian
     hu: Ungherèis
-    hy: Armen
-    hz: Herero
-    ia: Antërlenga
-    id: Indonesian
-    ie: Antërlenga; Ossidental
-    ig: Igbo
-    ii: Yi dël Sichuan; Nuosu
-    ik: Inupiaq
-    io: Ido
     is: Islandèis
-    it: Italian
+    io: Ido
+    ig: Igbo
+    Q35936: Ilocan
+    id: Indonesian
+    Q33509: Ingush
+    ia: Antërlenga
+    ie: Antërlenga; Ossidental
     iu: Inuktitut
+    ik: Inupiaq
+    Q33595: Iraqw
+    ga: Irlandèis
+    it: Italian
+    Q35939: Anglèis créol giamaican
     ja: Giaponèis
     jp: Giaponèis
     jv: Giavanèis
-    ka: Georgian
-    kg: Kongo
-    ki: Kikuyu; Gikuyu
-    kj: Kuanyama; Kwanyama
-    kk: Kasach
+    Q35475: Kabiyè
     kl: Kalaallisut; Groenlandèis
-    km: Khmer sentral
+    Q33634: Calmoch
     kn: Kannada
-    ko: Corean
     kr: Kanuri
+    Q33541: Kara-Kalpak
     ks: Kashmir
-    ku: Curd
-    kv: Komi
-    kw: Córnich
+    kk: Kasach
+    ki: Kikuyu; Gikuyu
+    Q11005332: Kinga
+    Q11732519: Kingindo
+    rw: kinyarwanda
     ky: Kirghiz; Kyrgyz
+    kv: Komi
+    kg: Kongo
+    ko: Corean
+    kj: Kuanyama; Kwanyama
+    ku: Curd
+    lo: lao
     la: Latin
-    lb: Lussemborghèis; Letzeburgesch
-    lg: Ganda
+    lv: léton
+    Q1160372: Laz
     li: Limborghèis
     ln: lingala
-    lo: lao
+    Q146803: Lenga franca neuva
     lt: lituan
+    Q33698: Liv
+    Q36584: Livvi
     lu: luba-katanga
-    lv: léton
-    mg: malgass
-    mh: marshalèis
-    mi: maòri
+    Q3437661: Luguru
+    lb: Lussemborghèis; Letzeburgesch
+    Q35787: Masai
     mk: macédon
-    ml: malayalam
-    mn: mòngol
-    mr: marathi
+    Q497345: Fransisch prinsipal
+    Q36109: Maithili
+    mg: malgass
     ms: malèis
+    ml: malayalam
     mt: maltèis
-    my: birman
+    gv: Manèis
+    mi: maòri
+    mr: marathi
+    mh: marshalèis
+    Q6786446: Matengo
+    Q13358: Rumen Megleno
+    Q13313: Meru
+    Q13324: Minangkabau
+    Q13330: Mirandèis
+    mn: mòngol
+    Q56426: Àrabo marochin
+    Q6944725: Mwera
+    Q3508074: Nai
     na: nauru
-    nb: bokmål, norvegèis; norvegèis bokmål
-    nd: ndebele dël nòrd
-    ne: nepalèis
-    ng: ndonga
-    nl: olandèis; flamand
-    nn: norvegèis nynorsk; nynorsk, norvegèis
-    "": Norvegèis
-    none: Nen ëspessìficà
-    nr: ndebele dël sud
     nv: navajo; navaho
-    ny: chewa; chichewa; nyanja
+    nd: ndebele dël nòrd
+    nr: ndebele dël sud
+    ng: ndonga
+    ne: nepalèis
+    Q7022366: Ngindo
+    Q19933293: Luri dël nòrd
+    se: sami dël Nòrd
+    "no": norvegèis
+    nn: norvegèis nynorsk; nynorsk, norvegèis
+    Q36738: Novial
+    Q3272620: Nyakusa
+    Q4121131: Nyamwezi
+    Q7193418: Nyaturu
+    Q11128374: Nyiha
+    Q16115145: Nyika
     oc: Ossitan
+    Q28602: Arameo ofissial
     oj: ojibwa
-    om: oromo
     or: oriya
+    om: oromo
     os: osset
-    pa: Punjabi
     pi: pali
+    pa: Punjabi
+    Q36403: Pare
+    fa: Persian
+    Q23014: Palatin
+    Q2429648: Pogoro
     pl: polonèis
-    ps: pushto; pashton
+    Q36748: Pòntich
     pt: portughèis
+    ps: pushto; pashton
     qu: quechua
+    Q584983: Rangi
+    ro: romen; moldav
     rm: romancc
     rn: rundi
-    ro: romen; moldav
     ru: russ; russi
-    rw: kinyarwanda
-    sa: sànscrit
-    sc: sard
-    sd: sindhi
-    se: sami dël Nòrd
+    sm: samoan
+    Q34016: Sandawe
     sg: sango
+    sa: sànscrit
+    Q33965: Santali
+    sc: sard
+    Q845441: Sard sassarèis
+    sr: serb
+    Q3788739: Shambala
+    Q56482: Shan
+    sn: shona
+    ii: Yi dël Sichuan; Nuosu
+    sd: sindhi
     si: Singalèis
     sk: slovach
     sl: sloven
-    sm: samoan
-    sn: shona
     so: sòmal
-    sq: albanèis
-    sr: serb
-    ss: swati
     st: sotho dël sud
+    es: Spagneul; Castilian
+    Q2638144: Sukuma
     su: sondanèis
-    sv: svedèis
     sw: swahili
-    ta: tamil
-    te: telugu
-    tg: tagich
-    th: thai
-    ti: tigrinya
-    tk: turcmen
+    ss: swati
+    sv: svedèis
     tl: tagalog
-    tn: tswana
-    to: Tongan
-    tr: turch
-    ts: tsonga
-    tt: Tatar
-    tw: twi
     ty: taitian
+    tg: tagich
+    Q34318: Talysh
+    ta: tamil
+    tt: Tatar
+    te: telugu
+    th: thai
+    bo: Tibetan
+    ti: tigrinya
+    Q34159: Tok pisin
+    to: Tongan
+    Q180937: Albanèis Tosk
+    ts: tsonga
+    tn: tswana
+    Q34138: Tumbuka
+    Q56240: Àrabo tunisin
+    tr: turch
+    Q36730: Turch, otman
+    tk: turcmen
+    tw: twi
     ug: uighur; uyghur
     uk: ucrain
+    none: Nen ëspessìficà
     ur: urdu
     uz: usbech
     ve: venda
     vi: vietnamèis
     vo: volapük
+    Q32858: Vòtich
     wa: valon
+    cy: Galèis
+    Q100103: Flamand ossidental
+    fy: Frisian ossidental
     wo: wolof
     xh: xhosa
     yi: yiddish
     yo: yoruba
     za: zhuang; chuang
-    zh: cinèis
     zu: zulù
   layout_sign_in: Rintré ant ël sistema
   layout_sign_up: Anscriv-se

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
+# Author: MuratTheTurkish
 # Author: Sucsuzz
 # Author: SwornToTranslate29
 ---
@@ -282,274 +283,348 @@ tr:
     stats_cleared: İstatistikler yeniden hesaplandı.
   language: Dil
   languages:
-    "no": Norveççe
-    Q100103: Batı Flamanca
-    Q11005332: Kinga
-    Q11128374: Nyiha dili
-    Q1160372: Lazca
-    Q11732519: Ngindo dili
-    Q13313: Meru
-    Q13324: Minangkabau dili
-    Q13330: Mirandaca
-    Q13358: Megleno Rumence
-    Q146803: Lingua Franca Nova
-    Q16115145: Nyika dili
-    Q180937: Tosk Arnavutça
-    Q18415595: Doteli
-    Q19933293: Kuzey Luri
-    Q23014: Palatin Almancası
-    Q2429648: Pogoro
-    Q2501174: Gorontalo dili
-    Q2591230: Kashinawa dili
-    Q2638144: Sukuma dili
-    Q27776: Adigece
-    Q28602: Eski Aramice
-    Q29507: Asturyasça
-    Q3129390: Hehe dili
-    Q3272620: Nyakusa dili
-    Q3272630: Gogo dili
-    Q32858: Votça
-    Q32979: Çoktav dili
-    Q33202: Brohice
-    Q33281: Chavacano dili
-    Q33303: Haydaca
-    Q33357: Kırım Tatarcası
-    Q33475: Gan Çinçesi
-    Q33509: İnguşça
-    Q33541: Karakalpakça
-    Q33595: Iraqw dili
-    Q3362072: Digo dili
-    Q33634: Kalmukça
-    Q33698: Livonca
-    Q33965: Santali dili
-    Q34016: Sandave
-    Q34138: Tumbuka
-    Q34159: Tok Pisin
-    Q34318: Talışça
-    Q3437661: Luguru dili
-    Q35037: Ndyuka dili
-    Q3508074: Nai dili
-    Q35156: Car dili
-    Q35475: Kabiye dili
-    Q35756: Haya dili
-    Q35787: Masai
-    Q35936: Iloko
-    Q35939: Jamaika Patois Dili
-    Q35978: Hiligaynon dili
-    Q36109: Maithili
-    Q36403: Asu
-    Q36584: Livvi Karelce
-    Q36730: Türkçe, Osmanlı
-    Q36738: Novial
-    Q36748: Pontus Rumcası
-    Q3788739: Shambala
-    Q4121131: Nyamvezi
-    Q4126517: Doğu Kanada İnuitçesi
-    Q4941378: Bondei dili
-    Q497345: Mainfränkisch
-    Q5575236: Goan Konkani
-    Q56240: Tunus Arapça
-    Q56426: Fas Arapça
-    Q56466: Dinka dili
-    Q56482: Şanca
-    Q56590: Atikamekçe
-    Q584983: Langi
-    Q667747: Fipa dili
-    Q6786446: Matengo dili
-    Q6944725: Mwera dili
-    Q7022366: Ngindo dili
-    Q7193418: Turu dili
-    Q750553: Brezilya Portekizcesi
-    Q845441: Sassari Sarduca
-    Q880301: Louisiana Fransızca
-    Q8836490: Bende dili
-    Q9292: Azerice
-    aa: Afarca
     ab: Abhazca
-    ae: Avestaca
+    Q27683: Açece
+    Q27776: Adigece
+    aa: Afarca
     af: Afrikaanca
     ak: Akan
+    alb: Arnavutça
+    sq: Arnavutça
+    Q131339: Alemannik
     am: Amharca
-    an: Aragonca
     ar: Arapça
+    an: Aragonca
+    hy: Ermenice
     as: Assam dili
+    Q29507: Asturyasça
+    Q56590: Atikamekçe
     av: Avarca
+    ae: Avestaca
     ay: Aymaraca
+    Q9292: Azerice
     az: Azerice
+    Q33070: Bali dili
+    bm: Bambara
+    Q33151: Banjar dili
     ba: Başkurtça
+    eu: Baskça
+    Q29540: Bavyeraca
     be: Beyaz Rusça
-    bg: Bulgarca
+    Q8836490: Bende dili
+    bn: Belgalce
     bh: Bihari dilleri
     bi: Bislama
-    bm: Bambara
-    bn: Belgalce
-    bo: Tibetçe
-    br: Bretonca
+    nb: Bokmål, Norveççe; Norwegian Bokmål
+    Q4941378: Bondei dili
     bs: Boşnakça
+    Q33202: Brohice
+    Q750553: Brezilya Portekizcesi
+    br: Bretonca
+    bg: Bulgarca
+    my: Birmanca
+    Q33120: Buryatça
+    Q35037: Ndyuka dili
+    Q880301: Louisiana Fransızca
+    Q35156: Car dili
+    Q2591230: Kashinawa dili
     ca: Katalanca; Valensiyaca
-    ce: Çeçence
+    Q33239: Sabuanca
+    khm: Kmerce
+    km: Kmerce
     ch: Çamorro dili
-    co: Korsikaca
-    cr: Cree
-    cs: Çekçe
+    Q33281: Chavacano dili
+    ce: Çeçence
+    Q33388: Çeroki
+    Q33265: Şayence
+    ny: Çevaca; Chewa; Nyanja
+    zh: Çince
+    chi: Çince
+    Q32979: Çoktav dili
     cu: Eski Kilise Slavcası
     cv: Çuvaşça
-    cy: Galce
+    Q37041: Klasik Çince
+    kw: Kernevekçe
+    co: Korsikaca
+    cr: Cree
+    Q33357: Kırım Tatarcası
+    hr: Hırvatça
+    hrv: Hırvatça
+    cs: Çekçe
     da: Danca
-    de: Almanca
+    Q3362072: Digo dili
+    Q56466: Dinka dili
     dv: Maldivce
+    Q18415595: Doteli
+    dut: Felemenkçe
+    nl: Felemenkçe; Flemish
     dz: Dzongkha
     dzo: Dzongkha
-    ee: Ewe
-    el: Yunanca, Modern (1453-)
+    Q4126517: Doğu Kanada İnuitçesi
     en: İngilizce
+    Q29952: Erzyanca
     eo: Esperanto
-    es: İspanyolca; Kastilyaca
     et: Estonyaca
-    eu: Baskça
-    fa: Farsça
-    ff: Fula Dili
-    fi: Fince
-    fj: Fiji dili
+    est: Estonyaca
+    ee: Ewe
     fo: Faroece
+    fj: Fiji dili
+    fi: Fince
+    fin: Fince
+    Q667747: Fipa dili
     fr: Fransızca
-    fy: Batı Frizcesi
-    ga: İrlandaca
+    fra: Fransızca
+    ff: Fula Dili
     gd: İskoçça Galcesi
     gl: Galiçyaca
+    Q33475: Gan Çinçesi
+    lg: Ganda
+    ka: Gürcüce
+    de: Almanca
+    deu: Almanca
+    Q5575236: Goan Konkani
+    Q3272630: Gogo dili
+    Q2501174: Gorontalo dili
+    el: Yunanca, Modern (1453-)
+    gre: Yunanca
     gn: Guaraní dili
     gu: Guceratça
-    gv: Man dili
+    Q33303: Haydaca
+    ht: Haiti dili; Haiti Creole
     ha: Hausaca
+    Q35756: Haya dili
     he: İbranice
+    heb: İbranice
+    Q3129390: Hehe dili
+    hz: Herero
+    Q35978: Hiligaynon dili
     hi: Hitnçe
     ho: Hiri Motu
-    hr: Hırvatça
-    ht: Haiti dili; Haiti Creole
     hu: Macarca
-    hy: Ermenice
-    hz: Herero
-    ia: İnterlingua
-    id: Endonezce
-    ie: Interlingue; Batı
-    ig: İgbo Dili
-    ii: Sichuan Yi
-    ik: İnyupikçe
-    io: İdo dili
     is: İzlandaca
-    it: İtalyanca
+    ice: İzlandaca
+    io: İdo dili
+    ig: İgbo Dili
+    Q35936: Iloko
+    id: Endonezce
+    Q33509: İnguşça
+    ia: İnterlingua (Uluslararası Yardımcı Dil Derneği)
+    ie: Interlingue; Batı
     iu: Doğu Kanada İnuitçesi
+    ik: İnyupikçe
+    Q33595: Iraqw dili
+    ga: İrlandaca
+    it: İtalyanca
+    ita: İtalyanca
+    Q35939: Jamaika Patois Dili
     ja: Japonca
     jp: Japonca
     jv: Cava dili
-    ka: Gürcüce
-    kg: Kongo
-    ki: Kikuyu
-    kj: Kuanyama
-    kk: Kazakça
+    Q33522: Kabardeyce
+    Q35475: Kabiye dili
+    Q35853: Berberice
     kl: Grönlandca
-    km: Kmerce
+    Q33634: Kalmukça
     kn: Kannada dili
-    ko: Korece
     kr: Kanurice
+    Q36121: Pampanga
+    Q33541: Karakalpakça
     ks: Kashmiri
-    ku: Kürtçe
-    kv: Komice
-    kw: Kernevekçe
+    Q33690: Kaşupça
+    kk: Kazakça
+    ki: Kikuyu
+    Q11005332: Kinga
+    Q11732519: Ngindo dili
+    rw: Ruandaca
     ky: Kırgızça
+    kv: Komice
+    kg: Kongo
+    ko: Korece
+    kor: Korece
+    kj: Kuanyama
+    ku: Kürtçe
+    Q36206: Lakça
+    lo: Laoca
+    lao: Laoca
     la: Latince
-    lb: Lüksemburgca
-    lg: Ganda
+    lv: Letonca
+    Q1160372: Lazca
+    Q31746: Lezgice
+    Q36106: Ligurca
     li: Limburgca
     ln: Lingala dili
-    lo: Laoca
+    Q146803: Lingua Franca Nova
     lt: Litvanca
+    lit: Litvanca
+    Q33698: Livonca
+    Q36584: Livvi Karelce
+    Q33754: Lombardca
+    Q168446: Aşağı Almanca
+    Q13286: Aşağı Sorbca
     lu: Luba-Katanga
-    lv: Letonca
-    mg: Malgaşça
-    mh: Marshall Adaları dili
-    mi: Maorice
+    Q3437661: Luguru dili
+    lb: Lüksemburgca
+    Q35787: Masai
     mk: Makedonca
-    ml: Malayalamca
-    mn: Moğolca
-    mr: Marathi
+    Q497345: Mainfränkisch
+    Q36109: Maithili
+    mg: Malgaşça
     ms: Malayca
+    ml: Malayalamca
     mt: Maltaca
-    my: Birmanca
+    mlt: Maltaca
+    gv: Man dili
+    mi: Maorice
+    mr: Marathi
+    mh: Marshall Adaları dili
+    Q6786446: Matengo dili
+    Q3906614: Ova Marice
+    Q13358: Megleno Rumence
+    Q13313: Meru
+    Q36455: Doğu Min Çincesi
+    Q13324: Minangkabau dili
+    Q13359: Megrelce
+    Q13330: Mirandaca
+    Q13343: Mokşanca
+    mn: Moğolca
+    Q56426: Fas Arapça
+    Q6944725: Mwera dili
+    Q13300: Nahuatl
+    Q3508074: Nai dili
     na: Nauruca
-    nb: Bokmål, Norveççe; Norwegian Bokmål
-    nd: Ndebele, Kuzey; Kuzey Ndebele
-    ne: Nepalce
-    ng: Ndonga
-    nl: Felemenkçe; Flemish
-    nn: Norveççe Nynorsk; Nynorsk, Norveççe
-    "": Norveççe
-    none: Belirtilmemiş
-    nr: Ndebele, Güney; Güney Ndebele
     nv: Navahoca
-    ny: Çevaca; Chewa; Nyanja
-    oc: Oksitanca
+    nd: Ndebele, Kuzey; Kuzey Ndebele
+    nr: Ndebele, Güney; Güney Ndebele
+    ng: Ndonga
+    Q33845: Napolice
+    ne: Nepalce
+    Q7022366: Ngindo dili
+    Q28224: Kuzey Frizce
+    Q19933293: Kuzey Luri
+    se: Kuzey Lapça
+    "no": Norveççe
+    nno: Norveççe
+    nob: Norveççe
+    nor: Norveççe
+    nn: Norveççe Nynorsk; Nynorsk, Norveççe
+    Q36738: Novial
+    Q3272620: Nyakusa dili
+    Q4121131: Nyamvezi
+    Q7193418: Turu dili
+    Q11128374: Nyiha dili
+    Q16115145: Nyika dili
+    oc: Oksitanca (1500 sonrası)
+    Q28602: Eski Aramice
     oj: Ojibva dili
-    om: Oromca
     or: Oriya Dili
+    om: Oromca
     os: Osetçe
-    pa: Pencapça
     pi: Pali
+    pa: Pencapça
+    Q36403: Asu
+    fa: Farsça
+    Q23014: Palatin Almancası
+    Q34024: Picard dili
+    Q15085: Piemontça
+    Q2429648: Pogoro
     pl: Lehçe
-    ps: Peştuca
+    pol: Lehçe
+    Q36748: Pontus Rumcası
     pt: Portekizce
+    ps: Peştuca
     qu: Keçuva dili
+    Q584983: Langi
+    ro: Romence; Moldovaca
     rm: Romanşça
     rn: Rundice
-    ro: Romence; Moldovaca
     ru: Rusça
-    rw: Ruandaca
-    sa: Sanskrit
-    sc: Sarduca
-    sd: Sindhiler
-    se: Kuzey Lapça
+    rus: Rusça
+    Q26245: Rusince
+    Q34299: Yakutça
+    Q718269: Sakizaya
+    sm: Samoaca
+    Q213434: Samogitçe
+    Q34016: Sandave
     sg: Sango
+    sa: Sanskrit
+    Q33965: Santali dili
+    sc: Sarduca
+    Q845441: Sassari Sarduca
+    Q14549: İskoçça
+    sr: Sırpça
+    Q3788739: Shambala
+    Q56482: Şanca
+    sn: Şona Dili
+    Q34004: Şona Dili
+    ii: Sichuan Yi
+    Q33973: Sicilyaca
+    sd: Sindhiler
     si: Seylanca
     sk: Slovakça
+    slk: Slovakça
     sl: Slovence
-    sm: Samoaca
-    sn: Şona Dili
     so: Somalice
-    sq: Arnavutça
-    sr: Sırpça
-    ss: Swati dili
+    som: Somalice
     st: Sotho dili
+    es: İspanyolca; Kastilyaca
+    slv: İspanyolca
+    Q2638144: Sukuma dili
     su: Sundaca
-    sv: İsveççe
     sw: Svahili
-    ta: Tamilce
-    te: Teluguca
-    tg: Tacikçe
-    th: Tayca
-    ti: Tigrinya dili
-    tk: Türkmence
+    ss: Swati dili
+    sv: İsveççe
+    swe: İsveççe
     tl: Tagalogca
-    tn: Tsvana dili
-    to: Tongaca
-    tr: Türkçe
-    ts: Tsongaca
-    tt: Tatarca
-    tw: Tvi
     ty: Tahitice
+    tg: Tacikçe
+    Q34318: Talışça
+    ta: Tamilce
+    tt: Tatarca
+    te: Teluguca
+    th: Tayca
+    tha: Tayca
+    bo: Tibetçe
+    ti: Tigrinya dili
+    Q34159: Tok Pisin
+    to: Tongaca
+    Q180937: Tosk Arnavutça
+    ts: Tsongaca
+    tn: Tsvana dili
+    Q34251: Tulu dili
+    Q34138: Tumbuka
+    Q56240: Tunus Arapça
+    tr: Türkçe
+    tur: Türkçe
+    Q36730: Türkçe, Osmanlı
+    tk: Türkmence
+    tw: Tvi
+    Q13238: Udmurtça
     ug: Uygurca
     uk: Ukraynaca
+    ukr: Ukraynaca
+    none: Belirtilmemiş
+    Q13248: Yukarı Sorbca
     ur: Urduca
     uz: Özbekçe
     ve: Venda dili
+    Q32747: Vepsçe
     vi: Vietnamca
     vo: Volapük
+    Q32858: Votça
     wa: Valonca
+    Q34279: Varayca
+    cy: Galce
+    wel: Galce
+    Q100103: Batı Flamanca
+    fy: Batı Frizcesi
     wo: Wolof dili
+    Q34290: Wu Çincesi
     xh: Xhosa dili
     yi: Yidiş
     yo: Yoruba Dili
+    Q10199: Zazaca
+    Q237409: Zelandaca
     za: Zhuangca
-    zh: Çince
     zu: Zuluca
   layout_sign_in: Oturum Aç
   layout_sign_up: Kaydol
@@ -1140,6 +1215,8 @@ tr:
     batch_page_lookup: Toplu sayfa arama
     created_at: oluşturuldu
     download_queue: Veri indirme kuyruğu
+    grant_power: Yetkili kullanıcı erişimi ver
+    revoke_power: Yetkili kullanıcı erişiminden çıkar
     edit_account_details: Hesap ayrıntılarını düzenle
     email: E-posta
     to_commit_enter_current: Değişikliklerinizi yapmak için lütfen mevcut şifrenizi

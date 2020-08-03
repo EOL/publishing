@@ -232,38 +232,37 @@ sv:
     stats_cleared: Statistiken har beräknats om.
   language: Språk
   languages:
-    "no": Norska
-    Q100103: Västflamländska
-    Q11005332: Kinga
-    Q11128374: Nyiha
-    Q1160372: Laziska
-    Q13324: Minangkabau
-    Q13330: Mirandesiska
-    Q146803: Lingua Franca Nova
+    hy: Armenien
     bg: Bulgariska
+    hr: Kroatien
     da: Danska
-    de: Tyska
     en: Engelska
     et: Estniska
     fi: Finska
     fr: Franska
+    ka: Georgien
+    de: Tyska
     ga: Iriska
-    hr: Kroatien
-    hy: Armenien
     it: Italienska
     ja: Japanska
     jp: Japanska
-    ka: Georgien
+    Q11005332: Kinga
     ko: Koreanska
-    lt: Litauen
     lv: Lettiska
+    Q1160372: Laziska
+    Q146803: Lingua Franca Nova
+    lt: Litauen
     mk: Makedonska
+    Q13324: Minangkabau
+    Q13330: Mirandesiska
     mn: Mongoliet
-    "": Norska
-    none: Ospecificerad
     se: Nordsamiska
+    "no": Norska
+    Q11128374: Nyiha
     sv: Svenska
+    none: Ospecificerad
     vi: Vietnamesisk
+    Q100103: Västflamländska
   layout_sign_in: Logga in
   layout_sign_up: Registrera
   layout_sign_out: Logga ut
