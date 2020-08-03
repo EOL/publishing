@@ -179,9 +179,13 @@ module PagesHelper
     hierarchy_helper(page, link, :full)
   end
 
+  def language_header_key(l)
+    "languages.#{l}"
+  end
+
   def language_header(l)
     return t("languages.none") if l.blank?
-    tl = t("languages.#{l}")
+    tl = t(language_header_key(l))
     return l if tl =~ /^translation missing/
     return l if tl =~ /^I18n:/
     tl == 0 ? l : tl
@@ -203,8 +207,17 @@ module PagesHelper
       elsif a != cur_lang_group && b == cur_lang_group
         1
       else
-        # TODO: this is inefficient! Find a better way. Instantiates view context per call.
-        language_header(a) <=> language_header(b)
+        a_exists = I18n.exists?(language_header_key(a))
+        b_exists = I18n.exists?(language_header_key(b))
+
+        # sort unmapped languages to the end
+        if a_exists && !b_exists
+          -1 
+        elsif !a_exists && b_exists
+          1
+        else
+          language_header(a) <=> language_header(b)
+        end
       end
     end
 
