@@ -118,6 +118,11 @@ if t has flower visitor traits:
 
 if t is a species:
 	if t has behavior traits:
+    Note: behavior traits are defined as follows
+    * having object term nocturnal (http://www.wikidata.org/entity/Q309179), diurnal (http://www.wikidata.org/entity/Q906470), or crepuscular (http://purl.obolibrary.org/obo/ECOCORE_00000078) (or descendants thereof)
+    * having object term solitary (http://eol.org/schema/terms/solitary) or descendant thereof
+    * having predicate trophic guild (http://eol.org/schema/terms/TrophicGuild) or descendant thereof
+
 		Behavioral sentence, e.g., "subj is a solitary, nocturnal carnivore."
 
   if both lifespan and [body length or body mass] traits are present:
