@@ -47,11 +47,15 @@
         %ul.collections
           - @user.collections.each do |collection|
             %li= link_to(collection.name, collection)
-    - if @user == current_user && current_user.is_power_user?
+    - if current_user&.admin? || (@user == current_user && current_user.is_power_user?)
       %h2= t("user.headers.links")
       %ul.links
         %li= link_to t("user.trait_bank_cypher_form"), cypher_form_path
-        - if current_user.admin?
+        - if current_user&.admin?
           %li= link_to t("user.list_of_power_users"), power_users_path
           %li= link_to t("user.batch_page_lookup"), batch_lookup_pages_path
           %li= link_to t("user.download_queue"), user_downloads_pending_path
+          - if !@user.admin? && !@user.power_user?
+            %li= link_to(t("user.grant_power"), grant_power_user_path(@user), method: 'post')
+          - if !@user.admin? && @user.power_user?
+            %li= link_to(t("user.revoke_power"), revoke_power_user_path(@user), method: 'post')

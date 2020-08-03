@@ -1,10 +1,30 @@
 class UsersController < ApplicationController
-  before_action :require_admin, only: :power_user_index
+  before_action :require_admin, only: [:power_user_index, :grant_power, :revoke_power]
 
   def show
     @user = User.find_by!(id: params[:id], active: true)
     # We don't want this page cached by nginx:
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+  end
+
+  def grant_power
+    @user = User.find_by!(id: params[:id], active: true)
+    if @user.admin?
+      return redirect_to(user_path(@user), notice: "Cannot grant access to admin.")
+    else
+      @user.grant_power_user
+      redirect_to user_path(@user), notice: "Granted power-user privileges for user."
+    end
+  end
+
+  def revoke_power
+    @user = User.find_by!(id: params[:id], active: true)
+    unless @user.power_user?
+      return redirect_to(user_path(@user), notice: "This user does not have power-user privileges; nothing to revoke.")
+    else
+      @user.revoke_power_user
+      redirect_to user_path(@user), notice: "Revoked power-user privileges for user."
+    end
   end
 
   def power_user_index
