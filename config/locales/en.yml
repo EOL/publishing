@@ -797,6 +797,8 @@ en:
   scientific_names_header: "Scientific Names"
   send_me_reset_password_instructions: "Send me reset password instructions"
   search:
+    full_name: "%{vernacular} (%{scientific})"
+    matched_text: "Matched %{text}"
     flash:
       cannot_combine_paths: "Unable to combine results with %{path}"
       more_than_one_species: "Unable to combine results for %{species}"

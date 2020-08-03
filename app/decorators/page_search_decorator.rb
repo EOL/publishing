@@ -6,18 +6,28 @@ class PageSearchDecorator < SearchResultDecorator
     :pages
   end
 
-  # TODO: do these methods ... work?
-
   def fa_icon
     "picture-o"
   end
 
   def title
-    object.try(:search_highlights).try(:[], :preferred_vernacular_strings) || object.name
+    if object.name != object.scientific_name
+      I18n.t("search.full_name", vernacular: object.name, scientific: object.scientific_name)
+    else
+      object.scientific_name
+    end
   end
 
   def content
-    object.try(:search_highlights).try(:[], :scientific_name) || object.scientific_name
+    if object.search_highlights&.any?
+      search_highlights = object.search_highlights.values.map do |highlight|
+        "\"#{highlight}\""
+      end.to_sentence
+
+      I18n.t("search.matched_text", text: search_highlights)
+    else
+      ""
+    end
   end
 
   def page_id
