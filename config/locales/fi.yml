@@ -248,198 +248,197 @@ fi:
     stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
-    "no": Norja
-    Q36730: Osmaninturkki
-    Q497345: Mainfränkisch
-    Q750553: Brasilianportugali
-    Q880301: Cajunranska
-    Q9292: Azeri
-    aa: Afar
     ab: Abhaasi
-    ae: Avesta
+    aa: Afar
     af: Afrikaans
     ak: Akan
+    sq: Albania
     am: Amhara
-    an: Aragonia
     ar: Arabia
+    an: Aragonia
+    hy: Armenia
     as: Assami
     av: Avaari
+    ae: Avesta
     ay: Aimara
+    Q9292: Azeri
     az: Azeri
+    bm: Bambara
     ba: Baškiiri
+    eu: Baski
     be: Valko-Venäjä
-    bg: Bulgaria
+    bn: Bengali
     bh: Bihar
     bi: Bislama
-    bm: Bambara
-    bn: Bengali
-    bo: Tiibet
-    br: Bretoni
+    nb: Kirjanorja
     bs: Bosnia
+    Q750553: Brasilianportugali
+    br: Bretoni
+    bg: Bulgaria
+    my: Burma
+    Q880301: Cajunranska
     ca: Valencia
-    ce: Tšetšeeni
+    km: Khmer
     ch: Tšamorro
-    co: Korsika
-    cr: Cree
-    cs: Tšekki
+    ce: Tšetšeeni
+    ny: Njandža
+    zh: Kiina
     cu: Kirkkoslaavi
     cv: Tšuvassi
-    cy: Kymri
+    kw: Korni
+    co: Korsika
+    cr: Cree
+    hr: Kroatia
+    cs: Tšekki
     da: Tanska
-    de: Saksa
     dv: Divehi
+    nl: Flaami
     dz: Dzongkha
     dzo: Dzongkha
-    ee: Ewe
-    el: Nykykreikka (1453-)
     en: Englanti
     eo: Esperanto
-    es: Kastilia
     et: Viro
-    eu: Baski
-    fa: Persia
-    ff: Fulah
-    fi: suomi
-    fj: Fidži
+    ee: Ewe
     fo: Fääri
+    fj: Fidži
+    fi: suomi
     fr: Ranska
-    fy: Länsifriisi
-    ga: Iiri
+    ff: Fulah
     gd: Gaeli
     gl: Galicia
+    lg: Ganda
+    ka: Georgia
+    de: Saksa
+    el: Nykykreikka (1453-)
     gn: Guarani
     gu: Gudžarati
-    gv: Manksi
+    ht: Haiti
     ha: Hausa
     he: Heprea
+    hz: Herero
     hi: Hindi
     ho: Hiri-motu
-    hr: Kroatia
-    ht: Haiti
     hu: Unkari
-    hy: Armenia
-    hz: Herero
-    ia: Interlingua
-    id: Indonesia
-    ie: Interlingue
-    ig: Igbo
-    ii: Sichuanin-yi
-    ik: Inupiatun
-    io: Ido
     is: Islanti
-    it: Italia
+    io: Ido
+    ig: Igbo
+    id: Indonesia
+    ia: Interlingua
+    ie: Interlingue
     iu: Inuktitut
+    ik: Inupiatun
+    ga: Iiri
+    it: Italia
     ja: Japani
     jp: Japani
     jv: Jaava
-    ka: Georgia
-    kg: Kongo
-    ki: Kikuju
-    kj: Kwanyama
-    kk: Kazakki
     kl: Grönlanti
-    km: Khmer
     kn: Kannada
-    ko: Korea
     kr: Kanuri
     ks: Kašmiri
-    ku: Kurdi
-    kv: Komi
-    kw: Korni
+    kk: Kazakki
+    ki: Kikuju
+    rw: Ruanda
     ky: Kirgiisi
+    kv: Komi
+    kg: Kongo
+    ko: Korea
+    kj: Kwanyama
+    ku: Kurdi
+    lo: Lao
     la: Latina
-    lb: Luxemburg
-    lg: Ganda
+    lv: Latvia
     li: Limburg
     ln: Lingala
-    lo: Lao
     lt: Liettua
     lu: Katanganluba
-    lv: Latvia
-    mg: Malagassi
-    mh: Marshall
-    mi: Maori
+    lb: Luxemburg
     mk: Makedonia
-    ml: Malajalam
-    mn: Mongolia
-    mr: Marathi
+    Q497345: Mainfränkisch
+    mg: Malagassi
     ms: Malaiji
+    ml: Malajalam
     mt: Malta
-    my: Burma
+    gv: Manksi
+    mi: Maori
+    mr: Marathi
+    mh: Marshall
+    mn: Mongolia
     na: Nauru
-    nb: Kirjanorja
-    nd: Pohjois-ndebele
-    ne: Nepali
-    ng: Ndonga
-    nl: Flaami
-    nn: Uusnorja
-    "": norja
-    none: Määrittelemätön
-    nr: Etelä-ndebele
     nv: Navajo
-    ny: Njandža
+    nd: Pohjois-ndebele
+    nr: Etelä-ndebele
+    ng: Ndonga
+    ne: Nepali
+    se: Pohjoissaame
+    "no": Norja
+    nn: Uusnorja
     oc: Oksitaani
     oj: Odžibwa
-    om: Oromo
     or: Oriya
+    om: Oromo
     os: Osseetti
-    pa: Pandžabi
     pi: Paali
+    pa: Pandžabi
+    fa: Persia
     pl: Puola
-    ps: Paštu
     pt: Portugali
+    ps: Paštu
     qu: Ketšua
+    ro: Moldova
     rm: Retoromaani
     rn: Kirundi
-    ro: Moldova
     ru: Venäjä
-    rw: Ruanda
+    sm: Samoa
+    sg: Sango
     sa: Sanskrit
     sc: Sardi
+    sr: Serbia
+    sn: Šona
+    ii: Sichuanin-yi
     sd: Sindhi
-    se: Pohjoissaame
-    sg: Sango
     si: Sinhali
     sk: Slovakia
     sl: Slovenia
-    sm: Samoa
-    sn: Šona
     so: Somali
-    sq: Albania
-    sr: Serbia
-    ss: Swazi
     st: Eteläsotho
+    es: Kastilia
     su: Sunda
-    sv: Ruotsi
     sw: Swahili
-    ta: Tamili
-    te: Telugu
-    tg: Tadžikki
-    th: Thai
-    ti: Tigrinja
-    tk: Turkmeeni
+    ss: Swazi
+    sv: Ruotsi
     tl: Tagalog
-    tn: Tswana
-    to: Tonga
-    tr: Turkki
-    ts: Tsonga
-    tt: Tataari
-    tw: Twi
     ty: Tahiti
+    tg: Tadžikki
+    ta: Tamili
+    tt: Tataari
+    te: Telugu
+    th: Thai
+    bo: Tiibet
+    ti: Tigrinja
+    to: Tonga
+    ts: Tsonga
+    tn: Tswana
+    tr: Turkki
+    Q36730: Osmaninturkki
+    tk: Turkmeeni
+    tw: Twi
     ug: Uiguuri
     uk: Ukraina
+    none: Määrittelemätön
     ur: Urdu
     uz: Uzbekki
     ve: Venda
     vi: Vietnam
     vo: Volapük
     wa: Valloni
+    cy: Kymri
+    fy: Länsifriisi
     wo: Wolof
     xh: Xhosa
     yi: Jiddiš
     yo: Joruba
     za: Zhuang
-    zh: Kiina
     zu: Zulu
   layout_sign_in: Kirjaudu sisään
   layout_sign_up: Rekisteröidy

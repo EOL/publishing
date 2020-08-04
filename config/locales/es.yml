@@ -10,6 +10,7 @@
 # Author: Madamebiblio
 # Author: Ncr
 # Author: Silverie04
+# Author: Whytheonlyone
 ---
 es:
   language_name: Inglés
@@ -215,104 +216,105 @@ es:
     stats_cleared: Se recalcularon las estadísticas.
   language: Idioma
   languages:
-    "no": Noruego
-    Q100103: Flamenco occidental
-    Q27776: Adigué
-    Q29507: Asturiano
-    Q33357: Tártaro de Crimea
-    Q34159: Tok pisin
-    Q35939: Criollo de Jamaica
-    Q56426: Árabe marroquí
-    Q750553: Portugués de Brasil
-    Q9292: Azerí
     ab: Abjasio
+    Q27776: Adigué
     af: Afrikáans
+    sq: Albanés
     am: Amhárico
-    an: Aragonés
     ar: Árabe
+    an: Aragonés
+    hy: Armenio
+    Q29507: Asturiano
     ay: Aimara
+    Q9292: Azerí
+    eu: Vasco
     be: Bielorruso
-    bg: Búlgaro
-    bo: Tibetano
     bs: Bosnio
+    Q750553: Portugués de Brasil
+    bg: Búlgaro
     ca: Catalán; valenciano
     ce: Checheno
+    zh: Chino
+    kw: Córnico
+    Q33357: Tártaro de Crimea
+    hr: Croata
     cs: Checo
-    cy: Galés
     da: Danés
-    de: Alemán
-    el: Griego, Moderno (1453-)
+    nl: Holandés; flamenco
     en: Inglés
     eo: Esperanto
-    es: Español; Castellano
     et: Estonio
-    eu: Vasco
-    fa: Persa
-    fi: Finlandés
     fj: Fiyiano
+    fi: Finlandés
     fr: Francés
-    ga: Irlandés
     gd: Gaélico escocés
     gl: Gallego
+    ka: Georgiano
+    de: Alemán
+    deu: Alemán
+    el: Griego, Moderno (1453-)
     gn: Guaraní
     gu: Guyaratí
     he: Hebreo
-    hr: Croata
     hu: Húngaro
-    hy: Armenio
-    ia: Interlingua
-    id: Indonesio
     is: Islandés
+    id: Indonesio
+    ia: Interlingua
+    ga: Irlandés
     it: Italiano
+    Q35939: Criollo de Jamaica
     ja: Japonés
     jp: Japonés
     jv: Javanés
-    ka: Georgiano
     kk: Kazajo
+    rw: Kiñaruanda
     ko: Coreano
     ku: Kurdo
-    kw: Córnico
     la: Latín
-    lb: Luxemburgués
     li: Limburgués
     lt: Lituano
+    lb: Luxemburgués
     mg: Malgache
-    mn: Mongol
     mt: Maltés
-    ne: Nepalí
-    nl: Holandés; flamenco
-    "": Noruego
-    none: No especificado
+    mn: Mongol
+    Q56426: Árabe marroquí
     nv: Navajo
+    ne: Nepalí
+    "no": Noruego
     oc: Occitano
     pa: Panyabí
+    fa: Persa
     pl: Polaco
     pt: Portugués
     qu: Quechua
     rm: Romanche
     ru: Ruso
-    rw: Kiñaruanda
+    sm: Samoano
     sa: Sánscrito
     sc: Sardo
+    sr: Serbio
     si: Cingalés
     sk: Eslovaco
     sl: Esloveno
-    sm: Samoano
-    sq: Albanés
-    sr: Serbio
+    es: Español; Castellano
     sv: Sueco
+    tl: Tagalo
     tg: Tayiko
     th: Tai
+    bo: Tibetano
     ti: Tigriña
-    tl: Tagalo
+    Q34159: Tok pisin
     to: Tongano
     tr: Turco
     uk: Ucraniano
+    ukr: Ucraniano
+    none: No especificado
     uz: Uzbeko
     vi: Vietnamita
+    cy: Galés
+    Q100103: Flamenco occidental
     wo: Wólof
     yi: Yidis
-    zh: Chino
     zu: Zulú
   layout_sign_in: Iniciar sesión
   layout_sign_up: Registrarse
@@ -578,6 +580,7 @@ es:
   user:
     created_at: creación
     download_queue: Cola de descarga de datos
+    revoke_power: Revocar acceso de moderador
     email: Dirección de correo electrónico
     to_commit_enter_current: Es necesaria la contraseña actual para confirmar los
       cambios

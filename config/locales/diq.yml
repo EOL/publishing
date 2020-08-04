@@ -165,257 +165,255 @@ diq:
   forgot_your_password: Parola kerda ho vira?
   language: Zıwan
   languages:
-    "no": Norwecki
-    Q11005332: Kinga
-    Q11128374: Nyiha
-    Q1160372: Lazki
-    Q11732519: Kingindo
-    Q13313: Meruki
-    Q13324: Minangkabauki
-    Q13330: Mirandaki
-    Q13358: Rumenki
-    Q146803: Lingua Franca Nova
-    Q16115145: Nyika
-    Q180937: Arnawudkiya Toski
-    Q18415595: Dotyalki
-    Q19933293: Lurkiya Zımey
-    Q23014: Almankiya Palatini
-    Q2429648: Pogoro
-    Q2501174: Gorontalo
-    Q2591230: Kashinawaki
-    Q2638144: Sukuma
-    Q27776: Adıgeki
-    Q28602: Aramkiya kehan
-    Q29507: Asturyaski
-    Q3129390: Heheki
-    Q3272620: Nyakusa
-    Q3272630: Gogoki
-    Q32858: Votiki
-    Q32979: Çoktawki
-    Q33202: Brahuki
-    Q33281: Çavakanoki
-    Q33303: Haida
-    Q33357: Tatarkiya Kırımı
-    Q33475: Çinkiya Gani
-    Q33509: İnguşki
-    Q33541: Kara-Kalpak
-    Q33595: Iraqwiki
-    Q3362072: Digoki
-    Q33634: Kalmuki
-    Q33698: Livonki
-    Q33965: Santaliki
-    Q34016: Sandaveki
-    Q34138: Tumbuka
-    Q34159: Tok Pisin
-    Q34318: Talışki
-    Q3437661: Luguru
-    Q35037: Tongoki
-    Q3508074: Naiki
-    Q35156: Carki
-    Q35475: Kabiyè
-    Q35756: Hayaki
-    Q35787: Masaiki
-    Q35936: İlokano
-    Q35939: Kreolekiya Jamaika
-    Q35978: Hiligaynon
-    Q36109: Maithili
-    Q36403: Pareki
-    Q36584: Livviki
-    Q36730: Usmanıcki
-    Q36738: Novial
-    Q36748: Pontuski
-    Q3788739: Şambalaki
-    Q4121131: Nyamwezi
-    Q4126517: Inuktitutiya Kanada
-    Q4941378: Bondei
-    Q497345: Frankiya werti
-    Q5575236: Goan Konkani
-    Q56240: Erebkiya Tunısi
-    Q56426: Erebkiya Maroki
-    Q56466: Dinka
-    Q56482: Shanki
-    Q56590: Atikamekw
-    Q584983: Langki
-    Q667747: Fipaki
-    Q6786446: Matengo
-    Q6944725: Mweraki
-    Q7022366: Ngindo
-    Q7193418: Nyaturu
-    Q750553: Portekizkiya Brezilya
-    Q845441: Sardinkiya Sasarri
-    Q880301: Cajun French
-    Q8836490: Bendeki
-    Q9292: Azerki
-    aa: Afarki
     ab: Abhazki
-    ae: Avestki
+    Q27776: Adıgeki
+    aa: Afarki
     af: Afrikaanki
     ak: Akanki
+    sq: Arnawudki
     am: Amharki
-    an: Aragonki
     ar: Erebki
+    an: Aragonki
+    hy: Ermenki
     as: Assameski
+    Q29507: Asturyaski
+    Q56590: Atikamekw
     av: Avarki
+    ae: Avestki
     ay: Aymaraki
+    Q9292: Azerki
     az: Azerki
+    bm: Bambaraki
     ba: Başkurtki
+    eu: Baski
     be: Belaruski
-    bg: Bulğarki
+    Q8836490: Bendeki
+    bn: Bengalki
     bh: Zıwanê Bihari
     bi: Bislamaki
-    bm: Bambaraki
-    bn: Bengalki
-    bo: Tibetki
-    br: Bretonki
+    nb: 'Norvecki: Bokmål'
+    Q4941378: Bondei
     bs: Bosnaki
+    Q33202: Brahuki
+    Q750553: Portekizkiya Brezilya
+    br: Bretonki
+    bg: Bulğarki
+    my: Burmaki
+    Q35037: Tongoki
+    Q880301: Cajun French
+    Q35156: Carki
+    Q2591230: Kashinawaki
     ca: Katalanki; Valensiyaki
-    ce: Çeçenki
+    km: Kmerki
     ch: Çamorroki
-    co: Korsikaki
-    cr: Kreeki
-    cs: Çekki
+    Q33281: Çavakanoki
+    ce: Çeçenki
+    ny: Çiçewaki, Nyanja
+    zh: Çinki
+    Q32979: Çoktawki
     cu: Slawkiya kıliseyi
     cv: Çuwaşki
-    cy: Galki
+    kw: Kornişki
+    co: Korsikaki
+    cr: Kreeki
+    Q33357: Tatarkiya Kırımı
+    hr: Xırwatki
+    cs: Çekki
     da: Danki
-    de: Almanki
+    Q3362072: Digoki
+    Q56466: Dinka
     dv: Maldivki
+    Q18415595: Dotyalki
+    nl: Hollandki, Flamanki
     dz: Dzongkha
     dzo: Dzongkha
-    ee: Eweki
-    el: Yunani, Modern (1453-)
+    Q4126517: Inuktitutiya Kanada
     en: İngılızki
     eo: Esperanto
-    es: İspanyolki; Kastilyaki
     et: Estonki
-    eu: Baski
-    fa: Farıski
-    ff: Fulahki
-    fi: Finki
-    fj: Ficiki
+    ee: Eweki
     fo: Faroeki
+    fj: Ficiki
+    fi: Finki
+    Q667747: Fipaki
     fr: Fransızki
-    fy: Frizkiya Rocawani
-    ga: İrlandki
+    ff: Fulahki
     gd: Galki; Galkiya İskoçya
     gl: Galiçyaki
+    Q33475: Çinkiya Gani
+    lg: Ganda
+    ka: Gurciki
+    de: Almanki
+    Q5575236: Goan Konkani
+    Q3272630: Gogoki
+    Q2501174: Gorontalo
+    el: Yunani, Modern (1453-)
     gn: Guaranki
     gu: Gujaratki
-    gv: Manki
+    Q33303: Haida
+    ht: Haitiki; Kreolekiya Haiti
     ha: Hausaki
+    Q35756: Hayaki
     he: İbraniki
+    Q3129390: Heheki
+    hz: Herero
+    Q35978: Hiligaynon
     hi: Hindki
     ho: Hiri Motu
-    hr: Xırwatki
-    ht: Haitiki; Kreolekiya Haiti
     hu: Macarki
-    hy: Ermenki
-    hz: Herero
-    ia: Interlingua (İnternasyonel Gomey Zıwanê Pheştigeri)
-    id: İndonezki
-    ie: Interlingue; Rocawani
-    ig: İgboki
-    ii: Sichuan Yi; Nuosu
-    ik: İnupiaqki
-    io: İdoki
     is: İslandki
-    it: İtalyanki
+    io: İdoki
+    ig: İgboki
+    Q35936: İlokano
+    id: İndonezki
+    Q33509: İnguşki
+    ia: Interlingua (İnternasyonel Gomey Zıwanê Pheştigeri)
+    ie: Interlingue; Rocawani
     iu: Inuktitut
+    ik: İnupiaqki
+    Q33595: Iraqwiki
+    ga: İrlandki
+    it: İtalyanki
+    Q35939: Kreolekiya Jamaika
     ja: Japonki
     jp: Japonki
     jv: Javaki
-    ka: Gurciki
-    kg: Kongoki
-    ki: Kikuyu; Gikuyu
-    kj: Kuanyama; Kwanyama
-    kk: Qazax
+    Q35475: Kabiyè
     kl: Kalaallisut; Greenlandki
-    km: Kmerki
+    Q33634: Kalmuki
     kn: Kannada
-    ko: Koreki
     kr: Kanuriki
+    Q33541: Kara-Kalpak
     ks: Keşmirki
-    ku: Kurdki
-    kv: Komiki
-    kw: Kornişki
+    kk: Qazax
+    ki: Kikuyu; Gikuyu
+    Q11005332: Kinga
+    Q11732519: Kingindo
+    rw: Kinyarwanda
     ky: Qırxızki
+    kv: Komiki
+    kg: Kongoki
+    ko: Koreki
+    kj: Kuanyama; Kwanyama
+    ku: Kurdki
+    lo: Laoki
     la: Latinki
-    lb: Luksemburgki
-    lg: Ganda
+    lv: Letonki
+    Q1160372: Lazki
     li: Limburgki
     ln: Lingala
-    lo: Laoki
+    Q146803: Lingua Franca Nova
     lt: Litwanki
+    Q33698: Livonki
+    Q36584: Livviki
     lu: Luba-Katanga
-    lv: Letonki
-    mg: Malgaşki
-    mh: Marşalki
-    mi: Maoriki
+    Q3437661: Luguru
+    lb: Luksemburgki
+    Q35787: Masaiki
     mk: Makedonki
-    ml: Malayalamki
-    mn: Moğolki
-    mr: Marathiki
+    Q497345: Frankiya werti
+    Q36109: Maithili
+    mg: Malgaşki
     ms: Malayki
+    ml: Malayalamki
     mt: Maltaki
-    my: Burmaki
+    gv: Manki
+    mi: Maoriki
+    mr: Marathiki
+    mh: Marşalki
+    Q6786446: Matengo
+    Q13358: Rumenki
+    Q13313: Meruki
+    Q13324: Minangkabauki
+    Q13330: Mirandaki
+    mn: Moğolki
+    Q56426: Erebkiya Maroki
+    Q6944725: Mweraki
+    Q3508074: Naiki
     na: Nauruki
-    nb: 'Norvecki: Bokmål'
-    nd: Ndebele, Ndebele Zımey
-    ne: Nepalki
-    ng: Ndonga
-    nl: Hollandki, Flamanki
-    nn: Norwecki, Nynorsk
-    nr: Ndebele, Ndebele Veroci
     nv: Navajo
-    ny: Çiçewaki, Nyanja
+    nd: Ndebele, Ndebele Zımey
+    nr: Ndebele, Ndebele Veroci
+    ng: Ndonga
+    ne: Nepalki
+    Q7022366: Ngindo
+    Q19933293: Lurkiya Zımey
+    se: Samikiya Zımey
+    "no": Norwecki
+    nn: Norwecki, Nynorsk
+    Q36738: Novial
+    Q3272620: Nyakusa
+    Q4121131: Nyamwezi
+    Q7193418: Nyaturu
+    Q11128374: Nyiha
+    Q16115145: Nyika
     oc: Oksitanki (1500 nata)
+    Q28602: Aramkiya kehan
     oj: Ojibwa
-    om: Oromo
     or: Oriyaki
+    om: Oromo
     os: Osetki
-    pa: Pencabki
     pi: Paliki
+    pa: Pencabki
+    Q36403: Pareki
+    fa: Farıski
+    Q23014: Almankiya Palatini
+    Q2429648: Pogoro
     pl: Polonki
-    ps: Peştunki
+    Q36748: Pontuski
     pt: Portekizki
+    ps: Peştunki
     qu: Quçewaki
+    Q584983: Langki
+    ro: Moldowki
     rm: Romanşki
     rn: Rundiki
-    ro: Moldowki
     ru: Ruski
-    rw: Kinyarwanda
-    sa: Sanskritki
-    sc: Sardinki
-    sd: Sindhi
-    se: Samikiya Zımey
+    sm: Samoaki
+    Q34016: Sandaveki
     sg: Sangoki
+    sa: Sanskritki
+    Q33965: Santaliki
+    sc: Sardinki
+    Q845441: Sardinkiya Sasarri
+    sr: Sırbki
+    Q3788739: Şambalaki
+    Q56482: Shanki
+    sn: Shonaki
+    ii: Sichuan Yi; Nuosu
+    sd: Sindhi
     si: Seylanki
     sk: Slowakki
     sl: Slowenki
-    sm: Samoaki
-    sn: Shonaki
     so: Somalki
-    sq: Arnawudki
-    sr: Sırbki
-    ss: Swatiki
     st: Sothoki
+    es: İspanyolki; Kastilyaki
+    Q2638144: Sukuma
     su: Sundaki
-    sv: İswecki
     sw: Svahiliki
-    ta: Tamilki
-    te: Teluguki
-    tg: Tacıgki
-    th: Tayki
-    ti: Tigrinki
-    tk: Turkmenki
+    ss: Swatiki
+    sv: İswecki
     tl: Tagalogki
-    tn: Tswana
-    to: Tonga (Adey Tonga)
-    tr: Tırki
-    ts: Tsonga
-    tt: Tatarki
-    tw: Twiki
     ty: Tahitiki
+    tg: Tacıgki
+    Q34318: Talışki
+    ta: Tamilki
+    tt: Tatarki
+    te: Teluguki
+    th: Tayki
+    bo: Tibetki
+    ti: Tigrinki
+    Q34159: Tok Pisin
+    to: Tonga (Adey Tonga)
+    Q180937: Arnawudkiya Toski
+    ts: Tsonga
+    tn: Tswana
+    Q34138: Tumbuka
+    Q56240: Erebkiya Tunısi
+    tr: Tırki
+    Q36730: Usmanıcki
+    tk: Turkmenki
+    tw: Twiki
     ug: Uyğurki
     uk: Ukraynki
     ur: Urduki
@@ -423,13 +421,15 @@ diq:
     ve: Verdaki
     vi: Vietnamki
     vo: Volapük
+    Q32858: Votiki
     wa: Walonki
+    cy: Galki
+    fy: Frizkiya Rocawani
     wo: Wolofki
     xh: Xhosaki
     yi: Yidışki
     yo: Yoruba
     za: Zhuangki
-    zh: Çinki
     zu: Zuluki
   layout_sign_in: Cı kewe
   layout_sign_up: Qeyd be

@@ -262,141 +262,141 @@ pt-BR:
     stats_cleared: As estatísticas foram recalculadas.
   language: Idioma
   languages:
-    "no": Norueguês
-    Q1160372: Laz
-    Q13358: Megleno-romeno
-    Q146803: Língua franca nova
-    Q18415595: Doteli
-    Q27776: Adigue
-    Q3272630: Gogo
-    Q33281: Chavacano
-    Q33357: Tártaro da Crimeia
-    Q33541: Caracalpaque
-    Q3362072: Digo
-    Q35939: Crioulo de Jamaica
-    Q35978: Panayano
-    Q36730: Turco, Otomano
-    Q4121131: Nyamwezi
-    Q56240: Árabe tunisino
-    Q56426: Árabe marroquino
-    Q584983: Langi
-    Q6944725: Mwera
-    Q750553: Português do Brasil
-    Q9292: Azerbaijano
-    aa: Afar
     ab: Abcázia
-    ae: Avéstico
+    Q27776: Adigue
+    aa: Afar
     af: Africâner
     ak: Acã
+    sq: Albanês
     am: Amárica
-    an: Aragonesa
     ar: Árabe
+    an: Aragonesa
+    hy: Armênio
     as: Assamesa
     av: Avar
+    ae: Avéstico
     ay: Aimará
+    Q9292: Azerbaijano
     az: Azerbaijano
+    bm: Bambara
     ba: Basquir
+    eu: Basco
     be: Bielorrussa
-    bg: Búlgaro
+    bn: Bengalês
     bh: Línguas biaris
     bi: Bislamá
-    bm: Bambara
-    bn: Bengalês
-    bo: Tibetano
-    br: Bretã
+    nb: Bokmål norueguês
     bs: Bósnia
+    Q750553: Português do Brasil
+    br: Bretã
+    bg: Búlgaro
     ca: Catalão; Valenciano
-    ce: Chechena
     ch: Chamorro
-    co: Corsa
-    cr: Cree
-    cs: Checo
+    Q33281: Chavacano
+    ce: Chechena
+    ny: Nianja; Cinianja; Chewa
+    zh: Chinês
     cu: Antigo eslavo eclesiástico
     cv: Tchuvache
-    cy: Galês
+    co: Corsa
+    cr: Cree
+    Q33357: Tártaro da Crimeia
+    hr: Croato
+    cs: Checo
     da: Dinamarquês
-    de: Alemão
+    Q3362072: Digo
     dv: Divehi; Dhivehi; Maldivense
+    Q18415595: Doteli
     dz: Butanês
     dzo: Butanês
-    ee: Ewe
-    el: Grego, Moderno (1453-)
     en: Inglês
     eo: Esperanto
-    es: Espanhol; Castelhano
     et: Estônio
-    eu: Basco
-    fa: Persa
-    ff: Fula
-    fi: Finlandês
-    fj: Fidjiano
+    ee: Ewe
     fo: Feroês
+    fj: Fidjiano
+    fi: Finlandês
     fr: Francês
-    fy: Frísio Ocidental
-    ga: Irlandês
+    ff: Fula
     gd: Gaélico Escocês
     gl: Galego
+    ka: Georgiano
+    de: Alemão
+    Q3272630: Gogo
+    el: Grego, Moderno (1453-)
     gn: Guarani
     gu: Guzerate
-    gv: Manês
+    ht: Haitiano; Crioulo Haitiano
     ha: Hauçá
     he: Hebraico
+    hz: Herero
+    Q35978: Panayano
     hi: Hindi
     ho: Hiri Motu
-    hr: Croato
-    ht: Haitiano; Crioulo Haitiano
     hu: Húngaro
-    hy: Armênio
-    hz: Herero
-    ia: Interlingua
-    id: Indonésio
-    ie: Interlingue; Occidental
-    ig: Igbo
-    ii: Sichuan Yi; Nuosu
-    ik: Inupiaq
-    io: Ido
     is: Islandês
-    it: Italiano
+    io: Ido
+    ig: Igbo
+    id: Indonésio
+    ia: Interlingua
+    ie: Interlingue; Occidental
     iu: Inuktitut
+    ik: Inupiaq
+    ga: Irlandês
+    it: Italiano
+    Q35939: Crioulo de Jamaica
     ja: Japonês
     jp: Japonês
     jv: Japonês
-    ka: Georgiano
-    kg: Congo
-    ki: Quicuio; Gikuyu
+    Q33541: Caracalpaque
     kk: Cazaque
+    ki: Quicuio; Gikuyu
+    kg: Congo
     ko: Coreano
     la: Latin
+    Q1160372: Laz
+    Q146803: Língua franca nova
     lt: Lituano
     mk: Macedônio
-    nb: Bokmål norueguês
+    gv: Manês
+    Q13358: Megleno-romeno
+    Q56426: Árabe marroquino
+    Q6944725: Mwera
     nd: Ndebele do norte; Ndebele do Zimbabwe
     ng: Xindongo
+    "no": Norueguês
     nn: Novo norueguês
-    none: Não especificado
-    ny: Nianja; Cinianja; Chewa
+    Q4121131: Nyamwezi
     oj: Ojíbua
+    fa: Persa
     pl: Polonês
     pt: Português
+    Q584983: Langi
     rm: Romanche
     ru: Russo
     sc: Sardo
+    ii: Sichuan Yi; Nuosu
     sk: Eslovaco
     sl: Esloveno
-    sq: Albanês
+    es: Espanhol; Castelhano
     sv: Sueco
-    te: Telugo
     tg: Tajique
-    th: Tailandês
-    tk: Turcomano
-    tr: Turco
     tt: Tártaro
+    te: Telugo
+    th: Tailandês
+    bo: Tibetano
+    Q56240: Árabe tunisino
+    tr: Turco
+    Q36730: Turco, Otomano
+    tk: Turcomano
     uk: Ucraniano
+    none: Não especificado
     uz: Usbeque
     vi: Vietnamita
     vo: Volapuque
+    cy: Galês
+    fy: Frísio Ocidental
     yo: Ioruba
-    zh: Chinês
   layout_sign_in: Entrar
   layout_sign_up: Criar conta
   layout_sign_out: Sair

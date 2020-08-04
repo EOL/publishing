@@ -189,54 +189,54 @@ pt-PT:
     header: Acesso global ao conhecimento sobre a vida na Terra
   language: Idioma
   languages:
-    Q1160372: Laz
-    Q13358: Megleno-romeno
-    Q146803: Língua Franca Nova
-    Q3272630: Gogo
-    Q33281: Chavacano
-    Q3362072: Digo
-    Q4121131: Nyamwezi
-    Q6944725: Mwera
+    sq: Albanês
     an: Aragonês
+    hy: Arménio
+    eu: Basco
     bs: Bósnio
+    Q33281: Chavacano
+    zh: Chinês
+    hr: Croata
     da: Dinamarquês
-    de: Alemão
-    el: Grego, Moderno (1453-)
+    Q3362072: Digo
     en: Português (Portugal)
     eo: Esperanto
-    es: Espanhol; Castelhano
     et: Estoniano
-    eu: Basco
-    fa: Persa
     fi: Finlandês
     fr: Francês
     gl: Galego
+    ka: Georgiano
+    de: Alemão
+    Q3272630: Gogo
+    el: Grego, Moderno (1453-)
     he: Hebreu
     hi: Hindi
-    hr: Croata
-    hy: Arménio
+    is: Islandês
     id: Indonésio
     ie: Multilingue; Ocidental
-    is: Islandês
     it: Italiano
     ja: Japonês
     jp: Japonês
-    ka: Georgiano
     kk: Cazaquistanês
     ko: Coreano
     la: Latim
-    none: Não especificado
+    Q1160372: Laz
+    Q146803: Língua Franca Nova
+    Q13358: Megleno-romeno
+    Q6944725: Mwera
+    Q4121131: Nyamwezi
+    fa: Persa
     pt: Português (Portugal)
     ru: Russo
     sk: Eslovaco
-    sq: Albanês
+    es: Espanhol; Castelhano
     su: Sudanês
     sv: Sueco
-    tr: Turco
     ty: Taitiano
+    tr: Turco
     uk: Ucraniano
+    none: Não especificado
     vi: Vietnamita
-    zh: Chinês
   layout_sign_in: Iniciar Sessão
   layout_sign_up: Registar
   layout_sign_out: Terminar Sessão

@@ -285,274 +285,273 @@ fr:
     stats_cleared: Les statistiques ont été recalculées.
   language: Langue
   languages:
-    "no": norvégien
-    Q100103: Flamand de l'ouest
-    Q11005332: Kinga
-    Q11128374: Nyiha
-    Q1160372: Laze
-    Q11732519: Kingindo
-    Q13313: Meru
-    Q13324: Minangkabau
-    Q13330: Mirandais
-    Q13358: Mégléno-roumain
-    Q146803: Lingua franca nova
-    Q16115145: Nyika
-    Q180937: Tosque
-    Q18415595: Dotyali
-    Q19933293: Lori du nord
-    Q23014: Palatin
-    Q2429648: Pogoro
-    Q2501174: Gorontalo
-    Q2591230: Cashinahua
-    Q2638144: Soukouma
-    Q27776: Adyguéen
-    Q28602: Araméen officiel
-    Q29507: Asturien
-    Q3129390: Hehe
-    Q3272620: Nyakusa
-    Q3272630: Gogo
-    Q32858: Vote
-    Q32979: Chacta
-    Q33202: Brahoui
-    Q33281: Chavacano
-    Q33303: Haïda
-    Q33357: Tatar de Crimée
-    Q33475: Gan
-    Q33509: Ingouche
-    Q33541: Karakalpaks
-    Q33595: Iraqw
-    Q3362072: Digo
-    Q33634: Kalmouk
-    Q33698: Live
-    Q33965: Santali
-    Q34016: Sandawe
-    Q34138: Tumbuka
-    Q34159: Tok pisin
-    Q34318: Talysh
-    Q3437661: Luguru
-    Q35037: Ndjuka
-    Q3508074: Nai
-    Q35156: Car
-    Q35475: Kabiyè
-    Q35756: Haya
-    Q35787: Maa
-    Q35936: Ilocano
-    Q35939: Créole jamaïcain
-    Q35978: Hiligaïnon
-    Q36109: Maïthili
-    Q36403: Asu
-    Q36584: Olonetsien
-    Q36730: Turc, Ottoman
-    Q36738: Novial
-    Q36748: Pontique
-    Q3788739: Shambala
-    Q4121131: Nyamwezi
-    Q4126517: Inuktitut canadien oriental
-    Q4941378: Bondei
-    Q497345: Francique principal
-    Q5575236: Konkani goanais
-    Q56240: Arabe tunisien
-    Q56426: Arabe marocain
-    Q56466: Dinka
-    Q56482: Shan
-    Q56590: Attikameks
-    Q584983: Rangi
-    Q667747: Fipa
-    Q6786446: Matengo
-    Q6944725: Mwera
-    Q7022366: Ngindo
-    Q7193418: Nyaturu
-    Q750553: Portugais brésilien
-    Q845441: Sarde sassarais
-    Q880301: Français cadien
-    Q8836490: Bende
-    Q9292: Azéri
-    aa: afar
     ab: abkhaze
-    ae: avestique
+    Q27776: Adyguéen
+    aa: afar
     af: afrikaans
     ak: akan
+    sq: albanais
     am: amharique
-    an: aragonais
     ar: arabe
+    an: aragonais
+    hy: arménien
     as: assamais
+    Q29507: Asturien
+    Q56590: Attikameks
     av: avar
+    ae: avestique
     ay: aymara
+    Q9292: Azéri
     az: azéri
+    bm: bambara
     ba: bachkir
+    eu: basque
     be: biélorusse
-    bg: bulgare
+    Q8836490: Bende
+    bn: bengali
     bh: langues bihari
     bi: bichelamar
-    bm: bambara
-    bn: bengali
-    bo: tibétain
-    br: breton
+    nb: bokmål, norvégien ; norvégien bokmål
+    Q4941378: Bondei
     bs: bosnien
+    Q33202: Brahoui
+    Q750553: Portugais brésilien
+    br: breton
+    bg: bulgare
+    my: birman
+    Q35037: Ndjuka
+    Q880301: Français cadien
+    Q35156: Car
+    Q2591230: Cashinahua
     ca: catalan ; valencien
-    ce: tchétchène
+    km: khmer central
     ch: chamorro
-    co: corse
-    cr: cri
-    cs: tchèque
+    Q33281: Chavacano
+    ce: tchétchène
+    ny: chewa ; chichewa ; nyanja
+    zh: chinois
+    Q32979: Chacta
     cu: Vieux slavon liturgique
     cv: tchouvache
-    cy: gallois
+    kw: cornique
+    co: corse
+    cr: cri
+    Q33357: Tatar de Crimée
+    hr: Croate
+    cs: tchèque
     da: danois
-    de: allemand
+    Q3362072: Digo
+    Q56466: Dinka
     dv: divehi ; maldivien
+    Q18415595: Dotyali
+    nl: néerlandais ; flamand
     dz: dzongkha
     dzo: dzongkha
-    ee: éwé
-    el: grec moderne (1453–)
+    Q4126517: Inuktitut canadien oriental
     en: anglais
     eo: espéranto
-    es: espagnol ; castillan
     et: estonien
-    eu: basque
-    fa: persan
-    ff: peul
-    fi: finnois
-    fj: fidjien
+    ee: éwé
     fo: féroïen
+    fj: fidjien
+    fi: finnois
+    Q667747: Fipa
     fr: français
-    fy: frison occidental
-    ga: irlandais
+    ff: peul
     gd: Gaélique écossais
     gl: galicien
+    Q33475: Gan
+    lg: ganda ; luganda
+    ka: Géorgien
+    de: allemand
+    Q5575236: Konkani goanais
+    Q3272630: Gogo
+    Q2501174: Gorontalo
+    el: grec moderne (1453–)
     gn: guarani
     gu: gouderati
-    gv: mannois
+    Q33303: Haïda
+    ht: haïtien ; créole haïtien
     ha: haoussa
+    Q35756: Haya
     he: Hébreu
+    Q3129390: Hehe
+    hz: héréro
+    Q35978: Hiligaïnon
     hi: hindi
     ho: hiri motu
-    hr: Croate
-    ht: haïtien ; créole haïtien
     hu: hongrois
-    hy: arménien
-    hz: héréro
-    ia: Interlingua
-    id: indonésien
-    ie: interlingua ; occidental
-    ig: igbo
-    ii: yi du Sichuan ; nuosu
-    ik: inupiaq
-    io: ido
     is: islandais
-    it: italien
+    io: ido
+    ig: igbo
+    Q35936: Ilocano
+    id: indonésien
+    Q33509: Ingouche
+    ia: Interlingua
+    ie: interlingua ; occidental
     iu: inuktitut
+    ik: inupiaq
+    Q33595: Iraqw
+    ga: irlandais
+    it: italien
+    Q35939: Créole jamaïcain
     ja: japonais
     jp: japonais
     jv: javanais
-    ka: Géorgien
-    kg: kikongo
-    ki: kikuyu ; gikuyu
-    kj: kuanyama ; kwanyama
-    kk: kazakh
+    Q35475: Kabiyè
     kl: kalaallisut ; groenlandais
-    km: khmer central
+    Q33634: Kalmouk
     kn: kannara
-    ko: coréen
     kr: kanouri
+    Q33541: Karakalpaks
     ks: cachemiri
-    ku: kurde
-    kv: komi
-    kw: cornique
+    kk: kazakh
+    ki: kikuyu ; gikuyu
+    Q11005332: Kinga
+    Q11732519: Kingindo
+    rw: kinyarwanda
     ky: kirghize
+    kv: komi
+    kg: kikongo
+    ko: coréen
+    kj: kuanyama ; kwanyama
+    ku: kurde
+    lo: lao
     la: latin
-    lb: luxembourgeois
-    lg: ganda ; luganda
+    lv: letton
+    Q1160372: Laze
     li: Limbourgeois
     ln: lingala
-    lo: lao
+    Q146803: Lingua franca nova
     lt: lituanien
+    Q33698: Live
+    Q36584: Olonetsien
     lu: luba-katanga
-    lv: letton
-    mg: malgache
-    mh: marshallais
-    mi: maori
+    Q3437661: Luguru
+    lb: luxembourgeois
+    Q35787: Maa
     mk: macédonien
-    ml: malayalam
-    mn: mongol
-    mr: marathi
+    Q497345: Francique principal
+    Q36109: Maïthili
+    mg: malgache
     ms: malais
+    ml: malayalam
     mt: maltais
-    my: birman
+    gv: mannois
+    mi: maori
+    mr: marathi
+    mh: marshallais
+    Q6786446: Matengo
+    Q13358: Mégléno-roumain
+    Q13313: Meru
+    Q13324: Minangkabau
+    Q13330: Mirandais
+    mn: mongol
+    Q56426: Arabe marocain
+    Q6944725: Mwera
+    Q3508074: Nai
     na: nauru
-    nb: bokmål, norvégien ; norvégien bokmål
-    nd: ndébélé du Nord
-    ne: népalais
-    ng: ndonga
-    nl: néerlandais ; flamand
-    nn: norvégien nynorsk ; nynorsk, norvégien
-    "": Norvégien
-    none: Non spécifié
-    nr: ndébélé du Sud
     nv: navajo ; navaho
-    ny: chewa ; chichewa ; nyanja
+    nd: ndébélé du Nord
+    nr: ndébélé du Sud
+    ng: ndonga
+    ne: népalais
+    Q7022366: Ngindo
+    Q19933293: Lori du nord
+    se: same du Nord
+    "no": norvégien
+    nn: norvégien nynorsk ; nynorsk, norvégien
+    Q36738: Novial
+    Q3272620: Nyakusa
+    Q4121131: Nyamwezi
+    Q7193418: Nyaturu
+    Q11128374: Nyiha
+    Q16115145: Nyika
     oc: Occitan
+    Q28602: Araméen officiel
     oj: ojibwé
-    om: oromo
     or: odiya
+    om: oromo
     os: ossète
-    pa: Pendjabi
     pi: pali
+    pa: Pendjabi
+    Q36403: Asu
+    fa: persan
+    Q23014: Palatin
+    Q2429648: Pogoro
     pl: polonais
-    ps: pachto ; pachtoune
+    Q36748: Pontique
     pt: portugais
+    ps: pachto ; pachtoune
     qu: quechua
+    Q584983: Rangi
+    ro: roumain ; moldave
     rm: romanche
     rn: roundi
-    ro: roumain ; moldave
     ru: russe
-    rw: kinyarwanda
-    sa: sanskrit
-    sc: sarde
-    sd: sindhi
-    se: same du Nord
+    sm: samoan
+    Q34016: Sandawe
     sg: sango
+    sa: sanskrit
+    Q33965: Santali
+    sc: sarde
+    Q845441: Sarde sassarais
+    sr: serbe
+    Q3788739: Shambala
+    Q56482: Shan
+    sn: shona
+    ii: yi du Sichuan ; nuosu
+    sd: sindhi
     si: Cinghalais
     sk: slovaque
     sl: slovène
-    sm: samoan
-    sn: shona
     so: somali
-    sq: albanais
-    sr: serbe
-    ss: swati
     st: sotho du Sud
+    es: espagnol ; castillan
+    Q2638144: Soukouma
     su: soundanais
-    sv: suédois
     sw: swahili
-    ta: tamoul
-    te: télougou
-    tg: tadjik
-    th: thaï
-    ti: tigrigna
-    tk: turkmène
+    ss: swati
+    sv: suédois
     tl: tagalog
-    tn: tswana
-    to: Tongan
-    tr: turc
-    ts: tsonga
-    tt: tatar
-    tw: twi
     ty: tahitien
+    tg: tadjik
+    Q34318: Talysh
+    ta: tamoul
+    tt: tatar
+    te: télougou
+    th: thaï
+    bo: tibétain
+    ti: tigrigna
+    Q34159: Tok pisin
+    to: Tongan
+    Q180937: Tosque
+    ts: tsonga
+    tn: tswana
+    Q34138: Tumbuka
+    Q56240: Arabe tunisien
+    tr: turc
+    Q36730: Turc, Ottoman
+    tk: turkmène
+    tw: twi
     ug: ouïghour
     uk: ukrainien
+    none: Non spécifié
     ur: ourdou
     uz: ouzbek
     ve: venda
     vi: vietnamien
     vo: volapük
+    Q32858: Vote
     wa: wallon
+    cy: gallois
+    Q100103: Flamand de l'ouest
+    fy: frison occidental
     wo: wolof
     xh: xhosa
     yi: yiddish
     yo: yoruba
     za: zhuang
-    zh: chinois
     zu: zoulou
   layout_sign_in: Se connecter
   layout_sign_up: S’inscrire
