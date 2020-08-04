@@ -19,7 +19,7 @@ class PageSearchDecorator < SearchResultDecorator
   end
 
   def content
-    if object.search_highlights&.any?
+    if object.try(:search_highlights)&.any?
       search_highlights = object.search_highlights.values.map do |highlight|
         "\"#{highlight}\""
       end.to_sentence

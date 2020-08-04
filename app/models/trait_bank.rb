@@ -583,82 +583,122 @@ class TraitBank
         ])
       end
 
-      returns
+      "RETURN #{returns.join(", ")}"
     end
 
     def term_record_search(term_query, limit_and_skip, options)
       params = {}
-      matches = []
-      wheres = []
-      collects = []
-      rows_vars = []
 
-      page_match = "(page:Page)"
-      if term_query.clade
-        page_match += "-[:parent*0..]->(target_page:Page { page_id: $clade_id })"
-        params["clade_id"] =  term_query.clade.id
-      end
-      matches << page_match
+      filters = term_query.page_count_sorted_filters
+      gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
 
+      trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
-      term_query.filters.each_with_index do |filter, i|
-        if term_query.filters.length == 1
-          trait_var = "trait"
-          pred_var = "predicate"
-          tgt_pred_var = "tp"
-          obj_var = "object_term"
-          tgt_obj_var = "to"
-          base_meta_var = "m"
-        else
-          trait_var = "t#{i}"
-          pred_var = "p#{i}"
-          tgt_pred_var = "tp#{i}"
-          obj_var = "o#{i}"
-          tgt_obj_var = "to#{i}"
-          base_meta_var = "m#{i}"
+      filter_parts = []
+
+      trait_var = nil
+      pred_var = nil
+      filters.each_with_index do |filter, i|
+        filter_matches = []
+        filter_wheres = []
+
+        trait_var = "trait#{i}"
+        pred_var = "predicate#{i}"
+        obj_var = "object#{i}"
+        base_meta_var = "meta#{i}"
+        gathered_terms_for_filter = gathered_terms.shift
+
+        if i == 0
+          page_match = "(page:Page)"
+          if term_query.clade
+            page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
+            params["clade_id"] = term_query.clade.id
+          end
+          filter_matches << page_match
         end
 
-        matches << "(page)-[#{trait_rels(options[:count])}]->(#{trait_var}:Trait)" # count counts pages too, so include :inferred_trait in that case
+        # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
+        # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
+        filter_matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+
+        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter) if filter.object_term?
 
         if filter.predicate?
-          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"\
-            "-[#{parent_terms}]->(#{tgt_pred_var}:Term)"
+          filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_terms_for_filter)
         else
-          matches << "(#{trait_var})-[:predicate]->(#{pred_var}:Term)"
+          # need to grab the predicate here anyway
+          filter_matches << filter_term_match_no_hier(trait_var, pred_var, :predicate)
         end
 
-        if filter.object_term?
-          matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)-[#{parent_terms}]->(#{tgt_obj_var}:Term)"
+        filter_wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_terms_for_filter)
+        add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
+        add_term_filter_resource_match(filter, trait_var, filter_matches, params)
+
+        filter_part = %Q(
+          MATCH #{filter_matches.join(", ")}
+          WHERE #{filter_wheres.join(" AND ")}
+        )
+
+        if filters.length > 1
+          if options[:count]
+            trait_ag = "count(DISTINCT #{trait_var})"
+
+          else
+            trait_ag = "collect(DISTINCT { trait: #{trait_var}, predicate: #{pred_var}})"
+          end
+
+          if i > 0
+            trait_ag = "(#{trait_ag} + #{trait_ag_var})"
+          end
+
+          filter_part += "\nWITH page, #{trait_ag} AS #{trait_ag_var}"
+
+          if gathered_terms.any? 
+            filter_part += ", #{gathered_terms.flatten.map { |t| t.list_label }.join(", ")}"
+          end
         end
 
-        add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
-        add_term_filter_resource_match(filter, trait_var, matches, params)
-
-        wheres << term_filter_where(filter, trait_var, tgt_pred_var, tgt_obj_var, params)
-
-        if term_query.filters.length > 1
-          rows_var = "rows#{i}"
-          rows_vars << rows_var
-          collects << "collect({ page: page, trait: #{trait_var}, predicate: #{pred_var}}) AS #{rows_var}"
-        end
+        filter_parts << filter_part
       end
 
-      if collects.any?
-        collect_unwind_part = %Q(
-          WITH #{collects.join(", ")}
-          WITH #{rows_vars.join(" + ")} as all_rows
-          UNWIND all_rows as row
-          WITH DISTINCT row
-          #{limit_and_skip}
-          WITH row.page as page, row.trait as trait, row.predicate as predicate
-        )
+      first_part = %Q(
+        #{gathered_term_matches.join("\n")}
+        #{filter_parts.join("\n")}
+      )
+
+      last_part = if filters.length > 1
+        if options[:count]
+          %Q(
+            WITH count(*) AS page_count, sum(trait_count) AS record_count
+            RETURN page_count, record_count
+          )
+        else
+          %Q(
+            UNWIND trait_rows AS trait_row
+            WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate 
+            #{record_optional_matches_and_returns(limit_and_skip, options)}
+          )
+        end
       else
-        collect_unwind_part = %Q(
-          WITH DISTINCT page, trait, predicate
-          #{limit_and_skip}
-        )
+        if options[:count]
+          query = %Q(
+            WITH count(DISTINCT page) AS page_count, count(DISTINCT #{trait_var}) AS record_count
+            RETURN page_count, record_count
+          )
+        else
+          query = %Q(
+            WITH DISTINCT page, #{trait_var} AS trait, #{pred_var} AS predicate
+            #{record_optional_matches_and_returns(limit_and_skip, options)}
+          ) 
+        end
       end
 
+      query = "#{first_part}\n#{last_part}"
+
+      { query: query, params: params }
+    end
+
+    def record_optional_matches_and_returns(limit_and_skip, options)
       optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
         "(trait)-[:units_term]->(units:Term)",
@@ -677,39 +717,11 @@ class TraitBank
         "(meta)-[:statistical_method_term]->(meta_statistical_method_term:Term)"
       ] if options[:meta]
 
-      optional_match_part =
-        if options[:count]
-          ''
-        else
-          optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")
-        end
-
-      returns =
-        if options[:count]
-          %w[record_count page_count]
-        else
-          record_search_returns(options[:meta])
-        end
-
-      with_count_clause = options[:count] ?
-                          "WITH count(distinct trait) AS record_count, count(distinct page) AS page_count " :
-                          ""
-
-      return_clause = "RETURN #{returns.join(", ")}"
-      index_part = term_query.clade ? 
-        "USING INDEX target_page:Page(page_id)\n" :
-        ""
-
-      query = %Q(
-        MATCH #{matches.join(', ')}
-        #{index_part}
-        WHERE #{wheres.join(' AND ')}
-        #{collect_unwind_part}
-        #{optional_match_part}
-        #{with_count_clause}
-        #{return_clause}
+      %Q(
+        #{limit_and_skip}
+        #{optional_matches.map { |match| "OPTIONAL MATCH #{match}" }.join("\n")}
+        #{record_search_returns(options[:meta])}
       )
-      { query: query, params: params }
     end
 
     def trait_rels(include_inferred)
@@ -763,11 +775,15 @@ class TraitBank
       [matches, gathered_terms]
     end
 
+    def filter_term_match_no_hier(trait_var, term_var, term_type)
+      "(#{trait_var})-[:#{term_type}]->(#{term_var}:Term)"
+    end
+
     def filter_term_match(trait_var, term_var, term_type, gathered_terms)
       gathered_term = gathered_terms.find { |t| t.type == term_type }
 
       if gathered_term
-        "(#{trait_var})-[:#{term_type}]->(#{term_var}:Term)"
+        filter_term_match_no_hier(trait_var, term_var, term_type)
       else
         "(#{trait_var})-[:#{term_type}]->(:Term)-[#{parent_terms}]->(#{term_var}:Term)"
       end
