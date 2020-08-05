@@ -31,3 +31,5 @@ Thanks.
 7/21/20 (mvitale): Forgot to add this earlier -- run TermNameTranslationManager.rebuild\_node\_properties and ObjForPredRelManager.rebuild after latest code is pulled but before restarting webserver. These will make graph changes expected by the trait search typeaheads.
 
 === Deployed 2020-07-27
+
+8/5/2020 (mvitale): Run 'PageStatUpdater.run'

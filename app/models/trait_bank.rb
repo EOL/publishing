@@ -789,16 +789,55 @@ class TraitBank
       end
     end
 
+    def add_gathered_terms(with_query, gathered_terms)
+      if gathered_terms.any?
+        with_query.concat(", #{gathered_terms.flatten.map { |t| t.list_label }.join(" ,")}")
+      end
+    end
+
     def term_page_search(term_query, limit_and_skip, options)
       params = {}
 
       filters = term_query.page_count_sorted_filters
       gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
+      clade_node = term_query.clade_node
 
       filter_parts = []
+
+      clade_matched = false
+      if clade_node
+        page_match = "MATCH (page:Page)-[:parent*0..]->(anc: Page { page_id: $clade_id })"
+        params["clade_id"] = clade_node.page_id
+
+        if filters.any?
+          if clade_node.descendant_count < filters.first.min_distinct_page_count
+            clade_matched = true
+            page_match_with = "WITH DISTINCT page"
+          else
+            page_match_with = "WITH collect(page) AS pages"
+          end
+
+          add_gathered_terms(page_match_with, gathered_terms)
+
+          page_match.concat("\n#{page_match_with}")
+        end
+
+        filter_parts << page_match
+      end
+
       filters.each_with_index do |filter, i|
         filter_matches = []
         filter_wheres = []
+
+        if (
+          i > 0 && 
+          clade_node.present? && 
+          !clade_matched && 
+          clade_node.descendant_count < filter.min_distinct_page_count
+        )
+          filter_parts << "WHERE page IN pages"
+          clade_matched = true
+        end
 
         trait_var = "trait#{i}"
         pred_var = "predicate#{i}"
@@ -806,18 +845,11 @@ class TraitBank
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
 
-        if i == 0
-          page_match = "(page:Page)"
-          if term_query.clade
-            page_match += "-[:parent*0..]->(anc:Page { page_id: $clade_id })"
-            params["clade_id"] = term_query.clade.id
-          end
-          filter_matches << page_match
-        end
+        page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
         # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
         # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
-        filter_matches << "(page)-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+        filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
         
         filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter) if filter.object_term?
@@ -834,10 +866,7 @@ class TraitBank
 
         unless i == filters.length - 1
           with_distinct = "WITH DISTINCT page"
-          if gathered_terms.any? 
-            with_distinct += ", #{gathered_terms.flatten.map { |t| t.list_label }.join(" ,")}"
-          end
-
+          add_gathered_terms(with_distinct, gathered_terms)
           filter_part += with_distinct
         end
 

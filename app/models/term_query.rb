@@ -96,6 +96,10 @@ class TermQuery < ApplicationRecord
     self.digest = build_digest
   end
 
+  def clade_node
+    clade.present? ? PageNode.find(clade.id) : nil
+  end
+
   class << self
     def find_saved(new_query)
       digest = new_query.build_digest
