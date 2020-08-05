@@ -97,7 +97,11 @@ class TermQuery < ApplicationRecord
   end
 
   def clade_node
-    clade.present? ? PageNode.find(clade.id) : nil
+    if clade
+      @clade_node ||= PageNode.find(clade.id)
+    else
+      nil
+    end
   end
 
   class << self
@@ -151,7 +155,7 @@ class TermQuery < ApplicationRecord
   end
 
   def page_count_sorted_filters
-    filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
+    @page_count_sorted_filters ||= filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
   end
 
   private
