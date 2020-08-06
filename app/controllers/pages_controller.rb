@@ -582,9 +582,7 @@ private
       }]
     })
 
-    counts = TraitBank.term_search(query, count: true)
-
-    @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query, counts.records).valid?
+    @show_habitat_chart = TraitBank::Stats.check_query_valid_for_counts(query).valid?
     @habitat_chart_query = query
   end
 end

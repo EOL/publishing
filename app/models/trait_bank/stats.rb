@@ -23,42 +23,22 @@ class TraitBank
 
       def obj_counts(query, record_count, limit)
         raise_if_query_invalid_for_counts(query, record_count)
-        filter = query.filters.first
-        count = query.taxa? ? "distinct page" : "distinct trait"
-        key = "trait_bank/stats/obj_counts/v3/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query
+
+        key = "trait_bank/stats/obj_counts/v3/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query semantics
 
         Rails.cache.fetch(key) do
-          log("TraitBank::Stats.object_counts -- running query for key #{key}")
-
-          # Where clause filters for top-level terms or their direct children only
-          # WITH DISTINCT is necessary to filter out multiple paths from obj_child to obj (I think?)
-          # "WHERE NOT (obj)-[:parent_term*2..]->(:Term)\n"\ removed
-
-          matches = [
-            TraitBank.page_match(query,"page", ""),
-            "(page)-[#{TraitBank::trait_rels_for_query_type(query)}]->(trait:Trait)"
-          ]
-
-          if filter.predicate?
-            matches << "(trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.pred_uri}'})"
-          end
-
-          obj_part = "(trait)-[:object_term]->(:Term)-[#{TraitBank.parent_terms}]->(obj:Term)"
-          obj_part += "-[#{TraitBank.parent_terms}]->(:Term{uri: '#{filter.obj_uri}'})" if filter.object_term?
-          matches << obj_part
-
-          results = TraitBank.query(%Q[
-            MATCH #{matches.join(",\n")}
-            WHERE obj.is_hidden_from_select = false
-            WITH obj, count(#{count}) AS count
-            RETURN obj, count
-            ORDER BY count DESC
-            LIMIT #{limit + OBJ_COUNT_LIMIT_PAD}
-          ])
-
+          params = {}
+          q = if query.taxa?
+                obj_counts_query_for_taxa(query, params)
+              else
+                obj_counts_query_for_records(query, params)
+              end
+          q.concat("\nLIMIT #{limit + OBJ_COUNT_LIMIT_PAD}")
+          results = TraitBank.query(q, params)
           filter_identical_count_ancestors(TraitBank.results_to_hashes(results, "obj"), limit)
         end
       end
+
 
       # XXX: this isn't very performant, but the assumption is that that the filtering case is rare
       def filter_identical_count_ancestors(results, limit)
@@ -189,7 +169,7 @@ class TraitBank
       end
 
 
-      def check_query_valid_for_counts(query, record_count)
+      def check_query_valid_for_counts(query)
         if query.filters.length != 1
           return CheckResult.invalid("query must have a single filter")
         end
@@ -205,12 +185,12 @@ class TraitBank
             return CheckResult.invalid("query predicate has numerical values")
           end
 
-          if (
-              query.clade.present? &&
-              record_count > RECORD_THRESHOLD
-          )
-            return CheckResult.invalid("count exceeds threshold for search with clade")
-          end
+          #if (
+          #    query.clade.present? &&
+          #    record_count > RECORD_THRESHOLD
+          #)
+          #  return CheckResult.invalid("count exceeds threshold for search with clade")
+          #end
         end
 
         if filter.numeric?
@@ -220,11 +200,59 @@ class TraitBank
         CheckResult.valid
       end
 
-
-
       private
-      def raise_if_query_invalid_for_counts(query, record_count)
-        result = check_query_valid_for_counts(query, record_count)
+
+      def obj_counts_query_for_records(query, params)
+        obj_var = "child_obj"
+        trait_var = "trait"
+        anc_var = "anc"
+        match_part = TraitBank.term_record_search_matches(query, params, always_match_obj: true, obj_var: obj_var, trait_var: trait_var)
+
+        %Q(
+          #{match_part}
+          WITH #{obj_var}, count(distinct #{trait_var}) AS trait_count
+          #{count_query_anc_obj_match(query, obj_var, anc_var, params)}
+          WITH DISTINCT #{anc_var}, #{obj_var}, trait_count
+          WITH #{anc_var} AS obj, sum(trait_count) AS count
+          RETURN obj, count
+          ORDER BY count DESC
+        )
+      end
+
+      def obj_counts_query_for_taxa(query, params)
+        obj_var = "child_obj"
+        anc_var = "anc"
+        match_part = TraitBank.term_page_search_matches(query, params, always_match_obj: true, obj_var: obj_var)
+
+        %Q(
+          #{match_part}
+          WITH #{obj_var}, collect(distinct page) as pages
+          #{count_query_anc_obj_match(query, obj_var, anc_var, params)}
+          WITH #{anc_var} AS obj, collect(pages) as list_of_lists_of_pages
+          WITH obj, reduce(output = [], p in list_of_lists_of_pages | output + p) AS pages
+          UNWIND pages AS page
+          WITH obj, count(distinct page) AS count
+          RETURN obj, count
+          ORDER BY count DESC
+        )
+      end
+
+      def count_query_anc_obj_match(query, obj_var, anc_var, params)
+        result = "MATCH (#{obj_var})-[#{TraitBank.parent_terms}]->(#{anc_var}:Term)"
+        filter = query.filters.first
+
+        if filter.object_term?
+          result.concat("-[#{TraitBank.parent_terms}]->(:Term { uri: $count_query_obj })")
+          params[:count_query_obj] = filter.obj_uri
+        end
+
+        result.concat("\nWHERE #{anc_var}.is_hidden_from_select = false")
+
+        result
+      end
+
+      def raise_if_query_invalid_for_counts(query)
+        result = check_query_valid_for_counts(query)
 
         if !result.valid
           raise TypeError.new(result.reason)

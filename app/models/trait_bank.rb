@@ -626,9 +626,7 @@ class TraitBank
       false
     end
 
-    def term_record_search(term_query, limit_and_skip, options)
-      params = {}
-
+    def term_record_search_matches(term_query, params, options = {})
       filters = term_query.page_count_sorted_filters
       gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
 
@@ -637,15 +635,13 @@ class TraitBank
       filter_parts = []
       clade_matched = add_clade_match(term_query, gathered_terms, filter_parts, params)
 
-      trait_var = nil
-      pred_var = nil
       filters.each_with_index do |filter, i|
         filter_matches = []
         filter_wheres = []
 
-        trait_var = "trait#{i}"
-        pred_var = "predicate#{i}"
-        obj_var = "object#{i}"
+        trait_var = filters.length == 1 && options[:trait_var] ? options[:trait_var] : "trait#{i}"
+        pred_var = filters.length == 1 && options[:pred_var] ? options[:pred_var] : "predicate#{i}"
+        obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
 
@@ -654,7 +650,11 @@ class TraitBank
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
         filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
-        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter) if filter.object_term?
+        if filter.object_term?
+          filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter)
+        elsif options[:always_match_obj]
+          filter_matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)"
+        end
 
         if filter.predicate?
           filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_terms_for_filter)
@@ -694,12 +694,20 @@ class TraitBank
         filter_parts << filter_part
       end
 
-      first_part = %Q(
+      %Q(
         #{gathered_term_matches.join("\n")}
         #{filter_parts.join("\n")}
       )
+    end
 
-      last_part = if filters.length > 1
+    def term_record_search(term_query, limit_and_skip, options)
+      params = {}
+
+      trait_var = "trait"
+      pred_var = "pred"
+      match_part = term_record_search_matches(term_query, params, count: options[:count] || false, trait_var: trait_var, pred_var: pred_var)
+
+      last_part = if term_query.filters.length > 1
         if options[:count]
           %Q(
             WITH count(*) AS page_count, sum(trait_count) AS record_count
@@ -726,7 +734,7 @@ class TraitBank
         end
       end
 
-      query = "#{first_part}\n#{last_part}"
+      query = "#{match_part}\n#{last_part}"
 
       { query: query, params: params }
     end
@@ -829,9 +837,7 @@ class TraitBank
       end
     end
 
-    def term_page_search(term_query, limit_and_skip, options)
-      params = {}
-
+    def term_page_search_matches(term_query, params, options = {})
       filters = term_query.page_count_sorted_filters
       gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
 
@@ -846,18 +852,21 @@ class TraitBank
 
         trait_var = "trait#{i}"
         pred_var = "predicate#{i}"
-        obj_var = "object#{i}"
+        obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
 
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
-        # NOTE: the predicate and object_term here are NOT assigned variables; they would HAVE to have i in them if they
-        # were there. So if you add them, you will have to handle all of that stuff similar to pred_var
         filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
 
         
-        filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter) if filter.object_term?
+        if filter.object_term? 
+          filter_matches << filter_term_match(trait_var, obj_var, :object_term, gathered_terms_for_filter)
+        elsif options[:always_match_obj]
+          filter_matches << "(#{trait_var})-[:object_term]->(#{obj_var}:Term)"
+        end
+
         filter_matches << filter_term_match(trait_var, pred_var, :predicate, gathered_terms_for_filter) if filter.predicate?
 
         filter_wheres << term_filter_where(filter, trait_var, pred_var, obj_var, params, gathered_terms_for_filter)
@@ -878,6 +887,15 @@ class TraitBank
         filter_parts << filter_part
       end
 
+      %Q( 
+        #{gathered_term_matches.join("\n")}
+        #{filter_parts.join("\n")}
+      )
+    end
+
+    def term_page_search(term_query, limit_and_skip, options)
+      params = {}
+      match_part = term_page_search_matches(term_query, params)
       with_count_clause = options[:count] ? "WITH COUNT(DISTINCT(page)) AS page_count " : ""
       return_clause = if options[:count]
                         "RETURN page_count"
@@ -886,8 +904,7 @@ class TraitBank
                       end
 
       query = %Q(
-        #{gathered_term_matches.join("\n")}
-        #{filter_parts.join("\n")}
+        #{match_part}
         #{with_count_clause}
         #{return_clause}
         #{limit_and_skip}
