@@ -21,8 +21,8 @@ class TraitBank
     class << self
       delegate :log, to: TraitBank::Logger
 
-      def obj_counts(query, record_count, limit)
-        raise_if_query_invalid_for_counts(query, record_count)
+      def obj_counts(query, limit)
+        raise_if_query_invalid_for_counts(query)
 
         key = "trait_bank/stats/obj_counts/v3/limit_#{limit}/#{query.to_cache_key}" # increment version number when changing query semantics
 
@@ -140,8 +140,8 @@ class TraitBank
       #  "WITH ms, init_max, min, bw, (init_max - min) % bw as rem\n"\
       #  "WITH ms, min, bw, CASE WHEN rem = 0 THEN init_max ELSE init_max + bw - rem END AS max\n"\
 
-      def check_query_valid_for_histogram(query, record_count)
-        if record_count < MIN_RECORDS_FOR_HIST
+      def check_query_valid_for_histogram(query, count)
+        if count < MIN_RECORDS_FOR_HIST
           return CheckResult.invalid("record count doesn't meet minimum of #{MIN_RECORDS_FOR_HIST}")
         end
 
@@ -259,8 +259,8 @@ class TraitBank
         end
       end
 
-      def raise_if_query_invalid_for_histogram(query, record_count)
-        result = check_query_valid_for_histogram(query, record_count)
+      def raise_if_query_invalid_for_histogram(query, count)
+        result = check_query_valid_for_histogram(query, count)
 
         if !result.valid
           raise TypeError.new(result.reason)
