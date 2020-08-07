@@ -844,6 +844,8 @@ zh-TW:
   scientific_names_header: 學名
   send_me_reset_password_instructions: 寄送給我關於重新設定密碼的說明
   search:
+    full_name: '%{vernacular}（%{scientific}）'
+    matched_text: 符合%{text}
     flash:
       cannot_combine_paths: 無法與%{path}合併結果
       more_than_one_species: 無法合併%{species}的結果
