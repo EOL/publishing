@@ -616,7 +616,7 @@ class TraitBank
       if (
         !clade_matched &&
         filter_index > 0 && 
-        term_filter.clade && 
+        term_query.clade && 
         term_query.clade_node.descendant_count < filter.min_distinct_page_count
       )
         filter_parts << "WHERE page IN pages"
