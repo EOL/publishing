@@ -33,3 +33,4 @@ Thanks.
 === Deployed 2020-07-27
 
 8/5/2020 (mvitale): Run 'PageStatUpdater.run'
+8/7/2020 (mvitale): Ensure unique constraint on Page.page\_id: CREATE CONSTRAINT ON (page:Page) ASSERT page.page\_id IS UNIQUE
