@@ -258,6 +258,7 @@ sv:
     mn: Mongoliet
     se: Nordsamiska
     "no": Norska
+    nno: Norska
     Q11128374: Nyiha
     sv: Svenska
     none: Ospecificerad
@@ -376,6 +377,8 @@ sv:
   send_me_reset_password_instructions: Skicka instruktioner om hur man återställer
     lösenordet igen
   search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Matchade %{text}
     flash:
       cannot_combine_paths: Kunde inte kombinera resultat med %{path}
       more_than_one_species: Kunde inte kombinera resultat för %{species}

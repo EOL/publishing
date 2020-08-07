@@ -248,78 +248,95 @@ fi:
     stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
-    ab: Abhaasi
+    ab: abhaasi
+    Q27683: atšeh
+    Q27776: adyge
     aa: Afar
-    af: Afrikaans
-    ak: Akan
-    sq: Albania
-    am: Amhara
-    ar: Arabia
-    an: Aragonia
-    hy: Armenia
-    as: Assami
-    av: Avaari
-    ae: Avesta
-    ay: Aimara
-    Q9292: Azeri
-    az: Azeri
-    bm: Bambara
-    ba: Baškiiri
-    eu: Baski
-    be: Valko-Venäjä
-    bn: Bengali
-    bh: Bihar
-    bi: Bislama
-    nb: Kirjanorja
-    bs: Bosnia
-    Q750553: Brasilianportugali
-    br: Bretoni
-    bg: Bulgaria
-    my: Burma
-    Q880301: Cajunranska
-    ca: Valencia
-    km: Khmer
-    ch: Tšamorro
-    ce: Tšetšeeni
-    ny: Njandža
-    zh: Kiina
-    cu: Kirkkoslaavi
-    cv: Tšuvassi
+    af: afrikaans
+    ak: akan
+    alb: albania
+    sq: albania
+    am: amhara
+    ar: arabia
+    an: aragonia
+    hy: armenia
+    as: assami
+    Q29507: asturia
+    av: avaari
+    ae: avesta
+    ay: aimara
+    Q9292: azeri
+    az: azeri
+    bm: bambara
+    ba: baškiiri
+    eu: baski
+    be: valkovenäjä
+    bn: bengali
+    bh: bihar
+    bi: bislama
+    nb: norjan bokmål
+    bs: bosnia
+    Q750553: brasilianportugali
+    br: bretoni
+    bg: bulgaria
+    my: burma
+    Q880301: cajunranska
+    ca: valencia
+    km: khmer
+    ch: tšamorro
+    ce: tšetšeeni
+    Q33388: cherokee
+    ny: njandža
+    zh: kiina
+    chi: kiina
+    cu: kirkkoslaavi
+    cv: tšuvassi
+    Q37041: klassinen kiina
     kw: Korni
     co: Korsika
     cr: Cree
     hr: Kroatia
+    hrv: kroatia
     cs: Tšekki
-    da: Tanska
-    dv: Divehi
-    nl: Flaami
+    da: tanska
+    dv: divehi
+    dut: flaami
+    nl: flaami
     dz: Dzongkha
     dzo: Dzongkha
-    en: Englanti
+    en: englanti
     eo: Esperanto
-    et: Viro
+    et: viro
+    est: viro
     ee: Ewe
     fo: Fääri
     fj: Fidži
     fi: suomi
+    fin: suomi
     fr: Ranska
+    fra: ranska
     ff: Fulah
-    gd: Gaeli
-    gl: Galicia
-    lg: Ganda
-    ka: Georgia
-    de: Saksa
-    el: Nykykreikka (1453-)
+    gd: gaeli
+    gl: galicia
+    Q33475: gan-kiina
+    lg: ganda
+    ka: georgia
+    de: saksa
+    deu: saksa
+    el: nykykreikka
+    gre: kreikka
     gn: Guarani
     gu: Gudžarati
     ht: Haiti
     ha: Hausa
-    he: Heprea
+    he: heprea
+    heb: heprea
     hz: Herero
-    hi: Hindi
+    hi: hindi
     ho: Hiri-motu
     hu: Unkari
-    is: Islanti
+    is: islanti
+    ice: islanti
     io: Ido
     ig: Igbo
     id: Indonesia
@@ -329,6 +346,7 @@ fi:
     ik: Inupiatun
     ga: Iiri
     it: Italia
+    ita: italia
     ja: Japani
     jp: Japani
     jv: Jaava
@@ -343,6 +361,7 @@ fi:
     kv: Komi
     kg: Kongo
     ko: Korea
+    kor: Korea
     kj: Kwanyama
     ku: Kurdi
     lo: Lao
@@ -351,6 +370,9 @@ fi:
     li: Limburg
     ln: Lingala
     lt: Liettua
+    lit: Liettua
+    Q36584: livvinkarjala
+    Q13286: alasorbi
     lu: Katanganluba
     lb: Luxemburg
     mk: Makedonia
@@ -363,83 +385,108 @@ fi:
     mi: Maori
     mr: Marathi
     mh: Marshall
+    Q36455: mindong
     mn: Mongolia
+    Q56426: marokonarabia
     na: Nauru
     nv: Navajo
     nd: Pohjois-ndebele
     nr: Etelä-ndebele
     ng: Ndonga
     ne: Nepali
+    Q19933293: pohjoisluri
     se: Pohjoissaame
-    "no": Norja
-    nn: Uusnorja
-    oc: Oksitaani
-    oj: Odžibwa
-    or: Oriya
-    om: Oromo
-    os: Osseetti
-    pi: Paali
-    pa: Pandžabi
-    fa: Persia
-    pl: Puola
-    pt: Portugali
-    ps: Paštu
-    qu: Ketšua
-    ro: Moldova
-    rm: Retoromaani
-    rn: Kirundi
-    ru: Venäjä
-    sm: Samoa
-    sg: Sango
-    sa: Sanskrit
-    sc: Sardi
+    "no": norja
+    nno: norja
+    nob: norja
+    nor: norja
+    nn: norjan nynorsk
+    oc: oksitaani
+    oj: odžibwa
+    or: oriya
+    om: oromo
+    os: osseetti
+    pi: paali
+    pa: pandžabi
+    fa: persia
+    Q34024: picard
+    pl: puola
+    pol: puola
+    pt: portugali
+    ps: paštu
+    qu: ketšua
+    ro: romania
+    rm: retoromaani
+    rn: kirundi
+    ru: venäjä
+    rus: venäjä
+    Q34299: jakuutti
+    sm: samoa
+    sg: sango
+    sa: sanskrit
+    sc: sardi
     sr: Serbia
-    sn: Šona
-    ii: Sichuanin-yi
-    sd: Sindhi
-    si: Sinhali
-    sk: Slovakia
-    sl: Slovenia
-    so: Somali
-    st: Eteläsotho
-    es: Kastilia
-    su: Sunda
-    sw: Swahili
-    ss: Swazi
-    sv: Ruotsi
-    tl: Tagalog
-    ty: Tahiti
-    tg: Tadžikki
-    ta: Tamili
-    tt: Tataari
-    te: Telugu
-    th: Thai
-    bo: Tiibet
-    ti: Tigrinja
-    to: Tonga
-    ts: Tsonga
-    tn: Tswana
-    tr: Turkki
-    Q36730: Osmaninturkki
-    tk: Turkmeeni
+    sn: šona
+    Q34004: šona
+    ii: sichuanin-yi
+    Q33973: sisilia
+    sd: sindhi
+    si: sinhali
+    sk: slovakia
+    slk: slovakia
+    sl: slovenia
+    so: somali
+    som: somali
+    st: eteläsotho
+    es: kastilia
+    slv: espanja
+    su: sunda
+    sw: swahili
+    ss: swazi
+    sv: ruotsi
+    swe: ruotsi
+    tl: tagalog
+    ty: tahiti
+    tg: tadžikki
+    Q34318: tališi
+    ta: tamili
+    tt: tataari
+    te: telugu
+    th: thai
+    tha: thai
+    bo: tiibet
+    ti: tigrinja
+    to: tonga
+    ts: tsonga
+    tn: tswana
+    Q56240: tunisianarabia
+    tr: turkki
+    tur: turkki
+    Q36730: osmaninturkki
+    tk: turkmeeni
     tw: Twi
     ug: Uiguuri
-    uk: Ukraina
+    uk: ukraina
+    ukr: ukraina
     none: Määrittelemätön
-    ur: Urdu
-    uz: Uzbekki
-    ve: Venda
-    vi: Vietnam
-    vo: Volapük
-    wa: Valloni
-    cy: Kymri
-    fy: Länsifriisi
-    wo: Wolof
-    xh: Xhosa
-    yi: Jiddiš
-    yo: Joruba
-    za: Zhuang
-    zu: Zulu
+    Q13248: yläsorbi
+    ur: urdu
+    uz: uzbekki
+    ve: venda
+    Q32747: vepsä
+    vi: vietnam
+    vo: volapük
+    wa: valloni
+    cy: kymri
+    wel: kymri
+    fy: länsifriisi
+    wo: wolof
+    xh: xhosa
+    yi: jiddiš
+    yo: joruba
+    Q237409: seelanti
+    za: zhuang
+    zu: zulu
   layout_sign_in: Kirjaudu sisään
   layout_sign_up: Rekisteröidy
   layout_sign_out: Kirjaudu ulos
@@ -447,7 +494,7 @@ fi:
   maps:
     empty: Karttoja ei ole saatavana tälle sivulle.
     occurrence_caption: Tiedetyt tapahtumat, kerätyt näytteet ja havainnot kohteesta
-      %{page_name}
+      %{page_name}. Näytä nämä lajit GBIF:ssä
     other_maps_title: Epäinteraktiiviset kartat
   medium:
     untitled:
@@ -795,6 +842,8 @@ fi:
       source: Lähde
     search:
       new_search: uusi haku
+    search_form:
+      search: Hae
   trophic_web:
     group_descriptions:
       source: keskeiset lajit
@@ -861,6 +910,10 @@ fi:
       previous: edellinen sivu
     name:
       by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: happi
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsium (Ca)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: puu
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: sininen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: vihreä
@@ -874,12 +927,28 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: purppura
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: ruskea
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: oranssi
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: ikivihreä
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: keltavihreä
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: hedelmä
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lehden väri
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: trooppinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
+        http://eol(dot)org/schema/terms/paleo_megaannum: miljoona vuotta sitten
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: astetta
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /päivä
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /vuosi
         http://purl(dot)org/obo/owl/UO#UO_0000034: viikkoa
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/päivä
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi
+        Unit: Yksikkö
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/kuukausi'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/vuosi
         http://eol(dot)org/schema/terms/gramsPerMonth: g/kk
         http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3kk
         http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4kk
