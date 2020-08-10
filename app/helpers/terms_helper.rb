@@ -52,6 +52,11 @@ module TermsHelper
     end
   end
 
+  def filter_obj_name(filter)
+    raise TypeError.new("filter does not have an object") if !filter.object?
+    filter.object_term? ? i18n_term_name_for_uri(filter.obj_uri) : filter.object_clade.canonical
+  end
+
   def filter_display_string(filter)
     parts = []
     prefix = "traits.search.filter_display."
@@ -59,8 +64,8 @@ module TermsHelper
     if filter.predicate?
       pred_name = i18n_term_name_for_uri(filter.pred_uri)
 
-      if filter.object_term?
-        parts << t("#{prefix}pred_obj", pred: pred_name, obj: i18n_term_name_for_uri(filter.obj_uri))
+      if filter.object?
+        parts << t("#{prefix}pred_obj", pred: pred_name, obj: filter_obj_name(filter))
       elsif filter.numeric?
         units = i18n_term_name_for_uri(filter.units_uri)
 
@@ -76,8 +81,8 @@ module TermsHelper
       else
         parts << t("#{prefix}pred_only", pred: pred_name)
       end
-    elsif filter.object_term?
-      parts << t("#{prefix}obj_only", obj: i18n_term_name_for_uri(filter.obj_uri))
+    elsif filter.object?
+      parts << t("#{prefix}obj_only", obj: filter_obj_name(filter))
     end
 
     if filter.extra_fields?

@@ -130,6 +130,7 @@ class TermQuery < ApplicationRecord
           :pred_uri,
           :top_pred_uri,
           :obj_uri,
+          :object_clade_id,
           :op,
           :num_val1,
           :num_val2,

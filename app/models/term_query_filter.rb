@@ -64,6 +64,10 @@ class TermQueryFilter < ApplicationRecord
     obj_uri.present?
   end
 
+  def object?
+    object_term? || object_clade.present?
+  end
+
   def sex_term?
     sex_uri.present?
   end
