@@ -1186,6 +1186,7 @@ en:
       sex: "sex"
       show_additional_fields: "show additional fields"
       statistical_method: "statistical method"
+      target_group: "target group (e.g., salmon)"
       taxa_matching_all: "taxa matching ALL filters"
       this_may_take_a_minute: "This may take a minute"
       trait_filter: "trait filter"

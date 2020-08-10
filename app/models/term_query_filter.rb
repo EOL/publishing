@@ -43,8 +43,20 @@ class TermQueryFilter < ApplicationRecord
     !pred_uri.blank?
   end
 
+  def pred_node
+    if pred_uri
+      @pred_node ||= TermNode.find(pred_uri)
+    else
+      nil
+    end
+  end
+
   def units_for_pred?
     pred_uri && !TraitBank::Terms.units_for_pred(pred_uri).nil?
+  end
+
+  def association_pred?
+    pred_node&.type == "association"
   end
 
   def object_term?
