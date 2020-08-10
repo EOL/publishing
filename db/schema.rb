@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_184539) do
+ActiveRecord::Schema.define(version: 2020_08_10_192648) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -45,14 +45,14 @@ ActiveRecord::Schema.define(version: 2020_07_07_184539) do
     t.text "owner"
     t.string "name"
     t.string "source_url", limit: 4096
-    t.text "body", limit: 16777215
+    t.text "body", limit: 4294967295
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resource_id"
     t.string "rights_statement", limit: 1024
     t.integer "page_id"
     t.integer "harv_db_id"
-    t.index ["guid"], name: "index_articles_on_guid", length: 191
+    t.index ["guid"], name: "index_articles_on_guid"
     t.index ["harv_db_id"], name: "index_articles_on_harv_db_id"
     t.index ["resource_id"], name: "index_articles_on_resource_id"
   end
@@ -839,6 +839,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_184539) do
     t.string "lifestage_uri"
     t.string "statistical_method_uri"
     t.integer "resource_id"
+    t.integer "object_clade_id"
     t.index ["term_query_id"], name: "index_term_query_filters_on_term_query_id"
   end
 
@@ -993,5 +994,4 @@ ActiveRecord::Schema.define(version: 2020_07_07_184539) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "user_downloads", "term_queries"
 end

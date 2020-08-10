@@ -1,6 +1,7 @@
 class TermQueryFilter < ApplicationRecord
   belongs_to :term_query, :inverse_of => :filters
   belongs_to :resource, optional: true
+  belongs_to :object_clade, class_name: "Page", optional: true
   validates_presence_of :term_query
   validate :validation
 

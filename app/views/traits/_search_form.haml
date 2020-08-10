@@ -27,20 +27,14 @@
               - show_error(ff.object, :num_val2)
           .filter-row{:class => ff.object.errors[:obj_uri].any? ? "is-filter-row-with-errors" : ""}
             = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
+        - elsif ff.object.association_pred?
+          %span.js-typeahead-wrap.filter-field
+            = text_field_tag "object_clade_name", ff.object.object_clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".target_group")
+            = ff.hidden_field :object_clade_id, :class => "js-typeahead-field"
         - else
-          - if ff.object.association_pred?
-            - typeahead_class = "page"
-            - field_name = "target_clade"
-            - placeholder = t(".target_group")
-          - else
-            - placeholder = t(".value")
-            -field_name = "obj"
-            - if ff.object.predicate?
-              - typeahead_class = "pred-obj"
-            - else
-              - typeahead_class = "obj"
+          - typeahead_class = ff.object.predicate? ? "pred-obj" : "obj"
+          = render "filter_field", field_name: "obj", typeahead_class: typeahead_class, placeholder: t(".value"), typeahead_data: { :'pred-uri' => ff.object.pred_uri }, ff: ff
 
-          = render "filter_field", field_name: field_name, typeahead_class: typeahead_class, placeholder: placeholder, typeahead_data: { :'pred-uri' => ff.object.pred_uri }, ff: ff
         - if ff.object.show_extra_fields?
           = render "filter_field", field_name: "sex", typeahead_class: "meta-obj", typeahead_data: { pred: "sex" }, placeholder: t(".sex"), ff: ff
           = render "filter_field", field_name: "lifestage", typeahead_class: "meta-obj", typeahead_data: { pred: "lifestage" }, placeholder: t(".lifestage"), ff: ff
