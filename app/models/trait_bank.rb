@@ -586,30 +586,24 @@ class TraitBank
       "RETURN #{returns.join(", ")}"
     end
 
-    def add_clade_match(term_query, gathered_terms, query_parts, params)
-      clade_matched = false
-
+    def add_clade_match(term_query, gathered_terms, query_parts, params, match_clade_first)
       if term_query.clade_node
         page_match = "MATCH (page:Page)-[:parent*0..]->(anc: Page { page_id: $clade_id })"
         params["clade_id"] = term_query.clade_node.page_id
 
         if term_query.filters.any?
-          if term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
-            clade_matched = true
+          if match_clade_first
             page_match_with = "WITH DISTINCT page"
           else
-            page_match_with = "WITH collect(page) AS pages"
+            page_match_with = "WITH collect(DISTINCT page) AS pages"
           end
 
           add_gathered_terms(page_match_with, gathered_terms)
-
           page_match.concat("\n#{page_match_with}")
         end
 
         query_parts << page_match
       end
-
-      clade_matched
     end
 
     def add_clade_where(clade_matched, filter_index, filter, term_query, query_parts)
@@ -707,15 +701,17 @@ class TraitBank
 
 
     GatheredTerm = Struct.new(:uri, :type, :list_label)
-    def gather_terms_matches(filters, params)
+    def gather_terms_matches(filters, params, first_filter_gather_all)
       matches = []
       gathered_terms = []
 
       filters.each_with_index do |filter, i|
         gathered_terms[i] = []
 
-        if i > 0 || (filter.object_term? && filter.predicate?)
-          terms = i == 0 ? [filter.max_trait_row_count_term] : [filter.predicate_term, filter.object_term].compact
+        gather_all = i > 0 || first_filter_gather_all 
+
+        if gather_all || (filter.object_term? && filter.predicate?)
+          terms = gather_all ? [filter.predicate_term, filter.object_term].compact : [filter.max_trait_row_count_term] 
 
           terms.each do |term|
             label = "gathered_#{term.type}#{i}"
@@ -765,9 +761,13 @@ class TraitBank
 
     def term_search_matches_helper(term_query, params, options = {})
       filters = term_query.page_count_sorted_filters
-      gathered_term_matches, gathered_terms = gather_terms_matches(filters, params)
       filter_parts = []
-      clade_matched = add_clade_match(term_query, gathered_terms, filter_parts, params)
+      clade_matched = term_query.clade_node && (
+        filters.empty? ||
+        term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
+      )
+      gathered_term_matches, gathered_terms = gather_terms_matches(filters, params, clade_matched)
+      add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched)
 
       filters.each_with_index do |filter, i|
         filter_matches = []
@@ -780,9 +780,7 @@ class TraitBank
         child_obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
-
         clade_matched ||= add_clade_where(clade_matched, i, filter, term_query, filter_parts)
-
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
         filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
