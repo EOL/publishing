@@ -839,7 +839,7 @@ ActiveRecord::Schema.define(version: 2020_08_10_192648) do
     t.string "lifestage_uri"
     t.string "statistical_method_uri"
     t.integer "resource_id"
-    t.integer "object_clade_id"
+    t.integer "obj_clade_id"
     t.index ["term_query_id"], name: "index_term_query_filters_on_term_query_id"
   end
 

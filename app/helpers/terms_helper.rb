@@ -54,7 +54,7 @@ module TermsHelper
 
   def filter_obj_name(filter)
     raise TypeError.new("filter does not have an object") if !filter.object?
-    filter.object_term? ? i18n_term_name_for_uri(filter.obj_uri) : filter.object_clade.canonical
+    filter.object_term? ? i18n_term_name_for_uri(filter.obj_uri) : filter.obj_clade.canonical
   end
 
   def filter_display_string(filter)

@@ -29,8 +29,8 @@
             = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
         - elsif ff.object.association_pred?
           %span.js-typeahead-wrap.filter-field
-            = text_field_tag "object_clade_name", ff.object.object_clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".target_group")
-            = ff.hidden_field :object_clade_id, :class => "js-typeahead-field"
+            = text_field_tag "obj_clade_name", ff.object.obj_clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".target_group")
+            = ff.hidden_field :obj_clade_id, :class => "js-typeahead-field"
         - else
           - typeahead_class = ff.object.predicate? ? "pred-obj" : "obj"
           = render "filter_field", field_name: "obj", typeahead_class: typeahead_class, placeholder: t(".value"), typeahead_data: { :'pred-uri' => ff.object.pred_uri }, ff: ff
