@@ -124,6 +124,7 @@ class TermQueryFilter < ApplicationRecord
     pieces << "op: :#{op}"
     pieces << "pred_uri:'#{pred_uri}'"
     pieces << "obj_uri:'#{obj_uri}'" unless obj_uri.blank?
+    pieces << "obj_clade_id:'#{obj_clade_id}'" unless obj_clade_id.blank?
     pieces << "units_uri:'#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1:#{num_val1}" unless num_val1.blank?
     pieces << "num_val1:#{num_val2}" unless num_val2.blank?
@@ -139,6 +140,7 @@ class TermQueryFilter < ApplicationRecord
     pieces << "op_#{op}"
     pieces << "pred_uri_#{pred_uri}"
     pieces << "obj_uri_#{obj_uri}" unless obj_uri.blank?
+    pieces << "obj_clade_id_#{obj_clade_id}" unless obj_clade_id.blank?
     pieces << "units_uri_#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1_#{num_val1}" unless num_val1.blank?
     pieces << "num_val1_#{num_val2}" unless num_val2.blank?
