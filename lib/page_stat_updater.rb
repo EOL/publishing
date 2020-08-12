@@ -11,7 +11,7 @@ class PageStatUpdater
         page_ids = fetch_batch(batch)
 
         page_ids.each do |page_id|
-          update_descendant_count(page_id)
+          update_counts(page_id)
         end
 
         batch += 1
@@ -31,13 +31,15 @@ class PageStatUpdater
       res["data"].flatten
     end
 
-    def update_descendant_count(page_id)
-      puts "updating descendant count for page #{page_id}"
+    def update_counts(page_id)
+      puts "updating counts for page #{page_id}"
 
       q = %Q(
         MATCH (anc:Page{ page_id: #{page_id} }), (desc:Page)-[:parent*0..]->(anc)
-        WITH anc, count(DISTINCT desc) as desc_count
+        OPTIONAL MATCH (desc)-[:trait|:inferred_trait]->(trait:Trait)
+        WITH anc, count(DISTINCT desc) AS desc_count, count(trait) AS trait_row_count
         SET anc.descendant_count = desc_count
+        SET anc.trait_row_count = trait_row_count
       )
 
       TraitBank.query(q)

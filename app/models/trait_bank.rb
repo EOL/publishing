@@ -426,8 +426,31 @@ class TraitBank
       end
     end
 
+    def term_filter_where_obj_clade_part(obj_clade_var, child_obj_clade_var, obj_clade_id, params, gathered_terms)
+      gathered_term = gathered_terms.find { |t| t.type == :object_clade }
 
-    def term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, params, gathered_terms = [])
+      if gathered_term
+        "#{child_obj_clade_var} IN #{gathered_term.list_label}"
+      else
+        obj_clade_id_param = "#{obj_clade_var}_page_id"
+        params[obj_clade_id_param] = obj_clade_id
+        "#{obj_clade_var}.page_id = $#{obj_clade_id_param}"
+      end
+    end
+
+
+    def term_filter_where(
+      filter, 
+      trait_var, 
+      pred_var, 
+      child_pred_var, 
+      obj_var, 
+      child_obj_var, 
+      obj_clade_var,
+      child_obj_clade_var,
+      params, 
+      gathered_terms = []
+    )
       parts = []
       term_condition = []
 
@@ -437,6 +460,10 @@ class TraitBank
 
       if filter.object_term?
         term_condition << term_filter_where_term_part(obj_var, child_obj_var, filter.obj_uri, :object_term, params, gathered_terms)
+      end
+
+      if filter.obj_clade.present?
+        term_condition << term_filter_where_obj_clade_part(obj_clade_var, child_obj_clade_var, filter.obj_clade.id, params, gathered_terms)
       end
 
       parts << "(#{term_condition.join(" AND ")})"
@@ -700,7 +727,7 @@ class TraitBank
     end
 
 
-    GatheredTerm = Struct.new(:uri, :type, :list_label)
+    GatheredTerm = Struct.new(:value, :type, :list_label)
     def gather_terms_matches(filters, params, first_filter_gather_all)
       matches = []
       gathered_terms = []
@@ -711,18 +738,29 @@ class TraitBank
         gather_all = i > 0 || first_filter_gather_all 
 
         if gather_all || (filter.object_term? && filter.predicate?)
-          terms = gather_all ? [filter.predicate_term, filter.object_term].compact : [filter.max_trait_row_count_term] 
+          terms = gather_all ? filter.all_terms : filter.max_trait_row_count_terms
 
           terms.each do |term|
             label = "gathered_#{term.type}#{i}"
             list_label = "#{label}s"
-            uri_param = "#{label}_uri"
-            params[uri_param] = term.uri
 
-            match = %Q(
-              MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
-              WITH collect(DISTINCT #{label}) AS #{list_label}
-            )
+            if term.type == :object_clade
+              page_id_param = "#{label}_page_id"
+              params[page_id_param] = term.value
+              match = %Q(
+                MATCH (#{label}:Page)-[:parent]->(:Page { page_id: $#{page_id_param} })
+                WITH collect(DISTINCT #{label}) AS #{list_label}
+              )
+            else
+              uri_param = "#{label}_uri"
+              params[uri_param] = term.value
+
+              match = %Q(
+                MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
+                WITH collect(DISTINCT #{label}) AS #{list_label}
+              )
+            end
+
 
             flattened_gathered_terms = gathered_terms.flatten
             if flattened_gathered_terms.any?
@@ -730,7 +768,7 @@ class TraitBank
             end
 
             matches << match
-            gathered_terms[i] << GatheredTerm.new(term.uri, term.type, list_label)
+            gathered_terms[i] << GatheredTerm.new(term.value, term.type, list_label)
           end
         end
       end
@@ -779,6 +817,8 @@ class TraitBank
         obj_var = "tgt_object#{i}"
         child_obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
+        obj_clade_var = "tgt_obj_clade#{i}"
+        child_obj_clade_var = "obj_clade#{i}"
         gathered_terms_for_filter = gathered_terms.shift
         clade_matched ||= add_clade_where(clade_matched, i, filter, term_query, filter_parts)
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
@@ -791,13 +831,23 @@ class TraitBank
           filter_matches << filter_term_match_no_hier(trait_var, child_obj_var, :object_term)
         end
 
+        if filter.obj_clade.present?
+          gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
+
+          if gathered_clade
+            filter_matches << "(#{trait_var})-[:object_clade]->(#{child_obj_clade_var}:Page)"
+          else
+            filter_matches << "(#{trait_var})-[:object_clade]->(#{child_obj_clade_var}:Page)-[:parent*0..]->(#{obj_clade_var}:Page)"
+          end
+        end
+
         if filter.predicate?
           filter_matches << filter_term_match(trait_var, pred_var, child_pred_var, :predicate, gathered_terms_for_filter)
         elsif options[:always_match_pred]
           filter_matches << filter_term_match_no_hier(trait_var, child_pred_var, :predicate)
         end
 
-        filter_wheres << term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, params, gathered_terms_for_filter)
+        filter_wheres << term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, obj_clade_var, child_obj_clade_var, params, gathered_terms_for_filter)
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
         add_term_filter_resource_match(filter, trait_var, filter_matches, params)
 

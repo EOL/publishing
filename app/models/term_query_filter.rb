@@ -24,7 +24,7 @@ class TermQueryFilter < ApplicationRecord
     end
   end
 
-  Term = Struct.new(:uri, :type)
+  Term = Struct.new(:value, :trait_row_count, :type)
 
   # TODO: remove op field from db
   enum :op => {
@@ -259,26 +259,34 @@ class TermQueryFilter < ApplicationRecord
     @obj_term_node = object_term? ? TermNode.find(obj_uri) : nil
   end
 
-  def max_trait_row_count_term
-    return @max_trait_row_count_term if @max_trait_row_count_term
+  def obj_clade_node
+    return @obj_clade_node if @obj_clade_node
+    @obj_clade_node = obj_clade_id.present? ? PageNode.find(obj_clade_id) : nil
+  end
 
-    pred_count = pred_term_node&.trait_row_count || 0
-    obj_count = obj_term_node&.trait_row_count || 0
-    
-    @max_trait_row_count_term = if pred_count > obj_count
-                                  Term.new(pred_uri, :predicate)
-                                else
-                                  Term.new(obj_uri, :object_term)
-                                end
+  def all_terms
+    [pred_term, obj_term, obj_clade_term].compact
+  end
+
+  def max_trait_row_count_terms
+    return @max_trait_row_count_terms if @max_trait_row_count_terms
+
+    @max_trait_row_count_terms = all_terms.max(terms.length - 1) do |a, b|
+      a.trait_row_count <=> b.trait_row_count
+    end
   end
 
   def min_distinct_page_count
     [pred_term_node, obj_term_node].compact.map { |t| t.distinct_page_count }.min || 0
   end
 
+  def object_clade_term
+    obj_clade_id.present? ? Term.new(obj_clade_id, obj_clade_node.trait_row_count, :object_clade) : nil
+  end 
+
   def object_term
     if object_term?
-      Term.new(obj_uri, :object_term)
+      Term.new(obj_uri, obj_term_node.trait_row_count, :object_term)
     else
       nil
     end
@@ -286,7 +294,7 @@ class TermQueryFilter < ApplicationRecord
 
   def predicate_term
     if predicate?
-      Term.new(pred_uri, :predicate)
+      Term.new(pred_uri, pred_term_node.trait_row_count, :predicate)
     else
       nil
     end
