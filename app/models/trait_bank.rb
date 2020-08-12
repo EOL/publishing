@@ -568,6 +568,7 @@ class TraitBank
         object_term.uri
         object_term.name
         object_term.definition
+        object_page.page_id
         predicate.uri
         predicate.name
         predicate.definition
@@ -682,13 +683,13 @@ class TraitBank
       end
 
       query = "#{match_part}\n#{last_part}"
-
       { query: query, params: params }
     end
 
     def record_optional_matches_and_returns(limit_and_skip, options)
       optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
+        "(trait)-[:object_page]->(object_page:Term)",
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
         "(trait)-[:sex_term]->(sex_term:Term)",
@@ -835,9 +836,9 @@ class TraitBank
           gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
 
           if gathered_clade
-            filter_matches << "(#{trait_var})-[:object_clade]->(#{child_obj_clade_var}:Page)"
+            filter_matches << "(#{trait_var})-[:object_page]->(#{child_obj_clade_var}:Page)"
           else
-            filter_matches << "(#{trait_var})-[:object_clade]->(#{child_obj_clade_var}:Page)-[:parent*0..]->(#{obj_clade_var}:Page)"
+            filter_matches << "(#{trait_var})-[:object_page]->(#{child_obj_clade_var}:Page)-[:parent*0..]->(#{obj_clade_var}:Page)"
           end
         end
 
@@ -1117,11 +1118,14 @@ class TraitBank
           else
             "MISSING"
           end
+
         if hash[:predicate].is_a?(Array)
           log_error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
+
+        hash[:object_page_id] ||= hash.dig(:object_page, :page_id)
 
         # TODO: extract method
         if hash.has_key?(:meta)
