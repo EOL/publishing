@@ -18,8 +18,6 @@ class ObjectPageMover
           MATCH (t:Trait), (p:Page)
           WHERE t.object_page_id IS NOT NULL AND p.page_id = t.object_page_id AND NOT (t)-[:object_page]->()
           WITH t, p
-          ORDER BY t.eol_pk
-          SKIP #{batch * limit}
           LIMIT #{limit}
           CREATE (t)-[:object_page]->(p)
           RETURN count(*)
@@ -29,9 +27,13 @@ class ObjectPageMover
         count = result["data"].first.first
         batch += 1
       end
+
+      puts "done creating relationships"
     end
 
     def count_missed_rels
+      puts "Checking for unmatched object_page_id traits"
+
       q = %q(
         MATCH (t:Trait) WHERE t.object_page_id IS NOT NULL AND NOT (t)-[:object_page]->()
         RETURN count(t), count(distinct t.object_page_id)
