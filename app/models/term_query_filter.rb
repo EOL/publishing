@@ -24,7 +24,7 @@ class TermQueryFilter < ApplicationRecord
     end
   end
 
-  Term = Struct.new(:value, :trait_row_count, :type)
+  Field = Struct.new(:value, :trait_row_count, :type)
 
   # TODO: remove op field from db
   enum :op => {
@@ -45,7 +45,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def pred_node
-    if pred_uri
+    if predicate?
       @pred_node ||= TermNode.find(pred_uri)
     else
       nil
@@ -174,7 +174,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def blank?
-    pred_uri.blank? && obj_uri.blank?
+    pred_uri.blank? && obj_uri.blank? && obj_clade.nil?
   end
 
   def really_blank?
@@ -264,14 +264,14 @@ class TermQueryFilter < ApplicationRecord
     @obj_clade_node = obj_clade_id.present? ? PageNode.find(obj_clade_id) : nil
   end
 
-  def all_terms
-    [pred_term, obj_term, obj_clade_term].compact
+  def all_fields
+    [pred_field, obj_term_field, obj_clade_field].compact
   end
 
-  def max_trait_row_count_terms
-    return @max_trait_row_count_terms if @max_trait_row_count_terms
+  def max_trait_row_count_fields
+    return @max_trait_row_count_fields if @max_trait_row_count_fields
 
-    @max_trait_row_count_terms = all_terms.max(terms.length - 1) do |a, b|
+    @max_trait_row_count_fields = all_fields.max(all_fields.length - 1) do |a, b|
       a.trait_row_count <=> b.trait_row_count
     end
   end
@@ -280,21 +280,21 @@ class TermQueryFilter < ApplicationRecord
     [pred_term_node, obj_term_node].compact.map { |t| t.distinct_page_count }.min || 0
   end
 
-  def object_clade_term
-    obj_clade_id.present? ? Term.new(obj_clade_id, obj_clade_node.trait_row_count, :object_clade) : nil
+  def obj_clade_field
+    obj_clade_id.present? ? Field.new(obj_clade_id, obj_clade_node.trait_row_count, :object_clade) : nil
   end 
 
-  def object_term
+  def obj_term_field
     if object_term?
-      Term.new(obj_uri, obj_term_node.trait_row_count, :object_term)
+      Field.new(obj_uri, obj_term_node.trait_row_count, :object_term)
     else
       nil
     end
   end
 
-  def predicate_term
+  def pred_field
     if predicate?
-      Term.new(pred_uri, pred_term_node.trait_row_count, :predicate)
+      Field.new(pred_uri, pred_term_node.trait_row_count, :predicate)
     else
       nil
     end
@@ -305,6 +305,14 @@ class TermQueryFilter < ApplicationRecord
     if blank?
       errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
       errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.blank_error"))
+    elsif obj_clade.present? 
+      if pred_uri.blank?
+        errors.add(:pred_uri, I18n.t("pred_uri_blank_obj_clade_error"))
+      elsif obj_uri.present?
+        errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.multi_obj_error"))
+        errors.add(:obj_uri, I18n.t("term_query_filter.validations.multi_obj_error"))
+      end
     else
       validate_terms_exist
 

@@ -738,24 +738,23 @@ class TraitBank
 
         gather_all = i > 0 || first_filter_gather_all 
 
-        if gather_all || (filter.object_term? && filter.predicate?)
-          terms = gather_all ? filter.all_terms : filter.max_trait_row_count_terms
+        if gather_all || filter.all_fields.length > 1
+          fields = gather_all ? filter.all_fields : filter.max_trait_row_count_fields
 
-          terms.each do |term|
-            label = "gathered_#{term.type}#{i}"
+          fields.each do |field|
+            label = "gathered_#{field.type}#{i}"
             list_label = "#{label}s"
 
-            if term.type == :object_clade
+            if field.type == :object_clade
               page_id_param = "#{label}_page_id"
-              params[page_id_param] = term.value
+              params[page_id_param] = field.value
               match = %Q(
                 MATCH (#{label}:Page)-[:parent]->(:Page { page_id: $#{page_id_param} })
                 WITH collect(DISTINCT #{label}) AS #{list_label}
               )
             else
               uri_param = "#{label}_uri"
-              params[uri_param] = term.value
-
+              params[uri_param] = field.value
               match = %Q(
                 MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
                 WITH collect(DISTINCT #{label}) AS #{list_label}
@@ -769,7 +768,7 @@ class TraitBank
             end
 
             matches << match
-            gathered_terms[i] << GatheredTerm.new(term.value, term.type, list_label)
+            gathered_terms[i] << GatheredTerm.new(field.value, field.type, list_label)
           end
         end
       end

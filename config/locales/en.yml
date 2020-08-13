@@ -1090,6 +1090,8 @@ en:
     validations:
       blank_error: "must specify an attribute or value"
       invalid_uri: "invalid URI"
+      multi_obj_error: "can't have both an object term and a target clade"
+      pred_uri_blank_obj_clade_error: "can't be blank with a target clade"
       pred_uri_blank_numeric_error: "can't be blank with a numeric value"
       range_invalid_error: "must be >= to first value"
   terms:
