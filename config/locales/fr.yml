@@ -8,6 +8,7 @@
 # Author: Eduardo Addad de Oliveira
 # Author: Gomoko
 # Author: Jhammock
+# Author: PhilW
 # Author: Pols12
 # Author: Thibaut120094
 # Author: Ugofan
@@ -290,6 +291,7 @@ fr:
     aa: afar
     af: afrikaans
     ak: akan
+    alb: Albanais
     sq: albanais
     am: amharique
     ar: arabe
@@ -306,6 +308,7 @@ fr:
     bm: bambara
     ba: bachkir
     eu: basque
+    Q29540: Bavarois
     be: biélorusse
     Q8836490: Bende
     bn: bengali
@@ -330,6 +333,7 @@ fr:
     ce: tchétchène
     ny: chewa ; chichewa ; nyanja
     zh: chinois
+    chi: Chinois
     Q32979: Chacta
     cu: Vieux slavon liturgique
     cv: tchouvache
@@ -338,6 +342,7 @@ fr:
     cr: cri
     Q33357: Tatar de Crimée
     hr: Croate
+    hrv: Croate
     cs: tchèque
     da: danois
     Q3362072: Digo
@@ -351,12 +356,15 @@ fr:
     en: anglais
     eo: espéranto
     et: estonien
+    est: Estonien
     ee: éwé
     fo: féroïen
     fj: fidjien
     fi: finnois
+    fin: Finnois
     Q667747: Fipa
     fr: français
+    fra: Français
     ff: peul
     gd: Gaélique écossais
     gl: galicien
@@ -364,10 +372,12 @@ fr:
     lg: ganda ; luganda
     ka: Géorgien
     de: allemand
+    deu: Allemand
     Q5575236: Konkani goanais
     Q3272630: Gogo
     Q2501174: Gorontalo
     el: grec moderne (1453–)
+    gre: Grec
     gn: guarani
     gu: gouderati
     Q33303: Haïda
@@ -375,6 +385,7 @@ fr:
     ha: haoussa
     Q35756: Haya
     he: Hébreu
+    heb: Hébreu
     Q3129390: Hehe
     hz: héréro
     Q35978: Hiligaïnon
@@ -382,23 +393,26 @@ fr:
     ho: hiri motu
     hu: hongrois
     is: islandais
+    ice: Icelandais
     io: ido
     ig: igbo
     Q35936: Ilocano
     id: indonésien
     Q33509: Ingouche
-    ia: Interlingua
+    ia: Interlingua (association de langue auxilliaire internationale)
     ie: interlingua ; occidental
     iu: inuktitut
     ik: inupiaq
     Q33595: Iraqw
     ga: irlandais
     it: italien
+    ita: Italien
     Q35939: Créole jamaïcain
     ja: japonais
     jp: japonais
     jv: javanais
     Q35475: Kabiyè
+    Q35853: Kabyle
     kl: kalaallisut ; groenlandais
     Q33634: Kalmouk
     kn: kannara
@@ -414,6 +428,7 @@ fr:
     kv: komi
     kg: kikongo
     ko: coréen
+    kor: Coréen
     kj: kuanyama ; kwanyama
     ku: kurde
     lo: lao
@@ -424,8 +439,10 @@ fr:
     ln: lingala
     Q146803: Lingua franca nova
     lt: lituanien
+    lit: Lituanien
     Q33698: Live
     Q36584: Olonetsien
+    Q33754: Lombard
     lu: luba-katanga
     Q3437661: Luguru
     lb: luxembourgeois
@@ -437,6 +454,7 @@ fr:
     ms: malais
     ml: malayalam
     mt: maltais
+    mlt: Maltais
     gv: mannois
     mi: maori
     mr: marathi
@@ -460,6 +478,9 @@ fr:
     Q19933293: Lori du nord
     se: same du Nord
     "no": norvégien
+    nno: Norvégien
+    nob: Norvégien
+    nor: Norvégien
     nn: norvégien nynorsk ; nynorsk, norvégien
     Q36738: Novial
     Q3272620: Nyakusa
@@ -467,7 +488,7 @@ fr:
     Q7193418: Nyaturu
     Q11128374: Nyiha
     Q16115145: Nyika
-    oc: Occitan
+    oc: Occitan (après 1500)
     Q28602: Araméen officiel
     oj: ojibwé
     or: odiya
@@ -478,8 +499,11 @@ fr:
     Q36403: Asu
     fa: persan
     Q23014: Palatin
+    Q34024: Picard
+    Q15085: Piémontais
     Q2429648: Pogoro
     pl: polonais
+    pol: Polonais
     Q36748: Pontique
     pt: portugais
     ps: pachto ; pachtoune
@@ -489,6 +513,7 @@ fr:
     rm: romanche
     rn: roundi
     ru: russe
+    rus: Russe
     sm: samoan
     Q34016: Sandawe
     sg: sango
@@ -501,18 +526,22 @@ fr:
     Q56482: Shan
     sn: shona
     ii: yi du Sichuan ; nuosu
+    Q33973: Sicilien
     sd: sindhi
     si: Cinghalais
     sk: slovaque
+    slk: Slovaque
     sl: slovène
     so: somali
     st: sotho du Sud
     es: espagnol ; castillan
+    slv: Espagnol
     Q2638144: Soukouma
     su: soundanais
     sw: swahili
     ss: swati
     sv: suédois
+    swe: Suédois
     tl: tagalog
     ty: tahitien
     tg: tadjik
@@ -531,11 +560,13 @@ fr:
     Q34138: Tumbuka
     Q56240: Arabe tunisien
     tr: turc
+    tur: Turc
     Q36730: Turc, Ottoman
     tk: turkmène
     tw: twi
     ug: ouïghour
     uk: ukrainien
+    ukr: Ukrainien
     none: Non spécifié
     ur: ourdou
     uz: ouzbek
@@ -545,6 +576,7 @@ fr:
     Q32858: Vote
     wa: wallon
     cy: gallois
+    wel: Gallois
     Q100103: Flamand de l'ouest
     fy: frison occidental
     wo: wolof
@@ -818,6 +850,7 @@ fr:
   send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation
     du mot de passe
   search:
+    full_name: '%{vernacular} (%{scientific})'
     flash:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}

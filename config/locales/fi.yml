@@ -267,6 +267,7 @@ fi:
     ay: aimara
     Q9292: azeri
     az: azeri
+    Q33070: bali
     bm: bambara
     ba: baškiiri
     eu: baski
@@ -347,6 +348,7 @@ fi:
     ga: Iiri
     it: Italia
     ita: italia
+    Q35939: jamaikankreoli
     ja: Japani
     jp: Japani
     jv: Jaava
@@ -386,6 +388,7 @@ fi:
     mr: Marathi
     mh: Marshall
     Q36455: mindong
+    Q13330: mirandeesi
     mn: Mongolia
     Q56426: marokonarabia
     na: Nauru
@@ -479,8 +482,10 @@ fi:
     wa: valloni
     cy: kymri
     wel: kymri
+    Q100103: länsiflaami
     fy: länsifriisi
     wo: wolof
+    Q34290: wu-kiina
     xh: xhosa
     yi: jiddiš
     yo: joruba
@@ -629,6 +634,7 @@ fi:
         one: näytä (%{count}) varoitus
         other: näytä (%{count}) varoitusta
       sync: synkronoi koodivarannon kanssa
+      sync_all_terms: synkronoi kaikki termit
       fetch_relationships: nouda suhteet
       fetch_synonyms: nouda synonyymit
     headers:
@@ -839,8 +845,11 @@ fi:
     data_viz:
       other: muu
     properties:
+      scientific_name: Tieteellinen nimi
       source: Lähde
     search:
+      download_tsv: lataa tsv-muodossa
+      edit_filters: muokkaa suodattimia
       new_search: uusi haku
     search_form:
       search: Hae
@@ -934,15 +943,18 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: trooppinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
         http://eol(dot)org/schema/terms/paleo_megaannum: miljoona vuotta sitten
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Wattia
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: astetta
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /päivä
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /vuosi
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tuuma
         http://purl(dot)org/obo/owl/UO#UO_0000034: viikkoa
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/päivä
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi
