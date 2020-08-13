@@ -283,11 +283,14 @@ pms:
   language: Lenga
   languages:
     ab: Abcasian
+    Q27683: Acenèis
     Q27776: Adigan
     aa: Afar
     af: Afrikaans
     ak: Akan
+    alb: Albanèis
     sq: albanèis
+    Q131339: Alemànich
     am: Amàrich
     ar: Àrabo
     an: Aragonèis
@@ -300,9 +303,12 @@ pms:
     ay: Aymara
     Q9292: Aser
     az: Aser
+    Q33070: Balinèis
     bm: Bambara
+    Q33151: Banjar
     ba: Bashkir
     eu: Basch
+    Q29540: Bavarèis
     be: Bieloruss
     Q8836490: Bende
     bn: Bengalèis
@@ -316,44 +322,57 @@ pms:
     br: Breton
     bg: Bùlgar
     my: birman
+    Q33120: Buryat
     Q35037: Businenge Tongo
     Q880301: Fransèis cajun
     Q35156: Car
     Q2591230: Cashinahua
     ca: Catalan; Valensian
+    Q33239: Sebuan
+    khm: Khmer sentral
     km: Khmer sentral
     ch: Chamorro
     Q33281: Chavacano
     ce: Cecen
+    Q33388: Ciròchi
+    Q33265: Cheyenne
     ny: chewa; chichewa; nyanja
     zh: cinèis
+    chi: Cinèis
     Q32979: Choctaw
     cu: Vej slavònich ëd la cesa
     cv: Chuvash
+    Q37041: Cinèis clàssich
     kw: Córnich
     co: Còrs
     cr: Cree
     Q33357: Tatar ëd Crimea
     hr: Croat
+    hrv: Croat
     cs: Cech
     da: Danèis
     Q3362072: Digo
     Q56466: Dinka
     dv: Divehi; Dhivehi; Maldivian
     Q18415595: Dotyali
+    dut: Olandèis; Flamand
     nl: olandèis; flamand
     dz: Dzongkha
     dzo: Dzongkha
     Q4126517: Inuktitut canadèis oriental
     en: Anglèis
+    Q29952: Erzya
     eo: Esperant
     et: Éston
+    est: Éston
     ee: Ewe
     fo: Faroèis
     fj: Figian
     fi: Finlandèis
+    fin: Finlandèis
     Q667747: Fipa
     fr: Fransèis
+    fra: Fransèis
     ff: Fulah
     gd: Gaélich ëscossèis
     gl: Galissian
@@ -361,10 +380,12 @@ pms:
     lg: Ganda
     ka: Georgian
     de: Alman
+    deu: Alman
     Q5575236: Konkani goanèis
     Q3272630: Gogo
     Q2501174: Gorontalo
     el: Grech modern (1453-)
+    gre: Grech
     gn: Guarani
     gu: Gujarati
     Q33303: Haïda
@@ -372,6 +393,7 @@ pms:
     ha: Hausa
     Q35756: Haya
     he: Ebreo
+    heb: Ebreo
     Q3129390: Hehe
     hz: Herero
     Q35978: Hiligaynon
@@ -379,29 +401,35 @@ pms:
     ho: Hiri motu
     hu: Ungherèis
     is: Islandèis
+    ice: Islandèis
     io: Ido
     ig: Igbo
     Q35936: Ilocan
     id: Indonesian
     Q33509: Ingush
-    ia: Antërlenga
+    ia: Antërlenga (Assossiassion Antërnassional për na Lenga Ausiliaria)
     ie: Antërlenga; Ossidental
     iu: Inuktitut
     ik: Inupiaq
     Q33595: Iraqw
     ga: Irlandèis
     it: Italian
+    ita: Italian
     Q35939: Anglèis créol giamaican
     ja: Giaponèis
     jp: Giaponèis
     jv: Giavanèis
+    Q33522: Kabardian Sircassian
     Q35475: Kabiyè
+    Q35853: Kabyl
     kl: Kalaallisut; Groenlandèis
     Q33634: Calmoch
     kn: Kannada
     kr: Kanuri
+    Q36121: Kapampangan
     Q33541: Kara-Kalpak
     ks: Kashmir
+    Q33690: Kashubian
     kk: Kasach
     ki: Kikuyu; Gikuyu
     Q11005332: Kinga
@@ -411,18 +439,27 @@ pms:
     kv: Komi
     kg: Kongo
     ko: Corean
+    kor: Corean
     kj: Kuanyama; Kwanyama
     ku: Curd
+    Q36206: Lak
     lo: lao
+    lao: Lao
     la: Latin
     lv: léton
     Q1160372: Laz
+    Q31746: Lesgian
+    Q36106: Lìgur
     li: Limborghèis
     ln: lingala
     Q146803: Lenga franca neuva
     lt: lituan
+    lit: Lituan
     Q33698: Liv
     Q36584: Livvi
+    Q33754: Lombard
+    Q168446: Bass sasson
+    Q13286: Sorbian anferior
     lu: luba-katanga
     Q3437661: Luguru
     lb: Lussemborghèis; Letzeburgesch
@@ -434,29 +471,40 @@ pms:
     ms: malèis
     ml: malayalam
     mt: maltèis
+    mlt: Maltèis
     gv: Manèis
     mi: maòri
     mr: marathi
     mh: marshalèis
     Q6786446: Matengo
+    Q3906614: Meadow Mari
     Q13358: Rumen Megleno
     Q13313: Meru
+    Q36455: Min Dong
     Q13324: Minangkabau
+    Q13359: Mingrelian
     Q13330: Mirandèis
+    Q13343: Moksha
     mn: mòngol
     Q56426: Àrabo marochin
     Q6944725: Mwera
+    Q13300: Nahuatl
     Q3508074: Nai
     na: nauru
     nv: navajo; navaho
     nd: ndebele dël nòrd
     nr: ndebele dël sud
     ng: ndonga
+    Q33845: Nàpoli
     ne: nepalèis
     Q7022366: Ngindo
+    Q28224: Frisian setentrional
     Q19933293: Luri dël nòrd
     se: sami dël Nòrd
     "no": norvegèis
+    nno: Norvegèis
+    nob: Norvegèis
+    nor: Norvegèis
     nn: norvegèis nynorsk; nynorsk, norvegèis
     Q36738: Novial
     Q3272620: Nyakusa
@@ -464,7 +512,7 @@ pms:
     Q7193418: Nyaturu
     Q11128374: Nyiha
     Q16115145: Nyika
-    oc: Ossitan
+    oc: Ossitan (apress 1500)
     Q28602: Arameo ofissial
     oj: ojibwa
     or: oriya
@@ -475,8 +523,11 @@ pms:
     Q36403: Pare
     fa: Persian
     Q23014: Palatin
+    Q34024: Picard
+    Q15085: Piemontèis
     Q2429648: Pogoro
     pl: polonèis
+    pol: Polonèis
     Q36748: Pòntich
     pt: portughèis
     ps: pushto; pashton
@@ -486,30 +537,42 @@ pms:
     rm: romancc
     rn: rundi
     ru: russ; russi
+    rus: Russ
+    Q26245: Rusyn
+    Q34299: Sakha
+    Q718269: Sakizaya
     sm: samoan
+    Q213434: Samogitian
     Q34016: Sandawe
     sg: sango
     sa: sànscrit
     Q33965: Santali
     sc: sard
     Q845441: Sard sassarèis
+    Q14549: Scossèis
     sr: serb
     Q3788739: Shambala
     Q56482: Shan
     sn: shona
+    Q34004: Shona
     ii: Yi dël Sichuan; Nuosu
+    Q33973: Sicilian
     sd: sindhi
     si: Singalèis
     sk: slovach
+    slk: Slovach
     sl: sloven
     so: sòmal
+    som: Sòmal
     st: sotho dël sud
     es: Spagneul; Castilian
+    slv: Spagneul
     Q2638144: Sukuma
     su: sondanèis
     sw: swahili
     ss: swati
     sv: svedèis
+    swe: Svedèis
     tl: tagalog
     ty: taitian
     tg: tagich
@@ -518,6 +581,7 @@ pms:
     tt: Tatar
     te: telugu
     th: thai
+    tha: Tailandèis
     bo: Tibetan
     ti: tigrinya
     Q34159: Tok pisin
@@ -525,29 +589,40 @@ pms:
     Q180937: Albanèis Tosk
     ts: tsonga
     tn: tswana
+    Q34251: Tulu
     Q34138: Tumbuka
     Q56240: Àrabo tunisin
     tr: turch
+    tur: Turch
     Q36730: Turch, otman
     tk: turcmen
     tw: twi
+    Q13238: Udmurt
     ug: uighur; uyghur
     uk: ucrain
+    ukr: Ucrain
     none: Nen ëspessìficà
+    Q13248: Sorbian superior
     ur: urdu
     uz: usbech
     ve: venda
+    Q32747: Vepsian
     vi: vietnamèis
     vo: volapük
     Q32858: Vòtich
     wa: valon
+    Q34279: Waray
     cy: Galèis
+    wel: Galèis
     Q100103: Flamand ossidental
     fy: Frisian ossidental
     wo: wolof
+    Q34290: Wu
     xh: xhosa
     yi: yiddish
     yo: yoruba
+    Q10199: Zazaki
+    Q237409: Zelandèis
     za: zhuang; chuang
     zu: zulù
   layout_sign_in: Rintré ant ël sistema
@@ -556,7 +631,10 @@ pms:
   literature_and_references_header: Bibliografìa e arferiment
   maps:
     empty: A-i é gnun-e carte disponìbij për costa pàgina.
-    occurrence_caption: Ocorense conossùe, esemplar cujì e osservassion ëd %{page_name}
+    occurrence_caption: Ocorense conossùe, esemplar cujì e osservassion ëd %{page_name}.
+      Vëdde coste spece su GBIF
+    occurrence_caption_w_link_html: Ocorense conossùe, esemplar cujì e osservassion
+      %{page_name}. <a href='%{url}'>Vëdde coste spece su GBIF <i class='fa fa-external-link'></i></a>
     other_maps_title: Carte nen antërative
   medium:
     untitled:
@@ -808,6 +886,8 @@ pms:
   send_me_reset_password_instructions: Mandeme j'anstrussion ëd riinissialisassion
     ëd la ciav
   search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: A corëspond a %{text}
     flash:
       cannot_combine_paths: Impossìbil combiné j'arzultà con %{path}
       more_than_one_species: Impossìbil combiné j'arzultà për %{species}
@@ -1141,6 +1221,8 @@ pms:
     batch_page_lookup: Arserca ëd pàgine a baron
     created_at: creà
     download_queue: Coa dël dëscariament ëd dàit
+    grant_power: Garantì l'acess utent-potent
+    revoke_power: Revoché l'acess utent-potent
     edit_account_details: Modifiché ij detaj dël cont
     email: Pòsta eletrònica
     to_commit_enter_current: Për argistré soe modìfiche, ch'a anserissa soa ciav.

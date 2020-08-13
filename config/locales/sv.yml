@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Pyscowicz
+# Author: Sabelöga
 # Author: WikiPhoenix
 ---
 sv:
@@ -232,38 +233,109 @@ sv:
     stats_cleared: Statistiken har beräknats om.
   language: Språk
   languages:
+    Q27683: Acehnesiska
+    alb: Albanska
+    Q131339: Alemanniska
     hy: Armenien
+    Q33070: Baleariska
+    Q29540: Bayerska
     bg: Bulgariska
+    Q33120: Burjatiska
+    Q33239: Cebuano
+    Q33388: Cherokesiska
+    Q33265: Cheyenne
+    chi: Kinesiska
+    Q37041: Klassisk kinesiska
     hr: Kroatien
+    hrv: Kroatiska
     da: Danska
+    dut: Nederländska; Flamländska
     en: Engelska
+    Q29952: Erzya
     et: Estniska
+    est: Estniska
     fi: Finska
+    fin: Finska
     fr: Franska
+    fra: Franska
     ka: Georgien
     de: Tyska
+    deu: Tyska
+    gre: Grekiska
+    heb: Hebreiska
+    ice: Isländska
     ga: Iriska
     it: Italienska
+    ita: Italienska
     ja: Japanska
     jp: Japanska
+    Q36121: Kapampangan
+    Q33690: Kasjubiska
     Q11005332: Kinga
     ko: Koreanska
+    kor: Koreanska
+    Q36206: Lak
+    lao: Laotiska
     lv: Lettiska
     Q1160372: Laziska
+    Q31746: Lezgiska
+    Q36106: Liguriska
+    li: Limburgiska
     Q146803: Lingua Franca Nova
     lt: Litauen
+    lit: Litauiska
+    Q33754: Lombardiska
+    Q168446: Lågsaxiska
+    Q13286: Lågsorbiska
     mk: Makedonska
+    mlt: Maltesiska
+    Q36455: Mindong
     Q13324: Minangkabau
+    Q13359: Megreliska
     Q13330: Mirandesiska
+    Q13343: Moksja
     mn: Mongoliet
+    Q13300: Nahuatl
+    Q33845: Neapolitanska
+    Q28224: Nordfrisiska
     se: Nordsamiska
     "no": Norska
     nno: Norska
+    nob: Norska
+    nor: Norska
     Q11128374: Nyiha
+    oc: Occitanska (efter 1500)
+    Q34024: Pikardiska
+    Q15085: Piemontesiska
+    pol: Polska
+    rus: Ryska
+    Q26245: Rusinska
+    Q34299: Jakutiska
+    Q718269: Sakizaya
+    Q213434: Samogitiska
+    Q14549: Skottska
+    Q34004: Shona
+    Q33973: Sicilianska
+    slk: Slovakiska
+    som: Somaliska
+    slv: Spanska
     sv: Svenska
+    swe: Svenska
+    tha: Thailändska
+    Q34251: Tulu
+    tur: Turkiska
+    Q13238: Udmurtiska
+    ukr: Ukrainska
     none: Ospecificerad
+    Q13248: Högsorbiska
+    Q32747: Vepsiska
     vi: Vietnamesisk
+    Q34279: Waray
+    wel: Vallonska
     Q100103: Västflamländska
+    Q34290: Wu
+    Q10199: Zazaki
+    Q237409: Zeeländska
   layout_sign_in: Logga in
   layout_sign_up: Registrera
   layout_sign_out: Logga ut

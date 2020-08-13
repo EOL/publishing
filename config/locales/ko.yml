@@ -141,6 +141,7 @@ ko:
     created: GBIF 다운로드 작업이 생성되었습니다. <a href="%{url}">사용자 프로필 페이지</a>에서 상태를 확인하세요
   language: 언어
   languages:
+    alb: 알바니아어
     sq: 알바니아어
     ar: 아랍어
     hy: 아르메니아어
@@ -149,47 +150,69 @@ ko:
     Q750553: 브라질 포르투갈어
     bg: 불가리아어
     zh: 중국어
+    chi: 중국어
     hr: 크로아티아어
+    hrv: 크로아티아어
     cs: 체코어
     da: 덴마크어
     en: 영어
     eo: 에스페란토어
     et: 에스토니아어
+    est: 에스토니아어
     fi: 핀란드어
+    fin: 핀란드어
     fr: 프랑스어
+    fra: 프랑스어
     de: 독일어
+    deu: 독일어
+    gre: 그리스어
     he: 히브리어
+    heb: 히브리어
     hu: 헝가리어
     id: 인도네시아어
     ga: 아일랜드어
     it: 이탈리아어
+    ita: 이탈리아어
     ja: 일본어
     jp: 일본어
     kg: 콩고어
     ko: 한국어
+    kor: 한국어
     lo: 라오어
+    lao: 라오어
     la: 라틴어
     li: Limburgish
     lt: 리투아니아어
+    lit: 리투아니아어
     mk: 마케도니아어
     ms: 말레이어
     mi: 마오리어
     mn: 몽골어
     ne: 네팔어
     "no": 노르웨이어
+    nno: 노르웨이어
+    nob: 노르웨이어
+    nor: 노르웨이어
     pa: 펀잡어
     fa: 페르시아어
     pl: 폴란드어
+    pol: 폴란드어
     pt: 포르투갈어
     ru: 러시아어
+    rus: 러시아어
     sm: 사모아어
     si: 신할라어
+    slv: 스페인어
     sv: 스웨덴어
+    swe: 스웨덴어
     tl: 타갈로그어
     th: 태국어
+    tha: 태국어
     to: 통가어
     tr: 터키어
+    tur: 터키어
     uk: 우크라이나어
+    ukr: 우크라이나어
     none: 지정되지 않음
     vi: 베트남어
     Q100103: 서플라망어

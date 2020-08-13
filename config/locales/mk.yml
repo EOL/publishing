@@ -884,6 +884,8 @@ mk:
   scientific_names_header: Научни имиња
   send_me_reset_password_instructions: Испрати ми напатствија за нова лозинка
   search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Најдено %{text}
     flash:
       cannot_combine_paths: Не можев да го здружам исходот со %{path}
       more_than_one_species: Не можев да го здружам исходот за %{species}
