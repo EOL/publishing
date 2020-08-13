@@ -749,7 +749,7 @@ class TraitBank
               page_id_param = "#{label}_page_id"
               params[page_id_param] = field.value
               match = %Q(
-                MATCH (#{label}:Page)-[:parent]->(:Page { page_id: $#{page_id_param} })
+                MATCH (#{label}:Page)-[:parent*0..]->(:Page { page_id: $#{page_id_param} })
                 WITH collect(DISTINCT #{label}) AS #{list_label}
               )
             else
