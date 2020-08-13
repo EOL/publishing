@@ -322,7 +322,7 @@ $(function() {
             
           }
         })
-        .text(function(d) {return d[graph.labelKey];});
+        .html(function(d) {return d[graph.labelKey];});
 
       return {
         nodes: nodes,
