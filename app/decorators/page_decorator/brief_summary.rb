@@ -45,9 +45,9 @@ class PageDecorator
       fixes_nitrogen_sentence
       forms_sentence
       ecosystem_engineering_sentence
+      behavioral_sentence
 
       if is_species?
-        behavioral_sentence
         lifespan_size_sentence
       end
 
@@ -296,15 +296,23 @@ class PageDecorator
             end
 
             if trophic_part
-              sentence = "#{subj} #{is} #{a_or_an(begin_traits.first)} #{begin_parts.join(", ")} #{trophic_part}."
+              sentence = "#{subj} #{is_a(is, begin_traits.first)} #{begin_parts.join(", ")} #{trophic_part}."
             else
               sentence = "#{subj} #{is} #{begin_parts.join(" and ")}."
             end
           elsif trophic_part
-            sentence = "#{subj} #{is} #{a_or_an(trophic)} #{trophic_part}."
+            sentence = "#{subj} #{is_a(is, trophic)} #{trophic_part}."
           end
 
           sentence
+        end
+      end
+
+      def is_a(is, word)
+        if is_species?
+          "#{is} #{a_or_an(word)}"
+        else
+          is # 'are'
         end
       end
 
@@ -368,8 +376,9 @@ class PageDecorator
           wpart = if matches.has_type?(:w)
                     w_vals = matches.by_type(:w).collect do |match|
                       trait_sentence_part(
-                        "#{a_or_an(match.trait)} %s",
-                        match.trait
+                        "#{is_species? ? "#{a_or_an(match.trait)} " : ""}%s",
+                        match.trait,
+                        pluralize: true
                       )
                     end.to_sentence(locale: :en)
 
@@ -419,6 +428,10 @@ class PageDecorator
         end
       end
 
+      def species_or_other(species, other)
+        is_species? ? species : other
+      end
+
       def motility_sentence
         matches = MotilityGroupMatcher.match_all(traits_for_pred_uris(
           Eol::Uris.motility,
@@ -429,7 +442,7 @@ class PageDecorator
           add_sentence do |subj, _, __|
             match = matches.first_of_type(:c)
             trait_sentence_part(
-              "#{subj} relies on %s to move around.",
+              "#{subj} #{species_or_other("relies", "rely")} on %s to move around.",
               match.trait
             )
           end
@@ -439,39 +452,30 @@ class PageDecorator
             b_match = matches.first_of_type(:b)
 
             a_part = trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(a_match.trait)} %s",
+              "#{subj} #{is_a(is, a_match.trait)} %s",
               a_match.trait
             )
 
             trait_sentence_part(
               "#{a_part} %s.",
-              b_match.trait
+              b_match.trait,
+              pluralize: true
             )
           end
         elsif matches.has_type?(:a)
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:a)
 
-            if is_species? 
-              article = "#{a_or_an(match.trait)} "
-
-              if @page.animal?
-                organism_animal = "animal"
-              else
-                organism_animal = "organism"
-              end
+            if @page.animal?
+              organism_animal = "animal"
             else
-              article = ""
-
-              if @page.animal?
-                organism_animal = "animals"
-              else
-                organism_animal = "organisms"
-              end
+              organism_animal = "organism"
             end
 
+            organism_animal = organism_animal.pluralize unless is_species?
+
             trait_sentence_part(
-              "#{subj} #{is} #{article}%s #{organism_animal}.",
+              "#{subj} #{is_a(is, match.trait)} %s #{organism_animal}.",
               match.trait
             )
           end
@@ -479,8 +483,9 @@ class PageDecorator
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:b)
             trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(match.trait)} %s.",
-              match.trait
+              "#{subj} #{is_a(is, match.trait)} %s.",
+              match.trait,
+              pluralize: true
             )
           end
         end
@@ -881,13 +886,14 @@ class PageDecorator
         )
       end
 
-      def trait_sentence_part(format_str, trait)
+      def trait_sentence_part(format_str, trait, options = {})
         return '' if trait.nil?
 
         if trait[:object_page_id]
           association_sentence_part(format_str, trait[:object_page_id])
         elsif trait[:predicate] && trait[:object_term]
           name = trait[:object_term][:name]
+          name = name.pluralize if options[:pluralize] && !is_species?
           pred_uri = trait[:predicate][:uri]
           obj = trait[:object_term]
           term_sentence_part(
