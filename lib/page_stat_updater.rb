@@ -37,9 +37,11 @@ class PageStatUpdater
       q = %Q(
         MATCH (anc:Page{ page_id: #{page_id} }), (desc:Page)-[:parent*0..]->(anc)
         OPTIONAL MATCH (desc)-[:trait|:inferred_trait]->(trait:Trait)
-        WITH anc, count(DISTINCT desc) AS desc_count, count(trait) AS trait_row_count
+        OPTIONAL MATCH (obj_trait:Trait)-[:object_page]->(desc)
+        WITH anc, count(DISTINCT desc) AS desc_count, count(obj_trait) AS obj_trait_count
         SET anc.descendant_count = desc_count
         SET anc.trait_row_count = trait_row_count
+        SET anc.obj_trait_count = obj_trait_count
       )
 
       TraitBank.query(q)
