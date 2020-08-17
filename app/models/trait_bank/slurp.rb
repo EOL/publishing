@@ -178,7 +178,9 @@ class TraitBank::Slurp
         },
         "meta_traits_#{id}.csv" =>
         {
-          'MetaData' => %i[eol_pk source literal measurement],
+          nodes: [
+            NodeConfig.new(label: 'MetaData', attributes: %i[eol_pk source literal measurement])
+          ],
           wheres: {
             "1=1" => { # ALL ROWS
               matches: {
