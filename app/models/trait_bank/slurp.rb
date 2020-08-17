@@ -77,22 +77,48 @@ class TraitBank::Slurp
       TraitBank::Denormalizer.set_canonicals_by_page_id(page_ids)
     end
 
+    class NodeConfig
+      Attribute = Struct.new(:key, :val)
+
+      attr_reader :label, :name, :pk_attr, :other_attrs
+
+      def initialize(options)
+        @label = options[:label]
+        @name = options[:name] || @label.downcase
+        build_attributes(options[:attributes])
+      end
+
+      private
+      def build_attributes(attr_configs)
+        attr_configs_copy = attr_configs.dup
+        @pk_attr = build_attribute(attr_configs_copy.shift)
+        @other_attrs = attr_configs_copy.map { |config| build_attribute(config) }
+      end
+
+      def build_attribute(attr_config)
+        if attr_config.is_a?(Hash) # e.g., { page_id: 'row.object_page_id' }
+          key = attr_config.keys.first
+          val = attr_config[pk]
+        else # assume it's a String/Symbol
+          key = attr_config
+          val = "row.#{pk}"
+        end
+
+        Attribute.new(key, val)
+      end
+    end
+
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
     def load_csv_config(id, options = {})
       single_resource = options[:single_resource]
       { "traits_#{id}.csv" =>
         { 
           nodes: [
-            { 
-              label: 'Page',
-              attributes: [:page_id]
-            },
-            {
-              label: 'Trait',
-              attributes: %i[
+            NodeConfig.new(label: 'Page', attributes: [:page_id]),
+            NodeConfig.new(label: 'Trait', attributes: %i[
                 eol_pk resource_pk source literal measurement scientific_name normal_measurement sample_size citation source remarks method
               ]
-            }
+            )
           ],
           wheres: {
             # This will be applied to ALL rows:
@@ -140,11 +166,12 @@ class TraitBank::Slurp
             },
             is_not_blank('row.object_page_id') =>
             {
-              nodes: [{ 
-                name: 'object_page',
-                label: 'Page', 
-                attributes: [{ page_id: 'row.object_page_id' }]
-              }],
+              nodes: [ 
+                NodeConfig.new(label: 'Page', name: 'object_page', attributes: [{
+                    page_id: 'row.object_page_id'
+                  }]
+                )
+              ],
               merges: [ [:trait, :object_page, :object_page ] ]
             }
           }
@@ -379,36 +406,13 @@ class TraitBank::Slurp
     end
 
     def build_nodes(config, head)
-      label = config[:label]
-      attributes = config[:attributes].dup
-      name = node_name(config)
-
-      first_attr = attributes.shift # Pull the first attribute off...
-      pk, pk_val = extract_pk(first_attr)
-
-      q = "#{head}MERGE (#{name}:#{label} { #{pk}: #{pk_val} })"
-      attributes.each do |attribute|
-        value = autocast_val("row.#{attribute}")
-        q << set_attribute(name, attribute, value, 'CREATE')
-        q << set_attribute(name, attribute, value, 'MATCH')
+      pk_attr = config.pk_attr
+      q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{pk_attr.val} })"
+      config.other_attrs.each do |attr|
+        q << set_attribute(name, attr.key, attr.val, 'CREATE')
+        q << set_attribute(name, attr.key, attr.val, 'MATCH')
       end
       query(q)
-    end
-
-    def node_name(config)
-      config[:name] || config[:label].downcase
-    end
-
-    def extract_pk(attr)
-      if attr.is_a?(Hash) # e.g., { page_id: 'row.object_page_id' }
-        pk = attr.keys.first
-        pk_val = attr[pk]
-      else # assume it's a String/Symbol
-        pk = attr
-        pk_val = "row.#{pk}"
-      end
-
-      [pk, autocast_val(pk_val)]
     end
 
     # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
@@ -431,12 +435,8 @@ class TraitBank::Slurp
       q = head
       # MATCH any required nodes:
       nodes.each do |node|
-        label = node[:label]
-        name = node_name(node)
-        attributes = node[:attributes]
-        next unless subj == name || obj == name
-        pk, pk_val = extract_pk(attributes.first)
-        q += "\nMATCH (#{name}:#{label} { #{pk}: #{pk_val} })"
+        next unless subj == node.name || obj == node.name
+        q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{node.pk_attr.val} })"
       end
       # MATCH any ... uhhh... matches required:
       matches.each do |name, match|
