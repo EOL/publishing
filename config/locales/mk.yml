@@ -1095,6 +1095,8 @@ mk:
     validations:
       blank_error: мора да укаже својство или вредност
       invalid_uri: неважечка URL
+      multi_obj_error: не може да има и објектен предмет и целен клад
+      pred_uri_blank_obj_clade_error: не може да биде празно со целен клад
       pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
       range_invalid_error: мора да биде >= до првата вредност
   terms:
@@ -1201,6 +1203,7 @@ mk:
       sex: пол
       show_additional_fields: прикажи дополнителни полиња
       statistical_method: статистички метод
+      target_group: целна група (на пр. лосос)
       taxa_matching_all: таксони што одговараат на СИТЕ филтри
       this_may_take_a_minute: Ова може малку да потрае
       trait_filter: филтер на одлики

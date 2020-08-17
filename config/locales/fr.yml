@@ -1171,6 +1171,7 @@ fr:
       sex: sexe
       show_additional_fields: afficher les champs supplémentaires
       statistical_method: méthode statistique
+      target_group: groupe cible (par ex. saumon)
       taxa_matching_all: taxons correspondants à TOUS les filtres
       this_may_take_a_minute: Cela peut prendre une minute
       trait_filter: filtrer le trait

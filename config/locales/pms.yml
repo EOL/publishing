@@ -1096,6 +1096,10 @@ pms:
     validations:
       blank_error: a dev ëspessifiché n'atribù o un valor
       invalid_uri: URI nen bon
+      multi_obj_error: as peul nen avèisse sia un tèrmin oget che na partìa monofilética
+        bërsaj
+      pred_uri_blank_obj_clade_error: a peul nen esse veuid con na partìa monofilética
+        bërsaj
       pred_uri_blank_numeric_error: a peul pa esse veuid con un valor numérich
       range_invalid_error: a dev esse magior o ugual al prim valor
   terms:
@@ -1203,6 +1207,7 @@ pms:
       sex: sess
       show_additional_fields: smon-e ij camp adissionaj
       statistical_method: métod ëstàtistich
+      target_group: partìa bërsaj (për es. salmon)
       taxa_matching_all: tassonomìe rëspondente a TUTI ij filtr
       this_may_take_a_minute: Sòn a peul pijé na minuta
       trait_filter: filtré ël trat
