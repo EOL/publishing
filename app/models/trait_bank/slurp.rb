@@ -98,10 +98,10 @@ class TraitBank::Slurp
       def build_attribute(attr_config)
         if attr_config.is_a?(Hash) # e.g., { page_id: 'row.object_page_id' }
           key = attr_config.keys.first
-          val = attr_config[pk]
+          val = attr_config[key]
         else # assume it's a String/Symbol
           key = attr_config
-          val = "row.#{pk}"
+          val = "row.#{key}"
         end
 
         Attribute.new(key, val)
