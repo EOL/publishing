@@ -116,7 +116,7 @@ class TraitBank::Slurp
           nodes: [
             NodeConfig.new(label: 'Page', attributes: [:page_id]),
             NodeConfig.new(label: 'Trait', attributes: %i[
-                eol_pk resource_pk source literal measurement scientific_name normal_measurement sample_size citation source remarks method
+                eol_pk resource_pk source literal measurement scientific_name normal_measurement sample_size citation remarks method
               ]
             )
           ],
