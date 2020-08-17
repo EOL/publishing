@@ -230,11 +230,10 @@ class TraitBank::Slurp
           TraitBank.create_resource(resource_id)
         end
       end
-      all_rows_head = csv_query_head(filename, nil)
       break_up_large_files(filename) do |sub_filename|
         # build nodes required by all rows
         nodes.each do |node| 
-          build_nodes(node, all_rows_head)
+          build_nodes(node, csv_query_head(filename, nil))
         end 
 
         wheres.each do |clause, where_config|
