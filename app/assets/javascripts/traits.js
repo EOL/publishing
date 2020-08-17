@@ -98,15 +98,13 @@
             wildcard: 'QUERY'
           }
         })
-      }, 'uri', null)
+      }, 'uri', fetchForm)
     });
 
   }
 
   function setupForm() {
-    $('.js-op-select').change(function() {
-      fetchForm();
-    });
+    $('.js-search-type input[type=radio]').change(fetchForm);
 
     $('.js-term-select').each(function() {
       if ($(this).find('option').length <= 1) {
@@ -121,7 +119,7 @@
       display: 'name',
       limit: Infinity,
       source: EOL.searchNamesNoMultipleText
-    }, 'id', null);
+    }, 'id', fetchForm);
 
     var predSource = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),

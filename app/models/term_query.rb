@@ -159,6 +159,12 @@ class TermQuery < ApplicationRecord
     @page_count_sorted_filters ||= filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
   end
 
+  def valid_ignoring_blank_filters?
+    copy = self.deep_dup
+    copy.remove_really_blank_filters
+    copy.valid?
+  end
+
   private
   def validation
     if filters.empty?
