@@ -408,8 +408,8 @@ class TraitBank::Slurp
       pk_attr = config.pk_attr
       q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{pk_attr.val} })"
       config.other_attrs.each do |attr|
-        q << set_attribute(name, attr.key, attr.val, 'CREATE')
-        q << set_attribute(name, attr.key, attr.val, 'MATCH')
+        q << set_attribute(config.name, attr.key, attr.val, 'CREATE')
+        q << set_attribute(config.name, attr.key, attr.val, 'MATCH')
       end
       query(q)
     end
