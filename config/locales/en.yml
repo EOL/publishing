@@ -1179,6 +1179,7 @@ en:
       switch_to_gallery: "switch to gallery view"
     search_form:
       attribute: "attribute"
+      attribute_eg: "attribute (e.g.: trophic level)"
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
       hide_additional_fields: "hide additional fields"
       lifestage: "lifestage"
@@ -1193,6 +1194,7 @@ en:
       this_may_take_a_minute: "This may take a minute"
       trait_filter: "trait filter"
       value: "value"
+      value_eg: "value (e.g.: herbivore)"
   trophic_web:
     group_descriptions:
       competitor: "competitor of %{source_name}"
