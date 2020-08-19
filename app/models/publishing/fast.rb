@@ -211,7 +211,7 @@ class Publishing
 
     def clean_up
       @files.each do |file|
-        info("Removing #{file}")
+        @log.info("Removing #{file}")
         File.unlink(file)
       end
     end

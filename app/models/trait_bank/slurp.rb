@@ -239,7 +239,7 @@ class TraitBank::Slurp
         end 
 
         wheres.each do |clause, where_config|
-          load_csv_where(clause, filename: sub_filename, config: where_config)
+          load_csv_where(clause, filename: sub_filename, nodes: nodes, config: where_config)
         end
       end
     end
@@ -330,10 +330,11 @@ class TraitBank::Slurp
       filename = options[:filename]
       config = options[:config]
       global_nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
-      where_nodes = config[:nodes] 
+      where_nodes = config[:nodes] || []
       merges = Array(config[:merges])
       matches = config[:matches]
       head = csv_query_head(filename, clause)
+
       # First, build all of the nodes specific to this where clause
       where_nodes.each do |node_config| 
         build_nodes(node_config, head)
@@ -426,19 +427,21 @@ class TraitBank::Slurp
     def merge_triple(options)
       triple = options[:triple]
       head = options[:head]
-      nodes = options[:nodes]
-      matches = options[:matches]
+      nodes = options[:nodes] || []
+      matches = options[:matches] || []
       # merges: [ [:trait, :units_term, :units] ]
       # NOTE: #to_s to make matching simpler.
       subj = triple[0].to_s
       pred = triple[1].to_s
       obj  = triple[2].to_s
       q = head
+
       # MATCH any required nodes:
       nodes.each do |node|
         next unless subj == node.name || obj == node.name
         q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{node.pk_attr.val} })"
       end
+
       # MATCH any ... uhhh... matches required:
       matches.each do |name, match|
         # matches: { object_term: ':Term { uri: row.value_uri }' },
@@ -446,6 +449,7 @@ class TraitBank::Slurp
         next unless subj == name || obj == name
         q += "\nMATCH (#{name}:#{match})"
       end
+
       # Then merge the triple:
       query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
     end
