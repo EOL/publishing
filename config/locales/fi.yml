@@ -581,6 +581,7 @@ fi:
         r_subkingdom: Alakunta
         r_species: Laji
         r_subspecies: Alalaji
+      username_missing: käyttäjä %{user_id}
     trophic_web:
       globi_credit_html: tiedot <a href='%{url}'>GloBIsta</a>
       reset: tyhjennä
@@ -656,6 +657,7 @@ fi:
   scientific_names_header: Tieteelliset nimet
   send_me_reset_password_instructions: Lähetä minulle salasanan palautusohjeet
   search:
+    full_name: '%{vernacular} (%{scientific})'
     n_articles:
       one: '%{count} artikkeli'
       other: '%{count} artikkelia'
@@ -852,7 +854,14 @@ fi:
       edit_filters: muokkaa suodattimia
       new_search: uusi haku
     search_form:
+      clade_filter_placeholder: ryhmä (esim. karhut) (valinnainen)
+      hide_additional_fields: piilota lisäkentät
+      lifestage: elämänvaihe
       search: Hae
+      sex: sukupuoli
+      show_additional_fields: näytä lisäkentät
+      target_group: kohderyhmä (esim. lohikalat)
+      value: arvo
   trophic_web:
     group_descriptions:
       source: keskeiset lajit

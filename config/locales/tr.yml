@@ -1094,6 +1094,8 @@ tr:
     validations:
       blank_error: bir özellik veya değer belirtmelidir
       invalid_uri: geçersiz URI
+      multi_obj_error: hem nesne terimi hem de hedef sınıfına sahip olamaz
+      pred_uri_blank_obj_clade_error: hedef grupla boş bırakılamaz
       pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
       range_invalid_error: ilk değere >= olmalıdır
   terms:
@@ -1199,6 +1201,7 @@ tr:
       sex: cinsiyet
       show_additional_fields: ek alanları göster
       statistical_method: istatistiksel yöntem
+      target_group: hedef grubu (ör. somon)
       taxa_matching_all: taksa ile eşleşen TÜM filtreler
       this_may_take_a_minute: Bu bir dakika sürebilir
       trait_filter: özellik filtresi
