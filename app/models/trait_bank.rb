@@ -823,7 +823,7 @@ class TraitBank
         clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
-        filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+        filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
 
         if filter.object_term?
           filter_matches << filter_term_match(trait_var, obj_var, child_obj_var, :object_term, gathered_terms_for_filter)
