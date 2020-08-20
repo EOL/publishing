@@ -439,7 +439,7 @@ class TraitBank
         term_condition << term_filter_where_term_part(obj_var, child_obj_var, filter.obj_uri, :object_term, params, gathered_terms)
       end
 
-      parts << "(#{term_condition.join(" AND ")})"
+      parts << "#{term_condition.join(" AND ")}"
 
       if filter.numeric?
         conditions = []
@@ -606,11 +606,11 @@ class TraitBank
       end
     end
 
-    def add_clade_where(clade_matched, filter_index, filter, term_query, query_parts)
+    def add_clade_where_conditional(clade_matched, filter_index, filter, term_query, query_parts)
       if (
         !clade_matched &&
-        filter_index > 0 && 
         term_query.clade && 
+        filter_index > 0 &&
         term_query.clade_node.descendant_count < filter.min_distinct_page_count
       )
         query_parts << "WHERE page IN pages"
@@ -780,7 +780,7 @@ class TraitBank
         child_obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
-        clade_matched ||= add_clade_where(clade_matched, i, filter, term_query, filter_parts)
+        clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
         filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
@@ -798,6 +798,8 @@ class TraitBank
         end
 
         filter_wheres << term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, params, gathered_terms_for_filter)
+        filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i = filters.length - 1
+
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
         add_term_filter_resource_match(filter, trait_var, filter_matches, params)
 
