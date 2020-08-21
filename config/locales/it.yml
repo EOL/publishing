@@ -1,0 +1,448 @@
+# Messages for Italian (italiano)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Beta16
+# Author: G313
+# Author: JackLantern
+# Author: Ubibi
+---
+it:
+  language_name: Inglese
+  about:
+    trait_bank:
+      body_html: <p>Il team di gestione tecnica e dei dati di EOL si riferisce alle
+        risorse strutturate di dati in EOL - i tratti distintivi e altri dati attributivi,
+        le interazioni ecologiche e la nostra classificazione originaria, la Gerarchia
+        Dinamica di Lavoro - in modo collettivo come TraitBank. Questi contenuti sono
+        trattati in modo diverso dai nostri contenuti "classici" - immagini, video,
+        audio e testi descrittivi - ed è utile per diverse cose.</p><p>TraitBank è
+        più giovane rispetto al resto di EOL; è stato pensato originariamente da Cynthia
+        Parr, la direttrice del Gruppo Pagine sulle Specie, ed è andato online in
+        EOL v2 nel gennaio 2014. Da allora, i dati strutturali sono stati la nostra
+        più alta priorità per lo sviluppo dei contenuti.</p><p>Ora, puoi <a href='%{example_search_path}'>cercare</a>
+        o scorrere EOL attraverso i dati strutturali, o scaricarli, o potresti incontrarli
+        nel nostro nuovo tab per la panoramica nella forma di <a href='%{autogen_page_path}'>testo
+        autogenerato</a>. Come per il resto del contenuto di EOL, è disponibile per
+        il riuso e arriva con dati dettagliati attributivi così puoi accreditarli
+        se li usi per il tuo lavoro.</p><p>Questi dati sono modellati come <a href='%{property_graph_url}'>grafici
+        di proprietà</a> in <a href='%{neo4j_url}'>neo4j</a>. <a href='%{data_services_path}'>I
+        servizi di dati</a> sono disponibili.</p>
+  account_already_linked: Il tuo account è già connesso a EOL
+  account_not_linked: Il tuo account non è collegato a EOL
+  advanced: avanzato
+  are_you_sure_delete_account: Sei sicuro di voler eliminare il tuo account EOL?
+  article:
+    actions:
+      collect: raccogli
+    header:
+      blank: (Non c'è testo in questo articolo)
+      body: Corpo
+      language: 'Lingua: %{language}'
+      title: Titolo
+      untitled: Senza titolo
+    name:
+      missing: Senza titolo
+  article_from_partner: Fornito da %{partner}
+  article_duplicate: Questo articolo è mostrato anche in %{section}
+  autocomplete:
+    see_all:
+      other: uno=vedi altri risultati
+  breadcrumbs:
+    notices:
+      canonical: I nomi scientifici verranno mostrati nella breadcrumb della pagina
+      vernacular: I nomi veracolari verranno mostrati nei breadcrumb della pagina
+        dove disponibili
+    setting_header: nomi nei breadcrumb
+    types:
+      scientific: scientifico
+      vernacular: vernacolare
+  button_create: crea
+  button_add: aggiungi
+  cancel: annulla
+  change_my_password: Cambia password
+  change_your_password: Cambia password
+  classifications:
+    children:
+      see_more: Vedi di più
+    hierarchies:
+      header: Gerarchie curate per %{sci_name}
+      this_page: (questa pagina)
+    richness:
+      header: Ricchezza della pagina
+      score: Punteggio di ricchezza
+      page_contents_count: Contenuto associato
+      missing: La ricchezza non è stata ancora calcolata per questa pagina.
+      media_count: media
+      articles_count: articoli
+      links_count: collegamenti
+      maps_count: mappe
+      data_count: dati
+      nodes_count: nodi
+      vernaculars_count: vernacolari
+      scientific_names_count: nomi scientifici
+  cms_page_date: 'Ultima modificazione:'
+  collect_already_in_collection: (è già qui)
+  collect_already_in_collection_will_add_icon: (aggiungi media a "%{page}")
+  collect_icon_title: Aggiungi "%{item}" da "%{page}" pagina a…
+  collect_new_collection: Nome della nuova collezione
+  collect_new_collection_title: '... una nuova collezione'
+  collect_no_existing_collections: Non ne hai ancora! Creane uno usando il form sulla
+    sinistra.
+  collect_select_collection: '... una delle tue collezioni'
+  collect_title: Aggiungi %{item} a...
+  collected_page_added_to_collection: Aggiunto %{page} alla collezione <a href='%{link}'>%{name}</a>.
+  collected_page_already_in_collection: Questo è già nella tua collezione.
+  collected_pages_title: Pagine
+  collected_pages_medium:
+    destroyed_flash: Immagine rimossa dalla pagina.
+  collection_associations:
+    destroyed_flash: '%{name} non è più associato a questa collezione.'
+  collected_pages:
+    delete_button: cancella
+    edit_button: modifica
+    delete_confirm: sei sicuro?
+    destroyed_flash: '%{name} rimosso dalla collezione.'
+  collection_association_added_to_collection: Aggiunto "%{associated}" alla collezione
+    <a href='%{link}'>"%{name}"</a>.
+  collection_associations_empty: Nessun'altra collezione è associata a questa. puoi
+    clickare sul pulsante "associa" di altre collezioni per farle apparire qui.
+  collection_associations_title: Collezioni associate
+  collection_collected_pages_media_remove: 'Rimuovi immagini dalla collezione (cambiamento
+    immediato):'
+  collection_created: Creata nuova collezione %{name}
+  collection_created_for_association: Aggiunto "%{associated}" alla nuova collezione
+    <a href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: Questo utente è un amministratore.
+  collection_pages_empty: Questa collezione non ha pagine. Prova a clickare sul pulsante
+    "raccogli" sulle pagine delle specie per aggiungere alcuni elementi!
+  collection:
+    admins:
+      header: Utenti che possono modificare questa collezione (cambiamenti immediati)
+      label: 'Aggiungi un utente che può modificare questa collezione:'
+      placeholder: Nome intero o username
+    actions:
+      associate: associato
+      delete: cancella
+      edit: modifica
+      sort: ordina
+    collection_type:
+      normal: normale
+      gallery: galleria
+    delete_confirm: Questo rimuoverà l'intera collezione e NON si può tornare indietro.
+      Sei sicuro?
+    destroyed: '"%{name}" è stato cancellato in modo permanente.'
+    pages_count:
+      other: uno=1 pagina
+    log:
+      associated_collection:
+        add: '%{user} ha aggiunto un''associazione alla collezione %{associated}'
+    sort:
+      hierarchy: gerarchia
+      sci_name_rev: nome scientifico, Z-A
+  content_attributions_labels:
+    author: autore
+    bibliographic_citation: citazione bibliografica
+    creator: creatore
+    editor: editore
+    latitude: latitudine
+    location: posizione
+    longitude: longitudine
+    photographer: fotografo
+    project: progetto
+    provider: fornitore
+    source: fonte
+    view_source_label: originale
+    view_source_link: vedi l'immagine originale
+  content_not_in_any_collection_image: Questa immagine non figura in nessuna collezione.
+  content_not_in_any_collection_sound: Questo audio non figura in nessuna collezione.
+  content_not_in_any_collection_video: Questo video non figura in nessuna collezione.
+  data:
+    modifier:
+      statistical_method_term: Metodo statistico utilizzato per la misurazione
+  dear_username_with_comma: Caro %{username},
+  filter_by_medium_subtype: tipo
+  filter_by_resource: fornitore
+  filter_by_resource_any_item: qualsiasi fornitore
+  filters:
+    filter_by_attribute: filtra per attributo
+    filter_by_language: filtra per lingua
+    filter_by_provider: filtra per fornitore
+  footer:
+    eol_info:
+      contact_us: Contattaci
+      donate: Dona
+      education: Istruzione
+      glossary: Glossario
+      terms_of_use: Condizioni d'uso
+      what_is_eol: Cos'è EOL?
+    discover:
+      amphibians: Anfibi
+      animals: Animali
+      archaea: Archeobatteri
+      bacteria: Batteri
+      birds: Uccelli
+      crustaceans: Crostacei
+      fishes: Pesci
+      fungi: Funghi
+      insects: Insetti
+      invertebrates: Invertebrati
+      mammals: Mammiferi
+      molds: Muffe
+      mushrooms: Funghi
+      mollusks: Molluschi
+      plants: Piante
+      protists: Protisti
+      reptiles: Rettili
+      spiders: Ragni
+      trees: Alberi
+      viruses: Virus
+      worms: Vermi
+  forgot_your_password: Hai dimenticato la password?
+  landing_page:
+    stats_cleared: Le statistiche sono state ricalcolate.
+  language: Lingua
+  languages:
+    alb: Albanese
+    sq: Albanese
+    chi: Cinese
+    en: Inglese
+    eo: Esperanto
+    fi: Finlandese
+    fr: Francese
+    gd: Gaelico scozzese
+    ka: Georgiano
+    de: Tedesco
+    gre: Greco
+    he: Ebraico
+    ia: Interlingua (International Auxiliary Language Association)
+    ga: Irlandese
+    it: Italiano
+    ita: Italiano
+    ja: Giapponese
+    jp: Giapponese
+    li: Limburghese
+    Q33754: Lombardo
+    mk: Macedone
+    ms: Malese
+    mlt: Maltese
+    mn: Mongolo
+    Q33845: Napoletano
+    "no": Norvegese
+    nno: Norvegese
+    nob: Norvegese
+    nor: Norvegese
+    oc: Occitano (post 1500)
+    pa: Punjabi
+    pol: Polacco
+    pt: Portoghese
+    ru: Russo
+    rus: Russo
+    sa: Sanscrito
+    sc: Sardo
+    Q33973: Siciliano
+    si: Singalese
+    slv: Spagnolo
+    swe: Svedese
+    to: Tongano
+    tr: Turco
+    tur: Turco
+    ukr: Ucraino
+    Q100103: Fiammingo occidentale
+  medium:
+    untitled:
+      video_of: Video di %{page_name}
+  medium_header_title: 'Titolo:'
+  pages:
+    batch_lookup:
+      query: interrogazione
+    resource_names:
+      rank:
+        r_domain: Dominio
+        r_kingdom: Regno
+        r_infrakingdom: Infraregno
+        r_superphylum: Superphylum
+        r_phylum: Phylum
+        r_infraphylum: Infraphylum
+        r_class: Classe
+        r_subclass: Sottoclasse
+        r_superorder: Superordine
+        r_order: Ordine
+        r_suborder: Sottordine
+        r_subfamily: Sottofamiglia
+        r_subgenus: Sottogenere
+        r_infraspecies: Infraspecie
+    tabs:
+      articles: voci
+      classifications: classificazioni
+      data: dati
+      literature_and_references: bibliografia e note
+      overview: panoramica
+      maps: mappe
+      media: media
+      names: nomi
+  recaptcha: Recaptcha
+  resources:
+    headers:
+      index: Risorse
+  scientific_names_header: Nomi scientifici
+  search:
+    full_name: '%{vernacular} (%{scientific})'
+  search_results:
+    medium_article: Voce
+    empty: Nessun risultato.
+  sections:
+    associations: Associazioni
+    behavior: Comportamento
+    benefits: Benefici
+    comprehensive_description: Descrizione completa
+    conservation: Conservazione
+    distribution: Distribuzione
+    ecology: Ecologia
+    growth: Crescita
+    habitat: Habitat
+    migration: Migrazione
+    molecular_biology: Biologia molecolare
+    molecular_biology_and_genetics: Biologia molecolare e genetica
+    morphology: Morfología
+    names_and_taxonomy: Nomi e tassonomia
+    risks: Rischi
+    taxonomy: Tassonomia
+    type_information: Tipo di informazione
+    wikipedia: Wikipedia
+  sign_in: Entra
+  simple_form:
+    "yes": Sì
+    "no": "No"
+    labels:
+      defaults:
+        password: Password
+        password_confirmation: Conferma della password
+        remember_me: Ricordarmi
+        username: Nome utente
+        bio: Biografia
+  stats:
+    pages: pagine
+    users: utenti
+  support:
+    array:
+      two_words_connector: ' e'
+  term_query_filter:
+    validations:
+      invalid_uri: URI non corretto
+  terms:
+    source: fonte
+  traits:
+    data_viz:
+      hist_value_label: valore (%{units})
+      other: altro
+    properties:
+      citation: Citazione bibliografica
+      method: Metodo di misurazione
+      scientific_name: Nome scientifico
+      source: Fonte
+    search:
+      filter_display:
+        lte: '%{pred} <= %{num_val} %{units}'
+        obj_only: 'valore: %{obj}'
+        pred_obj: '%{pred}: %{obj}'
+        range: '%{pred} in [%{num_val1}, %{num_val2}] %{units}'
+      select:
+        top_level:
+          object_term: o seleziona un valore
+          predicate: o seleziona un attributo
+  trust:
+    trusted: attendibile
+  user:
+    download_queue: Coda di download dei dati
+    email: Email
+    headers:
+      collections: Collezioni
+      links: Collegamenti
+    username: nome utente
+    update: Aggiorna
+  vernacular_names_header: Nomi comuni
+  term:
+    actions:
+      sort: ordina per
+    fields:
+      attribution: 'attribuzione:'
+    pagination:
+      previous: pagina precedente
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: albero
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: pianta acquatica
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: annuale
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: biennale
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: perenne
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: fissazione dell'azoto
+        http://purl(dot)obolibrary(dot)org/obo/GO_0019954: riproduzione asessuata
+        http://purl(dot)obolibrary(dot)org/obo/ID_0000058: cilindro
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: abbondanza
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: struttura scheletrica
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: forma
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: nero
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: verde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rosso
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: bianco
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: giallo
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: lento
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: veloce
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: spessore
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: cuoriforme
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: viola
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: marrone
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: arancione
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: lineare
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: area
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: volume
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: sempreverde
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: misto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: laminare
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: vasto
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: alta tolleranza
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: bassa tolleranza
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: esposto
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: corteccia
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: frutto
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: radici
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: seme
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: semplice
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: composto
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: habitat
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: impollina
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: impollinato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: mangia
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: mangiato da
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: produce
+        http://eol(dot)org/schema/terms/paleo_megaannum: milioni di anni fa
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000027: gradi Celsius
+        http://eol(dot)org/schema/terms/millimeterspermonth: millimetri per mese
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000033: giorni
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000035: mesi
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000036: anni
+        http://semanticscience(dot)org/resource/SIO_001114: max
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: gradi
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /giorno
+        http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /anno
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: pollice
+        http://purl(dot)org/obo/owl/UO#UO_0000034: settimane
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/L
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/giorno
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/anno
+        Unit: Unità
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/mese'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: g/cm^2/anno
+        http://eol(dot)org/schema/terms/gramsPerMonth: g/mese
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: mm/3 mesi
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: mm/4 mesi
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: mm/6 mesi
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: mm/7 mesi
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: mm/8 mesi
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/giorno
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/anno
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: piedi
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: pollici
+...

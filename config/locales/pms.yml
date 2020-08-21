@@ -1197,6 +1197,7 @@ pms:
       switch_to_gallery: passé a la visualisassion a galarìa
     search_form:
       attribute: atribù
+      attribute_eg: 'atribù (për es.: livel tròfich)'
       clade_filter_placeholder: 'partìa (për esempi: ors) (facoltativ)'
       hide_additional_fields: stërmé ij camp adissionaj
       lifestage: tapa ëd vita
@@ -1212,6 +1213,7 @@ pms:
       this_may_take_a_minute: Sòn a peul pijé na minuta
       trait_filter: filtré ël trat
       value: valor
+      value_eg: 'valor (për es.: erbìvor)'
   trophic_web:
     group_descriptions:
       competitor: concorent ëd %{source_name}

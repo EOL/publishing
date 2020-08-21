@@ -1141,6 +1141,7 @@ zh-TW:
       switch_to_gallery: 切換成圖庫檢視
     search_form:
       attribute: 屬性
+      attribute_eg: 屬性（例如：食物階層）
       clade_filter_placeholder: 群組（例如：熊）（選用）
       hide_additional_fields: 隱藏額外欄位
       lifestage: 生命階段
@@ -1155,6 +1156,7 @@ zh-TW:
       this_may_take_a_minute: 這可能會花費一分鐘
       trait_filter: 特徵篩選
       value: 值
+      value_eg: 值（例如：草食性動物）
   trophic_web:
     group_descriptions:
       competitor: '%{source_name}的競爭者'
