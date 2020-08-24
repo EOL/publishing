@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/EOL/eol_terms.git
+  revision: 7de1e771f80777933ef7c5dab1867477242fcde1
+  specs:
+    eol_terms (0.1.1)
+      yaml
+
+GIT
   remote: https://github.com/EOL/neography
   revision: ac92f5fe13017a274429b8863953b8aa64e45955
   specs:
@@ -514,6 +521,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yaml (0.1.0)
     yard (0.9.25)
 
 PLATFORMS
@@ -543,6 +551,7 @@ DEPENDENCIES
   discourse_api (~> 0.38)
   draper (~> 4.0)
   elasticsearch (~> 6)
+  eol_terms!
   factory_girl (~> 4.9)
   faker (~> 2.10)
   font-awesome-sass (~> 4.7)
