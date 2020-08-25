@@ -1,7 +1,7 @@
 # This is meant to be "one-time-use-only" code to generate a "bootstrap" for the eol_terms gem, by
 # reading all of the terms we have in neo4j and writing a YML file with all of that info in it.
 #
-# > EolTermBootstrapper.new('/path/to/output/yaml').create
+# > EolTermBootstrapper.new('/app/eol_terms.yml').create # For example...
 class EolTermBootstrapper
   def initialize(filename)
     @terms_from_neo4j = []
@@ -67,7 +67,7 @@ class EolTermBootstrapper
     term.keys.each do |key|
       hash.delete(key) if key[0..4] == 'name_'
     end
-    hash[]
+    hash
   end
 
   def create_yaml
