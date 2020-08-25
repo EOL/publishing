@@ -247,8 +247,8 @@ class TraitBank
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
-          res["data"] ? res["data"].map do |t| 
-            hash = t.first["data"].symbolize_keys 
+          res["data"] ? res["data"].map do |t|
+            hash = t.first["data"].symbolize_keys
             hash[:name] = hash[:"#{name_field}"]
             hash
           end : []
@@ -309,6 +309,26 @@ class TraitBank
           })["data"]
           res.any?
         end
+      end
+
+      def parent_of_term(term_uri)
+        result = query(%Q(
+          MATCH (:Term{ uri: "#{term_uri}" })-[:parent_term]->(parent:Term)
+          RETURN parent.uri
+          LIMIT 1
+        ))
+        return nil unless result && result.key?('data') && !result['data'].empty?
+        result['data'].first
+      end
+
+      def synonym_of_term(term_uri)
+        result = query(%Q(
+          MATCH (:Term{ uri: "#{term_uri}" })-[:synonym_of]->(parent:Term)
+          RETURN parent.uri
+          LIMIT 1
+        ))
+        return nil unless result && result.key?('data') && !result['data'].empty?
+        result['data'].first
       end
 
       def term_descendant_of_other?(term_uri, other_uri)
