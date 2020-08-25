@@ -3,6 +3,9 @@
 #
 # > EolTermBootstrapper.new('/app/eol_terms.yml').create # For example...
 class EolTermBootstrapper
+  # Some parameters on Term nodes are auto-generated and we can ignore them:
+  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count section_ids].freeze
+
   def initialize(filename)
     @terms_from_neo4j = []
     @uri_hashes = []
@@ -64,7 +67,11 @@ class EolTermBootstrapper
 
   def correct_keys(term)
     hash = term.stringify_keys
-    term.keys.each do |key|
+    IGNORABLE_TERM_PARAMS.each do |ignored_key|
+      hash.delete(ignored_key)
+    end
+    term.keys.each do |key_sym|
+      key = key_sym.to_s
       hash.delete(key) if key[0..4] == 'name_'
     end
     hash
