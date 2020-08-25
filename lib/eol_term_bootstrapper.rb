@@ -5,6 +5,8 @@
 # Done.
 # Wrote 3617 term hashes to `/app/public/data/terms.yml` (76321 lines).
 # => nil
+#
+# And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
 class EolTermBootstrapper
   # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
   IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count position section_ids].freeze
@@ -83,6 +85,7 @@ class EolTermBootstrapper
   def create_yaml
     File.open(@filename, 'w') do |file|
       file.write "# This file was automatically generated from the eol_website codebase using EolTermBootstrapper.\n"
+      file.write "# COMPILED: #{Time.now.strftime('%F %T')}\n"
       file.write "# You MAY edit this file as you see fit. You may remove this message if you care to.\n\n"
       file.write({ 'terms' => @uri_hashes }.to_yaml)
     end
