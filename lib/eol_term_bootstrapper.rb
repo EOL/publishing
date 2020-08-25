@@ -3,8 +3,8 @@
 #
 # > EolTermBootstrapper.new('/app/eol_terms.yml').create # For example...
 class EolTermBootstrapper
-  # Some parameters on Term nodes are auto-generated and we can ignore them:
-  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count section_ids].freeze
+  # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
+  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count postition section_ids].freeze
 
   def initialize(filename)
     @terms_from_neo4j = []

@@ -317,8 +317,8 @@ class TraitBank
           RETURN parent.uri
           LIMIT 1
         ))
-        return nil unless result && result.key?('data') && !result['data'].empty?
-        result['data'].first
+        return nil unless result && result.key?('data') && !result['data'].empty? && !result['data'].first.empty?
+        result['data'].first.first
       end
 
       def synonym_of_term(term_uri)
@@ -327,8 +327,8 @@ class TraitBank
           RETURN parent.uri
           LIMIT 1
         ))
-        return nil unless result && result.key?('data') && !result['data'].empty?
-        result['data'].first
+        return nil unless result && result.key?('data') && !result['data'].empty? && !result['data'].first.empty?
+        result['data'].first.first
       end
 
       def term_descendant_of_other?(term_uri, other_uri)
