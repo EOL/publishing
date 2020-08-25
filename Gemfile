@@ -7,7 +7,7 @@ gem 'rails', '5.2.4.3'
 gem 'mysql2', '0.5.3'
 
 # "Internal" EOL gems:
-gem 'eol_terms', git: 'git://github.com/EOL/eol_terms.git'
+gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git'
 
 # Asset-related gems next:
 gem 'webpacker', '~> 5.x'
