@@ -9,7 +9,7 @@
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
 class EolTermBootstrapper
   # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
-  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count position section_ids].freeze
+  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count position section_ids is_ordinal id sections hide_from_dropdowns].freeze
 
   def initialize(filename)
     @terms_from_neo4j = []
