@@ -25,36 +25,38 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      if is_above_family?
-        above_family
-      else
-        if !a1.nil?
-          if is_family?
-            family
-          elsif is_genus?
-            genus
-          elsif is_species?
-            species
+      I18n.with_locale(:en) do
+        if is_above_family?
+          above_family
+        else
+          if !a1.nil?
+            if is_family?
+              family
+            elsif is_genus?
+              genus
+            elsif is_species?
+              species
+            end
           end
         end
+
+        landmark_children
+        plant_description_sentence
+        flower_visitor_sentence
+        fixes_nitrogen_sentence
+        forms_sentence
+        ecosystem_engineering_sentence
+        behavioral_sentence
+
+        if is_species?
+          lifespan_size_sentence
+        end
+
+        reproduction_sentences
+        motility_sentence
+
+        Result.new(@sentences.join(' '), @terms)
       end
-
-      landmark_children
-      plant_description_sentence
-      flower_visitor_sentence
-      fixes_nitrogen_sentence
-      forms_sentence
-      ecosystem_engineering_sentence
-      behavioral_sentence
-
-      if is_species?
-        lifespan_size_sentence
-      end
-
-      reproduction_sentences
-      motility_sentence
-
-      Result.new(@sentences.join(' '), @terms)
     end
 
     private
@@ -271,7 +273,7 @@ class PageDecorator
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
           add_sentence do |subj, _, __|
-            "#{subj} includes groups like #{taxa_links.to_sentence(locale: :en)}."
+            "#{subj} includes groups like #{taxa_links.to_sentence}."
           end
         end
       end
@@ -354,7 +356,7 @@ class PageDecorator
 
         if lifespan_part || size_part
           add_sentence do |_, __, ___|
-            "Individuals #{[lifespan_part, size_part].compact.to_sentence(locale: :en)}."
+            "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
           end
         end
       end
@@ -366,7 +368,7 @@ class PageDecorator
           vpart = if matches.has_type?(:v)
                     v_vals = matches.by_type(:v).collect do |match|
                       trait_sentence_part("%s", match.trait)
-                    end.to_sentence(locale: :en)
+                    end.to_sentence
 
                     "#{subj} #{has} #{v_vals}"
                   else
@@ -380,7 +382,7 @@ class PageDecorator
                         match.trait,
                         pluralize: true
                       )
-                    end.to_sentence(locale: :en)
+                    end.to_sentence
 
                     "#{is} #{w_vals}"
                   else
@@ -401,7 +403,7 @@ class PageDecorator
           add_sentence do |subj, is, has|
             y_parts = matches.by_type(:y).collect do |match|
               trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "#{subj} #{has} #{y_parts}."
           end
@@ -411,7 +413,7 @@ class PageDecorator
           add_sentence do |_, __, ___|
             x_parts = matches.by_type(:x).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "Reproduction is #{x_parts}."
           end
@@ -421,7 +423,7 @@ class PageDecorator
           add_sentence do |subj, is, has|
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "#{subj} #{has} parental care (#{z_parts})."
           end
@@ -516,7 +518,7 @@ class PageDecorator
           parts = [leaf_part, flower_part, fruit_part].compact
 
           if parts.any?
-            "#{subj} #{has} #{parts.to_sentence(locale: :en)}."
+            "#{subj} #{has} #{parts.to_sentence}."
           else
             nil
           end
@@ -531,7 +533,7 @@ class PageDecorator
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
           add_sentence do |_, __, ___|
-            "Flowers are visited by #{parts.to_sentence(locale: :en)}."
+            "Flowers are visited by #{parts.to_sentence}."
           end
         end
       end
@@ -791,7 +793,7 @@ class PageDecorator
             end
           end
         end
-        values.any? ? values.uniq.to_sentence(locale: :en) : nil
+        values.any? ? values.uniq.to_sentence : nil
       end
 
       # TODO: it would be nice to make these into a module included by the Page class.
@@ -843,7 +845,7 @@ class PageDecorator
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
           add_sentence do |subj, _, __|
-            "#{subj} is listed #{result.to_sentence(locale: :en)}."
+            "#{subj} is listed #{result.to_sentence}."
           end
         end
 
