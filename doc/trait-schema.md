@@ -156,15 +156,13 @@ Relationships:
 ### Object (or value) of the statement
 
 The 'object' or value of the statement is given by the
-`object_page_id`, `object_term`, `normal_measurement`, or `literal`,
+`object_page`, `object_term`, `normal_measurement`, or `literal`,
 as determined by the nature of the `predicate`.
 
-* `object_page_id`: if the predicate has type `association`, the object
-  of the statement is a taxon, and this property is the
-  value of the `page_id` of that taxon.
 * `object_term` link: to a `Term` node for the object of the statement,
   usually an ontology term for some qualitative choice (e.g. habitat type).
   The predicate's type will be 'measurement' [check on this].
+* `object_page` link: to a `Page` node that is the object of the statement for Traits with predicate type `association`.
 * `normal_measurement` property: this value is the value of the statement,
   indicating a quantity in normalized units.
   The predicate's type will be 'measurement' [check on this].

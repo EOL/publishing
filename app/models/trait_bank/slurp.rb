@@ -77,14 +77,48 @@ class TraitBank::Slurp
       TraitBank::Denormalizer.set_canonicals_by_page_id(page_ids)
     end
 
+    class NodeConfig
+      Attribute = Struct.new(:key, :val)
+
+      attr_reader :label, :name, :pk_attr, :other_attrs
+
+      def initialize(options)
+        @label = options[:label]
+        @name = options[:name] || @label.downcase
+        build_attributes(options[:attributes])
+      end
+
+      private
+      def build_attributes(attr_configs)
+        attr_configs_copy = attr_configs.dup
+        @pk_attr = build_attribute(attr_configs_copy.shift)
+        @other_attrs = attr_configs_copy.map { |config| build_attribute(config) }
+      end
+
+      def build_attribute(attr_config)
+        if attr_config.is_a?(Hash) # e.g., { page_id: 'row.object_page_id' }
+          key = attr_config.keys.first
+          val = attr_config[key]
+        else # assume it's a String/Symbol
+          key = attr_config
+          val = "row.#{key}"
+        end
+
+        Attribute.new(key, val)
+      end
+    end
+
     # TODO: (eventually) target_scientific_name: row.target_scientific_name
     def load_csv_config(id, options = {})
       single_resource = options[:single_resource]
       { "traits_#{id}.csv" =>
-        { 'Page' => [:page_id],
-          'Trait' => %i[
-            eol_pk resource_pk source literal measurement object_page_id scientific_name normal_measurement sample_size
-            citation source remarks method
+        { 
+          nodes: [
+            NodeConfig.new(label: 'Page', attributes: [:page_id]),
+            NodeConfig.new(label: 'Trait', attributes: %i[
+                eol_pk resource_pk source literal measurement scientific_name normal_measurement sample_size citation remarks method
+              ]
+            )
           ],
           wheres: {
             # This will be applied to ALL rows:
@@ -129,13 +163,24 @@ class TraitBank::Slurp
             {
               matches: { object_term: 'Term { uri: row.value_uri }' },
               merges: [ [:trait, :object_term, :object_term] ]
+            },
+            is_not_blank('row.object_page_id') =>
+            {
+              nodes: [ 
+                NodeConfig.new(label: 'Page', name: 'object_page', attributes: [{
+                    page_id: 'row.object_page_id'
+                  }]
+                )
+              ],
+              merges: [ [:trait, :object_page, :object_page ] ]
             }
           }
         },
-
         "meta_traits_#{id}.csv" =>
         {
-          'MetaData' => %i[eol_pk source literal measurement],
+          nodes: [
+            NodeConfig.new(label: 'MetaData', attributes: %i[eol_pk source literal measurement])
+          ],
           wheres: {
             "1=1" => { # ALL ROWS
               matches: {
@@ -178,8 +223,8 @@ class TraitBank::Slurp
     end
 
     def load_csv(filename, config, params = {})
-      wheres = config.delete(:wheres)
-      nodes = config # what's left.
+      wheres = config[:wheres]
+      nodes = config[:nodes]
       if params[:read_resources]
         res_ids = read_field_from_traits_file(params[:read_resources], 'resource_id')
         return nil if res_ids.nil?
@@ -187,9 +232,14 @@ class TraitBank::Slurp
           TraitBank.create_resource(resource_id)
         end
       end
-      wheres.each do |clause, where_config|
-        break_up_large_files(filename) do |sub_filename|
-          load_csv_where(clause, filename: sub_filename, config: where_config, nodes: nodes)
+      break_up_large_files(filename) do |sub_filename|
+        # build nodes required by all rows
+        nodes.each do |node| 
+          build_nodes(node, csv_query_head(filename, nil))
+        end 
+
+        wheres.each do |clause, where_config|
+          load_csv_where(clause, filename: sub_filename, nodes: nodes, config: where_config)
         end
       end
     end
@@ -279,14 +329,19 @@ class TraitBank::Slurp
     def load_csv_where(clause, options = {})
       filename = options[:filename]
       config = options[:config]
-      nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
+      global_nodes = options[:nodes] # NOTE: this is neo4j "nodes", not EOL "Node"; unfortunate collision.
+      where_nodes = config[:nodes] || []
       merges = Array(config[:merges])
       matches = config[:matches]
       head = csv_query_head(filename, clause)
-      # First, build all of the nodes:
-      nodes.each { |label, attributes| build_nodes(label: label, attributes: attributes, head: head) }
+
+      # First, build all of the nodes specific to this where clause
+      where_nodes.each do |node_config| 
+        build_nodes(node_config, head)
+      end
+
       # Then the merges, one at a time:
-      merges.each { |triple| merge_triple(triple: triple, head: head, nodes: nodes, matches: matches) }
+      merges.each { |triple| merge_triple(triple: triple, head: head, nodes: global_nodes + where_nodes, matches: matches) }
     end
 
     def csv_query_head(filename, where_clause = nil)
@@ -352,18 +407,12 @@ class TraitBank::Slurp
       query(clauses.join("\n"))
     end
 
-    def build_nodes(options)
-      label = options[:label]
-      attributes = options[:attributes].dup
-      head = options[:head]
-      name = label.downcase
-      pk = attributes.shift # Pull the first attribute off...
-      pk_val = autocast_val("row.#{pk}")
-      q = "#{head}MERGE (#{name}:#{label} { #{pk}: #{pk_val} })"
-      attributes.each do |attribute|
-        value = autocast_val("row.#{attribute}")
-        q << set_attribute(name, attribute, value, 'CREATE')
-        q << set_attribute(name, attribute, value, 'MATCH')
+    def build_nodes(config, head)
+      pk_attr = config.pk_attr
+      q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{pk_attr.val} })"
+      config.other_attrs.each do |attr|
+        q << set_attribute(config.name, attr.key, attr.val, 'CREATE')
+        q << set_attribute(config.name, attr.key, attr.val, 'MATCH')
       end
       query(q)
     end
@@ -378,22 +427,21 @@ class TraitBank::Slurp
     def merge_triple(options)
       triple = options[:triple]
       head = options[:head]
-      nodes = options[:nodes]
-      matches = options[:matches]
+      nodes = options[:nodes] || []
+      matches = options[:matches] || []
       # merges: [ [:trait, :units_term, :units] ]
       # NOTE: #to_s to make matching simpler.
       subj = triple[0].to_s
       pred = triple[1].to_s
       obj  = triple[2].to_s
       q = head
+
       # MATCH any required nodes:
-      nodes.each do |label, attributes|
-        name = label.downcase
-        next unless subj == name || obj == name
-        pk = attributes.first
-        pk_val = autocast_val("row.#{pk}")
-        q += "\nMATCH (#{name}:#{label} { #{pk}: #{pk_val} })"
+      nodes.each do |node|
+        next unless subj == node.name || obj == node.name
+        q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{node.pk_attr.val} })"
       end
+
       # MATCH any ... uhhh... matches required:
       matches.each do |name, match|
         # matches: { object_term: ':Term { uri: row.value_uri }' },
@@ -401,6 +449,7 @@ class TraitBank::Slurp
         next unless subj == name || obj == name
         q += "\nMATCH (#{name}:#{match})"
       end
+
       # Then merge the triple:
       query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
     end
