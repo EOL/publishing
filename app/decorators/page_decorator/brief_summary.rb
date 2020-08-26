@@ -288,7 +288,7 @@ class PageDecorator
 
         add_sentence do |subj, is, _|
           sentence = nil
-          trophic_part = trait_sentence_part("%s", trophic) if trophic
+          trophic_part = trait_sentence_part("%s", trophic, pluralize: true) if trophic
 
           if begin_traits.any?
             begin_parts = begin_traits.collect do |t|
