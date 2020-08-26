@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alcali
 # Author: Eduardo Addad de Oliveira
+# Author: Jadethomaz
 # Author: Jhonnatanricardo
 # Author: Leonardo9387
 # Author: Leosls
@@ -14,6 +15,23 @@ pt-BR:
   about:
     trait_bank:
       title: TraitBank
+      body_html: <p>O grupo técnico de gerenciamento de dados do EOL refere-se aos
+        recursos de dados estruturados no EOL-dados e outras informações atribuídas,
+        interações ecológicas, e nossa classificação nativa, a Dynamic Working Hierarchy
+        - coletivamente como TraitBank. Esse conteúdo é administrado de uma maneira
+        um pouco diferente do nosso conteúdo "clássico" - imagens, vídeo, áudio e
+        texto descritivo - e é útil para várias coisas.</p><p> O TraitBank é mais
+        novo que o resto do EOL; ele foi criado pela diretora do Species Pages Group
+        Cynthia Parr, e entrou no ar no EOL v2 em Janeiro de 2014. Desde então, os
+        dados estruturados têm sido nossa prioridade mais importante para o desenvolvimento
+        de conteúdo.</p><p>Agora você pode <a href='%{example_search_path}'>pesquisar</a>
+        ou navegar no EOL pelos dados estruturados ou baixá-los, ou encontrá-los na
+        nossa nova página de visualização na forma de <a href='%{autogen_page_path}'>texto
+        autogerado</a>. Como o resto do conteúdo do EOL, está disponível para reutilização,
+        e vem com dados de atribuição detalhados para que você possa fazer referência
+        caso use no seu trabalho.</p><p> Essa informação é modelada como um <a href='%{property_graph_url}'>
+        gráfico de propriedade </a> em <a href='%{neo4j_url}'> neo4j </a>. <a href='%{data_services_path}'>
+        Serviços de informação </a> estão disponíveis. </p>
   account_already_linked: sua conta já está vinculada ao EOL
   account_not_linked: sua conta não está vinculada ao EOL
   advanced: avançado
@@ -278,6 +296,7 @@ pt-BR:
     ay: Aimará
     Q9292: Azerbaijano
     az: Azerbaijano
+    Q33070: Balinês
     bm: Bambara
     ba: Basquir
     eu: Basco

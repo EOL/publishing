@@ -1194,6 +1194,7 @@ mk:
       switch_to_gallery: сликореден поглед
     search_form:
       attribute: својство
+      attribute_eg: атрибут (на пр. трофно ниво)
       clade_filter_placeholder: група (на пр. мечки) (незадол.)
       hide_additional_fields: скриј дополнителни полиња
       lifestage: животна фаза
@@ -1208,6 +1209,7 @@ mk:
       this_may_take_a_minute: Ова може малку да потрае
       trait_filter: филтер на одлики
       value: вредност
+      value_eg: вредност (на пр. тревопасен)
   trophic_web:
     group_descriptions:
       competitor: конкурент на %{source_name}

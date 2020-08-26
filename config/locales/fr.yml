@@ -1161,6 +1161,7 @@ fr:
       switch_to_gallery: basculer dans la vue galerie
     search_form:
       attribute: attribut
+      attribute_eg: 'attribu (ex : niveau trophique)'
       clade_filter_placeholder: 'groupe (par ex. : ours) (facultatif)'
       hide_additional_fields: masquer les champs supplémentaires
       lifestage: étape de vie
@@ -1176,6 +1177,7 @@ fr:
       this_may_take_a_minute: Cela peut prendre une minute
       trait_filter: filtrer le trait
       value: valeur
+      value_eg: 'valeur (ex : herbivore)'
   trophic_web:
     group_descriptions:
       competitor: concurrent de %{source_name}

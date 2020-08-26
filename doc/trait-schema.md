@@ -258,5 +258,5 @@ They are *not* used in EOL's relational publishing database.
 
 
 * `parent_term` link: the Terms form a hierarchy, this gives the term's parent term
-* `synonym_of` link: a Term (also the parent term??) that this one is equivalent to
+* `synonym_of` link: a parent Term that this one is equivalent or approximately equivalent to. 
 * `object_for_predicate` link: a periodically-refreshed convenience relationship linking obj and pred terms where there exists (pred:Term)<-[:parent\_term|:synonym\_of\*0..]-(:Term)<-[:predicate]-(:Trait)-[:object\_term]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(obj:Term).

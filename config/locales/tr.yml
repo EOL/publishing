@@ -1192,6 +1192,7 @@ tr:
       switch_to_gallery: galeri görünümüne geç
     search_form:
       attribute: nitelik
+      attribute_eg: 'özellik (ör.: tropik düzey)'
       clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
       hide_additional_fields: ek alanları gizle
       lifestage: yaşam evresi
@@ -1206,6 +1207,7 @@ tr:
       this_may_take_a_minute: Bu bir dakika sürebilir
       trait_filter: özellik filtresi
       value: değer
+      value_eg: 'değer (ör.: otçul)'
   trophic_web:
     group_descriptions:
       competitor: '%{source_name} rakibi'
