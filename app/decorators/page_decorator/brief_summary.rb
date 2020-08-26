@@ -654,7 +654,7 @@ class PageDecorator
         if !@full_name_used && @page.vernacular
           "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
         else
-          @name_clause ||= @page.vernacular_or_canonical
+          @name_clause ||= @page.vernacular_or_canonical(Language.english)
         end
       end
 

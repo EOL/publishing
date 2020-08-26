@@ -499,8 +499,9 @@ class Page < ApplicationRecord
     native_node.try(:rank)
   end
 
-  def vernacular_or_canonical
-    vernacular(Language.current)&.string&.titlecase || canonical
+  def vernacular_or_canonical(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
