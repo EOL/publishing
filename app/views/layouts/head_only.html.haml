@@ -25,9 +25,15 @@
     -if Webpacker.manifest.lookup "stylesheets/#{ss_pre}#{params[:controller]}.css"
       = stylesheet_pack_tag "stylesheets/#{ss_pre}#{params[:controller]}", media: :all
     = stylesheet_link_tag "jqcloud", media: :all
-    = javascript_include_tag "https://d3js.org/d3.v4.min.js"
-    = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"
-    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
+    -# TODO: restore old d3 functionality
+      = javascript_include_tag "https://d3js.org/d3.v4.min.js"
+      = javascript_include_tag "https://d3js.org/d3-scale-chromatic.v1.min.js"
+      = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
+    = javascript_include_tag "https://unpkg.com/d3-array@1"
+    = javascript_include_tag "https://unpkg.com/d3-collection@1"
+    = javascript_include_tag "https://unpkg.com/d3-path@1"
+    = javascript_include_tag "https://unpkg.com/d3-shape@1"
+    = javascript_include_tag "https://unpkg.com/d3-sankey@0"
     = javascript_include_tag "application"
     -if asset_exists? "#{params[:controller]}.js"
       = javascript_include_tag params[:controller]
