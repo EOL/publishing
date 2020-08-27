@@ -198,6 +198,7 @@ Rails.application.routes.draw do
       get "/data_viz/pie" => "data_viz#pie"
       get "/data_viz/bar" => "data_viz#bar"
       get "/data_viz/hist" => "data_viz#hist"
+      get "/data_viz/sankey" => "data_viz#sankey"
     end
 
     namespace :admin do
