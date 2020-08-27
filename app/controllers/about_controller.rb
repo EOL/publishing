@@ -11,6 +11,10 @@ class AboutController < ApplicationController
     @wordcloud_data = AboutController.tb_wordcloud_data
   end
 
+  # TODO: remove. Sankey layout test page.
+  def sankey_test
+  end
+
   def self.tb_wordcloud_data
     data = nil
 
