@@ -121,6 +121,10 @@ module Traits
       render_common
     end
 
+    def sankey
+      @query = TermQuery.new(term_query_params)
+    end
+
     private
     def render_common
       status = @data.length > 1 ? :ok : :no_content
