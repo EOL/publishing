@@ -481,6 +481,10 @@ Rails.application.routes.draw do
 
     get "/traitbank", to: "about#trait_bank", as: :about_trait_bank
 
+    # TODO: remove. Sankey test page.
+    get "/sankey_test", to: "about#sankey_test"
+
+
     scope 'content' do
       scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
         get '/*anything', to: proc { [404, {}, ['']] }
