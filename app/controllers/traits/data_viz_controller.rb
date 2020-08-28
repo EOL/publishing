@@ -107,7 +107,6 @@ module Traits
 
     def bar
       @query = TermQuery.new(term_query_params)
-      counts = TraitBank.term_search(@query, { count: true })
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
       @data = result.collect { |r| viz_result_from_row(@query, r) }
       render_common
@@ -123,6 +122,7 @@ module Traits
 
     def sankey
       @query = TermQuery.new(term_query_params)
+      render json: TraitBank.sankey_data(@query)
     end
 
     private
