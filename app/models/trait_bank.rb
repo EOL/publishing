@@ -857,7 +857,7 @@ class TraitBank
           WHERE #{filter_wheres.join(" AND ")}
         )
 
-        with = yield(i, trait_var, child_pred_var)
+        with = yield(i, trait_var, child_pred_var, child_obj_var)
 
         if with.present?
           add_gathered_terms(with, gathered_terms)
@@ -881,7 +881,7 @@ class TraitBank
     end
 
     def term_page_search_matches(term_query, params, options = {})
-      term_search_matches_helper(term_query, params, options) do |i, trait_var, pred_var|
+      term_search_matches_helper(term_query, params, options) do |i, trait_var, pred_var, obj_var|
         if i == term_query.filters.length - 1
           nil
         else
@@ -893,7 +893,7 @@ class TraitBank
     def term_record_search_matches(term_query, params, options = {})
       trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
-      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, trait_var, pred_var|
+      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, trait_var, pred_var, obj_var|
         if term_query.filters.length > 1
           if options[:count]
             trait_ag = "count(DISTINCT #{trait_var})"
@@ -1365,6 +1365,86 @@ class TraitBank
     def count_rels_by_direction(node, direction = nil)
       relationsip = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
       TraitBank.query("MATCH (#{node})#{relationship}() RETURN COUNT(relationship)")['data'].first.first
+    end
+
+    def sankey_combined_counts(term_query)
+      # TODO: enforce query restrictions. Assuming object-only for the moment.
+      parts = []
+      params = {}
+
+      objs_vars = []
+      obj_vars = []
+
+      parts << term_search_matches_helper(term_query, params, always_match_obj: true) do |i, trait_var, pred_var, obj_var|
+        with = "WITH page, "
+        objs_var = nil
+
+        if i < term_query.filters.length - 1
+          objs_var = obj_var + "s"
+          with.concat("collect(#{obj_var}) AS #{objs_var}")
+        else
+          with.concat(obj_var)
+        end
+
+        if objs_vars.any?
+          with.concat(", #{objs_vars.join(", ")}")
+        end
+
+        objs_vars << objs_var if objs_var
+        obj_vars << obj_var
+
+        with
+      end
+
+      parts << objs_vars.map.with_index do |var, i|
+        "UNWIND #{var} AS #{obj_vars[i]}"
+      end.join("\n")
+
+      parts << "WITH #{obj_vars.join(", ")}, collect(DISTINCT page) AS pages"
+
+      filters = term_query.page_count_sorted_filters
+
+      child_vars = obj_vars.map.with_index do |_, i|
+        "child#{i}"
+      end
+
+      child_matches = obj_vars.map.with_index do |var, i|
+        "(#{var})-[#{parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(:Term{uri: '#{filters[i].obj_uri}'})"
+      end
+      parts << "MATCH #{child_matches.join(", ")}"
+      parts << "UNWIND pages AS page"
+      parts << sankey_independent_counts(child_vars)
+      parts << "UNWIND pages AS page"
+      parts << "WITH #{child_vars.map { |cv| "#{cv}, #{cv}_count" }.join(", ")}, count(DISTINCT page) AS intersection_count"
+      parts << "RETURN #{child_vars.map { |cv| "#{cv}.uri, #{cv}.name, #{cv}_count" }.join(", ")}, intersection_count"
+      parts << "ORDER BY intersection_count DESC"
+
+      query(parts.join("\n"), params)
+    end
+
+    def sankey_independent_counts(child_vars)
+      parts = []
+
+      count_vars = []
+      child_vars.map.with_index do |var, i|
+        collect_row_vars = child_vars.reject { |other| other == var }
+        collect_row_vars.concat(count_vars)
+        collect_row_vars << "pages"
+        collect = collect_row_vars.map { |row_var| "#{row_var}: #{row_var}" }.join(", ")
+
+        count_var = "#{var}_count"
+        count_vars << count_var
+        parts << "WITH #{var}, collect(pages) AS list_of_lists_of_pages, collect({ #{collect} }) AS rows"
+        parts << "WITH #{var}, size(REDUCE (output = [], pages in list_of_lists_of_pages | apoc.coll.union(output, pages))) AS #{count_var}, rows"
+        parts << "UNWIND rows AS row"
+        parts << "WITH #{var}, #{count_var}, #{collect_row_vars.map { |v| "row.#{v} AS #{v}" }.join(", ")}"
+      end
+
+      parts.join("\n")
+    end
+
+    def sankey_data(term_query)
+      sankey_combined_counts(term_query)
     end
 
     private

@@ -4,6 +4,7 @@
   .js-filter-form-contain{:class => @pages ? "is-hidden" : ""}
     = render "search_form"
 
+  = link_to "Sankey test data", traits_sankey_test_path(term_query: @query.to_params)
   - if @pages
     .js-filter-list
       - hdr_opts = { range_begin: @grouped_data.offset_value + 1, range_end: @grouped_data.offset_value + @grouped_data.length, total: @grouped_data.total_count }
@@ -53,6 +54,7 @@
         = render 'page_gallery', { pages: @result_pages }
       - else
         = render 'page_table', { pages: @result_pages }
+
 - if @raw_query
   .raw-query
     .show-raw-query.js-show-raw-query= t(".show_query")

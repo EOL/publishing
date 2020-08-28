@@ -198,7 +198,7 @@ Rails.application.routes.draw do
       get "/data_viz/pie" => "data_viz#pie"
       get "/data_viz/bar" => "data_viz#bar"
       get "/data_viz/hist" => "data_viz#hist"
-      get "/data_viz/sankey" => "data_viz#sankey"
+      get "/data_viz/sankey" => "data_viz#sankey", as: :sankey_test
     end
 
     namespace :admin do
@@ -481,10 +481,6 @@ Rails.application.routes.draw do
     end
 
     get "/traitbank", to: "about#trait_bank", as: :about_trait_bank
-
-    # TODO: remove. Sankey test page.
-    get "/sankey_test", to: "about#sankey_test"
-
 
     scope 'content' do
       scope format: true, constraints: { format: /jpg|png|gif|jpeg/ } do
