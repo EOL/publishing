@@ -12,6 +12,7 @@
 # Author: Njzjz
 # Author: Shirayuki
 # Author: Shizhao
+# Author: Shoufen
 # Author: SomeyaMako
 # Author: Tiger
 # Author: VulpesVulpes825
@@ -24,6 +25,10 @@ zh-CN:
   about:
     trait_bank:
       title: TraitBank
+      body_html: <p>EOL的资料和技术团队将EOL的结构化数据资源--特征及其他属性，生态环境互动，本地化分类，动态调整层次体系--统称TraitBank。其内容管理与我们其他传统的图像，录像，音像及描述性文档内容稍有不同；
+        其用途亦不相同。</p><p>特征储存库比EOL其他部分新；构想源于物种页面组经理Cynthia Parr并于2014年一月在EOL上线。从此，结构化数据一直是我们内容发展的第一优先。</p><p>现在，您可以透过结构化数据<a
+        href='%{example_search_path}'>搜寻</a>或浏览 EOL，或下载数据, 亦或您在我们新的概述页阅读<a href='%{autogen_page_path}'>自动生成文案</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是以属性图<a
+        href='%{property_graph_url}'>为模式在<a href='%{neo4j_url}'>neo4j</a>。 <a href='%{data_services_path}'>数据服务</a>可供使用。</p>
   account_already_linked: 您的帐号已与EOL链接
   account_not_linked: 您的帐号没有与EOL链接
   advanced: 高级
@@ -42,9 +47,13 @@ zh-CN:
   article_from_partner: 提供者%{partner}
   article_duplicate: 此文章同时显示在%{section}
   breadcrumbs:
+    notices:
+      canonical: 学名现记载于“面包屑”页。
+      vernacular: 如有土名，土名现记载于“面包屑”页。
+    setting_header: 名称在“面包屑”
     types:
       scientific: 科学的
-      vernacular: 白话
+      vernacular: 土话
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -54,6 +63,8 @@ zh-CN:
     children:
       see_more: 查看更多
     hierarchies:
+      header: '%{sci_name}策划的层次体系'
+      see_resource_file: 完整的清单请见<a href='%{href}'>resource file</a>。
       this_page: （本页）
     richness:
       header: 页面丰富度
@@ -76,70 +87,139 @@ zh-CN:
   collect_icon_title: 添加此页%{page}上的%{item}在
   collect_new_collection: 新收集名称
   collect_new_collection_title: 一个新的收集
-  collect_select_collection: 您的收集之一
+  collect_no_existing_collections: 您还没有任何内容！用左边的表格创建您的内容。
+  collect_select_collection: 您的收藏之一
   collect_title: 添加%{item}在
-  collected_page_added_to_collection: 添加%{page}在收集%{link}%{name}
-  collected_page_already_in_collection: 此项已在您的收集中
+  collected_page_added_to_collection: 添加%{page}在收藏%{link}%{name}
+  collected_page_already_in_collection: 此项已在您的收藏中
   collected_pages_title: 页面
   collected_pages_medium:
-    destroyed_flash: 图像已从收集页中删除
+    destroyed_flash: 图像已从收藏页中删除
   collection_associations:
-    destroyed_flash: '%{name}不再与此收集相关'
+    destroyed_flash: '%{name}不再与此收藏相关'
   collected_pages:
     delete_button: 删除
     edit_button: 编辑
     delete_confirm: 您确定？
-    destroyed_flash: '%{name}从此收集中删除'
-  collection_association_added_to_collection: 添加%{associated}在收集%{link}%{name}
+    destroyed_flash: '%{name}从此收藏中删除'
+  collection_association_added_to_collection: 添加%{associated}在收藏%{link}%{name}
+  collection_associations_empty: 没有别的收藏与此相关。可以点击其他收藏上的“相关”键使它们出现在此页面。
+  collection_associations_title: 相关收藏
+  collection_collected_pages_media_remove: 从收藏中删除图像（更改内容立刻生效）：
+  collection_created: ' 创建新的收藏"%{name}"。'
+  collection_created_for_association: 已将 "%{associated}" 加入新收藏 <a href='%{link}'>"%{name}"</a>.
+  collection_user_is_admin: 此用户是系统管理员。
+  collection_pages_empty: 此收藏系列尚未有页面。可点击物种页的“收藏”键添加项目。
   collection:
     admins:
+      header: 可编辑此收藏的用户（更改内容立刻生效）
+      label: 添加可更改此收藏的用户
       placeholder: 全名或用户名
     actions:
+      associate: 相关
+      download_taxa_csv: 下载分类群数据逗号分隔值文件
       delete: 删除
       edit: 编辑
       sort: 排序
     collection_type:
       normal: 标准
       gallery: 库
+    delete_confirm: 这将删除所有收藏并无法取消回复。你确定吗？
+    destroyed: '"%{name}"已被永久删除。'
+    log:
+      associated_collection:
+        add: '%{user}已添加相关收藏%{associated}'
+        remove: '%{user}已删除收藏的相关连接%{associated}'
+      collection:
+        add: '%{user}创建此收藏'
+        change: '%{user}将%{field}从"%{from}"改为"%{to}"'
+      content:
+        add: '%{user}已在%{page}页面上添加%{medium}媒体'
+        change: '%{user}已将%{page}页上%{medium}媒体的%{field}从"%{from}"更改为"%{to}"'
+        remove: '%{user}已将 %{page}页上的%{medium}媒体删除了。'
+      page:
+        add: '%{user}已添加%{page}页'
+        change: '%{user}将%{page}页的%{field}从"%{from}"改为"%{to}"'
+        remove: '%{user}删除了%{page}页'
+      user:
+        add: '%{user}添加了%{manager}管理员'
+        remove: '%{user}删除了%{manager}管理员'
     search:
+      placeholder: 在收藏中搜索
       submit: 搜索
     sort:
       hierarchy: 等级制度
       position: 已添加注释
-      sci_name: 学名
+      sci_name: 学名, A-Z
+      sci_name_rev: 学名，Z-A
+      sort_field: 评注，A-Z
+      sort_field_rev: 评注，Z-A
+    updated: 收藏已更新
+  collection_unauthorized_edit: 有读写权限的用户可以编辑此收藏。
+  complete_registration: 请继续完成你的注册
+  content_appears_on: 包含在下列页面：
+  content_collected_in: 特别刊登在下列收藏中：
   content_attributions_header: 来源信息
   content_attributions_labels:
-    altitude: 纬度
+    altitude: 海拔
     author: 作者
     bibliographic_citation: 书目引用
     compiler: 编者
     creator: 内容作者
     editor: 编辑器
-    latitude: 海拔
+    latitude: 纬度
     license: 许可协议
     location: 地方
+    location_verbatim: 逐字的
     longitude: 经度
+    original_media_file: 原始多媒体档案
     owner: 版权所有
     photographer: 摄影师
     publisher: 发布者
     project: 项目
     provider: 提供者
     resource_label: 合作伙伴页面
+    resource_pk: （身份标识号码：%{key})
+    rights_statement: 权利声明
     source: 来源
+    spatial_location: 空间的
     view_source_label: 原始消息
+    view_source_link: 看原始图片
+    view_source_page_link: 查看来源
+  content_not_in_any_collection_image: 此图像不在任何收藏中。
+  content_not_in_any_collection_sound: 此声带不在任何收藏中。
+  content_not_in_any_collection_video: 此录像不在任何收藏中。
+  data:
+    modifier:
+      sex_term: 测量了生物的性别
+      lifestage_term: 测量了生物的生命周期
+      statistical_method_term: 用统计分析法测量
+  data_missing: 数据不全，%{keys}
   dear_username_with_comma: 尊敬的 %{username}：
-  delete_account_button: 删除这个账户
+  delete_account_button: 删除您的账户
   filter_by_license: 许可协议
+  filter_by_license_any_item: 任何授权
   filter_by_medium_subtype: 样式
+  filter_by_medium_any_item: 任何类型
+  filter_by_resource: 提供者
+  filter_by_resource_any_item: 任何提供者
+  filters:
+    filter_by_attribute: 按特征过滤
+    filter_by_language: 按语言过滤
+    filter_by_provider: 按提供者过滤
   footer:
     eol_info:
+      citing_eol: 引用EOL
       contact_us: 联系我们
       data_services: 数据服务
       donate: 资助
       education: 教育
+      food_webs: 食物网
       glossary: 术语表
       help: 帮助
+      language_support: 语言服务
       terms_of_use: 使用条款
+      the_eol_forum: EOL论坛
       what_is_eol: 什么是网络生命大百科？
       whats_new: 最新消息？
     discover:
@@ -166,17 +246,22 @@ zh-CN:
       trees: 树木
       viruses: 病毒
       worms: 虫
+    eol_is_hosted_by: EOL的主办者为：
   forgot_your_password: 忘记您的密码？
   landing_page:
     header: 为全球提供地球上生命的知识
+    stats_cleared: 此统计数据已被重新计算。
   language: 语言
   languages:
     ab: 阿布哈西亚文
+    Q27683: 亚齐语
+    Q27776: 阿迪格语
     aa: 阿法尔文
     af: 南非语
     ak: 阿肯文
     alb: 阿尔巴尼亚语
     sq: 阿尔巴尼亚语
+    Q131339: 阿勒曼尼语
     am: 阿姆哈拉语
     ar: 阿拉伯语
     an: 阿拉贡语
@@ -184,142 +269,268 @@ zh-CN:
     as: 阿萨姆语
     Q29507: 阿斯图里亚斯语
     ae: 阿维斯陀文
+    ay: 艾马拉语
     Q9292: 阿塞拜疆语
     az: 阿塞拜疆语
+    Q33070: 巴厘语
+    bm: 班巴拉语
+    Q33151: 邦加
     ba: 巴什基尔语
     eu: 巴斯克语
     Q29540: 巴伐利亚方言
     be: 白俄罗斯语
+    Q8836490: 本德语
     bn: 孟加拉语
-    bh: 查看其他语言的版本
+    bh: 比哈文
+    bi: 比斯拉马语
+    nb: ' 博克马尔语；书面挪威语'
+    Q4941378: 邦代伊语
     bs: 波斯尼亚语
+    Q33202: 布拉灰语
+    Q750553: 巴西的葡萄牙语
     br: 布列塔尼语
     bg: 保加利亚语
     my: 缅甸语
     Q33120: 布里亚特语
+    Q880301: 卡真人的法语
+    Q2591230: 古法文；古吉拉特文
     ca: 加泰罗尼亚语；巴伦西亚语
     Q33239: 宿务语
+    khm: 中部高棉语
+    km: 中部高棉语
     ch: 查莫罗语
+    Q33281: 查瓦坎语
     ce: 车臣语
+    Q33388: 切诺基
     Q33265: 夏延语
+    ny: 齐佩瓦语
     zh: 汉文
     chi: 汉语
     Q32979: 乔克托语
     cu: 古教会斯拉夫语
+    cv: 楚瓦什语
     Q37041: 文言
+    kw: 康沃尔语
     co: 科西嘉语
     Q33357: 克里木鞑靼语
-    hr: 科阿特兰
+    hr: 克罗地亚语
     hrv: 克罗地亚语
     cs: 捷克语
     da: 丹麦语
     Q56466: 丁卡语
+    dv: 马尔代夫语
     dut: 荷兰语；弗莱芒语
     nl: 荷兰语；弗莱芒语
     dz: 宗卡语
     dzo: 宗卡语
+    Q4126517: 东加拿大的因纽特语
     en: 英语
+    Q29952: 叶尔贾语
     eo: 世界语
     et: 爱沙尼亚语
     est: 爱沙尼亚语
+    ee: 幽语
     fo: 法罗语
     fj: 斐济语
     fi: 芬兰语
     fin: 芬兰语
     fr: 法语
     fra: 法语
+    gd: 苏格兰盖立语
     gl: 加利西亚语
     Q33475: 赣语
+    lg: 干达语
     ka: 格鲁吉亚文
     de: 德语
     deu: 德语
+    Q5575236: 果阿的孔卡尼语
+    el: 现代希腊语
     gre: 希腊语
     gn: 瓜拉尼语
     gu: 古吉拉特语
+    Q33303: 海达语
+    ht: 海地语
+    ha: 豪萨语
     he: 希伯来语
     heb: 希伯来语
+    hz: 赫雷罗语
+    Q35978: 希利盖农语
     hi: 印地语
+    ho: 希利摩陀语
     hu: 保加利亚语
     is: 冰岛语
     ice: 冰岛语
     io: 伊多语
+    ig: 伊博语
+    Q35936: 伊洛卡诺语
     id: 印尼语
     Q33509: 印古什语
+    ia: 国际辅助语言协会
+    ie: 国际语
+    iu: 因纽特语
+    ik: 因纽特语
     Q33595: 易洛魁语
     ga: 爱尔兰语
     it: 意大利语
     ita: 意大利语
+    Q35939: 牙买加克里奥尔人英语
     ja: 日语
     jp: 日语
     jv: 爪哇语
+    Q33522: 卡巴尔德语；切尔克斯语
+    Q35475: 卡比尔语
     Q35853: 卡比尔语
+    kl: 格陵兰语
     Q33634: 卡尔梅克语
+    kn: 埃纳德语
+    kr: 卡努里语
+    Q36121: 卡片片甘语
     Q33541: 卡尔梅克语
+    ks: 克什米尔语
     Q33690: 卡舒布语
+    kk: 哈萨克语
+    ki: 吉库尤语
+    Q11005332: 金加语
+    rw: 卢旺达
+    ky: 吉尔吉斯语
+    kv: 科米语
     kg: 刚果
     ko: 韩语
     kor: 韩语
+    ku: 库尔德语
     Q36206: 腊克语
     lo: 老挝语
     lao: 老挝语
     la: 拉丁字母
     lv: 拉脱维亚语
+    Q1160372: 拉兹语
     Q36106: 利古里亚语
     li: 林堡语
+    ln: 林加拉语
     Q146803: 新共同语言
+    lt: 立陶宛语
     lit: 立陶宛语
     Q33754: 伦巴第语
+    Q168446: 下萨克森
+    Q13286: 下索宾语
+    lu: 卢巴-卡丹加
+    Q3437661: 陆格鲁语； 班图语之一
+    lb: 卢森堡语
     Q35787: 马萨伊语
     mk: 马其顿语
+    Q497345: 布里多尼文
+    Q36109: 迈蒂利语
+    mg: 马达加斯加语
+    ms: 马来语
     ml: 马拉雅拉姆语
+    mt: 马耳他语
     mlt: 马耳他语
     gv: 马恩语
     mi: 毛利语
     mr: 马拉塔语
+    mh: 马绍尔语
+    Q3906614: 平地马里语
     Q13313: 须弥
     Q36455: 闽东语
+    Q13324: 米南卡堡语
     Q13359: 明格里利亚语
+    Q13330: 米兰德斯语
+    Q13343: 莫克沙语
     mn: 蒙古
+    Q56426: 摩洛哥的阿拉伯语
+    Q6944725: 位于坦桑尼亚、乌干达的姆韦拉
     Q13300: 纳瓦特尔语
+    na: 瑙鲁语
+    nv: 納瓦霍语
+    nd: 北恩德贝勒语
+    nr: 南恩德贝勒语
+    ng: 恩东加语
     Q33845: 那不勒斯方言
     ne: 尼泊尔
     Q28224: 北弗里斯兰语
+    Q19933293: 北卢里语
+    se: 北萨米语
     "no": 挪威语
     nno: 挪威语
     nob: 挪威语
     nor: 挪威语
     nn: 新挪威语
+    Q36738: 诺维亚语
     oc: 奥克西唐语（后 1500）
+    Q28602: 官方亚拉姆语
+    oj: 奥吉布瓦语
+    or: 奥里亚语
+    om: 奥罗莫语
+    os: 奥塞迪语
     pi: 马里
     pa: 旁遮普语
     fa: 波斯语字母
+    Q23014: 法耳次语
+    Q34024: 庇卡底方言
+    Q15085: 皮埃蒙特语
+    pl: 波兰语
     pol: 波兰语
     pt: 葡萄牙语
+    ps: 普什图语
+    qu: 克丘亚语
+    ro: 罗马尼亚语
     rm: 罗曼什语
+    rn: 隆迪语
     ru: 俄语
     rus: 俄语
+    Q26245: 斯洛伐克的卢森尼亚语
+    Q34299: 萨哈语
+    Q718269: 撒奇莱雅语
+    sm: 萨摩亚语
+    Q213434: 古吉拉特文
+    Q34016: 桑达韦语
+    sg: 桑戈语
     sa: 梵语
     Q33965: 桑塔尔语
+    sc: 撒丁语
+    Q14549: 苏格兰英语
     sr: 塞尔维亚语
+    Q3788739: 藏语的乌托邦世界；净土
     Q56482: 掸语
+    sn: 绍纳语
     Q34004: 绍纳语
     ii: 彝语北部方言
     Q33973: 西西里语
+    sd: 信德语
     si: 僧伽罗语
+    sk: 斯洛伐克语
     slk: 斯洛伐克语
+    sl: 斯洛文尼亚语
+    so: 索马里语
     som: 索马里语
+    st: 南索托语
     es: 西班牙语；卡斯蒂利亚语
     slv: 西班牙语
+    Q2638144: 苏库马语
+    su: 巽他语
     sw: 斯瓦西里语
+    ss: 斯瓦蒂语
     sv: 瑞典语
+    swe: 瑞典语
+    tl: 塔加洛语
+    ty: 大溪地语
     tg: 塔吉克语
+    Q34318: 塔里什语
     ta: 泰米尔语
+    tt: 鞑靼语
     te: 泰卢固字母
     th: 泰语
     tha: 泰语
     bo: 藏文
+    ti: 提格里尼亚语
     Q34159: 巴布亚皮钦语
     to: 汤加语
+    Q180937: 阿尔巴尼亚托斯克方言
+    ts: 聪加语
+    tn: 茨瓦纳语
+    Q34251: 图鲁语
+    Q34138: 姆布卡语
+    Q56240: 突尼斯的阿拉伯语
     tr: 土耳其语
     tur: 土耳其语
     Q36730: 奥斯曼土耳其语
@@ -344,25 +555,40 @@ zh-CN:
   literature_and_references_header: 参考文献
   maps:
     empty: 没有可用于此页面的地图。
+    other_maps_title: 非互动地图
   medium:
     untitled:
       image: 无标题图像
+      image_of: '%{page_name}的图像'
       video: 无标题视频
+      video_of: '%{page_name}的录像'
       sound: 无标题音频
+      sound_of: '%{page_name}的声带'
       map: 无标题地图
+      map_of: '%{page_name}的地图'
+      js_map: 无标题的互动地图
+      js_map_of: '%{page_name}的互动地图'
     subclasses:
       image: 映像
       video: 视频
       sound: 声音
       map_image: 地图
+      js_map: 互动地图
+  medium_collect_button: 收藏媒体
+  medium_description_blank: 此物件没有说明。
   medium_header_title: 标题：
   medium_header_description: 说明：
+  names:
+    prefer: 较喜欢
   nav:
     about: 中止
     discuss: 讨论
     education: 教育
     search:
       placeholder: 搜索 EOL ...
+    trait_bank: TraitBank
+  name_preferred_label: 较喜欢
+  page_icon_created: 已将%{name}图像移至上方
   pages:
     actions:
       collect: 收集
@@ -396,7 +622,7 @@ zh-CN:
       maps: 地图
       media: 媒体文件
       names: 名
-  recaptcha: 输入下面您看到的两个单词或数字
+  recaptcha: 验证码
   recaptcha_error: 请告诉我们你不是机器人。
   resources:
     actions:
