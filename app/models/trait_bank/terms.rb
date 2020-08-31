@@ -2,7 +2,7 @@
 class TraitBank
   # "Glossary" and meta-data methods about terms (plural) stored in TraitBank. See TraitBank::Term for methods handling a
   # single "instance."
-  class Terms
+  class Glossary
     CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
     TERM_TYPES = {
       predicate: ['measurement', 'association'],

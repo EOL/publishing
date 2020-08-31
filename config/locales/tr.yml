@@ -830,7 +830,6 @@ tr:
       import_traits: içe aktarma özellikleri (depodan)
       republish: yeniden yayınlan
       reindex: yeniden dizin
-      fetch_log: şartlar getirme günlüğü
       fix_no_names: İSİM OLMAYANI düzeltin
       index: tüm kaynaklara dön
       show_all:
@@ -839,21 +838,6 @@ tr:
         one: uyarı göster (%{count})
         other: uyarı göster (%{count})
       sync: depo ile senkronize et
-      sync_all_terms: tüm terimleri senkronize et
-      fetch_relationships: ilişkileri getir
-      sync_all_terms_confirm: Bu, yayınlama katmanında olmayan hasat katmanından TÜM
-        terimleri alır. Yaklaşık 15 dakika sürer. Emin misiniz?
-      fetch_relationships_confirm: Bu, mevcut ilişkileri kaldırır ve yeniden ekler,
-        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık beş dakika sürer.
-        Emin misiniz?
-      fetch_synonyms: eş anlamlıları getir
-      fetch_synonyms_confirm: Bu, mevcut eşanlamlıları kaldırır ve yeniden ekler,
-        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika sürer.
-        Emin misiniz?
-      fetch_units: birimleri getir
-      fetch_units_confirm: Bu, mevcut yüklem/birim ilişkilerini kaldırır ve yeniden
-        ekler, ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika
-        sürer. Emin misiniz?
       clear_publishing: kilidi kaldır
       clear_publishing_confirm: Bu, tüm yayınları 'bitirir' ve aktif olarak yayınlanırken
         kullanılırsa sorunlara neden olabilir. Emin misiniz?

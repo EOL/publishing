@@ -831,7 +831,6 @@ pms:
       import_traits: amporté dij trat (dal depòsit)
       republish: publiché torna
       reindex: riandicisé
-      fetch_log: argistr ëd l'arserca dij tèrmin
       fix_no_names: fiss a NO NAMEs
       index: andré a tute j'arsorse
       show_all:
@@ -840,20 +839,6 @@ pms:
         one: smon-e l'avertiment (%{count})
         other: smon-e j'avertiment (%{count})
       sync: sincronisé con ël depòsit
-      sync_all_terms: sincronisé tuti ij tèrmin
-      fetch_relationships: arcuperé le relassion
-      sync_all_terms_confirm: Sòn a radunërà TUTI ij tèrmin dël seuli ëd cujìa che
-        a son nen ant ël seuli ëd publicassion. Për sòn a-i va anviron 15 minute.
-        É-lo sigur?
-      fetch_relationships_confirm: Sòn a gava le relassion esistente e a-j gionta
-        torna, ma a peul falì e gaveje tute. A-i va anviron sinch minute. É-lo sigur?
-      fetch_synonyms: trové dij sinònim
-      fetch_synonyms_confirm: Sòn a gava ij sinònim esistent e a-j gionta torna, ma
-        a peul falì e gaveje tuti. A-i va anviron na minuta. É-lo sigur?
-      fetch_units: arcuperé j'unità
-      fetch_units_confirm: Sòn a gava le relassion ëd predicà/unità esistente e a-j
-        gionta torna, ma a peul falì e gaveje tute. A-i va anviron na minuta. É-lo
-        sigur?
       clear_publishing: gavé ël luchet
       clear_publishing_confirm: Sòn a «livrërà» tute le publicassion, e a peul creé
         dij problema s'a l'é dovrà durant na publicassion. É-lo sigur ?

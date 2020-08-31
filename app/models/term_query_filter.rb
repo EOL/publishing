@@ -19,8 +19,8 @@ class TermQueryFilter < ApplicationRecord
 
     def terms
       @terms ||= top_level? ?
-        TraitBank::Terms.top_level(type) :
-        TraitBank::Terms.children(parent_uri)
+        TraitBank::Glossary.top_level(type) :
+        TraitBank::Glossary.children(parent_uri)
     end
   end
 
@@ -53,7 +53,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def units_for_pred?
-    pred_uri && !TraitBank::Terms.units_for_pred(pred_uri).nil?
+    pred_uri && !TraitBank::Glossary.units_for_pred(pred_uri).nil?
   end
 
   def association_pred?

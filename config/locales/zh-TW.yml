@@ -797,7 +797,6 @@ zh-TW:
       import_traits: 匯入特質（從典藏庫）
       republish: 重新發佈
       reindex: 重建索引
-      fetch_log: 項目索取日誌
       fix_no_names: 修正沒有名稱
       index: 返回到所有資源
       show_all:
@@ -806,14 +805,6 @@ zh-TW:
         one: 顯示警告（%{count} 個）
         other: 顯示警告（%{count} 個）
       sync: 與典藏庫同步
-      sync_all_terms: 同步所有項
-      fetch_relationships: 取得關係
-      sync_all_terms_confirm: 這將會抓取所有來自獲取層級且不在發布層級的項，大約會花上 15 分鐘的時間，您確定要嗎？
-      fetch_relationships_confirm: 這會移除現有的關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上5分鐘時間，您確定嗎？
-      fetch_synonyms: 取得同物異名
-      fetch_synonyms_confirm: 這會移除現有的同物異名並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
-      fetch_units: 取得單位
-      fetch_units_confirm: 這會移除現有的述語/單位關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
       clear_publishing: 清除鎖定
       clear_publishing_confirm: 這將會'結束'所有發布，若在主動發佈時使用會引起問題。您確定嗎？
     headers:

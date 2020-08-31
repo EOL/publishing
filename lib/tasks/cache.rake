@@ -3,8 +3,6 @@ namespace :cache do
   task warm: :environment do
     puts "CacheWarmer.warm"
     CacheWarmer.warm
-    puts "TraitBank::Terms.warm_caches"
-    TraitBank::Terms.warm_caches
     puts "Done."
   end
 end

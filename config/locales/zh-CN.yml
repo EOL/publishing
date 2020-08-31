@@ -627,7 +627,6 @@ zh-CN:
   resources:
     actions:
       republish: 反出版
-      fetch_synonyms_confirm: 这将删除现有的同义词并重新添加它们，但可能会失败并删除它们。大约需要一分钟。是否确定
     headers:
       index: 资源
     no_events: 无！

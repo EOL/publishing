@@ -677,8 +677,6 @@ sv:
       reindex: omindexera
       show_all:
         other: visa alla (%{count})
-      sync_all_terms: synka alla termer
-      fetch_synonyms: hämta synonymer
     headers:
       index: Resurser
     no_events: Ingenting!

@@ -581,7 +581,7 @@ class Page < ApplicationRecord
 
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
-      TraitBank::Terms.page_glossary(id)
+      TraitBank::Glossary.page_glossary(id)
     end
   end
 

@@ -8,6 +8,7 @@
 #
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
 class EolTermBootstrapper
+  # TODO: Remove this, reverse the logic to only allow fields specified in the gem and ignore everything else.
   # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
   IGNORABLE_TERM_PARAMS =
     %w[distinct_page_count trait_row_count position section_ids is_ordinal id sections hide_from_dropdowns].freeze
@@ -36,7 +37,7 @@ class EolTermBootstrapper
   def get_terms_from_neo4j
     @terms_from_neo4j = []
     page = 0
-    while data = TraitBank::Terms.full_glossary(page += 1)
+    while data = TraitBank::Glossary.full_glossary(page += 1)
       break if data.empty?
       @terms_from_neo4j << data # Uses less memory than #+=
     end
@@ -75,8 +76,9 @@ class EolTermBootstrapper
       term = correct_keys(term)
       # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
       # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
-      term['parent_uri'] = TraitBank::Terms.parent_of_term(term['uri'])
-      term['synonym_of_uri'] = TraitBank::Terms.synonym_of_term(term['uri'])
+      # TODO: terms may have multiple parents ...
+      term['parent_uri'] = TraitBank::Term.parent_of_term(term['uri'])
+      term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
       @uri_hashes << term
     end
@@ -117,12 +119,15 @@ class EolTermBootstrapper
 
   def compare_with_gem
     seen_uris = {}
+    # TODO: rename uri_hashes to make it clear it's from neo4j
     @uri_hashes.each do |term_from_neo4j|
       seen_uris[term_from_neo4j['uri']] = true
       unless by_uri_from_gem.key?(term_from_neo4j['uri'])
+        # TODO: rename extra_uris to make it clear we are planning on deleting them.
         @extra_uris << term_from_neo4j['uri']
         next
       end
+      # TODO: just make sure that the parent, once it's and array, is compared correctly.
       @update_terms << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
     end
     EolTerms.list.each do |term_from_gem|

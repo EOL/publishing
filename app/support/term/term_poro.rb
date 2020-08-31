@@ -51,7 +51,7 @@ class TermPoro
     explanation = rel.nil? ? 'none.' : rel.join(', ')
   end
 
-  # NOTE this is a copy of an old method from TraitBank::Terms, but **I want this copied**, not to use that method.
+  # NOTE this is a copy of an old method from TraitBank::Glossary, but **I want this copied**, not to use that method.
   def uses_object_terms_directly?
     query(
       %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term { uri: '#{@uri}'}) RETURN term.uri LIMIT 1}
@@ -64,7 +64,7 @@ class TermPoro
     )["data"]
   end
 
-  # NOTE: this is pr-r-r-r-r-r-robably the same as TraitBank::Terms.any_obj_terms_for_pred? ...but that may change and
+  # NOTE: this is pr-r-r-r-r-r-robably the same as TraitBank::Term.any_obj_terms_for_pred? ...but that may change and
   # we want this stable
   def outgoing_relatives_use_object_terms?
     query(

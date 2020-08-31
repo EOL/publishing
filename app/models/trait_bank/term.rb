@@ -240,6 +240,7 @@ class TraitBank
         end
       end
 
+      # TODO: this can actually have MULTIPLE results. :|   Use DISTINCT
       def parent_of_term(term_uri)
         result = query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:parent_term]->(parent:Term)

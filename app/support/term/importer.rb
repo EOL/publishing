@@ -45,11 +45,11 @@ class Term::Importer
 
   def get_existing_terms
     Rails.cache.delete("trait_bank/terms_count/include_hidden")
-    count = TraitBank::Terms.count(include_hidden: true)
+    count = TraitBank::Glossary.count(include_hidden: true)
     per = 2000
     pages = (count / per.to_f).ceil
     (1..pages).each do |page|
-      terms = TraitBank::Terms.full_glossary(page, per, include_hidden: true).compact
+      terms = TraitBank::Glossary.full_glossary(page, per, include_hidden: true).compact
       terms.map { |t| t[:uri] }.each { |uri| @terms[uri] = true }
     end
   end
