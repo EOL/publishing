@@ -4,6 +4,15 @@ $(function() {
       , height = 500
       ;
 
+  $data = $('.js-sankey-data')
+  const graph = {
+    nodes: $data.data('nodes'),
+    links: $data.data('links')
+  }
+
+  console.log('graph:', graph);
+
+  /*
   const graph = {
     nodes: [
       { 
@@ -22,6 +31,7 @@ $(function() {
       { source: 0, target: 2, value: 306, names: ["insectivore", "grassland"]}
     ]
   }
+  */
 
   const sankey = d3.sankey()
     .nodeSort(null)
@@ -40,6 +50,8 @@ $(function() {
     links: graph.links.map(d => Object.assign({}, d))
   });
 
+  console.log(nodes);
+
   svg.append("g")
     .selectAll("rect")
     .data(nodes)
@@ -51,7 +63,6 @@ $(function() {
     .append("title")
       .text(d => `${d.name}\n${d.value.toLocaleString()}`);
 
-  console.log('links:', links);
 
   var link = d3.linkHorizontal()
     .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])

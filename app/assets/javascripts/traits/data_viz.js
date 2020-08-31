@@ -1,3 +1,4 @@
+//= require sankey_test
 window.TraitDataViz = (function(exports) {
   var BAR_COLORS = ['#b3d7ff', '#e6f2ff'];
 

@@ -1,3 +1,5 @@
+require "set"
+
 module Traits
   class DataVizController < ApplicationController
     layout "traits/data_viz"
@@ -122,7 +124,42 @@ module Traits
 
     def sankey
       @query = TermQuery.new(term_query_params)
-      render json: TraitBank.sankey_data(@query)
+      results = TraitBank.sankey_data(@query)
+
+      # Build nodes
+      node_set = Set.new
+      results.each do |r|
+        (0..@query.filters.length - 1).each do |i|
+          name_key = :"child#{i}.name"
+          uri_key = :"child#{i}.uri"
+          count_key = :"child#{i}_count"
+          node_set.add({ name: r[name_key], uri: r[uri_key], fixedValue: r[count_key] })
+          #node_set.add({ name: r[name_key], uri: r[uri_key] })
+        end
+      end
+      @nodes = node_set.to_a
+
+      # Build links
+      @links = []
+      results.each do |r|
+        (0..@query.filters.length - 2).each do |i|
+          uri1 = r[:"child#{i}.uri"]
+          uri2 = r[:"child#{i + 1}.uri"]
+          name1 = r[:"child#{i}.name"]
+          name2 = r[:"child#{i + 1}.name"]
+          source_index = @nodes.index { |node| node[:uri] == uri1 }
+          target_index = @nodes.index { |node| node[:uri] == uri2 }
+          value = r[:"intersection_count"]
+          @links << { 
+            source: source_index, 
+            target: target_index, 
+            value: value, 
+            names: [name1, name2] 
+          }
+        end
+      end
+
+      render layout: "application"
     end
 
     private
