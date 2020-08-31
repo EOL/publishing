@@ -9,11 +9,10 @@
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
 class EolTermBootstrapper
   # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
-  IGNORABLE_TERM_PARAMS = %w[distinct_page_count trait_row_count position section_ids is_ordinal id sections hide_from_dropdowns].freeze
+  IGNORABLE_TERM_PARAMS =
+    %w[distinct_page_count trait_row_count position section_ids is_ordinal id sections hide_from_dropdowns].freeze
 
-  def initialize(filename)
-    @terms_from_neo4j = []
-    @uri_hashes = []
+  def initialize(filename = nil)
     @filename = filename
   end
 
@@ -24,7 +23,18 @@ class EolTermBootstrapper
     report
   end
 
+  def load
+    get_terms_from_neo4j
+    populate_uri_hashes
+    reset_comparisons
+    compare_with_gem
+    create_new
+    update_existing
+    delete_extras
+  end
+
   def get_terms_from_neo4j
+    @terms_from_neo4j = []
     page = 0
     while data = TraitBank::Terms.full_glossary(page += 1)
       break if data.empty?
@@ -60,9 +70,11 @@ class EolTermBootstrapper
   #   synonym_of_uri:
   #   alias:
   def populate_uri_hashes
+    @uri_hashes = []
     @terms_from_neo4j.each do |term|
       term = correct_keys(term)
       # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
+      # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
       term['parent_uri'] = TraitBank::Terms.parent_of_term(term['uri'])
       term['synonym_of_uri'] = TraitBank::Terms.synonym_of_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
@@ -95,5 +107,46 @@ class EolTermBootstrapper
     puts "Done."
     lines = `wc #{@filename} | awk '{print $1;}'`.chomp
     puts "Wrote #{@uri_hashes.size} term hashes to `#{@filename}` (#{lines} lines)."
+  end
+
+  def reset_comparisons
+    @new_uris = []
+    @update_uris = []
+    @extra_uris = []
+  end
+
+  def compare_with_gem
+    seen_uris = {}
+    @uri_hashes.each do |term_from_neo4j|
+      seen_uris[term_from_neo4j['uri']] = true
+      unless by_uri_from_gem.key?(term_from_neo4j['uri'])
+        @extra_uris << term_from_neo4j['uri']
+        next
+      end
+      @update_uris << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
+    end
+    EolTerms.list.each do |term_from_gem|
+      @new_uris << term_from_gem unless seen_uris.key?(term_from_gem['uri'])
+    end
+  end
+
+  def by_uri_from_gem
+    return @by_uri_from_gem unless @by_uri_from_gem.nil?
+    @by_uri_from_gem = {}
+    EolTerms.list.each { |term| @by_uri_from_gem[term['uri']] = term }
+    @by_uri_from_gem
+  end
+
+  def create_new
+    # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster.
+    @new_uris.each { |term| TraitBank::Term.create(term) }
+  end
+
+  def update_existing
+    @update_uris.each { |term| TraitBank.(TraitBank.term(term['uri']), term) }
+  end
+
+  def delete_extras
+    @extra_uris
   end
 end

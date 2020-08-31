@@ -65,8 +65,7 @@ class TermsController < ApplicationController
 
   def update
     term = params[:term].merge(uri: params[:uri])
-    # TODO: sections ...  I can't properly test that right now.
-    TraitBank.update_term(term) # NOTE: *NOT* hash!
+    TraitBank::Term.update(term)
     redirect_to(term_path(term[:uri]))
   end
 

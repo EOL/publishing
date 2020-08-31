@@ -36,7 +36,7 @@ class Term::Importer
     # TODO: really, we should write these to CSV (or get CSV from the server) and import them like other traits.
     # That's a lot of work, though, so I'm skipping it for now. The cost is that it is REALLY SLOW, esp. when there's
     # more than a few dozen terms to import:
-    TraitBank.create_term(term.merge(force: true))
+    TraitBank::Term.create(term.merge(force: true))
   end
 
   def new_terms

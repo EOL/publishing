@@ -1,15 +1,18 @@
+# q.v.:
 class TraitBank
+  # "Glossary" and meta-data methods about terms (plural) stored in TraitBank. See TraitBank::Term for methods handling a
+  # single "instance."
   class Terms
     CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
     TERM_TYPES = {
       predicate: ['measurement', 'association'],
       object_term: ['value']
-    }
+    }.freeze
     DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
 
     class << self
-      delegate :query, :connection, :limit_and_skip_clause, :child_has_parent, :is_synonym_of, :array_to_qs,
-               to: TraitBank
+      delegate :query, :connection, :limit_and_skip_clause, :array_to_qs, to: TraitBank
+      delegate :child_has_parent, :is_synonym_of, to: TraitBank::Term # TODO: TraitBank::Term::Relationship
       delegate :log, to: TraitBank::Logger
 
       def count(options = {})
@@ -237,113 +240,6 @@ class TraitBank
           end
         end
         uris
-      end
-
-      def obj_terms_for_pred(pred_uri, orig_qterm = nil)
-        qterm = orig_qterm.delete('"').downcase.strip
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
-          name_field = Util::I18nUtil.term_name_property
-          q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
-          q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
-          q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
-          res = query(q)
-          res["data"] ? res["data"].map do |t|
-            hash = t.first["data"].symbolize_keys
-            hash[:name] = hash[:"#{name_field}"]
-            hash
-          end : []
-        end
-      end
-
-      def any_obj_terms_for_pred?(pred)
-        Rails.cache.fetch("trait_bank/pred_has_object_terms_2_checks/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
-          query(
-            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)<-[:synonym_of|:parent_term*0..]-(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
-          )["data"].any? ||
-          query(
-            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)-[:synonym_of|:parent_term*0..]->(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
-          )["data"].any?
-        end
-      end
-
-      # NOTE the order of args, here.
-      def set_units_for_pred(units_uri, pred_uri)
-        if units_uri =~ /^u/ # 'unitless', a secret code for "this is an ordinal measurement (and has no units)"
-          query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }) SET predicate.is_ordinal = true})
-        else
-          query(%{MATCH (predicate:Term { uri: "#{pred_uri}" }), (units_term:Term { uri: "#{units_uri}"})
-            CREATE (predicate)-[:units_term]->(units_term)})
-        end
-      end
-
-      def units_for_pred(pred_uri)
-        key = "trait_bank/normal_unit_for_pred/#{pred_uri}"
-
-        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          ordinal = query(%{
-            MATCH (predicate:Term { uri: "#{pred_uri}", is_ordinal: true }) RETURN predicate LIMIT 1
-          })["data"].any?
-          if ordinal
-            :ordinal
-          else
-            res = query(%{
-              MATCH (predicate:Term { uri: "#{pred_uri}" })-[:units_term]->(units_term:Term)
-              RETURN units_term.name, units_term.uri LIMIT 1
-            })["data"]
-            if (result = res&.first)
-              (name, uri) = result
-              { units_name: name, units_uri: uri, normal_units_name: name, normal_units_uri: uri }
-            else
-              nil
-            end
-          end
-        end
-      end
-
-      def any_direct_records_for_pred?(uri)
-        key = "trait_bank/any_direct_records_for_pred?/#{uri}"
-        Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
-          res = query(%{
-            MATCH (t:Trait)-[:predicate]->(:Term{uri: '#{uri}'})
-            RETURN t LIMIT 1
-          })["data"]
-          res.any?
-        end
-      end
-
-      def parent_of_term(term_uri)
-        result = query(%Q(
-          MATCH (:Term{ uri: "#{term_uri}" })-[:parent_term]->(parent:Term)
-          RETURN parent.uri
-          LIMIT 1
-        ))
-        return nil unless result && result.key?('data') && !result['data'].empty? && !result['data'].first.empty?
-        result['data'].first.first
-      end
-
-      def synonym_of_term(term_uri)
-        result = query(%Q(
-          MATCH (:Term{ uri: "#{term_uri}" })-[:synonym_of]->(parent:Term)
-          RETURN parent.uri
-          LIMIT 1
-        ))
-        return nil unless result && result.key?('data') && !result['data'].empty? && !result['data'].first.empty?
-        result['data'].first.first
-      end
-
-      def term_descendant_of_other?(term_uri, other_uri)
-        result = query(%Q(
-          MATCH p=(:Term{ uri: "#{term_uri}" })-[:parent_term*1..]->(:Term{ uri: "#{other_uri}" })
-          RETURN p
-          LIMIT 1
-        ))
-
-        result["data"].any?
-      end
-
-      private
-      def term_name_prefix_match(label, qterm)
-        "LOWER(#{label}.#{Util::I18nUtil.term_name_property}) =~ \"#{qterm.gsub(/"/, '').downcase}.*\" "
       end
     end
   end
