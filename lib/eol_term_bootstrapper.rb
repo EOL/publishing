@@ -110,8 +110,8 @@ class EolTermBootstrapper
   end
 
   def reset_comparisons
-    @new_uris = []
-    @update_uris = []
+    @new_terms = []
+    @update_terms = []
     @extra_uris = []
   end
 
@@ -123,10 +123,10 @@ class EolTermBootstrapper
         @extra_uris << term_from_neo4j['uri']
         next
       end
-      @update_uris << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
+      @update_terms << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
     end
     EolTerms.list.each do |term_from_gem|
-      @new_uris << term_from_gem unless seen_uris.key?(term_from_gem['uri'])
+      @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'])
     end
   end
 
@@ -139,14 +139,29 @@ class EolTermBootstrapper
 
   def create_new
     # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster.
-    @new_uris.each { |term| TraitBank::Term.create(term) }
+    @new_terms.each { |term| TraitBank::Term.create(term) }
   end
 
   def update_existing
-    @update_uris.each { |term| TraitBank.(TraitBank.term(term['uri']), term) }
+    @update_terms.each { |term| TraitBank.(TraitBank.term(term['uri']), term) }
   end
 
   def delete_extras
-    @extra_uris
+    # First you have to make sure they aren't related to anything. If they are, warn. But, otherwise, it should be safe to
+    # delete them.
+    @extra_uris.each do |uri|
+      next if uri_has_relationships?(uri)
+      TraitBank::Term.delete(uri)
+    end
+  end
+
+  def uri_has_relationships?(uri)
+    num =
+      TraitBank.count_rels_by_direction("term:Term { uri: '#{uri}'}", :outgoing) +
+      TraitBank.count_rels_by_direction("term:Term { uri: '#{uri}'}", :incoming)
+    return false if num.zero?
+    warn "NOT REMOVING TERM FOR #{uri}. It has #{num} relationships! You should check this manually and either add it to "\
+         'the list or delete the term and all its relationships.'
+    true
   end
 end

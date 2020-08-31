@@ -1359,6 +1359,12 @@ class TraitBank
       "[#{result.join(", ")}]"
     end
 
+    # default direction is outgoing.
+    def count_rels_by_direction(node, direction = nil)
+      relationsip = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
+      TraitBank.query("MATCH (#{node})#{relationship}() RETURN COUNT(relationship)")['data'].first.first
+    end
+
     private
     def resource_filter_part(resource_id)
       if resource_id

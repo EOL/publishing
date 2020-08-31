@@ -96,6 +96,11 @@ class TraitBank
         hash
       end
 
+      def delete(uri)
+        # Not going to bother with DETATCH, since there should only be one!
+        TraitBank.query("MATCH (term:Term { uri: '#{uri}'}) DELETE term")
+      end
+
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
 
       # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
