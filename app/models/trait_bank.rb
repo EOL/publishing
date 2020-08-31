@@ -1413,13 +1413,16 @@ class TraitBank
       end
       parts << "MATCH #{child_matches.join(", ")}"
       parts << "UNWIND pages AS page"
+      parts << "WITH #{child_vars.join(", ")}, collect(DISTINCT page) AS pages"
+      parts << "ORDER BY size(pages) DESC"
+      parts << "LIMIT 10"
       parts << sankey_independent_counts(child_vars)
       parts << "UNWIND pages AS page"
-      parts << "WITH #{child_vars.map { |cv| "#{cv}, #{cv}_count" }.join(", ")}, count(DISTINCT page) AS intersection_count"
-      parts << "RETURN #{child_vars.map { |cv| "#{cv}.uri, #{cv}.name, #{cv}_count" }.join(", ")}, intersection_count"
+      parts << "WITH #{child_vars.map { |cv| "#{cv}.uri" }.join(" + '|' + ")} AS key, #{child_vars.map { |cv| "#{cv}, #{cv}_count" }.join(", ")}, count(DISTINCT page) AS intersection_count"
+      parts << "RETURN key, #{child_vars.map { |cv| "#{cv}.uri, #{cv}.name, #{cv}_count" }.join(", ")}, intersection_count"
       parts << "ORDER BY intersection_count DESC"
 
-      query(parts.join("\n"), params)
+      results_to_hashes(query(parts.join("\n"), params), id_col_label: 'key')
     end
 
     def sankey_independent_counts(child_vars)
