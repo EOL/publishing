@@ -1427,26 +1427,28 @@ class TraitBank
       comp_limit = 10
 
       # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
-      # 10 prey
-      # 10 predators
+      # 100 prey
+      # 100 predators
       # 10 competitors per prey
+      #
+      # The limit of 100 is way more than we really show to pad for results that get filtered out downstream.
       qs = "MATCH (source:Page{page_id: #{page.id}}) "\
         "OPTIONAL MATCH (source)-[#{TRAIT_RELS}]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
-        "(eats_prey:Page{page_id: eats_trait.object_page_id}) "\
+        "(eats_trait)-[:object_page]->(eats_prey:Page) "\
         "WHERE eats_term.uri IN #{eats_string} AND eats_prey.page_id <> source.page_id "\
         "WITH DISTINCT source, eats_prey "\
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey'}) AS prey_rows, source "\
-        "OPTIONAL MATCH (pred:Page)-[#{TRAIT_RELS}]->(pred_eats_trait:Trait{object_page_id: source.page_id})-[:predicate]->(pred_eats_term:Term) "\
-        "WHERE pred_eats_term.uri IN #{eats_string} AND pred.page_id <> source.page_id "\
+        "OPTIONAL MATCH (pred:Page)-[#{TRAIT_RELS}]->(pred_eats_trait:Trait)-[:object_page]->(source), (pred_eats_trait)-[:predicate]->(pred_eats_term:Term) "\
+        "WHERE pred_eats_term.uri IN #{eats_string} AND pred <> source "\
         "WITH DISTINCT source, pred, prey_rows "\
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator' }) AS pred_rows, prey_rows, source "\
         "UNWIND prey_rows AS prey_row "\
-        "WITH prey_row, pred_rows, prey_rows, source "\
-        "OPTIONAL MATCH (comp_eats:Page)-[#{TRAIT_RELS}]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term) "\
-        "WHERE comp_eats_term.uri IN #{eats_string} AND prey_row.target.page_id <> comp_eats.page_id AND comp_eats.page_id <> source.page_id "\
-        "WITH prey_row, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
+        "WITH prey_row.target AS prey_target, pred_rows, prey_rows, source "\
+        "OPTIONAL MATCH (comp_eats:Page)-[#{TRAIT_RELS}]->(comp_eats_trait:Trait)-[:object_page]->(prey_target), (comp_eats_trait)-[:predicate]->(comp_eats_term:Term) "\
+        "WHERE comp_eats_term.uri IN #{eats_string} AND prey_target <> comp_eats AND comp_eats <> source "\
+        "WITH prey_target, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_target.page_id, source: comp_eats, target: prey_target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
         "UNWIND comp_rows AS comp_row "\
         "WITH DISTINCT pred_rows, prey_rows, collect(comp_row) AS comp_rows "\
         "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
