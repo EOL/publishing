@@ -3,6 +3,7 @@ class TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
     class << self
+      RELATIONSHIP_PROPERTIES = { 'parent_uris' => 'parent', 'synonym_of_uri' => 'synonym_of'}.freeze
       BOOLEAN_PROPERTIES =
         %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary is_verbatim_only].freeze
 
@@ -22,9 +23,10 @@ class TraitBank
 
       # This method assumes you have an existing term object that you pulled from neo4j. Use #update if you just have a hash.
       def update_existing(existing_term, properties)
-        properties.delete('uri') # We already have this.
+        uri = properties.delete('uri') # We already have this.
         begin
-          connection.set_node_properties(existing_term, properties) # Cypher is alergic to nils.
+          update_relationships(uri, properties)
+          connection.set_node_properties(existing_term, properties)
         rescue => e # rubocop:disable Style/RescueStandardError
           # This method is typically run as part of a script, so I'm just using STDOUT here:
           puts "ERROR: failed to update term #{properties['uri']}"
@@ -42,18 +44,42 @@ class TraitBank
         properties = properties.transform_keys(&:to_s)
         raise 'Cannot update a term without a URI.' unless properties['uri']
         clean_properties(properties)
+        update_relationships(properties['uri'], properties)
         res = query(query_for_update(properties))
         raise ActiveRecord::RecordNotFound if res.nil?
         res['data'].first.first.symbolize_keys
       end
 
+      def update_relationships(uri, properties)
+        RELATIONSHIP_PROPERTIES.each do |property, name|
+          if target_uris = properties.delete(property)
+            remove_relationships(uri, name)
+            Array(target_uris).each do |target_uri|
+              add_relationship(uri, name, target_uri)
+            end
+          end
+        end
+      end
+
+      def remove_relationships(uri, name)
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"})-[rel:#{name}]->() DETATCH DELETE rel})
+      end
+
+      def add_relationship(source_uri, name, target_uri)
+        TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '""')}" }),
+                          (target:Term { uri: "#{target_uri.gsub(/"/, '""')}}"})
+          CREATE (term)-[:#{name}]->(target)})
+      end
+
       def query_for_update(properties)
         sets = []
-        sets += properties.map do |property|
+        properties.each do |property|
           if BOOLEAN_PROPERTIES.include?(property) # Booleans are handled separately.
-            "term.#{field} = #{properties[field] ? 'true' : 'false'}"
+            sets << "term.#{field} = #{properties[field] ? 'true' : 'false'}"
+          elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
+            # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
           else
-            "term.#{property} = '#{properties[property].gsub("'", "''")}'"
+            sets << "term.#{property} = '#{properties[property].gsub("'", "''")}'"
           end
         end
         "MATCH (term:Term { uri: '#{properties['uri']}' }) SET #{sets.join(', ')} RETURN term"
@@ -77,15 +103,29 @@ class TraitBank
         properties.key?(key) && properties[key] && !properties[key].to_s.downcase == 'false'
       end
 
+      def remove_relationship_properties(properties)
+        removed = {}
+        RELATIONSHIP_PROPERTIES.keys.each do |property|
+          removed[property] = properties.delete(property) if properties.key?(property)
+        end
+        removed
+      end
+
       def create_new(properties)
+        removed = remove_relationship_properties(properties)
         term_node = connection.create_node(properties)
         # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_label(term_node, "Term")
+        connection.set_label(term_node, 'Term')
         # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
         # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
-        count = Rails.cache.read("trait_bank/terms_count") || 0
-        Rails.cache.write("trait_bank/terms_count", count + 1)
+        update_relationships(properties['uri'], removed) unless removed.blank?
+        increment_terms_count_cache
         term_node
+      end
+
+      def increment_terms_count_cache
+        count = Rails.cache.read('trait_bank/terms_count') || 0
+        Rails.cache.write('trait_bank/terms_count', count + 1)
       end
 
       def set_nil_properties_to_blank(hash)
@@ -98,7 +138,7 @@ class TraitBank
 
       def delete(uri)
         # Not going to bother with DETATCH, since there should only be one!
-        TraitBank.query("MATCH (term:Term { uri: '#{uri}'}) DELETE term")
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"}) DELETE term})
       end
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
@@ -155,13 +195,14 @@ class TraitBank
 
       # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def descendants_of_term(uri)
-        terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
+        terms = query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '""')}" })
+                         RETURN DISTINCT term})
         terms["data"].map { |r| r.first["data"] }
       end
 
       # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def term_member_of(uri)
-        terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
+        terms = query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '""')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
         terms["data"].map { |r| r.first }
       end
 
@@ -170,9 +211,11 @@ class TraitBank
       # Keep checking the following methods for use in the codebase:
       def obj_terms_for_pred(pred_uri, orig_qterm = nil)
         qterm = orig_qterm.delete('"').downcase.strip
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}", expires_in: CACHE_EXPIRATION_TIME) do
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}",
+                          expires_in: CACHE_EXPIRATION_TIME) do
           name_field = Util::I18nUtil.term_name_property
-          q = "MATCH (object:Term { type: 'value', is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })"
+          q = %Q{MATCH (object:Term { type: 'value',
+                 is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })}
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
@@ -187,10 +230,12 @@ class TraitBank
       def any_obj_terms_for_pred?(pred)
         Rails.cache.fetch("trait_bank/pred_has_object_terms_2_checks/#{pred}", expires_in: CACHE_EXPIRATION_TIME) do
           query(
-            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)<-[:synonym_of|:parent_term*0..]-(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)<-[:synonym_of|:parent_term*0..]-(:Term
+              { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
           )["data"].any? ||
           query(
-            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)-[:synonym_of|:parent_term*0..]->(:Term { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
+            %{MATCH (term:Term)<-[:object_term]-(:Trait)-[:predicate]->(:Term)-[:synonym_of|:parent_term*0..]->(:Term
+              { uri: '#{pred}'}) RETURN term.uri LIMIT 1}
           )["data"].any?
         end
       end
@@ -233,22 +278,20 @@ class TraitBank
         key = "trait_bank/any_direct_records_for_pred?/#{uri}"
         Rails.cache.fetch(key, expires_in: CACHE_EXPIRATION_TIME) do
           res = query(%{
-            MATCH (t:Trait)-[:predicate]->(:Term{uri: '#{uri}'})
+            MATCH (t:Trait)-[:predicate]->(:Term{uri: "#{uri.gsub(/"/, '""')}"})
             RETURN t LIMIT 1
           })["data"]
           res.any?
         end
       end
 
-      # TODO: this can actually have MULTIPLE results. :|   Use DISTINCT
-      def parent_of_term(term_uri)
+      def parents_of_term(term_uri)
         result = query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:parent_term]->(parent:Term)
-          RETURN parent.uri
-          LIMIT 1
+          RETURN DISTINCT parent.uri
         ))
         return nil unless result&.key?('data') && !result['data'].empty? && !result['data'].first.empty?
-        result['data'].first.first
+        result['data'].first
       end
 
       def synonym_of_term(term_uri)

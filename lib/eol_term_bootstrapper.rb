@@ -8,11 +8,6 @@
 #
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
 class EolTermBootstrapper
-  # TODO: Remove this, reverse the logic to only allow fields specified in the gem and ignore everything else.
-  # Some parameters on Term nodes are auto-generated, and others are vesitgial, so we can ignore them:
-  IGNORABLE_TERM_PARAMS =
-    %w[distinct_page_count trait_row_count position section_ids is_ordinal id sections hide_from_dropdowns].freeze
-
   def initialize(filename = nil)
     @filename = filename
   end
@@ -44,56 +39,24 @@ class EolTermBootstrapper
     @terms_from_neo4j.flatten! # Beacuse we used #<<
   end
 
-  # neo4j format:
-  # :attribution=>"",
-  # :definition=>"a measure of specific growth rate",
-  # :comment=>"",
-  # :created_at=>"2019-01-15T21:00:41.000Z",
-  # :force=>true,
-  # :is_hidden_from_select=>false,
-  # :is_hidden_from_overview=>false,
-  # :is_hidden_from_glossary=>false,
-  # :is_text_only=>false,
-  # :is_verbatim_only=>false,
-  # :ontology_source_url=>"",
-  # :ontology_information_url=>"",
-  # :position=>""
-  # :name=>"%/month",
-  # :name_[LANG_CODE]=>"%/month",   ... but we don't need to worry about these here.
-  # :section_ids=>"",
-  # :type=>"value",
-  # :updated_at=>"2019-01-15T21:00:41.000Z",
-  # :uri=>"http://eol.org/schema/terms/percentPerMonth",
-  # :used_for=>"value",
-  # ---
-  # YAML format adds:
-  #   parent_uri:
-  #   synonym_of_uri:
-  #   alias:
   def populate_uri_hashes
-    @uri_hashes = []
+    @terms_from_neo4j = []
     @terms_from_neo4j.each do |term|
       term = correct_keys(term)
       # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
       # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
-      # TODO: terms may have multiple parents ...
-      term['parent_uri'] = TraitBank::Term.parent_of_term(term['uri'])
+      term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri'])
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
-      @uri_hashes << term
+      @terms_from_neo4j << term
     end
   end
 
   def correct_keys(term)
     hash = term.stringify_keys
-    IGNORABLE_TERM_PARAMS.each do |ignored_key|
-      hash.delete(ignored_key)
-    end
-    term.keys.each do |key_sym|
-      key = key_sym.to_s
-      hash.delete(key) if key[0..4] == 'name_'
-    end
-    hash
+    new_hash = {}
+    VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
+    new_hash
   end
 
   def create_yaml
@@ -101,33 +64,30 @@ class EolTermBootstrapper
       file.write "# This file was automatically generated from the eol_website codebase using EolTermBootstrapper.\n"
       file.write "# COMPILED: #{Time.now.strftime('%F %T')}\n"
       file.write "# You MAY edit this file as you see fit. You may remove this message if you care to.\n\n"
-      file.write({ 'terms' => @uri_hashes }.to_yaml)
+      file.write({ 'terms' => @terms_from_neo4j }.to_yaml)
     end
   end
 
   def report
     puts "Done."
     lines = `wc #{@filename} | awk '{print $1;}'`.chomp
-    puts "Wrote #{@uri_hashes.size} term hashes to `#{@filename}` (#{lines} lines)."
+    puts "Wrote #{@terms_from_neo4j.size} term hashes to `#{@filename}` (#{lines} lines)."
   end
 
   def reset_comparisons
     @new_terms = []
     @update_terms = []
-    @extra_uris = []
+    @uris_to_delete = []
   end
 
   def compare_with_gem
     seen_uris = {}
-    # TODO: rename uri_hashes to make it clear it's from neo4j
-    @uri_hashes.each do |term_from_neo4j|
+    @terms_from_neo4j.each do |term_from_neo4j|
       seen_uris[term_from_neo4j['uri']] = true
       unless by_uri_from_gem.key?(term_from_neo4j['uri'])
-        # TODO: rename extra_uris to make it clear we are planning on deleting them.
-        @extra_uris << term_from_neo4j['uri']
+        @uris_to_delete << term_from_neo4j['uri']
         next
       end
-      # TODO: just make sure that the parent, once it's and array, is compared correctly.
       @update_terms << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
     end
     EolTerms.list.each do |term_from_gem|
@@ -143,18 +103,19 @@ class EolTermBootstrapper
   end
 
   def create_new
-    # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster.
+    # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster. But I would prefer to
+    # generalize the current Slurp class before attempting it.
     @new_terms.each { |term| TraitBank::Term.create(term) }
   end
 
   def update_existing
-    @update_terms.each { |term| TraitBank.(TraitBank.term(term['uri']), term) }
+    @update_terms.each { |term| TraitBank::Term.update(TraitBank.term(term['uri']), term) }
   end
 
   def delete_extras
     # First you have to make sure they aren't related to anything. If they are, warn. But, otherwise, it should be safe to
     # delete them.
-    @extra_uris.each do |uri|
+    @uris_to_delete.each do |uri|
       next if uri_has_relationships?(uri)
       TraitBank::Term.delete(uri)
     end
@@ -162,8 +123,8 @@ class EolTermBootstrapper
 
   def uri_has_relationships?(uri)
     num =
-      TraitBank.count_rels_by_direction("term:Term { uri: '#{uri}'}", :outgoing) +
-      TraitBank.count_rels_by_direction("term:Term { uri: '#{uri}'}", :incoming)
+      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '""')}"}}, :outgoing) +
+      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '""')}"}}, :incoming)
     return false if num.zero?
     warn "NOT REMOVING TERM FOR #{uri}. It has #{num} relationships! You should check this manually and either add it to "\
          'the list or delete the term and all its relationships.'
