@@ -49,11 +49,11 @@ zh-CN:
   breadcrumbs:
     notices:
       canonical: 学名现记载于“面包屑”页。
-      vernacular: 如有土名，土名现记载于“面包屑”页。
+      vernacular: 如有方言，方言现记载于“面包屑”页。
     setting_header: 名称在“面包屑”
     types:
       scientific: 科学的
-      vernacular: 土话
+      vernacular: 方言
   button_create: 创造
   button_add: 加入
   cancel: 取消
@@ -70,13 +70,14 @@ zh-CN:
       header: 页面丰富度
       score: 丰富度得分
       page_contents_count: 相关内容
+      missing: 本页物种的丰富与否尚待计算。
       media_count: 媒体文件
       articles_count: 摘录
       links_count: 链接
       maps_count: 地图
       data_count: 数据
       nodes_count: 节点
-      vernaculars_count: 白话
+      vernaculars_count: 方言
       scientific_names_count: 学名
       referents_count: 参考文献
       species_count: 种
@@ -534,19 +535,34 @@ zh-CN:
     tr: 土耳其语
     tur: 土耳其语
     Q36730: 奥斯曼土耳其语
+    tk: 土库曼语
+    tw: 特威语
+    Q13238: 乌德穆尔特语
     ug: 维吾尔语
     uk: 乌克兰语
     ukr: 乌克兰语
     none: 未指定
+    Q13248: 上索布语
     ur: 乌尔都语
     uz: 乌兹别克语
+    ve: 文达语
+    Q32747: 俄国的芬兰人说的语言
     vi: 越南文
+    vo: 沃拉普克语
+    Q32858: 沃提克语
+    wa: 华隆语
+    Q34279: 瓦雷语
     cy: 威尔士语
     wel: 威尔士语
     Q100103: 西佛兰芒语
+    fy: 西弗里西亚语
+    wo: 沃洛夫语
     Q34290: 吴语
+    xh: 科萨语
     yi: 意第绪语
     yo: 约鲁巴语
+    Q10199: 扎扎其语
+    Q237409: 古新西兰语
     za: 壮语
     zu: 祖鲁语
   layout_sign_in: 登录
@@ -555,6 +571,9 @@ zh-CN:
   literature_and_references_header: 参考文献
   maps:
     empty: 没有可用于此页面的地图。
+    occurrence_caption: '%{page_name}已知的出没，已采集的标本和观察。在全球生物多样性资讯机构查看此物种。'
+    occurrence_caption_w_link_html: '%{page_name}已知的出没，已采集的标本和观察。<a href=''%{url}''>在全球生物多样性资讯机构查看此物种。<i
+      class=''fa fa-external-link''></i></a>'
     other_maps_title: 非互动地图
   medium:
     untitled:
@@ -580,6 +599,7 @@ zh-CN:
   medium_header_description: 说明：
   names:
     prefer: 较喜欢
+    preferred_in_language_for_page: '%{name}现在是%{page}较偏爱的%{language}当地语言'
   nav:
     about: 中止
     discuss: 讨论
