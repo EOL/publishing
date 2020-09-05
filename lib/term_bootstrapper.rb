@@ -1,13 +1,13 @@
 # This is meant to be "one-time-use-only" code to generate a "bootstrap" for the eol_terms gem, by
 # reading all of the terms we have in neo4j and writing a YML file with all of that info in it.
 #
-# > EolTermBootstrapper.new('/app/public/data/terms.yml').create # For example...
+# > TermBootstrapper.new('/app/public/data/terms.yml').create # For example...
 # Done.
 # Wrote 3617 term hashes to `/app/public/data/terms.yml` (76321 lines).
 # => nil
 #
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
-class EolTermBootstrapper
+class TermBootstrapper
   def initialize(filename = nil)
     @filename = filename
   end
@@ -61,7 +61,7 @@ class EolTermBootstrapper
 
   def create_yaml
     File.open(@filename, 'w') do |file|
-      file.write "# This file was automatically generated from the eol_website codebase using EolTermBootstrapper.\n"
+      file.write "# This file was automatically generated from the eol_website codebase using TermBootstrapper.\n"
       file.write "# COMPILED: #{Time.now.strftime('%F %T')}\n"
       file.write "# You MAY edit this file as you see fit. You may remove this message if you care to.\n\n"
       file.write({ 'terms' => @terms_from_neo4j }.to_yaml)
