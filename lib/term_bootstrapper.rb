@@ -45,7 +45,7 @@ class TermBootstrapper
       term = correct_keys(term)
       # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
       # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
-      term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri'])
+      term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
       @terms_from_neo4j << term
