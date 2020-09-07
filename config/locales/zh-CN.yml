@@ -24,9 +24,9 @@ zh-CN:
   language_name: 英语
   about:
     trait_bank:
-      title: TraitBank
-      body_html: <p>EOL的资料和技术团队将EOL的结构化数据资源--特征及其他属性，生态环境互动，本地化分类，动态调整层次体系--统称TraitBank。其内容管理与我们其他传统的图像，录像，音像及描述性文档内容稍有不同；
-        其用途亦不相同。</p><p>特征储存库比EOL其他部分新；构想源于物种页面组经理Cynthia Parr并于2014年一月在EOL上线。从此，结构化数据一直是我们内容发展的第一优先。</p><p>现在，您可以透过结构化数据<a
+      title: 特质资料库
+      body_html: <p>生命大百科（EOL）的资料和技术团队将EOL的结构化数据资料--特征及其他特定性质，生态环境互动，本地化分类，动态调整层次体系--统称特质资料库。其内容管理与我们其他传统的图像，录像，音像及描述性文档内容稍有不同；
+        其用途亦不相同。</p><p>特质储存库比EOL其他部分新；构想源于物种页面组经理Cynthia Parr并于2014年一月在EOL上线。从此，结构化数据一直是我们内容发展的第一优先。</p><p>现在，您可以透过结构化数据<a
         href='%{example_search_path}'>搜寻</a>或浏览 EOL，或下载数据, 亦或您在我们新的概述页阅读<a href='%{autogen_page_path}'>自动生成文案</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是以属性图<a
         href='%{property_graph_url}'>为模式在<a href='%{neo4j_url}'>neo4j</a>。 <a href='%{data_services_path}'>数据服务</a>可供使用。</p>
   account_already_linked: 您的帐号已与EOL链接
@@ -46,6 +46,10 @@ zh-CN:
       missing: 无标题
   article_from_partner: 提供者%{partner}
   article_duplicate: 此文章同时显示在%{section}
+  autocomplete:
+    see_all:
+      one: 见其他结果
+      other: 见所有%{count}结果
   breadcrumbs:
     notices:
       canonical: 学名现记载于“面包屑”页。
@@ -61,18 +65,24 @@ zh-CN:
   change_your_password: 更改您的密码
   classifications:
     children:
+      header_html:
+        one: '%{name}包含 <a href="%{names_path}">%{count}一个子目录</a>:'
+        other: '%{name}包含<a href="%{names_path}">%{count}个子目录</a>:'
       see_more: 查看更多
     hierarchies:
       header: '%{sci_name}策划的层次体系'
-      see_resource_file: 完整的清单请见<a href='%{href}'>resource file</a>。
+      see_resource_file: 完整的清单请见<a href='%{href}'>资料档</a>。
       this_page: （本页）
+      truncated_siblings:
+        one: 一个额外的同属为求简洁而被删节了。
+        other: '%{count}个额外的同属为求简洁而被删节了。'
     richness:
       header: 页面丰富度
       score: 丰富度得分
       page_contents_count: 相关内容
       missing: 本页物种的丰富与否尚待计算。
       media_count: 媒体文件
-      articles_count: 摘录
+      articles_count: 文章
       links_count: 链接
       maps_count: 地图
       data_count: 数据
@@ -127,6 +137,9 @@ zh-CN:
       gallery: 库
     delete_confirm: 这将删除所有收藏并无法取消回复。你确定吗？
     destroyed: '"%{name}"已被永久删除。'
+    pages_count:
+      one: 1页
+      other: '%{count}页'
     log:
       associated_collection:
         add: '%{user}已添加相关收藏%{associated}'
@@ -179,6 +192,9 @@ zh-CN:
     publisher: 发布者
     project: 项目
     provider: 提供者
+    references_header:
+      one: 参考文献
+      other: 参考文献
     resource_label: 合作伙伴页面
     resource_pk: （身份标识号码：%{key})
     rights_statement: 权利声明
@@ -205,7 +221,7 @@ zh-CN:
   filter_by_resource: 提供者
   filter_by_resource_any_item: 任何提供者
   filters:
-    filter_by_attribute: 按特征过滤
+    filter_by_attribute: 按特定性质过滤
     filter_by_language: 按语言过滤
     filter_by_provider: 按提供者过滤
   footer:
@@ -249,6 +265,8 @@ zh-CN:
       worms: 虫
     eol_is_hosted_by: EOL的主办者为：
   forgot_your_password: 忘记您的密码？
+  gbif_download:
+    created: 已建立全球生物多样性资讯机构下载任务。可在您的%{url}用户资料页查看下载进度。
   landing_page:
     header: 为全球提供地球上生命的知识
     stats_cleared: 此统计数据已被重新计算。
@@ -269,6 +287,7 @@ zh-CN:
     hy: 亚美尼亚语
     as: 阿萨姆语
     Q29507: 阿斯图里亚斯语
+    Q56590: 阿提卡梅克语
     ae: 阿维斯陀文
     ay: 艾马拉语
     Q9292: 阿塞拜疆语
@@ -345,6 +364,7 @@ zh-CN:
     de: 德语
     deu: 德语
     Q5575236: 果阿的孔卡尼语
+    Q2501174: 哥伦打洛语
     el: 现代希腊语
     gre: 希腊语
     gn: 瓜拉尼语
@@ -457,6 +477,8 @@ zh-CN:
     nor: 挪威语
     nn: 新挪威语
     Q36738: 诺维亚语
+    Q4121131: 尼扬韦齐语
+    Q16115145: 尼卡语
     oc: 奥克西唐语（后 1500）
     Q28602: 官方亚拉姆语
     oj: 奥吉布瓦语
@@ -469,11 +491,14 @@ zh-CN:
     Q23014: 法耳次语
     Q34024: 庇卡底方言
     Q15085: 皮埃蒙特语
+    Q2429648: 婴秀语
     pl: 波兰语
     pol: 波兰语
+    Q36748: 庞蒂克语
     pt: 葡萄牙语
     ps: 普什图语
     qu: 克丘亚语
+    Q584983: 兰奇语
     ro: 罗马尼亚语
     rm: 罗曼什语
     rn: 隆迪语
@@ -489,6 +514,7 @@ zh-CN:
     sa: 梵语
     Q33965: 桑塔尔语
     sc: 撒丁语
+    Q845441: 意大利语之一
     Q14549: 苏格兰英语
     sr: 塞尔维亚语
     Q3788739: 藏语的乌托邦世界；净土
@@ -571,8 +597,8 @@ zh-CN:
   literature_and_references_header: 参考文献
   maps:
     empty: 没有可用于此页面的地图。
-    occurrence_caption: '%{page_name}已知的出没，已采集的标本和观察。在全球生物多样性资讯机构查看此物种。'
-    occurrence_caption_w_link_html: '%{page_name}已知的出没，已采集的标本和观察。<a href=''%{url}''>在全球生物多样性资讯机构查看此物种。<i
+    occurrence_caption: '%{page_name}已见之出没，已采集的标本和观察。在全球生物多样性资讯机构查看此物种。'
+    occurrence_caption_w_link_html: '%{page_name}已见之出没，已采集的标本和观察。<a href=''%{url}''>在全球生物多样性资讯机构查看此物种。<i
       class=''fa fa-external-link''></i></a>'
     other_maps_title: 非互动地图
   medium:
@@ -598,105 +624,381 @@ zh-CN:
   medium_header_title: 标题：
   medium_header_description: 说明：
   names:
-    prefer: 较喜欢
-    preferred_in_language_for_page: '%{name}现在是%{page}较偏爱的%{language}当地语言'
+    hide_langs:
+      one: 隐藏一种语言
+      other: 隐藏%{count}种语言
+    prefer: 首选
+    preferred_in_language_for_page: '%{name}现在是%{page}首选的%{language}当地语言'
+    show_more_langs:
+      one: 多显示一种语言
+      other: 多显示%{count}种语言
   nav:
     about: 中止
     discuss: 讨论
     education: 教育
     search:
+      no_results_html: <strong>无已确定的结果。</strong><br />点击开始进入查看非赞助结果。
       placeholder: 搜索 EOL ...
-    trait_bank: TraitBank
-  name_preferred_label: 较喜欢
+    trait_bank: 特征资料库
+  name_preferred_label: 首选的
+  page_icon_counts:
+    header:
+      one: 此页最适合的图像
+      other: 此页最适合的图像
   page_icon_created: 已将%{name}图像移至上方
+  page_title: 生命大百科
+  page_title_search: 查询：%{query}
+  page_vernaculars_empty: 此分类群无相关连的俗名。
   pages:
     actions:
       collect: 收集
+      comment:
+        zero: 没有评论
+        one: '%{count} 个评论'
+        other: '%{count} 个评论'
+      reindex: 重新索引
     batch_lookup:
+      header: 批处理页面查找
+      canonical_name: 规范名称
+      download_tsv: 下载TSV
       match: 比赛
       new_search: 新搜索
       page_id: 页面编号
+      page_url: 网页地址
       query: 查询
+      query_cant_be_blank: 查询项目不能是空白的。
+      search: 搜索
+    overview:
+      eol_has_data_for_n_attributes_including_html:
+        one: 'EOL有<a href="%{data_path}">一个特定性质的数据</a>:'
+        other: EOL有<a href="%{data_path}">%{count}个特定性质的数据</a>，包括：
+      eol_has_data_for_n_attributes_html:
+        one: 'EOL有<a href="%{data_path}">一个特定性质的数据</a>:'
+        other: EOL有<a href="%{data_path}">%{count}个特定性质的数据</a>，包括：
     filter_menu:
       show_all: 全部显示
     page_data:
+      habitat_wordcloud_tooltip: 我们的生境记录多数是以文本开采，所以许多词语会找回多次；常出现的生态词语--展现在较大的词云中--可能较为重要。所有的记录列示如下。
+      n_hidden_show_all:
+        one: 一个“%{pred_name}”隐藏的记录 — 显示所有
+        other: '%{count} “%{pred_name}个隐藏的记录 — 显示所有'
+      n_hidden_show_all_noname:
+        one: 一个隐藏的记录 — 显示所有
+        other: '%{count}个隐藏的记录 — 显示所有'
       show_all: 全部显示
     resource_names:
+      name_recognized_by: 以%{by}辨识出
+      name_recognized_by_w_rank: '%{rank}以%{by}辨识出'
+      name_recognized_by_w_status: '%{status}根据%{by}'
       rank:
+        r_domain: 域
+        r_subdomain: 子域
+        r_infradomain: 下域
+        r_superkingdom: 超界
+        r_kingdom: 界
+        r_subkingdom: 亚界；门
+        r_infrakingdom: 下界
+        r_superphylum: 超门
+        r_phylum: 门
+        r_subphylum: 亚门
+        r_infraphylum: 下门
+        r_superclass: 总纲
         r_class: 纲
         r_subclass: 亚纲
+        r_infraclass: 下纲
+        r_superorder: 总目
         r_order: 目
+        r_suborder: 亚目
+        r_infraorder: 下目
+        r_superfamily: 总科
         r_family: 科
         r_subfamily: 亚科
+        r_infrafamily: 下科
+        r_tribe: 族
+        r_supergenus: 总属
         r_genus: 属
         r_subgenus: 亚属
+        r_infragenus: 下属
+        r_superspecies: 超级物种
         r_species: 种
         r_subspecies: 亚种
+        r_infraspecies: 下物种
+        r_form: 类型
+      reference_taxon_attrib: '%{dataset_name}的参考分类群'
+      username_missing: 用户%{user_id}
     trophic_web:
-      predator: 食肉动物
-      prey: 被捕食的动物
+      competitor: 竞争者
+      globi_credit_html: <a href='%{url}'>GloBI</a>来的资料数据
+      predator: 捕食者
+      prey: 被捕食者
       reset: 重置
+      trophic_web_about: 生命大百科食物网图解专注于一个物种的进食关系；它们显示焦点物种及被其捕食的物种（被捕食者），捕食其的物种（捕食者）和其他捕食相同动物的物种（可能的竞争者）。可点击以获取更多的资讯。
+      trophic_web_title_html: 营养网 <a href='%{about_path}'><sup><span class='a' uk-tooltip='%{tooltip}'>?</span></sup></a>
+    flash:
+      reindexed: 此页高速缓冲储存器已被清除。可再上载看新资料。注意，再上载不会重新索引此页图像。此功能尚待日后开启。
+    native_node_missing_warning: 无可用的层次体系相关资讯
     tabs:
+      articles: 文章
+      classifications: 分类
       data: 数据
+      literature_and_references: 文献和参考资料
       overview: 概览
       maps: 地图
       media: 媒体文件
       names: 名
+    iucn_status:
+      label: 世界自然保护联盟分级：
+      ex: 绝种（EX）
+      ew: 在野生环境中绝种（EW）
+      cr: 极度濒危（CR）
+      en: 濒危（EN）
+      vu: 脆弱
+      nt: 接近受危
+      lc: 需予关注
+      dd: 数据缺乏
+      ne: 尚未评估
+      unknown: 未知（无记录）
+    unresolved_name: 未解析的名称
+    unresolved_name_prefix: 未解析的名称
+  page_titles:
+    pages:
+      data: '%{page_name}数据'
+      media: '%{page_name}媒体'
+      maps: '%{page_name}地图'
+      names: '%{page_name}名'
+      articles: '%{page_name}文章'
+    traits:
+      search: 特征搜寻
   recaptcha: 验证码
   recaptcha_error: 请告诉我们你不是机器人。
+  reference_compiled_from: 在%{links}提及
+  reference_compiled_from_article: 名为%{name}的%{source}文章
+  register_new_account: 注册新账户
   resources:
     actions:
+      import_traits: 引进特征（从储存库）
       republish: 反出版
+      reindex: 重新索引
+      index: 回到所有资料
+      show_all:
+        other: 展示所有(%{count})
+      show_warns:
+        one: 显示(%{count}一个警告)
+        other: 显示(%{count})个警告
+      clear_publishing_confirm: 这将完成所有发布，并倘若您在发布中使用会产生困难。你确定吗？
     headers:
-      index: 资源
+      index: 资料
+      import_log: 引进%{resource}的记录
+    index:
+      locked_jobs:
+        zero: 没有正在处理的任务
+        one: 一个正在处理的任务
+        other: '%{count}个正在处理的任务'
+      jobs:
+        zero: 没有待处理的任务
+        one: 一个待处理的任务
+        other: '%{count}个待处理的任务'
+      harvest_jobs:
+        zero: 没有可发布的
+        one: 一个可发布的
+        other: '%{count}个可发布的'
     no_events: 无！
+  resource_missing: 找不到资料
   scientific_name:
     status_title:
+      accepted: 采用名称
+      alternative: 替代名称
+      preferred: 首选名称
+      unusable: 无法使用的名称
       synonym: 同义词
+  scientific_names_header: 学名
+  send_me_reset_password_instructions: 给我重新设定密码的说明
+  search:
+    matched_text: 与%{text}相符
+    flash:
+      cannot_combine_paths: 无法与%{path}合并结果
+      more_than_one_species: 无法为%{species}合并结果
+      more_than_two_terms: 无法为超过两个词语合并结果：%{terms}
+    n_articles:
+      one: '%{count}篇文章'
+      other: '%{count}篇文章'
+    n_collections:
+      one: '%{count} 一个收藏'
+      other: '%{count}个收藏'
+    n_images:
+      one: '%{count}一个图像'
+      other: '%{count}个图像'
+    n_results:
+      zero: 无结果
+      one: '%{count}一个结果'
+      other: '%{count}个结果'
+    n_sounds:
+      one: '%{count}一个音像'
+      other: '%{count}个音像'
+    n_taxon_pages:
+      one: '%{count}一个分类群页'
+      other: '%{count}个分类群页'
+    n_users:
+      one: '%{count}一个用户'
+      other: '%{count}个用户'
+    n_videos:
+      one: '%{count}一个录像'
+      other: '%{count}个录像'
+    n_terms:
+      one: '%{count}一个限期'
+      other: '%{count}个限期'
   search_results:
+    collection_page_count:
+      one: '%{count}一页'
+      other: '%{count}页'
+    collection_page_count_and_users:
+      one: '%{count}一页；由%{users_sentence}管理'
+      other: '%{count}页；由%{users_sentence}管理'
+    collected_media:
+      title: 从此页收藏的媒体
     medium_article: 新闻稿
+    medium_image: 图像
     medium_map: 地图
     medium_sound: 声音
     medium_video: 视频
+    medium_title_article_html: 文章：<span class='sub'>%{title}</span>
+    medium_title_image_html: 图像：<span class='sub'>%{title}</span>
+    medium_title_map_html: 地图：<span class='sub'>%{title}</span>
+    medium_title_sound_html: 音像：<span class='sub'>%{title}</span>
+    medium_title_video_html: 录像：<span class='sub'>%{title}</span>
     empty: 没有查询结果.
+    field_matches:
+      description: 与描述相符：
+      resource_pk: 与外部身份识别相符：
+      bio: 与档案相符：
+      tag_line: 与主题词相符：
+      resources:
+        one: '符合一个资料出处:'
+        other: 符合多个资料出处
+      synonyms:
+        one: '与一个同义词相符:'
+        other: '与多个同义词相符:'
+      vernaculars:
+        one: '符合一个俗名:'
+        other: 符合多个俗名
+    section_titles:
+      collections:
+        one: '%{count}一个收藏'
+        other: '%{count}个收藏'
+      media:
+        one: '%{count}一个媒体'
+        other: '%{count}个媒体'
+      pages:
+        one: '%{count}一页EOL网页（物种）'
+        other: '%{count} 页EOL网页（物种)'
+      object_terms:
+        one: '%{count} 一个数据记载数值 (特征资料库)'
+        other: '%{count}个数据记载数值(特征资料库)'
+      predicates:
+        one: '%{count} 一个数据记录类别(特征资料库)'
+        other: '%{count}个数据记录类别(特征资料库)'
+      users:
+        one: '%{count}一个用户'
+        other: '%{count}个用户'
+    collection_title_html: 收藏： <span class='sub'>%{name}</span>
+    resource_counts:
+      n_articles:
+        one: '%{count}一篇文章'
+        other: '%{count}篇文章'
+      n_data:
+        one: 单个数据
+        other: '%{count}个数据'
+      n_media:
+        one: 一个媒体
+        other: '%{count}个媒体'
+    user_title_html: 用户： <span class='sub'>%{name}</span>
+  search_suggestion:
+    actions:
+      create: 创建一个新的搜索建议
+    created: 为%{match}创建一个搜索建议
+    destroyed: 去除%{match}的搜索建议
+    new:
+      header: 创建一个搜索建议
+    update:
+      header: 更新搜索建议
+    index:
+      header: 搜索建议
   sections:
     behavior: 行为
+    benefits: 益处
+    brief_summary: 简要
     comprehensive_description: 综合描述
     conservation: 保护
+    conservation_status: 保育级别
+    cyclicity: 周期性
+    diagnostic_description: 诊断概述
+    diseases_and_parasites: 疾病及寄生虫
+    dispersal: 散布
     distribution: 分布
     ecology: 生态学
     evolution_and_systematics: 进化与系统学
+    general_ecology: 普通生态学
     genetics: 遗传学
     growth: 生长
     habitat: 栖息地
+    identification_resources: 身份识别资料
+    life_expectancy: 预期寿命
+    life_history_and_behavior: 生活史与行为
     management: 管理
     migration: 振动
+    molecular_biology: 分子生物学
+    molecular_biology_and_genetics: 分子生物学和基因学
     morphology: 形态
+    names_and_taxonomy: 名称和分类群
     notes: 注意
+    overview: 概览
+    physiology_and_cell_biology: 生理学和生物学
+    physical_description: 外貌描述
     relevance_to_humans_and_ecosystems: 与人类和生态系统的关系
     reproduction: 净产品
     risks: 风险
     size: 尺寸
     taxonomy: 分类学
     threats: 威胁
+    trends: 趋势
+    trophic_strategy: 营养策略
+    type_information: 类型信息
     wikipedia: 维基百科
   settings: 设置
+  show_date: 显示发布日期
   sign_in: 登录
   sign_up: 注册
+  signature_with_contact_us_link: |-
+    如您有任何疑问，请於此%{url}我们联系。
+
+    生命大百科工作团队
+  did_not_receive_confirmation_instructions: 未收到确认说明
   simple_form:
     "yes": 是
     "no": 不
     required:
       text: 需求
+    error_notification:
+      default_message: 请检查下列问题：
     labels:
       defaults:
+        email: 电子邮箱
         password: 密码
+        password_confirmation: 密码确认
         remember_me: 记住设置
         username: 用户名
         bio: 个人简介
+      search_suggestion:
+        match: 要匹配的搜索字符串
+        page_id: 要重新引导至的（或过滤用的）生命大百科页面的识别
+        synonym_of_id: 要代替使用的搜索建议的识别（！）
+        object_term: 要重新引导至的(或过滤用的）URI统一资源标识符
+        path: 要重新引导至的路径（完整的或相关联的）
+        wkt_string: 要传递至Effechecka的标准文本字串
   stats:
-    articles: 新闻稿
+    articles: 文章
     collections: 我的收藏
+    data: 数据记录
     media: 媒体
     pages: 页
     nodes: 节点
@@ -708,15 +1010,42 @@ zh-CN:
       words_connector: ，
       two_words_connector: 和
       last_word_connector: ，和
+  term_query:
+    validations:
+      empty_filters_error_record: 要使用记录搜寻，您必须提供一个有特定性质或数据的过滤程序
+      empty_filters_error_taxa: 您必须提供一个有特定性质或数值的进化支或过滤程序以执行分类群搜索
   term_query_filter:
     validations:
+      blank_error: 必须述明一个特定性质或数值
       invalid_uri: 该标识符无效
   terms:
     scientific_name: 学名
     source: 源
   traits:
     data_viz:
+      n_other_records:
+        one: 一个其他的记录
+        other: '%{count}个其他的记录'
+      n_other_taxa:
+        one: 一个其他的分类群
+        other: '%{count}个其他的分类群'
       other: 其他
+      n_obj_records:
+        one: 一个有"%{obj_name}"的记录
+        other: '%{count}个有"%{obj_name}"的记录'
+      n_taxa_with:
+        one: 一个带有"%{obj_name}"的分类群
+        other: '%{count}个带有"%{obj_name}"的分类群'
+      see_n_obj_records:
+        one: 点击查看一个与"%{obj_name}"相关的记录
+        other: 点击查看%{count}个与"%{obj_name}"相关的记录
+      see_n_taxa_with:
+        one: 点击查看一个带有"%{obj_name}"的分类群
+        other: 点击查看%{count}个带有%{obj_name}的分类群
+      show_n_records_between: '{{PLURAL|one=点击查看%{count}一个在[%{min}, %{limit}] %{units}有度量值的记录|点击查看%{count}个在[%{min},
+        %{limit}] %{units}有度量值的记录'
+      show_n_taxa_between: '{{PLURAL|one=点击查看%{count}一个在[%{min}, %{limit}] %{units}有度量值的分类群|点击查看%{count}个在[%{min},
+        %{limit}] %{units}有度量值的分类群'
     properties:
       citation: 书目引用
       method: 测量方法
@@ -725,12 +1054,16 @@ zh-CN:
       source: 来源
     search:
       edit_filters: 编辑过滤器
+      filter_display:
+        resource: 资料出处：%{value}
       new_search: 新搜索
       select:
         top_level:
           object_term: 或者选择一个值
+          predicate: 或选择一个特定性质
     search_form:
-      resource: 资源
+      attribute: 特定性质
+      resource: 资料出处
       search: 搜索
       sex: 性别
       show_additional_fields: 显示额外字段
@@ -747,6 +1080,9 @@ zh-CN:
       links: 链接
     is_power_user: 本用户被标记为一个有权限的用户。
     new_password: 新密码
+    showing_n_power_users:
+      one: 列示一个高级用户
+      other: 列示%{count}个高级用户
     username: 用户名
     update: 更新的
     update_email: 更新邮件信息
@@ -754,8 +1090,10 @@ zh-CN:
     account_migration_notice: 您的帐户信息，包括用户名、相关电子邮件、配置文件描述和拥有的收藏，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但是您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您可以使用忘记密码过程重置它。如果您只使用第三方提供商——谷歌、推特或脸书——登录，请耐心等待；我们正在解决共享登录过程中的一些问题。
     sign_in: 登录
   vernacular_names_header: 俗名
+  vernacular_preferred_by_resource: '%{resource}(首选名称)'
   term:
     actions:
+      reindex: 重新索引
       sort: 排序项
     edit:
       submit: 储存游戏

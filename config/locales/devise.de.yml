@@ -1,0 +1,51 @@
+# Messages for German (Deutsch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Elliot
+---
+de:
+  devise:
+    confirmations:
+      confirmed: Ihre E-Mail Adresse wurde erfolgreich bestätigt.
+      send_instructions: Sie werden in wenigen Minuten eine E-Mail, mir einer Anleitung
+        darüber wie sie ihre E-Mail Adresse bestätigen können, erhalten.
+      send_paranoid_instructions: |-
+        Wenn ihre E-Mail Adresse in unserer Datenbank bereits existiert, werden sie in einigen Minuten eine E-Mail erhalten, mit Anweisungen darüber, wie sie ihre
+        E-Mail Adresse bestätigen können.
+    failure:
+      already_authenticated: Sie sind bereits angemeldet.
+      inactive: Ihr Account ist noch nicht aktiviert.
+      invalid: Ungültige %{authentication_keys} oder Passwort.
+      locked: Ihr Account ist gesperrt, bitte versuchen sie es in einer Stunde erneut.
+      last_attempt: Sie haben noch einen Versuch, bevor ihr Account gesperrt wird.
+      not_found_in_database: Ungültige %{authentication_keys} oder Passwort.
+      recaptcha_error: Es gab einen Fehler mit dem unteren recaptcha code. Bitte geben
+        sie den Code erneut ein und klicken submit.
+      timeout: Ihre Sitzung ist abgelaufen. Bitte melden sie sich an um fortzufahren.
+      unauthenticated: Sie müssen sich anmelden oder registrieren um fortzufahren.
+      unconfirmed: Sie müssen ihre E-Mail bestätigen um fortzufahren.
+    mailer:
+      confirmation_instructions:
+        action: Benutzerkonto bestätigen
+        greeting: Willkommen %{recipient}!
+        instruction: 'Sie können die E-Mail ihres Accounts durch den unteren Link
+          bestätigen:'
+        subject: Anweisungen zur Bestätigung
+      reset_password_instructions:
+        action: Passwort ändern
+        greeting: 'Hallo #{recipient}!'
+        instruction: Jemand hat einen Link um dein Passwort zu verändern angefragt,
+          und du kannst es durch den folgenden Link erledigen.
+        instruction_2: Wenn diese Anfrage nicht von ihnen stammt, ignorieren sie bitte
+          diese E-Mail.
+        instruction_3: Ihr Passwort wird sich nicht ändern, bis sie den oberen Link
+          nutzen und ein neues angeben.
+      password_change:
+        subject: Passwort wurde geändert
+  errors:
+    messages:
+      already_confirmed: wurde bereits bestätigt, bitte versuchen sie sich anzumelden
+      expired: ist abgelaufen, bitte fragen sie ein neues an
+      not_found: nicht gefunden
+      not_locked: wurde nicht gesperrt
+...

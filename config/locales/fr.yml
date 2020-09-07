@@ -1046,6 +1046,8 @@ fr:
     validations:
       blank_error: doit spécifier un attribut ou une valeur
       invalid_uri: URI non valide
+      multi_obj_error: ne peut pas avoir à la fois un terme d’objet et un clade cible
+      pred_uri_blank_obj_clade_error: ne peut pas rester vide avec un clade cible
       pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
       range_invalid_error: doit être supérieur ou égal à la première valeur
   terms:

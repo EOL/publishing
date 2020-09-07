@@ -374,6 +374,7 @@ sv:
     jp: Japanska
     jv: Javanesiska
     Q33522: Kabardinska
+    Q35475: Kabiyè
     Q35853: Kabyle
     kl: Kalaallisut; grönländska
     Q33634: Kalmuckiska
@@ -640,12 +641,50 @@ sv:
     page_data:
       show_all: visa alla
     resource_names:
+      rank:
+        r_domain: Domän
+        r_subdomain: Underdomän
+        r_infradomain: Infradomän
+        r_superkingdom: Överrike
+        r_kingdom: Rike
+        r_subkingdom: Underrike
+        r_infrakingdom: Infrarike
+        r_superphylum: Överfylum
+        r_phylum: Fylum
+        r_subphylum: Underfylum
+        r_infraphylum: Infrafylum
+        r_superclass: Överklass
+        r_class: Klass
+        r_subclass: Underklass
+        r_infraclass: Infraklass
+        r_superorder: ÖVerordning
+        r_order: Ordning
+        r_suborder: Underordning
+        r_infraorder: Infraordning
+        r_superfamily: Överfamilj
+        r_family: Familj
+        r_subfamily: Underfamilj
+        r_infrafamily: Infrafamilj
+        r_tribe: Tribus
+        r_supergenus: Översläkte
+        r_genus: Släkte
+        r_subgenus: Undersläkte
+        r_infragenus: Infrasläkte
+        r_superspecies: Överart
+        r_species: Art
+        r_subspecies: Underart
+        r_infraspecies: Infraart
+        r_form: Form
+      reference_taxon_attrib: Referenstaxon från  %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
       resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
         (%{remarks})
       username_missing: användare %{user_id}
     trophic_web:
+      competitor: Konkurrent
       globi_credit_html: data från <a href='%{url}'>GloBI</a>
+      predator: Predator
+      prey: Byte
       reset: återställ
     tabs:
       articles: artiklar
@@ -867,6 +906,7 @@ sv:
   term_query_filter:
     validations:
       blank_error: måste ange ett attribut eller värde
+      invalid_uri: ogiltig webbadress
       range_invalid_error: måste vara >= än första värdet
   terms:
     scientific_name: vetenskapligt namn
@@ -874,6 +914,11 @@ sv:
     uri_field_html: <strong>URI:</strong> %{uri}
   data_definition: definition av "%{data}"
   traits:
+    data_viz:
+      other: andra
+    properties:
+      scientific_name: Vetenskapligt namn
+      source: Källa
     search:
       download_tsv: ladda ned tsv
       edit_filters: redigeringsfilter

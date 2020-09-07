@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A Chinese Wikipedian
+# Author: Shoufen
 ---
 zh-CN:
   devise:
@@ -55,4 +56,7 @@ zh-CN:
       already_confirmed: 已确认，请尝试登录
       expired: 已过期，请申请新的
       not_found: 未找到
+      not_saved:
+        one: '一个错误防止储存此%{resource}:'
+        other: '%{count}个错误防止储存此%{resource}：'
 ...
