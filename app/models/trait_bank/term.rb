@@ -7,6 +7,8 @@ class TraitBank
       BOOLEAN_PROPERTIES =
         %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary is_verbatim_only].freeze
 
+      delegate :query, to: TraitBank
+
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
       def create(properties)

@@ -761,7 +761,7 @@ class PageDecorator
 
       def gather_terms(uris)
         terms = []
-        Array(uris).each { |uri| terms << uri ; terms += TraitBank.descendants_of_term(uri).map { |t| t['uri'] } }
+        Array(uris).each { |uri| terms << uri ; terms += TraitBank::Term.descendants_of_term(uri).map { |t| t['uri'] } }
         terms.compact
       end
 
