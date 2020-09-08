@@ -104,7 +104,7 @@ class TraitBank
           q += ')'
           q += "<-[:#{type}]-(n) " if type == 'units_term'
           q += " WHERE " if qterm || TERM_TYPES.key?(type)
-          q +=  term_name_prefix_match("term", qterm) if qterm
+          q +=  TraitBank::Term.term_name_prefix_match("term", qterm) if qterm
           q += " AND " if qterm && TERM_TYPES.key?(type)
           q += %{term.type IN ["#{TERM_TYPES[type].join('","')}"]} if TERM_TYPES.key?(type)
           if for_select
