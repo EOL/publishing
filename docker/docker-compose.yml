@@ -122,7 +122,7 @@ services:
       - /data/eol-backend-tramea-private-data:/app/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
-      - eol-backend-mysql
+      - eol_publishing_mysql_ENV
       - eol-backend-neo4j
       - eol-backend-memcached
       - eol-backend-elasticsearch
@@ -130,7 +130,7 @@ services:
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
-      - eol-backend-mysql:mysql
+      - eol_publishing_mysql_ENV:mysql
       - eol-backend-neo4j:neo4j
       - eol-redis:redis
     ports:
@@ -154,7 +154,7 @@ services:
       - /data/eol-backend-tramea-private-data:/app/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
-      - eol-backend-mysql
+      - eol_publishing_mysql_ENV
       - eol-backend-neo4j
       - eol-backend-memcached
       - eol-backend-elasticsearch
@@ -162,7 +162,7 @@ services:
     links:
       - eol-backend-elasticsearch:elasticsearch
       - eol-backend-memcached:memcached
-      - eol-backend-mysql:mysql
+      - eol_publishing_mysql_ENV:mysql
       - eol-backend-neo4j:neo4j
       - eol-redis:redis
     networks:
