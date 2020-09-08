@@ -1,6 +1,6 @@
 version: '3.0' # NOTE: this is NOT a version of the *file*, it's a version of the config formatting to use. Keep it here.
 services:
-  eol-backend-elasticsearch:
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch
     restart: always
@@ -21,7 +21,7 @@ services:
       - 9200:9200
     networks:
       - eolnet
-  eol-backend-elasticsearch2:
+  elasticsearch2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch2
     environment:
@@ -40,7 +40,7 @@ services:
       - /data/eol-backend-elasticsearch2/log:/var/log/elasticsearch
     networks:
       - eolnet
-  eol-backend-elasticsearch3:
+  elasticsearch3:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: eol-backend-elasticsearch3
     environment:
@@ -58,7 +58,7 @@ services:
       - /data/eol-backend-elasticsearch3/log:/var/log/elasticsearch
     networks:
       - eolnet
-  eol-backend-memcached:
+  memcached:
     image: memcached
     container_name: eol-backend-memcached
     restart: always
@@ -67,7 +67,7 @@ services:
     command: memcached -m 4096m
     networks:
       - eolnet
-  eol-backend-neo4j:
+  neo4j:
     image: neo4j
     container_name: eol-backend-neo4j
     restart: always
@@ -83,7 +83,7 @@ services:
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
     networks:
       - eolnet
-  eol_publishing_mysql_ENV:
+  mysql:
     image: mysql:5.7.31
     container_name: eol_publishing_mysql_ENV
     restart: always
@@ -99,7 +99,7 @@ services:
        - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
     networks:
       - eolnet
-  eol-redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
+  redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
     image: redis:6.0
     container_name: eol-redis
     restart: always
@@ -122,17 +122,17 @@ services:
       - /data/eol-backend-tramea-private-data:/app/data
       - /eol/tmp/eol_website:/tmp
     depends_on:
-      - eol_publishing_mysql_ENV
-      - eol-backend-neo4j
-      - eol-backend-memcached
-      - eol-backend-elasticsearch
+      - mysql
+      - neo4j
+      - memcached
+      - elasticsearch
       - eol-redis
     links:
-      - eol-backend-elasticsearch:elasticsearch
-      - eol-backend-memcached:memcached
-      - eol_publishing_mysql_ENV:mysql
-      - eol-backend-neo4j:neo4j
-      - eol-redis:redis
+      - elasticsearch
+      - memcached:memcached
+      - mysql
+      - neo4j
+      - redis
     ports:
        - 3000:3000
     networks:
@@ -154,17 +154,17 @@ services:
       - /data/eol-backend-tramea-private-data:/app/data
       - /eol/tmp/eol_website_jobs:/tmp
     depends_on:
-      - eol_publishing_mysql_ENV
-      - eol-backend-neo4j
-      - eol-backend-memcached
-      - eol-backend-elasticsearch
+      - mysql
+      - neo4j
+      - memcached
+      - elasticsearch
       - eol-redis
     links:
-      - eol-backend-elasticsearch:elasticsearch
-      - eol-backend-memcached:memcached
-      - eol_publishing_mysql_ENV:mysql
-      - eol-backend-neo4j:neo4j
-      - eol-redis:redis
+      - elasticsearch
+      - memcached
+      - mysql
+      - neo4j
+      - redis
     networks:
       - eolnet
 networks:
