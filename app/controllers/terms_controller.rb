@@ -69,7 +69,7 @@ class TermsController < ApplicationController
   def object_terms_for_pred
     pred = params[:pred_uri]
     q = params[:query]
-    res = TraitBank::Glossary.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
+    res = TraitBank::Term.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
     render :json => res
   end
 
@@ -78,7 +78,7 @@ class TermsController < ApplicationController
     uris = META_OBJECT_URIS[pred.to_sym] || []
     res = uris.map do |uri|
       {
-        name: TraitBank::Glossary.name_for_uri(uri),
+        name: TraitBank::Term.name_for_uri(uri),
         uri: uri
       }
     end
@@ -95,7 +95,7 @@ class TermsController < ApplicationController
 
   def pred_autocomplete
     q = params[:query]
-    res = Rails.cache.fetch("pred_autocomplete/#{q}") { TraitBank::Glossary.predicate_glossary(nil, nil, qterm: q) }
+    res = Rails.cache.fetch("pred_autocomplete/#{q}") { TraitBank::Term.predicate_glossary(nil, nil, qterm: q) }
     render :json => res
   end
 
@@ -103,7 +103,7 @@ class TermsController < ApplicationController
     @query = params[:query]
 
     if @query.blank?
-      render json: TraitBank::Glossary.top_level(:predicate)
+      render json: TraitBank::Term.top_level(:predicate)
     else
       glossary(:predicate_glossary, count_method: :predicate_glossary_count)
     end
@@ -119,7 +119,7 @@ private
   end
 
   def glossary(which, options = nil)
-    @count = TraitBank::Glossary.send(options[:count_method] || :count)
+    @count = TraitBank::Term.send(options[:count_method] || :count)
 
     respond_to do |fmt|
       fmt.html do
@@ -140,16 +140,16 @@ private
       TraitBank::Admin.clear_caches
       expire_trait_fragments
     end
-    result = TraitBank::Glossary.send(which, @page, @per_page, qterm: query, for_select: !paginate)
+    result = TraitBank::Term.send(which, @page, @per_page, qterm: query, for_select: !paginate)
     Rails.logger.warn "GLOSSARY RESULTS: (for select: #{!paginate}) #{result.map { |r| r[:name] }.join(', ')}"
     paginate ? Kaminari.paginate_array(result, total_count: count).page(@page).per(@per_page) : result[0..@per_page+1]
   end
 
   def glossary_for_letter(letter)
     @letter = letter
-    @letters = TraitBank::Glossary.letters_for_glossary
+    @letters = TraitBank::Term.letters_for_glossary
     @glossary = @letter ?
-      TraitBank::Glossary.glossary_for_letter(@letter) :
+      TraitBank::Term.glossary_for_letter(@letter) :
       []
   end
 
@@ -162,7 +162,7 @@ private
   def redirect_to_glossary_entry(uri)
     term = TraitBank.term_as_hash(uri)
     raise ActionController.RoutingError.new("Not Found") if !term
-    first_letter = TraitBank::Glossary.letter_for_term(term)
+    first_letter = TraitBank::Term.letter_for_term(term)
     redirect_to terms_path(letter: first_letter, uri: term[:uri]), status: 302
   end
 end

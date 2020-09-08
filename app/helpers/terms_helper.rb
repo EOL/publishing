@@ -16,32 +16,32 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    result = TraitBank::Glossary.units_for_pred(filter.pred_uri) # NOTE: this is cached in the class.
+    result = TraitBank::Term.units_for_pred(filter.pred_uri) # NOTE: this is cached in the class.
 
     return [] if result == :ordinal # TODO: better handling of this.
 
     uris = [result[:units_uri]] unless uris
     options = uris.map do |uri|
-      [TraitBank::Glossary.name_for_uri(uri), uri]
+      [TraitBank::Term.name_for_uri(uri), uri]
     end
 
     options_for_select(options, result[:units_uri])
   end
 
   def pred_name(uri)
-    TraitBank::Glossary.name_for_uri(uri)
+    TraitBank::Term.name_for_uri(uri)
   end
 
   def obj_name(uri)
-    TraitBank::Glossary.name_for_uri(uri)
+    TraitBank::Term.name_for_uri(uri)
   end
 
   def units_name(uri)
-    TraitBank::Glossary.name_for_uri(uri)
+    TraitBank::Term.name_for_uri(uri)
   end
 
   def term_name(uri)
-    TraitBank::Glossary.name_for_uri(uri)
+    TraitBank::Term.name_for_uri(uri)
   end
 
   def show_error(obj, field)

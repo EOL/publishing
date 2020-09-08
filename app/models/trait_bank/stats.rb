@@ -52,7 +52,7 @@ class TraitBank
               next if result == other_result
               obj = result[:obj][:uri]
               other_obj = other_result[:obj][:uri]
-              objs_to_filter << obj if TraitBank::Glossary.term_descendant_of_other?(other_obj, obj)
+              objs_to_filter << obj if TraitBank::Term.term_descendant_of_other?(other_obj, obj)
             end
           end
         end
@@ -161,7 +161,7 @@ class TraitBank
           return CheckResult.invalid("query predicate does not have numerical values")
         end
 
-        if !TraitBank::Glossary.any_direct_records_for_pred?(pred_uri)
+        if !TraitBank::Term.any_direct_records_for_pred?(pred_uri)
           return CheckResult.invalid("predicate does not have any directly associated records")
         end
 

@@ -19,8 +19,8 @@ class TermQueryFilter < ApplicationRecord
 
     def terms
       @terms ||= top_level? ?
-        TraitBank::Glossary.top_level(type) :
-        TraitBank::Glossary.children(parent_uri)
+        TraitBank::Term.top_level(type) :
+        TraitBank::Term.children(parent_uri)
     end
   end
 
@@ -53,7 +53,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def units_for_pred?
-    pred_uri && !TraitBank::Glossary.units_for_pred(pred_uri).nil?
+    pred_uri && !TraitBank::Term.units_for_pred(pred_uri).nil?
   end
 
   def association_pred?
@@ -332,7 +332,7 @@ class TermQueryFilter < ApplicationRecord
       uri = send(uri_method)
 
       if uri.present?
-        record = TraitBank.term_record(uri) 
+        record = TraitBank::Term.term_record(uri) 
         errors.add(uri_method, I18n.t("term_query_filter.validations.invalid_uri")) if record.nil?
       end
     end
