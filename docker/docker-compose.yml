@@ -83,18 +83,20 @@ services:
       - ./resources/templates/neo4j.conf:/conf/neo4j.conf
     networks:
       - eolnet
-  eol-backend-mysql:
-    image: mysql:5.7.12
-    container_name: eol-backend-mysql
+  eol_publishing_mysql_ENV:
+    image: mysql:5.7.31
+    container_name: eol_publishing_mysql_ENV
     restart: always
     environment:
       - TZ=America/New_York
-      - MYSQL_ROOT_PASSWORD=EolRocks!
-      - MYSQL_DATABASE=eol_web_staging
+      - MYSQL_ROOT_PASSWORD=SomethingReallySecure
+      - MYSQL_DATABASE=eol_web_ENV
       - MYSQL_USER=admin
-      - MYSQL_PASSWORD=SuperSecretYouWillNeverKnow!
+      - MYSQL_PASSWORD=SomethingSuperSecureHereToo
     volumes:
-       - /u/data/eol-backend-mysql:/var/lib/mysql
+       - /u/data/eol_publishing_mysql_ENV:/var/lib/mysql
+       - /u/data/eol_publishing_mysql_ENV_temp:/tmp
+       - /u/data/eol_publishing_mysql_ENV_conf:/etc/mysql/conf.d/
     networks:
       - eolnet
   eol-redis: # WARNING: It's simpler to just skip persistence, but that means we lose the entire queue on restart.
