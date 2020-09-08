@@ -635,9 +635,6 @@ fi:
         one: näytä (%{count}) varoitus
         other: näytä (%{count}) varoitusta
       sync: synkronoi koodivarannon kanssa
-      sync_all_terms: synkronoi kaikki termit
-      fetch_relationships: nouda suhteet
-      fetch_synonyms: nouda synonyymit
     headers:
       index: Resurssit
     index:

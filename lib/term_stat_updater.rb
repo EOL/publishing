@@ -23,7 +23,7 @@ class TermStatUpdater
     def fetch_uri_batch(page, term_type)
       q = %Q(
         MATCH (t:Term) 
-        WHERE t.type IN #{TraitBank::Terms::TERM_TYPES[term_type]}
+        WHERE t.type IN #{TraitBank::Glossary::TERM_TYPES[term_type]}
         RETURN t.uri
         ORDER BY t.uri
         SKIP #{page * BATCH_SIZE}

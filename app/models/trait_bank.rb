@@ -418,7 +418,7 @@ class TraitBank
       gathered_term = gathered_terms.find { |t| t.type == term_type }
 
       if gathered_term
-        "#{child_term_label} IN #{gathered_term.list_label}"  
+        "#{child_term_label} IN #{gathered_term.list_label}"
       else
         term_uri_param = "#{anc_term_label}_uri"
         params[term_uri_param] = term_uri
@@ -440,15 +440,15 @@ class TraitBank
 
 
     def term_filter_where(
-      filter, 
-      trait_var, 
-      pred_var, 
-      child_pred_var, 
-      obj_var, 
-      child_obj_var, 
+      filter,
+      trait_var,
+      pred_var,
+      child_pred_var,
+      obj_var,
+      child_obj_var,
       obj_clade_var,
       child_obj_clade_var,
-      params, 
+      params,
       gathered_terms = []
     )
       parts = []
@@ -637,7 +637,7 @@ class TraitBank
     def add_clade_where_conditional(clade_matched, filter_index, filter, term_query, query_parts)
       if (
         !clade_matched &&
-        term_query.clade && 
+        term_query.clade &&
         filter_index > 0 &&
         term_query.clade_node.descendant_count < filter.min_distinct_page_count
       )
@@ -664,7 +664,7 @@ class TraitBank
         else
           %Q(
             UNWIND trait_rows AS trait_row
-            WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate 
+            WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate
             #{record_optional_matches_and_returns(limit_and_skip, options)}
           )
         end
@@ -678,7 +678,7 @@ class TraitBank
           query = %Q(
             WITH DISTINCT page, #{trait_var} AS trait, #{pred_var} AS predicate
             #{record_optional_matches_and_returns(limit_and_skip, options)}
-          ) 
+          )
         end
       end
 
@@ -716,7 +716,7 @@ class TraitBank
     def trait_rels(include_inferred)
       include_inferred ? TRAIT_RELS : ":trait"
     end
-    
+
     def trait_rels_for_query_type(query)
       trait_rels(query.taxa?)
     end
@@ -736,7 +736,7 @@ class TraitBank
       filters.each_with_index do |filter, i|
         gathered_terms[i] = []
 
-        gather_all = i > 0 || first_filter_gather_all 
+        gather_all = i > 0 || first_filter_gather_all
 
         if gather_all || filter.all_fields.length > 1
           fields = gather_all ? filter.all_fields : filter.max_trait_row_count_fields
@@ -874,7 +874,7 @@ class TraitBank
         end
       end
 
-      %Q( 
+      %Q(
         #{gathered_term_matches.join("\n")}
         #{filter_parts.join("\n")}
       )
@@ -1286,126 +1286,6 @@ class TraitBank
       end
     end
 
-    def parse_term(term_options)
-      return nil if term_options.nil?
-      return term_options if term_options.is_a?(Hash)
-      return create_term(term_options)
-    end
-
-    def create_term(options)
-      if (existing_term = term(options[:uri])) # NO DUPLICATES!
-        return existing_term unless options.delete(:force)
-      end
-      options[:section_ids] = options[:section_ids] ?
-        Array(options[:section_ids]).join(",") : ""
-      options[:definition] ||= "{definition missing}"
-      options[:is_hidden_from_select] = (options.key?(:is_hidden_from_select) && options[:is_hidden_from_select]) ?
-        true : false
-      options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
-      if existing_term
-        options.delete(:uri) # We already have this.
-        begin
-          connection.set_node_properties(existing_term, remove_nils(options)) # Cypher is alergic to nils.
-        # What I saw was a Neography::PropertyValueException: "null value not supported" ...but I want to catch
-        # everything
-        rescue => e
-          puts "ERROR: failed to update term #{options[:uri]}"
-          puts "EXISTING: #{existing_term.inspect}"
-          puts "DESIRED: #{options.inspect}"
-          puts "You will need to fix this manually. Make note!"
-        end
-        return existing_term
-      end
-      begin
-        term_node = connection.create_node(options)
-        # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_label(term_node, "Term")
-        # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
-        # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
-        count = Rails.cache.read("trait_bank/terms_count") || 0
-        Rails.cache.write("trait_bank/terms_count", count + 1)
-      rescue => e
-        raise e
-      end
-      term_node
-    end
-
-    def remove_nils(hash)
-      bad_keys = [] # Never modify a hash as you iterate over it.
-      hash.each { |key, val| bad_keys << key if val.nil? }
-      # NOTE: removing the key entirely would just skip updating it; we want the value to be empty.
-      bad_keys.each { |key| hash[key] = "" }
-      hash
-    end
-
-    def child_has_parent(curi, puri)
-      cterm = term(curi)
-      pterm = term(puri)
-      raise "missing child" if cterm.nil?
-      raise "missing parent" if pterm.nil?
-      child_term_has_parent_term(cterm, pterm)
-    end
-
-    def is_synonym_of(curi, puri)
-      cterm = term(curi)
-      pterm = term(puri)
-      raise "missing synonym" if cterm.nil?
-      raise "missing source of synonym" if pterm.nil?
-      relate(:synonym_of, cterm, pterm)
-    end
-
-    def child_term_has_parent_term(cterm, pterm)
-      relate(:parent_term, cterm, pterm)
-    end
-
-    def term(uri)
-      return { name: '', uri: '' } if uri.blank?
-      @terms ||= {}
-      return @terms[uri] if @terms.key?(uri)
-      res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
-      return nil unless res && res["data"] && res["data"].first
-      @terms[uri] = res["data"].first.first
-    end
-
-    # Raises ActiveRecord::RecordNotFound if uri is invalid
-    def term_record(uri)
-      result = term(uri)
-      result&.[]("data")&.symbolize_keys
-    end
-
-    def update_term(opts)
-      sets = []
-      sets += %i(name definition attribution comment sections).map do |field|
-        opts[field] = "" if opts[field].nil?
-        "term.#{field} = '#{opts[field].gsub("'", "''")}'"
-      end
-      sets += %i(is_hidden_from_glossary is_hidden_from_glossary).map do |field|
-        "term.#{field} = #{opts[field] ? 'true' : 'false'}"
-      end
-      q = "MATCH (term:Term { uri: '#{opts[:uri]}' }) SET #{sets.join(', ')} RETURN term"
-      res = query(q)
-      raise ActiveRecord::RecordNotFound if res.nil?
-      res["data"].first.first.symbolize_keys
-    end
-
-    def descendants_of_term(uri)
-      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
-      terms["data"].map { |r| r.first["data"] }
-    end
-
-    def term_member_of(uri)
-      terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
-      terms["data"].map { |r| r.first }
-    end
-
-    def term_as_hash(uri)
-      return nil if uri.nil? # Important for param-management!
-      hash = term(uri)
-      raise ActiveRecord::RecordNotFound if hash.nil?
-      # NOTE: this step is slightly annoying:
-      hash.symbolize_keys
-    end
-
     def get_name(trait, which = :predicate)
       if trait && trait.has_key?(which)
         if trait[which].has_key?(:name)
@@ -1481,6 +1361,12 @@ class TraitBank
       "[#{result.join(", ")}]"
     end
 
+    # default direction is outgoing.
+    def count_rels_by_direction(node, direction = nil)
+      relationsip = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
+      TraitBank.query("MATCH (#{node})#{relationship}() RETURN COUNT(relationship)")['data'].first.first
+    end
+
     private
     def resource_filter_part(resource_id)
       if resource_id
@@ -1495,6 +1381,5 @@ class TraitBank
         key.concat("/#{k}_#{v}")
       end
     end
-
   end
 end

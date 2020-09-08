@@ -566,7 +566,6 @@ diq:
         one: (%{count}) iqazi bımocne
         other: (%{count}) iqaza bımocnê
       sync: Depoya senkronize bıkerê
-      sync_all_terms: Terıma pêro senkronize bıkerê
     headers:
       index: Çımeyi
     no_events: Qet yew!

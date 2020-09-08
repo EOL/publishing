@@ -9,7 +9,7 @@ def up
         #
         # Term: { *uri, *name, *section_ids(csv), definition, comment,
         #         attribution, is_hidden_from_overview, is_hidden_from_glossary }
-        TraitBank.create_term(hash.symbolize_keys)
+        TraitBank::Term.create(hash.symbolize_keys)
         TraitBank.connection.execute_query(
           "MATCH (trait:Trait), (term:Term { uri: '#{hash["uri"]}' }) "\
           "WHERE trait.predicate = term.uri "\

@@ -36,7 +36,7 @@ class Term::Importer
     # TODO: really, we should write these to CSV (or get CSV from the server) and import them like other traits.
     # That's a lot of work, though, so I'm skipping it for now. The cost is that it is REALLY SLOW, esp. when there's
     # more than a few dozen terms to import:
-    TraitBank.create_term(term.merge(force: true))
+    TraitBank::Term.create(term.merge(force: true))
   end
 
   def new_terms
@@ -45,11 +45,11 @@ class Term::Importer
 
   def get_existing_terms
     Rails.cache.delete("trait_bank/terms_count/include_hidden")
-    count = TraitBank::Terms.count(include_hidden: true)
+    count = TraitBank::Glossary.count(include_hidden: true)
     per = 2000
     pages = (count / per.to_f).ceil
     (1..pages).each do |page|
-      terms = TraitBank::Terms.full_glossary(page, per, include_hidden: true).compact
+      terms = TraitBank::Glossary.full_glossary(page, per, include_hidden: true).compact
       terms.map { |t| t[:uri] }.each { |uri| @terms[uri] = true }
     end
   end

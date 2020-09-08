@@ -793,7 +793,6 @@ fr:
       import_traits: importer des traits (du dépôt)
       republish: publier
       reindex: réindexer
-      fetch_log: Journal terms-fetch
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
       show_all: montrer tout (%{count})
@@ -801,22 +800,6 @@ fr:
         one: afficher l’avertissement (%{count})
         other: afficher les avertissements (%{count})
       sync: synchroniser avec le dépôt
-      sync_all_terms: synchroniser tous les termes
-      fetch_relationships: récupérer les relations
-      sync_all_terms_confirm: Ceci rassemblera TOUS les termes de la couche de récolte
-        qui ne sont pas dans la couche de publication. Cela demande environ 15 minutes.
-        Êtes-vous sûr ?
-      fetch_relationships_confirm: Cela supprime les relations existantes et les rajoute,
-        mais cela peut échouer et les supprimer toutes. Cela prend environ cinq minutes.
-        Êtes-vous sûr{{GENDER:||e}} ?
-      fetch_synonyms: trouver des synonymes
-      fetch_synonyms_confirm: Cela supprime les synonymes existants et les rajoute,
-        mais peut échouer et les supprimer tous. Cela prend environ une minute. Êtes-vous
-        sûr ?
-      fetch_units: récupérer les unités
-      fetch_units_confirm: Cela supprime les relations de prédicat/unité existantes
-        et les rajoute, mais cela peut échouer et les supprimer toutes. Cela prend
-        environ une minute. Êtes-vous sûr ?
       clear_publishing: effacer le verrou
       clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
@@ -1063,6 +1046,8 @@ fr:
     validations:
       blank_error: doit spécifier un attribut ou une valeur
       invalid_uri: URI non valide
+      multi_obj_error: ne peut pas avoir à la fois un terme d’objet et un clade cible
+      pred_uri_blank_obj_clade_error: ne peut pas rester vide avec un clade cible
       pred_uri_blank_numeric_error: ne peut pas être vide avec une valeur numérique
       range_invalid_error: doit être supérieur ou égal à la première valeur
   terms:
