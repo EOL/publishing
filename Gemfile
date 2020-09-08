@@ -17,9 +17,9 @@ gem 'sass-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.10'
 # Use jquery as the JavaScript library TODO ... I don't think we do, anymore?
-gem 'jquery-rails', '~> 4.3'
+gem 'jquery-rails', '~> 4.4'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 1.0', group: :doc
+gem 'sdoc', '~> 1.1', group: :doc
 # javascript code from rails TODO: I don't think we want this, but could be wrong.
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12'
@@ -31,7 +31,7 @@ gem 'uglifier', '~> 4.2'
 
 # Use Unicorn as the app server. Not *strictly* required, but handy for development... and what we use in production
 # anyway.
-gem 'unicorn', '~> 5.5'
+gem 'unicorn', '~> 5.7'
 gem 'unicorn-worker-killer', '~> 0.4'
 
 # Pagination with kaminari. It's out of order because the methods it uses need
@@ -56,7 +56,7 @@ gem 'bootsnap', '~> 1.4', require: false
 # To aid in reindexing ElasticSearch. See also activejob-traffic_control; also requires redis.
 # gem 'connection_pool', '~> 2.2'
 # Counter Culture handled cached counts of things (which we use ALL OVER):
-gem 'counter_culture', '~> 2.3'
+gem 'counter_culture', '~> 2.6'
 # Cron jobs:
 gem 'crono', '~> 1.1'
 # Run background jobs:
@@ -68,16 +68,16 @@ gem 'delayed_job', '~> 4.1.8'
 gem 'delayed_job_active_record', '~> 4.1.4'
 # Devise handles authentication and some authorization:
 gem 'devise', '~> 4.7'
-gem 'devise-i18n-views', '~> 0.3'
 gem 'devise-encryptable', '~> 0.2'
+gem 'devise-i18n-views', '~> 0.3'
 # Discourse handles comments and chat:
-gem 'discourse_api', '~> 0.38'
+gem 'discourse_api', '~> 0.40' # NOTE: you won't be able to upgrade this until you upgrade the ES gem (past 6)
 # Model decoration
 gem 'draper', '~> 4.0'
 # Icons
 # TODO: update font-awesome (or remove if unused) since refinery is gone
 # font-awesome-sass 4.7 is seriously behind; 5.12 is the latest, but our version of refinerycms-wymeditor requires < 5
-gem 'font-awesome-sass', '~> 4.7'
+gem 'font-awesome-sass', '~> 4.7' # NOTE: upgrade to 5 with https://fontawesome.com/how-to-use/on-the-web/setup/upgrading-from-version-4
 # This is used to locally have a copy of OpenSans. IF YOU STOP USING OPENSANS, YOU SHOULD REMOVE THIS GEM!
 gem 'font-kit-rails', '~> 1.2'
 # url helpers in JS
@@ -87,7 +87,7 @@ gem 'jwt', '~> 2.2' # Note the gem is ruby-jwt
 # Because ERB is just plain silly compared to Haml:
 gem 'haml-rails', '~> 2.0'
 # HTTP client
-gem 'http', '~> 4.3'
+gem 'http', '~> 4.4'
 # QUIET PLEASE MAKE IT STOP! This helps us cull some of the noise in the logs:
 gem 'lograge', '~> 0.11'
 # Neography is used for our Triple Store for now:
@@ -101,9 +101,9 @@ gem 'pry-rails' # NOT specifying a version for this; latest is best.
 # Authorization:
 gem 'pundit', '~> 2.1'
 # Turing test:
-gem 'recaptcha', '~> 5.3', require: 'recaptcha/rails'
+gem 'recaptcha', '~> 5.5', require: 'recaptcha/rails'
 # Zip file support
-gem 'rubyzip', '~> 2.2'
+gem 'rubyzip', '~> 2.3'
 # ElasticSearch via SearchKick:
 gem 'searchkick', '~> 4' # Needs to stay in sync (ish) with the elasticsearch gem.
 # Searchkick uses sidekiq for job processing (really, anything BUT Delayed::Job, apparently), so I've installed it:
@@ -113,17 +113,17 @@ gem 'elasticsearch', '~> 6' # Needs to stay in sync with the version of ES that 
 # KEEPING client_side_validations OUT OF ORDER, since they are tightly bound to simple_form;
 # these are ONLY used on the user page, in the user_helper's validate: true clause...
 gem 'simple_form', '~> 5.0'
-gem 'client_side_validations', '~> 16.1'
-gem 'client_side_validations-simple_form', '~> 9.2'
+gem 'client_side_validations', '~> 16.1' # NOTE: don't update this until you update simple_form.
+gem 'client_side_validations-simple_form', '~> 9.2' # NOTE: don't update this until you update simple_form.
 # Speed up ElasticSearch ... but also good if you want to do web requests, see https://github.com/typhoeus/typhoeus
-gem 'typhoeus', '~> 1.3'
+gem 'typhoeus', '~> 1.4'
 # OGM (object graph mapper for Neo4J). Added for use with searchkick.
 gem 'neo4j', '~> 9.4'
 # Sitemap
 gem 'sitemap_generator', '~> 6.1'
 
 # url slug support
-gem 'friendly_id', '~> 5.2.4'
+gem 'friendly_id', '~> 5.4'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1.7'
