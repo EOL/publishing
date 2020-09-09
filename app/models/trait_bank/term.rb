@@ -385,6 +385,7 @@ class TraitBank
       end
 
       def letter_for_term(term)
+        return "0-9" unless term[:name] 
         if term[:name] =~ /[0-9].*/
           return "0-9"
         else

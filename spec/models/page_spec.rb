@@ -123,7 +123,7 @@ RSpec.describe Page do
     end
 
     it "#glosasry builds a glossary" do
-      allow(TraitBank::Glossary).to receive(:page_glossary).with(our_page.id) { true }
+      allow(TraitBank::Term).to receive(:page_glossary).with(our_page.id) { true }
       our_page.glossary
     end
 
@@ -133,7 +133,7 @@ RSpec.describe Page do
     end
 
     it "#predicates orders predicates" do
-      allow(TraitBank::Glossary).to receive(:page_glossary) { glossary }
+      allow(TraitBank::Term).to receive(:page_glossary) { glossary }
       expect(our_page.predicates).
         to eq([predicate1, predicate2].sort { |a,b| a[:name] <=> b[:name] }.map { |p| p[:uri] })
     end

@@ -32,7 +32,7 @@ class TermBootstrapper
   def get_terms_from_neo4j
     @terms_from_neo4j = []
     page = 0
-    while data = TraitBank::Glossary.full_glossary(page += 1)
+    while data = TraitBank::Term.full_glossary(page += 1)
       break if data.empty?
       @terms_from_neo4j << data # Uses less memory than #+=
     end

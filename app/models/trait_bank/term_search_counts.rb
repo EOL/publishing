@@ -33,4 +33,3 @@ class TraitBank
     end
   end
 end
-
