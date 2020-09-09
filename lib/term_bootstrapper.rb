@@ -33,6 +33,8 @@ class TermBootstrapper
   def load
     Rails.cache.clear
     get_terms_from_neo4j
+    # This raises an exception if it finds any. You will have to deal with it yourself!
+    check_for_case_duplicates
     populate_uri_hashes # NOTE: slow
     reset_comparisons
     compare_with_gem
@@ -49,6 +51,15 @@ class TermBootstrapper
       @raw_terms_from_neo4j << data # Uses less memory than #+=
     end
     @raw_terms_from_neo4j.flatten! # Beacuse we used #<<
+  end
+
+  def check_for_case_duplicates
+    seen = {}
+    @raw_terms_from_neo4j.each do |term|
+      raise("DUPLICATE URI (case is different): #{term[:uri]} vs #{seen[term[:uri].downcase]}") if
+        seen.key?(term[:uri].downcase)
+      seen[term[:uri].downcase] = term[:uri]
+    end
   end
 
   # NOTE: slow. See below.
