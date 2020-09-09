@@ -55,7 +55,7 @@ class TermBootstrapper
   def correct_keys(term)
     hash = term.stringify_keys
     new_hash = {}
-    EolTerms::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
+    EolTerms::Validator::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
     new_hash
   end
 
