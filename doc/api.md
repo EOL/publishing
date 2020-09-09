@@ -80,7 +80,12 @@ language) and the use of the traits database [schema](trait-schema.md).
   enormous query result sets)
 * Queries (commands) that would cause changes to the graph database
   are rejected: create, set, delete, and so on
+  
+## Quirks
 
+* cypher is case sensitive, and URIs from many of our terms sources 
+habitually include uppercase letters. Be aware that your patterns must 
+match case.
 
 ## Installation
 
