@@ -46,7 +46,7 @@ class TermBootstrapper
   def get_terms_from_neo4j
     @raw_terms_from_neo4j = []
     page = 0
-    while data = TraitBank::Term.full_glossary(page += 1)
+    while data = TraitBank::Term.full_glossary(page += 1, 1000, include_hidden: true)
       break if data.empty?
       @raw_terms_from_neo4j << data # Uses less memory than #+=
     end
@@ -126,7 +126,6 @@ class TermBootstrapper
   end
 
   def create_new
-    @uri_ids ||= EolTerms.uri_ids
     # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster. But I would prefer to
     # generalize the current Slurp class before attempting it.
     @new_terms.each do |term|
