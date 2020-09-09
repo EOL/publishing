@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is meant to be "one-time-use-only" code to generate a "bootstrap" for the eol_terms gem, by
 # reading all of the terms we have in neo4j and writing a YML file with all of that info in it.
 #
@@ -7,6 +9,14 @@
 # => nil
 #
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
+#
+# For testing purposes, remember that
+#
+# http://eol.org/schema/terms/extant is a parent of http://eol.org/schema/terms/conservationDependent
+#
+# And
+#
+# http://purl.obolibrary.org/obo/GO_0040011 is the synonym of http://www.owl-ontologies.com/unnamed.owl#Locomotion
 class TermBootstrapper
   def initialize(filename = nil)
     @filename = filename
@@ -43,8 +53,7 @@ class TermBootstrapper
     @terms_from_neo4j = []
     @raw_terms_from_neo4j.each do |term|
       term = correct_keys(term)
-      # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
-      # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
+      # NOTE: Indeed, these two calls account for nearly *all* of the time that the #create process requires. Alas. This is OK.
       term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
