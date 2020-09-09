@@ -24,14 +24,14 @@ class TermBootstrapper
 
   def create
     get_terms_from_neo4j
-    populate_uri_hashes
+    populate_uri_hashes # NOTE: slow
     create_yaml
     report
   end
 
   def load
     get_terms_from_neo4j
-    populate_uri_hashes
+    populate_uri_hashes # NOTE: slow
     reset_comparisons
     compare_with_gem
     create_new
@@ -49,6 +49,7 @@ class TermBootstrapper
     @raw_terms_from_neo4j.flatten! # Beacuse we used #<<
   end
 
+  # NOTE: slow. See below.
   def populate_uri_hashes
     @terms_from_neo4j = []
     @raw_terms_from_neo4j.each do |term|

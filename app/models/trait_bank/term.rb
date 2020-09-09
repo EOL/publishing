@@ -72,7 +72,7 @@ class TraitBank
       end
 
       def remove_relationships(uri, name)
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"})-[rel:#{name}]->() DETATCH DELETE rel})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"})-[rel:#{name}]->() DETACH DELETE rel})
       end
 
       def add_relationship(source_uri, name, target_uri)
@@ -146,7 +146,7 @@ class TraitBank
       end
 
       def delete(uri)
-        # Not going to bother with DETATCH, since there should only be one!
+        # Not going to bother with DETACH, since there should only be one!
         TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"}) DELETE term})
       end
 
@@ -385,7 +385,7 @@ class TraitBank
       end
 
       def letter_for_term(term)
-        return "0-9" unless term[:name] 
+        return "0-9" unless term[:name]
         if term[:name] =~ /[0-9].*/
           return "0-9"
         else
