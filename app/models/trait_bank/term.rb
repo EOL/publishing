@@ -77,7 +77,7 @@ class TraitBank
 
       def add_relationship(source_uri, name, target_uri)
         TraitBank.query(%{CREATE (term:Term { uri: "#{source_uri.gsub(/"/, '""')}" })-[:#{name}]->(target:Term
-                          { uri: "#{target_uri.gsub(/"/, '""')}}"})
+                          { uri: "#{target_uri.gsub(/"/, '""')}"}})
       end
 
       def query_for_update(properties)

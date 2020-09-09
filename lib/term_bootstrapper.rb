@@ -117,7 +117,6 @@ class TermBootstrapper
     # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster. But I would prefer to
     # generalize the current Slurp class before attempting it.
     @new_terms.each do |term|
-      term['eol_id'] = @uri_ids[term['uri']]
       TraitBank::Term.create(term)
     end
   end
