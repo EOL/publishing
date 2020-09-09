@@ -39,7 +39,8 @@
       .linkSort(null)
       .nodeWidth(4)
       .nodePadding(20)
-      .extent([[0, 5], [width, height - 5]]);
+      .extent([[0, 5], [width, height - 5]])
+      .nodeId((d) => d.uri);
 
     const svg = d3.select("#main")
       .append("svg")
@@ -103,4 +104,4 @@
       sankey();
     }
   })
-})
+})();
