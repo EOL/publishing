@@ -29,7 +29,9 @@ class TermBootstrapper
     report
   end
 
+  # NOTE: this clears cache! It *must*, because there could be deltas that haven't been captured yet. BE AWARE!
   def load
+    Rails.cache.clear
     get_terms_from_neo4j
     populate_uri_hashes # NOTE: slow
     reset_comparisons
@@ -93,7 +95,7 @@ class TermBootstrapper
   def compare_with_gem
     seen_uris = {}
     @terms_from_neo4j.each do |term_from_neo4j|
-      seen_uris[term_from_neo4j['uri']] = true
+      seen_uris[term_from_neo4j['uri'].downcase] = true
       unless by_uri_from_gem.key?(term_from_neo4j['uri'])
         @uris_to_delete << term_from_neo4j['uri']
         next
@@ -101,7 +103,7 @@ class TermBootstrapper
       @update_terms << term_from_neo4j unless by_uri_from_gem[term_from_neo4j['uri']] == term_from_neo4j
     end
     EolTerms.list.each do |term_from_gem|
-      @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'])
+      @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'].downcase)
     end
   end
 
