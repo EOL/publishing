@@ -10,6 +10,7 @@ class TraitBank
 
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
+    delegate :term, :term_record, :term_as_hash, to: TraitBank::Term
 
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
