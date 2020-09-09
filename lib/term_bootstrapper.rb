@@ -30,18 +30,18 @@ class TermBootstrapper
   end
 
   def get_terms_from_neo4j
-    @terms_from_neo4j = []
+    @raw_terms_from_neo4j = []
     page = 0
     while data = TraitBank::Term.full_glossary(page += 1)
       break if data.empty?
-      @terms_from_neo4j << data # Uses less memory than #+=
+      @raw_terms_from_neo4j << data # Uses less memory than #+=
     end
-    @terms_from_neo4j.flatten! # Beacuse we used #<<
+    @raw_terms_from_neo4j.flatten! # Beacuse we used #<<
   end
 
   def populate_uri_hashes
     @terms_from_neo4j = []
-    @terms_from_neo4j.each do |term|
+    @raw_terms_from_neo4j.each do |term|
       term = correct_keys(term)
       # Yes, these lookups will slow things down. That's okay, we don't run this often... maybe only once!
       # NOTE: yuo. This method accounts for nearly all of the time that the process requires. Alas.
