@@ -89,7 +89,11 @@ class TraitBank
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
             # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
           else
-            sets << "term.#{property} = '#{properties[property].gsub("'", "''")}'"
+            sets << if properties[property].nil?
+              "term.#{property} = ''"
+            else
+              "term.#{property} = '#{properties[property].gsub("'", "''")}'"
+            end
           end
         end
         "MATCH (term:Term { uri: '#{properties['uri']}' }) SET #{sets.join(', ')} RETURN term"

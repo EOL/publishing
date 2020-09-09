@@ -134,7 +134,7 @@ class TermBootstrapper
   end
 
   def update_existing
-    @update_terms.each { |term| TraitBank::Term.update(TraitBank::Term.term(term['uri']), term) }
+    @update_terms.each { |term| TraitBank::Term.update(term) }
   end
 
   def delete_extras
