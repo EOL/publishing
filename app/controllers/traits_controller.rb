@@ -182,6 +182,8 @@ class TraitsController < ApplicationController
       @data_viz_type = :bar
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
       @data_viz_type = :hist
+    elsif TraitBank::Stats.check_query_valid_for_sankey(query).valid
+      @data_viz_type = :sankey
     end
   end
 

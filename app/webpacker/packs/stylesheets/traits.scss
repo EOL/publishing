@@ -211,11 +211,8 @@
   margin: 20px 0 15px 0;
 }
 
-.viz-contain-bar {
-  display: none;
-}
 
-.viz-contain-hist {
+.viz-contain-hist, .viz-contain-bar, .viz-contain-sankey {
   display: none;
 }
 
@@ -254,7 +251,7 @@
 }
 
 @media(min-width: 850px) { 
-  .viz-contain-hist { 
+  .viz-contain-hist, .viz-contain-sankey { 
     display: block;
   }
 }

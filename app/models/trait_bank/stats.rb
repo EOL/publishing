@@ -305,6 +305,18 @@ class TraitBank
         CheckResult.valid
       end
 
+      def check_query_valid_for_sankey(query)
+        if query.filters.length < 2
+          return CheckResult.invalid("query must have multiple filters")
+        end
+
+        query.filters.each do |filter|
+          return CheckResult.invalid("all query filters must contain only an object term") unless filter.obj_term_only?
+        end
+
+        CheckResult.valid
+      end
+
       private
 
       def obj_counts_query_for_records(query, params)
@@ -366,6 +378,14 @@ class TraitBank
 
       def raise_if_query_invalid_for_histogram(query, count)
         result = check_query_valid_for_histogram(query, count)
+
+        if !result.valid
+          raise TypeError.new(result.reason)
+        end
+      end
+
+      def raise_if_query_invalid_for_sankey(query)
+        result = check_query_valid_for_sankey(query)
 
         if !result.valid
           raise TypeError.new(result.reason)
