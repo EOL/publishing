@@ -1,0 +1,567 @@
+# Messages for German (Deutsch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: DraconicDark
+# Author: Elliot
+# Author: Katja
+# Author: Kghbln
+# Author: Killarnee
+# Author: Schmackes
+# Author: Symposiarch
+# Author: Umherirrender
+---
+de:
+  language_name: Deutsch
+  about:
+    trait_bank:
+      body_html: "<p>Das technische und Datenverwaltungsteam von EOL bezeichnet die
+        strukturierten Datenressourcen von EOL - Merkmale und andere Attributdaten,
+        ökologische Wechselwirkungen, und unsere eigene Taxonomy, die Dynamic Working
+        Hierarchy - kollektiv als TraitBank. Diese Inhalte werden etwas anders verwaltet
+        als unsere \"klassischen\" Inhalte - Bilder, Video, Audio und Textbeschreibungen
+        - und sie werden für andere Anwendungen gebraucht.</p><p>TraitBank ist neuer
+        als der Rest on EOL; es wurde ursprünglich von Cynthia Parr, der Leiterin
+        der Species Pages Group, erdacht und  ging im Januar 2014 in EOL v2 online.
+        Seitdem sind strukturierte Daten unsere höchste Priorität für die Inhaltsentwicklung.</p><p>Nun
+        kann man nach Daten <a href='%{example_search_path}'>suchen</a> oder EOL anhand
+        strukturierter Daten surfen, oder man kann sie runterladen oder sie auf unserem
+        neuen Übersichtstab in Form von\n<a href='%{autogen_page_path}'>autogeneriertem
+        Text</a> antreffen. Wie der Rest von EOL Inhalten, sind sie zur Wiederverwendung
+        freigestellt, und sie sind von detaillierten \nUrheberdaten begleitet, damit
+        man sie zuschreiben kann, falls man sie in seinen eigenen Werken benutzt.</p><p>Diese
+        Daten sind als ein <a href='%{property_graph_url}'>Property-Graph</a> in <a
+        href='%{neo4j_url}'>neo4j</a> gemodelt . Ein <a href='%{data_services_path}'>Datenservice</a>
+        steht zur Verfügung.</p>"
+  account_already_linked: Ihr Konto ist bereits mit EOL verknüpft
+  account_not_linked: Ihr Konto ist nicht mit EOL verknüpft
+  advanced: Erweitert
+  are_you_sure_delete_account: Sind Sie sicher, dass Sie Ihr EOL-Konto löschen möchten?
+  article:
+    actions:
+      collect: sammeln
+    header:
+      blank: (Zu diesem Artikel gibt es keinen Hauptteil.)
+      body: Inhalt
+      language: 'Sprache: %{language}'
+      title: Titel
+      untitled: Ohne Titel
+    name:
+      missing: Ohne Titel
+  breadcrumbs:
+    notices:
+      canonical: Wissenschaftliche Bezeichnungen werden ab jetzt in den Seiten breadcrumbs
+        angezeigt
+    setting_header: Namen in Brotkrumen
+    types:
+      scientific: wissenschaftlich
+      vernacular: volkstümlich
+  button_create: erstellen
+  button_add: hinzufügen
+  cancel: abbrechen
+  change_my_password: Mein Passwort ändern
+  change_your_password: Dein Passwort ändern
+  classifications:
+    children:
+      see_more: Mehr sehen
+    hierarchies:
+      header: Kuratierte Hierarchien für %{sci_name}
+      see_resource_file: In der <a href='%{href}'>Ressourcendatei</a> gibt es eine
+        vollständige Liste.
+      this_page: (diese Seite)
+    richness:
+      header: Reichtum der Seite
+      score: Reichtum-Punktzahl
+      page_contents_count: zugehöriger Inhalt
+      missing: Der Reichtum ist für diese Seite noch nicht berechnet worden.
+      media_count: Medien
+      articles_count: Artikel
+      links_count: Links
+      maps_count: Karten
+      data_count: Daten
+      nodes_count: Knoten
+      scientific_names_count: wissenschaftliche Bezeichnungen
+      species_count: Spezies
+      updated_at: Zuletzt aktualisiert
+  cms_page_date: 'Letzte Änderung um:'
+  collect_already_in_collection: (Es ist schon hier)
+  collect_already_in_collection_will_add_icon: (füge Medien zu "%{page}" hinzu)
+  collect_icon_title: Füge "%{item}" von der Seite "%{page}" zu
+  collect_new_collection: Neuer Sammlungsname
+  collect_new_collection_title: '...eine neue Sammlung'
+  collect_no_existing_collections: Sie haben noch keine! Erstellen Sie eines mit dem
+    Formular auf der linken Seite.
+  collect_select_collection: '...eine Ihrer Sammlungen'
+  collect_title: Ergänze "%{item}" zu
+  collected_page_added_to_collection: Ergänze %{page} zur Sammlung <a href='%{link}'>%{name}</a>
+  collected_pages_title: Seiten
+  collection_associations:
+    destroyed_flash: '%{name} ist nicht länger mit dieser Sammlung verbunden'
+  collected_pages:
+    delete_button: Löschen
+    edit_button: Bearbeiten
+    delete_confirm: Sind Sie sicher?
+    destroyed_flash: '%{name} von der Sammlung entfernt.'
+  collection_associations_empty: Keine anderen Sammlungen sind mit dieser verbunden.
+    Sie können das "associate" Feld anderer Sammlungen klicken um diese hier erscheinen
+    zu lassen.
+  collection_user_is_admin: Dieser Benutzer ist ein Administrator.
+  collection_pages_empty: Diese Sammlung enthält keine Seiten. Versuchen Sie auf den
+    "Sammeln"-Knopf auf den Artenseiten zu klicken, um einige Artikel hinzuzufügen!
+  collection:
+    admins:
+      header: Benutzer, die diese Sammlung bearbeiten können (Änderungen werden sofort
+        wirksam)
+      label: 'Einen Benutzer hinzufügen, der diese Sammlung bearbeiten kann:'
+      placeholder: vollständiger Name oder Benutzername
+    actions:
+      delete: löschen
+      edit: bearbeiten
+      sort: Sortieren
+    collection_type:
+      normal: normal
+      gallery: Galerie
+    delete_confirm: Dadurch wird die gesamte Sammlung entfernt und dies kann NICHT
+      rückgängig gemacht werden. Sind Sie sicher?
+    destroyed: '"%{name}" wurde dauerhaft gelöscht.'
+    search:
+      placeholder: In der Sammlung suchen...
+      submit: suche
+    sort:
+      hierarchy: Hierarchie
+      sci_name: Wissenschaftliche Bezeichnung, A-Z
+      sci_name_rev: Wissenschaftliche Bezeichnung, A-Z
+  content_collected_in: 'In den folgenden Sammlungen vorgestellt:'
+  content_attributions_header: Informationen zur Quelle
+  content_attributions_labels:
+    altitude: Höhe
+    author: Autor
+    bibliographic_citation: bibliographisches Zitat
+    compiler: Kompiler
+    creator: Ersteller
+    editor: Editor
+    latitude: Breitengrad
+    license: Lizenz
+    location: Standort
+    location_verbatim: wörtlich
+    longitude: Längengrad
+    original_media_file: originale Mediendatei
+    owner: Urheberrecht
+    photographer: Fotograf
+    publisher: Herausgeber
+    project: Projekt
+    provider: Anbieter
+    source: Quelle
+    spatial_location: räumlich
+    view_source_label: original
+    view_source_link: Das Originalbild ansehen
+    view_source_page_link: Quelle ansehen
+  content_not_in_any_collection_image: Dieses Bild ist in keiner Sammlung zu finden.
+  content_not_in_any_collection_sound: Dieser Ton ist in keiner Sammlung zu finden.
+  content_not_in_any_collection_video: Dieses Video ist in keiner Sammlung zu finden.
+  data:
+    modifier:
+      lifestage_term: Lebensabschnitt des Lebewesens gemessen
+      statistical_method_term: Für Messungen genutzte statistische Methode
+  dear_username_with_comma: Lieber %{username},
+  delete_account_button: Dein Benutzerkonto löschen
+  filter_by_license: Lizenz
+  filter_by_license_any_item: Jede Lizenz
+  filter_by_medium_subtype: Typ
+  filter_by_medium_any_item: Jeder Typ
+  filter_by_resource: Anbieter
+  filter_by_resource_any_item: Jeder Anbieter
+  filters:
+    filter_by_attribute: Nach Attributen filtern
+    filter_by_language: Nach Sprache filtern
+    filter_by_provider: Nach Anbieter filtern
+  footer:
+    eol_info:
+      citing_eol: EOL zitieren
+      contact_us: Kontaktiere uns
+      donate: Spenden
+      education: Bildung
+      glossary: Glossar
+      help: Hilfe
+      language_support: Sprachunterstützung
+      terms_of_use: Nutzungsbedingungen
+      the_eol_forum: Das EOL Forum
+      what_is_eol: Was ist EOL?
+      whats_new: Was gibt es Neues?
+    discover:
+      algae: Algen
+      amphibians: Amphibien
+      animals: Tiere
+      archaea: Archaeen
+      bacteria: Bakterien
+      birds: Vögel
+      crustaceans: Krebstiere
+      fishes: Fische
+      flowering_plants: Blütenpflanzen
+      fungi: Pilze
+      insects: Insekten
+      invertebrates: Wirbellose Tiere
+      mammals: Säugetiere
+      mushrooms: Pilze
+      mollusks: Weichtiere
+      plants: Pflanzen
+      protists: Protisten
+      reptiles: Reptilien
+      spiders: Spinnen
+      trees: Bäume
+      viruses: Viren
+      worms: Würmer
+    eol_is_hosted_by: 'EOL ist veranstaltet von:'
+  forgot_your_password: Passwort vergessen?
+  landing_page:
+    header: Globaler Zugang zu Wissen über das Leben auf der Erde
+    stats_cleared: Die Statistiken wurden neu berechnet.
+  language: Sprache
+  languages:
+    alb: Albanisch
+    sq: Albanisch
+    ar: Arabisch
+    an: Aragonisch
+    Q29507: Asturisch
+    Q9292: Aserbaidschanisch
+    az: Aserbaidschanisch
+    eu: Baskisch
+    bn: Bengalisch
+    bs: Bosnisch
+    Q750553: Brasilianisches Portugiesisch
+    br: Bretonisch
+    bg: Bulgarisch
+    ca: Katalanisch; Valencianisch
+    Q33388: Cherokee
+    co: Korsisch
+    hr: Kroatisch
+    cs: Tschechisch
+    da: Dänisch
+    en: Englisch
+    eo: Esperanto
+    et: Estnisch
+    fi: Finnisch
+    fin: Finnisch
+    fr: Französisch
+    gd: Schottisch-Gälisch
+    gl: Galizisch
+    ka: Georgisch
+    de: Deutsch
+    deu: Deutsch
+    el: Griechisch, Modern (1453-)
+    gre: Griechisch
+    he: Hebräisch
+    heb: Hebräisch
+    hi: Hindi
+    hu: Ungarisch
+    ga: Irisch
+    ko: Koreanisch
+    kor: Koreanisch
+    lao: Laotisch
+    la: Lateinisch
+    Q146803: Lingua Franca Nova
+    Q497345: Mainfränkisch
+    "no": Norwegisch
+    Q36738: Novial
+    fa: Persisch
+    Q23014: Pfälzisch
+    pl: Polnisch
+    pol: Polnisch
+    pt: Portugiesisch
+    es: Spanisch; Kastilisch
+    slv: Spanisch
+    sw: Swahili
+    bo: Tibetisch
+    ur: Urdu
+    cy: Walisisch
+    Q100103: West-Flämisch
+  layout_sign_in: Anmelden
+  layout_sign_up: Registrieren
+  layout_sign_out: Abmelden
+  literature_and_references_header: Literatur und Verweise
+  medium:
+    untitled:
+      image: Unbenanntes Bild
+      image_of: Bild von%{page_name}
+      video: Unbenanntes Video
+      video_of: Video von %{page_name}
+      sound: Unbenannter Ton
+      sound_of: Ton von %{page_name}
+      map: Unbenannte Karte
+      map_of: Karte von %{page_name}
+      js_map: Unbenannte interaktive Karte
+    subclasses:
+      image: Bild
+      video: Video
+      sound: Ton
+      map_image: Karte
+      js_map: interaktive Karte
+  medium_collect_button: Medien sammeln
+  medium_description_blank: Für dieses Objekt wurde keine Beschreibung angegeben.
+  medium_header_title: 'Titel:'
+  medium_header_description: 'Beschreibung:'
+  names:
+    prefer: bevorzugen
+    preferred_in_language_for_page: '%{name} ist jetzt die bevorzugte %{language}
+      Umgangssprache für %{page}'
+  nav:
+    about: Über
+    discuss: Diskutieren
+    education: Bildung
+    search:
+      placeholder: Durchsuche EOL...
+  page_title: Enzyklopädie des Lebens
+  page_title_search: 'Durchsuche: %{query}'
+  page_vernaculars_empty: Mit diesem Taxon sind keine verbreiteten Namen verbunden.
+  pages:
+    actions:
+      collect: sammeln
+    batch_lookup:
+      download_tsv: TSV herunterladen
+      new_search: neue Suche
+      page_url: Seiten-URL
+      search: Suche
+    filter_menu:
+      show_all: Alle anzeigen
+    page_data:
+      show_all: Alle anzeigen
+    resource_names:
+      name_recognized_by: Erkannt von %{by}
+      name_recognized_by_w_rank: '%{rank} erkannt von %{by}'
+      rank:
+        r_family: Familie
+        r_tribe: Stamm
+        r_species: Spezies
+        r_form: Form
+    tabs:
+      articles: Artikel
+      classifications: Klassifikationen
+      data: Daten
+      literature_and_references: Literatur und Verweise
+      overview: Übersicht
+      media: Medien
+      names: Namen
+    iucn_status:
+      label: 'IUCN Status:'
+      ex: ausgestorben (EX)
+      ew: in freier Wildbahn ausgestorben (EW)
+      cr: vom Aussterben bedroht (CR)
+      en: stark gefährdet (EN)
+      vu: gefährdet (VU)
+  page_titles:
+    pages:
+      data: '%{page_name} Daten'
+      media: '%{page_name} Medien'
+      maps: '%{page_name} Karten'
+      names: '%{page_name} Namen'
+      articles: '%{page_name} Artikel'
+  recaptcha: Recaptcha
+  reference_compiled_from_article: '%{source} Artikel mit dem Namen "%{name}"'
+  resources:
+    actions:
+      clear_publishing_confirm: Dies will alle Veröffentlichung fertigstellen und
+        kann Probleme verursachen, wenn es verwendet wird während aktiv veröffentlicht
+        wird. Sind sie sicher?
+  scientific_name:
+    status_title:
+      accepted: Akzeptierte Namen
+      alternative: Alternative Namen
+      preferred: Bevorzugte Namen
+      unusable: Unverwendbare Namen
+      synonym: Synonyme
+  scientific_names_header: wissenschaftliche Bezeichnungen
+  send_me_reset_password_instructions: Schicke mir die Anweisungen um das Passwort
+    zurückzusetzen
+  search:
+    matched_text: Stimmt überein mit %{text}
+  search_results:
+    medium_article: Artikel
+    medium_image: Bild
+    empty: Keine Ergebnisse.
+    field_matches:
+      description: 'Stimmt mit der Beschreibung überein:'
+      resource_pk: 'Stimmt mit externer ID überein:'
+      bio: 'Stimmt mit Biographie überein:'
+  sections:
+    behavior: Verhalten
+    benefits: Vorteile
+    brief_summary: Kurze Zusammenfassung
+    diagnostic_description: Diagnostische Beschreibung
+    diseases_and_parasites: Krankheiten und Parasiten
+    ecology: Ökologie
+    genetics: Genetik
+    growth: Wachstum
+    habitat: Lebensraum
+    life_expectancy: Lebenserwartung
+    management: Management
+    risks: Risiken
+    size: Größe
+    threats: Gefahren
+    trends: Trends
+    wikipedia: Wikipedia
+  settings: Einstellungen
+  show_date: Zeige veröffentlichtes Datum
+  sign_in: Anmelden
+  sign_up: Registrieren
+  signature_with_contact_us_link: |-
+    Wenn sie Probleme haben, bitte kontaktieren sie uns über %{url}.
+
+    Das Enzyklopädie des Lebens Team
+  simple_form:
+    "yes": Ja
+    "no": Nein
+    required:
+      text: erforderlich
+      mark: '*'
+    error_notification:
+      default_message: 'Bitte überprüfe die Probleme darunter:'
+    labels:
+      defaults:
+        email: E-Mail
+        password: Passwort
+        password_confirmation: Passwortbestätigung
+  stats:
+    scientific_names: Namen
+    users: Benutzer
+    references: Referenzen
+  support:
+    array:
+      words_connector: ','
+      two_words_connector: und
+      last_word_connector: ', und'
+  term_query_filter:
+    validations:
+      invalid_uri: Ungültige URL
+  terms:
+    scientific_name: wissenschaftliche Bezeichnung
+    source: Quelle
+  traits:
+    data_viz:
+      other: andere
+    properties:
+      method: Messverfahren
+      scientific_name: Wissenschaftliche Bezeichnung
+      source: Quelle
+    search:
+      download_tsv: tsv herunterladen
+      filter_display:
+        statistical_method: 'Statistische Methode: %{value}'
+    search_form:
+      value: Wert
+  user:
+    headers:
+      bio: Kurze Biographie
+      collections: Sammlungen
+      downloads: Downloads
+      links: Links
+    validations:
+      tou_confirm: "Sie müssen bestätigen, dass sie die Nutzungsbedingungen und \nDatenschutz-Bestimmungen
+        gelesen haben"
+    new_password: Neues Passwort
+    confirm_new_password: Neues Passwort bestätigen
+    username: Benutzername
+  term:
+    actions:
+      sort: sortieren nach
+    fields:
+      comment: 'Kommentar:'
+      sections: 'Abschnitte:'
+    pagination:
+      next: nächste Seite
+      previous: vorherige Seite
+    name:
+      by_uri:
+        http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: brüten
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: Bariumsulfat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: Sauerstoff
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: Palmitinsäure
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: Kalzium
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: Magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: Purine
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: Harnsäure
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: Behensäure
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: Caprinsäure
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: Kalziumsulfat Halbhydrat
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: Fluorit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: Calcit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: Vaterit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: Apatit
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: Hydroxylapatit
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: Körperlänge
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: Zitzenzahl
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: dämmerungsaktiv
+        http://purl(dot)obolibrary(dot)org/obo/EO_0007059: saurer Boden
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: Rhizompflanze
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: Kryptophyt
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: Sumpfpflanze
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: Wasserpflanze
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: Baum
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: Strauch
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: Kletterpflanze
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: Wasserpflanze
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: läuft
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: Luft
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: gleitend
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: Hüpfen
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: Körpergröße
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: Lebenserwartung
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: Form
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: schwarz
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: blau
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: grün
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: rot
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: weiß
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: gelb
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: medium (normal)
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: groß
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertiert
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsam
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schell
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: herzförmig
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: braun
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: orange
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: verlängert
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: linear
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: Fläche
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: Volumen
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: immergrün
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: gelb-grün
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: trapezförmig
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: gemischt
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: erhöhte Qualität
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: niedrige Qualität
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: breit
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: niederliegend
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: sichtbar
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: gefingert
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004518: Rinde
+        http://purl(dot)obolibrary(dot)org/obo/PO_0004542: Rhizom
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: sekundäres Xylem
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: Frucht
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009005: Wurzeln
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: Samen
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: einfach
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002303: Lebensraum
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: jagt
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: ernährt sich von
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: Verhältnis
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: Körpermasse
+        http://eol(dot)org/schema/terms/Present: Geographische Verteilung enthält
+        http://eol(dot)org/schema/terms/FossilFirst: erstes Auftreten
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: küstennah
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: Fluss
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Watt
+        http://semanticscience(dot)org/resource/SIO_001114: max.
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000187: Prozent
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000185: Grad
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000195: Grad Fahrenheit
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: Zoll
+        http://purl(dot)org/obo/owl/UO#UO_0000034: Wochen
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: mm/Tag
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: mm/sek
+        http://eol(dot)org/schema/terms/millimetersPerYear: mm/Jahr
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010038: Tonnen
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: Fuß
+        http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: Zoll
+...

@@ -287,302 +287,346 @@ fr:
   language: Langue
   languages:
     ab: abkhaze
-    Q27776: Adyguéen
+    Q27683: acehnais
+    Q27776: adyguéen
     aa: afar
     af: afrikaans
     ak: akan
-    alb: Albanais
+    alb: albanais
     sq: albanais
+    Q131339: alémanique
     am: amharique
     ar: arabe
     an: aragonais
     hy: arménien
     as: assamais
-    Q29507: Asturien
-    Q56590: Attikameks
+    Q29507: asturien
+    Q56590: attikameks
     av: avar
     ae: avestique
     ay: aymara
-    Q9292: Azéri
+    Q9292: azéri
     az: azéri
+    Q33070: balinais
     bm: bambara
+    Q33151: banjar
     ba: bachkir
     eu: basque
-    Q29540: Bavarois
+    Q29540: bavarois
     be: biélorusse
-    Q8836490: Bende
+    Q8836490: bendé
     bn: bengali
     bh: langues bihari
     bi: bichelamar
     nb: bokmål, norvégien ; norvégien bokmål
-    Q4941378: Bondei
+    Q4941378: bondeï
     bs: bosnien
-    Q33202: Brahoui
-    Q750553: Portugais brésilien
+    Q33202: brahoui
+    Q750553: portugais brésilien
     br: breton
     bg: bulgare
     my: birman
-    Q35037: Ndjuka
-    Q880301: Français cadien
+    Q33120: bouriate
+    Q35037: ndjuka
+    Q880301: français cadien
     Q35156: Car
-    Q2591230: Cashinahua
+    Q2591230: cashinahua
     ca: catalan ; valencien
+    Q33239: cébuano
+    khm: khmer central
     km: khmer central
     ch: chamorro
-    Q33281: Chavacano
+    Q33281: chavacano
     ce: tchétchène
+    Q33388: tchéroki
+    Q33265: cheyenne
     ny: chewa ; chichewa ; nyanja
     zh: chinois
-    chi: Chinois
-    Q32979: Chacta
-    cu: Vieux slavon liturgique
+    chi: chinois
+    Q32979: chacta
+    cu: vieux slavon liturgique
     cv: tchouvache
+    Q37041: chinois classique
     kw: cornique
     co: corse
     cr: cri
-    Q33357: Tatar de Crimée
+    Q33357: tatar de Crimée
     hr: Croate
-    hrv: Croate
+    hrv: croate
     cs: tchèque
     da: danois
-    Q3362072: Digo
-    Q56466: Dinka
+    Q3362072: digo
+    Q56466: dinka
     dv: divehi ; maldivien
-    Q18415595: Dotyali
+    Q18415595: dotyali
+    dut: néerlandais ; flamand
     nl: néerlandais ; flamand
     dz: dzongkha
     dzo: dzongkha
-    Q4126517: Inuktitut canadien oriental
+    Q4126517: inuktitut canadien oriental
     en: anglais
+    Q29952: erzya
     eo: espéranto
     et: estonien
-    est: Estonien
+    est: estonien
     ee: éwé
     fo: féroïen
     fj: fidjien
     fi: finnois
-    fin: Finnois
-    Q667747: Fipa
+    fin: finnois
+    Q667747: fipa
     fr: français
-    fra: Français
+    fra: français
     ff: peul
-    gd: Gaélique écossais
+    gd: gaélique écossais
     gl: galicien
-    Q33475: Gan
+    Q33475: gan
     lg: ganda ; luganda
     ka: Géorgien
     de: allemand
-    deu: Allemand
-    Q5575236: Konkani goanais
-    Q3272630: Gogo
-    Q2501174: Gorontalo
+    deu: allemand
+    Q5575236: konkani goanais
+    Q3272630: gogo
+    Q2501174: gorontalo
     el: grec moderne (1453–)
-    gre: Grec
+    gre: grec
     gn: guarani
     gu: gouderati
-    Q33303: Haïda
+    Q33303: haïda
     ht: haïtien ; créole haïtien
     ha: haoussa
-    Q35756: Haya
+    Q35756: haya
     he: Hébreu
-    heb: Hébreu
-    Q3129390: Hehe
+    heb: hébreu
+    Q3129390: héhé
     hz: héréro
-    Q35978: Hiligaïnon
+    Q35978: hiligaïnon
     hi: hindi
     ho: hiri motu
     hu: hongrois
     is: islandais
-    ice: Icelandais
+    ice: islandais
     io: ido
     ig: igbo
-    Q35936: Ilocano
+    Q35936: ilocano
     id: indonésien
-    Q33509: Ingouche
-    ia: Interlingua (association de langue auxilliaire internationale)
-    ie: interlingua ; occidental
+    Q33509: ingouche
+    ia: interlingua (association de langue auxilliaire internationale)
+    ie: interlingue ; occidental
     iu: inuktitut
     ik: inupiaq
-    Q33595: Iraqw
+    Q33595: iraqw
     ga: irlandais
     it: italien
-    ita: Italien
-    Q35939: Créole jamaïcain
+    ita: italien
+    Q35939: créole jamaïcain
     ja: japonais
     jp: japonais
     jv: javanais
-    Q35475: Kabiyè
-    Q35853: Kabyle
+    Q33522: kabardien circassien
+    Q35475: kabiyè
+    Q35853: kabyle
     kl: kalaallisut ; groenlandais
-    Q33634: Kalmouk
+    Q33634: kalmouk
     kn: kannara
     kr: kanouri
-    Q33541: Karakalpaks
+    Q36121: pampangue
+    Q33541: karakalpaks
     ks: cachemiri
+    Q33690: cachoube
     kk: kazakh
     ki: kikuyu ; gikuyu
-    Q11005332: Kinga
-    Q11732519: Kingindo
+    Q11005332: kinga
+    Q11732519: kingindo
     rw: kinyarwanda
     ky: kirghize
     kv: komi
     kg: kikongo
     ko: coréen
-    kor: Coréen
+    kor: coréen
     kj: kuanyama ; kwanyama
     ku: kurde
+    Q36206: lak
     lo: lao
+    lao: laotien
     la: latin
     lv: letton
-    Q1160372: Laze
-    li: Limbourgeois
+    Q1160372: laze
+    Q31746: lezghien
+    Q36106: ligure
+    li: limbourgeois
     ln: lingala
-    Q146803: Lingua franca nova
+    Q146803: lingua franca nova
     lt: lituanien
-    lit: Lituanien
-    Q33698: Live
-    Q36584: Olonetsien
-    Q33754: Lombard
+    lit: lituanien
+    Q33698: live
+    Q36584: olonetsien
+    Q33754: lombard
+    Q168446: bas-saxon
+    Q13286: bas-sorabe
     lu: luba-katanga
-    Q3437661: Luguru
+    Q3437661: lougourou
     lb: luxembourgeois
-    Q35787: Maa
+    Q35787: massaï
     mk: macédonien
-    Q497345: Francique principal
-    Q36109: Maïthili
+    Q497345: francique du Main
+    Q36109: maïthili
     mg: malgache
     ms: malais
     ml: malayalam
     mt: maltais
-    mlt: Maltais
+    mlt: maltais
     gv: mannois
     mi: maori
     mr: marathi
     mh: marshallais
-    Q6786446: Matengo
-    Q13358: Mégléno-roumain
-    Q13313: Meru
-    Q13324: Minangkabau
-    Q13330: Mirandais
+    Q6786446: matengo
+    Q3906614: mari des prairies
+    Q13358: mégléno-roumain
+    Q13313: mérou
+    Q36455: mindong
+    Q13324: minangkabau
+    Q13359: mingrélien
+    Q13330: mirandais
+    Q13343: mokcha
     mn: mongol
-    Q56426: Arabe marocain
-    Q6944725: Mwera
-    Q3508074: Nai
+    Q56426: arabe marocain
+    Q6944725: mwéra
+    Q13300: nahuatl
+    Q3508074: naï
     na: nauru
     nv: navajo ; navaho
     nd: ndébélé du Nord
     nr: ndébélé du Sud
     ng: ndonga
+    Q33845: napolitain
     ne: népalais
-    Q7022366: Ngindo
-    Q19933293: Lori du nord
+    Q7022366: ngindo
+    Q28224: frison du nord
+    Q19933293: lori du nord
     se: same du Nord
     "no": norvégien
-    nno: Norvégien
-    nob: Norvégien
-    nor: Norvégien
+    nno: norvégien
+    nob: norvégien bokmål
+    nor: borvégien riksmål
     nn: norvégien nynorsk ; nynorsk, norvégien
-    Q36738: Novial
-    Q3272620: Nyakusa
-    Q4121131: Nyamwezi
-    Q7193418: Nyaturu
-    Q11128374: Nyiha
-    Q16115145: Nyika
-    oc: Occitan (après 1500)
-    Q28602: Araméen officiel
+    Q36738: novial
+    Q3272620: nyakusa
+    Q4121131: nyamwézi
+    Q7193418: nyatourou
+    Q11128374: nyiha
+    Q16115145: nyika
+    oc: occitan (après 1500)
+    Q28602: araméen officiel
     oj: ojibwé
     or: odiya
     om: oromo
     os: ossète
     pi: pali
-    pa: Pendjabi
-    Q36403: Asu
+    pa: pendjabi
+    Q36403: asou
     fa: persan
-    Q23014: Palatin
-    Q34024: Picard
-    Q15085: Piémontais
-    Q2429648: Pogoro
+    Q23014: palatin
+    Q34024: picard
+    Q15085: piémontais
+    Q2429648: pogoro
     pl: polonais
-    pol: Polonais
-    Q36748: Pontique
+    pol: polonais
+    Q36748: pontique
     pt: portugais
     ps: pachto ; pachtoune
     qu: quechua
-    Q584983: Rangi
+    Q584983: rangui
     ro: roumain ; moldave
     rm: romanche
     rn: roundi
     ru: russe
-    rus: Russe
+    rus: russe
+    Q26245: ruthène
+    Q34299: yakoute
+    Q718269: sakizaya
     sm: samoan
-    Q34016: Sandawe
+    Q213434: samogitien
+    Q34016: sandawé
     sg: sango
     sa: sanskrit
-    Q33965: Santali
+    Q33965: santali
     sc: sarde
-    Q845441: Sarde sassarais
+    Q845441: sarde sassarais
+    Q14549: scots
     sr: serbe
-    Q3788739: Shambala
+    Q3788739: chambala
     Q56482: Shan
     sn: shona
+    Q34004: shona
     ii: yi du Sichuan ; nuosu
-    Q33973: Sicilien
+    Q33973: sicilien
     sd: sindhi
-    si: Cinghalais
+    si: cinghalais
     sk: slovaque
-    slk: Slovaque
+    slk: slovaque
     sl: slovène
     so: somali
+    som: somali
     st: sotho du Sud
     es: espagnol ; castillan
-    slv: Espagnol
-    Q2638144: Soukouma
+    slv: espagnol
+    Q2638144: soukouma
     su: soundanais
     sw: swahili
     ss: swati
     sv: suédois
-    swe: Suédois
+    swe: suédois
     tl: tagalog
     ty: tahitien
     tg: tadjik
-    Q34318: Talysh
+    Q34318: talysh
     ta: tamoul
     tt: tatar
     te: télougou
     th: thaï
+    tha: thaï
     bo: tibétain
     ti: tigrigna
-    Q34159: Tok pisin
-    to: Tongan
-    Q180937: Tosque
+    Q34159: tok pisin
+    to: tongan
+    Q180937: tosque
     ts: tsonga
     tn: tswana
-    Q34138: Tumbuka
-    Q56240: Arabe tunisien
+    Q34251: toulou
+    Q34138: toumbouka
+    Q56240: arabe tunisien
     tr: turc
-    tur: Turc
-    Q36730: Turc, Ottoman
+    tur: turc
+    Q36730: turc ottoman
     tk: turkmène
     tw: twi
+    Q13238: oudmourte
     ug: ouïghour
     uk: ukrainien
-    ukr: Ukrainien
+    ukr: ukrainien
     none: Non spécifié
+    Q13248: haut-sorabe
     ur: ourdou
     uz: ouzbek
     ve: venda
+    Q32747: vepse
     vi: vietnamien
     vo: volapük
-    Q32858: Vote
+    Q32858: vote
     wa: wallon
+    Q34279: waray-waray
     cy: gallois
-    wel: Gallois
-    Q100103: Flamand de l'ouest
+    wel: gallois
+    Q100103: flamand occidental
     fy: frison occidental
     wo: wolof
+    Q34290: wu
     xh: xhosa
     yi: yiddish
     yo: yoruba
+    Q10199: zazaki
+    Q237409: zélandais
     za: zhuang
     zu: zoulou
   layout_sign_in: Se connecter
@@ -738,13 +782,13 @@ fr:
       predator: Prédateur
       prey: Proie
       reset: réinitialiser
-      trophic_web_about: Les diagrammes de réseau de nourriture de EdlV se focalisent
+      trophic_web_about: Les diagrammes de réseau de nourriture de l’EdlV se focalisent
         sur les relations de nourriture d’une espèce ; ils montrent l’espèce ciblée
         entourée des espèces dont elle se nourrie (proie), les espèces qui se nourrissent
         d’elle (prédateurs) et les autres espèces qui se nourrissent des mêmes proies
         (compétiteurs potentiels). Cliquer pour en savoir plus.
-      trophic_web_title_html: Web trophique <a href='%{about_path}'><sup><span class='a'
-        uk-tooltip='%{tooltip}'>?</span></sup></a>
+      trophic_web_title_html: Web trophique <a href="%{about_path}"><sup><span class="a"
+        uk-tooltip="%{tooltip}">?</span></sup></a>
     flash:
       reindexed: Les caches correspondants à cette page ont été effacés. Recharger
         la page pour pour voir les nouvelles valeurs. NOTEZ que, pour l’instant, cela
@@ -761,7 +805,7 @@ fr:
       media: média
       names: noms
     iucn_status:
-      label: 'Catégorie de l’IUCN :'
+      label: 'État selon l’IUCN :'
       ex: éteint (EX)
       ew: éteint à l’état sauvage (EW)
       cr: en danger critique (CR)
@@ -773,7 +817,7 @@ fr:
       ne: non évalué (NE)
       unknown: inconnu (pas d’enregistrement)
     unresolved_name: Nom non-résolu
-    unresolved_name_prefix: 'Noms non résolus :'
+    unresolved_name_prefix: 'Nom non résolu :'
   page_titles:
     pages:
       data: données de %{page_name}
@@ -795,13 +839,14 @@ fr:
       reindex: réindexer
       fix_no_names: fixe à NO NAMEs
       index: retour à toutes les ressources
-      show_all: montrer tout (%{count})
+      show_all:
+        other: montrer tout (%{count})
       show_warns:
         one: afficher l’avertissement (%{count})
         other: afficher les avertissements (%{count})
       sync: synchroniser avec le dépôt
       clear_publishing: effacer le verrou
-      clear_publishing_confirm: Cela « terminera » toutes les publications, et peut
+      clear_publishing_confirm: Cela « terminera » toutes les publications et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
         sûr ?
     headers:
@@ -834,6 +879,7 @@ fr:
     du mot de passe
   search:
     full_name: '%{vernacular} (%{scientific})'
+    matched_text: Correspond à %{text}
     flash:
       cannot_combine_paths: Impossible de combiner les résultats avec %{path}
       more_than_one_species: Impossible de combiner les résultats pour %{species}
@@ -1177,6 +1223,8 @@ fr:
     batch_page_lookup: Recherche de pages par lot
     created_at: créé
     download_queue: File de téléchargement de données
+    grant_power: Accorder l’accès utilisateur avancé
+    revoke_power: Révoquer l’accès utilisateur avancé
     edit_account_details: Modifier les détails du compte
     email: Courriel
     to_commit_enter_current: Pour enregistrer vos modifications, veuillez entrer votre

@@ -63,7 +63,7 @@ it:
   change_your_password: Cambia password
   classifications:
     children:
-      see_more: Vedi di più
+      see_more: vedi altro
     hierarchies:
       header: Gerarchie curate per %{sci_name}
       this_page: (questa pagina)

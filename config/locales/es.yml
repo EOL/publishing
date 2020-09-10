@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aramos1422
 # Author: Canaan9801
 # Author: Fitoschido
 # Author: Gastonsaenz
@@ -51,13 +52,19 @@ es:
       missing: Sin título
   article_from_partner: Proporcionado por %{partner}
   article_duplicate: este artículo también se muestra en «%{section}»
+  autocomplete:
+    see_all:
+      other: uno=ver otros resultados
   breadcrumbs:
     notices:
       canonical: Ahora los nombres científicos figurarán en las rutas de navegación
         de las páginas
+      vernacular: Los nombres vernáculos ahora serán mostrados en la página donde
+        están disponibles "las migas de pan"
     setting_header: nombres en rutas de navegación
     types:
       scientific: Científico
+      vernacular: Vernáculo
   button_create: crear
   button_add: añadir
   cancel: cancelar
@@ -67,6 +74,7 @@ es:
     children:
       see_more: ver más
     hierarchies:
+      header: Jerarquías seleccionadas para %{sci_name}
       this_page: (esta página)
     richness:
       header: Riqueza de la página
@@ -79,14 +87,18 @@ es:
       maps_count: mapas
       data_count: datos
       nodes_count: nodos
+      vernaculars_count: lenguas vernáculas
       scientific_names_count: nombres científicos
       referents_count: referentes
       species_count: especies
       updated_at: última actualización
   cms_page_date: 'Última modificación:'
   collect_already_in_collection: (ya se encuentra aqui)
+  collect_already_in_collection_will_add_icon: (agregar medios de comunicación a "%{page}")
   collect_new_collection: Nombre de la colección nueva
   collect_new_collection_title: '...una Nueva Colección'
+  collect_no_existing_collections: ¡Aún no tienes ninguno! Crea uno usando el formulario
+    en el lado izquierdo.
   collect_select_collection: '...Una de Sus Colecciones'
   collect_title: Añadir «%{item}» a…
   collected_page_already_in_collection: Eso ya se encontraba en su colección
@@ -102,6 +114,9 @@ es:
     destroyed_flash: '%{name}removido de la colección.'
   collection_association_added_to_collection: Se añadió «%{associated}» a la colección
     <a href='%{link}'>«%{name}»</a>.
+  collection_associations_empty: No hay otras colecciones asociadas con esta. Puede
+    hacer clic en el botón nombrado "asociar" en otras colecciones para que aparezcan
+    aquí.
   collection_associations_title: Colecciones asociadas
   collection_created: Se creó la colección «%{name}».
   collection_user_is_admin: Este usuario es un administrador.
@@ -110,11 +125,16 @@ es:
       label: 'Añadir un usuario que puede editar esta colección:'
       placeholder: Nombre completo o nombre de usuario
     actions:
+      associate: asociar
+      download_taxa_csv: descargar un archivo CSV de "taxa"
       delete: eliminar
       edit: editar
+      sort: Poner en orden
     collection_type:
       normal: normal
       gallery: galería
+    delete_confirm: Esto eliminará toda la colección y NO SE PUEDE deshacer. ¿Estás
+      seguro?
     destroyed: «%{name}» se eliminó permanentemente.
     pages_count:
       one: 1 página
@@ -150,9 +170,11 @@ es:
     publisher: Editorial
     project: proyecto
     provider: proveedor
+    resource_label: sitio asociado
     resource_pk: '(id.: %{key})'
     rights_statement: declaración de derechos
     source: fuente
+    spatial_location: espacial
     view_source_label: original
     view_source_link: ver imagen original
     view_source_page_link: visitar fuente
@@ -183,6 +205,7 @@ es:
       data_services: Servicios de datos
       donate: Donar
       education: Educación
+      food_webs: Redes alimentarias
       glossary: Glosario
       help: Ayuda
       terms_of_use: Condiciones de uso
@@ -193,6 +216,7 @@ es:
       algae: Algas
       amphibians: Anfibios
       animals: Animales
+      archaea: Las arqueas
       bacteria: Bacterias
       birds: Aves
       crustaceans: Crustáceos
@@ -210,6 +234,7 @@ es:
       trees: Árboles
       viruses: Virus
       worms: Gusanos
+    eol_is_hosted_by: 'EOL está presentado por:'
   forgot_your_password: ¿Has olvidado tu contraseña?
   landing_page:
     header: Acceso global al conocimiento sobre la vida en la Tierra
@@ -219,6 +244,7 @@ es:
     ab: Abjasio
     Q27776: Adigué
     af: Afrikáans
+    alb: Albanés
     sq: Albanés
     am: Amhárico
     ar: Árabe
@@ -232,6 +258,7 @@ es:
     bs: Bosnio
     Q750553: Portugués de Brasil
     bg: Búlgaro
+    Q35156: el carro
     ca: Catalán; valenciano
     ce: Checheno
     zh: Chino

@@ -27,7 +27,7 @@ zh-CN:
       title: 特质资料库
       body_html: <p>生命大百科（EOL）的资料和技术团队将EOL的结构化数据资料--特征及其他特定性质，生态环境互动，本地化分类，动态调整层次体系--统称特质资料库。其内容管理与我们其他传统的图像，录像，音像及描述性文档内容稍有不同；
         其用途亦不相同。</p><p>特质储存库比EOL其他部分新；构想源于物种页面组经理Cynthia Parr并于2014年一月在EOL上线。从此，结构化数据一直是我们内容发展的第一优先。</p><p>现在，您可以透过结构化数据<a
-        href='%{example_search_path}'>搜寻</a>或浏览 EOL，或下载数据, 亦或您在我们新的概述页阅读<a href='%{autogen_page_path}'>自动生成文案</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是以属性图<a
+        href='%{example_search_path}'>搜寻</a>或浏览 EOL，或下载数据, 亦或您在我们新的概览页阅读<a href='%{autogen_page_path}'>自动生成文案</a>的方式邂逅它。如同其他EOL内容，它可以重复利用并提供详细来源以便于您在使用时提供出处。</p><p>这些数据是以属性图<a
         href='%{property_graph_url}'>为模式在<a href='%{neo4j_url}'>neo4j</a>。 <a href='%{data_services_path}'>数据服务</a>可供使用。</p>
   account_already_linked: 您的帐号已与EOL链接
   account_not_linked: 您的帐号没有与EOL链接
@@ -173,7 +173,7 @@ zh-CN:
   complete_registration: 请继续完成你的注册
   content_appears_on: 包含在下列页面：
   content_collected_in: 特别刊登在下列收藏中：
-  content_attributions_header: 来源信息
+  content_attributions_header: 出处资料
   content_attributions_labels:
     altitude: 海拔
     author: 作者
@@ -678,7 +678,7 @@ zh-CN:
     filter_menu:
       show_all: 全部显示
     page_data:
-      habitat_wordcloud_tooltip: 我们的生境记录多数是以文本开采，所以许多词语会找回多次；常出现的生态词语--展现在较大的词云中--可能较为重要。所有的记录列示如下。
+      habitat_wordcloud_tooltip: 我们的栖息地记录多数是以文本开采，所以许多词语会找回多次；常出现的生态词语--展现在较大的词云中--可能较为重要。所有的记录列示如下。
       n_hidden_show_all:
         one: 一个“%{pred_name}”隐藏的记录 — 显示所有
         other: '%{count} “%{pred_name}个隐藏的记录 — 显示所有'
@@ -696,7 +696,7 @@ zh-CN:
         r_infradomain: 下域
         r_superkingdom: 超界
         r_kingdom: 界
-        r_subkingdom: 亚界；门
+        r_subkingdom: 亚界
         r_infrakingdom: 下界
         r_superphylum: 超门
         r_phylum: 门
@@ -785,6 +785,7 @@ zh-CN:
       show_warns:
         one: 显示(%{count}一个警告)
         other: 显示(%{count})个警告
+      clear_publishing: 解除锁定
       clear_publishing_confirm: 这将完成所有发布，并倘若您在发布中使用会产生困难。你确定吗？
     headers:
       index: 资料
@@ -803,7 +804,7 @@ zh-CN:
         one: 一个可发布的
         other: '%{count}个可发布的'
     no_events: 无！
-  resource_missing: 找不到资料
+  resource_missing: 找不到资料档
   scientific_name:
     status_title:
       accepted: 采用名称
@@ -924,6 +925,7 @@ zh-CN:
     index:
       header: 搜索建议
   sections:
+    associations: 协会
     behavior: 行为
     benefits: 益处
     brief_summary: 简要
@@ -955,7 +957,7 @@ zh-CN:
     physiology_and_cell_biology: 生理学和生物学
     physical_description: 外貌描述
     relevance_to_humans_and_ecosystems: 与人类和生态系统的关系
-    reproduction: 净产品
+    reproduction: 生殖
     risks: 风险
     size: 尺寸
     taxonomy: 分类学
@@ -1018,18 +1020,39 @@ zh-CN:
     validations:
       blank_error: 必须述明一个特定性质或数值
       invalid_uri: 该标识符无效
+      multi_obj_error: 不能同时有对象术语和目标层
+      pred_uri_blank_obj_clade_error: 目标层不能是空白的
+      pred_uri_blank_numeric_error: 数值不能是空白的
+      range_invalid_error: 必须大于或等于第一个数值
   terms:
+    attribution_field_html: <strong>属性:</strong> <a href='%{attribution}'>%{attribution}</a>
+    comment_field_html: <strong>评论:</strong> %{comment}
+    definition_field_html: <strong>定义:</strong> %{definition}
+    source_field_html: <strong>出处:</strong> <a href='%{source}'>%{source}</a>
+    record_url: 记录URL统一资源定位符
     scientific_name: 学名
+    show_all_records: 显示所有记录
     source: 源
+    uri_field_html: <strong>URI统一资源标识符:</strong> %{uri}
+    index:
+      select_page_above: 要开始从上列页面选一
+  data_definition: '%{data}的定义'
   traits:
     data_viz:
+      about_this_chart: 关于此图表
+      about_this_chart_tooltip: 这是一个根据生命大百科所含资料拟出的概要。它可能不完全！要缩小搜寻结果，您可以点选图表中任一条型。
+      hist_value_label: 数值%{units}
       n_other_records:
         one: 一个其他的记录
         other: '%{count}个其他的记录'
       n_other_taxa:
         one: 一个其他的分类群
         other: '%{count}个其他的分类群'
+      num_records_label: 记录的数量
       other: 其他
+      page_habitat_header: '%{name}栖息地'
+      page_habitat_explanation: 许多物种生存的环境。点选一个环境看其%{name}物种一览表。
+      pie_prompt: 要突出，移动滑鼠至要突出的段或键
       n_obj_records:
         one: 一个有"%{obj_name}"的记录
         other: '%{count}个有"%{obj_name}"的记录'
@@ -1050,138 +1073,343 @@ zh-CN:
       citation: 书目引用
       method: 测量方法
       remarks: 附注
+      sample_size: 样品量
       scientific_name: 学名
       source: 来源
     search:
+      clade: '进化支: %{clade}'
+      download_tsv: 下载TSV
       edit_filters: 编辑过滤器
       filter_display:
-        resource: 资料出处：%{value}
+        lifestage: '生命阶段: %{value}'
+        obj_only: 数值%{obj}
+        resource: 资料：%{value}
+        sex: 性别：%{value}
+        statistical_method: 统计法：%{value}
+      gbif_search: 全球生物多样性资讯机构搜寻
+      gbif_search_hover: 在全球生物多样性资讯机构寻找您的搜寻结果里分类群的出现记录（限50条）
+      result_header_records: 显示%{page_count}分类群中%{total}记录的%{range_begin} - %{range_end}部分，分类群含有
+      result_header_taxa: 显示%{total}分类群的%{range_begin} - %{range_end}部分，分类群含有
       new_search: 新搜索
       select:
         top_level:
           object_term: 或者选择一个值
           predicate: 或选择一个特定性质
+      show_query: 显示查询问题
+      switch_to_list: 转换为列表浏览
+      switch_to_gallery: 转换为图库浏览
     search_form:
       attribute: 特定性质
-      resource: 资料出处
+      attribute_eg: 特定性质 （比如：营养级）
+      clade_filter_placeholder: 群组（比如：熊）（选择性的）
+      hide_additional_fields: 隐藏其他栏
+      lifestage: 生命阶段
+      records_matching_all: 符合所有过滤程序的分类群记录
+      resource: 资料
       search: 搜索
       sex: 性别
-      show_additional_fields: 显示额外字段
-      this_may_take_a_minute: 这个应该会使用一分钟
+      show_additional_fields: 显示其他栏
+      statistical_method: 统计方式
+      target_group: 目标群体（比如，鲑鱼)
+      taxa_matching_all: 符合所有过滤程序的分类群
+      this_may_take_a_minute: 这可能会占用一分钟的时间
       trait_filter: 特征筛选
+      value: 值
+      value_eg: 值（比如：草食动物）
+  trophic_web:
+    group_descriptions:
+      competitor: '%{source_name}的竞争者'
+      predator: 捕食%{source_name}
+      prey: 被%{source_name}捕食
+      source: 焦点物种
   trust:
     unreviewed: 未审查
-    trusted: 受信
+    trusted: 被认为是可靠的
+    untrusted: 不被认为是可靠的
   user:
-    created_at: 已发起
-    email: 邮箱
+    batch_page_lookup: 批处理页面查找
+    created_at: 已创建
+    download_queue: 数据下载队列
+    grant_power: 授与有权限的用户访问权限
+    revoke_power: 撤销有权限的用户访问权限
+    edit_account_details: 编辑账户资料
+    email: 电子邮箱
+    to_commit_enter_current: 要提交您的更改，请输入您的密码
+    form_labels:
+      age_confirm: 我13岁以上
+      tou_confirm_html: 我已阅读<a href='%{tou_path}'>使用条款</a>和<a href='%{privacy_path}'>隐私政策</a>
     headers:
-      collections: 我的收藏
+      bio: 简短的传记
+      collections: 收藏
+      downloads: 下载
       links: 链接
     is_power_user: 本用户被标记为一个有权限的用户。
+    validations:
+      age_confirm: 您必须确认您至少13岁以上
+      tou_confirm: 您必须确认您已阅读使用条款及隐私政策
+    list_of_power_users: 有权限的用户的清单
     new_password: 新密码
+    confirm_new_password: 确认新密码
     showing_n_power_users:
-      one: 列示一个高级用户
-      other: 列示%{count}个高级用户
+      one: 列示一个有权限的用户
+      other: 列示%{count}个有权限的用户
+    trait_bank_cypher_form: 特质储存库暗码型式
     username: 用户名
     update: 更新的
     update_email: 更新邮件信息
+  user_download:
+    created: 您的档案会于背景处理。要知道是否处理完毕，查看您的<a href="%{url}">用户页</a>。
+    have_pending: 您已经有一个关于此搜寻待下载的任务。查询您的<a href="%{url}">用户页</a>看任务是否已完成。
   users:
+    account_migration_header: 如果您于2018年11月15日之前与生命大百科注册：
     account_migration_notice: 您的帐户信息，包括用户名、相关电子邮件、配置文件描述和拥有的收藏，已导入到新的EOL中。您的用户名仍然是您在网站上的显示名称，但是您现在必须使用您的电子邮件地址登录。出于安全原因，我们无法迁移您的密码；抱歉打扰了。您可以使用忘记密码过程重置它。如果您只使用第三方提供商——谷歌、推特或脸书——登录，请耐心等待；我们正在解决共享登录过程中的一些问题。
     sign_in: 登录
   vernacular_names_header: 俗名
   vernacular_preferred_by_resource: '%{resource}(首选名称)'
+  wordcloud_credit_html: 产生于<a href='%{url}'>jQCloud</a>
   term:
     actions:
       reindex: 重新索引
       sort: 排序项
     edit:
+      header: 编辑%{uri}
       submit: 储存游戏
     fields:
       name: '名称:'
+      definition: 定义：
       attribution: 署名：
       comment: 注解：
+      sections: 节：
+      is_hidden_from_glossary: '从词汇表中隐藏:'
+      is_hidden_from_overview: 从概览页隐藏起来：
+    glossary:
+      full_title: 生命大百科上的数据所有词语词汇表
+      object_term_title: 生命大百科上的数据所有价值单位词汇表
+      units_title: 生命大百科上的数据所有单位术语词汇表
     pagination:
       next: 下一页
+      previous: 上一页
     name:
       by_uri:
         http://purl(dot)obolibrary(dot)org/obo/CEPH_0000036: 孵卵
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_133326: 硫酸钡
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: 氧
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_15756: 十六烷酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: 钙
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: 镁
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_26401: 嘌呤
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_27226: 尿酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28822: 廿（碳）烷酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28842: 十八烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28866: 二十四烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_28875: 十四碳酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_28941: 廿二烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_30805: 十二（烷）酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_30813: 癸酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_31009: 二十六烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32365: 十七烷酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_32368: 十一烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32583: 硫酸钙二水合物
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_32584: 半水合硫酸钙
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_3311: 碳酸钙
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_39246: 十九烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_42504: 十五烷酸
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_45919: 十三烷酸
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46713: 萤石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_46719: 方解石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52239: 沿海的
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52241: 球霰石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52254: 磷灰石
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_52255: 羟磷灰石
+        http://purl(dot)obolibrary(dot)org/obo/CHEBI_64389: 生物硅
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_77635: 磷酸钙
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: 体长
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000445: 奶头数
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000078: 黄昏行性的
+        http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000130: 光合自养生物
         http://purl(dot)obolibrary(dot)org/obo/ECOCORE_00000131: 光异养生物
         http://purl(dot)obolibrary(dot)org/obo/EO_0007059: 酸性的土壤
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0000875: 阀杆直径
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0003958: 叶大小等级
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0005532: 根茎植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0007484: 叶复杂性
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0008548: 叶脱落性
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0015519: 种子大小
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0019932: 叶形态
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0022142: 草本的
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0023069: 叶状体直径
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900022: 植物生活型
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900024: 地下芽植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900025: 沼生植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900026: 水生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900032: 植物生长形态
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: 树
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900034: 灌木
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900035: 攀缘植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900036: 禾草类植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900037: 非禾本草本植物
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900044: 水生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980071: 一年生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980072: 两年生植物
+        http://purl(dot)obolibrary(dot)org/obo/FLOPO_0980073: 多年生植物
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413448: 溯河繁殖的
         http://purl(dot)obolibrary(dot)org/obo/FOODON_03413449: 下海繁殖的
+        http://purl(dot)obolibrary(dot)org/obo/FOODON_03413450: 两性的
+        http://purl(dot)obolibrary(dot)org/obo/GO_0000003: 生殖
+        http://purl(dot)obolibrary(dot)org/obo/GO_0009399: 固氮作用
         http://purl(dot)obolibrary(dot)org/obo/GO_0019954: 无性生殖
+        http://purl(dot)obolibrary(dot)org/obo/GO_0040011: 移动
+        http://purl(dot)obolibrary(dot)org/obo/GO_0060746: 亲代抚育
         http://purl(dot)obolibrary(dot)org/obo/ID_0000058: 圆柱
+        http://purl(dot)obolibrary(dot)org/obo/MAT_0000366: 贮存器官
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000055: 跑着
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000364: 树上行动
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000366: 空中
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000367: 飞行
+        http://purl(dot)obolibrary(dot)org/obo/NBO_0000369: 滑行
         http://purl(dot)obolibrary(dot)org/obo/NBO_0000370: 突变
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C25513: 成形
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C70589: 丰盛
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000048: 细胞直径
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0000056: 细胞体积
+        http://purl(dot)obolibrary(dot)org/obo/OBA_0002342: 骨骼结构
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000036: 细胞量
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000039: 壳体长度
         http://purl(dot)obolibrary(dot)org/obo/OBA_1000040: 木头密度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000083: 细胞核长度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000085: 细胞核宽度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000098: 沟宽
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000106: 骨骼成分
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000126: 震级长度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_1000127: 次声波长度
+        http://purl(dot)obolibrary(dot)org/obo/OBA_VT0100005: 体格大小
+        http://purl(dot)obolibrary(dot)org/obo/OMIT_0013523: 大型藻类
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: 寿命
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000052: 形状
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: 黑色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: 蓝色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: 绿色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000322: 红色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000323: 白色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000324: 黄色
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000461: 中等（正常）
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000586: 大
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: 小号
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: 倒置的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: 慢
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: 快
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000915: 高
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: 心形的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: 紫色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: 褐色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000953: 橘色
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001154: 细长的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001199: 线性
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001603: 长寿
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001604: 寿命短
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001709: 区域
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001710: 体积
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001729: 可剥离性
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001731: 落叶的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: 常绿的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001734: 半落叶的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0001794: 缠绕
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: 黄绿
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001980: 掌状的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002044: 梯形
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002122: 混合
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002124: 薄片状的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002300: 已提高的质量
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002301: 已降低的质量
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002343: 匐生的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002359: 扁宽
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002389: 平伏的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002393: 高容忍度
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002394: 低容忍度
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002425: 暴露的
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002440: 地貌起伏纹路
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002451: 雌雄同体
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0002457: 像叶子般的
         http://purl(dot)obolibrary(dot)org/obo/PATO_0002467: 板条似的
+        http://purl(dot)obolibrary(dot)org/obo/PORO_0000389: 大量生长习性
         http://purl(dot)obolibrary(dot)org/obo/PORO_0000436: 掌状
+        http://purl(dot)obolibrary(dot)org/obo/PO_0000037: 苗端
         http://purl(dot)obolibrary(dot)org/obo/PO_0004518: 树皮
         http://purl(dot)obolibrary(dot)org/obo/PO_0004542: 根茎
+        http://purl(dot)obolibrary(dot)org/obo/PO_0005848: 次生木质部
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009001: 果实
         http://purl(dot)obolibrary(dot)org/obo/PO_0009005: 根
+        http://purl(dot)obolibrary(dot)org/obo/PO_0009010: 种子
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020042: 单叶
+        http://purl(dot)obolibrary(dot)org/obo/PO_0020043: 复叶
+        http://purl(dot)obolibrary(dot)org/obo/PO_0025173: 脊叶
         http://purl(dot)obolibrary(dot)org/obo/RO_0002303: 栖息地
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: 捕食
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002440: 共生体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002441: 共生
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002442: 互惠互利的
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002444: 寄生
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002445: 被寄生
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002454: 有宿主
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002455: 授粉
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002456: 被授粉
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: 被捕食于
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002459: 向量是
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002470: 吃
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002471: 被吃
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002556: 病原体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002557: 有病原体
+        http://purl(dot)obolibrary(dot)org/obo/RO_0003000: 制备
+        http://purl(dot)obolibrary(dot)org/obo/RO_0008503: 寄生虫
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000207: 株高
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000276: 耐旱性
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000326: 叶色
         http://purl(dot)obolibrary(dot)org/obo/TO_0000492: 叶子形状
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000519: 根深
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000537: 花色
+        http://purl(dot)obolibrary(dot)org/obo/TO_0000540: 叶面积
         http://purl(dot)obolibrary(dot)org/obo/TO_0000850: 果实类型
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001015: 光合速率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0001026: 呼吸频率
+        http://purl(dot)obolibrary(dot)org/obo/TO_0002725: 生命周期习惯
+        http://purl(dot)obolibrary(dot)org/obo/TO_0006001: 耐盐性
         http://purl(dot)obolibrary(dot)org/obo/UBERON_0010362: 内骨骼
+        http://purl(dot)obolibrary(dot)org/obo/UBERON_4000013: 矿化组织含有
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010006: 比例
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001259: 身体质量
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001502: 行为昼夜节律
+        http://purl(dot)obolibrary(dot)org/obo/VT_0001933: 一窝产仔数
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002292: 妊娠期
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002683: 生育期开始
+        http://purl(dot)obolibrary(dot)org/obo/VT_0002758: 尾长
+        http://purl(dot)obolibrary(dot)org/obo/VT_0004348: 股骨长
+        http://purl(dot)obolibrary(dot)org/obo/VT_0010023: 前肢长
+        http://purl(dot)obolibrary(dot)org/obo/VT_0015039: 身宽
+        http://purl(dot)obolibrary(dot)org/obo/VT_1000666: 股骨宽
+        http://eol(dot)org/schema/terms/Present: 地理分布包括
+        http://eol(dot)org/schema/terms/FossilFirst: 首次出现
         https://www(dot)wikidata(dot)org/entity/Q295469: 生态区
+        http://eol(dot)org/schema/terms/EcomorphologicalGuild: 生态形态群性
+        http://eol(dot)org/schema/terms/TrophicGuild: 营养群性
         http://www(dot)wikidata(dot)org/entity/Q33596: 能动性
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: 水深
+        http://eol(dot)org/schema/terms/NativeRange: 原生地包括
+        http://eol(dot)org/schema/terms/fossilOccPBDB: 化石出现次数
         http://www(dot)wikidata(dot)org/entity/Q1053008: 营养级
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000024: 海底栖的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000446: lu di
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000174: 森林
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000447: 海洋的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000687: 沿海的
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_00000873: 淡水
         http://purl(dot)obolibrary(dot)org/obo/ENVO_00000300: 灌木丛地带
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: 热带的
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: 河流
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: 草原
+        http://eol(dot)org/schema/terms/paleo_megaannum: 百万年前
         http://purl(dot)obolibrary(dot)org/obo/UO_0000027: 摄氏度
+        http://eol(dot)org/schema/terms/individualspersquarekilometer: 每平方公里个数
+        http://eol(dot)org/schema/terms/millimeterspermonth: 毫米/月
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: 开尔文
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: 日
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: 月
@@ -1194,8 +1422,27 @@ zh-CN:
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /年
         http://purl(dot)obolibrary(dot)org/obo/UO_0000195: 华氏度
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: 英寸
+        http://eol(dot)org/schema/terms/perAcre: 每英亩
+        http://eol(dot)org/schema/terms/practicalSalinityUnits: PSU实用盐度单位
         http://purl(dot)org/obo/owl/UO#UO_0000034: 周
+        http://eol(dot)org/schema/terms/µmol_cell-1_day-1: µmol/细胞/天
+        http://eol(dot)org/schema/terms/µmol_cell-1: µmol/细胞
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000064: µmol/升
+        http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: 克/平方厘米/天
+        http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: 公斤/平方米/年
         Unit: 单位
+        http://eol(dot)org/schema/terms/percentPerMonth: '%/月'
+        http://eol(dot)org/schema/terms/gramsPercm2PerYear: 克/平方公分/年
+        http://eol(dot)org/schema/terms/gramsPerMonth: 克/月
+        http://eol(dot)org/schema/terms/millimetersPerThreeMonths: 毫米/3个月
+        http://eol(dot)org/schema/terms/millimetersPerFourMonths: 毫米/4个月
+        http://eol(dot)org/schema/terms/millimetersPerSixMonths: 毫米/6个月
+        http://eol(dot)org/schema/terms/millimetersPerSevenMonths: 毫米/7个月
+        http://eol(dot)org/schema/terms/millimetersPerEightMonths: 毫米/8个月
+        http://purl(dot)obolibrary(dot)org/obo/UO_0010005: 毫米/天
+        http://purl(dot)obolibrary(dot)org/obo/NCIT_C105508: 毫米/秒
+        http://eol(dot)org/schema/terms/millimetersPerYear: 毫米/年
+        http://eol(dot)org/schema/terms/µmol_cm-2_hr-1: µmol/平方公分/小时
         http://purl(dot)obolibrary(dot)org/obo/UO_0010038: 英吨
         http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#foot: 英尺
         http://purl(dot)obolibrary(dot)org/obo/EFO_0004387: 英寸
