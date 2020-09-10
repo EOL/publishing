@@ -215,7 +215,9 @@ class TraitBank
       end
 
       def sankey_data(term_query)
-        sankey_combined_counts(term_query)
+        Rails.cache.fetch("trait_bank/stats/#{term_query.to_cache_key}") do
+          sankey_combined_counts(term_query)
+        end
       end
 
 

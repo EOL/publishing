@@ -33,6 +33,10 @@ window.Sankey = (function(exports) {
       links: graph.links.map(d => Object.assign({}, d))
     });
 
+    const link = d3.linkHorizontal()
+      .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])
+      .target((d) => [d.target.x0, Math.min(d.target.y1 - (d.width / 2.0), d.y1)]);
+
     svg.append("g")
       .selectAll("rect")
       .data(nodes)
@@ -44,21 +48,11 @@ window.Sankey = (function(exports) {
       .append("title")
         .text(d => `${d.name}\n${d.value.toLocaleString()}`);
 
-
-    var link = d3.linkHorizontal()
-      .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])
-      .target((d) => [d.target.x0, Math.min(d.target.y1 - (d.width / 2.0), d.y1)]);
-
-    svg.append("g")
+    const linkG = svg.append("g")
         .attr("fill", "none")
-      .selectAll("g")
-      .data(links)
-      .join("path")
-        .attr("d", link)
-        .attr("stroke", d => "#89c783")
-        .attr("stroke-width", d => d.width)
-      .append("title")
-        .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`);
+        .attr("class", "links")
+
+    updateLinks(linkG);
 
     svg.append("g")
         .style("font", "10px sans-serif")
@@ -75,6 +69,65 @@ window.Sankey = (function(exports) {
         .text(d => ` ${d.value.toLocaleString()}`);
 
     svg.node();
+
+    function setSelectedLink(selectedLink) {
+      links.forEach((l) => {
+        const selected = (
+          l == selectedLink ||
+          selectedLink.connections.find((c) => l.source.uri == c.source_uri && l.target.uri == c.target_uri)
+        );
+
+        l.selected = selected;
+      })
+
+      links.sort((a, b) => {
+        if (a.selected && !b.selected) {
+          return 1;
+        } else if (!a.selected && b.selected) {
+          return -1; 
+        } else {
+          return 0;
+        }
+      });
+
+      updateLinks(svg.select(".links"));
+    }
+
+    function unsetSelectedLink() {
+      links.forEach((l) => {
+        l.selected = true;
+      });
+
+      updateLinks(svg.select(".links"));
+    }
+
+    function linkColor(d) {
+      if (d.selected) {
+        return "#89c783";
+      } else {
+        return "#ccc";
+      }
+    }
+
+    function colorPaths() {
+      svg.selectAll('path')
+        .attr('stroke', linkColor)
+    }
+
+    function updateLinks(g) {
+      g.selectAll('path')
+       .data(links)
+       .join("path")
+         .attr("d", link)
+         .attr("stroke", linkColor)
+         .attr("stroke-width", d => d.width)
+         .on("mouseenter", (e, d) => setSelectedLink(d))
+         .on("mouseleave", unsetSelectedLink)
+       .append("title")
+         .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
+       .order();
+    }
+
   }
 
   return exports;
