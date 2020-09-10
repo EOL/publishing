@@ -611,7 +611,7 @@ class TraitBank
       "RETURN #{returns.join(", ")}"
     end
 
-    def add_clade_match(term_query, gathered_terms, query_parts, params, match_clade_first)
+    def add_clade_match(term_query, gathered_terms, query_parts, params, match_clade_first, options = {})
       if term_query.clade_node
         page_match = "MATCH (page:Page)-[:parent*0..]->(anc: Page { page_id: $clade_id })"
         params["clade_id"] = term_query.clade_node.page_id
@@ -623,7 +623,7 @@ class TraitBank
             page_match_with = "WITH collect(DISTINCT page) AS pages"
           end
 
-          add_gathered_terms(page_match_with, gathered_terms)
+          add_gathered_terms(page_match_with, gathered_terms, options)
           page_match.concat("\n#{page_match_with}")
         end
 
@@ -818,7 +818,7 @@ class TraitBank
         include_tgt_vars: options[:with_tgt_vars]
       )
 
-      add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched)
+      add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched, with_tgt_vars: options[:with_tgt_vars])
 
       filters.each_with_index do |filter, i|
         filter_matches = []
