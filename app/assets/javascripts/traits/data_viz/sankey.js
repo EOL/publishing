@@ -1,38 +1,15 @@
 // copied from/based on https://observablehq.com/@d3/parallel-sets"
-(function() {
-  function sankey() {
-    const width = 800
+window.Sankey = (function(exports) {
+  exports.build = function() {
+    const width = 850
         , height = 520
         ;
 
-    $data = $('.js-sankey-data')
+    $data = $('.js-sankey')
     const graph = {
       nodes: $data.data('nodes'),
       links: $data.data('links')
     }
-
-    console.log('graph:', graph);
-
-    /*
-    const graph = {
-      nodes: [
-        { 
-          name: "insectivore",
-          fixedValue: 1050
-        },
-        {
-          name: "woodland"
-        },
-        {
-          name: "grassland"
-        }
-      ],
-      links: [
-        { source: 0, target: 1, value: 860, names: ["insectivore", "woodland"]},
-        { source: 0, target: 2, value: 306, names: ["insectivore", "grassland"]}
-      ]
-    }
-    */
 
     const sankey = d3.sankey()
       .nodeSort(null)
@@ -42,10 +19,14 @@
       .extent([[0, 5], [width, height - 20]])
       .nodeId((d) => d.uri);
 
-    const svg = d3.select("#main")
+    const svg = d3.select(".js-sankey")
       .append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .style("width", width)
+      .attr("height", height)
+      .style("height", height)
+      .style("margin", "0 auto")
+      .style("display", "block");
 
     const {nodes, links} = sankey({
       nodes: graph.nodes.map(d => Object.assign({}, d)),
@@ -97,9 +78,5 @@
     svg.node();
   }
 
-  $(function() {
-    if ($('.js-sankey-data').length) {
-      sankey();
-    }
-  })
-})();
+  return exports;
+})({});

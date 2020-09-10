@@ -223,15 +223,18 @@ module Traits
       end
         
       @nodes = nodes_by_uri.values.map { |n| n.to_h }
-
-      render layout: "application"
+      @data = { nodes: @nodes, links: @links }
+      render_with_status(@nodes.any? && @links.any?)
     end
 
     private
     def render_common
-      status = @data.length > 1 ? :ok : :no_content
+      render_with_status(@data.length > 1)
+    end
+
+    def render_with_status(any_data)
+      status = any_data ? :ok : :no_content
       options = { status: status }
-      #options[:layout] = false if request.xhr?
       render options
     end
       
