@@ -26,7 +26,7 @@ window.Sankey = (function(exports) {
       .attr("height", height)
       .style("height", height)
       .style("margin", "0 auto")
-      .style("display", "block");
+      .style("display", "block")
 
     const {nodes, links} = sankey({
       nodes: graph.nodes.map(d => Object.assign({}, d)),
@@ -57,7 +57,6 @@ window.Sankey = (function(exports) {
         .attr("d", link)
         .attr("stroke", d => "#89c783")
         .attr("stroke-width", d => d.width)
-        .style("mix-blend-mode", "multiply")
       .append("title")
         .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`);
 
