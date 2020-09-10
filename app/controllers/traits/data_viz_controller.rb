@@ -147,6 +147,7 @@ module Traits
     def sankey
       @query = TermQuery.new(term_query_params)
       results = TraitBank::Stats.sankey_data(@query)
+      updated_results = update_query_term_chords_and_sort(results)
       node_limit_per_axis = 10
 
       # Result is chords ordered by size. Walk through chords, adding to results if
@@ -158,7 +159,7 @@ module Traits
       ok_results = []
 
       # filter results
-      results.each do |r|
+      updated_results.each do |r|
         nodes_ok = true
         i = 0
         result_uris = []
@@ -228,6 +229,51 @@ module Traits
     end
 
     private
+    def update_query_term_chords_and_sort(query_results)
+      query_uris = Set.new(@query.filters.map { |f| f.obj_uri })
+      query_term_results = []
+      other_results = []
+      other_page_ids = Set.new
+
+      query_results.each do |r|
+        query_term_result = false
+
+        @query.filters.each_with_index do |_, i|
+          uri_key = :"child#{i}_uri"
+          name_key = :"child#{i}_name"
+          uri = r[uri_key]
+
+          if query_uris.include?(uri)
+            r[name_key] = I18n.t("traits.data_viz.other_term_name", term_name: r[name_key])
+            query_term_result = true
+          end
+        end
+
+        if query_term_result
+          query_term_results << r
+        else
+          other_results << r
+          other_page_ids = other_page_ids.union(r[:page_ids])
+        end
+      end
+
+      query_term_results.each do |r|
+        page_ids = r[:page_ids]
+        new_page_ids = []
+
+        page_ids.each do |id|
+          if !other_page_ids.include?(id)
+            new_page_ids << id
+          end
+        end
+
+        r[:page_ids] = new_page_ids
+      end
+
+      results = query_term_results + other_results
+      results.sort { |a, b| b[:page_ids].length <=> a[:page_ids].length }
+    end
+
     def render_common
       render_with_status(@data.length > 1)
     end
