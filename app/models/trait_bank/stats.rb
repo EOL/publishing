@@ -1,5 +1,5 @@
 class TraitBank
-  class Stats
+  module Stats
     CheckResult = Struct.new(:valid, :reason) do
       def valid?
         valid
@@ -136,6 +136,111 @@ class TraitBank
 
         "range < #{cutoff} THEN #{fn_part}"
       end
+
+      def sankey_combined_counts(term_query)
+        # TODO: enforce query restrictions. Assuming object-only for the moment.
+        parts = []
+        params = {}
+
+        objs_vars = []
+        obj_vars = []
+
+        parts << TraitBank.term_search_matches_helper(
+          term_query, 
+          params, 
+          always_match_obj: true, 
+          with_tgt_vars: true
+        ) do |i, trait_var, pred_var, tgt_pred_var, obj_var, tgt_obj_var|
+          with = "WITH page, "
+          objs_var = nil
+
+          if i < term_query.filters.length - 1
+            objs_var = obj_var + "_pairs"
+            with.concat("collect({ obj: #{obj_var}, tgt_obj: #{tgt_obj_var} }) AS #{objs_var}")
+          else
+            with.concat("#{obj_var}, #{tgt_obj_var}")
+          end
+
+          if objs_vars.any?
+            with.concat(", #{objs_vars.join(", ")}")
+          end
+
+          objs_vars << objs_var if objs_var
+          obj_vars << { obj: obj_var, tgt_obj: tgt_obj_var }
+
+          with
+        end
+
+        obj_pair_row_vars = []
+        parts << objs_vars[0..objs_vars.length - 1].map.with_index do |var, i|
+          row_var = "#{obj_vars[i][:obj]}_pair"
+          obj_pair_row_vars << row_var
+          "UNWIND #{var} AS #{row_var}"
+        end.join("\n")
+
+        obj_var_parts = obj_pair_row_vars.map.with_index do |pair, i|
+          "#{pair}.obj AS #{obj_vars[i][:obj]}, #{pair}.tgt_obj AS #{obj_vars[i][:tgt_obj]}"
+        end
+
+        obj_var_parts << "#{obj_vars[-1][:obj]}, #{obj_vars[-1][:tgt_obj]}"
+
+        parts << "WITH #{obj_var_parts.join(", ")}, collect(DISTINCT page) AS pages"
+
+        filters = term_query.page_count_sorted_filters
+
+        child_vars = obj_vars.map.with_index do |_, i|
+          "child#{i}"
+        end
+
+        child_matches = obj_vars.map.with_index do |var, i|
+          "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(:Term{uri: '#{filters[i].obj_uri}'})"
+        end
+
+        parts << child_matches.join("\n")
+        # include original terms if they're the direct object (or synonym of direct object) of their matching traits
+        obj_cases = obj_vars.map.with_index do |pair, i|
+          "CASE WHEN #{child_vars[i]} IS NULL THEN #{pair[:tgt_obj]} ELSE #{child_vars[i]} END AS #{child_vars[i]}"
+        end
+        parts << "WITH #{obj_cases.join(", ")}, pages"
+        parts << "UNWIND pages AS page"
+        parts << "WITH #{child_vars.join(", ")}, collect(DISTINCT page.page_id) AS page_ids"
+        parts << "WITH #{child_vars.map { |cv| "#{cv}.uri" }.join(" + '|' + ")} AS key, #{child_vars.map { |cv| "#{cv}.name AS #{cv}_name, #{cv}.uri AS #{cv}_uri" }.join(", ")}, page_ids"
+        parts << "RETURN key, #{child_vars.map { |cv| "#{cv}_uri, #{cv}_name" }.join(", ")}, page_ids"
+        parts << "ORDER BY size(page_ids) DESC"
+
+        TraitBank.results_to_hashes(
+          TraitBank.query(parts.join("\n"), params), 
+          id_col_label: 'key'
+        )
+      end
+
+      def sankey_data(term_query)
+        sankey_combined_counts(term_query)
+      end
+
+
+# Preserved for reference (while developing feature)
+#    def sankey_independent_counts(child_vars)
+#      parts = []
+#
+#      count_vars = []
+#      child_vars.map.with_index do |var, i|
+#        collect_row_vars = child_vars.reject { |other| other == var }
+#        collect_row_vars.concat(count_vars)
+#        collect_row_vars << "pages"
+#        collect = collect_row_vars.map { |row_var| "#{row_var}: #{row_var}" }.join(", ")
+#
+#        count_var = "#{var}_count"
+#        count_vars << count_var
+#        parts << "WITH #{var}, collect(pages) AS list_of_lists_of_pages, collect({ #{collect} }) AS rows"
+#        parts << "WITH #{var}, size(REDUCE (output = [], pages in list_of_lists_of_pages | apoc.coll.union(output, pages))) AS #{count_var}, rows"
+#        parts << "UNWIND rows AS row"
+#        parts << "WITH #{var}, #{count_var}, #{collect_row_vars.map { |v| "row.#{v} AS #{v}" }.join(", ")}"
+#      end
+#
+#      parts.join("\n")
+#    end
+
 
       #  "WITH ms, init_max, min, bw, (init_max - min) % bw as rem\n"\
       #  "WITH ms, min, bw, CASE WHEN rem = 0 THEN init_max ELSE init_max + bw - rem END AS max\n"\

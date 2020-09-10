@@ -68,7 +68,7 @@
 
     var link = d3.linkHorizontal()
       .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])
-      .target((d) => [d.target.x0, d.y1]);
+      .target((d) => [d.target.x0, Math.min(d.target.y1 - (d.width / 2.0), d.y1)]);
 
     svg.append("g")
         .attr("fill", "none")

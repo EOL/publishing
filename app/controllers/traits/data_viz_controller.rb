@@ -122,42 +122,107 @@ module Traits
       render_common
     end
 
+    class SankeyNode
+      attr_accessor :uri, :name
+
+      def initialize(uri, name, page_ids)
+        @uri = uri
+        @name = name
+        @page_ids = Set.new(page_ids)
+      end
+
+      def to_h
+        {
+          uri: uri,
+          name: name, 
+          fixedValue: @page_ids.size
+        }
+      end
+
+      def add_page_ids(page_ids)
+        @page_ids = @page_ids.union(page_ids)
+      end
+    end
+
     def sankey
       @query = TermQuery.new(term_query_params)
-      results = TraitBank.sankey_data(@query)
+      results = TraitBank::Stats.sankey_data(@query)
+      node_limit_per_axis = 10
 
-      # Build nodes
-      node_set = Set.new
+      # Result is chords ordered by size. Walk through chords, adding to results if
+      # each of its nodes either
+      # belongs to an axis that hasn't hit its node limit OR
+      # already exists in its axis
+      
+      uris_per_axis = Array.new(@query.filters.length) { |_| Set.new }
+      ok_results = []
+
+      # filter results
       results.each do |r|
-        (0..@query.filters.length - 1).each do |i|
-          name_key = :"child#{i}.name"
-          uri_key = :"child#{i}.uri"
-          count_key = :"child#{i}_count"
-          node_set.add({ name: r[name_key], uri: r[uri_key], fixedValue: r[count_key] })
-          #node_set.add({ name: r[name_key], uri: r[uri_key] })
+        nodes_ok = true
+        i = 0
+        result_uris = []
+
+        while i < @query.filters.length && nodes_ok
+          uri_key = :"child#{i}_uri"
+          uri = r[uri_key]
+
+          if !(
+            uris_per_axis[i].length < node_limit_per_axis ||
+            uris_per_axis[i].include?(uri)
+          )
+            nodes_ok = false
+          end
+
+          result_uris << uri
+          i += 1
+        end
+
+        if nodes_ok
+          result_uris.each_with_index do |uri, i|
+            uris_per_axis[i].add(uri)
+          end
+
+          ok_results << r
         end
       end
-      @nodes = node_set.to_a
 
-      # Build links
+      nodes_by_uri = {}
       @links = []
-      results.each do |r|
-        (0..@query.filters.length - 2).each do |i|
-          uri1 = r[:"child#{i}.uri"]
-          uri2 = r[:"child#{i + 1}.uri"]
-          name1 = r[:"child#{i}.name"]
-          name2 = r[:"child#{i + 1}.name"]
-          source_index = @nodes.index { |node| node[:uri] == uri1 }
-          target_index = @nodes.index { |node| node[:uri] == uri2 }
-          value = r[:"intersection_count"]
-          @links << { 
-            source: source_index, 
-            target: target_index, 
-            value: value, 
-            names: [name1, name2] 
-          }
+
+      ok_results.each do |r|
+        page_ids = r[:page_ids]
+
+        prev_node = nil
+
+        (0..@query.filters.length - 1).each do |i|
+          uri_key = :"child#{i}_uri"
+          name_key = :"child#{i}_name"
+          uri = r[uri_key]
+          name = r[name_key]
+          
+          if nodes_by_uri.include?(uri)
+            nodes_by_uri[uri].add_page_ids(page_ids)
+          else
+            nodes_by_uri[uri] = SankeyNode.new(uri, name, page_ids)
+          end
+
+          cur_node = nodes_by_uri[uri]
+
+          # add link
+          if prev_node
+            @links << { 
+              source: prev_node.uri, 
+              target: cur_node.uri, 
+              value: page_ids.length, 
+              names: [prev_node.name, cur_node.name] 
+            }
+          end
+          prev_node = cur_node
         end
       end
+        
+      @nodes = nodes_by_uri.values.map { |n| n.to_h }
 
       render layout: "application"
     end

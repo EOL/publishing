@@ -756,7 +756,7 @@ class TraitBank
               params[uri_param] = field.value
               match = "MATCH (#{labeler.gathered_label}:Term)-[#{parent_terms}]->(#{include_tgt_vars ? labeler.tgt_label : ""}:Term{ uri: $#{uri_param} })"
               match.concat("\nWITH collect(DISTINCT #{labeler.gathered_label}) AS #{labeler.gathered_list_label}")
-              match.concat(", #{gt.tgt_label}") if include_tgt_vars
+              match.concat(", #{labeler.tgt_label}") if include_tgt_vars
             end
 
             flattened_gathered_terms = gathered_terms.flatten
@@ -869,7 +869,7 @@ class TraitBank
         )
 
         with = options[:with_tgt_vars] ? 
-          yield(i, trait_var, pred_labeler&.label, pred_labeler&.tgt_label, obj_term_labeler.label, obj_term_labeler.tgt_label) :
+          yield(i, trait_var, pred_labeler&.label, pred_labeler&.tgt_label, obj_term_labeler&.label, obj_term_labeler&.tgt_label) :
           yield(i, trait_var, pred_labeler&.label, obj_term_labeler&.label)
 
         if with.present?
