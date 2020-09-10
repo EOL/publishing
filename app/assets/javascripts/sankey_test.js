@@ -2,7 +2,7 @@
 (function() {
   function sankey() {
     const width = 800
-        , height = 500
+        , height = 520
         ;
 
     $data = $('.js-sankey-data')
@@ -38,8 +38,8 @@
       .nodeSort(null)
       .linkSort(null)
       .nodeWidth(4)
-      .nodePadding(20)
-      .extent([[0, 5], [width, height - 5]])
+      .nodePadding(25)
+      .extent([[0, 5], [width, height - 20]])
       .nodeId((d) => d.uri);
 
     const svg = d3.select("#main")
@@ -51,8 +51,6 @@
       nodes: graph.nodes.map(d => Object.assign({}, d)),
       links: graph.links.map(d => Object.assign({}, d))
     });
-
-    console.log(nodes);
 
     svg.append("g")
       .selectAll("rect")
@@ -76,7 +74,7 @@
       .data(links)
       .join("path")
         .attr("d", link)
-        .attr("stroke", d => "#da4f81")
+        .attr("stroke", d => "#89c783")
         .attr("stroke-width", d => d.width)
         .style("mix-blend-mode", "multiply")
       .append("title")
@@ -87,8 +85,8 @@
       .selectAll("text")
       .data(nodes)
       .join("text")
-        .attr("x", d => d.x0 < width / 2 ? d.x1 + 6 : d.x0 - 6)
-        .attr("y", d => (d.y1 + d.y0) / 2)
+        .attr("x", d => d.x0 < width / 2 ? d.x1 : d.x0)
+        .attr("y", d => d.y1 + 10)
         .attr("dy", "0.35em")
         .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
         .text(d => d.name)
