@@ -195,6 +195,7 @@ module Traits
         page_ids = r[:page_ids]
 
         prev_node = nil
+        result_links = []
 
         (0..@query.filters.length - 1).each do |i|
           uri_key = :"child#{i}_uri"
@@ -212,7 +213,7 @@ module Traits
 
           # add link
           if prev_node
-            @links << { 
+            result_links << { 
               source: prev_node.uri, 
               target: cur_node.uri, 
               value: page_ids.length, 
@@ -220,6 +221,17 @@ module Traits
             }
           end
           prev_node = cur_node
+        end
+
+        result_links.each do |l|
+          l[:connections] = []
+
+          result_links.each do |other|
+            next if l == other
+            l[:connections] << { source_uri: other[:source], target_uri: other[:target] }
+          end
+
+          @links << l
         end
       end
         
