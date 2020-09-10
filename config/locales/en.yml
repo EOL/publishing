@@ -1103,6 +1103,7 @@ en:
     data_viz:
       about_this_chart: "about this chart"
       about_this_chart_tooltip: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results."
+      other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
       n_other_records:
         one: "one other record"
