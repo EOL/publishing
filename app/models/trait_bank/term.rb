@@ -20,10 +20,11 @@ class TraitBank
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
       def create(properties)
+        force = properties.delete(:force)
         properties = properties.transform_keys(&:to_s)
         raise 'Cannot create a term without a URI' unless properties['uri']
         existing_term = term(properties['uri'])
-        return existing_term if existing_term && !properties.delete(:force)
+        return existing_term if existing_term && !force
 
         clean_properties(properties)
         return update_existing(existing_term, properties) if existing_term
