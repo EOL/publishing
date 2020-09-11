@@ -45,7 +45,8 @@ module TraitDataVizHelper
         fixedValue: n.size,
         axisId: n.axis_id,
         clickable: n.clickable,
-        searchPath: term_search_results_path(term_query: n.query.to_params)
+        searchPath: term_search_results_path(term_query: n.query.to_params),
+        promptText: t("traits.data_viz.sankey_node_hover", term_name: n.name)
       } 
     end
   end

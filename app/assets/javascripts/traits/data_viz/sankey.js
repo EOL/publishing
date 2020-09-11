@@ -187,7 +187,7 @@ window.Sankey = (function(exports) {
           .style('cursor', (d) => d.clickable ? 'pointer' : 'normal')
           .on('click', handleNodeClick)
         .append("title")
-          .text(d => `${d.name}\n${d.value.toLocaleString()}`);
+          .text(d => d.clickable ? d.promptText : null);
     }
 
     function nodeFillColor(d) {
