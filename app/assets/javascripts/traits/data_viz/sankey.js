@@ -66,11 +66,14 @@ window.Sankey = (function(exports) {
     svg.node();
 
     function handleNodeClick(e, d) {
+      window.location = d.searchPath;
+      /*
       setSelectedNode(d);
       updateSelectedLinks();
       sortLinks();
       updateLinks();
       updateNodes();
+      */
     }
 
     function setSelectedNode(node) {
@@ -147,7 +150,7 @@ window.Sankey = (function(exports) {
       if (d.selected) {
         return "#89c783";
       } else {
-        return "#ccc";
+        return "#eee";
       }
     }
 
@@ -176,15 +179,25 @@ window.Sankey = (function(exports) {
           .attr("y", d => d.y0)
           .attr("height", d => d.y1 - d.y0)
           .attr("width", d => d.x1 - d.x0)
-          .attr('fill', nodeColor)
+          .attr('fill', nodeFillColor)
+          .attr('stroke', nodeStrokeColor)
+          .attr('stroke-width', nodeStrokeWidth)
           .style('cursor', 'pointer')
           .on('click', handleNodeClick)
         .append("title")
           .text(d => `${d.name}\n${d.value.toLocaleString()}`);
     }
 
-    function nodeColor(d) {
+    function nodeFillColor(d) {
       return !selectedNodes[d.axisId] || selectedNodes[d.axisId] == d ? '#000' : '#aaa'
+    }
+
+    function nodeStrokeColor(d) {
+      return selectedNodes[d.axisId] == d ? "#3aF" : null;
+    }
+
+    function nodeStrokeWidth(d) {
+      return selectedNodes[d.axisId] == d ? 3 : 0;
     }
   }
   return exports;

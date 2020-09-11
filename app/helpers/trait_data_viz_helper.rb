@@ -37,6 +37,18 @@ module TraitDataVizHelper
     }
   end
 
+  def sankey_nodes(nodes)
+    nodes.map do |n|
+      {
+        uri: n.uri,
+        name: n.name,
+        fixedValue: n.size,
+        axisId: n.axis_id,
+        searchPath: term_search_results_path(term_query: n.query.to_params)
+      } 
+    end
+  end
+
   private
   def result_label(query, datum)
     truncate(i18n_term_name(datum.obj), length: 25)

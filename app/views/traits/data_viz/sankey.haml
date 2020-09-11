@@ -1,1 +1,1 @@
-.js-sankey{ data: { nodes: @nodes.to_json, links: @links.to_json, axes: @query.filters.length }}
+.js-sankey{ data: { nodes: sankey_nodes(@nodes).to_json, links: @links.to_json, axes: @query.filters.length }}

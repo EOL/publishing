@@ -123,22 +123,19 @@ module Traits
     end
 
     class SankeyNode
-      attr_accessor :uri, :name
+      attr_reader :uri, :name, :axis_id, :query
 
-      def initialize(uri, name, page_ids, axis_id)
+      def initialize(base_query, uri, name, page_ids, axis_id)
         @uri = uri
         @name = name
         @page_ids = Set.new(page_ids)
         @axis_id = axis_id
+        @query = base_query.deep_dup
+        @query.page_count_sorted_filters[axis_id].obj_uri = uri
       end
 
-      def to_h
-        {
-          uri: uri,
-          name: name, 
-          fixedValue: @page_ids.size,
-          axisId: @axis_id
-        }
+      def size
+        @page_ids.size
       end
 
       def add_page_ids(page_ids)
@@ -208,7 +205,7 @@ module Traits
           if nodes_by_uri.include?(uri)
             nodes_by_uri[uri].add_page_ids(page_ids)
           else
-            nodes_by_uri[uri] = SankeyNode.new(uri, name, page_ids, i)
+            nodes_by_uri[uri] = SankeyNode.new(@query, uri, name, page_ids, i)
           end
 
           cur_node = nodes_by_uri[uri]
@@ -238,7 +235,7 @@ module Traits
         end
       end
         
-      @nodes = nodes_by_uri.values.map { |n| n.to_h }
+      @nodes = nodes_by_uri.values
       render_with_status(@nodes.any? && @links.any?)
     end
 
