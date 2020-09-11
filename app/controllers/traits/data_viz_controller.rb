@@ -123,15 +123,16 @@ module Traits
     end
 
     class SankeyNode
-      attr_reader :uri, :name, :axis_id, :query
+      attr_reader :uri, :name, :axis_id, :query, :clickable
 
-      def initialize(base_query, uri, name, page_ids, axis_id)
+      def initialize(base_query, query_uris, uri, name, page_ids, axis_id)
         @uri = uri
         @name = name
         @page_ids = Set.new(page_ids)
         @axis_id = axis_id
         @query = base_query.deep_dup
         @query.page_count_sorted_filters[axis_id].obj_uri = uri
+        @clickable = !query_uris.include?(uri)
       end
 
       def size
@@ -146,7 +147,9 @@ module Traits
     def sankey
       @query = TermQuery.new(term_query_params)
       results = TraitBank::Stats.sankey_data(@query)
-      updated_results = update_query_term_chords_and_sort(results)
+      
+      query_uris = Set.new(@query.filters.map { |f| f.obj_uri })
+      updated_results = update_query_term_chords_and_sort(results, query_uris)
       node_limit_per_axis = 10
 
       # Result is chords ordered by size. Walk through chords, adding to results if
@@ -205,7 +208,7 @@ module Traits
           if nodes_by_uri.include?(uri)
             nodes_by_uri[uri].add_page_ids(page_ids)
           else
-            nodes_by_uri[uri] = SankeyNode.new(@query, uri, name, page_ids, i)
+            nodes_by_uri[uri] = SankeyNode.new(@query, query_uris, uri, name, page_ids, i)
           end
 
           cur_node = nodes_by_uri[uri]
@@ -240,8 +243,7 @@ module Traits
     end
 
     private
-    def update_query_term_chords_and_sort(query_results)
-      query_uris = Set.new(@query.filters.map { |f| f.obj_uri })
+    def update_query_term_chords_and_sort(query_results, query_uris)
       query_term_results = []
       other_results = []
       other_page_ids = Set.new
