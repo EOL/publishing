@@ -127,7 +127,9 @@ module Traits
 
       def initialize(base_query, query_uris, uri, name, page_ids, axis_id)
         @uri = uri
-        @name = name
+        @name = query_uris.include?(uri) ? 
+          I18n.t("traits.data_viz.other_term_name", term_name: name) :
+          name
         @page_ids = Set.new(page_ids)
         @axis_id = axis_id
         @query = base_query.deep_dup
@@ -249,23 +251,22 @@ module Traits
       other_page_ids = Set.new
 
       query_results.each do |r|
+        dup_r = r.dup
         query_term_result = false
 
         @query.filters.each_with_index do |_, i|
           uri_key = :"child#{i}_uri"
-          name_key = :"child#{i}_name"
           uri = r[uri_key]
 
           if query_uris.include?(uri)
-            r[name_key] = I18n.t("traits.data_viz.other_term_name", term_name: r[name_key])
             query_term_result = true
           end
         end
 
         if query_term_result
-          query_term_results << r
+          query_term_results << dup_r
         else
-          other_results << r
+          other_results << dup_r
           other_page_ids = other_page_ids.union(r[:page_ids])
         end
       end
