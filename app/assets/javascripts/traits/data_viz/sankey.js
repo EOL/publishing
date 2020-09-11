@@ -66,7 +66,9 @@ window.Sankey = (function(exports) {
     svg.node();
 
     function handleNodeClick(e, d) {
-      window.location = d.searchPath;
+      if (d.clickable) {
+        window.location = d.searchPath;
+      }
       /*
       setSelectedNode(d);
       updateSelectedLinks();
@@ -182,7 +184,7 @@ window.Sankey = (function(exports) {
           .attr('fill', nodeFillColor)
           .attr('stroke', nodeStrokeColor)
           .attr('stroke-width', nodeStrokeWidth)
-          .style('cursor', 'pointer')
+          .style('cursor', (d) => d.clickable ? 'pointer' : 'normal')
           .on('click', handleNodeClick)
         .append("title")
           .text(d => `${d.name}\n${d.value.toLocaleString()}`);

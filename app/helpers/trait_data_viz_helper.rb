@@ -44,6 +44,7 @@ module TraitDataVizHelper
         name: n.name,
         fixedValue: n.size,
         axisId: n.axis_id,
+        clickable: n.clickable,
         searchPath: term_search_results_path(term_query: n.query.to_params)
       } 
     end
