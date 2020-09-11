@@ -8,8 +8,9 @@
 .bundle
 bundle_bin
 
-# Ignore all logfiles and tempfiles.
+# Ignore all logfiles and tempfiles. (Including logrotate backups)
 log/*.log
+log/*.log.*
 log/*.txt
 log/*gz
 tmp
