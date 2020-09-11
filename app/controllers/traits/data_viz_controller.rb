@@ -239,7 +239,7 @@ module Traits
       end
         
       @nodes = nodes_by_uri.values
-      render_with_status(@nodes.any? && @links.any?)
+      render_with_status(@links.length > 1)
     end
 
     private
