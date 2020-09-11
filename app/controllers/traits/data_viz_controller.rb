@@ -125,17 +125,19 @@ module Traits
     class SankeyNode
       attr_accessor :uri, :name
 
-      def initialize(uri, name, page_ids)
+      def initialize(uri, name, page_ids, axis_id)
         @uri = uri
         @name = name
         @page_ids = Set.new(page_ids)
+        @axis_id = axis_id
       end
 
       def to_h
         {
           uri: uri,
           name: name, 
-          fixedValue: @page_ids.size
+          fixedValue: @page_ids.size,
+          axisId: @axis_id
         }
       end
 
@@ -206,7 +208,7 @@ module Traits
           if nodes_by_uri.include?(uri)
             nodes_by_uri[uri].add_page_ids(page_ids)
           else
-            nodes_by_uri[uri] = SankeyNode.new(uri, name, page_ids)
+            nodes_by_uri[uri] = SankeyNode.new(uri, name, page_ids, i)
           end
 
           cur_node = nodes_by_uri[uri]
@@ -217,6 +219,7 @@ module Traits
               source: prev_node.uri, 
               target: cur_node.uri, 
               value: page_ids.length, 
+              selected: true,
               names: [prev_node.name, cur_node.name] 
             }
           end
@@ -224,11 +227,11 @@ module Traits
         end
 
         result_links.each do |l|
-          l[:connections] = []
+          l[:connections] = Array.new(result_links.length)
 
-          result_links.each do |other|
+          result_links.each_with_index do |other, i|
             next if l == other
-            l[:connections] << { source_uri: other[:source], target_uri: other[:target] }
+            l[:connections][i] = { source_uri: other[:source], target_uri: other[:target] }
           end
 
           @links << l
@@ -236,7 +239,6 @@ module Traits
       end
         
       @nodes = nodes_by_uri.values.map { |n| n.to_h }
-      @data = { nodes: @nodes, links: @links }
       render_with_status(@nodes.any? && @links.any?)
     end
 

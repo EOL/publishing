@@ -7,14 +7,16 @@ window.Sankey = (function(exports) {
 
     $data = $('.js-sankey')
     const graph = {
-      nodes: $data.data('nodes'),
-      links: $data.data('links')
-    }
+        nodes: $data.data('nodes'),
+        links: $data.data('links')
+      }
+    , numAxes = $data.data('axes')
+    ;
 
     const sankey = d3.sankey()
       .nodeSort(null)
       .linkSort(null)
-      .nodeWidth(4)
+      .nodeWidth(15)
       .nodePadding(25)
       .extent([[0, 5], [width, height - 20]])
       .nodeId((d) => d.uri);
@@ -37,22 +39,15 @@ window.Sankey = (function(exports) {
       .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])
       .target((d) => [d.target.x0, Math.min(d.target.y1 - (d.width / 2.0), d.y1)]);
 
-    svg.append("g")
-      .selectAll("rect")
-      .data(nodes)
-      .join("rect")
-        .attr("x", d => d.x0)
-        .attr("y", d => d.y0)
-        .attr("height", d => d.y1 - d.y0)
-        .attr("width", d => d.x1 - d.x0)
-      .append("title")
-        .text(d => `${d.name}\n${d.value.toLocaleString()}`);
+    var selectedNodes = {};
+
+    const nodeG = svg.append("g");
+    updateNodes();
 
     const linkG = svg.append("g")
-        .attr("fill", "none")
-        .attr("class", "links")
+        .attr("fill", "none");
 
-    updateLinks(linkG);
+    updateLinks();
 
     svg.append("g")
         .style("font", "10px sans-serif")
@@ -70,16 +65,25 @@ window.Sankey = (function(exports) {
 
     svg.node();
 
-    function setSelectedLink(selectedLink) {
-      links.forEach((l) => {
-        const selected = (
-          l == selectedLink ||
-          selectedLink.connections.find((c) => l.source.uri == c.source_uri && l.target.uri == c.target_uri)
-        );
+    function handleNodeClick(e, d) {
+      setSelectedNode(d);
+      updateSelectedLinks();
+      sortLinks();
+      updateLinks();
+      updateNodes();
+    }
 
-        l.selected = selected;
-      })
+    function setSelectedNode(node) {
+      if (selectedNodes[node.axisId] == node) {
+        // unset
+        selectedNodes[node.axisId] = null;
+      } else {
+        //set
+        selectedNodes[node.axisId] = node;
+      }
+    }
 
+    function sortLinks() {
       links.sort((a, b) => {
         if (a.selected && !b.selected) {
           return 1;
@@ -90,7 +94,45 @@ window.Sankey = (function(exports) {
         }
       });
 
-      updateLinks(svg.select(".links"));
+    }
+
+    function updateSelectedLinks() {
+      links.forEach((l) => {
+        let selected = true;
+
+        for (let i = 0; selected && i < numAxes - 1; i++) {
+          let isLinkIndex = !l.connections[i]
+            , sourceIndex = i
+            , targetIndex = i + 1
+            ;
+
+          if (isLinkIndex) {
+            selected = (!selectedNodes[sourceIndex] || selectedNodes[sourceIndex].uri == l.source.uri) &&
+              (!selectedNodes[targetIndex] || selectedNodes[targetIndex].uri == l.target.uri);
+          } else {
+            selected = !!(l.connections[i].find((c) => {
+              return (!selectedNodes[sourceIndex] || c.source_uri == selectedNodes[sourceIndex].uri) &&
+              (targetMatch = !selectedNodes[targetIndex] || c.target_uri == selectedNodes[targetIndex].uri)
+            }));
+          }
+        }
+
+        l.selected = selected;
+      });
+      console.log(links);
+    }
+
+    function setSelectedLink(selectedLink) {
+      links.forEach((l) => {
+        const selected = (
+          l == selectedLink ||
+          selectedLink.connections.find((c) => l.source.uri == c.source_uri && l.target.uri == c.target_uri)
+        );
+
+        l.selected = selected;
+      })
+
+      updateLinks();
     }
 
     function unsetSelectedLink() {
@@ -98,7 +140,7 @@ window.Sankey = (function(exports) {
         l.selected = true;
       });
 
-      updateLinks(svg.select(".links"));
+      updateLinks();
     }
 
     function linkColor(d) {
@@ -114,21 +156,36 @@ window.Sankey = (function(exports) {
         .attr('stroke', linkColor)
     }
 
-    function updateLinks(g) {
-      g.selectAll('path')
+    function updateLinks() {
+      linkG.selectAll('path')
        .data(links)
        .join("path")
          .attr("d", link)
          .attr("stroke", linkColor)
          .attr("stroke-width", d => d.width)
-         .on("mouseenter", (e, d) => setSelectedLink(d))
-         .on("mouseleave", unsetSelectedLink)
        .append("title")
          .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
        .order();
     }
 
-  }
+    function updateNodes() {
+      nodeG.selectAll("rect")
+        .data(nodes)
+        .join("rect")
+          .attr("x", d => d.x0)
+          .attr("y", d => d.y0)
+          .attr("height", d => d.y1 - d.y0)
+          .attr("width", d => d.x1 - d.x0)
+          .attr('fill', nodeColor)
+          .style('cursor', 'pointer')
+          .on('click', handleNodeClick)
+        .append("title")
+          .text(d => `${d.name}\n${d.value.toLocaleString()}`);
+    }
 
+    function nodeColor(d) {
+      return !selectedNodes[d.axisId] || selectedNodes[d.axisId] == d ? '#000' : '#aaa'
+    }
+  }
   return exports;
 })({});
