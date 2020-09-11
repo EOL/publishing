@@ -859,7 +859,7 @@ class TraitBank
         end
 
         filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
-        filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i = filters.length - 1
+        filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i == filters.length - 1
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
         add_term_filter_resource_match(filter, trait_var, filter_matches, params)
 
