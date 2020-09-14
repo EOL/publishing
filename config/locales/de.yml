@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bergrübe
 # Author: DraconicDark
 # Author: Elliot
 # Author: Katja
@@ -516,7 +517,7 @@ de:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000587: klein
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000625: invertiert
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000911: langsam
-        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schell
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000912: schnell
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000948: herzförmig
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000951: lila
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000952: braun
