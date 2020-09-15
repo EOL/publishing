@@ -36,7 +36,7 @@ class Traits::DataViz::Sankey
   def merge_and_sort_results(qt_results, other_results)
     fix_qt_result_page_ids(qt_results, other_results)
     results = qt_results + other_results
-    results.sort { |a, b| b.page_ids.length <=> a.page_ids.length } 
+    results.sort! { |a, b| b.page_ids.length <=> a.page_ids.length } 
     results
   end
 
