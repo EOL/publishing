@@ -8,7 +8,7 @@ class TraitBank
         'object_for_predicate_uri' => 'object_for_predicate'
       }.freeze
       BOOLEAN_PROPERTIES =
-        %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary is_verbatim_only].freeze
+        %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary].freeze
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
       TERM_TYPES = {
         predicate: ['measurement', 'association'],

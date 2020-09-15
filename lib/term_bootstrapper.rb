@@ -71,6 +71,7 @@ class TermBootstrapper
       term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['units_term_uri'] = TraitBank::Term.units_for_term(term['uri'])
+      term['is_hidden_from_select'] = should_hide_from_select?(term)
       term['alias'] = nil # This will have to be done manually.
       @terms_from_neo4j << term
     end
@@ -81,6 +82,14 @@ class TermBootstrapper
     new_hash = {}
     EolTerms::Validator::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
     new_hash
+  end
+
+  def should_hide_from_select?(term)
+    return true if !term['parent_uris']&.empty? # hide, if there are any parent terms
+
+    return true if !term['synonym_of_uri']&.empty? # hide, if there are any synonym terms
+
+    false
   end
 
   def create_yaml
