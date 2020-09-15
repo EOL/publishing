@@ -36,7 +36,7 @@ class Traits::DataViz::Sankey
   def merge_and_sort_results(qt_results, other_results)
     fix_qt_result_page_ids(qt_results, other_results)
     results = qt_results + other_results
-    results.sort! { |a, b| b.page_ids.length <=> a.page_ids.length } 
+    results.sort! { |a, b| b.size <=> a.size }.reject! { |r| r.empty? }
     results
   end
 
@@ -54,55 +54,54 @@ class Traits::DataViz::Sankey
   end
 
   def build_nodes_and_links(results, query)
-    links = Hash.new # used to keep track of a single 'canonical' link per pair of nodes (see comment about equality/hash in Link)
+    # used to keep track of a single 'canonical' link per pair of nodes (see comment about equality/hash in Link)
+    links = Hash.new 
     nodes_per_axis = Array.new(query.filters.length) { |_| Hash.new } # same here, except per-axis
 
     results.each do |r|
       prev_node = false
-      result_links = Array.new(query.filters.length, false)
+      result_links = Array.new(r.nodes.length - 1)
+      result_nodes = Array.new(r.nodes.length)
+      add_result = true
+      i = 0
 
-      query.page_count_sorted_filters.each_with_index do |f, i|
+      while add_result && i < r.nodes.length
         node = r.nodes[i]
-
-        if node
-          if prev_node
-            result_links[i] = Link.new(prev_node, node, r.page_ids)
-          end
-
-          prev_node = node
+        add_result = nodes_per_axis[i].include?(node) || nodes_per_axis[i].length < MAX_NODES_PER_AXIS
+ 
+        if add_result
+          result_nodes[i] = node
+          result_links[i - 1] = Link.new(prev_node, node, r.page_ids) if prev_node
         end
+
+        prev_node = node
+        i += 1
       end
 
-      add_nodes_and_links(result_links, nodes_per_axis, links)
+      add_nodes_and_links(result_nodes, result_links, nodes_per_axis, links) if add_result
     end
 
     @nodes = nodes_per_axis.map { |node_hash| node_hash.values }.flatten
     @links = links.values
   end
 
-  def add_nodes_and_links(result_links, nodes_per_axis, links)
-    result_links.each_with_index do |link, i|
-      if link
-        canonical_source = nodes_per_axis[link.source.axis_id][link.source]
-        canonical_target = nodes_per_axis[link.target.axis_id][link.target]
+  def add_nodes_and_links(result_nodes, result_links, nodes_per_axis, links)
+    result_nodes.each_with_index do |node, i|
+      merge_or_add_node(node, nodes_per_axis, i)
+    end
 
-        if (
-          (canonical_source || nodes_per_axis[link.source.axis_id].length < MAX_NODES_PER_AXIS) &&
-          (canonical_target || nodes_per_axis[link.target.axis_id].length < MAX_NODES_PER_AXIS)
-        )
-          merge_or_add_node(canonical_source, link.source, nodes_per_axis)
-          merge_or_add_node(canonical_target, link.target, nodes_per_axis)
-          merge_or_add_link(link, links)
-        end
-      end
+    result_links.each do |link|
+      merge_or_add_link(link, links)
     end
   end
 
-  def merge_or_add_node(existing_node, node, nodes_per_axis)
+  def merge_or_add_node(node, nodes_per_axis, axis_id)
+    existing_node = nodes_per_axis[axis_id][node]
+
     if existing_node
       merge(existing_node, node)
     else
-      nodes_per_axis[node.axis_id][node] = node
+      nodes_per_axis[axis_id][node] = node
     end
   end
 
@@ -127,28 +126,27 @@ class Traits::DataViz::Sankey
       @nodes = []
       @page_ids = Set.new(row[:page_ids])
 
-      query.page_count_sorted_filters.each_with_index do |_, i|
+      @nodes = query.page_count_sorted_filters.map.with_index do |_, i|
         uri_key = :"child#{i}_uri"
         uri = row[uri_key]
         node_query = query.deep_dup
         node_query.page_count_sorted_filters[i].obj_uri = uri 
 
-        node = Node.new(
+        Node.new(
           uri,
           i,
           query_uris.include?(uri),
           node_query
         )
-
-        # Due to the fact that some terms have multiple parents, it's possible that a term will
-        # appear in multiple result columns. This breaks the graph display, so only include a given
-        # term in a single column (the first one in which it appears)
-        if @nodes.include?(node) 
-          @nodes << false
-        else
-          @nodes << node
-        end
       end
+    end
+
+    def size
+      @page_ids.size
+    end
+
+    def empty?
+      @page_ids.empty?
     end
 
     def any_query_terms?
@@ -187,15 +185,20 @@ class Traits::DataViz::Sankey
       @page_ids.merge(other)
     end
 
+    def id
+      "#{@uri}-#{@axis_id}"
+    end
+
     def ==(other)
       self.class === other and
-        other.uri == @uri
+        other.uri == @uri and
+        other.axis_id == @axis_id
     end
 
     alias eql? ==
 
     def hash
-      @uri.hash
+      @uri.hash ^ @axis_id.hash
     end
   end
 
@@ -213,7 +216,7 @@ class Traits::DataViz::Sankey
     end
 
     def size
-      @page_ids.length
+      @page_ids.size
     end
 
     # page ids are not considered for equality/hash due to how this class is used
