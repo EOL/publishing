@@ -13,6 +13,9 @@
 # For testing purposes, remember that
 #
 # http://eol.org/schema/terms/extant is a parent of http://eol.org/schema/terms/conservationDependent
+# http://www.geonames.org/4099753 should have two:
+# https://www.fws.gov/southeast/ and http://eol.org/schema/terms/South_central_US
+# http://eol.org/schema/terms/bodyMassDry should also have two parents.
 #
 # And
 #
@@ -87,7 +90,7 @@ class TermBootstrapper
   def should_hide_from_select?(term)
     return true if !term['parent_uris']&.empty? # hide, if there are any parent terms
 
-    return true if !term['synonym_of_uri']&.empty? # hide, if there are any synonym terms
+    return true if !term['synonym_of_uri'].nil? # hide, if there are any synonym terms
 
     false
   end

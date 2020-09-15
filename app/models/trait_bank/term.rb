@@ -306,9 +306,10 @@ class TraitBank
           RETURN DISTINCT parent.uri
         ))
         return nil unless result&.key?('data') && !result['data'].empty? && !result['data'].first.empty?
-        result['data'].first
+        result['data'].flatten
       end
 
+      # NOTE: forces a limit of one (or nil, if none)
       def synonym_of_term(term_uri)
         result = query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:synonym_of]->(parent:Term)
@@ -319,6 +320,7 @@ class TraitBank
         result['data'].first.first
       end
 
+      # NOTE: forces a limit of one (or nil, if none)
       def units_for_term(term_uri)
         result = query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:units_term]->(unts_term:Term)
