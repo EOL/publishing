@@ -152,7 +152,7 @@ class Traits::DataViz::Sankey
     end
 
     def any_query_terms?
-      !!(@nodes.find { |n| n.query_term? })
+      !!(@nodes.find { |n| n && n.query_term? })
     end
 
     def remove_page_ids(to_remove)
