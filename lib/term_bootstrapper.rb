@@ -70,6 +70,7 @@ class TermBootstrapper
       # NOTE: Indeed, these two calls account for nearly *all* of the time that the #create process requires. Alas. This is OK.
       term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
+      term['units_term_uri'] = TraitBank::Term.units_for_term(term['uri'])
       term['alias'] = nil # This will have to be done manually.
       @terms_from_neo4j << term
     end

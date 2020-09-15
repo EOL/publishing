@@ -3,7 +3,10 @@ class TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
     class << self
-      RELATIONSHIP_PROPERTIES = { 'parent_uris' => 'parent', 'synonym_of_uri' => 'synonym_of'}.freeze
+      RELATIONSHIP_PROPERTIES = {
+        'parent_uris' => 'parent_term', 'synonym_of_uri' => 'synonym_of', 'units_term_uri' => 'units_term',
+        'object_for_predicate_uri' => 'object_for_predicate'
+      }.freeze
       BOOLEAN_PROPERTIES =
         %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary is_verbatim_only].freeze
       CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
@@ -310,6 +313,16 @@ class TraitBank
         result = query(%Q(
           MATCH (:Term{ uri: "#{term_uri}" })-[:synonym_of]->(parent:Term)
           RETURN parent.uri
+          LIMIT 1
+        ))
+        return nil unless result&.key?('data') && !result['data'].empty? && !result['data'].first.empty?
+        result['data'].first.first
+      end
+
+      def units_for_term(term_uri)
+        result = query(%Q(
+          MATCH (:Term{ uri: "#{term_uri}" })-[:units_term]->(unts_term:Term)
+          RETURN unts_term.uri
           LIMIT 1
         ))
         return nil unless result&.key?('data') && !result['data'].empty? && !result['data'].first.empty?
