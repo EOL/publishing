@@ -17,9 +17,10 @@ class Traits::DataViz::Sankey
   def initialize(query_results, query)
     qt_results = []
     other_results = []
+    query_uris = Set.new(query.filters.map { |f| f.obj_uri })
 
     query_results.each do |r|
-      result_row = ResultRow.new(r, query)
+      result_row = ResultRow.new(r, query, query_uris)
 
       if result_row.any_query_terms?
         qt_results << result_row
@@ -122,21 +123,20 @@ class Traits::DataViz::Sankey
   class ResultRow
     attr_reader :nodes, :page_ids
 
-    def initialize(row, query)
-      query_uris = Set.new(query.filters.map { |f| f.obj_uri })
-
+    def initialize(row, query, query_uris)
       @nodes = []
       @page_ids = Set.new(row[:page_ids])
 
       query.page_count_sorted_filters.each_with_index do |_, i|
         uri_key = :"child#{i}_uri"
+        uri = row[uri_key]
         node_query = query.deep_dup
-        node_query.page_count_sorted_filters[i].obj_uri = row[uri_key]
+        node_query.page_count_sorted_filters[i].obj_uri = uri 
 
         node = Node.new(
-          row[uri_key], 
+          uri,
           i,
-          query_uris.include?(row[uri_key]),
+          query_uris.include?(uri),
           node_query
         )
 
