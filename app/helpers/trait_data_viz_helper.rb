@@ -42,6 +42,7 @@ module TraitDataVizHelper
       name = i18n_term_name_for_uri(n.uri)
 
       {
+        id: n.id,
         uri: n.uri,
         name: name,
         fixedValue: n.size,
@@ -56,8 +57,8 @@ module TraitDataVizHelper
   def sankey_links(links)
     links.map do |l|
       {
-        source: l.source.uri,
-        target: l.target.uri,
+        source: l.source.id,
+        target: l.target.id,
         value: l.size,
         selected: true,
         names: [i18n_term_name_for_uri(l.source.uri), i18n_term_name_for_uri(l.target.uri)]

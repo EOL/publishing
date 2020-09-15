@@ -21,7 +21,7 @@ window.Sankey = (function(exports) {
       .nodeWidth(15)
       .nodePadding(25)
       .extent([[0, 5], [width, height - 20]])
-      .nodeId((d) => d.uri);
+      .nodeId((d) => d.id);
 
     const svg = d3.select(".js-sankey")
       .append("svg")
