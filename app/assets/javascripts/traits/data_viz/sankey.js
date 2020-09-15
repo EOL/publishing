@@ -13,6 +13,8 @@ window.Sankey = (function(exports) {
     , numAxes = $data.data('axes')
     ;
 
+    var nextLinkId = 0;
+
     const sankey = d3.sankey()
       .nodeSort(null)
       .linkSort(null)
@@ -35,7 +37,7 @@ window.Sankey = (function(exports) {
       links: graph.links.map(d => Object.assign({}, d))
     });
 
-    const link = d3.linkHorizontal()
+    const linkDataFn = d3.linkHorizontal()
       .source((d) => [d.source.x1, Math.min(d.source.y1 - (d.width / 2.0), d.y0)])
       .target((d) => [d.target.x0, Math.min(d.target.y1 - (d.width / 2.0), d.y1)]);
 
@@ -156,21 +158,56 @@ window.Sankey = (function(exports) {
       }
     }
 
-    function colorPaths() {
-      svg.selectAll('path')
-        .attr('stroke', linkColor)
-    }
-
     function updateLinks() {
-      linkG.selectAll('path')
-       .data(links)
-       .join("path")
-         .attr("d", link)
-         .attr("stroke", linkColor)
-         .attr("stroke-width", d => d.width)
-       .append("title")
-         .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
-       .order();
+      const link = linkG.selectAll('g')
+        .data(links)
+        .join('g');
+
+      const gradient = link.append('linearGradient')
+        .attr("id", d => (d.uid = newLinkId()))
+        .attr('gradientUnits', 'userSpaceOnUse')
+        .attr('x1', d => d.source.x1)
+        .attr('x2', d => d.target.x0)
+
+      gradient.append('stop')
+        .attr('offset', '0%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', 1);
+
+      gradient.append('stop')
+        .attr('offset', '10%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', 1);
+
+      gradient.append('stop')
+        .attr('offset', '30%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', .5);
+
+      gradient.append('stop')
+        .attr('offset', '70%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', .5);
+
+      gradient.append('stop')
+        .attr('offset', '90%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', 1);
+
+      gradient.append('stop')
+        .attr('offset', '100%')
+        .attr('stop-color', linkColor)
+        .attr('stop-opacity', 1);
+        
+      link.append('path') 
+        .attr("d", linkDataFn)
+        .attr("stroke", d => `url(#${d.uid})`)
+        .attr("stroke-width", d => Math.max(1, d.width));
+
+      link.append("title")
+        .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
+
+      link.order();
     }
 
     function updateNodes() {
@@ -200,6 +237,10 @@ window.Sankey = (function(exports) {
 
     function nodeStrokeWidth(d) {
       return selectedNodes[d.axisId] == d ? 3 : 0;
+    }
+
+    function newLinkId() {
+      return `link-${nextLinkId++}`;
     }
   }
   return exports;
