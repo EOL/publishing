@@ -439,7 +439,6 @@ class TraitBank
       end
     end
 
-
     def term_filter_where(
       filter,
       trait_var,

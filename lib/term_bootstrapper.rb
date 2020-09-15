@@ -70,6 +70,7 @@ class TermBootstrapper
     @terms_from_neo4j = []
     @raw_terms_from_neo4j.each do |term|
       term = correct_keys(term)
+      next unless term['uri'] =~ /^htt/ # Most basic check for URI-ish-ness. Should be fine for our purposes.
       # NOTE: Indeed, these two calls account for nearly *all* of the time that the #create process requires. Alas. This is OK.
       term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
