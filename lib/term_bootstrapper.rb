@@ -89,8 +89,6 @@ class TermBootstrapper
   end
 
   def should_hide_from_select?(term)
-    return true if !term['parent_uris']&.empty? # hide, if there are any parent terms
-
     return true if !term['synonym_of_uri'].nil? # hide, if there are any synonym terms
 
     false
