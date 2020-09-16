@@ -1,14 +1,16 @@
 class TraitBank::QueryFieldLabeler
-  attr_reader :value, :type, :index
+  attr_reader :label, :type, :index
 
-  def initialize(field, index)
-    @value = field.value
-    @type = field.type
-    @index = index 
+  class << self
+    def create_from_field(field, index)
+      self.new(nil, field.type, index)
+    end
   end
 
-  def label
-    @label ||= type.to_s + index.to_s
+  def initialize(override_label, type, index)
+    @label = override_label || type.to_s + index.to_s
+    @type = type
+    @index = index 
   end
 
   def gathered_label
