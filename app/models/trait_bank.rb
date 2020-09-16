@@ -742,7 +742,7 @@ class TraitBank
           fields = gather_all ? filter.all_fields : filter.max_trait_row_count_fields
 
           fields.each do |field|
-            labeler = TraitBank::QueryFieldLabeler.new(field, i)
+            labeler = TraitBank::QueryFieldLabeler.create_from_field(field, i)
 
             if field.type == :object_clade
               page_id_param = "#{labeler.gathered_label}_page_id"
@@ -823,6 +823,8 @@ class TraitBank
       filters.each_with_index do |filter, i|
         filter_matches = []
         filter_wheres = []
+        obj_term_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_var], :object_term, i)
+        pred_labeler = TraitBank::QueryFieldLabeler.new(options[:pred_var], :predicate, i)
 
         trait_var = filters.length == 1 && options[:trait_var] ? options[:trait_var] : "trait#{i}"
         base_meta_var = "meta#{i}"
@@ -834,15 +836,14 @@ class TraitBank
         filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
 
         if filter.object_term?
-          obj_term_labeler = TraitBank::QueryFieldLabeler.new(filter.obj_term_field, i)
           filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
         elsif options[:always_match_obj]
-          filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
+          filter_matches << filter_term_match_no_hier(trait_var, options[:obj_var], :object_term)
         end
 
         if filter.obj_clade.present?
           gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
-          obj_clade_labeler = TraitBank::QueryFieldLabeler.new(filter.obj_clade_field, i)
+          obj_clade_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.obj_clade_field, i)
 
           if gathered_clade
             filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
@@ -851,11 +852,12 @@ class TraitBank
           end
         end
 
+
         if filter.predicate?
-          pred_labeler = TraitBank::QueryFieldLabeler.new(filter.pred_field, i)
-          filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, pred_labeler.label, :predicate, gathered_terms_for_filter)
+          pred_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.pred_field, i)
+          filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)
         elsif options[:always_match_pred]
-          filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
+          filter_matches << filter_term_match_no_hier(trait_var, options[:pred_var], :predicate)
         end
 
         filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
