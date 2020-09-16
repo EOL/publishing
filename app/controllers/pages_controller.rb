@@ -520,7 +520,7 @@ private
 
   def setup_trophic_web
     @trophic_web_data = @page.pred_prey_comp_data(breadcrumb_type)
-    @show_trophic_web = @trophic_web_data[:nodes].length > 1
+    @show_trophic_web = true || @trophic_web_data[:nodes].length > 1
     @trophic_web_translations = {
       predator: I18n.t("pages.trophic_web.predator"),
       prey: I18n.t("pages.trophic_web.prey"),
