@@ -13,11 +13,16 @@ class Traits::DataViz::Sankey
     end
   end
 
+  def multiple_paths?
+    @links.length >= @num_axes 
+  end
+
   private
   def initialize(query_results, query)
     qt_results = []
     other_results = []
     query_uris = Set.new(query.filters.map { |f| f.obj_uri })
+    @num_axes = query.filters.length
 
     query_results.each do |r|
       result_row = ResultRow.new(r, query, query_uris)
