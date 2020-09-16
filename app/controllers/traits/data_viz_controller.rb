@@ -125,7 +125,7 @@ module Traits
     def sankey
       @query = TermQuery.new(term_query_params)
       @sankey = Traits::DataViz::Sankey.create_from_query(@query)
-      render_with_status(@sankey.links.length > 1)
+      render_with_status(@sankey.multiple_paths?)
     end
 
     private
