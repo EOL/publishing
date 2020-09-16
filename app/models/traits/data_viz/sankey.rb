@@ -208,7 +208,7 @@ class Traits::DataViz::Sankey
     def initialize(source, target, page_ids)
       @source = source
       @target = target
-      @page_ids = page_ids
+      @page_ids = Set.new(page_ids)
     end
 
     def add_page_ids(new_page_ids)
