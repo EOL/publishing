@@ -40,6 +40,7 @@ module TraitDataVizHelper
   def sankey_nodes(nodes)
     nodes.map do |n|
       name = i18n_term_name_for_uri(n.uri)
+      name = t("traits.data_viz.other_term_name", term_name: name) if n.query_term?
 
       {
         id: n.id,
