@@ -214,7 +214,7 @@ window.TraitDataViz = (function(exports) {
           .attr('stroke-width', 1)
           .attr('transform', (_, i) => `translate(${i * barWidth}, 0)`)
           .style('cursor', 'pointer')
-          .on('click', (d) => window.location = d.queryPath)
+          .on('click', (e, d) => window.location = d.queryPath)
         
     bar.append('rect')
       .attr('x', 0)
@@ -229,8 +229,8 @@ window.TraitDataViz = (function(exports) {
       .attr('x', width / 2)
       .attr('text-anchor', 'middle');
 
-    bar.on('mouseenter', d => prompt.text(d.promptText));
-    bar.on('mouseleave', d => prompt.text(''));
+    bar.on('mouseenter', (e, d) => prompt.text(d.promptText));
+    bar.on('mouseleave', (e, d) => prompt.text(''));
 
     function buildAxis(g, width, axisLabelText, axisLabelY, ticks, tickDist, tickLength, tickLabelY) { 
       g.append('line')
