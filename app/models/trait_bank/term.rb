@@ -76,12 +76,12 @@ class TraitBank
       end
 
       def remove_relationships(uri, name)
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"})-[rel:#{name}]->() DETACH DELETE rel})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"})-[rel:#{name}]->() DETACH DELETE rel})
       end
 
       def add_relationship(source_uri, name, target_uri)
-        TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '""')}" }),
-                          (target:Term { uri: "#{target_uri.gsub(/"/, '""')}" })
+        TraitBank.query(%{MATCH (term:Term { uri: "#{source_uri.gsub(/"/, '\"')}" }),
+                          (target:Term { uri: "#{target_uri.gsub(/"/, '\"')}" })
                           CREATE (term)-[:#{name}]->(target) })
       end
 
@@ -97,7 +97,7 @@ class TraitBank
               "term.#{property} = ''"
             else
               # NOTE: it could be the eol_id, which is actually a number. ...But we want to stringify it:
-              %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '""')}"}
+              %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '\"')}"}
             end
           end
         end
@@ -157,7 +157,7 @@ class TraitBank
 
       def delete(uri)
         # Not going to bother with DETACH, since there should only be one!
-        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}"}) DELETE term})
+        TraitBank.query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}"}) DELETE term})
       end
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
@@ -204,21 +204,21 @@ class TraitBank
         return { name: '', uri: '' } if uri.blank?
         @terms ||= {}
         return @terms[uri] if @terms.key?(uri)
-        res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
+        res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}" }) RETURN term})
         return nil unless res && res["data"] && res["data"].first
         @terms[uri] = res["data"].first.first
       end
 
       # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def descendants_of_term(uri)
-        terms = query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '""')}" })
+        terms = query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '\"')}" })
                          RETURN DISTINCT term})
         terms["data"].map { |r| r.first["data"] }
       end
 
       # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def term_member_of(uri)
-        terms = query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '""')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
+        terms = query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '\"')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
         terms["data"].map { |r| r.first }
       end
 
