@@ -206,6 +206,11 @@ class TraitBank
         @terms[uri] = res["data"].first.first
       end
 
+      # NOTE: unused method; this is meant for debugging.
+      def yamlized_term(uri)
+        add_yml_fields(yamlize_keys(term(uri)))
+      end
+
       def yamlize_keys(term)
         hash = term.stringify_keys
         new_hash = {}
