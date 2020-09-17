@@ -65,33 +65,14 @@ class TermBootstrapper
     end
   end
 
-  # NOTE: slow. See below.
   def populate_uri_hashes
     @terms_from_neo4j = []
     @raw_terms_from_neo4j.each do |term|
-      term = correct_keys(term)
+      term = TraitBank::Term.yamlize_keys(term)
       next unless term['uri'] =~ /^htt/ # Most basic check for URI-ish-ness. Should be fine for our purposes.
-      # NOTE: Indeed, these two calls account for nearly *all* of the time that the #create process requires. Alas. This is OK.
-      term['parent_uris'] = Array(TraitBank::Term.parents_of_term(term['uri']))
-      term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
-      term['units_term_uri'] = TraitBank::Term.units_for_term(term['uri'])
-      term['is_hidden_from_select'] = should_hide_from_select?(term)
-      term['alias'] = '' # This will have to be done manually.
-      @terms_from_neo4j << term
+      # NOTE: .add_yml_fields is VERY SLOW and accounts for about 90% of the time of the whole #create method. S'okay.
+      @terms_from_neo4j << TraitBank::Term.add_yml_fields(term)
     end
-  end
-
-  def correct_keys(term)
-    hash = term.stringify_keys
-    new_hash = {}
-    EolTerms::Validator::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
-    new_hash
-  end
-
-  def should_hide_from_select?(term)
-    return true if !term['synonym_of_uri'].nil? # hide, if there are any synonym terms
-
-    false
   end
 
   def create_yaml

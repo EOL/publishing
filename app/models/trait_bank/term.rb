@@ -162,7 +162,6 @@ class TraitBank
 
       # TODO: I think we need a TraitBank::Term::Relationship class with these in it! Argh!
 
-      # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def child_has_parent(curi, puri)
         cterm = term(curi)
         pterm = term(puri)
@@ -171,7 +170,6 @@ class TraitBank
         child_term_has_parent_term(cterm, pterm)
       end
 
-      # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def is_synonym_of(curi, puri)
         cterm = term(curi)
         pterm = term(puri)
@@ -180,7 +178,6 @@ class TraitBank
         relate(:synonym_of, cterm, pterm)
       end
 
-      # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def child_term_has_parent_term(cterm, pterm)
         relate(:parent_term, cterm, pterm)
       end
@@ -209,14 +206,34 @@ class TraitBank
         @terms[uri] = res["data"].first.first
       end
 
-      # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
+      def yamlize_keys(term)
+        hash = term.stringify_keys
+        new_hash = {}
+        EolTerms::Validator::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
+        new_hash
+      end
+
+      # NOTE: Very slow.
+      def add_yml_fields(term)
+        term['parent_uris'] = Array(parents_of_term(term['uri']))
+        term['synonym_of_uri'] = synonym_of_term(term['uri'])
+        term['units_term_uri'] = units_for_term(term['uri'])
+        term['is_hidden_from_select'] = should_hide_from_select?(term)
+        term['alias'] ||= ''
+      end
+
+      def should_hide_from_select?(term)
+        return true if !term['synonym_of_uri'].nil? # hide, if there are any synonym terms
+
+        false
+      end
+
       def descendants_of_term(uri)
         terms = query(%Q{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri.gsub(/"/, '\"')}" })
                          RETURN DISTINCT term})
         terms["data"].map { |r| r.first["data"] }
       end
 
-      # TODO: SOMEONE ONE SHOULD MOVE THIS TO TraitBank::Term (new class)!
       def term_member_of(uri)
         terms = query(%Q{MATCH (:Term { uri: "#{uri.gsub(/"/, '\"')}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
         terms["data"].map { |r| r.first }
