@@ -186,14 +186,12 @@ class TraitBank
 
         parts << "WITH #{obj_var_parts.join(", ")}, collect(DISTINCT page) AS pages"
 
-        filters = term_query.page_count_sorted_filters
-
         child_vars = obj_vars.map.with_index do |_, i|
           "child#{i}"
         end
 
         child_matches = obj_vars.map.with_index do |var, i|
-          "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(:Term{uri: '#{filters[i].obj_uri}'})"
+          "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(#{var[:tgt_obj]})"
         end
 
         parts << child_matches.join("\n")
