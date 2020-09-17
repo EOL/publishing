@@ -61,7 +61,7 @@ class TraitBank
         update_relationships(properties['uri'], properties)
         res = query(query_for_update(properties))
         raise ActiveRecord::RecordNotFound if res.nil?
-        res['data'].first.first.symbolize_keys
+        res['data'].first&.first&.symbolize_keys
       end
 
       def update_relationships(uri, properties)
