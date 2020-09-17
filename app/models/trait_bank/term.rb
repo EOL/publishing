@@ -96,7 +96,7 @@ class TraitBank
             sets << if properties[property].nil?
               "term.#{property} = ''"
             else
-              %{term.#{property} = "#{properties[property].gsub(/"/, '""')}"}
+              %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '""')}"}
             end
           end
         end
