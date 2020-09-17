@@ -160,8 +160,8 @@ class TermBootstrapper
 
   def uri_has_relationships?(uri)
     num =
-      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '\"')}"}}, :outgoing) +
-      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '\"')}"}}, :incoming)
+      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '""')}"}}, :outgoing) +
+      TraitBank.count_rels_by_direction(%Q{term:Term { uri: "#{uri.gsub(/"/, '""')}"}}, :incoming)
     return false if num.zero?
     warn "NOT REMOVING TERM FOR #{uri}. It has #{num} relationships! You should check this manually and either add it to "\
          'the list or delete the term and all its relationships.'

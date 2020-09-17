@@ -171,30 +171,30 @@ class TraitBank
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
       page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
       trait_rel = page_id.nil? ? ":trait" : TRAIT_RELS
-      q = "MATCH (page:Page#{page_id_part})"\
-          "-[#{trait_rel}]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
-          "-[:supplier]->(resource:Resource) "\
-          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-          "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-          "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, "\
-            "meta, meta_predicate, meta_units_term, meta_object_term, page " # \
-          # "ORDER BY LOWER(meta_predicate.name)"
+      q = %{MATCH (page:Page#{page_id_part})
+          -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
+          -[:supplier]->(resource:Resource)
+          MATCH (trait:Trait)-[:predicate]->(predicate:Term)
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+          OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
+          OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
+          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term,
+            "meta, meta_predicate, meta_units_term, meta_object_term, page }
+          # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res, group_meta_by_predicate: true)
     end
 
     def data_dump_trait(pk)
-      id = pk.gsub("'", "''")
+      id = pk.gsub(/"/, '""')
       query(%{
-        MATCH (trait:Trait { eol_pk: '#{id}' })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+        MATCH (trait:Trait { eol_pk: "#{id}" })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
         OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
         OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
         OPTIONAL MATCH (meta)-[:sex_term]->(sex_term:Term)
