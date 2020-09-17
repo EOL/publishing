@@ -220,6 +220,7 @@ class TraitBank
         term['units_term_uri'] = units_for_term(term['uri'])
         term['is_hidden_from_select'] = should_hide_from_select?(term)
         term['alias'] ||= ''
+        term
       end
 
       def should_hide_from_select?(term)
