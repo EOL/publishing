@@ -87,7 +87,7 @@ class TraitBank
 
       def query_for_update(properties)
         sets = []
-        properties.each do |property|
+        properties.keys.each do |property|
           if BOOLEAN_PROPERTIES.include?(property) # Booleans are handled separately.
             sets << "term.#{field} = #{properties[field] ? 'true' : 'false'}"
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
