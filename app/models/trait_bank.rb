@@ -1363,7 +1363,7 @@ class TraitBank
 
     # default direction is outgoing.
     def count_rels_by_direction(node, direction = nil)
-      relationsip = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
+      relationship = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
       TraitBank.query("MATCH (#{node})#{relationship}() RETURN COUNT(relationship)")['data'].first.first
     end
 

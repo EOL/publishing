@@ -105,6 +105,7 @@ class TermBootstrapper
         next
       end
       term_from_gem = by_uri_from_gem[term_from_neo4j['uri']]
+      term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
     end
     EolTerms.list.each do |term_from_gem|
@@ -116,7 +117,6 @@ class TermBootstrapper
     return @by_uri_from_gem unless @by_uri_from_gem.nil?
     @by_uri_from_gem = {}
     EolTerms.list.each { |term| @by_uri_from_gem[term['uri']] = term }
-    @by_uri_from_gem['alias'] = '' if @by_uri_from_gem['alias'].nil? # Fix this diff niggle.
     @by_uri_from_gem
   end
 
