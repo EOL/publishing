@@ -838,7 +838,7 @@ class TraitBank
         if filter.object_term?
           filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
         elsif options[:always_match_obj]
-          filter_matches << filter_term_match_no_hier(trait_var, options[:obj_var], :object_term)
+          filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
         end
 
         if filter.obj_clade.present?
@@ -854,10 +854,9 @@ class TraitBank
 
 
         if filter.predicate?
-          pred_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.pred_field, i)
           filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)
         elsif options[:always_match_pred]
-          filter_matches << filter_term_match_no_hier(trait_var, options[:pred_var], :predicate)
+          filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
         end
 
         filter_wheres << term_filter_where(filter, trait_var, pred_labeler, obj_term_labeler, obj_clade_labeler, params, gathered_terms_for_filter)
@@ -871,8 +870,8 @@ class TraitBank
         )
 
         with = options[:with_tgt_vars] ? 
-          yield(i, trait_var, pred_labeler&.label, pred_labeler&.tgt_label, obj_term_labeler&.label, obj_term_labeler&.tgt_label) :
-          yield(i, trait_var, pred_labeler&.label, obj_term_labeler&.label)
+          yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
+          yield(i, filter, trait_var, pred_labeler&.label, obj_term_labeler&.label)
 
         if with.present?
           add_gathered_terms(with, gathered_terms, with_tgt_vars: options[:with_tgt_vars])
@@ -896,7 +895,7 @@ class TraitBank
     end
 
     def term_page_search_matches(term_query, params, options = {})
-      term_search_matches_helper(term_query, params, options) do |i, trait_var, pred_var, obj_var|
+      term_search_matches_helper(term_query, params, options) do |i, filter, trait_var, pred_var, obj_var|
         if i == term_query.filters.length - 1
           nil
         else
@@ -908,7 +907,7 @@ class TraitBank
     def term_record_search_matches(term_query, params, options = {})
       trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
-      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, trait_var, pred_var, obj_var|
+      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
         if term_query.filters.length > 1
           if options[:count]
             trait_ag = "count(DISTINCT #{trait_var})"

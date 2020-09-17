@@ -138,7 +138,6 @@ class TraitBank
       end
 
       def sankey_combined_counts(term_query)
-        # TODO: enforce query restrictions. Assuming object-only for the moment.
         parts = []
         params = {}
 
@@ -150,15 +149,20 @@ class TraitBank
           params, 
           always_match_obj: true, 
           with_tgt_vars: true
-        ) do |i, trait_var, pred_var, tgt_pred_var, obj_var, tgt_obj_var|
+        ) do |i, filter, trait_var, pred_var, tgt_pred_var, obj_var, tgt_obj_var|
           with = "WITH page, "
           objs_var = nil
+          tgt_obj_var = filter.object_term? ? tgt_obj_var : nil
 
           if i < term_query.filters.length - 1
             objs_var = obj_var + "_pairs"
-            with.concat("collect({ obj: #{obj_var}, tgt_obj: #{tgt_obj_var} }) AS #{objs_var}")
+            collect = filter.object_term? ? 
+              "{ obj: #{obj_var}, tgt_obj: #{tgt_obj_var} }" :
+              "{ obj: #{obj_var} }"
+            with.concat("collect(#{collect}) AS #{objs_var}")
           else
-            with.concat("#{obj_var}, #{tgt_obj_var}")
+            with.concat("#{obj_var}")
+            with.concat(", #{tgt_obj_var}") if filter.object_term?
           end
 
           if objs_vars.any?
@@ -179,10 +183,17 @@ class TraitBank
         end.join("\n")
 
         obj_var_parts = obj_pair_row_vars.map.with_index do |pair, i|
-          "#{pair}.obj AS #{obj_vars[i][:obj]}, #{pair}.tgt_obj AS #{obj_vars[i][:tgt_obj]}"
+          part = "#{pair}.obj AS #{obj_vars[i][:obj]}"
+
+          if obj_vars[i][:tgt_obj]
+            part.concat(", #{pair}.tgt_obj AS #{obj_vars[i][:tgt_obj]}")
+          end
+
+          part
         end
 
-        obj_var_parts << "#{obj_vars[-1][:obj]}, #{obj_vars[-1][:tgt_obj]}"
+        obj_var_parts << obj_vars[-1][:obj]
+        obj_var_parts << obj_vars[-1][:tgt_obj] if obj_vars[-1][:tgt_obj]
 
         parts << "WITH #{obj_var_parts.join(", ")}, collect(DISTINCT page) AS pages"
 
@@ -191,13 +202,21 @@ class TraitBank
         end
 
         child_matches = obj_vars.map.with_index do |var, i|
-          "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(#{var[:tgt_obj]})"
+          if var[:tgt_obj]
+            "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(#{var[:tgt_obj]})"
+          else
+            "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)\nWHERE NOT (#{child_vars[i]})-[:parent_term|:synonym_of]->(:Term)"
+          end
         end
 
         parts << child_matches.join("\n")
         # include original terms if they're the direct object (or synonym of direct object) of their matching traits
         obj_cases = obj_vars.map.with_index do |pair, i|
-          "CASE WHEN #{child_vars[i]} IS NULL THEN #{pair[:tgt_obj]} ELSE #{child_vars[i]} END AS #{child_vars[i]}"
+          if pair[:tgt_obj]
+            "CASE WHEN #{child_vars[i]} IS NULL THEN #{pair[:tgt_obj]} ELSE #{child_vars[i]} END AS #{child_vars[i]}"
+          else
+            child_vars[i]
+          end
         end
         parts << "WITH #{obj_cases.join(", ")}, pages"
         parts << "UNWIND pages AS page"
@@ -306,18 +325,12 @@ class TraitBank
       end
 
       def check_query_valid_for_sankey(query)
-        if !query.taxa?
-          return CheckResult.invalid("must be taxa query")
-        end
-
         if query.filters.length < 2
           return CheckResult.invalid("query must have multiple filters")
         end
 
-        query.filters.each do |filter|
-          return CheckResult.invalid("all query filters must contain an object term") unless filter.object_term?
-        end
-
+        # TODO: invalidate object clade queries
+        #
         CheckResult.valid
       end
 
