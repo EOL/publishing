@@ -89,7 +89,7 @@ class TraitBank
         sets = []
         properties.keys.each do |property|
           if BOOLEAN_PROPERTIES.include?(property) # Booleans are handled separately.
-            sets << "term.#{field} = #{properties[field] ? 'true' : 'false'}"
+            sets << "term.#{property} = #{properties[field] ? 'true' : 'false'}"
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
             # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
           else
