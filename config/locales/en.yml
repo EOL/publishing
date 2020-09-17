@@ -769,7 +769,7 @@ en:
         r_form: "Form"
       reference_taxon_attrib: "Reference taxon from %{dataset_name}"
       resource_link_html: "<a href='%{resource_path}'>%{resource_name}</a>"
-      resource_link_w_remarks_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})"
+      resource_link_w_remarks_html: "<a href='%{resource_path}'>%{resource_name}</a> (%{remarks})"
       username_missing: "user %{user_id}"
     trophic_web:
       competitor: "Competitor"
