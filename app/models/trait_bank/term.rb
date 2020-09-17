@@ -96,6 +96,7 @@ class TraitBank
             sets << if properties[property].nil?
               "term.#{property} = ''"
             else
+              # NOTE: it could be the eol_id, which is actually a number. ...But we want to stringify it:
               %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '""')}"}
             end
           end
