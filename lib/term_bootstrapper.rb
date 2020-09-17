@@ -76,7 +76,7 @@ class TermBootstrapper
       term['synonym_of_uri'] = TraitBank::Term.synonym_of_term(term['uri'])
       term['units_term_uri'] = TraitBank::Term.units_for_term(term['uri'])
       term['is_hidden_from_select'] = should_hide_from_select?(term)
-      term['alias'] = nil # This will have to be done manually.
+      term['alias'] = '' # This will have to be done manually.
       @terms_from_neo4j << term
     end
   end
