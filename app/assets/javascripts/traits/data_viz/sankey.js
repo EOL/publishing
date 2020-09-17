@@ -5,6 +5,8 @@ window.Sankey = (function(exports) {
         , height = 520
         ;
 
+    var selectedLinkIds = null;
+
     $data = $('.js-sankey')
     const graph = {
         nodes: $data.data('nodes'),
@@ -12,8 +14,6 @@ window.Sankey = (function(exports) {
       }
     , numAxes = $data.data('axes')
     ;
-
-    var nextLinkId = 0;
 
     const sankey = d3.sankey()
       .nodeSort(null)
@@ -43,41 +43,70 @@ window.Sankey = (function(exports) {
 
     var selectedNodes = {};
 
-    const nodeG = svg.append("g");
-    updateNodes();
-
     const linkG = svg.append("g")
         .attr("fill", "none");
+    addLinks();
 
-    updateLinks();
-
-    svg.append("g")
-        .style("font", "10px sans-serif")
-      .selectAll("text")
-      .data(nodes)
-      .join("text")
-        .attr("x", d => d.x0 < width / 2 ? d.x1 : d.x0)
-        .attr("y", d => d.y1 + 10)
-        .attr("dy", "0.35em")
-        .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
-        .text(d => d.name)
-      .append("tspan")
-        .attr("fill-opacity", 0.7)
-        .text(d => ` ${d.value.toLocaleString()}`);
-
-    svg.node();
+    const nodesG = svg.append("g");
+    addNodes();
 
     function handleNodeClick(e, d) {
       if (d.clickable) {
         window.location = d.searchPath;
       }
-      /*
-      setSelectedNode(d);
-      updateSelectedLinks();
-      sortLinks();
-      updateLinks();
-      updateNodes();
-      */
+    }
+
+    function handleNodeMouseenter(e, d) {
+      var targetPathLinks = nodeTargetPathLinks(d)
+        , sourcePathLinks = nodeSourcePathLinks(d)
+        ;
+
+      selectedLinkIds = new Set();
+
+      targetPathLinks.forEach((l) => selectedLinkIds.add(l));
+      sourcePathLinks.forEach((l) => selectedLinkIds.add(l));
+
+      updateLinkColors();
+    }
+
+    function handleNodeMouseleave() {
+      selectedLinkIds = null;
+      updateLinkColors();
+    }
+
+    // all link uids for paths originating with node n
+    function nodeTargetPathLinks(n) {
+      return nodePathLinksHelper(new Set([n]), null, 'target');
+    } 
+
+    function nodeSourcePathLinks(n) {
+      return nodePathLinksHelper(new Set([n]), null, 'source');
+    }
+
+
+    function nodePathLinksHelper(nodes, linkIds, type) {
+      if (!linkIds) {
+        linkIds = new Set();
+      }
+
+      if (!nodes.size) {
+        return linkIds;
+      }
+
+      const linksKey = type + 'Links'
+          , linkNodeKey = type == 'target' ? 'source' : 'target'
+          , nextNodes = new Set()
+          ;
+
+
+      nodes.forEach((n) => {
+        n[linksKey].forEach((l) => {
+          linkIds.add(l.id); 
+          nextNodes.add(l[linkNodeKey]);
+        });
+      });
+
+      return nodePathLinksHelper(nextNodes, linkIds, type);
     }
 
     function setSelectedNode(node) {
@@ -90,81 +119,21 @@ window.Sankey = (function(exports) {
       }
     }
 
-    function sortLinks() {
-      links.sort((a, b) => {
-        if (a.selected && !b.selected) {
-          return 1;
-        } else if (!a.selected && b.selected) {
-          return -1; 
-        } else {
-          return 0;
-        }
-      });
-
-    }
-
-    function updateSelectedLinks() {
-      links.forEach((l) => {
-        let selected = true;
-
-        for (let i = 0; selected && i < numAxes - 1; i++) {
-          let isLinkIndex = !l.connections[i]
-            , sourceIndex = i
-            , targetIndex = i + 1
-            ;
-
-          if (isLinkIndex) {
-            selected = (!selectedNodes[sourceIndex] || selectedNodes[sourceIndex].uri == l.source.uri) &&
-              (!selectedNodes[targetIndex] || selectedNodes[targetIndex].uri == l.target.uri);
-          } else {
-            selected = !!(l.connections[i].find((c) => {
-              return (!selectedNodes[sourceIndex] || c.source_uri == selectedNodes[sourceIndex].uri) &&
-              (targetMatch = !selectedNodes[targetIndex] || c.target_uri == selectedNodes[targetIndex].uri)
-            }));
-          }
-        }
-
-        l.selected = selected;
-      });
-      console.log(links);
-    }
-
-    function setSelectedLink(selectedLink) {
-      links.forEach((l) => {
-        const selected = (
-          l == selectedLink ||
-          selectedLink.connections.find((c) => l.source.uri == c.source_uri && l.target.uri == c.target_uri)
-        );
-
-        l.selected = selected;
-      })
-
-      updateLinks();
-    }
-
-    function unsetSelectedLink() {
-      links.forEach((l) => {
-        l.selected = true;
-      });
-
-      updateLinks();
-    }
-
     function linkColor(d) {
-      if (d.selected) {
+      if (!selectedLinkIds || selectedLinkIds.has(d.id)) {
         return "#89c783";
       } else {
         return "#eee";
       }
     }
 
-    function updateLinks() {
+    function addLinks() {
       const link = linkG.selectAll('g')
         .data(links)
         .join('g');
 
       const gradient = link.append('linearGradient')
-        .attr("id", d => (d.uid = newLinkId()))
+        .attr("id", d => d.id)
         .attr('gradientUnits', 'userSpaceOnUse')
         .attr('x1', d => d.source.x1)
         .attr('x2', d => d.target.x0)
@@ -201,19 +170,43 @@ window.Sankey = (function(exports) {
         
       link.append('path') 
         .attr("d", linkDataFn)
-        .attr("stroke", d => `url(#${d.uid})`)
+        .attr("stroke", d => `url(#${d.id})`)
         .attr("stroke-width", d => Math.max(1, d.width));
 
       link.append("title")
         .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
-
-      link.order();
     }
 
-    function updateNodes() {
-      nodeG.selectAll("rect")
+    function updateLinkColors() {
+      if (selectedLinkIds) {
+        // put selected links last, i.e., on top
+        linkG.selectAll('g').sort((a, b) => {
+          if (selectedLinkIds.has(a.id) && !selectedLinkIds.has(b.id)) {
+            return 1;
+          } else if (!selectedLinkIds.has(a.id) && selectedLinkIds.has(b.id)) {
+            return -1;
+          } else {
+            return 0;
+          }
+        })
+      }
+
+      linkG.selectAll('stop')
+        .attr('stop-color', linkColor);
+    }
+
+    function addNodes() {
+      const nodeG = nodesG.selectAll("g")
         .data(nodes)
-        .join("rect")
+        .join("g")
+        .on('click', handleNodeClick)
+        .on('mouseenter', handleNodeMouseenter)
+        .on('mouseleave', handleNodeMouseleave);
+
+      nodeG.append("title")
+          .text(d => d.clickable ? d.promptText : null)
+
+      nodeG.append("rect")
           .attr("x", d => d.x0)
           .attr("y", d => d.y0)
           .attr("height", d => d.y1 - d.y0)
@@ -221,26 +214,38 @@ window.Sankey = (function(exports) {
           .attr('fill', nodeFillColor)
           .attr('stroke', nodeStrokeColor)
           .attr('stroke-width', nodeStrokeWidth)
-          .style('cursor', (d) => d.clickable ? 'pointer' : 'normal')
-          .on('click', handleNodeClick)
-        .append("title")
-          .text(d => d.clickable ? d.promptText : null);
+          .style('cursor', nodeCursor)
+        ;
+
+      nodeG.append("text")
+        .style("font", "10px sans-serif")
+        .attr("x", d => d.x0 < width / 2 ? d.x1 : d.x0)
+        .attr("y", d => d.y1 + 10)
+        .attr("dy", "0.35em")
+        .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
+        .text(d => d.name)
+        .style('cursor', nodeCursor)
+        .on('mouseenter', handleNodeMouseenter)
+        .on('mouseleave', handleNodeMouseleave)
+        .append("tspan")
+          .attr("fill-opacity", 0.7)
+          .text(d => ` ${d.value.toLocaleString()}`);
+    }
+
+    function nodeCursor(d) {
+      return d.clickable ? 'pointer' : 'normal';
     }
 
     function nodeFillColor(d) {
-      return !selectedNodes[d.axisId] || selectedNodes[d.axisId] == d ? '#000' : '#aaa'
+      return '#000';
     }
 
     function nodeStrokeColor(d) {
-      return selectedNodes[d.axisId] == d ? "#3aF" : null;
+      return null;
     }
 
     function nodeStrokeWidth(d) {
-      return selectedNodes[d.axisId] == d ? 3 : 0;
-    }
-
-    function newLinkId() {
-      return `link-${nextLinkId++}`;
+      return 0;
     }
   }
   return exports;
