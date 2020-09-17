@@ -306,6 +306,10 @@ class TraitBank
       end
 
       def check_query_valid_for_sankey(query)
+        if !query.taxa?
+          return CheckResult.invalid("must be taxa query")
+        end
+
         if query.filters.length < 2
           return CheckResult.invalid("query must have multiple filters")
         end
