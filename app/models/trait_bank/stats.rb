@@ -311,7 +311,7 @@ class TraitBank
         end
 
         query.filters.each do |filter|
-          return CheckResult.invalid("all query filters must contain only an object term") unless filter.obj_term_only?
+          return CheckResult.invalid("all query filters must contain an object term") unless filter.object_term?
         end
 
         CheckResult.valid
