@@ -129,7 +129,7 @@ class TermBootstrapper
       # Fix alias difference from neo4j:
       term['alias'] = '' if term['alias'].nil?
       # Sort the parents, to match results from neo4j:
-      term['parent_uris'] = Array(parent_uris['parent_uris']).sort
+      term['parent_uris'] = Array(term['parent_uris']).sort
       @by_uri_from_gem[term['uri']] = term
     end
     @by_uri_from_gem
