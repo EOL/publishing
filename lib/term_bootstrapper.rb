@@ -111,6 +111,8 @@ class TermBootstrapper
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.each do |k|
           puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] ==  term_from_neo4j[k]
+          pp term_from_gem
+          pp term_from_neo4j
         end
         @update_terms << term_from_gem
       end
