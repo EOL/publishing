@@ -76,12 +76,12 @@ class TermBootstrapper
   end
 
   # NOTE: not used. This is for debugging purposes.
-  def term_from_neo4j_by_uri(uri)
-    return @term_from_neo4j_by_uri[uri] if @term_from_neo4j_by_uri
+  def term_from_neo4j_by_uri
+    return @term_from_neo4j_by_uri if @term_from_neo4j_by_uri
     populate_uri_hashes unless @terms_from_neo4j
     @term_from_neo4j_by_uri = {}
     @terms_from_neo4j.each { |term| @term_from_neo4j_by_uri[term['uri']] = term }
-    @term_from_neo4j_by_uri[uri]
+    @term_from_neo4j_by_uri
   end
 
   def create_yaml
