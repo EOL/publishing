@@ -120,8 +120,13 @@ class TermBootstrapper
         if term_from_neo4j.keys.size > term_from_gem.keys.size
           term_from_neo4j.keys.each do |key|
             next if term_from_gem.key?(key)
-            TraitBank::Term::BOOLEAN_PROPERTIES.include?(key)
-            term_from_gem[key] = nil # We no longer want a value here, per the gem!
+            # We no longer want a value here, per the gem!
+            term_from_gem[key] =
+              if TraitBank::Term::BOOLEAN_PROPERTIES.include?(key)
+                'false'
+              else
+                ''
+              end
           end
         end
         puts "** Needs update: #{term_from_gem['uri']}"
