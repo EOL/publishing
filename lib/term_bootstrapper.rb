@@ -144,8 +144,11 @@ class TermBootstrapper
       end
       return false if a.keys.sort != a.keys.sort
     end
+    true
   end
 
+  # NOTE: this *does* modify the values, because it will matter when we add it to the update queue, if they are still
+  # different.
   def add_empty_values_to_extra_neo4j_keys(a, b)
     if b.keys.size > a.keys.size
       b.keys.each do |key|
