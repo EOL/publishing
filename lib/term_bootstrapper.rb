@@ -41,11 +41,9 @@ class TermBootstrapper
     populate_uri_hashes # NOTE: slow
     reset_comparisons
     compare_with_gem
-    puts "Method is crippled! Remember to fix this. create new ; update_existing ; delete_extras "\
-         "@new_terms = #{@new_terms.size} ; @update_terms = #{@update_terms.size}; @uris_to_delete = #{@uris_to_delete.size}"
-    # create_new
-    # update_existing
-    # delete_extras
+    create_new
+    update_existing
+    delete_extras
   end
 
   def get_terms_from_neo4j
