@@ -75,6 +75,15 @@ class TermBootstrapper
     end
   end
 
+  # NOTE: not used. This is for debugging purposes.
+  def term_from_neo4j_by_uri(uri)
+    return @term_from_neo4j_by_uri[uri] if @term_from_neo4j_by_uri
+    populate_uri_hashes unless @terms_from_neo4j
+    @term_from_neo4j_by_uri = {}
+    @terms_from_neo4j.each { |term| @term_from_neo4j_by_uri[term['uri']] = term }
+    @term_from_neo4j_by_uri[uri]
+  end
+
   def create_yaml
     File.open(@filename, 'w') do |file|
       file.write "# This file was automatically generated from the eol_website codebase using TermBootstrapper.\n"
@@ -100,11 +109,11 @@ class TermBootstrapper
     seen_uris = {}
     @terms_from_neo4j.each do |term_from_neo4j|
       seen_uris[term_from_neo4j['uri'].downcase] = true
-      unless by_uri_from_gem.key?(term_from_neo4j['uri'])
+      unless term_from_gem_by_uri.key?(term_from_neo4j['uri'])
         @uris_to_delete << term_from_neo4j['uri']
         next
       end
-      term_from_gem = by_uri_from_gem[term_from_neo4j['uri']]
+      term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       # @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
       unless term_from_gem == term_from_neo4j
@@ -122,17 +131,17 @@ class TermBootstrapper
     end
   end
 
-  def by_uri_from_gem
-    return @by_uri_from_gem unless @by_uri_from_gem.nil?
-    @by_uri_from_gem = {}
+  def term_from_gem_by_uri
+    return @term_from_gem_by_uri unless @term_from_gem_by_uri.nil?
+    @term_from_gem_by_uri = {}
     EolTerms.list.each do |term|
       # Fix alias difference from neo4j:
       term['alias'] = '' if term['alias'].nil?
       # Sort the parents, to match results from neo4j:
       term['parent_uris'] = Array(term['parent_uris']).sort
-      @by_uri_from_gem[term['uri']] = term
+      @term_from_gem_by_uri[term['uri']] = term
     end
-    @by_uri_from_gem
+    @term_from_gem_by_uri
   end
 
   def create_new
