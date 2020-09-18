@@ -116,7 +116,7 @@ class TermBootstrapper
       term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       # @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
-      unless term_from_gem == term_from_neo4j
+      unless equivalent_terms(term_from_gem, term_from_neo4j)
         # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
         if term_from_neo4j.keys.size > term_from_gem.keys.size
           term_from_neo4j.keys.each do |key|
@@ -135,6 +135,19 @@ class TermBootstrapper
     end
     EolTerms.list.each do |term_from_gem|
       @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'].downcase)
+    end
+  end
+
+  def equivalent_terms(a, b)
+    return true if a == b # simple, fast check
+    return false if a.keys.sort != a.keys.sort
+    a.keys.each do |key|
+      if a[key] != b[key]
+        puts "TERM #{a['uri']} does not match on #{key}:"
+        puts "A: #{a[key]}"
+        puts "B: #{b[key]}"
+        return false
+      end
     end
   end
 
