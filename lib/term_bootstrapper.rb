@@ -116,25 +116,10 @@ class TermBootstrapper
       term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       unless equivalent_terms(term_from_gem, term_from_neo4j)
-        # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
-        if term_from_neo4j.keys.size > term_from_gem.keys.size
-          term_from_neo4j.keys.each do |key|
-            next if term_from_gem.key?(key)
-            # We no longer want a value here, per the gem!
-            term_from_gem[key] =
-              if TraitBank::Term::BOOLEAN_PROPERTIES.include?(key)
-                'false'
-              else
-                ''
-              end
-          end
-        end
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.sort.each do |k|
           puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] ==  term_from_neo4j[k]
         end
-        pp term_from_gem
-        pp term_from_neo4j
         @update_terms << term_from_gem
       end
     end
@@ -145,6 +130,8 @@ class TermBootstrapper
 
   def equivalent_terms(a, b)
     return true if a == b # simple, fast check
+    # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
+    add_empty_values_to_extra_neo4j_keys(a, b)
     a.keys.each do |key|
       if a[key] != b[key]
         # Ignore false-like values compared to false:
@@ -156,6 +143,23 @@ class TermBootstrapper
         return false
       end
       return false if a.keys.sort != a.keys.sort
+    end
+  end
+
+  def add_empty_values_to_extra_neo4j_keys(a, b)
+    if b.keys.size > a.keys.size
+      b.keys.each do |key|
+        next if a.key?(key)
+        a[key] = empty_value(key)
+      end
+    end
+  end
+
+  def empty_value(key)
+    if TraitBank::Term::BOOLEAN_PROPERTIES.include?(key)
+      'false'
+    else
+      ''
     end
   end
 
