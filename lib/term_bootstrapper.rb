@@ -145,7 +145,6 @@ class TermBootstrapper
 
   def equivalent_terms(a, b)
     return true if a == b # simple, fast check
-    return false if a.keys.sort != a.keys.sort
     a.keys.each do |key|
       if a[key] != b[key]
         # Ignore false-like values compared to false:
@@ -156,6 +155,7 @@ class TermBootstrapper
         puts "B: #{b[key]}"
         return false
       end
+      return false if a.keys.sort != a.keys.sort
     end
   end
 
