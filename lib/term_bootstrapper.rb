@@ -148,6 +148,9 @@ class TermBootstrapper
     return false if a.keys.sort != a.keys.sort
     a.keys.each do |key|
       if a[key] != b[key]
+        # Ignore false-like values compared to false:
+        next if a[key] == 'false' && b[key].blank?
+        next if b[key] == 'false' && a[key].blank?
         puts "TERM #{a['uri']} does not match on #{key}:"
         puts "A: #{a[key]}"
         puts "B: #{b[key]}"
