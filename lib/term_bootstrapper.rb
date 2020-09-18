@@ -125,7 +125,13 @@ class TermBootstrapper
   def by_uri_from_gem
     return @by_uri_from_gem unless @by_uri_from_gem.nil?
     @by_uri_from_gem = {}
-    EolTerms.list.each { |term| @by_uri_from_gem[term['uri']] = term }
+    EolTerms.list.each do |term|
+      # Fix alias difference from neo4j:
+      term['alias'] = '' if term['alias'].nil?
+      # Sort the parents, to match results from neo4j:
+      term['parent_uris'] = Array(parent_uris['parent_uris']).sort
+      @by_uri_from_gem[term['uri']] = term
+    end
     @by_uri_from_gem
   end
 

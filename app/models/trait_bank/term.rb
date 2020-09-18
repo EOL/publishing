@@ -59,7 +59,12 @@ class TraitBank
         raise 'Cannot update a term without a URI.' unless properties['uri']
         clean_properties(properties)
         update_relationships(properties['uri'], properties)
-        res = query(query_for_update(properties))
+        # res = query(query_for_update(properties))
+        # TODO: remove debugging, restore comment above.
+        q = query_for_update(properties)
+        puts "UPDATE TERM:"
+        puts q
+        res = query(q)
         raise ActiveRecord::RecordNotFound if res.nil?
         res['data'].first&.first&.symbolize_keys
       end
@@ -105,8 +110,7 @@ class TraitBank
       end
 
       def clean_properties(properties)
-        properties.delete('section_ids') # Vestigial, do not allow anymore.
-        properties['definition'] ||= "{definition missing}"
+        properties['definition'] ||= ''
         properties['definition'].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
         set_boolean_properties(properties)
         set_nil_properties_to_blank(properties)
@@ -220,7 +224,7 @@ class TraitBank
 
       # NOTE: Very slow.
       def add_yml_fields(term)
-        term['parent_uris'] = Array(parents_of_term(term['uri']))
+        term['parent_uris'] = Array(parents_of_term(term['uri'])).sort
         term['synonym_of_uri'] = synonym_of_term(term['uri'])
         term['units_term_uri'] = units_for_term(term['uri'])
         term['is_hidden_from_select'] = should_hide_from_select?(term)
