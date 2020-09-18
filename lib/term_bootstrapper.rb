@@ -41,9 +41,11 @@ class TermBootstrapper
     populate_uri_hashes # NOTE: slow
     reset_comparisons
     compare_with_gem
-    create_new
-    update_existing
-    delete_extras
+    puts "Method is crippled! Remember to fix this. create new ; update_existing ; delete_extras "\
+         "@new_terms = #{@new_terms.size} ; @update_terms = #{@update_terms.size}; @uris_to_delete = #{@uris_to_delete.size}"
+    # create_new
+    # update_existing
+    # delete_extras
   end
 
   def get_terms_from_neo4j
@@ -106,7 +108,14 @@ class TermBootstrapper
       end
       term_from_gem = by_uri_from_gem[term_from_neo4j['uri']]
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
-      @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
+      # @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
+      unless term_from_gem == term_from_neo4j
+        puts "** Needs update: #{term_from_gem['uri']}"
+        term_from_gem.keys.each do |k|
+          puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] ==  term_from_neo4j[k]
+        end
+        @update_terms << term_from_gem
+      end
     end
     EolTerms.list.each do |term_from_gem|
       @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'].downcase)
