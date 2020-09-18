@@ -123,7 +123,7 @@ class TraitBank
       end
 
       def treat_property_as_true?(properties, key)
-        properties.key?(key) && properties[key] && !properties[key].to_s.downcase == 'false'
+        properties.key?(key) && properties[key] && !(properties[key].to_s.downcase == 'false')
       end
 
       def remove_relationship_properties(properties)
