@@ -59,7 +59,11 @@ class TraitBank
         raise 'Cannot update a term without a URI.' unless properties['uri']
         clean_properties(properties)
         update_relationships(properties['uri'], properties)
-        res = query(query_for_update(properties))
+        # res = query(query_for_update(properties))
+        # TODO: Restore above comment, remove the next few lines:
+        q = query_for_update(properties)
+        puts q
+        res = query(q)
         raise ActiveRecord::RecordNotFound if res.nil?
         res['data'].first&.first&.symbolize_keys
       end
