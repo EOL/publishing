@@ -117,8 +117,15 @@ class TermBootstrapper
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       # @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
       unless term_from_gem == term_from_neo4j
+        # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
+        if term_from_neo4j.keys.size > term_from_gem.keys.size
+          term_from_neo4j.keys.each do |key|
+            next if term_from_gem.key?(key)
+            term_from_gem[key] = nil # We no longer want a value here, per the gem!
+          end
+        end
         puts "** Needs update: #{term_from_gem['uri']}"
-        term_from_gem.keys.each do |k|
+        term_from_gem.keys.sort.each do |k|
           puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] ==  term_from_neo4j[k]
         end
         pp term_from_gem
