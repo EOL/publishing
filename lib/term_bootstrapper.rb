@@ -41,9 +41,9 @@ class TermBootstrapper
     populate_uri_hashes # NOTE: slow
     reset_comparisons
     compare_with_gem
-    create_new
-    update_existing
-    delete_extras
+    create_terms
+    update_terms
+    delete_terms
   end
 
   def get_terms_from_neo4j
@@ -115,12 +115,12 @@ class TermBootstrapper
       end
       term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
       term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
-      # @update_terms << term_from_gem unless term_from_gem == term_from_neo4j
       unless equivalent_terms(term_from_gem, term_from_neo4j)
         # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
         if term_from_neo4j.keys.size > term_from_gem.keys.size
           term_from_neo4j.keys.each do |key|
             next if term_from_gem.key?(key)
+            TraitBank::Term::BOOLEAN_PROPERTIES.include?(key)
             term_from_gem[key] = nil # We no longer want a value here, per the gem!
           end
         end
@@ -164,7 +164,7 @@ class TermBootstrapper
     @term_from_gem_by_uri
   end
 
-  def create_new
+  def create_terms
     # TODO: Someday, it would be nice to do this by writing a CSV file and reading that. Much faster. But I would prefer to
     # generalize the current Slurp class before attempting it.
     @new_terms.each do |term|
@@ -172,11 +172,11 @@ class TermBootstrapper
     end
   end
 
-  def update_existing
+  def update_terms
     @update_terms.each { |term| TraitBank::Term.update(term) }
   end
 
-  def delete_extras
+  def delete_terms
     # First you have to make sure they aren't related to anything. If they are, warn. But, otherwise, it should be safe to
     # delete them.
     @uris_to_delete.each do |uri|

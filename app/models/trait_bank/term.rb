@@ -2,20 +2,20 @@
 class TraitBank
   # Handles all of the methods specific to a :Term node.
   module Term
-    class << self
-      RELATIONSHIP_PROPERTIES = {
-        'parent_uris' => 'parent_term', 'synonym_of_uri' => 'synonym_of', 'units_term_uri' => 'units_term',
-        'object_for_predicate_uri' => 'object_for_predicate'
-      }.freeze
-      BOOLEAN_PROPERTIES =
-        %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary].freeze
-      CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
-      TERM_TYPES = {
-        predicate: ['measurement', 'association'],
-        object_term: ['value']
-      }.freeze
-      DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
+    RELATIONSHIP_PROPERTIES = {
+      'parent_uris' => 'parent_term', 'synonym_of_uri' => 'synonym_of', 'units_term_uri' => 'units_term',
+      'object_for_predicate_uri' => 'object_for_predicate'
+    }.freeze
+    BOOLEAN_PROPERTIES =
+      %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary].freeze
+    CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
+    TERM_TYPES = {
+      predicate: ['measurement', 'association'],
+      object_term: ['value']
+    }.freeze
+    DEFAULT_GLOSSARY_PAGE_SIZE = Rails.configuration.data_glossary_page_size
 
+    class << self
       delegate :query, :connection, :limit_and_skip_clause, :array_to_qs, to: TraitBank
       delegate :child_has_parent, :is_synonym_of, to: TraitBank::Term # TODO: TraitBank::Term::Relationship
       delegate :log, to: TraitBank::Logger
