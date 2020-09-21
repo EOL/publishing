@@ -63,7 +63,8 @@ module TraitDataVizHelper
         value: l.size,
         selected: true,
         names: [i18n_term_name_for_uri(l.source.uri), i18n_term_name_for_uri(l.target.uri)],
-        id: "link-#{i}"
+        id: "link-#{i}",
+        otherNodeSizes: l.other_node_page_ids.map { |node, ids| [node.id, ids.length] }.to_h
       }
     end
   end
