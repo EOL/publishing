@@ -5,7 +5,7 @@ window.Sankey = (function(exports) {
         , height = 520
         ;
 
-    var selectedLinkIds = null;
+    var highlightLinks = [];
 
     $data = $('.js-sankey')
     const graph = {
@@ -44,8 +44,12 @@ window.Sankey = (function(exports) {
     var selectedNodes = {};
 
     const linkG = svg.append("g")
-        .attr("fill", "none");
-    addLinks();
+            .attr("fill", "none")
+        , highlightLinkG = svg.append("g")
+            .attr("fill", "none")
+        ;
+          
+    joinLinks();
 
     const nodesG = svg.append("g");
     addNodes();
@@ -57,21 +61,41 @@ window.Sankey = (function(exports) {
     }
 
     function handleNodeMouseenter(e, d) {
-      var targetPathLinks = nodeTargetPathLinks(d)
-        , sourcePathLinks = nodeSourcePathLinks(d)
-        ;
-
-      selectedLinkIds = new Set();
-
-      targetPathLinks.forEach((l) => selectedLinkIds.add(l));
-      sourcePathLinks.forEach((l) => selectedLinkIds.add(l));
+      const connectedLinks = links.filter((l) => {
+        return l.source == d || l.target == d || !!l.otherNodeSizes[d.id]
+      });
+      connectedLinks.forEach((l) => highlightLinks.push(buildHighlightLink(l, d)));
+      console.log('hl links', highlightLinks);
 
       updateLinkColors();
+      joinHighlightLinks();
+    }
+
+    function buildHighlightLink(l, selectedNode) {
+      const hlLink = {};
+      hlLink.id = l.id + "-hl"
+      hlLink.source = l.source;
+      hlLink.target = l.target;
+
+      if (l.otherNodeSizes[selectedNode.id]) {
+        hlLink.width = (l.otherNodeSizes[selectedNode.id] / l.value) * l.width;
+      } else {
+        hlLink.width = l.width;
+      }
+
+      hlLink.y0 = l.y0 + (l.width / 2.0) - (hlLink.width / 2.0);
+      hlLink.y1 = l.y1 + (l.width / 2.0) - (hlLink.width / 2.0);
+      hlLink.isHighlight = true;
+
+      console.log(l, hlLink);
+
+      return hlLink;
     }
 
     function handleNodeMouseleave() {
-      selectedLinkIds = null;
+      highlightLinks = [];
       updateLinkColors();
+      joinHighlightLinks();
     }
 
     // all link uids for paths originating with node n
@@ -120,16 +144,24 @@ window.Sankey = (function(exports) {
     }
 
     function linkColor(d) {
-      if (!selectedLinkIds || selectedLinkIds.has(d.id)) {
-        return "#89c783";
-      } else {
+      if (highlightLinks.length && !d.isHighlight) {
         return "#eee";
+      } else {
+        return "#89c783";
       }
     }
 
-    function addLinks() {
-      const link = linkG.selectAll('g')
-        .data(links)
+    function joinLinks() {
+      joinLinksHelper(linkG, links)
+    }
+
+    function joinHighlightLinks() {
+      joinLinksHelper(highlightLinkG, highlightLinks);
+    }
+
+    function joinLinksHelper(g, data) {
+      const link = g.selectAll('g')
+        .data(data)
         .join('g');
 
       const gradient = link.append('linearGradient')
@@ -174,23 +206,10 @@ window.Sankey = (function(exports) {
         .attr("stroke-width", d => Math.max(1, d.width));
 
       link.append("title")
-        .text(d => `${d.names.join(" → ")}\n${d.value.toLocaleString()}`)
+        .text(d => d.names ? `${d.names.join(" → ")}\n${d.value.toLocaleString()}` : "")
     }
 
     function updateLinkColors() {
-      if (selectedLinkIds) {
-        // put selected links last, i.e., on top
-        linkG.selectAll('g').sort((a, b) => {
-          if (selectedLinkIds.has(a.id) && !selectedLinkIds.has(b.id)) {
-            return 1;
-          } else if (!selectedLinkIds.has(a.id) && selectedLinkIds.has(b.id)) {
-            return -1;
-          } else {
-            return 0;
-          }
-        })
-      }
-
       linkG.selectAll('stop')
         .attr('stop-color', linkColor);
     }

@@ -76,7 +76,7 @@ class Traits::DataViz::Sankey
  
         if add_result
           result_nodes[i] = node
-          result_links[i - 1] = Link.new(prev_node, node, r.page_ids) if prev_node
+          result_links[i - 1] = Link.new(prev_node, node, r.nodes.reject { |n| n == prev_node || n == node }, r.page_ids) if prev_node
         end
 
         prev_node = node
@@ -104,7 +104,7 @@ class Traits::DataViz::Sankey
     existing_node = nodes_per_axis[axis_id][node]
 
     if existing_node
-      merge(existing_node, node)
+      existing_node.merge(node)
     else
       nodes_per_axis[axis_id][node] = node
     end
@@ -114,14 +114,10 @@ class Traits::DataViz::Sankey
     existing = links[link]
 
     if existing
-      merge(existing, link)
+      existing.merge(link)
     else
       links[link] = link
     end
-  end
-
-  def merge(canonical, other)
-    canonical.add_page_ids(other.page_ids)
   end
 
   class ResultRow
@@ -177,6 +173,10 @@ class Traits::DataViz::Sankey
       @query = query
     end
 
+    def merge(other)
+      @page_ids.merge(other.page_ids)
+    end
+
     def query_term?
       @is_query_term
     end
@@ -208,12 +208,27 @@ class Traits::DataViz::Sankey
   end
 
   class Link
-    attr_reader :source, :target, :page_ids
+    attr_reader :source, :target, :page_ids, :other_node_page_ids
 
-    def initialize(source, target, page_ids)
+    def initialize(source, target, other_nodes, page_ids)
       @source = source
       @target = target
       @page_ids = Set.new(page_ids)
+      @other_node_page_ids = other_nodes.map do |n|
+        [n, Set.new(page_ids)] 
+      end.to_h
+    end
+
+    def merge(other)
+      @page_ids.merge(other.page_ids)
+
+      other.other_node_page_ids.each do |n, ids| 
+        if @other_node_page_ids.include?(n)
+          @other_node_page_ids[n].merge(ids)
+        else
+          @other_node_page_ids[n] = ids
+        end
+      end
     end
 
     def add_page_ids(new_page_ids)
