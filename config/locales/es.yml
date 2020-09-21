@@ -316,7 +316,7 @@ es:
     li: Limburgués
     lt: Lituano
     lb: Luxemburgués
-    mk: macedónio
+    mk: Macedonio
     mg: Malgache
     mt: Maltés
     mn: Mongol
@@ -511,7 +511,7 @@ es:
   recaptcha_error: Díganos que no es un robot por favor.
   reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artículo de %{source} titulado «%{name}»
-  register_new_account: Registrarse para una nueva cuenta
+  register_new_account: Registrar una cuenta nueva
   resources:
     actions:
       import_traits: importar rasgos (del repositorio)

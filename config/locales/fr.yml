@@ -773,7 +773,7 @@ fr:
         r_form: Forme
       reference_taxon_attrib: Référencer le taxon depuis %{dataset_name}
       resource_link_html: <a href="%{resource_path}">%{resource_name}</a>
-      resource_link_w_remarks_html: <a href="%{resource_path}">{resource_name}</a>
+      resource_link_w_remarks_html: <a href="%{resource_path}">%{resource_name}</a>
         (%{remarks})
       username_missing: utilisateur %{user_id}
     trophic_web:
