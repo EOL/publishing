@@ -206,7 +206,7 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          marine_term = TraitBank.term_as_hash(Eol::Uris.marine)
+          marine_term = TraitBank::Term.term_as_hash(Eol::Uris.marine)
           add_sentence do |subj, _, __|
             term_sentence_part("#{subj} is found in %s.", "marine habitat", Eol::Uris.habitat_includes, marine_term)
           end
@@ -768,7 +768,7 @@ class PageDecorator
       def add_extinction_sentence
         extinct_trait = first_trait_for_obj_uris(Eol::Uris.extinct)
         extant_trait = first_trait_for_obj_uris(*gather_terms(Eol::Uris.extant))
-        if !extant_trait && extinct_trait 
+        if !extant_trait && extinct_trait
           add_sentence do |_, __, ___|
             term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, extinct_trait[:object_term])
           end

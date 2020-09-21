@@ -71,29 +71,29 @@ module ApplicationHelper
     # NOTE THAT YOU CANNOT HAVE TWO PREDICATES AND TWO OBJECTS!!!! (It's not
     # allowed in the UI, so I'm not accounting for it in the code)
     if @and_object.is_a?(Array)
-      @term = TraitBank.term_as_hash(@and_object.first)
+      @term = TraitBank::Term.term_as_hash(@and_object.first)
       @and_object = @and_object.size == 1 ? nil :
-        TraitBank.term_as_hash(@and_object.last)
+        TraitBank::Term.term_as_hash(@and_object.last)
 
       @object = true
     elsif @and_predicate.is_a?(Array)
-      @term = TraitBank.term_as_hash(@and_predicate.first)
+      @term = TraitBank::Term.term_as_hash(@and_predicate.first)
       @and_predicate = @and_predicate.size == 1 ? nil :
-        TraitBank.term_as_hash(@and_predicate.last)
+        TraitBank::Term.term_as_hash(@and_predicate.last)
       @object = false
     else
       # TODO: the whole "object" flag is LAME. Remove it entirely!
       @object = options[:object] && ! options[:predicate]
       if options[:predicate] && options[:predicate]
-        @term = TraitBank.term_as_hash(options[:predicate])
+        @term = TraitBank::Term.term_as_hash(options[:predicate])
         @and_predicate = nil
-        @and_object = TraitBank.term_as_hash(options[:object])
+        @and_object = TraitBank::Term.term_as_hash(options[:object])
       elsif options[:predicate]
-        @term = TraitBank.term_as_hash(options[:predicate])
+        @term = TraitBank::Term.term_as_hash(options[:predicate])
         @and_predicate = nil
         @and_object = nil
       else
-        @term = TraitBank.term_as_hash(options[:object])
+        @term = TraitBank::Term.term_as_hash(options[:object])
         @and_predicate = nil
         @and_object = nil
       end
