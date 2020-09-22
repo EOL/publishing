@@ -5,7 +5,7 @@
 #
 # > TermBootstrapper.new.create('/app/public/data/terms.yml') # For example...
 # Done.
-# Wrote 3617 term hashes to `/app/public/data/terms.yml` (76321 lines).
+# Wrote 3617 term hashes to `/app/public/data/terms.yml` (7637890-21 lines).
 # => nil
 #
 # And now you can download it from e.g. http://eol.org/data/terms.yml or http://beta.eol.org/data/terms.yml
@@ -167,6 +167,9 @@ class TermBootstrapper
     return @term_from_gem_by_uri unless @term_from_gem_by_uri.nil?
     @term_from_gem_by_uri = {}
     EolTerms.list.each do |term|
+      EolTerms.valid_fields.each do |field|
+        term[field] ||= field =~ /^is_/ ? false : nil
+      end
       # Fix alias difference from neo4j:
       term['alias'] = '' if term['alias'].nil?
       # Sort the parents, to match results from neo4j:

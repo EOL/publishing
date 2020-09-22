@@ -219,7 +219,7 @@ class TraitBank
       def yamlize_keys(term)
         hash = term.stringify_keys
         new_hash = {}
-        EolTerms::Validator::VALID_FIELDS.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
+        EolTerms.valid_fields.each { |param| new_hash[param] = hash[param] if hash.key?(param) }
         new_hash
       end
 
@@ -230,6 +230,10 @@ class TraitBank
         term['units_term_uri'] = units_for_term(term['uri'])
         term['is_hidden_from_select'] = should_hide_from_select?(term)
         term['alias'] ||= ''
+        # Populate *all* fields, just for consistency:
+        EolTerms.valid_fields.each do |field|
+          term[field] ||= field =~ /^is_/ ? false : nil
+        end
         term
       end
 
