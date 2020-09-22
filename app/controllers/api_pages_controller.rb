@@ -19,7 +19,7 @@ class ApiPagesController < LegacyApiController
 
   def brief_summary
     @page = PageDecorator.decorate(Page.find(params[:id]))
-    render json: { brief_summary: @page.cached_summary }
+    render json: { brief_summary: @page.cached_summary_text }
   end
 
 
