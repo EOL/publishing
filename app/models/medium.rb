@@ -183,7 +183,11 @@ class Medium < ApplicationRecord
   end
 
   def url_with_format
-    "#{base_url}.#{format}"
+    if invalid_format_video?
+      source_url
+    else
+      "#{base_url}.#{format}"
+    end
   end
 
   def sound_url
@@ -215,6 +219,19 @@ class Medium < ApplicationRecord
 
   def embedded_video?
     video? && (youtube? || vimeo?)
+  end
+
+  def invalid_format_video?
+    video? && jpg?
+  end
+
+  def real_format
+    # bandaid for incorrect format assigned by harvest
+    if invalid_format_video?
+      :ogg # so far, we've seen this problem with flv and ogg. We can't display the former, so this won't break them any more than they already are. 
+    else
+      format
+    end
   end
 
   def embed_url
