@@ -2,6 +2,8 @@ require "set"
 
 module Traits
   class DataVizController < ApplicationController
+    before_action :set_1d_about_text, only: [:bar, :hist]
+
     layout "traits/data_viz"
 
     BAR_CHART_LIMIT = 15
@@ -125,6 +127,7 @@ module Traits
     def sankey
       @query = TermQuery.new(term_query_params)
       @sankey = Traits::DataViz::Sankey.create_from_query(@query)
+      set_sankey_about_text
       render_with_status(@sankey.multiple_paths?)
     end
 
@@ -185,6 +188,18 @@ module Traits
           ]
         ]
       ])
+    end
+
+    def set_1d_about_text
+      @about_text_key = "about_this_chart_tooltip_1d"
+    end
+
+    def set_sankey_about_text
+      @about_text_key = if @query.filters.length > 2
+        "about_this_chart_tooltip_sankey_3+" 
+      else
+        "about_this_chart_tooltip_sankey_2d"
+      end
     end
   end
 end
