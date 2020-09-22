@@ -22,8 +22,6 @@
 # http://purl.obolibrary.org/obo/GO_0040011 is the synonym of http://www.owl-ontologies.com/unnamed.owl#Locomotion
 class TermBootstrapper
   def initialize
-    @raw_terms_from_neo4j = []
-    @terms_from_neo4j = []
   end
 
   def create(filename = nil)
@@ -45,7 +43,8 @@ class TermBootstrapper
   end
 
   def raw_terms_from_neo4j
-    return @raw_terms_from_neo4j unless @raw_terms_from_neo4j.empty?
+    return @raw_terms_from_neo4j unless @raw_terms_from_neo4j.nil?
+    @raw_terms_from_neo4j = []
     page = 0
     while data = TraitBank::Term.full_glossary(page += 1, 1000, include_hidden: true)
       break if data.empty?
@@ -64,7 +63,8 @@ class TermBootstrapper
   end
 
   def terms_from_neo4j
-    return @terms_from_neo4j if @terms_from_neo4j.empty?
+    return @terms_from_neo4j unless @terms_from_neo4j.nil?
+    @terms_from_neo4j = []
     raw_terms_from_neo4j.each do |term|
       term = TraitBank::Term.yamlize_keys(term)
       next unless term['uri'] =~ /^htt/ # Most basic check for URI-ish-ness. Should be fine for our purposes.
