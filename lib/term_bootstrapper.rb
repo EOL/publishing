@@ -105,6 +105,8 @@ class TermBootstrapper
   def compare_with_gem
     seen_uris = {}
     terms_from_neo4j.each do |term_from_neo4j|
+      # Nothing we can do about these. They *should* be removed... but that's not the job of this class.
+      next if term_from_neo4j['uri'].nil?
       seen_uris[term_from_neo4j['uri'].downcase] = true
       unless term_from_gem_by_uri.key?(term_from_neo4j['uri'])
         @uris_to_delete << term_from_neo4j['uri']
