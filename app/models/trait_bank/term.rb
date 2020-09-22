@@ -6,8 +6,6 @@ class TraitBank
       'parent_uris' => 'parent_term', 'synonym_of_uri' => 'synonym_of', 'units_term_uri' => 'units_term',
       'object_for_predicate_uri' => 'object_for_predicate'
     }.freeze
-    BOOLEAN_PROPERTIES =
-      %w[is_text_only is_hidden_from_select is_hidden_from_overview is_hidden_from_glossary].freeze
     CACHE_EXPIRATION_TIME = 1.week # We'll have a post-import job refresh this as needed, too.
     TERM_TYPES = {
       predicate: ['measurement', 'association'],
@@ -19,6 +17,31 @@ class TraitBank
       delegate :query, :connection, :limit_and_skip_clause, :array_to_qs, to: TraitBank
       delegate :child_has_parent, :is_synonym_of, to: TraitBank::Term # TODO: TraitBank::Term::Relationship
       delegate :log, to: TraitBank::Logger
+
+      # TODO: I don't think these three different "get" methods are really needed. Sort them out. :|
+      def term_as_hash(uri)
+        return nil if uri.nil? # Important for param-management!
+        hash = term(uri)
+        raise ActiveRecord::RecordNotFound if hash.nil?
+        hash.symbolize_keys
+      end
+
+      # Raises ActiveRecord::RecordNotFound if uri is invalid
+      def term_record(uri)
+        result = term(uri)
+        result&.[]("data")&.symbolize_keys
+      end
+
+      # This version returns an "empty" term hash if there is no URI.
+      # This version caches results for efficiency.
+      def term(uri)
+        return { name: '', uri: '' } if uri.blank?
+        @terms ||= {}
+        return @terms[uri] if @terms.key?(uri)
+        res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}" }) RETURN term})
+        return nil unless res && res["data"] && res["data"].first
+        @terms[uri] = res["data"].first.first
+      end
 
       # This method will detect existing Terms and either return the existing term or, if the :force option is set, update the
       # Term instead.
@@ -92,7 +115,7 @@ class TraitBank
       def query_for_update(properties)
         sets = []
         properties.keys.each do |property|
-          if BOOLEAN_PROPERTIES.include?(property) # Booleans are handled separately.
+          if property.to_s =~ /^is_/ # Booleans are handled separately.
             sets << "term.#{property} = #{properties[property] ? 'true' : 'false'}"
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
             # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
@@ -116,7 +139,8 @@ class TraitBank
       end
 
       def set_boolean_properties(properties)
-        BOOLEAN_PROPERTIES.each do |key|
+        properties.each do |key|
+          next unless key.to_s =~ /^is_/
           properties[key] = treat_property_as_true?(properties, key) ? true : false
         end
       end
@@ -185,30 +209,6 @@ class TraitBank
 
       def child_term_has_parent_term(cterm, pterm)
         relate(:parent_term, cterm, pterm)
-      end
-
-      def term_as_hash(uri)
-        return nil if uri.nil? # Important for param-management!
-        hash = term(uri)
-        raise ActiveRecord::RecordNotFound if hash.nil?
-        hash.symbolize_keys
-      end
-
-      # Raises ActiveRecord::RecordNotFound if uri is invalid
-      def term_record(uri)
-        result = term(uri)
-        result&.[]("data")&.symbolize_keys
-      end
-
-      # This version returns an "empty" term hash if there is no URI.
-      # This version caches results for efficiency.
-      def term(uri)
-        return { name: '', uri: '' } if uri.blank?
-        @terms ||= {}
-        return @terms[uri] if @terms.key?(uri)
-        res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '\"')}" }) RETURN term})
-        return nil unless res && res["data"] && res["data"].first
-        @terms[uri] = res["data"].first.first
       end
 
       # NOTE: unused method; this is meant for debugging.
