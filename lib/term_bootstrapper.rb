@@ -71,6 +71,7 @@ class TermBootstrapper
       # NOTE: .add_yml_fields is VERY SLOW and accounts for about 90% of the time of the whole #create method. S'okay.
       @terms_from_neo4j << TraitBank::Term.add_yml_fields(term)
     end
+    @terms_from_neo4j
   end
 
   # NOTE: not used in the codebase. This is for debugging purposes.
@@ -117,7 +118,7 @@ class TermBootstrapper
       unless equivalent_terms(term_from_gem, term_from_neo4j)
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.sort.each do |k|
-          puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] ==  term_from_neo4j[k]
+          puts "key #{k}: gem: '#{term_from_gem[k]}' vs neo4j: '#{term_from_neo4j[k]}'" unless term_from_gem[k] == term_from_neo4j[k]
         end
         @update_terms << term_from_gem
       end
