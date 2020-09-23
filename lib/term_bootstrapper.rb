@@ -122,8 +122,8 @@ class TermBootstrapper
         @update_terms << term_from_gem
       end
     end
-    EolTerms.list.each do |term_from_gem|
-      @new_terms << term_from_gem unless seen_uris.key?(term_from_gem['uri'].downcase)
+    term_from_gem_by_uri.each do |uri, term_from_gem|
+      @new_terms << term_from_gem unless seen_uris.key?(uri.downcase)
     end
   end
 
