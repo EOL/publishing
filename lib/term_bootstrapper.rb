@@ -114,7 +114,6 @@ class TermBootstrapper
         next
       end
       term_from_gem = term_from_gem_by_uri[term_from_neo4j['uri']]
-      term_from_gem['alias'] = '' if term_from_gem['alias'].nil? # Fix this diff niggle.
       unless equivalent_terms(term_from_gem, term_from_neo4j)
         puts "** Needs update: #{term_from_gem['uri']}"
         term_from_gem.keys.sort.each do |k|
@@ -130,16 +129,14 @@ class TermBootstrapper
 
   def equivalent_terms(term_from_gem, term_from_neo4j)
     return true if term_from_gem == term_from_neo4j # simple, fast check
-    # Update will not "do" anything if there's an extra key from neo4j, so we handle that:
-    add_empty_values_to_extra_neo4j_keys(term_from_gem, term_from_neo4j)
     term_from_gem.keys.each do |key|
       if term_from_gem[key] != term_from_neo4j[key]
         # Ignore false-like values compared to false:
         next if term_from_gem[key] == 'false' && term_from_neo4j[key].blank?
         next if term_from_neo4j[key] == 'false' && term_from_gem[key].blank?
         puts "TERM #{term_from_gem['uri']} does not match on #{key}:\n"\
-             "A: #{term_from_gem[key]}\n"\
-             "B: #{term_from_neo4j[key]}"
+             "gem: #{term_from_gem[key]}\n"\
+             "neo: #{term_from_neo4j[key]}"
         return false
       end
     end
@@ -147,31 +144,17 @@ class TermBootstrapper
     true
   end
 
-  # NOTE: this *does* modify the values, because it will matter when we add it to the update queue, if they are still
-  # different.
-  def add_empty_values_to_extra_neo4j_keys(term_from_gem, term_from_neo4j)
-    if term_from_neo4j.keys.size > term_from_gem.keys.size
-      term_from_neo4j.keys.each do |key|
-        next if term_from_gem.key?(key)
-        term_from_gem[key] = empty_value(key)
-      end
-    end
-  end
-
-  def empty_value(key)
-    if key =~ /^is_/ # It's boolean.
-      'false'
-    else
-      ''
-    end
-  end
-
   def term_from_gem_by_uri
     return @term_from_gem_by_uri unless @term_from_gem_by_uri.nil?
     @term_from_gem_by_uri = {}
     EolTerms.list.each do |term|
       EolTerms.valid_fields.each do |field|
-        term[field] ||= field =~ /^is_/ ? false : nil
+        if field =~ /^is_/
+          term[field] ||= false
+          term[field] = false if term[field].blank? # Strange case.
+        else
+          term[field] = nil unless term.key?(field)
+        end
       end
       # Fix alias difference from neo4j:
       term['alias'] = '' if term['alias'].nil?
