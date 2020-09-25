@@ -153,7 +153,7 @@ class TermBootstrapper
           term[field] ||= false
           term[field] = false if term[field].blank? # Strange case.
         else
-          term[field] = nil unless term.key?(field)
+          term[field] = '' unless term.key?(field)
         end
       end
       # Fix alias difference from neo4j:
