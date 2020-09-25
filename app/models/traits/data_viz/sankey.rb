@@ -7,9 +7,9 @@ class Traits::DataViz::Sankey
   attr_reader :nodes, :links
 
   class << self
-    def create_from_query(query)
+    def create_from_query(query, total_taxa)
       results = TraitBank::Stats.sankey_data(query)
-      self.new(results, query)
+      self.new(results, query, total_taxa)
     end
   end
 
@@ -18,113 +18,140 @@ class Traits::DataViz::Sankey
   end
 
   private
-  def initialize(query_results, query)
-    qt_results = []
-    other_results = []
-    query_uris = Set.new(query.filters.map { |f| f.obj_uri })
+  def initialize(query_results, query, total_taxa)
+    @query = query
     @num_axes = query.filters.length
+    @total_taxa = total_taxa
 
-    query_results.each do |r|
-      result_row = ResultRow.new(r, query, query_uris)
+    query_uris = Set.new(query.filters.map { |f| f.obj_uri })
+    result_rows = query_results.map { |r| ResultRow.new(r, query, query_uris) }
+    nodes_by_axis = build_nodes_by_axis(result_rows)
+    @nodes = nodes_by_axis.flatten
+    other_nodes = update_results(result_rows, nodes_by_axis)
+    @nodes.concat(other_nodes)
+    fix_qt_row_page_ids(result_rows, nodes_by_axis)
+    @links = build_links(result_rows)
+  end
 
-      if result_row.any_query_terms?
-        qt_results << result_row
-      else
-        other_results << result_row
+  def build_nodes_by_axis(rows)
+    distinct_nodes_by_axis = Array.new(@num_axes) { {} }
+
+    rows.each do |r|
+      r.nodes.each_with_index do |n, i|
+        next if n.query_term? # skip these for now -- they're added (and modified) at a later step
+
+        existing = distinct_nodes_by_axis[i][n]
+
+        if existing
+          existing.merge(n)
+        else
+          distinct_nodes_by_axis[i][n] = n
+        end
       end
     end
 
-    results = merge_and_sort_results(qt_results, other_results)
-    build_nodes_and_links(results, query)
-  end
-
-  def merge_and_sort_results(qt_results, other_results)
-    fix_qt_result_page_ids(qt_results, other_results)
-    results = qt_results + other_results
-    results.sort! { |a, b| b.size <=> a.size }.reject! { |r| r.empty? }
-    results
-  end
-
-  def fix_qt_result_page_ids(qt_results, other_results)
-    other_page_ids = Set.new
-    other_results.each do |r| 
-      other_page_ids.merge(r.page_ids)
-      r.add_page_ids_to_nodes
-    end
-
-    qt_results.each do |r|
-      r.remove_page_ids(other_page_ids) 
-      r.add_page_ids_to_nodes
+    distinct_nodes_by_axis.map do |nodes|
+      nodes.values.sort { |a, b| b.size <=> a.size }[0..MAX_NODES_PER_AXIS]
     end
   end
 
-  def build_nodes_and_links(results, query)
-    # used to keep track of a single 'canonical' link per pair of nodes (see comment about equality/hash in Link)
-    links = Hash.new 
-    nodes_per_axis = Array.new(query.filters.length) { |_| Hash.new } # same here, except per-axis
+  def update_results(results, nodes_by_axis)
+    other_nodes_per_axis = Array.new(@num_axes, nil)
 
     results.each do |r|
-      prev_node = false
-      result_links = Array.new(r.nodes.length - 1)
-      result_nodes = Array.new(r.nodes.length)
-      add_result = true
-      i = 0
+      r.nodes = r.nodes.map.with_index do |n, i|
+        matching_node = nodes_by_axis[i].find { |m| m == n }
 
-      while add_result && i < r.nodes.length
-        node = r.nodes[i]
-        add_result = nodes_per_axis[i].include?(node) || nodes_per_axis[i].length < MAX_NODES_PER_AXIS
- 
-        if add_result
-          result_nodes[i] = node
-          result_links[i - 1] = Link.new(prev_node, node, r.nodes.reject { |n| n == prev_node || n == node }, r.page_ids) if prev_node
+        if matching_node
+          matching_node
+        else
+          other_node = Node.new(
+            @query.page_count_sorted_filters[i].obj_uri,
+            i,
+            r.page_ids, 
+            true,
+            @query
+          )
+
+          if other_nodes_per_axis[i]
+            other_nodes_per_axis[i].merge(other_node)
+          else
+            other_nodes_per_axis[i] = other_node
+          end
+
+          other_nodes_per_axis[i]
         end
+      end
+    end
 
-        prev_node = node
-        i += 1
+    other_nodes_per_axis
+  end
+
+  def fix_qt_row_page_ids(results, nodes_per_axis)
+    page_ids_per_axis = build_page_ids_per_axis(nodes_per_axis)
+
+    results.each do |r|
+      qt_nodes = r.query_term_nodes
+      
+      page_ids_to_remove = Set.new
+
+      qt_nodes.each do |n|
+        page_ids_to_remove.merge(page_ids_per_axis[n.axis_id])
+        n.remove_page_ids(page_ids_per_axis[n.axis_id])
       end
 
-      add_nodes_and_links(result_nodes, result_links, nodes_per_axis, links) if add_result
-    end
-
-    @nodes = nodes_per_axis.map { |node_hash| node_hash.values }.flatten
-    @links = links.values
-  end
-
-  def add_nodes_and_links(result_nodes, result_links, nodes_per_axis, links)
-    result_nodes.each_with_index do |node, i|
-      merge_or_add_node(node, nodes_per_axis, i)
-    end
-
-    result_links.each do |link|
-      merge_or_add_link(link, links)
+      r.remove_page_ids(page_ids_to_remove)
     end
   end
 
-  def merge_or_add_node(node, nodes_per_axis, axis_id)
-    existing_node = nodes_per_axis[axis_id][node]
+  def build_page_ids_per_axis(nodes_per_axis)
+    nodes_per_axis.map do |nodes|
+      page_ids = Set.new
 
-    if existing_node
-      existing_node.merge(node)
-    else
-      nodes_per_axis[axis_id][node] = node
+      nodes.each do |node|
+        page_ids.merge(node.page_ids)
+      end
+
+      page_ids
     end
   end
 
-  def merge_or_add_link(link, links)
-    existing = links[link]
+  def build_links(results)
+    links = {}
 
-    if existing
-      existing.merge(link)
-    else
-      links[link] = link
+    results.each do |r|
+      prev_node = nil
+
+      r.nodes.each do |n|
+        if prev_node
+          link = Link.new(
+            prev_node, 
+            n, 
+            r.nodes.reject { |other| other == prev_node || other == n },
+            r.page_ids
+          )
+
+          existing_link = links[link]
+
+          if existing_link
+            existing_link.merge(link)
+          else
+            links[link] = link
+          end
+        end
+
+        prev_node = n
+      end
     end
+
+    links.values
   end
 
   class ResultRow
-    attr_reader :nodes, :page_ids
+    attr_reader :page_ids
+    attr_accessor :nodes
 
     def initialize(row, query, query_uris)
-      @nodes = []
       @page_ids = Set.new(row[:page_ids])
 
       @nodes = query.page_count_sorted_filters.map.with_index do |_, i|
@@ -136,6 +163,7 @@ class Traits::DataViz::Sankey
         Node.new(
           uri,
           i,
+          @page_ids,
           query_uris.include?(uri),
           node_query
         )
@@ -151,26 +179,27 @@ class Traits::DataViz::Sankey
     end
 
     def any_query_terms?
-      !!(@nodes.find { |n| n && n.query_term? })
+      !!(@nodes.find { |n| n.query_term? })
+    end
+
+    def query_term_nodes
+      @nodes.filter { |n| n.query_term? }
     end
 
     def remove_page_ids(to_remove)
       @page_ids.subtract(to_remove)
-    end
-
-    def add_page_ids_to_nodes
-      @nodes.each { |n| n.add_page_ids(@page_ids) if n }
     end
   end
 
   class Node
     attr_reader :uri, :axis_id, :page_ids, :query
 
-    def initialize(uri, axis_id, is_query_term, query)
+    def initialize(uri, axis_id, page_ids, is_query_term, query)
       @uri = uri
       @axis_id = axis_id
       @is_query_term = is_query_term
       @query = query
+      @page_ids = Set.new(page_ids)
     end
 
     def merge(other)
@@ -186,8 +215,11 @@ class Traits::DataViz::Sankey
     end
 
     def add_page_ids(other)
-      @page_ids ||= Set.new
       @page_ids.merge(other)
+    end
+
+    def remove_page_ids(other)
+      @page_ids.subtract(other)
     end
 
     def id

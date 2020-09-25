@@ -16,8 +16,6 @@ window.Sankey = (function(exports) {
     ;
 
     const sankey = d3.sankey()
-      .nodeSort(null)
-      .linkSort(null)
       .nodeWidth(15)
       .nodePadding(25)
       .extent([[0, 5], [width, height - 20]])
@@ -65,7 +63,6 @@ window.Sankey = (function(exports) {
         return l.source == d || l.target == d || !!l.otherNodeSizes[d.id]
       });
       connectedLinks.forEach((l) => highlightLinks.push(buildHighlightLink(l, d)));
-      console.log('hl links', highlightLinks);
 
       updateLinkColors();
       joinHighlightLinks();

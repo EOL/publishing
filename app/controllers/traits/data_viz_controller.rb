@@ -126,7 +126,8 @@ module Traits
 
     def sankey
       @query = TermQuery.new(term_query_params)
-      @sankey = Traits::DataViz::Sankey.create_from_query(@query)
+      counts = TraitBank.term_search(@query, { count: true })
+      @sankey = Traits::DataViz::Sankey.create_from_query(@query, counts.primary_for_query(@query))
       set_sankey_about_text
       render_with_status(@sankey.multiple_paths?)
     end
