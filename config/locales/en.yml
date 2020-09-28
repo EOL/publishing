@@ -1244,6 +1244,13 @@ en:
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"
   wordcloud_credit_html: "generated with <a href='%{url}'>jQCloud</a>"
 
+  # configured to be included by i18n-js
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: "%{m} of %{n}"
+
   # TERMS
 
   # purl.obolibrary.org

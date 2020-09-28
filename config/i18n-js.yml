@@ -1,0 +1,6 @@
+fallbacks: :default_locale
+export_i18n_js: "public/assets/i18n"
+
+translations:
+  - file: 'public/assets/i18n-js/i18n-js-translations.js'
+    only: '*.i18n_js.*'

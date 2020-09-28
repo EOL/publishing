@@ -321,7 +321,7 @@ window.Sankey = (function(exports) {
       nodesG.selectAll('.node-value')
         .text(d => { 
           if (d.highlightValue) {
-            return ` ${d.value.toLocaleString()} (${d.highlightValue.toLocaleString()})`;
+            return ` ${I18n.t('i18n_js.traits.data_viz.sankey.m_of_n', { m: d.highlightValue, n: d.value })}`
           } else {
             return ` ${d.value.toLocaleString()}`;
           }

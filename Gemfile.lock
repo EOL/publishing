@@ -222,6 +222,8 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.7.1)
+      i18n (>= 0.6.6)
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
@@ -559,6 +561,7 @@ DEPENDENCIES
   friendly_id (~> 5.2.4)
   haml-rails (~> 2.0)
   http (~> 4.3)
+  i18n-js
   jbuilder (~> 2.10)
   jquery-rails (~> 4.3)
   js-routes (~> 1.4)

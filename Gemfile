@@ -125,6 +125,9 @@ gem 'sitemap_generator', '~> 6.1'
 # url slug support
 gem 'friendly_id', '~> 5.2.4'
 
+# translations in JS
+gem 'i18n-js'
+
 group :development, :test do
   gem 'active_record_query_trace', '~> 1.7'
   # Security analysis:
