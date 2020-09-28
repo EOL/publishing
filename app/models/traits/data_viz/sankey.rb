@@ -23,13 +23,12 @@ class Traits::DataViz::Sankey
     @num_axes = query.filters.length
     @total_taxa = total_taxa
 
-    query_uris = Set.new(query.filters.map { |f| f.obj_uri })
+    query_uris = Set.new(query.filters.map { |f| f.obj_uri }.reject { |uri| uri.blank? })
     result_rows = query_results.map { |r| ResultRow.new(r, query, query_uris) }
     nodes_by_axis = build_nodes_by_axis(result_rows)
     @nodes = nodes_by_axis.flatten
     other_nodes = update_results(result_rows, nodes_by_axis)
     @nodes.concat(other_nodes)
-    fix_qt_row_page_ids(result_rows, nodes_by_axis)
     @links = build_links(result_rows)
   end
 
@@ -57,6 +56,7 @@ class Traits::DataViz::Sankey
 
   def update_results(results, nodes_by_axis)
     other_nodes_per_axis = Array.new(@num_axes, nil)
+    page_ids_per_axis = build_page_ids_per_axis(nodes_by_axis)
 
     results.each do |r|
       r.nodes = r.nodes.map.with_index do |n, i|
@@ -72,6 +72,8 @@ class Traits::DataViz::Sankey
             true,
             @query
           )
+          other_node.remove_page_ids(page_ids_per_axis[i])
+          r.remove_page_ids(page_ids_per_axis[i])
 
           if other_nodes_per_axis[i]
             other_nodes_per_axis[i].merge(other_node)
@@ -84,24 +86,8 @@ class Traits::DataViz::Sankey
       end
     end
 
-    other_nodes_per_axis.compact
-  end
-
-  def fix_qt_row_page_ids(results, nodes_per_axis)
-    page_ids_per_axis = build_page_ids_per_axis(nodes_per_axis)
-
-    results.each do |r|
-      qt_nodes = r.query_term_nodes
-      
-      page_ids_to_remove = Set.new
-
-      qt_nodes.each do |n|
-        page_ids_to_remove.merge(page_ids_per_axis[n.axis_id])
-        n.remove_page_ids(page_ids_per_axis[n.axis_id])
-      end
-
-      r.remove_page_ids(page_ids_to_remove)
-    end
+    results.reject! { |r| r.empty? }
+    other_nodes_per_axis.reject { |n| n.nil? || n.empty? }
   end
 
   def build_page_ids_per_axis(nodes_per_axis)
@@ -211,6 +197,10 @@ class Traits::DataViz::Sankey
 
     def size
       @page_ids.length
+    end
+
+    def empty?
+      @page_ids.empty?
     end
 
     def add_page_ids(other)
