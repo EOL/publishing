@@ -47,6 +47,7 @@ module TraitDataVizHelper
         uri: n.uri,
         name: name,
         fixedValue: n.size,
+        pageIds: n.page_ids.to_a,
         axisId: n.axis_id,
         clickable: !n.query_term?,
         searchPath: term_search_results_path(term_query: n.query.to_params),
@@ -64,7 +65,7 @@ module TraitDataVizHelper
         selected: true,
         names: [i18n_term_name_for_uri(l.source.uri), i18n_term_name_for_uri(l.target.uri)],
         id: "link-#{i}",
-        otherNodeSizes: l.other_node_page_ids.map { |node, ids| [node.id, ids.length] }.to_h
+        pageIds: l.page_ids.to_a
       }
     end
   end

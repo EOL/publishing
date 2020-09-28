@@ -59,40 +59,91 @@ window.Sankey = (function(exports) {
     }
 
     function handleNodeMouseenter(e, d) {
-      const connectedLinks = links.filter((l) => {
-        return l.source == d || l.target == d || !!l.otherNodeSizes[d.id]
-      });
-      connectedLinks.forEach((l) => highlightLinks.push(buildHighlightLink(l, d)));
+      const connectedLinks = buildConnectedLinks(d);
 
+      connectedLinks.forEach((l) => {
+        const highlightLink = buildHighlightLink(l, d);
+
+        if (highlightLink.width) {
+          highlightLinks.push(highlightLink);
+        }
+      });
+
+      updateHighlightNodeCounts(d);
       updateLinkColors();
       joinHighlightLinks();
     }
 
+    function buildConnectedLinks(d) {
+      const sourcePathLinks = buildSourcePathLinks(d)
+          , targetPathLinks = buildTargetPathLinks(d)
+
+      return sourcePathLinks.concat(targetPathLinks)
+    }
+
+    function buildSourcePathLinks(d) {
+      return pathLinksHelper([d], 'source');
+    }
+
+    function buildTargetPathLinks(d) {
+      return pathLinksHelper([d], 'target');
+    }
+
+    function pathLinksHelper(nodes, type) {
+      const oppositeType = type == 'source' ? 'target' : 'source';
+      const nodeLinks = links.filter((l) => {
+        return nodes.includes(l[type])
+      });
+      let connectedLinks = [];
+
+      if (nodeLinks.length) {
+        connectedLinks = pathLinksHelper(nodeLinks.map((l) => l[oppositeType]), type);
+      }
+
+      return nodeLinks.concat(connectedLinks);
+    }
+
+
     function buildHighlightLink(l, selectedNode) {
-      const hlLink = {};
+      const hlLink = {}
+          , linkPageIds = new Set(l.pageIds)
+          , selectedPageIds = new Set(selectedNode.pageIds)
+          , intersectPageIds = setIntersection(linkPageIds, selectedPageIds);
+          ;
+
       hlLink.id = l.id + "-hl"
       hlLink.source = l.source;
       hlLink.target = l.target;
+      hlLink.width = (intersectPageIds.size / l.value) * l.width;
 
-      if (l.otherNodeSizes[selectedNode.id]) {
-        hlLink.width = (l.otherNodeSizes[selectedNode.id] / l.value) * l.width;
-      } else {
-        hlLink.width = l.width;
-      }
 
       hlLink.y0 = l.y0 + (l.width / 2.0) - (hlLink.width / 2.0);
       hlLink.y1 = l.y1 + (l.width / 2.0) - (hlLink.width / 2.0);
       hlLink.isHighlight = true;
 
-      console.log(l, hlLink);
-
       return hlLink;
+    }
+
+    function setIntersection(a, b) {
+      const result = new Set();
+
+      a.forEach((item) => {
+        if (b.has(item)) {
+          result.add(item);
+        }
+      });
+
+      return result;
     }
 
     function handleNodeMouseleave() {
       highlightLinks = [];
       updateLinkColors();
       joinHighlightLinks();
+      nodes.forEach((n) => {
+        n.highlightValue = null;
+      });
+      updateNodeValues();
     }
 
     // all link uids for paths originating with node n
@@ -128,6 +179,24 @@ window.Sankey = (function(exports) {
       });
 
       return nodePathLinksHelper(nextNodes, linkIds, type);
+    }
+
+    function updateHighlightNodeCounts(hoverNode) {
+      const highlightNodes = new Set();
+
+      highlightLinks.forEach((l) => {
+        highlightNodes.add(l.source);
+        highlightNodes.add(l.target);
+      });
+
+      highlightNodes.delete(hoverNode);
+
+      highlightNodes.forEach((node) => {
+        const size = setIntersection(new Set(node.pageIds), new Set(hoverNode.pageIds)).size;
+        node.highlightValue = size;
+      });
+
+      updateNodeValues();
     }
 
     function setSelectedNode(node) {
@@ -241,11 +310,22 @@ window.Sankey = (function(exports) {
         .attr("text-anchor", d => d.x0 < width / 2 ? "start" : "end")
         .text(d => d.name)
         .style('cursor', nodeCursor)
-        .on('mouseenter', handleNodeMouseenter)
-        .on('mouseleave', handleNodeMouseleave)
         .append("tspan")
+          .attr('class', 'node-value')
           .attr("fill-opacity", 0.7)
-          .text(d => ` ${d.value.toLocaleString()}`);
+
+      updateNodeValues();
+    }
+
+    function updateNodeValues() {
+      nodesG.selectAll('.node-value')
+        .text(d => { 
+          if (d.highlightValue) {
+            return ` ${d.value.toLocaleString()} (${d.highlightValue.toLocaleString()})`;
+          } else {
+            return ` ${d.value.toLocaleString()}`;
+          }
+        });
     }
 
     function nodeCursor(d) {

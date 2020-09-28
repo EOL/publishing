@@ -84,7 +84,7 @@ class Traits::DataViz::Sankey
       end
     end
 
-    other_nodes_per_axis
+    other_nodes_per_axis.compact
   end
 
   def fix_qt_row_page_ids(results, nodes_per_axis)
@@ -127,7 +127,6 @@ class Traits::DataViz::Sankey
           link = Link.new(
             prev_node, 
             n, 
-            r.nodes.reject { |other| other == prev_node || other == n },
             r.page_ids
           )
 
@@ -240,27 +239,16 @@ class Traits::DataViz::Sankey
   end
 
   class Link
-    attr_reader :source, :target, :page_ids, :other_node_page_ids
+    attr_reader :source, :target, :page_ids
 
-    def initialize(source, target, other_nodes, page_ids)
+    def initialize(source, target, page_ids)
       @source = source
       @target = target
       @page_ids = Set.new(page_ids)
-      @other_node_page_ids = other_nodes.map do |n|
-        [n, Set.new(page_ids)] 
-      end.to_h
     end
 
     def merge(other)
       @page_ids.merge(other.page_ids)
-
-      other.other_node_page_ids.each do |n, ids| 
-        if @other_node_page_ids.include?(n)
-          @other_node_page_ids[n].merge(ids)
-        else
-          @other_node_page_ids[n] = ids
-        end
-      end
     end
 
     def add_page_ids(new_page_ids)
