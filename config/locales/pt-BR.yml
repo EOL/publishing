@@ -334,18 +334,23 @@ pt-BR:
     en: Inglês
     eo: Esperanto
     et: Estônio
+    est: Estoniano
     ee: Ewe
     fo: Feroês
     fj: Fidjiano
     fi: Finlandês
+    fin: Finlandês
     fr: Francês
+    fra: Francês
     ff: Fula
     gd: Gaélico Escocês
     gl: Galego
     ka: Georgiano
     de: Alemão
+    deu: Alemão
     Q3272630: Gogo
     el: Grego, Moderno (1453-)
+    gre: Grego
     gn: Guarani
     gu: Guzerate
     ht: Haitiano; Crioulo Haitiano
@@ -357,6 +362,7 @@ pt-BR:
     ho: Hiri Motu
     hu: Húngaro
     is: Islandês
+    ice: Islandês
     io: Ido
     ig: Igbo
     id: Indonésio
@@ -377,6 +383,7 @@ pt-BR:
     kg: Congo
     ko: Coreano
     kor: Coreano
+    ku: Curdo
     la: Latin
     Q1160372: Laz
     Q146803: Língua franca nova
@@ -386,11 +393,13 @@ pt-BR:
     gv: Manês
     mi: Maori
     Q13358: Megleno-romeno
+    mn: Mongol
     Q56426: Árabe marroquino
     Q6944725: Mwera
     nv: Navajo
     nd: Ndebele do norte; Ndebele do Zimbabwe
     ng: Xindongo
+    ne: Nepalês
     "no": Norueguês
     nno: Norueguês
     nob: Norueguês
@@ -407,12 +416,15 @@ pt-BR:
     rm: Romanche
     ru: Russo
     rus: Russo
+    sm: Samoano
+    sa: Sânscrito
     sc: Sardo
     sr: sérvio
     ii: Sichuan Yi; Nuosu
     Q33973: siciliano
     sk: Eslovaco
     sl: Esloveno
+    som: Somali
     es: Espanhol; Castelhano
     slv: Espanhol
     sv: Sueco
@@ -420,6 +432,7 @@ pt-BR:
     tt: Tártaro
     te: Telugo
     th: Tailandês
+    tha: Tailandês
     bo: Tibetano
     Q56240: Árabe tunisino
     tr: Turco
@@ -468,6 +481,7 @@ pt-BR:
     hide_langs:
       one: ocultar um idioma
       other: ocultar %{count} idiomas
+    prefer: prefere
     preferred_in_language_for_page: '%{name} agora é o vernáculo %{language} preferido
       para %{page}'
     show_more_langs:
@@ -497,6 +511,7 @@ pt-BR:
       header: pesquisa de página em lote
       canonical_name: nome canônico
       download_tsv: Baixar TSV
+      match: Correspondência
       new_search: nova pesquisa
       page_id: identificador da página
       page_url: URL da página
@@ -518,11 +533,15 @@ pt-BR:
       rank:
         r_domain: Domínio
         r_subdomain: Subdomínio
+        r_infradomain: infra-domínio
+        r_superkingdom: Super-reino
         r_kingdom: Reino
         r_subkingdom: Subreino
-        r_superphylum: superfilo
+        r_infrakingdom: Infra-reino
+        r_superphylum: Superfilo
         r_phylum: Filo
         r_subphylum: Subfilo
+        r_infraphylum: Infrafilo
         r_superclass: Superclasse
         r_class: Classe
         r_subclass: Subclasse
@@ -537,6 +556,7 @@ pt-BR:
         r_tribe: Tribo
         r_genus: Gênero
         r_subgenus: Subgênero
+        r_superspecies: Superespecie
         r_species: Espécies
         r_subspecies: Subespécies
         r_infraspecies: Infraespécies
@@ -552,6 +572,9 @@ pt-BR:
       predator: Predador
       prey: Presa
       reset: redefinir
+      trophic_web_about: |2-
+
+        Os diagramas de teia alimentar da EOL  focam nas relações alimentares de uma espécie; eles mostram as espécies em foco junto com as espécies de que se alimentam (presas), espécies que se alimentam delas (predadores) e outras espécies que se alimentam da mesma presa (competidores potenciais). Clique para aprender mais.
       trophic_web_title_html: Rede trófica <a href='%{about_path}'><sup><span class='a'
         uk-tooltip='%{tooltip}'>?</span></sup></a>
     native_node_missing_warning: nenhuma informação de hierarquia disponível
@@ -805,6 +828,8 @@ pt-BR:
       num_records_label: '# de registros'
       other: outros
       page_habitat_header: '%{name}Habitats'
+      page_habitat_explanation: Os ambientes  que muitas %{name}  espécies vivem sabidamente  .
+        Selecione um ambiente para ver sua lista de verificação de espécies %{name}.
       pie_prompt: passe o mouse sobre um segmento ou tecla para realçar
       n_obj_records:
         other: um=um registro com "%{obj_name}"
@@ -856,6 +881,7 @@ pt-BR:
       target_group: grupo alvo ( por exemplo salmão)
       this_may_take_a_minute: isso pode levar um minuto
       value: valor
+      value_eg: valor ( por exemplo herbívoro)
   trophic_web:
     group_descriptions:
       competitor: concorrente de %{source_name}
@@ -867,6 +893,7 @@ pt-BR:
     trusted: confiável
     untrusted: não confiável
   user:
+    batch_page_lookup: pesquisa de página em lote
     created_at: criada
     download_queue: Fila de download de dados
     edit_account_details: Editar detalhes da conta
@@ -885,6 +912,7 @@ pt-BR:
     validations:
       age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
       tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade
+    list_of_power_users: Lista de utilizadores com poderes.
     new_password: Nova senha
     confirm_new_password: Confirmar nova senha
     trait_bank_cypher_form: Forma de cifra do banco de características
