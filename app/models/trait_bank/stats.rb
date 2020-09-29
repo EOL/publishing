@@ -325,12 +325,20 @@ class TraitBank
       end
 
       def check_query_valid_for_sankey(query)
+        if query.record?
+          return CheckResult.invalid("query must be for taxa")
+        end
+
         if query.filters.length < 2
           return CheckResult.invalid("query must have multiple filters")
         end
 
-        # TODO: invalidate object clade queries
-        #
+        query.filters.each do |f|
+          if f.obj_clade.present?
+            return CheckResult.invalid("query can't have a filter with an object clade")
+          end
+        end
+
         CheckResult.valid
       end
 
