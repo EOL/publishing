@@ -184,7 +184,7 @@ class TraitBank
           OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
           OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
           RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term,
-            "meta, meta_predicate, meta_units_term, meta_object_term, page }
+            meta, meta_predicate, meta_units_term, meta_object_term, page }
           # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
       res = query(q)
