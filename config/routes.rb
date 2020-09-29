@@ -124,6 +124,7 @@ Rails.application.routes.draw do
         get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
         get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
         get '/:id/pred_prey' => 'api_pages#pred_prey'
+        get '/:id/brief_summary' => 'api_pages#brief_summary'
       end
       scope '/search' do
         get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/

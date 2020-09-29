@@ -4,6 +4,7 @@
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: MuratTheTurkish
+# Author: Stonecy
 # Author: Sucsuzz
 # Author: SwornToTranslate29
 ---
@@ -768,7 +769,7 @@ tr:
         r_form: Form
       reference_taxon_attrib: '%{dataset_name} kaynağından referans vergi'
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: kullanıcı %{user_id}
     trophic_web:
