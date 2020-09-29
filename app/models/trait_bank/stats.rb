@@ -227,7 +227,7 @@ class TraitBank
 
         TraitBank.results_to_hashes(
           TraitBank.query(parts.join("\n"), params), 
-          id_col_label: 'key'
+          'key'
         )
       end
 
