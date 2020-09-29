@@ -75,8 +75,5 @@ module EolWebsite
     config.x.autocomplete_i18n_enabled = true
 
     config.active_job.queue_adapter = :sidekiq
-
-    # generate i18n js translation files
-    config.middleware.use I18n::JS::Middleware
   end
 end
