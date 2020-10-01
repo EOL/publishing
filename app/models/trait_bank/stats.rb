@@ -203,7 +203,11 @@ class TraitBank
 
         child_matches = obj_vars.map.with_index do |var, i|
           if var[:tgt_obj]
-            "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)-[:parent_term]->(#{var[:tgt_obj]})"
+            # NOTE: using a WHERE here, rather than a single match that also expresses the where condition, makes a significant difference in query performance.
+            # The latter approach results in a query plan that gets all of the children of the tgt_obj (many in the case of a broad Term like Northern Hemisphere),
+            # then does the other half of the query and joins the results. Using a WHERE clause resutls in a SemiApply which filters the results of the OPTIONAL MATCH
+            # one by one using the WHERE clause test. tl;dr: WHERE results in going "up" the term hierarchy, and never down, which is better.
+            "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)\nWHERE (#{child_vars[i]})-[:parent_term]->(#{var[:tgt_obj]})"
           else
             "OPTIONAL MATCH (#{var[:obj]})-[#{TraitBank.parent_terms}]->(#{child_vars[i]}:Term)\nWHERE NOT (#{child_vars[i]})-[:parent_term|:synonym_of]->(:Term)"
           end
