@@ -7,6 +7,7 @@
 # Author: Stonecy
 # Author: Sucsuzz
 # Author: SwornToTranslate29
+# Author: ToprakM
 ---
 tr:
   language_name: Türkçe
@@ -818,7 +819,7 @@ tr:
       media: '%{page_name} medyası'
       maps: '%{page_name} haritaları'
       names: '%{page_name} isimleri'
-      articles: '%{page_name} makaleleri'
+      articles: '%{page_name} maddeleri'
     traits:
       search: Özellik arama
   recaptcha: Recaptcha
