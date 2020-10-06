@@ -75,7 +75,7 @@ module MediaHelper
     if medium.embedded_video?
       content_tag(:iframe, nil, src: medium.embed_url, width: 426, height: 240, class: "js-#{medium.format}-player")
     elsif medium.video?
-      video_tag(medium&.url_with_format, type: "video/#{medium.real_format}", controls: true)
+      video_tag(medium&.url_with_format, type: medium.media_type, controls: true)
     elsif medium.sound?
       audio_tag(medium&.url_with_format, controls: true, class: "gallery-audio-player")
     else

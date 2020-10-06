@@ -228,7 +228,7 @@ class Medium < ApplicationRecord
   def real_format
     # bandaid for incorrect format assigned by harvest
     if invalid_format_video?
-      :ogg # so far, we've seen this problem with flv and ogg. We can't display the former, so this won't break them any more than they already are. 
+      :ogv # so far, we've seen this problem with flv and ogg. We can't display the former, so this won't break them any more than they already are. 
     else
       format
     end
@@ -244,6 +244,28 @@ class Medium < ApplicationRecord
 
   def hidden?
     hidden_medium.present?
+  end
+
+  def media_type
+    if mp3?
+      'audio/mpeg'
+    elsif ogg?
+      'audio/ogg'
+    elsif wav?
+      'audio/wav'
+    elsif mp4?
+      'video/mp4'
+    elsif ogv? || invalid_format_video? # bandaid for harvesting issue
+      'video/ogg'
+    elsif mov?
+      'video/quicktime'
+    elsif svg?
+      'image/svg+xml'
+    elsif webm?
+      'video/webm'
+    else
+      'image/jpeg'
+    end
   end
 
   private
