@@ -25,42 +25,46 @@ class Traits::DataViz::Sankey
 
     query_uris = Set.new(query.filters.map { |f| f.obj_uri }.reject { |uri| uri.blank? })
     result_rows = query_results.map { |r| ResultRow.new(r, query, query_uris) }
-    nodes_by_axis = build_nodes_by_axis(result_rows)
-    @nodes = nodes_by_axis.flatten
-    other_nodes = update_results(result_rows, nodes_by_axis)
+    nodes_per_axis = build_nodes_per_axis(result_rows)
+    @nodes = nodes_per_axis.flatten
+    other_nodes = build_other_nodes_per_axis(result_rows, nodes_per_axis) 
     @nodes.concat(other_nodes)
     @links = build_links(result_rows)
   end
 
-  def build_nodes_by_axis(rows)
-    distinct_nodes_by_axis = Array.new(@num_axes) { {} }
+  # Get the MAX_NODES_PER_AXIS nodes with the greatest # pages per axis, merging the 
+  # sets of pages belonging to result rows containing the same nodes
+  def build_nodes_per_axis(rows)
+    distinct_nodes_per_axis = Array.new(@num_axes) { {} }
 
     rows.each do |r|
       r.nodes.each_with_index do |n, i|
-        next if n.query_term? # skip these for now -- they're added (and modified) at a later step
+        next if n.query_term? # skip these for now -- they're added later and shouldn't belong to the top nodes
 
-        existing = distinct_nodes_by_axis[i][n]
+        existing = distinct_nodes_per_axis[i][n]
 
         if existing
           existing.merge(n)
         else
-          distinct_nodes_by_axis[i][n] = n
+          distinct_nodes_per_axis[i][n] = n
         end
       end
     end
 
-    distinct_nodes_by_axis.map do |nodes|
+    distinct_nodes_per_axis.map do |nodes|
       nodes.values.sort { |a, b| b.size <=> a.size }[0..MAX_NODES_PER_AXIS]
     end
   end
 
-  def update_results(results, nodes_by_axis)
+  # Build catchall nodes for page ids that don't belong to one of the chosen nodes per axis, and update
+  # the result rows that contain them accordingly
+  def build_other_nodes_per_axis(results, nodes_per_axis)
     other_nodes_per_axis = Array.new(@num_axes, nil)
-    page_ids_per_axis = build_page_ids_per_axis(nodes_by_axis)
+    page_ids_per_axis = build_page_ids_per_axis(nodes_per_axis)
 
     results.each do |r|
       r.nodes = r.nodes.map.with_index do |n, i|
-        matching_node = nodes_by_axis[i].find { |m| m == n }
+        matching_node = nodes_per_axis[i].find { |m| m == n }
 
         if matching_node
           matching_node
