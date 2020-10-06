@@ -1102,7 +1102,10 @@ en:
   traits:
     data_viz:
       about_this_chart: "about this chart"
-      about_this_chart_tooltip: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results."
+      about_this_chart_tooltip_1d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results. Note that any given species may be included in more than one bar."
+      about_this_chart_tooltip_sankey_2d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis."
+      about_this_chart_tooltip_sankey_3+: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis. In a highlighted subset display, these multi-value species will be counted multiple times in other axes."
+      other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
       n_other_records:
         one: "one other record"
@@ -1121,6 +1124,7 @@ en:
       n_taxa_with:
         one: "one taxon with \"%{obj_name}\""
         other: "%{count} taxa with \"%{obj_name}\""
+      sankey_node_hover: "click to narrow search to %{term_name}"
       see_n_obj_records:
         one: "click to see one record with \"%{obj_name}\""
         other: "click to see %{count} records with \"%{obj_name}\""
@@ -1239,6 +1243,13 @@ en:
   vernacular_names_header: "Common Names"
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"
   wordcloud_credit_html: "generated with <a href='%{url}'>jQCloud</a>"
+
+  # configured to be included by i18n-js
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: "%{m} of %{n}"
 
   # TERMS
 

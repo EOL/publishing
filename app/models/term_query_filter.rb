@@ -177,12 +177,20 @@ class TermQueryFilter < ApplicationRecord
     pred_uri.blank? && obj_uri.blank? && obj_clade.nil?
   end
 
-  def really_blank?
-    blank? &&
+  def extra_fields_blank?
     sex_uri.blank? &&
     lifestage_uri.blank? &&
     statistical_method_uri.blank? &&
     resource.blank?
+  end
+    
+
+  def really_blank?
+    blank? && extra_fields_blank?
+  end
+
+  def obj_term_only?
+    pred_uri.blank? && obj_clade.nil? && extra_fields_blank?
   end
 
   def show_extra_fields=(val)
