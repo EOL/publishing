@@ -140,7 +140,7 @@ class Traits::DataViz::Sankey
       @page_ids = Set.new(row[:page_ids])
 
       @nodes = query.page_count_sorted_filters.map.with_index do |_, i|
-        uri_key = :"child#{i}_uri"
+        uri_key = :"anc_obj#{i}_uri"
         uri = row[uri_key]
         node_query = query.deep_dup
         node_query.page_count_sorted_filters[i].obj_uri = uri 
