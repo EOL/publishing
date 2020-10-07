@@ -9,7 +9,6 @@ class Importer
 
   def initialize(file, options = {})
     @file = file
-    @skip_known_terms = options[:skip_known_terms] || false
   end
 
   def read_clade
@@ -75,19 +74,7 @@ class Importer
       results = klass.import!(instances, on_duplicate_key_update: updatable_fields)
       log(results.inspect)
     end
-    # NOTE: you have to read terms BEFORE traits, or they will fail (because it cannot build relationships to terms)!
-    read_terms_if_needed(has_terms)
     read_traits_if_needed(has_traits)
-  end
-
-  def read_terms_if_needed(has_terms)
-    if has_terms
-      log("Reading terms...")
-      read_terms("#{@page_dir}/#{has_terms}")
-      log("Read terms.")
-    else
-      log("NO TERMS; skipping.")
-    end
   end
 
   def read_traits_if_needed(has_traits)
@@ -109,23 +96,6 @@ class Importer
     else
       log("NO TRAITS; skipping.")
     end
-  end
-
-  def read_terms(file)
-    importer = Term::Importer.new(skip_known_terms: @skip_known_terms)
-    data = CSV.read(file)
-    fields = data.shift
-    data.each do |values|
-      properties = Hash[fields.zip(values)]
-      importer.from_hash(properties)
-    end
-    new_terms = importer.new_terms
-    if new_terms.size > 100 # Don't bother saying if we didn't have any at all!
-      log("There were #{new_terms.size} new terms, which is too many to show.")
-    else
-      log("New terms: #{new_terms.join("\n  ")}")
-    end
-    log("Finished importing terms: #{new_terms.size} new, #{importer.knew} known, #{importer.skipped} skipped.")
   end
 
   def create_temp_dir
