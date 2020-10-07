@@ -39,7 +39,7 @@ class TermNames
           results = adapter.names_for_locale(locale)
 
           writable_entries = results.collect do |result|
-            [TermI18n.uri_to_key(result.uri), result.value]
+            [Util::TermI18n.uri_to_key(result.uri), result.value]
           end.to_h
 
           if writable_entries.any?
@@ -87,7 +87,7 @@ class TermNames
       path = LOCALE_FILE_DIR.join("#{adapter_class.name.downcase}.qqq.yml")
       entries = results.collect do |result|
         if result.options[:definition].present?
-          [TermI18n.uri_to_key(result.uri), result.options[:definition]]
+          [Util::TermI18n.uri_to_key(result.uri), result.options[:definition]]
         else
           nil
         end
