@@ -98,7 +98,7 @@
             wildcard: 'QUERY'
           }
         })
-      }, 'uri', fetchForm)
+      }, 'id', fetchForm)
     });
 
   }
@@ -138,7 +138,7 @@
       display: 'name',
       limit: Infinity,
       source: predSource
-    }, 'uri', fetchForm);
+    }, 'id', fetchForm);
 
     $('.js-pred-obj-typeahead').each(function() {
       var source = new Bloodhound({
@@ -169,7 +169,7 @@
       display: 'name',
       limit: Infinity,
       source: EOL.searchObjectTerms
-    }, 'uri', fetchForm);
+    }, 'id', fetchForm);
 
     buildTypeahead('.js-resource-typeahead', { minLength: 0 }, {
       name: 'resource',

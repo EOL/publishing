@@ -487,7 +487,7 @@ class TraitBank
               res["data"].first.first
             else
               all = res["data"].map { |t| t.first["data"].symbolize_keys }
-              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri] } } if qterm
+              all.map! { |h| { name: h[:"#{name_field}"], uri: h[:uri], id: h[:eol_id] } } if qterm
               all
             end
           else
