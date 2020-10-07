@@ -12,7 +12,8 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   property :position
   property :trait_row_count, default: 0
   property :type
-  id_property :uri
+  property :uri
+  id_property :eol_id
 
   self.mapped_label_name = 'Term'
 

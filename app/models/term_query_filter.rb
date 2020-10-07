@@ -68,6 +68,10 @@ class TermQueryFilter < ApplicationRecord
     object_term? || obj_clade.present?
   end
 
+  def units_term?
+    units_uri.present?
+  end
+
   def sex_term?
     sex_uri.present?
   end
@@ -259,12 +263,32 @@ class TermQueryFilter < ApplicationRecord
 
   def pred_term_node
     return @pred_term_node if @pred_term_node
-    @pred_term_node = predicate? ? TermNode.find(pred_uri) : nil
+    @pred_term_node = predicate? ? TermNode.find_by(uri: pred_uri) : nil
   end
 
   def obj_term_node
     return @obj_term_node if @obj_term_node
-    @obj_term_node = object_term? ? TermNode.find(obj_uri) : nil
+    @obj_term_node = object_term? ? TermNode.find_by(uri: obj_uri) : nil
+  end
+
+  def units_term_node
+    return @units_term_node if @units_term_node
+    @units_term_node = units_term? ? TermNode.find_by(uri: units_uri) : nil
+  end
+
+  def sex_term_node
+    return @sex_term_node if @sex_term_node
+    @sex_term_node = sex_term? ? TermNode.find_by(uri: sex_uri) : nil
+  end
+
+  def lifestage_term_node
+    return @lifestage_term_node if @lifestage_term_node
+    @lifestage_term_node = lifestage_term? ? TermNode.find_by(uri: lifestage_uri) : nil
+  end
+
+  def statistical_method_term_node
+    return @statistical_method_term_node if @statistical_method_term_node
+    @statistical_method_term_node = statistical_method_term?? TermNode.find_by(uri: statistical_method_uri) : nil
   end
 
   def obj_clade_node
@@ -306,6 +330,60 @@ class TermQueryFilter < ApplicationRecord
     else
       nil
     end
+  end
+
+  def obj_term_id
+    obj_term_node&.id
+  end
+
+  def obj_term_id=(id)
+    @object_term_node = TermNode.find(id)
+    self.obj_uri = @object_term_node.uri
+  end
+
+  def pred_id
+    pred_term_node&.id
+  end
+
+  def pred_id=(id)
+    @pred_term_node = TermNode.find(id)
+    self.pred_uri = @pred_term_node.uri
+  end
+
+  def units_id
+    units_term_node&.id
+  end
+
+  def units_id=(id)
+    @units_term_node = TermNode.find(id)
+    self.units_uri = @units_term_node.uri
+  end
+
+  def sex_id
+    sex_term_node&.id
+  end
+
+  def sex_id=(id)
+    @sex_term_node = TermNode.find(id)
+    self.sex_uri = @sex_term_node.uri
+  end
+
+  def lifestage_id
+    lifestage_term_node&.id
+  end
+
+  def lifestage_id=(id)
+    @lifestage_term_node = TermNode.find(id)
+    self.lifestage_uri = @lifestage_term_node.uri
+  end
+
+  def statistical_method_id
+    statistical_method_term_node&.id
+  end
+
+  def statistical_method_id=(id)
+    @statistical_method_term_node = TermNode.find(id)
+    self.statistical_method_uri = @statistical_method_term_node.id
   end
 
   private
