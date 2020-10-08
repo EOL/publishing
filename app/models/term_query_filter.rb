@@ -6,7 +6,7 @@ class TermQueryFilter < ApplicationRecord
   validate :validation
 
   attr_reader :show_extra_fields
-  attr_accessor :top_pred_uri
+  attr_accessor :top_pred_id
 
   TermSelect = Struct.new(:type, :parent_uri, :selected_uri) do
     def persisted?
@@ -214,48 +214,49 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def pred_term_selects_attributes=(attrs)
-    selects = []
+   # selects = []
 
-    if top_pred_uri.present?
-      sorted_keys = attrs.keys.sort
-      attr_arr = sorted_keys.collect { |k| attrs[k] }
+   # if top_pred_uri.present?
+   #   sorted_keys = attrs.keys.sort
+   #   attr_arr = sorted_keys.collect { |k| attrs[k] }
 
-      if attr_arr.any? && top_pred_uri == attr_arr.first[:parent_uri]
-        i = 0
-        continue = true
+   #   if attr_arr.any? && top_pred_uri == attr_arr.first[:parent_uri]
+   #     i = 0
+   #     continue = true
 
-        while i < attr_arr.length && continue
-          field = attr_arr[i]
-          if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
-            selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
-            added = true
-          else
-            added = false
-          end
+   #     while i < attr_arr.length && continue
+   #       field = attr_arr[i]
+   #       if i == 0 || field[:parent_uri] == selects[i - 1].selected_uri
+   #         selects << TermSelect.new(field[:type].to_sym, field[:parent_uri], field[:selected_uri])
+   #         added = true
+   #       else
+   #         added = false
+   #       end
 
-          continue = added && field[:selected_uri].present?
-          i += 1
-        end
-      end
+   #       continue = added && field[:selected_uri].present?
+   #       i += 1
+   #     end
+   #   end
 
-      if selects.empty? || selects.last.selected_uri.present?
-        if selects.empty?
-          parent_uri = pred_uri
-        else
-          parent_uri = selects.last.selected_uri
-        end
+   #   if selects.empty? || selects.last.selected_uri.present?
+   #     if selects.empty?
+   #       parent_uri = pred_uri
+   #     else
+   #       parent_uri = selects.last.selected_uri
+   #     end
 
-        child_select = TermSelect.new(
-          :predicate,
-          parent_uri,
-          nil
-        )
+   #     child_select = TermSelect.new(
+   #       :predicate,
+   #       parent_uri,
+   #       nil
+   #     )
 
-        selects << child_select if child_select.terms.any?
-      end
-    end
+   #     selects << child_select if child_select.terms.any?
+   #   end
+   # end
 
-    @pred_term_selects = selects
+   # @pred_term_selects = selects
+    @pred_term_selects = []
   end
 
   def obj_term_selects_attributes=(attrs)
@@ -384,6 +385,11 @@ class TermQueryFilter < ApplicationRecord
   def statistical_method_id=(id)
     @statistical_method_term_node = TermNode.find(id)
     self.statistical_method_uri = @statistical_method_term_node.id
+  end
+
+  def top_pred_term_node
+    return nil if top_pred_id.blank?
+    @top_pred_term_node ||= TermNode.find(top_pred_id)
   end
 
   private
