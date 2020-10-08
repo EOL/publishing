@@ -839,7 +839,7 @@ tr:
       show_warns:
         one: uyarı göster (%{count})
         other: uyarı göster (%{count})
-      sync: depo ile senkronize et
+      sync: senkronize et
       clear_publishing: kilidi kaldır
       clear_publishing_confirm: Bu, tüm yayınları 'bitirir' ve aktif olarak yayınlanırken
         kullanılırsa sorunlara neden olabilir. Emin misiniz?
@@ -1100,8 +1100,19 @@ tr:
   traits:
     data_viz:
       about_this_chart: bu grafik hakkında
-      about_this_chart_tooltip: Bu, EOL'de bulunan verilere dayanan bir özettir. Eksik
-        olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
+      about_this_chart_tooltip_1d: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
+        Herhangi bir türün birden fazla çubuğa dahil edilebileceğini unutmayın.
+      about_this_chart_tooltip_sankey_2d: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
+        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
+        dahil edilebileceğini unutmayın.
+      about_this_chart_tooltip_sankey_3+: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
+        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
+        dahil edilebileceğini unutmayın. Vurgulanan bir alt küme görüntüsünde, bu
+        çok değerli türler, diğer eksenlerde birden çok kez sayılacaktır.
+      other_term_name: diğer %{term_name}
       hist_value_label: değer (%{units})
       n_other_records:
         one: bir kayıt daha
@@ -1121,6 +1132,7 @@ tr:
       n_taxa_with:
         one: '"%{obj_name}" sahip bir takson'
         other: '"%{obj_name}" ile %{count} takson'
+      sankey_node_hover: aramayı %{term_name} ile daraltmak için tıklayın
       see_n_obj_records:
         one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
         other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
@@ -1257,6 +1269,11 @@ tr:
   vernacular_names_header: Genel Adlar
   vernacular_preferred_by_resource: '%{resource} (bu adı tercih eder)'
   wordcloud_credit_html: <a href='%{url}'>jQCloud</a> ile oluşturuldu
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} - %{n}'
   term:
     actions:
       reindex: yeniden dizin

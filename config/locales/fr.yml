@@ -844,7 +844,7 @@ fr:
       show_warns:
         one: afficher l’avertissement (%{count})
         other: afficher les avertissements (%{count})
-      sync: synchroniser avec le dépôt
+      sync: synchroniser
       clear_publishing: effacer le verrou
       clear_publishing_confirm: Cela « terminera » toutes les publications et peut
         poser des problèmes s’il est utilisé lors de publications actives. Êtes-vous
@@ -1112,9 +1112,22 @@ fr:
   traits:
     data_viz:
       about_this_chart: à propos de ce graphique
-      about_this_chart_tooltip: C’est un résumé basé sur les données disponibles dans
-        EdV. Il peut être incomplet ! Vous pouvez sélectionner une barre du graphique
-        pour restreindre vos résultats de recherche.
+      about_this_chart_tooltip_1d: Ceci est un résumé basé sur les données disponibles
+        dans EdlV. Il peut être incomplet ! Vous pouvez sélectionner une barre du
+        graphique pour restreindre vos résultats de recherche. Notez qu’une espèce
+        donnée peut être comprise dans plus d’une barre.
+      about_this_chart_tooltip_sankey_2d: Ceci est un résumé basé sur les données
+        disponibles dans EdlV. Il peut être incomplet ! Vous pouvez sélectionner une
+        catégorie sur un des axes pour restreindre vos résultats de recherche. Notez
+        qu’une espèce donnée peut être comprise dans plus d’une catégorie du même
+        axe.
+      about_this_chart_tooltip_sankey_3+: Ceci est un résumé basé sur les données
+        disponibles dans EdlV. Il peut être incomplet ! Vous pouvez sélectionner une
+        catégorie sur un des axes pour restreindre vos résultats de recherche. Notez
+        qu’une espèce donnée peut être comprise dans plus d’une catégorie du même
+        axe. Dans un affichage de sous-ensemble mis en évidence, ces espèces à valeurs
+        multiples seront comptées plusieurs fois sur les autres axes.
+      other_term_name: autre %{term_name}
       hist_value_label: valeur (%{units})
       n_other_records:
         one: un autre enregistrement
@@ -1135,6 +1148,7 @@ fr:
       n_taxa_with:
         one: un taxon avec « %{obj_name} »
         other: '%{count} taxons avec « %{obj_name} »'
+      sankey_node_hover: Cliquer pour restreindre la recherche à %{term_name}
       see_n_obj_records:
         one: cliquer pour voir un enregistrement avec « %{obj_name} »
         other: cliquer pour voir %{count} enregistrements avec « %{obj_name} »
@@ -1276,6 +1290,11 @@ fr:
   vernacular_names_header: Noms communs
   vernacular_preferred_by_resource: '%{resource} (préfère ce nom)'
   wordcloud_credit_html: généré avec <a href="%{url}">jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} sur %{n}'
   term:
     actions:
       reindex: réindexer

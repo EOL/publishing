@@ -1040,7 +1040,6 @@ zh-CN:
   traits:
     data_viz:
       about_this_chart: 关于此图表
-      about_this_chart_tooltip: 这是一个根据生命大百科所含资料拟出的概要。它可能不完全！要缩小搜寻结果，您可以点选图表中任一条型。
       hist_value_label: 数值%{units}
       n_other_records:
         one: 一个其他的记录

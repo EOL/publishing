@@ -767,7 +767,7 @@ pms:
         r_form: Forma
       reference_taxon_attrib: Fé arferiment a la tassonomìa da %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: utent %{user_id}
     trophic_web:
@@ -838,7 +838,7 @@ pms:
       show_warns:
         one: smon-e l'avertiment (%{count})
         other: smon-e j'avertiment (%{count})
-      sync: sincronisé con ël depòsit
+      sync: sincronisé
       clear_publishing: gavé ël luchet
       clear_publishing_confirm: Sòn a «livrërà» tute le publicassion, e a peul creé
         dij problema s'a l'é dovrà durant na publicassion. É-lo sigur ?
@@ -1103,9 +1103,6 @@ pms:
   traits:
     data_viz:
       about_this_chart: a propòsit ëd cost gràfich
-      about_this_chart_tooltip: Cost-sì a l'é un resumé basà an sij dàit disponìbij
-        an EdV. A podrìa esse incomplet! A peul selessioné na bara dël gràfich për
-        ëstrenze ij sò arzultà d'arserca.
       hist_value_label: valor (%{units})
       n_other_records:
         one: un-a àutra argistrassion

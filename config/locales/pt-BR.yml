@@ -821,9 +821,6 @@ pt-BR:
   traits:
     data_viz:
       about_this_chart: sobre este gráfico
-      about_this_chart_tooltip: Este é um resumo baseado em dados disponíveis no EOL.  Pode
-        estar incompleto! Você pode selecionar uma barra do gráfico para restringir
-        os resultados da pesquisa.
       hist_value_label: valor (%{units})
       num_records_label: '# de registros'
       other: outros

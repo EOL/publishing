@@ -740,8 +740,7 @@ zh-TW:
         r_form: 型
       reference_taxon_attrib: 來自%{dataset_name}的參考分類單元
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>（%{remarks}）
       username_missing: 使用者 %{user_id}
     trophic_web:
       competitor: 競爭者
@@ -804,7 +803,7 @@ zh-TW:
       show_warns:
         one: 顯示警告（%{count} 個）
         other: 顯示警告（%{count} 個）
-      sync: 與典藏庫同步
+      sync: 同步
       clear_publishing: 清除鎖定
       clear_publishing_confirm: 這將會'結束'所有發布，若在主動發佈時使用會引起問題。您確定嗎？
     headers:
@@ -1062,7 +1061,10 @@ zh-TW:
   traits:
     data_viz:
       about_this_chart: 關於此圖表
-      about_this_chart_tooltip: 此摘要基於在網路生命大百科上可用資料，可能有不完整地方！您可以從圖表選擇條形圖來縮小您的搜尋結果。
+      about_this_chart_tooltip_1d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以從圖表中選擇一個條狀來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在一個以上的條狀中。
+      about_this_chart_tooltip_sankey_2d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。
+      about_this_chart_tooltip_sankey_3+: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。在突出顯示的子集顯示裡，這些多個值的物種將在其它軸上被多次計算。
+      other_term_name: 其他%{term_name}
       hist_value_label: 值（%{units}）
       n_other_records:
         one: 1 個其它紀錄
@@ -1081,6 +1083,7 @@ zh-TW:
       n_taxa_with:
         one: 帶有「%{obj_name}」的 1 個分類
         other: 帶有「%{obj_name}」的 %{count} 個分類
+      sankey_node_hover: 點擊來縮小範圍搜尋%{term_name}
       see_n_obj_records:
         one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
         other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
@@ -1200,6 +1203,11 @@ zh-TW:
   vernacular_names_header: 俗名
   vernacular_preferred_by_resource: '%{resource}（優先此名稱）'
   wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{n}裡的%{m}'
   term:
     actions:
       reindex: 重建索引
