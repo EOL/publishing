@@ -44,7 +44,7 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
     end.to_h
   end
 
-  def i18n_name(locale)
+  def i18n_name(locale = I18n.locale)
     TraitBank::Record.i18n_name_for_locale({
       uri: uri,
       name: name

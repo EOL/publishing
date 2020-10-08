@@ -522,7 +522,7 @@ class TraitBank
       def term_query(q)
         res = query(q)
         all = res["data"].map { |t| t.first["data"].symbolize_keys }
-        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri] } }
+        all.map! { |h| { name: h[:"#{Util::I18nUtil.term_name_property}"], uri: h[:uri], id: h[:eol_id] } }
         all
       end
 
