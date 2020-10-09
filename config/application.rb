@@ -1,7 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
-require 'neo4j/railtie'
+require 'active_graph/railtie'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -37,10 +37,10 @@ module EolWebsite
     config.exceptions_app = self.routes
     config.data_glossary_page_size = 250
 
-    # For neo4j gem, not neography
-    config.neo4j.session.type = :http
-    config.neo4j.session.url = Rails.application.secrets.traitbank_url
-    config.neo4j.session.options = { ssl: false }
+    # For activenode/ruby-neo4j-driver gems, not neography
+    config.neo4j.driver.url = Rails.application.secrets.neo4j_driver_url
+    config.neo4j.driver.username = Rails.application.secrets.neo4j_user
+    config.neo4j.driver.password = Rails.application.secrets.neo4j_password
 
     # Search for classes in the lib directory
     config.autoload_paths += %W(#{config.root}/lib)
