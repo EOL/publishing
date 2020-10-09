@@ -2,6 +2,8 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   include ActiveGraph::Node
   include Autocomplete
 
+  self.mapped_label_name = 'Term'
+
   property :name
   property :definition
   property :distinct_page_count, default: 0
@@ -15,7 +17,7 @@ class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
   property :uri
   id_property :eol_id
 
-  self.mapped_label_name = 'Term'
+  has_many :in, :children, type: :parent_term, model_class: :TermNode
 
   autocompletes "autocomplete_name"
 

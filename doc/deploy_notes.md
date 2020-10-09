@@ -36,4 +36,5 @@ Thanks.
 8/7/2020 (mvitale): Ensure unique constraint on Page.page\_id: CREATE CONSTRAINT ON (page:Page) ASSERT page.page\_id IS UNIQUE
 
 === for next deploy AFTER 10/21/20 deploy
+10/9/2020 (mvitale): `$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver.
 10/10/2020 (mvitale): Enabled Greek -- run `$ rails r "TermNameTranslationManager.rebuild_node_properties"`

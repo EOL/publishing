@@ -143,13 +143,13 @@ class TermQuery < ApplicationRecord
           :show_extra_fields,
           :pred_term_selects_attributes => [
             :type,
-            :parent_uri,
-            :selected_uri
+            :parent_term_id,
+            :selected_term_id
           ],
           :obj_term_selects_attributes => [
             :type,
-            :parent_uri,
-            :selected_uri
+            :parent_term_id,
+            :selected_term_id
           ]
         ]
       ]
