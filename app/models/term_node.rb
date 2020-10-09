@@ -1,5 +1,5 @@
 class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
-  include Neo4j::ActiveNode
+  include ActiveGraph::Node
   include Autocomplete
 
   property :name
