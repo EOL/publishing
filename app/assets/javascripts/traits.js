@@ -220,7 +220,7 @@
         if ($prev.val()) {
           setValFromTermSelect($filterGroup, $prev);
         } else {
-          setTermVal($filterGroup, $filterGroup.find('.js-top-term-uri').val()); 
+          setTermVal($filterGroup, $filterGroup.find('.js-top-term-id').val()); 
         }
       } 
 
@@ -232,8 +232,8 @@
     setTermVal($filterGroup, $select.val());
   }
 
-  function setTermVal($filterGroup, uri) {
-    $filterGroup.find('.js-term-uri').val(uri);
+  function setTermVal($filterGroup, id) {
+    $filterGroup.find('.js-term-id').val(id);
   }
 
   function loadPieChart() {

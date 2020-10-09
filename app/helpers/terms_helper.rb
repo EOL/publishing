@@ -109,7 +109,7 @@ module TermsHelper
 
   def term_options_for_select(term_select)
     term_array = term_select.terms.collect do |term|
-      [term[:name], term[:uri]]
+      [term.i18n_name, term.id]
     end
 
     if term_select.top_level?
@@ -127,7 +127,7 @@ module TermsHelper
 
     placeholder = I18n.t("traits.search.select.#{placeholder_key}")
 
-    options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_uri)
+    options_for_select([[placeholder, nil]].concat(term_array), term_select.selected_term&.id)
   end
 
   def nested_term_selects(form, type)
