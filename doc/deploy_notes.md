@@ -42,3 +42,4 @@ Thanks.
 
 === For Deploys After 2020-11-06
 
+10/9/2020 (mvitale): `$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver.
