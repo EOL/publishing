@@ -1103,6 +1103,21 @@ pms:
   traits:
     data_viz:
       about_this_chart: a propòsit ëd cost gràfich
+      about_this_chart_tooltip_1d: Cost-sì a l'é un resumé basà an sij dàit disponìbil
+        an EdV. A podrìa esse incoplet! A peul selessioné na bara dal gràfich pr'astrenze
+        ij sò arzultà d'arserca. Ch'a nòta che na spece a peul esse comprèisa an pi
+        che un-a bara.
+      about_this_chart_tooltip_sankey_2d: Cost-sì a l'é un resumé basà an sij dàit
+        disponìbij an EdV. A podrìa esse incomplet! A peul selessioné na categorìa
+        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Ch'a nòta che na dàita
+        spece a peul esse comprèisa an pi che un-a categorìa dël midem ass.
+      about_this_chart_tooltip_sankey_3+: Cost-sì a l'é un resumé basà an sij dàit
+        disponìbij su EdV. A podrìo esse incomplet! A peul selessioné na categorìa
+        su un ëd j'ass pr'arstrenze ij sò arzultà d'arserca. Ch'a nòta che na dàita
+        spece a peul esse comprèisa an pi che un-a categorìa dl'istess ass. An na
+        visualisassion ëd sot-ansem evidensià, coste spece a valor mùltipl a saran
+        contà vàire vire an sj'àutri ass.
+      other_term_name: àutr%{term_name}
       hist_value_label: valor (%{units})
       n_other_records:
         one: un-a àutra argistrassion
@@ -1122,6 +1137,7 @@ pms:
       n_taxa_with:
         one: un-a tassonomìa con «%{obj_name}»
         other: '%{count} tassonomìe con «%{obj_name}»'
+      sankey_node_hover: sgnaché për limité l'arserca a %{term_name}
       see_n_obj_records:
         one: sgnaché për vëdde n'argistrassion con «%{obj_name}»
         other: sgnaché për vëdde %{count} argistrassion con «%{obj_name}»
@@ -1260,6 +1276,11 @@ pms:
   vernacular_names_header: Nòm comun
   vernacular_preferred_by_resource: '%{resource} (a preferiss ës nòm-sì)'
   wordcloud_credit_html: generà con <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} su %{n}'
   term:
     actions:
       reindex: riandicisé

@@ -619,7 +619,7 @@ pt-BR:
       republish: republicar
       reindex: reindexar
       index: voltar para todos os recursos
-      sync: sincronizar com o repositório
+      sync: sincronizar
       clear_publishing: bloqueio claro
       clear_publishing_confirm: Isso 'concluirá' toda a publicação e poderá causar
         problemas se usado durante a publicação ativa. Você tem certeza?
@@ -890,7 +890,7 @@ pt-BR:
     trusted: confiável
     untrusted: não confiável
   user:
-    batch_page_lookup: pesquisa de página em lote
+    batch_page_lookup: Pesquisa de página em lote
     created_at: criada
     download_queue: Fila de download de dados
     edit_account_details: Editar detalhes da conta
@@ -909,7 +909,7 @@ pt-BR:
     validations:
       age_confirm: você deve confirmar que tem pelo menos 13 anos de idade
       tou_confirm: você deve confirmar que leu os Termos de uso e a Política de privacidade
-    list_of_power_users: Lista de utilizadores com poderes.
+    list_of_power_users: Lista de usuários com poderes.
     new_password: Nova senha
     confirm_new_password: Confirmar nova senha
     trait_bank_cypher_form: Forma de cifra do banco de características
@@ -934,6 +934,11 @@ pt-BR:
   vernacular_names_header: Nomes comuns
   vernacular_preferred_by_resource: '%{resource} (prefere esse nome)'
   wordcloud_credit_html: gerado com <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} de %{n}'
   term:
     actions:
       reindex: reindexar

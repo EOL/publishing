@@ -314,7 +314,7 @@ ko:
       republish: 다시 게시
       show_all:
         other: 모두 보기 (%{count})
-      sync: 저장소와 동기화
+      sync: 동기화
     headers:
       index: 자료
     no_events: 없음!
@@ -478,6 +478,11 @@ ko:
   users:
     sign_in: 로그인
   vernacular_preferred_by_resource: '%{resource} (이 이름을 선호)'
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{n} 중 %{m}'
   term:
     actions:
       sort: 정렬 기준
