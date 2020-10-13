@@ -58,7 +58,7 @@ class TraitBank::Slurp
 
     def read_field_from_traits_file(id, field)
       file = Rails.public_path.join('data', "traits_#{id}.csv")
-      # read the traits file and pluck out the page IDs...
+      # read the traits file and pluck out the requested field...
       require 'csv'
       data = CSV.read(file)
       headers = data.shift
@@ -112,7 +112,7 @@ class TraitBank::Slurp
     def load_csv_config(id, options = {})
       single_resource = options[:single_resource]
       { "traits_#{id}.csv" =>
-        { 
+        {
           nodes: [
             NodeConfig.new(label: 'Page', attributes: [:page_id]),
             NodeConfig.new(label: 'Trait', attributes: %i[
@@ -166,7 +166,7 @@ class TraitBank::Slurp
             },
             is_not_blank('row.object_page_id') =>
             {
-              nodes: [ 
+              nodes: [
                 NodeConfig.new(label: 'Page', name: 'object_page', attributes: [{
                     page_id: 'row.object_page_id'
                   }]
@@ -234,9 +234,9 @@ class TraitBank::Slurp
       end
       break_up_large_files(filename) do |sub_filename|
         # build nodes required by all rows
-        nodes.each do |node| 
+        nodes.each do |node|
           build_nodes(node, csv_query_head(filename, nil))
-        end 
+        end
 
         wheres.each do |clause, where_config|
           load_csv_where(clause, filename: sub_filename, nodes: nodes, config: where_config)
@@ -336,7 +336,7 @@ class TraitBank::Slurp
       head = csv_query_head(filename, clause)
 
       # First, build all of the nodes specific to this where clause
-      where_nodes.each do |node_config| 
+      where_nodes.each do |node_config|
         build_nodes(node_config, head)
       end
 
@@ -409,19 +409,12 @@ class TraitBank::Slurp
 
     def build_nodes(config, head)
       pk_attr = config.pk_attr
-      q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{pk_attr.val} })"
+      q = "#{head}MERGE (#{config.name}:#{config.label} { #{pk_attr.key}: #{autocast_val(pk_attr)} })"
       config.other_attrs.each do |attr|
-        q << set_attribute(config.name, attr.key, attr.val, 'CREATE')
-        q << set_attribute(config.name, attr.key, attr.val, 'MATCH')
+        q << set_attribute(config.name, attr, 'CREATE')
+        q << set_attribute(config.name, attr, 'MATCH')
       end
       query(q)
-    end
-
-    # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
-    def autocast_val(value)
-      # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
-      value = "toInt(#{value})" if value =~ /_(num|id)$/
-      value
     end
 
     def merge_triple(options)
@@ -454,8 +447,15 @@ class TraitBank::Slurp
       query("#{q}\nMERGE (#{subj})-[:#{pred}]->(#{obj})")
     end
 
-    def set_attribute(name, attribute, value, on_set)
-      "\nON #{on_set} SET #{name}.#{attribute} = #{value}"
+    def set_attribute(name, attribute, on_set)
+      "\nON #{on_set} SET #{name}.#{attribute.key} = #{autocast_val(attribute)}"
+    end
+
+    # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
+    def autocast_val(attr)
+      # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
+      value = "toInt(#{attr.val})" if attr.key =~ /_(num|id)$/
+      value
     end
 
     def is_not_blank(field)

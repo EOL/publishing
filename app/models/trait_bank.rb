@@ -167,6 +167,11 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
+    # NOTE: this method is unused in the code, it's here for convenience when debugging.
+    def by_eol_pk(eol_pk)
+      by_trait_and_page({id: eol_pk}, nil)
+    end
+
     def by_trait_and_page(input, page_id, page = 1, per = 200)
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
       page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
@@ -204,6 +209,7 @@ class TraitBank
           meta_units_term.uri, sex_term.uri, lifestage_term.uri, statistical_method_term.uri, meta.source
       })
     end
+    alias_method :by_eol_pk, :data_dump_trait
 
     def by_page(page_id, page = 1, per = 100)
       Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
@@ -761,7 +767,7 @@ class TraitBank
 
             flattened_gathered_terms = gathered_terms.flatten
             if flattened_gathered_terms.any?
-              gt_part = flattened_gathered_terms.map do |t| 
+              gt_part = flattened_gathered_terms.map do |t|
                 include_tgt_vars ? "#{t.gathered_list_label}, #{t.tgt_label}" : t.gathered_list_label
               end.join(", ")
               match += ", #{gt_part}"
@@ -795,7 +801,7 @@ class TraitBank
 
       if flattened.any?
         gt_part = gathered_terms.flatten.map do |gt|
-          options[:with_tgt_vars] ? 
+          options[:with_tgt_vars] ?
             "#{gt.gathered_list_label}, #{gt.tgt_label}" :
             gt.gathered_list_label
         end.join(", ")
@@ -812,8 +818,8 @@ class TraitBank
         term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
       )
       gathered_term_matches, gathered_terms = gather_terms_matches(
-        filters, 
-        params, 
+        filters,
+        params,
         first_filter_gather_all: clade_matched,
         include_tgt_vars: options[:with_tgt_vars]
       )
@@ -869,7 +875,7 @@ class TraitBank
           WHERE #{filter_wheres.join(" AND ")}
         )
 
-        with = options[:with_tgt_vars] ? 
+        with = options[:with_tgt_vars] ?
           yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
           yield(i, filter, trait_var, pred_labeler&.label, obj_term_labeler&.label)
 
