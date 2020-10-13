@@ -432,7 +432,7 @@ class TraitBank::Slurp
       # MATCH any required nodes:
       nodes.each do |node|
         next unless subj == node.name || obj == node.name
-        q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{node.pk_attr.val} })"
+        q += "\nMATCH (#{node.name}:#{node.label} { #{node.pk_attr.key}: #{autocast_val(node.pk_attr)} })"
       end
 
       # MATCH any ... uhhh... matches required:
