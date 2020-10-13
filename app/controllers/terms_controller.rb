@@ -74,12 +74,13 @@ class TermsController < ApplicationController
   end
 
   def meta_object_terms
-    pred = params[:pred]
+    pred = params[:meta_predicate]
     uris = META_OBJECT_URIS[pred.to_sym] || []
-    res = uris.map do |uri|
+    terms = TermNode.where(uri: uris)
+    res = terms.map do |term|
       {
-        name: TraitBank::Term.name_for_uri(uri),
-        uri: uri
+        name: term.i18n_name,
+        id: term.id
       }
     end
     render json: res

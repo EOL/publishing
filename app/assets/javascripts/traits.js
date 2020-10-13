@@ -81,7 +81,7 @@
       });
     });
 
-    $('.js-meta-obj-typeahead').each(function() {
+    $('.js-meta-object-typeahead').each(function() {
       buildTypeahead(this, { minLength: 0 }, {
         name: 'meta-obj-names',
         display: 'name',
@@ -92,7 +92,7 @@
           remote: {
             url: Routes.terms_meta_object_terms_path({ 
               query: 'QUERY',
-              pred: $(this).data('pred'),
+              meta_predicate: $(this).data('metaPredicate'),
               format: 'json'
             }),
             wildcard: 'QUERY'
