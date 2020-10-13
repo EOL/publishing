@@ -6,7 +6,7 @@ class TermQueryFilter < ApplicationRecord
   validate :validation
 
   attr_reader :show_extra_fields
-  attr_accessor :root_predicate_id, :predicate_id, :object_term_id, :units_term_id
+  attr_accessor :root_predicate_id, :predicate_id, :object_term_id, :units_term_id, :sex_term_id, :lifestage_term_id, :statistical_method_term_id
 
   class TermSelect
     attr_reader :type, :parent_term, :selected_term
