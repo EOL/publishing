@@ -194,7 +194,8 @@ module PagesHelper
   def show_page_media_filters?(filterable)
     filterable && (
       (@license_groups && @license_groups.length > 1) ||
-      (@resources && @resources.length > 1)
+      (@resources && @resources.length > 1) ||
+      (@subclasses && @subclasses.length > 1)
     )
   end
 
