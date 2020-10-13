@@ -6,7 +6,7 @@ class TermQueryFilter < ApplicationRecord
   validate :validation
 
   attr_reader :show_extra_fields
-  attr_accessor :top_pred_id
+  attr_accessor :root_predicate_id, :predicate_id, :object_term_id, :units_term_id
 
   class TermSelect
     attr_reader :type, :parent_term, :selected_term
@@ -55,27 +55,36 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def predicate?
-    !pred_uri.blank?
+    predicate_id.present?
   end
 
-  def pred_node
+  def predicate
     if predicate?
-      @pred_node ||= TermNode.find(pred_uri)
+      @predicate ||= TermNode.find(pred_uri)
     else
       nil
     end
   end
 
-  def units_for_pred?
-    pred_uri && !TraitBank::Term.units_for_pred(pred_uri).nil?
+  def units_for_predicate?
+    predicate? && predicate.units_term.present?
   end
 
+  def predicate_has_numeric_value?
+    predicate? && predicate.numeric_value_predicate?
+  end
+
+  def predicate_units_term
+    predicate&.units_term
+  end
+
+
   def association_pred?
-    pred_node&.type == "association"
+    predicate&.type == "association"
   end
 
   def object_term?
-    obj_uri.present?
+    object_term.present?
   end
 
   def object?
@@ -83,19 +92,19 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def units_term?
-    units_uri.present?
+    units_term.present?
   end
 
   def sex_term?
-    sex_uri.present?
+    sex_term.present?
   end
 
   def lifestage_term?
-    lifestage_uri.present?
+    lifestage_term.present?
   end
 
   def statistical_method_term?
-    statistical_method_uri.present?
+    statistical_method_term.present?
   end
 
   def extra_fields?
@@ -109,6 +118,7 @@ class TermQueryFilter < ApplicationRecord
     show_extra_fields || extra_fields?
   end
 
+  # TODO: update (we're using ids now)
   def clear_extra_fields
     self.sex_uri = nil
     self.lifestage_uri = nil
@@ -137,6 +147,7 @@ class TermQueryFilter < ApplicationRecord
     !num_val1.blank? && !num_val2.blank? && num_val1 != num_val2
   end
 
+  # TODO: update
   def to_s
     pieces = []
     pieces << "op: :#{op}"
@@ -153,6 +164,7 @@ class TermQueryFilter < ApplicationRecord
     "{#{pieces.join(',')}}"
   end
 
+  # TODO: update
   def to_cache_key
     pieces = []
     pieces << "op_#{op}"
@@ -202,12 +214,11 @@ class TermQueryFilter < ApplicationRecord
     resource.blank?
   end
     
-
   def really_blank?
     blank? && extra_fields_blank?
   end
 
-  def obj_term_only?
+  def object_term_only?
     pred_uri.blank? && obj_clade.nil? && extra_fields_blank?
   end
 
@@ -215,26 +226,26 @@ class TermQueryFilter < ApplicationRecord
     @show_extra_fields = ActiveRecord::Type::Boolean.new.cast(val)
   end
 
-  def pred_term_selects
-    if @pred_term_selects.nil?
-      self.pred_term_selects_attributes = {}
+  def predicate_child_selects
+    if @predicate_child_selects.nil?
+      self.predicate_child_selects_attributes = {}
     end
 
-    @pred_term_selects
+    @predicate_child_selects
   end
 
-  def obj_term_selects
-    @obj_term_selects ||= [TermSelect.new(:object_term, nil, nil)]
+  def object_term_selects
+    @object_term_selects ||= [TermSelect.new(:object_term, nil, nil)]
   end
 
-  def pred_term_selects_attributes=(attrs)
+  def predicate_child_selects_attributes=(attrs)
     selects = []
 
-    if top_pred_term_node.present?
+    if root_predicate.present?
       sorted_keys = attrs.keys.sort
       attr_arr = sorted_keys.collect { |k| attrs[k] }
 
-      if attr_arr.any? && top_pred_term_node.id == attr_arr.first[:parent_term_id]
+      if attr_arr.any? && root_predicate.id == attr_arr.first[:parent_term_id]
         i = 0
         continue = true
 
@@ -254,7 +265,7 @@ class TermQueryFilter < ApplicationRecord
 
       if selects.empty? || selects.last.selected_term.present?
         if selects.empty?
-          parent_id = top_pred_term_node.id
+          parent_id = root_predicate.id
         else
           parent_id = selects.last.selected_term.id
         end
@@ -269,47 +280,48 @@ class TermQueryFilter < ApplicationRecord
       end
     end
 
-    @pred_term_selects = selects
+    @predicate_child_selects = selects
   end
 
   def obj_term_selects_attributes=(attrs)
   end
 
-  def pred_term_node
-    return @pred_term_node if @pred_term_node
-    @pred_term_node = predicate? ? TermNode.find_by(uri: pred_uri) : nil
+  def predicate
+    return @predicate if @predicate
+    @predicate = predicate_id.present? ? TermNode.find(predicate_id) : nil
   end
 
-  def obj_term_node
-    return @obj_term_node if @obj_term_node
-    @obj_term_node = object_term? ? TermNode.find_by(uri: obj_uri) : nil
+  def object_term
+    return @object_term if @object_term
+    @object_term = object_term_id.present? ? TermNode.find(object_term_id) : nil
   end
 
-  def units_term_node
-    return @units_term_node if @units_term_node
-    @units_term_node = units_term? ? TermNode.find_by(uri: units_uri) : nil
+  def units_term
+    return @units_term if @units_term
+    @units_term = units_term_id.present? ? TermNode.find(units_term_id) : nil
   end
 
-  def sex_term_node
-    return @sex_term_node if @sex_term_node
-    @sex_term_node = sex_term? ? TermNode.find_by(uri: sex_uri) : nil
+  def sex_term
+    return @sex_term if @sex_term
+    @sex_term = sex_term_id.present? ? TermNode.find(sex_term_id) : nil
   end
 
-  def lifestage_term_node
-    return @lifestage_term_node if @lifestage_term_node
-    @lifestage_term_node = lifestage_term? ? TermNode.find_by(uri: lifestage_uri) : nil
+  def lifestage_term
+    return @lifestage_term if @lifestage_term
+    @lifestage_term = lifestage_term_id.present? ? TermNode.find(lifestage_term_id) : nil
   end
 
-  def statistical_method_term_node
-    return @statistical_method_term_node if @statistical_method_term_node
-    @statistical_method_term_node = statistical_method_term?? TermNode.find_by(uri: statistical_method_uri) : nil
+  def statistical_method_term
+    return @statistical_method_term if @statistical_method_term
+    @statistical_method_term = statistical_method_term_id.present? ? TermNode.find(statistical_method_term_id) : nil
   end
 
-  def obj_clade_node
+  def object_clade_node
     return @obj_clade_node if @obj_clade_node
     @obj_clade_node = obj_clade_id.present? ? PageNode.find(obj_clade_id) : nil
   end
 
+  # TODO: fix/update
   def all_fields
     [pred_field, obj_term_field, obj_clade_field].compact
   end
@@ -346,68 +358,9 @@ class TermQueryFilter < ApplicationRecord
     end
   end
 
-  def obj_term_id
-    obj_term_node&.id
-  end
-
-  def obj_term_id=(id)
-    @object_term_node = TermNode.find(id)
-    self.obj_uri = @object_term_node.uri
-  end
-
-  def pred_id
-    pred_term_node&.id
-  end
-
-  def pred_id=(id)
-    if id.blank?
-      @pred_term_node = nil
-      self.pred_uri = nil
-    else
-      @pred_term_node = TermNode.find(id)
-      self.pred_uri = @pred_term_node.uri
-    end
-  end
-
-  def units_id
-    units_term_node&.id
-  end
-
-  def units_id=(id)
-    @units_term_node = TermNode.find(id)
-    self.units_uri = @units_term_node.uri
-  end
-
-  def sex_id
-    sex_term_node&.id
-  end
-
-  def sex_id=(id)
-    @sex_term_node = TermNode.find(id)
-    self.sex_uri = @sex_term_node.uri
-  end
-
-  def lifestage_id
-    lifestage_term_node&.id
-  end
-
-  def lifestage_id=(id)
-    @lifestage_term_node = TermNode.find(id)
-    self.lifestage_uri = @lifestage_term_node.uri
-  end
-
-  def statistical_method_id
-    statistical_method_term_node&.id
-  end
-
-  def statistical_method_id=(id)
-    @statistical_method_term_node = TermNode.find(id)
-    self.statistical_method_uri = @statistical_method_term_node.id
-  end
-
-  def top_pred_term_node
-    return nil if top_pred_id.blank?
-    @top_pred_term_node ||= TermNode.find(top_pred_id)
+  def root_predicate
+    return nil if root_predicate_id.blank?
+    @root_predicate ||= TermNode.find(root_predicate_id)
   end
 
   private
