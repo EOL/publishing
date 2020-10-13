@@ -454,8 +454,8 @@ class TraitBank::Slurp
     # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
     def autocast_val(attr)
       # NOTE: This code automatically makes integers out of any attribute ending in "_id" or "_num". BE AWARE!
-      value = "toInt(#{attr.val})" if attr.key =~ /_(num|id)$/
-      value
+      return "toInt(#{attr.val})" if attr.key =~ /_(num|id)$/
+      %{"#{attr.val.gsub('"', '\\"')}"}
     end
 
     def is_not_blank(field)
