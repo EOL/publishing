@@ -221,7 +221,8 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
+          "OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page) "\
+          "RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term"
 
         # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
         #   "LOWER(trait.literal)", "trait.normal_measurement"])
