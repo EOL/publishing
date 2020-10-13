@@ -185,10 +185,11 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
           OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
           OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
           OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
-          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term,
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
             meta, meta_predicate, meta_units_term, meta_object_term, page }
           # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
@@ -249,7 +250,8 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, trait_count
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
         ))
 
         build_trait_array(res)
@@ -303,7 +305,8 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
         ))
 
         build_trait_array(res)
