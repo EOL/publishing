@@ -262,19 +262,20 @@ class TraitBank
       # TODO: extract a Predicate class. There's a lot here and that's a logic way to break this up.
 
       # Keep checking the following methods for use in the codebase:
-      def obj_terms_for_pred(pred_uri, orig_qterm = nil)
+      def obj_terms_for_pred(predicate, orig_qterm = nil)
         qterm = orig_qterm.delete('"').downcase.strip
-        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{pred_uri}/#{qterm}",
+        Rails.cache.fetch("trait_bank/obj_terms_for_pred/#{I18n.locale}/#{predicate.uri}/#{qterm}",
                           expires_in: CACHE_EXPIRATION_TIME) do
           name_field = Util::I18nUtil.term_name_property
           q = %Q{MATCH (object:Term { type: 'value',
-                 is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{pred_uri}' })}
+                 is_hidden_from_select: false })-[:object_for_predicate]->(:Term{ uri: '#{predicate.uri}' })}
           q += "\nWHERE #{term_name_prefix_match("object", qterm)}" if qterm
           q +=  "\nRETURN object ORDER BY object.position LIMIT #{DEFAULT_GLOSSARY_PAGE_SIZE}"
           res = query(q)
           res["data"] ? res["data"].map do |t|
             hash = t.first["data"].symbolize_keys
             hash[:name] = hash[:"#{name_field}"]
+            hash[:id] = hash[:eol_id]
             hash
           end : []
         end

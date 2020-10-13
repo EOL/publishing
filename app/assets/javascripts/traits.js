@@ -133,21 +133,21 @@
       }
     });
 
-    buildTypeahead('.js-pred-typeahead', { minLength: 0 }, {
+    buildTypeahead('.js-predicate-typeahead', { minLength: 0 }, {
       name: 'pred-names',
       display: 'name',
       limit: Infinity,
       source: predSource
     }, 'id', fetchForm);
 
-    $('.js-pred-obj-typeahead').each(function() {
+    $('.js-object-term-for-predicate-typeahead').each(function() {
       var source = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
           url: Routes.terms_object_terms_for_predicate_path({ 
             query: 'QUERY',
-            pred_uri: $(this).data('predUri'),
+            predicate_id: $(this).data('predicateId'),
             format: 'json'
           }),
           wildcard: 'QUERY'
@@ -160,11 +160,11 @@
         source: source,
         minLength: 0,
         limit: Infinity
-      }, 'uri', null)
+      }, 'id', null)
     });
 
 
-    buildTypeahead('.js-obj-typeahead', {}, {
+    buildTypeahead('.js-object-term-typeahead', {}, {
       name: 'obj-names',
       display: 'name',
       limit: Infinity,

@@ -128,25 +128,25 @@ class TermQuery < ApplicationRecord
         :clade_id,
         :result_type,
         :filters_attributes => [
-          :pred_id,
-          :top_pred_id,
-          :obj_term_id,
+          :predicate_id,
+          :root_predicate_id,
+          :object_term_id,
           :obj_clade_id,
           :op,
           :num_val1,
           :num_val2,
-          :units_id,
-          :sex_id,
-          :lifestage_id,
-          :statistical_method_id,
+          :units_term_id,
+          :sex_term_id,
+          :lifestage_term_id,
+          :statistical_method_term_id,
           :resource_id,
           :show_extra_fields,
-          :pred_term_selects_attributes => [
+          :predicate_child_selects_attributes => [
             :type,
             :parent_term_id,
             :selected_term_id
           ],
-          :obj_term_selects_attributes => [
+          :object_term_child_selects_attributes => [
             :type,
             :parent_term_id,
             :selected_term_id

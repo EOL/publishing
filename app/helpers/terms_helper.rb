@@ -16,16 +16,8 @@ module TermsHelper
   end
 
   def units_select_options(filter)
-    result = TraitBank::Term.units_for_pred(filter.pred_uri) # NOTE: this is cached in the class.
-
-    return [] if result == :ordinal # TODO: better handling of this.
-
-    uris = [result[:units_uri]] unless uris
-    options = uris.map do |uri|
-      [TraitBank::Term.name_for_uri(uri), uri]
-    end
-
-    options_for_select(options, result[:units_uri])
+    units_term = filter.predicate.units_term
+    options_for_select([[units_term.i18n_name, units_term.id]], units_term.id)
   end
 
   def pred_name(uri)
@@ -131,7 +123,7 @@ module TermsHelper
   end
 
   def nested_term_selects(form, type)
-    type_str = "#{type}_term_selects"
+    type_str = "#{type}_child_selects"
     selects = form.object.send(type_str)
     nested_term_selects_helper(form, selects, type_str)
   end

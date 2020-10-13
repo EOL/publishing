@@ -12,10 +12,10 @@
 .filter-row{:class => classes}
   .filter-row-group.js-filter-row-group
     %span.js-typeahead-wrap.filter-field
-      = text_field_tag term_name_input_name, term_for_name_field&.i18n_name, :class => "uk-input js-#{field_name}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.fetch(:typeahead_data, nil)
+      = text_field_tag term_name_input_name, term_for_name_field&.i18n_name, :class => "uk-input js-#{local_assigns.fetch(:typeahead_class, field_name.gsub('_', '-'))}-typeahead js-term-name", :placeholder => placeholder, :data => local_assigns.fetch(:typeahead_data, nil)
       = ff.hidden_field term_id_name, :class => "js-typeahead-field js-term-id"
       - show_error(ff.object, term_id_name)
       - if local_assigns.fetch(:nested_selects, false)
-        = ff.hidden_field "top_#{term_id_name}", :class => "js-typeahead-field js-top-term-uri"
+        = ff.hidden_field "root_#{term_id_name}", :class => "js-typeahead-field js-top-term-uri"
         .js-term-select-contain.term-select-contain
           = nested_term_selects(ff, field_name)
