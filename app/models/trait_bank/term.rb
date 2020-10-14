@@ -117,18 +117,24 @@ class TraitBank
       def query_for_update(properties)
         sets = []
         properties.keys.each do |property|
+          term_property = "term.#{property}"
+          value = nil
+
           if property.to_s =~ /^is_/ # Booleans are handled separately.
-            sets << "term.#{property} = #{properties[property] ? 'true' : 'false'}"
+            value = properties[property] ? 'true' : 'false'
           elsif RELATIONSHIP_PROPERTIES.keys.include?(property)
             # we have to skip that here; reltionships must be done with a separate query. (Should already have been called.)
           else
-            sets << if properties[property].nil?
-              "term.#{property} = ''"
+            value = if properties[property].nil?
+              ''
+            elsif properties[property].is_a?(Integer)
+              properties[property] # e.g., eol_id
             else
-              # NOTE: it could be the eol_id, which is actually a number. ...But we want to stringify it:
-              %{term.#{property} = "#{properties[property].to_s.gsub(/"/, '\"')}"}
+              "\"#{properties[property].to_s.gsub(/"/, '\"')}\""
             end
           end
+
+          sets << "#{term_property} = #{value}" if !value.nil?
         end
         "MATCH (term:Term { uri: '#{properties['uri']}' }) SET #{sets.join(', ')} RETURN term"
       end
