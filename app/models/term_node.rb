@@ -1,4 +1,4 @@
-class TermNode # Just 'Term' conflicts with a module in some gem. *sigh*
+class TermNode
   include ActiveGraph::Node
   include Autocomplete
 

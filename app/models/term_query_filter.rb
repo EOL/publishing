@@ -2,11 +2,20 @@ class TermQueryFilter < ApplicationRecord
   belongs_to :term_query, :inverse_of => :filters
   belongs_to :resource, optional: true
   belongs_to :obj_clade, class_name: "Page", optional: true
+
+  include RecordBelongsToNode
+  belongs_to_node :predicate, "TermNode"
+  belongs_to_node :object_term, "TermNode"
+  belongs_to_node :units_term, "TermNode"
+  belongs_to_node :sex_term, "TermNode"
+  belongs_to_node :lifestage_term, "TermNode"
+  belongs_to_node :statistical_method_term, "TermNode"
+  
   validates_presence_of :term_query
   validate :validation
 
   attr_reader :show_extra_fields
-  attr_accessor :root_predicate_id, :predicate_id, :object_term_id, :units_term_id, :sex_term_id, :lifestage_term_id, :statistical_method_term_id
+  attr_accessor :root_predicate_id
 
   class TermSelect
     attr_reader :type, :parent_term, :selected_term
@@ -56,14 +65,6 @@ class TermQueryFilter < ApplicationRecord
 
   def predicate?
     predicate_id.present?
-  end
-
-  def predicate
-    if predicate?
-      @predicate ||= TermNode.find(pred_uri)
-    else
-      nil
-    end
   end
 
   def units_for_predicate?
@@ -284,36 +285,6 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def obj_term_selects_attributes=(attrs)
-  end
-
-  def predicate
-    return @predicate if @predicate
-    @predicate = predicate_id.present? ? TermNode.find(predicate_id) : nil
-  end
-
-  def object_term
-    return @object_term if @object_term
-    @object_term = object_term_id.present? ? TermNode.find(object_term_id) : nil
-  end
-
-  def units_term
-    return @units_term if @units_term
-    @units_term = units_term_id.present? ? TermNode.find(units_term_id) : nil
-  end
-
-  def sex_term
-    return @sex_term if @sex_term
-    @sex_term = sex_term_id.present? ? TermNode.find(sex_term_id) : nil
-  end
-
-  def lifestage_term
-    return @lifestage_term if @lifestage_term
-    @lifestage_term = lifestage_term_id.present? ? TermNode.find(lifestage_term_id) : nil
-  end
-
-  def statistical_method_term
-    return @statistical_method_term if @statistical_method_term
-    @statistical_method_term = statistical_method_term_id.present? ? TermNode.find(statistical_method_term_id) : nil
   end
 
   def object_clade_node
