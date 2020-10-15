@@ -159,7 +159,7 @@ class TraitBank
           return CheckResult.invalid("query must have a single predicate filter")
         end
 
-        pred_uri = query.predicate_filters.first.pred_uri
+        pred_uri = query.predicate_filters.first.predicate.uri
         pred_result = check_predicate(pred_uri)
         return pred_result if !pred_result.valid?
 
@@ -185,7 +185,7 @@ class TraitBank
         end
 
         filter = query.filters.first
-        pred_uri = filter.pred_uri
+        pred_uri = filter.predicate&.uri
 
         if pred_uri.present?
           pred_result = check_predicate(pred_uri)
@@ -271,7 +271,7 @@ class TraitBank
 
         if filter.object_term?
           result.concat("-[#{TraitBank.parent_terms}]->(:Term { uri: $count_query_obj })")
-          params[:count_query_obj] = filter.obj_uri
+          params[:count_query_obj] = filter.object_term.uri
         end
 
         result.concat("\nWHERE #{anc_var}.is_hidden_from_select = false")
