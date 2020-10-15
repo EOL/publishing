@@ -243,14 +243,13 @@ class TermQueryFilter < ApplicationRecord
       attr_arr = sorted_keys.collect { |k| attrs[k] }
 
       if attr_arr.any? && root_predicate.id == attr_arr.first[:parent_term_id].to_i
-        debugger
         i = 0
         continue = true
 
         while i < attr_arr.length && continue
           field = attr_arr[i]
-          selected_id = field[:selected_term_id].to_i
-          parent_id = field[:parent_term_id].to_i
+          selected_id = field[:selected_term_id].blank? ? nil : Integer(field[:selected_term_id])
+          parent_id = field[:parent_term_id].blank? ? nil : Integer(field[:parent_term_id])
 
           if i == 0 || parent_id == selects[i - 1].selected_term.id
             selects << TermSelect.new(field[:type].to_sym, parent_id, selected_id)
@@ -306,7 +305,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def min_distinct_page_count
-    [pred_term_node, obj_term_node].compact.map { |t| t.distinct_page_count }.min || 0
+    [predicate, object_term].compact.map { |t| t.distinct_page_count }.min || 0
   end
 
   def obj_clade_field
@@ -315,7 +314,7 @@ class TermQueryFilter < ApplicationRecord
 
   def obj_term_field
     if object_term?
-      Field.new(obj_uri, obj_term_node.trait_row_count, :object_term)
+      Field.new(object_term.uri, object_term.trait_row_count, :object_term)
     else
       nil
     end
@@ -323,7 +322,7 @@ class TermQueryFilter < ApplicationRecord
 
   def pred_field
     if predicate?
-      Field.new(pred_uri, pred_term_node.trait_row_count, :predicate)
+      Field.new(predicate.uri, predicate.trait_row_count, :predicate)
     else
       nil
     end
