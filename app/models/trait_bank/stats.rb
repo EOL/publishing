@@ -82,7 +82,7 @@ class TraitBank
           buckets = [Math.sqrt(record_count), 20].min.ceil
           TraitBank.query(%Q[
             MATCH #{TraitBank.page_match(query, "page", "")},
-            (tgt_p:Term{ uri: '#{filter.pred_uri}'}),
+            (tgt_p:Term{ uri: '#{filter.predicate.uri}'}),
             (page)-[#{TraitBank::trait_rels_for_query_type(query)}]->(t:Trait)-[:predicate]->(:Term)-[#{TraitBank.parent_terms}]->(tgt_p)
             WITH DISTINCT page, t
             MATCH (t)-[:normal_units_term]->(u:Term)
@@ -173,7 +173,7 @@ class TraitBank
           return CheckResult.invalid("query must have a single predicate filter")
         end
 
-        pred_uri = query.predicate_filters.first.pred_uri
+        pred_uri = query.predicate_filters.first.predicate.uri
         pred_result = check_predicate(pred_uri)
         return pred_result if !pred_result.valid?
 
@@ -199,7 +199,7 @@ class TraitBank
         end
 
         filter = query.filters.first
-        pred_uri = filter.pred_uri
+        pred_uri = filter.predicate&.uri
 
         if pred_uri.present?
           pred_result = check_predicate(pred_uri)
@@ -285,7 +285,7 @@ class TraitBank
 
         if filter.object_term?
           result.concat("-[#{TraitBank.parent_terms}]->(:Term { uri: $count_query_obj })")
-          params[:count_query_obj] = filter.obj_uri
+          params[:count_query_obj] = filter.object_term.uri
         end
 
         result.concat("\nWHERE #{anc_var}.is_hidden_from_select = false")
