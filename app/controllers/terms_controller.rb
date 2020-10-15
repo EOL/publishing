@@ -67,7 +67,7 @@ class TermsController < ApplicationController
   end
 
   def object_terms_for_pred
-    pred = TermNode.find(params[:predicate_id])
+    pred = TermNode.find(params[:predicate_id].to_i)
     q = params[:query]
     res = TraitBank::Term.obj_terms_for_pred(pred, q) # NOTE: this is already cached by the class. ...is that wise?
     render :json => res
