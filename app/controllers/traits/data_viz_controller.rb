@@ -149,12 +149,12 @@ module Traits
           clade_id: query.clade_id,
           result_type: query.result_type,
           filters_attributes: [{
-            pred_uri: query.filters.first.pred_uri,
-            obj_uri: row[:obj][:uri] 
+            predicate_id: query.filters.first.predicate.id,
+            object_term_id: row[:obj][:eol_id] 
           }]
         }),
         row[:count],
-        query.filters.first.obj_uri == row[:obj][:uri]
+        query.filters.first.object_term&.id == row[:obj][:eol_id]
       )
     end
 
