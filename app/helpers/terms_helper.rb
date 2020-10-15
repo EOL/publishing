@@ -46,7 +46,7 @@ module TermsHelper
 
   def filter_obj_name(filter)
     raise TypeError.new("filter does not have an object") if !filter.object?
-    filter.object_term? ? i18n_term_name_for_uri(filter.obj_uri) : filter.obj_clade.canonical
+    filter.object_term? ?  filter.object_term.i18n_name : filter.obj_clade.canonical
   end
 
   def filter_display_string(filter)
@@ -54,7 +54,7 @@ module TermsHelper
     prefix = "traits.search.filter_display."
 
     if filter.predicate?
-      pred_name = i18n_term_name_for_uri(filter.pred_uri)
+      pred_name = filter.predicate.i18n_name
 
       if filter.object?
         parts << t("#{prefix}pred_obj", pred: pred_name, obj: filter_obj_name(filter))
@@ -78,9 +78,9 @@ module TermsHelper
     end
 
     if filter.extra_fields?
-      parts << t("#{prefix}sex", value: i18n_term_name_for_uri(filter.sex_uri)) if filter.sex_term?
-      parts << t("#{prefix}lifestage", value: i18n_term_name_for_uri(filter.lifestage_uri)) if filter.lifestage_term?
-      parts << t("#{prefix}statistical_method", value: i18n_term_name_for_uri(filter.statistical_method_uri)) if filter.statistical_method_term?
+      parts << t("#{prefix}sex", value: filter.sex_term.i18n_name) if filter.sex_term?
+      parts << t("#{prefix}lifestage", value: filter.lifestage_term.i18n_name) if filter.lifestage_term?
+      parts << t("#{prefix}statistical_method", value: filter.statistical_method_term.i18n_name) if filter.statistical_method_term?
       parts << t("#{prefix}resource", value: filter.resource.name) if filter.resource
     end
 
