@@ -28,7 +28,7 @@
             - show_error(ff.object, :num_val2)
         - if ff.object.units_for_predicate?
           .filter-row
-            = ff.select :units_uri, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
+            = ff.select :units_term_id, units_select_options(ff.object), {}, :class => "filter-input uk-select l-filter-full"
       - elsif ff.object.association_pred?
         %span.js-typeahead-wrap.filter-field
           = text_field_tag "obj_clade_name", ff.object.obj_clade&.native_node&.canonical_form, :class => "js-clade-typeahead uk-input", :placeholder => t(".target_group")
