@@ -461,11 +461,11 @@ class TraitBank
       term_condition = []
 
       if filter.predicate?
-        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.pred_uri, :predicate, params, gathered_terms)
+        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.predicate.uri, :predicate, params, gathered_terms)
       end
 
       if filter.object_term?
-        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.obj_uri, :object_term, params, gathered_terms)
+        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.object_term.uri, :object_term, params, gathered_terms)
       end
 
       if filter.obj_clade.present?
@@ -492,7 +492,7 @@ class TraitBank
         end
 
         units_param = "#{trait_var}_u"
-        params[units_param] = filter.units_uri
+        params[units_param] = filter.units_term.uri
 
         parts << "("\
         "#{trait_var}.normal_measurement IS NOT NULL "\
@@ -520,7 +520,7 @@ class TraitBank
     def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
       add_term_filter_meta_match(
         Eol::Uris.sex,
-        filter.sex_uri,
+        filter.sex_term.uri,
         trait_var,
         "#{base_meta_var}_sex",
         matches,
@@ -529,7 +529,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         Eol::Uris.lifestage,
-        filter.lifestage_uri,
+        filter.lifestage_term.uri,
         trait_var,
         "#{base_meta_var}_ls",
         matches,
@@ -538,7 +538,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         Eol::Uris.statistical_method,
-        filter.statistical_method_uri,
+        filter.statistical_method_term.uri,
         trait_var,
         "#{base_meta_var}_stat",
         matches,
