@@ -11,7 +11,7 @@ module RecordBelongsToNode
   class_methods do
     def belongs_to_node(assoc_name, class_name)
       id_field_name = :"#{assoc_name}_id"
-      instance_var_name = "@#{assoc_name}"
+      instance_var_name = :"@#{assoc_name}"
       klass = Object.const_get class_name
 
       define_method(:"#{id_field_name}=") do |val|
@@ -22,11 +22,15 @@ module RecordBelongsToNode
       end
 
       define_method(assoc_name) do
+        assoc_id = self.read_attribute(id_field_name)
+        return nil if assoc_id.nil?
+
         cur_val = instance_variable_get(instance_var_name)
         return cur_val if cur_val
+
         instance_variable_set(
           instance_var_name,
-          klass.find(self.read_attribute(id_field_name))
+          klass.find(Integer(self.read_attribute(id_field_name)))
         )
       end
     end

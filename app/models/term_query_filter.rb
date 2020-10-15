@@ -14,8 +14,7 @@ class TermQueryFilter < ApplicationRecord
   validates_presence_of :term_query
   validate :validation
 
-  attr_reader :show_extra_fields
-  attr_accessor :root_predicate_id
+  attr_reader :show_extra_fields, :root_predicate_id
 
   class TermSelect
     attr_reader :type, :parent_term, :selected_term
@@ -246,20 +245,24 @@ class TermQueryFilter < ApplicationRecord
       sorted_keys = attrs.keys.sort
       attr_arr = sorted_keys.collect { |k| attrs[k] }
 
-      if attr_arr.any? && root_predicate.id == attr_arr.first[:parent_term_id]
+      if attr_arr.any? && root_predicate.id == attr_arr.first[:parent_term_id].to_i
+        debugger
         i = 0
         continue = true
 
         while i < attr_arr.length && continue
           field = attr_arr[i]
-          if i == 0 || field[:parent_term_id] == selects[i - 1].selected_term.id
-            selects << TermSelect.new(field[:type].to_sym, field[:parent_term_id], field[:selected_term_id])
+          selected_id = field[:selected_term_id].to_i
+          parent_id = field[:parent_term_id].to_i
+
+          if i == 0 || parent_id == selects[i - 1].selected_term.id
+            selects << TermSelect.new(field[:type].to_sym, parent_id, selected_id)
             added = true
           else
             added = false
           end
 
-          continue = added && field[:selected_term_id].present?
+          continue = added && selected_id
           i += 1
         end
       end
@@ -327,6 +330,10 @@ class TermQueryFilter < ApplicationRecord
     else
       nil
     end
+  end
+
+  def root_predicate_id=(val)
+    @root_predicate_id = val.blank? ? nil : Integer(val) # might get passed strings from params
   end
 
   def root_predicate
