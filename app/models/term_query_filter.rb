@@ -118,11 +118,10 @@ class TermQueryFilter < ApplicationRecord
     show_extra_fields || extra_fields?
   end
 
-  # TODO: update (we're using ids now)
   def clear_extra_fields
-    self.sex_uri = nil
-    self.lifestage_uri = nil
-    self.statistical_method_uri = nil
+    self.sex_term_id = nil
+    self.lifestage_term_id = nil
+    self.statistical_method_term_id = nil
     self.resource = nil
     self.show_extra_fields = false
   end
@@ -147,36 +146,34 @@ class TermQueryFilter < ApplicationRecord
     !num_val1.blank? && !num_val2.blank? && num_val1 != num_val2
   end
 
-  # TODO: update
   def to_s
     pieces = []
     pieces << "op: :#{op}"
-    pieces << "pred_uri:'#{pred_uri}'"
-    pieces << "obj_uri:'#{obj_uri}'" unless obj_uri.blank?
+    pieces << "predicate_uri:'#{predicate.uri}'" unless predicate.nil?
+    pieces << "obj_uri:'#{object_term.uri}'" unless object_term.nil?
     pieces << "obj_clade_id:'#{obj_clade_id}'" unless obj_clade_id.blank?
-    pieces << "units_uri:'#{units_uri}'" unless units_uri.blank?
+    pieces << "units_uri:'#{units_term.uri}'" unless units_term.nil?
     pieces << "num_val1:#{num_val1}" unless num_val1.blank?
     pieces << "num_val1:#{num_val2}" unless num_val2.blank?
-    pieces << "sex_uri:#{sex_uri}" unless sex_uri.blank?
-    pieces << "lifestage_uri:#{lifestage_uri}" unless lifestage_uri.blank?
-    pieces << "statistical_method_uri:#{statistical_method_uri}" unless statistical_method_uri.blank?
+    pieces << "sex_uri:#{sex_term.uri}" unless sex_term.nil?
+    pieces << "lifestage_uri:#{lifestage_term.uri}" unless lifestage_term.nil?
+    pieces << "statistical_method_uri:#{statistical_method_term.uri}" unless statistical_method_term.nil?
     pieces << "resource_id:#{resource.id}" unless resource.blank?
     "{#{pieces.join(',')}}"
   end
 
-  # TODO: update
   def to_cache_key
     pieces = []
     pieces << "op_#{op}"
-    pieces << "pred_uri_#{pred_uri}"
-    pieces << "obj_uri_#{obj_uri}" unless obj_uri.blank?
+    pieces << "predicate_id_#{predicate_id}"
+    pieces << "object_term_id_#{object_term_id}" unless object_term_id.blank?
     pieces << "obj_clade_id_#{obj_clade_id}" unless obj_clade_id.blank?
-    pieces << "units_uri_#{units_uri}'" unless units_uri.blank?
+    pieces << "units_term_id_#{units_term_id}'" unless units_term_id.blank?
     pieces << "num_val1_#{num_val1}" unless num_val1.blank?
     pieces << "num_val1_#{num_val2}" unless num_val2.blank?
-    pieces << "sex_uri_#{sex_uri}" unless sex_uri.blank?
-    pieces << "lifestage_uri_#{lifestage_uri}" unless lifestage_uri.blank?
-    pieces << "statistical_method_uri_#{statistical_method_uri}" unless statistical_method_uri.blank?
+    pieces << "sex_term_id_#{sex_term_id}" unless sex_term_id.blank?
+    pieces << "lifestage_term_id_#{lifestage_term_id}" unless lifestage_term_id.blank?
+    pieces << "statistical_method_term_id_#{statistical_method_term_id}" unless statistical_method_term_id.blank?
     pieces << "resource_id_#{resource.id}" unless resource.blank?
     pieces.join('/')
   end
@@ -191,26 +188,26 @@ class TermQueryFilter < ApplicationRecord
 
   def to_params
     {
-      pred_uri: pred_uri,
-      obj_uri: obj_uri,
+      predicate_id: predicate_id,
+      object_term_id: object_term_id,
       num_val1: num_val1,
       num_val2: num_val2,
-      units_uri: units_uri,
-      sex_uri: sex_uri,
-      lifestage_uri: lifestage_uri,
-      statistical_method_uri: statistical_method_uri,
-      resource_id: resource&.id
+      units_term_id: units_term_id,
+      sex_term_id: sex_term_id,
+      lifestage_term_id: lifestage_term_id,
+      statistical_method_term_id: statistical_method_term_id,
+      resource_id: resource_id
     }
   end
 
   def blank?
-    pred_uri.blank? && obj_uri.blank? && obj_clade.nil?
+    predicate_id.blank? && object_term_id.blank? && obj_clade.nil?
   end
 
   def extra_fields_blank?
-    sex_uri.blank? &&
-    lifestage_uri.blank? &&
-    statistical_method_uri.blank? &&
+    sex_term_id.blank? &&
+    lifestage_term_id.blank? &&
+    statistical_method_term_id.blank? &&
     resource.blank?
   end
     
@@ -219,7 +216,7 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def object_term_only?
-    pred_uri.blank? && obj_clade.nil? && extra_fields_blank?
+    predicate_id.blank? && obj_clade.nil? && extra_fields_blank?
   end
 
   def show_extra_fields=(val)
@@ -344,38 +341,25 @@ class TermQueryFilter < ApplicationRecord
   private
   def validation
     if blank?
-      errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
-      errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error"))
-      errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:predicate_id, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:object_term_id, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:obj, I18n.t("term_query_filter.validations.blank_error"))
     elsif obj_clade.present? 
-      if pred_uri.blank?
-        errors.add(:pred_uri, I18n.t("pred_uri_blank_obj_clade_error"))
+      if predicate_id.blank?
+        errors.add(:predicate_id, I18n.t("pred_uri_blank_obj_clade_error"))
       elsif obj_uri.present?
         errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.multi_obj_error"))
-        errors.add(:obj_uri, I18n.t("term_query_filter.validations.multi_obj_error"))
+        errors.add(:object_term_id, I18n.t("term_query_filter.validations.multi_obj_error"))
       end
     else
-      validate_terms_exist
-
       if numeric?
-        if pred_uri.blank?
-          errors.add(:pred_uri, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
+        if predicate_id.blank?
+          errors.add(:predicate_id, I18n.t("term_query_filter.validations.pred_uri_blank_numeric_error"))
         elsif range? && num_val1 > num_val2
           errors.add(:num_val2, I18n.t("term_query_filter.validations.range_invalid_error"))
         end
       end
     end
   end
-
-  # XXX: update this method with any added term uri attributes
-  def validate_terms_exist
-    %i(pred_uri obj_uri units_uri sex_uri lifestage_uri statistical_method_uri).each do |uri_method|
-      uri = send(uri_method)
-
-      if uri.present?
-        record = TraitBank::Term.term_record(uri) 
-        errors.add(uri_method, I18n.t("term_query_filter.validations.invalid_uri")) if record.nil?
-      end
-    end
-  end
 end
+
