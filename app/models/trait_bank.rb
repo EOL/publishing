@@ -451,11 +451,11 @@ class TraitBank
       term_condition = []
 
       if filter.predicate?
-        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.pred_uri, :predicate, params, gathered_terms)
+        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.predicate.uri, :predicate, params, gathered_terms)
       end
 
       if filter.object_term?
-        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.obj_uri, :object_term, params, gathered_terms)
+        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.object_term.uri, :object_term, params, gathered_terms)
       end
 
       if filter.obj_clade.present?
@@ -467,18 +467,18 @@ class TraitBank
       if filter.numeric?
         conditions = []
         if filter.eq?
-          conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_uri)
+          conv_eq_val, conv_units_uri = UnitConversions.convert(filter.num_val1, filter.units_term.uri)
           eq_param = "#{trait_var}_eq"
           conditions << { op: "=", val: conv_eq_val, param: eq_param }
         else
           if filter.gt? || filter.range?
-            conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_uri)
+            conv_gt_val, conv_units_uri1 = UnitConversions.convert(filter.num_val1, filter.units_term.uri)
             gt_param = "#{trait_var}_gt"
             conditions << { op: ">=", val: conv_gt_val, param: gt_param }
           end
 
           if filter.lt? || filter.range?
-            conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_uri)
+            conv_lt_val, conv_units_uri2 = UnitConversions.convert(filter.num_val2, filter.units_term.uri)
             lt_param = "#{trait_var}_lt"
             conditions << { op: "<=", val: conv_lt_val, param: lt_param }
           end
@@ -516,7 +516,7 @@ class TraitBank
     def add_term_filter_meta_matches(filter, trait_var, base_meta_var, matches, params)
       add_term_filter_meta_match(
         Eol::Uris.sex,
-        filter.sex_uri,
+        filter.sex_term.uri,
         trait_var,
         "#{base_meta_var}_sex",
         matches,
@@ -525,7 +525,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         Eol::Uris.lifestage,
-        filter.lifestage_uri,
+        filter.lifestage_term.uri,
         trait_var,
         "#{base_meta_var}_ls",
         matches,
@@ -534,7 +534,7 @@ class TraitBank
 
       add_term_filter_meta_match(
         Eol::Uris.statistical_method,
-        filter.statistical_method_uri,
+        filter.statistical_method_term.uri,
         trait_var,
         "#{base_meta_var}_stat",
         matches,
