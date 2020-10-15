@@ -42,4 +42,8 @@ Thanks.
 
 === For Deploys After 2020-11-06
 
-10/9/2020 (mvitale): `$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver. `$ bundle update eol_terms && rails r "TermBootstrapper.new.load"` to convert string eol\_ids to integers.
+10/9/2020 (mvitale): 
+`$ rails r "TermQueryFilterConverter.run" to populate new id fields on existing TermQueryFilters.
+`$ bundle install` to install updated neo4jrb gems (now activegraph and neo4j-ruby-driver). Install seabolt per https://github.com/neo4jrb/neo4j-ruby-driver. 
+`$ bundle update eol\_terms && rails r "TermBootstrapper.new.load"` to convert string eol\_ids to integers.
+
