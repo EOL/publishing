@@ -84,6 +84,7 @@ class TermQuery < ApplicationRecord
   def deep_dup
     copy = dup
     copy.filters = self.filters.collect { |f| f.dup }
+    copy.reset_page_count_sorted_filters
     copy
   end
 
@@ -130,6 +131,7 @@ class TermQuery < ApplicationRecord
           :pred_uri,
           :top_pred_uri,
           :obj_uri,
+          :obj_clade_id,
           :op,
           :num_val1,
           :num_val2,
@@ -156,6 +158,16 @@ class TermQuery < ApplicationRecord
 
   def page_count_sorted_filters
     @page_count_sorted_filters ||= filters.sort { |a, b| a.min_distinct_page_count <=> b.min_distinct_page_count }
+  end
+
+  def reset_page_count_sorted_filters # needed for deep_dup
+    @page_count_sorted_filters = nil
+  end
+
+  def valid_ignoring_blank_filters?
+    copy = self.deep_dup
+    copy.remove_really_blank_filters
+    copy.valid?
   end
 
   private

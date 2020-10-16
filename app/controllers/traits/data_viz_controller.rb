@@ -1,5 +1,9 @@
+require "set"
+
 module Traits
   class DataVizController < ApplicationController
+    before_action :set_1d_about_text, only: [:bar, :hist]
+
     layout "traits/data_viz"
 
     BAR_CHART_LIMIT = 15
@@ -107,7 +111,6 @@ module Traits
 
     def bar
       @query = TermQuery.new(term_query_params)
-      counts = TraitBank.term_search(@query, { count: true })
       result = TraitBank::Stats.obj_counts(@query, BAR_CHART_LIMIT)
       @data = result.collect { |r| viz_result_from_row(@query, r) }
       render_common
@@ -121,11 +124,22 @@ module Traits
       render_common
     end
 
+    def sankey
+      @query = TermQuery.new(term_query_params)
+      counts = TraitBank.term_search(@query, { count: true })
+      @sankey = Traits::DataViz::Sankey.create_from_query(@query, counts.primary_for_query(@query))
+      set_sankey_about_text
+      render_with_status(@sankey.multiple_paths?)
+    end
+
     private
     def render_common
-      status = @data.length > 1 ? :ok : :no_content
+      render_with_status(@data.length > 1)
+    end
+
+    def render_with_status(any_data)
+      status = any_data ? :ok : :no_content
       options = { status: status }
-      #options[:layout] = false if request.xhr?
       render options
     end
       
@@ -175,6 +189,18 @@ module Traits
           ]
         ]
       ])
+    end
+
+    def set_1d_about_text
+      @about_text_key = "about_this_chart_tooltip_1d"
+    end
+
+    def set_sankey_about_text
+      @about_text_key = if @query.filters.length > 2
+        "about_this_chart_tooltip_sankey_3+" 
+      else
+        "about_this_chart_tooltip_sankey_2d"
+      end
     end
   end
 end

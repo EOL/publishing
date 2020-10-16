@@ -151,6 +151,8 @@ class TraitBank::RecordDownloadWriter
       hashes.in_groups_of(10_000, false) do |batch|
         Delayed::Worker.logger.info("writing batch of 10k records")
 
+        Delayed::Worker.logger.info("begin page query")
+
         pages = Page.where(id: page_ids(batch))
           .includes(
             :preferred_vernaculars, 
@@ -162,10 +164,17 @@ class TraitBank::RecordDownloadWriter
             }
           )
           .map { |p| [p.id, p] }.to_h
+
+        Delayed::Worker.logger.info("end page query, begin associations query")
+
         associations = Page.with_scientific_name.where(id: association_ids(batch))
           .map { |p| [p.id, p] }.to_h
 
+        Delayed::Worker.logger.info("end associations query, begin trait processing")
+
         batch.each do |trait|
+          t1 = Time.now
+
           page = pages[trait[:page_id]]
           association = associations[trait[:object_page_id]]
           row = []
@@ -191,6 +200,11 @@ class TraitBank::RecordDownloadWriter
           end
 
           csv << row
+
+          t2 = Time.now
+          delta = t2 - t1
+
+          Delayed::Worker.logger.info("Trait #{trait[:eol_pk]} took #{delta}s  to process!") if (t2 - t1 > 0.25)
         end
 
         Delayed::Worker.logger.info("finished writing batch")

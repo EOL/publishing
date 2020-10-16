@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: FinlandMan
+# Author: Moj
 # Author: Muovipullo
 # Author: Nike
 # Author: Pyscowicz
@@ -13,7 +14,7 @@ fi:
       title: TraitBank
   account_already_linked: käyttäjätunnuksesi on jo linkitetty EOL:ään
   account_not_linked: tiliäsi ei ole linkitetty EOL:ään
-  advanced: edistynyt
+  advanced: edistynyt haku
   are_you_sure_delete_account: Haluatko varmasti poistaa EOL-tunnuksesi?
   article:
     actions:
@@ -205,7 +206,7 @@ fi:
     filter_by_provider: suodata tekijän mukaan
   footer:
     eol_info:
-      citing_eol: Vetoa EOL:ään
+      citing_eol: Viittaa EOL:iin
       contact_us: Ota yhteyttä
       data_services: Tietopalvelut
       donate: Lahjoita
@@ -231,7 +232,7 @@ fi:
       insects: Hyönteiset
       invertebrates: Selkärangattomat
       mammals: Nisäkkäät
-      molds: Muotit
+      molds: Homeet
       mushrooms: Sienet
       mollusks: Nilviäiset
       plants: Kasvit
@@ -244,7 +245,7 @@ fi:
     eol_is_hosted_by: 'EOL-sivustoa ylläpitää:'
   forgot_your_password: Unohditko salasanasi?
   landing_page:
-    header: Maailmanlaajuinen pääsy tietoihin elämästä maan päällä
+    header: Maailmanlaajuinen pääsy tietouteen Maan elämästä
     stats_cleared: Tilastot on laskettu uudelleen.
   language: Kieli
   languages:
@@ -267,6 +268,7 @@ fi:
     ay: aimara
     Q9292: azeri
     az: azeri
+    Q33070: bali
     bm: bambara
     ba: baškiiri
     eu: baski
@@ -347,6 +349,7 @@ fi:
     ga: Iiri
     it: Italia
     ita: italia
+    Q35939: jamaikankreoli
     ja: Japani
     jp: Japani
     jv: Jaava
@@ -386,6 +389,7 @@ fi:
     mr: Marathi
     mh: Marshall
     Q36455: mindong
+    Q13330: mirandeesi
     mn: Mongolia
     Q56426: marokonarabia
     na: Nauru
@@ -479,8 +483,10 @@ fi:
     wa: valloni
     cy: kymri
     wel: kymri
+    Q100103: länsiflaami
     fy: länsifriisi
     wo: wolof
+    Q34290: wu-kiina
     xh: xhosa
     yi: jiddiš
     yo: joruba
@@ -493,8 +499,11 @@ fi:
   literature_and_references_header: Kirjallisuus ja viitteet
   maps:
     empty: Karttoja ei ole saatavana tälle sivulle.
-    occurrence_caption: Tiedetyt tapahtumat, kerätyt näytteet ja havainnot kohteesta
-      %{page_name}. Näytä nämä lajit GBIF:ssä
+    occurrence_caption: Lajin %{page_name} tunnetut esiintymiset, kerätyt näytteet
+      ja havainnot. Näytä lajin profiili GBIF:ssä
+    occurrence_caption_w_link_html: Lajin %{page_name} tunnetut esiintymiset, kerätyt
+      näytteet ja havainnot. <a href='%{url}'>Näytä lajin profiili GBIF:ssä<i class='fa
+      fa-external-link'></i></a>
     other_maps_title: Epäinteraktiiviset kartat
   medium:
     untitled:
@@ -576,8 +585,12 @@ fi:
         r_subkingdom: Alakunta
         r_species: Laji
         r_subspecies: Alalaji
+      username_missing: käyttäjä %{user_id}
     trophic_web:
+      competitor: Kilpailija
       globi_credit_html: tiedot <a href='%{url}'>GloBIsta</a>
+      predator: Saalistaja
+      prey: Saalis
       reset: tyhjennä
     flash:
       reindexed: Välimuistit tälle sivulle on tyhjennetty. Lataa uudelleen nähdäksesi
@@ -629,8 +642,6 @@ fi:
         one: näytä (%{count}) varoitus
         other: näytä (%{count}) varoitusta
       sync: synkronoi koodivarannon kanssa
-      fetch_relationships: nouda suhteet
-      fetch_synonyms: nouda synonyymit
     headers:
       index: Resurssit
     index:
@@ -650,6 +661,8 @@ fi:
   scientific_names_header: Tieteelliset nimet
   send_me_reset_password_instructions: Lähetä minulle salasanan palautusohjeet
   search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Hakua täsmäsi(vät) %{text}
     n_articles:
       one: '%{count} artikkeli'
       other: '%{count} artikkelia'
@@ -839,13 +852,26 @@ fi:
     data_viz:
       other: muu
     properties:
+      scientific_name: Tieteellinen nimi
       source: Lähde
     search:
+      download_tsv: lataa tsv-muodossa
+      edit_filters: muokkaa suodattimia
       new_search: uusi haku
     search_form:
+      clade_filter_placeholder: ryhmä (esim. karhut) (valinnainen)
+      hide_additional_fields: piilota lisäkentät
+      lifestage: elämänvaihe
       search: Hae
+      sex: sukupuoli
+      show_additional_fields: näytä lisäkentät
+      target_group: kohderyhmä (esim. lohikalat)
+      value: arvo
   trophic_web:
     group_descriptions:
+      competitor: lajin %{source_name} kilpailija
+      predator: käyttää lajia %{source_name} ravinnokseen
+      prey: lajin %{source_name} ravintoa
       source: keskeiset lajit
   trust:
     unreviewed: tarkastamaton
@@ -913,7 +939,9 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_15379: happi
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_22984: kalsium (Ca)
         http://purl(dot)obolibrary(dot)org/obo/CHEBI_25107: magnesium (Mg)
+        http://purl(dot)obolibrary(dot)org/obo/CMO_0000013: ruumiinpituus
         http://purl(dot)obolibrary(dot)org/obo/FLOPO_0900033: puu
+        http://purl(dot)obolibrary(dot)org/obo/PATO_0000050: elinikä
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000317: musta
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000318: sininen
         http://purl(dot)obolibrary(dot)org/obo/PATO_0000320: vihreä
@@ -930,19 +958,27 @@ fi:
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001733: ikivihreä
         http://purl(dot)obolibrary(dot)org/obo/PATO_0001941: keltavihreä
         http://purl(dot)obolibrary(dot)org/obo/PO_0009001: hedelmä
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002439: saalistaa kohdetta
+        http://purl(dot)obolibrary(dot)org/obo/RO_0002458: saalistaja
         http://purl(dot)obolibrary(dot)org/obo/TO_0000326: lehden väri
         http://purl(dot)obolibrary(dot)org/obo/TO_0000537: kukan väri
+        http://eol(dot)org/schema/terms/Present: maantieteellisen levinneisyyden alueet
+        http://rs(dot)tdwg(dot)org/dwc/terms/verbatimDepth: veden syvyys
+        http://eol(dot)org/schema/terms/fossilOccPBDB: fossiiliesiintymien määrä
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000204: trooppinen
         http://purl(dot)obolibrary(dot)org/obo/ENVO_01000253: joki
+        http://purl(dot)obolibrary(dot)org/obo/ENVO_01000177: laidun
         http://eol(dot)org/schema/terms/paleo_megaannum: miljoona vuotta sitten
         http://eol(dot)org/schema/terms/millimeterspermonth: millimetriä kuukaudessa
         http://purl(dot)obolibrary(dot)org/obo/UO_0000012: kelvin
         http://purl(dot)obolibrary(dot)org/obo/UO_0000033: päivää
         http://purl(dot)obolibrary(dot)org/obo/UO_0000035: kuukautta
         http://purl(dot)obolibrary(dot)org/obo/UO_0000036: vuotta
+        http://purl(dot)obolibrary(dot)org/obo/UO_0000114: Wattia
         http://purl(dot)obolibrary(dot)org/obo/UO_0000185: astetta
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259032004: /päivä
         http://purl(dot)bioontology(dot)org/ontology/SNOMEDCT/259039008: /vuosi
+        http://mimi(dot)case(dot)edu/ontologies/2009/1/UnitsOntology#inch: tuuma
         http://purl(dot)org/obo/owl/UO#UO_0000034: viikkoa
         http://eol(dot)org/schema/terms/gramsPerCentimeterSquaredPerDay: g/cm^2/päivä
         http://eol(dot)org/schema/terms/kilogramsPerMeterSquaredPerYear: kg/m^2/vuosi

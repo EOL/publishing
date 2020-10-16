@@ -5,16 +5,19 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config
-/.bundle
-/bundle_bin
+.bundle
+bundle_bin
 
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/log/*.txt
-/log/*gz
-/tmp
-!/tmp/cache/
+# Ignore all logfiles and tempfiles. (Including logrotate backups)
+log/*.log
+log/*.log.*
+log/*.txt
+log/*gz
+tmp
+!tmp/cache/
 .sass-cache/
+supervisord.log
+supervisord.pid
 
 # Ignore guard (which is an auto-tester):
 Guardfile
@@ -26,7 +29,7 @@ coverage
 .metadata
 
 # Byebug:
-/.byebug_history
+.byebug_history
 
 # Older stuff:
 *.bundle
@@ -95,9 +98,9 @@ config/secrets.yml.key
 config/locales/**/*.bak
 dragonfly.log
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
+public/packs
+public/packs-test
+node_modules
+yarn-error.log
 yarn-debug.log*
 .yarn-integrity

@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aramos1422
 # Author: Canaan9801
 # Author: Fitoschido
 # Author: Gastonsaenz
@@ -51,13 +52,19 @@ es:
       missing: Sin título
   article_from_partner: Proporcionado por %{partner}
   article_duplicate: este artículo también se muestra en «%{section}»
+  autocomplete:
+    see_all:
+      other: uno=ver otros resultados
   breadcrumbs:
     notices:
       canonical: Ahora los nombres científicos figurarán en las rutas de navegación
         de las páginas
+      vernacular: Los nombres vernáculos ahora serán mostrados en la página donde
+        están disponibles "las migas de pan"
     setting_header: nombres en rutas de navegación
     types:
       scientific: Científico
+      vernacular: Vernáculo
   button_create: crear
   button_add: añadir
   cancel: cancelar
@@ -65,8 +72,11 @@ es:
   change_your_password: Cambie su contraseña
   classifications:
     children:
+      header_html: '{{PLURAL | uno=%{name} incluye <a href="%{names_path}">% {count}
+        niño </a>: |%{name} incluye <a href="%{names_path}">%{count} niños </a>:}}'
       see_more: ver más
     hierarchies:
+      header: Jerarquías seleccionadas para %{sci_name}
       this_page: (esta página)
     richness:
       header: Riqueza de la página
@@ -79,14 +89,18 @@ es:
       maps_count: mapas
       data_count: datos
       nodes_count: nodos
+      vernaculars_count: lenguas vernáculas
       scientific_names_count: nombres científicos
       referents_count: referentes
       species_count: especies
       updated_at: última actualización
   cms_page_date: 'Última modificación:'
   collect_already_in_collection: (ya se encuentra aqui)
+  collect_already_in_collection_will_add_icon: (agregar medios de comunicación a "%{page}")
   collect_new_collection: Nombre de la colección nueva
   collect_new_collection_title: '...una Nueva Colección'
+  collect_no_existing_collections: ¡Aún no tienes ninguno! Crea uno usando el formulario
+    en el lado izquierdo.
   collect_select_collection: '...Una de Sus Colecciones'
   collect_title: Añadir «%{item}» a…
   collected_page_already_in_collection: Eso ya se encontraba en su colección
@@ -102,6 +116,9 @@ es:
     destroyed_flash: '%{name}removido de la colección.'
   collection_association_added_to_collection: Se añadió «%{associated}» a la colección
     <a href='%{link}'>«%{name}»</a>.
+  collection_associations_empty: No hay otras colecciones asociadas con esta. Puede
+    hacer clic en el botón nombrado "asociar" en otras colecciones para que aparezcan
+    aquí.
   collection_associations_title: Colecciones asociadas
   collection_created: Se creó la colección «%{name}».
   collection_user_is_admin: Este usuario es un administrador.
@@ -110,11 +127,16 @@ es:
       label: 'Añadir un usuario que puede editar esta colección:'
       placeholder: Nombre completo o nombre de usuario
     actions:
+      associate: asociar
+      download_taxa_csv: descargar un archivo CSV de "taxa"
       delete: eliminar
       edit: editar
+      sort: Poner en orden
     collection_type:
       normal: normal
       gallery: galería
+    delete_confirm: Esto eliminará toda la colección y NO SE PUEDE deshacer. ¿Estás
+      seguro?
     destroyed: «%{name}» se eliminó permanentemente.
     pages_count:
       one: 1 página
@@ -130,7 +152,10 @@ es:
       sort_field: anotación, A-Z
       sort_field_rev: anotación, Z-A
     updated: Se actualizó la colección.
+  collection_unauthorized_edit: El usuario propietario solo puede editar esta colección.
+  complete_registration: Sigue haciendo tu registro por favor
   content_appears_on: 'Se incluye en las páginas siguientes:'
+  content_collected_in: 'Presentado en las siguientes colecciones:'
   content_attributions_header: Información de origen
   content_attributions_labels:
     altitude: altitud
@@ -150,9 +175,11 @@ es:
     publisher: Editorial
     project: proyecto
     provider: proveedor
+    resource_label: sitio asociado
     resource_pk: '(id.: %{key})'
     rights_statement: declaración de derechos
     source: fuente
+    spatial_location: espacial
     view_source_label: original
     view_source_link: ver imagen original
     view_source_page_link: visitar fuente
@@ -162,6 +189,7 @@ es:
   data:
     modifier:
       sex_term: Sexo del organismo medido
+      lifestage_term: Etapa de vida del organismo medido
       statistical_method_term: Método estadístico utilizado para la medición
   data_missing: '(faltan datos; claves: %{keys})'
   dear_username_with_comma: Estimado %{username}
@@ -183,8 +211,10 @@ es:
       data_services: Servicios de datos
       donate: Donar
       education: Educación
+      food_webs: Redes alimentarias
       glossary: Glosario
       help: Ayuda
+      language_support: Ayuda de idioma
       terms_of_use: Condiciones de uso
       the_eol_forum: El Foro EOL
       what_is_eol: ¿Qué es EOL?
@@ -193,14 +223,17 @@ es:
       algae: Algas
       amphibians: Anfibios
       animals: Animales
+      archaea: Las arqueas
       bacteria: Bacterias
       birds: Aves
       crustaceans: Crustáceos
       fishes: Peces
+      flowering_plants: Plantas floreciendo
       fungi: Hongos
       insects: Insectos
       invertebrates: Invertebrados
       mammals: Mamíferos
+      molds: Los mohos
       mushrooms: Hongos
       mollusks: Moluscos
       plants: Plantas
@@ -210,6 +243,7 @@ es:
       trees: Árboles
       viruses: Virus
       worms: Gusanos
+    eol_is_hosted_by: 'EOL está presentado por:'
   forgot_your_password: ¿Has olvidado tu contraseña?
   landing_page:
     header: Acceso global al conocimiento sobre la vida en la Tierra
@@ -219,6 +253,7 @@ es:
     ab: Abjasio
     Q27776: Adigué
     af: Afrikáans
+    alb: Albanés
     sq: Albanés
     am: Amhárico
     ar: Árabe
@@ -232,9 +267,11 @@ es:
     bs: Bosnio
     Q750553: Portugués de Brasil
     bg: Búlgaro
+    Q35156: el carro
     ca: Catalán; valenciano
     ce: Checheno
     zh: Chino
+    Q37041: Idioma chino clásico
     kw: Córnico
     Q33357: Tártaro de Crimea
     hr: Croata
@@ -247,15 +284,19 @@ es:
     fj: Fiyiano
     fi: Finlandés
     fr: Francés
+    fra: Francés
     gd: Gaélico escocés
     gl: Gallego
     ka: Georgiano
     de: Alemán
     deu: Alemán
     el: Griego, Moderno (1453-)
+    gre: Griego
     gn: Guaraní
     gu: Guyaratí
+    ht: Criollo haitiano
     he: Hebreo
+    heb: Hebreo
     hu: Húngaro
     is: Islandés
     id: Indonesio
@@ -269,11 +310,13 @@ es:
     kk: Kazajo
     rw: Kiñaruanda
     ko: Coreano
+    kor: Coreano
     ku: Kurdo
     la: Latín
     li: Limburgués
     lt: Lituano
     lb: Luxemburgués
+    mk: Macedonio
     mg: Malgache
     mt: Maltés
     mn: Mongol
@@ -281,14 +324,17 @@ es:
     nv: Navajo
     ne: Nepalí
     "no": Noruego
+    nno: Noruego
     oc: Occitano
     pa: Panyabí
     fa: Persa
     pl: Polaco
+    pol: Polaco
     pt: Portugués
     qu: Quechua
     rm: Romanche
     ru: Ruso
+    rus: Ruso
     sm: Samoano
     sa: Sánscrito
     sc: Sardo
@@ -297,7 +343,9 @@ es:
     sk: Eslovaco
     sl: Esloveno
     es: Español; Castellano
+    slv: Español
     sv: Sueco
+    swe: Sueco
     tl: Tagalo
     tg: Tayiko
     th: Tai
@@ -341,6 +389,7 @@ es:
       sound: sonido
       map_image: mapa
       js_map: mapa interactivo
+  medium_collect_button: compilar medios
   medium_description_blank: No se ha proporcionado una descripción para este objeto.
   medium_header_title: 'Título:'
   medium_header_description: 'Descripción:'
@@ -348,6 +397,9 @@ es:
     hide_langs:
       one: ocultar 1 idioma
       other: ocultar %{count} idiomas
+    prefer: Prefiere
+    preferred_in_language_for_page: '%{name} es ahora el %{language} vernáculo preferido
+      para %{page}'
   nav:
     about: Acerca de
     discuss: Debatir
@@ -360,8 +412,10 @@ es:
   page_title_search: 'Búsqueda: %{query}'
   pages:
     actions:
+      collect: compilar
       reindex: volver a indizar
     batch_lookup:
+      header: búsqueda de página por lotes
       canonical_name: nombre canónico
       download_tsv: descargar TSV
       new_search: búsqueda nueva
@@ -375,6 +429,9 @@ es:
     page_data:
       show_all: mostrar todo
     resource_names:
+      name_recognized_by: |2-
+
+        Reconocido por %{by}
       rank:
         r_domain: Dominio
         r_subdomain: Subdominio
@@ -408,9 +465,13 @@ es:
         r_species: Especie
         r_subspecies: Subespecie
         r_infraspecies: Infraespecie
+        r_form: Formulario
       reference_taxon_attrib: Referencia taxon de %{dataset_name}
       username_missing: usuario %{user_id}
     trophic_web:
+      competitor: Competidor
+      globi_credit_html: datos de <a href='%{url}'> GloBI </a>
+      prey: La presa
       reset: restablecer
     flash:
       reindexed: Se vaciaron las antememorias correspondientes a esta página. Para
@@ -422,35 +483,56 @@ es:
       classifications: Clasificaciones
       data: datos
       literature_and_references: bibiografía y referencias
-      overview: Inicio
+      overview: visión de conjunto
       maps: mapas
+      media: medios
       names: nombres
     iucn_status:
       label: 'Estado según la IUCN:'
+      ex: Extinto (EX)
+      ew: Extinto en la naturaleza (EL)
+      cr: críticamente en peligro (CR)
+      en: en peligro de extinción (EN)
+      vu: vulnerable (VU)
+      nt: casi amenazado (NT)
+      lc: menor preocupación (LC)
+      dd: datos deficientes (DD)
+      ne: No evaluado (NE)
       unknown: desconocido (sin registros)
+    unresolved_name: Nombre irresoluto
+    unresolved_name_prefix: 'Nombre irresoluto:'
   page_titles:
     pages:
+      data: '%{page_name} datos'
       articles: Artículos sobre %{page_name}
+    traits:
+      search: Búsqueda de rasgos
   recaptcha: Recaptcha
+  recaptcha_error: Díganos que no es un robot por favor.
+  reference_compiled_from: Referenciado por %{links}
   reference_compiled_from_article: Artículo de %{source} titulado «%{name}»
+  register_new_account: Registrar una cuenta nueva
   resources:
     actions:
+      import_traits: importar rasgos (del repositorio)
       republish: volver a publicar
       reindex: volver a indizar
+      fix_no_names: arreglar NO NOMBRES
       show_all:
         other: mostrar todo (%{count})
       sync: sincronizar con repositorio
-      sync_all_terms: sincronizar todos los términos
-      fetch_units: recuperar unidades
+      clear_publishing: para borrar la cerradura
     headers:
       index: Recursos
       import_log: Registro de importaciones de %{resource}
+    no_events: ¡Ninguno!
   resource_missing: no se encontró el recurso
   scientific_name:
     status_title:
       accepted: Nombres aceptados
       alternative: Nombres alternativos
       preferred: Nombres preferidos
+      unusable: Nombres inutilizables
       synonym: Sinónimos
   scientific_names_header: Nombres científicos
   send_me_reset_password_instructions: Enviarme instrucciones para restablecer la

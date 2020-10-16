@@ -391,7 +391,6 @@ private
       resource_ids = [2,4,8,9,10,11,12,14,46,53,181,395,410,416,417,418,420,459,461,462,463,464,465,468,469,470,474,475,
         481,486,493,494,495,496,507,508]
       @resources = Resource.where(id: resource_ids).select('id, name').sort_by { |r| r.name.downcase }
-      @media_count = 1000
     else
       @license_groups = LicenseGroup
         .joins(:licenses)
@@ -426,13 +425,8 @@ private
       media = media.where(['page_contents.resource_id = ?', @resource_id])
       @resource = Resource.find(@resource_id)
     end
-    # No, you cannot do this in the block above:
-    @media_count =
-      if @page.media_count > 1000
-        1000
-      else
-        media.limit(1000).count
-      end
+
+    @media_count = media.count
     # Just adding the || 30 in here for safety's sake:
     @media = media.by_page(params[:page]).per(@media_page_size || 30).without_count
   end
@@ -520,7 +514,7 @@ private
 
   def setup_trophic_web
     @trophic_web_data = @page.pred_prey_comp_data(breadcrumb_type)
-    @show_trophic_web = @trophic_web_data[:nodes].length > 1
+    @show_trophic_web = true || @trophic_web_data[:nodes].length > 1
     @trophic_web_translations = {
       predator: I18n.t("pages.trophic_web.predator"),
       prey: I18n.t("pages.trophic_web.prey"),

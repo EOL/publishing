@@ -1,6 +1,7 @@
 class TermQueryFilter < ApplicationRecord
   belongs_to :term_query, :inverse_of => :filters
   belongs_to :resource, optional: true
+  belongs_to :obj_clade, class_name: "Page", optional: true
   validates_presence_of :term_query
   validate :validation
 
@@ -18,12 +19,12 @@ class TermQueryFilter < ApplicationRecord
 
     def terms
       @terms ||= top_level? ?
-        TraitBank::Terms.top_level(type) :
-        TraitBank::Terms.children(parent_uri)
+        TraitBank::Term.top_level(type) :
+        TraitBank::Term.children(parent_uri)
     end
   end
 
-  Term = Struct.new(:uri, :type)
+  Field = Struct.new(:value, :trait_row_count, :type)
 
   # TODO: remove op field from db
   enum :op => {
@@ -43,12 +44,28 @@ class TermQueryFilter < ApplicationRecord
     !pred_uri.blank?
   end
 
+  def pred_node
+    if predicate?
+      @pred_node ||= TermNode.find(pred_uri)
+    else
+      nil
+    end
+  end
+
   def units_for_pred?
-    pred_uri && !TraitBank::Terms.units_for_pred(pred_uri).nil?
+    pred_uri && !TraitBank::Term.units_for_pred(pred_uri).nil?
+  end
+
+  def association_pred?
+    pred_node&.type == "association"
   end
 
   def object_term?
     obj_uri.present?
+  end
+
+  def object?
+    object_term? || obj_clade.present?
   end
 
   def sex_term?
@@ -107,6 +124,7 @@ class TermQueryFilter < ApplicationRecord
     pieces << "op: :#{op}"
     pieces << "pred_uri:'#{pred_uri}'"
     pieces << "obj_uri:'#{obj_uri}'" unless obj_uri.blank?
+    pieces << "obj_clade_id:'#{obj_clade_id}'" unless obj_clade_id.blank?
     pieces << "units_uri:'#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1:#{num_val1}" unless num_val1.blank?
     pieces << "num_val1:#{num_val2}" unless num_val2.blank?
@@ -122,6 +140,7 @@ class TermQueryFilter < ApplicationRecord
     pieces << "op_#{op}"
     pieces << "pred_uri_#{pred_uri}"
     pieces << "obj_uri_#{obj_uri}" unless obj_uri.blank?
+    pieces << "obj_clade_id_#{obj_clade_id}" unless obj_clade_id.blank?
     pieces << "units_uri_#{units_uri}'" unless units_uri.blank?
     pieces << "num_val1_#{num_val1}" unless num_val1.blank?
     pieces << "num_val1_#{num_val2}" unless num_val2.blank?
@@ -155,15 +174,23 @@ class TermQueryFilter < ApplicationRecord
   end
 
   def blank?
-    pred_uri.blank? && obj_uri.blank?
+    pred_uri.blank? && obj_uri.blank? && obj_clade.nil?
   end
 
-  def really_blank?
-    blank? &&
+  def extra_fields_blank?
     sex_uri.blank? &&
     lifestage_uri.blank? &&
     statistical_method_uri.blank? &&
     resource.blank?
+  end
+    
+
+  def really_blank?
+    blank? && extra_fields_blank?
+  end
+
+  def obj_term_only?
+    pred_uri.blank? && obj_clade.nil? && extra_fields_blank?
   end
 
   def show_extra_fields=(val)
@@ -240,34 +267,42 @@ class TermQueryFilter < ApplicationRecord
     @obj_term_node = object_term? ? TermNode.find(obj_uri) : nil
   end
 
-  def max_trait_row_count_term
-    return @max_trait_row_count_term if @max_trait_row_count_term
+  def obj_clade_node
+    return @obj_clade_node if @obj_clade_node
+    @obj_clade_node = obj_clade_id.present? ? PageNode.find(obj_clade_id) : nil
+  end
 
-    pred_count = pred_term_node&.trait_row_count || 0
-    obj_count = obj_term_node&.trait_row_count || 0
-    
-    @max_trait_row_count_term = if pred_count > obj_count
-                                  Term.new(pred_uri, :predicate)
-                                else
-                                  Term.new(obj_uri, :object_term)
-                                end
+  def all_fields
+    [pred_field, obj_term_field, obj_clade_field].compact
+  end
+
+  def max_trait_row_count_fields
+    return @max_trait_row_count_fields if @max_trait_row_count_fields
+
+    @max_trait_row_count_fields = all_fields.max(all_fields.length - 1) do |a, b|
+      a.trait_row_count <=> b.trait_row_count
+    end
   end
 
   def min_distinct_page_count
     [pred_term_node, obj_term_node].compact.map { |t| t.distinct_page_count }.min || 0
   end
 
-  def object_term
+  def obj_clade_field
+    obj_clade_id.present? ? Field.new(obj_clade_id, obj_clade_node.trait_row_count, :object_clade) : nil
+  end 
+
+  def obj_term_field
     if object_term?
-      Term.new(obj_uri, :object_term)
+      Field.new(obj_uri, obj_term_node.trait_row_count, :object_term)
     else
       nil
     end
   end
 
-  def predicate_term
+  def pred_field
     if predicate?
-      Term.new(pred_uri, :predicate)
+      Field.new(pred_uri, pred_term_node.trait_row_count, :predicate)
     else
       nil
     end
@@ -278,6 +313,14 @@ class TermQueryFilter < ApplicationRecord
     if blank?
       errors.add(:pred_uri, I18n.t("term_query_filter.validations.blank_error"))
       errors.add(:obj_uri, I18n.t("term_query_filter.validations.blank_error"))
+      errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.blank_error"))
+    elsif obj_clade.present? 
+      if pred_uri.blank?
+        errors.add(:pred_uri, I18n.t("pred_uri_blank_obj_clade_error"))
+      elsif obj_uri.present?
+        errors.add(:obj_clade_id, I18n.t("term_query_filter.validations.multi_obj_error"))
+        errors.add(:obj_uri, I18n.t("term_query_filter.validations.multi_obj_error"))
+      end
     else
       validate_terms_exist
 
@@ -297,7 +340,7 @@ class TermQueryFilter < ApplicationRecord
       uri = send(uri_method)
 
       if uri.present?
-        record = TraitBank.term_record(uri) 
+        record = TraitBank::Term.term_record(uri) 
         errors.add(uri_method, I18n.t("term_query_filter.validations.invalid_uri")) if record.nil?
       end
     end

@@ -33,7 +33,7 @@ class Language < ApplicationRecord
         l = self.for_locale(I18n.locale)
 
         if l.empty?
-          logger.error("Language.current -- missing group for locale #{locale}. Falling back to Language.english")
+          logger.error("Language.current -- missing group for locale #{I18n.locale}. Falling back to Language.english")
           l = english
         end
 

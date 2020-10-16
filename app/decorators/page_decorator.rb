@@ -15,6 +15,13 @@ class PageDecorator < Draper::Decorator
     end
   end
 
+  def cached_summary_text
+    Rails.cache.fetch("pages/#{id}/cached_summary_text") do
+      sanitizer = Rails::Html::FullSanitizer.new
+      sanitizer.sanitize(cached_summary.sentence)
+    end
+  end
+
   def associated_pages=(val)
     @associated_pages = val
   end

@@ -62,13 +62,23 @@ diq:
         enewke nêabiyeno
       signed_up_but_locked: Şıma qeyd biyê. Lakin hesab biyo kılit coki ra ronıştış
         enewke nêabiyeno
+      signed_up_but_unconfirmed: E-postaya şıma rê gırey tesdiqi ihtiwa kerden mesacê
+        rışiyao. Hesabê ho aktiv kerdışi rê gırey taqib kerê.
+      update_needs_confirmation: Hesabê şıma biyoqeyd, lakin eposta ho araşt kerê.
+        Eposta ho kontrol kerê u tesdiq kerdışi rê gıreyanê tesdiqi taqib kerê
       updated: Hesab weş niyo rocane
     sessions:
       signed_in: Weş kewtê miyan
       signed_out: Weş cı ra veciyaye
       already_signed_out: Weş cı ra veciyaye
       recaptcha: Xetay araştiya Recaptcha
+      sign_in_remember_me_disabled_for_admins: Sebebê emeli ra, idarekari xısusiyetê
+        mı biya xo viri nêşenê bıgureynê
     unlocks:
+      send_instructions: Çend deqan miyan de adresê epostaya ho serva kıkitê eposta
+        seni araşt kerdış rê eleqeyın yew posta do şıma rê bêro
+      send_paranoid_instructions: Hesabê şıma esto se, çend deqan miyan de talimatê
+        seni kes şeno kıliti akeroya eleqeyın eposta do biro.
       unlocked: Kılitê hesabê şıma abiyayo. Dewam kerdışi rê ronıştış akerê
   errors:
     messages:
@@ -78,4 +88,7 @@ diq:
       expired: Wahdey cı vêrdo, yûna bıwazê
       not_found: Nêvineyi
       not_locked: Kılitın niya
+      not_saved:
+        one: '1 xeta qeydê çımey %{resource} kerdo men :'
+        other: '%{count} xeta qeydanê çımey %{resource} kerdê men:'
 ...

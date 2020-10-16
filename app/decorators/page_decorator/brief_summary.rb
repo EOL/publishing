@@ -25,36 +25,38 @@ class PageDecorator
     # NOTE: this will only work for these specific ranks (in the DWH). This is by design (for the time-being). # NOTE: I'm
     # putting species last because it is the most likely to trigger a false-positive. :|
     def english
-      if is_above_family?
-        above_family
-      else
-        if !a1.nil?
-          if is_family?
-            family
-          elsif is_genus?
-            genus
-          elsif is_species?
-            species
+      I18n.with_locale(:en) do
+        if is_above_family?
+          above_family
+        else
+          if !a1.nil?
+            if is_family?
+              family
+            elsif is_genus?
+              genus
+            elsif is_species?
+              species
+            end
           end
         end
-      end
 
-      landmark_children
-      plant_description_sentence
-      flower_visitor_sentence
-      fixes_nitrogen_sentence
-      forms_sentence
-      ecosystem_engineering_sentence
-
-      if is_species?
+        landmark_children
+        plant_description_sentence
+        flower_visitor_sentence
+        fixes_nitrogen_sentence
+        forms_sentence
+        ecosystem_engineering_sentence
         behavioral_sentence
-        lifespan_size_sentence
+
+        if is_species?
+          lifespan_size_sentence
+        end
+
+        reproduction_sentences
+        motility_sentence
+
+        Result.new(@sentences.join(' '), @terms)
       end
-
-      reproduction_sentences
-      motility_sentence
-
-      Result.new(@sentences.join(' '), @terms)
     end
 
     private
@@ -204,7 +206,7 @@ class PageDecorator
         # sentence. environment sentence: "It is marine." If the species is both marine and extinct, insert both the
         # extinction status sentence and the environment sentence, with the extinction status sentence first.
         if is_it_marine?
-          marine_term = TraitBank.term_as_hash(Eol::Uris.marine)
+          marine_term = TraitBank::Term.term_as_hash(Eol::Uris.marine)
           add_sentence do |subj, _, __|
             term_sentence_part("#{subj} is found in %s.", "marine habitat", Eol::Uris.habitat_includes, marine_term)
           end
@@ -271,7 +273,7 @@ class PageDecorator
         if children.any?
           taxa_links = children.map { |c| view.link_to(c.page.vernacular_or_canonical, c.page) }
           add_sentence do |subj, _, __|
-            "#{subj} includes groups like #{taxa_links.to_sentence(locale: :en)}."
+            "#{subj} includes groups like #{taxa_links.to_sentence}."
           end
         end
       end
@@ -288,7 +290,7 @@ class PageDecorator
 
         add_sentence do |subj, is, _|
           sentence = nil
-          trophic_part = trait_sentence_part("%s", trophic) if trophic
+          trophic_part = trait_sentence_part("%s", trophic, pluralize: true) if trophic
 
           if begin_traits.any?
             begin_parts = begin_traits.collect do |t|
@@ -296,15 +298,23 @@ class PageDecorator
             end
 
             if trophic_part
-              sentence = "#{subj} #{is} #{a_or_an(begin_traits.first)} #{begin_parts.join(", ")} #{trophic_part}."
+              sentence = "#{subj} #{is_a(is, begin_traits.first)} #{begin_parts.join(", ")} #{trophic_part}."
             else
               sentence = "#{subj} #{is} #{begin_parts.join(" and ")}."
             end
           elsif trophic_part
-            sentence = "#{subj} #{is} #{a_or_an(trophic)} #{trophic_part}."
+            sentence = "#{subj} #{is_a(is, trophic)} #{trophic_part}."
           end
 
           sentence
+        end
+      end
+
+      def is_a(is, word)
+        if is_species?
+          "#{is} #{a_or_an(word)}"
+        else
+          is # 'are'
         end
       end
 
@@ -346,7 +356,7 @@ class PageDecorator
 
         if lifespan_part || size_part
           add_sentence do |_, __, ___|
-            "Individuals #{[lifespan_part, size_part].compact.to_sentence(locale: :en)}."
+            "Individuals #{[lifespan_part, size_part].compact.to_sentence}."
           end
         end
       end
@@ -358,7 +368,7 @@ class PageDecorator
           vpart = if matches.has_type?(:v)
                     v_vals = matches.by_type(:v).collect do |match|
                       trait_sentence_part("%s", match.trait)
-                    end.to_sentence(locale: :en)
+                    end.to_sentence
 
                     "#{subj} #{has} #{v_vals}"
                   else
@@ -368,10 +378,11 @@ class PageDecorator
           wpart = if matches.has_type?(:w)
                     w_vals = matches.by_type(:w).collect do |match|
                       trait_sentence_part(
-                        "#{a_or_an(match.trait)} %s",
-                        match.trait
+                        "#{is_species? ? "#{a_or_an(match.trait)} " : ""}%s",
+                        match.trait,
+                        pluralize: true
                       )
-                    end.to_sentence(locale: :en)
+                    end.to_sentence
 
                     "#{is} #{w_vals}"
                   else
@@ -392,7 +403,7 @@ class PageDecorator
           add_sentence do |subj, is, has|
             y_parts = matches.by_type(:y).collect do |match|
               trait_sentence_part("%s #{match.trait[:predicate][:name]}", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "#{subj} #{has} #{y_parts}."
           end
@@ -402,7 +413,7 @@ class PageDecorator
           add_sentence do |_, __, ___|
             x_parts = matches.by_type(:x).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "Reproduction is #{x_parts}."
           end
@@ -412,11 +423,15 @@ class PageDecorator
           add_sentence do |subj, is, has|
             z_parts = matches.by_type(:z).collect do |match|
               trait_sentence_part("%s", match.trait)
-            end.to_sentence(locale: :en)
+            end.to_sentence
 
             "#{subj} #{has} parental care (#{z_parts})."
           end
         end
+      end
+
+      def species_or_other(species, other)
+        is_species? ? species : other
       end
 
       def motility_sentence
@@ -429,7 +444,7 @@ class PageDecorator
           add_sentence do |subj, _, __|
             match = matches.first_of_type(:c)
             trait_sentence_part(
-              "#{subj} relies on %s to move around.",
+              "#{subj} #{species_or_other("relies", "rely")} on %s to move around.",
               match.trait
             )
           end
@@ -439,39 +454,30 @@ class PageDecorator
             b_match = matches.first_of_type(:b)
 
             a_part = trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(a_match.trait)} %s",
+              "#{subj} #{is_a(is, a_match.trait)} %s",
               a_match.trait
             )
 
             trait_sentence_part(
               "#{a_part} %s.",
-              b_match.trait
+              b_match.trait,
+              pluralize: true
             )
           end
         elsif matches.has_type?(:a)
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:a)
 
-            if is_species? 
-              article = "#{a_or_an(match.trait)} "
-
-              if @page.animal?
-                organism_animal = "animal"
-              else
-                organism_animal = "organism"
-              end
+            if @page.animal?
+              organism_animal = "animal"
             else
-              article = ""
-
-              if @page.animal?
-                organism_animal = "animals"
-              else
-                organism_animal = "organisms"
-              end
+              organism_animal = "organism"
             end
 
+            organism_animal = organism_animal.pluralize unless is_species?
+
             trait_sentence_part(
-              "#{subj} #{is} #{article}%s #{organism_animal}.",
+              "#{subj} #{is_a(is, match.trait)} %s #{organism_animal}.",
               match.trait
             )
           end
@@ -479,8 +485,9 @@ class PageDecorator
           add_sentence do |subj, is, _|
             match = matches.first_of_type(:b)
             trait_sentence_part(
-              "#{subj} #{is} #{a_or_an(match.trait)} %s.",
-              match.trait
+              "#{subj} #{is_a(is, match.trait)} %s.",
+              match.trait,
+              pluralize: true
             )
           end
         end
@@ -511,7 +518,7 @@ class PageDecorator
           parts = [leaf_part, flower_part, fruit_part].compact
 
           if parts.any?
-            "#{subj} #{has} #{parts.to_sentence(locale: :en)}."
+            "#{subj} #{has} #{parts.to_sentence}."
           else
             nil
           end
@@ -526,7 +533,7 @@ class PageDecorator
         if traits && traits.any?
           parts = traits.collect { |trait| trait_sentence_part("%s", trait) }
           add_sentence do |_, __, ___|
-            "Flowers are visited by #{parts.to_sentence(locale: :en)}."
+            "Flowers are visited by #{parts.to_sentence}."
           end
         end
       end
@@ -649,7 +656,7 @@ class PageDecorator
         if !@full_name_used && @page.vernacular
           "#{@page.canonical} (#{@page.vernacular.string.titlecase})"
         else
-          @name_clause ||= @page.vernacular_or_canonical
+          @name_clause ||= @page.vernacular_or_canonical(Language.english)
         end
       end
 
@@ -754,14 +761,14 @@ class PageDecorator
 
       def gather_terms(uris)
         terms = []
-        Array(uris).each { |uri| terms << uri ; terms += TraitBank.descendants_of_term(uri).map { |t| t['uri'] } }
+        Array(uris).each { |uri| terms << uri ; terms += TraitBank::Term.descendants_of_term(uri).map { |t| t['uri'] } }
         terms.compact
       end
 
       def add_extinction_sentence
         extinct_trait = first_trait_for_obj_uris(Eol::Uris.extinct)
         extant_trait = first_trait_for_obj_uris(*gather_terms(Eol::Uris.extant))
-        if !extant_trait && extinct_trait 
+        if !extant_trait && extinct_trait
           add_sentence do |_, __, ___|
             term_sentence_part("This species is %s.", "extinct", Eol::Uris.extinction, extinct_trait[:object_term])
           end
@@ -786,7 +793,7 @@ class PageDecorator
             end
           end
         end
-        values.any? ? values.uniq.to_sentence(locale: :en) : nil
+        values.any? ? values.uniq.to_sentence : nil
       end
 
       # TODO: it would be nice to make these into a module included by the Page class.
@@ -838,7 +845,7 @@ class PageDecorator
         result << conservation_sentence_part("in %s", status_recs[:cites]) if status_recs.include?(:cites)
         if result.any?
           add_sentence do |subj, _, __|
-            "#{subj} is listed #{result.to_sentence(locale: :en)}."
+            "#{subj} is listed #{result.to_sentence}."
           end
         end
 
@@ -881,13 +888,14 @@ class PageDecorator
         )
       end
 
-      def trait_sentence_part(format_str, trait)
+      def trait_sentence_part(format_str, trait, options = {})
         return '' if trait.nil?
 
         if trait[:object_page_id]
           association_sentence_part(format_str, trait[:object_page_id])
         elsif trait[:predicate] && trait[:object_term]
           name = trait[:object_term][:name]
+          name = name.pluralize if options[:pluralize] && !is_species?
           pred_uri = trait[:predicate][:uri]
           obj = trait[:object_term]
           term_sentence_part(

@@ -7,6 +7,10 @@
 - elsif type == :hist
   - classes = "viz-contain-hist js-hist-contain"
   - load_path = traits_data_viz_hist_path(term_query: query.to_params)
+- elsif type == :sankey
+  - classes = "viz-contain-sankey js-sankey-contain"
+  - load_path = traits_data_viz_sankey_path(term_query: query.to_params)
+
 .viz-contain{ class: classes, data: { :'load-path' => load_path }}
   - if local_assigns.include?(:header) || local_assigns.include?(:description)
     .viz-text

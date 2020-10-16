@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: EugeneZelenko
+# Author: Pyscowicz
 # Author: Robby
 # Author: Shirayuki
 # Author: Verdy p
@@ -21,6 +22,8 @@ qqq:
     delete_button: '{{Identical|Delete}}'
   language: '{{Identical|Language}}'
   medium_header_description: '{{Identical|Description}}'
+  search:
+    full_name: '{{Optional}}'
   sections:
     overview: '{{Identical|Overview}}'
     size: '{{Identical|Size}}'

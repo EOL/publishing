@@ -740,8 +740,7 @@ zh-TW:
         r_form: 型
       reference_taxon_attrib: 來自%{dataset_name}的參考分類單元
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
-        (%{remarks})
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>（%{remarks}）
       username_missing: 使用者 %{user_id}
     trophic_web:
       competitor: 競爭者
@@ -797,7 +796,6 @@ zh-TW:
       import_traits: 匯入特質（從典藏庫）
       republish: 重新發佈
       reindex: 重建索引
-      fetch_log: 項目索取日誌
       fix_no_names: 修正沒有名稱
       index: 返回到所有資源
       show_all:
@@ -805,15 +803,7 @@ zh-TW:
       show_warns:
         one: 顯示警告（%{count} 個）
         other: 顯示警告（%{count} 個）
-      sync: 與典藏庫同步
-      sync_all_terms: 同步所有項
-      fetch_relationships: 取得關係
-      sync_all_terms_confirm: 這將會抓取所有來自獲取層級且不在發布層級的項，大約會花上 15 分鐘的時間，您確定要嗎？
-      fetch_relationships_confirm: 這會移除現有的關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上5分鐘時間，您確定嗎？
-      fetch_synonyms: 取得同物異名
-      fetch_synonyms_confirm: 這會移除現有的同物異名並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
-      fetch_units: 取得單位
-      fetch_units_confirm: 這會移除現有的述語/單位關係並重新添加它們，但可能會失敗且全部移除掉。這大約會花上一分鐘時間，您確定嗎？
+      sync: 同步
       clear_publishing: 清除鎖定
       clear_publishing_confirm: 這將會'結束'所有發布，若在主動發佈時使用會引起問題。您確定嗎？
     headers:
@@ -1051,6 +1041,8 @@ zh-TW:
     validations:
       blank_error: 必須指定一個屬性或值
       invalid_uri: 無效 URI
+      multi_obj_error: 不能同時有物件項與目標演化支
+      pred_uri_blank_obj_clade_error: 目標演化支不能為空
       pred_uri_blank_numeric_error: 不能為空白的數值
       range_invalid_error: 必須 >= 第一個值
   terms:
@@ -1069,7 +1061,10 @@ zh-TW:
   traits:
     data_viz:
       about_this_chart: 關於此圖表
-      about_this_chart_tooltip: 此摘要基於在網路生命大百科上可用資料，可能有不完整地方！您可以從圖表選擇條形圖來縮小您的搜尋結果。
+      about_this_chart_tooltip_1d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以從圖表中選擇一個條狀來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在一個以上的條狀中。
+      about_this_chart_tooltip_sankey_2d: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。
+      about_this_chart_tooltip_sankey_3+: 這是基於網路生命大百科中可用資料的摘要。內容可能不完整！您可以選擇在任何軸上的分類來縮小搜尋結果範圍。另外請注意，任何指定的物種可能會包含在相同軸裡一個以上的分類中。在突出顯示的子集顯示裡，這些多個值的物種將在其它軸上被多次計算。
+      other_term_name: 其他%{term_name}
       hist_value_label: 值（%{units}）
       n_other_records:
         one: 1 個其它紀錄
@@ -1088,6 +1083,7 @@ zh-TW:
       n_taxa_with:
         one: 帶有「%{obj_name}」的 1 個分類
         other: 帶有「%{obj_name}」的 %{count} 個分類
+      sankey_node_hover: 點擊來縮小範圍搜尋%{term_name}
       see_n_obj_records:
         one: 點擊來查看帶有「%{obj_name}」的 1 個紀錄
         other: 點擊來查看帶有「%{obj_name}」的 %{count} 個紀錄
@@ -1139,6 +1135,7 @@ zh-TW:
       switch_to_gallery: 切換成圖庫檢視
     search_form:
       attribute: 屬性
+      attribute_eg: 屬性（例如：食物階層）
       clade_filter_placeholder: 群組（例如：熊）（選用）
       hide_additional_fields: 隱藏額外欄位
       lifestage: 生命階段
@@ -1148,10 +1145,12 @@ zh-TW:
       sex: 性別
       show_additional_fields: 顯示額外欄位
       statistical_method: 統計方法
+      target_group: 目標群組（例如：鮭魚）
       taxa_matching_all: 符合所有篩選的分類
       this_may_take_a_minute: 這可能會花費一分鐘
       trait_filter: 特徵篩選
       value: 值
+      value_eg: 值（例如：草食性動物）
   trophic_web:
     group_descriptions:
       competitor: '%{source_name}的競爭者'
@@ -1204,6 +1203,11 @@ zh-TW:
   vernacular_names_header: 俗名
   vernacular_preferred_by_resource: '%{resource}（優先此名稱）'
   wordcloud_credit_html: 以 <a href='%{url}'>jQCloud</a> 產生
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{n}裡的%{m}'
   term:
     actions:
       reindex: 重建索引

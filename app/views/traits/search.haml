@@ -53,6 +53,7 @@
         = render 'page_gallery', { pages: @result_pages }
       - else
         = render 'page_table', { pages: @result_pages }
+
 - if @raw_query
   .raw-query
     .show-raw-query.js-show-raw-query= t(".show_query")

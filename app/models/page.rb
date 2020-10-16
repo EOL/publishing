@@ -499,8 +499,9 @@ class Page < ApplicationRecord
     native_node.try(:rank)
   end
 
-  def vernacular_or_canonical
-    vernacular(Language.current)&.string&.titlecase || canonical
+  def vernacular_or_canonical(languages = nil)
+    languages ||= Language.current
+    vernacular(languages)&.string&.titlecase || canonical
   end
 
   # TRAITS METHODS
@@ -580,7 +581,7 @@ class Page < ApplicationRecord
 
   def glossary
     @glossary ||= Rails.cache.fetch("/pages/#{id}/glossary", expires_in: 1.day) do
-      TraitBank::Terms.page_glossary(id)
+      TraitBank::Term.page_glossary(id)
     end
   end
 

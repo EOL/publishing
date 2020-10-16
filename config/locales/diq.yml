@@ -65,16 +65,20 @@ diq:
   collect_icon_title: Pela "%{page}" ra obcey "%{item}" defiyê miyan…
   collect_new_collection: Namey Koleksiyonê Neweyêni
   collect_new_collection_title: …Yew Koleksiyono Neweyên
+  collect_title: '%{item} dekere...'
   collected_pages_title: Peli
   collected_pages:
     delete_button: bestere
     edit_button: bıvurne
     delete_confirm: şıma bêgumanê?
+  collection_associations_title: Koleksiyonê eleqeyıni
+  collection_user_is_admin: No karber yew admino
   collection:
     admins:
       placeholder: Name pêro yana namey karberi
     actions:
       associate: elaqedar ke
+      download_taxa_csv: Dosyaya taxa CSV rone
       delete: bestere
       edit: bıvurne
       sort: kılm
@@ -82,6 +86,7 @@ diq:
       normal: normal
       gallery: galeriye
     search:
+      placeholder: Koleksiyoni bıvinê...
       submit: cı geyre
     sort:
       hierarchy: hiyerarşi
@@ -121,10 +126,17 @@ diq:
     view_source_label: oricinal
     view_source_link: resımo oricinal bıvêne
     view_source_page_link: Çımey ziyaret kerê
+  dear_username_with_comma: Bıra %{username}
+  delete_account_button: Hesabê ho bıesternê
   filter_by_license: lisans
+  filter_by_license_any_item: lisansa salmi
   filter_by_medium_subtype: babet
   filter_by_medium_any_item: goreyê tewri
   filter_by_resource: ardoğ
+  filter_by_resource_any_item: Tedarikwano salme
+  filters:
+    filter_by_attribute: Gorey xısusiyeti parzûn ke
+    filter_by_language: Gorey zıwani parzûn ke
   footer:
     eol_info:
       data_services: Servisê data
@@ -566,7 +578,6 @@ diq:
         one: (%{count}) iqazi bımocne
         other: (%{count}) iqaza bımocnê
       sync: Depoya senkronize bıkerê
-      sync_all_terms: Terıma pêro senkronize bıkerê
     headers:
       index: Çımeyi
     no_events: Qet yew!

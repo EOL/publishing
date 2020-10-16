@@ -156,15 +156,13 @@ Relationships:
 ### Object (or value) of the statement
 
 The 'object' or value of the statement is given by the
-`object_page_id`, `object_term`, `normal_measurement`, or `literal`,
+`object_page`, `object_term`, `normal_measurement`, or `literal`,
 as determined by the nature of the `predicate`.
 
-* `object_page_id`: if the predicate has type `association`, the object
-  of the statement is a taxon, and this property is the
-  value of the `page_id` of that taxon.
 * `object_term` link: to a `Term` node for the object of the statement,
   usually an ontology term for some qualitative choice (e.g. habitat type).
   The predicate's type will be 'measurement' [check on this].
+* `object_page` link: to a `Page` node that is the object of the statement for Traits with predicate type `association`.
 * `normal_measurement` property: this value is the value of the statement,
   indicating a quantity in normalized units.
   The predicate's type will be 'measurement' [check on this].
@@ -258,5 +256,5 @@ They are *not* used in EOL's relational publishing database.
 
 
 * `parent_term` link: the Terms form a hierarchy, this gives the term's parent term
-* `synonym_of` link: a Term (also the parent term??) that this one is equivalent to
+* `synonym_of` link: a parent Term that this one is equivalent or approximately equivalent to. 
 * `object_for_predicate` link: a periodically-refreshed convenience relationship linking obj and pred terms where there exists (pred:Term)<-[:parent\_term|:synonym\_of\*0..]-(:Term)<-[:predicate]-(:Trait)-[:object\_term]->(:Term)-[:parent\_term|:synonym\_of\*0..]->(obj:Term).

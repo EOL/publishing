@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/EOL/eol_terms.git
+  revision: 6104df52dc84bde79cf168603fb6d303a19c1718
+  specs:
+    eol_terms (0.4.5)
+      yaml
+
+GIT
   remote: https://github.com/EOL/neography
   revision: ac92f5fe13017a274429b8863953b8aa64e45955
   specs:
@@ -215,6 +222,8 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.7.1)
+      i18n (>= 0.6.6)
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
@@ -514,6 +523,7 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yaml (0.1.0)
     yard (0.9.25)
 
 PLATFORMS
@@ -543,6 +553,7 @@ DEPENDENCIES
   discourse_api (~> 0.38)
   draper (~> 4.0)
   elasticsearch (~> 6)
+  eol_terms!
   factory_girl (~> 4.9)
   faker (~> 2.10)
   font-awesome-sass (~> 4.7)
@@ -550,6 +561,7 @@ DEPENDENCIES
   friendly_id (~> 5.2.4)
   haml-rails (~> 2.0)
   http (~> 4.3)
+  i18n-js
   jbuilder (~> 2.10)
   jquery-rails (~> 4.3)
   js-routes (~> 1.4)

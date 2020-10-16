@@ -636,6 +636,7 @@ en:
     fi: "fi"
     pms: "pms"
     pt-BR: "pt-BR"
+    zh-CN: "zh-CN"
     zh-TW: "zh-TW"
     tr: "tr"
   maps:
@@ -768,7 +769,7 @@ en:
         r_form: "Form"
       reference_taxon_attrib: "Reference taxon from %{dataset_name}"
       resource_link_html: "<a href='%{resource_path}'>%{resource_name}</a>"
-      resource_link_w_remarks_html: "<a href='%{resource_path}'>{resource_name}</a> (%{remarks})"
+      resource_link_w_remarks_html: "<a href='%{resource_path}'>%{resource_name}</a> (%{remarks})"
       username_missing: "user %{user_id}"
     trophic_web:
       competitor: "Competitor"
@@ -823,7 +824,6 @@ en:
       import_traits: "import traits (from repository)"
       republish: "republish"
       reindex: "reindex"
-      fetch_log: "terms-fetch log"
       fix_no_names: "fix NO NAMEs"
       index: "back to all resources"
       show_all:
@@ -831,15 +831,7 @@ en:
       show_warns:
         one: "show warning (%{count})"
         other: "show warnings (%{count})"
-      sync: "sync with repo"
-      sync_all_terms: "sync all terms"
-      fetch_relationships: "fetch relationships"
-      sync_all_terms_confirm: "This will grab ALL terms from the harvesting layer that are not in the publishing layer. It requires about 15 minutes. Are you sure?"
-      fetch_relationships_confirm: "This removes existing relationships and re-adds them, but could fail and remove them all. It takes about five minutes. Are you sure?"
-      fetch_synonyms: "fetch synonyms"
-      fetch_synonyms_confirm: "This removes existing synonyms and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
-      fetch_units: "fetch units"
-      fetch_units_confirm: "This removes existing predicate/unit relationships and re-adds them, but could fail and remove them all. It takes about a minute. Are you sure?"
+      sync: "sync"
       clear_publishing: "clear lock"
       clear_publishing_confirm: "This will 'finish' all publishing, and can cause problems if used while actively publishing. Are you sure?"
     headers:
@@ -1090,6 +1082,8 @@ en:
     validations:
       blank_error: "must specify an attribute or value"
       invalid_uri: "invalid URI"
+      multi_obj_error: "can't have both an object term and a target clade"
+      pred_uri_blank_obj_clade_error: "can't be blank with a target clade"
       pred_uri_blank_numeric_error: "can't be blank with a numeric value"
       range_invalid_error: "must be >= to first value"
   terms:
@@ -1108,7 +1102,10 @@ en:
   traits:
     data_viz:
       about_this_chart: "about this chart"
-      about_this_chart_tooltip: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results."
+      about_this_chart_tooltip_1d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a bar from the chart to narrow your search results. Note that any given species may be included in more than one bar."
+      about_this_chart_tooltip_sankey_2d: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis."
+      about_this_chart_tooltip_sankey_3+: "This is a summary based upon data available in EOL. It may be incomplete! You can select a category on any axis to narrow your search results. Note that any given species may be included in more than one category in the same axis. In a highlighted subset display, these multi-value species will be counted multiple times in other axes."
+      other_term_name: "other %{term_name}"
       hist_value_label: "value (%{units})"
       n_other_records:
         one: "one other record"
@@ -1127,6 +1124,7 @@ en:
       n_taxa_with:
         one: "one taxon with \"%{obj_name}\""
         other: "%{count} taxa with \"%{obj_name}\""
+      sankey_node_hover: "click to narrow search to %{term_name}"
       see_n_obj_records:
         one: "click to see one record with \"%{obj_name}\""
         other: "click to see %{count} records with \"%{obj_name}\""
@@ -1177,6 +1175,7 @@ en:
       switch_to_gallery: "switch to gallery view"
     search_form:
       attribute: "attribute"
+      attribute_eg: "attribute (e.g.: trophic level)"
       clade_filter_placeholder: "group (e.g.: bears) (optional)"
       hide_additional_fields: "hide additional fields"
       lifestage: "lifestage"
@@ -1186,10 +1185,12 @@ en:
       sex: "sex"
       show_additional_fields: "show additional fields"
       statistical_method: "statistical method"
+      target_group: "target group (e.g., salmon)"
       taxa_matching_all: "taxa matching ALL filters"
       this_may_take_a_minute: "This may take a minute"
       trait_filter: "trait filter"
       value: "value"
+      value_eg: "value (e.g.: herbivore)"
   trophic_web:
     group_descriptions:
       competitor: "competitor of %{source_name}"
@@ -1242,6 +1243,13 @@ en:
   vernacular_names_header: "Common Names"
   vernacular_preferred_by_resource: "%{resource} (prefers this name)"
   wordcloud_credit_html: "generated with <a href='%{url}'>jQCloud</a>"
+
+  # configured to be included by i18n-js
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: "%{m} of %{n}"
 
   # TERMS
 

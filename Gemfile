@@ -6,6 +6,9 @@ gem 'rails', '5.2.4.3'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '0.5.3'
 
+# "Internal" EOL gems:
+gem 'eol_terms', git: 'https://github.com/EOL/eol_terms.git'
+
 # Asset-related gems next:
 gem 'webpacker', '~> 5.x'
 
@@ -121,6 +124,9 @@ gem 'sitemap_generator', '~> 6.1'
 
 # url slug support
 gem 'friendly_id', '~> 5.2.4'
+
+# translations in JS
+gem 'i18n-js'
 
 group :development, :test do
   gem 'active_record_query_trace', '~> 1.7'

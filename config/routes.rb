@@ -88,7 +88,6 @@ Rails.application.routes.draw do
     resources :resources, only: [:index, :show] do
       get 'clear_publishing', on: :collection
       get 'sync', on: :collection
-      get 'sync_all_terms', on: :collection
       get 'republish'
       get 'reindex'
       get 'fix_no_names'
@@ -124,6 +123,7 @@ Rails.application.routes.draw do
         get '/:version' => 'api_pages#index', version: /1\.0/, id: id_match, format: /json|xml/
         get '/:id' => 'api_pages#index', id: id_match, format: /json|xml/
         get '/:id/pred_prey' => 'api_pages#pred_prey'
+        get '/:id/brief_summary' => 'api_pages#brief_summary'
       end
       scope '/search' do
         get '/1.0/:id' => 'api_search#index', id: id_match, format: /json|xml/
@@ -180,10 +180,6 @@ Rails.application.routes.draw do
     get "/terms/edit/:uri" => "terms#edit", :as => "edit_term", :constraints => { uri: /http.*/ }
     get "/terms/glossary(/:letter)(/:uri)" => "terms#index", :as => "terms", :constraints => { uri: /http.*/ }
     get "/schema/terms/:uri_part" => "terms#schema_redirect"
-    get "/terms/fetch_log" => "terms#fetch_log", :as => "terms_fetch_log"
-    get "/terms/fetch_relationships" => "terms#fetch_relationships", :as => "fetch_term_relationships"
-    get "/terms/fetch_synonyms" => "terms#fetch_synonyms", :as => "fetch_synonyms"
-    get "/terms/fetch_units" => "terms#fetch_units", :as => "fetch_units"
     get "/services/authenticate" => "services#authenticate_service"
     get "/service/cypher" => "service/cypher#query", as: "cypher_query"
     post "/service/cypher" => "service/cypher#command", as: "cypher_command"
@@ -202,6 +198,7 @@ Rails.application.routes.draw do
       get "/data_viz/pie" => "data_viz#pie"
       get "/data_viz/bar" => "data_viz#bar"
       get "/data_viz/hist" => "data_viz#hist"
+      get "/data_viz/sankey" => "data_viz#sankey"
     end
 
     namespace :admin do

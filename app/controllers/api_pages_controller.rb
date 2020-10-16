@@ -17,6 +17,12 @@ class ApiPagesController < LegacyApiController
     end
   end
 
+  def brief_summary
+    @page = PageDecorator.decorate(Page.find(params[:id]))
+    render json: { brief_summary: @page.cached_summary_text }
+  end
+
+
   def pred_prey
     @page = Page.find(params[:id])
 
@@ -175,25 +181,7 @@ class ApiPagesController < LegacyApiController
       else
         'http://purl.org/dc/dcmitype/StillImage'
       end
-      mime = if image.mp3?
-        'audio/mpeg'
-      elsif image.ogg?
-        'audio/ogg'
-      elsif image.wav?
-        'audio/wav'
-      elsif image.mp4?
-        'video/mp4'
-      elsif image.ogv?
-        'video/ogg'
-      elsif image.mov?
-        'video/quicktime'
-      elsif image.svg?
-        'image/svg+xml'
-      elsif image.webm?
-        'video/webm'
-      else
-        'image/jpeg'
-      end
+      mime = image.media_type
       image_hash = {
         identifier: image.guid,
         dataObjectVersionID: image.id,

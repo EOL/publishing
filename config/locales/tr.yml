@@ -4,8 +4,10 @@
 # Author: BaRaN6161 TURK
 # Author: Grkn gll
 # Author: MuratTheTurkish
+# Author: Stonecy
 # Author: Sucsuzz
 # Author: SwornToTranslate29
+# Author: ToprakM
 ---
 tr:
   language_name: Türkçe
@@ -768,7 +770,7 @@ tr:
         r_form: Form
       reference_taxon_attrib: '%{dataset_name} kaynağından referans vergi'
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: kullanıcı %{user_id}
     trophic_web:
@@ -817,7 +819,7 @@ tr:
       media: '%{page_name} medyası'
       maps: '%{page_name} haritaları'
       names: '%{page_name} isimleri'
-      articles: '%{page_name} makaleleri'
+      articles: '%{page_name} maddeleri'
     traits:
       search: Özellik arama
   recaptcha: Recaptcha
@@ -830,7 +832,6 @@ tr:
       import_traits: içe aktarma özellikleri (depodan)
       republish: yeniden yayınlan
       reindex: yeniden dizin
-      fetch_log: şartlar getirme günlüğü
       fix_no_names: İSİM OLMAYANI düzeltin
       index: tüm kaynaklara dön
       show_all:
@@ -838,22 +839,7 @@ tr:
       show_warns:
         one: uyarı göster (%{count})
         other: uyarı göster (%{count})
-      sync: depo ile senkronize et
-      sync_all_terms: tüm terimleri senkronize et
-      fetch_relationships: ilişkileri getir
-      sync_all_terms_confirm: Bu, yayınlama katmanında olmayan hasat katmanından TÜM
-        terimleri alır. Yaklaşık 15 dakika sürer. Emin misiniz?
-      fetch_relationships_confirm: Bu, mevcut ilişkileri kaldırır ve yeniden ekler,
-        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık beş dakika sürer.
-        Emin misiniz?
-      fetch_synonyms: eş anlamlıları getir
-      fetch_synonyms_confirm: Bu, mevcut eşanlamlıları kaldırır ve yeniden ekler,
-        ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika sürer.
-        Emin misiniz?
-      fetch_units: birimleri getir
-      fetch_units_confirm: Bu, mevcut yüklem/birim ilişkilerini kaldırır ve yeniden
-        ekler, ancak başarısız olabilir ve hepsini kaldırabilir. Yaklaşık bir dakika
-        sürer. Emin misiniz?
+      sync: senkronize et
       clear_publishing: kilidi kaldır
       clear_publishing_confirm: Bu, tüm yayınları 'bitirir' ve aktif olarak yayınlanırken
         kullanılırsa sorunlara neden olabilir. Emin misiniz?
@@ -1094,6 +1080,8 @@ tr:
     validations:
       blank_error: bir özellik veya değer belirtmelidir
       invalid_uri: geçersiz URI
+      multi_obj_error: hem nesne terimi hem de hedef sınıfına sahip olamaz
+      pred_uri_blank_obj_clade_error: hedef grupla boş bırakılamaz
       pred_uri_blank_numeric_error: sayısal değerle boş bırakılamaz
       range_invalid_error: ilk değere >= olmalıdır
   terms:
@@ -1112,8 +1100,19 @@ tr:
   traits:
     data_viz:
       about_this_chart: bu grafik hakkında
-      about_this_chart_tooltip: Bu, EOL'de bulunan verilere dayanan bir özettir. Eksik
-        olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
+      about_this_chart_tooltip_1d: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için grafikten bir çubuk seçebilirsiniz.
+        Herhangi bir türün birden fazla çubuğa dahil edilebileceğini unutmayın.
+      about_this_chart_tooltip_sankey_2d: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
+        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
+        dahil edilebileceğini unutmayın.
+      about_this_chart_tooltip_sankey_3+: Bu, EOL'de bulunan verilere dayalı bir özettir.
+        Eksik olabilir! Arama sonuçlarınızı daraltmak için herhangi bir eksende bir
+        kategori seçebilirsiniz. Herhangi bir türün aynı eksende birden fazla kategoriye
+        dahil edilebileceğini unutmayın. Vurgulanan bir alt küme görüntüsünde, bu
+        çok değerli türler, diğer eksenlerde birden çok kez sayılacaktır.
+      other_term_name: diğer %{term_name}
       hist_value_label: değer (%{units})
       n_other_records:
         one: bir kayıt daha
@@ -1133,6 +1132,7 @@ tr:
       n_taxa_with:
         one: '"%{obj_name}" sahip bir takson'
         other: '"%{obj_name}" ile %{count} takson'
+      sankey_node_hover: aramayı %{term_name} ile daraltmak için tıklayın
       see_n_obj_records:
         one: '"%{obj_name}" ile bir kaydı görmek için tıklayın'
         other: '"%{obj_name}" ile %{count} kayıt görmek için tıklayın'
@@ -1190,6 +1190,7 @@ tr:
       switch_to_gallery: galeri görünümüne geç
     search_form:
       attribute: nitelik
+      attribute_eg: 'özellik (ör.: tropik düzey)'
       clade_filter_placeholder: 'grubu (örneğin: ayılar) (isteğe bağlı)'
       hide_additional_fields: ek alanları gizle
       lifestage: yaşam evresi
@@ -1199,10 +1200,12 @@ tr:
       sex: cinsiyet
       show_additional_fields: ek alanları göster
       statistical_method: istatistiksel yöntem
+      target_group: hedef grubu (ör. somon)
       taxa_matching_all: taksa ile eşleşen TÜM filtreler
       this_may_take_a_minute: Bu bir dakika sürebilir
       trait_filter: özellik filtresi
       value: değer
+      value_eg: 'değer (ör.: otçul)'
   trophic_web:
     group_descriptions:
       competitor: '%{source_name} rakibi'
@@ -1266,6 +1269,11 @@ tr:
   vernacular_names_header: Genel Adlar
   vernacular_preferred_by_resource: '%{resource} (bu adı tercih eder)'
   wordcloud_credit_html: <a href='%{url}'>jQCloud</a> ile oluşturuldu
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} - %{n}'
   term:
     actions:
       reindex: yeniden dizin

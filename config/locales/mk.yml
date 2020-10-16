@@ -257,7 +257,7 @@ mk:
       flowering_plants: Цветни растенија
       fungi: Габи
       insects: Инсекти
-      invertebrates: Без’рбетници
+      invertebrates: Безрбетници
       mammals: Цицачи
       molds: Мувли
       mushrooms: Печурки
@@ -765,7 +765,7 @@ mk:
         r_form: Облик
       reference_taxon_attrib: Појдовен таксон од %{dataset_name}
       resource_link_html: <a href='%{resource_path}'>%{resource_name}</a>
-      resource_link_w_remarks_html: <a href='%{resource_path}'>{resource_name}</a>
+      resource_link_w_remarks_html: <a href='%{resource_path}'>%{resource_name}</a>
         (%{remarks})
       username_missing: корисник %{user_id}
     trophic_web:
@@ -828,7 +828,6 @@ mk:
       import_traits: увези одлики (од складиште)
       republish: преобјави
       reindex: преиндексирај
-      fetch_log: дневник за давање на поими
       fix_no_names: поправи случаи на НЕМА ИМЕ
       index: назад на сите ресурси
       show_all:
@@ -836,22 +835,7 @@ mk:
       show_warns:
         one: прикажи предупредување (%{count})
         other: прикажи предупредувања (%{count})
-      sync: усогласи со складиштето
-      sync_all_terms: усогласи ги сите поими
-      fetch_relationships: дај односи
-      sync_all_terms_confirm: Ова ќе ги земе СИТЕ поими од слојот на преземање кои
-        не се во слојот за објавување. Трае околу 15 минути. Дали сте сигурни?
-      fetch_relationships_confirm: Ова ги отстранува постоечките односи и повторно
-        ги додава, но може да не успее и да ги отстрани сите. Трае околу пет минути.
-        Дали сте сигурни?
-      fetch_synonyms: дај синоними
-      fetch_synonyms_confirm: Ова ги отстранува постоечките синоними и повторно ги
-        додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
-        Дали сте сигурни?
-      fetch_units: дај единици
-      fetch_units_confirm: Ова ги отстранува постоечките односи прирок/единица и повторно
-        ги додава, но може да не успее и да ги отстрани сите. Трае околу една минута.
-        Дали сте сигурни?
+      sync: усогласи
       clear_publishing: поништи заклученост
       clear_publishing_confirm: Со ова ќе ги „завршите“ сите објавувања и може да
         предизвика проблеми ако се користи додека трае тековно објавување. Дали сте
@@ -884,6 +868,8 @@ mk:
   scientific_names_header: Научни имиња
   send_me_reset_password_instructions: Испрати ми напатствија за нова лозинка
   search:
+    full_name: '%{vernacular} (%{scientific})'
+    matched_text: Најдено %{text}
     flash:
       cannot_combine_paths: Не можев да го здружам исходот со %{path}
       more_than_one_species: Не можев да го здружам исходот за %{species}
@@ -1093,6 +1079,8 @@ mk:
     validations:
       blank_error: мора да укаже својство или вредност
       invalid_uri: неважечка URL
+      multi_obj_error: не може да има и објектен предмет и целен клад
+      pred_uri_blank_obj_clade_error: не може да биде празно со целен клад
       pred_uri_blank_numeric_error: не може да стои празно со бројчена вредност
       range_invalid_error: мора да биде >= до првата вредност
   terms:
@@ -1111,9 +1099,21 @@ mk:
   traits:
     data_viz:
       about_this_chart: за графиконов
-      about_this_chart_tooltip: Ова е краток преглед според податоците достапни на
-        EOL. Може да е нецелосен! Можете да изберете столб од графиконот за да го
-        уточните пребарувањето.
+      about_this_chart_tooltip_1d: Ова е краток преглед заснован на податоците достапни
+        на EOL. Може да е нецелосен! Можете да одберете столб од графиконот за да
+        го уточните пребарувањето. Имајте на ум дека може еден вид да е застапен во
+        повеќе од еден столб.
+      about_this_chart_tooltip_sankey_2d: Ова е краток преглед заснован на податоците
+        достапни на EOL. Може да е нецелосен! Можете да одберете категорија на било
+        која оска за да го уточните пребарувањето. Имајте на ум дека може еден вид
+        да е застапен во повеќе од една категорија на истата оска.
+      about_this_chart_tooltip_sankey_3+: Ова е краток преглед заснован на податоците
+        достапни на EOL. Може да е нецелосен! Можете да одберете категорија на било
+        која оска за да го уточните пребарувањето. Имајте на ум дека може еден вид
+        да е застапен во повеќе од една категорија на истата оска. Во истакнатиот
+        приказ на подмножество, овие повеќевредносни видови ќе се бројат повеќепати
+        на други оски.
+      other_term_name: други %{term_name}
       hist_value_label: вредност (%{units})
       n_other_records:
         one: уште еден запис
@@ -1133,6 +1133,7 @@ mk:
       n_taxa_with:
         one: еден таксон со „%{obj_name}“
         other: '%{count} таксони со „%{obj_name}“'
+      sankey_node_hover: стиснете за да го уточните пребарувањето на %{term_name}
       see_n_obj_records:
         one: стиснете за да погледате еден запис со „%{obj_name}“
         other: стиснете за да погледате %{count} записи со „%{obj_name}“
@@ -1190,6 +1191,7 @@ mk:
       switch_to_gallery: сликореден поглед
     search_form:
       attribute: својство
+      attribute_eg: атрибут (на пр. трофно ниво)
       clade_filter_placeholder: група (на пр. мечки) (незадол.)
       hide_additional_fields: скриј дополнителни полиња
       lifestage: животна фаза
@@ -1199,10 +1201,12 @@ mk:
       sex: пол
       show_additional_fields: прикажи дополнителни полиња
       statistical_method: статистички метод
+      target_group: целна група (на пр. лосос)
       taxa_matching_all: таксони што одговараат на СИТЕ филтри
       this_may_take_a_minute: Ова може малку да потрае
       trait_filter: филтер на одлики
       value: вредност
+      value_eg: вредност (на пр. тревопасен)
   trophic_web:
     group_descriptions:
       competitor: конкурент на %{source_name}
@@ -1266,6 +1270,11 @@ mk:
   vernacular_names_header: Народни имиња
   vernacular_preferred_by_resource: '%{resource} (го претпочита имево)'
   wordcloud_credit_html: создадено со <a href='%{url}'>jQCloud</a>
+  i18n_js:
+    traits:
+      data_viz:
+        sankey:
+          m_of_n: '%{m} од %{n}'
   term:
     actions:
       reindex: преиндексирај

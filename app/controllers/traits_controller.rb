@@ -135,12 +135,7 @@ class TraitsController < ApplicationController
     ids = data.map { |t| t[:page_id] }.uniq
     # HERE IS THE IMPORTANT DB QUERY TO LOAD PAGES:
     pages = Page.where(:id => ids).with_hierarchy
-    @pages = {}
-
-    ids.each do |id|
-      page = pages.find { |p| p.id == id }
-      @pages[id] = page if page
-    end
+    @pages = pages.map { |p| [p.id, p] }.to_h
 
     # TODO: code review here. I think we're creating a lot of cruft we don't use.
     paginate_term_search_data(data, @query)
@@ -182,6 +177,8 @@ class TraitsController < ApplicationController
       @data_viz_type = :bar
     elsif TraitBank::Stats.check_query_valid_for_histogram(query, counts.primary_for_query(query)).valid
       @data_viz_type = :hist
+    elsif TraitBank::Stats.check_query_valid_for_sankey(query).valid
+      @data_viz_type = :sankey
     end
   end
 

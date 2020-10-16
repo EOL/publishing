@@ -99,7 +99,7 @@ module DataHelper
 
   def i18n_term_name_for_uri(uri)
     record = if uri.present?
-               TraitBank.term_record(uri)
+               TraitBank::Term.term_record(uri)
              else
                nil
              end

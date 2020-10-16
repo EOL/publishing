@@ -10,6 +10,7 @@ class TraitBank
 
   class << self
     delegate :log, :warn, :log_error, to: TraitBank::Logger
+    delegate :term, :term_record, :term_as_hash, to: TraitBank::Term
 
     def connection
       @connection ||= Neography::Rest.new(Rails.configuration.traitbank_url)
@@ -166,34 +167,40 @@ class TraitBank
       res["data"] ? res["data"].first : false
     end
 
+    # NOTE: this method is unused in the code, it's here for convenience when debugging.
+    def by_eol_pk(eol_pk)
+      by_trait_and_page({id: eol_pk}, nil)
+    end
+
     def by_trait_and_page(input, page_id, page = 1, per = 200)
       id = input.is_a?(Hash) ? input[:id] : input # Handle both raw IDs *and* actual trait hashes.
       page_id_part = page_id.nil? ? "" : "{ page_id: #{page_id} }"
       trait_rel = page_id.nil? ? ":trait" : TRAIT_RELS
-      q = "MATCH (page:Page#{page_id_part})"\
-          "-[#{trait_rel}]->(trait:Trait { eol_pk: '#{id.gsub("'", "''")}' })"\
-          "-[:supplier]->(resource:Resource) "\
-          "MATCH (trait:Trait)-[:predicate]->(predicate:Term) "\
-          "OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
-          "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term) "\
-          "OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term) "\
-          "OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term) "\
-          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, "\
-            "meta, meta_predicate, meta_units_term, meta_object_term, page " # \
-          # "ORDER BY LOWER(meta_predicate.name)"
+      q = %{MATCH (page:Page#{page_id_part})
+          -[#{trait_rel}]->(trait:Trait { eol_pk: "#{id.gsub(/"/, '""')}" })
+          -[:supplier]->(resource:Resource)
+          MATCH (trait:Trait)-[:predicate]->(predicate:Term)
+          OPTIONAL MATCH (trait)-[:object_term]->(object_term:Term)
+          OPTIONAL MATCH (trait)-[:sex_term]->(sex_term:Term)
+          OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
+          OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
+          OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          OPTIONAL MATCH (trait)-[data]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+          OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
+          OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term,
+            meta, meta_predicate, meta_units_term, meta_object_term, page }
+          # ORDER BY LOWER(meta_predicate.name)}
       q += limit_and_skip_clause(page, per)
       res = query(q)
       build_trait_array(res, group_meta_by_predicate: true)
     end
 
     def data_dump_trait(pk)
-      id = pk.gsub("'", "''")
+      id = pk.gsub(/"/, '""')
       query(%{
-        MATCH (trait:Trait { eol_pk: '#{id}' })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
+        MATCH (trait:Trait { eol_pk: "#{id}" })-[:metadata]->(meta:MetaData)-[:predicate]->(meta_predicate:Term)
         OPTIONAL MATCH (meta)-[:units_term]->(meta_units_term:Term)
         OPTIONAL MATCH (meta)-[:object_term]->(meta_object_term:Term)
         OPTIONAL MATCH (meta)-[:sex_term]->(sex_term:Term)
@@ -203,6 +210,7 @@ class TraitBank
           meta_units_term.uri, sex_term.uri, lifestage_term.uri, statistical_method_term.uri, meta.source
       })
     end
+    alias_method :by_eol_pk, :data_dump_trait
 
     def by_page(page_id, page = 1, per = 100)
       Rails.cache.fetch("trait_bank/by_page/#{page_id}", expires_in: 1.day) do
@@ -214,7 +222,8 @@ class TraitBank
           "OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term) "\
           "OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term) "\
           "OPTIONAL MATCH (trait)-[:units_term]->(units:Term) "\
-          "RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term"
+          "OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page) "\
+          "RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term"
 
         # q += order_clause(by: ["LOWER(predicate.name)", "LOWER(object_term.name)",
         #   "LOWER(trait.literal)", "trait.normal_measurement"])
@@ -241,7 +250,8 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term, trait_count
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term, trait_count
         ))
 
         build_trait_array(res)
@@ -295,7 +305,8 @@ class TraitBank
           OPTIONAL MATCH (trait)-[:lifestage_term]->(lifestage_term:Term)
           OPTIONAL MATCH (trait)-[:statistical_method_term]->(statistical_method_term:Term)
           OPTIONAL MATCH (trait)-[:units_term]->(units:Term)
-          RETURN resource, trait, predicate, object_term, units, sex_term, lifestage_term, statistical_method_term
+          OPTIONAL MATCH (trait)-[:object_page]->(object_page:Page)
+          RETURN resource, trait, predicate, object_term, object_page, units, sex_term, lifestage_term, statistical_method_term
         ))
 
         build_trait_array(res)
@@ -418,7 +429,7 @@ class TraitBank
       gathered_term = gathered_terms.find { |t| t.type == term_type }
 
       if gathered_term
-        "#{child_term_label} IN #{gathered_term.list_label}"  
+        "#{child_term_label} IN #{gathered_term.gathered_list_label}"
       else
         term_uri_param = "#{anc_term_label}_uri"
         params[term_uri_param] = term_uri
@@ -426,17 +437,40 @@ class TraitBank
       end
     end
 
+    def term_filter_where_obj_clade_part(obj_clade_var, child_obj_clade_var, obj_clade_id, params, gathered_terms)
+      gathered_term = gathered_terms.find { |t| t.type == :object_clade }
 
-    def term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, params, gathered_terms = [])
+      if gathered_term
+        "#{child_obj_clade_var} IN #{gathered_term.gathered_list_label}"
+      else
+        obj_clade_id_param = "#{obj_clade_var}_page_id"
+        params[obj_clade_id_param] = obj_clade_id
+        "#{obj_clade_var}.page_id = $#{obj_clade_id_param}"
+      end
+    end
+
+    def term_filter_where(
+      filter,
+      trait_var,
+      pred_labeler,
+      obj_term_labeler,
+      obj_clade_labeler,
+      params,
+      gathered_terms = []
+    )
       parts = []
       term_condition = []
 
       if filter.predicate?
-        term_condition << term_filter_where_term_part(pred_var, child_pred_var, filter.pred_uri, :predicate, params, gathered_terms)
+        term_condition << term_filter_where_term_part(pred_labeler.tgt_label, pred_labeler.label, filter.pred_uri, :predicate, params, gathered_terms)
       end
 
       if filter.object_term?
-        term_condition << term_filter_where_term_part(obj_var, child_obj_var, filter.obj_uri, :object_term, params, gathered_terms)
+        term_condition << term_filter_where_term_part(obj_term_labeler.tgt_label, obj_term_labeler.label, filter.obj_uri, :object_term, params, gathered_terms)
+      end
+
+      if filter.obj_clade.present?
+        term_condition << term_filter_where_obj_clade_part(obj_clade_labeler.tgt_label, obj_clade_labeler.label, filter.obj_clade.id, params, gathered_terms)
       end
 
       parts << "#{term_condition.join(" AND ")}"
@@ -541,6 +575,7 @@ class TraitBank
         object_term.uri
         object_term.name
         object_term.definition
+        object_page.page_id
         predicate.uri
         predicate.name
         predicate.definition
@@ -586,7 +621,7 @@ class TraitBank
       "RETURN #{returns.join(", ")}"
     end
 
-    def add_clade_match(term_query, gathered_terms, query_parts, params, match_clade_first)
+    def add_clade_match(term_query, gathered_terms, query_parts, params, match_clade_first, options = {})
       if term_query.clade_node
         page_match = "MATCH (page:Page)-[:parent*0..]->(anc: Page { page_id: $clade_id })"
         params["clade_id"] = term_query.clade_node.page_id
@@ -598,7 +633,7 @@ class TraitBank
             page_match_with = "WITH collect(DISTINCT page) AS pages"
           end
 
-          add_gathered_terms(page_match_with, gathered_terms)
+          add_gathered_terms(page_match_with, gathered_terms, options)
           page_match.concat("\n#{page_match_with}")
         end
 
@@ -609,7 +644,7 @@ class TraitBank
     def add_clade_where_conditional(clade_matched, filter_index, filter, term_query, query_parts)
       if (
         !clade_matched &&
-        term_query.clade && 
+        term_query.clade &&
         filter_index > 0 &&
         term_query.clade_node.descendant_count < filter.min_distinct_page_count
       )
@@ -636,7 +671,7 @@ class TraitBank
         else
           %Q(
             UNWIND trait_rows AS trait_row
-            WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate 
+            WITH page, trait_row.trait AS trait, trait_row.predicate AS predicate
             #{record_optional_matches_and_returns(limit_and_skip, options)}
           )
         end
@@ -650,18 +685,18 @@ class TraitBank
           query = %Q(
             WITH DISTINCT page, #{trait_var} AS trait, #{pred_var} AS predicate
             #{record_optional_matches_and_returns(limit_and_skip, options)}
-          ) 
+          )
         end
       end
 
       query = "#{match_part}\n#{last_part}"
-
       { query: query, params: params }
     end
 
     def record_optional_matches_and_returns(limit_and_skip, options)
       optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
+        "(trait)-[:object_page]->(object_page:Term)",
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
         "(trait)-[:sex_term]->(sex_term:Term)",
@@ -688,7 +723,7 @@ class TraitBank
     def trait_rels(include_inferred)
       include_inferred ? TRAIT_RELS : ":trait"
     end
-    
+
     def trait_rels_for_query_type(query)
       trait_rels(query.taxa?)
     end
@@ -700,37 +735,50 @@ class TraitBank
     end
 
 
-    GatheredTerm = Struct.new(:uri, :type, :list_label)
-    def gather_terms_matches(filters, params, first_filter_gather_all)
+    # TODO: Make sure obj clade is using the correct stat for being an object (i.e., obj_trait_count, not trait_row_count)
+    def gather_terms_matches(filters, params, options = {})
+      first_filter_gather_all = options[:first_filter_gather_all]
+      include_tgt_vars = options[:include_tgt_vars]
+
       matches = []
       gathered_terms = []
 
       filters.each_with_index do |filter, i|
         gathered_terms[i] = []
 
-        gather_all = i > 0 || first_filter_gather_all 
+        gather_all = i > 0 || first_filter_gather_all
 
-        if gather_all || (filter.object_term? && filter.predicate?)
-          terms = gather_all ? [filter.predicate_term, filter.object_term].compact : [filter.max_trait_row_count_term] 
+        if gather_all || filter.all_fields.length > 1
+          fields = gather_all ? filter.all_fields : filter.max_trait_row_count_fields
 
-          terms.each do |term|
-            label = "gathered_#{term.type}#{i}"
-            list_label = "#{label}s"
-            uri_param = "#{label}_uri"
-            params[uri_param] = term.uri
+          fields.each do |field|
+            labeler = TraitBank::QueryFieldLabeler.create_from_field(field, i)
 
-            match = %Q(
-              MATCH (#{label}:Term)-[#{parent_terms}]->(:Term{ uri: $#{uri_param} })
-              WITH collect(DISTINCT #{label}) AS #{list_label}
-            )
+            if field.type == :object_clade
+              page_id_param = "#{labeler.gathered_label}_page_id"
+              params[page_id_param] = field.value
+              match = %Q(
+                MATCH (#{labeler.gathered_label}:Page)-[:parent*0..]->(:Page { page_id: $#{page_id_param} })
+                WITH collect(DISTINCT #{labeler.gathered_label}) AS #{labeler.gathered_list_label}
+              )
+            else
+              uri_param = "#{labeler.gathered_label}_uri"
+              params[uri_param] = field.value
+              match = "MATCH (#{labeler.gathered_label}:Term)-[#{parent_terms}]->(#{include_tgt_vars ? labeler.tgt_label : ""}:Term{ uri: $#{uri_param} })"
+              match.concat("\nWITH collect(DISTINCT #{labeler.gathered_label}) AS #{labeler.gathered_list_label}")
+              match.concat(", #{labeler.tgt_label}") if include_tgt_vars
+            end
 
             flattened_gathered_terms = gathered_terms.flatten
             if flattened_gathered_terms.any?
-              match += ", #{flattened_gathered_terms.map { |t| t.list_label }.join(", ")}"
+              gt_part = flattened_gathered_terms.map do |t|
+                include_tgt_vars ? "#{t.gathered_list_label}, #{t.tgt_label}" : t.gathered_list_label
+              end.join(", ")
+              match += ", #{gt_part}"
             end
 
             matches << match
-            gathered_terms[i] << GatheredTerm.new(term.uri, term.type, list_label)
+            gathered_terms[i] << labeler
           end
         end
       end
@@ -752,10 +800,17 @@ class TraitBank
       end
     end
 
-    def add_gathered_terms(with_query, gathered_terms)
+    def add_gathered_terms(with_query, gathered_terms, options = {})
       flattened = gathered_terms.flatten
+
       if flattened.any?
-        with_query.concat(", #{gathered_terms.flatten.map { |t| t.list_label }.join(" ,")}")
+        gt_part = gathered_terms.flatten.map do |gt|
+          options[:with_tgt_vars] ?
+            "#{gt.gathered_list_label}, #{gt.tgt_label}" :
+            gt.gathered_list_label
+        end.join(", ")
+
+        with_query.concat(", #{gt_part}")
       end
     end
 
@@ -766,38 +821,54 @@ class TraitBank
         filters.empty? ||
         term_query.clade_node.descendant_count < term_query.page_count_sorted_filters.first.min_distinct_page_count
       )
-      gathered_term_matches, gathered_terms = gather_terms_matches(filters, params, clade_matched)
-      add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched)
+      gathered_term_matches, gathered_terms = gather_terms_matches(
+        filters,
+        params,
+        first_filter_gather_all: clade_matched,
+        include_tgt_vars: options[:with_tgt_vars]
+      )
+
+      add_clade_match(term_query, gathered_terms, filter_parts, params, clade_matched, with_tgt_vars: options[:with_tgt_vars])
 
       filters.each_with_index do |filter, i|
         filter_matches = []
         filter_wheres = []
+        obj_term_labeler = TraitBank::QueryFieldLabeler.new(options[:obj_var], :object_term, i)
+        pred_labeler = TraitBank::QueryFieldLabeler.new(options[:pred_var], :predicate, i)
 
         trait_var = filters.length == 1 && options[:trait_var] ? options[:trait_var] : "trait#{i}"
-        pred_var = "tgt_predicate#{i}"
-        child_pred_var = filters.length == 1 && options[:pred_var] ? options[:pred_var] : "predicate#{i}"
-        obj_var = "tgt_object#{i}"
-        child_obj_var = filters.length == 1 && options[:obj_var] ? options[:obj_var] : "object#{i}"
         base_meta_var = "meta#{i}"
         gathered_terms_for_filter = gathered_terms.shift
+
         clade_matched ||= add_clade_where_conditional(clade_matched, i, filter, term_query, filter_parts)
         page_node = i == 0 && !clade_matched ? "(page:Page)" : "(page)"
 
-        filter_matches << "#{page_node}-[#{TRAIT_RELS}]->(#{trait_var}:Trait)"
+        filter_matches << "#{page_node}-[#{trait_rels_for_query_type(term_query)}]->(#{trait_var}:Trait)"
 
         if filter.object_term?
-          filter_matches << filter_term_match(trait_var, obj_var, child_obj_var, :object_term, gathered_terms_for_filter)
+          filter_matches << filter_term_match(trait_var, obj_term_labeler.tgt_label, obj_term_labeler.label, :object_term, gathered_terms_for_filter)
         elsif options[:always_match_obj]
-          filter_matches << filter_term_match_no_hier(trait_var, child_obj_var, :object_term)
+          filter_matches << filter_term_match_no_hier(trait_var, obj_term_labeler.label, :object_term)
         end
+
+        if filter.obj_clade.present?
+          gathered_clade = gathered_terms_for_filter.find { |t| t.type == :object_clade }
+          obj_clade_labeler = TraitBank::QueryFieldLabeler.create_from_field(filter.obj_clade_field, i)
+
+          if gathered_clade
+            filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)"
+          else
+            filter_matches << "(#{trait_var})-[:object_page]->(#{obj_clade_labeler.label}:Page)-[:parent*0..]->(#{obj_clade_labeler.tgt_label}:Page)"
+          end
+        end
+
 
         if filter.predicate?
-          filter_matches << filter_term_match(trait_var, pred_var, child_pred_var, :predicate, gathered_terms_for_filter)
+          filter_matches << filter_term_match(trait_var, pred_labeler.tgt_label, options[:pred_var] || pred_labeler.label, :predicate, gathered_terms_for_filter)
         elsif options[:always_match_pred]
-          filter_matches << filter_term_match_no_hier(trait_var, child_pred_var, :predicate)
+          filter_matches << filter_term_match_no_hier(trait_var, pred_labeler.label, :predicate)
         end
 
-        filter_wheres << term_filter_where(filter, trait_var, pred_var, child_pred_var, obj_var, child_obj_var, params, gathered_terms_for_filter)
         filter_wheres << "page IN pages" if term_query.clade && !clade_matched && i = filters.length - 1
 
         add_term_filter_meta_matches(filter, trait_var, base_meta_var, filter_matches, params)
@@ -808,10 +879,12 @@ class TraitBank
           WHERE #{filter_wheres.join(" AND ")}
         )
 
-        with = yield(i, trait_var, child_pred_var)
+        with = options[:with_tgt_vars] ?
+          yield(i, filter, trait_var, pred_labeler.label, pred_labeler.tgt_label, obj_term_labeler.label, obj_term_labeler&.tgt_label) :
+          yield(i, filter, trait_var, pred_labeler&.label, obj_term_labeler&.label)
 
         if with.present?
-          add_gathered_terms(with, gathered_terms)
+          add_gathered_terms(with, gathered_terms, with_tgt_vars: options[:with_tgt_vars])
 
           if term_query.clade && !clade_matched
             with.concat(", pages")
@@ -825,14 +898,14 @@ class TraitBank
         end
       end
 
-      %Q( 
+      %Q(
         #{gathered_term_matches.join("\n")}
         #{filter_parts.join("\n")}
       )
     end
 
     def term_page_search_matches(term_query, params, options = {})
-      term_search_matches_helper(term_query, params, options) do |i, trait_var, pred_var|
+      term_search_matches_helper(term_query, params, options) do |i, filter, trait_var, pred_var, obj_var|
         if i == term_query.filters.length - 1
           nil
         else
@@ -844,7 +917,7 @@ class TraitBank
     def term_record_search_matches(term_query, params, options = {})
       trait_ag_var = options[:count] ? "trait_count" : "trait_rows"
 
-      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, trait_var, pred_var|
+      term_search_matches_helper(term_query, params, options.merge(always_match_pred: true)) do |i, filter, trait_var, pred_var, obj_var|
         if term_query.filters.length > 1
           if options[:count]
             trait_ag = "count(DISTINCT #{trait_var})"
@@ -1069,11 +1142,14 @@ class TraitBank
           else
             "MISSING"
           end
+
         if hash[:predicate].is_a?(Array)
           log_error("Trait {#{hash[:trait][:resource_pk]}} from resource #{hash[:resource_id]} has "\
             "#{hash[:predicate].size} predicates")
           hash[:predicate] = hash[:predicate].first
         end
+
+        hash[:object_page_id] ||= hash.dig(:object_page, :page_id)
 
         # TODO: extract method
         if hash.has_key?(:meta)
@@ -1234,126 +1310,6 @@ class TraitBank
       end
     end
 
-    def parse_term(term_options)
-      return nil if term_options.nil?
-      return term_options if term_options.is_a?(Hash)
-      return create_term(term_options)
-    end
-
-    def create_term(options)
-      if (existing_term = term(options[:uri])) # NO DUPLICATES!
-        return existing_term unless options.delete(:force)
-      end
-      options[:section_ids] = options[:section_ids] ?
-        Array(options[:section_ids]).join(",") : ""
-      options[:definition] ||= "{definition missing}"
-      options[:is_hidden_from_select] = (options.key?(:is_hidden_from_select) && options[:is_hidden_from_select]) ?
-        true : false
-      options[:definition].gsub!(/\^(\d+)/, "<sup>\\1</sup>")
-      if existing_term
-        options.delete(:uri) # We already have this.
-        begin
-          connection.set_node_properties(existing_term, remove_nils(options)) # Cypher is alergic to nils.
-        # What I saw was a Neography::PropertyValueException: "null value not supported" ...but I want to catch
-        # everything
-        rescue => e
-          puts "ERROR: failed to update term #{options[:uri]}"
-          puts "EXISTING: #{existing_term.inspect}"
-          puts "DESIRED: #{options.inspect}"
-          puts "You will need to fix this manually. Make note!"
-        end
-        return existing_term
-      end
-      begin
-        term_node = connection.create_node(options)
-        # ^ I got a "Could not set property "uri", class Neography::PropertyValueException here.
-        connection.set_label(term_node, "Term")
-        # ^ I got a Neography::BadInputException here saying I couldn't add a label. In that case, the URI included
-        # UTF-8 chars, so I think I fixed it by causing all URIs to be escaped...
-        count = Rails.cache.read("trait_bank/terms_count") || 0
-        Rails.cache.write("trait_bank/terms_count", count + 1)
-      rescue => e
-        raise e
-      end
-      term_node
-    end
-
-    def remove_nils(hash)
-      bad_keys = [] # Never modify a hash as you iterate over it.
-      hash.each { |key, val| bad_keys << key if val.nil? }
-      # NOTE: removing the key entirely would just skip updating it; we want the value to be empty.
-      bad_keys.each { |key| hash[key] = "" }
-      hash
-    end
-
-    def child_has_parent(curi, puri)
-      cterm = term(curi)
-      pterm = term(puri)
-      raise "missing child" if cterm.nil?
-      raise "missing parent" if pterm.nil?
-      child_term_has_parent_term(cterm, pterm)
-    end
-
-    def is_synonym_of(curi, puri)
-      cterm = term(curi)
-      pterm = term(puri)
-      raise "missing synonym" if cterm.nil?
-      raise "missing source of synonym" if pterm.nil?
-      relate(:synonym_of, cterm, pterm)
-    end
-
-    def child_term_has_parent_term(cterm, pterm)
-      relate(:parent_term, cterm, pterm)
-    end
-
-    def term(uri)
-      return { name: '', uri: '' } if uri.blank?
-      @terms ||= {}
-      return @terms[uri] if @terms.key?(uri)
-      res = query(%Q{MATCH (term:Term { uri: "#{uri.gsub(/"/, '""')}" }) RETURN term})
-      return nil unless res && res["data"] && res["data"].first
-      @terms[uri] = res["data"].first.first
-    end
-
-    # Raises ActiveRecord::RecordNotFound if uri is invalid
-    def term_record(uri)
-      result = term(uri)
-      result&.[]("data")&.symbolize_keys
-    end
-
-    def update_term(opts)
-      sets = []
-      sets += %i(name definition attribution comment sections).map do |field|
-        opts[field] = "" if opts[field].nil?
-        "term.#{field} = '#{opts[field].gsub("'", "''")}'"
-      end
-      sets += %i(is_hidden_from_glossary is_hidden_from_glossary).map do |field|
-        "term.#{field} = #{opts[field] ? 'true' : 'false'}"
-      end
-      q = "MATCH (term:Term { uri: '#{opts[:uri]}' }) SET #{sets.join(', ')} RETURN term"
-      res = query(q)
-      raise ActiveRecord::RecordNotFound if res.nil?
-      res["data"].first.first.symbolize_keys
-    end
-
-    def descendants_of_term(uri)
-      terms = query(%{MATCH (term:Term)-[:parent_term|:synonym_of*]->(:Term { uri: "#{uri}" }) RETURN DISTINCT term})
-      terms["data"].map { |r| r.first["data"] }
-    end
-
-    def term_member_of(uri)
-      terms = query(%{MATCH (:Term { uri: "#{uri}" })-[:parent_term|:synonym_of*]->(term:Term) RETURN term})
-      terms["data"].map { |r| r.first }
-    end
-
-    def term_as_hash(uri)
-      return nil if uri.nil? # Important for param-management!
-      hash = term(uri)
-      raise ActiveRecord::RecordNotFound if hash.nil?
-      # NOTE: this step is slightly annoying:
-      hash.symbolize_keys
-    end
-
     def get_name(trait, which = :predicate)
       if trait && trait.has_key?(which)
         if trait[which].has_key?(:name)
@@ -1375,26 +1331,28 @@ class TraitBank
       comp_limit = 10
 
       # Fetch prey of page, predators of page, and predators of prey of page (competitors), limiting the number of results to:
-      # 10 prey
-      # 10 predators
+      # 100 prey
+      # 100 predators
       # 10 competitors per prey
+      #
+      # The limit of 100 is way more than we really show to pad for results that get filtered out downstream.
       qs = "MATCH (source:Page{page_id: #{page.id}}) "\
         "OPTIONAL MATCH (source)-[#{TRAIT_RELS}]->(eats_trait:Trait)-[:predicate]->(eats_term:Term), "\
-        "(eats_prey:Page{page_id: eats_trait.object_page_id}) "\
+        "(eats_trait)-[:object_page]->(eats_prey:Page) "\
         "WHERE eats_term.uri IN #{eats_string} AND eats_prey.page_id <> source.page_id "\
         "WITH DISTINCT source, eats_prey "\
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: source, target: eats_prey, type: 'prey'}) AS prey_rows, source "\
-        "OPTIONAL MATCH (pred:Page)-[#{TRAIT_RELS}]->(pred_eats_trait:Trait{object_page_id: source.page_id})-[:predicate]->(pred_eats_term:Term) "\
-        "WHERE pred_eats_term.uri IN #{eats_string} AND pred.page_id <> source.page_id "\
+        "OPTIONAL MATCH (pred:Page)-[#{TRAIT_RELS}]->(pred_eats_trait:Trait)-[:object_page]->(source), (pred_eats_trait)-[:predicate]->(pred_eats_term:Term) "\
+        "WHERE pred_eats_term.uri IN #{eats_string} AND pred <> source "\
         "WITH DISTINCT source, pred, prey_rows "\
         "LIMIT #{limit_per_group} "\
         "WITH collect({ group_id: source.page_id, source: pred, target: source, type: 'predator' }) AS pred_rows, prey_rows, source "\
         "UNWIND prey_rows AS prey_row "\
-        "WITH prey_row, pred_rows, prey_rows, source "\
-        "OPTIONAL MATCH (comp_eats:Page)-[#{TRAIT_RELS}]->(comp_eats_trait:Trait{object_page_id: prey_row.target.page_id})-[:predicate]->(comp_eats_term:Term) "\
-        "WHERE comp_eats_term.uri IN #{eats_string} AND prey_row.target.page_id <> comp_eats.page_id AND comp_eats.page_id <> source.page_id "\
-        "WITH prey_row, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_row.target.page_id, source: comp_eats, target: prey_row.target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
+        "WITH prey_row.target AS prey_target, pred_rows, prey_rows, source "\
+        "OPTIONAL MATCH (comp_eats:Page)-[#{TRAIT_RELS}]->(comp_eats_trait:Trait)-[:object_page]->(prey_target), (comp_eats_trait)-[:predicate]->(comp_eats_term:Term) "\
+        "WHERE comp_eats_term.uri IN #{eats_string} AND prey_target <> comp_eats AND comp_eats <> source "\
+        "WITH prey_target, pred_rows, prey_rows, source, collect(DISTINCT { group_id: prey_target.page_id, source: comp_eats, target: prey_target, type: 'competitor' })[..#{comp_limit}] AS comp_rows "\
         "UNWIND comp_rows AS comp_row "\
         "WITH DISTINCT pred_rows, prey_rows, collect(comp_row) AS comp_rows "\
         "WITH prey_rows + pred_rows + comp_rows AS all_rows "\
@@ -1427,6 +1385,12 @@ class TraitBank
       "[#{result.join(", ")}]"
     end
 
+    # default direction is outgoing.
+    def count_rels_by_direction(node, direction = nil)
+      relationship = direction == :incoming ? '<-[relationship]-' : '-[relationship]->'
+      TraitBank.query("MATCH (#{node})#{relationship}() RETURN COUNT(relationship)")['data'].first.first
+    end
+
     private
     def resource_filter_part(resource_id)
       if resource_id
@@ -1441,6 +1405,5 @@ class TraitBank
         key.concat("/#{k}_#{v}")
       end
     end
-
   end
 end

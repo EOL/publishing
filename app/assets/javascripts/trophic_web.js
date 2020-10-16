@@ -54,8 +54,8 @@ $(function() {
       ;
         
     var zoom = d3.zoom().scaleExtent([.5, 3])
-      .on("zoom", function() {
-        svg.attr("transform", d3.event.transform);
+      .on("zoom", function(e, d) {
+        svg.attr("transform", e.transform);
       });
     s.call(zoom)
      .on("wheel.zoom", null);
@@ -181,10 +181,8 @@ $(function() {
     function loadData(eolId, animate) {
       $dimmer.addClass('active');
       //query prey_predator json
-      d3.json(dataUrl(eolId), (err, g) => {
-        if (err) throw err;
-        handleData(g, animate);
-      });
+      d3.json(dataUrl(eolId))
+        .then(g => handleData(g, animate));
     }
 
     function handleData(g, animate) {
@@ -228,18 +226,18 @@ $(function() {
             y: t.attr("y") + tr[1]
           };
         })
-        .on('drag', function(d,i) {
+        .on('drag', function(e, d) {
           if (!transition) {
             d3.select(this).attr("transform", function(d,i) {
-              d.x = d3.event.x;
-              d.y = d3.event.y;
-              return "translate(" + [ d3.event.x, d3.event.y ] + ")";
+              d.x = e.x;
+              d.y = e.y;
+              return "translate(" + [ e.x, e.y ] + ")";
             });
          
             svg.selectAll('.link').filter(l => (l.source === d))
-              .transition().duration(1).attr("x2", d3.event.x).attr("y2", d3.event.y);
+              .transition().duration(1).attr("x2", e.x).attr("y2", e.y);
             svg.selectAll('.link').filter(l => (l.target === d))
-              .transition().duration(1).attr("x1", d3.event.x).attr("y1", d3.event.y);
+              .transition().duration(1).attr("x1", e.x).attr("y1", e.y);
           }
         })
       );
@@ -260,12 +258,12 @@ $(function() {
             .attr("preserveAspectRatio", "xMidYMid slice");
 
       nodesEnter
-        .on("click", d => {
+        .on("click", (e, d) => {
           appendJSON(d);
         })
         .on('mouseover.fade', fade(0.1))
         .on('mouseout.fade', fade(1))
-        .on('mouseover.tooltip', function(d) {
+        .on('mouseover.tooltip', function(e, d) {
           tooltip
             .style("display", "inline-block")
             .style("opacity", .9);
@@ -322,7 +320,7 @@ $(function() {
             
           }
         })
-        .text(function(d) {return d[graph.labelKey];});
+        .html(function(d) {return d[graph.labelKey];});
 
       return {
         nodes: nodes,
@@ -565,7 +563,7 @@ $(function() {
     }
 
     function fade(opacity) {
-      return d => {
+      return (e, d) => {
         if(!(transition)) {
           var allNodes = nodesGroup
                 .selectAll('.node')
