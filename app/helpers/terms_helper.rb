@@ -129,22 +129,6 @@ module TermsHelper
   end
 
   private
-    def is_any_display_string(filter)
-      pred_name(filter.pred_uri)
-    end
-
-    def is_obj_display_string(filter)
-      "#{pred_name(filter.pred_uri)}:  #{obj_name(filter.obj_uri)}"
-    end
-
-    def num_display_string(filter)
-      "#{pred_name(filter.pred_uri)} #{OP_DISPLAY[filter.op.to_sym]} #{filter.num_val1} #{units_name(filter.units_uri)}"
-    end
-
-    def range_display_string(filter)
-      "#{pred_name(filter.pred_uri)} in [#{filter.num_val1}, #{filter.num_val2}] #{units_name(filter.units_uri)}"
-    end
-
     def nested_term_selects_helper(form, selects, type_str)
       result = nil
 

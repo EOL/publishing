@@ -69,18 +69,6 @@ class TermQuery < ApplicationRecord
     self.filters.build if filters.empty?
   end
 
-  def filters_inv_pred_last
-    self.filters.sort do |a, b|
-      if a.inverse_pred_uri && !b.inverse_pred_uri
-        1
-      elsif !a.inverse_pred_uri && b.inverse_pred_uri
-        -1
-      else
-        0
-      end
-    end
-  end
-
   def deep_dup
     copy = dup
     copy.filters = self.filters.collect { |f| f.dup }

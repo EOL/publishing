@@ -58,10 +58,6 @@ class TermQueryFilter < ApplicationRecord
     :range => 5
   }
 
-  def inverse_pred_uri
-    Eol::Uris.inverse(pred_uri)
-  end
-
   def predicate?
     predicate_id.present?
   end
