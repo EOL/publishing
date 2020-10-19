@@ -98,7 +98,6 @@ class TraitsController < ApplicationController
     @query.filters[params[:hide_extra_fields].to_i].clear_extra_fields if params[:hide_extra_fields]
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
-    blank_predicate_filters_must_search_any
   end
 
   def paginate_term_search_data(data, query)

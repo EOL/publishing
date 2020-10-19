@@ -173,19 +173,19 @@ class TraitBank
           return CheckResult.invalid("query must have a single predicate filter")
         end
 
-        pred_uri = query.predicate_filters.first.predicate.uri
-        pred_result = check_predicate(pred_uri)
+        predicate = query.predicate_filters.first.predicate
+        pred_result = check_predicate(predicate)
         return pred_result if !pred_result.valid?
 
         if query.object_term_filters.any?
           return CheckResult.invalid("query must not have any object term filters")
         end
 
-        if !query.filters.first.units_for_pred?
+        if !query.filters.first.units_for_predicate?
           return CheckResult.invalid("query predicate does not have numerical values")
         end
 
-        if !TraitBank::Term.any_direct_records_for_pred?(pred_uri)
+        if !TraitBank::Term.any_direct_records_for_pred?(predicate.uri)
           return CheckResult.invalid("predicate does not have any directly associated records")
         end
 
@@ -199,13 +199,13 @@ class TraitBank
         end
 
         filter = query.filters.first
-        pred_uri = filter.predicate&.uri
+        predicate = filter.predicate
 
-        if pred_uri.present?
-          pred_result = check_predicate(pred_uri)
+        if predicate.present?
+          pred_result = check_predicate(predicate)
           return pred_result if !pred_result.valid?
 
-          if filter.units_for_pred?
+          if filter.units_for_predicate?
             return CheckResult.invalid("query predicate has numerical values")
           end
 
@@ -435,13 +435,7 @@ class TraitBank
         end
       end
 
-      def check_predicate(uri)
-        predicate = uri && TermNode.find(uri)
-
-        if predicate.nil?
-          return CheckResult.invalid("failed to retrieve a Term with uri #{uri}")
-        end
-
+      def check_predicate(predicate)
         if predicate.type != "measurement"
           return CheckResult.invalid("predicate type must be 'measurement'")
         end
