@@ -2,7 +2,7 @@ class AboutController < ApplicationController
   def trait_bank
     example_query = TermQuery.new(
       filters: [
-        TermQueryFilter.new(predicate_id: TermNode.find_by_uri("http://www.wikidata.org/entity/Q1053008").id)
+        TermQueryFilter.new(predicate_id: TermNode.find_by(uri: "http://www.wikidata.org/entity/Q1053008").id)
       ],
       result_type: :taxa
     )
@@ -28,7 +28,7 @@ class AboutController < ApplicationController
 
     # links are different per locale. We could cache this with the locale in the key if necessary.
     term_uris = data.map { |d| d["uri"] }
-    terms_by_uri = TermNode.where(uri: term_uris).map { |t| [t.uri, t] }
+    terms_by_uri = TermNode.where(uri: term_uris).map { |t| [t.uri, t] }.to_h
 
     data.collect do |datum|
       term_query = TermQuery.new(
