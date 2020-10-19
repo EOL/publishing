@@ -67,14 +67,16 @@ class TraitsController < ApplicationController
   end
 
   def show
+    predicate = TermNode.find_by(uri: params[:uri])
+
     filter_options = if params[:obj_uri]
       {
-        :pred_uri => params[:uri],
-        :obj_uri => params[:obj_uri]
+        :predicate_id => predicate.id,
+        :object_term_id => TermNode.find_by(uri: params[:obj_uri]).id
       }
     else
       {
-        :pred_uri => params[:uri]
+        :predicate_id => predicate.id
       }
     end
 
@@ -97,11 +99,6 @@ class TraitsController < ApplicationController
     @query.filters.delete @query.filters[params[:remove_filter].to_i] if params[:remove_filter]
     @query.filters.build(:op => :is_any) if params[:add_filter]
     blank_predicate_filters_must_search_any
-  end
-
-  # TODO: Does this logic belong in TermQuery?
-  def blank_predicate_filters_must_search_any
-    @query.filters.each { |f| f.op = :is_any if f.pred_uri.blank? }
   end
 
   def paginate_term_search_data(data, query)

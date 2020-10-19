@@ -159,35 +159,7 @@ module Traits
     end
 
     def term_query_params
-      # TODO: copied from TraitsController -- dry up
-      params.require(:term_query).permit([
-        :clade_id,
-        :result_type,
-        :filters_attributes => [
-          :pred_uri,
-          :top_pred_uri,
-          :obj_uri,
-          :op,
-          :num_val1,
-          :num_val2,
-          :units_uri,
-          :sex_uri,
-          :lifestage_uri,
-          :statistical_method_uri,
-          :resource_id,
-          :show_extra_fields,
-          :pred_term_selects_attributes => [
-            :type,
-            :parent_uri,
-            :selected_uri
-          ],
-          :obj_term_selects_attributes => [
-            :type,
-            :parent_uri,
-            :selected_uri
-          ]
-        ]
-      ])
+      params.require(:term_query).permit(TermQuery.expected_params)
     end
 
     def set_1d_about_text
