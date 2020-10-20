@@ -31,12 +31,8 @@ class TermQueryFilter < ApplicationRecord
         SHORT_TO_LONG_PARAMS.keys
       end
 
-      def from_short_params(short_params)
-        params = short_params.map do |k, v|
-          [SHORT_TO_LONG_PARAMS[k.to_sym], v]
-        end.to_h
-
-        self.new(params)
+      def from_short_params(params)
+        self.new(params[:t], params[:p]&.to_i, params[:s]&.to_i)
       end
     end
 
@@ -45,7 +41,6 @@ class TermQueryFilter < ApplicationRecord
       @parent_term = TermNode.find(parent_term_id)
       @selected_term = selected_term_id.present? ? TermNode.find(selected_term_id) : nil
     end
-
 
     def persisted?
       false
@@ -100,6 +95,7 @@ class TermQueryFilter < ApplicationRecord
 
   SHORT_TO_LONG_PARAMS = {
     p: :predicate_id,
+    rp: :root_predicate_id,
     ot: :object_term_id,
     op: :object_page_id,
     u: :units_term_id,
@@ -110,8 +106,7 @@ class TermQueryFilter < ApplicationRecord
     smt: :statistical_method_term_id,
     r: :resource_id,
     se: :show_extra_fields,
-    ps: :pred_term_selects_attributes,
-    os: :obj_term_selects_attributes
+    ps: :predicate_child_selects_attributes
   }
   LONG_TO_SHORT_PARAMS = SHORT_TO_LONG_PARAMS.invert
 
@@ -238,6 +233,7 @@ class TermQueryFilter < ApplicationRecord
   def to_params
     {
       predicate_id: predicate_id,
+      root_predicate_id: root_predicate_id,
       object_term_id: object_term_id,
       num_val1: num_val1,
       num_val2: num_val2,
@@ -257,10 +253,7 @@ class TermQueryFilter < ApplicationRecord
     end.to_h
     
     short_params[:se] = show_extra_fields
-    short_params[:ps] = pred_term_selects.map do |s|
-      s.to_short_params 
-    end  
-    short_params[:os] = obj_term_selects.map do |s|
+    short_params[:ps] = predicate_child_selects.map do |s|
       s.to_short_params 
     end  
 
@@ -296,10 +289,6 @@ class TermQueryFilter < ApplicationRecord
     end
 
     @predicate_child_selects
-  end
-
-  def object_term_selects
-    @object_term_selects ||= [TermSelect.new(:object_term, nil, nil)]
   end
 
   def predicate_child_selects_attributes=(attrs)
@@ -350,7 +339,8 @@ class TermQueryFilter < ApplicationRecord
     @predicate_child_selects = selects
   end
 
-  def obj_term_selects_attributes=(attrs)
+  def predicate_child_selects=(selects)
+    @predicate_child_selects = selects
   end
 
   def object_clade_node
@@ -431,18 +421,19 @@ class TermQueryFilter < ApplicationRecord
   class << self
     def expected_short_params
       [
-        :pu,
-        :ou,
-        :uu,
+        :p,
+        :rp,
+        :ot,
+        :op,
+        :u,
         :n1,
         :n2,
-        :su,
-        :lu,
-        :smu,
+        :st,
+        :lt,
+        :smt,
         :r,
         :se,
-        :ps => TermSelect.expected_short_params,
-        :os => TermSelect.expected_short_params
+        :ps => TermSelect.expected_short_params
       ]
     end
 
@@ -451,17 +442,17 @@ class TermQueryFilter < ApplicationRecord
         [SHORT_TO_LONG_PARAMS[k.to_sym], v]
       end.to_h
 
-      filter = self.new(long_params)
+      long_params[:predicate_child_selects_attributes] =
+        long_params[:predicate_child_selects_attributes].map.with_index do |selects_params, i|
+          [
+            i,
+            selects_params.map do |k, v|
+              [TermSelect::SHORT_TO_LONG_PARAMS[k.to_sym], v]
+            end.to_h
+          ]
+        end.to_h
 
-      filter.pred_term_selects = short_params[:ps]&.map do |ps_params|
-        TermSelect.from_short_params(pt_params)
-      end
-
-      filter.obj_term_selects = short_params[:os]&.map do |os_params|
-        TermSelect.from_short_params(os_params)
-      end
-
-      filter
+      self.new(long_params)
     end
   end
 end
