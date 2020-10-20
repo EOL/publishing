@@ -32,7 +32,7 @@ class TermQuery < ApplicationRecord
     {
       c: clade&.id,
       r: result_type,
-      f: filters.map { |f| f.to_short_params }
+      f: filters.map.with_index { |f, i| f.to_short_params }
     }
   end
 
