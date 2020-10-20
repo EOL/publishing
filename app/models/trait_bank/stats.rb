@@ -405,8 +405,8 @@ class TraitBank
         query_parts << "WITH #{anc_obj_vars.join(", ")}, collect(DISTINCT page.page_id) AS page_ids"
 
         # row id, named columns for return
-        query_parts << "WITH #{anc_obj_vars.map { |v| "#{v}.uri" }.join(" + '|' + ")} AS key, #{anc_obj_vars.map { |v| "#{v}.name AS #{v}_name, #{v}.uri AS #{v}_uri" }.join(", ")}, page_ids"
-        query_parts << "RETURN key, #{anc_obj_vars.map { |v| "#{v}_uri, #{v}_name" }.join(", ")}, page_ids"
+        query_parts << "WITH #{anc_obj_vars.map { |v| "#{v}.eol_id" }.join(" + '|' + ")} AS key, #{anc_obj_vars.map { |v| "#{v}.name AS #{v}_name, #{v}.eol_id AS #{v}_id" }.join(", ")}, page_ids"
+        query_parts << "RETURN key, #{anc_obj_vars.map { |v| "#{v}_id, #{v}_name" }.join(", ")}, page_ids"
         query_parts << "ORDER BY size(page_ids) DESC"
       end
 
