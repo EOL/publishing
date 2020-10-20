@@ -696,7 +696,7 @@ class TraitBank
     def record_optional_matches_and_returns(limit_and_skip, options)
       optional_matches = [
         "(trait)-[:object_term]->(object_term:Term)",
-        "(trait)-[:object_page]->(object_page:Term)",
+        "(trait)-[:object_page]->(object_page:Page)",
         "(trait)-[:units_term]->(units:Term)",
         "(trait)-[:normal_units_term]->(normal_units:Term)",
         "(trait)-[:sex_term]->(sex_term:Term)",
