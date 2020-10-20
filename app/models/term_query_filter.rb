@@ -21,10 +21,24 @@ class TermQueryFilter < ApplicationRecord
 
     SHORT_TO_LONG_PARAMS = {
       t: :type,
-      p: :parent_uri,
-      s: :selected_uri
+      p: :parent_term_id,
+      s: :selected_term_id
     }
     LONG_TO_SHORT_PARAMS = SHORT_TO_LONG_PARAMS.invert
+
+    class << self
+      def expected_short_params
+        SHORT_TO_LONG_PARAMS.keys
+      end
+
+      def from_short_params(short_params)
+        params = short_params.map do |k, v|
+          [SHORT_TO_LONG_PARAMS[k.to_sym], v]
+        end.to_h
+
+        self.new(params)
+      end
+    end
 
     def initialize(type, parent_term_id, selected_term_id)
       @type = type
@@ -32,17 +46,6 @@ class TermQueryFilter < ApplicationRecord
       @selected_term = selected_term_id.present? ? TermNode.find(selected_term_id) : nil
     end
 
-    def self.expected_short_params
-      [:t, :p, :s]
-    end
-
-    def self.from_short_params(short_params)
-      params = short_params.map do |k, v|
-        [SHORT_TO_LONG_PARAMS[k.to_sym], v]
-      end.to_h
-
-      self.new(params)
-    end
 
     def persisted?
       false
@@ -67,8 +70,8 @@ class TermQueryFilter < ApplicationRecord
     def to_params
       {
         type: type,
-        parent_uri: parent_uri,
-        selected_uri: selected_uri
+        parent_term_id: parent_term_id,
+        selected_term_id: selected_term_id
       }
     end
 
@@ -96,14 +99,15 @@ class TermQueryFilter < ApplicationRecord
   end
 
   SHORT_TO_LONG_PARAMS = {
-    pu: :pred_uri,
-    ou: :obj_uri,
-    uu: :units_uri,
+    p: :predicate_id,
+    ot: :object_term_id,
+    op: :object_page_id,
+    u: :units_term_id,
     n1: :num_val1,
     n2: :num_val2,
-    su: :sex_uri,
-    lu: :lifestage_uri,
-    smu: :statistical_method_uri,
+    st: :sex_term_id,
+    lt: :lifestage_term_id,
+    smt: :statistical_method_term_id,
     r: :resource_id,
     se: :show_extra_fields,
     ps: :pred_term_selects_attributes,
