@@ -442,15 +442,17 @@ class TermQueryFilter < ApplicationRecord
         [SHORT_TO_LONG_PARAMS[k.to_sym], v]
       end.to_h
 
-      long_params[:predicate_child_selects_attributes] =
-        long_params[:predicate_child_selects_attributes].map.with_index do |selects_params, i|
-          [
-            i,
-            selects_params.map do |k, v|
-              [TermSelect::SHORT_TO_LONG_PARAMS[k.to_sym], v]
-            end.to_h
-          ]
-        end.to_h
+      if long_params[:predicate_child_selects_attributes].present?
+        long_params[:predicate_child_selects_attributes] =
+          long_params[:predicate_child_selects_attributes].map.with_index do |selects_params, i|
+            [
+              i,
+              selects_params.map do |k, v|
+                [TermSelect::SHORT_TO_LONG_PARAMS[k.to_sym], v]
+              end.to_h
+            ]
+          end.to_h
+      end
 
       self.new(long_params)
     end
