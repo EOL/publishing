@@ -34,3 +34,6 @@ Thanks.
 
 8/5/2020 (mvitale): Run 'PageStatUpdater.run'
 8/7/2020 (mvitale): Ensure unique constraint on Page.page\_id: CREATE CONSTRAINT ON (page:Page) ASSERT page.page\_id IS UNIQUE
+
+=== for next deploy AFTER 10/21/20 deploy
+10/10/2020 (mvitale): Enabled Greek -- run `$ rails r "TermNameTranslationManager.rebuild_node_properties"`
