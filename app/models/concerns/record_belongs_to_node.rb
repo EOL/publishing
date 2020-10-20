@@ -14,6 +14,12 @@ module RecordBelongsToNode
       instance_var_name = :"@#{assoc_name}"
       klass = Object.const_get class_name
 
+      define_method(:"#{assoc_name}=") do |term|
+        instance_variable_set(instance_var_name, term)
+        self.write_attribute(id_field_name, term&.id) 
+      end
+
+
       define_method(:"#{id_field_name}=") do |val|
         if val != self.read_attribute(id_field_name)
           self.write_attribute(id_field_name, val)
