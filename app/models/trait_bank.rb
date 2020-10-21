@@ -734,8 +734,6 @@ class TraitBank
       match
     end
 
-
-    # TODO: Make sure obj clade is using the correct stat for being an object (i.e., obj_trait_count, not trait_row_count)
     def gather_terms_matches(filters, params, options = {})
       first_filter_gather_all = options[:first_filter_gather_all]
       include_tgt_vars = options[:include_tgt_vars]
