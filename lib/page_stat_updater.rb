@@ -40,7 +40,6 @@ class PageStatUpdater
         OPTIONAL MATCH (obj_trait:Trait)-[:object_page]->(desc)
         WITH anc, count(DISTINCT desc) AS desc_count, count(obj_trait) AS obj_trait_count
         SET anc.descendant_count = desc_count
-        SET anc.trait_row_count = trait_row_count
         SET anc.obj_trait_count = obj_trait_count
       )
 
