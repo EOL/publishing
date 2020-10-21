@@ -36,7 +36,6 @@ class PageStatUpdater
 
       q = %Q(
         MATCH (anc:Page{ page_id: #{page_id} }), (desc:Page)-[:parent*0..]->(anc)
-        OPTIONAL MATCH (desc)-[:trait|:inferred_trait]->(trait:Trait)
         OPTIONAL MATCH (obj_trait:Trait)-[:object_page]->(desc)
         WITH anc, count(DISTINCT desc) AS desc_count, count(obj_trait) AS obj_trait_count
         SET anc.descendant_count = desc_count
