@@ -52,6 +52,6 @@ RUN ln -s /tmp /app/tmp
 
 EXPOSE 3000
 
-ENTRYPOINT rake assets:precompile && rm -f rm -f /tmp/*.pid /tmp/*.sock && /usr/bin/supervisord
+ENTRYPOINT ["/app/bin/entrypoint.sh"]
 
-CMD ["-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "-c", "/etc/supervisord.conf"]
